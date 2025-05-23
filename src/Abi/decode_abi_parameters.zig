@@ -226,12 +226,25 @@ pub fn bytesToValueInPlace(comptime T: type, bytes: []const u8, out: *T) !void {
         
         // Extract the value (always big-endian in ABI)
         var result: T = 0;
-        for (bytes[bytes.len-size..bytes.len]) |b| {
-            if (@bitSizeOf(T) >= 8) {
-                result = (result << 8) | @as(T, @intCast(b));
-            } else {
-                // For types smaller than u8, just use the last byte
-                result = @as(T, @intCast(b & ((1 << @bitSizeOf(T)) - 1)));
+        
+        comptime {
+            const type_info = @typeInfo(T);
+            if (type_info != .int) @compileError("decodeInt only works with integer types");
+        }
+        
+        if (@bitSizeOf(T) < 8) {
+            // For types smaller than u8, just use the last byte masked to the bit size
+            const last_byte = bytes[bytes.len - 1];
+            const mask = (@as(u8, 1) << @bitSizeOf(T)) - 1;
+            result = @as(T, @intCast(last_byte & mask));
+        } else {
+            for (bytes[bytes.len-size..bytes.len]) |b| {
+                if (@bitSizeOf(T) == 8) {
+                    // Special case for u8 to avoid shift overflow
+                    result = @as(T, @intCast(b));
+                } else {
+                    result = (result << 8) | @as(T, @intCast(b));
+                }
             }
         }
         out.* = result;

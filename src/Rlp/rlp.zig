@@ -58,6 +58,12 @@ pub fn encode(allocator: Allocator, input: anytype) ![]u8 {
         const child_info = @typeInfo(info.pointer.child);
         if (child_info == .int and child_info.int.bits == 8) {
             return try encodeBytes(allocator, input);
+        } else if (child_info == .array) {
+            const elem_info = @typeInfo(child_info.array.child);
+            if (elem_info == .int and elem_info.int.bits == 8) {
+                // Handle string literals like "a" which are *const [N:0]u8
+                return try encodeBytes(allocator, input);
+            }
         }
     }
     

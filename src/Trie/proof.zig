@@ -424,12 +424,12 @@ test "ProofRetainer - collect nodes" {
     const testing = std.testing;
     const allocator = testing.allocator;
     
-    const key = [_]u8{1, 2, 3, 4};
+    const key = [_]u8{0x12, 0x34}; // This will become nibbles [1,2,3,4]
     var retainer = try ProofRetainer.init(allocator, &key);
     defer retainer.deinit();
     
-    // Create a node on the path
-    const path = [_]u8{1, 2};
+    // Create a node on the path - use the first 2 nibbles of the key
+    const path = [_]u8{1, 2}; // First two nibbles of key
     const value = "test_value";
     
     const extension = try trie.ExtensionNode.init(

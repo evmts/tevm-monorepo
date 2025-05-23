@@ -63,14 +63,7 @@ pub fn getAbiItem(
 fn getAbiItemByName(
     abi_items: []const abi.AbiItem,
     name: []const u8,
-    item_type: ?enum {
-        Function,
-        Event,
-        Error,
-        Constructor,
-        Fallback,
-        Receive,
-    },
+    item_type: ?AbiItemType,
 ) !abi.AbiItem {
     for (abi_items) |item| {
         switch (item) {
@@ -144,14 +137,7 @@ fn getAbiItemByName(
 fn getAbiItemBySelector(
     abi_items: []const abi.AbiItem,
     selector: []const u8,
-    item_type: ?enum {
-        Function,
-        Event,
-        Error,
-        Constructor,
-        Fallback,
-        Receive,
-    },
+    item_type: ?AbiItemType,
 ) !abi.AbiItem {
     // For functions, we expect a 4-byte selector
     if (selector.len == 4) {
@@ -172,7 +158,8 @@ fn getAbiItemBySelector(
                         continue;
                     }
 
-                    const func_selector = compute_function_selector.getFunctionSelector(func);
+                    var func_selector: [4]u8 = undefined;
+                    try compute_function_selector.getFunctionSelector(func, &func_selector);
                     if (std.mem.eql(u8, selector, &func_selector)) {
                         return item;
                     }
@@ -196,7 +183,8 @@ fn getAbiItemBySelector(
                         continue;
                     }
 
-                    const event_topic = compute_function_selector.getEventTopic(event);
+                    var event_topic: [32]u8 = undefined;
+                    try compute_function_selector.getEventTopic(event, &event_topic);
                     if (std.mem.eql(u8, selector, &event_topic)) {
                         return item;
                     }
@@ -318,7 +306,7 @@ test "getAbiItem by name" {
         .{
             .Function = .{
                 .name = "transfer",
-                .inputs = &[_]abi.Param{
+                .inputs = @as([]abi.Param, @constCast(&[_]abi.Param{
                     .{
                         .ty = "address",
                         .name = "to",
@@ -331,22 +319,22 @@ test "getAbiItem by name" {
                         .components = &[_]abi.Param{},
                         .internal_type = null,
                     },
-                },
-                .outputs = &[_]abi.Param{
+                })),
+                .outputs = @as([]abi.Param, @constCast(&[_]abi.Param{
                     .{
                         .ty = "bool",
                         .name = "success",
                         .components = &[_]abi.Param{},
                         .internal_type = null,
                     },
-                },
+                })),
                 .state_mutability = abi.StateMutability.NonPayable,
             },
         },
         .{
             .Event = .{
                 .name = "Transfer",
-                .inputs = &[_]abi.EventParam{
+                .inputs = @as([]abi.EventParam, @constCast(&[_]abi.EventParam{
                     .{
                         .ty = "address",
                         .name = "from",
@@ -368,13 +356,13 @@ test "getAbiItem by name" {
                         .components = &[_]abi.Param{},
                         .internal_type = null,
                     },
-                },
+                })),
                 .anonymous = false,
             },
         },
         .{
             .Constructor = .{
-                .inputs = &[_]abi.Param{
+                .inputs = @as([]abi.Param, @constCast(&[_]abi.Param{
                     .{
                         .ty = "string",
                         .name = "name",
@@ -387,7 +375,7 @@ test "getAbiItem by name" {
                         .components = &[_]abi.Param{},
                         .internal_type = null,
                     },
-                },
+                })),
                 .state_mutability = abi.StateMutability.Payable,
             },
         },
@@ -470,7 +458,7 @@ test "getFunction" {
         .{
             .Function = .{
                 .name = "transfer",
-                .inputs = &[_]abi.Param{
+                .inputs = @as([]abi.Param, @constCast(&[_]abi.Param{
                     .{
                         .ty = "address",
                         .name = "to",
@@ -483,22 +471,22 @@ test "getFunction" {
                         .components = &[_]abi.Param{},
                         .internal_type = null,
                     },
-                },
-                .outputs = &[_]abi.Param{
+                })),
+                .outputs = @as([]abi.Param, @constCast(&[_]abi.Param{
                     .{
                         .ty = "bool",
                         .name = "success",
                         .components = &[_]abi.Param{},
                         .internal_type = null,
                     },
-                },
+                })),
                 .state_mutability = abi.StateMutability.NonPayable,
             },
         },
         .{
             .Event = .{
                 .name = "Transfer",
-                .inputs = &[_]abi.EventParam{
+                .inputs = @as([]abi.EventParam, @constCast(&[_]abi.EventParam{
                     .{
                         .ty = "address",
                         .name = "from",
@@ -520,7 +508,7 @@ test "getFunction" {
                         .components = &[_]abi.Param{},
                         .internal_type = null,
                     },
-                },
+                })),
                 .anonymous = false,
             },
         },

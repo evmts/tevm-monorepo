@@ -87,7 +87,7 @@ pub fn encodeEventTopicsWithEvent(
     indexed_values: ?std.StringHashMap(?[]const u8),
 ) !usize {
     // Count number of topics needed
-    const topic_count = if (event.anonymous) 0 else 1;
+    const topic_count: usize = if (event.anonymous) 0 else 1;
     var indexed_count: usize = 0;
     
     for (event.inputs) |param| {
@@ -134,7 +134,7 @@ pub fn encodeEventTopicsWithEvent(
             
             // If no value was provided or it was null, use a zero topic as wildcard
             if (topic_value == null) {
-                std.mem.set(u8, &out_topics[topic_index], 0);
+                @memset(&out_topics[topic_index], 0);
             }
             
             topic_index += 1;
@@ -160,10 +160,10 @@ pub fn encodeParameterAsTopic(
         param.components.len > 0) {
         // For dynamic types, indexed parameters are hashed
         const hash = abi.keccak256(value);
-        std.mem.copy(u8, out_topic, &hash);
+        @memcpy(out_topic, &hash);
     } else {
         // For static types, just pad to 32 bytes
-        std.mem.set(u8, out_topic, 0); // Zero out the buffer
+        @memset(out_topic, 0); // Zero out the buffer
         
         // If value is longer than 32 bytes, truncate
         const copy_len = @min(value.len, 32);
@@ -171,14 +171,14 @@ pub fn encodeParameterAsTopic(
         if (std.mem.startsWith(u8, param.ty, "uint") or
             std.mem.startsWith(u8, param.ty, "int")) {
             // Numbers are right-aligned
-            std.mem.copy(u8, out_topic[32 - copy_len..], value[0..copy_len]);
+            @memcpy(out_topic[32 - copy_len..], value[0..copy_len]);
         } else if (std.mem.eql(u8, param.ty, "address")) {
             // Addresses are right-aligned, but padded to 20 bytes
-            const addr_len = @min(value.len, 20);
-            std.mem.copy(u8, out_topic[32 - addr_len..], value[0..addr_len]);
+            const addr_len: usize = @min(value.len, 20);
+            @memcpy(out_topic[32 - addr_len..], value[0..addr_len]);
         } else {
             // Other types are left-aligned
-            std.mem.copy(u8, out_topic[0..copy_len], value[0..copy_len]);
+            @memcpy(out_topic[0..copy_len], value[0..copy_len]);
         }
     }
 }
@@ -251,7 +251,7 @@ pub fn decodeEventLogWithEvent(
     result.name = event.name;
     
     // Check if we have enough topics
-    const expected_topics = if (event.anonymous) 0 else 1;
+    const expected_topics: usize = if (event.anonymous) 0 else 1;
     var indexed_count: usize = 0;
     
     for (event.inputs) |param| {
@@ -265,7 +265,7 @@ pub fn decodeEventLogWithEvent(
     }
     
     // Process indexed parameters
-    var topic_index = if (event.anonymous) 0 else 1;
+    var topic_index: usize = if (event.anonymous) 0 else 1;
     var non_indexed_params = std.ArrayList(abi.Param).init(std.heap.page_allocator);
     defer non_indexed_params.deinit();
     
@@ -314,7 +314,7 @@ test "encodeEventTopics basic" {
         .{
             .Event = .{
                 .name = "Transfer",
-                .inputs = &[_]abi.EventParam{
+                .inputs = @as([]abi.EventParam, @constCast(&[_]abi.EventParam{
                     .{
                         .ty = "address",
                         .name = "from",
@@ -336,7 +336,7 @@ test "encodeEventTopics basic" {
                         .components = &[_]abi.Param{},
                         .internal_type = null,
                     },
-                },
+                })),
                 .anonymous = false,
             },
         },
@@ -374,7 +374,7 @@ test "encodeEventTopics basic" {
     // Second topic should be the from address (right-aligned)
     // The address should be in the last 20 bytes
     var expected_topic1: [32]u8 = [_]u8{0} ** 32;
-    std.mem.copy(u8, expected_topic1[32 - from_addr.len..], &from_addr);
+    @memcpy(expected_topic1[32 - from_addr.len..], &from_addr);
     try testing.expectEqualSlices(u8, &expected_topic1, &topics[1]);
     
     // Third topic should be zeroes (wildcard)
@@ -390,7 +390,7 @@ test "decodeEventLog basic" {
         .{
             .Event = .{
                 .name = "Transfer",
-                .inputs = &[_]abi.EventParam{
+                .inputs = @as([]abi.EventParam, @constCast(&[_]abi.EventParam{
                     .{
                         .ty = "address",
                         .name = "from",
@@ -412,7 +412,7 @@ test "decodeEventLog basic" {
                         .components = &[_]abi.Param{},
                         .internal_type = null,
                     },
-                },
+                })),
                 .anonymous = false,
             },
         },
@@ -429,12 +429,12 @@ test "decodeEventLog basic" {
     // From address
     const from_addr = [_]u8{0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11};
     var topic1: [32]u8 = [_]u8{0} ** 32;
-    std.mem.copy(u8, topic1[32 - from_addr.len..], &from_addr);
+    @memcpy(topic1[32 - from_addr.len..], &from_addr);
     
     // To address
     const to_addr = [_]u8{0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22};
     var topic2: [32]u8 = [_]u8{0} ** 32;
-    std.mem.copy(u8, topic2[32 - to_addr.len..], &to_addr);
+    @memcpy(topic2[32 - to_addr.len..], &to_addr);
     
     // Create a sample log
     const topics = [_][32]u8{topic0, topic1, topic2};
@@ -442,7 +442,7 @@ test "decodeEventLog basic" {
     // Add value data for the non-indexed parameter
     const value = [_]u8{0x0d, 0xe0, 0xb6, 0xb3, 0xa7, 0x64, 0x00, 0x00}; // 1 ETH
     var value_data: [32]u8 = [_]u8{0} ** 32;
-    std.mem.copy(u8, value_data[32 - value.len..], &value);
+    @memcpy(value_data[32 - value.len..], &value);
     
     const log = Log{
         .block_hash = [_]u8{1} ** 32,

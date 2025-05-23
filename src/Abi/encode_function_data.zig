@@ -76,7 +76,7 @@ pub fn encodeFunctionDataWithFunction(
     try compute_function_selector.getFunctionSelector(func, &selector);
     
     // Copy selector to the output buffer
-    std.mem.copy(u8, out_buffer[0..4], &selector);
+    @memcpy(out_buffer[0..4], &selector);
     
     // Encode arguments to the rest of the buffer
     const encoded_len = try encode_abi_parameters.encodeAbiParameters(
@@ -113,7 +113,7 @@ pub fn encodeFunctionDataRaw(
     compute_function_selector.computeFunctionSelector(function_signature, &selector);
     
     // Copy selector to the output buffer
-    std.mem.copy(u8, out_buffer[0..4], &selector);
+    @memcpy(out_buffer[0..4], &selector);
     
     // If there are no parameters, just return the selector
     if (values.len == 0) {
@@ -199,7 +199,7 @@ test "encodeFunctionData basic" {
         .{
             .Function = .{
                 .name = "transfer",
-                .inputs = &[_]abi.Param{
+                .inputs = @as([]abi.Param, @constCast(&[_]abi.Param{
                     .{
                         .ty = "address",
                         .name = "to",
@@ -212,15 +212,15 @@ test "encodeFunctionData basic" {
                         .components = &[_]abi.Param{},
                         .internal_type = null,
                     },
-                },
-                .outputs = &[_]abi.Param{
+                })),
+                .outputs = @as([]abi.Param, @constCast(&[_]abi.Param{
                     .{
                         .ty = "bool",
                         .name = "success",
                         .components = &[_]abi.Param{},
                         .internal_type = null,
                     },
-                },
+                })),
                 .state_mutability = abi.StateMutability.NonPayable,
             },
         },

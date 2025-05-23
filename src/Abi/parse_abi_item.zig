@@ -444,7 +444,7 @@ const Tokenizer = struct {
     
     fn readParamList(self: *Tokenizer, allocator: std.mem.Allocator) ![]abi.Param {
         self.skipWhitespace();
-        try self.expect(.LeftParen);
+        _ = try self.expect(.LeftParen);
         
         var params = std.ArrayList(abi.Param).init(allocator);
         defer params.deinit();
@@ -503,7 +503,7 @@ const Tokenizer = struct {
     
     fn readEventParamList(self: *Tokenizer, allocator: std.mem.Allocator) ![]abi.EventParam {
         self.skipWhitespace();
-        try self.expect(.LeftParen);
+        _ = try self.expect(.LeftParen);
         
         var params = std.ArrayList(abi.EventParam).init(allocator);
         defer params.deinit();
@@ -635,7 +635,7 @@ fn parseFunctionSignature(allocator: std.mem.Allocator, tokenizer: *Tokenizer) !
     tokenizer.skipWhitespace();
     
     var state_mutability = abi.StateMutability.NonPayable;
-    var outputs = &[_]abi.Param{};
+    var outputs: []abi.Param = &[_]abi.Param{};
     
     // Check for state mutability
     if (tokenizer.pos + 4 <= tokenizer.source.len and 

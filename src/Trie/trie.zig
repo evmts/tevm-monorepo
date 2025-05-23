@@ -318,8 +318,16 @@ pub fn nibblesToKey(allocator: Allocator, nibbles: []const u8) ![]u8 {
 
 /// Encodes a path for either leaf or extension nodes
 fn encodePath(allocator: Allocator, nibbles: []const u8, is_leaf: bool) ![]u8 {
+    // Handle empty nibbles case
+    if (nibbles.len == 0) {
+        const hex_arr = try allocator.alloc(u8, 1);
+        hex_arr[0] = if (is_leaf) 0x20 else 0x00;
+        return hex_arr;
+    }
+    
     // Create a new array for the encoded path
-    const hex_arr = try allocator.alloc(u8, (nibbles.len + 1) / 2);
+    const len = if (nibbles.len % 2 == 0) (nibbles.len / 2) + 1 else (nibbles.len + 1) / 2;
+    const hex_arr = try allocator.alloc(u8, len);
     errdefer allocator.free(hex_arr);
 
     if (nibbles.len % 2 == 0) {

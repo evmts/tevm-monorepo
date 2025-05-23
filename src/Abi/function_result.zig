@@ -168,22 +168,22 @@ test "encodeFunctionResult and decodeFunctionResult basic" {
         .{
             .Function = .{
                 .name = "balanceOf",
-                .inputs = &[_]abi.Param{
+                .inputs = @as([]abi.Param, @constCast(&[_]abi.Param{
                     .{
                         .ty = "address",
                         .name = "account",
                         .components = &[_]abi.Param{},
                         .internal_type = null,
                     },
-                },
-                .outputs = &[_]abi.Param{
+                })),
+                .outputs = @as([]abi.Param, @constCast(&[_]abi.Param{
                     .{
                         .ty = "uint256",
                         .name = "balance",
                         .components = &[_]abi.Param{},
                         .internal_type = null,
                     },
-                },
+                })),
                 .state_mutability = abi.StateMutability.View,
             },
         },

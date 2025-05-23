@@ -208,14 +208,14 @@ test "getFunctionSelector from ABI" {
                 .internal_type = null,
             },
         }),
-        .outputs = @constCast(&.{
+        .outputs = @as([]abi.Param, @constCast(&[_]abi.Param{
             .{
                 .ty = "bool",
                 .name = "success",
                 .components = &.{},
                 .internal_type = null,
             },
-        }),
+        })),
         .state_mutability = abi.StateMutability.NonPayable,
     };
     

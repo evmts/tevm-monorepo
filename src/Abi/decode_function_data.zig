@@ -168,7 +168,7 @@ pub fn isFunction(data: []const u8, signature: []const u8) !bool {
     }
     
     var data_selector: [4]u8 = undefined;
-    std.mem.copy(u8, &data_selector, data[0..4]);
+    @memcpy(&data_selector, data[0..4]);
     
     var expected_selector: [4]u8 = undefined;
     compute_function_selector.computeFunctionSelector(signature, &expected_selector);
@@ -184,7 +184,7 @@ test "decodeFunctionData basic" {
         .{
             .Function = .{
                 .name = "transfer",
-                .inputs = &[_]abi.Param{
+                .inputs = @as([]abi.Param, @constCast(&[_]abi.Param{
                     .{
                         .ty = "address",
                         .name = "to",
@@ -197,15 +197,15 @@ test "decodeFunctionData basic" {
                         .components = &[_]abi.Param{},
                         .internal_type = null,
                     },
-                },
-                .outputs = &[_]abi.Param{
+                })),
+                .outputs = @as([]abi.Param, @constCast(&[_]abi.Param{
                     .{
                         .ty = "bool",
                         .name = "success",
                         .components = &[_]abi.Param{},
                         .internal_type = null,
                     },
-                },
+                })),
                 .state_mutability = abi.StateMutability.NonPayable,
             },
         },
@@ -221,12 +221,12 @@ test "decodeFunctionData basic" {
     // Address parameter (padded to 32 bytes)
     var address_param = [_]u8{0} ** 32;
     const address = [_]u8{0x12, 0x34, 0x56, 0x78, 0x90, 0x12, 0x34, 0x56, 0x78, 0x90, 0x12, 0x34, 0x56, 0x78, 0x90, 0x12, 0x34, 0x56, 0x78, 0x90};
-    std.mem.copy(u8, address_param[32 - address.len..], &address);
+    @memcpy(address_param[32 - address.len..], &address);
     
     // Amount parameter (padded to 32 bytes)
     var amount_param = [_]u8{0} ** 32;
     const amount = [_]u8{0x0d, 0xe0, 0xb6, 0xb3, 0xa7, 0x64, 0x00, 0x00}; // 1 ETH
-    std.mem.copy(u8, amount_param[32 - amount.len..], &amount);
+    @memcpy(amount_param[32 - amount.len..], &amount);
     
     // Concatenate all parts
     var full_data = std.ArrayList(u8).init(testing.allocator);

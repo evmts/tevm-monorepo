@@ -35,21 +35,21 @@ test "ABI basic round trip encoding/decoding" {
                         .internal_type = null,
                     },
                 }),
-                .outputs = @constCast(&.{
+                .outputs = @as([]abi.Param, @constCast(&[_]abi.Param{
                     .{
                         .ty = "bool",
                         .name = "success",
                         .components = &.{},
                         .internal_type = null,
                     },
-                }),
+                })),
                 .state_mutability = abi.StateMutability.NonPayable,
             },
         },
         .{
             .Event = .{
                 .name = "Transfer",
-                .inputs = &[_]abi.EventParam{
+                .inputs = @as([]abi.EventParam, @constCast(&[_]abi.EventParam{
                     .{
                         .ty = "address",
                         .name = "from",
@@ -71,7 +71,7 @@ test "ABI basic round trip encoding/decoding" {
                         .components = &.{},
                         .internal_type = null,
                     },
-                },
+                })),
                 .anonymous = false,
             },
         },
@@ -92,8 +92,9 @@ test "ABI basic round trip encoding/decoding" {
         try args.put("amount", &amount);
         
         // Encode function call data
-        const encoded = try encode_function_data.encodeFunctionData(alloc, &sample_abi, "transfer", args);
-        defer alloc.free(encoded);
+        var buffer: [1024]u8 = undefined;
+        const encoded_len = try encode_function_data.encodeFunctionData(&buffer, &sample_abi, "transfer", args);
+        const encoded = buffer[0..encoded_len];
         
         // Verify the encoded data starts with the right selector
         try testing.expectEqual(@as(usize, 68), encoded.len); // 4 bytes selector + 2*32 byte arguments
@@ -105,8 +106,12 @@ test "ABI basic round trip encoding/decoding" {
         try testing.expectEqual(@as(u8, 0xbb), encoded[3]);
         
         // Now decode the function call data
-        const decoded = try decode_function_data.decodeFunctionData(alloc, &sample_abi, encoded);
+        var decoded = decode_function_data.DecodeFunctionDataResult{
+            .function_name = undefined,
+            .args = std.StringHashMap([]const u8).init(alloc),
+        };
         defer decoded.args.deinit();
+        try decode_function_data.decodeFunctionData(&sample_abi, encoded, &decoded);
         
         // Check that we got the right function name and arguments
         try testing.expectEqualStrings("transfer", decoded.function_name);
@@ -134,15 +139,17 @@ test "ABI basic round trip encoding/decoding" {
         try result_values.put("success", &success);
         
         // Encode function result
-        const encoded_result = try function_result.encodeFunctionResult(alloc, &sample_abi, "transfer", result_values);
-        defer alloc.free(encoded_result);
+        var result_buffer: [1024]u8 = undefined;
+        const result_len = try function_result.encodeFunctionResult(&result_buffer, &sample_abi, "transfer", result_values);
+        const encoded_result = result_buffer[0..result_len];
         
         // Verify the encoded result
         try testing.expectEqual(@as(usize, 32), encoded_result.len); // 1 boolean padded to 32 bytes
         
         // Decode function result
-        const decoded_result = try function_result.decodeFunctionResult(alloc, &sample_abi, "transfer", encoded_result);
+        var decoded_result = std.StringHashMap([]const u8).init(alloc);
         defer decoded_result.deinit();
+        try function_result.decodeFunctionResult(&sample_abi, "transfer", encoded_result, &decoded_result);
         
         // Verify decoded result
         try testing.expect(decoded_result.contains("success"));
@@ -165,11 +172,11 @@ test "ABI basic round trip encoding/decoding" {
         try indexed_values.put("to", null);
         
         // Encode event topics
-        const topics = try event_handling.encodeEventTopics(alloc, &sample_abi, "Transfer", indexed_values);
-        defer topics.deinit();
+        var topics: [4][32]u8 = undefined;
+        const num_topics = try event_handling.encodeEventTopics(&topics, &sample_abi, "Transfer", indexed_values);
         
         // Check that we have 3 topics: event signature hash, from address, wildcard
-        try testing.expectEqual(@as(usize, 3), topics.items.len);
+        try testing.expectEqual(@as(usize, 3), num_topics);
         
         // Expected topic0 for Transfer(address,address,uint256): 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef
         const expected_topic0 = [_]u8{
@@ -327,21 +334,21 @@ test "ABI complex types and edge cases" {
                             .internal_type = null,
                         },
                     }),
-                    .outputs = @constCast(@constCast(@constCast(.outputs = @constCast(.outputs = &.{.{.{.{.{
+                    .outputs = @as([]abi.Param, @constCast(&[_]abi.Param{
                         .{
                             .ty = "bool",
                             .name = "success",
                             .components = &.{},
                             .internal_type = null,
                         },
-                    }),
+                    })),
                     .state_mutability = abi.StateMutability.NonPayable,
                 },
             },
             .{
                 .Function = .{
                     .name = "approve",
-                    .inputs = @as([]abi.Param, &.{
+                    .inputs = @as([]abi.Param, @constCast(&[_]abi.Param{
                         .{
                             .ty = "address",
                             .name = "spender",
@@ -354,22 +361,22 @@ test "ABI complex types and edge cases" {
                             .components = &.{},
                             .internal_type = null,
                         },
-                    }),
-                    .outputs = @constCast(@constCast(@constCast(.outputs = @constCast(.outputs = &.{.{.{.{.{
+                    })),
+                    .outputs = @as([]abi.Param, @constCast(&[_]abi.Param{
                         .{
                             .ty = "bool",
                             .name = "success",
                             .components = &.{},
                             .internal_type = null,
                         },
-                    }),
+                    })),
                     .state_mutability = abi.StateMutability.NonPayable,
                 },
             },
             .{
                 .Event = .{
                     .name = "Transfer",
-                    .inputs = &[_]abi.EventParam{
+                    .inputs = @as([]abi.EventParam, @constCast(&[_]abi.EventParam{
                         .{
                             .ty = "address",
                             .name = "from",
@@ -391,7 +398,7 @@ test "ABI complex types and edge cases" {
                             .components = &.{},
                             .internal_type = null,
                         },
-                    },
+                    })),
                     .anonymous = false,
                 },
             },
