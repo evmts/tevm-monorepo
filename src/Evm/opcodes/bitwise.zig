@@ -339,8 +339,8 @@ test "AND operation" {
     const allocator = testing.allocator;
     
     // Create a frame with a stack
-    var stack = try Stack.init(allocator);
-    defer stack.deinit();
+    var stack = Stack{};
+    // Stack no longer needs deinit
     
     var memory = try Memory.init(allocator);
     defer memory.deinit();
@@ -383,8 +383,8 @@ test "OR operation" {
     const testing = std.testing;
     const allocator = testing.allocator;
     
-    var stack = try Stack.init(allocator);
-    defer stack.deinit();
+    var stack = Stack{};
+    // Stack no longer needs deinit
     
     var memory = try Memory.init(allocator);
     defer memory.deinit();
@@ -423,8 +423,8 @@ test "XOR operation" {
     const testing = std.testing;
     const allocator = testing.allocator;
     
-    var stack = try Stack.init(allocator);
-    defer stack.deinit();
+    var stack = Stack{};
+    // Stack no longer needs deinit
     
     var memory = try Memory.init(allocator);
     defer memory.deinit();
@@ -463,8 +463,8 @@ test "NOT operation" {
     const testing = std.testing;
     const allocator = testing.allocator;
     
-    var stack = try Stack.init(allocator);
-    defer stack.deinit();
+    var stack = Stack{};
+    // Stack no longer needs deinit
     
     var memory = try Memory.init(allocator);
     defer memory.deinit();
@@ -502,8 +502,8 @@ test "BYTE operation" {
     const testing = std.testing;
     const allocator = testing.allocator;
     
-    var stack = try Stack.init(allocator);
-    defer stack.deinit();
+    var stack = Stack{};
+    // Stack no longer needs deinit
     
     var memory = try Memory.init(allocator);
     defer memory.deinit();
@@ -563,8 +563,8 @@ test "SHL operation" {
     const testing = std.testing;
     const allocator = testing.allocator;
     
-    var stack = try Stack.init(allocator);
-    defer stack.deinit();
+    var stack = Stack{};
+    // Stack no longer needs deinit
     
     var memory = try Memory.init(allocator);
     defer memory.deinit();
@@ -622,8 +622,8 @@ test "SHR operation" {
     const testing = std.testing;
     const allocator = testing.allocator;
     
-    var stack = try Stack.init(allocator);
-    defer stack.deinit();
+    var stack = Stack{};
+    // Stack no longer needs deinit
     
     var memory = try Memory.init(allocator);
     defer memory.deinit();
@@ -681,8 +681,8 @@ test "SAR operation" {
     const testing = std.testing;
     const allocator = testing.allocator;
     
-    var stack = try Stack.init(allocator);
-    defer stack.deinit();
+    var stack = Stack{};
+    // Stack no longer needs deinit
     
     var memory = try Memory.init(allocator);
     defer memory.deinit();

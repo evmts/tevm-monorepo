@@ -557,3 +557,166 @@ pub fn registerMath2Opcodes(allocator: std.mem.Allocator, jump_table: anytype) !
     };
     jump_table.table[0x0B] = signextend_op;
 }
+
+// ===== TESTS =====
+
+const testing = std.testing;
+
+// Helper function to create a negative u256 number using two's complement
+fn makeNegative(value: u256) u256 {
+    return (~value) +% 1;
+}
+
+// Helper for running opcode tests with arrays
+fn runOpcodeTest(
+    execute_fn: fn (usize, *Interpreter, *Frame) ExecutionError![]const u8, 
+    input_array: anytype, 
+    expected_array: anytype
+) !void {
+    const allocator = testing.allocator;
+    
+    // Create stack
+    var stack = try Stack.init(allocator);
+    defer stack.deinit();
+    
+    // Create frame
+    var frame = Frame{
+        .gas = 10000,
+        .stack = stack,
+        .memory = undefined,
+        .contract = undefined,
+        .returnData = null,
+    };
+    
+    // Push input values onto the stack
+    for (input_array) |val| {
+        try frame.stack.push(val);
+    }
+    
+    // Execute the opcode
+    _ = try execute_fn(0, undefined, &frame);
+    
+    // Check if the stack has the expected size after execution
+    try testing.expectEqual(expected_array.len, frame.stack.size);
+    
+    // Check each stack value
+    for (0..expected_array.len) |i| {
+        const actual = frame.stack.data[frame.stack.size - 1 - i];
+        try testing.expectEqual(expected_array[i], actual);
+    }
+}
+
+test "ADDMOD with non-zero modulus" {
+    const input = [_]u256{ 7, 5, 3 }; // 7 + 5 mod 3
+    const expected = [_]u256{0}; // (7 + 5) % 3 = 12 % 3 = 0
+    try runOpcodeTest(opAddmod, input, expected);
+}
+
+test "ADDMOD with zero modulus" {
+    const input = [_]u256{ 7, 5, 0 }; // 7 + 5 mod 0
+    const expected = [_]u256{0}; // Modulo by zero returns 0
+    try runOpcodeTest(opAddmod, input, expected);
+}
+
+test "ADDMOD with large numbers" {
+    const input = [_]u256{ 
+        0xffffffffffffffff, // max u64 value
+        2, 
+        10 
+    };
+    const expected = [_]u256{1}; // (max_u64 + 2) % 10 = 1
+    try runOpcodeTest(opAddmod, input, expected);
+}
+
+test "MULMOD with non-zero modulus" {
+    const input = [_]u256{ 7, 5, 3 }; // 7 * 5 mod 3
+    const expected = [_]u256{2}; // (7 * 5) % 3 = 35 % 3 = 2
+    try runOpcodeTest(opMulmod, input, expected);
+}
+
+test "MULMOD with zero modulus" {
+    const input = [_]u256{ 7, 5, 0 }; // 7 * 5 mod 0
+    const expected = [_]u256{0}; // Modulo by zero returns 0
+    try runOpcodeTest(opMulmod, input, expected);
+}
+
+test "EXP with zero exponent" {
+    const input = [_]u256{ 5, 0 }; // 5^0
+    const expected = [_]u256{1}; // Any number to the power of 0 is 1
+    try runOpcodeTest(opExp, &input, &expected);
+}
+
+test "EXP with zero base" {
+    const input = [_]u256{ 0, 5 }; // 0^5
+    const expected = [_]u256{0}; // 0 to any positive power is 0
+    try runOpcodeTest(opExp, &input, &expected);
+}
+
+test "EXP with small exponent" {
+    const input = [_]u256{ 2, 3 }; // 2^3
+    const expected = [_]u256{8}; // 2^3 = 8
+    try runOpcodeTest(opExp, &input, &expected);
+}
+
+test "EXP with large exponent" {
+    const input = [_]u256{ 2, 10 }; // 2^10
+    const expected = [_]u256{1024}; // 2^10 = 1024
+    try runOpcodeTest(opExp, &input, &expected);
+}
+
+test "SIGNEXTEND with byte position 0" {
+    // Test extending a negative number (0xFF = -1 in 8-bit signed)
+    const input = [_]u256{ 0xFF, 0 }; // Extend 0xFF from byte 0
+    const expected = [_]u256{0xFFFFFFFFFFFFFFFF}; // Sign bit is 1, extend with 1s (for u64)
+    try runOpcodeTest(opSignextend, &input, &expected);
+}
+
+test "SIGNEXTEND with byte position 0 for positive number" {
+    // Test extending a positive number (0x7F = 127 in 8-bit signed)
+    const input = [_]u256{ 0x7F, 0 }; // Extend 0x7F from byte 0
+    const expected = [_]u256{0x7F}; // Sign bit is 0, extend with 0s
+    try runOpcodeTest(opSignextend, &input, &expected);
+}
+
+test "SIGNEXTEND with large byte position" {
+    // Test with byte position >= 32 (no extension)
+    const input = [_]u256{ 0xFF, 32 }; // Extend 0xFF from byte 32
+    const expected = [_]u256{0xFF}; // No change, byte position >= 32
+    try runOpcodeTest(opSignextend, &input, &expected);
+}
+
+test "MOD with non-zero modulus" {
+    const input = [_]u256{ 17, 5 }; // 17 % 5
+    const expected = [_]u256{2}; // 17 % 5 = 2
+    try runOpcodeTest(opMod, &input, &expected);
+}
+
+test "MOD with zero modulus" {
+    const input = [_]u256{ 17, 0 }; // 17 % 0
+    const expected = [_]u256{0}; // Modulo by zero returns 0
+    try runOpcodeTest(opMod, &input, &expected);
+}
+
+test "SDIV with positive numbers" {
+    const input = [_]u256{ 10, 3 }; // 10 / 3
+    const expected = [_]u256{3}; // 10 / 3 = 3 (integer division)
+    try runOpcodeTest(opSdiv, &input, &expected);
+}
+
+test "SDIV with zero divisor" {
+    const input = [_]u256{ 0, 10 }; // 10 / 0
+    const expected = [_]u256{0}; // Division by zero returns 0
+    try runOpcodeTest(opSdiv, &input, &expected);
+}
+
+test "SMOD with positive numbers" {
+    const input = [_]u256{ 5, 17 }; // 17 % 5
+    const expected = [_]u256{2}; // 17 % 5 = 2
+    try runOpcodeTest(opSmod, &input, &expected);
+}
+
+test "SMOD with zero modulus" {
+    const input = [_]u256{ 0, 17 }; // 17 % 0
+    const expected = [_]u256{0}; // Modulo by zero returns 0
+    try runOpcodeTest(opSmod, &input, &expected);
+}

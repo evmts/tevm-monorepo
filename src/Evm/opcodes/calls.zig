@@ -1,23 +1,5 @@
 const std = @import("std");
 
-const jumpTableModule = @import("../jumpTable/JumpTable.zig");
-const JumpTable = jumpTableModule.JumpTable;
-const Operation = jumpTableModule.Operation;
-const Interpreter = @import("../interpreter.zig").Interpreter;
-const Frame = @import("../Frame.zig").Frame;
-const ExecutionError = @import("../interpreter.zig").InterpreterError;
-const stackModule = @import("../Stack.zig");
-const Stack = stackModule.Stack;
-const StackError = stackModule.StackError;
-
-// Helper to convert Stack errors to ExecutionError
-fn mapStackError(err: StackError) ExecutionError {
-    return switch (err) {
-        error.OutOfBounds => ExecutionError.StackUnderflow,
-        error.StackOverflow => ExecutionError.StackOverflow,
-        error.OutOfMemory => ExecutionError.OutOfGas,
-    };
-}
 // For testing, we'll use stubs and minimal imports
 const is_test = @import("builtin").is_test;
 
