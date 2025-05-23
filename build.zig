@@ -66,7 +66,7 @@ pub fn build(b: *std.Build) void {
     });
 
     const compiler_mod = b.createModule(.{
-        .root_source_file = b.path("src/Compilers/compiler.zig"),
+        .root_source_file = b.path("src/Compilers/package.zig"),
         .target = target,
         .optimize = optimize,
     });
@@ -278,6 +278,18 @@ pub fn build(b: *std.Build) void {
     snailtracer_bench.root_module.addImport("address", address_pkg);
     snailtracer_bench.root_module.addImport("state_manager", state_manager_pkg);
     snailtracer_bench.root_module.addImport("zbench", zbench_dep.module("zbench"));
+    snailtracer_bench.root_module.addImport("compiler", compiler_mod);
+    
+    // Link the Rust static library
+    snailtracer_bench.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    snailtracer_bench.linkLibC();
+    
+    // Link required system libraries for macOS
+    if (target.result.os.tag == .macos) {
+        snailtracer_bench.linkFramework("Security");
+        snailtracer_bench.linkFramework("SystemConfiguration");
+        snailtracer_bench.linkFramework("CoreFoundation");
+    }
     
     b.installArtifact(snailtracer_bench);
     

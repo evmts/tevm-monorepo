@@ -8,8 +8,7 @@ const createContract = evm.createContract;
 const address = @import("address");
 const Address = address.Address;
 const StateManager = @import("state_manager").StateManager;
-const compiler = @import("Compiler");
-const Compiler = compiler.Compiler;
+const compiler = @import("compiler");
 
 // SnailTracer is a complex contract that exercises many EVM features
 // It's commonly used for benchmarking EVM implementations
@@ -34,7 +33,7 @@ fn compileSnailTracer(allocator: std.mem.Allocator) !void {
     defer allocator.free(source_file);
 
     // Compile the contract
-    var result = try Compiler.compileSource(
+    var result = try compiler.Compiler.compileSource(
         allocator,
         "SnailTracer.sol",
         source_file,
@@ -92,7 +91,7 @@ const SnailTracerContext = struct {
     allocator: std.mem.Allocator,
     evm: *Evm,
     interpreter: *Interpreter,
-    state_manager: ?StateManager,
+    state_manager: ?*StateManager,
     
     pub fn init(allocator: std.mem.Allocator) !SnailTracerContext {
         // Create EVM instance

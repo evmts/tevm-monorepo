@@ -33,7 +33,7 @@ const Address = if (@import("builtin").is_test) struct {
         _ = str;
         return @This(){};
     }
-} else @import("../../Address/address.zig").Address;
+} else @import("address").Address;
 const EvmLogger = @import("TestEvmLogger.zig").EvmLogger;
 const createLogger = @import("TestEvmLogger.zig").createLogger;
 const logMemory = @import("EvmLogger.zig").logMemory;
