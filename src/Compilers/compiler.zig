@@ -1,4 +1,5 @@
 const std = @import("std");
+const zabi = @import("zabi");
 const c = @cImport({
     @cInclude("foundry_wrapper.h");
 });
@@ -42,12 +43,55 @@ pub const CompilerSettings = struct {
 /// Compiled contract information
 pub const CompiledContract = struct {
     name: []const u8,
-    abi: []const u8,
+    abi: zabi.abi.abitypes.Abi,
     bytecode: []const u8,
     deployed_bytecode: []const u8,
+    allocator: std.mem.Allocator,
 
     pub fn deinit(self: *CompiledContract, allocator: std.mem.Allocator) void {
         allocator.free(self.name);
+        // The ABI was parsed with parseFromValueLeaky, so we need to free each item and the array
+        for (self.abi) |*item| {
+            switch (item.*) {
+                .abiFunction => |*f| {
+                    allocator.free(f.name);
+                    for (f.inputs) |*input| {
+                        allocator.free(input.name);
+                        if (input.internalType) |it| allocator.free(it);
+                    }
+                    allocator.free(f.inputs);
+                    for (f.outputs) |*output| {
+                        allocator.free(output.name);
+                        if (output.internalType) |it| allocator.free(it);
+                    }
+                    allocator.free(f.outputs);
+                },
+                .abiEvent => |*e| {
+                    allocator.free(e.name);
+                    for (e.inputs) |*input| {
+                        allocator.free(input.name);
+                        if (input.internalType) |it| allocator.free(it);
+                    }
+                    allocator.free(e.inputs);
+                },
+                .abiError => |*e| {
+                    allocator.free(e.name);
+                    for (e.inputs) |*input| {
+                        allocator.free(input.name);
+                        if (input.internalType) |it| allocator.free(it);
+                    }
+                    allocator.free(e.inputs);
+                },
+                .abiConstructor => |*ctor| {
+                    for (ctor.inputs) |*input| {
+                        allocator.free(input.name);
+                        if (input.internalType) |it| allocator.free(it);
+                    }
+                    allocator.free(ctor.inputs);
+                },
+                .abiFallback, .abiReceive => {},
+            }
+        }
         allocator.free(self.abi);
         allocator.free(self.bytecode);
         allocator.free(self.deployed_bytecode);
@@ -271,11 +315,21 @@ pub const Compiler = struct {
 
         for (contracts, 0..) |*contract, i| {
             const c_contract = c_result.contracts[i];
+            
+            // Parse the ABI JSON string into zabi types
+            const abi_json_str = std.mem.span(c_contract.abi);
+            const parsed_json = try std.json.parseFromSlice(std.json.Value, allocator, abi_json_str, .{});
+            defer parsed_json.deinit();
+            
+            // Convert JSON to zabi Abi type
+            const abi_items = try std.json.parseFromValueLeaky(zabi.abi.abitypes.Abi, allocator, parsed_json.value, .{});
+            
             contract.* = CompiledContract{
                 .name = try allocator.dupe(u8, std.mem.span(c_contract.name)),
-                .abi = try allocator.dupe(u8, std.mem.span(c_contract.abi)),
+                .abi = abi_items,
                 .bytecode = try allocator.dupe(u8, std.mem.span(c_contract.bytecode)),
                 .deployed_bytecode = try allocator.dupe(u8, std.mem.span(c_contract.deployed_bytecode)),
+                .allocator = allocator,
             };
         }
 
@@ -383,15 +437,12 @@ test "compile simple contract" {
     try std.testing.expect(result.errors.len == 0);
     
     const contract = result.contracts[0];
-    try std.testing.expect(contract.abi.len > 0);
+    try std.testing.expectEqualStrings("SimpleStorage", contract.name);
+    try std.testing.expect(contract.abi.len == 2); // We expect 2 functions
     try std.testing.expect(contract.bytecode.len > 0);
     try std.testing.expect(contract.deployed_bytecode.len > 0);
     
-    // Snapshot test - assert actual compiled output values
-    // These values are the expected output from compiling the SimpleStorage contract above
-    const expected_abi = 
-        \\[{"type":"function","name":"setValue","inputs":[{"name":"_value","type":"uint256","internalType":"uint256"}],"outputs":[],"stateMutability":"nonpayable"},{"type":"function","name":"value","inputs":[],"outputs":[{"name":"","type":"uint256","internalType":"uint256"}],"stateMutability":"view"}]
-    ;
+    // Snapshot test for bytecode values
     const expected_bytecode = 
         \\0x608060405234801561000f575f80fd5b506101268061001d5f395ff3fe6080604052348015600e575f80fd5b50600436106030575f3560e01c80633fa4f2451460345780635524107714604e575b5f80fd5b603a6066565b60405160459190608a565b60405180910390f35b606460048036038101906060919060ca565b606b565b005b5f5481565b805f8190555050565b5f819050919050565b6084816074565b82525050565b5f602082019050609b5f830184607d565b92915050565b5f80fd5b60ac816074565b811460b5575f80fd5b50565b5f8135905060c48160a5565b92915050565b5f6020828403121560dc5760db60a1565b5b5f60e78482850160b8565b9150509291505056fea26469706673582212204577d79429b157781ff1dc2e2e52f25703564e67f1b53f60b4d89d7349908e6664736f6c63430008180033
     ;
@@ -399,28 +450,57 @@ test "compile simple contract" {
         \\0x6080604052348015600e575f80fd5b50600436106030575f3560e01c80633fa4f2451460345780635524107714604e575b5f80fd5b603a6066565b60405160459190608a565b60405180910390f35b606460048036038101906060919060ca565b606b565b005b5f5481565b805f8190555050565b5f819050919050565b6084816074565b82525050565b5f602082019050609b5f830184607d565b92915050565b5f80fd5b60ac816074565b811460b5575f80fd5b50565b5f8135905060c48160a5565b92915050565b5f6020828403121560dc5760db60a1565b5b5f60e78482850160b8565b9150509291505056fea26469706673582212204577d79429b157781ff1dc2e2e52f25703564e67f1b53f60b4d89d7349908e6664736f6c63430008180033
     ;
     
-    try std.testing.expectEqualStrings(expected_abi, contract.abi);
     try std.testing.expectEqualStrings(expected_bytecode, contract.bytecode);
     try std.testing.expectEqualStrings(expected_deployed_bytecode, contract.deployed_bytecode);
     
-    // Verify we can parse the ABI as JSON
-    const parsed_abi = try std.json.parseFromSlice(std.json.Value, allocator, contract.abi, .{});
-    defer parsed_abi.deinit();
+    // Validate the parsed ABI structure using zabi types
+    // Check the first function (setValue)
+    const set_value_fn = contract.abi[0];
+    try std.testing.expect(set_value_fn == .abiFunction);
+    const set_value = set_value_fn.abiFunction;
+    try std.testing.expectEqualStrings("setValue", set_value.name);
+    try std.testing.expect(set_value.stateMutability == .nonpayable);
+    try std.testing.expect(set_value.type == .function);
     
-    // Verify we can parse it as an ABI array
-    try std.testing.expect(parsed_abi.value == .array);
-    try std.testing.expect(parsed_abi.value.array.items.len == 2);
+    // Check setValue inputs
+    try std.testing.expect(set_value.inputs.len == 1);
+    const set_value_input = set_value.inputs[0];
+    try std.testing.expectEqualStrings("_value", set_value_input.name);
+    try std.testing.expect(set_value_input.type == .uint);
+    try std.testing.expect(set_value_input.type.uint == 256);
+    try std.testing.expect(set_value_input.internalType != null);
+    try std.testing.expectEqualStrings("uint256", set_value_input.internalType.?);
     
-    // Basic validation of the parsed ABI structure
-    const first_fn = parsed_abi.value.array.items[0];
-    try std.testing.expect(first_fn == .object);
-    try std.testing.expect(first_fn.object.contains("type"));
-    try std.testing.expect(first_fn.object.contains("name"));
-    try std.testing.expectEqualStrings("function", first_fn.object.get("type").?.string);
-    try std.testing.expectEqualStrings("setValue", first_fn.object.get("name").?.string);
+    // Check setValue outputs (should be empty)
+    try std.testing.expect(set_value.outputs.len == 0);
     
-    const second_fn = parsed_abi.value.array.items[1];
-    try std.testing.expect(second_fn == .object);
-    try std.testing.expectEqualStrings("function", second_fn.object.get("type").?.string);
-    try std.testing.expectEqualStrings("value", second_fn.object.get("name").?.string);
+    // Check setValue optional fields
+    try std.testing.expect(set_value.constant == null);
+    try std.testing.expect(set_value.payable == null);
+    try std.testing.expect(set_value.gas == null);
+    
+    // Check the second function (value)
+    const value_fn = contract.abi[1];
+    try std.testing.expect(value_fn == .abiFunction);
+    const value = value_fn.abiFunction;
+    try std.testing.expectEqualStrings("value", value.name);
+    try std.testing.expect(value.stateMutability == .view);
+    try std.testing.expect(value.type == .function);
+    
+    // Check value inputs (should be empty)
+    try std.testing.expect(value.inputs.len == 0);
+    
+    // Check value outputs
+    try std.testing.expect(value.outputs.len == 1);
+    const value_output = value.outputs[0];
+    try std.testing.expectEqualStrings("", value_output.name); // unnamed return value
+    try std.testing.expect(value_output.type == .uint);
+    try std.testing.expect(value_output.type.uint == 256);
+    try std.testing.expect(value_output.internalType != null);
+    try std.testing.expectEqualStrings("uint256", value_output.internalType.?);
+    
+    // Check value optional fields
+    try std.testing.expect(value.constant == null);
+    try std.testing.expect(value.payable == null);
+    try std.testing.expect(value.gas == null);
 }

@@ -29,10 +29,19 @@ pub fn addRustIntegration(b: *std.Build, target: std.Build.ResolvedTarget, optim
     // Define the Rust library path
     const rust_lib_path = b.pathJoin(&.{ "dist", "target", "release", "libfoundry_wrapper.a" });
 
+    // Get zabi dependency
+    const zabi_dep = b.dependency("zabi", .{
+        .target = target,
+        .optimize = optimize,
+    });
+    
     // Create a module for the Compiler
     const compiler_mod = b.createModule(.{
         .root_source_file = b.path("src/Compilers/compiler.zig"),
     });
+    
+    // Add zabi to the compiler module
+    compiler_mod.addImport("zabi", zabi_dep.module("zabi"));
     
     // Add include path to the module for C imports
     compiler_mod.addIncludePath(b.path("include"));
@@ -82,6 +91,9 @@ pub fn addRustIntegration(b: *std.Build, target: std.Build.ResolvedTarget, optim
         .target = target,
         .optimize = optimize,
     });
+    
+    // Add zabi dependency to test
+    foundry_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
     
     // Link frameworks for test executable
     foundry_test.linkLibC();
