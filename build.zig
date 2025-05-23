@@ -393,6 +393,16 @@ pub fn build(b: *std.Build) void {
     const interpreter_test_step = b.step("test-interpreter", "Run Interpreter tests");
     interpreter_test_step.dependOn(&run_interpreter_test.step);
 
+    // Add Rust Foundry wrapper integration
+    const rust_build = @import("src/Compilers/rust_build.zig");
+    const rust_step = rust_build.addRustIntegration(b, target, optimize) catch |err| {
+        std.debug.print("Failed to add Rust integration: {}\n", .{err});
+        return;
+    };
+
+    // Make the compiler test depend on the Rust build
+    compiler_test.step.dependOn(rust_step);
+
     const run_lib_unit_tests = b.addRunArtifact(lib_unit_tests);
 
     const exe_unit_tests = b.addTest(.{

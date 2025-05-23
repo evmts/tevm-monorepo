@@ -1,0 +1,20 @@
+language = "C"
+include_guard = "FOUNDRY_WRAPPER_H"
+style = "both"
+documentation = true
+cpp_compat = true
+
+[export]
+prefix = "foundry_"
+
+[export.rename]
+".*" = "SnakeCase"
+
+[parse]
+parse_deps = false
+include = ["foundry_wrapper"]
+
+[defines]
+"target_os = macos" = "TARGET_OS_MACOS"
+"target_os = windows" = "TARGET_OS_WINDOWS"
+"target_os = linux" = "TARGET_OS_LINUX"
