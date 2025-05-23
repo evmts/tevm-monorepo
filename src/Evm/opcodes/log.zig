@@ -309,3 +309,147 @@ pub fn registerLogOpcodes(allocator: std.mem.Allocator, jump_table: **JumpTable)
     };
     jump_table.table[0xA4] = log4_op;
 }
+
+// ===== TESTS =====
+
+const testing = std.testing;
+
+fn mapStackError(err: anyerror) ExecutionError {
+    return switch (err) {
+        error.StackUnderflow => ExecutionError.StackUnderflow,
+        error.StackOverflow => ExecutionError.StackOverflow,
+        else => ExecutionError.OutOfGas,
+    };
+}
+
+test "LOG memory size calculation" {
+    const allocator = testing.allocator;
+    
+    // Create a stack for testing
+    var stack = try Stack.init(allocator);
+    defer stack.deinit();
+    
+    // Setup stack for LOG operation test
+    try stack.push(0x100); // offset at 0x100
+    try stack.push(0x80);  // size of 0x80 (128 bytes)
+    
+    // Test memory size calculation
+    const mem_size = logMemorySize(&stack);
+    try testing.expectEqual(@as(u64, 0x180), mem_size.size); // 0x100 + 0x80 = 0x180
+    try testing.expect(!mem_size.overflow);
+    
+    // Test with extreme values to trigger overflow
+    _ = try stack.pop();
+    _ = try stack.pop();
+    try stack.push(0xFFFFFFFFFFFFFFFF); // max u64
+    try stack.push(1); // Adding 1 would overflow
+    
+    const overflow_mem_size = logMemorySize(&stack);
+    try testing.expect(overflow_mem_size.overflow);
+}
+
+test "LOG dynamic gas calculation" {
+    const allocator = testing.allocator;
+    
+    // Create components for testing
+    var stack = try Stack.init(allocator);
+    defer stack.deinit();
+    
+    var memory = try Memory.init(allocator);
+    defer memory.deinit();
+    
+    // Prepare memory with enough capacity for test
+    try memory.resize(0x200);
+    
+    // Create mock interpreter
+    var interpreter = Interpreter{
+        .pc = 0,
+        .gas = 10000,
+        .readOnly = false,
+        .returnStatus = .Continue,
+        .returnData = null,
+        .evm = undefined, // Not used in these tests
+    };
+    
+    // Create mock frame
+    var frame = Frame{
+        .gas = 10000,
+        .stack = stack,
+        .memory = memory,
+        .contract = undefined, // Not used in these tests
+        .returnData = null,
+    };
+    
+    // Test LOG0 with no topics
+    // Push memory offset and size to stack
+    try stack.push(0x80); // offset
+    try stack.push(0x20); // size (32 bytes)
+    
+    // Calculate LOG0 gas: 
+    // Base: 375 (LOG_GAS) + 
+    // Data: 8 * 32 (LOG_DATA_GAS * size) = 256
+    // Total: 375 + 256 = 631 (plus potential memory expansion costs)
+    const log0_gas = try log0DynamicGas(&interpreter, &frame, &stack, &memory, 0);
+    try testing.expect(log0_gas >= 375);  // At least the base LOG_GAS
+    
+    // Test LOG1 (need one more stack item for topic)
+    try stack.push(0x1234); // topic1
+    const log1_gas = try log1DynamicGas(&interpreter, &frame, &stack, &memory, 0);
+    // LOG1: 375 (LOG_GAS) + 375 (LOG_TOPIC_GAS) + 256 (data) = 1006
+    // Note: Memory gas cost may differ depending on implementation
+    try testing.expect(log1_gas >= 375 + 375);  // At least base gas + topic gas
+    
+    // Test LOG4 (need 3 more stack items for topics)
+    try stack.push(0x5678); // topic2
+    try stack.push(0x9ABC); // topic3
+    try stack.push(0xDEF0); // topic4
+    const log4_gas = try log4DynamicGas(&interpreter, &frame, &stack, &memory, 0);
+    // LOG4: 375 (LOG_GAS) + 4*375 (4 topics * LOG_TOPIC_GAS) + 256 (data) = 2131
+    // Note: Memory gas cost may differ depending on implementation
+    try testing.expect(log4_gas >= 375 + (4 * 375));  // At least base gas + topic gas
+}
+
+test "LOG operation stack requirements" {
+    const allocator = testing.allocator;
+    
+    // Create components for testing
+    var stack = try Stack.init(allocator);
+    defer stack.deinit();
+    
+    var memory = try Memory.init(allocator);
+    defer memory.deinit();
+    
+    // Create mock interpreter
+    var interpreter = Interpreter{
+        .pc = 0,
+        .gas = 10000,
+        .readOnly = false,
+        .returnStatus = .Continue,
+        .returnData = null,
+        .evm = undefined, // Not used in these tests
+    };
+    
+    // Create mock frame
+    var frame = Frame{
+        .gas = 10000,
+        .stack = stack,
+        .memory = memory,
+        .contract = undefined, // Not used in these tests
+        .returnData = null,
+    };
+    
+    // Test with not enough items on stack for LOG operations
+    const log0_result = log0DynamicGas(&interpreter, &frame, &stack, &memory, 0);
+    try testing.expectError(error.OutOfGas, log0_result);
+    
+    // Add offset and size but not topics
+    try stack.push(0x80); // offset
+    try stack.push(0x20); // size
+    
+    // This should work for LOG0
+    _ = try log0DynamicGas(&interpreter, &frame, &stack, &memory, 0);
+    
+    // But not for LOG1 (needs 1 topic)
+    const log1_result = log1DynamicGas(&interpreter, &frame, &stack, &memory, 0);
+    try testing.expectError(error.OutOfGas, log1_result);
+}

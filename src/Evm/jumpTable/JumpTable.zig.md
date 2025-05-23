@@ -102,9 +102,10 @@ pub const fn instruction_table<WIRE: InterpreterTypes, H: Host + ?Sized>() -> [I
 - Aggressive inlining via macros
 - Simpler function signature (no return value)
 
-### geth (Go)
-**File**: `/Users/williamcory/tevm/main/src/Evm/go-ethereum/core/vm/jump_table.go`
+### geth (Go) - Reference Design
+**Note**: go-ethereum source is not included in this repository, but our design is inspired by its approach.
 
+The geth implementation uses a similar structure:
 ```go
 type operation struct {
     execute     executionFunc
@@ -116,25 +117,14 @@ type operation struct {
 }
 
 type JumpTable [256]*operation
-
-func newFrontierInstructionSet() JumpTable {
-    tbl := JumpTable{
-        STOP: {
-            execute:     opStop,
-            constantGas: 0,
-            minStack:    minStack(0, 0),
-            maxStack:    maxStack(0, 0),
-        },
-        // ... etc
-    }
-}
 ```
 
-**Key Differences**:
-- Very similar structure to our implementation
-- Uses struct literals for initialization
-- Supports dynamic fork selection at runtime
-- More verbose but clearer initialization
+**Key Similarities with Our Implementation**:
+- Function pointer array for dispatch
+- Separate constant and dynamic gas functions
+- Stack depth tracking
+- Memory size calculation callbacks
+- Runtime hardfork selection
 
 ## Performance Comparison
 
@@ -177,7 +167,86 @@ const result = try add_op.execute(pc, &interpreter, &frame);
 
 ## Implementation Files
 
-- **Tevm**: `/Users/williamcory/tevm/main/src/Evm/jumpTable/JumpTable.zig`
-- **evmone**: `/Users/williamcory/tevm/main/evmone/lib/evmone/instructions.hpp`
-- **revm**: `/Users/williamcory/tevm/main/revm/crates/interpreter/src/instructions.rs`
-- **geth**: `/Users/williamcory/tevm/main/src/Evm/go-ethereum/core/vm/jump_table.go`
+### Tevm (This Implementation)
+- **Main Jump Table**: `/Users/williamcory/tevm/main/src/Evm/jumpTable/JumpTable.zig`
+- **Opcode Implementations**: `/Users/williamcory/tevm/main/src/Evm/opcodes/*.zig`
+
+### evmone (C++)
+- **X-Macro Definitions**: `/Users/williamcory/tevm/main/evmone/lib/evmone/instructions_xmacro.hpp`
+- **Instruction Traits**: `/Users/williamcory/tevm/main/evmone/lib/evmone/instructions_traits.hpp`
+- **Baseline Execution**: `/Users/williamcory/tevm/main/evmone/lib/evmone/baseline_execution.cpp`
+- **Instruction Table**: `/Users/williamcory/tevm/main/evmone/lib/evmone/baseline_instruction_table.cpp`
+
+### revm (Rust)
+- **Instruction Table**: `/Users/williamcory/tevm/main/revm/crates/interpreter/src/instructions.rs`
+- **Opcode Modules**: `/Users/williamcory/tevm/main/revm/crates/interpreter/src/instructions/*.rs`
+
+## Detailed Implementation Analysis
+
+### evmone's Approach
+
+evmone uses two dispatch mechanisms:
+
+1. **Switch-based dispatch** (portable):
+```cpp
+switch (op)
+{
+#define ON_OPCODE(OPCODE) \
+    case OPCODE: \
+        invoke<OPCODE>(cost_table, stack_bottom, position, gas, state); \
+        break;
+    MAP_OPCODES
+#undef ON_OPCODE
+}
+```
+
+2. **Computed goto** (when supported):
+```cpp
+static constexpr void* cgoto_table[] = {
+#define ON_OPCODE(OPCODE) &&TARGET_##OPCODE,
+    MAP_OPCODES
+};
+goto *cgoto_table[op];
+```
+
+**Key Features**:
+- X-Macro pattern for code generation
+- Template specialization for instruction implementations
+- Stack operations use raw pointers for speed
+- Gas costs stored in separate constexpr tables
+
+### revm's Approach
+
+revm uses const function tables generated at compile time:
+
+```rust
+pub const fn instruction_table<WIRE: InterpreterTypes, H: Host + ?Sized>() 
+    -> [Instruction<WIRE, H>; 256] {
+    let mut table = [control::unknown as Instruction<WIRE, H>; 256];
+    
+    table[STOP as usize] = control::stop;
+    table[ADD as usize] = arithmetic::add;
+    // ... etc
+}
+```
+
+**Key Features**:
+- Compile-time const table generation
+- Feature flags for hardfork selection
+- Macro-based instruction definitions
+- Direct function pointers without wrapper structs
+
+### Our Tevm Implementation
+
+Our Zig implementation combines the best of both approaches:
+
+1. **Type-safe operation structures** (like geth)
+2. **Runtime hardfork selection** (flexible like geth)
+3. **Inline optimization hints** (inspired by evmone)
+4. **Comprehensive testing** with mocked dependencies
+
+**Unique Advantages**:
+- Zig's comptime capabilities for validation
+- Memory-safe without garbage collection
+- Built-in overflow protection
+- Extensive unit test coverage

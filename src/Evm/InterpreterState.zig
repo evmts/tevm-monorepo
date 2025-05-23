@@ -33,7 +33,7 @@ pub const InterpreterState = struct {
     pub fn init(allocator: std.mem.Allocator) !InterpreterState {
         return InterpreterState{
             .mem = Memory.init(allocator),
-            .stack = Stack.init(allocator),
+            .stack = Stack{},
         };
     }
 
@@ -41,9 +41,7 @@ pub const InterpreterState = struct {
         if (self.mem) |*mem| {
             mem.deinit();
         }
-        if (self.stack) |*stack| {
-            stack.deinit();
-        }
+        // Stack no longer needs deinit since it doesn't allocate
     }
 };
 
