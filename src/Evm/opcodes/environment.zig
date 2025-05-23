@@ -11,7 +11,7 @@ const Memory = @import("../Memory.zig").Memory;
 const Stack = @import("../Stack.zig").Stack;
 const address = @import("address");
 const Address = address.Address;
-const StateManagerModule = @import("state_manager");
+const StateManagerModule = @import("StateManager");
 
 const u256_native = u256; // Using Zig's native u256 as the base type for stack/values
 

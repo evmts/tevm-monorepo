@@ -201,7 +201,7 @@ pub fn mcopyDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, 
 }
 
 /// Register blob opcodes in the jump table
-pub fn registerBlobOpcodes(allocator: std.mem.Allocator, jump_table: **JumpTable) !void {
+pub fn registerBlobOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable) !void {
     // BLOBHASH (0x49)
     const blobhash_op = try allocator.create(Operation);
     blobhash_op.* = Operation{

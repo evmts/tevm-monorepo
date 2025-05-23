@@ -33,7 +33,7 @@ pub fn opKeccak256(pc: usize, _: *Interpreter, frame: *Frame) ExecutionError![]c
 
     // If size is 0, return empty hash (all zeros)
     if (size == 0) {
-        frame.stack.push(0);
+        frame.stack.push(0) catch |err| return mapStackError(err);
         return "";
     }
 
@@ -55,13 +55,13 @@ pub fn opKeccak256(pc: usize, _: *Interpreter, frame: *Frame) ExecutionError![]c
 
     // Convert hash to u256 and push to stack
     const hash_value = bytesToUint256(hash);
-    frame.stack.push(hash_value);
+    frame.stack.push(hash_value) catch |err| return mapStackError(err);
 
     return "";
 }
 
 /// Helper function to calculate memory size for KECCAK256
-pub fn getKeccak256MemorySize(stack: *const Frame.Stack) struct { size: u64, overflow: bool } {
+pub fn getKeccak256MemorySize(stack: *const Stack) struct { size: u64, overflow: bool } {
     if (stack.size < 2) {
         return .{ .size = 0, .overflow = false };
     }
@@ -147,7 +147,7 @@ pub fn getKeccak256DynamicGas(interpreter: *Interpreter, frame: *Frame) !u64 {
 }
 
 /// Register cryptographic opcodes in the jump table
-pub fn registerCryptoOpcodes(allocator: std.mem.Allocator, jump_table: **JumpTable) !void {
+pub fn registerCryptoOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable) !void {
     // KECCAK256 (0x20)
     const keccak256_op = try allocator.create(Operation);
     keccak256_op.* = Operation{

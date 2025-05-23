@@ -7,7 +7,7 @@ const Contract = evm.Contract;
 const createContract = evm.createContract;
 const address = @import("address");
 const Address = address.Address;
-const StateManager = @import("state_manager").StateManager;
+const StateManager = @import("StateManager").StateManager;
 const Compiler = @import("compiler").Compiler;
 const utils = @import("utils");
 

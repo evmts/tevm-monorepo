@@ -220,7 +220,7 @@ fn createPrecompileAddress(value: u8) Address {
 }
 
 /// Use the PrecompiledContract type defined in common.zig
-const PrecompiledContract = common.PrecompiledContract;
+pub const PrecompiledContract = common.PrecompiledContract;
 
 /// PrecompiledContracts is a mapping of addresses to precompiled contracts
 pub const PrecompiledContracts = std.AutoHashMap(Address, *const PrecompiledContract);

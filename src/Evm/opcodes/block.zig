@@ -9,6 +9,7 @@ const stackModule = @import("../Stack.zig");
 const Stack = stackModule.Stack;
 const StackError = stackModule.StackError;
 const Memory = @import("../Memory.zig").Memory;
+const StateManager = @import("StateManager").StateManager;
 
 // Helper to convert Stack errors to ExecutionError
 fn mapStackError(err: StackError) ExecutionError {
@@ -31,7 +32,7 @@ pub fn opBlockhash(pc: usize, interpreter: *Interpreter, frame: *Frame) Executio
     // For now, return a dummy hash value
     // EVM spec: if block number is not one of the 256 most recent blocks, return 0
     _ = blockNumber; // Use the variable to avoid unused variable error
-    frame.stack.push(0);
+    frame.stack.push(0) catch |err| return mapStackError(err);
     
     return "";
 }
@@ -50,7 +51,7 @@ pub fn opCoinbase(pc: usize, _: *Interpreter, frame: *Frame) ExecutionError![]co
     // transaction setup.
     
     // Push the coinbase address to the stack
-    frame.stack.push(coinbase_address_value);
+    frame.stack.push(coinbase_address_value) catch |err| return mapStackError(err);
     
     return "";
 }
@@ -63,7 +64,7 @@ pub fn opTimestamp(pc: usize, interpreter: *Interpreter, frame: *Frame) Executio
     // In a real implementation, this would return the current block's timestamp
     // For now, use the current timestamp
     const now = std.time.timestamp();
-    frame.stack.push(@as(u256, @intCast(now)));
+    frame.stack.push(@as(u256, @intCast(now))) catch |err| return mapStackError(err);
     
     return "";
 }
@@ -75,7 +76,7 @@ pub fn opNumber(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     
     // In a real implementation, this would return the current block number
     // For now, return a dummy value
-    frame.stack.push(1);
+    frame.stack.push(1) catch |err| return mapStackError(err);
     
     return "";
 }
@@ -89,11 +90,11 @@ pub fn opDifficulty(pc: usize, interpreter: *Interpreter, frame: *Frame) Executi
     if (interpreter.evm.chainRules.IsMerge) {
         // PREVRANDAO: Return the beacon chain random value
         // For now, return a dummy random value
-        frame.stack.push(0x0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef);
+        frame.stack.push(0x0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef) catch |err| return mapStackError(err);
     } else {
         // DIFFICULTY: Return the block's difficulty
         // For now, return a standard pre-merge difficulty value
-        frame.stack.push(2500000000000000); // Example difficulty
+        frame.stack.push(2500000000000000) catch |err| return mapStackError(err); // Example difficulty
     }
     
     return "";
@@ -106,7 +107,7 @@ pub fn opGaslimit(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
     
     // In a real implementation, this would return the current block's gas limit
     // For now, return a standard gas limit
-    frame.stack.push(30000000); // 30 million gas
+    frame.stack.push(30000000) catch |err| return mapStackError(err); // 30 million gas
     
     return "";
 }
@@ -118,7 +119,7 @@ pub fn opChainid(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
     
     // In a real implementation, this would return the chain ID from configuration
     // For now, return Ethereum mainnet chain ID (1)
-    frame.stack.push(1);
+    frame.stack.push(1) catch |err| return mapStackError(err);
     
     return "";
 }
@@ -130,7 +131,7 @@ pub fn opSelfbalance(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
     // Check if we have a state manager in the EVM
     if (interpreter.evm.state_manager == null) {
         // If no state manager, return 0 balance
-        frame.stack.push(0);
+        frame.stack.push(0) catch |err| return mapStackError(err);
         return "";
     }
     
@@ -138,12 +139,13 @@ pub fn opSelfbalance(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
     const address = frame.address();
     
     // Get the account from state
-    if (try interpreter.evm.state_manager.?.getAccount(address)) |account| {
+    const b160_address = StateManager.B160{ .bytes = address };
+    if (try interpreter.evm.state_manager.?.getAccount(b160_address)) |account| {
         // Push account balance to stack
-        frame.stack.push(account.balance.value);
+        frame.stack.push(account.balance.value) catch |err| return mapStackError(err);
     } else {
         // Account doesn't exist, push 0
-        frame.stack.push(0);
+        frame.stack.push(0) catch |err| return mapStackError(err);
     }
     
     return "";
@@ -161,13 +163,13 @@ pub fn opBasefee(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
     // In a real implementation, this would return the current block's base fee
     // from block header, which was introduced with EIP-1559 fee market
     // For now, return a standard base fee value
-    frame.stack.push(1000000000); // 1 gwei
+    frame.stack.push(1000000000) catch |err| return mapStackError(err); // 1 gwei
     
     return "";
 }
 
 /// Register all block-related opcodes in the given jump table
-pub fn registerBlockOpcodes(allocator: std.mem.Allocator, jump_table: **JumpTable) !void {
+pub fn registerBlockOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable) !void {
     // BLOCKHASH (0x40)
     const blockhash_op = try allocator.create(Operation);
     blockhash_op.* = Operation{
@@ -331,7 +333,7 @@ test "BLOCKHASH opcode functionality" {
     defer frame.memory.deinit();
     
     // Test block hash lookup
-    try frame.stack.push(123);
+    frame.stack.push(123) catch |err| return mapStackError(err);
     _ = try opBlockhash(0, &interpreter, &frame);
     
     try std.testing.expectEqual(@as(usize, 1), frame.stack.size);

@@ -82,7 +82,7 @@ pub fn opSload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     // For now, we'll assume all accesses are cold on first access
     
     // Import the StateManager module to access types
-    const SM = @import("state_manager");
+    const SM = @import("StateManager");
     
     // Convert address to B160
     const addr_b160 = SM.B160{ .bytes = address };
@@ -197,7 +197,7 @@ pub fn opSstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     // TODO: This is using the simplified StateManager which doesn't support EIP-2929
     
     // Import the StateManager module to access types
-    const SM = @import("state_manager");
+    const SM = @import("StateManager");
     
     // Convert address to B160
     const addr_b160 = SM.B160{ .bytes = address };

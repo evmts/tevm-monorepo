@@ -250,7 +250,7 @@ pub fn log4DynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, m
 }
 
 /// Register LOG opcodes in the jump table
-pub fn registerLogOpcodes(allocator: std.mem.Allocator, jump_table: **JumpTable) !void {
+pub fn registerLogOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable) !void {
     // LOG0 (0xA0)
     const log0_op = try allocator.create(Operation);
     log0_op.* = Operation{

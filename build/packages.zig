@@ -7,7 +7,7 @@ pub const PackageInfo = struct {
 };
 
 pub const allPackages: []const PackageInfo = &.{
-    .{ .name = "evm", .path = "src/Evm/package.zig", .imports = &.{ "utils", "address", "block", "bytecode", "compiler", "rlp", "token", "trie", "state_manager", "test_utils" } },
+    .{ .name = "evm", .path = "src/Evm/package.zig", .imports = &.{ "utils", "address", "block", "bytecode", "compiler", "rlp", "token", "trie", "StateManager", "test_utils" } },
     .{ .name = "utils", .path = "src/Utils/package.zig", .imports = &.{} },
     .{ .name = "address", .path = "src/Address/package.zig", .imports = &.{"utils"} },
     .{ .name = "block", .path = "src/Block/package.zig", .imports = &.{ "utils", "rlp" } },
@@ -15,7 +15,7 @@ pub const allPackages: []const PackageInfo = &.{
     .{ .name = "rlp", .path = "src/Rlp/package.zig", .imports = &.{} },
     .{ .name = "token", .path = "src/Token/package.zig", .imports = &.{} },
     .{ .name = "trie", .path = "src/Trie/package.zig", .imports = &.{ "utils", "rlp" } },
-    .{ .name = "state_manager", .path = "src/StateManager/package.zig", .imports = &.{ "utils", "address" } },
+    .{ .name = "StateManager", .path = "src/StateManager/package.zig", .imports = &.{ "utils", "address" } },
     .{ .name = "test_utils", .path = "src/Test/test.zig", .imports = &.{ "evm", "utils", "address" } },
     .{ .name = "compiler", .path = "src/Compilers/package.zig", .imports = &.{} },
 };
