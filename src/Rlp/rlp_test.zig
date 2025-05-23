@@ -325,7 +325,7 @@ test "RLP error handling - remainder in non-stream mode" {
     var with_remainder = try allocator.alloc(u8, encoded.len + 1);
     defer allocator.free(with_remainder);
     
-    std.mem.copy(u8, with_remainder, encoded);
+    @memcpy(with_remainder[0..encoded.len], encoded);
     with_remainder[encoded.len] = 0x01;
     
     // This should fail in non-stream mode because there is a remainder

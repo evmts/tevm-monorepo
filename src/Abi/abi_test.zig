@@ -21,7 +21,7 @@ test "ABI basic round trip encoding/decoding" {
         .{
             .Function = .{
                 .name = "transfer",
-                .inputs = @as([]abi.Param, &.{
+                .inputs = &[_]abi.Param{
                     .{
                         .ty = "address",
                         .name = "to",
@@ -34,7 +34,7 @@ test "ABI basic round trip encoding/decoding" {
                         .components = &.{},
                         .internal_type = null,
                     },
-                }),
+                },
                 .outputs = &.{
                     .{
                         .ty = "bool",
@@ -49,7 +49,7 @@ test "ABI basic round trip encoding/decoding" {
         .{
             .Event = .{
                 .name = "Transfer",
-                .inputs = &.{
+                .inputs = &[_]abi.EventParam{
                     .{
                         .ty = "address",
                         .name = "from",
@@ -313,7 +313,7 @@ test "ABI complex types and edge cases" {
             .{
                 .Function = .{
                     .name = "transfer",
-                    .inputs = @as([]abi.Param, &.{
+                    .inputs = &[_]abi.Param{
                         .{
                             .ty = "address",
                             .name = "to",
@@ -341,7 +341,7 @@ test "ABI complex types and edge cases" {
             .{
                 .Function = .{
                     .name = "approve",
-                    .inputs = &.{
+                    .inputs = @as([]abi.Param, &.{
                         .{
                             .ty = "address",
                             .name = "spender",
@@ -354,7 +354,7 @@ test "ABI complex types and edge cases" {
                             .components = &.{},
                             .internal_type = null,
                         },
-                    },
+                    }),
                     .outputs = &.{
                         .{
                             .ty = "bool",
@@ -369,7 +369,7 @@ test "ABI complex types and edge cases" {
             .{
                 .Event = .{
                     .name = "Transfer",
-                    .inputs = &.{
+                    .inputs = &[_]abi.EventParam{
                         .{
                             .ty = "address",
                             .name = "from",

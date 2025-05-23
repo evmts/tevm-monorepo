@@ -111,7 +111,7 @@ fn decodeParam(
             return DecodeError.DynamicDataOutOfBounds;
         }
         
-        const length = std.mem.bigToNative(u256, @as(*const u256, @ptrCast(&data[dynamic_offset_usize])).*);
+        const length = std.mem.bigToNative(u256, @as(*const u256, @ptrCast(@alignCast(&data[dynamic_offset_usize]))).*);
         
         // Check bounds
         const length_usize = @as(usize, @intCast(length));
@@ -160,7 +160,7 @@ fn decodeParam(
             return DecodeError.DynamicDataOutOfBounds;
         }
         
-        const length = std.mem.bigToNative(u256, @as(*const u256, @ptrCast(&data[dynamic_offset_usize])).*);
+        const length = std.mem.bigToNative(u256, @as(*const u256, @ptrCast(@alignCast(&data[dynamic_offset_usize]))).*);
         
         // Check bounds
         const length_usize = @as(usize, @intCast(length));
@@ -227,7 +227,7 @@ pub fn bytesToValueInPlace(comptime T: type, bytes: []const u8, out: *T) !void {
         // Extract the value (always big-endian in ABI)
         var result: T = 0;
         for (bytes[bytes.len-size..bytes.len]) |b| {
-            result = result << 8 | @as(T, @intCast(b));
+            result = (result << @as(std.math.Log2Int(T), 8)) | @as(T, @intCast(b));
         }
         out.* = result;
         return;

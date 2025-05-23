@@ -52,7 +52,7 @@ pub fn encode(allocator: Allocator, input: anytype) ![]u8 {
     if (info == .array) {
         const child_info = @typeInfo(info.array.child);
         if (child_info == .int and child_info.int.bits == 8) {
-            return try encodeBytes(allocator, input);
+            return try encodeBytes(allocator, &input);
         }
     } else if (info == .pointer) {
         const child_info = @typeInfo(info.pointer.child);
@@ -115,7 +115,11 @@ pub fn encode(allocator: Allocator, input: anytype) ![]u8 {
         var value = input;
         while (value > 0) {
             try bytes.insert(0, @as(u8, @intCast(value & 0xff)));
-            value = value / @as(@TypeOf(value), 256); // Divide by 256 instead of shifting by 8
+            if (@TypeOf(value) == u8) {
+                value = 0; // For u8, after extracting the byte, we're done
+            } else {
+                value = value / @as(@TypeOf(value), 256); // Divide by 256 instead of shifting by 8
+            }
         }
         
         return try encodeBytes(allocator, bytes.items);
