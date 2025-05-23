@@ -12,7 +12,7 @@ const Stack = @import("Stack.zig").Stack;
 const Memory = @import("Memory.zig").Memory;
 const Contract = @import("Contract.zig").Contract;
 const Frame = @import("Frame.zig").Frame;
-const ExecutionError = opcodes.ExecutionError;
+// ExecutionError is now InterpreterError defined in this file
 
 // Import from logger module
 const EvmLogger = logger_module.EvmLogger;
@@ -49,6 +49,15 @@ fn getLogger() EvmLogger {
 /// during contract execution. They map closely to error conditions
 /// defined in the Ethereum Yellow Paper.
 pub const InterpreterError = error{
+    /// Normal STOP opcode execution - graceful termination
+    STOP,
+    
+    /// REVERT opcode execution - reverts state changes but returns data
+    REVERT,
+    
+    /// INVALID opcode or other invalid condition - full reversion
+    INVALID,
+    
     /// Not enough gas to continue execution
     OutOfGas,
 
@@ -124,7 +133,8 @@ pub const Interpreter = struct {
 
     /// Opcodes to operation names mapping for debug logging
     /// Used to provide human-readable names in logs
-    const opcodeNames = opcodes.opcodeNames;
+    // TODO: Add opcodeNames mapping to opcodes module
+    // const opcodeNames = opcodes.opcodeNames;
 
     /// Create a new Interpreter instance
     ///
@@ -253,7 +263,8 @@ pub const Interpreter = struct {
             const operation = self.table.getOperation(op_code);
 
             // Get operation name for logging
-            const op_name = if (op_code < opcodeNames.len) opcodeNames[op_code] else "UNKNOWN";
+            // TODO: Add opcodeNames mapping to get human-readable names
+            const op_name = "OPCODE"; // Temporary placeholder
 
             logOpcode(self.logger, frame.pc, op_code, op_name, operation.constant_gas, contract.gas);
 
@@ -277,7 +288,7 @@ pub const Interpreter = struct {
                 getLogger().err("Out of gas: need {d}, have {d}", .{ constantGas, contract.gas });
                 return InterpreterError.OutOfGas;
             }
-            contract.useGas(constantGas);
+            _ = contract.useGas(constantGas);
             getLogger().debug("Charged {d} constant gas, remaining: {d}", .{ constantGas, contract.gas });
 
             // Calculate and charge dynamic gas if needed
@@ -314,7 +325,7 @@ pub const Interpreter = struct {
                     }
 
                     // Charge the dynamic gas
-                    contract.useGas(dynamicCost);
+                    _ = contract.useGas(dynamicCost);
                     getLogger().debug("Charged {d} dynamic gas, remaining: {d}", .{ dynamicCost, contract.gas });
 
                     // Resize memory if necessary
@@ -333,11 +344,11 @@ pub const Interpreter = struct {
             _ = operation.execute(frame.pc, self, &frame) catch |err| {
                 // Handle execution errors
                 switch (err) {
-                    ExecutionError.STOP => {
+                    InterpreterError.STOP => {
                         getLogger().info("Execution stopped normally with STOP", .{});
                         break; // Successful completion with STOP
                     },
-                    ExecutionError.REVERT => {
+                    InterpreterError.REVERT => {
                         getLogger().info("Execution reverted with REVERT", .{});
                         // Handle revert - return remaining gas to caller
                         // and return revert data
@@ -357,27 +368,27 @@ pub const Interpreter = struct {
                         getLogger().debug("REVERT with no return data", .{});
                         return null;
                     },
-                    ExecutionError.OutOfGas => {
+                    InterpreterError.OutOfGas => {
                         getLogger().err("Execution failed: Out of gas", .{});
                         return InterpreterError.OutOfGas;
                     },
-                    ExecutionError.StackUnderflow => {
+                    InterpreterError.StackUnderflow => {
                         getLogger().err("Execution failed: Stack underflow", .{});
                         return InterpreterError.StackUnderflow;
                     },
-                    ExecutionError.StackOverflow => {
+                    InterpreterError.StackOverflow => {
                         getLogger().err("Execution failed: Stack overflow", .{});
                         return InterpreterError.StackOverflow;
                     },
-                    ExecutionError.InvalidJump => {
+                    InterpreterError.InvalidJump => {
                         getLogger().err("Execution failed: Invalid jump destination", .{});
                         return InterpreterError.InvalidJump;
                     },
-                    ExecutionError.InvalidOpcode => {
+                    InterpreterError.InvalidOpcode => {
                         getLogger().err("Execution failed: Invalid opcode", .{});
                         return InterpreterError.InvalidOpcode;
                     },
-                    ExecutionError.StaticStateChange => {
+                    InterpreterError.StaticStateChange => {
                         getLogger().err("Execution failed: State change in static call", .{});
                         return InterpreterError.StaticStateChange;
                     },

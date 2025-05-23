@@ -4,7 +4,8 @@ const Evm = evm.Evm;
 const Interpreter = evm.Interpreter;
 const Contract = evm.Contract;
 const createContract = evm.createContract;
-const Address = @import("address").Address;
+const address = @import("address");
+const Address = address.Address;
 const StateManager = @import("state_manager").StateManager;
 
 /// Benchmark different types of EVM operations
@@ -150,11 +151,11 @@ pub const BenchmarkSuite = struct {
         
         // Create interpreter
         var interpreter = try Interpreter.init(allocator, &evm_instance);
-        defer interpreter.table.deinit();
+        // JumpTable doesn't need deinit - it's stack allocated
         
         // Create addresses
-        const caller = Address.fromString("0x1234567890123456789012345678901234567890") catch unreachable;
-        const contract_addr = Address.fromString("0x2345678901234567890123456789012345678901") catch unreachable;
+        const caller = address.addressFromHex("0x1234567890123456789012345678901234567890".*);
+        const contract_addr = address.addressFromHex("0x2345678901234567890123456789012345678901".*);
         
         // Run benchmark
         const start = std.time.nanoTimestamp();

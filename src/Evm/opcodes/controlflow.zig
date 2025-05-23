@@ -148,7 +148,7 @@ pub fn opReturn(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const
         var i: usize = 0;
         while (i < size_usize) : (i += 1) {
             // Use safer get8 method that will handle bounds checking
-            return_buffer[i] = frame.memory.get8(offset_usize + i);
+            return_buffer[i] = frame.memory.get8(offset_usize + i) catch return ExecutionError.OutOfGas;
         }
         
         // Free any existing return data
@@ -181,8 +181,8 @@ pub fn opReturn(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const
         frame.returnSize = 0;
     }
     
-    // Halt execution
-    return ExecutionError.STOP;
+    // Return empty data - the interpreter will check the return data on the frame
+    return "";
 }
 
 /// REVERT (0xFD) - Halt execution, revert state changes, and return data
@@ -226,7 +226,7 @@ pub fn opRevert(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const
         var i: usize = 0;
         while (i < size_usize) : (i += 1) {
             // Use safer get8 method that will handle bounds checking
-            return_buffer[i] = frame.memory.get8(offset_usize + i);
+            return_buffer[i] = frame.memory.get8(offset_usize + i) catch return ExecutionError.OutOfGas;
         }
         
         // Free any existing return data
@@ -279,13 +279,14 @@ pub fn opSelfdestruct(_: usize, interpreter: *Interpreter, frame: *Frame) Execut
         return ExecutionError.StaticStateChange;
     }
     
-    // Halt execution
-    return ExecutionError.STOP;
+    // TODO: Implement SELFDESTRUCT state changes (mark account for deletion, transfer balance)
+    // For now, just halt execution
+    frame.stop = true;
+    return "";
 }
 
 /// Calculate memory size required for return and revert operations
-pub fn getReturnDataMemorySize(stack: *const Stack, memory: *const Frame.Memory) JumpTable.MemorySizeFunc.ReturnType {
-    _ = memory;
+pub fn getReturnDataMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     
     // Need at least 2 items on the stack
     if (stack.size < 2) {
@@ -295,11 +296,11 @@ pub fn getReturnDataMemorySize(stack: *const Stack, memory: *const Frame.Memory)
     // Safely get offset and size from stack with bound checking
     const offset_idx = stack.size - 1;
     const size_idx = stack.size - 2;
-    if (offset_idx >= stack.capacity) {
+    if (offset_idx >= Stack.capacity) {
         // This shouldn't happen with proper stack validation, but we check anyway
         return .{ .size = 0, .overflow = true };
     }
-    if (size_idx >= stack.capacity) {
+    if (size_idx >= Stack.capacity) {
         // This shouldn't happen with proper stack validation, but we check anyway
         return .{ .size = 0, .overflow = true };
     }

@@ -191,7 +191,7 @@ const ForkOptions = struct {
 };
 
 // StateOptions - Configuration for the state manager
-const StateOptions = struct {
+pub const StateOptions = struct {
     genesisState: ?StateData = null,
     stateRoots: ?std.StringHashMap(StateData) = null,
     currentStateRoot: ?B256 = null,

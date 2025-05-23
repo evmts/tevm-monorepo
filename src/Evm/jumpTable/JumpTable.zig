@@ -51,6 +51,9 @@ pub const ExecutionFunc = *const fn (pc: usize, interpreter: *Interpreter, frame
 /// Returns: The amount of gas required or OutOfGas error
 pub const GasFunc = *const fn (interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64;
 
+/// Return type for memory size calculations
+pub const MemorySizeResult = struct { size: u64, overflow: bool };
+
 /// MemorySizeFunc calculates the memory size required for an operation
 ///
 /// This is used for opcodes that may extend the memory.
@@ -59,7 +62,7 @@ pub const GasFunc = *const fn (interpreter: *Interpreter, frame: *Frame, stack: 
 /// - stack: Pointer to the EVM stack to read operands
 ///
 /// Returns: A struct containing the required memory size and whether an overflow occurred
-pub const MemorySizeFunc = *const fn (stack: *Stack) struct { size: u64, overflow: bool };
+pub const MemorySizeFunc = *const fn (stack: *Stack) MemorySizeResult;
 
 /// Helper function to calculate memory gas cost for expanding memory
 ///

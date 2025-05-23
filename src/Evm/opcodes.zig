@@ -1,5 +1,8 @@
 const std = @import("std");
 
+/// STOP opcode value
+pub const STOP_OPCODE: u8 = 0x00;
+
 // Use relative imports to avoid circular dependencies
 const interpreterModule = @import("interpreter.zig");
 const Interpreter = interpreterModule.Interpreter;

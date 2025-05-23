@@ -4,7 +4,8 @@ const Evm = evm.Evm;
 const Interpreter = evm.Interpreter;
 const Contract = evm.Contract;
 const createContract = evm.createContract;
-const Address = @import("address").Address;
+const address = @import("address");
+const Address = address.Address;
 const StateManager = @import("state_manager").StateManager;
 
 // SnailTracer is a complex contract that exercises many EVM features
@@ -41,9 +42,10 @@ pub const SnailTracerBenchmark = struct {
         // Initialize precompiles
         try evm_instance.initPrecompiles(allocator);
         
-        // Create state manager
-        const state_manager = try allocator.create(StateManager);
-        state_manager.* = StateManager.init(allocator);
+        // Create state manager with default options
+        const StateOptions = @import("state_manager").StateOptions;
+        const state_options = StateOptions{};
+        const state_manager = try StateManager.init(allocator, state_options);
         evm_instance.setStateManager(state_manager);
         
         // Create interpreter
@@ -71,7 +73,7 @@ pub const SnailTracerBenchmark = struct {
         }
         
         // Clean up interpreter and evm
-        self.interpreter.table.deinit();
+        // JumpTable doesn't need deinit - it's stack allocated
         self.allocator.destroy(self.interpreter);
         self.allocator.destroy(self.evm);
     }
@@ -79,8 +81,8 @@ pub const SnailTracerBenchmark = struct {
     /// Run a single iteration of the benchmark
     pub fn runIteration(self: *SnailTracerBenchmark) !void {
         // Create contract
-        const caller = Address.fromString("0x1234567890123456789012345678901234567890") catch unreachable;
-        const contract_addr = Address.fromString("0x2345678901234567890123456789012345678901") catch unreachable;
+        const caller = address.addressFromHex("0x1234567890123456789012345678901234567890".*);
+        const contract_addr = address.addressFromHex("0x2345678901234567890123456789012345678901".*);
         
         var contract = createContract(
             contract_addr,
