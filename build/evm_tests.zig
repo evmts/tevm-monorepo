@@ -58,27 +58,12 @@ pub const eipTests = [_]TestInfo{
     .{ .name = "eip3860-test", .root = "src/Evm/tests/eip3860.test.zig", .step_name = "test-eip3860" },
 };
 
-// Opcode tests (now integrated into main source files)
+// Opcode tests - now using a single test runner to avoid relative import issues
 pub const opcodeTests = [_]TestInfo{
-    .{ .name = "opcode-math-test", .root = "src/Evm/opcodes/math.zig", .step_name = "test-opcode-math" },
-    .{ .name = "opcode-math2-test", .root = "src/Evm/opcodes/math2.zig", .step_name = "test-opcode-math2" },
-    .{ .name = "opcode-bitwise-test", .root = "src/Evm/opcodes/bitwise.zig", .step_name = "test-opcode-bitwise" },
-    .{ .name = "opcode-comparison-test", .root = "src/Evm/opcodes/comparison.zig", .step_name = "test-opcode-comparison" },
-    .{ .name = "opcode-memory-test", .root = "src/Evm/opcodes/memory.zig", .step_name = "test-opcode-memory" },
-    .{ .name = "opcode-storage-test", .root = "src/Evm/opcodes/storage.test.zig", .step_name = "test-opcode-storage" },
-    .{ .name = "opcode-controlflow-test", .root = "src/Evm/opcodes/controlflow.zig", .step_name = "test-opcode-controlflow" },
-    .{ .name = "opcode-fixed-controlflow-test", .root = "src/Evm/opcodes/fixed_controlflow.test.zig", .step_name = "test-opcode-fixed-controlflow" },
-    .{ .name = "opcode-environment-test", .root = "src/Evm/opcodes/environment.test.zig", .step_name = "test-opcode-environment" },
-    .{ .name = "opcode-block-test", .root = "src/Evm/opcodes/block.zig", .step_name = "test-opcode-block" },
-    .{ .name = "opcode-crypto-test", .root = "src/Evm/opcodes/crypto.zig", .step_name = "test-opcode-crypto" },
-    .{ .name = "opcode-log-test", .root = "src/Evm/opcodes/log.zig", .step_name = "test-opcode-log" },
-    .{ .name = "opcode-calls-test", .root = "src/Evm/opcodes/calls.test.zig", .step_name = "test-opcode-calls" },
+    .{ .name = "opcodes-all-test", .root = "src/Evm/opcodes/all_tests.zig", .step_name = "test-opcodes-all" },
+    // Keep individual expanded tests that are at the Evm level
     .{ .name = "opcode-calls-expanded-test", .root = "src/Evm/opcodes/calls_expanded_test.zig", .step_name = "test-opcode-calls-expanded" },
-    .{ .name = "opcode-blob-test", .root = "src/Evm/opcodes/blob.zig", .step_name = "test-opcode-blob" },
-    .{ .name = "opcode-transient-test", .root = "src/Evm/opcodes/transient.test.zig", .step_name = "test-opcode-transient" },
     .{ .name = "opcode-transient-expanded-test", .root = "src/Evm/opcodes/transient_expanded_test.zig", .step_name = "test-opcode-transient-expanded" },
-    .{ .name = "opcode-eip1153-test", .root = "src/Evm/opcodes/eip1153.test.zig", .step_name = "test-opcode-eip1153" },
-    .{ .name = "opcode-eip4844-test", .root = "src/Evm/opcodes/eip4844.test.zig", .step_name = "test-opcode-eip4844" },
     .{ .name = "opcode-mcopy-expanded-test", .root = "src/Evm/opcodes/mcopy_expanded_test.zig", .step_name = "test-opcode-mcopy-expanded" },
     .{ .name = "opcodes-expanded-test", .root = "src/Evm/opcodes_expanded_test.zig", .step_name = "test-opcodes-expanded" },
     .{ .name = "opcodes-expanded-simplified-test", .root = "src/Evm/opcodes_expanded_simplified_test.zig", .step_name = "test-opcodes-expanded-simplified" },

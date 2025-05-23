@@ -240,7 +240,7 @@ test "BLOBHASH basic operation" {
     const allocator = std.testing.allocator;
     
     // Create a mock EVM with blob support
-    var evm = Interpreter.Evm{
+    var test_evm = Interpreter.Evm{
         .depth = 0,
         .readOnly = false,
         .chainRules = .{
@@ -283,7 +283,7 @@ test "BLOBHASH basic operation" {
         .gas_refund = 0,
         .valid_jump_destinations = std.AutoHashMap(u24, void).init(allocator),
         .allocator = allocator,
-        .evm = &evm,
+        .evm = &test_evm,
     };
     defer interpreter.valid_jump_destinations.deinit();
     
@@ -325,7 +325,7 @@ test "BLOBBASEFEE basic operation" {
     const allocator = std.testing.allocator;
     
     // Create a mock EVM with blob support
-    var evm = Interpreter.Evm{
+    var test_evm = Interpreter.Evm{
         .depth = 0,
         .readOnly = false,
         .chainRules = .{
@@ -357,7 +357,7 @@ test "BLOBBASEFEE basic operation" {
         .gas_refund = 0,
         .valid_jump_destinations = std.AutoHashMap(u24, void).init(allocator),
         .allocator = allocator,
-        .evm = &evm,
+        .evm = &test_evm,
     };
     defer interpreter.valid_jump_destinations.deinit();
     
@@ -384,7 +384,7 @@ test "MCOPY basic operation" {
     const allocator = std.testing.allocator;
     
     // Create a mock EVM with blob support
-    var evm = Interpreter.Evm{
+    var test_evm = Interpreter.Evm{
         .depth = 0,
         .readOnly = false,
         .chainRules = .{
@@ -405,7 +405,7 @@ test "MCOPY basic operation" {
         .gas_refund = 0,
         .valid_jump_destinations = std.AutoHashMap(u24, void).init(allocator),
         .allocator = allocator,
-        .evm = &evm,
+        .evm = &test_evm,
     };
     defer interpreter.valid_jump_destinations.deinit();
     
@@ -482,7 +482,7 @@ test "MCOPY dynamic gas calculation" {
     const allocator = std.testing.allocator;
     
     // Create a mock EVM with blob support
-    var evm = Interpreter.Evm{
+    var test_evm = Interpreter.Evm{
         .depth = 0,
         .readOnly = false,
         .chainRules = .{
@@ -503,7 +503,7 @@ test "MCOPY dynamic gas calculation" {
         .gas_refund = 0,
         .valid_jump_destinations = std.AutoHashMap(u24, void).init(allocator),
         .allocator = allocator,
-        .evm = &evm,
+        .evm = &test_evm,
     };
     defer interpreter.valid_jump_destinations.deinit();
     
