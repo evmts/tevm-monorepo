@@ -12,8 +12,7 @@ const math = @import("../opcodes/math.zig");
 const math2 = @import("../opcodes/math2.zig");
 const comparison = @import("../opcodes/comparison.zig");
 const bitwise = @import("../opcodes/bitwise.zig");
-// TODO: Fix these modules before uncommenting
-// const memory = @import("../opcodes/memory.zig");
+const memory = @import("../opcodes/memory.zig");
 const push = @import("../opcodes/push.zig");
 const storage = @import("../opcodes/storage.zig");
 const controlflow = @import("../opcodes/controlflow.zig");
@@ -378,8 +377,7 @@ pub fn newJumpTable(allocator: std.mem.Allocator, hardfork: []const u8) !JumpTab
     try bitwise.registerBitwiseOpcodes(allocator, &jump_table);
     try comparison.registerComparisonOpcodes(allocator, &jump_table);
     try controlflow.registerControlFlowOpcodes(allocator, &jump_table);
-    // TODO: Fix these modules
-    // try memory.registerMemoryOpcodes(allocator, &jump_table);
+    try memory.registerMemoryOpcodes(allocator, &jump_table);
     // try environment.registerEnvironmentOpcodes(allocator, &jump_table);
     try push.registerPushOpcodes(allocator, &jump_table);
     try storage.registerStorageOpcodes(allocator, &jump_table);
@@ -540,7 +538,7 @@ pub const UNDEFINED = Operation{
     .constant_gas = 0,
     .dynamic_gas = null,
     .min_stack = minStack(0, 0),
-    .max_stack = maxStack(0, 0),
+    .max_stack = 1024, // Allow full stack for undefined opcodes
     .memory_size = null,
     .undefined = true,
 };

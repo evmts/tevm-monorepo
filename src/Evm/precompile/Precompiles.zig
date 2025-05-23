@@ -1,5 +1,6 @@
 const std = @import("std");
-const Address = @import("address").Address;
+// Address type is [20]u8
+const Address = [20]u8;
 const common = @import("common.zig");
 const crypto = @import("crypto.zig");
 const math = @import("math.zig");

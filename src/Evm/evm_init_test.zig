@@ -62,7 +62,7 @@ test "EVM precompiles for different hardforks" {
     
     // Test Homestead precompiles (should have 4)
     {
-        var rules = ChainRules.forHardfork(.Homestead);
+        const rules = ChainRules.forHardfork(.Homestead);
         var evm = try Evm.init(rules);
         try evm.initPrecompiles(allocator);
         
@@ -75,7 +75,7 @@ test "EVM precompiles for different hardforks" {
     
     // Test Byzantium precompiles (should have 8)
     {
-        var rules = ChainRules.forHardfork(.Byzantium);
+        const rules = ChainRules.forHardfork(.Byzantium);
         var evm = try Evm.init(rules);
         try evm.initPrecompiles(allocator);
         
@@ -88,7 +88,7 @@ test "EVM precompiles for different hardforks" {
     
     // Test Istanbul precompiles (should have 9)
     {
-        var rules = ChainRules.forHardfork(.Istanbul);
+        const rules = ChainRules.forHardfork(.Istanbul);
         var evm = try Evm.init(rules);
         try evm.initPrecompiles(allocator);
         

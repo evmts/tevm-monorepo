@@ -1,12 +1,10 @@
 const std = @import("std");
-const evm = @import("evm");
-const Evm = evm.Evm;
-const Interpreter = evm.Interpreter;
-const Contract = evm.Contract;
-const createContract = evm.createContract;
-const address = @import("address");
-const Address = address.Address;
-const StateManager = @import("state_manager").StateManager;
+const Evm = @import("../evm.zig").Evm;
+const Interpreter = @import("../interpreter.zig").Interpreter;
+const Contract = @import("../Contract.zig").Contract;
+const createContract = @import("../Contract.zig").createContract;
+const Address = @import("../../Address/Address.ts").Address;
+const StateManager = @import("../../StateManager/StateManager.zig").StateManager;
 
 // SnailTracer is a complex contract that exercises many EVM features
 // It's commonly used for benchmarking EVM implementations
@@ -43,7 +41,7 @@ pub const SnailTracerBenchmark = struct {
         try evm_instance.initPrecompiles(allocator);
         
         // Create state manager with default options
-        const StateOptions = @import("state_manager").StateOptions;
+        const StateOptions = @import("../../StateManager/StateManager.zig").StateOptions;
         const state_options = StateOptions{};
         const state_manager = try StateManager.init(allocator, state_options);
         evm_instance.setStateManager(state_manager);
