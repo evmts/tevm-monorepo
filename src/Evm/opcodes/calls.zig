@@ -4,13 +4,14 @@ const std = @import("std");
 const is_test = @import("builtin").is_test;
 
 // Non-test imports
-const jumpTableModule = if (!is_test) @import("../jumpTable/JumpTable.zig") else undefined;
-const interpreterModule = if (!is_test) @import("../interpreter.zig") else undefined;
-const frameModule = if (!is_test) @import("../Frame.zig") else undefined;
-const stackModule = if (!is_test) @import("../Stack.zig") else undefined;
-const memoryModule = if (!is_test) @import("../Memory.zig") else undefined;
-const precompileModule = if (!is_test) @import("../precompile/Precompiles.zig") else undefined;
-const evmLoggerModule = if (!is_test) @import("../EvmLogger.zig") else undefined;
+const evm = if (!is_test) @import("evm") else undefined;
+const jumpTableModule = if (!is_test) evm.jumpTable else undefined;
+const interpreterModule = if (!is_test) evm else undefined;
+const frameModule = if (!is_test) evm else undefined;
+const stackModule = if (!is_test) evm else undefined;
+const memoryModule = if (!is_test) evm else undefined;
+const precompileModule = if (!is_test) evm.precompile else undefined;
+const evmLoggerModule = if (!is_test) evm else undefined;
 
 // Helper to convert Stack errors to ExecutionError
 fn mapStackError(err: StackError) ExecutionError {

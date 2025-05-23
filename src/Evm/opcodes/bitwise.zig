@@ -1,14 +1,14 @@
 const std = @import("std");
-const jumpTableModule = @import("../jumpTable/JumpTable.zig");
+const evm = @import("evm");
+const jumpTableModule = evm.jumpTable;
 const JumpTable = jumpTableModule.JumpTable;
 const Operation = jumpTableModule.Operation;
-const Interpreter = @import("../interpreter.zig").Interpreter;
-const Frame = @import("../Frame.zig").Frame;
-const ExecutionError = @import("../interpreter.zig").InterpreterError;
-const stackModule = @import("../Stack.zig");
-const Stack = stackModule.Stack;
-const StackError = stackModule.StackError;
-const Memory = @import("../Memory.zig").Memory;
+const Interpreter = evm.Interpreter;
+const Frame = evm.Frame;
+const ExecutionError = evm.InterpreterError;
+const Stack = evm.Stack;
+const StackError = evm.StackError;
+const Memory = evm.Memory;
 // u256 is a built-in type in Zig, no need to import
 
 // Helper to convert Stack errors to ExecutionError

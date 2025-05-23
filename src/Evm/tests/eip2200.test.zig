@@ -1,23 +1,21 @@
 const std = @import("std");
 const testing = std.testing;
 
-// Import the Evm module using relative paths 
-const EvmModule = @import("../evm.zig");
-const Interpreter = EvmModule.Interpreter;
-const Frame = EvmModule.Frame;
-const Contract = EvmModule.Contract;
-const createContract = EvmModule.createContract;
-const JumpTable = EvmModule.JumpTable;
-const ExecutionError = EvmModule.InterpreterError;
+// Import from packages
+const evm = @import("evm");
+const Interpreter = evm.Interpreter;
+const Frame = evm.Frame;
+const Contract = evm.Contract;
+const createContract = evm.createContract;
+const JumpTable = evm.JumpTable;
+const ExecutionError = evm.InterpreterError;
 
-// Import the StateManager module with relative path
-const StateManagerModule = @import("../State/StateManager.zig");
-const StateManager = StateManagerModule.StateManager;
-const B256 = StateManagerModule.B256;
+// Import the StateManager module
+const StateManager = @import("StateManager").StateManager;
+const B256 = @import("StateManager").B256;
 
-// Import the Address module with relative path
-const AddressModule = @import("../../Address/address.zig");
-const Address = AddressModule.Address;
+// Import the Address module
+const Address = @import("address").Address;
 
 // Test constants
 const TEST_GAS = 10000000;

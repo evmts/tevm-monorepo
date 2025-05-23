@@ -1,15 +1,16 @@
 const std = @import("std");
 const testing = std.testing;
-const Stack = @import("../Stack.zig").Stack;
-const Frame = @import("../Frame.zig").Frame;
-const Contract = @import("../Contract.zig").Contract;
-const Interpreter = @import("../interpreter.zig").Interpreter;
-const Evm = @import("../Evm.zig");
+const evm = @import("evm");
+const Stack = evm.Stack;
+const Frame = evm.Frame;
+const Contract = evm.Contract;
+const Interpreter = evm.Interpreter;
+const Evm = evm.Evm;
 const math = @import("math.zig");
 const math2 = @import("math2.zig");
 const comparison = @import("comparison.zig");
 const bitwise = @import("bitwise.zig");
-const JumpTableModule = @import("../JumpTable.zig");
+const JumpTableModule = evm.jumpTable;
 
 // Define a Test structure to match the JSON format
 const JsonTest = struct {

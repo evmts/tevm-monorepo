@@ -1,14 +1,14 @@
 const std = @import("std");
-const pkg = @import("package_test.zig");
-const Interpreter = pkg.Interpreter;
-const Frame = pkg.Frame;
-const ExecutionError = pkg.ExecutionError;
-const JumpTable = pkg.JumpTable;
-const jumpTableModule = JumpTable;  // Alias for compatibility
-const Stack = pkg.Stack;
-const Memory = pkg.Memory;
-const Contract = pkg.Contract;
-const Operation = JumpTable.Operation;
+const evm = @import("evm");
+const jumpTableModule = evm.jumpTable;
+const JumpTable = jumpTableModule.JumpTable;
+const Operation = jumpTableModule.Operation;
+const Interpreter = evm.Interpreter;
+const Frame = evm.Frame;
+const ExecutionError = evm.InterpreterError;
+const Stack = evm.Stack;
+const Memory = evm.Memory;
+const Contract = evm.Contract;
 
 /// LOG0 operation
 pub fn opLog0(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {

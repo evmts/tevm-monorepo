@@ -1,23 +1,23 @@
 const std = @import("std");
 const testing = std.testing;
 
-// Import directly from modules with relative paths
-const EvmModule = @import("../evm.zig");
-const Contract = EvmModule.Contract;
-const createContract = EvmModule.createContract;
-const Evm = EvmModule.Evm;
-const ChainRules = EvmModule.ChainRules;
-const JumpTable = EvmModule.JumpTable;
-const Interpreter = EvmModule.Interpreter;
-const InterpreterError = EvmModule.InterpreterError;
-const EvmLogger = EvmModule.EvmLogger;
-const createLogger = EvmModule.createLogger;
-const createScopedLogger = EvmModule.createScopedLogger;
-const debugOnly = EvmModule.debugOnly;
+// Import from packages
+const evm = @import("evm");
+const Contract = evm.Contract;
+const createContract = evm.createContract;
+const Evm = evm.Evm;
+const ChainRules = evm.ChainRules;
+const JumpTable = evm.JumpTable;
+const Interpreter = evm.Interpreter;
+const InterpreterError = evm.InterpreterError;
+const EvmLogger = evm.EvmLogger;
+const createLogger = evm.createLogger;
+const createScopedLogger = evm.createScopedLogger;
+const debugOnly = evm.debugOnly;
 
-const Address = @import("../../Address/address.zig").Address;
-const StateManager = @import("../State/StateManager.zig").StateManager;
-const StateOptions = @import("../State/StateManager.zig").StateOptions;
+const Address = @import("address").Address;
+const StateManager = @import("StateManager").StateManager;
+const StateOptions = @import("StateManager").StateOptions;
 
 // Module-level logger initialization
 var _logger: ?EvmLogger = null;

@@ -1,10 +1,9 @@
 const std = @import("std");
 const testing = std.testing;
-const interpreter = @import("../interpreter.zig");
-const Interpreter = interpreter.Interpreter;
-const ExecutionError = interpreter.ExecutionError;
-const evm = @import("../evm.zig");
-const Frame = @import("../Frame.zig");
+const evm = @import("evm");
+const Interpreter = evm.Interpreter;
+const ExecutionError = evm.InterpreterError;
+const Frame = evm.Frame;
 const Evm = evm.Evm;
 const transient = @import("transient.zig");
 

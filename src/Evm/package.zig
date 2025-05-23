@@ -13,6 +13,7 @@ pub const JumpTable = jumpTable.JumpTable;
 pub const Memory = @import("Memory.zig").Memory;
 pub const MemoryError = @import("Memory.zig").MemoryError;
 pub const Stack = @import("Stack.zig").Stack;
+pub const StackError = @import("Stack.zig").StackError;
 pub const types = @import("types.zig");
 pub const ExecutionError = InterpreterError;
 

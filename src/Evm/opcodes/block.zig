@@ -1,15 +1,16 @@
 const std = @import("std");
-const jumpTableModule = @import("../jumpTable/JumpTable.zig");
+const evm = @import("evm");
+const jumpTableModule = evm.jumpTable;
 const JumpTable = jumpTableModule.JumpTable;
 const Operation = jumpTableModule.Operation;
-const Interpreter = @import("../interpreter.zig").Interpreter;
-const Frame = @import("../Frame.zig").Frame;
-const ExecutionError = @import("../interpreter.zig").InterpreterError;
-const stackModule = @import("../Stack.zig");
-const Stack = stackModule.Stack;
-const StackError = stackModule.StackError;
-const Memory = @import("../Memory.zig").Memory;
+const Interpreter = evm.Interpreter;
+const Frame = evm.Frame;
+const ExecutionError = evm.InterpreterError;
+const Stack = evm.Stack;
+const StackError = evm.StackError;
+const Memory = evm.Memory;
 const StateManager = @import("StateManager").StateManager;
+const B160 = @import("StateManager").B160;
 
 // Helper to convert Stack errors to ExecutionError
 fn mapStackError(err: StackError) ExecutionError {
@@ -139,7 +140,7 @@ pub fn opSelfbalance(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
     const address = frame.address();
     
     // Get the account from state
-    const b160_address = StateManager.B160{ .bytes = address };
+    const b160_address = B160{ .bytes = address };
     if (try interpreter.evm.state_manager.?.getAccount(b160_address)) |account| {
         // Push account balance to stack
         frame.stack.push(account.balance.value) catch |err| return mapStackError(err);

@@ -1,14 +1,15 @@
 const std = @import("std");
 
 // Use direct imports from parent modules
-const Interpreter = @import("../interpreter.zig").Interpreter;
-const Frame = @import("../Frame.zig").Frame;
-const ExecutionError = @import("../interpreter.zig").InterpreterError;
-const JumpTable = @import("../jumpTable/JumpTable.zig").JumpTable;
-const jumpTableModule = @import("../jumpTable/JumpTable.zig");
+const evm = @import("evm");
+const Interpreter = evm.Interpreter;
+const Frame = evm.Frame;
+const ExecutionError = evm.InterpreterError;
+const jumpTableModule = evm.jumpTable;
+const JumpTable = jumpTableModule.JumpTable;
 const Operation = jumpTableModule.Operation;
-const Memory = @import("../Memory.zig").Memory;
-const Stack = @import("../Stack.zig").Stack;
+const Memory = evm.Memory;
+const Stack = evm.Stack;
 const address = @import("address");
 const Address = address.Address;
 const StateManagerModule = @import("StateManager");

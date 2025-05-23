@@ -1,13 +1,13 @@
 const std = @import("std");
-const jumpTableModule = @import("../jumpTable/JumpTable.zig");
+const evm = @import("evm");
+const jumpTableModule = evm.jumpTable;
 const JumpTable = jumpTableModule.JumpTable;
 const Operation = jumpTableModule.Operation;
-const Interpreter = @import("../interpreter.zig").Interpreter;
-const Frame = @import("../Frame.zig").Frame;
-const ExecutionError = @import("../interpreter.zig").InterpreterError;
-const stackModule = @import("../Stack.zig");
-const Stack = stackModule.Stack;
-const StackError = stackModule.StackError;
+const Interpreter = evm.Interpreter;
+const Frame = evm.Frame;
+const ExecutionError = evm.InterpreterError;
+const Stack = evm.Stack;
+const StackError = evm.StackError;
 
 // Helper to convert Stack errors to ExecutionError
 fn mapStackError(err: StackError) ExecutionError {
@@ -17,13 +17,13 @@ fn mapStackError(err: StackError) ExecutionError {
         error.OutOfMemory => ExecutionError.OutOfGas,
     };
 }
-const Memory = @import("../Memory.zig").Memory;
+const Memory = evm.Memory;
 // Import unified B256 type
 const B256 = @import("utils").B256;
-const EvmLogger = @import("../TestEvmLogger.zig").EvmLogger;
-const createLogger = @import("../TestEvmLogger.zig").createLogger;
-const createScopedLogger = @import("../TestEvmLogger.zig").createScopedLogger;
-const debugOnly = @import("../TestEvmLogger.zig").debugOnly;
+const EvmLogger = evm.TestEvmLogger;
+const createLogger = evm.createLogger;
+const createScopedLogger = evm.createScopedLogger;
+const debugOnly = evm.debugOnly;
 
 // Module-level logger initialization
 var _logger: ?EvmLogger = null;

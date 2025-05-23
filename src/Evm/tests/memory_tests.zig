@@ -1,17 +1,18 @@
 const std = @import("std");
 const testing = std.testing;
-const memory_ops = @import("../opcodes/memory.zig");
+const evm = @import("evm");
+const memory_ops = evm.opcodes.memory;
 
 // Import directly for testing
-const Frame = @import("../Frame.zig").Frame;
-const Contract = @import("../Contract.zig").Contract;
-const Memory = @import("../Memory.zig").Memory;
-const Stack = @import("../Stack.zig").Stack;
-const Address = @import("../../Address/address.zig").Address;
-const Interpreter = @import("../interpreter.zig").Interpreter;
-const Evm = @import("../evm.zig").Evm;
-const ChainRules = @import("../evm.zig").ChainRules;
-const JumpTable = @import("../JumpTable.zig");
+const Frame = evm.Frame;
+const Contract = evm.Contract;
+const Memory = evm.Memory;
+const Stack = evm.Stack;
+const Address = @import("address").Address;
+const Interpreter = evm.Interpreter;
+const Evm = evm.Evm;
+const ChainRules = evm.ChainRules;
+const JumpTable = evm.jumpTable.JumpTable;
 
 /// Creates a mock contract for testing
 fn createMockContract(allocator: std.mem.Allocator) !*Contract {
