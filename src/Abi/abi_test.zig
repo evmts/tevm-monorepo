@@ -21,25 +21,25 @@ test "ABI basic round trip encoding/decoding" {
         .{
             .Function = .{
                 .name = "transfer",
-                .inputs = &[_]abi.Param{
+                .inputs = @as([]const abi.Param, &.{
                     .{
                         .ty = "address",
                         .name = "to",
-                        .components = &[_]abi.Param{},
+                        .components = &.{},
                         .internal_type = null,
                     },
                     .{
                         .ty = "uint256",
                         .name = "amount",
-                        .components = &[_]abi.Param{},
+                        .components = &.{},
                         .internal_type = null,
                     },
-                },
-                .outputs = &[_]abi.Param{
+                }),
+                .outputs = &.{
                     .{
                         .ty = "bool",
                         .name = "success",
-                        .components = &[_]abi.Param{},
+                        .components = &.{},
                         .internal_type = null,
                     },
                 },
@@ -49,26 +49,26 @@ test "ABI basic round trip encoding/decoding" {
         .{
             .Event = .{
                 .name = "Transfer",
-                .inputs = &[_]abi.EventParam{
+                .inputs = &.{
                     .{
                         .ty = "address",
                         .name = "from",
                         .indexed = true,
-                        .components = &[_]abi.Param{},
+                        .components = &.{},
                         .internal_type = null,
                     },
                     .{
                         .ty = "address",
                         .name = "to",
                         .indexed = true,
-                        .components = &[_]abi.Param{},
+                        .components = &.{},
                         .internal_type = null,
                     },
                     .{
                         .ty = "uint256",
                         .name = "value",
                         .indexed = false,
-                        .components = &[_]abi.Param{},
+                        .components = &.{},
                         .internal_type = null,
                     },
                 },
@@ -284,7 +284,8 @@ test "ABI complex types and edge cases" {
     {
         // Function selector for transfer(address,uint256)
         const transfer_sig = "transfer(address,uint256)";
-        const transfer_selector = compute_function_selector.computeFunctionSelector(transfer_sig);
+        var transfer_selector: [4]u8 = undefined;
+        compute_function_selector.computeFunctionSelector(transfer_sig, &transfer_selector);
         
         // Expected: 0xa9059cbb
         const expected_transfer = [_]u8{0xa9, 0x05, 0x9c, 0xbb};
@@ -292,7 +293,8 @@ test "ABI complex types and edge cases" {
         
         // Event topic for Transfer(address,address,uint256)
         const transfer_event_sig = "Transfer(address,address,uint256)";
-        const transfer_topic = compute_function_selector.computeEventTopic(transfer_event_sig);
+        var transfer_topic: [32]u8 = undefined;
+        compute_function_selector.computeEventTopic(transfer_event_sig, &transfer_topic);
         
         // Expected: 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef
         const expected_topic = [_]u8{
@@ -311,25 +313,25 @@ test "ABI complex types and edge cases" {
             .{
                 .Function = .{
                     .name = "transfer",
-                    .inputs = &[_]abi.Param{
+                    .inputs = &.{
                         .{
                             .ty = "address",
                             .name = "to",
-                            .components = &[_]abi.Param{},
+                            .components = &.{},
                             .internal_type = null,
                         },
                         .{
                             .ty = "uint256",
                             .name = "amount",
-                            .components = &[_]abi.Param{},
+                            .components = &.{},
                             .internal_type = null,
                         },
                     },
-                    .outputs = &[_]abi.Param{
+                    .outputs = &.{
                         .{
                             .ty = "bool",
                             .name = "success",
-                            .components = &[_]abi.Param{},
+                            .components = &.{},
                             .internal_type = null,
                         },
                     },
@@ -339,25 +341,25 @@ test "ABI complex types and edge cases" {
             .{
                 .Function = .{
                     .name = "approve",
-                    .inputs = &[_]abi.Param{
+                    .inputs = &.{
                         .{
                             .ty = "address",
                             .name = "spender",
-                            .components = &[_]abi.Param{},
+                            .components = &.{},
                             .internal_type = null,
                         },
                         .{
                             .ty = "uint256",
                             .name = "amount",
-                            .components = &[_]abi.Param{},
+                            .components = &.{},
                             .internal_type = null,
                         },
                     },
-                    .outputs = &[_]abi.Param{
+                    .outputs = &.{
                         .{
                             .ty = "bool",
                             .name = "success",
-                            .components = &[_]abi.Param{},
+                            .components = &.{},
                             .internal_type = null,
                         },
                     },
@@ -367,26 +369,26 @@ test "ABI complex types and edge cases" {
             .{
                 .Event = .{
                     .name = "Transfer",
-                    .inputs = &[_]abi.EventParam{
+                    .inputs = &.{
                         .{
                             .ty = "address",
                             .name = "from",
                             .indexed = true,
-                            .components = &[_]abi.Param{},
+                            .components = &.{},
                             .internal_type = null,
                         },
                         .{
                             .ty = "address",
                             .name = "to",
                             .indexed = true,
-                            .components = &[_]abi.Param{},
+                            .components = &.{},
                             .internal_type = null,
                         },
                         .{
                             .ty = "uint256",
                             .name = "value",
                             .indexed = false,
-                            .components = &[_]abi.Param{},
+                            .components = &.{},
                             .internal_type = null,
                         },
                     },
@@ -500,12 +502,14 @@ test "ABI bytecode and value conversions" {
     {
         // Test boolean conversion
         const bool_bytes = [_]u8{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
-        const bool_value = try decode_abi_parameters.bytesToValue(bool, &bool_bytes);
+        var bool_value: bool = undefined;
+        try decode_abi_parameters.bytesToValueInPlace(bool, &bool_bytes, &bool_value);
         try testing.expect(bool_value);
         
         // Test uint conversion (simplified)
         const uint_bytes = [_]u8{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 42};
-        const uint_value = try decode_abi_parameters.bytesToValue(u8, uint_bytes[31..]);
+        var uint_value: u8 = undefined;
+        try decode_abi_parameters.bytesToValueInPlace(u8, uint_bytes[31..], &uint_value);
         try testing.expectEqual(@as(u8, 42), uint_value);
     }
 }

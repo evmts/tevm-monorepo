@@ -387,6 +387,15 @@ pub fn build(b: *std.Build) void {
 
     // Make the compiler test depend on the Rust build
     compiler_test.step.dependOn(rust_step);
+    
+    // Link the Rust library to the compiler test
+    compiler_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    
+    // Link macOS frameworks if on macOS
+    if (target.result.os.tag == .macos) {
+        compiler_test.linkFramework("CoreFoundation");
+        compiler_test.linkFramework("Security");
+    }
 
     const run_lib_unit_tests = b.addRunArtifact(lib_unit_tests);
 

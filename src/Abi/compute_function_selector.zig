@@ -194,28 +194,28 @@ test "getFunctionSelector from ABI" {
     // Test transfer(address,uint256)
     const transfer_func = abi.Function{
         .name = "transfer",
-        .inputs = &[_]abi.Param{
+        .inputs = @as([]const abi.Param, &.{
             .{
                 .ty = "address",
                 .name = "to",
-                .components = &[_]abi.Param{},
+                .components = &.{},
                 .internal_type = null,
             },
             .{
                 .ty = "uint256",
                 .name = "amount",
-                .components = &[_]abi.Param{},
+                .components = &.{},
                 .internal_type = null,
             },
-        },
-        .outputs = &[_]abi.Param{
+        }),
+        .outputs = @as([]const abi.Param, &.{
             .{
                 .ty = "bool",
                 .name = "success",
-                .components = &[_]abi.Param{},
+                .components = &.{},
                 .internal_type = null,
             },
-        },
+        }),
         .state_mutability = abi.StateMutability.NonPayable,
     };
     

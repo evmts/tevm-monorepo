@@ -106,19 +106,21 @@ fn decodeParam(
         offset.* += 32;
         
         // Read the length
-        if (dynamic_offset + 32 > data.len) {
+        const dynamic_offset_usize = @as(usize, @intCast(dynamic_offset));
+        if (dynamic_offset_usize + 32 > data.len) {
             return DecodeError.DynamicDataOutOfBounds;
         }
         
-        const length = std.mem.bigToNative(u256, @as(*const u256, @ptrCast(&data[dynamic_offset])).*);
+        const length = std.mem.bigToNative(u256, @as(*const u256, @ptrCast(&data[dynamic_offset_usize])).*);
         
         // Check bounds
-        if (dynamic_offset + 32 + length > data.len) {
+        const length_usize = @intCast(usize, length);
+        if (dynamic_offset_usize + 32 + length_usize > data.len) {
             return DecodeError.DynamicDataOutOfBounds;
         }
         
         // Return the actual bytes data
-        out_value.* = data[dynamic_offset + 32 .. dynamic_offset + 32 + length];
+        out_value.* = data[dynamic_offset_usize + 32 .. dynamic_offset_usize + 32 + length_usize];
         return;
     }
 
@@ -153,19 +155,21 @@ fn decodeParam(
         offset.* += 32;
         
         // Read the length
-        if (dynamic_offset + 32 > data.len) {
+        const dynamic_offset_usize = @as(usize, @intCast(dynamic_offset));
+        if (dynamic_offset_usize + 32 > data.len) {
             return DecodeError.DynamicDataOutOfBounds;
         }
         
-        const length = std.mem.bigToNative(u256, @as(*const u256, @ptrCast(&data[dynamic_offset])).*);
+        const length = std.mem.bigToNative(u256, @as(*const u256, @ptrCast(&data[dynamic_offset_usize])).*);
         
         // Check bounds
-        if (dynamic_offset + 32 + length > data.len) {
+        const length_usize = @intCast(usize, length);
+        if (dynamic_offset_usize + 32 + length_usize > data.len) {
             return DecodeError.DynamicDataOutOfBounds;
         }
         
         // Return the actual string data
-        out_value.* = data[dynamic_offset + 32 .. dynamic_offset + 32 + length];
+        out_value.* = data[dynamic_offset_usize + 32 .. dynamic_offset_usize + 32 + length_usize];
         return;
     }
 
@@ -222,7 +226,7 @@ pub fn bytesToValueInPlace(comptime T: type, bytes: []const u8, out: *T) !void {
         
         // Extract the value (always big-endian in ABI)
         var result: T = 0;
-        for (bytes[bytes.len-size..bytes.len], 0..) |b, i| {
+        for (bytes[bytes.len-size..bytes.len]) |b| {
             result = result << 8 | @as(T, @intCast(b));
         }
         out.* = result;
