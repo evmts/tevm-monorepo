@@ -337,6 +337,8 @@ pub fn build(b: *std.Build) void {
 
     // Add dependencies to compiler_test
     compiler_test.root_module.addImport("Compiler", compiler_mod);
+    compiler_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    compiler_test.root_module.addIncludePath(b.path("src/Compilers"));
 
     const run_compiler_test = b.addRunArtifact(compiler_test);
 

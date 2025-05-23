@@ -188,7 +188,7 @@ pub const JsonAbi = struct {
 pub const Items = struct {
     // fields omitted
 
-    pub fn next(self: *Items) ?AbiItem {
+    pub fn next(_: *Items) ?AbiItem {
         unreachable;
     }
 };
@@ -197,7 +197,7 @@ pub const Items = struct {
 pub const IntoItems = struct {
     // fields omitted
 
-    pub fn next(self: *IntoItems) ?AbiItem {
+    pub fn next(_: *IntoItems) ?AbiItem {
         unreachable;
     }
 };
@@ -209,14 +209,14 @@ pub const ContractObject = struct {
     deployed_bytecode:  ?[]u8,
 
     /// Initialize empty
-    pub fn init(allocator: *std.mem.Allocator) !ContractObject {
+    pub fn init(_: *std.mem.Allocator) !ContractObject {
         unreachable;
     }
 
     /// Parse from JSON with optional unlinked bytecode
     pub fn parseJSON(
-        s: []const u8,
-        ignore_unlinked_bytecode: bool,
+        _: []const u8,
+        _: bool,
     ) !ContractObject {
         unreachable;
     }
@@ -231,12 +231,12 @@ pub const ToSolConfig = struct {
 };
 
 /// Compute Keccak-256 hash
-pub fn keccak256(data: []const u8) [32]u8 {
+pub fn keccak256(_: []const u8) [32]u8 {
     unreachable;
 }
 
 /// Compute 4-byte selector
-pub fn computeSelector(preimage: []const u8) [4]u8 {
+pub fn computeSelector(_: []const u8) [4]u8 {
     unreachable;
 }
 

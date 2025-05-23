@@ -102,7 +102,7 @@ fn decodeParam(
             return DecodeError.BufferTooShort;
         }
         
-        const dynamic_offset = std.mem.bigToNative(u256, @as(*const u256, @ptrCast(@alignCast(data[offset.* .. offset.* + 32].ptr))).*));
+        const dynamic_offset = std.mem.bigToNative(u256, @as(*const u256, @ptrCast(@alignCast(data[offset.* .. offset.* + 32].ptr))).*);
         offset.* += 32;
         
         // Read the length
@@ -110,7 +110,7 @@ fn decodeParam(
             return DecodeError.DynamicDataOutOfBounds;
         }
         
-        const length = std.mem.bigToNative(u256, @ptrCast(*const u256, data[dynamic_offset .. dynamic_offset + 32].*));
+        const length = std.mem.bigToNative(u256, @as(*const u256, @ptrCast(&data[dynamic_offset])).*);
         
         // Check bounds
         if (dynamic_offset + 32 + length > data.len) {
@@ -149,7 +149,7 @@ fn decodeParam(
             return DecodeError.BufferTooShort;
         }
         
-        const dynamic_offset = std.mem.bigToNative(u256, @as(*const u256, @ptrCast(@alignCast(data[offset.* .. offset.* + 32].ptr))).*));
+        const dynamic_offset = std.mem.bigToNative(u256, @as(*const u256, @ptrCast(@alignCast(data[offset.* .. offset.* + 32].ptr))).*);
         offset.* += 32;
         
         // Read the length
@@ -157,7 +157,7 @@ fn decodeParam(
             return DecodeError.DynamicDataOutOfBounds;
         }
         
-        const length = std.mem.bigToNative(u256, @ptrCast(*const u256, data[dynamic_offset .. dynamic_offset + 32].*));
+        const length = std.mem.bigToNative(u256, @as(*const u256, @ptrCast(&data[dynamic_offset])).*);
         
         // Check bounds
         if (dynamic_offset + 32 + length > data.len) {

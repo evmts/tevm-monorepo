@@ -62,7 +62,7 @@ pub fn encode(allocator: Allocator, input: anytype) ![]u8 {
     }
     
     // Handle lists
-    if (info == .array or info == .Slice) {
+    if (info == .array or info == .pointer) {
         var result = std.ArrayList(u8).init(allocator);
         defer result.deinit();
         

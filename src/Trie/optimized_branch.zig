@@ -277,7 +277,7 @@ test "CompactBranchNode - basic operations" {
     try testing.expect(branch.getOnlyChildIndex() == null);
     
     // Convert to regular branch
-    const regular_branch = try branch.toBranchNode(allocator);
+    var regular_branch = try branch.toBranchNode(allocator);
     defer regular_branch.deinit(allocator);
     
     try testing.expect(regular_branch.children_mask.isSet(3));
