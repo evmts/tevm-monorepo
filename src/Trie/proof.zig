@@ -429,9 +429,6 @@ test "ProofNodes - add and verify" {
     
     try testing.expectEqual(@as(usize, 1), nodes.len);
     try testing.expectEqualSlices(u8, encoded, nodes[0]);
-    
-    // Clean up the node
-    node.deinit(allocator);
 }
 
 test "ProofRetainer - collect nodes" {

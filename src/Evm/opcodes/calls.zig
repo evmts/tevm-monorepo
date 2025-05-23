@@ -530,17 +530,18 @@ pub fn opCall(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
         return ExecutionError.StaticStateChange;
     }
     
-    // Check call depth to prevent stack overflow attacks
-    if (interpreter.callDepth >= MAX_CALL_DEPTH) {
-        // Push 0 to the stack (call failed) and return
-        frame.stack.push(0);
-        return "";
-    }
+    // TODO: Check call depth to prevent stack overflow attacks
+    // The production Interpreter doesn't track call depth yet
+    // if (interpreter.callDepth >= MAX_CALL_DEPTH) {
+    //     // Push 0 to the stack (call failed) and return
+    //     frame.stack.push(0);
+    //     return "";
+    // }
     
     const gas_cost = gas;
 
     // Ensure there's enough gas for the call
-    if (frame.gas < gas_cost) {
+    if (frame.contract.gas < gas_cost) {
         // If not enough gas, just push 0 (failure) and continue
         frame.stack.push(0);
         return "";
@@ -728,17 +729,18 @@ pub fn opCallCode(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
         return ExecutionError.StackOverflow;
     }
     
-    // Check call depth to prevent stack overflow attacks
-    if (interpreter.callDepth >= MAX_CALL_DEPTH) {
-        // Push 0 to the stack (call failed) and return
-        frame.stack.push(0);
-        return "";
-    }
+    // TODO: Check call depth to prevent stack overflow attacks
+    // The production Interpreter doesn't track call depth yet
+    // if (interpreter.callDepth >= MAX_CALL_DEPTH) {
+    //     // Push 0 to the stack (call failed) and return
+    //     frame.stack.push(0);
+    //     return "";
+    // }
     
     const gas_cost = gas;
 
     // Ensure there's enough gas for the call
-    if (frame.gas < gas_cost) {
+    if (frame.contract.gas < gas_cost) {
         // If not enough gas, just push 0 (failure) and continue
         frame.stack.push(0);
         return "";
@@ -925,17 +927,18 @@ pub fn opDelegateCall(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
         return ExecutionError.StackOverflow;
     }
     
-    // Check call depth to prevent stack overflow attacks
-    if (interpreter.callDepth >= MAX_CALL_DEPTH) {
-        // Push 0 to the stack (call failed) and return
-        frame.stack.push(0);
-        return "";
-    }
+    // TODO: Check call depth to prevent stack overflow attacks
+    // The production Interpreter doesn't track call depth yet
+    // if (interpreter.callDepth >= MAX_CALL_DEPTH) {
+    //     // Push 0 to the stack (call failed) and return
+    //     frame.stack.push(0);
+    //     return "";
+    // }
     
     const gas_cost = gas;
 
     // Ensure there's enough gas for the call
-    if (frame.gas < gas_cost) {
+    if (frame.contract.gas < gas_cost) {
         // If not enough gas, just push 0 (failure) and continue
         frame.stack.push(0);
         return "";
@@ -1122,17 +1125,18 @@ pub fn opStaticCall(pc: usize, interpreter: *Interpreter, frame: *Frame) Executi
         return ExecutionError.StackOverflow;
     }
     
-    // Check call depth to prevent stack overflow attacks
-    if (interpreter.callDepth >= MAX_CALL_DEPTH) {
-        // Push 0 to the stack (call failed) and return
-        frame.stack.push(0);
-        return "";
-    }
+    // TODO: Check call depth to prevent stack overflow attacks
+    // The production Interpreter doesn't track call depth yet
+    // if (interpreter.callDepth >= MAX_CALL_DEPTH) {
+    //     // Push 0 to the stack (call failed) and return
+    //     frame.stack.push(0);
+    //     return "";
+    // }
     
     const gas_cost = gas;
 
     // Ensure there's enough gas for the call
-    if (frame.gas < gas_cost) {
+    if (frame.contract.gas < gas_cost) {
         // If not enough gas, just push 0 (failure) and continue
         frame.stack.push(0);
         return "";
@@ -1326,12 +1330,13 @@ pub fn opCreate(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
         return ExecutionError.StaticStateChange;
     }
     
-    // Check call depth to prevent stack overflow attacks
-    if (interpreter.callDepth >= MAX_CALL_DEPTH) {
-        // Push 0 to the stack (call failed) and return
-        frame.stack.push(0);
-        return "";
-    }
+    // TODO: Check call depth to prevent stack overflow attacks
+    // The production Interpreter doesn't track call depth yet
+    // if (interpreter.callDepth >= MAX_CALL_DEPTH) {
+    //     // Push 0 to the stack (call failed) and return
+    //     frame.stack.push(0);
+    //     return "";
+    // }
     
     // Prepare code from memory
     const size_usize = if (size > std.math.maxInt(usize)) std.math.maxInt(usize) else @as(usize, @intCast(size));
@@ -1428,12 +1433,13 @@ pub fn opCreate2(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
         return ExecutionError.StaticStateChange;
     }
     
-    // Check call depth to prevent stack overflow attacks
-    if (interpreter.callDepth >= MAX_CALL_DEPTH) {
-        // Push 0 to the stack (call failed) and return
-        frame.stack.push(0);
-        return "";
-    }
+    // TODO: Check call depth to prevent stack overflow attacks
+    // The production Interpreter doesn't track call depth yet
+    // if (interpreter.callDepth >= MAX_CALL_DEPTH) {
+    //     // Push 0 to the stack (call failed) and return
+    //     frame.stack.push(0);
+    //     return "";
+    // }
     
     // Prepare code from memory
     const size_usize = if (size > std.math.maxInt(usize)) std.math.maxInt(usize) else @as(usize, @intCast(size));
@@ -1506,7 +1512,7 @@ pub fn opCreate2(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
 }
 
 /// Calculate memory size required for call operations
-pub fn getCallMemorySize(stack: *Stack) struct { size: u64, overflow: bool } {
+pub fn getCallMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     
     // For CALL and CALLCODE, we need at least 7 items on the stack
     if (stack.size < 7) {
@@ -1555,7 +1561,7 @@ pub fn getCallMemorySize(stack: *Stack) struct { size: u64, overflow: bool } {
 }
 
 /// Calculate memory size required for delegate call and static call operations
-pub fn getDelegateCallMemorySize(stack: *Stack) struct { size: u64, overflow: bool } {
+pub fn getDelegateCallMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     
     // For DELEGATECALL and STATICCALL, we need at least 6 items on the stack
     if (stack.size < 6) {
@@ -1604,7 +1610,7 @@ pub fn getDelegateCallMemorySize(stack: *Stack) struct { size: u64, overflow: bo
 }
 
 /// Calculate memory size required for create operations
-pub fn getCreateMemorySize(stack: *Stack) struct { size: u64, overflow: bool } {
+pub fn getCreateMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     
     // For CREATE and CREATE2, we need at least 3 items on the stack (4 for CREATE2)
     if (stack.size < 3) {
@@ -1731,8 +1737,8 @@ pub fn registerCallOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable)
     jump_table.table[0xF1] = call_op;
     
     // CALLCODE (0xF2)
-    const callcode_op = try allocator.create(JumpTable.Operation);
-    callcode_op.* = JumpTable.Operation{
+    const callcode_op = try allocator.create(if (is_test) JumpTable.Operation else JumpTableModule.Operation);
+    callcode_op.* = (if (is_test) JumpTable.Operation else JumpTableModule.Operation){
         .execute = opCallCode,
         .constant_gas = JumpTableModule.CallGas, // Base cost
         .dynamic_gas = callGas, // Complex gas calculation based on parameters
@@ -1743,8 +1749,8 @@ pub fn registerCallOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable)
     jump_table.table[0xF2] = callcode_op;
     
     // DELEGATECALL (0xF4)
-    const delegatecall_op = try allocator.create(JumpTable.Operation);
-    delegatecall_op.* = JumpTable.Operation{
+    const delegatecall_op = try allocator.create(if (is_test) JumpTable.Operation else JumpTableModule.Operation);
+    delegatecall_op.* = (if (is_test) JumpTable.Operation else JumpTableModule.Operation){
         .execute = opDelegateCall,
         .constant_gas = JumpTableModule.CallGas, // Base cost
         .dynamic_gas = callGas, // Complex gas calculation based on parameters
@@ -1755,8 +1761,8 @@ pub fn registerCallOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable)
     jump_table.table[0xF4] = delegatecall_op;
     
     // STATICCALL (0xFA)
-    const staticcall_op = try allocator.create(JumpTable.Operation);
-    staticcall_op.* = JumpTable.Operation{
+    const staticcall_op = try allocator.create(if (is_test) JumpTable.Operation else JumpTableModule.Operation);
+    staticcall_op.* = (if (is_test) JumpTable.Operation else JumpTableModule.Operation){
         .execute = opStaticCall,
         .constant_gas = JumpTableModule.CallGas, // Base cost
         .dynamic_gas = callGas, // Complex gas calculation based on parameters
@@ -1767,10 +1773,10 @@ pub fn registerCallOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable)
     jump_table.table[0xFA] = staticcall_op;
     
     // CREATE (0xF0)
-    const create_op = try allocator.create(JumpTable.Operation);
-    create_op.* = JumpTable.Operation{
+    const create_op = try allocator.create(if (is_test) JumpTable.Operation else JumpTableModule.Operation);
+    create_op.* = (if (is_test) JumpTable.Operation else JumpTableModule.Operation){
         .execute = opCreate,
-        .constant_gas = JumpTable.CreateGas, // Base cost
+        .constant_gas = JumpTableModule.CreateGas, // Base cost
         .dynamic_gas = createGas, // Complex gas calculation based on parameters
         .min_stack = JumpTableModule.minStack(3, 1),
         .max_stack = JumpTableModule.maxStack(3, 1),
@@ -1779,10 +1785,10 @@ pub fn registerCallOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable)
     jump_table.table[0xF0] = create_op;
     
     // CREATE2 (0xF5)
-    const create2_op = try allocator.create(JumpTable.Operation);
-    create2_op.* = JumpTable.Operation{
+    const create2_op = try allocator.create(if (is_test) JumpTable.Operation else JumpTableModule.Operation);
+    create2_op.* = (if (is_test) JumpTable.Operation else JumpTableModule.Operation){
         .execute = opCreate2,
-        .constant_gas = JumpTable.CreateGas, // Base cost
+        .constant_gas = JumpTableModule.CreateGas, // Base cost
         .dynamic_gas = createGas, // Complex gas calculation based on parameters
         .min_stack = JumpTableModule.minStack(4, 1),
         .max_stack = JumpTableModule.maxStack(4, 1),

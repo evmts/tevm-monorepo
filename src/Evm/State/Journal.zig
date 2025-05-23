@@ -1,6 +1,6 @@
 const std = @import("std");
 const testing = std.testing;
-const Address = @import("Address").Address;
+const Address = @import("address").Address;
 
 // Since our Address module doesn't have a fromString function, we'll define one here for testing
 fn addressFromHexString(hex: []const u8) !Address {

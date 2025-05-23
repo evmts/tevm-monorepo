@@ -2,12 +2,14 @@ const std = @import("std");
 const testing = std.testing;
 
 // Use package-based imports for consistency
-const EvmModule = @import("Evm");
+const EvmModule = @import("../package.zig");
 const Interpreter = EvmModule.Interpreter;
 const ExecutionError = EvmModule.InterpreterError;
 const Evm = EvmModule.Evm;
 const Frame = EvmModule.Frame;
 const JumpTable = EvmModule.JumpTable;
+const Memory = EvmModule.Memory;
+const Stack = EvmModule.Stack;
 const calls = EvmModule.opcodes.calls;
 
 // Test setup helper function
@@ -18,7 +20,7 @@ fn setupInterpreter(enable_eip3860: bool) !Interpreter {
     });
     
     // Create an interpreter with our custom EVM
-    var test_interpreter = try Interpreter.init(std.testing.allocator, &custom_evm);
+    const test_interpreter = try Interpreter.init(std.testing.allocator, &custom_evm);
     return test_interpreter;
 }
 
