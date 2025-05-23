@@ -521,7 +521,7 @@ pub fn opCall(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     const gas = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Validate stack space for the return value
-    if (frame.stack.size >= frame.stack.capacity) {
+    if (frame.stack.size >= Stack.capacity) {
         return ExecutionError.StackOverflow;
     }
     
@@ -724,7 +724,7 @@ pub fn opCallCode(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
     const gas = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Validate stack space for the return value
-    if (frame.stack.size >= frame.stack.capacity) {
+    if (frame.stack.size >= Stack.capacity) {
         return ExecutionError.StackOverflow;
     }
     
@@ -921,7 +921,7 @@ pub fn opDelegateCall(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
     const gas = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Validate stack space for the return value
-    if (frame.stack.size >= frame.stack.capacity) {
+    if (frame.stack.size >= Stack.capacity) {
         return ExecutionError.StackOverflow;
     }
     
@@ -1118,7 +1118,7 @@ pub fn opStaticCall(pc: usize, interpreter: *Interpreter, frame: *Frame) Executi
     const gas = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Validate stack space for the return value
-    if (frame.stack.size >= frame.stack.capacity) {
+    if (frame.stack.size >= Stack.capacity) {
         return ExecutionError.StackOverflow;
     }
     
@@ -1317,7 +1317,7 @@ pub fn opCreate(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     const value = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Validate stack space for the return value (new contract address)
-    if (frame.stack.size >= frame.stack.capacity) {
+    if (frame.stack.size >= Stack.capacity) {
         return ExecutionError.StackOverflow;
     }
     
@@ -1419,7 +1419,7 @@ pub fn opCreate2(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
     const value = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Validate stack space for the return value (new contract address)
-    if (frame.stack.size >= frame.stack.capacity) {
+    if (frame.stack.size >= Stack.capacity) {
         return ExecutionError.StackOverflow;
     }
     
@@ -1506,8 +1506,7 @@ pub fn opCreate2(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
 }
 
 /// Calculate memory size required for call operations
-pub fn getCallMemorySize(stack: *const Stack, memory: *const Memory) struct { size: usize, overflow: bool } {
-    _ = memory;
+pub fn getCallMemorySize(stack: *Stack) struct { size: u64, overflow: bool } {
     
     // For CALL and CALLCODE, we need at least 7 items on the stack
     if (stack.size < 7) {
@@ -1523,7 +1522,7 @@ pub fn getCallMemorySize(stack: *const Stack, memory: *const Memory) struct { si
     const out_size = stack.data[stack.size - 1];
     
     // Calculate memory needed for input
-    var mem_size: usize = 0;
+    var mem_size: u64 = 0;
     
     if (in_size > 0) {
         const in_offset_usize = if (in_offset > std.math.maxInt(usize)) std.math.maxInt(usize) else @as(usize, @intCast(in_offset));
@@ -1556,8 +1555,7 @@ pub fn getCallMemorySize(stack: *const Stack, memory: *const Memory) struct { si
 }
 
 /// Calculate memory size required for delegate call and static call operations
-pub fn getDelegateCallMemorySize(stack: *const Stack, memory: *const Memory) struct { size: usize, overflow: bool } {
-    _ = memory;
+pub fn getDelegateCallMemorySize(stack: *Stack) struct { size: u64, overflow: bool } {
     
     // For DELEGATECALL and STATICCALL, we need at least 6 items on the stack
     if (stack.size < 6) {
@@ -1573,7 +1571,7 @@ pub fn getDelegateCallMemorySize(stack: *const Stack, memory: *const Memory) str
     const out_size = stack.data[stack.size - 1];
     
     // Calculate memory needed for input
-    var mem_size: usize = 0;
+    var mem_size: u64 = 0;
     
     if (in_size > 0) {
         const in_offset_usize = if (in_offset > std.math.maxInt(usize)) std.math.maxInt(usize) else @as(usize, @intCast(in_offset));
@@ -1606,8 +1604,7 @@ pub fn getDelegateCallMemorySize(stack: *const Stack, memory: *const Memory) str
 }
 
 /// Calculate memory size required for create operations
-pub fn getCreateMemorySize(stack: *const Stack, memory: *const Memory) struct { size: usize, overflow: bool } {
-    _ = memory;
+pub fn getCreateMemorySize(stack: *Stack) struct { size: u64, overflow: bool } {
     
     // For CREATE and CREATE2, we need at least 3 items on the stack (4 for CREATE2)
     if (stack.size < 3) {
@@ -1655,7 +1652,7 @@ pub fn callGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: 
     // For now, return a fixed gas cost
     // In a real implementation, this would calculate the dynamic gas cost
     // based on the call parameters, value transfer, memory expansion, etc.
-    return jumpTableModule.CallGas;
+    return JumpTableModule.CallGas;
 }
 
 /// Calculate gas cost for create operations
@@ -1722,13 +1719,13 @@ pub fn registerCallOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable)
         if (jump_table.table[0xF5]) |op| allocator.destroy(op);
     }
     // CALL (0xF1)
-    const call_op = try allocator.create(if (is_test) JumpTable.Operation else jumpTableModule.Operation);
-    call_op.* = (if (is_test) JumpTable.Operation else jumpTableModule.Operation){
+    const call_op = try allocator.create(if (is_test) JumpTable.Operation else JumpTableModule.Operation);
+    call_op.* = (if (is_test) JumpTable.Operation else JumpTableModule.Operation){
         .execute = opCall,
-        .constant_gas = jumpTableModule.CallGas, // Base cost
+        .constant_gas = JumpTableModule.CallGas, // Base cost
         .dynamic_gas = callGas, // Complex gas calculation based on parameters
-        .min_stack = jumpTableModule.minStack(7, 1),
-        .max_stack = jumpTableModule.maxStack(7, 1),
+        .min_stack = JumpTableModule.minStack(7, 1),
+        .max_stack = JumpTableModule.maxStack(7, 1),
         .memory_size = getCallMemorySize,
     };
     jump_table.table[0xF1] = call_op;
@@ -1737,10 +1734,10 @@ pub fn registerCallOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable)
     const callcode_op = try allocator.create(JumpTable.Operation);
     callcode_op.* = JumpTable.Operation{
         .execute = opCallCode,
-        .constant_gas = jumpTableModule.CallGas, // Base cost
+        .constant_gas = JumpTableModule.CallGas, // Base cost
         .dynamic_gas = callGas, // Complex gas calculation based on parameters
-        .min_stack = jumpTableModule.minStack(7, 1),
-        .max_stack = jumpTableModule.maxStack(7, 1),
+        .min_stack = JumpTableModule.minStack(7, 1),
+        .max_stack = JumpTableModule.maxStack(7, 1),
         .memory_size = getCallMemorySize,
     };
     jump_table.table[0xF2] = callcode_op;
@@ -1749,10 +1746,10 @@ pub fn registerCallOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable)
     const delegatecall_op = try allocator.create(JumpTable.Operation);
     delegatecall_op.* = JumpTable.Operation{
         .execute = opDelegateCall,
-        .constant_gas = jumpTableModule.CallGas, // Base cost
+        .constant_gas = JumpTableModule.CallGas, // Base cost
         .dynamic_gas = callGas, // Complex gas calculation based on parameters
-        .min_stack = jumpTableModule.minStack(6, 1),
-        .max_stack = jumpTableModule.maxStack(6, 1),
+        .min_stack = JumpTableModule.minStack(6, 1),
+        .max_stack = JumpTableModule.maxStack(6, 1),
         .memory_size = getDelegateCallMemorySize,
     };
     jump_table.table[0xF4] = delegatecall_op;
@@ -1761,10 +1758,10 @@ pub fn registerCallOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable)
     const staticcall_op = try allocator.create(JumpTable.Operation);
     staticcall_op.* = JumpTable.Operation{
         .execute = opStaticCall,
-        .constant_gas = jumpTableModule.CallGas, // Base cost
+        .constant_gas = JumpTableModule.CallGas, // Base cost
         .dynamic_gas = callGas, // Complex gas calculation based on parameters
-        .min_stack = jumpTableModule.minStack(6, 1),
-        .max_stack = jumpTableModule.maxStack(6, 1),
+        .min_stack = JumpTableModule.minStack(6, 1),
+        .max_stack = JumpTableModule.maxStack(6, 1),
         .memory_size = getDelegateCallMemorySize,
     };
     jump_table.table[0xFA] = staticcall_op;
@@ -1775,8 +1772,8 @@ pub fn registerCallOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable)
         .execute = opCreate,
         .constant_gas = JumpTable.CreateGas, // Base cost
         .dynamic_gas = createGas, // Complex gas calculation based on parameters
-        .min_stack = jumpTableModule.minStack(3, 1),
-        .max_stack = jumpTableModule.maxStack(3, 1),
+        .min_stack = JumpTableModule.minStack(3, 1),
+        .max_stack = JumpTableModule.maxStack(3, 1),
         .memory_size = getCreateMemorySize,
     };
     jump_table.table[0xF0] = create_op;
@@ -1787,8 +1784,8 @@ pub fn registerCallOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable)
         .execute = opCreate2,
         .constant_gas = JumpTable.CreateGas, // Base cost
         .dynamic_gas = createGas, // Complex gas calculation based on parameters
-        .min_stack = jumpTableModule.minStack(4, 1),
-        .max_stack = jumpTableModule.maxStack(4, 1),
+        .min_stack = JumpTableModule.minStack(4, 1),
+        .max_stack = JumpTableModule.maxStack(4, 1),
         .memory_size = getCreateMemorySize,
     };
     jump_table.table[0xF5] = create2_op;
