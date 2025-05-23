@@ -24,10 +24,9 @@ fn mapStackError(err: StackError) ExecutionError {
 /// but a normal termination. We return an empty string to indicate success
 /// and the interpreter should check for this and halt execution.
 pub fn opStop(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
-    // Set a flag on the frame to indicate we should stop
-    // The interpreter will check this flag and halt execution
-    frame.stop = true;
-    return "";
+    _ = frame;
+    // Return STOP error to halt execution
+    return ExecutionError.STOP;
 }
 
 /// JUMP (0x56) - Jump to a destination position in code

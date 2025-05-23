@@ -36,8 +36,9 @@ fn pushN(pc: usize, interpreter: *Interpreter, frame: *Frame, n: u8) ExecutionEr
     // Push the value onto the stack
     frame.stack.push(value) catch |err| return mapStackError(err);
     
-    // Update the program counter (skip the opcode + n bytes)
-    frame.pc = pc + 1 + n;
+    // Update the program counter to skip n bytes of data
+    // The interpreter will add 1 after this operation, so we set pc to current + n
+    frame.pc = pc + n;
     
     return "";
 }

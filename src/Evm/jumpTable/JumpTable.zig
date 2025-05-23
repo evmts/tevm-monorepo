@@ -314,7 +314,9 @@ pub fn minStack(min_pop: u32, min_push: u32) u32 {
 /// Returns: Maximum stack items allowed for the operation
 pub fn maxStack(max_pop: u32, max_push: u32) u32 {
     _ = max_pop; // autofix
-    return max_push;
+    _ = max_push; // autofix
+    // EVM allows up to 1024 items on the stack
+    return 1024;
 }
 
 /// Calculate minimum stack requirement for DUP operations
