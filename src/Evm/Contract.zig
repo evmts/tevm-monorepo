@@ -1,7 +1,7 @@
 const std = @import("std");
 const bitvec = @import("bitvec.zig");
 const opcodes = @import("opcodes.zig");
-const address = @import("test_stubs.zig").address;
+const Address = @import("../Address/package.zig").Address;
 const EvmLogger = @import("TestEvmLogger.zig").EvmLogger;
 const createLogger = @import("TestEvmLogger.zig").createLogger;
 
@@ -19,10 +19,10 @@ fn getLogger() EvmLogger {
 /// It contains the contract's code, address, and execution context
 /// including gas management, caller information, and execution state
 pub const Contract = struct {
-    address: address.Address,
+    address: Address,
     /// Locally cached result of JUMPDEST analysis for this specific contract
     analysis: ?bitvec.BitVec,
-    caller: address.Address,
+    caller: Address,
     code: []const u8,
     code_hash: [32]u8,
     gas: u64,
@@ -53,7 +53,7 @@ pub const Contract = struct {
     /// - jumpdests: Optional cache of previously analyzed JUMPDEST locations for contracts
     ///
     /// Returns: A new Contract instance with empty code
-    pub fn init(caller: address.Address, contract_address: address.Address, value: u256, gas: u64, jumpdests: ?std.StringHashMap(bitvec.BitVec)) Contract {
+    pub fn init(caller: Address, contract_address: Address, value: u256, gas: u64, jumpdests: ?std.StringHashMap(bitvec.BitVec)) Contract {
         getLogger().debug("Initializing contract at address {any}", .{contract_address});
         getLogger().debug("  - Caller: {any}", .{caller});
         getLogger().debug("  - Value: {d}", .{value});
@@ -153,7 +153,7 @@ pub const Contract = struct {
     /// Gets the address that initiated the contract call
     ///
     /// Returns: Address of the caller
-    pub fn getCaller(self: *const Contract) address.Address {
+    pub fn getCaller(self: *const Contract) Address {
         return self.caller;
     }
 
@@ -223,7 +223,7 @@ pub const Contract = struct {
     /// Gets the address of the contract
     ///
     /// Returns: Address of the contract
-    pub fn getAddress(self: *const Contract) address.Address {
+    pub fn getAddress(self: *const Contract) Address {
         return self.address;
     }
 
@@ -394,7 +394,7 @@ pub const Contract = struct {
 /// - gas: The gas limit for this contract execution
 ///
 /// Returns: A new Contract instance
-pub fn createContract(caller: address.Address, contract_address: address.Address, value: u256, gas: u64) Contract {
+pub fn createContract(caller: Address, contract_address: Address, value: u256, gas: u64) Contract {
     getLogger().debug("Creating new contract", .{});
     const jumpdests = std.StringHashMap(bitvec.BitVec).init(std.heap.page_allocator);
     return Contract.init(caller, contract_address, value, gas, jumpdests);
@@ -413,7 +413,7 @@ pub fn createContract(caller: address.Address, contract_address: address.Address
 /// - parent: The parent contract that called this contract
 ///
 /// Returns: A new Contract instance with shared JUMPDEST cache
-pub fn createContractWithParent(caller: address.Address, contract_address: address.Address, value: u256, gas: u64, parent: *const Contract) Contract {
+pub fn createContractWithParent(caller: Address, contract_address: Address, value: u256, gas: u64, parent: *const Contract) Contract {
     getLogger().debug("Creating contract with parent jumpdests table", .{});
     return Contract.init(caller, contract_address, value, gas, parent.jumpdests);
 }

@@ -4,9 +4,8 @@ const Stack = @import("Stack.zig").Stack;
 // u256 is a built-in type in Zig, no need to import
 // Import Contract
 const Contract = @import("Contract.zig").Contract;
-// Import Address - use same source as Contract
-const address = @import("test_stubs.zig").address;
-const Address = address.Address;
+// Import Address
+const Address = @import("../Address/package.zig").Address;
 const EvmLogger = @import("TestEvmLogger.zig").EvmLogger;
 const createLogger = @import("TestEvmLogger.zig").createLogger;
 const logMemory = @import("EvmLogger.zig").logMemory;
@@ -15,14 +14,8 @@ const logStackSlop = @import("EvmLogger.zig").logStackSlop;
 const logStep = @import("EvmLogger.zig").logStep;
 const logHexBytes = @import("TestEvmLogger.zig").logHexBytes;
 const createScopedLogger = @import("TestEvmLogger.zig").createScopedLogger;
-// Import hex - stub for tests
-const hex = if (@import("builtin").is_test) struct {
-    pub fn bytesToHex(bytes: []const u8, buffer: []u8) ![]const u8 {
-        _ = bytes;
-        _ = buffer;
-        return "0x1234"; // dummy hex string
-    }
-} else @import("utils").hex;
+// Import hex
+const hex = @import("../Utils/package.zig").hex;
 
 // We'll initialize the logger inside a function
 var _logger: ?EvmLogger = null;

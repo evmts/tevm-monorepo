@@ -1,7 +1,6 @@
 const std = @import("std");
-// Use internal imports to avoid circular dependencies
-const test_stubs = @import("test_stubs.zig");
-const StateManager = if (@import("builtin").is_test) test_stubs.StateManager else @import("state_manager").StateManager;
+// Import StateManager
+const StateManager = @import("../StateManager/package.zig").StateManager;
 const test_logger = @import("TestEvmLogger.zig");
 const EvmLogger = test_logger.EvmLogger;
 const createLogger = test_logger.createLogger;
@@ -893,7 +892,7 @@ test "Evm.setReadOnly toggles read-only mode" {
 
 test "Evm.setStateManager assigns state manager" {
     var evm = try Evm.init(null);
-    var stateManager = test_stubs.StateManager{};
+    var stateManager = StateManager{};
     
     try testing.expectEqual(@as(?*StateManager, null), evm.state_manager);
     
