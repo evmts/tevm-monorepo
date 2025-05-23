@@ -271,8 +271,8 @@ test "ADD operation" {
     const allocator = testing.allocator;
     
     // Create stack
-    var stack = try Stack.init(allocator);
-    defer stack.deinit();
+    var stack = Stack{};
+    // Stack no longer needs deinit
     
     // Create frame
     var frame = Frame{
@@ -311,8 +311,8 @@ test "SUB operation" {
     const allocator = testing.allocator;
     
     // Create stack
-    var stack = try Stack.init(allocator);
-    defer stack.deinit();
+    var stack = Stack{};
+    // Stack no longer needs deinit
     
     // Create frame
     var frame = Frame{
@@ -350,8 +350,8 @@ test "MUL operation" {
     const allocator = testing.allocator;
     
     // Create stack
-    var stack = try Stack.init(allocator);
-    defer stack.deinit();
+    var stack = Stack{};
+    // Stack no longer needs deinit
     
     // Create frame
     var frame = Frame{
@@ -389,8 +389,8 @@ test "DIV operation" {
     const allocator = testing.allocator;
     
     // Create stack
-    var stack = try Stack.init(allocator);
-    defer stack.deinit();
+    var stack = Stack{};
+    // Stack no longer needs deinit
     
     // Create frame
     var frame = Frame{

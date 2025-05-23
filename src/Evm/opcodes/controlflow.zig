@@ -442,7 +442,7 @@ test "JUMP opcode" {
     
     // Create a simple contract with JUMPDEST at position 3
     const code = [_]u8{ 0x60, 0x03, 0x56, 0x5B, 0x00 }; // PUSH1 0x03, JUMP, JUMPDEST, STOP
-    var contract = try allocator.create(Frame.Contract);
+    const contract = try allocator.create(Frame.Contract);
     defer allocator.destroy(contract);
     
     contract.* = .{
@@ -481,7 +481,7 @@ test "JUMPI opcode - condition true" {
     
     // Create a simple contract with JUMPDEST at position 5
     const code = [_]u8{ 0x60, 0x05, 0x60, 0x01, 0x57, 0x5B, 0x00 }; // PUSH1 0x05, PUSH1 0x01, JUMPI, JUMPDEST, STOP
-    var contract = try allocator.create(Frame.Contract);
+    const contract = try allocator.create(Frame.Contract);
     defer allocator.destroy(contract);
     
     contract.* = .{
@@ -521,7 +521,7 @@ test "JUMPI opcode - condition false" {
     
     // Create a simple contract with JUMPDEST at position 5
     const code = [_]u8{ 0x60, 0x04, 0x60, 0x00, 0x57, 0x5B, 0x00 }; // PUSH1 0x04, PUSH1 0x00, JUMPI, JUMPDEST, STOP
-    var contract = try allocator.create(Frame.Contract);
+    const contract = try allocator.create(Frame.Contract);
     defer allocator.destroy(contract);
     
     contract.* = .{
@@ -561,7 +561,7 @@ test "PC opcode" {
     
     // Create a simple contract
     const code = [_]u8{ 0x58, 0x00 }; // PC, STOP
-    var contract = try allocator.create(Frame.Contract);
+    const contract = try allocator.create(Frame.Contract);
     defer allocator.destroy(contract);
     
     contract.* = .{
@@ -600,7 +600,7 @@ test "JUMPDEST opcode" {
     
     // Create a simple contract
     const code = [_]u8{ 0x5B, 0x00 }; // JUMPDEST, STOP
-    var contract = try allocator.create(Frame.Contract);
+    const contract = try allocator.create(Frame.Contract);
     defer allocator.destroy(contract);
     
     contract.* = .{
@@ -637,7 +637,7 @@ test "STOP opcode" {
     
     // Create a simple contract
     const code = [_]u8{ 0x00 }; // STOP
-    var contract = try allocator.create(Frame.Contract);
+    const contract = try allocator.create(Frame.Contract);
     defer allocator.destroy(contract);
     
     contract.* = .{
@@ -670,7 +670,7 @@ test "RETURN opcode" {
     
     // Create a simple contract
     const code = [_]u8{ 0xF3 }; // RETURN
-    var contract = try allocator.create(Frame.Contract);
+    const contract = try allocator.create(Frame.Contract);
     defer allocator.destroy(contract);
     
     contract.* = .{
@@ -718,7 +718,7 @@ test "REVERT opcode" {
     
     // Create a simple contract
     const code = [_]u8{ 0xFD }; // REVERT
-    var contract = try allocator.create(Frame.Contract);
+    const contract = try allocator.create(Frame.Contract);
     defer allocator.destroy(contract);
     
     contract.* = .{
@@ -760,7 +760,7 @@ test "INVALID opcode" {
     
     // Create a simple contract
     const code = [_]u8{ 0xFE }; // INVALID
-    var contract = try allocator.create(Frame.Contract);
+    const contract = try allocator.create(Frame.Contract);
     defer allocator.destroy(contract);
     
     contract.* = .{
@@ -793,7 +793,7 @@ test "SELFDESTRUCT opcode" {
     
     // Create a simple contract
     const code = [_]u8{ 0xFF }; // SELFDESTRUCT
-    var contract = try allocator.create(Frame.Contract);
+    const contract = try allocator.create(Frame.Contract);
     defer allocator.destroy(contract);
     
     contract.* = .{

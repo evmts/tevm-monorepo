@@ -81,7 +81,7 @@ fn runContractFunction(allocator: std.mem.Allocator, bytecode: []const u8, selec
     // Create frame
     var frame = Frame{
         .contract = contract,
-        .stack = try Stack.init(allocator),
+        .stack = Stack{},
         .memory = try Memory.init(allocator),
         .returndata = &[_]u8{},
         .gas_remaining = contract.gas,
@@ -90,7 +90,7 @@ fn runContractFunction(allocator: std.mem.Allocator, bytecode: []const u8, selec
         .pc = 0,
         .allocator = allocator,
     };
-    defer frame.stack.deinit();
+    // Stack no longer needs deinit
     defer frame.memory.deinit();
     
     // Push the frame

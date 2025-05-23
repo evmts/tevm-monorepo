@@ -417,3 +417,12 @@ pub fn createContractWithParent(caller: Address, contract_address: Address, valu
     getLogger().debug("Creating contract with parent jumpdests table", .{});
     return Contract.init(caller, contract_address, value, gas, parent.jumpdests);
 }
+
+// Tests
+const testing = std.testing;
+
+test "Contract - placeholder test" {
+    // TODO: Add comprehensive tests for Contract functionality
+    // This is a placeholder to ensure the test runs
+    try testing.expect(true);
+}

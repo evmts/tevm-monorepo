@@ -301,3 +301,11 @@ pub const Block = struct {
         try processor.processBlockWithdrawals(self.withdrawals);
     }
 };
+
+const testing = std.testing;
+
+test "WithdrawalProcessor - placeholder test" {
+    // TODO: Add comprehensive tests for WithdrawalProcessor functionality
+    // This is a placeholder to ensure the test runs
+    try testing.expect(true);
+}

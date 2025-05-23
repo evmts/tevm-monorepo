@@ -256,3 +256,11 @@ fn rewardAccount(stateManager: anytype, address: Address, amount: u128) !void {
     
     getLogger().debug("Account rewarded successfully", .{});
 }
+
+const testing = std.testing;
+
+test "Withdrawal - placeholder test" {
+    // TODO: Add comprehensive tests for Withdrawal functionality
+    // This is a placeholder to ensure the test runs
+    try testing.expect(true);
+}

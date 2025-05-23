@@ -3,7 +3,24 @@ const std = @import("std");
 // For testing, we'll use stubs and minimal imports
 const is_test = @import("builtin").is_test;
 
-// Import from package instead of relative path
+// Non-test imports
+const jumpTableModule = if (!is_test) @import("../jumpTable/JumpTable.zig") else undefined;
+const interpreterModule = if (!is_test) @import("../interpreter.zig") else undefined;
+const frameModule = if (!is_test) @import("../Frame.zig") else undefined;
+const stackModule = if (!is_test) @import("../Stack.zig") else undefined;
+const memoryModule = if (!is_test) @import("../Memory.zig") else undefined;
+const precompileModule = if (!is_test) @import("../precompile/Precompiles.zig") else undefined;
+const evmLoggerModule = if (!is_test) @import("../EvmLogger.zig") else undefined;
+
+// Helper to convert Stack errors to ExecutionError
+fn mapStackError(err: anyerror) anyerror {
+    return switch (err) {
+        error.OutOfBounds => error.StackUnderflow,
+        error.StackOverflow => error.StackOverflow,
+        error.OutOfMemory => error.OutOfGas,
+        else => err,
+    };
+}
 
 // Conditional imports to avoid import path errors during testing
 const Interpreter = if (is_test)
@@ -20,7 +37,7 @@ const Interpreter = if (is_test)
         } = .{},
     }
 else
-    evm.Interpreter;
+    interpreterModule.Interpreter;
 
 const Frame = if (is_test)
     struct {
@@ -73,7 +90,7 @@ const Frame = if (is_test)
         }
     }
 else
-    evm.Frame;
+    frameModule.Frame;
 
 const ExecutionError = if (is_test)
     error{
@@ -86,7 +103,7 @@ const ExecutionError = if (is_test)
         INVALID,
     }
 else
-    evm.ExecutionError;
+    interpreterModule.InterpreterError;
 
 const Stack = if (is_test)
     struct {
@@ -113,7 +130,7 @@ const Stack = if (is_test)
         }
     }
 else
-    evm.Stack;
+    stackModule.Stack;
 
 const Memory = if (is_test)
     struct {
@@ -155,7 +172,7 @@ const Memory = if (is_test)
         }
     }
 else
-    evm.Memory;
+    memoryModule.Memory;
 
 const JumpTableModule = if (is_test)
     struct {
@@ -185,7 +202,7 @@ const JumpTableModule = if (is_test)
         }
     }
 else
-    evm.JumpTable;
+    jumpTableModule;
 
 const JumpTable = if (is_test)
     struct {
@@ -239,7 +256,7 @@ const precompile = if (is_test)
         }
     }
 else
-    evm.precompile;
+    precompileModule;
 
 const keccak256 = if (is_test)
     struct {
@@ -279,7 +296,7 @@ const EvmLogger = if (is_test)
         }
     }
 else
-    evm.EvmLogger;
+    evmLoggerModule.EvmLogger;
 
 const createLogger = if (is_test)
     struct {
@@ -288,10 +305,14 @@ const createLogger = if (is_test)
         }
     }.createLogger
 else
-    evm.createLogger;
+    evmLoggerModule.createLogger;
 
 // Create a file-specific logger
 const file_logger = createLogger("calls.zig");
+
+// Define the actual types we'll use
+const Operation = if (is_test) JumpTable.Operation else jumpTableModule.Operation;
+const StackError = if (is_test) error{OutOfBounds,StackOverflow,OutOfMemory} else stackModule.StackError;
 
 /// Maximum call depth for Ethereum VM
 const MAX_CALL_DEPTH: u32 = 1024;

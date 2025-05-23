@@ -7,6 +7,7 @@ const JumpTable = pkg.JumpTable;
 const Stack = pkg.Stack;
 const Memory = pkg.Memory;
 const Contract = pkg.Contract;
+const Operation = JumpTable.Operation;
 
 /// LOG0 operation
 pub fn opLog0(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {

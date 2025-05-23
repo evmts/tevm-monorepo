@@ -576,8 +576,8 @@ fn runOpcodeTest(
     const allocator = testing.allocator;
     
     // Create stack
-    var stack = try Stack.init(allocator);
-    defer stack.deinit();
+    var stack = Stack{};
+    // Stack no longer needs deinit
     
     // Create frame
     var frame = Frame{

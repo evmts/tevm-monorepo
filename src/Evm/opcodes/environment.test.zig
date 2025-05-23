@@ -27,7 +27,7 @@ fn setupTestEnvironment(allocator: std.mem.Allocator) !struct {
     const memory_instance = Memory.init(allocator);
     _ = memory_instance; // autofix
 
-    const stack_instance = Stack.init(allocator);
+    const stack_instance = Stack{};
     _ = stack_instance; // autofix
 
     var contract_val = EvmModule.createContract(std.mem.zeroes(Address), std.mem.zeroes(Address), 0, 1000000);

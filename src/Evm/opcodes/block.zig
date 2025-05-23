@@ -8,6 +8,7 @@ const ExecutionError = @import("../interpreter.zig").InterpreterError;
 const stackModule = @import("../Stack.zig");
 const Stack = stackModule.Stack;
 const StackError = stackModule.StackError;
+const Memory = @import("../Memory.zig").Memory;
 
 // Helper to convert Stack errors to ExecutionError
 fn mapStackError(err: StackError) ExecutionError {

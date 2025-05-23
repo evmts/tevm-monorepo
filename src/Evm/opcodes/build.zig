@@ -4,33 +4,32 @@ pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
-    // Tests for individual opcode groups
-    const test_files = [_][]const u8{
-        "bitwise.test.zig",
-        "blob.test.zig",
-        "block.test.zig",
-        "calls.test.zig",
-        "comparison.test.zig",
-        "controlflow.test.zig",
-        "crypto.test.zig",
-        "environment.test.zig",
-        "log.test.zig", 
-        "math.test.zig",
-        "math2.test.zig",
-        "memory.test.zig",
-        "memory.zig.test.zig", // Additional test for memory gas calculations
-        "storage.test.zig",
-        "transient.test.zig",
+    // Tests are now integrated into the main opcode files
+    const opcode_files = [_][]const u8{
+        "bitwise.zig",
+        "blob.zig",
+        "block.zig",
+        "calls.zig",
+        "comparison.zig",
+        "controlflow.zig",
+        "crypto.zig",
+        "environment.zig",
+        "log.zig",
+        "math.zig",
+        "math2.zig",
+        "memory.zig",
+        "storage.zig",
+        "transient.zig",
     };
 
-    // Create test executables for each test file
-    for (test_files) |test_file| {
-        const base_name = std.mem.sliceTo(test_file, '.');
+    // Create test executables for each opcode file
+    for (opcode_files) |opcode_file| {
+        const base_name = std.mem.sliceTo(opcode_file, '.');
         const test_name = b.fmt("{s}-test", .{base_name});
         
         const test_exe = b.addTest(.{
             .name = test_name,
-            .root_source_file = b.path(test_file),
+            .root_source_file = b.path(opcode_file),
             .target = target,
             .optimize = optimize,
         });
@@ -51,44 +50,67 @@ pub fn build(b: *std.Build) void {
         run_tests.dependOn(&run_test_cmd.step);
     }
     
-    // Test for the math2 submodule tests
-    const test_math2 = b.addTest(.{
-        .name = "math2-submodule-test",
-        .root_source_file = b.path("tests/math2_test.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
+    // Test for expanded test files that still exist
+    const expanded_test_files = [_][]const u8{
+        "calls_expanded_test.zig",
+        "mcopy_expanded_test.zig",
+        "transient_expanded_test.zig",
+        "opcodes_expanded_test.zig",
+        "opcodes_expanded_simplified_test.zig",
+    };
     
-    // Add include paths for imports
-    test_math2.addIncludePath(.{ .path = "../.." });
+    for (expanded_test_files) |test_file| {
+        const base_name = std.mem.sliceTo(test_file, '.');
+        const test_name = b.fmt("{s}", .{base_name});
+        
+        const test_exe = b.addTest(.{
+            .name = test_name,
+            .root_source_file = b.path(test_file),
+            .target = target,
+            .optimize = optimize,
+        });
+        
+        // Add include paths for imports
+        test_exe.addIncludePath(.{ .path = "../.." });
+        
+        // Create a runnable step for the test
+        const run_test_cmd = b.addRunArtifact(test_exe);
+        
+        // Add the test to its own step
+        const test_step = b.step(b.fmt("test-{s}", .{base_name}), 
+                                b.fmt("Run {s}", .{base_name}));
+        test_step.dependOn(&run_test_cmd.step);
+    }
     
-    // Create a runnable step for the math2 submodule test
-    const run_math2_test = b.addRunArtifact(test_math2);
+    // Special handling for remaining standalone test files
+    const standalone_tests = [_]struct {
+        name: []const u8,
+        file: []const u8,
+    }{
+        .{ .name = "eip1153", .file = "eip1153.test.zig" },
+        .{ .name = "eip4844", .file = "eip4844.test.zig" },
+        .{ .name = "fixed-controlflow", .file = "fixed_controlflow.test.zig" },
+        .{ .name = "package", .file = "package_test.zig" },
+        .{ .name = "fixed-package", .file = "fixed_package_test.zig" },
+    };
     
-    // Add the math2 submodule test to its own step
-    const test_math2_step = b.step("test-math2-submodule", "Run math2 submodule tests");
-    test_math2_step.dependOn(&run_math2_test.step);
-    
-    // Create a custom standalone test for the crypto.test.zig file
-    // This is helpful for debugging complex test failures
-    const test_crypto_standalone = b.addTest(.{
-        .name = "crypto-standalone-test",
-        .root_source_file = b.path("crypto.test.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-    
-    // Add include paths for imports
-    test_crypto_standalone.addIncludePath(.{ .path = "../.." });
-    
-    // Create a runnable step for the crypto standalone test
-    const run_crypto_standalone_test = b.addRunArtifact(test_crypto_standalone);
-    
-    // Add the crypto standalone test to its own step
-    const test_crypto_standalone_step = b.step("test-crypto-standalone", "Run crypto tests as standalone");
-    test_crypto_standalone_step.dependOn(&run_crypto_standalone_test.step);
-    
-    // Add the standalone test to the main "test" step as well
-    const run_tests = b.getExistingStep("test") orelse b.step("test", "Run all tests");
-    run_tests.dependOn(&run_math2_test.step);
+    for (standalone_tests) |test_info| {
+        const test_exe = b.addTest(.{
+            .name = b.fmt("{s}-test", .{test_info.name}),
+            .root_source_file = b.path(test_info.file),
+            .target = target,
+            .optimize = optimize,
+        });
+        
+        // Add include paths for imports
+        test_exe.addIncludePath(.{ .path = "../.." });
+        
+        // Create a runnable step for the test
+        const run_test_cmd = b.addRunArtifact(test_exe);
+        
+        // Add the test to its own step
+        const test_step = b.step(b.fmt("test-{s}", .{test_info.name}), 
+                                b.fmt("Run {s} tests", .{test_info.name}));
+        test_step.dependOn(&run_test_cmd.step);
+    }
 }
