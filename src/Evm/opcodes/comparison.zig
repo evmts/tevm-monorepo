@@ -252,4 +252,219 @@ pub fn registerComparisonOpcodes(allocator: std.mem.Allocator, jump_table: anyty
     jump_table.table[0x15] = iszero_op;
 }
 
-// Unit tests for comparison operations 
+// Unit tests for comparison operations
+const testing = std.testing;
+
+test "LT operation" {
+    const allocator = testing.allocator;
+    
+    // Create a minimal interpreter instance
+    var interpreter = try Interpreter.init(allocator, .{
+        .eth_call = .{ .gas_limit = 1000000 },
+    });
+    defer interpreter.deinit();
+    
+    // Create a frame with stack
+    var frame = try Frame.init(allocator, .{
+        .gas = 1000000,
+        .contract = undefined,
+        .depth = 0,
+    });
+    defer frame.deinit();
+    
+    // Test case 1: 5 < 10 should return 1
+    try frame.stack.push(u256, 5);
+    try frame.stack.push(u256, 10);
+    _ = try opLt(0, &interpreter, &frame);
+    const result1 = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 1), result1);
+    
+    // Test case 2: 20 < 10 should return 0
+    try frame.stack.push(u256, 20);
+    try frame.stack.push(u256, 10);
+    _ = try opLt(0, &interpreter, &frame);
+    const result2 = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 0), result2);
+}
+
+test "GT operation" {
+    const allocator = testing.allocator;
+    
+    var interpreter = try Interpreter.init(allocator, .{
+        .eth_call = .{ .gas_limit = 1000000 },
+    });
+    defer interpreter.deinit();
+    
+    var frame = try Frame.init(allocator, .{
+        .gas = 1000000,
+        .contract = undefined,
+        .depth = 0,
+    });
+    defer frame.deinit();
+    
+    // Test case 1: 20 > 10 should return 1
+    try frame.stack.push(u256, 20);
+    try frame.stack.push(u256, 10);
+    _ = try opGt(0, &interpreter, &frame);
+    const result1 = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 1), result1);
+    
+    // Test case 2: 5 > 10 should return 0
+    try frame.stack.push(u256, 5);
+    try frame.stack.push(u256, 10);
+    _ = try opGt(0, &interpreter, &frame);
+    const result2 = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 0), result2);
+}
+
+test "SLT operation" {
+    const allocator = testing.allocator;
+    
+    var interpreter = try Interpreter.init(allocator, .{
+        .eth_call = .{ .gas_limit = 1000000 },
+    });
+    defer interpreter.deinit();
+    
+    var frame = try Frame.init(allocator, .{
+        .gas = 1000000,
+        .contract = undefined,
+        .depth = 0,
+    });
+    defer frame.deinit();
+    
+    // Test case 1: 5 < 10 (both positive)
+    try frame.stack.push(u256, 5);
+    try frame.stack.push(u256, 10);
+    _ = try opSlt(0, &interpreter, &frame);
+    const result1 = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 1), result1);
+    
+    // Test case 2: -5 < 10 (negative < positive)
+    const neg_5: u256 = (@as(u256, 1) << 255) | 5;
+    try frame.stack.push(u256, neg_5);
+    try frame.stack.push(u256, 10);
+    _ = try opSlt(0, &interpreter, &frame);
+    const result2 = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 1), result2);
+    
+    // Test case 3: 5 < -10 (positive < negative) should return 0
+    const neg_10: u256 = (@as(u256, 1) << 255) | 10;
+    try frame.stack.push(u256, 5);
+    try frame.stack.push(u256, neg_10);
+    _ = try opSlt(0, &interpreter, &frame);
+    const result3 = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 0), result3);
+    
+    // Test case 4: -20 < -10 (both negative)
+    const neg_20: u256 = (@as(u256, 1) << 255) | 20;
+    try frame.stack.push(u256, neg_20);
+    try frame.stack.push(u256, neg_10);
+    _ = try opSlt(0, &interpreter, &frame);
+    const result4 = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 1), result4);
+}
+
+test "SGT operation" {
+    const allocator = testing.allocator;
+    
+    var interpreter = try Interpreter.init(allocator, .{
+        .eth_call = .{ .gas_limit = 1000000 },
+    });
+    defer interpreter.deinit();
+    
+    var frame = try Frame.init(allocator, .{
+        .gas = 1000000,
+        .contract = undefined,
+        .depth = 0,
+    });
+    defer frame.deinit();
+    
+    // Test case 1: 20 > 10 (both positive)
+    try frame.stack.push(u256, 20);
+    try frame.stack.push(u256, 10);
+    _ = try opSgt(0, &interpreter, &frame);
+    const result1 = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 1), result1);
+    
+    // Test case 2: -5 > 10 (negative > positive) should return 0
+    const neg_5: u256 = (@as(u256, 1) << 255) | 5;
+    try frame.stack.push(u256, neg_5);
+    try frame.stack.push(u256, 10);
+    _ = try opSgt(0, &interpreter, &frame);
+    const result2 = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 0), result2);
+    
+    // Test case 3: 5 > -10 (positive > negative) should return 1
+    const neg_10: u256 = (@as(u256, 1) << 255) | 10;
+    try frame.stack.push(u256, 5);
+    try frame.stack.push(u256, neg_10);
+    _ = try opSgt(0, &interpreter, &frame);
+    const result3 = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 1), result3);
+    
+    // Test case 4: -10 > -20 (both negative)
+    const neg_20: u256 = (@as(u256, 1) << 255) | 20;
+    try frame.stack.push(u256, neg_10);
+    try frame.stack.push(u256, neg_20);
+    _ = try opSgt(0, &interpreter, &frame);
+    const result4 = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 1), result4);
+}
+
+test "EQ operation" {
+    const allocator = testing.allocator;
+    
+    var interpreter = try Interpreter.init(allocator, .{
+        .eth_call = .{ .gas_limit = 1000000 },
+    });
+    defer interpreter.deinit();
+    
+    var frame = try Frame.init(allocator, .{
+        .gas = 1000000,
+        .contract = undefined,
+        .depth = 0,
+    });
+    defer frame.deinit();
+    
+    // Test case 1: 10 == 10 should return 1
+    try frame.stack.push(u256, 10);
+    try frame.stack.push(u256, 10);
+    _ = try opEq(0, &interpreter, &frame);
+    const result1 = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 1), result1);
+    
+    // Test case 2: 5 == 10 should return 0
+    try frame.stack.push(u256, 5);
+    try frame.stack.push(u256, 10);
+    _ = try opEq(0, &interpreter, &frame);
+    const result2 = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 0), result2);
+}
+
+test "ISZERO operation" {
+    const allocator = testing.allocator;
+    
+    var interpreter = try Interpreter.init(allocator, .{
+        .eth_call = .{ .gas_limit = 1000000 },
+    });
+    defer interpreter.deinit();
+    
+    var frame = try Frame.init(allocator, .{
+        .gas = 1000000,
+        .contract = undefined,
+        .depth = 0,
+    });
+    defer frame.deinit();
+    
+    // Test case 1: 0 is zero should return 1
+    try frame.stack.push(u256, 0);
+    _ = try opIszero(0, &interpreter, &frame);
+    const result1 = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 1), result1);
+    
+    // Test case 2: 42 is not zero should return 0
+    try frame.stack.push(u256, 42);
+    _ = try opIszero(0, &interpreter, &frame);
+    const result2 = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 0), result2);
+}

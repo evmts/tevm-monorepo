@@ -28,22 +28,7 @@ pub const StackError = error{
 pub const Stack = struct {
     data: [1024]u256 align(@alignOf(u256)) = [_]u256{0} ** 1024, // Initialize all elements to 0
     size: usize = 0,
-    allocator: ?std.mem.Allocator = null, // Optional allocator for compatibility with allocator-based APIs
     pub const capacity: usize = 1024;
-    
-    /// Initialize a Stack with the provided allocator
-    /// This is primarily for compatibility with allocator-based APIs
-    pub fn init(allocator: std.mem.Allocator) Stack {
-        return Stack{
-            .allocator = allocator,
-        };
-    }
-    
-    /// Deinitialize a Stack
-    /// This is a no-op since Stack doesn't allocate, but provided for API consistency
-    pub fn deinit(self: *Stack) void {
-        _ = self;
-    }
 
     // Push operation comparison:
     // - revm: Uses capacity check with Vec::push (https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/interpreter/stack.rs#L92)

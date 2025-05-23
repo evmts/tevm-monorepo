@@ -433,3 +433,431 @@ pub fn registerControlFlowOpcodes(allocator: std.mem.Allocator, jump_table: *Jum
     };
     jump_table.table[0xFF] = selfdestruct_op;
 }
+
+// Tests
+const testing = std.testing;
+
+test "JUMP opcode" {
+    const allocator = testing.allocator;
+    
+    // Create a simple contract with JUMPDEST at position 3
+    const code = [_]u8{ 0x60, 0x03, 0x56, 0x5B, 0x00 }; // PUSH1 0x03, JUMP, JUMPDEST, STOP
+    var contract = try allocator.create(Frame.Contract);
+    defer allocator.destroy(contract);
+    
+    contract.* = .{
+        .code = try allocator.alloc(u8, code.len),
+        .address = undefined,
+        .caller = undefined,
+        .value = 0,
+    };
+    defer allocator.free(contract.code);
+    std.mem.copy(u8, contract.code, &code);
+    
+    // Create a frame with the contract
+    var frame = try Frame.init(allocator, contract);
+    defer frame.deinit();
+    
+    // Set up the stack with a jump destination
+    try frame.stack.push(3); // Destination is position 3 (JUMPDEST)
+    frame.pc = 2; // PC is at the JUMP opcode
+    
+    // Create a mock interpreter
+    var interpreter = Interpreter{
+        .gas = 100000,
+        .readOnly = false,
+        .evm = undefined,
+    };
+    
+    // Execute the JUMP opcode
+    _ = try opJump(frame.pc, &interpreter, &frame);
+    
+    // Check if PC was updated correctly (should be at JUMPDEST minus 1)
+    try testing.expectEqual(@as(usize, 2), frame.pc);
+}
+
+test "JUMPI opcode - condition true" {
+    const allocator = testing.allocator;
+    
+    // Create a simple contract with JUMPDEST at position 5
+    const code = [_]u8{ 0x60, 0x05, 0x60, 0x01, 0x57, 0x5B, 0x00 }; // PUSH1 0x05, PUSH1 0x01, JUMPI, JUMPDEST, STOP
+    var contract = try allocator.create(Frame.Contract);
+    defer allocator.destroy(contract);
+    
+    contract.* = .{
+        .code = try allocator.alloc(u8, code.len),
+        .address = undefined,
+        .caller = undefined,
+        .value = 0,
+    };
+    defer allocator.free(contract.code);
+    std.mem.copy(u8, contract.code, &code);
+    
+    // Create a frame with the contract
+    var frame = try Frame.init(allocator, contract);
+    defer frame.deinit();
+    
+    // Set up the stack with condition and destination (note: stack is LIFO)
+    try frame.stack.push(5); // Destination is position 5 (JUMPDEST)
+    try frame.stack.push(1); // Condition is true (non-zero)
+    frame.pc = 4; // PC is at the JUMPI opcode
+    
+    // Create a mock interpreter
+    var interpreter = Interpreter{
+        .gas = 100000,
+        .readOnly = false,
+        .evm = undefined,
+    };
+    
+    // Execute the JUMPI opcode
+    _ = try opJumpi(frame.pc, &interpreter, &frame);
+    
+    // Check if PC was updated correctly (should be at JUMPDEST minus 1)
+    try testing.expectEqual(@as(usize, 4), frame.pc);
+}
+
+test "JUMPI opcode - condition false" {
+    const allocator = testing.allocator;
+    
+    // Create a simple contract with JUMPDEST at position 5
+    const code = [_]u8{ 0x60, 0x04, 0x60, 0x00, 0x57, 0x5B, 0x00 }; // PUSH1 0x04, PUSH1 0x00, JUMPI, JUMPDEST, STOP
+    var contract = try allocator.create(Frame.Contract);
+    defer allocator.destroy(contract);
+    
+    contract.* = .{
+        .code = try allocator.alloc(u8, code.len),
+        .address = undefined,
+        .caller = undefined,
+        .value = 0,
+    };
+    defer allocator.free(contract.code);
+    std.mem.copy(u8, contract.code, &code);
+    
+    // Create a frame with the contract
+    var frame = try Frame.init(allocator, contract);
+    defer frame.deinit();
+    
+    // Set up the stack with condition and destination (note: stack is LIFO)
+    try frame.stack.push(5); // Destination
+    try frame.stack.push(0); // Condition is false (zero)
+    frame.pc = 4; // PC is at the JUMPI opcode
+    
+    // Create a mock interpreter
+    var interpreter = Interpreter{
+        .gas = 100000,
+        .readOnly = false,
+        .evm = undefined,
+    };
+    
+    // Execute the JUMPI opcode
+    _ = try opJumpi(frame.pc, &interpreter, &frame);
+    
+    // Check if PC was not updated (should remain at JUMPI)
+    try testing.expectEqual(@as(usize, 4), frame.pc);
+}
+
+test "PC opcode" {
+    const allocator = testing.allocator;
+    
+    // Create a simple contract
+    const code = [_]u8{ 0x58, 0x00 }; // PC, STOP
+    var contract = try allocator.create(Frame.Contract);
+    defer allocator.destroy(contract);
+    
+    contract.* = .{
+        .code = try allocator.alloc(u8, code.len),
+        .address = undefined,
+        .caller = undefined,
+        .value = 0,
+    };
+    defer allocator.free(contract.code);
+    std.mem.copy(u8, contract.code, &code);
+    
+    // Create a frame with the contract
+    var frame = try Frame.init(allocator, contract);
+    defer frame.deinit();
+    
+    frame.pc = 0; // PC is at the PC opcode
+    
+    // Create a mock interpreter
+    var interpreter = Interpreter{
+        .gas = 100000,
+        .readOnly = false,
+        .evm = undefined,
+    };
+    
+    // Execute the PC opcode
+    _ = try opPc(frame.pc, &interpreter, &frame);
+    
+    // Check if the stack contains the correct PC value
+    try testing.expectEqual(@as(usize, 1), frame.stack.size);
+    const pc_value = frame.stack.data[0];
+    try testing.expectEqual(@as(u256, 0), pc_value); // PC was 0 when executed
+}
+
+test "JUMPDEST opcode" {
+    const allocator = testing.allocator;
+    
+    // Create a simple contract
+    const code = [_]u8{ 0x5B, 0x00 }; // JUMPDEST, STOP
+    var contract = try allocator.create(Frame.Contract);
+    defer allocator.destroy(contract);
+    
+    contract.* = .{
+        .code = try allocator.alloc(u8, code.len),
+        .address = undefined,
+        .caller = undefined,
+        .value = 0,
+    };
+    defer allocator.free(contract.code);
+    std.mem.copy(u8, contract.code, &code);
+    
+    // Create a frame with the contract
+    var frame = try Frame.init(allocator, contract);
+    defer frame.deinit();
+    
+    frame.pc = 0; // PC is at the JUMPDEST opcode
+    
+    // Create a mock interpreter
+    var interpreter = Interpreter{
+        .gas = 100000,
+        .readOnly = false,
+        .evm = undefined,
+    };
+    
+    // Execute the JUMPDEST opcode
+    const result = try opJumpdest(frame.pc, &interpreter, &frame);
+    
+    // JUMPDEST does nothing, just check that it returns empty string
+    try testing.expectEqualStrings("", result);
+}
+
+test "STOP opcode" {
+    const allocator = testing.allocator;
+    
+    // Create a simple contract
+    const code = [_]u8{ 0x00 }; // STOP
+    var contract = try allocator.create(Frame.Contract);
+    defer allocator.destroy(contract);
+    
+    contract.* = .{
+        .code = try allocator.alloc(u8, code.len),
+        .address = undefined,
+        .caller = undefined,
+        .value = 0,
+    };
+    defer allocator.free(contract.code);
+    std.mem.copy(u8, contract.code, &code);
+    
+    // Create a frame with the contract
+    var frame = try Frame.init(allocator, contract);
+    defer frame.deinit();
+    
+    // Create a mock interpreter
+    var interpreter = Interpreter{
+        .gas = 100000,
+        .readOnly = false,
+        .evm = undefined,
+    };
+    
+    // Execute the STOP opcode and expect STOP error
+    const result = opStop(0, &interpreter, &frame);
+    try testing.expectError(ExecutionError.STOP, result);
+}
+
+test "RETURN opcode" {
+    const allocator = testing.allocator;
+    
+    // Create a simple contract
+    const code = [_]u8{ 0xF3 }; // RETURN
+    var contract = try allocator.create(Frame.Contract);
+    defer allocator.destroy(contract);
+    
+    contract.* = .{
+        .code = try allocator.alloc(u8, code.len),
+        .address = undefined,
+        .caller = undefined,
+        .value = 0,
+    };
+    defer allocator.free(contract.code);
+    std.mem.copy(u8, contract.code, &code);
+    
+    // Create a frame with the contract
+    var frame = try Frame.init(allocator, contract);
+    defer frame.deinit();
+    
+    // Set up memory with some data
+    for (0..4) |i| {
+        try frame.memory.store8(i, @truncate(0xaa + i));
+    }
+    
+    // Stack is in reverse order - first push is popped last
+    try frame.stack.push(4); // size: 4 bytes
+    try frame.stack.push(0); // offset: 0
+    
+    // Create a mock interpreter
+    var interpreter = Interpreter{
+        .gas = 100000,
+        .readOnly = false,
+        .evm = undefined,
+    };
+    
+    // Execute the RETURN opcode
+    const result = try opReturn(0, &interpreter, &frame);
+    
+    // Check that it returns empty string (success)
+    try testing.expectEqualStrings("", result);
+    
+    // Check that return data was set correctly
+    try testing.expect(frame.returnData != null);
+    try testing.expectEqual(@as(usize, 4), frame.returnSize);
+}
+
+test "REVERT opcode" {
+    const allocator = testing.allocator;
+    
+    // Create a simple contract
+    const code = [_]u8{ 0xFD }; // REVERT
+    var contract = try allocator.create(Frame.Contract);
+    defer allocator.destroy(contract);
+    
+    contract.* = .{
+        .code = try allocator.alloc(u8, code.len),
+        .address = undefined,
+        .caller = undefined,
+        .value = 0,
+    };
+    defer allocator.free(contract.code);
+    std.mem.copy(u8, contract.code, &code);
+    
+    // Create a frame with the contract
+    var frame = try Frame.init(allocator, contract);
+    defer frame.deinit();
+    
+    // Set up memory with some data
+    for (0..4) |i| {
+        try frame.memory.store8(i, @truncate(0xaa + i));
+    }
+    
+    // Stack is in reverse order - first push is popped last
+    try frame.stack.push(4); // size: 4 bytes
+    try frame.stack.push(0); // offset: 0
+    
+    // Create a mock interpreter
+    var interpreter = Interpreter{
+        .gas = 100000,
+        .readOnly = false,
+        .evm = undefined,
+    };
+    
+    // Execute the REVERT opcode and expect REVERT error
+    const result = opRevert(0, &interpreter, &frame);
+    try testing.expectError(ExecutionError.REVERT, result);
+}
+
+test "INVALID opcode" {
+    const allocator = testing.allocator;
+    
+    // Create a simple contract
+    const code = [_]u8{ 0xFE }; // INVALID
+    var contract = try allocator.create(Frame.Contract);
+    defer allocator.destroy(contract);
+    
+    contract.* = .{
+        .code = try allocator.alloc(u8, code.len),
+        .address = undefined,
+        .caller = undefined,
+        .value = 0,
+    };
+    defer allocator.free(contract.code);
+    std.mem.copy(u8, contract.code, &code);
+    
+    // Create a frame with the contract
+    var frame = try Frame.init(allocator, contract);
+    defer frame.deinit();
+    
+    // Create a mock interpreter
+    var interpreter = Interpreter{
+        .gas = 100000,
+        .readOnly = false,
+        .evm = undefined,
+    };
+    
+    // Execute the INVALID opcode and expect INVALID error
+    const result = opInvalid(0, &interpreter, &frame);
+    try testing.expectError(ExecutionError.INVALID, result);
+}
+
+test "SELFDESTRUCT opcode" {
+    const allocator = testing.allocator;
+    
+    // Create a simple contract
+    const code = [_]u8{ 0xFF }; // SELFDESTRUCT
+    var contract = try allocator.create(Frame.Contract);
+    defer allocator.destroy(contract);
+    
+    contract.* = .{
+        .code = try allocator.alloc(u8, code.len),
+        .address = undefined,
+        .caller = undefined,
+        .value = 0,
+    };
+    defer allocator.free(contract.code);
+    std.mem.copy(u8, contract.code, &code);
+    
+    // Create a frame with the contract
+    var frame = try Frame.init(allocator, contract);
+    defer frame.deinit();
+    
+    // Set up the stack with beneficiary address
+    try frame.stack.push(0x1234); // Some beneficiary address
+    
+    // Create a mock interpreter
+    var interpreter = Interpreter{
+        .gas = 100000,
+        .readOnly = false,
+        .evm = undefined,
+    };
+    
+    // Execute the SELFDESTRUCT opcode
+    const result = try opSelfdestruct(0, &interpreter, &frame);
+    
+    // Check that it returns empty string and sets stop flag
+    try testing.expectEqualStrings("", result);
+    try testing.expect(frame.stop);
+    
+    // Test with readOnly=true
+    try frame.stack.push(0x1234); // Push beneficiary address again
+    interpreter.readOnly = true;
+    const readonly_result = opSelfdestruct(0, &interpreter, &frame);
+    try testing.expectError(ExecutionError.StaticStateChange, readonly_result);
+}
+
+test "getReturnDataMemorySize" {
+    const allocator = testing.allocator;
+    
+    // Test with valid offset and size
+    var stack = Stack{ .data = undefined, .size = 0 };
+    try stack.push(10); // offset
+    try stack.push(20); // size
+    
+    const result = getReturnDataMemorySize(&stack);
+    try testing.expectEqual(@as(usize, 30), result.size); // offset + size
+    try testing.expectEqual(false, result.overflow);
+    
+    // Test with zero size
+    stack.size = 0;
+    try stack.push(10); // offset
+    try stack.push(0); // size
+    
+    const zero_result = getReturnDataMemorySize(&stack);
+    try testing.expectEqual(@as(usize, 0), zero_result.size);
+    try testing.expectEqual(false, zero_result.overflow);
+    
+    // Test with insufficient stack
+    stack.size = 1;
+    
+    const underflow_result = getReturnDataMemorySize(&stack);
+    try testing.expectEqual(@as(usize, 0), underflow_result.size);
+    try testing.expectEqual(false, underflow_result.overflow);
+}

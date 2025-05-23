@@ -287,3 +287,184 @@ test "block opcodes - basic functionality" {
         }
     }
 }
+
+test "BLOCKHASH opcode functionality" {
+    const allocator = std.testing.allocator;
+    
+    // Create a mock EVM
+    var evm = Interpreter.Evm{
+        .depth = 0,
+        .readOnly = false,
+        .chainRules = .{
+            .IsEIP2929 = false,
+            .IsEIP4844 = false,
+            .IsEIP5656 = false,
+        },
+        .state_manager = null,
+        .gas_used = 0,
+        .remaining_gas = 1000000,
+        .refund = 0,
+        .context = null,
+    };
+    
+    // Create interpreter
+    var interpreter = Interpreter{
+        .pc = 0,
+        .gas = 1000000,
+        .gas_refund = 0,
+        .valid_jump_destinations = std.AutoHashMap(u24, void).init(allocator),
+        .allocator = allocator,
+        .evm = &evm,
+    };
+    defer interpreter.valid_jump_destinations.deinit();
+    
+    // Create frame
+    var frame = Frame{
+        .stack = Stack.init(allocator, 1024) catch unreachable,
+        .memory = Memory.init(allocator, null) catch unreachable,
+        .gas = 1000000,
+        .contract = null,
+        .returndata = &[_]u8{},
+    };
+    defer frame.stack.deinit();
+    defer frame.memory.deinit();
+    
+    // Test block hash lookup
+    try frame.stack.push(123);
+    _ = try opBlockhash(0, &interpreter, &frame);
+    
+    try std.testing.expectEqual(@as(usize, 1), frame.stack.size);
+    // In our simplified implementation, this returns 0
+    try std.testing.expectEqual(@as(u256, 0), frame.stack.data[0]);
+}
+
+test "Block information opcodes functionality" {
+    const allocator = std.testing.allocator;
+    
+    // Create a mock EVM with context
+    var evm = Interpreter.Evm{
+        .depth = 0,
+        .readOnly = false,
+        .chainRules = .{
+            .IsEIP2929 = false,
+            .IsEIP4844 = false,
+            .IsEIP5656 = false,
+        },
+        .state_manager = null,
+        .gas_used = 0,
+        .remaining_gas = 1000000,
+        .refund = 0,
+        .context = null,
+    };
+    
+    // Create a mock context with block information
+    var coinbase_addr = [_]u8{0xAA} ** 20;
+    var context = struct {
+        coinbase: [20]u8,
+        timestamp: u64,
+        block_number: u64,
+        difficulty: u256,
+        prevrandao: u256,
+        gas_limit: u64,
+        chain_id: u256,
+        base_fee: u256,
+    }{
+        .coinbase = coinbase_addr,
+        .timestamp = 1234567890,
+        .block_number = 12345,
+        .difficulty = 2500000000000000,
+        .prevrandao = 0x0123456789abcdef,
+        .gas_limit = 30000000,
+        .chain_id = 1,
+        .base_fee = 1000000000,
+    };
+    evm.context = &context;
+    
+    // Create interpreter
+    var interpreter = Interpreter{
+        .pc = 0,
+        .gas = 1000000,
+        .gas_refund = 0,
+        .valid_jump_destinations = std.AutoHashMap(u24, void).init(allocator),
+        .allocator = allocator,
+        .evm = &evm,
+    };
+    defer interpreter.valid_jump_destinations.deinit();
+    
+    // Create frame with a contract
+    var contract_address = [_]u8{0} ** 20;
+    contract_address[19] = 1;
+    
+    var contract = struct {
+        address: [20]u8,
+    }{
+        .address = contract_address,
+    };
+    
+    var frame = Frame{
+        .stack = Stack.init(allocator, 1024) catch unreachable,
+        .memory = Memory.init(allocator, null) catch unreachable,
+        .gas = 1000000,
+        .contract = &contract,
+        .returndata = &[_]u8{},
+    };
+    defer frame.stack.deinit();
+    defer frame.memory.deinit();
+    
+    // Test COINBASE
+    _ = try opCoinbase(0, &interpreter, &frame);
+    try std.testing.expectEqual(@as(usize, 1), frame.stack.size);
+    const coinbase_result = frame.stack.data[0] & 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF;
+    try std.testing.expectEqual(@as(u256, 0xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA), coinbase_result);
+    _ = try frame.stack.pop();
+    
+    // Test TIMESTAMP
+    _ = try opTimestamp(0, &interpreter, &frame);
+    try std.testing.expectEqual(@as(usize, 1), frame.stack.size);
+    try std.testing.expectEqual(@as(u256, 1234567890), frame.stack.data[0]);
+    _ = try frame.stack.pop();
+    
+    // Test NUMBER
+    _ = try opNumber(0, &interpreter, &frame);
+    try std.testing.expectEqual(@as(usize, 1), frame.stack.size);
+    try std.testing.expectEqual(@as(u256, 12345), frame.stack.data[0]);
+    _ = try frame.stack.pop();
+    
+    // Test DIFFICULTY (pre-merge)
+    evm.chainRules.IsMerge = false;
+    _ = try opDifficulty(0, &interpreter, &frame);
+    try std.testing.expectEqual(@as(usize, 1), frame.stack.size);
+    try std.testing.expectEqual(@as(u256, 2500000000000000), frame.stack.data[0]);
+    _ = try frame.stack.pop();
+    
+    // Test PREVRANDAO (post-merge)
+    evm.chainRules.IsMerge = true;
+    _ = try opDifficulty(0, &interpreter, &frame);
+    try std.testing.expectEqual(@as(usize, 1), frame.stack.size);
+    try std.testing.expectEqual(@as(u256, 0x0123456789abcdef), frame.stack.data[0]);
+    _ = try frame.stack.pop();
+    
+    // Test GASLIMIT
+    _ = try opGaslimit(0, &interpreter, &frame);
+    try std.testing.expectEqual(@as(usize, 1), frame.stack.size);
+    try std.testing.expectEqual(@as(u256, 30000000), frame.stack.data[0]);
+    _ = try frame.stack.pop();
+    
+    // Test CHAINID
+    _ = try opChainid(0, &interpreter, &frame);
+    try std.testing.expectEqual(@as(usize, 1), frame.stack.size);
+    try std.testing.expectEqual(@as(u256, 1), frame.stack.data[0]);
+    _ = try frame.stack.pop();
+    
+    // Test SELFBALANCE (returns 0 without state manager)
+    _ = try opSelfbalance(0, &interpreter, &frame);
+    try std.testing.expectEqual(@as(usize, 1), frame.stack.size);
+    try std.testing.expectEqual(@as(u256, 0), frame.stack.data[0]);
+    _ = try frame.stack.pop();
+    
+    // Test BASEFEE
+    evm.chainRules.IsLondon = true;
+    _ = try opBasefee(0, &interpreter, &frame);
+    try std.testing.expectEqual(@as(usize, 1), frame.stack.size);
+    try std.testing.expectEqual(@as(u256, 1000000000), frame.stack.data[0]);
+}

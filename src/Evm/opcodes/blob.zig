@@ -234,3 +234,315 @@ pub fn registerBlobOpcodes(allocator: std.mem.Allocator, jump_table: **JumpTable
     };
     jump_table.table[0x5E] = mcopy_op;
 }
+
+// Tests
+test "BLOBHASH basic operation" {
+    const allocator = std.testing.allocator;
+    
+    // Create a mock EVM with blob support
+    var evm = Interpreter.Evm{
+        .depth = 0,
+        .readOnly = false,
+        .chainRules = .{
+            .IsEIP4844 = true,
+            .IsEIP5656 = true,
+        },
+        .state_manager = null,
+        .gas_used = 0,
+        .remaining_gas = 1000000,
+        .refund = 0,
+        .context = null,
+    };
+    
+    // Create an allocator-based array list for blob hashes
+    var blob_hashes = std.ArrayList([32]u8).init(allocator);
+    defer blob_hashes.deinit();
+    
+    // Add test blob hashes
+    try blob_hashes.append([_]u8{0x11} ** 32);
+    try blob_hashes.append([_]u8{0x22} ** 32);
+    try blob_hashes.append([_]u8{0x33} ** 32);
+    
+    // Set blob hashes on the EVM context
+    if (evm.context) |ctx| {
+        ctx.blobHashes = blob_hashes.items;
+    } else {
+        // Create a simple context with blob hashes
+        var context = struct {
+            blobHashes: []const [32]u8,
+        }{
+            .blobHashes = blob_hashes.items,
+        };
+        evm.context = &context;
+    }
+    
+    // Create interpreter
+    var interpreter = Interpreter{
+        .pc = 0,
+        .gas = 1000000,
+        .gas_refund = 0,
+        .valid_jump_destinations = std.AutoHashMap(u24, void).init(allocator),
+        .allocator = allocator,
+        .evm = &evm,
+    };
+    defer interpreter.valid_jump_destinations.deinit();
+    
+    // Create frame
+    var frame = Frame{
+        .stack = Stack.init(allocator, 1024) catch unreachable,
+        .memory = Memory.init(allocator, null) catch unreachable,
+        .gas = 1000000,
+        .contract = null,
+        .returndata = &[_]u8{},
+    };
+    defer frame.stack.deinit();
+    defer frame.memory.deinit();
+    
+    // Test index 0
+    try frame.stack.push(0);
+    _ = try opBlobHash(0, &interpreter, &frame);
+    try std.testing.expectEqual(@as(usize, 1), frame.stack.size);
+    const hash0 = try frame.stack.pop();
+    // Expected: 0x1111...1111 (32 bytes of 0x11)
+    const expected0: u256 = 0x1111111111111111111111111111111111111111111111111111111111111111;
+    try std.testing.expectEqual(expected0, hash0);
+    
+    // Test index 1
+    try frame.stack.push(1);
+    _ = try opBlobHash(0, &interpreter, &frame);
+    const hash1 = try frame.stack.pop();
+    const expected1: u256 = 0x2222222222222222222222222222222222222222222222222222222222222222;
+    try std.testing.expectEqual(expected1, hash1);
+    
+    // Test out of bounds index (should return 0)
+    try frame.stack.push(5);
+    _ = try opBlobHash(0, &interpreter, &frame);
+    const hash_oob = try frame.stack.pop();
+    try std.testing.expectEqual(@as(u256, 0), hash_oob);
+}
+
+test "BLOBBASEFEE basic operation" {
+    const allocator = std.testing.allocator;
+    
+    // Create a mock EVM with blob support
+    var evm = Interpreter.Evm{
+        .depth = 0,
+        .readOnly = false,
+        .chainRules = .{
+            .IsEIP4844 = true,
+            .IsEIP5656 = true,
+        },
+        .state_manager = null,
+        .gas_used = 0,
+        .remaining_gas = 1000000,
+        .refund = 0,
+        .context = null,
+    };
+    
+    // Set blob base fee
+    const test_blob_base_fee: u256 = 123456789;
+    
+    // Create a simple context with blob base fee
+    var context = struct {
+        blobBaseFee: u256,
+    }{
+        .blobBaseFee = test_blob_base_fee,
+    };
+    evm.context = &context;
+    
+    // Create interpreter
+    var interpreter = Interpreter{
+        .pc = 0,
+        .gas = 1000000,
+        .gas_refund = 0,
+        .valid_jump_destinations = std.AutoHashMap(u24, void).init(allocator),
+        .allocator = allocator,
+        .evm = &evm,
+    };
+    defer interpreter.valid_jump_destinations.deinit();
+    
+    // Create frame
+    var frame = Frame{
+        .stack = Stack.init(allocator, 1024) catch unreachable,
+        .memory = Memory.init(allocator, null) catch unreachable,
+        .gas = 1000000,
+        .contract = null,
+        .returndata = &[_]u8{},
+    };
+    defer frame.stack.deinit();
+    defer frame.memory.deinit();
+    
+    // Execute BLOBBASEFEE operation
+    _ = try opBlobBaseFee(0, &interpreter, &frame);
+    
+    // Check result - should have one item on stack
+    try std.testing.expectEqual(@as(usize, 1), frame.stack.size);
+    try std.testing.expectEqual(test_blob_base_fee, frame.stack.data[0]);
+}
+
+test "MCOPY basic operation" {
+    const allocator = std.testing.allocator;
+    
+    // Create a mock EVM with blob support
+    var evm = Interpreter.Evm{
+        .depth = 0,
+        .readOnly = false,
+        .chainRules = .{
+            .IsEIP4844 = true,
+            .IsEIP5656 = true,
+        },
+        .state_manager = null,
+        .gas_used = 0,
+        .remaining_gas = 1000000,
+        .refund = 0,
+        .context = null,
+    };
+    
+    // Create interpreter
+    var interpreter = Interpreter{
+        .pc = 0,
+        .gas = 1000000,
+        .gas_refund = 0,
+        .valid_jump_destinations = std.AutoHashMap(u24, void).init(allocator),
+        .allocator = allocator,
+        .evm = &evm,
+    };
+    defer interpreter.valid_jump_destinations.deinit();
+    
+    // Create frame
+    var frame = Frame{
+        .stack = Stack.init(allocator, 1024) catch unreachable,
+        .memory = Memory.init(allocator, null) catch unreachable,
+        .gas = 1000000,
+        .contract = null,
+        .returndata = &[_]u8{},
+    };
+    defer frame.stack.deinit();
+    defer frame.memory.deinit();
+    
+    // Prepare memory with test data
+    try frame.memory.resize(128);
+    // Set memory data
+    for (0..64) |i| {
+        frame.memory.data[i] = @truncate(i);
+    }
+    
+    // Setup stack for MCOPY operation test
+    try frame.stack.push(64); // destination offset
+    try frame.stack.push(0); // source offset
+    try frame.stack.push(32); // length
+    
+    // Execute MCOPY operation
+    _ = try opMcopy(0, &interpreter, &frame);
+    
+    // Check result - memory should be copied correctly
+    for (0..32) |i| {
+        try std.testing.expectEqual(@as(u8, @truncate(i)), frame.memory.data[64 + i]);
+    }
+}
+
+test "MCOPY memory size calculation" {
+    const allocator = std.testing.allocator;
+    
+    // Create frame
+    var frame = Frame{
+        .stack = Stack.init(allocator, 1024) catch unreachable,
+        .memory = Memory.init(allocator, null) catch unreachable,
+        .gas = 1000000,
+        .contract = null,
+        .returndata = &[_]u8{},
+    };
+    defer frame.stack.deinit();
+    defer frame.memory.deinit();
+    
+    // Setup stack for MCOPY memory size test
+    try frame.stack.push(64); // destination offset
+    try frame.stack.push(0); // source offset
+    try frame.stack.push(32); // length
+    
+    // Test memory size calculation
+    const mem_size = mcopyMemorySize(&frame.stack);
+    try std.testing.expectEqual(@as(u64, 96), mem_size.size); // 64 + 32 = 96
+    try std.testing.expect(!mem_size.overflow);
+    
+    // Test with extreme values to trigger overflow
+    _ = try frame.stack.pop();
+    _ = try frame.stack.pop();
+    _ = try frame.stack.pop();
+    
+    try frame.stack.push(0xFFFFFFFFFFFFFFFF); // dest - max u64
+    try frame.stack.push(0); // source
+    try frame.stack.push(1); // length - adding 1 would overflow
+    
+    const overflow_mem_size = mcopyMemorySize(&frame.stack);
+    try std.testing.expect(overflow_mem_size.overflow);
+}
+
+test "MCOPY dynamic gas calculation" {
+    const allocator = std.testing.allocator;
+    
+    // Create a mock EVM with blob support
+    var evm = Interpreter.Evm{
+        .depth = 0,
+        .readOnly = false,
+        .chainRules = .{
+            .IsEIP4844 = true,
+            .IsEIP5656 = true,
+        },
+        .state_manager = null,
+        .gas_used = 0,
+        .remaining_gas = 1000000,
+        .refund = 0,
+        .context = null,
+    };
+    
+    // Create interpreter
+    var interpreter = Interpreter{
+        .pc = 0,
+        .gas = 1000000,
+        .gas_refund = 0,
+        .valid_jump_destinations = std.AutoHashMap(u24, void).init(allocator),
+        .allocator = allocator,
+        .evm = &evm,
+    };
+    defer interpreter.valid_jump_destinations.deinit();
+    
+    // Create frame
+    var frame = Frame{
+        .stack = Stack.init(allocator, 1024) catch unreachable,
+        .memory = Memory.init(allocator, null) catch unreachable,
+        .gas = 1000000,
+        .contract = null,
+        .returndata = &[_]u8{},
+    };
+    defer frame.stack.deinit();
+    defer frame.memory.deinit();
+    
+    // Prepare memory with enough capacity for test
+    try frame.memory.resize(64);
+    
+    // Setup stack for MCOPY gas calculation test
+    try frame.stack.push(0); // destination offset
+    try frame.stack.push(0); // source offset
+    try frame.stack.push(32); // length
+    
+    // Calculate MCOPY gas
+    // Base cost: CopyGas (3) + 1 word cost (1) = 4
+    const mcopy_gas = try mcopyDynamicGas(&interpreter, &frame, &frame.stack, &frame.memory, 0);
+    try std.testing.expectEqual(@as(u64, 4), mcopy_gas);
+    
+    // Test with larger memory expansion
+    _ = try frame.stack.pop();
+    _ = try frame.stack.pop();
+    _ = try frame.stack.pop();
+    
+    try frame.stack.push(100); // destination offset
+    try frame.stack.push(0); // source offset
+    try frame.stack.push(32); // length
+    
+    // Calculate MCOPY gas with memory expansion
+    // Base cost: CopyGas (3) + 1 word cost (1) = 4
+    // Plus memory expansion cost
+    const mcopy_gas_with_expansion = try mcopyDynamicGas(&interpreter, &frame, &frame.stack, &frame.memory, 0);
+    try std.testing.expect(mcopy_gas_with_expansion > 4); // Should be more due to memory expansion
+}
