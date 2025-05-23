@@ -320,13 +320,13 @@ test "BLOCKHASH opcode functionality" {
     
     // Create frame
     var frame = Frame{
-        .stack = Stack.init(allocator, 1024) catch unreachable,
+        .stack = Stack{},
         .memory = Memory.init(allocator, null) catch unreachable,
         .gas = 1000000,
         .contract = null,
         .returndata = &[_]u8{},
     };
-    defer frame.stack.deinit();
+    // Stack no longer needs deinit
     defer frame.memory.deinit();
     
     // Test block hash lookup
@@ -402,13 +402,13 @@ test "Block information opcodes functionality" {
     };
     
     var frame = Frame{
-        .stack = Stack.init(allocator, 1024) catch unreachable,
+        .stack = Stack{},
         .memory = Memory.init(allocator, null) catch unreachable,
         .gas = 1000000,
         .contract = &contract,
         .returndata = &[_]u8{},
     };
-    defer frame.stack.deinit();
+    // Stack no longer needs deinit
     defer frame.memory.deinit();
     
     // Test COINBASE

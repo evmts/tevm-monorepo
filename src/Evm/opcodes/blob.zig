@@ -49,7 +49,7 @@ pub fn opBlobHash(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
     };
     
     // Get blob versioned hash for the given index
-    var hash_value: BigInt = 0;
+    var hash_value: u256 = 0;
     
     // Check if index is within bounds of available blob hashes
     if (index_usize < interpreter.evm.blobHashes.len) {
@@ -289,13 +289,13 @@ test "BLOBHASH basic operation" {
     
     // Create frame
     var frame = Frame{
-        .stack = Stack.init(allocator, 1024) catch unreachable,
+        .stack = Stack{},
         .memory = Memory.init(allocator, null) catch unreachable,
         .gas = 1000000,
         .contract = null,
         .returndata = &[_]u8{},
     };
-    defer frame.stack.deinit();
+    // Stack no longer needs deinit
     defer frame.memory.deinit();
     
     // Test index 0
@@ -363,13 +363,13 @@ test "BLOBBASEFEE basic operation" {
     
     // Create frame
     var frame = Frame{
-        .stack = Stack.init(allocator, 1024) catch unreachable,
+        .stack = Stack{},
         .memory = Memory.init(allocator, null) catch unreachable,
         .gas = 1000000,
         .contract = null,
         .returndata = &[_]u8{},
     };
-    defer frame.stack.deinit();
+    // Stack no longer needs deinit
     defer frame.memory.deinit();
     
     // Execute BLOBBASEFEE operation
@@ -411,13 +411,13 @@ test "MCOPY basic operation" {
     
     // Create frame
     var frame = Frame{
-        .stack = Stack.init(allocator, 1024) catch unreachable,
+        .stack = Stack{},
         .memory = Memory.init(allocator, null) catch unreachable,
         .gas = 1000000,
         .contract = null,
         .returndata = &[_]u8{},
     };
-    defer frame.stack.deinit();
+    // Stack no longer needs deinit
     defer frame.memory.deinit();
     
     // Prepare memory with test data
@@ -446,13 +446,13 @@ test "MCOPY memory size calculation" {
     
     // Create frame
     var frame = Frame{
-        .stack = Stack.init(allocator, 1024) catch unreachable,
+        .stack = Stack{},
         .memory = Memory.init(allocator, null) catch unreachable,
         .gas = 1000000,
         .contract = null,
         .returndata = &[_]u8{},
     };
-    defer frame.stack.deinit();
+    // Stack no longer needs deinit
     defer frame.memory.deinit();
     
     // Setup stack for MCOPY memory size test
@@ -509,13 +509,13 @@ test "MCOPY dynamic gas calculation" {
     
     // Create frame
     var frame = Frame{
-        .stack = Stack.init(allocator, 1024) catch unreachable,
+        .stack = Stack{},
         .memory = Memory.init(allocator, null) catch unreachable,
         .gas = 1000000,
         .contract = null,
         .returndata = &[_]u8{},
     };
-    defer frame.stack.deinit();
+    // Stack no longer needs deinit
     defer frame.memory.deinit();
     
     // Prepare memory with enough capacity for test

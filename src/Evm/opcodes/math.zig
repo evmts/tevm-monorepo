@@ -262,3 +262,175 @@ pub fn registerMathOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable)
     };
     jump_table.table[0x09] = mulmod_op;
 }
+
+// ===== TESTS =====
+
+const testing = std.testing;
+
+test "ADD operation" {
+    const allocator = testing.allocator;
+    
+    // Create stack
+    var stack = try Stack.init(allocator);
+    defer stack.deinit();
+    
+    // Create frame
+    var frame = Frame{
+        .gas = 10000,
+        .stack = stack,
+        .memory = undefined,
+        .contract = undefined,
+        .returnData = null,
+    };
+    
+    // Test basic addition
+    try frame.stack.push(10); // First push
+    try frame.stack.push(20); // Second push
+    
+    // Execute opAdd - this should add 10 + 20 = 30
+    _ = try opAdd(0, undefined, &frame);
+    
+    // Check the result
+    const result = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 30), result);
+    
+    // Test addition with wrapping (overflow)
+    const max_value: u256 = ~@as(u256, 0); // All bits set to 1
+    try frame.stack.push(max_value); // First push (max value)
+    try frame.stack.push(1);         // Second push (1)
+    
+    // Execute opAdd - this should wrap around to 0
+    _ = try opAdd(0, undefined, &frame);
+    
+    // Check the result
+    const overflow_result = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 0), overflow_result);
+}
+
+test "SUB operation" {
+    const allocator = testing.allocator;
+    
+    // Create stack
+    var stack = try Stack.init(allocator);
+    defer stack.deinit();
+    
+    // Create frame
+    var frame = Frame{
+        .gas = 10000,
+        .stack = stack,
+        .memory = undefined,
+        .contract = undefined,
+        .returnData = null,
+    };
+    
+    // Test basic subtraction
+    try frame.stack.push(30); // First push
+    try frame.stack.push(10); // Second push
+    
+    // Execute opSub - this should subtract 30 - 10 = 20
+    _ = try opSub(0, undefined, &frame);
+    
+    // Check the result
+    const result = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 20), result);
+    
+    // Test subtraction with wrapping (underflow)
+    try frame.stack.push(0); // First push (0)
+    try frame.stack.push(1); // Second push (1)
+    
+    // Execute opSub - this should wrap around to max value
+    _ = try opSub(0, undefined, &frame);
+    
+    // Check the result
+    const underflow_result = try frame.stack.pop();
+    try testing.expectEqual(~@as(u256, 0), underflow_result); // All bits set to 1
+}
+
+test "MUL operation" {
+    const allocator = testing.allocator;
+    
+    // Create stack
+    var stack = try Stack.init(allocator);
+    defer stack.deinit();
+    
+    // Create frame
+    var frame = Frame{
+        .gas = 10000,
+        .stack = stack,
+        .memory = undefined,
+        .contract = undefined,
+        .returnData = null,
+    };
+    
+    // Test basic multiplication
+    try frame.stack.push(7);  // First push
+    try frame.stack.push(6);  // Second push
+    
+    // Execute opMul - this should multiply 7 * 6 = 42
+    _ = try opMul(0, undefined, &frame);
+    
+    // Check the result
+    const result = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 42), result);
+    
+    // Test multiplication with large numbers (not overflowing)
+    try frame.stack.push(0x10000000); // 2^28
+    try frame.stack.push(0x10);       // 16
+    
+    // Execute opMul - this should multiply 2^28 * 16 = 2^32
+    _ = try opMul(0, undefined, &frame);
+    
+    // Check the result
+    const large_result = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 0x100000000), large_result); // 2^32
+}
+
+test "DIV operation" {
+    const allocator = testing.allocator;
+    
+    // Create stack
+    var stack = try Stack.init(allocator);
+    defer stack.deinit();
+    
+    // Create frame
+    var frame = Frame{
+        .gas = 10000,
+        .stack = stack,
+        .memory = undefined,
+        .contract = undefined,
+        .returnData = null,
+    };
+    
+    // Test basic division
+    try frame.stack.push(42);  // First push (dividend)
+    try frame.stack.push(7);   // Second push (divisor)
+    
+    // Execute opDiv - this should divide 42 / 7 = 6
+    _ = try opDiv(0, undefined, &frame);
+    
+    // Check the result
+    const result = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 6), result);
+    
+    // Test integer division truncation
+    try frame.stack.push(10);  // First push (dividend)
+    try frame.stack.push(3);   // Second push (divisor)
+    
+    // Execute opDiv - this should divide 10 / 3 = 3 (integer division truncates)
+    _ = try opDiv(0, undefined, &frame);
+    
+    // Check the result
+    const trunc_result = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 3), trunc_result);
+    
+    // Test division by zero
+    try frame.stack.push(42);  // First push (dividend)
+    try frame.stack.push(0);   // Second push (divisor = 0)
+    
+    // Execute opDiv - this should result in 0 per EVM specs
+    _ = try opDiv(0, undefined, &frame);
+    
+    // Check the result
+    const div_by_zero_result = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 0), div_by_zero_result);
+}
