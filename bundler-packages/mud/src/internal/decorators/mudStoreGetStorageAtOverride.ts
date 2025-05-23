@@ -74,14 +74,11 @@ export const mudStoreGetStorageAtOverride =
 	(transport: { request: EIP1193RequestFn }) =>
 	({ getState, storeAddress }: { getState: () => Promise<State>; storeAddress: Address }): EIP1193RequestFn => {
 		// const logger = console
-		const logger = {debug: (...args: any[]) => {}, error: (...args: any[]) => {}}
+		const logger = { debug: (...args: any[]) => {}, error: (...args: any[]) => {} }
 
 		const originalRequest = transport.request
 		// @ts-expect-error - Type 'unknown' is not assignable to type '_returnType'.
-		return async function interceptedRequest(
-			requestArgs: any,
-			options: any,
-		): ReturnType<EIP1193RequestFn> {
+		return async function interceptedRequest(requestArgs: any, options: any): ReturnType<EIP1193RequestFn> {
 			if (
 				requestArgs.method === 'eth_getStorageAt' &&
 				requestArgs.params &&
@@ -89,7 +86,7 @@ export const mudStoreGetStorageAtOverride =
 				requestArgs.params[0]?.toLowerCase() === storeAddress.toLowerCase()
 			) {
 				logger.debug('mudStoreGetStorageAtOverride', getState())
-				logger.debug("ARG", requestArgs.params)
+				logger.debug('ARG', requestArgs.params)
 				const requestedPosition = requestArgs.params[1] as Hex
 				logger.debug(`MUD Intercept: eth_getStorageAt ${storeAddress} pos ${requestedPosition}`)
 

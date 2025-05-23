@@ -65,22 +65,22 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 	stash,
 }: CreateOptimisticHandlerOptions<TConfig>): CreateOptimisticHandlerResult<TConfig> => {
 	const createForkRequestOverrideClient = (getState: () => Promise<State>) => {
-	if (!client.chain) throw new Error('Client must be connected to a chain')
+		if (!client.chain) throw new Error('Client must be connected to a chain')
 		const transport = http(client.chain.rpcUrls.default.http[0])({
 			chain: client.chain,
 		})
 
 		return createMemoryClient({
-		fork: {
-			transport: {
-				request: mudStoreGetStorageAtOverride(transport)({ getState, storeAddress })
+			fork: {
+				transport: {
+					request: mudStoreGetStorageAtOverride(transport)({ getState, storeAddress }),
+				},
+				blockTag: 'latest',
 			},
-			blockTag: 'latest',
-		},
-		// @ts-expect-error - version mismatch, properties such as `fees` incompatibles
-		common: createCommon(client.chain),
-	})
-}
+			// @ts-expect-error - version mismatch, properties such as `fees` incompatibles
+			common: createCommon(client.chain),
+		})
+	}
 
 	// Create optimistic subscribers
 	const optimisticTableSubscribers: TableSubscribers = {}
