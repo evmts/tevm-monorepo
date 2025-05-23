@@ -1,5 +1,4 @@
 const std = @import("std");
-const evm_pkg = @import("../jumpTable/JumpTable.zig");
 const jumpTableModule = @import("../jumpTable/JumpTable.zig");
 const JumpTable = jumpTableModule.JumpTable;
 const Operation = jumpTableModule.Operation;
@@ -9,6 +8,7 @@ const ExecutionError = @import("../interpreter.zig").InterpreterError;
 const stackModule = @import("../Stack.zig");
 const Stack = stackModule.Stack;
 const StackError = stackModule.StackError;
+const Memory = @import("../Memory.zig").Memory;
 
 // Helper to convert Stack errors to ExecutionError
 fn mapStackError(err: StackError) ExecutionError {
@@ -18,12 +18,6 @@ fn mapStackError(err: StackError) ExecutionError {
         error.OutOfMemory => ExecutionError.OutOfGas,
     };
 }
-const Interpreter = evm_pkg.Interpreter.Interpreter;
-const Frame = evm_pkg.Frame.Frame;
-const ExecutionError = evm_pkg.Frame.ExecutionError;
-const JumpTable = evm_pkg.JumpTable;
-const Memory = evm_pkg.Memory.Memory;
-const Stack = evm_pkg.Stack.Stack;
 
 /// MLOAD operation - loads word from memory at the specified offset
 pub fn opMload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
@@ -42,7 +36,7 @@ pub fn opMload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     var value: u256 = 0;
     
     // Convert offset to u64, capping at max value if needed
-    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, offset);
+    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(offset));
     
     // Calculate memory size needed
     const size_needed = offset_u64 + 32;
@@ -92,7 +86,7 @@ pub fn opMstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     const offset = frame.stack.pop() catch |err| return mapStackError(err); // First item, the memory offset
     
     // Convert offset to u64, capping at max value if needed
-    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, offset);
+    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(offset));
     
     // Calculate memory size needed
     const size_needed = offset_u64 + 32;
@@ -139,7 +133,7 @@ pub fn opMstore8(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
     const offset = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Convert offset to u64, capping at max value if needed
-    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, offset);
+    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(offset));
     
     // Calculate memory size needed
     const size_needed = offset_u64 + 1;
@@ -696,7 +690,7 @@ fn calcMemSize(offset: u256, size: u256) u64 {
     }
     
     // Calculate memory size required
-    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, offset);
+    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(offset));
     const size_u64 = if (size > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, size);
     
     // Return the end address (offset + size)
@@ -744,7 +738,7 @@ pub fn memoryGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory
         }
         
         // Resize memory if we have enough gas
-        try memory.resize(requested_size);
+        memory.resize(requested_size) catch return error.OutOfGas;
     }
     
     // Return the calculated memory expansion cost
@@ -752,12 +746,12 @@ pub fn memoryGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory
 }
 
 /// Memory size function for MLOAD - calculates memory expansion size
-pub fn mloadMemorySize(stack: *Stack) struct { size: u64, overflow: bool } {
+pub fn mloadMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     if (stack.size == 0) return .{ .size = 0, .overflow = false };
     
     const offset = stack.data[stack.size - 1];
     // Need to access offset + 32 bytes
-    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, offset);
+    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(offset));
     
     // Check if offset+32 would overflow
     if (offset_u64 > std.math.maxInt(u64) - 32) {
@@ -768,12 +762,12 @@ pub fn mloadMemorySize(stack: *Stack) struct { size: u64, overflow: bool } {
 }
 
 /// Memory size function for MSTORE - calculates memory expansion size
-pub fn mstoreMemorySize(stack: *Stack) struct { size: u64, overflow: bool } {
+pub fn mstoreMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     if (stack.size < 2) return .{ .size = 0, .overflow = false };
     
     const offset = stack.data[stack.size - 1];
     // Need to access offset + 32 bytes
-    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, offset);
+    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(offset));
     
     // Check if offset+32 would overflow
     if (offset_u64 > std.math.maxInt(u64) - 32) {
@@ -784,12 +778,12 @@ pub fn mstoreMemorySize(stack: *Stack) struct { size: u64, overflow: bool } {
 }
 
 /// Memory size function for MSTORE8 - calculates memory expansion size
-pub fn mstore8MemorySize(stack: *Stack) struct { size: u64, overflow: bool } {
+pub fn mstore8MemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     if (stack.size < 2) return .{ .size = 0, .overflow = false };
     
     const offset = stack.data[stack.size - 1];
     // Need to access offset + 1 byte
-    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, offset);
+    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(offset));
     
     // Check if offset+1 would overflow
     if (offset_u64 == std.math.maxInt(u64)) {
@@ -800,7 +794,7 @@ pub fn mstore8MemorySize(stack: *Stack) struct { size: u64, overflow: bool } {
 }
 
 /// Register memory opcodes in the jump table
-pub fn registerMemoryOpcodes(allocator: std.mem.Allocator, jump_table: **JumpTable) !void {
+pub fn registerMemoryOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable) !void {
     // MLOAD (0x51)
     const mload_op = try allocator.create(Operation);
     mload_op.* = Operation{

@@ -18,7 +18,8 @@ fn mapStackError(err: StackError) ExecutionError {
     };
 }
 const Memory = @import("../Memory.zig").Memory;
-const B256 = @import("../StateDB.zig").B256;
+// B256 type from StateDB
+const B256 = [32]u8;
 const EvmLogger = @import("../TestEvmLogger.zig").EvmLogger;
 const createLogger = @import("../TestEvmLogger.zig").createLogger;
 const createScopedLogger = @import("../TestEvmLogger.zig").createScopedLogger;
@@ -49,14 +50,24 @@ pub fn opSload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     }
     
     // Pop key from stack
-    const key = frame.stack.pop() catch |err| return mapStackError(err);
-    getLogger().debug("SLOAD key: 0x{x}", .{key});
+    const key_u256 = frame.stack.pop() catch |err| return mapStackError(err);
+    getLogger().debug("SLOAD key: 0x{x}", .{key_u256});
+    
+    // Convert u256 key to B256 format
+    var key: B256 = undefined;
+    var temp = key_u256;
+    var i: usize = 31;
+    while (i < 32) : (i -%= 1) {
+        key[i] = @intCast(temp & 0xFF);
+        temp >>= 8;
+        if (i == 0) break;
+    }
     
     // Get EVM from interpreter
     const evm_instance = interpreter.evm;
     
     // Get state manager from EVM
-    const state_manager = evm_instance.getStateManager() orelse {
+    const state_manager = evm_instance.state_manager orelse {
         getLogger().err("State manager not available in SLOAD", .{});
         return ExecutionError.StaticStateChange;
     };
@@ -65,14 +76,17 @@ pub fn opSload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     const address = frame.contract.address;
     getLogger().debug("SLOAD address: {}", .{address});
     
-    // Check if this is a cold or warm access
-    const is_warm = state_manager.isWarmStorage(address, key);
-    const cold_access_cost: u64 = if (is_warm) 0 else JumpTable.ColdSloadCost;
+    // Get value from state and check if it's cold
+    const storage_result = try state_manager.getStorage(address, key);
+    const value = storage_result[0];
+    const addr_was_cold = storage_result[1];
+    const slot_was_cold = storage_result[2];
     
-    // Calculate gas cost (base + cold access if applicable)
-    const gas_cost = JumpTable.WarmStorageReadCost + cold_access_cost;
-    getLogger().debug("SLOAD gas calculation: warm={}, cold_cost={d}, total_cost={d}", 
-                     .{is_warm, cold_access_cost, gas_cost});
+    // Calculate gas cost based on cold access
+    const cold_access_cost: u64 = if (slot_was_cold) jumpTableModule.ColdSloadCost else 0;
+    const gas_cost = jumpTableModule.WarmStorageReadCost + cold_access_cost;
+    getLogger().debug("SLOAD gas calculation: addr_cold={}, slot_cold={}, cold_cost={d}, total_cost={d}", 
+                     .{addr_was_cold, slot_was_cold, cold_access_cost, gas_cost});
     
     // Charge gas
     if (frame.contract.gas < gas_cost) {
@@ -82,17 +96,16 @@ pub fn opSload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     }
     frame.contract.gas -= gas_cost;
     getLogger().debug("Gas remaining after SLOAD: {d}", .{frame.contract.gas});
+    // Convert B256 value to u256
+    var value_u256: u256 = 0;
+    for (0..32) |j| {
+        value_u256 = (value_u256 << 8) | value[j];
+    }
     
-    // Mark the storage slot as warm for future accesses
-    state_manager.markStorageWarm(address, key);
-    getLogger().debug("Marked storage slot as warm: address={}, key=0x{x}", .{address, key});
-    
-    // Get value from state
-    const value = try state_manager.getStorage(address, key);
-    getLogger().debug("SLOAD result: key=0x{x}, value=0x{x}", .{key, value});
+    getLogger().debug("SLOAD result: key=0x{x}, value=0x{x}", .{key_u256, value_u256});
     
     // Push value to stack
-    frame.stack.push(value);
+    try frame.stack.push(value_u256);
     
     debugOnly(struct {
         fn callback() void {
@@ -128,15 +141,35 @@ pub fn opSstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     }
     
     // Pop value and key from stack
-    const value = frame.stack.pop() catch |err| return mapStackError(err);
-    const key = frame.stack.pop() catch |err| return mapStackError(err);
-    getLogger().debug("SSTORE key: 0x{x}, value: 0x{x}", .{key, value});
+    const value_u256 = frame.stack.pop() catch |err| return mapStackError(err);
+    const key_u256 = frame.stack.pop() catch |err| return mapStackError(err);
+    getLogger().debug("SSTORE key: 0x{x}, value: 0x{x}", .{key_u256, value_u256});
+    
+    // Convert u256 key to B256 format
+    var key: B256 = undefined;
+    var temp = key_u256;
+    var i: usize = 31;
+    while (i < 32) : (i -%= 1) {
+        key[i] = @intCast(temp & 0xFF);
+        temp >>= 8;
+        if (i == 0) break;
+    }
+    
+    // Convert u256 value to B256 format
+    var value: B256 = undefined;
+    temp = value_u256;
+    i = 31;
+    while (i < 32) : (i -%= 1) {
+        value[i] = @intCast(temp & 0xFF);
+        temp >>= 8;
+        if (i == 0) break;
+    }
     
     // Get EVM
     const evm_instance = interpreter.evm;
     
     // Get state manager
-    const state_manager = evm_instance.getStateManager() orelse {
+    const state_manager = evm_instance.state_manager orelse {
         getLogger().err("State manager not available in SSTORE", .{});
         return ExecutionError.StaticStateChange;
     };
@@ -146,42 +179,51 @@ pub fn opSstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     getLogger().debug("SSTORE address: {}", .{address});
     
     // Get the current value from state
-    const current_value = try state_manager.getStorage(address, key);
-    getLogger().debug("Current value at storage slot: 0x{x}", .{current_value});
+    const storage_result = try state_manager.getStorage(address, key);
+    const current_value = storage_result[0];
+    const addr_was_cold = storage_result[1];
+    const slot_was_cold = storage_result[2];
+    
+    // Convert current_value B256 to u256 for comparison
+    var current_value_u256: u256 = 0;
+    for (0..32) |j| {
+        current_value_u256 = (current_value_u256 << 8) | current_value[j];
+    }
+    
+    getLogger().debug("Current value at storage slot: 0x{x}", .{current_value_u256});
     
     // Check if the slot is warm or cold for gas calculation
-    const is_warm = state_manager.isWarmStorage(address, key);
-    const cold_access_cost: u64 = if (is_warm) 0 else JumpTable.ColdSloadCost;
-    getLogger().debug("Storage slot access: warm={}, cold_cost={d}", .{is_warm, cold_access_cost});
+    const cold_access_cost: u64 = if (slot_was_cold) jumpTableModule.ColdSloadCost else 0;
+    getLogger().debug("Storage slot access: addr_cold={}, slot_cold={}, cold_cost={d}", .{addr_was_cold, slot_was_cold, cold_access_cost});
     
     // Track original value for EIP-2200 gas calculations
     // This ensures we track the value at the start of the transaction
-    frame.contract.trackOriginalStorageValue(key, current_value);
+    frame.contract.trackOriginalStorageValue(key_u256, current_value_u256);
     
     // Calculate gas cost based on EIP-2200 (Istanbul net gas metering)
     var gas_cost: u64 = 0;
     
-    if (value == current_value) {
+    if (value_u256 == current_value_u256) {
         // No change, minimal gas (warm access)
-        gas_cost = JumpTable.WarmStorageReadCost; // 100 gas per EIP-2929
+        gas_cost = jumpTableModule.WarmStorageReadCost; // 100 gas per EIP-2929
         getLogger().debug("SSTORE gas: No change case, minimal gas cost", .{});
     } else {
         // Need to calculate full gas cost based on value changes
-        if (current_value == 0) {
+        if (current_value_u256 == 0) {
             // Setting a zero slot to non-zero
-            gas_cost = JumpTable.SstoreSetGas;
+            gas_cost = jumpTableModule.SstoreSetGas;
             getLogger().debug("SSTORE gas: Setting zero slot to non-zero (SstoreSetGas)", .{});
         } else {
-            if (value == 0) {
+            if (value_u256 == 0) {
                 // Clearing a slot (refund will be added in the execution function)
-                gas_cost = JumpTable.SstoreClearGas;
+                gas_cost = jumpTableModule.SstoreClearGas;
                 getLogger().debug("SSTORE gas: Clearing non-zero slot (SstoreClearGas)", .{});
                 
                 // Note: We don't add refunds here in the gas calculation function
                 // Refunds are handled in the execution function
             } else {
                 // Modifying an existing non-zero value
-                gas_cost = JumpTable.SstoreResetGas;
+                gas_cost = jumpTableModule.SstoreResetGas;
                 getLogger().debug("SSTORE gas: Modifying non-zero value (SstoreResetGas)", .{});
                 
                 // Note: Refund calculations for cases like restoring original values
@@ -204,42 +246,38 @@ pub fn opSstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     frame.contract.gas -= gas_cost;
     getLogger().debug("Gas remaining after SSTORE base cost: {d}", .{frame.contract.gas});
     
-    // Mark the storage slot as warm for future accesses
-    state_manager.markStorageWarm(address, key);
-    getLogger().debug("Marked storage slot as warm: address={}, key=0x{x}", .{address, key});
-    
     // Now handle storage refunds according to EIP-2200
     
     // Get the original value (from the start of the transaction)
-    const original_value = frame.contract.getOriginalStorageValue(key, current_value);
+    const original_value = frame.contract.getOriginalStorageValue(key_u256, current_value_u256);
     getLogger().debug("Original value (from tx start): 0x{x}", .{original_value});
     
     // EIP-2200 refund logic
-    if (current_value != value) {
+    if (current_value_u256 != value_u256) {
         getLogger().debug("Processing EIP-2200 refund logic", .{});
         
         if (original_value != 0) {
             // If we're restoring the original value (clearing a dirty slot)
-            if (original_value == value and current_value != value) {
+            if (original_value == value_u256 and current_value_u256 != value_u256) {
                 // Refund for restoring original value
-                const refund_amount = JumpTable.SstoreResetGas - JumpTable.SstoreClearGas;
+                const refund_amount = jumpTableModule.SstoreResetGas - jumpTableModule.SstoreClearGas;
                 frame.contract.addGasRefund(refund_amount);
                 getLogger().debug("Added refund for restoring original value: {d}", .{refund_amount});
-            } else if (original_value == current_value and value == 0) {
+            } else if (original_value == current_value_u256 and value_u256 == 0) {
                 // We're clearing a slot that was also cleared during this execution
                 // This means we need to remove the previous refund given for clearing
                 // (avoiding double refunds)
-                frame.contract.subGasRefund(JumpTable.SstoreRefundGas);
+                frame.contract.subGasRefund(jumpTableModule.SstoreRefundGas);
                 getLogger().debug("Removed previous refund to avoid double refund: {d}", 
-                                 .{JumpTable.SstoreRefundGas});
+                                 .{jumpTableModule.SstoreRefundGas});
             }
         }
         
         // Standard refund for clearing a slot (2900 gas)
-        if (current_value != 0 and value == 0) {
-            frame.contract.addGasRefund(JumpTable.SstoreRefundGas);
+        if (current_value_u256 != 0 and value_u256 == 0) {
+            frame.contract.addGasRefund(jumpTableModule.SstoreRefundGas);
             getLogger().debug("Added standard refund for clearing slot: {d}", 
-                             .{JumpTable.SstoreRefundGas});
+                             .{jumpTableModule.SstoreRefundGas});
         }
     } else {
         getLogger().debug("No value change, no refund processing needed", .{});
@@ -248,143 +286,14 @@ pub fn opSstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     getLogger().debug("Current gas refund counter: {d}", .{frame.contract.gas_refund});
     
     // Update the storage
-    try state_manager.putStorage(address, key, value);
-    getLogger().debug("Storage updated: key=0x{x}, value=0x{x}", .{key, value});
+    _ = try state_manager.setStorage(address, key, value);
+    getLogger().debug("Storage updated: key=0x{x}, value=0x{x}", .{key_u256, value_u256});
     
     return "";
 }
 
-/// TLOAD operation - loads a value from transient storage at the specified key
-pub fn opTload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
-    var scoped = createScopedLogger(getLogger(), "opTload()");
-    defer scoped.deinit();
-    
-    getLogger().debug("Executing TLOAD at PC: {d}", .{pc});
-    
-    // Check stack underflow
-    if (frame.stack.size < 1) {
-        getLogger().err("Stack underflow in TLOAD: stack size = {d}", .{frame.stack.size});
-        return ExecutionError.StackUnderflow;
-    }
-    
-    // Pop key from stack
-    const key = frame.stack.pop() catch |err| return mapStackError(err);
-    getLogger().debug("TLOAD key: 0x{x}", .{key});
-    
-    // Get EVM
-    const evm_instance = interpreter.evm;
-    
-    // Get state manager
-    const state_manager = evm_instance.getStateManager() orelse {
-        getLogger().err("State manager not available in TLOAD", .{});
-        return ExecutionError.StaticStateChange;
-    };
-    
-    // Get contract address
-    const address = frame.contract.address;
-    getLogger().debug("TLOAD address: {}", .{address});
-    
-    // Define gas cost
-    const gas_cost = @import("transient.zig").TLoadGas;
-    getLogger().debug("TLOAD gas cost: {d}", .{gas_cost});
-    
-    // Charge gas
-    if (frame.contract.gas < gas_cost) {
-        getLogger().err("Out of gas in TLOAD: available={d}, required={d}", 
-                      .{frame.contract.gas, gas_cost});
-        return ExecutionError.OutOfGas;
-    }
-    frame.contract.gas -= gas_cost;
-    getLogger().debug("Gas remaining after TLOAD: {d}", .{frame.contract.gas});
-    
-    // Get value from transient storage
-    const value = try state_manager.getTransientStorage(address, key);
-    getLogger().debug("TLOAD result: key=0x{x}, value=0x{x}", .{key, value});
-    
-    // Push value to stack
-    frame.stack.push(value);
-    
-    debugOnly(struct {
-        fn callback() void {
-            // Log stack state after push
-            const stack_data = frame.stack.data();
-            if (stack_data.len > 0) {
-                getLogger().debug("Stack after TLOAD (top item): 0x{x}", 
-                                 .{stack_data[stack_data.len-1]});
-            }
-        }
-    }.callback);
-    
-    return "";
-}
-
-/// TSTORE operation - stores a value at the specified key in transient storage
-pub fn opTstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
-    var scoped = createScopedLogger(getLogger(), "opTstore()");
-    defer scoped.deinit();
-    
-    getLogger().debug("Executing TSTORE at PC: {d}", .{pc});
-    
-    // Check if we're in a static (read-only) context
-    if (interpreter.readOnly) {
-        getLogger().err("Cannot execute TSTORE in static (read-only) context", .{});
-        return ExecutionError.StaticStateChange;
-    }
-    
-    // Check stack underflow
-    if (frame.stack.size < 2) {
-        getLogger().err("Stack underflow in TSTORE: stack size = {d}", .{frame.stack.size});
-        return ExecutionError.StackUnderflow;
-    }
-    
-    // Pop value and key from stack
-    const value = frame.stack.pop() catch |err| return mapStackError(err);
-    const key = frame.stack.pop() catch |err| return mapStackError(err);
-    getLogger().debug("TSTORE key: 0x{x}, value: 0x{x}", .{key, value});
-    
-    // Get EVM
-    const evm_instance = interpreter.evm;
-    
-    // Get state manager
-    const state_manager = evm_instance.getStateManager() orelse {
-        getLogger().err("State manager not available in TSTORE", .{});
-        return ExecutionError.StaticStateChange;
-    };
-    
-    // Get contract address
-    const address = frame.contract.address;
-    getLogger().debug("TSTORE address: {}", .{address});
-    
-    // Define gas cost - EIP-1153: Transient Storage Opcodes
-    const gas_cost = @import("transient.zig").TStoreGas;
-    getLogger().debug("TSTORE gas cost: {d}", .{gas_cost});
-    
-    // Charge gas
-    if (frame.contract.gas < gas_cost) {
-        getLogger().err("Out of gas in TSTORE: available={d}, required={d}", 
-                      .{frame.contract.gas, gas_cost});
-        return ExecutionError.OutOfGas;
-    }
-    frame.contract.gas -= gas_cost;
-    getLogger().debug("Gas remaining after TSTORE: {d}", .{frame.contract.gas});
-    
-    // Get the current value for logging (if debug is enabled)
-    debugOnly(struct {
-        fn callback() void {
-            if (state_manager.getTransientStorage(address, key)) |current_value| {
-                getLogger().debug("Current transient storage value: 0x{x}", .{current_value});
-            } else |_| {
-                getLogger().debug("No current value in transient storage", .{});
-            }
-        }
-    }.callback);
-    
-    // Update the transient storage
-    try state_manager.putTransientStorage(address, key, value);
-    getLogger().debug("Transient storage updated: key=0x{x}, value=0x{x}", .{key, value});
-    
-    return "";
-}
+// TODO: Implement transient storage in StateManager first
+// TLOAD and TSTORE operations are commented out until transient storage is implemented
 
 /// Get values from the stack and convert to storage slot
 fn getKeyFromStack(frame: *Frame) !u256 {
@@ -470,4 +379,27 @@ fn u256ToBytes(allocator: std.mem.Allocator, value: u256) ![]u8 {
     }.callback);
     
     return bytes;
+}
+
+/// Register storage opcodes in the jump table
+pub fn registerStorageOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable) !void {
+    _ = allocator;
+    
+    // SLOAD (0x54)
+    jump_table.table[0x54] = &Operation{
+        .execute = opSload,
+        .constant_gas = jumpTableModule.WarmStorageReadCost,
+        .min_stack = jumpTableModule.minStack(1, 1),
+        .max_stack = jumpTableModule.maxStack(1, 1),
+    };
+    
+    // SSTORE (0x55)
+    jump_table.table[0x55] = &Operation{
+        .execute = opSstore,
+        .constant_gas = 0, // Dynamic gas calculation
+        .min_stack = jumpTableModule.minStack(2, 0),
+        .max_stack = jumpTableModule.maxStack(2, 0),
+    };
+    
+    // TODO: Add TLOAD (0x5C) and TSTORE (0x5D) when transient storage is implemented
 }
