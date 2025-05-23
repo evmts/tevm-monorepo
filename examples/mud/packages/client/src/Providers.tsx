@@ -6,6 +6,7 @@ import { stash, syncAdapter } from "./mud/stash";
 import { defineConfig, EntryKitProvider, useSessionClient } from "@latticexyz/entrykit/internal";
 import { wagmiConfig } from "./wagmiConfig";
 import { chainId, getWorldAddress, startBlock } from "./common";
+import { Toaster } from "sonner";
 import { OptimisticWrapperProvider } from "@tevm/mud/react";
 
 const queryClient = new QueryClient();
@@ -44,6 +45,7 @@ export function Providers({ children }: Props) {
             adapter={syncAdapter}
           >
             <OptimisticEntryKitProvider>
+              <Toaster />
               {children}
             </OptimisticEntryKitProvider>
           </SyncProvider>

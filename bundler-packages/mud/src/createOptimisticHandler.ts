@@ -20,12 +20,13 @@ import { storeEventsAbi } from '@latticexyz/store'
 import { createStorageAdapter } from '@latticexyz/store-sync/internal'
 import { type Table } from '@latticexyz/store/internal'
 import { createCommon } from '@tevm/common'
-import { createMemoryClient, type MemoryClient } from '@tevm/memory-client'
+import { type MemoryClient, createMemoryClient } from '@tevm/memory-client'
 import { type Address, EthjsAddress } from '@tevm/utils'
 import { http, type Client, parseEventLogs } from 'viem'
 import { mudStoreGetStorageAtOverride } from './internal/decorators/mudStoreGetStorageAtOverride.js'
 import { mudStoreWriteRequestOverride } from './internal/decorators/mudStoreWriteRequestOverride.js'
 import { ethjsLogToAbiLog } from './internal/ethjsLogToAbiLog.js'
+import { type TxStatusSubscriber, subscribeTxStatus } from './subscribeTx.js'
 import type { SessionClient } from './types.js'
 
 export type CreateOptimisticHandlerOptions<TConfig extends StoreConfig = StoreConfig> = {
@@ -51,6 +52,7 @@ export type CreateOptimisticHandlerResult<TConfig extends StoreConfig = StoreCon
 		args: Omit<GetRecordsArgs<TTable>, 'stash'>,
 	) => Promise<GetRecordsResult<TTable>>
 	subscribeOptimisticState: (args: { subscriber: StoreUpdatesSubscriber }) => Unsubscribe
+	subscribeTx: (args: { subscriber: TxStatusSubscriber }) => Unsubscribe
 	_: {
 		optimisticClient: MemoryClient
 		internalClient: MemoryClient
@@ -92,6 +94,8 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 	// Create optimistic subscribers
 	const optimisticTableSubscribers: TableSubscribers = {}
 	const optimisticStoreSubscribers: StoreSubscribers = new Set()
+	// Create tx status subscribers
+	const txStatusSubscribers: Set<TxStatusSubscriber> = new Set()
 
 	// TODO: we don't want to have two clients but that's a workaround because we apply different getStorageAt interceptors:
 	// - internalClient: used during _optimisticStateView:runTx and uses a mudStoreGetStorageAtOverride that builds up the optimistic state
@@ -171,7 +175,7 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 		} as State<TConfig>
 	}
 
-	mudStoreWriteRequestOverride(client)({ memoryClient: optimisticClient, storeAddress })
+	mudStoreWriteRequestOverride(client)({ memoryClient: optimisticClient, storeAddress, txStatusSubscribers })
 
 	// Update subscribers when the optimistic state changes
 	const _subscribeToOptimisticState = async () => {
@@ -208,15 +212,16 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 				optimisticStoreSubscribers.delete(subscriber)
 			}
 		},
+		subscribeTx: ({ subscriber }) => subscribeTxStatus(txStatusSubscribers)(subscriber),
 		_: {
 			optimisticClient,
 			internalClient,
 			optimisticStoreSubscribers,
 			optimisticTableSubscribers,
 			cleanup: async () => {
-				(await unsubscribe)()
+				;(await unsubscribe)()
 				// TODO: how do we completely get rid of a client?
-			}
-		}
+			},
+		},
 	}
 }
