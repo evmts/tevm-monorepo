@@ -32,6 +32,7 @@ pub const ProofNodes = struct {
     pub fn deinit(self: *ProofNodes) void {
         var it = self.nodes.iterator();
         while (it.next()) |entry| {
+            self.allocator.free(entry.key_ptr.*);
             self.allocator.free(entry.value_ptr.*);
         }
         self.nodes.deinit();
@@ -152,14 +153,25 @@ pub const ProofNodes = struct {
                                 // Check value
                                 switch (items[1]) {
                                     .String => |value| {
-                                        // Found value, compare with expected
-                                        if (expected_value) |expected| {
-                                            return std.mem.eql(u8, value, expected);
-                                        } else {
-                                            return false; // Value exists but none expected
+                                        // The value is RLP-encoded, so we need to decode it
+                                        const decoded_value = try rlp.decode(allocator, value, false);
+                                        defer decoded_value.data.deinit(allocator);
+                                        
+                                        switch (decoded_value.data) {
+                                            .String => |actual_value| {
+                                                // Found value, compare with expected
+                                                if (expected_value) |expected| {
+                                                    return std.mem.eql(u8, actual_value, expected);
+                                                } else {
+                                                    return false; // Value exists but none expected
+                                                }
+                                            },
+                                            .List => return ProofError.CorruptedNode, // Value should not be a list
                                         }
                                     },
-                                    .List => return ProofError.CorruptedNode, // Invalid value format
+                                    .List => {
+                                        return ProofError.CorruptedNode; // Invalid value format
+                                    }
                                 }
                             } else {
                                 // Extension node
