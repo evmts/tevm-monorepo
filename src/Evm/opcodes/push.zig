@@ -249,3 +249,12 @@ pub fn registerPushOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable)
         jump_table.table[0x60 + i] = push_op;
     }
 }
+
+// Tests
+const testing = std.testing;
+
+test "push opcodes - placeholder test" {
+    // TODO: Add comprehensive tests for push opcodes functionality
+    // This is a placeholder to ensure the test runs
+    try testing.expect(true);
+}

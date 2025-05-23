@@ -1,7 +1,7 @@
 const std = @import("std");
 
 // Import the unified B256 type
-pub const B256 = @import("../Types/B256.zig").B256;
+pub const B256 = @import("utils").B256;
 
 // Mock implementation of missing types for this example
 pub const B160 = struct {
@@ -152,7 +152,7 @@ pub const Account = struct {
     // Check if this is a contract account
     pub fn isContract(self: *const Account) bool {
         // Check if codeHash is the empty code hash (Keccak256 of empty string)
-        const EMPTY_CODE_HASH = B256.fromHex("0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470");
+        const EMPTY_CODE_HASH = B256.fromHex("0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470") catch unreachable;
         return !std.mem.eql(u8, &self.codeHash.bytes, &EMPTY_CODE_HASH.bytes);
     }
 };
@@ -209,7 +209,7 @@ pub const StateManager = struct {
         const self = try allocator.create(StateManager);
         
         // Initialize with default empty state root
-        const DEFAULT_STATE_ROOT = B256.fromHex("0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421");
+        const DEFAULT_STATE_ROOT = B256.fromHex("0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421") catch unreachable;
         
         self.allocator = allocator;
         self.options = options;
@@ -451,8 +451,8 @@ pub const StateManager = struct {
         const emptyAccount = Account{
             .nonce = 0,
             .balance = U256.fromDecimalString("0"),
-            .storageRoot = B256.fromHex("0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421"),
-            .codeHash = B256.fromHex("0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"),
+            .storageRoot = B256.fromHex("0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421") catch unreachable,
+            .codeHash = B256.fromHex("0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470") catch unreachable,
         };
         
         // Store in both caches
@@ -571,8 +571,8 @@ test "StateManager - account operations" {
     const account = Account{
         .nonce = 1,
         .balance = U256.fromDecimalString("1000000000000000000"),
-        .storageRoot = B256.fromHex("0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421"),
-        .codeHash = B256.fromHex("0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"),
+        .storageRoot = B256.fromHex("0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421") catch unreachable,
+        .codeHash = B256.fromHex("0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470") catch unreachable,
     };
     
     // Put account into state
@@ -610,8 +610,8 @@ test "StateManager - checkpoints and reverts" {
     const account = Account{
         .nonce = 1,
         .balance = U256.fromDecimalString("1000000000000000000"),
-        .storageRoot = B256.fromHex("0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421"),
-        .codeHash = B256.fromHex("0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"),
+        .storageRoot = B256.fromHex("0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421") catch unreachable,
+        .codeHash = B256.fromHex("0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470") catch unreachable,
     };
     
     // Add the account
@@ -672,7 +672,7 @@ test "StateManager - storage operations" {
     const address = B160.fromHex("0x1234567890123456789012345678901234567890");
     
     // Create test key
-    const key = B256.fromHex("0x0000000000000000000000000000000000000000000000000000000000000001");
+    const key = B256.fromHex("0x0000000000000000000000000000000000000000000000000000000000000001") catch unreachable;
     
     // Create test value
     const value = [_]u8{0x42};
@@ -704,8 +704,8 @@ test "StateManager - deep copy" {
     const account = Account{
         .nonce = 1,
         .balance = U256.fromDecimalString("1000000000000000000"),
-        .storageRoot = B256.fromHex("0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421"),
-        .codeHash = B256.fromHex("0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"),
+        .storageRoot = B256.fromHex("0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421") catch unreachable,
+        .codeHash = B256.fromHex("0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470") catch unreachable,
     };
     
     // Put account into state

@@ -834,8 +834,6 @@ test "SELFDESTRUCT opcode" {
 }
 
 test "getReturnDataMemorySize" {
-    const allocator = testing.allocator;
-    
     // Test with valid offset and size
     var stack = Stack{ .data = undefined, .size = 0 };
     try stack.push(10); // offset

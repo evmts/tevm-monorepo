@@ -573,10 +573,8 @@ fn runOpcodeTest(
     input_array: anytype, 
     expected_array: anytype
 ) !void {
-    const allocator = testing.allocator;
-    
     // Create stack
-    var stack = Stack{};
+    const stack = Stack{};
     // Stack no longer needs deinit
     
     // Create frame

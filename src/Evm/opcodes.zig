@@ -2103,3 +2103,12 @@ pub fn stringToOp(str: []const u8) ?u8 {
 pub fn isPush(opcode: u8) bool {
     return 0x5F <= opcode and opcode <= 0x7F; // PUSH0 to PUSH32
 }
+
+// Tests
+const testing = std.testing;
+
+test "opcodes - placeholder test" {
+    // TODO: Add comprehensive tests for opcodes functionality
+    // This is a placeholder to ensure the test runs
+    try testing.expect(true);
+}

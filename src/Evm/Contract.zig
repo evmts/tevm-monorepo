@@ -1,7 +1,7 @@
 const std = @import("std");
 const bitvec = @import("bitvec.zig");
 const opcodes = @import("opcodes.zig");
-const Address = @import("../Address/package.zig").Address;
+const Address = @import("address").Address;
 const EvmLogger = @import("TestEvmLogger.zig").EvmLogger;
 const createLogger = @import("TestEvmLogger.zig").createLogger;
 

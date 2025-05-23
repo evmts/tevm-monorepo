@@ -5,7 +5,7 @@ const Stack = @import("Stack.zig").Stack;
 // Import Contract
 const Contract = @import("Contract.zig").Contract;
 // Import Address
-const Address = @import("../Address/package.zig").Address;
+const Address = @import("address").Address;
 const EvmLogger = @import("TestEvmLogger.zig").EvmLogger;
 const createLogger = @import("TestEvmLogger.zig").createLogger;
 const logMemory = @import("EvmLogger.zig").logMemory;
@@ -15,7 +15,7 @@ const logStep = @import("EvmLogger.zig").logStep;
 const logHexBytes = @import("TestEvmLogger.zig").logHexBytes;
 const createScopedLogger = @import("TestEvmLogger.zig").createScopedLogger;
 // Import hex
-const hex = @import("../Utils/package.zig").hex;
+const hex = @import("utils").hex;
 
 // We'll initialize the logger inside a function
 var _logger: ?EvmLogger = null;

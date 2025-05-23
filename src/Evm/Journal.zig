@@ -2,10 +2,10 @@ const std = @import("std");
 const testing = std.testing;
 
 // For testing purposes, we'll define Address locally
-const Address = @import("../Address/package.zig").Address;
+const Address = @import("address").Address;
 
 // Import unified B256 type
-const B256 = @import("../Types/B256.ts").B256;
+const B256 = @import("utils").B256;
 
 // Since our Address module doesn't have a fromString function, we'll define one here for testing
 fn addressFromHexString(hex: []const u8) !Address {

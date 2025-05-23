@@ -1,6 +1,6 @@
 const std = @import("std");
 // Import StateManager
-const StateManager = @import("../StateManager/package.zig").StateManager;
+const StateManager = @import("state_manager").StateManager;
 const test_logger = @import("TestEvmLogger.zig");
 const EvmLogger = test_logger.EvmLogger;
 const createLogger = test_logger.createLogger;

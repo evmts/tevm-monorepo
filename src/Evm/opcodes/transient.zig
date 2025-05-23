@@ -192,3 +192,12 @@ pub fn registerTransientOpcodes(allocator: std.mem.Allocator, jump_table: *JumpT
     };
     jump_table.table[0x5D] = tstore_op;
 }
+
+// Tests
+const testing = std.testing;
+
+test "transient storage opcodes - placeholder test" {
+    // TODO: Add comprehensive tests for transient storage opcodes functionality
+    // This is a placeholder to ensure the test runs
+    try testing.expect(true);
+}

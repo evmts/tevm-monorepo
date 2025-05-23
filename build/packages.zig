@@ -15,7 +15,7 @@ pub const allPackages: []const PackageInfo = &.{
     .{ .name = "rlp", .path = "src/Rlp/package.zig", .imports = &.{} },
     .{ .name = "token", .path = "src/Token/package.zig", .imports = &.{} },
     .{ .name = "trie", .path = "src/Trie/package.zig", .imports = &.{ "utils", "rlp" } },
-    .{ .name = "state_manager", .path = "src/StateManager/package.zig", .imports = &.{ "evm", "utils", "address" } },
+    .{ .name = "state_manager", .path = "src/StateManager/package.zig", .imports = &.{ "utils", "address" } },
     .{ .name = "test_utils", .path = "src/Test/test.zig", .imports = &.{ "evm", "utils", "address" } },
     .{ .name = "compiler", .path = "src/Compilers/package.zig", .imports = &.{} },
 };

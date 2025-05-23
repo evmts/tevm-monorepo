@@ -4,6 +4,7 @@ const Interpreter = pkg.Interpreter;
 const Frame = pkg.Frame;
 const ExecutionError = pkg.ExecutionError;
 const JumpTable = pkg.JumpTable;
+const jumpTableModule = JumpTable;  // Alias for compatibility
 const Stack = pkg.Stack;
 const Memory = pkg.Memory;
 const Contract = pkg.Contract;
@@ -255,8 +256,8 @@ pub fn registerLogOpcodes(allocator: std.mem.Allocator, jump_table: **JumpTable)
     log0_op.* = Operation{
         .execute = opLog0,
         .constant_gas = 0, // All gas is calculated dynamically
-        .min_stack = jumpTableModule.minStack(2, 0),
-        .max_stack = jumpTableModule.maxStack(2, 0),
+        .min_stack = JumpTable.minStack(2, 0),
+        .max_stack = JumpTable.maxStack(2, 0),
         .dynamic_gas = log0DynamicGas,
         .memory_size = logMemorySize,
     };
@@ -267,8 +268,8 @@ pub fn registerLogOpcodes(allocator: std.mem.Allocator, jump_table: **JumpTable)
     log1_op.* = Operation{
         .execute = opLog1,
         .constant_gas = 0, // All gas is calculated dynamically
-        .min_stack = jumpTableModule.minStack(3, 0),
-        .max_stack = jumpTableModule.maxStack(3, 0),
+        .min_stack = JumpTable.minStack(3, 0),
+        .max_stack = JumpTable.maxStack(3, 0),
         .dynamic_gas = log1DynamicGas,
         .memory_size = logMemorySize,
     };
@@ -279,8 +280,8 @@ pub fn registerLogOpcodes(allocator: std.mem.Allocator, jump_table: **JumpTable)
     log2_op.* = Operation{
         .execute = opLog2,
         .constant_gas = 0, // All gas is calculated dynamically
-        .min_stack = jumpTableModule.minStack(4, 0),
-        .max_stack = jumpTableModule.maxStack(4, 0),
+        .min_stack = JumpTable.minStack(4, 0),
+        .max_stack = JumpTable.maxStack(4, 0),
         .dynamic_gas = log2DynamicGas,
         .memory_size = logMemorySize,
     };
@@ -291,8 +292,8 @@ pub fn registerLogOpcodes(allocator: std.mem.Allocator, jump_table: **JumpTable)
     log3_op.* = Operation{
         .execute = opLog3,
         .constant_gas = 0, // All gas is calculated dynamically
-        .min_stack = jumpTableModule.minStack(5, 0),
-        .max_stack = jumpTableModule.maxStack(5, 0),
+        .min_stack = JumpTable.minStack(5, 0),
+        .max_stack = JumpTable.maxStack(5, 0),
         .dynamic_gas = log3DynamicGas,
         .memory_size = logMemorySize,
     };
@@ -303,8 +304,8 @@ pub fn registerLogOpcodes(allocator: std.mem.Allocator, jump_table: **JumpTable)
     log4_op.* = Operation{
         .execute = opLog4,
         .constant_gas = 0, // All gas is calculated dynamically
-        .min_stack = jumpTableModule.minStack(6, 0),
-        .max_stack = jumpTableModule.maxStack(6, 0),
+        .min_stack = JumpTable.minStack(6, 0),
+        .max_stack = JumpTable.maxStack(6, 0),
         .dynamic_gas = log4DynamicGas,
         .memory_size = logMemorySize,
     };

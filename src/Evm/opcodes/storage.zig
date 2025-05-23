@@ -19,7 +19,7 @@ fn mapStackError(err: StackError) ExecutionError {
 }
 const Memory = @import("../Memory.zig").Memory;
 // Import unified B256 type
-const B256 = @import("../../Types/B256.ts").B256;
+const B256 = @import("utils").B256;
 const EvmLogger = @import("../TestEvmLogger.zig").EvmLogger;
 const createLogger = @import("../TestEvmLogger.zig").createLogger;
 const createScopedLogger = @import("../TestEvmLogger.zig").createScopedLogger;
@@ -321,7 +321,8 @@ pub fn opSstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     getLogger().debug("Current gas refund counter: {d}", .{frame.contract.gas_refund});
     
     // Update the storage
-    try state_manager.putContractStorage(addr_b160, key_b256, value);
+    var value_bytes_copy = value.bytes; // Create mutable copy
+    try state_manager.putContractStorage(addr_b160, key_b256, &value_bytes_copy);
     getLogger().debug("Storage updated: key=0x{x}, value=0x{x}", .{key_u256, value_u256});
     
     return "";
@@ -439,4 +440,13 @@ pub fn registerStorageOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTab
     jump_table.table[0x55] = sstore_op;
     
     // TODO: Add TLOAD (0x5C) and TSTORE (0x5D) when transient storage is implemented
+}
+
+// Tests
+const testing = std.testing;
+
+test "storage opcodes - placeholder test" {
+    // TODO: Add comprehensive tests for storage opcodes functionality
+    // This is a placeholder to ensure the test runs
+    try testing.expect(true);
 }

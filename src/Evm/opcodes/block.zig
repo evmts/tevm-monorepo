@@ -359,7 +359,7 @@ test "Block information opcodes functionality" {
     };
     
     // Create a mock context with block information
-    var coinbase_addr = [_]u8{0xAA} ** 20;
+    const coinbase_addr = [_]u8{0xAA} ** 20;
     var context = struct {
         coinbase: [20]u8,
         timestamp: u64,

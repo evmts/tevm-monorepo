@@ -339,7 +339,7 @@ test "AND operation" {
     const allocator = testing.allocator;
     
     // Create a frame with a stack
-    var stack = Stack{};
+    const stack = Stack{};
     // Stack no longer needs deinit
     
     var memory = try Memory.init(allocator);
@@ -383,7 +383,7 @@ test "OR operation" {
     const testing = std.testing;
     const allocator = testing.allocator;
     
-    var stack = Stack{};
+    const stack = Stack{};
     // Stack no longer needs deinit
     
     var memory = try Memory.init(allocator);
@@ -423,7 +423,7 @@ test "XOR operation" {
     const testing = std.testing;
     const allocator = testing.allocator;
     
-    var stack = Stack{};
+    const stack = Stack{};
     // Stack no longer needs deinit
     
     var memory = try Memory.init(allocator);
@@ -463,7 +463,7 @@ test "NOT operation" {
     const testing = std.testing;
     const allocator = testing.allocator;
     
-    var stack = Stack{};
+    const stack = Stack{};
     // Stack no longer needs deinit
     
     var memory = try Memory.init(allocator);
@@ -502,7 +502,7 @@ test "BYTE operation" {
     const testing = std.testing;
     const allocator = testing.allocator;
     
-    var stack = Stack{};
+    const stack = Stack{};
     // Stack no longer needs deinit
     
     var memory = try Memory.init(allocator);
@@ -563,7 +563,7 @@ test "SHL operation" {
     const testing = std.testing;
     const allocator = testing.allocator;
     
-    var stack = Stack{};
+    const stack = Stack{};
     // Stack no longer needs deinit
     
     var memory = try Memory.init(allocator);
@@ -622,7 +622,7 @@ test "SHR operation" {
     const testing = std.testing;
     const allocator = testing.allocator;
     
-    var stack = Stack{};
+    const stack = Stack{};
     // Stack no longer needs deinit
     
     var memory = try Memory.init(allocator);
@@ -681,7 +681,7 @@ test "SAR operation" {
     const testing = std.testing;
     const allocator = testing.allocator;
     
-    var stack = Stack{};
+    const stack = Stack{};
     // Stack no longer needs deinit
     
     var memory = try Memory.init(allocator);

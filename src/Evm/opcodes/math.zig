@@ -268,10 +268,8 @@ pub fn registerMathOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable)
 const testing = std.testing;
 
 test "ADD operation" {
-    const allocator = testing.allocator;
-    
     // Create stack
-    var stack = Stack{};
+    const stack = Stack{};
     // Stack no longer needs deinit
     
     // Create frame
@@ -308,10 +306,8 @@ test "ADD operation" {
 }
 
 test "SUB operation" {
-    const allocator = testing.allocator;
-    
     // Create stack
-    var stack = Stack{};
+    const stack = Stack{};
     // Stack no longer needs deinit
     
     // Create frame
@@ -347,10 +343,8 @@ test "SUB operation" {
 }
 
 test "MUL operation" {
-    const allocator = testing.allocator;
-    
     // Create stack
-    var stack = Stack{};
+    const stack = Stack{};
     // Stack no longer needs deinit
     
     // Create frame
@@ -386,10 +380,8 @@ test "MUL operation" {
 }
 
 test "DIV operation" {
-    const allocator = testing.allocator;
-    
     // Create stack
-    var stack = Stack{};
+    const stack = Stack{};
     // Stack no longer needs deinit
     
     // Create frame
