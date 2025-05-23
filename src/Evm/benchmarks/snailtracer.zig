@@ -1,4 +1,5 @@
 const std = @import("std");
+const zbench = @import("zbench");
 const evm = @import("evm");
 const Evm = evm.Evm;
 const Interpreter = evm.Interpreter;
@@ -29,12 +30,14 @@ const SNAILTRACER_BYTECODE = [_]u8{
     0xFD,
 };
 
-pub const SnailTracerBenchmark = struct {
+/// SnailTracer benchmark context
+const SnailTracerContext = struct {
+    allocator: std.mem.Allocator,
     evm: *Evm,
     interpreter: *Interpreter,
-    allocator: std.mem.Allocator,
+    state_manager: ?StateManager,
     
-    pub fn init(allocator: std.mem.Allocator) !SnailTracerBenchmark {
+    pub fn init(allocator: std.mem.Allocator) !SnailTracerContext {
         // Create EVM instance
         var evm_instance = try allocator.create(Evm);
         evm_instance.* = try Evm.init(null);
@@ -50,14 +53,15 @@ pub const SnailTracerBenchmark = struct {
         const interpreter = try allocator.create(Interpreter);
         interpreter.* = try Interpreter.init(allocator, evm_instance);
         
-        return SnailTracerBenchmark{
+        return SnailTracerContext{
+            .allocator = allocator,
             .evm = evm_instance,
             .interpreter = interpreter,
-            .allocator = allocator,
+            .state_manager = state_manager,
         };
     }
     
-    pub fn deinit(self: *SnailTracerBenchmark) void {
+    pub fn deinit(self: *SnailTracerContext) void {
         // Clean up precompiles
         if (self.evm.precompiles) |contracts| {
             contracts.deinit();
@@ -65,18 +69,17 @@ pub const SnailTracerBenchmark = struct {
         }
         
         // Clean up state manager
-        if (self.evm.state_manager) |sm| {
+        if (self.state_manager) |sm| {
             sm.deinit();
         }
         
         // Clean up interpreter and evm
-        // JumpTable doesn't need deinit - it's stack allocated
         self.allocator.destroy(self.interpreter);
         self.allocator.destroy(self.evm);
     }
     
     /// Run a single iteration of the benchmark
-    pub fn runIteration(self: *SnailTracerBenchmark) !void {
+    pub fn runIteration(self: *SnailTracerContext) !void {
         // Create contract
         const caller = address.addressFromHex("0x1234567890123456789012345678901234567890".*);
         const contract_addr = address.addressFromHex("0x2345678901234567890123456789012345678901".*);
@@ -92,37 +95,29 @@ pub const SnailTracerBenchmark = struct {
         // Run the contract
         _ = try self.interpreter.run(&contract, &[_]u8{}, false);
     }
-    
-    /// Run the benchmark for a specified number of iterations
-    pub fn run(self: *SnailTracerBenchmark, iterations: u32) !void {
-        const start = std.time.nanoTimestamp();
-        
-        var i: u32 = 0;
-        while (i < iterations) : (i += 1) {
-            try self.runIteration();
-        }
-        
-        const end = std.time.nanoTimestamp();
-        const elapsed_ns = @as(u64, @intCast(end - start));
-        const elapsed_ms = @as(f64, @floatFromInt(elapsed_ns)) / 1_000_000.0;
-        const ns_per_iteration = elapsed_ns / iterations;
-        
-        std.debug.print("SnailTracer Benchmark Results:\n", .{});
-        std.debug.print("  Iterations: {}\n", .{iterations});
-        std.debug.print("  Total time: {d:.2} ms\n", .{elapsed_ms});
-        std.debug.print("  Time per iteration: {} ns\n", .{ns_per_iteration});
-        std.debug.print("  Iterations per second: {d:.0}\n", .{1_000_000_000.0 / @as(f64, @floatFromInt(ns_per_iteration))});
-    }
 };
 
-test "SnailTracer benchmark" {
-    const allocator = std.testing.allocator;
+/// zbench benchmark function for SnailTracer
+fn benchmarkSnailTracer(allocator: std.mem.Allocator) void {
+    var ctx = SnailTracerContext.init(allocator) catch {
+        std.debug.panic("Failed to initialize SnailTracer context", .{});
+    };
+    defer ctx.deinit();
     
-    var benchmark = try SnailTracerBenchmark.init(allocator);
-    defer benchmark.deinit();
+    ctx.runIteration() catch {
+        std.debug.panic("Failed to run SnailTracer iteration", .{});
+    };
+}
+
+test "SnailTracer benchmark with zbench" {
+    var bench = zbench.Benchmark.init(std.testing.allocator, .{
+        .iterations = 100, // Run a small number of iterations for testing
+    });
+    defer bench.deinit();
     
-    // Run a small number of iterations for testing
-    try benchmark.run(100);
+    try bench.add("SnailTracer", benchmarkSnailTracer, .{});
+    
+    try bench.run(std.io.getStdOut().writer());
 }
 
 /// Main entry point for running the benchmark
@@ -131,19 +126,29 @@ pub fn main() !void {
     defer _ = gpa.deinit();
     const allocator = gpa.allocator();
     
-    var benchmark = try SnailTracerBenchmark.init(allocator);
-    defer benchmark.deinit();
-    
-    // Run benchmark with different iteration counts
     std.debug.print("\n=== Running SnailTracer Benchmark ===\n\n", .{});
     
-    // Warmup
-    std.debug.print("Warming up...\n", .{});
-    try benchmark.run(100);
+    // Warmup run
+    {
+        var bench = zbench.Benchmark.init(allocator, .{
+            .iterations = 100,
+        });
+        defer bench.deinit();
+        
+        std.debug.print("Warming up...\n", .{});
+        try bench.add("SnailTracer Warmup", benchmarkSnailTracer, .{});
+        try bench.run(std.io.getStdOut().writer());
+    }
     
-    // Actual benchmarks
+    // Actual benchmark runs with different configurations
     std.debug.print("\nBenchmark runs:\n", .{});
-    try benchmark.run(1000);
-    try benchmark.run(10000);
-    try benchmark.run(100000);
+    
+    // Run with default settings (automatic iterations)
+    {
+        var bench = zbench.Benchmark.init(allocator, .{});
+        defer bench.deinit();
+        
+        try bench.add("SnailTracer", benchmarkSnailTracer, .{});
+        try bench.run(std.io.getStdOut().writer());
+    }
 }

@@ -44,6 +44,10 @@
             .url = "git+https://github.com/Raiden1411/zabi.git?ref=zig_version_0.14.0#b91004e008f81b34aee13fd78f1a3c8cf597eac3",
             .hash = "zabi-0.16.1-UB4phl86SABdBvFceyCgBARQTki8rNko7MLouY-TeGVQ",
         },
+        .zbench = .{
+            .url = "https://github.com/hendriknielaender/zBench/archive/refs/tags/v0.10.0.tar.gz",
+            .hash = "1220cee254c73272258d81cf679bffb0d4ecc3be6f0263b5a724fe969a9566802020",
+        },
     },
     .paths = .{
         "build.zig",

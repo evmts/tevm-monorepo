@@ -1,4 +1,5 @@
 const std = @import("std");
+const zbench = @import("zbench");
 const evm = @import("evm");
 const Evm = evm.Evm;
 const Interpreter = evm.Interpreter;
@@ -118,141 +119,196 @@ pub const BenchmarkSuite = struct {
         // STOP
         0x00,
     };
+};
+
+/// Benchmark context for EVM operations
+const BenchmarkContext = struct {
+    allocator: std.mem.Allocator,
+    evm: *Evm,
+    state_manager: *StateManager,
+    interpreter: *Interpreter,
     
-    pub fn runBenchmark(name: []const u8, bytecode: []const u8, iterations: u32, allocator: std.mem.Allocator) !void {
+    pub fn init(allocator: std.mem.Allocator) !BenchmarkContext {
         // Create EVM instance
-        var evm_instance = try Evm.init(null);
+        var evm_instance = try allocator.create(Evm);
+        evm_instance.* = try Evm.init(null);
         
         // Initialize precompiles
         try evm_instance.initPrecompiles(allocator);
-        defer {
-            if (evm_instance.precompiles) |contracts| {
-                contracts.deinit();
-                allocator.destroy(contracts);
-            }
-        }
         
         // Create state manager
-        var state_manager = try StateManager.init(allocator, .{});
-        defer state_manager.deinit();
+        const state_manager = try StateManager.init(allocator, .{});
         evm_instance.setStateManager(state_manager);
         
         // Create interpreter
-        var interpreter = try Interpreter.init(allocator, &evm_instance);
-        // JumpTable doesn't need deinit - it's stack allocated
+        const interpreter = try allocator.create(Interpreter);
+        interpreter.* = try Interpreter.init(allocator, evm_instance);
         
+        return BenchmarkContext{
+            .allocator = allocator,
+            .evm = evm_instance,
+            .state_manager = state_manager,
+            .interpreter = interpreter,
+        };
+    }
+    
+    pub fn deinit(self: *BenchmarkContext) void {
+        // Clean up precompiles
+        if (self.evm.precompiles) |contracts| {
+            contracts.deinit();
+            self.allocator.destroy(contracts);
+        }
+        
+        // Clean up state manager
+        self.state_manager.deinit();
+        
+        // Clean up interpreter and evm
+        self.allocator.destroy(self.interpreter);
+        self.allocator.destroy(self.evm);
+    }
+    
+    pub fn runBytecode(self: *BenchmarkContext, bytecode: []const u8) !void {
         // Create addresses
         const caller = address.addressFromHex("0x1234567890123456789012345678901234567890".*);
         const contract_addr = address.addressFromHex("0x2345678901234567890123456789012345678901".*);
         
-        // Run benchmark
-        const start = std.time.nanoTimestamp();
-        
-        var i: u32 = 0;
-        while (i < iterations) : (i += 1) {
-            var contract = createContract(
-                contract_addr,
-                caller,
-                0, // value
-                1_000_000 // gas
-            );
-            contract.code = bytecode;
-            
-            _ = try interpreter.run(&contract, &[_]u8{}, false);
-        }
-        
-        const end = std.time.nanoTimestamp();
-        const elapsed_ns = @as(u64, @intCast(end - start));
-        const elapsed_ms = @as(f64, @floatFromInt(elapsed_ns)) / 1_000_000.0;
-        const ns_per_iteration = elapsed_ns / iterations;
-        
-        std.debug.print("{s} Benchmark:\n", .{name});
-        std.debug.print("  Iterations: {}\n", .{iterations});
-        std.debug.print("  Total time: {d:.2} ms\n", .{elapsed_ms});
-        std.debug.print("  Time per iteration: {} ns\n", .{ns_per_iteration});
-        std.debug.print("  Iterations per second: {d:.0}\n", .{1_000_000_000.0 / @as(f64, @floatFromInt(ns_per_iteration))});
-        std.debug.print("\n", .{});
-    }
-    
-    pub fn runSnailTracerBenchmark(allocator: std.mem.Allocator) !void {
-        std.debug.print("=== SnailTracer Contract Benchmark ===\n\n", .{});
-        
-        // Read the SnailTracer contract
-        const snailtracer_path = "src/Solidity/SnailTracer.sol";
-        
-        // Compile the contract
-        var result = try Compiler.compileFile(allocator, snailtracer_path, .{
-            .optimizer_enabled = true,
-            .optimizer_runs = 200,
-        });
-        defer result.deinit();
-        
-        if (result.errors.len > 0) {
-            std.debug.print("Compilation errors:\n", .{});
-            for (result.errors) |err| {
-                std.debug.print("  {s}\n", .{err.message});
-            }
-            return error.CompilationFailed;
-        }
-        
-        if (result.contracts.len == 0) {
-            return error.NoContractsCompiled;
-        }
-        
-        // Get the deployed bytecode
-        const contract = result.contracts[0];
-        std.debug.print("Compiled contract: {s}\n", .{contract.name});
-        std.debug.print("Bytecode length: {} bytes\n", .{contract.deployed_bytecode.len});
-        
-        // Convert hex string to bytes
-        // Skip "0x" prefix if present
-        var hex_start: usize = 0;
-        if (contract.deployed_bytecode.len >= 2 and 
-            contract.deployed_bytecode[0] == '0' and 
-            (contract.deployed_bytecode[1] == 'x' or contract.deployed_bytecode[1] == 'X')) {
-            hex_start = 2;
-        }
-        
-        const hex_len = contract.deployed_bytecode.len - hex_start;
-        const bytecode_len = (hex_len + 1) / 2;
-        const bytecode = try allocator.alloc(u8, bytecode_len);
-        defer allocator.free(bytecode);
-        
-        const actual_len = utils.hex.hexToBytes(
-            contract.deployed_bytecode.ptr,
-            contract.deployed_bytecode.len,
-            bytecode.ptr
+        var contract = createContract(
+            contract_addr,
+            caller,
+            0, // value
+            1_000_000 // gas
         );
+        contract.code = bytecode;
         
-        // Use only the actual converted bytes
-        const actual_bytecode = bytecode[0..actual_len];
-        
-        // Run benchmark with the compiled bytecode
-        try runBenchmark("SnailTracer Contract", actual_bytecode, 1000, allocator);
-    }
-
-    pub fn runAllBenchmarks(allocator: std.mem.Allocator) !void {
-        std.debug.print("=== EVM Benchmark Suite ===\n\n", .{});
-        
-        const iterations = 10000;
-        
-        try runBenchmark("Arithmetic Operations", &ARITHMETIC_OPS, iterations, allocator);
-        // TODO: Fix these benchmarks after fixing opcode modules
-        // try runBenchmark("Memory Operations", &MEMORY_OPS, iterations, allocator);
-        // try runBenchmark("Storage Operations", &STORAGE_OPS, iterations, allocator);
-        // try runBenchmark("Control Flow Operations", &CONTROL_FLOW_OPS, iterations, allocator);
-        // try runBenchmark("Cryptographic Operations", &CRYPTO_OPS, iterations, allocator);
-        
-        // TODO: Fix SnailTracer benchmark - need to properly deploy contract first
-        // The compiled bytecode includes constructor logic and needs proper deployment
-        // try runSnailTracerBenchmark(allocator);
-        std.debug.print("\n[SKIPPED] SnailTracer Contract Benchmark - needs proper contract deployment\n", .{});
+        _ = try self.interpreter.run(&contract, &[_]u8{}, false);
     }
 };
 
-test "Run all benchmarks" {
-    const allocator = std.testing.allocator;
-    try BenchmarkSuite.runAllBenchmarks(allocator);
+// zbench benchmark functions
+fn benchmarkArithmetic(allocator: std.mem.Allocator) void {
+    var ctx = BenchmarkContext.init(allocator) catch {
+        std.debug.panic("Failed to initialize benchmark context", .{});
+    };
+    defer ctx.deinit();
+    
+    ctx.runBytecode(&BenchmarkSuite.ARITHMETIC_OPS) catch {
+        std.debug.panic("Failed to run arithmetic operations", .{});
+    };
+}
+
+fn benchmarkMemory(allocator: std.mem.Allocator) void {
+    var ctx = BenchmarkContext.init(allocator) catch {
+        std.debug.panic("Failed to initialize benchmark context", .{});
+    };
+    defer ctx.deinit();
+    
+    ctx.runBytecode(&BenchmarkSuite.MEMORY_OPS) catch {
+        std.debug.panic("Failed to run memory operations", .{});
+    };
+}
+
+fn benchmarkStorage(allocator: std.mem.Allocator) void {
+    var ctx = BenchmarkContext.init(allocator) catch {
+        std.debug.panic("Failed to initialize benchmark context", .{});
+    };
+    defer ctx.deinit();
+    
+    ctx.runBytecode(&BenchmarkSuite.STORAGE_OPS) catch {
+        std.debug.panic("Failed to run storage operations", .{});
+    };
+}
+
+fn benchmarkControlFlow(allocator: std.mem.Allocator) void {
+    var ctx = BenchmarkContext.init(allocator) catch {
+        std.debug.panic("Failed to initialize benchmark context", .{});
+    };
+    defer ctx.deinit();
+    
+    ctx.runBytecode(&BenchmarkSuite.CONTROL_FLOW_OPS) catch {
+        std.debug.panic("Failed to run control flow operations", .{});
+    };
+}
+
+fn benchmarkCrypto(allocator: std.mem.Allocator) void {
+    var ctx = BenchmarkContext.init(allocator) catch {
+        std.debug.panic("Failed to initialize benchmark context", .{});
+    };
+    defer ctx.deinit();
+    
+    ctx.runBytecode(&BenchmarkSuite.CRYPTO_OPS) catch {
+        std.debug.panic("Failed to run crypto operations", .{});
+    };
+}
+
+fn benchmarkSnailTracer(allocator: std.mem.Allocator) void {
+    var ctx = BenchmarkContext.init(allocator) catch {
+        std.debug.panic("Failed to initialize benchmark context", .{});
+    };
+    defer ctx.deinit();
+    
+    // Read the SnailTracer contract
+    const snailtracer_path = "src/Solidity/SnailTracer.sol";
+    
+    // Compile the contract
+    var result = Compiler.compileFile(allocator, snailtracer_path, .{
+        .optimizer_enabled = true,
+        .optimizer_runs = 200,
+    }) catch {
+        std.debug.print("[SKIPPED] SnailTracer compilation failed\n", .{});
+        return;
+    };
+    defer result.deinit();
+    
+    if (result.errors.len > 0 or result.contracts.len == 0) {
+        std.debug.print("[SKIPPED] SnailTracer compilation had errors or no contracts\n", .{});
+        return;
+    }
+    
+    // Get the deployed bytecode
+    const contract = result.contracts[0];
+    
+    // Convert hex string to bytes
+    var hex_start: usize = 0;
+    if (contract.deployed_bytecode.len >= 2 and 
+        contract.deployed_bytecode[0] == '0' and 
+        (contract.deployed_bytecode[1] == 'x' or contract.deployed_bytecode[1] == 'X')) {
+        hex_start = 2;
+    }
+    
+    const hex_len = contract.deployed_bytecode.len - hex_start;
+    const bytecode_len = (hex_len + 1) / 2;
+    const bytecode = allocator.alloc(u8, bytecode_len) catch {
+        std.debug.panic("Failed to allocate bytecode memory", .{});
+    };
+    defer allocator.free(bytecode);
+    
+    const actual_len = utils.hex.hexToBytes(
+        contract.deployed_bytecode.ptr,
+        contract.deployed_bytecode.len,
+        bytecode.ptr
+    );
+    
+    // Use only the actual converted bytes
+    const actual_bytecode = bytecode[0..actual_len];
+    
+    ctx.runBytecode(actual_bytecode) catch {
+        std.debug.panic("Failed to run SnailTracer", .{});
+    };
+}
+
+test "Run all benchmarks with zbench" {
+    var bench = zbench.Benchmark.init(std.testing.allocator, .{});
+    defer bench.deinit();
+    
+    try bench.add("Arithmetic Operations", benchmarkArithmetic, .{});
+    // TODO: Fix these benchmarks after fixing opcode modules
+    // try bench.add("Memory Operations", benchmarkMemory, .{});
+    // try bench.add("Storage Operations", benchmarkStorage, .{});
+    // try bench.add("Control Flow Operations", benchmarkControlFlow, .{});
+    // try bench.add("Cryptographic Operations", benchmarkCrypto, .{});
+    // try bench.add("SnailTracer Contract", benchmarkSnailTracer, .{});
+    
+    try bench.run(std.io.getStdOut().writer());
 }
 
 pub fn main() !void {
@@ -260,5 +316,20 @@ pub fn main() !void {
     defer _ = gpa.deinit();
     const allocator = gpa.allocator();
     
-    try BenchmarkSuite.runAllBenchmarks(allocator);
+    var bench = zbench.Benchmark.init(allocator, .{});
+    defer bench.deinit();
+    
+    std.debug.print("=== EVM Benchmark Suite ===\n\n", .{});
+    
+    try bench.add("Arithmetic Operations", benchmarkArithmetic, .{});
+    // TODO: Fix these benchmarks after fixing opcode modules
+    // try bench.add("Memory Operations", benchmarkMemory, .{});
+    // try bench.add("Storage Operations", benchmarkStorage, .{});
+    // try bench.add("Control Flow Operations", benchmarkControlFlow, .{});
+    // try bench.add("Cryptographic Operations", benchmarkCrypto, .{});
+    
+    try bench.run(std.io.getStdOut().writer());
+    
+    std.debug.print("\n[SKIPPED] Other benchmarks - need opcode fixes\n", .{});
+    std.debug.print("[SKIPPED] SnailTracer Contract Benchmark - needs proper contract deployment\n", .{});
 }

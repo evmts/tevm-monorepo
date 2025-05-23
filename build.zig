@@ -258,6 +258,12 @@ pub fn build(b: *std.Build) void {
     const run_server_step = b.step("run-server", "Run the JSON-RPC server");
     run_server_step.dependOn(&run_server_cmd.step);
     
+    // Get zbench dependency
+    const zbench_dep = b.dependency("zbench", .{
+        .target = target,
+        .optimize = optimize,
+    });
+
     // Add benchmark executables
     const snailtracer_bench = b.addExecutable(.{
         .name = "snailtracer-bench",
@@ -271,6 +277,7 @@ pub fn build(b: *std.Build) void {
     snailtracer_bench.root_module.addImport("utils", utils_pkg);
     snailtracer_bench.root_module.addImport("address", address_pkg);
     snailtracer_bench.root_module.addImport("state_manager", state_manager_pkg);
+    snailtracer_bench.root_module.addImport("zbench", zbench_dep.module("zbench"));
     
     b.installArtifact(snailtracer_bench);
     
@@ -292,6 +299,7 @@ pub fn build(b: *std.Build) void {
     benchmark_suite.root_module.addImport("state_manager", state_manager_pkg);
     benchmark_suite.root_module.addImport("compiler", compiler_mod);
     benchmark_suite.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    benchmark_suite.root_module.addImport("zbench", zbench_dep.module("zbench"));
     
     // Link the Rust static library
     benchmark_suite.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
