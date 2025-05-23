@@ -14,6 +14,7 @@ const comparison = @import("../opcodes/comparison.zig");
 const bitwise = @import("../opcodes/bitwise.zig");
 // TODO: Fix these modules before uncommenting
 // const memory = @import("../opcodes/memory.zig");
+const push = @import("../opcodes/push.zig");
 const storage = @import("../opcodes/storage.zig");
 const controlflow = @import("../opcodes/controlflow.zig");
 // const environment = @import("../opcodes/environment.zig");
@@ -380,6 +381,7 @@ pub fn newJumpTable(allocator: std.mem.Allocator, hardfork: []const u8) !JumpTab
     // TODO: Fix these modules
     // try memory.registerMemoryOpcodes(allocator, &jump_table);
     // try environment.registerEnvironmentOpcodes(allocator, &jump_table);
+    try push.registerPushOpcodes(allocator, &jump_table);
     try storage.registerStorageOpcodes(allocator, &jump_table);
     // try calls.registerCallOpcodes(allocator, &jump_table);
     // try block.registerBlockOpcodes(allocator, &jump_table);

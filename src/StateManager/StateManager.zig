@@ -1,7 +1,7 @@
 const std = @import("std");
 
 // Mock implementation of missing types for this example
-const B160 = struct {
+pub const B160 = struct {
     bytes: [20]u8,
     
     pub fn fromHex(hex_str: []const u8) B160 {
@@ -21,7 +21,7 @@ const B160 = struct {
     }
 };
 
-const B256 = struct {
+pub const B256 = struct {
     bytes: [32]u8,
     
     pub fn fromHex(hex_str: []const u8) B256 {
@@ -169,7 +169,7 @@ const Cache = struct {
     }
 };
 const CacheType = @import("./Cache.zig").CacheType;
-const Account = struct {
+pub const Account = struct {
     nonce: u64,
     balance: U256,
     storageRoot: B256,

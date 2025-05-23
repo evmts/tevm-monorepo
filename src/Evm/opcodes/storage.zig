@@ -76,11 +76,31 @@ pub fn opSload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     const address = frame.contract.address;
     getLogger().debug("SLOAD address: {}", .{address});
     
-    // Get value from state and check if it's cold
-    const storage_result = try state_manager.getStorage(address, key);
-    const value = storage_result[0];
-    const addr_was_cold = storage_result[1];
-    const slot_was_cold = storage_result[2];
+    // Get value from state
+    // TODO: This is using the simplified StateManager which doesn't support EIP-2929
+    // For now, we'll assume all accesses are cold on first access
+    
+    // Import the StateManager module to access types
+    const SM = @import("state_manager");
+    
+    // Convert address to B160
+    const addr_b160 = SM.B160{ .bytes = address };
+    
+    // Convert key to B256
+    const key_b256 = SM.B256{ .bytes = key };
+    
+    const storage_bytes = try state_manager.getContractStorage(addr_b160, key_b256);
+    
+    // Convert storage bytes to B256
+    var value: B256 = [_]u8{0} ** 32;
+    if (storage_bytes.len > 0) {
+        const copy_len = @min(storage_bytes.len, 32);
+        @memcpy(value[32 - copy_len..], storage_bytes[0..copy_len]);
+    }
+    
+    // For now, assume first access is always cold
+    const addr_was_cold = true;
+    const slot_was_cold = true;
     
     // Calculate gas cost based on cold access
     const cold_access_cost: u64 = if (slot_was_cold) jumpTableModule.ColdSloadCost else 0;
@@ -105,18 +125,9 @@ pub fn opSload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     getLogger().debug("SLOAD result: key=0x{x}, value=0x{x}", .{key_u256, value_u256});
     
     // Push value to stack
-    try frame.stack.push(value_u256);
+    frame.stack.push(value_u256) catch |err| return mapStackError(err);
     
-    debugOnly(struct {
-        fn callback() void {
-            // Log stack state after push
-            const stack_data = frame.stack.data();
-            if (stack_data.len > 0) {
-                getLogger().debug("Stack after SLOAD (top item): 0x{x}", 
-                                 .{stack_data[stack_data.len-1]});
-            }
-        }
-    }.callback);
+    // Debug logging removed due to closure limitations
     
     return "";
 }
@@ -179,10 +190,29 @@ pub fn opSstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     getLogger().debug("SSTORE address: {}", .{address});
     
     // Get the current value from state
-    const storage_result = try state_manager.getStorage(address, key);
-    const current_value = storage_result[0];
-    const addr_was_cold = storage_result[1];
-    const slot_was_cold = storage_result[2];
+    // TODO: This is using the simplified StateManager which doesn't support EIP-2929
+    
+    // Import the StateManager module to access types
+    const SM = @import("state_manager");
+    
+    // Convert address to B160
+    const addr_b160 = SM.B160{ .bytes = address };
+    
+    // Convert key to B256
+    const key_b256 = SM.B256{ .bytes = key };
+    
+    const storage_bytes = try state_manager.getContractStorage(addr_b160, key_b256);
+    
+    // Convert storage bytes to B256
+    var current_value: B256 = [_]u8{0} ** 32;
+    if (storage_bytes.len > 0) {
+        const copy_len = @min(storage_bytes.len, 32);
+        @memcpy(current_value[32 - copy_len..], storage_bytes[0..copy_len]);
+    }
+    
+    // For now, assume first access is always cold
+    const addr_was_cold = true;
+    const slot_was_cold = true;
     
     // Convert current_value B256 to u256 for comparison
     var current_value_u256: u256 = 0;
@@ -286,7 +316,7 @@ pub fn opSstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     getLogger().debug("Current gas refund counter: {d}", .{frame.contract.gas_refund});
     
     // Update the storage
-    _ = try state_manager.setStorage(address, key, value);
+    try state_manager.putContractStorage(addr_b160, key_b256, &value);
     getLogger().debug("Storage updated: key=0x{x}, value=0x{x}", .{key_u256, value_u256});
     
     return "";
@@ -383,23 +413,25 @@ fn u256ToBytes(allocator: std.mem.Allocator, value: u256) ![]u8 {
 
 /// Register storage opcodes in the jump table
 pub fn registerStorageOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable) !void {
-    _ = allocator;
-    
     // SLOAD (0x54)
-    jump_table.table[0x54] = &Operation{
+    const sload_op = try allocator.create(Operation);
+    sload_op.* = Operation{
         .execute = opSload,
         .constant_gas = jumpTableModule.WarmStorageReadCost,
         .min_stack = jumpTableModule.minStack(1, 1),
         .max_stack = jumpTableModule.maxStack(1, 1),
     };
+    jump_table.table[0x54] = sload_op;
     
     // SSTORE (0x55)
-    jump_table.table[0x55] = &Operation{
+    const sstore_op = try allocator.create(Operation);
+    sstore_op.* = Operation{
         .execute = opSstore,
         .constant_gas = 0, // Dynamic gas calculation
         .min_stack = jumpTableModule.minStack(2, 0),
         .max_stack = jumpTableModule.maxStack(2, 0),
     };
+    jump_table.table[0x55] = sstore_op;
     
     // TODO: Add TLOAD (0x5C) and TSTORE (0x5D) when transient storage is implemented
 }
