@@ -427,6 +427,18 @@ pub fn opGasprice(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
     return "";
 }
 
+/// GAS operation - get amount of gas remaining
+/// See: https://github.com/ethereum/go-ethereum/blob/master/core/vm/instructions.go#L849
+pub fn opGas(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
+    _ = pc;
+    
+    // Push the amount of gas remaining after this instruction
+    // The gas for this instruction has already been consumed
+    try frame.stack.push(frame.gas_remaining);
+    
+    return "";
+}
+
 /// EXTCODESIZE operation - get size of an account's code
 pub fn opExtcodesize(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
@@ -1031,6 +1043,16 @@ pub fn registerEnvironmentOpcodes(allocator: std.mem.Allocator, jump_table: *Jum
         .max_stack = JumpTable.maxStack(1, 1),
     };
     jump_table.table[0x3F] = extcodehash_op;
+    
+    // GAS (0x5A) - Get remaining gas
+    const gas_op = try allocator.create(JumpTable.Operation);
+    gas_op.* = JumpTable.Operation{
+        .execute = opGas,
+        .constant_gas = JumpTable.GasQuickStep,
+        .min_stack = JumpTable.minStack(0, 1),
+        .max_stack = JumpTable.maxStack(0, 1),
+    };
+    jump_table.table[0x5A] = gas_op;
 }
 
 // Simplified test for environment opcodes

@@ -1,8 +1,7 @@
 const std = @import("std");
 
-// Import the Evm module using relative path
-const EvmModule = @import("../evm.zig");
-// Get environment functions from the Evm module
+// Import required modules
+const EvmModule = @import("../package.zig");
 const environment = @import("environment.zig");
 const Interpreter = EvmModule.Interpreter;
 const Frame = EvmModule.Frame;
@@ -232,4 +231,21 @@ test "environment - GASPRICE opcode" {
     try std.testing.expectEqual(@as(usize, 1), test_env.frame.stack.size);
 
     try std.testing.expectEqual(@as(u256_native, 1000000000), test_env.frame.stack.items[0]);
+}
+
+// Test the GAS opcode
+test "environment - GAS opcode" {
+    const allocator = std.testing.allocator;
+
+    const test_env = try setupTestEnvironment(allocator);
+    
+    // Set a specific gas remaining value for testing
+    test_env.frame.gas_remaining = 999999;
+
+    _ = try environment.opGas(0, test_env.interpreter, test_env.frame);
+
+    try std.testing.expectEqual(@as(usize, 1), test_env.frame.stack.size);
+
+    // Should push the gas remaining value
+    try std.testing.expectEqual(@as(u256, 999999), test_env.frame.stack.items[0]);
 }
