@@ -37,7 +37,6 @@ export const OptimisticWrapperProvider: React.FC<OptimisticWrapperProviderProps<
  */
 export const useOptimisticWrapper = <TConfig extends StoreConfig>(): OptimisticWrapperContextType<TConfig> => {
 	const context = useContext(OptimisticWrapperContext) as OptimisticWrapperContextType<TConfig>
-	console.log("useOptimisticWrapper", context?._?.optimisticClient.uid)
 	if (context === undefined) throw new Error('useOptimisticWrapper must be used within an OptimisticWrapperProvider')
 	return context
 }
