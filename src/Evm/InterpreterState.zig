@@ -33,7 +33,7 @@ pub const InterpreterState = struct {
     pub fn init(allocator: std.mem.Allocator) !InterpreterState {
         return InterpreterState{
             .mem = Memory.init(allocator),
-            .stack = try Stack.init(allocator),
+            .stack = Stack.init(allocator),
         };
     }
 
@@ -50,4 +50,66 @@ pub const InterpreterState = struct {
 // Constructor for creating a new interpreter state
 pub fn createInterpreterState(allocator: std.mem.Allocator) !InterpreterState {
     return InterpreterState.init(allocator);
+}
+
+// Tests
+test "InterpreterState.init initializes with default values" {
+    const allocator = std.testing.allocator;
+    
+    var state = try InterpreterState.init(allocator);
+    defer state.deinit();
+    
+    // Check default values
+    try std.testing.expectEqual(@as(usize, 0), state.pc);
+    try std.testing.expectEqual(@as(u64, 0), state.cost);
+    try std.testing.expect(state.mem != null);
+    try std.testing.expect(state.stack != null);
+}
+
+test "InterpreterState.deinit properly cleans up resources" {
+    const allocator = std.testing.allocator;
+    
+    var state = try InterpreterState.init(allocator);
+    // Should not leak memory
+    state.deinit();
+    
+    // Test double deinit is safe
+    state.deinit();
+}
+
+test "InterpreterState fields can be modified" {
+    const allocator = std.testing.allocator;
+    
+    var state = try InterpreterState.init(allocator);
+    defer state.deinit();
+    
+    // Test modifying fields
+    state.pc = 100;
+    state.cost = 21000;
+    state.op = &[_]u8{0x60, 0x00}; // PUSH1 0x00
+    
+    try std.testing.expectEqual(@as(usize, 100), state.pc);
+    try std.testing.expectEqual(@as(u64, 21000), state.cost);
+    try std.testing.expectEqualSlices(u8, &[_]u8{0x60, 0x00}, state.op);
+}
+
+test "createInterpreterState creates valid state" {
+    const allocator = std.testing.allocator;
+    
+    var state = try createInterpreterState(allocator);
+    defer state.deinit();
+    
+    try std.testing.expect(state.mem != null);
+    try std.testing.expect(state.stack != null);
+    try std.testing.expectEqual(@as(usize, 0), state.pc);
+}
+
+test "InterpreterState with null memory and stack" {
+    var state = InterpreterState{};
+    
+    // Should handle null mem and stack safely
+    state.deinit();
+    
+    try std.testing.expectEqual(@as(?Memory, null), state.mem);
+    try std.testing.expectEqual(@as(?Stack, null), state.stack);
 }

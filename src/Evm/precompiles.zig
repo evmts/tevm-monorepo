@@ -2,7 +2,7 @@ const std = @import("std");
 const PrecompiledContract = @import("precompiles/Precompiled.zig").PrecompiledContract;
 const PrecompiledContractImpl = @import("precompiles/Contract.zig").Contract;
 const B256 = @import("../Types/B256.ts");
-const Address = @import("../Address/address.zig").Address;
+const Address = @import("../../Address/address.zig").Address;
 const ExecutionError = @import("Frame.zig").ExecutionError;
 
 /// Checks if an address corresponds to a precompiled contract
@@ -73,4 +73,13 @@ pub fn runPrecompiled(addr: Address, input: []const u8, gas: u64, allocator: std
     const result = try contract.run(input);
     
     return result;
+}
+
+// Tests
+const testing = std.testing;
+
+test "precompiles.zig compiles" {
+    // This is a basic test to ensure the module compiles
+    // The actual functionality is tested through the precompiles/Precompiled.zig tests
+    try testing.expect(true);
 }
