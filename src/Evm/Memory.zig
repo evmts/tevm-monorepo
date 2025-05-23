@@ -1,5 +1,22 @@
 const std = @import("std");
 
+// Performance comparison with revm and evmone:
+//
+// Memory Management Strategy:
+// - Tevm: std.ArrayList(u8) with dynamic growth
+// - revm: SharedMemory with Rc<RefCell<Vec<u8>>> for shared access (https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/interpreter/shared_memory.rs)
+// - evmone: Custom Memory class with raw pointer management (https://github.com/ethereum/evmone/blob/master/lib/evmone/execution_state.hpp#L84)
+//
+// Key differences:
+// 1. revm uses reference counting for memory sharing between contexts
+// 2. evmone pre-allocates in chunks and uses custom allocator
+// 3. evmone tracks memory expansion cost inline with operations
+//
+// Optimization opportunities:
+// - evmone's chunk-based allocation reduces reallocation overhead
+// - revm's SharedMemory enables efficient call contexts without copying
+// - Both use page-aligned allocations for better performance
+
 /// Memory implements a simple memory model for the ethereum virtual machine.
 pub const Memory = struct {
     store: std.ArrayList(u8),
@@ -21,6 +38,12 @@ pub const Memory = struct {
     }
 
     /// Set copies data from value to the memory at the specified offset
+    // Performance comparison:
+    // - revm: Uses set_data with slice operations (https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/interpreter/shared_memory.rs#L217)
+    // - evmone: Direct memcpy with no bounds check in release (https://github.com/ethereum/evmone/blob/master/lib/evmone/execution_state.hpp#L100)
+    // 
+    // Note: evmone's approach is more aggressive, skipping bounds checks entirely
+    // Tevm's panic is safer but adds overhead compared to evmone
     pub fn set(self: *Memory, offset: u64, size: u64, value: []const u8) void {
         // It's possible the offset is greater than 0 and size equals 0. This is because
         // the calcMemSize could potentially return 0 when size is zero (NO-OP)
@@ -55,6 +78,13 @@ pub const Memory = struct {
     }
 
     /// Resize expands the memory to accommodate the specified size
+    // Performance comparison:
+    // - revm: Resizes with Vec::resize (https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/interpreter/shared_memory.rs#L185)
+    // - evmone: Custom grow() with chunk allocation (https://github.com/ethereum/evmone/blob/master/lib/evmone/execution_state.hpp#L92)
+    //
+    // Critical optimization from evmone: Allocates in 4KB chunks to reduce allocations
+    // evmone ref: static constexpr size_t page_size = 4 * 1024
+    // This reduces memory fragmentation and syscall overhead
     pub fn resize(self: *Memory, size: u64) !void {
         try self.store.resize(size);
     }
@@ -95,6 +125,15 @@ pub const Memory = struct {
 
     /// Copy copies data from the src position slice into the dst position
     /// The source and destination may overlap.
+    // Performance comparison:
+    // - revm: Uses copy_within for overlapping regions (https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/interpreter/shared_memory.rs#L246)
+    // - evmone: Direct memmove call (https://github.com/ethereum/evmone/blob/master/lib/evmone/instructions_memory.cpp#L89)
+    //
+    // Critical insight: evmone uses memmove which is highly optimized at the system level
+    // revm's copy_within is similarly optimized in Rust stdlib
+    // Tevm's manual loop is less efficient than system memmove
+    //
+    // Suggested optimization: Use std.mem.copyForwards/copyBackwards or memmove equivalent
     pub fn copy(self: *Memory, dst: u64, src: u64, length: u64) void {
         if (length == 0) {
             return;

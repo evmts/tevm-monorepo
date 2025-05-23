@@ -49,20 +49,20 @@ pub fn encode(allocator: Allocator, input: anytype) ![]u8 {
     const info = @typeInfo(T);
 
     // Handle byte arrays and slices
-    if (info == .Array) {
-        const child_info = @typeInfo(info.Array.child);
-        if (child_info == .Int and child_info.Int.bits == 8) {
+    if (info == .array) {
+        const child_info = @typeInfo(info.array.child);
+        if (child_info == .int and child_info.int.bits == 8) {
             return try encodeBytes(allocator, input);
         }
-    } else if (info == .Pointer) {
-        const child_info = @typeInfo(info.Pointer.child);
-        if (child_info == .Int and child_info.Int.bits == 8) {
+    } else if (info == .pointer) {
+        const child_info = @typeInfo(info.pointer.child);
+        if (child_info == .int and child_info.int.bits == 8) {
             return try encodeBytes(allocator, input);
         }
     }
     
     // Handle lists
-    if (info == .Array or info == .Slice) {
+    if (info == .array or info == .Slice) {
         var result = std.ArrayList(u8).init(allocator);
         defer result.deinit();
         
@@ -137,7 +137,7 @@ fn encodeBytes(allocator: Allocator, bytes: []const u8) ![]u8 {
     if (bytes.len < 56) {
         const result = try allocator.alloc(u8, 1 + bytes.len);
         result[0] = 0x80 + @as(u8, @intCast(bytes.len));
-        std.mem.copy(u8, result[1..], bytes);
+        @memcpy(result[1..], bytes);
         return result;
     }
     
@@ -147,8 +147,8 @@ fn encodeBytes(allocator: Allocator, bytes: []const u8) ![]u8 {
     
     const result = try allocator.alloc(u8, 1 + len_bytes.len + bytes.len);
     result[0] = 0xb7 + @as(u8, @intCast(len_bytes.len));
-    std.mem.copy(u8, result[1..], len_bytes);
-    std.mem.copy(u8, result[1 + len_bytes.len..], bytes);
+    @memcpy(result[1..], len_bytes);
+    @memcpy(result[1 + len_bytes.len..], bytes);
     
     return result;
 }
@@ -227,7 +227,7 @@ fn _decode(allocator: Allocator, input: []const u8) !Decoded {
         }
         
         const data = try allocator.alloc(u8, length);
-        std.mem.copy(u8, data, input[1 .. 1 + length]);
+        @memcpy(data, input[1 .. 1 + length]);
         
         return Decoded{
             .data = Data{ .String = data },
@@ -263,7 +263,7 @@ fn _decode(allocator: Allocator, input: []const u8) !Decoded {
         }
         
         const data = try allocator.alloc(u8, total_length);
-        std.mem.copy(u8, data, input[1 + length_of_length .. 1 + length_of_length + total_length]);
+        @memcpy(data, input[1 + length_of_length .. 1 + length_of_length + total_length]);
         
         return Decoded{
             .data = Data{ .String = data },
@@ -386,7 +386,7 @@ pub fn concatBytes(allocator: Allocator, arrays: []const []const u8) ![]u8 {
     const result = try allocator.alloc(u8, total_len);
     var index: usize = 0;
     for (arrays) |arr| {
-        std.mem.copy(u8, result[index..], arr);
+        @memcpy(result[index..], arr);
         index += arr.len;
     }
     

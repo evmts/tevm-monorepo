@@ -102,7 +102,7 @@ fn decodeParam(
             return DecodeError.BufferTooShort;
         }
         
-        const dynamic_offset = std.mem.bigToNative(u256, @ptrCast(*const u256, data[offset.* .. offset.* + 32].*));
+        const dynamic_offset = std.mem.bigToNative(u256, @as(*const u256, @ptrCast(@alignCast(data[offset.* .. offset.* + 32].ptr))).*));
         offset.* += 32;
         
         // Read the length
@@ -149,7 +149,7 @@ fn decodeParam(
             return DecodeError.BufferTooShort;
         }
         
-        const dynamic_offset = std.mem.bigToNative(u256, @ptrCast(*const u256, data[offset.* .. offset.* + 32].*));
+        const dynamic_offset = std.mem.bigToNative(u256, @as(*const u256, @ptrCast(@alignCast(data[offset.* .. offset.* + 32].ptr))).*));
         offset.* += 32;
         
         // Read the length
@@ -203,7 +203,7 @@ pub fn bytesToValueInPlace(comptime T: type, bytes: []const u8, out: *T) !void {
     }
     
     if (T == u256 or T == i256) {
-        out.* = std.mem.bigToNative(T, @ptrCast(*const T, bytes[0..@sizeOf(T)]).*);
+        out.* = std.mem.bigToNative(T, @as(*const T, @ptrCast(@alignCast(bytes[0..@sizeOf(T)].ptr))).*);
         return;
     }
     
@@ -232,7 +232,6 @@ pub fn bytesToValueInPlace(comptime T: type, bytes: []const u8, out: *T) !void {
     return DecodeError.InvalidType;
 }
 
-/// Tests for decodeAbiParameters
 test "decodeAbiParameters basic types" {
     const testing = std.testing;
     

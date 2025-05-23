@@ -10,7 +10,7 @@ const abi = @import("abi.zig");
 /// out_selector: Pre-allocated 4-byte array to store the result
 pub fn computeFunctionSelector(signature: []const u8, out_selector: *[4]u8) void {
     const hash = abi.keccak256(signature);
-    std.mem.copy(u8, out_selector, hash[0..4]);
+    @memcpy(out_selector, hash[0..4]);
 }
 
 /// Compute the 4-byte function selector from an ABI function item
@@ -27,7 +27,7 @@ pub fn getFunctionSelector(func: abi.Function, out_selector: *[4]u8) !void {
         return error.BufferTooSmall;
     }
     
-    std.mem.copy(u8, signature_buf[0..func.name.len], func.name);
+    @memcpy(signature_buf[0..func.name.len], func.name);
     signature_len += func.name.len;
     
     signature_buf[signature_len] = '(';
@@ -46,7 +46,7 @@ pub fn getFunctionSelector(func: abi.Function, out_selector: *[4]u8) !void {
             return error.BufferTooSmall;
         }
         
-        std.mem.copy(u8, signature_buf[signature_len..], canonical_type);
+        @memcpy(signature_buf[signature_len..], canonical_type);
         signature_len += canonical_type.len;
     }
     
@@ -66,7 +66,7 @@ pub fn getFunctionSelector(func: abi.Function, out_selector: *[4]u8) !void {
 /// out_topic: Pre-allocated 32-byte array to store the result
 pub fn computeEventTopic(signature: []const u8, out_topic: *[32]u8) void {
     const hash = abi.keccak256(signature);
-    std.mem.copy(u8, out_topic, &hash);
+    @memcpy(out_topic, &hash);
 }
 
 /// Compute event topic hash from an ABI event item
@@ -83,7 +83,7 @@ pub fn getEventTopic(event: abi.Event, out_topic: *[32]u8) !void {
         return error.BufferTooSmall;
     }
     
-    std.mem.copy(u8, signature_buf[0..event.name.len], event.name);
+    @memcpy(signature_buf[0..event.name.len], event.name);
     signature_len += event.name.len;
     
     signature_buf[signature_len] = '(';
@@ -108,7 +108,7 @@ pub fn getEventTopic(event: abi.Event, out_topic: *[32]u8) !void {
             return error.BufferTooSmall;
         }
         
-        std.mem.copy(u8, signature_buf[signature_len..], canonical_type);
+        @memcpy(signature_buf[signature_len..], canonical_type);
         signature_len += canonical_type.len;
     }
     
@@ -118,7 +118,7 @@ pub fn getEventTopic(event: abi.Event, out_topic: *[32]u8) !void {
     
     // Compute topic hash
     const hash = abi.keccak256(signature_buf[0..signature_len]);
-    std.mem.copy(u8, out_topic, &hash);
+    @memcpy(out_topic, &hash);
 }
 
 /// Get the canonical type representation
@@ -151,7 +151,6 @@ fn getCanonicalType(ty: []const u8) []const u8 {
     return ty;
 }
 
-/// Tests for function selectors and event topics
 test "computeFunctionSelector basic" {
     const testing = std.testing;
     

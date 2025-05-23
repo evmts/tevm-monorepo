@@ -100,85 +100,85 @@ pub const JsonAbi = struct {
     errors:      std.StringHashMap([]Error),
 
     /// Initialize an empty ABI
-    pub fn init(allocator: *std.mem.Allocator) !JsonAbi {
+    pub fn init(_: *std.mem.Allocator) !JsonAbi {
         unreachable;
     }
 
     /// Insert a single item into the ABI
-    pub fn insertItem(self: *JsonAbi, item: AbiItem) void {
+    pub fn insertItem(_: *JsonAbi, _: AbiItem) void {
         unreachable;
     }
 
     /// Parse human-readable ABI at compile time
-    pub fn parseHumanReadable(comptime inputs: [][]const u8) JsonAbi {
+    pub fn parseHumanReadable(comptime _: [][]const u8) JsonAbi {
         unreachable;
     }
 
     /// Parse human-readable ABI at runtime
     pub fn parseHumanReadableRuntime(
-        allocator: *std.mem.Allocator,
-        inputs: [][]const u8,
+        _: *std.mem.Allocator,
+        _: [][]const u8,
     ) !JsonAbi {
         unreachable;
     }
 
     /// Parse JSON ABI blob
     pub fn parseJSON(
-        allocator: *std.mem.Allocator,
-        json_blob: []const u8,
+        _: *std.mem.Allocator,
+        _: []const u8,
     ) !JsonAbi {
         unreachable;
     }
 
     /// Load from reader (e.g., file)
     pub fn loadFromReader(
-        allocator: *std.mem.Allocator,
-        reader: anytype,
+        _: *std.mem.Allocator,
+        _: anytype,
     ) !JsonAbi {
         unreachable;
     }
 
     /// Number of items in the ABI
-    pub fn len(self: *const JsonAbi) usize {
+    pub fn len(_: *const JsonAbi) usize {
         unreachable;
     }
 
     /// True if no items
-    pub fn isEmpty(self: *const JsonAbi) bool {
+    pub fn isEmpty(_: *const JsonAbi) bool {
         unreachable;
     }
 
     /// Remove duplicate functions, events, errors
-    pub fn dedup(self: *JsonAbi) void {
+    pub fn dedup(_: *JsonAbi) void {
         unreachable;
     }
 
     /// Iterate over items (immutable)
-    pub fn items(self: *const JsonAbi) Items {
+    pub fn items(_: *const JsonAbi) Items {
         unreachable;
     }
 
     /// Consume and iterate over items
-    pub fn intoItems(self: JsonAbi) IntoItems {
+    pub fn intoItems(_: JsonAbi) IntoItems {
         unreachable;
     }
 
     /// Render as Solidity interface source
     pub fn toSol(
-        self: *const JsonAbi,
-        allocator: *std.mem.Allocator,
-        name: []const u8,
-        config: ToSolConfig,
+        _: *const JsonAbi,
+        _: *std.mem.Allocator,
+        _: []const u8,
+        _: ToSolConfig,
     ) ![]u8 {
         unreachable;
     }
 
     /// Render into provided buffer
     pub fn toSolRaw(
-        self: *const JsonAbi,
-        out: []u8,
-        name: []const u8,
-        config: ToSolConfig,
+        _: *const JsonAbi,
+        _: []u8,
+        _: []const u8,
+        _: ToSolConfig,
     ) void {
         unreachable;
     }

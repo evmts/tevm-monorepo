@@ -160,7 +160,6 @@ pub fn decodeFunctionResultToValue(
     out_value.* = value;
 }
 
-/// Tests for function result encoding/decoding
 test "encodeFunctionResult and decodeFunctionResult basic" {
     const testing = std.testing;
     

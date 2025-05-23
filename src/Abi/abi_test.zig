@@ -274,7 +274,6 @@ test "ABI basic round trip encoding/decoding" {
     }
 }
 
-/// Test complex types and edge cases
 test "ABI complex types and edge cases" {
     const testing = std.testing;
     var arena = std.heap.ArenaAllocator.init(testing.allocator);

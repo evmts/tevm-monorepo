@@ -225,7 +225,7 @@ const Tokenizer = struct {
             }
             
             // Check for array dimensions
-            var type_str = type_token.value;
+            const type_str = type_token.value;
             var array_dims = std.ArrayList(u8).init(std.heap.page_allocator);
             defer array_dims.deinit();
             
@@ -340,7 +340,7 @@ const Tokenizer = struct {
             }
             
             // Check for array dimensions
-            var type_str = token.value;
+            const type_str = token.value;
             var array_dims = std.ArrayList(u8).init(std.heap.page_allocator);
             defer array_dims.deinit();
             
@@ -788,7 +788,6 @@ pub fn parseAbi(allocator: std.mem.Allocator, signatures: []const []const u8) ![
     return items.toOwnedSlice();
 }
 
-/// Tests for ABI parsing
 test "parseAbiItem function" {
     const testing = std.testing;
     var arena = std.heap.ArenaAllocator.init(testing.allocator);

@@ -166,7 +166,7 @@ pub fn encodeParameterAsTopic(
         std.mem.set(u8, out_topic, 0); // Zero out the buffer
         
         // If value is longer than 32 bytes, truncate
-        const copy_len = @minimum(value.len, 32);
+        const copy_len = @min(value.len, 32);
         
         if (std.mem.startsWith(u8, param.ty, "uint") or
             std.mem.startsWith(u8, param.ty, "int")) {
@@ -174,7 +174,7 @@ pub fn encodeParameterAsTopic(
             std.mem.copy(u8, out_topic[32 - copy_len..], value[0..copy_len]);
         } else if (std.mem.eql(u8, param.ty, "address")) {
             // Addresses are right-aligned, but padded to 20 bytes
-            const addr_len = @minimum(value.len, 20);
+            const addr_len = @min(value.len, 20);
             std.mem.copy(u8, out_topic[32 - addr_len..], value[0..addr_len]);
         } else {
             // Other types are left-aligned
@@ -306,7 +306,6 @@ pub fn decodeEventLogWithEvent(
     }
 }
 
-/// Tests for event topic encoding
 test "encodeEventTopics basic" {
     const testing = std.testing;
     

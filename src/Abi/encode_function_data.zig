@@ -191,7 +191,6 @@ pub fn encodeFunctionDataRaw(
     return 4 + encoded_len;
 }
 
-/// Tests for function data encoding
 test "encodeFunctionData basic" {
     const testing = std.testing;
     

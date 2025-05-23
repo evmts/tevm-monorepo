@@ -246,31 +246,7 @@ pub fn build(b: *std.Build) void {
     lib_unit_tests.root_module.addImport("Trie", trie_mod);
     lib_unit_tests.root_module.addImport("Utils", utils_mod);
 
-    // Additional standalone test specifically for Frame_test.zig
-    const frame_test = b.addTest(.{
-        .name = "frame-test",
-        .root_source_file = b.path("src/Evm/Frame_test.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    // Add all modules to frame_test
-    frame_test.root_module.addImport("Address", address_mod);
-    frame_test.root_module.addImport("Abi", abi_mod);
-    frame_test.root_module.addImport("Block", block_mod);
-    frame_test.root_module.addImport("Bytecode", bytecode_mod);
-    frame_test.root_module.addImport("Compiler", compiler_mod);
-    frame_test.root_module.addImport("Evm", evm_mod);
-    frame_test.root_module.addImport("Rlp", rlp_mod);
-    frame_test.root_module.addImport("Token", token_mod);
-    frame_test.root_module.addImport("Trie", trie_mod);
-    frame_test.root_module.addImport("Utils", utils_mod);
-
-    const run_frame_test = b.addRunArtifact(frame_test);
-
-    // Add a separate step for testing just the frame
-    const frame_test_step = b.step("test-frame", "Run EVM frame tests");
-    frame_test_step.dependOn(&run_frame_test.step);
+    // Frame test removed - Frame_test.zig doesn't exist
 
     // Add a test for evm.zig
     const evm_test = b.addTest(.{
@@ -354,7 +330,7 @@ pub fn build(b: *std.Build) void {
     // Add a test for Compiler tests
     const compiler_test = b.addTest(.{
         .name = "compiler-test",
-        .root_source_file = b.path("src/Compiler/resolutions.zig"),
+        .root_source_file = b.path("src/Compilers/compiler.zig"),
         .target = target,
         .optimize = optimize,
     });
@@ -422,7 +398,6 @@ pub fn build(b: *std.Build) void {
     const test_step = b.step("test", "Run unit tests");
     test_step.dependOn(&run_lib_unit_tests.step);
     test_step.dependOn(&run_exe_unit_tests.step);
-    test_step.dependOn(&run_frame_test.step);
     test_step.dependOn(&run_evm_test.step);
     test_step.dependOn(&run_server_test.step);
     test_step.dependOn(&run_rlp_test.step);
