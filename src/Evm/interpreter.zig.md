@@ -270,6 +270,42 @@ Based on other implementations:
    - Step-by-step debugging
    - Gas profiling
 
+## Unimplemented Features
+
+Based on comparison with REVM and code analysis, the following features are unimplemented or incomplete:
+
+### 1. Missing Core Features
+- **Opcode Names Mapping**: TODO in line 150 - human-readable opcode names for debugging
+- **Execution Tracing**: No step-by-step execution hooks like REVM's Inspector trait
+- **Gas Refunds**: No tracking of gas refunds from SSTORE operations
+- **Access List Management**: No integration with EIP-2930 access lists
+- **Transient Storage**: No TLOAD/TSTORE implementation for EIP-1153
+
+### 2. Performance Optimizations Missing (compared to REVM)
+- **Computed Goto Dispatch**: Missing ~20% performance boost from evmone
+- **Macro-based Dispatch**: No inlining of hot paths like REVM
+- **Batched Gas Checks**: Individual gas checks per opcode instead of batching
+- **Pre-validated Jumps**: No jump destination analysis before execution
+- **Memory Pooling**: No reuse of common allocations
+
+### 3. Advanced Features Not Implemented
+- **EOF Support**: No Ethereum Object Format (EOF) validation
+- **Custom Handlers**: No way to inject custom opcode handlers
+- **Parallel Execution**: No support for speculative execution
+- **JIT Compilation**: No just-in-time compilation support
+- **Witness Generation**: No support for stateless client witnesses
+
+### 4. Debugging and Analysis Tools
+- **Gas Profiler**: No detailed gas usage breakdown by opcode
+- **Heat Maps**: No execution frequency analysis
+- **Coverage Analysis**: No code coverage tracking
+- **Benchmark Mode**: No built-in performance measurement
+
+### 5. State Management Integration
+- **Journaling**: Basic compared to REVM's sophisticated journal system
+- **State Caching**: No advanced caching strategies
+- **Parallel State Access**: No concurrent state read optimization
+
 ## Conclusion
 
 The Tevm interpreter implementation provides a clean, maintainable foundation for EVM execution. While it currently prioritizes clarity over raw performance, the architecture allows for incremental optimization without sacrificing code quality.

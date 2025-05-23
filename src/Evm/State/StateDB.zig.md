@@ -267,6 +267,51 @@ Based on other implementations, potential improvements:
 6. **Parallel Access**: Support concurrent reads
 7. **Witness Support**: Generate state witnesses
 
+## Unimplemented Features
+
+Based on comparison with REVM and analysis, the following features are missing:
+
+### 1. EIP-2929 Access Lists
+- No warm/cold account tracking
+- No access list management
+- No gas cost differentiation for accessed addresses
+- Missing accessed_addresses and accessed_storage_keys tracking
+
+### 2. EIP-1153 Transient Storage
+- No TLOAD/TSTORE support
+- No transient storage map
+- No clearing between transactions
+
+### 3. Advanced State Management
+- **No State Roots**: Cannot compute Merkle Patricia Trie roots
+- **No Witness Generation**: Cannot create state witnesses for stateless clients
+- **No Proof Generation**: Cannot generate Merkle proofs for state
+- **No Database Backend**: Only in-memory, no persistent storage interface
+
+### 4. Performance Optimizations (vs REVM)
+- **No Status Flags**: Missing created/touched/destroyed bitflags
+- **No Original Value Tracking**: Doesn't track original vs current storage values
+- **No Batch Processing**: Individual operations instead of batched updates
+- **No Caching Layer**: No LRU or other caching strategies
+- **No Storage Prefetching**: No predictive loading of storage slots
+
+### 5. Missing Features from REVM StateDB
+- **No Precompile Tracking**: Doesn't track calls to precompiled contracts
+- **No Log Management**: Logs should be part of state management
+- **No Block Hash Storage**: Missing block hash oracle functionality
+- **No Self-destruct List**: No tracking of contracts marked for deletion
+
+### 6. Gas and Refund Management
+- **Limited Refund Logic**: Basic refund tracking without SSTORE refund rules
+- **No Gas Metering Integration**: State changes don't directly update gas
+- **No EIP-3529 Refund Rules**: Missing reduced refund caps
+
+### 7. Integration Features
+- **No Database Interface**: Cannot plug in different storage backends
+- **No State Diff Export**: Cannot generate state diffs between snapshots
+- **No Parallel Access**: No support for concurrent state reads
+- **No Metrics/Telemetry**: No performance tracking or statistics
+
 ## Conclusion
 
 The Tevm StateDB implementation provides a clean, maintainable foundation for EVM state management. While it may not have all optimizations of production implementations, its clarity and correctness make it excellent for:
