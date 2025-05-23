@@ -1,7 +1,7 @@
 const std = @import("std");
 const Allocator = std.mem.Allocator;
-const rlp = @import("rlp");
-const utils = @import("utils");
+const rlp = @import("Rlp");
+const utils = @import("Utils");
 
 /// Error type for trie operations
 pub const TrieError = error{
@@ -67,24 +67,9 @@ pub const HashValue = union(enum) {
 
     pub fn deinit(self: HashValue, allocator: Allocator) void {
         switch (self) {
-            .Raw => |data| {
-                if (data.len > 0) {
-                    allocator.free(data);
-                }
-            },
+            .Raw => |data| allocator.free(data),
             .Hash => {}, // Hashes are static/fixed size
         }
-    }
-
-    // Create a deep clone of the HashValue that owns its own memory
-    pub fn clone(self: HashValue, allocator: Allocator) !HashValue {
-        return switch (self) {
-            .Hash => |h| HashValue{ .Hash = h },
-            .Raw => |data| {
-                const new_data = try allocator.dupe(u8, data);
-                return HashValue{ .Raw = new_data };
-            },
-        };
     }
 
     pub fn hash(self: HashValue, allocator: Allocator) ![32]u8 {
@@ -99,6 +84,16 @@ pub const HashValue = union(enum) {
                 var hash_output: [32]u8 = undefined;
                 std.crypto.hash.sha3.Keccak256.hash(encoded, &hash_output, .{});
                 return hash_output;
+            },
+        }
+    }
+
+    pub fn dupe(self: HashValue, allocator: Allocator) !HashValue {
+        switch (self) {
+            .Hash => |h| return HashValue{ .Hash = h },
+            .Raw => |data| {
+                const data_copy = try allocator.dupe(u8, data);
+                return HashValue{ .Raw = data_copy };
             },
         }
     }
@@ -127,6 +122,41 @@ pub const BranchNode = struct {
 
     pub fn isEmpty(self: BranchNode) bool {
         return self.children_mask.isEmpty() and self.value == null;
+    }
+
+    pub fn dupe(self: BranchNode, allocator: Allocator) !BranchNode {
+        var new_branch = BranchNode.init();
+        new_branch.children_mask = self.children_mask;
+        
+        // Track how many children we've copied for cleanup on error
+        var copied_count: usize = 0;
+        errdefer {
+            // Clean up any children we've already copied
+            for (0..copied_count) |i| {
+                if (new_branch.children[i]) |*child| {
+                    child.deinit(allocator);
+                }
+            }
+            // Clean up value if we copied it
+            if (new_branch.value) |*v| {
+                v.deinit(allocator);
+            }
+        }
+        
+        // Deep copy all children
+        for (self.children, 0..) |child, i| {
+            if (child) |c| {
+                new_branch.children[i] = try c.dupe(allocator);
+                copied_count = i + 1;
+            }
+        }
+        
+        // Deep copy value if present
+        if (self.value) |v| {
+            new_branch.value = try v.dupe(allocator);
+        }
+        
+        return new_branch;
     }
 
     pub fn encode(self: BranchNode, allocator: Allocator) ![]u8 {
@@ -184,10 +214,10 @@ pub const ExtensionNode = struct {
     nibbles: []u8,
     next: HashValue,
 
-    pub fn init(allocator: Allocator, path: []const u8, next: HashValue) !ExtensionNode {
-        const nibbles = try allocator.dupe(u8, path);
+    pub fn init(allocator: Allocator, path: []u8, next: HashValue) !ExtensionNode {
+        _ = allocator;
         return ExtensionNode{
-            .nibbles = nibbles,
+            .nibbles = path,
             .next = next,
         };
     }
@@ -227,10 +257,10 @@ pub const LeafNode = struct {
     nibbles: []u8,
     value: HashValue,
 
-    pub fn init(allocator: Allocator, path: []const u8, value: HashValue) !LeafNode {
-        const nibbles = try allocator.dupe(u8, path);
+    pub fn init(allocator: Allocator, path: []u8, value: HashValue) !LeafNode {
+        _ = allocator;
         return LeafNode{
-            .nibbles = nibbles,
+            .nibbles = path,
             .value = value,
         };
     }
@@ -333,15 +363,16 @@ pub fn nibblesToKey(allocator: Allocator, nibbles: []const u8) ![]u8 {
 
 /// Encodes a path for either leaf or extension nodes
 fn encodePath(allocator: Allocator, nibbles: []const u8, is_leaf: bool) ![]u8 {
-    // Handle special case of empty nibbles
+    // Handle empty nibbles case
     if (nibbles.len == 0) {
         const hex_arr = try allocator.alloc(u8, 1);
         hex_arr[0] = if (is_leaf) 0x20 else 0x00;
         return hex_arr;
     }
-
+    
     // Create a new array for the encoded path
-    const hex_arr = try allocator.alloc(u8, (nibbles.len + 1) / 2);
+    const len = if (nibbles.len % 2 == 0) (nibbles.len / 2) + 1 else (nibbles.len + 1) / 2;
+    const hex_arr = try allocator.alloc(u8, len);
     errdefer allocator.free(hex_arr);
 
     if (nibbles.len % 2 == 0) {
@@ -352,7 +383,7 @@ fn encodePath(allocator: Allocator, nibbles: []const u8, is_leaf: bool) ![]u8 {
         }
     } else {
         // Odd number of nibbles
-        hex_arr[0] = if (is_leaf) 0x30 else 0x10 | nibbles[0];
+        hex_arr[0] = (if (is_leaf) @as(u8, 0x30) else @as(u8, 0x10)) | nibbles[0];
         for (1..hex_arr.len) |i| {
             hex_arr[i] = (nibbles[i * 2 - 1] << 4) | nibbles[i * 2];
         }
@@ -375,7 +406,11 @@ pub fn decodePath(allocator: Allocator, encoded_path: []const u8) !struct {
     const is_leaf = prefix_nibble == 2 or prefix_nibble == 3;
     const has_odd_nibble = prefix_nibble == 1 or prefix_nibble == 3;
     
-    const nibble_count = encoded_path.len * 2 - @intFromBool(!has_odd_nibble);
+    const nibble_count = if (has_odd_nibble) 
+        encoded_path.len * 2 - 1
+    else 
+        (encoded_path.len - 1) * 2;
+        
     const nibbles = try allocator.alloc(u8, nibble_count);
     errdefer allocator.free(nibbles);
 
@@ -480,16 +515,16 @@ test "encodePath and decodePath" {
         const encoded = try encodePath(allocator, &nibbles, false);
         defer allocator.free(encoded);
         
-        // Verify we got a valid encoded path
-        try testing.expect(encoded.len > 0);
+        try testing.expectEqual(@as(usize, 3), encoded.len);
         try testing.expectEqual(@as(u8, 0x00), encoded[0]);
+        try testing.expectEqual(@as(u8, 0x12), encoded[1]);
+        try testing.expectEqual(@as(u8, 0x34), encoded[2]);
         
-        // Skip checking the exact encoding, but verify we can decode it back properly
         const decoded = try decodePath(allocator, encoded);
         defer allocator.free(decoded.nibbles);
         
         try testing.expectEqual(false, decoded.is_leaf);
-        // Note: Skip checking the exact nibbles - implementation may vary
+        try testing.expectEqualSlices(u8, &nibbles, decoded.nibbles);
     }
     
     // Test with odd number of nibbles - leaf node
@@ -498,17 +533,16 @@ test "encodePath and decodePath" {
         const encoded = try encodePath(allocator, &nibbles, true);
         defer allocator.free(encoded);
         
-        // Verify we got a valid encoded path
-        try testing.expect(encoded.len > 0);
-        // First byte contains leaf flag in high nibble
-        try testing.expect((encoded[0] & 0x20) != 0);
+        try testing.expectEqual(@as(usize, 3), encoded.len);
+        try testing.expectEqual(@as(u8, 0x31), encoded[0]);
+        try testing.expectEqual(@as(u8, 0x23), encoded[1]);
+        try testing.expectEqual(@as(u8, 0x45), encoded[2]);
         
-        // Skip checking the exact encoding, but verify we can decode it back properly
         const decoded = try decodePath(allocator, encoded);
         defer allocator.free(decoded.nibbles);
         
         try testing.expectEqual(true, decoded.is_leaf);
-        // Note: Skip checking the exact nibbles - implementation may vary
+        try testing.expectEqualSlices(u8, &nibbles, decoded.nibbles);
     }
 }
 
@@ -552,10 +586,10 @@ test "LeafNode encoding" {
     const path = [_]u8{ 1, 2, 3, 4 };
     const value = "test_value";
     const value_copy = try allocator.dupe(u8, value);
+    const path_copy = try allocator.dupe(u8, &path);
     
-    const leaf = try LeafNode.init(allocator, &path, HashValue{ .Raw = value_copy });
-    var leaf_copy = leaf;
-    defer leaf_copy.deinit(allocator);
+    var leaf = try LeafNode.init(allocator, path_copy, HashValue{ .Raw = value_copy });
+    defer leaf.deinit(allocator);
     
     const encoded = try leaf.encode(allocator);
     defer allocator.free(encoded);
@@ -579,8 +613,9 @@ test "ExtensionNode encoding" {
     const path = [_]u8{ 1, 2, 3, 4 };
     const value = "next_node";
     const value_copy = try allocator.dupe(u8, value);
+    const path_copy = try allocator.dupe(u8, &path);
     
-    var extension = try ExtensionNode.init(allocator, &path, HashValue{ .Raw = value_copy });
+    var extension = try ExtensionNode.init(allocator, path_copy, HashValue{ .Raw = value_copy });
     defer extension.deinit(allocator);
     
     const encoded = try extension.encode(allocator);
@@ -606,8 +641,9 @@ test "TrieNode hash" {
     const path = [_]u8{ 1, 2, 3, 4 };
     const value = "test_value";
     const value_copy = try allocator.dupe(u8, value);
+    const path_copy = try allocator.dupe(u8, &path);
     
-    const leaf = try LeafNode.init(allocator, &path, HashValue{ .Raw = value_copy });
+    const leaf = try LeafNode.init(allocator, path_copy, HashValue{ .Raw = value_copy });
     var node = TrieNode{ .Leaf = leaf };
     defer node.deinit(allocator);
     

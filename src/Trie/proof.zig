@@ -1,7 +1,7 @@
 const std = @import("std");
 const Allocator = std.mem.Allocator;
 const trie = @import("trie.zig");
-const rlp = @import("../Rlp/rlp.zig");
+const rlp = @import("Rlp");
 
 const TrieNode = trie.TrieNode;
 const HashValue = trie.HashValue;
@@ -32,7 +32,6 @@ pub const ProofNodes = struct {
     pub fn deinit(self: *ProofNodes) void {
         var it = self.nodes.iterator();
         while (it.next()) |entry| {
-            // Free both key and value
             self.allocator.free(entry.key_ptr.*);
             self.allocator.free(entry.value_ptr.*);
         }
@@ -41,34 +40,21 @@ pub const ProofNodes = struct {
 
     /// Add a node to the proof
     pub fn addNode(self: *ProofNodes, hash: [32]u8, node_data: []const u8) !void {
-        // Use an array on stack for converting to hex
-        var hex_buf: [64]u8 = undefined;
-        const hex_chars = "0123456789abcdef";
-        
-        // Convert hash to hex string directly without allocation
-        for (hash, 0..) |byte, i| {
-            hex_buf[i * 2] = hex_chars[byte >> 4];
-            hex_buf[i * 2 + 1] = hex_chars[byte & 0x0F];
-        }
-        
-        // Use the fixed-length buffer as key with explicit length
-        const hash_str = hex_buf[0..64];
+        const hash_str = try bytesToHexString(self.allocator, &hash);
+        errdefer self.allocator.free(hash_str);
 
         // Check if already exists
         if (self.nodes.contains(hash_str)) {
+            self.allocator.free(hash_str);
             return;
         }
 
-        // Only allocate the key when we're sure we need to store it
-        const key_copy = try self.allocator.dupe(u8, hash_str);
-        errdefer self.allocator.free(key_copy);
-        
         // Copy the node data
         const data_copy = try self.allocator.dupe(u8, node_data);
         errdefer self.allocator.free(data_copy);
 
         // Store the node
-        try self.nodes.put(key_copy, data_copy);
+        try self.nodes.put(hash_str, data_copy);
     }
 
     /// Convert to a list of RLP-encoded nodes for external use
@@ -102,18 +88,9 @@ pub const ProofNodes = struct {
         const nibbles = try trie.keyToNibbles(allocator, key);
         defer allocator.free(nibbles);
 
-        // Use a stack buffer for the hex string
-        var hex_buf: [64]u8 = undefined;
-        const hex_chars = "0123456789abcdef";
-        
-        // Convert hash to hex string directly
-        for (root_hash, 0..) |byte, i| {
-            hex_buf[i * 2] = hex_chars[byte >> 4];
-            hex_buf[i * 2 + 1] = hex_chars[byte & 0x0F];
-        }
-        
-        // Use the fixed-length buffer as key with explicit length
-        const root_hash_str = hex_buf[0..64];
+        // Get root node
+        const root_hash_str = try bytesToHexString(allocator, &root_hash);
+        defer allocator.free(root_hash_str);
 
         const root_node_data = self.nodes.get(root_hash_str) orelse {
             return ProofError.InvalidRootHash;
@@ -176,23 +153,25 @@ pub const ProofNodes = struct {
                                 // Check value
                                 switch (items[1]) {
                                     .String => |value| {
-                                        // Found value, compare with expected
-                                        if (expected_value) |expected| {
-                                            // Handle string comparison correctly
-                                            // The RLP-encoded value might need to be decoded here
-                                            const decoded_value = try rlp.decode(allocator, value, true);
-                                            defer decoded_value.data.deinit(allocator);
-                                            
-                                            if (decoded_value.data == .String) {
-                                                return std.mem.eql(u8, decoded_value.data.String, expected);
-                                            } else {
-                                                return false; // Value has unexpected format
-                                            }
-                                        } else {
-                                            return false; // Value exists but none expected
+                                        // The value is RLP-encoded, so we need to decode it
+                                        const decoded_value = try rlp.decode(allocator, value, false);
+                                        defer decoded_value.data.deinit(allocator);
+                                        
+                                        switch (decoded_value.data) {
+                                            .String => |actual_value| {
+                                                // Found value, compare with expected
+                                                if (expected_value) |expected| {
+                                                    return std.mem.eql(u8, actual_value, expected);
+                                                } else {
+                                                    return false; // Value exists but none expected
+                                                }
+                                            },
+                                            .List => return ProofError.CorruptedNode, // Value should not be a list
                                         }
                                     },
-                                    .List => return ProofError.CorruptedNode, // Invalid value format
+                                    .List => {
+                                        return ProofError.CorruptedNode; // Invalid value format
+                                    }
                                 }
                             } else {
                                 // Extension node
@@ -216,18 +195,9 @@ pub const ProofNodes = struct {
                                         var hash_buf: [32]u8 = undefined;
                                         @memcpy(&hash_buf, next_hash);
 
-                                        // Use a stack buffer for the hex string
-                                        var hex_buf: [64]u8 = undefined;
-                                        const hex_chars = "0123456789abcdef";
-                                        
-                                        // Convert hash to hex string directly
-                                        for (hash_buf, 0..) |byte, i| {
-                                            hex_buf[i * 2] = hex_chars[byte >> 4];
-                                            hex_buf[i * 2 + 1] = hex_chars[byte & 0x0F];
-                                        }
-                                        
-                                        // Use the fixed-length buffer as key with explicit length
-                                        const hash_str = hex_buf[0..64];
+                                        // Get the next node
+                                        const hash_str = try bytesToHexString(allocator, &hash_buf);
+                                        defer allocator.free(hash_str);
 
                                         const next_node_data = self.nodes.get(hash_str) orelse {
                                             return ProofError.MissingNode;
@@ -270,16 +240,7 @@ pub const ProofNodes = struct {
                                 } else {
                                     // Has value
                                     if (expected_value) |expected| {
-                                        // Handle string comparison correctly
-                                        // The RLP-encoded value might need to be decoded here
-                                        const decoded_value = try rlp.decode(allocator, value, true);
-                                        defer decoded_value.data.deinit(allocator);
-                                        
-                                        if (decoded_value.data == .String) {
-                                            return std.mem.eql(u8, decoded_value.data.String, expected);
-                                        } else {
-                                            return false; // Value has unexpected format
-                                        }
+                                        return std.mem.eql(u8, value, expected);
                                     } else {
                                         return false; // Value exists but none expected
                                     }
@@ -305,18 +266,9 @@ pub const ProofNodes = struct {
                                     var hash_buf: [32]u8 = undefined;
                                     @memcpy(&hash_buf, next);
 
-                                    // Use a stack buffer for the hex string
-                                    var hex_buf: [64]u8 = undefined;
-                                    const hex_chars = "0123456789abcdef";
-                                    
-                                    // Convert hash to hex string directly
-                                    for (hash_buf, 0..) |byte, i| {
-                                        hex_buf[i * 2] = hex_chars[byte >> 4];
-                                        hex_buf[i * 2 + 1] = hex_chars[byte & 0x0F];
-                                    }
-                                    
-                                    // Use the fixed-length buffer as key with explicit length
-                                    const hash_str = hex_buf[0..64];
+                                    // Get the next node
+                                    const hash_str = try bytesToHexString(allocator, &hash_buf);
+                                    defer allocator.free(hash_str);
 
                                     const next_node_data = self.nodes.get(hash_str) orelse {
                                         return ProofError.MissingNode;
@@ -344,16 +296,7 @@ pub const ProofNodes = struct {
                                     // Direct value reference
                                     if (remaining_path.len == 1) {
                                         if (expected_value) |expected| {
-                                            // Handle string comparison correctly
-                                            // The RLP-encoded value might need to be decoded here
-                                            const decoded_value = try rlp.decode(allocator, next, true);
-                                            defer decoded_value.data.deinit(allocator);
-                                            
-                                            if (decoded_value.data == .String) {
-                                                return std.mem.eql(u8, decoded_value.data.String, expected);
-                                            } else {
-                                                return false; // Value has unexpected format
-                                            }
+                                            return std.mem.eql(u8, next, expected);
                                         } else {
                                             return false; // Value exists but none expected
                                         }
@@ -409,19 +352,16 @@ pub const ProofRetainer = struct {
             return false; // Path doesn't match key prefix, not relevant
         }
 
-        // This node is on the path, encode it once
+        // This node is on the path, encode and collect it
         const encoded = try node.encode(self.allocator);
-        errdefer self.allocator.free(encoded); // Ensure encoded is freed if addNode fails
-        
+        defer self.allocator.free(encoded);
+
         // Calculate the node hash
         var hash: [32]u8 = undefined;
         std.crypto.hash.sha3.Keccak256.hash(encoded, &hash, .{});
 
-        // Add to proof - addNode will make its own copy
+        // Add to proof
         try self.proof.addNode(hash, encoded);
-        
-        // Free the temporary encoded data since addNode makes a copy
-        self.allocator.free(encoded);
         return true;
     }
 
@@ -431,35 +371,52 @@ pub const ProofRetainer = struct {
     }
 };
 
-// Note: bytesToHexString was removed and replaced with stack-based buffer solutions
-// at each call site to avoid memory leaks
+// Helper function - Duplicated from hash_builder.zig for modularity
+fn bytesToHexString(allocator: Allocator, bytes: []const u8) ![]u8 {
+    const hex_chars = "0123456789abcdef";
+    const hex = try allocator.alloc(u8, bytes.len * 2);
+    errdefer allocator.free(hex);
+    
+    for (bytes, 0..) |byte, i| {
+        hex[i * 2] = hex_chars[byte >> 4];
+        hex[i * 2 + 1] = hex_chars[byte & 0x0F];
+    }
+    
+    return hex;
+}
 
 // Tests
 
-test "ProofNodes - basic functionality" {
+test "ProofNodes - add and verify" {
     const testing = std.testing;
     const allocator = testing.allocator;
     
-    // Create a proof nodes collection
     var proof_nodes = ProofNodes.init(allocator);
     defer proof_nodes.deinit();
     
-    // Create a simple byte array as test data
-    const test_data = "test data for proof node";
+    // Create a sample leaf node
+    const path = [_]u8{1, 2, 3, 4};
+    const value = "test_value";
+    
+    const leaf = try trie.LeafNode.init(
+        allocator,
+        try allocator.dupe(u8, &path),
+        trie.HashValue{ .Raw = try allocator.dupe(u8, value) }
+    );
+    var node = trie.TrieNode{ .Leaf = leaf };
+    
+    // Encode the node
+    const encoded = try node.encode(allocator);
+    defer allocator.free(encoded);
+    
+    // Calculate the hash
     var hash: [32]u8 = undefined;
-    std.crypto.hash.sha3.Keccak256.hash(test_data, &hash, .{});
+    std.crypto.hash.sha3.Keccak256.hash(encoded, &hash, .{});
     
-    // Make a copy of the data to add to proof nodes
-    const data_copy = try allocator.dupe(u8, test_data);
-    defer allocator.free(data_copy);
+    // Add to proof nodes
+    try proof_nodes.addNode(hash, encoded);
     
-    // Add the node
-    try proof_nodes.addNode(hash, data_copy);
-    
-    // Verify it was added
-    try testing.expectEqual(@as(usize, 1), proof_nodes.nodes.count());
-    
-    // Convert to node list and verify
+    // Convert to node list
     const nodes = try proof_nodes.toNodeList(allocator);
     defer {
         for (nodes) |node_data| {
@@ -469,21 +426,45 @@ test "ProofNodes - basic functionality" {
     }
     
     try testing.expectEqual(@as(usize, 1), nodes.len);
-    try testing.expectEqualStrings(test_data, nodes[0]);
+    try testing.expectEqualSlices(u8, encoded, nodes[0]);
+    
+    // Clean up the node
+    node.deinit(allocator);
 }
 
-test "ProofRetainer - basic" {
-    // Skip this test - it has memory leak issues we'll fix separately
-    if (true) return;
-    
+test "ProofRetainer - collect nodes" {
     const testing = std.testing;
     const allocator = testing.allocator;
     
-    const key = [_]u8{1, 2, 3, 4};
+    const key = [_]u8{0x12, 0x34}; // This will become nibbles [1,2,3,4]
     var retainer = try ProofRetainer.init(allocator, &key);
     defer retainer.deinit();
     
-    // Just verify we can access the proof
+    // Create a node on the path - use the first 2 nibbles of the key
+    const path = [_]u8{1, 2}; // First two nibbles of key
+    const value = "test_value";
+    
+    const extension = try trie.ExtensionNode.init(
+        allocator,
+        try allocator.dupe(u8, &path),
+        trie.HashValue{ .Raw = try allocator.dupe(u8, value) }
+    );
+    var node = trie.TrieNode{ .Extension = extension };
+    defer node.deinit(allocator);
+    
+    // Collect the node
+    const collected = try retainer.collectNode(node, &path);
+    try testing.expect(collected);
+    
+    // Verify it was added to the proof
     const proof = retainer.getProof();
-    try testing.expectEqual(@as(usize, 0), proof.nodes.count());
+    try testing.expectEqual(@as(usize, 1), proof.nodes.count());
+    
+    // Node not on path
+    const off_path = [_]u8{5, 6};
+    const not_collected = try retainer.collectNode(node, &off_path);
+    try testing.expect(!not_collected);
+    
+    // Still only one node in proof
+    try testing.expectEqual(@as(usize, 1), proof.nodes.count());
 }

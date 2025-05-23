@@ -1,7 +1,7 @@
 const std = @import("std");
 const Allocator = std.mem.Allocator;
 const trie = @import("trie.zig");
-const rlp = @import("../Rlp/rlp.zig");
+const rlp = @import("Rlp");
 
 const TrieMask = trie.TrieMask;
 const HashValue = trie.HashValue;
@@ -277,9 +277,8 @@ test "CompactBranchNode - basic operations" {
     try testing.expect(branch.getOnlyChildIndex() == null);
     
     // Convert to regular branch
-    const regular_branch = try branch.toBranchNode(allocator);
-    var branch_copy = regular_branch;
-    defer branch_copy.deinit(allocator);
+    var regular_branch = try branch.toBranchNode(allocator);
+    defer regular_branch.deinit(allocator);
     
     try testing.expect(regular_branch.children_mask.isSet(3));
     try testing.expect(regular_branch.children_mask.isSet(7));
