@@ -51,7 +51,7 @@ pub const B256 = struct {
 
     /// Create B256 from hex string (with or without 0x prefix)
     pub fn fromHex(hex: []const u8) !B256 {
-        const start = if (std.mem.startsWith(u8, hex, "0x")) 2 else 0;
+        const start: usize = if (std.mem.startsWith(u8, hex, "0x")) 2 else 0;
         const hex_chars = hex[start..];
         
         if (hex_chars.len != 64) {
@@ -65,7 +65,7 @@ pub const B256 = struct {
 
     /// Convert to hex string (without 0x prefix)
     pub fn toHex(self: B256, allocator: std.mem.Allocator) ![]u8 {
-        var hex_buf = try allocator.alloc(u8, 64);
+        const hex_buf = try allocator.alloc(u8, 64);
         _ = std.fmt.bytesToHex(hex_buf, &self.bytes, .lower);
         return hex_buf;
     }

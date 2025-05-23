@@ -36,13 +36,122 @@
 //! for historical block validation and chain synchronization.
 
 const std = @import("std");
-// Import from parent directory using relative paths
-const opcodes = @import("../opcodes.zig");
-const Interpreter = @import("../interpreter.zig").Interpreter;
-const Frame = @import("../Frame.zig").Frame;
-const ExecutionError = @import("../interpreter.zig").InterpreterError;
-const Stack = @import("../Stack.zig").Stack;
-const Memory = @import("../Memory.zig").Memory;
+
+// For testing, we need to define minimal stubs
+const testing_stubs = struct {
+    pub const InterpreterError = error{
+        InvalidOpcode,
+        OpNotSupported,
+        StackUnderflow,
+        StackOverflow,
+        OutOfGas,
+        OutOfOffset,
+        InvalidJump,
+        InvalidJumpDest,
+        ReturnDataOutOfBounds,
+        CallDepthExceeded,
+        CreateCollision,
+        PrecompileFailure,
+        ContractValidationFailure,
+        OutOfFund,
+        CallNotAllowedInsideStatic,
+        StateChangeDuringStaticCall,
+        InvalidTransaction,
+        WriteProtection,
+        ReturnContractInNotInitEOF,
+        EOFOpcodeDisabledInLegacy,
+        NonceOverflow,
+    };
+    
+    pub const Interpreter = struct {
+        allocator: std.mem.Allocator,
+        callDepth: u32,
+        readOnly: bool,
+        returnData: ?[]u8,
+        evm: struct {
+            state_manager: ?*anyopaque,
+            precompiles: ?*anyopaque,
+        },
+    };
+    
+    pub const Stack = struct {
+        size: usize,
+        data: [1024]u256,
+        
+        pub fn pop(self: *@This()) u256 {
+            if (self.size == 0) return 0;
+            self.size -= 1;
+            return self.data[self.size];
+        }
+        
+        pub fn push(self: *@This(), value: u256) void {
+            if (self.size >= 1024) return;
+            self.data[self.size] = value;
+            self.size += 1;
+        }
+        
+        pub fn peek(self: *@This()) *u256 {
+            if (self.size == 0) return &self.data[0];
+            return &self.data[self.size - 1];
+        }
+    };
+    
+    pub const Memory = struct {
+        allocator: std.mem.Allocator,
+        buffer: []u8,
+        
+        pub fn init(allocator: std.mem.Allocator) @This() {
+            return @This(){
+                .allocator = allocator,
+                .buffer = &[_]u8{},
+            };
+        }
+        
+        pub fn deinit(self: *@This()) void {
+            if (self.buffer.len > 0) {
+                self.allocator.free(self.buffer);
+            }
+        }
+        
+        pub fn size(self: *const @This()) u64 {
+            return self.buffer.len;
+        }
+        
+        pub fn resize(self: *@This(), new_size: u64) !void {
+            if (new_size == self.buffer.len) return;
+            if (self.buffer.len > 0) {
+                self.allocator.free(self.buffer);
+            }
+            self.buffer = try self.allocator.alloc(u8, @intCast(new_size));
+        }
+        
+        pub fn data(self: *@This()) []u8 {
+            return self.buffer;
+        }
+    };
+    
+    pub const Frame = struct {
+        gas: u64,
+        stack: testing_stubs.Stack,
+        memory: testing_stubs.Memory,
+        logger: ?*anyopaque,
+        code: []const u8,
+        contract: *anyopaque,
+        returnData: ?[]u8,
+        isPush: bool,
+        pc: usize,
+    };
+};
+
+// Use testing stubs when testing, otherwise import from package
+const builtin = @import("builtin");
+const is_test = builtin.is_test;
+
+const Interpreter = if (is_test) testing_stubs.Interpreter else @import("../package.zig").Interpreter;
+const Frame = if (is_test) testing_stubs.Frame else @import("../package.zig").Frame;
+const ExecutionError = if (is_test) testing_stubs.InterpreterError else @import("../package.zig").InterpreterError;
+const Stack = if (is_test) testing_stubs.Stack else @import("../package.zig").Stack;
+const Memory = if (is_test) testing_stubs.Memory else @import("../package.zig").Memory;
 
 // Import opcode implementations directly
 const math = @import("../opcodes/math.zig");
@@ -794,40 +903,40 @@ test "JumpTable.copy creates deep copy" {
 }
 
 test "memoryGasCost calculates correct gas for memory expansion" {
-    var memory = Memory.init(testing.allocator);
-    defer memory.deinit();
+    var mem = Memory.init(testing.allocator);
+    defer mem.deinit();
     
     // No expansion needed
-    try expectEqual(@as(u64, 0), try memoryGasCost(&memory, 0));
+    try expectEqual(@as(u64, 0), try memoryGasCost(&mem, 0));
     
     // Expand to 32 bytes (1 word)
     // Cost = 3 * 1 + 1²/512 = 3 + 0 = 3
-    try expectEqual(@as(u64, 3), try memoryGasCost(&memory, 32));
+    try expectEqual(@as(u64, 3), try memoryGasCost(&mem, 32));
     
     // Assume memory is now 32 bytes, expand to 64 bytes (2 words)
-    try memory.resize(32);
+    try mem.resize(32);
     // Old cost = 3 * 1 + 1²/512 = 3
     // New cost = 3 * 2 + 2²/512 = 6 + 0 = 6
     // Difference = 6 - 3 = 3
-    try expectEqual(@as(u64, 3), try memoryGasCost(&memory, 64));
+    try expectEqual(@as(u64, 3), try memoryGasCost(&mem, 64));
     
     // Larger expansion to test quadratic component
-    try memory.resize(0); // Reset
+    try mem.resize(0); // Reset
     // Expand to 1024 bytes (32 words)
     // Cost = 3 * 32 + 32²/512 = 96 + 1024/512 = 96 + 2 = 98
-    try expectEqual(@as(u64, 98), try memoryGasCost(&memory, 1024));
+    try expectEqual(@as(u64, 98), try memoryGasCost(&mem, 1024));
 }
 
 test "memoryGasCost handles overflow protection" {
-    var memory = Memory.init(testing.allocator);
-    defer memory.deinit();
+    var mem = Memory.init(testing.allocator);
+    defer mem.deinit();
     
     // Test with max size that would cause overflow
     const huge_size: u64 = std.math.maxInt(u64) / 2;
-    try memory.resize(huge_size - 1000);
+    try mem.resize(huge_size - 1000);
     
     // This should cause overflow in gas calculation
-    try expectError(error.OutOfGas, memoryGasCost(&memory, huge_size));
+    try expectError(error.OutOfGas, memoryGasCost(&mem, huge_size));
 }
 
 test "minStack helper function" {
@@ -893,7 +1002,7 @@ test "UNDEFINED operation returns InvalidOpcode error" {
         .pc = 0,
     };
     
-    const result = UNDEFINED.execute(&interpreter, 0, &interpreter, &frame);
+    const result = UNDEFINED.execute(0, &interpreter, &frame);
     try expectError(error.InvalidOpcode, result);
 }
 

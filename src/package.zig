@@ -14,6 +14,7 @@ pub const compiler = @import("Compiler/package.zig");
 pub const rlp = @import("Rlp/package.zig");
 pub const token = @import("Token/package.zig");
 pub const trie = @import("Trie/package.zig");
+pub const types = @import("Types/package.zig");
 pub const state_manager = @import("StateManager/package.zig");
 pub const test_utils = @import("Test/test.zig");
 

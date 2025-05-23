@@ -8,6 +8,7 @@ const ExecutionError = @import("../interpreter.zig").InterpreterError;
 const stackModule = @import("../Stack.zig");
 const Stack = stackModule.Stack;
 const StackError = stackModule.StackError;
+const Memory = @import("../Memory.zig").Memory;
 // u256 is a built-in type in Zig, no need to import
 
 // Helper to convert Stack errors to ExecutionError
@@ -330,5 +331,419 @@ pub fn registerBitwiseOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTab
         .max_stack = jumpTableModule.maxStack(2, 1),
     };
     jump_table.table[0x1D] = sar_op;
+}
+
+// Tests
+test "AND operation" {
+    const testing = std.testing;
+    const allocator = testing.allocator;
+    
+    // Create a frame with a stack
+    var stack = try Stack.init(allocator);
+    defer stack.deinit();
+    
+    var memory = try Memory.init(allocator);
+    defer memory.deinit();
+    
+    var frame = Frame{
+        .code = &[_]u8{},
+        .pc = 0,
+        .gas_left = 1000000,
+        .stack = stack,
+        .memory = memory,
+        .memory_last = 0,
+        .table_size = 0,
+        .ret_offset = 0,
+        .ret_len = 0,
+    };
+    
+    // Create a dummy interpreter
+    var interpreter = Interpreter{
+        .pc = 0,
+        .gas = 1000000,
+        .gas_refund = 0,
+        .valid_jump_destinations = std.AutoHashMap(u24, void).init(allocator),
+        .allocator = allocator,
+    };
+    defer interpreter.valid_jump_destinations.deinit();
+    
+    // Push test values
+    try frame.stack.push(0xFF00);
+    try frame.stack.push(0x0FF0);
+    
+    // Execute AND operation
+    _ = try opAnd(0, &interpreter, &frame);
+    
+    // Check result
+    const result = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 0x0F00), result);
+}
+
+test "OR operation" {
+    const testing = std.testing;
+    const allocator = testing.allocator;
+    
+    var stack = try Stack.init(allocator);
+    defer stack.deinit();
+    
+    var memory = try Memory.init(allocator);
+    defer memory.deinit();
+    
+    var frame = Frame{
+        .code = &[_]u8{},
+        .pc = 0,
+        .gas_left = 1000000,
+        .stack = stack,
+        .memory = memory,
+        .memory_last = 0,
+        .table_size = 0,
+        .ret_offset = 0,
+        .ret_len = 0,
+    };
+    
+    var interpreter = Interpreter{
+        .pc = 0,
+        .gas = 1000000,
+        .gas_refund = 0,
+        .valid_jump_destinations = std.AutoHashMap(u24, void).init(allocator),
+        .allocator = allocator,
+    };
+    defer interpreter.valid_jump_destinations.deinit();
+    
+    try frame.stack.push(0xFF00);
+    try frame.stack.push(0x0FF0);
+    
+    _ = try opOr(0, &interpreter, &frame);
+    
+    const result = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 0xFFF0), result);
+}
+
+test "XOR operation" {
+    const testing = std.testing;
+    const allocator = testing.allocator;
+    
+    var stack = try Stack.init(allocator);
+    defer stack.deinit();
+    
+    var memory = try Memory.init(allocator);
+    defer memory.deinit();
+    
+    var frame = Frame{
+        .code = &[_]u8{},
+        .pc = 0,
+        .gas_left = 1000000,
+        .stack = stack,
+        .memory = memory,
+        .memory_last = 0,
+        .table_size = 0,
+        .ret_offset = 0,
+        .ret_len = 0,
+    };
+    
+    var interpreter = Interpreter{
+        .pc = 0,
+        .gas = 1000000,
+        .gas_refund = 0,
+        .valid_jump_destinations = std.AutoHashMap(u24, void).init(allocator),
+        .allocator = allocator,
+    };
+    defer interpreter.valid_jump_destinations.deinit();
+    
+    try frame.stack.push(0xFF00);
+    try frame.stack.push(0x0FF0);
+    
+    _ = try opXor(0, &interpreter, &frame);
+    
+    const result = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 0xF0F0), result);
+}
+
+test "NOT operation" {
+    const testing = std.testing;
+    const allocator = testing.allocator;
+    
+    var stack = try Stack.init(allocator);
+    defer stack.deinit();
+    
+    var memory = try Memory.init(allocator);
+    defer memory.deinit();
+    
+    var frame = Frame{
+        .code = &[_]u8{},
+        .pc = 0,
+        .gas_left = 1000000,
+        .stack = stack,
+        .memory = memory,
+        .memory_last = 0,
+        .table_size = 0,
+        .ret_offset = 0,
+        .ret_len = 0,
+    };
+    
+    var interpreter = Interpreter{
+        .pc = 0,
+        .gas = 1000000,
+        .gas_refund = 0,
+        .valid_jump_destinations = std.AutoHashMap(u24, void).init(allocator),
+        .allocator = allocator,
+    };
+    defer interpreter.valid_jump_destinations.deinit();
+    
+    try frame.stack.push(0xFF00);
+    
+    _ = try opNot(0, &interpreter, &frame);
+    
+    const result = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, ~@as(u256, 0xFF00)), result);
+}
+
+test "BYTE operation" {
+    const testing = std.testing;
+    const allocator = testing.allocator;
+    
+    var stack = try Stack.init(allocator);
+    defer stack.deinit();
+    
+    var memory = try Memory.init(allocator);
+    defer memory.deinit();
+    
+    var frame = Frame{
+        .code = &[_]u8{},
+        .pc = 0,
+        .gas_left = 1000000,
+        .stack = stack,
+        .memory = memory,
+        .memory_last = 0,
+        .table_size = 0,
+        .ret_offset = 0,
+        .ret_len = 0,
+    };
+    
+    var interpreter = Interpreter{
+        .pc = 0,
+        .gas = 1000000,
+        .gas_refund = 0,
+        .valid_jump_destinations = std.AutoHashMap(u24, void).init(allocator),
+        .allocator = allocator,
+    };
+    defer interpreter.valid_jump_destinations.deinit();
+    
+    const test_value: u256 = 0x0102030405060708090A0B0C0D0E0F101112131415161718191A1B1C1D1E1F20;
+    
+    // Test byte 0 (most significant)
+    try frame.stack.push(test_value);
+    try frame.stack.push(0);
+    
+    _ = try opByte(0, &interpreter, &frame);
+    
+    const result1 = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 0x01), result1);
+    
+    // Test byte 31 (least significant)
+    try frame.stack.push(test_value);
+    try frame.stack.push(31);
+    
+    _ = try opByte(0, &interpreter, &frame);
+    
+    const result2 = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 0x20), result2);
+    
+    // Test out of range (index >= 32)
+    try frame.stack.push(test_value);
+    try frame.stack.push(32);
+    
+    _ = try opByte(0, &interpreter, &frame);
+    
+    const result3 = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 0), result3);
+}
+
+test "SHL operation" {
+    const testing = std.testing;
+    const allocator = testing.allocator;
+    
+    var stack = try Stack.init(allocator);
+    defer stack.deinit();
+    
+    var memory = try Memory.init(allocator);
+    defer memory.deinit();
+    
+    var frame = Frame{
+        .code = &[_]u8{},
+        .pc = 0,
+        .gas_left = 1000000,
+        .stack = stack,
+        .memory = memory,
+        .memory_last = 0,
+        .table_size = 0,
+        .ret_offset = 0,
+        .ret_len = 0,
+    };
+    
+    var interpreter = Interpreter{
+        .pc = 0,
+        .gas = 1000000,
+        .gas_refund = 0,
+        .valid_jump_destinations = std.AutoHashMap(u24, void).init(allocator),
+        .allocator = allocator,
+    };
+    defer interpreter.valid_jump_destinations.deinit();
+    
+    // Test shift by 1
+    try frame.stack.push(1);
+    try frame.stack.push(1);
+    
+    _ = try opShl(0, &interpreter, &frame);
+    
+    const result1 = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 2), result1);
+    
+    // Test shift by 8
+    try frame.stack.push(1);
+    try frame.stack.push(8);
+    
+    _ = try opShl(0, &interpreter, &frame);
+    
+    const result2 = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 256), result2);
+    
+    // Test shift >= 256 (should be 0)
+    try frame.stack.push(1);
+    try frame.stack.push(256);
+    
+    _ = try opShl(0, &interpreter, &frame);
+    
+    const result3 = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 0), result3);
+}
+
+test "SHR operation" {
+    const testing = std.testing;
+    const allocator = testing.allocator;
+    
+    var stack = try Stack.init(allocator);
+    defer stack.deinit();
+    
+    var memory = try Memory.init(allocator);
+    defer memory.deinit();
+    
+    var frame = Frame{
+        .code = &[_]u8{},
+        .pc = 0,
+        .gas_left = 1000000,
+        .stack = stack,
+        .memory = memory,
+        .memory_last = 0,
+        .table_size = 0,
+        .ret_offset = 0,
+        .ret_len = 0,
+    };
+    
+    var interpreter = Interpreter{
+        .pc = 0,
+        .gas = 1000000,
+        .gas_refund = 0,
+        .valid_jump_destinations = std.AutoHashMap(u24, void).init(allocator),
+        .allocator = allocator,
+    };
+    defer interpreter.valid_jump_destinations.deinit();
+    
+    // Test shift by 2
+    try frame.stack.push(8);
+    try frame.stack.push(2);
+    
+    _ = try opShr(0, &interpreter, &frame);
+    
+    const result1 = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 2), result1);
+    
+    // Test shift by 8
+    try frame.stack.push(256);
+    try frame.stack.push(8);
+    
+    _ = try opShr(0, &interpreter, &frame);
+    
+    const result2 = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 1), result2);
+    
+    // Test shift >= 256 (should be 0)
+    try frame.stack.push(256);
+    try frame.stack.push(256);
+    
+    _ = try opShr(0, &interpreter, &frame);
+    
+    const result3 = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 0), result3);
+}
+
+test "SAR operation" {
+    const testing = std.testing;
+    const allocator = testing.allocator;
+    
+    var stack = try Stack.init(allocator);
+    defer stack.deinit();
+    
+    var memory = try Memory.init(allocator);
+    defer memory.deinit();
+    
+    var frame = Frame{
+        .code = &[_]u8{},
+        .pc = 0,
+        .gas_left = 1000000,
+        .stack = stack,
+        .memory = memory,
+        .memory_last = 0,
+        .table_size = 0,
+        .ret_offset = 0,
+        .ret_len = 0,
+    };
+    
+    var interpreter = Interpreter{
+        .pc = 0,
+        .gas = 1000000,
+        .gas_refund = 0,
+        .valid_jump_destinations = std.AutoHashMap(u24, void).init(allocator),
+        .allocator = allocator,
+    };
+    defer interpreter.valid_jump_destinations.deinit();
+    
+    // Test positive value
+    try frame.stack.push(8);
+    try frame.stack.push(2);
+    
+    _ = try opSar(0, &interpreter, &frame);
+    
+    const result1 = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 2), result1);
+    
+    // Test negative value
+    const negative_value: u256 = (@as(u256, 1) << 255) | 8;
+    try frame.stack.push(negative_value);
+    try frame.stack.push(2);
+    
+    _ = try opSar(0, &interpreter, &frame);
+    
+    const result2 = try frame.stack.pop();
+    const expected2 = (negative_value >> 2) | (@as(u256, 3) << 254);
+    try testing.expectEqual(expected2, result2);
+    
+    // Test positive value with shift >= 256
+    try frame.stack.push(8);
+    try frame.stack.push(256);
+    
+    _ = try opSar(0, &interpreter, &frame);
+    
+    const result3 = try frame.stack.pop();
+    try testing.expectEqual(@as(u256, 0), result3);
+    
+    // Test negative value with shift >= 256 (should be all 1s)
+    try frame.stack.push(negative_value);
+    try frame.stack.push(256);
+    
+    _ = try opSar(0, &interpreter, &frame);
+    
+    const result4 = try frame.stack.pop();
+    try testing.expectEqual(~@as(u256, 0), result4);
 }
 
