@@ -359,6 +359,9 @@ importers:
       '@latticexyz/protocol-parser':
         specifier: ^2.2.21
         version: 2.2.21(@aws-sdk/client-kms@3.808.0)(asn1.js@5.4.1)(typescript@5.8.3)(viem@2.29.2(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8)
+      '@latticexyz/schema-type':
+        specifier: ^2.2.21
+        version: 2.2.21(typescript@5.8.3)(viem@2.29.2(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8)
       '@latticexyz/stash':
         specifier: ^2.2.21
         version: 2.2.21(@aws-sdk/client-kms@3.808.0)(asn1.js@5.4.1)(react@18.3.1)(typescript@5.8.3)(viem@2.29.2(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8)

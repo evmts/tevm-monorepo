@@ -21,6 +21,7 @@ import {
 	type Table, // Actual type from @latticexyz/config
 } from '@latticexyz/config'
 import {
+	type SchemaToPrimitives,
 	decodeKeyTuple, // Replaces manual key tuple encoding attempt
 	encodeKey,
 	encodeKeyTuple,
@@ -34,6 +35,12 @@ import {
 	getValueSchema as protocolParserGetValueSchema,
 	valueSchemaToFieldLayoutHex,
 } from '@latticexyz/protocol-parser/internal' // Assuming internal exports are usable
+import {
+	type StaticAbiType,
+	isDynamicAbiType,
+	isStaticAbiType,
+	staticAbiTypeToByteLength,
+} from '@latticexyz/schema-type/internal'
 // import {
 // 	type DynamicAbiType,
 // 	type SchemaAbiType,
@@ -47,34 +54,22 @@ const STORE_SLOT: Hex = keccak256(toHex('mud.store'))
 const STORE_DYNAMIC_DATA_SLOT: Hex = keccak256(toHex('mud.store.dynamicData'))
 const STORE_DYNAMIC_DATA_LENGTH_SLOT: Hex = keccak256(toHex('mud.store.dynamicDataLength'))
 
-const getTables = (state: State) => {
-	const tablesById = Object.fromEntries(
-		Object.values(state.config)
-			.flatMap((namespace) => Object.values(namespace) as readonly Table[])
-			.map((table) => [table.tableId, table]),
-	)
-
-	return { tablesById, tableIds: Object.keys(tablesById) }
-}
-
-const getAll = async (getState: () => Promise<State>) => {
+const getTablesWithRecords = async (getState: () => Promise<State>) => {
 	const state = await getState()
-	const { tablesById } = getTables(state)
 
-	const records = Object.fromEntries(
-		Object.entries(tablesById).map(([tableId, table]) => {
-			return [tableId, getRecords({ state, table })]
-		}),
-	)
-
-	return { tablesById, records }
+	return Object.values(state.config)
+		.flatMap((namespace) => Object.values(namespace) as readonly Table[])
+		.map((table) => ({
+			table,
+			records: Object.values(getRecords({ state, table })),
+		}))
 }
 
 export const mudStoreGetStorageAtOverride =
 	(transport: { request: EIP1193RequestFn }) =>
 	({ getState, storeAddress }: { getState: () => Promise<State>; storeAddress: Address }): EIP1193RequestFn => {
-		// const logger = console
-		const logger = { debug: (...args: any[]) => {}, error: (...args: any[]) => {} }
+		const logger = console
+		// const logger = { debug: (...args: any[]) => {}, error: (...args: any[]) => {} }
 
 		const originalRequest = transport.request
 		// @ts-expect-error - Type 'unknown' is not assignable to type '_returnType'.
@@ -85,53 +80,11 @@ export const mudStoreGetStorageAtOverride =
 				Array.isArray(requestArgs.params) &&
 				requestArgs.params[0]?.toLowerCase() === storeAddress.toLowerCase()
 			) {
-				logger.debug('mudStoreGetStorageAtOverride', getState())
-				logger.debug('ARG', requestArgs.params)
 				const requestedPosition = requestArgs.params[1] as Hex
-				logger.debug(`MUD Intercept: eth_getStorageAt ${storeAddress} pos ${requestedPosition}`)
+				// logger.debug(`MUD Intercept: eth_getStorageAt ${storeAddress} pos ${requestedPosition}`)
 
 				try {
-					const { records, tablesById } = await getAll(() => getState())
-					logger.debug({ records, tablesById })
-
-					/* ----------------------------------- POC ---------------------------------- */
-					// position of player is stored at slot: 0x4e4b8e26ffb342bf2c02b7d8accf09945411e68c9f4dfcc636a9ff4365c84aaf
-					// Position tableId: 0x74626170700000000000000000000000506f736974696f6e0000000000000000
-					// player key: 0xAD285b5dF24BDE77A8391924569AF2AD2D4eE4A7
-					const positionTableId = '0x74626170700000000000000000000000506f736974696f6e0000000000000000'
-					const positionTable = tablesById[positionTableId]!
-					const playerKey = { player: '0xAD285b5dF24BDE77A8391924569AF2AD2D4eE4A7' as Hex }
-
-					const positionKeySchema = getSchemaTypes(getKeySchema(positionTable))
-					const positionValueSchema = getSchemaTypes(getValueSchema(positionTable))
-					const keyTuple = encodeKey(positionKeySchema, playerKey)
-
-					const recordHashStatic = keccak256(concatHex([positionTableId, ...keyTuple]))
-					const staticDataSlot = numberToHex(hexToBigInt(STORE_SLOT) ^ hexToBigInt(recordHashStatic), { size: 32 })
-
-					if (requestedPosition.toLowerCase() === staticDataSlot.toLowerCase()) {
-						// const data = getRecord({ stash, table: positionTable!, key: playerKey })
-						const data = records[positionTableId]?.[playerKey.player]
-						const values = Object.values(
-							Object.entries(data ?? {}).filter(([key]) => Object.keys(positionValueSchema).includes(key)),
-						).flatMap(([, value]) => value)
-						// logger.debug({positionValueSchema})
-						// logger.debug({ data })
-						// logger.debug({values})
-						// logger.debug({entries: Object.entries(data ?? {}).filter(([key]) => Object.keys(positionValueSchema).includes(key))})
-						// logger.debug({toEncode: Object.entries(positionValueSchema).map(([name, type]) => ({name, type})), values})
-						// logger.debug({encoded: pad(encodePacked(Object.values(positionValueSchema), values), {size: 32})})
-
-						logger.debug(
-							'Returning static data',
-							pad(encodePacked(Object.values(positionValueSchema), values), { size: 32, dir: 'right' }),
-						)
-						logger.debug('Would have returned', await originalRequest(requestArgs, options))
-						return pad(encodePacked(Object.values(positionValueSchema), values), { size: 32, dir: 'right' })
-					}
-					/* --------------------------------- END POC -------------------------------- */
-
-					/* ---------------------------------- PLAN ---------------------------------- */
+					const tablesWithRecords = await getTablesWithRecords(() => getState())
 
 					// Goal: For the given `requestedPosition` (storage slot), identify the corresponding
 					// MUD table, record (key), and specific data type (static data, dynamic data length, or a specific dynamic field).
@@ -144,6 +97,99 @@ export const mudStoreGetStorageAtOverride =
 					//    `tablesById` maps these IDs to `Table` objects from `@latticexyz/config`.
 					//    `records` (from `getAllRecords(stash, tablesById)`) is an object: `{[tableId: string]: TableRecord[]}`.
 					//    A `TableRecord` here is `getSchemaPrimitives<table["schema"]>` - a flat object with all decoded fields.
+					for (const { table, records } of tablesWithRecords) {
+						/* --------------------------------- SCHEMA --------------------------------- */
+						const keySchema = getSchemaTypes(getKeySchema(table))
+						const valueSchema = getSchemaTypes(getValueSchema(table))
+						console.log({ keySchema, valueSchema })
+
+						/* ------------------------------ STATIC FIELDS ----------------------------- */
+						// Get static fields and their offsets
+						// [[{ slot: n, offset: 0 }, { slot: n, offset: 16 }, ...], [{ slot: n + 1, offset: 0 }, { slot: n + 1, offset: 16 }, ...], ...]
+						const staticFieldsLayout = Object.entries(valueSchema)
+							.filter(([, abiType]) => isStaticAbiType(abiType))
+							.reduce(
+								(slots, [name, _abiType]) => {
+									const abiType = _abiType as StaticAbiType
+									const bytes = staticAbiTypeToByteLength[abiType]
+
+									// Find current slot or create new one
+									let currentSlot = slots[slots.length - 1]
+									if (!currentSlot) {
+										currentSlot = { fields: [], usedBytes: 0 }
+										slots.push(currentSlot)
+									}
+
+									// Check if field fits in current slot
+									if (currentSlot.usedBytes + bytes > 32) {
+										// Create new slot
+										currentSlot = { fields: [], usedBytes: 0 }
+										slots.push(currentSlot)
+									}
+
+									// Add field to current slot
+									currentSlot.fields.push({
+										name,
+										type: abiType,
+										bytes,
+										offset: currentSlot.usedBytes,
+									})
+
+									currentSlot.usedBytes += bytes
+
+									return slots
+								},
+								[] as Array<{
+									fields: Array<{
+										name: string
+										type: StaticAbiType
+										bytes: number
+										offset: number // 0-31, relative to slot start
+									}>
+									usedBytes: number
+								}>,
+							)
+							.map((slot) => slot.fields)
+
+						const getStaticAccessedSlotLayout = (record: TableRecord) => {
+							const keys = Object.fromEntries(
+								Object.entries(record).filter(([key]) => Object.keys(keySchema).includes(key)),
+							) as SchemaToPrimitives<typeof keySchema>
+							const keyTuple = encodeKey(keySchema, keys)
+
+							const baseRecordHash = keccak256(concatHex([table.tableId, ...keyTuple]))
+							const baseSlot = hexToBigInt(STORE_SLOT) ^ hexToBigInt(baseRecordHash)
+							const allSlots = [
+								numberToHex(baseSlot, { size: 32 }),
+								...staticFieldsLayout.slice(1).map((_, index) => numberToHex(baseSlot + BigInt(index), { size: 32 })),
+							]
+
+							const accessedSlot = allSlots.find((slot) => slot.toLowerCase() === requestedPosition.toLowerCase())
+							if (accessedSlot) return staticFieldsLayout[allSlots.indexOf(accessedSlot)]!
+							return null
+						}
+
+						for (const record of records) {
+							const accessedSlotLayout = getStaticAccessedSlotLayout(record)
+							if (accessedSlotLayout) {
+								const values = accessedSlotLayout
+									.sort((a, b) => Object.keys(valueSchema).indexOf(a.name) - Object.keys(valueSchema).indexOf(b.name))
+									.map((field) => record[field.name])
+
+								const encodedValues = pad(encodePacked(Object.values(valueSchema), values), { size: 32, dir: 'right' })
+								logger.debug('Returning static data', encodedValues)
+								logger.debug('Would have returned', await originalRequest(requestArgs, options))
+								return encodedValues
+							}
+						}
+
+						/* ----------------------------- ENCODED LENGTHS ---------------------------- */
+
+						/* ------------------------------ DYNAMIC FIELDS ----------------------------- */
+						const dynamicFields = Object.fromEntries(
+							Object.entries(valueSchema).filter(([, value]) => isDynamicAbiType(value)),
+						)
+					}
 
 					//    For each `tableIdString` in `tableIds`:
 					//      a. Get the `tableConfig = tablesById[tableIdString]`. This is the `Table` object from MUD config.
@@ -214,7 +260,7 @@ export const mudStoreGetStorageAtOverride =
 
 					/* -------------------------------- END PLAN -------------------------------- */
 
-					logger.debug(`No MUD data in stash for position ${requestedPosition}. Fallback to fork.`)
+					// logger.debug(`No MUD data in stash for position ${requestedPosition}. Fallback to fork.`)
 				} catch (error: any) {
 					logger.error(`Error in MUD storage interception: ${error.message} ${error.stack}`, error)
 				}
