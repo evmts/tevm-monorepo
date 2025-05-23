@@ -385,4 +385,42 @@ test "compile simple contract" {
     const contract = result.contracts[0];
     try std.testing.expect(contract.abi.len > 0);
     try std.testing.expect(contract.bytecode.len > 0);
+    try std.testing.expect(contract.deployed_bytecode.len > 0);
+    
+    // Snapshot test - assert actual compiled output values
+    // These values are the expected output from compiling the SimpleStorage contract above
+    const expected_abi = 
+        \\[{"type":"function","name":"setValue","inputs":[{"name":"_value","type":"uint256","internalType":"uint256"}],"outputs":[],"stateMutability":"nonpayable"},{"type":"function","name":"value","inputs":[],"outputs":[{"name":"","type":"uint256","internalType":"uint256"}],"stateMutability":"view"}]
+    ;
+    const expected_bytecode = 
+        \\0x608060405234801561000f575f80fd5b506101268061001d5f395ff3fe6080604052348015600e575f80fd5b50600436106030575f3560e01c80633fa4f2451460345780635524107714604e575b5f80fd5b603a6066565b60405160459190608a565b60405180910390f35b606460048036038101906060919060ca565b606b565b005b5f5481565b805f8190555050565b5f819050919050565b6084816074565b82525050565b5f602082019050609b5f830184607d565b92915050565b5f80fd5b60ac816074565b811460b5575f80fd5b50565b5f8135905060c48160a5565b92915050565b5f6020828403121560dc5760db60a1565b5b5f60e78482850160b8565b9150509291505056fea26469706673582212204577d79429b157781ff1dc2e2e52f25703564e67f1b53f60b4d89d7349908e6664736f6c63430008180033
+    ;
+    const expected_deployed_bytecode = 
+        \\0x6080604052348015600e575f80fd5b50600436106030575f3560e01c80633fa4f2451460345780635524107714604e575b5f80fd5b603a6066565b60405160459190608a565b60405180910390f35b606460048036038101906060919060ca565b606b565b005b5f5481565b805f8190555050565b5f819050919050565b6084816074565b82525050565b5f602082019050609b5f830184607d565b92915050565b5f80fd5b60ac816074565b811460b5575f80fd5b50565b5f8135905060c48160a5565b92915050565b5f6020828403121560dc5760db60a1565b5b5f60e78482850160b8565b9150509291505056fea26469706673582212204577d79429b157781ff1dc2e2e52f25703564e67f1b53f60b4d89d7349908e6664736f6c63430008180033
+    ;
+    
+    try std.testing.expectEqualStrings(expected_abi, contract.abi);
+    try std.testing.expectEqualStrings(expected_bytecode, contract.bytecode);
+    try std.testing.expectEqualStrings(expected_deployed_bytecode, contract.deployed_bytecode);
+    
+    // Verify we can parse the ABI as JSON
+    const parsed_abi = try std.json.parseFromSlice(std.json.Value, allocator, contract.abi, .{});
+    defer parsed_abi.deinit();
+    
+    // Verify we can parse it as an ABI array
+    try std.testing.expect(parsed_abi.value == .array);
+    try std.testing.expect(parsed_abi.value.array.items.len == 2);
+    
+    // Basic validation of the parsed ABI structure
+    const first_fn = parsed_abi.value.array.items[0];
+    try std.testing.expect(first_fn == .object);
+    try std.testing.expect(first_fn.object.contains("type"));
+    try std.testing.expect(first_fn.object.contains("name"));
+    try std.testing.expectEqualStrings("function", first_fn.object.get("type").?.string);
+    try std.testing.expectEqualStrings("setValue", first_fn.object.get("name").?.string);
+    
+    const second_fn = parsed_abi.value.array.items[1];
+    try std.testing.expect(second_fn == .object);
+    try std.testing.expectEqualStrings("function", second_fn.object.get("type").?.string);
+    try std.testing.expectEqualStrings("value", second_fn.object.get("name").?.string);
 }
