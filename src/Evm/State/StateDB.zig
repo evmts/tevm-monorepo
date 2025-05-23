@@ -1,50 +1,14 @@
 const std = @import("std");
 const testing = std.testing;
 
-// Define local types for testing
-pub const B256 = struct {
-    bytes: [32]u8,
-    
-    // Helper functions
-    pub fn zero() B256 {
-        return B256{ .bytes = [_]u8{0} ** 32 };
-    }
-    
-    pub fn isZero(hash: B256) bool {
-        for (hash.bytes) |byte| {
-            if (byte != 0) return false;
-        }
-        return true;
-    }
-    
-    pub fn fromBytes(bytes: *const [32]u8) B256 {
-        var result = B256{ .bytes = undefined };
-        @memcpy(&result.bytes, bytes);
-        return result;
-    }
-    
-    pub fn equal(a: B256, b: B256) bool {
-        return std.mem.eql(u8, &a.bytes, &b.bytes);
-    }
-    
-    pub fn fromInt(value: u128) B256 {
-        var result = B256.zero();
-        // Convert integer to bytes (little-endian)
-        var tmp = value;
-        var i: usize = 0;
-        while (tmp > 0 and i < 16) : (i += 1) {
-            result.bytes[i] = @intCast(tmp & 0xFF);
-            tmp >>= 8;
-        }
-        return result;
-    }
-};
+// Import B256 from unified Types
+pub const B256 = @import("../../../Types/B256.zig").B256;
 
-// Define local Address for testing
-const Address = [20]u8;
+// Import Address type
+const Address = @import("../../Address/package.zig").Address;
 
 // Define u256 for testing
-const EVM_u256 = u128;
+
 
 // Import local modules
 const Account = @import("Account.zig").Account;
@@ -194,13 +158,13 @@ pub const StateDB = struct {
     }
     
     /// Get account balance
-    pub fn getBalance(self: *StateDB, address: Address) EVM_u256 {
+    pub fn getBalance(self: *StateDB, address: Address) u256 {
         const account = self.accounts.get(address) orelse return 0;
         return account.getBalance();
     }
     
     /// Set account balance
-    pub fn setBalance(self: *StateDB, address: Address, balance: EVM_u256) !void {
+    pub fn setBalance(self: *StateDB, address: Address, balance: u256) !void {
         var account = try self.getOrCreateAccount(address);
         
         // Record original balance in journal
@@ -214,7 +178,7 @@ pub const StateDB = struct {
     }
     
     /// Add to account balance
-    pub fn addBalance(self: *StateDB, address: Address, amount: EVM_u256) !void {
+    pub fn addBalance(self: *StateDB, address: Address, amount: u256) !void {
         var account = try self.getOrCreateAccount(address);
         
         // Record original balance in journal
@@ -228,7 +192,7 @@ pub const StateDB = struct {
     }
     
     /// Subtract from account balance
-    pub fn subBalance(self: *StateDB, address: Address, amount: EVM_u256) !void {
+    pub fn subBalance(self: *StateDB, address: Address, amount: u256) !void {
         var account = try self.getOrCreateAccount(address);
         
         // Record original balance in journal
@@ -560,7 +524,7 @@ test "Account creation and retrieval" {
     // Get the account
     const account = state.getAccount(addr);
     try testing.expect(account != null);
-    try testing.expectEqual(@as(EVM_u256, 0), account.?.getBalance());
+    try testing.expectEqual(@as(u256, 0), account.?.getBalance());
     try testing.expectEqual(@as(u64, 0), account.?.getNonce());
 }
 
@@ -572,24 +536,24 @@ test "Account balance operations" {
     const addr = try addressFromHexString("0x1234567890123456789012345678901234567890");
     
     // Initially balance should be 0
-    try testing.expectEqual(@as(EVM_u256, 0), state.getBalance(addr));
+    try testing.expectEqual(@as(u256, 0), state.getBalance(addr));
     
     // Set balance
     try state.setBalance(addr, 1000);
-    try testing.expectEqual(@as(EVM_u256, 1000), state.getBalance(addr));
+    try testing.expectEqual(@as(u256, 1000), state.getBalance(addr));
     try testing.expect(state.accountExists(addr));
     
     // Add to balance
     try state.addBalance(addr, 500);
-    try testing.expectEqual(@as(EVM_u256, 1500), state.getBalance(addr));
+    try testing.expectEqual(@as(u256, 1500), state.getBalance(addr));
     
     // Subtract from balance
     try state.subBalance(addr, 200);
-    try testing.expectEqual(@as(EVM_u256, 1300), state.getBalance(addr));
+    try testing.expectEqual(@as(u256, 1300), state.getBalance(addr));
     
     // Cannot subtract more than balance
     try testing.expectError(error.InsufficientBalance, state.subBalance(addr, 2000));
-    try testing.expectEqual(@as(EVM_u256, 1300), state.getBalance(addr));
+    try testing.expectEqual(@as(u256, 1300), state.getBalance(addr));
 }
 
 test "Account nonce operations" {
@@ -682,14 +646,14 @@ test "Snapshots and reverts" {
     try state.incrementNonce(addr);
     
     // Verify modifications
-    try testing.expectEqual(@as(EVM_u256, 1500), state.getBalance(addr));
+    try testing.expectEqual(@as(u256, 1500), state.getBalance(addr));
     try testing.expectEqual(@as(u64, 6), state.getNonce(addr));
     
     // Revert to snapshot
     try state.revertToSnapshot(snapshot1);
     
     // Verify state was reverted
-    try testing.expectEqual(@as(EVM_u256, 1000), state.getBalance(addr));
+    try testing.expectEqual(@as(u256, 1000), state.getBalance(addr));
     try testing.expectEqual(@as(u64, 5), state.getNonce(addr));
 }
 
@@ -709,7 +673,7 @@ test "Account deletion" {
     // Delete account
     try state.deleteAccount(addr);
     try testing.expect(!state.accountExists(addr));
-    try testing.expectEqual(@as(EVM_u256, 0), state.getBalance(addr));
+    try testing.expectEqual(@as(u256, 0), state.getBalance(addr));
     try testing.expectEqual(@as(u64, 0), state.getNonce(addr));
 }
 
@@ -804,7 +768,7 @@ test "Complex state transitions with snapshots" {
     try state.deleteAccount(addr2);
     
     // Verify current state
-    try testing.expectEqual(@as(EVM_u256, 1500), state.getBalance(addr1));
+    try testing.expectEqual(@as(u256, 1500), state.getBalance(addr1));
     try testing.expectEqual(@as(u64, 2), state.getNonce(addr1));
     try testing.expect(!state.accountExists(addr2));
     
@@ -812,20 +776,20 @@ test "Complex state transitions with snapshots" {
     try state.revertToSnapshot(snapshot2);
     
     // Verify state after revert to snapshot 2
-    try testing.expectEqual(@as(EVM_u256, 1200), state.getBalance(addr1));
+    try testing.expectEqual(@as(u256, 1200), state.getBalance(addr1));
     try testing.expectEqual(@as(u64, 2), state.getNonce(addr1));
     try testing.expect(state.accountExists(addr2));
-    try testing.expectEqual(@as(EVM_u256, 400), state.getBalance(addr2));
+    try testing.expectEqual(@as(u256, 400), state.getBalance(addr2));
     
     // Revert to snapshot 1
     try state.revertToSnapshot(snapshot1);
     
     // Verify state after revert to snapshot 1
-    try testing.expectEqual(@as(EVM_u256, 1000), state.getBalance(addr1));
+    try testing.expectEqual(@as(u256, 1000), state.getBalance(addr1));
     try testing.expectEqual(@as(u64, 1), state.getNonce(addr1));
     
     const initial_storage = try state.getState(addr1, key);
     try testing.expect(B256.isZero(initial_storage));
     
-    try testing.expectEqual(@as(EVM_u256, 500), state.getBalance(addr2));
+    try testing.expectEqual(@as(u256, 500), state.getBalance(addr2));
 }
