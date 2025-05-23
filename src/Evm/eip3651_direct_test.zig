@@ -17,7 +17,7 @@ const ChainRules = struct {
 };
 
 // Simple representation of an address
-const Address = [20]u8;
+const Address = @import("../Address/package.zig").Address;
 
 // Implementation of an access list to track warm addresses
 const AccessList = struct {

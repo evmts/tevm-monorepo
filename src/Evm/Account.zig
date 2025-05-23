@@ -1,37 +1,15 @@
 const std = @import("std");
 const testing = std.testing;
 
-// Define local types for testing
-pub const B256 = struct {
-    bytes: [32]u8,
-    
-    // Helper functions
-    pub fn zero() B256 {
-        return B256{ .bytes = [_]u8{0} ** 32 };
-    }
-    
-    pub fn isZero(hash: B256) bool {
-        for (hash.bytes) |byte| {
-            if (byte != 0) return false;
-        }
-        return true;
-    }
-    
-    pub fn fromBytes(bytes: *const [32]u8) B256 {
-        var result = B256{ .bytes = undefined };
-        @memcpy(&result.bytes, bytes);
-        return result;
-    }
-};
+// Import the unified B256 type
+pub const B256 = @import("../../Types/B256.zig").B256;
 
-// Define u256 for testing
-const EVM_u256 = u128;
 
 /// Account represents an Ethereum account
 /// Includes balance, nonce, code hash, and storage root
 pub const Account = struct {
     /// Account balance in wei
-    balance: EVM_u256,
+    balance: u256,
     
     /// Account nonce (number of transactions sent from this account)
     nonce: u64,
@@ -67,7 +45,7 @@ pub const Account = struct {
     }
     
     /// Create a new account with given balance
-    pub fn initWithBalance(balance: EVM_u256) Account {
+    pub fn initWithBalance(balance: u256) Account {
         var account = Account.init();
         account.balance = balance;
         account.dirty_balance = true;
@@ -75,24 +53,24 @@ pub const Account = struct {
     }
     
     /// Get the account balance
-    pub fn getBalance(self: *const Account) EVM_u256 {
+    pub fn getBalance(self: *const Account) u256 {
         return self.balance;
     }
     
     /// Set the account balance
-    pub fn setBalance(self: *Account, balance: EVM_u256) void {
+    pub fn setBalance(self: *Account, balance: u256) void {
         self.balance = balance;
         self.dirty_balance = true;
     }
     
     /// Add to the account balance
-    pub fn addBalance(self: *Account, amount: EVM_u256) void {
+    pub fn addBalance(self: *Account, amount: u256) void {
         self.balance += amount;
         self.dirty_balance = true;
     }
     
     /// Subtract from the account balance
-    pub fn subBalance(self: *Account, amount: EVM_u256) !void {
+    pub fn subBalance(self: *Account, amount: u256) !void {
         if (self.balance < amount) {
             return error.InsufficientBalance;
         }
@@ -210,7 +188,7 @@ pub const Account = struct {
 // Tests
 test "Account initialization" {
     const account = Account.init();
-    try testing.expectEqual(@as(EVM_u256, 0), account.balance);
+    try testing.expectEqual(@as(u256, 0), account.balance);
     try testing.expectEqual(@as(u64, 0), account.nonce);
     try testing.expect(B256.isZero(account.storage_root));
     try testing.expect(B256.isZero(account.code_hash));
@@ -222,7 +200,7 @@ test "Account initialization" {
 }
 
 test "Account with balance" {
-    const balance: EVM_u256 = 1000;
+    const balance: u256 = 1000;
     const account = Account.initWithBalance(balance);
     try testing.expectEqual(balance, account.balance);
     try testing.expect(account.dirty_balance);
@@ -232,20 +210,20 @@ test "Account balance operations" {
     var account = Account.init();
     
     // Test getBalance
-    try testing.expectEqual(@as(EVM_u256, 0), account.getBalance());
+    try testing.expectEqual(@as(u256, 0), account.getBalance());
     
     // Test setBalance
     account.setBalance(500);
-    try testing.expectEqual(@as(EVM_u256, 500), account.getBalance());
+    try testing.expectEqual(@as(u256, 500), account.getBalance());
     try testing.expect(account.dirty_balance);
     
     // Test addBalance
     account.addBalance(300);
-    try testing.expectEqual(@as(EVM_u256, 800), account.getBalance());
+    try testing.expectEqual(@as(u256, 800), account.getBalance());
     
     // Test subBalance
     try account.subBalance(300);
-    try testing.expectEqual(@as(EVM_u256, 500), account.getBalance());
+    try testing.expectEqual(@as(u256, 500), account.getBalance());
     
     // Test insufficient balance
     try testing.expectError(error.InsufficientBalance, account.subBalance(1000));
@@ -348,6 +326,6 @@ test "Account clone" {
     
     // Verify clone and original are independent
     cloned.setBalance(2000);
-    try testing.expectEqual(@as(EVM_u256, 1000), account.balance);
-    try testing.expectEqual(@as(EVM_u256, 2000), cloned.balance);
+    try testing.expectEqual(@as(u256, 1000), account.balance);
+    try testing.expectEqual(@as(u256, 2000), cloned.balance);
 }

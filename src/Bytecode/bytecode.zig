@@ -2,10 +2,12 @@ const std = @import("std");
 const Address = @import("Address");
 const Evm = @import("Evm");
 
+// Import unified B256 type
+const B256 = @import("../Types/B256.ts").B256;
+
 // Define basic primitives for testing since we can't import directly
 pub const Bytes = []const u8;
-pub const B256 = [32]u8;
-pub const KECCAK_EMPTY = [32]u8{0} ** 32;
+pub const KECCAK_EMPTY = B256{ .bytes = [_]u8{0} ** 32 };
 
 pub const BytecodeDecodeError = error{InvalidFormat};
 
@@ -220,12 +222,12 @@ pub fn mockLegacyAnalyzedBytecode() LegacyAnalyzedBytecode {
 // Mock primitives for testing purposes
 pub const testing_primitives = struct {
     pub fn keccak256(bytes: []const u8) B256 {
-        var result: B256 = undefined;
+        var result_bytes: [32]u8 = [_]u8{0} ** 32;
         // Just a mock implementation for testing
         if (bytes.len > 0) {
-            result[0] = bytes[0];
+            result_bytes[0] = bytes[0];
         }
-        return result;
+        return B256{ .bytes = result_bytes };
     }
 };
 

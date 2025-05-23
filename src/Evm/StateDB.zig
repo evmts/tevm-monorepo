@@ -266,29 +266,11 @@ pub const StateDB = struct {
         try account.setCode(self.allocator, code);
     }
     
-    // Helper to convert between different B256 types
-    fn convertFromAccountB256(hash: @import("Account.zig").B256) B256 {
-        var result = B256{ .bytes = undefined };
-        @memcpy(&result.bytes, &hash.bytes);
-        return result;
-    }
-    
-    fn convertToStorageB256(hash: B256) @import("Storage.zig").B256 {
-        var result = @import("Storage.zig").B256{ .bytes = undefined };
-        @memcpy(&result.bytes, &hash.bytes);
-        return result;
-    }
-    
-    fn convertFromStorageB256(hash: @import("Storage.zig").B256) B256 {
-        var result = B256{ .bytes = undefined };
-        @memcpy(&result.bytes, &hash.bytes);
-        return result;
-    }
     
     /// Get account code hash
     pub fn getCodeHash(self: *StateDB, address: Address) B256 {
         const account = self.accounts.get(address) orelse return B256.zero();
-        return convertFromAccountB256(account.getCodeHash());
+        return account.getCodeHash();
     }
     
     /// Get account code size
@@ -301,9 +283,8 @@ pub const StateDB = struct {
     pub fn getState(self: *StateDB, address: Address, key: B256) !B256 {
         // Get or create storage for this account
         var storage = try self.getOrCreateStorage(address);
-        const storageKey = convertToStorageB256(key);
-        const result = storage.get(storageKey);
-        return convertFromStorageB256(result);
+        const result = storage.get(key);
+        return result;
     }
     
     /// Set storage value
@@ -311,13 +292,8 @@ pub const StateDB = struct {
         // Get or create storage for this account
         var storage = try self.getOrCreateStorage(address);
         
-        // Convert key and value to Storage.B256
-        const storageKey = convertToStorageB256(key);
-        const storageValue = convertToStorageB256(value);
-        
         // Get current value
-        const currentStorage = storage.get(storageKey);
-        const current = convertFromStorageB256(currentStorage);
+        const current = storage.get(key);
         
         // If no change, nothing to do
         if (B256.equal(current, value)) {
@@ -338,7 +314,7 @@ pub const StateDB = struct {
         }});
         
         // Update storage
-        try storage.set(storageKey, storageValue);
+        try storage.set(key, value);
         
         // Mark account storage as dirty
         var account = try self.getOrCreateAccount(address);
@@ -402,10 +378,8 @@ pub const StateDB = struct {
                     const keyStruct = B256{ .bytes = change.key };
                     const valueStruct = B256{ .bytes = change.prev_value };
                     
-                    // Then convert to Storage.B256
-                    const storageKey = convertToStorageB256(keyStruct);
-                    const storageValue = convertToStorageB256(valueStruct);
-                    try storage.set(storageKey, storageValue);
+                    // Set the storage value directly
+                    try storage.set(keyStruct, valueStruct);
                 }
             },
             .CodeChange => |change| {

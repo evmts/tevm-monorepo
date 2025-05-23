@@ -1,6 +1,6 @@
 const std = @import("std");
 // Address type is [20]u8
-const Address = [20]u8;
+const Address = @import("../../Address/package.zig").Address;
 const common = @import("common.zig");
 const crypto = @import("crypto.zig");
 const math = @import("math.zig");

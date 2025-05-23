@@ -5,7 +5,7 @@ const Contract = evm.Contract;
 const createContract = evm.createContract;
 
 // Define Address type for testing
-const Address = [20]u8;
+const Address = @import("../Address/package.zig").Address;
 
 test "Contract warm/cold storage tracking" {
     // Use allocator if needed later

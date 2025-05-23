@@ -3,7 +3,7 @@ const EvmLogger = @import("EvmLogger.zig").EvmLogger;
 const createLogger = @import("EvmLogger.zig").createLogger;
 const createScopedLogger = @import("EvmLogger.zig").createScopedLogger;
 const FeeMarket = @import("FeeMarket.zig").FeeMarket;
-const Address = [20]u8; // Define directly to avoid import issues
+const Address = @import("../Address/package.zig").Address; // Define directly to avoid import issues
 
 // Module logger will be initialized when functions are called
 fn getLogger() EvmLogger {

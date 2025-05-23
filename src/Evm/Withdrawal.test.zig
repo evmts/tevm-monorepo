@@ -8,7 +8,7 @@ const processWithdrawals = Withdrawal.processWithdrawals;
 
 // Use simplified types for testing
 // Define Address directly for tests to avoid import issues
-const Address = [20]u8;
+const Address = @import("../Address/package.zig").Address;
 
 // Create a B160 type that matches what's used in Withdrawal.zig
 const B160 = struct {

@@ -1,44 +1,8 @@
 const std = @import("std");
 const testing = std.testing;
 
-// Define local B256 for testing
-pub const B256 = struct {
-    bytes: [32]u8,
-    
-    // Helper functions
-    pub fn zero() B256 {
-        return B256{ .bytes = [_]u8{0} ** 32 };
-    }
-    
-    pub fn isZero(hash: B256) bool {
-        for (hash.bytes) |byte| {
-            if (byte != 0) return false;
-        }
-        return true;
-    }
-    
-    pub fn fromBytes(bytes: *const [32]u8) B256 {
-        var result = B256{ .bytes = undefined };
-        @memcpy(&result.bytes, bytes);
-        return result;
-    }
-    
-    pub fn equal(a: B256, b: B256) bool {
-        return std.mem.eql(u8, &a.bytes, &b.bytes);
-    }
-    
-    pub fn fromInt(value: u128) B256 {
-        var result = B256.zero();
-        // Convert integer to bytes (little-endian)
-        var tmp = value;
-        var i: usize = 0;
-        while (tmp > 0 and i < 16) : (i += 1) {
-            result.bytes[i] = @intCast(tmp & 0xFF);
-            tmp >>= 8;
-        }
-        return result;
-    }
-};
+// Import the unified B256 type
+pub const B256 = @import("../../Types/B256.zig").B256;
 
 /// Storage represents the contract storage state
 /// It maps 256-bit keys to 256-bit values

@@ -20,9 +20,9 @@ fn addressFromHexString(hex: []const u8) !Address {
 }
 
 // Define Address for convenience
-const Address = [20]u8;
+const Address = @import("../../Address/package.zig").Address;
 // For testing purposes, we'll use u128 as our "u256" type
-const EVM_u256 = u128;
+
 
 // Advanced snapshot and revert tests
 test "Advanced snapshot and revert scenarios" {
@@ -58,7 +58,7 @@ test "Advanced snapshot and revert scenarios" {
     try state.setState(addr1, key2, B256.fromInt(25));
     
     // Verify state at snapshot3
-    try testing.expectEqual(@as(EVM_u256, 1100), state.getBalance(addr1));
+    try testing.expectEqual(@as(u256, 1100), state.getBalance(addr1));
     try testing.expectEqual(@as(u64, 6), state.getNonce(addr1));
     try testing.expect(!state.accountExists(addr2));
     const s3_storage1 = try state.getState(addr1, key1);
@@ -70,10 +70,10 @@ test "Advanced snapshot and revert scenarios" {
     try state.revertToSnapshot(snapshot2);
     
     // Verify state at snapshot2
-    try testing.expectEqual(@as(EVM_u256, 1100), state.getBalance(addr1));
+    try testing.expectEqual(@as(u256, 1100), state.getBalance(addr1));
     try testing.expectEqual(@as(u64, 5), state.getNonce(addr1));
     try testing.expect(state.accountExists(addr2));
-    try testing.expectEqual(@as(EVM_u256, 500), state.getBalance(addr2));
+    try testing.expectEqual(@as(u256, 500), state.getBalance(addr2));
     const s2_storage1 = try state.getState(addr1, key1);
     const s2_storage2 = try state.getState(addr1, key2);
     try testing.expect(B256.equal(B256.fromInt(15), s2_storage1));
@@ -84,10 +84,10 @@ test "Advanced snapshot and revert scenarios" {
     try state.revertToSnapshot(snapshot1);
     
     // Verify state at snapshot1
-    try testing.expectEqual(@as(EVM_u256, 1000), state.getBalance(addr1));
+    try testing.expectEqual(@as(u256, 1000), state.getBalance(addr1));
     try testing.expectEqual(@as(u64, 5), state.getNonce(addr1));
     try testing.expect(state.accountExists(addr2));
-    try testing.expectEqual(@as(EVM_u256, 500), state.getBalance(addr2));
+    try testing.expectEqual(@as(u256, 500), state.getBalance(addr2));
     const s1_storage = try state.getState(addr1, key1);
     try testing.expect(B256.equal(B256.fromInt(10), s1_storage));
 }
@@ -143,7 +143,7 @@ test "Empty account operations" {
     
     // Initial state for non-existent account
     try testing.expect(!state.accountExists(addr));
-    try testing.expectEqual(@as(EVM_u256, 0), state.getBalance(addr));
+    try testing.expectEqual(@as(u256, 0), state.getBalance(addr));
     try testing.expectEqual(@as(u64, 0), state.getNonce(addr));
     try testing.expect(state.isEmpty(addr));
     try testing.expect(state.getCode(addr) == null);
@@ -238,7 +238,7 @@ test "Concurrent account operations" {
     // Setup accounts
     for (addresses, 0..) |addr, i| {
         try state.createAccount(addr);
-        try state.setBalance(addr, @as(EVM_u256, 1000) * @as(EVM_u256, i + 1));
+        try state.setBalance(addr, @as(u256, 1000) * @as(u256, i + 1));
         try state.setNonce(addr, @intCast(i + 1));
         
         // Set some storage
@@ -263,7 +263,7 @@ test "Concurrent account operations" {
     // Verify changes
     try testing.expectEqual(@as(usize, 4), state.accountCount());
     try testing.expect(!state.accountExists(addresses[0]));
-    try testing.expectEqual(@as(EVM_u256, 2500), state.getBalance(addresses[1]));
+    try testing.expectEqual(@as(u256, 2500), state.getBalance(addresses[1]));
     try testing.expectEqual(@as(u64, 4), state.getNonce(addresses[2]));
     try testing.expectEqual(@as(usize, 2), state.getCodeSize(addresses[3]));
     
@@ -276,7 +276,7 @@ test "Concurrent account operations" {
     // Verify revert
     try testing.expectEqual(@as(usize, 5), state.accountCount());
     try testing.expect(state.accountExists(addresses[0]));
-    try testing.expectEqual(@as(EVM_u256, 2000), state.getBalance(addresses[1]));
+    try testing.expectEqual(@as(u256, 2000), state.getBalance(addresses[1]));
     try testing.expectEqual(@as(u64, 3), state.getNonce(addresses[2]));
     try testing.expectEqual(@as(usize, 0), state.getCodeSize(addresses[3]));
     
@@ -342,7 +342,7 @@ test "Large state with many accounts" {
         addresses[i] = addressFromHexString(hex) catch @panic("Invalid address");
         
         try state.createAccount(addresses[i]);
-        try state.setBalance(addresses[i], @as(EVM_u256, i + 1) * 1000);
+        try state.setBalance(addresses[i], @as(u256, i + 1) * 1000);
         try state.setNonce(addresses[i], @intCast(i + 1));
         
         // Set some storage
@@ -380,7 +380,7 @@ test "Large state with many accounts" {
         }
         
         if (i % 3 == 1) {
-            try testing.expectEqual(@as(EVM_u256, (i + 1) * 1000 + 500), state.getBalance(addresses[i]));
+            try testing.expectEqual(@as(u256, (i + 1) * 1000 + 500), state.getBalance(addresses[i]));
             try testing.expectEqual(@as(u64, i + 2), state.getNonce(addresses[i]));
         }
         
@@ -400,7 +400,7 @@ test "Large state with many accounts" {
     
     for (0..account_count) |i| {
         try testing.expect(state.accountExists(addresses[i]));
-        try testing.expectEqual(@as(EVM_u256, (i + 1) * 1000), state.getBalance(addresses[i]));
+        try testing.expectEqual(@as(u256, (i + 1) * 1000), state.getBalance(addresses[i]));
         try testing.expectEqual(@as(u64, i + 1), state.getNonce(addresses[i]));
         
         // Storage state verification is tricky here, because our StateDB

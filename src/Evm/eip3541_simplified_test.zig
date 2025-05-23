@@ -3,7 +3,7 @@ const testing = std.testing;
 
 // Constants for our simplified tests
 const MAX_MEMORY_SIZE = 10 * 1024 * 1024; // 10 MB
-pub const Address = [20]u8;
+pub const Address = @import("../Address/package.zig").Address;
 
 // Logger for debug output
 const DebugLogger = struct {

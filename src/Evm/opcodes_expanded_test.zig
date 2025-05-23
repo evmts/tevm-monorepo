@@ -16,7 +16,7 @@ const JumpTable = @import("JumpTable.zig");
 const opcodes = @import("opcodes.zig");
 
 // Create a stub Address type for testing
-const Address = [20]u8;
+const Address = @import("../Address/package.zig").Address;
 
 // Import opcode-specific modules
 const block = @import("opcodes/block.zig");

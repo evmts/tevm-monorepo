@@ -1,28 +1,8 @@
 const std = @import("std");
 const testing = std.testing;
 
-// Define local types for testing
-pub const B256 = struct {
-    bytes: [32]u8,
-
-    // Helper functions
-    pub fn zero() B256 {
-        return B256{ .bytes = [_]u8{0} ** 32 };
-    }
-
-    pub fn isZero(hash: B256) bool {
-        for (hash.bytes) |byte| {
-            if (byte != 0) return false;
-        }
-        return true;
-    }
-
-    pub fn fromBytes(bytes: *const [32]u8) B256 {
-        var result = B256{ .bytes = undefined };
-        @memcpy(&result.bytes, bytes);
-        return result;
-    }
-};
+// Import B256 from unified Types
+pub const B256 = @import("../../../Types/B256.zig").B256;
 
 /// Account represents an Ethereum account
 /// Includes balance, nonce, code hash, and storage root
@@ -136,7 +116,7 @@ pub const Account = struct {
             hasher.update(code);
             var hash_result: [32]u8 = undefined;
             hasher.final(&hash_result);
-            self.code_hash = B256.fromBytes(&hash_result);
+            self.code_hash = B256.fromBytes(hash_result);
         } else {
             self.code = null;
             self.code_hash = B256.zero();

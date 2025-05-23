@@ -18,8 +18,8 @@ fn mapStackError(err: StackError) ExecutionError {
     };
 }
 const Memory = @import("../Memory.zig").Memory;
-// B256 type from StateDB
-const B256 = [32]u8;
+// Import unified B256 type
+const B256 = @import("../../Types/B256.ts").B256;
 const EvmLogger = @import("../TestEvmLogger.zig").EvmLogger;
 const createLogger = @import("../TestEvmLogger.zig").createLogger;
 const createScopedLogger = @import("../TestEvmLogger.zig").createScopedLogger;
@@ -54,14 +54,15 @@ pub fn opSload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     getLogger().debug("SLOAD key: 0x{x}", .{key_u256});
     
     // Convert u256 key to B256 format
-    var key: B256 = undefined;
+    var key_bytes: [32]u8 = undefined;
     var temp = key_u256;
     var i: usize = 31;
     while (i < 32) : (i -%= 1) {
-        key[i] = @intCast(temp & 0xFF);
+        key_bytes[i] = @intCast(temp & 0xFF);
         temp >>= 8;
         if (i == 0) break;
     }
+    const key = B256{ .bytes = key_bytes };
     
     // Get EVM from interpreter
     const evm_instance = interpreter.evm;
@@ -87,16 +88,17 @@ pub fn opSload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     const addr_b160 = SM.B160{ .bytes = address };
     
     // Convert key to B256
-    const key_b256 = SM.B256{ .bytes = key };
+    const key_b256 = SM.B256{ .bytes = key.bytes };
     
     const storage_bytes = try state_manager.getContractStorage(addr_b160, key_b256);
     
     // Convert storage bytes to B256
-    var value: B256 = [_]u8{0} ** 32;
+    var value_bytes: [32]u8 = [_]u8{0} ** 32;
     if (storage_bytes.len > 0) {
         const copy_len = @min(storage_bytes.len, 32);
-        @memcpy(value[32 - copy_len..], storage_bytes[0..copy_len]);
+        @memcpy(value_bytes[32 - copy_len..], storage_bytes[0..copy_len]);
     }
+    const value = B256{ .bytes = value_bytes };
     
     // For now, assume first access is always cold
     const addr_was_cold = true;
@@ -119,7 +121,7 @@ pub fn opSload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     // Convert B256 value to u256
     var value_u256: u256 = 0;
     for (0..32) |j| {
-        value_u256 = (value_u256 << 8) | value[j];
+        value_u256 = (value_u256 << 8) | value.bytes[j];
     }
     
     getLogger().debug("SLOAD result: key=0x{x}, value=0x{x}", .{key_u256, value_u256});
@@ -157,24 +159,26 @@ pub fn opSstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     getLogger().debug("SSTORE key: 0x{x}, value: 0x{x}", .{key_u256, value_u256});
     
     // Convert u256 key to B256 format
-    var key: B256 = undefined;
+    var key_bytes: [32]u8 = undefined;
     var temp = key_u256;
     var i: usize = 31;
     while (i < 32) : (i -%= 1) {
-        key[i] = @intCast(temp & 0xFF);
+        key_bytes[i] = @intCast(temp & 0xFF);
         temp >>= 8;
         if (i == 0) break;
     }
+    const key = B256{ .bytes = key_bytes };
     
     // Convert u256 value to B256 format
-    var value: B256 = undefined;
+    var value_bytes: [32]u8 = undefined;
     temp = value_u256;
     i = 31;
     while (i < 32) : (i -%= 1) {
-        value[i] = @intCast(temp & 0xFF);
+        value_bytes[i] = @intCast(temp & 0xFF);
         temp >>= 8;
         if (i == 0) break;
     }
+    const value = B256{ .bytes = value_bytes };
     
     // Get EVM
     const evm_instance = interpreter.evm;
@@ -199,16 +203,17 @@ pub fn opSstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     const addr_b160 = SM.B160{ .bytes = address };
     
     // Convert key to B256
-    const key_b256 = SM.B256{ .bytes = key };
+    const key_b256 = SM.B256{ .bytes = key.bytes };
     
     const storage_bytes = try state_manager.getContractStorage(addr_b160, key_b256);
     
     // Convert storage bytes to B256
-    var current_value: B256 = [_]u8{0} ** 32;
+    var current_value_bytes: [32]u8 = [_]u8{0} ** 32;
     if (storage_bytes.len > 0) {
         const copy_len = @min(storage_bytes.len, 32);
-        @memcpy(current_value[32 - copy_len..], storage_bytes[0..copy_len]);
+        @memcpy(current_value_bytes[32 - copy_len..], storage_bytes[0..copy_len]);
     }
+    const current_value = B256{ .bytes = current_value_bytes };
     
     // For now, assume first access is always cold
     const addr_was_cold = true;
@@ -217,7 +222,7 @@ pub fn opSstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     // Convert current_value B256 to u256 for comparison
     var current_value_u256: u256 = 0;
     for (0..32) |j| {
-        current_value_u256 = (current_value_u256 << 8) | current_value[j];
+        current_value_u256 = (current_value_u256 << 8) | current_value.bytes[j];
     }
     
     getLogger().debug("Current value at storage slot: 0x{x}", .{current_value_u256});
@@ -316,7 +321,7 @@ pub fn opSstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     getLogger().debug("Current gas refund counter: {d}", .{frame.contract.gas_refund});
     
     // Update the storage
-    try state_manager.putContractStorage(addr_b160, key_b256, &value);
+    try state_manager.putContractStorage(addr_b160, key_b256, value);
     getLogger().debug("Storage updated: key=0x{x}, value=0x{x}", .{key_u256, value_u256});
     
     return "";

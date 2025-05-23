@@ -1,5 +1,8 @@
 const std = @import("std");
 
+// Import the unified B256 type
+pub const B256 = @import("../Types/B256.zig").B256;
+
 // Mock implementation of missing types for this example
 pub const B160 = struct {
     bytes: [20]u8,
@@ -16,35 +19,6 @@ pub const B160 = struct {
                 const low = std.fmt.charToDigit(hex_str[start + i*2 + 1], 16) catch 0;
                 result.bytes[i] = @as(u8, high) << 4 | low;
             }
-        }
-        return result;
-    }
-};
-
-pub const B256 = struct {
-    bytes: [32]u8,
-    
-    pub fn fromHex(hex_str: []const u8) B256 {
-        var result = B256{ .bytes = [_]u8{0} ** 32 };
-        // Simple mock implementation
-        if (hex_str.len >= 34) { // "0x" + 32 bytes (64 characters)
-            const start: usize = if (hex_str.len > 1 and hex_str[0] == '0' and hex_str[1] == 'x') 2 else 0;
-            
-            var i: usize = 0;
-            while (i < 32 and (start + i*2 + 1) < hex_str.len) : (i += 1) {
-                const high = std.fmt.charToDigit(hex_str[start + i*2], 16) catch 0;
-                const low = std.fmt.charToDigit(hex_str[start + i*2 + 1], 16) catch 0;
-                result.bytes[i] = @as(u8, high) << 4 | low;
-            }
-        }
-        return result;
-    }
-    
-    pub fn fromBytes(bytes: *const [32]u8) B256 {
-        var result = B256{ .bytes = [_]u8{0} ** 32 };
-        // Copy bytes manually
-        for (bytes, 0..) |b, i| {
-            result.bytes[i] = b;
         }
         return result;
     }
@@ -444,7 +418,7 @@ pub const StateManager = struct {
         // Generate a new state root
         var newRoot: [32]u8 = undefined;
         std.crypto.random.bytes(&newRoot);
-        const newStateRoot = B256.fromBytes(&newRoot);
+        const newStateRoot = B256.fromBytes(newRoot);
         
         // Save current state under new root
         const state = StateData{

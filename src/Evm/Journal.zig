@@ -2,12 +2,10 @@ const std = @import("std");
 const testing = std.testing;
 
 // For testing purposes, we'll define Address locally
-const Address = [20]u8;
+const Address = @import("../Address/package.zig").Address;
 
-// Define B256 for this module (since it's only for testing now)
-const B256 = [32]u8;
-// For testing purposes, we'll use u128 as our "u256" type
-const EVM_u256 = u128;
+// Import unified B256 type
+const B256 = @import("../Types/B256.ts").B256;
 
 // Since our Address module doesn't have a fromString function, we'll define one here for testing
 fn addressFromHexString(hex: []const u8) !Address {
@@ -28,7 +26,7 @@ pub const JournalEntry = union(enum) {
     /// Track a balance change
     BalanceChange: struct {
         address: Address,
-        prev_balance: EVM_u256,
+        prev_balance: u256,
     },
     
     /// Track a nonce change
@@ -58,7 +56,7 @@ pub const JournalEntry = union(enum) {
     /// Track account suicide/self-destruct
     SelfDestruct: struct {
         address: Address,
-        prev_balance: EVM_u256,
+        prev_balance: u256,
         prev_nonce: u64,
         had_code: bool,
     },
@@ -230,7 +228,7 @@ test "Journal append entries" {
     switch (entries[0]) {
         .BalanceChange => |change| {
             try testing.expectEqual(addr, change.address);
-            try testing.expectEqual(@as(EVM_u256, 100), change.prev_balance);
+            try testing.expectEqual(@as(u256, 100), change.prev_balance);
         },
         else => return error.InvalidEntryType,
     }

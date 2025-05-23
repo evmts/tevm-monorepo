@@ -2,10 +2,8 @@ const std = @import("std");
 const evm_pkg = @import("Evm");
 const Contract = evm_pkg.Contract;
 const ExecutionError = evm_pkg.ExecutionError;
-// For B256, we'll use a simple struct with a fixed-size array
-pub const B256 = struct {
-    value: [32]u8,
-};
+// Import B256 from the unified types module
+const B256 = @import("../../Types/B256.ts").B256;
 
 // Define u256 type for modexp operations
 
@@ -26,20 +24,20 @@ pub const PrecompiledContract = enum(u8) {
         // Ethereum precompiled contracts are at addresses 1-9
         // First check that bytes 0-11 are all zeros
         for (0..12) |i| {
-            if (addr.value[i] != 0) {
+            if (addr.bytes[i] != 0) {
                 return false;
             }
         }
         
         // Then check bytes 12-30 are all zeros except possibly byte 31
         for (12..31) |i| {
-            if (addr.value[i] != 0) {
+            if (addr.bytes[i] != 0) {
                 return false;
             }
         }
         
         // Check if last byte is between 1-9
-        const value = addr.value[31];
+        const value = addr.bytes[31];
         return value >= 1 and value <= 9;
     }
     
@@ -49,7 +47,7 @@ pub const PrecompiledContract = enum(u8) {
             return null;
         }
         
-        const value = addr.value[31];
+        const value = addr.bytes[31];
         return @enumFromInt(value);
     }
     

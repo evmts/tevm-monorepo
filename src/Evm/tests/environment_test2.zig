@@ -330,7 +330,7 @@ const environment = struct {
 const u256_native = u256;
 
 // Minimal type definitions for testing
-const Address = [20]u8;
+const Address = @import("../../Address/package.zig").Address;
 
 // Test-specific struct definitions that mimic the real ones
 const Interpreter = struct {

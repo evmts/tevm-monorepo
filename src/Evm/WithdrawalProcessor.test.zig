@@ -12,7 +12,7 @@ const Hardfork = enum {
     Shanghai, Cancun, Prague, Verkle
 };
 // In test files, we consistently use the raw type for Address
-const Address = [20]u8; // Just use the raw type in tests as a direct alias for compatibility
+const Address = @import("../Address/package.zig").Address; // Just use the raw type in tests as a direct alias for compatibility
 // Import from local files for testing
 const Withdrawal = @import("Withdrawal.zig");
 const WithdrawalData = Withdrawal.WithdrawalData;

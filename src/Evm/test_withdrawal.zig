@@ -2,7 +2,7 @@ const std = @import("std");
 const testing = std.testing;
 
 // Simple version of Address type
-const Address = [20]u8;
+const Address = @import("../Address/package.zig").Address;
 
 // Basic logger implementation
 const Logger = struct {
