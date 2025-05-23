@@ -478,8 +478,8 @@ fn calcMemSize(offset: u256, size: u256) u64 {
     const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(offset));
     const size_u64 = if (size > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, size);
     
-    // Return the end address (offset + size)
-    return offset_u64 + size_u64;
+    // Return the end address using saturating addition
+    return offset_u64 +| size_u64;
 }
 
 /// Helper function to calculate the gas cost for memory expansion
@@ -499,8 +499,8 @@ pub fn memoryGasCost(oldSize: u64, newSize: u64) u64 {
     // Calculate quadratic cost (see EIP-1985)
     // Note: In the original yellow paper formula, the quadratic component is divided by 512
     // but it's more efficient for EVM implementations to multiply by 3 directly
-    const newCost = newWords * newWords * 3 + newWords * 3;
-    const oldCost = oldWords * oldWords * 3 + oldWords * 3;
+    const newCost = newWords *% newWords *% 3 +% newWords *% 3;
+    const oldCost = oldWords *% oldWords *% 3 +% oldWords *% 3;
     
     return newCost - oldCost;
 }

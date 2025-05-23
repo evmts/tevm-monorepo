@@ -247,12 +247,9 @@ fn calldatacopyMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(offset));
     const size_u64 = if (size > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(size));
 
-    // Check for overflow
-    if (offset_u64 > std.math.maxInt(u64) - size_u64) {
-        return .{ .size = std.math.maxInt(u64), .overflow = true };
-    }
-
-    return .{ .size = offset_u64 + size_u64, .overflow = false };
+    // Use saturating addition to handle overflow
+    const result = offset_u64 +| size_u64;
+    return .{ .size = result, .overflow = result == std.math.maxInt(u64) };
 }
 
 /// Dynamic gas calculation for memory operations
@@ -270,8 +267,8 @@ fn memoryGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: *M
         const oldWords = (oldSize + 31) / 32;
 
         // Quadratic cost calculation
-        const newCost = newWords * newWords * 3 + newWords * 3;
-        const oldCost = oldWords * oldWords * 3 + oldWords * 3;
+        const newCost = newWords *% newWords *% 3 +% newWords *% 3;
+        const oldCost = oldWords *% oldWords *% 3 +% oldWords *% 3;
 
         const cost = newCost - oldCost;
 
@@ -368,12 +365,9 @@ fn codecopyMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(offset));
     const size_u64 = if (size > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(size));
 
-    // Check for overflow
-    if (offset_u64 > std.math.maxInt(u64) - size_u64) {
-        return .{ .size = std.math.maxInt(u64), .overflow = true };
-    }
-
-    return .{ .size = offset_u64 + size_u64, .overflow = false };
+    // Use saturating addition to handle overflow
+    const result = offset_u64 +| size_u64;
+    return .{ .size = result, .overflow = result == std.math.maxInt(u64) };
 }
 
 /// CODECOPY operation - copy code running in current environment to memory
@@ -562,12 +556,9 @@ fn extcodecopyMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(offset));
     const size_u64 = if (size > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(size));
 
-    // Check for overflow
-    if (offset_u64 > std.math.maxInt(u64) - size_u64) {
-        return .{ .size = std.math.maxInt(u64), .overflow = true };
-    }
-
-    return .{ .size = offset_u64 + size_u64, .overflow = false };
+    // Use saturating addition to handle overflow
+    const result = offset_u64 +| size_u64;
+    return .{ .size = result, .overflow = result == std.math.maxInt(u64) };
 }
 
 /// EXTCODECOPY operation - copy an account's code to memory
@@ -698,12 +689,9 @@ fn returndatacopyMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(offset));
     const size_u64 = if (size > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(size));
 
-    // Check for overflow
-    if (offset_u64 > std.math.maxInt(u64) - size_u64) {
-        return .{ .size = std.math.maxInt(u64), .overflow = true };
-    }
-
-    return .{ .size = offset_u64 + size_u64, .overflow = false };
+    // Use saturating addition to handle overflow
+    const result = offset_u64 +| size_u64;
+    return .{ .size = result, .overflow = result == std.math.maxInt(u64) };
 }
 
 /// RETURNDATACOPY operation - copy output data from the previous call to memory

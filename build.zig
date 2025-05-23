@@ -478,6 +478,25 @@ pub fn build(b: *std.Build) void {
     const interpreter_test_step = b.step("test-interpreter", "Run Interpreter tests");
     interpreter_test_step.dependOn(&run_interpreter_test.step);
 
+    // Add interpreter.zig tests
+    const interpreter_impl_test = b.addTest(.{
+        .name = "interpreter-impl-test",
+        .root_source_file = b.path("src/Evm/interpreter_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    // Add package imports to interpreter_impl_test
+    interpreter_impl_test.root_module.addImport("evm", evm_pkg);
+    interpreter_impl_test.root_module.addImport("utils", utils_pkg);
+    interpreter_impl_test.root_module.addImport("address", address_pkg);
+
+    const run_interpreter_impl_test = b.addRunArtifact(interpreter_impl_test);
+
+    // Add a separate step for testing Interpreter implementation
+    const interpreter_impl_test_step = b.step("test-interpreter-impl", "Run Interpreter implementation tests");
+    interpreter_impl_test_step.dependOn(&run_interpreter_impl_test.step);
+
     // Add Rust Foundry wrapper integration
     const rust_build = @import("src/Compilers/rust_build.zig");
     const rust_step = rust_build.addRustIntegration(b, target, optimize) catch |err| {

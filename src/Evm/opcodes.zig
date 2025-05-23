@@ -1937,7 +1937,7 @@ pub fn getOpcodeName(opcode: u8) []const u8 {
         0xF8 => "EXTCALL",
         0xF9 => "EXTDELEGATECALL",
         0xFB => "EXTSTATICCALL",
-        else => "UNKNOWN",
+        else => "INVALID",
     };
 }
 
