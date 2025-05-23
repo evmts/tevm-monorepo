@@ -1,7 +1,7 @@
 const std = @import("std");
 const Allocator = std.mem.Allocator;
 const trie = @import("trie.zig");
-const rlp = @import("Rlp");
+const rlp = @import("rlp");
 
 const TrieNode = trie.TrieNode;
 const HashValue = trie.HashValue;
@@ -62,8 +62,12 @@ pub const HashBuilder = struct {
             old_node.deinit(self.allocator);
         }
         
+        // Make a copy of the key since the HashMap will own it
+        const key_copy = try self.allocator.dupe(u8, hash_str);
+        errdefer self.allocator.free(key_copy);
+        
         // Store the new node (put takes ownership of the key we give it)
-        try self.nodes.put(hash_str, node);
+        try self.nodes.put(key_copy, node);
     }
     
     /// Add a key-value pair to the trie
@@ -96,6 +100,7 @@ pub const HashBuilder = struct {
         
         // Store the node
         const hash_str = try bytesToHexString(self.allocator, &hash);
+        defer self.allocator.free(hash_str);
         try self.storeNode(hash_str, result);
     }
     
@@ -140,6 +145,7 @@ pub const HashBuilder = struct {
             self.root_hash = hash;
             
             const new_hash_str = try bytesToHexString(self.allocator, &hash);
+            defer self.allocator.free(new_hash_str);
             try self.storeNode(new_hash_str, node);
         } else {
             // Trie is now empty
@@ -218,6 +224,7 @@ pub const HashBuilder = struct {
                         // Get hash of new node
                         const hash = try new_node.hash(self.allocator);
                         const hash_str = try bytesToHexString(self.allocator, &hash);
+                        defer self.allocator.free(hash_str);
                         
                         // Store the node
                         try self.storeNode(hash_str, new_node);
@@ -248,6 +255,7 @@ pub const HashBuilder = struct {
                         // Get hash of new node
                         const hash = try new_node.hash(self.allocator);
                         const hash_str = try bytesToHexString(self.allocator, &hash);
+                        defer self.allocator.free(hash_str);
                         
                         // Store the node
                         try self.storeNode(hash_str, new_node);
@@ -289,6 +297,7 @@ pub const HashBuilder = struct {
                             // Get hash of new node
                             const hash = try new_node.hash(self.allocator);
                             const hash_str = try bytesToHexString(self.allocator, &hash);
+                            defer self.allocator.free(hash_str);
                             
                             // Store the node
                             try self.storeNode(hash_str, new_node);
@@ -321,6 +330,7 @@ pub const HashBuilder = struct {
                             // Get hash of new node
                             const hash = try new_node.hash(self.allocator);
                             const hash_str = try bytesToHexString(self.allocator, &hash);
+                            defer self.allocator.free(hash_str);
                             
                             // Store the node
                             try self.storeNode(hash_str, new_node);
@@ -342,6 +352,7 @@ pub const HashBuilder = struct {
                     const branch_node = TrieNode{ .Branch = branch };
                     const hash = try branch_node.hash(self.allocator);
                     const hash_str = try bytesToHexString(self.allocator, &hash);
+                    defer self.allocator.free(hash_str);
                     
                     // Store the branch node
                     try self.storeNode(hash_str, branch_node);
@@ -387,6 +398,7 @@ pub const HashBuilder = struct {
                             // Get hash of new node
                             const hash = try new_node.hash(self.allocator);
                             const hash_str = try bytesToHexString(self.allocator, &hash);
+                            defer self.allocator.free(hash_str);
                             
                             // Store the node
                             try self.storeNode(hash_str, new_node);
@@ -419,6 +431,7 @@ pub const HashBuilder = struct {
                             // Get hash of new node
                             const hash = try new_node.hash(self.allocator);
                             const hash_str = try bytesToHexString(self.allocator, &hash);
+                            defer self.allocator.free(hash_str);
                             
                             // Store the node
                             try self.storeNode(hash_str, new_node);
@@ -458,6 +471,7 @@ pub const HashBuilder = struct {
                     // Get hash of updated node
                     const hash = try updated_node.hash(self.allocator);
                     const hash_str = try bytesToHexString(self.allocator, &hash);
+                    defer self.allocator.free(hash_str);
                     
                     // Store updated node
                     try self.storeNode(hash_str, updated_node);
@@ -499,6 +513,7 @@ pub const HashBuilder = struct {
                         // Get hash of new node
                         const hash = try new_node.hash(self.allocator);
                         const hash_str = try bytesToHexString(self.allocator, &hash);
+                        defer self.allocator.free(hash_str);
                         
                         // Store the node
                         try self.storeNode(hash_str, new_node);
@@ -530,6 +545,7 @@ pub const HashBuilder = struct {
                             // Get hash of new node
                             const hash = try new_node.hash(self.allocator);
                             const hash_str = try bytesToHexString(self.allocator, &hash);
+                            defer self.allocator.free(hash_str);
                             
                             // Store the node
                             try self.storeNode(hash_str, new_node);
@@ -547,6 +563,7 @@ pub const HashBuilder = struct {
                     const branch_node = TrieNode{ .Branch = branch };
                     const hash = try branch_node.hash(self.allocator);
                     const hash_str = try bytesToHexString(self.allocator, &hash);
+                    defer self.allocator.free(hash_str);
                     
                     // Store the branch node
                     try self.storeNode(hash_str, branch_node);
@@ -597,10 +614,18 @@ pub const HashBuilder = struct {
                     switch (child) {
                         .Raw => |data| {
                             // Convert to a leaf node
+                            // First allocate the empty path
+                            const empty_path = try self.allocator.alloc(u8, 0);
+                            errdefer self.allocator.free(empty_path);
+                            
+                            // Then duplicate the data
+                            const data_copy = try self.allocator.dupe(u8, data);
+                            errdefer self.allocator.free(data_copy);
+                            
                             const leaf = try LeafNode.init(
                                 self.allocator,
-                                try self.allocator.alloc(u8, 0), // Empty path
-                                HashValue{ .Raw = try self.allocator.dupe(u8, data) }
+                                empty_path,
+                                HashValue{ .Raw = data_copy }
                             );
                             next_node = TrieNode{ .Leaf = leaf };
                             temp_node_created = true;
@@ -614,17 +639,15 @@ pub const HashBuilder = struct {
                     }
                     
                     // Continue insertion with the remaining path
+                    // NOTE: update takes ownership of next_node if temp_node_created is true
                     const updated_node = try self.update(remaining_path, value, next_node);
                     
-                    // Free the temporary node if we created one
-                    if (temp_node_created) {
-                        var temp = next_node;
-                        temp.deinit(self.allocator);
-                    }
+                    // Note: We don't free temp_node here because update() consumed it
                     
                     // Get hash of updated node
                     const hash = try updated_node.hash(self.allocator);
                     const hash_str = try bytesToHexString(self.allocator, &hash);
+                    defer self.allocator.free(hash_str);
                     
                     // Store updated node
                     try self.storeNode(hash_str, updated_node);
@@ -668,6 +691,7 @@ pub const HashBuilder = struct {
                         // Get hash of new node
                         const hash = try new_node.hash(self.allocator);
                         const hash_str = try bytesToHexString(self.allocator, &hash);
+                        defer self.allocator.free(hash_str);
                         
                         // Store the node
                         try self.storeNode(hash_str, new_node);
@@ -842,6 +866,7 @@ pub const HashBuilder = struct {
                 // Get the hash of the result
                 const result_hash = try result.?.hash(self.allocator);
                 const result_hash_str = try bytesToHexString(self.allocator, &result_hash);
+                defer self.allocator.free(result_hash_str);
                 
                 // Store the updated node
                 try self.storeNode(result_hash_str, result.?);
@@ -1142,6 +1167,7 @@ pub const HashBuilder = struct {
                     // Get the hash of the updated child
                     const hash = try result.?.hash(self.allocator);
                     const hash_str = try bytesToHexString(self.allocator, &hash);
+                    defer self.allocator.free(hash_str);
                     
                     // Store the updated child
                     try self.storeNode(hash_str, result.?);

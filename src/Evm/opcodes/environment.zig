@@ -105,9 +105,9 @@ pub fn opBalance(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
 
     // Get the account from state
     const b160Address = StateManagerModule.B160{ .bytes = queryAddress };
-    if (interpreter.evm.state_manager.?.getAccount(b160Address) catch return ExecutionError.OutOfGas) |account| {
+    if (interpreter.evm.state_manager.?.getAccount(b160Address.bytes) catch return ExecutionError.OutOfGas) |account| {
         // Push account balance to stack
-        frame.stack.push(account.balance.value) catch |err| return mapStackError(err);
+        frame.stack.push(account.balance) catch |err| return mapStackError(err);
     } else {
         // Account doesn't exist, push 0
         frame.stack.push(0) catch |err| return mapStackError(err);
@@ -537,7 +537,7 @@ pub fn opExtcodesize(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
 
     // Get contract code for the address
     const b160Address = StateManagerModule.B160{ .bytes = queryAddress };
-    const code = try interpreter.evm.state_manager.?.getContractCode(b160Address);
+    const code = try interpreter.evm.state_manager.?.getContractCode(b160Address.bytes);
 
     // Push the code size onto the stack
     frame.stack.push(@as(u256, code.len)) catch |err| return mapStackError(err);
@@ -637,10 +637,10 @@ pub fn opExtcodecopy(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
 
     // Get contract code for the address
     const code = blk: {
-        var result: []u8 = &[_]u8{};
+        var result: []const u8 = &[_]u8{};
         if (interpreter.evm.state_manager != null) {
             const b160Address = StateManagerModule.B160{ .bytes = queryAddress };
-            result = try interpreter.evm.state_manager.?.getContractCode(b160Address);
+            result = try interpreter.evm.state_manager.?.getContractCode(b160Address.bytes);
         }
         break :blk result;
     };
@@ -808,7 +808,7 @@ pub fn opExtcodehash(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
 
     // Get the account from state
     const b160Address = StateManagerModule.B160{ .bytes = queryAddress };
-    if (interpreter.evm.state_manager.?.getAccount(b160Address) catch return ExecutionError.OutOfGas) |account| {
+    if (interpreter.evm.state_manager.?.getAccount(b160Address.bytes) catch return ExecutionError.OutOfGas) |account| {
         // If account exists, push its code hash
         const codeHash = blk: {
             var hash: u256 = 0;

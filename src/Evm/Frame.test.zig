@@ -1,10 +1,9 @@
 const std = @import("std");
 const testing = std.testing;
 
-const evm = @import("evm");
-const Frame = evm.Frame;
-const ExecutionError = evm.InterpreterError;
-const Contract = evm.Contract;
+const Frame = @import("Frame.zig").Frame;
+const ExecutionError = @import("interpreter.zig").InterpreterError;
+const Contract = @import("Contract.zig").Contract;
 const u256_native = u256;
 
 const address = @import("address");

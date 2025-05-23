@@ -1,7 +1,7 @@
 const std = @import("std");
 const Allocator = std.mem.Allocator;
-const rlp = @import("Rlp");
-const utils = @import("Utils");
+const rlp = @import("rlp");
+const utils = @import("utils");
 
 /// Error type for trie operations
 pub const TrieError = error{
@@ -214,10 +214,11 @@ pub const ExtensionNode = struct {
     nibbles: []u8,
     next: HashValue,
 
-    pub fn init(allocator: Allocator, path: []u8, next: HashValue) !ExtensionNode {
-        _ = allocator;
+    pub fn init(allocator: Allocator, path: []const u8, next: HashValue) !ExtensionNode {
+        const nibbles_copy = try allocator.alloc(u8, path.len);
+        std.mem.copyForwards(u8, nibbles_copy, path);
         return ExtensionNode{
-            .nibbles = path,
+            .nibbles = nibbles_copy,
             .next = next,
         };
     }
@@ -257,10 +258,11 @@ pub const LeafNode = struct {
     nibbles: []u8,
     value: HashValue,
 
-    pub fn init(allocator: Allocator, path: []u8, value: HashValue) !LeafNode {
-        _ = allocator;
+    pub fn init(allocator: Allocator, path: []const u8, value: HashValue) !LeafNode {
+        const nibbles_copy = try allocator.alloc(u8, path.len);
+        std.mem.copyForwards(u8, nibbles_copy, path);
         return LeafNode{
-            .nibbles = path,
+            .nibbles = nibbles_copy,
             .value = value,
         };
     }
@@ -586,9 +588,9 @@ test "LeafNode encoding" {
     const path = [_]u8{ 1, 2, 3, 4 };
     const value = "test_value";
     const value_copy = try allocator.dupe(u8, value);
-    const path_copy = try allocator.dupe(u8, &path);
+    // Don't free value_copy - HashValue takes ownership
     
-    var leaf = try LeafNode.init(allocator, path_copy, HashValue{ .Raw = value_copy });
+    var leaf = try LeafNode.init(allocator, &path, HashValue{ .Raw = value_copy });
     defer leaf.deinit(allocator);
     
     const encoded = try leaf.encode(allocator);
@@ -613,9 +615,9 @@ test "ExtensionNode encoding" {
     const path = [_]u8{ 1, 2, 3, 4 };
     const value = "next_node";
     const value_copy = try allocator.dupe(u8, value);
-    const path_copy = try allocator.dupe(u8, &path);
+    // Don't dupe path - ExtensionNode.init will copy it
     
-    var extension = try ExtensionNode.init(allocator, path_copy, HashValue{ .Raw = value_copy });
+    var extension = try ExtensionNode.init(allocator, &path, HashValue{ .Raw = value_copy });
     defer extension.deinit(allocator);
     
     const encoded = try extension.encode(allocator);
@@ -641,9 +643,9 @@ test "TrieNode hash" {
     const path = [_]u8{ 1, 2, 3, 4 };
     const value = "test_value";
     const value_copy = try allocator.dupe(u8, value);
-    const path_copy = try allocator.dupe(u8, &path);
+    // Don't dupe path - LeafNode.init will copy it
     
-    const leaf = try LeafNode.init(allocator, path_copy, HashValue{ .Raw = value_copy });
+    const leaf = try LeafNode.init(allocator, &path, HashValue{ .Raw = value_copy });
     var node = TrieNode{ .Leaf = leaf };
     defer node.deinit(allocator);
     

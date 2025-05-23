@@ -17,7 +17,7 @@ pub const allTests = [_]TestInfo{
     .{ .name = "compiler-test", .root = "src/Compilers/compiler.zig", .step_name = "test-compiler", .needs_rust = true, .link_c = true },
     .{ .name = "trie-test", .root = "src/Trie/main_test.zig", .step_name = "test-trie" },
     .{ .name = "interpreter-test", .root = "src/Evm/jumpTable/JumpTable.zig", .step_name = "test-interpreter" },
-    .{ .name = "interpreter-impl-test", .root = "src/Evm/interpreter_test.zig", .step_name = "test-interpreter-impl" },
+    .{ .name = "interpreter-impl-test", .root = "src/Evm/interpreter.zig", .step_name = "test-interpreter-impl" },
     .{ .name = "contract-test", .root = "src/Evm/Contract.test.zig", .step_name = "test-contract" },
     .{ .name = "evm-logger-test", .root = "src/Evm/EvmLogger.test.zig", .step_name = "test-evm-logger" },
     .{ .name = "environment-test", .root = "src/Evm/tests/environment_test3.zig", .step_name = "test-environment" },

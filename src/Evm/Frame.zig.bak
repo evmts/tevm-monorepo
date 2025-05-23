@@ -485,8 +485,6 @@ test "Frame.init creates frame with correct initial state" {
         .code = &[_]u8{0x60, 0x00}, // PUSH1 0x00
         .code_hash = [_]u8{0} ** 32,
         .input = &[_]u8{},
-        .analysis = null,
-        .jumpdests = null,
     };
     
     var frame = try Frame.init(allocator, &contract);
@@ -515,8 +513,6 @@ test "Frame.setReturnData stores and replaces data" {
         .code = &[_]u8{},
         .code_hash = [_]u8{0} ** 32,
         .input = &[_]u8{},
-        .analysis = null,
-        .jumpdests = null,
     };
     
     var frame = try Frame.init(allocator, &contract);
@@ -547,8 +543,8 @@ test "Frame.setReturnData stores and replaces data" {
 test "Frame accessor methods return correct values" {
     const allocator = testing.allocator;
     
-    const caller_addr = [_]u8{0x12, 0x34, 0x56, 0x78, 0x90, 0x12, 0x34, 0x56, 0x78, 0x90, 0x12, 0x34, 0x56, 0x78, 0x90, 0x12, 0x34, 0x56, 0x78, 0x90};
-    const contract_addr = [_]u8{0xab, 0xcd, 0xef, 0x01, 0x23, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef, 0x01, 0x23, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef, 0x01};
+    const caller_addr = try Address.fromString("0x1234567890123456789012345678901234567890");
+    const contract_addr = try Address.fromString("0xabcdef0123456789abcdef0123456789abcdef01");
     const value: u256 = 1000000;
     const input = "test input data";
     const code = &[_]u8{0x60, 0x00, 0x60, 0x01};
@@ -561,8 +557,6 @@ test "Frame accessor methods return correct values" {
         .code = code,
         .code_hash = [_]u8{0} ** 32,
         .input = input,
-        .analysis = null,
-        .jumpdests = null,
     };
     
     var frame = try Frame.init(allocator, &contract);
@@ -587,8 +581,6 @@ test "Frame memory and stack operations" {
         .code = &[_]u8{},
         .code_hash = [_]u8{0} ** 32,
         .input = &[_]u8{},
-        .analysis = null,
-        .jumpdests = null,
     };
     
     var frame = try Frame.init(allocator, &contract);
@@ -628,8 +620,6 @@ test "Frame logging methods compile" {
         .code = &[_]u8{0x60, 0x00},
         .code_hash = [_]u8{0} ** 32,
         .input = &[_]u8{},
-        .analysis = null,
-        .jumpdests = null,
     };
     
     var frame = try Frame.init(allocator, &contract);
@@ -654,8 +644,6 @@ test "createFrame helper function" {
         .code = &[_]u8{0x60, 0x00},
         .code_hash = [_]u8{0} ** 32,
         .input = &[_]u8{},
-        .analysis = null,
-        .jumpdests = null,
     };
     
     var frame = try createFrame(allocator, &contract);
@@ -686,8 +674,6 @@ test "Frame handles large return data" {
         .code = &[_]u8{},
         .code_hash = [_]u8{0} ** 32,
         .input = &[_]u8{},
-        .analysis = null,
-        .jumpdests = null,
     };
     
     var frame = try Frame.init(allocator, &contract);

@@ -89,7 +89,7 @@ pub fn opSload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     // Convert key to B256
     const key_b256 = SM.B256{ .bytes = key };
     
-    const storage_bytes = try state_manager.getContractStorage(addr_b160, key_b256);
+    const storage_bytes = try state_manager.getContractStorage(addr_b160.bytes, key_b256.bytes);
     
     // Convert storage bytes to B256
     var value: B256 = [_]u8{0} ** 32;
@@ -201,7 +201,7 @@ pub fn opSstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     // Convert key to B256
     const key_b256 = SM.B256{ .bytes = key };
     
-    const storage_bytes = try state_manager.getContractStorage(addr_b160, key_b256);
+    const storage_bytes = try state_manager.getContractStorage(addr_b160.bytes, key_b256.bytes);
     
     // Convert storage bytes to B256
     var current_value: B256 = [_]u8{0} ** 32;
@@ -316,7 +316,7 @@ pub fn opSstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     getLogger().debug("Current gas refund counter: {d}", .{frame.contract.gas_refund});
     
     // Update the storage
-    try state_manager.putContractStorage(addr_b160, key_b256, &value);
+    try state_manager.putContractStorage(addr_b160.bytes, key_b256.bytes, &value);
     getLogger().debug("Storage updated: key=0x{x}, value=0x{x}", .{key_u256, value_u256});
     
     return "";

@@ -513,8 +513,10 @@ fn executeTestBytecode(allocator: std.mem.Allocator, bytecode: []const u8, gas: 
         .value = 0,
         .gas = gas,
         .code = bytecode,
-        .codeHash = [_]u8{0} ** 32,
+        .code_hash = [_]u8{0} ** 32,
         .input = &[_]u8{},
+        .analysis = null,
+        .jumpdests = null,
     };
     
     // Execute
@@ -1326,8 +1328,10 @@ test "Interpreter: CALLDATASIZE opcode" {
         .value = 0,
         .gas = 100000,
         .code = bytecode,
-        .codeHash = [_]u8{0} ** 32,
+        .code_hash = [_]u8{0} ** 32,
         .input = calldata,
+        .analysis = null,
+        .jumpdests = null,
     };
     
     const result = interpreter.run(&contract, calldata, false) catch |err| {
@@ -1372,8 +1376,10 @@ test "Interpreter: CALLDATALOAD opcode" {
         .value = 0,
         .gas = 100000,
         .code = bytecode,
-        .codeHash = [_]u8{0} ** 32,
+        .code_hash = [_]u8{0} ** 32,
         .input = &calldata,
+        .analysis = null,
+        .jumpdests = null,
     };
     
     const result = interpreter.run(&contract, &calldata, false) catch |err| {
@@ -2353,8 +2359,10 @@ test "Interpreter: CALLDATACOPY opcode" {
         .value = 0,
         .gas = 100000,
         .code = bytecode,
-        .codeHash = [_]u8{0} ** 32,
+        .code_hash = [_]u8{0} ** 32,
         .input = calldata,
+        .analysis = null,
+        .jumpdests = null,
     };
     
     const result = interpreter.run(&contract, calldata, false) catch |err| {
