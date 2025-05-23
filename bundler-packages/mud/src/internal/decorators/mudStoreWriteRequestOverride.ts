@@ -4,8 +4,8 @@ import { type Client, type WriteContractParameters, type WriteContractReturnType
 import type { SessionClient } from '../../types.js'
 
 export const mudStoreWriteRequestOverride =
-	({ memoryClient, storeAddress }: { memoryClient: MemoryClient; storeAddress: Address }) =>
-	(client: Client | SessionClient): any => {
+	(client: Client | SessionClient) =>
+	({ memoryClient, storeAddress }: { memoryClient: MemoryClient; storeAddress: Address }) => {
 		const logger = memoryClient.transport.tevm.logger
 		const vm = memoryClient.transport.tevm.getVm()
 		const txPool = memoryClient.transport.tevm.getTxPool()
@@ -88,6 +88,4 @@ export const mudStoreWriteRequestOverride =
 
 		// 	return originalRequest.call(this, requestArgs, options)
 		// }
-
-		return {}
 	}
