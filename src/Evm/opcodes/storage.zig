@@ -89,7 +89,7 @@ pub fn opSload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     // Convert key to B256
     const key_b256 = SM.B256{ .bytes = key };
     
-    const storage_bytes = try state_manager.getContractStorage(addr_b160.bytes, key_b256.bytes);
+    const storage_bytes = try state_manager.getContractStorage(addr_b160, key_b256);
     
     // Convert storage bytes to B256
     var value: B256 = [_]u8{0} ** 32;
@@ -201,7 +201,7 @@ pub fn opSstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     // Convert key to B256
     const key_b256 = SM.B256{ .bytes = key };
     
-    const storage_bytes = try state_manager.getContractStorage(addr_b160.bytes, key_b256.bytes);
+    const storage_bytes = try state_manager.getContractStorage(addr_b160, key_b256);
     
     // Convert storage bytes to B256
     var current_value: B256 = [_]u8{0} ** 32;

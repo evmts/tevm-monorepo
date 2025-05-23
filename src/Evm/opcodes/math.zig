@@ -189,3 +189,76 @@ pub fn opMulmod(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const
     return "";
 }
 
+
+/// Register all math opcodes in the jump table
+pub fn registerMathOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable) !void {
+    // ADD (0x01)
+    const add_op = try allocator.create(Operation);
+    add_op.* = Operation{
+        .execute = opAdd,
+        .constant_gas = jumpTableModule.GasFastestStep,
+        .min_stack = jumpTableModule.minStack(2, 1),
+        .max_stack = jumpTableModule.maxStack(2, 1),
+    };
+    jump_table.table[0x01] = add_op;
+    
+    // MUL (0x02)
+    const mul_op = try allocator.create(Operation);
+    mul_op.* = Operation{
+        .execute = opMul,
+        .constant_gas = jumpTableModule.GasFastStep,
+        .min_stack = jumpTableModule.minStack(2, 1),
+        .max_stack = jumpTableModule.maxStack(2, 1),
+    };
+    jump_table.table[0x02] = mul_op;
+    
+    // SUB (0x03)
+    const sub_op = try allocator.create(Operation);
+    sub_op.* = Operation{
+        .execute = opSub,
+        .constant_gas = jumpTableModule.GasFastestStep,
+        .min_stack = jumpTableModule.minStack(2, 1),
+        .max_stack = jumpTableModule.maxStack(2, 1),
+    };
+    jump_table.table[0x03] = sub_op;
+    
+    // DIV (0x04)
+    const div_op = try allocator.create(Operation);
+    div_op.* = Operation{
+        .execute = opDiv,
+        .constant_gas = jumpTableModule.GasFastStep,
+        .min_stack = jumpTableModule.minStack(2, 1),
+        .max_stack = jumpTableModule.maxStack(2, 1),
+    };
+    jump_table.table[0x04] = div_op;
+    
+    // MOD (0x05)
+    const mod_op = try allocator.create(Operation);
+    mod_op.* = Operation{
+        .execute = opMod,
+        .constant_gas = jumpTableModule.GasFastStep,
+        .min_stack = jumpTableModule.minStack(2, 1),
+        .max_stack = jumpTableModule.maxStack(2, 1),
+    };
+    jump_table.table[0x05] = mod_op;
+    
+    // ADDMOD (0x08)
+    const addmod_op = try allocator.create(Operation);
+    addmod_op.* = Operation{
+        .execute = opAddmod,
+        .constant_gas = jumpTableModule.GasMidStep,
+        .min_stack = jumpTableModule.minStack(3, 1),
+        .max_stack = jumpTableModule.maxStack(3, 1),
+    };
+    jump_table.table[0x08] = addmod_op;
+    
+    // MULMOD (0x09)
+    const mulmod_op = try allocator.create(Operation);
+    mulmod_op.* = Operation{
+        .execute = opMulmod,
+        .constant_gas = jumpTableModule.GasMidStep,
+        .min_stack = jumpTableModule.minStack(3, 1),
+        .max_stack = jumpTableModule.maxStack(3, 1),
+    };
+    jump_table.table[0x09] = mulmod_op;
+}
