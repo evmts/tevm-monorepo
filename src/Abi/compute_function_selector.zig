@@ -194,7 +194,7 @@ test "getFunctionSelector from ABI" {
     // Test transfer(address,uint256)
     const transfer_func = abi.Function{
         .name = "transfer",
-        .inputs = @as([]const abi.Param, &.{
+        .inputs = @as([]abi.Param, &.{
             .{
                 .ty = "address",
                 .name = "to",

@@ -114,7 +114,7 @@ fn decodeParam(
         const length = std.mem.bigToNative(u256, @as(*const u256, @ptrCast(&data[dynamic_offset_usize])).*);
         
         // Check bounds
-        const length_usize = @intCast(usize, length);
+        const length_usize = @as(usize, @intCast(length));
         if (dynamic_offset_usize + 32 + length_usize > data.len) {
             return DecodeError.DynamicDataOutOfBounds;
         }
@@ -163,7 +163,7 @@ fn decodeParam(
         const length = std.mem.bigToNative(u256, @as(*const u256, @ptrCast(&data[dynamic_offset_usize])).*);
         
         // Check bounds
-        const length_usize = @intCast(usize, length);
+        const length_usize = @as(usize, @intCast(length));
         if (dynamic_offset_usize + 32 + length_usize > data.len) {
             return DecodeError.DynamicDataOutOfBounds;
         }
@@ -215,7 +215,7 @@ pub fn bytesToValueInPlace(comptime T: type, bytes: []const u8, out: *T) !void {
         T == i8 or T == i16 or T == i32 or T == i64 or T == i128) {
         // For smaller integers, verify padding
         const size = @sizeOf(T);
-        const is_signed = @typeInfo(T).Int.signedness == .signed;
+        const is_signed = @typeInfo(T).int.signedness == .signed;
         
         // Check padding based on sign
         const padding_byte: u8 = if (is_signed and (bytes[bytes.len - size] & 0x80) != 0) 0xFF else 0x00;

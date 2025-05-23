@@ -115,7 +115,7 @@ pub fn encode(allocator: Allocator, input: anytype) ![]u8 {
         var value = input;
         while (value > 0) {
             try bytes.insert(0, @as(u8, @intCast(value & 0xff)));
-            value >>= 8;
+            value = value / @as(@TypeOf(value), 256); // Divide by 256 instead of shifting by 8
         }
         
         return try encodeBytes(allocator, bytes.items);

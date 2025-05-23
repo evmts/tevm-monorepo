@@ -21,7 +21,7 @@ test "ABI basic round trip encoding/decoding" {
         .{
             .Function = .{
                 .name = "transfer",
-                .inputs = @as([]const abi.Param, &.{
+                .inputs = @as([]abi.Param, &.{
                     .{
                         .ty = "address",
                         .name = "to",
@@ -313,7 +313,7 @@ test "ABI complex types and edge cases" {
             .{
                 .Function = .{
                     .name = "transfer",
-                    .inputs = &.{
+                    .inputs = @as([]abi.Param, &.{
                         .{
                             .ty = "address",
                             .name = "to",
