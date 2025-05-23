@@ -243,8 +243,10 @@ pub const BenchmarkSuite = struct {
         // try runBenchmark("Control Flow Operations", &CONTROL_FLOW_OPS, iterations, allocator);
         // try runBenchmark("Cryptographic Operations", &CRYPTO_OPS, iterations, allocator);
         
-        // Run SnailTracer benchmark
-        try runSnailTracerBenchmark(allocator);
+        // TODO: Fix SnailTracer benchmark - need to properly deploy contract first
+        // The compiled bytecode includes constructor logic and needs proper deployment
+        // try runSnailTracerBenchmark(allocator);
+        std.debug.print("\n[SKIPPED] SnailTracer Contract Benchmark - needs proper contract deployment\n", .{});
     }
 };
 

@@ -11,6 +11,7 @@ const Memory = @import("../Memory.zig").Memory;
 const Stack = @import("../Stack.zig").Stack;
 const address = @import("address");
 const Address = address.Address;
+const StateManagerModule = @import("state_manager");
 
 const u256_native = u256; // Using Zig's native u256 as the base type for stack/values
 
@@ -49,7 +50,7 @@ pub fn opAddress(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
     };
 
     // Push address onto the stack
-    frame.stack.push(value);
+    frame.stack.push(value) catch |err| return mapStackError(err);
 
     return "";
 }
@@ -61,7 +62,7 @@ pub fn opBalance(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
     // Check if we have a state manager in the EVM
     if (interpreter.evm.state_manager == null) {
         // If no state manager, return 0 balance
-        frame.stack.push(0);
+        frame.stack.push(0) catch |err| return mapStackError(err);
         return "";
     }
 
@@ -82,14 +83,14 @@ pub fn opBalance(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
         break :blk bytes;
     };
 
-    const queryAddress = Address{ .bytes = addressBytes };
+    const queryAddress: Address = addressBytes;
 
     // EIP-2929: Check if the address is cold and calculate appropriate gas cost
     const is_cold_account = frame.contract.isAccountCold();
     const gas_cost = if (is_cold_account)
-        JumpTable.ColdAccountAccessCost // Cold access (2600 gas)
+        jumpTableModule.ColdAccountAccessCost // Cold access (2600 gas)
     else
-        JumpTable.WarmStorageReadCost; // Warm access (100 gas)
+        jumpTableModule.WarmStorageReadCost; // Warm access (100 gas)
 
     // Check if we have enough gas
     if (frame.contract.gas < gas_cost) {
@@ -97,18 +98,19 @@ pub fn opBalance(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
     }
 
     // Use gas
-    frame.contract.useGas(gas_cost);
+    _ = frame.contract.useGas(gas_cost);
 
     // Mark the account as warm for future accesses
     _ = frame.contract.markAccountWarm();
 
     // Get the account from state
-    if (try interpreter.evm.state_manager.?.getAccount(queryAddress)) |account| {
+    const b160Address = StateManagerModule.B160{ .bytes = queryAddress };
+    if (interpreter.evm.state_manager.?.getAccount(b160Address) catch return ExecutionError.OutOfGas) |account| {
         // Push account balance to stack
-        frame.stack.push(account.balance.value);
+        frame.stack.push(account.balance.value) catch |err| return mapStackError(err);
     } else {
         // Account doesn't exist, push 0
-        frame.stack.push(0);
+        frame.stack.push(0) catch |err| return mapStackError(err);
     }
 
     return "";
@@ -126,14 +128,14 @@ pub fn opOrigin(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     // Convert address bytes to u256
     const value = blk: {
         var result: u256 = 0;
-        for (caller.bytes) |byte| {
+        for (caller) |byte| {
             result = (result << 8) | byte;
         }
         break :blk result;
     };
 
     // Push origin address onto the stack
-    frame.stack.push(value);
+    frame.stack.push(value) catch |err| return mapStackError(err);
 
     return "";
 }
@@ -149,14 +151,14 @@ pub fn opCaller(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     // Convert address bytes to u256
     const value = blk: {
         var result: u256 = 0;
-        for (caller.bytes) |byte| {
+        for (caller) |byte| {
             result = (result << 8) | byte;
         }
         break :blk result;
     };
 
     // Push caller address onto the stack
-    frame.stack.push(value);
+    frame.stack.push(value) catch |err| return mapStackError(err);
 
     return "";
 }
@@ -170,7 +172,7 @@ pub fn opCallValue(pc: usize, interpreter: *Interpreter, frame: *Frame) Executio
     const value = frame.callValue();
 
     // Push value onto the stack
-    frame.stack.push(value);
+    frame.stack.push(value) catch |err| return mapStackError(err);
 
     return "";
 }
@@ -184,7 +186,7 @@ pub fn opCalldataload(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
     const offset = frame.stack.pop() catch |err| return mapStackError(err);
 
     // Convert offset to u64, capped at max value if needed
-    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, offset);
+    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(offset));
 
     // Get input calldata
     const inputData = frame.callInput();
@@ -195,7 +197,7 @@ pub fn opCalldataload(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
 
         // If offset is beyond input data length, return zero
         if (offset_u64 >= inputData.len) {
-            frame.stack.push(0);
+            frame.stack.push(0) catch |err| return mapStackError(err);
             return "";
         }
 
@@ -215,7 +217,7 @@ pub fn opCalldataload(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
     };
 
     // Push result onto the stack
-    frame.stack.push(value);
+    frame.stack.push(value) catch |err| return mapStackError(err);
 
     return "";
 }
@@ -229,21 +231,21 @@ pub fn opCalldatasize(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
     const inputData = frame.callInput();
 
     // Push the size of the input data onto the stack
-    frame.stack.push(@as(u256, inputData.len));
+    frame.stack.push(@as(u256, inputData.len)) catch |err| return mapStackError(err);
 
     return "";
 }
 
 /// Memory size function for memory operations
-fn calldatacopyMemorySize(stack: *Stack) struct { size: u64, overflow: bool } {
+fn calldatacopyMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     if (stack.size < 3) return .{ .size = 0, .overflow = false };
 
     const offset = stack.data[stack.size - 1];
     const size = stack.data[stack.size - 3];
 
     // Convert to u64, capping at max value if needed
-    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, offset);
-    const size_u64 = if (size > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, size);
+    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(offset));
+    const size_u64 = if (size > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(size));
 
     // Check for overflow
     if (offset_u64 > std.math.maxInt(u64) - size_u64) {
@@ -279,7 +281,7 @@ fn memoryGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: *M
         }
 
         // Resize memory if we have enough gas
-        try memory.resize(requested_size);
+        memory.resize(requested_size) catch return error.OutOfGas;
     }
 
     // Calculate the memory expansion cost
@@ -307,9 +309,9 @@ pub fn opCalldatacopy(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
     const destOffset = frame.stack.pop() catch |err| return mapStackError(err);
 
     // Convert to u64, capping at max value if needed
-    const destOffset_u64 = if (destOffset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, destOffset);
-    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, offset);
-    const size_u64 = if (size > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, size);
+    const destOffset_u64 = if (destOffset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(destOffset));
+    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(offset));
+    const size_u64 = if (size > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(size));
 
     // If size is zero, nothing to copy
     if (size_u64 == 0) {
@@ -319,7 +321,7 @@ pub fn opCalldatacopy(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
     // Ensure memory is large enough
     const needed_size = destOffset_u64 + size_u64;
     if (needed_size > frame.memory.len()) {
-        try frame.memory.resize(needed_size);
+        frame.memory.resize(needed_size) catch return error.OutOfGas;
     }
 
     // Get input calldata
@@ -331,10 +333,10 @@ pub fn opCalldatacopy(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
         const destIdx = destOffset_u64 + i;
 
         if (sourceIdx < inputData.len) {
-            frame.memory.set(destIdx, 1, &[_]u8{inputData[sourceIdx]});
+            frame.memory.set(destIdx, 1, &[_]u8{inputData[sourceIdx]}) catch return error.OutOfGas;
         } else {
             // Pad with zeros if reading past the end of input
-            frame.memory.set(destIdx, 1, &[_]u8{0});
+            frame.memory.set(destIdx, 1, &[_]u8{0}) catch return error.OutOfGas;
         }
     }
 
@@ -350,21 +352,21 @@ pub fn opCodesize(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
     const code = frame.contractCode();
 
     // Push the size of the code onto the stack
-    frame.stack.push(@as(u256, code.len));
+    frame.stack.push(@as(u256, code.len)) catch |err| return mapStackError(err);
 
     return "";
 }
 
 /// Memory size function for CODECOPY operation
-fn codecopyMemorySize(stack: *Stack) struct { size: u64, overflow: bool } {
+fn codecopyMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     if (stack.size < 3) return .{ .size = 0, .overflow = false };
 
     const offset = stack.data[stack.size - 1];
     const size = stack.data[stack.size - 3];
 
     // Convert to u64, capping at max value if needed
-    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, offset);
-    const size_u64 = if (size > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, size);
+    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(offset));
+    const size_u64 = if (size > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(size));
 
     // Check for overflow
     if (offset_u64 > std.math.maxInt(u64) - size_u64) {
@@ -389,9 +391,9 @@ pub fn opCodecopy(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
     const destOffset = frame.stack.pop() catch |err| return mapStackError(err);
 
     // Convert to u64, capping at max value if needed
-    const destOffset_u64 = if (destOffset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, destOffset);
-    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, offset);
-    const size_u64 = if (size > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, size);
+    const destOffset_u64 = if (destOffset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(destOffset));
+    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(offset));
+    const size_u64 = if (size > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(size));
 
     // If size is zero, nothing to copy
     if (size_u64 == 0) {
@@ -401,7 +403,7 @@ pub fn opCodecopy(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
     // Ensure memory is large enough
     const needed_size = destOffset_u64 + size_u64;
     if (needed_size > frame.memory.len()) {
-        try frame.memory.resize(needed_size);
+        frame.memory.resize(needed_size) catch return error.OutOfGas;
     }
 
     // Get the code from the current contract
@@ -413,10 +415,10 @@ pub fn opCodecopy(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
         const destIdx = destOffset_u64 + i;
 
         if (sourceIdx < code.len) {
-            frame.memory.set(destIdx, 1, &[_]u8{code[sourceIdx]});
+            frame.memory.set(destIdx, 1, &[_]u8{code[sourceIdx]}) catch return error.OutOfGas;
         } else {
             // Pad with zeros if reading past the end of code
-            frame.memory.set(destIdx, 1, &[_]u8{0});
+            frame.memory.set(destIdx, 1, &[_]u8{0}) catch return error.OutOfGas;
         }
     }
 
@@ -430,7 +432,7 @@ pub fn opGasprice(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
 
     // In a real implementation, we would get the actual gas price
     // For now, we'll use a hardcoded value
-    frame.stack.push(1000000000); // 1 gwei
+    frame.stack.push(1000000000) catch |err| return mapStackError(err); // 1 gwei
 
     return "";
 }
@@ -443,7 +445,7 @@ pub fn opGas(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     
     // Push the amount of gas remaining after this instruction
     // The gas for this instruction has already been consumed
-    frame.stack.push(frame.gas_remaining);
+    frame.stack.push(frame.contract.gas) catch |err| return mapStackError(err);
     
     return "";
 }
@@ -458,13 +460,13 @@ pub fn opReturndataload(pc: usize, interpreter: *Interpreter, frame: *Frame) Exe
     const offset = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Check if we have return data
-    if (frame.returndata == null) {
+    if (frame.returnData == null) {
         // If no return data, push 0
-        frame.stack.push(0);
+        frame.stack.push(0) catch |err| return mapStackError(err);
         return "";
     }
     
-    const returndata = frame.returndata.?;
+    const returndata = frame.returnData.?;
     
     // Load 32 bytes from return data at the given offset
     var value: u256 = 0;
@@ -472,7 +474,7 @@ pub fn opReturndataload(pc: usize, interpreter: *Interpreter, frame: *Frame) Exe
     // Convert offset to usize, checking for overflow
     const offset_usize = std.math.cast(usize, offset) orelse {
         // Offset too large, push 0
-        frame.stack.push(0);
+        frame.stack.push(0) catch |err| return mapStackError(err);
         return "";
     };
     
@@ -487,7 +489,7 @@ pub fn opReturndataload(pc: usize, interpreter: *Interpreter, frame: *Frame) Exe
         }
     }
     
-    frame.stack.push(value);
+    frame.stack.push(value) catch |err| return mapStackError(err);
     return "";
 }
 
@@ -498,7 +500,7 @@ pub fn opExtcodesize(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
     // Check if we have a state manager in the EVM
     if (interpreter.evm.state_manager == null) {
         // If no state manager, return 0 code size
-        frame.stack.push(0);
+        frame.stack.push(0) catch |err| return mapStackError(err);
         return "";
     }
 
@@ -519,14 +521,14 @@ pub fn opExtcodesize(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
         break :blk bytes;
     };
 
-    const queryAddress = Address{ .bytes = addressBytes };
+    const queryAddress: Address = addressBytes;
 
     // EIP-2929: Check if the address is cold and calculate appropriate gas cost
     const is_cold_account = frame.contract.isAccountCold();
     const gas_cost = if (is_cold_account)
-        JumpTable.ColdAccountAccessCost // Cold access (2600 gas)
+        jumpTableModule.ColdAccountAccessCost // Cold access (2600 gas)
     else
-        JumpTable.WarmStorageReadCost; // Warm access (100 gas)
+        jumpTableModule.WarmStorageReadCost; // Warm access (100 gas)
 
     // Check if we have enough gas
     if (frame.contract.gas < gas_cost) {
@@ -534,30 +536,31 @@ pub fn opExtcodesize(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
     }
 
     // Use gas
-    frame.contract.useGas(gas_cost);
+    _ = frame.contract.useGas(gas_cost);
 
     // Mark the account as warm for future accesses
     _ = frame.contract.markAccountWarm();
 
     // Get contract code for the address
-    const code = try interpreter.evm.state_manager.?.getContractCode(queryAddress);
+    const b160Address = StateManagerModule.B160{ .bytes = queryAddress };
+    const code = try interpreter.evm.state_manager.?.getContractCode(b160Address);
 
     // Push the code size onto the stack
-    frame.stack.push(@as(u256, code.len));
+    frame.stack.push(@as(u256, code.len)) catch |err| return mapStackError(err);
 
     return "";
 }
 
 /// Memory size function for EXTCODECOPY operation
-fn extcodecopyMemorySize(stack: *Stack) struct { size: u64, overflow: bool } {
+fn extcodecopyMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     if (stack.size < 4) return .{ .size = 0, .overflow = false };
 
     const offset = stack.data[stack.size - 2];
     const size = stack.data[stack.size - 4];
 
     // Convert to u64, capping at max value if needed
-    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, offset);
-    const size_u64 = if (size > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, size);
+    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(offset));
+    const size_u64 = if (size > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(size));
 
     // Check for overflow
     if (offset_u64 > std.math.maxInt(u64) - size_u64) {
@@ -582,9 +585,9 @@ pub fn opExtcodecopy(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
     const addressValue = frame.stack.pop() catch |err| return mapStackError(err);
 
     // Convert u256 values to u64, capping at max value if needed
-    const destOffset_u64 = if (destOffset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, destOffset);
-    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, offset);
-    const size_u64 = if (size > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, size);
+    const destOffset_u64 = if (destOffset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(destOffset));
+    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(offset));
+    const size_u64 = if (size > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(size));
 
     // Convert address value to Address type
     const addressBytes = blk: {
@@ -600,12 +603,12 @@ pub fn opExtcodecopy(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
         break :blk bytes;
     };
 
-    const queryAddress = Address{ .bytes = addressBytes };
+    const queryAddress: Address = addressBytes;
 
     // EIP-2929: Check if the address is cold and calculate appropriate gas cost
     const is_cold_account = frame.contract.isAccountCold();
     const cold_access_cost = if (is_cold_account)
-        JumpTable.ColdAccountAccessCost - JumpTable.WarmStorageReadCost // Additional cold access cost (2500 gas)
+        jumpTableModule.ColdAccountAccessCost - jumpTableModule.WarmStorageReadCost // Additional cold access cost (2500 gas)
     else
         0; // No additional cost for warm access
 
@@ -616,7 +619,7 @@ pub fn opExtcodecopy(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
             if (frame.contract.gas < cold_access_cost) {
                 return ExecutionError.OutOfGas;
             }
-            frame.contract.useGas(cold_access_cost);
+            _ = frame.contract.useGas(cold_access_cost);
 
             // Mark the account as warm for future accesses
             _ = frame.contract.markAccountWarm();
@@ -627,7 +630,7 @@ pub fn opExtcodecopy(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
     // Ensure memory is large enough
     const needed_size = destOffset_u64 + size_u64;
     if (needed_size > frame.memory.len()) {
-        try frame.memory.resize(needed_size);
+        frame.memory.resize(needed_size) catch return error.OutOfGas;
     }
 
     // Apply cold access cost if needed
@@ -635,7 +638,7 @@ pub fn opExtcodecopy(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
         if (frame.contract.gas < cold_access_cost) {
             return ExecutionError.OutOfGas;
         }
-        frame.contract.useGas(cold_access_cost);
+        _ = frame.contract.useGas(cold_access_cost);
 
         // Mark the account as warm for future accesses
         _ = frame.contract.markAccountWarm();
@@ -645,7 +648,8 @@ pub fn opExtcodecopy(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
     const code = blk: {
         var result: []u8 = &[_]u8{};
         if (interpreter.evm.state_manager != null) {
-            result = try interpreter.evm.state_manager.?.getContractCode(queryAddress);
+            const b160Address = StateManagerModule.B160{ .bytes = queryAddress };
+            result = try interpreter.evm.state_manager.?.getContractCode(b160Address);
         }
         break :blk result;
     };
@@ -656,10 +660,10 @@ pub fn opExtcodecopy(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
         const destIdx = destOffset_u64 + j;
 
         if (sourceIdx < code.len) {
-            frame.memory.set(destIdx, 1, &[_]u8{code[sourceIdx]});
+            frame.memory.set(destIdx, 1, &[_]u8{code[sourceIdx]}) catch return error.OutOfGas;
         } else {
             // Pad with zeros if reading past the end of code
-            frame.memory.set(destIdx, 1, &[_]u8{0});
+            frame.memory.set(destIdx, 1, &[_]u8{0}) catch return error.OutOfGas;
         }
     }
 
@@ -673,26 +677,26 @@ pub fn opReturndatasize(pc: usize, interpreter: *Interpreter, frame: *Frame) Exe
 
     // If frame has no return data, return 0 size
     if (frame.returnData == null) {
-        frame.stack.push(0);
+        frame.stack.push(0) catch |err| return mapStackError(err);
         return "";
     }
 
     // Push the size of the return data onto the stack
-    frame.stack.push(@as(u256, frame.returnSize));
+    frame.stack.push(@as(u256, frame.returnSize)) catch |err| return mapStackError(err);
 
     return "";
 }
 
 /// Memory size function for RETURNDATACOPY operation
-fn returndatacopyMemorySize(stack: *Stack) struct { size: u64, overflow: bool } {
+fn returndatacopyMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     if (stack.size < 3) return .{ .size = 0, .overflow = false };
 
     const offset = stack.data[stack.size - 1];
     const size = stack.data[stack.size - 3];
 
     // Convert to u64, capping at max value if needed
-    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, offset);
-    const size_u64 = if (size > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, size);
+    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(offset));
+    const size_u64 = if (size > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(size));
 
     // Check for overflow
     if (offset_u64 > std.math.maxInt(u64) - size_u64) {
@@ -717,9 +721,9 @@ pub fn opReturndatacopy(pc: usize, interpreter: *Interpreter, frame: *Frame) Exe
     const destOffset = frame.stack.pop() catch |err| return mapStackError(err);
 
     // Convert to u64, capping at max value if needed
-    const destOffset_u64 = if (destOffset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, destOffset);
-    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, offset);
-    const size_u64 = if (size > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, size);
+    const destOffset_u64 = if (destOffset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(destOffset));
+    const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(offset));
+    const size_u64 = if (size > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(size));
 
     // If size is zero, nothing to copy
     if (size_u64 == 0) {
@@ -731,11 +735,11 @@ pub fn opReturndatacopy(pc: usize, interpreter: *Interpreter, frame: *Frame) Exe
         // No return data, fill memory with zeros
         const needed_size = destOffset_u64 + size_u64;
         if (needed_size > frame.memory.len()) {
-            try frame.memory.resize(needed_size);
+            frame.memory.resize(needed_size) catch return error.OutOfGas;
         }
 
         for (0..size_u64) |i| {
-            frame.memory.set(destOffset_u64 + i, 1, &[_]u8{0});
+            frame.memory.set(destOffset_u64 + i, 1, &[_]u8{0}) catch return error.OutOfGas;
         }
 
         return "";
@@ -749,7 +753,7 @@ pub fn opReturndatacopy(pc: usize, interpreter: *Interpreter, frame: *Frame) Exe
     // Ensure memory is large enough
     const needed_size = destOffset_u64 + size_u64;
     if (needed_size > frame.memory.len()) {
-        try frame.memory.resize(needed_size);
+        frame.memory.resize(needed_size) catch return error.OutOfGas;
     }
 
     // Copy data from return data to memory
@@ -757,7 +761,7 @@ pub fn opReturndatacopy(pc: usize, interpreter: *Interpreter, frame: *Frame) Exe
         const sourceIdx = offset_u64 + i;
         const destIdx = destOffset_u64 + i;
 
-        frame.memory.set(destIdx, 1, &[_]u8{frame.returnData.?[sourceIdx]});
+        frame.memory.set(destIdx, 1, &[_]u8{frame.returnData.?[sourceIdx]}) catch return error.OutOfGas;
     }
 
     return "";
@@ -784,14 +788,14 @@ pub fn opExtcodehash(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
         break :blk bytes;
     };
 
-    const queryAddress = Address{ .bytes = addressBytes };
+    const queryAddress: Address = addressBytes;
 
     // EIP-2929: Check if the address is cold and calculate appropriate gas cost
     const is_cold_account = frame.contract.isAccountCold();
     const gas_cost = if (is_cold_account)
-        JumpTable.ColdAccountAccessCost // Cold access (2600 gas)
+        jumpTableModule.ColdAccountAccessCost // Cold access (2600 gas)
     else
-        JumpTable.WarmStorageReadCost; // Warm access (100 gas)
+        jumpTableModule.WarmStorageReadCost; // Warm access (100 gas)
 
     // Check if we have enough gas
     if (frame.contract.gas < gas_cost) {
@@ -799,7 +803,7 @@ pub fn opExtcodehash(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
     }
 
     // Use gas
-    frame.contract.useGas(gas_cost);
+    _ = frame.contract.useGas(gas_cost);
 
     // Mark the account as warm for future accesses
     _ = frame.contract.markAccountWarm();
@@ -810,12 +814,13 @@ pub fn opExtcodehash(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
     // Check for state manager
     if (interpreter.evm.state_manager == null) {
         // If no state manager, return empty code hash
-        frame.stack.push(EMPTY_CODE_HASH);
+        frame.stack.push(EMPTY_CODE_HASH) catch |err| return mapStackError(err);
         return "";
     }
 
     // Get the account from state
-    if (try interpreter.evm.state_manager.?.getAccount(queryAddress)) |account| {
+    const b160Address = StateManagerModule.B160{ .bytes = queryAddress };
+    if (interpreter.evm.state_manager.?.getAccount(b160Address) catch return ExecutionError.OutOfGas) |account| {
         // If account exists, push its code hash
         const codeHash = blk: {
             var hash: u256 = 0;
@@ -827,10 +832,10 @@ pub fn opExtcodehash(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
             break :blk hash;
         };
 
-        frame.stack.push(codeHash);
+        frame.stack.push(codeHash) catch |err| return mapStackError(err);
     } else {
         // Account doesn't exist, push 0 per EIP-1052
-        frame.stack.push(0);
+        frame.stack.push(0) catch |err| return mapStackError(err);
     }
 
     return "";
@@ -852,9 +857,9 @@ fn balanceDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, me
 
     // Return gas cost based on cold/warm status
     if (is_cold_account) {
-        return JumpTable.ColdAccountAccessCost; // 2600 gas for cold access
+        return jumpTableModule.ColdAccountAccessCost; // 2600 gas for cold access
     } else {
-        return JumpTable.WarmStorageReadCost; // 100 gas for warm access
+        return jumpTableModule.WarmStorageReadCost; // 100 gas for warm access
     }
 }
 
@@ -873,9 +878,9 @@ fn extcodesizeDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack
 
     // Return gas cost based on cold/warm status
     if (is_cold_account) {
-        return JumpTable.ColdAccountAccessCost; // 2600 gas for cold access
+        return jumpTableModule.ColdAccountAccessCost; // 2600 gas for cold access
     } else {
-        return JumpTable.WarmStorageReadCost; // 100 gas for warm access
+        return jumpTableModule.WarmStorageReadCost; // 100 gas for warm access
     }
 }
 
@@ -896,7 +901,7 @@ fn extcodecopyDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack
 
     // Add cold access cost if needed
     if (is_cold_account) {
-        gas_cost += JumpTable.ColdAccountAccessCost - JumpTable.WarmStorageReadCost; // 2500 gas extra
+        gas_cost += jumpTableModule.ColdAccountAccessCost - jumpTableModule.WarmStorageReadCost; // 2500 gas extra
     }
 
     return gas_cost;
@@ -917,9 +922,9 @@ fn extcodehashDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack
 
     // Return gas cost based on cold/warm status
     if (is_cold_account) {
-        return JumpTable.ColdAccountAccessCost; // 2600 gas for cold access
+        return jumpTableModule.ColdAccountAccessCost; // 2600 gas for cold access
     } else {
-        return JumpTable.WarmStorageReadCost; // 100 gas for warm access
+        return jumpTableModule.WarmStorageReadCost; // 100 gas for warm access
     }
 }
 

@@ -43,8 +43,8 @@ pub const SnailTracerBenchmark = struct {
         try evm_instance.initPrecompiles(allocator);
         
         // Create state manager with default options
-        var state_manager = try StateManager.init(allocator, .{});
-        evm_instance.setStateManager(&state_manager);
+        const state_manager = try StateManager.init(allocator, .{});
+        evm_instance.setStateManager(state_manager);
         
         // Create interpreter
         const interpreter = try allocator.create(Interpreter);
@@ -78,8 +78,8 @@ pub const SnailTracerBenchmark = struct {
     /// Run a single iteration of the benchmark
     pub fn runIteration(self: *SnailTracerBenchmark) !void {
         // Create contract
-        const caller = address.createAddress("0x1234567890123456789012345678901234567890");
-        const contract_addr = address.createAddress("0x2345678901234567890123456789012345678901");
+        const caller = address.addressFromHex("0x1234567890123456789012345678901234567890".*);
+        const contract_addr = address.addressFromHex("0x2345678901234567890123456789012345678901".*);
         
         var contract = createContract(
             contract_addr,
