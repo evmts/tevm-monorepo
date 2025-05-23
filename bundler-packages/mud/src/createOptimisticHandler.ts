@@ -156,7 +156,7 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 		} as State<TConfig>
 	}
 
-	client.extend(mudStoreWriteRequestOverride({ memoryClient: optimisticClient, storeAddress }))
+	mudStoreWriteRequestOverride(client)({ memoryClient: optimisticClient, storeAddress })
 
 	// Update subscribers when the optimistic state changes
 	const _subscribeToOptimisticState = async () => {
