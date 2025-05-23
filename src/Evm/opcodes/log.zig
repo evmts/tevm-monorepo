@@ -57,13 +57,13 @@ fn opLog(pc: usize, interpreter: *Interpreter, frame: *Frame, n_topics: u8) Exec
     
     var i: u8 = 0;
     while (i < n_topics) : (i += 1) {
-        const topic_val = try frame.stack.pop();
+        const topic_val = frame.stack.pop() catch |err| return mapStackError(err);
         topics[i] = @as(u64, @truncate(topic_val));
     }
     
     // Pop memory offset and size
-    const size = try frame.stack.pop();
-    const offset = try frame.stack.pop();
+    const size = frame.stack.pop() catch |err| return mapStackError(err);
+    const offset = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Safety check for overflow when truncating to u64
     if (size > std.math.maxInt(u64)) {
@@ -248,62 +248,62 @@ pub fn log4DynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, m
 }
 
 /// Register LOG opcodes in the jump table
-pub fn registerLogOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable.JumpTable) !void {
+pub fn registerLogOpcodes(allocator: std.mem.Allocator, jump_table: **JumpTable) !void {
     // LOG0 (0xA0)
-    const log0_op = try allocator.create(JumpTable.Operation);
-    log0_op.* = JumpTable.Operation{
+    const log0_op = try allocator.create(Operation);
+    log0_op.* = Operation{
         .execute = opLog0,
         .constant_gas = 0, // All gas is calculated dynamically
-        .min_stack = JumpTable.minStack(2, 0),
-        .max_stack = JumpTable.maxStack(2, 0),
+        .min_stack = jumpTableModule.minStack(2, 0),
+        .max_stack = jumpTableModule.maxStack(2, 0),
         .dynamic_gas = log0DynamicGas,
         .memory_size = logMemorySize,
     };
     jump_table.table[0xA0] = log0_op;
     
     // LOG1 (0xA1)
-    const log1_op = try allocator.create(JumpTable.Operation);
-    log1_op.* = JumpTable.Operation{
+    const log1_op = try allocator.create(Operation);
+    log1_op.* = Operation{
         .execute = opLog1,
         .constant_gas = 0, // All gas is calculated dynamically
-        .min_stack = JumpTable.minStack(3, 0),
-        .max_stack = JumpTable.maxStack(3, 0),
+        .min_stack = jumpTableModule.minStack(3, 0),
+        .max_stack = jumpTableModule.maxStack(3, 0),
         .dynamic_gas = log1DynamicGas,
         .memory_size = logMemorySize,
     };
     jump_table.table[0xA1] = log1_op;
     
     // LOG2 (0xA2)
-    const log2_op = try allocator.create(JumpTable.Operation);
-    log2_op.* = JumpTable.Operation{
+    const log2_op = try allocator.create(Operation);
+    log2_op.* = Operation{
         .execute = opLog2,
         .constant_gas = 0, // All gas is calculated dynamically
-        .min_stack = JumpTable.minStack(4, 0),
-        .max_stack = JumpTable.maxStack(4, 0),
+        .min_stack = jumpTableModule.minStack(4, 0),
+        .max_stack = jumpTableModule.maxStack(4, 0),
         .dynamic_gas = log2DynamicGas,
         .memory_size = logMemorySize,
     };
     jump_table.table[0xA2] = log2_op;
     
     // LOG3 (0xA3)
-    const log3_op = try allocator.create(JumpTable.Operation);
-    log3_op.* = JumpTable.Operation{
+    const log3_op = try allocator.create(Operation);
+    log3_op.* = Operation{
         .execute = opLog3,
         .constant_gas = 0, // All gas is calculated dynamically
-        .min_stack = JumpTable.minStack(5, 0),
-        .max_stack = JumpTable.maxStack(5, 0),
+        .min_stack = jumpTableModule.minStack(5, 0),
+        .max_stack = jumpTableModule.maxStack(5, 0),
         .dynamic_gas = log3DynamicGas,
         .memory_size = logMemorySize,
     };
     jump_table.table[0xA3] = log3_op;
     
     // LOG4 (0xA4)
-    const log4_op = try allocator.create(JumpTable.Operation);
-    log4_op.* = JumpTable.Operation{
+    const log4_op = try allocator.create(Operation);
+    log4_op.* = Operation{
         .execute = opLog4,
         .constant_gas = 0, // All gas is calculated dynamically
-        .min_stack = JumpTable.minStack(6, 0),
-        .max_stack = JumpTable.maxStack(6, 0),
+        .min_stack = jumpTableModule.minStack(6, 0),
+        .max_stack = jumpTableModule.maxStack(6, 0),
         .dynamic_gas = log4DynamicGas,
         .memory_size = logMemorySize,
     };

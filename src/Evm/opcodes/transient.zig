@@ -1,13 +1,24 @@
 const std = @import("std");
+const jumpTableModule = @import("../jumpTable/JumpTable.zig");
+const JumpTable = jumpTableModule.JumpTable;
+const Operation = jumpTableModule.Operation;
+const Interpreter = @import("../interpreter.zig").Interpreter;
+const Frame = @import("../Frame.zig").Frame;
+const ExecutionError = @import("../interpreter.zig").InterpreterError;
+const stackModule = @import("../Stack.zig");
+const Stack = stackModule.Stack;
+const StackError = stackModule.StackError;
+const Memory = @import("../Memory.zig").Memory;
+const B256 = @import("../StateDB.zig").B256;
 
-const EvmModule = @import("Evm");
-const Interpreter = EvmModule.Interpreter;
-const Frame = EvmModule.Frame;
-const ExecutionError = EvmModule.InterpreterError;
-const JumpTable = EvmModule.JumpTable;
-const B256 = EvmModule.B256;
-const Stack = EvmModule.Stack;
-const Memory = EvmModule.Memory;
+// Helper to convert Stack errors to ExecutionError
+fn mapStackError(err: StackError) ExecutionError {
+    return switch (err) {
+        error.OutOfBounds => ExecutionError.StackUnderflow,
+        error.StackOverflow => ExecutionError.StackOverflow,
+        error.OutOfMemory => ExecutionError.OutOfGas,
+    };
+}
 // StateManager is accessed via interpreter.evm.state_manager, so direct import not needed for type if not used directly.
 // If StateManager type is needed for casting or struct definition, it would be EvmModule.StateManager.
 
@@ -31,7 +42,7 @@ pub fn opTload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     }
 
     // Pop the key from the stack
-    const key = try frame.stack.pop();
+    const key = frame.stack.pop() catch |err| return mapStackError(err);
 
     // Convert key to B256 format
     var key_bytes: [32]u8 = undefined;
@@ -78,7 +89,7 @@ pub fn opTload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     }
 
     // Push the result onto the stack
-    try frame.stack.push(value);
+    frame.stack.push(value);
 
     return "";
 }
@@ -105,8 +116,8 @@ pub fn opTstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
 
     // Pop value and key from the stack
     // Note: Stack pops in reverse order (LIFO)
-    const value = try frame.stack.pop(); // Second item, the value to store
-    const key = try frame.stack.pop(); // First item, the storage key
+    const value = frame.stack.pop() catch |err| return mapStackError(err); // Second item, the value to store
+    const key = frame.stack.pop() catch |err| return mapStackError(err); // First item, the storage key
 
     // Convert key to B256 format
     var key_bytes: [32]u8 = undefined;
@@ -160,24 +171,24 @@ pub fn opTstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
 }
 
 /// Register transient storage opcodes in the jump table
-pub fn registerTransientOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable.JumpTable) !void {
+pub fn registerTransientOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable) !void {
     // TLOAD (0x5C)
-    const tload_op = try allocator.create(JumpTable.Operation);
-    tload_op.* = JumpTable.Operation{
+    const tload_op = try allocator.create(Operation);
+    tload_op.* = Operation{
         .execute = opTload,
         .constant_gas = TLoadGas,
-        .min_stack = JumpTable.minStack(1, 1),
-        .max_stack = JumpTable.maxStack(1, 1),
+        .min_stack = jumpTableModule.minStack(1, 1),
+        .max_stack = jumpTableModule.maxStack(1, 1),
     };
     jump_table.table[0x5C] = tload_op;
 
     // TSTORE (0x5D)
-    const tstore_op = try allocator.create(JumpTable.Operation);
-    tstore_op.* = JumpTable.Operation{
+    const tstore_op = try allocator.create(Operation);
+    tstore_op.* = Operation{
         .execute = opTstore,
         .constant_gas = TStoreGas,
-        .min_stack = JumpTable.minStack(2, 0),
-        .max_stack = JumpTable.maxStack(2, 0),
+        .min_stack = jumpTableModule.minStack(2, 0),
+        .max_stack = jumpTableModule.maxStack(2, 0),
     };
     jump_table.table[0x5D] = tstore_op;
 }

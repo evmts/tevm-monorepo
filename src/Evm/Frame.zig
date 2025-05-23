@@ -66,6 +66,9 @@ pub const Frame = struct {
 
     /// Allocator for memory management of the Frame's resources
     allocator: std.mem.Allocator,
+    
+    /// Flag to indicate that execution should stop (STOP opcode)
+    stop: bool = false,
 
     /// Create a new frame with the given allocator and contract
     ///

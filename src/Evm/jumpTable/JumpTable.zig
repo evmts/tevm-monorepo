@@ -12,16 +12,17 @@ const math = @import("../opcodes/math.zig");
 const math2 = @import("../opcodes/math2.zig");
 const comparison = @import("../opcodes/comparison.zig");
 const bitwise = @import("../opcodes/bitwise.zig");
-const memory = @import("../opcodes/memory.zig");
-const storage = @import("../opcodes/storage.zig");
+// TODO: Fix these modules before uncommenting
+// const memory = @import("../opcodes/memory.zig");
+// const storage = @import("../opcodes/storage.zig");
 const controlflow = @import("../opcodes/controlflow.zig");
-const environment = @import("../opcodes/environment.zig");
-const calls = @import("../opcodes/calls.zig");
-const block = @import("../opcodes/block.zig");
-const crypto = @import("../opcodes/crypto.zig");
-const log = @import("../opcodes/log.zig");
-const blob = @import("../opcodes/blob.zig");
-const transient = @import("../opcodes/transient.zig");
+// const environment = @import("../opcodes/environment.zig");
+// const calls = @import("../opcodes/calls.zig");
+// const block = @import("../opcodes/block.zig");
+// const crypto = @import("../opcodes/crypto.zig");
+// const log = @import("../opcodes/log.zig");
+// const blob = @import("../opcodes/blob.zig");
+// const transient = @import("../opcodes/transient.zig");
 
 /// ExecutionFunc is a function executed by the EVM during interpretation
 ///
@@ -373,13 +374,14 @@ pub fn newJumpTable(allocator: std.mem.Allocator, hardfork: []const u8) !JumpTab
     try bitwise.registerBitwiseOpcodes(allocator, &jump_table);
     try comparison.registerComparisonOpcodes(allocator, &jump_table);
     try controlflow.registerControlFlowOpcodes(allocator, &jump_table);
-    try memory.registerMemoryOpcodes(allocator, &jump_table);
-    try environment.registerEnvironmentOpcodes(allocator, &jump_table);
-    try storage.registerStorageOpcodes(allocator, &jump_table);
-    try calls.registerCallOpcodes(allocator, &jump_table);
-    try block.registerBlockOpcodes(allocator, &jump_table);
-    try crypto.registerCryptoOpcodes(allocator, &jump_table);
-    try log.registerLogOpcodes(allocator, &jump_table);
+    // TODO: Fix these modules
+    // try memory.registerMemoryOpcodes(allocator, &jump_table);
+    // try environment.registerEnvironmentOpcodes(allocator, &jump_table);
+    // try storage.registerStorageOpcodes(allocator, &jump_table);
+    // try calls.registerCallOpcodes(allocator, &jump_table);
+    // try block.registerBlockOpcodes(allocator, &jump_table);
+    // try crypto.registerCryptoOpcodes(allocator, &jump_table);
+    // try log.registerLogOpcodes(allocator, &jump_table);
     
     // Register hardfork-specific opcodes
 
@@ -504,11 +506,12 @@ pub fn newJumpTable(allocator: std.mem.Allocator, hardfork: []const u8) !JumpTab
     if (std.mem.eql(u8, hardfork, "cancun") or
         std.mem.eql(u8, hardfork, "latest")) {
         
+        // TODO: Fix these modules
         // Add TLOAD and TSTORE opcodes (EIP-1153)
-        try transient.registerTransientOpcodes(allocator, &jump_table);
+        // try transient.registerTransientOpcodes(allocator, &jump_table);
         
         // Add MCOPY, BLOBHASH, BLOBBASEFEE opcodes (EIP-4844 + EIP-5656)
-        try blob.registerBlobOpcodes(allocator, &jump_table);
+        // try blob.registerBlobOpcodes(allocator, &jump_table);
     }
 
     // Fill in any remaining opcodes with UNDEFINED

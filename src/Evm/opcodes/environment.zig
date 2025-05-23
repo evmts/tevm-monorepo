@@ -41,7 +41,7 @@ pub fn opAddress(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
     };
 
     // Push address onto the stack
-    try frame.stack.push(value);
+    frame.stack.push(value);
 
     return "";
 }
@@ -53,12 +53,12 @@ pub fn opBalance(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
     // Check if we have a state manager in the EVM
     if (interpreter.evm.state_manager == null) {
         // If no state manager, return 0 balance
-        try frame.stack.push(0);
+        frame.stack.push(0);
         return "";
     }
 
     // Pop address from stack
-    const addressValue = try frame.stack.pop();
+    const addressValue = frame.stack.pop() catch |err| return mapStackError(err);
 
     // Convert u256 to address
     const addressBytes = blk: {
@@ -97,10 +97,10 @@ pub fn opBalance(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
     // Get the account from state
     if (try interpreter.evm.state_manager.?.getAccount(queryAddress)) |account| {
         // Push account balance to stack
-        try frame.stack.push(account.balance.value);
+        frame.stack.push(account.balance.value);
     } else {
         // Account doesn't exist, push 0
-        try frame.stack.push(0);
+        frame.stack.push(0);
     }
 
     return "";
@@ -125,7 +125,7 @@ pub fn opOrigin(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     };
 
     // Push origin address onto the stack
-    try frame.stack.push(value);
+    frame.stack.push(value);
 
     return "";
 }
@@ -148,7 +148,7 @@ pub fn opCaller(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     };
 
     // Push caller address onto the stack
-    try frame.stack.push(value);
+    frame.stack.push(value);
 
     return "";
 }
@@ -162,7 +162,7 @@ pub fn opCallValue(pc: usize, interpreter: *Interpreter, frame: *Frame) Executio
     const value = frame.callValue();
 
     // Push value onto the stack
-    try frame.stack.push(value);
+    frame.stack.push(value);
 
     return "";
 }
@@ -173,7 +173,7 @@ pub fn opCalldataload(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
     _ = interpreter;
 
     // Pop offset from stack
-    const offset = try frame.stack.pop();
+    const offset = frame.stack.pop() catch |err| return mapStackError(err);
 
     // Convert offset to u64, capped at max value if needed
     const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, offset);
@@ -187,7 +187,7 @@ pub fn opCalldataload(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
 
         // If offset is beyond input data length, return zero
         if (offset_u64 >= inputData.len) {
-            try frame.stack.push(0);
+            frame.stack.push(0);
             return "";
         }
 
@@ -207,7 +207,7 @@ pub fn opCalldataload(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
     };
 
     // Push result onto the stack
-    try frame.stack.push(value);
+    frame.stack.push(value);
 
     return "";
 }
@@ -221,7 +221,7 @@ pub fn opCalldatasize(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
     const inputData = frame.callInput();
 
     // Push the size of the input data onto the stack
-    try frame.stack.push(@as(u256, inputData.len));
+    frame.stack.push(@as(u256, inputData.len));
 
     return "";
 }
@@ -294,9 +294,9 @@ pub fn opCalldatacopy(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
         return ExecutionError.StackUnderflow;
     }
 
-    const size = try frame.stack.pop();
-    const offset = try frame.stack.pop();
-    const destOffset = try frame.stack.pop();
+    const size = frame.stack.pop() catch |err| return mapStackError(err);
+    const offset = frame.stack.pop() catch |err| return mapStackError(err);
+    const destOffset = frame.stack.pop() catch |err| return mapStackError(err);
 
     // Convert to u64, capping at max value if needed
     const destOffset_u64 = if (destOffset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, destOffset);
@@ -342,7 +342,7 @@ pub fn opCodesize(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
     const code = frame.contractCode();
 
     // Push the size of the code onto the stack
-    try frame.stack.push(@as(u256, code.len));
+    frame.stack.push(@as(u256, code.len));
 
     return "";
 }
@@ -376,9 +376,9 @@ pub fn opCodecopy(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
         return ExecutionError.StackUnderflow;
     }
 
-    const size = try frame.stack.pop();
-    const offset = try frame.stack.pop();
-    const destOffset = try frame.stack.pop();
+    const size = frame.stack.pop() catch |err| return mapStackError(err);
+    const offset = frame.stack.pop() catch |err| return mapStackError(err);
+    const destOffset = frame.stack.pop() catch |err| return mapStackError(err);
 
     // Convert to u64, capping at max value if needed
     const destOffset_u64 = if (destOffset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, destOffset);
@@ -422,7 +422,7 @@ pub fn opGasprice(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
 
     // In a real implementation, we would get the actual gas price
     // For now, we'll use a hardcoded value
-    try frame.stack.push(1000000000); // 1 gwei
+    frame.stack.push(1000000000); // 1 gwei
 
     return "";
 }
@@ -431,10 +431,11 @@ pub fn opGasprice(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
 /// See: https://github.com/ethereum/go-ethereum/blob/master/core/vm/instructions.go#L849
 pub fn opGas(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
+    _ = interpreter;
     
     // Push the amount of gas remaining after this instruction
     // The gas for this instruction has already been consumed
-    try frame.stack.push(frame.gas_remaining);
+    frame.stack.push(frame.gas_remaining);
     
     return "";
 }
@@ -446,12 +447,12 @@ pub fn opReturndataload(pc: usize, interpreter: *Interpreter, frame: *Frame) Exe
     _ = interpreter;
     
     // Pop offset from stack
-    const offset = try frame.stack.pop();
+    const offset = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Check if we have return data
     if (frame.returndata == null) {
         // If no return data, push 0
-        try frame.stack.push(0);
+        frame.stack.push(0);
         return "";
     }
     
@@ -463,7 +464,7 @@ pub fn opReturndataload(pc: usize, interpreter: *Interpreter, frame: *Frame) Exe
     // Convert offset to usize, checking for overflow
     const offset_usize = std.math.cast(usize, offset) orelse {
         // Offset too large, push 0
-        try frame.stack.push(0);
+        frame.stack.push(0);
         return "";
     };
     
@@ -478,7 +479,7 @@ pub fn opReturndataload(pc: usize, interpreter: *Interpreter, frame: *Frame) Exe
         }
     }
     
-    try frame.stack.push(value);
+    frame.stack.push(value);
     return "";
 }
 
@@ -489,12 +490,12 @@ pub fn opExtcodesize(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
     // Check if we have a state manager in the EVM
     if (interpreter.evm.state_manager == null) {
         // If no state manager, return 0 code size
-        try frame.stack.push(0);
+        frame.stack.push(0);
         return "";
     }
 
     // Pop address from stack
-    const addressValue = try frame.stack.pop();
+    const addressValue = frame.stack.pop() catch |err| return mapStackError(err);
 
     // Convert u256 to address
     const addressBytes = blk: {
@@ -534,7 +535,7 @@ pub fn opExtcodesize(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
     const code = try interpreter.evm.state_manager.?.getContractCode(queryAddress);
 
     // Push the code size onto the stack
-    try frame.stack.push(@as(u256, code.len));
+    frame.stack.push(@as(u256, code.len));
 
     return "";
 }
@@ -567,10 +568,10 @@ pub fn opExtcodecopy(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
         return ExecutionError.StackUnderflow;
     }
 
-    const size = try frame.stack.pop();
-    const offset = try frame.stack.pop();
-    const destOffset = try frame.stack.pop();
-    const addressValue = try frame.stack.pop();
+    const size = frame.stack.pop() catch |err| return mapStackError(err);
+    const offset = frame.stack.pop() catch |err| return mapStackError(err);
+    const destOffset = frame.stack.pop() catch |err| return mapStackError(err);
+    const addressValue = frame.stack.pop() catch |err| return mapStackError(err);
 
     // Convert u256 values to u64, capping at max value if needed
     const destOffset_u64 = if (destOffset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, destOffset);
@@ -664,12 +665,12 @@ pub fn opReturndatasize(pc: usize, interpreter: *Interpreter, frame: *Frame) Exe
 
     // If frame has no return data, return 0 size
     if (frame.returnData == null) {
-        try frame.stack.push(0);
+        frame.stack.push(0);
         return "";
     }
 
     // Push the size of the return data onto the stack
-    try frame.stack.push(@as(u256, frame.returnSize));
+    frame.stack.push(@as(u256, frame.returnSize));
 
     return "";
 }
@@ -703,9 +704,9 @@ pub fn opReturndatacopy(pc: usize, interpreter: *Interpreter, frame: *Frame) Exe
         return ExecutionError.StackUnderflow;
     }
 
-    const size = try frame.stack.pop();
-    const offset = try frame.stack.pop();
-    const destOffset = try frame.stack.pop();
+    const size = frame.stack.pop() catch |err| return mapStackError(err);
+    const offset = frame.stack.pop() catch |err| return mapStackError(err);
+    const destOffset = frame.stack.pop() catch |err| return mapStackError(err);
 
     // Convert to u64, capping at max value if needed
     const destOffset_u64 = if (destOffset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, destOffset);
@@ -759,7 +760,7 @@ pub fn opExtcodehash(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
     _ = pc;
 
     // Pop address from stack
-    const addressValue = try frame.stack.pop();
+    const addressValue = frame.stack.pop() catch |err| return mapStackError(err);
 
     // Convert u256 to address
     const addressBytes = blk: {
@@ -801,7 +802,7 @@ pub fn opExtcodehash(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
     // Check for state manager
     if (interpreter.evm.state_manager == null) {
         // If no state manager, return empty code hash
-        try frame.stack.push(EMPTY_CODE_HASH);
+        frame.stack.push(EMPTY_CODE_HASH);
         return "";
     }
 
@@ -818,10 +819,10 @@ pub fn opExtcodehash(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
             break :blk hash;
         };
 
-        try frame.stack.push(codeHash);
+        frame.stack.push(codeHash);
     } else {
         // Account doesn't exist, push 0 per EIP-1052
-        try frame.stack.push(0);
+        frame.stack.push(0);
     }
 
     return "";
@@ -883,7 +884,7 @@ fn extcodecopyDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack
     const is_cold_account = frame.contract.isAccountCold();
 
     // Base cost is EXTCODESIZE plus memory cost
-    var gas_cost = JumpTable.GasExtStep + memory_cost;
+    var gas_cost = jumpTableModule.GasExtStep + memory_cost;
 
     // Add cold access cost if needed
     if (is_cold_account) {
@@ -915,195 +916,195 @@ fn extcodehashDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack
 }
 
 /// Register all environment opcodes in the given jump table
-pub fn registerEnvironmentOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable.JumpTable) !void {
+pub fn registerEnvironmentOpcodes(allocator: std.mem.Allocator, jump_table: **JumpTable) !void {
     // ADDRESS (0x30)
-    const address_op = try allocator.create(JumpTable.Operation);
-    address_op.* = JumpTable.Operation{
+    const address_op = try allocator.create(Operation);
+    address_op.* = Operation{
         .execute = opAddress,
-        .constant_gas = JumpTable.GasQuickStep,
-        .min_stack = JumpTable.minStack(0, 1),
-        .max_stack = JumpTable.maxStack(0, 1),
+        .constant_gas = jumpTableModule.GasQuickStep,
+        .min_stack = jumpTableModule.minStack(0, 1),
+        .max_stack = jumpTableModule.maxStack(0, 1),
     };
     jump_table.table[0x30] = address_op;
 
     // BALANCE (0x31) - Using dynamic gas for EIP-2929
-    const balance_op = try allocator.create(JumpTable.Operation);
-    balance_op.* = JumpTable.Operation{
+    const balance_op = try allocator.create(Operation);
+    balance_op.* = Operation{
         .execute = opBalance,
         .constant_gas = 0, // Using dynamic gas calculation
         .dynamic_gas = balanceDynamicGas,
-        .min_stack = JumpTable.minStack(1, 1),
-        .max_stack = JumpTable.maxStack(1, 1),
+        .min_stack = jumpTableModule.minStack(1, 1),
+        .max_stack = jumpTableModule.maxStack(1, 1),
     };
     jump_table.table[0x31] = balance_op;
 
     // ORIGIN (0x32)
-    const origin_op = try allocator.create(JumpTable.Operation);
-    origin_op.* = JumpTable.Operation{
+    const origin_op = try allocator.create(Operation);
+    origin_op.* = Operation{
         .execute = opOrigin,
-        .constant_gas = JumpTable.GasQuickStep,
-        .min_stack = JumpTable.minStack(0, 1),
-        .max_stack = JumpTable.maxStack(0, 1),
+        .constant_gas = jumpTableModule.GasQuickStep,
+        .min_stack = jumpTableModule.minStack(0, 1),
+        .max_stack = jumpTableModule.maxStack(0, 1),
     };
     jump_table.table[0x32] = origin_op;
 
     // CALLER (0x33)
-    const caller_op = try allocator.create(JumpTable.Operation);
-    caller_op.* = JumpTable.Operation{
+    const caller_op = try allocator.create(Operation);
+    caller_op.* = Operation{
         .execute = opCaller,
-        .constant_gas = JumpTable.GasQuickStep,
-        .min_stack = JumpTable.minStack(0, 1),
-        .max_stack = JumpTable.maxStack(0, 1),
+        .constant_gas = jumpTableModule.GasQuickStep,
+        .min_stack = jumpTableModule.minStack(0, 1),
+        .max_stack = jumpTableModule.maxStack(0, 1),
     };
     jump_table.table[0x33] = caller_op;
 
     // CALLVALUE (0x34)
-    const callvalue_op = try allocator.create(JumpTable.Operation);
-    callvalue_op.* = JumpTable.Operation{
+    const callvalue_op = try allocator.create(Operation);
+    callvalue_op.* = Operation{
         .execute = opCallValue,
-        .constant_gas = JumpTable.GasQuickStep,
-        .min_stack = JumpTable.minStack(0, 1),
-        .max_stack = JumpTable.maxStack(0, 1),
+        .constant_gas = jumpTableModule.GasQuickStep,
+        .min_stack = jumpTableModule.minStack(0, 1),
+        .max_stack = jumpTableModule.maxStack(0, 1),
     };
     jump_table.table[0x34] = callvalue_op;
 
     // CALLDATALOAD (0x35)
-    const calldataload_op = try allocator.create(JumpTable.Operation);
-    calldataload_op.* = JumpTable.Operation{
+    const calldataload_op = try allocator.create(Operation);
+    calldataload_op.* = Operation{
         .execute = opCalldataload,
-        .constant_gas = JumpTable.GasFastestStep,
-        .min_stack = JumpTable.minStack(1, 1),
-        .max_stack = JumpTable.maxStack(1, 1),
+        .constant_gas = jumpTableModule.GasFastestStep,
+        .min_stack = jumpTableModule.minStack(1, 1),
+        .max_stack = jumpTableModule.maxStack(1, 1),
     };
     jump_table.table[0x35] = calldataload_op;
 
     // CALLDATASIZE (0x36)
-    const calldatasize_op = try allocator.create(JumpTable.Operation);
-    calldatasize_op.* = JumpTable.Operation{
+    const calldatasize_op = try allocator.create(Operation);
+    calldatasize_op.* = Operation{
         .execute = opCalldatasize,
-        .constant_gas = JumpTable.GasQuickStep,
-        .min_stack = JumpTable.minStack(0, 1),
-        .max_stack = JumpTable.maxStack(0, 1),
+        .constant_gas = jumpTableModule.GasQuickStep,
+        .min_stack = jumpTableModule.minStack(0, 1),
+        .max_stack = jumpTableModule.maxStack(0, 1),
     };
     jump_table.table[0x36] = calldatasize_op;
 
     // CALLDATACOPY (0x37)
-    const calldatacopy_op = try allocator.create(JumpTable.Operation);
-    calldatacopy_op.* = JumpTable.Operation{
+    const calldatacopy_op = try allocator.create(Operation);
+    calldatacopy_op.* = Operation{
         .execute = opCalldatacopy,
-        .constant_gas = JumpTable.GasFastestStep,
-        .min_stack = JumpTable.minStack(3, 0),
-        .max_stack = JumpTable.maxStack(3, 0),
+        .constant_gas = jumpTableModule.GasFastestStep,
+        .min_stack = jumpTableModule.minStack(3, 0),
+        .max_stack = jumpTableModule.maxStack(3, 0),
         .dynamic_gas = memoryGas,
         .memory_size = calldatacopyMemorySize,
     };
     jump_table.table[0x37] = calldatacopy_op;
 
     // CODESIZE (0x38)
-    const codesize_op = try allocator.create(JumpTable.Operation);
-    codesize_op.* = JumpTable.Operation{
+    const codesize_op = try allocator.create(Operation);
+    codesize_op.* = Operation{
         .execute = opCodesize,
-        .constant_gas = JumpTable.GasQuickStep,
-        .min_stack = JumpTable.minStack(0, 1),
-        .max_stack = JumpTable.maxStack(0, 1),
+        .constant_gas = jumpTableModule.GasQuickStep,
+        .min_stack = jumpTableModule.minStack(0, 1),
+        .max_stack = jumpTableModule.maxStack(0, 1),
     };
     jump_table.table[0x38] = codesize_op;
 
     // CODECOPY (0x39)
-    const codecopy_op = try allocator.create(JumpTable.Operation);
-    codecopy_op.* = JumpTable.Operation{
+    const codecopy_op = try allocator.create(Operation);
+    codecopy_op.* = Operation{
         .execute = opCodecopy,
-        .constant_gas = JumpTable.GasFastestStep,
-        .min_stack = JumpTable.minStack(3, 0),
-        .max_stack = JumpTable.maxStack(3, 0),
+        .constant_gas = jumpTableModule.GasFastestStep,
+        .min_stack = jumpTableModule.minStack(3, 0),
+        .max_stack = jumpTableModule.maxStack(3, 0),
         .dynamic_gas = memoryGas,
         .memory_size = codecopyMemorySize,
     };
     jump_table.table[0x39] = codecopy_op;
 
     // GASPRICE (0x3A)
-    const gasprice_op = try allocator.create(JumpTable.Operation);
-    gasprice_op.* = JumpTable.Operation{
+    const gasprice_op = try allocator.create(Operation);
+    gasprice_op.* = Operation{
         .execute = opGasprice,
-        .constant_gas = JumpTable.GasQuickStep,
-        .min_stack = JumpTable.minStack(0, 1),
-        .max_stack = JumpTable.maxStack(0, 1),
+        .constant_gas = jumpTableModule.GasQuickStep,
+        .min_stack = jumpTableModule.minStack(0, 1),
+        .max_stack = jumpTableModule.maxStack(0, 1),
     };
     jump_table.table[0x3A] = gasprice_op;
 
     // EXTCODESIZE (0x3B) - Using dynamic gas for EIP-2929
-    const extcodesize_op = try allocator.create(JumpTable.Operation);
-    extcodesize_op.* = JumpTable.Operation{
+    const extcodesize_op = try allocator.create(Operation);
+    extcodesize_op.* = Operation{
         .execute = opExtcodesize,
         .constant_gas = 0, // Using dynamic gas calculation
         .dynamic_gas = extcodesizeDynamicGas,
-        .min_stack = JumpTable.minStack(1, 1),
-        .max_stack = JumpTable.maxStack(1, 1),
+        .min_stack = jumpTableModule.minStack(1, 1),
+        .max_stack = jumpTableModule.maxStack(1, 1),
     };
     jump_table.table[0x3B] = extcodesize_op;
 
     // EXTCODECOPY (0x3C) - Using dynamic gas for EIP-2929
-    const extcodecopy_op = try allocator.create(JumpTable.Operation);
-    extcodecopy_op.* = JumpTable.Operation{
+    const extcodecopy_op = try allocator.create(Operation);
+    extcodecopy_op.* = Operation{
         .execute = opExtcodecopy,
         .constant_gas = 0, // Using dynamic gas calculation
         .dynamic_gas = extcodecopyDynamicGas,
-        .min_stack = JumpTable.minStack(4, 0),
-        .max_stack = JumpTable.maxStack(4, 0),
+        .min_stack = jumpTableModule.minStack(4, 0),
+        .max_stack = jumpTableModule.maxStack(4, 0),
         .memory_size = extcodecopyMemorySize,
     };
     jump_table.table[0x3C] = extcodecopy_op;
 
     // RETURNDATASIZE (0x3D)
-    const returndatasize_op = try allocator.create(JumpTable.Operation);
-    returndatasize_op.* = JumpTable.Operation{
+    const returndatasize_op = try allocator.create(Operation);
+    returndatasize_op.* = Operation{
         .execute = opReturndatasize,
-        .constant_gas = JumpTable.GasQuickStep,
-        .min_stack = JumpTable.minStack(0, 1),
-        .max_stack = JumpTable.maxStack(0, 1),
+        .constant_gas = jumpTableModule.GasQuickStep,
+        .min_stack = jumpTableModule.minStack(0, 1),
+        .max_stack = jumpTableModule.maxStack(0, 1),
     };
     jump_table.table[0x3D] = returndatasize_op;
 
     // RETURNDATACOPY (0x3E)
-    const returndatacopy_op = try allocator.create(JumpTable.Operation);
-    returndatacopy_op.* = JumpTable.Operation{
+    const returndatacopy_op = try allocator.create(Operation);
+    returndatacopy_op.* = Operation{
         .execute = opReturndatacopy,
-        .constant_gas = JumpTable.GasFastestStep,
-        .min_stack = JumpTable.minStack(3, 0),
-        .max_stack = JumpTable.maxStack(3, 0),
+        .constant_gas = jumpTableModule.GasFastestStep,
+        .min_stack = jumpTableModule.minStack(3, 0),
+        .max_stack = jumpTableModule.maxStack(3, 0),
         .dynamic_gas = memoryGas,
         .memory_size = returndatacopyMemorySize,
     };
     jump_table.table[0x3E] = returndatacopy_op;
 
     // EXTCODEHASH (0x3F) - Using dynamic gas for EIP-2929
-    const extcodehash_op = try allocator.create(JumpTable.Operation);
-    extcodehash_op.* = JumpTable.Operation{
+    const extcodehash_op = try allocator.create(Operation);
+    extcodehash_op.* = Operation{
         .execute = opExtcodehash,
         .constant_gas = 0, // Using dynamic gas calculation
         .dynamic_gas = extcodehashDynamicGas,
-        .min_stack = JumpTable.minStack(1, 1),
-        .max_stack = JumpTable.maxStack(1, 1),
+        .min_stack = jumpTableModule.minStack(1, 1),
+        .max_stack = jumpTableModule.maxStack(1, 1),
     };
     jump_table.table[0x3F] = extcodehash_op;
     
     // GAS (0x5A) - Get remaining gas
-    const gas_op = try allocator.create(JumpTable.Operation);
-    gas_op.* = JumpTable.Operation{
+    const gas_op = try allocator.create(Operation);
+    gas_op.* = Operation{
         .execute = opGas,
-        .constant_gas = JumpTable.GasQuickStep,
-        .min_stack = JumpTable.minStack(0, 1),
-        .max_stack = JumpTable.maxStack(0, 1),
+        .constant_gas = jumpTableModule.GasQuickStep,
+        .min_stack = jumpTableModule.minStack(0, 1),
+        .max_stack = jumpTableModule.maxStack(0, 1),
     };
     jump_table.table[0x5A] = gas_op;
     
     // RETURNDATALOAD (0xF7) - Load data from return data buffer
-    const returndataload_op = try allocator.create(JumpTable.Operation);
-    returndataload_op.* = JumpTable.Operation{
+    const returndataload_op = try allocator.create(Operation);
+    returndataload_op.* = Operation{
         .execute = opReturndataload,
-        .constant_gas = JumpTable.GasFastestStep,
-        .min_stack = JumpTable.minStack(1, 1),
-        .max_stack = JumpTable.maxStack(1, 1),
+        .constant_gas = jumpTableModule.GasFastestStep,
+        .min_stack = jumpTableModule.minStack(1, 1),
+        .max_stack = jumpTableModule.maxStack(1, 1),
     };
     jump_table.table[0xF7] = returndataload_op;
 }

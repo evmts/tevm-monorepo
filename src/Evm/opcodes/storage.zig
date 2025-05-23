@@ -1,17 +1,28 @@
 const std = @import("std");
-const evm = @import("evm");
-const Interpreter = evm.Interpreter;
-const Frame = evm.Frame;
-const ExecutionError = evm.ExecutionError;
-const JumpTable = evm.JumpTable;
-const StateManager = @import("state_manager").StateManager;
-const B256 = @import("../../Types/B256.ts");
-const Stack = evm.Stack;
-const Memory = evm.Memory;
-const EvmLogger = evm.EvmLogger;
-const createLogger = evm.createLogger;
-const createScopedLogger = evm.createScopedLogger;
-const debugOnly = evm.debugOnly;
+const jumpTableModule = @import("../jumpTable/JumpTable.zig");
+const JumpTable = jumpTableModule.JumpTable;
+const Operation = jumpTableModule.Operation;
+const Interpreter = @import("../interpreter.zig").Interpreter;
+const Frame = @import("../Frame.zig").Frame;
+const ExecutionError = @import("../interpreter.zig").InterpreterError;
+const stackModule = @import("../Stack.zig");
+const Stack = stackModule.Stack;
+const StackError = stackModule.StackError;
+
+// Helper to convert Stack errors to ExecutionError
+fn mapStackError(err: StackError) ExecutionError {
+    return switch (err) {
+        error.OutOfBounds => ExecutionError.StackUnderflow,
+        error.StackOverflow => ExecutionError.StackOverflow,
+        error.OutOfMemory => ExecutionError.OutOfGas,
+    };
+}
+const Memory = @import("../Memory.zig").Memory;
+const B256 = @import("../StateDB.zig").B256;
+const EvmLogger = @import("../TestEvmLogger.zig").EvmLogger;
+const createLogger = @import("../TestEvmLogger.zig").createLogger;
+const createScopedLogger = @import("../TestEvmLogger.zig").createScopedLogger;
+const debugOnly = @import("../TestEvmLogger.zig").debugOnly;
 
 // Module-level logger initialization
 var _logger: ?EvmLogger = null;
@@ -38,7 +49,7 @@ pub fn opSload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     }
     
     // Pop key from stack
-    const key = try frame.stack.pop();
+    const key = frame.stack.pop() catch |err| return mapStackError(err);
     getLogger().debug("SLOAD key: 0x{x}", .{key});
     
     // Get EVM from interpreter
@@ -81,7 +92,7 @@ pub fn opSload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     getLogger().debug("SLOAD result: key=0x{x}, value=0x{x}", .{key, value});
     
     // Push value to stack
-    try frame.stack.push(value);
+    frame.stack.push(value);
     
     debugOnly(struct {
         fn callback() void {
@@ -117,8 +128,8 @@ pub fn opSstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     }
     
     // Pop value and key from stack
-    const value = try frame.stack.pop();
-    const key = try frame.stack.pop();
+    const value = frame.stack.pop() catch |err| return mapStackError(err);
+    const key = frame.stack.pop() catch |err| return mapStackError(err);
     getLogger().debug("SSTORE key: 0x{x}, value: 0x{x}", .{key, value});
     
     // Get EVM
@@ -257,7 +268,7 @@ pub fn opTload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     }
     
     // Pop key from stack
-    const key = try frame.stack.pop();
+    const key = frame.stack.pop() catch |err| return mapStackError(err);
     getLogger().debug("TLOAD key: 0x{x}", .{key});
     
     // Get EVM
@@ -291,7 +302,7 @@ pub fn opTload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     getLogger().debug("TLOAD result: key=0x{x}, value=0x{x}", .{key, value});
     
     // Push value to stack
-    try frame.stack.push(value);
+    frame.stack.push(value);
     
     debugOnly(struct {
         fn callback() void {
@@ -327,8 +338,8 @@ pub fn opTstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     }
     
     // Pop value and key from stack
-    const value = try frame.stack.pop();
-    const key = try frame.stack.pop();
+    const value = frame.stack.pop() catch |err| return mapStackError(err);
+    const key = frame.stack.pop() catch |err| return mapStackError(err);
     getLogger().debug("TSTORE key: 0x{x}, value: 0x{x}", .{key, value});
     
     // Get EVM
@@ -393,8 +404,8 @@ fn getKeyFromStack(frame: *Frame) !u256 {
 }
 
 /// Convert a 32-byte array to a u256 for storage key/value
-fn bytesToU256(bytes: []const u8) u256 {
-    var scoped = createScopedLogger(getLogger(), "bytesToU256()");
+fn bytesTou256(bytes: []const u8) u256 {
+    var scoped = createScopedLogger(getLogger(), "bytesTou256()");
     defer scoped.deinit();
     
     getLogger().debug("Converting byte array (length: {d}) to u256", .{bytes.len});

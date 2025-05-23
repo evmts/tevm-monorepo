@@ -1,5 +1,23 @@
 const std = @import("std");
-const evm_pkg = @import("evm");
+const evm_pkg = @import("../jumpTable/JumpTable.zig");
+const jumpTableModule = @import("../jumpTable/JumpTable.zig");
+const JumpTable = jumpTableModule.JumpTable;
+const Operation = jumpTableModule.Operation;
+const Interpreter = @import("../interpreter.zig").Interpreter;
+const Frame = @import("../Frame.zig").Frame;
+const ExecutionError = @import("../interpreter.zig").InterpreterError;
+const stackModule = @import("../Stack.zig");
+const Stack = stackModule.Stack;
+const StackError = stackModule.StackError;
+
+// Helper to convert Stack errors to ExecutionError
+fn mapStackError(err: StackError) ExecutionError {
+    return switch (err) {
+        error.OutOfBounds => ExecutionError.StackUnderflow,
+        error.StackOverflow => ExecutionError.StackOverflow,
+        error.OutOfMemory => ExecutionError.OutOfGas,
+    };
+}
 const Interpreter = evm_pkg.Interpreter.Interpreter;
 const Frame = evm_pkg.Frame.Frame;
 const ExecutionError = evm_pkg.Frame.ExecutionError;
@@ -18,7 +36,7 @@ pub fn opMload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     }
     
     // Pop the offset from the stack
-    const offset = try frame.stack.pop();
+    const offset = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Get 32 bytes from memory at the specified offset
     var value: u256 = 0;
@@ -40,7 +58,7 @@ pub fn opMload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
         if (err == error.OutOfBounds) {
             // If this happens, resize may have failed or memory logic is wrong
             // Default to zeroes in this case
-            try frame.stack.push(0);
+            frame.stack.push(0);
             return "";
         } else {
             return err;
@@ -53,7 +71,7 @@ pub fn opMload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     }
     
     // Push the result onto the stack
-    try frame.stack.push(value);
+    frame.stack.push(value);
     
     return "";
 }
@@ -70,8 +88,8 @@ pub fn opMstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     
     // Pop value and offset from the stack
     // In the EVM, stack items are processed in reverse order
-    const value = try frame.stack.pop();  // Second item, the value to store
-    const offset = try frame.stack.pop(); // First item, the memory offset
+    const value = frame.stack.pop() catch |err| return mapStackError(err);  // Second item, the value to store
+    const offset = frame.stack.pop() catch |err| return mapStackError(err); // First item, the memory offset
     
     // Convert offset to u64, capping at max value if needed
     const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, offset);
@@ -117,8 +135,8 @@ pub fn opMstore8(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
     }
     
     // Pop value and offset from the stack
-    const value = try frame.stack.pop();
-    const offset = try frame.stack.pop();
+    const value = frame.stack.pop() catch |err| return mapStackError(err);
+    const offset = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Convert offset to u64, capping at max value if needed
     const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, offset);
@@ -150,7 +168,7 @@ pub fn opMsize(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     
     // Push current memory size onto the stack
     const size: u256 = @as(u256, frame.memory.len());
-    try frame.stack.push(size);
+    frame.stack.push(size);
     
     return "";
 }
@@ -166,7 +184,7 @@ pub fn opPop(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     }
     
     // Pop and discard the value
-    _ = try frame.stack.pop();
+    _ = frame.stack.pop() catch |err| return mapStackError(err);
     
     return "";
 }
@@ -193,7 +211,7 @@ fn pushN(pc: usize, interpreter: *Interpreter, frame: *Frame, n: u8) ExecutionEr
         value <<= (n - available_bytes) * 8;
         
         // Push the value onto the stack
-        try frame.stack.push(value);
+        frame.stack.push(value);
     } else {
         // Read n bytes from the bytecode
         var value: u256 = 0;
@@ -202,7 +220,7 @@ fn pushN(pc: usize, interpreter: *Interpreter, frame: *Frame, n: u8) ExecutionEr
         }
         
         // Push the value onto the stack
-        try frame.stack.push(value);
+        frame.stack.push(value);
     }
     
     return "";
@@ -218,7 +236,7 @@ pub fn opPush0(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     }
     
     // Push 0 onto the stack
-    try frame.stack.push(0);
+    frame.stack.push(0);
     return "";
 }
 
@@ -782,76 +800,76 @@ pub fn mstore8MemorySize(stack: *Stack) struct { size: u64, overflow: bool } {
 }
 
 /// Register memory opcodes in the jump table
-pub fn registerMemoryOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable.JumpTable) !void {
+pub fn registerMemoryOpcodes(allocator: std.mem.Allocator, jump_table: **JumpTable) !void {
     // MLOAD (0x51)
-    const mload_op = try allocator.create(JumpTable.Operation);
-    mload_op.* = JumpTable.Operation{
+    const mload_op = try allocator.create(Operation);
+    mload_op.* = Operation{
         .execute = opMload,
-        .constant_gas = JumpTable.GasFastestStep,
-        .min_stack = JumpTable.minStack(1, 1),
-        .max_stack = JumpTable.maxStack(1, 1),
+        .constant_gas = jumpTableModule.GasFastestStep,
+        .min_stack = jumpTableModule.minStack(1, 1),
+        .max_stack = jumpTableModule.maxStack(1, 1),
         .dynamic_gas = memoryGas,
         .memory_size = mloadMemorySize,
     };
     jump_table.table[0x51] = mload_op;
     
     // MSTORE (0x52)
-    const mstore_op = try allocator.create(JumpTable.Operation);
-    mstore_op.* = JumpTable.Operation{
+    const mstore_op = try allocator.create(Operation);
+    mstore_op.* = Operation{
         .execute = opMstore,
-        .constant_gas = JumpTable.GasFastestStep,
-        .min_stack = JumpTable.minStack(2, 0),
-        .max_stack = JumpTable.maxStack(2, 0),
+        .constant_gas = jumpTableModule.GasFastestStep,
+        .min_stack = jumpTableModule.minStack(2, 0),
+        .max_stack = jumpTableModule.maxStack(2, 0),
         .dynamic_gas = memoryGas,
         .memory_size = mstoreMemorySize,
     };
     jump_table.table[0x52] = mstore_op;
     
     // MSTORE8 (0x53)
-    const mstore8_op = try allocator.create(JumpTable.Operation);
-    mstore8_op.* = JumpTable.Operation{
+    const mstore8_op = try allocator.create(Operation);
+    mstore8_op.* = Operation{
         .execute = opMstore8,
-        .constant_gas = JumpTable.GasFastestStep,
-        .min_stack = JumpTable.minStack(2, 0),
-        .max_stack = JumpTable.maxStack(2, 0),
+        .constant_gas = jumpTableModule.GasFastestStep,
+        .min_stack = jumpTableModule.minStack(2, 0),
+        .max_stack = jumpTableModule.maxStack(2, 0),
         .dynamic_gas = memoryGas,
         .memory_size = mstore8MemorySize,
     };
     jump_table.table[0x53] = mstore8_op;
     
     // MSIZE (0x59)
-    const msize_op = try allocator.create(JumpTable.Operation);
-    msize_op.* = JumpTable.Operation{
+    const msize_op = try allocator.create(Operation);
+    msize_op.* = Operation{
         .execute = opMsize,
-        .constant_gas = JumpTable.GasQuickStep,
-        .min_stack = JumpTable.minStack(0, 1),
-        .max_stack = JumpTable.maxStack(0, 1),
+        .constant_gas = jumpTableModule.GasQuickStep,
+        .min_stack = jumpTableModule.minStack(0, 1),
+        .max_stack = jumpTableModule.maxStack(0, 1),
     };
     jump_table.table[0x59] = msize_op;
     
     // POP (0x50)
-    const pop_op = try allocator.create(JumpTable.Operation);
-    pop_op.* = JumpTable.Operation{
+    const pop_op = try allocator.create(Operation);
+    pop_op.* = Operation{
         .execute = opPop,
-        .constant_gas = JumpTable.GasQuickStep,
-        .min_stack = JumpTable.minStack(1, 0),
-        .max_stack = JumpTable.maxStack(1, 0),
+        .constant_gas = jumpTableModule.GasQuickStep,
+        .min_stack = jumpTableModule.minStack(1, 0),
+        .max_stack = jumpTableModule.maxStack(1, 0),
     };
     jump_table.table[0x50] = pop_op;
     
     // PUSH0 (0x5F) - EIP-3855
-    const push0_op = try allocator.create(JumpTable.Operation);
-    push0_op.* = JumpTable.Operation{
+    const push0_op = try allocator.create(Operation);
+    push0_op.* = Operation{
         .execute = opPush0,
-        .constant_gas = JumpTable.GasQuickStep,
-        .min_stack = JumpTable.minStack(0, 1),
-        .max_stack = JumpTable.maxStack(0, 1),
+        .constant_gas = jumpTableModule.GasQuickStep,
+        .min_stack = jumpTableModule.minStack(0, 1),
+        .max_stack = jumpTableModule.maxStack(0, 1),
     };
     jump_table.table[0x5F] = push0_op;
     
     // PUSH1-PUSH32 (0x60-0x7F)
     inline for (0..32) |i| {
-        const push_op = try allocator.create(JumpTable.Operation);
+        const push_op = try allocator.create(Operation);
         
         // Get the correct push function based on index
         const pushFunc = switch (i) {
@@ -890,11 +908,11 @@ pub fn registerMemoryOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTabl
             else => unreachable, // This should never happen with the above range
         };
         
-        push_op.* = JumpTable.Operation{
+        push_op.* = Operation{
             .execute = pushFunc,
-            .constant_gas = JumpTable.GasFastestStep,
-            .min_stack = JumpTable.minStack(0, 1),
-            .max_stack = JumpTable.maxStack(0, 1),
+            .constant_gas = jumpTableModule.GasFastestStep,
+            .min_stack = jumpTableModule.minStack(0, 1),
+            .max_stack = jumpTableModule.maxStack(0, 1),
         };
         
         // Calculate the opcode: PUSH1 is 0x60, PUSH2 is 0x61, etc.
@@ -904,7 +922,7 @@ pub fn registerMemoryOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTabl
     
     // DUP1-DUP16 (0x80-0x8F)
     inline for (0..16) |i| {
-        const dup_op = try allocator.create(JumpTable.Operation);
+        const dup_op = try allocator.create(Operation);
         
         // Get the correct dup function based on index
         const dupFunc = switch (i) {
@@ -927,11 +945,11 @@ pub fn registerMemoryOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTabl
             else => unreachable, // This should never happen with the above range
         };
         
-        dup_op.* = JumpTable.Operation{
+        dup_op.* = Operation{
             .execute = dupFunc,
-            .constant_gas = JumpTable.GasFastestStep,
-            .min_stack = JumpTable.minDupStack(@intCast(i + 1)),
-            .max_stack = JumpTable.maxDupStack(@intCast(i + 1)),
+            .constant_gas = jumpTableModule.GasFastestStep,
+            .min_stack = jumpTableModule.minDupStack(@intCast(i + 1)),
+            .max_stack = jumpTableModule.maxDupStack(@intCast(i + 1)),
         };
         
         // Calculate the opcode: DUP1 is 0x80, DUP2 is 0x81, etc.
@@ -941,7 +959,7 @@ pub fn registerMemoryOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTabl
     
     // SWAP1-SWAP16 (0x90-0x9F)
     inline for (0..16) |i| {
-        const swap_op = try allocator.create(JumpTable.Operation);
+        const swap_op = try allocator.create(Operation);
         
         // Get the correct swap function based on index
         const swapFunc = switch (i) {
@@ -964,11 +982,11 @@ pub fn registerMemoryOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTabl
             else => unreachable, // This should never happen with the above range
         };
         
-        swap_op.* = JumpTable.Operation{
+        swap_op.* = Operation{
             .execute = swapFunc,
-            .constant_gas = JumpTable.GasFastestStep,
-            .min_stack = JumpTable.minSwapStack(@intCast(i + 1)),
-            .max_stack = JumpTable.maxSwapStack(@intCast(i + 1)),
+            .constant_gas = jumpTableModule.GasFastestStep,
+            .min_stack = jumpTableModule.minSwapStack(@intCast(i + 1)),
+            .max_stack = jumpTableModule.maxSwapStack(@intCast(i + 1)),
         };
         
         // Calculate the opcode: SWAP1 is 0x90, SWAP2 is 0x91, etc.

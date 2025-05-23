@@ -1,10 +1,27 @@
 const std = @import("std");
 
+const jumpTableModule = @import("../jumpTable/JumpTable.zig");
+const JumpTable = jumpTableModule.JumpTable;
+const Operation = jumpTableModule.Operation;
+const Interpreter = @import("../interpreter.zig").Interpreter;
+const Frame = @import("../Frame.zig").Frame;
+const ExecutionError = @import("../interpreter.zig").InterpreterError;
+const stackModule = @import("../Stack.zig");
+const Stack = stackModule.Stack;
+const StackError = stackModule.StackError;
+
+// Helper to convert Stack errors to ExecutionError
+fn mapStackError(err: StackError) ExecutionError {
+    return switch (err) {
+        error.OutOfBounds => ExecutionError.StackUnderflow,
+        error.StackOverflow => ExecutionError.StackOverflow,
+        error.OutOfMemory => ExecutionError.OutOfGas,
+    };
+}
 // For testing, we'll use stubs and minimal imports
 const is_test = @import("builtin").is_test;
 
 // Import from package instead of relative path
-const evm = @import("evm");
 
 // Conditional imports to avoid import path errors during testing
 const Interpreter = if (is_test)
@@ -429,7 +446,7 @@ fn checkPrecompiled(addr: u256, interpreter: *Interpreter) ?*const precompile.Pr
 }
 
 /// Helper to convert 256-bit address to Ethereum Address type
-fn addressFromU256(addr_u256: u256) Address {
+fn addressFromu256(addr_u256: u256) Address {
     // Use zero-initialized memory to avoid undefined behavior
     var addr_bytes: [32]u8 = [_]u8{0} ** 32;
     
@@ -494,13 +511,13 @@ pub fn opCall(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     }
     
     // Pop parameters from stack
-    const outSize = try frame.stack.pop();
-    const outOffset = try frame.stack.pop();
-    const inSize = try frame.stack.pop();
-    const inOffset = try frame.stack.pop();
-    const value = try frame.stack.pop();
-    const to_addr = try frame.stack.pop();
-    const gas = try frame.stack.pop();
+    const outSize = frame.stack.pop() catch |err| return mapStackError(err);
+    const outOffset = frame.stack.pop() catch |err| return mapStackError(err);
+    const inSize = frame.stack.pop() catch |err| return mapStackError(err);
+    const inOffset = frame.stack.pop() catch |err| return mapStackError(err);
+    const value = frame.stack.pop() catch |err| return mapStackError(err);
+    const to_addr = frame.stack.pop() catch |err| return mapStackError(err);
+    const gas = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Validate stack space for the return value
     if (frame.stack.size >= frame.stack.capacity) {
@@ -515,7 +532,7 @@ pub fn opCall(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     // Check call depth to prevent stack overflow attacks
     if (interpreter.callDepth >= MAX_CALL_DEPTH) {
         // Push 0 to the stack (call failed) and return
-        try frame.stack.push(0);
+        frame.stack.push(0);
         return "";
     }
     
@@ -524,7 +541,7 @@ pub fn opCall(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     // Ensure there's enough gas for the call
     if (frame.gas < gas_cost) {
         // If not enough gas, just push 0 (failure) and continue
-        try frame.stack.push(0);
+        frame.stack.push(0);
         return "";
     }
 
@@ -552,7 +569,7 @@ pub fn opCall(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
         if (in_offset_usize + in_size_usize <= mem.len) {
             input_data.appendSlice(mem[in_offset_usize..in_offset_usize + in_size_usize]) catch |err| {
                 file_logger.err("Failed to append input data: {}", .{err});
-                try frame.stack.push(0); // Indicate failure
+                frame.stack.push(0); // Indicate failure
                 return "";
             };
         } else {
@@ -589,7 +606,7 @@ pub fn opCall(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
             file_logger.err("Precompiled contract execution failed: {}", .{err});
             
             // Push 0 to the stack to indicate failure
-            try frame.stack.push(0);
+            frame.stack.push(0);
             return "";
         };
         
@@ -605,7 +622,7 @@ pub fn opCall(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
             return_data.appendSlice(output) catch |err| {
                 file_logger.err("Failed to append output data: {}", .{err});
                 interpreter.allocator.free(output); // Clean up output memory to prevent leak
-                try frame.stack.push(0); // Indicate failure
+                frame.stack.push(0); // Indicate failure
                 return "";
             };
             
@@ -682,7 +699,7 @@ pub fn opCall(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     }
     
     // Push result to stack (1 for success, 0 for failure)
-    try frame.stack.push(if (success) 1 else 0);
+    frame.stack.push(if (success) 1 else 0);
     
     return "";
 }
@@ -697,13 +714,13 @@ pub fn opCallCode(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
     }
     
     // Pop parameters from stack
-    const outSize = try frame.stack.pop();
-    const outOffset = try frame.stack.pop();
-    const inSize = try frame.stack.pop();
-    const inOffset = try frame.stack.pop();
-    const value = try frame.stack.pop();
-    const to_addr = try frame.stack.pop();
-    const gas = try frame.stack.pop();
+    const outSize = frame.stack.pop() catch |err| return mapStackError(err);
+    const outOffset = frame.stack.pop() catch |err| return mapStackError(err);
+    const inSize = frame.stack.pop() catch |err| return mapStackError(err);
+    const inOffset = frame.stack.pop() catch |err| return mapStackError(err);
+    const value = frame.stack.pop() catch |err| return mapStackError(err);
+    const to_addr = frame.stack.pop() catch |err| return mapStackError(err);
+    const gas = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Validate stack space for the return value
     if (frame.stack.size >= frame.stack.capacity) {
@@ -713,7 +730,7 @@ pub fn opCallCode(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
     // Check call depth to prevent stack overflow attacks
     if (interpreter.callDepth >= MAX_CALL_DEPTH) {
         // Push 0 to the stack (call failed) and return
-        try frame.stack.push(0);
+        frame.stack.push(0);
         return "";
     }
     
@@ -722,7 +739,7 @@ pub fn opCallCode(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
     // Ensure there's enough gas for the call
     if (frame.gas < gas_cost) {
         // If not enough gas, just push 0 (failure) and continue
-        try frame.stack.push(0);
+        frame.stack.push(0);
         return "";
     }
 
@@ -750,7 +767,7 @@ pub fn opCallCode(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
         if (in_offset_usize + in_size_usize <= mem.len) {
             input_data.appendSlice(mem[in_offset_usize..in_offset_usize + in_size_usize]) catch |err| {
                 file_logger.err("Failed to append input data: {}", .{err});
-                try frame.stack.push(0); // Indicate failure
+                frame.stack.push(0); // Indicate failure
                 return "";
             };
         } else {
@@ -787,7 +804,7 @@ pub fn opCallCode(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
             file_logger.err("Precompiled contract callcode execution failed: {}", .{err});
             
             // Push 0 to the stack to indicate failure
-            try frame.stack.push(0);
+            frame.stack.push(0);
             return "";
         };
         
@@ -803,7 +820,7 @@ pub fn opCallCode(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
             return_data.appendSlice(output) catch |err| {
                 file_logger.err("Failed to append output data: {}", .{err});
                 interpreter.allocator.free(output); // Clean up output memory to prevent leak
-                try frame.stack.push(0); // Indicate failure
+                frame.stack.push(0); // Indicate failure
                 return "";
             };
             
@@ -880,7 +897,7 @@ pub fn opCallCode(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
     }
     
     // Push result to stack (1 for success, 0 for failure)
-    try frame.stack.push(if (success) 1 else 0);
+    frame.stack.push(if (success) 1 else 0);
     
     return "";
 }
@@ -895,12 +912,12 @@ pub fn opDelegateCall(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
     }
     
     // Pop parameters from stack
-    const outSize = try frame.stack.pop();
-    const outOffset = try frame.stack.pop();
-    const inSize = try frame.stack.pop();
-    const inOffset = try frame.stack.pop();
-    const to_addr = try frame.stack.pop();
-    const gas = try frame.stack.pop();
+    const outSize = frame.stack.pop() catch |err| return mapStackError(err);
+    const outOffset = frame.stack.pop() catch |err| return mapStackError(err);
+    const inSize = frame.stack.pop() catch |err| return mapStackError(err);
+    const inOffset = frame.stack.pop() catch |err| return mapStackError(err);
+    const to_addr = frame.stack.pop() catch |err| return mapStackError(err);
+    const gas = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Validate stack space for the return value
     if (frame.stack.size >= frame.stack.capacity) {
@@ -910,7 +927,7 @@ pub fn opDelegateCall(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
     // Check call depth to prevent stack overflow attacks
     if (interpreter.callDepth >= MAX_CALL_DEPTH) {
         // Push 0 to the stack (call failed) and return
-        try frame.stack.push(0);
+        frame.stack.push(0);
         return "";
     }
     
@@ -919,7 +936,7 @@ pub fn opDelegateCall(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
     // Ensure there's enough gas for the call
     if (frame.gas < gas_cost) {
         // If not enough gas, just push 0 (failure) and continue
-        try frame.stack.push(0);
+        frame.stack.push(0);
         return "";
     }
 
@@ -947,7 +964,7 @@ pub fn opDelegateCall(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
         if (in_offset_usize + in_size_usize <= mem.len) {
             input_data.appendSlice(mem[in_offset_usize..in_offset_usize + in_size_usize]) catch |err| {
                 file_logger.err("Failed to append input data: {}", .{err});
-                try frame.stack.push(0); // Indicate failure
+                frame.stack.push(0); // Indicate failure
                 return "";
             };
         } else {
@@ -984,7 +1001,7 @@ pub fn opDelegateCall(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
             file_logger.err("Precompiled contract delegatecall execution failed: {}", .{err});
             
             // Push 0 to the stack to indicate failure
-            try frame.stack.push(0);
+            frame.stack.push(0);
             return "";
         };
         
@@ -1000,7 +1017,7 @@ pub fn opDelegateCall(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
             return_data.appendSlice(output) catch |err| {
                 file_logger.err("Failed to append output data: {}", .{err});
                 interpreter.allocator.free(output); // Clean up output memory to prevent leak
-                try frame.stack.push(0); // Indicate failure
+                frame.stack.push(0); // Indicate failure
                 return "";
             };
             
@@ -1077,7 +1094,7 @@ pub fn opDelegateCall(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
     }
     
     // Push result to stack (1 for success, 0 for failure)
-    try frame.stack.push(if (success) 1 else 0);
+    frame.stack.push(if (success) 1 else 0);
     
     return "";
 }
@@ -1092,12 +1109,12 @@ pub fn opStaticCall(pc: usize, interpreter: *Interpreter, frame: *Frame) Executi
     }
     
     // Pop parameters from stack
-    const outSize = try frame.stack.pop();
-    const outOffset = try frame.stack.pop();
-    const inSize = try frame.stack.pop();
-    const inOffset = try frame.stack.pop();
-    const to_addr = try frame.stack.pop();
-    const gas = try frame.stack.pop();
+    const outSize = frame.stack.pop() catch |err| return mapStackError(err);
+    const outOffset = frame.stack.pop() catch |err| return mapStackError(err);
+    const inSize = frame.stack.pop() catch |err| return mapStackError(err);
+    const inOffset = frame.stack.pop() catch |err| return mapStackError(err);
+    const to_addr = frame.stack.pop() catch |err| return mapStackError(err);
+    const gas = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Validate stack space for the return value
     if (frame.stack.size >= frame.stack.capacity) {
@@ -1107,7 +1124,7 @@ pub fn opStaticCall(pc: usize, interpreter: *Interpreter, frame: *Frame) Executi
     // Check call depth to prevent stack overflow attacks
     if (interpreter.callDepth >= MAX_CALL_DEPTH) {
         // Push 0 to the stack (call failed) and return
-        try frame.stack.push(0);
+        frame.stack.push(0);
         return "";
     }
     
@@ -1116,7 +1133,7 @@ pub fn opStaticCall(pc: usize, interpreter: *Interpreter, frame: *Frame) Executi
     // Ensure there's enough gas for the call
     if (frame.gas < gas_cost) {
         // If not enough gas, just push 0 (failure) and continue
-        try frame.stack.push(0);
+        frame.stack.push(0);
         return "";
     }
 
@@ -1144,7 +1161,7 @@ pub fn opStaticCall(pc: usize, interpreter: *Interpreter, frame: *Frame) Executi
         if (in_offset_usize + in_size_usize <= mem.len) {
             input_data.appendSlice(mem[in_offset_usize..in_offset_usize + in_size_usize]) catch |err| {
                 file_logger.err("Failed to append input data: {}", .{err});
-                try frame.stack.push(0); // Indicate failure
+                frame.stack.push(0); // Indicate failure
                 return "";
             };
         } else {
@@ -1186,7 +1203,7 @@ pub fn opStaticCall(pc: usize, interpreter: *Interpreter, frame: *Frame) Executi
             file_logger.err("Precompiled contract static execution failed: {}", .{err});
             
             // Push 0 to the stack to indicate failure
-            try frame.stack.push(0);
+            frame.stack.push(0);
             return "";
         };
         
@@ -1202,7 +1219,7 @@ pub fn opStaticCall(pc: usize, interpreter: *Interpreter, frame: *Frame) Executi
             return_data.appendSlice(output) catch |err| {
                 file_logger.err("Failed to append output data: {}", .{err});
                 interpreter.allocator.free(output); // Clean up output memory to prevent leak
-                try frame.stack.push(0); // Indicate failure
+                frame.stack.push(0); // Indicate failure
                 return "";
             };
             
@@ -1279,7 +1296,7 @@ pub fn opStaticCall(pc: usize, interpreter: *Interpreter, frame: *Frame) Executi
     }
     
     // Push result to stack (1 for success, 0 for failure)
-    try frame.stack.push(if (success) 1 else 0);
+    frame.stack.push(if (success) 1 else 0);
     
     return "";
 }
@@ -1294,9 +1311,9 @@ pub fn opCreate(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     }
     
     // Pop parameters from stack
-    const size = try frame.stack.pop();
-    const offset = try frame.stack.pop();
-    const value = try frame.stack.pop();
+    const size = frame.stack.pop() catch |err| return mapStackError(err);
+    const offset = frame.stack.pop() catch |err| return mapStackError(err);
+    const value = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Validate stack space for the return value (new contract address)
     if (frame.stack.size >= frame.stack.capacity) {
@@ -1311,7 +1328,7 @@ pub fn opCreate(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     // Check call depth to prevent stack overflow attacks
     if (interpreter.callDepth >= MAX_CALL_DEPTH) {
         // Push 0 to the stack (call failed) and return
-        try frame.stack.push(0);
+        frame.stack.push(0);
         return "";
     }
     
@@ -1323,7 +1340,7 @@ pub fn opCreate(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     // Check if initcode size exceeds MAX_INITCODE_SIZE (49152 bytes)
     if (interpreter.evm.chainRules.IsEIP3860 and size_usize > JumpTableModule.MaxInitcodeSize) {
         file_logger.err("EIP-3860: Initcode size exceeds maximum allowed size: {} > {}", .{size_usize, JumpTableModule.MaxInitcodeSize});
-        try frame.stack.push(0); // Failure
+        frame.stack.push(0); // Failure
         return "";
     }
     
@@ -1342,7 +1359,7 @@ pub fn opCreate(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
             // EIP-3541: Reject new contracts starting with the 0xEF byte (reserved for future protocol upgrades)
             if (interpreter.evm.chainRules.IsEIP3541 and contract_code.items.len > 0 and contract_code.items[0] == 0xEF) {
                 file_logger.err("EIP-3541: Cannot deploy a contract starting with the 0xEF byte", .{});
-                try frame.stack.push(0); // Failure
+                frame.stack.push(0); // Failure
                 return "";
             }
         } else {
@@ -1380,7 +1397,7 @@ pub fn opCreate(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     }
     
     // Push result to stack (contract address or 0 for failure)
-    try frame.stack.push(if (success) contract_addr else 0);
+    frame.stack.push(if (success) contract_addr else 0);
     
     return "";
 }
@@ -1395,10 +1412,10 @@ pub fn opCreate2(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
     }
     
     // Pop parameters from stack
-    const salt = try frame.stack.pop();
-    const size = try frame.stack.pop();
-    const offset = try frame.stack.pop();
-    const value = try frame.stack.pop();
+    const salt = frame.stack.pop() catch |err| return mapStackError(err);
+    const size = frame.stack.pop() catch |err| return mapStackError(err);
+    const offset = frame.stack.pop() catch |err| return mapStackError(err);
+    const value = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Validate stack space for the return value (new contract address)
     if (frame.stack.size >= frame.stack.capacity) {
@@ -1413,7 +1430,7 @@ pub fn opCreate2(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
     // Check call depth to prevent stack overflow attacks
     if (interpreter.callDepth >= MAX_CALL_DEPTH) {
         // Push 0 to the stack (call failed) and return
-        try frame.stack.push(0);
+        frame.stack.push(0);
         return "";
     }
     
@@ -1425,7 +1442,7 @@ pub fn opCreate2(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
     // Check if initcode size exceeds MAX_INITCODE_SIZE (49152 bytes)
     if (interpreter.evm.chainRules.IsEIP3860 and size_usize > JumpTableModule.MaxInitcodeSize) {
         file_logger.err("EIP-3860: Initcode size exceeds maximum allowed size: {} > {}", .{size_usize, JumpTableModule.MaxInitcodeSize});
-        try frame.stack.push(0); // Failure
+        frame.stack.push(0); // Failure
         return "";
     }
     
@@ -1444,7 +1461,7 @@ pub fn opCreate2(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
             // EIP-3541: Reject new contracts starting with the 0xEF byte (reserved for future protocol upgrades)
             if (interpreter.evm.chainRules.IsEIP3541 and contract_code.items.len > 0 and contract_code.items[0] == 0xEF) {
                 file_logger.err("EIP-3541: Cannot deploy a contract starting with the 0xEF byte", .{});
-                try frame.stack.push(0); // Failure
+                frame.stack.push(0); // Failure
                 return "";
             }
         } else {
@@ -1482,7 +1499,7 @@ pub fn opCreate2(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
     }
     
     // Push result to stack (contract address or 0 for failure)
-    try frame.stack.push(if (success) contract_addr else 0);
+    frame.stack.push(if (success) contract_addr else 0);
     
     return "";
 }
@@ -1704,73 +1721,73 @@ pub fn registerCallOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable)
         if (jump_table.table[0xF5]) |op| allocator.destroy(op);
     }
     // CALL (0xF1)
-    const call_op = try allocator.create(JumpTable.Operation);
-    call_op.* = JumpTable.Operation{
+    const call_op = try allocator.create(Operation);
+    call_op.* = Operation{
         .execute = opCall,
         .constant_gas = JumpTable.CallGas, // Base cost
         .dynamic_gas = callGas, // Complex gas calculation based on parameters
-        .min_stack = JumpTable.minStack(7, 1),
-        .max_stack = JumpTable.maxStack(7, 1),
+        .min_stack = jumpTableModule.minStack(7, 1),
+        .max_stack = jumpTableModule.maxStack(7, 1),
         .memory_size = getCallMemorySize,
     };
     jump_table.table[0xF1] = call_op;
     
     // CALLCODE (0xF2)
-    const callcode_op = try allocator.create(JumpTable.Operation);
-    callcode_op.* = JumpTable.Operation{
+    const callcode_op = try allocator.create(Operation);
+    callcode_op.* = Operation{
         .execute = opCallCode,
         .constant_gas = JumpTable.CallGas, // Base cost
         .dynamic_gas = callGas, // Complex gas calculation based on parameters
-        .min_stack = JumpTable.minStack(7, 1),
-        .max_stack = JumpTable.maxStack(7, 1),
+        .min_stack = jumpTableModule.minStack(7, 1),
+        .max_stack = jumpTableModule.maxStack(7, 1),
         .memory_size = getCallMemorySize,
     };
     jump_table.table[0xF2] = callcode_op;
     
     // DELEGATECALL (0xF4)
-    const delegatecall_op = try allocator.create(JumpTable.Operation);
-    delegatecall_op.* = JumpTable.Operation{
+    const delegatecall_op = try allocator.create(Operation);
+    delegatecall_op.* = Operation{
         .execute = opDelegateCall,
         .constant_gas = JumpTable.CallGas, // Base cost
         .dynamic_gas = callGas, // Complex gas calculation based on parameters
-        .min_stack = JumpTable.minStack(6, 1),
-        .max_stack = JumpTable.maxStack(6, 1),
+        .min_stack = jumpTableModule.minStack(6, 1),
+        .max_stack = jumpTableModule.maxStack(6, 1),
         .memory_size = getDelegateCallMemorySize,
     };
     jump_table.table[0xF4] = delegatecall_op;
     
     // STATICCALL (0xFA)
-    const staticcall_op = try allocator.create(JumpTable.Operation);
-    staticcall_op.* = JumpTable.Operation{
+    const staticcall_op = try allocator.create(Operation);
+    staticcall_op.* = Operation{
         .execute = opStaticCall,
         .constant_gas = JumpTable.CallGas, // Base cost
         .dynamic_gas = callGas, // Complex gas calculation based on parameters
-        .min_stack = JumpTable.minStack(6, 1),
-        .max_stack = JumpTable.maxStack(6, 1),
+        .min_stack = jumpTableModule.minStack(6, 1),
+        .max_stack = jumpTableModule.maxStack(6, 1),
         .memory_size = getDelegateCallMemorySize,
     };
     jump_table.table[0xFA] = staticcall_op;
     
     // CREATE (0xF0)
-    const create_op = try allocator.create(JumpTable.Operation);
-    create_op.* = JumpTable.Operation{
+    const create_op = try allocator.create(Operation);
+    create_op.* = Operation{
         .execute = opCreate,
         .constant_gas = JumpTable.CreateGas, // Base cost
         .dynamic_gas = createGas, // Complex gas calculation based on parameters
-        .min_stack = JumpTable.minStack(3, 1),
-        .max_stack = JumpTable.maxStack(3, 1),
+        .min_stack = jumpTableModule.minStack(3, 1),
+        .max_stack = jumpTableModule.maxStack(3, 1),
         .memory_size = getCreateMemorySize,
     };
     jump_table.table[0xF0] = create_op;
     
     // CREATE2 (0xF5)
-    const create2_op = try allocator.create(JumpTable.Operation);
-    create2_op.* = JumpTable.Operation{
+    const create2_op = try allocator.create(Operation);
+    create2_op.* = Operation{
         .execute = opCreate2,
         .constant_gas = JumpTable.CreateGas, // Base cost
         .dynamic_gas = createGas, // Complex gas calculation based on parameters
-        .min_stack = JumpTable.minStack(4, 1),
-        .max_stack = JumpTable.maxStack(4, 1),
+        .min_stack = jumpTableModule.minStack(4, 1),
+        .max_stack = jumpTableModule.maxStack(4, 1),
         .memory_size = getCreateMemorySize,
     };
     jump_table.table[0xF5] = create2_op;
@@ -1811,7 +1828,7 @@ test "Precompiled contract address detection" {
     
     // Test our address conversion using a simple test address
     const test_addr: u256 = 1;
-    const addr_bytes = addressFromU256(test_addr);
+    const addr_bytes = addressFromu256(test_addr);
     
     // Basic verification that last byte is 1 and rest are 0
     try testing.expectEqual(@as(u8, 0), addr_bytes[0]);

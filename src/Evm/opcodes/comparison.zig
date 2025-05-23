@@ -1,10 +1,22 @@
 const std = @import("std");
-const evm = @import("evm");
-const Interpreter = evm.Interpreter;
-const Frame = evm.Frame;
-const ExecutionError = evm.ExecutionError;
-const JumpTable = evm.JumpTable;
-const Stack = evm.Stack;
+const jumpTableModule = @import("../jumpTable/JumpTable.zig");
+const JumpTable = jumpTableModule.JumpTable;
+const Operation = jumpTableModule.Operation;
+const Interpreter = @import("../interpreter.zig").Interpreter;
+const Frame = @import("../Frame.zig").Frame;
+const ExecutionError = @import("../interpreter.zig").InterpreterError;
+const stackModule = @import("../Stack.zig");
+const Stack = stackModule.Stack;
+const StackError = stackModule.StackError;
+
+// Helper to convert Stack errors to ExecutionError
+fn mapStackError(err: StackError) ExecutionError {
+    return switch (err) {
+        error.OutOfBounds => ExecutionError.StackUnderflow,
+        error.StackOverflow => ExecutionError.StackOverflow,
+        error.OutOfMemory => ExecutionError.OutOfGas,
+    };
+}
 
 /// LT operation - compares if x < y for the top two stack items
 pub fn opLt(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
@@ -17,10 +29,10 @@ pub fn opLt(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError!
     }
     
     // Pop y from the stack
-    const y = try frame.stack.pop();
+    const y = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Get reference to x (which is now at the top of the stack)
-    const x = try frame.stack.peek();
+    const x = frame.stack.peek() catch |err| return mapStackError(err);
     
     // Compare x < y, store 1 if true, 0 if false
     x.* = if (x.* < y) 1 else 0;
@@ -39,10 +51,10 @@ pub fn opGt(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError!
     }
     
     // Pop y from the stack
-    const y = try frame.stack.pop();
+    const y = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Get reference to x (which is now at the top of the stack)
-    const x = try frame.stack.peek();
+    const x = frame.stack.peek() catch |err| return mapStackError(err);
     
     // Compare x > y, store 1 if true, 0 if false
     x.* = if (x.* > y) 1 else 0;
@@ -61,10 +73,10 @@ pub fn opSlt(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     }
     
     // Pop y from the stack
-    const y = try frame.stack.pop();
+    const y = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Get reference to x (which is now at the top of the stack)
-    const x = try frame.stack.peek();
+    const x = frame.stack.peek() catch |err| return mapStackError(err);
     
     // Convert to signed integers for comparison
     // We use a simple approach for signed comparison using 2's complement semantics:
@@ -104,10 +116,10 @@ pub fn opSgt(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     }
     
     // Pop y from the stack
-    const y = try frame.stack.pop();
+    const y = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Get reference to x (which is now at the top of the stack)
-    const x = try frame.stack.peek();
+    const x = frame.stack.peek() catch |err| return mapStackError(err);
     
     // Convert to signed integers for comparison
     // We use a simple approach for signed comparison using 2's complement semantics:
@@ -147,10 +159,10 @@ pub fn opEq(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError!
     }
     
     // Pop y from the stack
-    const y = try frame.stack.pop();
+    const y = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Get reference to x (which is now at the top of the stack)
-    const x = try frame.stack.peek();
+    const x = frame.stack.peek() catch |err| return mapStackError(err);
     
     // Compare x == y, store 1 if true, 0 if false
     x.* = if (x.* == y) 1 else 0;
@@ -169,7 +181,7 @@ pub fn opIszero(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     }
     
     // Get reference to x (which is at the top of the stack)
-    const x = try frame.stack.peek();
+    const x = frame.stack.peek() catch |err| return mapStackError(err);
     
     // Check if x is zero, store 1 if true, 0 if false
     x.* = if (x.* == 0) 1 else 0;
@@ -180,62 +192,62 @@ pub fn opIszero(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
 /// Register all comparison opcodes in the given jump table
 pub fn registerComparisonOpcodes(allocator: std.mem.Allocator, jump_table: anytype) !void {
     // LT (0x10)
-    const lt_op = try allocator.create(JumpTable.Operation);
-    lt_op.* = JumpTable.Operation{
+    const lt_op = try allocator.create(Operation);
+    lt_op.* = Operation{
         .execute = opLt,
-        .constant_gas = JumpTable.GasFastestStep,
-        .min_stack = JumpTable.minStack(2, 1),
-        .max_stack = JumpTable.maxStack(2, 1),
+        .constant_gas = jumpTableModule.GasFastestStep,
+        .min_stack = jumpTableModule.minStack(2, 1),
+        .max_stack = jumpTableModule.maxStack(2, 1),
     };
     jump_table.table[0x10] = lt_op;
     
     // GT (0x11)
-    const gt_op = try allocator.create(JumpTable.Operation);
-    gt_op.* = JumpTable.Operation{
+    const gt_op = try allocator.create(Operation);
+    gt_op.* = Operation{
         .execute = opGt,
-        .constant_gas = JumpTable.GasFastestStep,
-        .min_stack = JumpTable.minStack(2, 1),
-        .max_stack = JumpTable.maxStack(2, 1),
+        .constant_gas = jumpTableModule.GasFastestStep,
+        .min_stack = jumpTableModule.minStack(2, 1),
+        .max_stack = jumpTableModule.maxStack(2, 1),
     };
     jump_table.table[0x11] = gt_op;
     
     // SLT (0x12)
-    const slt_op = try allocator.create(JumpTable.Operation);
-    slt_op.* = JumpTable.Operation{
+    const slt_op = try allocator.create(Operation);
+    slt_op.* = Operation{
         .execute = opSlt,
-        .constant_gas = JumpTable.GasFastestStep,
-        .min_stack = JumpTable.minStack(2, 1),
-        .max_stack = JumpTable.maxStack(2, 1),
+        .constant_gas = jumpTableModule.GasFastestStep,
+        .min_stack = jumpTableModule.minStack(2, 1),
+        .max_stack = jumpTableModule.maxStack(2, 1),
     };
     jump_table.table[0x12] = slt_op;
     
     // SGT (0x13)
-    const sgt_op = try allocator.create(JumpTable.Operation);
-    sgt_op.* = JumpTable.Operation{
+    const sgt_op = try allocator.create(Operation);
+    sgt_op.* = Operation{
         .execute = opSgt,
-        .constant_gas = JumpTable.GasFastestStep,
-        .min_stack = JumpTable.minStack(2, 1),
-        .max_stack = JumpTable.maxStack(2, 1),
+        .constant_gas = jumpTableModule.GasFastestStep,
+        .min_stack = jumpTableModule.minStack(2, 1),
+        .max_stack = jumpTableModule.maxStack(2, 1),
     };
     jump_table.table[0x13] = sgt_op;
     
     // EQ (0x14)
-    const eq_op = try allocator.create(JumpTable.Operation);
-    eq_op.* = JumpTable.Operation{
+    const eq_op = try allocator.create(Operation);
+    eq_op.* = Operation{
         .execute = opEq,
-        .constant_gas = JumpTable.GasFastestStep,
-        .min_stack = JumpTable.minStack(2, 1),
-        .max_stack = JumpTable.maxStack(2, 1),
+        .constant_gas = jumpTableModule.GasFastestStep,
+        .min_stack = jumpTableModule.minStack(2, 1),
+        .max_stack = jumpTableModule.maxStack(2, 1),
     };
     jump_table.table[0x14] = eq_op;
     
     // ISZERO (0x15)
-    const iszero_op = try allocator.create(JumpTable.Operation);
-    iszero_op.* = JumpTable.Operation{
+    const iszero_op = try allocator.create(Operation);
+    iszero_op.* = Operation{
         .execute = opIszero,
-        .constant_gas = JumpTable.GasFastestStep,
-        .min_stack = JumpTable.minStack(1, 1),
-        .max_stack = JumpTable.maxStack(1, 1),
+        .constant_gas = jumpTableModule.GasFastestStep,
+        .min_stack = jumpTableModule.minStack(1, 1),
+        .max_stack = jumpTableModule.maxStack(1, 1),
     };
     jump_table.table[0x15] = iszero_op;
 }

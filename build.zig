@@ -246,6 +246,45 @@ pub fn build(b: *std.Build) void {
     // Define run server step
     const run_server_step = b.step("run-server", "Run the JSON-RPC server");
     run_server_step.dependOn(&run_server_cmd.step);
+    
+    // Add benchmark executables
+    const snailtracer_bench = b.addExecutable(.{
+        .name = "snailtracer-bench",
+        .root_source_file = b.path("src/Evm/benchmarks/snailtracer.zig"),
+        .target = target,
+        .optimize = .ReleaseFast, // Use ReleaseFast for benchmarks
+    });
+    
+    // Add package imports to benchmark
+    snailtracer_bench.root_module.addImport("evm", evm_pkg);
+    snailtracer_bench.root_module.addImport("utils", utils_pkg);
+    snailtracer_bench.root_module.addImport("address", address_pkg);
+    snailtracer_bench.root_module.addImport("state_manager", state_manager_pkg);
+    
+    b.installArtifact(snailtracer_bench);
+    
+    const run_snailtracer_bench = b.addRunArtifact(snailtracer_bench);
+    const snailtracer_bench_step = b.step("bench-snailtracer", "Run SnailTracer benchmark");
+    snailtracer_bench_step.dependOn(&run_snailtracer_bench.step);
+    
+    const benchmark_suite = b.addExecutable(.{
+        .name = "benchmark-suite",
+        .root_source_file = b.path("src/Evm/benchmarks/benchmark_suite.zig"),
+        .target = target,
+        .optimize = .ReleaseFast, // Use ReleaseFast for benchmarks
+    });
+    
+    // Add package imports to benchmark suite
+    benchmark_suite.root_module.addImport("evm", evm_pkg);
+    benchmark_suite.root_module.addImport("utils", utils_pkg);
+    benchmark_suite.root_module.addImport("address", address_pkg);
+    benchmark_suite.root_module.addImport("state_manager", state_manager_pkg);
+    
+    b.installArtifact(benchmark_suite);
+    
+    const run_benchmark_suite = b.addRunArtifact(benchmark_suite);
+    const benchmark_suite_step = b.step("bench", "Run EVM benchmark suite");
+    benchmark_suite_step.dependOn(&run_benchmark_suite.step);
 
     // Creates a step for unit testing.
     const lib_unit_tests = b.addTest(.{

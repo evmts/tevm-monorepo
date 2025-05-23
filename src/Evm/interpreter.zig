@@ -1,19 +1,18 @@
 const std = @import("std");
 
-// Instead of relative imports, use package imports
-const evm = @import("evm");
+// Import necessary types directly
+const Evm = @import("evm.zig").Evm;
 
 // Import internal modules in a way that avoids circular dependencies
 const opcodes = @import("opcodes.zig");
 const logger_module = @import("EvmLogger.zig");
 
-// Import from evm package
-const Stack = evm.Stack;
-const Memory = evm.Memory;
-const Contract = evm.Contract;
-const Frame = evm.Frame;
-const ExecutionError = evm.ExecutionError;
-const Evm = evm.Evm;
+// Import types from local modules
+const Stack = @import("Stack.zig").Stack;
+const Memory = @import("Memory.zig").Memory;
+const Contract = @import("Contract.zig").Contract;
+const Frame = @import("Frame.zig").Frame;
+const ExecutionError = opcodes.ExecutionError;
 
 // Import from logger module
 const EvmLogger = logger_module.EvmLogger;
@@ -27,8 +26,8 @@ const address = @import("address");
 
 // Import specific items from opcodes for convenience
 const Operation = opcodes.Operation;
-// Import JumpTable from the evm package
-const JumpTable = evm.JumpTable;
+// Import JumpTable from the jumpTable module
+const JumpTable = @import("jumpTable/JumpTable.zig").JumpTable;
 const getOperation = opcodes.getOperation;
 
 // Import precompiles system
@@ -161,10 +160,9 @@ pub const Interpreter = struct {
         getLogger().debug("Initializing new Interpreter instance", .{});
 
         // Create a new jump table with default opcode implementations
-        var jump_table = try JumpTable.init(allocator);
-
-        // Register all standard opcodes
-        try opcodes.registerOpcodes(allocator, &jump_table);
+        // For benchmarks, use the latest hardfork
+        const jumpTableModule = @import("jumpTable/JumpTable.zig");
+        const jump_table = try jumpTableModule.newJumpTable(allocator, "latest");
 
         return Interpreter{
             .evm = evm_instance,

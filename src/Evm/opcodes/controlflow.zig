@@ -1,20 +1,39 @@
 const std = @import("std");
-const pkg = @import("package_test.zig");
-const Interpreter = pkg.Interpreter;
-const Frame = pkg.Frame;
-const ExecutionError = pkg.ExecutionError;
-const JumpTable = pkg.JumpTable;
-const U256 = pkg.u256;
+const jumpTableModule = @import("../jumpTable/JumpTable.zig");
+const JumpTable = jumpTableModule.JumpTable;
+const Operation = jumpTableModule.Operation;
+const Interpreter = @import("../interpreter.zig").Interpreter;
+const Frame = @import("../Frame.zig").Frame;
+const ExecutionError = @import("../interpreter.zig").InterpreterError;
+const stackModule = @import("../Stack.zig");
+const Stack = stackModule.Stack;
+const StackError = stackModule.StackError;
+
+// Helper to convert Stack errors to ExecutionError
+fn mapStackError(err: StackError) ExecutionError {
+    return switch (err) {
+        error.OutOfBounds => ExecutionError.StackUnderflow,
+        error.StackOverflow => ExecutionError.StackOverflow,
+        error.OutOfMemory => ExecutionError.OutOfGas,
+    };
+}
 
 /// STOP (0x00) - Halt execution
-pub fn opStop(_: usize, _: *Interpreter, _: *Frame) ExecutionError![]const u8 {
-    return ExecutionError.STOP;
+/// 
+/// The STOP opcode halts execution successfully. This is not an error condition
+/// but a normal termination. We return an empty string to indicate success
+/// and the interpreter should check for this and halt execution.
+pub fn opStop(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
+    // Set a flag on the frame to indicate we should stop
+    // The interpreter will check this flag and halt execution
+    frame.stop = true;
+    return "";
 }
 
 /// JUMP (0x56) - Jump to a destination position in code
 pub fn opJump(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     // Pop destination from the stack
-    const dest = try frame.stack.pop();
+    const dest = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Check if destination is negative or too large to fit in usize
     if (dest > std.math.maxInt(usize)) {
@@ -44,8 +63,8 @@ pub fn opJump(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u
 /// JUMPI (0x57) - Conditional jump
 pub fn opJumpi(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     // Pop condition and destination from the stack
-    const condition = try frame.stack.pop();
-    const dest = try frame.stack.pop();
+    const condition = frame.stack.pop() catch |err| return mapStackError(err);
+    const dest = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Only jump if condition is not zero
     if (condition != 0) {
@@ -84,15 +103,15 @@ pub fn opJumpdest(_: usize, _: *Interpreter, _: *Frame) ExecutionError![]const u
 /// PC (0x58) - Get the value of the program counter before the increment for this instruction
 pub fn opPc(pc: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     // Push the current program counter onto the stack
-    try frame.stack.push(@as(U256, @intCast(pc)));
+    frame.stack.push(@as(u256, @intCast(pc))) catch |err| return mapStackError(err);
     return "";
 }
 
 /// RETURN (0xF3) - Halt execution and return data
 pub fn opReturn(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     // Pop offset and size from the stack
-    const offset = try frame.stack.pop();
-    const size = try frame.stack.pop();
+    const offset = frame.stack.pop() catch |err| return mapStackError(err);
+    const size = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Sanity check size to prevent excessive memory usage
     if (size > std.math.maxInt(usize)) {
@@ -169,8 +188,8 @@ pub fn opReturn(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const
 /// REVERT (0xFD) - Halt execution, revert state changes, and return data
 pub fn opRevert(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     // Pop offset and size from the stack
-    const offset = try frame.stack.pop();
-    const size = try frame.stack.pop();
+    const offset = frame.stack.pop() catch |err| return mapStackError(err);
+    const size = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Sanity check size to prevent excessive memory usage
     if (size > std.math.maxInt(usize)) {
@@ -253,7 +272,7 @@ pub fn opInvalid(_: usize, _: *Interpreter, _: *Frame) ExecutionError![]const u8
 /// SELFDESTRUCT (0xFF) - Halt execution and register account for deletion
 pub fn opSelfdestruct(_: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     // Pop beneficiary address from the stack
-    _ = try frame.stack.pop();
+    _ = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Check if we're in a static call (can't modify state)
     if (interpreter.readOnly) {
@@ -265,7 +284,7 @@ pub fn opSelfdestruct(_: usize, interpreter: *Interpreter, frame: *Frame) Execut
 }
 
 /// Calculate memory size required for return and revert operations
-pub fn getReturnDataMemorySize(stack: *const JumpTable.Stack, memory: *const JumpTable.Memory) JumpTable.MemorySizeFunc.ReturnType {
+pub fn getReturnDataMemorySize(stack: *const Stack, memory: *const Frame.Memory) JumpTable.MemorySizeFunc.ReturnType {
     _ = memory;
     
     // Need at least 2 items on the stack
@@ -320,96 +339,96 @@ pub fn getReturnDataMemorySize(stack: *const JumpTable.Stack, memory: *const Jum
 }
 
 /// Register all control flow opcodes in the given jump table
-pub fn registerControlFlowOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable.JumpTable) !void {
+pub fn registerControlFlowOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable) !void {
     // STOP (0x00)
-    const stop_op = try allocator.create(JumpTable.Operation);
-    stop_op.* = JumpTable.Operation{
+    const stop_op = try allocator.create(Operation);
+    stop_op.* = Operation{
         .execute = opStop,
         .constant_gas = 0,
-        .min_stack = JumpTable.minStack(0, 0),
-        .max_stack = JumpTable.maxStack(0, 0),
+        .min_stack = jumpTableModule.minStack(0, 0),
+        .max_stack = jumpTableModule.maxStack(0, 0),
     };
     jump_table.table[0x00] = stop_op;
     
     // JUMP (0x56)
-    const jump_op = try allocator.create(JumpTable.Operation);
-    jump_op.* = JumpTable.Operation{
+    const jump_op = try allocator.create(Operation);
+    jump_op.* = Operation{
         .execute = opJump,
-        .constant_gas = JumpTable.GasMidStep,
-        .min_stack = JumpTable.minStack(1, 0),
-        .max_stack = JumpTable.maxStack(1, 0),
+        .constant_gas = jumpTableModule.GasMidStep,
+        .min_stack = jumpTableModule.minStack(1, 0),
+        .max_stack = jumpTableModule.maxStack(1, 0),
     };
     jump_table.table[0x56] = jump_op;
     
     // JUMPI (0x57)
-    const jumpi_op = try allocator.create(JumpTable.Operation);
-    jumpi_op.* = JumpTable.Operation{
+    const jumpi_op = try allocator.create(Operation);
+    jumpi_op.* = Operation{
         .execute = opJumpi,
-        .constant_gas = JumpTable.GasSlowStep,
-        .min_stack = JumpTable.minStack(2, 0),
-        .max_stack = JumpTable.maxStack(2, 0),
+        .constant_gas = jumpTableModule.GasSlowStep,
+        .min_stack = jumpTableModule.minStack(2, 0),
+        .max_stack = jumpTableModule.maxStack(2, 0),
     };
     jump_table.table[0x57] = jumpi_op;
     
     // PC (0x58)
-    const pc_op = try allocator.create(JumpTable.Operation);
-    pc_op.* = JumpTable.Operation{
+    const pc_op = try allocator.create(Operation);
+    pc_op.* = Operation{
         .execute = opPc,
-        .constant_gas = JumpTable.GasQuickStep,
-        .min_stack = JumpTable.minStack(0, 1),
-        .max_stack = JumpTable.maxStack(0, 1),
+        .constant_gas = jumpTableModule.GasQuickStep,
+        .min_stack = jumpTableModule.minStack(0, 1),
+        .max_stack = jumpTableModule.maxStack(0, 1),
     };
     jump_table.table[0x58] = pc_op;
     
     // JUMPDEST (0x5B)
-    const jumpdest_op = try allocator.create(JumpTable.Operation);
-    jumpdest_op.* = JumpTable.Operation{
+    const jumpdest_op = try allocator.create(Operation);
+    jumpdest_op.* = Operation{
         .execute = opJumpdest,
-        .constant_gas = JumpTable.JumpdestGas,
-        .min_stack = JumpTable.minStack(0, 0),
-        .max_stack = JumpTable.maxStack(0, 0),
+        .constant_gas = 1, // JUMPDEST costs 1 gas
+        .min_stack = jumpTableModule.minStack(0, 0),
+        .max_stack = jumpTableModule.maxStack(0, 0),
     };
     jump_table.table[0x5B] = jumpdest_op;
     
     // RETURN (0xF3)
-    const return_op = try allocator.create(JumpTable.Operation);
-    return_op.* = JumpTable.Operation{
+    const return_op = try allocator.create(Operation);
+    return_op.* = Operation{
         .execute = opReturn,
         .constant_gas = 0,
-        .min_stack = JumpTable.minStack(2, 0),
-        .max_stack = JumpTable.maxStack(2, 0),
+        .min_stack = jumpTableModule.minStack(2, 0),
+        .max_stack = jumpTableModule.maxStack(2, 0),
         .memory_size = getReturnDataMemorySize,
     };
     jump_table.table[0xF3] = return_op;
     
     // REVERT (0xFD)
-    const revert_op = try allocator.create(JumpTable.Operation);
-    revert_op.* = JumpTable.Operation{
+    const revert_op = try allocator.create(Operation);
+    revert_op.* = Operation{
         .execute = opRevert,
         .constant_gas = 0,
-        .min_stack = JumpTable.minStack(2, 0),
-        .max_stack = JumpTable.maxStack(2, 0),
+        .min_stack = jumpTableModule.minStack(2, 0),
+        .max_stack = jumpTableModule.maxStack(2, 0),
         .memory_size = getReturnDataMemorySize,
     };
     jump_table.table[0xFD] = revert_op;
     
     // INVALID (0xFE)
-    const invalid_op = try allocator.create(JumpTable.Operation);
-    invalid_op.* = JumpTable.Operation{
+    const invalid_op = try allocator.create(Operation);
+    invalid_op.* = Operation{
         .execute = opInvalid,
         .constant_gas = 0,
-        .min_stack = JumpTable.minStack(0, 0),
-        .max_stack = JumpTable.maxStack(0, 0),
+        .min_stack = jumpTableModule.minStack(0, 0),
+        .max_stack = jumpTableModule.maxStack(0, 0),
     };
     jump_table.table[0xFE] = invalid_op;
     
     // SELFDESTRUCT (0xFF)
-    const selfdestruct_op = try allocator.create(JumpTable.Operation);
-    selfdestruct_op.* = JumpTable.Operation{
+    const selfdestruct_op = try allocator.create(Operation);
+    selfdestruct_op.* = Operation{
         .execute = opSelfdestruct,
         .constant_gas = 5000, // Base cost, dynamic in recent versions
-        .min_stack = JumpTable.minStack(1, 0),
-        .max_stack = JumpTable.maxStack(1, 0),
+        .min_stack = jumpTableModule.minStack(1, 0),
+        .max_stack = jumpTableModule.maxStack(1, 0),
         .dynamic_gas = null, // TODO: Implement proper gas calculation
     };
     jump_table.table[0xFF] = selfdestruct_op;

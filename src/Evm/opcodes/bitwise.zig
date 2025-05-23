@@ -1,11 +1,23 @@
 const std = @import("std");
-const pkg = @import("package.zig");
-const Interpreter = pkg.Interpreter;
-const Frame = pkg.Frame;
-const ExecutionError = pkg.ExecutionError;
-const JumpTable = pkg.JumpTable;
-const Stack = pkg.Stack;
+const jumpTableModule = @import("../jumpTable/JumpTable.zig");
+const JumpTable = jumpTableModule.JumpTable;
+const Operation = jumpTableModule.Operation;
+const Interpreter = @import("../interpreter.zig").Interpreter;
+const Frame = @import("../Frame.zig").Frame;
+const ExecutionError = @import("../interpreter.zig").InterpreterError;
+const stackModule = @import("../Stack.zig");
+const Stack = stackModule.Stack;
+const StackError = stackModule.StackError;
 // u256 is a built-in type in Zig, no need to import
+
+// Helper to convert Stack errors to ExecutionError
+fn mapStackError(err: StackError) ExecutionError {
+    return switch (err) {
+        error.OutOfBounds => ExecutionError.StackUnderflow,
+        error.StackOverflow => ExecutionError.StackOverflow,
+        error.OutOfMemory => ExecutionError.OutOfGas,
+    };
+}
 
 /// AND operation - bitwise AND of the top two stack items
 pub fn opAnd(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
@@ -26,13 +38,13 @@ pub fn opAnd(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     }
     
     // Pop y from the stack
-    const y = try frame.stack.pop();
+    const y = frame.stack.pop() catch |err| return mapStackError(err);
     if (@import("builtin").mode == .Debug) {
         std.debug.print("opAnd: Popped y={x}\n", .{y});
     }
     
     // Get reference to x (which is now at the top of the stack)
-    const x = try frame.stack.peek();
+    const x = frame.stack.peek() catch |err| return mapStackError(err);
     if (@import("builtin").mode == .Debug) {
         std.debug.print("opAnd: Peeked x={x}\n", .{x.*});
     }
@@ -59,10 +71,10 @@ pub fn opOr(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError!
     }
     
     // Pop y from the stack
-    const y = try frame.stack.pop();
+    const y = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Get reference to x (which is now at the top of the stack)
-    const x = try frame.stack.peek();
+    const x = frame.stack.peek() catch |err| return mapStackError(err);
     
     // Perform bitwise OR and store result
     x.* = x.* | y;
@@ -81,10 +93,10 @@ pub fn opXor(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     }
     
     // Pop y from the stack
-    const y = try frame.stack.pop();
+    const y = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Get reference to x (which is now at the top of the stack)
-    const x = try frame.stack.peek();
+    const x = frame.stack.peek() catch |err| return mapStackError(err);
     
     // Perform bitwise XOR and store result
     x.* = x.* ^ y;
@@ -103,7 +115,7 @@ pub fn opNot(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     }
     
     // Get reference to x (which is at the top of the stack)
-    const x = try frame.stack.peek();
+    const x = frame.stack.peek() catch |err| return mapStackError(err);
     
     // Perform bitwise NOT and store result
     x.* = ~x.*;
@@ -122,10 +134,10 @@ pub fn opByte(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     }
     
     // Pop n (byte index) from the stack
-    const n = try frame.stack.pop();
+    const n = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Get reference to x (value to extract byte from)
-    const x = try frame.stack.peek();
+    const x = frame.stack.peek() catch |err| return mapStackError(err);
     
     // If n >= 32, result is 0 (byte index out of range for 256-bit value)
     if (n >= 32) {
@@ -154,10 +166,10 @@ pub fn opShl(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     }
     
     // Pop shift from the stack
-    const shift = try frame.stack.pop();
+    const shift = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Get reference to value (which is now at the top of the stack)
-    const value = try frame.stack.peek();
+    const value = frame.stack.peek() catch |err| return mapStackError(err);
     
     // If shift is >= 256, result is 0 (all bits are shifted out)
     if (shift >= 256) {
@@ -181,10 +193,10 @@ pub fn opShr(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     }
     
     // Pop shift from the stack
-    const shift = try frame.stack.pop();
+    const shift = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Get reference to value (which is now at the top of the stack)
-    const value = try frame.stack.peek();
+    const value = frame.stack.peek() catch |err| return mapStackError(err);
     
     // If shift is >= 256, result is 0 (all bits are shifted out)
     if (shift >= 256) {
@@ -208,10 +220,10 @@ pub fn opSar(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     }
     
     // Pop shift from the stack
-    const shift = try frame.stack.pop();
+    const shift = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Get reference to value (which is now at the top of the stack)
-    const value = try frame.stack.peek();
+    const value = frame.stack.peek() catch |err| return mapStackError(err);
     
     // Check if the value is negative (MSB is 1)
     const is_negative = (value.* >> 255) == 1;
@@ -226,7 +238,7 @@ pub fn opSar(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     } else {
         if (is_negative) {
             // For negative numbers, do logical right shift and then set the high bits
-            const mask = (~@as(u256, 0)) << (256 - @as(u8, @intCast(shift)));
+            const mask = (~@as(u256, 0)) << @intCast(256 - shift);
             value.* = (value.* >> @intCast(shift)) | mask;
         } else {
             // For positive numbers, SAR is the same as SHR
@@ -238,84 +250,84 @@ pub fn opSar(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
 }
 
 /// Register all bitwise opcodes in the given jump table
-pub fn registerBitwiseOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable.JumpTable) !void {
+pub fn registerBitwiseOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable) !void {
     // AND (0x16)
-    const and_op = try allocator.create(JumpTable.Operation);
-    and_op.* = JumpTable.Operation{
+    const and_op = try allocator.create(Operation);
+    and_op.* = Operation{
         .execute = opAnd,
-        .constant_gas = JumpTable.GasFastestStep,
-        .min_stack = JumpTable.minStack(2, 1),
-        .max_stack = JumpTable.maxStack(2, 1),
+        .constant_gas = jumpTableModule.GasFastestStep,
+        .min_stack = jumpTableModule.minStack(2, 1),
+        .max_stack = jumpTableModule.maxStack(2, 1),
     };
     jump_table.table[0x16] = and_op;
     
     // OR (0x17)
-    const or_op = try allocator.create(JumpTable.Operation);
-    or_op.* = JumpTable.Operation{
+    const or_op = try allocator.create(Operation);
+    or_op.* = Operation{
         .execute = opOr,
-        .constant_gas = JumpTable.GasFastestStep,
-        .min_stack = JumpTable.minStack(2, 1),
-        .max_stack = JumpTable.maxStack(2, 1),
+        .constant_gas = jumpTableModule.GasFastestStep,
+        .min_stack = jumpTableModule.minStack(2, 1),
+        .max_stack = jumpTableModule.maxStack(2, 1),
     };
     jump_table.table[0x17] = or_op;
     
     // XOR (0x18)
-    const xor_op = try allocator.create(JumpTable.Operation);
-    xor_op.* = JumpTable.Operation{
+    const xor_op = try allocator.create(Operation);
+    xor_op.* = Operation{
         .execute = opXor,
-        .constant_gas = JumpTable.GasFastestStep,
-        .min_stack = JumpTable.minStack(2, 1),
-        .max_stack = JumpTable.maxStack(2, 1),
+        .constant_gas = jumpTableModule.GasFastestStep,
+        .min_stack = jumpTableModule.minStack(2, 1),
+        .max_stack = jumpTableModule.maxStack(2, 1),
     };
     jump_table.table[0x18] = xor_op;
     
     // NOT (0x19)
-    const not_op = try allocator.create(JumpTable.Operation);
-    not_op.* = JumpTable.Operation{
+    const not_op = try allocator.create(Operation);
+    not_op.* = Operation{
         .execute = opNot,
-        .constant_gas = JumpTable.GasFastestStep,
-        .min_stack = JumpTable.minStack(1, 1),
-        .max_stack = JumpTable.maxStack(1, 1),
+        .constant_gas = jumpTableModule.GasFastestStep,
+        .min_stack = jumpTableModule.minStack(1, 1),
+        .max_stack = jumpTableModule.maxStack(1, 1),
     };
     jump_table.table[0x19] = not_op;
     
     // BYTE (0x1A)
-    const byte_op = try allocator.create(JumpTable.Operation);
-    byte_op.* = JumpTable.Operation{
+    const byte_op = try allocator.create(Operation);
+    byte_op.* = Operation{
         .execute = opByte,
-        .constant_gas = JumpTable.GasFastestStep,
-        .min_stack = JumpTable.minStack(2, 1),
-        .max_stack = JumpTable.maxStack(2, 1),
+        .constant_gas = jumpTableModule.GasFastestStep,
+        .min_stack = jumpTableModule.minStack(2, 1),
+        .max_stack = jumpTableModule.maxStack(2, 1),
     };
     jump_table.table[0x1A] = byte_op;
     
     // SHL (0x1B)
-    const shl_op = try allocator.create(JumpTable.Operation);
-    shl_op.* = JumpTable.Operation{
+    const shl_op = try allocator.create(Operation);
+    shl_op.* = Operation{
         .execute = opShl,
-        .constant_gas = JumpTable.GasFastestStep,
-        .min_stack = JumpTable.minStack(2, 1),
-        .max_stack = JumpTable.maxStack(2, 1),
+        .constant_gas = jumpTableModule.GasFastestStep,
+        .min_stack = jumpTableModule.minStack(2, 1),
+        .max_stack = jumpTableModule.maxStack(2, 1),
     };
     jump_table.table[0x1B] = shl_op;
     
     // SHR (0x1C)
-    const shr_op = try allocator.create(JumpTable.Operation);
-    shr_op.* = JumpTable.Operation{
+    const shr_op = try allocator.create(Operation);
+    shr_op.* = Operation{
         .execute = opShr,
-        .constant_gas = JumpTable.GasFastestStep,
-        .min_stack = JumpTable.minStack(2, 1),
-        .max_stack = JumpTable.maxStack(2, 1),
+        .constant_gas = jumpTableModule.GasFastestStep,
+        .min_stack = jumpTableModule.minStack(2, 1),
+        .max_stack = jumpTableModule.maxStack(2, 1),
     };
     jump_table.table[0x1C] = shr_op;
     
     // SAR (0x1D)
-    const sar_op = try allocator.create(JumpTable.Operation);
-    sar_op.* = JumpTable.Operation{
+    const sar_op = try allocator.create(Operation);
+    sar_op.* = Operation{
         .execute = opSar,
-        .constant_gas = JumpTable.GasFastestStep,
-        .min_stack = JumpTable.minStack(2, 1),
-        .max_stack = JumpTable.maxStack(2, 1),
+        .constant_gas = jumpTableModule.GasFastestStep,
+        .min_stack = jumpTableModule.minStack(2, 1),
+        .max_stack = jumpTableModule.maxStack(2, 1),
     };
     jump_table.table[0x1D] = sar_op;
 }

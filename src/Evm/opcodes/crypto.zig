@@ -1,20 +1,23 @@
 const std = @import("std");
 
-// Use package imports instead of relative imports
-const evm = @import("evm");
+const jumpTableModule = @import("../jumpTable/JumpTable.zig");
+const JumpTable = jumpTableModule.JumpTable;
+const Operation = jumpTableModule.Operation;
+const Interpreter = @import("../interpreter.zig").Interpreter;
+const Frame = @import("../Frame.zig").Frame;
+const ExecutionError = @import("../interpreter.zig").InterpreterError;
+const stackModule = @import("../Stack.zig");
+const Stack = stackModule.Stack;
+const StackError = stackModule.StackError;
 
-// Try using package_test if available, otherwise use evm module
-const package_test = @cImport({
-    @cDefine("PACKAGE_TEST_AVAILABLE", "1");
-    _ = @import("package_test.zig");
-});
-
-// Use the appropriate types based on what's available
-const Frame = if (@hasDecl(package_test, "Frame")) package_test.Frame else evm.Frame;
-const ExecutionError = if (@hasDecl(package_test, "ExecutionError")) package_test.ExecutionError else evm.ExecutionError;
-const Interpreter = if (@hasDecl(package_test, "Interpreter")) package_test.Interpreter else evm.Interpreter;
-const JumpTable = if (@hasDecl(package_test, "JumpTable")) package_test.JumpTable else evm.JumpTable;
-const Stack = if (@hasDecl(package_test, "Stack")) package_test.Stack else evm.Stack;
+// Helper to convert Stack errors to ExecutionError
+fn mapStackError(err: StackError) ExecutionError {
+    return switch (err) {
+        error.OutOfBounds => ExecutionError.StackUnderflow,
+        error.StackOverflow => ExecutionError.StackOverflow,
+        error.OutOfMemory => ExecutionError.OutOfGas,
+    };
+}
 
 /// KECCAK256 operation - computes Keccak-256 hash of a region of memory
 pub fn opKeccak256(pc: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
@@ -25,12 +28,12 @@ pub fn opKeccak256(pc: usize, _: *Interpreter, frame: *Frame) ExecutionError![]c
         return ExecutionError.StackUnderflow;
     }
 
-    const size = try frame.stack.pop();
-    const offset = try frame.stack.pop();
+    const size = frame.stack.pop() catch |err| return mapStackError(err);
+    const offset = frame.stack.pop() catch |err| return mapStackError(err);
 
     // If size is 0, return empty hash (all zeros)
     if (size == 0) {
-        try frame.stack.push(0);
+        frame.stack.push(0);
         return "";
     }
 
@@ -52,7 +55,7 @@ pub fn opKeccak256(pc: usize, _: *Interpreter, frame: *Frame) ExecutionError![]c
 
     // Convert hash to u256 and push to stack
     const hash_value = bytesToUint256(hash);
-    try frame.stack.push(hash_value);
+    frame.stack.push(hash_value);
 
     return "";
 }
@@ -144,15 +147,15 @@ pub fn getKeccak256DynamicGas(interpreter: *Interpreter, frame: *Frame) !u64 {
 }
 
 /// Register cryptographic opcodes in the jump table
-pub fn registerCryptoOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable.JumpTable) !void {
+pub fn registerCryptoOpcodes(allocator: std.mem.Allocator, jump_table: **JumpTable) !void {
     // KECCAK256 (0x20)
-    const keccak256_op = try allocator.create(JumpTable.Operation);
-    keccak256_op.* = JumpTable.Operation{
+    const keccak256_op = try allocator.create(Operation);
+    keccak256_op.* = Operation{
         .execute = opKeccak256,
         .constant_gas = 30, // Keccak256Gas
         .dynamic_gas = getKeccak256DynamicGas,
-        .min_stack = JumpTable.minStack(2, 1),
-        .max_stack = JumpTable.maxStack(2, 1),
+        .min_stack = jumpTableModule.minStack(2, 1),
+        .max_stack = jumpTableModule.maxStack(2, 1),
         .memory_size = getKeccak256MemorySize,
     };
     jump_table.table[0x20] = keccak256_op;

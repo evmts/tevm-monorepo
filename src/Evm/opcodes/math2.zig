@@ -1,11 +1,23 @@
 const std = @import("std");
-const evm = @import("evm");
-const JumpTable = evm.JumpTable;
-const Interpreter = evm.Interpreter;
-const Frame = evm.Frame;
-const ExecutionError = evm.ExecutionError;
-const Stack = evm.Stack;
-const Memory = evm.Memory;
+const jumpTableModule = @import("../jumpTable/JumpTable.zig");
+const JumpTable = jumpTableModule.JumpTable;
+const Operation = jumpTableModule.Operation;
+const Interpreter = @import("../interpreter.zig").Interpreter;
+const Frame = @import("../Frame.zig").Frame;
+const ExecutionError = @import("../interpreter.zig").InterpreterError;
+const stackModule = @import("../Stack.zig");
+const Stack = stackModule.Stack;
+const StackError = stackModule.StackError;
+const Memory = @import("../Memory.zig").Memory;
+
+// Helper to convert Stack errors to ExecutionError
+fn mapStackError(err: StackError) ExecutionError {
+    return switch (err) {
+        error.OutOfBounds => ExecutionError.StackUnderflow,
+        error.StackOverflow => ExecutionError.StackOverflow,
+        error.OutOfMemory => ExecutionError.OutOfGas,
+    };
+}
 
 // For tests we'll use these types
 const test_utils = @import("test_utils.zig");
@@ -29,8 +41,8 @@ pub fn opAddmod(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     }
     
     // Pop values from the stack
-    var z: u64 = 0;
-    var y: u64 = 0;
+    var z: u256 = 0;
+    var y: u256 = 0;
     
     if (frame.stack.pop()) |value| {
         z = value;
@@ -51,7 +63,7 @@ pub fn opAddmod(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
         // Re-push the values we popped so stack is in a consistent state
         _ = frame.stack.push(y) catch {};
         _ = frame.stack.push(z) catch {};
-        return err;
+        return mapStackError(err);
     };
     
     // If modulus is zero, the result is zero
@@ -79,8 +91,8 @@ pub fn opMulmod(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     }
     
     // Pop values from the stack
-    var z: u64 = 0;
-    var y: u64 = 0;
+    var z: u256 = 0;
+    var y: u256 = 0;
     
     if (frame.stack.pop()) |value| {
         z = value;
@@ -101,7 +113,7 @@ pub fn opMulmod(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
         // Re-push the values we popped so stack is in a consistent state
         _ = frame.stack.push(y) catch {};
         _ = frame.stack.push(z) catch {};
-        return err;
+        return mapStackError(err);
     };
     
     // If modulus is zero, the result is zero
@@ -129,7 +141,7 @@ pub fn opExp(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     }
     
     // Pop exponent from the stack
-    var exponent: u64 = 0;
+    var exponent: u256 = 0;
     if (frame.stack.pop()) |value| {
         exponent = value;
     } else |_| {
@@ -140,7 +152,7 @@ pub fn opExp(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     const base = frame.stack.peek() catch |err| {
         // Re-push the exponent so the stack remains consistent
         _ = frame.stack.push(exponent) catch {};
-        return err;
+        return mapStackError(err);
     };
     
     // Special cases
@@ -158,8 +170,8 @@ pub fn opExp(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     
     // For small exponents, use simple iteration
     if (exponent < 10) {
-        var result: u64 = 1;
-        var i: u64 = 0;
+        var result: u256 = 1;
+        var i: u256 = 0;
         
         while (i < exponent) : (i += 1) {
             result = result *% base.*; // Using wrapping multiplication
@@ -170,7 +182,7 @@ pub fn opExp(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     }
     
     // For larger exponents, use binary exponentiation (square-and-multiply)
-    var result: u64 = 1;
+    var result: u256 = 1;
     var base_val = base.*;
     var exp_val = exponent;
     
@@ -264,7 +276,7 @@ pub fn opSignextend(pc: usize, interpreter: *Interpreter, frame: *Frame) Executi
     }
     
     // Pop the byte position from the stack (the number of low-order bytes to consider)
-    var byte_pos: u64 = 0;
+    var byte_pos: u256 = 0;
     if (frame.stack.pop()) |value| {
         byte_pos = value;
     } else |_| {
@@ -275,7 +287,7 @@ pub fn opSignextend(pc: usize, interpreter: *Interpreter, frame: *Frame) Executi
     const value = frame.stack.peek() catch |err| {
         // Re-push the value we popped so stack is in a consistent state
         _ = frame.stack.push(byte_pos) catch {};
-        return err;
+        return mapStackError(err);
     };
     
     // If byte_pos >= 32, value remains unchanged
@@ -317,7 +329,7 @@ pub fn opMod(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     }
     
     // Pop x (divisor) from the stack
-    var x: u64 = 0;
+    var x: u256 = 0;
     if (frame.stack.pop()) |value| {
         x = value;
     } else |_| {
@@ -328,7 +340,7 @@ pub fn opMod(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     const y = frame.stack.peek() catch |err| {
         // Re-push the value we popped so stack is in a consistent state
         _ = frame.stack.push(x) catch {};
-        return err;
+        return mapStackError(err);
     };
     
     // Modulo by zero returns 0 in the EVM
@@ -352,7 +364,7 @@ pub fn opSdiv(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     }
     
     // Pop divisor from the stack
-    var divisor: u64 = 0;
+    var divisor: u256 = 0;
     if (frame.stack.pop()) |value| {
         divisor = value;
     } else |_| {
@@ -368,7 +380,6 @@ pub fn opSdiv(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
             error.StackOverflow => ExecutionError.StackOverflow,
             // Map other errors to existing ExecutionError values
             error.OutOfMemory, error.OutOfBounds => ExecutionError.StackUnderflow,
-            else => ExecutionError.StackUnderflow,
         };
     };
     
@@ -419,7 +430,7 @@ pub fn opSmod(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     }
     
     // Pop modulus from the stack
-    var modulus: u64 = 0;
+    var modulus: u256 = 0;
     if (frame.stack.pop()) |value| {
         modulus = value;
     } else |_| {
@@ -435,7 +446,6 @@ pub fn opSmod(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
             error.StackOverflow => ExecutionError.StackOverflow,
             // Map other errors to existing ExecutionError values
             error.OutOfMemory, error.OutOfBounds => ExecutionError.StackUnderflow,
-            else => ExecutionError.StackUnderflow,
         };
     };
     
@@ -477,73 +487,73 @@ pub fn opSmod(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
 /// Register all math2 opcodes in the given jump table
 pub fn registerMath2Opcodes(allocator: std.mem.Allocator, jump_table: anytype) !void {
     // SDIV (0x05)
-    const sdiv_op = try allocator.create(JumpTable.Operation);
-    sdiv_op.* = JumpTable.Operation{
+    const sdiv_op = try allocator.create(Operation);
+    sdiv_op.* = Operation{
         .execute = opSdiv,
-        .constant_gas = JumpTable.GasFastStep,
-        .min_stack = JumpTable.minStack(2, 1),
-        .max_stack = JumpTable.maxStack(2, 1),
+        .constant_gas = jumpTableModule.GasFastStep,
+        .min_stack = jumpTableModule.minStack(2, 1),
+        .max_stack = jumpTableModule.maxStack(2, 1),
     };
     jump_table.table[0x05] = sdiv_op;
     
     // MOD (0x06)
-    const mod_op = try allocator.create(JumpTable.Operation);
-    mod_op.* = JumpTable.Operation{
+    const mod_op = try allocator.create(Operation);
+    mod_op.* = Operation{
         .execute = opMod,
-        .constant_gas = JumpTable.GasFastStep,
-        .min_stack = JumpTable.minStack(2, 1),
-        .max_stack = JumpTable.maxStack(2, 1),
+        .constant_gas = jumpTableModule.GasFastStep,
+        .min_stack = jumpTableModule.minStack(2, 1),
+        .max_stack = jumpTableModule.maxStack(2, 1),
     };
     jump_table.table[0x06] = mod_op;
     
     // SMOD (0x07)
-    const smod_op = try allocator.create(JumpTable.Operation);
-    smod_op.* = JumpTable.Operation{
+    const smod_op = try allocator.create(Operation);
+    smod_op.* = Operation{
         .execute = opSmod,
-        .constant_gas = JumpTable.GasFastStep,
-        .min_stack = JumpTable.minStack(2, 1),
-        .max_stack = JumpTable.maxStack(2, 1),
+        .constant_gas = jumpTableModule.GasFastStep,
+        .min_stack = jumpTableModule.minStack(2, 1),
+        .max_stack = jumpTableModule.maxStack(2, 1),
     };
     jump_table.table[0x07] = smod_op;
     
     // ADDMOD (0x08)
-    const addmod_op = try allocator.create(JumpTable.Operation);
-    addmod_op.* = JumpTable.Operation{
+    const addmod_op = try allocator.create(Operation);
+    addmod_op.* = Operation{
         .execute = opAddmod,
-        .constant_gas = JumpTable.GasMidStep,
-        .min_stack = JumpTable.minStack(3, 1),
-        .max_stack = JumpTable.maxStack(3, 1),
+        .constant_gas = jumpTableModule.GasMidStep,
+        .min_stack = jumpTableModule.minStack(3, 1),
+        .max_stack = jumpTableModule.maxStack(3, 1),
     };
     jump_table.table[0x08] = addmod_op;
     
     // MULMOD (0x09)
-    const mulmod_op = try allocator.create(JumpTable.Operation);
-    mulmod_op.* = JumpTable.Operation{
+    const mulmod_op = try allocator.create(Operation);
+    mulmod_op.* = Operation{
         .execute = opMulmod,
-        .constant_gas = JumpTable.GasMidStep,
-        .min_stack = JumpTable.minStack(3, 1),
-        .max_stack = JumpTable.maxStack(3, 1),
+        .constant_gas = jumpTableModule.GasMidStep,
+        .min_stack = jumpTableModule.minStack(3, 1),
+        .max_stack = jumpTableModule.maxStack(3, 1),
     };
     jump_table.table[0x09] = mulmod_op;
     
     // EXP (0x0A)
-    const exp_op = try allocator.create(JumpTable.Operation);
-    exp_op.* = JumpTable.Operation{
+    const exp_op = try allocator.create(Operation);
+    exp_op.* = Operation{
         .execute = opExp,
-        .constant_gas = JumpTable.GasSlowStep,
+        .constant_gas = jumpTableModule.GasSlowStep,
         .dynamic_gas = expDynamicGas,
-        .min_stack = JumpTable.minStack(2, 1),
-        .max_stack = JumpTable.maxStack(2, 1),
+        .min_stack = jumpTableModule.minStack(2, 1),
+        .max_stack = jumpTableModule.maxStack(2, 1),
     };
     jump_table.table[0x0A] = exp_op;
     
     // SIGNEXTEND (0x0B)
-    const signextend_op = try allocator.create(JumpTable.Operation);
-    signextend_op.* = JumpTable.Operation{
+    const signextend_op = try allocator.create(Operation);
+    signextend_op.* = Operation{
         .execute = opSignextend,
-        .constant_gas = JumpTable.GasFastStep,
-        .min_stack = JumpTable.minStack(2, 1),
-        .max_stack = JumpTable.maxStack(2, 1),
+        .constant_gas = jumpTableModule.GasFastStep,
+        .min_stack = jumpTableModule.minStack(2, 1),
+        .max_stack = jumpTableModule.maxStack(2, 1),
     };
     jump_table.table[0x0B] = signextend_op;
 }

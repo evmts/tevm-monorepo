@@ -1,12 +1,13 @@
 const std = @import("std");
 // Use internal imports to avoid circular dependencies
 const test_stubs = @import("test_stubs.zig");
-const StateManager = test_stubs.StateManager;
+const StateManager = if (@import("builtin").is_test) test_stubs.StateManager else @import("state_manager").StateManager;
 const test_logger = @import("TestEvmLogger.zig");
 const EvmLogger = test_logger.EvmLogger;
 const createLogger = test_logger.createLogger;
 const createScopedLogger = test_logger.createScopedLogger;
 const debugOnly = test_logger.debugOnly;
+const precompile = @import("precompile/Precompiles.zig");
 
 // We'll initialize the logger inside a function
 var _logger: ?EvmLogger = null;
@@ -55,6 +56,11 @@ pub const Evm = struct {
     /// Current blob base fee (EIP-4844)
     /// Used by the BLOBBASEFEE opcode to get the blob gas price
     blobBaseFee: u256 = 0,
+    
+    /// Precompiled contracts for the current chain configuration
+    /// These are special contracts at addresses 0x01-0x11 that provide
+    /// optimized implementations of cryptographic and utility functions
+    precompiles: ?*precompile.PrecompiledContracts = null,
 
     /// Create a new EVM instance
     ///
@@ -63,6 +69,7 @@ pub const Evm = struct {
     /// - Not read-only
     /// - Latest chain rules (Cancun by default)
     /// - No state manager attached
+    /// - No precompiles (must be initialized separately)
     ///
     /// Parameters:
     /// - custom_rules: Optional custom chain rules to apply
@@ -332,6 +339,47 @@ pub const Evm = struct {
     pub fn setBlobBaseFee(self: *Evm, fee: u256) void {
         getLogger().debug("Setting blob base fee: {}", .{fee});
         self.blobBaseFee = fee;
+    }
+    
+    /// Initialize precompiled contracts based on chain rules
+    ///
+    /// This sets up the precompiled contracts that are available for the current
+    /// chain configuration. Different hardforks have different sets of precompiles.
+    ///
+    /// Parameters:
+    /// - allocator: Memory allocator for creating the precompiles map
+    ///
+    /// Returns: Nothing if successful
+    /// Error: Returned if allocation fails
+    pub fn initPrecompiles(self: *Evm, allocator: std.mem.Allocator) !void {
+        getLogger().debug("Initializing precompiled contracts for chain rules", .{});
+        
+        // Free existing precompiles if any
+        if (self.precompiles) |contracts| {
+            contracts.deinit();
+            allocator.destroy(contracts);
+            self.precompiles = null;
+        }
+        
+        // Create new precompiles based on chain rules
+        const contracts = try allocator.create(precompile.PrecompiledContracts);
+        contracts.* = try precompile.activePrecompiledContracts(allocator, self.chainRules);
+        self.precompiles = contracts;
+        
+        getLogger().info("Initialized {} precompiled contracts", .{contracts.count()});
+    }
+    
+    /// Set precompiled contracts directly
+    ///
+    /// This allows setting a custom set of precompiled contracts, overriding
+    /// the defaults based on chain rules.
+    ///
+    /// Parameters:
+    /// - contracts: Pointer to the precompiled contracts map
+    pub fn setPrecompiles(self: *Evm, contracts: *precompile.PrecompiledContracts) void {
+        getLogger().debug("Setting custom precompiled contracts", .{});
+        self.precompiles = contracts;
+        getLogger().info("Set {} precompiled contracts", .{contracts.count()});
     }
 
     /// Log gas usage statistics

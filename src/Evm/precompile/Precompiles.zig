@@ -1,10 +1,5 @@
 const std = @import("std");
-// Use an alternative approach for Address in tests
-const builtin = @import("builtin");
-const Address = if (builtin.is_test) 
-    [20]u8 // Just use the raw type in tests
-else 
-    @import("Address").Address;
+const Address = @import("address").Address;
 const common = @import("common.zig");
 const crypto = @import("crypto.zig");
 const math = @import("math.zig");
@@ -15,7 +10,7 @@ const EvmLogger = struct {
     name: []const u8,
     
     pub fn debug(self: EvmLogger, comptime fmt: []const u8, args: anytype) void {
-        if (builtin.mode == .Debug) {
+        if (@import("builtin").mode == .Debug) {
             std.debug.print("[DEBUG][{s}] " ++ fmt ++ "\n", .{self.name} ++ args);
         }
     }
@@ -58,8 +53,8 @@ fn debugOnly(comptime callback: anytype) void {
     // This does nothing in production code
     _ = callback;
 }
-// Define ChainRules directly in precompiles for testing since we cannot import Evm module in tests
-pub const ChainRules = struct {
+// Import ChainRules and Hardfork from evm module when not in test mode
+const ChainRules = if (@import("builtin").is_test) struct {
     IsEIP1559: bool = false,
     IsEIP2929: bool = false,
     IsEIP2930: bool = false,
@@ -190,10 +185,10 @@ pub const ChainRules = struct {
             },
         };
     }
-};
+} else @import("../evm.zig").ChainRules;
 
-// Define Hardfork enum for use in ChainRules.forHardfork
-pub const Hardfork = enum {
+// Define Hardfork enum for use in tests
+const Hardfork = if (@import("builtin").is_test) enum {
     Frontier,
     Homestead,
     TangerineWhistle,
@@ -211,7 +206,7 @@ pub const Hardfork = enum {
     Cancun,
     Prague,
     Verkle,
-};
+} else @import("../evm.zig").Hardfork;
 
 // Create a file-specific logger
 const logger = createLogger("Precompiles.zig");

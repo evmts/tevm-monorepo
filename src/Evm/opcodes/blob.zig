@@ -1,14 +1,23 @@
 const std = @import("std");
-const evm = @import("evm");
-const Interpreter = evm.Interpreter;
-const Frame = evm.Frame;
-const ExecutionError = evm.ExecutionError;
-const JumpTable = evm.JumpTable;
-const Stack = evm.Stack;
-const Memory = evm.Memory;
+const jumpTableModule = @import("../jumpTable/JumpTable.zig");
+const JumpTable = jumpTableModule.JumpTable;
+const Operation = jumpTableModule.Operation;
+const Interpreter = @import("../interpreter.zig").Interpreter;
+const Frame = @import("../Frame.zig").Frame;
+const ExecutionError = @import("../interpreter.zig").InterpreterError;
+const stackModule = @import("../Stack.zig");
+const Stack = stackModule.Stack;
+const StackError = stackModule.StackError;
 
-// Use the u256 type from Stack.zig
-const BigInt = Stack.u256;
+// Helper to convert Stack errors to ExecutionError
+fn mapStackError(err: StackError) ExecutionError {
+    return switch (err) {
+        error.OutOfBounds => ExecutionError.StackUnderflow,
+        error.StackOverflow => ExecutionError.StackOverflow,
+        error.OutOfMemory => ExecutionError.OutOfGas,
+    };
+}
+const Memory = @import("../Memory.zig").Memory;
 
 // EIP-4844: Shard Blob Transactions (Blob opcode gas prices)
 pub const BlobHashGas: u64 = 3;
@@ -30,12 +39,12 @@ pub fn opBlobHash(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
     }
     
     // Pop the blob index from the stack
-    const index = try frame.stack.pop();
+    const index = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Convert index to usize, checking for overflow
     const index_usize = std.math.cast(usize, index) orelse {
         // Index too large, push 0
-        try frame.stack.push(0);
+        frame.stack.push(0);
         return "";
     };
     
@@ -53,7 +62,7 @@ pub fn opBlobHash(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
     // If index is out of bounds, hash_value remains 0
     
     // Push the blob hash onto the stack
-    try frame.stack.push(hash_value);
+    frame.stack.push(hash_value);
     
     return "";
 }
@@ -72,7 +81,7 @@ pub fn opBlobBaseFee(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
     const blob_base_fee = interpreter.evm.blobBaseFee;
     
     // Push the blob base fee onto the stack
-    try frame.stack.push(blob_base_fee);
+    frame.stack.push(blob_base_fee);
     
     return "";
 }
@@ -93,9 +102,9 @@ pub fn opMcopy(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     }
     
     // Pop length, source offset, and destination offset from the stack
-    const length = try frame.stack.pop();
-    const source_offset = try frame.stack.pop();
-    const destination_offset = try frame.stack.pop();
+    const length = frame.stack.pop() catch |err| return mapStackError(err);
+    const source_offset = frame.stack.pop() catch |err| return mapStackError(err);
+    const destination_offset = frame.stack.pop() catch |err| return mapStackError(err);
     
     // Convert to u64 values
     const mem_length = @as(u64, @truncate(length));
@@ -192,35 +201,35 @@ pub fn mcopyDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, 
 }
 
 /// Register blob opcodes in the jump table
-pub fn registerBlobOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable.JumpTable) !void {
+pub fn registerBlobOpcodes(allocator: std.mem.Allocator, jump_table: **JumpTable) !void {
     // BLOBHASH (0x49)
-    const blobhash_op = try allocator.create(JumpTable.Operation);
-    blobhash_op.* = JumpTable.Operation{
+    const blobhash_op = try allocator.create(Operation);
+    blobhash_op.* = Operation{
         .execute = opBlobHash,
         .constant_gas = BlobHashGas,
-        .min_stack = JumpTable.minStack(1, 1),
-        .max_stack = JumpTable.maxStack(1, 1),
+        .min_stack = jumpTableModule.minStack(1, 1),
+        .max_stack = jumpTableModule.maxStack(1, 1),
     };
     jump_table.table[0x49] = blobhash_op;
     
     // BLOBBASEFEE (0x4A)
-    const blobbasefee_op = try allocator.create(JumpTable.Operation);
-    blobbasefee_op.* = JumpTable.Operation{
+    const blobbasefee_op = try allocator.create(Operation);
+    blobbasefee_op.* = Operation{
         .execute = opBlobBaseFee,
         .constant_gas = BlobBaseFeeGas,
-        .min_stack = JumpTable.minStack(0, 1),
-        .max_stack = JumpTable.maxStack(0, 1),
+        .min_stack = jumpTableModule.minStack(0, 1),
+        .max_stack = jumpTableModule.maxStack(0, 1),
     };
     jump_table.table[0x4A] = blobbasefee_op;
     
     // MCOPY (0x5E)
-    const mcopy_op = try allocator.create(JumpTable.Operation);
-    mcopy_op.* = JumpTable.Operation{
+    const mcopy_op = try allocator.create(Operation);
+    mcopy_op.* = Operation{
         .execute = opMcopy,
         .constant_gas = 0, // Dynamic gas calculation
         .dynamic_gas = mcopyDynamicGas,
-        .min_stack = JumpTable.minStack(3, 0),
-        .max_stack = JumpTable.maxStack(3, 0),
+        .min_stack = jumpTableModule.minStack(3, 0),
+        .max_stack = jumpTableModule.maxStack(3, 0),
         .memory_size = mcopyMemorySize,
     };
     jump_table.table[0x5E] = mcopy_op;
