@@ -931,8 +931,11 @@ test "memoryGasCost handles overflow protection" {
     var mem = Memory.init(testing.allocator);
     defer mem.deinit();
     
-    // Test with max size that would cause overflow
-    const huge_size: u64 = std.math.maxInt(u64) / 2;
+    // Test with a size that would cause overflow in gas calculation
+    // Use a smaller value that still causes overflow in the quadratic term
+    const huge_size: u64 = 1 << 50; // 2^50 bytes
+    
+    // Set current memory to just below this
     try mem.resize(huge_size - 1000);
     
     // This should cause overflow in gas calculation
@@ -1031,7 +1034,7 @@ test "NOT_IMPLEMENTED operation returns OpNotSupported error" {
         .pc = 0,
     };
     
-    const result = NOT_IMPLEMENTED.execute(&interpreter, 0, &interpreter, &frame);
+    const result = NOT_IMPLEMENTED.execute(0, &interpreter, &frame);
     try expectError(error.OpNotSupported, result);
 }
 
