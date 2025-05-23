@@ -8,7 +8,6 @@ pub const B256 = struct {
 };
 
 // Define u256 type for modexp operations
-const @"u256" = u64;
 
 /// Enum representing the different precompiled contract addresses
 pub const PrecompiledContract = enum(u8) {
@@ -184,9 +183,9 @@ fn modexp(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     }
     
     // Parse base length, exponent length, and modulus length
-    var base_len: @"u256" = 0;
-    var exp_len: @"u256" = 0;
-    var mod_len: @"u256" = 0;
+    var base_len: u256 = 0;
+    var exp_len: u256 = 0;
+    var mod_len: u256 = 0;
     
     // Extract lengths from first 3 32-byte words
     for (0..32) |i| {
@@ -230,9 +229,9 @@ fn modexpGasCost(input: []const u8) u64 {
     }
     
     // Parse base length, exponent length, and modulus length
-    var base_len: @"u256" = 0;
-    var exp_len: @"u256" = 0;
-    var mod_len: @"u256" = 0;
+    var base_len: u256 = 0;
+    var exp_len: u256 = 0;
+    var mod_len: u256 = 0;
     
     // Extract lengths from first 3 32-byte words
     for (0..32) |i| {

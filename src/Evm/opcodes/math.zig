@@ -24,14 +24,13 @@ const ExecutionError = error{
 };
 
 // Use a disambiguated name for the 256-bit integer to avoid shadowing
-const @"u256" = u64;
 
 // Define a simplified Stack implementation for testing
 const Stack = struct {
-    data: []@"u256",
+    data: []u256,
     size: usize = 0,
     
-    pub fn pop(self: *Stack) !@"u256" {
+    pub fn pop(self: *Stack) !u256 {
         if (self.size == 0) return ExecutionError.StackUnderflow;
         self.size -= 1;
         const value = self.data[self.size];
@@ -40,7 +39,7 @@ const Stack = struct {
         return value;
     }
     
-    pub fn push(self: *Stack, value: @"u256") !void {
+    pub fn push(self: *Stack, value: u256) !void {
         if (self.size >= self.data.len) return ExecutionError.StackOverflow;
         self.data[self.size] = value;
         self.size += 1;
@@ -103,9 +102,9 @@ pub fn opSdiv(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u
         try frame.stack.push(0);
     } else if (a == std.math.minInt(i64) and b == -1) {
         // Handle INT_MIN / -1 overflow
-        try frame.stack.push(@as(@"u256", @bitCast(std.math.minInt(i64)))); // Return INT_MIN
+        try frame.stack.push(@as(u256, @bitCast(std.math.minInt(i64)))); // Return INT_MIN
     } else {
-        try frame.stack.push(@as(@"u256", @bitCast(a / b)));
+        try frame.stack.push(@as(u256, @bitCast(a / b)));
     }
     
     return "";
@@ -141,7 +140,7 @@ pub fn opSmod(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u
     } else {
         // In Solidity, the sign of the result follows the sign of the dividend
         const result = @rem(a, b); // Remainder operation that preserves sign
-        try frame.stack.push(@as(@"u256", @bitCast(result)));
+        try frame.stack.push(@as(u256, @bitCast(result)));
     }
     
     return "";
@@ -164,7 +163,7 @@ pub fn opExp(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8
     }
     
     // Calculate b^e using binary exponentiation for efficiency
-    var result: @"u256" = 1;
+    var result: u256 = 1;
     var b = base;
     var e = exponent;
     
@@ -219,7 +218,7 @@ pub fn opMulmod(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const
 // Run a simple test of the ADD operation
 test "Math - ADD operation" {
     // Create a stack and initialize it with test values
-    var stack_data: [1024]@"u256" = undefined;
+    var stack_data: [1024]u256 = undefined;
     var stack = Stack{
         .data = &stack_data,
         .size = 0,
@@ -241,13 +240,13 @@ test "Math - ADD operation" {
     _ = try opAdd(0, undefined, &frame);
     
     // Check that the result is correct
-    try std.testing.expectEqual(@as(@"u256", 8), try stack.pop());
+    try std.testing.expectEqual(@as(u256, 8), try stack.pop());
 }
 
 // Run a simple test of the MUL operation
 test "Math - MUL operation" {
     // Create a stack and initialize it with test values
-    var stack_data: [1024]@"u256" = undefined;
+    var stack_data: [1024]u256 = undefined;
     var stack = Stack{
         .data = &stack_data,
         .size = 0,
@@ -269,13 +268,13 @@ test "Math - MUL operation" {
     _ = try opMul(0, undefined, &frame);
     
     // Check that the result is correct
-    try std.testing.expectEqual(@as(@"u256", 15), try stack.pop());
+    try std.testing.expectEqual(@as(u256, 15), try stack.pop());
 }
 
 // Run a simple test of the SUB operation
 test "Math - SUB operation" {
     // Create a stack and initialize it with test values
-    var stack_data: [1024]@"u256" = undefined;
+    var stack_data: [1024]u256 = undefined;
     var stack = Stack{
         .data = &stack_data,
         .size = 0,
@@ -297,13 +296,13 @@ test "Math - SUB operation" {
     _ = try opSub(0, undefined, &frame);
     
     // Check that the result is correct
-    try std.testing.expectEqual(@as(@"u256", 6), try stack.pop());
+    try std.testing.expectEqual(@as(u256, 6), try stack.pop());
 }
 
 // Test edge cases for the DIV operation
 test "Math - DIV operation" {
     // Create a stack and initialize it with test values
-    var stack_data: [1024]@"u256" = undefined;
+    var stack_data: [1024]u256 = undefined;
     var stack = Stack{
         .data = &stack_data,
         .size = 0,
@@ -321,19 +320,19 @@ test "Math - DIV operation" {
     try stack.push(10);
     try stack.push(2);
     _ = try opDiv(0, undefined, &frame);
-    try std.testing.expectEqual(@as(@"u256", 5), try stack.pop());
+    try std.testing.expectEqual(@as(u256, 5), try stack.pop());
     
     // Test division by zero
     try stack.push(10);
     try stack.push(0);
     _ = try opDiv(0, undefined, &frame);
-    try std.testing.expectEqual(@as(@"u256", 0), try stack.pop());
+    try std.testing.expectEqual(@as(u256, 0), try stack.pop());
 }
 
 // Test edge cases for the MOD operation
 test "Math - MOD operation" {
     // Create a stack and initialize it with test values
-    var stack_data: [1024]@"u256" = undefined;
+    var stack_data: [1024]u256 = undefined;
     var stack = Stack{
         .data = &stack_data,
         .size = 0,
@@ -351,19 +350,19 @@ test "Math - MOD operation" {
     try stack.push(10);
     try stack.push(3);
     _ = try opMod(0, undefined, &frame);
-    try std.testing.expectEqual(@as(@"u256", 1), try stack.pop());
+    try std.testing.expectEqual(@as(u256, 1), try stack.pop());
     
     // Test modulo by zero
     try stack.push(10);
     try stack.push(0);
     _ = try opMod(0, undefined, &frame);
-    try std.testing.expectEqual(@as(@"u256", 0), try stack.pop());
+    try std.testing.expectEqual(@as(u256, 0), try stack.pop());
 }
 
 // Test the EXP operation
 test "Math - EXP operation" {
     // Create a stack and initialize it with test values
-    var stack_data: [1024]@"u256" = undefined;
+    var stack_data: [1024]u256 = undefined;
     var stack = Stack{
         .data = &stack_data,
         .size = 0,
@@ -381,31 +380,31 @@ test "Math - EXP operation" {
     try stack.push(2);
     try stack.push(3);
     _ = try opExp(0, undefined, &frame);
-    try std.testing.expectEqual(@as(@"u256", 8), try stack.pop());
+    try std.testing.expectEqual(@as(u256, 8), try stack.pop());
     
     // Test 0^0 = 1 (EVM convention)
     try stack.push(0);
     try stack.push(0);
     _ = try opExp(0, undefined, &frame);
-    try std.testing.expectEqual(@as(@"u256", 1), try stack.pop());
+    try std.testing.expectEqual(@as(u256, 1), try stack.pop());
     
     // Test 0^5 = 0
     try stack.push(0);
     try stack.push(5);
     _ = try opExp(0, undefined, &frame);
-    try std.testing.expectEqual(@as(@"u256", 0), try stack.pop());
+    try std.testing.expectEqual(@as(u256, 0), try stack.pop());
     
     // Test 5^0 = 1
     try stack.push(5);
     try stack.push(0);
     _ = try opExp(0, undefined, &frame);
-    try std.testing.expectEqual(@as(@"u256", 1), try stack.pop());
+    try std.testing.expectEqual(@as(u256, 1), try stack.pop());
 }
 
 // Test the ADDMOD operation
 test "Math - ADDMOD operation" {
     // Create a stack and initialize it with test values
-    var stack_data: [1024]@"u256" = undefined;
+    var stack_data: [1024]u256 = undefined;
     var stack = Stack{
         .data = &stack_data,
         .size = 0,
@@ -424,20 +423,20 @@ test "Math - ADDMOD operation" {
     try stack.push(3);
     try stack.push(7);
     _ = try opAddmod(0, undefined, &frame);
-    try std.testing.expectEqual(@as(@"u256", 1), try stack.pop());
+    try std.testing.expectEqual(@as(u256, 1), try stack.pop());
     
     // Test (5 + 3) % 0 = 0 (EVM convention for modulo by zero)
     try stack.push(5);
     try stack.push(3);
     try stack.push(0);
     _ = try opAddmod(0, undefined, &frame);
-    try std.testing.expectEqual(@as(@"u256", 0), try stack.pop());
+    try std.testing.expectEqual(@as(u256, 0), try stack.pop());
 }
 
 // Test the MULMOD operation
 test "Math - MULMOD operation" {
     // Create a stack and initialize it with test values
-    var stack_data: [1024]@"u256" = undefined;
+    var stack_data: [1024]u256 = undefined;
     var stack = Stack{
         .data = &stack_data,
         .size = 0,
@@ -456,14 +455,14 @@ test "Math - MULMOD operation" {
     try stack.push(3);
     try stack.push(7);
     _ = try opMulmod(0, undefined, &frame);
-    try std.testing.expectEqual(@as(@"u256", 1), try stack.pop());
+    try std.testing.expectEqual(@as(u256, 1), try stack.pop());
     
     // Test (5 * 3) % 0 = 0 (EVM convention for modulo by zero)
     try stack.push(5);
     try stack.push(3);
     try stack.push(0);
     _ = try opMulmod(0, undefined, &frame);
-    try std.testing.expectEqual(@as(@"u256", 0), try stack.pop());
+    try std.testing.expectEqual(@as(u256, 0), try stack.pop());
 }
 
 /// Register math opcodes in the jump table

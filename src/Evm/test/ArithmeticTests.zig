@@ -4,7 +4,6 @@ const EvmTest = @import("EvmTestHelpers.zig").EvmTest;
 const helpers = @import("EvmTestHelpers.zig");
 const opcodes = @import("../opcodes.zig");
 const interpreter = @import("../interpreter.zig");
-const u256 = @import("../../Types/U256.ts").u256;
 
 const Opcode = opcodes.Opcode;
 

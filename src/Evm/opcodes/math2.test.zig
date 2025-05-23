@@ -13,10 +13,9 @@ const Address = test_utils.Address;
 
 // Use u64 as our test type for simplicity
 // Make sure we're using test_utils' u256 definition
-const @"u256" = test_utils.@"u256";
 
 // Helper function to create a negative u256 number using two's complement
-fn makeNegative(value: @"u256") @"u256" {
+fn makeNegative(value: u256) u256 {
     return (~value) +% 1;
 }
 

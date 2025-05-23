@@ -5,7 +5,7 @@ const Frame = pkg.Frame;
 const ExecutionError = pkg.ExecutionError;
 const JumpTable = pkg.JumpTable;
 const Stack = pkg.Stack;
-const @"u256" = pkg.@"u256";
+// u256 is a built-in type in Zig, no need to import
 
 /// AND operation - bitwise AND of the top two stack items
 pub fn opAnd(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {

@@ -14,7 +14,6 @@ pub const Memory = fixed_pkg.Memory;
 pub const Stack = fixed_pkg.Stack;
 pub const JumpTable = fixed_pkg.JumpTable;
 pub const Address = fixed_pkg.Address;
-pub const @"u256" = fixed_pkg.@"u256";
 
 // Helper for tests to create a mock contract
 pub fn createMockContract(allocator: std.mem.Allocator, code: []const u8) !*Contract {

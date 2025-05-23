@@ -5,7 +5,6 @@ const helpers = @import("EvmTestHelpers.zig");
 const opcodes = @import("../opcodes.zig");
 const JumpTable = @import("../JumpTable.zig");
 const interpreter = @import("../interpreter.zig");
-const u256 = @import("../../Types/U256.ts").u256;
 
 const Opcode = opcodes.Opcode;
 

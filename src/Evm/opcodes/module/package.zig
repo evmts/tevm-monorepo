@@ -27,7 +27,6 @@ pub const Memory = struct {
 
 pub const Stack = struct {
     pub const Stack = @import("../../Stack.zig").Stack;
-    pub const u256 = @import("../../Stack.zig").@"u256";
 };
 
 pub const Address = struct {

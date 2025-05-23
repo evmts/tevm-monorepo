@@ -13,7 +13,6 @@ pub const Address = pkg.Address;
 pub const JumpTable = pkg.JumpTable;
 
 // Define a constant for the u256 type to ensure consistency across test files
-pub const @"u256" = u64;
 
 /// Creates a mock contract for testing
 pub fn createMockContract(allocator: std.mem.Allocator, code: []const u8) !*Contract {

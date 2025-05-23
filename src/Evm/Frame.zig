@@ -1,8 +1,7 @@
 const std = @import("std");
 const Memory = @import("Memory.zig").Memory;
 const Stack = @import("Stack.zig").Stack;
-// Import u256 directly to avoid circular imports
-const @"u256" = @import("Stack.zig").@"u256";
+// u256 is a built-in type in Zig, no need to import
 const Contract = @import("Contract.zig").Contract;
 const Address = @import("address").Address;
 const EvmLogger = @import("TestEvmLogger.zig").EvmLogger;
@@ -246,7 +245,7 @@ pub const Frame = struct {
     /// Get access to the stack data
     ///
     /// Returns: Slice containing the valid stack elements (excludes unused slots)
-    pub fn stackData(self: *const Frame) []const @"u256" {
+    pub fn stackData(self: *const Frame) []const u256 {
         const stack_slice = self.stack.data[0..self.stack.size];
         getLogger().debug("Getting stack data: {d} items", .{stack_slice.len});
         return stack_slice;

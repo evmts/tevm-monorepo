@@ -3,7 +3,7 @@ const testing = std.testing;
 const evm = @import("evm");
 const loggerModule = evm.logger;
 const EvmLogger = loggerModule.EvmLogger;
-const @"u256" = evm.types.@"u256"; // Use types from evm module instead of direct import
+// u256 is a built-in type in Zig, no need to import
 const createLogger = loggerModule.createLogger;
 const logStack = loggerModule.logStack;
 const logStackSlop = loggerModule.logStackSlop;

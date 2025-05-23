@@ -18,7 +18,6 @@ pub const ExecutionError = error{
 };
 
 // Define a u256 type for testing - matches what's used in math2.test.zig
-pub const @"u256" = u64;
 
 // Minimal Address implementation for testing
 pub const Address = struct {
@@ -35,7 +34,7 @@ pub const Stack = struct {
     size: usize = 0,
     capacity: usize,
     
-    pub fn pop(self: *Stack) !@"u256" {
+    pub fn pop(self: *Stack) !u256 {
         if (self.size == 0) return ExecutionError.StackUnderflow;
         self.size -= 1;
         const value = self.data[self.size];
@@ -44,13 +43,13 @@ pub const Stack = struct {
         return value;
     }
     
-    pub fn push(self: *Stack, value: @"u256") !void {
+    pub fn push(self: *Stack, value: u256) !void {
         if (self.size >= self.capacity) return ExecutionError.StackOverflow;
         self.data[self.size] = value;
         self.size += 1;
     }
     
-    pub fn peek(self: *Stack) !*@"u256" {
+    pub fn peek(self: *Stack) !*u256 {
         if (self.size == 0) return ExecutionError.StackUnderflow;
         return &self.data[self.size - 1];
     }

@@ -25,7 +25,6 @@ const memoryMod = struct {
 };
 const stackMod = struct {
     const Stack = @import("package_test.zig").Stack;
-    const @"u256" = @import("package_test.zig").@"u256";
 };
 const jumpTableMod = @import("package_test.zig").JumpTable;
 const loggerMod = struct {};
@@ -45,7 +44,6 @@ pub const EvmLogger = loggerMod;
 
 // Import Address and other types
 pub const Address = addressMod;
-pub const @"u256" = stackMod.@"u256";
 
 // Re-export modules - these are all local to the opcodes directory
 pub const bitwise = @import("bitwise.zig");

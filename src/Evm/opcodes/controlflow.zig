@@ -4,7 +4,7 @@ const Interpreter = pkg.Interpreter;
 const Frame = pkg.Frame;
 const ExecutionError = pkg.ExecutionError;
 const JumpTable = pkg.JumpTable;
-const U256 = pkg.@"u256";
+const U256 = pkg.u256;
 
 /// STOP (0x00) - Halt execution
 pub fn opStop(_: usize, _: *Interpreter, _: *Frame) ExecutionError![]const u8 {

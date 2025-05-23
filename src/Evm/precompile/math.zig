@@ -6,7 +6,6 @@ const getData = common.getData;
 const builtin = @import("builtin");
 
 // Define u256 directly for simplicity in tests
-const @"u256" = u64;
 
 
 /// BigModExp precompiled contract (pre EIP-2565)
@@ -26,9 +25,9 @@ pub const BigModExpEIP2565 = PrecompiledContract{
 /// Calculate gas cost for modular exponentiation (pre EIP-2565)
 fn bigModExpRequiredGas(input: []const u8) u64 {
     // Extract the input dimensions from the first 96 bytes
-    var baseLen: @"u256" = 0;
-    var expLen: @"u256" = 0;
-    var modLen: @"u256" = 0;
+    var baseLen: u256 = 0;
+    var expLen: u256 = 0;
+    var modLen: u256 = 0;
     
     if (input.len < 96) {
         // If input is too short, use empty values
@@ -46,7 +45,7 @@ fn bigModExpRequiredGas(input: []const u8) u64 {
     const arithSize = if (baseLen > modLen) baseLen else modLen;
     
     // Calculate the adjusted exp length
-    var adjExpLen: @"u256" = 0;
+    var adjExpLen: u256 = 0;
     
     if (expLen > 32) {
         adjExpLen = expLen - 32;
@@ -54,7 +53,7 @@ fn bigModExpRequiredGas(input: []const u8) u64 {
     }
     
     // Get the highest bit of the exponent (only the first 32 bytes are used)
-    var expHead: @"u256" = 0;
+    var expHead: u256 = 0;
     if (input.len > 96) {
         const expHeadBytes = getData(input, 96 + @as(usize, @intCast(baseLen)), if (expLen > 32) 32 else @as(usize, @intCast(expLen)));
         expHead = bytesToBigInt(expHeadBytes);
@@ -69,10 +68,10 @@ fn bigModExpRequiredGas(input: []const u8) u64 {
         msb += 1;
     }
     
-    adjExpLen = adjExpLen + @as(@"u256", @intCast(@as(u64, @intCast(msb))));
+    adjExpLen = adjExpLen + @as(u256, @intCast(@as(u64, @intCast(msb))));
     
     // Calculate gas based on the complexity formula
-    var gas: @"u256" = 0;
+    var gas: u256 = 0;
     
     // Compute the multiplier
     if (arithSize <= 64) {
@@ -105,9 +104,9 @@ fn bigModExpRequiredGas(input: []const u8) u64 {
 /// Calculate gas cost for modular exponentiation with EIP-2565
 fn bigModExpEIP2565RequiredGas(input: []const u8) u64 {
     // Extract the input dimensions from the first 96 bytes
-    var baseLen: @"u256" = 0;
-    var expLen: @"u256" = 0;
-    var modLen: @"u256" = 0;
+    var baseLen: u256 = 0;
+    var expLen: u256 = 0;
+    var modLen: u256 = 0;
     
     if (input.len < 96) {
         // If input is too short, use empty values
@@ -125,7 +124,7 @@ fn bigModExpEIP2565RequiredGas(input: []const u8) u64 {
     var arithSize = if (baseLen > modLen) baseLen else modLen;
     
     // Calculate the adjusted exp length
-    var adjExpLen: @"u256" = 0;
+    var adjExpLen: u256 = 0;
     
     if (expLen > 32) {
         adjExpLen = expLen - 32;
@@ -133,7 +132,7 @@ fn bigModExpEIP2565RequiredGas(input: []const u8) u64 {
     }
     
     // Get the highest bit of the exponent (only the first 32 bytes are used)
-    var expHead: @"u256" = 0;
+    var expHead: u256 = 0;
     if (input.len > 96) {
         const expHeadBytes = getData(input, 96 + @as(usize, @intCast(baseLen)), if (expLen > 32) 32 else @as(usize, @intCast(expLen)));
         expHead = bytesToBigInt(expHeadBytes);
@@ -148,10 +147,10 @@ fn bigModExpEIP2565RequiredGas(input: []const u8) u64 {
         msb += 1;
     }
     
-    adjExpLen = adjExpLen + @as(@"u256", @intCast(@as(u64, @intCast(msb))));
+    adjExpLen = adjExpLen + @as(u256, @intCast(@as(u64, @intCast(msb))));
     
     // Calculate gas based on the EIP-2565 complexity formula
-    var gas: @"u256" = 0;
+    var gas: u256 = 0;
     
     // EIP-2565 has three changes
     // 1. Different complexity formula: ceiling(x/8)^2
@@ -180,8 +179,8 @@ fn bigModExpEIP2565RequiredGas(input: []const u8) u64 {
 }
 
 /// Convert a byte slice to a big integer in big-endian order
-fn bytesToBigInt(bytes: []const u8) @"u256" {
-    var result: @"u256" = 0;
+fn bytesToBigInt(bytes: []const u8) u256 {
+    var result: u256 = 0;
     
     // Protect against overflow: only process the last 32 bytes at most
     // which is the maximum that can fit in a u256
@@ -197,7 +196,7 @@ fn bytesToBigInt(bytes: []const u8) @"u256" {
     for (bytes[start_idx..end_idx]) |byte| {
         // Check for overflow during shift
         if ((result >> 56) != 0) { // For u64, we can only check for top 8 bits
-            return std.math.maxInt(@"u256"); // Indicate overflow with max value
+            return std.math.maxInt(u256); // Indicate overflow with max value
         }
         result = (result << 8) | byte;
     }

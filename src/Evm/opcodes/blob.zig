@@ -8,7 +8,7 @@ const Stack = evm.Stack;
 const Memory = evm.Memory;
 
 // Use the u256 type from Stack.zig
-const BigInt = Stack.@"u256";
+const BigInt = Stack.u256;
 
 // EIP-4844: Shard Blob Transactions (Blob opcode gas prices)
 pub const BlobHashGas: u64 = 3;

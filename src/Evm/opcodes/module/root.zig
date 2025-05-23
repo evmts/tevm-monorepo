@@ -14,7 +14,7 @@ pub const ExecutionStatus = @import("../../evm.zig").ExecutionStatus;
 pub const Log = @import("../../evm.zig").Log;
 
 // Export the BigInt alias for use in tests
-pub const BigInt = Stack.@"u256";
+pub const BigInt = Stack.u256;
 
 // Other types needed by opcodes
 

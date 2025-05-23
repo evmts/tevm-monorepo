@@ -17,7 +17,6 @@ const TestStack = test_utils.Stack;
 const TestMemory = test_utils.Memory;
 
 // Use a disambiguated name for the 256-bit integer to avoid shadowing
-pub const @"u256" = u64;
 
 /// ADDMOD operation - (x + y) % z where x, y, z are the top three items on the stack
 pub fn opAddmod(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
