@@ -8,27 +8,84 @@ const createContract = evm.createContract;
 const address = @import("address");
 const Address = address.Address;
 const StateManager = @import("state_manager").StateManager;
+const compiler = @import("Compiler");
+const Compiler = compiler.Compiler;
 
 // SnailTracer is a complex contract that exercises many EVM features
 // It's commonly used for benchmarking EVM implementations
-// See: https://github.com/ethereum/tests/tree/develop/GeneralStateTests/stExample
+// This test compiles the real SnailTracer contract from source
 
-/// SnailTracer bytecode - this is a simplified version for demonstration
-/// The full SnailTracer contract is much larger and exercises more opcodes
-const SNAILTRACER_BYTECODE = [_]u8{
-    // PUSH1 0x60
-    0x60, 0x60,
-    // PUSH1 0x40
-    0x60, 0x40,
-    // MSTORE
-    0x52,
-    // PUSH1 0x00
-    0x60, 0x00,
-    // DUP1
-    0x80,
-    // REVERT
-    0xFD,
-};
+/// Global variable to store compiled bytecode
+var SNAILTRACER_BYTECODE: []const u8 = undefined;
+var SNAILTRACER_DEPLOYED_BYTECODE: []const u8 = undefined;
+
+/// Compile the SnailTracer contract
+fn compileSnailTracer(allocator: std.mem.Allocator) !void {
+    const settings = compiler.CompilerSettings{
+        .optimizer_enabled = true,
+        .optimizer_runs = 200,
+        .output_abi = true,
+        .output_bytecode = true,
+        .output_deployed_bytecode = true,
+    };
+
+    // Read the SnailTracer source code
+    const source_file = try std.fs.cwd().readFileAlloc(allocator, "src/Solidity/SnailTracer.sol", 1024 * 1024);
+    defer allocator.free(source_file);
+
+    // Compile the contract
+    var result = try Compiler.compileSource(
+        allocator,
+        "SnailTracer.sol",
+        source_file,
+        settings,
+    );
+    defer result.deinit();
+
+    if (result.errors.len > 0) {
+        std.debug.print("Compilation errors:\n", .{});
+        for (result.errors) |err| {
+            std.debug.print("  - {s}\n", .{err.message});
+        }
+        return error.CompilationFailed;
+    }
+
+    // Find the SnailTracer contract
+    for (result.contracts) |contract| {
+        if (std.mem.eql(u8, contract.name, "SnailTracer")) {
+            // Convert hex string to bytes
+            SNAILTRACER_BYTECODE = try hexToBytes(allocator, contract.bytecode);
+            SNAILTRACER_DEPLOYED_BYTECODE = try hexToBytes(allocator, contract.deployed_bytecode);
+            std.debug.print("SnailTracer compiled successfully:\n", .{});
+            std.debug.print("  - Bytecode length: {} bytes\n", .{SNAILTRACER_BYTECODE.len});
+            std.debug.print("  - Deployed bytecode length: {} bytes\n", .{SNAILTRACER_DEPLOYED_BYTECODE.len});
+            return;
+        }
+    }
+
+    return error.SnailTracerNotFound;
+}
+
+/// Convert hex string to bytes
+fn hexToBytes(allocator: std.mem.Allocator, hex: []const u8) ![]u8 {
+    // Skip "0x" prefix if present
+    const start: usize = if (hex.len >= 2 and hex[0] == '0' and hex[1] == 'x') 2 else 0;
+    const hex_without_prefix = hex[start..];
+    
+    if (hex_without_prefix.len % 2 != 0) {
+        return error.InvalidHexLength;
+    }
+    
+    const bytes = try allocator.alloc(u8, hex_without_prefix.len / 2);
+    
+    var i: usize = 0;
+    while (i < hex_without_prefix.len) : (i += 2) {
+        const byte_str = hex_without_prefix[i..i + 2];
+        bytes[i / 2] = try std.fmt.parseInt(u8, byte_str, 16);
+    }
+    
+    return bytes;
+}
 
 /// SnailTracer benchmark context
 const SnailTracerContext = struct {
@@ -90,10 +147,14 @@ const SnailTracerContext = struct {
             0, // value
             1_000_000 // gas
         );
-        contract.code = &SNAILTRACER_BYTECODE;
+        contract.code = SNAILTRACER_DEPLOYED_BYTECODE;
         
-        // Run the contract
-        _ = try self.interpreter.run(&contract, &[_]u8{}, false);
+        // For benchmark function, we need to encode the function selector
+        // benchmark() selector = keccak256("benchmark()")[0:4] = 0x4c0e3e7a
+        const benchmark_selector = [_]u8{ 0x4c, 0x0e, 0x3e, 0x7a };
+        
+        // Run the contract with the benchmark function selector
+        _ = try self.interpreter.run(&contract, &benchmark_selector, false);
     }
 };
 
@@ -110,6 +171,11 @@ fn benchmarkSnailTracer(allocator: std.mem.Allocator) void {
 }
 
 test "SnailTracer benchmark with zbench" {
+    // Compile the SnailTracer contract first
+    try compileSnailTracer(std.testing.allocator);
+    defer std.testing.allocator.free(SNAILTRACER_BYTECODE);
+    defer std.testing.allocator.free(SNAILTRACER_DEPLOYED_BYTECODE);
+    
     var bench = zbench.Benchmark.init(std.testing.allocator, .{
         .iterations = 100, // Run a small number of iterations for testing
     });
@@ -127,6 +193,11 @@ pub fn main() !void {
     const allocator = gpa.allocator();
     
     std.debug.print("\n=== Running SnailTracer Benchmark ===\n\n", .{});
+    
+    // Compile the SnailTracer contract first
+    try compileSnailTracer(allocator);
+    defer allocator.free(SNAILTRACER_BYTECODE);
+    defer allocator.free(SNAILTRACER_DEPLOYED_BYTECODE);
     
     // Warmup run
     {
