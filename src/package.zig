@@ -6,3 +6,6 @@ pub const evm = @import("evm");
 
 /// Exported Memory type from EVM module
 pub const Memory = evm.Memory;
+
+/// Exported Stack type from EVM module
+pub const Stack = evm.Stack;
