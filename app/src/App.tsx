@@ -1,7 +1,7 @@
-import { EvmDebugger } from "./components/evm-debugger";
+import { EvmDebugger } from './components/evm-debugger'
 
 function App() {
-  return <EvmDebugger />;
+	return <EvmDebugger />
 }
 
-export default App;
+export default App
