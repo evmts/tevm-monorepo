@@ -1,6 +1,6 @@
 const std = @import("std");
 
-pub const evm = @import("Evm");
+pub const evm = @import("evm");
 pub const utils = @import("Utils");
 
 // Export stub for __zig_probe_stack to satisfy linker when linking with Rust
