@@ -434,6 +434,20 @@ pub fn build(b: *std.Build) void {
     const memory_benchmark_step = b.step("bench-memory", "Run Memory benchmarks");
     memory_benchmark_step.dependOn(&run_memory_benchmark.step);
 
+    // Add Constants tests
+    const constants_test = b.addTest(.{
+        .name = "constants-test",
+        .root_source_file = b.path("test/Evm/constants_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    constants_test.root_module.addImport("evm", evm_mod);
+
+    const run_constants_test = b.addRunArtifact(constants_test);
+
+    const constants_test_step = b.step("test-constants", "Run Constants tests");
+    constants_test_step.dependOn(&run_constants_test.step);
+
     // Add Rust Foundry wrapper integration
     const rust_build = @import("src/Compilers/rust_build.zig");
     const rust_step = rust_build.addRustIntegration(b, target, optimize) catch |err| {
@@ -475,6 +489,7 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_memory_test.step);
     test_step.dependOn(&run_memory_stress_test.step);
     test_step.dependOn(&run_memory_comparison_test.step);
+    test_step.dependOn(&run_constants_test.step);
 
     // Define a single test step that runs all tests
     const test_all_step = b.step("test-all", "Run all unit tests");
