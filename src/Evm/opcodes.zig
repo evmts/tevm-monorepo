@@ -1,10 +1,14 @@
 const std = @import("std");
-const Interpreter = @import("interpreter.zig").Interpreter;
-const InterpreterState = @import("InterpreterState.zig").InterpreterState;
-pub const Stack = @import("Stack.zig").Stack;
 
-// Import the JumpTable module
-pub const JumpTable = @import("JumpTable.zig");
+// STOP opcode value
+pub const STOP_OPCODE: u8 = 0x00;
+
+// Use relative imports to avoid circular dependencies
+// Removed interpreter.zig import to break circular dependency
+const Frame = @import("Frame.zig").Frame;
+// Removed Stack import - now accessed via Frame.stack
+// Don't import JumpTable directly to avoid circular dependencies
+// The JumpTable types are defined in the package.zig file
 
 // Opcode dispatch performance comparison:
 //
@@ -19,14 +23,31 @@ pub const JumpTable = @import("JumpTable.zig");
 //
 // Suggested optimization: Generate opcodes at comptime with inline dispatch
 
+// MemorySize represents memory expansion requirements for EVM operations
+///
+// This is used by opcodes that need to calculate memory expansion costs
+// and ensure memory is properly sized before execution.
 pub const MemorySize = struct {
+    /// Size in bytes needed for memory expansion
     size: u32,
+
+    /// Whether the calculation resulted in an overflow
+    /// This is used to detect and handle arithmetic overflow errors
     overflow: bool,
 };
 
-pub const ExecutionError = error{
+// ExecutionError represents errors that can occur during EVM execution
+///
+// These are the fundamental stop/error conditions that can terminate
+// an EVM operation during execution.
+pub const ExecutionError_Op = error{
+    /// Normal stop (STOP opcode)
     STOP,
+
+    /// Revert operation (REVERT opcode)
     REVERT,
+
+    /// Invalid operation (INVALID opcode or invalid state)
     INVALID,
 };
 
@@ -35,8 +56,8 @@ pub const STOP = struct {
     minStack: u32 = 0,
     maxStack: u32 = 1028,
     dynamicGas: u32 = 0,
-    pub fn execute(_: usize, _: *Interpreter, _: *InterpreterState) ExecutionError![]const u8 {
-        return ExecutionError.STOP;
+    pub fn execute(_: usize, _: *Frame) ExecutionError_Op![]const u8 {
+        return ExecutionError_Op.STOP;
     }
     // Not needed with STOP but might be needed for future opcodes
     // fn getMemorySize(_: Stack) MemorySize {
@@ -57,14 +78,13 @@ const ADD = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
-        _ = interpreter; // autofix
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
         // Pop two values from stack
         // Performance issue: Individual pop operations vs bulk pop
         // evmone optimization: pop2_push1(&stack.top(), a + b)
-        const x = state.stack.pop();
-        const y = state.stack.peek();
+        const x = frame.stack.pop();
+        const y = frame.stack.peek();
         // Add them and store result in y
         y.add(&x, y);
         return "";
@@ -76,10 +96,9 @@ const MUL = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop two values from stack, multiply them, and push result
         return "";
     }
@@ -90,10 +109,9 @@ const SUB = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop two values from stack, subtract second from first, and push result
         return "";
     }
@@ -104,10 +122,9 @@ const DIV = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop two values from stack, divide first by second, and push result
         // Handle division by zero
         return "";
@@ -119,10 +136,9 @@ const SDIV = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop two values from stack, perform signed division, and push result
         // Handle division by zero
         return "";
@@ -134,10 +150,9 @@ const MOD = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop two values from stack, calculate modulo, and push result
         // Handle modulo by zero
         return "";
@@ -149,10 +164,9 @@ const SMOD = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop two values from stack, calculate signed modulo, and push result
         // Handle modulo by zero
         return "";
@@ -164,10 +178,9 @@ const ADDMOD = struct {
     minStack: u32 = 3,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop three values from stack, add first two modulo third, and push result
         // Handle modulo by zero
         return "";
@@ -185,10 +198,9 @@ const MULMOD = struct {
     minStack: u32 = 3,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop three values from stack, multiply first two modulo third, and push result
         // Handle modulo by zero
         // Performance note: Need 512-bit intermediate for correct overflow handling
@@ -200,10 +212,9 @@ const EXP = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 50, // Additional dynamic calculation needed per byte in exponent
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop base and exponent from stack, calculate base^exponent, and push result
         return "";
     }
@@ -214,10 +225,9 @@ const SIGNEXTEND = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop byte position and value from stack, sign extend the value from the specified byte position
         return "";
     }
@@ -228,10 +238,9 @@ const LT = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop two values from stack, compare (first < second), push 1 if true, 0 if false
         return "";
     }
@@ -242,10 +251,9 @@ const GT = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop two values from stack, compare (first > second), push 1 if true, 0 if false
         return "";
     }
@@ -256,10 +264,9 @@ const SLT = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop two values from stack, compare signed (first < second), push 1 if true, 0 if false
         return "";
     }
@@ -270,10 +277,9 @@ const SGT = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop two values from stack, compare signed (first > second), push 1 if true, 0 if false
         return "";
     }
@@ -284,10 +290,9 @@ const EQ = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop two values from stack, compare equality, push 1 if equal, 0 if not equal
         return "";
     }
@@ -298,10 +303,9 @@ const ISZERO = struct {
     minStack: u32 = 1,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop value from stack, push 1 if value is zero, 0 otherwise
         return "";
     }
@@ -312,10 +316,9 @@ const AND = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop two values from stack, compute bitwise AND, push result
         return "";
     }
@@ -326,10 +329,9 @@ const OR = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop two values from stack, compute bitwise OR, push result
         return "";
     }
@@ -340,10 +342,9 @@ const XOR = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop two values from stack, compute bitwise XOR, push result
         return "";
     }
@@ -354,10 +355,9 @@ const NOT = struct {
     minStack: u32 = 1,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop value from stack, compute bitwise NOT, push result
         return "";
     }
@@ -368,10 +368,9 @@ const BYTE = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop position and value, extract byte at position from value, push result
         return "";
     }
@@ -382,10 +381,9 @@ const SHL = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop shift and value, compute (value << shift), push result
         return "";
     }
@@ -396,10 +394,9 @@ const SHR = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop shift and value, compute (value >> shift), push result
         return "";
     }
@@ -410,10 +407,9 @@ const SAR = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop shift and value, compute arithmetic right shift, push result
         return "";
     }
@@ -424,29 +420,101 @@ const KECCAK256 = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 6, // Per word, plus memory expansion cost
-    fn getMemorySize(stack: Stack) MemorySize {
-        _ = stack; // autofix
-        // Calculate memory size based on offset and size from stack
-        return MemorySize{ .size = 0, .overflow = false }; // Placeholder
+    fn getMemorySize(frame: *const Frame) MemorySize {
+        if (frame.stack.size < 2) {
+            return MemorySize{ .size = 0, .overflow = false };
+        }
+
+        // Stack has [offset, size]
+        // We need to get the memory size required to perform the operation
+        // First, we need a copy of the stack to avoid modifying it
+        const offset = frame.stack.data[frame.stack.size - 2];
+        const size = frame.stack.data[frame.stack.size - 1];
+
+        // If size is 0, no memory expansion is needed
+        if (size == 0) {
+            return MemorySize{ .size = 0, .overflow = false };
+        }
+
+        // Calculate the memory size required (offset + size, rounded up to next multiple of 32)
+        var total_size: u64 = undefined;
+
+        // Check for overflow when adding offset and size
+        const add_result = @addWithOverflow(offset, size);
+        if (add_result[1] != 0) {
+            return MemorySize{ .size = 0, .overflow = true };
+        }
+        total_size = add_result[0];
+
+        // Calculate memory size with proper alignment (32 bytes)
+        const words = (total_size + 31) / 32;
+        const memory_size = words * 32;
+
+        return MemorySize{ .size = memory_size, .overflow = false };
     }
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
-        _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
-        // Pop offset and size, compute keccak256 hash of memory region, push result
+    fn execute(pc: usize, _: *Interpreter, frame: *Frame) ExecutionError_Op![]const u8 {
+        _ = pc;
+
+        // Pop offset and size from stack
+        if (frame.stack.size < 2) {
+            return ExecutionError_Op.StackUnderflow;
+        }
+
+        const size = try frame.stack.pop();
+        const offset = try frame.stack.pop();
+
+        // If size is 0, return empty hash (all zeros)
+        if (size == 0) {
+            try frame.stack.push(0);
+            return "";
+        }
+
+        // Get memory range to hash
+        const mem_offset = @as(u64, offset); // Convert to u64
+        const mem_size = @as(u64, size); // Convert to u64
+
+        // Make sure the memory access is valid
+        if (mem_offset + mem_size > state.memory.data().len) {
+            return ExecutionError_Op.OutOfOffset;
+        }
+
+        // Get memory slice to hash
+        const data = state.memory.data()[mem_offset .. mem_offset + mem_size];
+
+        // Calculate keccak256 hash
+        var hash: [32]u8 = undefined;
+        std.crypto.hash.sha3.Keccak256.hash(data, &hash, .{});
+
+        // Convert hash to u256 and push to stack
+        const hash_value = bytesToUint256(hash);
+        try frame.stack.push(hash_value);
+
         return "";
     }
 };
+
+// Helper function to convert bytes to u256
+fn bytesToUint256(bytes: [32]u8) u256 {
+    var result: u256 = 0;
+
+    for (bytes, 0..) |byte, i| {
+        // Shift and OR each byte into the result
+        // For big-endian, start with most significant byte (index 0)
+        const shift_amount = (31 - i) * 8;
+        result |= @as(u256, byte) << shift_amount;
+    }
+
+    return result;
+}
 
 const ADDRESS = struct {
     constantGas: u32 = 2, // GasQuickStep
     minStack: u32 = 0,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Push the address of the current executing account
         return "";
     }
@@ -457,10 +525,9 @@ const BALANCE = struct {
     minStack: u32 = 1,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop address, push balance of that address
         return "";
     }
@@ -471,10 +538,9 @@ const ORIGIN = struct {
     minStack: u32 = 0,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Push the address of the original transaction sender
         return "";
     }
@@ -485,10 +551,9 @@ const CALLER = struct {
     minStack: u32 = 0,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Push the address of the caller
         return "";
     }
@@ -499,10 +564,9 @@ const CALLVALUE = struct {
     minStack: u32 = 0,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Push the value sent with the current call
         return "";
     }
@@ -513,10 +577,9 @@ const CALLDATALOAD = struct {
     minStack: u32 = 1,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop offset, push 32 bytes of calldata starting at that offset
         return "";
     }
@@ -527,10 +590,9 @@ const CALLDATASIZE = struct {
     minStack: u32 = 0,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Push size of calldata
         return "";
     }
@@ -541,15 +603,14 @@ const CALLDATACOPY = struct {
     minStack: u32 = 3,
     maxStack: u32 = 0,
     dynamicGas: u32 = 3, // Per word, plus memory expansion
-    fn getMemorySize(stack: Stack) MemorySize {
-        _ = stack; // autofix
+    fn getMemorySize(frame: *const Frame) MemorySize {
+        _ = frame; // autofix
         // Calculate memory expansion size based on memOffset and size from stack
         return MemorySize{ .size = 0, .overflow = false }; // Placeholder
     }
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop memOffset, dataOffset, and size
         // Copy call data from dataOffset to memory at memOffset
         return "";
@@ -561,10 +622,9 @@ const CODESIZE = struct {
     minStack: u32 = 0,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Push size of code running in current environment
         return "";
     }
@@ -575,15 +635,14 @@ const CODECOPY = struct {
     minStack: u32 = 3,
     maxStack: u32 = 0,
     dynamicGas: u32 = 3, // Per word, plus memory expansion
-    fn getMemorySize(stack: Stack) MemorySize {
-        _ = stack; // autofix
+    fn getMemorySize(frame: *const Frame) MemorySize {
+        _ = frame; // autofix
         // Calculate memory expansion size based on memOffset and size from stack
         return MemorySize{ .size = 0, .overflow = false }; // Placeholder
     }
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop memOffset, codeOffset, and size
         // Copy code from codeOffset to memory at memOffset
         return "";
@@ -595,10 +654,9 @@ const GASPRICE = struct {
     minStack: u32 = 0,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Push the gas price used in the current transaction
         return "";
     }
@@ -609,10 +667,9 @@ const EXTCODESIZE = struct {
     minStack: u32 = 1,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop address, push size of code at that address
         return "";
     }
@@ -623,15 +680,14 @@ const EXTCODECOPY = struct {
     minStack: u32 = 4,
     maxStack: u32 = 0,
     dynamicGas: u32 = 3, // Per word, plus memory expansion
-    fn getMemorySize(stack: Stack) MemorySize {
-        _ = stack; // autofix
+    fn getMemorySize(frame: *const Frame) MemorySize {
+        _ = frame; // autofix
         // Calculate memory expansion size based on memOffset and size from stack
         return MemorySize{ .size = 0, .overflow = false }; // Placeholder
     }
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop address, memOffset, codeOffset, and size
         // Copy code of the specified account from codeOffset to memory at memOffset
         return "";
@@ -643,10 +699,9 @@ const RETURNDATASIZE = struct {
     minStack: u32 = 0,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Push size of data returned from most recent call
         return "";
     }
@@ -657,15 +712,14 @@ const RETURNDATACOPY = struct {
     minStack: u32 = 3,
     maxStack: u32 = 0,
     dynamicGas: u32 = 3, // Per word, plus memory expansion
-    fn getMemorySize(stack: Stack) MemorySize {
-        _ = stack; // autofix
+    fn getMemorySize(frame: *const Frame) MemorySize {
+        _ = frame; // autofix
         // Calculate memory expansion size based on memOffset and size from stack
         return MemorySize{ .size = 0, .overflow = false }; // Placeholder
     }
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop memOffset, dataOffset, and size
         // Copy return data from dataOffset to memory at memOffset
         return "";
@@ -677,10 +731,9 @@ const EXTCODEHASH = struct {
     minStack: u32 = 1,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop address, push hash of the code at that address
         return "";
     }
@@ -691,10 +744,9 @@ const BLOCKHASH = struct {
     minStack: u32 = 1,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop block number, push hash of that block
         return "";
     }
@@ -705,10 +757,9 @@ const COINBASE = struct {
     minStack: u32 = 0,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Push address of the current block's miner
         return "";
     }
@@ -719,10 +770,9 @@ const TIMESTAMP = struct {
     minStack: u32 = 0,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Push timestamp of the current block
         return "";
     }
@@ -733,10 +783,9 @@ const NUMBER = struct {
     minStack: u32 = 0,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Push current block number
         return "";
     }
@@ -747,10 +796,9 @@ const PREVRANDAO = struct {
     minStack: u32 = 0,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Push RANDAO value from current block
         // This is the new opcode that replaced DIFFICULTY after The Merge
         return "";
@@ -762,10 +810,9 @@ const GASLIMIT = struct {
     minStack: u32 = 0,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Push gas limit of the current block
         return "";
     }
@@ -776,10 +823,9 @@ const CHAINID = struct {
     minStack: u32 = 0,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Push chain ID
         return "";
     }
@@ -790,10 +836,9 @@ const SELFBALANCE = struct {
     minStack: u32 = 0,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Push balance of the current contract
         return "";
     }
@@ -804,10 +849,9 @@ const BASEFEE = struct {
     minStack: u32 = 0,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Push base fee of the current block (post-EIP 1559)
         return "";
     }
@@ -818,10 +862,9 @@ const BLOBHASH = struct {
     minStack: u32 = 1,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop index, push hash of blob at that index (EIP-4844)
         return "";
     }
@@ -832,10 +875,9 @@ const BLOBBASEFEE = struct {
     minStack: u32 = 0,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Push blob base fee of the current block (EIP-7516)
         return "";
     }
@@ -846,10 +888,9 @@ const POP = struct {
     minStack: u32 = 1,
     maxStack: u32 = 0,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop value from stack and discard it
         return "";
     }
@@ -860,15 +901,14 @@ const MLOAD = struct {
     minStack: u32 = 1,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0, // Plus memory expansion
-    fn getMemorySize(stack: Stack) MemorySize {
-        _ = stack; // autofix
+    fn getMemorySize(frame: *const Frame) MemorySize {
+        _ = frame; // autofix
         // Calculate memory expansion size based on offset from stack
         return MemorySize{ .size = 32, .overflow = false }; // 32 bytes read
     }
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop offset, push value from memory at that offset
         return "";
     }
@@ -879,15 +919,14 @@ const MSTORE = struct {
     minStack: u32 = 2,
     maxStack: u32 = 0,
     dynamicGas: u32 = 0, // Plus memory expansion
-    fn getMemorySize(stack: Stack) MemorySize {
-        _ = stack; // autofix
+    fn getMemorySize(frame: *const Frame) MemorySize {
+        _ = frame; // autofix
         // Calculate memory expansion size based on offset from stack
         return MemorySize{ .size = 32, .overflow = false }; // 32 bytes written
     }
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop offset and value, store value in memory at offset
         return "";
     }
@@ -898,15 +937,14 @@ const MSTORE8 = struct {
     minStack: u32 = 2,
     maxStack: u32 = 0,
     dynamicGas: u32 = 0, // Plus memory expansion
-    fn getMemorySize(stack: Stack) MemorySize {
-        _ = stack; // autofix
+    fn getMemorySize(frame: *const Frame) MemorySize {
+        _ = frame; // autofix
         // Calculate memory expansion size based on offset from stack
         return MemorySize{ .size = 1, .overflow = false }; // 1 byte written
     }
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop offset and value, store least significant byte in memory at offset
         return "";
     }
@@ -917,10 +955,9 @@ const SLOAD = struct {
     minStack: u32 = 1,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop key, push value from storage at that key
         return "";
     }
@@ -931,10 +968,9 @@ const SSTORE = struct {
     minStack: u32 = 2,
     maxStack: u32 = 0,
     dynamicGas: u32 = 20000, // Base cost, actual cost depends on value being set
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop key and value, store value in storage at key
         return "";
     }
@@ -945,10 +981,9 @@ const JUMP = struct {
     minStack: u32 = 1,
     maxStack: u32 = 0,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop destination, set PC to destination
         // Must validate destination is a JUMPDEST
         return "";
@@ -960,10 +995,9 @@ const JUMPI = struct {
     minStack: u32 = 2,
     maxStack: u32 = 0,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop destination and condition
         // If condition is not zero, set PC to destination
         // Must validate destination is a JUMPDEST
@@ -976,10 +1010,9 @@ const PC = struct {
     minStack: u32 = 0,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Push current program counter
         return "";
     }
@@ -990,10 +1023,9 @@ const MSIZE = struct {
     minStack: u32 = 0,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Push current memory size in bytes
         return "";
     }
@@ -1004,10 +1036,9 @@ const GAS = struct {
     minStack: u32 = 0,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Push remaining gas
         return "";
     }
@@ -1018,10 +1049,9 @@ const JUMPDEST = struct {
     minStack: u32 = 0,
     maxStack: u32 = 0,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Mark valid jump destination, no operation performed
         return "";
     }
@@ -1032,10 +1062,9 @@ const TLOAD = struct {
     minStack: u32 = 1,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop key, push value from transient storage at that key (EIP-1153)
         return "";
     }
@@ -1046,10 +1075,9 @@ const TSTORE = struct {
     minStack: u32 = 2,
     maxStack: u32 = 0,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop key and value, store value in transient storage at key (EIP-1153)
         return "";
     }
@@ -1060,15 +1088,14 @@ const MCOPY = struct {
     minStack: u32 = 3,
     maxStack: u32 = 0,
     dynamicGas: u32 = 3, // Per word, plus memory expansion
-    fn getMemorySize(stack: Stack) MemorySize {
-        _ = stack; // autofix
+    fn getMemorySize(frame: *const Frame) MemorySize {
+        _ = frame; // autofix
         // Calculate memory expansion size based on dest, source, and size from stack
         return MemorySize{ .size = 0, .overflow = false }; // Placeholder
     }
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop dest, source, and size
         // Copy memory from source to dest for size bytes (EIP-5656)
         return "";
@@ -1080,10 +1107,9 @@ const PUSH0 = struct {
     minStack: u32 = 0,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Push zero onto the stack (EIP-3855)
         return "";
     }
@@ -1095,10 +1121,9 @@ const PUSH1 = struct {
     minStack: u32 = 0,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Push 1 byte onto stack from code after PC
         return "";
     }
@@ -1110,10 +1135,9 @@ const DUP1 = struct {
     minStack: u32 = 1,
     maxStack: u32 = 2,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Duplicate the 1st stack item
         return "";
     }
@@ -1125,10 +1149,9 @@ const SWAP1 = struct {
     minStack: u32 = 2,
     maxStack: u32 = 2,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Swap 1st and 2nd stack items
         return "";
     }
@@ -1140,15 +1163,14 @@ const LOG0 = struct {
     minStack: u32 = 2,
     maxStack: u32 = 0,
     dynamicGas: u32 = 8, // LogDataGas per byte, plus memory expansion
-    fn getMemorySize(stack: Stack) MemorySize {
-        _ = stack; // autofix
+    fn getMemorySize(frame: *const Frame) MemorySize {
+        _ = frame; // autofix
         // Calculate memory expansion size based on offset and size from stack
         return MemorySize{ .size = 0, .overflow = false }; // Placeholder
     }
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop offset and size, log data from memory with no topics
         return "";
     }
@@ -1159,15 +1181,14 @@ const LOG1 = struct {
     minStack: u32 = 3,
     maxStack: u32 = 0,
     dynamicGas: u32 = 8, // LogDataGas per byte, plus memory expansion
-    fn getMemorySize(stack: Stack) MemorySize {
-        _ = stack; // autofix
+    fn getMemorySize(frame: *const Frame) MemorySize {
+        _ = frame; // autofix
         // Calculate memory expansion size based on offset and size from stack
         return MemorySize{ .size = 0, .overflow = false }; // Placeholder
     }
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop offset, size, and topic1, log data from memory with 1 topic
         return "";
     }
@@ -1178,15 +1199,14 @@ const LOG2 = struct {
     minStack: u32 = 4,
     maxStack: u32 = 0,
     dynamicGas: u32 = 8, // LogDataGas per byte, plus memory expansion
-    fn getMemorySize(stack: Stack) MemorySize {
-        _ = stack; // autofix
+    fn getMemorySize(frame: *const Frame) MemorySize {
+        _ = frame; // autofix
         // Calculate memory expansion size based on offset and size from stack
         return MemorySize{ .size = 0, .overflow = false }; // Placeholder
     }
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop offset, size, topic1, and topic2, log data from memory with 2 topics
         return "";
     }
@@ -1197,15 +1217,14 @@ const LOG3 = struct {
     minStack: u32 = 5,
     maxStack: u32 = 0,
     dynamicGas: u32 = 8, // LogDataGas per byte, plus memory expansion
-    fn getMemorySize(stack: Stack) MemorySize {
-        _ = stack; // autofix
+    fn getMemorySize(frame: *const Frame) MemorySize {
+        _ = frame; // autofix
         // Calculate memory expansion size based on offset and size from stack
         return MemorySize{ .size = 0, .overflow = false }; // Placeholder
     }
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop offset, size, topic1, topic2, and topic3, log data from memory with 3 topics
         return "";
     }
@@ -1216,15 +1235,14 @@ const LOG4 = struct {
     minStack: u32 = 6,
     maxStack: u32 = 0,
     dynamicGas: u32 = 8, // LogDataGas per byte, plus memory expansion
-    fn getMemorySize(stack: Stack) MemorySize {
-        _ = stack; // autofix
+    fn getMemorySize(frame: *const Frame) MemorySize {
+        _ = frame; // autofix
         // Calculate memory expansion size based on offset and size from stack
         return MemorySize{ .size = 0, .overflow = false }; // Placeholder
     }
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop offset, size, topic1, topic2, topic3, and topic4, log data from memory with 4 topics
         return "";
     }
@@ -1236,15 +1254,14 @@ const CREATE = struct {
     minStack: u32 = 3,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0, // Complex calculation based on execution, plus memory expansion
-    fn getMemorySize(stack: Stack) MemorySize {
-        _ = stack; // autofix
+    fn getMemorySize(frame: *const Frame) MemorySize {
+        _ = frame; // autofix
         // Calculate memory expansion size based on offset and size from stack
         return MemorySize{ .size = 0, .overflow = false }; // Placeholder
     }
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop value, offset, and size
         // Create a new contract with code from memory and value
         return "";
@@ -1256,15 +1273,14 @@ const CALL = struct {
     minStack: u32 = 7,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0, // Complex calculation based on value transfer and new account
-    fn getMemorySize(stack: Stack) MemorySize {
-        _ = stack; // autofix
+    fn getMemorySize(frame: *const Frame) MemorySize {
+        _ = frame; // autofix
         // Calculate memory expansion from inOffset, inSize, outOffset, outSize
         return MemorySize{ .size = 0, .overflow = false }; // Placeholder
     }
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop gas, address, value, inOffset, inSize, outOffset, outSize
         // Call the specified address with the given inputs
         return "";
@@ -1276,15 +1292,14 @@ const CALLCODE = struct {
     minStack: u32 = 7,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0, // Complex calculation based on value transfer
-    fn getMemorySize(stack: Stack) MemorySize {
-        _ = stack; // autofix
+    fn getMemorySize(frame: *const Frame) MemorySize {
+        _ = frame; // autofix
         // Calculate memory expansion from inOffset, inSize, outOffset, outSize
         return MemorySize{ .size = 0, .overflow = false }; // Placeholder
     }
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop gas, address, value, inOffset, inSize, outOffset, outSize
         // Call the specified code with the current contract's context
         return "";
@@ -1296,15 +1311,14 @@ const RETURN = struct {
     minStack: u32 = 2,
     maxStack: u32 = 0,
     dynamicGas: u32 = 0, // Memory expansion only
-    fn getMemorySize(stack: Stack) MemorySize {
-        _ = stack; // autofix
+    fn getMemorySize(frame: *const Frame) MemorySize {
+        _ = frame; // autofix
         // Calculate memory expansion from offset and size
         return MemorySize{ .size = 0, .overflow = false }; // Placeholder
     }
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop offset and size, return data from memory
         return "";
     }
@@ -1315,15 +1329,14 @@ const DELEGATECALL = struct {
     minStack: u32 = 6,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0, // Complex calculation
-    fn getMemorySize(stack: Stack) MemorySize {
-        _ = stack; // autofix
+    fn getMemorySize(frame: *const Frame) MemorySize {
+        _ = frame; // autofix
         // Calculate memory expansion from inOffset, inSize, outOffset, outSize
         return MemorySize{ .size = 0, .overflow = false }; // Placeholder
     }
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop gas, address, inOffset, inSize, outOffset, outSize
         // Call the specified code with the sender and value of the current contract
         return "";
@@ -1335,15 +1348,14 @@ const CREATE2 = struct {
     minStack: u32 = 4,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0, // Complex calculation including hash cost
-    fn getMemorySize(stack: Stack) MemorySize {
-        _ = stack; // autofix
+    fn getMemorySize(frame: *const Frame) MemorySize {
+        _ = frame; // autofix
         // Calculate memory expansion from offset and size
         return MemorySize{ .size = 0, .overflow = false }; // Placeholder
     }
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop value, offset, size, and salt
         // Create a new contract with deterministic address
         return "";
@@ -1355,15 +1367,14 @@ const STATICCALL = struct {
     minStack: u32 = 6,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0, // Complex calculation
-    fn getMemorySize(stack: Stack) MemorySize {
-        _ = stack; // autofix
+    fn getMemorySize(frame: *const Frame) MemorySize {
+        _ = frame; // autofix
         // Calculate memory expansion from inOffset, inSize, outOffset, outSize
         return MemorySize{ .size = 0, .overflow = false }; // Placeholder
     }
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop gas, address, inOffset, inSize, outOffset, outSize
         // Call the specified address with static restrictions (no state changes)
         return "";
@@ -1375,17 +1386,16 @@ const REVERT = struct {
     minStack: u32 = 2,
     maxStack: u32 = 0,
     dynamicGas: u32 = 0, // Memory expansion only
-    fn getMemorySize(stack: Stack) MemorySize {
-        _ = stack; // autofix
+    fn getMemorySize(frame: *const Frame) MemorySize {
+        _ = frame; // autofix
         // Calculate memory expansion from offset and size
         return MemorySize{ .size = 0, .overflow = false }; // Placeholder
     }
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop offset and size, revert state changes and return data from memory
-        return ExecutionError.REVERT;
+        return ExecutionError_Op.REVERT;
     }
 };
 
@@ -1394,12 +1404,11 @@ const INVALID = struct {
     minStack: u32 = 0,
     maxStack: u32 = 0,
     dynamicGas: u32 = 0,
-    pub fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    pub fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Invalid operation
-        return ExecutionError.INVALID;
+        return ExecutionError_Op.INVALID;
     }
 };
 
@@ -1408,10 +1417,9 @@ const SELFDESTRUCT = struct {
     minStack: u32 = 1,
     maxStack: u32 = 0,
     dynamicGas: u32 = 0, // Additional cost based on whether account already has balance
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop beneficiary address, destroy current contract and send funds to beneficiary
         return "";
     }
@@ -1422,10 +1430,9 @@ const RETURNDATALOAD = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // Pop offset from stack, load return data at that offset
         return "";
     }
@@ -1436,14 +1443,13 @@ const EXTCALL = struct {
     minStack: u32 = 7,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn getMemorySize(stack: Stack) MemorySize {
-        _ = stack; // autofix
+    fn getMemorySize(frame: *const Frame) MemorySize {
+        _ = frame; // autofix
         return MemorySize{ .size = 0, .overflow = false };
     }
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // External call operation
         return "";
     }
@@ -1454,14 +1460,13 @@ const EXTDELEGATECALL = struct {
     minStack: u32 = 6,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn getMemorySize(stack: Stack) MemorySize {
-        _ = stack; // autofix
+    fn getMemorySize(frame: *const Frame) MemorySize {
+        _ = frame; // autofix
         return MemorySize{ .size = 0, .overflow = false };
     }
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // External delegate call operation
         return "";
     }
@@ -1472,14 +1477,13 @@ const EXTSTATICCALL = struct {
     minStack: u32 = 6,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn getMemorySize(stack: Stack) MemorySize {
-        _ = stack; // autofix
+    fn getMemorySize(frame: *const Frame) MemorySize {
+        _ = frame; // autofix
         return MemorySize{ .size = 0, .overflow = false };
     }
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, frame: *Frame) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
+        _ = frame; // autofix
         // External static call operation
         return "";
     }
@@ -1842,7 +1846,7 @@ pub fn getOpcodeName(opcode: u8) []const u8 {
         0xF8 => "EXTCALL",
         0xF9 => "EXTDELEGATECALL",
         0xFB => "EXTSTATICCALL",
-        else => "UNKNOWN",
+        else => "INVALID",
     };
 }
 
@@ -2007,4 +2011,13 @@ pub fn stringToOp(str: []const u8) ?u8 {
 
 pub fn isPush(opcode: u8) bool {
     return 0x5F <= opcode and opcode <= 0x7F; // PUSH0 to PUSH32
+}
+
+// Tests
+const testing = std.testing;
+
+test "opcodes - placeholder test" {
+    // TODO: Add comprehensive tests for opcodes functionality
+    // This is a placeholder to ensure the test runs
+    try testing.expect(true);
 }

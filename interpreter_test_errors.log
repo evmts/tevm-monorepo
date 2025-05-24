@@ -1,0 +1,276 @@
+Building Rust Foundry wrapper...
+test-interpreter-impl
++- run interpreter-impl-test
+   +- zig test interpreter-impl-test Debug native 30 errors
+src/Evm/interpreter.zig:510:28: error: missing struct field: analysis
+    var contract = Contract{
+                   ~~~~~~~~^
+src/Evm/interpreter.zig:510:28: note: missing struct field: jumpdests
+src/Evm/Contract.zig:21:22: note: struct declared here
+pub const Contract = struct {
+                     ^~~~~~
+src/Evm/interpreter.zig:1323:28: error: missing struct field: analysis
+    var contract = Contract{
+                   ~~~~~~~~^
+src/Evm/interpreter.zig:1323:28: note: missing struct field: jumpdests
+src/Evm/Contract.zig:21:22: note: struct declared here
+pub const Contract = struct {
+                     ^~~~~~
+src/Evm/interpreter.zig:1369:28: error: missing struct field: analysis
+    var contract = Contract{
+                   ~~~~~~~~^
+src/Evm/interpreter.zig:1369:28: note: missing struct field: jumpdests
+src/Evm/Contract.zig:21:22: note: struct declared here
+pub const Contract = struct {
+                     ^~~~~~
+src/Evm/interpreter.zig:2350:28: error: missing struct field: analysis
+    var contract = Contract{
+                   ~~~~~~~~^
+src/Evm/interpreter.zig:2350:28: note: missing struct field: jumpdests
+src/Evm/Contract.zig:21:22: note: struct declared here
+pub const Contract = struct {
+                     ^~~~~~
+src/Evm/opcodes/bitwise.zig:359:22: error: expected type '*interpreter.Interpreter', found '*opcodes.bitwise.MockInterpreter'
+    _ = try opAnd(0, &mock_interpreter, &frame);
+                     ^~~~~~~~~~~~~~~~~
+src/Evm/opcodes/bitwise.zig:359:22: note: pointer type child 'opcodes.bitwise.MockInterpreter' cannot cast into pointer type child 'interpreter.Interpreter'
+src/Evm/opcodes/bitwise.zig:339:25: note: struct declared here
+const MockInterpreter = struct {
+                        ^~~~~~
+src/Evm/interpreter.zig:127:25: note: struct declared here
+pub const Interpreter = struct {
+                        ^~~~~~
+src/Evm/opcodes/bitwise.zig:23:38: note: parameter type declared here
+pub fn opAnd(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
+                                     ^~~~~~~~~~~~
+src/Evm/opcodes/bitwise.zig:374:21: error: expected type '*interpreter.Interpreter', found '*opcodes.bitwise.MockInterpreter'
+    _ = try opOr(0, &mock_interpreter, &frame);
+                    ^~~~~~~~~~~~~~~~~
+src/Evm/opcodes/bitwise.zig:374:21: note: pointer type child 'opcodes.bitwise.MockInterpreter' cannot cast into pointer type child 'interpreter.Interpreter'
+src/Evm/opcodes/bitwise.zig:339:25: note: struct declared here
+const MockInterpreter = struct {
+                        ^~~~~~
+src/Evm/interpreter.zig:127:25: note: struct declared here
+pub const Interpreter = struct {
+                        ^~~~~~
+src/Evm/opcodes/bitwise.zig:64:37: note: parameter type declared here
+pub fn opOr(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
+                                    ^~~~~~~~~~~~
+src/Evm/opcodes/bitwise.zig:389:22: error: expected type '*interpreter.Interpreter', found '*opcodes.bitwise.MockInterpreter'
+    _ = try opXor(0, &mock_interpreter, &frame);
+                     ^~~~~~~~~~~~~~~~~
+src/Evm/opcodes/bitwise.zig:389:22: note: pointer type child 'opcodes.bitwise.MockInterpreter' cannot cast into pointer type child 'interpreter.Interpreter'
+src/Evm/opcodes/bitwise.zig:339:25: note: struct declared here
+const MockInterpreter = struct {
+                        ^~~~~~
+src/Evm/interpreter.zig:127:25: note: struct declared here
+pub const Interpreter = struct {
+                        ^~~~~~
+src/Evm/opcodes/bitwise.zig:86:38: note: parameter type declared here
+pub fn opXor(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
+                                     ^~~~~~~~~~~~
+src/Evm/opcodes/bitwise.zig:403:22: error: expected type '*interpreter.Interpreter', found '*opcodes.bitwise.MockInterpreter'
+    _ = try opNot(0, &mock_interpreter, &frame);
+                     ^~~~~~~~~~~~~~~~~
+src/Evm/opcodes/bitwise.zig:403:22: note: pointer type child 'opcodes.bitwise.MockInterpreter' cannot cast into pointer type child 'interpreter.Interpreter'
+src/Evm/opcodes/bitwise.zig:339:25: note: struct declared here
+const MockInterpreter = struct {
+                        ^~~~~~
+src/Evm/interpreter.zig:127:25: note: struct declared here
+pub const Interpreter = struct {
+                        ^~~~~~
+src/Evm/opcodes/bitwise.zig:108:38: note: parameter type declared here
+pub fn opNot(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
+                                     ^~~~~~~~~~~~
+src/Evm/opcodes/bitwise.zig:421:23: error: expected type '*interpreter.Interpreter', found '*opcodes.bitwise.MockInterpreter'
+    _ = try opByte(0, &mock_interpreter, &frame);
+                      ^~~~~~~~~~~~~~~~~
+src/Evm/opcodes/bitwise.zig:421:23: note: pointer type child 'opcodes.bitwise.MockInterpreter' cannot cast into pointer type child 'interpreter.Interpreter'
+src/Evm/opcodes/bitwise.zig:339:25: note: struct declared here
+const MockInterpreter = struct {
+                        ^~~~~~
+src/Evm/interpreter.zig:127:25: note: struct declared here
+pub const Interpreter = struct {
+                        ^~~~~~
+src/Evm/opcodes/bitwise.zig:127:39: note: parameter type declared here
+pub fn opByte(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
+                                      ^~~~~~~~~~~~
+src/Evm/opcodes/bitwise.zig:453:22: error: expected type '*interpreter.Interpreter', found '*opcodes.bitwise.MockInterpreter'
+    _ = try opShl(0, &mock_interpreter, &frame);
+                     ^~~~~~~~~~~~~~~~~
+src/Evm/opcodes/bitwise.zig:453:22: note: pointer type child 'opcodes.bitwise.MockInterpreter' cannot cast into pointer type child 'interpreter.Interpreter'
+src/Evm/opcodes/bitwise.zig:339:25: note: struct declared here
+const MockInterpreter = struct {
+                        ^~~~~~
+src/Evm/interpreter.zig:127:25: note: struct declared here
+pub const Interpreter = struct {
+                        ^~~~~~
+src/Evm/opcodes/bitwise.zig:159:38: note: parameter type declared here
+pub fn opShl(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
+                                     ^~~~~~~~~~~~
+src/Evm/opcodes/bitwise.zig:485:22: error: expected type '*interpreter.Interpreter', found '*opcodes.bitwise.MockInterpreter'
+    _ = try opShr(0, &mock_interpreter, &frame);
+                     ^~~~~~~~~~~~~~~~~
+src/Evm/opcodes/bitwise.zig:485:22: note: pointer type child 'opcodes.bitwise.MockInterpreter' cannot cast into pointer type child 'interpreter.Interpreter'
+src/Evm/opcodes/bitwise.zig:339:25: note: struct declared here
+const MockInterpreter = struct {
+                        ^~~~~~
+src/Evm/interpreter.zig:127:25: note: struct declared here
+pub const Interpreter = struct {
+                        ^~~~~~
+src/Evm/opcodes/bitwise.zig:186:38: note: parameter type declared here
+pub fn opShr(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
+                                     ^~~~~~~~~~~~
+src/Evm/opcodes/bitwise.zig:518:22: error: expected type '*interpreter.Interpreter', found '*opcodes.bitwise.MockInterpreter'
+    _ = try opSar(0, &mock_interpreter, &frame);
+                     ^~~~~~~~~~~~~~~~~
+src/Evm/opcodes/bitwise.zig:518:22: note: pointer type child 'opcodes.bitwise.MockInterpreter' cannot cast into pointer type child 'interpreter.Interpreter'
+src/Evm/opcodes/bitwise.zig:339:25: note: struct declared here
+const MockInterpreter = struct {
+                        ^~~~~~
+src/Evm/interpreter.zig:127:25: note: struct declared here
+pub const Interpreter = struct {
+                        ^~~~~~
+src/Evm/opcodes/bitwise.zig:213:38: note: parameter type declared here
+pub fn opSar(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
+                                     ^~~~~~~~~~~~
+src/Evm/opcodes/comparison.zig:282:21: error: expected type '*interpreter.Interpreter', found '*opcodes.comparison.MockInterpreter'
+    _ = try opLt(0, &mock_interpreter, &frame);
+                    ^~~~~~~~~~~~~~~~~
+src/Evm/opcodes/comparison.zig:282:21: note: pointer type child 'opcodes.comparison.MockInterpreter' cannot cast into pointer type child 'interpreter.Interpreter'
+src/Evm/opcodes/comparison.zig:262:25: note: struct declared here
+const MockInterpreter = struct {
+                        ^~~~~~
+src/Evm/interpreter.zig:127:25: note: struct declared here
+pub const Interpreter = struct {
+                        ^~~~~~
+src/Evm/opcodes/comparison.zig:22:37: note: parameter type declared here
+pub fn opLt(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
+                                    ^~~~~~~~~~~~
+src/Evm/opcodes/comparison.zig:307:21: error: expected type '*interpreter.Interpreter', found '*opcodes.comparison.MockInterpreter'
+    _ = try opGt(0, &mock_interpreter, &frame);
+                    ^~~~~~~~~~~~~~~~~
+src/Evm/opcodes/comparison.zig:307:21: note: pointer type child 'opcodes.comparison.MockInterpreter' cannot cast into pointer type child 'interpreter.Interpreter'
+src/Evm/opcodes/comparison.zig:262:25: note: struct declared here
+const MockInterpreter = struct {
+                        ^~~~~~
+src/Evm/interpreter.zig:127:25: note: struct declared here
+pub const Interpreter = struct {
+                        ^~~~~~
+src/Evm/opcodes/comparison.zig:44:37: note: parameter type declared here
+pub fn opGt(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
+                                    ^~~~~~~~~~~~
+src/Evm/opcodes/comparison.zig:332:21: error: expected type '*interpreter.Interpreter', found '*opcodes.comparison.MockInterpreter'
+    _ = try opEq(0, &mock_interpreter, &frame);
+                    ^~~~~~~~~~~~~~~~~
+src/Evm/opcodes/comparison.zig:332:21: note: pointer type child 'opcodes.comparison.MockInterpreter' cannot cast into pointer type child 'interpreter.Interpreter'
+src/Evm/opcodes/comparison.zig:262:25: note: struct declared here
+const MockInterpreter = struct {
+                        ^~~~~~
+src/Evm/interpreter.zig:127:25: note: struct declared here
+pub const Interpreter = struct {
+                        ^~~~~~
+src/Evm/opcodes/comparison.zig:152:37: note: parameter type declared here
+pub fn opEq(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
+                                    ^~~~~~~~~~~~
+src/Evm/opcodes/comparison.zig:356:25: error: expected type '*interpreter.Interpreter', found '*opcodes.comparison.MockInterpreter'
+    _ = try opIszero(0, &mock_interpreter, &frame);
+                        ^~~~~~~~~~~~~~~~~
+src/Evm/opcodes/comparison.zig:356:25: note: pointer type child 'opcodes.comparison.MockInterpreter' cannot cast into pointer type child 'interpreter.Interpreter'
+src/Evm/opcodes/comparison.zig:262:25: note: struct declared here
+const MockInterpreter = struct {
+                        ^~~~~~
+src/Evm/interpreter.zig:127:25: note: struct declared here
+pub const Interpreter = struct {
+                        ^~~~~~
+src/Evm/opcodes/comparison.zig:174:41: note: parameter type declared here
+pub fn opIszero(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
+                                        ^~~~~~~~~~~~
+src/Evm/opcodes/environment.zig:108:40: error: no field or member function named 'getAccount' in 'test_stubs.StateManager'
+    if (interpreter.evm.state_manager.?.getAccount(b160Address) catch return ExecutionError.OutOfGas) |account| {
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~
+src/Evm/test_stubs.zig:9:26: note: struct declared here
+pub const StateManager = struct {
+                         ^~~~~~
+src/Evm/opcodes/environment.zig:108:40: note: method invocation only supports up to one level of implicit pointer dereferencing
+src/Evm/opcodes/environment.zig:108:40: note: use '.*' to dereference pointer
+src/Evm/opcodes/environment.zig:540:53: error: no field or member function named 'getContractCode' in 'test_stubs.StateManager'
+    const code = try interpreter.evm.state_manager.?.getContractCode(b160Address);
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~
+src/Evm/test_stubs.zig:9:26: note: struct declared here
+pub const StateManager = struct {
+                         ^~~~~~
+src/Evm/opcodes/environment.zig:540:53: note: method invocation only supports up to one level of implicit pointer dereferencing
+src/Evm/opcodes/environment.zig:540:53: note: use '.*' to dereference pointer
+src/Evm/opcodes/environment.zig:643:57: error: no field or member function named 'getContractCode' in 'test_stubs.StateManager'
+            result = try interpreter.evm.state_manager.?.getContractCode(b160Address);
+                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~
+src/Evm/test_stubs.zig:9:26: note: struct declared here
+pub const StateManager = struct {
+                         ^~~~~~
+src/Evm/opcodes/environment.zig:643:57: note: method invocation only supports up to one level of implicit pointer dereferencing
+src/Evm/opcodes/environment.zig:643:57: note: use '.*' to dereference pointer
+src/Evm/opcodes/environment.zig:811:40: error: no field or member function named 'getAccount' in 'test_stubs.StateManager'
+    if (interpreter.evm.state_manager.?.getAccount(b160Address) catch return ExecutionError.OutOfGas) |account| {
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~
+src/Evm/test_stubs.zig:9:26: note: struct declared here
+pub const StateManager = struct {
+                         ^~~~~~
+src/Evm/opcodes/environment.zig:811:40: note: method invocation only supports up to one level of implicit pointer dereferencing
+src/Evm/opcodes/environment.zig:811:40: note: use '.*' to dereference pointer
+src/Evm/opcodes/math.zig:197:17: error: expected type '[1024]u256', found pointer
+        .data = &stack_data,
+                ^
+src/Evm/opcodes/math.zig:197:17: note: address-of operator always returns a pointer
+src/Evm/opcodes/math.zig:225:17: error: expected type '[1024]u256', found pointer
+        .data = &stack_data,
+                ^
+src/Evm/opcodes/math.zig:225:17: note: address-of operator always returns a pointer
+src/Evm/opcodes/math.zig:253:17: error: expected type '[1024]u256', found pointer
+        .data = &stack_data,
+                ^
+src/Evm/opcodes/math.zig:253:17: note: address-of operator always returns a pointer
+src/Evm/opcodes/math.zig:281:17: error: expected type '[1024]u256', found pointer
+        .data = &stack_data,
+                ^
+src/Evm/opcodes/math.zig:281:17: note: address-of operator always returns a pointer
+src/Evm/opcodes/math.zig:311:17: error: expected type '[1024]u256', found pointer
+        .data = &stack_data,
+                ^
+src/Evm/opcodes/math.zig:311:17: note: address-of operator always returns a pointer
+src/Evm/opcodes/math.zig:341:17: error: expected type '[1024]u256', found pointer
+        .data = &stack_data,
+                ^
+src/Evm/opcodes/math.zig:341:17: note: address-of operator always returns a pointer
+src/Evm/opcodes/math.zig:383:17: error: expected type '[1024]u256', found pointer
+        .data = &stack_data,
+                ^
+src/Evm/opcodes/math.zig:383:17: note: address-of operator always returns a pointer
+src/Evm/opcodes/math.zig:415:17: error: expected type '[1024]u256', found pointer
+        .data = &stack_data,
+                ^
+src/Evm/opcodes/math.zig:415:17: note: address-of operator always returns a pointer
+src/Evm/opcodes/storage.zig:92:44: error: no field or member function named 'getContractStorage' in 'test_stubs.StateManager'
+    const storage_bytes = try state_manager.getContractStorage(addr_b160, key_b256);
+                              ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+src/Evm/test_stubs.zig:9:26: note: struct declared here
+pub const StateManager = struct {
+                         ^~~~~~
+src/Evm/opcodes/storage.zig:92:44: note: method invocation only supports up to one level of implicit pointer dereferencing
+src/Evm/opcodes/storage.zig:92:44: note: use '.*' to dereference pointer
+src/Evm/opcodes/storage.zig:204:44: error: no field or member function named 'getContractStorage' in 'test_stubs.StateManager'
+    const storage_bytes = try state_manager.getContractStorage(addr_b160, key_b256);
+                              ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+src/Evm/test_stubs.zig:9:26: note: struct declared here
+pub const StateManager = struct {
+                         ^~~~~~
+src/Evm/opcodes/storage.zig:204:44: note: method invocation only supports up to one level of implicit pointer dereferencing
+src/Evm/opcodes/storage.zig:204:44: note: use '.*' to dereference pointer
+error: the following command failed with 30 compilation errors:
+/opt/homebrew/Cellar/zig/0.14.0_2/bin/zig test -ODebug --dep evm --dep utils --dep address --dep block --dep bytecode --dep rlp --dep token --dep trie --dep state_manager --dep test_utils --dep compiler -Mroot=/Users/williamcory/tevm/main/src/Evm/interpreter.zig -ODebug --dep utils --dep address --dep block --dep bytecode --dep compiler --dep rlp --dep token --dep trie --dep state_manager --dep test_utils -Mevm=/Users/williamcory/tevm/main/src/Evm/package.zig -ODebug -Mutils=/Users/williamcory/tevm/main/src/Utils/package.zig -ODebug --dep utils -Maddress=/Users/williamcory/tevm/main/src/Address/package.zig -ODebug --dep utils --dep rlp -Mblock=/Users/williamcory/tevm/main/src/Block/package.zig -ODebug --dep utils -Mbytecode=/Users/williamcory/tevm/main/src/Bytecode/package.zig -ODebug -Mrlp=/Users/williamcory/tevm/main/src/Rlp/package.zig -ODebug -Mtoken=/Users/williamcory/tevm/main/src/Token/package.zig -ODebug --dep utils --dep rlp -Mtrie=/Users/williamcory/tevm/main/src/Trie/package.zig -ODebug --dep evm --dep utils --dep address -Mstate_manager=/Users/williamcory/tevm/main/src/StateManager/package.zig -ODebug --dep evm --dep utils --dep address -Mtest_utils=/Users/williamcory/tevm/main/src/Test/test.zig -ODebug -I /Users/williamcory/tevm/main/include --dep zabi -Mcompiler=/Users/williamcory/tevm/main/src/Compilers/package.zig /Users/williamcory/tevm/main/.zig-cache/o/1df52cfcc3a4a6e4ff9b8f42d1f91539/libc_kzg_4844.a -ODebug -I /Users/williamcory/tevm/main/.zig-cache/o/6fb03b92481263feb8e173225fa40906 --dep c_kzg_4844 --dep zabi-abi --dep zabi-ast --dep zabi-clients --dep zabi-crypto --dep zabi-decoding --dep zabi-encoding --dep zabi-ens --dep zabi-evm --dep zabi-human --dep zabi-meta --dep zabi-op-stack --dep zabi-types --dep zabi-utils -Mzabi=/Users/williamcory/.cache/zig/p/zabi-0.16.1-UB4phl86SABdBvFceyCgBARQTki8rNko7MLouY-TeGVQ/src/root.zig -I /Users/williamcory/.cache/zig/p/122037488cd5d62e856888f1bb206989fdcb02efcdbae8fc110df5395a12d4be5eb0/src -Mc_kzg_4844=/Users/williamcory/.cache/zig/p/zabi-0.16.1-UB4phl86SABdBvFceyCgBARQTki8rNko7MLouY-TeGVQ/pkg/c-kzg-4844/root.zig -ODebug --dep zabi-decoding --dep zabi-encoding --dep zabi-human --dep zabi-meta --dep zabi-types -Mzabi-abi=/Users/williamcory/.cache/zig/p/zabi-0.16.1-UB4phl86SABdBvFceyCgBARQTki8rNko7MLouY-TeGVQ/src/abi/root.zig -ODebug -Mzabi-ast=/Users/williamcory/.cache/zig/p/zabi-0.16.1-UB4phl86SABdBvFceyCgBARQTki8rNko7MLouY-TeGVQ/src/ast/root.zig /Users/williamcory/tevm/main/.zig-cache/o/1df52cfcc3a4a6e4ff9b8f42d1f91539/libc_kzg_4844.a -ODebug -I /Users/williamcory/tevm/main/.zig-cache/o/6fb03b92481263feb8e173225fa40906 --dep c_kzg_4844 --dep zabi-abi --dep zabi-crypto --dep zabi-decoding --dep zabi-encoding --dep zabi-evm --dep zabi-meta --dep zabi-types --dep zabi-utils -Mzabi-clients=/Users/williamcory/.cache/zig/p/zabi-0.16.1-UB4phl86SABdBvFceyCgBARQTki8rNko7MLouY-TeGVQ/src/clients/root.zig /Users/williamcory/tevm/main/.zig-cache/o/1df52cfcc3a4a6e4ff9b8f42d1f91539/libc_kzg_4844.a -ODebug -I /Users/williamcory/tevm/main/.zig-cache/o/6fb03b92481263feb8e173225fa40906 --dep c_kzg_4844 --dep zabi-utils --dep zabi-types -Mzabi-crypto=/Users/williamcory/.cache/zig/p/zabi-0.16.1-UB4phl86SABdBvFceyCgBARQTki8rNko7MLouY-TeGVQ/src/crypto/root.zig -ODebug --dep zabi-meta --dep zabi-types --dep zabi-utils -Mzabi-decoding=/Users/williamcory/.cache/zig/p/zabi-0.16.1-UB4phl86SABdBvFceyCgBARQTki8rNko7MLouY-TeGVQ/src/decoding/root.zig -ODebug --dep zabi-abi --dep zabi-crypto --dep zabi-meta --dep zabi-types --dep zabi-utils -Mzabi-encoding=/Users/williamcory/.cache/zig/p/zabi-0.16.1-UB4phl86SABdBvFceyCgBARQTki8rNko7MLouY-TeGVQ/src/encoding/root.zig -ODebug --dep zabi-abi --dep zabi-clients --dep zabi-decoding --dep zabi-encoding --dep zabi-types --dep zabi-utils -Mzabi-ens=/Users/williamcory/.cache/zig/p/zabi-0.16.1-UB4phl86SABdBvFceyCgBARQTki8rNko7MLouY-TeGVQ/src/clients/ens/root.zig -ODebug --dep zabi-utils --dep zabi-meta --dep zabi-types -Mzabi-evm=/Users/williamcory/.cache/zig/p/zabi-0.16.1-UB4phl86SABdBvFceyCgBARQTki8rNko7MLouY-TeGVQ/src/evm/root.zig -ODebug --dep zabi-abi --dep zabi-meta -Mzabi-human=/Users/williamcory/.cache/zig/p/zabi-0.16.1-UB4phl86SABdBvFceyCgBARQTki8rNko7MLouY-TeGVQ/src/human-readable/root.zig -ODebug --dep zabi-abi --dep zabi-types -Mzabi-meta=/Users/williamcory/.cache/zig/p/zabi-0.16.1-UB4phl86SABdBvFceyCgBARQTki8rNko7MLouY-TeGVQ/src/meta/root.zig -ODebug --dep zabi-abi --dep zabi-clients --dep zabi-crypto --dep zabi-decoding --dep zabi-encoding --dep zabi-meta --dep zabi-types --dep zabi-utils -Mzabi-op-stack=/Users/williamcory/.cache/zig/p/zabi-0.16.1-UB4phl86SABdBvFceyCgBARQTki8rNko7MLouY-TeGVQ/src/clients/optimism/root.zig /Users/williamcory/tevm/main/.zig-cache/o/1df52cfcc3a4a6e4ff9b8f42d1f91539/libc_kzg_4844.a -ODebug -I /Users/williamcory/tevm/main/.zig-cache/o/6fb03b92481263feb8e173225fa40906 --dep c_kzg_4844 --dep zabi-abi --dep zabi-meta --dep zabi-utils -Mzabi-types=/Users/williamcory/.cache/zig/p/zabi-0.16.1-UB4phl86SABdBvFceyCgBARQTki8rNko7MLouY-TeGVQ/src/types/root.zig -ODebug --dep zabi-meta --dep zabi-types -Mzabi-utils=/Users/williamcory/.cache/zig/p/zabi-0.16.1-UB4phl86SABdBvFceyCgBARQTki8rNko7MLouY-TeGVQ/src/utils/root.zig /Users/williamcory/tevm/main/.zig-cache/o/739c4d5c96fa5baaf19b80fe68f38eab/libblst.a -lc --cache-dir /Users/williamcory/tevm/main/.zig-cache --global-cache-dir /Users/williamcory/.cache/zig --name interpreter-impl-test --zig-lib-dir /opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/ --listen=- 
+Build Summary: 4/7 steps succeeded; 1 failed
+test-interpreter-impl transitive failure
++- run interpreter-impl-test transitive failure
+   +- zig test interpreter-impl-test Debug native 30 errors
+error: the following build command failed with exit code 1:
+/Users/williamcory/tevm/main/.zig-cache/o/36d4ce126fb0de2b024d3f9d1cf08450/build /opt/homebrew/Cellar/zig/0.14.0_2/bin/zig /opt/homebrew/Cellar/zig/0.14.0_2/lib/zig /Users/williamcory/tevm/main /Users/williamcory/tevm/main/.zig-cache /Users/williamcory/.cache/zig --seed 0xc24cf10d -Z0ed4dd25b5a9a066 test-interpreter-impl

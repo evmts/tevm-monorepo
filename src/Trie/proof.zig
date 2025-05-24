@@ -1,13 +1,13 @@
 const std = @import("std");
 const Allocator = std.mem.Allocator;
 const trie = @import("trie.zig");
-const rlp = @import("Rlp");
+const rlp = @import("rlp");
 
 const TrieNode = trie.TrieNode;
 const HashValue = trie.HashValue;
 const TrieError = trie.TrieError;
 
-/// Error type for proof operations
+// Error type for proof operations
 pub const ProofError = error{
     InvalidProof,
     MissingNode,
@@ -17,7 +17,7 @@ pub const ProofError = error{
     InvalidRootHash,
 };
 
-/// Proof nodes collection for Merkle proofs
+// Proof nodes collection for Merkle proofs
 pub const ProofNodes = struct {
     allocator: Allocator,
     nodes: std.StringHashMap([]const u8), // Hash (hex) -> RLP encoded node
@@ -318,7 +318,7 @@ pub const ProofNodes = struct {
     }
 };
 
-/// Collect proof nodes while executing an operation
+// Collect proof nodes while executing an operation
 pub const ProofRetainer = struct {
     allocator: Allocator,
     proof: ProofNodes,
@@ -398,12 +398,14 @@ test "ProofNodes - add and verify" {
     const path = [_]u8{1, 2, 3, 4};
     const value = "test_value";
     
+    const value_copy = try allocator.dupe(u8, value);
     const leaf = try trie.LeafNode.init(
         allocator,
-        try allocator.dupe(u8, &path),
-        trie.HashValue{ .Raw = try allocator.dupe(u8, value) }
+        &path,  // LeafNode.init will copy this
+        trie.HashValue{ .Raw = value_copy }
     );
     var node = trie.TrieNode{ .Leaf = leaf };
+    defer node.deinit(allocator);
     
     // Encode the node
     const encoded = try node.encode(allocator);
@@ -427,9 +429,6 @@ test "ProofNodes - add and verify" {
     
     try testing.expectEqual(@as(usize, 1), nodes.len);
     try testing.expectEqualSlices(u8, encoded, nodes[0]);
-    
-    // Clean up the node
-    node.deinit(allocator);
 }
 
 test "ProofRetainer - collect nodes" {
@@ -444,10 +443,11 @@ test "ProofRetainer - collect nodes" {
     const path = [_]u8{1, 2}; // First two nibbles of key
     const value = "test_value";
     
+    const value_copy = try allocator.dupe(u8, value);
     const extension = try trie.ExtensionNode.init(
         allocator,
-        try allocator.dupe(u8, &path),
-        trie.HashValue{ .Raw = try allocator.dupe(u8, value) }
+        &path,  // ExtensionNode.init will copy this
+        trie.HashValue{ .Raw = value_copy }
     );
     var node = trie.TrieNode{ .Extension = extension };
     defer node.deinit(allocator);

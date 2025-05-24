@@ -1,7 +1,19 @@
 const std = @import("std");
 
-pub const evm = @import("Evm");
-pub const utils = @import("Utils");
+// Import all components using packages
+// These modules are provided by the build system via addImport
+pub const evm = @import("evm");
+pub const utils = @import("utils");
+pub const address = @import("address");
+pub const abi = @import("abi");
+pub const block = @import("block");
+pub const bytecode = @import("bytecode");
+// pub const compiler = @import("compiler");
+pub const rlp = @import("rlp");
+pub const token = @import("token");
+pub const trie = @import("trie");
+pub const state_manager = @import("state_manager");
+pub const test_utils = @import("test_utils");
 
 pub const EvmState = extern struct {
     pc: u32 = 0,

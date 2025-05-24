@@ -4,7 +4,7 @@ const c = @cImport({
     @cInclude("foundry_wrapper.h");
 });
 
-/// Compiler error codes matching the Rust enum
+// Compiler error codes matching the Rust enum
 pub const ErrorCode = enum(i32) {
     Success = 0,
     SyntaxError = 1,
@@ -16,7 +16,7 @@ pub const ErrorCode = enum(i32) {
     Unknown = 99,
 };
 
-/// Compiler error
+// Compiler error
 pub const CompilerError = struct {
     code: ErrorCode,
     message: []const u8,
@@ -26,7 +26,7 @@ pub const CompilerError = struct {
     }
 };
 
-/// Compiler settings for configuration
+// Compiler settings for configuration
 pub const CompilerSettings = struct {
     optimizer_enabled: bool = true,
     optimizer_runs: u32 = 200,
@@ -40,7 +40,7 @@ pub const CompilerSettings = struct {
     output_ast: bool = false,
 };
 
-/// Compiled contract information
+// Compiled contract information
 pub const CompiledContract = struct {
     name: []const u8,
     abi: zabi.abi.abitypes.Abi,
@@ -98,7 +98,7 @@ pub const CompiledContract = struct {
     }
 };
 
-/// Compilation result
+// Compilation result
 pub const CompilationResult = struct {
     contracts: []CompiledContract,
     errors: []CompilerError,
@@ -123,7 +123,7 @@ pub const CompilationResult = struct {
     }
 };
 
-/// Main compiler struct
+// Main compiler struct
 pub const Compiler = struct {
     /// Compile a Solidity file from the filesystem
     pub fn compileFile(

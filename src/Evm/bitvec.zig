@@ -1,7 +1,7 @@
 const std = @import("std");
 const opcodes = @import("opcodes.zig");
 
-/// BitVec is a bit vector implementation used for tracking JUMPDEST positions in bytecode
+// BitVec is a bit vector implementation used for tracking JUMPDEST positions in bytecode
 pub const BitVec = struct {
     /// Bit array stored in u64 chunks
     bits: []u64,
@@ -70,7 +70,7 @@ pub const BitVec = struct {
     }
 };
 
-/// Analyze bytecode to identify valid JUMPDEST locations and code segments
+// Analyze bytecode to identify valid JUMPDEST locations and code segments
 pub fn codeBitmap(code: []const u8) BitVec {
     const allocator = std.heap.page_allocator;
     var bitmap = BitVec.init(allocator, code.len) catch {

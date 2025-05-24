@@ -1,4 +1,4 @@
-/// Errors that can occur during signature operations
+// Errors that can occur during signature operations
 pub const SignatureError = error{
     /// Signature is malformed or invalid
     InvalidSignature,
