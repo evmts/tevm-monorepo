@@ -6,6 +6,7 @@
 	"files": {
 		"ignore": [
 			".nx",
+			"g/**/*",
 			"node_modules",
 			"package.json",
 			".vercel",

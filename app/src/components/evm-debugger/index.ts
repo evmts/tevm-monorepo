@@ -1,2 +1,2 @@
-export { default as EvmDebugger } from "./EvmDebugger";
-export * from "./types";
+export { default as EvmDebugger } from './EvmDebugger'
+export * from './types'
