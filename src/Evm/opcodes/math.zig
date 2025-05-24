@@ -1,6 +1,6 @@
 const std = @import("std");
 // Import from parent directory using relative paths
-const jumpTableModule = @import("../jumpTable/JumpTable.zig");
+const jumpTableModule = @import("../jumpTable/package.zig");
 const JumpTable = jumpTableModule.JumpTable;
 const Operation = jumpTableModule.Operation;
 const Interpreter = @import("../interpreter.zig").Interpreter;

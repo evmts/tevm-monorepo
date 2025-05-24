@@ -1,14 +1,15 @@
 const std = @import("std");
 
-const evm = @import("evm");
-const jumpTableModule = evm.jumpTable;
+// Import from parent directory using relative paths
+const jumpTableModule = @import("../jumpTable/package.zig");
 const JumpTable = jumpTableModule.JumpTable;
 const Operation = jumpTableModule.Operation;
-const Interpreter = evm.Interpreter;
-const Frame = evm.Frame;
-const ExecutionError = evm.InterpreterError;
-const Stack = evm.Stack;
-const StackError = evm.StackError;
+const Interpreter = @import("../interpreter.zig").Interpreter;
+const Frame = @import("../Frame.zig").Frame;
+const ExecutionError = @import("../interpreter.zig").InterpreterError;
+const stackModule = @import("../Stack.zig");
+const Stack = stackModule.Stack;
+const StackError = stackModule.StackError;
 
 // Helper to convert Stack errors to ExecutionError
 fn mapStackError(err: StackError) ExecutionError {
@@ -165,7 +166,7 @@ pub fn registerCryptoOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTabl
 
 const testing = std.testing;
 const Contract = @import("../Contract.zig").Contract;
-const Address = @import("../../Types/B256.zig").Address;
+const Address = @import("address").Address;
 const Evm = @import("../evm.zig").Evm;
 
 test "bytesToUint256 conversion" {

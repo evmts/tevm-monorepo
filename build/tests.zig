@@ -13,17 +13,17 @@ pub const TestInfo = struct {
 
 // Original tests that are already working
 pub const originalTests = [_]TestInfo{
-    .{ .name = "frame-test", .root = "src/Evm/Frame.test.zig", .step_name = "test-frame" },
+    .{ .name = "frame-test", .root = "test/Evm/Frame.test.zig", .step_name = "test-frame" },
     .{ .name = "evm-test", .root = "src/Evm/evm.zig", .step_name = "test-evm" },
-    .{ .name = "server-test", .root = "src/Server/server.zig", .step_name = "test-server" },
-    .{ .name = "rlp-test", .root = "src/Rlp/rlp_test.zig", .step_name = "test-rlp" },
+    .{ .name = "server-test", .root = "test/Server/server_test.zig", .step_name = "test-server" },
+    .{ .name = "rlp-test", .root = "test/Rlp/rlp_test.zig", .step_name = "test-rlp" },
     .{ .name = "compiler-test", .root = "src/Compilers/compiler.zig", .step_name = "test-compiler", .needs_rust = true, .link_c = true },
-    .{ .name = "trie-test", .root = "src/Trie/main_test.zig", .step_name = "test-trie" },
+    .{ .name = "trie-test", .root = "test/Trie/main_test.zig", .step_name = "test-trie" },
     .{ .name = "interpreter-test", .root = "src/Evm/jumpTable/JumpTable.zig", .step_name = "test-interpreter" },
     .{ .name = "interpreter-impl-test", .root = "src/Evm/interpreter.zig", .step_name = "test-interpreter-impl" },
-    .{ .name = "contract-test", .root = "src/Evm/Contract.test.zig", .step_name = "test-contract" },
-    .{ .name = "evm-logger-test", .root = "src/Evm/EvmLogger.test.zig", .step_name = "test-evm-logger" },
-    .{ .name = "environment-test", .root = "src/Evm/tests/environment_test3.zig", .step_name = "test-environment" },
+    .{ .name = "contract-test", .root = "test/Evm/Contract.test.zig", .step_name = "test-contract" },
+    .{ .name = "evm-logger-test", .root = "test/Evm/EvmLogger.test.zig", .step_name = "test-evm-logger" },
+    .{ .name = "environment-test", .root = "test/Evm/tests/environment_test3.zig", .step_name = "test-environment" },
 };
 
 // Helper to check if a file exists

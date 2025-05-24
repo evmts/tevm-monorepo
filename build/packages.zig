@@ -18,6 +18,7 @@ pub const allPackages: []const PackageInfo = &.{
     .{ .name = "StateManager", .path = "src/StateManager/package.zig", .imports = &.{ "utils", "address" } },
     .{ .name = "test_utils", .path = "src/Test/test.zig", .imports = &.{ "evm", "utils", "address" } },
     .{ .name = "compiler", .path = "src/Compilers/package.zig", .imports = &.{} },
+    .{ .name = "signature", .path = "src/Signature/package.zig", .imports = &.{ "utils" } },
 };
 
 pub fn createPackages(

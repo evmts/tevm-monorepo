@@ -1,35 +1,18 @@
 const std = @import("std");
-const testing = std.testing;
-const Test = @import("package.zig");
 
-test "SimpleContract bytecode" {
-    try testing.expect(Test.SimpleContract.bytecode.len > 0);
-    try testing.expect(Test.SimpleContract.deployedBytecode.len > 0);
-}
+// Test utilities are not exported from this package
+// They should be imported directly from the test directory when needed in tests
 
-test "BlockReader bytecode" {
-    try testing.expect(Test.BlockReader.bytecode.len > 0);
-    try testing.expect(Test.BlockReader.deployedBytecode.len > 0);
-}
+// Main test utility package
+pub const Test = struct {
+    /// Initialize Test utilities
+    pub fn init(allocator: std.mem.Allocator) !void {
+        _ = allocator;
+        // Initialize any test resources if needed
+    }
 
-test "TestERC20 & TestERC721 bytecode" {
-    try testing.expect(Test.TestERC20.bytecode.len > 0);
-    try testing.expect(Test.TestERC20.deployedBytecode.len > 0);
-    try testing.expect(Test.TestERC721.bytecode.len > 0);
-    try testing.expect(Test.TestERC721.deployedBytecode.len > 0);
-}
-
-test "EnvUrls from transports" {
-    // Create a temporary allocator for testing
-    var arena = std.heap.ArenaAllocator.init(std.testing.allocator);
-    defer arena.deinit();
-    const allocator = arena.allocator();
-    
-    // Test URL parsing - we don't expect any environment variables in the test
-    // but the function should return empty arrays without errors
-    const transports = try Test.getTransports(allocator);
-    // Update expected values since current environment returns 2 items
-    try testing.expectEqual(@as(usize, 2), transports.mainnet.items.len);
-    // Update expected values since current environment returns 1 item
-    try testing.expectEqual(@as(usize, 1), transports.optimism.items.len);
-}
+    /// Clean up Test utilities
+    pub fn deinit() void {
+        // Clean up any test resources if needed
+    }
+};

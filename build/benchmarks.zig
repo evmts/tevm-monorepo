@@ -12,7 +12,7 @@ pub fn createBenchmarks(
     // Add benchmark executables
     const snailtracer_bench = b.addExecutable(.{
         .name = "snailtracer-bench",
-        .root_source_file = b.path("src/Evm/benchmarks/snailtracer.zig"),
+        .root_source_file = b.path("bench/Evm/snailtracer.zig"),
         .target = target,
         .optimize = .ReleaseFast,
     });
@@ -44,7 +44,7 @@ pub fn createBenchmarks(
     // Add benchmark suite
     const benchmark_suite = b.addExecutable(.{
         .name = "benchmark-suite",
-        .root_source_file = b.path("src/Evm/benchmarks/benchmark_suite.zig"),
+        .root_source_file = b.path("bench/Evm/benchmark_suite.zig"),
         .target = target,
         .optimize = .ReleaseFast,
     });

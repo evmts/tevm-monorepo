@@ -47,6 +47,7 @@ pub const Withdrawal = @import("Withdrawal.zig").WithdrawalData;
 
 // Import opcodes
 pub const opcodes = @import("opcodes.zig");
+pub const opcodes_pkg = @import("opcodes/package.zig");
 
 // Import the core Evm and rules
 pub const Evm = @import("evm.zig").Evm;

@@ -1,14 +1,25 @@
 const std = @import("std");
-const evm = @import("evm");
-const jumpTableModule = evm.jumpTable;
+// Import from parent directory using relative paths
+const jumpTableModule = @import("../jumpTable/package.zig");
 const JumpTable = jumpTableModule.JumpTable;
 const Operation = jumpTableModule.Operation;
-const Interpreter = evm.Interpreter;
-const Frame = evm.Frame;
-const ExecutionError = evm.InterpreterError;
-const Stack = evm.Stack;
-const Memory = evm.Memory;
-const Contract = evm.Contract;
+const Interpreter = @import("../interpreter.zig").Interpreter;
+const Frame = @import("../Frame.zig").Frame;
+const ExecutionError = @import("../interpreter.zig").InterpreterError;
+const stackModule = @import("../Stack.zig");
+const Stack = stackModule.Stack;
+const Memory = @import("../Memory.zig").Memory;
+const Contract = @import("../Contract.zig").Contract;
+const StackError = stackModule.StackError;
+
+// Helper to convert Stack errors to ExecutionError
+fn mapStackError(err: StackError) ExecutionError {
+    return switch (err) {
+        error.OutOfBounds => ExecutionError.StackUnderflow,
+        error.StackOverflow => ExecutionError.StackOverflow,
+        error.OutOfMemory => ExecutionError.OutOfGas,
+    };
+}
 
 // LOG0 operation
 pub fn opLog0(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
@@ -316,7 +327,7 @@ pub fn registerLogOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable) 
 
 const testing = std.testing;
 
-fn mapStackError(err: anyerror) ExecutionError {
+fn mapStackErrorGeneric(err: anyerror) ExecutionError {
     return switch (err) {
         error.StackUnderflow => ExecutionError.StackUnderflow,
         error.StackOverflow => ExecutionError.StackOverflow,

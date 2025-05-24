@@ -153,93 +153,96 @@ const ExecutionError = if (is_test) testing_stubs.InterpreterError else @import(
 const Stack = if (is_test) testing_stubs.Stack else @import("../package.zig").Stack;
 const Memory = if (is_test) testing_stubs.Memory else @import("../package.zig").Memory;
 
-// Import opcode implementations directly
+// Import opcode implementations through the opcodes module
 // Note: These imports are disabled during testing due to module path restrictions
-const math = if (!is_test) @import("../opcodes/math.zig") else struct {
+// We need to import the opcodes module from the parent package
+const opcodes_mod = if (!is_test) @import("../opcodes/package.zig") else struct {};
+
+const math = if (!is_test) opcodes_mod.math else struct {
     pub fn registerMathOpcodes(allocator: std.mem.Allocator, table: *JumpTable) !void {
         _ = allocator;
         _ = table;
     }
 };
-const math2 = if (!is_test) @import("../opcodes/math2.zig") else struct {
+const math2 = if (!is_test) opcodes_mod.math2 else struct {
     pub fn registerMath2Opcodes(allocator: std.mem.Allocator, table: *JumpTable) !void {
         _ = allocator;
         _ = table;
     }
 };
-const comparison = if (!is_test) @import("../opcodes/comparison.zig") else struct {
+const comparison = if (!is_test) opcodes_mod.comparison else struct {
     pub fn registerComparisonOpcodes(allocator: std.mem.Allocator, table: *JumpTable) !void {
         _ = allocator;
         _ = table;
     }
 };
-const bitwise = if (!is_test) @import("../opcodes/bitwise.zig") else struct {
+const bitwise = if (!is_test) opcodes_mod.bitwise else struct {
     pub fn registerBitwiseOpcodes(allocator: std.mem.Allocator, table: *JumpTable) !void {
         _ = allocator;
         _ = table;
     }
 };
-const memory = if (!is_test) @import("../opcodes/memory.zig") else struct {
+const memory = if (!is_test) opcodes_mod.memory else struct {
     pub fn registerMemoryOpcodes(allocator: std.mem.Allocator, table: *JumpTable) !void {
         _ = allocator;
         _ = table;
     }
 };
-const push = if (!is_test) @import("../opcodes/push.zig") else struct {
+const push = if (!is_test) opcodes_mod.push else struct {
     pub fn registerPushOpcodes(allocator: std.mem.Allocator, table: *JumpTable) !void {
         _ = allocator;
         _ = table;
     }
 };
-const storage = if (!is_test) @import("../opcodes/storage.zig") else struct {
+const storage = if (!is_test) opcodes_mod.storage else struct {
     pub fn registerStorageOpcodes(allocator: std.mem.Allocator, table: *JumpTable) !void {
         _ = allocator;
         _ = table;
     }
 };
-const controlflow = if (!is_test) @import("../opcodes/controlflow.zig") else struct {
+const controlflow = if (!is_test) opcodes_mod.controlflow else struct {
     pub fn registerControlFlowOpcodes(allocator: std.mem.Allocator, table: *JumpTable) !void {
         _ = allocator;
         _ = table;
     }
 };
-const environment = if (!is_test) @import("../opcodes/environment.zig") else struct {
+const environment = if (!is_test) opcodes_mod.environment else struct {
     pub fn registerEnvironmentOpcodes(allocator: std.mem.Allocator, table: *JumpTable) !void {
         _ = allocator;
         _ = table;
     }
 };
-const calls = if (!is_test) @import("../opcodes/calls.zig") else struct {
+const calls = if (!is_test) opcodes_mod.calls else struct {
     pub fn registerCallOpcodes(allocator: std.mem.Allocator, table: *JumpTable) !void {
         _ = allocator;
         _ = table;
     }
 };
-const block = if (!is_test) @import("../opcodes/block.zig") else struct {
+const block = if (!is_test) opcodes_mod.block else struct {
     pub fn registerBlockOpcodes(allocator: std.mem.Allocator, table: *JumpTable) !void {
         _ = allocator;
         _ = table;
     }
 };
-const crypto = if (!is_test) @import("../opcodes/crypto.zig") else struct {
+const crypto = if (!is_test) opcodes_mod.crypto else struct {
     pub fn registerCryptoOpcodes(allocator: std.mem.Allocator, table: *JumpTable) !void {
         _ = allocator;
         _ = table;
     }
 };
-const log = if (!is_test) @import("../opcodes/log.zig") else struct {
+const log = if (!is_test) opcodes_mod.log else struct {
     pub fn registerLogOpcodes(allocator: std.mem.Allocator, table: *JumpTable) !void {
         _ = allocator;
         _ = table;
     }
 };
-const blob = if (!is_test) @import("../opcodes/blob.zig") else struct {
+const blob = if (!is_test) opcodes_mod.blob else struct {
     pub fn registerBlobOpcodes(allocator: std.mem.Allocator, table: *JumpTable) !void {
         _ = allocator;
         _ = table;
     }
 };
-const transient = if (!is_test) @import("../opcodes/transient.zig") else struct {
+const transient = if (!is_test) opcodes_mod.transient else struct {
     pub fn registerTransientOpcodes(allocator: std.mem.Allocator, table: *JumpTable) !void {
         _ = allocator;
         _ = table;

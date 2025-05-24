@@ -1,14 +1,14 @@
 const std = @import("std");
-const jumpTableModule = @import("jumpTable/package.zig");
+const jumpTableModule = @import("../jumpTable/package.zig");
 const JumpTable = jumpTableModule.JumpTable;
 const Operation = jumpTableModule.Operation;
-const Interpreter = @import("interpreter.zig").Interpreter;
-const Frame = @import("Frame.zig").Frame;
-const ExecutionError = @import("interpreter.zig").InterpreterError;
-const Stack = @import("Stack.zig").Stack;
-const StackError = @import("Stack.zig").StackError;
-const Memory = @import("Memory.zig").Memory;
-const B256 = @import("StateDB.zig").B256;
+const Interpreter = @import("../interpreter.zig").Interpreter;
+const Frame = @import("../Frame.zig").Frame;
+const ExecutionError = @import("../interpreter.zig").InterpreterError;
+const Stack = @import("../Stack.zig").Stack;
+const StackError = @import("../Stack.zig").StackError;
+const Memory = @import("../Memory.zig").Memory;
+const B256 = @import("../StateDB.zig").B256;
 
 // Helper to convert Stack errors to ExecutionError
 fn mapStackError(err: StackError) ExecutionError {

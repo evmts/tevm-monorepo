@@ -1,14 +1,15 @@
 const std = @import("std");
-const evm = @import("evm");
-const jumpTableModule = evm.jumpTable;
+// Import from parent directory using relative paths
+const jumpTableModule = @import("../jumpTable/package.zig");
 const JumpTable = jumpTableModule.JumpTable;
 const Operation = jumpTableModule.Operation;
-const Interpreter = evm.Interpreter;
-const Frame = evm.Frame;
-const ExecutionError = evm.InterpreterError;
-const Stack = evm.Stack;
-const StackError = evm.StackError;
-const Memory = evm.Memory;
+const Interpreter = @import("../interpreter.zig").Interpreter;
+const Frame = @import("../Frame.zig").Frame;
+const ExecutionError = @import("../interpreter.zig").InterpreterError;
+const stackModule = @import("../Stack.zig");
+const Stack = stackModule.Stack;
+const StackError = stackModule.StackError;
+const Memory = @import("../Memory.zig").Memory;
 const StateManager = @import("StateManager").StateManager;
 const B160 = @import("StateManager").B160;
 
@@ -435,14 +436,14 @@ test "Block information opcodes functionality" {
     _ = try frame.stack.pop();
     
     // Test DIFFICULTY (pre-merge)
-    evm.chainRules.IsMerge = false;
+    evm_instance.chainRules.IsMerge = false;
     _ = try opDifficulty(0, &interpreter, &frame);
     try std.testing.expectEqual(@as(usize, 1), frame.stack.size);
     try std.testing.expectEqual(@as(u256, 2500000000000000), frame.stack.data[0]);
     _ = try frame.stack.pop();
     
     // Test PREVRANDAO (post-merge)
-    evm.chainRules.IsMerge = true;
+    evm_instance.chainRules.IsMerge = true;
     _ = try opDifficulty(0, &interpreter, &frame);
     try std.testing.expectEqual(@as(usize, 1), frame.stack.size);
     try std.testing.expectEqual(@as(u256, 0x0123456789abcdef), frame.stack.data[0]);

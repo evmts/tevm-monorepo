@@ -1,13 +1,14 @@
 const std = @import("std");
-const evm = @import("evm");
-const jumpTableModule = evm.jumpTable;
+// Import from parent directory using relative paths
+const jumpTableModule = @import("../jumpTable/package.zig");
 const JumpTable = jumpTableModule.JumpTable;
 const Operation = jumpTableModule.Operation;
-const Interpreter = evm.Interpreter;
-const Frame = evm.Frame;
-const ExecutionError = evm.InterpreterError;
-const Stack = evm.Stack;
-const StackError = evm.StackError;
+const Interpreter = @import("../interpreter.zig").Interpreter;
+const Frame = @import("../Frame.zig").Frame;
+const ExecutionError = @import("../interpreter.zig").InterpreterError;
+const stackModule = @import("../Stack.zig");
+const Stack = stackModule.Stack;
+const StackError = stackModule.StackError;
 
 // Helper to convert Stack errors to ExecutionError
 fn mapStackError(err: StackError) ExecutionError {
@@ -17,7 +18,7 @@ fn mapStackError(err: StackError) ExecutionError {
         error.OutOfMemory => ExecutionError.OutOfGas,
     };
 }
-const Memory = evm.Memory;
+const Memory = @import("../Memory.zig").Memory;
 
 // EIP-4844: Shard Blob Transactions (Blob opcode gas prices)
 pub const BlobHashGas: u64 = 3;
@@ -264,7 +265,7 @@ test "BLOBHASH basic operation" {
     try blob_hashes.append([_]u8{0x33} ** 32);
     
     // Set blob hashes on the EVM context
-    if (evm.context) |ctx| {
+    if (test_evm.context) |ctx| {
         ctx.blobHashes = blob_hashes.items;
     } else {
         // Create a simple context with blob hashes
@@ -273,7 +274,7 @@ test "BLOBHASH basic operation" {
         }{
             .blobHashes = blob_hashes.items,
         };
-        evm.context = &context;
+        test_evm.context = &context;
     }
     
     // Create interpreter
@@ -348,7 +349,7 @@ test "BLOBBASEFEE basic operation" {
     }{
         .blobBaseFee = test_blob_base_fee,
     };
-    evm.context = &context;
+    test_evm.context = &context;
     
     // Create interpreter
     var interpreter = Interpreter{

@@ -49,7 +49,7 @@ pub fn addRustIntegration(b: *std.Build, target: std.Build.ResolvedTarget, optim
     const artifacts = [_]*std.Build.Step.Compile{
         b.addExecutable(.{
             .name = "foundry-test",
-            .root_source_file = b.path("src/Solidity/SnailTracerTest.zig"),
+            .root_source_file = b.path("test/Solidity/SnailTracerTest.zig"),
             .target = target,
             .optimize = optimize,
         }),

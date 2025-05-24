@@ -1,15 +1,15 @@
 const std = @import("std");
 
-// Use direct imports from parent modules
-const evm = @import("evm");
-const Interpreter = evm.Interpreter;
-const Frame = evm.Frame;
-const ExecutionError = evm.InterpreterError;
-const jumpTableModule = evm.jumpTable;
+// Import from parent directory using relative paths
+const jumpTableModule = @import("../jumpTable/package.zig");
 const JumpTable = jumpTableModule.JumpTable;
 const Operation = jumpTableModule.Operation;
-const Memory = evm.Memory;
-const Stack = evm.Stack;
+const Interpreter = @import("../interpreter.zig").Interpreter;
+const Frame = @import("../Frame.zig").Frame;
+const ExecutionError = @import("../interpreter.zig").InterpreterError;
+const stackModule = @import("../Stack.zig");
+const Stack = stackModule.Stack;
+const Memory = @import("../Memory.zig").Memory;
 const address = @import("address");
 const Address = address.Address;
 const StateManagerModule = @import("StateManager");

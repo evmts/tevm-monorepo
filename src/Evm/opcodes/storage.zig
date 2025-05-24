@@ -1,13 +1,14 @@
 const std = @import("std");
-const evm = @import("evm");
-const jumpTableModule = evm.jumpTable;
+// Import from parent directory using relative paths
+const jumpTableModule = @import("../jumpTable/package.zig");
 const JumpTable = jumpTableModule.JumpTable;
 const Operation = jumpTableModule.Operation;
-const Interpreter = evm.Interpreter;
-const Frame = evm.Frame;
-const ExecutionError = evm.InterpreterError;
-const Stack = evm.Stack;
-const StackError = evm.StackError;
+const Interpreter = @import("../interpreter.zig").Interpreter;
+const Frame = @import("../Frame.zig").Frame;
+const ExecutionError = @import("../interpreter.zig").InterpreterError;
+const stackModule = @import("../Stack.zig");
+const Stack = stackModule.Stack;
+const StackError = stackModule.StackError;
 
 // Helper to convert Stack errors to ExecutionError
 fn mapStackError(err: StackError) ExecutionError {
@@ -17,13 +18,13 @@ fn mapStackError(err: StackError) ExecutionError {
         error.OutOfMemory => ExecutionError.OutOfGas,
     };
 }
-const Memory = evm.Memory;
+const Memory = @import("../Memory.zig").Memory;
 // Import unified B256 type
 const B256 = @import("utils").B256;
-const EvmLogger = evm.TestEvmLogger;
-const createLogger = evm.createLogger;
-const createScopedLogger = evm.createScopedLogger;
-const debugOnly = evm.debugOnly;
+const EvmLogger = @import("../TestEvmLogger.zig");
+const createLogger = @import("../EvmLogger.zig").createLogger;
+const createScopedLogger = @import("../EvmLogger.zig").createScopedLogger;
+const debugOnly = @import("../EvmLogger.zig").debugOnly;
 
 // Module-level logger initialization
 var _logger: ?EvmLogger = null;
@@ -82,7 +83,7 @@ pub fn opSload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     // For now, we'll assume all accesses are cold on first access
     
     // Import the StateManager module to access types
-    const SM = @import("StateManager");
+    const SM = @import("state_manager");
     
     // Convert address to B160
     const addr_b160 = SM.B160{ .bytes = address };
@@ -197,7 +198,7 @@ pub fn opSstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     // TODO: This is using the simplified StateManager which doesn't support EIP-2929
     
     // Import the StateManager module to access types
-    const SM = @import("StateManager");
+    const SM = @import("state_manager");
     
     // Convert address to B160
     const addr_b160 = SM.B160{ .bytes = address };
