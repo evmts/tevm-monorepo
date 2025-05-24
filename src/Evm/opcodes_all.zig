@@ -5,7 +5,6 @@ const pkg = @import("package.zig");
 
 // Re-export types from package.zig
 pub const interpreter = pkg.interpreter;
-pub const InterpreterState = pkg.InterpreterState;
 pub const Stack = pkg.Stack;
 pub const JumpTable = pkg.jumpTable;
 pub const Memory = pkg.Memory;
