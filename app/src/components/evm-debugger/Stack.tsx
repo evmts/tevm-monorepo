@@ -36,6 +36,7 @@ const Stack: Component<StackProps> = (props) => {
 								strokeLinecap="round"
 								strokeLinejoin="round"
 							>
+								<title>Stack</title>
 								<rect x="2" y="4" width="20" height="16" rx="2" />
 								<path d="M10 4v4" />
 								<path d="M2 8h20" />
@@ -63,6 +64,7 @@ const Stack: Component<StackProps> = (props) => {
 										<span class="font-mono text-sm text-gray-900 dark:text-white ml-2">{item}</span>
 									</div>
 									<button
+										type="button"
 										onClick={() => handleCopy(item, index())}
 										class="opacity-0 group-hover:opacity-100 transition-opacity text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
 										aria-label="Copy to clipboard"
@@ -77,6 +79,7 @@ const Stack: Component<StackProps> = (props) => {
 											strokeLinecap="round"
 											strokeLinejoin="round"
 										>
+											<title>Copy</title>
 											<rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
 											<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
 										</svg>

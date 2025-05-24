@@ -73,6 +73,7 @@ const LogsAndReturn: Component<LogsAndReturnProps> = (props) => {
 									strokeLinecap="round"
 									strokeLinejoin="round"
 								>
+									<title>Logs</title>
 									<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
 								</svg>
 								No logs emitted
@@ -86,6 +87,7 @@ const LogsAndReturn: Component<LogsAndReturnProps> = (props) => {
 										<div class="flex justify-between items-center">
 											<span class="text-xs font-medium text-gray-500 dark:text-gray-400">Log {index()}:</span>
 											<button
+												type="button"
 												onClick={() => handleCopyLog(log, index())}
 												class="opacity-0 group-hover:opacity-100 transition-opacity text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
 												aria-label="Copy to clipboard"
@@ -100,6 +102,7 @@ const LogsAndReturn: Component<LogsAndReturnProps> = (props) => {
 													strokeLinecap="round"
 													strokeLinejoin="round"
 												>
+													<title>Copy</title>
 													<rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
 													<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
 												</svg>
@@ -127,6 +130,7 @@ const LogsAndReturn: Component<LogsAndReturnProps> = (props) => {
 									strokeLinecap="round"
 									strokeLinejoin="round"
 								>
+									<title>Return data</title>
 									<path d="M9 10a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-4z" />
 									<path d="M9 15v2a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2" />
 									<path d="M6 17H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v1" />
@@ -139,6 +143,7 @@ const LogsAndReturn: Component<LogsAndReturnProps> = (props) => {
 							<div class="flex justify-between items-center">
 								<span class="text-xs font-medium text-gray-500 dark:text-gray-400">Return Data:</span>
 								<button
+									type="button"
 									onClick={handleCopyReturnData}
 									class="opacity-0 group-hover:opacity-100 transition-opacity text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
 									aria-label="Copy to clipboard"
@@ -153,6 +158,7 @@ const LogsAndReturn: Component<LogsAndReturnProps> = (props) => {
 										strokeLinecap="round"
 										strokeLinejoin="round"
 									>
+										<title>Copy</title>
 										<rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
 										<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
 									</svg>
