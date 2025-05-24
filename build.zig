@@ -84,8 +84,6 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-    compiler_mod.stack_check = false;
-    compiler_mod.single_threaded = true;
 
     const zabi_dep = b.dependency("zabi", .{
         .target = target,
@@ -484,9 +482,7 @@ pub fn build(b: *std.Build) void {
     // Make the compiler test depend on the Rust build
     compiler_test.step.dependOn(rust_step);
 
-    // Link the Rust library to the compiler test
     compiler_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
-    // Link macOS frameworks if on macOS
     if (target.result.os.tag == .macos) {
         compiler_test.linkFramework("CoreFoundation");
         compiler_test.linkFramework("Security");
