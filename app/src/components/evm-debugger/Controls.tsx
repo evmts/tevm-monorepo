@@ -53,6 +53,7 @@ const Controls: Component<ControlsProps> = (props) => {
 			<div class="bg-white dark:bg-[#252525] rounded-xl shadow-sm border border-gray-200 dark:border-gray-800">
 				<div class="p-3 flex flex-wrap items-center gap-3">
 					<button
+						type="button"
 						onClick={handleResetEvm}
 						class="inline-flex items-center px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#2D2D2D] hover:bg-gray-50 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 dark:focus:ring-indigo-400/50 transition-all text-gray-700 dark:text-gray-200 shadow-sm transform hover:translate-y-[-1px] active:translate-y-[1px]"
 						aria-label="Reset EVM (R)"
@@ -67,12 +68,14 @@ const Controls: Component<ControlsProps> = (props) => {
 							strokeLinecap="round"
 							strokeLinejoin="round"
 						>
+							<title>Reset</title>
 							<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
 							<path d="M3 3v5h5" />
 						</svg>
 						Reset
 					</button>
 					<button
+						type="button"
 						onClick={handleStepEvm}
 						class="inline-flex items-center px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#2D2D2D] hover:bg-gray-50 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 dark:focus:ring-indigo-400/50 transition-all text-gray-700 dark:text-gray-200 shadow-sm transform hover:translate-y-[-1px] active:translate-y-[1px]"
 						disabled={props.isRunning}
@@ -88,11 +91,13 @@ const Controls: Component<ControlsProps> = (props) => {
 							strokeLinecap="round"
 							strokeLinejoin="round"
 						>
+							<title>Step</title>
 							<polygon points="5 3 19 12 5 21 5 3" />
 						</svg>
 						Step
 					</button>
 					<button
+						type="button"
 						onClick={handleToggleRunPause}
 						class={`inline-flex items-center px-3 py-1.5 text-sm font-medium rounded-lg border focus:outline-none focus:ring-2 focus:ring-indigo-500/50 dark:focus:ring-indigo-400/50 transition-all shadow-sm transform hover:translate-y-[-1px] active:translate-y-[1px] ${
 							props.isRunning
@@ -114,6 +119,7 @@ const Controls: Component<ControlsProps> = (props) => {
 									strokeLinecap="round"
 									strokeLinejoin="round"
 								>
+									<title>Run</title>
 									<polygon points="5 3 19 12 5 21 5 3" />
 									<polygon points="19 12 5 21 5 3 19 12" />
 								</svg>
@@ -129,6 +135,7 @@ const Controls: Component<ControlsProps> = (props) => {
 								strokeLinecap="round"
 								strokeLinejoin="round"
 							>
+								<title>Pause</title>
 								<rect x="6" y="4" width="4" height="16" />
 								<rect x="14" y="4" width="4" height="16" />
 							</svg>

@@ -19,6 +19,7 @@ const CopyToast: Component<CopyToastProps> = (props) => {
 					strokeLinejoin="round"
 					aria-label="Success checkmark"
 				>
+					<title>Success checkmark</title>
 					<path d="M20 6 9 17l-5-5" />
 				</svg>
 				<span>Copied {props.copied} to clipboard</span>

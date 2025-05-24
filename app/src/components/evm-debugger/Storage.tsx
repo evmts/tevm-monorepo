@@ -40,6 +40,7 @@ const Storage: Component<StorageProps> = (props) => {
 								strokeLinecap="round"
 								strokeLinejoin="round"
 							>
+								<title>Storage</title>
 								<path d="M2 10V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-2" />
 								<path d="M10 2v4" />
 								<path d="M2 6h20" />
@@ -60,6 +61,7 @@ const Storage: Component<StorageProps> = (props) => {
 											<span class="font-mono text-sm text-gray-900 dark:text-white ml-2">{formatHex(item.key)}</span>
 										</div>
 										<button
+											type="button"
 											onClick={() => handleCopy(item.key, item.value)}
 											class="opacity-0 group-hover:opacity-100 transition-opacity text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
 											aria-label="Copy to clipboard"
@@ -74,6 +76,7 @@ const Storage: Component<StorageProps> = (props) => {
 												strokeLinecap="round"
 												strokeLinejoin="round"
 											>
+												<title>Copy</title>
 												<rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
 												<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
 											</svg>

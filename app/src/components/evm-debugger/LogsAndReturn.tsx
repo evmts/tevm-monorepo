@@ -32,6 +32,7 @@ const LogsAndReturn: Component<LogsAndReturnProps> = (props) => {
 			<div class="border-b border-gray-200 dark:border-gray-800">
 				<div class="flex">
 					<button
+						type="button"
 						onClick={() => setActiveTab('logs')}
 						class={`px-4 py-2 text-sm font-medium transition-colors ${
 							activeTab() === 'logs'
@@ -43,6 +44,7 @@ const LogsAndReturn: Component<LogsAndReturnProps> = (props) => {
 						Logs ({props.state.logs.length})
 					</button>
 					<button
+						type="button"
 						onClick={() => setActiveTab('returnData')}
 						class={`px-4 py-2 text-sm font-medium transition-colors ${
 							activeTab() === 'returnData'

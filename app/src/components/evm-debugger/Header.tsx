@@ -30,6 +30,7 @@ const Header: Component<HeaderProps> = (props) => {
 									strokeLinejoin="round"
 									aria-label="EVM Debugger icon"
 								>
+									<title>EVM Debugger icon</title>
 									<path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45L4 16" />
 									<path d="M8 7h.01M12 7h.01M16 7h.01" />
 								</svg>
@@ -114,6 +115,7 @@ const Header: Component<HeaderProps> = (props) => {
 									strokeLinejoin="round"
 									aria-label="File icon"
 								>
+									<title>File icon</title>
 									<path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
 									<polyline points="14 2 14 8 20 8" />
 								</svg>
@@ -129,6 +131,7 @@ const Header: Component<HeaderProps> = (props) => {
 									strokeLinejoin="round"
 									aria-label="Chevron"
 								>
+									<title>Chevron</title>
 									<polyline points="6 9 12 15 18 9" />
 								</svg>
 							</button>
@@ -138,8 +141,9 @@ const Header: Component<HeaderProps> = (props) => {
 										<div class="text-xs font-medium text-gray-500 dark:text-gray-400 px-3 py-2 uppercase tracking-wider">
 											Sample Contracts
 										</div>
-										{sampleContracts.map((contract) => (
+										{sampleContracts.map((contract, index) => (
 											<button
+												key={index}
 												type="button"
 												onClick={() => {
 													props.setBytecode(contract.bytecode)
@@ -156,6 +160,7 @@ const Header: Component<HeaderProps> = (props) => {
 							</Show>
 						</div>
 						<button
+							type="button"
 							onClick={() => props.setIsDarkMode(!props.isDarkMode)}
 							class="p-1.5 rounded-md text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800/60 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 dark:focus:ring-indigo-400/50 transition-colors"
 							aria-label="Toggle dark mode"
@@ -173,6 +178,7 @@ const Header: Component<HeaderProps> = (props) => {
 										strokeLinecap="round"
 										strokeLinejoin="round"
 									>
+										<title>Moon icon</title>
 										<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
 									</svg>
 								}
@@ -187,6 +193,7 @@ const Header: Component<HeaderProps> = (props) => {
 									strokeLinecap="round"
 									strokeLinejoin="round"
 								>
+									<title>Sun icon</title>
 									<circle cx="12" cy="12" r="4" />
 									<path d="M12 2v2" />
 									<path d="M12 20v2" />

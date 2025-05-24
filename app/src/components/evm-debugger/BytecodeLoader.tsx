@@ -48,6 +48,7 @@ const BytecodeLoader: Component<BytecodeLoaderProps> = (props) => {
 						strokeLinejoin="round"
 						aria-label="Load icon"
 					>
+						<title>Load icon</title>
 						<path d="m5 12 5 5 9-9" />
 					</svg>
 					Load Bytecode
