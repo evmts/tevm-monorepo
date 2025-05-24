@@ -32,6 +32,7 @@ const BytecodeLoader: Component<BytecodeLoaderProps> = (props) => {
 					</p>
 				</div>
 				<button
+					type="button"
 					onClick={handleLoadBytecode}
 					class="px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 active:from-indigo-700 active:to-purple-800 text-white rounded-lg shadow-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 dark:focus:ring-indigo-400/50 flex items-center transform hover:translate-y-[-1px] active:translate-y-[1px]"
 					aria-label="Load bytecode"
@@ -45,6 +46,7 @@ const BytecodeLoader: Component<BytecodeLoaderProps> = (props) => {
 						strokeWidth="2"
 						strokeLinecap="round"
 						strokeLinejoin="round"
+						aria-label="Load icon"
 					>
 						<path d="m5 12 5 5 9-9" />
 					</svg>

@@ -28,6 +28,7 @@ const Header: Component<HeaderProps> = (props) => {
 									strokeWidth="2"
 									strokeLinecap="round"
 									strokeLinejoin="round"
+									aria-label="EVM Debugger icon"
 								>
 									<path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45L4 16" />
 									<path d="M8 7h.01M12 7h.01M16 7h.01" />
@@ -38,6 +39,7 @@ const Header: Component<HeaderProps> = (props) => {
 
 						<div class="hidden md:flex space-x-1 ml-6">
 							<button
+								type="button"
 								onClick={() => props.setActivePanel('all')}
 								class={`px-3 py-1.5 text-sm rounded-md transition-colors ${
 									props.activePanel === 'all'
@@ -48,6 +50,7 @@ const Header: Component<HeaderProps> = (props) => {
 								All Panels
 							</button>
 							<button
+								type="button"
 								onClick={() => props.setActivePanel('stack')}
 								class={`px-3 py-1.5 text-sm rounded-md transition-colors ${
 									props.activePanel === 'stack'
@@ -58,6 +61,7 @@ const Header: Component<HeaderProps> = (props) => {
 								Stack
 							</button>
 							<button
+								type="button"
 								onClick={() => props.setActivePanel('memory')}
 								class={`px-3 py-1.5 text-sm rounded-md transition-colors ${
 									props.activePanel === 'memory'
@@ -68,6 +72,7 @@ const Header: Component<HeaderProps> = (props) => {
 								Memory
 							</button>
 							<button
+								type="button"
 								onClick={() => props.setActivePanel('storage')}
 								class={`px-3 py-1.5 text-sm rounded-md transition-colors ${
 									props.activePanel === 'storage'
@@ -78,6 +83,7 @@ const Header: Component<HeaderProps> = (props) => {
 								Storage
 							</button>
 							<button
+								type="button"
 								onClick={() => props.setActivePanel('logs')}
 								class={`px-3 py-1.5 text-sm rounded-md transition-colors ${
 									props.activePanel === 'logs'
@@ -92,6 +98,7 @@ const Header: Component<HeaderProps> = (props) => {
 					<div class="flex items-center space-x-3">
 						<div class="relative">
 							<button
+								type="button"
 								onClick={() => props.setShowSample(!props.showSample)}
 								class="px-3 py-1.5 text-sm rounded-md border border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/60 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 dark:focus:ring-indigo-400/50 transition-colors text-gray-700 dark:text-gray-200 flex items-center"
 								aria-label="Load sample contract"
@@ -105,6 +112,7 @@ const Header: Component<HeaderProps> = (props) => {
 									strokeWidth="2"
 									strokeLinecap="round"
 									strokeLinejoin="round"
+									aria-label="File icon"
 								>
 									<path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
 									<polyline points="14 2 14 8 20 8" />
@@ -119,6 +127,7 @@ const Header: Component<HeaderProps> = (props) => {
 									strokeWidth="2"
 									strokeLinecap="round"
 									strokeLinejoin="round"
+									aria-label="Chevron"
 								>
 									<polyline points="6 9 12 15 18 9" />
 								</svg>
@@ -131,6 +140,7 @@ const Header: Component<HeaderProps> = (props) => {
 										</div>
 										{sampleContracts.map((contract) => (
 											<button
+												type="button"
 												onClick={() => {
 													props.setBytecode(contract.bytecode)
 													props.setShowSample(false)

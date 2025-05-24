@@ -18,6 +18,7 @@ export const CopyToast = (props: CopyToastProps) => {
 				stroke-width="2"
 				stroke-linecap="round"
 				stroke-linejoin="round"
+				aria-label="Success checkmark"
 			>
 				<path d="M20 6 9 17l-5-5" />
 			</svg>

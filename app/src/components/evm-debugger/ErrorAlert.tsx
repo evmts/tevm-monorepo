@@ -19,6 +19,7 @@ const ErrorAlert: Component<ErrorAlertProps> = (props) => {
 						strokeWidth="2"
 						strokeLinecap="round"
 						strokeLinejoin="round"
+						aria-label="Error icon"
 					>
 						<circle cx="12" cy="12" r="10" />
 						<line x1="12" y1="8" x2="12" y2="12" />
@@ -27,6 +28,7 @@ const ErrorAlert: Component<ErrorAlertProps> = (props) => {
 					<span>{props.error}</span>
 				</div>
 				<button
+					type="button"
 					onClick={() => props.setError('')}
 					class="text-red-500 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-500/20 rounded-full p-1 transition-colors"
 					aria-label="Dismiss error"
@@ -38,6 +40,7 @@ const ErrorAlert: Component<ErrorAlertProps> = (props) => {
 						fill="none"
 						stroke="currentColor"
 						strokeWidth="2"
+						aria-label="Close"
 					>
 						<path d="M18 6 6 18" />
 						<path d="m6 6 12 12" />
