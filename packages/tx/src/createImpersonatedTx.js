@@ -1,4 +1,4 @@
-import { FeeMarketEIP1559Transaction } from '@ethereumjs/tx'
+import { FeeMarket1559Tx as FeeMarketEIP1559Transaction } from '@ethereumjs/tx'
 import { InternalError, InvalidGasLimitError } from '@tevm/errors'
 import { EthjsAddress, keccak256 } from '@tevm/utils'
 

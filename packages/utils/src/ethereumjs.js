@@ -21,4 +21,5 @@ export {
 	// zeros was also removed
 	randomBytes,
 	// AsyncEventEmitter was also removed
+	createAddressFromString,
 } from '@ethereumjs/util'

@@ -104,6 +104,7 @@ export {
 	// AsyncEventEmitter was also removed
 	GWEI_TO_WEI,
 	randomBytes,
+	createAddressFromString,
 } from './ethereumjs.js'
 export type {
 	WithdrawalData,
