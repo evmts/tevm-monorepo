@@ -1,6 +1,6 @@
 const std = @import("std");
 
-pub const evm = @import("Evm");
+pub const evm = @import("evm");
 pub const utils = @import("Utils");
 
 pub const EvmState = extern struct {

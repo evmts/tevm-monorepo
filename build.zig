@@ -72,7 +72,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-    
+
     // Add zabi dependency to compiler module
     const zabi_dep = b.dependency("zabi", .{
         .target = target,
@@ -100,7 +100,7 @@ pub fn build(b: *std.Build) void {
     });
 
     const evm_mod = b.createModule(.{
-        .root_source_file = b.path("src/Evm/evm.zig"),
+        .root_source_file = b.path("src/evm/evm.zig"),
         .target = target,
         .optimize = optimize,
     });
@@ -122,7 +122,7 @@ pub fn build(b: *std.Build) void {
     target_architecture_mod.addImport("Block", block_mod);
     target_architecture_mod.addImport("Bytecode", bytecode_mod);
     target_architecture_mod.addImport("Compiler", compiler_mod);
-    target_architecture_mod.addImport("Evm", evm_mod);
+    target_architecture_mod.addImport("evm", evm_mod);
     target_architecture_mod.addImport("Rlp", rlp_mod);
     target_architecture_mod.addImport("Token", token_mod);
     target_architecture_mod.addImport("Trie", trie_mod);
@@ -148,7 +148,7 @@ pub fn build(b: *std.Build) void {
     wasm_mod.addImport("Block", block_mod);
     wasm_mod.addImport("Bytecode", bytecode_mod);
     wasm_mod.addImport("Compiler", compiler_mod);
-    wasm_mod.addImport("Evm", evm_mod);
+    wasm_mod.addImport("evm", evm_mod);
     wasm_mod.addImport("Rlp", rlp_mod);
     wasm_mod.addImport("Token", token_mod);
     wasm_mod.addImport("Trie", trie_mod);
@@ -240,7 +240,7 @@ pub fn build(b: *std.Build) void {
     lib_unit_tests.root_module.addImport("Block", block_mod);
     lib_unit_tests.root_module.addImport("Bytecode", bytecode_mod);
     lib_unit_tests.root_module.addImport("Compiler", compiler_mod);
-    lib_unit_tests.root_module.addImport("Evm", evm_mod);
+    lib_unit_tests.root_module.addImport("evm", evm_mod);
     lib_unit_tests.root_module.addImport("Rlp", rlp_mod);
     lib_unit_tests.root_module.addImport("Token", token_mod);
     lib_unit_tests.root_module.addImport("Trie", trie_mod);
@@ -251,7 +251,7 @@ pub fn build(b: *std.Build) void {
     // Add a test for evm.zig
     const evm_test = b.addTest(.{
         .name = "evm-test",
-        .root_source_file = b.path("src/Evm/evm.zig"),
+        .root_source_file = b.path("src/evm/evm.zig"),
         .target = target,
         .optimize = optimize,
     });
@@ -262,7 +262,7 @@ pub fn build(b: *std.Build) void {
     evm_test.root_module.addImport("Block", block_mod);
     evm_test.root_module.addImport("Bytecode", bytecode_mod);
     evm_test.root_module.addImport("Compiler", compiler_mod);
-    evm_test.root_module.addImport("Evm", evm_mod);
+    evm_test.root_module.addImport("evm", evm_mod);
     evm_test.root_module.addImport("Rlp", rlp_mod);
     evm_test.root_module.addImport("Token", token_mod);
     evm_test.root_module.addImport("Trie", trie_mod);
@@ -367,7 +367,7 @@ pub fn build(b: *std.Build) void {
 
     const interpreter_test = b.addTest(.{
         .name = "evm-test",
-        .root_source_file = b.path("src/Evm/JumpTable.zig"),
+        .root_source_file = b.path("src/evm/JumpTable.zig"),
         .target = target,
         .optimize = optimize,
     });
@@ -378,6 +378,62 @@ pub fn build(b: *std.Build) void {
     const interpreter_test_step = b.step("test-interpreter", "Run Interpreter tests");
     interpreter_test_step.dependOn(&run_interpreter_test.step);
 
+    // Add Memory tests
+    const memory_test = b.addTest(.{
+        .name = "memory-test",
+        .root_source_file = b.path("test/evm/memory_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    memory_test.root_module.addImport("evm", evm_mod);
+
+    const run_memory_test = b.addRunArtifact(memory_test);
+
+    const memory_test_step = b.step("test-memory", "Run Memory tests");
+    memory_test_step.dependOn(&run_memory_test.step);
+
+    // Add Memory stress tests
+    const memory_stress_test = b.addTest(.{
+        .name = "memory-stress-test",
+        .root_source_file = b.path("test/evm/memory_stress_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    memory_stress_test.root_module.addImport("evm", evm_mod);
+
+    const run_memory_stress_test = b.addRunArtifact(memory_stress_test);
+
+    const memory_stress_test_step = b.step("test-memory-stress", "Run Memory stress tests");
+    memory_stress_test_step.dependOn(&run_memory_stress_test.step);
+
+    // Add Memory comparison tests
+    const memory_comparison_test = b.addTest(.{
+        .name = "memory-comparison-test",
+        .root_source_file = b.path("test/evm/memory_comparison_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    memory_comparison_test.root_module.addImport("evm", evm_mod);
+
+    const run_memory_comparison_test = b.addRunArtifact(memory_comparison_test);
+
+    const memory_comparison_test_step = b.step("test-memory-comparison", "Run Memory comparison tests");
+    memory_comparison_test_step.dependOn(&run_memory_comparison_test.step);
+
+    // Add Memory benchmark
+    const memory_benchmark = b.addExecutable(.{
+        .name = "memory-benchmark",
+        .root_source_file = b.path("test/Bench/memory_benchmark.zig"),
+        .target = target,
+        .optimize = .ReleaseFast, // Use ReleaseFast for benchmarks
+    });
+    memory_benchmark.root_module.addImport("evm", evm_mod);
+
+    const run_memory_benchmark = b.addRunArtifact(memory_benchmark);
+
+    const memory_benchmark_step = b.step("bench-memory", "Run Memory benchmarks");
+    memory_benchmark_step.dependOn(&run_memory_benchmark.step);
+
     // Add Rust Foundry wrapper integration
     const rust_build = @import("src/Compilers/rust_build.zig");
     const rust_step = rust_build.addRustIntegration(b, target, optimize) catch |err| {
@@ -387,10 +443,10 @@ pub fn build(b: *std.Build) void {
 
     // Make the compiler test depend on the Rust build
     compiler_test.step.dependOn(rust_step);
-    
+
     // Link the Rust library to the compiler test
     compiler_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
-    
+
     // Link macOS frameworks if on macOS
     if (target.result.os.tag == .macos) {
         compiler_test.linkFramework("CoreFoundation");
@@ -416,6 +472,9 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_compiler_test.step);
     test_step.dependOn(&run_trie_test.step);
     test_step.dependOn(&run_interpreter_test.step);
+    test_step.dependOn(&run_memory_test.step);
+    test_step.dependOn(&run_memory_stress_test.step);
+    test_step.dependOn(&run_memory_comparison_test.step);
 
     // Define a single test step that runs all tests
     const test_all_step = b.step("test-all", "Run all unit tests");
