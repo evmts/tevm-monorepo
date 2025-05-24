@@ -2,271 +2,343 @@ const std = @import("std");
 
 pub const StackError = error{
     OutOfBounds,
-    OutOfMemory,
     StackOverflow,
+    InvalidPosition,
 };
 
-// Performance comparison with revm and evmone:
-//
-// Memory Layout:
-// - Tevm: Static array [1024]u256 with explicit alignment
-// - revm: Vec<U256> dynamic allocation (https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/interpreter/stack.rs#L15)
-// - evmone: std::vector<uint256> dynamic allocation (https://github.com/ethereum/evmone/blob/master/lib/evmone/execution_state.hpp#L179)
-//
-// Performance implications:
-// - Static array avoids heap allocation overhead
-// - revm/evmone's dynamic allocation allows flexibility but adds indirection
-// - Consider: evmone uses custom uint256 type optimized for EVM operations
-//
-// Optimization opportunities from revm/evmone:
-// 1. evmone uses aggressive inlining and noexcept annotations
-// 2. revm provides both safe and unsafe variants for all operations
-// 3. Both use custom bigint implementations optimized for 256-bit operations
-pub const Stack = struct {
-    data: [1024]u256 align(@alignOf(u256)) = undefined,
-    size: usize = 0,
+/// EVM interpreter stack limit.
+pub const STACK_LIMIT: usize = 1024;
 
-    // Push operation comparison:
-    // - revm: Uses capacity check with Vec::push (https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/interpreter/stack.rs#L92)
-    // - evmone: Direct index assignment with bounds check (https://github.com/ethereum/evmone/blob/master/lib/evmone/instructions_stack.hpp#L16)
-    // Tevm matches evmone's approach with static bounds, avoiding Vec overhead
+/// EVM stack with fixed capacity of 1024 u256 elements.
+/// Optimized for zero-allocation operation and cache efficiency.
+///
+/// Performance comparison with revm and evmone:
+/// - Tevm: Static array [1024]u256 with explicit cache-line alignment
+/// - revm: Vec<U256> dynamic allocation with capacity pre-allocation
+/// - evmone: std::vector<uint256> with aligned allocation
+///
+/// Key optimizations:
+/// 1. 32-byte alignment for cache efficiency
+/// 2. Static allocation eliminates heap overhead
+/// 3. Dual safe/unsafe API pattern from revm
+/// 4. Manual swap implementation from evmone
+/// 5. Comptime-generated operations for code size
+pub const Stack = struct {
+    /// Static array of 1024 u256 elements, aligned for optimal cache performance
+    data: [STACK_LIMIT]u256 align(32) = [_]u256{0} ** STACK_LIMIT,
+    /// Current stack size (number of elements)
+    size: usize = 0,
+    /// Maximum stack capacity (compile-time constant)
+    pub const capacity: usize = STACK_LIMIT;
+
+    // Basic operations
+
+    /// Push a value onto the stack
     pub inline fn push(self: *Stack, value: u256) StackError!void {
-        if (self.size >= 1024) {
+        if (self.size >= capacity) {
             return StackError.StackOverflow;
         }
         self.data[self.size] = value;
         self.size += 1;
     }
 
-    // Unsafe variant matches revm's dual API pattern
-    // revm ref: https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/interpreter/stack.rs#L101
+    /// Push without bounds checking (caller ensures space available)
     pub inline fn push_unsafe(self: *Stack, value: u256) void {
-        std.debug.assert(self.size < 1024);
+        @setRuntimeSafety(false);
+        std.debug.assert(self.size < capacity);
         self.data[self.size] = value;
         self.size += 1;
     }
 
-    // Pop operation comparison:
-    // - revm: Vec::pop with Option return (https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/interpreter/stack.rs#L115)
-    // - evmone: Direct array access with decrement (https://github.com/ethereum/evmone/blob/master/lib/evmone/instructions_stack.hpp#L24)
-    // Tevm follows evmone's approach, avoiding Option wrapper overhead
+    /// Pop a value from the stack
     pub inline fn pop(self: *Stack) StackError!u256 {
         if (self.size == 0) return StackError.OutOfBounds;
         self.size -= 1;
-        return self.data[self.size];
+        const value = self.data[self.size];
+        // Clear the popped value for security (only in safe variant)
+        self.data[self.size] = 0;
+        return value;
     }
 
-    // evmone optimization: No bounds checking in release builds
-    // evmone ref: https://github.com/ethereum/evmone/blob/master/lib/evmone/instructions_stack.hpp#L32
+    /// Pop without bounds checking (caller ensures stack not empty)
     pub inline fn pop_unsafe(self: *Stack) u256 {
+        @setRuntimeSafety(false);
         std.debug.assert(self.size > 0);
         self.size -= 1;
         return self.data[self.size];
     }
 
+    /// Get reference to top element without popping
     pub inline fn peek(self: *Stack) StackError!*u256 {
         if (self.size == 0) return StackError.OutOfBounds;
         return &self.data[self.size - 1];
     }
 
+    /// Peek without bounds checking
     pub inline fn peek_unsafe(self: *Stack) *u256 {
+        @setRuntimeSafety(false);
         std.debug.assert(self.size > 0);
         return &self.data[self.size - 1];
     }
 
-    pub inline fn len(self: *Stack) usize {
+    /// Get current stack size
+    pub inline fn len(self: *const Stack) usize {
         return self.size;
     }
 
-    // Swap operations comparison:
-    // - revm: Generic swap_top function with index parameter (https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/interpreter/stack.rs#L174)
-    // - evmone: Template-based swap with compile-time index (https://github.com/ethereum/evmone/blob/master/lib/evmone/instructions_stack.hpp#L39)
-    //
-    // Performance note: evmone's template approach eliminates index calculation at runtime
-    // Tevm could benefit from comptime swap generation like evmone
-    pub inline fn swap1(self: *Stack) StackError!void {
-        if (self.size < 2) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 2]);
+    /// Check if stack is empty
+    pub inline fn isEmpty(self: *const Stack) bool {
+        return self.size == 0;
     }
 
-    // Manual swap implementation avoids std.mem.swap overhead
-    // Similar to evmone's direct assignment approach
-    // evmone ref: https://github.com/ethereum/evmone/blob/master/lib/evmone/instructions_stack.hpp#L41-L44
-    pub inline fn swap1_fast(self: *Stack) StackError!void {
-        if (self.size < 2) return StackError.OutOfBounds;
-
-        const top_idx = self.size - 1;
-        const swap_idx = self.size - 2;
-
-        const temp = self.data[top_idx];
-
-        self.data[top_idx] = self.data[swap_idx];
-
-        self.data[swap_idx] = temp;
+    /// Check if stack is full
+    pub inline fn isFull(self: *const Stack) bool {
+        return self.size == capacity;
     }
 
-    pub inline fn swap2(self: *Stack) StackError!void {
-        if (self.size < 3) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 3]);
-    }
+    // Stack-relative operations
 
-    pub inline fn swap3(self: *Stack) StackError!void {
-        if (self.size < 4) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 4]);
-    }
-
-    pub inline fn swap4(self: *Stack) StackError!void {
-        if (self.size < 5) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 5]);
-    }
-
-    pub inline fn swap5(self: *Stack) StackError!void {
-        if (self.size < 6) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 6]);
-    }
-
-    pub inline fn swap6(self: *Stack) StackError!void {
-        if (self.size < 7) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 7]);
-    }
-
-    pub inline fn swap7(self: *Stack) StackError!void {
-        if (self.size < 8) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 8]);
-    }
-
-    pub inline fn swap8(self: *Stack) StackError!void {
-        if (self.size < 9) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 9]);
-    }
-
-    pub inline fn swap9(self: *Stack) StackError!void {
-        if (self.size < 10) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 10]);
-    }
-
-    pub inline fn swap10(self: *Stack) StackError!void {
-        if (self.size < 11) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 11]);
-    }
-
-    pub inline fn swap11(self: *Stack) StackError!void {
-        if (self.size < 12) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 12]);
-    }
-
-    pub inline fn swap12(self: *Stack) StackError!void {
-        if (self.size < 13) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 13]);
-    }
-
-    pub inline fn swap13(self: *Stack) StackError!void {
-        if (self.size < 14) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 14]);
-    }
-
-    pub inline fn swap14(self: *Stack) StackError!void {
-        if (self.size < 15) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 15]);
-    }
-
-    pub inline fn swap15(self: *Stack) StackError!void {
-        if (self.size < 16) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 16]);
-    }
-
-    pub inline fn swap16(self: *Stack) StackError!void {
-        if (self.size < 17) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 17]);
-    }
-
-    pub inline fn dup(self: *Stack, n: usize) StackError!void {
-        if (n == 0 or n > self.size) return StackError.OutOfBounds;
-        try self.push(self.data[self.size - n]);
-    }
-
-    pub inline fn dup_unsafe(self: *Stack, n: usize) void {
-        std.debug.assert(n > 0 and n <= self.size);
-        self.push_unsafe(self.data[self.size - n]);
-    }
-
+    /// Get reference to element N positions from top (0 = top)
     pub inline fn back(self: *Stack, n: usize) StackError!*u256 {
         if (n >= self.size) return StackError.OutOfBounds;
         return &self.data[self.size - n - 1];
     }
 
+    /// Back without bounds checking
     pub inline fn back_unsafe(self: *Stack, n: usize) *u256 {
+        @setRuntimeSafety(false);
         std.debug.assert(n < self.size);
         return &self.data[self.size - n - 1];
     }
 
-    // Multi-pop optimization comparison:
-    // - revm: Individual pop calls (https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/instructions/arithmetic.rs)
-    // - evmone: Bulk pointer operations for multi-argument opcodes
-    //
-    // Tevm's comptime N parameter enables unrolled loops like evmone
-    // This avoids loop overhead for known sizes (common in EVM opcodes)
-    pub inline fn popn(self: *Stack, comptime N: usize) ![N]u256 {
+    /// Peek at element N positions from top (0 = top)
+    pub inline fn peek_n(self: *const Stack, n: usize) StackError!u256 {
+        if (n >= self.size) return StackError.OutOfBounds;
+        return self.data[self.size - n - 1];
+    }
+
+    // Swap operations (optimized)
+
+    /// Generic swap operation (1-16)
+    pub inline fn swap(self: *Stack, n: usize) StackError!void {
+        if (n == 0 or n > 16) return StackError.InvalidPosition;
+        if (self.size <= n) return StackError.OutOfBounds;
+        
+        // Manual swap to work around compiler optimization issues
+        // Reference: evmone's optimization for clang issue #59116
+        const top_idx = self.size - 1;
+        const swap_idx = self.size - n - 1;
+        const temp = self.data[top_idx];
+        self.data[top_idx] = self.data[swap_idx];
+        self.data[swap_idx] = temp;
+    }
+
+    /// Swap top with Nth element (compile-time known N)
+    pub inline fn swapN(self: *Stack, comptime N: usize) StackError!void {
+        if (N == 0 or N > 16) @compileError("Invalid swap position");
+        if (self.size <= N) return StackError.OutOfBounds;
+        
+        const top_idx = self.size - 1;
+        const swap_idx = self.size - N - 1;
+        const temp = self.data[top_idx];
+        self.data[top_idx] = self.data[swap_idx];
+        self.data[swap_idx] = temp;
+    }
+
+    /// Unsafe swap variants
+    pub inline fn swap_unsafe(self: *Stack, n: usize) void {
+        @setRuntimeSafety(false);
+        std.debug.assert(n > 0 and n <= 16);
+        std.debug.assert(self.size > n);
+        
+        const top_idx = self.size - 1;
+        const swap_idx = self.size - n - 1;
+        const temp = self.data[top_idx];
+        self.data[top_idx] = self.data[swap_idx];
+        self.data[swap_idx] = temp;
+    }
+
+    pub inline fn swapN_unsafe(self: *Stack, comptime N: usize) void {
+        if (N == 0 or N > 16) @compileError("Invalid swap position");
+        @setRuntimeSafety(false);
+        std.debug.assert(self.size > N);
+        
+        const top_idx = self.size - 1;
+        const swap_idx = self.size - N - 1;
+        const temp = self.data[top_idx];
+        self.data[top_idx] = self.data[swap_idx];
+        self.data[swap_idx] = temp;
+    }
+
+    /// Individual swap operations for better optimization
+    pub inline fn swap1(self: *Stack) StackError!void { return self.swapN(1); }
+    pub inline fn swap2(self: *Stack) StackError!void { return self.swapN(2); }
+    pub inline fn swap3(self: *Stack) StackError!void { return self.swapN(3); }
+    pub inline fn swap4(self: *Stack) StackError!void { return self.swapN(4); }
+    pub inline fn swap5(self: *Stack) StackError!void { return self.swapN(5); }
+    pub inline fn swap6(self: *Stack) StackError!void { return self.swapN(6); }
+    pub inline fn swap7(self: *Stack) StackError!void { return self.swapN(7); }
+    pub inline fn swap8(self: *Stack) StackError!void { return self.swapN(8); }
+    pub inline fn swap9(self: *Stack) StackError!void { return self.swapN(9); }
+    pub inline fn swap10(self: *Stack) StackError!void { return self.swapN(10); }
+    pub inline fn swap11(self: *Stack) StackError!void { return self.swapN(11); }
+    pub inline fn swap12(self: *Stack) StackError!void { return self.swapN(12); }
+    pub inline fn swap13(self: *Stack) StackError!void { return self.swapN(13); }
+    pub inline fn swap14(self: *Stack) StackError!void { return self.swapN(14); }
+    pub inline fn swap15(self: *Stack) StackError!void { return self.swapN(15); }
+    pub inline fn swap16(self: *Stack) StackError!void { return self.swapN(16); }
+
+    // Dup operations
+
+    /// Duplicate Nth element to top (1-based: dup(1) duplicates top)
+    pub inline fn dup(self: *Stack, n: usize) StackError!void {
+        if (n == 0 or n > 16) return StackError.InvalidPosition;
+        if (n > self.size) return StackError.OutOfBounds;
+        if (self.size >= capacity) return StackError.StackOverflow;
+        try self.push(self.data[self.size - n]);
+    }
+
+    /// Dup with compile-time known N
+    pub inline fn dupN(self: *Stack, comptime N: usize) StackError!void {
+        if (N == 0 or N > 16) @compileError("Invalid dup position");
+        if (N > self.size) return StackError.OutOfBounds;
+        if (self.size >= capacity) return StackError.StackOverflow;
+        try self.push(self.data[self.size - N]);
+    }
+
+    /// Unsafe dup variants
+    pub inline fn dup_unsafe(self: *Stack, n: usize) void {
+        @setRuntimeSafety(false);
+        std.debug.assert(n > 0 and n <= 16);
+        std.debug.assert(n <= self.size);
+        std.debug.assert(self.size < capacity);
+        self.push_unsafe(self.data[self.size - n]);
+    }
+
+    pub inline fn dupN_unsafe(self: *Stack, comptime N: usize) void {
+        if (N == 0 or N > 16) @compileError("Invalid dup position");
+        @setRuntimeSafety(false);
+        std.debug.assert(N <= self.size);
+        std.debug.assert(self.size < capacity);
+        self.push_unsafe(self.data[self.size - N]);
+    }
+
+    // Bulk operations
+
+    /// Pop N values from stack, returns them in order (top first)
+    pub inline fn popn(self: *Stack, comptime N: usize) StackError![N]u256 {
         if (self.size < N) return StackError.OutOfBounds;
 
         self.size -= N;
-
         var result: [N]u256 = undefined;
 
-        // Unrolled at compile time - matches evmone's template approach
-        // evmone ref: https://github.com/ethereum/evmone/blob/master/lib/evmone/instructions_traits.hpp
+        // Unrolled at compile time for performance
         inline for (0..N) |i| {
             result[i] = self.data[self.size + i];
+            // Clear popped values for security (only in safe variant)
+            self.data[self.size + i] = 0;
         }
 
         return result;
     }
 
-    // Optimization from evmone: Combined pop + peek for opcodes that pop N and push 1
-    // Common pattern in arithmetic operations (ADD, MUL, etc.)
-    // evmone ref: https://github.com/ethereum/evmone/blob/master/lib/evmone/instructions_arithmetic.cpp
-    pub inline fn popn_top(self: *Stack, comptime N: usize) !struct { values: [N]u256, top: *u256 } {
+    /// Pop N values and return reference to new top (for opcodes that pop N and push 1)
+    pub inline fn popn_top(self: *Stack, comptime N: usize) StackError!struct {
+        values: [N]u256,
+        top: *u256,
+    } {
         if (self.size <= N) return StackError.OutOfBounds;
 
-        const result = try self.popn(N);
-        return .{ .values = result, .top = self.peek_unsafe() };
+        const values = try self.popn(N);
+        return .{ .values = values, .top = self.peek_unsafe() };
     }
 
-    pub fn push_slice(self: *Stack, slice: []const u8) !void {
-        if (self.size + (slice.len + 31) / 32 > 1024) {
+    /// Push multiple values (for testing/initialization)
+    pub fn push_slice(self: *Stack, values: []const u256) StackError!void {
+        if (self.size + values.len > capacity) {
             return StackError.StackOverflow;
         }
-
-        var src_index: usize = 0;
-        while (src_index + 32 <= slice.len) {
-            var buf: [32]u8 = undefined;
-            @memcpy(&buf, slice[src_index .. src_index + 32]);
-
-            const word = std.mem.readInt(u256, &buf, .big);
-
-            self.data[self.size] = word;
-            self.size += 1;
-
-            src_index += 32;
-        }
-
-        if (src_index < slice.len) {
-            var buf: [32]u8 = [_]u8{0} ** 32;
-            const remaining = slice.len - src_index;
-            @memcpy(buf[32 - remaining ..], slice[src_index..]);
-
-            const word = std.mem.readInt(u256, &buf, .big);
-
-            self.data[self.size] = word;
+        
+        for (values) |value| {
+            self.data[self.size] = value;
             self.size += 1;
         }
     }
 
-    pub inline fn peek_n(self: *Stack, n: usize) !u256 {
-        if (self.size <= n) return StackError.OutOfBounds;
-        return self.data[self.size - n - 1];
+    // EIP-663 operations
+
+    /// DUPN - duplicate Nth element (dynamic N from bytecode)
+    pub inline fn dupn(self: *Stack, n: u8) StackError!void {
+        if (n == 0) return StackError.InvalidPosition;
+        const idx = @as(usize, n);
+        if (idx > self.size) return StackError.OutOfBounds;
+        if (self.size >= capacity) return StackError.StackOverflow;
+        try self.push(self.data[self.size - idx]);
+    }
+
+    /// SWAPN - swap top with Nth element (dynamic N from bytecode)
+    pub inline fn swapn(self: *Stack, n: u8) StackError!void {
+        const idx = @as(usize, n) + 1; // EIP-663: n+1 position
+        if (idx > self.size) return StackError.OutOfBounds;
+        
+        const top_idx = self.size - 1;
+        const swap_idx = self.size - idx;
+        const temp = self.data[top_idx];
+        self.data[top_idx] = self.data[swap_idx];
+        self.data[swap_idx] = temp;
+    }
+
+    /// EXCHANGE - exchange two elements at positions n+1 and n+m+1
+    pub inline fn exchange(self: *Stack, n: u8, m: u8) StackError!void {
+        const n_idx = @as(usize, n) + 1;
+        const m_idx = n_idx + @as(usize, m);
+        
+        if (m == 0) return StackError.InvalidPosition; // No overlap allowed
+        if (m_idx > self.size) return StackError.OutOfBounds;
+        
+        const idx1 = self.size - n_idx;
+        const idx2 = self.size - m_idx;
+        const temp = self.data[idx1];
+        self.data[idx1] = self.data[idx2];
+        self.data[idx2] = temp;
+    }
+
+    // Utility operations
+
+    /// Clear the stack (reset to empty)
+    pub inline fn clear(self: *Stack) void {
+        self.size = 0;
+        // Optional: Clear data for security
+        // @memset(&self.data, 0);
+    }
+
+    /// Get slice of stack data (for debugging/serialization)
+    pub fn toSlice(self: *const Stack) []const u256 {
+        return self.data[0..self.size];
+    }
+
+    /// Validate stack requirements for an operation
+    pub inline fn checkRequirements(self: *const Stack, pop_count: usize, push_count: usize) bool {
+        return self.size >= pop_count and (self.size - pop_count + push_count) <= capacity;
     }
 };
+
+// Helper functions
+
+/// Create swap function using comptime (for generating swap1-swap16)
+pub fn makeSwapN(comptime N: usize) fn (*Stack) StackError!void {
+    return struct {
+        pub fn swap(stack: *Stack) StackError!void {
+            if (stack.size <= N) return StackError.OutOfBounds;
+            // Direct memory swap, avoiding temporary variables when possible
+            const top_idx = stack.size - 1;
+            const swap_idx = stack.size - N - 1;
+            const temp = stack.data[top_idx];
+            stack.data[top_idx] = stack.data[swap_idx];
+            stack.data[swap_idx] = temp;
+        }
+    }.swap;
+}
 
 const testing = std.testing;
 
@@ -309,7 +381,8 @@ test "Stack swap operations" {
     try stack.push(value3);
     try stack.push(value4);
 
-    try stack.swap1_fast();
+    // Test manual swap implementation
+    try stack.swap1();
     try testing.expectEqual(value3, (try stack.peek()).*);
     try testing.expectEqual(value4, (try stack.back(1)).*);
 }
@@ -333,14 +406,15 @@ test "Stack popn operation" {
 test "Stack push_slice operation" {
     var stack = Stack{};
 
-    const bytes = [_]u8{ 0x12, 0x34, 0x56, 0x78 };
-    try stack.push_slice(&bytes);
+    const values = [_]u256{ 0x12345678, 0xABCDEF00, 0xDEADBEEF };
+    try stack.push_slice(&values);
 
-    try testing.expectEqual(@as(usize, 1), stack.len());
-    const value = try stack.pop();
-
-    const expected: u256 = 0x12345678;
-    try testing.expectEqual(expected, value);
+    try testing.expectEqual(@as(usize, 3), stack.len());
+    
+    // Verify in reverse order (LIFO)
+    try testing.expectEqual(@as(u256, 0xDEADBEEF), try stack.pop());
+    try testing.expectEqual(@as(u256, 0xABCDEF00), try stack.pop());
+    try testing.expectEqual(@as(u256, 0x12345678), try stack.pop());
 }
 
 test "Stack dup operations" {
