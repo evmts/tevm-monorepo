@@ -1,4 +1,4 @@
-import { EVMErrorMessage } from '@ethereumjs/evm'
+import { EVMError } from '@ethereumjs/evm'
 import { BaseError } from '../BaseError.js'
 
 /**
@@ -8,7 +8,7 @@ import { BaseError } from '../BaseError.js'
  * @property {string} [docsPath] - Path to the documentation.
  * @property {string} [docsSlug] - Slug for the documentation.
  * @property {string[]} [metaMessages] - Additional meta messages.
- * @property {BaseError|import('@ethereumjs/evm').EvmError} [cause] - The cause of the error.
+ * @property {BaseError|import('@ethereumjs/evm').EVMError} [cause] - The cause of the error.
  * @property {string} [details] - Details of the error.
  * @property {object} [meta] - Optional object containing additional information about the error.
  */
@@ -47,7 +47,7 @@ import { BaseError } from '../BaseError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class InternalEvmError extends BaseError {
-	static EVMErrorMessage = EVMErrorMessage.INTERNAL_ERROR
+	/** @type {string} */	static EVMErrorMessage = EVMError.errorMessages.INTERNAL_ERROR
 	/**
 	 * Constructs an InternalEvmError.
 	 * Represents an internal error within the EVM. This error should not typically happen

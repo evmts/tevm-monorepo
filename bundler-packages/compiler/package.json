@@ -66,17 +66,17 @@
 		"@tevm/config": "workspace:^",
 		"@tevm/resolutions": "workspace:^",
 		"@tevm/solc": "workspace:^",
-		"@types/node": "^22.13.5",
-		"effect": "3.13.2",
+		"@types/node": "^22.15.21",
+		"effect": "3.15.4",
 		"resolve": "^1.22.10",
-		"solidity-ast": "^0.4.59"
+		"solidity-ast": "^0.4.60"
 	},
 	"devDependencies": {
-		"@openzeppelin/contracts": "5.2.0",
+		"@openzeppelin/contracts": "5.3.0",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"@types/resolve": "^1.20.6",
-		"solc": "0.8.28"
+		"solc": "0.8.30"
 	},
 	"publishConfig": {
 		"access": "public"

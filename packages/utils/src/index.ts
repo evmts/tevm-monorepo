@@ -99,14 +99,13 @@ export {
 	KECCAK256_RLP_ARRAY,
 	Withdrawal,
 	ecrecover,
-	ecsign,
-	zeros,
-	AsyncEventEmitter,
+	// ecsign was removed in newer versions
+	// zeros was also removed
+	// AsyncEventEmitter was also removed
 	GWEI_TO_WEI,
 	randomBytes,
 } from './ethereumjs.js'
 export type {
-	GenesisState,
 	WithdrawalData,
 	DB as Db,
 	DBObject as DbObject,
@@ -115,9 +114,22 @@ export type {
 	AddressLike,
 	BigIntLike,
 	BytesLike,
-	JsonRpcWithdrawal,
+	JSONRPCWithdrawal as JsonRpcWithdrawal,
 } from '@ethereumjs/util'
 export type { Log as EthjsLog } from '@ethereumjs/evm'
+// GenesisState is now in @ethereumjs/common, but we need the account-based GenesisState
+// which seems to have been removed. Let's define it here for backward compatibility.
+export type GenesisState = Record<string, string | Record<string, any>>
+
+// AsyncEventEmitter was removed from @ethereumjs/util
+// Define a compatible type for backward compatibility
+export type AsyncEventEmitter<T extends Record<string, any> = {}> = {
+	on<K extends keyof T>(event: K, listener: T[K]): void
+	once<K extends keyof T>(event: K, listener: T[K]): void
+	off<K extends keyof T>(event: K, listener: T[K]): void
+	emit<K extends keyof T>(event: K, ...args: Parameters<T[K]>): boolean
+	removeAllListeners<K extends keyof T>(event?: K): void
+}
 export type {
 	SetToHex,
 	BigIntToHex,

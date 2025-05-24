@@ -1,4 +1,4 @@
-import { EVMErrorMessage } from '@ethereumjs/evm'
+import { EVMError } from '@ethereumjs/evm'
 import { GasLimitExceededError } from '../GasLimitExceededError.js'
 
 /**
@@ -8,7 +8,7 @@ import { GasLimitExceededError } from '../GasLimitExceededError.js'
  * @property {string} [docsPath] - Path to the documentation.
  * @property {string} [docsSlug] - Slug for the documentation.
  * @property {string[]} [metaMessages] - Additional meta messages.
- * @property {GasLimitExceededError|import('@ethereumjs/evm').EvmError} [cause] - The cause of the error.
+ * @property {GasLimitExceededError|import('@ethereumjs/evm').EVMError} [cause] - The cause of the error.
  * @property {string} [details] - Details of the error.
  * @property {object} [meta] - Optional object containing additional information about the error.
  */
@@ -58,7 +58,7 @@ import { GasLimitExceededError } from '../GasLimitExceededError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class CodeSizeExceedsMaximumError extends GasLimitExceededError {
-	static EVMErrorMessage = EVMErrorMessage.CODESIZE_EXCEEDS_MAXIMUM
+	/** @type {string} */	static EVMErrorMessage = EVMError.errorMessages.CODESIZE_EXCEEDS_MAXIMUM
 	/**
 	 * Constructs a CodeSizeExceedsMaximumError.
 	 * Represents an calldata/creation error that occurs when the code size exceeds the maximum limit.

@@ -61,8 +61,8 @@
   },
   "dependencies": {
     "@tevm/base-bundler": "workspace:^",
-    "@tevm/bundler-rs": "workspace:^",
     "@tevm/bundler-cache": "workspace:^",
+    "@tevm/bundler-rs": "workspace:^",
     "@tevm/config": "workspace:^",
     "@tevm/contract": "workspace:^",
     "@tevm/resolutions": "workspace:^",
@@ -72,18 +72,18 @@
     "@tevm/test-utils": "workspace:^",
     "@tevm/ts-plugin": "workspace:^",
     "@tevm/viem": "workspace:^",
-    "effect": "3.13.2",
+    "effect": "3.15.4",
     "tevm": "workspace:^",
-    "typescript": "^5.7.3",
-    "wagmi": "^2.14.12"
+    "typescript": "^5.8.3",
+    "wagmi": "^2.15.4"
   },
   "devDependencies": {
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^",
-    "@types/node": "^22.13.5"
+    "@types/node": "^22.15.21"
   },
   "peerDependencies": {
-    "viem": "^2.21.1"
+    "viem": "^2.30.1"
   },
   "publishConfig": {
     "access": "public"
