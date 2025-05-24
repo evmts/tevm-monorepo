@@ -10,7 +10,7 @@ const ExtensionNode = trie.ExtensionNode;
 const LeafNode = trie.LeafNode;
 const TrieError = trie.TrieError;
 
-/// The main trie implementation supporting all operations
+// The main trie implementation supporting all operations
 pub const HashBuilder = struct {
     allocator: Allocator,
     // Store nodes by their hash (hex encoded)
@@ -1191,7 +1191,7 @@ pub const HashBuilder = struct {
 
 // Helper functions
 
-/// Find the length of the common prefix of two byte slices
+// Find the length of the common prefix of two byte slices
 fn commonPrefixLength(a: []const u8, b: []const u8) usize {
     const min_len = @min(a.len, b.len);
     var i: usize = 0;
@@ -1199,7 +1199,7 @@ fn commonPrefixLength(a: []const u8, b: []const u8) usize {
     return i;
 }
 
-/// Convert a byte array to a hex string
+// Convert a byte array to a hex string
 fn bytesToHexString(allocator: Allocator, bytes: []const u8) ![]u8 {
     const hex_chars = "0123456789abcdef";
     const hex = try allocator.alloc(u8, bytes.len * 2);

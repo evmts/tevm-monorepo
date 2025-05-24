@@ -6,8 +6,8 @@ const rlp = @import("rlp");
 const TrieMask = trie.TrieMask;
 const HashValue = trie.HashValue;
 
-/// More memory-efficient branch node implementation with compact storage
-/// This is a performance enhancement from the Alloy implementation
+// More memory-efficient branch node implementation with compact storage
+// This is a performance enhancement from the Alloy implementation
 pub const CompactBranchNode = struct {
     /// Mask indicating which child positions have values
     children_mask: TrieMask = TrieMask.init(),

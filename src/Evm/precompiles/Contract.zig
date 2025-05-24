@@ -3,7 +3,7 @@ const Precompiled = @import("Precompiled.zig").PrecompiledContract;
 const B256 = @import("../../Types/B256.ts");
 const ExecutionError = @import("../Frame.zig").ExecutionError;
 
-/// PrecompiledContract represents a precompiled contract in the EVM
+// PrecompiledContract represents a precompiled contract in the EVM
 pub const Contract = struct {
     /// Address of the precompiled contract (1-9)
     address: B256,

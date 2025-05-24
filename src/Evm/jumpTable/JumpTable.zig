@@ -246,63 +246,63 @@ const transient = if (!is_test) @import("../opcodes/transient.zig") else struct 
     }
 };
 
-/// ExecutionFunc is a function executed by the EVM during interpretation
+// ExecutionFunc is a function executed by the EVM during interpretation
 ///
-/// This function signature is used for all opcode implementations.
-/// 
-/// Parameters:
-/// - pc: Current program counter position
-/// - interpreter: Pointer to the interpreter instance
-/// - frame: Pointer to the current execution frame
+// This function signature is used for all opcode implementations.
+// 
+// Parameters:
+// - pc: Current program counter position
+// - interpreter: Pointer to the interpreter instance
+// - frame: Pointer to the current execution frame
 ///
-/// Returns: Either an error (like STOP, REVERT, etc.) or a byte slice
-/// for any data to be returned
+// Returns: Either an error (like STOP, REVERT, etc.) or a byte slice
+// for any data to be returned
 pub const ExecutionFunc = *const fn (pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8;
 
-/// GasFunc calculates the gas required for an operation
+// GasFunc calculates the gas required for an operation
 ///
-/// This is used for opcodes that need dynamic gas calculation based on inputs.
+// This is used for opcodes that need dynamic gas calculation based on inputs.
 ///
-/// Parameters:
-/// - interpreter: Pointer to the interpreter instance
-/// - frame: Pointer to the current execution frame
-/// - stack: Pointer to the EVM stack
-/// - memory: Pointer to the EVM memory
-/// - requested_size: The requested memory size (for memory expansion)
+// Parameters:
+// - interpreter: Pointer to the interpreter instance
+// - frame: Pointer to the current execution frame
+// - stack: Pointer to the EVM stack
+// - memory: Pointer to the EVM memory
+// - requested_size: The requested memory size (for memory expansion)
 ///
-/// Returns: The amount of gas required or OutOfGas error
+// Returns: The amount of gas required or OutOfGas error
 pub const GasFunc = *const fn (interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64;
 
-/// Return type for memory size calculations
+// Return type for memory size calculations
 pub const MemorySizeResult = struct { size: u64, overflow: bool };
 
-/// MemorySizeFunc calculates the memory size required for an operation
+// MemorySizeFunc calculates the memory size required for an operation
 ///
-/// This is used for opcodes that may extend the memory.
+// This is used for opcodes that may extend the memory.
 ///
-/// Parameters:
-/// - stack: Pointer to the EVM stack to read operands
+// Parameters:
+// - stack: Pointer to the EVM stack to read operands
 ///
-/// Returns: A struct containing the required memory size and whether an overflow occurred
+// Returns: A struct containing the required memory size and whether an overflow occurred
 pub const MemorySizeFunc = *const fn (stack: *Stack) MemorySizeResult;
 
-/// Helper function to calculate memory gas cost for expanding memory
+// Helper function to calculate memory gas cost for expanding memory
 ///
-/// Memory gas is calculated based on the number of 32-byte words required.
-/// The formula is quadratic to make larger memory expansions increasingly expensive.
+// Memory gas is calculated based on the number of 32-byte words required.
+// The formula is quadratic to make larger memory expansions increasingly expensive.
 ///
-/// The gas formula follows the EVM specification:
-/// gas = MemoryGas * words + words² / QuadCoeffDiv
-/// where:
-/// - MemoryGas = 3 (linear coefficient)
-/// - QuadCoeffDiv = 512 (quadratic coefficient divisor)
+// The gas formula follows the EVM specification:
+// gas = MemoryGas * words + words² / QuadCoeffDiv
+// where:
+// - MemoryGas = 3 (linear coefficient)
+// - QuadCoeffDiv = 512 (quadratic coefficient divisor)
 ///
-/// Parameters:
-/// - mem: Pointer to the memory instance
-/// - newSize: The new memory size in bytes to expand to
+// Parameters:
+// - mem: Pointer to the memory instance
+// - newSize: The new memory size in bytes to expand to
 ///
-/// Returns: The gas cost for expanding memory
-/// Error: OutOfGas if an overflow occurs in gas calculation
+// Returns: The gas cost for expanding memory
+// Error: OutOfGas if an overflow occurs in gas calculation
 pub inline fn memoryGasCost(mem: *Memory, newSize: u64) error{OutOfGas}!u64 {
     // Performance: Early return for common case
     const currentSize = mem.size();
@@ -340,11 +340,11 @@ pub inline fn memoryGasCost(mem: *Memory, newSize: u64) error{OutOfGas}!u64 {
     return newCost - oldCost;
 }
 
-/// Operation represents an opcode in the EVM
+// Operation represents an opcode in the EVM
 ///
-/// Each opcode in the EVM is represented by an Operation instance that
-/// contains all the information needed to execute it, including its
-/// execution function, gas costs, and stack requirements.
+// Each opcode in the EVM is represented by an Operation instance that
+// contains all the information needed to execute it, including its
+// execution function, gas costs, and stack requirements.
 pub const Operation = struct {
     /// Function to execute the operation
     execute: ExecutionFunc,
@@ -370,12 +370,12 @@ pub const Operation = struct {
     undefined: bool = false,
 };
 
-/// JumpTable contains the EVM opcodes supported at a given hardfork
+// JumpTable contains the EVM opcodes supported at a given hardfork
 ///
-/// The JumpTable is essentially a lookup table for all 256 possible opcodes
-/// in the EVM. Each entry points to an Operation that defines the behavior
-/// of that opcode. Opcodes that are not defined for a particular hardfork
-/// will point to an UNDEFINED operation.
+// The JumpTable is essentially a lookup table for all 256 possible opcodes
+// in the EVM. Each entry points to an Operation that defines the behavior
+// of that opcode. Opcodes that are not defined for a particular hardfork
+// will point to an UNDEFINED operation.
 pub const JumpTable = struct {
     /// Array of operations indexed by opcode value (0-255)
     table: [256]?*const Operation,
@@ -440,86 +440,86 @@ pub const JumpTable = struct {
     }
 };
 
-/// Gas cost constants for basic operations
-/// These define the static gas costs for various opcode categories
-/// Very cheap operations (like PC, CALLDATASIZE)
+// Gas cost constants for basic operations
+// These define the static gas costs for various opcode categories
+// Very cheap operations (like PC, CALLDATASIZE)
 pub const GasQuickStep: u64 = 2;
-/// Fast operations (like ADD, SUB, NOT)
+// Fast operations (like ADD, SUB, NOT)
 pub const GasFastestStep: u64 = 3;
-/// Faster operations (like MUL, DIV)
+// Faster operations (like MUL, DIV)
 pub const GasFastStep: u64 = 5;
-/// Mid-range operations (like ADDMOD, MULMOD)
+// Mid-range operations (like ADDMOD, MULMOD)
 pub const GasMidStep: u64 = 8;
-/// Slow operations
+// Slow operations
 pub const GasSlowStep: u64 = 10;
-/// Extended/expensive operations (like BALANCE)
+// Extended/expensive operations (like BALANCE)
 pub const GasExtStep: u64 = 20;
 
-/// Gas cost constants for specific operations
-/// Base gas for KECCAK256
+// Gas cost constants for specific operations
+// Base gas for KECCAK256
 pub const Keccak256Gas: u64 = 30;
-/// Gas per word for KECCAK256
+// Gas per word for KECCAK256
 pub const Keccak256WordGas: u64 = 6;
-/// Base gas for SLOAD (warm access)
+// Base gas for SLOAD (warm access)
 pub const SloadGas: u64 = 100;
-/// Gas for first-time (cold) SLOAD access (EIP-2929)
+// Gas for first-time (cold) SLOAD access (EIP-2929)
 pub const ColdSloadCost: u64 = 2100;
-/// Gas for first-time (cold) account access (EIP-2929)
+// Gas for first-time (cold) account access (EIP-2929)
 pub const ColdAccountAccessCost: u64 = 2600;
-/// Gas for warm storage access (EIP-2929)
+// Gas for warm storage access (EIP-2929)
 pub const WarmStorageReadCost: u64 = 100;
 
-/// Gas sent with a call
+// Gas sent with a call
 pub const SstoreSentryGas: u64 = 2300;
-/// Gas for SSTORE when setting from zero
+// Gas for SSTORE when setting from zero
 pub const SstoreSetGas: u64 = 20000;
-/// Gas for SSTORE when changing existing value
+// Gas for SSTORE when changing existing value
 pub const SstoreResetGas: u64 = 5000;
-/// Gas for SSTORE when clearing to zero
+// Gas for SSTORE when clearing to zero
 pub const SstoreClearGas: u64 = 5000;
-/// Gas refund for clearing storage (EIP-3529 reduced from 15000)
+// Gas refund for clearing storage (EIP-3529 reduced from 15000)
 pub const SstoreRefundGas: u64 = 4800;
-/// Gas for JUMPDEST
+// Gas for JUMPDEST
 pub const JumpdestGas: u64 = 1;
-/// Base gas for LOG
+// Base gas for LOG
 pub const LogGas: u64 = 375;
-/// Gas per byte of LOG data
+// Gas per byte of LOG data
 pub const LogDataGas: u64 = 8;
-/// Gas per LOG topic
+// Gas per LOG topic
 pub const LogTopicGas: u64 = 375;
-/// Gas for CREATE
+// Gas for CREATE
 pub const CreateGas: u64 = 32000;
-/// Base gas for CALL
+// Base gas for CALL
 pub const CallGas: u64 = 40;
-/// Stipend for CALL when transferring value
+// Stipend for CALL when transferring value
 pub const CallStipend: u64 = 2300;
-/// Extra gas for transferring value in CALL
+// Extra gas for transferring value in CALL
 pub const CallValueTransferGas: u64 = 9000;
-/// Extra gas for creating a new account in CALL
+// Extra gas for creating a new account in CALL
 pub const CallNewAccountGas: u64 = 25000;
-/// Gas refund for SELFDESTRUCT
+// Gas refund for SELFDESTRUCT
 pub const SelfdestructRefundGas: u64 = 24000;
-/// Linear coefficient for memory gas
+// Linear coefficient for memory gas
 pub const MemoryGas: u64 = 3;
-/// Quadratic coefficient divisor for memory gas
+// Quadratic coefficient divisor for memory gas
 pub const QuadCoeffDiv: u64 = 512;
-/// Gas per byte of CREATE data
+// Gas per byte of CREATE data
 pub const CreateDataGas: u64 = 200;
 // EIP-3860: Limit and meter initcode
-/// Gas per 32-byte word of initcode (EIP-3860)
+// Gas per 32-byte word of initcode (EIP-3860)
 pub const InitcodeWordGas: u64 = 2;
-/// Maximum initcode size (2 * 24576 bytes) (EIP-3860)
+// Maximum initcode size (2 * 24576 bytes) (EIP-3860)
 pub const MaxInitcodeSize: u64 = 49152;
-/// Base gas for a transaction
+// Base gas for a transaction
 pub const TxGas: u64 = 21000;
-/// Base gas for contract creation
+// Base gas for contract creation
 pub const TxGasContractCreation: u64 = 53000;
-/// Gas per zero byte of tx data
+// Gas per zero byte of tx data
 pub const TxDataZeroGas: u64 = 4;
-/// Gas per non-zero byte of tx data
+// Gas per non-zero byte of tx data
 pub const TxDataNonZeroGas: u64 = 16;
 pub const CopyGas: u64 = 3;
-/// Maximum refund quotient (EIP-3529 - gas_used/5 maximum)
+// Maximum refund quotient (EIP-3529 - gas_used/5 maximum)
 pub const MaxRefundQuotient: u64 = 5;
 
 // EIP-4844: Shard Blob Transactions
@@ -528,28 +528,28 @@ pub const BlobBaseFeeGas: u64 = 2;
 
 // EIP-1153: Transient Storage
 pub const TLoadGas: u64 = 100;
-/// Gas for memory copy operations
+// Gas for memory copy operations
 pub const TStoreGas: u64 = 100;
 
-/// Helper function to calculate minimum stack requirement for an operation
+// Helper function to calculate minimum stack requirement for an operation
 ///
-/// Parameters:
-/// - min_pop: Number of items to pop from the stack
-/// - min_push: Number of items to push to the stack (unused)
+// Parameters:
+// - min_pop: Number of items to pop from the stack
+// - min_push: Number of items to push to the stack (unused)
 ///
-/// Returns: Minimum stack depth required for the operation
+// Returns: Minimum stack depth required for the operation
 pub fn minStack(min_pop: u32, min_push: u32) u32 {
     _ = min_push; // autofix
     return min_pop;
 }
 
-/// Helper function to calculate maximum stack allowance for an operation
+// Helper function to calculate maximum stack allowance for an operation
 ///
-/// Parameters:
-/// - max_pop: Number of items to pop from the stack (unused)
-/// - max_push: Number of items to push to the stack
+// Parameters:
+// - max_pop: Number of items to pop from the stack (unused)
+// - max_push: Number of items to push to the stack
 ///
-/// Returns: Maximum stack items allowed for the operation
+// Returns: Maximum stack items allowed for the operation
 pub fn maxStack(max_pop: u32, max_push: u32) u32 {
     _ = max_pop; // autofix
     _ = max_push; // autofix
@@ -557,57 +557,57 @@ pub fn maxStack(max_pop: u32, max_push: u32) u32 {
     return 1024;
 }
 
-/// Calculate minimum stack requirement for DUP operations
+// Calculate minimum stack requirement for DUP operations
 ///
-/// Parameters:
-/// - n: DUP index (1-16)
+// Parameters:
+// - n: DUP index (1-16)
 ///
-/// Returns: Minimum stack depth required for DUPn
+// Returns: Minimum stack depth required for DUPn
 pub fn minDupStack(n: u32) u32 {
     return n;
 }
 
-/// Calculate maximum stack allowance for DUP operations
+// Calculate maximum stack allowance for DUP operations
 ///
-/// Parameters:
-/// - n: DUP index (1-16)
+// Parameters:
+// - n: DUP index (1-16)
 ///
-/// Returns: Maximum stack items allowed for DUPn
+// Returns: Maximum stack items allowed for DUPn
 pub fn maxDupStack(n: u32) u32 {
     return n + 1;
 }
 
-/// Calculate minimum stack requirement for SWAP operations
+// Calculate minimum stack requirement for SWAP operations
 ///
-/// Parameters:
-/// - n: SWAP index (1-16)
+// Parameters:
+// - n: SWAP index (1-16)
 ///
-/// Returns: Minimum stack depth required for SWAPn
+// Returns: Minimum stack depth required for SWAPn
 pub fn minSwapStack(n: u32) u32 {
     return n + 1;
 }
 
-/// Calculate maximum stack allowance for SWAP operations
+// Calculate maximum stack allowance for SWAP operations
 ///
-/// Parameters:
-/// - n: SWAP index (1-16)
+// Parameters:
+// - n: SWAP index (1-16)
 ///
-/// Returns: Maximum stack items allowed for SWAPn
+// Returns: Maximum stack items allowed for SWAPn
 pub fn maxSwapStack(n: u32) u32 {
     return n + 1;
 }
 
-/// Create a new jump table for a specific Ethereum hardfork
+// Create a new jump table for a specific Ethereum hardfork
 ///
-/// This creates a jump table with all the opcodes appropriate for
-/// the specified Ethereum hardfork.
+// This creates a jump table with all the opcodes appropriate for
+// the specified Ethereum hardfork.
 ///
-/// Parameters:
-/// - allocator: Memory allocator to use for the operations
-/// - hardfork: Name of the Ethereum hardfork
+// Parameters:
+// - allocator: Memory allocator to use for the operations
+// - hardfork: Name of the Ethereum hardfork
 ///
-/// Returns: A new JumpTable configured for the hardfork
-/// Error: May return allocation errors
+// Returns: A new JumpTable configured for the hardfork
+// Error: May return allocation errors
 pub fn newJumpTable(allocator: std.mem.Allocator, hardfork: []const u8) !JumpTable {
     var jump_table = JumpTable.init();
     
@@ -784,8 +784,8 @@ pub fn newJumpTable(allocator: std.mem.Allocator, hardfork: []const u8) !JumpTab
     return jump_table;
 }
 
-/// UNDEFINED is the default operation for any opcode not defined in a hardfork
-/// Executing an undefined opcode will result in InvalidOpcode error
+// UNDEFINED is the default operation for any opcode not defined in a hardfork
+// Executing an undefined opcode will result in InvalidOpcode error
 pub const UNDEFINED = Operation{
     .execute = opUndefined,
     .constant_gas = 0,
@@ -796,7 +796,7 @@ pub const UNDEFINED = Operation{
     .undefined = true,
 };
 
-/// Operation for undefined/invalid opcodes
+// Operation for undefined/invalid opcodes
 fn opUndefined(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     _ = interpreter;
@@ -804,8 +804,8 @@ fn opUndefined(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     return error.InvalidOpcode;
 }
 
-/// Operation for opcodes that are not yet implemented
-/// This is used during development to mark opcodes that need implementation
+// Operation for opcodes that are not yet implemented
+// This is used during development to mark opcodes that need implementation
 fn opNotImplemented(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     _ = interpreter;
@@ -813,7 +813,7 @@ fn opNotImplemented(pc: usize, interpreter: *Interpreter, frame: *Frame) Executi
     return error.OpNotSupported;
 }
 
-/// NOT_IMPLEMENTED is used for opcodes that are valid but not yet implemented
+// NOT_IMPLEMENTED is used for opcodes that are valid but not yet implemented
 pub const NOT_IMPLEMENTED = Operation{
     .execute = opNotImplemented,
     .constant_gas = 0,
@@ -824,16 +824,16 @@ pub const NOT_IMPLEMENTED = Operation{
     .undefined = false,
 };
 
-/// Initialize a jump table for Ethereum mainnet with latest rules
+// Initialize a jump table for Ethereum mainnet with latest rules
 ///
-/// This is a convenience function that creates a jump table for the latest
-/// Ethereum mainnet hardfork.
+// This is a convenience function that creates a jump table for the latest
+// Ethereum mainnet hardfork.
 ///
-/// Parameters:
-/// - allocator: Memory allocator to use for the operations
-/// - jump_table: Pointer to an existing JumpTable to initialize
+// Parameters:
+// - allocator: Memory allocator to use for the operations
+// - jump_table: Pointer to an existing JumpTable to initialize
 ///
-/// Returns: Error if initialization fails
+// Returns: Error if initialization fails
 pub fn initMainnetJumpTable(allocator: std.mem.Allocator, jump_table: *JumpTable) !void {
     const new_table = try newJumpTable(allocator, "latest");
     jump_table.* = new_table;

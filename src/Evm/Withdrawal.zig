@@ -76,12 +76,12 @@ fn addressToB160(address: Address) B160 {
     return b160;
 }
 
-/// WithdrawalData represents a withdrawal from the beacon chain to the EVM
-/// as defined in EIP-4895
+// WithdrawalData represents a withdrawal from the beacon chain to the EVM
+// as defined in EIP-4895
 ///
-/// EIP-4895 introduces a new operation called withdrawals which enables
-/// the transfer of ETH from the beacon chain to the EVM, required for
-/// withdrawing validator rewards and stake.
+// EIP-4895 introduces a new operation called withdrawals which enables
+// the transfer of ETH from the beacon chain to the EVM, required for
+// withdrawing validator rewards and stake.
 pub const WithdrawalData = struct {
     /// The unique identifier for this withdrawal
     index: u64,
@@ -133,18 +133,18 @@ pub const WithdrawalData = struct {
     }
 };
 
-/// Processes a list of withdrawals by crediting the recipient accounts
+// Processes a list of withdrawals by crediting the recipient accounts
 ///
-/// This is the main implementation of EIP-4895, which takes a list of
-/// withdrawals and applies them to the EVM state by increasing the
-/// balance of the recipient accounts.
+// This is the main implementation of EIP-4895, which takes a list of
+// withdrawals and applies them to the EVM state by increasing the
+// balance of the recipient accounts.
 ///
-/// Parameters:
-/// - stateManager: The state manager to update account balances
-/// - withdrawals: The list of withdrawals to process
-/// - isEIP4895Enabled: Whether EIP-4895 is enabled in the chain rules
+// Parameters:
+// - stateManager: The state manager to update account balances
+// - withdrawals: The list of withdrawals to process
+// - isEIP4895Enabled: Whether EIP-4895 is enabled in the chain rules
 ///
-/// Returns: An error if the state update fails
+// Returns: An error if the state update fails
 pub fn processWithdrawals(
     stateManager: anytype, 
     withdrawals: []const WithdrawalData,
@@ -195,17 +195,17 @@ pub fn processWithdrawals(
     std.debug.print("All withdrawals processed successfully\n", .{});
 }
 
-/// Rewards an account by increasing its balance
+// Rewards an account by increasing its balance
 ///
-/// This function gets the account state, increases its balance by the
-/// specified amount, and saves the updated state back to the state manager.
+// This function gets the account state, increases its balance by the
+// specified amount, and saves the updated state back to the state manager.
 ///
-/// Parameters:
-/// - stateManager: The state manager to update
-/// - address: The address of the account to reward
-/// - amount: The amount (in Wei) to add to the account's balance
+// Parameters:
+// - stateManager: The state manager to update
+// - address: The address of the account to reward
+// - amount: The amount (in Wei) to add to the account's balance
 ///
-/// Returns: An error if the state update fails
+// Returns: An error if the state update fails
 fn rewardAccount(stateManager: anytype, address: Address, amount: u128) !void {
     var scoped = createScopedLogger(getLogger(), "rewardAccount()");
     defer scoped.deinit();

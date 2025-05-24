@@ -52,14 +52,19 @@ pub const InterpreterError = error{
 }
 ```
 
+**Note**: The error types are merged from various imported modules and the underlying EVM operations.
+
 ### Core Operations
 
 #### Initialization
 - `create(allocator, evm, table)` - Create with custom jump table
-- `init(allocator, evm)` - Create with default jump table
+- `init(allocator, evm)` - Create with default jump table (uses `JumpTable.init()`)
 
 #### Execution
 - `run(contract, input, readOnly)` - Main execution entry point
+
+#### Cleanup
+- `deinit()` - Free allocated memory (return data)
 
 ### Execution Flow
 
@@ -83,30 +88,30 @@ The interpreter follows this execution pattern:
    ```zig
    while (true) {
        // 1. Fetch opcode
-       const op_code = contract.getOp(frame.pc);
-       const operation = table.getOperation(op_code);
+       const op_code = frame.contract.getOp(frame.pc);
+       const operation = self.table.getOperation(op_code);
        
-       // 2. Validate stack
-       if (stack.size < operation.min_stack) return StackUnderflow;
-       if (stack.size > operation.max_stack) return StackOverflow;
+       // 2. Validate stack requirements
+       if (frame.stack.size() < operation.min_stack) return error.StackUnderflow;
+       if (frame.stack.size() > operation.max_stack) return error.StackOverflow;
        
        // 3. Charge constant gas
-       if (contract.gas < operation.constant_gas) return OutOfGas;
-       contract.useGas(operation.constant_gas);
+       if (frame.contract.gas < operation.constant_gas) return error.OutOfGas;
+       frame.contract.useGas(operation.constant_gas);
        
-       // 4. Calculate dynamic gas & memory
-       if (operation.dynamic_gas != null) {
-           // Calculate memory expansion
-           // Charge dynamic gas
-           // Resize memory if needed
+       // 4. Calculate dynamic gas & memory expansion
+       if (operation.memory != null) {
+           const memory_data = try operation.memory.?(frame.stack);
+           const expansion_cost = memory.expansionGasCost(memory_data.offset, memory_data.length);
+           if (frame.contract.gas < expansion_cost) return error.OutOfGas;
+           frame.contract.useGas(expansion_cost);
+           try frame.memory.require(memory_data.offset, memory_data.length);
        }
        
        // 5. Execute operation
-       operation.execute(pc, interpreter, frame) catch |err| {
-           // Handle errors (STOP, REVERT, etc.)
-       };
+       try operation.execute.?(frame.pc, self, frame);
        
-       // 6. Continue or break
+       // 6. PC is incremented by operation or loop breaks
    }
    ```
 
@@ -270,41 +275,44 @@ Based on other implementations:
    - Step-by-step debugging
    - Gas profiling
 
-## Unimplemented Features
+## Implementation Status
 
-Based on comparison with REVM and code analysis, the following features are unimplemented or incomplete:
+Based on code analysis:
 
-### 1. Missing Core Features
-- **Opcode Names Mapping**: TODO in line 150 - human-readable opcode names for debugging
-- **Execution Tracing**: No step-by-step execution hooks like REVM's Inspector trait
-- **Gas Refunds**: No tracking of gas refunds from SSTORE operations
-- **Access List Management**: No integration with EIP-2930 access lists
-- **Transient Storage**: No TLOAD/TSTORE implementation for EIP-1153
+### 1. Implemented Features
+- **Core Execution Loop**: Complete with gas metering
+- **Stack Validation**: Min/max stack checks
+- **Memory Management**: Dynamic expansion with gas
+- **Error Handling**: Comprehensive error types
+- **EIP-3651 Support**: Warm COINBASE handling
+- **Return Data**: Cross-frame return data storage
 
-### 2. Performance Optimizations Missing (compared to REVM)
-- **Computed Goto Dispatch**: Missing ~20% performance boost from evmone
-- **Macro-based Dispatch**: No inlining of hot paths like REVM
-- **Batched Gas Checks**: Individual gas checks per opcode instead of batching
-- **Pre-validated Jumps**: No jump destination analysis before execution
-- **Memory Pooling**: No reuse of common allocations
+### 2. Notable TODOs
+- **Opcode Names Mapping**: TODO comment indicates human-readable opcode names for debugging are not yet implemented
 
-### 3. Advanced Features Not Implemented
-- **EOF Support**: No Ethereum Object Format (EOF) validation
-- **Custom Handlers**: No way to inject custom opcode handlers
-- **Parallel Execution**: No support for speculative execution
-- **JIT Compilation**: No just-in-time compilation support
-- **Witness Generation**: No support for stateless client witnesses
+### Performance Considerations
 
-### 4. Debugging and Analysis Tools
-- **Gas Profiler**: No detailed gas usage breakdown by opcode
-- **Heat Maps**: No execution frequency analysis
-- **Coverage Analysis**: No code coverage tracking
-- **Benchmark Mode**: No built-in performance measurement
+The implementation includes comments comparing with other EVMs:
+- **evmone**: Uses computed goto for ~20% performance improvement
+- **revm**: Uses macro-based dispatch for better inlining
+- **Current approach**: Function pointer dispatch for clarity
 
-### 5. State Management Integration
-- **Journaling**: Basic compared to REVM's sophisticated journal system
-- **State Caching**: No advanced caching strategies
-- **Parallel State Access**: No concurrent state read optimization
+Potential optimizations identified in code:
+- Batch gas checks for instruction sequences
+- Pre-validate jump destinations
+- Memory pooling for common allocations
+- Inline hot path operations
+
+### Test Coverage
+
+The implementation includes extensive test suites:
+- **Arithmetic Operations**: Basic math and modular arithmetic
+- **Comparison Operations**: All comparison operators
+- **Bitwise Operations**: AND, OR, XOR, NOT, shifts
+- **Stack Operations**: DUP, SWAP, PUSH, POP
+- **Memory Operations**: MLOAD, MSTORE, MSTORE8
+- **Control Flow**: JUMP, JUMPI, PC
+- **System Operations**: ADDRESS, CALLER, CALLVALUE
 
 ## Conclusion
 
@@ -317,3 +325,10 @@ Key achievements:
 - **Safe Execution**: Proper resource management
 
 The implementation serves as an excellent base for both educational purposes and production use, with clear paths for performance improvements as needed.
+
+## Related Components
+
+- **InterpreterState**: Manages interpreter execution state (separate module)
+- **Frame**: Execution context for each call
+- **JumpTable**: Opcode implementation dispatch table
+- **EvmLogger**: Debug logging functionality

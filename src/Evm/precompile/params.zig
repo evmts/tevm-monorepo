@@ -1,4 +1,4 @@
-/// Gas costs for different precompiled contracts
+// Gas costs for different precompiled contracts
 
 // Homestead precompiles
 pub const EcrecoverGas: u64 = 3000; // Gas for ECRECOVER

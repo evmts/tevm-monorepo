@@ -20,7 +20,7 @@ const Address = @import("address").Address;
 // Test constants
 const TEST_GAS = 10000000;
 
-/// A struct that maps storage slots to values for testing
+// A struct that maps storage slots to values for testing
 const TestStorage = struct {
     values: std.AutoHashMap(u256, u256),
     accessed_slots: std.AutoHashMap(u256, bool),
@@ -38,7 +38,7 @@ const TestStorage = struct {
     }
 };
 
-/// A mock State Manager implementation for testing SSTORE/SLOAD
+// A mock State Manager implementation for testing SSTORE/SLOAD
 const TestStateManager = struct {
     allocator: std.mem.Allocator,
     storage: std.AutoHashMap(Address, TestStorage),
@@ -142,7 +142,7 @@ fn hexToAddress(allocator: std.mem.Allocator, comptime hex_str: []const u8) !Add
     }
     
     var addr: Address = undefined;
-    _ = try std.fmt.hexToBytes(&addr.bytes, hex_str[2..]);
+    _ = try std.fmt.hexToBytes(&addr, hex_str[2..]);
     _ = allocator; // Keep allocator if needed elsewhere or for consistency
     
     return addr;
@@ -190,7 +190,7 @@ test "EIP-2200: SSTORE gas costs and refunds" {
     defer state_manager.deinit();
 
     // Create EVM
-    var evm_instance = try EvmModule.Evm.init(null);
+    var evm_instance = try evm.Evm.init(null);
     const jump_table = try JumpTable.newJumpTable(allocator, "latest");
     var evm_interpreter = try Interpreter.create(allocator, &evm_instance, jump_table);
     // Set the state manager

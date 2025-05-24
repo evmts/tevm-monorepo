@@ -10,7 +10,7 @@ const address = @import("address");
 const Address = address.Address;
 const createAddress = address.createAddress;
 
-/// A minimal benchmark that only uses working opcodes
+// A minimal benchmark that only uses working opcodes
 const MINIMAL_BYTECODE = [_]u8{
     // PUSH1 10
     0x60, 0x0A,
@@ -40,7 +40,7 @@ const MINIMAL_BYTECODE = [_]u8{
     0x00,
 };
 
-/// Benchmark context to hold EVM state
+// Benchmark context to hold EVM state
 const BenchmarkContext = struct {
     evm_instance: Evm,
     interpreter: Interpreter,
@@ -93,7 +93,7 @@ const BenchmarkContext = struct {
     }
 };
 
-/// zbench benchmark function for minimal EVM operations
+// zbench benchmark function for minimal EVM operations
 fn benchmarkMinimalEvm(allocator: std.mem.Allocator) void {
     var ctx = BenchmarkContext.init(allocator) catch {
         std.debug.panic("Failed to initialize benchmark context", .{});

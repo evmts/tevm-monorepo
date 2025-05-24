@@ -7,7 +7,7 @@ const interpreter = @import("../interpreter.zig");
 
 const Opcode = opcodes.Opcode;
 
-/// Test basic memory operations
+// Test basic memory operations
 test "memory store and load" {
     var evm_test = try EvmTest.init(testing.allocator);
     defer evm_test.deinit();
@@ -34,7 +34,7 @@ test "memory store and load" {
     }
 }
 
-/// Test memory expansion and gas costs
+// Test memory expansion and gas costs
 test "memory expansion" {
     var evm_test = try EvmTest.init(testing.allocator);
     defer evm_test.deinit();
@@ -70,7 +70,7 @@ test "memory expansion" {
     }
 }
 
-/// Test MSTORE8 operation
+// Test MSTORE8 operation
 test "mstore8" {
     var evm_test = try EvmTest.init(testing.allocator);
     defer evm_test.deinit();
@@ -123,7 +123,7 @@ test "mstore8" {
     }
 }
 
-/// Test calldata access
+// Test calldata access
 test "calldata access" {
     var evm_test = try EvmTest.init(testing.allocator);
     defer evm_test.deinit();
@@ -183,7 +183,7 @@ test "calldata access" {
     }
 }
 
-/// Test MSIZE operation
+// Test MSIZE operation
 test "msize" {
     var evm_test = try EvmTest.init(testing.allocator);
     defer evm_test.deinit();

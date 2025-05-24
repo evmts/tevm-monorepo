@@ -16,7 +16,7 @@ const JumpTable = @import("JumpTable.zig");
 const opcodes = @import("opcodes.zig");
 
 // Create a stub Address type for testing
-const Address = @import("../Address/package.zig").Address;
+const Address = @import("address").Address;
 
 // Import opcode-specific modules
 const block = @import("opcodes/block.zig");
@@ -24,7 +24,7 @@ const block = @import("opcodes/block.zig");
 // Use Zig's built-in u256 type
 const u256_native = u256;
 
-/// Helper function to convert hex string to Address
+// Helper function to convert hex string to Address
 fn hexToAddress(allocator: std.mem.Allocator, comptime hex_str: []const u8) !Address {
     _ = allocator;
     if (!std.mem.startsWith(u8, hex_str, "0x") or hex_str.len != 42) {
@@ -35,19 +35,19 @@ fn hexToAddress(allocator: std.mem.Allocator, comptime hex_str: []const u8) !Add
     return addr;
 }
 
-/// Setup function to create an EVM instance with a specific hardfork
+// Setup function to create an EVM instance with a specific hardfork
 fn setupEvmForHardfork(allocator: std.mem.Allocator, hardfork: Hardfork) !Evm {
     var evm_instance = try Evm.init(null);
     evm_instance.chainRules = ChainRules.forHardfork(hardfork);
     return evm_instance;
 }
 
-/// Setup function to create a JumpTable for a specific hardfork
+// Setup function to create a JumpTable for a specific hardfork
 fn setupJumpTableForHardfork(allocator: std.mem.Allocator, hardfork: []const u8) !JumpTable.JumpTable {
     return try JumpTable.newJumpTable(allocator, hardfork);
 }
 
-/// Setup function to create an Interpreter for a specific hardfork
+// Setup function to create an Interpreter for a specific hardfork
 fn setupInterpreterForHardfork(allocator: std.mem.Allocator, hardfork: Hardfork) !*Interpreter {
     var evm_instance = try setupEvmForHardfork(allocator, hardfork);
     const jump_table = try setupJumpTableForHardfork(allocator, @tagName(hardfork));
@@ -57,7 +57,7 @@ fn setupInterpreterForHardfork(allocator: std.mem.Allocator, hardfork: Hardfork)
     return &interpreter_instance;
 }
 
-/// Setup function to create a contract
+// Setup function to create a contract
 fn setupContract(allocator: std.testing.Allocator, code_slice: []const u8) !Contract {
     var contract_instance = createContract(
         try hexToAddress(allocator, "0x0000000000000000000000000000000000000001"),
@@ -69,7 +69,7 @@ fn setupContract(allocator: std.testing.Allocator, code_slice: []const u8) !Cont
     return contract_instance;
 }
 
-/// Setup function to create a frame for a contract
+// Setup function to create a frame for a contract
 fn setupFrameForContract(allocator: std.testing.Allocator, contract: *Contract) !*Frame {
     const frame_instance = try Frame.init(allocator, contract);
     return frame_instance;

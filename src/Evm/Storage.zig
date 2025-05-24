@@ -2,10 +2,10 @@ const std = @import("std");
 const testing = std.testing;
 
 // Import the unified B256 type
-pub const B256 = @import("../../Types/B256.zig").B256;
+pub const B256 = @import("utils").B256;
 
-/// Storage represents the contract storage state
-/// It maps 256-bit keys to 256-bit values
+// Storage represents the contract storage state
+// It maps 256-bit keys to 256-bit values
 pub const Storage = struct {
     /// The actual storage data
     data: std.AutoHashMap(B256, B256),

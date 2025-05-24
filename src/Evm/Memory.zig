@@ -21,14 +21,14 @@ const BigInt = u64;
 // - revm's SharedMemory enables efficient call contexts without copying
 // - Both use page-aligned allocations for better performance
 
-/// Memory implements a simple memory model for the ethereum virtual machine.
+// Memory implements a simple memory model for the ethereum virtual machine.
 ///
-/// The EVM memory is a linear array of bytes that can be addressed on byte level.
-/// It is initialized to 0 and reset for each message call. Memory is only 
-/// persistent within a single transaction and is wiped between transactions.
+// The EVM memory is a linear array of bytes that can be addressed on byte level.
+// It is initialized to 0 and reset for each message call. Memory is only 
+// persistent within a single transaction and is wiped between transactions.
 ///
-/// Memory is expanded by 32 bytes at a time when accessed beyond its current size,
-/// with the cost of expansion increasing quadratically.
+// Memory is expanded by 32 bytes at a time when accessed beyond its current size,
+// with the cost of expansion increasing quadratically.
 pub const Memory = struct {
     /// The underlying byte array storing the memory contents
     store: std.ArrayList(u8),

@@ -10,10 +10,10 @@ fn getLogger() EvmLogger {
     return createLogger(@src().file);
 }
 
-/// TransactionType enum for the different types of transactions in Ethereum
-/// 
-/// EIP-2718 introduced typed transactions to Ethereum, with each type
-/// having a different format and capabilities. 
+// TransactionType enum for the different types of transactions in Ethereum
+// 
+// EIP-2718 introduced typed transactions to Ethereum, with each type
+// having a different format and capabilities. 
 pub const TransactionType = enum(u8) {
     /// Legacy transaction (pre-EIP-2718)
     /// The original transaction format without an explicit type
@@ -32,12 +32,12 @@ pub const TransactionType = enum(u8) {
     Blob = 3,
 };
 
-/// AccessListEntry represents a single entry in an access list
-/// 
-/// These entries are used in both EIP-2930 and EIP-1559 transactions to
-/// specify addresses and storage slots that will be accessed during execution.
-/// Pre-declaring these accesses optimizes gas costs under EIP-2929 by marking
-/// the slots as "warm" before transaction execution begins.
+// AccessListEntry represents a single entry in an access list
+// 
+// These entries are used in both EIP-2930 and EIP-1559 transactions to
+// specify addresses and storage slots that will be accessed during execution.
+// Pre-declaring these accesses optimizes gas costs under EIP-2929 by marking
+// the slots as "warm" before transaction execution begins.
 pub const AccessListEntry = struct {
     /// The Ethereum address being accessed during transaction execution
     address: Address,
@@ -47,29 +47,29 @@ pub const AccessListEntry = struct {
     storage_keys: []const [32]u8,
 };
 
-/// AccessList represents a complete list of addresses and storage slots
-/// that will be accessed during transaction execution.
+// AccessList represents a complete list of addresses and storage slots
+// that will be accessed during transaction execution.
 ///
-/// Benefits of using access lists:
-/// 1. Gas savings: Pre-declared accesses have reduced gas costs under EIP-2929
-/// 2. Predictability: Helps prevent unexpected out-of-gas errors from cold accesses
-/// 3. Optimization: Makes gas costs more predictable for complex transactions
+// Benefits of using access lists:
+// 1. Gas savings: Pre-declared accesses have reduced gas costs under EIP-2929
+// 2. Predictability: Helps prevent unexpected out-of-gas errors from cold accesses
+// 3. Optimization: Makes gas costs more predictable for complex transactions
 ///
-/// This type is a slice of AccessListEntry structures.
+// This type is a slice of AccessListEntry structures.
 pub const AccessList = []const AccessListEntry;
 
-/// FeeMarketTransaction represents an EIP-1559 transaction
+// FeeMarketTransaction represents an EIP-1559 transaction
 ///
-/// EIP-1559 introduced a new transaction type with a fee market mechanism that:
-/// - Burns the base fee (removing ETH from circulation)
-/// - Allows users to specify maximum fees they're willing to pay
-/// - Provides more predictable transaction confirmation times
-/// - Reduces the incentive for miners to manipulate fees
+// EIP-1559 introduced a new transaction type with a fee market mechanism that:
+// - Burns the base fee (removing ETH from circulation)
+// - Allows users to specify maximum fees they're willing to pay
+// - Provides more predictable transaction confirmation times
+// - Reduces the incentive for miners to manipulate fees
 ///
-/// Key differences from legacy transactions:
-/// - max_fee_per_gas: Maximum total fee per gas the sender is willing to pay
-/// - max_priority_fee_per_gas: Maximum tip per gas the sender is willing to pay to miners
-/// - access_list: List of addresses and storage slots the transaction plans to access
+// Key differences from legacy transactions:
+// - max_fee_per_gas: Maximum total fee per gas the sender is willing to pay
+// - max_priority_fee_per_gas: Maximum tip per gas the sender is willing to pay to miners
+// - access_list: List of addresses and storage slots the transaction plans to access
 pub const FeeMarketTransaction = struct {
     /// Chain ID for replay protection (EIP-155)
     /// Prevents transactions from one network being replayed on another

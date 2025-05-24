@@ -7,7 +7,7 @@ const TrieNode = trie.TrieNode;
 const HashValue = trie.HashValue;
 const TrieError = trie.TrieError;
 
-/// Error type for proof operations
+// Error type for proof operations
 pub const ProofError = error{
     InvalidProof,
     MissingNode,
@@ -17,7 +17,7 @@ pub const ProofError = error{
     InvalidRootHash,
 };
 
-/// Proof nodes collection for Merkle proofs
+// Proof nodes collection for Merkle proofs
 pub const ProofNodes = struct {
     allocator: Allocator,
     nodes: std.StringHashMap([]const u8), // Hash (hex) -> RLP encoded node
@@ -318,7 +318,7 @@ pub const ProofNodes = struct {
     }
 };
 
-/// Collect proof nodes while executing an operation
+// Collect proof nodes while executing an operation
 pub const ProofRetainer = struct {
     allocator: Allocator,
     proof: ProofNodes,

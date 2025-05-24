@@ -3,7 +3,7 @@ const testing = std.testing;
 const builtin = @import("builtin");
 
 // Simple types
-const Address = @import("../Address/package.zig").Address;
+const Address = @import("address").Address;
 
 const B160 = struct {
     bytes: [20]u8,

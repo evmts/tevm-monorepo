@@ -43,11 +43,11 @@ fn getLogger() EvmLogger {
     return _logger.?;
 }
 
-/// Interpreter error type
+// Interpreter error type
 ///
-/// These errors represent the various execution errors that can occur
-/// during contract execution. They map closely to error conditions
-/// defined in the Ethereum Yellow Paper.
+// These errors represent the various execution errors that can occur
+// during contract execution. They map closely to error conditions
+// defined in the Ethereum Yellow Paper.
 pub const InterpreterError = error{
     /// Normal STOP opcode execution - graceful termination
     STOP,
@@ -101,29 +101,29 @@ pub const InterpreterError = error{
     DepthLimit,
 };
 
-/// The Interpreter executes EVM bytecode
+// The Interpreter executes EVM bytecode
 ///
-/// The Interpreter is responsible for running the EVM execution loop:
-/// - Fetching opcodes from contract bytecode
-/// - Calculating gas costs for each operation
-/// - Executing the operations
-/// - Managing memory, stack, and execution context
-/// - Handling errors and exceptional conditions
-/// - Returning execution results
+// The Interpreter is responsible for running the EVM execution loop:
+// - Fetching opcodes from contract bytecode
+// - Calculating gas costs for each operation
+// - Executing the operations
+// - Managing memory, stack, and execution context
+// - Handling errors and exceptional conditions
+// - Returning execution results
 ///
-/// Performance comparison with revm and evmone:
+// Performance comparison with revm and evmone:
 ///
-/// Interpreter Architecture:
-/// - Tevm: Simple loop with function pointer dispatch
-/// - revm: Macro-based instruction dispatch with gas metering (https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/interpreter.rs#L285)
-/// - evmone: Advanced interpreter with computed goto (https://github.com/ethereum/evmone/blob/master/lib/evmone/baseline.cpp)
+// Interpreter Architecture:
+// - Tevm: Simple loop with function pointer dispatch
+// - revm: Macro-based instruction dispatch with gas metering (https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/interpreter.rs#L285)
+// - evmone: Advanced interpreter with computed goto (https://github.com/ethereum/evmone/blob/master/lib/evmone/baseline.cpp)
 ///
-/// Critical optimizations missing:
-/// 1. evmone uses computed goto for ~20% performance boost
-/// 2. revm uses macros to inline gas checks and reduce function call overhead
-/// 3. Both batch gas checks for sequential opcodes
+// Critical optimizations missing:
+// 1. evmone uses computed goto for ~20% performance boost
+// 2. revm uses macros to inline gas checks and reduce function call overhead
+// 3. Both batch gas checks for sequential opcodes
 ///
-/// evmone's baseline interpreter ref: https://github.com/ethereum/evmone/blob/master/lib/evmone/baseline.cpp#L42
+// evmone's baseline interpreter ref: https://github.com/ethereum/evmone/blob/master/lib/evmone/baseline.cpp#L42
 pub const Interpreter = struct {
     /// Memory allocator for the interpreter's resources
     allocator: std.mem.Allocator,

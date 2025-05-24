@@ -190,7 +190,7 @@ pub fn opMulmod(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const
 }
 
 
-/// Register all math opcodes in the jump table
+// Register all math opcodes in the jump table
 pub fn registerMathOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable) !void {
     // ADD (0x01)
     const add_op = try allocator.create(Operation);

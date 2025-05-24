@@ -1,6 +1,6 @@
 const std = @import("std");
 
-/// B256 represents a 256-bit (32-byte) value, commonly used for hashes and storage keys in Ethereum
+// B256 represents a 256-bit (32-byte) value, commonly used for hashes and storage keys in Ethereum
 pub const B256 = struct {
     bytes: [32]u8,
 

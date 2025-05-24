@@ -1,34 +1,27 @@
 const std = @import("std");
 
-const EvmModule = @import("Evm");
+const EvmModule = @import("evm");
 const Evm = EvmModule.Evm;
 const Hardfork = EvmModule.Hardfork;
-const ContractModule = EvmModule.Contract; // Contract is a struct, createContract a fn
-const Contract = ContractModule.Contract;
-const InterpreterModule = EvmModule.Interpreter; // Interpreter is a struct
-const Interpreter = InterpreterModule.Interpreter;
+const Contract = EvmModule.Contract;
+const createContract = EvmModule.createContract;
+const Interpreter = EvmModule.Interpreter;
 const JumpTable = EvmModule.JumpTable;
-const buildJumpTable = EvmModule.JumpTable.buildJumpTable; // Assuming JumpTable struct exports this
 const opcodes = EvmModule.opcodes;
 const EvmLogger = EvmModule.EvmLogger;
 const createLogger = EvmModule.createLogger;
-const logStack = EvmModule.logStack;
-const logStackSlop = EvmModule.logStackSlop;
-const logMemory = EvmModule.logMemory;
-const logStep = EvmModule.logStep;
 const logHexBytes = EvmModule.logHexBytes;
 const debugOnly = EvmModule.debugOnly;
 const ENABLE_DEBUG_LOGS = EvmModule.ENABLE_DEBUG_LOGS;
 
-const AddressModule = @import("Address");
+const AddressModule = @import("address");
 const Address = AddressModule.Address;
 
-const UtilsModule = @import("Utils");
+const UtilsModule = @import("utils");
 const hex = UtilsModule.hex;
 
-// Get U256 from StateManager
-const StateManagerModule = @import("StateManager");
-const u256_t = @import("StateManager").U256;
+// Use the built-in u256 type
+const u256_t = u256;
 fn u256_t_from_be_bytes(bytes: []const u8) u256_t {
     if (bytes.len == 0) return 0;
     // Ensure bytes slice is 32 bytes for std.mem.bytesToValue
@@ -42,7 +35,7 @@ fn u256_t_from_be_bytes(bytes: []const u8) u256_t {
 // EvmLogger.init needs to be checked. Assuming it takes a []const u8 name.
 const logger = createLogger("EvmTestHelpers"); // Using createLogger from EvmModule
 
-/// Result of an EVM execution
+// Result of an EVM execution
 pub const EvmResult = struct {
     /// Error status (if any)
     status: ?EvmModule.InterpreterError = null,
@@ -165,7 +158,7 @@ pub const EvmResult = struct {
     }
 };
 
-/// Log level for test output
+// Log level for test output
 pub const TestLogLevel = enum {
     silent, // No output
     minimal, // Only basic test info
@@ -173,7 +166,7 @@ pub const TestLogLevel = enum {
     trace, // Full execution trace
 };
 
-/// Configuration for EVM tests
+// Configuration for EVM tests
 pub const EvmTestConfig = struct {
     /// Allocator for test resources
     allocator: std.mem.Allocator,
@@ -206,7 +199,7 @@ pub const EvmTestConfig = struct {
     value: u64 = 0,
 };
 
-/// Test fixture for EVM execution tests
+// Test fixture for EVM execution tests
 pub const EvmTest = struct {
     /// Memory allocator for all resources
     allocator: std.mem.Allocator,
@@ -235,7 +228,7 @@ pub const EvmTest = struct {
         evm.setChainRules(Evm.ChainRules.forHardfork(.Byzantium));
 
         // Create a jump table
-        const jump_table = try buildJumpTable(allocator);
+        const jump_table = try EvmModule.jumpTable.newJumpTable(allocator, "byzantium");
 
         return EvmTest{
             .allocator = allocator,
@@ -255,7 +248,8 @@ pub const EvmTest = struct {
         evm.setChainRules(Evm.ChainRules.forHardfork(config.hardfork));
 
         // Create a jump table
-        const jump_table = try buildJumpTable(config.allocator);
+        const hardfork_name = @tagName(config.hardfork);
+        const jump_table = try EvmModule.jumpTable.newJumpTable(config.allocator, hardfork_name);
 
         return EvmTest{
             .allocator = config.allocator,
@@ -586,8 +580,8 @@ pub const EvmTest = struct {
     }
 };
 
-/// Bytecode building utilities to simplify test creation
-/// Create a bytecode with PUSH instructions for the given number
+// Bytecode building utilities to simplify test creation
+// Create a bytecode with PUSH instructions for the given number
 pub fn push(n: u256_t) []const u8 {
     // Find the smallest PUSH opcode that can represent the number
     var bytes: [32]u8 = undefined;
@@ -622,7 +616,7 @@ pub fn push(n: u256_t) []const u8 {
     return result;
 }
 
-/// Create a bytecode with PUSH instruction for a string of hex digits
+// Create a bytecode with PUSH instruction for a string of hex digits
 pub fn pushHex(hex_str: []const u8) []const u8 {
     const data = std.fmt.parseHexDigest(hex_str, std.heap.c_allocator.alloc(u8, hex_str.len / 2) catch unreachable) catch unreachable;
     const opcode = @intFromEnum(opcodes.Opcode.PUSH1) + data.len - 1;
@@ -634,12 +628,12 @@ pub fn pushHex(hex_str: []const u8) []const u8 {
     return result;
 }
 
-/// Create a sequence of PUSH0 instructions
+// Create a sequence of PUSH0 instructions
 pub fn push0() []const u8 {
     return &[_]u8{@intFromEnum(opcodes.Opcode.PUSH0)};
 }
 
-/// Create a bytecode with DUP<n> instruction
+// Create a bytecode with DUP<n> instruction
 pub fn dup(n: u8) []const u8 {
     if (n < 1 or n > 16) {
         @panic("DUP index must be between 1 and 16");
@@ -647,7 +641,7 @@ pub fn dup(n: u8) []const u8 {
     return &[_]u8{@intFromEnum(opcodes.Opcode.DUP1) + n - 1};
 }
 
-/// Create a bytecode with SWAP<n> instruction
+// Create a bytecode with SWAP<n> instruction
 pub fn swap(n: u8) []const u8 {
     if (n < 1 or n > 16) {
         @panic("SWAP index must be between 1 and 16");
@@ -655,150 +649,150 @@ pub fn swap(n: u8) []const u8 {
     return &[_]u8{@intFromEnum(opcodes.Opcode.SWAP1) + n - 1};
 }
 
-/// Create a bytecode with MSTORE instruction
+// Create a bytecode with MSTORE instruction
 pub fn mstore(offset: u256_t, value: u256_t) []const u8 {
     return push(value) ++ push(offset) ++ &[_]u8{@intFromEnum(opcodes.Opcode.MSTORE)};
 }
 
-/// Create a bytecode with MSTORE8 instruction
+// Create a bytecode with MSTORE8 instruction
 pub fn mstore8(offset: u256_t, value: u256_t) []const u8 {
     return push(value) ++ push(offset) ++ &[_]u8{@intFromEnum(opcodes.Opcode.MSTORE8)};
 }
 
-/// Create a bytecode with RETURN(offset, size)
+// Create a bytecode with RETURN(offset, size)
 pub fn ret(offset: u256_t, size: u256_t) []const u8 {
     return push(size) ++ push(offset) ++ &[_]u8{@intFromEnum(opcodes.Opcode.RETURN)};
 }
 
-/// Create a bytecode that returns the top stack item
+// Create a bytecode that returns the top stack item
 pub fn ret_top() []const u8 {
     return mstore(0, u256_t(0)) ++ ret(0, u256_t(32));
 }
 
-/// Create a bytecode with REVERT(offset, size)
+// Create a bytecode with REVERT(offset, size)
 pub fn revert(offset: u256_t, size: u256_t) []const u8 {
     return push(size) ++ push(offset) ++ &[_]u8{@intFromEnum(opcodes.Opcode.REVERT)};
 }
 
-/// Create a bytecode for the top stack item's NOT
+// Create a bytecode for the top stack item's NOT
 pub fn not(value: u256_t) []const u8 {
     return push(value) ++ &[_]u8{@intFromEnum(opcodes.Opcode.NOT)};
 }
 
-/// Create a bytecode with ADD operation
+// Create a bytecode with ADD operation
 pub fn add(a: u256_t, b: u256_t) []const u8 {
     return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.ADD)};
 }
 
-/// Create a bytecode with SUB operation
+// Create a bytecode with SUB operation
 pub fn sub(a: u256_t, b: u256_t) []const u8 {
     return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.SUB)};
 }
 
-/// Create a bytecode with MUL operation
+// Create a bytecode with MUL operation
 pub fn mul(a: u256_t, b: u256_t) []const u8 {
     return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.MUL)};
 }
 
-/// Create a bytecode with DIV operation
+// Create a bytecode with DIV operation
 pub fn div(a: u256_t, b: u256_t) []const u8 {
     return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.DIV)};
 }
 
-/// Create a bytecode with SDIV operation
+// Create a bytecode with SDIV operation
 pub fn sdiv(a: u256_t, b: u256_t) []const u8 {
     return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.SDIV)};
 }
 
-/// Create a bytecode with MOD operation
+// Create a bytecode with MOD operation
 pub fn mod(a: u256_t, b: u256_t) []const u8 {
     return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.MOD)};
 }
 
-/// Create a bytecode with ADDMOD operation
+// Create a bytecode with ADDMOD operation
 pub fn addmod(a: u256_t, b: u256_t, m: u256_t) []const u8 {
     return push(a) ++ push(b) ++ push(m) ++ &[_]u8{@intFromEnum(opcodes.Opcode.ADDMOD)};
 }
 
-/// Create a bytecode with MULMOD operation
+// Create a bytecode with MULMOD operation
 pub fn mulmod(a: u256_t, b: u256_t, m: u256_t) []const u8 {
     return push(a) ++ push(b) ++ push(m) ++ &[_]u8{@intFromEnum(opcodes.Opcode.MULMOD)};
 }
 
-/// Create a bytecode with KECCAK256 operation
+// Create a bytecode with KECCAK256 operation
 pub fn keccak256(offset: u256_t, size: u256_t) []const u8 {
     return push(size) ++ push(offset) ++ &[_]u8{@intFromEnum(opcodes.Opcode.SHA3)};
 }
 
-/// Create a bytecode that loads from calldata
+// Create a bytecode that loads from calldata
 pub fn calldataload(offset: u256_t) []const u8 {
     return push(offset) ++ &[_]u8{@intFromEnum(opcodes.Opcode.CALLDATALOAD)};
 }
 
-/// Create a bytecode that copies from calldata to memory
+// Create a bytecode that copies from calldata to memory
 pub fn calldatacopy(destOffset: u256_t, offset: u256_t, size: u256_t) []const u8 {
     return push(size) ++ push(offset) ++ push(destOffset) ++ &[_]u8{@intFromEnum(opcodes.Opcode.CALLDATACOPY)};
 }
 
-/// Create a bytecode that compares for equality
+// Create a bytecode that compares for equality
 pub fn eq(a: u256_t, b: u256_t) []const u8 {
     return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.EQ)};
 }
 
-/// Create a bytecode that tests if value is zero
+// Create a bytecode that tests if value is zero
 pub fn iszero(a: u256_t) []const u8 {
     return push(a) ++ &[_]u8{@intFromEnum(opcodes.Opcode.ISZERO)};
 }
 
-/// Create a bytecode with JUMP
+// Create a bytecode with JUMP
 pub fn jump(dest: u256_t) []const u8 {
     return push(dest) ++ &[_]u8{@intFromEnum(opcodes.Opcode.JUMP)};
 }
 
-/// Create a bytecode with conditional JUMPI
+// Create a bytecode with conditional JUMPI
 pub fn jumpi(dest: u256_t, condition: u256_t) []const u8 {
     return push(condition) ++ push(dest) ++ &[_]u8{@intFromEnum(opcodes.Opcode.JUMPI)};
 }
 
-/// Bytecode for JUMPDEST
+// Bytecode for JUMPDEST
 pub const jumpdest = &[_]u8{@intFromEnum(opcodes.Opcode.JUMPDEST)};
 
-/// Create a bytecode with AND operation
+// Create a bytecode with AND operation
 pub fn @"and"(a: u256_t, b: u256_t) []const u8 {
     return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.AND)};
 }
 
-/// Create a bytecode with OR operation
+// Create a bytecode with OR operation
 pub fn @"or"(a: u256_t, b: u256_t) []const u8 {
     return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.OR)};
 }
 
-/// Create a bytecode with XOR operation
+// Create a bytecode with XOR operation
 pub fn xor(a: u256_t, b: u256_t) []const u8 {
     return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.XOR)};
 }
 
-/// Create a bytecode with BYTE operation (get the nth byte)
+// Create a bytecode with BYTE operation (get the nth byte)
 pub fn byte(n: u256_t, val: u256_t) []const u8 {
     return push(val) ++ push(n) ++ &[_]u8{@intFromEnum(opcodes.Opcode.BYTE)};
 }
 
-/// Create a bytecode with SHL operation (shift left)
+// Create a bytecode with SHL operation (shift left)
 pub fn shl(shift: u256_t, val: u256_t) []const u8 {
     return push(val) ++ push(shift) ++ &[_]u8{@intFromEnum(opcodes.Opcode.SHL)};
 }
 
-/// Create a bytecode with SHR operation (logical shift right)
+// Create a bytecode with SHR operation (logical shift right)
 pub fn shr(shift: u256_t, val: u256_t) []const u8 {
     return push(val) ++ push(shift) ++ &[_]u8{@intFromEnum(opcodes.Opcode.SHR)};
 }
 
-/// Create a bytecode with SAR operation (arithmetic shift right)
+// Create a bytecode with SAR operation (arithmetic shift right)
 pub fn sar(shift: u256_t, val: u256_t) []const u8 {
     return push(val) ++ push(shift) ++ &[_]u8{@intFromEnum(opcodes.Opcode.SAR)};
 }
 
-/// Create a bytecode with comparison operations
+// Create a bytecode with comparison operations
 pub fn lt(a: u256_t, b: u256_t) []const u8 {
     return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.LT)};
 }
@@ -815,7 +809,7 @@ pub fn sgt(a: u256_t, b: u256_t) []const u8 {
     return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.SGT)};
 }
 
-/// Create full program that performs operation and returns the result
+// Create full program that performs operation and returns the result
 pub fn program(operation: []const u8) []const u8 {
     return operation ++ ret_top();
 }

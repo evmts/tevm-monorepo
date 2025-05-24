@@ -21,7 +21,7 @@ fn mapStackError(err: StackError) ExecutionError {
     };
 }
 
-/// BLOCKHASH operation - Get the hash of one of the 256 most recent complete blocks
+// BLOCKHASH operation - Get the hash of one of the 256 most recent complete blocks
 pub fn opBlockhash(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     _ = interpreter;
@@ -38,8 +38,8 @@ pub fn opBlockhash(pc: usize, interpreter: *Interpreter, frame: *Frame) Executio
     return "";
 }
 
-/// COINBASE operation - Get the block's beneficiary address
-/// Note: EIP-3651 makes COINBASE always warm for EIP-2929 gas metering
+// COINBASE operation - Get the block's beneficiary address
+// Note: EIP-3651 makes COINBASE always warm for EIP-2929 gas metering
 pub fn opCoinbase(pc: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     
@@ -57,7 +57,7 @@ pub fn opCoinbase(pc: usize, _: *Interpreter, frame: *Frame) ExecutionError![]co
     return "";
 }
 
-/// TIMESTAMP operation - Get the block's timestamp
+// TIMESTAMP operation - Get the block's timestamp
 pub fn opTimestamp(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     _ = interpreter;
@@ -70,7 +70,7 @@ pub fn opTimestamp(pc: usize, interpreter: *Interpreter, frame: *Frame) Executio
     return "";
 }
 
-/// NUMBER operation - Get the block's number
+// NUMBER operation - Get the block's number
 pub fn opNumber(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     _ = interpreter;
@@ -82,8 +82,8 @@ pub fn opNumber(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     return "";
 }
 
-/// DIFFICULTY/PREVRANDAO operation - Get the block's difficulty or random value
-/// Post-Merge (Paris) this opcode returns the random value from the beacon chain
+// DIFFICULTY/PREVRANDAO operation - Get the block's difficulty or random value
+// Post-Merge (Paris) this opcode returns the random value from the beacon chain
 pub fn opDifficulty(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     
@@ -101,7 +101,7 @@ pub fn opDifficulty(pc: usize, interpreter: *Interpreter, frame: *Frame) Executi
     return "";
 }
 
-/// GASLIMIT operation - Get the block's gas limit
+// GASLIMIT operation - Get the block's gas limit
 pub fn opGaslimit(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     _ = interpreter;
@@ -113,7 +113,7 @@ pub fn opGaslimit(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
     return "";
 }
 
-/// CHAINID operation - Get the chain ID
+// CHAINID operation - Get the chain ID
 pub fn opChainid(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     _ = interpreter;
@@ -125,7 +125,7 @@ pub fn opChainid(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
     return "";
 }
 
-/// SELFBALANCE operation - Get balance of currently executing account
+// SELFBALANCE operation - Get balance of currently executing account
 pub fn opSelfbalance(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     
@@ -152,7 +152,7 @@ pub fn opSelfbalance(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
     return "";
 }
 
-/// BASEFEE operation - Get the block's base fee (EIP-3198)
+// BASEFEE operation - Get the block's base fee (EIP-3198)
 pub fn opBasefee(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     
@@ -169,7 +169,7 @@ pub fn opBasefee(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
     return "";
 }
 
-/// Register all block-related opcodes in the given jump table
+// Register all block-related opcodes in the given jump table
 pub fn registerBlockOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable) !void {
     // BLOCKHASH (0x40)
     const blockhash_op = try allocator.create(Operation);
@@ -296,7 +296,7 @@ test "BLOCKHASH opcode functionality" {
     const allocator = std.testing.allocator;
     
     // Create a mock EVM
-    var evm = Interpreter.Evm{
+    var evm_instance = Interpreter.Evm{
         .depth = 0,
         .readOnly = false,
         .chainRules = .{
@@ -318,7 +318,7 @@ test "BLOCKHASH opcode functionality" {
         .gas_refund = 0,
         .valid_jump_destinations = std.AutoHashMap(u24, void).init(allocator),
         .allocator = allocator,
-        .evm = &evm,
+        .evm = &evm_instance,
     };
     defer interpreter.valid_jump_destinations.deinit();
     
@@ -346,7 +346,7 @@ test "Block information opcodes functionality" {
     const allocator = std.testing.allocator;
     
     // Create a mock EVM with context
-    var evm = Interpreter.Evm{
+    var evm_instance = Interpreter.Evm{
         .depth = 0,
         .readOnly = false,
         .chainRules = .{
@@ -382,7 +382,7 @@ test "Block information opcodes functionality" {
         .chain_id = 1,
         .base_fee = 1000000000,
     };
-    evm.context = &context;
+    evm_instance.context = &context;
     
     // Create interpreter
     var interpreter = Interpreter{
@@ -391,7 +391,7 @@ test "Block information opcodes functionality" {
         .gas_refund = 0,
         .valid_jump_destinations = std.AutoHashMap(u24, void).init(allocator),
         .allocator = allocator,
-        .evm = &evm,
+        .evm = &evm_instance,
     };
     defer interpreter.valid_jump_destinations.deinit();
     
@@ -467,8 +467,262 @@ test "Block information opcodes functionality" {
     _ = try frame.stack.pop();
     
     // Test BASEFEE
-    evm.chainRules.IsLondon = true;
+    evm_instance.chainRules.IsEIP3198 = true;
     _ = try opBasefee(0, &interpreter, &frame);
     try std.testing.expectEqual(@as(usize, 1), frame.stack.size);
     try std.testing.expectEqual(@as(u256, 1000000000), frame.stack.data[0]);
+}
+
+test "Block opcodes error conditions" {
+    const allocator = std.testing.allocator;
+    
+    // Create a mock EVM
+    var evm_instance = Interpreter.Evm{
+        .depth = 0,
+        .readOnly = false,
+        .chainRules = .{
+            .IsEIP2929 = false,
+            .IsEIP4844 = false,
+            .IsEIP5656 = false,
+            .IsMerge = false,
+            .IsEIP3198 = false,
+        },
+        .state_manager = null,
+        .gas_used = 0,
+        .remaining_gas = 1000000,
+        .refund = 0,
+        .context = null,
+    };
+    
+    var interpreter = Interpreter{
+        .pc = 0,
+        .gas = 1000000,
+        .gas_refund = 0,
+        .valid_jump_destinations = std.AutoHashMap(u24, void).init(allocator),
+        .allocator = allocator,
+        .evm = &evm_instance,
+    };
+    defer interpreter.valid_jump_destinations.deinit();
+    
+    var frame = Frame{
+        .stack = Stack{},
+        .memory = Memory.init(allocator, null) catch unreachable,
+        .gas = 1000000,
+        .contract = null,
+        .returndata = &[_]u8{},
+    };
+    defer frame.memory.deinit();
+    
+    // Test BLOCKHASH with empty stack
+    const result1 = opBlockhash(0, &interpreter, &frame);
+    try std.testing.expectError(ExecutionError.StackUnderflow, result1);
+    
+    // Test BASEFEE with EIP-3198 disabled
+    evm_instance.chainRules.IsEIP3198 = false;
+    const result2 = opBasefee(0, &interpreter, &frame);
+    try std.testing.expectError(ExecutionError.InvalidOpcode, result2);
+}
+
+test "SELFBALANCE with state manager" {
+    const allocator = std.testing.allocator;
+    
+    // Mock state manager that returns a balance
+    const MockStateManager = struct {
+        pub fn getAccount(self: *@This(), address: [20]u8) ?struct { balance: u256 } {
+            _ = self;
+            _ = address;
+            return .{ .balance = 12345678900000000000 }; // 12.34 ETH in wei
+        }
+    };
+    
+    var state_manager = MockStateManager{};
+    
+    var evm_instance = Interpreter.Evm{
+        .depth = 0,
+        .readOnly = false,
+        .chainRules = .{
+            .IsEIP2929 = false,
+            .IsEIP4844 = false,
+            .IsEIP5656 = false,
+            .IsMerge = false,
+            .IsEIP3198 = false,
+        },
+        .state_manager = &state_manager,
+        .gas_used = 0,
+        .remaining_gas = 1000000,
+        .refund = 0,
+        .context = null,
+    };
+    
+    var interpreter = Interpreter{
+        .pc = 0,
+        .gas = 1000000,
+        .gas_refund = 0,
+        .valid_jump_destinations = std.AutoHashMap(u24, void).init(allocator),
+        .allocator = allocator,
+        .evm = &evm_instance,
+    };
+    defer interpreter.valid_jump_destinations.deinit();
+    
+    var contract_address = [_]u8{0} ** 20;
+    contract_address[19] = 1;
+    
+    var contract = struct {
+        address: [20]u8,
+    }{
+        .address = contract_address,
+    };
+    
+    var frame = Frame{
+        .stack = Stack{},
+        .memory = Memory.init(allocator, null) catch unreachable,
+        .gas = 1000000,
+        .contract = &contract,
+        .returndata = &[_]u8{},
+    };
+    defer frame.memory.deinit();
+    
+    // Test SELFBALANCE with state manager
+    _ = try opSelfbalance(0, &interpreter, &frame);
+    try std.testing.expectEqual(@as(usize, 1), frame.stack.size);
+    try std.testing.expectEqual(@as(u256, 12345678900000000000), frame.stack.data[0]);
+}
+
+test "Block opcodes with real context values" {
+    const allocator = std.testing.allocator;
+    
+    var evm_instance = Interpreter.Evm{
+        .depth = 0,
+        .readOnly = false,
+        .chainRules = .{
+            .IsEIP2929 = false,
+            .IsEIP4844 = false,
+            .IsEIP5656 = false,
+            .IsMerge = true,
+            .IsEIP3198 = true,
+        },
+        .state_manager = null,
+        .gas_used = 0,
+        .remaining_gas = 1000000,
+        .refund = 0,
+        .context = null,
+    };
+    
+    // Test with more realistic context values
+    const coinbase_addr = [_]u8{
+        0x01, 0x23, 0x45, 0x67, 0x89, 0xAB, 0xCD, 0xEF,
+        0x01, 0x23, 0x45, 0x67, 0x89, 0xAB, 0xCD, 0xEF,
+        0x01, 0x23, 0x45, 0x67,
+    };
+    
+    var context = struct {
+        coinbase: [20]u8,
+        timestamp: u64,
+        block_number: u64,
+        difficulty: u256,
+        prevrandao: u256,
+        gas_limit: u64,
+        chain_id: u256,
+        base_fee: u256,
+    }{
+        .coinbase = coinbase_addr,
+        .timestamp = 1704067200, // 2024-01-01 00:00:00 UTC
+        .block_number = 19000000,
+        .difficulty = 0,
+        .prevrandao = 0xdeadbeefcafebabe1234567890abcdef1234567890abcdef1234567890abcdef,
+        .gas_limit = 30000000,
+        .chain_id = 1, // Ethereum mainnet
+        .base_fee = 25000000000, // 25 gwei
+    };
+    evm_instance.context = &context;
+    
+    var interpreter = Interpreter{
+        .pc = 0,
+        .gas = 1000000,
+        .gas_refund = 0,
+        .valid_jump_destinations = std.AutoHashMap(u24, void).init(allocator),
+        .allocator = allocator,
+        .evm = &evm_instance,
+    };
+    defer interpreter.valid_jump_destinations.deinit();
+    
+    var frame = Frame{
+        .stack = Stack{},
+        .memory = Memory.init(allocator, null) catch unreachable,
+        .gas = 1000000,
+        .contract = null,
+        .returndata = &[_]u8{},
+    };
+    defer frame.memory.deinit();
+    
+    // Test TIMESTAMP with realistic value
+    _ = try opTimestamp(0, &interpreter, &frame);
+    try std.testing.expectEqual(@as(usize, 1), frame.stack.size);
+    try std.testing.expectEqual(@as(u256, 1704067200), frame.stack.data[0]);
+    _ = try frame.stack.pop();
+    
+    // Test NUMBER with realistic block number
+    _ = try opNumber(0, &interpreter, &frame);
+    try std.testing.expectEqual(@as(usize, 1), frame.stack.size);
+    try std.testing.expectEqual(@as(u256, 19000000), frame.stack.data[0]);
+    _ = try frame.stack.pop();
+    
+    // Test PREVRANDAO (post-merge)
+    _ = try opDifficulty(0, &interpreter, &frame);
+    try std.testing.expectEqual(@as(usize, 1), frame.stack.size);
+    try std.testing.expectEqual(
+        @as(u256, 0xdeadbeefcafebabe1234567890abcdef1234567890abcdef1234567890abcdef),
+        frame.stack.data[0]
+    );
+    _ = try frame.stack.pop();
+    
+    // Test BASEFEE with realistic value
+    _ = try opBasefee(0, &interpreter, &frame);
+    try std.testing.expectEqual(@as(usize, 1), frame.stack.size);
+    try std.testing.expectEqual(@as(u256, 25000000000), frame.stack.data[0]);
+}
+
+test "registerBlockOpcodes comprehensive" {
+    const allocator = std.testing.allocator;
+    
+    // Create a jump table
+    var jump_table = JumpTable{
+        .table = undefined,
+    };
+    
+    // Initialize all table entries to null
+    for (&jump_table.table) |*entry| {
+        entry.* = null;
+    }
+    
+    // Register block opcodes
+    try registerBlockOpcodes(allocator, &jump_table);
+    
+    // Verify all block opcodes were registered correctly
+    const block_opcodes = [_]struct { opcode: u8, name: []const u8 }{
+        .{ .opcode = 0x40, .name = "BLOCKHASH" },
+        .{ .opcode = 0x41, .name = "COINBASE" },
+        .{ .opcode = 0x42, .name = "TIMESTAMP" },
+        .{ .opcode = 0x43, .name = "NUMBER" },
+        .{ .opcode = 0x44, .name = "DIFFICULTY" },
+        .{ .opcode = 0x45, .name = "GASLIMIT" },
+        .{ .opcode = 0x46, .name = "CHAINID" },
+        .{ .opcode = 0x47, .name = "SELFBALANCE" },
+        .{ .opcode = 0x48, .name = "BASEFEE" },
+    };
+    
+    for (block_opcodes) |op_info| {
+        try std.testing.expect(jump_table.table[op_info.opcode] != null);
+        
+        // Verify gas costs are set
+        const operation = jump_table.table[op_info.opcode].?;
+        try std.testing.expect(operation.constant_gas > 0);
+    }
+    
+    // Clean up
+    for (block_opcodes) |op_info| {
+        if (jump_table.table[op_info.opcode]) |op| {
+            allocator.destroy(op);
+        }
+    }
 }

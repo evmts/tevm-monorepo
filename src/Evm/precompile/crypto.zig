@@ -8,61 +8,61 @@ const sha2 = std.crypto.hash.sha2;
 const Sha256 = sha2.Sha256;
 const bigint = std.math.big.int;
 
-/// ECRECOVER precompiled contract
+// ECRECOVER precompiled contract
 pub const ECRecover = PrecompiledContract{
     .requiredGas = ecrecoverRequiredGas,
     .run = ecrecoverRun,
 };
 
-/// SHA256 precompiled contract
+// SHA256 precompiled contract
 pub const SHA256Hash = PrecompiledContract{
     .requiredGas = sha256RequiredGas,
     .run = sha256Run,
 };
 
-/// RIPEMD160 precompiled contract
+// RIPEMD160 precompiled contract
 pub const RIPEMD160Hash = PrecompiledContract{
     .requiredGas = ripemd160RequiredGas,
     .run = ripemd160Run,
 };
 
-/// BN256 Add for Byzantium
+// BN256 Add for Byzantium
 pub const Bn256AddByzantium = PrecompiledContract{
     .requiredGas = bn256AddByzantiumRequiredGas,
     .run = bn256AddRun,
 };
 
-/// BN256 Add for Istanbul
+// BN256 Add for Istanbul
 pub const Bn256AddIstanbul = PrecompiledContract{
     .requiredGas = bn256AddIstanbulRequiredGas,
     .run = bn256AddRun,
 };
 
-/// BN256 Scalar Multiplication for Byzantium
+// BN256 Scalar Multiplication for Byzantium
 pub const Bn256ScalarMulByzantium = PrecompiledContract{
     .requiredGas = bn256ScalarMulByzantiumRequiredGas,
     .run = bn256ScalarMulRun,
 };
 
-/// BN256 Scalar Multiplication for Istanbul
+// BN256 Scalar Multiplication for Istanbul
 pub const Bn256ScalarMulIstanbul = PrecompiledContract{
     .requiredGas = bn256ScalarMulIstanbulRequiredGas,
     .run = bn256ScalarMulRun,
 };
 
-/// BN256 Pairing for Byzantium
+// BN256 Pairing for Byzantium
 pub const Bn256PairingByzantium = PrecompiledContract{
     .requiredGas = bn256PairingByzantiumRequiredGas,
     .run = bn256PairingRun,
 };
 
-/// BN256 Pairing for Istanbul
+// BN256 Pairing for Istanbul
 pub const Bn256PairingIstanbul = PrecompiledContract{
     .requiredGas = bn256PairingIstanbulRequiredGas,
     .run = bn256PairingRun,
 };
 
-/// Blake2F precompiled contract
+// Blake2F precompiled contract
 pub const Blake2F = PrecompiledContract{
     .requiredGas = blake2fRequiredGas,
     .run = blake2fRun,

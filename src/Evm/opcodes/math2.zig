@@ -1,14 +1,13 @@
 const std = @import("std");
-const evm = @import("evm");
-const jumpTableModule = evm.jumpTable;
+const jumpTableModule = @import("jumpTable/package.zig");
 const JumpTable = jumpTableModule.JumpTable;
 const Operation = jumpTableModule.Operation;
-const Interpreter = evm.Interpreter;
-const Frame = evm.Frame;
-const ExecutionError = evm.InterpreterError;
-const Stack = evm.Stack;
-const StackError = evm.StackError;
-const Memory = evm.Memory;
+const Interpreter = @import("interpreter.zig").Interpreter;
+const Frame = @import("Frame.zig").Frame;
+const ExecutionError = @import("interpreter.zig").InterpreterError;
+const Stack = @import("Stack.zig").Stack;
+const StackError = @import("Stack.zig").StackError;
+const Memory = @import("Memory.zig").Memory;
 
 // Helper to convert Stack errors to ExecutionError
 fn mapStackError(err: StackError) ExecutionError {
@@ -30,7 +29,7 @@ const TestMemory = test_utils.Memory;
 
 // Use a disambiguated name for the 256-bit integer to avoid shadowing
 
-/// ADDMOD operation - (x + y) % z where x, y, z are the top three items on the stack
+// ADDMOD operation - (x + y) % z where x, y, z are the top three items on the stack
 pub fn opAddmod(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -80,7 +79,7 @@ pub fn opAddmod(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     return "";
 }
 
-/// MULMOD operation - (x * y) % z where x, y, z are the top three items on the stack
+// MULMOD operation - (x * y) % z where x, y, z are the top three items on the stack
 pub fn opMulmod(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -130,7 +129,7 @@ pub fn opMulmod(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     return "";
 }
 
-/// EXP operation - x to the power of y, where x and y are the top two items on the stack
+// EXP operation - x to the power of y, where x and y are the top two items on the stack
 pub fn opExp(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -206,7 +205,7 @@ pub fn opExp(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     return "";
 }
 
-/// Calculate dynamic gas for the EXP operation
+// Calculate dynamic gas for the EXP operation
 pub fn expDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64 {
     _ = interpreter;
     _ = frame;
@@ -265,7 +264,7 @@ pub fn expDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, me
     return exp_gas_cost;
 }
 
-/// SIGNEXTEND operation - extend length of two's complement signed integer
+// SIGNEXTEND operation - extend length of two's complement signed integer
 pub fn opSignextend(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -318,7 +317,7 @@ pub fn opSignextend(pc: usize, interpreter: *Interpreter, frame: *Frame) Executi
     return "";
 }
 
-/// MOD operation - modulo remainder operation
+// MOD operation - modulo remainder operation
 pub fn opMod(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -353,7 +352,7 @@ pub fn opMod(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     return "";
 }
 
-/// SDIV operation - signed integer division operation
+// SDIV operation - signed integer division operation
 pub fn opSdiv(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -419,7 +418,7 @@ pub fn opSdiv(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     return "";
 }
 
-/// SMOD operation - signed modulo remainder operation
+// SMOD operation - signed modulo remainder operation
 pub fn opSmod(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -484,7 +483,7 @@ pub fn opSmod(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     return "";
 }
 
-/// Register all math2 opcodes in the given jump table
+// Register all math2 opcodes in the given jump table
 pub fn registerMath2Opcodes(allocator: std.mem.Allocator, jump_table: anytype) !void {
     // SDIV (0x05)
     const sdiv_op = try allocator.create(Operation);
@@ -717,4 +716,202 @@ test "SMOD with zero modulus" {
     const input = [_]u256{ 0, 17 }; // 17 % 0
     const expected = [_]u256{0}; // Modulo by zero returns 0
     try runOpcodeTest(opSmod, &input, &expected);
+}
+
+test "SDIV with negative dividend" {
+    // Test -10 / 3 = -3 (rounded towards zero)
+    const neg_10 = (~@as(u256, 10)) +% 1; // Two's complement for -10
+    const input = [_]u256{ 3, neg_10 };
+    const neg_3 = (~@as(u256, 3)) +% 1; // Two's complement for -3
+    const expected = [_]u256{neg_3};
+    try runOpcodeTest(opSdiv, &input, &expected);
+}
+
+test "SDIV with negative divisor" {
+    // Test 10 / -3 = -3 (rounded towards zero)
+    const neg_3 = (~@as(u256, 3)) +% 1; // Two's complement for -3
+    const input = [_]u256{ neg_3, 10 };
+    const expected = [_]u256{neg_3};
+    try runOpcodeTest(opSdiv, &input, &expected);
+}
+
+test "SDIV with both negative" {
+    // Test -10 / -3 = 3
+    const neg_10 = (~@as(u256, 10)) +% 1;
+    const neg_3 = (~@as(u256, 3)) +% 1;
+    const input = [_]u256{ neg_3, neg_10 };
+    const expected = [_]u256{3};
+    try runOpcodeTest(opSdiv, &input, &expected);
+}
+
+test "SDIV with extreme values" {
+    // Test MIN_INT / -1 (special case that would overflow in signed arithmetic)
+    const min_int = @as(u256, 1) << 255; // -2^255 in two's complement
+    const neg_1 = (~@as(u256, 0)) +% 0; // -1 in two's complement
+    const input = [_]u256{ neg_1, min_int };
+    const expected = [_]u256{min_int}; // Result is MIN_INT (overflow wraps)
+    try runOpcodeTest(opSdiv, &input, &expected);
+}
+
+test "SMOD with negative value" {
+    // Test -17 % 5 = -2
+    const neg_17 = (~@as(u256, 17)) +% 1;
+    const input = [_]u256{ 5, neg_17 };
+    const neg_2 = (~@as(u256, 2)) +% 1;
+    const expected = [_]u256{neg_2};
+    try runOpcodeTest(opSmod, &input, &expected);
+}
+
+test "SMOD with negative modulus" {
+    // Test 17 % -5 = 2 (result takes sign of dividend)
+    const neg_5 = (~@as(u256, 5)) +% 1;
+    const input = [_]u256{ neg_5, 17 };
+    const expected = [_]u256{2};
+    try runOpcodeTest(opSmod, &input, &expected);
+}
+
+test "SMOD with both negative" {
+    // Test -17 % -5 = -2 (result takes sign of dividend)
+    const neg_17 = (~@as(u256, 17)) +% 1;
+    const neg_5 = (~@as(u256, 5)) +% 1;
+    const input = [_]u256{ neg_5, neg_17 };
+    const neg_2 = (~@as(u256, 2)) +% 1;
+    const expected = [_]u256{neg_2};
+    try runOpcodeTest(opSmod, &input, &expected);
+}
+
+test "ADDMOD with overflow" {
+    // Test maximum u256 values that would overflow
+    const max_u256 = std.math.maxInt(u256);
+    const input = [_]u256{ max_u256, max_u256, 10 };
+    const expected = [_]u256{8}; // (max + max) % 10 = 8 (with overflow)
+    try runOpcodeTest(opAddmod, &input, &expected);
+}
+
+test "MULMOD with overflow" {
+    // Test multiplication that would overflow
+    const large_val = std.math.maxInt(u256) / 2;
+    const input = [_]u256{ large_val, 3, 7 };
+    const expected = [_]u256{1}; // (large * 3) % 7 with overflow
+    try runOpcodeTest(opMulmod, &input, &expected);
+}
+
+test "EXP gas calculation" {
+    const allocator = testing.allocator;
+    
+    // Create minimal test environment
+    var interpreter = TestInterpreter{
+        .allocator = allocator,
+        .pc = 0,
+        .gas = 1000000,
+        .gas_refund = 0,
+        .valid_jump_destinations = std.AutoHashMap(u24, void).init(allocator),
+        .evm = undefined,
+    };
+    defer interpreter.valid_jump_destinations.deinit();
+    
+    var stack = TestStack{};
+    var memory = TestMemory.init(allocator, null) catch unreachable;
+    defer memory.deinit();
+    
+    // Test with zero exponent (should cost minimum 10 gas)
+    try stack.push(0); // exponent
+    try stack.push(5); // base
+    const gas1 = try expDynamicGas(&interpreter, undefined, &stack, &memory, 0);
+    try testing.expectEqual(@as(u64, 10), gas1);
+    _ = try stack.pop();
+    _ = try stack.pop();
+    
+    // Test with 1-byte exponent (should cost 10 + 50*1 = 60 gas)
+    try stack.push(0xFF); // exponent (1 byte)
+    try stack.push(5); // base
+    const gas2 = try expDynamicGas(&interpreter, undefined, &stack, &memory, 0);
+    try testing.expectEqual(@as(u64, 60), gas2);
+    _ = try stack.pop();
+    _ = try stack.pop();
+    
+    // Test with 2-byte exponent (should cost 10 + 50*2 = 110 gas)
+    try stack.push(0xFFFF); // exponent (2 bytes)
+    try stack.push(5); // base
+    const gas3 = try expDynamicGas(&interpreter, undefined, &stack, &memory, 0);
+    try testing.expectEqual(@as(u64, 110), gas3);
+}
+
+test "SIGNEXTEND edge cases" {
+    // Test with byte position 1 (16-bit extension)
+    const input1 = [_]u256{ 0x8000, 1 }; // Negative in 16-bit
+    const expected1 = [_]u256{0xFFFFFFFFFFFF8000}; // Extended with 1s
+    try runOpcodeTest(opSignextend, &input1, &expected1);
+    
+    // Test with byte position 2 (24-bit extension)
+    const input2 = [_]u256{ 0x7FFFFF, 2 }; // Positive in 24-bit
+    const expected2 = [_]u256{0x7FFFFF}; // No extension needed
+    try runOpcodeTest(opSignextend, &input2, &expected2);
+    
+    // Test with byte position 31 (full 256-bit, no extension)
+    const input3 = [_]u256{ 0xFFFFFFFFFFFFFFFF, 31 };
+    const expected3 = [_]u256{0xFFFFFFFFFFFFFFFF};
+    try runOpcodeTest(opSignextend, &input3, &expected3);
+}
+
+test "EXP with pattern testing" {
+    // Test 2^32
+    const input1 = [_]u256{ 2, 32 };
+    const expected1 = [_]u256{4294967296}; // 2^32
+    try runOpcodeTest(opExp, &input1, &expected1);
+    
+    // Test 3^3
+    const input2 = [_]u256{ 3, 3 };
+    const expected2 = [_]u256{27}; // 3^3 = 27
+    try runOpcodeTest(opExp, &input2, &expected2);
+    
+    // Test 10^6
+    const input3 = [_]u256{ 10, 6 };
+    const expected3 = [_]u256{1000000}; // 10^6 = 1,000,000
+    try runOpcodeTest(opExp, &input3, &expected3);
+}
+
+test "registerMath2Opcodes" {
+    const allocator = testing.allocator;
+    
+    // Create a mock jump table
+    const MockJumpTable = struct {
+        table: [256]?*Operation,
+    };
+    
+    var jump_table = MockJumpTable{
+        .table = undefined,
+    };
+    
+    // Initialize all entries to null
+    for (&jump_table.table) |*entry| {
+        entry.* = null;
+    }
+    
+    // Register math2 opcodes
+    try registerMath2Opcodes(allocator, &jump_table);
+    
+    // Verify opcodes were registered
+    const math2_opcodes = [_]struct { opcode: u8, name: []const u8 }{
+        .{ .opcode = 0x05, .name = "SDIV" },
+        .{ .opcode = 0x07, .name = "SMOD" },
+        .{ .opcode = 0x08, .name = "ADDMOD" },
+        .{ .opcode = 0x09, .name = "MULMOD" },
+        .{ .opcode = 0x0A, .name = "EXP" },
+        .{ .opcode = 0x0B, .name = "SIGNEXTEND" },
+        .{ .opcode = 0x06, .name = "MOD" },
+    };
+    
+    for (math2_opcodes) |op_info| {
+        try testing.expect(jump_table.table[op_info.opcode] != null);
+        const operation = jump_table.table[op_info.opcode].?;
+        try testing.expect(operation.constant_gas >= 0);
+    }
+    
+    // Clean up
+    for (math2_opcodes) |op_info| {
+        if (jump_table.table[op_info.opcode]) |op| {
+            allocator.destroy(op);
+        }
+    }
 }

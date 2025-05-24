@@ -44,8 +44,8 @@ const Account = struct {
     nonce: u64 = 0,
 };
 
-/// WithdrawalData represents a withdrawal from the beacon chain to the EVM
-/// as defined in EIP-4895
+// WithdrawalData represents a withdrawal from the beacon chain to the EVM
+// as defined in EIP-4895
 pub const WithdrawalData = struct {
     /// The unique identifier for this withdrawal
     index: u64,
@@ -177,7 +177,7 @@ const MockStateManager = struct {
     }
 };
 
-/// Processes a list of withdrawals by crediting the recipient accounts
+// Processes a list of withdrawals by crediting the recipient accounts
 pub fn processWithdrawals(
     stateManager: *MockStateManager, 
     withdrawals: []const WithdrawalData,
@@ -208,7 +208,7 @@ pub fn processWithdrawals(
     logger.info("All withdrawals processed successfully", .{});
 }
 
-/// Rewards an account by increasing its balance
+// Rewards an account by increasing its balance
 fn rewardAccount(stateManager: *MockStateManager, address: Address, amount: u128) !void {
     var logger = Logger{};
     var scoped = createScopedLogger(logger, "rewardAccount()");

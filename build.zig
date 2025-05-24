@@ -37,6 +37,9 @@ pub fn build(b: *std.Build) void {
 
     // Create zigevm module
     const zigevm_mod = packages.createZigevmModule(b, target, optimize, all_packages);
+    
+    // Add self-import for circular dependencies (like Bun does)
+    zigevm_mod.addImport("zigevm", zigevm_mod);
 
     // Create library
     _ = executables.createLibrary(b, zigevm_mod, zabi_dep);

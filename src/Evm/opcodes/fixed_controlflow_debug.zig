@@ -6,7 +6,7 @@ const Frame = pkg.Frame;
 const Interpreter = pkg.Interpreter;
 const ExecutionError = pkg.ExecutionError;
 
-/// Debug version of RETURN opcode
+// Debug version of RETURN opcode
 pub fn opReturnDebug(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     // Print debug info
     std.debug.print("Starting opReturnDebug\n", .{});

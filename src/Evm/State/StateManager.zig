@@ -5,7 +5,7 @@ const StateDB = @import("StateDB.zig").StateDB;
 const Account = @import("Account.zig").Account;
 const testing = std.testing;
 
-/// Access list tracking for EIP-2929
+// Access list tracking for EIP-2929
 pub const AccessList = struct {
     /// Addresses that have been accessed (warm)
     warm_addresses: std.AutoHashMap(Address, void),
@@ -71,7 +71,7 @@ pub const AccessList = struct {
     }
 };
 
-/// StateManager is the interface between the EVM and the state DB
+// StateManager is the interface between the EVM and the state DB
 pub const StateManager = struct {
     /// The underlying state database
     state: StateDB,

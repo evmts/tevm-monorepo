@@ -42,8 +42,8 @@ pub const EnvUrls = struct {
     }
 };
 
-/// Parses environment variables for RPC URLs
-/// Returns a struct with arrays of URLs for different networks
+// Parses environment variables for RPC URLs
+// Returns a struct with arrays of URLs for different networks
 pub fn getTransports(allocator: std.mem.Allocator) !struct {
     mainnet: std.ArrayList([]const u8),
     optimism: std.ArrayList([]const u8),

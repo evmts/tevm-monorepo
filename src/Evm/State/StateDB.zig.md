@@ -25,6 +25,10 @@ pub const StateDB = struct {
 }
 ```
 
+**Note**: The implementation uses package imports for types:
+- `B256` from `@import("utils")`
+- `Address` from `@import("address")`
+
 ### Key Features
 
 1. **Explicit Memory Management**: Allocator pattern for all dynamic memory
@@ -47,7 +51,7 @@ pub const StateDB = struct {
 - `getBalance(address)` - Get account balance
 - `setBalance(address, balance)` - Set balance (journaled)
 - `addBalance(address, amount)` - Add to balance (journaled)
-- `subBalance(address, amount)` - Subtract with underflow check
+- `subBalance(address, amount)` - Subtract with underflow check (returns `error.InsufficientBalance`)
 
 #### Nonce Operations
 - `getNonce(address)` - Get account nonce
@@ -62,7 +66,7 @@ pub const StateDB = struct {
 
 #### Storage Operations
 - `getState(address, key)` - Read storage slot
-- `setState(address, key, value)` - Write storage slot (journaled)
+- `setState(address, key, value)` - Write storage slot (journaled, sets dirty_storage flag)
 
 #### State Management
 - `snapshot()` - Create state checkpoint
@@ -100,7 +104,7 @@ pub const JournalEntry = union(enum) {
     CodeChange: struct {
         address: Address,
         prev_code_hash: [32]u8,
-    },
+    },  // Note: Code revert only restores hash, not actual bytecode
     RefundChange: struct { prev_refund: u64 },
     // ... other entries
 }
@@ -266,6 +270,15 @@ Based on other implementations, potential improvements:
 5. **Metrics**: Add performance counters
 6. **Parallel Access**: Support concurrent reads
 7. **Witness Support**: Generate state witnesses
+
+## Implementation Notes
+
+### Helper Functions
+- `addressFromHexString(hex)` - Utility function for tests to convert hex strings to addresses
+
+### Current Limitations
+- **Code Revert**: When reverting a CodeChange, only the code hash is restored, not the actual bytecode
+- **Error Handling**: Only `InsufficientBalance` error is currently returned from balance operations
 
 ## Unimplemented Features
 

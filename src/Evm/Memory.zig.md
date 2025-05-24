@@ -20,6 +20,9 @@ pub const Memory = struct {
     last_gas_cost: u64,            // Cached gas cost for metering
     allocator: std.mem.Allocator,  // Memory allocator for operations
 }
+
+// Note: Implementation uses u64 as BigInt type for simplicity
+const BigInt = u64;
 ```
 
 ### Key Features
@@ -59,8 +62,18 @@ pub const Memory = struct {
    ```
 
 2. **Bounds Checking**: Validates all memory accesses
-3. **Zero Initialization**: New memory is always zeroed
+3. **Zero Initialization**: New memory is always zeroed via `initializeMemory`
 4. **Error Propagation**: Explicit error handling throughout
+5. **Memory Size Limits**: Handles cases where memory size exceeds `std.math.maxInt(u64)`
+
+### Error Types
+
+The implementation uses specific error types:
+- `error.InvalidOffset` - Used in set32 for offset overflow
+- `error.InvalidArgument` - General invalid parameter error
+- `error.MemoryTooLarge` - Memory expansion exceeds limits
+- `error.OutOfMemory` - Allocation failure
+- `error.OutOfBounds` - Memory access outside valid range
 
 ### Performance Considerations
 
@@ -116,7 +129,7 @@ Reduces allocation overhead by growing in larger chunks.
 ```rust
 Rc<RefCell<Vec<u8>>>  // Reference counting for call contexts
 ```
-Enables efficient memory sharing between contexts without copying.
+Enables efficient call contexts without copying - allows memory to be shared between different execution contexts.
 
 **go-ethereum's Caching**:
 Caches previous gas costs to avoid recalculation on repeated accesses.
@@ -187,6 +200,8 @@ Gas calculation formula (implemented elsewhere):
 memory_cost = (memory_size_in_words * 3) + (memory_size_in_words² / 512)
 ```
 
+**Important Note**: Memory costs are implemented at the interpreter level based on memory size change, not within the Memory struct itself.
+
 ## Best Practices and Usage
 
 1. **Always Free Allocated Memory**:
@@ -213,6 +228,25 @@ memory_cost = (memory_size_in_words * 3) + (memory_size_in_words² / 512)
        // Handle specific error cases
    };
    ```
+
+## Implementation Notes
+
+### Performance Comparisons
+
+The implementation includes detailed inline comments comparing performance characteristics with other EVMs:
+
+- **evmone**: Uses chunk-based allocation (4KB pages) to reduce allocation overhead
+- **revm**: Implements SharedMemory with reference counting for efficient context switching
+- **go-ethereum**: Uses simpler slice-based approach with runtime panics
+
+### Test Coverage
+
+The implementation includes comprehensive test cases demonstrating:
+- Basic read/write operations
+- Boundary conditions and edge cases
+- MCOPY overlap scenarios
+- Memory expansion behavior
+- Error handling paths
 
 ## Future Optimization Opportunities
 

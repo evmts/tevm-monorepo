@@ -20,21 +20,23 @@ The `Evm` struct in Tevm implements the core Ethereum Virtual Machine environmen
 pub const Evm = struct {
     depth: u16 = 0,                                    // Call depth (max 1024)
     readOnly: bool = false,                            // Static call context
-    chainRules: ChainRules = ChainRules{},            // Protocol configuration
+    chainRules: ChainRules = ChainRules{},            // Protocol configuration (defaults to Cancun)
     state_manager: ?*StateManager = null,              // State access
     blobHashes: []const [32]u8 = &[_][32]u8{},       // EIP-4844 blob hashes
     blobBaseFee: u256 = 0,                            // EIP-4844 blob base fee
     precompiles: ?*PrecompiledContracts = null,       // Precompiled contracts
+    logger: ?*Logger = null,                          // Logger instance (lazy initialized)
 }
 ```
 
 ### Key Features
 
-1. **Explicit Configuration**: All settings are explicit with no hidden defaults
-2. **Comprehensive Logging**: Detailed debug logging throughout
+1. **Explicit Configuration**: All settings are explicit, defaults to Cancun hardfork
+2. **Comprehensive Logging**: Detailed debug logging with lazy initialization
 3. **Strong Type Safety**: Chain rules and hardforks as typed enums
 4. **Memory Safety**: No hidden allocations, explicit memory management
 5. **Testability**: Comprehensive test coverage with mocked dependencies
+6. **Error Handling**: Explicit error types (e.g., `error.DepthLimit`)
 
 ### Core Operations
 
@@ -46,8 +48,8 @@ pub const Evm = struct {
 
 #### Call Depth Management
 - `getCallDepth()` - Get current nesting level
-- `incrementCallDepth()` - Enter new call (checks limit)
-- `decrementCallDepth()` - Exit call frame
+- `incrementCallDepth()` - Enter new call (returns `error.DepthLimit` if depth >= 1024)
+- `decrementCallDepth()` - Exit call frame (safe underflow handling)
 
 #### EIP-4844 Support
 - `setBlobHashes(hashes)` - Set transaction blob hashes
@@ -61,6 +63,9 @@ pub const Evm = struct {
 - `logContractExecution()` - Log execution context
 - `logExecutionError()` - Log error details
 - `logGasUsage()` - Log gas statistics
+- `createScopedLogger()` - Create logger with EVM context
+- `debugOnly()` - Execute callback only in debug builds
+- `getLogger()` - Get or lazily initialize logger
 
 ### Chain Rules System
 
@@ -87,7 +92,6 @@ pub const ChainRules = struct {
     // Individual EIP flags
     IsEIP1559: bool = true,      // Fee market
     IsEIP2930: bool = true,      // Access lists
-    IsEIP3198: bool = true,      // BASEFEE opcode
     IsEIP3541: bool = true,      // Reject 0xEF contracts
     IsEIP3651: bool = true,      // Warm COINBASE
     IsEIP3855: bool = true,      // PUSH0 instruction
@@ -143,7 +147,8 @@ pub const Hardfork = enum {
 **Tevm**:
 - Explicit ChainRules with all flags visible
 - Factory method for hardfork configurations
-- Defaults to latest (Cancun)
+- Defaults to latest (Cancun) with all EIPs enabled
+- Note: BASEFEE opcode is part of London hardfork, not a separate EIP flag
 
 **go-ethereum**:
 - Complex ChainConfig with block numbers
@@ -221,13 +226,32 @@ pub const Hardfork = enum {
 
 ## Logging and Debugging
 
-The implementation includes comprehensive logging:
+The implementation includes comprehensive logging with a lazy initialization pattern:
 
 1. **Initialization Logging**: Tracks EVM setup
 2. **Configuration Logging**: Shows all rule changes
 3. **Execution Logging**: Contract calls and context
 4. **Error Logging**: Detailed failure information
 5. **Gas Logging**: Usage statistics and breakdown
+
+### Logger Pattern
+
+```zig
+// Lazy logger initialization
+pub fn getLogger(self: *Evm) *Logger {
+    if (self.logger == null) {
+        self.logger = Logger.getDefault();
+    }
+    return self.logger.?;
+}
+
+// Debug-only execution
+pub fn debugOnly(self: *Evm, callback: fn (*Evm) void) void {
+    if (@import("builtin").mode == .Debug) {
+        callback(self);
+    }
+}
+```
 
 Example log output:
 ```
@@ -257,6 +281,8 @@ The implementation includes comprehensive tests:
 4. **Configuration Tests**: All hardfork configurations
 5. **Blob Data Tests**: EIP-4844 support
 6. **Logging Tests**: Verify log methods compile
+
+**Note**: The `initPrecompiles` test is currently commented out due to a ChainRules type mismatch issue that needs to be resolved.
 
 ## Future Enhancements
 

@@ -4,29 +4,50 @@ This document describes the Tevm precompiled contracts implementation and tracks
 
 ## Overview
 
-Precompiled contracts are special contracts at addresses 0x01-0x13 that provide optimized implementations of cryptographic and utility functions. They are essential for EVM compatibility.
+Precompiled contracts are special contracts at addresses 0x01-0x11 that provide optimized implementations of cryptographic and utility functions. They are essential for EVM compatibility.
+
+## File Structure
+
+The precompile implementation is split across multiple files:
+- `Precompiles.zig` - Main orchestration and hardfork logic
+- `crypto.zig` - Cryptographic precompiles (ECRECOVER, SHA256, RIPEMD160, BN256, BLAKE2F)
+- `bls12_381.zig` - BLS12-381 curve operations
+- `math.zig` - ModExp operations
+- `kzg.zig` - KZG point evaluation
+- `common.zig` - Common types and identity function
 
 ## Implementation Status
 
-### Implemented Precompiles
+### Fully Implemented
+1. **0x02 - SHA256**: SHA256 hash function (uses `std.crypto.hash.sha2`)
+2. **0x04 - IDENTITY**: Data copy (in `common.zig`)
 
-The following precompiles have basic structure but most lack actual implementations:
+### Partially Implemented (Gas calculation only)
+All precompiles have gas calculation functions implemented, but most lack the actual cryptographic operations:
 
 1. **0x01 - ECRECOVER**: Elliptic curve signature recovery
-2. **0x02 - SHA256**: SHA256 hash function
-3. **0x03 - RIPEMD160**: RIPEMD-160 hash function
-4. **0x04 - IDENTITY**: Data copy
-5. **0x05 - MODEXP**: Modular exponentiation
-6. **0x06 - BN256ADD**: Alt_bn128 elliptic curve addition
-7. **0x07 - BN256MUL**: Alt_bn128 scalar multiplication
-8. **0x08 - BN256PAIRING**: Alt_bn128 pairing check
-9. **0x09 - BLAKE2F**: BLAKE2 compression function
-10. **0x0a - KZG_POINT_EVALUATION**: KZG point evaluation (EIP-4844)
-11. **0x0b-0x12 - BLS12_381**: Various BLS12-381 operations
+2. **0x03 - RIPEMD160**: RIPEMD-160 hash function
+3. **0x05 - MODEXP**: Modular exponentiation
+4. **0x06 - BN256ADD**: Alt_bn128 elliptic curve addition
+5. **0x07 - BN256MUL**: Alt_bn128 scalar multiplication
+6. **0x08 - BN256PAIRING**: Alt_bn128 pairing check
+7. **0x09 - BLAKE2F**: BLAKE2 compression function
+8. **0x0a - KZG_POINT_EVALUATION**: KZG point evaluation (EIP-4844)
+9. **0x0b-0x11 - BLS12_381**: Various BLS12-381 operations
+
+## Hardfork Activation
+
+The implementation includes sophisticated hardfork-based activation:
+- **Homestead**: Introduces basic precompiles (0x01-0x04)
+- **Byzantium**: Adds ModExp and BN256 operations (0x05-0x08)
+- **Istanbul**: Adds BLAKE2F (0x09)
+- **Berlin**: Updates gas costs for existing precompiles
+- **Cancun**: Adds KZG_POINT_EVALUATION (0x0a)
+- **Prague**: Adds BLS12-381 operations (0x0b-0x11)
 
 ## Unimplemented Features
 
-Based on code analysis with TODO comments and comparison with REVM:
+Based on code analysis with TODO comments:
 
 ### 1. crypto.zig - Core Cryptographic Functions
 
@@ -49,117 +70,77 @@ Based on code analysis with TODO comments and comparison with REVM:
 - Currently: Returns empty results
 
 **BLAKE2F (0x09)**:
-- TODO line 365: "Implement Blake2F compression function"
-- Missing: BLAKE2F compression implementation
-- Currently: Returns zeros
+- TODO line 368: "Implement BLAKE2F compression function"
+- Missing: BLAKE2F round function implementation
+- Currently: Returns unmodified state
 
-### 2. bls12_381.zig - BLS12-381 Curve Operations
+### 2. math.zig - Mathematical Operations
 
-**G1 Operations**:
-- TODO line 97: "Add curve validation check"
-- TODO line 101: "Add subgroup check if required"
-- TODO line 283: "Replace with actual point addition implementation"
-- Missing: Actual G1 point arithmetic
+**MODEXP (0x05)**:
+- TODO line 271: "TODO: Implement efficient modular exponentiation"
+- Missing: Actual modular exponentiation algorithm
+- Currently: Returns 1 for all inputs
 
-**G2 Operations**:
-- TODO line 197: "Add curve validation check"
-- TODO line 201: "Add subgroup check if required"
-- TODO line 471: "Replace with actual point addition implementation"
-- Missing: Actual G2 point arithmetic
-
-**MSM (Multi-Scalar Multiplication)**:
-- TODO line 387: "Replace with actual multi-exponentiation implementation"
-- TODO line 575: "Replace with actual multi-exponentiation implementation"
-- Missing: G1 and G2 MSM implementations
-
-**Pairing**:
-- TODO line 647: "Replace with actual pairing implementation"
-- Missing: Pairing check implementation
-
-**Field Mapping**:
-- TODO line 695: "Replace with actual field-to-curve mapping implementation"
-- TODO line 749: "Replace with actual field-to-curve mapping implementation"
-- Missing: Field element to curve point mapping
-
-**Field Validation**:
-- TODO line 265: "Check if the element is in the field"
-- Missing: Field modulus validation
-
-### 3. kzg.zig - KZG Point Evaluation
+### 3. kzg.zig - KZG Cryptography
 
 **KZG_POINT_EVALUATION (0x0a)**:
-- TODO line 88: "Implement actual KZG proof verification"
-- Missing: Complete KZG polynomial commitment verification
-- Currently: Placeholder returning success
+- TODO line 65: "Implement actual KZG cryptography"
+- Missing: Complete KZG implementation
+- Required: Integration with c-kzg library or similar
 
-### 4. Missing Infrastructure
+### 4. bls12_381.zig - BLS12-381 Operations
 
-**Cryptographic Libraries**:
-- No secp256k1 library for ECRECOVER
-- No RIPEMD-160 implementation
-- No alt_bn128 curve library
-- No BLS12-381 curve library
-- No BLAKE2 implementation
-- No KZG/polynomial commitment library
-
-**Integration Features**:
-- No cached results for expensive operations
-- No batch verification optimizations
-- No constant-time implementations for security
-- No hardware acceleration support
-
-### 5. Performance Optimizations Missing (vs REVM)
-
-**Caching**:
-- No result caching for repeated calls
-- No precomputed constants for curves
-- No lazy initialization of crypto contexts
-
-**Batch Processing**:
-- No batch signature verification
-- No batch pairing checks
-- No vectorized operations
-
-**Memory Management**:
-- Allocations on every call
-- No memory pooling for crypto operations
-- No zero-copy optimizations
-
-### 6. Security Considerations
-
-**Missing Security Features**:
-- No constant-time implementations
-- No protection against timing attacks
-- No input validation for malicious data
-- No overflow protection in curve arithmetic
+**All BLS12-381 precompiles (0x0b-0x11)**:
+- Multiple TODOs for field element validation
+- Missing: All BLS12-381 curve operations
+- Required: Integration with BLS12-381 library
 
 ## Comparison with REVM
 
-REVM's precompile implementation includes:
+REVM has complete implementations of all precompiles using:
+- `k256` crate for ECRECOVER
+- `sha2` crate for SHA256
+- `ripemd` crate for RIPEMD160
+- `bn` crate for alt_bn128 operations
+- `blst` crate for BLS12-381
+- `c-kzg` for KZG operations
 
-1. **Multiple Backends**: Choice of crypto libraries (arkworks, blst, etc.)
-2. **Optimized Implementations**: Hardware acceleration where available
-3. **Security Hardening**: Constant-time operations, input validation
-4. **Comprehensive Testing**: Test vectors from Ethereum tests
-5. **Performance Features**: Caching, batching, zero-copy
+## Performance Optimizations Needed
 
-## Implementation Priority
+1. **Library Integration**: Need to integrate optimized crypto libraries
+2. **Memory Management**: Current implementation allocates frequently
+3. **Batch Operations**: Some precompiles could benefit from batching
+4. **SIMD Usage**: Cryptographic operations could use SIMD instructions
 
-Based on usage frequency and importance:
+## Security Considerations
 
-1. **Critical**: ECRECOVER (0x01) - Used in every signature verification
-2. **High**: SHA256 (0x02), IDENTITY (0x04) - Common operations
-3. **Medium**: BN256 operations - Used by privacy protocols
-4. **Low**: BLS12-381 - Newer, less common
-5. **Optional**: BLAKE2F, KZG - Specialized use cases
+1. **Input Validation**: All inputs must be validated before processing
+2. **Timing Attacks**: Implementations must be constant-time where applicable
+3. **Gas Metering**: Must charge gas before performing operations
+4. **Error Handling**: Must handle malformed inputs gracefully
 
-## Conclusion
+## Testing Infrastructure
 
-The Tevm precompile implementation provides the structure for all Ethereum precompiled contracts but lacks actual cryptographic implementations. This is a significant gap for EVM compatibility, as many contracts rely on these precompiles for signature verification, hashing, and advanced cryptographic operations.
+The implementation includes:
+- Test helpers for creating mock precompile environments
+- Hardfork activation tests
+- Gas calculation verification
+- Placeholder for cryptographic operation tests
 
-To achieve full EVM compatibility, Tevm needs to:
-1. Integrate appropriate cryptographic libraries
-2. Implement all precompile logic
-3. Add comprehensive testing with official test vectors
-4. Optimize for performance while maintaining security
-5. Consider multiple backend options for flexibility
+## Next Steps
+
+1. **Priority 1**: Implement ECRECOVER for basic transaction verification
+2. **Priority 2**: Implement BN256 operations for zero-knowledge proofs
+3. **Priority 3**: Implement BLAKE2F for compatibility
+4. **Priority 4**: Implement BLS12-381 for future Ethereum features
+
+## Integration Points
+
+The `runPrecompiledContract` function in `Precompiles.zig`:
+1. Validates contract exists at given address
+2. Checks if contract is active for current hardfork
+3. Calculates required gas
+4. Executes the precompile if sufficient gas
+5. Returns result or error
+
+This provides a clean interface for the EVM to call precompiled contracts.

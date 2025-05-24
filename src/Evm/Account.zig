@@ -5,8 +5,8 @@ const testing = std.testing;
 pub const B256 = @import("utils").B256;
 
 
-/// Account represents an Ethereum account
-/// Includes balance, nonce, code hash, and storage root
+// Account represents an Ethereum account
+// Includes balance, nonce, code hash, and storage root
 pub const Account = struct {
     /// Account balance in wei
     balance: u256,

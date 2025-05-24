@@ -10,32 +10,32 @@ const Stack = evm.Stack;
 const Memory = evm.Memory;
 const Contract = evm.Contract;
 
-/// LOG0 operation
+// LOG0 operation
 pub fn opLog0(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     return opLog(pc, interpreter, frame, 0);
 }
 
-/// LOG1 operation
+// LOG1 operation
 pub fn opLog1(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     return opLog(pc, interpreter, frame, 1);
 }
 
-/// LOG2 operation
+// LOG2 operation
 pub fn opLog2(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     return opLog(pc, interpreter, frame, 2);
 }
 
-/// LOG3 operation
+// LOG3 operation
 pub fn opLog3(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     return opLog(pc, interpreter, frame, 3);
 }
 
-/// LOG4 operation
+// LOG4 operation
 pub fn opLog4(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     return opLog(pc, interpreter, frame, 4);
 }
 
-/// Generic LOG operation implementation
+// Generic LOG operation implementation
 fn opLog(pc: usize, interpreter: *Interpreter, frame: *Frame, n_topics: u8) ExecutionError![]const u8 {
     _ = pc;
     
@@ -118,7 +118,7 @@ fn opLog(pc: usize, interpreter: *Interpreter, frame: *Frame, n_topics: u8) Exec
     return "";
 }
 
-/// Calculate memory size for LOG operations
+// Calculate memory size for LOG operations
 pub fn logMemorySize(stack: *Stack) struct { size: u64, overflow: bool } {
     // We need at least 2 items on the stack for any LOG operation
     if (stack.size < 2) {
@@ -163,7 +163,7 @@ pub fn logMemorySize(stack: *Stack) struct { size: u64, overflow: bool } {
     return .{ .size = mem_offset + mem_size, .overflow = false };
 }
 
-/// Dynamic gas calculation for LOG operations
+// Dynamic gas calculation for LOG operations
 pub fn logDynamicGas(_: *Interpreter, _: *Frame, stack: *Stack, memory: *Memory, _: u64, topics: u8) error{OutOfGas}!u64 {
     
     // We need at least 2 + topics items on the stack
@@ -224,32 +224,32 @@ pub fn logDynamicGas(_: *Interpreter, _: *Frame, stack: *Stack, memory: *Memory,
     return gas;
 }
 
-/// LOG0 dynamic gas calculation
+// LOG0 dynamic gas calculation
 pub fn log0DynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64 {
     return logDynamicGas(interpreter, frame, stack, memory, requested_size, 0);
 }
 
-/// LOG1 dynamic gas calculation
+// LOG1 dynamic gas calculation
 pub fn log1DynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64 {
     return logDynamicGas(interpreter, frame, stack, memory, requested_size, 1);
 }
 
-/// LOG2 dynamic gas calculation
+// LOG2 dynamic gas calculation
 pub fn log2DynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64 {
     return logDynamicGas(interpreter, frame, stack, memory, requested_size, 2);
 }
 
-/// LOG3 dynamic gas calculation
+// LOG3 dynamic gas calculation
 pub fn log3DynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64 {
     return logDynamicGas(interpreter, frame, stack, memory, requested_size, 3);
 }
 
-/// LOG4 dynamic gas calculation
+// LOG4 dynamic gas calculation
 pub fn log4DynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64 {
     return logDynamicGas(interpreter, frame, stack, memory, requested_size, 4);
 }
 
-/// Register LOG opcodes in the jump table
+// Register LOG opcodes in the jump table
 pub fn registerLogOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable) !void {
     // LOG0 (0xA0)
     const log0_op = try allocator.create(Operation);

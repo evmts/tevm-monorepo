@@ -1,15 +1,14 @@
 const std = @import("std");
-const evm = @import("evm");
-const jumpTableModule = evm.jumpTable;
+const jumpTableModule = @import("jumpTable/package.zig");
 const JumpTable = jumpTableModule.JumpTable;
 const Operation = jumpTableModule.Operation;
-const Interpreter = evm.Interpreter;
-const Frame = evm.Frame;
-const ExecutionError = evm.InterpreterError;
-const Stack = evm.Stack;
-const StackError = evm.StackError;
-const Memory = evm.Memory;
-const B256 = evm.B256;
+const Interpreter = @import("interpreter.zig").Interpreter;
+const Frame = @import("Frame.zig").Frame;
+const ExecutionError = @import("interpreter.zig").InterpreterError;
+const Stack = @import("Stack.zig").Stack;
+const StackError = @import("Stack.zig").StackError;
+const Memory = @import("Memory.zig").Memory;
+const B256 = @import("StateDB.zig").B256;
 
 // Helper to convert Stack errors to ExecutionError
 fn mapStackError(err: StackError) ExecutionError {
@@ -26,8 +25,8 @@ fn mapStackError(err: StackError) ExecutionError {
 pub const TLoadGas: u64 = 100; // Aligned with the SLOAD gas cost, but a bit higher
 pub const TStoreGas: u64 = 100; // Warm access cost, significantly less than SSTORE
 
-/// TLOAD operation - loads a value from transient storage at the specified key
-/// EIP-1153: Transient Storage
+// TLOAD operation - loads a value from transient storage at the specified key
+// EIP-1153: Transient Storage
 pub fn opTload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
 
@@ -63,8 +62,8 @@ pub fn opTload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     const addr = frame.address();
 
     // Get state manager from interpreter
-    const evm = interpreter.evm;
-    const state_manager = evm.state_manager orelse return ExecutionError.InvalidStateAccess;
+    const evm_instance = interpreter.evm;
+    const state_manager = evm_instance.state_manager orelse return ExecutionError.InvalidStateAccess;
 
     // Get value from transient storage
     // Note: In a full implementation, the state manager would need a special method for transient storage
@@ -94,8 +93,8 @@ pub fn opTload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     return "";
 }
 
-/// TSTORE operation - stores a value to transient storage at the specified key
-/// EIP-1153: Transient Storage
+// TSTORE operation - stores a value to transient storage at the specified key
+// EIP-1153: Transient Storage
 pub fn opTstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
 
@@ -138,8 +137,8 @@ pub fn opTstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     const addr = frame.address();
 
     // Get state manager from interpreter
-    const evm = interpreter.evm;
-    const state_manager = evm.state_manager orelse return ExecutionError.InvalidStateAccess;
+    const evm_instance = interpreter.evm;
+    const state_manager = evm_instance.state_manager orelse return ExecutionError.InvalidStateAccess;
 
     // Convert value to bytes for storage
     var value_bytes: [32]u8 = undefined;
@@ -170,7 +169,7 @@ pub fn opTstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     return "";
 }
 
-/// Register transient storage opcodes in the jump table
+// Register transient storage opcodes in the jump table
 pub fn registerTransientOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable) !void {
     // TLOAD (0x5C)
     const tload_op = try allocator.create(Operation);
@@ -196,8 +195,47 @@ pub fn registerTransientOpcodes(allocator: std.mem.Allocator, jump_table: *JumpT
 // Tests
 const testing = std.testing;
 
-test "transient storage opcodes - placeholder test" {
-    // TODO: Add comprehensive tests for transient storage opcodes functionality
-    // This is a placeholder to ensure the test runs
-    try testing.expect(true);
+test "transient storage gas constants" {
+    try testing.expectEqual(@as(u64, 100), TLoadGas);
+    try testing.expectEqual(@as(u64, 100), TStoreGas);
+}
+
+test "mapStackError conversions" {
+    try testing.expectEqual(ExecutionError.StackUnderflow, mapStackError(StackError.OutOfBounds));
+    try testing.expectEqual(ExecutionError.StackOverflow, mapStackError(StackError.StackOverflow));
+    try testing.expectEqual(ExecutionError.OutOfGas, mapStackError(StackError.OutOfMemory));
+}
+
+test "registerTransientOpcodes basic" {
+    const allocator = testing.allocator;
+    
+    // Create a minimal jump table structure
+    var operations: [256]?*Operation = undefined;
+    for (&operations) |*op| {
+        op.* = null;
+    }
+    
+    // Mock jump table with just the table field
+    var jump_table = struct {
+        table: [256]?*Operation,
+    }{
+        .table = operations,
+    };
+    
+    // Register transient opcodes
+    try registerTransientOpcodes(allocator, &jump_table);
+    
+    // Verify TLOAD was registered at 0x5C
+    try testing.expect(jump_table.table[0x5C] != null);
+    const tload_op = jump_table.table[0x5C].?;
+    try testing.expectEqual(TLoadGas, tload_op.constant_gas);
+    
+    // Verify TSTORE was registered at 0x5D
+    try testing.expect(jump_table.table[0x5D] != null);
+    const tstore_op = jump_table.table[0x5D].?;
+    try testing.expectEqual(TStoreGas, tstore_op.constant_gas);
+    
+    // Clean up
+    allocator.destroy(jump_table.table[0x5C].?);
+    allocator.destroy(jump_table.table[0x5D].?);
 }

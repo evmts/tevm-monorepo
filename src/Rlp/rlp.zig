@@ -38,9 +38,9 @@ pub const Data = union(enum) {
     }
 };
 
-/// Encodes input into RLP format according to the Ethereum RLP specification.
-/// The input can be a slice of bytes or a list of other RLP encodable items.
-/// Allocates memory for the result, which must be freed by the caller.
+// Encodes input into RLP format according to the Ethereum RLP specification.
+// The input can be a slice of bytes or a list of other RLP encodable items.
+// Allocates memory for the result, which must be freed by the caller.
 pub fn encode(allocator: Allocator, input: anytype) ![]u8 {
     const T = @TypeOf(input);
     const info = @typeInfo(T);
@@ -138,7 +138,7 @@ pub fn encode(allocator: Allocator, input: anytype) ![]u8 {
     @compileError("Unsupported type for RLP encoding: " ++ @typeName(T));
 }
 
-/// Encodes a byte array or slice according to RLP rules
+// Encodes a byte array or slice according to RLP rules
 fn encodeBytes(allocator: Allocator, bytes: []const u8) ![]u8 {
     // If a single byte less than 0x80, return as is
     if (bytes.len == 1 and bytes[0] < 0x80) {
@@ -167,7 +167,7 @@ fn encodeBytes(allocator: Allocator, bytes: []const u8) ![]u8 {
     return result;
 }
 
-/// Encodes an integer length as bytes
+// Encodes an integer length as bytes
 fn encodeLength(allocator: Allocator, length: usize) ![]u8 {
     var len_bytes = std.ArrayList(u8).init(allocator);
     defer len_bytes.deinit();
@@ -181,10 +181,10 @@ fn encodeLength(allocator: Allocator, length: usize) ![]u8 {
     return try len_bytes.toOwnedSlice();
 }
 
-/// Decodes RLP encoded data.
-/// If stream is true, it returns both the decoded data and the remaining bytes.
-/// If stream is false (default), it expects the entire input to be consumed.
-/// Allocates memory that must be freed by calling .deinit() on the result.
+// Decodes RLP encoded data.
+// If stream is true, it returns both the decoded data and the remaining bytes.
+// If stream is false (default), it expects the entire input to be consumed.
+// Allocates memory that must be freed by calling .deinit() on the result.
 pub fn decode(allocator: Allocator, input: []const u8, stream: bool) !Decoded {
     if (input.len == 0) {
         return Decoded{
@@ -378,17 +378,17 @@ fn _decode(allocator: Allocator, input: []const u8) !Decoded {
 
 // Utility functions
 
-/// Converts a byte slice to a hex string
+// Converts a byte slice to a hex string
 pub fn bytesToHex(allocator: Allocator, bytes: []const u8) ![]u8 {
     return try hex.bytesToHex(allocator, bytes);
 }
 
-/// Converts a hex string to bytes
+// Converts a hex string to bytes
 pub fn hexToBytes(allocator: Allocator, hex_str: []const u8) ![]u8 {
     return try hex.hexToBytes(allocator, hex_str);
 }
 
-/// Concatenates multiple byte slices into one
+// Concatenates multiple byte slices into one
 pub fn concatBytes(allocator: Allocator, arrays: []const []const u8) ![]u8 {
     var total_len: usize = 0;
     for (arrays) |arr| {

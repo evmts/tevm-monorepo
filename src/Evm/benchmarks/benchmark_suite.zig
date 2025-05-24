@@ -11,7 +11,7 @@ const StateManager = @import("StateManager").StateManager;
 const Compiler = @import("compiler").Compiler;
 const utils = @import("utils");
 
-/// Benchmark different types of EVM operations
+// Benchmark different types of EVM operations
 pub const BenchmarkSuite = struct {
     /// Arithmetic operations benchmark (ADD, MUL, DIV, etc.)
     pub const ARITHMETIC_OPS = [_]u8{
@@ -121,7 +121,7 @@ pub const BenchmarkSuite = struct {
     };
 };
 
-/// Benchmark context for EVM operations
+// Benchmark context for EVM operations
 const BenchmarkContext = struct {
     allocator: std.mem.Allocator,
     evm: *Evm,

@@ -31,6 +31,8 @@ pub const coreTests = [_]TestInfo{
     .{ .name = "trie-known-roots-test", .root = "src/Trie/known_roots_test.zig", .step_name = "test-trie-known-roots" },
     .{ .name = "trie-proof-test", .root = "src/Trie/proof.test.zig", .step_name = "test-trie-proof" },
     .{ .name = "trie-update-test", .root = "src/Trie/test_simple_update.zig", .step_name = "test-trie-update" },
+    .{ .name = "trie-v2-test", .root = "src/Trie/trie_v2_test.zig", .step_name = "test-trie-v2" },
+    .{ .name = "trie-v3-test", .root = "src/Trie/trie_v3.zig", .step_name = "test-trie-v3" },
     
     // Utils tests
     .{ .name = "utils-test", .root = "src/Utils/utils_test.zig", .step_name = "test-utils" },

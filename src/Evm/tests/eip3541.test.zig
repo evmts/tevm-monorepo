@@ -1,9 +1,8 @@
 const std = @import("std");
 const testing = std.testing;
 
-// Use package-based imports for consistent module resolution
-// NOTE: If running directly with `zig test`, you might need to use relative path @import("../evm.zig")
-const EvmModule = @import("Evm");
+// Use module imports provided by build system
+const EvmModule = @import("evm");
 const Interpreter = EvmModule.Interpreter;
 const ExecutionError = EvmModule.Frame.ExecutionError;
 const Evm = EvmModule.Evm;
@@ -13,8 +12,8 @@ const calls = EvmModule.opcodes.calls;
 const Contract = EvmModule.Contract;
 const Memory = EvmModule.Memory.Memory;
 const Stack = EvmModule.Stack.Stack;
-// Import Address from the Address module for consistency
-const Address = @import("Address").Address;
+// Import Address from the Address module
+const Address = @import("address").Address;
 const EvmLogger = EvmModule.EvmLogger;
 const createLogger = EvmModule.createLogger;
 const createScopedLogger = EvmModule.createScopedLogger;

@@ -235,7 +235,7 @@ pub const JumpTable = struct {
     }
 };
 
-/// KECCAK256 operation - computes Keccak-256 hash of a region of memory
+// KECCAK256 operation - computes Keccak-256 hash of a region of memory
 pub fn opKeccak256(pc: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
 
@@ -276,7 +276,7 @@ pub fn opKeccak256(pc: usize, _: *Interpreter, frame: *Frame) ExecutionError![]c
     return "";
 }
 
-/// Helper function to calculate memory size for KECCAK256
+// Helper function to calculate memory size for KECCAK256
 pub fn getKeccak256MemorySize(stack: *const Stack) struct { size: u64, overflow: bool } {
     if (stack.size < 2) {
         return .{ .size = 0, .overflow = false };
@@ -308,8 +308,8 @@ pub fn getKeccak256MemorySize(stack: *const Stack) struct { size: u64, overflow:
     return .{ .size = memory_size, .overflow = false };
 }
 
-/// Helper function to convert bytes to U256Type
-/// This is a simplified version that only uses the least significant 8 bytes
+// Helper function to convert bytes to U256Type
+// This is a simplified version that only uses the least significant 8 bytes
 pub fn bytesToUint256(bytes: [32]u8) U256Type {
     var result: U256Type = 0;
 
@@ -326,7 +326,7 @@ pub fn bytesToUint256(bytes: [32]u8) U256Type {
     return result;
 }
 
-/// Calculate dynamic gas for KECCAK256 operation
+// Calculate dynamic gas for KECCAK256 operation
 pub fn getKeccak256DynamicGas(interpreter: *Interpreter, frame: *Frame) !u64 {
     _ = interpreter;
 

@@ -9,7 +9,7 @@ pub const TestERC721 = @import("oz.zig").TestERC721;
 pub const EnvUrls = @import("transports.zig").EnvUrls;
 pub const getTransports = @import("transports.zig").getTransports;
 
-/// Main test utility package
+// Main test utility package
 pub const Test = struct {
     /// Initialize Test utilities
     pub fn init(allocator: std.mem.Allocator) !void {

@@ -30,7 +30,7 @@ fn addressFromHexString(hex: []const u8) !Address {
     return addr;
 }
 
-/// StateDB is the main state database that tracks account states
+// StateDB is the main state database that tracks account states
 pub const StateDB = struct {
     /// Map of addresses to accounts
     accounts: std.AutoHashMap(Address, *Account),

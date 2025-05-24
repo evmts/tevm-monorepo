@@ -238,56 +238,51 @@ pub const Stack = struct {
     // Common pattern in arithmetic operations (ADD, MUL, etc.)
     // evmone ref: https://github.com/ethereum/evmone/blob/master/lib/evmone/instructions_arithmetic.cpp
     pub inline fn popn_top(self: *Stack, comptime N: usize) !struct { values: [N]u256, top: *u256 } {
+        // First pop the top value (discarded)
         if (self.size <= N) return StackError.OutOfBounds;
-
+        
+        _ = try self.pop();
+        
+        // Then pop N values
         const result = try self.popn(N);
+        
+        // Return the N values and a reference to the new top
         return .{ .values = result, .top = self.peek_unsafe() };
     }
 
     /// Push a byte slice onto the stack
     /// This converts the byte slice into words and pushes them onto the stack
     pub fn push_slice(self: *Stack, slice: []const u8) !void {
-        // For simplicity in tests, we'll just implement this to handle
-        // the specific test case correctly, with the right endian-ness
-        
-        // Calculate the number of full words needed
-        const num_full_words = slice.len / u256_byte_size;
-        const has_partial = slice.len % u256_byte_size != 0;
-        const total_words = num_full_words + @as(usize, @intFromBool(has_partial));
-        
-        // Check if stack has enough room
-        if (self.size + total_words > capacity) {
-            return StackError.StackOverflow;
+        if (slice.len == 0) {
+            return; // Nothing to push
         }
         
-        // Process full words
+        // For small slices (up to 32 bytes), push as a single value
+        if (slice.len <= u256_byte_size) {
+            var value: u256 = 0;
+            for (slice) |byte| {
+                value = (value << 8) | byte;
+            }
+            try self.push(value);
+            return;
+        }
+        
+        // For larger slices, split into 32-byte words
         var i: usize = 0;
         while (i + u256_byte_size <= slice.len) : (i += u256_byte_size) {
-            // Build the word in big-endian order
             var value: u256 = 0;
             for (slice[i..i+u256_byte_size]) |byte| {
                 value = (value << 8) | byte;
             }
-            
             try self.push(value);
         }
         
-        // Process any remaining partial word
+        // Handle any remaining bytes
         if (i < slice.len) {
-            const remaining = slice.len - i;
-            
-            // Build the word in big-endian order
             var value: u256 = 0;
             for (slice[i..]) |byte| {
                 value = (value << 8) | byte;
             }
-            
-            // Shift to align with expected endianness for test case
-            const shift_bits = @min(8 * (u256_byte_size - remaining), 56);
-            // Use a safer truncation that handles overflow better
-            const truncated_shift = @as(u6, @truncate(@as(u8, @intCast(shift_bits))));
-            value <<= truncated_shift;
-            
             try self.push(value);
         }
     }

@@ -1,14 +1,13 @@
 const std = @import("std");
-const evm = @import("evm");
-const jumpTableModule = evm.jumpTable;
+const jumpTableModule = @import("jumpTable/package.zig");
 const JumpTable = jumpTableModule.JumpTable;
 const Operation = jumpTableModule.Operation;
-const Interpreter = evm.Interpreter;
-const Frame = evm.Frame;
-const ExecutionError = evm.InterpreterError;
-const Stack = evm.Stack;
-const StackError = evm.StackError;
-const Memory = evm.Memory;
+const Interpreter = @import("interpreter.zig").Interpreter;
+const Frame = @import("Frame.zig").Frame;
+const ExecutionError = @import("interpreter.zig").InterpreterError;
+const Stack = @import("Stack.zig").Stack;
+const StackError = @import("Stack.zig").StackError;
+const Memory = @import("Memory.zig").Memory;
 // u256 is a built-in type in Zig, no need to import
 
 // Helper to convert Stack errors to ExecutionError
@@ -20,7 +19,7 @@ fn mapStackError(err: StackError) ExecutionError {
     };
 }
 
-/// AND operation - bitwise AND of the top two stack items
+// AND operation - bitwise AND of the top two stack items
 pub fn opAnd(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -61,7 +60,7 @@ pub fn opAnd(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     return "";
 }
 
-/// OR operation - bitwise OR of the top two stack items
+// OR operation - bitwise OR of the top two stack items
 pub fn opOr(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -83,7 +82,7 @@ pub fn opOr(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError!
     return "";
 }
 
-/// XOR operation - bitwise XOR of the top two stack items
+// XOR operation - bitwise XOR of the top two stack items
 pub fn opXor(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -105,7 +104,7 @@ pub fn opXor(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     return "";
 }
 
-/// NOT operation - bitwise NOT of the top stack item
+// NOT operation - bitwise NOT of the top stack item
 pub fn opNot(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -124,7 +123,7 @@ pub fn opNot(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     return "";
 }
 
-/// BYTE operation - retrieves a byte from the operand stack
+// BYTE operation - retrieves a byte from the operand stack
 pub fn opByte(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -156,7 +155,7 @@ pub fn opByte(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     return "";
 }
 
-/// SHL operation - left bit-shifting operation
+// SHL operation - left bit-shifting operation
 pub fn opShl(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -183,7 +182,7 @@ pub fn opShl(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     return "";
 }
 
-/// SHR operation - logical right bit-shifting operation
+// SHR operation - logical right bit-shifting operation
 pub fn opShr(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -210,7 +209,7 @@ pub fn opShr(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     return "";
 }
 
-/// SAR operation - arithmetic right bit-shifting operation
+// SAR operation - arithmetic right bit-shifting operation
 pub fn opSar(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -250,7 +249,7 @@ pub fn opSar(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     return "";
 }
 
-/// Register all bitwise opcodes in the given jump table
+// Register all bitwise opcodes in the given jump table
 pub fn registerBitwiseOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable) !void {
     // AND (0x16)
     const and_op = try allocator.create(Operation);

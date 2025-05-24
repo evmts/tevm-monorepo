@@ -21,7 +21,7 @@ fn addressFromHexString(hex: []const u8) !Address {
     return addr;
 }
 
-/// JournalEntry represents a state change that can be reverted
+// JournalEntry represents a state change that can be reverted
 pub const JournalEntry = union(enum) {
     /// Track a balance change
     BalanceChange: struct {
@@ -94,7 +94,7 @@ pub const JournalEntry = union(enum) {
     Snapshot,
 };
 
-/// Journal maintains a log of state changes that allows reverting to previous states
+// Journal maintains a log of state changes that allows reverting to previous states
 pub const Journal = struct {
     /// List of recorded state changes
     entries: std.ArrayList(JournalEntry),

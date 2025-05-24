@@ -219,13 +219,13 @@ fn createPrecompileAddress(value: u8) Address {
     return addr;
 }
 
-/// Use the PrecompiledContract type defined in common.zig
+// Use the PrecompiledContract type defined in common.zig
 pub const PrecompiledContract = common.PrecompiledContract;
 
-/// PrecompiledContracts is a mapping of addresses to precompiled contracts
+// PrecompiledContracts is a mapping of addresses to precompiled contracts
 pub const PrecompiledContracts = std.AutoHashMap(Address, *const PrecompiledContract);
 
-/// Create and return a map of precompiled contracts for Homestead
+// Create and return a map of precompiled contracts for Homestead
 pub fn homesteadContracts(allocator: std.mem.Allocator) !PrecompiledContracts {
     var contracts = PrecompiledContracts.init(allocator);
     
@@ -246,7 +246,7 @@ pub fn homesteadContracts(allocator: std.mem.Allocator) !PrecompiledContracts {
     return contracts;
 }
 
-/// Create and return a map of precompiled contracts for Byzantium
+// Create and return a map of precompiled contracts for Byzantium
 pub fn byzantiumContracts(allocator: std.mem.Allocator) !PrecompiledContracts {
     var contracts = try homesteadContracts(allocator);
     
@@ -267,7 +267,7 @@ pub fn byzantiumContracts(allocator: std.mem.Allocator) !PrecompiledContracts {
     return contracts;
 }
 
-/// Create and return a map of precompiled contracts for Istanbul
+// Create and return a map of precompiled contracts for Istanbul
 pub fn istanbulContracts(allocator: std.mem.Allocator) !PrecompiledContracts {
     var contracts = try byzantiumContracts(allocator);
     
@@ -284,7 +284,7 @@ pub fn istanbulContracts(allocator: std.mem.Allocator) !PrecompiledContracts {
     return contracts;
 }
 
-/// Create and return a map of precompiled contracts for Berlin
+// Create and return a map of precompiled contracts for Berlin
 pub fn berlinContracts(allocator: std.mem.Allocator) !PrecompiledContracts {
     var contracts = try istanbulContracts(allocator);
     
@@ -296,7 +296,7 @@ pub fn berlinContracts(allocator: std.mem.Allocator) !PrecompiledContracts {
     return contracts;
 }
 
-/// Create and return a map of precompiled contracts for Cancun
+// Create and return a map of precompiled contracts for Cancun
 pub fn cancunContracts(allocator: std.mem.Allocator) !PrecompiledContracts {
     var contracts = try berlinContracts(allocator);
     
@@ -308,7 +308,7 @@ pub fn cancunContracts(allocator: std.mem.Allocator) !PrecompiledContracts {
     return contracts;
 }
 
-/// Create and return a map of precompiled contracts for Prague
+// Create and return a map of precompiled contracts for Prague
 pub fn pragueContracts(allocator: std.mem.Allocator) !PrecompiledContracts {
     var contracts = try cancunContracts(allocator);
     
@@ -338,7 +338,7 @@ pub fn pragueContracts(allocator: std.mem.Allocator) !PrecompiledContracts {
     return contracts;
 }
 
-/// Get precompiled contracts based on chain rules
+// Get precompiled contracts based on chain rules
 pub fn activePrecompiledContracts(allocator: std.mem.Allocator, rules: ChainRules) !PrecompiledContracts {
     if (rules.IsPrague) {
         logger.debug("Using Prague precompiled contracts", .{});
@@ -361,8 +361,8 @@ pub fn activePrecompiledContracts(allocator: std.mem.Allocator, rules: ChainRule
     }
 }
 
-/// Run a precompiled contract
-/// Returns the output bytes and remaining gas, or an error if the execution failed
+// Run a precompiled contract
+// Returns the output bytes and remaining gas, or an error if the execution failed
 pub fn runPrecompiledContract(
     contract: *const PrecompiledContract, 
     input: []const u8, 

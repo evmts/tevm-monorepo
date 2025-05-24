@@ -1,27 +1,27 @@
 const std = @import("std");
 const params = @import("params.zig");
 
-/// Identity (data copy) precompiled contract
+// Identity (data copy) precompiled contract
 pub const DataCopy = PrecompiledContract{
     .requiredGas = dataCopyRequiredGas,
     .run = dataCopyRun,
 };
 
-/// Calculate required gas for the identity (data copy) precompile
-/// Gas cost: 15 + 3 * ((len + 31) / 32)
+// Calculate required gas for the identity (data copy) precompile
+// Gas cost: 15 + 3 * ((len + 31) / 32)
 fn dataCopyRequiredGas(input: []const u8) u64 {
     return (@as(u64, input.len) + 31) / 32 * params.IdentityPerWordGas + params.IdentityBaseGas;
 }
 
-/// Execute the identity (data copy) precompile
-/// Simply returns a copy of the input data
+// Execute the identity (data copy) precompile
+// Simply returns a copy of the input data
 fn dataCopyRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     const output = try allocator.alloc(u8, input.len);
     @memcpy(output, input);
     return output;
 }
 
-/// Helper to extract data from a byte array with bounds checking
+// Helper to extract data from a byte array with bounds checking
 pub fn getData(input: []const u8, offset: usize, length: usize) []const u8 {
     if (offset >= input.len) {
         return &[_]u8{};
@@ -33,7 +33,7 @@ pub fn getData(input: []const u8, offset: usize, length: usize) []const u8 {
     return input[offset..offset+to_copy];
 }
 
-/// Left pad a byte array with zeros to the desired length
+// Left pad a byte array with zeros to the desired length
 pub fn leftPadBytes(allocator: std.mem.Allocator, data: []const u8, length: usize) ![]u8 {
     if (data.len >= length) {
         // If data is already the desired length or longer, just copy the rightmost bytes
@@ -53,7 +53,7 @@ pub fn leftPadBytes(allocator: std.mem.Allocator, data: []const u8, length: usiz
     return result;
 }
 
-/// Right pad a byte array with zeros to the desired length
+// Right pad a byte array with zeros to the desired length
 pub fn rightPadBytes(allocator: std.mem.Allocator, data: []const u8, length: usize) ![]u8 {
     if (data.len >= length) {
         // If data is already the desired length or longer, just copy the leftmost bytes
@@ -72,7 +72,7 @@ pub fn rightPadBytes(allocator: std.mem.Allocator, data: []const u8, length: usi
     return result;
 }
 
-/// Check if a byte array is all zeros
+// Check if a byte array is all zeros
 pub fn allZero(data: []const u8) bool {
     for (data) |b| {
         if (b != 0) {
@@ -82,7 +82,7 @@ pub fn allZero(data: []const u8) bool {
     return true;
 }
 
-/// PrecompiledContract struct definition
+// PrecompiledContract struct definition
 pub const PrecompiledContract = struct {
     /// Calculate required gas for execution
     requiredGas: *const fn (input: []const u8) u64,

@@ -2,10 +2,10 @@ const std = @import("std");
 const testing = std.testing;
 
 // Import B256 from unified Types
-pub const B256 = @import("../../../Types/B256.zig").B256;
+pub const B256 = @import("utils").B256;
 
 // Import Address type
-const Address = @import("../../Address/package.zig").Address;
+const Address = @import("address").Address;
 
 // Define u256 for testing
 
@@ -30,7 +30,7 @@ fn addressFromHexString(hex: []const u8) !Address {
     return addr;
 }
 
-/// StateDB is the main state database that tracks account states
+// StateDB is the main state database that tracks account states
 pub const StateDB = struct {
     /// Map of addresses to accounts
     accounts: std.AutoHashMap(Address, *Account),

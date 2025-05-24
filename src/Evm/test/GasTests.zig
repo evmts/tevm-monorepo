@@ -8,7 +8,7 @@ const interpreter = @import("../interpreter.zig");
 
 const Opcode = opcodes.Opcode;
 
-/// Test gas costs for basic operations
+// Test gas costs for basic operations
 test "basic operation gas costs" {
     var evm_test = try EvmTest.init(testing.allocator);
     defer evm_test.deinit();
@@ -55,7 +55,7 @@ test "basic operation gas costs" {
     }
 }
 
-/// Test gas costs for memory operations
+// Test gas costs for memory operations
 test "memory gas costs" {
     var evm_test = try EvmTest.init(testing.allocator);
     defer evm_test.deinit();
@@ -101,7 +101,7 @@ test "memory gas costs" {
     }
 }
 
-/// Test gas for SSTORE
+// Test gas for SSTORE
 test "storage gas costs" {
     // Note: This test would require a state manager implementation
     // For now, we just check that we calculate gas correctly for the opcodes
@@ -128,7 +128,7 @@ test "storage gas costs" {
     }
 }
 
-/// Test out-of-gas error
+// Test out-of-gas error
 test "out of gas" {
     var evm_test = try EvmTest.init(testing.allocator);
     defer evm_test.deinit();
@@ -160,7 +160,7 @@ test "out of gas" {
     }
 }
 
-/// Test operations with dynamic gas calculation
+// Test operations with dynamic gas calculation
 test "dynamic gas calculation" {
     var evm_test = try EvmTest.init(testing.allocator);
     defer evm_test.deinit();
@@ -187,7 +187,7 @@ test "dynamic gas calculation" {
     }
 }
 
-/// Test gas costs across different revisions
+// Test gas costs across different revisions
 test "gas costs in different revisions" {
     var evm_test = try EvmTest.init(testing.allocator);
     defer evm_test.deinit();

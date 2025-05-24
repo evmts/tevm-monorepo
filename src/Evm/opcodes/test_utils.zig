@@ -14,7 +14,7 @@ pub const JumpTable = pkg.JumpTable;
 
 // Define a constant for the u256 type to ensure consistency across test files
 
-/// Creates a mock contract for testing
+// Creates a mock contract for testing
 pub fn createMockContract(allocator: std.mem.Allocator, code: []const u8) !*Contract {
     const contract = try allocator.create(Contract);
     
@@ -27,7 +27,7 @@ pub fn createMockContract(allocator: std.mem.Allocator, code: []const u8) !*Cont
     return contract;
 }
 
-/// Creates a mock EVM instance
+// Creates a mock EVM instance
 pub fn createMockEvm(allocator: std.mem.Allocator) !*Evm {
     const evm = try allocator.create(Evm);
     
@@ -51,7 +51,7 @@ pub fn createMockEvm(allocator: std.mem.Allocator) !*Evm {
     return evm;
 }
 
-/// Creates a mock interpreter
+// Creates a mock interpreter
 pub fn createMockInterpreter(allocator: std.mem.Allocator, evm: *Evm) !*Interpreter {
     const interpreter = try allocator.create(Interpreter);
     

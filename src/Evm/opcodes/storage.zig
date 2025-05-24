@@ -36,7 +36,7 @@ fn getLogger() EvmLogger {
 }
 // We don't need to define this since u256 is now a built-in type in Zig
 
-/// SLOAD operation - loads a value from storage at the specified key
+// SLOAD operation - loads a value from storage at the specified key
 pub fn opSload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     var scoped = createScopedLogger(getLogger(), "opSload()");
     defer scoped.deinit();
@@ -134,7 +134,7 @@ pub fn opSload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     return "";
 }
 
-/// SSTORE operation - stores a value at the specified key in storage
+// SSTORE operation - stores a value at the specified key in storage
 pub fn opSstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     var scoped = createScopedLogger(getLogger(), "opSstore()");
     defer scoped.deinit();
@@ -331,7 +331,7 @@ pub fn opSstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
 // TODO: Implement transient storage in StateManager first
 // TLOAD and TSTORE operations are commented out until transient storage is implemented
 
-/// Get values from the stack and convert to storage slot
+// Get values from the stack and convert to storage slot
 fn getKeyFromStack(frame: *Frame) !u256 {
     var scoped = createScopedLogger(getLogger(), "getKeyFromStack()");
     defer scoped.deinit();
@@ -348,7 +348,7 @@ fn getKeyFromStack(frame: *Frame) !u256 {
     return key;
 }
 
-/// Convert a 32-byte array to a u256 for storage key/value
+// Convert a 32-byte array to a u256 for storage key/value
 fn bytesTou256(bytes: []const u8) u256 {
     var scoped = createScopedLogger(getLogger(), "bytesTou256()");
     defer scoped.deinit();
@@ -369,7 +369,7 @@ fn bytesTou256(bytes: []const u8) u256 {
     return result;
 }
 
-/// Convert a u256 to a 32-byte array for storage operations
+// Convert a u256 to a 32-byte array for storage operations
 fn u256ToBytes(allocator: std.mem.Allocator, value: u256) ![]u8 {
     var scoped = createScopedLogger(getLogger(), "u256ToBytes()");
     defer scoped.deinit();
@@ -417,7 +417,7 @@ fn u256ToBytes(allocator: std.mem.Allocator, value: u256) ![]u8 {
     return bytes;
 }
 
-/// Register storage opcodes in the jump table
+// Register storage opcodes in the jump table
 pub fn registerStorageOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable) !void {
     // SLOAD (0x54)
     const sload_op = try allocator.create(Operation);

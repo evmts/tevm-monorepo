@@ -20,6 +20,12 @@ The Jump Table is a critical performance optimization used in the Tevm EVM inter
    - `min_stack`/`max_stack`: Stack depth requirements
    - `memory_size`: Optional function for memory expansion calculation
 
+3. **Helper Functions**
+   - `minDupStack(n)`: Calculate minimum stack depth for DUP operations
+   - `maxDupStack(n)`: Calculate maximum stack depth for DUP operations
+   - `minSwapStack(n)`: Calculate minimum stack depth for SWAP operations
+   - `maxSwapStack(n)`: Calculate maximum stack depth for SWAP operations
+
 3. **ExecutionFunc Signature**
    ```zig
    pub const ExecutionFunc = *const fn (pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8;
@@ -31,6 +37,15 @@ The Jump Table is a critical performance optimization used in the Tevm EVM inter
 2. **Inline Functions**: Hot path functions like `getOperation` are marked inline
 3. **Bit Shift Optimizations**: Memory calculations use bit shifts for division by 32
 4. **Overflow Protection**: Built-in Zig math functions catch overflows efficiently
+
+### Gas Constants
+
+The implementation defines comprehensive gas constants for all operations:
+- Basic operations: ADD, MUL, SUB, DIV (3-5 gas)
+- Memory operations: MLOAD, MSTORE (3 gas + memory expansion)
+- Storage operations: SLOAD (2100 cold), SSTORE (variable)
+- Call operations: CALL, DELEGATECALL (variable based on transfers)
+- Create operations: CREATE, CREATE2 (32000 gas base)
 
 ## Hardfork Support
 
@@ -49,13 +64,26 @@ The implementation supports creating hardfork-specific jump tables:
 - **OpNotSupported**: For valid but unimplemented opcodes
 - **OutOfGas**: For gas calculation overflows
 
+During initialization, the implementation logs warnings but continues when certain opcode categories fail to register, allowing for incremental development.
+
 ## Testing
 
+The implementation includes an extensive testing infrastructure with conditional compilation:
+
+```zig
+// Test stubs are imported when in test mode
+const is_test = @import("builtin").is_test;
+const Interpreter = if (is_test) TestInterpreter else @import("../Interpreter.zig").Interpreter;
+```
+
 Comprehensive unit tests cover:
-- Jump table initialization and operation retrieval
+- Jump table initialization for all hardforks
+- Operation retrieval and validation
 - Validation and copying functionality
 - Helper functions (memory gas calculation, stack requirements)
 - Error conditions and edge cases
+- Gas cost constants verification
+- Stack depth calculations for DUP and SWAP operations
 
 ## Comparison with Other Implementations
 
@@ -156,7 +184,7 @@ type JumpTable [256]*operation
 ```zig
 // Create a jump table for the latest hardfork
 var table = try JumpTable.newJumpTable(allocator, "latest");
-defer table.deinit(allocator);
+// Note: JumpTable doesn't have a deinit method - operations are static
 
 // Get operation for ADD opcode (0x01)
 const add_op = table.getOperation(0x01);
@@ -250,3 +278,11 @@ Our Zig implementation combines the best of both approaches:
 - Memory-safe without garbage collection
 - Built-in overflow protection
 - Extensive unit test coverage
+
+### Implementation Insights from REVM Review
+
+The codebase includes observations from reviewing REVM's implementation:
+- REVM uses a HashMap for legacy jump analysis rather than a full jump table
+- It implements gas calculation differently with immediate returns on insufficient gas
+- Stack operations use Rust's Vec for dynamic sizing
+- REVM has optimizations for EOF (Ethereum Object Format) code validation

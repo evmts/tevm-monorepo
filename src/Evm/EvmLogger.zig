@@ -1,11 +1,11 @@
 const std = @import("std");
 const hex = @import("utils").hex;
 
-/// Whether debug logging is enabled
-/// When set to false, all logging functions are compiled away with zero runtime overhead
+// Whether debug logging is enabled
+// When set to false, all logging functions are compiled away with zero runtime overhead
 pub const ENABLE_DEBUG_LOGS = true;
 
-/// Log levels
+// Log levels
 pub const LogLevel = enum {
     debug,
     info,
@@ -13,7 +13,7 @@ pub const LogLevel = enum {
     error_level, // Can't use 'error' as it's a reserved keyword
 };
 
-/// Formatting for log levels
+// Formatting for log levels
 const LevelColor = struct {
     const reset = "\x1b[0m";
     const debug = "\x1b[36m"; // Cyan
@@ -22,7 +22,7 @@ const LevelColor = struct {
     const error_color = "\x1b[31m"; // Red
 };
 
-/// Format string for different log levels
+// Format string for different log levels
 fn levelFormat(comptime level: LogLevel) []const u8 {
     if (comptime !ENABLE_DEBUG_LOGS) {
         return ""; // Will be optimized away entirely when logs are disabled
@@ -36,7 +36,7 @@ fn levelFormat(comptime level: LogLevel) []const u8 {
     };
 }
 
-/// The EvmLogger struct provides comptime debug logging
+// The EvmLogger struct provides comptime debug logging
 pub const EvmLogger = struct {
     /// The tag for this logger instance (typically the module or component name)
     tag: []const u8,
@@ -124,7 +124,7 @@ pub const EvmLogger = struct {
     }
 };
 
-/// Create a logger with file name as the tag
+// Create a logger with file name as the tag
 pub fn createLogger(comptime file_path: []const u8) EvmLogger {
     // Extract file name from path
     comptime var file_name_start: usize = 0;
@@ -143,14 +143,14 @@ pub fn createLogger(comptime file_path: []const u8) EvmLogger {
 // Define a test integer type for internal use
 const TestInt = u32;
 
-/// A debug-only function that is stripped out when debug logs are disabled
+// A debug-only function that is stripped out when debug logs are disabled
 pub fn debugOnly(comptime callback: anytype) void {
     if (comptime ENABLE_DEBUG_LOGS) {
         callback();
     }
 }
 
-/// Logs EVM stack contents for debugging
+// Logs EVM stack contents for debugging
 pub fn logStack(logger: EvmLogger, stack_data: anytype) void {
     if (comptime !ENABLE_DEBUG_LOGS) {
         return; // This entire function will be optimized away at compile time
@@ -166,8 +166,8 @@ pub fn logStack(logger: EvmLogger, stack_data: anytype) void {
     }
 }
 
-/// SLOP (Stack-Log-Output-Projector) provides a compact visual
-/// representation of the stack for easier debugging
+// SLOP (Stack-Log-Output-Projector) provides a compact visual
+// representation of the stack for easier debugging
 pub fn logStackSlop(logger: EvmLogger, stack_data: anytype, op_name: []const u8, pc: usize) void {
     if (comptime !ENABLE_DEBUG_LOGS) {
         return; // This entire function will be optimized away at compile time
@@ -208,7 +208,7 @@ pub fn logStackSlop(logger: EvmLogger, stack_data: anytype, op_name: []const u8,
     }
 }
 
-/// Logs EVM memory contents for debugging
+// Logs EVM memory contents for debugging
 pub fn logMemory(logger: EvmLogger, memory_data: []const u8, max_bytes: usize) void {
     if (comptime !ENABLE_DEBUG_LOGS) {
         return; // This entire function will be optimized away at compile time
@@ -244,7 +244,7 @@ pub fn logMemory(logger: EvmLogger, memory_data: []const u8, max_bytes: usize) v
     }
 }
 
-/// Logs EVM storage contents for debugging
+// Logs EVM storage contents for debugging
 pub fn logStorage(logger: EvmLogger, storage: anytype) void {
     if (comptime !ENABLE_DEBUG_LOGS) {
         return; // This entire function will be optimized away at compile time
@@ -258,7 +258,7 @@ pub fn logStorage(logger: EvmLogger, storage: anytype) void {
     _ = storage; // Suppress unused parameter warning
 }
 
-/// Log storage with specific key-value pairs for debugging
+// Log storage with specific key-value pairs for debugging
 pub fn logStorageKV(logger: EvmLogger, keys: []const u64, values: []const u64) void {
     if (comptime !ENABLE_DEBUG_LOGS) {
         return; // This entire function will be optimized away at compile time
@@ -282,7 +282,7 @@ pub fn logStorageKV(logger: EvmLogger, keys: []const u64, values: []const u64) v
     }
 }
 
-/// Logs opcode execution information
+// Logs opcode execution information
 pub fn logOpcode(logger: EvmLogger, pc: usize, op: u8, op_name: []const u8, gas_cost: u64, gas_left: u64) void {
     if (comptime !ENABLE_DEBUG_LOGS) {
         return; // This entire function will be optimized away at compile time
@@ -292,7 +292,7 @@ pub fn logOpcode(logger: EvmLogger, pc: usize, op: u8, op_name: []const u8, gas_
         .{ pc, op, op_name, gas_cost, gas_left });
 }
 
-/// Logs detailed opcode execution with stack impacts and context
+// Logs detailed opcode execution with stack impacts and context
 pub fn logOpcodeDetailed(logger: EvmLogger, pc: usize, op: u8, op_name: []const u8, 
                          gas_cost: u64, gas_left: u64, 
                          stack_before: anytype, stack_after: anytype,
@@ -345,7 +345,7 @@ pub fn logOpcodeDetailed(logger: EvmLogger, pc: usize, op: u8, op_name: []const 
     }
 }
 
-/// Logs a complete execution step including PC, opcode, gas, stack and memory
+// Logs a complete execution step including PC, opcode, gas, stack and memory
 pub fn logStep(logger: EvmLogger, pc: usize, op: u8, op_name: []const u8, gas_left: u64, 
               stack_data: anytype, memory_data: []const u8) void {
     if (comptime !ENABLE_DEBUG_LOGS) {
@@ -408,7 +408,7 @@ pub fn logStep(logger: EvmLogger, pc: usize, op: u8, op_name: []const u8, gas_le
     logger.debug("╚══════════════════════════════════════════════════════════", .{});
 }
 
-/// Logs hexadecimal representation of bytes
+// Logs hexadecimal representation of bytes
 pub fn logHexBytes(logger: EvmLogger, name: []const u8, bytes: []const u8) void {
     if (comptime !ENABLE_DEBUG_LOGS) {
         return; // This entire function will be optimized away at compile time
@@ -428,7 +428,7 @@ pub fn logHexBytes(logger: EvmLogger, name: []const u8, bytes: []const u8) void 
     logger.debug("{s}: 0x{s}", .{name, hex_str});
 }
 
-/// Create a scoped logger that will log entering/exiting a scope
+// Create a scoped logger that will log entering/exiting a scope
 pub fn createScopedLogger(logger: EvmLogger, scope_name: []const u8) ScopedLogger {
     if (comptime !ENABLE_DEBUG_LOGS) {
         return ScopedLogger{
@@ -445,7 +445,7 @@ pub fn createScopedLogger(logger: EvmLogger, scope_name: []const u8) ScopedLogge
     };
 }
 
-/// A logger that automatically logs when a scope is entered and exited
+// A logger that automatically logs when a scope is entered and exited
 pub const ScopedLogger = struct {
     logger: EvmLogger,
     scope_name: []const u8,

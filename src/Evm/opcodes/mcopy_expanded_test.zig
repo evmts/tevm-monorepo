@@ -17,7 +17,7 @@ const ExecutionError = utils.ExecutionError;
 // Alias for the u256 type from Stack
 const BigInt = Stack.u256;
 
-/// Helper function to create a test environment for MCOPY tests
+// Helper function to create a test environment for MCOPY tests
 fn createTestFrame() !struct {
     frame: *Frame,
     stack: *Stack,
@@ -97,7 +97,7 @@ fn createTestFrame() !struct {
     };
 }
 
-/// Cleanup the test environment
+// Cleanup the test environment
 fn cleanupTestFrame(test_frame: anytype, allocator: std.mem.Allocator) void {
     test_frame.memory.deinit();
     allocator.free(test_frame.stack.data);
@@ -115,7 +115,7 @@ fn cleanupTestFrame(test_frame: anytype, allocator: std.mem.Allocator) void {
     allocator.destroy(test_frame.interpreter);
 }
 
-/// Test basic MCOPY functionality (copy non-overlapping regions)
+// Test basic MCOPY functionality (copy non-overlapping regions)
 test "MCOPY basic non-overlapping copy" {
     const allocator = testing.allocator;
     const test_frame = try createTestFrame();
@@ -146,7 +146,7 @@ test "MCOPY basic non-overlapping copy" {
     }
 }
 
-/// Test MCOPY with overlapping regions (forward copy)
+// Test MCOPY with overlapping regions (forward copy)
 test "MCOPY overlapping regions (forward copy)" {
     const allocator = testing.allocator;
     const test_frame = try createTestFrame();
@@ -180,7 +180,7 @@ test "MCOPY overlapping regions (forward copy)" {
     }
 }
 
-/// Test MCOPY with overlapping regions (backward copy)
+// Test MCOPY with overlapping regions (backward copy)
 test "MCOPY overlapping regions (backward copy)" {
     const allocator = testing.allocator;
     const test_frame = try createTestFrame();
@@ -208,7 +208,7 @@ test "MCOPY overlapping regions (backward copy)" {
     }
 }
 
-/// Test MCOPY with zero length
+// Test MCOPY with zero length
 test "MCOPY zero length" {
     const allocator = testing.allocator;
     const test_frame = try createTestFrame();
@@ -235,7 +235,7 @@ test "MCOPY zero length" {
     try testing.expectEqual(@as(u8, 0), try test_frame.memory.get8(32));
 }
 
-/// Test MCOPY with exact memory size (no expansion)
+// Test MCOPY with exact memory size (no expansion)
 test "MCOPY without memory expansion" {
     const allocator = testing.allocator;
     const test_frame = try createTestFrame();
@@ -269,7 +269,7 @@ test "MCOPY without memory expansion" {
     try testing.expectEqual(initial_size, test_frame.memory.len());
 }
 
-/// Test MCOPY with memory expansion
+// Test MCOPY with memory expansion
 test "MCOPY with memory expansion" {
     const allocator = testing.allocator;
     const test_frame = try createTestFrame();
@@ -304,7 +304,7 @@ test "MCOPY with memory expansion" {
     try testing.expectEqual(@as(u64, 96), test_frame.memory.len()); // 64 + 32 = 96
 }
 
-/// Test MCOPY with large memory region
+// Test MCOPY with large memory region
 test "MCOPY with large memory region" {
     const allocator = testing.allocator;
     const test_frame = try createTestFrame();
@@ -345,8 +345,8 @@ test "MCOPY with large memory region" {
     );
 }
 
-/// Test MCOPY with specific EIP-5656 test vectors
-/// Based on test vectors from the EIP specification
+// Test MCOPY with specific EIP-5656 test vectors
+// Based on test vectors from the EIP specification
 test "MCOPY with EIP-5656 test vectors" {
     const allocator = testing.allocator;
     const test_frame = try createTestFrame();
@@ -401,7 +401,7 @@ test "MCOPY with EIP-5656 test vectors" {
     }
 }
 
-/// Test MCOPY is disabled when EIP-5656 is not active
+// Test MCOPY is disabled when EIP-5656 is not active
 test "MCOPY disabled without EIP-5656" {
     const allocator = testing.allocator;
     const test_frame = try createTestFrame();
@@ -430,7 +430,7 @@ test "MCOPY disabled without EIP-5656" {
     try testing.expectError(ExecutionError.InvalidOpcode, result);
 }
 
-/// Test MCOPY memory size calculation function
+// Test MCOPY memory size calculation function
 test "MCOPY memory size calculation" {
     const allocator = testing.allocator;
     const test_frame = try createTestFrame();
@@ -480,7 +480,7 @@ test "MCOPY memory size calculation" {
     try testing.expect(mem_size4.overflow);
 }
 
-/// Test MCOPY dynamic gas calculation
+// Test MCOPY dynamic gas calculation
 test "MCOPY dynamic gas calculation" {
     const allocator = testing.allocator;
     const test_frame = try createTestFrame();
@@ -527,7 +527,7 @@ test "MCOPY dynamic gas calculation" {
     try testing.expect(gas3 > 4); // Should be more due to memory expansion
 }
 
-/// Test same offset for source and destination (no-op)
+// Test same offset for source and destination (no-op)
 test "MCOPY with same source and destination" {
     const allocator = testing.allocator;
     const test_frame = try createTestFrame();

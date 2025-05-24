@@ -8,15 +8,15 @@ fn getLogger() EvmLogger {
     return createLogger(@src().file);
 }
 
-/// FeeMarket implements the EIP-1559 fee market mechanism
+// FeeMarket implements the EIP-1559 fee market mechanism
 ///
-/// The EIP-1559 fee market introduces a base fee per block that moves
-/// up or down based on how full the previous block was compared to the target.
+// The EIP-1559 fee market introduces a base fee per block that moves
+// up or down based on how full the previous block was compared to the target.
 ///
-/// Key features:
-/// 1. Base fee per block that is burned (not paid to miners)
-/// 2. Priority fee (tip) that goes to miners
-/// 3. Base fee adjustment based on block fullness
+// Key features:
+// 1. Base fee per block that is burned (not paid to miners)
+// 2. Priority fee (tip) that goes to miners
+// 3. Base fee adjustment based on block fullness
 pub const FeeMarket = struct {
     /// Helper function to calculate fee delta safely avoiding overflow and division by zero
     fn calculateFeeDelta(fee: u64, gas_delta: u64, gas_target: u64, denominator: u64) u64 {

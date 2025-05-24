@@ -27,18 +27,18 @@ fn getLogger() EvmLogger {
     return _logger.?;
 }
 
-/// Frame contains the execution state of the EVM interpreter
-/// It represents a single execution frame, similar to geth's ScopeContext
+// Frame contains the execution state of the EVM interpreter
+// It represents a single execution frame, similar to geth's ScopeContext
 ///
-/// The Frame holds all the resources needed for contract execution:
-/// - Stack: data stack for EVM operations
-/// - Memory: the EVM's linear memory space
-/// - Contract: the contract being executed
-/// - Program counter and execution state
-/// - Return data from previous calls
+// The Frame holds all the resources needed for contract execution:
+// - Stack: data stack for EVM operations
+// - Memory: the EVM's linear memory space
+// - Contract: the contract being executed
+// - Program counter and execution state
+// - Return data from previous calls
 ///
-/// Each call or contract execution creates a new Frame, which is destroyed
-/// when execution completes
+// Each call or contract execution creates a new Frame, which is destroyed
+// when execution completes
 pub const Frame = struct {
     // Core execution context
     /// Current operation bytecode being executed
@@ -364,10 +364,10 @@ pub const Frame = struct {
     }
 };
 
-/// Error type for execution errors
+// Error type for execution errors
 ///
-/// These errors represent the various conditions that can halt or
-/// revert execution in the EVM
+// These errors represent the various conditions that can halt or
+// revert execution in the EVM
 pub const ExecutionError = error{
     /// Normal STOP opcode execution - graceful termination
     STOP,
@@ -405,12 +405,12 @@ pub const ExecutionError = error{
     DepthLimit,
 };
 
-/// Get a human-readable description of an execution error
+// Get a human-readable description of an execution error
 ///
-/// Parameters:
-/// - err: The execution error to describe
+// Parameters:
+// - err: The execution error to describe
 ///
-/// Returns: A string describing the error
+// Returns: A string describing the error
 pub fn getErrorDescription(err: ExecutionError) []const u8 {
     return switch (err) {
         ExecutionError.STOP => "Normal STOP opcode execution",
@@ -433,16 +433,16 @@ pub fn getErrorDescription(err: ExecutionError) []const u8 {
     };
 }
 
-/// Constructor for creating a new frame
+// Constructor for creating a new frame
 ///
-/// This is a convenience function that wraps Frame.init()
+// This is a convenience function that wraps Frame.init()
 ///
-/// Parameters:
-/// - allocator: Memory allocator used for memory management
-/// - contract: Pointer to the contract being executed
+// Parameters:
+// - allocator: Memory allocator used for memory management
+// - contract: Pointer to the contract being executed
 ///
-/// Returns: A new Frame instance
-/// Error: May return allocation errors if memory setup fails
+// Returns: A new Frame instance
+// Error: May return allocation errors if memory setup fails
 pub fn createFrame(allocator: std.mem.Allocator, contract: *Contract) !Frame {
     const scoped = createScopedLogger(getLogger(), "createFrame");
     defer scoped.deinit();

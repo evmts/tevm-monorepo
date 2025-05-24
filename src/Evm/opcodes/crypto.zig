@@ -19,7 +19,7 @@ fn mapStackError(err: StackError) ExecutionError {
     };
 }
 
-/// KECCAK256 operation - computes Keccak-256 hash of a region of memory
+// KECCAK256 operation - computes Keccak-256 hash of a region of memory
 pub fn opKeccak256(pc: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
 
@@ -60,7 +60,7 @@ pub fn opKeccak256(pc: usize, _: *Interpreter, frame: *Frame) ExecutionError![]c
     return "";
 }
 
-/// Helper function to calculate memory size for KECCAK256
+// Helper function to calculate memory size for KECCAK256
 pub fn getKeccak256MemorySize(stack: *const Stack) struct { size: u64, overflow: bool } {
     if (stack.size < 2) {
         return .{ .size = 0, .overflow = false };
@@ -92,7 +92,7 @@ pub fn getKeccak256MemorySize(stack: *const Stack) struct { size: u64, overflow:
     return .{ .size = memory_size, .overflow = false };
 }
 
-/// Helper function to convert bytes to u256
+// Helper function to convert bytes to u256
 pub fn bytesToUint256(bytes: [32]u8) u256 {
     var result: u256 = 0;
 
@@ -112,7 +112,7 @@ pub fn bytesToUint256(bytes: [32]u8) u256 {
     return result;
 }
 
-/// Calculate dynamic gas for KECCAK256 operation
+// Calculate dynamic gas for KECCAK256 operation
 pub fn getKeccak256DynamicGas(interpreter: *Interpreter, frame: *Frame) !u64 {
     _ = interpreter;
 
@@ -146,7 +146,7 @@ pub fn getKeccak256DynamicGas(interpreter: *Interpreter, frame: *Frame) !u64 {
     return words * 6;
 }
 
-/// Register cryptographic opcodes in the jump table
+// Register cryptographic opcodes in the jump table
 pub fn registerCryptoOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable) !void {
     // KECCAK256 (0x20)
     const keccak256_op = try allocator.create(Operation);

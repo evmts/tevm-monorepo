@@ -2,7 +2,7 @@ const std = @import("std");
 const testing = std.testing;
 
 // Use package-based imports
-const EvmModule = @import("Evm");
+const EvmModule = @import("evm");
 const Interpreter = EvmModule.Interpreter;
 const Frame = EvmModule.Frame;
 const Contract = EvmModule.Contract;
@@ -27,7 +27,7 @@ fn getLogger() EvmLogger {
 }
 
 const StateManager = @import("StateManager").StateManager;
-const Address = @import("Address").Address;
+const Address = @import("address").Address;
 
 // Helper function to convert hex string to Address
 fn hexToAddress(allocator: std.mem.Allocator, comptime hex_str: []const u8) !Address {
@@ -170,7 +170,7 @@ const MockStateManager = struct {
         return result;
     }
 
-    pub fn putContractStorage(self: *MockStateManager, _: Address, _: B256, _: *const [32]u8) !void {
+    pub fn putContractStorage(self: *MockStateManager, address: Address, key: B256, value: *const [32]u8) !void {
         var scoped = createScopedLogger(getLogger(), "MockStateManager.putContractStorage()");
         defer scoped.deinit();
         
@@ -192,7 +192,7 @@ const MockStateManager = struct {
         getLogger().debug("Storage set operation is a no-op in mock", .{});
     }
 
-    pub fn getAccount(self: *MockStateManager, _: Address) !?struct {
+    pub fn getAccount(self: *MockStateManager, address: Address) !?struct {
         balance: struct { value: u256 },
         codeHash: struct { bytes: [32]u8 },
     } {
@@ -209,7 +209,7 @@ const MockStateManager = struct {
         return null;
     }
 
-    pub fn getContractCode(self: *MockStateManager, _: Address) ![]u8 {
+    pub fn getContractCode(self: *MockStateManager, address: Address) ![]u8 {
         var scoped = createScopedLogger(getLogger(), "MockStateManager.getContractCode()");
         defer scoped.deinit();
         

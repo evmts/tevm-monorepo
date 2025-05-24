@@ -15,43 +15,43 @@ const BLS12381_FIELD_SIZE: usize = 48; // 384 bits
 const BLS12381_G1_POINT_SIZE: usize = 128; // 2 field elements each 64 bytes (padded from 48)
 const BLS12381_G2_POINT_SIZE: usize = 256; // 4 field elements each 64 bytes (padded from 48)
 
-/// BLS12-381 G1 addition precompiled contract
+// BLS12-381 G1 addition precompiled contract
 pub const G1Add = PrecompiledContract{
     .requiredGas = g1AddRequiredGas,
     .run = g1AddRun,
 };
 
-/// BLS12-381 G1 scalar multiplication precompiled contract
+// BLS12-381 G1 scalar multiplication precompiled contract
 pub const G1MultiExp = PrecompiledContract{
     .requiredGas = g1MultiExpRequiredGas,
     .run = g1MultiExpRun,
 };
 
-/// BLS12-381 G2 addition precompiled contract
+// BLS12-381 G2 addition precompiled contract
 pub const G2Add = PrecompiledContract{
     .requiredGas = g2AddRequiredGas,
     .run = g2AddRun,
 };
 
-/// BLS12-381 G2 scalar multiplication precompiled contract
+// BLS12-381 G2 scalar multiplication precompiled contract
 pub const G2MultiExp = PrecompiledContract{
     .requiredGas = g2MultiExpRequiredGas,
     .run = g2MultiExpRun,
 };
 
-/// BLS12-381 pairing check precompiled contract
+// BLS12-381 pairing check precompiled contract
 pub const Pairing = PrecompiledContract{
     .requiredGas = pairingRequiredGas,
     .run = pairingRun,
 };
 
-/// BLS12-381 map to G1 precompiled contract
+// BLS12-381 map to G1 precompiled contract
 pub const MapG1 = PrecompiledContract{
     .requiredGas = mapG1RequiredGas,
     .run = mapG1Run,
 };
 
-/// BLS12-381 map to G2 precompiled contract
+// BLS12-381 map to G2 precompiled contract
 pub const MapG2 = PrecompiledContract{
     .requiredGas = mapG2RequiredGas,
     .run = mapG2Run,
@@ -125,8 +125,8 @@ fn mapG2RequiredGas(input: []const u8) u64 {
 
 // Implementation of execution functions
 
-/// Validates that a BLS12-381 G1 point is correctly encoded and on the curve.
-/// Returns an error if not valid.
+// Validates that a BLS12-381 G1 point is correctly encoded and on the curve.
+// Returns an error if not valid.
 fn validateG1Point(input: []const u8) !void {
     if (input.len != BLS12381_G1_POINT_SIZE) {
         return BLS12381InvalidInputLengthError;
@@ -160,8 +160,8 @@ fn validateG1Point(input: []const u8) !void {
     // TODO: Add subgroup check if required
 }
 
-/// Validates that a BLS12-381 G2 point is correctly encoded and on the curve.
-/// Returns an error if not valid.
+// Validates that a BLS12-381 G2 point is correctly encoded and on the curve.
+// Returns an error if not valid.
 fn validateG2Point(input: []const u8) !void {
     if (input.len != BLS12381_G2_POINT_SIZE) {
         return BLS12381InvalidInputLengthError;
@@ -196,7 +196,7 @@ fn validateG2Point(input: []const u8) !void {
     // TODO: Add subgroup check if required
 }
 
-/// Validates a field element
+// Validates a field element
 fn validateFieldElement(input: []const u8) !void {
     if (input.len != 64) {
         return BLS12381InvalidInputLengthError;
@@ -213,7 +213,7 @@ fn validateFieldElement(input: []const u8) !void {
     // TODO: Check if the element is in the field (less than field modulus)
 }
 
-/// Main implementation of the G1 addition operation
+// Main implementation of the G1 addition operation
 fn g1AddRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     // Implements EIP-2537 G1Add precompile.
     // G1 addition call expects `256` bytes as an input that is interpreted as byte concatenation of two G1 points (`128` bytes each).

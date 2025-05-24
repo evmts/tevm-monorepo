@@ -2,8 +2,8 @@ const std = @import("std");
 const sig_error = @import("error.zig");
 const utils = @import("utils.zig");
 
-/// An Ethereum ECDSA signature.
-/// Represents a signature with r, s components and y_parity boolean.
+// An Ethereum ECDSA signature.
+// Represents a signature with r, s components and y_parity boolean.
 pub const Signature = struct {
     /// Whether the Y coordinate of the curve point is odd
     y_parity: bool,

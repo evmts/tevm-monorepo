@@ -14,11 +14,11 @@ const compiler = @import("compiler");
 // It's commonly used for benchmarking EVM implementations
 // This test compiles the real SnailTracer contract from source
 
-/// Global variable to store compiled bytecode
+// Global variable to store compiled bytecode
 var SNAILTRACER_BYTECODE: []const u8 = undefined;
 var SNAILTRACER_DEPLOYED_BYTECODE: []const u8 = undefined;
 
-/// Compile the SnailTracer contract
+// Compile the SnailTracer contract
 fn compileSnailTracer(allocator: std.mem.Allocator) !void {
     const settings = compiler.CompilerSettings{
         .optimizer_enabled = true,
@@ -65,7 +65,7 @@ fn compileSnailTracer(allocator: std.mem.Allocator) !void {
     return error.SnailTracerNotFound;
 }
 
-/// Convert hex string to bytes
+// Convert hex string to bytes
 fn hexToBytes(allocator: std.mem.Allocator, hex: []const u8) ![]u8 {
     // Skip "0x" prefix if present
     const start: usize = if (hex.len >= 2 and hex[0] == '0' and hex[1] == 'x') 2 else 0;
@@ -86,7 +86,7 @@ fn hexToBytes(allocator: std.mem.Allocator, hex: []const u8) ![]u8 {
     return bytes;
 }
 
-/// SnailTracer benchmark context
+// SnailTracer benchmark context
 const SnailTracerContext = struct {
     allocator: std.mem.Allocator,
     evm: *Evm,
@@ -157,7 +157,7 @@ const SnailTracerContext = struct {
     }
 };
 
-/// zbench benchmark function for SnailTracer
+// zbench benchmark function for SnailTracer
 fn benchmarkSnailTracer(allocator: std.mem.Allocator) void {
     var ctx = SnailTracerContext.init(allocator) catch {
         std.debug.panic("Failed to initialize SnailTracer context", .{});
@@ -185,7 +185,7 @@ test "SnailTracer benchmark with zbench" {
     try bench.run(std.io.getStdOut().writer());
 }
 
-/// Main entry point for running the benchmark
+// Main entry point for running the benchmark
 pub fn main() !void {
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
     defer _ = gpa.deinit();

@@ -12,6 +12,20 @@ These are among the most gas-intensive operations due to state access costs and 
 
 ## Implementation Details
 
+### Module Imports
+
+The implementation uses the package system:
+- `@import("evm")` - Core EVM types and utilities
+- `@import("utils")` - Utility functions
+- `@import("StateManager")` - State management interface
+
+### Logging System
+
+The module includes comprehensive logging:
+```zig
+const log = std.log.scoped(.storage);
+```
+
 ### Key EIPs Implemented
 
 1. **EIP-2929**: Gas cost increases for cold storage access
@@ -34,16 +48,17 @@ pub fn opSload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
 ```
 
 **Execution Flow:**
-1. **Stack Validation**: Ensure at least 1 item on stack
-2. **Key Extraction**: Pop storage key from stack
+1. **Stack Validation**: Ensure at least 1 item on stack (uses `mapStackError` helper)
+2. **Key Extraction**: Pop storage key from stack using `getKeyFromStack`
 3. **Type Conversion**: Convert u256 to B256 format
 4. **State Access**: 
    - Get state manager from EVM
-   - Retrieve contract storage value
+   - Convert contract address to B160 format
+   - Retrieve storage value via `stateManager.getStorage`
 5. **Gas Calculation**:
-   - Assume cold access (TODO: implement warm/cold tracking)
-   - Charge 2100 gas for cold access + 100 for warm read
-6. **Result**: Push value to stack
+   - Currently always charges cold access cost (2100 gas)
+   - TODO: implement warm/cold tracking
+6. **Result**: Convert B256 to u256 and push to stack
 
 **Current Limitations:**
 - Always assumes cold access (no warm/cold tracking yet)
@@ -58,65 +73,73 @@ pub fn opSstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
 **Execution Flow:**
 1. **Read-Only Check**: Fail if in static context
 2. **Stack Validation**: Ensure at least 2 items
-3. **Extract Values**: Pop key and value from stack
-4. **Type Conversion**: Convert u256 values to B256
+3. **Extract Values**: Pop value first, then key (reverse order)
+4. **Type Conversion**: Convert u256 values to B256 using `u256ToBytes`
 5. **State Access**:
    - Get current value from storage
-   - Track original value for gas calculation
-6. **Gas Calculation**:
+   - Track original value using `frame.contract.trackOriginalStorageValue()`
+6. **Gas Calculation (inline, no separate function)**:
    - EIP-2200 implementation for different transitions
    - Handle cold access costs (EIP-2929)
    - Calculate refunds based on value changes
-7. **State Update**: Store new value
-8. **Refund Tracking**: Update EVM refund counter
+7. **State Update**: Store new value via `stateManager.setStorage`
+8. **Refund Tracking**: Update using `frame.contract.addGasRefund()` or `frame.contract.subGasRefund()`
 
-### Gas Calculation Functions
+### Gas Calculation
 
-#### `sstoreDynamicGas`
-Calculates dynamic gas cost based on EIP-2200:
+Gas calculation is performed inline within the `opSstore` function:
 
-```zig
-pub fn sstoreDynamicGas(
-    interpreter: *Interpreter,
-    frame: *Frame,
-    stack: *Stack,
-    memory: *Memory,
-    memorySize: u64
-) ExecutionError!u64
-```
-
-**Gas Rules:**
-- No-op (same value): 100 gas (EIP-2200)
+**Gas Rules (EIP-2200):**
+- No-op (same value): 100 gas for warm read
 - Create slot (0 → non-0): 20,000 gas
 - Clear slot (non-0 → 0): 5,000 gas + refund
 - Modify slot (non-0 → non-0): 5,000 gas
 - Cold access: +2,100 gas (EIP-2929)
 
-**Refund Rules:**
-- Clear slot: 4,800 gas refund (EIP-3529)
-- Restore original: Variable refund based on transitions
+**Refund Rules (EIP-3529):**
+- Clear slot: 4,800 gas refund
+- Restore to original value: 4,900 gas refund (minus previously given refunds)
+- Complex transitions handled to avoid double refunds
 
-## Type Conversions
+**Contract Methods Used:**
+- `trackOriginalStorageValue()` - Records first access
+- `getOriginalStorageValue()` - Retrieves original value
+- `addGasRefund()` - Adds to refund counter
+- `subGasRefund()` - Removes from refund counter
 
-The implementation handles conversions between different type systems:
+## Helper Functions
 
+The implementation includes several helper functions:
+
+### `getKeyFromStack`
 ```zig
-// u256 to B256
-var key_bytes: [32]u8 = undefined;
-var temp = key_u256;
-var i: usize = 31;
-while (i < 32) : (i -%= 1) {
-    key_bytes[i] = @intCast(temp & 0xFF);
-    temp >>= 8;
-    if (i == 0) break;
-}
-
-// B256 to u256
-var value_u256: u256 = 0;
-for (0..32) |j| {
-    value_u256 = (value_u256 << 8) | value.bytes[j];
-}
+fn getKeyFromStack(stack: *Stack) !u256
 ```
+Extracts storage key from stack with error mapping.
+
+### `u256ToBytes`
+```zig
+fn u256ToBytes(value: u256) [32]u8
+```
+Converts u256 to byte array (big-endian).
+
+### `bytesTou256`
+```zig
+fn bytesTou256(bytes: [32]u8) u256
+```
+Converts byte array to u256.
+
+### `mapStackError`
+```zig
+fn mapStackError(err: anyerror) ExecutionError
+```
+Maps Stack errors to ExecutionError types.
+
+### `registerStorageOpcodes`
+```zig
+pub fn registerStorageOpcodes(table: *JumpTable) void
+```
+Registers SLOAD and SSTORE opcodes in the jump table.
 
 ## Comparison with Other Implementations
 
@@ -187,6 +210,13 @@ for (0..32) |j| {
 - Access list tracking
 - Optimized repeated access
 
+#### 4. Transient Storage
+
+**Tevm** (Current):
+- TLOAD and TSTORE opcodes not implemented
+- Marked as TODO in comments
+- Will require EIP-1153 support
+
 ## Performance Considerations
 
 **Current Implementation**:
@@ -215,20 +245,25 @@ The implementation includes test utilities:
    - Warm/cold slot differentiation
    - Proper gas accounting
 
-2. **Performance Optimizations**:
+2. **EIP-1153 Transient Storage**:
+   - Implement TLOAD opcode
+   - Implement TSTORE opcode
+   - Add transient storage to StateManager
+
+3. **Performance Optimizations**:
    - Reduce type conversions
    - Inline hot paths
    - Cache recent storage accesses
 
-3. **Advanced Features**:
-   - Transient storage (EIP-1153)
-   - Storage proofs
-   - Witness generation
-
 4. **Better Integration**:
-   - Unified type system
+   - Unified type system across components
    - Optimized state manager API
    - Batch operations support
+
+5. **Testing**:
+   - Complete test suite (currently placeholder)
+   - Gas cost verification
+   - Edge case coverage
 
 ## Conclusion
 

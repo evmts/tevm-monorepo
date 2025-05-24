@@ -165,10 +165,10 @@ fn getLogger() EvmLogger {
     return _logger.?;
 }
 
-/// BlockWithdrawalProcessor processes withdrawals in a block according to EIP-4895
+// BlockWithdrawalProcessor processes withdrawals in a block according to EIP-4895
 ///
-/// This module acts as an integration point between the blockchain and EVM,
-/// handling the withdrawal processing according to the chain rules and block data.
+// This module acts as an integration point between the blockchain and EVM,
+// handling the withdrawal processing according to the chain rules and block data.
 pub const BlockWithdrawalProcessor = struct {
     state_manager: *StateManager,
     chainRules: ChainRules,
@@ -266,9 +266,9 @@ pub const BlockWithdrawalProcessor = struct {
     }
 };
 
-/// Block represents a simplified version of a block with withdrawals
+// Block represents a simplified version of a block with withdrawals
 ///
-/// This is a simplified structure for demonstration purposes
+// This is a simplified structure for demonstration purposes
 pub const Block = struct {
     withdrawals: []const WithdrawalData,
     withdrawals_root: []const u8,

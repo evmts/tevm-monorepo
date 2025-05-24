@@ -11,7 +11,7 @@ pub const KECCAK_EMPTY = B256{ .bytes = [_]u8{0} ** 32 };
 
 pub const BytecodeDecodeError = error{InvalidFormat};
 
-/// Legacy raw bytecode wrapper
+// Legacy raw bytecode wrapper
 pub const LegacyRawBytecode = struct {
     raw: Bytes,
     pub fn intoAnalyzed(self: LegacyRawBytecode) LegacyAnalyzedBytecode {
@@ -19,7 +19,7 @@ pub const LegacyRawBytecode = struct {
     }
 };
 
-/// Legacy bytecode with jump table analysis
+// Legacy bytecode with jump table analysis
 pub const LegacyAnalyzedBytecode = struct {
     raw_bytes: Bytes = &[_]u8{},
     
@@ -52,12 +52,12 @@ pub const LegacyAnalyzedBytecode = struct {
     }
 };
 
-/// Jump table for legacy bytecode
+// Jump table for legacy bytecode
 pub const JumpTable = struct {
     // stub
 };
 
-/// EIP-3541 validation for contract bytecode
+// EIP-3541 validation for contract bytecode
 pub const BytecodeValidator = struct {
     /// Checks for bytecode validity in accordance with EIP-3541
     /// which rejects new contracts starting with the 0xEF byte
@@ -67,7 +67,7 @@ pub const BytecodeValidator = struct {
     }
 };
 
-/// Main bytecode enum with all supported variants
+// Main bytecode enum with all supported variants
 pub const Bytecode = union(enum) {
     LegacyAnalyzed: LegacyAnalyzedBytecode,
     Eip7702:        Evm.eip7702.Eip7702Bytecode,
@@ -178,7 +178,7 @@ pub const Bytecode = union(enum) {
     }
 };
 
-/// Iterator over opcodes (skips immediates)
+// Iterator over opcodes (skips immediates)
 pub const BytecodeIterator = struct {
     bytecode: *const Bytecode,
     position: usize = 0,

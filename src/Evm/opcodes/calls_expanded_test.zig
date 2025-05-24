@@ -2,7 +2,7 @@ const std = @import("std");
 const testing = std.testing;
 
 // Import from the main Evm module
-const EvmModule = @import("Evm");
+const EvmModule = @import("evm");
 const Interpreter = EvmModule.Interpreter;
 const Frame = EvmModule.Frame;
 const ExecutionError = EvmModule.InterpreterError;
@@ -17,14 +17,14 @@ const Account = EvmModule.Account;
 const EvmLogger = EvmModule.EvmLogger;
 
 // Import Address from the Address module
-const AddressModule = @import("Address");
+const AddressModule = @import("address");
 const Address = AddressModule.Address;
 const createAddress = AddressModule.createAddress;
 
 // Use Zig's built-in u256 type
 const u256_native = u256;
 
-/// Converts a hex string to an Address type
+// Converts a hex string to an Address type
 fn hexToAddress(allocator: std.mem.Allocator, comptime hex_str: []const u8) !Address {
     _ = allocator;
     if (!std.mem.startsWith(u8, hex_str, "0x") or hex_str.len != 42) {
@@ -35,7 +35,7 @@ fn hexToAddress(allocator: std.mem.Allocator, comptime hex_str: []const u8) !Add
     return addr;
 }
 
-/// Creates a hex string from an address for debugging
+// Creates a hex string from an address for debugging
 fn addressToHex(addr: Address) ![42]u8 {
     var result: [42]u8 = undefined;
     _ = try std.fmt.bufPrint(result[0..2], "0x", .{});
@@ -43,7 +43,7 @@ fn addressToHex(addr: Address) ![42]u8 {
     return result;
 }
 
-/// Mock State Manager for testing
+// Mock State Manager for testing
 const MockStateManager = struct {
     const Self = @This();
     
@@ -52,7 +52,7 @@ const MockStateManager = struct {
     logger: ?EvmLogger,
     
     pub fn init(allocator: std.mem.Allocator) !*Self {
-        var self = try allocator.create(Self);
+        const self = try allocator.create(Self);
         self.* = .{
             .allocator = allocator,
             .accounts = std.StringHashMap(Account).init(allocator),
@@ -120,8 +120,8 @@ const MockStateManager = struct {
     }
 };
 
-/// Enhanced setup function for interpreter with state manager
-fn setupInterpreterWithState(allocator: std.testing.AllocatorType.e) !struct { interpreter: *Interpreter, state: *MockStateManager } {
+// Enhanced setup function for interpreter with state manager
+fn setupInterpreterWithState(allocator: std.mem.Allocator) !struct { interpreter: *Interpreter, state: *MockStateManager } {
     var state_manager = try MockStateManager.init(allocator);
     errdefer state_manager.deinit();
     
@@ -137,7 +137,7 @@ fn setupInterpreterWithState(allocator: std.testing.AllocatorType.e) !struct { i
     };
 }
 
-/// Sets up a contract with the given code
+// Sets up a contract with the given code
 fn setupContract(allocator: std.mem.Allocator, code_slice: []const u8) !Contract {
     var contract_instance = createContract(
         try hexToAddress(allocator, "0x0000000000000000000000000000000000000001"),
@@ -149,14 +149,14 @@ fn setupContract(allocator: std.mem.Allocator, code_slice: []const u8) !Contract
     return contract_instance;
 }
 
-/// Sets up a frame for running the contract
+// Sets up a frame for running the contract
 fn setupFrameForContract(interpreter: *Interpreter, allocator: std.mem.Allocator, contract: *Contract) !*Frame {
     _ = interpreter;
     const frame_instance = try Frame.init(allocator, contract);
     return frame_instance;
 }
 
-/// Helper for setting up a simple target contract for calls
+// Helper for setting up a simple target contract for calls
 fn setupTargetContract(state: *MockStateManager, address: Address, code: []const u8, balance: u256_native) !void {
     try state.setCode(address, code);
     try state.setBalance(address, balance);
@@ -166,7 +166,7 @@ fn setupTargetContract(state: *MockStateManager, address: Address, code: []const
 
 // ===== CALL OPCODE (0xF1) TESTS =====
 
-/// Test CALL with insufficient stack items
+// Test CALL with insufficient stack items
 test "CALL with insufficient stack" {
     const allocator = testing.allocator;
     const setup = try setupInterpreterWithState(allocator);
@@ -191,7 +191,7 @@ test "CALL with insufficient stack" {
     try testing.expectError(ExecutionError.StackUnderflow, result);
 }
 
-/// Test basic CALL functionality with a target contract
+// Test basic CALL functionality with a target contract
 test "CALL basic operation" {
     const allocator = testing.allocator;
     const setup = try setupInterpreterWithState(allocator);
@@ -239,7 +239,7 @@ test "CALL basic operation" {
     try testing.expect(interpreter.returnData != null);
 }
 
-/// Test CALL with value transfer
+// Test CALL with value transfer
 test "CALL with value transfer" {
     const allocator = testing.allocator;
     const setup = try setupInterpreterWithState(allocator);
@@ -292,7 +292,7 @@ test "CALL with value transfer" {
     try testing.expectEqual(@as(u256_native, 1), success);
 }
 
-/// Test CALL with value in a static context (should fail)
+// Test CALL with value in a static context (should fail)
 test "CALL with value in static context" {
     const allocator = testing.allocator;
     const setup = try setupInterpreterWithState(allocator);
@@ -326,7 +326,7 @@ test "CALL with value in static context" {
     try testing.expectError(ExecutionError.StaticStateChange, result);
 }
 
-/// Test CALL with maximum call depth
+// Test CALL with maximum call depth
 test "CALL with max call depth" {
     const allocator = testing.allocator;
     const setup = try setupInterpreterWithState(allocator);
@@ -364,7 +364,7 @@ test "CALL with max call depth" {
     try testing.expectEqual(@as(u256_native, 0), success);
 }
 
-/// Test CALL with insufficient gas
+// Test CALL with insufficient gas
 test "CALL with insufficient gas" {
     const allocator = testing.allocator;
     const setup = try setupInterpreterWithState(allocator);
@@ -400,7 +400,7 @@ test "CALL with insufficient gas" {
     try testing.expectEqual(@as(u256_native, 0), success);
 }
 
-/// Test CALL with memory expansion
+// Test CALL with memory expansion
 test "CALL with memory expansion" {
     const allocator = testing.allocator;
     const setup = try setupInterpreterWithState(allocator);
@@ -437,7 +437,7 @@ test "CALL with memory expansion" {
 
 // ===== CALLCODE OPCODE (0xF2) TESTS =====
 
-/// Test CALLCODE basic function
+// Test CALLCODE basic function
 test "CALLCODE basic operation" {
     const allocator = testing.allocator;
     const setup = try setupInterpreterWithState(allocator);
@@ -480,7 +480,7 @@ test "CALLCODE basic operation" {
     try testing.expect(interpreter.returnData != null);
 }
 
-/// Test CALLCODE context preservation
+// Test CALLCODE context preservation
 test "CALLCODE preserves caller context" {
     const allocator = testing.allocator;
     const setup = try setupInterpreterWithState(allocator);
@@ -526,7 +526,7 @@ test "CALLCODE preserves caller context" {
 
 // ===== DELEGATECALL OPCODE (0xF4) TESTS =====
 
-/// Test DELEGATECALL basic function
+// Test DELEGATECALL basic function
 test "DELEGATECALL basic operation" {
     const allocator = testing.allocator;
     const setup = try setupInterpreterWithState(allocator);
@@ -568,7 +568,7 @@ test "DELEGATECALL basic operation" {
     try testing.expect(interpreter.returnData != null);
 }
 
-/// Test DELEGATECALL with insufficient stack
+// Test DELEGATECALL with insufficient stack
 test "DELEGATECALL with insufficient stack" {
     const allocator = testing.allocator;
     const setup = try setupInterpreterWithState(allocator);
@@ -594,7 +594,7 @@ test "DELEGATECALL with insufficient stack" {
 
 // ===== STATICCALL OPCODE (0xFA) TESTS =====
 
-/// Test STATICCALL basic function
+// Test STATICCALL basic function
 test "STATICCALL basic operation" {
     const allocator = testing.allocator;
     const setup = try setupInterpreterWithState(allocator);
@@ -636,7 +636,7 @@ test "STATICCALL basic operation" {
     try testing.expect(interpreter.returnData != null);
 }
 
-/// Test STATICCALL enforces static context
+// Test STATICCALL enforces static context
 test "STATICCALL enforces static context" {
     const allocator = testing.allocator;
     const setup = try setupInterpreterWithState(allocator);
@@ -678,7 +678,7 @@ test "STATICCALL enforces static context" {
 
 // ===== CREATE OPCODE (0xF0) TESTS =====
 
-/// Test CREATE basic functionality
+// Test CREATE basic functionality
 test "CREATE basic operation" {
     const allocator = testing.allocator;
     const setup = try setupInterpreterWithState(allocator);
@@ -717,7 +717,7 @@ test "CREATE basic operation" {
     try testing.expect(new_addr != 0);
 }
 
-/// Test CREATE with value
+// Test CREATE with value
 test "CREATE with value transfer" {
     const allocator = testing.allocator;
     const setup = try setupInterpreterWithState(allocator);
@@ -758,7 +758,7 @@ test "CREATE with value transfer" {
     // but our mock StateManager doesn't implement this
 }
 
-/// Test CREATE in static context (should fail)
+// Test CREATE in static context (should fail)
 test "CREATE in static context" {
     const allocator = testing.allocator;
     const setup = try setupInterpreterWithState(allocator);
@@ -793,7 +793,7 @@ test "CREATE in static context" {
 
 // ===== CREATE2 OPCODE (0xF5) TESTS =====
 
-/// Test CREATE2 basic functionality
+// Test CREATE2 basic functionality
 test "CREATE2 basic operation" {
     const allocator = testing.allocator;
     const setup = try setupInterpreterWithState(allocator);
@@ -832,7 +832,7 @@ test "CREATE2 basic operation" {
     try testing.expect(new_addr != 0);
 }
 
-/// Test CREATE2 address determinism
+// Test CREATE2 address determinism
 test "CREATE2 address determinism" {
     const allocator = testing.allocator;
     const setup = try setupInterpreterWithState(allocator);
@@ -888,7 +888,7 @@ test "CREATE2 address determinism" {
 
 // ===== ADVANCED TEST CASES =====
 
-/// Test nested calls and call depth tracking
+// Test nested calls and call depth tracking
 test "Nested calls with depth tracking" {
     const allocator = testing.allocator;
     const setup = try setupInterpreterWithState(allocator);
@@ -946,7 +946,7 @@ test "Nested calls with depth tracking" {
     try testing.expectEqual(@as(u256_native, 0), success2);
 }
 
-/// Test return data handling between calls
+// Test return data handling between calls
 test "Return data handling" {
     const allocator = testing.allocator;
     const setup = try setupInterpreterWithState(allocator);
@@ -994,7 +994,7 @@ test "Return data handling" {
     }
 }
 
-/// Test gas calculations for calls
+// Test gas calculations for calls
 test "Call gas calculations" {
     const allocator = testing.allocator;
     const setup = try setupInterpreterWithState(allocator);
@@ -1034,7 +1034,7 @@ test "Call gas calculations" {
     try testing.expect(initial_gas - frame.gas >= 1000);
 }
 
-/// Test CALL and memory interaction
+// Test CALL and memory interaction
 test "Call with memory interaction" {
     const allocator = testing.allocator;
     const setup = try setupInterpreterWithState(allocator);

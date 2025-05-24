@@ -19,7 +19,7 @@ fn mapStackError(err: StackError) ExecutionError {
     };
 }
 
-/// MLOAD operation - loads word from memory at the specified offset
+// MLOAD operation - loads word from memory at the specified offset
 pub fn opMload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -65,7 +65,7 @@ pub fn opMload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     return "";
 }
 
-/// MSTORE operation - stores word to memory at the specified offset
+// MSTORE operation - stores word to memory at the specified offset
 pub fn opMstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -113,7 +113,7 @@ pub fn opMstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     return "";
 }
 
-/// MSTORE8 operation - stores a single byte to memory at the specified offset
+// MSTORE8 operation - stores a single byte to memory at the specified offset
 pub fn opMstore8(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -150,7 +150,7 @@ pub fn opMstore8(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
     return "";
 }
 
-/// MSIZE operation - pushes the size of memory in bytes onto the stack
+// MSIZE operation - pushes the size of memory in bytes onto the stack
 pub fn opMsize(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -162,7 +162,7 @@ pub fn opMsize(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     return "";
 }
 
-/// POP operation - removes the top item from the stack
+// POP operation - removes the top item from the stack
 pub fn opPop(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -179,7 +179,7 @@ pub fn opPop(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
 }
 
 
-/// DUP1 opcode - duplicates the 1st stack item
+// DUP1 opcode - duplicates the 1st stack item
 pub fn opDup1(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -188,7 +188,7 @@ pub fn opDup1(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     return "";
 }
 
-/// DUP2 opcode - duplicates the 2nd stack item
+// DUP2 opcode - duplicates the 2nd stack item
 pub fn opDup2(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -197,7 +197,7 @@ pub fn opDup2(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     return "";
 }
 
-/// DUP3 opcode - duplicates the 3rd stack item
+// DUP3 opcode - duplicates the 3rd stack item
 pub fn opDup3(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -206,7 +206,7 @@ pub fn opDup3(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     return "";
 }
 
-/// DUP4 opcode - duplicates the 4th stack item
+// DUP4 opcode - duplicates the 4th stack item
 pub fn opDup4(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -215,7 +215,7 @@ pub fn opDup4(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     return "";
 }
 
-/// DUP5 opcode - duplicates the 5th stack item
+// DUP5 opcode - duplicates the 5th stack item
 pub fn opDup5(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -224,7 +224,7 @@ pub fn opDup5(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     return "";
 }
 
-/// DUP6 opcode - duplicates the 6th stack item
+// DUP6 opcode - duplicates the 6th stack item
 pub fn opDup6(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -233,7 +233,7 @@ pub fn opDup6(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     return "";
 }
 
-/// DUP7 opcode - duplicates the 7th stack item
+// DUP7 opcode - duplicates the 7th stack item
 pub fn opDup7(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -242,7 +242,7 @@ pub fn opDup7(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     return "";
 }
 
-/// DUP8 opcode - duplicates the 8th stack item
+// DUP8 opcode - duplicates the 8th stack item
 pub fn opDup8(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -251,7 +251,7 @@ pub fn opDup8(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     return "";
 }
 
-/// DUP9 opcode - duplicates the 9th stack item
+// DUP9 opcode - duplicates the 9th stack item
 pub fn opDup9(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -260,7 +260,7 @@ pub fn opDup9(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     return "";
 }
 
-/// DUP10 opcode - duplicates the 10th stack item
+// DUP10 opcode - duplicates the 10th stack item
 pub fn opDup10(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -269,7 +269,7 @@ pub fn opDup10(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     return "";
 }
 
-/// DUP11 opcode - duplicates the 11th stack item
+// DUP11 opcode - duplicates the 11th stack item
 pub fn opDup11(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -278,7 +278,7 @@ pub fn opDup11(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     return "";
 }
 
-/// DUP12 opcode - duplicates the 12th stack item
+// DUP12 opcode - duplicates the 12th stack item
 pub fn opDup12(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -287,7 +287,7 @@ pub fn opDup12(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     return "";
 }
 
-/// DUP13 opcode - duplicates the 13th stack item
+// DUP13 opcode - duplicates the 13th stack item
 pub fn opDup13(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -296,7 +296,7 @@ pub fn opDup13(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     return "";
 }
 
-/// DUP14 opcode - duplicates the 14th stack item
+// DUP14 opcode - duplicates the 14th stack item
 pub fn opDup14(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -305,7 +305,7 @@ pub fn opDup14(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     return "";
 }
 
-/// DUP15 opcode - duplicates the 15th stack item
+// DUP15 opcode - duplicates the 15th stack item
 pub fn opDup15(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -314,7 +314,7 @@ pub fn opDup15(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     return "";
 }
 
-/// DUP16 opcode - duplicates the 16th stack item
+// DUP16 opcode - duplicates the 16th stack item
 pub fn opDup16(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -323,7 +323,7 @@ pub fn opDup16(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     return "";
 }
 
-/// SWAP1 opcode - swaps the 1st and 2nd stack items
+// SWAP1 opcode - swaps the 1st and 2nd stack items
 pub fn opSwap1(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -332,7 +332,7 @@ pub fn opSwap1(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     return "";
 }
 
-/// SWAP2 opcode - swaps the 1st and 3rd stack items
+// SWAP2 opcode - swaps the 1st and 3rd stack items
 pub fn opSwap2(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -341,7 +341,7 @@ pub fn opSwap2(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     return "";
 }
 
-/// SWAP3 opcode - swaps the 1st and 4th stack items
+// SWAP3 opcode - swaps the 1st and 4th stack items
 pub fn opSwap3(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -350,7 +350,7 @@ pub fn opSwap3(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     return "";
 }
 
-/// SWAP4 opcode - swaps the 1st and 5th stack items
+// SWAP4 opcode - swaps the 1st and 5th stack items
 pub fn opSwap4(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -359,7 +359,7 @@ pub fn opSwap4(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     return "";
 }
 
-/// SWAP5 opcode - swaps the 1st and 6th stack items
+// SWAP5 opcode - swaps the 1st and 6th stack items
 pub fn opSwap5(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -368,7 +368,7 @@ pub fn opSwap5(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     return "";
 }
 
-/// SWAP6 opcode - swaps the 1st and 7th stack items
+// SWAP6 opcode - swaps the 1st and 7th stack items
 pub fn opSwap6(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -377,7 +377,7 @@ pub fn opSwap6(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     return "";
 }
 
-/// SWAP7 opcode - swaps the 1st and 8th stack items
+// SWAP7 opcode - swaps the 1st and 8th stack items
 pub fn opSwap7(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -386,7 +386,7 @@ pub fn opSwap7(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     return "";
 }
 
-/// SWAP8 opcode - swaps the 1st and 9th stack items
+// SWAP8 opcode - swaps the 1st and 9th stack items
 pub fn opSwap8(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -395,7 +395,7 @@ pub fn opSwap8(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     return "";
 }
 
-/// SWAP9 opcode - swaps the 1st and 10th stack items
+// SWAP9 opcode - swaps the 1st and 10th stack items
 pub fn opSwap9(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -404,7 +404,7 @@ pub fn opSwap9(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     return "";
 }
 
-/// SWAP10 opcode - swaps the 1st and 11th stack items
+// SWAP10 opcode - swaps the 1st and 11th stack items
 pub fn opSwap10(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -413,7 +413,7 @@ pub fn opSwap10(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     return "";
 }
 
-/// SWAP11 opcode - swaps the 1st and 12th stack items
+// SWAP11 opcode - swaps the 1st and 12th stack items
 pub fn opSwap11(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -422,7 +422,7 @@ pub fn opSwap11(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     return "";
 }
 
-/// SWAP12 opcode - swaps the 1st and 13th stack items
+// SWAP12 opcode - swaps the 1st and 13th stack items
 pub fn opSwap12(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -431,7 +431,7 @@ pub fn opSwap12(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     return "";
 }
 
-/// SWAP13 opcode - swaps the 1st and 14th stack items
+// SWAP13 opcode - swaps the 1st and 14th stack items
 pub fn opSwap13(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -440,7 +440,7 @@ pub fn opSwap13(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     return "";
 }
 
-/// SWAP14 opcode - swaps the 1st and 15th stack items
+// SWAP14 opcode - swaps the 1st and 15th stack items
 pub fn opSwap14(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -449,7 +449,7 @@ pub fn opSwap14(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     return "";
 }
 
-/// SWAP15 opcode - swaps the 1st and 16th stack items
+// SWAP15 opcode - swaps the 1st and 16th stack items
 pub fn opSwap15(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -458,7 +458,7 @@ pub fn opSwap15(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     return "";
 }
 
-/// SWAP16 opcode - swaps the 1st and 17th stack items
+// SWAP16 opcode - swaps the 1st and 17th stack items
 pub fn opSwap16(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -467,7 +467,7 @@ pub fn opSwap16(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     return "";
 }
 
-/// Helper function to calcuate memory size needed for a memory operation
+// Helper function to calcuate memory size needed for a memory operation
 fn calcMemSize(offset: u256, size: u256) u64 {
     // If size is zero, no memory expansion needed
     if (size == 0) {
@@ -482,10 +482,10 @@ fn calcMemSize(offset: u256, size: u256) u64 {
     return offset_u64 +| size_u64;
 }
 
-/// Helper function to calculate the gas cost for memory expansion
-/// This implements the memory gas cost formula from the Ethereum yellow paper:
-/// Cost = 3 * words + 3 * words^2 / 512
-/// where words = ceil(size / 32)
+// Helper function to calculate the gas cost for memory expansion
+// This implements the memory gas cost formula from the Ethereum yellow paper:
+// Cost = 3 * words + 3 * words^2 / 512
+// where words = ceil(size / 32)
 pub fn memoryGasCost(oldSize: u64, newSize: u64) u64 {
     // If no expansion, no additional gas cost
     if (newSize <= oldSize) {
@@ -505,7 +505,7 @@ pub fn memoryGasCost(oldSize: u64, newSize: u64) u64 {
     return newCost - oldCost;
 }
 
-/// Memory gas function used for calculating dynamic gas costs for memory operations
+// Memory gas function used for calculating dynamic gas costs for memory operations
 pub fn memoryGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64 {
     _ = interpreter;
     _ = stack;
@@ -530,7 +530,7 @@ pub fn memoryGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory
     return memoryGasCost(oldSize, requested_size);
 }
 
-/// Memory size function for MLOAD - calculates memory expansion size
+// Memory size function for MLOAD - calculates memory expansion size
 pub fn mloadMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     if (stack.size == 0) return .{ .size = 0, .overflow = false };
     
@@ -546,7 +546,7 @@ pub fn mloadMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     return .{ .size = offset_u64 + 32, .overflow = false };
 }
 
-/// Memory size function for MSTORE - calculates memory expansion size
+// Memory size function for MSTORE - calculates memory expansion size
 pub fn mstoreMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     if (stack.size < 2) return .{ .size = 0, .overflow = false };
     
@@ -562,7 +562,7 @@ pub fn mstoreMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     return .{ .size = offset_u64 + 32, .overflow = false };
 }
 
-/// Memory size function for MSTORE8 - calculates memory expansion size
+// Memory size function for MSTORE8 - calculates memory expansion size
 pub fn mstore8MemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     if (stack.size < 2) return .{ .size = 0, .overflow = false };
     
@@ -578,7 +578,7 @@ pub fn mstore8MemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     return .{ .size = offset_u64 + 1, .overflow = false };
 }
 
-/// Register memory opcodes in the jump table
+// Register memory opcodes in the jump table
 pub fn registerMemoryOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable) !void {
     // MLOAD (0x51)
     const mload_op = try allocator.create(Operation);

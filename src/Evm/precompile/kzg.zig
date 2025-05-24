@@ -3,7 +3,7 @@ const common = @import("common.zig");
 const params = @import("params.zig");
 const PrecompiledContract = common.PrecompiledContract;
 
-/// KZG point evaluation precompiled contract
+// KZG point evaluation precompiled contract
 pub const PointEvaluation = PrecompiledContract{
     .requiredGas = pointEvaluationRequiredGas,
     .run = pointEvaluationRun,

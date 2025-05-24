@@ -7,7 +7,7 @@ const B256 = @import("../../Types/B256.ts").B256;
 
 // Define u256 type for modexp operations
 
-/// Enum representing the different precompiled contract addresses
+// Enum representing the different precompiled contract addresses
 pub const PrecompiledContract = enum(u8) {
     ECRECOVER = 1,
     SHA256 = 2,
@@ -88,7 +88,7 @@ pub const PrecompiledContract = enum(u8) {
     }
 };
 
-/// ECRECOVER: Recovers public key associated with the signature of the data
+// ECRECOVER: Recovers public key associated with the signature of the data
 fn ecRecover(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     // ECRECOVER expects:
     // - hash: 32 bytes (message hash)
@@ -111,7 +111,7 @@ fn ecRecover(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     return result;
 }
 
-/// SHA256: Computes the SHA-256 hash of the input
+// SHA256: Computes the SHA-256 hash of the input
 fn sha256(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     // Allocate the result buffer
     const result = try allocator.alloc(u8, 32);
@@ -129,7 +129,7 @@ fn sha256(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     return result;
 }
 
-/// RIPEMD160: Computes the RIPEMD-160 hash of the input
+// RIPEMD160: Computes the RIPEMD-160 hash of the input
 fn ripemd160(_: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     // A full Zig implementation would use a RIPEMD-160 library
     // Since Zig standard library doesn't include RIPEMD-160,
@@ -151,7 +151,7 @@ fn ripemd160(_: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     return result;
 }
 
-/// IDENTITY: Returns the input data
+// IDENTITY: Returns the input data
 fn identity(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     // For empty input, return empty slice
     if (input.len == 0) {
@@ -172,7 +172,7 @@ fn identity(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     return result;
 }
 
-/// MODEXP: Arbitrary precision modular exponentiation
+// MODEXP: Arbitrary precision modular exponentiation
 fn modexp(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     if (input.len < 96) {
         // Input too short, return empty
@@ -220,7 +220,7 @@ fn modexp(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     return result;
 }
 
-/// Calculate the gas cost for MODEXP (EIP-198)
+// Calculate the gas cost for MODEXP (EIP-198)
 fn modexpGasCost(input: []const u8) u64 {
     if (input.len < 96) {
         return 0; // Invalid input
@@ -265,7 +265,7 @@ fn modexpGasCost(input: []const u8) u64 {
     return gas;
 }
 
-/// BN256ADD: Elliptic curve addition on bn256 curve
+// BN256ADD: Elliptic curve addition on bn256 curve
 fn bn256Add(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     // BN256 points are represented as 64-byte values (32 bytes for X, 32 bytes for Y)
     if (input.len != 128) {
@@ -282,7 +282,7 @@ fn bn256Add(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     return result;
 }
 
-/// BN256MUL: Elliptic curve scalar multiplication on bn256 curve
+// BN256MUL: Elliptic curve scalar multiplication on bn256 curve
 fn bn256Mul(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     // Expects a point (64 bytes) and a scalar (32 bytes)
     if (input.len != 96) {
@@ -299,7 +299,7 @@ fn bn256Mul(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     return result;
 }
 
-/// BN256PAIRING: Elliptic curve pairing check on bn256 curve
+// BN256PAIRING: Elliptic curve pairing check on bn256 curve
 fn bn256Pairing(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     // Expects multiple pairs of points (k*192 bytes)
     if (input.len % 192 != 0) {
@@ -318,7 +318,7 @@ fn bn256Pairing(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     return result;
 }
 
-/// BLAKE2F: Compression function F used in BLAKE2 (EIP-152)
+// BLAKE2F: Compression function F used in BLAKE2 (EIP-152)
 fn blake2f(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     // Requires at least 213 bytes
     if (input.len < 213) {
@@ -335,12 +335,12 @@ fn blake2f(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     return result;
 }
 
-/// Helper function to return minimum of two values
+// Helper function to return minimum of two values
 fn min(a: u64, b: u64) u64 {
     return if (a < b) a else b;
 }
 
-/// Helper function to return maximum of two values
+// Helper function to return maximum of two values
 fn max(a: u64, b: u64) u64 {
     return if (a > b) a else b;
 }

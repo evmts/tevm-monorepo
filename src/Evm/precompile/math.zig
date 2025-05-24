@@ -8,13 +8,13 @@ const builtin = @import("builtin");
 // Define u256 directly for simplicity in tests
 
 
-/// BigModExp precompiled contract (pre EIP-2565)
+// BigModExp precompiled contract (pre EIP-2565)
 pub const BigModExp = PrecompiledContract{
     .requiredGas = bigModExpRequiredGas,
     .run = bigModExpRun,
 };
 
-/// BigModExp precompiled contract with EIP-2565 gas cost formula
+// BigModExp precompiled contract with EIP-2565 gas cost formula
 pub const BigModExpEIP2565 = PrecompiledContract{
     .requiredGas = bigModExpEIP2565RequiredGas,
     .run = bigModExpRun,
@@ -22,7 +22,7 @@ pub const BigModExpEIP2565 = PrecompiledContract{
 
 // Implementation of gas calculation functions
 
-/// Calculate gas cost for modular exponentiation (pre EIP-2565)
+// Calculate gas cost for modular exponentiation (pre EIP-2565)
 fn bigModExpRequiredGas(input: []const u8) u64 {
     // Extract the input dimensions from the first 96 bytes
     var baseLen: u256 = 0;
@@ -101,7 +101,7 @@ fn bigModExpRequiredGas(input: []const u8) u64 {
     return @intCast(gas);
 }
 
-/// Calculate gas cost for modular exponentiation with EIP-2565
+// Calculate gas cost for modular exponentiation with EIP-2565
 fn bigModExpEIP2565RequiredGas(input: []const u8) u64 {
     // Extract the input dimensions from the first 96 bytes
     var baseLen: u256 = 0;
@@ -178,7 +178,7 @@ fn bigModExpEIP2565RequiredGas(input: []const u8) u64 {
     return @intCast(gas);
 }
 
-/// Convert a byte slice to a big integer in big-endian order
+// Convert a byte slice to a big integer in big-endian order
 fn bytesToBigInt(bytes: []const u8) u256 {
     var result: u256 = 0;
     
@@ -204,7 +204,7 @@ fn bytesToBigInt(bytes: []const u8) u256 {
     return result;
 }
 
-/// Implementation of modular exponentiation
+// Implementation of modular exponentiation
 fn bigModExpRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     if (input.len < 96) {
         // Return empty result for invalid input

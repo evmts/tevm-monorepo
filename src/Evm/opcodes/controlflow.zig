@@ -18,18 +18,18 @@ fn mapStackError(err: StackError) ExecutionError {
     };
 }
 
-/// STOP (0x00) - Halt execution
-/// 
-/// The STOP opcode halts execution successfully. This is not an error condition
-/// but a normal termination. We return an empty string to indicate success
-/// and the interpreter should check for this and halt execution.
+// STOP (0x00) - Halt execution
+// 
+// The STOP opcode halts execution successfully. This is not an error condition
+// but a normal termination. We return an empty string to indicate success
+// and the interpreter should check for this and halt execution.
 pub fn opStop(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = frame;
     // Return STOP error to halt execution
     return ExecutionError.STOP;
 }
 
-/// JUMP (0x56) - Jump to a destination position in code
+// JUMP (0x56) - Jump to a destination position in code
 pub fn opJump(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     // Pop destination from the stack
     const dest = frame.stack.pop() catch |err| return mapStackError(err);
@@ -59,7 +59,7 @@ pub fn opJump(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u
     return "";
 }
 
-/// JUMPI (0x57) - Conditional jump
+// JUMPI (0x57) - Conditional jump
 pub fn opJumpi(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     // Pop condition and destination from the stack
     const condition = frame.stack.pop() catch |err| return mapStackError(err);
@@ -93,20 +93,20 @@ pub fn opJumpi(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const 
     return "";
 }
 
-/// JUMPDEST (0x5B) - Mark a valid jump destination
+// JUMPDEST (0x5B) - Mark a valid jump destination
 pub fn opJumpdest(_: usize, _: *Interpreter, _: *Frame) ExecutionError![]const u8 {
     // This operation does nothing at runtime, it's just a marker
     return "";
 }
 
-/// PC (0x58) - Get the value of the program counter before the increment for this instruction
+// PC (0x58) - Get the value of the program counter before the increment for this instruction
 pub fn opPc(pc: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     // Push the current program counter onto the stack
     frame.stack.push(@as(u256, @intCast(pc))) catch |err| return mapStackError(err);
     return "";
 }
 
-/// RETURN (0xF3) - Halt execution and return data
+// RETURN (0xF3) - Halt execution and return data
 pub fn opReturn(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     // Pop offset and size from the stack
     const offset = frame.stack.pop() catch |err| return mapStackError(err);
@@ -184,7 +184,7 @@ pub fn opReturn(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const
     return "";
 }
 
-/// REVERT (0xFD) - Halt execution, revert state changes, and return data
+// REVERT (0xFD) - Halt execution, revert state changes, and return data
 pub fn opRevert(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     // Pop offset and size from the stack
     const offset = frame.stack.pop() catch |err| return mapStackError(err);
@@ -262,13 +262,13 @@ pub fn opRevert(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const
     return ExecutionError.REVERT;
 }
 
-/// INVALID (0xFE) - Designated invalid opcode
+// INVALID (0xFE) - Designated invalid opcode
 pub fn opInvalid(_: usize, _: *Interpreter, _: *Frame) ExecutionError![]const u8 {
     // Halt execution with invalid opcode error
     return ExecutionError.INVALID;
 }
 
-/// SELFDESTRUCT (0xFF) - Halt execution and register account for deletion
+// SELFDESTRUCT (0xFF) - Halt execution and register account for deletion
 pub fn opSelfdestruct(_: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     // Pop beneficiary address from the stack
     _ = frame.stack.pop() catch |err| return mapStackError(err);
@@ -284,7 +284,7 @@ pub fn opSelfdestruct(_: usize, interpreter: *Interpreter, frame: *Frame) Execut
     return "";
 }
 
-/// Calculate memory size required for return and revert operations
+// Calculate memory size required for return and revert operations
 pub fn getReturnDataMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     
     // Need at least 2 items on the stack
@@ -338,7 +338,7 @@ pub fn getReturnDataMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     return .{ .size = end_pos, .overflow = false };
 }
 
-/// Register all control flow opcodes in the given jump table
+// Register all control flow opcodes in the given jump table
 pub fn registerControlFlowOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable) !void {
     // STOP (0x00)
     const stop_op = try allocator.create(Operation);

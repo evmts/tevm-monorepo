@@ -18,17 +18,17 @@ fn getLogger() EvmLogger {
     return _logger.?;
 }
 
-/// EVM represents the Ethereum Virtual Machine
+// EVM represents the Ethereum Virtual Machine
 ///
-/// The EVM is the runtime environment for smart contracts in Ethereum.
-/// It's responsible for executing contract code in a sandboxed environment
-/// according to specific chain rules and protocol versions.
+// The EVM is the runtime environment for smart contracts in Ethereum.
+// It's responsible for executing contract code in a sandboxed environment
+// according to specific chain rules and protocol versions.
 ///
-/// This implementation provides:
-/// - A configurable execution environment for EVM bytecode
-/// - Support for different Ethereum protocol versions (hardforks)
-/// - Access to state through a StateManager
-/// - Context awareness (static calls, depth tracking)
+// This implementation provides:
+// - A configurable execution environment for EVM bytecode
+// - Support for different Ethereum protocol versions (hardforks)
+// - Access to state through a StateManager
+// - Context awareness (static calls, depth tracking)
 pub const Evm = struct {
     /// Current call depth (max 1024)
     /// The Ethereum protocol limits call depth to prevent stack overflows
@@ -429,13 +429,13 @@ pub const Evm = struct {
     }
 };
 
-/// Chain rules for different Ethereum hardforks
+// Chain rules for different Ethereum hardforks
 ///
-/// This struct configures which Ethereum protocol rules and EIPs are active
-/// during EVM execution. The default is set to the latest Ethereum version (Cancun),
-/// but can be configured for any supported hardfork.
+// This struct configures which Ethereum protocol rules and EIPs are active
+// during EVM execution. The default is set to the latest Ethereum version (Cancun),
+// but can be configured for any supported hardfork.
 ///
-/// Each field represents a specific hardfork or EIP activation status.
+// Each field represents a specific hardfork or EIP activation status.
 pub const ChainRules = struct {
     /// Is Homestead rules enabled (March 2016)
     /// Changed gas calculation for certain operations and introduced DELEGATECALL
@@ -776,13 +776,13 @@ pub const ChainRules = struct {
     }
 };
 
-/// Ethereum hardforks
+// Ethereum hardforks
 ///
-/// This enum represents the various Ethereum protocol upgrades (hardforks)
-/// that have occurred throughout Ethereum's history.
+// This enum represents the various Ethereum protocol upgrades (hardforks)
+// that have occurred throughout Ethereum's history.
 ///
-/// Each hardfork introduced changes to the protocol rules, added or removed
-/// opcodes, changed gas costs, or added other features.
+// Each hardfork introduced changes to the protocol rules, added or removed
+// opcodes, changed gas costs, or added other features.
 pub const Hardfork = enum {
     /// The original Ethereum protocol (July 2015)
     Frontier,

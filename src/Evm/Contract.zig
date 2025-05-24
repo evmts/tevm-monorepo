@@ -15,9 +15,9 @@ fn getLogger() EvmLogger {
     return _logger.?;
 }
 
-/// Contract represents an ethereum contract in the state database
-/// It contains the contract's code, address, and execution context
-/// including gas management, caller information, and execution state
+// Contract represents an ethereum contract in the state database
+// It contains the contract's code, address, and execution context
+// including gas management, caller information, and execution state
 pub const Contract = struct {
     address: Address,
     /// Locally cached result of JUMPDEST analysis for this specific contract
@@ -385,34 +385,34 @@ pub const Contract = struct {
     }
 };
 
-/// Create a new contract with a new JUMPDEST analysis cache
+// Create a new contract with a new JUMPDEST analysis cache
 ///
-/// Parameters:
-/// - caller: The address that initiated the contract call
-/// - contract_address: The address of the contract being executed
-/// - value: The amount of ether sent with the call (in wei)
-/// - gas: The gas limit for this contract execution
+// Parameters:
+// - caller: The address that initiated the contract call
+// - contract_address: The address of the contract being executed
+// - value: The amount of ether sent with the call (in wei)
+// - gas: The gas limit for this contract execution
 ///
-/// Returns: A new Contract instance
+// Returns: A new Contract instance
 pub fn createContract(caller: Address, contract_address: Address, value: u256, gas: u64) Contract {
     getLogger().debug("Creating new contract", .{});
     const jumpdests = std.StringHashMap(bitvec.BitVec).init(std.heap.page_allocator);
     return Contract.init(caller, contract_address, value, gas, jumpdests);
 }
 
-/// Create a new contract sharing the parent contract's JUMPDEST analysis cache
+// Create a new contract sharing the parent contract's JUMPDEST analysis cache
 ///
-/// This is used for contract-to-contract calls where the JUMPDEST cache
-/// can be reused to save computation
+// This is used for contract-to-contract calls where the JUMPDEST cache
+// can be reused to save computation
 ///
-/// Parameters:
-/// - caller: The address that initiated the contract call
-/// - contract_address: The address of the contract being executed
-/// - value: The amount of ether sent with the call (in wei)
-/// - gas: The gas limit for this contract execution
-/// - parent: The parent contract that called this contract
+// Parameters:
+// - caller: The address that initiated the contract call
+// - contract_address: The address of the contract being executed
+// - value: The amount of ether sent with the call (in wei)
+// - gas: The gas limit for this contract execution
+// - parent: The parent contract that called this contract
 ///
-/// Returns: A new Contract instance with shared JUMPDEST cache
+// Returns: A new Contract instance with shared JUMPDEST cache
 pub fn createContractWithParent(caller: Address, contract_address: Address, value: u256, gas: u64, parent: *const Contract) Contract {
     getLogger().debug("Creating contract with parent jumpdests table", .{});
     return Contract.init(caller, contract_address, value, gas, parent.jumpdests);

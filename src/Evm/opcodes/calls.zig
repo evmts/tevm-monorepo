@@ -323,23 +323,23 @@ const file_logger = createLogger("calls.zig");
 // Define the actual types we'll use  
 const StackError = if (is_test) error{OutOfBounds,StackOverflow,OutOfMemory} else stackModule.StackError;
 
-/// Maximum call depth for Ethereum VM
+// Maximum call depth for Ethereum VM
 const MAX_CALL_DEPTH: u32 = 1024;
 
-/// Helper function to safely copy memory data to an array list
-/// This function prevents memory leaks by:
-/// 1. Checking for out-of-bounds access before attempting memory operations
-/// 2. Using clearRetainingCapacity to avoid unnecessary allocations
-/// 3. Using the existing ArrayList's memory when possible
-/// 4. Properly handling allocation failures with boolean return values
+// Helper function to safely copy memory data to an array list
+// This function prevents memory leaks by:
+// 1. Checking for out-of-bounds access before attempting memory operations
+// 2. Using clearRetainingCapacity to avoid unnecessary allocations
+// 3. Using the existing ArrayList's memory when possible
+// 4. Properly handling allocation failures with boolean return values
 ///
-/// Parameters:
-/// - memory: The source memory buffer to read from
-/// - offset: Starting offset within the memory buffer
-/// - size: Number of bytes to copy
-/// - out_data: Preallocated ArrayList to store the result (cleared before use)
+// Parameters:
+// - memory: The source memory buffer to read from
+// - offset: Starting offset within the memory buffer
+// - size: Number of bytes to copy
+// - out_data: Preallocated ArrayList to store the result (cleared before use)
 ///
-/// Returns: true if successful, false if allocation failed or out of bounds access
+// Returns: true if successful, false if allocation failed or out of bounds access
 fn getInputData(
     memory: []const u8, 
     offset: usize, 
@@ -360,39 +360,39 @@ fn getInputData(
     return true;
 }
 
-/// Helper function to safely allocate and set return data
-/// This is a wrapper around setReturnDataWithReporting with error reporting disabled
-/// 
-/// Memory safety aspects:
-/// 1. Frees existing return data before allocating new memory
-/// 2. Only allocates memory when there's actual data to store
-/// 3. Handles allocation failures gracefully
-/// 4. Ensures no memory is leaked even in error paths
+// Helper function to safely allocate and set return data
+// This is a wrapper around setReturnDataWithReporting with error reporting disabled
+// 
+// Memory safety aspects:
+// 1. Frees existing return data before allocating new memory
+// 2. Only allocates memory when there's actual data to store
+// 3. Handles allocation failures gracefully
+// 4. Ensures no memory is leaked even in error paths
 ///
-/// Parameters:
-/// - interpreter: The interpreter instance containing the return data
-/// - data: The data to copy and store as return data
+// Parameters:
+// - interpreter: The interpreter instance containing the return data
+// - data: The data to copy and store as return data
 ///
-/// Returns: true if successful, false if allocation failed
+// Returns: true if successful, false if allocation failed
 fn setReturnData(interpreter: *Interpreter, data: []const u8) bool {
     return setReturnDataWithReporting(interpreter, data, false);
 }
 
-/// Helper function to safely allocate and set return data with error reporting
-/// This function is critical for preventing memory leaks in the call operations
-/// 
-/// Memory safety features:
-/// 1. Always frees existing return data before allocating new memory
-/// 2. Skips allocation entirely for empty data
-/// 3. Reports allocation failures via logs when enabled
-/// 4. Provides a clear success/failure indicator
+// Helper function to safely allocate and set return data with error reporting
+// This function is critical for preventing memory leaks in the call operations
+// 
+// Memory safety features:
+// 1. Always frees existing return data before allocating new memory
+// 2. Skips allocation entirely for empty data
+// 3. Reports allocation failures via logs when enabled
+// 4. Provides a clear success/failure indicator
 ///
-/// Parameters:
-/// - interpreter: The interpreter instance containing the return data
-/// - data: The data to copy and store as return data
-/// - report_error: Whether to log allocation failures
+// Parameters:
+// - interpreter: The interpreter instance containing the return data
+// - data: The data to copy and store as return data
+// - report_error: Whether to log allocation failures
 ///
-/// Returns: true if successful, false if allocation failed
+// Returns: true if successful, false if allocation failed
 fn setReturnDataWithReporting(interpreter: *Interpreter, data: []const u8, report_error: bool) bool {
     // Free any existing return data first
     if (interpreter.returnData) |old_data| {
@@ -420,8 +420,8 @@ fn setReturnDataWithReporting(interpreter: *Interpreter, data: []const u8, repor
     return true;
 }
 
-/// Check if an address is a precompiled contract in the current chain context
-/// Returns the precompiled contract if found, null otherwise
+// Check if an address is a precompiled contract in the current chain context
+// Returns the precompiled contract if found, null otherwise
 fn checkPrecompiled(addr: u256, interpreter: *Interpreter) ?*const precompile.PrecompiledContract {
     if (interpreter.evm.precompiles == null) {
         return null; // Early return if no precompiles are registered
@@ -457,7 +457,7 @@ fn checkPrecompiled(addr: u256, interpreter: *Interpreter) ?*const precompile.Pr
     return null;
 }
 
-/// Helper to convert 256-bit address to Ethereum Address type
+// Helper to convert 256-bit address to Ethereum Address type
 fn addressFromu256(addr_u256: u256) Address {
     // Use zero-initialized memory to avoid undefined behavior
     var addr_bytes: [32]u8 = [_]u8{0} ** 32;
@@ -480,25 +480,25 @@ fn addressFromu256(addr_u256: u256) Address {
     return address;
 }
 
-/// Helper function for common call operation setup
-/// Safely extracts input data from memory for EVM call operations
+// Helper function for common call operation setup
+// Safely extracts input data from memory for EVM call operations
 ///
-/// This function is used by call operations to safely extract input data
-/// from VM memory. It prevents memory leaks and simplifies error handling.
+// This function is used by call operations to safely extract input data
+// from VM memory. It prevents memory leaks and simplifies error handling.
 ///
-/// Memory safety features:
-/// 1. Uses getInputData which has comprehensive bounds checking
-/// 2. Centralizes memory access logic to prevent duplication and errors
-/// 3. Reduces the chance of missing error cases in multiple call opcodes
+// Memory safety features:
+// 1. Uses getInputData which has comprehensive bounds checking
+// 2. Centralizes memory access logic to prevent duplication and errors
+// 3. Reduces the chance of missing error cases in multiple call opcodes
 ///
-/// Parameters:
-/// - interpreter: The interpreter instance (unused currently, but kept for future use)
-/// - frame: The current execution frame containing memory
-/// - in_offset_usize: Offset in memory to read from
-/// - in_size_usize: Number of bytes to read
-/// - input_data: Output ArrayList to store the copied data
+// Parameters:
+// - interpreter: The interpreter instance (unused currently, but kept for future use)
+// - frame: The current execution frame containing memory
+// - in_offset_usize: Offset in memory to read from
+// - in_size_usize: Number of bytes to read
+// - input_data: Output ArrayList to store the copied data
 ///
-/// Returns: true if successful, false if memory access failed
+// Returns: true if successful, false if memory access failed
 fn prepareCallInput(
     _ : *Interpreter,
     frame: *Frame,
@@ -513,7 +513,7 @@ fn prepareCallInput(
     return true;
 }
 
-/// CALL (0xF1) - Call contract
+// CALL (0xF1) - Call contract
 pub fn opCall(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     
@@ -715,7 +715,7 @@ pub fn opCall(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     return "";
 }
 
-/// CALLCODE (0xF2) - Call code from another account
+// CALLCODE (0xF2) - Call code from another account
 pub fn opCallCode(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     
@@ -912,7 +912,7 @@ pub fn opCallCode(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
     return "";
 }
 
-/// DELEGATECALL (0xF4) - Message-call into this account with an alternative account's code
+// DELEGATECALL (0xF4) - Message-call into this account with an alternative account's code
 pub fn opDelegateCall(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     
@@ -1108,7 +1108,7 @@ pub fn opDelegateCall(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
     return "";
 }
 
-/// STATICCALL (0xFA) - Static message-call into an account
+// STATICCALL (0xFA) - Static message-call into an account
 pub fn opStaticCall(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     
@@ -1309,7 +1309,7 @@ pub fn opStaticCall(pc: usize, interpreter: *Interpreter, frame: *Frame) Executi
     return "";
 }
 
-/// CREATE (0xF0) - Create a new account with associated code
+// CREATE (0xF0) - Create a new account with associated code
 pub fn opCreate(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     
@@ -1409,7 +1409,7 @@ pub fn opCreate(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     return "";
 }
 
-/// CREATE2 (0xF5) - Create a new account with associated code at a predictable address
+// CREATE2 (0xF5) - Create a new account with associated code at a predictable address
 pub fn opCreate2(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     
@@ -1510,7 +1510,7 @@ pub fn opCreate2(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
     return "";
 }
 
-/// Calculate memory size required for call operations
+// Calculate memory size required for call operations
 pub fn getCallMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     
     // For CALL and CALLCODE, we need at least 7 items on the stack
@@ -1559,7 +1559,7 @@ pub fn getCallMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     return .{ .size = mem_size, .overflow = false };
 }
 
-/// Calculate memory size required for delegate call and static call operations
+// Calculate memory size required for delegate call and static call operations
 pub fn getDelegateCallMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     
     // For DELEGATECALL and STATICCALL, we need at least 6 items on the stack
@@ -1608,7 +1608,7 @@ pub fn getDelegateCallMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult
     return .{ .size = mem_size, .overflow = false };
 }
 
-/// Calculate memory size required for create operations
+// Calculate memory size required for create operations
 pub fn getCreateMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     
     // For CREATE and CREATE2, we need at least 3 items on the stack (4 for CREATE2)
@@ -1646,7 +1646,7 @@ pub fn getCreateMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     return .{ .size = end_pos, .overflow = false };
 }
 
-/// Calculate gas cost for call operations
+// Calculate gas cost for call operations
 pub fn callGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64 {
     _ = interpreter;
     _ = frame;
@@ -1660,7 +1660,7 @@ pub fn callGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: 
     return JumpTableModule.CallGas;
 }
 
-/// Calculate gas cost for create operations
+// Calculate gas cost for create operations
 pub fn createGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, _: *Memory, requested_size: u64) error{OutOfGas}!u64 {
     _ = requested_size;
     
@@ -1698,19 +1698,19 @@ pub fn createGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, _: *Me
     return gas;
 }
 
-/// Register all call opcodes in the given jump table
-/// This function sets up all EVM call operations in the jump table
+// Register all call opcodes in the given jump table
+// This function sets up all EVM call operations in the jump table
 ///
-/// Memory safety features:
-/// 1. Uses errdefer to clean up already allocated operations on error
-/// 2. Ensures no memory leaks if an allocation fails mid-function
-/// 3. Properly initializes all function pointers to prevent undefined behavior
+// Memory safety features:
+// 1. Uses errdefer to clean up already allocated operations on error
+// 2. Ensures no memory leaks if an allocation fails mid-function
+// 3. Properly initializes all function pointers to prevent undefined behavior
 ///
-/// Parameters:
-/// - allocator: The memory allocator to use for creating operations
-/// - jump_table: The jump table to register operations in
+// Parameters:
+// - allocator: The memory allocator to use for creating operations
+// - jump_table: The jump table to register operations in
 ///
-/// Returns: An error if any allocation fails
+// Returns: An error if any allocation fails
 pub fn registerCallOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable) !void {
     // Use errdefer to clean up any already allocated operations if an error occurs
     // This prevents memory leaks if allocation fails after some operations are created

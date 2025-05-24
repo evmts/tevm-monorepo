@@ -3,7 +3,7 @@ const Signature = @import("signature.zig").Signature;
 const Address = @import("../Address/address.zig").Address;
 const struct_type = @import("../Abi/struct_type.zig");
 
-/// Error type for EIP-712 operations
+// Error type for EIP-712 operations
 pub const Eip712Error = error{
     InvalidType,
     InvalidValue,
@@ -12,7 +12,7 @@ pub const Eip712Error = error{
     EncodingError,
 };
 
-/// The EIP-712 domain separator fields
+// The EIP-712 domain separator fields
 pub const Eip712Domain = struct {
     /// The user readable name of the signing domain
     name: ?[]const u8,
@@ -67,7 +67,7 @@ pub const Eip712Domain = struct {
     }
 };
 
-/// Interface for types that can be EIP-712 signed
+// Interface for types that can be EIP-712 signed
 pub const Eip712Type = struct {
     /// Get the primary type name
     pub fn typeName(self: @This()) []const u8 {
@@ -115,7 +115,7 @@ pub const Eip712Type = struct {
     }
 };
 
-/// EIP-712 encoder for struct types
+// EIP-712 encoder for struct types
 pub const Eip712Encoder = struct {
     /// The struct type definition
     ty: struct_type.StructType,

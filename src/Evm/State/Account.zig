@@ -2,10 +2,10 @@ const std = @import("std");
 const testing = std.testing;
 
 // Import B256 from unified Types
-pub const B256 = @import("../../../Types/B256.zig").B256;
+pub const B256 = @import("utils").B256;
 
-/// Account represents an Ethereum account
-/// Includes balance, nonce, code hash, and storage root
+// Account represents an Ethereum account
+// Includes balance, nonce, code hash, and storage root
 pub const Account = struct {
     /// Account balance in wei
     balance: u256,

@@ -13,7 +13,7 @@ const ProofNodes = proof_module.ProofNodes;
 const ProofRetainer = proof_module.ProofRetainer;
 const TrieError = trie.TrieError;
 
-/// The main Merkle Patricia Trie implementation exposed to users
+// The main Merkle Patricia Trie implementation exposed to users
 pub const MerkleTrie = struct {
     allocator: Allocator,
     builder: HashBuilder,
@@ -196,7 +196,7 @@ pub const MerkleTrie = struct {
 };
 
 // Helper function - In-place version that works with a buffer
-/// Buffer must be at least bytes.len * 2 in size
+// Buffer must be at least bytes.len * 2 in size
 fn bytesToHexStringWithBuffer(bytes: []const u8, buffer: []u8) void {
     const hex_chars = "0123456789abcdef";
     std.debug.assert(buffer.len >= bytes.len * 2);

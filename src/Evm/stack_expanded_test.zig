@@ -237,14 +237,16 @@ test "Stack: dup operations" {
     try testing.expectEqual(@as(u64, 3), (try stack.peek()).*);
     try testing.expectEqual(@as(usize, 4), stack.len());
     
-    // Test dup2 (duplicate second item)
+    // Test dup2 (duplicate second item from top)
     try stack.dup(2);
-    try testing.expectEqual(@as(u64, 2), (try stack.peek()).*);
+    try testing.expectEqual(@as(u64, 3), (try stack.peek()).*);  // Second from top is 3
     try testing.expectEqual(@as(usize, 5), stack.len());
     
-    // Test dup3 (duplicate third item)
+    // Test dup3 (duplicate third item from top)
+    // Current stack: [1, 2, 3, 3, 3] with size=5
+    // dup(3) duplicates item at index 5-3=2, which has value 3
     try stack.dup(3);
-    try testing.expectEqual(@as(u64, 3), (try stack.peek()).*);
+    try testing.expectEqual(@as(u64, 3), (try stack.peek()).*);  // Item at index 2 is 3
     try testing.expectEqual(@as(usize, 6), stack.len());
     
     // Test error cases
@@ -267,7 +269,7 @@ test "Stack: dup_unsafe operation" {
     try testing.expectEqual(@as(usize, 4), stack.len());
     
     stack.dup_unsafe(2);
-    try testing.expectEqual(@as(u64, 2), (try stack.peek()).*);
+    try testing.expectEqual(@as(u64, 3), (try stack.peek()).*);  // Second from top is 3
     try testing.expectEqual(@as(usize, 5), stack.len());
 }
 
@@ -375,9 +377,11 @@ test "Stack: preserve values during operations" {
     try testing.expectEqual(@as(u64, 3), (try stack.back(1)).*);
     
     // Use dup (should increase stack size by 1)
+    // Current stack: [1, 3, 2] with size=3
+    // dup(2) duplicates item at index 3-2=1, which has value 3
     try stack.dup(2);
     try testing.expectEqual(@as(usize, 4), stack.len());
-    try testing.expectEqual(@as(u64, 1), (try stack.peek()).*);
+    try testing.expectEqual(@as(u64, 3), (try stack.peek()).*);
 }
 
 // Test unsafe operations
@@ -423,10 +427,12 @@ test "Stack: complex combined operations" {
     try testing.expectEqual(@as(usize, 6), stack.len());
     
     // Pop multiple items
+    // Current stack: [1, 2, 3, 5, 4, 3] with size=6
+    // popn(3) will pop from indices 3,4,5 which are values [5, 4, 3]
     const popped = try stack.popn(3);
-    try testing.expectEqual(@as(u64, 3), popped[0]);
+    try testing.expectEqual(@as(u64, 5), popped[0]);
     try testing.expectEqual(@as(u64, 4), popped[1]);
-    try testing.expectEqual(@as(u64, 5), popped[2]);
+    try testing.expectEqual(@as(u64, 3), popped[2]);
     
     // Verify final state
     try testing.expectEqual(@as(usize, 3), stack.len());

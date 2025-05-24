@@ -18,7 +18,7 @@ fn mapStackError(err: StackError) ExecutionError {
     };
 }
 
-/// LT operation - compares if x < y for the top two stack items
+// LT operation - compares if x < y for the top two stack items
 pub fn opLt(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -40,7 +40,7 @@ pub fn opLt(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError!
     return "";
 }
 
-/// GT operation - compares if x > y for the top two stack items
+// GT operation - compares if x > y for the top two stack items
 pub fn opGt(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -62,7 +62,7 @@ pub fn opGt(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError!
     return "";
 }
 
-/// SLT operation - signed less than comparison
+// SLT operation - signed less than comparison
 pub fn opSlt(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -105,7 +105,7 @@ pub fn opSlt(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     return "";
 }
 
-/// SGT operation - signed greater than comparison
+// SGT operation - signed greater than comparison
 pub fn opSgt(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -148,7 +148,7 @@ pub fn opSgt(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     return "";
 }
 
-/// EQ operation - compares if x == y for the top two stack items
+// EQ operation - compares if x == y for the top two stack items
 pub fn opEq(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -170,7 +170,7 @@ pub fn opEq(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError!
     return "";
 }
 
-/// ISZERO operation - checks if the top stack item is zero
+// ISZERO operation - checks if the top stack item is zero
 pub fn opIszero(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     _ = pc;
@@ -189,7 +189,7 @@ pub fn opIszero(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     return "";
 }
 
-/// Register all comparison opcodes in the given jump table
+// Register all comparison opcodes in the given jump table
 pub fn registerComparisonOpcodes(allocator: std.mem.Allocator, jump_table: anytype) !void {
     // LT (0x10)
     const lt_op = try allocator.create(Operation);

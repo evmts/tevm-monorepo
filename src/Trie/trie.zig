@@ -3,7 +3,7 @@ const Allocator = std.mem.Allocator;
 const rlp = @import("rlp");
 const utils = @import("utils");
 
-/// Error type for trie operations
+// Error type for trie operations
 pub const TrieError = error{
     InvalidNode,
     InvalidKey,
@@ -15,7 +15,7 @@ pub const TrieError = error{
     CorruptedTrie,
 };
 
-/// 16-bit mask for efficient representation of children
+// 16-bit mask for efficient representation of children
 pub const TrieMask = struct {
     mask: u16,
 
@@ -52,7 +52,7 @@ pub const TrieMask = struct {
     }
 };
 
-/// Represents different node types in the trie
+// Represents different node types in the trie
 pub const NodeType = enum {
     Empty,
     Branch,
@@ -60,7 +60,7 @@ pub const NodeType = enum {
     Leaf,
 };
 
-/// Value stored in trie - either raw bytes or a hash
+// Value stored in trie - either raw bytes or a hash
 pub const HashValue = union(enum) {
     Raw: []const u8,
     Hash: [32]u8,
@@ -99,7 +99,7 @@ pub const HashValue = union(enum) {
     }
 };
 
-/// Branch node in the trie with up to 16 children (one per nibble)
+// Branch node in the trie with up to 16 children (one per nibble)
 pub const BranchNode = struct {
     children: [16]?HashValue = [_]?HashValue{null} ** 16,
     value: ?HashValue = null,
@@ -209,7 +209,7 @@ pub const BranchNode = struct {
     }
 };
 
-/// Extension node - compresses shared path prefixes
+// Extension node - compresses shared path prefixes
 pub const ExtensionNode = struct {
     nibbles: []u8,
     next: HashValue,
@@ -253,7 +253,7 @@ pub const ExtensionNode = struct {
     }
 };
 
-/// Leaf node - stores actual key-value pairs
+// Leaf node - stores actual key-value pairs
 pub const LeafNode = struct {
     nibbles: []u8,
     value: HashValue,
@@ -297,7 +297,7 @@ pub const LeafNode = struct {
     }
 };
 
-/// The main trie node type
+// The main trie node type
 pub const TrieNode = union(NodeType) {
     Empty: void,
     Branch: BranchNode,
@@ -332,7 +332,7 @@ pub const TrieNode = union(NodeType) {
     }
 };
 
-/// Converts hex key to nibbles
+// Converts hex key to nibbles
 pub fn keyToNibbles(allocator: Allocator, key: []const u8) ![]u8 {
     const nibbles = try allocator.alloc(u8, key.len * 2);
     errdefer allocator.free(nibbles);
@@ -345,7 +345,7 @@ pub fn keyToNibbles(allocator: Allocator, key: []const u8) ![]u8 {
     return nibbles;
 }
 
-/// Converts nibbles back to hex key
+// Converts nibbles back to hex key
 pub fn nibblesToKey(allocator: Allocator, nibbles: []const u8) ![]u8 {
     // Must have even number of nibbles
     if (nibbles.len % 2 != 0) {
@@ -363,7 +363,7 @@ pub fn nibblesToKey(allocator: Allocator, nibbles: []const u8) ![]u8 {
     return key;
 }
 
-/// Encodes a path for either leaf or extension nodes
+// Encodes a path for either leaf or extension nodes
 fn encodePath(allocator: Allocator, nibbles: []const u8, is_leaf: bool) ![]u8 {
     // Handle empty nibbles case
     if (nibbles.len == 0) {
@@ -394,7 +394,7 @@ fn encodePath(allocator: Allocator, nibbles: []const u8, is_leaf: bool) ![]u8 {
     return hex_arr;
 }
 
-/// Decodes a path into nibbles
+// Decodes a path into nibbles
 pub fn decodePath(allocator: Allocator, encoded_path: []const u8) !struct { 
     nibbles: []u8, 
     is_leaf: bool 
@@ -432,7 +432,7 @@ pub fn decodePath(allocator: Allocator, encoded_path: []const u8) !struct {
     return .{ .nibbles = nibbles, .is_leaf = is_leaf };
 }
 
-/// The main HashBuilder for constructing Merkle Patricia Tries
+// The main HashBuilder for constructing Merkle Patricia Tries
 pub const HashBuilder = struct {
     allocator: Allocator,
     hashed_nodes: std.StringHashMap(TrieNode),

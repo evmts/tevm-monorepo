@@ -1,6 +1,6 @@
 const std = @import("std");
 
-/// STOP opcode value
+// STOP opcode value
 pub const STOP_OPCODE: u8 = 0x00;
 
 // Use relative imports to avoid circular dependencies
@@ -24,10 +24,10 @@ pub const Stack = @import("Stack.zig").Stack;
 //
 // Suggested optimization: Generate opcodes at comptime with inline dispatch
 
-/// MemorySize represents memory expansion requirements for EVM operations
+// MemorySize represents memory expansion requirements for EVM operations
 ///
-/// This is used by opcodes that need to calculate memory expansion costs
-/// and ensure memory is properly sized before execution.
+// This is used by opcodes that need to calculate memory expansion costs
+// and ensure memory is properly sized before execution.
 pub const MemorySize = struct {
     /// Size in bytes needed for memory expansion
     size: u32,
@@ -37,10 +37,10 @@ pub const MemorySize = struct {
     overflow: bool,
 };
 
-/// ExecutionError represents errors that can occur during EVM execution
+// ExecutionError represents errors that can occur during EVM execution
 ///
-/// These are the fundamental stop/error conditions that can terminate
-/// an EVM operation during execution.
+// These are the fundamental stop/error conditions that can terminate
+// an EVM operation during execution.
 pub const ExecutionError_Op = error{
     /// Normal stop (STOP opcode)
     STOP,

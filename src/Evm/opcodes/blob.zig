@@ -23,8 +23,8 @@ const Memory = evm.Memory;
 pub const BlobHashGas: u64 = 3;
 pub const BlobBaseFeeGas: u64 = 2;
 
-/// BLOBHASH opcode (EIP-4844)
-/// Returns the versioned hash of the shard blob at the given index
+// BLOBHASH opcode (EIP-4844)
+// Returns the versioned hash of the shard blob at the given index
 pub fn opBlobHash(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     
@@ -67,8 +67,8 @@ pub fn opBlobHash(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
     return "";
 }
 
-/// BLOBBASEFEE opcode (EIP-4844)
-/// Returns the current blob base fee
+// BLOBBASEFEE opcode (EIP-4844)
+// Returns the current blob base fee
 pub fn opBlobBaseFee(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     
@@ -86,8 +86,8 @@ pub fn opBlobBaseFee(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
     return "";
 }
 
-/// MCOPY opcode (EIP-5656)
-/// Memory copy operation - copies a chunk of memory from one location to another
+// MCOPY opcode (EIP-5656)
+// Memory copy operation - copies a chunk of memory from one location to another
 pub fn opMcopy(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     
@@ -128,7 +128,7 @@ pub fn opMcopy(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     return "";
 }
 
-/// Calculate memory size for MCOPY operation
+// Calculate memory size for MCOPY operation
 pub fn mcopyMemorySize(stack: *Stack) struct { size: u64, overflow: bool } {
     // We need at least 3 items on the stack for MCOPY
     if (stack.size < 3) {
@@ -163,7 +163,7 @@ pub fn mcopyMemorySize(stack: *Stack) struct { size: u64, overflow: bool } {
     return .{ .size = max_size, .overflow = false };
 }
 
-/// Dynamic gas calculation for MCOPY
+// Dynamic gas calculation for MCOPY
 pub fn mcopyDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64 {
     _ = interpreter;
     _ = frame;
@@ -200,7 +200,7 @@ pub fn mcopyDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, 
     return gas;
 }
 
-/// Register blob opcodes in the jump table
+// Register blob opcodes in the jump table
 pub fn registerBlobOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable) !void {
     // BLOBHASH (0x49)
     const blobhash_op = try allocator.create(Operation);

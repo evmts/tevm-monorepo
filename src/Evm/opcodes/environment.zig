@@ -33,7 +33,7 @@ const SelfBalanceGas: u64 = 5; // Berlin
 const BaseFeeGas: u64 = 2; // London
 const ChainIdGas: u64 = 2; // Istanbul
 
-/// ADDRESS operation - pushes the address of the current executing account onto the stack
+// ADDRESS operation - pushes the address of the current executing account onto the stack
 pub fn opAddress(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     _ = interpreter;
@@ -56,7 +56,7 @@ pub fn opAddress(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
     return "";
 }
 
-/// BALANCE operation - get the balance of the given account
+// BALANCE operation - get the balance of the given account
 pub fn opBalance(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
 
@@ -117,7 +117,7 @@ pub fn opBalance(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
     return "";
 }
 
-/// ORIGIN operation - get the execution origination address (tx sender)
+// ORIGIN operation - get the execution origination address (tx sender)
 pub fn opOrigin(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     _ = interpreter;
@@ -141,7 +141,7 @@ pub fn opOrigin(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     return "";
 }
 
-/// CALLER operation - get the caller address
+// CALLER operation - get the caller address
 pub fn opCaller(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     _ = interpreter;
@@ -164,7 +164,7 @@ pub fn opCaller(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     return "";
 }
 
-/// CALLVALUE operation - get the deposited value by the instruction/transaction
+// CALLVALUE operation - get the deposited value by the instruction/transaction
 pub fn opCallValue(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     _ = interpreter;
@@ -178,7 +178,7 @@ pub fn opCallValue(pc: usize, interpreter: *Interpreter, frame: *Frame) Executio
     return "";
 }
 
-/// CALLDATALOAD operation - load call data from the current environment
+// CALLDATALOAD operation - load call data from the current environment
 pub fn opCalldataload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     _ = interpreter;
@@ -223,7 +223,7 @@ pub fn opCalldataload(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
     return "";
 }
 
-/// CALLDATASIZE operation - get the size of input data in current environment
+// CALLDATASIZE operation - get the size of input data in current environment
 pub fn opCalldatasize(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     _ = interpreter;
@@ -237,7 +237,7 @@ pub fn opCalldatasize(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
     return "";
 }
 
-/// Memory size function for memory operations
+// Memory size function for memory operations
 fn calldatacopyMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     if (stack.size < 3) return .{ .size = 0, .overflow = false };
 
@@ -253,7 +253,7 @@ fn calldatacopyMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     return .{ .size = result, .overflow = result == std.math.maxInt(u64) };
 }
 
-/// Dynamic gas calculation for memory operations
+// Dynamic gas calculation for memory operations
 fn memoryGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64 {
     // Parameters not used in this function
     _ = interpreter;
@@ -292,7 +292,7 @@ fn memoryGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: *M
     return newCost - oldCost;
 }
 
-/// CALLDATACOPY operation - copy input data in current environment to memory
+// CALLDATACOPY operation - copy input data in current environment to memory
 pub fn opCalldatacopy(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     _ = interpreter;
@@ -341,7 +341,7 @@ pub fn opCalldatacopy(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
     return "";
 }
 
-/// CODESIZE operation - get the size of code running in current environment
+// CODESIZE operation - get the size of code running in current environment
 pub fn opCodesize(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     _ = interpreter;
@@ -355,7 +355,7 @@ pub fn opCodesize(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
     return "";
 }
 
-/// Memory size function for CODECOPY operation
+// Memory size function for CODECOPY operation
 fn codecopyMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     if (stack.size < 3) return .{ .size = 0, .overflow = false };
 
@@ -371,7 +371,7 @@ fn codecopyMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     return .{ .size = result, .overflow = result == std.math.maxInt(u64) };
 }
 
-/// CODECOPY operation - copy code running in current environment to memory
+// CODECOPY operation - copy code running in current environment to memory
 pub fn opCodecopy(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     _ = interpreter;
@@ -420,7 +420,7 @@ pub fn opCodecopy(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
     return "";
 }
 
-/// GASPRICE operation - get price of gas in current environment
+// GASPRICE operation - get price of gas in current environment
 pub fn opGasprice(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     _ = interpreter;
@@ -432,8 +432,8 @@ pub fn opGasprice(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
     return "";
 }
 
-/// GAS operation - get amount of gas remaining
-/// See: https://github.com/ethereum/go-ethereum/blob/master/core/vm/instructions.go#L849
+// GAS operation - get amount of gas remaining
+// See: https://github.com/ethereum/go-ethereum/blob/master/core/vm/instructions.go#L849
 pub fn opGas(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     _ = interpreter;
@@ -445,8 +445,8 @@ pub fn opGas(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     return "";
 }
 
-/// RETURNDATALOAD operation - load data from return data buffer
-/// See: https://github.com/ethereum/go-ethereum/blob/master/core/vm/instructions.go#L392
+// RETURNDATALOAD operation - load data from return data buffer
+// See: https://github.com/ethereum/go-ethereum/blob/master/core/vm/instructions.go#L392
 pub fn opReturndataload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     _ = interpreter;
@@ -488,7 +488,7 @@ pub fn opReturndataload(pc: usize, interpreter: *Interpreter, frame: *Frame) Exe
     return "";
 }
 
-/// EXTCODESIZE operation - get size of an account's code
+// EXTCODESIZE operation - get size of an account's code
 pub fn opExtcodesize(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
 
@@ -546,7 +546,7 @@ pub fn opExtcodesize(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
     return "";
 }
 
-/// Memory size function for EXTCODECOPY operation
+// Memory size function for EXTCODECOPY operation
 fn extcodecopyMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     if (stack.size < 4) return .{ .size = 0, .overflow = false };
 
@@ -562,7 +562,7 @@ fn extcodecopyMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     return .{ .size = result, .overflow = result == std.math.maxInt(u64) };
 }
 
-/// EXTCODECOPY operation - copy an account's code to memory
+// EXTCODECOPY operation - copy an account's code to memory
 pub fn opExtcodecopy(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
 
@@ -662,7 +662,7 @@ pub fn opExtcodecopy(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
     return "";
 }
 
-/// RETURNDATASIZE operation - get size of output data from the previous call
+// RETURNDATASIZE operation - get size of output data from the previous call
 pub fn opReturndatasize(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     _ = interpreter;
@@ -679,7 +679,7 @@ pub fn opReturndatasize(pc: usize, interpreter: *Interpreter, frame: *Frame) Exe
     return "";
 }
 
-/// Memory size function for RETURNDATACOPY operation
+// Memory size function for RETURNDATACOPY operation
 fn returndatacopyMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     if (stack.size < 3) return .{ .size = 0, .overflow = false };
 
@@ -695,7 +695,7 @@ fn returndatacopyMemorySize(stack: *Stack) jumpTableModule.MemorySizeResult {
     return .{ .size = result, .overflow = result == std.math.maxInt(u64) };
 }
 
-/// RETURNDATACOPY operation - copy output data from the previous call to memory
+// RETURNDATACOPY operation - copy output data from the previous call to memory
 pub fn opReturndatacopy(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     _ = interpreter;
@@ -756,7 +756,7 @@ pub fn opReturndatacopy(pc: usize, interpreter: *Interpreter, frame: *Frame) Exe
     return "";
 }
 
-/// EXTCODEHASH operation - get the code hash of an account
+// EXTCODEHASH operation - get the code hash of an account
 pub fn opExtcodehash(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
 
@@ -917,7 +917,7 @@ fn extcodehashDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack
     }
 }
 
-/// Register all environment opcodes in the given jump table
+// Register all environment opcodes in the given jump table
 pub fn registerEnvironmentOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable) !void {
     // ADDRESS (0x30)
     const address_op = try allocator.create(Operation);

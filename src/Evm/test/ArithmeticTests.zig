@@ -7,7 +7,7 @@ const interpreter = @import("../interpreter.zig");
 
 const Opcode = opcodes.Opcode;
 
-/// Test basic arithmetic operations
+// Test basic arithmetic operations
 test "basic arithmetic operations" {
     var evm_test = try EvmTest.init(testing.allocator);
     defer evm_test.deinit();
@@ -59,7 +59,7 @@ test "basic arithmetic operations" {
     }
 }
 
-/// Test division by zero
+// Test division by zero
 test "division by zero" {
     var evm_test = try EvmTest.init(testing.allocator);
     defer evm_test.deinit();
@@ -91,7 +91,7 @@ test "division by zero" {
     }
 }
 
-/// Test addmod and mulmod operations
+// Test addmod and mulmod operations
 test "addmod and mulmod" {
     var evm_test = try EvmTest.init(testing.allocator);
     defer evm_test.deinit();
@@ -130,7 +130,7 @@ test "addmod and mulmod" {
     }
 }
 
-/// Test signed division
+// Test signed division
 test "signed division" {
     var evm_test = try EvmTest.init(testing.allocator);
     defer evm_test.deinit();
@@ -155,7 +155,7 @@ test "signed division" {
     }
 }
 
-/// Test bitwise operations
+// Test bitwise operations
 test "bitwise operations" {
     var evm_test = try EvmTest.init(testing.allocator);
     defer evm_test.deinit();
@@ -194,7 +194,7 @@ test "bitwise operations" {
     try testing.expectEqual(@as(u8, 0xF0), not_result.output.?[31]);
 }
 
-/// Test comparison operations
+// Test comparison operations
 test "comparison operations" {
     var evm_test = try EvmTest.init(testing.allocator);
     defer evm_test.deinit();

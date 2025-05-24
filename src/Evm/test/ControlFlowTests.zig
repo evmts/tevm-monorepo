@@ -7,7 +7,7 @@ const interpreter = @import("../interpreter.zig");
 
 const Opcode = opcodes.Opcode;
 
-/// Test basic control flow operations
+// Test basic control flow operations
 test "simple jump" {
     var evm_test = try EvmTest.init(testing.allocator);
     defer evm_test.deinit();
@@ -37,7 +37,7 @@ test "simple jump" {
     }
 }
 
-/// Test invalid jump destinations
+// Test invalid jump destinations
 test "invalid jump" {
     var evm_test = try EvmTest.init(testing.allocator);
     defer evm_test.deinit();
@@ -70,7 +70,7 @@ test "invalid jump" {
     }
 }
 
-/// Test conditional jumps
+// Test conditional jumps
 test "conditional jump" {
     var evm_test = try EvmTest.init(testing.allocator);
     defer evm_test.deinit();
@@ -123,7 +123,7 @@ test "conditional jump" {
     }
 }
 
-/// Test PC opcode
+// Test PC opcode
 test "program counter" {
     var evm_test = try EvmTest.init(testing.allocator);
     defer evm_test.deinit();
@@ -150,7 +150,7 @@ test "program counter" {
     }
 }
 
-/// Test STOP, REVERT, and error conditions
+// Test STOP, REVERT, and error conditions
 test "execution termination" {
     var evm_test = try EvmTest.init(testing.allocator);
     defer evm_test.deinit();
