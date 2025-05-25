@@ -36,7 +36,12 @@ import {
 	StopError,
 	ValueOverflowError,
 } from '@tevm/errors'
-import { EvmError, EvmErrorMessage } from '@tevm/evm'
+import { EvmError } from '@tevm/evm'
+
+// EVMErrorMessage is no longer exported, define the values we need
+const EvmErrorMessage = {
+	INVALID_JUMP: 'invalid JUMP',
+}
 import { describe, expect, it, test } from 'vitest'
 import { handleRunTxError } from './handleEvmError.js'
 

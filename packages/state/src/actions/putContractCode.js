@@ -5,13 +5,14 @@ import { putAccount } from './putAccount.js'
 /**
  * Adds `value` to the state trie as code, and sets `codeHash` on the account
  * corresponding to `address` to reference this.
- * @type {import("../state-types/index.js").StateAction<'putContractCode'>}
+ * @param {import('../BaseState.js').BaseState} baseState
+ * @returns {(address: import('@tevm/utils').EthjsAddress, value: Uint8Array) => Promise<void>}
  */
 export const putContractCode = (baseState) => async (address, value) => {
 	const account = await getAccount(baseState)(address)
 	
 	// Create account data object, conditionally including storageRoot
-	/** @type {import('@tevm/utils').AccountData} */
+	/** @type {{nonce: bigint, balance: bigint, codeHash: Uint8Array, storageRoot?: Uint8Array}} */
 	const accountData = {
 		nonce: account?.nonce ?? 0n,
 		balance: account?.balance ?? 0n,

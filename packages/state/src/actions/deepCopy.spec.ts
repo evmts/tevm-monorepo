@@ -1,5 +1,5 @@
 import { InternalError } from '@tevm/errors'
-import { EthjsAccount, createAccount, createAddressFromString, hexToBytes, keccak256 } from '@tevm/utils'
+import { createAccount, createAddressFromString, hexToBytes, keccak256 } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { checkpoint } from './checkpoint.js'

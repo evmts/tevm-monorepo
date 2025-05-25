@@ -1,4 +1,4 @@
-import { EthjsAccount, EthjsAddress, numberToHex, setLengthLeft, toBytes } from '@tevm/utils'
+import { createAccount, createAddressFromString, numberToHex, setLengthLeft, toBytes } from '@tevm/utils'
 
 import { EipNotEnabledError } from '@tevm/errors'
 import type { BaseVm } from '../BaseVm.js'
@@ -16,7 +16,7 @@ export const accumulateParentBlockHash = (vm: BaseVm) => async (currentBlockNumb
 	if (!vm.common.ethjsCommon.isActivatedEIP(2935)) {
 		throw new EipNotEnabledError('Cannot call `accumulateParentBlockHash`: EIP 2935 is not active')
 	}
-	const historyAddress = EthjsAddress.fromString(
+	const historyAddress = createAddressFromString(
 		numberToHex(vm.common.ethjsCommon.param('vm', 'historyStorageAddress')),
 	)
 	const historyServeWindow = vm.common.ethjsCommon.param('vm', 'historyServeWindow')
@@ -28,7 +28,7 @@ export const accumulateParentBlockHash = (vm: BaseVm) => async (currentBlockNumb
 	}
 
 	if ((await vm.stateManager.getAccount(historyAddress)) === undefined) {
-		await vm.evm.journal.putAccount(historyAddress, new EthjsAccount())
+		await vm.evm.journal.putAccount(historyAddress, createAccount())
 	}
 
 	async function putBlockHash(vm: BaseVm, hash: Uint8Array, number: bigint) {

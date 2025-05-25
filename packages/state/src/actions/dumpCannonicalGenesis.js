@@ -25,7 +25,7 @@ export const dumpCanonicalGenesis = (baseState) => async () => {
 		const ethAddress = createAddress(hexAddress)
 		const account = (await getAccount(baseState, true)(ethAddress)) ?? fromAccountData({})
 
-		const storage = await dumpStorage(baseState, true)(ethAddress)
+		const storage = await dumpStorage(baseState)(ethAddress)
 
 		const deployedBytecode = await getContractCode(baseState, true)(ethAddress)
 

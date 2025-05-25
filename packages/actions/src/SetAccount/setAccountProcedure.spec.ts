@@ -1,6 +1,7 @@
+import { createAddress } from '@tevm/address'
 import { ERC20 } from '@tevm/contract'
 import { type TevmNode, createTevmNode } from '@tevm/node'
-import { EthjsAddress, bytesToHex, keccak256, numberToHex } from '@tevm/utils'
+import { bytesToHex, keccak256, numberToHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { SetAccountJsonRpcRequest } from './SetAccountJsonRpcRequest.js'
 import { setAccountProcedure } from './setAccountProcedure.js'
@@ -30,7 +31,7 @@ describe('setAccountProcedure', () => {
 		const response = await setAccountProcedure(client)(request)
 		expect(response.error).toBeUndefined()
 
-		const account = await (await client.getVm()).stateManager.getAccount(EthjsAddress.fromString(ERC20_ADDRESS))
+		const account = await (await client.getVm()).stateManager.getAccount(createAddress(ERC20_ADDRESS))
 
 		if (!account) throw new Error('Account not found')
 
@@ -75,7 +76,7 @@ describe('setAccountProcedure', () => {
 		const response = await setAccountProcedure(client)(request)
 		expect(response.error).toBeUndefined()
 
-		const account = await (await client.getVm()).stateManager.getAccount(EthjsAddress.fromString(ERC20_ADDRESS))
+		const account = await (await client.getVm()).stateManager.getAccount(createAddress(ERC20_ADDRESS))
 
 		if (!account) throw new Error('Account not found')
 

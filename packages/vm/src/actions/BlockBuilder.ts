@@ -13,7 +13,6 @@ import {
 	hexToBytes,
 	parseGwei,
 	toType,
-	zeros,
 } from '@tevm/utils'
 
 import {} from './runBlock.js'
@@ -378,7 +377,7 @@ export class BlockBuilder {
 			const { parentBeaconBlockRoot, timestamp } = this.headerData
 			// timestamp should already be set in constructor
 			const timestampBigInt = toType(timestamp ?? 0, TypeOutput.BigInt)
-			const parentBeaconBlockRootBuf = toType(parentBeaconBlockRoot, TypeOutput.Uint8Array) ?? zeros(32)
+			const parentBeaconBlockRootBuf = toType(parentBeaconBlockRoot, TypeOutput.Uint8Array) ?? new Uint8Array(32)
 
 			await accumulateParentBeaconBlockRoot(this.vm)(parentBeaconBlockRootBuf, timestampBigInt)
 		}
@@ -391,7 +390,7 @@ export class BlockBuilder {
 			const { parentHash, number } = this.headerData
 			// timestamp should already be set in constructor
 			const numberBigInt = toType(number ?? 0, TypeOutput.BigInt)
-			const parentHashSanitized = toType(parentHash, TypeOutput.Uint8Array) ?? zeros(32)
+			const parentHashSanitized = toType(parentHash, TypeOutput.Uint8Array) ?? new Uint8Array(32)
 
 			await accumulateParentBlockHash(this.vm)(numberBigInt, parentHashSanitized)
 		}

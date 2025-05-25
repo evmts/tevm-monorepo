@@ -1,6 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { AccountNotFoundError, InternalError } from '@tevm/errors'
-import { EthjsAccount } from '@tevm/utils'
+import { createAccount } from '@tevm/utils'
 import { hexToBytes, keccak256 } from '@tevm/utils'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
@@ -98,30 +98,30 @@ export const setAccountHandler =
 			promises.push(
 				vm.stateManager.putAccount(
 					address,
-					new EthjsAccount(
-						params.nonce ?? account?.nonce,
-						params.balance ?? account?.nonce,
-						(params.storageRoot && hexToBytes(params.storageRoot)) ??
+					createAccount({
+						nonce: params.nonce ?? account?.nonce,
+						balance: params.balance ?? account?.balance,
+						storageRoot: (params.storageRoot && hexToBytes(params.storageRoot)) ??
 							(account?.storageRoot !== undefined && account?.storageRoot !== '0x'
 								? hexToBytes(account.storageRoot)
 								: undefined),
-						(params.deployedBytecode && hexToBytes(keccak256(params.deployedBytecode))) ??
+						codeHash: (params.deployedBytecode && hexToBytes(keccak256(params.deployedBytecode))) ??
 							(account?.deployedBytecode !== undefined ? hexToBytes(keccak256(account.deployedBytecode)) : undefined),
-					),
+					}),
 				),
 			)
 			if (params.deployedBytecode) {
-				promises.push(vm.stateManager.putContractCode(address, hexToBytes(params.deployedBytecode)))
+				promises.push(vm.stateManager.putCode(address, hexToBytes(params.deployedBytecode)))
 			}
 			// state clears state first stateDiff does not
 			if (params.state) {
-				await vm.stateManager.clearContractStorage(address)
+				await vm.stateManager.clearStorage(address)
 			}
 			const state = params.state ?? params.stateDiff
 			if (state) {
 				for (const [key, value] of Object.entries(state)) {
 					promises.push(
-						vm.stateManager.putContractStorage(
+						vm.stateManager.putStorage(
 							address,
 							hexToBytes(/** @type {import('@tevm/utils').Hex}*/ (key), { size: 32 }),
 							hexToBytes(value),

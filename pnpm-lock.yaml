@@ -1217,6 +1217,9 @@ importers:
       '@tevm/client-types':
         specifier: workspace:^
         version: link:../../packages/client-types
+      '@tevm/common':
+        specifier: workspace:1.0.0-next.142
+        version: link:../../packages/common
       '@tevm/contract':
         specifier: workspace:^
         version: link:../../packages/contract
@@ -2256,6 +2259,9 @@ importers:
       '@tevm/utils':
         specifier: workspace:^
         version: link:../utils
+      eventemitter3:
+        specifier: ^5.0.1
+        version: 5.0.1
       viem:
         specifier: ^2.30.1
         version: 2.30.1(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.25.28)
@@ -7556,6 +7562,7 @@ packages:
 
   bun@1.2.5:
     resolution: {integrity: sha512-fbQLt+DPiGUrPKdmsHRRT7cQAlfjdxPVFvLZrsUPmKiTdv+pU50ypdx9yRJluknSbyaZchFVV7Lx2KXikXKX2Q==}
+    cpu: [arm64, x64, aarch64]
     os: [darwin, linux, win32]
     hasBin: true
 

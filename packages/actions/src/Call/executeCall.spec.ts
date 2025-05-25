@@ -1,7 +1,8 @@
+import { createAddress } from '@tevm/address'
 import { EvmRevertError, InvalidGasPriceError, RevertError } from '@tevm/errors'
 import { createTevmNode } from '@tevm/node'
 import { TestERC20 } from '@tevm/test-utils'
-import { EthjsAddress, encodeFunctionData, hexToBytes } from '@tevm/utils'
+import { encodeFunctionData, hexToBytes } from '@tevm/utils'
 import { parseEther } from 'viem'
 import { describe, expect, it, vi } from 'vitest'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
@@ -32,9 +33,9 @@ describe('executeCall', () => {
 				}),
 			),
 			gasLimit: 16784800n,
-			to: EthjsAddress.fromString(ERC20_ADDRESS),
-			origin: EthjsAddress.zero(),
-			caller: EthjsAddress.zero(),
+			to: createAddress(ERC20_ADDRESS),
+			origin: createAddress(0),
+			caller: createAddress(0),
 			block: await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock()),
 		}
 
@@ -79,9 +80,9 @@ describe('executeCall', () => {
 					args: [notCaller, caller, 90n],
 				}),
 			),
-			to: EthjsAddress.fromString(ERC20_ADDRESS),
-			origin: EthjsAddress.fromString(caller),
-			from: EthjsAddress.fromString(caller),
+			to: createAddress(ERC20_ADDRESS),
+			origin: createAddress(caller),
+			from: createAddress(caller),
 			gasLimit: 16784800n,
 			block: await vm.blockchain.getCanonicalHeadBlock(),
 		}
@@ -111,9 +112,9 @@ describe('executeCall', () => {
 					args: [to],
 				}),
 			),
-			to: EthjsAddress.fromString(to),
-			origin: EthjsAddress.zero(),
-			caller: EthjsAddress.zero(),
+			to: createAddress(to),
+			origin: createAddress(0),
+			caller: createAddress(0),
 			gasLimit: 16784800n,
 			block: await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock()),
 		}
@@ -175,9 +176,9 @@ describe('executeCall', () => {
 				}),
 			),
 			gasLimit: 16784800n,
-			to: EthjsAddress.fromString(ERC20_ADDRESS),
-			origin: EthjsAddress.zero(),
-			caller: EthjsAddress.zero(),
+			to: createAddress(ERC20_ADDRESS),
+			origin: createAddress(0),
+			caller: createAddress(0),
 			block: await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock()),
 		}
 
@@ -212,9 +213,9 @@ describe('executeCall', () => {
 				}),
 			),
 			gasLimit: 16784800n,
-			to: EthjsAddress.fromString(ERC20_ADDRESS),
-			origin: EthjsAddress.zero(),
-			caller: EthjsAddress.zero(),
+			to: createAddress(ERC20_ADDRESS),
+			origin: createAddress(0),
+			caller: createAddress(0),
 			block: await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock()),
 		}
 
@@ -249,9 +250,9 @@ describe('executeCall', () => {
 				}),
 			),
 			gasLimit: 16784800n,
-			to: EthjsAddress.fromString(ERC20_ADDRESS),
-			origin: EthjsAddress.zero(),
-			caller: EthjsAddress.zero(),
+			to: createAddress(ERC20_ADDRESS),
+			origin: createAddress(0),
+			caller: createAddress(0),
 			block: await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock()),
 		}
 
@@ -296,9 +297,9 @@ describe('executeCall', () => {
 				}),
 			),
 			gasLimit: 16784800n,
-			to: EthjsAddress.fromString(ERC20_ADDRESS),
-			origin: EthjsAddress.zero(),
-			caller: EthjsAddress.zero(),
+			to: createAddress(ERC20_ADDRESS),
+			origin: createAddress(0),
+			caller: createAddress(0),
 			block: await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock()),
 		}
 
@@ -344,9 +345,9 @@ describe('executeCall', () => {
 				}),
 			),
 			gasLimit: 16784800n,
-			to: EthjsAddress.fromString(ERC20_ADDRESS),
-			origin: EthjsAddress.zero(),
-			caller: EthjsAddress.zero(),
+			to: createAddress(ERC20_ADDRESS),
+			origin: createAddress(0),
+			caller: createAddress(0),
 			block: await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock()),
 		}
 
@@ -392,9 +393,9 @@ describe('executeCall', () => {
 				}),
 			),
 			gasLimit: 16784800n,
-			to: EthjsAddress.fromString(ERC20_ADDRESS),
-			origin: EthjsAddress.zero(),
-			caller: EthjsAddress.zero(),
+			to: createAddress(ERC20_ADDRESS),
+			origin: createAddress(0),
+			caller: createAddress(0),
 			block: await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock()),
 		}
 
@@ -428,9 +429,9 @@ describe('executeCall', () => {
 
 		// Mock the stateManager.getContractStorage method to track calls
 		const vm = await client.getVm()
-		const originalGetContractStorage = vm.stateManager.getContractStorage
-		const getContractStorageSpy = vi.fn().mockImplementation(originalGetContractStorage)
-		vm.stateManager.getContractStorage = getContractStorageSpy
+		const originalGetContractStorage = (/** @type {any} */ (vm.stateManager)).getContractStorage
+		const getContractStorageSpy = vi.fn().mockImplementation(originalGetContractStorage);
+		(/** @type {any} */ (vm.stateManager)).getContractStorage = getContractStorageSpy
 
 		// Set up ERC20 contract
 		expect(
@@ -463,9 +464,9 @@ describe('executeCall', () => {
 				}),
 			),
 			gasLimit: 16784800n,
-			to: EthjsAddress.fromString(ERC20_ADDRESS),
-			origin: EthjsAddress.zero(),
-			caller: EthjsAddress.zero(),
+			to: createAddress(ERC20_ADDRESS),
+			origin: createAddress(0),
+			caller: createAddress(0),
 			block: await vm.blockchain.getCanonicalHeadBlock(),
 		}
 

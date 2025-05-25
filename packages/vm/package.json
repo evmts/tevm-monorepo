@@ -73,7 +73,8 @@
     "@tevm/state": "workspace:^",
     "@tevm/trie": "workspace:^",
     "@tevm/tx": "workspace:^",
-    "@tevm/utils": "workspace:^"
+    "@tevm/utils": "workspace:^",
+    "eventemitter3": "^5.0.1"
   },
   "devDependencies": {
     "@tevm/contract": "workspace:^",

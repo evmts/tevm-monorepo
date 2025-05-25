@@ -1,5 +1,4 @@
 import { createAddress } from '@tevm/address'
-import type { EvmResult } from '@tevm/evm'
 import type { Address, EthjsLog } from '@tevm/utils'
 import { bytesToHex, getAddress, toHex } from '@tevm/utils'
 import type { RunTxResult } from '@tevm/vm'
@@ -25,12 +24,12 @@ describe('callHandlerResult', async () => {
 			blobGasUsed: 3000n,
 			createdAddresses: new Set([dummyAddress]),
 		},
-	} as const satisfies EvmResult
+	} as const
 
 	const dummyRuntxResult = {
 		minerValue: 20n,
 		bloom: {} as any,
-		createdAddress: createAddress(dummyEVMResult.execResult.createdAddresses.values().next().value as Address),
+		// createdAddress: createAddress(dummyEVMResult.execResult.createdAddresses.values().next().value as Address),
 		accessList: {} as any,
 		totalGasSpent: 100n,
 		preimages: new Map(),

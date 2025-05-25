@@ -31,7 +31,42 @@ import {
 	StopError,
 	ValueOverflowError,
 } from '@tevm/errors'
-import { EvmErrorMessage } from '@tevm/evm'
+import { EvmError } from '@tevm/evm'
+
+// EVMErrorMessage is no longer exported, use EVMError.errorMessages instead
+const EvmErrorMessage = EvmError.errorMessages || {
+	STOP: 'stop',
+	REVERT: 'revert',
+	OUT_OF_GAS: 'out of gas',
+	INVALID_OPCODE: 'invalid opcode',
+	INVALID_JUMP: 'invalid JUMP',
+	OUT_OF_RANGE: 'value out of range',
+	INVALID_BYTECODE_RESULT: 'invalid bytecode deployed',
+	INSUFFICIENT_BALANCE: 'insufficient balance',
+	CREATE_COLLISION: 'create collision',
+	INVALID_BEGINSUB: 'invalid BEGINSUB',
+	INVALID_RETURNSUB: 'invalid RETURNSUB',
+	INVALID_JUMPSUB: 'invalid JUMPSUB',
+	STACK_UNDERFLOW: 'stack underflow',
+	STACK_OVERFLOW: 'stack overflow',
+	INTERNAL_ERROR: 'internal error',
+	STATIC_STATE_CHANGE: 'static state change',
+	REFUND_EXHAUSTED: 'refund exhausted',
+	VALUE_OVERFLOW: 'value overflow',
+	CODESTORE_OUT_OF_GAS: 'code store out of gas',
+	CODESIZE_EXCEEDS_MAXIMUM: 'code size to deposit exceeds maximum code size',
+	INVALID_EOF_FORMAT: 'invalid EOF format',
+	INVALID_INPUT_LENGTH: 'invalid input length',
+	INITCODE_SIZE_VIOLATION: 'initcode exceeds max initcode size',
+	BLS_12_381_INVALID_INPUT_LENGTH: 'invalid input length',
+	BLS_12_381_POINT_NOT_ON_CURVE: 'point not on curve',
+	BLS_12_381_INPUT_EMPTY: 'input is empty',
+	BLS_12_381_FP_NOT_IN_FIELD: 'fp point not in field',
+	INVALID_COMMITMENT: 'kzg commitment does not match versioned hash',
+	INVALID_KZG_INPUTS: 'kzg inputs invalid',
+	INVALID_PROOF: 'kzg proof invalid',
+	AUTHCALL_UNSET: 'attempting to AUTHCALL without AUTH set',
+}
 
 /**
  * @type {ReturnType<typeof createEvmError>} EvmError

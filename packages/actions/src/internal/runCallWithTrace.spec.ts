@@ -1,6 +1,7 @@
+import { createAddress } from '@tevm/address'
 import { createTevmNode } from '@tevm/node'
 import { TestERC20 } from '@tevm/test-utils'
-import { EthjsAddress, encodeFunctionData, hexToBytes } from '@tevm/utils'
+import { encodeFunctionData, hexToBytes } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
@@ -51,10 +52,10 @@ describe('runCallWithTrace', () => {
 				}),
 			),
 			gasLimit: 16784800n,
-			to: EthjsAddress.fromString(ERC20_ADDRESS),
+			to: createAddress(ERC20_ADDRESS),
 			block: await vm.blockchain.getCanonicalHeadBlock(),
-			origin: EthjsAddress.zero(),
-			caller: EthjsAddress.zero(),
+			origin: createAddress(0),
+			caller: createAddress(0),
 		}
 
 		const result = await runCallWithTrace(vm, client.logger, params)
@@ -80,10 +81,10 @@ describe('runCallWithTrace', () => {
 				}),
 			),
 			gasLimit: 16784800n,
-			to: EthjsAddress.fromString(ERC20_ADDRESS),
+			to: createAddress(ERC20_ADDRESS),
 			block: await vm.blockchain.getCanonicalHeadBlock(),
-			origin: EthjsAddress.zero(),
-			caller: EthjsAddress.zero(),
+			origin: createAddress(0),
+			caller: createAddress(0),
 		}
 
 		const lazyResult = await runCallWithTrace(vm, client.logger, params, true)
@@ -109,8 +110,8 @@ describe('runCallWithTrace', () => {
 			gasLimit: 16784800n,
 			value: 0n,
 			block: await vm.blockchain.getCanonicalHeadBlock(),
-			origin: EthjsAddress.zero(),
-			caller: EthjsAddress.zero(),
+			origin: createAddress(0),
+			caller: createAddress(0),
 		}
 
 		const result = await runCallWithTrace(vm, client.logger, params)

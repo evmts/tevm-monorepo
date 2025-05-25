@@ -1,5 +1,5 @@
 import { createAddress } from '@tevm/address'
-import { EthjsAccount } from '@tevm/utils'
+import { createAccount } from '@tevm/utils'
 import { hexToBytes, keccak256 } from '@tevm/utils'
 
 /**
@@ -21,7 +21,7 @@ export const addPredeploy = async ({ vm, nonce, balance, storageRoot, deployedBy
 	const ethjsAddress = createAddress(address)
 	await vm.stateManager.putAccount(
 		ethjsAddress,
-		EthjsAccount.fromAccountData({
+		createAccount({
 			...(nonce !== undefined ? { nonce } : {}),
 			...(balance !== undefined ? { balance } : {}),
 			...(storageRoot !== undefined ? { storageRoot } : {}),

@@ -17,7 +17,8 @@ import { putContractStorage } from './putContractStorage.js'
  * 3. Finally fetches from remote provider if neither cache has the value
  * 4. When fetched from remote, stores in both main and fork caches
  *
- * @type {import("../state-types/index.js").StateAction<'getContractStorage'>}
+ * @param {import('../BaseState.js').BaseState} baseState
+ * @returns {(address: import('@tevm/utils').EthjsAddress, key: Uint8Array) => Promise<Uint8Array>}
  */
 export const getContractStorage = (baseState) => async (address, key) => {
 	const {

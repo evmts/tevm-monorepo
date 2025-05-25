@@ -20,7 +20,7 @@ export const getStorageAtHandler = (client) => async (params) => {
 	}
 	if (tag === 'latest') {
 		return bytesToHex(
-			await vm.stateManager.getContractStorage(
+			await vm.stateManager.getStorage(
 				createAddress(params.address),
 				hexToBytes(params.position, { size: 32 }),
 			),

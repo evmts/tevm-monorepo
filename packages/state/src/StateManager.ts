@@ -43,4 +43,24 @@ export interface StateManager extends EvmStateManagerInterface {
 		 */
 		createNewStateRoot?: boolean,
 	): Promise<void>
+	/**
+	 * Clears all storage entries for the account
+	 */
+	clearContractStorage(address: import('@tevm/utils').EthjsAddress): Promise<void>
+	/**
+	 * Dumps storage based on the input
+	 */
+	dumpStorage(address: import('@tevm/utils').EthjsAddress): Promise<import('@tevm/common').StorageDump>
+	/**
+	 * Dumps a range of storage values
+	 */
+	dumpStorageRange(
+		address: import('@tevm/utils').EthjsAddress, 
+		startKey: bigint, 
+		limit: number
+	): Promise<import('@tevm/common').StorageRange>
+	/**
+	 * Loads a state from a given state root
+	 */
+	generateCanonicalGenesis(state: TevmState): Promise<void>
 }

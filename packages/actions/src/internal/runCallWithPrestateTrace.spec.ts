@@ -1,6 +1,7 @@
+import { createAddress } from '@tevm/address'
 import { createTevmNode } from '@tevm/node'
 import { TestERC20 } from '@tevm/test-utils'
-import { EthjsAddress, encodeFunctionData, hexToBytes, parseEther } from '@tevm/utils'
+import { encodeFunctionData, hexToBytes, parseEther } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
@@ -74,10 +75,10 @@ describe('runCallWithPrestateTrace', () => {
 				}),
 			),
 			gasLimit: 1000000n,
-			to: EthjsAddress.fromString(ERC20_ADDRESS),
+			to: createAddress(ERC20_ADDRESS),
 			block: head,
-			origin: EthjsAddress.fromString(CALLER_ADDRESS),
-			caller: EthjsAddress.fromString(CALLER_ADDRESS),
+			origin: createAddress(CALLER_ADDRESS),
+			caller: createAddress(CALLER_ADDRESS),
 		}
 
 		const result = await runCallWithPrestateTrace(client, params, false)
@@ -99,10 +100,10 @@ describe('runCallWithPrestateTrace', () => {
 				}),
 			),
 			gasLimit: 1000000n,
-			to: EthjsAddress.fromString(ERC20_ADDRESS),
+			to: createAddress(ERC20_ADDRESS),
 			block: head,
-			origin: EthjsAddress.fromString(CALLER_ADDRESS),
-			caller: EthjsAddress.fromString(CALLER_ADDRESS),
+			origin: createAddress(CALLER_ADDRESS),
+			caller: createAddress(CALLER_ADDRESS),
 		}
 
 		const result = await runCallWithPrestateTrace(client, params, true)

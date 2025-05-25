@@ -32,7 +32,7 @@ export const prefetchStorageFromAccessList = async (client, accessList) => {
 
 			// Queue up storage fetch
 			prefetchPromises.push(
-				stateManager.getContractStorage(addressObj, keyBytes).catch((error) => {
+				stateManager.getStorage(addressObj, keyBytes).catch((error) => {
 					client.logger.debug(
 						{
 							error,

@@ -1,6 +1,6 @@
 import type { Contract } from '@tevm/contract'
 import type { ExecResult } from '@tevm/evm'
-import { type Address, EthjsAddress, type Hex, toHex } from '@tevm/utils'
+import { type Address, createAddressFromString, type Hex, toHex } from '@tevm/utils'
 
 /**
  * A precompile is a contract that is deployed at a specific address but runs JavaScript code instead of EVM code.
@@ -44,7 +44,7 @@ export class Precompile<
 		}) => Promise<ExecResult>,
 	) {}
 
-	protected readonly ethjsAddress = () => EthjsAddress.fromString(this.contract.address)
+	protected readonly ethjsAddress = () => createAddressFromString(this.contract.address)
 
 	public readonly precompile = () => ({
 		address: this.ethjsAddress(),

@@ -1,4 +1,4 @@
-import { Block } from '@tevm/block'
+import { createBlock } from '@tevm/block'
 import { createLogger } from '@tevm/logger'
 import { EMPTY_STATE_ROOT } from '@tevm/trie'
 import { hexToBytes } from 'viem'
@@ -37,7 +37,7 @@ const createGenesisBlock = (stateRoot, common) => {
 		gasLimit: 30_000_000n,
 		...(newCommon.ethjsCommon.isActivatedEIP(4895) ? { withdrawalsRoot: KECCAK256_RLP } : {}),
 	}
-	return Block.fromBlockData(
+	return createBlock(
 		{ header, ...(newCommon.ethjsCommon.isActivatedEIP(4895) ? { withdrawals: [] } : {}) },
 		{ common },
 	)

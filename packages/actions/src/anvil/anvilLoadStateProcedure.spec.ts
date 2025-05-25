@@ -1,6 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { createTevmNode } from '@tevm/node'
-import { EthjsAccount, bytesToHex } from '@tevm/utils'
+import { createAccount, bytesToHex } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { anvilLoadStateJsonRpcProcedure } from './anvilLoadStateProcedure.js'
 
@@ -10,7 +10,7 @@ describe('anvilLoadStateJsonRpcProcedure', () => {
 		const loadStateProcedure = anvilLoadStateJsonRpcProcedure(client)
 
 		const testAddress = createAddress('0x1234567890123456789012345678901234567890')
-		const account = EthjsAccount.fromAccountData({ balance: 1000n, nonce: 1n })
+		const account = createAccount({ balance: 1000n, nonce: 1n })
 
 		const request = {
 			method: 'anvil_loadState',

@@ -20,7 +20,7 @@ export const validateHeader = (baseChain) => async (header, height) => {
 		throw new Error(`invalid timestamp ${header.errorStr()}`)
 	}
 
-	if (!(header.common.ethjsCommon.consensusType() === 'pos')) throw new Error('Tevm currently does not support pos')
+	if (!(baseChain.common.ethjsCommon.consensusType() === 'pos')) throw new Error('Tevm currently does not support pos')
 
 	if (baseChain.common.ethjsCommon.consensusAlgorithm() === ConsensusAlgorithm.Clique) {
 		const period = /** @type {any}*/ (baseChain.common.ethjsCommon.consensusConfig()).period
@@ -41,13 +41,13 @@ export const validateHeader = (baseChain) => async (header, height) => {
 	}
 
 	// check blockchain dependent EIP1559 values
-	if (header.common.ethjsCommon.isActivatedEIP(1559)) {
+	if (baseChain.common.ethjsCommon.isActivatedEIP(1559)) {
 		// check if the base fee is correct
 		let expectedBaseFee
 		const londonHfBlock = baseChain.common.ethjsCommon.hardforkBlock('london')
 		const isInitialEIP1559Block = number === londonHfBlock
 		if (isInitialEIP1559Block) {
-			expectedBaseFee = header.common.ethjsCommon.param('initialBaseFee')
+			expectedBaseFee = baseChain.common.ethjsCommon.param('initialBaseFee')
 		} else {
 			expectedBaseFee = parentHeader.calcNextBaseFee()
 		}
@@ -57,7 +57,7 @@ export const validateHeader = (baseChain) => async (header, height) => {
 		}
 	}
 
-	if (header.common.ethjsCommon.isActivatedEIP(4844)) {
+	if (baseChain.common.ethjsCommon.isActivatedEIP(4844)) {
 		const expectedExcessBlobGas = parentHeader.calcNextExcessBlobGas()
 		if (header.excessBlobGas !== expectedExcessBlobGas) {
 			throw new Error(`expected blob gas: ${expectedExcessBlobGas}, got: ${header.excessBlobGas}`)

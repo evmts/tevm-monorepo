@@ -1,4 +1,4 @@
-import { type TevmActionsApi } from '@tevm/decorators'
+import type { TevmActionsApi } from '@tevm/decorators'
 
 /**
  * Provides powerful actions for interacting with the EVM using the TEVM API.

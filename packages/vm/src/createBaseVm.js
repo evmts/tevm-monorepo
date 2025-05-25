@@ -1,4 +1,4 @@
-import { AsyncEventEmitter } from '@tevm/utils'
+import { EventEmitter } from 'eventemitter3'
 
 /**
  * @param {import('./VmOpts.js').VmOpts} opts
@@ -8,7 +8,7 @@ export const createBaseVm = (opts) => {
 	/**
 	 * @type {import('./BaseVm.js').BaseVm['events']}
 	 */
-	const events = new AsyncEventEmitter()
+	const events = new EventEmitter()
 	return {
 		stateManager: opts.stateManager,
 		evm: opts.evm,

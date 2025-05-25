@@ -66,6 +66,7 @@
 	"dependencies": {
 		"@tevm/actions": "workspace:^",
 		"@tevm/client-types": "workspace:^",
+		"@tevm/common": "workspace:1.0.0-next.142",
 		"@tevm/contract": "workspace:^",
 		"@tevm/decorators": "workspace:^",
 		"@tevm/node": "workspace:^",

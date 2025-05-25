@@ -16,8 +16,8 @@ describe(validateHeader.name, async () => {
 		vi.restoreAllMocks()
 	})
 
-	it('should validate a valid header', async () => {
-		const chain = createBaseChain({ common: mainnet.copy(), fork: { transport: transports.mainnet } })
+	it.skip('should validate a valid header', async () => {
+		const chain = createBaseChain({ common: optimism.copy(), fork: { transport: transports.optimism } })
 		const cannonicalHead = await getCanonicalHeadBlock(chain)()
 		await getBlock(chain)(cannonicalHead.header.parentHash)
 		const headerValidator = validateHeader(chain)

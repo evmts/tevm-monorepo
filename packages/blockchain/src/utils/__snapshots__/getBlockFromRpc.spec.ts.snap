@@ -10,17 +10,17 @@ Version: 1.1.0.next-73]
 exports[`getBlockFromRpc > should handle Optimism deposit transactions filtering 1`] = `
 [
   [
-    "Warning: Optimism and Arbitrum deposit transactions (type 0x7e and 0x6a) are currently not supported and will be filtered out of blocks until support is added
+    "Warning: EIP-7702, Optimism and Arbitrum deposit transactions (types 0x4, 0x7e and 0x6a-0x6f) are currently not supported and will be filtered out of blocks until support is added
 filtering out tx 0x284db6dad8681a502b229691d72e890be7f8533cbf34f9d88fbe84db0ed1ff35.
 Note: The block hash will be different because of the excluded txs",
   ],
   [
-    "Warning: Optimism and Arbitrum deposit transactions (type 0x7e and 0x6a) are currently not supported and will be filtered out of blocks until support is added
+    "Warning: EIP-7702, Optimism and Arbitrum deposit transactions (types 0x4, 0x7e and 0x6a-0x6f) are currently not supported and will be filtered out of blocks until support is added
 filtering out tx 0x284db6dad8681a502b229691d72e890be7f8533cbf34f9d88fbe84db0ed1ff35.
 Note: The block hash will be different because of the excluded txs",
   ],
   [
-    "Warning: Optimism and Arbitrum deposit transactions (type 0x7e and 0x6a) are currently not supported and will be filtered out of blocks until support is added
+    "Warning: EIP-7702, Optimism and Arbitrum deposit transactions (types 0x4, 0x7e and 0x6a-0x6f) are currently not supported and will be filtered out of blocks until support is added
 filtering out tx 0x284db6dad8681a502b229691d72e890be7f8533cbf34f9d88fbe84db0ed1ff35.
 Note: The block hash will be different because of the excluded txs",
   ],
