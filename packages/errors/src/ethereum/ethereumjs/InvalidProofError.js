@@ -1,4 +1,4 @@
-import { EvmError } from '@ethereumjs/evm'
+import { EVMError } from '@ethereumjs/evm'
 import { ExecutionError } from '../ExecutionErrorError.js'
 
 /**
@@ -8,7 +8,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string} [docsPath] - Path to the documentation.
  * @property {string} [docsSlug] - Slug for the documentation.
  * @property {string[]} [metaMessages] - Additional meta messages.
- * @property {ExecutionError|import('@ethereumjs/evm').EvmError} [cause] - The cause of the error.
+ * @property {ExecutionError|import('@ethereumjs/evm').EVMError} [cause] - The cause of the error.
  * @property {string} [details] - Details of the error.
  * @property {object} [meta] - Optional object containing additional information about the error.
  */
@@ -43,7 +43,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class InvalidProofError extends ExecutionError {
-	/** @type {string} */ static EVMErrorMessage = EvmError.errorMessages.INVALID_PROOF
+	/** @type {string} */ static EVMErrorMessage = EVMError.errorMessages.INVALID_PROOF
 	/**
 	 * Constructs an InvalidProofError.
 	 * Represents an EIP-4844 specific error that occurs when a KZG proof is invalid.
