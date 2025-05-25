@@ -106,6 +106,7 @@ export {
 	GWEI_TO_WEI,
 	randomBytes,
 	createAddressFromString,
+	createAccount,
 } from './ethereumjs.js'
 export type {
 	WithdrawalData,

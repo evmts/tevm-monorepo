@@ -1,4 +1,4 @@
-import { EthjsAccount, EthjsAddress } from '@tevm/utils'
+import { createAccount, createAddressFromString } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { deleteAccount } from './deleteAccount.js'
@@ -11,10 +11,10 @@ describe(deleteAccount.name, () => {
 			loggingLevel: 'warn',
 		})
 
-		const address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
+		const address = createAddressFromString(`0x${'01'.repeat(20)}`)
 		const balance = 420n
 		const nonce = 2n
-		const account = EthjsAccount.fromAccountData({
+		const account = createAccount({
 			balance,
 			nonce,
 		})

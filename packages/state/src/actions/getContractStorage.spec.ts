@@ -1,6 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { transports } from '@tevm/test-utils'
-import { EthjsAccount, EthjsAddress, hexToBytes, toBytes } from '@tevm/utils'
+import { EthjsAccount, EthjsAddress, createAccount, createAddressFromString, hexToBytes, toBytes } from '@tevm/utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import type { BaseState } from '../BaseState.js'
 import { createBaseState } from '../createBaseState.js'
@@ -25,7 +25,7 @@ describe('getContractStorage', () => {
 		address = createAddress('01'.repeat(20))
 		key = hexToBytes(`0x${'02'.repeat(32)}`)
 		value = hexToBytes('0x1234')
-		account = EthjsAccount.fromAccountData({
+		account = createAccount({
 			balance: 420n,
 			nonce: 2n,
 		})
@@ -51,15 +51,15 @@ describe('getContractStorage', () => {
 	})
 
 	it('should return empty Uint8Array if the account is not a contract', async () => {
-		const newAddress = EthjsAddress.fromString(`0x${'02'.repeat(20)}`)
-		await putAccount(baseState)(newAddress, EthjsAccount.fromAccountData({ balance: 100n, nonce: 1n }))
+		const newAddress = createAddressFromString(`0x${'02'.repeat(20)}`)
+		await putAccount(baseState)(newAddress, createAccount({ balance: 100n, nonce: 1n }))
 		expect(await getContractStorage(baseState)(newAddress, key)).toEqual(Uint8Array.from([0]))
 	})
 
 	it('should return empty Uint8Array when contract exists but forking is disabled', async () => {
 		// Create an account with code hash that would make isContract() return true
-		const contractAddress = EthjsAddress.fromString(`0x${'cc'.repeat(20)}`)
-		const contractAccount = EthjsAccount.fromAccountData({
+		const contractAddress = createAddressFromString(`0x${'cc'.repeat(20)}`)
+		const contractAccount = createAccount({
 			balance: 0n,
 			nonce: 0n,
 			// Non-zero code hash makes isContract() return true
@@ -98,7 +98,7 @@ describe('getContractStorage forking', () => {
 		})
 
 		// Known L2StandardBridge contract on Optimism
-		knownContractAddress = EthjsAddress.fromString('0x4200000000000000000000000000000000000010')
+		knownContractAddress = createAddressFromString('0x4200000000000000000000000000000000000010')
 		// Storage slot 0 should have a consistent value at this block
 		knownStorageKey = toBytes(0, { size: 32 })
 	})

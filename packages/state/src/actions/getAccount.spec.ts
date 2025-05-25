@@ -1,6 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { transports } from '@tevm/test-utils'
-import { EthjsAccount, EthjsAddress } from '@tevm/utils'
+import { EthjsAccount, EthjsAddress, createAccount, createAddressFromString } from '@tevm/utils'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { getAccount } from './getAccount.js'
@@ -17,10 +17,10 @@ describe(getAccount.name, () => {
 			loggingLevel: 'warn',
 		})
 
-		const address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
+		const address = createAddressFromString(`0x${'01'.repeat(20)}`)
 		const balance = 420n
 		const nonce = 2n
-		const account = EthjsAccount.fromAccountData({
+		const account = createAccount({
 			balance,
 			nonce,
 		})
@@ -48,7 +48,7 @@ describe(`${getAccount.name} forking`, () => {
 		})
 
 		address = createAddress(`0x${'01'.repeat(20)}`)
-		account = EthjsAccount.fromAccountData({
+		account = createAccount({
 			balance: 420n,
 			nonce: 2n,
 		})
@@ -145,7 +145,7 @@ describe(`${getAccount.name} forking`, () => {
 		const testAddress = createAddress('0x1234567890123456789012345678901234567890')
 
 		// Mock the getAccountFromProvider to return an empty account
-		const mockEmptyAccount = EthjsAccount.fromAccountData({
+		const mockEmptyAccount = createAccount({
 			balance: 0n,
 			nonce: 0n,
 			codeHash: new Uint8Array(32).fill(0),

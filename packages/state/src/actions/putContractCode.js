@@ -1,4 +1,4 @@
-import { EthjsAccount, keccak256 } from '@tevm/utils'
+import { createAccount, keccak256 } from '@tevm/utils'
 import { getAccount } from './getAccount.js'
 import { putAccount } from './putAccount.js'
 
@@ -11,10 +11,10 @@ export const putContractCode = (baseState) => async (address, value) => {
 	const account = await getAccount(baseState)(address)
 	await putAccount(baseState)(
 		address,
-		EthjsAccount.fromAccountData({
+		createAccount({
 			nonce: account?.nonce ?? 0n,
 			balance: account?.balance ?? 0n,
-			...account,
+			storageRoot: account?.storageRoot,
 			codeHash: keccak256(value, 'bytes'),
 		}),
 	)

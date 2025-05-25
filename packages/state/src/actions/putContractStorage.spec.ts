@@ -1,5 +1,5 @@
 import { InternalError } from '@tevm/errors'
-import { EthjsAccount, EthjsAddress, hexToBytes } from '@tevm/utils'
+import { EthjsAccount, EthjsAddress, createAccount, createAddressFromString, hexToBytes } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { BaseState } from '../BaseState.js'
 import { createBaseState } from '../createBaseState.js'
@@ -19,10 +19,10 @@ describe('putContractStorage', () => {
 			loggingLevel: 'warn',
 		})
 
-		address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
+		address = createAddressFromString(`0x${'01'.repeat(20)}`)
 		key = hexToBytes(`0x${'02'.repeat(32)}`)
 		value = hexToBytes('0x1234')
-		account = EthjsAccount.fromAccountData({
+		account = createAccount({
 			balance: 420n,
 			nonce: 2n,
 		})
@@ -50,7 +50,7 @@ describe('putContractStorage', () => {
 	})
 
 	it('should throw an error if the account does not exist', async () => {
-		const newAddress = EthjsAddress.fromString(`0x${'02'.repeat(20)}`)
+		const newAddress = createAddressFromString(`0x${'02'.repeat(20)}`)
 		const err = await putContractStorage(baseState)(newAddress, key, value).catch((e) => e)
 		expect(err).toBeInstanceOf(InternalError)
 		expect(err).toMatchSnapshot()

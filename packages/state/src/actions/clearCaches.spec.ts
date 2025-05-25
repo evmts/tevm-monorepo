@@ -1,4 +1,4 @@
-import { EthjsAccount } from '@tevm/utils'
+import { createAccount } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { createAddressFromString } from '../utils/accountHelpers.js'
@@ -10,7 +10,7 @@ describe(clearCaches.name, () => {
 			loggingLevel: 'warn',
 		})
 
-		baseState.caches.accounts.put(createAddressFromString(`0x${'01'.repeat(20)}`), new EthjsAccount())
+		baseState.caches.accounts.put(createAddressFromString(`0x${'01'.repeat(20)}`), createAccount({}))
 		baseState.caches.contracts.put(createAddressFromString(`0x${'01'.repeat(20)}`), Uint8Array.from([420]))
 		baseState.caches.storage.put(
 			createAddressFromString(`0x${'01'.repeat(20)}`),
