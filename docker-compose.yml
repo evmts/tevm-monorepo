@@ -20,7 +20,8 @@ services:
       - ./packages:/app/packages
       - ./bundler-packages:/app/bundler-packages
     working_dir: /app
-    command: ["bun", "allz"]
+    # Skip Zig build and run the rest of the build
+    command: ["sh", "-c", "bun x concurrently 'pnpm i' 'bun lint' 'bun sort-package-json' && nx run-many --targets=generate:docs,build:types,typecheck,test:coverage,build:dist,dev:run,build:app,lint:package,lint:deps,lint,format,build:rust:lib,build:wasm --parallel=2"]
     # Allocate more resources for the build
     deploy:
       resources:

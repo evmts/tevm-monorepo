@@ -21,14 +21,30 @@ RUN apt-get update && apt-get install -y \
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 ENV PATH="/root/.cargo/bin:$PATH"
 
+# Install cbindgen for Zig builds
+RUN cargo install cbindgen
+# Ensure cargo bin is in PATH for all subsequent commands
+ENV PATH="/root/.cargo/bin:$PATH"
+# Verify cbindgen is accessible
+RUN which cbindgen && cbindgen --version
+
 RUN curl -fsSL https://bun.sh/install | bash
 ENV PATH="/root/.bun/bin:$PATH"
 
-RUN wget https://ziglang.org/download/0.14.0/zig-linux-x86_64-0.14.0.tar.xz && \
-    tar -xf zig-linux-x86_64-0.14.0.tar.xz && \
-    mv zig-linux-x86_64-0.14.0 /usr/local/zig && \
+# Install Zig with architecture detection
+RUN ARCH=$(uname -m) && \
+    if [ "$ARCH" = "x86_64" ]; then \
+        ZIG_ARCH="x86_64"; \
+    elif [ "$ARCH" = "aarch64" ]; then \
+        ZIG_ARCH="aarch64"; \
+    else \
+        echo "Unsupported architecture: $ARCH" && exit 1; \
+    fi && \
+    wget https://ziglang.org/download/0.14.0/zig-linux-${ZIG_ARCH}-0.14.0.tar.xz && \
+    tar -xf zig-linux-${ZIG_ARCH}-0.14.0.tar.xz && \
+    mv zig-linux-${ZIG_ARCH}-0.14.0 /usr/local/zig && \
     ln -s /usr/local/zig/zig /usr/local/bin/zig && \
-    rm zig-linux-x86_64-0.14.0.tar.xz
+    rm zig-linux-${ZIG_ARCH}-0.14.0.tar.xz
 
 WORKDIR /app
 
@@ -55,8 +71,13 @@ COPY . .
 
 ENV TEVM_RPC_URLS_MAINNET=""
 ENV TEVM_RPC_URLS_OPTIMISM=""
+ENV NX_DAEMON="false"
+# Ensure all tools are in PATH
+ENV PATH="/root/.cargo/bin:/root/.bun/bin:/usr/local/zig:$PATH"
 
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm run build:dist --parallel=2 || true && \
-    pnpm run build:types --parallel=2 || true
+# Build TypeScript/JavaScript packages
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm run build:dist --parallel=2 || true
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm run build:types --parallel=2 || true
 
-CMD ["bun", "allz"]
+# Run tests as the default command
+CMD ["pnpm", "run", "test:coverage"]

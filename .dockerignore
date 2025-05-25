@@ -4,6 +4,7 @@ node_modules
 .nx
 dist
 **/dist
+!tevm/**
 **/.next
 **/.vite
 **/.turbo
