@@ -98,6 +98,7 @@ export {
 	KECCAK256_RLP,
 	KECCAK256_RLP_ARRAY,
 	Withdrawal,
+	createWithdrawal,
 	ecrecover,
 	// ecsign was removed in newer versions
 	// zeros was also removed

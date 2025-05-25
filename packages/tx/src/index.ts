@@ -10,6 +10,8 @@ export {
 	FeeMarket1559Tx as FeeMarketEIP1559Transaction,
 	Blob4844Tx as BlobEIP4844Transaction,
 	createTx as TransactionFactory,
+	createTxFromBlockBodyData,
+	createTxFromRLP,
 	Capability,
 	isAccessList2930Tx as isAccessListEIP2930Tx,
 	isBlob4844Tx as isBlobEIP4844Tx,

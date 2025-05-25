@@ -7,6 +7,7 @@ export {
 	KeyEncoding,
 	ValueEncoding,
 	Withdrawal,
+	createWithdrawal,
 	GWEI_TO_WEI,
 	setLengthLeft,
 	toType,

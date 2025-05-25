@@ -73,12 +73,26 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     
-    // Add zabi dependency to compiler module
+    // Add zabi dependency to compiler module (only for native builds)
     const zabi_dep = b.dependency("zabi", .{
         .target = target,
         .optimize = optimize,
     });
     compiler_mod.addImport("zabi", zabi_dep.module("zabi"));
+    
+    // Create a separate compiler module for WASM without problematic dependencies
+    const compiler_wasm_mod = b.createModule(.{
+        .root_source_file = b.path("src/Compilers/compiler.zig"),
+        .target = wasm_target,
+        .optimize = .ReleaseSmall,
+    });
+    
+    // Add zabi dependency for WASM target
+    const zabi_wasm_dep = b.dependency("zabi", .{
+        .target = wasm_target,
+        .optimize = .ReleaseSmall,
+    });
+    compiler_wasm_mod.addImport("zabi", zabi_wasm_dep.module("zabi"));
 
     const rlp_mod = b.createModule(.{
         .root_source_file = b.path("src/Rlp/rlp.zig"),
@@ -147,7 +161,7 @@ pub fn build(b: *std.Build) void {
     wasm_mod.addImport("Abi", abi_mod);
     wasm_mod.addImport("Block", block_mod);
     wasm_mod.addImport("Bytecode", bytecode_mod);
-    wasm_mod.addImport("Compiler", compiler_mod);
+    wasm_mod.addImport("Compiler", compiler_wasm_mod);  // Use WASM-specific compiler module
     wasm_mod.addImport("Evm", evm_mod);
     wasm_mod.addImport("Rlp", rlp_mod);
     wasm_mod.addImport("Token", token_mod);
