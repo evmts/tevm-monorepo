@@ -24,11 +24,11 @@ ENV PATH="/root/.cargo/bin:$PATH"
 RUN curl -fsSL https://bun.sh/install | bash
 ENV PATH="/root/.bun/bin:$PATH"
 
-RUN wget https://ziglang.org/download/0.11.0/zig-linux-x86_64-0.11.0.tar.xz && \
-    tar -xf zig-linux-x86_64-0.11.0.tar.xz && \
-    mv zig-linux-x86_64-0.11.0 /usr/local/zig && \
+RUN wget https://ziglang.org/download/0.14.0/zig-linux-x86_64-0.14.0.tar.xz && \
+    tar -xf zig-linux-x86_64-0.14.0.tar.xz && \
+    mv zig-linux-x86_64-0.14.0 /usr/local/zig && \
     ln -s /usr/local/zig/zig /usr/local/bin/zig && \
-    rm zig-linux-x86_64-0.11.0.tar.xz
+    rm zig-linux-x86_64-0.14.0.tar.xz
 
 WORKDIR /app
 

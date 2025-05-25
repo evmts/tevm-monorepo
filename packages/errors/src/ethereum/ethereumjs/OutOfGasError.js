@@ -1,4 +1,4 @@
-import { EVMError } from '@ethereumjs/evm'
+import { EvmError } from '@ethereumjs/evm'
 import { GasLimitExceededError } from '../GasLimitExceededError.js'
 
 /**
@@ -8,7 +8,7 @@ import { GasLimitExceededError } from '../GasLimitExceededError.js'
  * @property {string} [docsPath] - Path to the documentation.
  * @property {string} [docsSlug] - Slug for the documentation.
  * @property {string[]} [metaMessages] - Additional meta messages.
- * @property {GasLimitExceededError|import('@ethereumjs/evm').EVMError} [cause] - The cause of the error.
+ * @property {GasLimitExceededError|import('@ethereumjs/evm').EvmError} [cause] - The cause of the error.
  * @property {string} [details] - Details of the error.
  * @property {object} [meta] - Optional object containing additional information about the error.
  */
@@ -54,7 +54,7 @@ import { GasLimitExceededError } from '../GasLimitExceededError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class OutOfGasError extends GasLimitExceededError {
-	/** @type {string} */ static EVMErrorMessage = EVMError.errorMessages.OUT_OF_GAS
+	/** @type {string} */ static EVMErrorMessage = EvmError.errorMessages.OUT_OF_GAS
 	/**
 	 * Constructs an OutOfGasError.
 	 * Represents an execution error that occurs when a transaction runs out of gas during execution.
