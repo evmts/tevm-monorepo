@@ -86,7 +86,7 @@ describe(buildBlock.name, () => {
 		const fromAddress = createAddressFromString(`0x${'02'.repeat(20)}`)
 
 		// add contract
-		await stateManager.putContractCode(contractAddress, hexToBytes(MOCKERC20_BYTECODE))
+		await stateManager.putCode(contractAddress, hexToBytes(MOCKERC20_BYTECODE))
 		await stateManager.putAccount(fromAddress, createAccount({ balance: parseEther('1000') }))
 		await stateManager.checkpoint()
 		await stateManager.commit()

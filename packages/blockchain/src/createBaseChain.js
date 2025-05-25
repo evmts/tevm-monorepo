@@ -18,7 +18,7 @@ const KECCAK256_RLP = hexToBytes(KECCAK256_RLP_S)
  * Creates a genesis {@link Block} for the blockchain with params from {@link Common.genesis}
  * @param {Uint8Array} stateRoot The genesis stateRoot
  * @param {import('@tevm/common').Common} common class
- * @returns {Block}
+ * @returns {import('@tevm/block').Block}
  */
 const createGenesisBlock = (stateRoot, common) => {
 	const newCommon = common.copy()

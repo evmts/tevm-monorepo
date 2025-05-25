@@ -16,10 +16,11 @@ export const accumulateParentBlockHash = (vm: BaseVm) => async (currentBlockNumb
 	if (!vm.common.ethjsCommon.isActivatedEIP(2935)) {
 		throw new EipNotEnabledError('Cannot call `accumulateParentBlockHash`: EIP 2935 is not active')
 	}
+	// TODO: Fix param loading from common
 	const historyAddress = createAddressFromString(
-		numberToHex(vm.common.ethjsCommon.param('vm', 'historyStorageAddress')),
+		'0x0aae40965e6800cd9b1f4b05ff21581047e3f91e', // numberToHex(vm.common.ethjsCommon.param('vm', 'historyStorageAddress')),
 	)
-	const historyServeWindow = vm.common.ethjsCommon.param('vm', 'historyServeWindow')
+	const historyServeWindow = 8192n // vm.common.ethjsCommon.param('vm', 'historyServeWindow')
 
 	// Is this the fork block?
 	const forkTime = vm.common.ethjsCommon.eipTimestamp(2935)
@@ -35,7 +36,7 @@ export const accumulateParentBlockHash = (vm: BaseVm) => async (currentBlockNumb
 		// ringKey is the key the hash is actually put in (it is a ring buffer)
 		const ringKey = number % historyServeWindow
 		const key = setLengthLeft(toBytes(Number(ringKey)), 32)
-		await vm.stateManager.putContractStorage(historyAddress, key, hash)
+		await vm.stateManager.putStorage(historyAddress, key, hash)
 	}
 	await putBlockHash(vm, parentHash, currentBlockNumber - 1n)
 

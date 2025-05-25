@@ -44,7 +44,7 @@ test('should load state into the state manager', async () => {
 	expect(accountData?.nonce).toEqual(0n)
 	expect(accountData?.balance).toEqual(100n)
 
-	const storedValue = await stateManager.getContractStorage(address, hexToBytes(hashedStorageKey))
+	const storedValue = await stateManager.getStorage(address, hexToBytes(hashedStorageKey))
 
 	expect(bytesToHex(storedValue)).toBe(storageValue)
 

@@ -1,4 +1,4 @@
-import { ConsensusAlgorithm, mainnet, optimism } from '@tevm/common'
+import { ConsensusAlgorithm, optimism } from '@tevm/common'
 import { transports } from '@tevm/test-utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { createBaseChain } from '../createBaseChain.js'
@@ -17,7 +17,10 @@ describe(validateHeader.name, async () => {
 	})
 
 	it.skip('should validate a valid header', async () => {
-		const chain = createBaseChain({ common: optimism.copy(), fork: { transport: transports.optimism } })
+		const chain = createBaseChain({
+			common: optimism.copy(),
+			fork: { transport: transports.optimism },
+		})
 		const cannonicalHead = await getCanonicalHeadBlock(chain)()
 		await getBlock(chain)(cannonicalHead.header.parentHash)
 		const headerValidator = validateHeader(chain)

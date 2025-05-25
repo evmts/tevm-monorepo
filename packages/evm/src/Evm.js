@@ -60,7 +60,6 @@ export class Evm extends EVM {
 
 	/**
 	 * @type {(typeof import('./EvmType.js').Evm)['create']}
-	 * @override
 	 */
 	static create = async (options) => {
 		const evm = /** @type {any}*/ (await createEVM(options))

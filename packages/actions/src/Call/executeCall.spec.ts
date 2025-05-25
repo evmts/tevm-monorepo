@@ -429,10 +429,10 @@ describe('executeCall', () => {
 
 		// Mock the stateManager.getContractStorage method to track calls
 		const vm = await client.getVm()
-		const originalGetContractStorage = /** @type {any} */ (vm.stateManager).getContractStorage
-		const getContractStorageSpy = vi.fn().mockImplementation(originalGetContractStorage)
+		const originalGetStorage = /** @type {any} */ (vm.stateManager).getStorage
+		const getStorageSpy = vi.fn().mockImplementation(originalGetStorage)
 		/** @type {any} */
-		vm.stateManager.getContractStorage = getContractStorageSpy
+		vm.stateManager.getStorage = getStorageSpy
 
 		// Set up ERC20 contract
 		expect(
@@ -489,10 +489,10 @@ describe('executeCall', () => {
 		expect(result.accessList).toBeUndefined()
 
 		// But storage prefetching should still have happened regardless
-		// The getContractStorage method should have been called at least once
-		expect(getContractStorageSpy).toHaveBeenCalled()
+		// The getStorage method should have been called at least once
+		expect(getStorageSpy).toHaveBeenCalled()
 
-		// Restore the original getContractStorage method
-		vm.stateManager.getContractStorage = originalGetContractStorage
+		// Restore the original getStorage method
+		vm.stateManager.getStorage = originalGetStorage
 	})
 })

@@ -77,7 +77,7 @@ export const createCommon = ({
 			Mainnet,
 			{
 				hardfork,
-				eips: [...eipsArray, 1559, 4895, 4844, 4788],
+				eips: [...eipsArray, 1559, 4895, 4844, 4788, 2935],
 				customCrypto: finalCustomCrypto,
 				params: {
 					1559: {
@@ -100,15 +100,6 @@ export const createCommon = ({
 						historyStorageAddress: '0x0aae40965e6800cd9b1f4b05ff21581047e3f91e',
 						historyServeWindow: 8192,
 					},
-					// Add additional params that are accessed directly
-					gasLimitBoundDivisor: 1024,
-					minGasLimit: 5000,
-					maxExtraDataSize: 32,
-					// PoW params
-					minimumDifficulty: 131072,
-					difficultyBoundDivisor: 2048,
-					durationLimit: 13,
-					difficultyBombDelay: 0,
 				},
 			},
 		)

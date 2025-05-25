@@ -14,7 +14,6 @@ import {
 	getAppliedKey,
 	getContractCode,
 	getContractStorage,
-	getProof,
 	getStateRoot,
 	hasStateRoot,
 	modifyAccountFields,
@@ -81,7 +80,6 @@ const decorate = (state) => {
 		// Unused provided to fulfill interface
 		getAppliedKey: /** @type {any}*/ (getAppliedKey(state)),
 		originalStorageCache: originalStorageCache(state),
-		getProof: getProof(state),
 	}
 	return wrappedState
 }
