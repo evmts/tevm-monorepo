@@ -24,7 +24,6 @@ const createGenesisBlock = (stateRoot, common) => {
 	const newCommon = common.copy()
 	newCommon.ethjsCommon.setHardforkBy({
 		blockNumber: 0,
-		td: BigInt(newCommon.ethjsCommon.genesis().difficulty),
 		timestamp: newCommon.ethjsCommon.genesis().timestamp ?? 0,
 	})
 

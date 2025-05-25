@@ -9,15 +9,21 @@ import { putAccount } from './putAccount.js'
  */
 export const putContractCode = (baseState) => async (address, value) => {
 	const account = await getAccount(baseState)(address)
-	await putAccount(baseState)(
-		address,
-		createAccount({
-			nonce: account?.nonce ?? 0n,
-			balance: account?.balance ?? 0n,
-			storageRoot: account?.storageRoot,
-			codeHash: keccak256(value, 'bytes'),
-		}),
-	)
+	
+	// Create account data object, conditionally including storageRoot
+	/** @type {import('@tevm/utils').AccountData} */
+	const accountData = {
+		nonce: account?.nonce ?? 0n,
+		balance: account?.balance ?? 0n,
+		codeHash: keccak256(value, 'bytes'),
+	}
+	
+	// Only include storageRoot if it exists
+	if (account?.storageRoot !== undefined) {
+		accountData.storageRoot = account.storageRoot
+	}
+	
+	await putAccount(baseState)(address, createAccount(accountData))
 	baseState.caches.contracts.put(address, value)
 	return
 }

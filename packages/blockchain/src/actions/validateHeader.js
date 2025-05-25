@@ -47,7 +47,7 @@ export const validateHeader = (baseChain) => async (header, height) => {
 		const londonHfBlock = baseChain.common.ethjsCommon.hardforkBlock('london')
 		const isInitialEIP1559Block = number === londonHfBlock
 		if (isInitialEIP1559Block) {
-			expectedBaseFee = header.common.ethjsCommon.param('gasConfig', 'initialBaseFee')
+			expectedBaseFee = header.common.ethjsCommon.param('initialBaseFee')
 		} else {
 			expectedBaseFee = parentHeader.calcNextBaseFee()
 		}

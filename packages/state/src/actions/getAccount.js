@@ -59,8 +59,8 @@ export const getAccount =
 		if (
 			account.nonce === 0n &&
 			account.balance === 0n &&
-			account.codeHash.every((d) => d === 0) &&
-			account.storageRoot.every((d) => d === 0)
+			account.codeHash.every((/** @type {number} */ d) => d === 0) &&
+			account.storageRoot.every((/** @type {number} */ d) => d === 0)
 		) {
 			// Store empty account in both caches
 			accounts.put(address, undefined)

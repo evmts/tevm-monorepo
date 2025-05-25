@@ -98,6 +98,7 @@
 - [bytesToHex](functions/bytesToHex.md)
 - [bytesToNumber](functions/bytesToNumber.md)
 - [bytesToUtf8](functions/bytesToUtf8.md)
+- [createAccount](functions/createAccount.md)
 - [createAddressFromString](functions/createAddressFromString.md)
 - [createMemoryDb](functions/createMemoryDb.md)
 - [createWithdrawal](functions/createWithdrawal.md)

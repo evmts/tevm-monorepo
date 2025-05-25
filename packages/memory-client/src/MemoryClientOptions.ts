@@ -1,5 +1,5 @@
 import type { Common } from '@tevm/common'
-import { type TevmNodeOptions } from '@tevm/node'
+import type { TevmNodeOptions } from '@tevm/node'
 import type { Address } from '@tevm/utils'
 import { type Account, type Chain, type ClientConfig, type RpcSchema, type Transport } from 'viem'
 import type { TevmRpcSchema } from './TevmRpcSchema.js'
