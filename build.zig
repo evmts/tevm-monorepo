@@ -391,6 +391,13 @@ pub fn build(b: *std.Build) void {
     // Link the Rust library to the compiler test
     compiler_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
     
+    // Link unwinder libraries for Rust std
+    compiler_test.linkLibC();
+    if (target.result.os.tag == .linux) {
+        compiler_test.linkSystemLibrary("unwind");
+        compiler_test.linkSystemLibrary("gcc_s");
+    }
+    
     // Link macOS frameworks if on macOS
     if (target.result.os.tag == .macos) {
         compiler_test.linkFramework("CoreFoundation");

@@ -66,6 +66,13 @@ pub fn addRustIntegration(b: *std.Build, target: std.Build.ResolvedTarget, optim
 
     // Link required system libraries
     artifacts[0].linkLibC();
+    
+    // Link unwinder libraries for Rust std
+    if (target.result.os.tag == .linux) {
+        artifacts[0].linkSystemLibrary("unwind");
+        artifacts[0].linkSystemLibrary("gcc_s");
+    }
+    
     if (target.result.os.tag == .macos) {
         artifacts[0].linkFramework("Security");
         artifacts[0].linkFramework("SystemConfiguration");
@@ -99,6 +106,13 @@ pub fn addRustIntegration(b: *std.Build, target: std.Build.ResolvedTarget, optim
     foundry_test.linkLibC();
     foundry_test.addObjectFile(b.path(rust_lib_path));
     foundry_test.addIncludePath(b.path("include"));
+    
+    // Link unwinder libraries for Rust std
+    if (target.result.os.tag == .linux) {
+        foundry_test.linkSystemLibrary("unwind");
+        foundry_test.linkSystemLibrary("gcc_s");
+    }
+    
     if (target.result.os.tag == .macos) {
         foundry_test.linkFramework("Security");
         foundry_test.linkFramework("SystemConfiguration");
