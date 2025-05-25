@@ -48,7 +48,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class CreateCollisionError extends ExecutionError {
-	/** @type {string} */	static EVMErrorMessage = EVMError.errorMessages.CREATE_COLLISION
+	/** @type {string} */ static EVMErrorMessage = EVMError.errorMessages.CREATE_COLLISION
 	/**
 	 * Constructs a CreateCollisionError.
 	 * Represents an execution error that occurs when a contract creation results in a collision.

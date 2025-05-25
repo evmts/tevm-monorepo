@@ -43,7 +43,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class InvalidCommitmentError extends ExecutionError {
-	/** @type {string} */	static EVMErrorMessage = EVMError.errorMessages.INVALID_COMMITMENT
+	/** @type {string} */ static EVMErrorMessage = EVMError.errorMessages.INVALID_COMMITMENT
 	/**
 	 * Constructs an InvalidCommitmentError.
 	 * Represents an EIP-4844 specific error that occurs when a KZG commitment does not match the versioned hash.

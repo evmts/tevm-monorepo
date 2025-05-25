@@ -47,7 +47,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class StopError extends ExecutionError {
-	/** @type {string} */	static EVMErrorMessage = EVMError.errorMessages.STOP
+	/** @type {string} */ static EVMErrorMessage = EVMError.errorMessages.STOP
 	/**
 	 * Constructs a StopError.
 	 * Represents a contract/bytecode error that occurs when a STOP operation is executed.

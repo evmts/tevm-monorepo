@@ -43,7 +43,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class InvalidKzgInputsError extends ExecutionError {
-	/** @type {string} */	static EVMErrorMessage = EVMError.errorMessages.INVALID_INPUTS
+	/** @type {string} */ static EVMErrorMessage = EVMError.errorMessages.INVALID_INPUTS
 	/**
 	 * Constructs an InvalidKzgInputsError.
 	 * Represents an EIP-4844 specific error that occurs when KZG inputs are invalid.

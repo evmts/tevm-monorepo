@@ -51,7 +51,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class StackUnderflowError extends ExecutionError {
-	/** @type {string} */	static EVMErrorMessage = EVMError.errorMessages.STACK_UNDERFLOW
+	/** @type {string} */ static EVMErrorMessage = EVMError.errorMessages.STACK_UNDERFLOW
 	/**
 	 * Constructs a StackUnderflowError.
 	 * This error is typically encountered when an operation requires more stack items than are present.

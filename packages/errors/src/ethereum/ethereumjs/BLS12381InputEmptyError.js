@@ -43,7 +43,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class BLS12381InputEmptyError extends ExecutionError {
-	/** @type {string} */	static EVMErrorMessage = EVMError.errorMessages.BLS_12_381_INPUT_EMPTY
+	/** @type {string} */ static EVMErrorMessage = EVMError.errorMessages.BLS_12_381_INPUT_EMPTY
 	/**
 	 * Constructs a BLS12381InputEmptyError.
 	 * Represents an EIP-2537 specific error that occurs when an input is empty during BLS12-381 operations.

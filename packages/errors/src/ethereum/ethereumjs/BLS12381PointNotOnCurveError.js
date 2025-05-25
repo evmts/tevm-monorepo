@@ -43,7 +43,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class BLS12381PointNotOnCurveError extends ExecutionError {
-	/** @type {string} */	static EVMErrorMessage = EVMError.errorMessages.BLS_12_381_POINT_NOT_ON_CURVE
+	/** @type {string} */ static EVMErrorMessage = EVMError.errorMessages.BLS_12_381_POINT_NOT_ON_CURVE
 	/**
 	 * Constructs a BLS12381PointNotOnCurveError.
 	 * Represents an EIP-2537 specific error that occurs when a point is not on the curve during BLS12-381 operations.

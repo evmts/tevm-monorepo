@@ -47,7 +47,7 @@ import { BaseError } from '../BaseError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class InternalEvmError extends BaseError {
-	/** @type {string} */	static EVMErrorMessage = EVMError.errorMessages.INTERNAL_ERROR
+	/** @type {string} */ static EVMErrorMessage = EVMError.errorMessages.INTERNAL_ERROR
 	/**
 	 * Constructs an InternalEvmError.
 	 * Represents an internal error within the EVM. This error should not typically happen

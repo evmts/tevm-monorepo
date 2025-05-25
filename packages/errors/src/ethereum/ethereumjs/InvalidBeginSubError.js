@@ -48,7 +48,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  */
 export class InvalidBeginSubError extends ExecutionError {
 	// Note: INVALID_BEGINSUB was removed from ethereumjs
-	/** @type {string} */	// static EVMErrorMessage = EVMError.errorMessages.INVALID_BEGINSUB
+	/** @type {string} */ // static EVMErrorMessage = EVMError.errorMessages.INVALID_BEGINSUB
 	/**
 	 * Constructs an InvalidBeginSubError.
 	 * Represents an invalid bytecode/contract error that occurs when an invalid BEGINSUB operation is executed within the EVM.

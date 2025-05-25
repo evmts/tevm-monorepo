@@ -51,7 +51,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class InvalidJumpError extends ExecutionError {
-	/** @type {string} */	static EVMErrorMessage = EVMError.errorMessages.INVALID_JUMP
+	/** @type {string} */ static EVMErrorMessage = EVMError.errorMessages.INVALID_JUMP
 	/**
 	 * Constructs an InvalidJumpError.
 	 * Represents an invalid bytecode/contract error that occurs when an invalid JUMP operation is executed within the EVM.

@@ -48,7 +48,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  */
 export class InvalidJumpSubError extends ExecutionError {
 	// Note: INVALID_JUMPSUB was removed from ethereumjs
-	/** @type {string} */	// static EVMErrorMessage = EVMError.errorMessages.INVALID_JUMPSUB
+	/** @type {string} */ // static EVMErrorMessage = EVMError.errorMessages.INVALID_JUMPSUB
 	/**
 	 * Constructs an InvalidJumpSubError.
 	 * Represents an invalid bytecode/contract error that occurs when an invalid JUMPSUB operation is executed within the EVM.

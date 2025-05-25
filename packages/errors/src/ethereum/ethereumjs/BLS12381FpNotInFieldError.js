@@ -43,7 +43,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class BLS12381FpNotInFieldError extends ExecutionError {
-	/** @type {string} */	static EVMErrorMessage = EVMError.errorMessages.BLS_12_381_FP_NOT_IN_FIELD
+	/** @type {string} */ static EVMErrorMessage = EVMError.errorMessages.BLS_12_381_FP_NOT_IN_FIELD
 	/**
 	 * Constructs a BLS12381FpNotInFieldError.
 	 * Represents an EIP-2537 specific error that occurs when an fp point is not in the field during BLS12-381 operations.

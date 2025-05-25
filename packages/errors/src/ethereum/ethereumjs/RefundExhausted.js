@@ -48,7 +48,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class RefundExhaustedError extends ExecutionError {
-	/** @type {string} */	static EVMErrorMessage = EVMError.errorMessages.REFUND_EXHAUSTED
+	/** @type {string} */ static EVMErrorMessage = EVMError.errorMessages.REFUND_EXHAUSTED
 	/**
 	 * Constructs a RefundExhaustedError.
 	 * Represents an invalid bytecode error that occurs when the gas refund limit is exhausted.

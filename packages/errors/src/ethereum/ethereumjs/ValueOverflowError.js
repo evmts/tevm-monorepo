@@ -47,7 +47,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class ValueOverflowError extends ExecutionError {
-	/** @type {string} */	static EVMErrorMessage = EVMError.errorMessages.VALUE_OVERFLOW
+	/** @type {string} */ static EVMErrorMessage = EVMError.errorMessages.VALUE_OVERFLOW
 	/**
 	 * Constructs a ValueOverflowError.
 	 * Represents an invalid bytecode/contract error that occurs when a value overflow happens during EVM execution.

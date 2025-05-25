@@ -58,7 +58,7 @@ import { GasLimitExceededError } from '../GasLimitExceededError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class CodeSizeExceedsMaximumError extends GasLimitExceededError {
-	/** @type {string} */	static EVMErrorMessage = EVMError.errorMessages.CODESIZE_EXCEEDS_MAXIMUM
+	/** @type {string} */ static EVMErrorMessage = EVMError.errorMessages.CODESIZE_EXCEEDS_MAXIMUM
 	/**
 	 * Constructs a CodeSizeExceedsMaximumError.
 	 * Represents an calldata/creation error that occurs when the code size exceeds the maximum limit.

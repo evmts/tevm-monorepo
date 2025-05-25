@@ -48,7 +48,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class InitcodeSizeViolationError extends ExecutionError {
-	/** @type {string} */	static EVMErrorMessage = EVMError.errorMessages.INITCODE_SIZE_VIOLATION
+	/** @type {string} */ static EVMErrorMessage = EVMError.errorMessages.INITCODE_SIZE_VIOLATION
 	/**
 	 * Constructs an InitcodeSizeViolationError.
 	 * Represents a calldata/creation error that occurs when initcode exceeds the maximum allowable size during EVM execution.

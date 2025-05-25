@@ -48,7 +48,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  */
 export class InvalidReturnSubError extends ExecutionError {
 	// Note: INVALID_RETURNSUB was removed from ethereumjs
-	/** @type {string} */	// static EVMErrorMessage = EVMError.errorMessages.INVALID_RETURNSUB
+	/** @type {string} */ // static EVMErrorMessage = EVMError.errorMessages.INVALID_RETURNSUB
 	/**
 	 * Constructs an InvalidReturnSubError.
 	 * Represents an invalid bytecode/contract error that occurs when an invalid RETURNSUB operation is executed within the EVM.

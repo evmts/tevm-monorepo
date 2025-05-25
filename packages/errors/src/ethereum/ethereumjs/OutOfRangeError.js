@@ -52,7 +52,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class OutOfRangeError extends ExecutionError {
-	/** @type {string} */	static EVMErrorMessage = EVMError.errorMessages.OUT_OF_RANGE
+	/** @type {string} */ static EVMErrorMessage = EVMError.errorMessages.OUT_OF_RANGE
 	/**
 	 * Constructs an OutOfRangeError.
 	 * Represents an invalid bytecode/contract error that occurs when a value is out of the allowable range during EVM execution.

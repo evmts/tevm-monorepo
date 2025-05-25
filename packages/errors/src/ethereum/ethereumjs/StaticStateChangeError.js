@@ -52,7 +52,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class StaticStateChangeError extends ExecutionError {
-	/** @type {string} */	static EVMErrorMessage = EVMError.errorMessages.STATIC_STATE_CHANGE
+	/** @type {string} */ static EVMErrorMessage = EVMError.errorMessages.STATIC_STATE_CHANGE
 	/**
 	 * Constructs a StaticStateChangeError.
 	 * Represents an invalid bytecode/contract error that occurs when a state-changing operation is attempted in a static context.

@@ -48,7 +48,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class InvalidBytecodeResultError extends ExecutionError {
-	/** @type {string} */	static EVMErrorMessage = EVMError.errorMessages.INVALID_BYTECODE_RESULT
+	/** @type {string} */ static EVMErrorMessage = EVMError.errorMessages.INVALID_BYTECODE_RESULT
 	/**
 	 * Constructs an InvalidBytecodeResultError.
 	 * Represents a calldata/creation error that occurs when invalid bytecode is deployed during EVM execution.

@@ -43,7 +43,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class InvalidProofError extends ExecutionError {
-	/** @type {string} */	static EVMErrorMessage = EVMError.errorMessages.INVALID_PROOF
+	/** @type {string} */ static EVMErrorMessage = EVMError.errorMessages.INVALID_PROOF
 	/**
 	 * Constructs an InvalidProofError.
 	 * Represents an EIP-4844 specific error that occurs when a KZG proof is invalid.

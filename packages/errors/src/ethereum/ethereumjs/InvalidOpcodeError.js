@@ -51,7 +51,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class InvalidOpcodeError extends ExecutionError {
-	/** @type {string} */	static EVMErrorMessage = EVMError.errorMessages.INVALID_OPCODE
+	/** @type {string} */ static EVMErrorMessage = EVMError.errorMessages.INVALID_OPCODE
 	/**
 	 * Constructs an InvalidOpcodeError.
 	 * Represents an invalid bytecode/contract error that occurs when an invalid opcode is encountered during EVM execution.

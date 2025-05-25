@@ -47,7 +47,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class InvalidInputLengthError extends ExecutionError {
-	/** @type {string} */	static EVMErrorMessage = EVMError.errorMessages.INVALID_INPUT_LENGTH
+	/** @type {string} */ static EVMErrorMessage = EVMError.errorMessages.INVALID_INPUT_LENGTH
 	/**
 	 * Constructs an InvalidInputLengthError.
 	 * Represents a calldata/creation error that occurs when an invalid input length is encountered during EVM execution.

@@ -1,5 +1,5 @@
 import { InvalidSaltError } from '@tevm/errors'
-import { concatBytes, hexToBytes, keccak256, createAddressFromString } from '@tevm/utils'
+import { concatBytes, createAddressFromString, hexToBytes, keccak256 } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { Address } from './Address.js'
 import { create2ContractAddress } from './create2ContractAddress.js'

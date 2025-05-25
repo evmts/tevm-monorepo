@@ -1,4 +1,4 @@
-import { createCustomCommon, Mainnet } from '@ethereumjs/common'
+import { Mainnet, createCustomCommon } from '@ethereumjs/common'
 import { InvalidParamsError } from '@tevm/errors'
 import { createLogger } from '@tevm/logger'
 import { createMockKzg } from './createMockKzg.js'
@@ -73,7 +73,7 @@ export const createCommon = ({
 					kzg: createMockKzg(),
 					...customCrypto,
 				},
-			}
+			},
 		)
 		if (ethjsCommon.isActivatedEIP(6800)) {
 			logger.warn('verkle state is currently not supported in tevm')

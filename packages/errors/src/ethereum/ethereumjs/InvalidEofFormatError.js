@@ -50,7 +50,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class InvalidEofFormatError extends ExecutionError {
-	/** @type {string} */	static EVMErrorMessage = EVMError.errorMessages.INVALID_EOF_FORMAT
+	/** @type {string} */ static EVMErrorMessage = EVMError.errorMessages.INVALID_EOF_FORMAT
 	/**
 	 * Constructs an InvalidEofFormatError.
 	 * Represents an error that occurs when an invalid EOF format is encountered during EVM execution.

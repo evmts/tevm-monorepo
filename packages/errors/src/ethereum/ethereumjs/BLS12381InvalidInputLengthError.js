@@ -43,7 +43,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class BLS12381InvalidInputLengthError extends ExecutionError {
-	/** @type {string} */	static EVMErrorMessage = EVMError.errorMessages.BLS_12_381_INVALID_INPUT_LENGTH
+	/** @type {string} */ static EVMErrorMessage = EVMError.errorMessages.BLS_12_381_INVALID_INPUT_LENGTH
 	/**
 	 * Constructs a BLS12381InvalidInputLengthError.
 	 * Represents an EIP-2537 specific error that occurs when an invalid input length is encountered during BLS12-381 operations.

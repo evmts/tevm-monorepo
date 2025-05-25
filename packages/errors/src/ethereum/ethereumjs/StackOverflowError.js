@@ -53,7 +53,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class StackOverflowError extends ExecutionError {
-	/** @type {string} */	static EVMErrorMessage = EVMError.errorMessages.STACK_OVERFLOW
+	/** @type {string} */ static EVMErrorMessage = EVMError.errorMessages.STACK_OVERFLOW
 	/**
 	 * Constructs a StackOverflowError.
 	 * Represents an invalid bytecode error that occurs when there is a stack overflow during execution.

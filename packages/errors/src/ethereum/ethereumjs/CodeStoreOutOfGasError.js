@@ -56,7 +56,7 @@ import { GasLimitExceededError } from '../GasLimitExceededError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class CodeStoreOutOfGasError extends GasLimitExceededError {
-	/** @type {string} */	static EVMErrorMessage = EVMError.errorMessages.CODESTORE_OUT_OF_GAS
+	/** @type {string} */ static EVMErrorMessage = EVMError.errorMessages.CODESTORE_OUT_OF_GAS
 	/**
 	 * Constructs a CodeStoreOutOfGasError.
 	 * Represents an error that occurs when a transaction runs out of gas during code storage.

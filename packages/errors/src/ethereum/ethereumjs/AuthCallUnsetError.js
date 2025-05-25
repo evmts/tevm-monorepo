@@ -47,7 +47,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  */
 export class AuthCallUnsetError extends ExecutionError {
 	// Note: AUTHCALL_UNSET was removed from ethereumjs
-	/** @type {string} */	// static EVMErrorMessage = EVMError.errorMessages.AUTHCALL_UNSET
+	/** @type {string} */ // static EVMErrorMessage = EVMError.errorMessages.AUTHCALL_UNSET
 	/**
 	 * Constructs an AuthCallUnsetError.
 	 * Represents an EIP-3074 specific error that occurs when attempting to AUTHCALL without AUTH set.

@@ -53,7 +53,7 @@ import { RevertError } from '../RevertError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class EvmRevertError extends RevertError {
-	/** @type {string} */	static EVMErrorMessage = EVMError.errorMessages.REVERT
+	/** @type {string} */ static EVMErrorMessage = EVMError.errorMessages.REVERT
 	/**
 	 * Constructs a EvmRevertError.
 	 * Represents an execution error that occurs when a transaction is reverted during EVM execution.

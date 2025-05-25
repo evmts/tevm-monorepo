@@ -49,7 +49,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class InsufficientBalanceError extends ExecutionError {
-	/** @type {string} */	static EVMErrorMessage = EVMError.errorMessages.INSUFFICIENT_BALANCE
+	/** @type {string} */ static EVMErrorMessage = EVMError.errorMessages.INSUFFICIENT_BALANCE
 	/**
 	 * Constructs an InsufficientBalanceError.
 	 * Represents an error that occurs when an account has insufficient balance to perform a transaction.
