@@ -83,14 +83,14 @@ export class BlockBuilder {
 			gasLimit: opts.headerData?.gasLimit ?? opts.parentBlock.header.gasLimit,
 			timestamp: opts.headerData?.timestamp ?? Math.round(Date.now() / 1000),
 		}
-		this.withdrawals = opts.withdrawals?.map(Withdrawal.fromWithdrawalData)
+		this.withdrawals = opts.withdrawals?.map((w) => (Withdrawal as any).fromWithdrawalData(w))
 
 		if (
-			this.vm.common.ethjsCommon.isActivatedEIP(1559) === true &&
+			(this.vm.common as any).ethjsCommon.isActivatedEIP(1559) === true &&
 			typeof this.headerData.baseFeePerGas === 'undefined'
 		) {
-			if (this.headerData.number === vm.common.ethjsCommon.hardforkBlock('london')) {
-				this.headerData.baseFeePerGas = vm.common.ethjsCommon.param('gasConfig', 'initialBaseFee')
+			if (this.headerData.number === (vm.common as any).ethjsCommon.hardforkBlock('london')) {
+				this.headerData.baseFeePerGas = (vm.common as any).ethjsCommon.param('gasConfig', 'initialBaseFee')
 			} else {
 				this.headerData.baseFeePerGas = opts.parentBlock.header.calcNextBaseFee()
 			}
@@ -174,7 +174,7 @@ export class BlockBuilder {
 	 * Adds the block miner reward to the coinbase account.
 	 */
 	private async rewardMiner() {
-		const minerReward = this.vm.common.ethjsCommon.param('pow', 'minerReward')
+		const minerReward = (this.vm.common as any).ethjsCommon.param('pow', 'minerReward')
 		const reward = calculateMinerReward(minerReward, 0)
 		const coinbase =
 			this.headerData.coinbase !== undefined
@@ -185,7 +185,7 @@ export class BlockBuilder {
 								? hexToBytes(this.headerData.coinbase as Hex)
 								: this.headerData.coinbase,
 					)
-				: EthjsAddress.zero()
+				: (EthjsAddress as any).zero()
 		await rewardAccount(this.vm.evm, coinbase, reward)
 	}
 
