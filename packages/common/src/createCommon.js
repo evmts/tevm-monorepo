@@ -1,4 +1,4 @@
-import { Common } from '@ethereumjs/common'
+import { createCustomCommon, Mainnet } from '@ethereumjs/common'
 import { InvalidParamsError } from '@tevm/errors'
 import { createLogger } from '@tevm/logger'
 import { createMockKzg } from './createMockKzg.js'
@@ -59,22 +59,21 @@ export const createCommon = ({
 }) => {
 	try {
 		const logger = createLogger({ level: loggingLevel, name: '@tevm/common' })
-		const ethjsCommon = Common.custom(
+		// Create custom common using Mainnet as base
+		const ethjsCommon = createCustomCommon(
 			{
 				name: 'TevmCustom',
 				chainId: chain.id,
-				// TODO what is diff between chainId and networkId???
-				networkId: chain.id,
 			},
+			Mainnet,
 			{
 				hardfork,
-				baseChain: 1,
 				eips: [...eips, 1559, 4895, 4844, 4788],
 				customCrypto: {
 					kzg: createMockKzg(),
 					...customCrypto,
 				},
-			},
+			}
 		)
 		if (ethjsCommon.isActivatedEIP(6800)) {
 			logger.warn('verkle state is currently not supported in tevm')
