@@ -202,7 +202,7 @@ export class BlockHeader {
 		const hardforkDefaults = {
 			baseFeePerGas: this.common.ethjsCommon.isActivatedEIP(1559)
 				? number === this.common.ethjsCommon.hardforkBlock('london')
-					? this.common.ethjsCommon.param('gasConfig', 'initialBaseFee')
+					? this.common.ethjsCommon.param('initialBaseFee')
 					: 7n
 				: undefined,
 			withdrawalsRoot: this.common.ethjsCommon.isActivatedEIP(4895) ? KECCAK256_RLP : undefined,
@@ -344,7 +344,7 @@ export class BlockHeader {
 			}
 			const londonHfBlock = this.common.ethjsCommon.hardforkBlock('london')
 			if (typeof londonHfBlock === 'bigint' && londonHfBlock !== 0n && this.number === londonHfBlock) {
-				const initialBaseFee = this.common.ethjsCommon.param('gasConfig', 'initialBaseFee')
+				const initialBaseFee = this.common.ethjsCommon.param('initialBaseFee')
 				if (this.baseFeePerGas !== initialBaseFee) {
 					const msg = this._errorMsg('Initial EIP1559 block does not have initial base fee')
 					throw new Error(msg)
@@ -394,7 +394,7 @@ export class BlockHeader {
 		// Consensus type dependent checks
 		if (this.common.ethjsCommon.consensusAlgorithm() === ConsensusAlgorithm.Ethash) {
 			// PoW/Ethash
-			if (number > 0n && this.extraData.length > this.common.ethjsCommon.param('pow', 'maxExtraDataSize')) {
+			if (number > 0n && this.extraData.length > this.common.ethjsCommon.param('maxExtraDataSize')) {
 				// Check length of data on all post-genesis blocks
 				const msg = this._errorMsg('invalid amount of extra data')
 				throw new Error(msg)
@@ -483,7 +483,7 @@ export class BlockHeader {
 		}
 		const gasLimit = this.gasLimit
 
-		const a = parentGasLimit / this.common.ethjsCommon.param('gasConfig', 'gasLimitBoundDivisor')
+		const a = parentGasLimit / this.common.ethjsCommon.param('gasLimitBoundDivisor')
 		const maxGasLimit = parentGasLimit + a
 		const minGasLimit = parentGasLimit - a
 
@@ -497,9 +497,9 @@ export class BlockHeader {
 			throw new Error(msg)
 		}
 
-		if (gasLimit < this.common.ethjsCommon.param('gasConfig', 'minGasLimit')) {
+		if (gasLimit < this.common.ethjsCommon.param('minGasLimit')) {
 			const msg = this._errorMsg(
-				`gas limit decreased below minimum gas limit. Gas limit: ${gasLimit}, minimum gas limit: ${this.common.ethjsCommon.param('gasConfig', 'minGasLimit')}`,
+				`gas limit decreased below minimum gas limit. Gas limit: ${gasLimit}, minimum gas limit: ${this.common.ethjsCommon.param('minGasLimit')}`,
 			)
 			throw new Error(msg)
 		}
@@ -555,9 +555,9 @@ export class BlockHeader {
 	 */
 	private _getBlobGasPrice(excessBlobGas: bigint) {
 		return fakeExponential(
-			this.common.ethjsCommon.param('gasConfig', 'minBlobGasPrice'),
+			this.common.ethjsCommon.param('minBlobGasPrice'),
 			excessBlobGas,
-			this.common.ethjsCommon.param('gasConfig', 'blobGasPriceUpdateFraction'),
+			this.common.ethjsCommon.param('blobGasPriceUpdateFraction'),
 		)
 	}
 
@@ -568,7 +568,7 @@ export class BlockHeader {
 	 * @returns the total blob gas fee for numBlobs blobs
 	 */
 	calcDataFee(numBlobs: number): bigint {
-		const blobGasPerBlob = this.common.ethjsCommon.param('gasConfig', 'blobGasPerBlob')
+		const blobGasPerBlob = this.common.ethjsCommon.param('blobGasPerBlob')
 		const blobGasUsed = blobGasPerBlob * BigInt(numBlobs)
 
 		const blobGasPrice = this.getBlobGasPrice()
@@ -581,7 +581,7 @@ export class BlockHeader {
 	public calcNextExcessBlobGas(): bigint {
 		// The validation of the fields and 4844 activation is already taken care in BlockHeader constructor
 		const targetGasConsumed = (this.excessBlobGas ?? 0n) + (this.blobGasUsed ?? 0n)
-		const targetBlobGasPerBlock = this.common.ethjsCommon.param('gasConfig', 'targetBlobGasPerBlock')
+		const targetBlobGasPerBlock = this.common.ethjsCommon.param('targetBlobGasPerBlock')
 
 		if (targetGasConsumed <= targetBlobGasPerBlock) {
 			return 0n
@@ -691,8 +691,8 @@ export class BlockHeader {
 		}
 		const blockTs = this.timestamp
 		const { timestamp: parentTs, difficulty: parentDif } = parentBlockHeader
-		const minimumDifficulty = this.common.ethjsCommon.param('pow', 'minimumDifficulty')
-		const offset = parentDif / this.common.ethjsCommon.param('pow', 'difficultyBoundDivisor')
+		const minimumDifficulty = this.common.ethjsCommon.param('minimumDifficulty')
+		const offset = parentDif / this.common.ethjsCommon.param('difficultyBoundDivisor')
 		let num = this.number
 
 		// We use a ! here as TS cannot follow this hardfork-dependent logic, but it always gets assigned
@@ -712,7 +712,7 @@ export class BlockHeader {
 
 		if (this.common.ethjsCommon.gteHardfork('byzantium') === true) {
 			// Get delay as parameter from common
-			num = num - this.common.ethjsCommon.param('pow', 'difficultyBombDelay')
+			num = num - this.common.ethjsCommon.param('difficultyBombDelay')
 			if (num < 0n) {
 				num = 0n
 			}
@@ -727,7 +727,7 @@ export class BlockHeader {
 			dif = parentDif + offset * a
 		} else {
 			// pre-homestead
-			if (parentTs + this.common.ethjsCommon.param('pow', 'durationLimit') > blockTs) {
+			if (parentTs + this.common.ethjsCommon.param('durationLimit') > blockTs) {
 				dif = offset + parentDif
 			} else {
 				dif = parentDif - offset

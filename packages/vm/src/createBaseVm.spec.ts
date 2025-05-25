@@ -3,7 +3,7 @@ import { createChain } from '@tevm/blockchain'
 import { mainnet } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
-import { AsyncEventEmitter } from '@tevm/utils'
+import { EventEmitter } from 'eventemitter3'
 import { createBaseVm } from './createBaseVm.js'
 
 describe('createBaseVm', () => {
@@ -29,7 +29,7 @@ describe('createBaseVm', () => {
 		expect(baseVm.evm).toBe(opts.evm)
 		expect(baseVm.blockchain).toBe(opts.blockchain)
 		expect(baseVm.common).toBe(opts.common)
-		expect(baseVm.events).toBeInstanceOf(AsyncEventEmitter)
+		expect(baseVm.events).toBeInstanceOf(EventEmitter)
 	})
 
 	it('should emit events correctly', async () => {

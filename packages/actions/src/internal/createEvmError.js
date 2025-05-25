@@ -114,7 +114,7 @@ export const createEvmError = (error) => {
 		case EvmErrorMessage.INTERNAL_ERROR: {
 			return new InternalError(error.error, { cause: error })
 		}
-		case EvmErrorMessage.INVALID_INPUTS: {
+		case EvmErrorMessage.INVALID_KZG_INPUTS: {
 			return new InvalidKzgInputsError(error.error, { cause: error })
 		}
 		case EvmErrorMessage.VALUE_OVERFLOW: {

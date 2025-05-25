@@ -8,6 +8,8 @@ import {
 	type Address,
 	EthjsAccount,
 	EthjsAddress,
+	createAccount,
+	createAddressFromString,
 	encodeFunctionData,
 	hexToBytes,
 	keccak256,
@@ -80,12 +82,12 @@ describe(buildBlock.name, () => {
 			},
 		})
 
-		const contractAddress = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
-		const fromAddress = EthjsAddress.fromString(`0x${'02'.repeat(20)}`)
+		const contractAddress = createAddressFromString(`0x${'01'.repeat(20)}`)
+		const fromAddress = createAddressFromString(`0x${'02'.repeat(20)}`)
 
 		// add contract
 		await stateManager.putContractCode(contractAddress, hexToBytes(MOCKERC20_BYTECODE))
-		await stateManager.putAccount(fromAddress, EthjsAccount.fromAccountData({ balance: parseEther('1000') }))
+		await stateManager.putAccount(fromAddress, createAccount({ balance: parseEther('1000') }))
 		await stateManager.checkpoint()
 		await stateManager.commit()
 

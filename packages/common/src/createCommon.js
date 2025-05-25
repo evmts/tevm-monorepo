@@ -1,4 +1,4 @@
-import { Common, Mainnet, createCustomCommon } from '@ethereumjs/common'
+import { Mainnet, createCustomCommon } from '@ethereumjs/common'
 import { InvalidParamsError } from '@tevm/errors'
 import { createLogger } from '@tevm/logger'
 import { createMockKzg } from './createMockKzg.js'
@@ -59,19 +59,19 @@ export const createCommon = ({
 }) => {
 	try {
 		const logger = createLogger({ level: loggingLevel, name: '@tevm/common' })
-		
+
 		// Ensure eips is an array
 		const eipsArray = Array.isArray(eips) ? eips : []
-		
+
 		// Create Common instance using createCustomCommon
-		const finalCustomCrypto = customCrypto && Object.keys(customCrypto).length > 0 
-			? { kzg: createMockKzg(), ...customCrypto }
-			: { kzg: createMockKzg() }
-			
+		const finalCustomCrypto =
+			customCrypto && Object.keys(customCrypto).length > 0
+				? { kzg: createMockKzg(), ...customCrypto }
+				: { kzg: createMockKzg() }
+
 		const ethjsCommon = createCustomCommon(
 			{
 				chainId: chain.id,
-				networkId: chain.id,
 				name: chain.name || 'TevmCustom',
 			},
 			Mainnet,
@@ -83,10 +83,32 @@ export const createCommon = ({
 					1559: {
 						elasticityMultiplier: 2,
 						baseFeeMaxChangeDenominator: 8,
-						initialBaseFee: 1000000000
-					}
-				}
-			}
+						initialBaseFee: 1000000000,
+					},
+					4844: {
+						targetBlobGasPerBlock: 393216,
+						blobGasPerBlob: 131072,
+						minBlobGasPrice: 1,
+						blobGasPriceUpdateFraction: 3338477,
+					},
+					4788: {
+						historicalRootsLength: 8191,
+					},
+					// Add additional params that are accessed directly
+					gasLimitBoundDivisor: 1024,
+					minGasLimit: 5000,
+					maxExtraDataSize: 32,
+					// PoW params
+					minimumDifficulty: 131072,
+					difficultyBoundDivisor: 2048,
+					durationLimit: 13,
+					difficultyBombDelay: 0,
+					// VM params accessed via param('vm', ...)
+					vm: {
+						historicalRootsLength: 8191,
+					},
+				},
+			},
 		)
 		if (ethjsCommon.isActivatedEIP(6800)) {
 			logger.warn('verkle state is currently not supported in tevm')
