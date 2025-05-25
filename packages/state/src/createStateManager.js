@@ -61,7 +61,7 @@ const decorate = (state) => {
 		checkpoint: checkpoint(state),
 		revert: revert(state),
 		getCode: getContractCode(state),
-		getCodeSize: (address) => getContractCode(state)(address).then(code => code.length),
+		getCodeSize: (address) => getContractCode(state)(address).then((code) => code.length),
 		getAccount: getAccount(state),
 		dumpStorage: dumpStorage(state),
 		getStateRoot: getStateRoot(state),

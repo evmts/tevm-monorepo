@@ -1,4 +1,4 @@
-import { Mainnet } from '@ethereumjs/common'
+import { Common, Mainnet } from '@ethereumjs/common'
 import { InvalidParamsError } from '@tevm/errors'
 import { createLogger } from '@tevm/logger'
 import { createMockKzg } from './createMockKzg.js'
@@ -62,9 +62,12 @@ export const createCommon = ({
 		// Use Mainnet as base and modify it
 		const ethjsCommon = new Mainnet({ chain: 'mainnet' })
 		// Set chain ID
-		;(/** @type {any} */ (ethjsCommon))._chainParams.chainId = chain.id
-		;(/** @type {any} */ (ethjsCommon))._chainParams.networkId = chain.id
-		;(/** @type {any} */ (ethjsCommon))._chainParams.name = chain.name || 'TevmCustom'
+		/** @type {any} */
+		ethjsCommon._chainParams.chainId = chain.id
+		/** @type {any} */
+		ethjsCommon._chainParams.networkId = chain.id
+		/** @type {any} */
+		ethjsCommon._chainParams.name = chain.name || 'TevmCustom'
 		// Set hardfork and EIPs
 		ethjsCommon.setHardfork(hardfork)
 		ethjsCommon.setEIPs([...eips, 1559, 4895, 4844, 4788])

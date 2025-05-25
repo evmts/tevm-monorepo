@@ -10,7 +10,7 @@ import { putAccount } from './putAccount.js'
  */
 export const putContractCode = (baseState) => async (address, value) => {
 	const account = await getAccount(baseState)(address)
-	
+
 	// Create account data object, conditionally including storageRoot
 	/** @type {{nonce: bigint, balance: bigint, codeHash: Uint8Array, storageRoot?: Uint8Array}} */
 	const accountData = {
@@ -18,12 +18,12 @@ export const putContractCode = (baseState) => async (address, value) => {
 		balance: account?.balance ?? 0n,
 		codeHash: keccak256(value, 'bytes'),
 	}
-	
+
 	// Only include storageRoot if it exists
 	if (account?.storageRoot !== undefined) {
 		accountData.storageRoot = account.storageRoot
 	}
-	
+
 	await putAccount(baseState)(address, createAccount(accountData))
 	baseState.caches.contracts.put(address, value)
 	return

@@ -1,6 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { createTevmNode } from '@tevm/node'
-import { createAccount, bytesToHex } from '@tevm/utils'
+import { bytesToHex, createAccount } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { anvilLoadStateJsonRpcProcedure } from './anvilLoadStateProcedure.js'
 

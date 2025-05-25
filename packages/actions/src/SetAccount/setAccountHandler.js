@@ -101,11 +101,13 @@ export const setAccountHandler =
 					createAccount({
 						nonce: params.nonce ?? account?.nonce,
 						balance: params.balance ?? account?.balance,
-						storageRoot: (params.storageRoot && hexToBytes(params.storageRoot)) ??
+						storageRoot:
+							(params.storageRoot && hexToBytes(params.storageRoot)) ??
 							(account?.storageRoot !== undefined && account?.storageRoot !== '0x'
 								? hexToBytes(account.storageRoot)
 								: undefined),
-						codeHash: (params.deployedBytecode && hexToBytes(keccak256(params.deployedBytecode))) ??
+						codeHash:
+							(params.deployedBytecode && hexToBytes(keccak256(params.deployedBytecode))) ??
 							(account?.deployedBytecode !== undefined ? hexToBytes(keccak256(account.deployedBytecode)) : undefined),
 					}),
 				),

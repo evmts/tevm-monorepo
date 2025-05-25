@@ -1,4 +1,4 @@
-import { createAddressFromString, type Hex, numberToHex } from '@tevm/utils'
+import { type Hex, createAddressFromString, numberToHex } from '@tevm/utils'
 import { type Client, bytesToHex, createClient, hexToBytes } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { TevmTransport } from './TevmTransport.js'
@@ -42,10 +42,7 @@ describe('tevmSetAccount', () => {
 		// lots of extra checks from debugging prior issue
 		const vm = await client.transport.tevm.getVm()
 		expect(
-			await vm.stateManager.getStorage(
-				createAddressFromString(address),
-				hexToBytes(Object.keys(state)[0] as Hex),
-			),
+			await vm.stateManager.getStorage(createAddressFromString(address), hexToBytes(Object.keys(state)[0] as Hex)),
 		).toEqual(hexToBytes(state[`0x${'0'.repeat(64)}`] as Hex))
 
 		expect(await vm.stateManager.dumpStorage(createAddressFromString(address))).toEqual({

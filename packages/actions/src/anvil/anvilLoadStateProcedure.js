@@ -1,5 +1,5 @@
 import { createAddress } from '@tevm/address'
-import { createAccount, hexToBytes, fromRlp } from '@tevm/utils'
+import { createAccount, fromRlp, hexToBytes } from '@tevm/utils'
 
 /**
  * Request handler for anvil_loadState JSON-RPC requests.
@@ -26,10 +26,7 @@ export const anvilLoadStateJsonRpcProcedure = (client) => {
 					storageRoot,
 					codeHash,
 				})
-				return vm.stateManager.putAccount(
-					createAddress(address),
-					account,
-				)
+				return vm.stateManager.putAccount(createAddress(address), account)
 			}),
 		)
 			.then(() => {

@@ -16,8 +16,8 @@ export const callHandlerResult = (evmResult, txHash, trace, accessList) => {
 	 * @type {import('./CallResult.js').CallResult}
 	 */
 	const out = {
-		rawData: bytesToHex(/** @type {any} */(evmResult).execResult.returnValue),
-		executionGasUsed: /** @type {any} */(evmResult).execResult.executionGasUsed,
+		rawData: bytesToHex(/** @type {any} */ (evmResult).execResult.returnValue),
+		executionGasUsed: /** @type {any} */ (evmResult).execResult.executionGasUsed,
 	}
 
 	if (trace) {
@@ -56,18 +56,20 @@ export const callHandlerResult = (evmResult, txHash, trace, accessList) => {
 		out.txHash = txHash
 	}
 
-	if (/** @type {any} */(evmResult).execResult.gasRefund) {
-		out.gasRefund = evmResult.gasRefund ?? /** @type {any} */(evmResult).execResult.gasRefund
+	if (/** @type {any} */ (evmResult).execResult.gasRefund) {
+		out.gasRefund = evmResult.gasRefund ?? /** @type {any} */ (evmResult).execResult.gasRefund
 	}
-	if (/** @type {any} */(evmResult).execResult.selfdestruct) {
-		out.selfdestruct = new Set([.../** @type {any} */(evmResult).execResult.selfdestruct].map((address) => getAddress(address)))
+	if (/** @type {any} */ (evmResult).execResult.selfdestruct) {
+		out.selfdestruct = new Set(
+			[.../** @type {any} */ (evmResult).execResult.selfdestruct].map((address) => getAddress(address)),
+		)
 	}
-	if (/** @type {any} */(evmResult).execResult.gas) {
-		out.gas = /** @type {any} */(evmResult).execResult.gas
+	if (/** @type {any} */ (evmResult).execResult.gas) {
+		out.gas = /** @type {any} */ (evmResult).execResult.gas
 	}
-	if (/** @type {any} */(evmResult).execResult.logs) {
+	if (/** @type {any} */ (evmResult).execResult.logs) {
 		// type Log = [address: Address, topics: Hex[], data: Hex]
-		out.logs = /** @type {any} */(evmResult).execResult.logs.map((log) => {
+		out.logs = /** @type {any} */ (evmResult).execResult.logs.map((log) => {
 			const [address, topics, data] = log
 			return {
 				address: getAddress(toHex(address)),
@@ -76,25 +78,25 @@ export const callHandlerResult = (evmResult, txHash, trace, accessList) => {
 			}
 		})
 	}
-	if (/** @type {any} */(evmResult).execResult.runState) {
+	if (/** @type {any} */ (evmResult).execResult.runState) {
 		// don't do anything with runState atm
 	}
-	if (/** @type {any} */(evmResult).execResult.blobGasUsed) {
-		out.blobGasUsed = /** @type {any} */(evmResult).execResult.blobGasUsed
+	if (/** @type {any} */ (evmResult).execResult.blobGasUsed) {
+		out.blobGasUsed = /** @type {any} */ (evmResult).execResult.blobGasUsed
 	}
-	if (/** @type {any} */(evmResult).execResult.exceptionError) {
+	if (/** @type {any} */ (evmResult).execResult.exceptionError) {
 		if (out.errors === undefined) {
 			out.errors = []
 		}
-		out.errors.push(createEvmError(/** @type {any} */(evmResult).execResult.exceptionError))
+		out.errors.push(createEvmError(/** @type {any} */ (evmResult).execResult.exceptionError))
 	}
 
-	if (/** @type {any} */(evmResult).execResult.createdAddresses) {
-		out.createdAddresses = new Set([.../** @type {any} */(evmResult).execResult.createdAddresses].map(getAddress))
+	if (/** @type {any} */ (evmResult).execResult.createdAddresses) {
+		out.createdAddresses = new Set([.../** @type {any} */ (evmResult).execResult.createdAddresses].map(getAddress))
 	}
 
-	if (/** @type {any} */(evmResult).createdAddress) {
-		out.createdAddress = getAddress(/** @type {any} */(evmResult).createdAddress.toString())
+	if (/** @type {any} */ (evmResult).createdAddress) {
+		out.createdAddress = getAddress(/** @type {any} */ (evmResult).createdAddress.toString())
 	}
 	return out
 }

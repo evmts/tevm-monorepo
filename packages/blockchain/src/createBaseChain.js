@@ -37,10 +37,7 @@ const createGenesisBlock = (stateRoot, common) => {
 		gasLimit: 30_000_000n,
 		...(newCommon.ethjsCommon.isActivatedEIP(4895) ? { withdrawalsRoot: KECCAK256_RLP } : {}),
 	}
-	return createBlock(
-		{ header, ...(newCommon.ethjsCommon.isActivatedEIP(4895) ? { withdrawals: [] } : {}) },
-		{ common },
-	)
+	return createBlock({ header, ...(newCommon.ethjsCommon.isActivatedEIP(4895) ? { withdrawals: [] } : {}) }, { common })
 }
 /**
  * @param {import('./ChainOptions.js').ChainOptions} options

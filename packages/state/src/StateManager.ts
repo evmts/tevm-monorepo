@@ -55,9 +55,9 @@ export interface StateManager extends EvmStateManagerInterface {
 	 * Dumps a range of storage values
 	 */
 	dumpStorageRange(
-		address: import('@tevm/utils').EthjsAddress, 
-		startKey: bigint, 
-		limit: number
+		address: import('@tevm/utils').EthjsAddress,
+		startKey: bigint,
+		limit: number,
 	): Promise<import('@tevm/common').StorageRange>
 	/**
 	 * Loads a state from a given state root

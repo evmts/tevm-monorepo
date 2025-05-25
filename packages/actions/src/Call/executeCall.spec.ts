@@ -429,9 +429,10 @@ describe('executeCall', () => {
 
 		// Mock the stateManager.getContractStorage method to track calls
 		const vm = await client.getVm()
-		const originalGetContractStorage = (/** @type {any} */ (vm.stateManager)).getContractStorage
-		const getContractStorageSpy = vi.fn().mockImplementation(originalGetContractStorage);
-		(/** @type {any} */ (vm.stateManager)).getContractStorage = getContractStorageSpy
+		const originalGetContractStorage = /** @type {any} */ (vm.stateManager).getContractStorage
+		const getContractStorageSpy = vi.fn().mockImplementation(originalGetContractStorage)
+		/** @type {any} */
+		vm.stateManager.getContractStorage = getContractStorageSpy
 
 		// Set up ERC20 contract
 		expect(
