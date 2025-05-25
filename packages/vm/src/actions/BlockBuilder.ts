@@ -226,10 +226,10 @@ export class BlockBuilder {
 
 		// According to the Yellow Paper, a transaction's gas limit
 		// cannot be greater than the remaining gas in the block
-		const blockGasLimit = toType(this.headerData.gasLimit, TypeOutput.BigInt)
+		const blockGasLimit = toType(this.headerData.gasLimit! as any, TypeOutput.BigInt)!
 
-		const blobGasLimit = this.vm.common.ethjsCommon.param('gasConfig', 'maxblobGasPerBlock')
-		const blobGasPerBlob = this.vm.common.ethjsCommon.param('gasConfig', 'blobGasPerBlob')
+		const blobGasLimit = (this.vm.common as any).ethjsCommon.param('gasConfig', 'maxblobGasPerBlock')
+		const blobGasPerBlob = (this.vm.common as any).ethjsCommon.param('gasConfig', 'blobGasPerBlob')
 
 		const blockGasRemaining = blockGasLimit - this.gasUsed
 		if (_tx.gasLimit > blockGasRemaining) {
@@ -269,8 +269,8 @@ export class BlockBuilder {
 		if (_tx instanceof BlobEIP4844Transaction) {
 			const txData = _tx as BlobEIP4844Transaction
 			this.blobGasUsed += BigInt(txData.blobVersionedHashes.length) * blobGasPerBlob
-			_tx = BlobEIP4844Transaction.minimalFromNetworkWrapper(txData, {
-				common: this.blockOpts.common.ethjsCommon,
+			_tx = (BlobEIP4844Transaction as any).minimalFromNetworkWrapper(txData, {
+				common: (this.blockOpts.common as any).ethjsCommon,
 			})
 		}
 		this.transactions.push(_tx)
@@ -376,12 +376,12 @@ export class BlockBuilder {
 
 			const { parentBeaconBlockRoot, timestamp } = this.headerData
 			// timestamp should already be set in constructor
-			const timestampBigInt = toType(timestamp ?? 0, TypeOutput.BigInt)
-			const parentBeaconBlockRootBuf = toType(parentBeaconBlockRoot, TypeOutput.Uint8Array) ?? new Uint8Array(32)
+			const timestampBigInt = toType(timestamp! as any, TypeOutput.BigInt)
+			const parentBeaconBlockRootBuf = parentBeaconBlockRoot ? toType(parentBeaconBlockRoot as any, TypeOutput.Uint8Array) : new Uint8Array(32)
 
-			await accumulateParentBeaconBlockRoot(this.vm)(parentBeaconBlockRootBuf, timestampBigInt)
+			await accumulateParentBeaconBlockRoot(this.vm)(parentBeaconBlockRootBuf!, timestampBigInt)
 		}
-		if (this.vm.common.ethjsCommon.isActivatedEIP(2935)) {
+		if ((this.vm.common as any).ethjsCommon.isActivatedEIP(2935)) {
 			if (!this.checkpointed) {
 				await this.vm.evm.journal.checkpoint()
 				this.checkpointed = true
@@ -389,10 +389,10 @@ export class BlockBuilder {
 
 			const { parentHash, number } = this.headerData
 			// timestamp should already be set in constructor
-			const numberBigInt = toType(number ?? 0, TypeOutput.BigInt)
-			const parentHashSanitized = toType(parentHash, TypeOutput.Uint8Array) ?? new Uint8Array(32)
+			const numberBigInt = toType(number! as any, TypeOutput.BigInt)
+			const parentHashSanitized = parentHash ? toType(parentHash as any, TypeOutput.Uint8Array) : new Uint8Array(32)
 
-			await accumulateParentBlockHash(this.vm)(numberBigInt, parentHashSanitized)
+			await accumulateParentBlockHash(this.vm)(numberBigInt, parentHashSanitized!)
 		}
 	}
 }
