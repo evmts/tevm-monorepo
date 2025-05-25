@@ -1,13 +1,14 @@
 import { ConsensusType } from '@tevm/common'
 import { Rlp } from '@tevm/rlp'
 import { Trie } from '@tevm/trie'
-import { BlobEIP4844Transaction, Capability, TransactionFactory } from '@tevm/tx'
+import { BlobEIP4844Transaction, Capability, TransactionFactory, createTxFromBlockBodyData, createTxFromRLP } from '@tevm/tx'
 import {
 	type AddressLike,
 	type Hex,
 	KECCAK256_RLP,
 	KECCAK256_RLP_ARRAY,
 	Withdrawal,
+	createWithdrawal,
 	bytesToHex,
 	bytesToUtf8,
 	equalsBytes,
@@ -144,7 +145,7 @@ export class Block {
 			uncleHeaders.push(uh)
 		}
 
-		const withdrawals = withdrawalsData?.map(Withdrawal.fromWithdrawalData)
+		const withdrawals = withdrawalsData?.map(createWithdrawal)
 		// The witness data is planned to come in rlp serialized bytes so leave this
 		// stub till that time
 		const executionWitness = executionWitnessData
@@ -195,7 +196,7 @@ export class Block {
 		const transactions = []
 		for (const txData of txsData ?? []) {
 			transactions.push(
-				TransactionFactory.fromBlockBodyData(txData, {
+				createTxFromBlockBodyData(txData, {
 					...opts,
 					// Use header common in case of setHardfork being activated
 					common: header.common.ethjsCommon,
@@ -227,7 +228,7 @@ export class Block {
 				address: address,
 				amount: amount,
 			}))
-			?.map((w) => Withdrawal.fromWithdrawalData(w))
+			?.map((w) => createWithdrawal(w))
 
 		let requests: ClRequest[] = []
 		if (header.common.ethjsCommon.isActivatedEIP(7685)) {
@@ -272,7 +273,7 @@ export class Block {
 		const txs = []
 		for (const [index, serializedTx] of transactions.entries()) {
 			try {
-				const tx = TransactionFactory.fromSerializedData(hexToBytes(serializedTx as Hex), {
+				const tx = createTxFromRLP(hexToBytes(serializedTx as Hex), {
 					common: opts?.common.ethjsCommon,
 				})
 				txs.push(tx)
@@ -284,7 +285,7 @@ export class Block {
 
 		const reqRoot = requestsRoot === null ? undefined : requestsRoot
 		const transactionsTrie = await Block.genTransactionsTrieRoot(txs, new Trie({ common: opts?.common.ethjsCommon }))
-		const withdrawals = withdrawalsData?.map((wData) => Withdrawal.fromWithdrawalData(wData))
+		const withdrawals = withdrawalsData?.map((wData) => createWithdrawal(wData))
 		const withdrawalsRoot = withdrawals
 			? await Block.genWithdrawalsTrieRoot(withdrawals, new Trie({ common: opts?.common.ethjsCommon }))
 			: undefined
@@ -501,8 +502,8 @@ export class Block {
 	getTransactionsValidationErrors(): string[] {
 		const errors: string[] = []
 		let blobGasUsed = 0n
-		const blobGasLimit = this.common.ethjsCommon.param('gasConfig', 'maxblobGasPerBlock')
-		const blobGasPerBlob = this.common.ethjsCommon.param('gasConfig', 'blobGasPerBlob')
+		const blobGasLimit = this.common.ethjsCommon.param('maxblobGasPerBlock')
+		const blobGasPerBlob = this.common.ethjsCommon.param('blobGasPerBlob')
 
 		// eslint-disable-next-line prefer-const
 		for (let [i, tx] of this.transactions.entries()) {
@@ -621,8 +622,8 @@ export class Block {
 	 */
 	validateBlobTransactions(parentHeader: BlockHeader) {
 		if (this.common.ethjsCommon.isActivatedEIP(4844)) {
-			const blobGasLimit = this.common.ethjsCommon.param('gasConfig', 'maxblobGasPerBlock')
-			const blobGasPerBlob = this.common.ethjsCommon.param('gasConfig', 'blobGasPerBlob')
+			const blobGasLimit = this.common.ethjsCommon.param('maxblobGasPerBlock')
+			const blobGasPerBlob = this.common.ethjsCommon.param('blobGasPerBlob')
 			let blobGasUsed = 0n
 
 			const expectedExcessBlobGas = parentHeader.calcNextExcessBlobGas()
