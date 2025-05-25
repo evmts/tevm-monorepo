@@ -6,8 +6,6 @@ import { createStateManager } from '@tevm/state'
 import { FeeMarketEIP1559Transaction } from '@tevm/tx'
 import {
 	type Address,
-	EthjsAccount,
-	EthjsAddress,
 	createAccount,
 	createAddressFromString,
 	encodeFunctionData,
@@ -91,7 +89,7 @@ describe(buildBlock.name, () => {
 		await stateManager.checkpoint()
 		await stateManager.commit()
 
-		const tx = FeeMarketEIP1559Transaction.fromTxData({
+		const tx = (FeeMarketEIP1559Transaction as any).fromTxData({
 			data: hexToBytes(
 				encodeFunctionData({
 					abi: MOCKERC20_ABI,

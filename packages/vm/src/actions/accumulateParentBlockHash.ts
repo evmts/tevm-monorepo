@@ -1,4 +1,4 @@
-import { createAccount, createAddressFromString, numberToHex, setLengthLeft, toBytes } from '@tevm/utils'
+import { createAccount, createAddressFromString, setLengthLeft, toBytes } from '@tevm/utils'
 
 import { EipNotEnabledError } from '@tevm/errors'
 import type { BaseVm } from '../BaseVm.js'
@@ -13,7 +13,7 @@ import type { BaseVm } from '../BaseVm.js'
  * @returns Function that accumulates parent block hash
  */
 export const accumulateParentBlockHash = (vm: BaseVm) => async (currentBlockNumber: bigint, parentHash: Uint8Array) => {
-	if (!vm.common.ethjsCommon.isActivatedEIP(2935)) {
+	if (!(vm.common as any).ethjsCommon.isActivatedEIP(2935)) {
 		throw new EipNotEnabledError('Cannot call `accumulateParentBlockHash`: EIP 2935 is not active')
 	}
 	// TODO: Fix param loading from common
@@ -23,13 +23,13 @@ export const accumulateParentBlockHash = (vm: BaseVm) => async (currentBlockNumb
 	const historyServeWindow = 8192n // vm.common.ethjsCommon.param('vm', 'historyServeWindow')
 
 	// Is this the fork block?
-	const forkTime = vm.common.ethjsCommon.eipTimestamp(2935)
+	const forkTime = (vm.common as any).ethjsCommon.eipTimestamp(2935)
 	if (forkTime === null) {
 		throw new EipNotEnabledError('EIP 2935 should be activated by timestamp')
 	}
 
 	if ((await vm.stateManager.getAccount(historyAddress)) === undefined) {
-		await vm.evm.journal.putAccount(historyAddress, createAccount())
+		await vm.evm.journal.putAccount(historyAddress, createAccount({}))
 	}
 
 	async function putBlockHash(vm: BaseVm, hash: Uint8Array, number: bigint) {

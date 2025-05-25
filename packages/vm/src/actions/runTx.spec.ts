@@ -12,8 +12,6 @@ import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
 import { BlobEIP4844Transaction, createImpersonatedTx } from '@tevm/tx'
 import {
-	EthjsAccount,
-	EthjsAddress,
 	PREFUNDED_ACCOUNTS,
 	createAccount,
 	createAddressFromString,
@@ -237,7 +235,7 @@ describe('runTx', () => {
 			}),
 		)
 
-		const tx = BlobEIP4844Transaction.fromTxData(
+		const tx = (BlobEIP4844Transaction as any).fromTxData(
 			{
 				blobVersionedHashes: [randomBytes(32)],
 				blobs: [randomBytes(32)],
