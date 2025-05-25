@@ -106,6 +106,7 @@ export class Block {
 	 *
 	 * @param blockData
 	 * @param opts
+	 * @deprecated Use createBlock() instead - this method is kept for compatibility
 	 */
 	public static fromBlockData(blockData: BlockData, opts: BlockOptions) {
 		const {
@@ -158,6 +159,7 @@ export class Block {
 	 *
 	 * @param serialized
 	 * @param opts
+	 * @deprecated Use createBlockFromRLP() instead - this method is kept for compatibility
 	 */
 	public static fromRLPSerializedBlock(serialized: Uint8Array, opts: BlockOptions) {
 		const values = Rlp.decode(Uint8Array.from(serialized)) as BlockBytes
@@ -174,6 +176,7 @@ export class Block {
 	 *
 	 * @param values
 	 * @param opts
+	 * @deprecated Use createBlockFromValuesArray() instead - this method is kept for compatibility
 	 */
 	public static fromValuesArray(values: BlockBytes, opts: BlockOptions) {
 		if (values.length > 5) {

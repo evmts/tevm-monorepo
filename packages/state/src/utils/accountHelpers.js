@@ -1,5 +1,5 @@
 import { Rlp } from '@tevm/rlp'
-import { EthjsAccount, createAddressFromString as createAddress } from '@tevm/utils'
+import { EthjsAccount, createAccount, createAddressFromString as createAddress } from '@tevm/utils'
 
 /**
  * Helper to create an address from a string
@@ -23,7 +23,7 @@ export function fromRlpSerializedAccount(serialized) {
 
 	const [nonce, balance, storageRoot, codeHash] = decoded
 
-	return new EthjsAccount(nonce, balance, storageRoot, codeHash)
+	return createAccount({ nonce, balance, storageRoot, codeHash })
 }
 
 /**
@@ -36,5 +36,5 @@ export function fromRlpSerializedAccount(serialized) {
  * @returns {import('@tevm/utils').EthjsAccount} The account
  */
 export function fromAccountData(accountData) {
-	return new EthjsAccount(accountData.nonce, accountData.balance, accountData.storageRoot, accountData.codeHash)
+	return createAccount(accountData)
 }

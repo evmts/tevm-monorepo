@@ -23,4 +23,5 @@ export {
 	randomBytes,
 	// AsyncEventEmitter was also removed
 	createAddressFromString,
+	createAccount,
 } from '@ethereumjs/util'

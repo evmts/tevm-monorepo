@@ -1,4 +1,4 @@
-import { EthjsAddress } from '@tevm/utils'
+import { createAddressFromString } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { clearContractStorage } from './clearContractStorage.js'
@@ -9,7 +9,7 @@ describe(clearContractStorage.name, () => {
 			loggingLevel: 'warn',
 		})
 
-		const address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
+		const address = createAddressFromString(`0x${'01'.repeat(20)}`)
 		const slot = Uint8Array.from([69])
 		const value = Uint8Array.from([420])
 

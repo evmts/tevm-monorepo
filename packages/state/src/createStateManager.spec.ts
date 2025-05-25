@@ -1,5 +1,5 @@
 import { createAddress } from '@tevm/address'
-import { EthjsAccount } from '@tevm/utils'
+import { createAccount } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createStateManager } from './createStateManager.js'
 
@@ -42,8 +42,7 @@ describe(createStateManager.name, () => {
 	it('should allow deep copying a state manager', async () => {
 		const stateManager = createStateManager({})
 		const address = createAddress('0x1')
-		const account = new EthjsAccount()
-		account.balance = 100n
+		const account = createAccount({ balance: 100n })
 
 		// Setup original state
 		await stateManager.putAccount(address, account)
@@ -52,8 +51,7 @@ describe(createStateManager.name, () => {
 		const deepCopy = await stateManager.deepCopy()
 
 		// Modify the original
-		const newAccount = new EthjsAccount()
-		newAccount.balance = 200n
+		const newAccount = createAccount({ balance: 200n })
 		await stateManager.putAccount(address, newAccount)
 
 		// Check that the copy wasn't affected
@@ -67,8 +65,7 @@ describe(createStateManager.name, () => {
 	it('should allow shallow copying a state manager', async () => {
 		const stateManager = createStateManager({})
 		const address = createAddress('0x1')
-		const account = new EthjsAccount()
-		account.balance = 100n
+		const account = createAccount({ balance: 100n })
 
 		// Setup original state
 		await stateManager.putAccount(address, account)
@@ -77,8 +74,7 @@ describe(createStateManager.name, () => {
 		const shallowCopy = stateManager.shallowCopy()
 
 		// Create a new account (necessary because in-place modification doesn't work)
-		const newAccount = new EthjsAccount()
-		newAccount.balance = 200n
+		const newAccount = createAccount({ balance: 200n })
 
 		// Modify through the copy (should affect original)
 		await shallowCopy.putAccount(address, newAccount)
