@@ -31,42 +31,6 @@ import {
 	StopError,
 	ValueOverflowError,
 } from '@tevm/errors'
-import { EvmError } from '@tevm/evm'
-
-// EVMErrorMessage is no longer exported, use EVMError.errorMessages instead
-const EvmErrorMessage = EvmError.errorMessages || {
-	STOP: 'stop',
-	REVERT: 'revert',
-	OUT_OF_GAS: 'out of gas',
-	INVALID_OPCODE: 'invalid opcode',
-	INVALID_JUMP: 'invalid JUMP',
-	OUT_OF_RANGE: 'value out of range',
-	INVALID_BYTECODE_RESULT: 'invalid bytecode deployed',
-	INSUFFICIENT_BALANCE: 'insufficient balance',
-	CREATE_COLLISION: 'create collision',
-	INVALID_BEGINSUB: 'invalid BEGINSUB',
-	INVALID_RETURNSUB: 'invalid RETURNSUB',
-	INVALID_JUMPSUB: 'invalid JUMPSUB',
-	STACK_UNDERFLOW: 'stack underflow',
-	STACK_OVERFLOW: 'stack overflow',
-	INTERNAL_ERROR: 'internal error',
-	STATIC_STATE_CHANGE: 'static state change',
-	REFUND_EXHAUSTED: 'refund exhausted',
-	VALUE_OVERFLOW: 'value overflow',
-	CODESTORE_OUT_OF_GAS: 'code store out of gas',
-	CODESIZE_EXCEEDS_MAXIMUM: 'code size to deposit exceeds maximum code size',
-	INVALID_EOF_FORMAT: 'invalid EOF format',
-	INVALID_INPUT_LENGTH: 'invalid input length',
-	INITCODE_SIZE_VIOLATION: 'initcode exceeds max initcode size',
-	BLS_12_381_INVALID_INPUT_LENGTH: 'invalid input length',
-	BLS_12_381_POINT_NOT_ON_CURVE: 'point not on curve',
-	BLS_12_381_INPUT_EMPTY: 'input is empty',
-	BLS_12_381_FP_NOT_IN_FIELD: 'fp point not in field',
-	INVALID_COMMITMENT: 'kzg commitment does not match versioned hash',
-	INVALID_KZG_INPUTS: 'kzg inputs invalid',
-	INVALID_PROOF: 'kzg proof invalid',
-	AUTHCALL_UNSET: 'attempting to AUTHCALL without AUTH set',
-}
 
 /**
  * @type {ReturnType<typeof createEvmError>} EvmError
@@ -80,99 +44,102 @@ export const createEvmError = (error) => {
 	if (error instanceof BaseError) {
 		return /** @type {never}*/ (error)
 	}
-	switch (error.error) {
-		case EvmErrorMessage.STOP: {
-			return new StopError(error.error, { cause: error })
+
+	const errorMessage = error?.error
+
+	switch (errorMessage) {
+		case 'stop': {
+			return new StopError(errorMessage, { cause: error })
 		}
-		case EvmErrorMessage.REVERT: {
-			return new RevertError(error.error, { cause: error })
+		case 'revert': {
+			return new RevertError(errorMessage, { cause: error })
 		}
-		case EvmErrorMessage.OUT_OF_GAS: {
-			return new OutOfGasError(error.error, { cause: error })
+		case 'out of gas': {
+			return new OutOfGasError(errorMessage, { cause: error })
 		}
-		case EvmErrorMessage.INVALID_OPCODE: {
-			return new InvalidOpcodeError(error.error, { cause: error })
+		case 'invalid opcode': {
+			return new InvalidOpcodeError(errorMessage, { cause: error })
 		}
-		case EvmErrorMessage.STACK_OVERFLOW: {
-			return new StackOverflowError(error.error, { cause: error })
+		case 'stack overflow': {
+			return new StackOverflowError(errorMessage, { cause: error })
 		}
-		case EvmErrorMessage.STACK_UNDERFLOW: {
-			return new StackUnderflowError(error.error, { cause: error })
+		case 'stack underflow': {
+			return new StackUnderflowError(errorMessage, { cause: error })
 		}
-		case EvmErrorMessage.INVALID_JUMP: {
-			return new InvalidJumpError(error.error, { cause: error })
+		case 'invalid JUMP': {
+			return new InvalidJumpError(errorMessage, { cause: error })
 		}
-		case EvmErrorMessage.OUT_OF_RANGE: {
-			return new OutOfRangeError(error.error, { cause: error })
+		case 'value out of range': {
+			return new OutOfRangeError(errorMessage, { cause: error })
 		}
-		case EvmErrorMessage.INVALID_PROOF: {
-			return new InvalidProofError(error.error, { cause: error })
+		case 'kzg proof invalid': {
+			return new InvalidProofError(errorMessage, { cause: error })
 		}
-		case EvmErrorMessage.AUTHCALL_UNSET: {
-			return new AuthCallUnsetError(error.error, { cause: error })
+		case 'attempting to AUTHCALL without AUTH set': {
+			return new AuthCallUnsetError(errorMessage, { cause: error })
 		}
-		case EvmErrorMessage.INTERNAL_ERROR: {
-			return new InternalError(error.error, { cause: error })
+		case 'internal error': {
+			return new InternalError(errorMessage, { cause: error })
 		}
-		case EvmErrorMessage.INVALID_KZG_INPUTS: {
-			return new InvalidKzgInputsError(error.error, { cause: error })
+		case 'kzg inputs invalid': {
+			return new InvalidKzgInputsError(errorMessage, { cause: error })
 		}
-		case EvmErrorMessage.VALUE_OVERFLOW: {
-			return new ValueOverflowError(error.error, { cause: error })
+		case 'value overflow': {
+			return new ValueOverflowError(errorMessage, { cause: error })
 		}
-		case EvmErrorMessage.INVALID_JUMPSUB: {
-			return new InvalidJumpSubError(error.error, { cause: error })
+		case 'invalid JUMPSUB': {
+			return new InvalidJumpSubError(errorMessage, { cause: error })
 		}
-		case EvmErrorMessage.CREATE_COLLISION: {
-			return new CreateCollisionError(error.error, { cause: error })
+		case 'create collision': {
+			return new CreateCollisionError(errorMessage, { cause: error })
 		}
-		case EvmErrorMessage.INVALID_BEGINSUB: {
-			return new InvalidBeginSubError(error.error, { cause: error })
+		case 'invalid BEGINSUB': {
+			return new InvalidBeginSubError(errorMessage, { cause: error })
 		}
-		case EvmErrorMessage.REFUND_EXHAUSTED: {
-			return new RefundExhaustedError(error.error, { cause: error })
+		case 'refund exhausted': {
+			return new RefundExhaustedError(errorMessage, { cause: error })
 		}
-		case EvmErrorMessage.INVALID_RETURNSUB: {
-			return new InvalidReturnSubError(error.error, { cause: error })
+		case 'invalid RETURNSUB': {
+			return new InvalidReturnSubError(errorMessage, { cause: error })
 		}
-		case EvmErrorMessage.INVALID_COMMITMENT: {
-			return new InvalidCommitmentError(error.error, { cause: error })
+		case 'kzg commitment does not match versioned hash': {
+			return new InvalidCommitmentError(errorMessage, { cause: error })
 		}
-		case EvmErrorMessage.INVALID_EOF_FORMAT: {
-			return new InvalidEofFormatError(error.error, { cause: error })
+		case 'invalid EOF format': {
+			return new InvalidEofFormatError(errorMessage, { cause: error })
 		}
-		case EvmErrorMessage.STATIC_STATE_CHANGE: {
-			return new StaticStateChangeError(error.error, { cause: error })
+		case 'static state change': {
+			return new StaticStateChangeError(errorMessage, { cause: error })
 		}
-		case EvmErrorMessage.CODESTORE_OUT_OF_GAS: {
-			return new CodeStoreOutOfGasError(error.error, { cause: error })
+		case 'code store out of gas': {
+			return new CodeStoreOutOfGasError(errorMessage, { cause: error })
 		}
-		case EvmErrorMessage.INSUFFICIENT_BALANCE: {
-			return new InsufficientBalanceError(error.error, { cause: error })
+		case 'insufficient balance': {
+			return new InsufficientBalanceError(errorMessage, { cause: error })
 		}
-		case EvmErrorMessage.INVALID_INPUT_LENGTH: {
-			return new InvalidInputLengthError(error.error, { cause: error })
+		case 'invalid input length': {
+			return new InvalidInputLengthError(errorMessage, { cause: error })
 		}
-		case EvmErrorMessage.BLS_12_381_INPUT_EMPTY: {
-			return new BLS12381InputEmptyError(error.error, { cause: error })
+		case 'input is empty': {
+			return new BLS12381InputEmptyError(errorMessage, { cause: error })
 		}
-		case EvmErrorMessage.INITCODE_SIZE_VIOLATION: {
-			return new InitcodeSizeViolationError(error.error, { cause: error })
+		case 'initcode exceeds max initcode size': {
+			return new InitcodeSizeViolationError(errorMessage, { cause: error })
 		}
-		case EvmErrorMessage.INVALID_BYTECODE_RESULT: {
-			return new InvalidBytecodeResultError(error.error, { cause: error })
+		case 'invalid bytecode deployed': {
+			return new InvalidBytecodeResultError(errorMessage, { cause: error })
 		}
-		case EvmErrorMessage.CODESIZE_EXCEEDS_MAXIMUM: {
-			return new CodeSizeExceedsMaximumError(error.error, { cause: error })
+		case 'code size to deposit exceeds maximum code size': {
+			return new CodeSizeExceedsMaximumError(errorMessage, { cause: error })
 		}
-		case EvmErrorMessage.BLS_12_381_FP_NOT_IN_FIELD: {
-			return new BLS12381FpNotInFieldError(error.error, { cause: error })
+		case 'fp point not in field': {
+			return new BLS12381FpNotInFieldError(errorMessage, { cause: error })
 		}
-		case EvmErrorMessage.BLS_12_381_POINT_NOT_ON_CURVE: {
-			return new BLS12381PointNotOnCurveError(error.error, { cause: error })
+		case 'point not on curve': {
+			return new BLS12381PointNotOnCurveError(errorMessage, { cause: error })
 		}
 		default: {
-			return new InternalError(error.error, { cause: error })
+			return new InternalError(errorMessage || 'Unknown error', { cause: error })
 		}
 	}
 }

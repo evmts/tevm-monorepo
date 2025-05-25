@@ -192,7 +192,7 @@ describe('createTevmNode', () => {
 		const { getVm } = client
 		const vm = await getVm()
 		const stateManager = vm.stateManager
-		const code = await stateManager.getContractCode(createAddress(predeploy.contract.address))
+		const code = await stateManager.getCode(createAddress(predeploy.contract.address))
 		expect(bytesToHex(code)).toBe(predeploy.contract.deployedBytecode)
 	})
 

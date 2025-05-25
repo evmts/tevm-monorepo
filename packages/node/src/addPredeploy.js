@@ -29,6 +29,6 @@ export const addPredeploy = async ({ vm, nonce, balance, storageRoot, deployedBy
 		}),
 	)
 	if (deployedBytecode) {
-		await vm.stateManager.putContractCode(ethjsAddress, hexToBytes(deployedBytecode))
+		await vm.stateManager.putCode(ethjsAddress, hexToBytes(deployedBytecode))
 	}
 }

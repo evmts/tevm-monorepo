@@ -94,6 +94,12 @@ export const createCommon = ({
 					4788: {
 						historicalRootsLength: 8191,
 					},
+					// VM params accessed via param('vm', ...)
+					vm: {
+						historicalRootsLength: 8191,
+						historyStorageAddress: '0x0aae40965e6800cd9b1f4b05ff21581047e3f91e',
+						historyServeWindow: 8192,
+					},
 					// Add additional params that are accessed directly
 					gasLimitBoundDivisor: 1024,
 					minGasLimit: 5000,
@@ -103,10 +109,6 @@ export const createCommon = ({
 					difficultyBoundDivisor: 2048,
 					durationLimit: 13,
 					difficultyBombDelay: 0,
-					// VM params accessed via param('vm', ...)
-					vm: {
-						historicalRootsLength: 8191,
-					},
 				},
 			},
 		)

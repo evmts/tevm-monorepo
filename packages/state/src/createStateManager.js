@@ -82,11 +82,6 @@ const decorate = (state) => {
 		getAppliedKey: /** @type {any}*/ (getAppliedKey(state)),
 		originalStorageCache: originalStorageCache(state),
 		getProof: getProof(state),
-		// Aliases for backwards compatibility
-		getContractCode: getContractCode(state),
-		putContractCode: putContractCode(state),
-		getContractStorage: getContractStorage(state),
-		putContractStorage: putContractStorage(state),
 	}
 	return wrappedState
 }

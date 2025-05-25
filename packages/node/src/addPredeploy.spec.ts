@@ -30,11 +30,11 @@ describe('addPredeploy', () => {
 
 		const account = await (await client.getVm()).stateManager.getAccount(createAddressFromString(address))
 		expect(account).toEqual(
-			createAccount({ 
-				nonce, 
-				balance, 
-				storageRoot: hexToBytes(storageRoot), 
-				codeHash: keccak256(deployedBytecode, 'bytes') 
+			createAccount({
+				nonce,
+				balance,
+				storageRoot: hexToBytes(storageRoot),
+				codeHash: keccak256(deployedBytecode, 'bytes'),
 			}),
 		)
 	})

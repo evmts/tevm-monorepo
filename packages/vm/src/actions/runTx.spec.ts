@@ -88,7 +88,7 @@ describe('runTx', () => {
 
 		const contract = SimpleContract.withAddress(`0x${'02'.repeat(20)}`)
 
-		await vm.stateManager.putContractCode(
+		await vm.stateManager.putCode(
 			createAddressFromString(contract.address),
 			hexToBytes(contract.deployedBytecode),
 		)
