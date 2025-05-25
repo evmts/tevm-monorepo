@@ -8,7 +8,7 @@
 
 > **deepCopy**(`baseChain`): () => `Promise`\<`BaseChain`\>
 
-Defined in: [packages/blockchain/src/actions/deepCopy.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/deepCopy.js#L7)
+Defined in: packages/blockchain/src/actions/deepCopy.js:7
 
 ## Parameters
 

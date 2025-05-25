@@ -8,7 +8,7 @@
 
 > `const` **etherlink**: `object`
 
-Defined in: [packages/common/src/presets/etherlink.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/etherlink.js#L26)
+Defined in: packages/common/src/presets/etherlink.js:26
 
 Creates a common configuration for the etherlink chain.
 

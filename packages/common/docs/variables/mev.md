@@ -8,7 +8,7 @@
 
 > `const` **mev**: `object`
 
-Defined in: [packages/common/src/presets/mev.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/mev.js#L26)
+Defined in: packages/common/src/presets/mev.js:26
 
 Creates a common configuration for the mev chain.
 

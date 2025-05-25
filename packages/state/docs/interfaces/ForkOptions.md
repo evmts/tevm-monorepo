@@ -6,7 +6,7 @@
 
 # Interface: ForkOptions
 
-Defined in: [packages/state/src/state-types/ForkOptions.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ForkOptions.ts#L18)
+Defined in: packages/state/src/state-types/ForkOptions.ts:18
 
 Configuration options for forking from an existing blockchain network.
 Used to specify the RPC endpoint and block number to fork from.
@@ -29,7 +29,7 @@ const value: ForkOptions = {
 
 > `optional` **blockTag**: `bigint` \| `BlockTag`
 
-Defined in: [packages/state/src/state-types/ForkOptions.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ForkOptions.ts#L20)
+Defined in: packages/state/src/state-types/ForkOptions.ts:20
 
 ***
 
@@ -37,4 +37,4 @@ Defined in: [packages/state/src/state-types/ForkOptions.ts:20](https://github.co
 
 > **transport**: \{ `request`: `EIP1193RequestFn`; \} \| `Transport`
 
-Defined in: [packages/state/src/state-types/ForkOptions.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ForkOptions.ts#L19)
+Defined in: packages/state/src/state-types/ForkOptions.ts:19

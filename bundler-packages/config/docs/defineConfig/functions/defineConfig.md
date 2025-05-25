@@ -8,7 +8,7 @@
 
 > **defineConfig**(`configFactory`): `object`
 
-Defined in: [bundler-packages/config/src/defineConfig.js:48](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/defineConfig.js#L48)
+Defined in: bundler-packages/config/src/defineConfig.js:48
 
 Typesafe way to create an Tevm CompilerConfig
 

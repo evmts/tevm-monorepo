@@ -8,7 +8,7 @@
 
 > **deepCopy**(`baseState`): () => `Promise`\<[`BaseState`](../type-aliases/BaseState.md)\>
 
-Defined in: [packages/state/src/actions/deepCopy.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/deepCopy.js#L17)
+Defined in: packages/state/src/actions/deepCopy.js:17
 
 Returns a new instance of the ForkStateManager with the same opts and all storage copied over.
 

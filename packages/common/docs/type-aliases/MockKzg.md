@@ -8,7 +8,7 @@
 
 > **MockKzg** = `object`
 
-Defined in: [packages/common/src/MockKzg.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/MockKzg.ts#L24)
+Defined in: packages/common/src/MockKzg.ts:24
 
 The interface of the custom crypto for kzg implemented by `createMockKzg``
 The real kzg commitmenet is over 500kb added to bundle size
@@ -40,7 +40,7 @@ const common = createCommon({
 
 > **blobToKzgCommitment**: (`blob`) => `string`
 
-Defined in: [packages/common/src/MockKzg.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/MockKzg.ts#L27)
+Defined in: packages/common/src/MockKzg.ts:27
 
 #### Parameters
 
@@ -58,7 +58,7 @@ Defined in: [packages/common/src/MockKzg.ts:27](https://github.com/evmts/tevm-mo
 
 > **computeBlobKzgProof**: (`blob`, `commitment`) => `string`
 
-Defined in: [packages/common/src/MockKzg.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/MockKzg.ts#L28)
+Defined in: packages/common/src/MockKzg.ts:28
 
 #### Parameters
 
@@ -80,7 +80,7 @@ Defined in: [packages/common/src/MockKzg.ts:28](https://github.com/evmts/tevm-mo
 
 > **computeBlobProof**: (`blob`, `commitment`) => `string`
 
-Defined in: [packages/common/src/MockKzg.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/MockKzg.ts#L33)
+Defined in: packages/common/src/MockKzg.ts:33
 
 #### Parameters
 
@@ -102,7 +102,7 @@ Defined in: [packages/common/src/MockKzg.ts:33](https://github.com/evmts/tevm-mo
 
 > **freeTrustedSetup**: () => `void`
 
-Defined in: [packages/common/src/MockKzg.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/MockKzg.ts#L26)
+Defined in: packages/common/src/MockKzg.ts:26
 
 #### Returns
 
@@ -114,7 +114,7 @@ Defined in: [packages/common/src/MockKzg.ts:26](https://github.com/evmts/tevm-mo
 
 > **loadTrustedSetup**: (`trustedSetup?`) => `number`
 
-Defined in: [packages/common/src/MockKzg.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/MockKzg.ts#L25)
+Defined in: packages/common/src/MockKzg.ts:25
 
 #### Parameters
 
@@ -132,7 +132,7 @@ Defined in: [packages/common/src/MockKzg.ts:25](https://github.com/evmts/tevm-mo
 
 > **verifyBlobKzgProof**: (`blob`, `commitment`, `proof`) => `boolean`
 
-Defined in: [packages/common/src/MockKzg.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/MockKzg.ts#L31)
+Defined in: packages/common/src/MockKzg.ts:31
 
 #### Parameters
 
@@ -158,7 +158,7 @@ Defined in: [packages/common/src/MockKzg.ts:31](https://github.com/evmts/tevm-mo
 
 > **verifyBlobKzgProofBatch**: (`blobs`, `commitments`, `proofs`) => `boolean`
 
-Defined in: [packages/common/src/MockKzg.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/MockKzg.ts#L29)
+Defined in: packages/common/src/MockKzg.ts:29
 
 #### Parameters
 
@@ -184,7 +184,7 @@ Defined in: [packages/common/src/MockKzg.ts:29](https://github.com/evmts/tevm-mo
 
 > **verifyBlobProofBatch**: (`blobs`, `commitments`, `proofs`) => `boolean`
 
-Defined in: [packages/common/src/MockKzg.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/MockKzg.ts#L35)
+Defined in: packages/common/src/MockKzg.ts:35
 
 #### Parameters
 
@@ -210,7 +210,7 @@ Defined in: [packages/common/src/MockKzg.ts:35](https://github.com/evmts/tevm-mo
 
 > **verifyKzgProof**: (`commitment`, `z`, `y`, `proof`) => `boolean`
 
-Defined in: [packages/common/src/MockKzg.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/MockKzg.ts#L30)
+Defined in: packages/common/src/MockKzg.ts:30
 
 #### Parameters
 
@@ -240,7 +240,7 @@ Defined in: [packages/common/src/MockKzg.ts:30](https://github.com/evmts/tevm-mo
 
 > **verifyProof**: (`commitment`, `z`, `y`, `proof`) => `boolean`
 
-Defined in: [packages/common/src/MockKzg.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/MockKzg.ts#L34)
+Defined in: packages/common/src/MockKzg.ts:34
 
 #### Parameters
 

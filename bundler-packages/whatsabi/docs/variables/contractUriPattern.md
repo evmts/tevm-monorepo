@@ -8,7 +8,7 @@
 
 > `const` **contractUriPattern**: `RegExp`
 
-Defined in: [bundler-packages/whatsabi/src/contractUriPattern.js:10](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/contractUriPattern.js#L10)
+Defined in: bundler-packages/whatsabi/src/contractUriPattern.js:10
 
 Regular expression pattern for matching contract URIs.
 Looks like evm://<chainId>/<address>?<query>

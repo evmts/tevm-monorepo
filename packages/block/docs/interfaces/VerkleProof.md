@@ -6,7 +6,7 @@
 
 # Interface: VerkleProof
 
-Defined in: [packages/block/src/types.ts:89](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L89)
+Defined in: packages/block/src/types.ts:89
 
 Represents a Verkle proof used for state verification
 
@@ -36,7 +36,7 @@ function verifyProof(proof: VerkleProof, key: Hex, value: Hex, commitment: Hex):
 
 > **commitmentsByPath**: `` `0x${string}` ``[]
 
-Defined in: [packages/block/src/types.ts:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L90)
+Defined in: packages/block/src/types.ts:90
 
 ***
 
@@ -44,7 +44,7 @@ Defined in: [packages/block/src/types.ts:90](https://github.com/evmts/tevm-monor
 
 > **d**: `` `0x${string}` ``
 
-Defined in: [packages/block/src/types.ts:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L91)
+Defined in: packages/block/src/types.ts:91
 
 ***
 
@@ -52,7 +52,7 @@ Defined in: [packages/block/src/types.ts:91](https://github.com/evmts/tevm-monor
 
 > **depthExtensionPresent**: `` `0x${string}` ``
 
-Defined in: [packages/block/src/types.ts:92](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L92)
+Defined in: packages/block/src/types.ts:92
 
 ***
 
@@ -60,7 +60,7 @@ Defined in: [packages/block/src/types.ts:92](https://github.com/evmts/tevm-monor
 
 > **ipaProof**: `object`
 
-Defined in: [packages/block/src/types.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L93)
+Defined in: packages/block/src/types.ts:93
 
 #### cl
 
@@ -80,4 +80,4 @@ Defined in: [packages/block/src/types.ts:93](https://github.com/evmts/tevm-monor
 
 > **otherStems**: `` `0x${string}` ``[]
 
-Defined in: [packages/block/src/types.ts:98](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L98)
+Defined in: packages/block/src/types.ts:98

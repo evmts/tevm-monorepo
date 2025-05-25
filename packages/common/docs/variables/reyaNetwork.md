@@ -8,7 +8,7 @@
 
 > `const` **reyaNetwork**: `object`
 
-Defined in: [packages/common/src/presets/reyaNetwork.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/reyaNetwork.js#L26)
+Defined in: packages/common/src/presets/reyaNetwork.js:26
 
 Creates a common configuration for the reyaNetwork chain.
 

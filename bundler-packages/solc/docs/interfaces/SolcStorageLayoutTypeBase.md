@@ -6,7 +6,7 @@
 
 # Interface: SolcStorageLayoutTypeBase
 
-Defined in: [solcTypes.ts:488](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L488)
+Defined in: solcTypes.ts:488
 
 The base type for all storage layout types.
 
@@ -23,7 +23,7 @@ The base type for all storage layout types.
 
 > **encoding**: `"inplace"` \| `"mapping"` \| `"dynamic_array"` \| `"bytes"`
 
-Defined in: [solcTypes.ts:497](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L497)
+Defined in: solcTypes.ts:497
 
 How the data is encoded in storage
 
@@ -38,7 +38,7 @@ How the data is encoded in storage
 
 > **label**: `string`
 
-Defined in: [solcTypes.ts:501](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L501)
+Defined in: solcTypes.ts:501
 
 The canonical type name
 
@@ -48,7 +48,7 @@ The canonical type name
 
 > **numberOfBytes**: `string`
 
-Defined in: [solcTypes.ts:507](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L507)
+Defined in: solcTypes.ts:507
 
 The number of used bytes (as a decimal string)
 

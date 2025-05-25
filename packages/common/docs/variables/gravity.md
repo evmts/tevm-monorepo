@@ -8,7 +8,7 @@
 
 > `const` **gravity**: `object`
 
-Defined in: [packages/common/src/presets/gravity.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/gravity.js#L26)
+Defined in: packages/common/src/presets/gravity.js:26
 
 Creates a common configuration for the gravity chain.
 

@@ -6,7 +6,7 @@
 
 # Class: InvalidArgsError
 
-Defined in: [packages/errors/src/input/InvalidArgsError.js:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidArgsError.js#L44)
+Defined in: packages/errors/src/input/InvalidArgsError.js:44
 
 Represents an error that occurs when the arguments provided to a function or method are invalid.
 
@@ -45,7 +45,7 @@ try {
 
 > **new InvalidArgsError**(`message`, `args?`): `InvalidArgsError`
 
-Defined in: [packages/errors/src/input/InvalidArgsError.js:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidArgsError.js#L51)
+Defined in: packages/errors/src/input/InvalidArgsError.js:51
 
 Constructs an InvalidArgsError.
 
@@ -77,7 +77,7 @@ Additional parameters for the InvalidArgsError.
 
 > **\_tag**: `string`
 
-Defined in: [packages/errors/src/input/InvalidArgsError.js:63](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidArgsError.js#L63)
+Defined in: packages/errors/src/input/InvalidArgsError.js:63
 
 Same as name, used internally.
 
@@ -91,7 +91,7 @@ Same as name, used internally.
 
 > **cause**: `any`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
+Defined in: packages/errors/src/ethereum/BaseError.js:114
 
 #### Inherited from
 
@@ -103,7 +103,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:114](https://github.com/e
 
 > **code**: `number`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
+Defined in: packages/errors/src/ethereum/BaseError.js:112
 
 #### Inherited from
 
@@ -115,7 +115,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:112](https://github.com/e
 
 > **details**: `string`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
+Defined in: packages/errors/src/ethereum/BaseError.js:91
 
 #### Inherited from
 
@@ -127,7 +127,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:91](https://github.com/ev
 
 > **docsPath**: `undefined` \| `string`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
+Defined in: packages/errors/src/ethereum/BaseError.js:96
 
 #### Inherited from
 
@@ -153,7 +153,7 @@ Human-readable error message.
 
 > **metaMessages**: `undefined` \| `string`[]
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
+Defined in: packages/errors/src/ethereum/BaseError.js:100
 
 #### Inherited from
 
@@ -165,7 +165,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:100](https://github.com/e
 
 > **name**: `string`
 
-Defined in: [packages/errors/src/input/InvalidArgsError.js:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidArgsError.js#L62)
+Defined in: packages/errors/src/input/InvalidArgsError.js:62
 
 The name of the error, used to discriminate errors.
 
@@ -179,7 +179,7 @@ The name of the error, used to discriminate errors.
 
 > **shortMessage**: `string`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
+Defined in: packages/errors/src/ethereum/BaseError.js:104
 
 #### Inherited from
 
@@ -203,7 +203,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/li
 
 > **version**: `string`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
+Defined in: packages/errors/src/ethereum/BaseError.js:108
 
 #### Inherited from
 
@@ -215,7 +215,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:108](https://github.com/e
 
 > `static` **code**: `number` = `-32602`
 
-Defined in: [packages/errors/src/ethereum/InvalidParamsError.js:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InvalidParamsError.js#L46)
+Defined in: packages/errors/src/ethereum/InvalidParamsError.js:46
 
 The error code for InvalidParamsError.
 
@@ -243,7 +243,7 @@ The maximum number of stack frames to capture.
 
 > **walk**(`fn?`): `unknown`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
+Defined in: packages/errors/src/ethereum/BaseError.js:137
 
 Walks through the error chain.
 

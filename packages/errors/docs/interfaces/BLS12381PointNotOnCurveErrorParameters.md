@@ -6,7 +6,7 @@
 
 # Interface: BLS12381PointNotOnCurveErrorParameters
 
-Defined in: [packages/errors/src/ethereum/ethereumjs/BLS12381PointNotOnCurveError.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/BLS12381PointNotOnCurveError.js#L6)
+Defined in: packages/errors/src/ethereum/ethereumjs/BLS12381PointNotOnCurveError.js:6
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/errors/src/ethereum/ethereumjs/BLS12381PointNotOnCurveErro
 
 > `optional` **cause**: `EVMError` \| [`ExecutionError`](../classes/ExecutionError.md)
 
-Defined in: [packages/errors/src/ethereum/ethereumjs/BLS12381PointNotOnCurveError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/BLS12381PointNotOnCurveError.js#L11)
+Defined in: packages/errors/src/ethereum/ethereumjs/BLS12381PointNotOnCurveError.js:11
 
 The cause of the error.
 
@@ -24,7 +24,7 @@ The cause of the error.
 
 > `optional` **details**: `string`
 
-Defined in: [packages/errors/src/ethereum/ethereumjs/BLS12381PointNotOnCurveError.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/BLS12381PointNotOnCurveError.js#L12)
+Defined in: packages/errors/src/ethereum/ethereumjs/BLS12381PointNotOnCurveError.js:12
 
 Details of the error.
 
@@ -34,7 +34,7 @@ Details of the error.
 
 > `optional` **docsBaseUrl**: `string`
 
-Defined in: [packages/errors/src/ethereum/ethereumjs/BLS12381PointNotOnCurveError.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/BLS12381PointNotOnCurveError.js#L7)
+Defined in: packages/errors/src/ethereum/ethereumjs/BLS12381PointNotOnCurveError.js:7
 
 Base URL for the documentation.
 
@@ -44,7 +44,7 @@ Base URL for the documentation.
 
 > `optional` **docsPath**: `string`
 
-Defined in: [packages/errors/src/ethereum/ethereumjs/BLS12381PointNotOnCurveError.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/BLS12381PointNotOnCurveError.js#L8)
+Defined in: packages/errors/src/ethereum/ethereumjs/BLS12381PointNotOnCurveError.js:8
 
 Path to the documentation.
 
@@ -54,7 +54,7 @@ Path to the documentation.
 
 > `optional` **docsSlug**: `string`
 
-Defined in: [packages/errors/src/ethereum/ethereumjs/BLS12381PointNotOnCurveError.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/BLS12381PointNotOnCurveError.js#L9)
+Defined in: packages/errors/src/ethereum/ethereumjs/BLS12381PointNotOnCurveError.js:9
 
 Slug for the documentation.
 
@@ -64,7 +64,7 @@ Slug for the documentation.
 
 > `optional` **meta**: `object`
 
-Defined in: [packages/errors/src/ethereum/ethereumjs/BLS12381PointNotOnCurveError.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/BLS12381PointNotOnCurveError.js#L13)
+Defined in: packages/errors/src/ethereum/ethereumjs/BLS12381PointNotOnCurveError.js:13
 
 Optional object containing additional information about the error.
 
@@ -74,6 +74,6 @@ Optional object containing additional information about the error.
 
 > `optional` **metaMessages**: `string`[]
 
-Defined in: [packages/errors/src/ethereum/ethereumjs/BLS12381PointNotOnCurveError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/BLS12381PointNotOnCurveError.js#L10)
+Defined in: packages/errors/src/ethereum/ethereumjs/BLS12381PointNotOnCurveError.js:10
 
 Additional meta messages.

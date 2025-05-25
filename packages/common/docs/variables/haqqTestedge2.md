@@ -8,7 +8,7 @@
 
 > `const` **haqqTestedge2**: `object`
 
-Defined in: [packages/common/src/presets/haqqTestedge2.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/haqqTestedge2.js#L26)
+Defined in: packages/common/src/presets/haqqTestedge2.js:26
 
 Creates a common configuration for the haqqTestedge2 chain.
 

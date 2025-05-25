@@ -25,10 +25,14 @@ ENV PATH="/root/.cargo/bin:$PATH"
 RUN cargo install cbindgen
 # Ensure cargo bin is in PATH for all subsequent commands
 ENV PATH="/root/.cargo/bin:$PATH"
-# Create symlink to make cbindgen available system-wide
-RUN ln -sf /root/.cargo/bin/cbindgen /usr/local/bin/cbindgen
+# Create hard link instead of symlink to make cbindgen available system-wide
+RUN cp /root/.cargo/bin/cbindgen /usr/local/bin/cbindgen && chmod +x /usr/local/bin/cbindgen
 # Verify cbindgen is accessible
 RUN which cbindgen && cbindgen --version
+# Also verify the files exist where Zig expects them
+RUN ls -la /usr/local/bin/cbindgen && ls -la /root/.cargo/bin/cbindgen
+# Test that cbindgen works from different paths
+RUN /usr/local/bin/cbindgen --version && /root/.cargo/bin/cbindgen --version
 
 RUN curl -fsSL https://bun.sh/install | bash
 ENV PATH="/root/.bun/bin:$PATH"
@@ -76,6 +80,10 @@ ENV TEVM_RPC_URLS_OPTIMISM=""
 ENV NX_DAEMON="false"
 # Ensure all tools are in PATH
 ENV PATH="/root/.cargo/bin:/root/.bun/bin:/usr/local/zig:$PATH"
+
+# Debug cbindgen availability
+RUN which cbindgen && cbindgen --version && ls -la /usr/local/bin/cbindgen || true
+RUN echo "PATH=$PATH" && echo "Available in /root/.cargo/bin:" && ls -la /root/.cargo/bin/ || true
 
 # Build TypeScript/JavaScript packages
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm run build:dist --parallel=2 || true

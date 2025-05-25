@@ -6,7 +6,7 @@
 
 # Class: UnknownBlockError
 
-Defined in: [packages/errors/src/ethereum/UnknownBlockError.js:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/UnknownBlockError.js#L47)
+Defined in: packages/errors/src/ethereum/UnknownBlockError.js:47
 
 Represents an error that occurs when the specified block could not be found.
 
@@ -50,7 +50,7 @@ Additional parameters for the BaseError.
 
 > **new UnknownBlockError**(`message`, `args?`, `tag?`): `UnknownBlockError`
 
-Defined in: [packages/errors/src/ethereum/UnknownBlockError.js:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/UnknownBlockError.js#L61)
+Defined in: packages/errors/src/ethereum/UnknownBlockError.js:61
 
 Constructs an UnknownBlockError.
 
@@ -88,7 +88,7 @@ The tag for the error.
 
 > **\_tag**: `string`
 
-Defined in: [packages/errors/src/ethereum/UnknownBlockError.js:74](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/UnknownBlockError.js#L74)
+Defined in: packages/errors/src/ethereum/UnknownBlockError.js:74
 
 Same as name, used internally.
 
@@ -102,7 +102,7 @@ Same as name, used internally.
 
 > **cause**: `any`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
+Defined in: packages/errors/src/ethereum/BaseError.js:114
 
 #### Inherited from
 
@@ -114,7 +114,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:114](https://github.com/e
 
 > **code**: `number`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
+Defined in: packages/errors/src/ethereum/BaseError.js:112
 
 #### Inherited from
 
@@ -126,7 +126,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:112](https://github.com/e
 
 > **details**: `string`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
+Defined in: packages/errors/src/ethereum/BaseError.js:91
 
 #### Inherited from
 
@@ -138,7 +138,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:91](https://github.com/ev
 
 > **docsPath**: `undefined` \| `string`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
+Defined in: packages/errors/src/ethereum/BaseError.js:96
 
 Path to the documentation for this error.
 
@@ -166,7 +166,7 @@ Human-readable error message.
 
 > **metaMessages**: `undefined` \| `string`[]
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
+Defined in: packages/errors/src/ethereum/BaseError.js:100
 
 Additional meta messages for more context.
 
@@ -180,7 +180,7 @@ Additional meta messages for more context.
 
 > **name**: `string`
 
-Defined in: [packages/errors/src/ethereum/UnknownBlockError.js:73](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/UnknownBlockError.js#L73)
+Defined in: packages/errors/src/ethereum/UnknownBlockError.js:73
 
 The name of the error, used to discriminate errors.
 
@@ -194,7 +194,7 @@ The name of the error, used to discriminate errors.
 
 > **shortMessage**: `string`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
+Defined in: packages/errors/src/ethereum/BaseError.js:104
 
 #### Inherited from
 
@@ -218,7 +218,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/li
 
 > **version**: `string`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
+Defined in: packages/errors/src/ethereum/BaseError.js:108
 
 #### Inherited from
 
@@ -230,7 +230,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:108](https://github.com/e
 
 > `static` **code**: `number` = `-32001`
 
-Defined in: [packages/errors/src/ethereum/UnknownBlockError.js:52](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/UnknownBlockError.js#L52)
+Defined in: packages/errors/src/ethereum/UnknownBlockError.js:52
 
 Error code (-32001), a non-standard extension for this specific error.
 
@@ -254,7 +254,7 @@ The maximum number of stack frames to capture.
 
 > **walk**(`fn?`): `unknown`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
+Defined in: packages/errors/src/ethereum/BaseError.js:137
 
 Walks through the error chain.
 

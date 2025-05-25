@@ -8,7 +8,7 @@
 
 > **putBlock**(`baseChain`): (`block`) => `Promise`\<`void`\>
 
-Defined in: [packages/blockchain/src/actions/putBlock.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/putBlock.js#L7)
+Defined in: packages/blockchain/src/actions/putBlock.js:7
 
 ## Parameters
 

@@ -6,7 +6,7 @@
 
 # Interface: BlockOptions
 
-Defined in: [packages/block/src/types.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L12)
+Defined in: packages/block/src/types.ts:12
 
 An object to set to which blockchain the blocks and their headers belong. This could be specified
 using a Common object, or `chain` and `hardfork`. Defaults to mainnet without specifying a
@@ -18,7 +18,7 @@ hardfork.
 
 > `optional` **calcDifficultyFromHeader**: [`BlockHeader`](../classes/BlockHeader.md)
 
-Defined in: [packages/block/src/types.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L43)
+Defined in: packages/block/src/types.ts:43
 
 If a preceding [BlockHeader](../classes/BlockHeader.md) (usually the parent header) is given the preceding
 header will be used to calculate the difficulty for this block and the calculated
@@ -33,7 +33,7 @@ Note that this option has no effect on networks other than PoW/Ethash networks
 
 > `optional` **cliqueSigner**: `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: [packages/block/src/types.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L60)
+Defined in: packages/block/src/types.ts:60
 
 Provide a clique signer's privateKey to seal this block.
 Will throw if provided on a non-PoA chain.
@@ -44,7 +44,7 @@ Will throw if provided on a non-PoA chain.
 
 > **common**: `object`
 
-Defined in: [packages/block/src/types.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L24)
+Defined in: packages/block/src/types.ts:24
 
 A Common object defining the chain and the hardfork a block/block header belongs to.
 
@@ -188,7 +188,7 @@ Flag for test networks
 
 > `optional` **executionWitness**: [`VerkleExecutionWitness`](VerkleExecutionWitness.md)
 
-Defined in: [packages/block/src/types.ts:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L66)
+Defined in: packages/block/src/types.ts:66
 
 ***
 
@@ -196,7 +196,7 @@ Defined in: [packages/block/src/types.ts:66](https://github.com/evmts/tevm-monor
 
 > `optional` **freeze**: `boolean`
 
-Defined in: [packages/block/src/types.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L55)
+Defined in: packages/block/src/types.ts:55
 
 A block object by default gets frozen along initialization. This gives you
 strong additional security guarantees on the consistency of the block parameters.
@@ -214,7 +214,7 @@ Default: true
 
 > `optional` **setHardfork**: `boolean` \| `BigIntLike`
 
-Defined in: [packages/block/src/types.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L34)
+Defined in: packages/block/src/types.ts:34
 
 Set the hardfork either by timestamp (for HFs from Shanghai onwards) or by block number
 for older Hfs.
@@ -230,6 +230,6 @@ Default: `false` (HF is set to whatever default HF is set by the Common instance
 
 > `optional` **skipConsensusFormatValidation**: `boolean`
 
-Defined in: [packages/block/src/types.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L64)
+Defined in: packages/block/src/types.ts:64
 
 Skip consensus format validation checks on header if set. Defaults to false.

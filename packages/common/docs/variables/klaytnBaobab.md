@@ -8,7 +8,7 @@
 
 > `const` **klaytnBaobab**: `object`
 
-Defined in: [packages/common/src/presets/klaytnBaobab.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/klaytnBaobab.js#L26)
+Defined in: packages/common/src/presets/klaytnBaobab.js:26
 
 Creates a common configuration for the klaytnBaobab chain.
 

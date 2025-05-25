@@ -8,7 +8,7 @@
 
 > `const` **neonMainnet**: `object`
 
-Defined in: [packages/common/src/presets/neonMainnet.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/neonMainnet.js#L26)
+Defined in: packages/common/src/presets/neonMainnet.js:26
 
 Creates a common configuration for the neonMainnet chain.
 

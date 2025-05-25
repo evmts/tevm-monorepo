@@ -8,7 +8,7 @@
 
 > `const` **x1Testnet**: `object`
 
-Defined in: [packages/common/src/presets/x1Testnet.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/x1Testnet.js#L26)
+Defined in: packages/common/src/presets/x1Testnet.js:26
 
 Creates a common configuration for the x1Testnet chain.
 

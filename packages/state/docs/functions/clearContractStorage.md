@@ -6,9 +6,9 @@
 
 # Function: clearContractStorage()
 
-> **clearContractStorage**(`baseState`, `skipFetchingFromFork?`): (`address`) => `Promise`\<`void`\>
+> **clearContractStorage**(`baseState`): (`address`) => `Promise`\<`void`\>
 
-Defined in: [packages/state/src/actions/clearContractStorage.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/clearContractStorage.js#L5)
+Defined in: packages/state/src/actions/clearContractStorage.js:6
 
 Clears all storage entries for the account corresponding to `address`.
 
@@ -17,10 +17,6 @@ Clears all storage entries for the account corresponding to `address`.
 ### baseState
 
 [`BaseState`](../type-aliases/BaseState.md)
-
-### skipFetchingFromFork?
-
-`boolean`
 
 ## Returns
 

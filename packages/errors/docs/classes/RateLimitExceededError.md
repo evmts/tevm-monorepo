@@ -6,7 +6,7 @@
 
 # Class: RateLimitExceededError
 
-Defined in: [packages/errors/src/ethereum/RateLimitExceededError.js:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/RateLimitExceededError.js#L41)
+Defined in: packages/errors/src/ethereum/RateLimitExceededError.js:41
 
 Represents an error that occurs when the rate limit has been exceeded.
 
@@ -43,7 +43,7 @@ Additional parameters for the BaseError.
 
 > **new RateLimitExceededError**(`message`, `args?`, `tag?`): `RateLimitExceededError`
 
-Defined in: [packages/errors/src/ethereum/RateLimitExceededError.js:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/RateLimitExceededError.js#L49)
+Defined in: packages/errors/src/ethereum/RateLimitExceededError.js:49
 
 Constructs a RateLimitExceededError.
 
@@ -81,7 +81,7 @@ The tag for the error.
 
 > **\_tag**: `string`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:82](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L82)
+Defined in: packages/errors/src/ethereum/BaseError.js:82
 
 Same as name, used internally.
 
@@ -95,7 +95,7 @@ Same as name, used internally.
 
 > **cause**: `any`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
+Defined in: packages/errors/src/ethereum/BaseError.js:114
 
 #### Inherited from
 
@@ -107,7 +107,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:114](https://github.com/e
 
 > **code**: `number`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
+Defined in: packages/errors/src/ethereum/BaseError.js:112
 
 Error code, analogous to the code in JSON RPC error.
 
@@ -121,7 +121,7 @@ Error code, analogous to the code in JSON RPC error.
 
 > **details**: `string`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
+Defined in: packages/errors/src/ethereum/BaseError.js:91
 
 #### Inherited from
 
@@ -133,7 +133,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:91](https://github.com/ev
 
 > **docsPath**: `undefined` \| `string`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
+Defined in: packages/errors/src/ethereum/BaseError.js:96
 
 Path to the documentation for this error.
 
@@ -161,7 +161,7 @@ Human-readable error message.
 
 > **metaMessages**: `undefined` \| `string`[]
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
+Defined in: packages/errors/src/ethereum/BaseError.js:100
 
 Additional meta messages for more context.
 
@@ -189,7 +189,7 @@ The name of the error, used to discriminate errors.
 
 > **shortMessage**: `string`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
+Defined in: packages/errors/src/ethereum/BaseError.js:104
 
 #### Inherited from
 
@@ -213,7 +213,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/li
 
 > **version**: `string`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
+Defined in: packages/errors/src/ethereum/BaseError.js:108
 
 #### Inherited from
 
@@ -239,7 +239,7 @@ The maximum number of stack frames to capture.
 
 > **walk**(`fn?`): `unknown`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
+Defined in: packages/errors/src/ethereum/BaseError.js:137
 
 Walks through the error chain.
 

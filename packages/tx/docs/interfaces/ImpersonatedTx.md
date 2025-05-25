@@ -6,7 +6,7 @@
 
 # Interface: ImpersonatedTx
 
-Defined in: [packages/tx/src/ImpersonatedTx.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/tx/src/ImpersonatedTx.ts#L3)
+Defined in: packages/tx/src/ImpersonatedTx.ts:3
 
 Typed transaction with a new gas fee market mechanism
 
@@ -111,7 +111,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 > **isImpersonated**: `true`
 
-Defined in: [packages/tx/src/ImpersonatedTx.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/tx/src/ImpersonatedTx.ts#L4)
+Defined in: packages/tx/src/ImpersonatedTx.ts:4
 
 ***
 

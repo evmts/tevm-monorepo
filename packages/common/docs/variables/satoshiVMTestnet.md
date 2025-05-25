@@ -8,7 +8,7 @@
 
 > `const` **satoshiVMTestnet**: `object`
 
-Defined in: [packages/common/src/presets/satoshiVMTestnet.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/satoshiVMTestnet.js#L26)
+Defined in: packages/common/src/presets/satoshiVMTestnet.js:26
 
 Creates a common configuration for the satoshiVMTestnet chain.
 

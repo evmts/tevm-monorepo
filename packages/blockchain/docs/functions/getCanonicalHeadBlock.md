@@ -8,7 +8,7 @@
 
 > **getCanonicalHeadBlock**(`baseChain`): () => `Promise`\<`Block`\>
 
-Defined in: [packages/blockchain/src/actions/getCanonicalHeadBlock.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/getCanonicalHeadBlock.js#L7)
+Defined in: packages/blockchain/src/actions/getCanonicalHeadBlock.js:7
 
 ## Parameters
 

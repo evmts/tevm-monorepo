@@ -8,7 +8,7 @@
 
 > **CreateContractParams**\<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\> = \{ `abi?`: `never`; `address?`: `TAddress`; `bytecode?`: `TBytecode`; `code?`: `TCode`; `deployedBytecode?`: `TDeployedBytecode`; `humanReadableAbi`: `TAbi` *extends* readonly `string`[] ? `TAbi` : `FormatAbi`\<`TAbi`\>; `name?`: `TName`; \} \| \{ `abi`: `TAbi` *extends* readonly `string`[] ? `ParseAbi`\<`TAbi`\> : `TAbi` *extends* `Abi` ? `TAbi` : `never`; `address?`: `TAddress`; `bytecode?`: `TBytecode`; `code?`: `TCode`; `deployedBytecode?`: `TDeployedBytecode`; `humanReadableAbi?`: `never`; `name?`: `TName`; \}
 
-Defined in: [CreateContractParams.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/CreateContractParams.ts#L49)
+Defined in: CreateContractParams.ts:49
 
 Parameters for creating a [Contract](Contract.md) instance.
 This type allows for two mutually exclusive ways of specifying the ABI:

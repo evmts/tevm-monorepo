@@ -8,7 +8,7 @@
 
 > **SolcSecondarySourceLocation** = [`SolcSourceLocation`](SolcSourceLocation.md) & `object`
 
-Defined in: [solcTypes.ts:383](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L383)
+Defined in: solcTypes.ts:383
 
 ## Type declaration
 

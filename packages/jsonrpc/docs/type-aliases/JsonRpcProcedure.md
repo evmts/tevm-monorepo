@@ -8,7 +8,7 @@
 
 > **JsonRpcProcedure**\<`TMethod`, `TParams`, `TResult`, `TErrorCode`\> = (`request`) => `Promise`\<[`JsonRpcResponse`](JsonRpcResponse.md)\<`TMethod`, `TResult`, `TErrorCode`\>\>
 
-Defined in: [packages/jsonrpc/src/JsonRpcProcedure.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/JsonRpcProcedure.ts#L4)
+Defined in: packages/jsonrpc/src/JsonRpcProcedure.ts:4
 
 ## Type Parameters
 

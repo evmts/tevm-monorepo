@@ -8,7 +8,7 @@
 
 > **SolcStorageLayout**\<`T`\> = `object`
 
-Defined in: [solcTypes.ts:429](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L429)
+Defined in: solcTypes.ts:429
 
 The storage layout for a contract.
 
@@ -24,7 +24,7 @@ The storage layout for a contract.
 
 > **storage**: [`SolcStorageLayoutItem`](SolcStorageLayoutItem.md)\<`T`\>[]
 
-Defined in: [solcTypes.ts:434](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L434)
+Defined in: solcTypes.ts:434
 
 The list of stored variables with relevant slot information, type and metadata.
 
@@ -38,7 +38,7 @@ The list of stored variables with relevant slot information, type and metadata.
 
 > **types**: `T`
 
-Defined in: [solcTypes.ts:439](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L439)
+Defined in: solcTypes.ts:439
 
 A record of all types relevant to the stored variables with additional encoding information.
 

@@ -8,7 +8,7 @@
 
 > **createImpersonatedTx**(`txData`, `opts?`): [`ImpersonatedTx`](../interfaces/ImpersonatedTx.md)
 
-Defined in: [packages/tx/src/createImpersonatedTx.js:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/tx/src/createImpersonatedTx.js#L21)
+Defined in: packages/tx/src/createImpersonatedTx.js:21
 
 Creates an impersonated tx that wraps [FeeMarket1559Tx](../classes/FeeMarketEIP1559Transaction.md).
 Wraps following methods

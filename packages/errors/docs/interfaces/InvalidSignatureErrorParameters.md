@@ -6,7 +6,7 @@
 
 # Interface: InvalidSignatureErrorParameters
 
-Defined in: [packages/errors/src/ethereum/InvalidSignatureError.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InvalidSignatureError.js#L6)
+Defined in: packages/errors/src/ethereum/InvalidSignatureError.js:6
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/errors/src/ethereum/InvalidSignatureError.js:6](https://gi
 
 > `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `Error`
 
-Defined in: [packages/errors/src/ethereum/InvalidSignatureError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InvalidSignatureError.js#L11)
+Defined in: packages/errors/src/ethereum/InvalidSignatureError.js:11
 
 The cause of the error.
 
@@ -24,7 +24,7 @@ The cause of the error.
 
 > `optional` **details**: `string`
 
-Defined in: [packages/errors/src/ethereum/InvalidSignatureError.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InvalidSignatureError.js#L12)
+Defined in: packages/errors/src/ethereum/InvalidSignatureError.js:12
 
 Details of the error.
 
@@ -34,7 +34,7 @@ Details of the error.
 
 > `optional` **docsBaseUrl**: `string`
 
-Defined in: [packages/errors/src/ethereum/InvalidSignatureError.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InvalidSignatureError.js#L7)
+Defined in: packages/errors/src/ethereum/InvalidSignatureError.js:7
 
 Base URL for the documentation.
 
@@ -44,7 +44,7 @@ Base URL for the documentation.
 
 > `optional` **docsPath**: `string`
 
-Defined in: [packages/errors/src/ethereum/InvalidSignatureError.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InvalidSignatureError.js#L8)
+Defined in: packages/errors/src/ethereum/InvalidSignatureError.js:8
 
 Path to the documentation.
 
@@ -54,7 +54,7 @@ Path to the documentation.
 
 > `optional` **docsSlug**: `string`
 
-Defined in: [packages/errors/src/ethereum/InvalidSignatureError.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InvalidSignatureError.js#L9)
+Defined in: packages/errors/src/ethereum/InvalidSignatureError.js:9
 
 Slug for the documentation.
 
@@ -64,7 +64,7 @@ Slug for the documentation.
 
 > `optional` **meta**: `object`
 
-Defined in: [packages/errors/src/ethereum/InvalidSignatureError.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InvalidSignatureError.js#L13)
+Defined in: packages/errors/src/ethereum/InvalidSignatureError.js:13
 
 Optional object containing additional information about the error.
 
@@ -74,6 +74,6 @@ Optional object containing additional information about the error.
 
 > `optional` **metaMessages**: `string`[]
 
-Defined in: [packages/errors/src/ethereum/InvalidSignatureError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InvalidSignatureError.js#L10)
+Defined in: packages/errors/src/ethereum/InvalidSignatureError.js:10
 
 Additional meta messages.

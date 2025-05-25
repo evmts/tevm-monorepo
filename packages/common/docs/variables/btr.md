@@ -8,7 +8,7 @@
 
 > `const` **btr**: `object`
 
-Defined in: [packages/common/src/presets/btr.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/btr.js#L26)
+Defined in: packages/common/src/presets/btr.js:26
 
 Creates a common configuration for the btr chain.
 

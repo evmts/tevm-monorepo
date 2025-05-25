@@ -8,7 +8,7 @@
 
 > **getAccountAddresses**(`baseState`, `skipFetchingFromFork?`): () => `Set`\<`` `0x${string}` ``\>
 
-Defined in: [packages/state/src/actions/getAccountAddresses.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getAccountAddresses.js#L6)
+Defined in: packages/state/src/actions/getAccountAddresses.js:6
 
 ## Parameters
 

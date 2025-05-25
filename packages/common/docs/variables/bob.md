@@ -8,7 +8,7 @@
 
 > `const` **bob**: `object`
 
-Defined in: [packages/common/src/presets/bob.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/bob.js#L26)
+Defined in: packages/common/src/presets/bob.js:26
 
 Creates a common configuration for the bob chain.
 

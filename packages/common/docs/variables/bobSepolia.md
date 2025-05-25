@@ -8,7 +8,7 @@
 
 > `const` **bobSepolia**: `object`
 
-Defined in: [packages/common/src/presets/bobSepolia.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/bobSepolia.js#L26)
+Defined in: packages/common/src/presets/bobSepolia.js:26
 
 Creates a common configuration for the bobSepolia chain.
 

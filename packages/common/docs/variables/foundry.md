@@ -8,7 +8,7 @@
 
 > `const` **foundry**: `object`
 
-Defined in: [packages/common/src/presets/foundry.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/foundry.js#L26)
+Defined in: packages/common/src/presets/foundry.js:26
 
 Creates a common configuration for the foundry chain.
 

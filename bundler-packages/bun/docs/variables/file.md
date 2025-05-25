@@ -8,7 +8,7 @@
 
 > `const` **file**: \{(`path`, `options?`): `BunFile`; (`path`, `options?`): `BunFile`; (`fileDescriptor`, `options?`): `BunFile`; \}
 
-Defined in: [bundler-packages/bun/src/bunFile.js:26](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bun/src/bunFile.js#L26)
+Defined in: bundler-packages/bun/src/bunFile.js:26
 
 Re-exports the Bun file API for working with files in the file system.
 The Bun file API provides an optimized interface for file operations with

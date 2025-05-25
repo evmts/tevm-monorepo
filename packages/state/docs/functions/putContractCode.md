@@ -6,9 +6,9 @@
 
 # Function: putContractCode()
 
-> **putContractCode**(`baseState`, `skipFetchingFromFork?`): (`address`, `value`) => `Promise`\<`void`\>
+> **putContractCode**(`baseState`): (`address`, `value`) => `Promise`\<`void`\>
 
-Defined in: [packages/state/src/actions/putContractCode.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/putContractCode.js#L10)
+Defined in: packages/state/src/actions/putContractCode.js:11
 
 Adds `value` to the state trie as code, and sets `codeHash` on the account
 corresponding to `address` to reference this.
@@ -18,10 +18,6 @@ corresponding to `address` to reference this.
 ### baseState
 
 [`BaseState`](../type-aliases/BaseState.md)
-
-### skipFetchingFromFork?
-
-`boolean`
 
 ## Returns
 

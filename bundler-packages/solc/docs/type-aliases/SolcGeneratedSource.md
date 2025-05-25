@@ -8,7 +8,7 @@
 
 > **SolcGeneratedSource** = `object`
 
-Defined in: [solcTypes.ts:622](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L622)
+Defined in: solcTypes.ts:622
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: [solcTypes.ts:622](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > **ast**: `any`
 
-Defined in: [solcTypes.ts:624](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L624)
+Defined in: solcTypes.ts:624
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [solcTypes.ts:624](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > **contents**: `string`
 
-Defined in: [solcTypes.ts:627](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L627)
+Defined in: solcTypes.ts:627
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [solcTypes.ts:627](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > **id**: `number`
 
-Defined in: [solcTypes.ts:630](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L630)
+Defined in: solcTypes.ts:630
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [solcTypes.ts:630](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > **language**: `string`
 
-Defined in: [solcTypes.ts:631](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L631)
+Defined in: solcTypes.ts:631
 
 ***
 
@@ -48,4 +48,4 @@ Defined in: [solcTypes.ts:631](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > **name**: `string`
 
-Defined in: [solcTypes.ts:632](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L632)
+Defined in: solcTypes.ts:632

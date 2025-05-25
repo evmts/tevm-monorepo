@@ -8,7 +8,7 @@
 
 > **SolcMetadataSettings** = `object`
 
-Defined in: [solcTypes.ts:225](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L225)
+Defined in: solcTypes.ts:225
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: [solcTypes.ts:225](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > `optional` **appendCBOR**: `boolean`
 
-Defined in: [solcTypes.ts:228](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L228)
+Defined in: solcTypes.ts:228
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [solcTypes.ts:228](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > `optional` **bytecodeHash**: `"ipfs"` \| `"bzzr1"` \| `"none"`
 
-Defined in: [solcTypes.ts:235](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L235)
+Defined in: solcTypes.ts:235
 
 ***
 
@@ -32,4 +32,4 @@ Defined in: [solcTypes.ts:235](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > `optional` **useLiteralContent**: `boolean`
 
-Defined in: [solcTypes.ts:230](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L230)
+Defined in: solcTypes.ts:230

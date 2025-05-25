@@ -8,7 +8,7 @@
 
 > **MapDb** = `object`
 
-Defined in: [MapDb.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/MapDb.ts#L29)
+Defined in: MapDb.ts:29
 
 Helper class to access the metaDB with methods for managing receipts and transaction data
 
@@ -18,7 +18,7 @@ Helper class to access the metaDB with methods for managing receipts and transac
 
 > **deepCopy**(): `MapDb`
 
-Defined in: [MapDb.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/MapDb.ts#L57)
+Defined in: MapDb.ts:57
 
 Create a deep copy of the MapDb instance
 
@@ -34,7 +34,7 @@ A new MapDb instance with a copy of the data
 
 > **delete**(`type`, `hash`): `Promise`\<`void`\>
 
-Defined in: [MapDb.ts:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/MapDb.ts#L51)
+Defined in: MapDb.ts:51
 
 Delete a value from the database
 
@@ -62,7 +62,7 @@ The hash key for the data to delete
 
 > **get**(`type`, `hash`): `Promise`\<`null` \| `Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: [MapDb.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/MapDb.ts#L44)
+Defined in: MapDb.ts:44
 
 Retrieve a value from the database
 
@@ -92,7 +92,7 @@ The stored value or null if not found
 
 > **put**(`type`, `hash`, `value`): `Promise`\<`void`\>
 
-Defined in: [MapDb.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/MapDb.ts#L36)
+Defined in: MapDb.ts:36
 
 Store a value in the database
 

@@ -8,7 +8,7 @@
 
 > **StateCache** = `object`
 
-Defined in: [packages/state/src/state-types/StateCache.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateCache.ts#L8)
+Defined in: packages/state/src/state-types/StateCache.ts:8
 
 **`Internal`**
 
@@ -20,7 +20,7 @@ The shape of the internal cache
 
 > **accounts**: [`AccountCache`](../classes/AccountCache.md)
 
-Defined in: [packages/state/src/state-types/StateCache.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateCache.ts#L9)
+Defined in: packages/state/src/state-types/StateCache.ts:9
 
 ***
 
@@ -28,7 +28,7 @@ Defined in: [packages/state/src/state-types/StateCache.ts:9](https://github.com/
 
 > **contracts**: [`ContractCache`](../classes/ContractCache.md)
 
-Defined in: [packages/state/src/state-types/StateCache.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateCache.ts#L11)
+Defined in: packages/state/src/state-types/StateCache.ts:11
 
 ***
 
@@ -36,4 +36,4 @@ Defined in: [packages/state/src/state-types/StateCache.ts:11](https://github.com
 
 > **storage**: [`StorageCache`](../classes/StorageCache.md)
 
-Defined in: [packages/state/src/state-types/StateCache.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateCache.ts#L10)
+Defined in: packages/state/src/state-types/StateCache.ts:10

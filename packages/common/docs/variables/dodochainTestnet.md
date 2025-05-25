@@ -8,7 +8,7 @@
 
 > `const` **dodochainTestnet**: `object`
 
-Defined in: [packages/common/src/presets/dodochainTestnet.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/dodochainTestnet.js#L26)
+Defined in: packages/common/src/presets/dodochainTestnet.js:26
 
 Creates a common configuration for the dodochainTestnet chain.
 

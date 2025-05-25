@@ -6,7 +6,7 @@
 
 # Interface: VerkleStateDiff
 
-Defined in: [packages/block/src/types.ts:135](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L135)
+Defined in: packages/block/src/types.ts:135
 
 Represents the state differences in a Verkle tree between two states
 
@@ -48,7 +48,7 @@ function applyStateDiff(currentState: Map<string, Hex>, diff: VerkleStateDiff): 
 
 > **stem**: `` `0x${string}` ``
 
-Defined in: [packages/block/src/types.ts:136](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L136)
+Defined in: packages/block/src/types.ts:136
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: [packages/block/src/types.ts:136](https://github.com/evmts/tevm-mono
 
 > **suffixDiffs**: `object`[]
 
-Defined in: [packages/block/src/types.ts:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L137)
+Defined in: packages/block/src/types.ts:137
 
 #### currentValue
 

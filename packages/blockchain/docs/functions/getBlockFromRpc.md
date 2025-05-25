@@ -8,7 +8,7 @@
 
 > **getBlockFromRpc**(`baseChain`, `params`, `common`): `Promise`\<\[`Block`, `RpcBlock`\<`BlockTag`, `true`, `RpcTransaction`\<`boolean`\>\>\]\>
 
-Defined in: [packages/blockchain/src/utils/getBlockFromRpc.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/utils/getBlockFromRpc.js#L17)
+Defined in: packages/blockchain/src/utils/getBlockFromRpc.js:17
 
 ## Parameters
 
@@ -73,6 +73,12 @@ Collection of contracts
 `Record`\<`string`, `unknown`\>
 
 Custom chain data.
+
+#### ensTlds?
+
+readonly `string`[]
+
+Collection of ENS TLDs for the chain.
 
 #### ethjsCommon
 

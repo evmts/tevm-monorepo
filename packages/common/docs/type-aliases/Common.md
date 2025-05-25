@@ -8,7 +8,7 @@
 
 > **Common** = `Prettify`\<`ViemChain` & `object`\>
 
-Defined in: [packages/common/src/Common.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/Common.ts#L27)
+Defined in: packages/common/src/Common.ts:27
 
 Common is the main representation of chain specific configuration for tevm clients.
 

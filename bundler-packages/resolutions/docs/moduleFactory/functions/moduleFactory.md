@@ -8,7 +8,7 @@
 
 > **moduleFactory**(`absolutePath`, `rawCode`, `remappings`, `libs`, `fao`, `sync`): `Effect`\<`Map`\<`string`, [`ModuleInfo`](../../types/interfaces/ModuleInfo.md)\>, [`ModuleFactoryError`](../type-aliases/ModuleFactoryError.md), `never`\>
 
-Defined in: [moduleFactory.js:53](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/resolutions/src/moduleFactory.js#L53)
+Defined in: moduleFactory.js:53
 
 Creates a module from the given module information.
 This includes resolving all imports and creating a dependency graph.

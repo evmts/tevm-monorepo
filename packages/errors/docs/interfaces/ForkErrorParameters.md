@@ -6,7 +6,7 @@
 
 # Interface: ForkErrorParameters
 
-Defined in: [packages/errors/src/fork/ForkError.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/fork/ForkError.js#L7)
+Defined in: packages/errors/src/fork/ForkError.js:7
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/errors/src/fork/ForkError.js:7](https://github.com/evmts/t
 
 > **cause**: [`BaseError`](../classes/BaseError.md) \| `Error` \| \{ `code`: `string` \| `number`; `message`: `string`; \}
 
-Defined in: [packages/errors/src/fork/ForkError.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/fork/ForkError.js#L12)
+Defined in: packages/errors/src/fork/ForkError.js:12
 
 The cause of the error.
 
@@ -24,7 +24,7 @@ The cause of the error.
 
 > `optional` **details**: `string`
 
-Defined in: [packages/errors/src/fork/ForkError.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/fork/ForkError.js#L13)
+Defined in: packages/errors/src/fork/ForkError.js:13
 
 Details of the error.
 
@@ -34,7 +34,7 @@ Details of the error.
 
 > `optional` **docsBaseUrl**: `string`
 
-Defined in: [packages/errors/src/fork/ForkError.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/fork/ForkError.js#L8)
+Defined in: packages/errors/src/fork/ForkError.js:8
 
 Base URL for the documentation.
 
@@ -44,7 +44,7 @@ Base URL for the documentation.
 
 > `optional` **docsPath**: `string`
 
-Defined in: [packages/errors/src/fork/ForkError.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/fork/ForkError.js#L9)
+Defined in: packages/errors/src/fork/ForkError.js:9
 
 Path to the documentation.
 
@@ -54,7 +54,7 @@ Path to the documentation.
 
 > `optional` **docsSlug**: `string`
 
-Defined in: [packages/errors/src/fork/ForkError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/fork/ForkError.js#L10)
+Defined in: packages/errors/src/fork/ForkError.js:10
 
 Slug for the documentation.
 
@@ -64,7 +64,7 @@ Slug for the documentation.
 
 > `optional` **meta**: `object`
 
-Defined in: [packages/errors/src/fork/ForkError.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/fork/ForkError.js#L14)
+Defined in: packages/errors/src/fork/ForkError.js:14
 
 Optional object containing additional information about the error.
 
@@ -74,6 +74,6 @@ Optional object containing additional information about the error.
 
 > `optional` **metaMessages**: `string`[]
 
-Defined in: [packages/errors/src/fork/ForkError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/fork/ForkError.js#L11)
+Defined in: packages/errors/src/fork/ForkError.js:11
 
 Additional meta messages.

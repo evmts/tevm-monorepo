@@ -6,7 +6,7 @@
 
 # Class: Bloom
 
-Defined in: [packages/utils/src/Bloom.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L14)
+Defined in: packages/utils/src/Bloom.ts:14
 
 A simple Bloom filter implementation originally from ethereumjs
 
@@ -16,7 +16,7 @@ A simple Bloom filter implementation originally from ethereumjs
 
 > **new Bloom**(`bitvector?`): `Bloom`
 
-Defined in: [packages/utils/src/Bloom.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L21)
+Defined in: packages/utils/src/Bloom.ts:21
 
 Represents a Bloom filter.
 
@@ -40,7 +40,7 @@ If the byte size of the bitvector is not 256.
 
 > **bitvector**: `Uint8Array`
 
-Defined in: [packages/utils/src/Bloom.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L15)
+Defined in: packages/utils/src/Bloom.ts:15
 
 ## Methods
 
@@ -48,7 +48,7 @@ Defined in: [packages/utils/src/Bloom.ts:15](https://github.com/evmts/tevm-monor
 
 > **add**(`e`): `void`
 
-Defined in: [packages/utils/src/Bloom.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L35)
+Defined in: packages/utils/src/Bloom.ts:35
 
 Adds an element to a bit vector of a 64 byte bloom filter.
 
@@ -72,7 +72,7 @@ The element to add
 
 > **check**(`e`): `boolean`
 
-Defined in: [packages/utils/src/Bloom.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L58)
+Defined in: packages/utils/src/Bloom.ts:58
 
 Checks if an element is in the bloom.
 
@@ -96,7 +96,7 @@ The element to check
 
 > **multiCheck**(`topics`): `boolean`
 
-Defined in: [packages/utils/src/Bloom.ts:83](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L83)
+Defined in: packages/utils/src/Bloom.ts:83
 
 Checks if multiple topics are in a bloom.
 
@@ -120,7 +120,7 @@ Checks if multiple topics are in a bloom.
 
 > **or**(`bloom`): `void`
 
-Defined in: [packages/utils/src/Bloom.ts:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L91)
+Defined in: packages/utils/src/Bloom.ts:91
 
 Bitwise or blooms together.
 

@@ -8,7 +8,7 @@
 
 > **validateHeader**(`baseChain`): (`header`, `height?`) => `Promise`\<`void`\>
 
-Defined in: [packages/blockchain/src/actions/validateHeader.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/validateHeader.js#L8)
+Defined in: packages/blockchain/src/actions/validateHeader.js:8
 
 ## Parameters
 

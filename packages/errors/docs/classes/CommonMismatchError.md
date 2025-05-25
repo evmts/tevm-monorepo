@@ -6,7 +6,7 @@
 
 # Class: CommonMismatchError
 
-Defined in: [packages/errors/src/common/CommonMismatchError.js:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/common/CommonMismatchError.js#L44)
+Defined in: packages/errors/src/common/CommonMismatchError.js:44
 
 Represents an error that occurs when the Common for a given block does not match the Common of the VM.
 
@@ -45,7 +45,7 @@ try {
 
 > **new CommonMismatchError**(`message?`, `args?`): `CommonMismatchError`
 
-Defined in: [packages/errors/src/common/CommonMismatchError.js:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/common/CommonMismatchError.js#L51)
+Defined in: packages/errors/src/common/CommonMismatchError.js:51
 
 Constructs a CommonMismatchError.
 
@@ -77,7 +77,7 @@ Additional parameters for the error.
 
 > **\_tag**: `string`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:82](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L82)
+Defined in: packages/errors/src/ethereum/BaseError.js:82
 
 #### Inherited from
 
@@ -89,7 +89,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:82](https://github.com/ev
 
 > **cause**: `any`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
+Defined in: packages/errors/src/ethereum/BaseError.js:114
 
 #### Inherited from
 
@@ -101,7 +101,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:114](https://github.com/e
 
 > **code**: `number`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
+Defined in: packages/errors/src/ethereum/BaseError.js:112
 
 #### Inherited from
 
@@ -113,7 +113,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:112](https://github.com/e
 
 > **details**: `string`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
+Defined in: packages/errors/src/ethereum/BaseError.js:91
 
 #### Inherited from
 
@@ -125,7 +125,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:91](https://github.com/ev
 
 > **docsPath**: `undefined` \| `string`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
+Defined in: packages/errors/src/ethereum/BaseError.js:96
 
 #### Inherited from
 
@@ -151,7 +151,7 @@ Human-readable error message.
 
 > **metaMessages**: `undefined` \| `string`[]
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
+Defined in: packages/errors/src/ethereum/BaseError.js:100
 
 #### Inherited from
 
@@ -177,7 +177,7 @@ The name of the error, used to discriminate errors.
 
 > **shortMessage**: `string`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
+Defined in: packages/errors/src/ethereum/BaseError.js:104
 
 #### Inherited from
 
@@ -201,7 +201,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/li
 
 > **version**: `string`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
+Defined in: packages/errors/src/ethereum/BaseError.js:108
 
 #### Inherited from
 
@@ -213,7 +213,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:108](https://github.com/e
 
 > `static` **code**: `number` = `-32000`
 
-Defined in: [packages/errors/src/ethereum/ExecutionErrorError.js:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ExecutionErrorError.js#L46)
+Defined in: packages/errors/src/ethereum/ExecutionErrorError.js:46
 
 The error code for ExecutionError.
 
@@ -241,7 +241,7 @@ The maximum number of stack frames to capture.
 
 > **walk**(`fn?`): `unknown`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
+Defined in: packages/errors/src/ethereum/BaseError.js:137
 
 Walks through the error chain.
 

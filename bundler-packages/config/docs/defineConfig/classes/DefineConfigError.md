@@ -6,7 +6,7 @@
 
 # Class: DefineConfigError
 
-Defined in: [bundler-packages/config/src/defineConfig.js:8](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/defineConfig.js#L8)
+Defined in: bundler-packages/config/src/defineConfig.js:8
 
 Error class for [defineConfig](../functions/defineConfig.md)
 
@@ -20,7 +20,7 @@ Error class for [defineConfig](../functions/defineConfig.md)
 
 > **new DefineConfigError**(`configFilePath`, `underlyingError`): `DefineConfigError`
 
-Defined in: [bundler-packages/config/src/defineConfig.js:22](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/defineConfig.js#L22)
+Defined in: bundler-packages/config/src/defineConfig.js:22
 
 #### Parameters
 
@@ -46,7 +46,7 @@ Defined in: [bundler-packages/config/src/defineConfig.js:22](https://github.com/
 
 > **\_tag**: `"FoundryNotFoundError"` \| `"FoundryConfigError"` \| `"InvalidRemappingsError"` \| `"ConfigFnThrowError"` \| `"InvalidConfigError"`
 
-Defined in: [bundler-packages/config/src/defineConfig.js:17](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/defineConfig.js#L17)
+Defined in: bundler-packages/config/src/defineConfig.js:17
 
 ***
 
@@ -78,7 +78,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/li
 
 > **name**: `"FoundryNotFoundError"` \| `"FoundryConfigError"` \| `"InvalidRemappingsError"` \| `"ConfigFnThrowError"` \| `"InvalidConfigError"`
 
-Defined in: [bundler-packages/config/src/defineConfig.js:13](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/defineConfig.js#L13)
+Defined in: bundler-packages/config/src/defineConfig.js:13
 
 #### Overrides
 

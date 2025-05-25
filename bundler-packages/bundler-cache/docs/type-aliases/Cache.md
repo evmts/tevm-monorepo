@@ -8,7 +8,7 @@
 
 > **Cache** = `object`
 
-Defined in: [types.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L42)
+Defined in: types.ts:42
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: [types.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/bundl
 
 > **readArtifacts**: `ReadArtifacts`
 
-Defined in: [types.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L44)
+Defined in: types.ts:44
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [types.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/bundl
 
 > **readArtifactsSync**: `ReadArtifactsSync`
 
-Defined in: [types.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L43)
+Defined in: types.ts:43
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [types.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/bundl
 
 > **readDts**: `ReadDts`
 
-Defined in: [types.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L46)
+Defined in: types.ts:46
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [types.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/bundl
 
 > **readDtsSync**: `ReadDtsSync`
 
-Defined in: [types.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L45)
+Defined in: types.ts:45
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [types.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/bundl
 
 > **readMjs**: `ReadMjs`
 
-Defined in: [types.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L48)
+Defined in: types.ts:48
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: [types.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/bundl
 
 > **readMjsSync**: `ReadMjsSync`
 
-Defined in: [types.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L47)
+Defined in: types.ts:47
 
 ***
 
@@ -64,7 +64,7 @@ Defined in: [types.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/bundl
 
 > **writeArtifacts**: `WriteArtifacts`
 
-Defined in: [types.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L50)
+Defined in: types.ts:50
 
 ***
 
@@ -72,7 +72,7 @@ Defined in: [types.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/bundl
 
 > **writeArtifactsSync**: `WriteArtifactsSync`
 
-Defined in: [types.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L49)
+Defined in: types.ts:49
 
 ***
 
@@ -80,7 +80,7 @@ Defined in: [types.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/bundl
 
 > **writeDts**: `WriteDts`
 
-Defined in: [types.ts:52](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L52)
+Defined in: types.ts:52
 
 ***
 
@@ -88,7 +88,7 @@ Defined in: [types.ts:52](https://github.com/evmts/tevm-monorepo/blob/main/bundl
 
 > **writeDtsSync**: `WriteDtsSync`
 
-Defined in: [types.ts:51](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L51)
+Defined in: types.ts:51
 
 ***
 
@@ -96,7 +96,7 @@ Defined in: [types.ts:51](https://github.com/evmts/tevm-monorepo/blob/main/bundl
 
 > **writeMjs**: `WriteMjs`
 
-Defined in: [types.ts:54](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L54)
+Defined in: types.ts:54
 
 ***
 
@@ -104,4 +104,4 @@ Defined in: [types.ts:54](https://github.com/evmts/tevm-monorepo/blob/main/bundl
 
 > **writeMjsSync**: `WriteMjsSync`
 
-Defined in: [types.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L53)
+Defined in: types.ts:53

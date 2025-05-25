@@ -8,7 +8,7 @@
 
 > **ChainOptions** = `object`
 
-Defined in: [packages/blockchain/src/ChainOptions.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/ChainOptions.ts#L9)
+Defined in: packages/blockchain/src/ChainOptions.ts:9
 
 Options passed into `createChain` to initialize a Chain object
 
@@ -18,7 +18,7 @@ Options passed into `createChain` to initialize a Chain object
 
 > **common**: `Common`
 
-Defined in: [packages/blockchain/src/ChainOptions.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/ChainOptions.ts#L17)
+Defined in: packages/blockchain/src/ChainOptions.ts:17
 
 A Common instance
 
@@ -28,7 +28,7 @@ A Common instance
 
 > `optional` **fork**: `object`
 
-Defined in: [packages/blockchain/src/ChainOptions.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/ChainOptions.ts#L26)
+Defined in: packages/blockchain/src/ChainOptions.ts:26
 
 Optional fork config for forking a live chain
 
@@ -55,7 +55,7 @@ EIP-1193 request function to fetch forked blocks with
 
 > `optional` **genesisBlock**: `Block`
 
-Defined in: [packages/blockchain/src/ChainOptions.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/ChainOptions.ts#L21)
+Defined in: packages/blockchain/src/ChainOptions.ts:21
 
 Override the genesis block. If fork is provided it will be fetched from fork. Otherwise a default genesis is provided.
 
@@ -65,7 +65,7 @@ Override the genesis block. If fork is provided it will be fetched from fork. Ot
 
 > `optional` **genesisStateRoot**: `Uint8Array`
 
-Defined in: [packages/blockchain/src/ChainOptions.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/ChainOptions.ts#L22)
+Defined in: packages/blockchain/src/ChainOptions.ts:22
 
 ***
 
@@ -73,6 +73,6 @@ Defined in: [packages/blockchain/src/ChainOptions.ts:22](https://github.com/evmt
 
 > `optional` **loggingLevel**: `LogOptions`\[`"level"`\]
 
-Defined in: [packages/blockchain/src/ChainOptions.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/ChainOptions.ts#L13)
+Defined in: packages/blockchain/src/ChainOptions.ts:13
 
 Logging level of blockchain package. Defaults to `warn`

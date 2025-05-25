@@ -8,7 +8,7 @@
 
 > **resolveImports**(`absolutePath`, `code`, `remappings`, `libs`, `sync`): `Effect`\<readonly [`ResolvedImport`](../../types/type-aliases/ResolvedImport.md)[], [`ResolveImportsError`](../type-aliases/ResolveImportsError.md), `never`\>
 
-Defined in: [resolveImports.js:51](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/resolutions/src/resolveImports.js#L51)
+Defined in: resolveImports.js:51
 
 Returns a the import resolutions for the given code
 

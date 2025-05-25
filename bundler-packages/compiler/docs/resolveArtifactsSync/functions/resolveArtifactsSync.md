@@ -8,7 +8,7 @@
 
 > **resolveArtifactsSync**(`solFile`, `basedir`, `logger`, `config`, `includeAst`, `includeBytecode`, `fao`, `solc`): [`ResolvedArtifacts`](../../types/type-aliases/ResolvedArtifacts.md)
 
-Defined in: [compiler/src/resolveArtifactsSync.js:6](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/compiler/src/resolveArtifactsSync.js#L6)
+Defined in: compiler/src/resolveArtifactsSync.js:6
 
 ## Parameters
 

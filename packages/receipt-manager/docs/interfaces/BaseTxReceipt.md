@@ -6,7 +6,7 @@
 
 # Interface: BaseTxReceipt
 
-Defined in: [ReceiptManager.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L17)
+Defined in: ReceiptManager.ts:17
 
 Abstract interface with common transaction receipt fields that all receipt types share
 This serves as the base for both pre and post-Byzantium transaction receipts
@@ -22,7 +22,7 @@ This serves as the base for both pre and post-Byzantium transaction receipts
 
 > **bitvector**: `Uint8Array`
 
-Defined in: [ReceiptManager.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L28)
+Defined in: ReceiptManager.ts:28
 
 Bloom filter bitvector containing indexed log data
 Used for efficient searching of logs in the blockchain
@@ -33,7 +33,7 @@ Used for efficient searching of logs in the blockchain
 
 > **cumulativeBlockGasUsed**: `bigint`
 
-Defined in: [ReceiptManager.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L22)
+Defined in: ReceiptManager.ts:22
 
 Cumulative gas used in the block including this transaction
 Represented as a bigint to handle large gas values accurately
@@ -44,7 +44,7 @@ Represented as a bigint to handle large gas values accurately
 
 > **logs**: `Log`[]
 
-Defined in: [ReceiptManager.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L34)
+Defined in: ReceiptManager.ts:34
 
 Array of logs emitted during transaction execution
 Each log contains address, topics, and data fields

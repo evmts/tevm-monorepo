@@ -8,7 +8,7 @@
 
 > **getForkBlockTag**(`baseState`): `undefined` \| \{ `blockTag`: `BlockTag`; \} \| \{ `blockNumber`: `bigint`; \}
 
-Defined in: [packages/state/src/actions/getForkBlockTag.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getForkBlockTag.js#L6)
+Defined in: packages/state/src/actions/getForkBlockTag.js:6
 
 If this does not exist an empty `Uint8Array` is returned.
 

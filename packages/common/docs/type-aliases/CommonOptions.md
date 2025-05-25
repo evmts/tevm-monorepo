@@ -8,7 +8,7 @@
 
 > **CommonOptions** = `ViemChain` & `object`
 
-Defined in: [packages/common/src/CommonOptions.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/CommonOptions.ts#L38)
+Defined in: packages/common/src/CommonOptions.ts:38
 
 ## Type declaration
 

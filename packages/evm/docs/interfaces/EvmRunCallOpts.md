@@ -6,7 +6,7 @@
 
 # Interface: EvmRunCallOpts
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:84
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:89
 
 Options for running a call (or create) operation with `EVM.runCall()`
 
@@ -18,17 +18,17 @@ Options for running a call (or create) operation with `EVM.runCall()`
 
 ### accessWitness?
 
-> `optional` **accessWitness**: `AccessWitnessInterface`
+> `optional` **accessWitness**: `VerkleAccessWitnessInterface` \| `BinaryTreeAccessWitnessInterface`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:114
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:119
 
 ***
 
 ### blobVersionedHashes?
 
-> `optional` **blobVersionedHashes**: `Uint8Array`\<`ArrayBufferLike`\>[]
+> `optional` **blobVersionedHashes**: `` `0x${string}` ``[]
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:76
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:81
 
 Versioned hashes for each blob in a blob transaction
 
@@ -42,7 +42,7 @@ Versioned hashes for each blob in a blob transaction
 
 > `optional` **block**: `Block`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:28
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:33
 
 The `block` the `tx` belongs to. If omitted a default blank block will be used.
 
@@ -56,7 +56,7 @@ The `block` the `tx` belongs to. If omitted a default blank block will be used.
 
 > `optional` **caller**: `Address`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:40
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:45
 
 The address that ran this code (`msg.sender`). Defaults to the zero address.
 
@@ -70,7 +70,7 @@ The address that ran this code (`msg.sender`). Defaults to the zero address.
 
 > `optional` **code**: `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:44
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:49
 
 The EVM code to run.
 
@@ -84,7 +84,7 @@ The EVM code to run.
 
 > `optional` **createdAddresses**: `Set`\<`` `0x${string}` ``\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:96
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:101
 
 Created addresses in current context. Used in EIP 6780
 
@@ -94,7 +94,7 @@ Created addresses in current context. Used in EIP 6780
 
 > `optional` **data**: `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:48
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:53
 
 The input data.
 
@@ -108,7 +108,7 @@ The input data.
 
 > `optional` **delegatecall**: `boolean`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:105
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:110
 
 If the call is a DELEGATECALL. Defaults to false.
 
@@ -118,7 +118,7 @@ If the call is a DELEGATECALL. Defaults to false.
 
 > `optional` **depth**: `number`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:60
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:65
 
 The call depth. Defaults to `0`
 
@@ -132,7 +132,7 @@ The call depth. Defaults to `0`
 
 > `optional` **gasLimit**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:52
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:57
 
 The gas limit for the call. Defaults to `16777215` (`0xffffff`)
 
@@ -146,7 +146,7 @@ The gas limit for the call. Defaults to `16777215` (`0xffffff`)
 
 > `optional` **gasPrice**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:32
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:37
 
 The gas price for the call. Defaults to `0`
 
@@ -160,7 +160,7 @@ The gas price for the call. Defaults to `0`
 
 > `optional` **gasRefund**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:109
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:114
 
 Refund counter. Defaults to `0`
 
@@ -170,7 +170,7 @@ Refund counter. Defaults to `0`
 
 > `optional` **isCompiled**: `boolean`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:88
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:93
 
 If the code location is a precompile.
 
@@ -180,7 +180,7 @@ If the code location is a precompile.
 
 > `optional` **isStatic**: `boolean`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:64
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:69
 
 If the call should be executed statically. Defaults to false.
 
@@ -194,7 +194,7 @@ If the call should be executed statically. Defaults to false.
 
 > `optional` **message**: [`EthjsMessage`](../classes/EthjsMessage.md)
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:113
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:118
 
 Optionally pass in an already-built message.
 
@@ -204,7 +204,7 @@ Optionally pass in an already-built message.
 
 > `optional` **origin**: `Address`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:36
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:41
 
 The address where the call originated from. Defaults to the zero address.
 
@@ -218,7 +218,7 @@ The address where the call originated from. Defaults to the zero address.
 
 > `optional` **salt**: `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:92
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:97
 
 An optional salt to pass to CREATE2.
 
@@ -228,7 +228,7 @@ An optional salt to pass to CREATE2.
 
 > `optional` **selfdestruct**: `Set`\<`` `0x${string}` ``\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:68
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:73
 
 Addresses to selfdestruct. Defaults to the empty set.
 
@@ -242,7 +242,7 @@ Addresses to selfdestruct. Defaults to the empty set.
 
 > `optional` **skipBalance**: `boolean`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:101
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:106
 
 Skip balance checks if true. If caller balance is less than message value,
 sets balance to message value to ensure execution doesn't fail.
@@ -253,7 +253,7 @@ sets balance to message value to ensure execution doesn't fail.
 
 > `optional` **to**: `Address`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:72
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:77
 
 The address of the account that is executing this code (`address(this)`). Defaults to the zero address.
 
@@ -267,7 +267,7 @@ The address of the account that is executing this code (`address(this)`). Defaul
 
 > `optional` **value**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:56
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:61
 
 The value in ether that is being sent to `opts.address`. Defaults to `0`
 

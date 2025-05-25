@@ -8,7 +8,7 @@
 
 > **CreateSyncStoragePersisterOptions** = `object`
 
-Defined in: [CreateSyncStoragePersisterOptions.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/CreateSyncStoragePersisterOptions.ts#L7)
+Defined in: CreateSyncStoragePersisterOptions.ts:7
 
 Options for creating a sync storage persister.
 
@@ -18,7 +18,7 @@ Options for creating a sync storage persister.
 
 > `optional` **deserialize**: (`cachedString`) => `SerializableTevmState`
 
-Defined in: [CreateSyncStoragePersisterOptions.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/CreateSyncStoragePersisterOptions.ts#L26)
+Defined in: CreateSyncStoragePersisterOptions.ts:26
 
 How to deserialize the data from storage.
 
@@ -42,7 +42,7 @@ How to deserialize the data from storage.
 
 > `optional` **key**: `string`
 
-Defined in: [CreateSyncStoragePersisterOptions.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/CreateSyncStoragePersisterOptions.ts#L14)
+Defined in: CreateSyncStoragePersisterOptions.ts:14
 
 The key to use when storing the cache
 
@@ -52,7 +52,7 @@ The key to use when storing the cache
 
 > `optional` **serialize**: (`client`) => `string`
 
-Defined in: [CreateSyncStoragePersisterOptions.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/CreateSyncStoragePersisterOptions.ts#L21)
+Defined in: CreateSyncStoragePersisterOptions.ts:21
 
 How to serialize the data to storage.
 
@@ -76,7 +76,7 @@ How to serialize the data to storage.
 
 > **storage**: [`Storage`](../interfaces/Storage.md)
 
-Defined in: [CreateSyncStoragePersisterOptions.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/CreateSyncStoragePersisterOptions.ts#L12)
+Defined in: CreateSyncStoragePersisterOptions.ts:12
 
 The storage client used for setting and retrieving items from cache.
 For SSR pass in `undefined`. Note that window.localStorage can be
@@ -88,6 +88,6 @@ For SSR pass in `undefined`. Note that window.localStorage can be
 
 > `optional` **throttleTime**: `number`
 
-Defined in: [CreateSyncStoragePersisterOptions.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/CreateSyncStoragePersisterOptions.ts#L16)
+Defined in: CreateSyncStoragePersisterOptions.ts:16
 
 To avoid spamming, pass a time in ms to throttle saving the cache to disk

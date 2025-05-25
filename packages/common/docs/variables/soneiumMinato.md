@@ -8,7 +8,7 @@
 
 > `const` **soneiumMinato**: `object`
 
-Defined in: [packages/common/src/presets/soneiumMinato.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/soneiumMinato.js#L26)
+Defined in: packages/common/src/presets/soneiumMinato.js:26
 
 Creates a common configuration for the soneiumMinato chain.
 

@@ -8,7 +8,7 @@
 
 > `const` **lineaSepolia**: `object`
 
-Defined in: [packages/common/src/presets/lineaSepolia.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/lineaSepolia.js#L26)
+Defined in: packages/common/src/presets/lineaSepolia.js:26
 
 Creates a common configuration for the lineaSepolia chain.
 

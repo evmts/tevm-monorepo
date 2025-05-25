@@ -6,9 +6,9 @@
 
 # Function: createEvm()
 
-> **createEvm**(`__namedParameters`): `Promise`\<[`Evm`](../classes/Evm.md)\>
+> **createEvm**(`__namedParameters`): `Promise`\<[`EvmType`](../classes/EvmType.md)\>
 
-Defined in: [packages/evm/src/createEvm.js:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/createEvm.js#L30)
+Defined in: packages/evm/src/createEvm.js:30
 
 Creates the Tevm Evm to execute ethereum bytecode internally.
 Wraps [ethereumjs EVM](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/evm)
@@ -21,7 +21,7 @@ Wraps [ethereumjs EVM](https://github.com/ethereumjs/ethereumjs-monorepo/tree/ma
 
 ## Returns
 
-`Promise`\<[`Evm`](../classes/Evm.md)\>
+`Promise`\<[`EvmType`](../classes/EvmType.md)\>
 
 ## Example
 

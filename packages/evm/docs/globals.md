@@ -4,15 +4,13 @@
 
 # @tevm/evm
 
-## Enumerations
-
-- [EvmErrorMessage](enumerations/EvmErrorMessage.md)
-
 ## Classes
 
+- [Eof](classes/Eof.md)
 - [EthjsMessage](classes/EthjsMessage.md)
 - [Evm](classes/Evm.md)
 - [EvmError](classes/EvmError.md)
+- [EvmType](classes/EvmType.md)
 
 ## Interfaces
 
@@ -28,11 +26,13 @@
 - [CustomPrecompile](type-aliases/CustomPrecompile.md)
 - [EVMOpts](type-aliases/EVMOpts.md)
 
-## Variables
-
-- [Eof](variables/Eof.md)
-
 ## Functions
 
 - [createEvm](functions/createEvm.md)
 - [getActivePrecompiles](functions/getActivePrecompiles.md)
+
+## References
+
+### EVMError
+
+Renames and re-exports [EvmError](classes/EvmError.md)

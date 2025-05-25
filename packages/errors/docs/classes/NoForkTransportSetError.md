@@ -6,7 +6,7 @@
 
 # Class: NoForkTransportSetError
 
-Defined in: [packages/errors/src/fork/NoForkUriSetError.js:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/fork/NoForkUriSetError.js#L38)
+Defined in: packages/errors/src/fork/NoForkUriSetError.js:38
 
 Error represents the tevm client attempted to fetch a resource from a Forked transport but no transport was set.
 
@@ -39,7 +39,7 @@ try {
 
 > **new NoForkTransportSetError**(`message`, `args?`): `NoForkTransportSetError`
 
-Defined in: [packages/errors/src/fork/NoForkUriSetError.js:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/fork/NoForkUriSetError.js#L45)
+Defined in: packages/errors/src/fork/NoForkUriSetError.js:45
 
 Constructs a NoForkTransportSetError.
 
@@ -71,7 +71,7 @@ Additional parameters for the error.
 
 > **\_tag**: `string`
 
-Defined in: [packages/errors/src/fork/NoForkUriSetError.js:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/fork/NoForkUriSetError.js#L57)
+Defined in: packages/errors/src/fork/NoForkUriSetError.js:57
 
 #### Inherited from
 
@@ -83,7 +83,7 @@ Defined in: [packages/errors/src/fork/NoForkUriSetError.js:57](https://github.co
 
 > **cause**: `any`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
+Defined in: packages/errors/src/ethereum/BaseError.js:114
 
 #### Inherited from
 
@@ -95,7 +95,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:114](https://github.com/e
 
 > **code**: `number`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
+Defined in: packages/errors/src/ethereum/BaseError.js:112
 
 #### Inherited from
 
@@ -107,7 +107,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:112](https://github.com/e
 
 > **details**: `string`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
+Defined in: packages/errors/src/ethereum/BaseError.js:91
 
 #### Inherited from
 
@@ -119,7 +119,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:91](https://github.com/ev
 
 > **docsPath**: `undefined` \| `string`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
+Defined in: packages/errors/src/ethereum/BaseError.js:96
 
 #### Inherited from
 
@@ -143,7 +143,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/li
 
 > **metaMessages**: `undefined` \| `string`[]
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
+Defined in: packages/errors/src/ethereum/BaseError.js:100
 
 #### Inherited from
 
@@ -155,7 +155,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:100](https://github.com/e
 
 > **name**: `string`
 
-Defined in: [packages/errors/src/fork/NoForkUriSetError.js:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/fork/NoForkUriSetError.js#L56)
+Defined in: packages/errors/src/fork/NoForkUriSetError.js:56
 
 #### Inherited from
 
@@ -167,7 +167,7 @@ Defined in: [packages/errors/src/fork/NoForkUriSetError.js:56](https://github.co
 
 > **shortMessage**: `string`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
+Defined in: packages/errors/src/ethereum/BaseError.js:104
 
 #### Inherited from
 
@@ -191,7 +191,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/li
 
 > **version**: `string`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
+Defined in: packages/errors/src/ethereum/BaseError.js:108
 
 #### Inherited from
 
@@ -217,7 +217,7 @@ The maximum number of stack frames to capture.
 
 > **walk**(`fn?`): `unknown`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
+Defined in: packages/errors/src/ethereum/BaseError.js:137
 
 Walks through the error chain.
 

@@ -8,7 +8,7 @@
 
 > **dumpStorage**(`baseState`, `skipFetchingFromFork?`): (`address`) => `Promise`\<`StorageDump`\>
 
-Defined in: [packages/state/src/actions/dumpStorage.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/dumpStorage.js#L9)
+Defined in: packages/state/src/actions/dumpStorage.js:9
 
 Dumps the RLP-encoded storage values for an `account` specified by `address`.
 Keys are the storage keys, values are the storage values as strings.
@@ -27,6 +27,8 @@ Both are represented as `0x` prefixed hex strings.
 ## Returns
 
 > (`address`): `Promise`\<`StorageDump`\>
+
+Dumps storage based on the input
 
 ### Parameters
 

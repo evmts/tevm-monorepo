@@ -6,7 +6,7 @@
 
 # Interface: Storage
 
-Defined in: [Storage.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/Storage.ts#L26)
+Defined in: Storage.ts:26
 
 Interface for storage providers that can be used with sync-storage-persister
 Provides a minimal subset of the Web Storage API (localStorage/sessionStorage)
@@ -39,7 +39,7 @@ const memoryStorage: Storage = {
 
 > **getItem**: (`key`) => `null` \| `string`
 
-Defined in: [Storage.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/Storage.ts#L27)
+Defined in: Storage.ts:27
 
 #### Parameters
 
@@ -57,7 +57,7 @@ Defined in: [Storage.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/pac
 
 > **removeItem**: (`key`) => `void`
 
-Defined in: [Storage.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/Storage.ts#L29)
+Defined in: Storage.ts:29
 
 #### Parameters
 
@@ -75,7 +75,7 @@ Defined in: [Storage.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/pac
 
 > **setItem**: (`key`, `value`) => `void`
 
-Defined in: [Storage.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/Storage.ts#L28)
+Defined in: Storage.ts:28
 
 #### Parameters
 

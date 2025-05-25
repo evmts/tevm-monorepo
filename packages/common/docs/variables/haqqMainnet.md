@@ -8,7 +8,7 @@
 
 > `const` **haqqMainnet**: `object`
 
-Defined in: [packages/common/src/presets/haqqMainnet.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/haqqMainnet.js#L26)
+Defined in: packages/common/src/presets/haqqMainnet.js:26
 
 Creates a common configuration for the haqqMainnet chain.
 

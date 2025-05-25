@@ -8,7 +8,7 @@
 
 > `const` **xLayerTestnet**: `object`
 
-Defined in: [packages/common/src/presets/xLayerTestnet.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/xLayerTestnet.js#L26)
+Defined in: packages/common/src/presets/xLayerTestnet.js:26
 
 Creates a common configuration for the xLayerTestnet chain.
 

@@ -8,7 +8,7 @@
 
 > **createBlockFromRLP**(`serialized`, `opts`): [`Block`](../classes/Block.md)
 
-Defined in: [packages/block/src/index.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/index.ts#L32)
+Defined in: packages/block/src/index.ts:32
 
 Creates a block from a RLP-serialized block
 

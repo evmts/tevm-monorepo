@@ -16,6 +16,10 @@ pub fn addRustIntegration(b: *std.Build, target: std.Build.ResolvedTarget, optim
     std.debug.print("Building Rust Foundry wrapper...\n", .{});
 
     // Generate C bindings using cbindgen
+    // Print debug information
+    std.debug.print("Looking for cbindgen...\n", .{});
+    
+    // Try to use cbindgen directly from PATH first
     const cbindgen_cmd = b.addSystemCommand(&.{
         "cbindgen",
         "--config", "src/Compilers/cbindgen.toml",
@@ -23,6 +27,11 @@ pub fn addRustIntegration(b: *std.Build, target: std.Build.ResolvedTarget, optim
         "--output", "include/foundry_wrapper.h",
         "src/Compilers",
     });
+    
+    // Set environment to ensure PATH is available
+    cbindgen_cmd.setEnvironmentVariable("PATH", "/root/.cargo/bin:/usr/local/bin:/usr/bin:/bin");
+    
+    std.debug.print("cbindgen command configured\n", .{});
 
     cbindgen_cmd.step.dependOn(&cargo_build.step);
 

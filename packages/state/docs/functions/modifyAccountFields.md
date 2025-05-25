@@ -8,7 +8,7 @@
 
 > **modifyAccountFields**(`baseState`, `skipFetchingFromFork?`): (`address`, `accountFields`) => `Promise`\<`void`\>
 
-Defined in: [packages/state/src/actions/modifyAccountFields.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/modifyAccountFields.js#L11)
+Defined in: packages/state/src/actions/modifyAccountFields.js:11
 
 Gets the account associated with `address`, modifies the given account
 fields, then saves the account into state. Account fields can include

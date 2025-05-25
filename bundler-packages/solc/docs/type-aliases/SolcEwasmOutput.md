@@ -8,7 +8,7 @@
 
 > **SolcEwasmOutput** = `object`
 
-Defined in: [solcTypes.ts:649](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L649)
+Defined in: solcTypes.ts:649
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: [solcTypes.ts:649](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > **wasm**: `string`
 
-Defined in: [solcTypes.ts:653](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L653)
+Defined in: solcTypes.ts:653
 
 ***
 
@@ -24,4 +24,4 @@ Defined in: [solcTypes.ts:653](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > **wast**: `string`
 
-Defined in: [solcTypes.ts:651](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L651)
+Defined in: solcTypes.ts:651

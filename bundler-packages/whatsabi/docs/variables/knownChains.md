@@ -8,7 +8,7 @@
 
 > `const` **knownChains**: `object`
 
-Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/knownChains.js#L6)
+Defined in: bundler-packages/whatsabi/src/knownChains.js:6
 
 ## Type declaration
 

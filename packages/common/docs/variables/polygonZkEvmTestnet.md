@@ -8,7 +8,7 @@
 
 > `const` **polygonZkEvmTestnet**: `object`
 
-Defined in: [packages/common/src/presets/polygonZkEvmTestnet.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/polygonZkEvmTestnet.js#L26)
+Defined in: packages/common/src/presets/polygonZkEvmTestnet.js:26
 
 Creates a common configuration for the polygonZkEvmTestnet chain.
 

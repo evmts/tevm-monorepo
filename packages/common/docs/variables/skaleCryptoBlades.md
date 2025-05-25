@@ -8,7 +8,7 @@
 
 > `const` **skaleCryptoBlades**: `object`
 
-Defined in: [packages/common/src/presets/skaleCryptoBlades.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/skaleCryptoBlades.js#L26)
+Defined in: packages/common/src/presets/skaleCryptoBlades.js:26
 
 Creates a common configuration for the skaleCryptoBlades chain.
 

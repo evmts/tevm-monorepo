@@ -8,7 +8,7 @@
 
 > `const` **kromaSepolia**: `object`
 
-Defined in: [packages/common/src/presets/kromaSepolia.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/kromaSepolia.js#L26)
+Defined in: packages/common/src/presets/kromaSepolia.js:26
 
 Creates a common configuration for the kromaSepolia chain.
 

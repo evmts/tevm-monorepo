@@ -8,7 +8,7 @@
 
 > **bundler**(`config`, `logger`, `fao`, `solc`, `cache`, `contractPackage?`): `object`
 
-Defined in: [bundler.js:89](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/base-bundler/src/bundler.js#L89)
+Defined in: bundler.js:89
 
 Creates a bundler instance for processing Solidity files into JavaScript and TypeScript.
 

@@ -8,7 +8,7 @@
 
 > **parseJson**(`jsonStr`): `Effect`\<`unknown`, [`ParseJsonError`](../classes/ParseJsonError.md), `never`\>
 
-Defined in: [packages/effect/src/parseJson.js:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/parseJson.js#L33)
+Defined in: packages/effect/src/parseJson.js:33
 
 Parses a json string
 

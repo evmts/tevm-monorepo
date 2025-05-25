@@ -8,7 +8,7 @@
 
 > **resolveArtifacts**(`solFile`, `basedir`, `logger`, `config`, `includeAst`, `includeBytecode`, `fao`, `solc`): `Promise`\<[`ResolvedArtifacts`](../../types/type-aliases/ResolvedArtifacts.md)\>
 
-Defined in: [compiler/src/resolveArtifacts.js:7](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/compiler/src/resolveArtifacts.js#L7)
+Defined in: compiler/src/resolveArtifacts.js:7
 
 Resolves artifacts with solc asyncronously
 

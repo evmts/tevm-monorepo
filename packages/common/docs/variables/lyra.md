@@ -8,7 +8,7 @@
 
 > `const` **lyra**: `object`
 
-Defined in: [packages/common/src/presets/lyra.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/lyra.js#L26)
+Defined in: packages/common/src/presets/lyra.js:26
 
 Creates a common configuration for the lyra chain.
 
