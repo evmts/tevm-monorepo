@@ -2091,6 +2091,9 @@ importers:
       '@tevm/logger':
         specifier: workspace:^
         version: link:../logger
+      '@tevm/rlp':
+        specifier: workspace:^
+        version: link:../rlp
       '@tevm/test-utils':
         specifier: workspace:^
         version: link:../../test/test-utils
