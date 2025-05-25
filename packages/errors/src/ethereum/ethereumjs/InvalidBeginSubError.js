@@ -7,7 +7,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string} [docsPath] - Path to the documentation.
  * @property {string} [docsSlug] - Slug for the documentation.
  * @property {string[]} [metaMessages] - Additional meta messages.
- * @property {ExecutionError|import('@ethereumjs/evm').EVMError} [cause] - The cause of the error.
+ * @property {ExecutionError|import('@ethereumjs/evm').EvmError} [cause] - The cause of the error.
  * @property {string} [details] - Details of the error.
  * @property {object} [meta] - Optional object containing additional information about the error.
  */
@@ -48,7 +48,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  */
 export class InvalidBeginSubError extends ExecutionError {
 	// Note: INVALID_BEGINSUB was removed from ethereumjs
-	/** @type {string} */ // static EVMErrorMessage = EVMError.errorMessages.INVALID_BEGINSUB
+	/** @type {string} */ // static EVMErrorMessage = EvmError.errorMessages.INVALID_BEGINSUB
 	/**
 	 * Constructs an InvalidBeginSubError.
 	 * Represents an invalid bytecode/contract error that occurs when an invalid BEGINSUB operation is executed within the EVM.

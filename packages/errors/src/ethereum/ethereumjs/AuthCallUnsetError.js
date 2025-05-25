@@ -7,7 +7,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string} [docsPath] - Path to the documentation.
  * @property {string} [docsSlug] - Slug for the documentation.
  * @property {string[]} [metaMessages] - Additional meta messages.
- * @property {ExecutionError|import('@ethereumjs/evm').EVMError} [cause] - The cause of the error.
+ * @property {ExecutionError|import('@ethereumjs/evm').EvmError} [cause] - The cause of the error.
  * @property {string} [details] - Details of the error.
  * @property {object} [meta] - Optional object containing additional information about the error.
  */
@@ -47,7 +47,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  */
 export class AuthCallUnsetError extends ExecutionError {
 	// Note: AUTHCALL_UNSET was removed from ethereumjs
-	/** @type {string} */ // static EVMErrorMessage = EVMError.errorMessages.AUTHCALL_UNSET
+	/** @type {string} */ // static EVMErrorMessage = EvmError.errorMessages.AUTHCALL_UNSET
 	/**
 	 * Constructs an AuthCallUnsetError.
 	 * Represents an EIP-3074 specific error that occurs when attempting to AUTHCALL without AUTH set.
