@@ -1,4 +1,4 @@
-import { Common, Mainnet } from '@ethereumjs/common'
+import { Common, Mainnet, createCustomCommon } from '@ethereumjs/common'
 import { InvalidParamsError } from '@tevm/errors'
 import { createLogger } from '@tevm/logger'
 import { createMockKzg } from './createMockKzg.js'
@@ -59,23 +59,35 @@ export const createCommon = ({
 }) => {
 	try {
 		const logger = createLogger({ level: loggingLevel, name: '@tevm/common' })
-		// Create a custom chain config based on Mainnet
-		const customChainConfig = {
-			...Mainnet,
-			chainId: chain.id,
-			networkId: chain.id,
-			name: chain.name || 'TevmCustom',
-		}
-		// Create Common instance with the custom chain config
-		const ethjsCommon = new Common({
-			chain: customChainConfig,
-			hardfork,
-			eips: [...eips, 1559, 4895, 4844, 4788],
-			customCrypto: {
-				kzg: createMockKzg(),
-				...customCrypto,
+		
+		// Ensure eips is an array
+		const eipsArray = Array.isArray(eips) ? eips : []
+		
+		// Create Common instance using createCustomCommon
+		const finalCustomCrypto = customCrypto && Object.keys(customCrypto).length > 0 
+			? { kzg: createMockKzg(), ...customCrypto }
+			: { kzg: createMockKzg() }
+			
+		const ethjsCommon = createCustomCommon(
+			{
+				chainId: chain.id,
+				networkId: chain.id,
+				name: chain.name || 'TevmCustom',
 			},
-		})
+			Mainnet,
+			{
+				hardfork,
+				eips: [...eipsArray, 1559, 4895, 4844, 4788],
+				customCrypto: finalCustomCrypto,
+				params: {
+					1559: {
+						elasticityMultiplier: 2,
+						baseFeeMaxChangeDenominator: 8,
+						initialBaseFee: 1000000000
+					}
+				}
+			}
+		)
 		if (ethjsCommon.isActivatedEIP(6800)) {
 			logger.warn('verkle state is currently not supported in tevm')
 		}

@@ -478,7 +478,7 @@ export class BlockHeader {
 		// to adopt to the new gas target centered logic
 		const londonHardforkBlock = this.common.ethjsCommon.hardforkBlock('london')
 		if (typeof londonHardforkBlock === 'bigint' && londonHardforkBlock !== 0n && this.number === londonHardforkBlock) {
-			const elasticity = this.common.ethjsCommon.param('gasConfig', 'elasticityMultiplier')
+			const elasticity = this.common.ethjsCommon.param('elasticityMultiplier')
 			parentGasLimit = parentGasLimit * elasticity
 		}
 		const gasLimit = this.gasLimit
@@ -514,21 +514,21 @@ export class BlockHeader {
 			throw new Error(msg)
 		}
 		let nextBaseFee: bigint
-		const elasticity = this.common.ethjsCommon.param('gasConfig', 'elasticityMultiplier')
+		const elasticity = this.common.ethjsCommon.param('elasticityMultiplier')
 		const parentGasTarget = this.gasLimit / elasticity
 
 		if (parentGasTarget === this.gasUsed) {
 			nextBaseFee = this.baseFeePerGas as bigint
 		} else if (this.gasUsed > parentGasTarget) {
 			const gasUsedDelta = this.gasUsed - parentGasTarget
-			const baseFeeMaxChangeDenominator = this.common.ethjsCommon.param('gasConfig', 'baseFeeMaxChangeDenominator')
+			const baseFeeMaxChangeDenominator = this.common.ethjsCommon.param('baseFeeMaxChangeDenominator')
 
 			const calculatedDelta =
 				((this.baseFeePerGas as bigint) * gasUsedDelta) / parentGasTarget / baseFeeMaxChangeDenominator
 			nextBaseFee = (calculatedDelta > 1n ? calculatedDelta : 1n) + (this.baseFeePerGas as bigint)
 		} else {
 			const gasUsedDelta = parentGasTarget - this.gasUsed
-			const baseFeeMaxChangeDenominator = this.common.ethjsCommon.param('gasConfig', 'baseFeeMaxChangeDenominator')
+			const baseFeeMaxChangeDenominator = this.common.ethjsCommon.param('baseFeeMaxChangeDenominator')
 
 			const calculatedDelta =
 				((this.baseFeePerGas as bigint) * gasUsedDelta) / parentGasTarget / baseFeeMaxChangeDenominator
