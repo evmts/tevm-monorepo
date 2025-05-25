@@ -22,14 +22,17 @@ pub fn addRustIntegration(b: *std.Build, target: std.Build.ResolvedTarget, optim
     // Try to use cbindgen directly from PATH first
     const cbindgen_cmd = b.addSystemCommand(&.{
         "cbindgen",
-        "--config", "src/Compilers/cbindgen.toml",
+        "--config", "cbindgen.toml",
         "--crate", "foundry_wrapper",
-        "--output", "include/foundry_wrapper.h",
-        "src/Compilers",
+        "--output", "../../include/foundry_wrapper.h",
     });
     
+    // Set the working directory to the Rust crate
+    cbindgen_cmd.setCwd(b.path("src/Compilers"));
+    
     // Set environment to ensure PATH is available
-    cbindgen_cmd.setEnvironmentVariable("PATH", "/root/.cargo/bin:/usr/local/bin:/usr/bin:/bin");
+    // Include both Linux and macOS paths for cargo
+    cbindgen_cmd.setEnvironmentVariable("PATH", "/Users/williamcory/.cargo/bin:/root/.cargo/bin:/usr/local/bin:/usr/bin:/bin:/opt/homebrew/bin");
     
     std.debug.print("cbindgen command configured\n", .{});
 

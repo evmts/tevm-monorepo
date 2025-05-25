@@ -33,30 +33,40 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    address_mod.stack_check = false;
+    address_mod.single_threaded = true;
 
     const abi_mod = b.createModule(.{
         .root_source_file = b.path("src/Abi/abi.zig"),
         .target = target,
         .optimize = optimize,
     });
+    abi_mod.stack_check = false;
+    abi_mod.single_threaded = true;
 
     const utils_mod = b.createModule(.{
         .root_source_file = b.path("src/Utils/utils.zig"),
         .target = target,
         .optimize = optimize,
     });
+    utils_mod.stack_check = false;
+    utils_mod.single_threaded = true;
 
     const trie_mod = b.createModule(.{
         .root_source_file = b.path("src/Trie/module.zig"),
         .target = target,
         .optimize = optimize,
     });
+    trie_mod.stack_check = false;
+    trie_mod.single_threaded = true;
 
     const block_mod = b.createModule(.{
         .root_source_file = b.path("src/Block/block.zig"),
         .target = target,
         .optimize = optimize,
     });
+    block_mod.stack_check = false;
+    block_mod.single_threaded = true;
 
     // Add imports to the block_mod
     block_mod.addImport("Address", address_mod);
@@ -66,12 +76,16 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    bytecode_mod.stack_check = false;
+    bytecode_mod.single_threaded = true;
 
     const compiler_mod = b.createModule(.{
         .root_source_file = b.path("src/Compilers/compiler.zig"),
         .target = target,
         .optimize = optimize,
     });
+    compiler_mod.stack_check = false;
+    compiler_mod.single_threaded = true;
     
     // Add zabi dependency to compiler module (only for native builds)
     const zabi_dep = b.dependency("zabi", .{
@@ -86,12 +100,16 @@ pub fn build(b: *std.Build) void {
         .target = wasm_target,
         .optimize = .ReleaseSmall,
     });
+    compiler_wasm_mod.stack_check = false;
+    compiler_wasm_mod.single_threaded = true;
 
     const rlp_mod = b.createModule(.{
         .root_source_file = b.path("src/Rlp/rlp.zig"),
         .target = target,
         .optimize = optimize,
     });
+    rlp_mod.stack_check = false;
+    rlp_mod.single_threaded = true;
 
     // Add imports to the rlp_mod
     rlp_mod.addImport("Utils", utils_mod);
@@ -105,12 +123,16 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    token_mod.stack_check = false;
+    token_mod.single_threaded = true;
 
     const evm_mod = b.createModule(.{
         .root_source_file = b.path("src/Evm/evm.zig"),
         .target = target,
         .optimize = optimize,
     });
+    evm_mod.stack_check = false;
+    evm_mod.single_threaded = true;
 
     // Add imports to the evm_mod
     evm_mod.addImport("Address", address_mod);
@@ -122,6 +144,10 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    
+    // Disable stack checking to avoid undefined __zig_probe_stack references
+    target_architecture_mod.stack_check = false;
+    target_architecture_mod.single_threaded = true;
 
     // Add package paths for absolute imports for all modules
     target_architecture_mod.addImport("Address", address_mod);
@@ -141,6 +167,8 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    exe_mod.stack_check = false;
+    exe_mod.single_threaded = true;
 
     // Create WASM module with the same source but different target
     const wasm_mod = b.createModule(.{
@@ -148,6 +176,8 @@ pub fn build(b: *std.Build) void {
         .target = wasm_target,
         .optimize = .ReleaseSmall,
     });
+    wasm_mod.stack_check = false;
+    wasm_mod.single_threaded = true;
 
     // Add package paths for absolute imports to WASM module
     wasm_mod.addImport("Address", address_mod);
@@ -170,6 +200,10 @@ pub fn build(b: *std.Build) void {
         .name = "zigevm",
         .root_module = target_architecture_mod,
     });
+    
+    // Disable stack checking to avoid undefined __zig_probe_stack references
+    lib.root_module.stack_check = false;
+    lib.root_module.single_threaded = true;
 
     // Create the CLI executable
     const exe = b.addExecutable(.{

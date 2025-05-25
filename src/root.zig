@@ -3,6 +3,11 @@ const std = @import("std");
 pub const evm = @import("Evm");
 pub const utils = @import("Utils");
 
+// Export stub for __zig_probe_stack to satisfy linker when linking with Rust
+export fn __zig_probe_stack() callconv(.C) void {
+    // This is a no-op stub. Stack checking is disabled in build.zig
+}
+
 pub const EvmState = extern struct {
     pc: u32 = 0,
     opcode: [*c]const u8 = null,
