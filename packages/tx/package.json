@@ -68,7 +68,6 @@
     "@tevm/utils": "workspace:^"
   },
   "devDependencies": {
-    "@ethereumjs/common": "^10.0.0",
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^"
   },

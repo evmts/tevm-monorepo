@@ -8,7 +8,7 @@
 
 > **AbiEvent** = `object`
 
-Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.24.4/node\_modules/abitype/dist/types/abi.d.ts:103
+Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.28/node\_modules/abitype/dist/types/abi.d.ts:103
 
 ABI ["event"](https://docs.soliditylang.org/en/latest/abi-spec.html#events) type
 
@@ -18,7 +18,7 @@ ABI ["event"](https://docs.soliditylang.org/en/latest/abi-spec.html#events) type
 
 > `optional` **anonymous**: `boolean`
 
-Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.24.4/node\_modules/abitype/dist/types/abi.d.ts:105
+Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.28/node\_modules/abitype/dist/types/abi.d.ts:105
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.24.4/node
 
 > **inputs**: readonly `AbiEventParameter`[]
 
-Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.24.4/node\_modules/abitype/dist/types/abi.d.ts:106
+Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.28/node\_modules/abitype/dist/types/abi.d.ts:106
 
 ***
 
@@ -34,7 +34,7 @@ Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.24.4/node
 
 > **name**: `string`
 
-Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.24.4/node\_modules/abitype/dist/types/abi.d.ts:107
+Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.28/node\_modules/abitype/dist/types/abi.d.ts:107
 
 ***
 
@@ -42,4 +42,4 @@ Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.24.4/node
 
 > **type**: `"event"`
 
-Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.24.4/node\_modules/abitype/dist/types/abi.d.ts:104
+Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.28/node\_modules/abitype/dist/types/abi.d.ts:104

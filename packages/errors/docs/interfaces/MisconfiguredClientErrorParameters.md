@@ -12,7 +12,7 @@ Defined in: [packages/errors/src/client/MisconfiguredClient.js:5](https://github
 
 ### cause?
 
-> `optional` **cause**: `EvmError` \| [`InternalError`](../classes/InternalError.md)
+> `optional` **cause**: `EVMError` \| [`InternalError`](../classes/InternalError.md)
 
 Defined in: [packages/errors/src/client/MisconfiguredClient.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/MisconfiguredClient.js#L10)
 

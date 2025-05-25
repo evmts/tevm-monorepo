@@ -6,7 +6,7 @@
 
 # Interface: CustomCrypto
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:62
+Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:65
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 > `optional` **ecdsaRecover**: (`sig`, `recId`, `hash`) => `Uint8Array`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:74
+Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:75
 
 #### Parameters
 
@@ -36,41 +36,11 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 ***
 
-### ecdsaSign()?
-
-> `optional` **ecdsaSign**: (`msg`, `pk`) => `object`
-
-Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:70
-
-#### Parameters
-
-##### msg
-
-`Uint8Array`
-
-##### pk
-
-`Uint8Array`
-
-#### Returns
-
-`object`
-
-##### recid
-
-> **recid**: `number`
-
-##### signature
-
-> **signature**: `Uint8Array`
-
-***
-
 ### ecrecover()?
 
 > `optional` **ecrecover**: (`msgHash`, `v`, `r`, `s`, `chainId?`) => `Uint8Array`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:67
+Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:70
 
 #### Parameters
 
@@ -102,9 +72,9 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 ### ecsign()?
 
-> `optional` **ecsign**: (`msg`, `pk`, `chainId?`) => `ECDSASignature`
+> `optional` **ecsign**: (`msg`, `pk`, `ecSignOpts?`) => `Pick`\<`RecoveredSignatureType`, `"r"` \| `"s"` \| `"recovery"`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:69
+Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:72
 
 #### Parameters
 
@@ -116,13 +86,15 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 `Uint8Array`
 
-##### chainId?
+##### ecSignOpts?
 
-`bigint`
+###### extraEntropy?
+
+`boolean` \| `Uint8Array`\<`ArrayBufferLike`\>
 
 #### Returns
 
-`ECDSASignature`
+`Pick`\<`RecoveredSignatureType`, `"r"` \| `"s"` \| `"recovery"`\>
 
 ***
 
@@ -130,7 +102,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 > `optional` **keccak256**: (`msg`) => `Uint8Array`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:66
+Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:69
 
 Interface for providing custom cryptographic primitives in place of `ethereum-cryptography` variants
 
@@ -148,9 +120,9 @@ Interface for providing custom cryptographic primitives in place of `ethereum-cr
 
 ### kzg?
 
-> `optional` **kzg**: `Kzg`
+> `optional` **kzg**: `KZG`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:75
+Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:76
 
 ***
 
@@ -158,7 +130,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 > `optional` **sha256**: (`msg`) => `Uint8Array`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:68
+Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:71
 
 #### Parameters
 
@@ -169,3 +141,11 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 #### Returns
 
 `Uint8Array`
+
+***
+
+### verkle?
+
+> `optional` **verkle**: `VerkleCrypto`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:77

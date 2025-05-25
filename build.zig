@@ -82,17 +82,10 @@ pub fn build(b: *std.Build) void {
     
     // Create a separate compiler module for WASM without problematic dependencies
     const compiler_wasm_mod = b.createModule(.{
-        .root_source_file = b.path("src/Compilers/compiler.zig"),
+        .root_source_file = b.path("src/Compilers/compiler_wasm.zig"),
         .target = wasm_target,
         .optimize = .ReleaseSmall,
     });
-    
-    // Add zabi dependency for WASM target
-    const zabi_wasm_dep = b.dependency("zabi", .{
-        .target = wasm_target,
-        .optimize = .ReleaseSmall,
-    });
-    compiler_wasm_mod.addImport("zabi", zabi_wasm_dep.module("zabi"));
 
     const rlp_mod = b.createModule(.{
         .root_source_file = b.path("src/Rlp/rlp.zig"),

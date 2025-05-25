@@ -1,16 +1,16 @@
 import { ConsensusType } from '@tevm/common'
 import { Rlp } from '@tevm/rlp'
 import { Trie } from '@tevm/trie'
-import { BlobEIP4844Transaction, Capability, TransactionFactory, createTxFromBlockBodyData, createTxFromRLP } from '@tevm/tx'
+import { BlobEIP4844Transaction, Capability, createTxFromBlockBodyData, createTxFromRLP } from '@tevm/tx'
 import {
 	type AddressLike,
 	type Hex,
 	KECCAK256_RLP,
 	KECCAK256_RLP_ARRAY,
 	Withdrawal,
-	createWithdrawal,
 	bytesToHex,
 	bytesToUtf8,
+	createWithdrawal,
 	equalsBytes,
 	hexToBytes,
 	keccak256,

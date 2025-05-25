@@ -1,4 +1,5 @@
-import { EthjsAccount, toBytes } from '@tevm/utils'
+import { toBytes } from '@tevm/utils'
+import { fromAccountData } from '../utils/accountHelpers.js'
 import { getForkBlockTag } from './getForkBlockTag.js'
 import { getForkClient } from './getForkClient.js'
 
@@ -16,7 +17,7 @@ export const getAccountFromProvider = (baseState) => async (address) => {
 		storageKeys: [],
 		...blockTag,
 	})
-	const account = EthjsAccount.fromAccountData({
+	const account = fromAccountData({
 		balance: BigInt(accountData.balance),
 		nonce: BigInt(accountData.nonce),
 		codeHash: toBytes(accountData.codeHash),

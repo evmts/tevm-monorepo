@@ -12,7 +12,7 @@ Defined in: [packages/errors/src/ethereum/ethereumjs/InternalEvmError.js:6](http
 
 ### cause?
 
-> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `EvmError`
+> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `EVMError`
 
 Defined in: [packages/errors/src/ethereum/ethereumjs/InternalEvmError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InternalEvmError.js#L11)
 

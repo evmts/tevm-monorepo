@@ -12,7 +12,7 @@ Defined in: [packages/errors/src/ethereum/GasLimitExceededError.js:6](https://gi
 
 ### cause?
 
-> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `Error` \| `EvmError`
+> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `Error` \| `EVMError`
 
 Defined in: [packages/errors/src/ethereum/GasLimitExceededError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/GasLimitExceededError.js#L11)
 
