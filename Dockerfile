@@ -25,6 +25,8 @@ ENV PATH="/root/.cargo/bin:$PATH"
 RUN cargo install cbindgen
 # Ensure cargo bin is in PATH for all subsequent commands
 ENV PATH="/root/.cargo/bin:$PATH"
+# Create symlink to make cbindgen available system-wide
+RUN ln -sf /root/.cargo/bin/cbindgen /usr/local/bin/cbindgen
 # Verify cbindgen is accessible
 RUN which cbindgen && cbindgen --version
 
