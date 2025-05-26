@@ -3,24 +3,39 @@
 	"cacheDirectory": ".nx",
 	"targetDefaults": {
 		"build:zig": {
-			"inputs": ["default"],
-			"outputs": ["{workspaceRoot}/zig-out/**/*", "{workspaceRoot}/zig-cache/**/*", "{workspaceRoot}/dist/zigevm.wasm"],
+			"inputs": ["default", "zigBuildInputs"],
+			"outputs": [
+				"{workspaceRoot}/zig-out/**/*",
+				"{workspaceRoot}/zig-cache/**/*",
+				"{workspaceRoot}/dist/zigevm.wasm",
+				"{projectRoot}/zig-out/**/*",
+				"{projectRoot}/zig-cache/**/*"
+			],
 			"dependsOn": [],
 			"cache": true
 		},
 		"test:zig": {
-			"inputs": ["default"],
+			"inputs": ["default", "zigBuildInputs"],
+			"outputs": ["{workspaceRoot}/zig-out/test/**/*"],
 			"dependsOn": ["^build:zig"],
 			"cache": true
 		},
 		"build:rust": {
-			"inputs": ["default"],
-			"outputs": ["{projectRoot}/target/debug/**/*", "{projectRoot}/target/release/**/*", "{projectRoot}/index.node"],
+			"inputs": ["default", "rustBuildInputs"],
+			"outputs": [
+				"{projectRoot}/target/debug/**/*",
+				"{projectRoot}/target/release/**/*",
+				"{projectRoot}/index.node",
+				"{projectRoot}/*.node",
+				"{workspaceRoot}/target/debug/**/*",
+				"{workspaceRoot}/target/release/**/*"
+			],
 			"dependsOn": [],
 			"cache": true
 		},
 		"test:rust": {
-			"inputs": ["default"],
+			"inputs": ["default", "rustBuildInputs"],
+			"outputs": ["{projectRoot}/target/test/**/*"],
 			"dependsOn": ["^build:rust"],
 			"cache": true
 		},
@@ -114,12 +129,32 @@
 			"{workspaceRoot}/build.zig",
 			"{workspaceRoot}/build.zig.zon"
 		],
+		"rustBuildInputs": [
+			"{projectRoot}/Cargo.toml",
+			"{projectRoot}/Cargo.lock",
+			"{projectRoot}/build.rs",
+			"{projectRoot}/cbindgen.toml",
+			"{projectRoot}/**/*.rs",
+			"{projectRoot}/**/*.h",
+			"{workspaceRoot}/Cargo.toml",
+			"{workspaceRoot}/Cargo.lock"
+		],
+		"zigBuildInputs": [
+			"{projectRoot}/build.zig",
+			"{projectRoot}/build.zig.zon",
+			"{projectRoot}/**/*.zig",
+			"{projectRoot}/**/*.h",
+			"{workspaceRoot}/build.zig",
+			"{workspaceRoot}/build.zig.zon",
+			"{workspaceRoot}/src/**/*.zig"
+		],
 		"default": [
 			"{projectRoot}/*.json",
 			"{projectRoot}/*.js",
 			"{projectRoot}/*.ts",
 			"{projectRoot}/*.rs",
 			"{projectRoot}/*.zig",
+			"{projectRoot}/*.h",
 			"{projectRoot}/Cargo.toml",
 			"{projectRoot}/src/**/*",
 			"sharedGlobals"
@@ -135,7 +170,9 @@
 			"{workspaceRoot}/build.zig.zon",
 			"{workspaceRoot}/configs/**/*",
 			"{workspaceRoot}/lib/**/*",
-			"{workspaceRoot}/src/**/*.zig"
+			"{workspaceRoot}/src/**/*.zig",
+			"{workspaceRoot}/include/**/*.h",
+			"{workspaceRoot}/**/*.h"
 		],
 		"productionSrc": ["{projectRoot}/src/**/*", "!{projectRoot}/src/**/*.spec.ts", "!{projectRoot}/src/**/*.spec.rs"],
 		"productionContracts": ["{projectRoot}/contracts/**/*"],

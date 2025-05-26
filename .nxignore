@@ -96,3 +96,89 @@ Thumbs.db
 # My personal files
 .zshrc
 /target
+
+# Coverage reports
+**/coverage/
+**/lcov-report/
+**/.nyc_output/
+**/nyc_output/
+**/*.lcov
+**/coverage.log
+**/coverage-final.json
+**/coverage-summary.json
+
+# Lock files (these don't affect dependency graph)
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+bun.lockb
+**/bun.lockb
+
+# Sourcemap files
+**/*.map
+**/*.js.map
+**/*.cjs.map
+**/*.mjs.map
+**/*.d.ts.map
+
+# Build info
+**/build-info/
+**/*.tsbuildinfo
+
+# Temporary files
+**/*.tmp
+**/*.temp
+**/*.swp
+**/*.swo
+**/*~
+**/tmp/
+
+# Log files
+**/*.log
+**/logs/
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/lerna-debug.log*
+**/.pnpm-debug.log*
+
+# Environment files
+.env.*
+!.env.example
+!.env.*.example
+
+# OS files
+**/.DS_Store
+**/Thumbs.db
+**/desktop.ini
+
+# Editor/IDE files
+**/.idea/
+**/*.sublime-*
+**/.vscode/
+!**/.vscode/settings.json
+!**/.vscode/tasks.json
+!**/.vscode/launch.json
+!**/.vscode/extensions.json
+**/*.swp
+**/*.swo
+**/*~
+
+# Test output
+**/test-results/
+**/.jest/
+**/jest-results/
+
+# Build outputs
+**/out/
+**/build/
+**/generated/
+**/zig-out/
+**/zig-cache/
+
+# Binary files
+**/*.so
+**/*.dylib
+**/*.dll
+**/*.node
+**/*.wasm
