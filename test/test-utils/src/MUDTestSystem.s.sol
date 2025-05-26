@@ -22,10 +22,12 @@ contract TestSystem is System {
     uint200 val1,
     uint8 val2,
     uint16 val3,
+    bool val4,
+    address val5,
     string memory dyn1,
     bytes memory dyn2,
     int16[] memory dyn3
   ) public {
-    TestTable.set(key1, key2, val1, val2, val3, dyn1, dyn2, dyn3);
+    TestTable.set(key1, key2, val1, val2, val3, val4, val5, dyn1, dyn2, dyn3);
   }
 }

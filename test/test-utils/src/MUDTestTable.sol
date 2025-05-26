@@ -20,6 +20,8 @@ struct TestTableData {
   uint200 val1;
   uint8 val2;
   uint16 val3;
+  bool val4;
+  address val5;
   string dyn1;
   bytes dyn2;
   int16[] dyn3;
@@ -30,12 +32,12 @@ library TestTable {
   ResourceId constant _tableId = ResourceId.wrap(0x74626170700000000000000000000000546573745461626c6500000000000000);
 
   FieldLayout constant _fieldLayout =
-    FieldLayout.wrap(0x001c030319010200000000000000000000000000000000000000000000000000);
+    FieldLayout.wrap(0x0031050319010201140000000000000000000000000000000000000000000000);
 
   // Hex-encoded key schema of (uint200, uint8)
   Schema constant _keySchema = Schema.wrap(0x001a020018000000000000000000000000000000000000000000000000000000);
-  // Hex-encoded value schema of (uint200, uint8, uint16, string, bytes, int16[])
-  Schema constant _valueSchema = Schema.wrap(0x001c0303180001c5c48300000000000000000000000000000000000000000000);
+  // Hex-encoded value schema of (uint200, uint8, uint16, bool, address, string, bytes, int16[])
+  Schema constant _valueSchema = Schema.wrap(0x003105031800016061c5c4830000000000000000000000000000000000000000);
 
   /**
    * @notice Get the table's key field names.
@@ -52,13 +54,15 @@ library TestTable {
    * @return fieldNames An array of strings with the names of value fields.
    */
   function getFieldNames() internal pure returns (string[] memory fieldNames) {
-    fieldNames = new string[](6);
+    fieldNames = new string[](8);
     fieldNames[0] = "val1";
     fieldNames[1] = "val2";
     fieldNames[2] = "val3";
-    fieldNames[3] = "dyn1";
-    fieldNames[4] = "dyn2";
-    fieldNames[5] = "dyn3";
+    fieldNames[3] = "val4";
+    fieldNames[4] = "val5";
+    fieldNames[5] = "dyn1";
+    fieldNames[6] = "dyn2";
+    fieldNames[7] = "dyn3";
   }
 
   /**
@@ -211,6 +215,98 @@ library TestTable {
     _keyTuple[1] = bytes32(uint256(key2));
 
     StoreCore.setStaticField(_tableId, _keyTuple, 2, abi.encodePacked((val3)), _fieldLayout);
+  }
+
+  /**
+   * @notice Get val4.
+   */
+  function getVal4(uint200 key1, uint8 key2) internal view returns (bool val4) {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(key1));
+    _keyTuple[1] = bytes32(uint256(key2));
+
+    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 3, _fieldLayout);
+    return (_toBool(uint8(bytes1(_blob))));
+  }
+
+  /**
+   * @notice Get val4.
+   */
+  function _getVal4(uint200 key1, uint8 key2) internal view returns (bool val4) {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(key1));
+    _keyTuple[1] = bytes32(uint256(key2));
+
+    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 3, _fieldLayout);
+    return (_toBool(uint8(bytes1(_blob))));
+  }
+
+  /**
+   * @notice Set val4.
+   */
+  function setVal4(uint200 key1, uint8 key2, bool val4) internal {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(key1));
+    _keyTuple[1] = bytes32(uint256(key2));
+
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 3, abi.encodePacked((val4)), _fieldLayout);
+  }
+
+  /**
+   * @notice Set val4.
+   */
+  function _setVal4(uint200 key1, uint8 key2, bool val4) internal {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(key1));
+    _keyTuple[1] = bytes32(uint256(key2));
+
+    StoreCore.setStaticField(_tableId, _keyTuple, 3, abi.encodePacked((val4)), _fieldLayout);
+  }
+
+  /**
+   * @notice Get val5.
+   */
+  function getVal5(uint200 key1, uint8 key2) internal view returns (address val5) {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(key1));
+    _keyTuple[1] = bytes32(uint256(key2));
+
+    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 4, _fieldLayout);
+    return (address(bytes20(_blob)));
+  }
+
+  /**
+   * @notice Get val5.
+   */
+  function _getVal5(uint200 key1, uint8 key2) internal view returns (address val5) {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(key1));
+    _keyTuple[1] = bytes32(uint256(key2));
+
+    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 4, _fieldLayout);
+    return (address(bytes20(_blob)));
+  }
+
+  /**
+   * @notice Set val5.
+   */
+  function setVal5(uint200 key1, uint8 key2, address val5) internal {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(key1));
+    _keyTuple[1] = bytes32(uint256(key2));
+
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 4, abi.encodePacked((val5)), _fieldLayout);
+  }
+
+  /**
+   * @notice Set val5.
+   */
+  function _setVal5(uint200 key1, uint8 key2, address val5) internal {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(key1));
+    _keyTuple[1] = bytes32(uint256(key2));
+
+    StoreCore.setStaticField(_tableId, _keyTuple, 4, abi.encodePacked((val5)), _fieldLayout);
   }
 
   /**
@@ -782,11 +878,13 @@ library TestTable {
     uint200 val1,
     uint8 val2,
     uint16 val3,
+    bool val4,
+    address val5,
     string memory dyn1,
     bytes memory dyn2,
     int16[] memory dyn3
   ) internal {
-    bytes memory _staticData = encodeStatic(val1, val2, val3);
+    bytes memory _staticData = encodeStatic(val1, val2, val3, val4, val5);
 
     EncodedLengths _encodedLengths = encodeLengths(dyn1, dyn2, dyn3);
     bytes memory _dynamicData = encodeDynamic(dyn1, dyn2, dyn3);
@@ -807,11 +905,13 @@ library TestTable {
     uint200 val1,
     uint8 val2,
     uint16 val3,
+    bool val4,
+    address val5,
     string memory dyn1,
     bytes memory dyn2,
     int16[] memory dyn3
   ) internal {
-    bytes memory _staticData = encodeStatic(val1, val2, val3);
+    bytes memory _staticData = encodeStatic(val1, val2, val3, val4, val5);
 
     EncodedLengths _encodedLengths = encodeLengths(dyn1, dyn2, dyn3);
     bytes memory _dynamicData = encodeDynamic(dyn1, dyn2, dyn3);
@@ -827,7 +927,7 @@ library TestTable {
    * @notice Set the full data using the data struct.
    */
   function set(uint200 key1, uint8 key2, TestTableData memory _table) internal {
-    bytes memory _staticData = encodeStatic(_table.val1, _table.val2, _table.val3);
+    bytes memory _staticData = encodeStatic(_table.val1, _table.val2, _table.val3, _table.val4, _table.val5);
 
     EncodedLengths _encodedLengths = encodeLengths(_table.dyn1, _table.dyn2, _table.dyn3);
     bytes memory _dynamicData = encodeDynamic(_table.dyn1, _table.dyn2, _table.dyn3);
@@ -843,7 +943,7 @@ library TestTable {
    * @notice Set the full data using the data struct.
    */
   function _set(uint200 key1, uint8 key2, TestTableData memory _table) internal {
-    bytes memory _staticData = encodeStatic(_table.val1, _table.val2, _table.val3);
+    bytes memory _staticData = encodeStatic(_table.val1, _table.val2, _table.val3, _table.val4, _table.val5);
 
     EncodedLengths _encodedLengths = encodeLengths(_table.dyn1, _table.dyn2, _table.dyn3);
     bytes memory _dynamicData = encodeDynamic(_table.dyn1, _table.dyn2, _table.dyn3);
@@ -858,12 +958,18 @@ library TestTable {
   /**
    * @notice Decode the tightly packed blob of static data using this table's field layout.
    */
-  function decodeStatic(bytes memory _blob) internal pure returns (uint200 val1, uint8 val2, uint16 val3) {
+  function decodeStatic(
+    bytes memory _blob
+  ) internal pure returns (uint200 val1, uint8 val2, uint16 val3, bool val4, address val5) {
     val1 = (uint200(Bytes.getBytes25(_blob, 0)));
 
     val2 = (uint8(Bytes.getBytes1(_blob, 25)));
 
     val3 = (uint16(Bytes.getBytes2(_blob, 26)));
+
+    val4 = (_toBool(uint8(Bytes.getBytes1(_blob, 28))));
+
+    val5 = (address(Bytes.getBytes20(_blob, 29)));
   }
 
   /**
@@ -904,7 +1010,7 @@ library TestTable {
     EncodedLengths _encodedLengths,
     bytes memory _dynamicData
   ) internal pure returns (TestTableData memory _table) {
-    (_table.val1, _table.val2, _table.val3) = decodeStatic(_staticData);
+    (_table.val1, _table.val2, _table.val3, _table.val4, _table.val5) = decodeStatic(_staticData);
 
     (_table.dyn1, _table.dyn2, _table.dyn3) = decodeDynamic(_encodedLengths, _dynamicData);
   }
@@ -935,8 +1041,14 @@ library TestTable {
    * @notice Tightly pack static (fixed length) data using this table's schema.
    * @return The static data, encoded into a sequence of bytes.
    */
-  function encodeStatic(uint200 val1, uint8 val2, uint16 val3) internal pure returns (bytes memory) {
-    return abi.encodePacked(val1, val2, val3);
+  function encodeStatic(
+    uint200 val1,
+    uint8 val2,
+    uint16 val3,
+    bool val4,
+    address val5
+  ) internal pure returns (bytes memory) {
+    return abi.encodePacked(val1, val2, val3, val4, val5);
   }
 
   /**
@@ -976,11 +1088,13 @@ library TestTable {
     uint200 val1,
     uint8 val2,
     uint16 val3,
+    bool val4,
+    address val5,
     string memory dyn1,
     bytes memory dyn2,
     int16[] memory dyn3
   ) internal pure returns (bytes memory, EncodedLengths, bytes memory) {
-    bytes memory _staticData = encodeStatic(val1, val2, val3);
+    bytes memory _staticData = encodeStatic(val1, val2, val3, val4, val5);
 
     EncodedLengths _encodedLengths = encodeLengths(dyn1, dyn2, dyn3);
     bytes memory _dynamicData = encodeDynamic(dyn1, dyn2, dyn3);
@@ -997,5 +1111,17 @@ library TestTable {
     _keyTuple[1] = bytes32(uint256(key2));
 
     return _keyTuple;
+  }
+}
+
+/**
+ * @notice Cast a value to a bool.
+ * @dev Boolean values are encoded as uint8 (1 = true, 0 = false), but Solidity doesn't allow casting between uint8 and bool.
+ * @param value The uint8 value to convert.
+ * @return result The boolean value.
+ */
+function _toBool(uint8 value) pure returns (bool result) {
+  assembly {
+    result := value
   }
 }
