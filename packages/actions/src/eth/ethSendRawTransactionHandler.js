@@ -117,11 +117,11 @@ export const ethSendRawTransactionHandler = (client) => async (params) => {
 			...tx,
 			from: /** @type {import('@tevm/utils').Address}*/ (tx.getSenderAddress().toString()),
 			to: /** @type {import('@tevm/utils').Address}*/ (tx.to?.toString()),
-			...('blobVersionedHashes' in tx && tx.blobVersionedHashes ? {
-				blobVersionedHashes: tx.blobVersionedHashes.map((hash) => 
-					typeof hash === 'string' ? hash : bytesToHex(hash)
-				)
-			} : {}),
+			...('blobVersionedHashes' in tx && tx.blobVersionedHashes
+				? {
+						blobVersionedHashes: /** @type {import('@tevm/utils').Hex[]} */ (tx.blobVersionedHashes),
+					}
+				: {}),
 			data: bytesToHex(tx.data),
 		})
 	} catch (error) {

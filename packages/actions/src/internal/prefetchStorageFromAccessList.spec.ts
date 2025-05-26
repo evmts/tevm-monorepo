@@ -28,9 +28,7 @@ describe('prefetchStorageFromAccessList', () => {
 		const vm = await client.getVm()
 
 		// Mock the stateManager.getStorage method to track calls
-		const getContractStorageSpy = vi
-			.spyOn(vm.stateManager, 'getStorage')
-			.mockResolvedValue(Buffer.from('test value'))
+		const getContractStorageSpy = vi.spyOn(vm.stateManager, 'getStorage').mockResolvedValue(Buffer.from('test value'))
 
 		// Create a test access list
 		const accessList = new Map([
@@ -123,9 +121,7 @@ describe('prefetchStorageFromAccessList', () => {
 		const vm = await client.getVm()
 
 		// Mock the stateManager.getStorage method to track calls
-		const getContractStorageSpy = vi
-			.spyOn(vm.stateManager, 'getStorage')
-			.mockResolvedValue(Buffer.from('test value'))
+		const getContractStorageSpy = vi.spyOn(vm.stateManager, 'getStorage').mockResolvedValue(Buffer.from('test value'))
 
 		// Create a test access list with mixed prefixes
 		const accessList = new Map([

@@ -101,15 +101,17 @@ export const setAccountHandler =
 				nonce: params.nonce ?? account?.nonce,
 				balance: params.balance ?? account?.balance,
 			}
-			
-			const storageRoot = (params.storageRoot && hexToBytes(params.storageRoot)) ??
+
+			const storageRoot =
+				(params.storageRoot && hexToBytes(params.storageRoot)) ??
 				(account?.storageRoot !== undefined && account?.storageRoot !== '0x'
 					? hexToBytes(account.storageRoot)
 					: undefined)
-			
-			const codeHash = (params.deployedBytecode && hexToBytes(keccak256(params.deployedBytecode))) ??
+
+			const codeHash =
+				(params.deployedBytecode && hexToBytes(keccak256(params.deployedBytecode))) ??
 				(account?.deployedBytecode !== undefined ? hexToBytes(keccak256(account.deployedBytecode)) : undefined)
-			
+
 			// Only add optional properties if they are not undefined
 			if (storageRoot !== undefined) {
 				accountData.storageRoot = storageRoot
@@ -117,13 +119,8 @@ export const setAccountHandler =
 			if (codeHash !== undefined) {
 				accountData.codeHash = codeHash
 			}
-			
-			promises.push(
-				vm.stateManager.putAccount(
-					address,
-					createAccount(accountData),
-				),
-			)
+
+			promises.push(vm.stateManager.putAccount(address, createAccount(accountData)))
 			if (params.deployedBytecode) {
 				promises.push(vm.stateManager.putCode(address, hexToBytes(params.deployedBytecode)))
 			}

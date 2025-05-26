@@ -69,14 +69,16 @@ export const callHandlerResult = (evmResult, txHash, trace, accessList) => {
 	}
 	if (/** @type {any} */ (evmResult).execResult.logs) {
 		// type Log = [address: Address, topics: Hex[], data: Hex]
-		out.logs = /** @type {any} */ (evmResult).execResult.logs.map((/** @type {[Uint8Array, Uint8Array[], Uint8Array]} */ log) => {
-			const [address, topics, data] = log
-			return {
-				address: getAddress(toHex(address)),
-				topics: topics.map((/** @type {Uint8Array} */ topic) => toHex(topic)),
-				data: toHex(data),
-			}
-		})
+		out.logs = /** @type {any} */ (evmResult).execResult.logs.map(
+			(/** @type {[Uint8Array, Uint8Array[], Uint8Array]} */ log) => {
+				const [address, topics, data] = log
+				return {
+					address: getAddress(toHex(address)),
+					topics: topics.map((/** @type {Uint8Array} */ topic) => toHex(topic)),
+					data: toHex(data),
+				}
+			},
+		)
 	}
 	if (/** @type {any} */ (evmResult).execResult.runState) {
 		// don't do anything with runState atm
