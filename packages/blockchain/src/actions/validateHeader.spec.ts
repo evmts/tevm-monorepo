@@ -175,7 +175,7 @@ describe(validateHeader.name, async () => {
 		const headerValidator = validateHeader(chain)
 		const error = await headerValidator(blocks[1].header).catch((e) => e)
 		expect(error).toBeInstanceOf(Error)
-		expect(error.message).toContain('Tevm currently does not support pos')
+		expect(error.message).toContain('Tevm currently does not support pow')
 	})
 
 	it('should throw an error for invalid timestamp diff (clique)', async () => {

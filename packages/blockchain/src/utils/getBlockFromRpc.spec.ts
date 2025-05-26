@@ -23,7 +23,7 @@ describe('getBlockFromRpc', () => {
 	// it is different because we filter out optimism deposit tx
 	const blockHashAfterForking = '0xcbec656e620f3182a946be85fb7fa34b802b064c4be1bd7ce52df74954d7a49e'
 
-	it.skip('should fetch a block by number', async () => {
+	it('should fetch a block by number', async () => {
 		const transport = transports.optimism
 		const common = optimism.copy()
 
@@ -35,7 +35,7 @@ describe('getBlockFromRpc', () => {
 		expect(block.toJSON()).toEqual(expectedBlock as any)
 	})
 
-	it.skip('should fetch a block by hash', async () => {
+	it('should fetch a block by hash', async () => {
 		const transport = transports.optimism
 		const common = optimism.copy()
 

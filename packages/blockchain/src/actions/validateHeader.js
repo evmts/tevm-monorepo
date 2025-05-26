@@ -20,7 +20,7 @@ export const validateHeader = (baseChain) => async (header, height) => {
 		throw new Error(`invalid timestamp ${header.errorStr()}`)
 	}
 
-	if (!(baseChain.common.ethjsCommon.consensusType() === 'pos')) throw new Error('Tevm currently does not support pos')
+	if (baseChain.common.ethjsCommon.consensusType() === 'pow') throw new Error('Tevm currently does not support pow')
 
 	if (baseChain.common.ethjsCommon.consensusAlgorithm() === ConsensusAlgorithm.Clique) {
 		const period = /** @type {any}*/ (baseChain.common.ethjsCommon.consensusConfig()).period
