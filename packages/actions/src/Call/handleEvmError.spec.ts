@@ -75,7 +75,7 @@ describe('handleRunTxError', () => {
 	})
 
 	it('should handle EvmError instances', () => {
-		const error = new EvmError(EvmErrorMessage.INVALID_JUMP)
+		const error = new EvmError('invalid JUMP')
 		const result = handleRunTxError(error)
 		expect(result.name).toBe(InvalidJumpError.name)
 		expect(result).toBeInstanceOf(InvalidJumpError)
