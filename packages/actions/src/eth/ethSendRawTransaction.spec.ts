@@ -146,7 +146,7 @@ describe('ethSendRawTransactionHandler', () => {
 		)
 
 		const signedTx = blobTx.sign(hexToBytes(PREFUNDED_PRIVATE_KEYS[0]))
-		const serializedTx = signedTx.serializeNetworkWrapper() // Use network wrapper serialization
+		const serializedTx = signedTx.serialize() // Serialize the transaction
 
 		await expect(handler({ data: bytesToHex(serializedTx) })).rejects.toThrow(BlobGasLimitExceededError)
 	})
