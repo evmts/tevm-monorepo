@@ -1,4 +1,3 @@
-import { createAddress } from '@tevm/address'
 import type { Address, EthjsLog } from '@tevm/utils'
 import { bytesToHex, getAddress, toHex } from '@tevm/utils'
 import type { RunTxResult } from '@tevm/vm'

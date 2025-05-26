@@ -15,4 +15,5 @@ export {
 	type ExecResult,
 	type EVMResult as EvmResult,
 	type EVMRunCallOpts as EvmRunCallOpts,
+	type Log,
 } from '@ethereumjs/evm'

@@ -73,7 +73,7 @@ export const callHandlerResult = (evmResult, txHash, trace, accessList) => {
 			const [address, topics, data] = log
 			return {
 				address: getAddress(toHex(address)),
-				topics: topics.map((/** @type {import('@tevm/utils').ByteArray} */ topic) => toHex(topic)),
+				topics: topics.map((/** @type {Uint8Array} */ topic) => toHex(topic)),
 				data: toHex(data),
 			}
 		})
