@@ -126,7 +126,7 @@ describe('ethSendRawTransactionHandler', () => {
 		const mockKZGCommitment1 = new Uint8Array([0x01, ...new Uint8Array(31).fill(1)])
 		const mockKZGCommitment2 = new Uint8Array([0x01, ...new Uint8Array(31).fill(2)])
 
-		const blobTx = BlobEIP4844Transaction.fromTxData(
+		const blobTx = TransactionFactory(
 			{
 				nonce: '0x00',
 				maxFeePerGas: '0x09184e72a000',
@@ -135,6 +135,7 @@ describe('ethSendRawTransactionHandler', () => {
 				to: createAddress(`0x${'42'.repeat(20)}`),
 				value: parseEther('1'),
 				data: '0x',
+				type: 3, // EIP-4844 blob transaction
 				maxFeePerBlobGas: '0x09184e72a000',
 				blobVersionedHashes: [mockKZGCommitment1, mockKZGCommitment2],
 				blobs: [new Uint8Array(131072).fill(1), new Uint8Array(131072).fill(2)], // Add actual blob data

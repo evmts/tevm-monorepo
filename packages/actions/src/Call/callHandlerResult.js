@@ -69,11 +69,11 @@ export const callHandlerResult = (evmResult, txHash, trace, accessList) => {
 	}
 	if (/** @type {any} */ (evmResult).execResult.logs) {
 		// type Log = [address: Address, topics: Hex[], data: Hex]
-		out.logs = /** @type {any} */ (evmResult).execResult.logs.map((log) => {
+		out.logs = /** @type {any} */ (evmResult).execResult.logs.map((/** @type {import('@tevm/evm').Log} */ log) => {
 			const [address, topics, data] = log
 			return {
 				address: getAddress(toHex(address)),
-				topics: topics.map((topic) => toHex(topic)),
+				topics: topics.map((/** @type {import('@tevm/utils').ByteArray} */ topic) => toHex(topic)),
 				data: toHex(data),
 			}
 		})

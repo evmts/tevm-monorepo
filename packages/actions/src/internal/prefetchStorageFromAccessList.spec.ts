@@ -9,8 +9,8 @@ describe('prefetchStorageFromAccessList', () => {
 		const client = createTevmNode()
 		const vm = await client.getVm()
 
-		// Mock the stateManager.getContractStorage method to track calls
-		const getContractStorageSpy = vi.spyOn(vm.stateManager, 'getContractStorage')
+		// Mock the stateManager.getStorage method to track calls
+		const getContractStorageSpy = vi.spyOn(vm.stateManager, 'getStorage')
 
 		// Test with undefined accessList
 		await prefetchStorageFromAccessList(client, undefined)
@@ -27,9 +27,9 @@ describe('prefetchStorageFromAccessList', () => {
 		const client = createTevmNode()
 		const vm = await client.getVm()
 
-		// Mock the stateManager.getContractStorage method to track calls
+		// Mock the stateManager.getStorage method to track calls
 		const getContractStorageSpy = vi
-			.spyOn(vm.stateManager, 'getContractStorage')
+			.spyOn(vm.stateManager, 'getStorage')
 			.mockResolvedValue(Buffer.from('test value'))
 
 		// Create a test access list
@@ -49,7 +49,7 @@ describe('prefetchStorageFromAccessList', () => {
 
 		await prefetchStorageFromAccessList(client, accessList)
 
-		// Should have made 3 calls to getContractStorage (one for each storage slot)
+		// Should have made 3 calls to getStorage (one for each storage slot)
 		expect(getContractStorageSpy).toHaveBeenCalledTimes(3)
 
 		// Check the first call for address 0x11...11 and storage key 0x01
@@ -79,9 +79,9 @@ describe('prefetchStorageFromAccessList', () => {
 		// Mock debug logger to verify it's called
 		const debugSpy = vi.spyOn(client.logger, 'debug').mockImplementation(() => {})
 
-		// Mock getContractStorage to throw an error
+		// Mock getStorage to throw an error
 		const getContractStorageSpy = vi
-			.spyOn(vm.stateManager, 'getContractStorage')
+			.spyOn(vm.stateManager, 'getStorage')
 			.mockRejectedValue(new Error('Storage fetch error'))
 
 		// Create a test access list with one entry
@@ -122,9 +122,9 @@ describe('prefetchStorageFromAccessList', () => {
 		const client = createTevmNode()
 		const vm = await client.getVm()
 
-		// Mock the stateManager.getContractStorage method to track calls
+		// Mock the stateManager.getStorage method to track calls
 		const getContractStorageSpy = vi
-			.spyOn(vm.stateManager, 'getContractStorage')
+			.spyOn(vm.stateManager, 'getStorage')
 			.mockResolvedValue(Buffer.from('test value'))
 
 		// Create a test access list with mixed prefixes
@@ -147,7 +147,7 @@ describe('prefetchStorageFromAccessList', () => {
 
 		await prefetchStorageFromAccessList(client, accessList)
 
-		// Should have made 3 calls to getContractStorage
+		// Should have made 3 calls to getStorage
 		expect(getContractStorageSpy).toHaveBeenCalledTimes(3)
 
 		// All addresses should be properly converted regardless of initial format

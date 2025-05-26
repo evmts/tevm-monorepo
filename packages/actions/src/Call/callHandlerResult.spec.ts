@@ -24,7 +24,7 @@ describe('callHandlerResult', async () => {
 			blobGasUsed: 3000n,
 			createdAddresses: new Set([dummyAddress]),
 		},
-	} as const
+	}
 
 	const dummyRuntxResult = {
 		minerValue: 20n,
@@ -38,7 +38,7 @@ describe('callHandlerResult', async () => {
 		receipt: {} as any,
 		amountSpent: 10n,
 		blobGasUsed: dummyEVMResult.execResult.blobGasUsed,
-	} as const satisfies RunTxResult
+	} satisfies RunTxResult
 
 	it('should handle EVMResult correctly', async () => {
 		const result = callHandlerResult(dummyRuntxResult, undefined, undefined, undefined)

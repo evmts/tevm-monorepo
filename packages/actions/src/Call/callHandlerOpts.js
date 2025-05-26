@@ -105,7 +105,7 @@ export const callHandlerOpts = async (client, params) => {
 		opts.depth = params.depth
 	}
 	if (params.blobVersionedHashes) {
-		opts.blobVersionedHashes = params.blobVersionedHashes.map((hash) => hexToBytes(hash))
+		opts.blobVersionedHashes = params.blobVersionedHashes
 	}
 	if (params.selfdestruct) {
 		opts.selfdestruct = params.selfdestruct
