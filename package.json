@@ -53,9 +53,9 @@
     "@sveltejs/adapter-static": "^3.0.8",
     "@sveltejs/kit": "^2.21.1",
     "@sveltejs/vite-plugin-svelte": "^5.0.3",
-    "@tanstack/svelte-query": "^5.77.0",
+    "@tanstack/svelte-query": "^5.77.2",
     "app": "^0.1.0",
-    "svelte": "^5.33.1",
+    "svelte": "^5.33.2",
     "svelte-check": "^4.2.1"
   },
   "devDependencies": {
@@ -84,12 +84,12 @@
     "sort-package-json": "^3.2.1",
     "starlight-typedoc": "^0.21.3",
     "tsup": "^8.5.0",
-    "typedoc": "^0.28.4",
+    "typedoc": "^0.28.5",
     "typedoc-plugin-markdown": "4.6.3",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
     "vitest": "^3.1.4",
-    "vocs": "1.0.11"
+    "vocs": "1.0.12"
   },
   "packageManager": "pnpm@10.6.1+sha512.40ee09af407fa9fbb5fbfb8e1cb40fbb74c0af0c3e10e9224d7b53c7658528615b2c92450e74cfad91e3a2dcafe3ce4050d80bda71d757756d2ce2b66213e9a3",
   "engines": {

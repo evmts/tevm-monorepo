@@ -45,7 +45,7 @@
 	"devDependencies": {
 		"@tevm/base-bundler": "workspace:^",
 		"tsup": "^8.5.0",
-		"typedoc": "^0.28.4",
+		"typedoc": "^0.28.5",
 		"typedoc-plugin-markdown": "^4.6.3",
 		"typescript": "^5.8.3",
 		"vitest": "^3.1.4"

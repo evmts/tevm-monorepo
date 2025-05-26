@@ -24,7 +24,7 @@
 		"@tevm/ts-plugin": "workspace:^",
 		"@tevm/vite-plugin": "workspace:^",
 		"solc": "0.8.30",
-		"svelte": "^5.33.1",
+		"svelte": "^5.33.2",
 		"svelte-check": "^4.2.1",
 		"typescript": "^5.8.3",
 		"vite": "^6.3.5",
