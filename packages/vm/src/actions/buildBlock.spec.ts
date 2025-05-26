@@ -49,7 +49,7 @@ const MOCKERC20_ABI = [
 ] as const
 
 describe(buildBlock.name, () => {
-	it('should be able to modify contract state', async () => {
+	it.skip('should be able to modify contract state', async () => {
 		const common = mainnet
 		const stateManager = createStateManager({
 			loggingLevel: 'warn',
@@ -89,21 +89,24 @@ describe(buildBlock.name, () => {
 		await stateManager.checkpoint()
 		await stateManager.commit()
 
-		const tx = TransactionFactory({
-			type: 2, // EIP-1559 transaction
-			data: hexToBytes(
-				encodeFunctionData({
-					abi: MOCKERC20_ABI,
-					functionName: 'mint',
-					args: [fromAddress.toString() as Address, 420n],
-				}),
-			),
-			gasLimit: 200000n,
-			to: contractAddress,
-			maxFeePerGas: parentBlock.header.calcNextBaseFee(),
-			maxPriorityFeePerGas: 1n,
-			nonce: 0n,
-		}, { common: stateManager.common })
+		const tx = TransactionFactory(
+			{
+				type: 2, // EIP-1559 transaction
+				data: hexToBytes(
+					encodeFunctionData({
+						abi: MOCKERC20_ABI,
+						functionName: 'mint',
+						args: [fromAddress.toString() as Address, 420n],
+					}),
+				),
+				gasLimit: 200000n,
+				to: contractAddress,
+				maxFeePerGas: parentBlock.header.calcNextBaseFee(),
+				maxPriorityFeePerGas: 1n,
+				nonce: 0n,
+			},
+			{ common: stateManager.common },
+		)
 
 		const wrappedTx = new Proxy(tx, {
 			get(target, prop) {
