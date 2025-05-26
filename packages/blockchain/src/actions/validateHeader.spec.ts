@@ -49,9 +49,9 @@ describe(validateHeader.name, async () => {
 		const mockValidateGasLimit = vi.fn()
 		vi.spyOn(blocks[1].header, 'validateGasLimit').mockImplementation(mockValidateGasLimit)
 
-		// Mock the common to use pos consensus
-		vi.spyOn(blocks[1].header.common.ethjsCommon, 'consensusType').mockReturnValue('pos')
-		vi.spyOn(blocks[1].header.common.ethjsCommon, 'isActivatedEIP').mockReturnValue(false)
+		// Mock the common to use pos consensus and disable EIP1559
+		vi.spyOn(chain.common.ethjsCommon, 'consensusType').mockReturnValue('pos')
+		vi.spyOn(chain.common.ethjsCommon, 'isActivatedEIP').mockReturnValue(false)
 
 		// Mock getBlock to return the parent block
 		vi.spyOn(getBlockModule, 'getBlock').mockImplementation(() => {
@@ -164,18 +164,8 @@ describe(validateHeader.name, async () => {
 		const chain = createBaseChain({ common: optimism.copy() })
 		await putBlock(chain)(blocks[0])
 
-		const invalidHeader = {
-			...blocks[1].header,
-			isGenesis: () => false,
-			errorStr: () => 'Invalid consensus header',
-			common: {
-				...blocks[1].header.common,
-				ethjsCommon: {
-					...blocks[1].header.common.ethjsCommon,
-					consensusType: () => 'pow',
-				},
-			},
-		}
+		// Mock the common to use pow consensus (not supported)
+		vi.spyOn(chain.common.ethjsCommon, 'consensusType').mockReturnValue('pow')
 
 		// Mock getBlock for parent
 		vi.spyOn(getBlockModule, 'getBlock').mockImplementation(() => {
@@ -183,7 +173,7 @@ describe(validateHeader.name, async () => {
 		})
 
 		const headerValidator = validateHeader(chain)
-		const error = await headerValidator(invalidHeader as any).catch((e) => e)
+		const error = await headerValidator(blocks[1].header).catch((e) => e)
 		expect(error).toBeInstanceOf(Error)
 		expect(error.message).toContain('Tevm currently does not support pos')
 	})
@@ -347,37 +337,36 @@ describe(validateHeader.name, async () => {
 		const chain = createBaseChain({ common: optimism.copy() })
 		const headerValidator = validateHeader(chain)
 
-		// Mock parent header with calcNextExcessBlobGas
-		const mockParentHeader = {
-			...blocks[0].header,
-			calcNextExcessBlobGas: () => BigInt(700000),
-		}
+		// Mock calcNextExcessBlobGas on the parent header
+		vi.spyOn(blocks[0].header, 'calcNextExcessBlobGas').mockReturnValue(BigInt(700000))
 
-		// Mock getBlock to return our mocked parent header
+		// Mock validateGasLimit to avoid the gasLimitBoundDivisor error
+		vi.spyOn(blocks[1].header, 'validateGasLimit').mockImplementation(() => {})
+
+		// Mock getBlock to return the parent block
 		vi.spyOn(getBlockModule, 'getBlock').mockImplementation(() => {
-			return async () => ({ header: mockParentHeader }) as any
+			return async () => blocks[0]
 		})
 
-		// Create a header with EIP4844 but incorrect excessBlobGas
-		const header = {
-			...blocks[1].header,
-			isGenesis: () => false,
-			errorStr: () => 'EIP4844 header',
-			parentHash: blocks[0].header.hash(),
-			excessBlobGas: BigInt(800000), // Incorrect value
-			common: {
-				...blocks[1].header.common,
-				ethjsCommon: {
-					...blocks[1].header.common.ethjsCommon,
-					consensusType: () => 'pos',
-					consensusAlgorithm: () => null,
-					isActivatedEIP: (eip: number) => eip === 4844,
-				},
-			},
-			validateGasLimit: vi.fn(),
-		}
+		// Mock the header's excessBlobGas to be incorrect
+		const originalExcessBlobGas = blocks[1].header.excessBlobGas
+		Object.defineProperty(blocks[1].header, 'excessBlobGas', {
+			value: BigInt(800000),
+			configurable: true,
+		})
 
-		const error = await headerValidator(header as any).catch((e) => e)
+		// Mock the common to enable EIP4844 and pos consensus
+		vi.spyOn(chain.common.ethjsCommon, 'consensusType').mockReturnValue('pos')
+		vi.spyOn(chain.common.ethjsCommon, 'isActivatedEIP').mockImplementation((eip: number) => eip === 4844)
+
+		const error = await headerValidator(blocks[1].header).catch((e) => e)
+		
+		// Restore original value
+		Object.defineProperty(blocks[1].header, 'excessBlobGas', {
+			value: originalExcessBlobGas,
+			configurable: true,
+		})
+		
 		expect(error).toBeInstanceOf(Error)
 		expect(error.message).toContain('expected blob gas: 700000, got: 800000')
 	})
