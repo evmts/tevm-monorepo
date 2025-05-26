@@ -6,7 +6,7 @@
 
 # Class: InvalidCommitmentError
 
-Defined in: packages/errors/src/ethereum/ethereumjs/InvalidCommitmentError.js:45
+Defined in: [packages/errors/src/ethereum/ethereumjs/InvalidCommitmentError.js:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InvalidCommitmentError.js#L45)
 
 Represents an EIP-4844 specific error that occurs when a KZG commitment does not match the versioned hash.
 
@@ -45,7 +45,7 @@ Additional parameters for the BaseError.
 
 > **new InvalidCommitmentError**(`message?`, `args?`, `tag?`): `InvalidCommitmentError`
 
-Defined in: packages/errors/src/ethereum/ethereumjs/InvalidCommitmentError.js:71
+Defined in: [packages/errors/src/ethereum/ethereumjs/InvalidCommitmentError.js:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InvalidCommitmentError.js#L71)
 
 Constructs an InvalidCommitmentError.
 Represents an EIP-4844 specific error that occurs when a KZG commitment does not match the versioned hash.
@@ -101,7 +101,7 @@ try {
 
 > **\_tag**: `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:82
+Defined in: [packages/errors/src/ethereum/BaseError.js:82](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L82)
 
 Same as name, used internally.
 
@@ -115,7 +115,7 @@ Same as name, used internally.
 
 > **cause**: `any`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:114
+Defined in: [packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
 
 #### Inherited from
 
@@ -127,7 +127,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:114
 
 > **code**: `number`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:112
+Defined in: [packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
 
 #### Inherited from
 
@@ -139,7 +139,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:112
 
 > **details**: `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:91
+Defined in: [packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
 
 #### Inherited from
 
@@ -151,7 +151,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:91
 
 > **docsPath**: `undefined` \| `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:96
+Defined in: [packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
 
 Path to the documentation for this error.
 
@@ -179,7 +179,7 @@ Human-readable error message.
 
 > **metaMessages**: `undefined` \| `string`[]
 
-Defined in: packages/errors/src/ethereum/BaseError.js:100
+Defined in: [packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
 
 Additional meta messages for more context.
 
@@ -207,7 +207,7 @@ The name of the error, used to discriminate errors.
 
 > **shortMessage**: `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:104
+Defined in: [packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
 
 #### Inherited from
 
@@ -231,7 +231,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/li
 
 > **version**: `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:108
+Defined in: [packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
 
 #### Inherited from
 
@@ -243,7 +243,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:108
 
 > `static` **code**: `number` = `-32000`
 
-Defined in: packages/errors/src/ethereum/ExecutionErrorError.js:46
+Defined in: [packages/errors/src/ethereum/ExecutionErrorError.js:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ExecutionErrorError.js#L46)
 
 Error code, analogous to the code in JSON RPC error.
 
@@ -257,7 +257,7 @@ Error code, analogous to the code in JSON RPC error.
 
 > `static` **EVMErrorMessage**: `string` = `EVMError.errorMessages.INVALID_COMMITMENT`
 
-Defined in: packages/errors/src/ethereum/ethereumjs/InvalidCommitmentError.js:46
+Defined in: [packages/errors/src/ethereum/ethereumjs/InvalidCommitmentError.js:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InvalidCommitmentError.js#L46)
 
 ***
 
@@ -279,7 +279,7 @@ The maximum number of stack frames to capture.
 
 > **walk**(`fn?`): `unknown`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:137
+Defined in: [packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
 
 Walks through the error chain.
 

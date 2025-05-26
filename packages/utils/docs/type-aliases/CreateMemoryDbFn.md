@@ -8,7 +8,7 @@
 
 > **CreateMemoryDbFn**\<`TKey`, `TValue`\> = (`initialDb?`) => [`MemoryDb`](MemoryDb.md)\<`TKey`, `TValue`\>
 
-Defined in: packages/utils/src/CreateMemoryDbFn.ts:4
+Defined in: [packages/utils/src/CreateMemoryDbFn.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/CreateMemoryDbFn.ts#L4)
 
 ## Type Parameters
 

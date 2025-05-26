@@ -6,7 +6,7 @@
 
 # Class: AccountLockedError
 
-Defined in: packages/errors/src/ethereum/AccountLockedError.js:50
+Defined in: [packages/errors/src/ethereum/AccountLockedError.js:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/AccountLockedError.js#L50)
 
 Represents an error that occurs when an account is locked.
 
@@ -53,7 +53,7 @@ Additional parameters for the BaseError.
 
 > **new AccountLockedError**(`message`, `args?`, `tag?`): `AccountLockedError`
 
-Defined in: packages/errors/src/ethereum/AccountLockedError.js:64
+Defined in: [packages/errors/src/ethereum/AccountLockedError.js:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/AccountLockedError.js#L64)
 
 Constructs an AccountLockedError.
 
@@ -91,7 +91,7 @@ The tag for the error.
 
 > **\_tag**: `string`
 
-Defined in: packages/errors/src/ethereum/AccountLockedError.js:77
+Defined in: [packages/errors/src/ethereum/AccountLockedError.js:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/AccountLockedError.js#L77)
 
 Same as name, used internally.
 
@@ -105,7 +105,7 @@ Same as name, used internally.
 
 > **cause**: `any`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:114
+Defined in: [packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
 
 #### Inherited from
 
@@ -117,7 +117,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:114
 
 > **code**: `number`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:112
+Defined in: [packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
 
 #### Inherited from
 
@@ -129,7 +129,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:112
 
 > **details**: `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:91
+Defined in: [packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
 
 #### Inherited from
 
@@ -141,7 +141,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:91
 
 > **docsPath**: `undefined` \| `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:96
+Defined in: [packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
 
 Path to the documentation for this error.
 
@@ -169,7 +169,7 @@ Human-readable error message.
 
 > **metaMessages**: `undefined` \| `string`[]
 
-Defined in: packages/errors/src/ethereum/BaseError.js:100
+Defined in: [packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
 
 Additional meta messages for more context.
 
@@ -183,7 +183,7 @@ Additional meta messages for more context.
 
 > **name**: `string`
 
-Defined in: packages/errors/src/ethereum/AccountLockedError.js:76
+Defined in: [packages/errors/src/ethereum/AccountLockedError.js:76](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/AccountLockedError.js#L76)
 
 The name of the error, used to discriminate errors.
 
@@ -197,7 +197,7 @@ The name of the error, used to discriminate errors.
 
 > **shortMessage**: `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:104
+Defined in: [packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
 
 #### Inherited from
 
@@ -221,7 +221,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/li
 
 > **version**: `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:108
+Defined in: [packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
 
 #### Inherited from
 
@@ -233,7 +233,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:108
 
 > `static` **code**: `number` = `-32005`
 
-Defined in: packages/errors/src/ethereum/AccountLockedError.js:55
+Defined in: [packages/errors/src/ethereum/AccountLockedError.js:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/AccountLockedError.js#L55)
 
 Error code (-32005), a non-standard extension for this specific error.
 
@@ -257,7 +257,7 @@ The maximum number of stack frames to capture.
 
 > **walk**(`fn?`): `unknown`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:137
+Defined in: [packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
 
 Walks through the error chain.
 

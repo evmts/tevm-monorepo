@@ -8,7 +8,7 @@
 
 > `const` **mainnet**: `object`
 
-Defined in: packages/common/src/presets/mainnet.js:26
+Defined in: [packages/common/src/presets/mainnet.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/mainnet.js#L26)
 
 Creates a common configuration for the mainnet chain.
 

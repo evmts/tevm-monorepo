@@ -8,7 +8,7 @@
 
 > `const` **bitkubTestnet**: `object`
 
-Defined in: packages/common/src/presets/bitkubTestnet.js:26
+Defined in: [packages/common/src/presets/bitkubTestnet.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/bitkubTestnet.js#L26)
 
 Creates a common configuration for the bitkubTestnet chain.
 

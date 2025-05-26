@@ -8,7 +8,7 @@
 
 > **SolcStorageLayoutItem**\<`T`\> = `object`
 
-Defined in: solcTypes.ts:446
+Defined in: [solcTypes.ts:446](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L446)
 
 An item present in the contract's storage
 
@@ -28,7 +28,7 @@ An item present in the contract's storage
 
 > **astId**: `number`
 
-Defined in: solcTypes.ts:450
+Defined in: [solcTypes.ts:450](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L450)
 
 The id of the AST node of the state variable's declaration
 
@@ -38,7 +38,7 @@ The id of the AST node of the state variable's declaration
 
 > **contract**: `string`
 
-Defined in: solcTypes.ts:454
+Defined in: [solcTypes.ts:454](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L454)
 
 The name of the contract including its path as prefix
 
@@ -48,7 +48,7 @@ The name of the contract including its path as prefix
 
 > **label**: `string`
 
-Defined in: solcTypes.ts:458
+Defined in: [solcTypes.ts:458](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L458)
 
 The name of the state variable
 
@@ -58,7 +58,7 @@ The name of the state variable
 
 > **offset**: `number`
 
-Defined in: solcTypes.ts:462
+Defined in: [solcTypes.ts:462](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L462)
 
 The offset in bytes within the storage slot according to the encoding
 
@@ -68,7 +68,7 @@ The offset in bytes within the storage slot according to the encoding
 
 > **slot**: `string`
 
-Defined in: solcTypes.ts:466
+Defined in: [solcTypes.ts:466](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L466)
 
 The storage slot where the state variable resides or starts
 
@@ -78,6 +78,6 @@ The storage slot where the state variable resides or starts
 
 > **type**: keyof `T`
 
-Defined in: solcTypes.ts:470
+Defined in: [solcTypes.ts:470](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L470)
 
 The identifier used as a key to the variable's type information in the [SolcStorageLayoutTypes](SolcStorageLayoutTypes.md) record

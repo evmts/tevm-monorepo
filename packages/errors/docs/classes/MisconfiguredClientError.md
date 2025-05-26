@@ -6,7 +6,7 @@
 
 # Class: MisconfiguredClientError
 
-Defined in: packages/errors/src/client/MisconfiguredClient.js:48
+Defined in: [packages/errors/src/client/MisconfiguredClient.js:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/MisconfiguredClient.js#L48)
 
 Represents an error that occurs when the Client is misconfigured.
 
@@ -49,7 +49,7 @@ try {
 
 > **new MisconfiguredClientError**(`message?`, `args?`): `MisconfiguredClientError`
 
-Defined in: packages/errors/src/client/MisconfiguredClient.js:55
+Defined in: [packages/errors/src/client/MisconfiguredClient.js:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/MisconfiguredClient.js#L55)
 
 Constructs a MisconfiguredClientError.
 
@@ -81,7 +81,7 @@ Additional parameters for the error.
 
 > **\_tag**: `string`
 
-Defined in: packages/errors/src/ethereum/InternalErrorError.js:74
+Defined in: [packages/errors/src/ethereum/InternalErrorError.js:74](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InternalErrorError.js#L74)
 
 Same as name, used internally.
 
@@ -95,7 +95,7 @@ Same as name, used internally.
 
 > **cause**: `any`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:114
+Defined in: [packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
 
 #### Inherited from
 
@@ -107,7 +107,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:114
 
 > **code**: `number`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:112
+Defined in: [packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
 
 #### Inherited from
 
@@ -119,7 +119,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:112
 
 > **details**: `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:91
+Defined in: [packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
 
 #### Inherited from
 
@@ -131,7 +131,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:91
 
 > **docsPath**: `undefined` \| `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:96
+Defined in: [packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
 
 #### Inherited from
 
@@ -157,7 +157,7 @@ Human-readable error message.
 
 > **meta**: `undefined` \| `object`
 
-Defined in: packages/errors/src/ethereum/InternalErrorError.js:75
+Defined in: [packages/errors/src/ethereum/InternalErrorError.js:75](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InternalErrorError.js#L75)
 
 Optional object containing additional information about the error.
 
@@ -171,7 +171,7 @@ Optional object containing additional information about the error.
 
 > **metaMessages**: `undefined` \| `string`[]
 
-Defined in: packages/errors/src/ethereum/BaseError.js:100
+Defined in: [packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
 
 #### Inherited from
 
@@ -183,7 +183,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:100
 
 > **name**: `string`
 
-Defined in: packages/errors/src/ethereum/InternalErrorError.js:73
+Defined in: [packages/errors/src/ethereum/InternalErrorError.js:73](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InternalErrorError.js#L73)
 
 The name of the error, used to discriminate errors.
 
@@ -197,7 +197,7 @@ The name of the error, used to discriminate errors.
 
 > **shortMessage**: `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:104
+Defined in: [packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
 
 #### Inherited from
 
@@ -221,7 +221,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/li
 
 > **version**: `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:108
+Defined in: [packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
 
 #### Inherited from
 
@@ -233,7 +233,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:108
 
 > `static` **code**: `number` = `-32603`
 
-Defined in: packages/errors/src/ethereum/InternalErrorError.js:52
+Defined in: [packages/errors/src/ethereum/InternalErrorError.js:52](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InternalErrorError.js#L52)
 
 The error code for InternalError.
 
@@ -261,7 +261,7 @@ The maximum number of stack frames to capture.
 
 > **walk**(`fn?`): `unknown`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:137
+Defined in: [packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
 
 Walks through the error chain.
 

@@ -8,7 +8,7 @@
 
 > **shallowCopy**(`baseState`): () => [`BaseState`](../type-aliases/BaseState.md)
 
-Defined in: packages/state/src/actions/shallowCopy.js:17
+Defined in: [packages/state/src/actions/shallowCopy.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/shallowCopy.js#L17)
 
 Returns a new instance of the ForkStateManager with the same opts but no storage copied over.
 

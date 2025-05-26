@@ -8,7 +8,7 @@
 
 > **TypedError**\<`TName`\> = `object`
 
-Defined in: precompiles/src/TypedError.ts:17
+Defined in: [precompiles/src/TypedError.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/TypedError.ts#L17)
 
 Represents a typed error with a tag for identification
 
@@ -40,7 +40,7 @@ The string literal type that identifies this error
 
 > **\_tag**: `TName`
 
-Defined in: precompiles/src/TypedError.ts:18
+Defined in: [precompiles/src/TypedError.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/TypedError.ts#L18)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: precompiles/src/TypedError.ts:18
 
 > **message**: `string`
 
-Defined in: precompiles/src/TypedError.ts:20
+Defined in: [precompiles/src/TypedError.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/TypedError.ts#L20)
 
 ***
 
@@ -56,4 +56,4 @@ Defined in: precompiles/src/TypedError.ts:20
 
 > **name**: `TName`
 
-Defined in: precompiles/src/TypedError.ts:19
+Defined in: [precompiles/src/TypedError.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/TypedError.ts#L19)

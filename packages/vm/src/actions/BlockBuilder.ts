@@ -226,7 +226,8 @@ export class BlockBuilder {
 
 		// According to the Yellow Paper, a transaction's gas limit
 		// cannot be greater than the remaining gas in the block
-		const blockGasLimit = toType(this.headerData.gasLimit! as any, TypeOutput.BigInt)!
+		const gasLimit = this.headerData.gasLimit ?? 0n
+		const blockGasLimit = toType(gasLimit as any, TypeOutput.BigInt) ?? 0n
 
 		const blobGasLimit = (this.vm.common as any).ethjsCommon.param('gasConfig', 'maxblobGasPerBlock')
 		const blobGasPerBlob = (this.vm.common as any).ethjsCommon.param('gasConfig', 'blobGasPerBlob')
@@ -376,12 +377,13 @@ export class BlockBuilder {
 
 			const { parentBeaconBlockRoot, timestamp } = this.headerData
 			// timestamp should already be set in constructor
-			const timestampBigInt = toType(timestamp! as any, TypeOutput.BigInt)!
+			const timestampValue = timestamp ?? 0n
+			const timestampBigInt = toType(timestampValue as any, TypeOutput.BigInt) ?? 0n
 			const parentBeaconBlockRootBuf = parentBeaconBlockRoot
 				? toType(parentBeaconBlockRoot as any, TypeOutput.Uint8Array)
 				: new Uint8Array(32)
 
-			await accumulateParentBeaconBlockRoot(this.vm)(parentBeaconBlockRootBuf!, timestampBigInt)
+			await accumulateParentBeaconBlockRoot(this.vm)(parentBeaconBlockRootBuf, timestampBigInt)
 		}
 		if ((this.vm.common as any).ethjsCommon.isActivatedEIP(2935)) {
 			if (!this.checkpointed) {
@@ -391,10 +393,11 @@ export class BlockBuilder {
 
 			const { parentHash, number } = this.headerData
 			// timestamp should already be set in constructor
-			const numberBigInt = toType(number! as any, TypeOutput.BigInt)!
+			const numberValue = number ?? 0n
+			const numberBigInt = toType(numberValue as any, TypeOutput.BigInt) ?? 0n
 			const parentHashSanitized = parentHash ? toType(parentHash as any, TypeOutput.Uint8Array) : new Uint8Array(32)
 
-			await accumulateParentBlockHash(this.vm)(numberBigInt, parentHashSanitized!)
+			await accumulateParentBlockHash(this.vm)(numberBigInt, parentHashSanitized)
 		}
 	}
 }

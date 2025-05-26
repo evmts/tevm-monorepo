@@ -8,7 +8,7 @@
 
 > **commit**(`baseState`, `skipFetchingFromFork?`): (`createNewStateRoot?`) => `Promise`\<`void`\>
 
-Defined in: packages/state/src/actions/commit.js:9
+Defined in: [packages/state/src/actions/commit.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/commit.js#L9)
 
 Commits the current change-set to the instance since the
 last call to checkpoint.

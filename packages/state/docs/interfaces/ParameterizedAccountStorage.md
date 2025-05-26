@@ -6,7 +6,7 @@
 
 # Interface: ParameterizedAccountStorage
 
-Defined in: packages/state/src/state-types/ParameterizedAccountStorage.ts:20
+Defined in: [packages/state/src/state-types/ParameterizedAccountStorage.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ParameterizedAccountStorage.ts#L20)
 
 Represents an Ethereum account storage with hexadecimal string values.
 Used to serialize account data for storage and RPC responses.
@@ -30,7 +30,7 @@ const value: ParameterizedAccountStorage = {
 
 > **balance**: `` `0x${string}` ``
 
-Defined in: packages/state/src/state-types/ParameterizedAccountStorage.ts:22
+Defined in: [packages/state/src/state-types/ParameterizedAccountStorage.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ParameterizedAccountStorage.ts#L22)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: packages/state/src/state-types/ParameterizedAccountStorage.ts:22
 
 > **codeHash**: `` `0x${string}` ``
 
-Defined in: packages/state/src/state-types/ParameterizedAccountStorage.ts:24
+Defined in: [packages/state/src/state-types/ParameterizedAccountStorage.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ParameterizedAccountStorage.ts#L24)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: packages/state/src/state-types/ParameterizedAccountStorage.ts:24
 
 > **nonce**: `` `0x${string}` ``
 
-Defined in: packages/state/src/state-types/ParameterizedAccountStorage.ts:21
+Defined in: [packages/state/src/state-types/ParameterizedAccountStorage.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ParameterizedAccountStorage.ts#L21)
 
 ***
 
@@ -54,7 +54,7 @@ Defined in: packages/state/src/state-types/ParameterizedAccountStorage.ts:21
 
 > `optional` **storage**: `StorageDump`
 
-Defined in: packages/state/src/state-types/ParameterizedAccountStorage.ts:25
+Defined in: [packages/state/src/state-types/ParameterizedAccountStorage.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ParameterizedAccountStorage.ts#L25)
 
 ***
 
@@ -62,4 +62,4 @@ Defined in: packages/state/src/state-types/ParameterizedAccountStorage.ts:25
 
 > **storageRoot**: `` `0x${string}` ``
 
-Defined in: packages/state/src/state-types/ParameterizedAccountStorage.ts:23
+Defined in: [packages/state/src/state-types/ParameterizedAccountStorage.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ParameterizedAccountStorage.ts#L23)

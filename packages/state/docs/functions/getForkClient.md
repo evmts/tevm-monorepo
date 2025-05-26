@@ -8,7 +8,7 @@
 
 > **getForkClient**(`baseState`): `object`
 
-Defined in: packages/state/src/actions/getForkClient.js:20
+Defined in: [packages/state/src/actions/getForkClient.js:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getForkClient.js#L20)
 
 Creates a viem public client for the fork
 

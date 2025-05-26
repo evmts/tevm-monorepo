@@ -8,7 +8,7 @@
 
 > **createJsonRpcFetcher**(`client`): [`JsonRpcClient`](../type-aliases/JsonRpcClient.md)
 
-Defined in: packages/jsonrpc/src/createJsonRpcFetcher.js:19
+Defined in: [packages/jsonrpc/src/createJsonRpcFetcher.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/createJsonRpcFetcher.js#L19)
 
 ## Parameters
 

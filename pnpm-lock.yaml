@@ -1749,6 +1749,9 @@ importers:
 
   packages/http-client:
     dependencies:
+      '@tevm/address':
+        specifier: workspace:1.0.0-next.142
+        version: link:../address
       '@tevm/contract':
         specifier: workspace:^
         version: link:../contract
@@ -7741,6 +7744,7 @@ packages:
 
   bun@1.2.5:
     resolution: {integrity: sha512-fbQLt+DPiGUrPKdmsHRRT7cQAlfjdxPVFvLZrsUPmKiTdv+pU50ypdx9yRJluknSbyaZchFVV7Lx2KXikXKX2Q==}
+    cpu: [arm64, x64, aarch64]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -20192,7 +20196,7 @@ snapshots:
 
   '@types/sax@1.2.7':
     dependencies:
-      '@types/node': 17.0.45
+      '@types/node': 22.15.21
 
   '@types/secp256k1@4.0.6':
     dependencies:

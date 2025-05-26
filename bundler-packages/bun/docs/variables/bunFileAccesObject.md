@@ -8,7 +8,7 @@
 
 > `const` **bunFileAccesObject**: `FileAccessObject`
 
-Defined in: bundler-packages/bun/src/bunFileAccessObject.js:39
+Defined in: [bundler-packages/bun/src/bunFileAccessObject.js:39](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bun/src/bunFileAccessObject.js#L39)
 
 An adapter around the Bun file API that implements the FileAccessObject interface
 required by @tevm/base-bundler.

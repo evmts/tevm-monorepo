@@ -8,7 +8,7 @@
 
 > **createBlockFromValuesArray**(`values`, `opts`): [`Block`](../classes/Block.md)
 
-Defined in: packages/block/src/index.ts:43
+Defined in: [packages/block/src/index.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/index.ts#L43)
 
 Creates a block from an array of Bytes values
 

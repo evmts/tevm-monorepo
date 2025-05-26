@@ -8,7 +8,7 @@
 
 > **create2ContractAddress**(`from`, `salt`, `code`): [`Address`](../classes/Address.md)
 
-Defined in: packages/address/src/create2ContractAddress.js:86
+Defined in: [packages/address/src/create2ContractAddress.js:86](https://github.com/evmts/tevm-monorepo/blob/main/packages/address/src/create2ContractAddress.js#L86)
 
 Generates an [Address](../classes/Address.md) for a contract deployed using the CREATE2 opcode.
 

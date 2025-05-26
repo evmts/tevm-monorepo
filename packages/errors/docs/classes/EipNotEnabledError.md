@@ -6,7 +6,7 @@
 
 # Class: EipNotEnabledError
 
-Defined in: packages/errors/src/common/EipNotEnabledError.js:47
+Defined in: [packages/errors/src/common/EipNotEnabledError.js:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/common/EipNotEnabledError.js#L47)
 
 Represents an error that occurs when an EIP (Ethereum Improvement Proposal) is not enabled.
 
@@ -48,7 +48,7 @@ try {
 
 > **new EipNotEnabledError**(`message?`, `args?`): `EipNotEnabledError`
 
-Defined in: packages/errors/src/common/EipNotEnabledError.js:54
+Defined in: [packages/errors/src/common/EipNotEnabledError.js:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/common/EipNotEnabledError.js#L54)
 
 Constructs an EipNotEnabledError.
 
@@ -80,7 +80,7 @@ Additional parameters for the error.
 
 > **\_tag**: `string`
 
-Defined in: packages/errors/src/common/EipNotEnabledError.js:66
+Defined in: [packages/errors/src/common/EipNotEnabledError.js:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/common/EipNotEnabledError.js#L66)
 
 More discriminated version of name. Can be used to discriminate between errors with the same name.
 
@@ -94,7 +94,7 @@ More discriminated version of name. Can be used to discriminate between errors w
 
 > **cause**: `any`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:114
+Defined in: [packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
 
 #### Inherited from
 
@@ -106,7 +106,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:114
 
 > **code**: `number`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:112
+Defined in: [packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
 
 #### Inherited from
 
@@ -118,7 +118,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:112
 
 > **details**: `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:91
+Defined in: [packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
 
 #### Inherited from
 
@@ -130,7 +130,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:91
 
 > **docsPath**: `undefined` \| `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:96
+Defined in: [packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
 
 #### Inherited from
 
@@ -156,7 +156,7 @@ Human-readable error message.
 
 > **metaMessages**: `undefined` \| `string`[]
 
-Defined in: packages/errors/src/ethereum/BaseError.js:100
+Defined in: [packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
 
 #### Inherited from
 
@@ -168,7 +168,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:100
 
 > **name**: `string`
 
-Defined in: packages/errors/src/common/EipNotEnabledError.js:65
+Defined in: [packages/errors/src/common/EipNotEnabledError.js:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/common/EipNotEnabledError.js#L65)
 
 The name of the error, used to discriminate errors.
 
@@ -182,7 +182,7 @@ The name of the error, used to discriminate errors.
 
 > **shortMessage**: `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:104
+Defined in: [packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
 
 #### Inherited from
 
@@ -206,7 +206,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/li
 
 > **version**: `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:108
+Defined in: [packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
 
 #### Inherited from
 
@@ -218,7 +218,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:108
 
 > `static` **code**: `number` = `-32000`
 
-Defined in: packages/errors/src/ethereum/ExecutionErrorError.js:46
+Defined in: [packages/errors/src/ethereum/ExecutionErrorError.js:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ExecutionErrorError.js#L46)
 
 The error code for ExecutionError.
 
@@ -246,7 +246,7 @@ The maximum number of stack frames to capture.
 
 > **walk**(`fn?`): `unknown`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:137
+Defined in: [packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
 
 Walks through the error chain.
 

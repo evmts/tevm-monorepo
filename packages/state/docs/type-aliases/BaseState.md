@@ -8,7 +8,7 @@
 
 > **BaseState** = `object`
 
-Defined in: packages/state/src/BaseState.ts:9
+Defined in: [packages/state/src/BaseState.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L9)
 
 **`Internal`**
 
@@ -20,7 +20,7 @@ The core data structure powering the state manager internally
 
 > **caches**: [`StateCache`](StateCache.md)
 
-Defined in: packages/state/src/BaseState.ts:18
+Defined in: [packages/state/src/BaseState.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L18)
 
 ***
 
@@ -28,7 +28,7 @@ Defined in: packages/state/src/BaseState.ts:18
 
 > **forkCache**: [`StateCache`](StateCache.md)
 
-Defined in: packages/state/src/BaseState.ts:20
+Defined in: [packages/state/src/BaseState.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L20)
 
 ***
 
@@ -36,7 +36,7 @@ Defined in: packages/state/src/BaseState.ts:20
 
 > **getCurrentStateRoot**: () => `Hex`
 
-Defined in: packages/state/src/BaseState.ts:21
+Defined in: [packages/state/src/BaseState.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L21)
 
 #### Returns
 
@@ -48,7 +48,7 @@ Defined in: packages/state/src/BaseState.ts:21
 
 > **logger**: `Logger`
 
-Defined in: packages/state/src/BaseState.ts:12
+Defined in: [packages/state/src/BaseState.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L12)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: packages/state/src/BaseState.ts:12
 
 > **options**: [`StateOptions`](StateOptions.md)
 
-Defined in: packages/state/src/BaseState.ts:17
+Defined in: [packages/state/src/BaseState.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L17)
 
 ***
 
@@ -64,7 +64,7 @@ Defined in: packages/state/src/BaseState.ts:17
 
 > **ready**: () => `Promise`\<`true`\>
 
-Defined in: packages/state/src/BaseState.ts:11
+Defined in: [packages/state/src/BaseState.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L11)
 
 #### Returns
 
@@ -76,7 +76,7 @@ Defined in: packages/state/src/BaseState.ts:11
 
 > **setCurrentStateRoot**: (`newStateRoot`) => `void`
 
-Defined in: packages/state/src/BaseState.ts:22
+Defined in: [packages/state/src/BaseState.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L22)
 
 #### Parameters
 
@@ -94,6 +94,6 @@ Defined in: packages/state/src/BaseState.ts:22
 
 > **stateRoots**: [`StateRoots`](StateRoots.md)
 
-Defined in: packages/state/src/BaseState.ts:16
+Defined in: [packages/state/src/BaseState.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L16)
 
 Mapping of hashes to State roots

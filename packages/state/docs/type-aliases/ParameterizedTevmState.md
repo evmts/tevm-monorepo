@@ -8,7 +8,7 @@
 
 > **ParameterizedTevmState** = `object`
 
-Defined in: packages/state/src/state-types/ParameterizedTevmState.ts:21
+Defined in: [packages/state/src/state-types/ParameterizedTevmState.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ParameterizedTevmState.ts#L21)
 
 API-friendly version of TevmState with hex string values.
 Used for RPC responses and client-facing interfaces.

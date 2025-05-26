@@ -8,7 +8,7 @@
 
 > **ExecutionWitnessBytes** = `Uint8Array`
 
-Defined in: packages/block/src/types.ts:286
+Defined in: [packages/block/src/types.ts:286](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L286)
 
 Represents the serialized form of execution witness data
 

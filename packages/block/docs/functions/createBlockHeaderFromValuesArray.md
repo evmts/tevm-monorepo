@@ -8,7 +8,7 @@
 
 > **createBlockHeaderFromValuesArray**(`values`, `opts`): [`BlockHeader`](../classes/BlockHeader.md)
 
-Defined in: packages/block/src/index.ts:98
+Defined in: [packages/block/src/index.ts:98](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/index.ts#L98)
 
 Creates a block header from an array of Bytes values
 

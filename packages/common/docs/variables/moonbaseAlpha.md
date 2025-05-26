@@ -8,7 +8,7 @@
 
 > `const` **moonbaseAlpha**: `object`
 
-Defined in: packages/common/src/presets/moonbaseAlpha.js:26
+Defined in: [packages/common/src/presets/moonbaseAlpha.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/moonbaseAlpha.js#L26)
 
 Creates a common configuration for the moonbaseAlpha chain.
 

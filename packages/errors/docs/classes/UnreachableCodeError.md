@@ -6,7 +6,7 @@
 
 # Class: UnreachableCodeError
 
-Defined in: packages/errors/src/defensive/UnreachableCodeError.js:52
+Defined in: [packages/errors/src/defensive/UnreachableCodeError.js:52](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/defensive/UnreachableCodeError.js#L52)
 
 Represents an error that occurs when unreachable code is executed.
 This error always indicates a bug in the Tevm VM.
@@ -53,7 +53,7 @@ try {
 
 > **new UnreachableCodeError**(`value`, `message?`, `args?`): `UnreachableCodeError`
 
-Defined in: packages/errors/src/defensive/UnreachableCodeError.js:66
+Defined in: [packages/errors/src/defensive/UnreachableCodeError.js:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/defensive/UnreachableCodeError.js#L66)
 
 Constructs an UnreachableCodeError.
 
@@ -91,7 +91,7 @@ Additional parameters for the error.
 
 > **\_tag**: `string`
 
-Defined in: packages/errors/src/defensive/UnreachableCodeError.js:80
+Defined in: [packages/errors/src/defensive/UnreachableCodeError.js:80](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/defensive/UnreachableCodeError.js#L80)
 
 Same as name, used internally.
 
@@ -105,7 +105,7 @@ Same as name, used internally.
 
 > **cause**: `any`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:114
+Defined in: [packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
 
 #### Inherited from
 
@@ -117,7 +117,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:114
 
 > **code**: `number`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:112
+Defined in: [packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
 
 #### Inherited from
 
@@ -129,7 +129,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:112
 
 > **details**: `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:91
+Defined in: [packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
 
 #### Inherited from
 
@@ -141,7 +141,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:91
 
 > **docsPath**: `undefined` \| `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:96
+Defined in: [packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
 
 #### Inherited from
 
@@ -167,7 +167,7 @@ Human-readable error message.
 
 > **meta**: `undefined` \| `object`
 
-Defined in: packages/errors/src/ethereum/InternalErrorError.js:75
+Defined in: [packages/errors/src/ethereum/InternalErrorError.js:75](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InternalErrorError.js#L75)
 
 Optional object containing additional information about the error.
 
@@ -181,7 +181,7 @@ Optional object containing additional information about the error.
 
 > **metaMessages**: `undefined` \| `string`[]
 
-Defined in: packages/errors/src/ethereum/BaseError.js:100
+Defined in: [packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
 
 #### Inherited from
 
@@ -193,7 +193,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:100
 
 > **name**: `string`
 
-Defined in: packages/errors/src/defensive/UnreachableCodeError.js:79
+Defined in: [packages/errors/src/defensive/UnreachableCodeError.js:79](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/defensive/UnreachableCodeError.js#L79)
 
 The name of the error, used to discriminate errors.
 
@@ -207,7 +207,7 @@ The name of the error, used to discriminate errors.
 
 > **shortMessage**: `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:104
+Defined in: [packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
 
 #### Inherited from
 
@@ -231,7 +231,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/li
 
 > **value**: `any`
 
-Defined in: packages/errors/src/defensive/UnreachableCodeError.js:57
+Defined in: [packages/errors/src/defensive/UnreachableCodeError.js:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/defensive/UnreachableCodeError.js#L57)
 
 The value that should be unreachable.
 
@@ -241,7 +241,7 @@ The value that should be unreachable.
 
 > **version**: `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:108
+Defined in: [packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
 
 #### Inherited from
 
@@ -253,7 +253,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:108
 
 > `static` **code**: `number` = `-32603`
 
-Defined in: packages/errors/src/ethereum/InternalErrorError.js:52
+Defined in: [packages/errors/src/ethereum/InternalErrorError.js:52](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InternalErrorError.js#L52)
 
 The error code for InternalError.
 
@@ -281,7 +281,7 @@ The maximum number of stack frames to capture.
 
 > **walk**(`fn?`): `unknown`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:137
+Defined in: [packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
 
 Walks through the error chain.
 

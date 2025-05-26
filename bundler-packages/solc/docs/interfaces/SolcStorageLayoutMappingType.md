@@ -6,7 +6,7 @@
 
 # Interface: SolcStorageLayoutMappingType
 
-Defined in: solcTypes.ts:527
+Defined in: [solcTypes.ts:527](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L527)
 
 A storage layout type that is laid out in a keccak-256 hash-based method.
 
@@ -20,7 +20,7 @@ A storage layout type that is laid out in a keccak-256 hash-based method.
 
 > **encoding**: `"mapping"`
 
-Defined in: solcTypes.ts:528
+Defined in: [solcTypes.ts:528](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L528)
 
 How the data is encoded in storage
 
@@ -39,7 +39,7 @@ How the data is encoded in storage
 
 > **key**: `` `t_${string}` ``
 
-Defined in: solcTypes.ts:532
+Defined in: [solcTypes.ts:532](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L532)
 
 The associated type for the mapping key
 
@@ -49,7 +49,7 @@ The associated type for the mapping key
 
 > **label**: `string`
 
-Defined in: solcTypes.ts:501
+Defined in: [solcTypes.ts:501](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L501)
 
 The canonical type name
 
@@ -63,7 +63,7 @@ The canonical type name
 
 > **numberOfBytes**: `string`
 
-Defined in: solcTypes.ts:507
+Defined in: [solcTypes.ts:507](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L507)
 
 The number of used bytes (as a decimal string)
 
@@ -79,6 +79,6 @@ Note: if numberOfBytes > 32 this means that more than one slot is used
 
 > **value**: `` `t_${string}` ``
 
-Defined in: solcTypes.ts:536
+Defined in: [solcTypes.ts:536](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L536)
 
 The associated type for the mapping value

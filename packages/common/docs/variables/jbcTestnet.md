@@ -8,7 +8,7 @@
 
 > `const` **jbcTestnet**: `object`
 
-Defined in: packages/common/src/presets/jbcTestnet.js:26
+Defined in: [packages/common/src/presets/jbcTestnet.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/jbcTestnet.js#L26)
 
 Creates a common configuration for the jbcTestnet chain.
 

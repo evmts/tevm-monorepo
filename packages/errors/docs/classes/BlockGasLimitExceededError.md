@@ -6,7 +6,7 @@
 
 # Class: BlockGasLimitExceededError
 
-Defined in: packages/errors/src/ethereum/BlockGasLimitExceededError.js:47
+Defined in: [packages/errors/src/ethereum/BlockGasLimitExceededError.js:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L47)
 
 Represents an error that occurs when the block gas limit has been exceeded.
 
@@ -50,7 +50,7 @@ Additional parameters for the BaseError.
 
 > **new BlockGasLimitExceededError**(`message`, `args?`, `tag?`): `BlockGasLimitExceededError`
 
-Defined in: packages/errors/src/ethereum/BlockGasLimitExceededError.js:61
+Defined in: [packages/errors/src/ethereum/BlockGasLimitExceededError.js:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L61)
 
 Constructs a BlockGasLimitExceededError.
 
@@ -88,7 +88,7 @@ The tag for the error.
 
 > **\_tag**: `"BlockGasLimitExceeded"` = `'BlockGasLimitExceeded'`
 
-Defined in: packages/errors/src/ethereum/BlockGasLimitExceededError.js:83
+Defined in: [packages/errors/src/ethereum/BlockGasLimitExceededError.js:83](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L83)
 
 Same as name, used internally.
 
@@ -102,7 +102,7 @@ Same as name, used internally.
 
 > **cause**: `any`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:114
+Defined in: [packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
 
 #### Inherited from
 
@@ -114,7 +114,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:114
 
 > **code**: `number`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:112
+Defined in: [packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
 
 #### Inherited from
 
@@ -126,7 +126,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:112
 
 > **details**: `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:91
+Defined in: [packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
 
 #### Inherited from
 
@@ -138,7 +138,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:91
 
 > **docsPath**: `undefined` \| `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:96
+Defined in: [packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
 
 Path to the documentation for this error.
 
@@ -166,7 +166,7 @@ Human-readable error message.
 
 > **meta**: `undefined` \| `object`
 
-Defined in: packages/errors/src/ethereum/BlockGasLimitExceededError.js:76
+Defined in: [packages/errors/src/ethereum/BlockGasLimitExceededError.js:76](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L76)
 
 Optional object containing additional information about the error.
 
@@ -176,7 +176,7 @@ Optional object containing additional information about the error.
 
 > **metaMessages**: `undefined` \| `string`[]
 
-Defined in: packages/errors/src/ethereum/BaseError.js:100
+Defined in: [packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
 
 Additional meta messages for more context.
 
@@ -190,7 +190,7 @@ Additional meta messages for more context.
 
 > **name**: `"BlockGasLimitExceeded"` = `'BlockGasLimitExceeded'`
 
-Defined in: packages/errors/src/ethereum/BlockGasLimitExceededError.js:89
+Defined in: [packages/errors/src/ethereum/BlockGasLimitExceededError.js:89](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L89)
 
 The name of the error, used to discriminate errors.
 
@@ -204,7 +204,7 @@ The name of the error, used to discriminate errors.
 
 > **shortMessage**: `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:104
+Defined in: [packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
 
 #### Inherited from
 
@@ -228,7 +228,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/li
 
 > **version**: `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:108
+Defined in: [packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
 
 #### Inherited from
 
@@ -240,7 +240,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:108
 
 > `static` **code**: `number` = `-32006`
 
-Defined in: packages/errors/src/ethereum/BlockGasLimitExceededError.js:52
+Defined in: [packages/errors/src/ethereum/BlockGasLimitExceededError.js:52](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BlockGasLimitExceededError.js#L52)
 
 Error code (-32006), a non-standard extension for this specific error.
 
@@ -264,7 +264,7 @@ The maximum number of stack frames to capture.
 
 > **walk**(`fn?`): `unknown`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:137
+Defined in: [packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
 
 Walks through the error chain.
 

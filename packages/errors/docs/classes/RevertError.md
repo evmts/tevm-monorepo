@@ -6,7 +6,7 @@
 
 # Class: RevertError
 
-Defined in: packages/errors/src/ethereum/RevertError.js:49
+Defined in: [packages/errors/src/ethereum/RevertError.js:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/RevertError.js#L49)
 
 Represents an error that occurs when a transaction or message call is reverted.
 
@@ -56,7 +56,7 @@ Additional parameters for the BaseError.
 
 > **new RevertError**(`message`, `args?`, `tag?`): `RevertError`
 
-Defined in: packages/errors/src/ethereum/RevertError.js:63
+Defined in: [packages/errors/src/ethereum/RevertError.js:63](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/RevertError.js#L63)
 
 Constructs a RevertError.
 
@@ -94,7 +94,7 @@ The tag for the error.
 
 > **\_tag**: `string`
 
-Defined in: packages/errors/src/ethereum/RevertError.js:76
+Defined in: [packages/errors/src/ethereum/RevertError.js:76](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/RevertError.js#L76)
 
 Same as name, used internally.
 
@@ -108,7 +108,7 @@ Same as name, used internally.
 
 > **cause**: `any`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:114
+Defined in: [packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
 
 #### Inherited from
 
@@ -120,7 +120,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:114
 
 > **code**: `number`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:112
+Defined in: [packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
 
 #### Inherited from
 
@@ -132,7 +132,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:112
 
 > **details**: `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:91
+Defined in: [packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
 
 #### Inherited from
 
@@ -144,7 +144,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:91
 
 > **docsPath**: `undefined` \| `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:96
+Defined in: [packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
 
 Path to the documentation for this error.
 
@@ -172,7 +172,7 @@ Human-readable error message.
 
 > **metaMessages**: `undefined` \| `string`[]
 
-Defined in: packages/errors/src/ethereum/BaseError.js:100
+Defined in: [packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
 
 Additional meta messages for more context.
 
@@ -186,7 +186,7 @@ Additional meta messages for more context.
 
 > **name**: `string`
 
-Defined in: packages/errors/src/ethereum/RevertError.js:75
+Defined in: [packages/errors/src/ethereum/RevertError.js:75](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/RevertError.js#L75)
 
 The name of the error, used to discriminate errors.
 
@@ -200,7 +200,7 @@ The name of the error, used to discriminate errors.
 
 > **shortMessage**: `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:104
+Defined in: [packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
 
 #### Inherited from
 
@@ -224,7 +224,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/li
 
 > **version**: `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:108
+Defined in: [packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
 
 #### Inherited from
 
@@ -236,7 +236,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:108
 
 > `static` **code**: `number` = `-32000`
 
-Defined in: packages/errors/src/ethereum/RevertError.js:54
+Defined in: [packages/errors/src/ethereum/RevertError.js:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/RevertError.js#L54)
 
 Error code (-32000), standard Ethereum JSON-RPC error code for server errors.
 
@@ -260,7 +260,7 @@ The maximum number of stack frames to capture.
 
 > **walk**(`fn?`): `unknown`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:137
+Defined in: [packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
 
 Walks through the error chain.
 

@@ -25,6 +25,7 @@
 - [CreateEvmOptions](type-aliases/CreateEvmOptions.md)
 - [CustomPrecompile](type-aliases/CustomPrecompile.md)
 - [EVMOpts](type-aliases/EVMOpts.md)
+- [Log](type-aliases/Log.md)
 
 ## Functions
 

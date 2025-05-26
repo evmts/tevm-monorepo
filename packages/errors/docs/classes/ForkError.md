@@ -6,7 +6,7 @@
 
 # Class: ForkError
 
-Defined in: packages/errors/src/fork/ForkError.js:47
+Defined in: [packages/errors/src/fork/ForkError.js:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/fork/ForkError.js#L47)
 
 Represents an error thrown when attempting to fetch a resource from a Forked transport.
 If the underlying JSON-RPC call has an error code, the error code will be proxied to the ForkError.
@@ -46,7 +46,7 @@ try {
 
 > **new ForkError**(`message`, `args`): `ForkError`
 
-Defined in: packages/errors/src/fork/ForkError.js:54
+Defined in: [packages/errors/src/fork/ForkError.js:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/fork/ForkError.js#L54)
 
 Constructs a ForkError.
 
@@ -78,7 +78,7 @@ Additional parameters for the error.
 
 > **\_tag**: `string`
 
-Defined in: packages/errors/src/fork/ForkError.js:73
+Defined in: [packages/errors/src/fork/ForkError.js:73](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/fork/ForkError.js#L73)
 
 #### Inherited from
 
@@ -90,7 +90,7 @@ Defined in: packages/errors/src/fork/ForkError.js:73
 
 > **cause**: `any`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:114
+Defined in: [packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
 
 #### Inherited from
 
@@ -102,7 +102,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:114
 
 > **code**: `number`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:112
+Defined in: [packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
 
 #### Inherited from
 
@@ -114,7 +114,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:112
 
 > **details**: `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:91
+Defined in: [packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
 
 #### Inherited from
 
@@ -126,7 +126,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:91
 
 > **docsPath**: `undefined` \| `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:96
+Defined in: [packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
 
 #### Inherited from
 
@@ -150,7 +150,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/li
 
 > **metaMessages**: `undefined` \| `string`[]
 
-Defined in: packages/errors/src/ethereum/BaseError.js:100
+Defined in: [packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
 
 #### Inherited from
 
@@ -162,7 +162,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:100
 
 > **name**: `string`
 
-Defined in: packages/errors/src/fork/ForkError.js:72
+Defined in: [packages/errors/src/fork/ForkError.js:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/fork/ForkError.js#L72)
 
 #### Inherited from
 
@@ -174,7 +174,7 @@ Defined in: packages/errors/src/fork/ForkError.js:72
 
 > **shortMessage**: `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:104
+Defined in: [packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
 
 #### Inherited from
 
@@ -198,7 +198,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/li
 
 > **version**: `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:108
+Defined in: [packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
 
 #### Inherited from
 
@@ -224,7 +224,7 @@ The maximum number of stack frames to capture.
 
 > **walk**(`fn?`): `unknown`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:137
+Defined in: [packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
 
 Walks through the error chain.
 

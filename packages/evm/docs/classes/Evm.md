@@ -6,7 +6,7 @@
 
 # Class: Evm
 
-Defined in: packages/evm/src/Evm.js:25
+Defined in: [packages/evm/src/Evm.js:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.js#L25)
 
 The Tevm EVM is in charge of executing bytecode. It is a very light wrapper around ethereumjs EVM
 The Evm class provides tevm specific typing with regard to the custom stateManager. It does not
@@ -584,7 +584,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **addCustomPrecompile**(`precompile`): `void`
 
-Defined in: packages/evm/src/Evm.js:31
+Defined in: [packages/evm/src/Evm.js:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.js#L31)
 
 Adds a custom precompile to the EVM.
 
@@ -690,7 +690,7 @@ if no such precompile exists.
 
 > **removeCustomPrecompile**(`precompile`): `void`
 
-Defined in: packages/evm/src/Evm.js:47
+Defined in: [packages/evm/src/Evm.js:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.js#L47)
 
 Removes a custom precompile from the EVM.
 
@@ -849,7 +849,7 @@ EVM
 
 > `static` **create**(`options?`): `Promise`\<[`EvmType`](EvmType.md)\>
 
-Defined in: packages/evm/src/Evm.js:64
+Defined in: [packages/evm/src/Evm.js:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.js#L64)
 
 #### Parameters
 

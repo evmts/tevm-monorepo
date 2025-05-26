@@ -72,7 +72,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 ### ecsign()?
 
-> `optional` **ecsign**: (`msg`, `pk`, `ecSignOpts?`) => `Pick`\<`RecoveredSignatureType`, `"r"` \| `"s"` \| `"recovery"`\>
+> `optional` **ecsign**: (`msg`, `pk`, `ecSignOpts?`) => `Pick`\<`ReturnType`\<*typeof* `secp256k1.sign`\>, `"recovery"` \| `"r"` \| `"s"`\>
 
 Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:72
 
@@ -94,7 +94,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 #### Returns
 
-`Pick`\<`RecoveredSignatureType`, `"r"` \| `"s"` \| `"recovery"`\>
+`Pick`\<`ReturnType`\<*typeof* `secp256k1.sign`\>, `"recovery"` \| `"r"` \| `"s"`\>
 
 ***
 

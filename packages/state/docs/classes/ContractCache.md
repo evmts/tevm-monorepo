@@ -6,7 +6,7 @@
 
 # Class: ContractCache
 
-Defined in: packages/state/src/ContractCache.js:10
+Defined in: [packages/state/src/ContractCache.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L10)
 
 Contract cache is a mapping of addresses to deployedBytecode
 It is implemented via extending StorageCache and hardcoding slot 0
@@ -17,7 +17,7 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 > **new ContractCache**(`storageCache`): `ContractCache`
 
-Defined in: packages/state/src/ContractCache.js:11
+Defined in: [packages/state/src/ContractCache.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L11)
 
 #### Parameters
 
@@ -35,7 +35,7 @@ Defined in: packages/state/src/ContractCache.js:11
 
 > **storageCache**: [`StorageCache`](StorageCache.md)
 
-Defined in: packages/state/src/ContractCache.js:17
+Defined in: [packages/state/src/ContractCache.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L17)
 
 ## Accessors
 
@@ -45,7 +45,7 @@ Defined in: packages/state/src/ContractCache.js:17
 
 > **get** **\_checkpoints**(): `number`
 
-Defined in: packages/state/src/ContractCache.js:77
+Defined in: [packages/state/src/ContractCache.js:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L77)
 
 ##### Returns
 
@@ -57,7 +57,7 @@ Defined in: packages/state/src/ContractCache.js:77
 
 > **checkpoint**(): `void`
 
-Defined in: packages/state/src/ContractCache.js:62
+Defined in: [packages/state/src/ContractCache.js:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L62)
 
 #### Returns
 
@@ -69,7 +69,7 @@ Defined in: packages/state/src/ContractCache.js:62
 
 > **clear**(): `void`
 
-Defined in: packages/state/src/ContractCache.js:30
+Defined in: [packages/state/src/ContractCache.js:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L30)
 
 #### Returns
 
@@ -81,7 +81,7 @@ Defined in: packages/state/src/ContractCache.js:30
 
 > **commit**(): `void`
 
-Defined in: packages/state/src/ContractCache.js:23
+Defined in: [packages/state/src/ContractCache.js:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L23)
 
 #### Returns
 
@@ -93,7 +93,7 @@ Defined in: packages/state/src/ContractCache.js:23
 
 > **del**(`address`): `void`
 
-Defined in: packages/state/src/ContractCache.js:55
+Defined in: [packages/state/src/ContractCache.js:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L55)
 
 #### Parameters
 
@@ -111,7 +111,7 @@ Defined in: packages/state/src/ContractCache.js:55
 
 > **get**(`address`): `undefined` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/state/src/ContractCache.js:38
+Defined in: [packages/state/src/ContractCache.js:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L38)
 
 #### Parameters
 
@@ -129,7 +129,7 @@ Defined in: packages/state/src/ContractCache.js:38
 
 > **has**(`address`): `boolean`
 
-Defined in: packages/state/src/ContractCache.js:70
+Defined in: [packages/state/src/ContractCache.js:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L70)
 
 #### Parameters
 
@@ -149,7 +149,7 @@ if the cache has the key
 
 > **put**(`address`, `bytecode`): `void`
 
-Defined in: packages/state/src/ContractCache.js:47
+Defined in: [packages/state/src/ContractCache.js:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L47)
 
 #### Parameters
 
@@ -171,7 +171,7 @@ Defined in: packages/state/src/ContractCache.js:47
 
 > **revert**(): `void`
 
-Defined in: packages/state/src/ContractCache.js:88
+Defined in: [packages/state/src/ContractCache.js:88](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L88)
 
 #### Returns
 
@@ -183,7 +183,7 @@ Defined in: packages/state/src/ContractCache.js:88
 
 > **size**(): `number`
 
-Defined in: packages/state/src/ContractCache.js:81
+Defined in: [packages/state/src/ContractCache.js:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L81)
 
 #### Returns
 

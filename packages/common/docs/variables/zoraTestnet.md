@@ -8,7 +8,7 @@
 
 > `const` **zoraTestnet**: `object`
 
-Defined in: packages/common/src/presets/zoraTestnet.js:26
+Defined in: [packages/common/src/presets/zoraTestnet.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/zoraTestnet.js#L26)
 
 Creates a common configuration for the zoraTestnet chain.
 

@@ -8,7 +8,7 @@
 
 > **fileExists**(`path`): `Effect`\<`boolean`, `never`, `never`\>
 
-Defined in: packages/effect/src/fileExists.js:16
+Defined in: [packages/effect/src/fileExists.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/fileExists.js#L16)
 
 **`Internal`**
 

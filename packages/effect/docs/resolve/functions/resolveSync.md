@@ -8,7 +8,7 @@
 
 > **resolveSync**(`arg0`, `arg1`): `Effect`\<`string`, [`CouldNotResolveImportError`](../classes/CouldNotResolveImportError.md), `never`\>
 
-Defined in: packages/effect/src/resolve.js:46
+Defined in: [packages/effect/src/resolve.js:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L46)
 
 Effect wrapper around import('node:resolve').resolveSync
 

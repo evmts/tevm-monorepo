@@ -8,7 +8,7 @@
 
 > **WithdrawalV1** = `object`
 
-Defined in: packages/block/src/types.ts:526
+Defined in: [packages/block/src/types.ts:526](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L526)
 
 Represents an Ethereum withdrawal from the consensus layer to the execution layer
 
@@ -47,7 +47,7 @@ function processWithdrawals(withdrawals: WithdrawalV1[]): void {
 
 > **address**: `Hex`
 
-Defined in: packages/block/src/types.ts:529
+Defined in: [packages/block/src/types.ts:529](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L529)
 
 ***
 
@@ -55,7 +55,7 @@ Defined in: packages/block/src/types.ts:529
 
 > **amount**: `Hex`
 
-Defined in: packages/block/src/types.ts:530
+Defined in: [packages/block/src/types.ts:530](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L530)
 
 ***
 
@@ -63,7 +63,7 @@ Defined in: packages/block/src/types.ts:530
 
 > **index**: `Hex`
 
-Defined in: packages/block/src/types.ts:527
+Defined in: [packages/block/src/types.ts:527](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L527)
 
 ***
 
@@ -71,4 +71,4 @@ Defined in: packages/block/src/types.ts:527
 
 > **validatorIndex**: `Hex`
 
-Defined in: packages/block/src/types.ts:528
+Defined in: [packages/block/src/types.ts:528](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L528)

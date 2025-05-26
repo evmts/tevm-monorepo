@@ -8,7 +8,7 @@
 
 > `const` **hashkeyTestnet**: `object`
 
-Defined in: packages/common/src/presets/hashkeyTestnet.js:26
+Defined in: [packages/common/src/presets/hashkeyTestnet.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/hashkeyTestnet.js#L26)
 
 Creates a common configuration for the hashkeyTestnet chain.
 

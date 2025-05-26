@@ -6,7 +6,7 @@
 
 # Interface: HeaderData
 
-Defined in: packages/block/src/types.ts:166
+Defined in: [packages/block/src/types.ts:166](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L166)
 
 A block header's data.
 
@@ -16,7 +16,7 @@ A block header's data.
 
 > `optional` **baseFeePerGas**: `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/src/types.ts:182
+Defined in: [packages/block/src/types.ts:182](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L182)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: packages/block/src/types.ts:182
 
 > `optional` **blobGasUsed**: `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/src/types.ts:184
+Defined in: [packages/block/src/types.ts:184](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L184)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: packages/block/src/types.ts:184
 
 > `optional` **coinbase**: `string` \| `Address` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/src/types.ts:169
+Defined in: [packages/block/src/types.ts:169](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L169)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: packages/block/src/types.ts:169
 
 > `optional` **difficulty**: `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/src/types.ts:174
+Defined in: [packages/block/src/types.ts:174](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L174)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: packages/block/src/types.ts:174
 
 > `optional` **excessBlobGas**: `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/src/types.ts:185
+Defined in: [packages/block/src/types.ts:185](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L185)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: packages/block/src/types.ts:185
 
 > `optional` **extraData**: `string` \| `number` \| `bigint` \| `number`[] \| `TransformableToBytes` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/src/types.ts:179
+Defined in: [packages/block/src/types.ts:179](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L179)
 
 ***
 
@@ -64,7 +64,7 @@ Defined in: packages/block/src/types.ts:179
 
 > `optional` **gasLimit**: `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/src/types.ts:176
+Defined in: [packages/block/src/types.ts:176](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L176)
 
 ***
 
@@ -72,7 +72,7 @@ Defined in: packages/block/src/types.ts:176
 
 > `optional` **gasUsed**: `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/src/types.ts:177
+Defined in: [packages/block/src/types.ts:177](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L177)
 
 ***
 
@@ -80,7 +80,7 @@ Defined in: packages/block/src/types.ts:177
 
 > `optional` **logsBloom**: `string` \| `number` \| `bigint` \| `number`[] \| `TransformableToBytes` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/src/types.ts:173
+Defined in: [packages/block/src/types.ts:173](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L173)
 
 ***
 
@@ -88,7 +88,7 @@ Defined in: packages/block/src/types.ts:173
 
 > `optional` **mixHash**: `string` \| `number` \| `bigint` \| `number`[] \| `TransformableToBytes` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/src/types.ts:180
+Defined in: [packages/block/src/types.ts:180](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L180)
 
 ***
 
@@ -96,7 +96,7 @@ Defined in: packages/block/src/types.ts:180
 
 > `optional` **nonce**: `string` \| `number` \| `bigint` \| `number`[] \| `TransformableToBytes` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/src/types.ts:181
+Defined in: [packages/block/src/types.ts:181](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L181)
 
 ***
 
@@ -104,7 +104,7 @@ Defined in: packages/block/src/types.ts:181
 
 > `optional` **number**: `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/src/types.ts:175
+Defined in: [packages/block/src/types.ts:175](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L175)
 
 ***
 
@@ -112,7 +112,7 @@ Defined in: packages/block/src/types.ts:175
 
 > `optional` **parentBeaconBlockRoot**: `string` \| `number` \| `bigint` \| `number`[] \| `TransformableToBytes` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/src/types.ts:186
+Defined in: [packages/block/src/types.ts:186](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L186)
 
 ***
 
@@ -120,7 +120,7 @@ Defined in: packages/block/src/types.ts:186
 
 > `optional` **parentHash**: `string` \| `number` \| `bigint` \| `number`[] \| `TransformableToBytes` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/src/types.ts:167
+Defined in: [packages/block/src/types.ts:167](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L167)
 
 ***
 
@@ -128,7 +128,7 @@ Defined in: packages/block/src/types.ts:167
 
 > `optional` **receiptTrie**: `string` \| `number` \| `bigint` \| `number`[] \| `TransformableToBytes` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/src/types.ts:172
+Defined in: [packages/block/src/types.ts:172](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L172)
 
 ***
 
@@ -136,7 +136,7 @@ Defined in: packages/block/src/types.ts:172
 
 > `optional` **requestsRoot**: `string` \| `number` \| `bigint` \| `number`[] \| `TransformableToBytes` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/src/types.ts:187
+Defined in: [packages/block/src/types.ts:187](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L187)
 
 ***
 
@@ -144,7 +144,7 @@ Defined in: packages/block/src/types.ts:187
 
 > `optional` **stateRoot**: `string` \| `number` \| `bigint` \| `number`[] \| `TransformableToBytes` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/src/types.ts:170
+Defined in: [packages/block/src/types.ts:170](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L170)
 
 ***
 
@@ -152,7 +152,7 @@ Defined in: packages/block/src/types.ts:170
 
 > `optional` **timestamp**: `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/src/types.ts:178
+Defined in: [packages/block/src/types.ts:178](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L178)
 
 ***
 
@@ -160,7 +160,7 @@ Defined in: packages/block/src/types.ts:178
 
 > `optional` **transactionsTrie**: `string` \| `number` \| `bigint` \| `number`[] \| `TransformableToBytes` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/src/types.ts:171
+Defined in: [packages/block/src/types.ts:171](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L171)
 
 ***
 
@@ -168,7 +168,7 @@ Defined in: packages/block/src/types.ts:171
 
 > `optional` **uncleHash**: `string` \| `number` \| `bigint` \| `number`[] \| `TransformableToBytes` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/src/types.ts:168
+Defined in: [packages/block/src/types.ts:168](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L168)
 
 ***
 
@@ -176,4 +176,4 @@ Defined in: packages/block/src/types.ts:168
 
 > `optional` **withdrawalsRoot**: `string` \| `number` \| `bigint` \| `number`[] \| `TransformableToBytes` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/src/types.ts:183
+Defined in: [packages/block/src/types.ts:183](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L183)

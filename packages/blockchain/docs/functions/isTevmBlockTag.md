@@ -8,7 +8,7 @@
 
 > **isTevmBlockTag**(`blockTag`): `blockTag is TevmBlockTag`
 
-Defined in: packages/blockchain/src/utils/isTevmBlockTag.js:17
+Defined in: [packages/blockchain/src/utils/isTevmBlockTag.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/utils/isTevmBlockTag.js#L17)
 
 Determines if an unknown type is a valid block tag
 

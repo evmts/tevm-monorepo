@@ -8,7 +8,7 @@
 
 > **SolcOptimizerDetails** = `object`
 
-Defined in: solcTypes.ts:77
+Defined in: [solcTypes.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L77)
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: solcTypes.ts:77
 
 > **constantOptimizer**: `boolean`
 
-Defined in: solcTypes.ts:95
+Defined in: [solcTypes.ts:95](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L95)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: solcTypes.ts:95
 
 > **cse**: `boolean`
 
-Defined in: solcTypes.ts:93
+Defined in: [solcTypes.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L93)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: solcTypes.ts:93
 
 > **deduplicate**: `boolean`
 
-Defined in: solcTypes.ts:90
+Defined in: [solcTypes.ts:90](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L90)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: solcTypes.ts:90
 
 > **inliner**: `boolean`
 
-Defined in: solcTypes.ts:83
+Defined in: [solcTypes.ts:83](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L83)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: solcTypes.ts:83
 
 > **jumpdestRemover**: `boolean`
 
-Defined in: solcTypes.ts:86
+Defined in: [solcTypes.ts:86](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L86)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: solcTypes.ts:86
 
 > **orderLiterals**: `boolean`
 
-Defined in: solcTypes.ts:88
+Defined in: [solcTypes.ts:88](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L88)
 
 ***
 
@@ -64,7 +64,7 @@ Defined in: solcTypes.ts:88
 
 > **peephole**: `boolean`
 
-Defined in: solcTypes.ts:80
+Defined in: [solcTypes.ts:80](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L80)
 
 ***
 
@@ -72,7 +72,7 @@ Defined in: solcTypes.ts:80
 
 > **yul**: `boolean`
 
-Defined in: solcTypes.ts:101
+Defined in: [solcTypes.ts:101](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L101)
 
 ***
 
@@ -80,4 +80,4 @@ Defined in: solcTypes.ts:101
 
 > **yulDetails**: [`SolcYulDetails`](SolcYulDetails.md)
 
-Defined in: solcTypes.ts:102
+Defined in: [solcTypes.ts:102](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L102)

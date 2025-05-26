@@ -8,7 +8,7 @@
 
 > **SolcSettings** = `object`
 
-Defined in: solcTypes.ts:239
+Defined in: [solcTypes.ts:239](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L239)
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: solcTypes.ts:239
 
 > `optional` **debug**: [`SolcDebugSettings`](SolcDebugSettings.md)
 
-Defined in: solcTypes.ts:253
+Defined in: [solcTypes.ts:253](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L253)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: solcTypes.ts:253
 
 > `optional` **evmVersion**: `"byzantium"` \| `"constantinople"` \| `"petersburg"` \| `"istanbul"` \| `"berlin"` \| `"london"` \| `"paris"`
 
-Defined in: solcTypes.ts:248
+Defined in: [solcTypes.ts:248](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L248)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: solcTypes.ts:248
 
 > `optional` **libraries**: `Record`\<`string`, `Record`\<`string`, `string`\>\>
 
-Defined in: solcTypes.ts:262
+Defined in: [solcTypes.ts:262](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L262)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: solcTypes.ts:262
 
 > `optional` **metadata**: [`SolcMetadataSettings`](SolcMetadataSettings.md)
 
-Defined in: solcTypes.ts:255
+Defined in: [solcTypes.ts:255](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L255)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: solcTypes.ts:255
 
 > `optional` **modelChecker**: [`SolcModelChecker`](SolcModelChecker.md)
 
-Defined in: solcTypes.ts:309
+Defined in: [solcTypes.ts:309](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L309)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: solcTypes.ts:309
 
 > `optional` **optimizer**: [`SolcOptimizer`](SolcOptimizer.md)
 
-Defined in: solcTypes.ts:244
+Defined in: [solcTypes.ts:244](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L244)
 
 ***
 
@@ -64,7 +64,7 @@ Defined in: solcTypes.ts:244
 
 > **outputSelection**: [`SolcOutputSelection`](SolcOutputSelection.md)
 
-Defined in: solcTypes.ts:307
+Defined in: [solcTypes.ts:307](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L307)
 
 ***
 
@@ -72,7 +72,7 @@ Defined in: solcTypes.ts:307
 
 > `optional` **remappings**: [`SolcRemapping`](SolcRemapping.md)
 
-Defined in: solcTypes.ts:243
+Defined in: [solcTypes.ts:243](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L243)
 
 ***
 
@@ -80,7 +80,7 @@ Defined in: solcTypes.ts:243
 
 > `optional` **stopAfter**: `"parsing"`
 
-Defined in: solcTypes.ts:241
+Defined in: [solcTypes.ts:241](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L241)
 
 ***
 
@@ -88,4 +88,4 @@ Defined in: solcTypes.ts:241
 
 > `optional` **viaIR**: `boolean`
 
-Defined in: solcTypes.ts:251
+Defined in: [solcTypes.ts:251](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L251)

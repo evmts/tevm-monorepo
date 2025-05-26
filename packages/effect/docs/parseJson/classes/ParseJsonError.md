@@ -6,7 +6,7 @@
 
 # Class: ParseJsonError
 
-Defined in: packages/effect/src/parseJson.js:8
+Defined in: [packages/effect/src/parseJson.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/parseJson.js#L8)
 
 **`Internal`**
 
@@ -22,7 +22,7 @@ Error thrown when the tsconfig.json file is not valid json
 
 > **new ParseJsonError**(`options?`): `ParseJsonError`
 
-Defined in: packages/effect/src/parseJson.js:17
+Defined in: [packages/effect/src/parseJson.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/parseJson.js#L17)
 
 #### Parameters
 
@@ -46,7 +46,7 @@ Defined in: packages/effect/src/parseJson.js:17
 
 > **\_tag**: `"ParseJsonError"` = `'ParseJsonError'`
 
-Defined in: packages/effect/src/parseJson.js:12
+Defined in: [packages/effect/src/parseJson.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/parseJson.js#L12)
 
 ***
 

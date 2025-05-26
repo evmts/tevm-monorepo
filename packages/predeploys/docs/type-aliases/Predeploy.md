@@ -8,7 +8,7 @@
 
 > **Predeploy**\<`TName`, `THumanReadableAbi`\> = `object`
 
-Defined in: Predeploy.ts:7
+Defined in: [Predeploy.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L7)
 
 Type of predeploy contract for tevm
 
@@ -28,7 +28,7 @@ Type of predeploy contract for tevm
 
 > `readonly` **contract**: `Contract`\<`TName`, `THumanReadableAbi`, `Address`, `Hex`, `Hex`\>
 
-Defined in: Predeploy.ts:8
+Defined in: [Predeploy.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L8)
 
 ***
 
@@ -36,7 +36,7 @@ Defined in: Predeploy.ts:8
 
 > `readonly` **predeploy**: () => `object`
 
-Defined in: Predeploy.ts:9
+Defined in: [Predeploy.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L9)
 
 #### Returns
 

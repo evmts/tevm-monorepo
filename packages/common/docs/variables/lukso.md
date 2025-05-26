@@ -8,7 +8,7 @@
 
 > `const` **lukso**: `object`
 
-Defined in: packages/common/src/presets/lukso.js:26
+Defined in: [packages/common/src/presets/lukso.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/lukso.js#L26)
 
 Creates a common configuration for the lukso chain.
 

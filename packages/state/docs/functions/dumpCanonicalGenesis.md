@@ -8,7 +8,7 @@
 
 > **dumpCanonicalGenesis**(`baseState`, `skipFetchingFromFork?`): () => `Promise`\<[`TevmState`](../type-aliases/TevmState.md)\>
 
-Defined in: packages/state/src/actions/dumpCannonicalGenesis.js:15
+Defined in: [packages/state/src/actions/dumpCannonicalGenesis.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/dumpCannonicalGenesis.js#L15)
 
 Dumps the state of the state manager as a [TevmState](../type-aliases/TevmState.md)
 

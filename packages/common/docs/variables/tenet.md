@@ -8,7 +8,7 @@
 
 > `const` **tenet**: `object`
 
-Defined in: packages/common/src/presets/tenet.js:26
+Defined in: [packages/common/src/presets/tenet.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/tenet.js#L26)
 
 Creates a common configuration for the tenet chain.
 

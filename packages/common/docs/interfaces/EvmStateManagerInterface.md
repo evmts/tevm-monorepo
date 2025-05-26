@@ -382,7 +382,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 ##### accountFields
 
-`Partial`
+[`AccountFields`](../type-aliases/AccountFields.md)
 
 #### Returns
 

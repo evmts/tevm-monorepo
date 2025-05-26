@@ -8,7 +8,7 @@
 
 > **createMapDb**(`options`): [`MapDb`](../type-aliases/MapDb.md)
 
-Defined in: createMapDb.js:44
+Defined in: [createMapDb.js:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/createMapDb.js#L44)
 
 Creates a MapDb which uses an in-memory map as its underlying data structure.
 This implementation provides methods for storing, retrieving, and deleting

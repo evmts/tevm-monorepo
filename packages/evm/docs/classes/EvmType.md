@@ -6,7 +6,7 @@
 
 # Class: EvmType
 
-Defined in: packages/evm/src/EvmType.ts:12
+Defined in: [packages/evm/src/EvmType.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/EvmType.ts#L12)
 
 ## Extends
 
@@ -86,7 +86,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > `protected` **\_customPrecompiles**: `CustomPrecompile`[]
 
-Defined in: packages/evm/src/EvmType.ts:14
+Defined in: [packages/evm/src/EvmType.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/EvmType.ts#L14)
 
 #### Overrides
 
@@ -312,7 +312,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **stateManager**: `StateManager`
 
-Defined in: packages/evm/src/EvmType.ts:13
+Defined in: [packages/evm/src/EvmType.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/EvmType.ts#L13)
 
 #### Overrides
 
@@ -560,7 +560,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **addCustomPrecompile**(`precompile`): `void`
 
-Defined in: packages/evm/src/EvmType.ts:16
+Defined in: [packages/evm/src/EvmType.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/EvmType.ts#L16)
 
 #### Parameters
 
@@ -662,7 +662,7 @@ if no such precompile exists.
 
 > **removeCustomPrecompile**(`precompile`): `void`
 
-Defined in: packages/evm/src/EvmType.ts:17
+Defined in: [packages/evm/src/EvmType.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/EvmType.ts#L17)
 
 #### Parameters
 
@@ -815,7 +815,7 @@ EVM
 
 > `static` **create**(`options?`): `Promise`\<`Evm`\>
 
-Defined in: packages/evm/src/EvmType.ts:18
+Defined in: [packages/evm/src/EvmType.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/EvmType.ts#L18)
 
 #### Parameters
 

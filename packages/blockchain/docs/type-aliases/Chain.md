@@ -8,7 +8,7 @@
 
 > **Chain** = `object` & `BaseChain` & `object`
 
-Defined in: packages/blockchain/src/Chain.ts:16
+Defined in: [packages/blockchain/src/Chain.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L16)
 
 Blockchain
 

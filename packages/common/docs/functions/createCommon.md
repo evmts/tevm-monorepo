@@ -8,7 +8,7 @@
 
 > **createCommon**(`options`): `object`
 
-Defined in: packages/common/src/createCommon.js:53
+Defined in: [packages/common/src/createCommon.js:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/createCommon.js#L53)
 
 Common is the main representation of chain specific configuration for tevm clients.
 

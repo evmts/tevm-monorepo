@@ -8,7 +8,7 @@
 
 > **StateAction**\<`T`\> = (`baseState`, `skipFetchingFromFork?`) => [`StateManager`](../interfaces/StateManager.md)\[`T`\]
 
-Defined in: packages/state/src/state-types/StateAction.ts:4
+Defined in: [packages/state/src/state-types/StateAction.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateAction.ts#L4)
 
 ## Type Parameters
 

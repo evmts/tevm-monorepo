@@ -8,7 +8,7 @@
 
 > `const` **berachainTestnetbArtio**: `object`
 
-Defined in: packages/common/src/presets/berachainTestnetbArtio.js:26
+Defined in: [packages/common/src/presets/berachainTestnetbArtio.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/berachainTestnetbArtio.js#L26)
 
 Creates a common configuration for the berachainTestnetbArtio chain.
 

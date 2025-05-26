@@ -8,7 +8,7 @@
 
 > **setIteratorHead**(`baseChain`): (`tag`, `headHash`) => `Promise`\<`void`\>
 
-Defined in: packages/blockchain/src/actions/setIteratorHead.js:7
+Defined in: [packages/blockchain/src/actions/setIteratorHead.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/setIteratorHead.js#L7)
 
 ## Parameters
 

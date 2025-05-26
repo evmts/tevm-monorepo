@@ -8,7 +8,7 @@
 
 > `const` **filecoinHyperspace**: `object`
 
-Defined in: packages/common/src/presets/filecoinHyperspace.js:26
+Defined in: [packages/common/src/presets/filecoinHyperspace.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/filecoinHyperspace.js#L26)
 
 Creates a common configuration for the filecoinHyperspace chain.
 

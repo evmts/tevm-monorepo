@@ -8,7 +8,7 @@
 
 > `const` **eos**: `object`
 
-Defined in: packages/common/src/presets/eos.js:26
+Defined in: [packages/common/src/presets/eos.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/eos.js#L26)
 
 Creates a common configuration for the eos chain.
 

@@ -45,24 +45,13 @@ describe(validateHeader.name, async () => {
 		const chain = createBaseChain({ common: optimism.copy() })
 		await putBlock(chain)(blocks[0])
 
-		// Mock the validateGasLimit function
+		// Mock validateGasLimit method on the actual header
 		const mockValidateGasLimit = vi.fn()
+		vi.spyOn(blocks[1].header, 'validateGasLimit').mockImplementation(mockValidateGasLimit)
 
-		// Create a valid header with mocked validateGasLimit
-		const validHeader = {
-			...blocks[1].header,
-			isGenesis: () => false,
-			errorStr: () => 'Test header',
-			validateGasLimit: mockValidateGasLimit,
-			common: {
-				...blocks[1].header.common,
-				ethjsCommon: {
-					...blocks[1].header.common.ethjsCommon,
-					consensusType: () => 'pos',
-					isActivatedEIP: () => false, // This is needed to avoid the EIP1559 check
-				},
-			},
-		}
+		// Mock the common to use pos consensus
+		vi.spyOn(blocks[1].header.common.ethjsCommon, 'consensusType').mockReturnValue('pos')
+		vi.spyOn(blocks[1].header.common.ethjsCommon, 'isActivatedEIP').mockReturnValue(false)
 
 		// Mock getBlock to return the parent block
 		vi.spyOn(getBlockModule, 'getBlock').mockImplementation(() => {
@@ -70,10 +59,10 @@ describe(validateHeader.name, async () => {
 		})
 
 		const headerValidator = validateHeader(chain)
-		await headerValidator(validHeader as any)
+		await headerValidator(blocks[1].header)
 
 		// Verify validateGasLimit was called with parent header
-		expect(mockValidateGasLimit).toHaveBeenCalled()
+		expect(mockValidateGasLimit).toHaveBeenCalledWith(blocks[0].header)
 	})
 
 	it('should throw error when validating uncle block with incorrect height', async () => {

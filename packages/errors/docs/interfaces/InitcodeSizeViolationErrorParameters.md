@@ -6,7 +6,7 @@
 
 # Interface: InitcodeSizeViolationErrorParameters
 
-Defined in: packages/errors/src/ethereum/ethereumjs/InitcodeSizeViolationError.js:6
+Defined in: [packages/errors/src/ethereum/ethereumjs/InitcodeSizeViolationError.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InitcodeSizeViolationError.js#L6)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: packages/errors/src/ethereum/ethereumjs/InitcodeSizeViolationError.j
 
 > `optional` **cause**: `EVMError` \| [`ExecutionError`](../classes/ExecutionError.md)
 
-Defined in: packages/errors/src/ethereum/ethereumjs/InitcodeSizeViolationError.js:11
+Defined in: [packages/errors/src/ethereum/ethereumjs/InitcodeSizeViolationError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InitcodeSizeViolationError.js#L11)
 
 The cause of the error.
 
@@ -24,7 +24,7 @@ The cause of the error.
 
 > `optional` **details**: `string`
 
-Defined in: packages/errors/src/ethereum/ethereumjs/InitcodeSizeViolationError.js:12
+Defined in: [packages/errors/src/ethereum/ethereumjs/InitcodeSizeViolationError.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InitcodeSizeViolationError.js#L12)
 
 Details of the error.
 
@@ -34,7 +34,7 @@ Details of the error.
 
 > `optional` **docsBaseUrl**: `string`
 
-Defined in: packages/errors/src/ethereum/ethereumjs/InitcodeSizeViolationError.js:7
+Defined in: [packages/errors/src/ethereum/ethereumjs/InitcodeSizeViolationError.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InitcodeSizeViolationError.js#L7)
 
 Base URL for the documentation.
 
@@ -44,7 +44,7 @@ Base URL for the documentation.
 
 > `optional` **docsPath**: `string`
 
-Defined in: packages/errors/src/ethereum/ethereumjs/InitcodeSizeViolationError.js:8
+Defined in: [packages/errors/src/ethereum/ethereumjs/InitcodeSizeViolationError.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InitcodeSizeViolationError.js#L8)
 
 Path to the documentation.
 
@@ -54,7 +54,7 @@ Path to the documentation.
 
 > `optional` **docsSlug**: `string`
 
-Defined in: packages/errors/src/ethereum/ethereumjs/InitcodeSizeViolationError.js:9
+Defined in: [packages/errors/src/ethereum/ethereumjs/InitcodeSizeViolationError.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InitcodeSizeViolationError.js#L9)
 
 Slug for the documentation.
 
@@ -64,7 +64,7 @@ Slug for the documentation.
 
 > `optional` **meta**: `object`
 
-Defined in: packages/errors/src/ethereum/ethereumjs/InitcodeSizeViolationError.js:13
+Defined in: [packages/errors/src/ethereum/ethereumjs/InitcodeSizeViolationError.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InitcodeSizeViolationError.js#L13)
 
 Optional object containing additional information about the error.
 
@@ -74,6 +74,6 @@ Optional object containing additional information about the error.
 
 > `optional` **metaMessages**: `string`[]
 
-Defined in: packages/errors/src/ethereum/ethereumjs/InitcodeSizeViolationError.js:10
+Defined in: [packages/errors/src/ethereum/ethereumjs/InitcodeSizeViolationError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InitcodeSizeViolationError.js#L10)
 
 Additional meta messages.

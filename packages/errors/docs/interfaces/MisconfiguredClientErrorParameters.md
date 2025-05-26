@@ -6,7 +6,7 @@
 
 # Interface: MisconfiguredClientErrorParameters
 
-Defined in: packages/errors/src/client/MisconfiguredClient.js:5
+Defined in: [packages/errors/src/client/MisconfiguredClient.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/MisconfiguredClient.js#L5)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: packages/errors/src/client/MisconfiguredClient.js:5
 
 > `optional` **cause**: `EVMError` \| [`InternalError`](../classes/InternalError.md)
 
-Defined in: packages/errors/src/client/MisconfiguredClient.js:10
+Defined in: [packages/errors/src/client/MisconfiguredClient.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/MisconfiguredClient.js#L10)
 
 The cause of the error.
 
@@ -24,7 +24,7 @@ The cause of the error.
 
 > `optional` **details**: `string`
 
-Defined in: packages/errors/src/client/MisconfiguredClient.js:11
+Defined in: [packages/errors/src/client/MisconfiguredClient.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/MisconfiguredClient.js#L11)
 
 Details of the error.
 
@@ -34,7 +34,7 @@ Details of the error.
 
 > `optional` **docsBaseUrl**: `string`
 
-Defined in: packages/errors/src/client/MisconfiguredClient.js:6
+Defined in: [packages/errors/src/client/MisconfiguredClient.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/MisconfiguredClient.js#L6)
 
 Base URL for the documentation.
 
@@ -44,7 +44,7 @@ Base URL for the documentation.
 
 > `optional` **docsPath**: `string`
 
-Defined in: packages/errors/src/client/MisconfiguredClient.js:7
+Defined in: [packages/errors/src/client/MisconfiguredClient.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/MisconfiguredClient.js#L7)
 
 Path to the documentation.
 
@@ -54,7 +54,7 @@ Path to the documentation.
 
 > `optional` **docsSlug**: `string`
 
-Defined in: packages/errors/src/client/MisconfiguredClient.js:8
+Defined in: [packages/errors/src/client/MisconfiguredClient.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/MisconfiguredClient.js#L8)
 
 Slug for the documentation.
 
@@ -64,7 +64,7 @@ Slug for the documentation.
 
 > `optional` **meta**: `object`
 
-Defined in: packages/errors/src/client/MisconfiguredClient.js:12
+Defined in: [packages/errors/src/client/MisconfiguredClient.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/MisconfiguredClient.js#L12)
 
 Optional object containing additional information about the error.
 
@@ -74,6 +74,6 @@ Optional object containing additional information about the error.
 
 > `optional` **metaMessages**: `string`[]
 
-Defined in: packages/errors/src/client/MisconfiguredClient.js:9
+Defined in: [packages/errors/src/client/MisconfiguredClient.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/MisconfiguredClient.js#L9)
 
 Additional meta messages.

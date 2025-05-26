@@ -8,7 +8,7 @@
 
 > **JsonSerializableSet**\<`T`\> = `Set`\<`T`\>
 
-Defined in: packages/utils/src/SerializeToJson.ts:28
+Defined in: [packages/utils/src/SerializeToJson.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L28)
 
 A type that represents a JSON-serializable set.
 

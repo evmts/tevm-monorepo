@@ -8,7 +8,7 @@
 
 > **Contract**\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\> = `object`
 
-Defined in: Contract.ts:62
+Defined in: [Contract.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/Contract.ts#L62)
 
 Represents a specific contract with its ABI and optional bytecode.
 Contracts provide type-safe interfaces for interacting with smart contracts,
@@ -102,7 +102,7 @@ The runtime bytecode of the contract (optional)
 
 > **abi**: `ParseAbi`\<`THumanReadableAbi`\>
 
-Defined in: Contract.ts:84
+Defined in: [Contract.ts:84](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/Contract.ts#L84)
 
 The JSON ABI of the contract.
 
@@ -119,7 +119,7 @@ console.log(MyContract.abi)
 
 > **address**: `TAddress`
 
-Defined in: Contract.ts:74
+Defined in: [Contract.ts:74](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/Contract.ts#L74)
 
 The configured address of the contract. If not set, it will be undefined.
 Use the `withAddress` method to set or change the address.
@@ -130,7 +130,7 @@ Use the `withAddress` method to set or change the address.
 
 > **bytecode**: `TBytecode`
 
-Defined in: Contract.ts:94
+Defined in: [Contract.ts:94](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/Contract.ts#L94)
 
 The creation bytecode of the contract.
 
@@ -140,7 +140,7 @@ The creation bytecode of the contract.
 
 > **code**: `TCode`
 
-Defined in: Contract.ts:89
+Defined in: [Contract.ts:89](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/Contract.ts#L89)
 
 The runtime bytecode of the contract, encoded with constructor arguments.
 
@@ -150,7 +150,7 @@ The runtime bytecode of the contract, encoded with constructor arguments.
 
 > **deploy**: (...`args`) => `EncodeDeployDataParameters`\<`ParseAbi`\<`THumanReadableAbi`\>\>
 
-Defined in: Contract.ts:154
+Defined in: [Contract.ts:154](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/Contract.ts#L154)
 
 Action creator for deploying the contract.
 
@@ -177,7 +177,7 @@ const deployedContract = await tevm.contract(deployAction)
 
 > **deployedBytecode**: `TDeployedBytecode`
 
-Defined in: Contract.ts:99
+Defined in: [Contract.ts:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/Contract.ts#L99)
 
 The deployed bytecode of the contract.
 
@@ -187,7 +187,7 @@ The deployed bytecode of the contract.
 
 > **events**: [`EventActionCreator`](EventActionCreator.md)\<`THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`\>
 
-Defined in: Contract.ts:124
+Defined in: [Contract.ts:124](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/Contract.ts#L124)
 
 Action creators for events. Used to create event filters in a type-safe way.
 
@@ -204,7 +204,7 @@ const logs = await tevm.eth.getLogs(transferFilter)
 
 > **humanReadableAbi**: `THumanReadableAbi`
 
-Defined in: Contract.ts:109
+Defined in: [Contract.ts:109](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/Contract.ts#L109)
 
 The human-readable ABI of the contract.
 
@@ -221,7 +221,7 @@ console.log(MyContract.humanReadableAbi)
 
 > `optional` **name**: `TName`
 
-Defined in: Contract.ts:114
+Defined in: [Contract.ts:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/Contract.ts#L114)
 
 The name of the contract. If imported, this will match the name of the contract import.
 
@@ -231,7 +231,7 @@ The name of the contract. If imported, this will match the name of the contract 
 
 > **read**: [`ReadActionCreator`](ReadActionCreator.md)\<`THumanReadableAbi`, `TAddress`, `TCode`\>
 
-Defined in: Contract.ts:134
+Defined in: [Contract.ts:134](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/Contract.ts#L134)
 
 Action creators for contract view and pure functions.
 
@@ -248,7 +248,7 @@ const balance = await tevm.contract(balanceAction)
 
 > **withAddress**: \<`TNewAddress`\>(`address`) => `Contract`\<`TName`, `THumanReadableAbi`, `TNewAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
 
-Defined in: Contract.ts:171
+Defined in: [Contract.ts:171](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/Contract.ts#L171)
 
 Adds an address to the contract. All action creators will include
 the address property if added. This method returns a new contract;
@@ -282,7 +282,7 @@ const MyContractWithAddress = MyContract.withAddress('0x1234...')
 
 > **withCode**: (`encodedBytecode`) => `Contract`\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `Hex`\>
 
-Defined in: Contract.ts:202
+Defined in: [Contract.ts:202](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/Contract.ts#L202)
 
 Updates the bytecode of the contract.
 Returns a new contract instance with the updated code.
@@ -330,7 +330,7 @@ const balance = await client.call({
 
 > **write**: [`WriteActionCreator`](WriteActionCreator.md)\<`THumanReadableAbi`, `TAddress`, `TCode`\>
 
-Defined in: Contract.ts:144
+Defined in: [Contract.ts:144](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/Contract.ts#L144)
 
 Action creators for contract payable and nonpayable functions.
 

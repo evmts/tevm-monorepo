@@ -8,7 +8,7 @@
 
 > **createCache**(`cacheDir`, `fs`, `cwd`): [`Cache`](../type-aliases/Cache.md)
 
-Defined in: createCache.js:57
+Defined in: [createCache.js:57](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/createCache.js#L57)
 
 Creates a cache object for reading and writing Solidity compilation artifacts
 and generated code files.

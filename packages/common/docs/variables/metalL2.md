@@ -8,7 +8,7 @@
 
 > `const` **metalL2**: `object`
 
-Defined in: packages/common/src/presets/metalL2.js:26
+Defined in: [packages/common/src/presets/metalL2.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/metalL2.js#L26)
 
 Creates a common configuration for the metalL2 chain.
 

@@ -8,7 +8,7 @@
 
 > **invariant**(`condition`, `error`): `asserts condition`
 
-Defined in: packages/utils/src/invariant.ts:3
+Defined in: [packages/utils/src/invariant.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/invariant.ts#L3)
 
 ## Parameters
 

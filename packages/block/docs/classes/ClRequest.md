@@ -6,7 +6,7 @@
 
 # Class: ClRequest
 
-Defined in: packages/block/src/ClRequest.ts:68
+Defined in: [packages/block/src/ClRequest.ts:68](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L68)
 
 Base implementation of a consensus layer request.
 Used to create and serialize requests between the execution and consensus layers.
@@ -31,7 +31,7 @@ const serialized = instance.serialize() // Type byte followed by payload
 
 > **new ClRequest**(`type`, `bytes`): `ClRequest`
 
-Defined in: packages/block/src/ClRequest.ts:71
+Defined in: [packages/block/src/ClRequest.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L71)
 
 #### Parameters
 
@@ -53,7 +53,7 @@ Defined in: packages/block/src/ClRequest.ts:71
 
 > **bytes**: `Uint8Array`
 
-Defined in: packages/block/src/ClRequest.ts:70
+Defined in: [packages/block/src/ClRequest.ts:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L70)
 
 #### Implementation of
 
@@ -65,7 +65,7 @@ Defined in: packages/block/src/ClRequest.ts:70
 
 > **type**: `number`
 
-Defined in: packages/block/src/ClRequest.ts:69
+Defined in: [packages/block/src/ClRequest.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L69)
 
 #### Implementation of
 
@@ -77,7 +77,7 @@ Defined in: packages/block/src/ClRequest.ts:69
 
 > **serialize**(): `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/src/ClRequest.ts:77
+Defined in: [packages/block/src/ClRequest.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L77)
 
 #### Returns
 

@@ -6,7 +6,7 @@
 
 # Class: CouldNotResolveImportError
 
-Defined in: packages/effect/src/resolve.js:11
+Defined in: [packages/effect/src/resolve.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L11)
 
 Error thrown when 'node:resolve' throws
 
@@ -20,7 +20,7 @@ Error thrown when 'node:resolve' throws
 
 > **new CouldNotResolveImportError**(`importPath`, `absolutePath`, `cause`): `CouldNotResolveImportError`
 
-Defined in: packages/effect/src/resolve.js:26
+Defined in: [packages/effect/src/resolve.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L26)
 
 #### Parameters
 
@@ -50,7 +50,7 @@ Defined in: packages/effect/src/resolve.js:26
 
 > **\_tag**: `"CouldNotResolveImportError"` = `'CouldNotResolveImportError'`
 
-Defined in: packages/effect/src/resolve.js:15
+Defined in: [packages/effect/src/resolve.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L15)
 
 ***
 
@@ -82,7 +82,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/li
 
 > **name**: `"CouldNotResolveImportError"` = `'CouldNotResolveImportError'`
 
-Defined in: packages/effect/src/resolve.js:20
+Defined in: [packages/effect/src/resolve.js:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L20)
 
 #### Overrides
 

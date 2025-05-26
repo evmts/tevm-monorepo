@@ -6,7 +6,7 @@
 
 # Class: InvalidBalanceError
 
-Defined in: packages/errors/src/input/InvalidBalanceError.js:42
+Defined in: [packages/errors/src/input/InvalidBalanceError.js:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidBalanceError.js#L42)
 
 Represents an error that occurs when an account balance is invalid.
 
@@ -43,7 +43,7 @@ try {
 
 > **new InvalidBalanceError**(`message`, `args?`): `InvalidBalanceError`
 
-Defined in: packages/errors/src/input/InvalidBalanceError.js:49
+Defined in: [packages/errors/src/input/InvalidBalanceError.js:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidBalanceError.js#L49)
 
 Constructs an InvalidBalanceError.
 
@@ -75,7 +75,7 @@ Additional parameters for the InvalidBalanceError.
 
 > **\_tag**: `string`
 
-Defined in: packages/errors/src/input/InvalidBalanceError.js:61
+Defined in: [packages/errors/src/input/InvalidBalanceError.js:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidBalanceError.js#L61)
 
 Same as name, used internally.
 
@@ -89,7 +89,7 @@ Same as name, used internally.
 
 > **cause**: `any`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:114
+Defined in: [packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
 
 #### Inherited from
 
@@ -101,7 +101,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:114
 
 > **code**: `number`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:112
+Defined in: [packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
 
 #### Inherited from
 
@@ -113,7 +113,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:112
 
 > **details**: `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:91
+Defined in: [packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
 
 #### Inherited from
 
@@ -125,7 +125,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:91
 
 > **docsPath**: `undefined` \| `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:96
+Defined in: [packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
 
 #### Inherited from
 
@@ -151,7 +151,7 @@ Human-readable error message.
 
 > **metaMessages**: `undefined` \| `string`[]
 
-Defined in: packages/errors/src/ethereum/BaseError.js:100
+Defined in: [packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
 
 #### Inherited from
 
@@ -163,7 +163,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:100
 
 > **name**: `string`
 
-Defined in: packages/errors/src/input/InvalidBalanceError.js:60
+Defined in: [packages/errors/src/input/InvalidBalanceError.js:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidBalanceError.js#L60)
 
 The name of the error, used to discriminate errors.
 
@@ -177,7 +177,7 @@ The name of the error, used to discriminate errors.
 
 > **shortMessage**: `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:104
+Defined in: [packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
 
 #### Inherited from
 
@@ -201,7 +201,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/li
 
 > **version**: `string`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:108
+Defined in: [packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
 
 #### Inherited from
 
@@ -213,7 +213,7 @@ Defined in: packages/errors/src/ethereum/BaseError.js:108
 
 > `static` **code**: `number` = `-32602`
 
-Defined in: packages/errors/src/ethereum/InvalidParamsError.js:46
+Defined in: [packages/errors/src/ethereum/InvalidParamsError.js:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InvalidParamsError.js#L46)
 
 The error code for InvalidParamsError.
 
@@ -241,7 +241,7 @@ The maximum number of stack frames to capture.
 
 > **walk**(`fn?`): `unknown`
 
-Defined in: packages/errors/src/ethereum/BaseError.js:137
+Defined in: [packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
 
 Walks through the error chain.
 

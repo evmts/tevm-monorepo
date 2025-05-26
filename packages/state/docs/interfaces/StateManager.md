@@ -6,7 +6,7 @@
 
 # Interface: StateManager
 
-Defined in: packages/state/src/StateManager.ts:6
+Defined in: [packages/state/src/StateManager.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L6)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: packages/state/src/StateManager.ts:6
 
 > **\_baseState**: [`BaseState`](../type-aliases/BaseState.md)
 
-Defined in: packages/state/src/StateManager.ts:10
+Defined in: [packages/state/src/StateManager.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L10)
 
 The internal state representation
 
@@ -28,7 +28,7 @@ The internal state representation
 
 > **getAccountAddresses**: () => `Set`\<`` `0x${string}` ``\>
 
-Defined in: packages/state/src/StateManager.ts:15
+Defined in: [packages/state/src/StateManager.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L15)
 
 Returns contract addresses
 
@@ -80,7 +80,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 > **ready**: () => `Promise`\<`true`\>
 
-Defined in: packages/state/src/StateManager.ts:11
+Defined in: [packages/state/src/StateManager.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L11)
 
 #### Returns
 
@@ -134,7 +134,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 > **clearCaches**(): `void`
 
-Defined in: packages/state/src/StateManager.ts:27
+Defined in: [packages/state/src/StateManager.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L27)
 
 Resets all internal caches
 
@@ -152,7 +152,7 @@ Resets all internal caches
 
 > **clearContractStorage**(`address`): `Promise`\<`void`\>
 
-Defined in: packages/state/src/StateManager.ts:49
+Defined in: [packages/state/src/StateManager.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L49)
 
 Clears all storage entries for the account
 
@@ -194,7 +194,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 > **commit**(`createNewStateRoot?`): `Promise`\<`void`\>
 
-Defined in: packages/state/src/StateManager.ts:37
+Defined in: [packages/state/src/StateManager.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L37)
 
 Commits the current state.
 
@@ -224,7 +224,7 @@ This api is not stable
 
 > **deepCopy**(): `Promise`\<`StateManager`\>
 
-Defined in: packages/state/src/StateManager.ts:19
+Defined in: [packages/state/src/StateManager.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L19)
 
 Returns a new instance of the ForkStateManager with the same opts and all storage copied over
 
@@ -260,7 +260,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 > **dumpCanonicalGenesis**(): `Promise`\<[`TevmState`](../type-aliases/TevmState.md)\>
 
-Defined in: packages/state/src/StateManager.ts:23
+Defined in: [packages/state/src/StateManager.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L23)
 
 Dumps the state of the state manager as a [TevmState](../type-aliases/TevmState.md)
 
@@ -274,7 +274,7 @@ Dumps the state of the state manager as a [TevmState](../type-aliases/TevmState.
 
 > **dumpStorage**(`address`): `Promise`\<`StorageDump`\>
 
-Defined in: packages/state/src/StateManager.ts:53
+Defined in: [packages/state/src/StateManager.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L53)
 
 Dumps storage based on the input
 
@@ -298,7 +298,7 @@ Dumps storage based on the input
 
 > **dumpStorageRange**(`address`, `startKey`, `limit`): `Promise`\<`StorageRange`\>
 
-Defined in: packages/state/src/StateManager.ts:57
+Defined in: [packages/state/src/StateManager.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L57)
 
 Dumps a range of storage values
 
@@ -330,7 +330,7 @@ Dumps a range of storage values
 
 > **generateCanonicalGenesis**(`state`): `Promise`\<`void`\>
 
-Defined in: packages/state/src/StateManager.ts:65
+Defined in: [packages/state/src/StateManager.ts:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L65)
 
 Loads a state from a given state root
 
@@ -568,7 +568,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 ##### accountFields
 
-`Partial`
+`AccountFields`
 
 #### Returns
 
@@ -682,7 +682,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 > **saveStateRoot**(`root`, `state`): `void`
 
-Defined in: packages/state/src/StateManager.ts:33
+Defined in: [packages/state/src/StateManager.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L33)
 
 **`Experimental`**
 

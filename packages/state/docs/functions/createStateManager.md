@@ -8,7 +8,7 @@
 
 > **createStateManager**(`options`): [`StateManager`](../interfaces/StateManager.md)
 
-Defined in: packages/state/src/createStateManager.js:35
+Defined in: [packages/state/src/createStateManager.js:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/createStateManager.js#L35)
 
 ## Parameters
 

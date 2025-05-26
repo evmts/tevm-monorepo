@@ -74,7 +74,7 @@ The gas refund counter
 
 ### logs?
 
-> `optional` **logs**: `Log`[]
+> `optional` **logs**: [`Log`](../type-aliases/Log.md)[]
 
 Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:363
 

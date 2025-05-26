@@ -8,7 +8,7 @@
 
 > `const` **celoAlfajores**: `object`
 
-Defined in: packages/common/src/presets/celoAlfajores.js:26
+Defined in: [packages/common/src/presets/celoAlfajores.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/celoAlfajores.js#L26)
 
 Creates a common configuration for the celoAlfajores chain.
 

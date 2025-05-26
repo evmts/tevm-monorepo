@@ -6,7 +6,7 @@
 
 # Interface: Solc
 
-Defined in: solcTypes.ts:887
+Defined in: [solcTypes.ts:887](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L887)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: solcTypes.ts:887
 
 > **compile**: (`input`) => [`SolcOutput`](../type-aliases/SolcOutput.md)
 
-Defined in: solcTypes.ts:893
+Defined in: [solcTypes.ts:893](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L893)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: solcTypes.ts:893
 
 > **features**: `FeaturesConfig`
 
-Defined in: solcTypes.ts:892
+Defined in: [solcTypes.ts:892](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L892)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: solcTypes.ts:892
 
 > **license**: `string`
 
-Defined in: solcTypes.ts:890
+Defined in: [solcTypes.ts:890](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L890)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: solcTypes.ts:890
 
 > **loadRemoteVersion**: (`versionString`, `callback`) => `void`
 
-Defined in: solcTypes.ts:894
+Defined in: [solcTypes.ts:894](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L894)
 
 #### Parameters
 
@@ -70,7 +70,7 @@ Defined in: solcTypes.ts:894
 
 > **lowlevel**: `LowLevelConfig`
 
-Defined in: solcTypes.ts:891
+Defined in: [solcTypes.ts:891](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L891)
 
 ***
 
@@ -78,7 +78,7 @@ Defined in: solcTypes.ts:891
 
 > **semver**: `string`
 
-Defined in: solcTypes.ts:889
+Defined in: [solcTypes.ts:889](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L889)
 
 ***
 
@@ -86,7 +86,7 @@ Defined in: solcTypes.ts:889
 
 > **setupMethods**: (`soljson`) => `void`
 
-Defined in: solcTypes.ts:895
+Defined in: [solcTypes.ts:895](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L895)
 
 #### Parameters
 
@@ -104,4 +104,4 @@ Defined in: solcTypes.ts:895
 
 > **version**: `string`
 
-Defined in: solcTypes.ts:888
+Defined in: [solcTypes.ts:888](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L888)

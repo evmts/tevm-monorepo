@@ -8,7 +8,7 @@
 
 > **SolcYulDetails** = `object`
 
-Defined in: solcTypes.ts:55
+Defined in: [solcTypes.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L55)
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: solcTypes.ts:55
 
 > **optimizerSteps**: `string`
 
-Defined in: solcTypes.ts:71
+Defined in: [solcTypes.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L71)
 
 ***
 
@@ -24,4 +24,4 @@ Defined in: solcTypes.ts:71
 
 > `optional` **stackAllocation**: `boolean`
 
-Defined in: solcTypes.ts:58
+Defined in: [solcTypes.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L58)
