@@ -74,7 +74,12 @@ export class BlockBuilder {
 
 	constructor(vm: BaseVm, opts: BuildBlockOpts) {
 		this.vm = vm
-		this.blockOpts = { putBlockIntoBlockchain: true, common: this.vm.common, freeze: false, ...opts.blockOpts }
+		this.blockOpts = {
+			putBlockIntoBlockchain: true,
+			common: this.vm.common,
+			freeze: false,
+			...opts.blockOpts,
+		}
 
 		this.headerData = {
 			...opts.headerData,
@@ -264,7 +269,11 @@ export class BlockBuilder {
 		const blockData = { header, transactions: this.transactions }
 		const block = Block.fromBlockData(blockData as any, this.blockOpts)
 
-		const result = await runTx(this.vm)({ tx: _tx, block, skipHardForkValidation } as any)
+		const result = await runTx(this.vm)({
+			tx: _tx,
+			block,
+			skipHardForkValidation,
+		} as any)
 
 		// If tx is a blob transaction, remove blobs/kzg commitments before adding to block per EIP-4844
 		if (_tx instanceof BlobEIP4844Transaction) {
@@ -383,7 +392,10 @@ export class BlockBuilder {
 				? toType(parentBeaconBlockRoot as any, TypeOutput.Uint8Array)
 				: new Uint8Array(32)
 
-			await accumulateParentBeaconBlockRoot(this.vm)(parentBeaconBlockRootBuf, timestampBigInt)
+			await accumulateParentBeaconBlockRoot(this.vm)(
+				parentBeaconBlockRootBuf as Uint8Array<ArrayBuffer>,
+				timestampBigInt,
+			)
 		}
 		if ((this.vm.common as any).ethjsCommon.isActivatedEIP(2935)) {
 			if (!this.checkpointed) {
@@ -397,7 +409,7 @@ export class BlockBuilder {
 			const numberBigInt = toType(numberValue as any, TypeOutput.BigInt) ?? 0n
 			const parentHashSanitized = parentHash ? toType(parentHash as any, TypeOutput.Uint8Array) : new Uint8Array(32)
 
-			await accumulateParentBlockHash(this.vm)(numberBigInt, parentHashSanitized)
+			await accumulateParentBlockHash(this.vm)(numberBigInt, parentHashSanitized as Uint8Array<ArrayBuffer>)
 		}
 	}
 }
