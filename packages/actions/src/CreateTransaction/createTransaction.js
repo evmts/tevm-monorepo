@@ -47,20 +47,20 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
 		const dataFee = (() => {
 			let out = 0n
 			for (const entry of evmInput.data ?? []) {
-				out += vm.common.ethjsCommon.param('gasPrices', entry === 0 ? 'txDataZero' : 'txDataNonZero')
+				out += /** @type {any} */ (vm.common.ethjsCommon).param('gasPrices', entry === 0 ? 'txDataZero' : 'txDataNonZero')
 			}
 			return out
 		})()
 
 		const baseFee = (() => {
 			let out = dataFee
-			const txFee = vm.common.ethjsCommon.param('gasPrices', 'tx')
+			const txFee = /** @type {any} */ (vm.common.ethjsCommon).param('gasPrices', 'tx')
 			if (txFee) {
 				out += txFee
 			}
 			const isCreation = (evmInput.to?.bytes.length ?? 0) === 0
 			if (vm.common.ethjsCommon.gteHardfork('homestead') && isCreation) {
-				const txCreationFee = vm.common.ethjsCommon.param('gasPrices', 'txCreation')
+				const txCreationFee = /** @type {any} */ (vm.common.ethjsCommon).param('gasPrices', 'txCreation')
 				if (txCreationFee) {
 					out += txCreationFee
 				}

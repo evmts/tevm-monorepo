@@ -67,12 +67,12 @@ export const createScript = async (client, code, deployedBytecode, to) => {
 	})()
 	const baseFee = (() => {
 		let out = dataFee
-		const txFee = vm.common.ethjsCommon.param('gasPrices', 'tx')
+		const txFee = /** @type {any} */ (vm.common.ethjsCommon).param('gasPrices', 'tx')
 		if (txFee) {
 			out += txFee
 		}
 		if (vm.common.ethjsCommon.gteHardfork('homestead')) {
-			const txCreationFee = vm.common.ethjsCommon.param('gasPrices', 'txCreation')
+			const txCreationFee = /** @type {any} */ (vm.common.ethjsCommon).param('gasPrices', 'txCreation')
 			if (txCreationFee) {
 				out += txCreationFee
 			}

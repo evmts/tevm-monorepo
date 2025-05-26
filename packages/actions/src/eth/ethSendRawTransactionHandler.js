@@ -54,8 +54,8 @@ const getTx = (vm, txBuf) => {
 
 	// Check blob gas limit for blob transactions
 	if (isBlobEIP4844Tx(tx)) {
-		const blobGasLimit = vm.common.ethjsCommon.param('gasConfig', 'maxblobGasPerBlock')
-		const blobGasPerBlob = vm.common.ethjsCommon.param('gasConfig', 'blobGasPerBlob')
+		const blobGasLimit = /** @type {any} */ (vm.common.ethjsCommon).param('gasConfig', 'maxblobGasPerBlock')
+		const blobGasPerBlob = /** @type {any} */ (vm.common.ethjsCommon).param('gasConfig', 'blobGasPerBlob')
 
 		const blobCount = BigInt(tx.blobs?.length ?? 0)
 		const blobGas = blobCount * blobGasPerBlob
