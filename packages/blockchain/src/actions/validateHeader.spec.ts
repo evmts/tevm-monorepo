@@ -360,13 +360,13 @@ describe(validateHeader.name, async () => {
 		vi.spyOn(chain.common.ethjsCommon, 'isActivatedEIP').mockImplementation((eip: number) => eip === 4844)
 
 		const error = await headerValidator(blocks[1].header).catch((e) => e)
-		
+
 		// Restore original value
 		Object.defineProperty(blocks[1].header, 'excessBlobGas', {
 			value: originalExcessBlobGas,
 			configurable: true,
 		})
-		
+
 		expect(error).toBeInstanceOf(Error)
 		expect(error.message).toContain('expected blob gas: 700000, got: 800000')
 	})
