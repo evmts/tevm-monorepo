@@ -28,9 +28,11 @@ const randomRecord = (): [string, TableRecord<typeof config.tables.app__TestTabl
 			val1: BigInt(Math.floor(Math.random() * 1000)),
 			val2: Math.floor(Math.random() * 100),
 			val3: Math.floor(Math.random() * 100),
+      val4: Math.random() > 0.5,
+      val5: bytesToHex(new Uint8Array(20).map(() => Math.floor(Math.random() * 256))),
 			dyn1: Array.from({ length: Math.floor(Math.random() * 100) }, (_, i) => String.fromCharCode(i)).join(''),
 			dyn2: bytesToHex(new Uint8Array(Math.floor(Math.random() * 100) + 1).map(() => Math.floor(Math.random() * 256))),
-			dyn3: Array.from({ length: Math.floor(Math.random() * 100) }, () => Math.floor(Math.random() * 100)),
+			dyn3: Array.from({ length: Math.floor(Math.random() * 100) }, () => Math.floor(Math.random() * 100) - 50),
 		},
 	]
 }

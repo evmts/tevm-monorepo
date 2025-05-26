@@ -11,6 +11,8 @@ export const config = defineStore({
 				val1: 'uint200',
 				val2: 'uint8',
 				val3: 'uint16',
+        val4: 'bool',
+        val5: 'address',
 				dyn1: 'string',
 				dyn2: 'bytes',
 				dyn3: 'int16[]',

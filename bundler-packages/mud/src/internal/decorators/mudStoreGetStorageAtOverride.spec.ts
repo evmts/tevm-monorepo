@@ -1,6 +1,6 @@
 import { createMemoryClient } from '@tevm/memory-client'
 import { MUDTestSystem } from '@tevm/test-utils'
-import { type Address, type EIP1193RequestFn, pad, toHex } from 'viem'
+import { type Address, type EIP1193RequestFn, pad } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { state } from '../../../test/state.js'
 import { mudStoreGetStorageAtOverride } from './mudStoreGetStorageAtOverride.js'
@@ -8,7 +8,7 @@ import { mudStoreGetStorageAtOverride } from './mudStoreGetStorageAtOverride.js'
 const testContract = MUDTestSystem.withAddress('0x5FbDB2315678afecb367f032d93F642f64180aa3')
 const getState = async () => state
 const client = createMemoryClient()
-const mudStoreRequestOverride = mudStoreGetStorageAtOverride({ request: (async () => toHex(0, { size: 32 })) as EIP1193RequestFn })({
+const mudStoreRequestOverride = mudStoreGetStorageAtOverride({ request: (async () => {}) as EIP1193RequestFn })({
 	getState,
 	storeAddress: testContract.address,
 })
@@ -31,8 +31,9 @@ describe('mudStoreGetStorageAtOverride', () => {
 	})
 
 	it('should calculate and return the correct value for any data slot from the client override', async () => {
+    for (const {key1, key2} of Object.values(state.records.app.TestTable)) {
 		const { accessList } = await client.tevmContract({
-			...testContract.read.get(1n, 2),
+			...testContract.read.get(key1, key2),
 			addToBlockchain: true,
 			createAccessList: true,
 		})
@@ -54,5 +55,6 @@ describe('mudStoreGetStorageAtOverride', () => {
 
 			expect(actualStorage).toEqual(overrideStorage)
 		}
+  }
 	})
 })
