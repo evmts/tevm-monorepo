@@ -1,44 +1,17 @@
 import {
-	AuthCallUnsetError,
-	BLS12381FpNotInFieldError,
-	BLS12381InputEmptyError,
-	BLS12381PointNotOnCurveError,
-	CodeSizeExceedsMaximumError,
-	CodeStoreOutOfGasError,
-	CreateCollisionError,
-	EvmRevertError,
 	GasLimitExceededError,
-	InitcodeSizeViolationError,
 	InsufficientBalanceError,
 	InternalEvmError,
 	InvalidAddressError,
-	InvalidBeginSubError,
-	InvalidBytecodeResultError,
-	InvalidCommitmentError,
-	InvalidEofFormatError,
 	InvalidGasLimitError,
 	InvalidGasPriceError,
-	InvalidInputLengthError,
 	InvalidJumpError,
-	InvalidJumpSubError,
-	InvalidKzgInputsError,
 	InvalidNonceError,
-	InvalidOpcodeError,
-	InvalidProofError,
-	InvalidReturnSubError,
 	MisconfiguredClientError,
-	OutOfGasError,
-	OutOfRangeError,
-	RefundExhaustedError,
-	StackOverflowError,
-	StackUnderflowError,
-	StaticStateChangeError,
-	StopError,
-	ValueOverflowError,
 } from '@tevm/errors'
 import { EvmError } from '@tevm/evm'
 
-import { describe, expect, it, test } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { handleRunTxError } from './handleEvmError.js'
 
 describe('handleRunTxError', () => {
@@ -79,43 +52,8 @@ describe('handleRunTxError', () => {
 		expect(result.message).toMatchSnapshot()
 	})
 
-	describe('should handle specific EvmError subclasses', () => {
-		const errorCases = [
-			InvalidJumpError,
-			AuthCallUnsetError,
-			BLS12381FpNotInFieldError,
-			BLS12381InputEmptyError,
-			BLS12381PointNotOnCurveError,
-			CodeSizeExceedsMaximumError,
-			CodeStoreOutOfGasError,
-			CreateCollisionError,
-			EvmRevertError,
-			InitcodeSizeViolationError,
-			InsufficientBalanceError,
-			InternalEvmError,
-			InvalidBeginSubError,
-			InvalidBytecodeResultError,
-			InvalidCommitmentError,
-			InvalidEofFormatError,
-			InvalidInputLengthError,
-			InvalidJumpSubError,
-			InvalidKzgInputsError,
-			InvalidOpcodeError,
-			InvalidProofError,
-			InvalidReturnSubError,
-			OutOfGasError,
-			OutOfRangeError,
-			RefundExhaustedError,
-			StackOverflowError,
-			StackUnderflowError,
-			StaticStateChangeError,
-			StopError,
-			ValueOverflowError,
-		]
-
-		// Skip test cases that use deprecated EVMErrorMessage property
-		// The error handling logic is already tested in the main test above
-	})
+	// Test case for specific EvmError subclasses removed
+	// The error handling logic is already tested in the tests above
 
 	it('should handle insufficient balance error with upfront cost', () => {
 		const errorMessage = "sender doesn't have enough funds to send tx. The upfront cost is 1000 wei"

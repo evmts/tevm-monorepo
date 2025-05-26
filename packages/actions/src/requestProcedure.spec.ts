@@ -16,8 +16,9 @@ import { requestProcedure } from './requestProcedure.js'
 const ERC20_ADDRESS = `0x${'69'.repeat(20)}` as const
 
 let client: TevmNode
-beforeEach(() => {
+beforeEach(async () => {
 	client = createTevmNode()
+	await client.ready()
 })
 
 describe('requestProcedure', () => {

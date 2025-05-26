@@ -11,6 +11,7 @@ describe('debugTraceStateJsonRpcProcedure', () => {
 	let contractAddress: Address
 	beforeAll(async () => {
 		client = createTevmNode()
+		await client.ready()
 
 		// Mine a transaction to update the storage and state roots
 		const { createdAddress } = await deployHandler(client)({ addToBlockchain: true, ...SimpleContract.deploy(1n) })
