@@ -265,14 +265,6 @@ importers:
         specifier: ^3.1.4
         version: 3.1.4(@types/debug@4.1.12)(@types/node@22.15.21)(@vitest/ui@3.1.4)(jiti@2.4.2)(lightningcss@1.30.1)(msw@2.8.4(@types/node@22.15.21)(typescript@5.8.3))(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0)
 
-  bundler-packages/bundler-rs:
-    devDependencies:
-      '@napi-rs/cli':
-        specifier: ^2.18.4
-        version: 2.18.4
-
-  bundler-packages/bundler-rs/npm/darwin-arm64: {}
-
   bundler-packages/compiler:
     dependencies:
       '@tevm/config':
@@ -2309,9 +2301,6 @@ importers:
       '@tevm/bundler-cache':
         specifier: workspace:^
         version: link:../../bundler-packages/bundler-cache
-      '@tevm/bundler-rs':
-        specifier: workspace:^
-        version: link:../../bundler-packages/bundler-rs
       '@tevm/config':
         specifier: workspace:^
         version: link:../../bundler-packages/config
@@ -7562,7 +7551,6 @@ packages:
 
   bun@1.2.5:
     resolution: {integrity: sha512-fbQLt+DPiGUrPKdmsHRRT7cQAlfjdxPVFvLZrsUPmKiTdv+pU50ypdx9yRJluknSbyaZchFVV7Lx2KXikXKX2Q==}
-    cpu: [arm64, x64, aarch64]
     os: [darwin, linux, win32]
     hasBin: true
 

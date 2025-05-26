@@ -377,7 +377,9 @@ export class BlockBuilder {
 			const { parentBeaconBlockRoot, timestamp } = this.headerData
 			// timestamp should already be set in constructor
 			const timestampBigInt = toType(timestamp! as any, TypeOutput.BigInt)!
-			const parentBeaconBlockRootBuf = parentBeaconBlockRoot ? toType(parentBeaconBlockRoot as any, TypeOutput.Uint8Array) : new Uint8Array(32)
+			const parentBeaconBlockRootBuf = parentBeaconBlockRoot
+				? toType(parentBeaconBlockRoot as any, TypeOutput.Uint8Array)
+				: new Uint8Array(32)
 
 			await accumulateParentBeaconBlockRoot(this.vm)(parentBeaconBlockRootBuf!, timestampBigInt)
 		}

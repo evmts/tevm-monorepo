@@ -62,7 +62,6 @@
   "dependencies": {
     "@tevm/base-bundler": "workspace:^",
     "@tevm/bundler-cache": "workspace:^",
-    "@tevm/bundler-rs": "workspace:^",
     "@tevm/config": "workspace:^",
     "@tevm/contract": "workspace:^",
     "@tevm/resolutions": "workspace:^",

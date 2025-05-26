@@ -235,17 +235,19 @@ describe('runTx', () => {
 			}),
 		)
 
-		const tx = (BlobEIP4844Transaction as any).fromTxData(
-			{
-				blobVersionedHashes: [randomBytes(32)],
-				blobs: [randomBytes(32)],
-				kzgCommitments: [randomBytes(32)],
-				maxFeePerBlobGas: 1000000n,
-				gasLimit: 0xffffffn,
-				to: randomBytes(20),
-			},
-			{ common: mainnet.ethjsCommon },
-		).sign(randomBytes(32))
+		const tx = (BlobEIP4844Transaction as any)
+			.fromTxData(
+				{
+					blobVersionedHashes: [randomBytes(32)],
+					blobs: [randomBytes(32)],
+					kzgCommitments: [randomBytes(32)],
+					maxFeePerBlobGas: 1000000n,
+					gasLimit: 0xffffffn,
+					to: randomBytes(20),
+				},
+				{ common: mainnet.ethjsCommon },
+			)
+			.sign(randomBytes(32))
 
 		const block = new Block({ common: mainnet })
 		const err = await runTx(vm)({
