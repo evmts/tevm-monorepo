@@ -4,14 +4,12 @@ import { optimism } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
 import {
-	AccessListEIP2930Transaction,
-	FeeMarketEIP1559Transaction,
 	type ImpersonatedTx,
 	LegacyTransaction,
 	type TypedTransaction,
 	TransactionFactory,
 } from '@tevm/tx'
-import { EthjsAccount, EthjsAddress, bytesToHex, hexToBytes, parseEther, createAddressFromString, createAccount } from '@tevm/utils'
+import { EthjsAddress, bytesToHex, hexToBytes, parseEther, createAddressFromString, createAccount } from '@tevm/utils'
 import { type Vm, createVm } from '@tevm/vm'
 import { assert, beforeEach, describe, expect, it, vi } from 'vitest'
 import { PREFUNDED_PRIVATE_KEYS, bytesToUnprefixedHex } from '../../utils/dist/index.cjs'
@@ -293,7 +291,7 @@ describe(TxPool.name, () => {
 
 	it('should handle EIP-1559 transactions', async () => {
 		// create, sign and add an EIP-1559 tx
-		const tx = TransactionFactory.fromTxData({
+		const tx = TransactionFactory({
 			nonce: 0,
 			maxFeePerGas: 2000000000, // 2 Gwei
 			maxPriorityFeePerGas: 1000000000, // 1 Gwei
@@ -360,13 +358,14 @@ describe(TxPool.name, () => {
 
 	it('should handle Access List EIP-2930 transactions', async () => {
 		// create, sign and add an EIP-2930 tx
-		const tx = AccessListEIP2930Transaction.fromTxData({
+		const tx = TransactionFactory({
 			nonce: 0,
 			gasPrice: 1000000000,
 			gasLimit: 21000,
 			to: '0x3535353535353535353535353535353535353535',
 			value: 10000,
 			data: '0x',
+			type: 1,
 			chainId: 1,
 			accessList: [
 				{
@@ -750,7 +749,7 @@ describe(TxPool.name, () => {
 		for (let i = 0; i < maxSize; i++) {
 			// Create a new sender address and add funds
 			const privateKey = hexToBytes(`0x${(i + 2).toString().padStart(2, '0')}${'00'.repeat(31)}`) // Generate different keys
-			const senderAccount = EthjsAccount.fromAccountData({
+			const senderAccount = createAccount({
 				balance: parseEther('100'),
 			})
 			const wallet = new LegacyTransaction({
@@ -780,7 +779,7 @@ describe(TxPool.name, () => {
 
 		// Try to add one more transaction from yet another account
 		const extraPrivateKey = hexToBytes(`0x${(maxSize + 2).toString().padStart(2, '0')}${'00'.repeat(31)}`)
-		const extraSenderAccount = EthjsAccount.fromAccountData({
+		const extraSenderAccount = createAccount({
 			balance: parseEther('100'),
 		})
 		const extraWallet = new LegacyTransaction({
@@ -823,7 +822,7 @@ describe(TxPool.name, () => {
 			// Create a new sender address and add funds
 			const privateKey = hexToBytes(`0x${(i + 2).toString().padStart(2, '0')}${'00'.repeat(31)}`)
 			privateKeys.push(privateKey)
-			const senderAccount = EthjsAccount.fromAccountData({
+			const senderAccount = createAccount({
 				balance: parseEther('100'),
 			})
 			const wallet = new LegacyTransaction({

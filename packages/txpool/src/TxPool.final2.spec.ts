@@ -3,7 +3,7 @@ import { optimism } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
 import { LegacyTransaction } from '@tevm/tx'
-import { EthjsAccount, EthjsAddress, hexToBytes, parseEther } from '@tevm/utils'
+import { EthjsAddress, hexToBytes, parseEther, createAddressFromString, createAccount, } from '@tevm/utils'
 import { type Vm, createVm } from '@tevm/vm'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { PREFUNDED_PRIVATE_KEYS } from '../../utils/dist/index.cjs'
@@ -19,10 +19,10 @@ describe('TxPool final2 coverage', () => {
 		const common = optimism.copy()
 		const blockchain = await createChain({ common })
 		stateManager = createStateManager({})
-		senderAddress = EthjsAddress.fromString('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266')
+		senderAddress = createAddressFromString('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266')
 		await stateManager.putAccount(
 			senderAddress,
-			EthjsAccount.fromAccountData({
+			createAccount({
 				balance: parseEther('100'),
 			}),
 		)

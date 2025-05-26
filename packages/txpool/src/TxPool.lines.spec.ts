@@ -3,7 +3,7 @@ import { optimism } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
 import { BlobEIP4844Transaction, LegacyTransaction } from '@tevm/tx'
-import { EthjsAccount, EthjsAddress, bytesToUnprefixedHex, hexToBytes, parseEther } from '@tevm/utils'
+import { EthjsAddress, bytesToUnprefixedHex, hexToBytes, parseEther, createAddressFromString, createAccount, } from '@tevm/utils'
 import { type Vm, createVm } from '@tevm/vm'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { PREFUNDED_PRIVATE_KEYS } from '../../utils/dist/index.cjs'
@@ -18,10 +18,10 @@ describe('TxPool lines coverage', () => {
 		const common = optimism.copy()
 		const blockchain = await createChain({ common })
 		const stateManager = createStateManager({})
-		senderAddress = EthjsAddress.fromString('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266')
+		senderAddress = createAddressFromString('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266')
 		await stateManager.putAccount(
 			senderAddress,
-			EthjsAccount.fromAccountData({
+			createAccount({
 				balance: parseEther('100'),
 			}),
 		)
@@ -83,7 +83,7 @@ describe('TxPool lines coverage', () => {
 				gasPrice: 1000000000n,
 				maxFeePerGas: 2000000000n,
 				maxPriorityFeePerGas: 1000000000n,
-				getSenderAddress: () => EthjsAddress.fromString('0x1234567890123456789012345678901234567890'),
+				getSenderAddress: () => createAddressFromString('0x1234567890123456789012345678901234567890'),
 				hash: () => new Uint8Array(32),
 				blobs: [new Uint8Array(128)],
 				constructor: { name: 'BlobEIP4844Transaction' },
@@ -97,7 +97,7 @@ describe('TxPool lines coverage', () => {
 				gasPrice: 1000000000n,
 				maxFeePerGas: 2000000000n,
 				maxPriorityFeePerGas: 1000000000n,
-				getSenderAddress: () => EthjsAddress.fromString('0x1234567890123456789012345678901234567890'),
+				getSenderAddress: () => createAddressFromString('0x1234567890123456789012345678901234567890'),
 				hash: () => new Uint8Array(32),
 				blobs: [new Uint8Array(128), new Uint8Array(128)], // 2 blobs
 				constructor: { name: 'BlobEIP4844Transaction' },

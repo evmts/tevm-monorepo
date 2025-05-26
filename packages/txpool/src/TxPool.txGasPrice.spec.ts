@@ -2,8 +2,8 @@ import { createChain } from '@tevm/blockchain'
 import { optimism } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
-import { AccessListEIP2930Transaction, FeeMarketEIP1559Transaction, LegacyTransaction } from '@tevm/tx'
-import { EthjsAccount, EthjsAddress, hexToBytes, parseEther } from '@tevm/utils'
+import { LegacyTransaction, TransactionFactory } from '@tevm/tx'
+import { EthjsAddress, hexToBytes, parseEther, createAddressFromString, createAccount, } from '@tevm/utils'
 import { type Vm, createVm } from '@tevm/vm'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { PREFUNDED_PRIVATE_KEYS } from '../../utils/dist/index.cjs'
@@ -18,10 +18,10 @@ describe('TxPool.txGasPrice', () => {
 		const common = optimism.copy()
 		const blockchain = await createChain({ common })
 		const stateManager = createStateManager({})
-		senderAddress = EthjsAddress.fromString('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266')
+		senderAddress = createAddressFromString('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266')
 		await stateManager.putAccount(
 			senderAddress,
-			EthjsAccount.fromAccountData({
+			createAccount({
 				balance: parseEther('100'),
 			}),
 		)
@@ -57,7 +57,7 @@ describe('TxPool.txGasPrice', () => {
 
 	it('should handle EIP-2930 transaction gas price correctly', async () => {
 		// Create an EIP-2930 transaction
-		const tx = AccessListEIP2930Transaction.fromTxData({
+		const tx = TransactionFactory({
 			nonce: 0,
 			gasPrice: 1500000000n,
 			gasLimit: 21000,
@@ -66,6 +66,7 @@ describe('TxPool.txGasPrice', () => {
 			data: '0x',
 			chainId: 1,
 			accessList: [],
+			type: 1,
 		})
 		const signedTx = tx.sign(hexToBytes(PREFUNDED_PRIVATE_KEYS[0]))
 
@@ -79,13 +80,14 @@ describe('TxPool.txGasPrice', () => {
 
 	it('should handle EIP-1559 transaction gas price correctly', async () => {
 		// Create an EIP-1559 transaction
-		const tx = FeeMarketEIP1559Transaction.fromTxData({
+		const tx = TransactionFactory({
 			nonce: 0,
 			maxFeePerGas: 2000000000n,
 			maxPriorityFeePerGas: 1000000000n,
 			gasLimit: 21000,
 			to: '0x3535353535353535353535353535353535353535',
 			value: 10000,
+			type: 2,
 			data: '0x',
 			chainId: 1,
 		})
@@ -144,7 +146,7 @@ describe('TxPool.txGasPrice', () => {
 	describe('normalizedGasPrice', () => {
 		it('should return priority fee when baseFee is provided for EIP-1559 transaction', async () => {
 			// Create an EIP-1559 transaction
-			const tx = FeeMarketEIP1559Transaction.fromTxData({
+			const tx = TransactionFactory({
 				nonce: 0,
 				maxFeePerGas: 2000000000n,
 				maxPriorityFeePerGas: 1000000000n,
@@ -153,6 +155,7 @@ describe('TxPool.txGasPrice', () => {
 				value: 10000,
 				data: '0x',
 				chainId: 1,
+				type: 2,
 			})
 			const signedTx = tx.sign(hexToBytes(PREFUNDED_PRIVATE_KEYS[0]))
 
@@ -184,7 +187,7 @@ describe('TxPool.txGasPrice', () => {
 
 		it('should return maxFeePerGas when no baseFee is provided for EIP-1559 transaction', async () => {
 			// Create an EIP-1559 transaction
-			const tx = FeeMarketEIP1559Transaction.fromTxData({
+			const tx = TransactionFactory({
 				nonce: 0,
 				maxFeePerGas: 2000000000n,
 				maxPriorityFeePerGas: 1000000000n,
@@ -193,6 +196,7 @@ describe('TxPool.txGasPrice', () => {
 				value: 10000,
 				data: '0x',
 				chainId: 1,
+				type: 2,
 			})
 			const signedTx = tx.sign(hexToBytes(PREFUNDED_PRIVATE_KEYS[0]))
 
@@ -224,7 +228,7 @@ describe('TxPool.txGasPrice', () => {
 
 		it('should handle zero baseFee correctly', async () => {
 			// Create an EIP-1559 transaction
-			const tx = FeeMarketEIP1559Transaction.fromTxData({
+			const tx = TransactionFactory({
 				nonce: 0,
 				maxFeePerGas: 2000000000n,
 				maxPriorityFeePerGas: 1000000000n,
@@ -233,6 +237,7 @@ describe('TxPool.txGasPrice', () => {
 				value: 10000,
 				data: '0x',
 				chainId: 1,
+				type: 2,
 			})
 			const signedTx = tx.sign(hexToBytes(PREFUNDED_PRIVATE_KEYS[0]))
 

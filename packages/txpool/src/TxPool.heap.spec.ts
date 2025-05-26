@@ -2,8 +2,8 @@ import { createChain } from '@tevm/blockchain'
 import { optimism } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
-import { FeeMarketEIP1559Transaction, LegacyTransaction } from '@tevm/tx'
-import { EthjsAccount, EthjsAddress, hexToBytes, parseEther } from '@tevm/utils'
+import { LegacyTransaction, TransactionFactory } from '@tevm/tx'
+import { EthjsAddress, hexToBytes, parseEther, createAddressFromString, createAccount, } from '@tevm/utils'
 import { type Vm, createVm } from '@tevm/vm'
 import Heap from 'qheap'
 import { beforeEach, describe, expect, it } from 'vitest'
@@ -19,10 +19,10 @@ describe('TxPool private heap methods', () => {
 		const common = optimism.copy()
 		const blockchain = await createChain({ common })
 		const stateManager = createStateManager({})
-		senderAddress = EthjsAddress.fromString('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266')
+		senderAddress = createAddressFromString('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266')
 		await stateManager.putAccount(
 			senderAddress,
-			EthjsAccount.fromAccountData({
+			createAccount({
 				balance: parseEther('100'),
 			}),
 		)
@@ -82,7 +82,7 @@ describe('TxPool private heap methods', () => {
 			data: '0x',
 		})
 
-		const eip1559Tx = FeeMarketEIP1559Transaction.fromTxData({
+		const eip1559Tx = TransactionFactory({
 			nonce: 0,
 			maxFeePerGas: 2000000000n,
 			maxPriorityFeePerGas: 1000000000n,
@@ -91,6 +91,7 @@ describe('TxPool private heap methods', () => {
 			value: 10000,
 			data: '0x',
 			chainId: 1,
+			type: 2,
 		})
 
 		// With this baseFee, the effective tip of the legacy tx will be 1500000000 - 1000000000 = 500000000
@@ -118,7 +119,7 @@ describe('TxPool private heap methods', () => {
 
 	it('should test normalizedGasPrice with zero baseFee', async () => {
 		// Create an EIP1559 transaction
-		const tx = FeeMarketEIP1559Transaction.fromTxData({
+		const tx = TransactionFactory({
 			nonce: 0,
 			maxFeePerGas: 2000000000n,
 			maxPriorityFeePerGas: 1000000000n,
@@ -127,6 +128,7 @@ describe('TxPool private heap methods', () => {
 			value: 10000,
 			data: '0x',
 			chainId: 1,
+			type: 2,
 		})
 
 		// Test with 0n baseFee - this should return maxFeePerGas
