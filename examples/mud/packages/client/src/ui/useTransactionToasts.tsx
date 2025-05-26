@@ -1,13 +1,16 @@
 import { useEffect, useRef } from 'react'
 import { toast } from 'sonner' // or whatever toast library you're using
 import type { TxStatus } from '@tevm/mud'
+import { useOptimisticWrapper } from '@tevm/mud/react';
 
-export const useTransactionToasts =(
-  subscribeTx: (args: { subscriber: (progress: TxStatus) => void }) => () => void,
-) => {
+export const useTransactionToasts = () => {
+  const optimisticWrapper = useOptimisticWrapper();
   const activeToasts = useRef<Map<string, string | number>>(new Map()) // txId -> toastId
 
   useEffect(() => {
+    if (!optimisticWrapper?.subscribeTx) return
+    const { subscribeTx } = optimisticWrapper
+
     const unsubscribe = subscribeTx({
       subscriber: (progress: TxStatus) => {
         const { id, status} = progress
@@ -73,5 +76,5 @@ export const useTransactionToasts =(
       activeToasts.current.forEach((toastId) => toast.dismiss(toastId))
       activeToasts.current.clear()
     }
-  }, [subscribeTx])
+  }, [optimisticWrapper?.subscribeTx])
 }

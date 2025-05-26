@@ -1,4 +1,4 @@
-import type { GetRecordArgs, Key, TableRecord } from '@latticexyz/stash/internal'
+import { type GetRecordArgs, type Key, type TableRecord, getRecord } from '@latticexyz/stash/internal'
 import type { Table } from '@latticexyz/store/internal'
 import { useOptimisticState } from './useOptimisticState.js'
 import { useOptimisticWrapper } from './useOptimisticWrapper.js'
@@ -14,9 +14,8 @@ export const useOptimisticRecord = <
 >(
 	args: Omit<GetRecordArgs<TTable, TDefaultValue>, 'stash' | 'state'>,
 ): UseOptimisticRecordResult<TTable, TDefaultValue> => {
-	const { getOptimisticRecord } = useOptimisticWrapper()
-	return useOptimisticState((state) => getOptimisticRecord({ state, ...args })) as UseOptimisticRecordResult<
-		TTable,
-		TDefaultValue
-	>
+	const wrapper = useOptimisticWrapper()
+	return useOptimisticState(async (state) =>
+		wrapper ? wrapper.getOptimisticRecord({ state, ...args }) : getRecord({ state, ...args }),
+	) as UseOptimisticRecordResult<TTable, TDefaultValue>
 }

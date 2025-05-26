@@ -19,7 +19,7 @@ export const useOptimisticState = <Tconfig extends StoreConfig, T>(
 	},
 ): T | undefined => {
 	const { isEqual } = opts ?? { isEqual: (a, b) => deepEqual(a, b) }
-	const { getOptimisticState, subscribeOptimisticState } = useOptimisticWrapper<Tconfig>()
+	const wrapper = useOptimisticWrapper<Tconfig>()
 	const [selectedState, setSelectedState] = useState<T | undefined>(undefined)
 
 	// Store selector in a ref to avoid issues if its identity changes across re-renders,
@@ -33,7 +33,9 @@ export const useOptimisticState = <Tconfig extends StoreConfig, T>(
 	const lastSelectedStateRef = useRef<T | undefined>(undefined)
 
 	useEffect(() => {
+		if (!wrapper) return
 		let isMounted = true
+		const { getOptimisticState, subscribeOptimisticState } = wrapper
 
 		const fetchDataAndUpdate = async () => {
 			try {
@@ -70,13 +72,11 @@ export const useOptimisticState = <Tconfig extends StoreConfig, T>(
 			},
 		})
 
-		// Cleanup function: clear the mounted flag and unsubscribe.
 		return () => {
 			isMounted = false
 			unsubscribe()
 		}
-	}, [getOptimisticState, subscribeOptimisticState]) // Re-run effect if these functions change.
-	// selector is handled via selectorRef.
+	}, [wrapper?.getOptimisticState, wrapper?.subscribeOptimisticState])
 
 	useDebugValue(selectedState)
 	return selectedState

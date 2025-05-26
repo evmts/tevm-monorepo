@@ -3,7 +3,7 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactNode } from "react";
 import { SyncProvider } from "@latticexyz/store-sync/react";
 import { stash, syncAdapter } from "./mud/stash";
-import { defineConfig, EntryKitProvider, useSessionClient } from "@latticexyz/entrykit/internal";
+import { AccountButton, defineConfig, EntryKitProvider, useSessionClient } from "@latticexyz/entrykit/internal";
 import { wagmiConfig } from "./wagmiConfig";
 import { chainId, getWorldAddress, startBlock } from "./common";
 import { Toaster } from "sonner";
@@ -19,7 +19,6 @@ function OptimisticEntryKitProvider({ children }: { children: ReactNode }) {
   const worldAddress = getWorldAddress();
   const { data: sessionClient } = useSessionClient();
 
-  if (!sessionClient) return null;
   return <OptimisticWrapperProvider
     stash={stash}
     storeAddress={worldAddress}

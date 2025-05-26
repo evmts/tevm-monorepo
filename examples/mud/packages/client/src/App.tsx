@@ -7,12 +7,11 @@ import { useWorldContract } from "./mud/useWorldContract";
 import { Synced } from "./mud/Synced";
 import { useSync } from "@latticexyz/store-sync/react";
 import { useTransactionToasts } from "./ui/useTransactionToasts";
-import { useOptimisticWrapper, useOptimisticRecords } from "@tevm/mud/react";
+import { useOptimisticRecords } from "@tevm/mud/react";
 
 export function App() {
   const players = useOptimisticRecords({ table: mudConfig.tables.app__Position });
-  const { subscribeTx } = useOptimisticWrapper();
-  useTransactionToasts(subscribeTx);
+  useTransactionToasts();
 
   const sync = useSync();
   const worldContract = useWorldContract();
