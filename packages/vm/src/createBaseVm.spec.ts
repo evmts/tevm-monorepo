@@ -34,7 +34,7 @@ describe('createBaseVm', () => {
 
 	it('should emit events correctly', async () => {
 		const baseVm = createBaseVm(opts)
-		const mockCallback = jest.fn((data, done) => done())
+		const mockCallback = jest.fn((_, done) => done())
 		baseVm.events.on('afterTx', mockCallback)
 		const expectedData = { test: 'data' }
 		await baseVm._emit('afterTx', expectedData)

@@ -105,7 +105,7 @@ describe(buildBlock.name, () => {
 				maxPriorityFeePerGas: 1n,
 				nonce: 0n,
 			},
-			{ common: stateManager.common },
+			{ common: evm.common },
 		)
 
 		const wrappedTx = new Proxy(tx, {
