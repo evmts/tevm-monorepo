@@ -18,8 +18,8 @@ const getTablesWithRecords = async (getState: () => Promise<State>) => {
 export const mudStoreGetStorageAtOverride =
 	(transport: { request: EIP1193RequestFn }) =>
 	({ getState, storeAddress }: { getState: () => Promise<State>; storeAddress: Address }): EIP1193RequestFn => {
-		const logger = console
-		// const logger = { debug: (...args: any[]) => {}, error: (...args: any[]) => {} }
+		// const logger = console
+		const logger = { debug: (...args: any[]) => {}, error: (...args: any[]) => {} }
 
 		const tableIdToFieldLayout = new Map<Hex, FieldLayout>()
 		getState().then(({ config }) => {
@@ -53,39 +53,14 @@ export const mudStoreGetStorageAtOverride =
 							tableIdToFieldLayout.set(table.tableId, fieldLayout)
 						}
 
-						// Try to match static fields first
+						// Try to find a matching slot for any record
 						for (const record of records) {
-							const accessedSlotLayout = fieldLayout.getStaticAccessedSlotLayout(record, requestedPosition)
-							if (accessedSlotLayout) {
-								const encodedFieldsValuesHex = fieldLayout.encodeStaticFieldsValuesAtSlot(record, accessedSlotLayout)
-								logger.debug('Returning static data', encodedFieldsValuesHex)
+							const slotInfo = fieldLayout.getSlotInfo(record, requestedPosition)
+							if (slotInfo) {
+								const encodedValueHex = fieldLayout.encodeValueAtSlot(record, slotInfo)
+								logger.debug(`Returning ${slotInfo.type} data`, encodedValueHex)
 								logger.debug('Would have returned', await originalRequest(requestArgs, options))
-								return encodedFieldsValuesHex
-							}
-						}
-
-						// Then try to match encoded lengths
-						for (const record of records) {
-							const encodedLengthsSlot = fieldLayout.getEncodedLengthsSlot(record)
-							if (encodedLengthsSlot.toLowerCase() === requestedPosition.toLowerCase()) {
-								const encodedLengthsHex = fieldLayout.encodeEncodedLengthsAtSlot(record)
-
-								logger.debug('Returning encoded lengths', encodedLengthsHex)
-								logger.debug('Would have returned', await originalRequest(requestArgs, options))
-								return encodedLengthsHex
-							}
-						}
-
-						// Finally try to match dynamic fields
-						for (const record of records) {
-							const dynamicFieldsLayout = fieldLayout.getDynamicFieldsLayout(record)
-							const accessedSlot = fieldLayout.getDynamicAccessedSlot(dynamicFieldsLayout, requestedPosition)
-							if (accessedSlot) {
-								const encodedFieldValuesHex = fieldLayout.encodeDynamicFieldsValuesAtSlot(accessedSlot)
-
-								logger.debug('Returning dynamic field data', encodedFieldValuesHex)
-								logger.debug('Would have returned', await originalRequest(requestArgs, options))
-								return encodedFieldValuesHex
+								return encodedValueHex
 							}
 						}
 					}
