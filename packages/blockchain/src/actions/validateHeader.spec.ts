@@ -16,7 +16,7 @@ describe(validateHeader.name, async () => {
 		vi.restoreAllMocks()
 	})
 
-	it.skip('should validate a valid header', async () => {
+	it('should validate a valid header', async () => {
 		const chain = createBaseChain({
 			common: optimism.copy(),
 			fork: { transport: transports.optimism },
