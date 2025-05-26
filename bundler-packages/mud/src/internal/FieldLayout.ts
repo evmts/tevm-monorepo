@@ -1,21 +1,47 @@
 import { type TableRecord } from '@latticexyz/stash/internal'
-import { type Hex, encodeAbiParameters } from '@tevm/utils'
+import { type Hex } from '@tevm/utils'
 import { bytesToHex, concatHex, encodePacked, hexToBigInt, hexToBytes, keccak256, numberToHex, pad, toHex } from 'viem'
 
-import { type AbiType, type Table } from '@latticexyz/config'
+import { type Table } from '@latticexyz/config'
 import {
 	type SchemaToPrimitives,
 	encodeKey,
+	encodeValueArgs,
 	getKeySchema,
 	getSchemaTypes,
 	getValueSchema,
 } from '@latticexyz/protocol-parser/internal' // Assuming internal exports are usable
 import {
+	type DynamicAbiType,
 	type StaticAbiType,
+	type StaticAbiTypeToPrimitiveType,
 	isDynamicAbiType,
 	isStaticAbiType,
 	staticAbiTypeToByteLength,
+	staticAbiTypeToDefaultValue,
 } from '@latticexyz/schema-type/internal'
+
+// Unified slot info types
+type StaticSlotInfo = {
+	type: 'static'
+	slotIndex: number
+	slot: Hex
+}
+
+type EncodedLengthsSlotInfo = {
+	type: 'encodedLengths'
+	slot: Hex
+}
+
+type DynamicSlotInfo = {
+	type: 'dynamic'
+	fieldName: string
+	slotIndex: number
+	slot: Hex
+	encodedData: Hex
+}
+
+type SlotInfo = StaticSlotInfo | EncodedLengthsSlotInfo | DynamicSlotInfo
 
 export class FieldLayout<TTable extends Table = Table> {
 	private static readonly STORE_SLOT: Hex = keccak256(toHex('mud.store'))
@@ -26,214 +52,154 @@ export class FieldLayout<TTable extends Table = Table> {
 	private readonly keySchema: getSchemaTypes<getKeySchema<TTable>>
 	private readonly valueSchema: getSchemaTypes<getValueSchema<TTable>>
 
-	// [[{ slot: n, offset: 0 }, { slot: n, offset: 16 }, ...], [{ slot: n + 1, offset: 0 }, { slot: n + 1, offset: 16 }, ...], ...]
-	private readonly staticFieldsLayout: Array<
-		Array<{
-			name: string
-			type: StaticAbiType
-			bytes: number
-			offset: number
-		}>
-	>
-
-	private readonly dynamicFields: {
-		[k: string]: AbiType
+	private readonly staticFieldsInfo: {
+		fields: Array<{ name: string; type: StaticAbiType }>
+		totalBytes: number
+		numSlots: number
 	}
+
+	private readonly dynamicFieldsInfo: Array<{
+		name: string
+		type: DynamicAbiType
+		fieldIndex: number
+	}>
 
 	constructor(table: TTable) {
 		this.tableId = table.tableId
 		this.keySchema = getSchemaTypes(getKeySchema(table))
 		this.valueSchema = getSchemaTypes(getValueSchema(table))
-		this.staticFieldsLayout = this.generateStaticFieldsLayout()
-		this.dynamicFields = Object.fromEntries(
-			Object.entries(this.valueSchema).filter(([, value]) => isDynamicAbiType(value)),
-		) as { [k: string]: AbiType }
+
+		// Process static fields
+		const staticEntries = Object.entries(this.valueSchema)
+			.filter(([, abiType]) => isStaticAbiType(abiType))
+			.map(([name, abiType]) => ({ name, type: abiType as StaticAbiType }))
+
+		const totalBytes = staticEntries.reduce((sum, { type }) => sum + staticAbiTypeToByteLength[type], 0)
+
+		this.staticFieldsInfo = {
+			fields: staticEntries,
+			totalBytes,
+			numSlots: Math.ceil(totalBytes / 32),
+		}
+
+		// Process dynamic fields with pre-computed indices
+		this.dynamicFieldsInfo = Object.entries(this.valueSchema)
+			.filter(([, abiType]) => isDynamicAbiType(abiType))
+			.map(([name, abiType], index) => ({
+				name,
+				type: abiType as DynamicAbiType,
+				fieldIndex: index,
+			}))
 	}
 
 	public getTableId() {
 		return this.tableId
 	}
 
-	/* ------------------------------ STATIC FIELDS ----------------------------- */
-	private generateStaticFieldsLayout() {
-		return Object.entries(this.valueSchema)
-			.filter(([, abiType]) => isStaticAbiType(abiType))
-			.reduce(
-				(slots, [name, _abiType]) => {
-					const abiType = _abiType as StaticAbiType
-					const bytes = staticAbiTypeToByteLength[abiType]
+	/* ----------------------------- UNIFIED SLOT API ----------------------------- */
 
-					// Find current slot or create new one
-					let currentSlot = slots[slots.length - 1]
-					if (!currentSlot) {
-						currentSlot = { fields: [], usedBytes: 0 }
-						slots.push(currentSlot)
-					}
-
-					// Check if field fits in current slot
-					if (currentSlot.usedBytes + bytes > 32) {
-						// Create new slot
-						currentSlot = { fields: [], usedBytes: 0 }
-						slots.push(currentSlot)
-					}
-
-					// Add field to current slot
-					currentSlot.fields.push({
-						name,
-						type: abiType,
-						bytes,
-						offset: currentSlot.usedBytes,
-					})
-
-					currentSlot.usedBytes += bytes
-
-					return slots
-				},
-				[] as Array<{
-					fields: Array<{
-						name: string
-						type: StaticAbiType
-						bytes: number
-						offset: number // 0-31, relative to slot start
-					}>
-					usedBytes: number
-				}>,
-			)
-			.map((slot) => slot.fields)
-	}
-
-	public getStaticAccessedSlotLayout(record: TableRecord, requestedPosition: Hex) {
+	/**
+	 * Get slot information for a requested position. Returns null if the position doesn't match any known slot.
+	 * This is the main entry point that avoids redundant computations.
+	 */
+	public getSlotInfo(record: TableRecord, requestedPosition: Hex): SlotInfo | null {
 		const recordHash = this.encodeRecordHash(record)
-		const baseSlot = hexToBigInt(FieldLayout.STORE_SLOT) ^ hexToBigInt(recordHash)
-		const allSlots = Array.from({ length: this.staticFieldsLayout.length }, (_, index) =>
-			numberToHex(baseSlot + BigInt(index), { size: 32 }),
-		)
+		const requestedLower = requestedPosition.toLowerCase()
 
-		const accessedSlot = allSlots.find((slot) => slot.toLowerCase() === requestedPosition.toLowerCase())
-		if (accessedSlot) return this.staticFieldsLayout[allSlots.indexOf(accessedSlot)]!
-		return null
-	}
-
-	public encodeStaticFieldsValuesAtSlot(
-		record: TableRecord,
-		accessedSlotLayout: Array<{ name: string; type: StaticAbiType; bytes: number; offset: number }>,
-	) {
-		const values = accessedSlotLayout
-			.sort((a, b) => Object.keys(this.valueSchema).indexOf(a.name) - Object.keys(this.valueSchema).indexOf(b.name))
-			.map((field) => record[field.name])
-
-		return pad(encodePacked(Object.values(this.valueSchema), values), { size: 32, dir: 'right' })
-	}
-
-	/* ----------------------------- ENCODED LENGTHS ---------------------------- */
-	public getEncodedLengthsSlot(record: TableRecord) {
-		if (Object.keys(this.dynamicFields).length > 0) {
-			const recordHash = this.encodeRecordHash(record)
-			const encodedLengthsSlot = hexToBigInt(FieldLayout.STORE_DYNAMIC_DATA_LENGTH_SLOT) ^ hexToBigInt(recordHash)
-			return numberToHex(encodedLengthsSlot, { size: 32 })
-		}
-
-		return numberToHex(0, { size: 32 })
-	}
-
-	public encodeEncodedLengthsAtSlot(record: TableRecord) {
-		const dynamicFieldNames = Object.keys(this.dynamicFields)
-		const fieldLengths: number[] = []
-		let totalLength = 0
-
-		// Calculate byte length for each dynamic field
-		for (const fieldName of dynamicFieldNames) {
-			const fieldValue = record[fieldName]
-			const fieldType = this.dynamicFields[fieldName]!
-
-			const encodedValue = encodeAbiParameters([{ type: fieldType }], [fieldValue])
-			const fieldLength = hexToBytes(encodedValue).length
-
-			fieldLengths.push(fieldLength)
-			totalLength += fieldLength
-		}
-
-		// Encode according to EncodedLengths format:
-		// bytes[0:6] = total length, bytes[7:11] = 1st field, bytes[12:16] = 2nd field, etc. up to 5 fields
-		return concatHex([
-			numberToHex(totalLength, { size: 7 }),
-			...Array.from(
-				{ length: 5 },
-				(_, i) => numberToHex(fieldLengths[i] ?? 0, { size: 5 }), // Up to 5 field lengths, 5 bytes each
-			),
-		])
-	}
-
-	/* ----------------------------- DYNAMIC FIELDS ----------------------------- */
-	public getDynamicFieldsLayout(record: TableRecord) {
-		const recordHash = this.encodeRecordHash(record)
-		const dynamicFieldNames = Object.keys(this.dynamicFields)
-
-		const fieldsLayout: Array<{
-			fieldName: string
-			fieldIndex: number
-			slots: Array<{
-				slot: Hex
-				slotIndex: number
-			}>
-			encodedData: Hex
-		}> = []
-
-		dynamicFieldNames.forEach((fieldName, fieldIndex) => {
-			const fieldValue = record[fieldName]
-			const fieldType = this.dynamicFields[fieldName]!
-
-			// Encode the field to get its packed data
-			const encodedData = encodeAbiParameters([{ type: fieldType }], [fieldValue])
-			const dataBytes = hexToBytes(encodedData)
-
-			// Calculate how many 32-byte slots this field spans
-			const numSlots = Math.ceil(dataBytes.length / 32)
-
-			// Calculate slots occupied by this field
-			const baseSlot = hexToBigInt(FieldLayout.STORE_DYNAMIC_DATA_SLOT) ^ BigInt(fieldIndex) ^ hexToBigInt(recordHash)
-			const slots = Array.from({ length: numSlots }, (_, slotIndex) => ({
-				slot: numberToHex(baseSlot + BigInt(slotIndex), { size: 32 }),
-				slotIndex,
-			}))
-
-			fieldsLayout.push({
-				fieldName,
-				fieldIndex,
-				slots,
-				encodedData,
-			})
-		})
-
-		return fieldsLayout
-	}
-
-	public getDynamicAccessedSlot(
-		dynamicFieldsLayout: Array<{ slots: Array<{ slot: Hex; slotIndex: number }>; encodedData: Hex }>,
-		requestedPosition: Hex,
-	) {
-		for (const field of dynamicFieldsLayout) {
-			const matchedSlot = field.slots.find(({ slot }) => slot.toLowerCase() === requestedPosition.toLowerCase())
-			if (matchedSlot) {
+		// Check static slots first
+		const staticBaseSlot = hexToBigInt(FieldLayout.STORE_SLOT) ^ hexToBigInt(recordHash)
+		for (let slotIndex = 0; slotIndex < this.staticFieldsInfo.numSlots; slotIndex++) {
+			const slot = numberToHex(staticBaseSlot + BigInt(slotIndex), { size: 32 })
+			if (slot.toLowerCase() === requestedLower) {
 				return {
-					index: matchedSlot.slotIndex,
-					encodedData: field.encodedData,
+					type: 'static',
+					slotIndex,
+					slot,
 				}
 			}
 		}
+
+		// Check encoded lengths slot
+		if (this.dynamicFieldsInfo.length > 0) {
+			const encodedLengthsSlot = numberToHex(
+				hexToBigInt(FieldLayout.STORE_DYNAMIC_DATA_LENGTH_SLOT) ^ hexToBigInt(recordHash),
+				{ size: 32 },
+			)
+			if (encodedLengthsSlot.toLowerCase() === requestedLower) {
+				return {
+					type: 'encodedLengths',
+					slot: encodedLengthsSlot,
+				}
+			}
+		}
+
+		// Check dynamic slots
+		for (const { name, fieldIndex } of this.dynamicFieldsInfo) {
+			// Encode the field to get its packed data
+			const { dynamicData } = encodeValueArgs(
+				{ [name]: this.valueSchema[name as keyof typeof this.valueSchema] },
+				record as SchemaToPrimitives<typeof this.valueSchema>,
+			)
+			// TODO: parse encodedLengths to get the length of just this field and then get this field
+			const dataBytes = hexToBytes(dynamicData)
+			const numSlots = Math.ceil(dataBytes.length / 32)
+
+			// Calculate base slot for this field
+			const baseSlot =
+				hexToBigInt(FieldLayout.STORE_DYNAMIC_DATA_SLOT) ^ (BigInt(fieldIndex) << 248n) ^ hexToBigInt(recordHash)
+
+			// Check each slot for this field
+			for (let slotIndex = 0; slotIndex < numSlots; slotIndex++) {
+				const slot = numberToHex(baseSlot + BigInt(slotIndex), { size: 32 })
+				if (slot.toLowerCase() === requestedLower) {
+					return {
+						type: 'dynamic',
+						fieldName: name,
+						slotIndex,
+						slot,
+						encodedData: dynamicData,
+					}
+				}
+			}
+		}
+
 		return null
 	}
 
-	// Extracts the relevant data to a slot index that fits into a series of slots for dynamic data
-	public encodeDynamicFieldsValuesAtSlot(slot: { index: number; encodedData: Hex }) {
-		// Extract the 32-byte chunk for this specific slot
-		const dataBytes = hexToBytes(slot.encodedData)
-		const startByte = slot.index * 32
-		const endByte = Math.min(startByte + 32, dataBytes.length)
-		const slotData = dataBytes.slice(startByte, endByte)
+	/**
+	 * Encode the value at a specific slot based on slot info.
+	 * This method uses the slot info to avoid recomputing the same data.
+	 */
+	public encodeValueAtSlot(record: TableRecord, slotInfo: SlotInfo): Hex {
+		switch (slotInfo.type) {
+			case 'static':
+				return this.encodeStaticValueAtSlot(record, slotInfo.slotIndex)
+			case 'encodedLengths':
+				return this.encodeEncodedLengthsValue(record)
+			case 'dynamic':
+				return this.encodeDynamicValueAtSlot(slotInfo.slotIndex, slotInfo.encodedData)
+		}
+	}
 
-		// Pad to 32 bytes if needed (right-pad with zeros)
-		return pad(bytesToHex(slotData), { size: 32, dir: 'right' })
+	/* ----------------------------- PRIVATE ENCODING METHODS ----------------------------- */
+
+	private encodeStaticValueAtSlot(record: TableRecord, slotIndex: number): Hex {
+		const staticValues = this.staticFieldsInfo.fields.map(({ name, type }) =>
+			record[name] === undefined ? staticAbiTypeToDefaultValue[type] : record[name],
+		) as Array<StaticAbiTypeToPrimitiveType>
+		const staticTypes = this.staticFieldsInfo.fields.map(({ type }) => type)
+
+		const packedData = encodePacked(staticTypes, staticValues)
+		return this.extractSlotData(packedData, slotIndex)
+	}
+
+	private encodeEncodedLengthsValue(record: TableRecord): Hex {
+		const { encodedLengths } = encodeValueArgs(this.valueSchema, record as SchemaToPrimitives<typeof this.valueSchema>)
+		return encodedLengths
+	}
+
+	private encodeDynamicValueAtSlot(slotIndex: number, encodedData: Hex): Hex {
+		return this.extractSlotData(encodedData, slotIndex)
 	}
 
 	/* ---------------------------------- UTILS --------------------------------- */
@@ -244,5 +210,17 @@ export class FieldLayout<TTable extends Table = Table> {
 		const keyTuple = encodeKey(this.keySchema, keys)
 
 		return keccak256(concatHex([this.tableId, ...keyTuple]))
+	}
+
+	private extractSlotData(encodedData: Hex, slotIndex: number) {
+		const dataBytes = hexToBytes(encodedData)
+
+		// Extract the 32-byte chunk for this specific slot
+		const startByte = slotIndex * 32
+		const endByte = Math.min(startByte + 32, dataBytes.length)
+		const slotData = dataBytes.slice(startByte, endByte)
+
+		// Pad to 32 bytes if needed (right-pad with zeros)
+		return pad(bytesToHex(slotData), { size: 32, dir: 'right' })
 	}
 }
