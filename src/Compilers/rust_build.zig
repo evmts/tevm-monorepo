@@ -32,7 +32,7 @@ pub fn addRustIntegration(b: *std.Build, target: std.Build.ResolvedTarget, optim
     
     // Set environment to ensure PATH is available
     // Include both Linux and macOS paths for cargo
-    cbindgen_cmd.setEnvironmentVariable("PATH", "/Users/williamcory/.cargo/bin:/root/.cargo/bin:/usr/local/bin:/usr/bin:/bin:/opt/homebrew/bin");
+    // cbindgen_cmd.setEnvironmentVariable("PATH", "/Users/williamcory/.cargo/bin:/root/.cargo/bin:/usr/local/bin:/usr/bin:/bin:/opt/homebrew/bin");
     
     std.debug.print("cbindgen command configured\n", .{});
 
