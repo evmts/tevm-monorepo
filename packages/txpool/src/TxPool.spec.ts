@@ -9,8 +9,9 @@ import {
 	type ImpersonatedTx,
 	LegacyTransaction,
 	type TypedTransaction,
+	TransactionFactory,
 } from '@tevm/tx'
-import { EthjsAccount, EthjsAddress, bytesToHex, hexToBytes, parseEther } from '@tevm/utils'
+import { EthjsAccount, EthjsAddress, bytesToHex, hexToBytes, parseEther, createAddressFromString, createAccount } from '@tevm/utils'
 import { type Vm, createVm } from '@tevm/vm'
 import { assert, beforeEach, describe, expect, it, vi } from 'vitest'
 import { PREFUNDED_PRIVATE_KEYS, bytesToUnprefixedHex } from '../../utils/dist/index.cjs'
@@ -24,10 +25,10 @@ describe(TxPool.name, () => {
 	beforeEach(async () => {
 		const blockchain = await createChain({ common: optimism })
 		const stateManager = createStateManager({})
-		senderAddress = EthjsAddress.fromString('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266')
+		senderAddress = createAddressFromString('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266')
 		await stateManager.putAccount(
 			senderAddress,
-			EthjsAccount.fromAccountData({
+			createAccount({
 				balance: parseEther('100'),
 			}),
 		)
@@ -140,10 +141,10 @@ describe(TxPool.name, () => {
 		const blockchain = await createChain({ common: optimism })
 		const stateManager = createStateManager({})
 		const poorSenderPrivateKey = hexToBytes('0x1234567890123456789012345678901234567890123456789012345678901234')
-		const poorSenderAddress = EthjsAddress.fromString('0x2e988a386a799f506693793c6a5af6b54dfaabfb')
+		const poorSenderAddress = createAddressFromString('0x2e988a386a799f506693793c6a5af6b54dfaabfb')
 		await stateManager.putAccount(
 			poorSenderAddress,
-			EthjsAccount.fromAccountData({
+			createAccount({
 				balance: 1000n, // very little balance
 			}),
 		)
@@ -292,11 +293,12 @@ describe(TxPool.name, () => {
 
 	it('should handle EIP-1559 transactions', async () => {
 		// create, sign and add an EIP-1559 tx
-		const tx = FeeMarketEIP1559Transaction.fromTxData({
+		const tx = TransactionFactory.fromTxData({
 			nonce: 0,
 			maxFeePerGas: 2000000000, // 2 Gwei
 			maxPriorityFeePerGas: 1000000000, // 1 Gwei
 			gasLimit: 21000,
+			type: 2,
 			to: '0x3535353535353535353535353535353535353535',
 			value: 10000,
 			data: '0x',
