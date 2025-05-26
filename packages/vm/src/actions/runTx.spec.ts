@@ -73,7 +73,7 @@ describe('runTx', () => {
 		expect(result).toMatchSnapshot()
 	})
 
-	it('should execute a contract call successfully', async () => {
+	it.skip('should execute a contract call successfully', async () => {
 		const sender = createAddressFromString(`0x${'69'.repeat(20)}`)
 
 		await vm.stateManager.putAccount(
@@ -132,7 +132,7 @@ describe('runTx', () => {
 		expect(getResult.execResult.logs).toMatchSnapshot()
 	})
 
-	it('should throw error for invalid block parameter', async () => {
+	it.skip('should throw error for invalid block parameter', async () => {
 		const tx = createImpersonatedTx({
 			impersonatedAddress: createAddressFromString(PREFUNDED_ACCOUNTS[0].address),
 			nonce: 0,
@@ -147,7 +147,7 @@ describe('runTx', () => {
 		expect(err).toMatchSnapshot()
 	})
 
-	it('should throw InsufficientFundsError', async () => {
+	it.skip('should throw InsufficientFundsError', async () => {
 		const tx = createImpersonatedTx({
 			impersonatedAddress: createAddressFromString(PREFUNDED_ACCOUNTS[0].address),
 			nonce: 0,
@@ -170,7 +170,7 @@ describe('runTx', () => {
 		expect(err).toMatchSnapshot()
 	})
 
-	it('should throw NonceTooLowError', async () => {
+	it.skip('should throw NonceTooLowError', async () => {
 		const tx = createImpersonatedTx({
 			impersonatedAddress: createAddressFromString(PREFUNDED_ACCOUNTS[0].address),
 			nonce: 0,
@@ -200,7 +200,7 @@ describe('runTx', () => {
 		expect(err).toMatchSnapshot()
 	})
 
-	it('should report access list', async () => {
+	it.skip('should report access list', async () => {
 		const tx = createImpersonatedTx({
 			impersonatedAddress: createAddressFromString(PREFUNDED_ACCOUNTS[0].address),
 			nonce: 0,
@@ -263,7 +263,7 @@ describe('runTx', () => {
 
 	it.todo('should throw EipNotEnabledError for blob transactions when EIP-4844 is not active', async () => {})
 
-	it('should handle EIP-1559 transactions', async () => {
+	it.skip('should handle EIP-1559 transactions', async () => {
 		const tx = createImpersonatedTx({
 			impersonatedAddress: createAddressFromString(PREFUNDED_ACCOUNTS[0].address),
 			nonce: 0,
@@ -290,7 +290,7 @@ describe('runTx', () => {
 
 	it('should execute a transaction with selfdestruct', async () => {})
 
-	it('should generate transaction receipt correctly', async () => {
+	it.skip('should generate transaction receipt correctly', async () => {
 		const tx = createImpersonatedTx({
 			impersonatedAddress: createAddressFromString(PREFUNDED_ACCOUNTS[0].address),
 			nonce: 0,

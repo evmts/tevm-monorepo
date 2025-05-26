@@ -89,7 +89,8 @@ describe(buildBlock.name, () => {
 		await stateManager.checkpoint()
 		await stateManager.commit()
 
-		const tx = TransactionFactory.fromTxData({
+		const tx = TransactionFactory({
+			type: 2, // EIP-1559 transaction
 			data: hexToBytes(
 				encodeFunctionData({
 					abi: MOCKERC20_ABI,
@@ -100,7 +101,9 @@ describe(buildBlock.name, () => {
 			gasLimit: 200000n,
 			to: contractAddress,
 			maxFeePerGas: parentBlock.header.calcNextBaseFee(),
-		})
+			maxPriorityFeePerGas: 1n,
+			nonce: 0n,
+		}, { common: stateManager.common })
 
 		const wrappedTx = new Proxy(tx, {
 			get(target, prop) {
