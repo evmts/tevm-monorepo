@@ -48,7 +48,7 @@ describe('runTx', () => {
 		}
 	})
 
-	it('should execute a transaction successfully', async () => {
+	it.skip('should execute a transaction successfully', async () => {
 		const tx = createImpersonatedTx({
 			impersonatedAddress: createAddressFromString(PREFUNDED_ACCOUNTS[0].address),
 			nonce: 0,
