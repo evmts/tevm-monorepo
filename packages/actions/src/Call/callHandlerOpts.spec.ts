@@ -173,7 +173,7 @@ describe('callHandlerOpts', () => {
 		const result = await callHandlerOpts(client, { blockTag: bytesToHex(block.hash()) })
 		expect(result.data?.block?.header.number).toEqual(block.header.number)
 		expect(result.data?.block?.header).toEqual(block.header)
-		expect(() => result.data?.block?.header.cliqueSigner()).toThrowError()
+		// cliqueSigner is no longer part of the header interface
 	})
 
 	it('should return an error for unknown block tag', async () => {
@@ -204,7 +204,7 @@ describe('callHandlerOpts', () => {
 		expect(result.data?.block?.header.timestamp).toEqual(blockOverrideSet.time)
 		expect(result.data?.block?.header.baseFeePerGas).toEqual(blockOverrideSet.baseFee)
 		expect(result.data?.block?.header.getBlobGasPrice()).toEqual(blockOverrideSet.blobBaseFee)
-		expect(() => result.data?.block?.header.cliqueSigner()).toThrowError()
+		// cliqueSigner is no longer part of the header interface
 	})
 
 	it('should handle block overrides correctly with no blobBaseFee', async () => {
@@ -222,7 +222,7 @@ describe('callHandlerOpts', () => {
 		expect(result.data?.block?.header.timestamp).toEqual(blockOverrideSet.time)
 		expect(result.data?.block?.header.baseFeePerGas).toEqual(blockOverrideSet.baseFee)
 		expect(result.data?.block?.header.getBlobGasPrice()).toBe(1n)
-		expect(() => result.data?.block?.header.cliqueSigner()).toThrowError()
+		// cliqueSigner is no longer part of the header interface
 	})
 
 	it('should throw error for transaction creation on past blocks', async () => {

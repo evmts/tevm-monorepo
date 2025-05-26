@@ -4,7 +4,15 @@ import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
 import { BlobEIP4844Transaction, FeeMarketEIP1559Transaction, LegacyTransaction } from '@tevm/tx'
 import type { TypedTransaction } from '@tevm/tx'
-import { EthjsAddress, bytesToHex, bytesToUnprefixedHex, hexToBytes, parseEther, createAddressFromString, createAccount, } from '@tevm/utils'
+import {
+	EthjsAddress,
+	bytesToHex,
+	bytesToUnprefixedHex,
+	createAccount,
+	createAddressFromString,
+	hexToBytes,
+	parseEther,
+} from '@tevm/utils'
 import { type Vm, createVm } from '@tevm/vm'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { PREFUNDED_PRIVATE_KEYS } from '../../utils/dist/index.cjs'

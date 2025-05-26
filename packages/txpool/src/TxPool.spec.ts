@@ -3,13 +3,8 @@ import { createChain } from '@tevm/blockchain'
 import { optimism } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
-import {
-	type ImpersonatedTx,
-	LegacyTransaction,
-	type TypedTransaction,
-	TransactionFactory,
-} from '@tevm/tx'
-import { EthjsAddress, bytesToHex, hexToBytes, parseEther, createAddressFromString, createAccount } from '@tevm/utils'
+import { type ImpersonatedTx, LegacyTransaction, TransactionFactory, type TypedTransaction } from '@tevm/tx'
+import { EthjsAddress, bytesToHex, createAccount, createAddressFromString, hexToBytes, parseEther } from '@tevm/utils'
 import { type Vm, createVm } from '@tevm/vm'
 import { assert, beforeEach, describe, expect, it, vi } from 'vitest'
 import { PREFUNDED_PRIVATE_KEYS, bytesToUnprefixedHex } from '../../utils/dist/index.cjs'

@@ -1,4 +1,9 @@
+**/go-ethereum/
+revm/
+evmone/
+ethereumjs-monorepo/
 lib/
+**/docs/**/*.md
 .changeset/
 .idea/
 .devcontainer

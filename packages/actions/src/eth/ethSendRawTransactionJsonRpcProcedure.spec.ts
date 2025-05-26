@@ -11,7 +11,7 @@ describe('ethSendRawTransactionJsonRpcProcedure', () => {
 		const client = createTevmNode()
 		const procedure = ethSendRawTransactionJsonRpcProcedure(client)
 
-		const tx = TransactionFactory.fromTxData(
+		const tx = TransactionFactory(
 			{
 				nonce: '0x00',
 				maxFeePerGas: '0x09184e72a000',
@@ -42,7 +42,7 @@ describe('ethSendRawTransactionJsonRpcProcedure', () => {
 		const client = createTevmNode()
 		const procedure = ethSendRawTransactionJsonRpcProcedure(client)
 
-		const tx = TransactionFactory.fromTxData(
+		const tx = TransactionFactory(
 			{
 				nonce: '0x00',
 				gasPrice: '0x09184e72a000',

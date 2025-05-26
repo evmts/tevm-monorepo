@@ -2,7 +2,7 @@ import { createAddress } from '@tevm/address'
 import { tevmDefault } from '@tevm/common'
 import { InvalidTransactionError } from '@tevm/errors'
 import { createTevmNode } from '@tevm/node'
-import { BlobEIP4844Transaction, TransactionFactory } from '@tevm/tx'
+import { TransactionFactory, isBlobEIP4844Tx } from '@tevm/tx'
 import { PREFUNDED_PRIVATE_KEYS, PREFUNDED_PUBLIC_KEYS, bytesToHex, hexToBytes, parseEther } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
@@ -19,7 +19,7 @@ describe('ethSendRawTransactionHandler', () => {
 		const value = parseEther('1')
 
 		// Create and sign a transaction
-		const tx = TransactionFactory.fromTxData(
+		const tx = TransactionFactory(
 			{
 				nonce: '0x00',
 				maxFeePerGas: '0x09184e72a000',
@@ -52,7 +52,7 @@ describe('ethSendRawTransactionHandler', () => {
 		const client = createTevmNode()
 		const handler = ethSendRawTransactionHandler(client)
 
-		const tx = TransactionFactory.fromTxData(
+		const tx = TransactionFactory(
 			{
 				nonce: '0x00',
 				gasPrice: '0x09184e72a000',
@@ -83,7 +83,7 @@ describe('ethSendRawTransactionHandler', () => {
 		})
 		await client.setImpersonatedAccount(impersonatedAddress.toString())
 
-		const tx = TransactionFactory.fromTxData(
+		const tx = TransactionFactory(
 			{
 				nonce: '0x00',
 				maxFeePerGas: '0x09184e72a000',
