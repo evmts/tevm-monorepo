@@ -1,6 +1,7 @@
-import type { Address, Chain, Client, Transport } from 'viem'
-import type { SmartAccount } from 'viem/account-abstraction'
+import type { Address, Chain, Client, Transport, WriteContractParameters, WriteContractReturnType } from 'viem'
+import type { BundlerClient, SmartAccount } from 'viem/account-abstraction'
 
-export type SessionClient = Client<Transport, Chain, SmartAccount> & {
+export type SessionClient = BundlerClient<Transport, Chain, SmartAccount, Client> & {
 	readonly userAddress: Address
+	writeContract: (args: WriteContractParameters) => Promise<WriteContractReturnType>
 }
