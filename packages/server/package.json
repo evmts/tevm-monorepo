@@ -71,7 +71,7 @@
     "@tevm/jsonrpc": "workspace:^",
     "@tevm/memory-client": "workspace:^",
     "@tevm/utils": "workspace:^",
-    "zod": "^3.25.28"
+    "zod": "^3.25.30"
   },
   "devDependencies": {
     "@tevm/actions": "workspace:^",

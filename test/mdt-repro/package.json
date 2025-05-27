@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@ensdomains/dnsprovejs": "^0.5.1",
-    "ethers": "^6.14.1",
+    "ethers": "^6.14.3",
     "tevm": "workspace:^"
   }
 }

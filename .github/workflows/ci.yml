@@ -1,4 +1,4 @@
-name: Build App
+name: Typecheck
 on:
   push:
     branches:
@@ -17,8 +17,8 @@ env:
   TEVM_RPC_URLS_OPTIMISM: ${{ secrets.TEVM_RPC_URLS_OPTIMISM }}
 
 jobs:
-  build-app:
-    name: Build App
+  typecheck:
+    name: Typecheck
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -37,5 +37,19 @@ jobs:
       - name: "Setup"
         uses: ./.github/actions/setup
 
+      - run: npx nx-cloud start-ci-run --distribute-on="6 linux-medium-js" --stop-agents-after="build:app"
+
+      - name: Quick lint
+        run: pnpm nx nx-cloud record -- pnpm lint:check
+
+      - name: Build
+        run: pnpm nx affected --targets=build:dist,build:types
+
+      - name: Tests
+        run: pnpm nx affected --targets=test:coverage,dev:run
+
+      - name: Lint
+        run: pnpm nx affected --targets=typecheck,lint:check,lint:deps,lint:package
+
       - name: Build app
-        run: bunx nx run-many --target build:app
+        run: pnpm nx affected --targets=build:app,generate:docs

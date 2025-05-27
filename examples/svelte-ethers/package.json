@@ -15,7 +15,7 @@
 	"dependencies": {
 		"@tevm/contract": "workspace:^",
 		"@tevm/ethers": "workspace:^",
-		"ethers": "^6.14.1"
+		"ethers": "^6.14.3"
 	},
 	"devDependencies": {
 		"@openzeppelin/contracts": "^5.3.0",
@@ -24,7 +24,7 @@
 		"@tevm/ts-plugin": "workspace:^",
 		"@tevm/vite-plugin": "workspace:^",
 		"solc": "0.8.30",
-		"svelte": "^5.33.2",
+		"svelte": "^5.33.3",
 		"svelte-check": "^4.2.1",
 		"typescript": "^5.8.3",
 		"vite": "^6.3.5",

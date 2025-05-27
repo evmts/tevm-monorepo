@@ -40,7 +40,7 @@
 		"volar-service-html": "0.0.64",
 		"volar-service-typescript": "^0.0.64",
 		"vscode-html-languageservice": "^5.4.0",
-		"zod": "^3.25.28"
+		"zod": "^3.25.30"
 	},
 	"devDependencies": {
 		"@tevm/base-bundler": "workspace:^",

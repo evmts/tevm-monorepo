@@ -42,14 +42,7 @@ runs:
       shell: bash
 
     - name: Derive appropriate SHAs for base and head for `nx affected` commands
-      uses: nrwl/nx-set-shas@v3
-
-    - name: Echo nx shas
-      run: |
-        echo "nx using following shas:"
-        echo "BASE: ${{ env.NX_BASE }}"
-        echo "HEAD: ${{ env.NX_HEAD }}"
-      shell: bash
+      uses: nrwl/nx-set-shas@v4
 
     - name: Install native dependencies
       shell: bash
