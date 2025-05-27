@@ -38,4 +38,4 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Typecheck
-        run: pnpm -r run typecheck
+        run: bunx nx run-many --target typecheck

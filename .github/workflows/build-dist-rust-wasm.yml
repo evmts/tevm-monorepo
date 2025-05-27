@@ -38,4 +38,4 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Build dist, rust, and wasm
-        run: pnpm -r run build:dist && pnpm -r run build:rust && pnpm -r run build:wasm
+        run: bunx nx run-many --targets build:dist,build:rust,build:wasm

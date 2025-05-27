@@ -38,4 +38,4 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Dev run
-        run: pnpm -r run dev:run
+        run: bunx nx run-many --target dev:run

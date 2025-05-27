@@ -38,4 +38,4 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Generate docs
-        run: pnpm -r run generate:docs
+        run: bunx nx run-many --target generate:docs
