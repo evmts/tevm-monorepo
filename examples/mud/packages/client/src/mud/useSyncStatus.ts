@@ -1,8 +1,8 @@
 import { stash } from "./stash";
 import { initialProgress, SyncProgress } from "@latticexyz/store-sync/internal";
+import { useRecord } from "@latticexyz/stash/react"
 import { SyncStep } from "@latticexyz/store-sync";
 import { useMemo } from "react";
-import { useRecord } from "../overrides/useRecord";
 
 export function useSyncStatus() {
   const progress = useRecord({

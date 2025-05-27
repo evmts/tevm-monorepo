@@ -84,21 +84,31 @@
     "@tevm/utils": "workspace:^",
     "@tevm/vm": "workspace:^",
     "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "viem": "^2.23.10"
   },
   "devDependencies": {
+    "@testing-library/react": "^16.2.0",
     "@tevm/config": "workspace:^",
+    "@tevm/decorators": "workspace:^",
+    "@tevm/node": "workspace:^",
     "@tevm/test-utils": "workspace:^",
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^",
-    "@types/react": "^18.2.0"
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "jsdom": "^26.1.0"
   },
   "peerDependencies": {
     "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "viem": "^2.23.10"
   },
   "peerDependenciesMeta": {
     "react": {
+      "optional": true
+    },
+    "react-dom": {
       "optional": true
     }
   },
