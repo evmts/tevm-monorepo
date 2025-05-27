@@ -18,13 +18,14 @@ exports[`getBlock > should fetch and cache the block from rpc if it does not exi
     "parentBeaconBlockRoot": "0x69d0b98fa1d8d0f0bf71169a06348a55cc94b3e60977cf8f36e1df1cf5e03a02",
     "parentHash": "0xf6d5e5a402cc3e04f9ce3ded543f2a389c11b0ab96a893a6b2220967b45c9e54",
     "receiptTrie": "0xe2fdfd2bb204d5f145113f1fab8ac8ae75a2d981a4e2147f6ebe15ec1c39b9fd",
+    "requestsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
     "stateRoot": "0x6e4a0049d5fa1a7fd187cd6222b5e0e31f984d79a9426b0d1f7b79438c247651",
     "timestamp": "0x669614a3",
     "transactionsTrie": "0x6e50b3326e35257710e793b771b04c9435582d75f99471ed36795e385412167a",
     "uncleHash": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
     "withdrawalsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
   },
-  "requests": undefined,
+  "requests": [],
   "transactions": [
     {
       "chainId": "0xa",
@@ -233,7 +234,7 @@ Version: 1.1.0.next-73]
 `;
 
 exports[`getBlock > should throw an error if the block does not exist 2`] = `
-[UnknownBlock: Block with hash 0x6e2b61c3625a559681df81f5d1140d26d4883537aa500a0e4cdad312032cc2e1 does not exist
+[UnknownBlock: Block with hash 0xd28815595bbd6c13b091aa46b91cc3c9cfe2cf9ad72a38d0974d1f12477dfba3 does not exist
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
 Version: 1.1.0.next-73]

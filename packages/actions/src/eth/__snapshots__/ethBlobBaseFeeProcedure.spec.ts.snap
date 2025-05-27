@@ -5,3 +5,9 @@ exports[`ethBlobBaseFeeJsonRpcProcedure > should handle requests with additional
 exports[`ethBlobBaseFeeJsonRpcProcedure > should handle requests without an id 1`] = `"0x1"`;
 
 exports[`ethBlobBaseFeeJsonRpcProcedure > should return the blob base fee 1`] = `"0x1"`;
+
+exports[`ethBlobBaseFeeJsonRpcProcedure should handle requests with additional parameters 1`] = `"0x1"`;
+
+exports[`ethBlobBaseFeeJsonRpcProcedure should handle requests without an id 1`] = `"0x1"`;
+
+exports[`ethBlobBaseFeeJsonRpcProcedure should return the blob base fee 1`] = `"0x1"`;

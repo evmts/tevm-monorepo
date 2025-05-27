@@ -114,3 +114,118 @@ Docs: https://tevm.sh/reference/tevm/errors/classes/invalidfunctionnameerror/
 Version: 1.1.0.next-73],
 ]
 `;
+
+exports[`contractHandler should handle error during EVM call 1`] = `
+[
+  {
+    "_tag": "InvalidRequestError",
+    "message": "Contract at address 0x3333333333333333333333333333333333333333 does not exist",
+    "name": "InvalidRequestError",
+  },
+]
+`;
+
+exports[`contractHandler should handle error during transaction creation 1`] = `
+[
+  [InternalEvmError: Missing parameter value for gasConfig
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Details: Missing parameter value for gasConfig
+Version: 1.1.0.next-73],
+]
+`;
+
+exports[`contractHandler should handle errors returned during contract call 1`] = `
+[
+  [InternalEvmError: Missing parameter value for gasConfig
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Details: Missing parameter value for gasConfig
+Version: 1.1.0.next-73],
+]
+`;
+
+exports[`contractHandler should handle invalid function encoding 1`] = `
+[
+  [InvalidRequestError: Function "nonExistentFunction" not found on ABI.
+Make sure you are using the correct ABI and that the function exists on it.
+
+Docs: https://viem.sh/docs/contract/encodeFunctionData
+Version: viem@2.30.1
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
+Details: Function "nonExistentFunction" not found on ABI.
+Make sure you are using the correct ABI and that the function exists on it.
+
+Docs: https://viem.sh/docs/contract/encodeFunctionData
+Version: viem@2.30.1
+Version: 1.1.0.next-73],
+]
+`;
+
+exports[`contractHandler should handle invalid params 1`] = `
+[
+  [InvalidToError: Invalid Address 0x123
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidtoerror/
+Version: 1.1.0.next-73],
+  [InvalidAddressError: Invalid Address 0x123
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
+Version: 1.1.0.next-73],
+  [InvalidAddressError: Invalid Address 0x123
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
+Version: 1.1.0.next-73],
+]
+`;
+
+exports[`contractHandler should handle missing contract 1`] = `
+[
+  {
+    "_tag": "InvalidRequestError",
+    "message": "Contract at address 0x0000000000000000000000000000000000000000 does not exist",
+    "name": "InvalidRequestError",
+  },
+]
+`;
+
+exports[`contractHandler should handle revert errors during contract call 1`] = `
+[
+  [InternalEvmError: Missing parameter value for gasConfig
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Details: Missing parameter value for gasConfig
+Version: 1.1.0.next-73],
+]
+`;
+
+exports[`contractHandler should handle unexpected errors during param conversion 1`] = `
+[
+  [InvalidGasPriceError: Invalid input
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
+Version: 1.1.0.next-73],
+  [InvalidGasPriceError: Invalid input
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
+Version: 1.1.0.next-73],
+  [_InvalidParamsError: Must have either code or to
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/
+Version: 1.1.0.next-73],
+]
+`;
+
+exports[`contractHandler should handle unexpected errors during script creation 1`] = `
+[
+  [InvalidAbiError: Required
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidabierror/
+Version: 1.1.0.next-73],
+  [InvalidFunctionNameError: Required
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidfunctionnameerror/
+Version: 1.1.0.next-73],
+]
+`;

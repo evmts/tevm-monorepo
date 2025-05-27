@@ -3,3 +3,7 @@
 exports[`blockNumberProcedure > should handle requests without an id 1`] = `"0x0"`;
 
 exports[`blockNumberProcedure > should return the current block number 1`] = `"0x0"`;
+
+exports[`blockNumberProcedure should handle requests without an id 1`] = `"0x0"`;
+
+exports[`blockNumberProcedure should return the current block number 1`] = `"0x0"`;

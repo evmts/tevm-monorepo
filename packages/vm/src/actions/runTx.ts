@@ -101,7 +101,7 @@ const _runTx =
 		warmAddresses2929(vm, caller, tx.to, block.header.coinbase)
 
 		// Validate gas limit against tx base fee (DataFee + TxFee + Creation Fee)
-		const txBaseFee = (tx as any).getBaseFee()
+		const txBaseFee = tx.getIntrinsicGas()
 		let gasLimit = tx.gasLimit
 		if (gasLimit < txBaseFee) {
 			const msg = errorMsg(
@@ -185,7 +185,7 @@ const _runTx =
 			// the signer must be able to afford the transaction
 			// assert signer(tx).balance >= tx.message.gas * tx.message.max_fee_per_gas + get_total_data_gas(tx) * tx.message.max_fee_per_data_gas
 			const castTx = tx as BlobEIP4844Transaction
-			totalblobGas = (castTx.common as any).ethjsCommon.param('gasConfig', 'blobGasPerBlob') * BigInt(castTx.numBlobs())
+			totalblobGas = (castTx.common as any).ethjsCommon.param('4844', 'blobGasPerBlob') * BigInt(castTx.numBlobs())
 			maxCost += totalblobGas * castTx.maxFeePerBlobGas
 
 			// 4844 minimum blobGas price check
@@ -298,7 +298,10 @@ const _runTx =
 		// Process any gas refund
 		let gasRefund = results.execResult.gasRefund ?? 0n
 		results.gasRefund = gasRefund
-		const maxRefundQuotient = (vm.common as any).ethjsCommon.param('gasConfig', 'maxRefundQuotient')
+		const maxRefundQuotient = (vm.common as any).ethjsCommon.paramByHardfork(
+			'maxRefundQuotient',
+			vm.common.ethjsCommon.hardfork(),
+		)
 		if (gasRefund !== 0n) {
 			const maxRefund = results.totalGasSpent / maxRefundQuotient
 			gasRefund = gasRefund < maxRefund ? gasRefund : maxRefund

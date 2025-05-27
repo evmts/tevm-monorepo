@@ -21,7 +21,7 @@ describe('getBlockFromRpc', () => {
 	const blockNumber = 122699513n
 	const blockHash = '0x485643430d3c6d32d4391353b2de38d335443d6399eccd7f639cd73027cc3245'
 	// it is different because we filter out optimism deposit tx
-	const blockHashAfterForking = '0xcbec656e620f3182a946be85fb7fa34b802b064c4be1bd7ce52df74954d7a49e'
+	const blockHashAfterForking = '0x246f4ec5f0b5d25129b3941c4e74338fecb4fa3e5523ee436d97ef7e17ecd135'
 
 	it('should fetch a block by number', async () => {
 		const transport = transports.optimism
@@ -216,8 +216,9 @@ const expectedBlock = {
 		transactionsTrie: '0xd470b757c11beea437e14b493489946e4b951c60c5c510348a94f8393468e00d',
 		uncleHash: '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347',
 		withdrawalsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+		requestsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
 	},
-	requests: undefined,
+	requests: [],
 	transactions: [
 		{
 			chainId: '0xa',

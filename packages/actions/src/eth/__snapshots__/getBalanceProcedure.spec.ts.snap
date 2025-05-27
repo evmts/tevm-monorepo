@@ -1,3 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`getBalanceProcedure > should return an error if the block parameter is missing 1`] = `[Error: getBalanceProcedure received invalid parameters: Block parameter (req.params[1]) is missing or invalid. Expected a hex string or block tag (e.g., "latest", "earliest").]`;
+
+exports[`getBalanceProcedure should return an error if the block parameter is missing 1`] = `[Error: getBalanceProcedure received invalid parameters: Block parameter (req.params[1]) is missing or invalid. Expected a hex string or block tag (e.g., "latest", "earliest").]`;

@@ -53,7 +53,7 @@ import { createMockKzg } from './createMockKzg.js'
 export const createCommon = ({
 	customCrypto = {},
 	loggingLevel = 'warn',
-	hardfork = 'cancun',
+	hardfork = 'prague',
 	eips = [],
 	...chain
 }) => {
@@ -99,6 +99,9 @@ export const createCommon = ({
 						historicalRootsLength: 8191,
 						historyStorageAddress: '0x0aae40965e6800cd9b1f4b05ff21581047e3f91e',
 						historyServeWindow: 8192,
+					},
+					gasConfig: {
+						maxRefundQuotient: 5,
 					},
 				},
 			},
