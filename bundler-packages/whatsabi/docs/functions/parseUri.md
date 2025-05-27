@@ -8,7 +8,7 @@
 
 > **parseUri**(`uri`): `undefined` \| [`ParsedUri`](../type-aliases/ParsedUri.md)
 
-Defined in: [bundler-packages/whatsabi/src/parseUri.js:8](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/parseUri.js#L8)
+Defined in: bundler-packages/whatsabi/src/parseUri.js:8
 
 ## Parameters
 

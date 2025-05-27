@@ -1,7 +1,7 @@
 import { createAddress } from '@tevm/address'
 import { InvalidTransactionError } from '@tevm/errors'
 import { prefundedAccounts } from '@tevm/node'
-import { BlobEIP4844Transaction, TransactionFactory, createImpersonatedTx } from '@tevm/tx'
+import { createImpersonatedTx, createTxFromRLP, isBlobEIP4844Tx } from '@tevm/tx'
 import { EthjsAddress, bytesToHex, hexToBytes } from '@tevm/utils'
 import { callHandler } from '../Call/callHandler.js'
 
@@ -42,34 +42,29 @@ export class BlobGasLimitExceededError extends Error {
  * @param {Uint8Array} txBuf
  */
 const getTx = (vm, txBuf) => {
-	switch (txBuf[0]) {
-		case txType.LEGACY:
-		case txType.ACCESS_LIST:
-		case txType.EIP1559:
-			return TransactionFactory.fromSerializedData(txBuf, {
-				common: vm.common.ethjsCommon,
-				freeze: false,
-			})
-		case txType.BLOB: {
-			const tx = BlobEIP4844Transaction.fromSerializedBlobTxNetworkWrapper(txBuf, {
-				common: vm.common.ethjsCommon,
-				freeze: false,
-			})
-			const blobGasLimit = vm.common.ethjsCommon.param('gasConfig', 'maxblobGasPerBlock')
-			const blobGasPerBlob = vm.common.ethjsCommon.param('gasConfig', 'blobGasPerBlob')
-
-			const blobCount = BigInt(tx.blobs?.length ?? 0)
-			const blobGas = blobCount * blobGasPerBlob
-			if (blobGas > blobGasLimit) {
-				throw new BlobGasLimitExceededError()
-			}
-			return tx
-		}
-		case txType.OPTIMISM_DEPOSIT:
-			throw new Error('Optimism deposit tx are not supported')
-		default:
-			throw new Error(`Invalid transaction type ${txBuf[0]}`)
+	if (txBuf[0] === txType.OPTIMISM_DEPOSIT) {
+		throw new Error('Optimism deposit tx are not supported')
 	}
+
+	// Use createTxFromRLP for all transaction types
+	const tx = createTxFromRLP(txBuf, {
+		common: vm.common.ethjsCommon,
+		freeze: false,
+	})
+
+	// Check blob gas limit for blob transactions
+	if (isBlobEIP4844Tx(tx)) {
+		const blobGasLimit = /** @type {any} */ (vm.common.ethjsCommon).param('gasConfig', 'maxblobGasPerBlock')
+		const blobGasPerBlob = /** @type {any} */ (vm.common.ethjsCommon).param('gasConfig', 'blobGasPerBlob')
+
+		const blobCount = BigInt(tx.blobs?.length ?? 0)
+		const blobGas = blobCount * blobGasPerBlob
+		if (blobGas > blobGasLimit) {
+			throw new BlobGasLimitExceededError()
+		}
+	}
+
+	return tx
 }
 
 /**
@@ -122,9 +117,11 @@ export const ethSendRawTransactionHandler = (client) => async (params) => {
 			...tx,
 			from: /** @type {import('@tevm/utils').Address}*/ (tx.getSenderAddress().toString()),
 			to: /** @type {import('@tevm/utils').Address}*/ (tx.to?.toString()),
-			blobVersionedHashes: /** @type {import('@tevm/tx').EIP4844CompatibleTx}*/ (tx).blobVersionedHashes?.map((bytes) =>
-				bytesToHex(bytes),
-			),
+			...('blobVersionedHashes' in tx && tx.blobVersionedHashes
+				? {
+						blobVersionedHashes: /** @type {import('@tevm/utils').Hex[]} */ (tx.blobVersionedHashes),
+					}
+				: {}),
 			data: bytesToHex(tx.data),
 		})
 	} catch (error) {

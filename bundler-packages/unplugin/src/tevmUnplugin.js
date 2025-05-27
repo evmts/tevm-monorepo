@@ -4,7 +4,6 @@ import { createCache } from '@tevm/bundler-cache'
 import { defaultConfig, loadConfig } from '@tevm/config'
 import { createSolc, releases } from '@tevm/solc'
 import { catchTag, logWarning, map, runPromise } from 'effect/Effect'
-// @ts-expect-error
 import defaultSolc from 'solc'
 import { z } from 'zod'
 import { fao } from './fao.js'

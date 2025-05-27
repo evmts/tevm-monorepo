@@ -1,4 +1,4 @@
-import { Common } from '@ethereumjs/common'
+import { Mainnet, createCustomCommon } from '@ethereumjs/common'
 import { InvalidParamsError } from '@tevm/errors'
 import { createLogger } from '@tevm/logger'
 import { createMockKzg } from './createMockKzg.js'
@@ -59,20 +59,47 @@ export const createCommon = ({
 }) => {
 	try {
 		const logger = createLogger({ level: loggingLevel, name: '@tevm/common' })
-		const ethjsCommon = Common.custom(
+
+		// Ensure eips is an array
+		const eipsArray = Array.isArray(eips) ? eips : []
+
+		// Create Common instance using createCustomCommon
+		const finalCustomCrypto =
+			customCrypto && Object.keys(customCrypto).length > 0
+				? { kzg: createMockKzg(), ...customCrypto }
+				: { kzg: createMockKzg() }
+
+		const ethjsCommon = createCustomCommon(
 			{
-				name: 'TevmCustom',
 				chainId: chain.id,
-				// TODO what is diff between chainId and networkId???
-				networkId: chain.id,
+				name: chain.name || 'TevmCustom',
 			},
+			Mainnet,
 			{
 				hardfork,
-				baseChain: 1,
-				eips: [...eips, 1559, 4895, 4844, 4788],
-				customCrypto: {
-					kzg: createMockKzg(),
-					...customCrypto,
+				eips: [...eipsArray, 1559, 4895, 4844, 4788, 2935],
+				customCrypto: finalCustomCrypto,
+				params: {
+					1559: {
+						elasticityMultiplier: 2,
+						baseFeeMaxChangeDenominator: 8,
+						initialBaseFee: 1000000000,
+					},
+					4844: {
+						targetBlobGasPerBlock: 393216,
+						blobGasPerBlob: 131072,
+						minBlobGasPrice: 1,
+						blobGasPriceUpdateFraction: 3338477,
+					},
+					4788: {
+						historicalRootsLength: 8191,
+					},
+					// VM params accessed via param('vm', ...)
+					vm: {
+						historicalRootsLength: 8191,
+						historyStorageAddress: '0x0aae40965e6800cd9b1f4b05ff21581047e3f91e',
+						historyServeWindow: 8192,
+					},
 				},
 			},
 		)

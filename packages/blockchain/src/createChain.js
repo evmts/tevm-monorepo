@@ -1,3 +1,4 @@
+import { CasperConsensus } from '@ethereumjs/blockchain'
 import { deepCopy } from './actions/deepCopy.js'
 import { delBlock } from './actions/delBlock.js'
 import { getBlock } from './actions/getBlock.js'
@@ -16,31 +17,34 @@ import { createBaseChain } from './createBaseChain.js'
 export const createChain = async (options) => {
 	/**
 	 * @param {import('./BaseChain.js').BaseChain} baseChain
+	 * @returns {import('./Chain.js').Chain}
 	 */
 	const decorate = (baseChain) => {
-		return Object.assign(baseChain, {
-			getBlockByTag: getBlockByTag(baseChain),
-			deepCopy: async () => decorate(await deepCopy(baseChain)()),
-			shallowCopy: () => decorate(shallowCopy(baseChain)()),
-			getBlock: getBlock(baseChain),
-			putBlock: putBlock(baseChain),
-			validateHeader: validateHeader(baseChain),
-			getCanonicalHeadBlock: getCanonicalHeadBlock(baseChain),
-			delBlock: delBlock(baseChain),
-			getIteratorHead: getIteratorHead(baseChain),
-			setIteratorHead: setIteratorHead(baseChain),
-			/**
-			 * Unused but part of interface
-			 * @type {import('@ethereumjs/blockchain').BlockchainInterface['consensus']}
-			 */
-			consensus: /** @type {any}*/ ({}),
-			/**
-			 * @type {import('@ethereumjs/blockchain').BlockchainInterface['iterator']}
-			 */
-			iterator: () => {
-				throw new Error('iterator is not implemented')
-			},
-		})
+		return /** @type {import('./Chain.js').Chain} */ (
+			Object.assign(baseChain, {
+				getBlockByTag: getBlockByTag(baseChain),
+				deepCopy: async () => decorate(await deepCopy(baseChain)()),
+				shallowCopy: () => decorate(shallowCopy(baseChain)()),
+				getBlock: getBlock(baseChain),
+				putBlock: putBlock(baseChain),
+				validateHeader: validateHeader(baseChain),
+				getCanonicalHeadBlock: getCanonicalHeadBlock(baseChain),
+				delBlock: delBlock(baseChain),
+				getIteratorHead: getIteratorHead(baseChain),
+				setIteratorHead: setIteratorHead(baseChain),
+				/**
+				 * Unused but part of interface
+				 * @type {import('@ethereumjs/blockchain').BlockchainInterface['consensus']}
+				 */
+				consensus: new CasperConsensus(),
+				/**
+				 * @type {import('@ethereumjs/blockchain').BlockchainInterface['iterator']}
+				 */
+				iterator: () => {
+					throw new Error('iterator is not implemented')
+				},
+			})
+		)
 	}
 	return decorate(createBaseChain(options))
 }

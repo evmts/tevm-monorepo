@@ -44,7 +44,7 @@ export function blockFromRpc(blockParams: JsonRpcBlock, options: BlockOptions, u
 	for (const _txParams of blockParams.transactions ?? []) {
 		const txParams = normalizeTxParams(_txParams)
 		try {
-			const tx = TransactionFactory.fromTxData(txParams, opts)
+			const tx = TransactionFactory(txParams, opts)
 			transactions.push(tx)
 		} catch (e) {
 			if (e instanceof Error && e.message.includes('The chain ID does not match the chain ID of Common.')) {

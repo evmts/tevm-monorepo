@@ -1,46 +1,45 @@
 {
-	"name": "@tevm/tsupconfig",
-	"version": "1.0.0-next.142",
-	"private": false,
-	"sideEffects": false,
-	"type": "module",
-	"exports": {
-		".": {
-			"import": {
-				"types": "./types/index.d.ts",
-				"default": "./dist/index.js"
-			},
-			"require": {
-				"types": "./dist/index.d.cts",
-				"default": "./dist/index.cjs"
-			}
-		}
-	},
-	"main": "dist/index.cjs",
-	"module": "dist/index.js",
-	"types": "types/index.d.ts",
-	"files": [
-		"src",
-		"dist",
-		"types"
-	],
-	"scripts": {
-		"all": "bun run build && bun run format && bun run lint && bun run test:run && bun run generate:docs && bun lint:deps && bun lint:package",
-		"build": "nx build:dist && nx build:types",
-		"build:dist": "tsup",
-		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
-		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
-		"format": "biome format . --write",
-		"format:check": "biome format .",
-		"generate:docs": "typedoc --plugin typedoc-plugin-markdown",
-		"lint": "biome check . --write --unsafe",
-		"lint:check": "biome check . --verbose",
-		"lint:deps": "bunx depcheck",
-		"lint:package": "bunx publint --strict && attw --pack",
-		"test:run": "tsup --dts-only"
-	},
-	"dependencies": {
-		"@tevm/tsconfig": "workspace:^",
-		"@types/node": "^22.13.5"
-	}
+  "name": "@tevm/tsupconfig",
+  "version": "1.0.0-next.142",
+  "private": false,
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./types/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "types/index.d.ts",
+  "files": [
+    "src",
+    "dist",
+    "types"
+  ],
+  "scripts": {
+    "all": "bun run build && bun run format && bun run lint && bun run test:run && bun run generate:docs && bun lint:deps && bun lint:package",
+    "build": "nx build:dist && nx build:types",
+    "build:dist": "tsup",
+    "build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+    "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
+    "format": "biome format . --write",
+    "format:check": "biome format .",
+    "lint": "biome check . --write --unsafe",
+    "lint:check": "biome check . --verbose",
+    "lint:deps": "bunx depcheck",
+    "lint:package": "bunx publint --strict && attw --pack",
+    "test:run": "tsup --dts-only"
+  },
+  "dependencies": {
+    "@tevm/tsconfig": "workspace:^",
+    "@types/node": "^22.15.21"
+  }
 }

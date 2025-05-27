@@ -4,7 +4,7 @@ import { definePredeploy } from '@tevm/predeploys'
 import { CacheType, ContractCache, StorageCache } from '@tevm/state'
 import { createSyncStoragePersister } from '@tevm/sync-storage-persister'
 import { SimpleContract, transports } from '@tevm/test-utils'
-import { EthjsAccount, EthjsAddress, bytesToHex } from '@tevm/utils'
+import { bytesToHex, createAccount, createAddressFromString } from '@tevm/utils'
 import { describe, expect, it, vi } from 'vitest'
 import { createTevmNode } from './createTevmNode.js'
 
@@ -35,8 +35,8 @@ describe('createTevmNode with State Persister', () => {
 		const vm = await client.getVm()
 		const stateManager = vm.stateManager
 
-		const address = EthjsAddress.fromString(`0x${'11'.repeat(20)}`)
-		const account = EthjsAccount.fromAccountData({ nonce: 23n, balance: 100n })
+		const address = createAddressFromString(`0x${'11'.repeat(20)}`)
+		const account = createAccount({ nonce: 23n, balance: 100n })
 
 		await stateManager.putAccount(address, account)
 
@@ -192,7 +192,7 @@ describe('createTevmNode', () => {
 		const { getVm } = client
 		const vm = await getVm()
 		const stateManager = vm.stateManager
-		const code = await stateManager.getContractCode(createAddress(predeploy.contract.address))
+		const code = await stateManager.getCode(createAddress(predeploy.contract.address))
 		expect(bytesToHex(code)).toBe(predeploy.contract.deployedBytecode)
 	})
 

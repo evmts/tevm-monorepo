@@ -1,4 +1,4 @@
-import { EVMErrorMessage } from '@ethereumjs/evm'
+import { EVMError } from '@ethereumjs/evm'
 import { RevertError } from '../RevertError.js'
 
 /**
@@ -8,7 +8,7 @@ import { RevertError } from '../RevertError.js'
  * @property {string} [docsPath] - Path to the documentation.
  * @property {string} [docsSlug] - Slug for the documentation.
  * @property {string[]} [metaMessages] - Additional meta messages.
- * @property {import('@ethereumjs/evm').EvmError} [cause] - The cause of the error. From running ethereumjs EVM.runCall
+ * @property {import('@ethereumjs/evm').EVMError} [cause] - The cause of the error. From running ethereumjs EVM.runCall
  * @property {string} [details] - Details of the error.
  * @property {object} [meta] - Optional object containing additional information about the error.
  */
@@ -53,7 +53,7 @@ import { RevertError } from '../RevertError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class EvmRevertError extends RevertError {
-	static EVMErrorMessage = EVMErrorMessage.REVERT
+	/** @type {string} */ static EVMErrorMessage = EVMError.errorMessages.REVERT
 	/**
 	 * Constructs a EvmRevertError.
 	 * Represents an execution error that occurs when a transaction is reverted during EVM execution.

@@ -8,7 +8,7 @@
 
 > **CallResult**\<`TAbi`, `TFunctionName`\> = `object`
 
-Defined in: [CallResult.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/CallResult.ts#L25)
+Defined in: [precompiles/src/CallResult.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/CallResult.ts#L25)
 
 A result of a precompile javascript call
 
@@ -28,7 +28,7 @@ A result of a precompile javascript call
 
 > `optional` **blobGasUsed**: `bigint`
 
-Defined in: [CallResult.ts:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/CallResult.ts#L54)
+Defined in: [precompiles/src/CallResult.ts:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/CallResult.ts#L54)
 
 Amount of blob gas consumed by the transaction
 
@@ -38,7 +38,7 @@ Amount of blob gas consumed by the transaction
 
 > `optional` **error**: [`TypedError`](TypedError.md)\<`string`\>
 
-Defined in: [CallResult.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/CallResult.ts#L37)
+Defined in: [precompiles/src/CallResult.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/CallResult.ts#L37)
 
 Any Error thrown during execution
 
@@ -48,7 +48,7 @@ Any Error thrown during execution
 
 > **executionGasUsed**: `bigint`
 
-Defined in: [CallResult.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/CallResult.ts#L29)
+Defined in: [precompiles/src/CallResult.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/CallResult.ts#L29)
 
 The amount of gas used during execution.
 
@@ -58,7 +58,7 @@ The amount of gas used during execution.
 
 > `optional` **logs**: `ReadonlyArray`\<\{ `address`: `Address`; `args`: `EncodeEventTopicsParameters`\<`TAbi`, `ContractEventName`\<`TAbi`\>\>\[`"args"`\]; `eventName`: `EncodeEventTopicsParameters`\<`TAbi`, `ContractEventName`\<`TAbi`\>\>\[`"eventName"`\]; \}\>
 
-Defined in: [CallResult.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/CallResult.ts#L42)
+Defined in: [precompiles/src/CallResult.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/CallResult.ts#L42)
 
 Logs emitted during contract execution.
 Logs must match the interface of the ABI
@@ -69,7 +69,7 @@ Logs must match the interface of the ABI
 
 > **returnValue**: `AbiParametersToPrimitiveTypes`\<`ExtractAbiFunction`\<`TAbi`, `TFunctionName`\>\[`"outputs"`\]\>\[`0`\]
 
-Defined in: [CallResult.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/CallResult.ts#L33)
+Defined in: [precompiles/src/CallResult.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/CallResult.ts#L33)
 
 The return value of the call. Required even on exceptions
 
@@ -79,6 +79,6 @@ The return value of the call. Required even on exceptions
 
 > `optional` **selfdestruct**: `Set`\<`Address`\>
 
-Defined in: [CallResult.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/CallResult.ts#L50)
+Defined in: [precompiles/src/CallResult.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/CallResult.ts#L50)
 
 A set of accounts to selfdestruct

@@ -13,7 +13,6 @@ import {
 	hexToBytes,
 	parseGwei,
 	toType,
-	zeros,
 } from '@tevm/utils'
 
 import {} from './runBlock.js'
@@ -75,7 +74,12 @@ export class BlockBuilder {
 
 	constructor(vm: BaseVm, opts: BuildBlockOpts) {
 		this.vm = vm
-		this.blockOpts = { putBlockIntoBlockchain: true, common: this.vm.common, freeze: false, ...opts.blockOpts }
+		this.blockOpts = {
+			putBlockIntoBlockchain: true,
+			common: this.vm.common,
+			freeze: false,
+			...opts.blockOpts,
+		}
 
 		this.headerData = {
 			...opts.headerData,
@@ -84,14 +88,14 @@ export class BlockBuilder {
 			gasLimit: opts.headerData?.gasLimit ?? opts.parentBlock.header.gasLimit,
 			timestamp: opts.headerData?.timestamp ?? Math.round(Date.now() / 1000),
 		}
-		this.withdrawals = opts.withdrawals?.map(Withdrawal.fromWithdrawalData)
+		this.withdrawals = opts.withdrawals?.map((w) => (Withdrawal as any).fromWithdrawalData(w))
 
 		if (
-			this.vm.common.ethjsCommon.isActivatedEIP(1559) === true &&
+			(this.vm.common as any).ethjsCommon.isActivatedEIP(1559) === true &&
 			typeof this.headerData.baseFeePerGas === 'undefined'
 		) {
-			if (this.headerData.number === vm.common.ethjsCommon.hardforkBlock('london')) {
-				this.headerData.baseFeePerGas = vm.common.ethjsCommon.param('gasConfig', 'initialBaseFee')
+			if (this.headerData.number === (vm.common as any).ethjsCommon.hardforkBlock('london')) {
+				this.headerData.baseFeePerGas = (vm.common as any).ethjsCommon.param('gasConfig', 'initialBaseFee')
 			} else {
 				this.headerData.baseFeePerGas = opts.parentBlock.header.calcNextBaseFee()
 			}
@@ -175,7 +179,7 @@ export class BlockBuilder {
 	 * Adds the block miner reward to the coinbase account.
 	 */
 	private async rewardMiner() {
-		const minerReward = this.vm.common.ethjsCommon.param('pow', 'minerReward')
+		const minerReward = (this.vm.common as any).ethjsCommon.param('pow', 'minerReward')
 		const reward = calculateMinerReward(minerReward, 0)
 		const coinbase =
 			this.headerData.coinbase !== undefined
@@ -186,7 +190,7 @@ export class BlockBuilder {
 								? hexToBytes(this.headerData.coinbase as Hex)
 								: this.headerData.coinbase,
 					)
-				: EthjsAddress.zero()
+				: (EthjsAddress as any).zero()
 		await rewardAccount(this.vm.evm, coinbase, reward)
 	}
 
@@ -227,10 +231,11 @@ export class BlockBuilder {
 
 		// According to the Yellow Paper, a transaction's gas limit
 		// cannot be greater than the remaining gas in the block
-		const blockGasLimit = toType(this.headerData.gasLimit, TypeOutput.BigInt)
+		const gasLimit = this.headerData.gasLimit ?? 0n
+		const blockGasLimit = toType(gasLimit as any, TypeOutput.BigInt) ?? 0n
 
-		const blobGasLimit = this.vm.common.ethjsCommon.param('gasConfig', 'maxblobGasPerBlock')
-		const blobGasPerBlob = this.vm.common.ethjsCommon.param('gasConfig', 'blobGasPerBlob')
+		const blobGasLimit = (this.vm.common as any).ethjsCommon.param('gasConfig', 'maxblobGasPerBlock')
+		const blobGasPerBlob = (this.vm.common as any).ethjsCommon.param('gasConfig', 'blobGasPerBlob')
 
 		const blockGasRemaining = blockGasLimit - this.gasUsed
 		if (_tx.gasLimit > blockGasRemaining) {
@@ -264,14 +269,18 @@ export class BlockBuilder {
 		const blockData = { header, transactions: this.transactions }
 		const block = Block.fromBlockData(blockData as any, this.blockOpts)
 
-		const result = await runTx(this.vm)({ tx: _tx, block, skipHardForkValidation } as any)
+		const result = await runTx(this.vm)({
+			tx: _tx,
+			block,
+			skipHardForkValidation,
+		} as any)
 
 		// If tx is a blob transaction, remove blobs/kzg commitments before adding to block per EIP-4844
 		if (_tx instanceof BlobEIP4844Transaction) {
 			const txData = _tx as BlobEIP4844Transaction
 			this.blobGasUsed += BigInt(txData.blobVersionedHashes.length) * blobGasPerBlob
-			_tx = BlobEIP4844Transaction.minimalFromNetworkWrapper(txData, {
-				common: this.blockOpts.common.ethjsCommon,
+			_tx = (BlobEIP4844Transaction as any).minimalFromNetworkWrapper(txData, {
+				common: (this.blockOpts.common as any).ethjsCommon,
 			})
 		}
 		this.transactions.push(_tx)
@@ -377,12 +386,18 @@ export class BlockBuilder {
 
 			const { parentBeaconBlockRoot, timestamp } = this.headerData
 			// timestamp should already be set in constructor
-			const timestampBigInt = toType(timestamp ?? 0, TypeOutput.BigInt)
-			const parentBeaconBlockRootBuf = toType(parentBeaconBlockRoot, TypeOutput.Uint8Array) ?? zeros(32)
+			const timestampValue = timestamp ?? 0n
+			const timestampBigInt = toType(timestampValue as any, TypeOutput.BigInt) ?? 0n
+			const parentBeaconBlockRootBuf = parentBeaconBlockRoot
+				? toType(parentBeaconBlockRoot as any, TypeOutput.Uint8Array)
+				: new Uint8Array(32)
 
-			await accumulateParentBeaconBlockRoot(this.vm)(parentBeaconBlockRootBuf, timestampBigInt)
+			await accumulateParentBeaconBlockRoot(this.vm)(
+				parentBeaconBlockRootBuf as Uint8Array<ArrayBuffer>,
+				timestampBigInt,
+			)
 		}
-		if (this.vm.common.ethjsCommon.isActivatedEIP(2935)) {
+		if ((this.vm.common as any).ethjsCommon.isActivatedEIP(2935)) {
 			if (!this.checkpointed) {
 				await this.vm.evm.journal.checkpoint()
 				this.checkpointed = true
@@ -390,10 +405,11 @@ export class BlockBuilder {
 
 			const { parentHash, number } = this.headerData
 			// timestamp should already be set in constructor
-			const numberBigInt = toType(number ?? 0, TypeOutput.BigInt)
-			const parentHashSanitized = toType(parentHash, TypeOutput.Uint8Array) ?? zeros(32)
+			const numberValue = number ?? 0n
+			const numberBigInt = toType(numberValue as any, TypeOutput.BigInt) ?? 0n
+			const parentHashSanitized = parentHash ? toType(parentHash as any, TypeOutput.Uint8Array) : new Uint8Array(32)
 
-			await accumulateParentBlockHash(this.vm)(numberBigInt, parentHashSanitized)
+			await accumulateParentBlockHash(this.vm)(numberBigInt, parentHashSanitized as Uint8Array<ArrayBuffer>)
 		}
 	}
 }

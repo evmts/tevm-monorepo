@@ -61,7 +61,7 @@
     "lint:deps": "bunx depcheck"
   },
   "dependencies": {
-    "@shazow/whatsabi": "^0.19.0",
+    "@shazow/whatsabi": "^0.22.2",
     "@tevm/config": "workspace:^",
     "@tevm/utils": "workspace:^"
   },
@@ -70,7 +70,7 @@
     "@tevm/tsupconfig": "workspace:^"
   },
   "peerDependencies": {
-    "viem": "^2.21.1"
+    "viem": "^2.30.1"
   },
   "publishConfig": {
     "access": "public"

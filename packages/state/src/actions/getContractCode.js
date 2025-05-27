@@ -15,7 +15,9 @@ const EMPTY_CODE = Object.freeze(new Uint8Array())
  * 3. Finally fetches from remote provider if neither cache has the code
  * 4. When fetched from remote, stores in both main and fork caches
  *
- * @type {import("../state-types/index.js").StateAction<'getContractCode'>}
+ * @param {import('../BaseState.js').BaseState} baseState
+ * @param {boolean} [skipFetchingFromFork=false]
+ * @returns {(address: import('@tevm/utils').EthjsAddress) => Promise<Uint8Array>}
  */
 export const getContractCode =
 	(baseState, skipFetchingFromFork = false) =>

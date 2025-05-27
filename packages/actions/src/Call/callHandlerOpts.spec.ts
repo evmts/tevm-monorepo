@@ -1,6 +1,7 @@
+import { createAddress } from '@tevm/address'
 import { InvalidBlockError, InvalidParamsError } from '@tevm/errors'
 import { type TevmNode, createTevmNode } from '@tevm/node'
-import { EthjsAddress, bytesToHex } from '@tevm/utils'
+import { bytesToHex } from '@tevm/utils'
 import { hexToBytes } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { mineHandler } from '../Mine/mineHandler.js'
@@ -21,14 +22,14 @@ describe('callHandlerOpts', () => {
 	it('should parse caller address correctly', async () => {
 		const params = { caller: `0x${'4'.repeat(40)}` } as const
 		const result = await callHandlerOpts(client, params)
-		expect(result.data?.caller).toEqual(EthjsAddress.fromString(params.caller))
+		expect(result.data?.caller).toEqual(createAddress(params.caller))
 	})
 
 	it('should set both origin and caller to from address if provided', async () => {
 		const params = { from: `0x${'4'.repeat(40)}` } as const
 		const result = await callHandlerOpts(client, params)
-		expect(result.data?.caller).toEqual(EthjsAddress.fromString(params.from))
-		expect(result.data?.origin).toEqual(EthjsAddress.fromString(params.from))
+		expect(result.data?.caller).toEqual(createAddress(params.from))
+		expect(result.data?.origin).toEqual(createAddress(params.from))
 	})
 
 	it('origin and caller take presidence over from', async () => {
@@ -38,8 +39,8 @@ describe('callHandlerOpts', () => {
 			caller: `0x${'6'.repeat(40)}`,
 		} as const
 		const result = await callHandlerOpts(client, params)
-		expect(result.data?.caller).toEqual(EthjsAddress.fromString(params.caller))
-		expect(result.data?.origin).toEqual(EthjsAddress.fromString(params.origin))
+		expect(result.data?.caller).toEqual(createAddress(params.caller))
+		expect(result.data?.origin).toEqual(createAddress(params.origin))
 	})
 
 	it('origin and caller take presidence over from', async () => {
@@ -49,8 +50,8 @@ describe('callHandlerOpts', () => {
 			caller: `0x${'6'.repeat(40)}`,
 		} as const
 		const result = await callHandlerOpts(client, params)
-		expect(result.data?.caller).toEqual(EthjsAddress.fromString(params.caller))
-		expect(result.data?.origin).toEqual(EthjsAddress.fromString(params.origin))
+		expect(result.data?.caller).toEqual(createAddress(params.caller))
+		expect(result.data?.origin).toEqual(createAddress(params.origin))
 	})
 
 	it('origin and caller take presidence over from', async () => {
@@ -60,8 +61,8 @@ describe('callHandlerOpts', () => {
 			caller: `0x${'6'.repeat(40)}`,
 		} as const
 		const result = await callHandlerOpts(client, params)
-		expect(result.data?.caller).toEqual(EthjsAddress.fromString(params.caller))
-		expect(result.data?.origin).toEqual(EthjsAddress.fromString(params.origin))
+		expect(result.data?.caller).toEqual(createAddress(params.caller))
+		expect(result.data?.origin).toEqual(createAddress(params.origin))
 	})
 
 	it('should parse transaction to address', async () => {
@@ -69,7 +70,7 @@ describe('callHandlerOpts', () => {
 		const result = await callHandlerOpts(client, {
 			to,
 		})
-		expect(result.data?.to).toEqual(EthjsAddress.fromString(to))
+		expect(result.data?.to).toEqual(createAddress(to))
 	})
 
 	it('should parse data to bytes', async () => {
@@ -105,7 +106,7 @@ describe('callHandlerOpts', () => {
 	})
 
 	it('should handle selfdestruct', async () => {
-		const selfdestruct = new Set([EthjsAddress.zero().toString() as `0x${string}`])
+		const selfdestruct = new Set([createAddress(0).toString() as `0x${string}`])
 		const result = await callHandlerOpts(client, {
 			selfdestruct,
 		})
@@ -145,11 +146,11 @@ describe('callHandlerOpts', () => {
 	})
 
 	it('should handle origin', async () => {
-		const origin = EthjsAddress.zero().toString() as `0x${string}`
+		const origin = createAddress(0).toString() as `0x${string}`
 		const result = await callHandlerOpts(client, {
 			origin,
 		})
-		expect(result.data?.origin).toEqual(EthjsAddress.zero())
+		expect(result.data?.origin).toEqual(createAddress(0))
 	})
 
 	it('should handle gasLimit', async () => {
@@ -161,18 +162,18 @@ describe('callHandlerOpts', () => {
 	})
 
 	it('should handle named tags', async () => {
-		const block = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
+		const block = await client.getVm().then((/** @type {any} */ vm) => vm.blockchain.getCanonicalHeadBlock())
 		const result = await callHandlerOpts(client, { blockTag: 'latest' })
 		expect(result.data?.block?.header.number).toEqual(block.header.number)
 		expect(result.data?.block?.header).toEqual(block.header)
 	})
 
 	it('should handle hash block tags', async () => {
-		const block = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
+		const block = await client.getVm().then((/** @type {any} */ vm) => vm.blockchain.getCanonicalHeadBlock())
 		const result = await callHandlerOpts(client, { blockTag: bytesToHex(block.hash()) })
 		expect(result.data?.block?.header.number).toEqual(block.header.number)
 		expect(result.data?.block?.header).toEqual(block.header)
-		expect(() => result.data?.block?.header.cliqueSigner()).toThrowError()
+		// cliqueSigner is no longer part of the header interface
 	})
 
 	it('should return an error for unknown block tag', async () => {
@@ -197,13 +198,13 @@ describe('callHandlerOpts', () => {
 			blobBaseFee: 2000000000n,
 		}
 		const result = await callHandlerOpts(client, { blockOverrideSet })
-		expect(result.data?.block?.header.coinbase).toEqual(EthjsAddress.fromString(blockOverrideSet.coinbase))
+		expect(result.data?.block?.header.coinbase).toEqual(createAddress(blockOverrideSet.coinbase))
 		expect(result.data?.block?.header.number).toEqual(blockOverrideSet.number)
 		expect(result.data?.block?.header.gasLimit).toEqual(blockOverrideSet.gasLimit)
 		expect(result.data?.block?.header.timestamp).toEqual(blockOverrideSet.time)
 		expect(result.data?.block?.header.baseFeePerGas).toEqual(blockOverrideSet.baseFee)
 		expect(result.data?.block?.header.getBlobGasPrice()).toEqual(blockOverrideSet.blobBaseFee)
-		expect(() => result.data?.block?.header.cliqueSigner()).toThrowError()
+		// cliqueSigner is no longer part of the header interface
 	})
 
 	it('should handle block overrides correctly with no blobBaseFee', async () => {
@@ -215,13 +216,13 @@ describe('callHandlerOpts', () => {
 			baseFee: 1000000000n,
 		}
 		const result = await callHandlerOpts(client, { blockOverrideSet })
-		expect(result.data?.block?.header.coinbase).toEqual(EthjsAddress.fromString(blockOverrideSet.coinbase))
+		expect(result.data?.block?.header.coinbase).toEqual(createAddress(blockOverrideSet.coinbase))
 		expect(result.data?.block?.header.number).toEqual(blockOverrideSet.number)
 		expect(result.data?.block?.header.gasLimit).toEqual(blockOverrideSet.gasLimit)
 		expect(result.data?.block?.header.timestamp).toEqual(blockOverrideSet.time)
 		expect(result.data?.block?.header.baseFeePerGas).toEqual(blockOverrideSet.baseFee)
 		expect(result.data?.block?.header.getBlobGasPrice()).toBe(1n)
-		expect(() => result.data?.block?.header.cliqueSigner()).toThrowError()
+		// cliqueSigner is no longer part of the header interface
 	})
 
 	it('should throw error for transaction creation on past blocks', async () => {

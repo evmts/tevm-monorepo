@@ -1,6 +1,4 @@
-import { createAddress } from '@tevm/address'
-import type { EvmResult } from '@tevm/evm'
-import type { Address, EthjsLog } from '@tevm/utils'
+import type { EthjsLog } from '@tevm/utils'
 import { bytesToHex, getAddress, toHex } from '@tevm/utils'
 import type { RunTxResult } from '@tevm/vm'
 import { stringToBytes } from 'viem'
@@ -25,12 +23,12 @@ describe('callHandlerResult', async () => {
 			blobGasUsed: 3000n,
 			createdAddresses: new Set([dummyAddress]),
 		},
-	} as const satisfies EvmResult
+	}
 
 	const dummyRuntxResult = {
 		minerValue: 20n,
 		bloom: {} as any,
-		createdAddress: createAddress(dummyEVMResult.execResult.createdAddresses.values().next().value as Address),
+		// createdAddress: createAddress(dummyEVMResult.execResult.createdAddresses.values().next().value as Address),
 		accessList: {} as any,
 		totalGasSpent: 100n,
 		preimages: new Map(),
@@ -39,7 +37,7 @@ describe('callHandlerResult', async () => {
 		receipt: {} as any,
 		amountSpent: 10n,
 		blobGasUsed: dummyEVMResult.execResult.blobGasUsed,
-	} as const satisfies RunTxResult
+	} satisfies RunTxResult
 
 	it('should handle EVMResult correctly', async () => {
 		const result = callHandlerResult(dummyRuntxResult, undefined, undefined, undefined)

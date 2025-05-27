@@ -102,7 +102,7 @@ const captureAccountState = async (vm, logger, address, slots = new Set()) => {
 		if (!account) return undefined
 
 		// Get code
-		const code = await vm.stateManager.getContractCode(address)
+		const code = await vm.stateManager.getCode(address)
 
 		// Get storage for all accessed slots
 		/** @type {Record<import('@tevm/utils').Hex, import('@tevm/utils').Hex>} */
@@ -111,7 +111,7 @@ const captureAccountState = async (vm, logger, address, slots = new Set()) => {
 			try {
 				// Convert hex slot to Uint8Array for getContractStorage
 				const slotKey = hexToBytes(slotHex)
-				const value = await vm.stateManager.getContractStorage(address, slotKey)
+				const value = await vm.stateManager.getStorage(address, slotKey)
 				storage[slotHex] = bytesToHex(value)
 			} catch (err) {
 				logger.error(err, `Error getting storage at slot ${slotHex} for account ${address.toString()}`)

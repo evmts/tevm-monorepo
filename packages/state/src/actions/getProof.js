@@ -5,7 +5,8 @@ import { getForkClient } from './getForkClient.js'
 // TODO only works in forked mode
 /**
  * Get an EIP-1186 proof from the provider
- * @type {import("../state-types/index.js").StateAction<'getProof'>}
+ * @param {import('../BaseState.js').BaseState} baseState
+ * @returns {(address: import('@tevm/utils').EthjsAddress, storageSlots?: Uint8Array[]) => Promise<import('@ethereumjs/statemanager').Proof>}
  */
 export const getProof =
 	(baseState) =>

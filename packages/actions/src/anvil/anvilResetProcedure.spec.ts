@@ -2,7 +2,7 @@ import { createAddress } from '@tevm/address'
 import { Block } from '@tevm/block'
 import { createTevmNode } from '@tevm/node'
 import { transports } from '@tevm/test-utils'
-import { EthjsAccount } from '@tevm/utils'
+import { createAccount } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { anvilResetJsonRpcProcedure } from './anvilResetProcedure.js'
@@ -21,7 +21,7 @@ describe('anvilResetJsonRpcProcedure', () => {
 		await vm.blockchain.putBlock(block2)
 
 		const testAddress = createAddress('0x1234567890123456789012345678901234567890')
-		const account = EthjsAccount.fromAccountData({ balance: 1000n })
+		const account = createAccount({ balance: 1000n })
 		await vm.stateManager.putAccount(testAddress, account)
 
 		// Perform the reset

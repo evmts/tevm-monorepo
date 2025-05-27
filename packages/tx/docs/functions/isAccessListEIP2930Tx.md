@@ -8,7 +8,7 @@
 
 > **isAccessListEIP2930Tx**(`tx`): `tx is AccessListEIP2930Transaction`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:104
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:117
 
 ## Parameters
 

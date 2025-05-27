@@ -63,7 +63,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@ethereumjs/vm": "^8.1.1",
+    "@ethereumjs/vm": "^10.0.0",
     "@tevm/block": "workspace:^",
     "@tevm/blockchain": "workspace:^",
     "@tevm/common": "workspace:^",
@@ -73,7 +73,8 @@
     "@tevm/state": "workspace:^",
     "@tevm/trie": "workspace:^",
     "@tevm/tx": "workspace:^",
-    "@tevm/utils": "workspace:^"
+    "@tevm/utils": "workspace:^",
+    "eventemitter3": "^5.0.1"
   },
   "devDependencies": {
     "@tevm/contract": "workspace:^",
@@ -81,7 +82,7 @@
     "@tevm/tsupconfig": "workspace:^"
   },
   "peerDependencies": {
-    "viem": "^2.21.1"
+    "viem": "^2.30.1"
   },
   "publishConfig": {
     "access": "public"

@@ -19,8 +19,8 @@ describe('applyTransactions', () => {
 			const txGasLimit = typeof tx === 'object' && tx !== null && 'gasLimit' in tx ? tx.gasLimit : 0n
 
 			let maxGasLimit: bigint
-			if (vm.common.ethjsCommon.isActivatedEIP(1559) === true) {
-				maxGasLimit = block.header.gasLimit * vm.common.ethjsCommon.param('gasConfig', 'elasticityMultiplier')
+			if ((vm.common as any).ethjsCommon.isActivatedEIP(1559) === true) {
+				maxGasLimit = block.header.gasLimit * (vm.common as any).ethjsCommon.param('gasConfig', 'elasticityMultiplier')
 			} else {
 				maxGasLimit = block.header.gasLimit
 			}

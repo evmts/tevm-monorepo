@@ -1,4 +1,4 @@
-import { EthjsAddress, bytesToHex } from '@tevm/utils'
+import { bytesToHex, createAddressFromString } from '@tevm/utils'
 import { hexToBytes } from 'ethereum-cryptography/utils'
 import { describe, expect, it, vi } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
@@ -22,7 +22,7 @@ describe(setStateRoot.name, () => {
 			},
 		})
 		await setStateRoot(baseState)(root)
-		const account = await getAccount(baseState)(EthjsAddress.fromString(address))
+		const account = await getAccount(baseState)(createAddressFromString(address))
 		expect(account?.balance).toBe(420n)
 	})
 

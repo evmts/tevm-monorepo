@@ -6,9 +6,9 @@
 
 # Function: putContractStorage()
 
-> **putContractStorage**(`baseState`, `skipFetchingFromFork?`): (`address`, `key`, `value`) => `Promise`\<`void`\>
+> **putContractStorage**(`baseState`): (`address`, `key`, `value`) => `Promise`\<`void`\>
 
-Defined in: [packages/state/src/actions/putContractStorage.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/putContractStorage.js#L12)
+Defined in: [packages/state/src/actions/putContractStorage.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/putContractStorage.js#L13)
 
 Adds value to the cache for the `account`
 corresponding to `address` at the provided `key`.
@@ -20,10 +20,6 @@ If it is empty or filled with zeros, deletes the value.
 ### baseState
 
 [`BaseState`](../type-aliases/BaseState.md)
-
-### skipFetchingFromFork?
-
-`boolean`
 
 ## Returns
 

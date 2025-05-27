@@ -1,0 +1,98 @@
+name: CI Checks
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+env:
+  TEVM_TEST_ALCHEMY_KEY: ${{ secrets.TEVM_TEST_ALCHEMY_KEY }}
+  TEVM_RPC_URLS_MAINNET: ${{ secrets.TEVM_RPC_URLS_MAINNET }}
+  TEVM_RPC_URLS_OPTIMISM: ${{ secrets.TEVM_RPC_URLS_OPTIMISM }}
+
+jobs:
+  ci-checks:
+    name: CI Checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        name: Checkout [Pull Request]
+        if: ${{ github.event_name == 'pull_request' }}
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
+      - uses: actions/checkout@v4
+        name: Checkout [Default Branch]
+        if: ${{ github.event_name != 'pull_request' }}
+        with:
+          fetch-depth: 0
+
+      - name: "Setup"
+        id: setup
+        uses: ./.github/actions/setup
+
+      - name: Build dist
+        id: build-dist
+        run: pnpm -r build:dist
+
+      - name: Build types
+        if: success()
+        continue-on-error: true
+        run: pnpm -r build:types
+
+      - name: Tests
+        if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
+        continue-on-error: true
+        run: pnpm -r test:coverage
+
+      - name: Fixtures
+        if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
+        continue-on-error: true
+        run: pnpm -r dev:run
+
+      - name: Tests Rust
+        if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
+        continue-on-error: true
+        run: pnpm -r test:rust
+
+      - name: Typecheck
+        if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
+        continue-on-error: true
+        run: pnpm -r typecheck
+
+      - name: Lint
+        if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
+        continue-on-error: true
+        run: pnpm -r lint:check
+
+      - name: Lint deps
+        if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
+        continue-on-error: true
+        run: pnpm -r lint:deps
+
+      - name: Lint packages
+        if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
+        continue-on-error: true
+        run: pnpm -r lint:package
+
+      - name: Build app
+        if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
+        continue-on-error: true
+        run: pnpm -r build:app
+
+      - name: Generate docs
+        if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
+        continue-on-error: true
+        run: pnpm -r generate:docs
+
+      - name: Build rust
+        if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
+        continue-on-error: true
+        run: pnpm -r build:rust
+
+      - name: Build wasm
+        if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
+        continue-on-error: true
+        run: pnpm -r build:wasm

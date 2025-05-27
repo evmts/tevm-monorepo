@@ -1,4 +1,4 @@
-import { EthjsAccount } from '@tevm/utils'
+import { createAccount } from '@tevm/utils'
 import { getAccount } from './getAccount.js'
 import { putAccount } from './putAccount.js'
 
@@ -9,7 +9,7 @@ import { putAccount } from './putAccount.js'
  * @type {import("../state-types/index.js").StateAction<'modifyAccountFields'>}
  */
 export const modifyAccountFields = (baseState) => async (address, accountFields) => {
-	const account = (await getAccount(baseState)(address)) ?? new EthjsAccount()
+	const account = (await getAccount(baseState)(address)) ?? createAccount({})
 	account.nonce = accountFields.nonce ?? account.nonce
 	account.balance = accountFields.balance ?? account.balance
 	account.storageRoot = accountFields.storageRoot ?? account.storageRoot

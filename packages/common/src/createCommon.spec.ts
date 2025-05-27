@@ -90,7 +90,7 @@ describe(createCommon.name, () => {
 	})
 
 	it('should merge default EIPs with custom EIPs', () => {
-		const customEIPs = [2537, 3074] // Add some custom EIPs
+		const customEIPs = [2537, 3855] // Add some custom EIPs (3855 is PUSH0 from Shanghai)
 		const common = createCommon({ ...optimism, eips: customEIPs })
 
 		// Check default EIPs are still activated
@@ -101,7 +101,7 @@ describe(createCommon.name, () => {
 
 		// Check custom EIPs are also activated
 		expect(common.ethjsCommon.isActivatedEIP(2537)).toBe(true)
-		expect(common.ethjsCommon.isActivatedEIP(3074)).toBe(true)
+		expect(common.ethjsCommon.isActivatedEIP(3855)).toBe(true)
 	})
 
 	it('wraps errors in InvalidParamsError', () => {

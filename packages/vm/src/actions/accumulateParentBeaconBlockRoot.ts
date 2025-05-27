@@ -9,7 +9,9 @@ export const accumulateParentBeaconBlockRoot = (vm: BaseVm) => async (root: Uint
 		throw new EipNotEnabledError('Cannot call `accumulateParentBeaconBlockRoot`: EIP 4788 is not active')
 	}
 	// Save the parentBeaconBlockRoot to the beaconroot stateful precompile ring buffers
-	const historicalRootsLength = BigInt(vm.common.ethjsCommon.param('vm', 'historicalRootsLength'))
+	// Remove debug logs and use hardcoded value for now
+	// TODO: Fix param loading from common
+	const historicalRootsLength = 8191n // BigInt(vm.common.ethjsCommon.param('vm', 'historicalRootsLength'))
 	const timestampIndex = timestamp % historicalRootsLength
 	const timestampExtended = timestampIndex + historicalRootsLength
 
@@ -24,14 +26,10 @@ export const accumulateParentBeaconBlockRoot = (vm: BaseVm) => async (root: Uint
 		await vm.evm.journal.putAccount(parentBeaconBlockRootAddress, new EthjsAccount())
 	}
 
-	await vm.stateManager.putContractStorage(
+	await vm.stateManager.putStorage(
 		parentBeaconBlockRootAddress,
 		setLengthLeft(toBytes(timestampIndex), 32),
 		toBytes(timestamp),
 	)
-	await vm.stateManager.putContractStorage(
-		parentBeaconBlockRootAddress,
-		setLengthLeft(toBytes(timestampExtended), 32),
-		root,
-	)
+	await vm.stateManager.putStorage(parentBeaconBlockRootAddress, setLengthLeft(toBytes(timestampExtended), 32), root)
 }

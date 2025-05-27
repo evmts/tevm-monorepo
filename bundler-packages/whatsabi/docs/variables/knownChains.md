@@ -8,7 +8,7 @@
 
 > `const` **knownChains**: `object`
 
-Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/knownChains.js#L6)
+Defined in: bundler-packages/whatsabi/src/knownChains.js:6
 
 ## Type declaration
 
@@ -75,6 +75,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 1.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 1.fees?
 
@@ -271,6 +275,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 10.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 10.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 10.fees?
 
@@ -660,6 +668,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 100.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 100.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -758,7 +770,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 100009.contracts.ensRegistry?
 
@@ -779,6 +791,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 100009.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 100009.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 100009.fees?
 
@@ -866,7 +882,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 1004.contracts.ensRegistry?
 
@@ -887,6 +903,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1004.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 1004.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 1004.fees?
 
@@ -970,7 +990,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 1039.contracts.ensRegistry?
 
@@ -991,6 +1011,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1039.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 1039.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 1039.fees?
 
@@ -1074,7 +1098,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 105105.contracts.ensRegistry?
 
@@ -1095,6 +1119,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 105105.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 105105.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 105105.fees?
 
@@ -1200,6 +1228,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 1088.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 1088.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -1242,7 +1274,11 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 #### 1088.rpcUrls.default.http
 
-> `readonly` **http**: readonly \[`"https://metis.rpc.hypersync.xyz"`, `"https://metis-pokt.nodies.app"`, `"https://api.blockeden.xyz/metis/67nCBdZQSH9z3YqDDjdm"`, `"https://metis-andromeda.rpc.thirdweb.com"`, `"https://metis-andromeda.gateway.tenderly.co"`, `"https://metis.api.onfinality.io/public"`, `"wss://metis-rpc.publicnode.com"`, `"https://andromeda.metis.io/?owner=1088"`, `"wss://metis.drpc.org"`, `"https://metis-mainnet.public.blastapi.io"`\]
+> `readonly` **http**: readonly \[`"https://metis.rpc.hypersync.xyz"`, `"https://metis-pokt.nodies.app"`, `"https://api.blockeden.xyz/metis/67nCBdZQSH9z3YqDDjdm"`, `"https://metis-andromeda.rpc.thirdweb.com"`, `"https://metis-andromeda.gateway.tenderly.co"`, `"https://metis.api.onfinality.io/public"`, `"https://andromeda.metis.io/?owner=1088"`, `"https://metis-mainnet.public.blastapi.io"`\]
+
+#### 1088.rpcUrls.default.webSocket
+
+> `readonly` **webSocket**: readonly \[`"wss://metis-rpc.publicnode.com"`, `"wss://metis.drpc.org"`\]
 
 #### 1088.serializers?
 
@@ -1295,6 +1331,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 109.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 109.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 109.fees?
 
@@ -1382,7 +1422,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 1111.contracts.ensRegistry?
 
@@ -1403,6 +1443,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1111.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 1111.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 1111.fees?
 
@@ -1507,6 +1551,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 111188.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 111188.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 111188.fees?
 
@@ -1627,6 +1675,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 11155111.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 11155111.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 11155111.fees?
 
@@ -1823,6 +1875,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 11155420.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 11155420.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 11155420.fees?
 
@@ -2212,6 +2268,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 111557560.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 111557560.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -2308,6 +2368,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 1116.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 1116.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -2394,7 +2458,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 11235.contracts.ensRegistry?
 
@@ -2415,6 +2479,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 11235.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 11235.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 11235.fees?
 
@@ -2511,6 +2579,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 11297108099.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 11297108099.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 11297108099.fees?
 
@@ -2612,6 +2684,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 11297108109.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 11297108109.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -2711,6 +2787,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1130.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 1130.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 1130.fees?
 
@@ -2895,6 +2975,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1135.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 1135.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 1135.fees?
 
@@ -3274,7 +3358,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 114.contracts.ensRegistry?
 
@@ -3295,6 +3379,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 114.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 114.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 114.fees?
 
@@ -3382,7 +3470,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 11501.contracts.ensRegistry?
 
@@ -3403,6 +3491,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 11501.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 11501.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 11501.fees?
 
@@ -3504,6 +3596,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 122.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 122.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -3590,7 +3686,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 123.contracts.ensRegistry?
 
@@ -3611,6 +3707,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 123.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 123.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 123.fees?
 
@@ -3694,7 +3794,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 12306.contracts.ensRegistry?
 
@@ -3715,6 +3815,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 12306.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 12306.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 12306.fees?
 
@@ -3802,7 +3906,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 12324.contracts.ensRegistry?
 
@@ -3823,6 +3927,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 12324.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 12324.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 12324.fees?
 
@@ -3914,7 +4022,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 12325.contracts.ensRegistry?
 
@@ -3935,6 +4043,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 12325.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 12325.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 12325.fees?
 
@@ -4127,6 +4239,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 12553.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 12553.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 12553.fees?
 
@@ -4506,7 +4622,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 1281.contracts.ensRegistry?
 
@@ -4527,6 +4643,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1281.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 1281.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 1281.fees?
 
@@ -4632,6 +4752,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 1285.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 1285.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -4736,6 +4860,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 1313161554.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 1313161554.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -4818,7 +4946,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 1328.contracts.ensRegistry?
 
@@ -4839,6 +4967,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1328.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 1328.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 1328.fees?
 
@@ -4940,6 +5072,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 1329.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 1329.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -5040,6 +5176,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 13337.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 13337.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -5138,7 +5278,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 1337.contracts.ensRegistry?
 
@@ -5159,6 +5299,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1337.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 1337.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 1337.fees?
 
@@ -5242,7 +5386,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 1337803.contracts.ensRegistry?
 
@@ -5263,6 +5407,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1337803.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 1337803.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 1337803.fees?
 
@@ -5364,6 +5512,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 13381.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 13381.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -5460,6 +5612,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 1350216234.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 1350216234.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -5474,7 +5630,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 #### 1350216234.name
 
-> **name**: "SKALE \| Titan Community Hub"
+> **name**: `"SKALE Titan Hub"`
 
 #### 1350216234.nativeCurrency
 
@@ -5563,6 +5719,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 137.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 137.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 137.fees?
 
@@ -5664,6 +5824,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 14.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 14.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -5750,7 +5914,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 148.contracts.ensRegistry?
 
@@ -5771,6 +5935,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 148.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 148.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 148.fees?
 
@@ -5872,6 +6040,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 1482601649.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 1482601649.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -5886,7 +6058,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 #### 1482601649.name
 
-> **name**: "SKALE \| Nebula Gaming Hub"
+> **name**: `"SKALE Nebula Hub"`
 
 #### 1482601649.nativeCurrency
 
@@ -5976,6 +6148,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 15557.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 15557.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -6062,7 +6238,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 1559.contracts.ensRegistry?
 
@@ -6083,6 +6259,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1559.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 1559.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 1559.fees?
 
@@ -6171,6 +6351,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1663.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 1663.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 1663.fees?
 
@@ -6268,6 +6452,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 1666600000.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 1666600000.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -6310,7 +6498,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 #### 1666600000.rpcUrls.default.http
 
-> `readonly` **http**: readonly \[`"https://rpc.ankr.com/harmony"`\]
+> `readonly` **http**: readonly \[`"https://1666600000.rpc.thirdweb.com"`\]
 
 #### 1666600000.serializers?
 
@@ -6363,6 +6551,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 167000.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 167000.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 167000.fees?
 
@@ -6464,6 +6656,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 167007.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 167007.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -6546,7 +6742,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 167008.contracts.ensRegistry?
 
@@ -6567,6 +6763,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 167008.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 167008.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 167008.fees?
 
@@ -6668,6 +6868,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 167009.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 167009.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -6768,6 +6972,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 168587773.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 168587773.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -6867,6 +7075,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 169.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 169.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 169.fees?
 
@@ -6996,6 +7208,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 17000.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 17000.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -7078,7 +7294,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 1729.contracts.ensRegistry?
 
@@ -7099,6 +7315,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1729.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 1729.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 1729.fees?
 
@@ -7287,6 +7507,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1750.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 1750.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 1750.fees?
 
@@ -7680,6 +7904,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 17777.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 17777.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -7779,6 +8007,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 18233.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 18233.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 18233.fees?
 
@@ -7880,6 +8112,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 19.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 19.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -7975,6 +8211,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 195.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 195.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 195.fees?
 
@@ -8076,6 +8316,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 196.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 196.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -8176,6 +8420,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 199.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 199.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -8266,7 +8514,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 1994.contracts.ensRegistry?
 
@@ -8287,6 +8535,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1994.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 1994.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 1994.fees?
 
@@ -8388,6 +8640,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 2000.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 2000.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -8470,7 +8726,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 200810.contracts.ensRegistry?
 
@@ -8491,6 +8747,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 200810.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 200810.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 200810.fees?
 
@@ -8578,7 +8838,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 200901.contracts.ensRegistry?
 
@@ -8599,6 +8859,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 200901.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 200901.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 200901.fees?
 
@@ -8642,7 +8906,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 #### 200901.rpcUrls.default.http
 
-> `readonly` **http**: readonly \[`"https://rpc.bitlayer.org"`, `"https://rpc.bitlayer-rpc.com"`, `"https://rpc.ankr.com/bitlayer"`\]
+> `readonly` **http**: readonly \[`"https://rpc.bitlayer.org"`, `"https://rpc.bitlayer-rpc.com"`\]
 
 #### 200901.rpcUrls.default.webSocket
 
@@ -8699,6 +8963,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 2020.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 2020.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 2020.fees?
 
@@ -8800,6 +9068,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 2021.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 2021.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -8882,7 +9154,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 2026.contracts.ensRegistry?
 
@@ -8903,6 +9175,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 2026.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 2026.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 2026.fees?
 
@@ -9092,6 +9368,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 204.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 204.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -9188,6 +9468,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 2046399126.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 2046399126.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -9202,7 +9486,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 #### 2046399126.name
 
-> **name**: "SKALE \| Europa Liquidity Hub"
+> **name**: `"SKALE Europa Hub"`
 
 #### 2046399126.nativeCurrency
 
@@ -9274,7 +9558,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 205205.contracts.ensRegistry?
 
@@ -9295,6 +9579,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 205205.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 205205.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 205205.fees?
 
@@ -9384,6 +9672,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 2139927552.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 2139927552.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -9398,7 +9690,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 #### 2139927552.name
 
-> **name**: "SKALE \| Exorde"
+> **name**: `"Exorde Network"`
 
 #### 2139927552.nativeCurrency
 
@@ -9487,6 +9779,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 2221.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 2221.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 2221.fees?
 
@@ -9592,6 +9888,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 2222.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 2222.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -9678,7 +9978,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 22222.contracts.ensRegistry?
 
@@ -9699,6 +9999,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 22222.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 22222.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 22222.fees?
 
@@ -9795,6 +10099,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 23294.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 23294.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 23294.fees?
 
@@ -9991,6 +10299,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 2331.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 2331.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 2331.fees?
 
@@ -10376,6 +10688,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 240.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 240.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -10471,6 +10787,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 242.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 242.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 242.fees?
 
@@ -10568,6 +10888,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 245022926.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 245022926.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -10664,6 +10988,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 245022934.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 245022934.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -10754,7 +11082,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 248.contracts.ensRegistry?
 
@@ -10775,6 +11103,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 248.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 248.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 248.fees?
 
@@ -10876,6 +11208,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 25.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 25.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -10976,6 +11312,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 250.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 250.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -11018,7 +11358,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 #### 250.rpcUrls.default.http
 
-> `readonly` **http**: readonly \[`"https://rpc.ankr.com/fantom"`\]
+> `readonly` **http**: readonly \[`"https://250.rpc.thirdweb.com"`\]
 
 #### 250.serializers?
 
@@ -11163,6 +11503,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 252.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 252.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 252.fees?
 
@@ -11460,11 +11804,11 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 #### 252.nativeCurrency.name
 
-> `readonly` **name**: `"Frax Ether"`
+> `readonly` **name**: `"Frax"`
 
 #### 252.nativeCurrency.symbol
 
-> `readonly` **symbol**: `"frxETH"`
+> `readonly` **symbol**: `"FRAX"`
 
 #### 252.rpcUrls
 
@@ -11551,6 +11895,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 2525.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 2525.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 2525.fees?
 
@@ -11651,6 +11999,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 255.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 255.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 255.fees?
 
@@ -11787,6 +12139,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 2716446429837000.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 2716446429837000.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 2716446429837000.fees?
 
@@ -12158,7 +12514,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 2730.contracts.ensRegistry?
 
@@ -12179,6 +12535,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 2730.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 2730.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 2730.fees?
 
@@ -12263,6 +12623,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 278611351.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 278611351.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 278611351.fees?
 
@@ -12364,6 +12728,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 288.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 288.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -12446,7 +12814,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 28882.contracts.ensRegistry?
 
@@ -12467,6 +12835,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 28882.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 28882.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 28882.fees?
 
@@ -12550,7 +12922,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 295.contracts.ensRegistry?
 
@@ -12571,6 +12943,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 295.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 295.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 295.fees?
 
@@ -12672,6 +13048,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 30.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 30.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -12762,7 +13142,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 3109.contracts.ensRegistry?
 
@@ -12783,6 +13163,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 3109.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 3109.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 3109.fees?
 
@@ -12874,7 +13258,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 31337.contracts.ensRegistry?
 
@@ -12895,6 +13279,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 31337.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 31337.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 31337.fees?
 
@@ -12992,6 +13380,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 314.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 314.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -13087,6 +13479,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 321.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 321.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 321.fees?
 
@@ -13219,6 +13615,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 324.custom.getEip712Domain
 
 > `readonly` **getEip712Domain**: `EIP712DomainFn`\<`ZksyncTransactionSerializable`, `ZksyncEIP712TransactionSignable`\>
+
+#### 324.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 324.fees?
 
@@ -13380,7 +13780,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 #### 324.formatters.transaction.format()
 
-> **format**: (`args`) => \{ `accessList?`: `undefined`; `authorizationList?`: `undefined`; `blobVersionedHashes?`: `undefined`; `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `chainId?`: `number`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `bigint`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `l1BatchNumber`: `null` \| `bigint`; `l1BatchTxIndex`: `null` \| `bigint`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `undefined`; `maxPriorityFeePerGas?`: `undefined`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"legacy"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity?`: `undefined`; \} \| \{ `accessList`: `AccessList`; `authorizationList?`: `undefined`; `blobVersionedHashes?`: `undefined`; `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `chainId`: `number`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `bigint`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `l1BatchNumber`: `null` \| `bigint`; `l1BatchTxIndex`: `null` \| `bigint`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `undefined`; `maxPriorityFeePerGas?`: `undefined`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"eip2930"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `accessList`: `AccessList`; `authorizationList?`: `undefined`; `blobVersionedHashes?`: `undefined`; `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `chainId`: `number`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice?`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `l1BatchNumber`: `null` \| `bigint`; `l1BatchTxIndex`: `null` \| `bigint`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"eip1559"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `accessList`: `AccessList`; `authorizationList?`: `undefined`; `blobVersionedHashes`: readonly `` `0x${string}` ``[]; `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `chainId`: `number`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice?`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `l1BatchNumber`: `null` \| `bigint`; `l1BatchTxIndex`: `null` \| `bigint`; `maxFeePerBlobGas`: `bigint`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"eip4844"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `accessList`: `AccessList`; `authorizationList`: `SignedAuthorizationList`\<`number`\>; `blobVersionedHashes?`: `undefined`; `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `chainId`: `number`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice?`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `l1BatchNumber`: `null` \| `bigint`; `l1BatchTxIndex`: `null` \| `bigint`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"eip7702"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice?`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `l1BatchNumber`: `null` \| `bigint`; `l1BatchTxIndex`: `null` \| `bigint`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"priority"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice?`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `l1BatchNumber`: `null` \| `bigint`; `l1BatchTxIndex`: `null` \| `bigint`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"eip712"` \| `"priority"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \}
+> **format**: (`args`) => \{ `accessList?`: `undefined`; `authorizationList?`: `undefined`; `blobVersionedHashes?`: `undefined`; `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `chainId?`: `number`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `bigint`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `l1BatchNumber`: `null` \| `bigint`; `l1BatchTxIndex`: `null` \| `bigint`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `undefined`; `maxPriorityFeePerGas?`: `undefined`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"legacy"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity?`: `undefined`; \} \| \{ `accessList`: `AccessList`; `authorizationList?`: `undefined`; `blobVersionedHashes?`: `undefined`; `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `chainId`: `number`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `bigint`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `l1BatchNumber`: `null` \| `bigint`; `l1BatchTxIndex`: `null` \| `bigint`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `undefined`; `maxPriorityFeePerGas?`: `undefined`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"eip2930"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `accessList`: `AccessList`; `authorizationList?`: `undefined`; `blobVersionedHashes?`: `undefined`; `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `chainId`: `number`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice?`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `l1BatchNumber`: `null` \| `bigint`; `l1BatchTxIndex`: `null` \| `bigint`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"eip1559"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `accessList`: `AccessList`; `authorizationList?`: `undefined`; `blobVersionedHashes`: readonly `` `0x${string}` ``[]; `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `chainId`: `number`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice?`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `l1BatchNumber`: `null` \| `bigint`; `l1BatchTxIndex`: `null` \| `bigint`; `maxFeePerBlobGas`: `bigint`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"eip4844"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `accessList`: `AccessList`; `authorizationList`: `SignedAuthorizationList`\<`number`\>; `blobVersionedHashes?`: `undefined`; `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `chainId`: `number`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice?`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `l1BatchNumber`: `null` \| `bigint`; `l1BatchTxIndex`: `null` \| `bigint`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"eip7702"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice?`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `l1BatchNumber`: `null` \| `bigint`; `l1BatchTxIndex`: `null` \| `bigint`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"priority"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice?`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `l1BatchNumber`: `null` \| `bigint`; `l1BatchTxIndex`: `null` \| `bigint`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"priority"` \| `"eip712"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \}
 
 ##### Parameters
 
@@ -13390,7 +13790,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Returns
 
-\{ `accessList?`: `undefined`; `authorizationList?`: `undefined`; `blobVersionedHashes?`: `undefined`; `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `chainId?`: `number`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `bigint`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `l1BatchNumber`: `null` \| `bigint`; `l1BatchTxIndex`: `null` \| `bigint`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `undefined`; `maxPriorityFeePerGas?`: `undefined`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"legacy"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity?`: `undefined`; \} \| \{ `accessList`: `AccessList`; `authorizationList?`: `undefined`; `blobVersionedHashes?`: `undefined`; `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `chainId`: `number`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `bigint`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `l1BatchNumber`: `null` \| `bigint`; `l1BatchTxIndex`: `null` \| `bigint`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `undefined`; `maxPriorityFeePerGas?`: `undefined`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"eip2930"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `accessList`: `AccessList`; `authorizationList?`: `undefined`; `blobVersionedHashes?`: `undefined`; `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `chainId`: `number`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice?`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `l1BatchNumber`: `null` \| `bigint`; `l1BatchTxIndex`: `null` \| `bigint`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"eip1559"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `accessList`: `AccessList`; `authorizationList?`: `undefined`; `blobVersionedHashes`: readonly `` `0x${string}` ``[]; `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `chainId`: `number`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice?`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `l1BatchNumber`: `null` \| `bigint`; `l1BatchTxIndex`: `null` \| `bigint`; `maxFeePerBlobGas`: `bigint`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"eip4844"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `accessList`: `AccessList`; `authorizationList`: `SignedAuthorizationList`\<`number`\>; `blobVersionedHashes?`: `undefined`; `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `chainId`: `number`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice?`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `l1BatchNumber`: `null` \| `bigint`; `l1BatchTxIndex`: `null` \| `bigint`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"eip7702"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice?`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `l1BatchNumber`: `null` \| `bigint`; `l1BatchTxIndex`: `null` \| `bigint`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"priority"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice?`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `l1BatchNumber`: `null` \| `bigint`; `l1BatchTxIndex`: `null` \| `bigint`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"eip712"` \| `"priority"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \}
+\{ `accessList?`: `undefined`; `authorizationList?`: `undefined`; `blobVersionedHashes?`: `undefined`; `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `chainId?`: `number`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `bigint`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `l1BatchNumber`: `null` \| `bigint`; `l1BatchTxIndex`: `null` \| `bigint`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `undefined`; `maxPriorityFeePerGas?`: `undefined`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"legacy"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity?`: `undefined`; \} \| \{ `accessList`: `AccessList`; `authorizationList?`: `undefined`; `blobVersionedHashes?`: `undefined`; `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `chainId`: `number`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `bigint`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `l1BatchNumber`: `null` \| `bigint`; `l1BatchTxIndex`: `null` \| `bigint`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `undefined`; `maxPriorityFeePerGas?`: `undefined`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"eip2930"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `accessList`: `AccessList`; `authorizationList?`: `undefined`; `blobVersionedHashes?`: `undefined`; `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `chainId`: `number`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice?`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `l1BatchNumber`: `null` \| `bigint`; `l1BatchTxIndex`: `null` \| `bigint`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"eip1559"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `accessList`: `AccessList`; `authorizationList?`: `undefined`; `blobVersionedHashes`: readonly `` `0x${string}` ``[]; `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `chainId`: `number`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice?`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `l1BatchNumber`: `null` \| `bigint`; `l1BatchTxIndex`: `null` \| `bigint`; `maxFeePerBlobGas`: `bigint`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"eip4844"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `accessList`: `AccessList`; `authorizationList`: `SignedAuthorizationList`\<`number`\>; `blobVersionedHashes?`: `undefined`; `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `chainId`: `number`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice?`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `l1BatchNumber`: `null` \| `bigint`; `l1BatchTxIndex`: `null` \| `bigint`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"eip7702"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice?`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `l1BatchNumber`: `null` \| `bigint`; `l1BatchTxIndex`: `null` \| `bigint`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"priority"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice?`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `l1BatchNumber`: `null` \| `bigint`; `l1BatchTxIndex`: `null` \| `bigint`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"priority"` \| `"eip712"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \}
 
 #### 324.formatters.transaction.type
 
@@ -13628,7 +14028,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 32769.contracts.ensRegistry?
 
@@ -13649,6 +14049,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 32769.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 32769.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 32769.fees?
 
@@ -13785,6 +14189,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 33979.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 33979.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 33979.fees?
 
@@ -14217,6 +14625,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 3397901.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 3397901.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 3397901.fees?
 
@@ -14690,6 +15102,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 34443.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 34443.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -15064,7 +15480,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 35441.contracts.ensRegistry?
 
@@ -15085,6 +15501,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 35441.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 35441.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 35441.fees?
 
@@ -15172,7 +15592,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 35443.contracts.ensRegistry?
 
@@ -15193,6 +15613,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 35443.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 35443.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 35443.fees?
 
@@ -15302,6 +15726,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 369.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 369.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -15406,6 +15834,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 3737.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 3737.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -15488,7 +15920,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 37714555429.contracts.ensRegistry?
 
@@ -15509,6 +15941,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 37714555429.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 37714555429.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 37714555429.fees?
 
@@ -15605,6 +16041,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 3776.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 3776.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 3776.fees?
 
@@ -15710,6 +16150,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 3993.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 3993.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -15809,6 +16253,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 41144114.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 41144114.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 41144114.fees?
 
@@ -15910,6 +16358,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 42.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 42.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -16004,7 +16456,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 4200.contracts.ensRegistry?
 
@@ -16025,6 +16477,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 4200.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 4200.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 4200.fees?
 
@@ -16205,6 +16661,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 4202.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 4202.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 4202.fees?
 
@@ -16598,6 +17058,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 42161.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 42161.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -16697,6 +17161,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 42170.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 42170.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 42170.fees?
 
@@ -16798,6 +17266,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 42220.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 42220.fees
 
 > **fees**: `ChainFees`\<\{ `block`: \{ `exclude`: `undefined` \| \[\]; `format`: (`args`) => `object`; `type`: `"block"`; \}; `transaction`: \{ `exclude`: `undefined` \| \[\]; `format`: (`args`) => \{ `accessList?`: `undefined`; `authorizationList?`: `undefined`; `blobVersionedHashes?`: `undefined`; `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `chainId?`: `number`; `feeCurrency`: `null` \| `` `0x${string}` ``; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `bigint`; `gatewayFee?`: `undefined`; `gatewayFeeRecipient?`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `isSystemTx?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `undefined`; `maxPriorityFeePerGas?`: `undefined`; `mint?`: `undefined`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `sourceHash?`: `undefined`; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"legacy"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity?`: `undefined`; \} \| \{ `accessList`: `AccessList`; `authorizationList?`: `undefined`; `blobVersionedHashes?`: `undefined`; `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `chainId`: `number`; `feeCurrency`: `null` \| `` `0x${string}` ``; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `bigint`; `gatewayFee?`: `undefined`; `gatewayFeeRecipient?`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `isSystemTx?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `undefined`; `maxPriorityFeePerGas?`: `undefined`; `mint?`: `undefined`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `sourceHash?`: `undefined`; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"eip2930"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `accessList`: `AccessList`; `authorizationList?`: `undefined`; `blobVersionedHashes?`: `undefined`; `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `chainId`: `number`; `feeCurrency`: `null` \| `` `0x${string}` ``; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice?`: `undefined`; `gatewayFee?`: `undefined`; `gatewayFeeRecipient?`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `isSystemTx?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `mint?`: `undefined`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `sourceHash?`: `undefined`; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"eip1559"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `accessList`: `AccessList`; `authorizationList?`: `undefined`; `blobVersionedHashes`: readonly `` `0x${string}` ``[]; `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `chainId`: `number`; `feeCurrency`: `null` \| `` `0x${string}` ``; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice?`: `undefined`; `gatewayFee?`: `undefined`; `gatewayFeeRecipient?`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `isSystemTx?`: `undefined`; `maxFeePerBlobGas`: `bigint`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `mint?`: `undefined`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `sourceHash?`: `undefined`; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"eip4844"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `accessList`: `AccessList`; `authorizationList`: `SignedAuthorizationList`\<`number`\>; `blobVersionedHashes?`: `undefined`; `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `chainId`: `number`; `feeCurrency`: `null` \| `` `0x${string}` ``; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice?`: `undefined`; `gatewayFee?`: `undefined`; `gatewayFeeRecipient?`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `isSystemTx?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `mint?`: `undefined`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `sourceHash?`: `undefined`; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"eip7702"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `accessList`: `AccessList`; `authorizationList?`: `undefined`; `blobVersionedHashes?`: `undefined`; `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `chainId`: `number`; `feeCurrency`: `null` \| `` `0x${string}` ``; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice?`: `undefined`; `gatewayFee`: `null` \| `bigint`; `gatewayFeeRecipient`: `null` \| `` `0x${string}` ``; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `isSystemTx?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `mint?`: `undefined`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `sourceHash?`: `undefined`; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"cip42"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `accessList`: `AccessList`; `authorizationList?`: `undefined`; `blobVersionedHashes?`: `undefined`; `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `chainId`: `number`; `feeCurrency`: `null` \| `` `0x${string}` ``; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice?`: `undefined`; `gatewayFee?`: `undefined`; `gatewayFeeRecipient?`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `isSystemTx?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `mint?`: `undefined`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `sourceHash?`: `undefined`; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"cip64"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `accessList?`: `undefined`; `authorizationList?`: `undefined`; `blobVersionedHashes?`: `undefined`; `blockHash`: `null` \| `` `0x${string}` ``; `blockNumber`: `null` \| `bigint`; `chainId?`: `undefined`; `feeCurrency?`: `undefined`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice?`: `undefined`; `gatewayFee?`: `undefined`; `gatewayFeeRecipient?`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `isSystemTx?`: `boolean`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `mint?`: `bigint`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `sourceHash`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `null` \| `number`; `type`: `"deposit"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \}; `type`: `"transaction"`; \}; `transactionRequest`: \{ `exclude`: `undefined` \| \[\]; `format`: (`args`) => \{ `accessList?`: `undefined`; `authorizationList?`: `undefined`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `feeCurrency?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `` `0x${string}` ``; `gasPrice?`: `` `0x${string}` ``; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `undefined`; `maxPriorityFeePerGas?`: `undefined`; `nonce?`: `` `0x${string}` ``; `sidecars?`: `undefined`; `to?`: `null` \| `` `0x${string}` ``; `type?`: `"0x0"`; `value?`: `` `0x${string}` ``; \} \| \{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `feeCurrency?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `` `0x${string}` ``; `gasPrice?`: `` `0x${string}` ``; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `undefined`; `maxPriorityFeePerGas?`: `undefined`; `nonce?`: `` `0x${string}` ``; `sidecars?`: `undefined`; `to?`: `null` \| `` `0x${string}` ``; `type?`: `"0x1"`; `value?`: `` `0x${string}` ``; \} \| \{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `feeCurrency?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `` `0x${string}` ``; `gasPrice?`: `undefined`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `` `0x${string}` ``; `maxPriorityFeePerGas?`: `` `0x${string}` ``; `nonce?`: `` `0x${string}` ``; `sidecars?`: `undefined`; `to?`: `null` \| `` `0x${string}` ``; `type?`: `"0x2"`; `value?`: `` `0x${string}` ``; \} \| \{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs`: readonly `` `0x${(...)}` ``[] \| readonly `ByteArray`[]; `blobVersionedHashes?`: readonly `` `0x${(...)}` ``[]; `data?`: `` `0x${string}` ``; `feeCurrency?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `` `0x${string}` ``; `gasPrice?`: `undefined`; `kzg?`: `Kzg`; `maxFeePerBlobGas`: `` `0x${string}` ``; `maxFeePerGas?`: `` `0x${string}` ``; `maxPriorityFeePerGas?`: `` `0x${string}` ``; `nonce?`: `` `0x${string}` ``; `sidecars?`: readonly `BlobSidecar`\<...\>[]; `to`: `null` \| `` `0x${string}` ``; `type?`: `"0x3"`; `value?`: `` `0x${string}` ``; \} \| \{ `accessList?`: `AccessList`; `authorizationList?`: `RpcAuthorizationList`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `feeCurrency?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `` `0x${string}` ``; `gasPrice?`: `undefined`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `` `0x${string}` ``; `maxPriorityFeePerGas?`: `` `0x${string}` ``; `nonce?`: `` `0x${string}` ``; `sidecars?`: `undefined`; `to?`: `null` \| `` `0x${string}` ``; `type?`: `"0x4"`; `value?`: `` `0x${string}` ``; \} \| \{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `feeCurrency?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `` `0x${string}` ``; `gasPrice?`: `undefined`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `` `0x${string}` ``; `maxPriorityFeePerGas?`: `` `0x${string}` ``; `nonce?`: `` `0x${string}` ``; `sidecars?`: `undefined`; `to?`: `null` \| `` `0x${string}` ``; `type?`: `"0x7b"`; `value?`: `` `0x${string}` ``; \}; `type`: `"transactionRequest"`; \}; \}\>
@@ -16838,7 +17310,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ###### difficulty
 
-> **difficulty**: `undefined` \| `bigint`
+> **difficulty**: `bigint`
 
 ###### excessBlobGas
 
@@ -16850,7 +17322,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ###### gasLimit
 
-> **gasLimit**: `undefined` \| `bigint`
+> **gasLimit**: `bigint`
 
 ###### gasUsed
 
@@ -16868,13 +17340,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > **miner**: `` `0x${string}` ``
 
-###### mixHash?
+###### mixHash
 
-> `optional` **mixHash**: `undefined`
+> **mixHash**: `` `0x${string}` ``
 
 ###### nonce
 
-> **nonce**: `undefined` \| `null` \| `bigint`
+> **nonce**: `null` \| `` `0x${string}` ``
 
 ###### number
 
@@ -16887,18 +17359,6 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 ###### parentHash
 
 > **parentHash**: `` `0x${string}` ``
-
-###### randomness?
-
-> `optional` **randomness**: `object`
-
-###### randomness.committed
-
-> **committed**: `` `0x${string}` ``
-
-###### randomness.revealed
-
-> **revealed**: `` `0x${string}` ``
 
 ###### receiptsRoot
 
@@ -16936,9 +17396,9 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > **transactionsRoot**: `` `0x${string}` ``
 
-###### uncles?
+###### uncles
 
-> `optional` **uncles**: `undefined`
+> **uncles**: `` `0x${string}` ``[]
 
 ###### withdrawals?
 
@@ -17149,6 +17609,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 424.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 424.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 424.fees?
 
@@ -17524,6 +17988,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 4242.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 4242.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -17623,6 +18091,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 42766.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 42766.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 42766.fees?
 
@@ -17724,6 +18196,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 42793.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 42793.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -17824,6 +18300,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 43114.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 43114.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -17919,6 +18399,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 4337.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 4337.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 4337.fees?
 
@@ -18024,6 +18508,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 44.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 44.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -18123,6 +18611,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 46.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 46.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 46.fees?
 
@@ -18224,6 +18716,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 463.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 463.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -18323,6 +18819,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 4689.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 4689.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 4689.fees?
 
@@ -18424,6 +18924,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 4759.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 4759.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -18510,7 +19014,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 4777.contracts.ensRegistry?
 
@@ -18531,6 +19035,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 4777.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 4777.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 4777.fees?
 
@@ -18618,7 +19126,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 4999.contracts.ensRegistry?
 
@@ -18639,6 +19147,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 4999.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 4999.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 4999.fees?
 
@@ -18760,6 +19272,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 5.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 5.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -18802,7 +19318,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 #### 5.rpcUrls.default.http
 
-> `readonly` **http**: readonly \[`"https://rpc.ankr.com/eth_goerli"`\]
+> `readonly` **http**: readonly \[`"https://5.rpc.thirdweb.com"`\]
 
 #### 5.serializers?
 
@@ -18855,6 +19371,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 50.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 50.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 50.fees?
 
@@ -18956,6 +19476,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 5000.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 5000.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -19038,7 +19562,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 50005.contracts.ensRegistry?
 
@@ -19059,6 +19583,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 50005.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 50005.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 50005.fees?
 
@@ -19156,6 +19684,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 51.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 51.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -19242,7 +19774,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 5112.contracts.ensRegistry?
 
@@ -19263,6 +19795,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 5112.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 5112.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 5112.fees?
 
@@ -19354,7 +19890,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 5165.contracts.ensRegistry?
 
@@ -19375,6 +19911,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 5165.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 5165.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 5165.fees?
 
@@ -19484,6 +20024,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 534352.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 534352.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -19584,6 +20128,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 53935.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 53935.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -19679,6 +20227,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 545.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 545.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 545.fees?
 
@@ -19780,6 +20332,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 56.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 56.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -19822,7 +20378,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 #### 56.rpcUrls.default.http
 
-> `readonly` **http**: readonly \[`"https://rpc.ankr.com/bsc"`\]
+> `readonly` **http**: readonly \[`"https://56.rpc.thirdweb.com"`\]
 
 #### 56.serializers?
 
@@ -19879,6 +20435,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 57.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 57.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 57.fees?
 
@@ -19984,6 +20544,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 570.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 570.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -20083,6 +20647,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 571.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 571.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 571.fees?
 
@@ -20219,6 +20787,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 58008.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 58008.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 58008.fees?
 
@@ -20594,6 +21166,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 59140.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 59140.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -20682,6 +21258,30 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > **contracts**: `object`
 
+#### 59144.contracts.ensRegistry
+
+> `readonly` **ensRegistry**: `object`
+
+#### 59144.contracts.ensRegistry.address
+
+> `readonly` **address**: `"0x50130b669B28C339991d8676FA73CF122a121267"`
+
+#### 59144.contracts.ensRegistry.blockCreated
+
+> `readonly` **blockCreated**: `6682888`
+
+#### 59144.contracts.ensUniversalResolver
+
+> `readonly` **ensUniversalResolver**: `object`
+
+#### 59144.contracts.ensUniversalResolver.address
+
+> `readonly` **address**: `"0x3aA974fb3f8C1E02796048BDCdeD79e9D53a6965"`
+
+#### 59144.contracts.ensUniversalResolver.blockCreated
+
+> `readonly` **blockCreated**: `6683000`
+
 #### 59144.contracts.multicall3
 
 > `readonly` **multicall3**: `object`
@@ -20697,6 +21297,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 59144.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 59144.ensTlds
+
+> **ensTlds**: readonly \[`".linea.eth"`\]
 
 #### 59144.fees
 
@@ -20826,6 +21430,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 592.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 592.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -20916,7 +21524,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 595.contracts.ensRegistry?
 
@@ -20937,6 +21545,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 595.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 595.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 595.fees?
 
@@ -21046,6 +21658,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 599.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 599.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -21141,6 +21757,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 6038361.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 6038361.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 6038361.fees?
 
@@ -21321,6 +21941,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 60808.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 60808.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 60808.fees?
 
@@ -21696,7 +22320,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 61.contracts.ensRegistry?
 
@@ -21717,6 +22341,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 61.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 61.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 61.fees?
 
@@ -21814,6 +22442,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 66.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 66.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -21910,6 +22542,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 660279.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 660279.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -21996,7 +22632,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 666666666.contracts.ensRegistry?
 
@@ -22017,6 +22653,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 666666666.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 666666666.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 666666666.fees?
 
@@ -22108,7 +22748,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 686.contracts.ensRegistry?
 
@@ -22129,6 +22769,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 686.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 686.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 686.fees?
 
@@ -22325,6 +22969,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 690.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 690.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 690.fees?
 
@@ -22718,6 +23366,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 7.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 7.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -22813,6 +23465,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 7000.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 7000.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 7000.fees?
 
@@ -22910,6 +23566,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 701.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 701.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -22996,7 +23656,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 713715.contracts.ensRegistry?
 
@@ -23017,6 +23677,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 713715.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 713715.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 713715.fees?
 
@@ -23100,7 +23764,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 721.contracts.ensRegistry?
 
@@ -23121,6 +23785,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 721.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 721.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 721.fees?
 
@@ -23209,6 +23877,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 7332.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 7332.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 7332.fees?
 
@@ -23306,6 +23978,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 747.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 747.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -23401,6 +24077,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 7518.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 7518.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 7518.fees?
 
@@ -23502,6 +24182,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 7560.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 7560.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -23597,6 +24281,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 7668.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 7668.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 7668.fees?
 
@@ -23698,6 +24386,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 7672.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 7672.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -23797,6 +24489,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 7700.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 7700.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 7700.fees?
 
@@ -23981,6 +24677,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 7777777.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 7777777.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 7777777.fees?
 
@@ -24360,7 +25060,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 787.contracts.ensRegistry?
 
@@ -24381,6 +25081,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 787.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 787.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 787.fees?
 
@@ -24490,6 +25194,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 80002.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 80002.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -24572,7 +25280,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 810181.contracts.ensRegistry?
 
@@ -24593,6 +25301,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 810181.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 810181.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 810181.fees?
 
@@ -24741,6 +25453,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 81457.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 81457.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 81457.fees?
 
@@ -25112,7 +25828,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 82.contracts.ensRegistry?
 
@@ -25133,6 +25849,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 82.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 82.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 82.fees?
 
@@ -25230,6 +25950,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 8217.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 8217.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -25312,7 +26036,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 841.contracts.ensRegistry?
 
@@ -25333,6 +26057,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 841.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 841.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 841.fees?
 
@@ -25537,6 +26265,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 8453.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 8453.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 8453.fees?
 
@@ -26009,6 +26741,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 84531.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 84531.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 84531.fees?
 
@@ -26502,6 +27238,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 84532.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 84532.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -26890,6 +27630,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 888.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 888.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -26976,7 +27720,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 88882.contracts.ensRegistry?
 
@@ -26997,6 +27741,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 88882.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 88882.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 88882.fees?
 
@@ -27092,7 +27840,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 88888.contracts.ensRegistry?
 
@@ -27113,6 +27861,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 88888.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 88888.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 88888.fees?
 
@@ -27160,7 +27912,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 #### 88888.rpcUrls.default.http
 
-> `readonly` **http**: readonly \[`"https://rpc.ankr.com/chiliz"`, `"https://chiliz-rpc.publicnode.com"`\]
+> `readonly` **http**: readonly \[`"https://rpc.chiliz.com"`\]
 
 #### 88888.serializers?
 
@@ -27297,6 +28049,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 888888888.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 888888888.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 888888888.fees?
 
@@ -27686,6 +28442,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 8899.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 8899.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -27790,6 +28550,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 88991.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 88991.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -27872,7 +28636,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 9000.contracts.ensRegistry?
 
@@ -27893,6 +28657,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 9000.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 9000.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 9000.fees?
 
@@ -27976,7 +28744,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 9001.contracts.ensRegistry?
 
@@ -27997,6 +28765,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 9001.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 9001.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 9001.fees?
 
@@ -28193,6 +28965,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 919.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 919.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 919.fees?
 
@@ -28582,6 +29358,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+#### 957.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 #### 957.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -28668,7 +29448,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### 96.contracts.ensRegistry?
 
@@ -28689,6 +29469,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 96.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 96.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 96.fees?
 
@@ -28789,6 +29573,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 97.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 97.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 97.fees?
 
@@ -28949,6 +29737,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 999.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 999.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 999.fees?
 
@@ -29425,6 +30217,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 999999999.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
+
+#### 999999999.ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
 
 #### 999999999.fees?
 

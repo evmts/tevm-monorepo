@@ -10,10 +10,10 @@ export type EvmOptions = {
 }
 
 export declare class Evm extends EthereumEVM {
-	override stateManager: StateManager
+	stateManager: StateManager
 	protected _customPrecompiles: CustomPrecompile[]
 
 	addCustomPrecompile(precompile: CustomPrecompile): void
 	removeCustomPrecompile(precompile: CustomPrecompile): void
-	static override create(options?: EVMOpts): Promise<Evm>
+	static create(options?: EVMOpts): Promise<Evm>
 }

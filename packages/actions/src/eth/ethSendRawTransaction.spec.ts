@@ -2,7 +2,7 @@ import { createAddress } from '@tevm/address'
 import { tevmDefault } from '@tevm/common'
 import { InvalidTransactionError } from '@tevm/errors'
 import { createTevmNode } from '@tevm/node'
-import { BlobEIP4844Transaction, TransactionFactory } from '@tevm/tx'
+import { TransactionFactory } from '@tevm/tx'
 import { PREFUNDED_PRIVATE_KEYS, PREFUNDED_PUBLIC_KEYS, bytesToHex, hexToBytes, parseEther } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
@@ -19,7 +19,7 @@ describe('ethSendRawTransactionHandler', () => {
 		const value = parseEther('1')
 
 		// Create and sign a transaction
-		const tx = TransactionFactory.fromTxData(
+		const tx = TransactionFactory(
 			{
 				nonce: '0x00',
 				maxFeePerGas: '0x09184e72a000',
@@ -52,7 +52,7 @@ describe('ethSendRawTransactionHandler', () => {
 		const client = createTevmNode()
 		const handler = ethSendRawTransactionHandler(client)
 
-		const tx = TransactionFactory.fromTxData(
+		const tx = TransactionFactory(
 			{
 				nonce: '0x00',
 				gasPrice: '0x09184e72a000',
@@ -83,7 +83,7 @@ describe('ethSendRawTransactionHandler', () => {
 		})
 		await client.setImpersonatedAccount(impersonatedAddress.toString())
 
-		const tx = TransactionFactory.fromTxData(
+		const tx = TransactionFactory(
 			{
 				nonce: '0x00',
 				maxFeePerGas: '0x09184e72a000',
@@ -126,7 +126,7 @@ describe('ethSendRawTransactionHandler', () => {
 		const mockKZGCommitment1 = new Uint8Array([0x01, ...new Uint8Array(31).fill(1)])
 		const mockKZGCommitment2 = new Uint8Array([0x01, ...new Uint8Array(31).fill(2)])
 
-		const blobTx = BlobEIP4844Transaction.fromTxData(
+		const blobTx = TransactionFactory(
 			{
 				nonce: '0x00',
 				maxFeePerGas: '0x09184e72a000',
@@ -135,6 +135,7 @@ describe('ethSendRawTransactionHandler', () => {
 				to: createAddress(`0x${'42'.repeat(20)}`),
 				value: parseEther('1'),
 				data: '0x',
+				type: 3, // EIP-4844 blob transaction
 				maxFeePerBlobGas: '0x09184e72a000',
 				blobVersionedHashes: [mockKZGCommitment1, mockKZGCommitment2],
 				blobs: [new Uint8Array(131072).fill(1), new Uint8Array(131072).fill(2)], // Add actual blob data
@@ -145,7 +146,7 @@ describe('ethSendRawTransactionHandler', () => {
 		)
 
 		const signedTx = blobTx.sign(hexToBytes(PREFUNDED_PRIVATE_KEYS[0]))
-		const serializedTx = signedTx.serializeNetworkWrapper() // Use network wrapper serialization
+		const serializedTx = signedTx.serialize() // Serialize the transaction
 
 		await expect(handler({ data: bytesToHex(serializedTx) })).rejects.toThrow(BlobGasLimitExceededError)
 	})
