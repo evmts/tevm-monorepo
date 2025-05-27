@@ -1,9 +1,10 @@
 import { WagmiProvider } from "wagmi";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactNode } from "react";
+import { createSyncAdapter } from "@latticexyz/store-sync/internal";
 import { SyncProvider } from "@latticexyz/store-sync/react";
-import { stash, syncAdapter } from "./mud/stash";
-import { AccountButton, defineConfig, EntryKitProvider, useSessionClient } from "@latticexyz/entrykit/internal";
+import { stash } from "./mud/stash";
+import { defineConfig, useSessionClient, EntryKitProvider } from "@latticexyz/entrykit/internal";
 import { wagmiConfig } from "./wagmiConfig";
 import { chainId, getWorldAddress, startBlock } from "./common";
 import { Toaster } from "sonner";
@@ -42,7 +43,7 @@ export function Providers({ children }: Props) {
             chainId={chainId}
             address={worldAddress}
             startBlock={startBlock}
-            adapter={syncAdapter}
+            adapter={createSyncAdapter({ stash })}
           >
             <OptimisticEntryKitProvider>
               <Toaster />
