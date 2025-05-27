@@ -31,6 +31,7 @@ import { createStorageAdapter } from './internal/createStorageAdapter.js'
 import { mudStoreGetStorageAtOverride } from './internal/decorators/mudStoreGetStorageAtOverride.js'
 import { mudStoreWriteRequestOverride } from './internal/decorators/mudStoreWriteRequestOverride.js'
 import { ethjsLogToAbiLog } from './internal/ethjsLogToAbiLog.js'
+import { serialExecute } from './internal/utils/serialExecute.js'
 import { type TxStatusSubscriber, subscribeTxStatus } from './subscribeTx.js'
 import type { SessionClient } from './types.js'
 
@@ -137,8 +138,9 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 
 	let vm: Vm | undefined
 	let txPool: TxPool | undefined
-	// 2c. Function that processes transactions and updates logs
-	async function processTransactionsAndUpdateLogs(): Promise<void> {
+	// Function that processes transactions and updates logs
+	// we want to execute this function serially so there won't be multiple invocations modifying the same internalLogs variable
+	const processTransactionsAndUpdateLogs = serialExecute(async (): Promise<void> => {
 		if (!vm) vm = await internalClient.transport.tevm.getVm()
 		if (!txPool) txPool = await optimisticClient.transport.tevm.getTxPool()
 
@@ -147,6 +149,8 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 		// BUT txPool.txsInPool (and the txs inside) will not reflect the change yet, meaning that it will apply that tx that was supposed to be removed
 		// on top of its canonical counterpart. Hence the race condition:
 		// why is that event fired at the right time, but the entire txPool state not updated yet, although it's supposed to be updated _before_ the event is fired?
+		// -> we basically want the internal sync storage adapter update (that we receive in _subscribeToOptimisticState:subscribeStash) AND
+		// the _subscribeToOptimisticState:txremoved event to somehow be combined into a single event?
 		if (txPool.txsInPool === 0) {
 			logger?.debug('No txs in pool, clearing logs and returning canonical state.')
 			internalLogs = []
@@ -221,7 +225,7 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 		}
 
 		logger?.debug({ txsInPool: txPool.txsInPool }, 'Finished processing transactions and notified subscribers.')
-	}
+	})
 
 	// TODO: we don't want to have two clients but that's a workaround because we apply different getStorageAt interceptors:
 	// - internalClient: used during _optimisticStateView:runTx and uses a mudStoreGetStorageAtOverride that builds up the optimistic state
