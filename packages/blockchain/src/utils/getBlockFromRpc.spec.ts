@@ -34,13 +34,25 @@ describe('getBlockFromRpc', () => {
 		// Verify block structure and basic transaction properties
 		const blockJson = block.toJSON()
 		expect(blockJson.header).toEqual(expectedBlock.header)
+		
+		// Check transactions exist
+		if (!blockJson.transactions) {
+			throw new Error('Expected transactions to be defined')
+		}
 		expect(blockJson.transactions.length).toBe(4) // 5 transactions minus 1 filtered deposit tx
+		
 		// Check that first transaction has expected properties
 		const tx0 = blockJson.transactions[0]
+		if (!tx0) {
+			throw new Error('Expected first transaction to be defined')
+		}
 		expect(tx0.type).toBe('0x0')
 		expect(tx0.nonce).toBe('0x147')
 		expect(tx0.gasLimit).toBe('0x175dea')
 		expect(tx0.gasPrice).toBe('0x21064c')
+		if (!tx0.to) {
+			throw new Error('Expected transaction to have a "to" address')
+		}
 		expect(tx0.to.toLowerCase()).toBe('0xfb4e4811c7a811e098a556bd79b64c20b479e431')
 		expect(tx0.value).toBe('0x0')
 	})
@@ -56,13 +68,25 @@ describe('getBlockFromRpc', () => {
 		// Verify block structure and basic transaction properties
 		const blockJson = block.toJSON()
 		expect(blockJson.header).toEqual(expectedBlock.header)
+		
+		// Check transactions exist
+		if (!blockJson.transactions) {
+			throw new Error('Expected transactions to be defined')
+		}
 		expect(blockJson.transactions.length).toBe(4) // 5 transactions minus 1 filtered deposit tx
+		
 		// Check that first transaction has expected properties
 		const tx0 = blockJson.transactions[0]
+		if (!tx0) {
+			throw new Error('Expected first transaction to be defined')
+		}
 		expect(tx0.type).toBe('0x0')
 		expect(tx0.nonce).toBe('0x147')
 		expect(tx0.gasLimit).toBe('0x175dea')
 		expect(tx0.gasPrice).toBe('0x21064c')
+		if (!tx0.to) {
+			throw new Error('Expected transaction to have a "to" address')
+		}
 		expect(tx0.to.toLowerCase()).toBe('0xfb4e4811c7a811e098a556bd79b64c20b479e431')
 		expect(tx0.value).toBe('0x0')
 	})

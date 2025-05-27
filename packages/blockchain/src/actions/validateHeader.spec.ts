@@ -23,16 +23,20 @@ describe(validateHeader.name, async () => {
 		})
 		const cannonicalHead = await getCanonicalHeadBlock(chain)()
 		const parentBlock = await getBlock(chain)(cannonicalHead.header.parentHash)
-		
+
 		// Mock validateGasLimit to avoid the missing parameter issue
 		vi.spyOn(cannonicalHead.header, 'validateGasLimit').mockImplementation(() => {})
-		
+
 		// Mock calcNextBaseFee on parent header to return the expected base fee
-		vi.spyOn(parentBlock.header, 'calcNextBaseFee').mockReturnValue(cannonicalHead.header.baseFeePerGas)
-		
+		const baseFeePerGas = cannonicalHead.header.baseFeePerGas
+		if (baseFeePerGas === undefined) {
+			throw new Error('Expected baseFeePerGas to be defined')
+		}
+		vi.spyOn(parentBlock.header, 'calcNextBaseFee').mockReturnValue(baseFeePerGas)
+
 		const headerValidator = validateHeader(chain)
 		expect(await headerValidator(cannonicalHead.header)).toBeUndefined()
-		
+
 		// Verify validateGasLimit was called with parent header
 		expect(cannonicalHead.header.validateGasLimit).toHaveBeenCalledWith(parentBlock.header)
 	})
