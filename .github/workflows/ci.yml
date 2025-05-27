@@ -43,10 +43,10 @@ jobs:
         run: pnpm nx affected --targets=build:dist,build:types
 
       - name: Tests
-        run: pnpm nx affected --targets=test:coverage,dev:run
+        run: pnpm nx affected --targets=test:coverage,dev:run,test:rust
 
       - name: Lint
         run: pnpm nx affected --targets=typecheck,lint:check,lint:deps,lint:package
 
       - name: Build app
-        run: pnpm nx affected --targets=build:app,generate:docs
+        run: pnpm nx affected --targets=build:app,generate:docs,build:rust,build:wasm
