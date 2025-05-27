@@ -4,7 +4,7 @@ import { renderHook } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { config } from '../../test/config.js'
 import { state } from '../../test/state.js'
-import { arrayDeepEqual } from '../internal/arrayDeepEqual.js'
+import { arrayDeepEqual } from '../internal/utils/arrayDeepEqual.js'
 import { useOptimisticRecords } from './useOptimisticRecords.js'
 import { useOptimisticState } from './useOptimisticState.js'
 import { useOptimisticWrapper } from './useOptimisticWrapper.js'
@@ -22,7 +22,7 @@ vi.mock('@latticexyz/stash/internal', () => ({
 	getRecords: vi.fn(),
 }))
 
-vi.mock('../internal/arrayDeepEqual.js', () => ({
+vi.mock('../internal/utils/arrayDeepEqual.js', () => ({
 	arrayDeepEqual: vi.fn(),
 }))
 

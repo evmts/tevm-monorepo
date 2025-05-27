@@ -1,6 +1,6 @@
 import type { State, StoreConfig } from '@latticexyz/stash/internal'
 import { useDebugValue, useEffect, useRef, useState } from 'react'
-import { deepEqual } from '../internal/deepEqual.js'
+import { deepEqual } from '../internal/utils/deepEqual.js'
 import { useOptimisticWrapper } from './useOptimisticWrapper.js'
 
 export const useOptimisticState = <Tconfig extends StoreConfig, T>(

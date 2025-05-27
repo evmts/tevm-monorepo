@@ -24,6 +24,7 @@ function OptimisticEntryKitProvider({ children }: { children: ReactNode }) {
     storeAddress={worldAddress}
     // @ts-expect-error - viem versions mismatch
     client={sessionClient}
+    loggingLevel="debug"
   >
     {/* @ts-expect-error - react versions mismatch */}
     {children}

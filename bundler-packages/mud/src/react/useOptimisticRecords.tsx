@@ -1,6 +1,6 @@
 import { type GetRecordsArgs, type TableRecord, getRecords } from '@latticexyz/stash/internal'
 import type { Table } from '@latticexyz/store/internal'
-import { arrayDeepEqual } from '../internal/arrayDeepEqual.js'
+import { arrayDeepEqual } from '../internal/utils/arrayDeepEqual.js'
 import { useOptimisticState } from './useOptimisticState.js'
 import { useOptimisticWrapper } from './useOptimisticWrapper.js'
 
