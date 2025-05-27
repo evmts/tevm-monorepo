@@ -8,12 +8,12 @@ import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallback } from "./ui/ErrorFallback";
 
 createRoot(document.getElementById("react-root")!).render(
-  <StrictMode>
+  // <StrictMode>
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <Providers>
         <App />
         <Explorer />
       </Providers>
     </ErrorBoundary>
-  </StrictMode>,
+  // </StrictMode>,
 );

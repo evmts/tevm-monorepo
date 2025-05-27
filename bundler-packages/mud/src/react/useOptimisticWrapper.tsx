@@ -24,10 +24,13 @@ export const OptimisticWrapperProvider: React.FC<OptimisticWrapperProviderProps<
 	children,
 	...options
 }) => {
-	const { client, storeAddress, stash, config } = options
+	const { client, storeAddress, stash, config, loggingLevel } = options
 	const handlerResult = useMemo(
-		() => (isClientDefined(client) ? createOptimisticHandler({ client, storeAddress, stash, config }) : undefined),
-		[client, storeAddress, stash, config],
+		() =>
+			isClientDefined(client)
+				? createOptimisticHandler({ client, storeAddress, stash, config, loggingLevel })
+				: undefined,
+		[client, storeAddress, stash, config, loggingLevel],
 	)
 
 	useEffect(() => {

@@ -1,5 +1,6 @@
 import { type Table } from '@latticexyz/config'
 import { type State, getRecords } from '@latticexyz/stash/internal'
+import type { Logger } from '@tevm/logger'
 import type { Address, Hex } from '@tevm/utils'
 import { type EIP1193RequestFn } from 'viem'
 import { FieldLayout } from '../FieldLayout.js'
@@ -16,11 +17,8 @@ const getTablesWithRecords = async (getState: () => Promise<State>) => {
 }
 
 export const mudStoreGetStorageAtOverride =
-	(transport: { request: EIP1193RequestFn }) =>
+	(transport: { request: EIP1193RequestFn }, clientType: 'internal' | 'optimistic', logger?: Logger) =>
 	({ getState, storeAddress }: { getState: () => Promise<State>; storeAddress: Address }): EIP1193RequestFn => {
-		// const logger = console
-		const logger = { debug: (...args: any[]) => {}, error: (...args: any[]) => {} }
-
 		const tableIdToFieldLayout = new Map<Hex, FieldLayout>()
 		getState().then(({ config }) => {
 			for (const namespace of Object.values(config)) {
@@ -40,7 +38,10 @@ export const mudStoreGetStorageAtOverride =
 				requestArgs.params[0]?.toLowerCase() === storeAddress.toLowerCase()
 			) {
 				const requestedPosition = requestArgs.params[1] as Hex
-				logger.debug(`MUD Intercept: eth_getStorageAt ${storeAddress} pos ${requestedPosition}`)
+				logger?.debug(
+					{ clientType, storeAddress, requestedPosition },
+					'MUD Intercept: eth_getStorageAt. Getting optimistic state.',
+				)
 
 				try {
 					const tablesWithRecords = await getTablesWithRecords(getState)
@@ -58,17 +59,19 @@ export const mudStoreGetStorageAtOverride =
 							const slotInfo = fieldLayout.getSlotInfo(record, requestedPosition)
 							if (slotInfo) {
 								const encodedValueHex = fieldLayout.encodeValueAtSlot(record, slotInfo)
-								logger.debug(`Returning ${slotInfo.type} data`, encodedValueHex)
-								logger.debug('Would have returned', await originalRequest(requestArgs, options))
+								logger?.debug({ clientType, requestedPosition, slotInfo, encodedValueHex }, 'Returning optimistic data')
 								return encodedValueHex
 							}
 						}
 					}
 
-					logger.debug(`No MUD data in stash for position ${requestedPosition}. Fallback to fork.`)
+					logger?.debug(
+						{ clientType, requestedPosition },
+						'No MUD data in stash for requested position. Fallback to fork.',
+					)
 					return await originalRequest(requestArgs, options)
 				} catch (error: any) {
-					logger.error(`Error in MUD storage interception: ${error.message} ${error.stack}`, error)
+					logger?.error({ clientType, error }, 'Error in MUD storage interception.')
 				}
 			}
 

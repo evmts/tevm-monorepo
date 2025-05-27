@@ -1,3 +1,4 @@
+import type { Logger } from '@tevm/logger'
 import type { MemoryClient } from '@tevm/memory-client'
 import { type Address, EthjsAddress } from '@tevm/utils'
 import { type Client, type TransactionReceipt, publicActions } from 'viem'
@@ -5,13 +6,12 @@ import { type TxStatusSubscriber, notifyTxStatus } from '../../subscribeTx.js'
 import type { SessionClient } from '../../types.js'
 
 export const mudStoreWriteRequestOverride =
-	(client: Client | SessionClient) =>
+	(client: Client | SessionClient, logger?: Logger) =>
 	({
 		memoryClient,
 		storeAddress,
 		txStatusSubscribers,
 	}: { memoryClient: MemoryClient; storeAddress: Address; txStatusSubscribers: Set<TxStatusSubscriber> }) => {
-		const logger = memoryClient.transport.tevm.logger
 		const vm = memoryClient.transport.tevm.getVm()
 		const txPool = memoryClient.transport.tevm.getTxPool()
 
@@ -22,7 +22,10 @@ export const mudStoreWriteRequestOverride =
 
 			client.writeContract = async function interceptedWriteContract(args) {
 				const originalRes = originalWriteContract(args)
-				logger.debug('Intercepted writeContract', { args, response: originalRes })
+				logger?.debug(
+					{ functionName: args.functionName, args: args.args, response: originalRes },
+					'Intercepted writeContract',
+				)
 
 				const simulateTx = async () => {
 					const txId = crypto.randomUUID()
@@ -40,6 +43,7 @@ export const mudStoreWriteRequestOverride =
 						EthjsAddress.fromString(storeAddress),
 					)
 
+					logger?.debug({ functionName: args.functionName, args: args.args }, 'Simulating MUD tx with tevmContract')
 					try {
 						const { txHash: optimisticTxHash, errors } = await memoryClient.tevmContract({
 							to: args.address,
@@ -54,7 +58,17 @@ export const mudStoreWriteRequestOverride =
 						})
 
 						// TODO: should we throw or should we still attempt to broadcast?
-						if (errors) logger.warn('Errors during tevmContract call:', errors)
+						if (errors) {
+							logger?.warn(
+								{ functionName: args.functionName, args: args.args, errors },
+								'Errors during tevmContract call.',
+							)
+						} else {
+							logger?.debug(
+								{ functionName: args.functionName, args: args.args, optimisticTxHash },
+								'Optimistic tx executed successfully.',
+							)
+						}
 
 						notifyTxStatus(txStatusSubscribers)({
 							id: txId,
@@ -79,10 +93,13 @@ export const mudStoreWriteRequestOverride =
 							timestamp: Date.now(),
 						})
 
-						logger.debug(`Method ${args.functionName} completed successfully. Hash:`, txHash)
+						logger?.debug(
+							{ functionName: args.functionName, args: args.args, txHash },
+							'Method completed successfully.',
+						)
 						if (optimisticTxHash) (await txPool).removeByHash(optimisticTxHash)
 					} catch (error) {
-						logger.error(`Method ${args.functionName} failed with error:`, error)
+						logger?.error({ functionName: args.functionName, args: args.args, error }, 'Method failed with error.')
 						throw error
 					}
 				}
@@ -105,7 +122,7 @@ export const mudStoreWriteRequestOverride =
 		// 		Array.isArray(requestArgs.params) &&
 		// 		requestArgs.params[0]?.toLowerCase() === storeAddress.toLowerCase()
 		// 	) {
-		// 		logger.debug(`MUD Intercept: eth_sendRawTransaction ${storeAddress}`)
+		// 		logger?.debug({ storeAddress }, 'MUD Intercept: eth_sendRawTransaction')
 
 		// 		try {
 		// 			// Intercept non-entrykit write requests/send transaction

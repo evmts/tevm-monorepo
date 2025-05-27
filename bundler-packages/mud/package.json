@@ -79,6 +79,7 @@
     "@latticexyz/store-sync": "^2.2.21",
     "@tevm/actions": "workspace:^",
     "@tevm/common": "workspace:^",
+    "@tevm/logger": "workspace:^",
     "@tevm/memory-client": "workspace:^",
     "@tevm/txpool": "workspace:^",
     "@tevm/utils": "workspace:^",

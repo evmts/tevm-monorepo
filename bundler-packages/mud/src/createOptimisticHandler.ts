@@ -20,6 +20,7 @@ import { storeEventsAbi } from '@latticexyz/store'
 import { createStorageAdapter } from '@latticexyz/store-sync/internal'
 import { type Table } from '@latticexyz/store/internal'
 import { createCommon } from '@tevm/common'
+import { createLogger } from '@tevm/logger'
 import { type MemoryClient, createMemoryClient } from '@tevm/memory-client'
 import type { TxPool } from '@tevm/txpool'
 import { type Address, EthjsAddress } from '@tevm/utils'
@@ -40,6 +41,8 @@ export type CreateOptimisticHandlerOptions<TConfig extends StoreConfig = StoreCo
 	stash: Stash<TConfig>
 	/** The store config */
 	config?: TConfig | undefined // for typing
+	/** The logging level for Tevm clients */
+	loggingLevel?: 'debug' | 'error' | 'fatal' | 'info' | 'trace' | 'warn' | undefined
 }
 
 export type CreateOptimisticHandlerResult<TConfig extends StoreConfig = StoreConfig> = {
@@ -64,8 +67,6 @@ export type CreateOptimisticHandlerResult<TConfig extends StoreConfig = StoreCon
 	}
 }
 
-// TODO: add debug logs
-
 /**
  * Initializes the optimistic handlers (storage and send transaction interceptors), and returns optimistic methods.
  */
@@ -73,19 +74,23 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 	client,
 	storeAddress,
 	stash,
+	loggingLevel,
 }: CreateOptimisticHandlerOptions<TConfig>): CreateOptimisticHandlerResult<TConfig> => {
-	const createForkRequestOverrideClient = (getState: () => Promise<State>) => {
+	const logger = loggingLevel ? createLogger({ name: '@tevm/mud', level: loggingLevel }) : undefined
+
+	function createForkRequestOverrideClient(getState: () => Promise<State>, type: 'internal' | 'optimistic') {
 		if (!client.chain) throw new Error('Client must be connected to a chain')
 		const transport = 'client' in client ? client.client : client
 		return createMemoryClient({
 			fork: {
 				transport: {
-					request: mudStoreGetStorageAtOverride(transport)({ getState, storeAddress }),
+					request: mudStoreGetStorageAtOverride(transport, type, logger)({ getState, storeAddress }),
 				},
 				blockTag: 'latest',
 			},
 			// @ts-expect-error - version mismatch, properties such as `fees` incompatibles
 			common: createCommon(client.chain),
+			// ...(loggingLevel ? { loggingLevel } : {}),
 		})
 	}
 
@@ -112,8 +117,18 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 		// BUT txPool.txsInPool (and the txs inside) will not reflect the change yet, meaning that it will apply that tx that was supposed to be removed
 		// on top of its canonical counterpart. Hence the race condition:
 		// why is that event fired at the right time, but the entire txPool state not updated yet, although it's supposed to be updated _before_ the event is fired?
-		if (txPool.txsInPool === 0) return stash.get()
+		if (txPool.txsInPool === 0) {
+			logger?.debug('No txs in pool, returning canonical state.')
+			return stash.get()
+		}
 
+		logger?.debug(
+			{
+				txsInPool: txPool.txsInPool,
+				notifySubscribers,
+			},
+			'Applying txs to optimistic state.',
+		)
 		// Get the txs in the pending block to apply them on top of the canonical state
 		const orderedTxs = await txPool.txsByPriceAndNonce()
 		const vmCopy = await vm.deepCopy() // we don't want to share the state with the client as it ran these already
@@ -133,6 +148,7 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 
 		// Replay txs to get the logs
 		for (const tx of orderedTxs) {
+			logger?.debug({ tx }, `Running tx ${orderedTxs.indexOf(tx) + 1}/${orderedTxs.length}.`)
 			// clear cache to force the fork request to not hit cache and go through our `getStorageAt` interceptor
 			vmCopy.stateManager._baseState.forkCache.storage.clearContractStorage(EthjsAddress.fromString(storeAddress))
 			const txResult = await vmCopy.runTx({
@@ -155,6 +171,13 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 			adapter({ logs: storeEventsLogs, blockNumber: 0n })
 		}
 
+		logger?.debug(
+			{
+				txsInPool: txPool.txsInPool,
+				notifySubscribers,
+			},
+			'Returning optimistic state after applying txs.',
+		)
 		// TODO: do we need to do that or am I in object closure hell?
 		return {
 			config: internalOptimisticState.config,
@@ -167,16 +190,25 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 	// as the pool txs are executed (so the getStorageAt override reads the current optimistic state SO FAR, at each tx)
 	// - optimisticClient: used for the write interceptor, and uses a mudStoreGetStorageAtOverride that always reads the optimistic state
 	// from the _optimisticStateView
-	const internalClient = createForkRequestOverrideClient(() => Promise.resolve(internalOptimisticState))
-	const optimisticClient = createForkRequestOverrideClient(() => _optimisticStateView())
+	const internalClient = createForkRequestOverrideClient(() => Promise.resolve(internalOptimisticState), 'internal')
+	const optimisticClient = createForkRequestOverrideClient(() => _optimisticStateView(), 'optimistic')
 
-	mudStoreWriteRequestOverride(client)({ memoryClient: optimisticClient, storeAddress, txStatusSubscribers })
+	mudStoreWriteRequestOverride(client, logger)({ memoryClient: optimisticClient, storeAddress, txStatusSubscribers })
 
 	// Update subscribers when the optimistic state changes
 	const _subscribeToOptimisticState = async () => {
+		logger?.debug('Subscribing to optimistic state')
 		if (!txPool) txPool = await optimisticClient.transport.tevm.getTxPool()
-		const unsubscribeTxAdded = txPool.on('txadded', () => _optimisticStateView(true))
-		const unsubscribeTxRemoved = txPool.on('txremoved', () => _optimisticStateView(true))
+		const unsubscribeTxAdded = txPool.on('txadded', () => {
+			logger?.debug('Tx added, updating optimistic state.')
+			_optimisticStateView(true)
+			logger?.debug('Notified subscribers of optimistic state update.')
+		})
+		const unsubscribeTxRemoved = txPool.on('txremoved', () => {
+			logger?.debug('Tx removed, updating optimistic state.')
+			_optimisticStateView(true)
+			logger?.debug('Notified subscribers of optimistic state update.')
+		})
 
 		return () => {
 			unsubscribeTxAdded()
@@ -208,6 +240,7 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 			optimisticStoreSubscribers,
 			optimisticTableSubscribers,
 			cleanup: async () => {
+				logger?.debug('Cleaning up optimistic handler')
 				;(await unsubscribe)()
 				// TODO: how do we completely get rid of a client?
 			},
