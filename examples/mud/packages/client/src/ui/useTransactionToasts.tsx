@@ -31,9 +31,10 @@ export const useTransactionToasts = () => {
                 ? `Waiting for confirmation... (${progress.hash.slice(0, 8)}...)`
                 : 'Waiting for confirmation...'
 
-              toast.loading('Updated optimistic state.', {
+              toast.success('Updated optimistic state.', {
                 id: existingToastId,
                 description,
+                duration: Infinity,
               })
             }
             break
@@ -44,6 +45,10 @@ export const useTransactionToasts = () => {
               toast.success('Transaction confirmed!', {
                 id: existingToastId,
                 description: progress.hash,
+                style: {
+                  backgroundColor: '#f7decd',
+                  borderColor: '#f7decd',
+                }
               })
 
               setTimeout(() => {
