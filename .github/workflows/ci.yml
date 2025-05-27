@@ -37,8 +37,6 @@ jobs:
       - name: "Setup"
         uses: ./.github/actions/setup
 
-      - run: npx nx-cloud start-ci-run --distribute-on="6 linux-medium-js" --stop-agents-after="build:app"
-
       - name: Build
         run: pnpm nx affected --targets=build:dist,build:types
 
