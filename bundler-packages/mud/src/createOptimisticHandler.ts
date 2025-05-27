@@ -17,7 +17,7 @@ import {
 	getRecords,
 } from '@latticexyz/stash/internal'
 import { storeEventsAbi } from '@latticexyz/store'
-import { createStorageAdapter } from '@latticexyz/store-sync/internal'
+import { createStorageAdapter } from './internal/createStorageAdapter.js'
 import { type Table } from '@latticexyz/store/internal'
 import { createCommon } from '@tevm/common'
 import { createLogger } from '@tevm/logger'
@@ -31,6 +31,7 @@ import { mudStoreWriteRequestOverride } from './internal/decorators/mudStoreWrit
 import { ethjsLogToAbiLog } from './internal/ethjsLogToAbiLog.js'
 import { type TxStatusSubscriber, subscribeTxStatus } from './subscribeTx.js'
 import type { SessionClient } from './types.js'
+import { applyStashUpdates, notifyStashSubscribers, type PendingStashUpdate } from './internal/applyUpdates.js'
 
 export type CreateOptimisticHandlerOptions<TConfig extends StoreConfig = StoreConfig> = {
 	/** A base viem client */
@@ -135,16 +136,17 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 		// Reset the internal state
 		internalOptimisticState.records = structuredClone(stash.get().records)
 
-		const adapter = createStorageAdapter({
-			stash: {
-				get: () => internalOptimisticState,
-				_: {
-					state: internalOptimisticState,
-					tableSubscribers: notifySubscribers ? optimisticTableSubscribers : {},
-					storeSubscribers: notifySubscribers ? optimisticStoreSubscribers : new Set(),
-				},
+		const internalStash = {
+			get: () => internalOptimisticState,
+			_: {
+				state: internalOptimisticState,
+				tableSubscribers: notifySubscribers ? optimisticTableSubscribers : {},
+				storeSubscribers: notifySubscribers ? optimisticStoreSubscribers : new Set(),
 			},
-		})
+		} satisfies Stash
+
+		const adapter = createStorageAdapter({ stash: internalStash })
+		let pendingUpdates: PendingStashUpdate[] = []
 
 		// Replay txs to get the logs
 		for (const tx of orderedTxs) {
@@ -168,8 +170,13 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 			})
 
 			// Apply the logs to the optimistic state
-			adapter({ logs: storeEventsLogs, blockNumber: 0n })
+			const updates = adapter({ logs: storeEventsLogs, blockNumber: 0n })
+			applyStashUpdates({ stash: internalStash, updates })
+			pendingUpdates.push(...updates)
 		}
+
+		// Notify subscribers after all updates have been applied
+		notifyStashSubscribers({ stash: internalStash, updates: pendingUpdates })
 
 		logger?.debug(
 			{
