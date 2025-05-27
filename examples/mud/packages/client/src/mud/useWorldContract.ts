@@ -1,6 +1,6 @@
-import { useAccount, useClient } from "wagmi";
+import { useClient } from "wagmi";
 import { chainId, getWorldAddress } from "../common";
-import { Account, Chain, Client, getContract, GetContractReturnType, Transport } from "viem";
+import { Account, Chain, Client, GetContractReturnType, Transport, getContract } from "viem";
 import { useQuery } from "@tanstack/react-query";
 import { useSessionClient } from "@latticexyz/entrykit/internal";
 import { observer } from "@latticexyz/explorer/observer";
@@ -17,11 +17,10 @@ export function useWorldContract():
   | undefined {
   const client = useClient({ chainId });
   const { data: sessionClient } = useSessionClient();
-  const { address } = useAccount()
 
   const { data: worldContract } = useQuery({
     queryKey: ["worldContract", client?.uid, sessionClient?.uid],
-    queryFn: async () => {
+    queryFn: () => {
       if (!client || !sessionClient) {
         throw new Error("Not connected.");
       }
