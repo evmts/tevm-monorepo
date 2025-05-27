@@ -27,5 +27,5 @@ export const lyra = createCommon({
 	..._lyra,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

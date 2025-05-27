@@ -27,5 +27,5 @@ export const zkLinkNovaSepoliaTestnet = createCommon({
 	..._zkLinkNovaSepoliaTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

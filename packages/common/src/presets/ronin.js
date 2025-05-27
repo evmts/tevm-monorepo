@@ -27,5 +27,5 @@ export const ronin = createCommon({
 	..._ronin,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

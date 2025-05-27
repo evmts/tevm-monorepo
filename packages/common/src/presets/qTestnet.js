@@ -27,5 +27,5 @@ export const qTestnet = createCommon({
 	..._qTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

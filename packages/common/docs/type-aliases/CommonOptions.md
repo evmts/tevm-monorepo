@@ -61,7 +61,7 @@ Hardfork to use. Defaults to `shanghai`
 #### Default
 
 ```ts
-'cancun'
+'prague'
 ```
 
 ### loggingLevel?
@@ -97,7 +97,7 @@ import { createCommon } from 'tevm/common'
 
 const common = createCommon({
   ...mainnet,
-  hardfork: 'cancun',
+  hardfork: 'prague',
 })
 ```
 

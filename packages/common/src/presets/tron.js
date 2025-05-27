@@ -27,5 +27,5 @@ export const tron = createCommon({
 	..._tron,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

@@ -27,5 +27,5 @@ export const botanixTestnet = createCommon({
 	..._botanixTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

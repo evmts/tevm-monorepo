@@ -27,5 +27,5 @@ export const rollux = createCommon({
 	..._rollux,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

@@ -27,5 +27,5 @@ export const auroraTestnet = createCommon({
 	..._auroraTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

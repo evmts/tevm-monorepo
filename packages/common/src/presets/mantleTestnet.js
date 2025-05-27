@@ -27,5 +27,5 @@ export const mantleTestnet = createCommon({
 	..._mantleTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

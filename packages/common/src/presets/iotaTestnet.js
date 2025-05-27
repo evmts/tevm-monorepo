@@ -27,5 +27,5 @@ export const iotaTestnet = createCommon({
 	..._iotaTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

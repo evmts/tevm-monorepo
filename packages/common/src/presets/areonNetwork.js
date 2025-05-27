@@ -27,5 +27,5 @@ export const areonNetwork = createCommon({
 	..._areonNetwork,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

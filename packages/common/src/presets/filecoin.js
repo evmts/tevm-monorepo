@@ -27,5 +27,5 @@ export const filecoin = createCommon({
 	..._filecoin,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

@@ -108,7 +108,7 @@ describe('createTevmNode', () => {
 	})
 
 	it('Uses custom common and state manager options', async () => {
-		const customCommon = createCommon({ ...mainnet, id: 999, hardfork: 'cancun', eips: [], loggingLevel: 'warn' })
+		const customCommon = createCommon({ ...mainnet, id: 999, hardfork: 'prague', eips: [], loggingLevel: 'warn' })
 		const customStateOptions = {
 			loggingLevel: 'info',
 			storageCache: new StorageCache({ size: 500, type: CacheType.LRU }),

@@ -27,5 +27,5 @@ export const telcoinTestnet = createCommon({
 	..._telcoinTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

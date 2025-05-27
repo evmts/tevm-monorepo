@@ -27,5 +27,5 @@ export const avalanche = createCommon({
 	..._avalanche,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

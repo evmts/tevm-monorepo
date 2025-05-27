@@ -27,5 +27,5 @@ export const tenet = createCommon({
 	..._tenet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

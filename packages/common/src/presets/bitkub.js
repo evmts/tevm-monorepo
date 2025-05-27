@@ -27,5 +27,5 @@ export const bitkub = createCommon({
 	..._bitkub,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

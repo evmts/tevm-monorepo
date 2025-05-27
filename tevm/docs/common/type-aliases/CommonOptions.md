@@ -97,7 +97,7 @@ import { createCommon } from 'tevm/common'
 
 const common = createCommon({
   ...mainnet,
-  hardfork: 'cancun',
+  hardfork: 'prague',
 })
 ```
 

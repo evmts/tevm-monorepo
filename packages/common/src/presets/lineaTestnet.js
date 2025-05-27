@@ -27,5 +27,5 @@ export const lineaTestnet = createCommon({
 	..._lineaTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

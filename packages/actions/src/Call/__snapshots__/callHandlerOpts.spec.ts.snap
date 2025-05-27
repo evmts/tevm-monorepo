@@ -1011,7 +1011,7 @@ exports[`callHandlerOpts should handle empty params 1`] = `
             },
           ],
           [
-            "cancun",
+            "prague",
             {
               "comment": "Next feature hardfork after shanghai, includes proto-danksharding EIP 4844 blobs (still WIP hence not for production use), transient storage opcodes, parent beacon block root availability in EVM, selfdestruct only in same transaction, and blob base fee opcode",
               "eips": [
@@ -1022,7 +1022,7 @@ exports[`callHandlerOpts should handle empty params 1`] = `
                 6780,
                 7516,
               ],
-              "name": "cancun",
+              "name": "prague",
               "status": "final",
               "url": "https://github.com/ethereum/execution-specs/blob/master/network-upgrades/mainnet-upgrades/cancun.md",
             },
@@ -1214,7 +1214,7 @@ exports[`callHandlerOpts should handle empty params 1`] = `
             {
               "block": null,
               "forkHash": "0x9f3d2254",
-              "name": "cancun",
+              "name": "prague",
               "timestamp": "1710338135",
             },
             {
@@ -1233,7 +1233,7 @@ exports[`callHandlerOpts should handle empty params 1`] = `
           4844,
           4788,
         ],
-        "_hardfork": "cancun",
+        "_hardfork": "prague",
         "_paramsCache": {
           "gasConfig": {
             "baseFeeMaxChangeDenominator": {
@@ -2940,7 +2940,7 @@ exports[`callHandlerOpts should handle empty params 1`] = `
               },
             ],
             [
-              "cancun",
+              "prague",
               {
                 "comment": "Next feature hardfork after shanghai, includes proto-danksharding EIP 4844 blobs (still WIP hence not for production use), transient storage opcodes, parent beacon block root availability in EVM, selfdestruct only in same transaction, and blob base fee opcode",
                 "eips": [
@@ -2951,7 +2951,7 @@ exports[`callHandlerOpts should handle empty params 1`] = `
                   6780,
                   7516,
                 ],
-                "name": "cancun",
+                "name": "prague",
                 "status": "final",
                 "url": "https://github.com/ethereum/execution-specs/blob/master/network-upgrades/mainnet-upgrades/cancun.md",
               },
@@ -3143,7 +3143,7 @@ exports[`callHandlerOpts should handle empty params 1`] = `
               {
                 "block": null,
                 "forkHash": "0x9f3d2254",
-                "name": "cancun",
+                "name": "prague",
                 "timestamp": "1710338135",
               },
               {
@@ -3162,7 +3162,7 @@ exports[`callHandlerOpts should handle empty params 1`] = `
             4844,
             4788,
           ],
-          "_hardfork": "cancun",
+          "_hardfork": "prague",
           "_paramsCache": {
             "gasConfig": {
               "baseFeeMaxChangeDenominator": {

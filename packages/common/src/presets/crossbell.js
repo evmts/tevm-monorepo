@@ -27,5 +27,5 @@ export const crossbell = createCommon({
 	..._crossbell,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

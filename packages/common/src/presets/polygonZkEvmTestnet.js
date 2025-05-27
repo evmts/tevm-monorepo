@@ -27,5 +27,5 @@ export const polygonZkEvmTestnet = createCommon({
 	..._polygonZkEvmTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

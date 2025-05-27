@@ -27,5 +27,5 @@ export const fuse = createCommon({
 	..._fuse,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

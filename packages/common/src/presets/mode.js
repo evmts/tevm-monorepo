@@ -27,5 +27,5 @@ export const mode = createCommon({
 	..._mode,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

@@ -27,5 +27,5 @@ export const metalL2 = createCommon({
 	..._metalL2,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

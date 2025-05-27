@@ -29,7 +29,7 @@ import type { Hardfork } from './Hardfork.js'
  *
  * const common = createCommon({
  *   ...mainnet,
- *   hardfork: 'cancun',
+ *   hardfork: 'prague',
  * })
  * ```
  *
@@ -37,8 +37,8 @@ import type { Hardfork } from './Hardfork.js'
  */
 export type CommonOptions = ViemChain & {
 	/**
-	 * Hardfork to use. Defaults to `shanghai`
-	 * @default 'cancun'
+	 * Hardfork to use. Defaults to `prague`
+	 * @default 'prague'
 	 */
 	hardfork?: Hardfork | undefined
 	/**

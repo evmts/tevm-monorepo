@@ -27,5 +27,5 @@ export const storyTestnet = createCommon({
 	..._storyTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

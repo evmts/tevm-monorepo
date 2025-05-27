@@ -27,5 +27,5 @@ export const shardeumSphinx = createCommon({
 	..._shardeumSphinx,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

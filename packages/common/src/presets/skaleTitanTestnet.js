@@ -27,5 +27,5 @@ export const skaleTitanTestnet = createCommon({
 	..._skaleTitanTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

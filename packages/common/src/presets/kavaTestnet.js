@@ -27,5 +27,5 @@ export const kavaTestnet = createCommon({
 	..._kavaTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })
