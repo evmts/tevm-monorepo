@@ -6,6 +6,7 @@ import type { CallResult } from '../Call/CallResult.js'
 import { callHandler } from '../Call/callHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { mineHandler } from './mineHandler.js'
+import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 
 const getBlockNumber = (client: TevmNode) => {
 	return client
