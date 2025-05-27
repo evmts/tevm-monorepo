@@ -65,7 +65,6 @@ export type CreateOptimisticHandlerResult<TConfig extends StoreConfig = StoreCon
 }
 
 // TODO: add debug logs
-// TODO: also create our own storage adapter for single record
 
 /**
  * Initializes the optimistic handlers (storage and send transaction interceptors), and returns optimistic methods.

@@ -140,7 +140,7 @@ export class FieldLayout<TTable extends Table = Table> {
 				{ [name]: this.valueSchema[name as keyof typeof this.valueSchema] },
 				record as SchemaToPrimitives<typeof this.valueSchema>,
 			)
-			// TODO: parse encodedLengths to get the length of just this field and then get this field
+
 			const dataBytes = hexToBytes(dynamicData)
 			const numSlots = Math.ceil(dataBytes.length / 32)
 
