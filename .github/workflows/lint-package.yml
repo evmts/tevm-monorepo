@@ -38,4 +38,4 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Lint package
-        run: bunx nx run-many --target lint:package
+        run: pnpm -r run lint:package
