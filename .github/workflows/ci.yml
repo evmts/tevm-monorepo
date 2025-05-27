@@ -1,4 +1,4 @@
-name: Typecheck
+name: CI Checks
 on:
   push:
     branches:
@@ -17,8 +17,8 @@ env:
   TEVM_RPC_URLS_OPTIMISM: ${{ secrets.TEVM_RPC_URLS_OPTIMISM }}
 
 jobs:
-  typecheck:
-    name: Typecheck
+  cichecks:
+    name: CI Checks
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
