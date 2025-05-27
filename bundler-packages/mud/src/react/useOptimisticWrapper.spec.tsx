@@ -80,10 +80,11 @@ describe('useOptimisticWrapper', () => {
 	})
 
 	it('should handle SessionClient type', () => {
-		// @ts-expect-error - viem versions
 		const sessionClient = createBundlerClient({
 			client,
+			// @ts-expect-error - viem versions
 			chain: tevmDefault,
+			// @ts-expect-error - viem versions
 			transport: createTevmTransport({ common: tevmDefault }),
 		})
 

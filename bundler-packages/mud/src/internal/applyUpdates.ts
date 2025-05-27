@@ -1,7 +1,7 @@
+import { type Table } from '@latticexyz/config'
 import { schemaAbiTypeToDefaultValue } from '@latticexyz/schema-type/internal'
 import { type Key, type Stash, type TableRecord, type TableUpdates } from '@latticexyz/stash/internal'
 import { encodeKey } from '@latticexyz/stash/internal'
-import { type Table } from '@latticexyz/config'
 import { registerTable } from '@latticexyz/stash/internal'
 
 export type PendingStashUpdate<table extends Table = Table> = {
