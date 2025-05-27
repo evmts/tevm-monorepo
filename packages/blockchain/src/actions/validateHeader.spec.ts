@@ -22,9 +22,19 @@ describe(validateHeader.name, async () => {
 			fork: { transport: transports.optimism },
 		})
 		const cannonicalHead = await getCanonicalHeadBlock(chain)()
-		await getBlock(chain)(cannonicalHead.header.parentHash)
+		const parentBlock = await getBlock(chain)(cannonicalHead.header.parentHash)
+		
+		// Mock validateGasLimit to avoid the missing parameter issue
+		vi.spyOn(cannonicalHead.header, 'validateGasLimit').mockImplementation(() => {})
+		
+		// Mock calcNextBaseFee on parent header to return the expected base fee
+		vi.spyOn(parentBlock.header, 'calcNextBaseFee').mockReturnValue(cannonicalHead.header.baseFeePerGas)
+		
 		const headerValidator = validateHeader(chain)
 		expect(await headerValidator(cannonicalHead.header)).toBeUndefined()
+		
+		// Verify validateGasLimit was called with parent header
+		expect(cannonicalHead.header.validateGasLimit).toHaveBeenCalledWith(parentBlock.header)
 	})
 
 	it('should return early for genesis block validation', async () => {
