@@ -1,5 +1,5 @@
 {
-  "name": "@tevm/example-mud",
+  "name": "mud-template-react",
   "private": true,
   "scripts": {
     "build": "pnpm recursive run build",
@@ -17,7 +17,6 @@
     "@latticexyz/explorer": "2.2.21",
     "@latticexyz/store-indexer": "2.2.21",
     "@types/debug": "4.1.7",
-    "@types/node": "^20",
     "@typescript-eslint/eslint-plugin": "7.1.1",
     "@typescript-eslint/parser": "7.1.1",
     "eslint": "8.57.0",
