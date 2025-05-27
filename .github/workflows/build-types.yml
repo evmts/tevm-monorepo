@@ -38,4 +38,4 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Build types
-        run: bunx nx affected --target build:types
+        run: bunx nx run-many --target build:types

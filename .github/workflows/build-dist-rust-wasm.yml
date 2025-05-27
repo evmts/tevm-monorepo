@@ -38,4 +38,4 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Build dist, rust, and wasm
-        run: bunx nx affected --targets build:dist,build:rust,build:wasm
+        run: bunx nx run-many --targets build:dist,build:rust,build:wasm

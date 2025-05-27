@@ -38,4 +38,4 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Lint dependencies
-        run: bunx nx affected --target lint:deps
+        run: bunx nx run-many --target lint:deps

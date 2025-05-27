@@ -38,4 +38,4 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Test coverage and rust
-        run: bunx nx affected --targets test:coverage,test:rust
+        run: bunx nx run-many --targets test:coverage,test:rust
