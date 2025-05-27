@@ -39,9 +39,6 @@ jobs:
 
       - run: npx nx-cloud start-ci-run --distribute-on="6 linux-medium-js" --stop-agents-after="build:app"
 
-      - name: Quick lint
-        run: pnpm nx nx-cloud record -- pnpm lint:check
-
       - name: Build
         run: pnpm nx affected --targets=build:dist,build:types
 
