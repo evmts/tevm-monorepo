@@ -1,6 +1,6 @@
 import { deepEqual } from './deepEqual.js'
 
-export const isArrayEqual = (a: readonly unknown[] | undefined, b: readonly unknown[] | undefined): boolean => {
+export const arrayDeepEqual = (a: readonly unknown[] | undefined, b: readonly unknown[] | undefined): boolean => {
 	if (a === b) return true
 	if (a === undefined && b === undefined) return true
 	if (a === undefined || b === undefined) return false

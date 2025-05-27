@@ -1,12 +1,6 @@
 import type { MemoryClient } from '@tevm/memory-client'
 import { type Address, EthjsAddress } from '@tevm/utils'
-import {
-	type Client,
-	type TransactionReceipt,
-	type WriteContractParameters,
-	type WriteContractReturnType,
-	publicActions,
-} from 'viem'
+import { type Client, type TransactionReceipt, publicActions } from 'viem'
 import { type TxStatusSubscriber, notifyTxStatus } from '../../subscribeTx.js'
 import type { SessionClient } from '../../types.js'
 
@@ -23,13 +17,10 @@ export const mudStoreWriteRequestOverride =
 
 		// Only methods we can intercept on the entrykit session client are writeContract and signUserOperation
 		if (client.type === 'bundlerClient' && 'writeContract' in client) {
-			// @ts-expect-error - SessionClient not correctly typed
 			const publicClient = client.client.extend(publicActions)
-			const originalWriteContract = client.writeContract as (
-				args: WriteContractParameters,
-			) => Promise<WriteContractReturnType>
+			const originalWriteContract = client.writeContract
 
-			client.writeContract = async function interceptedWriteContract(args: WriteContractParameters) {
+			client.writeContract = async function interceptedWriteContract(args) {
 				const originalRes = originalWriteContract(args)
 				logger.debug('Intercepted writeContract', { args, response: originalRes })
 
@@ -55,7 +46,6 @@ export const mudStoreWriteRequestOverride =
 							abi: args.abi,
 							functionName: args.functionName,
 							args: args.args,
-							// @ts-expect-error - userAddress does not exist on Client
 							caller: client.userAddress,
 							throwOnFail: false,
 							skipBalance: true,
@@ -102,7 +92,7 @@ export const mudStoreWriteRequestOverride =
 			}
 		}
 
-		// TODO: see how it's done when not using entrykit
+		// TODO: see how it's done when not using entrykit and implement; might able to just be intercept and copy eth_sendRawTransaction
 		// const originalRequest = client.request
 		// // @ts-expect-error - Type 'unknown' is not assignable to type '_returnType'.
 		// client.request = async function interceptedRequest(
