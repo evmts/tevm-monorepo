@@ -2,11 +2,6 @@ name: Setup
 runs:
   using: composite
   steps:
-    - name: Install Zig
-      uses: goto-bus-stop/setup-zig@v2
-      with:
-        version: 0.14.0
-
     - name: Install Rust toolchain
       uses: dtolnay/rust-toolchain@stable
       with:
@@ -26,6 +21,11 @@ runs:
       uses: oven-sh/setup-bun@v1
       with:
         bun-version: 1.2.13
+
+    - name: Install Zig
+      uses: goto-bus-stop/setup-zig@v2
+      with:
+        version: 0.14.0
 
     - name: Install pnpm
       run: |
