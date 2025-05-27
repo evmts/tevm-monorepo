@@ -34,13 +34,13 @@ describe('getBlockFromRpc', () => {
 		// Verify block structure and basic transaction properties
 		const blockJson = block.toJSON()
 		expect(blockJson.header).toEqual(expectedBlock.header)
-		
+
 		// Check transactions exist
 		if (!blockJson.transactions) {
 			throw new Error('Expected transactions to be defined')
 		}
 		expect(blockJson.transactions.length).toBe(4) // 5 transactions minus 1 filtered deposit tx
-		
+
 		// Check that first transaction has expected properties
 		const tx0 = blockJson.transactions[0]
 		if (!tx0) {
@@ -68,13 +68,13 @@ describe('getBlockFromRpc', () => {
 		// Verify block structure and basic transaction properties
 		const blockJson = block.toJSON()
 		expect(blockJson.header).toEqual(expectedBlock.header)
-		
+
 		// Check transactions exist
 		if (!blockJson.transactions) {
 			throw new Error('Expected transactions to be defined')
 		}
 		expect(blockJson.transactions.length).toBe(4) // 5 transactions minus 1 filtered deposit tx
-		
+
 		// Check that first transaction has expected properties
 		const tx0 = blockJson.transactions[0]
 		if (!tx0) {
