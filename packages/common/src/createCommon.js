@@ -100,6 +100,11 @@ export const createCommon = ({
 						historyStorageAddress: '0x0aae40965e6800cd9b1f4b05ff21581047e3f91e',
 						historyServeWindow: 8192,
 					},
+					// Add missing gas config parameters
+					gasConfig: {
+						gasLimitBoundDivisor: 1024,
+						minGasLimit: 5000,
+					},
 				},
 			},
 		)
