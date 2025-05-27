@@ -7,7 +7,9 @@ members = [
 	'bundler-packages/solc-rs',
 	'bundler-packages/bundler-rs',
 	'app/src-tauri',
+	'src/Compilers',
 ]
 
 [profile.release]
 lto = true
+panic = "abort"

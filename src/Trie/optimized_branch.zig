@@ -269,7 +269,7 @@ test "CompactBranchNode - basic operations" {
     // Add another child
     const hash2 = [_]u8{0} ** 32;
     var hash2_copy: [32]u8 = undefined;
-    std.mem.copy(u8, &hash2_copy, &hash2);
+    @memcpy(&hash2_copy, &hash2);
     try branch.addChild(7, HashValue{ .Hash = hash2_copy }, true, true);
     
     try testing.expect(!branch.isEmpty());
@@ -277,7 +277,7 @@ test "CompactBranchNode - basic operations" {
     try testing.expect(branch.getOnlyChildIndex() == null);
     
     // Convert to regular branch
-    const regular_branch = try branch.toBranchNode(allocator);
+    var regular_branch = try branch.toBranchNode(allocator);
     defer regular_branch.deinit(allocator);
     
     try testing.expect(regular_branch.children_mask.isSet(3));

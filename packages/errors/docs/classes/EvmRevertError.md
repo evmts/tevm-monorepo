@@ -267,38 +267,6 @@ Defined in: [packages/errors/src/ethereum/ethereumjs/EvmRevertError.js:56](https
 
 ***
 
-### prepareStackTrace()?
-
-> `static` `optional` **prepareStackTrace**: (`err`, `stackTraces`) => `any`
-
-Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:143
-
-Optional override for formatting stack traces
-
-#### Parameters
-
-##### err
-
-`Error`
-
-##### stackTraces
-
-`CallSite`[]
-
-#### Returns
-
-`any`
-
-#### See
-
-https://v8.dev/docs/stack-trace-api#customizing-stack-traces
-
-#### Inherited from
-
-[`RevertError`](RevertError.md).[`prepareStackTrace`](RevertError.md#preparestacktrace)
-
-***
-
 ### stackTraceLimit
 
 > `static` **stackTraceLimit**: `number`
@@ -348,32 +316,6 @@ The first error that matches the function, or the original error.
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
 Defined in: node\_modules/.pnpm/bun-types@1.2.13/node\_modules/bun-types/globals.d.ts:955
-
-Create .stack property on a target object
-
-##### Parameters
-
-###### targetObject
-
-`object`
-
-###### constructorOpt?
-
-`Function`
-
-##### Returns
-
-`void`
-
-##### Inherited from
-
-[`RevertError`](RevertError.md).[`captureStackTrace`](RevertError.md#capturestacktrace)
-
-#### Call Signature
-
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
-
-Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:136
 
 Create .stack property on a target object
 
@@ -490,3 +432,33 @@ True if the value is an instance of Error, false otherwise
 #### Inherited from
 
 [`RevertError`](RevertError.md).[`isError`](RevertError.md#iserror)
+
+***
+
+### prepareStackTrace()
+
+> `static` **prepareStackTrace**(`err`, `stackTraces`): `any`
+
+Defined in: node\_modules/.pnpm/@types+node@22.15.18/node\_modules/@types/node/globals.d.ts:149
+
+#### Parameters
+
+##### err
+
+`Error`
+
+##### stackTraces
+
+`CallSite`[]
+
+#### Returns
+
+`any`
+
+#### See
+
+https://v8.dev/docs/stack-trace-api#customizing-stack-traces
+
+#### Inherited from
+
+[`RevertError`](RevertError.md).[`prepareStackTrace`](RevertError.md#preparestacktrace)
