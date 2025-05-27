@@ -7,11 +7,6 @@ on:
   workflow_dispatch:
 
 env:
-  NX_CLOUD_DISTRIBUTED_EXECUTION: true
-  # give extra memory to speed up a bit
-  NODE_OPTIONS: "--max_old_space_size=4096"
-  NX_BRANCH: ${{ github.event.number || github.ref_name }}
-  NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
   TEVM_TEST_ALCHEMY_KEY: ${{ secrets.TEVM_TEST_ALCHEMY_KEY }}
   TEVM_RPC_URLS_MAINNET: ${{ secrets.TEVM_RPC_URLS_MAINNET }}
   TEVM_RPC_URLS_OPTIMISM: ${{ secrets.TEVM_RPC_URLS_OPTIMISM }}
@@ -37,14 +32,41 @@ jobs:
       - name: "Setup"
         uses: ./.github/actions/setup
 
-      - name: Build
-        run: pnpm nx affected --targets=build:dist,build:types
+      - name: Build dist
+        run: pnpm -r build:dist
+
+      - name: Build types
+        run: pnpm -r build:types
 
       - name: Tests
-        run: pnpm nx affected --targets=test:coverage,dev:run,test:rust
+        run: pnpm -r test:coverage
+
+      - name: Fixtures
+        run: pnpm -r dev:run
+
+      - name: Tests Rust
+        run: pnpm -r test:rust
+
+      - name: Typecheck
+        run: pnpm -r typecheck
 
       - name: Lint
-        run: pnpm nx affected --targets=typecheck,lint:check,lint:deps,lint:package
+        run: pnpm -r lint:check
+
+      - name: Lint deps
+        run: pnpm -r lint:deps
+
+      - name: Lint packages
+        run: pnpm -r lint:package
 
       - name: Build app
-        run: pnpm nx affected --targets=build:app,generate:docs,build:rust,build:wasm
+        run: pnpm -r build:app
+
+      - name: Generate docs
+        run: pnpm -r generate:docs
+
+      - name: Build rust
+        run: pnpm -r build:rust
+
+      - name: Build wasm
+        run: pnpm -r build:asm
