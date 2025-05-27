@@ -32,6 +32,11 @@ runs:
       with:
         components: rustfmt, clippy
 
+    - name: Install cbindgen
+      run: |
+        cargo install --locked cbindgen
+      shell: bash
+
     - name: Install dependencies
       run: pnpm install --frozen-lockfile
       shell: bash

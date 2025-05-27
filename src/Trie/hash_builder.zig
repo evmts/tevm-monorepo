@@ -29,6 +29,9 @@ pub const HashBuilder = struct {
     pub fn deinit(self: *HashBuilder) void {
         var it = self.nodes.iterator();
         while (it.next()) |entry| {
+            // Free the key (hash string)
+            self.allocator.free(entry.key_ptr.*);
+            // Free the node
             var node = entry.value_ptr.*;
             node.deinit(self.allocator);
         }
@@ -38,11 +41,29 @@ pub const HashBuilder = struct {
     pub fn reset(self: *HashBuilder) void {
         var it = self.nodes.iterator();
         while (it.next()) |entry| {
+            // Free the key (hash string)
+            self.allocator.free(entry.key_ptr.*);
+            // Free the node
             var node = entry.value_ptr.*;
             node.deinit(self.allocator);
         }
         self.nodes.clearRetainingCapacity();
         self.root_hash = null;
+    }
+    
+    /// Helper function to store a node in the HashMap with proper memory management
+    fn storeNode(self: *HashBuilder, hash_str: []const u8, node: TrieNode) !void {
+        // Remove any existing entry to free its memory
+        if (self.nodes.fetchRemove(hash_str)) |old_entry| {
+            // Free the old key
+            self.allocator.free(old_entry.key);
+            // Free the old node
+            var old_node = old_entry.value;
+            old_node.deinit(self.allocator);
+        }
+        
+        // Store the new node (put takes ownership of the key we give it)
+        try self.nodes.put(hash_str, node);
     }
     
     /// Add a key-value pair to the trie
@@ -60,6 +81,8 @@ pub const HashBuilder = struct {
             const hash_str = try bytesToHexString(self.allocator, &hash);
             defer self.allocator.free(hash_str);
             
+            // Get a copy of the node - we don't take ownership because
+            // the node might be referenced from other parts of the trie
             const node = self.nodes.get(hash_str) orelse return TrieError.NonExistentNode;
             break :blk node;
         } else TrieNode{ .Empty = {} };
@@ -73,7 +96,7 @@ pub const HashBuilder = struct {
         
         // Store the node
         const hash_str = try bytesToHexString(self.allocator, &hash);
-        try self.nodes.put(hash_str, result);
+        try self.storeNode(hash_str, result);
     }
     
     /// Get a value from the trie
@@ -117,7 +140,7 @@ pub const HashBuilder = struct {
             self.root_hash = hash;
             
             const new_hash_str = try bytesToHexString(self.allocator, &hash);
-            try self.nodes.put(new_hash_str, node);
+            try self.storeNode(new_hash_str, node);
         } else {
             // Trie is now empty
             self.root_hash = null;
@@ -132,6 +155,8 @@ pub const HashBuilder = struct {
     // Internal helper functions
     
     /// Core update function that implements trie insertion logic
+    /// OWNERSHIP: This function consumes current_node (takes ownership)
+    /// and returns a new node (transfers ownership to caller)
     fn update(self: *HashBuilder, 
               nibbles: []const u8, 
               value: []const u8, 
@@ -140,6 +165,7 @@ pub const HashBuilder = struct {
             .Empty => {
                 // Create a new leaf node
                 const path_copy = try self.allocator.dupe(u8, nibbles);
+                errdefer self.allocator.free(path_copy);
                 const leaf = try LeafNode.init(
                     self.allocator,
                     path_copy,
@@ -151,9 +177,15 @@ pub const HashBuilder = struct {
                 // Check if the paths match
                 if (std.mem.eql(u8, leaf.nibbles, nibbles)) {
                     // Same path, replace the value
-                    var new_leaf = leaf;
-                    new_leaf.value.deinit(self.allocator);
-                    new_leaf.value = HashValue{ .Raw = value };
+                    // Create a completely new leaf node
+                    // We must copy the path because the old leaf might be referenced elsewhere
+                    const new_path = try self.allocator.dupe(u8, nibbles); // Use nibbles, not leaf.nibbles
+                    errdefer self.allocator.free(new_path);
+                    const new_leaf = try LeafNode.init(
+                        self.allocator,
+                        new_path,
+                        HashValue{ .Raw = value }
+                    );
                     return TrieNode{ .Leaf = new_leaf };
                 }
                 
@@ -166,19 +198,20 @@ pub const HashBuilder = struct {
                     
                     // Add existing leaf to branch
                     const existing_path = leaf.nibbles[common_prefix_len..];
-                    const existing_value = leaf.value;
+                    // Always duplicate values because the old leaf might be referenced elsewhere
                     if (existing_path.len == 1) {
                         // Direct branch entry
-                        branch.children[@intCast(existing_path[0])] = existing_value;
+                        branch.children[@intCast(existing_path[0])] = try leaf.value.dupe(self.allocator);
                         branch.children_mask.set(@intCast(existing_path[0]));
-                        // No further action needed
                     } else {
                         // Create new leaf for remaining path
+                        // Must copy the path slice since it references the old leaf's memory
                         const new_path = try self.allocator.dupe(u8, existing_path[1..]);
+                        errdefer self.allocator.free(new_path);
                         const new_leaf = try LeafNode.init(
                             self.allocator,
                             new_path,
-                            existing_value
+                            try leaf.value.dupe(self.allocator)
                         );
                         const new_node = TrieNode{ .Leaf = new_leaf };
                         
@@ -187,7 +220,7 @@ pub const HashBuilder = struct {
                         const hash_str = try bytesToHexString(self.allocator, &hash);
                         
                         // Store the node
-                        try self.nodes.put(hash_str, new_node);
+                        try self.storeNode(hash_str, new_node);
                         
                         // Add reference to branch
                         branch.children[@intCast(existing_path[0])] = HashValue{ .Hash = hash };
@@ -204,6 +237,7 @@ pub const HashBuilder = struct {
                     } else {
                         // Create new leaf for remaining path
                         const path_copy = try self.allocator.dupe(u8, new_path[1..]);
+                        errdefer self.allocator.free(path_copy);
                         const new_leaf = try LeafNode.init(
                             self.allocator,
                             path_copy,
@@ -216,7 +250,7 @@ pub const HashBuilder = struct {
                         const hash_str = try bytesToHexString(self.allocator, &hash);
                         
                         // Store the node
-                        try self.nodes.put(hash_str, new_node);
+                        try self.storeNode(hash_str, new_node);
                         
                         // Add reference to branch
                         branch.children[@intCast(new_path[0])] = HashValue{ .Hash = hash };
@@ -230,20 +264,25 @@ pub const HashBuilder = struct {
                     
                     // Add existing leaf to branch (if path continues)
                     if (leaf.nibbles.len > common_prefix_len) {
+                        // Important: existing_path is a slice of leaf.nibbles
+                        // We must handle it carefully since leaf will be freed
                         const existing_path = leaf.nibbles[common_prefix_len..];
-                        const existing_value = leaf.value;
+                        // Duplicate the value immediately to ensure ownership
+                        const existing_value = try leaf.value.dupe(self.allocator);
+                        errdefer existing_value.deinit(self.allocator);
                         
                         if (existing_path.len == 1) {
-                            // Direct branch entry
+                            // Direct branch entry - transfer ownership
                             branch.children[existing_path[0]] = existing_value;
-                            branch.children_mask.set(existing_path[0]);
+                            branch.children_mask.set(@intCast(existing_path[0]));
                         } else {
                             // Create new leaf for remaining path
                             const new_path = try self.allocator.dupe(u8, existing_path[1..]);
+                            errdefer self.allocator.free(new_path);
                             const new_leaf = try LeafNode.init(
                                 self.allocator,
                                 new_path,
-                                existing_value
+                                existing_value  // Transfer ownership
                             );
                             const new_node = TrieNode{ .Leaf = new_leaf };
                             
@@ -252,11 +291,11 @@ pub const HashBuilder = struct {
                             const hash_str = try bytesToHexString(self.allocator, &hash);
                             
                             // Store the node
-                            try self.nodes.put(hash_str, new_node);
+                            try self.storeNode(hash_str, new_node);
                             
                             // Add reference to branch
                             branch.children[existing_path[0]] = HashValue{ .Hash = hash };
-                            branch.children_mask.set(existing_path[0]);
+                            branch.children_mask.set(@intCast(existing_path[0]));
                         }
                     }
                     
@@ -267,10 +306,11 @@ pub const HashBuilder = struct {
                         if (new_path.len == 1) {
                             // Direct branch entry
                             branch.children[new_path[0]] = HashValue{ .Raw = value };
-                            branch.children_mask.set(new_path[0]);
+                            branch.children_mask.set(@intCast(new_path[0]));
                         } else {
                             // Create new leaf for remaining path
                             const path_copy = try self.allocator.dupe(u8, new_path[1..]);
+                            errdefer self.allocator.free(path_copy);
                             const new_leaf = try LeafNode.init(
                                 self.allocator,
                                 path_copy,
@@ -283,11 +323,11 @@ pub const HashBuilder = struct {
                             const hash_str = try bytesToHexString(self.allocator, &hash);
                             
                             // Store the node
-                            try self.nodes.put(hash_str, new_node);
+                            try self.storeNode(hash_str, new_node);
                             
                             // Add reference to branch
                             branch.children[new_path[0]] = HashValue{ .Hash = hash };
-                            branch.children_mask.set(new_path[0]);
+                            branch.children_mask.set(@intCast(new_path[0]));
                         }
                     } else {
                         // This is a terminating node
@@ -296,6 +336,7 @@ pub const HashBuilder = struct {
                     
                     // Create an extension node for the common prefix
                     const common_prefix = try self.allocator.dupe(u8, nibbles[0..common_prefix_len]);
+                    errdefer self.allocator.free(common_prefix);
                     
                     // Hash the branch node
                     const branch_node = TrieNode{ .Branch = branch };
@@ -303,9 +344,9 @@ pub const HashBuilder = struct {
                     const hash_str = try bytesToHexString(self.allocator, &hash);
                     
                     // Store the branch node
-                    try self.nodes.put(hash_str, branch_node);
+                    try self.storeNode(hash_str, branch_node);
                     
-                    // Create the extension node
+                    // Create the extension node (takes ownership of common_prefix)
                     const extension = try ExtensionNode.init(
                         self.allocator,
                         common_prefix,
@@ -331,10 +372,11 @@ pub const HashBuilder = struct {
                         if (extension.nibbles.len == 1) {
                             // Direct branch entry
                             branch.children[extension_key] = next_value;
-                            branch.children_mask.set(extension_key);
+                            branch.children_mask.set(@intCast(extension_key));
                         } else {
                             // Create new extension node for remaining path
                             const new_path = try self.allocator.dupe(u8, extension.nibbles[1..]);
+                            errdefer self.allocator.free(new_path);
                             const new_extension = try ExtensionNode.init(
                                 self.allocator,
                                 new_path,
@@ -347,11 +389,11 @@ pub const HashBuilder = struct {
                             const hash_str = try bytesToHexString(self.allocator, &hash);
                             
                             // Store the node
-                            try self.nodes.put(hash_str, new_node);
+                            try self.storeNode(hash_str, new_node);
                             
                             // Add reference to branch
                             branch.children[extension_key] = HashValue{ .Hash = hash };
-                            branch.children_mask.set(extension_key);
+                            branch.children_mask.set(@intCast(extension_key));
                         }
                     }
                     
@@ -362,10 +404,11 @@ pub const HashBuilder = struct {
                         if (nibbles.len == 1) {
                             // Direct branch entry (value node)
                             branch.children[new_key] = HashValue{ .Raw = value };
-                            branch.children_mask.set(new_key);
+                            branch.children_mask.set(@intCast(new_key));
                         } else {
                             // Create new leaf for remaining path
                             const new_path = try self.allocator.dupe(u8, nibbles[1..]);
+                            errdefer self.allocator.free(new_path);
                             const new_leaf = try LeafNode.init(
                                 self.allocator,
                                 new_path,
@@ -378,11 +421,11 @@ pub const HashBuilder = struct {
                             const hash_str = try bytesToHexString(self.allocator, &hash);
                             
                             // Store the node
-                            try self.nodes.put(hash_str, new_node);
+                            try self.storeNode(hash_str, new_node);
                             
                             // Add reference to branch
                             branch.children[new_key] = HashValue{ .Hash = hash };
-                            branch.children_mask.set(new_key);
+                            branch.children_mask.set(@intCast(new_key));
                         }
                     } else {
                         // This is a terminating node (empty path)
@@ -417,10 +460,11 @@ pub const HashBuilder = struct {
                     const hash_str = try bytesToHexString(self.allocator, &hash);
                     
                     // Store updated node
-                    try self.nodes.put(hash_str, updated_node);
+                    try self.storeNode(hash_str, updated_node);
                     
                     // Create new extension with same path but updated next
                     const path_copy = try self.allocator.dupe(u8, extension.nibbles);
+                    errdefer self.allocator.free(path_copy);
                     const new_extension = try ExtensionNode.init(
                         self.allocator,
                         path_copy,
@@ -444,6 +488,7 @@ pub const HashBuilder = struct {
                     } else {
                         // Create new extension for remaining path
                         const new_path = try self.allocator.dupe(u8, extension.nibbles[common_prefix_len + 1..]);
+                        errdefer self.allocator.free(new_path);
                         const new_extension = try ExtensionNode.init(
                             self.allocator,
                             new_path,
@@ -456,11 +501,11 @@ pub const HashBuilder = struct {
                         const hash_str = try bytesToHexString(self.allocator, &hash);
                         
                         // Store the node
-                        try self.nodes.put(hash_str, new_node);
+                        try self.storeNode(hash_str, new_node);
                         
                         // Add reference to branch
                         branch.children[extension_key] = HashValue{ .Hash = hash };
-                        branch.children_mask.set(extension_key);
+                        branch.children_mask.set(@intCast(extension_key));
                     }
                     
                     // Add new path to branch
@@ -470,10 +515,11 @@ pub const HashBuilder = struct {
                         if (nibbles.len == common_prefix_len + 1) {
                             // Direct branch entry for value
                             branch.children[new_key] = HashValue{ .Raw = value };
-                            branch.children_mask.set(new_key);
+                            branch.children_mask.set(@intCast(new_key));
                         } else {
                             // Create new leaf for remaining path
                             const new_path = try self.allocator.dupe(u8, nibbles[common_prefix_len + 1..]);
+                            errdefer self.allocator.free(new_path);
                             const new_leaf = try LeafNode.init(
                                 self.allocator,
                                 new_path,
@@ -486,11 +532,11 @@ pub const HashBuilder = struct {
                             const hash_str = try bytesToHexString(self.allocator, &hash);
                             
                             // Store the node
-                            try self.nodes.put(hash_str, new_node);
+                            try self.storeNode(hash_str, new_node);
                             
                             // Add reference to branch
                             branch.children[new_key] = HashValue{ .Hash = hash };
-                            branch.children_mask.set(new_key);
+                            branch.children_mask.set(@intCast(new_key));
                         }
                     } else {
                         // This is a terminating node
@@ -503,11 +549,12 @@ pub const HashBuilder = struct {
                     const hash_str = try bytesToHexString(self.allocator, &hash);
                     
                     // Store the branch node
-                    try self.nodes.put(hash_str, branch_node);
+                    try self.storeNode(hash_str, branch_node);
                     
                     // Create extension node for common prefix
                     if (common_prefix_len > 0) {
                         const common_prefix = try self.allocator.dupe(u8, nibbles[0..common_prefix_len]);
+                        errdefer self.allocator.free(common_prefix);
                         const new_extension = try ExtensionNode.init(
                             self.allocator,
                             common_prefix,
@@ -527,11 +574,12 @@ pub const HashBuilder = struct {
             .Branch => |branch| {
                 if (nibbles.len == 0) {
                     // Insert at the value position of the branch
-                    var new_branch = branch;
-                    if (new_branch.value) |*old_value| {
-                        old_value.deinit(self.allocator);
-                    }
+                    var new_branch = try branch.dupe(self.allocator);
+                    var should_cleanup_branch = true;
+                    defer if (should_cleanup_branch) new_branch.deinit(self.allocator);
+                    // Set the new value
                     new_branch.value = HashValue{ .Raw = value };
+                    should_cleanup_branch = false;
                     return TrieNode{ .Branch = new_branch };
                 }
                 
@@ -540,10 +588,11 @@ pub const HashBuilder = struct {
                 const remaining_path = nibbles[1..];
                 
                 // Check if there's already a child at this position
-                if (branch.children_mask.isSet(key)) {
+                if (branch.children_mask.isSet(@intCast(key))) {
                     // Get the existing child
                     const child = branch.children[key].?;
                     var next_node: TrieNode = undefined;
+                    var temp_node_created = false;
                     
                     switch (child) {
                         .Raw => |data| {
@@ -554,6 +603,7 @@ pub const HashBuilder = struct {
                                 HashValue{ .Raw = try self.allocator.dupe(u8, data) }
                             );
                             next_node = TrieNode{ .Leaf = leaf };
+                            temp_node_created = true;
                         },
                         .Hash => |hash| {
                             const hash_str = try bytesToHexString(self.allocator, &hash);
@@ -566,33 +616,48 @@ pub const HashBuilder = struct {
                     // Continue insertion with the remaining path
                     const updated_node = try self.update(remaining_path, value, next_node);
                     
+                    // Free the temporary node if we created one
+                    if (temp_node_created) {
+                        var temp = next_node;
+                        temp.deinit(self.allocator);
+                    }
+                    
                     // Get hash of updated node
                     const hash = try updated_node.hash(self.allocator);
                     const hash_str = try bytesToHexString(self.allocator, &hash);
                     
                     // Store updated node
-                    try self.nodes.put(hash_str, updated_node);
+                    try self.storeNode(hash_str, updated_node);
                     
                     // Update branch with new hash
-                    var new_branch = branch;
-                    if (new_branch.children[key]) |*old_value| {
-                        old_value.deinit(self.allocator);
-                    }
-                    new_branch.children[key] = HashValue{ .Hash = hash };
-                    new_branch.children_mask.set(key);
+                    var new_branch = try branch.dupe(self.allocator);
+                    var should_cleanup_branch = true;
+                    defer if (should_cleanup_branch) new_branch.deinit(self.allocator);
                     
+                    // Free the old duplicated child before overwriting
+                    if (new_branch.children[key]) |*old_child| {
+                        old_child.deinit(self.allocator);
+                    }
+                    
+                    new_branch.children[key] = HashValue{ .Hash = hash };
+                    new_branch.children_mask.set(@intCast(key));
+                    
+                    should_cleanup_branch = false;
                     return TrieNode{ .Branch = new_branch };
                 } else {
                     // No existing child, add a new one
-                    var new_branch = branch;
+                    var new_branch = try branch.dupe(self.allocator);
+                    var should_cleanup_branch = true;
+                    defer if (should_cleanup_branch) new_branch.deinit(self.allocator);
                     
                     if (remaining_path.len == 0) {
                         // Insert directly into branch
                         new_branch.children[key] = HashValue{ .Raw = value };
-                        new_branch.children_mask.set(key);
+                        new_branch.children_mask.set(@intCast(key));
                     } else {
                         // Create a new leaf for the remaining path
                         const path_copy = try self.allocator.dupe(u8, remaining_path);
+                        errdefer self.allocator.free(path_copy);
                         const leaf = try LeafNode.init(
                             self.allocator,
                             path_copy,
@@ -605,13 +670,14 @@ pub const HashBuilder = struct {
                         const hash_str = try bytesToHexString(self.allocator, &hash);
                         
                         // Store the node
-                        try self.nodes.put(hash_str, new_node);
+                        try self.storeNode(hash_str, new_node);
                         
                         // Update branch
                         new_branch.children[key] = HashValue{ .Hash = hash };
-                        new_branch.children_mask.set(key);
+                        new_branch.children_mask.set(@intCast(key));
                     }
                     
+                    should_cleanup_branch = false;
                     return TrieNode{ .Branch = new_branch };
                 }
             },
@@ -714,6 +780,15 @@ pub const HashBuilder = struct {
     
     /// Delete a key-value pair from the trie
     fn deleteKey(self: *HashBuilder, nibbles: []const u8, current_node: TrieNode) !?TrieNode {
+        return self.deleteKeyWithDepth(nibbles, current_node, 0);
+    }
+    
+    /// Delete implementation with depth tracking to prevent stack overflow
+    fn deleteKeyWithDepth(self: *HashBuilder, nibbles: []const u8, current_node: TrieNode, depth: u32) !?TrieNode {
+        // Prevent stack overflow - trie depth should never exceed ~64 for 32-byte keys
+        if (depth > 100) {
+            return TrieError.CorruptedTrie;
+        }
         switch (current_node) {
             .Empty => return null, // Nothing to delete
             .Leaf => |leaf| {
@@ -726,6 +801,7 @@ pub const HashBuilder = struct {
                 // No match, keep the node
                 var leaf_copy = leaf;
                 leaf_copy.nibbles = try self.allocator.dupe(u8, leaf.nibbles);
+                errdefer self.allocator.free(leaf_copy.nibbles);
                 leaf_copy.value = switch (leaf.value) {
                     .Raw => |data| HashValue{ .Raw = try self.allocator.dupe(u8, data) },
                     .Hash => |hash| HashValue{ .Hash = hash },
@@ -756,7 +832,7 @@ pub const HashBuilder = struct {
                 next_node = self.nodes.get(hash_str) orelse return TrieError.NonExistentNode;
                 
                 // Delete from the next node
-                const result = try self.deleteKey(nibbles[extension.nibbles.len..], next_node);
+                const result = try self.deleteKeyWithDepth(nibbles[extension.nibbles.len..], next_node, depth + 1);
                 
                 if (result == null) {
                     // Next node was deleted entirely
@@ -768,10 +844,11 @@ pub const HashBuilder = struct {
                 const result_hash_str = try bytesToHexString(self.allocator, &result_hash);
                 
                 // Store the updated node
-                try self.nodes.put(result_hash_str, result.?);
+                try self.storeNode(result_hash_str, result.?);
                 
                 // Create a new extension node
                 const path_copy = try self.allocator.dupe(u8, extension.nibbles);
+                errdefer self.allocator.free(path_copy);
                 const new_extension = try ExtensionNode.init(
                     self.allocator,
                     path_copy,
@@ -783,11 +860,15 @@ pub const HashBuilder = struct {
             .Branch => |branch| {
                 if (nibbles.len == 0) {
                     // We're deleting the value at this branch
-                    var new_branch = branch;
-                    if (new_branch.value) |*value| {
-                        value.deinit(self.allocator);
-                        new_branch.value = null;
+                    // Only duplicate if we actually have a value to delete
+                    if (branch.value == null) {
+                        return current_node; // Nothing to delete
                     }
+                    
+                    var new_branch = try branch.dupe(self.allocator);
+                    var should_cleanup_branch = true;
+                    defer if (should_cleanup_branch) new_branch.deinit(self.allocator);
+                    new_branch.value = null;
                     
                     // Check if branch is now empty or has only one child
                     const child_count: u5 = new_branch.children_mask.bitCount();
@@ -810,17 +891,21 @@ pub const HashBuilder = struct {
                         
                         const child = new_branch.children[child_index.?].?;
                         switch (child) {
-                            .Raw => |data| {
+                            .Raw => {
                                 // Create a leaf node directly
                                 const path = try self.allocator.alloc(u8, 1);
                                 path[0] = child_index.?;
                                 
+                                // Take ownership of the value from the branch - don't duplicate
                                 const leaf = try LeafNode.init(
                                     self.allocator,
                                     path,
-                                    HashValue{ .Raw = try self.allocator.dupe(u8, data) }
+                                    child  // Move the value, don't duplicate
                                 );
+                                // Clear the child from the branch so it won't be freed
+                                new_branch.children[child_index.?] = null;
                                 
+                                // Let defer clean up the branch (and all other children)
                                 return TrieNode{ .Leaf = leaf };
                             },
                             .Hash => |hash| {
@@ -836,7 +921,7 @@ pub const HashBuilder = struct {
                                         // Combine paths
                                         const new_path = try self.allocator.alloc(u8, leaf.nibbles.len + 1);
                                         new_path[0] = child_index.?;
-                                        std.mem.copy(u8, new_path[1..], leaf.nibbles);
+                                        @memcpy(new_path[1..], leaf.nibbles);
                                         
                                         const new_leaf = try LeafNode.init(
                                             self.allocator,
@@ -847,13 +932,14 @@ pub const HashBuilder = struct {
                                             }
                                         );
                                         
+                                        // Let defer clean up the branch
                                         return TrieNode{ .Leaf = new_leaf };
                                     },
                                     .Extension => |ext| {
                                         // Combine paths
                                         const new_path = try self.allocator.alloc(u8, ext.nibbles.len + 1);
                                         new_path[0] = child_index.?;
-                                        std.mem.copy(u8, new_path[1..], ext.nibbles);
+                                        @memcpy(new_path[1..], ext.nibbles);
                                         
                                         const new_ext = try ExtensionNode.init(
                                             self.allocator,
@@ -877,6 +963,7 @@ pub const HashBuilder = struct {
                                             HashValue{ .Hash = hash }
                                         );
                                         
+                                        // Let defer clean up the branch
                                         return TrieNode{ .Extension = new_ext };
                                     },
                                 }
@@ -885,6 +972,7 @@ pub const HashBuilder = struct {
                     }
                     
                     // Branch still has multiple children
+                    should_cleanup_branch = false;
                     return TrieNode{ .Branch = new_branch };
                 }
                 
@@ -892,13 +980,14 @@ pub const HashBuilder = struct {
                 const key = nibbles[0];
                 
                 // If the key doesn't exist, nothing to delete
-                if (!branch.children_mask.isSet(key)) {
+                if (!branch.children_mask.isSet(@intCast(key))) {
                     return current_node;
                 }
                 
                 const child = branch.children[key].?;
                 var next_node: TrieNode = undefined;
                 
+                var temp_node_created = false;
                 switch (child) {
                     .Raw => |data| {
                         // Create a leaf for the raw data
@@ -908,6 +997,7 @@ pub const HashBuilder = struct {
                             HashValue{ .Raw = try self.allocator.dupe(u8, data) }
                         );
                         next_node = TrieNode{ .Leaf = leaf };
+                        temp_node_created = true;
                     },
                     .Hash => |hash| {
                         const hash_str = try bytesToHexString(self.allocator, &hash);
@@ -918,24 +1008,37 @@ pub const HashBuilder = struct {
                 }
                 
                 // Delete from the child node
-                const result = try self.deleteKey(nibbles[1..], next_node);
+                const result = try self.deleteKeyWithDepth(nibbles[1..], next_node, depth + 1);
+                
+                // Free the temporary node if we created one
+                // deleteKey returns a new node (or null), so our temporary is safe to free
+                if (temp_node_created) {
+                    var temp = next_node;
+                    temp.deinit(self.allocator);
+                }
                 
                 // Create a new branch with the updated child
-                var new_branch = branch;
+                var new_branch = try branch.dupe(self.allocator);
+                var should_cleanup_branch = true;
+                defer if (should_cleanup_branch) new_branch.deinit(self.allocator);
+                
                 if (result == null) {
                     // Child was deleted entirely
-                    if (new_branch.children[key]) |*old_value| {
-                        old_value.deinit(self.allocator);
+                    // Free the old duplicated child before clearing
+                    if (new_branch.children[key]) |*old_child| {
+                        old_child.deinit(self.allocator);
                     }
                     new_branch.children[key] = null;
-                    new_branch.children_mask.unset(key);
+                    new_branch.children_mask.unset(@intCast(key));
                     
                     // Check if branch now has only one child and no value
                     const child_count: u5 = new_branch.children_mask.bitCount();
                     if (child_count == 0 and new_branch.value == null) {
-                        // Branch is empty
+                        // Branch is empty - defer will clean up
                         return null;
                     } else if (child_count == 1 and new_branch.value == null) {
+                        // Debug: Branch is collapsing
+                        // std.debug.print("Collapsing branch with 1 child\n", .{});
                         // Branch has only one child, collapse it
                         var child_index: ?u4 = null;
                         for (0..16) |i| {
@@ -951,17 +1054,22 @@ pub const HashBuilder = struct {
                         
                         const remaining_child = new_branch.children[child_index.?].?;
                         switch (remaining_child) {
-                            .Raw => |data| {
+                            .Raw => {
                                 // Create a leaf node directly
                                 const path = try self.allocator.alloc(u8, 1);
                                 path[0] = child_index.?;
                                 
+                                // Take ownership of the value from the branch - don't duplicate
                                 const leaf = try LeafNode.init(
                                     self.allocator,
                                     path,
-                                    HashValue{ .Raw = try self.allocator.dupe(u8, data) }
+                                    remaining_child  // Move the value, don't duplicate
                                 );
+                                // Clear the child from the branch so it won't be freed by branch cleanup
+                                new_branch.children[child_index.?] = null;
                                 
+                                // Let defer clean up the branch (and all other children)
+                                // The child we used is now owned by the leaf
                                 return TrieNode{ .Leaf = leaf };
                             },
                             .Hash => |hash| {
@@ -977,7 +1085,7 @@ pub const HashBuilder = struct {
                                         // Combine paths
                                         const new_path = try self.allocator.alloc(u8, leaf.nibbles.len + 1);
                                         new_path[0] = child_index.?;
-                                        std.mem.copy(u8, new_path[1..], leaf.nibbles);
+                                        @memcpy(new_path[1..], leaf.nibbles);
                                         
                                         const new_leaf = try LeafNode.init(
                                             self.allocator,
@@ -988,13 +1096,14 @@ pub const HashBuilder = struct {
                                             }
                                         );
                                         
+                                        // Let defer clean up the branch
                                         return TrieNode{ .Leaf = new_leaf };
                                     },
                                     .Extension => |ext| {
                                         // Combine paths
                                         const new_path = try self.allocator.alloc(u8, ext.nibbles.len + 1);
                                         new_path[0] = child_index.?;
-                                        std.mem.copy(u8, new_path[1..], ext.nibbles);
+                                        @memcpy(new_path[1..], ext.nibbles);
                                         
                                         const new_ext = try ExtensionNode.init(
                                             self.allocator,
@@ -1018,6 +1127,7 @@ pub const HashBuilder = struct {
                                             HashValue{ .Hash = hash }
                                         );
                                         
+                                        // Let defer clean up the branch
                                         return TrieNode{ .Extension = new_ext };
                                     },
                                 }
@@ -1026,22 +1136,27 @@ pub const HashBuilder = struct {
                     }
                 } else {
                     // Child was updated
-                    if (new_branch.children[key]) |*old_value| {
-                        old_value.deinit(self.allocator);
-                    }
+                    // Don't free the old value - the branch owns it and will free it
+                    // when the branch itself is freed
                     
                     // Get the hash of the updated child
                     const hash = try result.?.hash(self.allocator);
                     const hash_str = try bytesToHexString(self.allocator, &hash);
                     
                     // Store the updated child
-                    try self.nodes.put(hash_str, result.?);
+                    try self.storeNode(hash_str, result.?);
+                    
+                    // Free the old duplicated child before overwriting
+                    if (new_branch.children[key]) |*old_child| {
+                        old_child.deinit(self.allocator);
+                    }
                     
                     // Update the branch
                     new_branch.children[key] = HashValue{ .Hash = hash };
-                    new_branch.children_mask.set(key);
+                    new_branch.children_mask.set(@intCast(key));
                 }
                 
+                should_cleanup_branch = false;
                 return TrieNode{ .Branch = new_branch };
             },
         }

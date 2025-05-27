@@ -6,6 +6,19 @@ pub const Stack = @import("Stack.zig").Stack;
 // Import the JumpTable module
 pub const JumpTable = @import("JumpTable.zig");
 
+// Opcode dispatch performance comparison:
+//
+// Current approach: Struct with function pointers
+// - revm: Macro-generated match statement (https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/instructions.rs)
+// - evmone: Jump table with computed goto (https://github.com/ethereum/evmone/blob/master/lib/evmone/instruction_names.cpp)
+//
+// Critical performance insights:
+// 1. evmone's computed goto eliminates branch prediction misses
+// 2. revm's macro approach enables aggressive inlining
+// 3. Both avoid struct overhead for opcode metadata
+//
+// Suggested optimization: Generate opcodes at comptime with inline dispatch
+
 pub const MemorySize = struct {
     size: u32,
     overflow: bool,
@@ -31,6 +44,14 @@ pub const STOP = struct {
     // }
 };
 
+// Arithmetic operations performance comparison:
+// - revm: Uses unsafe stack operations and inline arithmetic (https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/instructions/arithmetic.rs#L13)
+// - evmone: Direct pointer arithmetic with no bounds checks (https://github.com/ethereum/evmone/blob/master/lib/evmone/instructions_arithmetic.cpp#L15)
+//
+// Key optimizations:
+// 1. evmone uses combined pop2_push1 pattern to minimize stack operations
+// 2. revm uses wrapping operations to avoid overflow checks
+// 3. Both use specialized 256-bit arithmetic libraries
 const ADD = struct {
     constantGas: u32 = 3, // GasFastestStep
     minStack: u32 = 2,
@@ -40,6 +61,8 @@ const ADD = struct {
         _ = interpreter; // autofix
         _ = pc; // autofix
         // Pop two values from stack
+        // Performance issue: Individual pop operations vs bulk pop
+        // evmone optimization: pop2_push1(&stack.top(), a + b)
         const x = state.stack.pop();
         const y = state.stack.peek();
         // Add them and store result in y
@@ -151,6 +174,12 @@ const ADDMOD = struct {
     }
 };
 
+// MULMOD/ADDMOD optimization comparison:
+// - revm: Uses specialized bigint library for 512-bit intermediate results (https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/instructions/arithmetic.rs#L170)
+// - evmone: Custom uint512 type with optimized multiplication (https://github.com/ethereum/evmone/blob/master/lib/evmone/instructions_arithmetic.cpp#L140)
+//
+// Critical optimization: Avoiding full 512-bit arithmetic when possible
+// evmone checks if result fits in 256 bits before using expensive path
 const MULMOD = struct {
     constantGas: u32 = 8, // GasMidStep
     minStack: u32 = 3,
@@ -162,6 +191,7 @@ const MULMOD = struct {
         _ = state; // autofix
         // Pop three values from stack, multiply first two modulo third, and push result
         // Handle modulo by zero
+        // Performance note: Need 512-bit intermediate for correct overflow handling
         return "";
     }
 };

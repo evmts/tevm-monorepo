@@ -32,6 +32,7 @@ pub const ProofNodes = struct {
     pub fn deinit(self: *ProofNodes) void {
         var it = self.nodes.iterator();
         while (it.next()) |entry| {
+            self.allocator.free(entry.key_ptr.*);
             self.allocator.free(entry.value_ptr.*);
         }
         self.nodes.deinit();
@@ -152,14 +153,25 @@ pub const ProofNodes = struct {
                                 // Check value
                                 switch (items[1]) {
                                     .String => |value| {
-                                        // Found value, compare with expected
-                                        if (expected_value) |expected| {
-                                            return std.mem.eql(u8, value, expected);
-                                        } else {
-                                            return false; // Value exists but none expected
+                                        // The value is RLP-encoded, so we need to decode it
+                                        const decoded_value = try rlp.decode(allocator, value, false);
+                                        defer decoded_value.data.deinit(allocator);
+                                        
+                                        switch (decoded_value.data) {
+                                            .String => |actual_value| {
+                                                // Found value, compare with expected
+                                                if (expected_value) |expected| {
+                                                    return std.mem.eql(u8, actual_value, expected);
+                                                } else {
+                                                    return false; // Value exists but none expected
+                                                }
+                                            },
+                                            .List => return ProofError.CorruptedNode, // Value should not be a list
                                         }
                                     },
-                                    .List => return ProofError.CorruptedNode, // Invalid value format
+                                    .List => {
+                                        return ProofError.CorruptedNode; // Invalid value format
+                                    }
                                 }
                             } else {
                                 // Extension node
@@ -181,7 +193,7 @@ pub const ProofNodes = struct {
 
                                         // Get the hash
                                         var hash_buf: [32]u8 = undefined;
-                                        std.mem.copy(u8, &hash_buf, next_hash);
+                                        @memcpy(&hash_buf, next_hash);
 
                                         // Get the next node
                                         const hash_str = try bytesToHexString(allocator, &hash_buf);
@@ -252,7 +264,7 @@ pub const ProofNodes = struct {
                                 } else if (next.len == 32) {
                                     // Child is a hash reference
                                     var hash_buf: [32]u8 = undefined;
-                                    std.mem.copy(u8, &hash_buf, next);
+                                    @memcpy(&hash_buf, next);
 
                                     // Get the next node
                                     const hash_str = try bytesToHexString(allocator, &hash_buf);
@@ -424,12 +436,12 @@ test "ProofRetainer - collect nodes" {
     const testing = std.testing;
     const allocator = testing.allocator;
     
-    const key = [_]u8{1, 2, 3, 4};
+    const key = [_]u8{0x12, 0x34}; // This will become nibbles [1,2,3,4]
     var retainer = try ProofRetainer.init(allocator, &key);
     defer retainer.deinit();
     
-    // Create a node on the path
-    const path = [_]u8{1, 2};
+    // Create a node on the path - use the first 2 nibbles of the key
+    const path = [_]u8{1, 2}; // First two nibbles of key
     const value = "test_value";
     
     const extension = try trie.ExtensionNode.init(
