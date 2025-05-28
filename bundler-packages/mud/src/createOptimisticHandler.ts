@@ -25,15 +25,18 @@ import { type MemoryClient, createMemoryClient } from '@tevm/memory-client'
 import type { TxPool } from '@tevm/txpool'
 import { type Address, EthjsAddress } from '@tevm/utils'
 import type { Vm } from '@tevm/vm'
-import { type Client, parseEventLogs } from 'viem'
-import { type PendingStashUpdate, applyStashUpdates, notifyStashSubscribers } from './internal/applyUpdates.js'
-import { createStorageAdapter } from './internal/createStorageAdapter.js'
+import { type Client, type Hex, parseEventLogs } from 'viem'
 import { mudStoreGetStorageAtOverride } from './internal/decorators/mudStoreGetStorageAtOverride.js'
 import { mudStoreWriteRequestOverride } from './internal/decorators/mudStoreWriteRequestOverride.js'
 import { ethjsLogToAbiLog } from './internal/ethjsLogToAbiLog.js'
+import { type PendingStashUpdate, applyStashUpdates, notifyStashSubscribers } from './internal/mud/applyUpdates.js'
+import { createStorageAdapter } from './internal/mud/createStorageAdapter.js'
 import { serialExecute } from './internal/utils/serialExecute.js'
 import { type TxStatusSubscriber, subscribeTxStatus } from './subscribeTx.js'
 import type { SessionClient } from './types.js'
+import type { SyncAdapter } from '@latticexyz/store-sync'
+import { createSyncAdapter } from './internal/mud/createSyncAdapter.js'
+import { matchOptimisticTxCounterpart } from './internal/txIdentifier.js'
 
 export type CreateOptimisticHandlerOptions<TConfig extends StoreConfig = StoreConfig> = {
 	/** A base viem client */
@@ -42,6 +45,13 @@ export type CreateOptimisticHandlerOptions<TConfig extends StoreConfig = StoreCo
 	storeAddress: Address
 	/** The state manager (here stash) */
 	stash: Stash<TConfig>
+	/** Sync options */
+	sync?: {
+		/** Whether to enable sync (default: true) */
+		enabled?: boolean
+		/** The block number to start syncing from (default: 0n) */
+		startBlock?: bigint
+	} | undefined
 	/** The store config */
 	config?: TConfig | undefined // for typing
 	/** The logging level for Tevm clients */
@@ -59,6 +69,7 @@ export type CreateOptimisticHandlerResult<TConfig extends StoreConfig = StoreCon
 	getOptimisticRecords: <TTable extends Table>(args: Omit<GetRecordsArgs<TTable>, 'stash'>) => GetRecordsResult<TTable>
 	subscribeOptimisticState: (args: { subscriber: StoreUpdatesSubscriber }) => Unsubscribe
 	subscribeTx: (args: { subscriber: TxStatusSubscriber }) => Unsubscribe
+	syncAdapter: SyncAdapter
 	_: {
 		optimisticClient: MemoryClient
 		internalClient: MemoryClient
@@ -78,6 +89,7 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 	loggingLevel,
 }: CreateOptimisticHandlerOptions<TConfig>): CreateOptimisticHandlerResult<TConfig> => {
 	const logger = loggingLevel ? createLogger({ name: '@tevm/mud', level: loggingLevel }) : undefined
+	logger?.debug('Creating optimistic handler')
 
 	function createForkRequestOverrideClient(getState: () => State, type: 'internal' | 'optimistic') {
 		if (!client.chain) throw new Error('Client must be connected to a chain')
@@ -105,6 +117,9 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 	let optimisticLogs: PendingStashUpdate[] = []
 	// Internal logs that build up during execution for the internal client to read the current state as it runs the txs
 	let internalLogs: PendingStashUpdate[] = []
+
+	// Optimistic hashes of transactions already handled while syncing their incoming canonical counterpart
+	const syncedOptimisticHashes: Set<Hex> = new Set()
 
 	// View function that applies optimistic or internal logs on top of the canonical state
 	function getStateView(logs: PendingStashUpdate[]): State<TConfig> {
@@ -202,7 +217,7 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 			})
 
 			// Get updates and add to internal logs (builds up incrementally)
-			const updates = adapter({ logs: storeEventsLogs, blockNumber: 0n })
+			const updates = await adapter({ logs: storeEventsLogs, blockNumber: 0n })
 			internalLogs.push(...updates)
 		}
 
@@ -235,7 +250,11 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 	const internalClient = createForkRequestOverrideClient(getInternalView, 'internal')
 	const optimisticClient = createForkRequestOverrideClient(getOptimisticView, 'optimistic')
 
-	mudStoreWriteRequestOverride(client, logger)({ memoryClient: optimisticClient, storeAddress, txStatusSubscribers })
+	mudStoreWriteRequestOverride(client, logger)({
+		memoryClient: optimisticClient,
+		storeAddress,
+		txStatusSubscribers
+	})
 
 	// Update subscribers when the optimistic state changes or when the canonical state changes (and it's been synced to the optimistic state)
 	const _subscribeToOptimisticState = async () => {
@@ -246,9 +265,10 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 			logger?.debug('Tx added, updating optimistic state.')
 			processTransactionsAndUpdateLogs()
 		})
-		const unsubscribeTxRemoved = txPool.on('txremoved', () => {
+		const unsubscribeTxRemoved = txPool.on('txremoved', (hash) => {
 			logger?.debug('Tx removed, updating optimistic state.')
-			processTransactionsAndUpdateLogs()
+			if (!syncedOptimisticHashes.has(hash as Hex)) processTransactionsAndUpdateLogs()
+			else logger?.debug({ optimisticTxHash: hash }, 'Skipping txremoved update for tx that is being handled by the canonical sync.')
 		})
 
 		const unsubscribeStash = subscribeStash({
@@ -282,6 +302,20 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 			}
 		},
 		subscribeTx: ({ subscriber }) => subscribeTxStatus(txStatusSubscribers)(subscriber),
+		syncAdapter: createSyncAdapter({
+			stash,
+			onTx: async ({ hash, data }) => {
+				if (!txPool) txPool = await optimisticClient.transport.tevm.getTxPool()
+				if (!data) return
+
+				const optimisticTxHash = await matchOptimisticTxCounterpart(txPool, data)
+				if (optimisticTxHash) {
+					logger?.debug({ hash, optimisticTxHash }, 'Marking optimistic tx as being handled during canonical sync.')
+					syncedOptimisticHashes.add(optimisticTxHash)
+					txPool.removeByHash(optimisticTxHash)
+				}
+			}
+		}),
 		_: {
 			optimisticClient,
 			internalClient,

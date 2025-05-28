@@ -14,6 +14,7 @@ import { type Hex, concatHex, size } from 'viem'
 
 export type CreateStorageAdapter = {
 	stash: Stash
+	onTx?: ((tx: { hash: Hex | undefined, data: Hex | undefined }) => Promise<void>) | undefined
 }
 
 /**
@@ -24,7 +25,8 @@ export type CreateStorageAdapter = {
  */
 export function createStorageAdapter({
 	stash,
-}: CreateStorageAdapter): (block: StorageAdapterBlock) => PendingStashUpdate[] {
+	onTx,
+}: CreateStorageAdapter): (block: StorageAdapterBlock) => Promise<PendingStashUpdate[]> {
 	const tablesById = Object.fromEntries(
 		Object.values(stash.get().config)
 			.flatMap((namespace) => Object.values(namespace) as readonly Table[])
@@ -35,7 +37,7 @@ export function createStorageAdapter({
 		return `${tableId}:${concatHex(keyTuple)}`
 	}
 
-	return function storageAdapter({ logs }: StorageAdapterBlock): PendingStashUpdate[] {
+	return async function storageAdapter({ logs }: StorageAdapterBlock): Promise<PendingStashUpdate[]> {
 		const pendingRecords: Record<string, PendingStashUpdate> = {}
 		const updates: PendingStashUpdate[] = []
 
@@ -93,6 +95,8 @@ export function createStorageAdapter({
 			} else if (log.eventName === 'Store_DeleteRecord') {
 				updates.push((pendingRecords[id] = { table, key, value: undefined }))
 			}
+
+			if (onTx) await onTx({ hash: log.transactionHash, data: log.data })
 		}
 
 		return updates
