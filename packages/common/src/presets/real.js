@@ -27,5 +27,5 @@ export const real = createCommon({
 	..._real,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

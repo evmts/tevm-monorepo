@@ -27,5 +27,5 @@ export const fluenceTestnet = createCommon({
 	..._fluenceTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

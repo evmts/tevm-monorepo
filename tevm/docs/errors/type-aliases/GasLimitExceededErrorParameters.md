@@ -16,7 +16,7 @@ Parameters for constructing a GasLimitExceededError.
 
 ### cause?
 
-> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `Error` \| [`EvmError`](../../evm/classes/EvmError.md)
+> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `Error` \| [`EVMError`](../../evm/classes/EVMError.md)
 
 Defined in: packages/errors/types/ethereum/GasLimitExceededError.d.ts:69
 

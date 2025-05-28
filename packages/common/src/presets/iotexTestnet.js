@@ -27,5 +27,5 @@ export const iotexTestnet = createCommon({
 	..._iotexTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

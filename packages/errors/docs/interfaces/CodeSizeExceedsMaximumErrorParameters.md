@@ -12,7 +12,7 @@ Defined in: [packages/errors/src/ethereum/ethereumjs/CodeSizeExceedsMaximumError
 
 ### cause?
 
-> `optional` **cause**: `EvmError` \| [`GasLimitExceededError`](../classes/GasLimitExceededError.md)
+> `optional` **cause**: `EVMError` \| [`GasLimitExceededError`](../classes/GasLimitExceededError.md)
 
 Defined in: [packages/errors/src/ethereum/ethereumjs/CodeSizeExceedsMaximumError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/CodeSizeExceedsMaximumError.js#L11)
 

@@ -1,5 +1,50 @@
 # @tevm/contract
 
+## 1.0.0-next.146
+
+### Patch Changes
+
+- c1a3cda: pnpm up --latest all packages
+- Updated dependencies [c1a3cda]
+  - @tevm/bundler-cache@1.0.0-next.146
+  - @tevm/base-bundler@1.0.0-next.146
+  - @tevm/compiler@1.0.0-next.146
+  - @tevm/config@1.0.0-next.146
+  - @tevm/rollup-plugin@1.0.0-next.146
+  - @tevm/rspack-plugin@1.0.0-next.146
+  - @tevm/memory-client@1.0.0-next.146
+  - @tevm/solc@1.0.0-next.146
+  - @tevm/bun-plugin@1.0.0-next.146
+  - @tevm/http-client@1.0.0-next.146
+  - @tevm/blockchain@1.0.0-next.146
+  - @tevm/decorators@1.0.0-next.146
+  - @tevm/actions@1.0.0-next.146
+  - @tevm/address@1.0.0-next.146
+  - @tevm/jsonrpc@1.0.0-next.146
+  - @tevm/viem@1.0.0-next.146
+  - @tevm/common@1.0.0-next.146
+  - @tevm/errors@1.0.0-next.146
+  - @tevm/server@1.0.0-next.146
+  - @tevm/state@1.0.0-next.146
+  - @tevm/utils@1.0.0-next.146
+  - @tevm/ts-plugin@1.0.0-next.146
+  - @tevm/node@1.0.0-next.146
+  - @tevm/evm@1.0.0-next.146
+  - @tevm/tx@1.0.0-next.146
+  - @tevm/vm@1.0.0-next.146
+  - @tevm/cli@1.0.0-next.146
+  - @tevm/esbuild-plugin@1.0.0-next.146
+  - @tevm/vite-plugin@1.0.0-next.146
+  - @tevm/webpack-plugin@1.0.0-next.146
+  - @tevm/precompiles@1.0.0-next.146
+  - @tevm/receipt-manager@1.0.0-next.146
+  - @tevm/txpool@1.0.0-next.146
+  - @tevm/block@1.0.0-next.146
+  - @tevm/client-types@1.0.0-next.146
+  - @tevm/contract@1.0.0-next.146
+  - @tevm/predeploys@1.0.0-next.146
+  - @tevm/sync-storage-persister@1.0.0-next.146
+
 ## 1.0.0-next.145
 
 ### Patch Changes

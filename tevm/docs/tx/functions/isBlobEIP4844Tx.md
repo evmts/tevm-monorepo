@@ -8,7 +8,7 @@
 
 > **isBlobEIP4844Tx**(`tx`): `tx is BlobEIP4844Transaction`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:106
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:119
 
 ## Parameters
 

@@ -16,7 +16,7 @@ Parameters for constructing an ExecutionError.
 
 ### cause?
 
-> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| [`EvmError`](../../evm/classes/EvmError.md)
+> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| [`EVMError`](../../evm/classes/EVMError.md)
 
 Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:75
 

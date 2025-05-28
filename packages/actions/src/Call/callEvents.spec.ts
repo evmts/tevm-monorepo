@@ -13,6 +13,7 @@ const ERC20_ABI = TestERC20.abi
 describe('callHandler event handlers', () => {
 	it('should properly handle onStep events', async () => {
 		const client = createTevmNode()
+		await client.ready()
 
 		// Set up a test contract
 		await setAccountHandler(client)({
@@ -59,6 +60,7 @@ describe('callHandler event handlers', () => {
 
 	it('should properly handle multiple event handlers', async () => {
 		const client = createTevmNode()
+		await client.ready()
 
 		// Deploy a contract that will create a new contract and emit logs
 		const from = createAddress(PREFUNDED_ACCOUNTS[0].address)
@@ -115,6 +117,7 @@ describe('callHandler event handlers', () => {
 	// so let's use a simpler test approach that just verifies event handlers are passed along
 	it('should properly handle and pass along event handlers', async () => {
 		const client = createTevmNode()
+		await client.ready()
 
 		// Set up a simple contract for testing
 		await setAccountHandler(client)({
@@ -146,6 +149,7 @@ describe('callHandler event handlers', () => {
 	it('should continue execution if next is not called in handler', async () => {
 		// This test verifies that the VM doesn't hang if next() isn't called
 		const client = createTevmNode()
+		await client.ready()
 
 		// Set up a test contract
 		await setAccountHandler(client)({

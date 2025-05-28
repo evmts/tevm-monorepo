@@ -1,5 +1,17 @@
 # @tevm/client
 
+## 1.0.0-next.146
+
+### Patch Changes
+
+- c1a3cda: pnpm up --latest all packages
+- Updated dependencies [c1a3cda]
+  - @tevm/memory-client@1.0.0-next.146
+  - @tevm/address@1.0.0-next.146
+  - @tevm/viem@1.0.0-next.146
+  - @tevm/utils@1.0.0-next.146
+  - @tevm/contract@1.0.0-next.146
+
 ## 1.0.0-next.145
 
 ### Patch Changes

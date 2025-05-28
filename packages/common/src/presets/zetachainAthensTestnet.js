@@ -27,5 +27,5 @@ export const zetachainAthensTestnet = createCommon({
 	..._zetachainAthensTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

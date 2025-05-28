@@ -8,7 +8,7 @@
 
 > `const` **getProvider**: (`provider`) => `string`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/provider.d.ts:29
+Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/provider.d.ts:29
 
 ## Parameters
 

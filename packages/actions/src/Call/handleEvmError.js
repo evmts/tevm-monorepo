@@ -130,7 +130,7 @@ export const handleRunTxError = (e) => {
 	if (!(e instanceof EvmError)) {
 		return new InternalEvmError('Unknown error', { cause: /** @type {any}*/ (e) })
 	}
-	const ErrorConstructor = evmErrors.find((error) => error.EVMErrorMessage === e.error)
+	const ErrorConstructor = evmErrors.find((error) => 'EVMErrorMessage' in error && error.EVMErrorMessage === e.error)
 	if (!ErrorConstructor) {
 		return new InternalEvmError(`Unknown error: ${e.error}`, { cause: e })
 	}

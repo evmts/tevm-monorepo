@@ -27,5 +27,5 @@ export const mandala = createCommon({
 	..._mandala,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

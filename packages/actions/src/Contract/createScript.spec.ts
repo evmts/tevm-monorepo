@@ -1,6 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { Block } from '@tevm/block'
-import { EvmError, EvmErrorMessage } from '@tevm/evm'
+import { EvmError } from '@tevm/evm'
 import { createTevmNode } from '@tevm/node'
 import { TestERC20 } from '@tevm/test-utils'
 import { PREFUNDED_ACCOUNTS, encodeDeployData, getAddress } from '@tevm/utils'
@@ -91,7 +91,7 @@ describe('createScript', () => {
 			return Promise.resolve({
 				execResult: {
 					returnValue: Uint8Array.from([]),
-					exceptionError: new EvmError(EvmErrorMessage.REVERT),
+					exceptionError: new EvmError('revert'),
 					executionGasUsed: 420n,
 				},
 			})

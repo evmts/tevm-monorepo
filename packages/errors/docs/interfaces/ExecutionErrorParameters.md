@@ -12,7 +12,7 @@ Defined in: [packages/errors/src/ethereum/ExecutionErrorError.js:6](https://gith
 
 ### cause?
 
-> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `EvmError`
+> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `EVMError`
 
 Defined in: [packages/errors/src/ethereum/ExecutionErrorError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ExecutionErrorError.js#L11)
 

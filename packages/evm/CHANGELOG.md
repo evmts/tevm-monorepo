@@ -1,5 +1,19 @@
 # @tevm/state
 
+## 1.0.0-next.146
+
+### Patch Changes
+
+- c1a3cda: pnpm up --latest all packages
+- Updated dependencies [c1a3cda]
+  - @tevm/blockchain@1.0.0-next.146
+  - @tevm/common@1.0.0-next.146
+  - @tevm/errors@1.0.0-next.146
+  - @tevm/logger@1.0.0-next.146
+  - @tevm/state@1.0.0-next.146
+  - @tevm/utils@1.0.0-next.146
+  - @tevm/predeploys@1.0.0-next.146
+
 ## 1.0.0-next.145
 
 ### Patch Changes

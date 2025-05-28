@@ -12,7 +12,7 @@ Defined in: [packages/errors/src/ethereum/ethereumjs/CodeStoreOutOfGasError.js:6
 
 ### cause?
 
-> `optional` **cause**: `EvmError` \| [`GasLimitExceededError`](../classes/GasLimitExceededError.md)
+> `optional` **cause**: `EVMError` \| [`GasLimitExceededError`](../classes/GasLimitExceededError.md)
 
 Defined in: [packages/errors/src/ethereum/ethereumjs/CodeStoreOutOfGasError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/CodeStoreOutOfGasError.js#L11)
 

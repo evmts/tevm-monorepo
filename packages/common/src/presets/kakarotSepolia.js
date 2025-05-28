@@ -27,5 +27,5 @@ export const kakarotSepolia = createCommon({
 	..._kakarotSepolia,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

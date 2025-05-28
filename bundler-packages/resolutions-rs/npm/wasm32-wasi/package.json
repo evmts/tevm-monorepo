@@ -1,6 +1,6 @@
 {
   "name": "@tevm/resolutions-rs-wasm32-wasi",
-  "version": "0.0.0",
+  "version": "1.0.0-next.146",
   "cpu": [
     "wasm32"
   ],
@@ -17,6 +17,6 @@
   },
   "browser": "tevm_resolutions_rs.wasi-browser.js",
   "dependencies": {
-    "@napi-rs/wasm-runtime": "^0.2.9"
+    "@napi-rs/wasm-runtime": "^0.2.10"
   }
 }

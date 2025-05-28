@@ -4,27 +4,23 @@ import {
 	EthjsAddress,
 	KECCAK256_RLP,
 	KECCAK256_RLP_ARRAY,
-	TypeOutput,
 	bytesToBigInt,
 	bytesToHex,
 	bytesToUtf8,
 	concatBytes,
 	ecrecover,
-	ecsign,
 	equalsBytes,
 	hexToBytes,
 	keccak256,
 	numberToHex,
 	toBytes,
-	toType,
-	zeros,
 } from '@tevm/utils'
 
 import { CLIQUE_EXTRA_SEAL, CLIQUE_EXTRA_VANITY } from './clique.js'
 import { fakeExponential, valuesArrayToHeaderData } from './helpers.js'
+import { createAddressFromPublicKey, createZeroAddress, getSignatureV, safeToType, zeros } from './utils.js'
 
 import type { CliqueConfig } from '@tevm/common'
-import type { BigIntLike } from '@tevm/utils'
 import type { BlockHeaderBytes, BlockOptions, HeaderData, JsonHeader } from './types.js'
 
 interface HeaderCache {
@@ -158,7 +154,7 @@ export class BlockHeader {
 		const defaults = {
 			parentHash: zeros(32),
 			uncleHash: KECCAK256_RLP_ARRAY,
-			coinbase: EthjsAddress.zero(),
+			coinbase: createZeroAddress(),
 			stateRoot: zeros(32),
 			transactionsTrie: KECCAK256_RLP,
 			receiptTrie: KECCAK256_RLP,
@@ -173,21 +169,21 @@ export class BlockHeader {
 			nonce: zeros(8),
 		}
 
-		const parentHash = toType(headerData.parentHash, TypeOutput.Uint8Array) ?? defaults.parentHash
-		const uncleHash = toType(headerData.uncleHash, TypeOutput.Uint8Array) ?? defaults.uncleHash
-		const coinbase = new EthjsAddress(toType(headerData.coinbase ?? defaults.coinbase, TypeOutput.Uint8Array))
-		const stateRoot = toType(headerData.stateRoot, TypeOutput.Uint8Array) ?? defaults.stateRoot
-		const transactionsTrie = toType(headerData.transactionsTrie, TypeOutput.Uint8Array) ?? defaults.transactionsTrie
-		const receiptTrie = toType(headerData.receiptTrie, TypeOutput.Uint8Array) ?? defaults.receiptTrie
-		const logsBloom = toType(headerData.logsBloom, TypeOutput.Uint8Array) ?? defaults.logsBloom
-		const difficulty = toType(headerData.difficulty, TypeOutput.BigInt) ?? defaults.difficulty
-		const number = toType(headerData.number, TypeOutput.BigInt) ?? defaults.number
-		const gasLimit = toType(headerData.gasLimit, TypeOutput.BigInt) ?? defaults.gasLimit
-		const gasUsed = toType(headerData.gasUsed, TypeOutput.BigInt) ?? defaults.gasUsed
-		const timestamp = toType(headerData.timestamp, TypeOutput.BigInt) ?? defaults.timestamp
-		const extraData = toType(headerData.extraData, TypeOutput.Uint8Array) ?? defaults.extraData
-		const mixHash = toType(headerData.mixHash, TypeOutput.Uint8Array) ?? defaults.mixHash
-		const nonce = toType(headerData.nonce, TypeOutput.Uint8Array) ?? defaults.nonce
+		const parentHash = safeToType(headerData.parentHash, 2) ?? defaults.parentHash
+		const uncleHash = safeToType(headerData.uncleHash, 2) ?? defaults.uncleHash
+		const coinbase = new EthjsAddress(safeToType(headerData.coinbase ?? defaults.coinbase, 2))
+		const stateRoot = safeToType(headerData.stateRoot, 2) ?? defaults.stateRoot
+		const transactionsTrie = safeToType(headerData.transactionsTrie, 2) ?? defaults.transactionsTrie
+		const receiptTrie = safeToType(headerData.receiptTrie, 2) ?? defaults.receiptTrie
+		const logsBloom = safeToType(headerData.logsBloom, 2) ?? defaults.logsBloom
+		const difficulty = safeToType(headerData.difficulty, 1) ?? defaults.difficulty
+		const number = safeToType(headerData.number, 1) ?? defaults.number
+		const gasLimit = safeToType(headerData.gasLimit, 1) ?? defaults.gasLimit
+		const gasUsed = safeToType(headerData.gasUsed, 1) ?? defaults.gasUsed
+		const timestamp = safeToType(headerData.timestamp, 1) ?? defaults.timestamp
+		const extraData = safeToType(headerData.extraData, 2) ?? defaults.extraData
+		const mixHash = safeToType(headerData.mixHash, 2) ?? defaults.mixHash
+		const nonce = safeToType(headerData.nonce, 2) ?? defaults.nonce
 
 		const setHardfork = opts.setHardfork ?? false
 		if (setHardfork === true) {
@@ -198,7 +194,6 @@ export class BlockHeader {
 		} else if (typeof setHardfork !== 'boolean') {
 			this.common.ethjsCommon.setHardforkBy({
 				blockNumber: number,
-				td: setHardfork as BigIntLike,
 				timestamp,
 			})
 		}
@@ -207,7 +202,7 @@ export class BlockHeader {
 		const hardforkDefaults = {
 			baseFeePerGas: this.common.ethjsCommon.isActivatedEIP(1559)
 				? number === this.common.ethjsCommon.hardforkBlock('london')
-					? this.common.ethjsCommon.param('gasConfig', 'initialBaseFee')
+					? this.common.ethjsCommon.param('initialBaseFee')
 					: 7n
 				: undefined,
 			withdrawalsRoot: this.common.ethjsCommon.isActivatedEIP(4895) ? KECCAK256_RLP : undefined,
@@ -217,14 +212,13 @@ export class BlockHeader {
 			requestsRoot: this.common.ethjsCommon.isActivatedEIP(7685) ? KECCAK256_RLP : undefined,
 		}
 
-		const baseFeePerGas = toType(headerData.baseFeePerGas, TypeOutput.BigInt) ?? hardforkDefaults.baseFeePerGas
-		const withdrawalsRoot =
-			toType(headerData.withdrawalsRoot, TypeOutput.Uint8Array) ?? hardforkDefaults.withdrawalsRoot
-		const blobGasUsed = toType(headerData.blobGasUsed, TypeOutput.BigInt) ?? hardforkDefaults.blobGasUsed
-		const excessBlobGas = toType(headerData.excessBlobGas, TypeOutput.BigInt) ?? hardforkDefaults.excessBlobGas
+		const baseFeePerGas = safeToType(headerData.baseFeePerGas, 1) ?? hardforkDefaults.baseFeePerGas
+		const withdrawalsRoot = safeToType(headerData.withdrawalsRoot, 2) ?? hardforkDefaults.withdrawalsRoot
+		const blobGasUsed = safeToType(headerData.blobGasUsed, 1) ?? hardforkDefaults.blobGasUsed
+		const excessBlobGas = safeToType(headerData.excessBlobGas, 1) ?? hardforkDefaults.excessBlobGas
 		const parentBeaconBlockRoot =
-			toType(headerData.parentBeaconBlockRoot, TypeOutput.Uint8Array) ?? hardforkDefaults.parentBeaconBlockRoot
-		const requestsRoot = toType(headerData.requestsRoot, TypeOutput.Uint8Array) ?? hardforkDefaults.requestsRoot
+			safeToType(headerData.parentBeaconBlockRoot, 2) ?? hardforkDefaults.parentBeaconBlockRoot
+		const requestsRoot = safeToType(headerData.requestsRoot, 2) ?? hardforkDefaults.requestsRoot
 
 		if (!this.common.ethjsCommon.isActivatedEIP(1559) && baseFeePerGas !== undefined) {
 			throw new Error('A base fee for a block can only be set with EIP1559 being activated')
@@ -350,7 +344,7 @@ export class BlockHeader {
 			}
 			const londonHfBlock = this.common.ethjsCommon.hardforkBlock('london')
 			if (typeof londonHfBlock === 'bigint' && londonHfBlock !== 0n && this.number === londonHfBlock) {
-				const initialBaseFee = this.common.ethjsCommon.param('gasConfig', 'initialBaseFee')
+				const initialBaseFee = this.common.ethjsCommon.param('initialBaseFee')
 				if (this.baseFeePerGas !== initialBaseFee) {
 					const msg = this._errorMsg('Initial EIP1559 block does not have initial base fee')
 					throw new Error(msg)
@@ -400,7 +394,7 @@ export class BlockHeader {
 		// Consensus type dependent checks
 		if (this.common.ethjsCommon.consensusAlgorithm() === ConsensusAlgorithm.Ethash) {
 			// PoW/Ethash
-			if (number > 0n && this.extraData.length > this.common.ethjsCommon.param('vm', 'maxExtraDataSize')) {
+			if (number > 0n && this.extraData.length > this.common.ethjsCommon.param('maxExtraDataSize')) {
 				// Check length of data on all post-genesis blocks
 				const msg = this._errorMsg('invalid amount of extra data')
 				throw new Error(msg)
@@ -484,12 +478,12 @@ export class BlockHeader {
 		// to adopt to the new gas target centered logic
 		const londonHardforkBlock = this.common.ethjsCommon.hardforkBlock('london')
 		if (typeof londonHardforkBlock === 'bigint' && londonHardforkBlock !== 0n && this.number === londonHardforkBlock) {
-			const elasticity = this.common.ethjsCommon.param('gasConfig', 'elasticityMultiplier')
+			const elasticity = this.common.ethjsCommon.param('elasticityMultiplier')
 			parentGasLimit = parentGasLimit * elasticity
 		}
 		const gasLimit = this.gasLimit
 
-		const a = parentGasLimit / this.common.ethjsCommon.param('gasConfig', 'gasLimitBoundDivisor')
+		const a = parentGasLimit / this.common.ethjsCommon.param('gasLimitBoundDivisor')
 		const maxGasLimit = parentGasLimit + a
 		const minGasLimit = parentGasLimit - a
 
@@ -503,12 +497,9 @@ export class BlockHeader {
 			throw new Error(msg)
 		}
 
-		if (gasLimit < this.common.ethjsCommon.param('gasConfig', 'minGasLimit')) {
+		if (gasLimit < this.common.ethjsCommon.param('minGasLimit')) {
 			const msg = this._errorMsg(
-				`gas limit decreased below minimum gas limit. Gas limit: ${gasLimit}, minimum gas limit: ${this.common.ethjsCommon.param(
-					'gasConfig',
-					'minGasLimit',
-				)}`,
+				`gas limit decreased below minimum gas limit. Gas limit: ${gasLimit}, minimum gas limit: ${this.common.ethjsCommon.param('minGasLimit')}`,
 			)
 			throw new Error(msg)
 		}
@@ -523,21 +514,21 @@ export class BlockHeader {
 			throw new Error(msg)
 		}
 		let nextBaseFee: bigint
-		const elasticity = this.common.ethjsCommon.param('gasConfig', 'elasticityMultiplier')
+		const elasticity = this.common.ethjsCommon.param('elasticityMultiplier')
 		const parentGasTarget = this.gasLimit / elasticity
 
 		if (parentGasTarget === this.gasUsed) {
 			nextBaseFee = this.baseFeePerGas as bigint
 		} else if (this.gasUsed > parentGasTarget) {
 			const gasUsedDelta = this.gasUsed - parentGasTarget
-			const baseFeeMaxChangeDenominator = this.common.ethjsCommon.param('gasConfig', 'baseFeeMaxChangeDenominator')
+			const baseFeeMaxChangeDenominator = this.common.ethjsCommon.param('baseFeeMaxChangeDenominator')
 
 			const calculatedDelta =
 				((this.baseFeePerGas as bigint) * gasUsedDelta) / parentGasTarget / baseFeeMaxChangeDenominator
 			nextBaseFee = (calculatedDelta > 1n ? calculatedDelta : 1n) + (this.baseFeePerGas as bigint)
 		} else {
 			const gasUsedDelta = parentGasTarget - this.gasUsed
-			const baseFeeMaxChangeDenominator = this.common.ethjsCommon.param('gasConfig', 'baseFeeMaxChangeDenominator')
+			const baseFeeMaxChangeDenominator = this.common.ethjsCommon.param('baseFeeMaxChangeDenominator')
 
 			const calculatedDelta =
 				((this.baseFeePerGas as bigint) * gasUsedDelta) / parentGasTarget / baseFeeMaxChangeDenominator
@@ -564,9 +555,9 @@ export class BlockHeader {
 	 */
 	private _getBlobGasPrice(excessBlobGas: bigint) {
 		return fakeExponential(
-			this.common.ethjsCommon.param('gasPrices', 'minBlobGasPrice'),
+			this.common.ethjsCommon.param('minBlobGasPrice'),
 			excessBlobGas,
-			this.common.ethjsCommon.param('gasConfig', 'blobGasPriceUpdateFraction'),
+			this.common.ethjsCommon.param('blobGasPriceUpdateFraction'),
 		)
 	}
 
@@ -577,7 +568,7 @@ export class BlockHeader {
 	 * @returns the total blob gas fee for numBlobs blobs
 	 */
 	calcDataFee(numBlobs: number): bigint {
-		const blobGasPerBlob = this.common.ethjsCommon.param('gasConfig', 'blobGasPerBlob')
+		const blobGasPerBlob = this.common.ethjsCommon.param('blobGasPerBlob')
 		const blobGasUsed = blobGasPerBlob * BigInt(numBlobs)
 
 		const blobGasPrice = this.getBlobGasPrice()
@@ -590,7 +581,7 @@ export class BlockHeader {
 	public calcNextExcessBlobGas(): bigint {
 		// The validation of the fields and 4844 activation is already taken care in BlockHeader constructor
 		const targetGasConsumed = (this.excessBlobGas ?? 0n) + (this.blobGasUsed ?? 0n)
-		const targetBlobGasPerBlock = this.common.ethjsCommon.param('gasConfig', 'targetBlobGasPerBlock')
+		const targetBlobGasPerBlock = this.common.ethjsCommon.param('targetBlobGasPerBlock')
 
 		if (targetGasConsumed <= targetBlobGasPerBlock) {
 			return 0n
@@ -700,8 +691,8 @@ export class BlockHeader {
 		}
 		const blockTs = this.timestamp
 		const { timestamp: parentTs, difficulty: parentDif } = parentBlockHeader
-		const minimumDifficulty = this.common.ethjsCommon.param('pow', 'minimumDifficulty')
-		const offset = parentDif / this.common.ethjsCommon.param('pow', 'difficultyBoundDivisor')
+		const minimumDifficulty = this.common.ethjsCommon.param('minimumDifficulty')
+		const offset = parentDif / this.common.ethjsCommon.param('difficultyBoundDivisor')
 		let num = this.number
 
 		// We use a ! here as TS cannot follow this hardfork-dependent logic, but it always gets assigned
@@ -721,7 +712,7 @@ export class BlockHeader {
 
 		if (this.common.ethjsCommon.gteHardfork('byzantium') === true) {
 			// Get delay as parameter from common
-			num = num - this.common.ethjsCommon.param('pow', 'difficultyBombDelay')
+			num = num - this.common.ethjsCommon.param('difficultyBombDelay')
 			if (num < 0n) {
 				num = 0n
 			}
@@ -736,7 +727,7 @@ export class BlockHeader {
 			dif = parentDif + offset * a
 		} else {
 			// pre-homestead
-			if (parentTs + this.common.ethjsCommon.param('pow', 'durationLimit') > blockTs) {
+			if (parentTs + this.common.ethjsCommon.param('durationLimit') > blockTs) {
 				dif = offset + parentDif
 			} else {
 				dif = parentDif - offset
@@ -803,9 +794,18 @@ export class BlockHeader {
 	private cliqueSealBlock(privateKey: Uint8Array) {
 		this._requireClique('cliqueSealBlock')
 
-		const ecSignFunction = this.common.ethjsCommon.customCrypto?.ecsign ?? ecsign
+		// Use custom ecsign if provided, otherwise we can't sign in this sync context
+		const ecSignFunction = this.common.ethjsCommon.customCrypto?.ecsign
+		if (!ecSignFunction) {
+			throw new Error('ecsign function must be provided in customCrypto for clique signing')
+		}
 		const signature = ecSignFunction(this.cliqueSigHash(), privateKey)
-		const signatureB = concatBytes(signature.r, signature.s, toBytes(signature.v - 27n))
+		const v = getSignatureV(signature)
+		const vBytes = new Uint8Array([Number(v - 27n)])
+		// Convert signature r and s to Uint8Array
+		const rBytes = toBytes(signature.r)
+		const sBytes = toBytes(signature.s)
+		const signatureB = concatBytes(rBytes, sBytes, vBytes)
 
 		const extraDataWithoutSeal = this.extraData.subarray(0, this.extraData.length - CLIQUE_EXTRA_SEAL)
 		const extraData = concatBytes(extraDataWithoutSeal, signatureB)
@@ -862,13 +862,13 @@ export class BlockHeader {
 		const extraSeal = this.cliqueExtraSeal()
 		// Reasonable default for default blocks
 		if (extraSeal.length === 0 || equalsBytes(extraSeal, new Uint8Array(65))) {
-			return EthjsAddress.zero()
+			return createZeroAddress()
 		}
 		const r = extraSeal.subarray(0, 32)
 		const s = extraSeal.subarray(32, 64)
 		const v = bytesToBigInt(extraSeal.subarray(64, 65)) + 27n
 		const pubKey = ecrecover(this.cliqueSigHash(), v, r, s)
-		return EthjsAddress.fromPublicKey(pubKey)
+		return createAddressFromPublicKey(pubKey)
 	}
 
 	/**

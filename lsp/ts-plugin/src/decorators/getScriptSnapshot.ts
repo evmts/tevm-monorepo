@@ -1,7 +1,6 @@
 import { existsSync, writeFileSync } from 'node:fs'
 import { bundler } from '@tevm/base-bundler'
 import type { Cache } from '@tevm/bundler-cache'
-// @ts-expect-error
 import * as solc from 'solc'
 import { createHostDecorator } from '../factories/index.js'
 import { isSolidity } from '../utils/index.js'

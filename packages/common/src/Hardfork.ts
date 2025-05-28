@@ -1,5 +1,5 @@
 /**
- * Ethereum hardfork options. Default option is currently cancun.
+ * Ethereum hardfork options. Default option is currently prague.
  * If you use older hardforks you might run into issues with EIPs not being supported.
  * @example
  * ```typescript

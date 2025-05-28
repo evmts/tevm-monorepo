@@ -1,6 +1,6 @@
 import { AccountCache, CacheType } from '@ethereumjs/statemanager'
 import { createAddress } from '@tevm/address'
-import { EthjsAccount } from '@tevm/utils'
+import { createAccount } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { getAccountAddresses } from './getAccountAddresses.js'
@@ -10,12 +10,12 @@ describe(getAccountAddresses.name, () => {
 	it('should get all account addresses', async () => {
 		const state = createBaseState({})
 
-		await putAccount(state)(createAddress(1), EthjsAccount.fromAccountData({ balance: 420n }))
-		await putAccount(state)(createAddress(11), EthjsAccount.fromAccountData({ balance: 420n }))
-		await putAccount(state)(createAddress(111), EthjsAccount.fromAccountData({ balance: 420n }))
-		await putAccount(state)(createAddress(1111), EthjsAccount.fromAccountData({ balance: 420n }))
-		await putAccount(state)(createAddress(11111), EthjsAccount.fromAccountData({ balance: 420n }))
-		await putAccount(state)(createAddress(111111), EthjsAccount.fromAccountData({ balance: 420n }))
+		await putAccount(state)(createAddress(1), createAccount({ balance: 420n }))
+		await putAccount(state)(createAddress(11), createAccount({ balance: 420n }))
+		await putAccount(state)(createAddress(111), createAccount({ balance: 420n }))
+		await putAccount(state)(createAddress(1111), createAccount({ balance: 420n }))
+		await putAccount(state)(createAddress(11111), createAccount({ balance: 420n }))
+		await putAccount(state)(createAddress(111111), createAccount({ balance: 420n }))
 
 		expect(getAccountAddresses(state)()).toEqual(
 			new Set([
@@ -37,12 +37,12 @@ describe(getAccountAddresses.name, () => {
 			}),
 		})
 
-		await putAccount(state)(createAddress(1), EthjsAccount.fromAccountData({ balance: 420n }))
-		await putAccount(state)(createAddress(11), EthjsAccount.fromAccountData({ balance: 420n }))
-		await putAccount(state)(createAddress(111), EthjsAccount.fromAccountData({ balance: 420n }))
-		await putAccount(state)(createAddress(1111), EthjsAccount.fromAccountData({ balance: 420n }))
-		await putAccount(state)(createAddress(11111), EthjsAccount.fromAccountData({ balance: 420n }))
-		await putAccount(state)(createAddress(111111), EthjsAccount.fromAccountData({ balance: 420n }))
+		await putAccount(state)(createAddress(1), createAccount({ balance: 420n }))
+		await putAccount(state)(createAddress(11), createAccount({ balance: 420n }))
+		await putAccount(state)(createAddress(111), createAccount({ balance: 420n }))
+		await putAccount(state)(createAddress(1111), createAccount({ balance: 420n }))
+		await putAccount(state)(createAddress(11111), createAccount({ balance: 420n }))
+		await putAccount(state)(createAddress(111111), createAccount({ balance: 420n }))
 
 		expect(getAccountAddresses(state)()).toEqual(
 			new Set([
@@ -71,8 +71,8 @@ describe(getAccountAddresses.name, () => {
 			}),
 		})
 
-		await putAccount(state)(createAddress(1), EthjsAccount.fromAccountData({ balance: 100n }))
-		await putAccount(state)(createAddress(2), EthjsAccount.fromAccountData({ balance: 200n }))
+		await putAccount(state)(createAddress(1), createAccount({ balance: 100n }))
+		await putAccount(state)(createAddress(2), createAccount({ balance: 200n }))
 
 		expect(getAccountAddresses(state)()).toEqual(new Set([createAddress(1).toString(), createAddress(2).toString()]))
 	})
@@ -81,13 +81,13 @@ describe(getAccountAddresses.name, () => {
 		const state = createBaseState({})
 
 		// Add accounts
-		await putAccount(state)(createAddress(1), EthjsAccount.fromAccountData({ balance: 100n }))
-		await putAccount(state)(createAddress(2), EthjsAccount.fromAccountData({ balance: 200n }))
+		await putAccount(state)(createAddress(1), createAccount({ balance: 100n }))
+		await putAccount(state)(createAddress(2), createAccount({ balance: 200n }))
 
 		// Delete one account (by setting its properties to zero)
 		await putAccount(state)(
 			createAddress(1),
-			EthjsAccount.fromAccountData({
+			createAccount({
 				balance: 0n,
 				nonce: 0n,
 				storageRoot: new Uint8Array(32),
@@ -105,8 +105,8 @@ describe(getAccountAddresses.name, () => {
 		})
 
 		// Add accounts
-		await putAccount(state)(createAddress(1), EthjsAccount.fromAccountData({ balance: 100n }))
-		await putAccount(state)(createAddress(2), EthjsAccount.fromAccountData({ balance: 200n }))
+		await putAccount(state)(createAddress(1), createAccount({ balance: 100n }))
+		await putAccount(state)(createAddress(2), createAccount({ balance: 200n }))
 
 		// Verify the _lruCache property exists
 		expect(state.caches.accounts._lruCache).toBeDefined()
@@ -146,8 +146,8 @@ describe(getAccountAddresses.name, () => {
 		})
 
 		// Add accounts
-		await putAccount(state)(createAddress(1), EthjsAccount.fromAccountData({ balance: 100n }))
-		await putAccount(state)(createAddress(2), EthjsAccount.fromAccountData({ balance: 200n }))
+		await putAccount(state)(createAddress(1), createAccount({ balance: 100n }))
+		await putAccount(state)(createAddress(2), createAccount({ balance: 200n }))
 
 		// Verify we have an ordered map cache
 		expect(state.caches.accounts._orderedMapCache).toBeDefined()

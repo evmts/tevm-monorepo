@@ -6,7 +6,7 @@ import { BlockGasLimitExceededError, EipNotEnabledError, MisconfiguredClientErro
 import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
 import { createImpersonatedTx } from '@tevm/tx'
-import { EthjsAddress } from '@tevm/utils'
+import { createAddressFromString } from '@tevm/utils'
 import type { Vm } from '../Vm.js'
 import { createVm } from '../createVm.js'
 import { validateRunTx } from './validateRunTx.js'
@@ -16,7 +16,7 @@ describe('validateRunTx', () => {
 	let common: Common
 
 	beforeEach(async () => {
-		common = createCommon({ ...mainnet, hardfork: 'cancun', loggingLevel: 'warn' })
+		common = createCommon({ ...mainnet, hardfork: 'prague', loggingLevel: 'warn' })
 		const stateManager = createStateManager({})
 		const blockchain = await createChain({ common })
 		const evm = await createEvm({ common, stateManager, blockchain })
@@ -31,7 +31,7 @@ describe('validateRunTx', () => {
 
 	it('should throw MisconfiguredClientError if no preMerge hardfork is found', async () => {
 		const tx = createImpersonatedTx({
-			impersonatedAddress: EthjsAddress.fromString(`0x${'11'.repeat(20)}`),
+			impersonatedAddress: createAddressFromString(`0x${'11'.repeat(20)}`),
 			nonce: 0,
 			gasLimit: 21064,
 			maxFeePerGas: 8n,
@@ -56,7 +56,7 @@ describe('validateRunTx', () => {
 
 	it('should throw BlockGasLimitExceededError if tx gas limit exceeds block gas limit', async () => {
 		const tx = createImpersonatedTx({
-			impersonatedAddress: EthjsAddress.fromString(`0x${'11'.repeat(20)}`),
+			impersonatedAddress: createAddressFromString(`0x${'11'.repeat(20)}`),
 			nonce: 0,
 			gasLimit: 21064,
 			maxFeePerGas: 8n,
@@ -72,7 +72,7 @@ describe('validateRunTx', () => {
 
 	it('should throw EipNotEnabledError if EIP 2930 is not activated for Access List transaction', async () => {
 		const tx = createImpersonatedTx({
-			impersonatedAddress: EthjsAddress.fromString(`0x${'11'.repeat(20)}`),
+			impersonatedAddress: createAddressFromString(`0x${'11'.repeat(20)}`),
 			nonce: 0,
 			gasLimit: 21064,
 			maxFeePerGas: 8n,
@@ -96,7 +96,7 @@ describe('validateRunTx', () => {
 
 	it('should throw EipNotEnabledError if EIP 1559 is not activated for Fee Market transaction', async () => {
 		const tx = createImpersonatedTx({
-			impersonatedAddress: EthjsAddress.fromString(`0x${'11'.repeat(20)}`),
+			impersonatedAddress: createAddressFromString(`0x${'11'.repeat(20)}`),
 			nonce: 0,
 			gasLimit: 21064,
 			maxPriorityFeePerGas: 1n,
@@ -115,7 +115,7 @@ describe('validateRunTx', () => {
 
 	it('should validate options successfully', async () => {
 		const tx = createImpersonatedTx({
-			impersonatedAddress: EthjsAddress.fromString(`0x${'11'.repeat(20)}`),
+			impersonatedAddress: createAddressFromString(`0x${'11'.repeat(20)}`),
 			nonce: 0,
 			gasLimit: 21064,
 			maxFeePerGas: 8n,
@@ -141,7 +141,7 @@ describe('validateRunTx', () => {
 
 	it('should validate options successfully with no block', async () => {
 		const tx = createImpersonatedTx({
-			impersonatedAddress: EthjsAddress.fromString(`0x${'11'.repeat(20)}`),
+			impersonatedAddress: createAddressFromString(`0x${'11'.repeat(20)}`),
 			nonce: 0,
 			gasLimit: 21064,
 			maxFeePerGas: 8n,
@@ -165,7 +165,7 @@ describe('validateRunTx', () => {
 		;(mockCommon.ethjsCommon as any)._hardfork = 'shanghai'
 		mockCommon.copy = () => mockCommon
 		const tx = createImpersonatedTx({
-			impersonatedAddress: EthjsAddress.fromString(`0x${'11'.repeat(20)}`),
+			impersonatedAddress: createAddressFromString(`0x${'11'.repeat(20)}`),
 			nonce: 0,
 			gasLimit: 21064,
 			maxFeePerGas: 8n,

@@ -2,10 +2,15 @@ name: Setup
 runs:
   using: composite
   steps:
-    - name: Install Zig
-      uses: goto-bus-stop/setup-zig@v2
+    - name: Install Rust toolchain
+      uses: dtolnay/rust-toolchain@stable
       with:
-        version: 0.14.0
+        components: rustfmt, clippy
+
+    - name: Install cbindgen
+      run: |
+        cargo install --locked cbindgen
+      shell: bash
 
     - uses: actions/setup-node@v4
       with:
@@ -17,6 +22,11 @@ runs:
       with:
         bun-version: 1.2.13
 
+    - name: Install Zig
+      uses: goto-bus-stop/setup-zig@v2
+      with:
+        version: 0.14.0
+
     - name: Install pnpm
       run: |
         npm i pnpm@10.6.1 --global && pnpm --version
@@ -27,26 +37,18 @@ runs:
       with:
         version: nightly
 
-    - name: Install Rust toolchain
-      uses: dtolnay/rust-toolchain@stable
-      with:
-        components: rustfmt, clippy
-
-    - name: Install cbindgen
-      run: |
-        cargo install --locked cbindgen
-      shell: bash
-
     - name: Install dependencies
       run: pnpm install --frozen-lockfile
       shell: bash
 
-    - name: Derive appropriate SHAs for base and head for `nx affected` commands
-      uses: nrwl/nx-set-shas@v3
-
-    - name: Echo nx shas
-      run: |
-        echo "nx using following shas:"
-        echo "BASE: ${{ env.NX_BASE }}"
-        echo "HEAD: ${{ env.NX_HEAD }}"
+    - name: Install native dependencies
       shell: bash
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          pkg-config \
+          libglib2.0-dev \
+          libgtk-3-dev \
+          libwebkit2gtk-4.1-dev \
+          libayatana-appindicator3-dev \
+          librsvg2-dev

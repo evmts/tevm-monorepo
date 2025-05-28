@@ -10,7 +10,7 @@
 
 > **toType**\<`T`\>(`input`, `outputType`): `null`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:36
+Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:35
 
 Convert an input to a specified type.
 Input of null/undefined returns null/undefined regardless of the output type.
@@ -19,7 +19,7 @@ Input of null/undefined returns null/undefined regardless of the output type.
 
 #### T
 
-`T` *extends* [`TypeOutput`](../enumerations/TypeOutput.md)
+`T` *extends* [`TypeOutput`](../type-aliases/TypeOutput.md)
 
 ### Parameters
 
@@ -43,7 +43,7 @@ type to output
 
 > **toType**\<`T`\>(`input`, `outputType`): `undefined`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:37
+Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:36
 
 Convert an input to a specified type.
 Input of null/undefined returns null/undefined regardless of the output type.
@@ -52,7 +52,7 @@ Input of null/undefined returns null/undefined regardless of the output type.
 
 #### T
 
-`T` *extends* [`TypeOutput`](../enumerations/TypeOutput.md)
+`T` *extends* [`TypeOutput`](../type-aliases/TypeOutput.md)
 
 ### Parameters
 
@@ -76,7 +76,7 @@ type to output
 
 > **toType**\<`T`\>(`input`, `outputType`): `TypeOutputReturnType`\[`T`\]
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:38
+Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:37
 
 Convert an input to a specified type.
 Input of null/undefined returns null/undefined regardless of the output type.
@@ -85,7 +85,7 @@ Input of null/undefined returns null/undefined regardless of the output type.
 
 #### T
 
-`T` *extends* [`TypeOutput`](../enumerations/TypeOutput.md)
+`T` *extends* [`TypeOutput`](../type-aliases/TypeOutput.md)
 
 ### Parameters
 

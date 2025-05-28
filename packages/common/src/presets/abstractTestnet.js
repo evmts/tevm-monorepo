@@ -27,5 +27,5 @@ export const abstractTestnet = createCommon({
 	..._abstractTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

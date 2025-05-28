@@ -1,6 +1,7 @@
+import { createAddress } from '@tevm/address'
 import { createTevmNode } from '@tevm/node'
 import { transports } from '@tevm/test-utils'
-import { type Address, EthjsAddress } from '@tevm/utils'
+import { type Address } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { evmInputToImpersonatedTx } from './evmInputToImpersonatedTx.js'
@@ -13,10 +14,10 @@ describe('evmInputToImpersonatedTx', () => {
 		})
 
 		const evmInput = {
-			to: EthjsAddress.fromString(`0x${'12'.repeat(20)}`),
+			to: createAddress(`0x${'12'.repeat(20)}`),
 			data: new Uint8Array([0x12, 0x34]),
 			value: 1000n,
-			origin: EthjsAddress.fromString(`0x${'34'.repeat(20)}`),
+			origin: createAddress(`0x${'34'.repeat(20)}`),
 		}
 
 		const tx = await evmInputToImpersonatedTx(client)(evmInput)
@@ -33,10 +34,10 @@ describe('evmInputToImpersonatedTx', () => {
 		})
 
 		const evmInput = {
-			to: EthjsAddress.fromString(`0x${'12'.repeat(20)}`),
+			to: createAddress(`0x${'12'.repeat(20)}`),
 			data: new Uint8Array([0x12, 0x34]),
 			value: 1000n,
-			origin: EthjsAddress.fromString(`0x${'34'.repeat(20)}`),
+			origin: createAddress(`0x${'34'.repeat(20)}`),
 		}
 
 		const sender = evmInput.origin
@@ -60,10 +61,10 @@ describe('evmInputToImpersonatedTx', () => {
 		})
 
 		const evmInput = {
-			to: EthjsAddress.fromString(`0x${'12'.repeat(20)}`),
+			to: createAddress(`0x${'12'.repeat(20)}`),
 			data: new Uint8Array([0x12, 0x34]),
 			value: 1000n,
-			origin: EthjsAddress.fromString(`0x${'34'.repeat(20)}`),
+			origin: createAddress(`0x${'34'.repeat(20)}`),
 		}
 
 		const vm = await client.getVm()
@@ -88,10 +89,10 @@ describe('evmInputToImpersonatedTx', () => {
 		})
 
 		const evmInput = {
-			to: EthjsAddress.fromString(`0x${'12'.repeat(20)}`),
+			to: createAddress(`0x${'12'.repeat(20)}`),
 			data: new Uint8Array([0x12, 0x34]),
 			value: 1000n,
-			origin: EthjsAddress.fromString(`0x${'34'.repeat(20)}`),
+			origin: createAddress(`0x${'34'.repeat(20)}`),
 		}
 
 		const customMaxFeePerGas = 100n
@@ -109,12 +110,12 @@ describe('evmInputToImpersonatedTx', () => {
 		})
 
 		const evmInput = {
-			to: EthjsAddress.fromString(`0x${'12'.repeat(20)}`),
+			to: createAddress(`0x${'12'.repeat(20)}`),
 			data: new Uint8Array([0x12, 0x34]),
 			value: 1000n,
 		}
 
-		const defaultSender = EthjsAddress.fromString(`0x${'00'.repeat(20)}`)
+		const defaultSender = createAddress(`0x${'00'.repeat(20)}`)
 
 		const tx = await evmInputToImpersonatedTx(client)(evmInput)
 		expect(tx.getSenderAddress().toString()).toBe(defaultSender.toString())
@@ -127,10 +128,10 @@ describe('evmInputToImpersonatedTx', () => {
 		})
 
 		const evmInput = {
-			to: EthjsAddress.fromString(`0x${'12'.repeat(20)}`),
+			to: createAddress(`0x${'12'.repeat(20)}`),
 			data: new Uint8Array([0x12, 0x34]),
 			value: 1000n,
-			caller: EthjsAddress.fromString(`0x${'56'.repeat(20)}`),
+			caller: createAddress(`0x${'56'.repeat(20)}`),
 		}
 
 		const tx = await evmInputToImpersonatedTx(client)(evmInput)
@@ -144,11 +145,11 @@ describe('evmInputToImpersonatedTx', () => {
 		})
 
 		const evmInput = {
-			to: EthjsAddress.fromString(`0x${'12'.repeat(20)}`),
+			to: createAddress(`0x${'12'.repeat(20)}`),
 			data: new Uint8Array([0x12, 0x34]),
 			value: 1000n,
-			origin: EthjsAddress.fromString(`0x${'34'.repeat(20)}`),
-			caller: EthjsAddress.fromString(`0x${'56'.repeat(20)}`),
+			origin: createAddress(`0x${'34'.repeat(20)}`),
+			caller: createAddress(`0x${'56'.repeat(20)}`),
 		}
 
 		const tx = await evmInputToImpersonatedTx(client)(evmInput)
@@ -163,7 +164,7 @@ describe('evmInputToImpersonatedTx', () => {
 		})
 
 		const evmInput = {
-			origin: EthjsAddress.fromString(`0x${'34'.repeat(20)}`),
+			origin: createAddress(`0x${'34'.repeat(20)}`),
 			// to, data, and value are intentionally omitted
 		}
 
@@ -180,8 +181,8 @@ describe('evmInputToImpersonatedTx', () => {
 		})
 
 		const evmInput = {
-			to: EthjsAddress.fromString(`0x${'12'.repeat(20)}`),
-			origin: EthjsAddress.fromString(`0x${'34'.repeat(20)}`),
+			to: createAddress(`0x${'12'.repeat(20)}`),
+			origin: createAddress(`0x${'34'.repeat(20)}`),
 		}
 
 		// Explicitly set maxFeePerGas and maxPriorityFeePerGas to 0n

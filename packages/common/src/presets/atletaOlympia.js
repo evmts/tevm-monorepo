@@ -27,5 +27,5 @@ export const atletaOlympia = createCommon({
 	..._atletaOlympia,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

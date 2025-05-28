@@ -16,7 +16,7 @@ Parameters for constructing a [BLS12381InvalidInputLengthError](../classes/BLS12
 
 ### cause?
 
-> `optional` **cause**: [`ExecutionError`](../classes/ExecutionError.md) \| [`EvmError`](../../evm/classes/EvmError.md)
+> `optional` **cause**: [`ExecutionError`](../classes/ExecutionError.md) \| [`EVMError`](../../evm/classes/EVMError.md)
 
 Defined in: packages/errors/types/ethereum/ethereumjs/BLS12381InvalidInputLengthError.d.ts:80
 

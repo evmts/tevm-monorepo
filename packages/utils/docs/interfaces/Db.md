@@ -6,7 +6,7 @@
 
 # Interface: Db\<TKey, TValue\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:30
+Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:32
 
 ## Type Parameters
 
@@ -24,7 +24,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs
 
 > **batch**(`opStack`): `Promise`\<`void`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:52
+Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:54
 
 Performs a batch operation on db.
 
@@ -46,7 +46,7 @@ A stack of levelup operations
 
 > **del**(`key`, `opts?`): `Promise`\<`void`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:47
+Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:49
 
 Removes a raw value in the underlying db.
 
@@ -70,7 +70,7 @@ Removes a raw value in the underlying db.
 
 > **get**(`key`, `opts?`): `Promise`\<`undefined` \| `TValue`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:36
+Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:38
 
 Retrieves a raw value from db.
 
@@ -96,7 +96,7 @@ A Promise that resolves to `Uint8Array` if a value is found or `undefined` if no
 
 > **open**(): `Promise`\<`void`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:61
+Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:63
 
 Opens the database -- if applicable
 
@@ -110,7 +110,7 @@ Opens the database -- if applicable
 
 > **put**(`key`, `val`, `opts?`): `Promise`\<`void`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:42
+Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:44
 
 Writes a value directly to db.
 
@@ -140,7 +140,7 @@ The key as a `TValue`
 
 > **shallowCopy**(): `DB`\<`TKey`, `TValue`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:57
+Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:59
 
 Returns a copy of the DB instance, with a reference
 to the **same** underlying db instance.

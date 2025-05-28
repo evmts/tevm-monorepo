@@ -16,7 +16,7 @@ Parameters for constructing a [InvalidBytecodeResultError](../classes/InvalidByt
 
 ### cause?
 
-> `optional` **cause**: [`ExecutionError`](../classes/ExecutionError.md) \| [`EvmError`](../../evm/classes/EvmError.md)
+> `optional` **cause**: [`ExecutionError`](../classes/ExecutionError.md) \| [`EVMError`](../../evm/classes/EVMError.md)
 
 Defined in: packages/errors/types/ethereum/ethereumjs/InvalidBytecodeResultError.d.ts:89
 

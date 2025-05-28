@@ -6,7 +6,7 @@
 
 # Interface: ForkOptions
 
-Defined in: packages/state/dist/index.d.ts:48
+Defined in: packages/state/dist/index.d.ts:50
 
 Configuration options for forking from an existing blockchain network.
 Used to specify the RPC endpoint and block number to fork from.
@@ -29,7 +29,7 @@ const value: ForkOptions = {
 
 > `optional` **blockTag**: `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md)
 
-Defined in: packages/state/dist/index.d.ts:52
+Defined in: packages/state/dist/index.d.ts:54
 
 ***
 
@@ -37,4 +37,4 @@ Defined in: packages/state/dist/index.d.ts:52
 
 > **transport**: `Transport` \| \{ `request`: `EIP1193RequestFn`; \}
 
-Defined in: packages/state/dist/index.d.ts:49
+Defined in: packages/state/dist/index.d.ts:51

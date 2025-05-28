@@ -27,5 +27,5 @@ export const shibarium = createCommon({
 	..._shibarium,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

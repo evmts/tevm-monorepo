@@ -583,6 +583,54 @@ const count = await client.getBlockTransactionCount()
 
 Use `getCode` instead.
 
+#### getCallsStatus
+
+(`parameters`) => `Promise`\<\{ `atomic`: `boolean`; `capabilities?`: \{[`key`: `string`]: `any`; \} \| \{[`key`: `string`]: `any`; \}; `chainId`: `number`; `id`: `string`; `receipts?`: `WalletCallReceipt`\<`bigint`, `"success"` \| `"reverted"`\>[]; `status`: `undefined` \| `"pending"` \| `"success"` \| `"failure"`; `statusCode`: `number`; `version`: `string`; \}\>
+
+Returns the status of a call batch that was sent via `sendCalls`.
+
+- Docs: https://viem.sh/docs/actions/wallet/getCallsStatus
+- JSON-RPC Methods: [`wallet_getCallsStatus`](https://eips.ethereum.org/EIPS/eip-5792)
+
+**Example**
+
+```ts
+import { createWalletClient, custom } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createWalletClient({
+  chain: mainnet,
+  transport: custom(window.ethereum),
+})
+
+const { receipts, status } = await client.getCallsStatus({ id: '0xdeadbeef' })
+```
+
+#### getCapabilities
+
+\<`chainId`\>(`parameters?`) => `Promise`\<\{ \[K in string \| number \| symbol\]: (chainId extends number ? \{ atomic?: \{ status: "supported" \| "ready" \| "unsupported" \}; paymasterService?: \{ supported: boolean \}; unstable\_addSubAccount?: \{ keyTypes: ((...) \| (...) \| (...) \| (...))\[\]; supported: boolean \}; \[key: string\]: any \} : ChainIdToCapabilities\<Capabilities\<\{ atomic?: \{ status: ... \}; paymasterService?: \{ supported: ... \}; unstable\_addSubAccount?: \{ keyTypes: ...; supported: ... \}; \[key: string\]: any \}\>, number\>)\[K\] \}\>
+
+Extract capabilities that a connected wallet supports (e.g. paymasters, session keys, etc).
+
+- Docs: https://viem.sh/docs/actions/wallet/getCapabilities
+- JSON-RPC Methods: [`wallet_getCapabilities`](https://eips.ethereum.org/EIPS/eip-5792)
+
+**Example**
+
+```ts
+import { createWalletClient, custom } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createWalletClient({
+  chain: mainnet,
+  transport: custom(window.ethereum),
+})
+
+const capabilities = await client.getCapabilities({
+  account: '0xA0Cf798816D4b9b9866b5330EEa46a18382f251e',
+})
+```
+
 #### getChainId
 
 () => `Promise`\<`number`\> & () => `Promise`\<`number`\>
@@ -1421,6 +1469,50 @@ A name for the client.
 
 Frequency (in ms) for polling enabled actions & events. Defaults to 4_000 milliseconds.
 
+#### prepareAuthorization
+
+(`parameters`) => `Promise`\<`PrepareAuthorizationReturnType`\>
+
+Prepares an [EIP-7702 Authorization](https://eips.ethereum.org/EIPS/eip-7702) object for signing.
+This Action will fill the required fields of the Authorization object if they are not provided (e.g. `nonce` and `chainId`).
+
+With the prepared Authorization object, you can use [`signAuthorization`](https://viem.sh/docs/eip7702/signAuthorization) to sign over the Authorization object.
+
+**Examples**
+
+```ts
+import { createWalletClient, http } from 'viem'
+import { privateKeyToAccount } from 'viem/accounts'
+import { mainnet } from 'viem/chains'
+
+const client = createWalletClient({
+  chain: mainnet,
+  transport: http(),
+})
+
+const authorization = await client.prepareAuthorization({
+  account: privateKeyToAccount('0x..'),
+  contractAddress: '0xA0Cf798816D4b9b9866b5330EEa46a18382f251e',
+})
+```
+
+```ts
+// Account Hoisting
+import { createWalletClient, http } from 'viem'
+import { privateKeyToAccount } from 'viem/accounts'
+import { mainnet } from 'viem/chains'
+
+const client = createWalletClient({
+  account: privateKeyToAccount('0x…'),
+  chain: mainnet,
+  transport: http(),
+})
+
+const authorization = await client.prepareAuthorization({
+  contractAddress: '0xA0Cf798816D4b9b9866b5330EEa46a18382f251e',
+})
+```
+
 #### prepareTransactionRequest
 
 \<`request`, `chainOverride`, `accountOverride`\>(`args`) => `Promise`\<\{ \[K in string \| number \| symbol\]: (UnionRequiredBy\<Extract\<(...) & (...) & (...), (...) extends (...) ? (...) : (...)\> & \{ chainId?: (...) \| (...) \}, ParameterTypeToParameters\<(...)\[(...)\] extends readonly (...)\[\] ? (...)\[(...)\] : (...) \| (...) \| (...) \| (...) \| (...) \| (...)\>\> & (unknown extends request\["kzg"\] ? \{\} : Pick\<request, "kzg"\>))\[K\] \}\> & \<`request`, `chainOverride`, `accountOverride`\>(`args`) => `Promise`\<\{ \[K in string \| number \| symbol\]: (UnionRequiredBy\<Extract\<(...) & (...) & (...), (...) extends (...) ? (...) : (...)\> & \{ chainId?: (...) \| (...) \}, ParameterTypeToParameters\<(...)\[(...)\] extends readonly (...)\[\] ? (...)\[(...)\] : (...) \| (...) \| (...) \| (...) \| (...) \| (...)\>\> & (unknown extends request\["kzg"\] ? \{\} : Pick\<request, "kzg"\>))\[K\] \}\>
@@ -1623,6 +1715,41 @@ const client = createTestClient({
   transport: http(),
 })
 await client.revert({ id: '0x…' })
+```
+
+#### sendCalls
+
+\<`calls`, `chainOverride`\>(`parameters`) => `Promise`\<\{ `capabilities?`: \{[`key`: `string`]: `any`; \}; `id`: `string`; \}\>
+
+Requests the connected wallet to send a batch of calls.
+
+- Docs: https://viem.sh/docs/actions/wallet/sendCalls
+- JSON-RPC Methods: [`wallet_sendCalls`](https://eips.ethereum.org/EIPS/eip-5792)
+
+**Example**
+
+```ts
+import { createWalletClient, custom } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createWalletClient({
+  chain: mainnet,
+  transport: custom(window.ethereum),
+})
+
+const id = await client.sendCalls({
+  account: '0xA0Cf798816D4b9b9866b5330EEa46a18382f251e',
+  calls: [
+    {
+      data: '0xdeadbeef',
+      to: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8',
+    },
+    {
+      to: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8',
+      value: 69420n,
+    },
+  ],
+})
 ```
 
 #### sendRawTransaction
@@ -2057,6 +2184,75 @@ await client.setStorageAt({
   address: '0xe846c6fcf817734ca4527b28ccb4aea2b6663c79',
   index: 2,
   value: '0x0000000000000000000000000000000000000000000000000000000000000069',
+})
+```
+
+#### showCallsStatus
+
+(`parameters`) => `Promise`\<`void`\>
+
+Requests for the wallet to show information about a call batch
+that was sent via `sendCalls`.
+
+- Docs: https://viem.sh/docs/actions/wallet/showCallsStatus
+- JSON-RPC Methods: [`wallet_showCallsStatus`](https://eips.ethereum.org/EIPS/eip-5792)
+
+**Example**
+
+```ts
+import { createWalletClient, custom } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createWalletClient({
+  chain: mainnet,
+  transport: custom(window.ethereum),
+})
+
+await client.showCallsStatus({ id: '0xdeadbeef' })
+```
+
+#### signAuthorization
+
+(`parameters`) => `Promise`\<`SignAuthorizationReturnType`\>
+
+Signs an [EIP-7702 Authorization](https://eips.ethereum.org/EIPS/eip-7702) object.
+
+With the calculated signature, you can:
+- use [`verifyAuthorization`](https://viem.sh/docs/eip7702/verifyAuthorization) to verify the signed Authorization object,
+- use [`recoverAuthorizationAddress`](https://viem.sh/docs/eip7702/recoverAuthorizationAddress) to recover the signing address from the signed Authorization object.
+
+**Examples**
+
+```ts
+import { createWalletClient, http } from 'viem'
+import { privateKeyToAccount } from 'viem/accounts'
+import { mainnet } from 'viem/chains'
+
+const client = createWalletClient({
+  chain: mainnet,
+  transport: http(),
+})
+
+const signature = await client.signAuthorization({
+  account: privateKeyToAccount('0x..'),
+  contractAddress: '0xA0Cf798816D4b9b9866b5330EEa46a18382f251e',
+})
+```
+
+```ts
+// Account Hoisting
+import { createWalletClient, http } from 'viem'
+import { privateKeyToAccount } from 'viem/accounts'
+import { mainnet } from 'viem/chains'
+
+const client = createWalletClient({
+  account: privateKeyToAccount('0x…'),
+  chain: mainnet,
+  transport: http(),
+})
+
+const signature = await client.signAuthorization({
+  contractAddress: '0xA0Cf798816D4b9b9866b5330EEa46a18382f251e',
 })
 ```
 
@@ -2769,6 +2965,29 @@ Compatible with Smart Contract Accounts & Externally Owned Accounts via [ERC-649
 Verify that typed data was signed by the provided address.
 
 - Docs [https://viem.sh/docs/actions/public/verifyTypedData](https://viem.sh/docs/actions/public/verifyTypedData)
+
+#### waitForCallsStatus
+
+(`parameters`) => `Promise`\<\{ `atomic`: `boolean`; `capabilities?`: \{[`key`: `string`]: `any`; \} \| \{[`key`: `string`]: `any`; \}; `chainId`: `number`; `id`: `string`; `receipts?`: `WalletCallReceipt`\<`bigint`, `"success"` \| `"reverted"`\>[]; `status`: `undefined` \| `"pending"` \| `"success"` \| `"failure"`; `statusCode`: `number`; `version`: `string`; \}\>
+
+Waits for the status & receipts of a call bundle that was sent via `sendCalls`.
+
+- Docs: https://viem.sh/docs/actions/wallet/waitForCallsStatus
+- JSON-RPC Methods: [`wallet_getCallsStatus`](https://eips.ethereum.org/EIPS/eip-5792)
+
+**Example**
+
+```ts
+import { createWalletClient, custom } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createWalletClient({
+  chain: mainnet,
+  transport: custom(window.ethereum),
+})
+
+const { receipts, status } = await waitForCallsStatus(client, { id: '0xdeadbeef' })
+```
 
 #### waitForTransactionReceipt
 

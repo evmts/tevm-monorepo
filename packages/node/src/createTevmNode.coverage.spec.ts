@@ -168,7 +168,7 @@ describe('createTevmNode coverage tests', () => {
 	it('Tests custom common with full options', async () => {
 		const customCommon = createCommon({
 			id: 1,
-			hardfork: 'cancun',
+			hardfork: 'prague',
 			eips: [1559, 4895],
 			customCrypto: { hash: undefined, keccak256: undefined, ripemd160: undefined, secp256k1: undefined } as any,
 		} as any)
@@ -180,7 +180,7 @@ describe('createTevmNode coverage tests', () => {
 
 		await client.ready()
 		const vm = await client.getVm()
-		expect(vm.common.ethjsCommon.hardfork()).toBe('cancun')
+		expect(vm.common.ethjsCommon.hardfork()).toBe('prague')
 	})
 
 	it('Tests forkTransport in deepCopy', async () => {
@@ -236,7 +236,7 @@ describe('createTevmNode coverage tests', () => {
 			common: {
 				id: 1,
 				ethjsCommon: {
-					hardfork: () => null as any, // This will make it use the default 'cancun'
+					hardfork: () => null as any, // This will make it use the default 'prague'
 					eips: () => [1559, 4895],
 					customCrypto: {},
 				} as any,
@@ -246,8 +246,8 @@ describe('createTevmNode coverage tests', () => {
 		expect(client).toBeDefined()
 		await client.ready()
 		const vm = await client.getVm()
-		// If hardfork defaulted correctly to 'cancun', this would pass
-		expect(vm.common.ethjsCommon.hardfork()).toBe('cancun')
+		// If hardfork defaulted correctly to 'prague', this would pass
+		expect(vm.common.ethjsCommon.hardfork()).toBe('prague')
 	})
 
 	// Test to cover line 76 with fork.transport but no fork option

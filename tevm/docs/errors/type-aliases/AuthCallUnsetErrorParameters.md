@@ -8,7 +8,7 @@
 
 > **AuthCallUnsetErrorParameters** = `object`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/AuthCallUnsetError.d.ts:71
+Defined in: packages/errors/types/ethereum/ethereumjs/AuthCallUnsetError.d.ts:70
 
 Parameters for constructing a [AuthCallUnsetError](../classes/AuthCallUnsetError.md).
 
@@ -16,9 +16,9 @@ Parameters for constructing a [AuthCallUnsetError](../classes/AuthCallUnsetError
 
 ### cause?
 
-> `optional` **cause**: [`ExecutionError`](../classes/ExecutionError.md) \| [`EvmError`](../../evm/classes/EvmError.md)
+> `optional` **cause**: [`ExecutionError`](../classes/ExecutionError.md) \| [`EVMError`](../../evm/classes/EVMError.md)
 
-Defined in: packages/errors/types/ethereum/ethereumjs/AuthCallUnsetError.d.ts:91
+Defined in: packages/errors/types/ethereum/ethereumjs/AuthCallUnsetError.d.ts:90
 
 - The cause of the error.
 
@@ -28,7 +28,7 @@ Defined in: packages/errors/types/ethereum/ethereumjs/AuthCallUnsetError.d.ts:91
 
 > `optional` **details**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/AuthCallUnsetError.d.ts:95
+Defined in: packages/errors/types/ethereum/ethereumjs/AuthCallUnsetError.d.ts:94
 
 - Details of the error.
 
@@ -38,7 +38,7 @@ Defined in: packages/errors/types/ethereum/ethereumjs/AuthCallUnsetError.d.ts:95
 
 > `optional` **docsBaseUrl**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/AuthCallUnsetError.d.ts:75
+Defined in: packages/errors/types/ethereum/ethereumjs/AuthCallUnsetError.d.ts:74
 
 - Base URL for the documentation.
 
@@ -48,7 +48,7 @@ Defined in: packages/errors/types/ethereum/ethereumjs/AuthCallUnsetError.d.ts:75
 
 > `optional` **docsPath**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/AuthCallUnsetError.d.ts:79
+Defined in: packages/errors/types/ethereum/ethereumjs/AuthCallUnsetError.d.ts:78
 
 - Path to the documentation.
 
@@ -58,7 +58,7 @@ Defined in: packages/errors/types/ethereum/ethereumjs/AuthCallUnsetError.d.ts:79
 
 > `optional` **docsSlug**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/AuthCallUnsetError.d.ts:83
+Defined in: packages/errors/types/ethereum/ethereumjs/AuthCallUnsetError.d.ts:82
 
 - Slug for the documentation.
 
@@ -68,7 +68,7 @@ Defined in: packages/errors/types/ethereum/ethereumjs/AuthCallUnsetError.d.ts:83
 
 > `optional` **meta**: `object`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/AuthCallUnsetError.d.ts:99
+Defined in: packages/errors/types/ethereum/ethereumjs/AuthCallUnsetError.d.ts:98
 
 - Optional object containing additional information about the error.
 
@@ -78,6 +78,6 @@ Defined in: packages/errors/types/ethereum/ethereumjs/AuthCallUnsetError.d.ts:99
 
 > `optional` **metaMessages**: `string`[]
 
-Defined in: packages/errors/types/ethereum/ethereumjs/AuthCallUnsetError.d.ts:87
+Defined in: packages/errors/types/ethereum/ethereumjs/AuthCallUnsetError.d.ts:86
 
 - Additional meta messages.

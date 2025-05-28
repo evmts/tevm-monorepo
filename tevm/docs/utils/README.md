@@ -6,15 +6,8 @@
 
 # utils
 
-## Enumerations
-
-- [KeyEncoding](enumerations/KeyEncoding.md)
-- [TypeOutput](enumerations/TypeOutput.md)
-- [ValueEncoding](enumerations/ValueEncoding.md)
-
 ## Classes
 
-- [AsyncEventEmitter](classes/AsyncEventEmitter.md)
 - [Bloom](classes/Bloom.md)
 - [EthjsAccount](classes/EthjsAccount.md)
 - [EthjsAddress](classes/EthjsAddress.md)
@@ -23,12 +16,12 @@
 ## Interfaces
 
 - [Db](interfaces/Db.md)
-- [GenesisState](interfaces/GenesisState.md)
 - [JsonRpcWithdrawal](interfaces/JsonRpcWithdrawal.md)
 
 ## Type Aliases
 
 - [AddressLike](type-aliases/AddressLike.md)
+- [AsyncEventEmitter](type-aliases/AsyncEventEmitter.md)
 - [BatchDbOp](type-aliases/BatchDbOp.md)
 - [BigIntLike](type-aliases/BigIntLike.md)
 - [BigIntToHex](type-aliases/BigIntToHex.md)
@@ -38,13 +31,16 @@
 - [EncodeDeployDataParameters](type-aliases/EncodeDeployDataParameters.md)
 - [EncodeEventTopicsParameters](type-aliases/EncodeEventTopicsParameters.md)
 - [EncodingOpts](type-aliases/EncodingOpts.md)
-- [EthjsLog](type-aliases/EthjsLog.md)
+- [GenesisState](type-aliases/GenesisState.md)
 - [JsonSerializable](type-aliases/JsonSerializable.md)
 - [JsonSerializableArray](type-aliases/JsonSerializableArray.md)
 - [JsonSerializableObject](type-aliases/JsonSerializableObject.md)
 - [JsonSerializableSet](type-aliases/JsonSerializableSet.md)
+- [KeyEncoding](type-aliases/KeyEncoding.md)
 - [SerializeToJson](type-aliases/SerializeToJson.md)
 - [SetToHex](type-aliases/SetToHex.md)
+- [TypeOutput](type-aliases/TypeOutput.md)
+- [ValueEncoding](type-aliases/ValueEncoding.md)
 - [WithdrawalData](type-aliases/WithdrawalData.md)
 
 ## Variables
@@ -57,18 +53,22 @@
 - [GWEI\_TO\_WEI](variables/GWEI_TO_WEI.md)
 - [KECCAK256\_RLP](variables/KECCAK256_RLP.md)
 - [KECCAK256\_RLP\_ARRAY](variables/KECCAK256_RLP_ARRAY.md)
+- [KeyEncoding](variables/KeyEncoding.md)
 - [PREFUNDED\_ACCOUNTS](variables/PREFUNDED_ACCOUNTS.md)
 - [PREFUNDED\_PRIVATE\_KEYS](variables/PREFUNDED_PRIVATE_KEYS.md)
 - [PREFUNDED\_PUBLIC\_KEYS](variables/PREFUNDED_PUBLIC_KEYS.md)
 - [PREFUNDED\_SEED](variables/PREFUNDED_SEED.md)
 - [randomBytes](variables/randomBytes.md)
 - [setLengthLeft](variables/setLengthLeft.md)
-- [zeros](variables/zeros.md)
+- [TypeOutput](variables/TypeOutput.md)
+- [ValueEncoding](variables/ValueEncoding.md)
 
 ## Functions
 
 - [bytesToUtf8](functions/bytesToUtf8.md)
-- [ecsign](functions/ecsign.md)
+- [createAccount](functions/createAccount.md)
+- [createAddressFromString](functions/createAddressFromString.md)
+- [createWithdrawal](functions/createWithdrawal.md)
 - [equalsBytes](functions/equalsBytes.md)
 - [invariant](functions/invariant.md)
 - [serializeTransaction](functions/serializeTransaction.md)
@@ -283,6 +283,12 @@ Re-exports [encodeFunctionResult](../index/functions/encodeFunctionResult.md)
 ### encodePacked
 
 Re-exports [encodePacked](../index/functions/encodePacked.md)
+
+***
+
+### EthjsLog
+
+Renames and re-exports [Log](../evm/type-aliases/Log.md)
 
 ***
 

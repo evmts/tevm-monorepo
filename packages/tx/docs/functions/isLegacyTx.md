@@ -8,7 +8,7 @@
 
 > **isLegacyTx**(`tx`): `tx is LegacyTransaction`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:103
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:116
 
 ## Parameters
 

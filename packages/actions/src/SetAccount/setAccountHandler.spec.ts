@@ -1,6 +1,7 @@
+import { createAddress } from '@tevm/address'
 import { createEvm } from '@tevm/evm'
 import { createTevmNode } from '@tevm/node'
-import { EthjsAccount, EthjsAddress } from '@tevm/utils'
+import { EthjsAccount } from '@tevm/utils'
 import { bytesToHex, keccak256 } from '@tevm/utils'
 import { createVm } from '@tevm/vm'
 import { describe, expect, it } from 'vitest'
@@ -21,7 +22,7 @@ describe('setAccountHandler', () => {
 			nonce: 69n,
 		})
 		expect(res.errors).toBeUndefined()
-		const account = (await vm.stateManager.getAccount(EthjsAddress.fromString(ERC20_ADDRESS))) as EthjsAccount
+		const account = (await vm.stateManager.getAccount(createAddress(ERC20_ADDRESS))) as EthjsAccount
 		expect(account?.balance).toBe(420n)
 		expect(account?.nonce).toBe(69n)
 		expect(bytesToHex(account.codeHash)).toBe(keccak256(ERC20_BYTECODE))
@@ -89,7 +90,7 @@ describe('setAccountHandler', () => {
 		})
 
 		expect(res.errors).toBeUndefined()
-		const account = (await vm.stateManager.getAccount(EthjsAddress.fromString(ERC20_ADDRESS))) as EthjsAccount
+		const account = (await vm.stateManager.getAccount(createAddress(ERC20_ADDRESS))) as EthjsAccount
 		expect(account?.balance).toBe(200n)
 		expect(account?.nonce).toBe(2n)
 	})
@@ -104,7 +105,7 @@ describe('setAccountHandler', () => {
 		})
 
 		expect(res.errors).toBeUndefined()
-		const account = (await vm.stateManager.getAccount(EthjsAddress.fromString(ERC20_ADDRESS))) as EthjsAccount
+		const account = (await vm.stateManager.getAccount(createAddress(ERC20_ADDRESS))) as EthjsAccount
 		expect(account?.balance).toBe(0n)
 		expect(account?.nonce).toBe(0n)
 	})

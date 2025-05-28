@@ -4,7 +4,7 @@ exports[`txToJsonRpcTx > should work 1`] = `
 {
   "accessList": [],
   "blobVersionedHashes": undefined,
-  "blockHash": "0xdbdfda9fdfdbd5b589ad1d93152701880b99a87cfde9d2940eba8a0a7f7120ab",
+  "blockHash": "0x3ea068e5596a9ea59d8464a64f50e5bb3dc7c0c823195bd36de80a9293293633",
   "blockNumber": "0x744f93e",
   "chainId": "0x1",
   "from": "0xf0d793fd3c1410b43c40d17f3dbbab5d92285c1d",

@@ -27,5 +27,5 @@ export const yooldoVerseTestnet = createCommon({
 	..._yooldoVerseTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

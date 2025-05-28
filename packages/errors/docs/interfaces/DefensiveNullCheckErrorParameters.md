@@ -12,7 +12,7 @@ Defined in: [packages/errors/src/defensive/DefensiveNullCheckError.js:5](https:/
 
 ### cause?
 
-> `optional` **cause**: `EvmError` \| [`InternalError`](../classes/InternalError.md)
+> `optional` **cause**: `EVMError` \| [`InternalError`](../classes/InternalError.md)
 
 Defined in: [packages/errors/src/defensive/DefensiveNullCheckError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/defensive/DefensiveNullCheckError.js#L10)
 

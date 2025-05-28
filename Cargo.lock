@@ -6139,31 +6139,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "tevm_bundler_rs"
-version = "0.1.0"
-dependencies = [
- "dashmap 5.5.3",
- "foundry-compilers 0.6.2",
- "futures",
- "hex",
- "libc",
- "napi",
- "napi-build",
- "napi-derive",
- "num_cpus",
- "once_cell",
- "regex",
- "semver 1.0.26",
- "serde",
- "serde_json",
- "sha2",
- "tevm_resolutions_rs",
- "tevm_runtime_rs",
- "tevm_solc_rs",
- "tokio",
-]
-
-[[package]]
 name = "tevm_resolutions_rs"
 version = "0.1.0"
 dependencies = [

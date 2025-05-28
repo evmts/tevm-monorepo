@@ -27,5 +27,5 @@ export const zoraSepolia = createCommon({
 	..._zoraSepolia,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

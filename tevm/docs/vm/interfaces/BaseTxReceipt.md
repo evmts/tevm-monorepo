@@ -39,7 +39,7 @@ Cumulative gas used in the block including this tx
 
 ### logs
 
-> **logs**: [`EthjsLog`](../../utils/type-aliases/EthjsLog.md)[]
+> **logs**: [`Log`](../../evm/type-aliases/Log.md)[]
 
 Defined in: packages/vm/types/utils/BaseTxReceipt.d.ts:17
 

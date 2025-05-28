@@ -10,7 +10,6 @@ import {
 	randomBytes,
 	setLengthLeft,
 	toType,
-	zeros,
 } from './ethereumjs.js'
 
 describe('ethereumjs re-exports', () => {
@@ -72,10 +71,10 @@ describe('ethereumjs re-exports', () => {
 		expect(str).toBe('Hello')
 	})
 
-	it('should properly export zeros', () => {
-		const zeroBytes = zeros(3)
-
-		expect(zeroBytes).toEqual(new Uint8Array([0, 0, 0]))
+	// zeros was removed in @ethereumjs/util v10
+	it.skip('should properly export zeros', () => {
+		// const zeroBytes = zeros(3)
+		// expect(zeroBytes).toEqual(new Uint8Array([0, 0, 0]))
 	})
 
 	it('should properly export randomBytes', () => {
