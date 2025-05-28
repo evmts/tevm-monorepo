@@ -84,8 +84,6 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-    compiler_mod.stack_check = false;
-    compiler_mod.single_threaded = true;
 
     const zabi_dep = b.dependency("zabi", .{
         .target = target,
@@ -178,17 +176,97 @@ pub fn build(b: *std.Build) void {
     wasm_mod.stack_check = false;
     wasm_mod.single_threaded = true;
 
+    // Create WASM-compatible versions of modules that need different targets
+    const address_wasm_mod = b.createModule(.{
+        .root_source_file = b.path("src/Address/address.zig"),
+        .target = wasm_target,
+        .optimize = .ReleaseSmall,
+    });
+    address_wasm_mod.stack_check = false;
+    address_wasm_mod.single_threaded = true;
+
+    const abi_wasm_mod = b.createModule(.{
+        .root_source_file = b.path("src/Abi/abi.zig"),
+        .target = wasm_target,
+        .optimize = .ReleaseSmall,
+    });
+    abi_wasm_mod.stack_check = false;
+    abi_wasm_mod.single_threaded = true;
+
+    const utils_wasm_mod = b.createModule(.{
+        .root_source_file = b.path("src/Utils/utils.zig"),
+        .target = wasm_target,
+        .optimize = .ReleaseSmall,
+    });
+    utils_wasm_mod.stack_check = false;
+    utils_wasm_mod.single_threaded = true;
+
+    const trie_wasm_mod = b.createModule(.{
+        .root_source_file = b.path("src/Trie/module.zig"),
+        .target = wasm_target,
+        .optimize = .ReleaseSmall,
+    });
+    trie_wasm_mod.stack_check = false;
+    trie_wasm_mod.single_threaded = true;
+
+    const block_wasm_mod = b.createModule(.{
+        .root_source_file = b.path("src/Block/block.zig"),
+        .target = wasm_target,
+        .optimize = .ReleaseSmall,
+    });
+    block_wasm_mod.stack_check = false;
+    block_wasm_mod.single_threaded = true;
+    block_wasm_mod.addImport("Address", address_wasm_mod);
+
+    const bytecode_wasm_mod = b.createModule(.{
+        .root_source_file = b.path("src/Bytecode/bytecode.zig"),
+        .target = wasm_target,
+        .optimize = .ReleaseSmall,
+    });
+    bytecode_wasm_mod.stack_check = false;
+    bytecode_wasm_mod.single_threaded = true;
+
+    const rlp_wasm_mod = b.createModule(.{
+        .root_source_file = b.path("src/Rlp/rlp.zig"),
+        .target = wasm_target,
+        .optimize = .ReleaseSmall,
+    });
+    rlp_wasm_mod.stack_check = false;
+    rlp_wasm_mod.single_threaded = true;
+    rlp_wasm_mod.addImport("Utils", utils_wasm_mod);
+
+    trie_wasm_mod.addImport("Rlp", rlp_wasm_mod);
+    trie_wasm_mod.addImport("Utils", utils_wasm_mod);
+
+    const token_wasm_mod = b.createModule(.{
+        .root_source_file = b.path("src/Token/token.zig"),
+        .target = wasm_target,
+        .optimize = .ReleaseSmall,
+    });
+    token_wasm_mod.stack_check = false;
+    token_wasm_mod.single_threaded = true;
+
+    const evm_wasm_mod = b.createModule(.{
+        .root_source_file = b.path("src/evm/evm.zig"),
+        .target = wasm_target,
+        .optimize = .ReleaseSmall,
+    });
+    evm_wasm_mod.stack_check = false;
+    evm_wasm_mod.single_threaded = true;
+    evm_wasm_mod.addImport("Address", address_wasm_mod);
+    evm_wasm_mod.addImport("Block", block_wasm_mod);
+
     // Add package paths for absolute imports to WASM module
-    wasm_mod.addImport("Address", address_mod);
-    wasm_mod.addImport("Abi", abi_mod);
-    wasm_mod.addImport("Block", block_mod);
-    wasm_mod.addImport("Bytecode", bytecode_mod);
-    wasm_mod.addImport("Compiler", compiler_mod);
-    wasm_mod.addImport("evm", evm_mod);
-    wasm_mod.addImport("Rlp", rlp_mod);
-    wasm_mod.addImport("Token", token_mod);
-    wasm_mod.addImport("Trie", trie_mod);
-    wasm_mod.addImport("Utils", utils_mod);
+    wasm_mod.addImport("Address", address_wasm_mod);
+    wasm_mod.addImport("Abi", abi_wasm_mod);
+    wasm_mod.addImport("Block", block_wasm_mod);
+    wasm_mod.addImport("Bytecode", bytecode_wasm_mod);
+    wasm_mod.addImport("Compiler", compiler_wasm_mod);
+    wasm_mod.addImport("evm", evm_wasm_mod);
+    wasm_mod.addImport("Rlp", rlp_wasm_mod);
+    wasm_mod.addImport("Token", token_wasm_mod);
+    wasm_mod.addImport("Trie", trie_wasm_mod);
+    wasm_mod.addImport("Utils", utils_wasm_mod);
 
     // Modules can depend on one another using the `std.Build.Module.addImport` function.
     exe_mod.addImport("zigevm", target_architecture_mod);
@@ -286,7 +364,34 @@ pub fn build(b: *std.Build) void {
     lib_unit_tests.root_module.addImport("Trie", trie_mod);
     lib_unit_tests.root_module.addImport("Utils", utils_mod);
 
-    // Frame test removed - Frame_test.zig doesn't exist
+    // Frame test
+    const frame_test = b.addTest(.{
+        .name = "frame-test",
+        .root_source_file = b.path("test/Evm/frame_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    frame_test.root_module.addImport("evm", evm_mod);
+    frame_test.root_module.addImport("address", address_mod);
+
+    const run_frame_test = b.addRunArtifact(frame_test);
+
+    const frame_test_step = b.step("test-frame", "Run Frame tests");
+    frame_test_step.dependOn(&run_frame_test.step);
+
+    // Minimal frame test
+    const frame_minimal_test = b.addTest(.{
+        .name = "frame-minimal-test",
+        .root_source_file = b.path("test/Evm/frame_minimal_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    frame_minimal_test.root_module.addImport("evm", evm_mod);
+
+    const run_frame_minimal_test = b.addRunArtifact(frame_minimal_test);
+
+    const frame_minimal_test_step = b.step("test-frame-minimal", "Run minimal Frame tests");
+    frame_minimal_test_step.dependOn(&run_frame_minimal_test.step);
 
     // Add a test for evm.zig
     const evm_test = b.addTest(.{
@@ -473,20 +578,99 @@ pub fn build(b: *std.Build) void {
 
     const memory_benchmark_step = b.step("bench-memory", "Run Memory benchmarks");
     memory_benchmark_step.dependOn(&run_memory_benchmark.step);
+    
+    // Add BitVec benchmark
+    const bitvec_benchmark = b.addExecutable(.{
+        .name = "bitvec-benchmark",
+        .root_source_file = b.path("test/Bench/bitvec_benchmark.zig"),
+        .target = target,
+        .optimize = .ReleaseFast, // Use ReleaseFast for benchmarks
+    });
+    bitvec_benchmark.root_module.addImport("evm", evm_mod);
+    
+    const run_bitvec_benchmark = b.addRunArtifact(bitvec_benchmark);
+    
+    const bitvec_benchmark_step = b.step("bench-bitvec", "Run BitVec benchmarks");
+    bitvec_benchmark_step.dependOn(&run_bitvec_benchmark.step);
+    
+    // Add Contract benchmark
+    const contract_benchmark = b.addExecutable(.{
+        .name = "contract-benchmark",
+        .root_source_file = b.path("test/Bench/contract_benchmark.zig"),
+        .target = target,
+        .optimize = .ReleaseFast, // Use ReleaseFast for benchmarks
+    });
+    contract_benchmark.root_module.addImport("evm", evm_mod);
+    
+    const run_contract_benchmark = b.addRunArtifact(contract_benchmark);
+    
+    const contract_benchmark_step = b.step("bench-contract", "Run Contract benchmarks");
+    contract_benchmark_step.dependOn(&run_contract_benchmark.step);
 
-    // Add Rust Foundry wrapper integration
+    const constants_test = b.addTest(.{
+        .name = "constants-test",
+        .root_source_file = b.path("test/Evm/constants_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    constants_test.root_module.addImport("evm", evm_mod);
+
+    const run_constants_test = b.addRunArtifact(constants_test);
+
+    const constants_test_step = b.step("test-constants", "Run Constants tests");
+    constants_test_step.dependOn(&run_constants_test.step);
+    
+    // Add Contract test
+    const contract_test = b.addTest(.{
+        .name = "contract-test",
+        .root_source_file = b.path("test/Evm/contract_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    contract_test.root_module.addImport("evm", evm_mod);
+    
+    const run_contract_test = b.addRunArtifact(contract_test);
+    
+    const contract_test_step = b.step("test-contract", "Run Contract tests");
+    contract_test_step.dependOn(&run_contract_test.step);
+    
+    // Add BitVec test
+    const bitvec_test = b.addTest(.{
+        .name = "bitvec-test",
+        .root_source_file = b.path("test/Evm/bitvec_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    bitvec_test.root_module.addImport("evm", evm_mod);
+    
+    const run_bitvec_test = b.addRunArtifact(bitvec_test);
+    
+    const bitvec_test_step = b.step("test-bitvec", "Run BitVec tests");
+    bitvec_test_step.dependOn(&run_bitvec_test.step);
+    
+    // Add Journal test
+    const journal_test = b.addTest(.{
+        .name = "journal-test",
+        .root_source_file = b.path("test/Evm/journal_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    journal_test.root_module.addImport("evm", evm_mod);
+    
+    const run_journal_test = b.addRunArtifact(journal_test);
+    
+    const journal_test_step = b.step("test-journal", "Run Journal tests");
+    journal_test_step.dependOn(&run_journal_test.step);
+
     const rust_build = @import("src/Compilers/rust_build.zig");
     const rust_step = rust_build.addRustIntegration(b, target, optimize) catch |err| {
         std.debug.print("Failed to add Rust integration: {}\n", .{err});
         return;
     };
 
-    // Make the compiler test depend on the Rust build
     compiler_test.step.dependOn(rust_step);
 
-    // Link the Rust library to the compiler test
     compiler_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
-    // Link macOS frameworks if on macOS
     if (target.result.os.tag == .macos) {
         compiler_test.linkFramework("CoreFoundation");
         compiler_test.linkFramework("Security");
@@ -500,7 +684,6 @@ pub fn build(b: *std.Build) void {
 
     const run_exe_unit_tests = b.addRunArtifact(exe_unit_tests);
 
-    // Define test step for all tests
     const test_step = b.step("test", "Run unit tests");
     test_step.dependOn(&run_lib_unit_tests.step);
     test_step.dependOn(&run_exe_unit_tests.step);
@@ -514,8 +697,12 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_memory_test.step);
     test_step.dependOn(&run_memory_stress_test.step);
     test_step.dependOn(&run_memory_comparison_test.step);
+    test_step.dependOn(&run_constants_test.step);
+    test_step.dependOn(&run_contract_test.step);
+    test_step.dependOn(&run_bitvec_test.step);
+    test_step.dependOn(&run_journal_test.step);
+    test_step.dependOn(&run_frame_test.step);
 
-    // Define a single test step that runs all tests
     const test_all_step = b.step("test-all", "Run all unit tests");
     test_all_step.dependOn(test_step);
 

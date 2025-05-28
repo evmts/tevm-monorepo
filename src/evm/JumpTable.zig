@@ -148,14 +148,14 @@ fn undefinedExecute(pc: usize, interpreter: *Interpreter, state: *InterpreterSta
     _ = pc;
     _ = interpreter;
     _ = state;
-    return opcodes.ExecutionError.INVALID;
+    return opcodes.ExecutionError.Invalid;
 }
 
 fn stopExecute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) opcodes.ExecutionError![]const u8 {
     _ = pc;
     _ = interpreter;
     _ = state;
-    return opcodes.ExecutionError.STOP;
+    return opcodes.ExecutionError.Stop;
 }
 
 fn dummyExecute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) opcodes.ExecutionError![]const u8 {

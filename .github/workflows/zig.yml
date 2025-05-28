@@ -38,4 +38,4 @@ jobs:
 
       - name: Run Zig tests
         run: |
-          zig build test-server && echo "✅ Server tests passed"
+          zig build test-all && echo "✅ Server tests passed"
