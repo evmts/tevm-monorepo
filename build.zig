@@ -471,6 +471,20 @@ pub fn build(b: *std.Build) void {
 
     const memory_benchmark_step = b.step("bench-memory", "Run Memory benchmarks");
     memory_benchmark_step.dependOn(&run_memory_benchmark.step);
+    
+    // Add BitVec benchmark
+    const bitvec_benchmark = b.addExecutable(.{
+        .name = "bitvec-benchmark",
+        .root_source_file = b.path("test/Bench/bitvec_benchmark.zig"),
+        .target = target,
+        .optimize = .ReleaseFast, // Use ReleaseFast for benchmarks
+    });
+    bitvec_benchmark.root_module.addImport("evm", evm_mod);
+    
+    const run_bitvec_benchmark = b.addRunArtifact(bitvec_benchmark);
+    
+    const bitvec_benchmark_step = b.step("bench-bitvec", "Run BitVec benchmarks");
+    bitvec_benchmark_step.dependOn(&run_bitvec_benchmark.step);
 
     const constants_test = b.addTest(.{
         .name = "constants-test",

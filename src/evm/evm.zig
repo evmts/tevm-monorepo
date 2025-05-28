@@ -16,4 +16,14 @@ pub const EvmError = constants_mod.EvmError;
 pub const MemorySize = constants_mod.MemorySize;
 pub const GasResult = constants_mod.GasResult;
 
+const bitvec_mod = @import("bitvec.zig");
+pub const BitVec = bitvec_mod.BitVec;
+pub const BitVecError = bitvec_mod.BitVecError;
+pub const analyzeCode = bitvec_mod.analyzeCode;
+pub const analyzeJumpdests = bitvec_mod.analyzeJumpdests;
+pub const analyzeBytecode = bitvec_mod.analyzeBytecode;
+pub const CodeAnalysis = bitvec_mod.CodeAnalysis;
+pub const PaddedAnalysis = bitvec_mod.PaddedAnalysis;
+pub const analyzeWithPadding = bitvec_mod.analyzeWithPadding;
+
 const Evm = struct { depth: u16 };
