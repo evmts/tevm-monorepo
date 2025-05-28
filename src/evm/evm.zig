@@ -26,4 +26,9 @@ pub const CodeAnalysis = bitvec_mod.CodeAnalysis;
 pub const PaddedAnalysis = bitvec_mod.PaddedAnalysis;
 pub const analyzeWithPadding = bitvec_mod.analyzeWithPadding;
 
+const contract_mod = @import("Contract.zig");
+pub const Contract = contract_mod.Contract;
+pub const StoragePool = contract_mod.StoragePool;
+pub const clearAnalysisCache = contract_mod.clearAnalysisCache;
+
 const Evm = struct { depth: u16 };
