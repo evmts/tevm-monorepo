@@ -3,7 +3,6 @@ packages:
   - bundler-packages/*
   - bundler-packages/resolutions-rs/npm/*
   - bundler-packages/runtime-rs/npm/*
-  - bundler-packages/bundler-rs/npm/*
   - bundler
   - configs/*
   - cli

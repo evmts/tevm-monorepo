@@ -27,5 +27,5 @@ export const btr = createCommon({
 	..._btr,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

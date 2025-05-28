@@ -28,7 +28,7 @@ Blockchain
 
 ### events?
 
-> `optional` **events**: `AsyncEventEmitter`\<`BlockchainEvents`\>
+> `optional` **events**: `AsyncEventEmitter`\<`BlockchainEvent`\>
 
 Optional events emitter
 

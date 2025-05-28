@@ -27,5 +27,5 @@ export const zoraTestnet = createCommon({
 	..._zoraTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

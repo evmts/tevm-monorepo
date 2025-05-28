@@ -27,5 +27,5 @@ export const opBNB = createCommon({
 	..._opBNB,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

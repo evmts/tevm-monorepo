@@ -40,7 +40,7 @@ Defined in: [packages/block/src/types.ts:429](https://github.com/evmts/tevm-mono
 
 ### transactions?
 
-> `optional` **transactions**: `JsonTx`[]
+> `optional` **transactions**: `JSONTx`[]
 
 Defined in: [packages/block/src/types.ts:426](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L426)
 
@@ -56,6 +56,6 @@ Defined in: [packages/block/src/types.ts:427](https://github.com/evmts/tevm-mono
 
 ### withdrawals?
 
-> `optional` **withdrawals**: `JsonRpcWithdrawal`[]
+> `optional` **withdrawals**: `JSONRPCWithdrawal`[]
 
 Defined in: [packages/block/src/types.ts:428](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L428)

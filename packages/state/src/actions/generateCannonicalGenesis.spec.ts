@@ -1,6 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { InternalError } from '@tevm/errors'
-import { EthjsAccount } from '@tevm/utils'
+import { createAccount } from '@tevm/utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import type { TevmState } from '../state-types/TevmState.js'
@@ -17,7 +17,7 @@ describe(generateCanonicalGenesis.name, () => {
 
 		state = await (async () => {
 			const state = createBaseState({})
-			await putAccount(state)(createAddress(69), EthjsAccount.fromAccountData({ balance: 20n, nonce: 2n }))
+			await putAccount(state)(createAddress(69), createAccount({ balance: 20n, nonce: 2n }))
 			return dumpCanonicalGenesis(baseState)()
 		})()
 	})

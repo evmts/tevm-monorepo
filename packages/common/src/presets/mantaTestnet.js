@@ -27,5 +27,5 @@ export const mantaTestnet = createCommon({
 	..._mantaTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

@@ -33,30 +33,40 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    address_mod.stack_check = false;
+    address_mod.single_threaded = true;
 
     const abi_mod = b.createModule(.{
         .root_source_file = b.path("src/Abi/abi.zig"),
         .target = target,
         .optimize = optimize,
     });
+    abi_mod.stack_check = false;
+    abi_mod.single_threaded = true;
 
     const utils_mod = b.createModule(.{
         .root_source_file = b.path("src/Utils/utils.zig"),
         .target = target,
         .optimize = optimize,
     });
+    utils_mod.stack_check = false;
+    utils_mod.single_threaded = true;
 
     const trie_mod = b.createModule(.{
         .root_source_file = b.path("src/Trie/module.zig"),
         .target = target,
         .optimize = optimize,
     });
+    trie_mod.stack_check = false;
+    trie_mod.single_threaded = true;
 
     const block_mod = b.createModule(.{
         .root_source_file = b.path("src/Block/block.zig"),
         .target = target,
         .optimize = optimize,
     });
+    block_mod.stack_check = false;
+    block_mod.single_threaded = true;
 
     // Add imports to the block_mod
     block_mod.addImport("Address", address_mod);
@@ -66,6 +76,8 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    bytecode_mod.stack_check = false;
+    bytecode_mod.single_threaded = true;
 
     const compiler_mod = b.createModule(.{
         .root_source_file = b.path("src/Compilers/compiler.zig"),
@@ -73,18 +85,28 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
-    // Add zabi dependency to compiler module
     const zabi_dep = b.dependency("zabi", .{
         .target = target,
         .optimize = optimize,
     });
     compiler_mod.addImport("zabi", zabi_dep.module("zabi"));
 
+    // Create a separate compiler module for WASM without problematic dependencies
+    const compiler_wasm_mod = b.createModule(.{
+        .root_source_file = b.path("src/Compilers/compiler_wasm.zig"),
+        .target = wasm_target,
+        .optimize = .ReleaseSmall,
+    });
+    compiler_wasm_mod.stack_check = false;
+    compiler_wasm_mod.single_threaded = true;
+
     const rlp_mod = b.createModule(.{
         .root_source_file = b.path("src/Rlp/rlp.zig"),
         .target = target,
         .optimize = optimize,
     });
+    rlp_mod.stack_check = false;
+    rlp_mod.single_threaded = true;
 
     // Add imports to the rlp_mod
     rlp_mod.addImport("Utils", utils_mod);
@@ -98,12 +120,16 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    token_mod.stack_check = false;
+    token_mod.single_threaded = true;
 
     const evm_mod = b.createModule(.{
         .root_source_file = b.path("src/evm/evm.zig"),
         .target = target,
         .optimize = optimize,
     });
+    evm_mod.stack_check = false;
+    evm_mod.single_threaded = true;
 
     // Add imports to the evm_mod
     evm_mod.addImport("Address", address_mod);
@@ -115,6 +141,10 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+
+    // Disable stack checking to avoid undefined __zig_probe_stack references
+    target_architecture_mod.stack_check = false;
+    target_architecture_mod.single_threaded = true;
 
     // Add package paths for absolute imports for all modules
     target_architecture_mod.addImport("Address", address_mod);
@@ -134,6 +164,8 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    exe_mod.stack_check = false;
+    exe_mod.single_threaded = true;
 
     // Create WASM module with the same source but different target
     const wasm_mod = b.createModule(.{
@@ -141,6 +173,8 @@ pub fn build(b: *std.Build) void {
         .target = wasm_target,
         .optimize = .ReleaseSmall,
     });
+    wasm_mod.stack_check = false;
+    wasm_mod.single_threaded = true;
 
     // Add package paths for absolute imports to WASM module
     wasm_mod.addImport("Address", address_mod);
@@ -163,6 +197,10 @@ pub fn build(b: *std.Build) void {
         .name = "zigevm",
         .root_module = target_architecture_mod,
     });
+
+    // Disable stack checking to avoid undefined __zig_probe_stack references
+    lib.root_module.stack_check = false;
+    lib.root_module.single_threaded = true;
 
     // Create the CLI executable
     const exe = b.addExecutable(.{
@@ -434,7 +472,6 @@ pub fn build(b: *std.Build) void {
     const memory_benchmark_step = b.step("bench-memory", "Run Memory benchmarks");
     memory_benchmark_step.dependOn(&run_memory_benchmark.step);
 
-    // Add Constants tests
     const constants_test = b.addTest(.{
         .name = "constants-test",
         .root_source_file = b.path("test/Evm/constants_test.zig"),
@@ -448,20 +485,15 @@ pub fn build(b: *std.Build) void {
     const constants_test_step = b.step("test-constants", "Run Constants tests");
     constants_test_step.dependOn(&run_constants_test.step);
 
-    // Add Rust Foundry wrapper integration
     const rust_build = @import("src/Compilers/rust_build.zig");
     const rust_step = rust_build.addRustIntegration(b, target, optimize) catch |err| {
         std.debug.print("Failed to add Rust integration: {}\n", .{err});
         return;
     };
 
-    // Make the compiler test depend on the Rust build
     compiler_test.step.dependOn(rust_step);
 
-    // Link the Rust library to the compiler test
     compiler_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
-
-    // Link macOS frameworks if on macOS
     if (target.result.os.tag == .macos) {
         compiler_test.linkFramework("CoreFoundation");
         compiler_test.linkFramework("Security");
@@ -475,7 +507,6 @@ pub fn build(b: *std.Build) void {
 
     const run_exe_unit_tests = b.addRunArtifact(exe_unit_tests);
 
-    // Define test step for all tests
     const test_step = b.step("test", "Run unit tests");
     test_step.dependOn(&run_lib_unit_tests.step);
     test_step.dependOn(&run_exe_unit_tests.step);
@@ -491,7 +522,6 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_memory_comparison_test.step);
     test_step.dependOn(&run_constants_test.step);
 
-    // Define a single test step that runs all tests
     const test_all_step = b.step("test-all", "Run all unit tests");
     test_all_step.dependOn(test_step);
 

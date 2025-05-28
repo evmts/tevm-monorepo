@@ -27,5 +27,5 @@ export const lightlinkPegasus = createCommon({
 	..._lightlinkPegasus,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

@@ -27,5 +27,5 @@ export const skaleCalypsoTestnet = createCommon({
 	..._skaleCalypsoTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

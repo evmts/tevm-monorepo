@@ -93,3 +93,5 @@ TODO.md
 **/.claude/settings.local.json
 
 g/
+.cursor/rules/nx-rules.mdc
+.github/instructions/nx.instructions.md

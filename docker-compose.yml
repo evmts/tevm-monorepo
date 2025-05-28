@@ -1,0 +1,38 @@
+services:
+  tevm-build:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    container_name: tevm-monorepo-build
+    environment:
+      - TEVM_RPC_URLS_MAINNET=${TEVM_RPC_URLS_MAINNET:-}
+      - TEVM_RPC_URLS_OPTIMISM=${TEVM_RPC_URLS_OPTIMISM:-}
+      - DOCKER_BUILDKIT=1
+      - BUILDKIT_PROGRESS=plain
+    volumes:
+      # Mount build cache to persist between runs
+      - pnpm-store:/pnpm/store
+      - cargo-cache:/root/.cargo
+      - zig-cache:/root/.cache/zig
+      # Mount dist and build outputs if needed
+      - ./dist:/app/dist
+      - ./packages:/app/packages
+      - ./bundler-packages:/app/bundler-packages
+    working_dir: /app
+    # Run the full build command including Zig
+    command: ["bun", "allz"]
+    # Allocate more resources for the build
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 8G
+        reservations:
+          cpus: '2'
+          memory: 4G
+
+volumes:
+  pnpm-store:
+  cargo-cache:
+  zig-cache:

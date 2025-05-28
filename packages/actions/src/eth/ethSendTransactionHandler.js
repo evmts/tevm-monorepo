@@ -11,7 +11,7 @@ import { callHandler } from '../Call/callHandler.js'
  * @returns {import('./EthHandler.js').EthSendTransactionHandler}
  */
 export const ethSendTransactionHandler = (client) => async (params) => {
-	let tx = TransactionFactory.fromTxData(
+	let tx = TransactionFactory(
 		{
 			...params,
 			data: params.data ?? new Uint8Array(),

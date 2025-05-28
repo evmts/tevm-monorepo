@@ -16,7 +16,7 @@ Parameters for constructing a [EvmRevertError](../classes/EvmRevertError.md).
 
 ### cause?
 
-> `optional` **cause**: [`EvmError`](../../evm/classes/EvmError.md)
+> `optional` **cause**: [`EVMError`](../../evm/classes/EVMError.md)
 
 Defined in: packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:99
 

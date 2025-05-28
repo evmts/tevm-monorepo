@@ -1,5 +1,5 @@
+import { createAddress } from '@tevm/address'
 import { createTevmNode } from '@tevm/node'
-import { EthjsAddress } from '@tevm/utils'
 import { encodeFunctionData } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
@@ -328,6 +328,6 @@ describe('callHandler', () => {
 				value: 420n,
 			}),
 		).toEqual('0x')
-		expect((await vm.evm.stateManager.getAccount(EthjsAddress.fromString(to)))?.balance).not.toEqual(420n)
+		expect((await vm.evm.stateManager.getAccount(createAddress(to)))?.balance).not.toEqual(420n)
 	})
 })

@@ -1,4 +1,4 @@
-import { EthjsAddress, hexToBytes } from '@tevm/utils'
+import { createAddressFromString, hexToBytes } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { dumpStorage } from './dumpStorage.js'
@@ -9,7 +9,7 @@ describe(dumpStorage.name, () => {
 			loggingLevel: 'warn',
 		})
 
-		const address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
+		const address = createAddressFromString(`0x${'01'.repeat(20)}`)
 
 		const key0 = hexToBytes('0x0')
 		const key1 = hexToBytes('0x1')
@@ -31,7 +31,7 @@ describe(dumpStorage.name, () => {
 		})
 		baseState.caches.storage = createBaseState({ loggingLevel: 'warn' }).caches.storage
 
-		const address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
+		const address = createAddressFromString(`0x${'01'.repeat(20)}`)
 
 		const key0 = hexToBytes('0x0')
 		const key1 = hexToBytes('0x1')

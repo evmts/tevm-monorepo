@@ -45,7 +45,7 @@ describe(getAccountFromProvider.name, () => {
 			    224,
 			    127,
 			  ],
-			  "_codeSize": null,
+			  "_codeSize": 0,
 			  "_nonce": 1n,
 			  "_storageRoot": Uint8Array [
 			    92,

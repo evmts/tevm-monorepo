@@ -24,8 +24,8 @@ export const validateRunTx = (vm) => {
 
 		if (_opts.skipHardForkValidation !== true) {
 			// Find and set preMerge hf for easy access later
-			const hfs = vm.common.ethjsCommon.hardforks()
-			const preMergeIndex = hfs.findIndex((hf) => hf.ttd !== null && hf.ttd !== undefined) - 1
+			const hfs = /** @type {any} */ (vm.common).ethjsCommon.hardforks()
+			const preMergeIndex = hfs.findIndex((/** @type {any} */ hf) => hf.ttd !== null && hf.ttd !== undefined) - 1
 			// If no pre merge hf found, set it to first hf even if its merge
 			const preMergeHf = preMergeIndex >= 0 ? hfs[preMergeIndex]?.name : hfs[0]?.name
 

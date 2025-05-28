@@ -1,15 +1,15 @@
-import type { VMEvents } from '@ethereumjs/vm'
 import type { Chain } from '@tevm/blockchain'
 import type { Common } from '@tevm/common'
-import type { Evm } from '@tevm/evm'
+import type { EvmType } from '@tevm/evm'
 import type { StateManager } from '@tevm/state'
 import type { AsyncEventEmitter } from '@tevm/utils'
+import type { VMEvents } from './utils/index.js'
 
 export type BaseVm = {
 	common: Common
 	stateManager: StateManager
 	blockchain: Chain
-	evm: Evm
+	evm: EvmType
 	events: AsyncEventEmitter<VMEvents>
 	/**
 	 * This is copied from ethereumjs and we want to match the interface

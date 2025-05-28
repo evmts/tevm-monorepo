@@ -1,6 +1,6 @@
 {
   "name": "@tevm/jsonrpc",
-  "version": "1.0.0-next.142",
+  "version": "1.0.0-next.146",
   "private": false,
   "description": "A typesafe library for writing forge scripts in typescript",
   "keywords": [
@@ -65,14 +65,14 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@ponder/utils": "^0.2.3"
+    "@ponder/utils": "^0.2.7"
   },
   "devDependencies": {
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^"
   },
   "peerDependencies": {
-    "viem": "^2.21.1"
+    "viem": "^2.30.1"
   },
   "publishConfig": {
     "access": "public"

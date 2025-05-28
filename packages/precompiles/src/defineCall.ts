@@ -1,4 +1,4 @@
-import { EvmError, EvmErrorMessage, type ExecResult } from '@tevm/evm'
+import { EvmError, type ExecResult } from '@tevm/evm'
 import {
 	type Abi,
 	type AbiParametersToPrimitiveTypes,
@@ -100,7 +100,7 @@ export const defineCall = <TAbi extends Abi>(
 				executionGasUsed: BigInt(0),
 				returnValue: new Uint8Array(),
 				exceptionError: {
-					...new EvmError(EvmErrorMessage.REVERT),
+					...new EvmError('revert' as any),
 					...{
 						message: typeof e === 'string' ? e : e instanceof Error ? e.message : 'unknown error',
 					},

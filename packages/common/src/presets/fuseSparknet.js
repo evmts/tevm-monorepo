@@ -27,5 +27,5 @@ export const fuseSparknet = createCommon({
 	..._fuseSparknet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

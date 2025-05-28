@@ -12,7 +12,7 @@ Defined in: [packages/errors/src/common/EipNotEnabledError.js:5](https://github.
 
 ### cause?
 
-> `optional` **cause**: `EvmError` \| [`ExecutionError`](../classes/ExecutionError.md)
+> `optional` **cause**: `EVMError` \| [`ExecutionError`](../classes/ExecutionError.md)
 
 Defined in: [packages/errors/src/common/EipNotEnabledError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/common/EipNotEnabledError.js#L10)
 

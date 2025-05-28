@@ -7,9 +7,3 @@ Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
 Details: {"error":"UNKNOWN_ERROR"}
 Version: 1.1.0.next-73]
 `;
-
-exports[`createEvmError should return InternalError for unknown error 1`] = `[_InternalError: UNKNOWN_ERROR
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Details: {"error":"UNKNOWN_ERROR"}
-Version: 1.1.0.next-73]`;

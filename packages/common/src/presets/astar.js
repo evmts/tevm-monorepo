@@ -27,5 +27,5 @@ export const astar = createCommon({
 	..._astar,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

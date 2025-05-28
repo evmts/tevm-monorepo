@@ -6,7 +6,7 @@
 
 # Function: createEvm()
 
-> **createEvm**(`__namedParameters`): `Promise`\<[`Evm`](../classes/Evm.md)\>
+> **createEvm**(`__namedParameters`): `Promise`\<[`EvmType`](../classes/EvmType.md)\>
 
 Defined in: packages/evm/dist/index.d.ts:193
 
@@ -18,4 +18,4 @@ Defined in: packages/evm/dist/index.d.ts:193
 
 ## Returns
 
-`Promise`\<[`Evm`](../classes/Evm.md)\>
+`Promise`\<[`EvmType`](../classes/EvmType.md)\>

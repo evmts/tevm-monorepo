@@ -24,6 +24,8 @@ Defined in: [packages/state/src/actions/dumpStorageRange.js:7](https://github.co
 
 > (`address`, `startKey`, `limit`): `Promise`\<`StorageRange`\>
 
+Dumps a range of storage values
+
 ### Parameters
 
 #### address

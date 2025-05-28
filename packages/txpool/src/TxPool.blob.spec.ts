@@ -2,7 +2,7 @@ import { createChain } from '@tevm/blockchain'
 import { optimism } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
-import { EthjsAccount, EthjsAddress, parseEther } from '@tevm/utils'
+import { EthjsAddress, createAccount, createAddressFromString, parseEther } from '@tevm/utils'
 import { type Vm, createVm } from '@tevm/vm'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { TxPool } from './TxPool.js'
@@ -23,7 +23,7 @@ vi.mock('@tevm/tx', async (importOriginal) => {
 				return true
 			}
 			getSenderAddress() {
-				return EthjsAddress.fromString('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266')
+				return createAddressFromString('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266')
 			}
 			hash() {
 				return new Uint8Array(32).fill(1)
@@ -43,10 +43,10 @@ describe('TxPool with Blob Transactions', () => {
 		const common = optimism.copy()
 		const blockchain = await createChain({ common })
 		const stateManager = createStateManager({})
-		senderAddress = EthjsAddress.fromString('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266')
+		senderAddress = createAddressFromString('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266')
 		await stateManager.putAccount(
 			senderAddress,
-			EthjsAccount.fromAccountData({
+			createAccount({
 				balance: parseEther('100'),
 			}),
 		)

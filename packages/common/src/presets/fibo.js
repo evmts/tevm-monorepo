@@ -27,5 +27,5 @@ export const fibo = createCommon({
 	..._fibo,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

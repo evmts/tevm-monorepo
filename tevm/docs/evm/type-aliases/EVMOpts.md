@@ -6,7 +6,7 @@
 
 # Type Alias: EVMOpts
 
-> **EVMOpts** = `Parameters`\<*typeof* `EVM.create`\>\[`0`\]
+> **EVMOpts** = `EVMOpts$1`
 
 Defined in: packages/evm/dist/index.d.ts:68
 

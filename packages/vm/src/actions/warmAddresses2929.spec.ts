@@ -1,5 +1,5 @@
 import { type Mock, beforeEach, describe, expect, it, jest } from 'bun:test'
-import { EthjsAddress, bytesToUnprefixedHex } from '@tevm/utils'
+import { EthjsAddress, bytesToUnprefixedHex, createAddressFromString } from '@tevm/utils'
 import type { Vm } from '../Vm.js'
 import { warmAddresses2929 } from './warmAddresses2929.js'
 
@@ -10,9 +10,9 @@ describe('warmAddresses2929', () => {
 	let coinbase: EthjsAddress
 
 	beforeEach(() => {
-		caller = EthjsAddress.fromString(`0x${'11'.repeat(20)}`)
-		to = EthjsAddress.fromString(`0x${'22'.repeat(20)}`)
-		coinbase = EthjsAddress.fromString(`0x${'33'.repeat(20)}`)
+		caller = createAddressFromString(`0x${'11'.repeat(20)}`)
+		to = createAddressFromString(`0x${'22'.repeat(20)}`)
+		coinbase = createAddressFromString(`0x${'33'.repeat(20)}`)
 
 		vm = {
 			common: {

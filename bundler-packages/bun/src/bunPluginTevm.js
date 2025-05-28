@@ -3,7 +3,6 @@ import { createCache } from '@tevm/bundler-cache'
 import { defaultConfig, loadConfig } from '@tevm/config'
 import { createSolc } from '@tevm/solc'
 import { catchTag, logWarning, map, runSync } from 'effect/Effect'
-// @ts-expect-error
 import defaultSolc from 'solc'
 import { bunFileAccesObject } from './bunFileAccessObject.js'
 

@@ -46,11 +46,11 @@ Defined in: packages/actions/types/debug/DebugResult.d.ts:48
 
 ##### common.consensus.algorithm
 
-> `readonly` **algorithm**: `string` \| [`ConsensusAlgorithm`](../../common/enumerations/ConsensusAlgorithm.md)
+> `readonly` **algorithm**: `string` \| [`ConsensusAlgorithm`](../../common/type-aliases/ConsensusAlgorithm.md)
 
 ##### common.consensus.type
 
-> `readonly` **type**: `string` \| [`ConsensusType`](../../common/enumerations/ConsensusType.md)
+> `readonly` **type**: `string` \| [`ConsensusType`](../../common/type-aliases/ConsensusType.md)
 
 ##### common.eips
 

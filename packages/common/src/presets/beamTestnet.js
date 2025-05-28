@@ -27,5 +27,5 @@ export const beamTestnet = createCommon({
 	..._beamTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

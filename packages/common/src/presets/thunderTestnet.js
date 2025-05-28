@@ -27,5 +27,5 @@ export const thunderTestnet = createCommon({
 	..._thunderTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

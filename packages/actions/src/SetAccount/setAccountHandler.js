@@ -1,6 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { AccountNotFoundError, InternalError } from '@tevm/errors'
-import { EthjsAccount } from '@tevm/utils'
+import { createAccount } from '@tevm/utils'
 import { hexToBytes, keccak256 } from '@tevm/utils'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
@@ -95,33 +95,44 @@ export const setAccountHandler =
 				throw account.errors.length > 1 ? new AggregateError(account.errors) : account.errors[0]
 			}
 
-			promises.push(
-				vm.stateManager.putAccount(
-					address,
-					new EthjsAccount(
-						params.nonce ?? account?.nonce,
-						params.balance ?? account?.nonce,
-						(params.storageRoot && hexToBytes(params.storageRoot)) ??
-							(account?.storageRoot !== undefined && account?.storageRoot !== '0x'
-								? hexToBytes(account.storageRoot)
-								: undefined),
-						(params.deployedBytecode && hexToBytes(keccak256(params.deployedBytecode))) ??
-							(account?.deployedBytecode !== undefined ? hexToBytes(keccak256(account.deployedBytecode)) : undefined),
-					),
-				),
-			)
+			// Build account data object with proper handling of optional properties
+			/** @type {Parameters<typeof createAccount>[0]} */
+			const accountData = {
+				nonce: params.nonce ?? account?.nonce,
+				balance: params.balance ?? account?.balance,
+			}
+
+			const storageRoot =
+				(params.storageRoot && hexToBytes(params.storageRoot)) ??
+				(account?.storageRoot !== undefined && account?.storageRoot !== '0x'
+					? hexToBytes(account.storageRoot)
+					: undefined)
+
+			const codeHash =
+				(params.deployedBytecode && hexToBytes(keccak256(params.deployedBytecode))) ??
+				(account?.deployedBytecode !== undefined ? hexToBytes(keccak256(account.deployedBytecode)) : undefined)
+
+			// Only add optional properties if they are not undefined
+			if (storageRoot !== undefined) {
+				accountData.storageRoot = storageRoot
+			}
+			if (codeHash !== undefined) {
+				accountData.codeHash = codeHash
+			}
+
+			promises.push(vm.stateManager.putAccount(address, createAccount(accountData)))
 			if (params.deployedBytecode) {
-				promises.push(vm.stateManager.putContractCode(address, hexToBytes(params.deployedBytecode)))
+				promises.push(vm.stateManager.putCode(address, hexToBytes(params.deployedBytecode)))
 			}
 			// state clears state first stateDiff does not
 			if (params.state) {
-				await vm.stateManager.clearContractStorage(address)
+				await vm.stateManager.clearStorage(address)
 			}
 			const state = params.state ?? params.stateDiff
 			if (state) {
 				for (const [key, value] of Object.entries(state)) {
 					promises.push(
-						vm.stateManager.putContractStorage(
+						vm.stateManager.putStorage(
 							address,
 							hexToBytes(/** @type {import('@tevm/utils').Hex}*/ (key), { size: 32 }),
 							hexToBytes(value),

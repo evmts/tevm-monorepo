@@ -1,6 +1,6 @@
 {
   "name": "app",
-  "version": "0.1.0",
+  "version": "0.1.1-next.0",
   "description": "",
   "type": "module",
   "scripts": {
@@ -12,20 +12,20 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@tauri-apps/api": "^2",
-    "@tauri-apps/plugin-opener": "^2",
+    "@tauri-apps/api": "^2.5.0",
+    "@tauri-apps/plugin-opener": "^2.2.7",
     "shadcn": "^2.5.0",
-    "solid-js": "^1.9.3"
+    "solid-js": "^1.9.7"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^2",
-    "@types/node": "^22.15.18",
+    "@tauri-apps/cli": "^2.5.0",
+    "@types/node": "^22.15.21",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.3",
-    "tailwindcss": "3",
+    "tailwindcss": "^4.1.7",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "~5.6.2",
-    "vite": "^6.0.3",
-    "vite-plugin-solid": "^2.11.0"
+    "typescript": "~5.8.3",
+    "vite": "^6.3.5",
+    "vite-plugin-solid": "^2.11.6"
   }
 }

@@ -8,7 +8,7 @@
 
 > `const` **defineCall**: \<`TAbi`\>(`abi`, `handlers`) => (`{ data, gasLimit, }`) => `Promise`\<[`ExecResult`](../../evm/interfaces/ExecResult.md)\>
 
-Defined in: packages/precompiles/dist/index.d.ts:219
+Defined in: packages/precompiles/dist/index.d.ts:215
 
 Defines a call handler for a contract precompile by mapping function names to handler implementations.
 

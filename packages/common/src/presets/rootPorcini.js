@@ -27,5 +27,5 @@ export const rootPorcini = createCommon({
 	..._rootPorcini,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

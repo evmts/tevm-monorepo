@@ -27,5 +27,5 @@ export const rss3 = createCommon({
 	..._rss3,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

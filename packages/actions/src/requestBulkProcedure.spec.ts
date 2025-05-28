@@ -129,15 +129,15 @@ describe('requestBulkProcedure', () => {
 		expect(res[1].error).toBeDefined()
 		expect(res[1].error?.code).toBe(-32013)
 		expect(res[1].error?.message).toMatchInlineSnapshot(`
-"Received an invalid address input: Invalid byte sequence ("gg" in "gggggggggggggggggggggggggggggggggggggggg").
+			"Received an invalid address input: Invalid byte sequence ("gg" in "gggggggggggggggggggggggggggggggggggggggg").
 
-Version: viem@2.23.10
+			Version: viem@2.30.1
 
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
-Details: Invalid byte sequence ("gg" in "gggggggggggggggggggggggggggggggggggggggg").
+			Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
+			Details: Invalid byte sequence ("gg" in "gggggggggggggggggggggggggggggggggggggggg").
 
-Version: viem@2.23.10
-Version: 1.1.0.next-73"
-`)
+			Version: viem@2.30.1
+			Version: 1.1.0.next-73"
+		`)
 	})
 })

@@ -36,7 +36,7 @@ fields, then saves the account into state. Account fields can include
 
 #### accountFields
 
-`Partial`
+`AccountFields`
 
 ### Returns
 

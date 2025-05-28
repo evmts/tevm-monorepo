@@ -8,7 +8,7 @@
 
 > **SerializableTevmState** = `object`
 
-Defined in: packages/state/dist/index.d.ts:116
+Defined in: packages/state/dist/index.d.ts:118
 
 A serializable representation of Ethereum state with hex string values.
 Used for persistence, transfer, or JSON serialization of state data.

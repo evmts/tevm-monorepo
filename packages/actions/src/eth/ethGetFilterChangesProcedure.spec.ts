@@ -1,7 +1,7 @@
+import { createAddress } from '@tevm/address'
 import { Block } from '@tevm/block'
 import { type Filter, type TevmNode, createTevmNode } from '@tevm/node'
 import { createImpersonatedTx } from '@tevm/tx'
-import { EthjsAddress } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { EthGetFilterChangesJsonRpcRequest } from './EthJsonRpcRequest.js'
 import { ethGetFilterChangesProcedure } from './ethGetFilterChangesProcedure.js'
@@ -112,7 +112,7 @@ describe('ethGetFilterChangesProcedure', () => {
 		const filterId = '0x3' as const
 		const tx = [
 			createImpersonatedTx({
-				impersonatedAddress: EthjsAddress.fromString(`0x${'23'.repeat(20)}`),
+				impersonatedAddress: createAddress(`0x${'23'.repeat(20)}`),
 				to: `0x${'0'.repeat(40)}`,
 				data: `0x${'0'.repeat(40)}`,
 			}),

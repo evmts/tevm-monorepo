@@ -27,5 +27,5 @@ export const okc = createCommon({
 	..._okc,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

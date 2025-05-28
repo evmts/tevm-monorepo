@@ -1,7 +1,6 @@
 import { type FileAccessObject, bundler } from '@tevm/base-bundler'
 import type { Cache } from '@tevm/bundler-cache'
 import type { ResolvedCompilerConfig } from '@tevm/config'
-// @ts-expect-error
 import * as solc from 'solc'
 import type { Node } from 'solidity-ast/node.js'
 import type { SolcInput } from 'solidity-ast/solc.js'

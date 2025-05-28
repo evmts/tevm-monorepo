@@ -27,5 +27,5 @@ export const wemix = createCommon({
 	..._wemix,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

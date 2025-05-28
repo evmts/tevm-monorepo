@@ -27,5 +27,5 @@ export const polygonZkEvmCardona = createCommon({
 	..._polygonZkEvmCardona,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

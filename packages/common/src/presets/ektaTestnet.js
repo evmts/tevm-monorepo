@@ -27,5 +27,5 @@ export const ektaTestnet = createCommon({
 	..._ektaTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

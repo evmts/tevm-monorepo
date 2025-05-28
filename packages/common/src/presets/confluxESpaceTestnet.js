@@ -27,5 +27,5 @@ export const confluxESpaceTestnet = createCommon({
 	..._confluxESpaceTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

@@ -8,7 +8,7 @@
 
 > **bytesToUtf8**(`data`): `string`
 
-Defined in: node\_modules/.pnpm/ethereum-cryptography@2.2.1/node\_modules/ethereum-cryptography/utils.d.ts:5
+Defined in: node\_modules/.pnpm/ethereum-cryptography@3.2.0/node\_modules/ethereum-cryptography/esm/utils.d.ts:5
 
 ## Parameters
 

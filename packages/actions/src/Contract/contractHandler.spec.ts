@@ -1,8 +1,9 @@
+import { createAddress } from '@tevm/address'
 import { optimism } from '@tevm/common'
 import { InvalidGasPriceError } from '@tevm/errors'
 import { createTevmNode } from '@tevm/node'
 import { TestERC20, transports } from '@tevm/test-utils'
-import { EthjsAddress, encodeFunctionData, hexToBytes } from '@tevm/utils'
+import { encodeFunctionData, hexToBytes } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
@@ -53,10 +54,10 @@ describe('contractHandler', () => {
 							}),
 						),
 						gasLimit: 16784800n,
-						to: EthjsAddress.fromString(ERC20_ADDRESS),
+						to: createAddress(ERC20_ADDRESS),
 						block: await vm.blockchain.getCanonicalHeadBlock(),
-						origin: EthjsAddress.zero(),
-						caller: EthjsAddress.zero(),
+						origin: createAddress(0),
+						caller: createAddress(0),
 					})
 					.then((res) => {
 						if (res.execResult.exceptionError) {
@@ -396,7 +397,7 @@ describe('contractHandler', () => {
 			[RevertError: revert
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
-			Details: {"error":"revert","errorType":"EvmError"}
+			Details: {"error":"revert","errorType":"EVMError"}
 			Version: 1.1.0.next-73]
 		`)
 	})

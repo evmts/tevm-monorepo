@@ -6,7 +6,7 @@
 
 # Interface: AccountStorage
 
-Defined in: packages/state/dist/index.d.ts:25
+Defined in: packages/state/dist/index.d.ts:27
 
 Represents an Ethereum account storage with native bigint values.
 Used for internal state management and account manipulation.
@@ -30,7 +30,7 @@ const value: AccountStorage = {
 
 > **balance**: `bigint`
 
-Defined in: packages/state/dist/index.d.ts:27
+Defined in: packages/state/dist/index.d.ts:29
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: packages/state/dist/index.d.ts:27
 
 > **codeHash**: `` `0x${string}` ``
 
-Defined in: packages/state/dist/index.d.ts:29
+Defined in: packages/state/dist/index.d.ts:31
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: packages/state/dist/index.d.ts:29
 
 > `optional` **deployedBytecode**: `` `0x${string}` ``
 
-Defined in: packages/state/dist/index.d.ts:30
+Defined in: packages/state/dist/index.d.ts:32
 
 ***
 
@@ -54,7 +54,7 @@ Defined in: packages/state/dist/index.d.ts:30
 
 > **nonce**: `bigint`
 
-Defined in: packages/state/dist/index.d.ts:26
+Defined in: packages/state/dist/index.d.ts:28
 
 ***
 
@@ -62,7 +62,7 @@ Defined in: packages/state/dist/index.d.ts:26
 
 > `optional` **storage**: [`StorageDump`](../../common/interfaces/StorageDump.md)
 
-Defined in: packages/state/dist/index.d.ts:31
+Defined in: packages/state/dist/index.d.ts:33
 
 ***
 
@@ -70,4 +70,4 @@ Defined in: packages/state/dist/index.d.ts:31
 
 > **storageRoot**: `` `0x${string}` ``
 
-Defined in: packages/state/dist/index.d.ts:28
+Defined in: packages/state/dist/index.d.ts:30

@@ -18,7 +18,7 @@ Creates an CallHandler for handling call params with Ethereumjs EVM
 
 ### evmResult
 
-`RunTxResult`
+`RunTxResult` & `EVMResult`
 
 ### txHash
 

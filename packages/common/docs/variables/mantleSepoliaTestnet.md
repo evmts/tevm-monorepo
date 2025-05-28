@@ -68,6 +68,12 @@ Collection of contracts
 
 Custom chain data.
 
+### ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
+Collection of ENS TLDs for the chain.
+
 ### ethjsCommon
 
 > **ethjsCommon**: `Common`

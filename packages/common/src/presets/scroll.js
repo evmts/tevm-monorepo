@@ -27,5 +27,5 @@ export const scroll = createCommon({
 	..._scroll,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

@@ -27,5 +27,5 @@ export const edgelessTestnet = createCommon({
 	..._edgelessTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })
