@@ -36,7 +36,7 @@
     "lint:deps": "bunx depcheck && pnpm -r lint:deps",
     "lint:package": "pnpm -r lint:package",
     "release:check": "changeset status --verbose --since=origin/main",
-    "release:publish": "pnpm install && pnpm -r build:app && pnpm -r build:dist && pnpm -r build:types && cd bundler-packages/resolutions-rs && bun run build:release && cd ../../ && changeset publish",
+    "release:publish": "pnpm install && pnpm -r build:dist && pnpm -r build:types && pnpm -r build:app && cd bundler-packages/resolutions-rs && bun run build:release && cd ../../ && changeset publish",
     "release:publish:jsr": "cd tevm && pnpm publish:jsr",
     "release:publish:jsr:dry-run": "cd tevm && pnpm publish:jsr:dry",
     "release:version": "changeset version && pnpm install --lockfile-only",
