@@ -1,18 +1,27 @@
 import type { StoreConfig } from '@latticexyz/stash/internal'
 import { SyncProvider } from '@latticexyz/store-sync/react';
-import React, { createContext, useContext, useEffect, useMemo, type ReactNode } from 'react'
+import React, { createContext, useContext, useEffect, type ReactNode } from 'react'
 import {
 	type CreateOptimisticHandlerOptions,
 	type CreateOptimisticHandlerResult,
 	createOptimisticHandler,
 } from '../createOptimisticHandler.js'
+import type { Client } from 'viem';
+import type { SessionClient } from '../types.js';
 
 interface OptimisticWrapperContextType<TConfig extends StoreConfig> extends CreateOptimisticHandlerResult<TConfig> {}
 const OptimisticWrapperContext = createContext<OptimisticWrapperContextType<StoreConfig> | undefined>(undefined)
+
 interface OptimisticWrapperProviderProps<TConfig extends StoreConfig>
 	extends CreateOptimisticHandlerOptions<TConfig> {
 	children: ReactNode
 }
+
+// Create a global registry for handlers by key
+// We need to do that work now as otherwise we get both multiple writeContract wrappers (next one will wrap the previous wrapper itself) and multiple txPool subscriptions
+// that apply the same txs inconsistently
+// This is awful and obviously needs to be fixed as soon as there is a better solution
+const handlerRegistry = new WeakMap<Client | SessionClient, CreateOptimisticHandlerResult<any>>()
 
 /**
  * Provider component that initializes the optimistic handler and makes its utilities available
@@ -23,20 +32,23 @@ export const OptimisticWrapperProvider: React.FC<OptimisticWrapperProviderProps<
 	...options
 }) => {
 	const { client, storeAddress, stash, sync, config, loggingLevel } = options
-	const handlerResult = useMemo(
-		() => createOptimisticHandler({ client, storeAddress, stash, sync, config, loggingLevel }),
-		[client, storeAddress, stash, sync, config, loggingLevel],
-	)
+
+	// Get or create handler from registry
+	let handlerResult = handlerRegistry.get(client)
+	if (!handlerResult) {
+		handlerResult = createOptimisticHandler({ client, storeAddress, stash, sync, config, loggingLevel })
+		handlerRegistry.set(client, handlerResult)
+	}
 
 	useEffect(() => {
 		return () => {
-			handlerResult._.cleanup()
+			handlerResult._.cleanup().catch(console.error)
 		}
-	}, [handlerResult])
+	}, [])
 
-	if (sync && (sync.enabled === undefined || sync.enabled && client.chain)) { // we already error if the client is not connected to a chain
+	if (sync && (sync.enabled === undefined || sync.enabled && client.chain)) {
 		return (
-		<OptimisticWrapperContext.Provider value={handlerResult}>
+			<OptimisticWrapperContext.Provider value={handlerResult}>
 				<SyncProvider
 					chainId={client.chain!.id}
 					address={storeAddress}

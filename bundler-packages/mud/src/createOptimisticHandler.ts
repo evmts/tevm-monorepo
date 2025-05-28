@@ -102,7 +102,7 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 				blockTag: 'latest',
 			},
 			common: createCommon(client.chain),
-			// ...(loggingLevel ? { loggingLevel } : {}),
+			...(loggingLevel ? { loggingLevel } : {}),
 		})
 	}
 
@@ -328,9 +328,13 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 			optimisticStoreSubscribers,
 			optimisticTableSubscribers,
 			cleanup: async () => {
-				logger?.debug('Cleaning up optimistic handler')
-				;(await unsubscribe)()
-				// TODO: how do we completely get rid of a client?
+				try {
+					logger?.debug('Cleaning up optimistic handler')
+					;(await unsubscribe)()
+					// TODO: how do we completely get rid of a client?
+				} catch (error) {
+					console.error('Error cleaning up optimistic handler', error)
+				}
 			},
 		},
 	}
