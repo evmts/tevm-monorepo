@@ -1,6 +1,6 @@
 {
   "name": "@tevm/precompiles",
-  "version": "1.0.0-next.145",
+  "version": "1.0.0-next.146",
   "private": false,
   "description": "Precompile definition for Tevm",
   "keywords": [

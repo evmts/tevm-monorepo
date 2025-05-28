@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/compiler",
-	"version": "1.0.0-next.142",
+	"version": "1.0.0-next.146",
 	"private": false,
 	"description": "Utilities around compiler",
 	"keywords": [
