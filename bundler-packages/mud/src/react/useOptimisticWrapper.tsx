@@ -10,10 +10,7 @@ import {
 interface OptimisticWrapperContextType<TConfig extends StoreConfig> extends CreateOptimisticHandlerResult<TConfig> {}
 const OptimisticWrapperContext = createContext<OptimisticWrapperContextType<StoreConfig> | undefined>(undefined)
 interface OptimisticWrapperProviderProps<TConfig extends StoreConfig>
-	extends Omit<CreateOptimisticHandlerOptions<TConfig>, 'sync'> {
-	sync?: CreateOptimisticHandlerOptions<TConfig>['sync'] & {
-		chainId?: number // add the chainId so we can start the sync even if the client is not yet defined
-	} | undefined
+	extends CreateOptimisticHandlerOptions<TConfig> {
 	children: ReactNode
 }
 
@@ -33,7 +30,7 @@ export const OptimisticWrapperProvider: React.FC<OptimisticWrapperProviderProps<
 
 	useEffect(() => {
 		return () => {
-			if (handlerResult) handlerResult._.cleanup()
+			handlerResult._.cleanup()
 		}
 	}, [handlerResult])
 

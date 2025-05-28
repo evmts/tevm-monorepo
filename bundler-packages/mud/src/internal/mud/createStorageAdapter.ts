@@ -14,7 +14,7 @@ import { type Hex, concatHex, size } from 'viem'
 
 export type CreateStorageAdapter = {
 	stash: Stash
-	onTx?: ((tx: { hash: Hex | undefined, data: Hex | undefined }) => Promise<void>) | undefined
+	onTx?: ((tx: { hash: Hex | undefined }) => Promise<void>) | undefined
 }
 
 /**
@@ -96,7 +96,7 @@ export function createStorageAdapter({
 				updates.push((pendingRecords[id] = { table, key, value: undefined }))
 			}
 
-			if (onTx) await onTx({ hash: log.transactionHash, data: log.data })
+			if (onTx) await onTx({ hash: log.transactionHash })
 		}
 
 		return updates

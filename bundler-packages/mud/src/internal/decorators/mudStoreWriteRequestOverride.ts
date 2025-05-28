@@ -102,7 +102,9 @@ export const mudStoreWriteRequestOverride =
 							{ functionName: args.functionName, args: args.args, txHash },
 							'Method completed successfully.',
 						)
-						if (optimisticTxHash) (await txPool).removeByHash(optimisticTxHash)
+						if (optimisticTxHash) txPool.then((pool) => {
+							if (pool.getByHash(optimisticTxHash)) pool.removeByHash(optimisticTxHash)
+						})
 					} catch (error) {
 						logger?.error({ functionName: args.functionName, args: args.args, error }, 'Method failed with error.')
 						throw error

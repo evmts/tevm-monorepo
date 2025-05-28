@@ -7,7 +7,7 @@ import type { Hex } from "viem";
 
 export type CreateSyncAdapterOptions = {
   stash: Stash
-  onTx?: ((tx: { hash: Hex | undefined, data: Hex | undefined }) => Promise<void>) | undefined
+  onTx?: ((tx: { hash: Hex | undefined }) => Promise<void>) | undefined
 };
 
 export function createSyncAdapter({ stash, onTx }: CreateSyncAdapterOptions): SyncAdapter {
@@ -23,7 +23,9 @@ export function createSyncAdapter({ stash, onTx }: CreateSyncAdapterOptions): Sy
       storageAdapter: async (block) => {
         const updates = await storageAdapter(block);
         applyStashUpdates({ stash, updates });
-        notifyStashSubscribers({ stash, updates });
+        queueMicrotask(() => {
+          notifyStashSubscribers({ stash, updates });
+        })
       },
       onProgress: (nextValue) => {
         const currentValue = getRecord({ stash, table: SyncProgress, key: {} });

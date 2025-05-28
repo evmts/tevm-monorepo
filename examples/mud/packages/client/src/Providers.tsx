@@ -24,7 +24,7 @@ function OptimisticEntryKitProvider({ children }: { children: ReactNode }) {
     stash={stash}
     storeAddress={worldAddress}
     client={sessionClient as unknown as SessionClient | undefined ?? publicClient}
-    sync={{ chainId, startBlock }}
+    sync={{ startBlock }}
     loggingLevel="debug"
   >
     {/* @ts-expect-error - react versions mismatch */}

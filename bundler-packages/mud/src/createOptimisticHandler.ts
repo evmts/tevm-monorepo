@@ -25,7 +25,7 @@ import { type MemoryClient, createMemoryClient } from '@tevm/memory-client'
 import type { TxPool } from '@tevm/txpool'
 import { type Address, createAddressFromString } from '@tevm/utils'
 import type { Vm } from '@tevm/vm'
-import { type Client, type Hex, parseEventLogs } from 'viem'
+import { bytesToHex, type Client, type Hex, parseEventLogs, publicActions } from 'viem'
 import { mudStoreGetStorageAtOverride } from './internal/decorators/mudStoreGetStorageAtOverride.js'
 import { mudStoreWriteRequestOverride } from './internal/decorators/mudStoreWriteRequestOverride.js'
 import { ethjsLogToAbiLog } from './internal/ethjsLogToAbiLog.js'
@@ -102,7 +102,7 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 				blockTag: 'latest',
 			},
 			common: createCommon(client.chain),
-			...(loggingLevel ? { loggingLevel } : {}),
+			// ...(loggingLevel ? { loggingLevel } : {}),
 		})
 	}
 
@@ -195,7 +195,7 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 
 		// Process each transaction, building up internal logs
 		for (const tx of orderedTxs) {
-			logger?.debug({ tx }, `Running tx ${orderedTxs.indexOf(tx) + 1}/${orderedTxs.length}.`)
+			logger?.debug({ tx, hash: bytesToHex(tx.hash()) }, `Running tx ${orderedTxs.indexOf(tx) + 1}/${orderedTxs.length}.`)
 
 			// clear cache to force the fork request to not hit cache and go through our `getStorageAt` interceptor
 			// TODO: we absolutely don't want to do this, also it clears some non-data-related slots that could have stayed cached
@@ -267,7 +267,10 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 		const unsubscribeTxRemoved = txPool.on('txremoved', (hash) => {
 			logger?.debug('Tx removed, updating optimistic state.')
 			if (!syncedOptimisticHashes.has(hash as Hex)) processTransactionsAndUpdateLogs()
-			else logger?.debug({ optimisticTxHash: hash }, 'Skipping txremoved update for tx that is being handled by the canonical sync.')
+			else {
+				logger?.debug({ optimisticTxHash: hash }, 'Skipping txremoved update for tx that is being handled by the canonical sync.')
+				syncedOptimisticHashes.delete(hash as Hex) // cleanup
+			}
 		})
 
 		const unsubscribeStash = subscribeStash({
@@ -303,15 +306,19 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 		subscribeTx: ({ subscriber }) => subscribeTxStatus(txStatusSubscribers)(subscriber),
 		syncAdapter: createSyncAdapter({
 			stash,
-			onTx: async ({ hash, data }) => {
+			onTx: async ({ hash }) => {
 				if (!txPool) txPool = await optimisticClient.transport.tevm.getTxPool()
+				if (!hash) return
+
+				const tx = await ('client' in client ? client.client : client).extend(publicActions).getTransaction({ hash })
+				const data = tx?.input
 				if (!data) return
 
 				const optimisticTxHash = await matchOptimisticTxCounterpart(txPool, data)
 				if (optimisticTxHash) {
 					logger?.debug({ hash, optimisticTxHash }, 'Marking optimistic tx as being handled during canonical sync.')
 					syncedOptimisticHashes.add(optimisticTxHash)
-					txPool.removeByHash(optimisticTxHash)
+					if (txPool.getByHash(optimisticTxHash)) txPool.removeByHash(optimisticTxHash)
 				}
 			}
 		}),
