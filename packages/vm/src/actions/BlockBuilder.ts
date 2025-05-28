@@ -29,7 +29,7 @@ import {
 import type { TypedTransaction } from '@tevm/tx'
 import type { ImpersonatedTx } from '@tevm/tx'
 import type { BaseVm } from '../BaseVm.js'
-import type { BuildBlockOpts, BuilderOpts, RunTxResult, SealBlockOpts } from '../utils/index.js'
+import type { BuildBlockOpts, BuilderOpts, RunTxOpts, RunTxResult, SealBlockOpts } from '../utils/index.js'
 import type { BlockStatus } from './BlockStatus.js'
 import { BuildStatus } from './BuildStatus.js'
 import { accumulateParentBeaconBlockRoot } from './accumulateParentBeaconBlockRoot.js'
@@ -219,7 +219,7 @@ export class BlockBuilder {
 	 */
 	async addTransaction(
 		tx: TypedTransaction | ImpersonatedTx,
-		{ skipHardForkValidation }: { skipHardForkValidation?: boolean } = {},
+		{ skipBalance, skipNonce, skipHardForkValidation }: Pick<RunTxOpts, 'skipBalance' | 'skipNonce' | 'skipHardForkValidation'> = {},
 	) {
 		let _tx = tx
 		this.checkStatus()
@@ -272,6 +272,8 @@ export class BlockBuilder {
 		const result = await runTx(this.vm)({
 			tx: _tx,
 			block,
+			skipBalance,
+			skipNonce,
 			skipHardForkValidation,
 		} as any)
 
