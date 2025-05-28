@@ -176,17 +176,97 @@ pub fn build(b: *std.Build) void {
     wasm_mod.stack_check = false;
     wasm_mod.single_threaded = true;
 
+    // Create WASM-compatible versions of modules that need different targets
+    const address_wasm_mod = b.createModule(.{
+        .root_source_file = b.path("src/Address/address.zig"),
+        .target = wasm_target,
+        .optimize = .ReleaseSmall,
+    });
+    address_wasm_mod.stack_check = false;
+    address_wasm_mod.single_threaded = true;
+
+    const abi_wasm_mod = b.createModule(.{
+        .root_source_file = b.path("src/Abi/abi.zig"),
+        .target = wasm_target,
+        .optimize = .ReleaseSmall,
+    });
+    abi_wasm_mod.stack_check = false;
+    abi_wasm_mod.single_threaded = true;
+
+    const utils_wasm_mod = b.createModule(.{
+        .root_source_file = b.path("src/Utils/utils.zig"),
+        .target = wasm_target,
+        .optimize = .ReleaseSmall,
+    });
+    utils_wasm_mod.stack_check = false;
+    utils_wasm_mod.single_threaded = true;
+
+    const trie_wasm_mod = b.createModule(.{
+        .root_source_file = b.path("src/Trie/module.zig"),
+        .target = wasm_target,
+        .optimize = .ReleaseSmall,
+    });
+    trie_wasm_mod.stack_check = false;
+    trie_wasm_mod.single_threaded = true;
+
+    const block_wasm_mod = b.createModule(.{
+        .root_source_file = b.path("src/Block/block.zig"),
+        .target = wasm_target,
+        .optimize = .ReleaseSmall,
+    });
+    block_wasm_mod.stack_check = false;
+    block_wasm_mod.single_threaded = true;
+    block_wasm_mod.addImport("Address", address_wasm_mod);
+
+    const bytecode_wasm_mod = b.createModule(.{
+        .root_source_file = b.path("src/Bytecode/bytecode.zig"),
+        .target = wasm_target,
+        .optimize = .ReleaseSmall,
+    });
+    bytecode_wasm_mod.stack_check = false;
+    bytecode_wasm_mod.single_threaded = true;
+
+    const rlp_wasm_mod = b.createModule(.{
+        .root_source_file = b.path("src/Rlp/rlp.zig"),
+        .target = wasm_target,
+        .optimize = .ReleaseSmall,
+    });
+    rlp_wasm_mod.stack_check = false;
+    rlp_wasm_mod.single_threaded = true;
+    rlp_wasm_mod.addImport("Utils", utils_wasm_mod);
+
+    trie_wasm_mod.addImport("Rlp", rlp_wasm_mod);
+    trie_wasm_mod.addImport("Utils", utils_wasm_mod);
+
+    const token_wasm_mod = b.createModule(.{
+        .root_source_file = b.path("src/Token/token.zig"),
+        .target = wasm_target,
+        .optimize = .ReleaseSmall,
+    });
+    token_wasm_mod.stack_check = false;
+    token_wasm_mod.single_threaded = true;
+
+    const evm_wasm_mod = b.createModule(.{
+        .root_source_file = b.path("src/evm/evm.zig"),
+        .target = wasm_target,
+        .optimize = .ReleaseSmall,
+    });
+    evm_wasm_mod.stack_check = false;
+    evm_wasm_mod.single_threaded = true;
+    evm_wasm_mod.addImport("Address", address_wasm_mod);
+    evm_wasm_mod.addImport("Block", block_wasm_mod);
+
     // Add package paths for absolute imports to WASM module
-    wasm_mod.addImport("Address", address_mod);
-    wasm_mod.addImport("Abi", abi_mod);
-    wasm_mod.addImport("Block", block_mod);
-    wasm_mod.addImport("Bytecode", bytecode_mod);
-    wasm_mod.addImport("Compiler", compiler_mod);
-    wasm_mod.addImport("evm", evm_mod);
-    wasm_mod.addImport("Rlp", rlp_mod);
-    wasm_mod.addImport("Token", token_mod);
-    wasm_mod.addImport("Trie", trie_mod);
-    wasm_mod.addImport("Utils", utils_mod);
+    wasm_mod.addImport("Address", address_wasm_mod);
+    wasm_mod.addImport("Abi", abi_wasm_mod);
+    wasm_mod.addImport("Block", block_wasm_mod);
+    wasm_mod.addImport("Bytecode", bytecode_wasm_mod);
+    wasm_mod.addImport("Compiler", compiler_wasm_mod);
+    wasm_mod.addImport("evm", evm_wasm_mod);
+    wasm_mod.addImport("Rlp", rlp_wasm_mod);
+    wasm_mod.addImport("Token", token_wasm_mod);
+    wasm_mod.addImport("Trie", trie_wasm_mod);
+    wasm_mod.addImport("Utils", utils_wasm_mod);
 
     // Modules can depend on one another using the `std.Build.Module.addImport` function.
     exe_mod.addImport("zigevm", target_architecture_mod);
