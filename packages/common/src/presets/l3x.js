@@ -27,5 +27,5 @@ export const l3x = createCommon({
 	..._l3x,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

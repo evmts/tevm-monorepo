@@ -27,5 +27,5 @@ export const l3xTestnet = createCommon({
 	..._l3xTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

@@ -1,5 +1,6 @@
 import { BlobEIP4844Transaction } from '@tevm/tx'
-import { type Hex, TypeOutput, isHex, toType } from '@tevm/utils'
+import { type Hex, isHex } from '@tevm/utils'
+import { safeToType } from './utils.js'
 
 import type { TypedTransaction } from '@tevm/tx'
 import type { BlockHeaderBytes, HeaderData } from './types.js'
@@ -109,7 +110,7 @@ export function valuesArrayToHeaderData(values: BlockHeaderBytes): HeaderData {
 export function getDifficulty(headerData: HeaderData): bigint | null {
 	const { difficulty } = headerData
 	if (difficulty !== undefined) {
-		return toType(difficulty, TypeOutput.BigInt)
+		return safeToType(difficulty, 1)
 	}
 	return null
 }

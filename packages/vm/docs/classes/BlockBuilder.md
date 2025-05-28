@@ -6,7 +6,7 @@
 
 # Class: BlockBuilder
 
-Defined in: [packages/vm/src/actions/BlockBuilder.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L44)
+Defined in: [packages/vm/src/actions/BlockBuilder.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L43)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [packages/vm/src/actions/BlockBuilder.ts:44](https://github.com/evmt
 
 > **new BlockBuilder**(`vm`, `opts`): `BlockBuilder`
 
-Defined in: [packages/vm/src/actions/BlockBuilder.ts:76](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L76)
+Defined in: [packages/vm/src/actions/BlockBuilder.ts:75](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L75)
 
 #### Parameters
 
@@ -36,7 +36,7 @@ Defined in: [packages/vm/src/actions/BlockBuilder.ts:76](https://github.com/evmt
 
 > **blobGasUsed**: `bigint` = `0n`
 
-Defined in: [packages/vm/src/actions/BlockBuilder.ts:52](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L52)
+Defined in: [packages/vm/src/actions/BlockBuilder.ts:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L51)
 
 The cumulative blob gas used by the blobs in a block
 
@@ -46,7 +46,7 @@ The cumulative blob gas used by the blobs in a block
 
 > **gasUsed**: `bigint` = `0n`
 
-Defined in: [packages/vm/src/actions/BlockBuilder.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L48)
+Defined in: [packages/vm/src/actions/BlockBuilder.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L47)
 
 The cumulative gas used by the transactions added to the block.
 
@@ -58,7 +58,7 @@ The cumulative gas used by the transactions added to the block.
 
 > **get** **minerValue**(): `bigint`
 
-Defined in: [packages/vm/src/actions/BlockBuilder.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L72)
+Defined in: [packages/vm/src/actions/BlockBuilder.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L71)
 
 ##### Returns
 
@@ -72,7 +72,7 @@ Defined in: [packages/vm/src/actions/BlockBuilder.ts:72](https://github.com/evmt
 
 > **get** **transactionReceipts**(): [`TxReceipt`](../type-aliases/TxReceipt.md)[]
 
-Defined in: [packages/vm/src/actions/BlockBuilder.ts:68](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L68)
+Defined in: [packages/vm/src/actions/BlockBuilder.ts:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L67)
 
 ##### Returns
 
@@ -84,7 +84,7 @@ Defined in: [packages/vm/src/actions/BlockBuilder.ts:68](https://github.com/evmt
 
 > **addTransaction**(`tx`, `__namedParameters`): `Promise`\<[`RunTxResult`](../interfaces/RunTxResult.md)\>
 
-Defined in: [packages/vm/src/actions/BlockBuilder.ts:216](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L216)
+Defined in: [packages/vm/src/actions/BlockBuilder.ts:220](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L220)
 
 Run and add a transaction to the block being built.
 Please note that this modifies the state of the VM.
@@ -113,7 +113,7 @@ the remaining gas in the block.
 
 > **build**(`sealOpts?`): `Promise`\<`Block`\>
 
-Defined in: [packages/vm/src/actions/BlockBuilder.ts:307](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L307)
+Defined in: [packages/vm/src/actions/BlockBuilder.ts:316](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L316)
 
 This method returns the finalized block.
 It also:
@@ -141,7 +141,7 @@ as the signer will be awarded the txs amount spent on gas as they are added.
 
 > **getStatus**(): [`BlockStatus`](../type-aliases/BlockStatus.md)
 
-Defined in: [packages/vm/src/actions/BlockBuilder.ts:128](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L128)
+Defined in: [packages/vm/src/actions/BlockBuilder.ts:132](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L132)
 
 #### Returns
 
@@ -153,7 +153,7 @@ Defined in: [packages/vm/src/actions/BlockBuilder.ts:128](https://github.com/evm
 
 > **initState**(): `Promise`\<`void`\>
 
-Defined in: [packages/vm/src/actions/BlockBuilder.ts:371](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L371)
+Defined in: [packages/vm/src/actions/BlockBuilder.ts:380](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L380)
 
 #### Returns
 
@@ -165,7 +165,7 @@ Defined in: [packages/vm/src/actions/BlockBuilder.ts:371](https://github.com/evm
 
 > **logsBloom**(): `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: [packages/vm/src/actions/BlockBuilder.ts:145](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L145)
+Defined in: [packages/vm/src/actions/BlockBuilder.ts:149](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L149)
 
 Calculates and returns the logs bloom for the block.
 
@@ -179,7 +179,7 @@ Calculates and returns the logs bloom for the block.
 
 > **receiptTrie**(): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: [packages/vm/src/actions/BlockBuilder.ts:157](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L157)
+Defined in: [packages/vm/src/actions/BlockBuilder.ts:161](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L161)
 
 Calculates and returns the receiptTrie for the block.
 
@@ -193,7 +193,7 @@ Calculates and returns the receiptTrie for the block.
 
 > **revert**(): `Promise`\<`void`\>
 
-Defined in: [packages/vm/src/actions/BlockBuilder.ts:288](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L288)
+Defined in: [packages/vm/src/actions/BlockBuilder.ts:297](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L297)
 
 Reverts the checkpoint on the StateManager to reset the state from any transactions that have been run.
 
@@ -207,7 +207,7 @@ Reverts the checkpoint on the StateManager to reset the state from any transacti
 
 > **transactionsTrie**(): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: [packages/vm/src/actions/BlockBuilder.ts:135](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L135)
+Defined in: [packages/vm/src/actions/BlockBuilder.ts:139](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L139)
 
 Calculates and returns the transactionsTrie for the block.
 

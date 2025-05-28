@@ -208,7 +208,7 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:60
 
 > `static` **stackTraceLimit**: `number`
 
-Defined in: node\_modules/.pnpm/bun-types@1.2.13/node\_modules/bun-types/globals.d.ts:960
+Defined in: node\_modules/.pnpm/bun-types@1.2.14/node\_modules/bun-types/globals.d.ts:960
 
 The maximum number of stack frames to capture.
 
@@ -252,7 +252,7 @@ The first error that matches the function, or the original error.
 
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
-Defined in: node\_modules/.pnpm/bun-types@1.2.13/node\_modules/bun-types/globals.d.ts:955
+Defined in: node\_modules/.pnpm/bun-types@1.2.14/node\_modules/bun-types/globals.d.ts:955
 
 Create .stack property on a target object
 
@@ -278,7 +278,7 @@ Create .stack property on a target object
 
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
-Defined in: node\_modules/.pnpm/@types+node@22.15.18/node\_modules/@types/node/globals.d.ts:145
+Defined in: node\_modules/.pnpm/@types+node@22.15.21/node\_modules/@types/node/globals.d.ts:145
 
 Creates a `.stack` property on `targetObject`, which when accessed returns
 a string representing the location in the code at which
@@ -348,7 +348,7 @@ a();
 
 > `static` **isError**(`value`): `value is Error`
 
-Defined in: node\_modules/.pnpm/bun-types@1.2.13/node\_modules/bun-types/globals.d.ts:950
+Defined in: node\_modules/.pnpm/bun-types@1.2.14/node\_modules/bun-types/globals.d.ts:950
 
 Check if a value is an instance of Error
 
@@ -376,7 +376,7 @@ True if the value is an instance of Error, false otherwise
 
 > `static` **prepareStackTrace**(`err`, `stackTraces`): `any`
 
-Defined in: node\_modules/.pnpm/@types+node@22.15.18/node\_modules/@types/node/globals.d.ts:149
+Defined in: node\_modules/.pnpm/@types+node@22.15.21/node\_modules/@types/node/globals.d.ts:149
 
 #### Parameters
 

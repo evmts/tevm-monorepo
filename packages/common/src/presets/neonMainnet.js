@@ -27,5 +27,5 @@ export const neonMainnet = createCommon({
 	..._neonMainnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

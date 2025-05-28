@@ -10,8 +10,9 @@ describe('createHandlers', () => {
 	let client: any
 	let handlers: RequestHandlers
 
-	beforeEach(() => {
+	beforeEach(async () => {
 		client = createTevmNode()
+		await client.ready()
 		handlers = createHandlers(client)
 	})
 

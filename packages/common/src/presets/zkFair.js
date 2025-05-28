@@ -27,5 +27,5 @@ export const zkFair = createCommon({
 	..._zkFair,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

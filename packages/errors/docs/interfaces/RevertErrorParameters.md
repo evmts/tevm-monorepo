@@ -12,7 +12,7 @@ Defined in: [packages/errors/src/ethereum/RevertError.js:5](https://github.com/e
 
 ### cause?
 
-> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `Error` \| `EvmError`
+> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `Error` \| `EVMError`
 
 Defined in: [packages/errors/src/ethereum/RevertError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/RevertError.js#L10)
 

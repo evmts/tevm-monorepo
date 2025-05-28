@@ -6,7 +6,7 @@
 
 # Class: StorageCache
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:13
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:13
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@et
 
 > **new StorageCache**(`opts`): `StorageCache`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:26
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:26
 
 #### Parameters
 
@@ -40,7 +40,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@et
 
 > **\_checkpoints**: `number`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/cache.d.ts:4
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/cache.d.ts:4
 
 #### Inherited from
 
@@ -52,7 +52,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@et
 
 > **\_debug**: `Debugger`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/cache.d.ts:3
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/cache.d.ts:3
 
 #### Inherited from
 
@@ -64,7 +64,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@et
 
 > **\_diffCache**: `Map`\<`string`, `DiffStorageCacheMap`\>[]
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:25
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:25
 
 Diff cache collecting the state of the cache
 at the beginning of checkpoint height
@@ -80,7 +80,7 @@ before.
 
 > **\_lruCache**: `undefined` \| `LRUCache`\<`string`, `StorageCacheMap`, `unknown`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:14
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:14
 
 ***
 
@@ -88,7 +88,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@et
 
 > **\_orderedMapCache**: `undefined` \| `OrderedMap`\<`string`, `StorageCacheMap`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:15
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:15
 
 ***
 
@@ -96,11 +96,11 @@ Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@et
 
 > **\_stats**: `object`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/cache.d.ts:5
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/cache.d.ts:5
 
-#### dels
+#### deletions
 
-> **dels**: `number`
+> **deletions**: `number`
 
 #### hits
 
@@ -128,7 +128,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@et
 
 > **\_saveCachePreState**(`addressHex`, `keyHex`): `void`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:27
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:27
 
 #### Parameters
 
@@ -150,7 +150,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@et
 
 > **checkpoint**(): `void`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:72
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:72
 
 Marks current state of cache as checkpoint, which can
 later on be reverted or committed.
@@ -165,7 +165,7 @@ later on be reverted or committed.
 
 > **clear**(): `void`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:92
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:92
 
 Clears cache.
 
@@ -175,11 +175,11 @@ Clears cache.
 
 ***
 
-### clearContractStorage()
+### clearStorage()
 
-> **clearContractStorage**(`address`): `void`
+> **clearStorage**(`address`): `void`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:54
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:54
 
 Deletes all storage slots for address from the cache
 
@@ -199,7 +199,7 @@ Deletes all storage slots for address from the cache
 
 > **commit**(): `void`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:67
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:67
 
 Commits to current state of cache (no effect on trie).
 
@@ -213,7 +213,7 @@ Commits to current state of cache (no effect on trie).
 
 > **del**(`address`, `key`): `void`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:49
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:49
 
 Marks storage key for address as deleted in cache.
 
@@ -241,7 +241,7 @@ Storage key
 
 > **dump**(`address`): `undefined` \| `StorageCacheMap`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:98
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:98
 
 Dumps the RLP-encoded storage values for an `account` specified by `address`.
 
@@ -265,7 +265,7 @@ The address of the `account` to return storage for
 
 > **flush**(): \[`string`, `string`, `undefined` \| `Uint8Array`\<`ArrayBufferLike`\>\][]
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:59
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:59
 
 Flushes cache by returning storage slots that have been modified
 or deleted and resetting the diff cache (at checkpoint height).
@@ -280,7 +280,7 @@ or deleted and resetting the diff cache (at checkpoint height).
 
 > **get**(`address`, `key`): `undefined` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:43
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:43
 
 Returns the queried slot as the RLP encoded storage value
 hexToBytes('0x80'): slot is known to be empty
@@ -312,7 +312,7 @@ Storage value or undefined
 
 > **put**(`address`, `key`, `value`): `void`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:34
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:34
 
 Puts storage value to cache under address_key cache key.
 
@@ -344,7 +344,7 @@ Storage key
 
 > **revert**(): `void`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:63
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:63
 
 Revert changes to cache last checkpoint (no effect on trie).
 
@@ -358,7 +358,7 @@ Revert changes to cache last checkpoint (no effect on trie).
 
 > **size**(): `number`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:77
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:77
 
 Returns the size of the cache
 
@@ -372,7 +372,7 @@ Returns the size of the cache
 
 > **stats**(`reset?`): `object`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:82
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:82
 
 Returns a dict with cache stats
 
@@ -386,9 +386,9 @@ Returns a dict with cache stats
 
 `object`
 
-##### dels
+##### deletions
 
-> **dels**: `number`
+> **deletions**: `number`
 
 ##### hits
 

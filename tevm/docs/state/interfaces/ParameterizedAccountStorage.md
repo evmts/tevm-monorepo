@@ -6,7 +6,7 @@
 
 # Interface: ParameterizedAccountStorage
 
-Defined in: packages/state/dist/index.d.ts:70
+Defined in: packages/state/dist/index.d.ts:72
 
 Represents an Ethereum account storage with hexadecimal string values.
 Used to serialize account data for storage and RPC responses.
@@ -30,7 +30,7 @@ const value: ParameterizedAccountStorage = {
 
 > **balance**: `` `0x${string}` ``
 
-Defined in: packages/state/dist/index.d.ts:72
+Defined in: packages/state/dist/index.d.ts:74
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: packages/state/dist/index.d.ts:72
 
 > **codeHash**: `` `0x${string}` ``
 
-Defined in: packages/state/dist/index.d.ts:74
+Defined in: packages/state/dist/index.d.ts:76
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: packages/state/dist/index.d.ts:74
 
 > **nonce**: `` `0x${string}` ``
 
-Defined in: packages/state/dist/index.d.ts:71
+Defined in: packages/state/dist/index.d.ts:73
 
 ***
 
@@ -54,7 +54,7 @@ Defined in: packages/state/dist/index.d.ts:71
 
 > `optional` **storage**: [`StorageDump`](../../common/interfaces/StorageDump.md)
 
-Defined in: packages/state/dist/index.d.ts:75
+Defined in: packages/state/dist/index.d.ts:77
 
 ***
 
@@ -62,4 +62,4 @@ Defined in: packages/state/dist/index.d.ts:75
 
 > **storageRoot**: `` `0x${string}` ``
 
-Defined in: packages/state/dist/index.d.ts:73
+Defined in: packages/state/dist/index.d.ts:75

@@ -122,6 +122,12 @@ Collection of contracts
 
 Custom chain data.
 
+#### ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
+Collection of ENS TLDs for the chain.
+
 #### ethjsCommon
 
 > **ethjsCommon**: `Common`
@@ -202,7 +208,7 @@ Use a custom EVM to run Messages on. If this is not present, use the default EVM
 
 ### genesisState?
 
-> `optional` **genesisState**: [`GenesisState`](../../utils/interfaces/GenesisState.md)
+> `optional` **genesisState**: [`GenesisState`](../../utils/type-aliases/GenesisState.md)
 
 Defined in: packages/vm/types/utils/VMOpts.d.ts:59
 

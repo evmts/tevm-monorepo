@@ -39,6 +39,14 @@
 ## Functions
 
 - [~~blockFromRpc~~](functions/blockFromRpc.md)
+- [createBlock](functions/createBlock.md)
+- [createBlockFromBeaconPayload](functions/createBlockFromBeaconPayload.md)
+- [createBlockFromExecutionPayload](functions/createBlockFromExecutionPayload.md)
+- [createBlockFromRLP](functions/createBlockFromRLP.md)
+- [createBlockFromValuesArray](functions/createBlockFromValuesArray.md)
+- [createBlockHeader](functions/createBlockHeader.md)
+- [createBlockHeaderFromRLP](functions/createBlockHeaderFromRLP.md)
+- [createBlockHeaderFromValuesArray](functions/createBlockHeaderFromValuesArray.md)
 - [executionPayloadFromBeaconPayload](functions/executionPayloadFromBeaconPayload.md)
 - [getDifficulty](functions/getDifficulty.md)
 - [valuesArrayToHeaderData](functions/valuesArrayToHeaderData.md)

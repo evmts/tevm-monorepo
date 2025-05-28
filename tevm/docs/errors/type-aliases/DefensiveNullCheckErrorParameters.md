@@ -16,7 +16,7 @@ Parameters for constructing a [DefensiveNullCheckError](../classes/DefensiveNull
 
 ### cause?
 
-> `optional` **cause**: [`InternalError`](../classes/InternalError.md) \| [`EvmError`](../../evm/classes/EvmError.md)
+> `optional` **cause**: [`InternalError`](../classes/InternalError.md) \| [`EVMError`](../../evm/classes/EVMError.md)
 
 Defined in: packages/errors/types/defensive/DefensiveNullCheckError.d.ts:73
 

@@ -1,5 +1,5 @@
 import { createAddress } from '@tevm/address'
-import { EthjsAccount } from '@tevm/utils'
+import { createAccount } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { getAccount } from './getAccount.js'
@@ -9,7 +9,7 @@ import { putAccount } from './putAccount.js'
 describe(modifyAccountFields.name, () => {
 	it('allows you to modify account fields with a partial config', async () => {
 		const state = createBaseState({})
-		await putAccount(state)(createAddress(0), EthjsAccount.fromAccountData({ nonce: 1n, balance: 2n }))
+		await putAccount(state)(createAddress(0), createAccount({ nonce: 1n, balance: 2n }))
 		await modifyAccountFields(state)(createAddress(0), {
 			nonce: 2n,
 			balance: 3n,
@@ -70,7 +70,7 @@ describe(modifyAccountFields.name, () => {
 		// Create an initial account
 		await putAccount(state)(
 			address,
-			EthjsAccount.fromAccountData({
+			createAccount({
 				nonce: 1n,
 				balance: 2n,
 				storageRoot: initialStorageRoot,
@@ -96,7 +96,7 @@ describe(modifyAccountFields.name, () => {
 		// Create an initial account with non-zero values
 		await putAccount(state)(
 			address,
-			EthjsAccount.fromAccountData({
+			createAccount({
 				nonce: 5n,
 				balance: 10n,
 			}),
@@ -121,7 +121,7 @@ describe(modifyAccountFields.name, () => {
 		// Create an initial account with non-zero values
 		await putAccount(state)(
 			address,
-			EthjsAccount.fromAccountData({
+			createAccount({
 				nonce: 3n,
 				balance: 50n,
 			}),

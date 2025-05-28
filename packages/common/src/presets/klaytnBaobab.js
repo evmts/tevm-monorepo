@@ -27,5 +27,5 @@ export const klaytnBaobab = createCommon({
 	..._klaytnBaobab,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

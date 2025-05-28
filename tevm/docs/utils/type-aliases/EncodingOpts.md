@@ -8,20 +8,20 @@
 
 > **EncodingOpts** = `object`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:15
+Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:17
 
 ## Properties
 
 ### keyEncoding?
 
-> `optional` **keyEncoding**: [`KeyEncoding`](../enumerations/KeyEncoding.md)
+> `optional` **keyEncoding**: [`KeyEncoding`](KeyEncoding.md)
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:16
+Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:18
 
 ***
 
 ### valueEncoding?
 
-> `optional` **valueEncoding**: [`ValueEncoding`](../enumerations/ValueEncoding.md)
+> `optional` **valueEncoding**: [`ValueEncoding`](ValueEncoding.md)
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:17
+Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:19

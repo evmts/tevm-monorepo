@@ -27,5 +27,5 @@ export const mantle = createCommon({
 	..._mantle,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

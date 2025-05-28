@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/logger",
-	"version": "1.0.0-next.142",
+	"version": "1.0.0-next.146",
 	"private": false,
 	"description": "A logger used by tevm",
 	"keywords": [
@@ -63,7 +63,7 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"pino": "^9.6.0"
+		"pino": "^9.7.0"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",

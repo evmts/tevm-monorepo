@@ -72,16 +72,16 @@ export const executeCall = async (client, evmInput, params, events) => {
 		})
 
 		if (trace) {
-			trace.gas = runTxResult.execResult.executionGasUsed
+			trace.gas = /** @type {any} */ (runTxResult).execResult.executionGasUsed
 			trace.failed = false
-			trace.returnValue = bytesToHex(runTxResult.execResult.returnValue)
+			trace.returnValue = bytesToHex(/** @type {any} */ (runTxResult).execResult.returnValue)
 		}
 
 		client.logger.debug(
 			{
-				returnValue: bytesToHex(runTxResult.execResult.returnValue),
-				exceptionError: runTxResult.execResult.exceptionError,
-				executionGasUsed: runTxResult.execResult.executionGasUsed,
+				returnValue: bytesToHex(/** @type {any} */ (runTxResult).execResult.returnValue),
+				exceptionError: /** @type {any} */ (runTxResult).execResult.exceptionError,
+				executionGasUsed: /** @type {any} */ (runTxResult).execResult.executionGasUsed,
 			},
 			'callHandler: runCall result',
 		)
@@ -106,9 +106,11 @@ export const executeCall = async (client, evmInput, params, events) => {
 			runTxResult,
 			accessList,
 			trace,
-			...(runTxResult.execResult.exceptionError !== undefined
-				? { errors: [handleRunTxError(runTxResult.execResult.exceptionError)] }
-				: {}),
+			.../** @type {any} */ (
+				runTxResult.execResult.exceptionError !== undefined
+					? { errors: [handleRunTxError(/** @type {any} */ (runTxResult).execResult.exceptionError)] }
+					: {}
+			),
 		}
 	} catch (e) {
 		return {

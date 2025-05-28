@@ -1,4 +1,5 @@
 import { keccak256 } from '@tevm/utils'
+import { bytesToHex } from 'viem'
 
 /**
  * Returns a mock kzg object that always trusts never verifies
@@ -20,13 +21,18 @@ import { keccak256 } from '@tevm/utils'
  * @see [createCommon](https://tevm.sh/reference/tevm/common/functions/createcommon/)
  */
 export const createMockKzg = () => {
+	const mockHash = bytesToHex(keccak256('0x69', 'bytes'))
 	return {
 		loadTrustedSetup: () => 69,
 		verifyKzgProof: () => true,
 		freeTrustedSetup: () => {},
 		verifyBlobKzgProof: () => true,
-		blobToKzgCommitment: () => keccak256('0x69', 'bytes'),
-		computeBlobKzgProof: () => keccak256('0x69', 'bytes'),
+		blobToKzgCommitment: () => mockHash,
+		computeBlobKzgProof: () => mockHash,
 		verifyBlobKzgProofBatch: () => true,
+		// New methods required by the updated KZG interface
+		computeBlobProof: () => mockHash,
+		verifyProof: () => true,
+		verifyBlobProofBatch: () => true,
 	}
 }

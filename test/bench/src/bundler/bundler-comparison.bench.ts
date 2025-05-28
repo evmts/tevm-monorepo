@@ -9,13 +9,12 @@ import { createCache } from "@tevm/bundler-cache";
 import { createSolc } from "@tevm/solc";
 import { loadConfig } from "@tevm/config";
 
-// Import the Rust bundler
-import { createBundlerSync as createRustBundler } from "@tevm/bundler-rs";
+// Rust bundler import removed - will be replaced with Zig bundler later
 
 /**
  * Benchmark that tests the performance of bundler implementations
- * for Solidity contracts, comparing JavaScript (base-bundler) and
- * Rust (bundler-rs) implementations.
+ * for Solidity contracts, currently testing JavaScript (base-bundler)
+ * implementation. Zig bundler will be added later.
  * 
  * This benchmark:
  * 1. Creates test Solidity contracts of varying complexity
@@ -345,8 +344,7 @@ enum ModuleType {
   Dts = 'dts'
 }
 
-// Import the JsModuleType enum from the Rust bundler
-import { JsModuleType } from "@tevm/bundler-rs";
+// JsModuleType enum removed - will be replaced with Zig bundler types later
 
 describe("Bundler Implementation Benchmarks", async () => {
   // Create test directory with contracts
@@ -378,16 +376,7 @@ describe("Bundler Implementation Benchmarks", async () => {
     cacheInstance
   );
 
-  // Create the Rust bundler
-  const rustBundlerOptions = {
-    remappings_from: [],
-    remappings_to: [],
-    libs: [],
-    use_cache: true,
-    debug: false,
-  };
-  // Create Rust bundler with the base directory for file operations
-  const rustBundler = createRustBundler(rustBundlerOptions);
+  // Rust bundler removed - Zig bundler will be added later
 
   // Clean up the temporary directory after tests
   afterAll(async () => {
@@ -418,19 +407,7 @@ describe("Bundler Implementation Benchmarks", async () => {
     );
   });
 
-  // Rust bundler benchmarks
-  bench("Rust Bundler - TypeScript Resolution", () => {
-    rustBundler.resolve_file_sync(
-      mainContractPath,
-      tempDir,
-      JsModuleType.Ts,
-      {
-        optimize: true,
-        include_bytecode: true,
-        include_ast: false,
-      }
-    );
-  });
+  // Rust bundler benchmarks removed - Zig bundler benchmarks will be added later
 
   // Test CommonJS module resolution
   bench("JS Bundler - Async CommonJS Resolution", async () => {
@@ -451,19 +428,7 @@ describe("Bundler Implementation Benchmarks", async () => {
     );
   });
 
-  // Rust bundler benchmarks
-  bench("Rust Bundler - CommonJS Resolution", () => {
-    rustBundler.resolve_file_sync(
-      mainContractPath,
-      tempDir,
-      JsModuleType.Cjs,
-      {
-        optimize: true,
-        include_bytecode: true,
-        include_ast: false,
-      }
-    );
-  });
+  // Rust bundler benchmarks removed - Zig bundler benchmarks will be added later
 
   // Test ES module resolution
   bench("JS Bundler - Async ESM Resolution", async () => {
@@ -484,19 +449,7 @@ describe("Bundler Implementation Benchmarks", async () => {
     );
   });
 
-  // Rust bundler benchmarks
-  bench("Rust Bundler - ESM Resolution", () => {
-    rustBundler.resolve_file_sync(
-      mainContractPath,
-      tempDir,
-      JsModuleType.Mjs,
-      {
-        optimize: true,
-        include_bytecode: true,
-        include_ast: false,
-      }
-    );
-  });
+  // Rust bundler benchmarks removed - Zig bundler benchmarks will be added later
 
   // Test TypeScript declaration resolution
   bench("JS Bundler - Async DTS Resolution", async () => {
@@ -517,31 +470,7 @@ describe("Bundler Implementation Benchmarks", async () => {
     );
   });
 
-  // Rust bundler benchmarks
-  bench("Rust Bundler - DTS Resolution", () => {
-    rustBundler.resolve_file_sync(
-      mainContractPath,
-      tempDir,
-      JsModuleType.Dts,
-      {
-        optimize: true,
-        include_bytecode: true,
-        include_ast: false,
-      }
-    );
-  });
+  // Rust bundler benchmarks removed - Zig bundler benchmarks will be added later
 
-  // Benchmark direct code bundling
-  bench("Rust Bundler - Direct Code Bundling", () => {
-    rustBundler.bundle_code_js_sync(
-      mainContractPath,
-      JsModuleType.Ts,
-      rustBundlerOptions,
-      {
-        optimize: true,
-        include_bytecode: true,
-        include_ast: false,
-      }
-    );
-  });
+  // Direct code bundling benchmark removed - Zig bundler version will be added later
 });

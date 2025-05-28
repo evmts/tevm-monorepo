@@ -27,5 +27,5 @@ export const nautilus = createCommon({
 	..._nautilus,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

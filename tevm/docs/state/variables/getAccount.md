@@ -8,7 +8,7 @@
 
 > `const` **getAccount**: [`StateAction`](../type-aliases/StateAction.md)\<`"getAccount"`\>
 
-Defined in: packages/state/dist/index.d.ts:390
+Defined in: packages/state/dist/index.d.ts:411
 
 Gets the account corresponding to the provided `address`.
 Returns undefined if account does not exist.

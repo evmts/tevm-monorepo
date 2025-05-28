@@ -1,4 +1,4 @@
-import { EthjsAccount, EthjsAddress, numberToHex, setLengthLeft, toBytes } from '@tevm/utils'
+import { createAccount, createAddressFromString, setLengthLeft, toBytes } from '@tevm/utils'
 
 import { EipNotEnabledError } from '@tevm/errors'
 import type { BaseVm } from '../BaseVm.js'
@@ -13,29 +13,30 @@ import type { BaseVm } from '../BaseVm.js'
  * @returns Function that accumulates parent block hash
  */
 export const accumulateParentBlockHash = (vm: BaseVm) => async (currentBlockNumber: bigint, parentHash: Uint8Array) => {
-	if (!vm.common.ethjsCommon.isActivatedEIP(2935)) {
+	if (!(vm.common as any).ethjsCommon.isActivatedEIP(2935)) {
 		throw new EipNotEnabledError('Cannot call `accumulateParentBlockHash`: EIP 2935 is not active')
 	}
-	const historyAddress = EthjsAddress.fromString(
-		numberToHex(vm.common.ethjsCommon.param('vm', 'historyStorageAddress')),
+	// TODO: Fix param loading from common
+	const historyAddress = createAddressFromString(
+		'0x0aae40965e6800cd9b1f4b05ff21581047e3f91e', // numberToHex(vm.common.ethjsCommon.param('vm', 'historyStorageAddress')),
 	)
-	const historyServeWindow = vm.common.ethjsCommon.param('vm', 'historyServeWindow')
+	const historyServeWindow = 8192n // vm.common.ethjsCommon.param('vm', 'historyServeWindow')
 
 	// Is this the fork block?
-	const forkTime = vm.common.ethjsCommon.eipTimestamp(2935)
+	const forkTime = (vm.common as any).ethjsCommon.eipTimestamp(2935)
 	if (forkTime === null) {
 		throw new EipNotEnabledError('EIP 2935 should be activated by timestamp')
 	}
 
 	if ((await vm.stateManager.getAccount(historyAddress)) === undefined) {
-		await vm.evm.journal.putAccount(historyAddress, new EthjsAccount())
+		await vm.evm.journal.putAccount(historyAddress, createAccount({}))
 	}
 
 	async function putBlockHash(vm: BaseVm, hash: Uint8Array, number: bigint) {
 		// ringKey is the key the hash is actually put in (it is a ring buffer)
 		const ringKey = number % historyServeWindow
 		const key = setLengthLeft(toBytes(Number(ringKey)), 32)
-		await vm.stateManager.putContractStorage(historyAddress, key, hash)
+		await vm.stateManager.putStorage(historyAddress, key, hash)
 	}
 	await putBlockHash(vm, parentHash, currentBlockNumber - 1n)
 

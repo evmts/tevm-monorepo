@@ -27,5 +27,5 @@ export const sketchpad = createCommon({
 	..._sketchpad,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

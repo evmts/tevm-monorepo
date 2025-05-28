@@ -27,5 +27,5 @@ export const iotex = createCommon({
 	..._iotex,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

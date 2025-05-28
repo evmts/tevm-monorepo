@@ -27,5 +27,5 @@ export const taikoTestnetSepolia = createCommon({
 	..._taikoTestnetSepolia,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

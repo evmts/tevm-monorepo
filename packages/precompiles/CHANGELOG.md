@@ -1,5 +1,14 @@
 # @tevm/precompiles
 
+## 1.0.0-next.146
+
+### Patch Changes
+
+- Updated dependencies [c1a3cda]
+  - @tevm/utils@1.0.0-next.146
+  - @tevm/evm@1.0.0-next.146
+  - @tevm/contract@1.0.0-next.146
+
 ## 1.0.0-next.145
 
 ### Patch Changes

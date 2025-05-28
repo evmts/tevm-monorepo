@@ -16,7 +16,7 @@ Parameters for constructing a [InternalEvmError](../classes/InternalEvmError.md)
 
 ### cause?
 
-> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| [`EvmError`](../../evm/classes/EvmError.md)
+> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| [`EVMError`](../../evm/classes/EVMError.md)
 
 Defined in: packages/errors/types/ethereum/ethereumjs/InternalEvmError.d.ts:87
 

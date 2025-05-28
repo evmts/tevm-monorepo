@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/evm",
-	"version": "1.0.0-next.145",
+	"version": "1.0.0-next.146",
 	"private": false,
 	"description": "A custom implementation of ethereumjs evm",
 	"keywords": [
@@ -63,7 +63,7 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@ethereumjs/evm": "^3.1.1",
+		"@ethereumjs/evm": "^10.0.0",
 		"@tevm/blockchain": "workspace:^",
 		"@tevm/common": "workspace:^",
 		"@tevm/errors": "workspace:^",

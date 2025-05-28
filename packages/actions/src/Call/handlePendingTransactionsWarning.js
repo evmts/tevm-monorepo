@@ -21,7 +21,7 @@ export const handlePendingTransactionsWarning = async (client, params, code, dep
 	) {
 		const vm = await client.getVm()
 		const isCode = await vm.stateManager
-			.getContractCode(createAddress(params.to))
+			.getCode(createAddress(params.to))
 			.then((code) => code.length > 0)
 			.catch(() => false)
 		const txPool = await client.getTxPool()

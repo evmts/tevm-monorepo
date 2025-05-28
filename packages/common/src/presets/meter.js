@@ -27,5 +27,5 @@ export const meter = createCommon({
 	..._meter,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

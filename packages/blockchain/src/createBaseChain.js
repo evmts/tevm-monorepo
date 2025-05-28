@@ -1,4 +1,4 @@
-import { Block } from '@tevm/block'
+import { createBlock } from '@tevm/block'
 import { createLogger } from '@tevm/logger'
 import { EMPTY_STATE_ROOT } from '@tevm/trie'
 import { hexToBytes } from 'viem'
@@ -18,13 +18,12 @@ const KECCAK256_RLP = hexToBytes(KECCAK256_RLP_S)
  * Creates a genesis {@link Block} for the blockchain with params from {@link Common.genesis}
  * @param {Uint8Array} stateRoot The genesis stateRoot
  * @param {import('@tevm/common').Common} common class
- * @returns {Block}
+ * @returns {import('@tevm/block').Block}
  */
 const createGenesisBlock = (stateRoot, common) => {
 	const newCommon = common.copy()
 	newCommon.ethjsCommon.setHardforkBy({
 		blockNumber: 0,
-		td: BigInt(newCommon.ethjsCommon.genesis().difficulty),
 		timestamp: newCommon.ethjsCommon.genesis().timestamp ?? 0,
 	})
 
@@ -38,10 +37,7 @@ const createGenesisBlock = (stateRoot, common) => {
 		gasLimit: 30_000_000n,
 		...(newCommon.ethjsCommon.isActivatedEIP(4895) ? { withdrawalsRoot: KECCAK256_RLP } : {}),
 	}
-	return Block.fromBlockData(
-		{ header, ...(newCommon.ethjsCommon.isActivatedEIP(4895) ? { withdrawals: [] } : {}) },
-		{ common },
-	)
+	return createBlock({ header, ...(newCommon.ethjsCommon.isActivatedEIP(4895) ? { withdrawals: [] } : {}) }, { common })
 }
 /**
  * @param {import('./ChainOptions.js').ChainOptions} options

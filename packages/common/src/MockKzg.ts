@@ -24,9 +24,13 @@
 export type MockKzg = {
 	loadTrustedSetup: (trustedSetup?: any) => number
 	freeTrustedSetup: () => void
-	blobToKzgCommitment: (blob: Uint8Array) => Uint8Array
-	computeBlobKzgProof: (blob: Uint8Array, commitment: Uint8Array) => Uint8Array
-	verifyBlobKzgProofBatch: (blobs: Uint8Array[], commitments: Uint8Array[], proofs: Uint8Array[]) => boolean
-	verifyKzgProof: (commitment: Uint8Array, z: Uint8Array, y: Uint8Array, proof: Uint8Array) => boolean
-	verifyBlobKzgProof: (blob: Uint8Array, commitment: Uint8Array, proof: Uint8Array) => boolean
+	blobToKzgCommitment: (blob: string) => string
+	computeBlobKzgProof: (blob: string, commitment: string) => string
+	verifyBlobKzgProofBatch: (blobs: string[], commitments: string[], proofs: string[]) => boolean
+	verifyKzgProof: (commitment: string, z: string, y: string, proof: string) => boolean
+	verifyBlobKzgProof: (blob: string, commitment: string, proof: string) => boolean
+	// New methods required by ethereumjs v10
+	computeBlobProof: (blob: string, commitment: string) => string
+	verifyProof: (commitment: string, z: string, y: string, proof: string) => boolean
+	verifyBlobProofBatch: (blobs: string[], commitments: string[], proofs: string[]) => boolean
 }

@@ -27,5 +27,5 @@ export const bscGreenfield = createCommon({
 	..._bscGreenfield,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

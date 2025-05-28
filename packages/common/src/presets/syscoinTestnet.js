@@ -27,5 +27,5 @@ export const syscoinTestnet = createCommon({
 	..._syscoinTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

@@ -27,5 +27,5 @@ export const rss3Sepolia = createCommon({
 	..._rss3Sepolia,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

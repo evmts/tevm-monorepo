@@ -8,7 +8,7 @@
 
 > **StateOptions** = `object`
 
-Defined in: packages/state/dist/index.d.ts:288
+Defined in: packages/state/dist/index.d.ts:313
 
 Configuration options for the Tevm state manager.
 Controls forking, initial state, caching, and event handling.
@@ -34,7 +34,7 @@ const value: StateOptions = {
 
 > `readonly` `optional` **accountsCache**: [`AccountCache`](../../state/classes/AccountCache.md)
 
-Defined in: packages/state/dist/index.d.ts:312
+Defined in: packages/state/dist/index.d.ts:337
 
 Optionally configure the accounts cache
 
@@ -44,7 +44,7 @@ Optionally configure the accounts cache
 
 > `readonly` `optional` **contractCache**: [`ContractCache`](../../state/classes/ContractCache.md)
 
-Defined in: packages/state/dist/index.d.ts:304
+Defined in: packages/state/dist/index.d.ts:329
 
 Optionally configure and pass in your own ContractCache
 
@@ -54,7 +54,7 @@ Optionally configure and pass in your own ContractCache
 
 > `optional` **currentStateRoot**: [`Hex`](Hex.md)
 
-Defined in: packages/state/dist/index.d.ts:291
+Defined in: packages/state/dist/index.d.ts:316
 
 ***
 
@@ -62,7 +62,7 @@ Defined in: packages/state/dist/index.d.ts:291
 
 > `optional` **fork**: [`ForkOptions`](../../state/interfaces/ForkOptions.md)
 
-Defined in: packages/state/dist/index.d.ts:289
+Defined in: packages/state/dist/index.d.ts:314
 
 ***
 
@@ -70,7 +70,7 @@ Defined in: packages/state/dist/index.d.ts:289
 
 > `optional` **genesisState**: [`TevmState`](TevmState.md)
 
-Defined in: packages/state/dist/index.d.ts:290
+Defined in: packages/state/dist/index.d.ts:315
 
 ***
 
@@ -78,7 +78,7 @@ Defined in: packages/state/dist/index.d.ts:290
 
 > `readonly` `optional` **loggingLevel**: `LogOptions`\[`"level"`\]
 
-Defined in: packages/state/dist/index.d.ts:300
+Defined in: packages/state/dist/index.d.ts:325
 
 Configure logging options for the client
 
@@ -88,7 +88,7 @@ Configure logging options for the client
 
 > `optional` **onCommit**: (`stateManager`) => `void`
 
-Defined in: packages/state/dist/index.d.ts:296
+Defined in: packages/state/dist/index.d.ts:321
 
 Called when state manager commits state
 
@@ -108,7 +108,7 @@ Called when state manager commits state
 
 > `optional` **stateRoots**: [`StateRoots`](../../state/type-aliases/StateRoots.md)
 
-Defined in: packages/state/dist/index.d.ts:292
+Defined in: packages/state/dist/index.d.ts:317
 
 ***
 
@@ -116,6 +116,6 @@ Defined in: packages/state/dist/index.d.ts:292
 
 > `readonly` `optional` **storageCache**: [`StorageCache`](../../state/classes/StorageCache.md)
 
-Defined in: packages/state/dist/index.d.ts:308
+Defined in: packages/state/dist/index.d.ts:333
 
 Optionally configure and pass in your own StorageCache

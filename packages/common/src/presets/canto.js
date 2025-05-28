@@ -27,5 +27,5 @@ export const canto = createCommon({
 	..._canto,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

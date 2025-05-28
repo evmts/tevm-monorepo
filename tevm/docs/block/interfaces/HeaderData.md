@@ -54,7 +54,7 @@ Defined in: packages/block/types/types.d.ts:178
 
 ### extraData?
 
-> `optional` **extraData**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformabletoBytes`
+> `optional` **extraData**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes`
 
 Defined in: packages/block/types/types.d.ts:172
 
@@ -78,7 +78,7 @@ Defined in: packages/block/types/types.d.ts:170
 
 ### logsBloom?
 
-> `optional` **logsBloom**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformabletoBytes`
+> `optional` **logsBloom**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes`
 
 Defined in: packages/block/types/types.d.ts:166
 
@@ -86,7 +86,7 @@ Defined in: packages/block/types/types.d.ts:166
 
 ### mixHash?
 
-> `optional` **mixHash**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformabletoBytes`
+> `optional` **mixHash**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes`
 
 Defined in: packages/block/types/types.d.ts:173
 
@@ -94,7 +94,7 @@ Defined in: packages/block/types/types.d.ts:173
 
 ### nonce?
 
-> `optional` **nonce**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformabletoBytes`
+> `optional` **nonce**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes`
 
 Defined in: packages/block/types/types.d.ts:174
 
@@ -110,7 +110,7 @@ Defined in: packages/block/types/types.d.ts:168
 
 ### parentBeaconBlockRoot?
 
-> `optional` **parentBeaconBlockRoot**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformabletoBytes`
+> `optional` **parentBeaconBlockRoot**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes`
 
 Defined in: packages/block/types/types.d.ts:179
 
@@ -118,7 +118,7 @@ Defined in: packages/block/types/types.d.ts:179
 
 ### parentHash?
 
-> `optional` **parentHash**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformabletoBytes`
+> `optional` **parentHash**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes`
 
 Defined in: packages/block/types/types.d.ts:160
 
@@ -126,7 +126,7 @@ Defined in: packages/block/types/types.d.ts:160
 
 ### receiptTrie?
 
-> `optional` **receiptTrie**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformabletoBytes`
+> `optional` **receiptTrie**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes`
 
 Defined in: packages/block/types/types.d.ts:165
 
@@ -134,7 +134,7 @@ Defined in: packages/block/types/types.d.ts:165
 
 ### requestsRoot?
 
-> `optional` **requestsRoot**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformabletoBytes`
+> `optional` **requestsRoot**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes`
 
 Defined in: packages/block/types/types.d.ts:180
 
@@ -142,7 +142,7 @@ Defined in: packages/block/types/types.d.ts:180
 
 ### stateRoot?
 
-> `optional` **stateRoot**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformabletoBytes`
+> `optional` **stateRoot**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes`
 
 Defined in: packages/block/types/types.d.ts:163
 
@@ -158,7 +158,7 @@ Defined in: packages/block/types/types.d.ts:171
 
 ### transactionsTrie?
 
-> `optional` **transactionsTrie**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformabletoBytes`
+> `optional` **transactionsTrie**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes`
 
 Defined in: packages/block/types/types.d.ts:164
 
@@ -166,7 +166,7 @@ Defined in: packages/block/types/types.d.ts:164
 
 ### uncleHash?
 
-> `optional` **uncleHash**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformabletoBytes`
+> `optional` **uncleHash**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes`
 
 Defined in: packages/block/types/types.d.ts:161
 
@@ -174,6 +174,6 @@ Defined in: packages/block/types/types.d.ts:161
 
 ### withdrawalsRoot?
 
-> `optional` **withdrawalsRoot**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformabletoBytes`
+> `optional` **withdrawalsRoot**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes`
 
 Defined in: packages/block/types/types.d.ts:176

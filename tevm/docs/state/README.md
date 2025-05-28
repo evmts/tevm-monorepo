@@ -6,10 +6,6 @@
 
 # state
 
-## Enumerations
-
-- [CacheType](enumerations/CacheType.md)
-
 ## Classes
 
 - [AccountCache](classes/AccountCache.md)
@@ -26,6 +22,7 @@
 ## Type Aliases
 
 - [BaseState](type-aliases/BaseState.md)
+- [CacheType](type-aliases/CacheType.md)
 - [ParameterizedTevmState](type-aliases/ParameterizedTevmState.md)
 - [SerializableTevmState](type-aliases/SerializableTevmState.md)
 - [StateAction](type-aliases/StateAction.md)
@@ -34,9 +31,9 @@
 
 ## Variables
 
+- [CacheType](variables/CacheType.md)
 - [checkpoint](variables/checkpoint.md)
 - [clearCaches](variables/clearCaches.md)
-- [clearContractStorage](variables/clearContractStorage.md)
 - [commit](variables/commit.md)
 - [deleteAccount](variables/deleteAccount.md)
 - [dumpCanonicalGenesis](variables/dumpCanonicalGenesis.md)
@@ -46,27 +43,28 @@
 - [getAccount](variables/getAccount.md)
 - [getAccountAddresses](variables/getAccountAddresses.md)
 - [~~getAppliedKey~~](variables/getAppliedKey.md)
-- [getContractCode](variables/getContractCode.md)
-- [getContractStorage](variables/getContractStorage.md)
-- [getProof](variables/getProof.md)
 - [getStateRoot](variables/getStateRoot.md)
 - [hasStateRoot](variables/hasStateRoot.md)
 - [modifyAccountFields](variables/modifyAccountFields.md)
 - [originalStorageCache](variables/originalStorageCache.md)
 - [putAccount](variables/putAccount.md)
-- [putContractCode](variables/putContractCode.md)
-- [putContractStorage](variables/putContractStorage.md)
 - [revert](variables/revert.md)
 - [setStateRoot](variables/setStateRoot.md)
 
 ## Functions
 
+- [clearContractStorage](functions/clearContractStorage.md)
 - [createBaseState](functions/createBaseState.md)
 - [createStateManager](functions/createStateManager.md)
 - [deepCopy](functions/deepCopy.md)
 - [getAccountFromProvider](functions/getAccountFromProvider.md)
+- [getContractCode](functions/getContractCode.md)
+- [getContractStorage](functions/getContractStorage.md)
 - [getForkBlockTag](functions/getForkBlockTag.md)
 - [getForkClient](functions/getForkClient.md)
+- [getProof](functions/getProof.md)
+- [putContractCode](functions/putContractCode.md)
+- [putContractStorage](functions/putContractStorage.md)
 - [shallowCopy](functions/shallowCopy.md)
 
 ## References

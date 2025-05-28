@@ -36,7 +36,10 @@ export const setStateRoot = (baseState) => async (root) => {
 	const oldStateRoot = baseState.getCurrentStateRoot()
 	try {
 		baseState.setCurrentStateRoot(bytesToHex(root))
-		await generateCanonicalGenesis(baseState)(genesis)
+		const generateFn = generateCanonicalGenesis(baseState)
+		if (generateFn) {
+			await generateFn(genesis)
+		}
 		baseState.logger.debug({ oldStateRoot, newStateRoot: root }, 'state root changed')
 		return
 	} catch (e) {

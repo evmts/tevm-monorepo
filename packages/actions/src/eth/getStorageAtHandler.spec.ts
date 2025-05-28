@@ -89,7 +89,7 @@ describe('getStorageAtHandler', () => {
 		const vm = await client.getVm()
 
 		// Mock the stateManager to throw an error
-		vm.stateManager.getContractStorage = async () => {
+		vm.stateManager.getStorage = async () => {
 			throw new Error('Storage retrieval error')
 		}
 

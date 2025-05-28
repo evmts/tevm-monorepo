@@ -1,5 +1,15 @@
 # @tevm/contract
 
+## 1.0.0-next.146
+
+### Patch Changes
+
+- c1a3cda: pnpm up --latest all packages
+- Updated dependencies [c1a3cda]
+  - @tevm/resolutions@1.0.0-next.146
+  - @tevm/config@1.0.0-next.146
+  - @tevm/solc@1.0.0-next.146
+
 ## 1.0.0-next.142
 
 ### Patch Changes

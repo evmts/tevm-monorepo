@@ -16,7 +16,7 @@ Parameters for constructing a RevertError.
 
 ### cause?
 
-> `optional` **cause**: [`EvmError`](../../evm/classes/EvmError.md) \| [`BaseError`](../classes/BaseError.md) \| `Error`
+> `optional` **cause**: [`EVMError`](../../evm/classes/EVMError.md) \| [`BaseError`](../classes/BaseError.md) \| `Error`
 
 Defined in: packages/errors/types/ethereum/RevertError.d.ts:84
 

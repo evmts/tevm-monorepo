@@ -27,5 +27,5 @@ export const ekta = createCommon({
 	..._ekta,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

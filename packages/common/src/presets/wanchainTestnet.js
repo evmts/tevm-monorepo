@@ -27,5 +27,5 @@ export const wanchainTestnet = createCommon({
 	..._wanchainTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

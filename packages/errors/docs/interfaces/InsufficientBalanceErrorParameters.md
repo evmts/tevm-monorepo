@@ -12,7 +12,7 @@ Defined in: [packages/errors/src/ethereum/ethereumjs/InsufficientBalanceError.js
 
 ### cause?
 
-> `optional` **cause**: `EvmError` \| [`ExecutionError`](../classes/ExecutionError.md)
+> `optional` **cause**: `EVMError` \| [`ExecutionError`](../classes/ExecutionError.md)
 
 Defined in: [packages/errors/src/ethereum/ethereumjs/InsufficientBalanceError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InsufficientBalanceError.js#L11)
 

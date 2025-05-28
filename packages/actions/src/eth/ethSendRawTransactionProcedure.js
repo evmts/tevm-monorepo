@@ -1,5 +1,5 @@
 import { InvalidParamsError } from '@tevm/errors'
-import { BlobEIP4844Transaction, TransactionFactory } from '@tevm/tx'
+import { createTxFromRLP } from '@tevm/tx'
 import { bytesToHex, hexToBytes } from '@tevm/utils'
 
 /**
@@ -12,11 +12,8 @@ export const ethSendRawTransactionJsonRpcProcedure = (client) => {
 		const vm = await client.getVm()
 		const [serializedTx] = request.params
 		const txBuf = hexToBytes(serializedTx)
-		// Blob Transactions sent over RPC are expected to be in Network Wrapper format
-		const tx =
-			txBuf[0] === 0x03
-				? BlobEIP4844Transaction.fromSerializedBlobTxNetworkWrapper(txBuf, { common: vm.common.ethjsCommon })
-				: TransactionFactory.fromSerializedData(txBuf, { common: vm.common.ethjsCommon })
+		// Use createTxFromRLP for all transaction types
+		const tx = createTxFromRLP(txBuf, { common: vm.common.ethjsCommon })
 		if (!tx.isSigned()) {
 			const err = new InvalidParamsError('Transaction must be signed!')
 			return {

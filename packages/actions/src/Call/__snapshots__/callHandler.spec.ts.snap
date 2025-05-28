@@ -16,7 +16,7 @@ exports[`callHandler > should handle error during EVM execution 1`] = `
   [RevertError: revert
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
-Details: {"error":"revert","errorType":"EvmError"}
+Details: {"error":"revert","errorType":"EVMError"}
 Version: 1.1.0.next-73],
 ]
 `;
@@ -35,7 +35,7 @@ exports[`callHandler > should handle error during script creation 1`] = `
   [InvalidBytecodeError: stack underflow
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
-Details: {"error":"stack underflow","errorType":"EvmError"}
+Details: {"error":"stack underflow","errorType":"EVMError"}
 Version: 1.1.0.next-73],
 ]
 `;
@@ -55,7 +55,7 @@ exports[`callHandler > should handle errors returned during contract call 1`] = 
   [RevertError: revert
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
-Details: {"error":"revert","errorType":"EvmError"}
+Details: {"error":"revert","errorType":"EVMError"}
 Version: 1.1.0.next-73],
 ]
 `;
@@ -97,7 +97,7 @@ exports[`callHandler > should handle unexpected errors during script creation 1`
   [InvalidBytecodeError: stack underflow
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
-Details: {"error":"stack underflow","errorType":"EvmError"}
+Details: {"error":"stack underflow","errorType":"EVMError"}
 Version: 1.1.0.next-73],
 ]
 `;
@@ -117,133 +117,9 @@ exports[`callHandler > should return error for invalid contract call data 1`] = 
   [RevertError: revert
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
-Details: {"error":"revert","errorType":"EvmError"}
+Details: {"error":"revert","errorType":"EVMError"}
 Version: 1.1.0.next-73],
 ]
 `;
 
 exports[`callHandler > should submit a transaction and read the result with pending blockTag 1`] = `"0x3c7a9a03c23faf6431c7b0fab86c70761cb36bf79a305da17bc581fd6e479116"`;
-
-exports[`callHandler should create transaction when createTransaction is true 1`] = `"0x932c965e92ff1a173077fcf85543a7e1582b2d452f300571bed82a1b2c0180d3"`;
-
-exports[`callHandler should handle being unable to get options 1`] = `
-[
-  [_UnknownBlockError: Error cloning VM
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
-Version: 1.1.0.next-73],
-]
-`;
-
-exports[`callHandler should handle error during EVM execution 1`] = `
-[
-  [_RevertError: revert
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
-Details: {"error":"revert","errorType":"EvmError"}
-Version: 1.1.0.next-73],
-]
-`;
-
-exports[`callHandler should handle error during VM cloning 1`] = `
-[
-  [InvalidBlockError: value must be a hex string
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
-Version: 1.1.0.next-73],
-]
-`;
-
-exports[`callHandler should handle error during script creation 1`] = `
-[
-  [InvalidBytecodeError: stack underflow
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
-Details: {"error":"stack underflow","errorType":"EvmError"}
-Version: 1.1.0.next-73],
-]
-`;
-
-exports[`callHandler should handle error during transaction creation 1`] = `
-[
-  {
-    "_tag": "UnexpectedError",
-    "message": "Error adding transaction to pool",
-    "name": "UnexpectedError",
-  },
-]
-`;
-
-exports[`callHandler should handle errors returned during contract call 1`] = `
-[
-  [_RevertError: revert
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
-Details: {"error":"revert","errorType":"EvmError"}
-Version: 1.1.0.next-73],
-]
-`;
-
-exports[`callHandler should handle insufficient balance error 1`] = `
-[
-  {
-    "_tag": "InsufficientBalance",
-    "message": "Insufficientbalance: Account 0x6969696969696969696969696969696969696969 attempted to create a transaction with zero eth. Consider adding eth to account or using a different from or origin address",
-    "name": "InsufficientBalance",
-  },
-]
-`;
-
-exports[`callHandler should handle mining failing 1`] = `
-[
-  [MisconfiguredClientError: Syncing not currently implemented
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Version: 1.1.0.next-73],
-]
-`;
-
-exports[`callHandler should handle unexpected errors during param conversion 1`] = `
-[
-  [InvalidGasPriceError: Invalid input
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
-Version: 1.1.0.next-73],
-  [InvalidGasPriceError: Invalid input
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
-Version: 1.1.0.next-73],
-]
-`;
-
-exports[`callHandler should handle unexpected errors during script creation 1`] = `
-[
-  [InvalidBytecodeError: stack underflow
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
-Details: {"error":"stack underflow","errorType":"EvmError"}
-Version: 1.1.0.next-73],
-]
-`;
-
-exports[`callHandler should handle vm cloning throwing unexpectedly 1`] = `
-[
-  [_InternalError: Error cloning VM
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Details: Error cloning VM
-Version: 1.1.0.next-73],
-]
-`;
-
-exports[`callHandler should return error for invalid contract call data 1`] = `
-[
-  [_RevertError: revert
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
-Details: {"error":"revert","errorType":"EvmError"}
-Version: 1.1.0.next-73],
-]
-`;
-
-exports[`callHandler should submit a transaction and read the result with pending blockTag 1`] = `"0x3c7a9a03c23faf6431c7b0fab86c70761cb36bf79a305da17bc581fd6e479116"`;

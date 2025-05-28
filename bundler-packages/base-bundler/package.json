@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/base-bundler",
-	"version": "1.0.0-next.142",
+	"version": "1.0.0-next.146",
 	"private": false,
 	"description": "Internal bundler for Tevm",
 	"keywords": [
@@ -70,10 +70,10 @@
 		"@tevm/solc": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"@types/node": "^22.13.5",
-		"effect": "3.13.2",
-		"solc": "0.8.28",
-		"solidity-ast": "^0.4.59"
+		"@types/node": "^22.15.21",
+		"effect": "3.15.4",
+		"solc": "0.8.30",
+		"solidity-ast": "^0.4.60"
 	},
 	"publishConfig": {
 		"access": "public"

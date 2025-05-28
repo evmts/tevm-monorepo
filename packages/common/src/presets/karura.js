@@ -27,5 +27,5 @@ export const karura = createCommon({
 	..._karura,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

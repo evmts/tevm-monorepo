@@ -27,5 +27,5 @@ export const skaleExorde = createCommon({
 	..._skaleExorde,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

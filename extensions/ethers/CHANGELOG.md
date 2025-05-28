@@ -1,5 +1,19 @@
 # @tevm/ethers
 
+## 1.0.0-next.146
+
+### Patch Changes
+
+- c1a3cda: pnpm up --latest all packages
+- Updated dependencies [c1a3cda]
+  - @tevm/decorators@1.0.0-next.146
+  - @tevm/actions@1.0.0-next.146
+  - @tevm/common@1.0.0-next.146
+  - @tevm/utils@1.0.0-next.146
+  - @tevm/node@1.0.0-next.146
+  - @tevm/client-types@1.0.0-next.146
+  - @tevm/contract@1.0.0-next.146
+
 ## 1.0.0-next.145
 
 ### Patch Changes

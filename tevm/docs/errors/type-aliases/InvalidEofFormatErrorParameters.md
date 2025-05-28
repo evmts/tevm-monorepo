@@ -16,7 +16,7 @@ Parameters for constructing a [InvalidEofFormatError](../classes/InvalidEofForma
 
 ### cause?
 
-> `optional` **cause**: [`ExecutionError`](../classes/ExecutionError.md) \| [`EvmError`](../../evm/classes/EvmError.md)
+> `optional` **cause**: [`ExecutionError`](../classes/ExecutionError.md) \| [`EVMError`](../../evm/classes/EVMError.md)
 
 Defined in: packages/errors/types/ethereum/ethereumjs/InvalidEofFormatError.d.ts:93
 

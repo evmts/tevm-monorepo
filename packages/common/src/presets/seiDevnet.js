@@ -27,5 +27,5 @@ export const seiDevnet = createCommon({
 	..._seiDevnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

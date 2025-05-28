@@ -1,5 +1,5 @@
 import { createAddress } from '@tevm/address'
-import { EthjsAccount, bytesToHex } from '@tevm/utils'
+import { bytesToHex, createAccount } from '@tevm/utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { checkpoint } from './checkpoint.js'
@@ -12,7 +12,7 @@ describe(commit.name, () => {
 		const baseState = createBaseState({
 			loggingLevel: 'warn',
 		})
-		await putAccount(baseState)(createAddress(69696969), EthjsAccount.fromAccountData({ balance: 20n }))
+		await putAccount(baseState)(createAddress(69696969), createAccount({ balance: 20n }))
 		expect(baseState.caches.storage._checkpoints).toBe(0)
 		expect(baseState.caches.accounts._checkpoints).toBe(0)
 		expect(baseState.caches.contracts._checkpoints).toBe(0)
@@ -108,7 +108,7 @@ describe(commit.name, () => {
 		// that handles deployedBytecode specifically
 
 		// Create a test account
-		const account = EthjsAccount.fromAccountData({
+		const account = createAccount({
 			balance: 100n,
 			nonce: 1n,
 		})

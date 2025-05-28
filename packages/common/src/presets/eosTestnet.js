@@ -27,5 +27,5 @@ export const eosTestnet = createCommon({
 	..._eosTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

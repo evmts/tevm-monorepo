@@ -27,5 +27,5 @@ export const immutableZkEvm = createCommon({
 	..._immutableZkEvm,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

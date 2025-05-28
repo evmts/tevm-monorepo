@@ -5,6 +5,7 @@
 Tevm is an in-browser & Node.js-compatible Ethereum Virtual Machine (EVM) environment. It provides a complete Ethereum execution environment powered by JavaScript that can run:
 
 **Unique Features:**
+
 - Import Solidity contracts directly in JavaScript/TypeScript
 - Typecheck Solidity contracts with full type safety
 - Simulate and debug EVM execution step-by-step
@@ -45,11 +46,8 @@ These components work together to provide a complete Ethereum node implementatio
 
 Tevm has two distinct API styles due to its underlying implementation:
 
-1. **Low-level Ethereumjs API**:
-   - Uses `Uint8Array` (bytes) for binary data
-   - Uses custom `Address` objects (create with `createAddress` from `tevm/address`)
-   - Uses custom `Account` objects for account state
-   - Used primarily when interacting directly with the VM, EVM, or StateManager
+1. **Low-level Ethereumjs API**
+   This is currently being replaced by a new zig api
 
 2. **High-level Viem API**:
    - Uses hex strings (e.g., `0x123abc`) for binary data and addresses
@@ -57,6 +55,8 @@ Tevm has two distinct API styles due to its underlying implementation:
    - Used in most client-facing interfaces and the JSON-RPC implementation
 
 ### Package Structure and Dependencies
+
+The new zig and javascript code will live in src/\*_/_. Most of the existing released code lives in packages/_ and bundler-packages/_
 
 Tevm wraps its main dependencies (viem and ethereumjs) in dedicated packages:
 
@@ -74,18 +74,19 @@ Tevm wraps its main dependencies (viem and ethereumjs) in dedicated packages:
 This structure provides a unified API and allows Tevm to extend or modify functionality when needed.
 
 When working with both APIs, you may need to convert between formats:
+
 ```typescript
 // Converting from Viem hex string to Ethereumjs bytes
-import { hexToBytes } from 'viem'
-import { createAddress } from 'tevm/address'
+import { hexToBytes } from "viem";
+import { createAddress } from "tevm/address";
 
 // Address conversion
-const viem_address = '0x1234567890123456789012345678901234567890'
-const ethereumjs_address = createAddress(viem_address)
+const viem_address = "0x1234567890123456789012345678901234567890";
+const ethereumjs_address = createAddress(viem_address);
 
 // Bytes conversion
-const viem_data = '0xabcdef1234'
-const ethereumjs_data = hexToBytes(viem_data)
+const viem_data = "0xabcdef1234";
+const ethereumjs_data = hexToBytes(viem_data);
 ```
 
 ### Forking Implementation
@@ -104,10 +105,10 @@ This enables efficient forking with minimal memory usage, as only the accessed s
 
 The entire JSON-RPC API is implemented in the `tevm/actions` package, which provides:
 
-- Full support for standard Ethereum JSON-RPC methods (eth_*)
-- Support for Anvil's methods (anvil_*)
-- Debug namespace methods (debug_*)
-- Custom Tevm methods (tevm_*)
+- Full support for standard Ethereum JSON-RPC methods (eth\_\*)
+- Support for Anvil's methods (anvil\_\*)
+- Debug namespace methods (debug\_\*)
+- Custom Tevm methods (tevm\_\*)
 
 These action handlers translate between Viem-style parameters and the internal Ethereumjs API, handling format conversions automatically.
 
@@ -115,25 +116,28 @@ These action handlers translate between Viem-style parameters and the internal E
 
 ```typescript
 // Using with Viem client interface
-const client = createMemoryClient()
+const client = createMemoryClient();
 
 // eth_ methods
-await client.getBalance({ address: '0x123...' })
-await client.getBlockNumber()
-await client.getCode({ address: '0x123...' })
-await client.getTransactionCount({ address: '0x123...' })
-await client.call({ to: '0x123...', data: '0xabcdef...' })
+await client.getBalance({ address: "0x123..." });
+await client.getBlockNumber();
+await client.getCode({ address: "0x123..." });
+await client.getTransactionCount({ address: "0x123..." });
+await client.call({ to: "0x123...", data: "0xabcdef..." });
 
 // anvil_ methods
-await client.impersonateAccount({ address: '0x123...' })
-await client.stopImpersonatingAccount({ address: '0x123...' })
-await client.mine({ blocks: 1 })
-await client.setBalance({ address: '0x123...', value: 1000000000000000000n })
-await client.reset({ forking: { jsonRpcUrl: 'https://...' } })
+await client.impersonateAccount({ address: "0x123..." });
+await client.stopImpersonatingAccount({ address: "0x123..." });
+await client.mine({ blocks: 1 });
+await client.setBalance({ address: "0x123...", value: 1000000000000000000n });
+await client.reset({ forking: { jsonRpcUrl: "https://..." } });
 
 // tevm_ methods
-await client.tevmSetAccount({ address: '0x123...', balance: 1000000000000000000n })
-await client.tevmDumpState()
+await client.tevmSetAccount({
+  address: "0x123...",
+  balance: 1000000000000000000n,
+});
+await client.tevmDumpState();
 ```
 
 #### Raw JSON-RPC Interface
@@ -141,48 +145,53 @@ await client.tevmDumpState()
 You can also use the raw JSON-RPC interface:
 
 ```typescript
-import { createTevmNode } from 'tevm'
-import { requestEip1193 } from 'tevm/decorators'
+import { createTevmNode } from "tevm";
+import { requestEip1193 } from "tevm/decorators";
 
-const node = createTevmNode().extend(requestEip1193())
+const node = createTevmNode().extend(requestEip1193());
 
 // Make JSON-RPC requests
 const result = await node.request({
-  method: 'eth_getBalance',
-  params: ['0x1234567890123456789012345678901234567890', 'latest']
-})
+  method: "eth_getBalance",
+  params: ["0x1234567890123456789012345678901234567890", "latest"],
+});
 ```
 
 ### Quick Start Example (Viem)
 
 ```typescript
-import {createMemoryClient, http} from 'tevm'
-import {optimism} from 'tevm/common'
-import {encodeFunctionData, parseAbi, decodeFunctionResult, parseEther} from 'viem'
+import { createMemoryClient, http } from "tevm";
+import { optimism } from "tevm/common";
+import {
+  encodeFunctionData,
+  parseAbi,
+  decodeFunctionResult,
+  parseEther,
+} from "viem";
 
 // Create a client as a fork of the Optimism mainnet
 const client = createMemoryClient({
   fork: {
-    transport: http('https://mainnet.optimism.io')({}),
+    transport: http("https://mainnet.optimism.io")({}),
     common: optimism,
   },
-})
+});
 
-await client.tevmReady()
+await client.tevmReady();
 
 // Mint 1 ETH for our address
-const account = "0x" + "baD60A7".padStart(40, "0")
+const account = "0x" + "baD60A7".padStart(40, "0");
 await client.setBalance({
   address: account,
-  value: parseEther("1")
-})
+  value: parseEther("1"),
+});
 
 // Interact with a smart contract
-const greeterContractAddress = "0x10ed0b176048c34d69ffc0712de06CbE95730748"
+const greeterContractAddress = "0x10ed0b176048c34d69ffc0712de06CbE95730748";
 const greeterAbi = parseAbi([
-  'function greet() view returns (string)',
-  'function setGreeting(string memory _greeting) public'
-])
+  "function greet() view returns (string)",
+  "function setGreeting(string memory _greeting) public",
+]);
 
 // Send a transaction
 const txHash = await client.sendTransaction({
@@ -190,55 +199,55 @@ const txHash = await client.sendTransaction({
   to: greeterContractAddress,
   data: encodeFunctionData({
     abi: greeterAbi,
-    functionName: 'setGreeting',
-    args: ["Hello from Tevm!"]
-  })
-})
+    functionName: "setGreeting",
+    args: ["Hello from Tevm!"],
+  }),
+});
 
 // Mine the transaction
-await client.mine({blocks: 1})
+await client.mine({ blocks: 1 });
 ```
 
 ### Using with EthersJS
 
 ```typescript
-import {createMemoryClient, http, parseAbi} from 'tevm'
-import {optimism} from 'tevm/common'
-import {requestEip1193} from 'tevm/decorators'
-import {BrowserProvider, Contract, Wallet} from 'ethers'
-import {parseUnits} from 'ethers/utils'
+import { createMemoryClient, http, parseAbi } from "tevm";
+import { optimism } from "tevm/common";
+import { requestEip1193 } from "tevm/decorators";
+import { BrowserProvider, Contract, Wallet } from "ethers";
+import { parseUnits } from "ethers/utils";
 
 const client = createMemoryClient({
   fork: {
-    transport: http('https://mainnet.optimism.io')({}),
-    common: optimism
+    transport: http("https://mainnet.optimism.io")({}),
+    common: optimism,
   },
-})
+});
 
-client.transport.tevm.extend(requestEip1193())
-await client.tevmReady()
+client.transport.tevm.extend(requestEip1193());
+await client.tevmReady();
 
-const provider = new BrowserProvider(client.transport.tevm)
-const signer = Wallet.createRandom(provider)
+const provider = new BrowserProvider(client.transport.tevm);
+const signer = Wallet.createRandom(provider);
 
 // Mint ETH for our wallet
 await client.setBalance({
   address: signer.address,
-  value: parseUnits("1.0", "ether")
-})
+  value: parseUnits("1.0", "ether"),
+});
 
 // Create contract instance
-const greeterContractAddress = "0x10ed0b176048c34d69ffc0712de06CbE95730748"
+const greeterContractAddress = "0x10ed0b176048c34d69ffc0712de06CbE95730748";
 const greeterAbi = parseAbi([
-  'function greet() view returns (string)',
-  'function setGreeting(string memory _greeting) public',
-])
-const greeter = new Contract(greeterContractAddress, greeterAbi, signer)
+  "function greet() view returns (string)",
+  "function setGreeting(string memory _greeting) public",
+]);
+const greeter = new Contract(greeterContractAddress, greeterAbi, signer);
 
 // Call contract functions
-const originalGreeting = await greeter.greet()
-const tx = await greeter.setGreeting("Hello from Ethers!")
-await client.mine({blocks: 1})
+const originalGreeting = await greeter.greet();
+const tx = await greeter.setGreeting("Hello from Ethers!");
+await client.mine({ blocks: 1 });
 ```
 
 ### Bundler Integration: Direct Solidity Imports
@@ -247,22 +256,23 @@ One of Tevm's most powerful features is its bundler integration, allowing direct
 
 ```typescript
 // Import a Solidity contract directly
-import { Counter } from './Counter.sol'
-import { createMemoryClient } from 'tevm'
+import { Counter } from "./Counter.sol";
+import { createMemoryClient } from "tevm";
 
-const client = createMemoryClient()
+const client = createMemoryClient();
 
 // Deploy the contract
-const deployed = await client.deployContract(Counter)
+const deployed = await client.deployContract(Counter);
 
 // Call contract methods with type safety
-const count = await deployed.read.count()
-const tx = await deployed.write.increment()
-await client.mine({blocks: 1})
-const newCount = await deployed.read.count()
+const count = await deployed.read.count();
+const tx = await deployed.write.increment();
+await client.mine({ blocks: 1 });
+const newCount = await deployed.read.count();
 ```
 
 Tevm provides bundler plugins for various build tools:
+
 - Vite: `@tevm/vite`
 - Webpack: `@tevm/webpack`
 - ESBuild: `@tevm/esbuild`
@@ -270,6 +280,7 @@ Tevm provides bundler plugins for various build tools:
 - Bun: `@tevm/bun`
 
 These plugins enable:
+
 - Direct importing of `.sol` files
 - Automatic compilation with solc
 - Type generation for full TypeScript safety
@@ -278,58 +289,58 @@ These plugins enable:
 ### Low-Level VM Access and State Management
 
 ```typescript
-import { createTevmNode } from 'tevm'
-import { createAddress } from 'tevm/address'
-import { hexToBytes } from 'viem'
+import { createTevmNode } from "tevm";
+import { createAddress } from "tevm/address";
+import { hexToBytes } from "viem";
 
-const node = createTevmNode()
-await node.ready()
+const node = createTevmNode();
+await node.ready();
 
 // Get VM and its components
-const vm = await node.getVm()
-const evm = vm.evm
-const stateManager = vm.stateManager
-const blockchain = vm.blockchain
-const txPool = await node.getTxPool()
+const vm = await node.getVm();
+const evm = vm.evm;
+const stateManager = vm.stateManager;
+const blockchain = vm.blockchain;
+const txPool = await node.getTxPool();
 
 // Listen to EVM execution steps
 vm.evm.events.on("step", (data, next) => {
   console.log(
     data.pc.toString().padStart(5, " "), // program counter
-    data.opcode.name.padEnd(9, " "),     // opcode name
+    data.opcode.name.padEnd(9, " "), // opcode name
     data.stack.length.toString().padStart(3, " "), // stack length
-    data.stack.length<5 ? data.stack : data.stack.slice(-5) // stack items
-  )
-  next?.()
-})
+    data.stack.length < 5 ? data.stack : data.stack.slice(-5), // stack items
+  );
+  next?.();
+});
 
 // Manipulate state directly
-await stateManager.putAccount(
-  '0x1234567890123456789012345678901234567890',
-  {
-    nonce: 0n,
-    balance: 10_000_000n,
-    storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
-    codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
-  }
-)
+await stateManager.putAccount("0x1234567890123456789012345678901234567890", {
+  nonce: 0n,
+  balance: 10_000_000n,
+  storageRoot:
+    "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+  codeHash:
+    "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+});
 
 // Call EVM directly for contract execution
 await evm.runCall({
-  to: createAddress('0x1234567890123456789012345678901234567890'),
-  caller: createAddress('0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'),
-  data: hexToBytes('0xabcdef12')  // call data
-})
+  to: createAddress("0x1234567890123456789012345678901234567890"),
+  caller: createAddress("0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"),
+  data: hexToBytes("0xabcdef12"), // call data
+});
 
 // Use transaction pool
 await txPool.add({
-  from: '0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-  to: '0x1234567890123456789012345678901234567890',
+  from: "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  to: "0x1234567890123456789012345678901234567890",
   value: 1000000000000000000n,
-})
+});
 ```
 
 ## Commands
+
 - Build: `bun build` or `nx run-many --targets=build:dist,build:app,build:types`
 - Lint: `bun lint` or `biome check . --write --unsafe && biome format . --write`
 - Test all: `bun test` or `bun test:run`
@@ -338,6 +349,7 @@ await txPool.add({
 - Test with coverage: `bun test:coverage`
 
 ## Style Guide
+
 - Formatting: Biome with tabs (2 spaces wide), 120 char line width, single quotes
 - Types: JavaScript with JSDoc preferred over TypeScript
 - Imports: Organized by Biome, use barrel files (index.js/ts) for exports
@@ -346,6 +358,7 @@ await txPool.add({
 - Barrel files: Use explicit exports to prevent breaking changes
 
 ## Setup
+
 - Package manager: pnpm 9.x.x
 - Script runner: Bun
 - Requires env vars for tests: TEVM_RPC_URLS_MAINNET, TEVM_RPC_URLS_OPTIMISM
@@ -415,7 +428,7 @@ This means all tevm packages run without being built by default and the same src
    */
   export const executeCall = async (client, evmInput, params, events) => {
     // ...
-  }
+  };
   ```
 
 #### Single file per item
@@ -425,6 +438,7 @@ Tevm generally includes a single file per item to make code easy to find for bot
 #### Create pattern
 
 To match viem conventions most objects will have :
+
 - a type, often in a `Foo.ts` file called `Foo`.
 - a create method, often in a `createFoo.ts` file called `createFoo`
 - a test, often in a `createFoo.spec.ts` file.
@@ -443,7 +457,7 @@ Note source code is in Js with jsdoc but the rest of it is ts.
 
 - **IMPORTANT** Never run `test` command. Always use `test:coverage`. `test` is interactive and will time out
 
-- We NEVER mock things if we can get away with it. The exception is the bundler packages in bundler-packages/* which is pretty hard to test without mocking.
+- We NEVER mock things if we can get away with it. The exception is the bundler packages in bundler-packages/\* which is pretty hard to test without mocking.
 - But even in bundler package we generally should NEVER mock if we don't have to. Create fixtures if you need to.
 - This includes RPCs which we use real examples to
 - To find real examples we can use the `cast` cli from foundry to find a real example. Run `cast --help` if you are unsure how to use the cast cli and use `https://mainnet.optimism.io` as your fork-url
@@ -617,25 +631,23 @@ We use nx for repo management.
 Smart Monorepos · Fast CI
 
 Commands:
-  nx add <packageSpecifier>                            Install a plugin and initialize it.
-  nx affected                                          Run target for affected projects.
-  nx connect                                           Connect workspace to Nx Cloud.                               [aliases: connect-to-nx-cloud]
-  nx daemon                                            Prints information about the Nx Daemon process or starts a daemon process.
-  nx graph                                             Graph dependencies within workspace.                                   [aliases: dep-graph]
-  nx exec                                              Executes any command as if it was a target on the project.
-  nx format:check                                      Check for un-formatted files.
-  nx format:write                                      Overwrite un-formatted files.                                             [aliases: format]
-  nx generate <generator> [_..]                        Generate or update source code (e.g., nx generate @nx/js:lib mylib).           [aliases: g]
-  nx import [sourceRepository] [destinationDirectory]  Import code and git history from another repository into this repository.
-  nx init                                              Adds Nx to any type of workspace. It installs nx, creates an nx.json configuration file and
-                                                       optionally sets up remote caching. For more info, check https://nx.dev/recipes/adopting-nx.
-  nx list [plugin]                                     Lists installed plugins, capabilities of installed plugins and other available plugins.
-  nx migrate [packageAndVersion]                       Creates a migrations file or runs migrations from the migrations file.
-                                                       - Migrate packages and create migrations.json (e.g., nx migrate @nx/workspace@latest)
-                                                       - Run migrations (e.g., nx migrate --run-migrations=migrations.json). Use flag --if-exists
-                                                       to run migrations only if the migrations file exists.
-  nx release                                           Orchestrate versioning and publishing of applications and libraries.
-  nx repair                                            Repair any configuration that is no longer supported by Nx.
+nx add <packageSpecifier> Install a plugin and initialize it.
+nx affected Run target for affected projects.
+nx connect Connect workspace to Nx Cloud. [aliases: connect-to-nx-cloud]
+nx daemon Prints information about the Nx Daemon process or starts a daemon process.
+nx graph Graph dependencies within workspace. [aliases: dep-graph]
+nx exec Executes any command as if it was a target on the project.
+nx format:check Check for un-formatted files.
+nx format:write Overwrite un-formatted files. [aliases: format]
+nx generate <generator> [_..] Generate or update source code (e.g., nx generate @nx/js:lib mylib). [aliases: g]
+nx import [sourceRepository] [destinationDirectory] Import code and git history from another repository into this repository.
+nx init Adds Nx to any type of workspace. It installs nx, creates an nx.json configuration file and
+optionally sets up remote caching. For more info, check https://nx.dev/recipes/adopting-nx.
+nx list [plugin] Lists installed plugins, capabilities of installed plugins and other available plugins.
+nx migrate [packageAndVersion] Creates a migrations file or runs migrations from the migrations file. - Migrate packages and create migrations.json (e.g., nx migrate @nx/workspace@latest) - Run migrations (e.g., nx migrate --run-migrations=migrations.json). Use flag --if-exists
+to run migrations only if the migrations file exists.
+nx release Orchestrate versioning and publishing of applications and libraries.
+nx repair Repair any configuration that is no longer supported by Nx.
 
                                                        Specifically, this will run every migration within the `nx` package
                                                        against the current repository. Doing so should fix any configuration
@@ -645,110 +657,108 @@ Commands:
                                                        If your repository has only ever updated to newer versions of Nx with
                                                        `nx migrate`, running `nx repair` should do nothing.
 
-  nx report                                            Reports useful version numbers to copy into the Nx issue template.
-  nx reset                                             Clears cached Nx artifacts and metadata about the workspace and shuts down the Nx Daemon.
-                                                                                                                            [aliases: clear-cache]
-  nx run [project][:target][:configuration] [_..]      Run a target for a project
-                                                       (e.g., nx run myapp:serve:production).
+nx report Reports useful version numbers to copy into the Nx issue template.
+nx reset Clears cached Nx artifacts and metadata about the workspace and shuts down the Nx Daemon.
+[aliases: clear-cache]
+nx run [project][:target][:configuration] [_..] Run a target for a project
+(e.g., nx run myapp:serve:production).
 
                                                        You can also use the infix notation to run a target:
                                                        (e.g., nx serve myapp --configuration=production)
 
                                                        You can skip the use of Nx cache by using the --skip-nx-cache option.
-  nx run-many                                          Run target for multiple listed projects.
-  nx show                                              Show information about the workspace (e.g., list of projects).
-  nx sync                                              Sync the workspace files by running all the sync generators.
-  nx sync:check                                        Check that no changes are required after running all sync generators.
-  nx view-logs                                         Enables you to view and interact with the logs via the advanced analytic UI from Nx Cloud
-                                                       to help you debug your issue. To do this, Nx needs to connect your workspace to Nx Cloud
-                                                       and upload the most recent run details. Only the metrics are uploaded, not the artefacts.
-  nx watch                                             Watch for changes within projects, and execute commands.
-  nx <target> [project] [_..]                          Run a target for a project.                                                       [default]
-  nx login [nxCloudUrl]                                Login to Nx Cloud. This command is an alias for [`nx-cloud
+
+nx run-many Run target for multiple listed projects.
+nx show Show information about the workspace (e.g., list of projects).
+nx sync Sync the workspace files by running all the sync generators.
+nx sync:check Check that no changes are required after running all sync generators.
+nx view-logs Enables you to view and interact with the logs via the advanced analytic UI from Nx Cloud
+to help you debug your issue. To do this, Nx needs to connect your workspace to Nx Cloud
+and upload the most recent run details. Only the metrics are uploaded, not the artefacts.
+nx watch Watch for changes within projects, and execute commands.
+nx <target> [project] [_..] Run a target for a project. [default]
+nx login [nxCloudUrl] Login to Nx Cloud. This command is an alias for [`nx-cloud
                                                        login`](/ci/reference/nx-cloud-cli#npx-nxcloud-login).
-  nx logout                                            Logout from Nx Cloud. This command is an alias for [`nx-cloud
+nx logout Logout from Nx Cloud. This command is an alias for [`nx-cloud
                                                        logout`](/ci/reference/nx-cloud-cli#npx-nxcloud-logout).
 
 Options:
-      --version                                Show version number                                                                       [boolean]
-      --batch                                  Run task(s) in batches for executors which support batches.              [boolean] [default: false]
-  -c, --configuration                          This is the configuration to use when performing tasks on projects.                        [string]
-      --output-style                           Defines how Nx emits outputs tasks logs. **dynamic**: use dynamic output life cycle, previous
-                                               content is overwritten or modified as new outputs are added, display minimal logs by default,
-                                               always show errors. This output format is recommended on your local development environments.
-                                               **static**: uses static output life cycle, no previous content is rewritten or modified as new
-                                               outputs are added. This output format is recommened for CI environments. **stream**: nx by default
-                                               logs output to an internal output stream, enable this option to stream logs to stdout / stderr.
-                                               **stream-without-prefixes**: nx prefixes the project name the target is running on, use this option
-                                               remove the project name prefix from output.
-                                                           [string] [choices: "dynamic", "static", "stream", "stream-without-prefixes", "compact"]
-      --exclude                                Exclude certain projects from being processed.                                             [string]
-      --verbose                                Prints additional information about the commands (e.g., stack traces).                    [boolean]
-      --parallel                               Max number of parallel processes [default is 3].                                           [string]
-      --runner                                 This is the name of the tasks runner configured in nx.json.                                [string]
-      --graph                                  Show the task graph of the command. Pass a file path to save the graph data instead of viewing it
-                                               in the browser. Pass "stdout" to print the results to the terminal.                        [string]
-      --nxBail                                 Stop command execution after the first failed task.                      [boolean] [default: false]
-      --nxIgnoreCycles                         Ignore cycles in the task graph.                                         [boolean] [default: false]
-      --skipNxCache, --disableNxCache          Rerun the tasks even when the results are available in the cache.        [boolean] [default: false]
-      --skipRemoteCache, --disableRemoteCache  Disables the remote cache.                                               [boolean] [default: false]
-      --excludeTaskDependencies                Skips running dependent tasks first.                                     [boolean] [default: false]
-      --skipSync                               Skips running the sync generators associated with the tasks.             [boolean] [default: false]
-      --project                                Target project.                                                                            [string]
+--version Show version number [boolean]
+--batch Run task(s) in batches for executors which support batches. [boolean] [default: false]
+-c, --configuration This is the configuration to use when performing tasks on projects. [string]
+--output-style Defines how Nx emits outputs tasks logs. **dynamic**: use dynamic output life cycle, previous
+content is overwritten or modified as new outputs are added, display minimal logs by default,
+always show errors. This output format is recommended on your local development environments.
+**static**: uses static output life cycle, no previous content is rewritten or modified as new
+outputs are added. This output format is recommened for CI environments. **stream**: nx by default
+logs output to an internal output stream, enable this option to stream logs to stdout / stderr.
+**stream-without-prefixes**: nx prefixes the project name the target is running on, use this option
+remove the project name prefix from output.
+[string] [choices: "dynamic", "static", "stream", "stream-without-prefixes", "compact"]
+--exclude Exclude certain projects from being processed. [string]
+--verbose Prints additional information about the commands (e.g., stack traces). [boolean]
+--parallel Max number of parallel processes [default is 3]. [string]
+--runner This is the name of the tasks runner configured in nx.json. [string]
+--graph Show the task graph of the command. Pass a file path to save the graph data instead of viewing it
+in the browser. Pass "stdout" to print the results to the terminal. [string]
+--nxBail Stop command execution after the first failed task. [boolean] [default: false]
+--nxIgnoreCycles Ignore cycles in the task graph. [boolean] [default: false]
+--skipNxCache, --disableNxCache Rerun the tasks even when the results are available in the cache. [boolean] [default: false]
+--skipRemoteCache, --disableRemoteCache Disables the remote cache. [boolean] [default: false]
+--excludeTaskDependencies Skips running dependent tasks first. [boolean] [default: false]
+--skipSync Skips running the sync generators associated with the tasks. [boolean] [default: false]
+--project Target project. [string]
 
-
-➜  tevm-monorepo git:(02-27-_arrow_up_chore_pnpm_up_--latest) pnpm nx run-many --help
+➜ tevm-monorepo git:(02-27-_arrow_up_chore_pnpm_up_--latest) pnpm nx run-many --help
 nx run-many
 
 Run target for multiple listed projects.
 
 Options:
-      --help                                   Show help                                                                                 [boolean]
-      --version                                Show version number                                                                       [boolean]
-      --batch                                  Run task(s) in batches for executors which support batches.              [boolean] [default: false]
-  -c, --configuration                          This is the configuration to use when performing tasks on projects.                        [string]
-  -t, --targets, --target                      Tasks to run for affected projects.                                             [string] [required]
-      --output-style                           Defines how Nx emits outputs tasks logs. **dynamic**: use dynamic output life cycle, previous
-                                               content is overwritten or modified as new outputs are added, display minimal logs by default,
-                                               always show errors. This output format is recommended on your local development environments.
-                                               **static**: uses static output life cycle, no previous content is rewritten or modified as new
-                                               outputs are added. This output format is recommened for CI environments. **stream**: nx by default
-                                               logs output to an internal output stream, enable this option to stream logs to stdout / stderr.
-                                               **stream-without-prefixes**: nx prefixes the project name the target is running on, use this option
-                                               remove the project name prefix from output.
-                                                                      [string] [choices: "dynamic", "static", "stream", "stream-without-prefixes"]
-      --exclude                                Exclude certain projects from being processed.                                             [string]
-      --verbose                                Prints additional information about the commands (e.g., stack traces).                    [boolean]
-      --parallel                               Max number of parallel processes [default is 3].                                           [string]
-      --runner                                 This is the name of the tasks runner configured in nx.json.                                [string]
-      --graph                                  Show the task graph of the command. Pass a file path to save the graph data instead of viewing it
-                                               in the browser. Pass "stdout" to print the results to the terminal.                        [string]
-      --nxBail                                 Stop command execution after the first failed task.                      [boolean] [default: false]
-      --nxIgnoreCycles                         Ignore cycles in the task graph.                                         [boolean] [default: false]
-      --skipNxCache, --disableNxCache          Rerun the tasks even when the results are available in the cache.        [boolean] [default: false]
-      --skipRemoteCache, --disableRemoteCache  Disables the remote cache.                                               [boolean] [default: false]
-      --excludeTaskDependencies                Skips running dependent tasks first.                                     [boolean] [default: false]
-      --skipSync                               Skips running the sync generators associated with the tasks.             [boolean] [default: false]
-  -p, --projects                               Projects to run. (comma/space delimited project names and/or patterns).                    [string]
-      --all                                    [deprecated] `run-many` runs all targets on all projects in the workspace if no projects are
-                                               provided. This option is no longer required.                              [boolean] [default: true]
+--help Show help [boolean]
+--version Show version number [boolean]
+--batch Run task(s) in batches for executors which support batches. [boolean] [default: false]
+-c, --configuration This is the configuration to use when performing tasks on projects. [string]
+-t, --targets, --target Tasks to run for affected projects. [string] [required]
+--output-style Defines how Nx emits outputs tasks logs. **dynamic**: use dynamic output life cycle, previous
+content is overwritten or modified as new outputs are added, display minimal logs by default,
+always show errors. This output format is recommended on your local development environments.
+**static**: uses static output life cycle, no previous content is rewritten or modified as new
+outputs are added. This output format is recommened for CI environments. **stream**: nx by default
+logs output to an internal output stream, enable this option to stream logs to stdout / stderr.
+**stream-without-prefixes**: nx prefixes the project name the target is running on, use this option
+remove the project name prefix from output.
+[string] [choices: "dynamic", "static", "stream", "stream-without-prefixes"]
+--exclude Exclude certain projects from being processed. [string]
+--verbose Prints additional information about the commands (e.g., stack traces). [boolean]
+--parallel Max number of parallel processes [default is 3]. [string]
+--runner This is the name of the tasks runner configured in nx.json. [string]
+--graph Show the task graph of the command. Pass a file path to save the graph data instead of viewing it
+in the browser. Pass "stdout" to print the results to the terminal. [string]
+--nxBail Stop command execution after the first failed task. [boolean] [default: false]
+--nxIgnoreCycles Ignore cycles in the task graph. [boolean] [default: false]
+--skipNxCache, --disableNxCache Rerun the tasks even when the results are available in the cache. [boolean] [default: false]
+--skipRemoteCache, --disableRemoteCache Disables the remote cache. [boolean] [default: false]
+--excludeTaskDependencies Skips running dependent tasks first. [boolean] [default: false]
+--skipSync Skips running the sync generators associated with the tasks. [boolean] [default: false]
+-p, --projects Projects to run. (comma/space delimited project names and/or patterns). [string]
+--all [deprecated] `run-many` runs all targets on all projects in the workspace if no projects are
+provided. This option is no longer required. [boolean] [default: true]
 
 Examples:
-  run-many -t test                                          Test all projects
-  run-many -t test -p proj1 proj2                           Test proj1 and proj2 in parallel
-  run-many -t test -p proj1 proj2 --parallel=5              Test proj1 and proj2 in parallel using 5 workers
-  run-many -t test -p proj1 proj2 --parallel=false          Test proj1 and proj2 in sequence
-  run-many -t test --projects=*-app --exclude excluded-app  Test all projects ending with `*-app` except `excluded-app`.  Note: your shell may
-                                                            require you to escape the `*` like this: `\*`
-  run-many -t test --projects=tag:api-*                     Test all projects with tags starting with `api-`.  Note: your shell may require you to
-                                                            escape the `*` like this: `\*`
-  run-many -t test --projects=tag:type:ui                   Test all projects with a `type:ui` tag
-  run-many -t test --projects=tag:type:feature,tag:type:ui  Test all projects with a `type:feature` or `type:ui` tag
-  run-many --targets=lint,test,build                        Run lint, test, and build targets for all projects. Requires Nx v15.4+
-  run-many -t=build --graph                                 Preview the task graph that Nx would run inside a webview
-  run-many -t=build --graph=output.json                     Save the task graph to a file
-  run-many -t=build --graph=stdout                          Print the task graph to the console
+run-many -t test Test all projects
+run-many -t test -p proj1 proj2 Test proj1 and proj2 in parallel
+run-many -t test -p proj1 proj2 --parallel=5 Test proj1 and proj2 in parallel using 5 workers
+run-many -t test -p proj1 proj2 --parallel=false Test proj1 and proj2 in sequence
+run-many -t test --projects=_-app --exclude excluded-app Test all projects ending with `_-app`except`excluded-app`.  Note: your shell may
+                                                            require you to escape the `_`like this:`\*`
+run-many -t test --projects=tag:api-_ Test all projects with tags starting with `api-`. Note: your shell may require you to
+escape the `*` like this: `\*`
+run-many -t test --projects=tag:type:ui Test all projects with a `type:ui` tag
+run-many -t test --projects=tag:type:feature,tag:type:ui Test all projects with a `type:feature` or `type:ui` tag
+run-many --targets=lint,test,build Run lint, test, and build targets for all projects. Requires Nx v15.4+
+run-many -t=build --graph Preview the task graph that Nx would run inside a webview
+run-many -t=build --graph=output.json Save the task graph to a file
+run-many -t=build --graph=stdout Print the task graph to the console
 
 Find more information and examples at https://nx.dev/nx/run-many
-
-

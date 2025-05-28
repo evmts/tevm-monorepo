@@ -27,5 +27,5 @@ export const kairos = createCommon({
 	..._kairos,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

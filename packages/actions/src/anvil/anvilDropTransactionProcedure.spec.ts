@@ -41,6 +41,7 @@ describe('anvilDropTransactionJsonRpcProcedure', () => {
 			    "type": "0x2",
 			    "v": undefined,
 			    "value": "0x1a4",
+			    "yParity": undefined,
 			  },
 			]
 		`)

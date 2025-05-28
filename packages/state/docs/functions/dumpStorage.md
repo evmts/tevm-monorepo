@@ -28,6 +28,8 @@ Both are represented as `0x` prefixed hex strings.
 
 > (`address`): `Promise`\<`StorageDump`\>
 
+Dumps storage based on the input
+
 ### Parameters
 
 #### address

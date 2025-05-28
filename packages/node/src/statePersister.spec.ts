@@ -46,7 +46,7 @@ describe(statePersister.name, () => {
 
 		persistPromise = createWithResolvers()
 
-		await vm.stateManager.putContractCode(createAddress(69), hexToBytes(TestERC20.deployedBytecode))
+		await vm.stateManager.putCode(createAddress(69), hexToBytes(TestERC20.deployedBytecode))
 
 		persist(vm.stateManager._baseState)
 

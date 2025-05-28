@@ -30,7 +30,7 @@ Defined in: packages/vm/types/CreateVmOptions.d.ts:9
 
 ### evm
 
-> **evm**: [`Evm`](../../evm/classes/Evm.md)
+> **evm**: [`EvmType`](../../evm/classes/EvmType.md)
 
 Defined in: packages/vm/types/CreateVmOptions.d.ts:7
 

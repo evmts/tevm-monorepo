@@ -1,7 +1,7 @@
 import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
 import { createAddress } from '@tevm/address'
 import { InternalError } from '@tevm/errors'
-import { EthjsAccount, hexToBytes, isHex } from '@tevm/utils'
+import { createAccount, hexToBytes, isHex } from '@tevm/utils'
 import { ContractCache } from '../ContractCache.js'
 import { putContractStorage } from './putContractStorage.js'
 
@@ -32,13 +32,12 @@ export const generateCanonicalGenesis = (baseState) => async (state) => {
 	try {
 		for (const [k, v] of Object.entries(/** @type {import('../state-types/TevmState.js').TevmState}*/ (state))) {
 			const { nonce, balance, storageRoot, codeHash, storage, deployedBytecode } = v
-			const account = new EthjsAccount(
-				// replace with just the var
+			const account = createAccount({
 				nonce,
 				balance,
-				hexToBytes(storageRoot, { size: 32 }),
-				hexToBytes(codeHash, { size: 32 }),
-			)
+				storageRoot: hexToBytes(storageRoot, { size: 32 }),
+				codeHash: hexToBytes(codeHash, { size: 32 }),
+			})
 			const address = createAddress(k)
 
 			baseState.caches.accounts?.put(address, account)

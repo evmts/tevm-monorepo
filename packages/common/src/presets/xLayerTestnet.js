@@ -27,5 +27,5 @@ export const xLayerTestnet = createCommon({
 	..._xLayerTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

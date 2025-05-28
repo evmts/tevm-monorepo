@@ -27,5 +27,5 @@ export const xdc = createCommon({
 	..._xdc,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

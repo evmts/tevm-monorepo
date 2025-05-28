@@ -14,7 +14,7 @@ describe('deepCopy', () => {
 	let common: Common
 
 	beforeEach(async () => {
-		common = createCommon({ ...mainnet, hardfork: 'cancun', loggingLevel: 'warn' })
+		common = createCommon({ ...mainnet, hardfork: 'prague', loggingLevel: 'warn' })
 		const stateManager = createStateManager({})
 		const blockchain = await createChain({ common })
 		const evm = await createEvm({ common, stateManager, blockchain })

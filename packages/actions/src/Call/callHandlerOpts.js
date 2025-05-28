@@ -82,9 +82,6 @@ export const callHandlerOpts = async (client, params) => {
 					params.blockOverrideSet.baseFee !== undefined
 						? BigInt(params.blockOverrideSet.baseFee)
 						: (header.baseFeePerGas ?? BigInt(0)),
-				cliqueSigner() {
-					return header.cliqueSigner()
-				},
 				getBlobGasPrice() {
 					if (params.blockOverrideSet?.blobBaseFee !== undefined) {
 						return BigInt(params.blockOverrideSet.blobBaseFee)
@@ -108,7 +105,7 @@ export const callHandlerOpts = async (client, params) => {
 		opts.depth = params.depth
 	}
 	if (params.blobVersionedHashes) {
-		opts.blobVersionedHashes = params.blobVersionedHashes.map((hash) => hexToBytes(hash))
+		opts.blobVersionedHashes = params.blobVersionedHashes
 	}
 	if (params.selfdestruct) {
 		opts.selfdestruct = params.selfdestruct

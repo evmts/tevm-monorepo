@@ -27,5 +27,5 @@ export const moonbeam = createCommon({
 	..._moonbeam,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

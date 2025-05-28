@@ -38,7 +38,7 @@ const common = createCommon({
 
 ### blobToKzgCommitment()
 
-> **blobToKzgCommitment**: (`blob`) => `Uint8Array`
+> **blobToKzgCommitment**: (`blob`) => `string`
 
 Defined in: [packages/common/src/MockKzg.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/MockKzg.ts#L27)
 
@@ -46,17 +46,17 @@ Defined in: [packages/common/src/MockKzg.ts:27](https://github.com/evmts/tevm-mo
 
 ##### blob
 
-`Uint8Array`
+`string`
 
 #### Returns
 
-`Uint8Array`
+`string`
 
 ***
 
 ### computeBlobKzgProof()
 
-> **computeBlobKzgProof**: (`blob`, `commitment`) => `Uint8Array`
+> **computeBlobKzgProof**: (`blob`, `commitment`) => `string`
 
 Defined in: [packages/common/src/MockKzg.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/MockKzg.ts#L28)
 
@@ -64,15 +64,37 @@ Defined in: [packages/common/src/MockKzg.ts:28](https://github.com/evmts/tevm-mo
 
 ##### blob
 
-`Uint8Array`
+`string`
 
 ##### commitment
 
-`Uint8Array`
+`string`
 
 #### Returns
 
-`Uint8Array`
+`string`
+
+***
+
+### computeBlobProof()
+
+> **computeBlobProof**: (`blob`, `commitment`) => `string`
+
+Defined in: [packages/common/src/MockKzg.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/MockKzg.ts#L33)
+
+#### Parameters
+
+##### blob
+
+`string`
+
+##### commitment
+
+`string`
+
+#### Returns
+
+`string`
 
 ***
 
@@ -116,15 +138,15 @@ Defined in: [packages/common/src/MockKzg.ts:31](https://github.com/evmts/tevm-mo
 
 ##### blob
 
-`Uint8Array`
+`string`
 
 ##### commitment
 
-`Uint8Array`
+`string`
 
 ##### proof
 
-`Uint8Array`
+`string`
 
 #### Returns
 
@@ -142,15 +164,41 @@ Defined in: [packages/common/src/MockKzg.ts:29](https://github.com/evmts/tevm-mo
 
 ##### blobs
 
-`Uint8Array`[]
+`string`[]
 
 ##### commitments
 
-`Uint8Array`[]
+`string`[]
 
 ##### proofs
 
-`Uint8Array`[]
+`string`[]
+
+#### Returns
+
+`boolean`
+
+***
+
+### verifyBlobProofBatch()
+
+> **verifyBlobProofBatch**: (`blobs`, `commitments`, `proofs`) => `boolean`
+
+Defined in: [packages/common/src/MockKzg.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/MockKzg.ts#L35)
+
+#### Parameters
+
+##### blobs
+
+`string`[]
+
+##### commitments
+
+`string`[]
+
+##### proofs
+
+`string`[]
 
 #### Returns
 
@@ -168,19 +216,49 @@ Defined in: [packages/common/src/MockKzg.ts:30](https://github.com/evmts/tevm-mo
 
 ##### commitment
 
-`Uint8Array`
+`string`
 
 ##### z
 
-`Uint8Array`
+`string`
 
 ##### y
 
-`Uint8Array`
+`string`
 
 ##### proof
 
-`Uint8Array`
+`string`
+
+#### Returns
+
+`boolean`
+
+***
+
+### verifyProof()
+
+> **verifyProof**: (`commitment`, `z`, `y`, `proof`) => `boolean`
+
+Defined in: [packages/common/src/MockKzg.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/MockKzg.ts#L34)
+
+#### Parameters
+
+##### commitment
+
+`string`
+
+##### z
+
+`string`
+
+##### y
+
+`string`
+
+##### proof
+
+`string`
 
 #### Returns
 

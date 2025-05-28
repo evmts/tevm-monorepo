@@ -30,7 +30,7 @@ Defined in: [packages/vm/src/CreateVmOptions.ts:10](https://github.com/evmts/tev
 
 ### evm
 
-> **evm**: `Evm`
+> **evm**: `EvmType`
 
 Defined in: [packages/vm/src/CreateVmOptions.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/CreateVmOptions.ts#L8)
 
