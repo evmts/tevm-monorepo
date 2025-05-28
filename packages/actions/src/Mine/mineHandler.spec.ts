@@ -1,10 +1,11 @@
 import { type TevmNode, createTevmNode } from '@tevm/node'
 import { type Hex, hexToBytes } from '@tevm/utils'
-import { http } from 'viem'
+import { http, parseEther } from 'viem'
 import { describe, expect, it, vi } from 'vitest'
 import type { CallResult } from '../Call/CallResult.js'
 import { callHandler } from '../Call/callHandler.js'
 import { mineHandler } from './mineHandler.js'
+import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 
 const getBlockNumber = (client: TevmNode) => {
 	return client
@@ -280,6 +281,101 @@ describe(mineHandler.name, () => {
 		})
 
 		// should remove tx from mempool
+		expect(await client.getTxPool().then((pool) => [...pool.pool.keys()].length)).toBe(0)
+	})
+
+	it('should skip balance when mining transactions', async () => {
+		const client = createTevmNode()
+		const from = `0x${'42'.repeat(20)}` as const
+		const to = `0x${'69'.repeat(20)}` as const
+
+		// Set up an account with zero balance
+		await setAccountHandler(client)({
+			address: from,
+			balance: 0n,
+			nonce: 0n,
+		})
+
+		// Create a transaction that would fail without skipBalance due to insufficient funds
+		const callResult = await callHandler(client)({
+			createTransaction: true,
+			from,
+			to,
+			value: parseEther('1'),
+			skipBalance: true,
+			addToMempool: true,
+			blockTag: 'pending',
+		})
+
+		expect(callResult.txHash).toBeDefined()
+		expect(await client.getTxPool().then((pool) => [...pool.pool.keys()].length)).toBe(1)
+
+		const { blockHashes, errors } = await mineHandler(client)({})
+
+		expect(errors).toBeUndefined()
+		expect(blockHashes).toHaveLength(1)
+		expect(await getBlockNumber(client)).toBe(1n)
+
+		// Verify the transaction was mined successfully
+		const receiptsManager = await client.getReceiptsManager()
+		const receipt = await receiptsManager.getReceiptByTxHash(hexToBytes(callResult.txHash as Hex))
+		expect(receipt).not.toBeNull()
+
+		// Verify the transaction was removed from mempool
+		expect(await client.getTxPool().then((pool) => [...pool.pool.keys()].length)).toBe(0)
+	})
+
+	it('should skip nonce when mining transactions', async () => {
+		const client = createTevmNode()
+		const from = `0x${'42'.repeat(20)}` as const
+		const to = `0x${'69'.repeat(20)}` as const
+
+		await setAccountHandler(client)({
+			address: from,
+			balance: parseEther('1'),
+			nonce: 0n,
+		})
+
+		// Add a first transaction to the mempool
+		const callResultA = await callHandler(client)({
+			createTransaction: true,
+			from,
+			to,
+			value: 100n,
+			addToMempool: true,
+			blockTag: 'pending',
+		})
+
+		// Add a second one
+		const callResultB = await callHandler(client)({
+			createTransaction: true,
+			from,
+			to,
+			value: 200n,
+			addToMempool: true,
+			blockTag: 'pending',
+		})
+
+		expect(callResultA.txHash).toBeDefined()
+		expect(callResultB.txHash).toBeDefined()
+		expect(await client.getTxPool().then((pool) => [...pool.pool.values()].flat().length)).toBe(2)
+		client.getTxPool().then((pool) => pool.removeByHash(callResultA.txHash as Hex))
+		expect(await client.getTxPool().then((pool) => [...pool.pool.values()].flat().length)).toBe(1)
+
+		const { blockHashes, errors } = await mineHandler(client)({})
+
+		expect(errors).toBeUndefined()
+		expect(blockHashes).toHaveLength(1)
+		expect(await getBlockNumber(client)).toBe(1n)
+
+		// Verify the transaction was mined successfully
+		const receiptsManager = await client.getReceiptsManager()
+		const receiptA = await receiptsManager.getReceiptByTxHash(hexToBytes(callResultA.txHash as Hex))
+		const receiptB = await receiptsManager.getReceiptByTxHash(hexToBytes(callResultB.txHash as Hex))
+		expect(receiptA).toBeNull() // tx A was dropped
+		expect(receiptB).not.toBeNull()
+
+		// Verify the transactions were removed from mempool
 		expect(await client.getTxPool().then((pool) => [...pool.pool.keys()].length)).toBe(0)
 	})
 })
