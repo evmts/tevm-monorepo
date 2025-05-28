@@ -31,4 +31,10 @@ pub const Contract = contract_mod.Contract;
 pub const StoragePool = contract_mod.StoragePool;
 pub const clearAnalysisCache = contract_mod.clearAnalysisCache;
 
+const frame_mod = @import("Frame.zig");
+pub const Frame = frame_mod.Frame;
+pub const FrameError = frame_mod.FrameError;
+pub const HaltReason = frame_mod.HaltReason;
+pub const Gas = frame_mod.Gas;
+
 const Evm = struct { depth: u16 };
