@@ -284,7 +284,34 @@ pub fn build(b: *std.Build) void {
     lib_unit_tests.root_module.addImport("Trie", trie_mod);
     lib_unit_tests.root_module.addImport("Utils", utils_mod);
 
-    // Frame test removed - Frame_test.zig doesn't exist
+    // Frame test
+    const frame_test = b.addTest(.{
+        .name = "frame-test",
+        .root_source_file = b.path("test/Evm/frame_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    frame_test.root_module.addImport("evm", evm_mod);
+    frame_test.root_module.addImport("address", address_mod);
+
+    const run_frame_test = b.addRunArtifact(frame_test);
+
+    const frame_test_step = b.step("test-frame", "Run Frame tests");
+    frame_test_step.dependOn(&run_frame_test.step);
+
+    // Minimal frame test
+    const frame_minimal_test = b.addTest(.{
+        .name = "frame-minimal-test",
+        .root_source_file = b.path("test/Evm/frame_minimal_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    frame_minimal_test.root_module.addImport("evm", evm_mod);
+
+    const run_frame_minimal_test = b.addRunArtifact(frame_minimal_test);
+
+    const frame_minimal_test_step = b.step("test-frame-minimal", "Run minimal Frame tests");
+    frame_minimal_test_step.dependOn(&run_frame_minimal_test.step);
 
     // Add a test for evm.zig
     const evm_test = b.addTest(.{
@@ -579,6 +606,7 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_constants_test.step);
     test_step.dependOn(&run_contract_test.step);
     test_step.dependOn(&run_bitvec_test.step);
+    test_step.dependOn(&run_frame_test.step);
 
     const test_all_step = b.step("test-all", "Run all unit tests");
     test_all_step.dependOn(test_step);
