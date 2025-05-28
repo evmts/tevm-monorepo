@@ -2,6 +2,7 @@ const std = @import("std");
 const Interpreter = @import("interpreter.zig").Interpreter;
 const InterpreterState = @import("InterpreterState.zig").InterpreterState;
 pub const Stack = @import("Stack.zig").Stack;
+const constants = @import("constants.zig");
 
 // Import the JumpTable module
 pub const JumpTable = @import("JumpTable.zig");
@@ -19,29 +20,18 @@ pub const JumpTable = @import("JumpTable.zig");
 //
 // Suggested optimization: Generate opcodes at comptime with inline dispatch
 
-pub const MemorySize = struct {
-    size: u32,
-    overflow: bool,
-};
-
-pub const ExecutionError = error{
-    STOP,
-    REVERT,
-    INVALID,
-};
+// Re-use types from constants module
+pub const MemorySize = constants.MemorySize;
+pub const ExecutionError = constants.EvmError;
 
 pub const STOP = struct {
-    constantGas: u32 = 0,
+    constantGas: u32 = @intCast(constants.G_ZERO),
     minStack: u32 = 0,
-    maxStack: u32 = 1028,
+    maxStack: u32 = constants.STACK_LIMIT + 4, // TODO: Verify this value
     dynamicGas: u32 = 0,
     pub fn execute(_: usize, _: *Interpreter, _: *InterpreterState) ExecutionError![]const u8 {
-        return ExecutionError.STOP;
+        return ExecutionError.Stop;
     }
-    // Not needed with STOP but might be needed for future opcodes
-    // fn getMemorySize(_: Stack) MemorySize {
-    //   return MemorySize{ .size = 0, .overflow = false };
-    // }
 };
 
 // Arithmetic operations performance comparison:
@@ -53,7 +43,7 @@ pub const STOP = struct {
 // 2. revm uses wrapping operations to avoid overflow checks
 // 3. Both use specialized 256-bit arithmetic libraries
 const ADD = struct {
-    constantGas: u32 = 3, // GasFastestStep
+    constantGas: u32 = @intCast(constants.G_VERYLOW),
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
@@ -72,7 +62,7 @@ const ADD = struct {
 };
 
 const MUL = struct {
-    constantGas: u32 = 5, // GasFastStep
+    constantGas: u32 = @intCast(constants.G_LOW),
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
@@ -420,10 +410,10 @@ const SAR = struct {
 };
 
 const KECCAK256 = struct {
-    constantGas: u32 = 30, // Keccak256Gas
+    constantGas: u32 = @intCast(constants.G_KECCAK256),
     minStack: u32 = 2,
     maxStack: u32 = 1,
-    dynamicGas: u32 = 6, // Per word, plus memory expansion cost
+    dynamicGas: u32 = @intCast(constants.G_KECCAK256_WORD), // Per word, plus memory expansion cost
     fn getMemorySize(stack: Stack) MemorySize {
         _ = stack; // autofix
         // Calculate memory size based on offset and size from stack
@@ -1688,162 +1678,8 @@ pub fn getOperation(opcode: u8) Operation {
 
 // Function to get the string name of an opcode
 pub fn getOpcodeName(opcode: u8) []const u8 {
-    return switch (opcode) {
-        0x00 => "STOP",
-        0x01 => "ADD",
-        0x02 => "MUL",
-        0x03 => "SUB",
-        0x04 => "DIV",
-        0x05 => "SDIV",
-        0x06 => "MOD",
-        0x07 => "SMOD",
-        0x08 => "ADDMOD",
-        0x09 => "MULMOD",
-        0x0A => "EXP",
-        0x0B => "SIGNEXTEND",
-        0x10 => "LT",
-        0x11 => "GT",
-        0x12 => "SLT",
-        0x13 => "SGT",
-        0x14 => "EQ",
-        0x15 => "ISZERO",
-        0x16 => "AND",
-        0x17 => "OR",
-        0x18 => "XOR",
-        0x19 => "NOT",
-        0x1A => "BYTE",
-        0x1B => "SHL",
-        0x1C => "SHR",
-        0x1D => "SAR",
-        0x20 => "KECCAK256",
-        0x30 => "ADDRESS",
-        0x31 => "BALANCE",
-        0x32 => "ORIGIN",
-        0x33 => "CALLER",
-        0x34 => "CALLVALUE",
-        0x35 => "CALLDATALOAD",
-        0x36 => "CALLDATASIZE",
-        0x37 => "CALLDATACOPY",
-        0x38 => "CODESIZE",
-        0x39 => "CODECOPY",
-        0x3A => "GASPRICE",
-        0x3B => "EXTCODESIZE",
-        0x3C => "EXTCODECOPY",
-        0x3D => "RETURNDATASIZE",
-        0x3E => "RETURNDATACOPY",
-        0x3F => "EXTCODEHASH",
-        0x40 => "BLOCKHASH",
-        0x41 => "COINBASE",
-        0x42 => "TIMESTAMP",
-        0x43 => "NUMBER",
-        0x44 => "PREVRANDAO",
-        0x45 => "GASLIMIT",
-        0x46 => "CHAINID",
-        0x47 => "SELFBALANCE",
-        0x48 => "BASEFEE",
-        0x49 => "BLOBHASH",
-        0x4A => "BLOBBASEFEE",
-        0x50 => "POP",
-        0x51 => "MLOAD",
-        0x52 => "MSTORE",
-        0x53 => "MSTORE8",
-        0x54 => "SLOAD",
-        0x55 => "SSTORE",
-        0x56 => "JUMP",
-        0x57 => "JUMPI",
-        0x58 => "PC",
-        0x59 => "MSIZE",
-        0x5A => "GAS",
-        0x5B => "JUMPDEST",
-        0x5C => "TLOAD",
-        0x5D => "TSTORE",
-        0x5E => "MCOPY",
-        0x5F => "PUSH0",
-        0x60 => "PUSH1",
-        0x61 => "PUSH2",
-        0x62 => "PUSH3",
-        0x63 => "PUSH4",
-        0x64 => "PUSH5",
-        0x65 => "PUSH6",
-        0x66 => "PUSH7",
-        0x67 => "PUSH8",
-        0x68 => "PUSH9",
-        0x69 => "PUSH10",
-        0x6A => "PUSH11",
-        0x6B => "PUSH12",
-        0x6C => "PUSH13",
-        0x6D => "PUSH14",
-        0x6E => "PUSH15",
-        0x6F => "PUSH16",
-        0x70 => "PUSH17",
-        0x71 => "PUSH18",
-        0x72 => "PUSH19",
-        0x73 => "PUSH20",
-        0x74 => "PUSH21",
-        0x75 => "PUSH22",
-        0x76 => "PUSH23",
-        0x77 => "PUSH24",
-        0x78 => "PUSH25",
-        0x79 => "PUSH26",
-        0x7A => "PUSH27",
-        0x7B => "PUSH28",
-        0x7C => "PUSH29",
-        0x7D => "PUSH30",
-        0x7E => "PUSH31",
-        0x7F => "PUSH32",
-        0x80 => "DUP1",
-        0x81 => "DUP2",
-        0x82 => "DUP3",
-        0x83 => "DUP4",
-        0x84 => "DUP5",
-        0x85 => "DUP6",
-        0x86 => "DUP7",
-        0x87 => "DUP8",
-        0x88 => "DUP9",
-        0x89 => "DUP10",
-        0x8A => "DUP11",
-        0x8B => "DUP12",
-        0x8C => "DUP13",
-        0x8D => "DUP14",
-        0x8E => "DUP15",
-        0x8F => "DUP16",
-        0x90 => "SWAP1",
-        0x91 => "SWAP2",
-        0x92 => "SWAP3",
-        0x93 => "SWAP4",
-        0x94 => "SWAP5",
-        0x95 => "SWAP6",
-        0x96 => "SWAP7",
-        0x97 => "SWAP8",
-        0x98 => "SWAP9",
-        0x99 => "SWAP10",
-        0x9A => "SWAP11",
-        0x9B => "SWAP12",
-        0x9C => "SWAP13",
-        0x9D => "SWAP14",
-        0x9E => "SWAP15",
-        0x9F => "SWAP16",
-        0xA0 => "LOG0",
-        0xA1 => "LOG1",
-        0xA2 => "LOG2",
-        0xA3 => "LOG3",
-        0xA4 => "LOG4",
-        0xF0 => "CREATE",
-        0xF1 => "CALL",
-        0xF2 => "CALLCODE",
-        0xF3 => "RETURN",
-        0xF4 => "DELEGATECALL",
-        0xF5 => "CREATE2",
-        0xFA => "STATICCALL",
-        0xFD => "REVERT",
-        0xFE => "INVALID",
-        0xFF => "SELFDESTRUCT",
-        0xF7 => "RETURNDATALOAD",
-        0xF8 => "EXTCALL",
-        0xF9 => "EXTDELEGATECALL",
-        0xFB => "EXTSTATICCALL",
-        else => "UNKNOWN",
-    };
+    // Delegate to constants module which has the complete implementation
+    return constants.getOpcodeName(opcode);
 }
 
 pub fn stringToOp(str: []const u8) ?u8 {
@@ -2006,5 +1842,6 @@ pub fn stringToOp(str: []const u8) ?u8 {
 }
 
 pub fn isPush(opcode: u8) bool {
-    return 0x5F <= opcode and opcode <= 0x7F; // PUSH0 to PUSH32
+    // Delegate to constants module which handles PUSH0 correctly
+    return opcode == constants.PUSH0 or constants.isPush(opcode);
 }

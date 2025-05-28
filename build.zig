@@ -472,14 +472,25 @@ pub fn build(b: *std.Build) void {
     const memory_benchmark_step = b.step("bench-memory", "Run Memory benchmarks");
     memory_benchmark_step.dependOn(&run_memory_benchmark.step);
 
-    // Add Rust Foundry wrapper integration
+    const constants_test = b.addTest(.{
+        .name = "constants-test",
+        .root_source_file = b.path("test/Evm/constants_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    constants_test.root_module.addImport("evm", evm_mod);
+
+    const run_constants_test = b.addRunArtifact(constants_test);
+
+    const constants_test_step = b.step("test-constants", "Run Constants tests");
+    constants_test_step.dependOn(&run_constants_test.step);
+
     const rust_build = @import("src/Compilers/rust_build.zig");
     const rust_step = rust_build.addRustIntegration(b, target, optimize) catch |err| {
         std.debug.print("Failed to add Rust integration: {}\n", .{err});
         return;
     };
 
-    // Make the compiler test depend on the Rust build
     compiler_test.step.dependOn(rust_step);
 
     compiler_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
@@ -496,7 +507,6 @@ pub fn build(b: *std.Build) void {
 
     const run_exe_unit_tests = b.addRunArtifact(exe_unit_tests);
 
-    // Define test step for all tests
     const test_step = b.step("test", "Run unit tests");
     test_step.dependOn(&run_lib_unit_tests.step);
     test_step.dependOn(&run_exe_unit_tests.step);
@@ -510,8 +520,8 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_memory_test.step);
     test_step.dependOn(&run_memory_stress_test.step);
     test_step.dependOn(&run_memory_comparison_test.step);
+    test_step.dependOn(&run_constants_test.step);
 
-    // Define a single test step that runs all tests
     const test_all_step = b.step("test-all", "Run all unit tests");
     test_all_step.dependOn(test_step);
 

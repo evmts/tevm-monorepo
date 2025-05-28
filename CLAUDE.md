@@ -15,6 +15,80 @@ Tevm is an in-browser & Node.js-compatible Ethereum Virtual Machine (EVM) enviro
 - **In the Browser** for advanced user experiences (offline simulation, real-time testing)
 - **In Deno, Bun**, or any modern JavaScript runtime
 
+### Key Features
+
+- **Forking:** Fork from any EVM-compatible network (mainnet, testnet) with efficient caching
+- **Transaction Pool:** Track and manage pending transactions locally
+- **Flexible Mining:** Choose between automatic, interval-based, manual, or gas-limit-based mining
+- **Zero Native Dependencies:** Works seamlessly in browsers and JavaScript runtimes
+- **Highly Extensible:** Customize the VM, add precompiles, handle receipts, and more
+
+### Why JavaScript for Ethereum?
+
+- **Advanced Gas Estimation & Local Execution**: Remove round-trip latency to remote nodes
+- **User Experience Enhancements**: Offline capabilities, optimistic UI updates with local simulation
+- **Testing & Debugging**: Fine-grained EVM introspection, deterministic environment
+- **Ecosystem & Portability**: Works across Node.js, browsers, and serverless environments
+
+## Core Architecture
+
+Tevm Node is built on a modular architecture with several key components:
+
+1. **EVM (Ethereum Virtual Machine)** - Core execution engine that runs EVM bytecode, handles state transitions and gas metering
+2. **Blockchain** - Block and chain state management, handles block production (mining) and chain reorganizations
+3. **StateManager** - Manages account balances, contract code, and storage state with support for forking from live networks
+4. **TxPool** - Manages pending transactions in the mempool, orders transactions by gas price, validates transaction requirements
+5. **ReceiptsManager** - Handles transaction receipts, event logs, and filters for implementing optimistic updates
+
+These components work together to provide a complete Ethereum node implementation that can be used for local development, testing, transaction simulation, and more.
+
+### API Conventions: Ethereumjs vs Viem
+
+Tevm has two distinct API styles due to its underlying implementation:
+
+1. **Low-level Ethereumjs API**
+   This is currently being replaced by a new zig api
+
+2. **High-level Viem API**:
+   - Uses hex strings (e.g., `0x123abc`) for binary data and addresses
+   - More familiar to web3 developers
+   - Used in most client-facing interfaces and the JSON-RPC implementation
+
+### Package Structure and Dependencies
+
+The new zig and javascript code will live in src/\*_/_. Most of the existing released code lives in packages/_ and bundler-packages/_
+
+Tevm wraps its main dependencies (viem and ethereumjs) in dedicated packages:
+
+- **Viem utilities** are wrapped in the `packages/utils` package
+- **Ethereumjs packages** are wrapped in corresponding Tevm packages:
+  - `packages/evm` - Wraps the EVM implementation
+  - `packages/state` - Wraps state management
+  - `packages/blockchain` - Wraps blockchain functionality
+  - `packages/block` - Wraps block handling
+  - `packages/address` - Wraps address utilities
+  - `packages/vm` - Wraps the main VM implementation
+  - `packages/common` - Wraps chain configuration
+  - And more...
+
+This structure provides a unified API and allows Tevm to extend or modify functionality when needed.
+
+When working with both APIs, you may need to convert between formats:
+
+```typescript
+// Converting from Viem hex string to Ethereumjs bytes
+import { hexToBytes } from "viem";
+import { createAddress } from "tevm/address";
+
+// Address conversion
+const viem_address = "0x1234567890123456789012345678901234567890";
+const ethereumjs_address = createAddress(viem_address);
+
+// Bytes conversion
+const viem_data = "0xabcdef1234";
+const ethereumjs_data = hexToBytes(viem_data);
+```
+
 ### Forking Implementation
 
 Most of Tevm's forking logic is implemented in the `StateManager`. When a fork configuration is provided:
@@ -37,6 +111,233 @@ The entire JSON-RPC API is implemented in the `tevm/actions` package, which prov
 - Custom Tevm methods (tevm\_\*)
 
 These action handlers translate between Viem-style parameters and the internal Ethereumjs API, handling format conversions automatically.
+
+#### Common JSON-RPC Methods
+
+```typescript
+// Using with Viem client interface
+const client = createMemoryClient();
+
+// eth_ methods
+await client.getBalance({ address: "0x123..." });
+await client.getBlockNumber();
+await client.getCode({ address: "0x123..." });
+await client.getTransactionCount({ address: "0x123..." });
+await client.call({ to: "0x123...", data: "0xabcdef..." });
+
+// anvil_ methods
+await client.impersonateAccount({ address: "0x123..." });
+await client.stopImpersonatingAccount({ address: "0x123..." });
+await client.mine({ blocks: 1 });
+await client.setBalance({ address: "0x123...", value: 1000000000000000000n });
+await client.reset({ forking: { jsonRpcUrl: "https://..." } });
+
+// tevm_ methods
+await client.tevmSetAccount({
+  address: "0x123...",
+  balance: 1000000000000000000n,
+});
+await client.tevmDumpState();
+```
+
+#### Raw JSON-RPC Interface
+
+You can also use the raw JSON-RPC interface:
+
+```typescript
+import { createTevmNode } from "tevm";
+import { requestEip1193 } from "tevm/decorators";
+
+const node = createTevmNode().extend(requestEip1193());
+
+// Make JSON-RPC requests
+const result = await node.request({
+  method: "eth_getBalance",
+  params: ["0x1234567890123456789012345678901234567890", "latest"],
+});
+```
+
+### Quick Start Example (Viem)
+
+```typescript
+import { createMemoryClient, http } from "tevm";
+import { optimism } from "tevm/common";
+import {
+  encodeFunctionData,
+  parseAbi,
+  decodeFunctionResult,
+  parseEther,
+} from "viem";
+
+// Create a client as a fork of the Optimism mainnet
+const client = createMemoryClient({
+  fork: {
+    transport: http("https://mainnet.optimism.io")({}),
+    common: optimism,
+  },
+});
+
+await client.tevmReady();
+
+// Mint 1 ETH for our address
+const account = "0x" + "baD60A7".padStart(40, "0");
+await client.setBalance({
+  address: account,
+  value: parseEther("1"),
+});
+
+// Interact with a smart contract
+const greeterContractAddress = "0x10ed0b176048c34d69ffc0712de06CbE95730748";
+const greeterAbi = parseAbi([
+  "function greet() view returns (string)",
+  "function setGreeting(string memory _greeting) public",
+]);
+
+// Send a transaction
+const txHash = await client.sendTransaction({
+  account,
+  to: greeterContractAddress,
+  data: encodeFunctionData({
+    abi: greeterAbi,
+    functionName: "setGreeting",
+    args: ["Hello from Tevm!"],
+  }),
+});
+
+// Mine the transaction
+await client.mine({ blocks: 1 });
+```
+
+### Using with EthersJS
+
+```typescript
+import { createMemoryClient, http, parseAbi } from "tevm";
+import { optimism } from "tevm/common";
+import { requestEip1193 } from "tevm/decorators";
+import { BrowserProvider, Contract, Wallet } from "ethers";
+import { parseUnits } from "ethers/utils";
+
+const client = createMemoryClient({
+  fork: {
+    transport: http("https://mainnet.optimism.io")({}),
+    common: optimism,
+  },
+});
+
+client.transport.tevm.extend(requestEip1193());
+await client.tevmReady();
+
+const provider = new BrowserProvider(client.transport.tevm);
+const signer = Wallet.createRandom(provider);
+
+// Mint ETH for our wallet
+await client.setBalance({
+  address: signer.address,
+  value: parseUnits("1.0", "ether"),
+});
+
+// Create contract instance
+const greeterContractAddress = "0x10ed0b176048c34d69ffc0712de06CbE95730748";
+const greeterAbi = parseAbi([
+  "function greet() view returns (string)",
+  "function setGreeting(string memory _greeting) public",
+]);
+const greeter = new Contract(greeterContractAddress, greeterAbi, signer);
+
+// Call contract functions
+const originalGreeting = await greeter.greet();
+const tx = await greeter.setGreeting("Hello from Ethers!");
+await client.mine({ blocks: 1 });
+```
+
+### Bundler Integration: Direct Solidity Imports
+
+One of Tevm's most powerful features is its bundler integration, allowing direct imports of Solidity contracts:
+
+```typescript
+// Import a Solidity contract directly
+import { Counter } from "./Counter.sol";
+import { createMemoryClient } from "tevm";
+
+const client = createMemoryClient();
+
+// Deploy the contract
+const deployed = await client.deployContract(Counter);
+
+// Call contract methods with type safety
+const count = await deployed.read.count();
+const tx = await deployed.write.increment();
+await client.mine({ blocks: 1 });
+const newCount = await deployed.read.count();
+```
+
+Tevm provides bundler plugins for various build tools:
+
+- Vite: `@tevm/vite`
+- Webpack: `@tevm/webpack`
+- ESBuild: `@tevm/esbuild`
+- Rollup: `@tevm/rollup`
+- Bun: `@tevm/bun`
+
+These plugins enable:
+
+- Direct importing of `.sol` files
+- Automatic compilation with solc
+- Type generation for full TypeScript safety
+- Hot module reloading for Solidity contracts
+
+### Low-Level VM Access and State Management
+
+```typescript
+import { createTevmNode } from "tevm";
+import { createAddress } from "tevm/address";
+import { hexToBytes } from "viem";
+
+const node = createTevmNode();
+await node.ready();
+
+// Get VM and its components
+const vm = await node.getVm();
+const evm = vm.evm;
+const stateManager = vm.stateManager;
+const blockchain = vm.blockchain;
+const txPool = await node.getTxPool();
+
+// Listen to EVM execution steps
+vm.evm.events.on("step", (data, next) => {
+  console.log(
+    data.pc.toString().padStart(5, " "), // program counter
+    data.opcode.name.padEnd(9, " "), // opcode name
+    data.stack.length.toString().padStart(3, " "), // stack length
+    data.stack.length < 5 ? data.stack : data.stack.slice(-5), // stack items
+  );
+  next?.();
+});
+
+// Manipulate state directly
+await stateManager.putAccount("0x1234567890123456789012345678901234567890", {
+  nonce: 0n,
+  balance: 10_000_000n,
+  storageRoot:
+    "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+  codeHash:
+    "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+});
+
+// Call EVM directly for contract execution
+await evm.runCall({
+  to: createAddress("0x1234567890123456789012345678901234567890"),
+  caller: createAddress("0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"),
+  data: hexToBytes("0xabcdef12"), // call data
+});
+
+// Use transaction pool
+await txPool.add({
+  from: "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  to: "0x1234567890123456789012345678901234567890",
+  value: 1000000000000000000n,
+});
+```
 
 ## Commands
 
