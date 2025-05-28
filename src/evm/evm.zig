@@ -54,4 +54,9 @@ pub const GasCosts = gas_mod.GasCosts;
 pub const getStaticGasCost = gas_mod.getStaticGasCost;
 pub const OPCODE_GAS_COSTS = gas_mod.OPCODE_GAS_COSTS;
 
+const statedb_mod = @import("StateDB.zig");
+pub const StateDB = statedb_mod.StateDB;
+pub const StateDBError = statedb_mod.StateDBError;
+pub const Account = statedb_mod.Account;
+
 const Evm = struct { depth: u16 };

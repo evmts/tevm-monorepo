@@ -581,6 +581,20 @@ pub fn build(b: *std.Build) void {
     
     const journal_test_step = b.step("test-journal", "Run Journal tests");
     journal_test_step.dependOn(&run_journal_test.step);
+    
+    // Add StateDB test
+    const statedb_test = b.addTest(.{
+        .name = "statedb-test",
+        .root_source_file = b.path("test/Evm/statedb_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    statedb_test.root_module.addImport("evm", evm_mod);
+    
+    const run_statedb_test = b.addRunArtifact(statedb_test);
+    
+    const statedb_test_step = b.step("test-statedb", "Run StateDB tests");
+    statedb_test_step.dependOn(&run_statedb_test.step);
 
     const rust_build = @import("src/Compilers/rust_build.zig");
     const rust_step = rust_build.addRustIntegration(b, target, optimize) catch |err| {
