@@ -1,6 +1,6 @@
 {
   "name": "@tevm/zig",
-  "version": "0.0.1",
+  "version": "1.0.0-next.146",
   "private": true,
   "type": "module",
   "scripts": {

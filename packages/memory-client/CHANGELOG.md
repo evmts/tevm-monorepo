@@ -1,5 +1,22 @@
 # @tevm/client
 
+## 1.0.0-next.146
+
+### Patch Changes
+
+- c1a3cda: pnpm up --latest all packages
+- Updated dependencies [c1a3cda]
+  - @tevm/decorators@1.0.0-next.146
+  - @tevm/actions@1.0.0-next.146
+  - @tevm/address@1.0.0-next.146
+  - @tevm/common@1.0.0-next.146
+  - @tevm/errors@1.0.0-next.146
+  - @tevm/utils@1.0.0-next.146
+  - @tevm/node@1.0.0-next.146
+  - @tevm/evm@1.0.0-next.146
+  - @tevm/contract@1.0.0-next.146
+  - @tevm/predeploys@1.0.0-next.146
+
 ## 1.0.0-next.145
 
 ### Patch Changes
