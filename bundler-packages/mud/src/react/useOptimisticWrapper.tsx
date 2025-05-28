@@ -1,18 +1,19 @@
 import type { StoreConfig } from '@latticexyz/stash/internal'
+import { SyncProvider } from '@latticexyz/store-sync/react';
 import React, { createContext, useContext, useEffect, useMemo, type ReactNode } from 'react'
-import type { Client } from 'viem'
 import {
 	type CreateOptimisticHandlerOptions,
 	type CreateOptimisticHandlerResult,
 	createOptimisticHandler,
 } from '../createOptimisticHandler.js'
-import type { SessionClient } from '../types.js'
 
 interface OptimisticWrapperContextType<TConfig extends StoreConfig> extends CreateOptimisticHandlerResult<TConfig> {}
 const OptimisticWrapperContext = createContext<OptimisticWrapperContextType<StoreConfig> | undefined>(undefined)
 interface OptimisticWrapperProviderProps<TConfig extends StoreConfig>
-	extends Omit<CreateOptimisticHandlerOptions<TConfig>, 'client'> {
-	client?: Client | SessionClient
+	extends Omit<CreateOptimisticHandlerOptions<TConfig>, 'sync'> {
+	sync?: CreateOptimisticHandlerOptions<TConfig>['sync'] & {
+		chainId?: number // add the chainId so we can start the sync even if the client is not yet defined
+	} | undefined
 	children: ReactNode
 }
 
@@ -24,13 +25,10 @@ export const OptimisticWrapperProvider: React.FC<OptimisticWrapperProviderProps<
 	children,
 	...options
 }) => {
-	const { client, storeAddress, stash, config, loggingLevel } = options
+	const { client, storeAddress, stash, sync, config, loggingLevel } = options
 	const handlerResult = useMemo(
-		() =>
-			isClientDefined(client)
-				? createOptimisticHandler({ client, storeAddress, stash, config, loggingLevel })
-				: undefined,
-		[client, storeAddress, stash, config, loggingLevel],
+		() => createOptimisticHandler({ client, storeAddress, stash, sync, config, loggingLevel }),
+		[client, storeAddress, stash, sync, config, loggingLevel],
 	)
 
 	useEffect(() => {
@@ -39,18 +37,28 @@ export const OptimisticWrapperProvider: React.FC<OptimisticWrapperProviderProps<
 		}
 	}, [handlerResult])
 
+	if (sync && (sync.enabled === undefined || sync.enabled && client.chain)) { // we already error if the client is not connected to a chain
+		return (
+		<OptimisticWrapperContext.Provider value={handlerResult}>
+				<SyncProvider
+					chainId={client.chain!.id}
+					address={storeAddress}
+					startBlock={sync.startBlock ?? 0n}
+					adapter={handlerResult.syncAdapter}
+				>
+					{children}
+				</SyncProvider>
+			</OptimisticWrapperContext.Provider>
+		)
+	}
+
 	return <OptimisticWrapperContext.Provider value={handlerResult}>{children}</OptimisticWrapperContext.Provider>
 }
 
 /**
  * Custom hook to access the optimistic handler utilities from the OptimisticContext.
  */
-export const useOptimisticWrapper = <TConfig extends StoreConfig>():
-	| OptimisticWrapperContextType<TConfig>
-	| undefined => {
-	const context = useContext(OptimisticWrapperContext) as OptimisticWrapperContextType<TConfig> | undefined
+export const useOptimisticWrapper = <TConfig extends StoreConfig>(): OptimisticWrapperContextType<TConfig> => {
+	const context = useContext(OptimisticWrapperContext) as OptimisticWrapperContextType<TConfig>
 	return context
 }
-
-const isClientDefined = (client: Client | SessionClient | undefined): client is Client | SessionClient =>
-	client !== undefined
