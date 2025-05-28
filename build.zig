@@ -183,7 +183,7 @@ pub fn build(b: *std.Build) void {
     wasm_mod.addImport("Abi", abi_mod);
     wasm_mod.addImport("Block", block_mod);
     wasm_mod.addImport("Bytecode", bytecode_mod);
-    wasm_mod.addImport("Compiler", compiler_mod);
+    wasm_mod.addImport("Compiler", compiler_wasm_mod);
     wasm_mod.addImport("evm", evm_mod);
     wasm_mod.addImport("Rlp", rlp_mod);
     wasm_mod.addImport("Token", token_mod);
