@@ -23,7 +23,7 @@ import { createCommon } from '@tevm/common'
 import { createLogger } from '@tevm/logger'
 import { type MemoryClient, createMemoryClient } from '@tevm/memory-client'
 import type { TxPool } from '@tevm/txpool'
-import { type Address, EthjsAddress } from '@tevm/utils'
+import { type Address, createAddressFromString } from '@tevm/utils'
 import type { Vm } from '@tevm/vm'
 import { type Client, parseEventLogs } from 'viem'
 import { mudStoreGetStorageAtOverride } from './internal/decorators/mudStoreGetStorageAtOverride.js'
@@ -88,9 +88,8 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 				},
 				blockTag: 'latest',
 			},
-			// @ts-expect-error - version mismatch, properties such as `fees` incompatibles
 			common: createCommon(client.chain),
-			// ...(loggingLevel ? { loggingLevel } : {}),
+			...(loggingLevel ? { loggingLevel } : {}),
 		})
 	}
 
@@ -150,7 +149,7 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 		for (const tx of orderedTxs) {
 			logger?.debug({ tx }, `Running tx ${orderedTxs.indexOf(tx) + 1}/${orderedTxs.length}.`)
 			// clear cache to force the fork request to not hit cache and go through our `getStorageAt` interceptor
-			vmCopy.stateManager._baseState.forkCache.storage.clearContractStorage(EthjsAddress.fromString(storeAddress))
+			vmCopy.stateManager._baseState.forkCache.storage.clearStorage(createAddressFromString(storeAddress))
 			const txResult = await vmCopy.runTx({
 				tx,
 				skipBalance: true,

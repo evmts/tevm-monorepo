@@ -9,6 +9,7 @@ import { wagmiConfig } from "./wagmiConfig";
 import { chainId, getWorldAddress, startBlock } from "./common";
 import { Toaster } from "sonner";
 import { OptimisticWrapperProvider } from "@tevm/mud/react";
+import { SessionClient } from "@tevm/mud";
 
 const queryClient = new QueryClient();
 
@@ -23,8 +24,7 @@ function OptimisticEntryKitProvider({ children }: { children: ReactNode }) {
   return <OptimisticWrapperProvider
     stash={stash}
     storeAddress={worldAddress}
-    // @ts-expect-error - viem versions mismatch
-    client={sessionClient}
+    client={sessionClient as unknown as SessionClient}
     loggingLevel="debug"
   >
     {/* @ts-expect-error - react versions mismatch */}
