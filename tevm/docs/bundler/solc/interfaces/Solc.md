@@ -6,7 +6,7 @@
 
 # Interface: Solc
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:441
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:442
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:441
 
 > **compile**: (`input`) => [`SolcOutput`](../type-aliases/SolcOutput.md)
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:447
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:448
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:447
 
 > **features**: `FeaturesConfig`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:446
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:447
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:446
 
 > **license**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:444
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:445
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:444
 
 > **loadRemoteVersion**: (`versionString`, `callback`) => `void`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:448
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:449
 
 #### Parameters
 
@@ -70,7 +70,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:448
 
 > **lowlevel**: `LowLevelConfig`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:445
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:446
 
 ***
 
@@ -78,7 +78,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:445
 
 > **semver**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:443
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:444
 
 ***
 
@@ -86,7 +86,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:443
 
 > **setupMethods**: (`soljson`) => `void`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:449
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:450
 
 #### Parameters
 
@@ -104,4 +104,4 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:449
 
 > **version**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:442
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:443

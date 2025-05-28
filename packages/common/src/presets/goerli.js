@@ -27,5 +27,5 @@ export const goerli = createCommon({
 	..._goerli,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

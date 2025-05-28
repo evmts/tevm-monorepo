@@ -1,4 +1,4 @@
-import type { EVM } from '@ethereumjs/evm'
+import type { EVMOpts as EthereumjsEVMOpts } from '@ethereumjs/evm'
 
 /**
  * The options available to pass to the EVM. Inferred from ethereumjs/evm
@@ -18,4 +18,4 @@ import type { EVM } from '@ethereumjs/evm'
  * })
  * ```
  */
-export type EVMOpts = Parameters<typeof EVM.create>[0]
+export type EVMOpts = EthereumjsEVMOpts

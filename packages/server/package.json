@@ -1,6 +1,6 @@
 {
   "name": "@tevm/server",
-  "version": "1.0.0-next.145",
+  "version": "1.0.0-next.146",
   "private": false,
   "description": "A typesafe library for writing forge scripts in typescript",
   "keywords": [
@@ -71,18 +71,18 @@
     "@tevm/jsonrpc": "workspace:^",
     "@tevm/memory-client": "workspace:^",
     "@tevm/utils": "workspace:^",
-    "zod": "^3.24.2"
+    "zod": "^3.25.30"
   },
   "devDependencies": {
     "@tevm/actions": "workspace:^",
     "@tevm/test-utils": "workspace:^",
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^",
-    "@types/express": "^5.0.0",
-    "@types/supertest": "^6.0.2",
-    "express": "^4.21.2",
-    "next": "^15.1.7",
-    "supertest": "^7.0.0"
+    "@types/express": "^5.0.2",
+    "@types/supertest": "^6.0.3",
+    "express": "^5.1.0",
+    "next": "^15.3.2",
+    "supertest": "^7.1.1"
   },
   "publishConfig": {
     "access": "public"

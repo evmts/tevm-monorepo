@@ -1,6 +1,6 @@
+import { createAddress } from '@tevm/address'
 import { createTevmNode } from '@tevm/node'
 import { createStateManager } from '@tevm/state'
-import { EthjsAddress } from '@tevm/utils'
 import { bytesToHex, hexToBytes } from '@tevm/utils'
 import { describe, expect, test } from 'vitest'
 import { dumpStateHandler } from '../DumpState/dumpStateHandler.js'
@@ -9,7 +9,7 @@ import { loadStateHandler } from './loadStateHandler.js'
 test('should load state into the state manager', async () => {
 	const stateManager = createStateManager({})
 
-	const address = EthjsAddress.fromString('0x0420042004200420042004200420042004200420')
+	const address = createAddress('0x0420042004200420042004200420042004200420')
 
 	let accountData = await stateManager.getAccount(address)
 
@@ -44,7 +44,7 @@ test('should load state into the state manager', async () => {
 	expect(accountData?.nonce).toEqual(0n)
 	expect(accountData?.balance).toEqual(100n)
 
-	const storedValue = await stateManager.getContractStorage(address, hexToBytes(hashedStorageKey))
+	const storedValue = await stateManager.getStorage(address, hexToBytes(hashedStorageKey))
 
 	expect(bytesToHex(storedValue)).toBe(storageValue)
 

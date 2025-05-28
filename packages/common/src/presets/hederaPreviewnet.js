@@ -27,5 +27,5 @@ export const hederaPreviewnet = createCommon({
 	..._hederaPreviewnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

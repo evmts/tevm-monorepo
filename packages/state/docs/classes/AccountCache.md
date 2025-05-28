@@ -6,7 +6,7 @@
 
 # Class: AccountCache
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:14
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:14
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@et
 
 > **new AccountCache**(`opts`): `AccountCache`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:27
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:27
 
 #### Parameters
 
@@ -40,7 +40,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@et
 
 > **\_checkpoints**: `number`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/cache.d.ts:4
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/cache.d.ts:4
 
 #### Inherited from
 
@@ -52,7 +52,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@et
 
 > **\_debug**: `Debugger`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/cache.d.ts:3
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/cache.d.ts:3
 
 #### Inherited from
 
@@ -64,7 +64,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@et
 
 > **\_diffCache**: `Map`\<`string`, `undefined` \| `AccountCacheElement`\>[]
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:26
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:26
 
 Diff cache collecting the state of the cache
 at the beginning of checkpoint height
@@ -80,7 +80,7 @@ before.
 
 > **\_lruCache**: `undefined` \| `LRUCache`\<`string`, `AccountCacheElement`, `unknown`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:15
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:15
 
 ***
 
@@ -88,7 +88,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@et
 
 > **\_orderedMapCache**: `undefined` \| `OrderedMap`\<`string`, `AccountCacheElement`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:16
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:16
 
 ***
 
@@ -96,11 +96,11 @@ Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@et
 
 > **\_stats**: `object`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/cache.d.ts:5
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/cache.d.ts:5
 
-#### dels
+#### deletions
 
-> **dels**: `number`
+> **deletions**: `number`
 
 #### hits
 
@@ -128,7 +128,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@et
 
 > **\_saveCachePreState**(`cacheKeyHex`): `void`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:28
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:28
 
 #### Parameters
 
@@ -146,7 +146,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@et
 
 > **checkpoint**(): `void`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:62
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:62
 
 Marks current state of cache as checkpoint, which can
 later on be reverted or committed.
@@ -161,7 +161,7 @@ later on be reverted or committed.
 
 > **clear**(): `void`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:82
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:82
 
 Clears cache.
 
@@ -175,7 +175,7 @@ Clears cache.
 
 > **commit**(): `void`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:57
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:57
 
 Commits to current state of cache (no effect on trie).
 
@@ -189,7 +189,7 @@ Commits to current state of cache (no effect on trie).
 
 > **del**(`address`): `void`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:44
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:44
 
 Marks address as deleted in cache.
 
@@ -211,7 +211,7 @@ Address
 
 > **flush**(): \[`string`, `AccountCacheElement`\][]
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:49
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:49
 
 Flushes cache by returning accounts that have been modified
 or deleted and resetting the diff cache (at checkpoint height).
@@ -226,7 +226,7 @@ or deleted and resetting the diff cache (at checkpoint height).
 
 > **get**(`address`): `undefined` \| `AccountCacheElement`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:39
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:39
 
 Returns the queried account or undefined if account doesn't exist
 
@@ -246,9 +246,9 @@ Address of account
 
 ### put()
 
-> **put**(`address`, `account`, `couldBeParitalAccount?`): `void`
+> **put**(`address`, `account`, `couldBePartialAccount?`): `void`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:34
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:34
 
 Puts account to cache under its address.
 
@@ -266,7 +266,7 @@ Account or undefined if account doesn't exist in the trie
 
 `undefined` | `Account`
 
-##### couldBeParitalAccount?
+##### couldBePartialAccount?
 
 `boolean`
 
@@ -280,7 +280,7 @@ Account or undefined if account doesn't exist in the trie
 
 > **revert**(): `void`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:53
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:53
 
 Revert changes to cache last checkpoint (no effect on trie).
 
@@ -294,7 +294,7 @@ Revert changes to cache last checkpoint (no effect on trie).
 
 > **size**(): `number`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:67
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:67
 
 Returns the size of the cache
 
@@ -308,7 +308,7 @@ Returns the size of the cache
 
 > **stats**(`reset?`): `object`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:72
+Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:72
 
 Returns a dict with cache stats
 
@@ -322,9 +322,9 @@ Returns a dict with cache stats
 
 `object`
 
-##### dels
+##### deletions
 
-> **dels**: `number`
+> **deletions**: `number`
 
 ##### hits
 

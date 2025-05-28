@@ -1,7 +1,7 @@
 import { VM } from '@ethereumjs/vm'
 import { type Chain } from '@tevm/blockchain'
 import { type Common } from '@tevm/common'
-import { Evm } from '@tevm/evm'
+import { type EvmType } from '@tevm/evm'
 import { type StateManager } from '@tevm/state'
 
 /**
@@ -30,7 +30,7 @@ export interface VmOpts {
 	 * A {@link Blockchain} object for storing/retrieving blocks
 	 */
 	blockchain: Chain
-	evm: Evm
+	evm: EvmType
 	/**
 	 * If true, create entries in the state tree for the precompiled contracts, saving some gas the
 	 * first time each of them is called.

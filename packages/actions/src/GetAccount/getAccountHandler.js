@@ -125,7 +125,7 @@ export const getAccountHandler =
 					isEmpty: true,
 				})
 			}
-			const code = res?.codeHash !== undefined ? bytesToHex(await vm.stateManager.getContractCode(address)) : '0x'
+			const code = res?.codeHash !== undefined ? bytesToHex(await vm.stateManager.getCode(address)) : '0x'
 
 			return {
 				// TODO some of these fields are not in the api and should be added to @tevm/actions

@@ -27,5 +27,5 @@ export const telosTestnet = createCommon({
 	..._telosTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

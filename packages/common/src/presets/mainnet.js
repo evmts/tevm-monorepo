@@ -27,5 +27,5 @@ export const mainnet = createCommon({
 	..._mainnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

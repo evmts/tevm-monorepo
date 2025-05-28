@@ -8,6 +8,6 @@
 
 > `const` **deleteAccount**: [`StateAction`](../type-aliases/StateAction.md)\<`"deleteAccount"`\>
 
-Defined in: packages/state/dist/index.d.ts:351
+Defined in: packages/state/dist/index.d.ts:372
 
 Deletes an account from state under the provided `address`.

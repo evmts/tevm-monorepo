@@ -2,7 +2,7 @@ import { createAddress } from '@tevm/address'
 import { Block } from '@tevm/block'
 import { createTevmNode } from '@tevm/node'
 import { transports } from '@tevm/test-utils'
-import { EthjsAccount } from '@tevm/utils'
+import { createAccount } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { anvilResetJsonRpcProcedure } from './anvilResetProcedure.js'
@@ -21,7 +21,7 @@ describe('anvilResetJsonRpcProcedure', () => {
 		await vm.blockchain.putBlock(block2)
 
 		const testAddress = createAddress('0x1234567890123456789012345678901234567890')
-		const account = EthjsAccount.fromAccountData({ balance: 1000n })
+		const account = createAccount({ balance: 1000n })
 		await vm.stateManager.putAccount(testAddress, account)
 
 		// Perform the reset
@@ -37,13 +37,13 @@ describe('anvilResetJsonRpcProcedure', () => {
 		// Check if the blockchain was reset
 		expect(await vm.blockchain.getCanonicalHeadBlock()).toEqual(await vm.blockchain.getBlock(0n))
 		await expect(vm.blockchain.getBlock(block1.hash())).rejects.toThrowErrorMatchingInlineSnapshot(`
-			[UnknownBlock: Block with hash 0xc13e3e758cfce75830f0e2800937e1f172e0d8ab8f41508debc829168c4e535a does not exist
+			[UnknownBlock: Block with hash 0x4f3d139a80e0ebb8a4a67165405bb0b27187a5be1ab7084163cd4d79a1910eac does not exist
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
 			Version: 1.1.0.next-73]
 		`)
 		await expect(vm.blockchain.getBlock(block2.hash())).rejects.toThrowErrorMatchingInlineSnapshot(`
-			[UnknownBlock: Block with hash 0xc13e3e758cfce75830f0e2800937e1f172e0d8ab8f41508debc829168c4e535a does not exist
+			[UnknownBlock: Block with hash 0x4f3d139a80e0ebb8a4a67165405bb0b27187a5be1ab7084163cd4d79a1910eac does not exist
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
 			Version: 1.1.0.next-73]

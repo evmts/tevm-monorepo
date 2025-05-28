@@ -27,5 +27,5 @@ export const hashkeyTestnet = createCommon({
 	..._hashkeyTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

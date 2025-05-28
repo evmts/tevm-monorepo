@@ -27,5 +27,5 @@ export const haqqTestedge2 = createCommon({
 	..._haqqTestedge2,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

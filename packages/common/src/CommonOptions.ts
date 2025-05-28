@@ -4,7 +4,7 @@ import type { Chain as ViemChain } from 'viem/chains'
 import type { Hardfork } from './Hardfork.js'
 
 /**
- * @property {Hardfork} [hardfork='cancun'] - Hardfork to use
+ * @property {Hardfork} [hardfork='prague'] - Hardfork to use
  * @property {ReadonlyArray<number>} [eips=[1559, 4895]] - EIPs to enable
  * @property {LogOptions['level']} loggingLevel - Tevm logger instance
  * @property {CustomCrypto} [customCrypto] - Custom crypto implementations
@@ -29,7 +29,7 @@ import type { Hardfork } from './Hardfork.js'
  *
  * const common = createCommon({
  *   ...mainnet,
- *   hardfork: 'cancun',
+ *   hardfork: 'prague',
  * })
  * ```
  *
@@ -37,8 +37,8 @@ import type { Hardfork } from './Hardfork.js'
  */
 export type CommonOptions = ViemChain & {
 	/**
-	 * Hardfork to use. Defaults to `shanghai`
-	 * @default 'cancun'
+	 * Hardfork to use. Defaults to `prague`
+	 * @default 'prague'
 	 */
 	hardfork?: Hardfork | undefined
 	/**

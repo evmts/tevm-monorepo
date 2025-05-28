@@ -8,7 +8,7 @@
 
 > **getAccountFromProvider**(`baseState`): (`address`) => `Promise`\<[`EthjsAccount`](../../utils/classes/EthjsAccount.md)\>
 
-Defined in: packages/state/dist/index.d.ts:397
+Defined in: packages/state/dist/index.d.ts:418
 
 ## Parameters
 

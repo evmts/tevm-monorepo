@@ -1,7 +1,7 @@
 import { createAddress } from '@tevm/address'
 import { InvalidParamsError } from '@tevm/errors'
 import { SimpleContract } from '@tevm/test-utils'
-import { EthjsAccount } from '@tevm/utils'
+import { createAccount } from '@tevm/utils'
 import { type Hex, hexToBigInt, hexToBytes, numberToBytes } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
@@ -16,7 +16,7 @@ describe(dumpStorageRange.name, () => {
 		const address = createAddress(9876543210)
 		await putAccount(state)(
 			address,
-			EthjsAccount.fromAccountData({
+			createAccount({
 				nonce: 2n,
 				balance: 420n,
 			}),
@@ -31,7 +31,7 @@ describe(dumpStorageRange.name, () => {
 		const address = createAddress(9876543210)
 		await putAccount(state)(
 			address,
-			EthjsAccount.fromAccountData({
+			createAccount({
 				nonce: 2n,
 				balance: 420n,
 			}),

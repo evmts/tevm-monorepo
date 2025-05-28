@@ -27,5 +27,5 @@ export const cyberTestnet = createCommon({
 	..._cyberTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

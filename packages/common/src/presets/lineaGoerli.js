@@ -27,5 +27,5 @@ export const lineaGoerli = createCommon({
 	..._lineaGoerli,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

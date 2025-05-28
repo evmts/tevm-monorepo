@@ -27,5 +27,5 @@ export const dchain = createCommon({
 	..._dchain,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

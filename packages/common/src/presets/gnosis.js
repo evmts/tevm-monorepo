@@ -27,5 +27,5 @@ export const gnosis = createCommon({
 	..._gnosis,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

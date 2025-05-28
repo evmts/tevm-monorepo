@@ -7,6 +7,7 @@ export {
 	KeyEncoding,
 	ValueEncoding,
 	Withdrawal,
+	createWithdrawal,
 	GWEI_TO_WEI,
 	setLengthLeft,
 	toType,
@@ -17,8 +18,10 @@ export {
 	KECCAK256_RLP,
 	KECCAK256_RLP_ARRAY,
 	ecrecover,
-	ecsign,
-	zeros,
+	// ecsign was removed in newer versions of @ethereumjs/util
+	// zeros was also removed
 	randomBytes,
-	AsyncEventEmitter,
+	// AsyncEventEmitter was also removed
+	createAddressFromString,
+	createAccount,
 } from '@ethereumjs/util'

@@ -27,5 +27,5 @@ export const ancient8 = createCommon({
 	..._ancient8,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

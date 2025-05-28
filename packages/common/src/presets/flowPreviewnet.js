@@ -27,5 +27,5 @@ export const flowPreviewnet = createCommon({
 	..._flowPreviewnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

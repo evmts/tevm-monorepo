@@ -6,9 +6,9 @@
 
 # Function: getProof()
 
-> **getProof**(`baseState`, `skipFetchingFromFork?`): (`address`, `storageSlots?`) => `Promise`\<`Proof`\>
+> **getProof**(`baseState`): (`address`, `storageSlots?`) => `Promise`\<`Proof`\>
 
-Defined in: [packages/state/src/actions/getProof.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getProof.js#L10)
+Defined in: [packages/state/src/actions/getProof.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getProof.js#L12)
 
 Get an EIP-1186 proof from the provider
 
@@ -17,10 +17,6 @@ Get an EIP-1186 proof from the provider
 ### baseState
 
 [`BaseState`](../type-aliases/BaseState.md)
-
-### skipFetchingFromFork?
-
-`boolean`
 
 ## Returns
 

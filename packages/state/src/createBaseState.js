@@ -80,11 +80,20 @@ export const createBaseState = (options) => {
 	}
 	const genesisPromise = (
 		options.genesisState !== undefined && options.currentStateRoot === undefined
-			? generateCanonicalGenesis(state)(options.genesisState)
+			? (async () => {
+					const fn = generateCanonicalGenesis(state)
+					if (fn && options.genesisState) {
+						return fn(options.genesisState)
+					}
+				})()
 			: Promise.resolve().then(() => {
 					if (options.currentStateRoot) {
 						state.setCurrentStateRoot(options.currentStateRoot)
-						return generateCanonicalGenesis(state)(options.genesisState ?? stateRoots.get(options.currentStateRoot))
+						const fn = generateCanonicalGenesis(state)
+						const genesis = options.genesisState ?? stateRoots.get(options.currentStateRoot)
+						if (fn && genesis) {
+							return fn(genesis)
+						}
 					}
 					return Promise.resolve()
 				})

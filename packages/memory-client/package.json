@@ -1,6 +1,6 @@
 {
   "name": "@tevm/memory-client",
-  "version": "1.0.0-next.145",
+  "version": "1.0.0-next.146",
   "private": false,
   "description": "MemoryClient for tevm is an in memory devnet for JavaScript",
   "keywords": [
@@ -74,7 +74,7 @@
     "@tevm/predeploys": "workspace:^",
     "@tevm/utils": "workspace:^",
     "kzg-wasm": "^0.5.0",
-    "vitest": "^3.0.8"
+    "vitest": "^3.1.4"
   },
   "devDependencies": {
     "@tevm/test-utils": "workspace:^",
@@ -82,7 +82,7 @@
     "@tevm/tsupconfig": "workspace:^"
   },
   "peerDependencies": {
-    "viem": "^2.23.5"
+    "viem": "^2.30.1"
   },
   "publishConfig": {
     "access": "public"

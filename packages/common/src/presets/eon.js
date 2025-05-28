@@ -27,5 +27,5 @@ export const eon = createCommon({
 	..._eon,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

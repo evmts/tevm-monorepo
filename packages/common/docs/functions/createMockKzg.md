@@ -8,7 +8,7 @@
 
 > **createMockKzg**(): [`MockKzg`](../type-aliases/MockKzg.md)
 
-Defined in: [packages/common/src/createMockKzg.js:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/createMockKzg.js#L22)
+Defined in: [packages/common/src/createMockKzg.js:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/createMockKzg.js#L23)
 
 Returns a mock kzg object that always trusts never verifies
 The real kzg commitmenet is over 500kb added to bundle size

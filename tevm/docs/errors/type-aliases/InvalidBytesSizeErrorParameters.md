@@ -16,7 +16,7 @@ Parameters for constructing an [InvalidBytesSizeError](../classes/InvalidBytesSi
 
 ### cause?
 
-> `optional` **cause**: [`InternalError`](../classes/InternalError.md) \| [`EvmError`](../../evm/classes/EvmError.md)
+> `optional` **cause**: [`InternalError`](../classes/InternalError.md) \| [`EVMError`](../../evm/classes/EVMError.md)
 
 Defined in: packages/errors/types/data/InvalidByteSizeError.d.ts:84
 

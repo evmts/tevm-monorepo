@@ -18,13 +18,14 @@ exports[`getBlockByTag > should fetch and cache the block from rpc if it does no
     "parentBeaconBlockRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
     "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
     "receiptTrie": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+    "requestsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
     "stateRoot": "0xeddb4c1786789419153a27c4c80ff44a2226b6eda04f7e22ce5bae892ea568eb",
     "timestamp": "0x0",
     "transactionsTrie": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
     "uncleHash": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
     "withdrawalsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
   },
-  "requests": undefined,
+  "requests": [],
   "transactions": [],
   "uncleHeaders": [],
   "withdrawals": [],
@@ -46,7 +47,7 @@ Version: 1.1.0.next-73]
 `;
 
 exports[`getBlockByTag > should throw an error if the block does not exist 2`] = `
-[UnknownBlock: Block with hash 0x6e2b61c3625a559681df81f5d1140d26d4883537aa500a0e4cdad312032cc2e1 does not exist
+[UnknownBlock: Block with hash 0xd28815595bbd6c13b091aa46b91cc3c9cfe2cf9ad72a38d0974d1f12477dfba3 does not exist
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
 Version: 1.1.0.next-73]

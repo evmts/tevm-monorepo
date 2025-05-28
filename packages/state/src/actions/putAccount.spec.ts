@@ -1,4 +1,4 @@
-import { EthjsAccount, EthjsAddress } from '@tevm/utils'
+import { createAccount, createAddressFromString } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { getAccount } from './getAccount.js'
@@ -10,10 +10,10 @@ describe(putAccount.name, () => {
 			loggingLevel: 'warn',
 		})
 
-		const address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
+		const address = createAddressFromString(`0x${'01'.repeat(20)}`)
 		const balance = 420n
 		const nonce = 2n
-		const account = EthjsAccount.fromAccountData({
+		const account = createAccount({
 			balance,
 			nonce,
 		})
@@ -29,10 +29,10 @@ describe(putAccount.name, () => {
 		})
 		await baseState.ready()
 
-		const address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
+		const address = createAddressFromString(`0x${'01'.repeat(20)}`)
 		const balance = 420n
 		const nonce = 2n
-		const account = EthjsAccount.fromAccountData({
+		const account = createAccount({
 			balance,
 			nonce,
 		})
@@ -46,17 +46,17 @@ describe(putAccount.name, () => {
 		expect(await getAccount(baseState)(address)).toBeUndefined()
 	})
 
-	it('should handle EthjsAccount properly', async () => {
+	it('should handle Account properly', async () => {
 		const baseState = createBaseState({
 			loggingLevel: 'warn',
 		})
 
-		const address = EthjsAddress.fromString(`0x${'02'.repeat(20)}`)
+		const address = createAddressFromString(`0x${'02'.repeat(20)}`)
 		const largeBalance = 2n ** 40n // Large but reasonable balance value
 		const largeNonce = 2n ** 10n // Large but reasonable nonce value
 
 		// Create account
-		const account = EthjsAccount.fromAccountData({
+		const account = createAccount({
 			balance: largeBalance,
 			nonce: largeNonce,
 		})

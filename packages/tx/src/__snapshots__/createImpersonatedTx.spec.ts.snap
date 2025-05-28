@@ -39,23 +39,21 @@ Uint8Array [
 
 exports[`createImpersonatedTx > should support Object.keys 1`] = `
 [
+  "type",
   "cache",
   "activeCapabilities",
-  "DEFAULT_CHAIN",
-  "_type",
+  "common",
   "txOptions",
+  "to",
   "nonce",
   "gasLimit",
-  "to",
   "value",
   "data",
   "v",
   "r",
   "s",
-  "common",
   "chainId",
   "accessList",
-  "AccessListJSON",
   "maxFeePerGas",
   "maxPriorityFeePerGas",
 ]

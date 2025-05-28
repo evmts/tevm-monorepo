@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/viem",
-	"version": "1.0.0-next.145",
+	"version": "1.0.0-next.146",
 	"private": false,
 	"description": "A typesafe library for writing forge scripts in typescript",
 	"keywords": [
@@ -84,7 +84,7 @@
 		"abitype": "^1.0.8"
 	},
 	"peerDependencies": {
-		"viem": "^2.21.1"
+		"viem": "^2.30.1"
 	},
 	"publishConfig": {
 		"access": "public"

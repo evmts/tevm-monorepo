@@ -4,7 +4,8 @@
 		"outDir": "types",
 		"skipLibCheck": true,
 		"allowSyntheticDefaultImports": true,
-		"resolveJsonModule": true
+		"resolveJsonModule": true,
+		"lib": ["esnext", "dom"]
 	},
 	"include": ["src", "src/**/*.json", "package.json"]
 }

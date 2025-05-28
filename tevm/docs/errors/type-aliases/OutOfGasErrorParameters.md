@@ -16,7 +16,7 @@ Parameters for constructing an OutOfGasError.
 
 ### cause?
 
-> `optional` **cause**: [`GasLimitExceededError`](../classes/GasLimitExceededError.md) \| [`EvmError`](../../evm/classes/EvmError.md)
+> `optional` **cause**: [`GasLimitExceededError`](../classes/GasLimitExceededError.md) \| [`EVMError`](../../evm/classes/EVMError.md)
 
 Defined in: packages/errors/types/ethereum/ethereumjs/OutOfGasError.d.ts:102
 

@@ -27,5 +27,5 @@ export const mantaSepoliaTestnet = createCommon({
 	..._mantaSepoliaTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })
