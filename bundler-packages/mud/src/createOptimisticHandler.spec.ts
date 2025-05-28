@@ -19,7 +19,6 @@ describe('createOptimisticHandler', () => {
 
 	beforeEach(async () => {
 		const memoryClient = createMemoryClient()
-		// @ts-expect-error - viem versions & transport mismatch
 		client = createClient({ chain: memoryClient.chain, transport: custom(memoryClient) })
 		stash = createStash(config)
 		// setRecords({ stash, table: config.tables.app__TestTable, records: Object.values(state.records.app.TestTable) })

@@ -8,7 +8,10 @@ import { mudStoreGetStorageAtOverride } from './mudStoreGetStorageAtOverride.js'
 const testContract = MUDTestSystem.withAddress('0x5FbDB2315678afecb367f032d93F642f64180aa3')
 const getState = async () => state
 const client = createMemoryClient()
-const mudStoreRequestOverride = mudStoreGetStorageAtOverride({ request: (async () => {}) as EIP1193RequestFn })({
+const mudStoreRequestOverride = mudStoreGetStorageAtOverride(
+	{ request: (async () => {}) as EIP1193RequestFn },
+	'internal',
+)({
 	getState,
 	storeAddress: testContract.address,
 })
