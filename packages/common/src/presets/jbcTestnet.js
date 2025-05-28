@@ -27,5 +27,5 @@ export const jbcTestnet = createCommon({
 	..._jbcTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

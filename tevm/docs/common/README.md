@@ -6,11 +6,6 @@
 
 # common
 
-## Enumerations
-
-- [ConsensusAlgorithm](enumerations/ConsensusAlgorithm.md)
-- [ConsensusType](enumerations/ConsensusType.md)
-
 ## Interfaces
 
 - [CustomCrypto](interfaces/CustomCrypto.md)
@@ -24,6 +19,8 @@
 - [CliqueConfig](type-aliases/CliqueConfig.md)
 - [Common](type-aliases/Common.md)
 - [CommonOptions](type-aliases/CommonOptions.md)
+- [ConsensusAlgorithm](type-aliases/ConsensusAlgorithm.md)
+- [ConsensusType](type-aliases/ConsensusType.md)
 - [Hardfork](type-aliases/Hardfork.md)
 - [MockKzg](type-aliases/MockKzg.md)
 
@@ -93,6 +90,8 @@
 - [classic](variables/classic.md)
 - [confluxESpace](variables/confluxESpace.md)
 - [confluxESpaceTestnet](variables/confluxESpaceTestnet.md)
+- [ConsensusAlgorithm](variables/ConsensusAlgorithm.md)
+- [ConsensusType](variables/ConsensusType.md)
 - [coreDao](variables/coreDao.md)
 - [crab](variables/crab.md)
 - [cronos](variables/cronos.md)

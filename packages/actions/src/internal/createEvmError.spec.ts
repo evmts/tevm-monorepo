@@ -30,42 +30,42 @@ import {
 	StopError,
 	ValueOverflowError,
 } from '@tevm/errors'
-import { EvmErrorMessage } from '@tevm/evm'
+// import { EvmErrorMessage } from '@tevm/evm' // No longer exported
 import { describe, expect, it } from 'vitest'
 import { createEvmError } from './createEvmError.js'
 
 describe('createEvmError', () => {
 	const testCases = [
-		{ error: { error: EvmErrorMessage.STOP }, expected: StopError },
-		{ error: { error: EvmErrorMessage.REVERT }, expected: RevertError },
-		{ error: { error: EvmErrorMessage.OUT_OF_GAS }, expected: OutOfGasError },
-		{ error: { error: EvmErrorMessage.INVALID_OPCODE }, expected: InvalidOpcodeError },
-		{ error: { error: EvmErrorMessage.STACK_OVERFLOW }, expected: StackOverflowError },
-		{ error: { error: EvmErrorMessage.STACK_UNDERFLOW }, expected: StackUnderflowError },
-		{ error: { error: EvmErrorMessage.INVALID_JUMP }, expected: InvalidJumpError },
-		{ error: { error: EvmErrorMessage.OUT_OF_RANGE }, expected: OutOfRangeError },
-		{ error: { error: EvmErrorMessage.INVALID_PROOF }, expected: InvalidProofError },
-		{ error: { error: EvmErrorMessage.AUTHCALL_UNSET }, expected: AuthCallUnsetError },
-		{ error: { error: EvmErrorMessage.INTERNAL_ERROR }, expected: InternalError },
-		{ error: { error: EvmErrorMessage.INVALID_INPUTS }, expected: InvalidKzgInputsError },
-		{ error: { error: EvmErrorMessage.VALUE_OVERFLOW }, expected: ValueOverflowError },
-		{ error: { error: EvmErrorMessage.INVALID_JUMPSUB }, expected: InvalidJumpSubError },
-		{ error: { error: EvmErrorMessage.CREATE_COLLISION }, expected: CreateCollisionError },
-		{ error: { error: EvmErrorMessage.INVALID_BEGINSUB }, expected: InvalidBeginSubError },
-		{ error: { error: EvmErrorMessage.REFUND_EXHAUSTED }, expected: RefundExhaustedError },
-		{ error: { error: EvmErrorMessage.INVALID_RETURNSUB }, expected: InvalidReturnSubError },
-		{ error: { error: EvmErrorMessage.INVALID_COMMITMENT }, expected: InvalidCommitmentError },
-		{ error: { error: EvmErrorMessage.INVALID_EOF_FORMAT }, expected: InvalidEofFormatError },
-		{ error: { error: EvmErrorMessage.STATIC_STATE_CHANGE }, expected: StaticStateChangeError },
-		{ error: { error: EvmErrorMessage.CODESTORE_OUT_OF_GAS }, expected: CodeStoreOutOfGasError },
-		{ error: { error: EvmErrorMessage.INSUFFICIENT_BALANCE }, expected: InsufficientBalanceError },
-		{ error: { error: EvmErrorMessage.INVALID_INPUT_LENGTH }, expected: InvalidInputLengthError },
-		{ error: { error: EvmErrorMessage.BLS_12_381_INPUT_EMPTY }, expected: BLS12381InputEmptyError },
-		{ error: { error: EvmErrorMessage.INITCODE_SIZE_VIOLATION }, expected: InitcodeSizeViolationError },
-		{ error: { error: EvmErrorMessage.INVALID_BYTECODE_RESULT }, expected: InvalidBytecodeResultError },
-		{ error: { error: EvmErrorMessage.CODESIZE_EXCEEDS_MAXIMUM }, expected: CodeSizeExceedsMaximumError },
-		{ error: { error: EvmErrorMessage.BLS_12_381_FP_NOT_IN_FIELD }, expected: BLS12381FpNotInFieldError },
-		{ error: { error: EvmErrorMessage.BLS_12_381_POINT_NOT_ON_CURVE }, expected: BLS12381PointNotOnCurveError },
+		{ error: { error: 'stop' }, expected: StopError },
+		{ error: { error: 'revert' }, expected: RevertError },
+		{ error: { error: 'out of gas' }, expected: OutOfGasError },
+		{ error: { error: 'invalid opcode' }, expected: InvalidOpcodeError },
+		{ error: { error: 'stack overflow' }, expected: StackOverflowError },
+		{ error: { error: 'stack underflow' }, expected: StackUnderflowError },
+		{ error: { error: 'invalid JUMP' }, expected: InvalidJumpError },
+		{ error: { error: 'value out of range' }, expected: OutOfRangeError },
+		{ error: { error: 'kzg proof invalid' }, expected: InvalidProofError },
+		{ error: { error: 'attempting to AUTHCALL without AUTH set' }, expected: AuthCallUnsetError },
+		{ error: { error: 'internal error' }, expected: InternalError },
+		{ error: { error: 'kzg inputs invalid' }, expected: InvalidKzgInputsError },
+		{ error: { error: 'value overflow' }, expected: ValueOverflowError },
+		{ error: { error: 'invalid JUMPSUB' }, expected: InvalidJumpSubError },
+		{ error: { error: 'create collision' }, expected: CreateCollisionError },
+		{ error: { error: 'invalid BEGINSUB' }, expected: InvalidBeginSubError },
+		{ error: { error: 'refund exhausted' }, expected: RefundExhaustedError },
+		{ error: { error: 'invalid RETURNSUB' }, expected: InvalidReturnSubError },
+		{ error: { error: 'kzg commitment does not match versioned hash' }, expected: InvalidCommitmentError },
+		{ error: { error: 'invalid EOF format' }, expected: InvalidEofFormatError },
+		{ error: { error: 'static state change' }, expected: StaticStateChangeError },
+		{ error: { error: 'code store out of gas' }, expected: CodeStoreOutOfGasError },
+		{ error: { error: 'insufficient balance' }, expected: InsufficientBalanceError },
+		{ error: { error: 'invalid input length' }, expected: InvalidInputLengthError },
+		{ error: { error: 'input is empty' }, expected: BLS12381InputEmptyError },
+		{ error: { error: 'initcode exceeds max initcode size' }, expected: InitcodeSizeViolationError },
+		{ error: { error: 'invalid bytecode deployed' }, expected: InvalidBytecodeResultError },
+		{ error: { error: 'code size to deposit exceeds maximum code size' }, expected: CodeSizeExceedsMaximumError },
+		{ error: { error: 'fp point not in field' }, expected: BLS12381FpNotInFieldError },
+		{ error: { error: 'point not on curve' }, expected: BLS12381PointNotOnCurveError },
 	]
 
 	testCases.forEach(({ error, expected }) => {
@@ -91,12 +91,12 @@ describe('createEvmError', () => {
 
 	it('should handle error with additional data', () => {
 		const error = {
-			error: EvmErrorMessage.REVERT,
+			error: 'revert',
 			data: '0x08c379a00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001a4e6f7420656e6f75676820657468657220746f2077697468647261770000000000',
 		}
 		const result = createEvmError(error as any)
 		expect(result).toBeInstanceOf(RevertError)
-		expect(result.message.includes(EvmErrorMessage.REVERT)).toBe(true)
+		expect(result.message.includes('revert')).toBe(true)
 	})
 
 	it('should handle error with null or undefined error property', () => {

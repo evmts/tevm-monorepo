@@ -79,7 +79,7 @@ import { tevmViemActions } from './tevmViemActions.js'
  *   }),
  *
  *   // Chain configuration
- *   hardfork: 'cancun', // Default and recommended
+ *   hardfork: 'prague', // Default and recommended
  *
  *   // EVM execution logging
  *   logging: {

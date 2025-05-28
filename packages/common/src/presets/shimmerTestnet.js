@@ -27,5 +27,5 @@ export const shimmerTestnet = createCommon({
 	..._shimmerTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

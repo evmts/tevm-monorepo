@@ -27,5 +27,5 @@ export const gobi = createCommon({
 	..._gobi,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

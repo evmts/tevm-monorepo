@@ -27,5 +27,5 @@ export const gnosisChiado = createCommon({
 	..._gnosisChiado,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

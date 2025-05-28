@@ -12,7 +12,7 @@ Defined in: [packages/errors/src/ethereum/ethereumjs/StackUnderflowError.js:6](h
 
 ### cause?
 
-> `optional` **cause**: `EvmError` \| [`ExecutionError`](../classes/ExecutionError.md)
+> `optional` **cause**: `EVMError` \| [`ExecutionError`](../classes/ExecutionError.md)
 
 Defined in: [packages/errors/src/ethereum/ethereumjs/StackUnderflowError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StackUnderflowError.js#L11)
 

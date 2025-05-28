@@ -370,7 +370,7 @@ export const ${chainName} = createCommon({
 	..._${chainName},
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })
 `
 

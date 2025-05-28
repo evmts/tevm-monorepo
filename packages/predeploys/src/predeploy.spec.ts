@@ -1,5 +1,5 @@
 import { createContract } from '@tevm/contract'
-import { EthjsAddress } from '@tevm/utils'
+import { createAddressFromString } from '@tevm/utils'
 import { formatAbi } from '@tevm/utils'
 import { expect, test } from 'vitest'
 import { definePredeploy } from './definePredeploy.js'
@@ -21,7 +21,7 @@ test('definePredeploy should define a predeploy', async () => {
 	const predeploy = definePredeploy(contract)
 
 	expect(predeploy.contract.address).toEqual(predeployAddress)
-	expect(predeploy.predeploy().address).toEqual(EthjsAddress.fromString(predeployAddress))
+	expect(predeploy.predeploy().address).toEqual(createAddressFromString(predeployAddress))
 	expect(predeploy.contract).toMatchInlineSnapshot(`
 		{
 		  "abi": [

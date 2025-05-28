@@ -14,7 +14,7 @@ Defined in: packages/actions/types/Call/callHandlerResult.d.ts:1
 
 ### evmResult
 
-[`RunTxResult`](../../vm/interfaces/RunTxResult.md)
+[`RunTxResult`](../../vm/interfaces/RunTxResult.md) & [`EvmResult`](../../evm/interfaces/EvmResult.md)
 
 ### txHash
 

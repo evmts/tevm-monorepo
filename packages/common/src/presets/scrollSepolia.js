@@ -27,5 +27,5 @@ export const scrollSepolia = createCommon({
 	..._scrollSepolia,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

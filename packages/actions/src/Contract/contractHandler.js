@@ -48,7 +48,7 @@ export const contractHandler =
 		}
 		const vm = await client.getVm()
 
-		const contract = params.to && (await vm.evm.stateManager.getContractCode(createAddress(params.to)))
+		const contract = params.to && (await vm.evm.stateManager.getCode(createAddress(params.to)))
 		const precompile = params.to && vm.evm.getPrecompile(createAddress(params.to))
 		if (!params.deployedBytecode && !params.code && contract && contract?.length === 0 && !precompile) {
 			client.logger.debug(

@@ -20,3 +20,5 @@ export type Hardfork =
 	| 'paris'
 	| 'shanghai'
 	| 'cancun'
+	| 'prague'
+	| 'osaka'

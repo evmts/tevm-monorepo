@@ -1,4 +1,4 @@
-import { EthjsAccount } from '@tevm/utils'
+import { fromRlpSerializedAccount } from '../utils/accountHelpers.js'
 import { getAccountFromProvider } from './getAccountFromProvider.js'
 
 /**
@@ -24,7 +24,7 @@ export const getAccount =
 		// First check main cache
 		const elem = accounts.get(address)
 		if (elem !== undefined) {
-			return elem.accountRLP !== undefined ? EthjsAccount.fromRlpSerializedAccount(elem.accountRLP) : undefined
+			return elem.accountRLP !== undefined ? fromRlpSerializedAccount(elem.accountRLP) : undefined
 		}
 
 		// Then check fork cache if we have a fork
@@ -33,7 +33,7 @@ export const getAccount =
 			if (forkElem !== undefined) {
 				// Convert to account and update main cache with value from fork cache
 				if (forkElem.accountRLP !== undefined) {
-					const account = EthjsAccount.fromRlpSerializedAccount(forkElem.accountRLP)
+					const account = fromRlpSerializedAccount(forkElem.accountRLP)
 					accounts.put(address, account)
 					baseState.logger.debug({ address }, 'Retrieved account from fork cache')
 					return account
@@ -59,8 +59,8 @@ export const getAccount =
 		if (
 			account.nonce === 0n &&
 			account.balance === 0n &&
-			account.codeHash.every((d) => d === 0) &&
-			account.storageRoot.every((d) => d === 0)
+			account.codeHash.every((/** @type {number} */ d) => d === 0) &&
+			account.storageRoot.every((/** @type {number} */ d) => d === 0)
 		) {
 			// Store empty account in both caches
 			accounts.put(address, undefined)

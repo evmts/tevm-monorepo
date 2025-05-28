@@ -27,5 +27,5 @@ export const fantomSonicTestnet = createCommon({
 	..._fantomSonicTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

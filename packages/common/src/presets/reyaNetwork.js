@@ -27,5 +27,5 @@ export const reyaNetwork = createCommon({
 	..._reyaNetwork,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

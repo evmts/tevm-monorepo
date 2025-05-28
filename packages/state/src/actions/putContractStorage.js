@@ -7,7 +7,8 @@ import { getAccount } from './getAccount.js'
  * corresponding to `address` at the provided `key`.
  * Cannot be more than 32 bytes. Leading zeros are stripped.
  * If it is empty or filled with zeros, deletes the value.
- * @type {import("../state-types/index.js").StateAction<'putContractStorage'>}
+ * @param {import('../BaseState.js').BaseState} baseState
+ * @returns {(address: import('@tevm/utils').EthjsAddress, key: Uint8Array, value: Uint8Array) => Promise<void>}
  */
 export const putContractStorage = (baseState) => async (address, key, value) => {
 	if (key.length !== 32) {

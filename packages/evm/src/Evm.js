@@ -1,4 +1,4 @@
-import { EVM, getActivePrecompiles } from '@ethereumjs/evm'
+import { EVM, createEVM, getActivePrecompiles } from '@ethereumjs/evm'
 import { InvalidParamsError, MisconfiguredClientError } from '@tevm/errors'
 
 /**
@@ -60,10 +60,9 @@ export class Evm extends EVM {
 
 	/**
 	 * @type {(typeof import('./EvmType.js').Evm)['create']}
-	 * @override
 	 */
-	static create = (options) => {
-		const evm = /** @type {any}*/ (EVM.create(options))
+	static create = async (options) => {
+		const evm = /** @type {any}*/ (await createEVM(options))
 		evm.addCustomPrecompile = Evm.prototype.addCustomPrecompile.bind(evm)
 		evm.removeCustomPrecompile = Evm.prototype.removeCustomPrecompile.bind(evm)
 		return evm

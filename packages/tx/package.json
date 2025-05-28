@@ -1,6 +1,6 @@
 {
   "name": "@tevm/tx",
-  "version": "1.0.0-next.142",
+  "version": "1.0.0-next.146",
   "private": false,
   "description": "A custom implementation of ethereumjs tx",
   "keywords": [
@@ -63,12 +63,11 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@ethereumjs/tx": "^5.4.0",
+    "@ethereumjs/tx": "^10.0.0",
     "@tevm/errors": "workspace:^",
     "@tevm/utils": "workspace:^"
   },
   "devDependencies": {
-    "@ethereumjs/common": "^4.4.0",
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^"
   },

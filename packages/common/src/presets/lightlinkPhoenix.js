@@ -27,5 +27,5 @@ export const lightlinkPhoenix = createCommon({
 	..._lightlinkPhoenix,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

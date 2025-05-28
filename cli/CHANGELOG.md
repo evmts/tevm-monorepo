@@ -1,5 +1,21 @@
 # @tevm/cli
 
+## 1.0.0-next.146
+
+### Patch Changes
+
+- c1a3cda: pnpm up --latest all packages
+- Updated dependencies [c1a3cda]
+  - @tevm/bundler-cache@1.0.0-next.146
+  - @tevm/base-bundler@1.0.0-next.146
+  - @tevm/config@1.0.0-next.146
+  - @tevm/memory-client@1.0.0-next.146
+  - @tevm/actions@1.0.0-next.146
+  - @tevm/jsonrpc@1.0.0-next.146
+  - @tevm/common@1.0.0-next.146
+  - @tevm/server@1.0.0-next.146
+  - @tevm/utils@1.0.0-next.146
+
 ## 1.0.0-next.145
 
 ### Patch Changes

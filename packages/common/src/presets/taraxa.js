@@ -27,5 +27,5 @@ export const taraxa = createCommon({
 	..._taraxa,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

@@ -8,7 +8,7 @@
 
 > **InvalidReturnSubErrorParameters** = `object`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InvalidReturnSubError.d.ts:69
+Defined in: packages/errors/types/ethereum/ethereumjs/InvalidReturnSubError.d.ts:68
 
 Parameters for constructing a [InvalidReturnSubError](../classes/InvalidReturnSubError.md).
 
@@ -16,9 +16,9 @@ Parameters for constructing a [InvalidReturnSubError](../classes/InvalidReturnSu
 
 ### cause?
 
-> `optional` **cause**: [`ExecutionError`](../classes/ExecutionError.md) \| [`EvmError`](../../evm/classes/EvmError.md)
+> `optional` **cause**: [`ExecutionError`](../classes/ExecutionError.md) \| [`EVMError`](../../evm/classes/EVMError.md)
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InvalidReturnSubError.d.ts:89
+Defined in: packages/errors/types/ethereum/ethereumjs/InvalidReturnSubError.d.ts:88
 
 - The cause of the error.
 
@@ -28,7 +28,7 @@ Defined in: packages/errors/types/ethereum/ethereumjs/InvalidReturnSubError.d.ts
 
 > `optional` **details**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InvalidReturnSubError.d.ts:93
+Defined in: packages/errors/types/ethereum/ethereumjs/InvalidReturnSubError.d.ts:92
 
 - Details of the error.
 
@@ -38,7 +38,7 @@ Defined in: packages/errors/types/ethereum/ethereumjs/InvalidReturnSubError.d.ts
 
 > `optional` **docsBaseUrl**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InvalidReturnSubError.d.ts:73
+Defined in: packages/errors/types/ethereum/ethereumjs/InvalidReturnSubError.d.ts:72
 
 - Base URL for the documentation.
 
@@ -48,7 +48,7 @@ Defined in: packages/errors/types/ethereum/ethereumjs/InvalidReturnSubError.d.ts
 
 > `optional` **docsPath**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InvalidReturnSubError.d.ts:77
+Defined in: packages/errors/types/ethereum/ethereumjs/InvalidReturnSubError.d.ts:76
 
 - Path to the documentation.
 
@@ -58,7 +58,7 @@ Defined in: packages/errors/types/ethereum/ethereumjs/InvalidReturnSubError.d.ts
 
 > `optional` **docsSlug**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InvalidReturnSubError.d.ts:81
+Defined in: packages/errors/types/ethereum/ethereumjs/InvalidReturnSubError.d.ts:80
 
 - Slug for the documentation.
 
@@ -68,7 +68,7 @@ Defined in: packages/errors/types/ethereum/ethereumjs/InvalidReturnSubError.d.ts
 
 > `optional` **meta**: `object`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InvalidReturnSubError.d.ts:97
+Defined in: packages/errors/types/ethereum/ethereumjs/InvalidReturnSubError.d.ts:96
 
 - Optional object containing additional information about the error.
 
@@ -78,6 +78,6 @@ Defined in: packages/errors/types/ethereum/ethereumjs/InvalidReturnSubError.d.ts
 
 > `optional` **metaMessages**: `string`[]
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InvalidReturnSubError.d.ts:85
+Defined in: packages/errors/types/ethereum/ethereumjs/InvalidReturnSubError.d.ts:84
 
 - Additional meta messages.

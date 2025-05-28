@@ -18,8 +18,8 @@ describe('assignBlockRewards', () => {
 			const mockVm = {
 				common: {
 					ethjsCommon: {
-						param: (category: string, name: string) => {
-							if (category === 'pow' && name === 'minerReward') {
+						param: (name: string) => {
+							if (name === 'minerReward') {
 								return minerReward
 							}
 							return 0n
@@ -58,17 +58,28 @@ describe('assignBlockRewards', () => {
 			// Verify that rewardAccount was called for each address
 			expect(spy).toHaveBeenCalledTimes(3)
 
+			// Verify calls by checking the values passed
+			const calls = spy.mock.calls
+
+			// Find call for each address by comparing the address bytes
+			const minerCall = calls.find((call) => call[1].equals(minerAddr))
+			const ommer1Call = calls.find((call) => call[1].equals(ommer1Addr))
+			const ommer2Call = calls.find((call) => call[1].equals(ommer2Addr))
+
 			// Verify that miner got full reward + (1/32 * reward) for each ommer
 			const expectedMinerReward = minerReward + (2n * minerReward) / 32n
-			expect(spy).toHaveBeenCalledWith(mockVm.evm, minerAddr, expectedMinerReward)
+			expect(minerCall).toBeDefined()
+			expect(minerCall?.[2]).toBe(expectedMinerReward)
 
 			// Verify that ommer1 got 7/8 of the reward (1 block difference)
 			const expectedOmmer1Reward = (7n * minerReward) / 8n
-			expect(spy).toHaveBeenCalledWith(mockVm.evm, ommer1Addr, expectedOmmer1Reward)
+			expect(ommer1Call).toBeDefined()
+			expect(ommer1Call?.[2]).toBe(expectedOmmer1Reward)
 
 			// Verify that ommer2 got 5/8 of the reward (3 blocks difference)
 			const expectedOmmer2Reward = (5n * minerReward) / 8n
-			expect(spy).toHaveBeenCalledWith(mockVm.evm, ommer2Addr, expectedOmmer2Reward)
+			expect(ommer2Call).toBeDefined()
+			expect(ommer2Call?.[2]).toBe(expectedOmmer2Reward)
 		} finally {
 			// Restore the original implementation
 			spy.mockRestore()

@@ -27,5 +27,5 @@ export const flowMainnet = createCommon({
 	..._flowMainnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

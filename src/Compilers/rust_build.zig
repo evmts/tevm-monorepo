@@ -16,13 +16,25 @@ pub fn addRustIntegration(b: *std.Build, target: std.Build.ResolvedTarget, optim
     std.debug.print("Building Rust Foundry wrapper...\n", .{});
 
     // Generate C bindings using cbindgen
+    // Print debug information
+    std.debug.print("Looking for cbindgen...\n", .{});
+    
+    // Try to use cbindgen directly from PATH first
     const cbindgen_cmd = b.addSystemCommand(&.{
         "cbindgen",
-        "--config", "src/Compilers/cbindgen.toml",
+        "--config", "cbindgen.toml",
         "--crate", "foundry_wrapper",
-        "--output", "include/foundry_wrapper.h",
-        "src/Compilers",
+        "--output", "../../include/foundry_wrapper.h",
     });
+    
+    // Set the working directory to the Rust crate
+    cbindgen_cmd.setCwd(b.path("src/Compilers"));
+    
+    // Set environment to ensure PATH is available
+    // Include both Linux and macOS paths for cargo
+    // cbindgen_cmd.setEnvironmentVariable("PATH", "/Users/williamcory/.cargo/bin:/root/.cargo/bin:/usr/local/bin:/usr/bin:/bin:/opt/homebrew/bin");
+    
+    std.debug.print("cbindgen command configured\n", .{});
 
     cbindgen_cmd.step.dependOn(&cargo_build.step);
 
@@ -66,6 +78,13 @@ pub fn addRustIntegration(b: *std.Build, target: std.Build.ResolvedTarget, optim
 
     // Link required system libraries
     artifacts[0].linkLibC();
+    
+    // Link unwinder libraries for Rust std
+    if (target.result.os.tag == .linux) {
+        artifacts[0].linkSystemLibrary("unwind");
+        artifacts[0].linkSystemLibrary("gcc_s");
+    }
+    
     if (target.result.os.tag == .macos) {
         artifacts[0].linkFramework("Security");
         artifacts[0].linkFramework("SystemConfiguration");
@@ -99,6 +118,13 @@ pub fn addRustIntegration(b: *std.Build, target: std.Build.ResolvedTarget, optim
     foundry_test.linkLibC();
     foundry_test.addObjectFile(b.path(rust_lib_path));
     foundry_test.addIncludePath(b.path("include"));
+    
+    // Link unwinder libraries for Rust std
+    if (target.result.os.tag == .linux) {
+        foundry_test.linkSystemLibrary("unwind");
+        foundry_test.linkSystemLibrary("gcc_s");
+    }
+    
     if (target.result.os.tag == .macos) {
         foundry_test.linkFramework("Security");
         foundry_test.linkFramework("SystemConfiguration");

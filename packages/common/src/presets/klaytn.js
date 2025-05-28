@@ -27,5 +27,5 @@ export const klaytn = createCommon({
 	..._klaytn,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

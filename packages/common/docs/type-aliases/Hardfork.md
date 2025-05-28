@@ -10,7 +10,7 @@
 
 Defined in: [packages/common/src/Hardfork.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/Hardfork.ts#L17)
 
-Ethereum hardfork options. Default option is currently cancun.
+Ethereum hardfork options. Default option is currently prague.
 If you use older hardforks you might run into issues with EIPs not being supported.
 
 ## Example

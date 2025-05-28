@@ -27,5 +27,5 @@ export const pgnTestnet = createCommon({
 	..._pgnTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

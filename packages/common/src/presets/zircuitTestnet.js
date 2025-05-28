@@ -27,5 +27,5 @@ export const zircuitTestnet = createCommon({
 	..._zircuitTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

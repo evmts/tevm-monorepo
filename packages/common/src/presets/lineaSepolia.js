@@ -27,5 +27,5 @@ export const lineaSepolia = createCommon({
 	..._lineaSepolia,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

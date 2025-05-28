@@ -1,6 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { SimpleContract } from '@tevm/test-utils'
-import { EthjsAccount } from '@tevm/utils'
+import { createAccount } from '@tevm/utils'
 import { hexToBytes, numberToBytes } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
@@ -14,14 +14,14 @@ describe(dumpCanonicalGenesis.name, () => {
 		const state = createBaseState({})
 		await putAccount(state)(
 			createAddress(`0x${'69'.repeat(20)}`),
-			EthjsAccount.fromAccountData({
+			createAccount({
 				nonce: 2n,
 				balance: 69n,
 			}),
 		)
 		await putAccount(state)(
 			createAddress(`0x${'4200'.repeat(10)}`),
-			EthjsAccount.fromAccountData({
+			createAccount({
 				nonce: 2n,
 				balance: 69n,
 			}),
@@ -75,7 +75,7 @@ describe(dumpCanonicalGenesis.name, () => {
 		// Add first account with code and storage
 		await putAccount(state)(
 			address1,
-			EthjsAccount.fromAccountData({
+			createAccount({
 				nonce: 1n,
 				balance: 100n,
 			}),
@@ -86,7 +86,7 @@ describe(dumpCanonicalGenesis.name, () => {
 		// Add second account with different values
 		await putAccount(state)(
 			address2,
-			EthjsAccount.fromAccountData({
+			createAccount({
 				nonce: 2n,
 				balance: 200n,
 			}),
@@ -117,7 +117,7 @@ describe(dumpCanonicalGenesis.name, () => {
 		// Add accounts so we have something to dump
 		await putAccount(state)(
 			createAddress('0x6969696969696969696969696969696969696969'),
-			EthjsAccount.fromAccountData({
+			createAccount({
 				nonce: 2n,
 				balance: 69n,
 			}),
@@ -125,7 +125,7 @@ describe(dumpCanonicalGenesis.name, () => {
 
 		await putAccount(state)(
 			createAddress('0x4242424242424242424242424242424242424242'),
-			EthjsAccount.fromAccountData({
+			createAccount({
 				nonce: 3n,
 				balance: 42n,
 			}),

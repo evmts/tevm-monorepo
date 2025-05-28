@@ -25,7 +25,7 @@ describe(warnOnce.name, () => {
 
 		expect(mockWarn).toHaveBeenCalledTimes(1)
 		expect(mockWarn).toHaveBeenCalledWith(
-			`Warning: Optimism and Arbitrum deposit transactions (type 0x7e and 0x6a) are currently not supported and will be filtered out of blocks until support is added
+			`Warning: EIP-7702, Optimism and Arbitrum deposit transactions (types 0x4, 0x7e and 0x6a-0x6f) are currently not supported and will be filtered out of blocks until support is added
 filtering out tx ${tx.hash}.
 Note: The block hash will be different because of the excluded txs`,
 		)

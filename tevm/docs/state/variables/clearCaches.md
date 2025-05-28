@@ -8,6 +8,6 @@
 
 > `const` **clearCaches**: [`StateAction`](../type-aliases/StateAction.md)\<`"clearCaches"`\>
 
-Defined in: packages/state/dist/index.d.ts:330
+Defined in: packages/state/dist/index.d.ts:355
 
 Resets all internal caches

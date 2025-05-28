@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/bundler-cache",
-	"version": "1.0.0-next.142",
+	"version": "1.0.0-next.146",
 	"private": false,
 	"description": "Cache for tevm bundler",
 	"keywords": [
@@ -66,13 +66,13 @@
 		"@tevm/compiler": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"@types/node": "^22.13.5"
+		"@types/node": "^22.15.21"
 	},
 	"devDependencies": {
-		"@vitest/coverage-v8": "^3.0.7",
-		"@vitest/ui": "^3.0.7",
-		"typescript": "^5.7.3",
-		"vitest": "^3.0.7"
+		"@vitest/coverage-v8": "^3.1.4",
+		"@vitest/ui": "^3.1.4",
+		"typescript": "^5.8.3",
+		"vitest": "^3.1.4"
 	},
 	"publishConfig": {
 		"access": "public"

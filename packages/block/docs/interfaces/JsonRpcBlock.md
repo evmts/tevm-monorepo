@@ -204,7 +204,7 @@ Defined in: [packages/block/src/types.ts:478](https://github.com/evmts/tevm-mono
 
 ### transactions
 
-> **transactions**: (`string` \| `JsonRpcTx`)[]
+> **transactions**: (`string` \| `JSONRPCTx`)[]
 
 Defined in: [packages/block/src/types.ts:484](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L484)
 
@@ -228,7 +228,7 @@ Defined in: [packages/block/src/types.ts:485](https://github.com/evmts/tevm-mono
 
 ### withdrawals?
 
-> `optional` **withdrawals**: `JsonRpcWithdrawal`[]
+> `optional` **withdrawals**: `JSONRPCWithdrawal`[]
 
 Defined in: [packages/block/src/types.ts:487](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L487)
 

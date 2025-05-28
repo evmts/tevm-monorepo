@@ -27,5 +27,5 @@ export const zhejiang = createCommon({
 	..._zhejiang,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

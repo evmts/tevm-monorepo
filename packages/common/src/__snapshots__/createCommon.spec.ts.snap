@@ -1,13 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`createCommon > should handle errroors 1`] = `
-[InvalidParams: Hardfork with name not valid hardfork not supported
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/
-Details: Hardfork with name not valid hardfork not supported
-Version: 1.1.0.next-73]
-`;
-
 exports[`createCommon > should handle invalid hardfork errors 1`] = `
 [InvalidParams: Hardfork with name not valid hardfork not supported
 

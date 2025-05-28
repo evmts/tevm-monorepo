@@ -8,7 +8,7 @@
 
 > **definePrecompile**\<`TContract`\>(`__namedParameters`): `Precompile`\<`TContract`\>
 
-Defined in: [definePrecompile.ts:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/definePrecompile.ts#L51)
+Defined in: [precompiles/src/definePrecompile.ts:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/definePrecompile.ts#L51)
 
 Defines a precompile contract that executes JavaScript code instead of EVM bytecode.
 

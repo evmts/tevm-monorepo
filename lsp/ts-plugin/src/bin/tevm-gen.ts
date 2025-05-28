@@ -7,7 +7,6 @@ import { createCache } from '@tevm/bundler-cache'
 import { loadConfig } from '@tevm/config'
 import { runSync } from 'effect/Effect'
 import { glob } from 'glob'
-// @ts-expect-error
 import * as solc from 'solc'
 
 const fao: FileAccessObject = {

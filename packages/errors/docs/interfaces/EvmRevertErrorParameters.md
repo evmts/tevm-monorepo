@@ -12,7 +12,7 @@ Defined in: [packages/errors/src/ethereum/ethereumjs/EvmRevertError.js:6](https:
 
 ### cause?
 
-> `optional` **cause**: `EvmError`
+> `optional` **cause**: `EVMError`
 
 Defined in: [packages/errors/src/ethereum/ethereumjs/EvmRevertError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/EvmRevertError.js#L11)
 

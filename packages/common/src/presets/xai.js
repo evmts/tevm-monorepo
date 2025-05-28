@@ -27,5 +27,5 @@ export const xai = createCommon({
 	..._xai,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

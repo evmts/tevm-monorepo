@@ -4,10 +4,6 @@
 
 # @tevm/state
 
-## Enumerations
-
-- [CacheType](enumerations/CacheType.md)
-
 ## Classes
 
 - [AccountCache](classes/AccountCache.md)
@@ -24,6 +20,7 @@
 ## Type Aliases
 
 - [BaseState](type-aliases/BaseState.md)
+- [CacheType](type-aliases/CacheType.md)
 - [ParameterizedTevmState](type-aliases/ParameterizedTevmState.md)
 - [SerializableTevmState](type-aliases/SerializableTevmState.md)
 - [StateAction](type-aliases/StateAction.md)
@@ -31,6 +28,10 @@
 - [StateOptions](type-aliases/StateOptions.md)
 - [StateRoots](type-aliases/StateRoots.md)
 - [TevmState](type-aliases/TevmState.md)
+
+## Variables
+
+- [CacheType](variables/CacheType.md)
 
 ## Functions
 

@@ -4,7 +4,7 @@ exports[`RPC Error Classes > should create proper instances of RPC errors > Inte
 [InternalRpcError: An internal error was received.
 
 Details: Internal error occurred
-Version: viem@2.23.10]
+Version: viem@2.30.1]
 `;
 
 exports[`RPC Error Classes > should create proper instances of RPC errors > InvalidInputRpcError 1`] = `
@@ -12,7 +12,7 @@ exports[`RPC Error Classes > should create proper instances of RPC errors > Inva
 Double check you have provided the correct parameters.
 
 Details: Invalid input provided
-Version: viem@2.23.10]
+Version: viem@2.30.1]
 `;
 
 exports[`RPC Error Classes > should create proper instances of RPC errors > InvalidParamsRpcError 1`] = `
@@ -20,69 +20,69 @@ exports[`RPC Error Classes > should create proper instances of RPC errors > Inva
 Double check you have provided the correct parameters.
 
 Details: Invalid parameters
-Version: viem@2.23.10]
+Version: viem@2.30.1]
 `;
 
 exports[`RPC Error Classes > should create proper instances of RPC errors > InvalidRequestRpcError 1`] = `
 [InvalidRequestRpcError: JSON is not a valid request object.
 
 Details: Invalid request
-Version: viem@2.23.10]
+Version: viem@2.30.1]
 `;
 
 exports[`RPC Error Classes > should create proper instances of RPC errors > JsonRpcVersionUnsupportedError 1`] = `
 [JsonRpcVersionUnsupportedError: Version of JSON-RPC protocol is not supported.
 
 Details: JSON-RPC version not supported
-Version: viem@2.23.10]
+Version: viem@2.30.1]
 `;
 
 exports[`RPC Error Classes > should create proper instances of RPC errors > LimitExceededRpcError 1`] = `
 [LimitExceededRpcError: Request exceeds defined limit.
 
 Details: Limit exceeded
-Version: viem@2.23.10]
+Version: viem@2.30.1]
 `;
 
 exports[`RPC Error Classes > should create proper instances of RPC errors > MethodNotFoundRpcError 1`] = `
 [MethodNotFoundRpcError: The method does not exist / is not available.
 
 Details: Method not found
-Version: viem@2.23.10]
+Version: viem@2.30.1]
 `;
 
 exports[`RPC Error Classes > should create proper instances of RPC errors > MethodNotSupportedRpcError 1`] = `
 [MethodNotSupportedRpcError: Method is not supported.
 
 Details: Method not supported
-Version: viem@2.23.10]
+Version: viem@2.30.1]
 `;
 
 exports[`RPC Error Classes > should create proper instances of RPC errors > ParseRpcError 1`] = `
 [ParseRpcError: Invalid JSON was received by the server. An error occurred on the server while parsing the JSON text.
 
 Details: Parse error
-Version: viem@2.23.10]
+Version: viem@2.30.1]
 `;
 
 exports[`RPC Error Classes > should create proper instances of RPC errors > ProviderDisconnectedError 1`] = `
 [ProviderDisconnectedError: The Provider is disconnected from all chains.
 
-Version: viem@2.23.10]
+Version: viem@2.30.1]
 `;
 
 exports[`RPC Error Classes > should create proper instances of RPC errors > ResourceNotFoundRpcError 1`] = `
 [ResourceNotFoundRpcError: Requested resource not found.
 
 Details: Resource not found
-Version: viem@2.23.10]
+Version: viem@2.30.1]
 `;
 
 exports[`RPC Error Classes > should create proper instances of RPC errors > ResourceUnavailableRpcError 1`] = `
 [ResourceUnavailableRpcError: Requested resource not available.
 
 Details: Resource unavailable
-Version: viem@2.23.10]
+Version: viem@2.30.1]
 `;
 
 exports[`RPC Error Classes > should create proper instances of RPC errors > TimeoutError 1`] = `
@@ -92,27 +92,27 @@ URL: https://example.com
 Request body: {}
 
 Details: The request timed out.
-Version: viem@2.23.10]
+Version: viem@2.30.1]
 `;
 
 exports[`RPC Error Classes > should create proper instances of RPC errors > UnknownRpcError 1`] = `
 [UnknownRpcError: An unknown RPC error occurred.
 
 Details: Unknown error
-Version: viem@2.23.10]
+Version: viem@2.30.1]
 `;
 
 exports[`RPC Error Classes > should create proper instances of RPC errors > UnsupportedProviderMethodError 1`] = `
 [UnsupportedProviderMethodError: The Provider does not support the requested method.
 
-Version: viem@2.23.10]
+Version: viem@2.30.1]
 `;
 
 exports[`RPC Error Classes > should create proper instances of RPC errors > UserRejectedRequestError 1`] = `
 [UserRejectedRequestError: User rejected the request.
 
 Details: User rejected request
-Version: viem@2.23.10]
+Version: viem@2.30.1]
 `;
 
 exports[`RPC Error Classes > should have a valid rpcErrorCodeToMessage mapping > rpcErrorCodeToMessage 1`] = `

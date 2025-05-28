@@ -42,7 +42,7 @@ Defined in: [packages/block/src/types.ts:201](https://github.com/evmts/tevm-mono
 
 ### transactions?
 
-> `optional` **transactions**: (`LegacyTxData` \| `AccessListEIP2930TxData` \| `FeeMarketEIP1559TxData` \| `BlobEIP4844TxData` \| `EOACodeEIP7702TxData`)[]
+> `optional` **transactions**: (`LegacyTxData` \| `AccessList2930TxData` \| `FeeMarketEIP1559TxData` \| `BlobEIP4844TxData` \| `EOACode7702TxData`)[]
 
 Defined in: [packages/block/src/types.ts:198](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L198)
 

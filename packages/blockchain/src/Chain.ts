@@ -1,4 +1,4 @@
-import { type BlockchainEvents, type Consensus, type OnBlock } from '@ethereumjs/blockchain'
+import { type BlockchainEvent, type Consensus, type OnBlock } from '@ethereumjs/blockchain'
 import type { Block, BlockHeader } from '@tevm/block'
 import type { AsyncEventEmitter, BlockTag, Hex } from '@tevm/utils'
 import type { BaseChain } from './BaseChain.js'
@@ -101,5 +101,5 @@ export type Chain = {} & BaseChain & {
 		/**
 		 * Optional events emitter
 		 */
-		events?: AsyncEventEmitter<BlockchainEvents>
+		events?: AsyncEventEmitter<BlockchainEvent>
 	}

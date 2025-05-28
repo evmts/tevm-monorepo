@@ -1,5 +1,5 @@
 import { InternalError } from '@tevm/errors'
-import { EthjsAccount, EthjsAddress, hexToBytes, keccak256 } from '@tevm/utils'
+import { createAccount, createAddressFromString, hexToBytes, keccak256 } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { checkpoint } from './checkpoint.js'
@@ -18,17 +18,18 @@ describe(deepCopy.name, () => {
 		const baseState = createBaseState({
 			loggingLevel: 'warn',
 		})
-		const address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
+		const address = createAddressFromString(`0x${'01'.repeat(20)}`)
 		const nonce = 2n
 		const balance = 420n
-		const account = new EthjsAccount(nonce, balance, undefined, hexToBytes(keccak256(deployedBytecode)))
+		const account = createAccount({ nonce, balance, codeHash: hexToBytes(keccak256(deployedBytecode)) })
 
 		baseState.caches.accounts?.put(address, account)
 		const elem = baseState.caches.accounts.get(address)
 		if (elem === undefined || elem.accountRLP === undefined) {
 			throw new Error('elem is undefined')
 		}
-		expect(EthjsAccount.fromRlpSerializedAccount(elem.accountRLP)).toEqual(account)
+		const { fromRlpSerializedAccount } = await import('../utils/accountHelpers.js')
+		expect(fromRlpSerializedAccount(elem.accountRLP)).toEqual(account)
 	})
 
 	it('should create a copy of the state', async () => {
@@ -36,11 +37,11 @@ describe(deepCopy.name, () => {
 			loggingLevel: 'warn',
 		})
 
-		const address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
+		const address = createAddressFromString(`0x${'01'.repeat(20)}`)
 
 		const nonce = 2n
 		const balance = 420n
-		const account = new EthjsAccount(nonce, balance, undefined, hexToBytes(keccak256(deployedBytecode)))
+		const account = createAccount({ nonce, balance, codeHash: hexToBytes(keccak256(deployedBytecode)) })
 
 		await putAccount(baseState)(address, account)
 		expect(await getAccount(baseState)(address)).toEqual(account)
@@ -68,11 +69,11 @@ describe(deepCopy.name, () => {
 			loggingLevel: 'warn',
 		})
 
-		const address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
+		const address = createAddressFromString(`0x${'01'.repeat(20)}`)
 
 		const nonce = 2n
 		const balance = 420n
-		const account = new EthjsAccount(nonce, balance, undefined, hexToBytes(keccak256(deployedBytecode)))
+		const account = createAccount({ nonce, balance, codeHash: hexToBytes(keccak256(deployedBytecode)) })
 
 		await putAccount(baseState)(address, account)
 

@@ -27,5 +27,5 @@ export const root = createCommon({
 	..._root,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

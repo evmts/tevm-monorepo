@@ -27,5 +27,5 @@ export const funkiSepolia = createCommon({
 	..._funkiSepolia,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

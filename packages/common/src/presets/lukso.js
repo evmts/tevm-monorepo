@@ -27,5 +27,5 @@ export const lukso = createCommon({
 	..._lukso,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

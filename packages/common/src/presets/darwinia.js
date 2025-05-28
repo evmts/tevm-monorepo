@@ -27,5 +27,5 @@ export const darwinia = createCommon({
 	..._darwinia,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })
