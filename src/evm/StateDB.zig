@@ -528,57 +528,66 @@ pub const StateDB = struct {
 
     /// Create a snapshot of current state
     pub fn snapshot(self: *StateDB) !Snapshot {
+        // The snapshot records the current change count
+        // When we revert, we'll revert all changes after this point
+        const current_changes = self.journal.changes.items.len;
+        
         // Create journal checkpoint
         try self.journal.checkpoint();
         
-        // The snapshot ID is the number of checkpoints
-        return @intCast(self.journal.checkpoints.items.len);
+        // Return the change count as our snapshot
+        return @intCast(current_changes);
     }
 
     /// Revert to a snapshot
     pub fn revertToSnapshot(self: *StateDB, snap: Snapshot) !void {
+        // Snapshot represents the number of changes at the time of snapshot
+        // We need to revert all changes after that point
+        
         // Validate snapshot
-        if (snap > self.journal.checkpoints.items.len) {
+        if (snap > self.journal.changes.items.len) {
             return error.InvalidSnapshot;
         }
         
-        // Revert all checkpoints created after the snapshot
-        while (self.journal.checkpoints.items.len > snap) {
-            // Get the last checkpoint
-            const checkpoint_index = self.journal.checkpoints.items.len - 1;
-            const checkpoint = self.journal.checkpoints.items[checkpoint_index];
-            
-            // Process changes in reverse order
-            var i = self.journal.changes.items.len;
-            while (i > checkpoint.change_index) {
-                i -= 1;
-                const change = &self.journal.changes.items[i];
-                try self.applyRevert(change);
-            }
-            
-            // Now revert the journal for this checkpoint
-            try self.journal.revert();
+        // Apply revert for all changes after the snapshot
+        var i = self.journal.changes.items.len;
+        while (i > snap) {
+            i -= 1;
+            const change = &self.journal.changes.items[i];
+            try self.applyRevert(change);
         }
         
-        // If we still have the snapshot checkpoint, we need to revert changes made after it
-        if (snap > 0 and self.journal.checkpoints.items.len == snap) {
-            const snap_checkpoint = self.journal.checkpoints.items[snap - 1];
-            var i = self.journal.changes.items.len;
-            while (i > snap_checkpoint.change_index) {
-                i -= 1;
-                const change = &self.journal.changes.items[i];
-                try self.applyRevert(change);
+        // Remove the reverted changes from journal
+        self.journal.changes.shrinkRetainingCapacity(snap);
+        
+        // Find and remove checkpoints created after the snapshot
+        var checkpoint_count = self.journal.checkpoints.items.len;
+        while (checkpoint_count > 0) {
+            const checkpoint = self.journal.checkpoints.items[checkpoint_count - 1];
+            if (checkpoint.change_index >= snap) {
+                // This checkpoint was created after our snapshot
+                _ = self.journal.checkpoints.pop();
+                
+                // Also clean up logs created after this checkpoint
+                while (self.journal.logs.items.len > checkpoint.log_index) {
+                    const log = self.journal.logs.pop() orelse unreachable;
+                    self.journal.allocator.free(log.topics);
+                    self.journal.allocator.free(log.data);
+                }
+                
+                checkpoint_count -= 1;
+            } else {
+                // This checkpoint is before our snapshot, stop here
+                break;
             }
-            // Remove the changes from journal but keep the checkpoint
-            self.journal.changes.shrinkRetainingCapacity(snap_checkpoint.change_index);
-            
-            // Also revert logs and refund to checkpoint state
-            while (self.journal.logs.items.len > snap_checkpoint.log_index) {
-                const log = self.journal.logs.pop() orelse unreachable;
-                self.journal.allocator.free(log.topics);
-                self.journal.allocator.free(log.data);
-            }
-            self.journal.refund = snap_checkpoint.refund;
+        }
+        
+        // Reset refund if we have a checkpoint
+        if (self.journal.checkpoints.items.len > 0) {
+            const last_checkpoint = self.journal.checkpoints.items[self.journal.checkpoints.items.len - 1];
+            self.journal.refund = last_checkpoint.refund;
+        } else {
+            self.journal.refund = 0;
         }
     }
     
