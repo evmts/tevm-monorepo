@@ -471,6 +471,34 @@ pub fn build(b: *std.Build) void {
 
     const memory_benchmark_step = b.step("bench-memory", "Run Memory benchmarks");
     memory_benchmark_step.dependOn(&run_memory_benchmark.step);
+    
+    // Add BitVec benchmark
+    const bitvec_benchmark = b.addExecutable(.{
+        .name = "bitvec-benchmark",
+        .root_source_file = b.path("test/Bench/bitvec_benchmark.zig"),
+        .target = target,
+        .optimize = .ReleaseFast, // Use ReleaseFast for benchmarks
+    });
+    bitvec_benchmark.root_module.addImport("evm", evm_mod);
+    
+    const run_bitvec_benchmark = b.addRunArtifact(bitvec_benchmark);
+    
+    const bitvec_benchmark_step = b.step("bench-bitvec", "Run BitVec benchmarks");
+    bitvec_benchmark_step.dependOn(&run_bitvec_benchmark.step);
+    
+    // Add Contract benchmark
+    const contract_benchmark = b.addExecutable(.{
+        .name = "contract-benchmark",
+        .root_source_file = b.path("test/Bench/contract_benchmark.zig"),
+        .target = target,
+        .optimize = .ReleaseFast, // Use ReleaseFast for benchmarks
+    });
+    contract_benchmark.root_module.addImport("evm", evm_mod);
+    
+    const run_contract_benchmark = b.addRunArtifact(contract_benchmark);
+    
+    const contract_benchmark_step = b.step("bench-contract", "Run Contract benchmarks");
+    contract_benchmark_step.dependOn(&run_contract_benchmark.step);
 
     const constants_test = b.addTest(.{
         .name = "constants-test",
@@ -484,6 +512,34 @@ pub fn build(b: *std.Build) void {
 
     const constants_test_step = b.step("test-constants", "Run Constants tests");
     constants_test_step.dependOn(&run_constants_test.step);
+    
+    // Add Contract test
+    const contract_test = b.addTest(.{
+        .name = "contract-test",
+        .root_source_file = b.path("test/Evm/contract_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    contract_test.root_module.addImport("evm", evm_mod);
+    
+    const run_contract_test = b.addRunArtifact(contract_test);
+    
+    const contract_test_step = b.step("test-contract", "Run Contract tests");
+    contract_test_step.dependOn(&run_contract_test.step);
+    
+    // Add BitVec test
+    const bitvec_test = b.addTest(.{
+        .name = "bitvec-test",
+        .root_source_file = b.path("test/Evm/bitvec_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    bitvec_test.root_module.addImport("evm", evm_mod);
+    
+    const run_bitvec_test = b.addRunArtifact(bitvec_test);
+    
+    const bitvec_test_step = b.step("test-bitvec", "Run BitVec tests");
+    bitvec_test_step.dependOn(&run_bitvec_test.step);
 
     const rust_build = @import("src/Compilers/rust_build.zig");
     const rust_step = rust_build.addRustIntegration(b, target, optimize) catch |err| {
@@ -521,6 +577,8 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_memory_stress_test.step);
     test_step.dependOn(&run_memory_comparison_test.step);
     test_step.dependOn(&run_constants_test.step);
+    test_step.dependOn(&run_contract_test.step);
+    test_step.dependOn(&run_bitvec_test.step);
 
     const test_all_step = b.step("test-all", "Run all unit tests");
     test_all_step.dependOn(test_step);
