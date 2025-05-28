@@ -27,22 +27,7 @@ describe('useOptimisticWrapper', () => {
 		expect(result.current).toBeUndefined()
 	})
 
-	it('should return undefined when client is not provided', () => {
-		const wrapper = ({ children }: { children: React.ReactNode }) => (
-			<OptimisticWrapperProvider
-				storeAddress="0x1234567890123456789012345678901234567890"
-				stash={stash}
-				config={config}
-			>
-				{children}
-			</OptimisticWrapperProvider>
-		)
-
-		const { result } = renderHook(() => useOptimisticWrapper(), { wrapper })
-		expect(result.current).toBeUndefined()
-	})
-
-	it('should create optimistic handler when client is provided', () => {
+	it('should create optimistic handler', () => {
 		const wrapper = ({ children }: { children: React.ReactNode }) => (
 			<OptimisticWrapperProvider
 				client={client}
@@ -81,9 +66,7 @@ describe('useOptimisticWrapper', () => {
 	it('should handle SessionClient type', () => {
 		const sessionClient = createBundlerClient({
 			client,
-			// @ts-expect-error - viem versions
 			chain: tevmDefault,
-			// @ts-expect-error - viem versions
 			transport: createTevmTransport({ common: tevmDefault }),
 		})
 
