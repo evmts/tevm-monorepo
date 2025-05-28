@@ -21,7 +21,6 @@ test "StateDB: init and deinit" {
     defer state_db.deinit();
     
     // Verify initial state
-    try testing.expectEqual(@as(u32, 0), state_db.snapshot_id);
     try testing.expectEqual(@as(usize, 0), state_db.accounts.count());
     try testing.expectEqual(@as(usize, 0), state_db.codes.count());
 }
@@ -251,6 +250,14 @@ test "StateDB: snapshot and revert" {
     
     // Revert to snapshot
     try state_db.revertToSnapshot(snap);
+    
+    // Debug: print values after revert
+    const balance_after = state_db.getBalance(address);
+    const nonce_after = state_db.getNonce(address);
+    if (balance_after != 1000 or nonce_after != 5) {
+        std.debug.print("\nSnapshot revert failed: balance={}, nonce={}, expected balance=1000, nonce=5\n", .{balance_after, nonce_after});
+        std.debug.print("Journal checkpoints: {}, changes: {}, snap={}\n", .{journal.checkpoints.items.len, journal.changes.items.len, snap});
+    }
     
     // State should be reverted
     try testing.expectEqual(@as(u256, 1000), state_db.getBalance(address));

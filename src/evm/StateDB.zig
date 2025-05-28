@@ -112,9 +112,7 @@ pub const AccountState = struct {
     pub fn deinit(self: *AccountState) void {
         self.storage.deinit();
         self.original_storage.deinit();
-        if (self.code) |code| {
-            self.allocator.free(code);
-        }
+        // Note: code is managed by StateDB.codes, not freed here
     }
 
     /// Mark account as dirty
@@ -178,8 +176,6 @@ pub const StateDB = struct {
     journal: *Journal,
     /// Code storage indexed by code hash
     codes: std.AutoHashMap(B256, []const u8),
-    /// Snapshot counter
-    snapshot_id: u32,
     /// Allocator for memory management
     allocator: std.mem.Allocator,
     
@@ -207,7 +203,6 @@ pub const StateDB = struct {
             .accounts = std.AutoHashMap(Address, *AccountState).init(allocator),
             .journal = journal,
             .codes = std.AutoHashMap(B256, []const u8).init(allocator),
-            .snapshot_id = 0,
             .allocator = allocator,
         };
     }
@@ -445,9 +440,10 @@ pub const StateDB = struct {
         if (code.len == 0) {
             hash = StateDB.EMPTY_CODE_HASH;
         } else {
-            // TODO: Implement Keccak256
-            // For now, use a placeholder
-            hash = B256{ .bytes = [_]u8{1} ** 32 };
+            // Use Zig's built-in Keccak256
+            var hasher = std.crypto.hash.sha3.Keccak256.init(.{});
+            hasher.update(code);
+            hasher.final(&hash.bytes);
         }
         
         // Store code in global code storage
@@ -459,9 +455,14 @@ pub const StateDB = struct {
         // Record change in journal
         try self.journal.recordCodeChange(address, account.account.code_hash, account.code orelse &[_]u8{});
         
-        // Update account
+        // Update account - store a reference to our copied code
         account.account.code_hash = hash;
-        account.code = if (code.len > 0) code else null;
+        if (code.len > 0) {
+            // Get the code we just stored
+            account.code = self.codes.get(hash);
+        } else {
+            account.code = null;
+        }
         account.dirty_code = true;
         account.markDirty();
     }
@@ -530,25 +531,130 @@ pub const StateDB = struct {
         // Create journal checkpoint
         try self.journal.checkpoint();
         
-        // Return snapshot ID
-        const snap = self.snapshot_id;
-        self.snapshot_id += 1;
-        
-        return snap;
+        // The snapshot ID is the number of checkpoints
+        return @intCast(self.journal.checkpoints.items.len);
     }
 
     /// Revert to a snapshot
     pub fn revertToSnapshot(self: *StateDB, snap: Snapshot) !void {
         // Validate snapshot
-        if (snap >= self.snapshot_id) {
+        if (snap > self.journal.checkpoints.items.len) {
             return error.InvalidSnapshot;
         }
         
-        // Revert journal to checkpoint
-        try self.journal.revert();
+        // Revert all checkpoints created after the snapshot
+        while (self.journal.checkpoints.items.len > snap) {
+            // Get the last checkpoint
+            const checkpoint_index = self.journal.checkpoints.items.len - 1;
+            const checkpoint = self.journal.checkpoints.items[checkpoint_index];
+            
+            // Process changes in reverse order
+            var i = self.journal.changes.items.len;
+            while (i > checkpoint.change_index) {
+                i -= 1;
+                const change = &self.journal.changes.items[i];
+                try self.applyRevert(change);
+            }
+            
+            // Now revert the journal for this checkpoint
+            try self.journal.revert();
+        }
         
-        // Apply reverted changes to state
-        // Journal revert will call back into StateDB to apply changes
+        // If we still have the snapshot checkpoint, we need to revert changes made after it
+        if (snap > 0 and self.journal.checkpoints.items.len == snap) {
+            const snap_checkpoint = self.journal.checkpoints.items[snap - 1];
+            var i = self.journal.changes.items.len;
+            while (i > snap_checkpoint.change_index) {
+                i -= 1;
+                const change = &self.journal.changes.items[i];
+                try self.applyRevert(change);
+            }
+            // Remove the changes from journal but keep the checkpoint
+            self.journal.changes.shrinkRetainingCapacity(snap_checkpoint.change_index);
+            
+            // Also revert logs and refund to checkpoint state
+            while (self.journal.logs.items.len > snap_checkpoint.log_index) {
+                const log = self.journal.logs.pop() orelse unreachable;
+                self.journal.allocator.free(log.topics);
+                self.journal.allocator.free(log.data);
+            }
+            self.journal.refund = snap_checkpoint.refund;
+        }
+    }
+    
+    /// Apply a revert for a single change
+    fn applyRevert(self: *StateDB, change: *const journal_mod.Change) !void {
+        switch (change.*) {
+            .AccountCreated => |c| {
+                // Remove the created account
+                if (self.accounts.fetchRemove(c.address)) |entry| {
+                    entry.value.deinit();
+                    self.allocator.destroy(entry.value);
+                }
+            },
+            .AccountDestroyed => |c| {
+                // Restore the destroyed account
+                const account = try self.getAccount(c.address);
+                account.account.balance = c.balance;
+                account.account.nonce = c.nonce;
+                account.account.code_hash = c.code_hash;
+                account.deleted = false;
+                account.markDirty();
+            },
+            .BalanceChange => |c| {
+                // Restore previous balance
+                if (self.accounts.get(c.address)) |account| {
+                    account.account.balance = c.prev;
+                    account.markDirty();
+                }
+            },
+            .NonceChange => |c| {
+                // Restore previous nonce
+                if (self.accounts.get(c.address)) |account| {
+                    account.account.nonce = c.prev;
+                    account.markDirty();
+                }
+            },
+            .CodeChange => |c| {
+                // Restore previous code
+                if (self.accounts.get(c.address)) |account| {
+                    account.account.code_hash = c.prev_hash;
+                    if (c.prev_code.len > 0) {
+                        account.code = self.codes.get(c.prev_hash);
+                    } else {
+                        account.code = null;
+                    }
+                    account.markDirty();
+                }
+            },
+            .StorageChange => |c| {
+                // Restore previous storage value
+                if (self.accounts.get(c.address)) |account| {
+                    _ = try account.storage.slots.put(c.key, c.prev);
+                    account.markDirty();
+                }
+            },
+            .StorageCleared => |c| {
+                // Restore cleared storage
+                if (self.accounts.get(c.address)) |account| {
+                    var iter = c.storage.iterator();
+                    while (iter.next()) |entry| {
+                        try account.storage.slots.put(entry.key_ptr.*, entry.value_ptr.*);
+                    }
+                    account.storage_cleared = false;
+                    account.markDirty();
+                }
+            },
+            .Touched => |c| {
+                // Untouch account
+                if (self.accounts.get(c.address)) |account| {
+                    account.touched = false;
+                }
+            },
+            else => {
+                // Access list changes are handled by journal
+            },
+        }
     }
 
     /// Commit current changes
@@ -560,17 +666,19 @@ pub const StateDB = struct {
     // State Root Operations
 
     /// Calculate current state root
+    /// Returns the empty trie root until merkle trie calculation is implemented
     pub fn stateRoot(self: *StateDB) !B256 {
         _ = self;
-        // TODO: Implement merkle trie calculation
-        return ZERO_B256;
+        // Return empty trie root hash (keccak256 of RLP empty list)
+        return StateDB.EMPTY_STORAGE_ROOT;
     }
 
     /// Intermediate state root (for debugging)
+    /// Returns the empty trie root until merkle trie calculation is implemented
     pub fn intermediateRoot(self: *StateDB) !B256 {
         _ = self;
-        // TODO: Implement merkle trie calculation
-        return ZERO_B256;
+        // Return empty trie root hash (keccak256 of RLP empty list)
+        return StateDB.EMPTY_STORAGE_ROOT;
     }
 
     // Utility Operations
