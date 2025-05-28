@@ -8,7 +8,7 @@
 
 > **AbiConstructor** = `object`
 
-Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.28/node\_modules/abitype/dist/types/abi.d.ts:77
+Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.30/node\_modules/abitype/dist/types/abi.d.ts:77
 
 ABI ["constructor"](https://docs.soliditylang.org/en/latest/abi-spec.html#json) type
 
@@ -18,7 +18,7 @@ ABI ["constructor"](https://docs.soliditylang.org/en/latest/abi-spec.html#json) 
 
 > **inputs**: readonly `AbiParameter`[]
 
-Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.28/node\_modules/abitype/dist/types/abi.d.ts:79
+Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.30/node\_modules/abitype/dist/types/abi.d.ts:79
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.28/nod
 
 > `optional` **payable**: `boolean`
 
-Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.28/node\_modules/abitype/dist/types/abi.d.ts:84
+Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.30/node\_modules/abitype/dist/types/abi.d.ts:84
 
 #### Deprecated
 
@@ -42,7 +42,7 @@ https://github.com/ethereum/solidity/issues/992
 
 > **stateMutability**: `Extract`\<`AbiStateMutability`, `"payable"` \| `"nonpayable"`\>
 
-Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.28/node\_modules/abitype/dist/types/abi.d.ts:85
+Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.30/node\_modules/abitype/dist/types/abi.d.ts:85
 
 ***
 
@@ -50,4 +50,4 @@ Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.28/nod
 
 > **type**: `"constructor"`
 
-Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.28/node\_modules/abitype/dist/types/abi.d.ts:78
+Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.30/node\_modules/abitype/dist/types/abi.d.ts:78

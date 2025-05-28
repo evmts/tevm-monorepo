@@ -397,7 +397,7 @@ describe('contractHandler', () => {
 			[RevertError: revert
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
-			Details: {"error":"revert","errorType":"EvmError"}
+			Details: {"error":"revert","errorType":"EVMError"}
 			Version: 1.1.0.next-73]
 		`)
 	})

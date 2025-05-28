@@ -63,4 +63,14 @@ export interface StateManager extends EvmStateManagerInterface {
 	 * Loads a state from a given state root
 	 */
 	generateCanonicalGenesis(state: TevmState): Promise<void>
+	/**
+	 * Get an EIP-1186 proof from the provider
+	 * @param address - The address to get proof for
+	 * @param storageSlots - Storage slots to include in the proof
+	 * @returns The account and storage proof
+	 */
+	getProof(
+		address: import('@tevm/utils').EthjsAddress,
+		storageSlots?: Uint8Array[],
+	): Promise<import('@ethereumjs/statemanager').Proof>
 }

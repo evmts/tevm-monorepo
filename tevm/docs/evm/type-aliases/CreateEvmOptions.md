@@ -75,7 +75,7 @@ Ethereumjs common object
 
 ### customPrecompiles?
 
-> `optional` **customPrecompiles**: [`CustomPrecompile`](CustomPrecompile.md)[]
+> `optional` **customPrecompiles**: [`CustomPrecompile`](../../precompiles/type-aliases/CustomPrecompile.md)[]
 
 Defined in: packages/evm/dist/index.d.ts:168
 

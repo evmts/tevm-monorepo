@@ -8,7 +8,7 @@
 
 > **createBaseState**(`options`): [`BaseState`](../type-aliases/BaseState.md)
 
-Defined in: packages/state/dist/index.d.ts:317
+Defined in: packages/state/dist/index.d.ts:342
 
 ## Parameters
 

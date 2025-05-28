@@ -8,7 +8,7 @@
 
 > **createUnplugin**\<`UserOptions`, `Nested`\>(`factory`): `UnpluginInstance`\<`UserOptions`, `Nested`\>
 
-Defined in: node\_modules/.pnpm/unplugin@2.3.4/node\_modules/unplugin/dist/index.d.ts:187
+Defined in: node\_modules/.pnpm/unplugin@2.3.5/node\_modules/unplugin/dist/index.d.ts:193
 
 ## Type Parameters
 

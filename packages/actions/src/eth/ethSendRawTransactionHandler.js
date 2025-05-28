@@ -92,7 +92,7 @@ export const ethSendRawTransactionHandler = (client) => async (params) => {
 		 **/
 		const impersonatedTx = /** @type {any}*/ (tx)
 		impersonatedTx.impersonatedAddress = createAddress(impersonatedAccount)
-		tx = createImpersonatedTx(impersonatedTx)
+		tx = createImpersonatedTx(impersonatedTx, { common: tx.common })
 	} else if (!tx.isSigned()) {
 		client.logger.debug(
 			'Raw Transaction is not signed. Consider calling impersonate endpoint. In future versions unsigned transactions will be rejected.',

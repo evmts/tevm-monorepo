@@ -6,7 +6,7 @@
 
 # Class: UnknownChainError
 
-Defined in: bundler-packages/whatsabi/src/resolveContractUri.js:7
+Defined in: [bundler-packages/whatsabi/src/resolveContractUri.js:7](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/resolveContractUri.js#L7)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: bundler-packages/whatsabi/src/resolveContractUri.js:7
 
 > **new UnknownChainError**(`chainId`): `UnknownChainError`
 
-Defined in: bundler-packages/whatsabi/src/resolveContractUri.js:20
+Defined in: [bundler-packages/whatsabi/src/resolveContractUri.js:20](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/resolveContractUri.js#L20)
 
 #### Parameters
 
@@ -40,7 +40,7 @@ Defined in: bundler-packages/whatsabi/src/resolveContractUri.js:20
 
 > **\_tag**: `"UnknownChainError"` = `'UnknownChainError'`
 
-Defined in: bundler-packages/whatsabi/src/resolveContractUri.js:16
+Defined in: [bundler-packages/whatsabi/src/resolveContractUri.js:16](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/resolveContractUri.js#L16)
 
 ***
 
@@ -72,7 +72,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/li
 
 > **name**: `"UnknownChainError"` = `'UnknownChainError'`
 
-Defined in: bundler-packages/whatsabi/src/resolveContractUri.js:12
+Defined in: [bundler-packages/whatsabi/src/resolveContractUri.js:12](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/resolveContractUri.js#L12)
 
 #### Overrides
 

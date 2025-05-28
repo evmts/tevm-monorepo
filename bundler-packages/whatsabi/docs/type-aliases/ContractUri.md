@@ -8,4 +8,4 @@
 
 > **ContractUri** = \`eth://$\{KnownChainIds\}/$\{Address\}$\{"" \| \`?$\{string\}\`\}\`
 
-Defined in: bundler-packages/whatsabi/src/ContractUri.ts:4
+Defined in: [bundler-packages/whatsabi/src/ContractUri.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/ContractUri.ts#L4)

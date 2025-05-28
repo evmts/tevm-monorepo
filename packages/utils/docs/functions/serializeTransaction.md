@@ -8,7 +8,7 @@
 
 > **serializeTransaction**\<`transaction`, `_transactionType`\>(`transaction`, `signature?`): `TransactionSerialized`\<`_transactionType`, `_transactionType` *extends* `"eip1559"` ? `` `0x02${string}` `` : `never` \| `_transactionType` *extends* `"eip2930"` ? `` `0x01${string}` `` : `never` \| `_transactionType` *extends* `"eip4844"` ? `` `0x03${string}` `` : `never` \| `_transactionType` *extends* `"eip7702"` ? `` `0x04${string}` `` : `never` \| `_transactionType` *extends* `"legacy"` ? `TransactionSerializedLegacy` : `never`\>
 
-Defined in: node\_modules/.pnpm/viem@2.30.1\_bufferutil@4.0.9\_typescript@5.8.3\_utf-8-validate@5.0.10\_zod@3.25.28/node\_modules/viem/\_types/utils/transaction/serializeTransaction.d.ts:20
+Defined in: node\_modules/.pnpm/viem@2.30.1\_bufferutil@4.0.9\_typescript@5.8.3\_utf-8-validate@5.0.10\_zod@3.25.30/node\_modules/viem/\_types/utils/transaction/serializeTransaction.d.ts:20
 
 ## Type Parameters
 

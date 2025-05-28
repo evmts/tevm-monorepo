@@ -8,7 +8,7 @@
 
 > **shallowCopy**(`baseState`): () => [`BaseState`](../type-aliases/BaseState.md)
 
-Defined in: packages/state/dist/index.d.ts:506
+Defined in: packages/state/dist/index.d.ts:485
 
 ## Parameters
 

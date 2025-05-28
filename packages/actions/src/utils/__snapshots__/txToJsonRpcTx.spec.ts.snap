@@ -4,32 +4,6 @@ exports[`txToJsonRpcTx > should work 1`] = `
 {
   "accessList": [],
   "blobVersionedHashes": undefined,
-  "blockHash": "0xdbdfda9fdfdbd5b589ad1d93152701880b99a87cfde9d2940eba8a0a7f7120ab",
-  "blockNumber": "0x744f93e",
-  "chainId": "0x1",
-  "from": "0xf0d793fd3c1410b43c40d17f3dbbab5d92285c1d",
-  "gas": "0x64",
-  "gasPrice": "0x64",
-  "hash": "0x7924071b4864d96724032c7b84b88712dc73e9d39369d2ac32dec5a34ddb6874",
-  "input": "0x010203",
-  "maxFeePerBlobGas": undefined,
-  "maxFeePerGas": "0x64",
-  "maxPriorityFeePerGas": "0x64",
-  "nonce": "0x1",
-  "r": "0x2",
-  "s": "0x3",
-  "to": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-  "transactionIndex": "0x0",
-  "type": "0x2",
-  "v": "0x1",
-  "value": "0x64",
-}
-`;
-
-exports[`txToJsonRpcTx should work 1`] = `
-{
-  "accessList": [],
-  "blobVersionedHashes": undefined,
   "blockHash": "0x3ea068e5596a9ea59d8464a64f50e5bb3dc7c0c823195bd36de80a9293293633",
   "blockNumber": "0x744f93e",
   "chainId": "0x1",

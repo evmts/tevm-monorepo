@@ -92,7 +92,7 @@ describe('executeCall', () => {
 		}
 		expect(result.errors).toBeDefined()
 		expect(result.errors[0].message).toBe(
-			'revert\n\nDocs: https://tevm.sh/reference/tevm/errors/classes/reverterror/\nDetails: {"error":"revert","errorType":"EvmError"}\nVersion: 1.1.0.next-73',
+			'revert\n\nDocs: https://tevm.sh/reference/tevm/errors/classes/reverterror/\nDetails: {"error":"revert","errorType":"EVMError"}\nVersion: 1.1.0.next-73',
 		)
 		expect(result.errors[0]).toBeInstanceOf(EvmRevertError)
 		expect(result.errors[0]).toBeInstanceOf(RevertError)

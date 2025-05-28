@@ -14,7 +14,7 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:73
 
 ### cause?
 
-> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `Error` \| [`EvmError`](../../evm/classes/EvmError.md) \| `unknown`
+> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `Error` \| [`EVMError`](../../evm/classes/EVMError.md) \| `unknown`
 
 Defined in: packages/errors/types/ethereum/BaseError.d.ts:93
 

@@ -8,7 +8,7 @@
 
 > **formatAbi**\<`abi`\>(`abi`): [`FormatAbi`](../type-aliases/FormatAbi.md)\<`abi`\>
 
-Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.28/node\_modules/abitype/dist/types/human-readable/formatAbi.d.ts:18
+Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.30/node\_modules/abitype/dist/types/human-readable/formatAbi.d.ts:18
 
 Parses JSON ABI into human-readable ABI
 

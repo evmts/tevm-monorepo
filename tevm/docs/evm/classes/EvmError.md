@@ -2,37 +2,37 @@
 
 ***
 
-[tevm](../../modules.md) / [evm](../README.md) / EvmError
+[tevm](../../modules.md) / [evm](../README.md) / EVMError
 
-# Class: EvmError
+# Class: EVMError
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:34
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/errors.d.ts:33
 
 ## Constructors
 
 ### Constructor
 
-> **new EvmError**(`error`): `EvmError`
+> **new EVMError**(`error`): `EVMError`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:37
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/errors.d.ts:37
 
 #### Parameters
 
 ##### error
 
-[`EvmErrorMessage`](../enumerations/EvmErrorMessage.md)
+`EVMErrorType`
 
 #### Returns
 
-`EvmError`
+`EVMError`
 
 ## Properties
 
 ### error
 
-> **error**: [`EvmErrorMessage`](../enumerations/EvmErrorMessage.md)
+> **error**: `EVMErrorType`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:35
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/errors.d.ts:34
 
 ***
 
@@ -40,4 +40,12 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/
 
 > **errorType**: `string`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:36
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/errors.d.ts:35
+
+***
+
+### errorMessages
+
+> `static` **errorMessages**: `Record`\<keyof *typeof* `EVMErrorMessage`, `EVMErrorType`\>
+
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/errors.d.ts:36

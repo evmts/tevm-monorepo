@@ -56,12 +56,12 @@ Eips to enable. Defaults to `[1559, 4895]`
 
 > `optional` **hardfork**: [`Hardfork`](Hardfork.md)
 
-Hardfork to use. Defaults to `shanghai`
+Hardfork to use. Defaults to `prague`
 
 #### Default
 
 ```ts
-'cancun'
+'prague'
 ```
 
 ### loggingLevel?
