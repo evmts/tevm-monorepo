@@ -75,7 +75,7 @@ Represented as a bigint to handle large gas values accurately
 
 ### logs
 
-> **logs**: [`EthjsLog`](../../utils/type-aliases/EthjsLog.md)[]
+> **logs**: [`Log`](../../evm/type-aliases/Log.md)[]
 
 Defined in: packages/receipt-manager/types/ReceiptManager.d.ts:25
 

@@ -37,7 +37,7 @@ export const applyTransactions = (vm: BaseVm) => async (block: Block, opts: RunB
 
 		let maxGasLimit: bigint
 		if ((vm.common as any).ethjsCommon.isActivatedEIP(1559) === true) {
-			maxGasLimit = block.header.gasLimit * (vm.common as any).ethjsCommon.param('gasConfig', 'elasticityMultiplier')
+			maxGasLimit = block.header.gasLimit * (vm.common as any).ethjsCommon.param('elasticityMultiplier')
 		} else {
 			maxGasLimit = block.header.gasLimit
 		}

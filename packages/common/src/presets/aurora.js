@@ -27,5 +27,5 @@ export const aurora = createCommon({
 	..._aurora,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

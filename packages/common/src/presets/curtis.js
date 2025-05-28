@@ -27,5 +27,5 @@ export const curtis = createCommon({
 	..._curtis,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

@@ -27,5 +27,5 @@ export const oasisTestnet = createCommon({
 	..._oasisTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

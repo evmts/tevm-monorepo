@@ -102,7 +102,7 @@ describe('callHandlerOpts', () => {
 		const result = await callHandlerOpts(client, {
 			blobVersionedHashes: [versionedHash],
 		})
-		expect(result.data?.blobVersionedHashes?.[0]).toEqual(hexToBytes(versionedHash))
+		expect(result.data?.blobVersionedHashes?.[0]).toEqual(versionedHash)
 	})
 
 	it('should handle selfdestruct', async () => {

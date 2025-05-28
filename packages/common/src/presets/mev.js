@@ -27,5 +27,5 @@ export const mev = createCommon({
 	..._mev,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

@@ -8,6 +8,6 @@
 
 > `const` **getStateRoot**: [`StateAction`](../type-aliases/StateAction.md)\<`"getStateRoot"`\>
 
-Defined in: packages/state/dist/index.d.ts:455
+Defined in: packages/state/dist/index.d.ts:446
 
 Gets the current state root

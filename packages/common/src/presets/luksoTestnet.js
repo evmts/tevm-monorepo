@@ -27,5 +27,5 @@ export const luksoTestnet = createCommon({
 	..._luksoTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

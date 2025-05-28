@@ -438,6 +438,36 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 ***
 
+### getProof()
+
+> **getProof**(`address`, `storageSlots?`): `Promise`\<`Proof`\>
+
+Defined in: [packages/state/src/StateManager.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L72)
+
+Get an EIP-1186 proof from the provider
+
+#### Parameters
+
+##### address
+
+`Address`
+
+The address to get proof for
+
+##### storageSlots?
+
+`Uint8Array`\<`ArrayBufferLike`\>[]
+
+Storage slots to include in the proof
+
+#### Returns
+
+`Promise`\<`Proof`\>
+
+The account and storage proof
+
+***
+
 ### getStateRoot()
 
 > **getStateRoot**(): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>

@@ -16,12 +16,13 @@ export const createBaseVm = (opts) => {
 		common: opts.common,
 		events,
 		_emit: async (topic, data) => {
-			console.log(topic, data)
 			try {
 				return new Promise((resolve, reject) => {
 					try {
-						if (!events.emit(topic, data, resolve)) {
-							reject('Failed to emit')
+						const hasListeners = events.emit(topic, data, resolve)
+						if (!hasListeners) {
+							// No listeners for this event, just resolve immediately
+							resolve()
 						}
 					} catch (e) {
 						reject(e)

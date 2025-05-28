@@ -8,7 +8,7 @@
 
 > **loadAbi**(`options`): `Promise`\<`AutoloadResult`\>
 
-Defined in: bundler-packages/whatsabi/src/loadAbi.js:12
+Defined in: [bundler-packages/whatsabi/src/loadAbi.js:12](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/loadAbi.js#L12)
 
 ## Parameters
 

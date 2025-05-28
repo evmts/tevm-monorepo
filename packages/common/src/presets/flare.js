@@ -27,5 +27,5 @@ export const flare = createCommon({
 	..._flare,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

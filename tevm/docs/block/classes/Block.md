@@ -16,7 +16,7 @@ An object that represents the block.
 
 > **new Block**(`opts`, `header?`, `transactions?`, `uncleHeaders?`, `withdrawals?`, `requests?`, `executionWitness?`): `Block`
 
-Defined in: packages/block/types/block.d.ts:89
+Defined in: packages/block/types/block.d.ts:92
 
 This constructor takes the values, validates them, assigns them and freezes the object.
 Use the static factory methods to assist in creating a Block object from varying data types and options.
@@ -136,6 +136,12 @@ Collection of contracts
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
 Custom chain data.
+
+#### ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
+Collection of ENS TLDs for the chain.
 
 #### ethjsCommon
 
@@ -279,7 +285,7 @@ Defined in: packages/block/types/block.d.ts:16
 
 > **errorStr**(): `string`
 
-Defined in: packages/block/types/block.d.ts:186
+Defined in: packages/block/types/block.d.ts:189
 
 Return a compact error string representation of the object
 
@@ -293,7 +299,7 @@ Return a compact error string representation of the object
 
 > **ethashCanonicalDifficulty**(`parentBlock`): `bigint`
 
-Defined in: packages/block/types/block.d.ts:170
+Defined in: packages/block/types/block.d.ts:173
 
 Returns the canonical difficulty for this block.
 
@@ -315,7 +321,7 @@ the parent of this `Block`
 
 > **genTxTrie**(): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: packages/block/types/block.d.ts:109
+Defined in: packages/block/types/block.d.ts:112
 
 Generates transaction trie for validation.
 
@@ -329,7 +335,7 @@ Generates transaction trie for validation.
 
 > **getTransactionsValidationErrors**(): `string`[]
 
-Defined in: packages/block/types/block.d.ts:121
+Defined in: packages/block/types/block.d.ts:124
 
 Validates transaction signatures and minimum gas requirements.
 
@@ -345,7 +351,7 @@ an array of error strings
 
 > **hash**(): `Uint8Array`
 
-Defined in: packages/block/types/block.d.ts:97
+Defined in: packages/block/types/block.d.ts:100
 
 Returns the hash of the block.
 
@@ -359,7 +365,7 @@ Returns the hash of the block.
 
 > **isGenesis**(): `boolean`
 
-Defined in: packages/block/types/block.d.ts:101
+Defined in: packages/block/types/block.d.ts:104
 
 Determines if this block is the genesis block.
 
@@ -373,7 +379,7 @@ Determines if this block is the genesis block.
 
 > **raw**(): [`BlockBytes`](../type-aliases/BlockBytes.md)
 
-Defined in: packages/block/types/block.d.ts:93
+Defined in: packages/block/types/block.d.ts:96
 
 Returns a Array of the raw Bytes Arrays of this block, in order.
 
@@ -387,7 +393,7 @@ Returns a Array of the raw Bytes Arrays of this block, in order.
 
 > **requestsTrieIsValid**(): `Promise`\<`boolean`\>
 
-Defined in: packages/block/types/block.d.ts:116
+Defined in: packages/block/types/block.d.ts:119
 
 #### Returns
 
@@ -399,7 +405,7 @@ Defined in: packages/block/types/block.d.ts:116
 
 > **serialize**(): `Uint8Array`
 
-Defined in: packages/block/types/block.d.ts:105
+Defined in: packages/block/types/block.d.ts:108
 
 Returns the rlp encoding of the block.
 
@@ -413,7 +419,7 @@ Returns the rlp encoding of the block.
 
 > **toExecutionPayload**(): [`ExecutionPayload`](../type-aliases/ExecutionPayload.md)
 
-Defined in: packages/block/types/block.d.ts:182
+Defined in: packages/block/types/block.d.ts:185
 
 #### Returns
 
@@ -425,7 +431,7 @@ Defined in: packages/block/types/block.d.ts:182
 
 > **toJSON**(): [`JsonBlock`](../interfaces/JsonBlock.md)
 
-Defined in: packages/block/types/block.d.ts:181
+Defined in: packages/block/types/block.d.ts:184
 
 Returns the block in JSON format.
 
@@ -439,7 +445,7 @@ Returns the block in JSON format.
 
 > **transactionsAreValid**(): `boolean`
 
-Defined in: packages/block/types/block.d.ts:126
+Defined in: packages/block/types/block.d.ts:129
 
 Validates transaction signatures and minimum gas requirements.
 
@@ -455,7 +461,7 @@ True if all transactions are valid, false otherwise
 
 > **transactionsTrieIsValid**(): `Promise`\<`boolean`\>
 
-Defined in: packages/block/types/block.d.ts:115
+Defined in: packages/block/types/block.d.ts:118
 
 Validates the transaction trie by generating a trie
 and do a check on the root hash.
@@ -472,7 +478,7 @@ True if the transaction trie is valid, false otherwise
 
 > **uncleHashIsValid**(): `boolean`
 
-Defined in: packages/block/types/block.d.ts:149
+Defined in: packages/block/types/block.d.ts:152
 
 Validates the uncle's hash.
 
@@ -488,7 +494,7 @@ true if the uncle's hash is valid, false otherwise.
 
 > **validateBlobTransactions**(`parentHeader`): `void`
 
-Defined in: packages/block/types/block.d.ts:144
+Defined in: packages/block/types/block.d.ts:147
 
 Validates that blob gas fee for each transaction is greater than or equal to the
 blobGasPrice for the block and that total blob gas in block is less than maximum
@@ -512,7 +518,7 @@ header of parent block
 
 > **validateData**(`onlyHeader?`, `verifyTxs?`): `Promise`\<`void`\>
 
-Defined in: packages/block/types/block.d.ts:137
+Defined in: packages/block/types/block.d.ts:140
 
 Validates the block data, throwing if invalid.
 This can be checked on the Block itself without needing access to any parent block
@@ -545,7 +551,7 @@ if set to `false`, will not check for transaction validation errors (default: tr
 
 > **validateGasLimit**(`parentBlock`): `void`
 
-Defined in: packages/block/types/block.d.ts:177
+Defined in: packages/block/types/block.d.ts:180
 
 Validates if the block gasLimit remains in the boundaries set by the protocol.
 Throws if invalid
@@ -568,7 +574,7 @@ the parent of this `Block`
 
 > **validateUncles**(): `void`
 
-Defined in: packages/block/types/block.d.ts:164
+Defined in: packages/block/types/block.d.ts:167
 
 Consistency checks for uncles included in the block, if any.
 
@@ -588,7 +594,7 @@ Header does not count an uncle twice.
 
 > **withdrawalsTrieIsValid**(): `Promise`\<`boolean`\>
 
-Defined in: packages/block/types/block.d.ts:154
+Defined in: packages/block/types/block.d.ts:157
 
 Validates the withdrawal root
 
@@ -604,7 +610,7 @@ true if the withdrawals trie root is valid, false otherwise
 
 > `static` **fromBeaconPayloadJson**(`payload`, `opts`): `Promise`\<`Block`\>
 
-Defined in: packages/block/types/block.d.ts:84
+Defined in: packages/block/types/block.d.ts:87
 
 Method to retrieve a block from a beacon payload json
 
@@ -630,11 +636,11 @@ the block constructed block
 
 ***
 
-### fromBlockData()
+### ~~fromBlockData()~~
 
 > `static` **fromBlockData**(`blockData`, `opts`): `Block`
 
-Defined in: packages/block/types/block.d.ts:56
+Defined in: packages/block/types/block.d.ts:57
 
 Static constructor to create a block from a block data dictionary
 
@@ -652,13 +658,17 @@ Static constructor to create a block from a block data dictionary
 
 `Block`
 
+#### Deprecated
+
+Use createBlock() instead - this method is kept for compatibility
+
 ***
 
 ### fromExecutionPayload()
 
 > `static` **fromExecutionPayload**(`payload`, `opts`): `Promise`\<`Block`\>
 
-Defined in: packages/block/types/block.d.ts:77
+Defined in: packages/block/types/block.d.ts:80
 
 Method to retrieve a block from an execution payload
 
@@ -682,11 +692,11 @@ the block constructed block
 
 ***
 
-### fromRLPSerializedBlock()
+### ~~fromRLPSerializedBlock()~~
 
 > `static` **fromRLPSerializedBlock**(`serialized`, `opts`): `Block`
 
-Defined in: packages/block/types/block.d.ts:63
+Defined in: packages/block/types/block.d.ts:65
 
 Static constructor to create a block from a RLP-serialized block
 
@@ -704,13 +714,17 @@ Static constructor to create a block from a RLP-serialized block
 
 `Block`
 
+#### Deprecated
+
+Use createBlockFromRLP() instead - this method is kept for compatibility
+
 ***
 
-### fromValuesArray()
+### ~~fromValuesArray()~~
 
 > `static` **fromValuesArray**(`values`, `opts`): `Block`
 
-Defined in: packages/block/types/block.d.ts:70
+Defined in: packages/block/types/block.d.ts:73
 
 Static constructor to create a block from an array of Bytes values
 
@@ -727,6 +741,10 @@ Static constructor to create a block from an array of Bytes values
 #### Returns
 
 `Block`
+
+#### Deprecated
+
+Use createBlockFromValuesArray() instead - this method is kept for compatibility
 
 ***
 

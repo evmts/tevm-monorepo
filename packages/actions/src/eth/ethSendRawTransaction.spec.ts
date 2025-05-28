@@ -73,7 +73,7 @@ describe('ethSendRawTransactionHandler', () => {
 	})
 
 	it('should handle an unsigned transaction with impersonation', async () => {
-		const client = createTevmNode()
+		const client = createTevmNode({ common: tevmDefault })
 		const handler = ethSendRawTransactionHandler(client)
 
 		const impersonatedAddress = createAddress(`0x${'42'.repeat(20)}`)
@@ -115,7 +115,7 @@ describe('ethSendRawTransactionHandler', () => {
 		const handler = ethSendRawTransactionHandler(client)
 
 		const invalidTx = new Uint8Array([0xf8, ...new Uint8Array(20)]) // 0xf8 is an invalid tx type
-		await expect(handler({ data: bytesToHex(invalidTx) })).rejects.toThrow('Invalid transaction type')
+		await expect(handler({ data: bytesToHex(invalidTx) })).rejects.toThrow('Invalid transaction')
 	})
 
 	it.todo('should handle a blob transaction and throw BlobGasLimitExceededError', async () => {

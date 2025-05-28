@@ -27,5 +27,5 @@ export const filecoinCalibration = createCommon({
 	..._filecoinCalibration,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

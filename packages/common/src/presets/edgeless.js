@@ -27,5 +27,5 @@ export const edgeless = createCommon({
 	..._edgeless,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

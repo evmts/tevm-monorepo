@@ -8,7 +8,7 @@
 
 > **ExtractAbiEvents**\<`abi`\> = `Extract`\<`abi`\[`number`\], \{ `type`: `"event"`; \}\>
 
-Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.24.4/node\_modules/abitype/dist/types/utils.d.ts:132
+Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.30/node\_modules/abitype/dist/types/utils.d.ts:132
 
 Extracts all [AbiEvent](AbiEvent.md) types from [Abi](Abi.md).
 

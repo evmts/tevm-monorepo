@@ -27,5 +27,5 @@ export const taraxaTestnet = createCommon({
 	..._taraxaTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

@@ -84,7 +84,7 @@ Defined in: [packages/vm/src/actions/BlockBuilder.ts:67](https://github.com/evmt
 
 > **addTransaction**(`tx`, `__namedParameters`): `Promise`\<[`RunTxResult`](../interfaces/RunTxResult.md)\>
 
-Defined in: [packages/vm/src/actions/BlockBuilder.ts:215](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L215)
+Defined in: [packages/vm/src/actions/BlockBuilder.ts:220](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L220)
 
 Run and add a transaction to the block being built.
 Please note that this modifies the state of the VM.
@@ -113,7 +113,7 @@ the remaining gas in the block.
 
 > **build**(`sealOpts?`): `Promise`\<`Block`\>
 
-Defined in: [packages/vm/src/actions/BlockBuilder.ts:306](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L306)
+Defined in: [packages/vm/src/actions/BlockBuilder.ts:316](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L316)
 
 This method returns the finalized block.
 It also:
@@ -141,7 +141,7 @@ as the signer will be awarded the txs amount spent on gas as they are added.
 
 > **getStatus**(): [`BlockStatus`](../type-aliases/BlockStatus.md)
 
-Defined in: [packages/vm/src/actions/BlockBuilder.ts:127](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L127)
+Defined in: [packages/vm/src/actions/BlockBuilder.ts:132](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L132)
 
 #### Returns
 
@@ -153,7 +153,7 @@ Defined in: [packages/vm/src/actions/BlockBuilder.ts:127](https://github.com/evm
 
 > **initState**(): `Promise`\<`void`\>
 
-Defined in: [packages/vm/src/actions/BlockBuilder.ts:370](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L370)
+Defined in: [packages/vm/src/actions/BlockBuilder.ts:380](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L380)
 
 #### Returns
 
@@ -165,7 +165,7 @@ Defined in: [packages/vm/src/actions/BlockBuilder.ts:370](https://github.com/evm
 
 > **logsBloom**(): `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: [packages/vm/src/actions/BlockBuilder.ts:144](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L144)
+Defined in: [packages/vm/src/actions/BlockBuilder.ts:149](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L149)
 
 Calculates and returns the logs bloom for the block.
 
@@ -179,7 +179,7 @@ Calculates and returns the logs bloom for the block.
 
 > **receiptTrie**(): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: [packages/vm/src/actions/BlockBuilder.ts:156](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L156)
+Defined in: [packages/vm/src/actions/BlockBuilder.ts:161](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L161)
 
 Calculates and returns the receiptTrie for the block.
 
@@ -193,7 +193,7 @@ Calculates and returns the receiptTrie for the block.
 
 > **revert**(): `Promise`\<`void`\>
 
-Defined in: [packages/vm/src/actions/BlockBuilder.ts:287](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L287)
+Defined in: [packages/vm/src/actions/BlockBuilder.ts:297](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L297)
 
 Reverts the checkpoint on the StateManager to reset the state from any transactions that have been run.
 
@@ -207,7 +207,7 @@ Reverts the checkpoint on the StateManager to reset the state from any transacti
 
 > **transactionsTrie**(): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: [packages/vm/src/actions/BlockBuilder.ts:134](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L134)
+Defined in: [packages/vm/src/actions/BlockBuilder.ts:139](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L139)
 
 Calculates and returns the transactionsTrie for the block.
 

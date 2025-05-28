@@ -27,5 +27,5 @@ export const cronosTestnet = createCommon({
 	..._cronosTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

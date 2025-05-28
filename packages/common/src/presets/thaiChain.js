@@ -27,5 +27,5 @@ export const thaiChain = createCommon({
 	..._thaiChain,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

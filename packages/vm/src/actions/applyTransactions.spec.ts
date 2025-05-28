@@ -20,7 +20,7 @@ describe('applyTransactions', () => {
 
 			let maxGasLimit: bigint
 			if ((vm.common as any).ethjsCommon.isActivatedEIP(1559) === true) {
-				maxGasLimit = block.header.gasLimit * (vm.common as any).ethjsCommon.param('gasConfig', 'elasticityMultiplier')
+				maxGasLimit = block.header.gasLimit * (vm.common as any).ethjsCommon.param('1559', 'elasticityMultiplier')
 			} else {
 				maxGasLimit = block.header.gasLimit
 			}

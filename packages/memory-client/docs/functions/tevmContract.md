@@ -29,7 +29,7 @@ logic while providing access to the same advanced features like execution tracin
 
 ### TAbi
 
-`TAbi` *extends* `Abi` \| readonly `unknown`[] = `Abi`
+`TAbi` *extends* readonly `unknown`[] \| `Abi` = `Abi`
 
 ### TFunctionName
 

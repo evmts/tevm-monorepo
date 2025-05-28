@@ -8,7 +8,7 @@
 
 > **TypedError**\<`TName`\> = `object`
 
-Defined in: packages/precompiles/dist/index.d.ts:32
+Defined in: packages/precompiles/dist/index.d.ts:23
 
 Represents a typed error with a tag for identification
 
@@ -40,7 +40,7 @@ The string literal type that identifies this error
 
 > **\_tag**: `TName`
 
-Defined in: packages/precompiles/dist/index.d.ts:33
+Defined in: packages/precompiles/dist/index.d.ts:24
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: packages/precompiles/dist/index.d.ts:33
 
 > **message**: `string`
 
-Defined in: packages/precompiles/dist/index.d.ts:35
+Defined in: packages/precompiles/dist/index.d.ts:26
 
 ***
 
@@ -56,4 +56,4 @@ Defined in: packages/precompiles/dist/index.d.ts:35
 
 > **name**: `TName`
 
-Defined in: packages/precompiles/dist/index.d.ts:34
+Defined in: packages/precompiles/dist/index.d.ts:25

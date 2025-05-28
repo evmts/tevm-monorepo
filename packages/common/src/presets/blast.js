@@ -27,5 +27,5 @@ export const blast = createCommon({
 	..._blast,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

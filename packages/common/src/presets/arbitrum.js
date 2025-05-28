@@ -27,5 +27,5 @@ export const arbitrum = createCommon({
 	..._arbitrum,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

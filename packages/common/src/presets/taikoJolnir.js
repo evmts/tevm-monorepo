@@ -27,5 +27,5 @@ export const taikoJolnir = createCommon({
 	..._taikoJolnir,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

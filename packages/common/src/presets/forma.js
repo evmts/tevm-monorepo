@@ -27,5 +27,5 @@ export const forma = createCommon({
 	..._forma,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

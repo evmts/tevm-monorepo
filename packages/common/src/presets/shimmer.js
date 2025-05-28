@@ -27,5 +27,5 @@ export const shimmer = createCommon({
 	..._shimmer,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

@@ -27,5 +27,5 @@ export const vechain = createCommon({
 	..._vechain,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

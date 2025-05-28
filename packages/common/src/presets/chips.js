@@ -27,5 +27,5 @@ export const chips = createCommon({
 	..._chips,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

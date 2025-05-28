@@ -27,5 +27,5 @@ export const songbird = createCommon({
 	..._songbird,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })

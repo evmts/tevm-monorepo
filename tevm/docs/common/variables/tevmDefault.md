@@ -74,6 +74,10 @@ The default chain if no fork url is passed
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
 
+### ensTlds?
+
+> `optional` **ensTlds**: readonly `string`[]
+
 ### ethjsCommon
 
 > **ethjsCommon**: `Common`

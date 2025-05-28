@@ -27,5 +27,5 @@ export const bahamut = createCommon({
 	..._bahamut,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'prague',
 })
