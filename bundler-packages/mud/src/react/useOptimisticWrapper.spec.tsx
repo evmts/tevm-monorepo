@@ -17,7 +17,6 @@ describe('useOptimisticWrapper', () => {
 	let stash: Stash
 
 	beforeEach(() => {
-		// @ts-expect-error - viem versions
 		client = createClient({ chain: tevmDefault, transport: createTevmTransport({ common: tevmDefault }) })
 		stash = createStash(config)
 		setRecords({ stash, table: config.tables.app__TestTable, records: Object.values(state.records.app.TestTable) })

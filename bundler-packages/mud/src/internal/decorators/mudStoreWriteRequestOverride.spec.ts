@@ -16,7 +16,6 @@ const getClients = async () => {
 	// TODO: just use a node or transport no need for that many clients
 	const client = createMemoryClient()
 
-	// @ts-expect-error - mismatched viem versions
 	const viemClient = createClient({
 		transport: custom(client),
 		chain: client.chain,
