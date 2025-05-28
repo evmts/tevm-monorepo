@@ -35,7 +35,7 @@ const frame_mod = @import("Frame.zig");
 pub const Frame = frame_mod.Frame;
 pub const FrameError = frame_mod.FrameError;
 pub const HaltReason = frame_mod.HaltReason;
-pub const Gas = frame_mod.Gas;
+pub const FrameGas = frame_mod.Gas;
 
 const journal_mod = @import("Journal.zig");
 pub const Journal = journal_mod.Journal;
@@ -46,5 +46,12 @@ pub const Checkpoint = journal_mod.Checkpoint;
 pub const LogEntry = journal_mod.LogEntry;
 pub const Address = journal_mod.Address;
 pub const B256 = journal_mod.B256;
+
+const gas_mod = @import("Gas.zig");
+pub const Gas = gas_mod.Gas;
+pub const GasError = gas_mod.GasError;
+pub const GasCosts = gas_mod.GasCosts;
+pub const getStaticGasCost = gas_mod.getStaticGasCost;
+pub const OPCODE_GAS_COSTS = gas_mod.OPCODE_GAS_COSTS;
 
 const Evm = struct { depth: u16 };
