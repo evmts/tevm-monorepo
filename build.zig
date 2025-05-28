@@ -567,6 +567,20 @@ pub fn build(b: *std.Build) void {
     
     const bitvec_test_step = b.step("test-bitvec", "Run BitVec tests");
     bitvec_test_step.dependOn(&run_bitvec_test.step);
+    
+    // Add Journal test
+    const journal_test = b.addTest(.{
+        .name = "journal-test",
+        .root_source_file = b.path("test/Evm/journal_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    journal_test.root_module.addImport("evm", evm_mod);
+    
+    const run_journal_test = b.addRunArtifact(journal_test);
+    
+    const journal_test_step = b.step("test-journal", "Run Journal tests");
+    journal_test_step.dependOn(&run_journal_test.step);
 
     const rust_build = @import("src/Compilers/rust_build.zig");
     const rust_step = rust_build.addRustIntegration(b, target, optimize) catch |err| {
@@ -606,6 +620,7 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_constants_test.step);
     test_step.dependOn(&run_contract_test.step);
     test_step.dependOn(&run_bitvec_test.step);
+    test_step.dependOn(&run_journal_test.step);
     test_step.dependOn(&run_frame_test.step);
 
     const test_all_step = b.step("test-all", "Run all unit tests");
