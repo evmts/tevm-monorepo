@@ -102,7 +102,7 @@
     "@tevm/runtime-rs-win32-arm64-msvc": "0.1.0",
     "@tevm/runtime-rs-win32-ia32-msvc": "0.1.0",
     "@tevm/primitives": "1.0.0-next.142",
-    "@tevm/zig": "0.0.1",
+    "@tevm/zig": "0.0.1"
   },
   "changesets": [
     "add-deal-action",
