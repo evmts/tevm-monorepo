@@ -136,19 +136,25 @@ describe('toEqualHex', () => {
 		try {
 			expect('0x1234abcd').toEqualHex('0x1234abce')
 		} catch (error) {
-			expect(error.message).toContain('Expected "0x1234abcd" to equal hex "0x1234abce"')
+			expect(error.message).toBe('Expected hex strings to be equal (normalized comparison)')
+			expect(error.actual).toBe('0x1234abcd')
+			expect(error.expected).toBe('0x1234abce')
 		}
 
 		try {
 			expect('0x123g').toEqualHex('0x1234')
 		} catch (error) {
-			expect(error.message).toContain('Expected "0x123g" to be a valid hex string')
+			expect(error.message).toBe('Expected 0x123g to be a valid hex string')
+			expect(error.actual).toBe('0x123g')
+			expect(error.expected).toBe('0x1234')
 		}
 
 		try {
 			expect('0x000123').toEqualHex('0x123', { exact: true })
 		} catch (error) {
-			expect(error.message).toContain('Expected "0x000123" to equal hex "0x123"')
+			expect(error.message).toBe('Expected hex strings to be equal (exact match)')
+			expect(error.actual).toBe('0x000123')
+			expect(error.expected).toBe('0x123')
 		}
 	})
 

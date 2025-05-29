@@ -23,13 +23,17 @@ describe('toBeBigInt', () => {
 		try {
 			expect(42).toBeBigInt()
 		} catch (error) {
-			expect(error.message).toContain('Expected 42 to be a BigInt, but received number')
+			expect(error.message).toBe('Expected 42 to be a BigInt')
+			expect(error.actual).toBe(42)
+			expect(error.expected).toBe('bigint')
 		}
 
 		try {
 			expect('hello').toBeBigInt()
 		} catch (error) {
-			expect(error.message).toContain('Expected hello to be a BigInt, but received string')
+			expect(error.message).toBe('Expected hello to be a BigInt')
+			expect(error.actual).toBe('hello')
+			expect(error.expected).toBe('bigint')
 		}
 	})
 })

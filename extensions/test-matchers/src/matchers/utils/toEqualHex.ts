@@ -1,5 +1,5 @@
 import { equalsBytes } from '@tevm/utils'
-import { hexToBytes, isHex, trim } from 'viem'
+import { hexToBytes, isHex, trim, type Hex } from 'viem'
 
 export type EqualHexOptions = {
 	/**
@@ -16,43 +16,60 @@ export type EqualHexOptions = {
  * @param received - The first hex string to compare
  * @param expected - The second hex string to compare
  * @param opts - Options for comparison behavior
- * @returns Object with pass boolean and message function
+ * @returns Object with pass boolean, message function, and actual/expected for diff
  */
-export function toEqualHex(received: string, expected: string, opts?: EqualHexOptions) {
+export function toEqualHex(received: unknown, expected: unknown, opts?: EqualHexOptions) {
+	const isStringReceived = typeof received === 'string'
+	const isStringExpected = typeof expected === 'string'
+
 	// First validate both are valid hex strings
-	const isHexReceived = isHex(received, { strict: true })
-	const isHexExpected = isHex(expected, { strict: true })
+	const isHexReceived = isStringReceived && isHex(received, { strict: true })
+	const isHexExpected = isStringExpected && isHex(expected, { strict: true })
 
 	if (!isHexReceived || !isHexExpected) {
 		return {
 			pass: false,
+			actual: received,
+			expected: expected,
 			message: () => {
-				if (!isHexReceived) return `Expected "${received}" to be a valid hex string`
-				if (!isHexExpected) return `Expected "${expected}" to be a valid hex string`
-				return `Expected "${received}" to equal hex "${expected}"`
+				if (!isStringReceived) return `Expected ${received} to be a string, but got ${typeof received}`
+				if (!isStringExpected) return `Expected ${expected} to be a string, but got ${typeof expected}`
+				if (!isHexReceived) return `Expected ${received} to be a valid hex string`
+				if (!isHexExpected) return `Expected ${expected} to be a valid hex string`
+				return `Expected hex strings to be equal`
 			},
 		}
 	}
 
 	let pass: boolean
+	let normalizedReceived: Hex
+	let normalizedExpected: Hex
 
 	if (opts?.exact) {
 		// For exact comparison, compare strings directly (case-insensitive)
-		pass = received.toLowerCase() === expected.toLowerCase()
+		normalizedReceived = received.toLowerCase() as Hex
+		normalizedExpected = expected.toLowerCase() as Hex
+		pass = normalizedReceived === normalizedExpected
 	} else {
 		// For normalized comparison, trim leading zeros and compare bytes
-		const receivedBytes = hexToBytes(trim(received))
-		const expectedBytes = hexToBytes(trim(expected))
-		pass = equalsBytes(receivedBytes, expectedBytes)
+		normalizedReceived = trim(received)
+		normalizedExpected = trim(expected)
+		try {
+			const receivedBytes = hexToBytes(normalizedReceived)
+			const expectedBytes = hexToBytes(normalizedExpected)
+			pass = equalsBytes(receivedBytes, expectedBytes)
+		} catch {
+			pass = false
+		}
 	}
 
 	return {
 		pass,
+		actual: normalizedReceived,
+		expected: normalizedExpected,
 		message: () => {
-			if (pass) {
-				return `Expected "${received}" not to equal hex "${expected}"`
-			}
-			return `Expected "${received}" to equal hex "${expected}"`
+			if (pass) return `Expected hex strings not to be equal`
+			return `Expected hex strings to be equal${opts?.exact ? ' (exact match)' : ' (normalized comparison)'}`
 		},
 	}
 }

@@ -47,15 +47,17 @@ describe('toEqualAddress', () => {
 		try {
 			expect('0x123').toEqualAddress('0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed')
 		} catch (error) {
-			expect(error.message).toContain('Expected "0x123" to be a valid address')
+			expect(error.message).toBe('Expected 0x123 to be a valid address')
+			expect(error.actual).toBe('0x123')
+			expect(error.expected).toBe('0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed')
 		}
 
 		try {
 			expect('0xa5cc3c03994DB5b0d9A5eEdD10CabaB0813678AC').toEqualAddress('0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed')
 		} catch (error) {
-			expect(error.message).toContain(
-				'Expected "0xa5cc3c03994DB5b0d9A5eEdD10CabaB0813678AC" to equal address "0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed"',
-			)
+			expect(error.message).toBe('Expected addresses to be equal')
+			expect(error.actual).toBe('0xa5cc3c03994DB5b0d9A5eEdD10CabaB0813678AC')
+			expect(error.expected).toBe('0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed')
 		}
 	})
 })

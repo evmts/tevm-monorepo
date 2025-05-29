@@ -15,26 +15,28 @@ export type IsHexOptions = {
 /**
  * Custom Vitest matcher to assert that a value is valid hex
  * @param received - The value to test
- * @param expectedSize - Optional expected size of hex characters (without 0x prefix)
- * @returns Object with pass boolean and message function
+ * @param opts - Optional options for hex validation
+ * @returns Object with pass boolean, message function, and actual/expected for diff
  */
-export function toBeHex(received: string, opts?: IsHexOptions) {
-	const isValidHex = isHex(received, opts)
-	const receivedSize = typeof received === 'string' ? (received.length - 2) / 2 : 0
+export function toBeHex(received: unknown, opts?: IsHexOptions) {
+	const isStringReceived = typeof received === 'string'
+	const isValidHex = isStringReceived && isHex(received, opts)
+	const receivedSize = isStringReceived ? (received.length - 2) / 2 : 0
 	const isValidSize = opts?.size === undefined || receivedSize === opts.size
-	const startsWithHex = typeof received === 'string' && received.startsWith('0x')
 	const pass = isValidHex && isValidSize
 
+	const expectedDescription = `valid hex string${opts?.size ? ` with size ${opts.size} bytes` : ''}`
 	return {
 		pass,
+		actual: received,
+		expected: expectedDescription,
 		message: () => {
-			if (pass) {
-				return `Expected "${received}" not to be valid hex${opts?.size ? ` with size ${opts.size}` : ''}`
-			}
-			if (!startsWithHex) return `Expected "${received}" to start with "0x"`
-			if (!isValidHex) return `Expected "${received}" to contain only hex characters (0-9, a-f, A-F) after "0x"`
-			if (!isValidSize) return `Expected "${received}" to have ${opts?.size} bytes after "0x", but got ${receivedSize}`
-			return `Expected "${received}" to be valid hex${opts?.size ? ` with size ${opts.size}` : ''}`
+			if (pass) return `Expected ${received} not to be ${expectedDescription}`
+			if (!isStringReceived) return `Expected ${typeof received} to be a hex string`
+			if (!received.startsWith('0x')) return `Expected ${received} to start with "0x"`
+			if (!isValidHex) return `Expected ${received} to contain only hex characters (0-9, a-f, A-F) after "0x"`
+			if (!isValidSize) return `Expected ${received} to have ${opts?.size} bytes, but got ${receivedSize} bytes`
+			return `Expected ${received} to be ${expectedDescription}`
 		},
 	}
 }

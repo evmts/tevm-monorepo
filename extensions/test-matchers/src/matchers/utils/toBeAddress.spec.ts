@@ -100,13 +100,17 @@ describe('toBeAddress', () => {
 				try {
 					expect('0x123').toBeAddress()
 				} catch (error) {
-					expect(error.message).toContain('Expected "0x123" to be a valid Ethereum address')
+					expect(error.message).toBe('Expected 0x123 to be a valid Ethereum address (checksummed)')
+					expect(error.actual).toBe('0x123')
+					expect(error.expected).toBe('valid Ethereum address')
 				}
 
 				try {
 					expect(123).toBeAddress()
 				} catch (error) {
-					expect(error.message).toContain('received number')
+					expect(error.message).toBe('Expected 123 to be a valid Ethereum address (checksummed)')
+					expect(error.actual).toBe(123)
+					expect(error.expected).toBe('valid Ethereum address')
 				}
 			})
 
@@ -114,7 +118,9 @@ describe('toBeAddress', () => {
 				try {
 					expect('0xa5cc3c03994db5b0d9a5eedd10cabab0813678ac').toBeAddress({ strict: true })
 				} catch (error) {
-					expect(error.message).toContain('(checksummed)')
+					expect(error.message).toBe('Expected 0xa5cc3c03994db5b0d9a5eedd10cabab0813678ac to be a valid Ethereum address (checksummed)')
+					expect(error.actual).toBe('0xa5cc3c03994db5b0d9a5eedd10cabab0813678ac')
+					expect(error.expected).toBe('valid Ethereum address (checksummed)')
 				}
 			})
 
@@ -122,7 +128,9 @@ describe('toBeAddress', () => {
 				try {
 					expect('0xa5cc3c03994db5b0d9a5eedd10cabab0813678ac').toBeAddress()
 				} catch (error) {
-					expect(error.message).toContain('(checksummed)')
+					expect(error.message).toBe('Expected 0xa5cc3c03994db5b0d9a5eedd10cabab0813678ac to be a valid Ethereum address (checksummed)')
+					expect(error.actual).toBe('0xa5cc3c03994db5b0d9a5eedd10cabab0813678ac')
+					expect(error.expected).toBe('valid Ethereum address (checksummed)')
 				}
 			})
 
@@ -130,7 +138,9 @@ describe('toBeAddress', () => {
 				try {
 					expect('invalid').toBeAddress({ strict: false })
 				} catch (error) {
-					expect(error.message).not.toContain('(checksummed)')
+					expect(error.message).toBe('Expected invalid to be a valid Ethereum address')
+					expect(error.actual).toBe('invalid')
+					expect(error.expected).toBe('valid Ethereum address')
 				}
 			})
 		})
