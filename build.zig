@@ -183,7 +183,7 @@ pub fn build(b: *std.Build) void {
     wasm_mod.addImport("Abi", abi_mod);
     wasm_mod.addImport("Block", block_mod);
     wasm_mod.addImport("Bytecode", bytecode_mod);
-    wasm_mod.addImport("Compiler", compiler_mod);
+    wasm_mod.addImport("Compiler", compiler_wasm_mod);
     wasm_mod.addImport("evm", evm_mod);
     wasm_mod.addImport("Rlp", rlp_mod);
     wasm_mod.addImport("Token", token_mod);
@@ -459,6 +459,20 @@ pub fn build(b: *std.Build) void {
 
     const memory_comparison_test_step = b.step("test-memory-comparison", "Run Memory comparison tests");
     memory_comparison_test_step.dependOn(&run_memory_comparison_test.step);
+
+    // Add Stack tests
+    const stack_test = b.addTest(.{
+        .name = "stack-test",
+        .root_source_file = b.path("test/evm/stack_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    stack_test.root_module.addImport("evm", evm_mod);
+
+    const run_stack_test = b.addRunArtifact(stack_test);
+
+    const stack_test_step = b.step("test-stack", "Run Stack tests");
+    stack_test_step.dependOn(&run_stack_test.step);
 
     // Add Memory benchmark
     const memory_benchmark = b.addExecutable(.{

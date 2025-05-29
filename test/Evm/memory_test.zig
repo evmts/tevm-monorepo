@@ -1,7 +1,6 @@
 const std = @import("std");
 const evm = @import("evm");
 const Memory = evm.Memory;
-const MemoryError = evm.MemoryError;
 const testing = std.testing;
 
 pub fn calculateNumWords(len: usize) usize {
@@ -23,9 +22,10 @@ test "Memory initialization and basic operations" {
 
     try testing.expect(mem2.isEmpty());
 
-    // Test with memory limit
-    var mem3 = try Memory.initWithLimit(testing.allocator, 1024);
+    // Test with custom memory limit
+    var mem3 = try Memory.init(testing.allocator);
     defer mem3.deinit();
+    mem3.memory_limit = 1024;
 
     try testing.expectEqual(@as(u64, 1024), mem3.memory_limit);
 }
@@ -45,7 +45,7 @@ test "Memory byte operations" {
     }
 
     // Test out of bounds
-    try testing.expectError(MemoryError.InvalidOffset, mem.getByte(11));
+    try testing.expectError(Memory.Error.InvalidOffset, mem.getByte(11));
 }
 
 test "Memory word operations" {
@@ -110,7 +110,7 @@ test "Memory slice operations" {
     try testing.expectEqual(@as(usize, 0), empty.len);
 
     // Test out of bounds
-    try testing.expectError(MemoryError.InvalidOffset, mem.getSlice(mem.size(), 1));
+    try testing.expectError(Memory.Error.InvalidOffset, mem.getSlice(mem.size(), 1));
 }
 
 test "Memory setDataBounded" {
@@ -224,15 +224,16 @@ test "Memory resize behavior" {
 }
 
 test "Memory limit enforcement" {
-    var mem = try Memory.initWithLimit(testing.allocator, 1024);
+    var mem = try Memory.init(testing.allocator);
     defer mem.deinit();
+    mem.memory_limit = 1024;
 
     // Should succeed
     try mem.resize(1024);
 
     // Should fail - exceeds limit
-    try testing.expectError(MemoryError.MemoryLimitExceeded, mem.resize(1025));
-    try testing.expectError(MemoryError.MemoryLimitExceeded, mem.ensureCapacity(2048));
+    try testing.expectError(Memory.Error.MemoryLimitExceeded, mem.resize(1025));
+    try testing.expectError(Memory.Error.MemoryLimitExceeded, mem.ensureCapacity(2048));
 
     // Size should remain unchanged
     try testing.expectEqual(@as(usize, 1024), mem.size());
@@ -324,8 +325,8 @@ test "Memory edge cases and error handling" {
 
     // Test integer overflow protection
     const max_usize = std.math.maxInt(usize);
-    try testing.expectError(MemoryError.InvalidSize, mem.setData(max_usize - 5, &[_]u8{ 1, 2, 3, 4, 5, 6 }));
-    try testing.expectError(MemoryError.InvalidSize, mem.copy(max_usize - 5, 0, 10));
+    try testing.expectError(Memory.Error.InvalidSize, mem.setData(max_usize - 5, &[_]u8{ 1, 2, 3, 4, 5, 6 }));
+    try testing.expectError(Memory.Error.InvalidSize, mem.copy(max_usize - 5, 0, 10));
 
     // Test zero-length operations
     try mem.setData(0, &[_]u8{});

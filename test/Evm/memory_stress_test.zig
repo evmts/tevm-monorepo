@@ -1,7 +1,6 @@
 const std = @import("std");
 const evm = @import("evm");
 const Memory = evm.Memory;
-const MemoryError = evm.MemoryError;
 const testing = std.testing;
 
 test "Memory stress: rapid expansion/contraction cycles" {
