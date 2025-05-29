@@ -15,7 +15,7 @@ export const useOptimisticRecord = <
 	args: Omit<GetRecordArgs<TTable, TDefaultValue>, 'stash' | 'state'>,
 ): UseOptimisticRecordResult<TTable, TDefaultValue> => {
 	const wrapper = useOptimisticWrapper()
-	return useOptimisticState(async (state) =>
+	return useOptimisticState((state) =>
 		wrapper ? wrapper.getOptimisticRecord({ state, ...args }) : getRecord({ state, ...args }),
 	) as UseOptimisticRecordResult<TTable, TDefaultValue>
 }

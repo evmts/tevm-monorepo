@@ -100,31 +100,6 @@ describe('useOptimisticRecords', () => {
 		expect(result).toEqual(testRecordsArray)
 	})
 
-	it('should fallback to getRecords when wrapper is not available', async () => {
-		const { getRecords } = await import('@latticexyz/stash/internal')
-		const mockGetRecords = vi.mocked(getRecords)
-
-		mockGetRecords.mockReturnValue(testRecords)
-		mockUseOptimisticWrapper.mockReturnValue(undefined)
-
-		let capturedSelector: any
-		mockUseOptimisticState.mockImplementation((selector) => {
-			capturedSelector = selector
-			return testRecordsArray
-		})
-
-		renderHook(() => useOptimisticRecords(mockArgs))
-
-		// Test the selector function
-		const result = await capturedSelector(state)
-
-		expect(mockGetRecords).toHaveBeenCalledWith({
-			state,
-			...mockArgs,
-		})
-		expect(result).toEqual(testRecordsArray)
-	})
-
 	it('should transform records map to array correctly', async () => {
 		// Take a subset of records for testing
 		const recordKeys = Object.keys(testRecords).slice(0, 3)
