@@ -15,14 +15,14 @@ describe('toBeHex', () => {
     '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef', // 64 chars (32 bytes)
   ]
 
-  const validHexStringsWithLength = [
-    { hex: '0x1234', length: 2 }, // 2 bytes
-    { hex: '0xabcd', length: 2 }, // 2 bytes
-    { hex: '0xABCD', length: 2 }, // 2 bytes
-    { hex: '0x00', length: 1 }, // 1 byte
-    { hex: '0x', length: 0 }, // 0 bytes
-    { hex: '0x123456789abcdef0', length: 8 }, // 8 bytes
-    { hex: '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef', length: 32 }, // 32 bytes (tx hash)
+  const validHexStringsWithSize = [
+    { hex: '0x1234', size: 2 }, // 2 bytes
+    { hex: '0xabcd', size: 2 }, // 2 bytes
+    { hex: '0xABCD', size: 2 }, // 2 bytes
+    { hex: '0x00', size: 1 }, // 1 byte
+    { hex: '0x', size: 0 }, // 0 bytes
+    { hex: '0x123456789abcdef0', size: 8 }, // 8 bytes
+    { hex: '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef', size: 32 }, // 32 bytes (tx hash)
   ]
 
   const invalidHexStrings = [
@@ -60,12 +60,12 @@ describe('toBeHex', () => {
     Symbol('test'),
   ]
 
-  const invalidLengthCases = [
-    { hex: '0x123', expectedLength: 2 }, // odd number of chars after 0x
-    { hex: '0x12345', expectedLength: 2 }, // too long
-    { hex: '0x1234', expectedLength: 1 }, // expecting 1 byte but got 2
-    { hex: '0x1234', expectedLength: 4 }, // expecting 4 bytes but got 2
-    { hex: '0x', expectedLength: 1 }, // expecting 1 byte but got 0
+  const invalidSizeCases = [
+    { hex: '0x123', expectedSize: 2 }, // odd number of chars after 0x
+    { hex: '0x12345', expectedSize: 2 }, // too long
+    { hex: '0x1234', expectedSize: 1 }, // expecting 1 byte but got 2
+    { hex: '0x1234', expectedSize: 4 }, // expecting 4 bytes but got 2
+    { hex: '0x', expectedSize: 1 }, // expecting 1 byte but got 0
   ]
 
   describe('default behavior (strict: true)', () => {
@@ -98,38 +98,38 @@ describe('toBeHex', () => {
     })
   })
 
-  describe('length validation', () => {
-    it('should pass for hex strings with correct length', () => {
-      validHexStringsWithLength.forEach(({ hex, length }) => {
-        expect(hex).toBeHex({ length })
-        expect(hex).toBeHex({ length, strict: true })
-        expect(hex).toBeHex({ length, strict: false })
+  describe('size validation', () => {
+    it('should pass for hex strings with correct size', () => {
+      validHexStringsWithSize.forEach(({ hex, size }) => {
+        expect(hex).toBeHex({ size })
+        expect(hex).toBeHex({ size, strict: true })
+        expect(hex).toBeHex({ size, strict: false })
       })
     })
 
-    it('should fail for hex strings with incorrect length', () => {
-      invalidLengthCases.forEach(({ hex, expectedLength }) => {
-        expect(() => expect(hex).toBeHex({ length: expectedLength })).toThrow()
-        expect(() => expect(hex).toBeHex({ length: expectedLength, strict: true })).toThrow()
-        expect(() => expect(hex).toBeHex({ length: expectedLength, strict: false })).toThrow()
+    it('should fail for hex strings with incorrect size', () => {
+      invalidSizeCases.forEach(({ hex, expectedSize }) => {
+        expect(() => expect(hex).toBeHex({ size: expectedSize })).toThrow()
+        expect(() => expect(hex).toBeHex({ size: expectedSize, strict: true })).toThrow()
+        expect(() => expect(hex).toBeHex({ size: expectedSize, strict: false })).toThrow()
       })
     })
 
-    it('should fail for invalid hex even with correct length specification', () => {
-      expect(() => expect('0xGHIJ').toBeHex({ length: 2 })).toThrow()
-      expect(() => expect('1234').toBeHex({ length: 2 })).toThrow() // missing 0x
-      expect(() => expect('0x123!').toBeHex({ length: 2 })).toThrow() // invalid char
+    it('should fail for invalid hex even with correct size specification', () => {
+      expect(() => expect('0xGHIJ').toBeHex({ size: 2 })).toThrow()
+      expect(() => expect('1234').toBeHex({ size: 2 })).toThrow() // missing 0x
+      expect(() => expect('0x123!').toBeHex({ size: 2 })).toThrow() // invalid char
     })
   })
 
   describe('combined options', () => {
-    it('should work with both strict and length options', () => {
-      expect('0x1234').toBeHex({ strict: true, length: 2 })
-      expect('0x1234').toBeHex({ strict: false, length: 2 })
+    it('should work with both strict and size options', () => {
+      expect('0x1234').toBeHex({ strict: true, size: 2 })
+      expect('0x1234').toBeHex({ strict: false, size: 2 })
 
-      expect(() => expect('0x123G').toBeHex({ strict: true, length: 2 })).toThrow()
-      expect(() => expect('0x123G').toBeHex({ strict: false, length: 3 })).toThrow()
-      expect('0x123G').toBeHex({ strict: false, length: 2 })
+      expect(() => expect('0x123G').toBeHex({ strict: true, size: 2 })).toThrow()
+      expect(() => expect('0x123G').toBeHex({ strict: false, size: 3 })).toThrow()
+      expect('0x123G').toBeHex({ strict: false, size: 2 })
     })
   })
 
@@ -140,9 +140,9 @@ describe('toBeHex', () => {
       })
     })
 
-    it('should work with .not for length mismatches', () => {
-      invalidLengthCases.forEach(({ hex, expectedLength }) => {
-        expect(hex).not.toBeHex({ length: expectedLength })
+    it('should work with .not for size mismatches', () => {
+      invalidSizeCases.forEach(({ hex, expectedSize }) => {
+        expect(hex).not.toBeHex({ size: expectedSize })
       })
     })
 
@@ -152,9 +152,9 @@ describe('toBeHex', () => {
       })
     })
 
-    it('should fail with .not for valid hex strings with correct length', () => {
-      validHexStringsWithLength.forEach(({ hex, length }) => {
-        expect(() => expect(hex).not.toBeHex({ length })).toThrow()
+    it('should fail with .not for valid hex strings with correct size', () => {
+      validHexStringsWithSize.forEach(({ hex, size }) => {
+        expect(() => expect(hex).not.toBeHex({ size })).toThrow()
       })
     })
   })
@@ -176,11 +176,11 @@ describe('toBeHex', () => {
       }
     })
 
-    it('should provide helpful error messages for wrong length', () => {
+    it('should provide helpful error messages for wrong size', () => {
       try {
-        expect('0x123').toBeHex({ length: 2 })
+        expect('0x123').toBeHex({ size: 2 })
       } catch (error) {
-        expect(error.message).toContain('Expected "0x123" to have 2 hex characters after "0x", but got')
+        expect(error.message).toContain('Expected "0x123" to have 2 bytes after "0x", but got')
       }
     })
 
@@ -188,7 +188,7 @@ describe('toBeHex', () => {
       const testCases = [
         { input: 'hello', expectedMessage: 'start with "0x"' },
         { input: '0xGHIJ', expectedMessage: 'contain only hex characters' },
-        { input: '0x123', options: { length: 2 }, expectedMessage: 'have 2 hex characters' },
+        { input: '0x123', options: { size: 2 }, expectedMessage: 'have 2 bytes' },
       ]
 
       testCases.forEach(({ input, options, expectedMessage }) => {
@@ -204,32 +204,32 @@ describe('toBeHex', () => {
   describe('real-world usage patterns', () => {
     it('should validate transaction hashes (32 bytes)', () => {
       const txHash = '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef'
-      expect(txHash).toBeHex({ length: 32 })
+      expect(txHash).toBeHex({ size: 32 })
     })
 
     it('should validate block hashes (32 bytes)', () => {
       const blockHash = '0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890'
-      expect(blockHash).toBeHex({ length: 32 })
+      expect(blockHash).toBeHex({ size: 32 })
     })
 
     it('should validate addresses as hex (20 bytes)', () => {
       const address = '0xa5cc3c03994DB5b0d9A5eEdD10CabaB0813678AC'
-      expect(address).toBeHex({ length: 20 })
+      expect(address).toBeHex({ size: 20 })
     })
 
     it('should validate short identifiers', () => {
-      expect('0x1234').toBeHex({ length: 2 })
-      expect('0xabcd').toBeHex({ length: 2 })
+      expect('0x1234').toBeHex({ size: 2 })
+      expect('0xabcd').toBeHex({ size: 2 })
     })
 
     it('should validate function selectors (4 bytes)', () => {
-      expect('0xa9059cbb').toBeHex({ length: 4 }) // transfer function selector
-      expect('0x095ea7b3').toBeHex({ length: 4 }) // approve function selector
+      expect('0xa9059cbb').toBeHex({ size: 4 }) // transfer function selector
+      expect('0x095ea7b3').toBeHex({ size: 4 }) // approve function selector
     })
 
     it('should validate empty hex', () => {
-      expect('0x').toBeHex({ length: 0 })
-      expect('0x').toBeHex() // should pass without length requirement
+      expect('0x').toBeHex({ size: 0 })
+      expect('0x').toBeHex() // should pass without size requirement
     })
   })
 })
