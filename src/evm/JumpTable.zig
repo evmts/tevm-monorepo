@@ -6,6 +6,18 @@ const Stack = @import("Stack.zig").Stack;
 const Memory = @import("Memory.zig").Memory;
 const Frame = @import("Frame.zig").Frame;
 const Operation = @import("Operation.zig").Operation;
+const gas_constants = @import("gas_constants.zig");
+
+const Hardfork = enum {
+    CANCUN,
+};
+
+pub fn opAdd(_: usize, _: *Interpreter, frame: *Frame) !void {
+    // might be able to use popUnsafe
+    const a = try frame.stack.pop();
+    const b = try frame.stack.pop();
+    frame.stack.push(a +% b);
+}
 
 pub const JumpTable = struct {
     const Self = @This();
@@ -37,5 +49,20 @@ pub const JumpTable = struct {
             }
         }
         return new_table;
+    }
+
+    pub fn initFromHardfork(allocator: std.mem.Allocator, hardfork: Hardfork) Self {
+        var jump_table = JumpTable{};
+        _ = hardfork;
+        const add_op = allocator.create(Operation);
+        add_op.* = Operation{
+            .execute = opAdd,
+            .constant_gas = gas_constants.GasFastestStep,
+            .min_stack = 2,
+            .max_stack = Stack.CAPACITY,
+        };
+        jump_table.table[0x01] = add_op;
+
+        return jump_table;
     }
 };
