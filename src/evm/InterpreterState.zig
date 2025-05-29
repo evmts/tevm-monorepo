@@ -32,7 +32,7 @@ pub const InterpreterState = struct {
 
     pub fn init(allocator: std.mem.Allocator) !InterpreterState {
         return InterpreterState{
-            .mem = Memory.init(allocator),
+            .mem = try Memory.init(allocator),
             .stack = try Stack.init(allocator),
         };
     }

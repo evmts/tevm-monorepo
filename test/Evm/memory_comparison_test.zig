@@ -1,8 +1,6 @@
 const std = @import("std");
 const evm = @import("evm");
 const Memory = evm.Memory;
-const MemoryError = evm.MemoryError;
-const calculateNumWords = evm.calculateNumWords;
 const testing = std.testing;
 
 // Tests that verify behavior matches revm and evmone implementations
@@ -136,7 +134,7 @@ test "Comparison: gas cost calculation matches EVM specification" {
         defer mem.deinit();
 
         const new_words = try mem.ensureCapacity(tc.size);
-        const words = calculateNumWords(tc.size);
+        const words = Memory.calculateNumWords(tc.size);
         try testing.expectEqual(words, new_words);
 
         // Calculate expected gas
@@ -147,14 +145,15 @@ test "Comparison: gas cost calculation matches EVM specification" {
 
 test "Comparison: memory limit feature like revm" {
     // Test memory limit feature similar to revm's memory_limit
-    var mem = try Memory.initWithLimit(testing.allocator, 1024 * 1024); // 1MB limit
+    var mem = try Memory.init(testing.allocator);
     defer mem.deinit();
+    mem.memory_limit = 1024 * 1024; // 1MB limit
 
     // Should succeed within limit
     try mem.resize(512 * 1024);
 
     // Should fail beyond limit
-    try testing.expectError(MemoryError.MemoryLimitExceeded, mem.resize(2 * 1024 * 1024));
+    try testing.expectError(Memory.Error.MemoryLimitExceeded, mem.resize(2 * 1024 * 1024));
 
     // Verify memory wasn't expanded
     try testing.expectEqual(@as(usize, 512 * 1024), mem.size());
@@ -189,17 +188,17 @@ test "Comparison: unsafe operations performance optimization" {
 
 test "Comparison: word count calculation matches implementations" {
     // Both revm and evmone use the same word calculation
-    try testing.expectEqual(@as(usize, 0), calculateNumWords(0));
-    try testing.expectEqual(@as(usize, 1), calculateNumWords(1));
-    try testing.expectEqual(@as(usize, 1), calculateNumWords(31));
-    try testing.expectEqual(@as(usize, 1), calculateNumWords(32));
-    try testing.expectEqual(@as(usize, 2), calculateNumWords(33));
-    try testing.expectEqual(@as(usize, 2), calculateNumWords(64));
-    try testing.expectEqual(@as(usize, 3), calculateNumWords(65));
+    try testing.expectEqual(@as(usize, 0), Memory.calculateNumWords(0));
+    try testing.expectEqual(@as(usize, 1), Memory.calculateNumWords(1));
+    try testing.expectEqual(@as(usize, 1), Memory.calculateNumWords(31));
+    try testing.expectEqual(@as(usize, 1), Memory.calculateNumWords(32));
+    try testing.expectEqual(@as(usize, 2), Memory.calculateNumWords(33));
+    try testing.expectEqual(@as(usize, 2), Memory.calculateNumWords(64));
+    try testing.expectEqual(@as(usize, 3), Memory.calculateNumWords(65));
 
     // Large values
-    try testing.expectEqual(@as(usize, 32), calculateNumWords(1024));
-    try testing.expectEqual(@as(usize, 1024), calculateNumWords(32768));
+    try testing.expectEqual(@as(usize, 32), Memory.calculateNumWords(1024));
+    try testing.expectEqual(@as(usize, 1024), Memory.calculateNumWords(32768));
 }
 
 test "Comparison: context management preparation" {
