@@ -46,6 +46,7 @@ pub fn getErrorDescription(err: ExecutionError) []const u8 {
 }
 
 pub const Frame = struct {
+    const Self = @This();
     /// Current operation bytecode being executed
     op: []const u8 = undefined,
     /// Program counter - position in the bytecode
@@ -66,4 +67,11 @@ pub const Frame = struct {
     allocator: std.mem.Allocator,
     /// Flag to indicate that execution should stop (STOP opcode)
     stop: bool = false,
+
+    pub fn init(allocator: std.mem.Allocator, contract: *Contract) Self {
+        return Frame{
+            .allocator = allocator,
+            .contract = contract,
+        };
+    }
 };

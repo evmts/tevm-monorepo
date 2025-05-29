@@ -3,6 +3,7 @@ const Contract = @import("Contract.zig").Contract;
 const Stack = @import("Stack.zig").Stack;
 const Memory = @import("Memory.zig").Memory;
 const JumpTable = @import("JumpTable.zig").JumpTable;
+const Frame = @import("Frame.zig").Frame;
 
 pub const Vm = struct {
     const Self = @This();
@@ -32,7 +33,7 @@ pub const Vm = struct {
         defer self.depth -= 1;
 
         const pc: u64 = 0;
-        const frame = "TODO";
+        const frame = Frame.init(self.allocator, contract);
 
         while (true) {
             const operation = self.table.getOperation(contract.getOp(pc));
