@@ -1,14 +1,10 @@
 const std = @import("std");
 const opcodes = @import("opcodes.zig");
-const Interpreter = @import("interpreter.zig").Interpreter;
-const InterpreterState = @import("InterpreterState.zig").InterpreterState;
 const Stack = @import("Stack.zig").Stack;
 const Memory = @import("Memory.zig").Memory;
 const Frame = @import("Frame.zig").Frame;
 
-fn opUndefined(pc: usize, interpreter: *Interpreter, frame: *Frame) ![]const u8 {
-    _ = pc;
-    _ = interpreter;
+fn opUndefined(frame: *Frame) ![]const u8 {
     _ = frame;
     return error.InvalidOpcode;
 }
@@ -25,11 +21,11 @@ pub const Operation = struct {
     };
 
     // Execute is the operation function
-    execute: *const fn (pc: usize, interpreter: *Interpreter, state: *InterpreterState) opcodes.ExecutionError![]const u8,
+    execute: *const fn (frame: *Frame) opcodes.ExecutionError![]const u8,
     // ConstantGas is the base gas required for the operation
     constant_gas: u64,
     // DynamicGas calculates the dynamic portion of gas for the operation
-    dynamic_gas: ?*const fn (interpreter: *Interpreter, state: *InterpreterState, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64 = null,
+    dynamic_gas: ?*const fn (frame: *Frame, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64 = null,
     // MinStack tells how many stack items are required
     min_stack: u32,
     // MaxStack specifies the max length the stack can have for this operation

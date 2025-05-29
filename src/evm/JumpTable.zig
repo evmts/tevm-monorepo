@@ -1,7 +1,5 @@
 const std = @import("std");
 const opcodes = @import("opcodes.zig");
-const Interpreter = @import("interpreter.zig").Interpreter;
-const InterpreterState = @import("InterpreterState.zig").InterpreterState;
 const Stack = @import("Stack.zig").Stack;
 const Memory = @import("Memory.zig").Memory;
 const Frame = @import("Frame.zig").Frame;
@@ -12,7 +10,7 @@ const Hardfork = enum {
     CANCUN,
 };
 
-pub fn opAdd(_: usize, _: *Interpreter, frame: *Frame) !void {
+pub fn opAdd(frame: *Frame) !void {
     // might be able to use popUnsafe
     const a = try frame.stack.pop();
     const b = try frame.stack.pop();

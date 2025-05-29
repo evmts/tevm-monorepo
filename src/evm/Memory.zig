@@ -59,12 +59,16 @@ pub const Memory = struct {
     pub fn resize(self: *Self, new_size: usize) Error!void {
         if (new_size > self.memory_limit) return Error.MemoryLimitExceeded;
         if (new_size <= self.buffer.items.len) return self.buffer.resize(new_size);
+        
+        const old_size = self.buffer.items.len;
         var new_capacity = self.buffer.capacity;
         while (new_capacity < new_size) : (new_capacity *= 2) {}
         try self.buffer.ensureTotalCapacity(new_capacity);
         try self.buffer.resize(new_size);
         // Zero-initialize new memory
-        @memset(self.buffer.items[self.buffer.items.len..new_size], 0);
+        if (new_size > old_size) {
+            @memset(self.buffer.items[old_size..new_size], 0);
+        }
     }
 
     /// Ensure memory is at least of given size (for gas calculation)
