@@ -1,6 +1,10 @@
 const std = @import("std");
 
 pub const Stack = struct {
+    const Self = @This();
+
+    pub const CAPACITY: usize = 1024;
+
     pub const Error = error{
         Overflow,
         Underflow,
@@ -8,11 +12,9 @@ pub const Stack = struct {
         InvalidPosition,
     };
 
-    pub const CAPACITY: usize = 1024;
-
-    const Self = @This();
-
+    // Array of u256 aligned to 32 byte boundaries for performance reasons
     data: [CAPACITY]u256 align(32) = [_]u256{0} ** CAPACITY,
+
     size: usize = 0,
 
     pub fn fromSlice(values: []const u256) Error!void {
