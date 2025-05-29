@@ -1,0 +1,51 @@
+import type { IsAddressOptions } from 'viem'
+import { expect } from 'vitest'
+import {
+	type EqualHexOptions,
+	type IsHexOptions,
+	toBeAddress,
+	toBeBigInt,
+	toBeHex,
+	toEqualAddress,
+	toEqualHex,
+} from './matchers/utils/index.js'
+
+// Define all matchers
+const matchers = {
+	toBeBigInt,
+	toBeAddress,
+	toBeHex,
+	toEqualAddress,
+	toEqualHex,
+}
+
+// Extend expect with all matchers
+expect.extend(matchers)
+
+// Export matchers for manual usage if needed
+export { matchers }
+
+// Export individual matchers
+export { toBeBigInt } from './matchers/utils/toBeBigInt.js'
+export { toBeAddress } from './matchers/utils/toBeAddress.js'
+export { toBeHex } from './matchers/utils/toBeHex.js'
+export { toEqualAddress } from './matchers/utils/toEqualAddress.js'
+export { toEqualHex } from './matchers/utils/toEqualHex.js'
+
+// Type declarations for TypeScript
+declare module 'vitest' {
+	interface Assertion<T = any> {
+		toBeBigInt(): T
+		toBeAddress(opts?: IsAddressOptions): T
+		toBeHex(opts?: IsHexOptions): T
+		toEqualAddress(expected: string): T
+		toEqualHex(expected: string, opts?: EqualHexOptions): T
+	}
+	interface AsymmetricMatchersContaining {
+		toBeBigInt(): any
+		toBeAddress(): any
+		toBeHex(opts?: IsHexOptions): any
+		toEqualAddress(expected: string): any
+		toEqualHex(expected: string, opts?: EqualHexOptions): any
+	}
+}
