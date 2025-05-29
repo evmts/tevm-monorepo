@@ -49,12 +49,12 @@ pub const Stack = struct {
         return value;
     }
 
-    pub fn peek(self: *const Self) Error!u256 {
+    pub fn peek(self: *const Self) Error!*const u256 {
         if (self.size == 0) return Error.OutOfBounds;
         return &self.data[self.size - 1];
     }
 
-    pub fn peekUnsafe(self: *const Self) Error!u256 {
+    pub fn peekUnsafe(self: *const Self) *const u256 {
         return &self.data[self.size - 1];
     }
 
@@ -94,7 +94,7 @@ pub const Stack = struct {
         std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - n - 1]);
     }
 
-    fn swapN(self: *Self, comptime N: usize) Error!void {
+    pub fn swapN(self: *Self, comptime N: usize) Error!void {
         if (N == 0 or N > 16) @compileError("Invalid swap position");
         if (self.size <= N) return Error.OutOfBounds;
         const top_idx = self.size - 1;
@@ -128,7 +128,7 @@ pub const Stack = struct {
         if (N == 0 or N > 16) @compileError("Invalid dup position");
         if (N > self.size) return Error.OutOfBounds;
         if (self.size >= CAPACITY) return Error.Overflow;
-        try self.push(self.data[self.size - N]);
+        try self.append(self.data[self.size - N]);
     }
 
     pub fn dupNUnsafe(self: *Self, comptime N: usize) void {
@@ -136,7 +136,7 @@ pub const Stack = struct {
         @setRuntimeSafety(false);
         std.debug.assert(N <= self.size);
         std.debug.assert(self.size < CAPACITY);
-        self.push_unsafe(self.data[self.size - N]);
+        self.appendUnsafe(self.data[self.size - N]);
     }
 
     pub fn popn(self: *Self, comptime N: usize) Error![N]u256 {
@@ -161,7 +161,7 @@ pub const Stack = struct {
     } {
         if (self.size <= N) return Error.OutOfBounds;
         const values = try self.popn(N);
-        return .{ .values = values, .top = self.peek_unsafe() };
+        return .{ .values = values, .top = &self.data[self.size - 1] };
     }
 
     // EIP-663 operations
@@ -172,7 +172,7 @@ pub const Stack = struct {
         const idx = @as(usize, n);
         if (idx > self.size) return Error.OutOfBounds;
         if (self.size >= CAPACITY) return Error.Overflow;
-        try self.push(self.data[self.size - idx]);
+        try self.append(self.data[self.size - idx]);
     }
 
     /// SWAPN - swap top with Nth element (dynamic N from bytecode)
@@ -195,7 +195,7 @@ pub const Stack = struct {
 
         if (m_idx > self.size) return Error.OutOfBounds;
 
-        std.mem.swap(u8, &self.data[n_idx], &self.data[m_idx]);
+        std.mem.swap(u256, &self.data[n_idx], &self.data[m_idx]);
     }
 
     pub fn clear(self: *Self) void {
