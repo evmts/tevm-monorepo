@@ -1,19 +1,18 @@
 import type { StoreConfig } from '@latticexyz/stash/internal'
-import { SyncProvider } from '@latticexyz/store-sync/react';
+import { SyncProvider } from '@latticexyz/store-sync/react'
 import React, { createContext, useContext, useEffect, type ReactNode } from 'react'
+import type { Client } from 'viem'
 import {
 	type CreateOptimisticHandlerOptions,
 	type CreateOptimisticHandlerResult,
 	createOptimisticHandler,
 } from '../createOptimisticHandler.js'
-import type { Client } from 'viem';
-import type { SessionClient } from '../types.js';
+import type { SessionClient } from '../types.js'
 
 interface OptimisticWrapperContextType<TConfig extends StoreConfig> extends CreateOptimisticHandlerResult<TConfig> {}
 const OptimisticWrapperContext = createContext<OptimisticWrapperContextType<StoreConfig> | undefined>(undefined)
 
-interface OptimisticWrapperProviderProps<TConfig extends StoreConfig>
-	extends CreateOptimisticHandlerOptions<TConfig> {
+interface OptimisticWrapperProviderProps<TConfig extends StoreConfig> extends CreateOptimisticHandlerOptions<TConfig> {
 	children: ReactNode
 }
 
@@ -46,7 +45,7 @@ export const OptimisticWrapperProvider: React.FC<OptimisticWrapperProviderProps<
 		}
 	}, [])
 
-	if (sync && (sync.enabled === undefined || sync.enabled && client.chain)) {
+	if (sync && (sync.enabled === undefined || (sync.enabled && client.chain))) {
 		return (
 			<OptimisticWrapperContext.Provider value={handlerResult}>
 				<SyncProvider

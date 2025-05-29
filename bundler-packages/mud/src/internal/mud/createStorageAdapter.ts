@@ -14,18 +14,16 @@ import { type Hex, concatHex, size } from 'viem'
 
 export type CreateStorageAdapter = {
 	stash: Stash
-	onTx?: ((tx: { hash: Hex | undefined }) => Promise<void>) | undefined
 }
 
 /**
  * Creates a storage adapter that returns updates instead of applying them directly.
  *
- * It is a copy of the original, with the only modification being that it returns updates instead of `applyUpdates`, and it doesn't need to be async.
+ * It is a copy of the original, with the only modification being that it returns updates instead of `applyUpdates`.
  * @see https://github.com/latticexyz/mud/blob/091ece6264dd4cdbdc21ea3d22347a6f1043a6a3/packages/store-sync/src/stash/createStorageAdapter.ts
  */
 export function createStorageAdapter({
 	stash,
-	onTx,
 }: CreateStorageAdapter): (block: StorageAdapterBlock) => Promise<PendingStashUpdate[]> {
 	const tablesById = Object.fromEntries(
 		Object.values(stash.get().config)
@@ -95,8 +93,6 @@ export function createStorageAdapter({
 			} else if (log.eventName === 'Store_DeleteRecord') {
 				updates.push((pendingRecords[id] = { table, key, value: undefined }))
 			}
-
-			if (onTx) await onTx({ hash: log.transactionHash })
 		}
 
 		return updates
