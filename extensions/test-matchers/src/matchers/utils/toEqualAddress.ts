@@ -1,4 +1,4 @@
-import { isAddress, isAddressEqual, getAddress } from 'viem'
+import { getAddress, isAddress, isAddressEqual } from 'viem'
 
 /**
  * Custom Vitest matcher to assert that two addresses are equal
@@ -31,12 +31,12 @@ export function toEqualAddress(received: unknown, expected: unknown) {
 		actual: normalizedReceived ?? received,
 		expected: normalizedExpected ?? expected,
 		message: () => {
-			if (pass) return `Expected addresses not to be equal`
+			if (pass) return 'Expected addresses not to be equal'
 			if (!isStringReceived) return `Expected ${received} to be a string, but got ${typeof received}`
 			if (!isStringExpected) return `Expected ${expected} to be a string, but got ${typeof expected}`
 			if (!isAddressReceived) return `Expected ${received} to be a valid address`
 			if (!isAddressExpected) return `Expected ${expected} to be a valid address`
-			return `Expected addresses to be equal`
+			return 'Expected addresses to be equal'
 		},
 	}
 }

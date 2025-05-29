@@ -183,9 +183,25 @@ describe('toBeHex', () => {
 
 		it('should provide different messages for different error types', () => {
 			const testCases = [
-				{ input: 'hello', expectedMessage: 'Expected hello to start with "0x"', expected: 'valid hex string', actual: 'hello' },
-				{ input: '0xGHIJ', expectedMessage: 'Expected 0xGHIJ to contain only hex characters (0-9, a-f, A-F) after "0x"', expected: 'valid hex string', actual: '0xGHIJ' },
-				{ input: '0x123', options: { size: 2 }, expectedMessage: 'Expected 0x123 to have 2 bytes, but got 1.5 bytes', expected: 'valid hex string with size 2 bytes', actual: '0x123' },
+				{
+					input: 'hello',
+					expectedMessage: 'Expected hello to start with "0x"',
+					expected: 'valid hex string',
+					actual: 'hello',
+				},
+				{
+					input: '0xGHIJ',
+					expectedMessage: 'Expected 0xGHIJ to contain only hex characters (0-9, a-f, A-F) after "0x"',
+					expected: 'valid hex string',
+					actual: '0xGHIJ',
+				},
+				{
+					input: '0x123',
+					options: { size: 2 },
+					expectedMessage: 'Expected 0x123 to have 2 bytes, but got 1.5 bytes',
+					expected: 'valid hex string with size 2 bytes',
+					actual: '0x123',
+				},
 			]
 
 			testCases.forEach(({ input, options, expectedMessage, expected, actual }) => {

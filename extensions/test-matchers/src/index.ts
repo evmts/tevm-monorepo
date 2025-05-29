@@ -1,6 +1,14 @@
 import type { IsAddressOptions } from 'viem'
 import { expect } from 'vitest'
-import { toBeAddress, toBeBigInt, toBeHex, toEqualAddress, toEqualHex, type IsHexOptions, type EqualHexOptions } from './matchers/utils/index.js'
+import {
+	type EqualHexOptions,
+	type IsHexOptions,
+	toBeAddress,
+	toBeBigInt,
+	toBeHex,
+	toEqualAddress,
+	toEqualHex,
+} from './matchers/utils/index.js'
 
 // Define all matchers
 const matchers = {

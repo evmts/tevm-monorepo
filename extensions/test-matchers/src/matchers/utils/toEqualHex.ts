@@ -1,5 +1,5 @@
 import { equalsBytes } from '@tevm/utils'
-import { hexToBytes, isHex, trim, type Hex } from 'viem'
+import { type Hex, hexToBytes, isHex, trim } from 'viem'
 
 export type EqualHexOptions = {
 	/**
@@ -36,7 +36,7 @@ export function toEqualHex(received: unknown, expected: unknown, opts?: EqualHex
 				if (!isStringExpected) return `Expected ${expected} to be a string, but got ${typeof expected}`
 				if (!isHexReceived) return `Expected ${received} to be a valid hex string`
 				if (!isHexExpected) return `Expected ${expected} to be a valid hex string`
-				return `Expected hex strings to be equal`
+				return 'Expected hex strings to be equal'
 			},
 		}
 	}
@@ -68,7 +68,7 @@ export function toEqualHex(received: unknown, expected: unknown, opts?: EqualHex
 		actual: normalizedReceived,
 		expected: normalizedExpected,
 		message: () => {
-			if (pass) return `Expected hex strings not to be equal`
+			if (pass) return 'Expected hex strings not to be equal'
 			return `Expected hex strings to be equal${opts?.exact ? ' (exact match)' : ' (normalized comparison)'}`
 		},
 	}

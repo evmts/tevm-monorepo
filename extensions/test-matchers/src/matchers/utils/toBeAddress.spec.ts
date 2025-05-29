@@ -118,7 +118,9 @@ describe('toBeAddress', () => {
 				try {
 					expect('0xa5cc3c03994db5b0d9a5eedd10cabab0813678ac').toBeAddress({ strict: true })
 				} catch (error) {
-					expect(error.message).toBe('Expected 0xa5cc3c03994db5b0d9a5eedd10cabab0813678ac to be a valid Ethereum address (checksummed)')
+					expect(error.message).toBe(
+						'Expected 0xa5cc3c03994db5b0d9a5eedd10cabab0813678ac to be a valid Ethereum address (checksummed)',
+					)
 					expect(error.actual).toBe('0xa5cc3c03994db5b0d9a5eedd10cabab0813678ac')
 					expect(error.expected).toBe('valid Ethereum address (checksummed)')
 				}
@@ -128,7 +130,9 @@ describe('toBeAddress', () => {
 				try {
 					expect('0xa5cc3c03994db5b0d9a5eedd10cabab0813678ac').toBeAddress()
 				} catch (error) {
-					expect(error.message).toBe('Expected 0xa5cc3c03994db5b0d9a5eedd10cabab0813678ac to be a valid Ethereum address (checksummed)')
+					expect(error.message).toBe(
+						'Expected 0xa5cc3c03994db5b0d9a5eedd10cabab0813678ac to be a valid Ethereum address (checksummed)',
+					)
 					expect(error.actual).toBe('0xa5cc3c03994db5b0d9a5eedd10cabab0813678ac')
 					expect(error.expected).toBe('valid Ethereum address (checksummed)')
 				}
