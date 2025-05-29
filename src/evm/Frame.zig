@@ -46,7 +46,6 @@ pub fn getErrorDescription(err: ExecutionError) []const u8 {
 }
 
 pub const Frame = struct {
-    // Core execution context
     /// Current operation bytecode being executed
     op: []const u8 = undefined,
     /// Program counter - position in the bytecode
@@ -55,24 +54,16 @@ pub const Frame = struct {
     cost: u64 = 0,
     /// Error encountered during execution (if any)
     err: ?ExecutionError = null,
-
-    // Execution resources
     /// EVM memory - a linear byte array that can be accessed via MLOAD/MSTORE
     memory: Memory,
     /// EVM stack - holds up to 1024 items for operation inputs/outputs
     stack: Stack,
     /// Current contract being executed, containing code and execution context
     contract: *Contract,
-
-    // Call data and return data
     /// Return data from the most recent call operation
     returnData: ?[]u8 = null,
-    /// Size of the return data buffer
-    returnSize: usize = 0,
-
     /// Allocator for memory management of the Frame's resources
     allocator: std.mem.Allocator,
-
     /// Flag to indicate that execution should stop (STOP opcode)
     stop: bool = false,
 };
