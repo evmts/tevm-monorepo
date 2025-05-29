@@ -2,6 +2,7 @@ const std = @import("std");
 const Contract = @import("Contract.zig").Contract;
 const Stack = @import("Stack.zig").Stack;
 const Memory = @import("Memory.zig").Memory;
+const JumpTable = @import("JumpTable.zig").JumpTable;
 
 pub const Vm = struct {
     const Self = @This();
@@ -12,6 +13,7 @@ pub const Vm = struct {
 
     stack: Stack = Stack{},
     memory: Memory,
+    table: JumpTable,
 
     depth: u16 = 0,
 
@@ -25,11 +27,16 @@ pub const Vm = struct {
 
     pub fn interpret(self: *Self, contract: *const Contract, input: []const u8) ![]const u8 {
         _ = input;
-        _ = contract;
 
         self.depth += 1;
         defer self.depth -= 1;
 
-        while (true) {}
+        const pc: u64 = 0;
+        const frame = "TODO";
+
+        while (true) {
+            const operation = self.table.getOperation(contract.getOp(pc));
+            operation.execute(frame);
+        }
     }
 };
