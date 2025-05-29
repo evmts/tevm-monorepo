@@ -167,8 +167,6 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 		// the _subscribeToOptimisticState:txremoved event to somehow be combined into a single event?
 		if (txPool.txsInPool === 0) {
 			logger?.debug('No txs in pool, clearing logs and returning canonical state.')
-			internalLogs = []
-			optimisticLogs = []
 			return
 		}
 
