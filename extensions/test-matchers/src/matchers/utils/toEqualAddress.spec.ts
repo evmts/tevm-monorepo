@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import '../index.js' // Import to extend expect with our matchers
+import '../../index.js' // Import to extend expect with our matchers
 
 describe('toEqualAddress', () => {
 	const validAddressPairs = [

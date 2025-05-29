@@ -1,10 +1,6 @@
 import type { IsAddressOptions } from 'viem'
 import { expect } from 'vitest'
-import { toBeAddress } from './matchers/toBeAddress.js'
-import { toBeBigInt } from './matchers/toBeBigInt.js'
-import { type IsHexOptions, toBeHex } from './matchers/toBeHex.js'
-import { toEqualAddress } from './matchers/toEqualAddress.js'
-import { type EqualHexOptions, toEqualHex } from './matchers/toEqualHex.js'
+import { toBeAddress, toBeBigInt, toBeHex, toEqualAddress, toEqualHex, type IsHexOptions, type EqualHexOptions } from './matchers/utils/index.js'
 
 // Define all matchers
 const matchers = {
@@ -22,11 +18,11 @@ expect.extend(matchers)
 export { matchers }
 
 // Export individual matchers
-export { toBeBigInt } from './matchers/toBeBigInt.js'
-export { toBeAddress } from './matchers/toBeAddress.js'
-export { toBeHex } from './matchers/toBeHex.js'
-export { toEqualAddress } from './matchers/toEqualAddress.js'
-export { toEqualHex } from './matchers/toEqualHex.js'
+export { toBeBigInt } from './matchers/utils/toBeBigInt.js'
+export { toBeAddress } from './matchers/utils/toBeAddress.js'
+export { toBeHex } from './matchers/utils/toBeHex.js'
+export { toEqualAddress } from './matchers/utils/toEqualAddress.js'
+export { toEqualHex } from './matchers/utils/toEqualHex.js'
 
 // Type declarations for TypeScript
 declare module 'vitest' {
