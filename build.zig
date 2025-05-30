@@ -26,7 +26,20 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-
+    const webui = b.dependency("webui", .{
+        .target = target,
+        .optimize = optimize,
+        .dynamic = false,
+        .@"enable-tls" = false,
+        .verbose = .err,
+    });
+    const ui_exe = b.addExecutable(.{
+        .name = "ui",
+        .root_source_file = b.path("src/ui/ui.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    ui_exe.linkLibrary(webui.artifact("webui"));
     // First create individual modules for each component
     const address_mod = b.createModule(.{
         .root_source_file = b.path("src/Address/address.zig"),
@@ -238,6 +251,7 @@ pub fn build(b: *std.Build) void {
     b.installArtifact(exe);
     b.installArtifact(wasm);
     b.installArtifact(server_exe);
+    b.installArtifact(ui_exe);
 
     // This *creates* a Run step in the build graph
     const run_cmd = b.addRunArtifact(exe);
@@ -260,14 +274,23 @@ pub fn build(b: *std.Build) void {
     const run_server_cmd = b.addRunArtifact(server_exe);
     run_server_cmd.step.dependOn(b.getInstallStep());
 
-    // Pass arguments to the server application
+    // Define a run ui step
+    const run_ui_cmd = b.addRunArtifact(ui_exe);
+    run_ui_cmd.step.dependOn(b.getInstallStep());
+
+    // Pass arguments to the applications
     if (b.args) |args| {
         run_server_cmd.addArgs(args);
+        run_ui_cmd.addArgs(args);
     }
 
     // Define run server step
     const run_server_step = b.step("run-server", "Run the JSON-RPC server");
     run_server_step.dependOn(&run_server_cmd.step);
+
+    // Define run ui step
+    const run_ui_step = b.step("ui", "Run the ui");
+    run_ui_step.dependOn(&run_ui_cmd.step);
 
     // Creates a step for unit testing.
     const lib_unit_tests = b.addTest(.{
