@@ -12,6 +12,7 @@ packages:
   - packages/*
   - scripts
   - src
+  - src/ui
   - tevm
   - test/*
 onlyBuiltDependencies:

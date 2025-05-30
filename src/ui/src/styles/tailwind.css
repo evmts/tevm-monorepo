@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@layer base {
+	:root {
+		--radius: 0.5rem;
+	}
+
+	body {
+		@apply bg-white text-gray-900 transition-colors duration-300;
+	}
+
+	body.dark {
+		@apply bg-[#1E1E1E] text-gray-100;
+	}
+}
+
+@layer components {
+	.btn {
+		@apply px-4 py-2 rounded-lg shadow-sm transition-all duration-200 focus:outline-none focus:ring-2 transform hover:translate-y-[-1px] active:translate-y-[1px];
+	}
+
+	.btn-primary {
+		@apply bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 active:from-indigo-700 active:to-purple-800 text-white focus:ring-indigo-500/50 dark:focus:ring-indigo-400/50;
+	}
+
+	.btn-secondary {
+		@apply border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#2D2D2D] hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 focus:ring-indigo-500/50 dark:focus:ring-indigo-400/50;
+	}
+
+	.card {
+		@apply bg-white dark:bg-[#252525] rounded-xl shadow-sm border border-gray-200 dark:border-gray-800;
+	}
+
+	.card-header {
+		@apply p-3 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between;
+	}
+}
