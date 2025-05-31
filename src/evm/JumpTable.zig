@@ -23,11 +23,11 @@ pub const JumpTable = struct {
     /// Array of operations indexed by opcode value (0-255)
     table: [256]?*const Operation = [_]?*const Operation{null} ** 256,
 
-    pub fn getOperation(self: *const JumpTable, opcode: u8) *const Operation {
+    pub fn getOperation(self: *const Self, opcode: u8) *const Operation {
         return self.table[opcode] orelse &Operation.NULL;
     }
 
-    pub fn validate(self: *JumpTable) void {
+    pub fn validate(self: *Self) void {
         for (0..256) |i| {
             if (self.table[i] == null) {
                 self.table[i] = &Operation.NULL;
@@ -37,8 +37,8 @@ pub const JumpTable = struct {
         }
     }
 
-    pub fn copy(self: *const JumpTable, allocator: std.mem.Allocator) !JumpTable {
-        var new_table = JumpTable.init();
+    pub fn copy(self: *const Self, allocator: std.mem.Allocator) !Self {
+        var new_table = Self.init();
         for (0..256) |i| {
             if (self.table[i] != null) {
                 const op_copy = try allocator.create(Operation);
@@ -50,7 +50,7 @@ pub const JumpTable = struct {
     }
 
     pub fn initFromHardfork(allocator: std.mem.Allocator, hardfork: Hardfork) Self {
-        var jump_table = JumpTable{};
+        var jump_table = Self{};
         _ = hardfork;
         const add_op = allocator.create(Operation);
         add_op.* = Operation{
