@@ -1,8 +1,19 @@
 const std = @import("std");
 const webui = @import("webui.zig");
 
-var gpa = std.heap.GeneralPurposeAllocator(.{}){};
-const allocator = gpa.allocator();
+// creates the response of our assets at compile time
+inline fn createResponse(comptime content: []const u8, comptime mime_type: []const u8) []const u8 {
+    const content_length = comptime blk: {
+        var buf: [20]u8 = undefined;
+        const n = std.fmt.bufPrint(&buf, "{d}", .{content.len}) catch unreachable;
+        break :blk buf[0..n.len];
+    };
+    return "HTTP/1.1 200 OK\r\n" ++
+        "Content-Type: " ++ mime_type ++ "\n" ++
+        "Content-Length: " ++ content_length ++ "\n" ++
+        "\n" ++
+        content;
+}
 
 pub const Asset = struct {
     const Self = @This();
@@ -13,24 +24,16 @@ pub const Asset = struct {
     response: []u8,
 
     pub fn init(
-        path: []const u8,
-        content: []const u8,
-        mime_type: []const u8,
+        comptime path: []const u8,
+        comptime content: []const u8,
+        comptime mime_type: []const u8,
     ) Self {
         return Self{
             .path = path,
             .content = content,
             .mime_type = mime_type,
-            .response = try std.fmt.allocPrint(allocator, "HTTP/1.1 200 OK\r\n" ++
-                "Content-Type: {s}\r\n" ++
-                "Content-Length: {d}\r\n" ++
-                "\r\n" ++
-                "{s}", .{ mime_type, content.len, content }),
+            .response = createResponse(content, mime_type),
         };
-    }
-
-    pub fn deinit(self: *Self) void {
-        allocator.free(self.response);
     }
 
     pub const assets = [_]Asset{
@@ -81,7 +84,6 @@ const HandlerError = error{
 };
 
 pub fn main() !void {
-    defer _ = gpa.deinit();
     var app = App.init();
     defer App.deinit();
 
