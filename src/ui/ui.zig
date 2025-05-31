@@ -2,13 +2,11 @@ const std = @import("std");
 const webui = @import("webui.zig");
 
 // creates the response of our assets at compile time
-inline fn createResponse(comptime content: []const u8, comptime mime_type: []const u8) []const u8 {
-    const content_length = comptime blk: {
-        var buf: [20]u8 = undefined;
-        const n = std.fmt.bufPrint(&buf, "{d}", .{content.len}) catch unreachable;
-        break :blk buf[0..n.len];
-    };
-    return "HTTP/1.1 200 OK\r\n" ++
+fn createResponse(comptime content: []const u8, comptime mime_type: []const u8) [:0]const u8 {
+    var buf: [20]u8 = undefined;
+    const n = std.fmt.bufPrint(&buf, "{d}", .{content.len}) catch unreachable;
+    const content_length = buf[0..n.len];
+    return "HTTP/1.1 200 OK\n" ++
         "Content-Type: " ++ mime_type ++ "\n" ++
         "Content-Length: " ++ content_length ++ "\n" ++
         "\n" ++
@@ -21,7 +19,7 @@ pub const Asset = struct {
     path: []const u8,
     content: []const u8,
     mime_type: []const u8,
-    response: []u8,
+    response: [:0]const u8,
 
     pub fn init(
         comptime path: []const u8,
@@ -36,35 +34,42 @@ pub const Asset = struct {
         };
     }
 
+    pub const not_found_asset = Asset.init(
+        "/notfound.html",
+        "<div>Page not found</div>",
+        "text/html",
+    );
+
     pub const assets = [_]Asset{
         Asset.init(
             "/index.html",
-            "dist/index.html",
+            @embedFile("dist/index.html"),
             "text/html",
         ),
+        not_found_asset,
         Asset.init(
             "/vite.svg",
-            "dist/vite.svg",
+            @embedFile("dist/vite.svg"),
             "image/svg+xml",
         ),
         Asset.init(
             "/assets/index-g0-s2jNV.js",
-            "dist/assets/index-g0-s2jNV.js",
+            @embedFile("dist/assets/index-g0-s2jNV.js"),
             "application/javascript",
         ),
         Asset.init(
             "/assets/index-BG_JvFUn.css",
-            "dist/assets/index-BG_JvFUn.css",
+            @embedFile("dist/assets/index-BG_JvFUn.css"),
             "text/css",
         ),
         Asset.init(
             "/assets/logo-BKhbptE1.svg",
-            "dist/assets/logo-BKhbptE1.svg",
+            @embedFile("dist/assets/logo-BKhbptE1.svg"),
             "image/svg+xml",
         ),
         Asset.init(
             "/tauri.svg",
-            "dist/tauri.svg",
+            @embedFile("dist/tauri.svg"),
             "image/svg+xml",
         ),
     };
@@ -77,10 +82,6 @@ pub const Asset = struct {
         }
         return null;
     }
-};
-
-const HandlerError = error{
-    FILE_NOT_FOUND,
 };
 
 pub fn main() !void {
@@ -105,9 +106,9 @@ const App = struct {
         webui.clean();
     }
 
-    pub fn handler(filename: []const u8) ?[]const u8 {
-        const asset = Asset.getAsset(filename) orelse unreachable;
-        return asset.response;
+    pub fn handler(filename: []const u8) []const u8 {
+        const asset = Asset.getAsset(filename) orelse Asset.not_found_asset;
+        return asset.content;
     }
 
     pub fn run(self: *Self) !void {
