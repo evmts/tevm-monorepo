@@ -516,7 +516,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = .ReleaseFast,
     });
-    
+
     // Add EVM Memory benchmark
     const evm_memory_benchmark = b.addExecutable(.{
         .name = "evm-memory-benchmark",
@@ -535,6 +535,7 @@ pub fn build(b: *std.Build) void {
     // Add combined benchmark step
     const all_benchmark_step = b.step("bench", "Run all benchmarks");
     all_benchmark_step.dependOn(&run_memory_benchmark.step);
+    all_benchmark_step.dependOn(&run_evm_memory_benchmark.step);
     all_benchmark_step.dependOn(&run_evm_memory_benchmark.step);
 
     // Add Rust Foundry wrapper integration

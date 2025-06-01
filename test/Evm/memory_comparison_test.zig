@@ -202,7 +202,7 @@ test "Comparison: word count calculation matches implementations" {
 }
 
 test "Comparison: context management preparation" {
-    // This test prepares for future context management like revm's SharedMemory
+    // This test prepares for future context management like revm's Memory
     var mem = try Memory.init(testing.allocator);
     defer mem.deinit();
 
