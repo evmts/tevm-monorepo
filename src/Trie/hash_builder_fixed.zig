@@ -52,7 +52,7 @@ pub const HashBuilder = struct {
     }
     
     /// Helper to store a node and manage memory properly
-    fn storeNode(self: *HashBuilder, node: TrieNode) ![]const u8 {
+    fn store_node(self: *HashBuilder, node: TrieNode) ![]const u8 {
         // Get the hash of the node
         const hash = try node.hash(self.allocator);
         const hash_str = try bytesToHexString(self.allocator, &hash);
@@ -153,7 +153,7 @@ pub const HashBuilder = struct {
     }
     
     /// Calculate the root hash
-    pub fn rootHash(self: *const HashBuilder) ?[32]u8 {
+    pub fn root_hash(self: *const HashBuilder) ?[32]u8 {
         return self.root_hash;
     }
     
@@ -645,7 +645,7 @@ pub const HashBuilder = struct {
     }
     
     /// Get a value from the trie
-    fn getValue(self: *const HashBuilder, node: TrieNode, nibbles: []const u8) !?[]const u8 {
+    fn get_value(self: *const HashBuilder, node: TrieNode, nibbles: []const u8) !?[]const u8 {
         switch (node) {
             .Empty => return null,
             .Leaf => |leaf| {
@@ -739,7 +739,7 @@ pub const HashBuilder = struct {
     }
     
     /// Delete a key-value pair from the trie
-    fn deleteKey(self: *HashBuilder, nibbles: []const u8, current_node: TrieNode) !?TrieNode {
+    fn delete_key(self: *HashBuilder, nibbles: []const u8, current_node: TrieNode) !?TrieNode {
         switch (current_node) {
             .Empty => return null, // Nothing to delete
             .Leaf => |leaf| {
@@ -1077,7 +1077,7 @@ pub const HashBuilder = struct {
 // Helper functions
 
 /// Find the length of the common prefix of two byte slices
-fn commonPrefixLength(a: []const u8, b: []const u8) usize {
+fn common_prefix_length(a: []const u8, b: []const u8) usize {
     const min_len = @min(a.len, b.len);
     var i: usize = 0;
     while (i < min_len and a[i] == b[i]) : (i += 1) {}
@@ -1085,7 +1085,7 @@ fn commonPrefixLength(a: []const u8, b: []const u8) usize {
 }
 
 /// Convert a byte array to a hex string
-fn bytesToHexString(allocator: Allocator, bytes: []const u8) ![]u8 {
+fn bytes_to_hex_string(allocator: Allocator, bytes: []const u8) ![]u8 {
     const hex_chars = "0123456789abcdef";
     const hex = try allocator.alloc(u8, bytes.len * 2);
     errdefer allocator.free(hex);

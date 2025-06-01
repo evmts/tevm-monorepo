@@ -64,7 +64,7 @@ pub const assets = [_]Self{
     not_found_asset,
 };
 
-pub fn getAsset(filename: []const u8) ?Self {
+pub fn get_asset(filename: []const u8) ?Self {
     for (assets) |asset| {
         if (std.mem.eql(u8, asset.path, filename)) {
             return asset;

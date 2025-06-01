@@ -17,7 +17,7 @@ pub extern fn webui_get_mime_type(file: [*:0]const u8) callconv(.C) [*:0]const u
 pub extern fn webui_set_tls_certificate(certificate_pem: [*:0]const u8, private_key_pem: [*:0]const u8) callconv(.C) bool;
 
 /// through this func, we can get webui's lastest error number and error message
-pub fn getLastError() WebUIErrorInfo {
+pub fn get_last_error() WebUIErrorInfo {
     return .{
         .num = webui_get_last_error_number(),
         .msg = webui_get_last_error_message(),
@@ -65,7 +65,7 @@ pub fn memcpy(dst: []u8, src: []const u8) void {
 }
 
 /// Get the HTTP mime type of a file.
-pub fn getMimeType(file: [:0]const u8) [:0]const u8 {
+pub fn get_mime_type(file: [:0]const u8) [:0]const u8 {
     const res = webui_get_mime_type(file.ptr);
     return res[0..std.mem.len(res) :0];
 }
@@ -74,8 +74,8 @@ pub fn getMimeType(file: [:0]const u8) [:0]const u8 {
 /// both in PEM format.
 /// This works only with `webui-2-secure` library.
 /// If set empty WebUI will generate a self-signed certificate.
-pub fn setTlsCertificate(certificate_pem: [:0]const u8, private_key_pem: [:0]const u8) !void {
-    if (comptime !flags.enableTLS) {
+pub fn set_tls_certificate(certificate_pem: [:0]const u8, private_key_pem: [:0]const u8) !void {
+    if (comptime !flags.enable_tls) {
         @compileError("not enable tls");
     }
     const success = webui_set_tls_certificate(certificate_pem.ptr, private_key_pem.ptr);

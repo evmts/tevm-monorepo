@@ -176,7 +176,7 @@ pub fn valid_jumpdest(self: *Self, dest: u256) bool {
 /// Ensure code analysis is performed
 fn ensure_analysis(self: *Self) void {
     if (self.analysis == null and !self.is_empty) {
-        self.analysis = analyzeCode(self.code, self.code_hash) catch null;
+        self.analysis = analyze_code(self.code, self.code_hash) catch null;
     }
 }
 
@@ -198,23 +198,23 @@ pub inline fn use_gas(self: *Self, amount: u64) bool {
 }
 
 /// Use gas without checking (when known safe)
-pub inline fn useGasUnchecked(self: *Self, amount: u64) void {
+pub inline fn use_gas_unchecked(self: *Self, amount: u64) void {
     self.gas -= amount;
 }
 
 /// Refund gas to contract
-pub inline fn refundGas(self: *Self, amount: u64) void {
+pub inline fn refund_gas(self: *Self, amount: u64) void {
     self.gas += amount;
 }
 
 /// Add to gas refund counter with clamping
-pub inline fn addGasRefund(self: *Self, amount: u64) void {
+pub inline fn add_gas_refund(self: *Self, amount: u64) void {
     const max_refund = self.gas / MAX_REFUND_QUOTIENT;
     self.gas_refund = @min(self.gas_refund + amount, max_refund);
 }
 
 /// Subtract from gas refund counter with clamping
-pub inline fn subGasRefund(self: *Self, amount: u64) void {
+pub inline fn sub_gas_refund(self: *Self, amount: u64) void {
     self.gas_refund = if (self.gas_refund > amount) self.gas_refund - amount else 0;
 }
 
@@ -337,7 +337,7 @@ pub fn deinit(self: *Self, pool: ?*StoragePool) void {
 }
 
 /// Analyze code and cache results
-pub fn analyzeCode(code: []const u8, code_hash: [32]u8) !*const CodeAnalysis {
+pub fn analyze_code(code: []const u8, code_hash: [32]u8) !*const CodeAnalysis {
     // Check cache first
     cache_mutex.lock();
     defer cache_mutex.unlock();

@@ -302,7 +302,7 @@ pub fn copy(self: *Self, dest_offset: usize, src_offset: usize, len: usize) Erro
     // Ensure memory is large enough
     const required_size = @max(src_end, dest_end);
     if (required_size > self.buffer.items.len) {
-        _ = try self.ensureCapacity(required_size);
+        _ = try self.ensure_capacity(required_size);
     }
 
     const src_slice = self.buffer.items[src_offset..src_end];
