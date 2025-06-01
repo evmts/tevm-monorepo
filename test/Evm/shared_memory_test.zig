@@ -1,12 +1,12 @@
 const std = @import("std");
 const testing = std.testing;
-const SharedMemory = @import("evm").SharedMemory;
+const Memory = @import("evm").Memory;
 
-test "SharedMemory: basic initialization" {
+test "Memory: basic initialization" {
     const allocator = testing.allocator;
     
     // Test default initialization
-    var mem = try SharedMemory.init_default(allocator);
+    var mem = try Memory.init_default(allocator);
     defer mem.deinit();
     mem.finalize_root();
     mem.finalize_root();
@@ -14,14 +14,14 @@ test "SharedMemory: basic initialization" {
     try testing.expectEqual(@as(usize, 0), mem.context_size());
     try testing.expectEqual(@as(usize, 0), mem.my_checkpoint);
     try testing.expectEqual(@as(?usize, null), mem.child_active_checkpoint);
-    try testing.expectEqual(SharedMemory.DefaultMemoryLimit, mem.memory_limit);
+    try testing.expectEqual(Memory.DefaultMemoryLimit, mem.memory_limit);
     try testing.expectEqual(&mem, mem.root_ptr);
 }
 
-test "SharedMemory: initialization with custom capacity and limit" {
+test "Memory: initialization with custom capacity and limit" {
     const allocator = testing.allocator;
     
-    var mem = try SharedMemory.init(allocator, 8192, 1024 * 1024);
+    var mem = try Memory.init(allocator, 8192, 1024 * 1024);
     defer mem.deinit();
     mem.finalize_root();
     
@@ -30,10 +30,10 @@ test "SharedMemory: initialization with custom capacity and limit" {
     try testing.expect(mem.total_shared_buffer_capacity() >= 8192);
 }
 
-test "SharedMemory: child context creation" {
+test "Memory: child context creation" {
     const allocator = testing.allocator;
     
-    var root = try SharedMemory.init_default(allocator);
+    var root = try Memory.init_default(allocator);
     defer root.deinit();
     root.finalize_root();
     
@@ -51,13 +51,13 @@ test "SharedMemory: child context creation" {
     try testing.expectEqual(root.root_ptr, child.root_ptr);
     
     // Try to create another child while one is active (should fail)
-    try testing.expectError(SharedMemory.SharedMemoryError.ChildContextActive, root.new_child_context());
+    try testing.expectError(Memory.MemoryError.ChildContextActive, root.new_child_context());
 }
 
-test "SharedMemory: context operations - basic read/write" {
+test "Memory: context operations - basic read/write" {
     const allocator = testing.allocator;
     
-    var root = try SharedMemory.init_default(allocator);
+    var root = try Memory.init_default(allocator);
     defer root.deinit();
     root.finalize_root();
     
@@ -76,10 +76,10 @@ test "SharedMemory: context operations - basic read/write" {
     try testing.expectEqual(value, try root.get_u256(64));
 }
 
-test "SharedMemory: child context isolation" {
+test "Memory: child context isolation" {
     const allocator = testing.allocator;
     
-    var root = try SharedMemory.init_default(allocator);
+    var root = try Memory.init_default(allocator);
     defer root.deinit();
     root.finalize_root();
     
@@ -104,10 +104,10 @@ test "SharedMemory: child context isolation" {
     try testing.expectEqualSlices(u8, &([_]u8{0xBB} ** 32), &try child.get_word(0));
 }
 
-test "SharedMemory: revert child context" {
+test "Memory: revert child context" {
     const allocator = testing.allocator;
     
-    var root = try SharedMemory.init_default(allocator);
+    var root = try Memory.init_default(allocator);
     defer root.deinit();
     root.finalize_root();
     
@@ -133,10 +133,10 @@ test "SharedMemory: revert child context" {
     try testing.expectEqualSlices(u8, &([_]u8{0xAA} ** 32), &try root.get_word(0));
 }
 
-test "SharedMemory: commit child context" {
+test "Memory: commit child context" {
     const allocator = testing.allocator;
     
-    var root = try SharedMemory.init_default(allocator);
+    var root = try Memory.init_default(allocator);
     defer root.deinit();
     root.finalize_root();
     
@@ -160,10 +160,10 @@ test "SharedMemory: commit child context" {
     try testing.expectEqual(@as(usize, 96), child2.my_checkpoint);
 }
 
-test "SharedMemory: nested contexts" {
+test "Memory: nested contexts" {
     const allocator = testing.allocator;
     
-    var root = try SharedMemory.init_default(allocator);
+    var root = try Memory.init_default(allocator);
     defer root.deinit();
     root.finalize_root();
     
@@ -195,10 +195,10 @@ test "SharedMemory: nested contexts" {
     try testing.expectEqual(@as(usize, 1), root.total_shared_buffer_size());
 }
 
-test "SharedMemory: memory limit enforcement" {
+test "Memory: memory limit enforcement" {
     const allocator = testing.allocator;
     
-    var mem = try SharedMemory.init(allocator, 1024, 2048);
+    var mem = try Memory.init(allocator, 1024, 2048);
     defer mem.deinit();
     mem.finalize_root();
     
@@ -211,13 +211,13 @@ test "SharedMemory: memory limit enforcement" {
     try testing.expectEqual(@as(usize, 2048), mem.context_size());
     
     // Should fail - exceeds limit
-    try testing.expectError(SharedMemory.SharedMemoryError.MemoryLimitExceeded, mem.resize_context(2049));
+    try testing.expectError(Memory.MemoryError.MemoryLimitExceeded, mem.resize_context(2049));
 }
 
-test "SharedMemory: gas calculation with ensure_context_capacity" {
+test "Memory: gas calculation with ensure_context_capacity" {
     const allocator = testing.allocator;
     
-    var mem = try SharedMemory.init_default(allocator);
+    var mem = try Memory.init_default(allocator);
     defer mem.deinit();
     mem.finalize_root();
     
@@ -238,15 +238,15 @@ test "SharedMemory: gas calculation with ensure_context_capacity" {
     try testing.expectEqual(@as(u64, 2), words4);
 }
 
-test "SharedMemory: data copy operations" {
+test "Memory: data copy operations" {
     const allocator = testing.allocator;
     
-    var mem = try SharedMemory.init_default(allocator);
+    var mem = try Memory.init_default(allocator);
     defer mem.deinit();
     mem.finalize_root();
     
     // Test set_data
-    const data = "Hello, SharedMemory!";
+    const data = "Hello, Memory!";
     try mem.set_data(10, data);
     const read_data = try mem.get_slice(10, data.len);
     try testing.expectEqualSlices(u8, data, read_data);
@@ -268,10 +268,10 @@ test "SharedMemory: data copy operations" {
     try testing.expectEqualSlices(u8, &[_]u8{ 0, 0, 0, 0, 0 }, zero_read);
 }
 
-test "SharedMemory: memory copy (MCOPY)" {
+test "Memory: memory copy (MCOPY)" {
     const allocator = testing.allocator;
     
-    var mem = try SharedMemory.init_default(allocator);
+    var mem = try Memory.init_default(allocator);
     defer mem.deinit();
     mem.finalize_root();
     
@@ -298,10 +298,10 @@ test "SharedMemory: memory copy (MCOPY)" {
     try testing.expectEqualSlices(u8, src_data[0..6], backward_read);
 }
 
-test "SharedMemory: unsafe operations" {
+test "Memory: unsafe operations" {
     const allocator = testing.allocator;
     
-    var mem = try SharedMemory.init_default(allocator);
+    var mem = try Memory.init_default(allocator);
     defer mem.deinit();
     mem.finalize_root();
     
@@ -324,10 +324,10 @@ test "SharedMemory: unsafe operations" {
     try testing.expectEqualSlices(u8, &data, read_data);
 }
 
-test "SharedMemory: snapshot and restore" {
+test "Memory: snapshot and restore" {
     const allocator = testing.allocator;
     
-    var mem = try SharedMemory.init_default(allocator);
+    var mem = try Memory.init_default(allocator);
     defer mem.deinit();
     mem.finalize_root();
     
@@ -353,10 +353,10 @@ test "SharedMemory: snapshot and restore" {
     try testing.expectEqualSlices(u8, &([_]u8{0xBB} ** 32), &try mem.get_word(32));
 }
 
-test "SharedMemory: hex conversion" {
+test "Memory: hex conversion" {
     const allocator = testing.allocator;
     
-    var mem = try SharedMemory.init_default(allocator);
+    var mem = try Memory.init_default(allocator);
     defer mem.deinit();
     mem.finalize_root();
     
@@ -368,10 +368,10 @@ test "SharedMemory: hex conversion" {
     try testing.expectEqualSlices(u8, "0123456789abcdef", hex);
 }
 
-test "SharedMemory: word-aligned resize" {
+test "Memory: word-aligned resize" {
     const allocator = testing.allocator;
     
-    var mem = try SharedMemory.init_default(allocator);
+    var mem = try Memory.init_default(allocator);
     defer mem.deinit();
     mem.finalize_root();
     
@@ -384,31 +384,31 @@ test "SharedMemory: word-aligned resize" {
     try testing.expectEqual(@as(usize, 128), mem.context_size());
 }
 
-test "SharedMemory: error cases" {
+test "Memory: error cases" {
     const allocator = testing.allocator;
     
-    var mem = try SharedMemory.init_default(allocator);
+    var mem = try Memory.init_default(allocator);
     defer mem.deinit();
     mem.finalize_root();
     
     // Read beyond bounds
-    try testing.expectError(SharedMemory.SharedMemoryError.InvalidOffset, mem.get_byte(10));
-    try testing.expectError(SharedMemory.SharedMemoryError.InvalidOffset, mem.get_word(0));
+    try testing.expectError(Memory.MemoryError.InvalidOffset, mem.get_byte(10));
+    try testing.expectError(Memory.MemoryError.InvalidOffset, mem.get_word(0));
     
     // No child to revert/commit
-    try testing.expectError(SharedMemory.SharedMemoryError.NoChildContextToRevertOrCommit, mem.revert_child_context());
-    try testing.expectError(SharedMemory.SharedMemoryError.NoChildContextToRevertOrCommit, mem.commit_child_context());
+    try testing.expectError(Memory.MemoryError.NoChildContextToRevertOrCommit, mem.revert_child_context());
+    try testing.expectError(Memory.MemoryError.NoChildContextToRevertOrCommit, mem.commit_child_context());
     
     // Create child then try to create another
     const child = try mem.new_child_context();
     _ = child;
-    try testing.expectError(SharedMemory.SharedMemoryError.ChildContextActive, mem.new_child_context());
+    try testing.expectError(Memory.MemoryError.ChildContextActive, mem.new_child_context());
 }
 
-test "SharedMemory: compatibility aliases" {
+test "Memory: compatibility aliases" {
     const allocator = testing.allocator;
     
-    var mem = try SharedMemory.init_default(allocator);
+    var mem = try Memory.init_default(allocator);
     defer mem.deinit();
     mem.finalize_root();
     
@@ -417,7 +417,7 @@ test "SharedMemory: compatibility aliases" {
     try testing.expectEqual(@as(usize, 100), mem.size());
     
     // Test is_empty() alias
-    var mem2 = try SharedMemory.init_default(allocator);
+    var mem2 = try Memory.init_default(allocator);
     defer mem2.deinit();
     mem2.finalize_root();
     try testing.expect(mem2.is_empty());

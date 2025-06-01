@@ -1,8 +1,8 @@
-# SharedMemory Design Document
+# Memory Design Document
 
 ## Overview
 
-This document outlines the design for refactoring Tevm's `Memory.zig` to a `SharedMemory.zig` implementation inspired by revm's SharedMemory model. The new design enables efficient handling of nested EVM call contexts through a checkpointing system while maintaining Zig's safety and performance characteristics.
+This document outlines the design for refactoring Tevm's `Memory.zig` to a `Memory.zig` implementation inspired by revm's Memory model. The new design enables efficient handling of nested EVM call contexts through a checkpointing system while maintaining Zig's safety and performance characteristics.
 
 ## Motivation
 
@@ -12,7 +12,7 @@ The current `Memory.zig` implementation provides a flat, resizable byte array su
 - Reverting child context changes on failure
 - Committing child context changes on success
 
-The SharedMemory design addresses these limitations by introducing a single shared buffer with context-based checkpointing.
+The Memory design addresses these limitations by introducing a single shared buffer with context-based checkpointing.
 
 ## Core Architecture
 
@@ -22,7 +22,7 @@ The SharedMemory design addresses these limitations by introducing a single shar
 - Child contexts hold pointers to access the shared state
 
 ### Checkpointing System
-- Each `SharedMemory` instance represents a call context with:
+- Each `Memory` instance represents a call context with:
   - `my_checkpoint`: Starting offset within the shared buffer
   - `child_active_checkpoint`: Parent's record of buffer length before child creation
 - Operations are relative to `my_checkpoint`
@@ -42,31 +42,31 @@ Shared Buffer: [----ROOT----][---CHILD1---][--GRANDCHILD--]
 
 ### Structure Definition
 ```zig
-pub const SharedMemory = struct {
+pub const Memory = struct {
     /// Single shared buffer (owned by root)
     shared_buffer: std.ArrayList(u8),
-    
+
     /// Allocator (owned by root)
     allocator: std.mem.Allocator,
-    
+
     /// This context's start offset
     my_checkpoint: usize,
-    
+
     /// Length of shared_buffer before child creation
     child_active_checkpoint: ?usize,
-    
+
     /// Global memory limit
     memory_limit: u64,
-    
+
     /// Pointer to root instance
-    root_ptr: *SharedMemory,
+    root_ptr: *Memory,
 };
 ```
 
 ### Key Operations
 
 #### Initialization
-- `init()`: Creates root SharedMemory with owned buffer
+- `init()`: Creates root Memory with owned buffer
 - `deinit()`: Only root can free the shared buffer
 
 #### Context Management
@@ -105,7 +105,7 @@ absolute_offset = self.my_checkpoint + relative_offset
 
 ### Error Handling
 ```zig
-pub const SharedMemoryError = error{
+pub const MemoryError = error{
     OutOfMemory,
     InvalidOffset,
     InvalidSize,
@@ -119,7 +119,7 @@ pub const SharedMemoryError = error{
 
 ```zig
 // Root context for transaction
-var root = try SharedMemory.init(allocator, 4096, max_memory);
+var root = try Memory.init(allocator, 4096, max_memory);
 defer root.deinit();
 
 // Perform root operations
@@ -148,7 +148,7 @@ try root.revertChildContext();
 
 ### Memory Pooling
 For frequent context creation/destruction:
-- Consider pooling SharedMemory instances
+- Consider pooling Memory instances
 - Reuse large buffers across transactions
 - Reset checkpoints instead of reallocating
 
@@ -176,8 +176,8 @@ For frequent context creation/destruction:
 
 ## Migration Path
 
-1. Implement SharedMemory alongside existing Memory
-2. Update EVM to use SharedMemory for root context
+1. Implement Memory alongside existing Memory
+2. Update EVM to use Memory for root context
 3. Modify call operations to create child contexts
 4. Update gas calculation to use ensureContextCapacity
 5. Remove old Memory implementation
@@ -212,15 +212,15 @@ Configuration: ReleaseFast, native target
 | Resize Operations | 2.725μs ± 1.061μs | 1.5μs | 31.542μs | 2.583μs | 7.083μs |
 | Word-Aligned Resize | 2.576μs ± 860ns | 1.5μs | 22.625μs | 2.5μs | 6.041μs |
 
-### SharedMemory Performance
+### Memory Performance
 Benchmarks run on: 2025-01-06
 Configuration: ReleaseFast, native target
 
 | Operation | Avg Time | Min | Max | P75 | P99 |
 |-----------|----------|-----|-----|-----|-----|
-| SharedMemory Init (4KB) | 405ns ± 64ns | 333ns | 9.708μs | 417ns | 500ns |
-| SharedMemory Init (1MB) | 392ns ± 88ns | 333ns | 12.125μs | 417ns | 500ns |
-| SharedMemory Init With Limit | 394ns ± 100ns | 333ns | 21.042μs | 417ns | 500ns |
+| Memory Init (4KB) | 405ns ± 64ns | 333ns | 9.708μs | 417ns | 500ns |
+| Memory Init (1MB) | 392ns ± 88ns | 333ns | 12.125μs | 417ns | 500ns |
+| Memory Init With Limit | 394ns ± 100ns | 333ns | 21.042μs | 417ns | 500ns |
 | Child Context Revert | 405ns ± 41ns | 333ns | 4.459μs | 417ns | 542ns |
 | Child Context Commit | 397ns ± 27ns | 291ns | 1.792μs | 417ns | 500ns |
 | Nested Contexts | 2.551μs ± 666ns | 1.583μs | 20.334μs | 2.625μs | 5.625μs |
@@ -237,7 +237,7 @@ Configuration: ReleaseFast, native target
 
 ### Performance Comparison
 
-| Operation | Memory.zig | SharedMemory.zig | Difference |
+| Operation | Memory.zig | Memory.zig | Difference |
 |-----------|------------|------------------|------------|
 | Init (4KB) | 394ns | 405ns | +2.8% |
 | Init (1MB) | 396ns | 392ns | -1.0% |
@@ -254,9 +254,9 @@ Configuration: ReleaseFast, native target
 
 ### Key Findings
 
-1. **Minimal Overhead**: SharedMemory introduces minimal overhead (mostly < 5%) for basic operations despite the added context management complexity.
+1. **Minimal Overhead**: Memory introduces minimal overhead (mostly < 5%) for basic operations despite the added context management complexity.
 
-2. **Improved Copy Performance**: Memory copy operations (MCOPY and bounded copy) are actually faster in SharedMemory, likely due to better cache locality with the shared buffer approach.
+2. **Improved Copy Performance**: Memory copy operations (MCOPY and bounded copy) are actually faster in Memory, likely due to better cache locality with the shared buffer approach.
 
 3. **Efficient Context Management**: Child context creation and revert/commit operations are extremely fast (~400ns), making nested calls very efficient.
 
@@ -266,7 +266,7 @@ Configuration: ReleaseFast, native target
 
 ### Conclusion
 
-The SharedMemory implementation successfully achieves its design goals:
+The Memory implementation successfully achieves its design goals:
 - Efficient context management for nested EVM calls
 - Minimal performance overhead compared to flat memory
 - Fast context switching (< 500ns)
@@ -277,6 +277,6 @@ The implementation is ready for integration into the EVM execution engine.
 
 ## References
 
-- [revm SharedMemory](https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/interpreter/shared_memory.rs)
+- [revm Memory](https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/interpreter/memory.rs)
 - [EVM Memory Specification](https://www.evm.codes/about#memoryexpansion)
 - [Zig Standard Library - ArrayList](https://ziglang.org/documentation/master/std/#std.ArrayList)

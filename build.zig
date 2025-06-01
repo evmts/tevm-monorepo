@@ -483,20 +483,6 @@ pub fn build(b: *std.Build) void {
     const memory_comparison_test_step = b.step("test-memory-comparison", "Run Memory comparison tests");
     memory_comparison_test_step.dependOn(&run_memory_comparison_test.step);
 
-    // Add SharedMemory tests
-    const shared_memory_test = b.addTest(.{
-        .name = "shared-memory-test",
-        .root_source_file = b.path("test/evm/shared_memory_test.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-    shared_memory_test.root_module.addImport("evm", evm_mod);
-
-    const run_shared_memory_test = b.addRunArtifact(shared_memory_test);
-
-    const shared_memory_test_step = b.step("test-shared-memory", "Run SharedMemory tests");
-    shared_memory_test_step.dependOn(&run_shared_memory_test.step);
-
     // Add Stack tests
     const stack_test = b.addTest(.{
         .name = "stack-test",
@@ -530,7 +516,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = .ReleaseFast,
     });
-    
+
     // Add EVM Memory benchmark
     const evm_memory_benchmark = b.addExecutable(.{
         .name = "evm-memory-benchmark",
@@ -546,26 +532,11 @@ pub fn build(b: *std.Build) void {
     const evm_memory_benchmark_step = b.step("bench-evm-memory", "Run EVM Memory benchmarks");
     evm_memory_benchmark_step.dependOn(&run_evm_memory_benchmark.step);
 
-    // Add EVM SharedMemory benchmark
-    const evm_shared_memory_benchmark = b.addExecutable(.{
-        .name = "evm-shared-memory-benchmark",
-        .root_source_file = b.path("bench/evm/shared_memory_bench.zig"),
-        .target = target,
-        .optimize = .ReleaseFast,
-    });
-    evm_shared_memory_benchmark.root_module.addImport("zbench", zbench_dep.module("zbench"));
-    evm_shared_memory_benchmark.root_module.addImport("evm", evm_mod);
-
-    const run_evm_shared_memory_benchmark = b.addRunArtifact(evm_shared_memory_benchmark);
-
-    const evm_shared_memory_benchmark_step = b.step("bench-evm-shared-memory", "Run EVM SharedMemory benchmarks");
-    evm_shared_memory_benchmark_step.dependOn(&run_evm_shared_memory_benchmark.step);
-
     // Add combined benchmark step
     const all_benchmark_step = b.step("bench", "Run all benchmarks");
     all_benchmark_step.dependOn(&run_memory_benchmark.step);
     all_benchmark_step.dependOn(&run_evm_memory_benchmark.step);
-    all_benchmark_step.dependOn(&run_evm_shared_memory_benchmark.step);
+    all_benchmark_step.dependOn(&run_evm_memory_benchmark.step);
 
     // Add Rust Foundry wrapper integration
     const rust_build = @import("src/Compilers/rust_build.zig");
