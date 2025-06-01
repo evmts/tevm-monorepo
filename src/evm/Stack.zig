@@ -141,7 +141,7 @@ pub fn dup_n_unsafe(self: *Self, comptime N: usize) void {
         self.append_unsafe(self.data[self.size - N]);
     }
 
-pub fn popn(self: *Self, comptime N: usize) Error![N]u256 {
+pub fn pop_n(self: *Self, comptime N: usize) Error![N]u256 {
         if (self.size < N) return Error.OutOfBounds;
 
         self.size -= N;
@@ -169,7 +169,7 @@ pub fn pop_n_top(self: *Self, comptime N: usize) Error!struct {
 // EIP-663 operations
 
 /// DUPN - duplicate Nth element (dynamic N from bytecode)
-pub fn dup_n(self: *Self, n: u8) Error!void {
+pub fn dup_n_dynamic(self: *Self, n: u8) Error!void {
         if (n == 0) return Error.InvalidPosition;
         const idx = @as(usize, n);
         if (idx > self.size) return Error.OutOfBounds;
@@ -178,7 +178,7 @@ pub fn dup_n(self: *Self, n: u8) Error!void {
     }
 
 /// SWAPN - swap top with Nth element (dynamic N from bytecode)
-pub fn swap_n(self: *Self, n: u8) Error!void {
+pub fn swap_n_dynamic(self: *Self, n: u8) Error!void {
         // EIP-663: swap the top element with the one at `depth + 1`
         if (n >= self.size) return Error.OutOfBounds;
         const last = self.size - 1;
