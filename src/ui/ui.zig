@@ -98,7 +98,7 @@ const App = struct {
 
     pub fn init() Self {
         const window = webui.newWindow();
-        window.setRuntime(.Bun);
+        webui.setConfig(.multi_client, true);
         return Self{ .window = window };
     }
 
@@ -106,9 +106,9 @@ const App = struct {
         webui.clean();
     }
 
-    pub fn handler(filename: []const u8) []const u8 {
+    pub fn handler(filename: []const u8) ?[]const u8 {
         const asset = Asset.getAsset(filename) orelse Asset.not_found_asset;
-        return asset.content;
+        return asset.response;
     }
 
     pub fn run(self: *Self) !void {
