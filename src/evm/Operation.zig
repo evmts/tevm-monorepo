@@ -1,9 +1,6 @@
 const std = @import("std");
 const Opcode = @import("opcode.zig");
 const ExecutionError = @import("execution_error.zig");
-// TODO: Add these when files are created
-// const Interpreter = @import("interpreter.zig").Interpreter;
-// const InterpreterState = @import("InterpreterState.zig").InterpreterState;
 const Stack = @import("stack.zig");
 const Memory = @import("memory.zig");
 
@@ -37,14 +34,14 @@ undefined: bool = false,
 
 /// NULL operation (for unassigned slots)
 pub const NULL = Self{
-    .execute = undefinedExecute,
+    .execute = undefined_execute,
     .constant_gas = 0,
     .min_stack = 0,
     .max_stack = 0,
     .undefined = true,
 };
 
-fn undefinedExecute(pc: usize, interpreter: anytype, state: anytype) ExecutionError.Error![]const u8 {
+fn undefined_execute(pc: usize, interpreter: anytype, state: anytype) ExecutionError.Error![]const u8 {
     _ = pc;
     _ = interpreter;
     _ = state;

@@ -19,7 +19,7 @@ pub fn main() !void {
     };
 
     // Compile the SnailTracer contract
-    var result = try Compiler.compileFile(
+    var result = try Compiler.compile_file(
         allocator,
         "src/Solidity/SnailTracer.sol",
         settings,

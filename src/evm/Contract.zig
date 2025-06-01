@@ -90,12 +90,12 @@ pub fn init(
         .gas_refund = 0,
         .is_deployment = false,
         .is_system_call = false,
-        .has_jumpdests = containsJumpdest(code),
+        .has_jumpdests = contains_jumpdest(code),
         .is_empty = code.len == 0,
     };
 }
 
-pub fn initDeployment(
+pub fn init_deployment(
     caller: Address,
     value: u256,
     gas: u64,
@@ -119,7 +119,7 @@ pub fn initDeployment(
         .gas_refund = 0,
         .is_deployment = true,
         .is_system_call = false,
-        .has_jumpdests = containsJumpdest(code),
+        .has_jumpdests = contains_jumpdest(code),
         .is_empty = code.len == 0,
     };
 
@@ -132,7 +132,7 @@ pub fn initDeployment(
 }
 
 /// Quick scan for JUMPDEST presence
-fn containsJumpdest(code: []const u8) bool {
+fn contains_jumpdest(code: []const u8) bool {
     for (code) |op| {
         if (op == constants.JUMPDEST) return true;
     }
@@ -140,7 +140,7 @@ fn containsJumpdest(code: []const u8) bool {
 }
 
 /// Validate jump destination with optimizations
-pub fn validJumpdest(self: *Self, dest: u256) bool {
+pub fn valid_jumpdest(self: *Self, dest: u256) bool {
     // Fast path: empty code or out of bounds
     if (self.is_empty or dest >= self.code_size) {
         return false;
@@ -155,7 +155,7 @@ pub fn validJumpdest(self: *Self, dest: u256) bool {
         return false;
     }
     // Ensure analysis is performed
-    self.ensureAnalysis();
+    self.ensure_analysis();
     // Binary search in sorted JUMPDEST positions
     if (self.analysis) |analysis| {
         if (analysis.jumpdest_positions.len > 0) {
@@ -170,26 +170,26 @@ pub fn validJumpdest(self: *Self, dest: u256) bool {
         }
     }
     // Fallback to bitvec check
-    return self.isCode(pos);
+    return self.is_code(pos);
 }
 
 /// Ensure code analysis is performed
-fn ensureAnalysis(self: *Self) void {
+fn ensure_analysis(self: *Self) void {
     if (self.analysis == null and !self.is_empty) {
-        self.analysis = analyzeCode(self.code, self.code_hash) catch null;
+        self.analysis = analyze_code(self.code, self.code_hash) catch null;
     }
 }
 
 /// Check if position is code (not data)
-pub inline fn isCode(self: *const Self, pos: u64) bool {
+pub inline fn is_code(self: *const Self, pos: u64) bool {
     if (self.analysis) |analysis| {
-        return analysis.code_segments.isSet(pos);
+        return analysis.code_segments.is_set(pos);
     }
     return true; // Assume code if not analyzed
 }
 
 /// Use gas with inline optimization
-pub inline fn useGas(self: *Self, amount: u64) bool {
+pub inline fn use_gas(self: *Self, amount: u64) bool {
     if (self.gas < amount) {
         return false;
     }
@@ -198,31 +198,31 @@ pub inline fn useGas(self: *Self, amount: u64) bool {
 }
 
 /// Use gas without checking (when known safe)
-pub inline fn useGasUnchecked(self: *Self, amount: u64) void {
+pub inline fn use_gas_unchecked(self: *Self, amount: u64) void {
     self.gas -= amount;
 }
 
 /// Refund gas to contract
-pub inline fn refundGas(self: *Self, amount: u64) void {
+pub inline fn refund_gas(self: *Self, amount: u64) void {
     self.gas += amount;
 }
 
 /// Add to gas refund counter with clamping
-pub inline fn addGasRefund(self: *Self, amount: u64) void {
+pub inline fn add_gas_refund(self: *Self, amount: u64) void {
     const max_refund = self.gas / MAX_REFUND_QUOTIENT;
     self.gas_refund = @min(self.gas_refund + amount, max_refund);
 }
 
 /// Subtract from gas refund counter with clamping
-pub inline fn subGasRefund(self: *Self, amount: u64) void {
+pub inline fn sub_gas_refund(self: *Self, amount: u64) void {
     self.gas_refund = if (self.gas_refund > amount) self.gas_refund - amount else 0;
 }
 
 /// Mark storage slot as warm with pool support
-pub fn markStorageSlotWarm(self: *Self, slot: u256, pool: ?*StoragePool) !bool {
+pub fn mark_storage_slot_warm(self: *Self, slot: u256, pool: ?*StoragePool) !bool {
     if (self.storage_access == null) {
         if (pool) |p| {
-            self.storage_access = try p.borrowAccessMap();
+            self.storage_access = try p.borrow_access_map();
         } else {
             self.storage_access = try std.heap.page_allocator.create(std.AutoHashMap(u256, bool));
             self.storage_access.?.* = std.AutoHashMap(u256, bool).init(std.heap.page_allocator);
@@ -238,7 +238,7 @@ pub fn markStorageSlotWarm(self: *Self, slot: u256, pool: ?*StoragePool) !bool {
 }
 
 /// Check if storage slot is cold
-pub fn isStorageSlotCold(self: *const Self, slot: u256) bool {
+pub fn is_storage_slot_cold(self: *const Self, slot: u256) bool {
     if (self.storage_access) |map| {
         return !map.contains(slot);
     }
@@ -246,12 +246,12 @@ pub fn isStorageSlotCold(self: *const Self, slot: u256) bool {
 }
 
 /// Batch mark storage slots as warm
-pub fn markStorageSlotsWarm(self: *Self, slots: []const u256, pool: ?*StoragePool) !void {
+pub fn mark_storage_slots_warm(self: *Self, slots: []const u256, pool: ?*StoragePool) !void {
     if (slots.len == 0) return;
 
     if (self.storage_access == null) {
         if (pool) |p| {
-            self.storage_access = try p.borrowAccessMap();
+            self.storage_access = try p.borrow_access_map();
         } else {
             self.storage_access = try std.heap.page_allocator.create(std.AutoHashMap(u256, bool));
             self.storage_access.?.* = std.AutoHashMap(u256, bool).init(std.heap.page_allocator);
@@ -267,10 +267,10 @@ pub fn markStorageSlotsWarm(self: *Self, slots: []const u256, pool: ?*StoragePoo
 }
 
 /// Store original storage value
-pub fn setOriginalStorageValue(self: *Self, slot: u256, value: u256, pool: ?*StoragePool) !void {
+pub fn set_original_storage_value(self: *Self, slot: u256, value: u256, pool: ?*StoragePool) !void {
     if (self.original_storage == null) {
         if (pool) |p| {
-            self.original_storage = try p.borrowStorageMap();
+            self.original_storage = try p.borrow_storage_map();
         } else {
             self.original_storage = try std.heap.page_allocator.create(std.AutoHashMap(u256, u256));
             self.original_storage.?.* = std.AutoHashMap(u256, u256).init(std.heap.page_allocator);
@@ -281,7 +281,7 @@ pub fn setOriginalStorageValue(self: *Self, slot: u256, value: u256, pool: ?*Sto
 }
 
 /// Get original storage value
-pub fn getOriginalStorageValue(self: *const Self, slot: u256) ?u256 {
+pub fn get_original_storage_value(self: *const Self, slot: u256) ?u256 {
     if (self.original_storage) |map| {
         return map.get(slot);
     }
@@ -289,21 +289,21 @@ pub fn getOriginalStorageValue(self: *const Self, slot: u256) ?u256 {
 }
 
 /// Get opcode at position (inline for performance)
-pub fn getOp(self: *const Self, n: u64) u8 {
+pub fn get_op(self: *const Self, n: u64) u8 {
     return if (n < self.code_size) self.code[n] else constants.STOP;
 }
 
 /// Get opcode at position without bounds check
-pub fn getOpUnchecked(self: *const Self, n: u64) u8 {
+pub fn get_op_unchecked(self: *const Self, n: u64) u8 {
     return self.code[n];
 }
 
 /// Set call code (for CALLCODE/DELEGATECALL)
-pub fn setCallCode(self: *Self, hash: [32]u8, code: []const u8) void {
+pub fn set_call_code(self: *Self, hash: [32]u8, code: []const u8) void {
     self.code = code;
     self.code_hash = hash;
     self.code_size = code.len;
-    self.has_jumpdests = containsJumpdest(code);
+    self.has_jumpdests = contains_jumpdest(code);
     self.is_empty = code.len == 0;
     self.analysis = null; // Reset analysis
 }
@@ -313,11 +313,11 @@ pub fn deinit(self: *Self, pool: ?*StoragePool) void {
     // Return maps to pool if available
     if (pool) |p| {
         if (self.storage_access) |map| {
-            p.returnAccessMap(map);
+            p.return_access_map(map);
             self.storage_access = null;
         }
         if (self.original_storage) |map| {
-            p.returnStorageMap(map);
+            p.return_storage_map(map);
             self.original_storage = null;
         }
     } else {
@@ -337,7 +337,7 @@ pub fn deinit(self: *Self, pool: ?*StoragePool) void {
 }
 
 /// Analyze code and cache results
-pub fn analyzeCode(code: []const u8, code_hash: [32]u8) !*const CodeAnalysis {
+pub fn analyze_code(code: []const u8, code_hash: [32]u8) !*const CodeAnalysis {
     // Check cache first
     cache_mutex.lock();
     defer cache_mutex.unlock();
@@ -355,7 +355,7 @@ pub fn analyzeCode(code: []const u8, code_hash: [32]u8) !*const CodeAnalysis {
     const analysis = try allocator.create(CodeAnalysis);
 
     // Analyze code segments
-    analysis.code_segments = try bitvec.codeBitmap(code);
+    analysis.code_segments = try bitvec.code_bitmap(code);
 
     // Find and sort JUMPDEST positions
     var jumpdests = std.ArrayList(u32).init(allocator);
@@ -365,13 +365,13 @@ pub fn analyzeCode(code: []const u8, code_hash: [32]u8) !*const CodeAnalysis {
     while (i < code.len) {
         const op = code[i];
 
-        if (op == constants.JUMPDEST and analysis.code_segments.isSet(i)) {
+        if (op == constants.JUMPDEST and analysis.code_segments.is_set(i)) {
             try jumpdests.append(@as(u32, @intCast(i)));
         }
 
         // Skip PUSH data
-        if (constants.isPush(op)) {
-            const push_size = constants.getPushSize(op);
+        if (constants.is_push(op)) {
+            const push_size = constants.get_push_size(op);
             i += push_size + 1;
         } else {
             i += 1;
@@ -385,10 +385,10 @@ pub fn analyzeCode(code: []const u8, code_hash: [32]u8) !*const CodeAnalysis {
     // Analyze other properties
     analysis.max_stack_depth = 0; // TODO: Implement stack depth analysis
     analysis.block_gas_costs = null; // TODO: Implement gas cost analysis
-    analysis.has_dynamic_jumps = containsOp(code, &[_]u8{ constants.JUMP, constants.JUMPI });
+    analysis.has_dynamic_jumps = contains_op(code, &[_]u8{ constants.JUMP, constants.JUMPI });
     analysis.has_static_jumps = false; // TODO: Detect PC pushes
-    analysis.has_selfdestruct = containsOp(code, &[_]u8{constants.SELFDESTRUCT});
-    analysis.has_create = containsOp(code, &[_]u8{ constants.CREATE, constants.CREATE2 });
+    analysis.has_selfdestruct = contains_op(code, &[_]u8{constants.SELFDESTRUCT});
+    analysis.has_create = contains_op(code, &[_]u8{ constants.CREATE, constants.CREATE2 });
 
     // Cache the analysis
     try analysis_cache.?.put(code_hash, analysis);
@@ -397,7 +397,7 @@ pub fn analyzeCode(code: []const u8, code_hash: [32]u8) !*const CodeAnalysis {
 }
 
 /// Check if code contains any of the given opcodes
-pub fn containsOp(code: []const u8, opcodes: []const u8) bool {
+pub fn contains_op(code: []const u8, opcodes: []const u8) bool {
     for (code) |op| {
         for (opcodes) |target| {
             if (op == target) return true;
@@ -407,7 +407,7 @@ pub fn containsOp(code: []const u8, opcodes: []const u8) bool {
 }
 
 /// Clear the global analysis cache
-pub fn clearAnalysisCache() void {
+pub fn clear_analysis_cache() void {
     cache_mutex.lock();
     defer cache_mutex.unlock();
 

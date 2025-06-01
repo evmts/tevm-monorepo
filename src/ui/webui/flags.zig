@@ -1,2 +1,2 @@
 // Build configuration flags
-pub const enableTLS = false; // Set to true if using webui-2-secure library
+pub const enable_tls = false; // Set to true if using webui-2-secure library

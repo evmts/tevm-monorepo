@@ -10,7 +10,7 @@ pub fn new(address: Address.Address) Self {
     return .{ .address = address };
 }
 
-pub fn newRaw(bytes: []const u8) !Self {
+pub fn new_raw(bytes: []const u8) !Self {
     var address: Address.Address = undefined;
     if (bytes.len > 20) {
         @memcpy(&address, bytes[2..22]);

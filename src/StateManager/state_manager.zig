@@ -4,7 +4,7 @@ const std = @import("std");
 const B160 = struct {
     bytes: [20]u8,
     
-    pub fn fromHex(hex_str: []const u8) B160 {
+    pub fn from_hex(hex_str: []const u8) B160 {
         var result = B160{ .bytes = [_]u8{0} ** 20 };
         // Simple mock implementation
         if (hex_str.len >= 22) { // "0x" + 20 bytes (40 characters)
@@ -24,7 +24,7 @@ const B160 = struct {
 const B256 = struct {
     bytes: [32]u8,
     
-    pub fn fromHex(hex_str: []const u8) B256 {
+    pub fn from_hex(hex_str: []const u8) B256 {
         var result = B256{ .bytes = [_]u8{0} ** 32 };
         // Simple mock implementation
         if (hex_str.len >= 34) { // "0x" + 32 bytes (64 characters)
@@ -40,7 +40,7 @@ const B256 = struct {
         return result;
     }
     
-    pub fn fromBytes(bytes: *const [32]u8) B256 {
+    pub fn from_bytes(bytes: *const [32]u8) B256 {
         var result = B256{ .bytes = [_]u8{0} ** 32 };
         // Copy bytes manually
         for (bytes, 0..) |b, i| {
@@ -53,7 +53,7 @@ const B256 = struct {
 const U256 = struct {
     value: u128, // Using u128 for simplicity in this mock
     
-    pub fn fromDecimalString(decimal_str: []const u8) U256 {
+    pub fn from_decimal_string(decimal_str: []const u8) U256 {
         var result = U256{ .value = 0 };
         // Simple mock implementation
         for (decimal_str) |c| {
@@ -67,7 +67,7 @@ const U256 = struct {
 
 // Simple hex utility
 const hex = struct {
-    pub fn bytesToHex(bytes: []const u8) []u8 {
+    pub fn bytes_to_hex(bytes: []const u8) []u8 {
         const hex_chars = "0123456789abcdef";
         var result = std.heap.page_allocator.alloc(u8, bytes.len * 2) catch unreachable;
         for (bytes, 0..) |b, i| {
@@ -176,7 +176,7 @@ const Account = struct {
     codeHash: B256,
     
     // Check if this is a contract account
-    pub fn isContract(self: *const Account) bool {
+    pub fn is_contract(self: *const Account) bool {
         // Check if codeHash is the empty code hash (Keccak256 of empty string)
         const EMPTY_CODE_HASH = B256.fromHex("0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470");
         return !std.mem.eql(u8, &self.codeHash.bytes, &EMPTY_CODE_HASH.bytes);
@@ -283,18 +283,18 @@ pub const StateManager = struct {
     }
 
     // Get current state root
-    pub fn getStateRoot(self: *StateManager) B256 {
+    pub fn get_state_root(self: *StateManager) B256 {
         return self.currentStateRoot;
     }
 
     // Check if a state root exists
-    pub fn hasStateRoot(self: *StateManager, root: B256) bool {
+    pub fn has_state_root(self: *StateManager, root: B256) bool {
         const rootHex = hex.bytesToHex(root.bytes[0..]);
         return self.stateRoots.contains(rootHex);
     }
 
     // Set the current state root
-    pub fn setStateRoot(self: *StateManager, root: B256) !void {
+    pub fn set_state_root(self: *StateManager, root: B256) !void {
         if (!self.hasStateRoot(root)) {
             self.log.err("Cannot set to non-existent state root", .{});
             return errors.StateError.NonExistentStateRoot;
@@ -303,7 +303,7 @@ pub const StateManager = struct {
     }
 
     // Create a checkpoint for transaction processing
-    pub fn createCheckpoint(self: *StateManager) !void {
+    pub fn create_checkpoint(self: *StateManager) !void {
         try self.checkpoints.append(Checkpoint{
             .stateRoot = self.currentStateRoot,
             .timestamp = @as(u64, @intCast(std.time.milliTimestamp())),
@@ -353,13 +353,13 @@ pub const StateManager = struct {
     }
 
     // Clear all caches
-    pub fn clearCaches(self: *StateManager) void {
+    pub fn clear_caches(self: *StateManager) void {
         self.accountCache.clear();
         self.log.debug("Cleared all caches", .{});
     }
 
     // Get an account from the state
-    pub fn getAccount(self: *StateManager, address: B160) !?Account {
+    pub fn get_account(self: *StateManager, address: B160) !?Account {
         // First check main cache
         if (self.accountCache.get(address)) |account| {
             return account;
@@ -382,7 +382,7 @@ pub const StateManager = struct {
     }
 
     // Put an account into the state
-    pub fn putAccount(self: *StateManager, address: B160, account: ?Account) !void {
+    pub fn put_account(self: *StateManager, address: B160, account: ?Account) !void {
         if (account != null) {
             try self.accountCache.put(address, account);
         } else {
@@ -391,13 +391,13 @@ pub const StateManager = struct {
     }
 
     // Delete an account from the state
-    pub fn deleteAccount(self: *StateManager, address: B160) !void {
+    pub fn delete_account(self: *StateManager, address: B160) !void {
         self.accountCache.delete(address);
         // In a complete implementation, we would also delete contract code
     }
 
     // Get contract code for an account - simplified implementation
-    pub fn getContractCode(_: *StateManager, _: B160) ![]u8 {
+    pub fn get_contract_code(_: *StateManager, _: B160) ![]u8 {
         // This simplified implementation only returns empty bytecode
         // In a real implementation, we would store and retrieve contract code
         var result = [_]u8{};
@@ -405,13 +405,13 @@ pub const StateManager = struct {
     }
 
     // Put contract code for an account - simplified implementation
-    pub fn putContractCode(_: *StateManager, _: B160, _: []u8) !void {
+    pub fn put_contract_code(_: *StateManager, _: B160, _: []u8) !void {
         // This simplified implementation doesn't store contract code
         // In a real implementation, we would store the contract code
     }
 
     // Get contract storage - simplified implementation
-    pub fn getContractStorage(_: *StateManager, _: B160, _: B256) ![]u8 {
+    pub fn get_contract_storage(_: *StateManager, _: B160, _: B256) ![]u8 {
         // This simplified implementation only returns zero
         // In a real implementation, we would store and retrieve contract storage
         var result = [_]u8{0};
@@ -419,13 +419,13 @@ pub const StateManager = struct {
     }
 
     // Put contract storage - simplified implementation
-    pub fn putContractStorage(_: *StateManager, _: B160, _: B256, _: []u8) !void {
+    pub fn put_contract_storage(_: *StateManager, _: B160, _: B256, _: []u8) !void {
         // This simplified implementation doesn't store contract storage
         // In a real implementation, we would store the contract storage
     }
 
     // Clear contract storage - simplified implementation
-    pub fn clearContractStorage(self: *StateManager, address: B160) !void {
+    pub fn clear_contract_storage(self: *StateManager, address: B160) !void {
         // This simplified implementation doesn't store contract storage
         // For simplicity, we'll just mark it for the next time we save state
         _ = address;
@@ -433,7 +433,7 @@ pub const StateManager = struct {
     }
 
     // Generate canonical genesis state
-    pub fn generateCanonicalGenesis(self: *StateManager, genesisState: StateData) !void {
+    pub fn generate_canonical_genesis(self: *StateManager, genesisState: StateData) !void {
         // Save the genesis state under the current state root
         try self.stateRoots.put(hex.bytesToHex(self.currentStateRoot.bytes[0..]), genesisState);
         self.log.debug("Generated canonical genesis state", .{});
@@ -532,21 +532,21 @@ pub const StateManager = struct {
     }
 
     // Create a deep copy of the state manager - simplified for testing
-    pub fn deepCopy(self: *StateManager) !*StateManager {
+    pub fn deep_copy(self: *StateManager) !*StateManager {
         // For the simplified version, we'll just create a new state manager
         // without trying to copy all the state
         return StateManager.init(self.allocator, self.options);
     }
 
     // Create a shallow copy (sharing caches)
-    pub fn shallowCopy(self: *StateManager) !*StateManager {
+    pub fn shallow_copy(self: *StateManager) !*StateManager {
         // For the simplified version, we're just going to return a new state manager
         // In a real implementation, we would make a proper shallow copy sharing caches
         return StateManager.init(self.allocator, self.options);
     }
 
     // Dump storage for an address
-    pub fn dumpStorage(self: *StateManager, _: B160) !std.StringHashMap([]u8) {
+    pub fn dump_storage(self: *StateManager, _: B160) !std.StringHashMap([]u8) {
         const storage = std.StringHashMap([]u8).init(self.allocator);
         
         // Placeholder - in a complete implementation, we would scan the storage trie
@@ -556,7 +556,7 @@ pub const StateManager = struct {
     }
 
     // Get all account addresses in the state
-    pub fn getAccountAddresses(self: *StateManager) !std.ArrayList(B160) {
+    pub fn get_account_addresses(self: *StateManager) !std.ArrayList(B160) {
         const addresses = std.ArrayList(B160).init(self.allocator);
         
         // Placeholder - in a complete implementation, we would scan the account trie

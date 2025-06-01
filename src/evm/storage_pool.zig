@@ -29,7 +29,7 @@ pub fn deinit(self: *Self) void {
     self.storage_maps.deinit();
 }
 
-pub fn borrowAccessMap(self: *Self) !*std.AutoHashMap(u256, bool) {
+pub fn borrow_access_map(self: *Self) !*std.AutoHashMap(u256, bool) {
     if (self.access_maps.items.len > 0) {
         return self.access_maps.pop() orelse unreachable;
     }
@@ -38,12 +38,12 @@ pub fn borrowAccessMap(self: *Self) !*std.AutoHashMap(u256, bool) {
     return map;
 }
 
-pub fn returnAccessMap(self: *Self, map: *std.AutoHashMap(u256, bool)) void {
+pub fn return_access_map(self: *Self, map: *std.AutoHashMap(u256, bool)) void {
     map.clearRetainingCapacity();
     self.access_maps.append(map) catch {};
 }
 
-pub fn borrowStorageMap(self: *Self) !*std.AutoHashMap(u256, u256) {
+pub fn borrow_storage_map(self: *Self) !*std.AutoHashMap(u256, u256) {
     if (self.storage_maps.items.len > 0) {
         return self.storage_maps.pop();
     }
@@ -52,7 +52,7 @@ pub fn borrowStorageMap(self: *Self) !*std.AutoHashMap(u256, u256) {
     return map;
 }
 
-pub fn returnStorageMap(self: *Self, map: *std.AutoHashMap(u256, u256)) void {
+pub fn return_storage_map(self: *Self, map: *std.AutoHashMap(u256, u256)) void {
     map.clearRetainingCapacity();
     self.storage_maps.append(map) catch {};
 }

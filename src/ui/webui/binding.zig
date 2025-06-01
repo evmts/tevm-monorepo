@@ -60,13 +60,13 @@ pub fn bind(
 
 /// Use this API after using `bind()` to add any user data to it that can be
 /// read later using `getContext()`
-pub fn setContext(self: Webui, element: [:0]const u8, context: *anyopaque) void {
+pub fn set_context(self: Webui, element: [:0]const u8, context: *anyopaque) void {
     webui_set_context(self.window_handle, element.ptr, context);
 }
 
 /// Bind a specific HTML element click event with a function.
 /// Empty element means all events.
-pub fn interfaceBind(
+pub fn interface_bind(
     self: Webui,
     element: [:0]const u8,
     comptime callback: fn (
@@ -93,7 +93,7 @@ pub fn interfaceBind(
 }
 
 /// When using `interfaceBind()`, you may need this function to easily set a response.
-pub fn interfaceSetResponse(self: Webui, event_number: usize, response: [:0]const u8) void {
+pub fn interface_set_response(self: Webui, event_number: usize, response: [:0]const u8) void {
     webui_interface_set_response(self.window_handle, event_number, response.ptr);
 }
 
@@ -140,7 +140,7 @@ pub fn binding(self: Webui, element: [:0]const u8, comptime callback: anytype) !
     }
 
     const tmp_struct = struct {
-        const tup_t = fnParamsToTuple(fnInfo.params);
+        const tup_t = fn_params_to_tuple(fnInfo.params);
 
         // Event handler that will convert parameters and call the user's callback
         fn handle(e: *Event) void {
@@ -167,17 +167,17 @@ pub fn binding(self: Webui, element: [:0]const u8, comptime callback: anytype) !
                         },
                         // Convert boolean values
                         .bool => {
-                            const res = e.getBoolAt(i - index);
+                            const res = e.get_bool_at(i - index);
                             param_tup[i] = res;
                         },
                         // Convert integer values with appropriate casting
                         .int => {
-                            const res = e.getIntAt(i - index);
+                            const res = e.get_int_at(i - index);
                             param_tup[i] = @intCast(res);
                         },
                         // Convert floating point values
                         .float => {
-                            const res = e.getFloatAt(i - index);
+                            const res = e.get_float_at(i - index);
                             param_tup[i] = @floatCast(res);
                         },
                         // Handle pointer types with special cases
@@ -186,7 +186,7 @@ pub fn binding(self: Webui, element: [:0]const u8, comptime callback: anytype) !
                             if (pointer.size == .slice and pointer.child == u8 and pointer.is_const == true) {
                                 if (pointer.sentinel()) |sentinel| {
                                     if (sentinel == 0) {
-                                        const str_ptr = e.getStringAt(i - index);
+                                        const str_ptr = e.get_string_at(i - index);
                                         param_tup[i] = str_ptr;
                                     }
                                 }
@@ -196,7 +196,7 @@ pub fn binding(self: Webui, element: [:0]const u8, comptime callback: anytype) !
                                 index += 1;
                                 // Handle raw byte pointers
                             } else if (pointer.size == .many and pointer.child == u8 and pointer.is_const == true and pointer.sentinel() == null) {
-                                const raw_ptr = e.getRawAt(i - index);
+                                const raw_ptr = e.get_raw_at(i - index);
                                 param_tup[i] = raw_ptr;
                             } else {
                                 const err_msg = std.fmt.comptimePrint(
@@ -230,7 +230,7 @@ pub fn binding(self: Webui, element: [:0]const u8, comptime callback: anytype) !
 }
 
 /// this funciton will return a fn's params tuple
-fn fnParamsToTuple(comptime params: []const std.builtin.Type.Fn.Param) type {
+fn fn_params_to_tuple(comptime params: []const std.builtin.Type.Fn.Param) type {
     const Type = std.builtin.Type;
     const fields: [params.len]Type.StructField = blk: {
         var res: [params.len]Type.StructField = undefined;

@@ -160,12 +160,12 @@ pub const Enum = enum(u8) {
 };
 
 /// Convert an Opcode to its u8 representation
-pub fn toU8(self: Enum) u8 {
+pub fn to_u8(self: Enum) u8 {
         return @intFromEnum(self);
     }
 
 /// Get the name of an opcode as a string
-pub fn getName(self: Enum) []const u8 {
+pub fn get_name(self: Enum) []const u8 {
         return switch (self) {
             .STOP => "STOP",
             .ADD => "ADD",

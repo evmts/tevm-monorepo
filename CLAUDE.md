@@ -56,6 +56,17 @@ These action handlers translate between Viem-style parameters and the internal E
 - Error handling: Extend BaseError, include detailed diagnostics
 - Barrel files: Use explicit exports to prevent breaking changes
 
+### Zig Naming Conventions
+
+For Zig files, we use snake_case for everything except types:
+- **Functions**: snake_case (e.g., `calculate_gas_cost`, `init_memory`)
+- **Variables**: snake_case (e.g., `memory_limit`, `stack_size`)
+- **Structs/Types**: PascalCase (e.g., `ExecutionError`, `MemorySize`)
+- **Constants**: UPPER_SNAKE_CASE (e.g., `MAX_MEMORY_SIZE`, `DEFAULT_GAS`)
+- **File names**: snake_case (e.g., `memory.zig`, `jump_table.zig`)
+
+This convention applies to all Zig code in the project. We intentionally diverge from standard Zig conventions (which use camelCase for functions) to maintain consistency with snake_case throughout our codebase.
+
 ## Setup
 
 - Package manager: pnpm 9.x.x

@@ -57,7 +57,7 @@ pub extern fn webui_set_custom_parameters(window: usize, params: [*:0]const u8) 
 // Window creation functions
 
 /// Creating a new WebUI window object.
-pub fn newWindow() Webui {
+pub fn new_window() Webui {
     const handle = webui_new_window();
     return .{
         .window_handle = handle,
@@ -65,7 +65,7 @@ pub fn newWindow() Webui {
 }
 
 /// Create a new webui window object using a specified window number.
-pub fn newWindowWithId(id: usize) !Webui {
+pub fn new_window_with_id(id: usize) !Webui {
     if (id == 0 or id >= WEBUI_MAX_IDS) {
         return WebUIError.CreateWindowError;
     }
@@ -76,14 +76,14 @@ pub fn newWindowWithId(id: usize) !Webui {
 }
 
 /// Get a free window number that can be used with `newWindowWithId`
-pub fn getNewWindowId() usize {
+pub fn get_new_window_id() usize {
     return webui_get_new_window_id();
 }
 
 // Instance methods for window operations
 
 /// Get the recommended web browser ID to use.
-pub fn getBestBrowser(self: Webui) Browser {
+pub fn get_best_browser(self: Webui) Browser {
     return webui_get_best_browser(self.window_handle);
 }
 
@@ -94,13 +94,13 @@ pub fn show(self: Webui, content: [:0]const u8) !void {
 }
 
 /// Same as `show()`. But using a specific web browser
-pub fn showBrowser(self: Webui, content: [:0]const u8, browser: Browser) !void {
+pub fn show_browser(self: Webui, content: [:0]const u8, browser: Browser) !void {
     const success = webui_show_browser(self.window_handle, content.ptr, browser);
     if (!success) return WebUIError.ShowError;
 }
 
 /// Same as `show()`. But start only the web server and return the URL.
-pub fn startServer(self: Webui, path: [:0]const u8) ![:0]const u8 {
+pub fn start_server(self: Webui, path: [:0]const u8) ![:0]const u8 {
     const url = webui_start_server(self.window_handle, path.ptr);
     const url_len = std.mem.len(url);
     if (url_len == 0) return WebUIError.ServerError;
@@ -108,13 +108,13 @@ pub fn startServer(self: Webui, path: [:0]const u8) ![:0]const u8 {
 }
 
 /// Show a WebView window using embedded HTML, or a file.
-pub fn showWv(self: Webui, content: [:0]const u8) !void {
+pub fn show_wv(self: Webui, content: [:0]const u8) !void {
     const success = webui_show_wv(self.window_handle, content.ptr);
     if (!success) return WebUIError.ShowError;
 }
 
 /// Set the window in Kiosk mode (Full screen)
-pub fn setKiosk(self: Webui, status: bool) void {
+pub fn set_kiosk(self: Webui, status: bool) void {
     webui_set_kiosk(self.window_handle, status);
 }
 
@@ -139,61 +139,61 @@ pub fn destroy(self: Webui) void {
 }
 
 /// Check if the specified window is still running.
-pub fn isShown(self: Webui) bool {
+pub fn is_shown(self: Webui) bool {
     return webui_is_shown(self.window_handle);
 }
 
 /// Set a window in hidden mode. Should be called before `show()`
-pub fn setHide(self: Webui, status: bool) void {
+pub fn set_hide(self: Webui, status: bool) void {
     webui_set_hide(self.window_handle, status);
 }
 
 /// Set the window size.
-pub fn setSize(self: Webui, width: u32, height: u32) void {
+pub fn set_size(self: Webui, width: u32, height: u32) void {
     webui_set_size(self.window_handle, width, height);
 }
 
 /// Set the window minimum size.
-pub fn setMinimumSize(self: Webui, width: u32, height: u32) void {
+pub fn set_minimum_size(self: Webui, width: u32, height: u32) void {
     webui_set_minimum_size(self.window_handle, width, height);
 }
 
 /// Set the window position.
-pub fn setPosition(self: Webui, x: u32, y: u32) void {
+pub fn set_position(self: Webui, x: u32, y: u32) void {
     webui_set_position(self.window_handle, x, y);
 }
 
 /// Centers the window on the screen.
-pub fn setCenter(self: Webui) void {
+pub fn set_center(self: Webui) void {
     webui_set_center(self.window_handle);
 }
 
 /// Set the web browser profile to use.
-pub fn setProfile(self: Webui, name: [:0]const u8, path: [:0]const u8) void {
+pub fn set_profile(self: Webui, name: [:0]const u8, path: [:0]const u8) void {
     webui_set_profile(self.window_handle, name.ptr, path.ptr);
 }
 
 /// Delete a specific window web-browser local folder profile.
-pub fn deleteProfile(self: Webui) void {
+pub fn delete_profile(self: Webui) void {
     webui_delete_profile(self.window_handle);
 }
 
 /// Get the ID of the parent process
-pub fn getParentProcessId(self: Webui) !usize {
+pub fn get_parent_process_id(self: Webui) !usize {
     const process_id = webui_get_parent_process_id(self.window_handle);
     if (process_id == 0) return WebUIError.ProcessError;
     return process_id;
 }
 
 /// Get the ID of the last child process.
-pub fn getChildProcessId(self: Webui) !usize {
+pub fn get_child_process_id(self: Webui) !usize {
     const process_id = webui_get_child_process_id(self.window_handle);
     if (process_id == 0) return WebUIError.ProcessError;
     return process_id;
 }
 
 /// Gets Win32 window `HWND`.
-pub fn win32GetHwnd(self: Webui) !windows.HWND {
+pub fn win32_get_hwnd(self: Webui) !windows.HWND {
     if (builtin.os.tag != .windows) {
         @compileError("Note: method win32GetHwnd only can call on MS windows!");
     }
@@ -206,30 +206,30 @@ pub fn win32GetHwnd(self: Webui) !windows.HWND {
 }
 
 /// Set the default embedded HTML favicon.
-pub fn setIcon(self: Webui, icon: [:0]const u8, icon_type: [:0]const u8) void {
+pub fn set_icon(self: Webui, icon: [:0]const u8, icon_type: [:0]const u8) void {
     webui_set_icon(self.window_handle, icon.ptr, icon_type.ptr);
 }
 
 /// Allow a specific window address to be accessible from a public network
-pub fn setPublic(self: Webui, status: bool) void {
+pub fn set_public(self: Webui, status: bool) void {
     webui_set_public(self.window_handle, status);
 }
 
 /// Get the network port of a running window.
-pub fn getPort(self: Webui) !usize {
+pub fn get_port(self: Webui) !usize {
     const port = webui_get_port(self.window_handle);
     if (port == 0) return WebUIError.PortError;
     return port;
 }
 
 /// Set a custom web-server network port to be used by WebUI.
-pub fn setPort(self: Webui, port: usize) !void {
+pub fn set_port(self: Webui, port: usize) !void {
     const success = webui_set_port(self.window_handle, port);
     if (!success) return WebUIError.PortError;
 }
 
 /// Get the full current URL.
-pub fn getUrl(self: Webui) ![:0]const u8 {
+pub fn get_url(self: Webui) ![:0]const u8 {
     const ptr = webui_get_url(self.window_handle);
     const len = std.mem.len(ptr);
     if (len == 0) return WebUIError.UrlError;
@@ -242,27 +242,27 @@ pub fn navigate(self: Webui, url: [:0]const u8) void {
 }
 
 /// Make a WebView window frameless.
-pub fn setFrameless(self: Webui, status: bool) void {
+pub fn set_frameless(self: Webui, status: bool) void {
     webui_set_frameless(self.window_handle, status);
 }
 
 /// Make a WebView window transparent.
-pub fn setTransparent(self: Webui, status: bool) void {
+pub fn set_transparent(self: Webui, status: bool) void {
     webui_set_transparent(self.window_handle, status);
 }
 
 /// Sets whether the window frame is resizable or fixed.
-pub fn setResizable(self: Webui, status: bool) void {
+pub fn set_resizable(self: Webui, status: bool) void {
     webui_set_resizable(self.window_handle, status);
 }
 
 /// Set the window with high-contrast support.
-pub fn setHighContrast(self: Webui, status: bool) void {
+pub fn set_high_contrast(self: Webui, status: bool) void {
     webui_set_high_contrast(self.window_handle, status);
 }
 
 /// Add a user-defined web browser's CLI parameters.
-pub fn setCustomParameters(self: Webui, params: [:0]const u8) void {
+pub fn set_custom_parameters(self: Webui, params: [:0]const u8) void {
     webui_set_custom_parameters(self.window_handle, params.ptr);
 }
 
@@ -284,21 +284,21 @@ pub fn clean() void {
 }
 
 /// Delete all local web-browser profiles folder.
-pub fn deleteAllProfiles() void {
+pub fn delete_all_profiles() void {
     webui_delete_all_profiles();
 }
 
 /// Get an available usable free network port.
-pub fn getFreePort() usize {
+pub fn get_free_port() usize {
     return webui_get_free_port();
 }
 
 /// Open an URL in the native default web browser.
-pub fn openUrl(url: [:0]const u8) void {
+pub fn open_url(url: [:0]const u8) void {
     webui_open_url(url.ptr);
 }
 
 /// Check if OS is using high contrast theme
-pub fn isHighConstrast() bool {
+pub fn is_high_contrast() bool {
     return webui_is_high_contrast();
 }

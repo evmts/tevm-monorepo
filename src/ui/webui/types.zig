@@ -38,57 +38,57 @@ pub const WebUIErrorInfo = struct {
 
 pub const Browser = enum(usize) {
     /// 0. No web browser
-    NoBrowser = 0,
+    no_browser = 0,
     /// 1. Default recommended web browser
-    AnyBrowser,
+    any_browser,
     /// 2. Google Chrome
-    Chrome,
+    chrome,
     /// 3. Mozilla Firefox
-    Firefox,
+    firefox,
     /// 4. Microsoft Edge
-    Edge,
+    edge,
     /// 5. Apple Safari
-    Safari,
+    safari,
     /// 6. The Chromium Project
-    Chromium,
+    chromium,
     /// 7. Opera Browser
-    Opera,
+    opera,
     /// 8. The Brave Browser
-    Brave,
+    brave,
     /// 9. The Vivaldi Browser
-    Vivaldi,
+    vivaldi,
     /// 10. The Epic Browser
-    Epic,
+    epic,
     /// 11. The Yandex Browser
-    Yandex,
+    yandex,
     /// 12. Any Chromium based browser
-    ChromiumBased,
+    chromium_based,
     /// 13. WebView (Non-web-browser)
-    Webview,
+    webview,
 };
 
 pub const Runtime = enum(usize) {
     /// 0. Prevent WebUI from using any runtime for .js and .ts files
-    None = 0,
+    none = 0,
     /// 1. Use Deno runtime for .js and .ts files
-    Deno,
+    deno,
     /// 2. Use Nodejs runtime for .js files
-    NodeJS,
+    nodejs,
     /// 3. Use Bun runtime for .js and .ts files
-    Bun,
+    bun,
 };
 
 pub const EventKind = enum(usize) {
     /// 0. Window disconnection event
-    EVENT_DISCONNECTED = 0,
+    event_disconnected = 0,
     /// 1. Window connection event
-    EVENT_CONNECTED,
+    event_connected,
     /// 2. Mouse click event
-    EVENT_MOUSE_CLICK,
+    event_mouse_click,
     /// 3. Window navigation event
-    EVENT_NAVIGATION,
+    event_navigation,
     /// 4. Function call event
-    EVENT_CALLBACK,
+    event_callback,
 };
 
 pub const Config = enum(c_int) {

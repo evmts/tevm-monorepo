@@ -30,7 +30,7 @@ pub const Error = error{
 };
 
 /// Calculate number of words needed for byte length (rounds up)
-pub fn calculateNumWords(len: usize) usize {
+pub fn calculate_num_words(len: usize) usize {
     return (len + 31) / 32;
 }
 
@@ -40,12 +40,12 @@ memory_limit: u64,
 /// Initialize memory with default 4KB capacity.
 /// This is the recommended initialization method for most use cases.
 pub fn init(allocator: std.mem.Allocator) !Self {
-    return initWithCapacity(allocator, 4 * 1024);
+    return init_with_capacity(allocator, 4 * 1024);
 }
 
 /// Initialize memory with a custom initial capacity.
 /// Useful when the expected memory usage is known in advance.
-pub fn initWithCapacity(allocator: std.mem.Allocator, capacity: usize) !Self {
+pub fn init_with_capacity(allocator: std.mem.Allocator, capacity: usize) !Self {
     var buffer = std.ArrayList(u8).init(allocator);
     errdefer buffer.deinit();
     try buffer.ensureTotalCapacity(capacity);
@@ -57,13 +57,13 @@ pub fn initWithCapacity(allocator: std.mem.Allocator, capacity: usize) !Self {
 
 /// Initialize memory with a maximum size limit.
 /// Uses default 4KB initial capacity but enforces the specified limit.
-pub fn initWithLimit(allocator: std.mem.Allocator, limit: u64) !Self {
-    return initWithCapacityAndLimit(allocator, 4 * 1024, limit);
+pub fn init_with_limit(allocator: std.mem.Allocator, limit: u64) !Self {
+    return init_with_capacity_and_limit(allocator, 4 * 1024, limit);
 }
 
 /// Initialize memory with both custom capacity and size limit.
 /// Fails if the initial capacity exceeds the limit.
-pub fn initWithCapacityAndLimit(allocator: std.mem.Allocator, capacity: usize, limit: u64) !Self {
+pub fn init_with_capacity_and_limit(allocator: std.mem.Allocator, capacity: usize, limit: u64) !Self {
     if (capacity > limit) return Error.MemoryLimitExceeded;
     var buffer = std.ArrayList(u8).init(allocator);
     errdefer buffer.deinit();
@@ -86,7 +86,7 @@ pub fn size(self: *const Self) usize {
 }
 
 /// Check if memory is empty (size is zero).
-pub fn isEmpty(self: *const Self) bool {
+pub fn is_empty(self: *const Self) bool {
     return self.buffer.items.len == 0;
 }
 
@@ -130,30 +130,30 @@ pub fn resize(self: *Self, new_size: usize) Error!void {
 
 /// Resize memory to word-aligned size (alternative implementation).
 /// Ensures memory size is always a multiple of 32 bytes.
-pub fn resizeWordAligned(self: *Self, min_size: usize) Error!void {
-    const aligned_size = calculateNumWords(min_size) * 32;
+pub fn resize_word_aligned(self: *Self, min_size: usize) Error!void {
+    const aligned_size = calculate_num_words(min_size) * 32;
     try self.resize(aligned_size);
 }
 
 /// Ensure memory is at least of given size (for gas calculation).
 /// Returns the number of new words allocated (for gas cost).
 /// This is the primary method used by EVM operations to expand memory.
-pub fn ensureCapacity(self: *Self, min_size: usize) Error!u64 {
+pub fn ensure_capacity(self: *Self, min_size: usize) Error!u64 {
     if (min_size > self.memory_limit) {
         return Error.MemoryLimitExceeded;
     }
-    const current_words = calculateNumWords(self.buffer.items.len);
+    const current_words = calculate_num_words(self.buffer.items.len);
     if (min_size <= self.buffer.items.len) {
         return 0; // No expansion needed
     }
     try self.resize(min_size);
-    const new_words = calculateNumWords(min_size);
+    const new_words = calculate_num_words(min_size);
     return new_words - current_words;
 }
 
 /// Read a single byte at offset.
 /// Returns InvalidOffset error if offset is out of bounds.
-pub fn getByte(self: *const Self, offset: usize) Error!u8 {
+pub fn get_byte(self: *const Self, offset: usize) Error!u8 {
     if (offset >= self.buffer.items.len) {
         return Error.InvalidOffset;
     }
@@ -162,7 +162,7 @@ pub fn getByte(self: *const Self, offset: usize) Error!u8 {
 
 /// Read 32 bytes (word) at offset.
 /// Returns InvalidOffset error if the range [offset, offset+32) is out of bounds.
-pub fn getWord(self: *const Self, offset: usize) Error![32]u8 {
+pub fn get_word(self: *const Self, offset: usize) Error![32]u8 {
     if (offset + 32 > self.buffer.items.len) {
         return Error.InvalidOffset;
     }
@@ -173,8 +173,8 @@ pub fn getWord(self: *const Self, offset: usize) Error![32]u8 {
 
 /// Read 32 bytes as u256 at offset.
 /// The bytes are interpreted as big-endian (most significant byte first).
-pub fn getU256(self: *const Self, offset: usize) Error!u256 {
-    const word = try self.getWord(offset);
+pub fn get_u256(self: *const Self, offset: usize) Error!u256 {
+    const word = try self.get_word(offset);
     // Convert big-endian bytes to u256
     var value: u256 = 0;
     for (word) |byte| {
@@ -185,7 +185,7 @@ pub fn getU256(self: *const Self, offset: usize) Error!u256 {
 
 /// Read arbitrary slice of memory.
 /// Returns empty slice for zero length, InvalidOffset for out of bounds access.
-pub fn getSlice(self: *const Self, offset: usize, len: usize) Error![]const u8 {
+pub fn get_slice(self: *const Self, offset: usize, len: usize) Error![]const u8 {
     if (len == 0) {
         return &[_]u8{};
     }
@@ -201,19 +201,19 @@ pub fn getSlice(self: *const Self, offset: usize, len: usize) Error![]const u8 {
 
 /// Write a single byte at offset.
 /// Automatically expands memory if needed.
-pub fn setByte(self: *Self, offset: usize, value: u8) Error!void {
+pub fn set_byte(self: *Self, offset: usize, value: u8) Error!void {
     if (offset >= self.buffer.items.len) {
-        _ = try self.ensureCapacity(offset + 1);
+        _ = try self.ensure_capacity(offset + 1);
     }
     self.buffer.items[offset] = value;
 }
 
 /// Write 32 bytes (word) at offset.
 /// Automatically expands memory if needed.
-pub fn setWord(self: *Self, offset: usize, value: [32]u8) Error!void {
+pub fn set_word(self: *Self, offset: usize, value: [32]u8) Error!void {
     const end = std.math.add(usize, offset, 32) catch return Error.InvalidSize;
     if (end > self.buffer.items.len) {
-        _ = try self.ensureCapacity(end);
+        _ = try self.ensure_capacity(end);
     }
     @memcpy(self.buffer.items[offset..end], &value);
 }
@@ -221,7 +221,7 @@ pub fn setWord(self: *Self, offset: usize, value: [32]u8) Error!void {
 /// Write u256 as 32 bytes at offset.
 /// The value is stored in big-endian format (most significant byte first).
 /// Automatically expands memory if needed.
-pub fn setU256(self: *Self, offset: usize, value: u256) Error!void {
+pub fn set_u256(self: *Self, offset: usize, value: u256) Error!void {
     var word: [32]u8 = [_]u8{0} ** 32;
 
     // Convert u256 to big-endian bytes
@@ -233,20 +233,20 @@ pub fn setU256(self: *Self, offset: usize, value: u256) Error!void {
         temp_val >>= 8;
     }
 
-    try self.setWord(offset, word);
+    try self.set_word(offset, word);
 }
 
 /// Write arbitrary data at offset.
 /// Automatically expands memory if needed.
 /// No-op for empty data.
-pub fn setData(self: *Self, offset: usize, data: []const u8) Error!void {
+pub fn set_data(self: *Self, offset: usize, data: []const u8) Error!void {
     if (data.len == 0) {
         return;
     }
 
     const end = std.math.add(usize, offset, data.len) catch return Error.InvalidSize;
     if (end > self.buffer.items.len) {
-        _ = try self.ensureCapacity(end);
+        _ = try self.ensure_capacity(end);
     }
 
     @memcpy(self.buffer.items[offset..end], data);
@@ -256,14 +256,14 @@ pub fn setData(self: *Self, offset: usize, data: []const u8) Error!void {
 /// Used for CALLDATACOPY, CODECOPY, EXTCODECOPY, and RETURNDATACOPY.
 /// If data_offset is beyond data bounds, fills with zeros.
 /// If data ends before len bytes, remaining bytes are zero-filled.
-pub fn setDataBounded(self: *Self, memory_offset: usize, data: []const u8, data_offset: usize, len: usize) Error!void {
+pub fn set_data_bounded(self: *Self, memory_offset: usize, data: []const u8, data_offset: usize, len: usize) Error!void {
     if (len == 0) {
         return;
     }
 
     const end = std.math.add(usize, memory_offset, len) catch return Error.InvalidSize;
     if (end > self.buffer.items.len) {
-        _ = try self.ensureCapacity(end);
+        _ = try self.ensure_capacity(end);
     }
 
     // If source offset is beyond data bounds, fill with zeros
@@ -302,7 +302,7 @@ pub fn copy(self: *Self, dest_offset: usize, src_offset: usize, len: usize) Erro
     // Ensure memory is large enough
     const required_size = @max(src_end, dest_end);
     if (required_size > self.buffer.items.len) {
-        _ = try self.ensureCapacity(required_size);
+        _ = try self.ensure_capacity(required_size);
     }
 
     const src_slice = self.buffer.items[src_offset..src_end];
@@ -320,19 +320,19 @@ pub fn copy(self: *Self, dest_offset: usize, src_offset: usize, len: usize) Erro
 
 /// Get raw pointer to memory at offset.
 /// WARNING: No bounds checking - caller must ensure offset is valid.
-pub fn getPtrUnsafe(self: *Self, offset: usize) [*]u8 {
+pub fn get_ptr_unsafe(self: *Self, offset: usize) [*]u8 {
     return self.buffer.items.ptr + offset;
 }
 
 /// Get const raw pointer to memory at offset.
 /// WARNING: No bounds checking - caller must ensure offset is valid.
-pub fn getConstPtrUnsafe(self: *const Self, offset: usize) [*]const u8 {
+pub fn get_const_ptr_unsafe(self: *const Self, offset: usize) [*]const u8 {
     return self.buffer.items.ptr + offset;
 }
 
 /// Set bytes without bounds checking.
 /// WARNING: No bounds checking - caller must ensure memory has sufficient size.
-pub fn setUnsafe(self: *Self, offset: usize, data: []const u8) void {
+pub fn set_unsafe(self: *Self, offset: usize, data: []const u8) void {
     @memcpy(self.buffer.items[offset .. offset + data.len], data);
 }
 
@@ -340,13 +340,13 @@ pub fn setUnsafe(self: *Self, offset: usize, data: []const u8) void {
 
 /// Calculate number of words (32-byte chunks) for given byte size.
 /// Rounds up to the nearest word boundary.
-pub fn numWords(len: usize) usize {
-    return calculateNumWords(len);
+pub fn num_words(len: usize) usize {
+    return calculate_num_words(len);
 }
 
 /// Get memory contents as hex string (for debugging/logging).
 /// Caller owns the returned memory and must free it.
-pub fn toHex(self: *const Self, allocator: std.mem.Allocator) ![]u8 {
+pub fn to_hex(self: *const Self, allocator: std.mem.Allocator) ![]u8 {
     const hex_len = self.buffer.items.len * 2;
     var hex_str = try allocator.alloc(u8, hex_len);
 

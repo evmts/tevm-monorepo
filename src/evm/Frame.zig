@@ -13,7 +13,7 @@ err: ?ExecutionError.Error = null,
 memory: Memory,
 stack: Stack,
 contract: *Contract,
-returnData: ?[]u8 = null,
+return_data: ?[]u8 = null,
 allocator: std.mem.Allocator,
 stop: bool = false,
 
@@ -26,7 +26,7 @@ pub fn init(allocator: std.mem.Allocator, contract: *Contract) Self {
     };
 }
 
-pub fn initWithState(
+pub fn init_with_state(
     allocator: std.mem.Allocator,
     contract: *Contract,
     op: ?[]const u8,
@@ -35,7 +35,7 @@ pub fn initWithState(
     err: ?ExecutionError.Error,
     memory: ?Memory,
     stack: ?Stack,
-    returnData: ?[]u8,
+    return_data: ?[]u8,
     stop: ?bool,
 ) Self {
     return Self{
@@ -47,7 +47,7 @@ pub fn initWithState(
         .pc = pc orelse 0,
         .cost = cost orelse 0,
         .err = err,
-        .returnData = returnData,
+        .return_data = return_data,
         .stop = stop orelse false,
     };
 }

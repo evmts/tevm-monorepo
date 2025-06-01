@@ -9,7 +9,7 @@ const Self = @This();
 
 allocator: std.mem.Allocator,
 
-returnData: []u8 = &[_]u8{},
+return_data: []u8 = &[_]u8{},
 
 stack: Stack = .{},
 memory: Memory,
@@ -17,7 +17,7 @@ table: JumpTable,
 
 depth: u16 = 0,
 
-readOnly: bool = false,
+read_only: bool = false,
 
 pub fn init(allocator: std.mem.Allocator) Self {
     return Self{ .allocator = allocator, .memory = Memory.init(allocator) };
@@ -37,7 +37,7 @@ pub fn interpret(self: *Self, contract: *const Contract, input: []const u8) ![]c
     const frame = Frame.init(self.allocator, contract);
 
     while (true) {
-        const operation = self.table.getOperation(contract.getOp(pc));
+        const operation = self.table.get_operation(contract.get_op(pc));
         operation.execute(frame);
     }
 }

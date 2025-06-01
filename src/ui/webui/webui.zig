@@ -45,58 +45,58 @@ pub usingnamespace utils_mod;
 // so we don't need to re-export them explicitly
 
 // Deprecated function placeholders for compatibility
-pub fn getCount(_: *Event) usize {
+pub fn get_count(_: *Event) usize {
     @compileError("please use Event.getCount, this will be removed when zig-webui release");
 }
 
-pub fn getIntAt(_: *Event, _: usize) i64 {
+pub fn get_int_at(_: *Event, _: usize) i64 {
     @compileError("please use Event.getIntAt, this will be removed when zig-webui release");
 }
 
-pub fn getInt(_: *Event) i64 {
+pub fn get_int(_: *Event) i64 {
     @compileError("please use Event.getInt, this will be removed when zig-webui release");
 }
 
-pub fn getFloatAt(_: *Event, _: usize) f64 {
+pub fn get_float_at(_: *Event, _: usize) f64 {
     @compileError("please use Event.getFloatAt, this will be removed when zig-webui release");
 }
 
-pub fn getFloat(_: *Event) f64 {
+pub fn get_float(_: *Event) f64 {
     @compileError("please use Event.getFloat, this will be removed when zig-webui release");
 }
 
-pub fn getStringAt(_: *Event, _: usize) [:0]const u8 {
+pub fn get_string_at(_: *Event, _: usize) [:0]const u8 {
     @compileError("please use Event.getStringAt, this will be removed when zig-webui release");
 }
 
-pub fn getString(_: *Event) [:0]const u8 {
+pub fn get_string(_: *Event) [:0]const u8 {
     @compileError("please use Event.getString, this will be removed when zig-webui release");
 }
 
-pub fn getBoolAt(_: *Event, _: usize) bool {
+pub fn get_bool_at(_: *Event, _: usize) bool {
     @compileError("please use Event.getBoolAt, this will be removed when zig-webui release");
 }
 
-pub fn getBool(_: *Event) bool {
+pub fn get_bool(_: *Event) bool {
     @compileError("please use Event.getBool, this will be removed when zig-webui release");
 }
 
-pub fn getSizeAt(_: *Event, _: usize) usize {
+pub fn get_size_at(_: *Event, _: usize) usize {
     @compileError("please use Event.getSizeAt, this will be removed when zig-webui release");
 }
 
-pub fn getSize(_: *Event) usize {
+pub fn get_size(_: *Event) usize {
     @compileError("please use Event.getSize, this will be removed when zig-webui release");
 }
 
-pub fn returnInt(_: *Event, _: i64) void {
+pub fn return_int(_: *Event, _: i64) void {
     @compileError("please use Event.returnInt, this will be removed when zig-webui release");
 }
 
-pub fn returnString(_: *Event, _: [:0]const u8) void {
+pub fn return_string(_: *Event, _: [:0]const u8) void {
     @compileError("please use Event.returnString, this will be removed when zig-webui release");
 }
 
-pub fn returnBool(_: *Event, _: bool) void {
+pub fn return_bool(_: *Event, _: bool) void {
     @compileError("please use Event.returnBool, this will be removed when zig-webui release");
 }
