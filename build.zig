@@ -539,7 +539,7 @@ pub fn build(b: *std.Build) void {
 
     // Add Rust Foundry wrapper integration
     const rust_build = @import("src/Compilers/rust_build.zig");
-    const rust_step = rust_build.addRustIntegration(b, target, optimize) catch |err| {
+    const rust_step = rust_build.add_rust_integration(b, target, optimize) catch |err| {
         std.debug.print("Failed to add Rust integration: {}\n", .{err});
         return;
     };
