@@ -14,10 +14,10 @@ pub fn main() !void {
     var passed: usize = 0;
     var failed: usize = 0;
     
-    inline for (comptime getAllTests()) |T| {
+    inline for (comptime get_all_tests()) |T| {
         std.debug.print("Test: {s}...", .{@typeName(T)});
         
-        if (runTest(T)) {
+        if (run_test(T)) {
             std.debug.print(" PASSED\n", .{});
             passed += 1;
         } else {
@@ -32,7 +32,7 @@ pub fn main() !void {
     }
 }
 
-fn getAllTests() []const type {
+fn get_all_tests() []const type {
     return &.{
         // Trie module tests
         trie.TrieMask,
@@ -62,7 +62,7 @@ fn getAllTests() []const type {
     };
 }
 
-fn runTest(comptime T: type) bool {
+fn run_test(comptime T: type) bool {
     // Skip types that don't have tests
     if (!@hasDecl(T, "test")) {
         return true;

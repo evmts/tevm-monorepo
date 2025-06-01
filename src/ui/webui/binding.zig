@@ -60,13 +60,13 @@ pub fn bind(
 
 /// Use this API after using `bind()` to add any user data to it that can be
 /// read later using `getContext()`
-pub fn setContext(self: Webui, element: [:0]const u8, context: *anyopaque) void {
+pub fn set_context(self: Webui, element: [:0]const u8, context: *anyopaque) void {
     webui_set_context(self.window_handle, element.ptr, context);
 }
 
 /// Bind a specific HTML element click event with a function.
 /// Empty element means all events.
-pub fn interfaceBind(
+pub fn interface_bind(
     self: Webui,
     element: [:0]const u8,
     comptime callback: fn (
@@ -93,7 +93,7 @@ pub fn interfaceBind(
 }
 
 /// When using `interfaceBind()`, you may need this function to easily set a response.
-pub fn interfaceSetResponse(self: Webui, event_number: usize, response: [:0]const u8) void {
+pub fn interface_set_response(self: Webui, event_number: usize, response: [:0]const u8) void {
     webui_interface_set_response(self.window_handle, event_number, response.ptr);
 }
 

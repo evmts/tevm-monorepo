@@ -138,7 +138,7 @@ pub const Event = extern struct {
                     // sentinel element must be 0
                     const sentinel = pointer.sentinel();
                     if (sentinel != null and sentinel.? == 0) {
-                        return e.returnString(val);
+                        return e.return_string(val);
                     }
                 }
                 const err_msg = std.fmt.comptimePrint("val's type ({}), only support [:0]const u8 for Pointer!", .{T});
@@ -148,16 +148,16 @@ pub const Event = extern struct {
                 const bits = int.bits;
                 const is_signed = int.signedness == .signed;
                 if (is_signed and bits <= 64) {
-                    e.returnInt(@intCast(val));
+                    e.return_int(@intCast(val));
                 } else if (!is_signed and bits <= 63) {
-                    e.returnInt(@intCast(val));
+                    e.return_int(@intCast(val));
                 } else {
                     const err_msg = std.fmt.comptimePrint("val's type ({}), out of i64", .{T});
                     @compileError(err_msg);
                 }
             },
-            .bool => e.returnBool(val),
-            .float => e.returnFloat(val),
+            .bool => e.return_bool(val),
+            .float => e.return_float(val),
             else => {
                 const err_msg = std.fmt.comptimePrint("val's type ({}), only support int, float, bool, string([]const u8)!", .{T});
                 @compileError(err_msg);

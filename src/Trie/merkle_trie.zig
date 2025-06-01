@@ -45,7 +45,7 @@ pub const MerkleTrie = struct {
     }
 
     /// Get the root hash of the trie
-    pub fn rootHash(self: *const MerkleTrie) ?[32]u8 {
+    pub fn root_hash(self: *const MerkleTrie) ?[32]u8 {
         return self.builder.rootHash();
     }
 
@@ -72,7 +72,7 @@ pub const MerkleTrie = struct {
     }
 
     /// Verify a Merkle proof
-    pub fn verifyProof(
+    pub fn verify_proof(
         self: *const MerkleTrie,
         root_hash: [32]u8,
         key: []const u8,
@@ -102,7 +102,7 @@ pub const MerkleTrie = struct {
     // Internal methods
 
     /// Recursively collect nodes for a proof
-    fn collectProofNodes(
+    fn collect_proof_nodes(
         self: *const MerkleTrie,
         retainer: *ProofRetainer,
         node: TrieNode,
@@ -189,7 +189,7 @@ pub const MerkleTrie = struct {
 };
 
 // Helper function - Duplicated from hash_builder.zig for modularity
-fn bytesToHexString(allocator: Allocator, bytes: []const u8) ![]u8 {
+fn bytes_to_hex_string(allocator: Allocator, bytes: []const u8) ![]u8 {
     const hex_chars = "0123456789abcdef";
     const hex = try allocator.alloc(u8, bytes.len * 2);
     errdefer allocator.free(hex);
