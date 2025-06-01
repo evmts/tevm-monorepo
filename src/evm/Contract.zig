@@ -183,7 +183,7 @@ fn ensure_analysis(self: *Self) void {
 /// Check if position is code (not data)
 pub inline fn is_code(self: *const Self, pos: u64) bool {
     if (self.analysis) |analysis| {
-        return analysis.code_segments.isSet(pos);
+        return analysis.code_segments.is_set(pos);
     }
     return true; // Assume code if not analyzed
 }
@@ -222,7 +222,7 @@ pub inline fn sub_gas_refund(self: *Self, amount: u64) void {
 pub fn mark_storage_slot_warm(self: *Self, slot: u256, pool: ?*StoragePool) !bool {
     if (self.storage_access == null) {
         if (pool) |p| {
-            self.storage_access = try p.borrowAccessMap();
+            self.storage_access = try p.borrow_access_map();
         } else {
             self.storage_access = try std.heap.page_allocator.create(std.AutoHashMap(u256, bool));
             self.storage_access.?.* = std.AutoHashMap(u256, bool).init(std.heap.page_allocator);
@@ -251,7 +251,7 @@ pub fn mark_storage_slots_warm(self: *Self, slots: []const u256, pool: ?*Storage
 
     if (self.storage_access == null) {
         if (pool) |p| {
-            self.storage_access = try p.borrowAccessMap();
+            self.storage_access = try p.borrow_access_map();
         } else {
             self.storage_access = try std.heap.page_allocator.create(std.AutoHashMap(u256, bool));
             self.storage_access.?.* = std.AutoHashMap(u256, bool).init(std.heap.page_allocator);
@@ -270,7 +270,7 @@ pub fn mark_storage_slots_warm(self: *Self, slots: []const u256, pool: ?*Storage
 pub fn set_original_storage_value(self: *Self, slot: u256, value: u256, pool: ?*StoragePool) !void {
     if (self.original_storage == null) {
         if (pool) |p| {
-            self.original_storage = try p.borrowStorageMap();
+            self.original_storage = try p.borrow_storage_map();
         } else {
             self.original_storage = try std.heap.page_allocator.create(std.AutoHashMap(u256, u256));
             self.original_storage.?.* = std.AutoHashMap(u256, u256).init(std.heap.page_allocator);
@@ -313,11 +313,11 @@ pub fn deinit(self: *Self, pool: ?*StoragePool) void {
     // Return maps to pool if available
     if (pool) |p| {
         if (self.storage_access) |map| {
-            p.returnAccessMap(map);
+            p.return_access_map(map);
             self.storage_access = null;
         }
         if (self.original_storage) |map| {
-            p.returnStorageMap(map);
+            p.return_storage_map(map);
             self.original_storage = null;
         }
     } else {
@@ -355,7 +355,7 @@ pub fn analyze_code(code: []const u8, code_hash: [32]u8) !*const CodeAnalysis {
     const analysis = try allocator.create(CodeAnalysis);
 
     // Analyze code segments
-    analysis.code_segments = try bitvec.codeBitmap(code);
+    analysis.code_segments = try bitvec.code_bitmap(code);
 
     // Find and sort JUMPDEST positions
     var jumpdests = std.ArrayList(u32).init(allocator);
@@ -365,7 +365,7 @@ pub fn analyze_code(code: []const u8, code_hash: [32]u8) !*const CodeAnalysis {
     while (i < code.len) {
         const op = code[i];
 
-        if (op == constants.JUMPDEST and analysis.code_segments.isSet(i)) {
+        if (op == constants.JUMPDEST and analysis.code_segments.is_set(i)) {
             try jumpdests.append(@as(u32, @intCast(i)));
         }
 
