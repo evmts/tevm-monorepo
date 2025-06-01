@@ -323,6 +323,12 @@ pub fn getName(self: Enum) []const u8 {
         };
 }
 
+/// MemorySize represents the memory requirements for an operation
+pub const MemorySize = struct {
+    offset: u64,
+    size: u64,
+};
+
 // Re-export common opcodes as constants for convenience
 pub const STOP = Enum.STOP;
 pub const ADD = Enum.ADD;

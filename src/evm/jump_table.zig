@@ -1,12 +1,12 @@
 const std = @import("std");
-const Opcode = @import("Opcode.zig");
-const Operation = @import("Operation.zig");
-const Hardfork = @import("Hardfork.zig");
-const ExecutionError = @import("ExecutionError.zig");
+const Opcode = @import("opcode.zig");
+const Operation = @import("operation.zig");
+const Hardfork = @import("hardfork.zig");
+const ExecutionError = @import("execution_error.zig");
 // TODO: Add these when files are created
 // const Interpreter = @import("interpreter.zig").Interpreter;
 // const InterpreterState = @import("InterpreterState.zig").InterpreterState;
-const Stack = @import("Stack.zig");
+const Stack = @import("stack.zig");
 const Memory = @import("memory.zig");
 
 // Constants for gas calculation

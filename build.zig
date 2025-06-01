@@ -430,7 +430,7 @@ pub fn build(b: *std.Build) void {
 
     const interpreter_test = b.addTest(.{
         .name = "evm-test",
-        .root_source_file = b.path("src/evm/JumpTable.zig"),
+        .root_source_file = b.path("src/evm/jump_table.zig"),
         .target = target,
         .optimize = optimize,
     });

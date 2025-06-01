@@ -1,5 +1,5 @@
 const std = @import("std");
-const Hardfork = @import("Hardfork.zig").Hardfork;
+const Hardfork = @import("hardfork.zig").Hardfork;
 
 // Chain rules for different Ethereum hardforks
 ///

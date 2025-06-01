@@ -1,6 +1,6 @@
 const std = @import("std");
 const httpz = @import("httpz");
-const Logger = @import("middleware/Logger.zig");
+const Logger = @import("middleware/logger.zig");
 
 pub const JsonRpcRequest = struct { id: ?u32, method: []const u8, jsonrpc: []const u8, params: ?std.json.Value };
 

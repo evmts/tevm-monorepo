@@ -18,8 +18,8 @@ const std = @import("std");
 const constants = @import("constants.zig");
 const bitvec = @import("bitvec.zig");
 const Address = @import("Address").Address;
-const CodeAnalysis = @import("CodeAnalysis.zig");
-const StoragePool = @import("StoragePool.zig");
+const CodeAnalysis = @import("code_analysis.zig");
+const StoragePool = @import("storage_pool.zig");
 
 /// Maximum gas refund allowed (EIP-3529)
 const MAX_REFUND_QUOTIENT = 5;
