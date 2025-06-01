@@ -127,7 +127,7 @@ IsEIP3541: bool = true,
 /// - hardfork: The Ethereum hardfork to create rules for
 ///
 /// Returns: A ChainRules instance configured for the specified hardfork
-pub fn forHardfork(hardfork: Hardfork) Self {
+pub fn for_hardfork(hardfork: Hardfork) Self {
     std.log.debug("Creating chain rules for hardfork: {s}", .{@tagName(hardfork)});
     var rules = Self{};
     switch (hardfork) {

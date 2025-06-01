@@ -1,6 +1,6 @@
 const std = @import("std");
 const webui = @import("webui/webui.zig");
-const Asset = @import("assets.zig");
+const assets = @import("assets.zig");
 
 const Self = @This();
 
@@ -17,7 +17,7 @@ pub fn deinit() void {
 }
 
 pub fn handler(filename: []const u8) ?[]const u8 {
-    const asset = Asset.getAsset(filename) orelse Asset.not_found_asset;
+    const asset = assets.get_asset(filename) orelse assets.not_found_asset;
     return asset.response;
 }
 

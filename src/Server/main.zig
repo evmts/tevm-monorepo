@@ -6,7 +6,7 @@ pub fn main() !void {
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
     const allocator = gpa.allocator();
 
-    var server = try server_mod.createServer(allocator, 8546);
+    var server = try server_mod.create_server(allocator, 8546);
     defer {
         server.stop();
         server.deinit();

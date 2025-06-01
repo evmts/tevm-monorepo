@@ -76,7 +76,7 @@ pub const HashBuilder = struct {
     /// Add a key-value pair to the trie
     pub fn insert(self: *HashBuilder, key: []const u8, value: []const u8) !void {
         // Convert key to nibbles
-        const nibbles = try trie.keyToNibbles(self.allocator, key);
+        const nibbles = try trie.key_to_nibbles(self.allocator, key);
         defer self.allocator.free(nibbles);
         
         // Make a copy of the value
@@ -111,7 +111,7 @@ pub const HashBuilder = struct {
         }
         
         // Convert key to nibbles
-        const nibbles = try trie.keyToNibbles(self.allocator, key);
+        const nibbles = try trie.key_to_nibbles(self.allocator, key);
         defer self.allocator.free(nibbles);
         
         const hash_str = try bytesToHexString(self.allocator, &self.root_hash.?);
@@ -129,7 +129,7 @@ pub const HashBuilder = struct {
         }
         
         // Convert key to nibbles
-        const nibbles = try trie.keyToNibbles(self.allocator, key);
+        const nibbles = try trie.key_to_nibbles(self.allocator, key);
         defer self.allocator.free(nibbles);
         
         const hash_str = try bytesToHexString(self.allocator, &self.root_hash.?);
@@ -566,7 +566,7 @@ pub const HashBuilder = struct {
                 const remaining_path = nibbles[1..];
                 
                 // Check if there's already a child at this position
-                if (branch.children_mask.isSet(@intCast(key))) {
+                if (branch.children_mask.is_set(@intCast(key))) {
                     // Get the existing child
                     const child = branch.children[key].?;
                     var next_node: TrieNode = undefined;
@@ -713,7 +713,7 @@ pub const HashBuilder = struct {
                 const key = nibbles[0];
                 
                 // Check if there's a child at this position
-                if (!branch.children_mask.isSet(@intCast(key))) {
+                if (!branch.children_mask.is_set(@intCast(key))) {
                     return null; // No child at this position
                 }
                 
@@ -816,7 +816,7 @@ pub const HashBuilder = struct {
                     }
                     
                     // Check if branch is now empty or has only one child
-                    const child_count: u5 = new_branch.children_mask.bitCount();
+                    const child_count: u5 = new_branch.children_mask.bit_count();
                     if (child_count == 0) {
                         // Branch is empty
                         return null;
@@ -824,7 +824,7 @@ pub const HashBuilder = struct {
                         // Branch has only one child, collapse it
                         var child_index: ?u4 = null;
                         for (0..16) |i| {
-                            if (new_branch.children_mask.isSet(@intCast(i))) {
+                            if (new_branch.children_mask.is_set(@intCast(i))) {
                                 child_index = @intCast(i);
                                 break;
                             }
@@ -918,7 +918,7 @@ pub const HashBuilder = struct {
                 const key = nibbles[0];
                 
                 // If the key doesn't exist, nothing to delete
-                if (!branch.children_mask.isSet(@intCast(key))) {
+                if (!branch.children_mask.is_set(@intCast(key))) {
                     return current_node;
                 }
                 
@@ -957,7 +957,7 @@ pub const HashBuilder = struct {
                     new_branch.children_mask.unset(@intCast(key));
                     
                     // Check if branch now has only one child and no value
-                    const child_count: u5 = new_branch.children_mask.bitCount();
+                    const child_count: u5 = new_branch.children_mask.bit_count();
                     if (child_count == 0 and new_branch.value == null) {
                         // Branch is empty
                         return null;
@@ -965,7 +965,7 @@ pub const HashBuilder = struct {
                         // Branch has only one child, collapse it
                         var child_index: ?u4 = null;
                         for (0..16) |i| {
-                            if (new_branch.children_mask.isSet(@intCast(i))) {
+                            if (new_branch.children_mask.is_set(@intCast(i))) {
                                 child_index = @intCast(i);
                                 break;
                             }

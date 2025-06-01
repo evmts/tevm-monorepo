@@ -68,7 +68,7 @@ pub const MerkleTrie = struct {
         _ = try self.collectProofNodes(&retainer, root_node, &[_]u8{});
 
         // Get the proof as a list of RLP-encoded nodes
-        return try retainer.getProof().toNodeList(self.allocator);
+        return try retainer.get_proof().to_node_list(self.allocator);
     }
 
     /// Verify a Merkle proof
@@ -158,7 +158,7 @@ pub const MerkleTrie = struct {
                 }
 
                 // Check if there's a child at this position
-                if (!branch.children_mask.isSet(@intCast(next_nibble))) {
+                if (!branch.children_mask.is_set(@intCast(next_nibble))) {
                     return true; // No child, end of path
                 }
 

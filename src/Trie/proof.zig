@@ -58,7 +58,7 @@ pub const ProofNodes = struct {
     }
 
     /// Convert to a list of RLP-encoded nodes for external use
-    pub fn toNodeList(self: *const ProofNodes, allocator: Allocator) ![]const []const u8 {
+    pub fn to_node_list(self: *const ProofNodes, allocator: Allocator) ![]const []const u8 {
         var node_list = std.ArrayList([]const u8).init(allocator);
         errdefer {
             for (node_list.items) |item| {
@@ -85,7 +85,7 @@ pub const ProofNodes = struct {
         expected_value: ?[]const u8
     ) !bool {
         // Convert key to nibbles
-        const nibbles = try trie.keyToNibbles(allocator, key);
+        const nibbles = try trie.key_to_nibbles(allocator, key);
         defer allocator.free(nibbles);
 
         // Get root node
@@ -107,11 +107,11 @@ pub const ProofNodes = struct {
         const decoded = try rlp.decode(allocator, root_node_data, false);
         defer decoded.data.deinit(allocator);
 
-        return try self.verifyPath(allocator, decoded.data, nibbles, expected_value);
+        return try self.verify_path(allocator, decoded.data, nibbles, expected_value);
     }
 
     /// Verify a path in the proof
-    fn verifyPath(
+    fn verify_path(
         self: *const ProofNodes,
         allocator: Allocator,
         node_data: rlp.Data,
@@ -215,7 +215,7 @@ pub const ProofNodes = struct {
                                         defer next_decoded.data.deinit(allocator);
 
                                         // Continue verification
-                                        return try self.verifyPath(
+                                        return try self.verify_path(
                                             allocator,
                                             next_decoded.data,
                                             remaining_path[decoded_path.nibbles.len..],
@@ -286,7 +286,7 @@ pub const ProofNodes = struct {
                                     defer next_decoded.data.deinit(allocator);
 
                                     // Continue verification
-                                    return try self.verifyPath(
+                                    return try self.verify_path(
                                         allocator,
                                         next_decoded.data,
                                         remaining_path[1..],
@@ -326,7 +326,7 @@ pub const ProofRetainer = struct {
 
     pub fn init(allocator: Allocator, key: []const u8) !ProofRetainer {
         // Convert key to nibbles
-        const nibbles = try trie.keyToNibbles(allocator, key);
+        const nibbles = try trie.key_to_nibbles(allocator, key);
         errdefer allocator.free(nibbles);
 
         return ProofRetainer{
@@ -366,7 +366,7 @@ pub const ProofRetainer = struct {
     }
 
     /// Get the collected proof
-    pub fn getProof(self: *const ProofRetainer) *const ProofNodes {
+    pub fn get_proof(self: *const ProofRetainer) *const ProofNodes {
         return &self.proof;
     }
 };
@@ -417,7 +417,7 @@ test "ProofNodes - add and verify" {
     try proof_nodes.addNode(hash, encoded);
     
     // Convert to node list
-    const nodes = try proof_nodes.toNodeList(allocator);
+    const nodes = try proof_nodes.to_node_list(allocator);
     defer {
         for (nodes) |node_data| {
             allocator.free(node_data);
@@ -457,7 +457,7 @@ test "ProofRetainer - collect nodes" {
     try testing.expect(collected);
     
     // Verify it was added to the proof
-    const proof = retainer.getProof();
+    const proof = retainer.get_proof();
     try testing.expectEqual(@as(usize, 1), proof.nodes.count());
     
     // Node not on path

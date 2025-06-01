@@ -9,7 +9,7 @@ const Self = @This();
 
 allocator: std.mem.Allocator,
 
-returnData: []u8 = &[_]u8{},
+return_data: []u8 = &[_]u8{},
 
 stack: Stack = .{},
 memory: Memory,

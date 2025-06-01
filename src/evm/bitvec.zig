@@ -24,7 +24,7 @@ pub fn init(allocator: std.mem.Allocator, size: usize) !Self {
 }
 
 /// Create a BitVec from existing memory (not owned)
-pub fn fromMemory(bits: []u64, size: usize) Self {
+pub fn from_memory(bits: []u64, size: usize) Self {
     return Self{
         .bits = bits,
         .size = size,
@@ -58,7 +58,7 @@ pub fn clear(self: *Self, pos: usize) void {
 }
 
 /// Check if a bit is set at the given position
-pub fn isSet(self: *const Self, pos: usize) bool {
+pub fn is_set(self: *const Self, pos: usize) bool {
     if (pos >= self.size) return false;
     const idx = pos / 64;
     const bit = @as(u64, 1) << @intCast(pos % 64);
@@ -66,12 +66,12 @@ pub fn isSet(self: *const Self, pos: usize) bool {
 }
 
 /// Check if the position represents a valid code segment
-pub fn codeSegment(self: *const Self, pos: usize) bool {
-    return self.isSet(pos);
+pub fn code_segment(self: *const Self, pos: usize) bool {
+    return self.is_set(pos);
 }
 
 /// Analyze bytecode to identify valid JUMPDEST locations and code segments
-pub fn codeBitmap(code: []const u8) Self {
+pub fn code_bitmap(code: []const u8) Self {
     const allocator = std.heap.page_allocator;
     var bitmap = Self.init(allocator, code.len) catch {
         // If allocation fails, return an empty bitmap

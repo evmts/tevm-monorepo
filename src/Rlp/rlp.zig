@@ -379,7 +379,7 @@ fn _decode(allocator: Allocator, input: []const u8) !Decoded {
 // Utility functions
 
 /// Converts a byte slice to a hex string
-pub fn bytesToHex(allocator: Allocator, bytes: []const u8) ![]u8 {
+pub fn bytes_to_hex(allocator: Allocator, bytes: []const u8) ![]u8 {
     return try hex.bytesToHex(allocator, bytes);
 }
 
@@ -389,7 +389,7 @@ pub fn hexToBytes(allocator: Allocator, hex_str: []const u8) ![]u8 {
 }
 
 /// Concatenates multiple byte slices into one
-pub fn concatBytes(allocator: Allocator, arrays: []const []const u8) ![]u8 {
+pub fn concat_bytes(allocator: Allocator, arrays: []const []const u8) ![]u8 {
     var total_len: usize = 0;
     for (arrays) |arr| {
         total_len += arr.len;
@@ -594,7 +594,7 @@ test "RLP stream decoding" {
     
     // Concatenate all encoded items
     const arrays = [_][]const u8{ encoded_number, encoded_string, encoded_long_string, encoded_list };
-    const buffer_stream = try concatBytes(allocator, &arrays);
+    const buffer_stream = try concat_bytes(allocator, &arrays);
     defer allocator.free(buffer_stream);
     
     // Decode stream one by one

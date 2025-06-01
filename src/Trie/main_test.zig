@@ -36,8 +36,8 @@ fn getAllTests() []const type {
     return &.{
         // Trie module tests
         trie.TrieMask,
-        trie.keyToNibbles,
-        trie.nibblesToKey,
+        trie.key_to_nibbles,
+        trie.nibbles_to_key,
         trie.encodePath,
         trie.BranchNode,
         trie.LeafNode,
