@@ -1,447 +1,215 @@
 const std = @import("std");
 
-pub const StackError = error{
-    OutOfBounds,
-    OutOfMemory,
-    StackOverflow,
-};
-
-// Performance comparison with revm and evmone:
-//
-// Memory Layout:
-// - Tevm: Static array [1024]u256 with explicit alignment
-// - revm: Vec<U256> dynamic allocation (https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/interpreter/stack.rs#L15)
-// - evmone: std::vector<uint256> dynamic allocation (https://github.com/ethereum/evmone/blob/master/lib/evmone/execution_state.hpp#L179)
-//
-// Performance implications:
-// - Static array avoids heap allocation overhead
-// - revm/evmone's dynamic allocation allows flexibility but adds indirection
-// - Consider: evmone uses custom uint256 type optimized for EVM operations
-//
-// Optimization opportunities from revm/evmone:
-// 1. evmone uses aggressive inlining and noexcept annotations
-// 2. revm provides both safe and unsafe variants for all operations
-// 3. Both use custom bigint implementations optimized for 256-bit operations
 pub const Stack = struct {
-    data: [1024]u256 align(@alignOf(u256)) = undefined,
+    const Self = @This();
+
+    pub const CAPACITY: usize = 1024;
+
+    pub const Error = error{
+        Overflow,
+        Underflow,
+        OutOfBounds,
+        InvalidPosition,
+    };
+
+    // Array of u256 aligned to 32 byte boundaries for performance reasons
+    data: [CAPACITY]u256 align(32) = [_]u256{0} ** CAPACITY,
+
     size: usize = 0,
 
-    // Push operation comparison:
-    // - revm: Uses capacity check with Vec::push (https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/interpreter/stack.rs#L92)
-    // - evmone: Direct index assignment with bounds check (https://github.com/ethereum/evmone/blob/master/lib/evmone/instructions_stack.hpp#L16)
-    // Tevm matches evmone's approach with static bounds, avoiding Vec overhead
-    pub inline fn push(self: *Stack, value: u256) StackError!void {
-        if (self.size >= 1024) {
-            return StackError.StackOverflow;
+    pub fn fromSlice(values: []const u256) Error!void {
+        const stack = Self{};
+        for (values) |value| {
+            stack.append(value);
         }
+        return stack;
+    }
+
+    pub fn append(self: *Self, value: u256) Error!void {
+        if (self.size >= CAPACITY) return Error.Overflow;
         self.data[self.size] = value;
         self.size += 1;
     }
 
-    // Unsafe variant matches revm's dual API pattern
-    // revm ref: https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/interpreter/stack.rs#L101
-    pub inline fn push_unsafe(self: *Stack, value: u256) void {
-        std.debug.assert(self.size < 1024);
+    pub fn appendUnsafe(self: *Self, value: u256) void {
         self.data[self.size] = value;
         self.size += 1;
     }
 
-    // Pop operation comparison:
-    // - revm: Vec::pop with Option return (https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/interpreter/stack.rs#L115)
-    // - evmone: Direct array access with decrement (https://github.com/ethereum/evmone/blob/master/lib/evmone/instructions_stack.hpp#L24)
-    // Tevm follows evmone's approach, avoiding Option wrapper overhead
-    pub inline fn pop(self: *Stack) StackError!u256 {
-        if (self.size == 0) return StackError.OutOfBounds;
+    pub fn pop(self: *Self) Error!u256 {
+        if (self.size == 0) return Error.Underflow;
         self.size -= 1;
-        return self.data[self.size];
+        const value = self.data[self.size];
+        self.data[self.size] = 0;
+        return value;
     }
 
-    // evmone optimization: No bounds checking in release builds
-    // evmone ref: https://github.com/ethereum/evmone/blob/master/lib/evmone/instructions_stack.hpp#L32
-    pub inline fn pop_unsafe(self: *Stack) u256 {
-        std.debug.assert(self.size > 0);
+    pub fn popUnsafe(self: *Self) u256 {
         self.size -= 1;
-        return self.data[self.size];
+        const value = self.data[self.size];
+        self.data[self.size] = 0;
+        return value;
     }
 
-    pub inline fn peek(self: *Stack) StackError!*u256 {
-        if (self.size == 0) return StackError.OutOfBounds;
+    pub fn peek(self: *const Self) Error!*const u256 {
+        if (self.size == 0) return Error.OutOfBounds;
         return &self.data[self.size - 1];
     }
 
-    pub inline fn peek_unsafe(self: *Stack) *u256 {
-        std.debug.assert(self.size > 0);
+    pub fn peekUnsafe(self: *const Self) *const u256 {
         return &self.data[self.size - 1];
     }
 
-    pub inline fn len(self: *Stack) usize {
-        return self.size;
+    pub fn isEmpty(self: *const Self) bool {
+        return self.size == 0;
     }
 
-    // Swap operations comparison:
-    // - revm: Generic swap_top function with index parameter (https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/interpreter/stack.rs#L174)
-    // - evmone: Template-based swap with compile-time index (https://github.com/ethereum/evmone/blob/master/lib/evmone/instructions_stack.hpp#L39)
-    //
-    // Performance note: evmone's template approach eliminates index calculation at runtime
-    // Tevm could benefit from comptime swap generation like evmone
-    pub inline fn swap1(self: *Stack) StackError!void {
-        if (self.size < 2) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 2]);
+    pub fn isFull(self: *const Self) bool {
+        return self.size == CAPACITY;
     }
 
-    // Manual swap implementation avoids std.mem.swap overhead
-    // Similar to evmone's direct assignment approach
-    // evmone ref: https://github.com/ethereum/evmone/blob/master/lib/evmone/instructions_stack.hpp#L41-L44
-    pub inline fn swap1_fast(self: *Stack) StackError!void {
-        if (self.size < 2) return StackError.OutOfBounds;
+    pub fn back(self: *const Self, n: usize) Error!u256 {
+        if (n >= self.size) return Error.OutOfBounds;
+        return self.data[self.size - n - 1];
+    }
 
+    pub fn backUnsafe(self: *const Self, n: usize) u256 {
+        return self.data[self.size - n - 1];
+    }
+
+    pub fn peekN(self: *const Self, n: usize) Error!u256 {
+        if (n >= self.size) return Error.OutOfBounds;
+        return self.data[self.size - n - 1];
+    }
+
+    pub fn peekNUnsafe(self: *const Self, n: usize) Error!u256 {
+        return self.data[self.size - n - 1];
+    }
+
+    pub fn swap(self: *Self, n: usize) Error!void {
+        if (n == 0 or n > 16) return Error.InvalidPosition;
+        if (self.size <= n) return Error.OutOfBounds;
+        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - n - 1]);
+    }
+
+    pub fn swapUnsafe(self: *Self, n: usize) Error!void {
+        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - n - 1]);
+    }
+
+    pub fn swapN(self: *Self, comptime N: usize) Error!void {
+        if (N == 0 or N > 16) @compileError("Invalid swap position");
+        if (self.size <= N) return Error.OutOfBounds;
         const top_idx = self.size - 1;
-        const swap_idx = self.size - 2;
+        const swap_idx = self.size - N - 1;
+        std.mem.swap(@TypeOf(self.data[0]), &self.data[top_idx], &self.data[swap_idx]);
+    }
 
+    pub fn swapNUnsafe(self: *Self, comptime N: usize) void {
+        if (N == 0 or N > 16) @compileError("Invalid swap position");
+        @setRuntimeSafety(false);
+        std.debug.assert(self.size > N);
+        const top_idx = self.size - 1;
+        const swap_idx = self.size - N - 1;
         const temp = self.data[top_idx];
-
         self.data[top_idx] = self.data[swap_idx];
-
         self.data[swap_idx] = temp;
     }
 
-    pub inline fn swap2(self: *Stack) StackError!void {
-        if (self.size < 3) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 3]);
+    pub fn dup(self: *Self, n: usize) Error!void {
+        if (n == 0 or n > 16) return Error.InvalidPosition;
+        if (n > self.size) return Error.OutOfBounds;
+        if (self.size >= CAPACITY) return Error.Overflow;
+        try self.append(self.data[self.size - n]);
     }
 
-    pub inline fn swap3(self: *Stack) StackError!void {
-        if (self.size < 4) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 4]);
+    pub fn dupUnsafe(self: *Self, n: usize) void {
+        self.appendUnsafe(self.data[self.size - n]);
     }
 
-    pub inline fn swap4(self: *Stack) StackError!void {
-        if (self.size < 5) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 5]);
+    pub fn dupN(self: *Self, comptime N: usize) Error!void {
+        if (N == 0 or N > 16) @compileError("Invalid dup position");
+        if (N > self.size) return Error.OutOfBounds;
+        if (self.size >= CAPACITY) return Error.Overflow;
+        try self.append(self.data[self.size - N]);
     }
 
-    pub inline fn swap5(self: *Stack) StackError!void {
-        if (self.size < 6) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 6]);
+    pub fn dupNUnsafe(self: *Self, comptime N: usize) void {
+        if (N == 0 or N > 16) @compileError("Invalid dup position");
+        @setRuntimeSafety(false);
+        std.debug.assert(N <= self.size);
+        std.debug.assert(self.size < CAPACITY);
+        self.appendUnsafe(self.data[self.size - N]);
     }
 
-    pub inline fn swap6(self: *Stack) StackError!void {
-        if (self.size < 7) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 7]);
-    }
-
-    pub inline fn swap7(self: *Stack) StackError!void {
-        if (self.size < 8) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 8]);
-    }
-
-    pub inline fn swap8(self: *Stack) StackError!void {
-        if (self.size < 9) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 9]);
-    }
-
-    pub inline fn swap9(self: *Stack) StackError!void {
-        if (self.size < 10) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 10]);
-    }
-
-    pub inline fn swap10(self: *Stack) StackError!void {
-        if (self.size < 11) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 11]);
-    }
-
-    pub inline fn swap11(self: *Stack) StackError!void {
-        if (self.size < 12) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 12]);
-    }
-
-    pub inline fn swap12(self: *Stack) StackError!void {
-        if (self.size < 13) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 13]);
-    }
-
-    pub inline fn swap13(self: *Stack) StackError!void {
-        if (self.size < 14) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 14]);
-    }
-
-    pub inline fn swap14(self: *Stack) StackError!void {
-        if (self.size < 15) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 15]);
-    }
-
-    pub inline fn swap15(self: *Stack) StackError!void {
-        if (self.size < 16) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 16]);
-    }
-
-    pub inline fn swap16(self: *Stack) StackError!void {
-        if (self.size < 17) return StackError.OutOfBounds;
-        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 17]);
-    }
-
-    pub inline fn dup(self: *Stack, n: usize) StackError!void {
-        if (n == 0 or n > self.size) return StackError.OutOfBounds;
-        try self.push(self.data[self.size - n]);
-    }
-
-    pub inline fn dup_unsafe(self: *Stack, n: usize) void {
-        std.debug.assert(n > 0 and n <= self.size);
-        self.push_unsafe(self.data[self.size - n]);
-    }
-
-    pub inline fn back(self: *Stack, n: usize) StackError!*u256 {
-        if (n >= self.size) return StackError.OutOfBounds;
-        return &self.data[self.size - n - 1];
-    }
-
-    pub inline fn back_unsafe(self: *Stack, n: usize) *u256 {
-        std.debug.assert(n < self.size);
-        return &self.data[self.size - n - 1];
-    }
-
-    // Multi-pop optimization comparison:
-    // - revm: Individual pop calls (https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/instructions/arithmetic.rs)
-    // - evmone: Bulk pointer operations for multi-argument opcodes
-    //
-    // Tevm's comptime N parameter enables unrolled loops like evmone
-    // This avoids loop overhead for known sizes (common in EVM opcodes)
-    pub inline fn popn(self: *Stack, comptime N: usize) ![N]u256 {
-        if (self.size < N) return StackError.OutOfBounds;
+    pub fn popn(self: *Self, comptime N: usize) Error![N]u256 {
+        if (self.size < N) return Error.OutOfBounds;
 
         self.size -= N;
-
         var result: [N]u256 = undefined;
 
-        // Unrolled at compile time - matches evmone's template approach
-        // evmone ref: https://github.com/ethereum/evmone/blob/master/lib/evmone/instructions_traits.hpp
         inline for (0..N) |i| {
             result[i] = self.data[self.size + i];
+            // Can consider not clearing here for perf
+            self.data[self.size + i] = 0;
         }
 
         return result;
     }
 
-    // Optimization from evmone: Combined pop + peek for opcodes that pop N and push 1
-    // Common pattern in arithmetic operations (ADD, MUL, etc.)
-    // evmone ref: https://github.com/ethereum/evmone/blob/master/lib/evmone/instructions_arithmetic.cpp
-    pub inline fn popn_top(self: *Stack, comptime N: usize) !struct { values: [N]u256, top: *u256 } {
-        if (self.size <= N) return StackError.OutOfBounds;
-
-        const result = try self.popn(N);
-        return .{ .values = result, .top = self.peek_unsafe() };
+    /// Pop N values and return reference to new top (for opcodes that pop N and push 1)
+    pub fn popn_top(self: *Self, comptime N: usize) Error!struct {
+        values: [N]u256,
+        top: *u256,
+    } {
+        if (self.size <= N) return Error.OutOfBounds;
+        const values = try self.popn(N);
+        return .{ .values = values, .top = &self.data[self.size - 1] };
     }
 
-    pub fn push_slice(self: *Stack, slice: []const u8) !void {
-        if (self.size + (slice.len + 31) / 32 > 1024) {
-            return StackError.StackOverflow;
-        }
+    // EIP-663 operations
 
-        var src_index: usize = 0;
-        while (src_index + 32 <= slice.len) {
-            var buf: [32]u8 = undefined;
-            @memcpy(&buf, slice[src_index .. src_index + 32]);
-
-            const word = std.mem.readInt(u256, &buf, .big);
-
-            self.data[self.size] = word;
-            self.size += 1;
-
-            src_index += 32;
-        }
-
-        if (src_index < slice.len) {
-            var buf: [32]u8 = [_]u8{0} ** 32;
-            const remaining = slice.len - src_index;
-            @memcpy(buf[32 - remaining ..], slice[src_index..]);
-
-            const word = std.mem.readInt(u256, &buf, .big);
-
-            self.data[self.size] = word;
-            self.size += 1;
-        }
+    /// DUPN - duplicate Nth element (dynamic N from bytecode)
+    pub fn dupn(self: *Self, n: u8) Error!void {
+        if (n == 0) return Error.InvalidPosition;
+        const idx = @as(usize, n);
+        if (idx > self.size) return Error.OutOfBounds;
+        if (self.size >= CAPACITY) return Error.Overflow;
+        try self.append(self.data[self.size - idx]);
     }
 
-    pub inline fn peek_n(self: *Stack, n: usize) !u256 {
-        if (self.size <= n) return StackError.OutOfBounds;
-        return self.data[self.size - n - 1];
+    /// SWAPN - swap top with Nth element (dynamic N from bytecode)
+    pub fn swapn(self: *Self, n: u8) Error!void {
+        // EIP-663: swap the top element with the one at `depth + 1`
+        if (n >= self.size) return Error.OutOfBounds;
+        const last = self.size - 1;
+        std.mem.swap(
+            u256,
+            &self.data[last],
+            &self.data[last - n],
+        );
+    }
+
+    pub fn exchange(self: *Self, n: u8, m: u8) Error!void {
+        if (m == 0) return Error.InvalidPosition;
+
+        const n_idx = @as(usize, n) + 1;
+        const m_idx = n_idx + @as(usize, m);
+
+        if (m_idx > self.size) return Error.OutOfBounds;
+
+        std.mem.swap(u256, &self.data[n_idx], &self.data[m_idx]);
+    }
+
+    pub fn clear(self: *Self) void {
+        self.size = 0;
+        @memset(&self.data, 0); // could consider removing for perf
+    }
+
+    pub fn toSlice(self: *const Stack) []const u256 {
+        return self.data[0..self.size];
+    }
+
+    pub fn checkRequirements(self: *const Stack, pop_count: usize, push_count: usize) bool {
+        return self.size >= pop_count and (self.size - pop_count + push_count) <= CAPACITY;
     }
 };
-
-const testing = std.testing;
-
-test "Stack basic operations" {
-    var stack = Stack{};
-
-    const value1: u256 = 42;
-    try stack.push(value1);
-    try testing.expectEqual(@as(usize, 1), stack.len());
-
-    const popped = try stack.pop();
-    try testing.expectEqual(value1, popped);
-    try testing.expectEqual(@as(usize, 0), stack.len());
-
-    try stack.push(value1);
-    const peeked = try stack.peek();
-    try testing.expectEqual(value1, peeked.*);
-    try testing.expectEqual(@as(usize, 1), stack.len());
-}
-
-test "Stack swap operations" {
-    var stack = Stack{};
-
-    const value1: u256 = 1;
-    const value2: u256 = 2;
-    const value3: u256 = 3;
-    const value4: u256 = 4;
-
-    try stack.push(value1);
-    try stack.push(value2);
-    try stack.push(value3);
-    try stack.push(value4);
-
-    try stack.swap1();
-    try testing.expectEqual(value3, (try stack.peek()).*);
-    try testing.expectEqual(value4, (try stack.back(1)).*);
-
-    _ = try stack.pop();
-    _ = try stack.pop();
-    try stack.push(value3);
-    try stack.push(value4);
-
-    try stack.swap1_fast();
-    try testing.expectEqual(value3, (try stack.peek()).*);
-    try testing.expectEqual(value4, (try stack.back(1)).*);
-}
-
-test "Stack popn operation" {
-    var stack = Stack{};
-
-    try stack.push(@as(u256, 1));
-    try stack.push(@as(u256, 2));
-    try stack.push(@as(u256, 3));
-    try stack.push(@as(u256, 4));
-
-    const values = try stack.popn(3);
-    try testing.expectEqual(@as(u256, 2), values[0]);
-    try testing.expectEqual(@as(u256, 3), values[1]);
-    try testing.expectEqual(@as(u256, 4), values[2]);
-    try testing.expectEqual(@as(usize, 1), stack.len());
-    try testing.expectEqual(@as(u256, 1), (try stack.peek()).*);
-}
-
-test "Stack push_slice operation" {
-    var stack = Stack{};
-
-    const bytes = [_]u8{ 0x12, 0x34, 0x56, 0x78 };
-    try stack.push_slice(&bytes);
-
-    try testing.expectEqual(@as(usize, 1), stack.len());
-    const value = try stack.pop();
-
-    const expected: u256 = 0x12345678;
-    try testing.expectEqual(expected, value);
-}
-
-test "Stack dup operations" {
-    var stack = Stack{};
-
-    const value1: u256 = 1;
-    const value2: u256 = 2;
-    const value3: u256 = 3;
-
-    try stack.push(value1);
-    try stack.push(value2);
-    try stack.push(value3);
-
-    try stack.dup(1);
-    try testing.expectEqual(value3, try stack.pop());
-    try testing.expectEqual(value3, (try stack.peek()).*);
-    try testing.expectEqual(@as(usize, 3), stack.len());
-
-    try stack.dup(2);
-    try testing.expectEqual(value2, (try stack.peek()).*);
-    try testing.expectEqual(@as(usize, 4), stack.len());
-}
-
-test "Stack back operations" {
-    var stack = Stack{};
-
-    const value1: u256 = 1;
-    const value2: u256 = 2;
-    const value3: u256 = 3;
-
-    try stack.push(value1);
-    try stack.push(value2);
-    try stack.push(value3);
-
-    try testing.expectEqual(value2, (try stack.back(1)).*);
-    try testing.expectEqual(value1, (try stack.back(2)).*);
-}
-
-test "Stack multiple operations" {
-    var stack = Stack{};
-
-    const values = [_]u256{ 1, 2, 3, 4, 5 };
-
-    for (values) |value| {
-        try stack.push(value);
-    }
-
-    try testing.expectEqual(@as(usize, 5), stack.len());
-    try testing.expectEqual(values[4], (try stack.peek()).*);
-
-    try stack.swap1();
-    try testing.expectEqual(values[3], (try stack.peek()).*);
-    try testing.expectEqual(values[4], (try stack.back(1)).*);
-
-    try stack.dup(2);
-    try testing.expectEqual(values[4], (try stack.peek()).*);
-    try testing.expectEqual(@as(usize, 6), stack.len());
-
-    const popped = try stack.pop();
-    try testing.expectEqual(values[4], popped);
-    try testing.expectEqual(@as(usize, 5), stack.len());
-}
-
-test "Stack swap operations comprehensive" {
-    var stack = Stack{};
-
-    var i: usize = 1;
-    while (i <= 17) : (i += 1) {
-        try stack.push(@as(u256, i));
-    }
-
-    try stack.swap1();
-    try testing.expectEqual(@as(u256, 16), (try stack.peek()).*);
-    try testing.expectEqual(@as(u256, 17), (try stack.back(1)).*);
-
-    try stack.swap2();
-    try testing.expectEqual(@as(u256, 15), (try stack.peek()).*);
-    try testing.expectEqual(@as(u256, 17), (try stack.back(1)).*);
-    try testing.expectEqual(@as(u256, 16), (try stack.back(2)).*);
-
-    try stack.swap3();
-    try testing.expectEqual(@as(u256, 14), (try stack.peek()).*);
-    try testing.expectEqual(@as(u256, 17), (try stack.back(1)).*);
-    try testing.expectEqual(@as(u256, 16), (try stack.back(2)).*);
-    try testing.expectEqual(@as(u256, 15), (try stack.back(3)).*);
-
-    try stack.swap16();
-    try testing.expectEqual(@as(u256, 1), (try stack.peek()).*);
-    try testing.expectEqual(@as(u256, 17), (try stack.back(1)).*);
-    try testing.expectEqual(@as(u256, 16), (try stack.back(2)).*);
-}
-
-test "Stack error cases" {
-    var stack = Stack{};
-
-    try testing.expectError(StackError.OutOfBounds, stack.pop());
-
-    try testing.expectError(StackError.OutOfBounds, stack.peek());
-
-    try testing.expectError(StackError.OutOfBounds, stack.back(0));
-
-    try stack.push(@as(u256, 1));
-    try testing.expectError(StackError.OutOfBounds, stack.dup(2));
-}
