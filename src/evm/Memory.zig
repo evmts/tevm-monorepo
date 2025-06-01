@@ -12,6 +12,14 @@ const std = @import("std");
 /// - Word-aligned operations for common EVM patterns
 /// - Zero-initialization on expansion for security
 /// - Optional memory limit enforcement
+///
+/// Memory Sizing Approaches:
+/// - `resize(n)`: Sets memory to exactly n bytes (byte-exact sizing)
+/// - `resizeWordAligned(n)`: Rounds up to the nearest word boundary
+/// - `ensureCapacity(n)`: Ensures at least n bytes, returns new words for gas
+///
+/// Gas costs are always calculated based on word boundaries regardless of
+/// the exact memory size, matching the behavior of production EVMs like revm.
 const Self = @This();
 
 pub const Error = error{
@@ -38,8 +46,23 @@ pub fn initWithCapacity(allocator: std.mem.Allocator, capacity: usize) !Self {
     errdefer buffer.deinit();
     try buffer.ensureTotalCapacity(capacity);
     return Self{
-    .buffer = buffer,
-    .memory_limit = std.math.maxInt(u64),
+        .buffer = buffer,
+        .memory_limit = std.math.maxInt(u64),
+    };
+}
+
+pub fn initWithLimit(allocator: std.mem.Allocator, limit: u64) !Self {
+    return initWithCapacityAndLimit(allocator, 4 * 1024, limit);
+}
+
+pub fn initWithCapacityAndLimit(allocator: std.mem.Allocator, capacity: usize, limit: u64) !Self {
+    if (capacity > limit) return Error.MemoryLimitExceeded;
+    var buffer = std.ArrayList(u8).init(allocator);
+    errdefer buffer.deinit();
+    try buffer.ensureTotalCapacity(capacity);
+    return Self{
+        .buffer = buffer,
+        .memory_limit = limit,
     };
 }
 
@@ -55,20 +78,50 @@ pub fn isEmpty(self: *const Self) bool {
     return self.buffer.items.len == 0;
     }
 
+/// Resize memory to the specified byte size.
+/// 
+/// The EVM allows byte-level addressing, so memory size can be any value.
+/// Gas costs are calculated based on word boundaries in ensureCapacity().
+/// 
+/// Growth strategy:
+/// - Doubles capacity when growing to minimize allocations
+/// - Zero-initializes new memory for security
+/// - Preserves existing data when shrinking
 pub fn resize(self: *Self, new_size: usize) Error!void {
+    // Note: This is a cold path - memory expansion is relatively infrequent
+    // Consider using @branchHint(.unlikely) when available in future Zig versions
+    
     if (new_size > self.memory_limit) return Error.MemoryLimitExceeded;
-    if (new_size <= self.buffer.items.len) return self.buffer.resize(new_size);
     
     const old_size = self.buffer.items.len;
-    var new_capacity = self.buffer.capacity;
-    while (new_capacity < new_size) : (new_capacity *= 2) {}
-    try self.buffer.ensureTotalCapacity(new_capacity);
-    try self.buffer.resize(new_size);
-    // Zero-initialize new memory
-    if (new_size > old_size) {
-        @memset(self.buffer.items[old_size..new_size], 0);
+    
+    // Shrinking: just update size
+    if (new_size <= old_size) {
+        self.buffer.items.len = new_size;
+        return;
     }
+    
+    // Growing: ensure capacity with 2x strategy
+    if (new_size > self.buffer.capacity) {
+        var new_capacity = self.buffer.capacity;
+        // Double capacity until it fits new_size
+        while (new_capacity < new_size) {
+            new_capacity = std.math.shl(usize, new_capacity, 1);
+        }
+        try self.buffer.ensureTotalCapacity(new_capacity);
     }
+    
+    // Expand items and zero-initialize new memory
+    self.buffer.items.len = new_size;
+    @memset(self.buffer.items[old_size..new_size], 0);
+}
+
+/// Resize memory to word-aligned size (alternative implementation).
+/// Ensures memory size is always a multiple of 32 bytes.
+pub fn resizeWordAligned(self: *Self, min_size: usize) Error!void {
+    const aligned_size = calculateNumWords(min_size) * 32;
+    try self.resize(aligned_size);
+}
 
     /// Ensure memory is at least of given size (for gas calculation)
     /// Returns the number of new words allocated (for gas cost)
