@@ -1,11 +1,11 @@
 const std = @import("std");
 const EvmLogger = @import("evm_logger.zig").EvmLogger;
-const createLogger = @import("evm_logger.zig").createLogger;
-const createScopedLogger = @import("evm_logger.zig").createScopedLogger;
+const create_logger = @import("evm_logger.zig").create_logger;
+const create_scoped_logger = @import("evm_logger.zig").create_scoped_logger;
 
 // Module logger will be initialized when functions are called
-fn getLogger() EvmLogger {
-    return createLogger(@src().file);
+fn get_logger() EvmLogger {
+    return create_logger(@src().file);
 }
 
 // FeeMarket implements the EIP-1559 fee market mechanism
@@ -19,7 +19,7 @@ fn getLogger() EvmLogger {
 // 3. Base fee adjustment based on block fullness
 
 /// Helper function to calculate fee delta safely avoiding overflow and division by zero
-fn calculateFeeDelta(fee: u64, gas_delta: u64, gas_target: u64, denominator: u64) u64 {
+fn calculate_fee_delta(fee: u64, gas_delta: u64, gas_target: u64, denominator: u64) u64 {
     // Using u128 for intermediate calculation to avoid overflow
     const intermediate: u128 = @as(u128, fee) * @as(u128, gas_delta);
     // Avoid division by zero
@@ -49,8 +49,8 @@ pub const BASE_FEE_CHANGE_DENOMINATOR: u64 = 8;
 ///
 /// Returns: The initial base fee (in wei)
 pub fn initial_base_fee(parent_gas_used: u64, parent_gas_limit: u64) u64 {
-    const logger = getLogger();
-    const scoped = createScopedLogger(logger, "initialBaseFee()");
+    const logger = get_logger();
+    const scoped = create_scoped_logger(logger, "initialBaseFee()");
     defer scoped.deinit();
 
     logger.debug("Initializing base fee for first EIP-1559 block", .{});
@@ -74,7 +74,7 @@ pub fn initial_base_fee(parent_gas_used: u64, parent_gas_limit: u64) u64 {
         else
             parent_gas_target - parent_gas_used;
 
-        const base_fee_delta = calculateFeeDelta(initial_base_fee, gas_used_delta, parent_gas_target, BASE_FEE_CHANGE_DENOMINATOR);
+        const base_fee_delta = calculate_fee_delta(initial_base_fee, gas_used_delta, parent_gas_target, BASE_FEE_CHANGE_DENOMINATOR);
 
         if (parent_gas_used > parent_gas_target) {
             initial_base_fee = initial_base_fee + base_fee_delta;
@@ -105,8 +105,8 @@ pub fn initial_base_fee(parent_gas_used: u64, parent_gas_limit: u64) u64 {
 ///
 /// Returns: The next block's base fee (in wei)
 pub fn next_base_fee(parent_base_fee: u64, parent_gas_used: u64, parent_gas_target: u64) u64 {
-    const logger = getLogger();
-    const scoped = createScopedLogger(logger, "nextBaseFee()");
+    const logger = get_logger();
+    const scoped = create_scoped_logger(logger, "nextBaseFee()");
     defer scoped.deinit();
 
     logger.debug("Calculating next block's base fee", .{});
@@ -133,7 +133,7 @@ pub fn next_base_fee(parent_base_fee: u64, parent_gas_used: u64, parent_gas_targ
         const gas_used_delta = parent_gas_used - parent_gas_target;
 
         // Calculate the base fee delta (max 12.5% increase)
-        const base_fee_delta = calculateFeeDelta(parent_base_fee, gas_used_delta, parent_gas_target, BASE_FEE_CHANGE_DENOMINATOR);
+        const base_fee_delta = calculate_fee_delta(parent_base_fee, gas_used_delta, parent_gas_target, BASE_FEE_CHANGE_DENOMINATOR);
 
         // Increase the base fee
         // The overflow check is probably unnecessary given gas limits, but it's a good safety measure
@@ -147,7 +147,7 @@ pub fn next_base_fee(parent_base_fee: u64, parent_gas_used: u64, parent_gas_targ
         const gas_used_delta = parent_gas_target - parent_gas_used;
 
         // Calculate the base fee delta (max 12.5% decrease)
-        const base_fee_delta = calculateFeeDelta(parent_base_fee, gas_used_delta, parent_gas_target, BASE_FEE_CHANGE_DENOMINATOR);
+        const base_fee_delta = calculate_fee_delta(parent_base_fee, gas_used_delta, parent_gas_target, BASE_FEE_CHANGE_DENOMINATOR);
 
         // Decrease the base fee, but don't go below the minimum
         next_base_fee = if (parent_base_fee > base_fee_delta)
@@ -178,8 +178,8 @@ pub fn next_base_fee(parent_base_fee: u64, parent_gas_used: u64, parent_gas_targ
 ///
 /// Returns: The effective gas price, and the miner's portion of the fee
 pub fn get_effective_gas_price(base_fee_per_gas: u64, max_fee_per_gas: u64, max_priority_fee_per_gas: u64) struct { effective_gas_price: u64, miner_fee: u64 } {
-    const logger = getLogger();
-    const scoped = createScopedLogger(logger, "getEffectiveGasPrice()");
+    const logger = get_logger();
+    const scoped = create_scoped_logger(logger, "getEffectiveGasPrice()");
     defer scoped.deinit();
 
     logger.debug("Calculating effective gas price", .{});
