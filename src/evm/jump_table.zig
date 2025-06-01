@@ -64,7 +64,7 @@ pub fn init() Self {
     };
 }
 
-pub fn getOperation(self: *const Self, opcode: u8) *const Operation {
+pub fn get_operation(self: *const Self, opcode: u8) *const Operation {
     return self.table[opcode] orelse &Operation.NULL;
 }
 
@@ -92,7 +92,7 @@ pub fn copy(self: *const Self, allocator: std.mem.Allocator) !Self {
     return new_table;
 }
 
-pub fn initFromHardfork(allocator: std.mem.Allocator, hardfork: Hardfork) Self {
+pub fn init_from_hardfork(allocator: std.mem.Allocator, hardfork: Hardfork) Self {
     var jump_table = Self{};
     _ = hardfork;
     const add_op = allocator.create(Operation);
@@ -108,29 +108,29 @@ pub fn initFromHardfork(allocator: std.mem.Allocator, hardfork: Hardfork) Self {
 }
 
 // Helper function to calculate min/max stack values
-pub fn minStack(min_pop: u32, min_push: u32) u32 {
+pub fn min_stack(min_pop: u32, min_push: u32) u32 {
     _ = min_push; // autofix
     return min_pop;
 }
 
-pub fn maxStack(max_pop: u32, max_push: u32) u32 {
+pub fn max_stack(max_pop: u32, max_push: u32) u32 {
     _ = max_pop; // autofix
     return max_push;
 }
 
-pub fn minDupStack(n: u32) u32 {
+pub fn min_dup_stack(n: u32) u32 {
     return n;
 }
 
-pub fn maxDupStack(n: u32) u32 {
+pub fn max_dup_stack(n: u32) u32 {
     return n + 1;
 }
 
-pub fn minSwapStack(n: u32) u32 {
+pub fn min_swap_stack(n: u32) u32 {
     return n;
 }
 
-pub fn maxSwapStack(n: u32) u32 {
+pub fn max_swap_stack(n: u32) u32 {
     return n;
 }
 
@@ -156,7 +156,7 @@ fn dummyExecute(pc: usize, interpreter: anytype, state: anytype) ExecutionError!
 }
 
 // Create a new frontier instruction set
-pub fn newFrontierInstructionSet(allocator: std.mem.Allocator) !Self {
+pub fn new_frontier_instruction_set(allocator: std.mem.Allocator) !Self {
     var jt = Self.init();
 
     // Setup operation table manually instead of using opcodes structs directly
