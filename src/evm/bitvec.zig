@@ -88,7 +88,7 @@ pub fn code_bitmap(code: []const u8) Self {
         const op = code[i];
 
         // If the opcode is a PUSH, skip the pushed bytes
-        if (constants.isPush(op)) {
+        if (constants.is_push(op)) {
             const push_bytes = op - 0x5F; // Calculate number of bytes to push (PUSH1 = 1, etc.)
 
             // Mark pushed bytes as data (not code)
