@@ -139,7 +139,7 @@ pub const CompactBranchNode = struct {
         // Copy the values
         for (0..16) |i| {
             if (self.children_mask.is_set(@intCast(i))) {
-                const child = self.getChild(@intCast(i)).?;
+                const child = self.get_child(@intCast(i)).?;
                 branch.children[i] = switch (child) {
                     .Raw => |data| HashValue{ .Raw = try allocator.dupe(u8, data) },
                     .Hash => |hash| HashValue{ .Hash = hash },
@@ -170,7 +170,7 @@ pub const CompactBranchNode = struct {
     
     /// Get the only child's index, if there is only one
     pub fn get_only_child_index(self: *const CompactBranchNode) ?u4 {
-        if (!self.hasOnlyOneChild()) {
+        if (!self.has_only_one_child()) {
             return null;
         }
         
@@ -196,7 +196,7 @@ pub const CompactBranchNode = struct {
         // Encode each child or an empty string
         for (0..16) |i| {
             if (self.children_mask.is_set(@intCast(i))) {
-                const child = self.getChild(@intCast(i)).?;
+                const child = self.get_child(@intCast(i)).?;
                 switch (child) {
                     .Raw => |data| {
                         const encoded = try rlp.encode(allocator, data);
@@ -246,20 +246,20 @@ test "CompactBranchNode - basic operations" {
     
     // Start empty
     try testing.expect(branch.is_empty());
-    try testing.expect(!branch.hasOnlyOneChild());
-    try testing.expect(branch.getOnlyChildIndex() == null);
+    try testing.expect(!branch.has_only_one_child());
+    try testing.expect(branch.get_only_child_index() == null);
     
     // Add one child
     const value1 = try allocator.dupe(u8, "value1");
-    try branch.addChild(3, HashValue{ .Raw = value1 }, false, false);
+    try branch.add_child(3, HashValue{ .Raw = value1 }, false, false);
     
     try testing.expect(!branch.is_empty());
-    try testing.expect(branch.hasOnlyOneChild());
-    try testing.expect(branch.getOnlyChildIndex() != null);
-    try testing.expectEqual(@as(u4, 3), branch.getOnlyChildIndex().?);
+    try testing.expect(branch.has_only_one_child());
+    try testing.expect(branch.get_only_child_index() != null);
+    try testing.expectEqual(@as(u4, 3), branch.get_only_child_index().?);
     
     // Get the child
-    const child = branch.getChild(3);
+    const child = branch.get_child(3);
     try testing.expect(child != null);
     switch (child.?) {
         .Raw => |data| try testing.expectEqualStrings("value1", data),
@@ -270,11 +270,11 @@ test "CompactBranchNode - basic operations" {
     const hash2 = [_]u8{0} ** 32;
     var hash2_copy: [32]u8 = undefined;
     @memcpy(&hash2_copy, &hash2);
-    try branch.addChild(7, HashValue{ .Hash = hash2_copy }, true, true);
+    try branch.add_child(7, HashValue{ .Hash = hash2_copy }, true, true);
     
     try testing.expect(!branch.is_empty());
-    try testing.expect(!branch.hasOnlyOneChild());
-    try testing.expect(branch.getOnlyChildIndex() == null);
+    try testing.expect(!branch.has_only_one_child());
+    try testing.expect(branch.get_only_child_index() == null);
     
     // Convert to regular branch
     var regular_branch = try branch.to_branch_node(allocator);
@@ -285,12 +285,12 @@ test "CompactBranchNode - basic operations" {
     try testing.expect(!regular_branch.children_mask.is_set(0));
     
     // Remove children
-    try branch.removeChild(3);
+    try branch.remove_child(3);
     try testing.expect(!branch.is_empty());
-    try testing.expect(branch.hasOnlyOneChild());
-    try testing.expect(branch.getOnlyChildIndex() != null);
-    try testing.expectEqual(@as(u4, 7), branch.getOnlyChildIndex().?);
+    try testing.expect(branch.has_only_one_child());
+    try testing.expect(branch.get_only_child_index() != null);
+    try testing.expectEqual(@as(u4, 7), branch.get_only_child_index().?);
     
-    try branch.removeChild(7);
+    try branch.remove_child(7);
     try testing.expect(branch.is_empty());
 }

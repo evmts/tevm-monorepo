@@ -126,7 +126,7 @@ pub const CompilationResult = struct {
 /// Main compiler struct
 pub const Compiler = struct {
     /// Compile a Solidity file from the filesystem
-    pub fn compileFile(
+    pub fn compile_file(
         allocator: std.mem.Allocator,
         file_path: []const u8,
         settings: CompilerSettings,
@@ -164,7 +164,7 @@ pub const Compiler = struct {
     }
 
     /// Compile Solidity source code from memory
-    pub fn compileSource(
+    pub fn compile_source(
         allocator: std.mem.Allocator,
         source_name: []const u8,
         source_content: []const u8,
@@ -205,7 +205,7 @@ pub const Compiler = struct {
     }
 
     /// Install a specific Solidity compiler version
-    pub fn installSolcVersion(allocator: std.mem.Allocator, version: []const u8) !void {
+    pub fn install_solc_version(allocator: std.mem.Allocator, version: []const u8) !void {
         const c_version = try allocator.dupeZ(u8, version);
         defer allocator.free(c_version);
         var error_ptr: ?*c.foundry_FoundryError = null;
@@ -224,7 +224,7 @@ pub const Compiler = struct {
     }
 
     /// Clear the compilation cache
-    pub fn clearCache(cache_path: ?[]const u8) !void {
+    pub fn clear_cache(cache_path: ?[]const u8) !void {
         var c_cache_path: [*c]const u8 = null;
         var path_buf: [std.fs.max_path_bytes]u8 = undefined;
         

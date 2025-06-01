@@ -237,7 +237,7 @@ pub const ExtensionNode = struct {
         }
 
         // Encode the path
-        const encoded_path = try encodePath(allocator, self.nibbles, false);
+        const encoded_path = try encode_path(allocator, self.nibbles, false);
         try items.append(encoded_path);
 
         // Encode the next node
@@ -280,7 +280,7 @@ pub const LeafNode = struct {
         }
 
         // Encode the path
-        const encoded_path = try encodePath(allocator, self.nibbles, true);
+        const encoded_path = try encode_path(allocator, self.nibbles, true);
         try items.append(encoded_path);
 
         // Encode the value
@@ -362,7 +362,7 @@ pub fn nibbles_to_key(allocator: Allocator, nibbles: []const u8) ![]u8 {
 }
 
 /// Encodes a path for either leaf or extension nodes
-fn encodePath(allocator: Allocator, nibbles: []const u8, is_leaf: bool) ![]u8 {
+fn encode_path(allocator: Allocator, nibbles: []const u8, is_leaf: bool) ![]u8 {
     // Handle empty nibbles case
     if (nibbles.len == 0) {
         const hex_arr = try allocator.alloc(u8, 1);
@@ -512,7 +512,7 @@ test "encodePath and decodePath" {
     // Test with even number of nibbles - extension node
     {
         const nibbles = [_]u8{ 1, 2, 3, 4 };
-        const encoded = try encodePath(allocator, &nibbles, false);
+        const encoded = try encode_path(allocator, &nibbles, false);
         defer allocator.free(encoded);
         
         try testing.expectEqual(@as(usize, 3), encoded.len);
@@ -530,7 +530,7 @@ test "encodePath and decodePath" {
     // Test with odd number of nibbles - leaf node
     {
         const nibbles = [_]u8{ 1, 2, 3, 4, 5 };
-        const encoded = try encodePath(allocator, &nibbles, true);
+        const encoded = try encode_path(allocator, &nibbles, true);
         defer allocator.free(encoded);
         
         try testing.expectEqual(@as(usize, 3), encoded.len);

@@ -1,6 +1,6 @@
 const std = @import("std");
 
-pub fn addRustIntegration(b: *std.Build, target: std.Build.ResolvedTarget, optimize: std.builtin.OptimizeMode) !*std.Build.Step {
+pub fn add_rust_integration(b: *std.Build, target: std.Build.ResolvedTarget, optimize: std.builtin.OptimizeMode) !*std.Build.Step {
     // Build the Rust static library
     const cargo_build = b.addSystemCommand(&.{
         "cargo",
