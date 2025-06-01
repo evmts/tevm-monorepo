@@ -26,7 +26,20 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-
+    const webui = b.dependency("webui", .{
+        .target = target,
+        .optimize = optimize,
+        .dynamic = false,
+        .@"enable-tls" = false,
+        .verbose = .err,
+    });
+    const ui_exe = b.addExecutable(.{
+        .name = "ui",
+        .root_source_file = b.path("src/ui/main.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    ui_exe.linkLibrary(webui.artifact("webui"));
     // First create individual modules for each component
     const address_mod = b.createModule(.{
         .root_source_file = b.path("src/Address/address.zig"),
@@ -238,6 +251,7 @@ pub fn build(b: *std.Build) void {
     b.installArtifact(exe);
     b.installArtifact(wasm);
     b.installArtifact(server_exe);
+    b.installArtifact(ui_exe);
 
     // This *creates* a Run step in the build graph
     const run_cmd = b.addRunArtifact(exe);
@@ -260,14 +274,23 @@ pub fn build(b: *std.Build) void {
     const run_server_cmd = b.addRunArtifact(server_exe);
     run_server_cmd.step.dependOn(b.getInstallStep());
 
-    // Pass arguments to the server application
+    // Define a run ui step
+    const run_ui_cmd = b.addRunArtifact(ui_exe);
+    run_ui_cmd.step.dependOn(b.getInstallStep());
+
+    // Pass arguments to the applications
     if (b.args) |args| {
         run_server_cmd.addArgs(args);
+        run_ui_cmd.addArgs(args);
     }
 
     // Define run server step
     const run_server_step = b.step("run-server", "Run the JSON-RPC server");
     run_server_step.dependOn(&run_server_cmd.step);
+
+    // Define run ui step
+    const run_ui_step = b.step("ui", "Run the ui");
+    run_ui_step.dependOn(&run_ui_cmd.step);
 
     // Creates a step for unit testing.
     const lib_unit_tests = b.addTest(.{
@@ -536,4 +559,253 @@ pub fn build(b: *std.Build) void {
     const zabi_module = b.dependency("zabi", .{}).module("zabi");
     exe.root_module.addImport("zabi", zabi_module);
     lib.root_module.addImport("zabi", zabi_module);
+
+    // UI Build Integration
+    const ui_build = UiBuildStep.create(b);
+
+    // Create assets generation step
+    const gen_assets = GenerateAssetsStep.create(b, "src/ui/dist");
+    gen_assets.step.dependOn(&ui_build.step); // Assets generation depends on UI being built
+
+    // Add the generated assets file to your UI module
+    const ui_assets_mod = b.createModule(.{
+        .root_source_file = b.path("src/ui/assets.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    // Update your ui_exe to include the assets
+    ui_exe.root_module.addImport("assets", ui_assets_mod);
+
+    // Make the UI executable depend on assets being generated
+    ui_exe.step.dependOn(&gen_assets.step);
+
+    // Update the run UI step to depend on the build
+    run_ui_cmd.step.dependOn(&gen_assets.step);
+
+    // Define build-only ui step
+    const build_ui_step = b.step("build-ui", "Build the UI without running");
+    build_ui_step.dependOn(&ui_exe.step);
+    build_ui_step.dependOn(&gen_assets.step);
+    build_ui_step.dependOn(b.getInstallStep());
 }
+
+// Custom build step for building the SolidJS UI
+const UiBuildStep = struct {
+    step: std.Build.Step,
+    builder: *std.Build,
+
+    pub fn create(builder: *std.Build) *UiBuildStep {
+        const self = builder.allocator.create(UiBuildStep) catch unreachable;
+        self.* = .{
+            .step = std.Build.Step.init(.{
+                .id = .custom,
+                .name = "ui-build",
+                .owner = builder,
+                .makeFn = make,
+            }),
+            .builder = builder,
+        };
+        return self;
+    }
+
+    fn make(step: *std.Build.Step, options: std.Build.Step.MakeOptions) !void {
+        _ = options;
+        const self: *UiBuildStep = @fieldParentPtr("step", step);
+
+        // Check if pnpm is available
+        _ = self.builder.findProgram(&.{"pnpm"}, &.{}) catch {
+            std.log.err("pnpm not found in PATH", .{});
+            return error.PnpmNotFound;
+        };
+
+        // Check that UI directory exists
+        var ui_dir = try std.fs.cwd().openDir("src/ui", .{});
+        defer ui_dir.close();
+
+        // Run pnpm install
+        const install_result = try std.process.Child.run(.{
+            .allocator = self.builder.allocator,
+            .argv = &.{ "pnpm", "install" },
+            .cwd = "src/ui",
+        });
+        defer self.builder.allocator.free(install_result.stdout);
+        defer self.builder.allocator.free(install_result.stderr);
+
+        if (install_result.term.Exited != 0) {
+            std.log.err("pnpm install failed: {s}", .{install_result.stderr});
+            return error.PnpmInstallFailed;
+        }
+
+        // Run pnpm build
+        const build_result = try std.process.Child.run(.{
+            .allocator = self.builder.allocator,
+            .argv = &.{ "pnpm", "run", "build" },
+            .cwd = "src/ui",
+        });
+        defer self.builder.allocator.free(build_result.stdout);
+        defer self.builder.allocator.free(build_result.stderr);
+
+        if (build_result.term.Exited != 0) {
+            std.log.err("pnpm build failed: {s}", .{build_result.stderr});
+            return error.PnpmBuildFailed;
+        }
+
+        std.log.info("UI build completed successfully", .{});
+    }
+};
+
+// Generate a Zig file with embedded assets
+const GenerateAssetsStep = struct {
+    step: std.Build.Step,
+    builder: *std.Build,
+    ui_dist_path: []const u8,
+
+    pub fn create(builder: *std.Build, ui_dist_path: []const u8) *GenerateAssetsStep {
+        const self = builder.allocator.create(GenerateAssetsStep) catch unreachable;
+        self.* = .{
+            .step = std.Build.Step.init(.{
+                .id = .custom,
+                .name = "generate-assets",
+                .owner = builder,
+                .makeFn = make,
+            }),
+            .builder = builder,
+            .ui_dist_path = ui_dist_path,
+        };
+        return self;
+    }
+
+    fn make(step: *std.Build.Step, options: std.Build.Step.MakeOptions) !void {
+        _ = options;
+        const self: *GenerateAssetsStep = @fieldParentPtr("step", step);
+
+        var assets_content = std.ArrayList(u8).init(self.builder.allocator);
+        defer assets_content.deinit();
+
+        const writer = assets_content.writer();
+
+        // Write the header
+        try writer.writeAll(
+            \\// This file is auto-generated. Do not edit manually.
+            \\const std = @import("std");
+            \\
+            \\const Self = @This();
+            \\
+            \\path: []const u8,
+            \\content: []const u8,
+            \\mime_type: []const u8,
+            \\response: [:0]const u8,
+            \\
+            \\pub fn init(
+            \\    comptime path: []const u8,
+            \\    comptime content: []const u8,
+            \\    comptime mime_type: []const u8,
+            \\) Self {
+            \\    var buf: [20]u8 = undefined;
+            \\    const n = std.fmt.bufPrint(&buf, "{d}", .{content.len}) catch unreachable;
+            \\    const content_length = buf[0..n.len];
+            \\    const response = "HTTP/1.1 200 OK\n" ++
+            \\        "Content-Type: " ++ mime_type ++ "\n" ++
+            \\        "Content-Length: " ++ content_length ++ "\n" ++
+            \\        "\n" ++
+            \\        content;
+            \\    return Self{
+            \\        .path = path,
+            \\        .content = content,
+            \\        .mime_type = mime_type,
+            \\        .response = response,
+            \\    };
+            \\}
+            \\
+            \\pub const not_found_asset = Self.init(
+            \\    "/notfound.html",
+            \\    "<div>Page not found</div>",
+            \\    "text/html",
+            \\);
+            \\
+            \\pub const assets = [_]Self{
+            \\
+        );
+
+        // Check if dist directory exists
+        var dir = std.fs.cwd().openDir(self.ui_dist_path, .{ .iterate = true }) catch {
+            std.log.info("UI dist directory not found at {s}, creating empty assets file", .{self.ui_dist_path});
+            try writer.writeAll(
+                \\    not_found_asset,
+                \\};
+                \\
+                \\pub fn getAsset(filename: []const u8) ?Self {
+                \\    for (assets) |asset| {
+                \\        if (std.mem.eql(u8, asset.path, filename)) {
+                \\            return asset;
+                \\        }
+                \\    }
+                \\    return null;
+                \\}
+                \\
+            );
+
+            // Write empty assets file
+            const assets_file = try std.fs.cwd().createFile("src/ui/assets.zig", .{});
+            defer assets_file.close();
+            try assets_file.writeAll(assets_content.items);
+            return;
+        };
+        defer dir.close();
+
+        var walker = try dir.walk(self.builder.allocator);
+        defer walker.deinit();
+
+        while (try walker.next()) |entry| {
+            if (entry.kind != .file) continue;
+
+            const mime_type = getMimeType(entry.path);
+            // Create path relative to src/ui/assets.zig
+            const embed_path = try std.fmt.allocPrint(self.builder.allocator, "dist/{s}", .{entry.path});
+            defer self.builder.allocator.free(embed_path);
+
+            try writer.print(
+                \\    Self.init(
+                \\        "/{s}",
+                \\        @embedFile("{s}"),
+                \\        "{s}",
+                \\    ),
+                \\
+            , .{ entry.path, embed_path, mime_type });
+        }
+
+        try writer.writeAll(
+            \\    not_found_asset,
+            \\};
+            \\
+            \\pub fn getAsset(filename: []const u8) ?Self {
+            \\    for (assets) |asset| {
+            \\        if (std.mem.eql(u8, asset.path, filename)) {
+            \\            return asset;
+            \\        }
+            \\    }
+            \\    return null;
+            \\}
+            \\
+        );
+
+        // Write the file
+        const assets_file = try std.fs.cwd().createFile("src/ui/assets.zig", .{});
+        defer assets_file.close();
+        try assets_file.writeAll(assets_content.items);
+    }
+
+    fn getMimeType(path: []const u8) []const u8 {
+        if (std.mem.endsWith(u8, path, ".html")) return "text/html";
+        if (std.mem.endsWith(u8, path, ".js")) return "application/javascript";
+        if (std.mem.endsWith(u8, path, ".css")) return "text/css";
+        if (std.mem.endsWith(u8, path, ".json")) return "application/json";
+        if (std.mem.endsWith(u8, path, ".png")) return "image/png";
+        if (std.mem.endsWith(u8, path, ".jpg") or std.mem.endsWith(u8, path, ".jpeg")) return "image/jpeg";
+        if (std.mem.endsWith(u8, path, ".svg")) return "image/svg+xml";
+        if (std.mem.endsWith(u8, path, ".woff2")) return "font/woff2";
+        if (std.mem.endsWith(u8, path, ".woff")) return "font/woff";
+        return "application/octet-stream";
+    }
+};

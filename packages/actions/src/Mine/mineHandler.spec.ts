@@ -4,8 +4,8 @@ import { http, parseEther } from 'viem'
 import { describe, expect, it, vi } from 'vitest'
 import type { CallResult } from '../Call/CallResult.js'
 import { callHandler } from '../Call/callHandler.js'
-import { mineHandler } from './mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
+import { mineHandler } from './mineHandler.js'
 
 const getBlockNumber = (client: TevmNode) => {
 	return client

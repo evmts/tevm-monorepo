@@ -13,12 +13,11 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@tauri-apps/api": "^2.5.0",
-    "@tauri-apps/plugin-opener": "^2.2.7",
     "shadcn": "^2.5.0",
     "solid-js": "^1.9.7"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.8",
     "@tauri-apps/cli": "^2.5.0",
     "@types/node": "^22.15.21",
     "autoprefixer": "^10.4.21",
