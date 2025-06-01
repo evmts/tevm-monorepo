@@ -1,9 +1,9 @@
 const std = @import("std");
-const Contract = @import("Contract.zig");
-const Stack = @import("Stack.zig");
+const Contract = @import("contract.zig");
+const Stack = @import("stack.zig");
 const Memory = @import("memory.zig");
 const JumpTable = @import("jump_table.zig");
-const Frame = @import("Frame.zig");
+const Frame = @import("frame.zig");
 
 const Self = @This();
 

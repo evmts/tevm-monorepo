@@ -1,12 +1,4 @@
 const std = @import("std");
-const EvmLogger = @import("evm_logger.zig").EvmLogger;
-const create_logger = @import("evm_logger.zig").create_logger;
-const create_scoped_logger = @import("evm_logger.zig").create_scoped_logger;
-
-// Module logger will be initialized when functions are called
-fn get_logger() EvmLogger {
-    return create_logger(@src().file);
-}
 
 // FeeMarket implements the EIP-1559 fee market mechanism
 ///
@@ -49,12 +41,8 @@ pub const BASE_FEE_CHANGE_DENOMINATOR: u64 = 8;
 ///
 /// Returns: The initial base fee (in wei)
 pub fn initial_base_fee(parent_gas_used: u64, parent_gas_limit: u64) u64 {
-    const logger = get_logger();
-    const scoped = create_scoped_logger(logger, "initialBaseFee()");
-    defer scoped.deinit();
-
-    logger.debug("Initializing base fee for first EIP-1559 block", .{});
-    logger.debug("Parent block gas used: {d}, gas limit: {d}", .{ parent_gas_used, parent_gas_limit });
+    std.log.debug("Initializing base fee for first EIP-1559 block", .{});
+    std.log.debug("Parent block gas used: {d}, gas limit: {d}", .{ parent_gas_used, parent_gas_limit });
 
     // Initial base fee formula from the EIP-1559 specification
     // If the parent block used exactly the target gas, the initial base fee is 1 gwei
@@ -86,7 +74,7 @@ pub fn initial_base_fee(parent_gas_used: u64, parent_gas_limit: u64) u64 {
     // Ensure base fee is at least the minimum
     base_fee = @max(base_fee, MIN_BASE_FEE);
 
-    logger.info("Initial base fee calculated: {d} wei", .{base_fee});
+    std.log.debug("Initial base fee calculated: {d} wei", .{base_fee});
     return base_fee;
 }
 
@@ -105,18 +93,14 @@ pub fn initial_base_fee(parent_gas_used: u64, parent_gas_limit: u64) u64 {
 ///
 /// Returns: The next block's base fee (in wei)
 pub fn next_base_fee(parent_base_fee: u64, parent_gas_used: u64, parent_gas_target: u64) u64 {
-    const logger = get_logger();
-    const scoped = create_scoped_logger(logger, "nextBaseFee()");
-    defer scoped.deinit();
-
-    logger.debug("Calculating next block's base fee", .{});
-    logger.debug("Parent block base fee: {d} wei", .{parent_base_fee});
-    logger.debug("Parent block gas used: {d}, gas target: {d}", .{ parent_gas_used, parent_gas_target });
+    std.log.debug("Calculating next block's base fee", .{});
+    std.log.debug("Parent block base fee: {d} wei", .{parent_base_fee});
+    std.log.debug("Parent block gas used: {d}, gas target: {d}", .{ parent_gas_used, parent_gas_target });
 
     // If parent block is empty, keep the base fee the same
     // Skip the delta calculations and just return the parent fee directly
     if (parent_gas_used == 0) {
-        logger.info("Parent block was empty, keeping base fee the same: {d} wei", .{parent_base_fee});
+        std.log.debug("Parent block was empty, keeping base fee the same: {d} wei", .{parent_base_fee});
         return parent_base_fee;
     }
 
@@ -125,7 +109,7 @@ pub fn next_base_fee(parent_base_fee: u64, parent_gas_used: u64, parent_gas_targ
 
     if (parent_gas_used == parent_gas_target) {
         // If parent block used exactly the target gas, keep the base fee the same
-        logger.debug("Parent block used exactly the target gas, keeping base fee the same", .{});
+        std.log.debug("Parent block used exactly the target gas, keeping base fee the same", .{});
     } else if (parent_gas_used > parent_gas_target) {
         // If parent block used more than the target gas, increase the base fee
 
@@ -139,7 +123,7 @@ pub fn next_base_fee(parent_base_fee: u64, parent_gas_used: u64, parent_gas_targ
         // The overflow check is probably unnecessary given gas limits, but it's a good safety measure
         new_base_fee = std.math.add(u64, parent_base_fee, base_fee_delta) catch parent_base_fee;
 
-        logger.debug("Parent block used more than target gas, increasing base fee by {d} wei", .{base_fee_delta});
+        std.log.debug("Parent block used more than target gas, increasing base fee by {d} wei", .{base_fee_delta});
     } else {
         // If parent block used less than the target gas, decrease the base fee
 
@@ -155,13 +139,13 @@ pub fn next_base_fee(parent_base_fee: u64, parent_gas_used: u64, parent_gas_targ
         else
             MIN_BASE_FEE;
 
-        logger.debug("Parent block used less than target gas, decreasing base fee by {d} wei", .{base_fee_delta});
+        std.log.debug("Parent block used less than target gas, decreasing base fee by {d} wei", .{base_fee_delta});
     }
 
     // Ensure base fee is at least the minimum
     new_base_fee = @max(new_base_fee, MIN_BASE_FEE);
 
-    logger.info("Next block base fee calculated: {d} wei", .{new_base_fee});
+    std.log.debug("Next block base fee calculated: {d} wei", .{new_base_fee});
     return new_base_fee;
 }
 
@@ -178,16 +162,12 @@ pub fn next_base_fee(parent_base_fee: u64, parent_gas_used: u64, parent_gas_targ
 ///
 /// Returns: The effective gas price, and the miner's portion of the fee
 pub fn get_effective_gas_price(base_fee_per_gas: u64, max_fee_per_gas: u64, max_priority_fee_per_gas: u64) struct { effective_gas_price: u64, miner_fee: u64 } {
-    const logger = get_logger();
-    const scoped = create_scoped_logger(logger, "getEffectiveGasPrice()");
-    defer scoped.deinit();
-
-    logger.debug("Calculating effective gas price", .{});
-    logger.debug("Base fee: {d}, max fee: {d}, max priority fee: {d}", .{ base_fee_per_gas, max_fee_per_gas, max_priority_fee_per_gas });
+    std.log.debug("Calculating effective gas price", .{});
+    std.log.debug("Base fee: {d}, max fee: {d}, max priority fee: {d}", .{ base_fee_per_gas, max_fee_per_gas, max_priority_fee_per_gas });
 
     // Ensure the transaction at least pays the base fee
     if (max_fee_per_gas < base_fee_per_gas) {
-        logger.warn("Transaction's max fee ({d}) is less than base fee ({d})", .{ max_fee_per_gas, base_fee_per_gas });
+        std.log.warn("Transaction's max fee ({d}) is less than base fee ({d})", .{ max_fee_per_gas, base_fee_per_gas });
         // In a real implementation, this transaction would be rejected
         // For now, just return the max fee and zero miner fee
         return .{ .effective_gas_price = max_fee_per_gas, .miner_fee = 0 };
@@ -200,8 +180,8 @@ pub fn get_effective_gas_price(base_fee_per_gas: u64, max_fee_per_gas: u64, max_
     // The effective gas price is base fee plus priority fee
     const effective_gas_price = base_fee_per_gas + max_priority_fee;
 
-    logger.debug("Effective gas price: {d} wei", .{effective_gas_price});
-    logger.debug("Miner fee (priority fee): {d} wei", .{max_priority_fee});
+    std.log.debug("Effective gas price: {d} wei", .{effective_gas_price});
+    std.log.debug("Miner fee (priority fee): {d} wei", .{max_priority_fee});
 
     return .{ .effective_gas_price = effective_gas_price, .miner_fee = max_priority_fee };
 }

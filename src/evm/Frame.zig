@@ -1,7 +1,7 @@
 const std = @import("std");
 const Memory = @import("memory.zig");
-const Stack = @import("Stack.zig");
-const Contract = @import("Contract.zig");
+const Stack = @import("stack.zig");
+const Contract = @import("contract.zig");
 const ExecutionError = @import("execution_error.zig");
 
 const Self = @This();
