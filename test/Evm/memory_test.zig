@@ -378,3 +378,40 @@ test "Memory growth strategy" {
     // Capacity should have doubled
     try testing.expect(mem.buffer.capacity >= initial_cap * 2);
 }
+
+test "Memory word alignment behavior" {
+    var mem = try Memory.init(testing.allocator);
+    defer mem.deinit();
+
+    // Test exact byte sizing (not word-aligned)
+    try mem.resize(33);
+    try testing.expectEqual(@as(usize, 33), mem.size());
+    
+    // Test ensureCapacity calculates words correctly
+    const old_words = calculateNumWords(mem.size());
+    const new_words = try mem.ensureCapacity(65);
+    try testing.expectEqual(@as(u64, 3 - old_words), new_words); // 65 bytes = 3 words
+    try testing.expectEqual(@as(usize, 65), mem.size());
+    
+    // Test resizeWordAligned for strict word alignment
+    try mem.resizeWordAligned(100);
+    try testing.expectEqual(@as(usize, 128), mem.size()); // 100 bytes -> 4 words -> 128 bytes
+    
+    // Verify word calculation edge cases
+    try testing.expectEqual(@as(usize, 1), calculateNumWords(1));   // 1 byte = 1 word
+    try testing.expectEqual(@as(usize, 1), calculateNumWords(32));  // 32 bytes = 1 word  
+    try testing.expectEqual(@as(usize, 2), calculateNumWords(33));  // 33 bytes = 2 words
+    
+    // Test memory expansion with exact byte requirements
+    var mem2 = try Memory.init(testing.allocator);
+    defer mem2.deinit();
+    
+    // Simulate MLOAD at offset 320 with 10 bytes
+    const required_size = 320 + 10; // 330 bytes
+    _ = try mem2.ensureCapacity(required_size);
+    try testing.expectEqual(@as(usize, 330), mem2.size());
+    
+    // Gas calculation should be based on words
+    const words_for_gas = calculateNumWords(330); // 11 words
+    try testing.expectEqual(@as(usize, 11), words_for_gas);
+}

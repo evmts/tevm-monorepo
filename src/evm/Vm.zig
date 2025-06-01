@@ -1,7 +1,7 @@
 const std = @import("std");
 const Contract = @import("Contract.zig");
 const Stack = @import("Stack.zig");
-const Memory = @import("Memory.zig");
+const Memory = @import("memory.zig");
 const JumpTable = @import("JumpTable.zig");
 const Frame = @import("Frame.zig");
 

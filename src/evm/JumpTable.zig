@@ -7,7 +7,7 @@ const ExecutionError = @import("ExecutionError.zig");
 // const Interpreter = @import("interpreter.zig").Interpreter;
 // const InterpreterState = @import("InterpreterState.zig").InterpreterState;
 const Stack = @import("Stack.zig");
-const Memory = @import("Memory.zig");
+const Memory = @import("memory.zig");
 
 // Constants for gas calculation
 pub const GasQuickStep: u64 = 2;
