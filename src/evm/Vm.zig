@@ -1,9 +1,9 @@
 const std = @import("std");
-const Contract = @import("Contract.zig").Contract;
-const Stack = @import("Stack.zig").Stack;
-const Memory = @import("Memory.zig").Memory;
-const JumpTable = @import("JumpTable.zig").JumpTable;
-const Frame = @import("Frame.zig").Frame;
+const Contract = @import("Contract.zig");
+const Stack = @import("Stack.zig");
+const Memory = @import("Memory.zig");
+const JumpTable = @import("JumpTable.zig");
+const Frame = @import("Frame.zig");
 
 pub const Vm = struct {
     const Self = @This();
@@ -12,7 +12,7 @@ pub const Vm = struct {
 
     returnData: []u8 = &[_]u8{},
 
-    stack: Stack = Stack{},
+    stack: Stack = .{},
     memory: Memory,
     table: JumpTable,
 
