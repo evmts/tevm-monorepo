@@ -149,7 +149,7 @@ pub fn ensureCapacity(self: *Self, min_size: usize) Error!u64 {
     try self.resize(min_size);
     const new_words = calculateNumWords(min_size);
     return new_words - current_words;
-    }
+}
 
 /// Read a single byte at offset.
 /// Returns InvalidOffset error if offset is out of bounds.
@@ -158,7 +158,7 @@ pub fn getByte(self: *const Self, offset: usize) Error!u8 {
         return Error.InvalidOffset;
     }
     return self.buffer.items[offset];
-    }
+}
 
 /// Read 32 bytes (word) at offset.
 /// Returns InvalidOffset error if the range [offset, offset+32) is out of bounds.
@@ -169,7 +169,7 @@ pub fn getWord(self: *const Self, offset: usize) Error![32]u8 {
     var word: [32]u8 = undefined;
     @memcpy(&word, self.buffer.items[offset .. offset + 32]);
     return word;
-    }
+}
 
 /// Read 32 bytes as u256 at offset.
 /// The bytes are interpreted as big-endian (most significant byte first).
@@ -181,7 +181,7 @@ pub fn getU256(self: *const Self, offset: usize) Error!u256 {
         value = (value << 8) | byte;
     }
     return value;
-    }
+}
 
 /// Read arbitrary slice of memory.
 /// Returns empty slice for zero length, InvalidOffset for out of bounds access.
@@ -197,7 +197,7 @@ pub fn getSlice(self: *const Self, offset: usize, len: usize) Error![]const u8 {
         return Error.InvalidOffset;
     }
     return self.buffer.items[offset..end];
-    }
+}
 
 /// Write a single byte at offset.
 /// Automatically expands memory if needed.
@@ -206,7 +206,7 @@ pub fn setByte(self: *Self, offset: usize, value: u8) Error!void {
         _ = try self.ensureCapacity(offset + 1);
     }
     self.buffer.items[offset] = value;
-    }
+}
 
 /// Write 32 bytes (word) at offset.
 /// Automatically expands memory if needed.
@@ -216,7 +216,7 @@ pub fn setWord(self: *Self, offset: usize, value: [32]u8) Error!void {
         _ = try self.ensureCapacity(end);
     }
     @memcpy(self.buffer.items[offset..end], &value);
-    }
+}
 
 /// Write u256 as 32 bytes at offset.
 /// The value is stored in big-endian format (most significant byte first).
@@ -225,16 +225,16 @@ pub fn setU256(self: *Self, offset: usize, value: u256) Error!void {
     var word: [32]u8 = [_]u8{0} ** 32;
 
     // Convert u256 to big-endian bytes
-    var v = value;
-    var i: usize = 31;
-    while (v > 0) : (i -%= 1) {
-        word[i] = @truncate(v & 0xFF);
-        v >>= 8;
-        if (i == 0) break;
+    var temp_val = value;
+    var k: usize = 32;
+    while (k > 0) {
+        k -= 1;
+        word[k] = @truncate(temp_val); // Truncate to u8
+        temp_val >>= 8;
     }
 
     try self.setWord(offset, word);
-    }
+}
 
 /// Write arbitrary data at offset.
 /// Automatically expands memory if needed.
@@ -250,7 +250,7 @@ pub fn setData(self: *Self, offset: usize, data: []const u8) Error!void {
     }
 
     @memcpy(self.buffer.items[offset..end], data);
-    }
+}
 
 /// Write data with source offset and length (handles partial copies and zero-fills).
 /// Used for CALLDATACOPY, CODECOPY, EXTCODECOPY, and RETURNDATACOPY.
@@ -285,7 +285,7 @@ pub fn setDataBounded(self: *Self, memory_offset: usize, data: []const u8, data_
     if (copy_len < len) {
         @memset(self.buffer.items[memory_offset + copy_len .. end], 0);
     }
-    }
+}
 
 /// Copy within memory (handles overlapping regions correctly).
 /// Used for MCOPY instruction (EIP-5656).
@@ -314,7 +314,7 @@ pub fn copy(self: *Self, dest_offset: usize, src_offset: usize, len: usize) Erro
     } else {
         std.mem.copyBackwards(u8, dest_slice, src_slice);
     }
-    }
+}
 
 // Unsafe operations (no bounds checking, caller ensures validity)
 
@@ -322,19 +322,19 @@ pub fn copy(self: *Self, dest_offset: usize, src_offset: usize, len: usize) Erro
 /// WARNING: No bounds checking - caller must ensure offset is valid.
 pub fn getPtrUnsafe(self: *Self, offset: usize) [*]u8 {
     return self.buffer.items.ptr + offset;
-    }
+}
 
 /// Get const raw pointer to memory at offset.
 /// WARNING: No bounds checking - caller must ensure offset is valid.
 pub fn getConstPtrUnsafe(self: *const Self, offset: usize) [*]const u8 {
     return self.buffer.items.ptr + offset;
-    }
+}
 
 /// Set bytes without bounds checking.
 /// WARNING: No bounds checking - caller must ensure memory has sufficient size.
 pub fn setUnsafe(self: *Self, offset: usize, data: []const u8) void {
     @memcpy(self.buffer.items[offset .. offset + data.len], data);
-    }
+}
 
 // Utility functions
 
@@ -342,7 +342,7 @@ pub fn setUnsafe(self: *Self, offset: usize, data: []const u8) void {
 /// Rounds up to the nearest word boundary.
 pub fn numWords(len: usize) usize {
     return calculateNumWords(len);
-    }
+}
 
 /// Get memory contents as hex string (for debugging/logging).
 /// Caller owns the returned memory and must free it.
@@ -355,7 +355,7 @@ pub fn toHex(self: *const Self, allocator: std.mem.Allocator) ![]u8 {
     }
 
     return hex_str;
-    }
+}
 
 /// Create a snapshot of current memory state.
 /// Caller owns the returned memory and must free it.
@@ -364,7 +364,7 @@ pub fn snapshot(self: *const Self, allocator: std.mem.Allocator) ![]u8 {
     const snap = try allocator.alloc(u8, self.buffer.items.len);
     @memcpy(snap, self.buffer.items);
     return snap;
-    }
+}
 
 /// Restore memory from a previously created snapshot.
 /// Resizes memory to match snapshot size and copies all data.
