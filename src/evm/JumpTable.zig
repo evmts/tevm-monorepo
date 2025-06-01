@@ -1,93 +1,13 @@
 const std = @import("std");
-const opcodes = @import("opcodes.zig");
-const Interpreter = @import("interpreter.zig").Interpreter;
-const InterpreterState = @import("InterpreterState.zig").InterpreterState;
-const Stack = @import("Stack.zig").Stack;
-const Memory = @import("Memory.zig").Memory;
-
-/// ExecutionFunc is a function executed by the EVM during interpretation
-pub const ExecutionFunc = *const fn (pc: usize, interpreter: *Interpreter, state: *InterpreterState) opcodes.ExecutionError![]const u8;
-
-/// GasFunc calculates the gas required for an operation
-pub const GasFunc = *const fn (interpreter: *Interpreter, state: *InterpreterState, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64;
-
-/// MemorySizeFunc calculates the memory size required for an operation
-pub const MemorySizeFunc = *const fn (stack: *Stack) opcodes.MemorySize;
-
-/// Operation represents an opcode in the EVM
-pub const Operation = struct {
-    // Execute is the operation function
-    execute: ExecutionFunc,
-    // ConstantGas is the base gas required for the operation
-    constant_gas: u64,
-    // DynamicGas calculates the dynamic portion of gas for the operation
-    dynamic_gas: ?GasFunc = null,
-    // MinStack tells how many stack items are required
-    min_stack: u32,
-    // MaxStack specifies the max length the stack can have for this operation
-    // to not overflow the stack
-    max_stack: u32,
-    // Memory size returns the memory size required for the operation
-    memory_size: ?MemorySizeFunc = null,
-    // Undefined denotes if the instruction is not officially defined in the jump table
-    undefined: bool = false,
-};
-
-pub const Hardfork = enum { CANCUN };
-
-/// JumpTable contains the EVM opcodes supported at a given fork
-pub const JumpTable = struct {
-    table: [256]?*const Operation,
-
-    pub fn init() JumpTable {
-        return JumpTable{
-            .table = [_]?*const Operation{null} ** 256,
-        };
-    }
-
-    pub fn getOperation(self: *const Self, opcode: u8) *const Operation {
-        return self.table[opcode] orelse &Operation.NULL;
-    }
-
-    pub fn validate(self: *Self) void {
-        for (0..256) |i| {
-            if (self.table[i] == null) {
-                // Fill unassigned slots with UNDEFINED
-                self.table[i] = &UNDEFINED;
-            } else if (self.table[i].?.memory_size != null and self.table[i].?.dynamic_gas == null) {
-                @panic("Operation has memory size but no dynamic gas calculation");
-            }
-        }
-    }
-
-    // Get a copy of the jump table
-    pub fn copy(self: *const JumpTable, allocator: std.mem.Allocator) !JumpTable {
-        var new_table = JumpTable.init();
-        for (0..256) |i| {
-            if (self.table[i] != null) {
-                const op_copy = try allocator.create(Operation);
-                op_copy.* = self.table[i].?.*;
-                new_table.table[i] = op_copy;
-            }
-        }
-        return new_table;
-    }
-
-    pub fn initFromHardfork(allocator: std.mem.Allocator, hardfork: Hardfork) Self {
-        var jump_table = Self{};
-        _ = hardfork;
-        const add_op = allocator.create(Operation);
-        add_op.* = Operation{
-            .execute = opAdd,
-            .constant_gas = gas_constants.GasFastestStep,
-            .min_stack = 2,
-            .max_stack = Stack.CAPACITY,
-        };
-        jump_table.table[0x01] = add_op;
-
-        return jump_table;
-    }
-};
+const Opcode = @import("Opcode.zig");
+const Operation = @import("Operation.zig");
+const Hardfork = @import("Hardfork.zig");
+const ExecutionError = @import("ExecutionError.zig");
+// TODO: Add these when files are created
+// const Interpreter = @import("interpreter.zig").Interpreter;
+// const InterpreterState = @import("InterpreterState.zig").InterpreterState;
+const Stack = @import("Stack.zig");
+const Memory = @import("Memory.zig");
 
 // Constants for gas calculation
 pub const GasQuickStep: u64 = 2;
@@ -125,6 +45,68 @@ pub const TxDataZeroGas: u64 = 4;
 pub const TxDataNonZeroGas: u64 = 16;
 pub const CopyGas: u64 = 3;
 
+// Define a default undefined operation
+var UNDEFINED = Operation{
+    .execute = undefinedExecute,
+    .constant_gas = 0,
+    .min_stack = 0,
+    .max_stack = 0,
+    .undefined = true,
+};
+
+/// JumpTable contains the EVM opcodes supported at a given fork
+const Self = @This();
+table: [256]?*const Operation,
+
+pub fn init() Self {
+    return Self{
+        .table = [_]?*const Operation{null} ** 256,
+    };
+}
+
+pub fn getOperation(self: *const Self, opcode: u8) *const Operation {
+    return self.table[opcode] orelse &Operation.NULL;
+}
+
+pub fn validate(self: *Self) void {
+        for (0..256) |i| {
+            if (self.table[i] == null) {
+                // Fill unassigned slots with UNDEFINED
+                self.table[i] = &UNDEFINED;
+            } else if (self.table[i].?.memory_size != null and self.table[i].?.dynamic_gas == null) {
+                @panic("Operation has memory size but no dynamic gas calculation");
+            }
+        }
+    }
+
+// Get a copy of the jump table
+pub fn copy(self: *const Self, allocator: std.mem.Allocator) !Self {
+    var new_table = Self.init();
+    for (0..256) |i| {
+        if (self.table[i] != null) {
+            const op_copy = try allocator.create(Operation);
+            op_copy.* = self.table[i].?.*;
+            new_table.table[i] = op_copy;
+        }
+    }
+    return new_table;
+}
+
+pub fn initFromHardfork(allocator: std.mem.Allocator, hardfork: Hardfork) Self {
+    var jump_table = Self{};
+    _ = hardfork;
+    const add_op = allocator.create(Operation);
+    add_op.* = Operation{
+        .execute = dummyExecute, // TODO: implement opAdd
+        .constant_gas = GasFastestStep,
+        .min_stack = 2,
+        .max_stack = Stack.CAPACITY,
+    };
+    jump_table.table[0x01] = add_op;
+
+    return jump_table;
+}
+
 // Helper function to calculate min/max stack values
 pub fn minStack(min_pop: u32, min_push: u32) u32 {
     _ = min_push; // autofix
@@ -152,30 +134,21 @@ pub fn maxSwapStack(n: u32) u32 {
     return n;
 }
 
-// Define a default undefined operation
-var UNDEFINED = Operation{
-    .execute = undefinedExecute,
-    .constant_gas = 0,
-    .min_stack = 0,
-    .max_stack = 0,
-    .undefined = true,
-};
-
-fn undefinedExecute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) opcodes.ExecutionError![]const u8 {
+fn undefinedExecute(pc: usize, interpreter: anytype, state: anytype) ExecutionError![]const u8 {
     _ = pc;
     _ = interpreter;
     _ = state;
-    return opcodes.ExecutionError.INVALID;
+    return ExecutionError.INVALID;
 }
 
-fn stopExecute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) opcodes.ExecutionError![]const u8 {
+fn stopExecute(pc: usize, interpreter: anytype, state: anytype) ExecutionError![]const u8 {
     _ = pc;
     _ = interpreter;
     _ = state;
-    return opcodes.ExecutionError.STOP;
+    return ExecutionError.STOP;
 }
 
-fn dummyExecute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) opcodes.ExecutionError![]const u8 {
+fn dummyExecute(pc: usize, interpreter: anytype, state: anytype) ExecutionError![]const u8 {
     _ = pc;
     _ = interpreter;
     _ = state;
@@ -183,8 +156,8 @@ fn dummyExecute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) 
 }
 
 // Create a new frontier instruction set
-pub fn newFrontierInstructionSet(allocator: std.mem.Allocator) !JumpTable {
-    var jt = JumpTable.init();
+pub fn newFrontierInstructionSet(allocator: std.mem.Allocator) !Self {
+    var jt = Self.init();
 
     // Setup operation table manually instead of using opcodes structs directly
     const stop_op = try allocator.create(Operation);
@@ -212,7 +185,7 @@ pub fn newFrontierInstructionSet(allocator: std.mem.Allocator) !JumpTable {
     return jt;
 }
 
-// Create test for the JumpTable
+// Create test for the Self
 test "JumpTable basic operations" {
     const allocator = std.testing.allocator;
 
@@ -240,7 +213,7 @@ test "JumpTable basic operations" {
 
 // Create a very basic test for JumpTable that doesn't depend on external implementation details
 test "JumpTable initialization and validation" {
-    const jt = JumpTable.init();
+    const jt = Self.init();
     try std.testing.expectEqual(@as(usize, 256), jt.table.len);
 
     // Check that all entries are initially null

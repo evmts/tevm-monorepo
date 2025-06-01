@@ -1,77 +1,53 @@
 const std = @import("std");
-const Memory = @import("Memory.zig").Memory;
-const Stack = @import("Stack.zig").Stack;
-const Contract = @import("Contract.zig").Contract;
+const Memory = @import("Memory.zig");
+const Stack = @import("Stack.zig");
+const Contract = @import("Contract.zig");
+const ExecutionError = @import("ExecutionError.zig");
 
-pub const ExecutionError = error{
-    STOP,
-    REVERT,
-    INVALID,
-    OutOfGas,
-    StackUnderflow,
-    StackOverflow,
-    InvalidJump,
-    InvalidOpcode,
-    StaticStateChange,
-    OutOfOffset,
-    GasUintOverflow,
-    WriteProtection,
-    ReturnDataOutOfBounds,
-    DeployCodeTooBig,
-    MaxCodeSizeExceeded,
-    InvalidCodeEntry,
-    DepthLimit,
-};
+const Self = @This();
 
-pub fn getErrorDescription(err: ExecutionError) []const u8 {
-    return switch (err) {
-        ExecutionError.STOP => "Normal STOP opcode execution",
-        ExecutionError.REVERT => "REVERT opcode - state reverted",
-        ExecutionError.INVALID => "INVALID opcode or invalid operation",
-        ExecutionError.OutOfGas => "Out of gas",
-        ExecutionError.StackUnderflow => "Stack underflow",
-        ExecutionError.StackOverflow => "Stack overflow (beyond 1024 elements)",
-        ExecutionError.InvalidJump => "Jump to invalid destination",
-        ExecutionError.InvalidOpcode => "Undefined opcode",
-        ExecutionError.StaticStateChange => "State modification in static context",
-        ExecutionError.OutOfOffset => "Memory access out of bounds",
-        ExecutionError.GasUintOverflow => "Gas calculation overflow",
-        ExecutionError.WriteProtection => "Write to protected storage",
-        ExecutionError.ReturnDataOutOfBounds => "Return data access out of bounds",
-        ExecutionError.DeployCodeTooBig => "Contract creation code too large",
-        ExecutionError.MaxCodeSizeExceeded => "Contract code size exceeds limit",
-        ExecutionError.InvalidCodeEntry => "Invalid contract entry code",
-        ExecutionError.DepthLimit => "Call depth exceeds limit (1024)",
+op: []const u8 = undefined,
+pc: usize = 0,
+cost: u64 = 0,
+err: ?ExecutionError.Error = null,
+memory: Memory,
+stack: Stack,
+contract: *Contract,
+returnData: ?[]u8 = null,
+allocator: std.mem.Allocator,
+stop: bool = false,
+
+pub fn init(allocator: std.mem.Allocator, contract: *Contract) Self {
+    return Self{
+        .allocator = allocator,
+        .contract = contract,
+        .memory = Memory.init(allocator) catch @panic("Failed to initialize memory"),
+        .stack = .{},
     };
 }
 
-pub const Frame = struct {
-    const Self = @This();
-    /// Current operation bytecode being executed
-    op: []const u8 = undefined,
-    /// Program counter - position in the bytecode
-    pc: usize = 0,
-    /// Gas cost accumulated in the current execution step
-    cost: u64 = 0,
-    /// Error encountered during execution (if any)
-    err: ?ExecutionError = null,
-    /// EVM memory - a linear byte array that can be accessed via MLOAD/MSTORE
-    memory: Memory,
-    /// EVM stack - holds up to 1024 items for operation inputs/outputs
-    stack: Stack,
-    /// Current contract being executed, containing code and execution context
-    contract: *Contract,
-    /// Return data from the most recent call operation
-    returnData: ?[]u8 = null,
-    /// Allocator for memory management of the Frame's resources
+pub fn initWithState(
     allocator: std.mem.Allocator,
-    /// Flag to indicate that execution should stop (STOP opcode)
-    stop: bool = false,
-
-    pub fn init(allocator: std.mem.Allocator, contract: *Contract) Self {
-        return Frame{
-            .allocator = allocator,
-            .contract = contract,
-        };
-    }
-};
+    contract: *Contract,
+    op: ?[]const u8,
+    pc: ?usize,
+    cost: ?u64,
+    err: ?ExecutionError.Error,
+    memory: ?Memory,
+    stack: ?Stack,
+    returnData: ?[]u8,
+    stop: ?bool,
+) Self {
+    return Self{
+        .allocator = allocator,
+        .contract = contract,
+        .memory = memory orelse Memory.init(allocator) catch @panic("Failed to initialize memory"),
+        .stack = stack orelse .{},
+        .op = op orelse undefined,
+        .pc = pc orelse 0,
+        .cost = cost orelse 0,
+        .err = err,
+        .returnData = returnData,
+        .stop = stop orelse false,
+    };
+}

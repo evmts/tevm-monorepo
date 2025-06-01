@@ -1,0 +1,20 @@
+/// Hardfork represents the different Ethereum hardforks
+pub const Hardfork = enum { 
+    FRONTIER,
+    HOMESTEAD,
+    DAO,
+    TANGERINE_WHISTLE,
+    SPURIOUS_DRAGON,
+    BYZANTIUM,
+    CONSTANTINOPLE,
+    PETERSBURG,
+    ISTANBUL,
+    MUIR_GLACIER,
+    BERLIN,
+    LONDON,
+    ARROW_GLACIER,
+    GRAY_GLACIER,
+    MERGE,
+    SHANGHAI,
+    CANCUN,
+};

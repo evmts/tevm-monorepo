@@ -1,4 +1,8 @@
-pub const Opcode = enum(u8) {
+/// Opcode represents an EVM instruction
+const Self = @This();
+
+/// The underlying enum of all EVM opcodes
+pub const Enum = enum(u8) {
     STOP = 0x00,
     ADD = 0x01,
     MUL = 0x02,
@@ -153,11 +157,15 @@ pub const Opcode = enum(u8) {
     INVALID = 0xFE,
     SELFDESTRUCT = 0xFF,
 
-    pub fn toU8(self: Opcode) u8 {
+};
+
+/// Convert an Opcode to its u8 representation
+pub fn toU8(self: Enum) u8 {
         return @intFromEnum(self);
     }
 
-    pub fn getName(self: Opcode) []const u8 {
+/// Get the name of an opcode as a string
+pub fn getName(self: Enum) []const u8 {
         return switch (self) {
             .STOP => "STOP",
             .ADD => "ADD",
@@ -313,5 +321,18 @@ pub const Opcode = enum(u8) {
             .EXTDELEGATECALL => "EXTDELEGATECALL",
             .EXTSTATICCALL => "EXTSTATICCALL",
         };
-    }
-};
+}
+
+// Re-export common opcodes as constants for convenience
+pub const STOP = Enum.STOP;
+pub const ADD = Enum.ADD;
+pub const MUL = Enum.MUL;
+pub const SUB = Enum.SUB;
+pub const DIV = Enum.DIV;
+pub const JUMP = Enum.JUMP;
+pub const JUMPI = Enum.JUMPI;
+pub const JUMPDEST = Enum.JUMPDEST;
+pub const CREATE = Enum.CREATE;
+pub const CREATE2 = Enum.CREATE2;
+pub const SELFDESTRUCT = Enum.SELFDESTRUCT;
+pub const INVALID = Enum.INVALID;
