@@ -393,7 +393,7 @@ fn encode_path(allocator: Allocator, nibbles: []const u8, is_leaf: bool) ![]u8 {
 }
 
 /// Decodes a path into nibbles
-pub fn decodePath(allocator: Allocator, encoded_path: []const u8) !struct { 
+pub fn decode_path(allocator: Allocator, encoded_path: []const u8) !struct { 
     nibbles: []u8, 
     is_leaf: bool 
 } {

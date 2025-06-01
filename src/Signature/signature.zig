@@ -19,7 +19,7 @@ pub const Signature = struct {
     /// y_parity: Whether the Y coordinate is odd
     ///
     /// Returns an error if s is not in the lower half of the curve order
-    pub fn fromRsAndYParity(r: [32]u8, s: [32]u8, y_parity: bool) !Signature {
+    pub fn from_rs_and_y_parity(r: [32]u8, s: [32]u8, y_parity: bool) !Signature {
         // Pseudocode:
         // 1. Check that s is in the lower half of the curve order
         // 2. If s is not in the lower half, return error.InvalidS
@@ -80,7 +80,7 @@ pub const Signature = struct {
     
     /// Recovers the public key that was used to create this signature
     /// for the given message hash
-    pub fn recoverPublicKey(self: Signature, message_hash: [32]u8) ![65]u8 {
+    pub fn recover_public_key(self: Signature, message_hash: [32]u8) ![65]u8 {
         // Pseudocode:
         // 1. Use secp256k1 recovery to get public key from signature and message hash
         // 2. Format public key as uncompressed (65 bytes)
@@ -90,7 +90,7 @@ pub const Signature = struct {
     
     /// Recovers the Ethereum address that was used to create this signature
     /// for the given message hash
-    pub fn recoverAddress(self: Signature, message_hash: [32]u8) ![20]u8 {
+    pub fn recover_address(self: Signature, message_hash: [32]u8) ![20]u8 {
         // Pseudocode:
         // 1. Recover public key using recoverPublicKey
         // 2. Take keccak256 hash of the public key (excluding the first byte)

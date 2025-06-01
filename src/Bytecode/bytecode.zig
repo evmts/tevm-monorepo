@@ -102,7 +102,7 @@ pub const Bytecode = union(enum) {
         return Bytecode{ .Eip7702 = eip7702.Eip7702Bytecode.new(address) };
     }
 
-    pub fn newAnalyzed(bytecode: Bytes, original_len: usize, jump_table: JumpTable) Bytecode {
+    pub fn new_analyzed(bytecode: Bytes, original_len: usize, jump_table: JumpTable) Bytecode {
         return Bytecode{ .LegacyAnalyzed = LegacyAnalyzedBytecode.new(bytecode, original_len, jump_table) };
     }
 
