@@ -511,6 +511,30 @@ pub fn build(b: *std.Build) void {
     const memory_benchmark_step = b.step("bench-memory", "Run Memory benchmarks");
     memory_benchmark_step.dependOn(&run_memory_benchmark.step);
 
+    // Add Hello World benchmark
+    const zbench_dep = b.dependency("zbench", .{
+        .target = target,
+        .optimize = .ReleaseFast,
+    });
+    
+    const hello_world_benchmark = b.addExecutable(.{
+        .name = "hello-world-benchmark",
+        .root_source_file = b.path("bench/hello_world_bench.zig"),
+        .target = target,
+        .optimize = .ReleaseFast,
+    });
+    hello_world_benchmark.root_module.addImport("zbench", zbench_dep.module("zbench"));
+
+    const run_hello_benchmark = b.addRunArtifact(hello_world_benchmark);
+
+    const hello_benchmark_step = b.step("bench-hello", "Run Hello World benchmarks");
+    hello_benchmark_step.dependOn(&run_hello_benchmark.step);
+
+    // Add combined benchmark step
+    const all_benchmark_step = b.step("bench", "Run all benchmarks");
+    all_benchmark_step.dependOn(&run_memory_benchmark.step);
+    all_benchmark_step.dependOn(&run_hello_benchmark.step);
+
     // Add Rust Foundry wrapper integration
     const rust_build = @import("src/Compilers/rust_build.zig");
     const rust_step = rust_build.addRustIntegration(b, target, optimize) catch |err| {
