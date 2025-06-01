@@ -5,7 +5,7 @@ const ExecutionError = @import("ExecutionError.zig");
 // const Interpreter = @import("interpreter.zig").Interpreter;
 // const InterpreterState = @import("InterpreterState.zig").InterpreterState;
 const Stack = @import("Stack.zig");
-const Memory = @import("Memory.zig");
+const Memory = @import("memory.zig");
 
 /// ExecutionFunc is a function executed by the EVM during interpretation
 pub const ExecutionFunc = *const fn (pc: usize, interpreter: anytype, state: anytype) ExecutionError![]const u8;

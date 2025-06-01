@@ -1,5 +1,5 @@
 const std = @import("std");
-const Memory = @import("Memory.zig");
+const Memory = @import("memory.zig");
 const Stack = @import("Stack.zig");
 const Contract = @import("Contract.zig");
 const ExecutionError = @import("ExecutionError.zig");
