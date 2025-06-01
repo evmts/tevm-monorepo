@@ -57,11 +57,6 @@ pub const assets = [_]Self{
         "text/css",
     ),
     Self.init(
-        "/assets/logo-BKhbptE1.svg",
-        @embedFile("dist/assets/logo-BKhbptE1.svg"),
-        "image/svg+xml",
-    ),
-    Self.init(
         "/tauri.svg",
         @embedFile("dist/tauri.svg"),
         "image/svg+xml",
