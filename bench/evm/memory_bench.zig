@@ -11,27 +11,27 @@ fn benchmarkMemoryInit(allocator: std.mem.Allocator) void {
 
 // Benchmark memory initialization with custom capacity
 fn benchmarkMemoryInitLarge(allocator: std.mem.Allocator) void {
-    var mem = Memory.initWithCapacity(allocator, 1024 * 1024) catch return; // 1MB
+    var mem = Memory.init_with_capacity(allocator, 1024 * 1024) catch return; // 1MB
     defer mem.deinit();
     std.mem.doNotOptimizeAway(&mem);
 }
 
 // Benchmark memory initialization with limit
 fn benchmarkMemoryInitWithLimit(allocator: std.mem.Allocator) void {
-    var mem = Memory.initWithLimit(allocator, 1024 * 1024 * 10) catch return; // 10MB limit
+    var mem = Memory.init_with_limit(allocator, 1024 * 1024 * 10) catch return; // 10MB limit
     defer mem.deinit();
     std.mem.doNotOptimizeAway(&mem);
 }
 
 // Benchmark memory operations with limit enforcement
 fn benchmarkMemoryLimitEnforcement(allocator: std.mem.Allocator) void {
-    var mem = Memory.initWithLimit(allocator, 1024 * 64) catch return; // 64KB limit
+    var mem = Memory.init_with_limit(allocator, 1024 * 64) catch return; // 64KB limit
     defer mem.deinit();
     
     // Try to expand within limit
     for (0..10) |i| {
         const size = (i + 1) * 1024; // 1KB increments
-        _ = mem.ensureCapacity(size) catch {
+        _ = mem.ensure_capacity(size) catch {
             // Expected to fail after 64KB
             break;
         };
@@ -45,8 +45,8 @@ fn benchmarkByteOperations(allocator: std.mem.Allocator) void {
     
     // Write and read 100 bytes
     for (0..100) |i| {
-        mem.setByte(i, @truncate(i)) catch return;
-        const byte = mem.getByte(i) catch return;
+        mem.set_byte(i, @truncate(i)) catch return;
+        const byte = mem.get_byte(i) catch return;
         std.mem.doNotOptimizeAway(byte);
     }
 }
@@ -61,8 +61,8 @@ fn benchmarkWordOperations(allocator: std.mem.Allocator) void {
     // Write and read 32 words
     for (0..32) |i| {
         const offset = i * 32;
-        mem.setWord(offset, word) catch return;
-        const read_word = mem.getWord(offset) catch return;
+        mem.set_word(offset, word) catch return;
+        const read_word = mem.get_word(offset) catch return;
         std.mem.doNotOptimizeAway(&read_word);
     }
 }
@@ -77,8 +77,8 @@ fn benchmarkU256Operations(allocator: std.mem.Allocator) void {
     // Write and read 16 U256 values
     for (0..16) |i| {
         const offset = i * 32;
-        mem.setU256(offset, value) catch return;
-        const read_value = mem.getU256(offset) catch return;
+        mem.set_u256(offset, value) catch return;
+        const read_value = mem.get_u256(offset) catch return;
         std.mem.doNotOptimizeAway(read_value);
     }
 }
@@ -91,7 +91,7 @@ fn benchmarkMemoryExpansion(allocator: std.mem.Allocator) void {
     // Expand memory in steps
     for (0..10) |i| {
         const size = (i + 1) * 1024; // Expand by 1KB each iteration
-        _ = mem.ensureCapacity(size) catch return;
+        _ = mem.ensure_capacity(size) catch return;
         std.mem.doNotOptimizeAway(mem.size());
     }
 }
@@ -110,7 +110,7 @@ fn benchmarkLargeDataCopy(allocator: std.mem.Allocator) void {
     // Copy to memory 10 times at different offsets
     for (0..10) |i| {
         const offset = i * 1024;
-        mem.setData(offset, &data) catch return;
+        mem.set_data(offset, &data) catch return;
     }
 }
 
@@ -124,7 +124,7 @@ fn benchmarkMemoryCopy(allocator: std.mem.Allocator) void {
     for (&data, 0..) |*byte, i| {
         byte.* = @truncate(i);
     }
-    mem.setData(0, &data) catch return;
+    mem.set_data(0, &data) catch return;
     
     // Copy within memory (overlapping and non-overlapping)
     for (0..10) |i| {
@@ -150,7 +150,7 @@ fn benchmarkBoundedCopy(allocator: std.mem.Allocator) void {
         const memory_offset = i * 64;
         const data_offset = i * 16;
         const len = 128;
-        mem.setDataBounded(memory_offset, &data, data_offset, len) catch return;
+        mem.set_data_bounded(memory_offset, &data, data_offset, len) catch return;
     }
 }
 
@@ -160,13 +160,13 @@ fn benchmarkSliceReading(allocator: std.mem.Allocator) void {
     defer mem.deinit();
     
     // Initialize 4KB of data
-    _ = mem.ensureCapacity(4096) catch return;
+    _ = mem.ensure_capacity(4096) catch return;
     
     // Read various slices
     for (0..100) |i| {
         const offset = i * 32;
         const len = 64;
-        const slice = mem.getSlice(offset, len) catch return;
+        const slice = mem.get_slice(offset, len) catch return;
         std.mem.doNotOptimizeAway(slice);
     }
 }
@@ -192,7 +192,7 @@ fn benchmarkWordAlignedResize(allocator: std.mem.Allocator) void {
     // Test word-aligned resize operations
     const sizes = [_]usize{ 33, 100, 256, 512, 1024, 2048, 4096 };
     for (sizes) |size| {
-        mem.resizeWordAligned(size) catch return;
+        mem.resize_word_aligned(size) catch return;
         std.mem.doNotOptimizeAway(mem.size());
     }
 }
