@@ -65,7 +65,7 @@ pub fn initial_base_fee(parent_gas_used: u64, parent_gas_limit: u64) u64 {
     const parent_gas_target = parent_gas_limit / 2;
 
     // Initial base fee calculation
-    var initial_base_fee: u64 = 1_000_000_000; // 1 gwei in wei
+    var base_fee: u64 = 1_000_000_000; // 1 gwei in wei
 
     // Adjust initial base fee based on parent block's gas usage
     if (parent_gas_used > 0) {
@@ -74,20 +74,20 @@ pub fn initial_base_fee(parent_gas_used: u64, parent_gas_limit: u64) u64 {
         else
             parent_gas_target - parent_gas_used;
 
-        const base_fee_delta = calculate_fee_delta(initial_base_fee, gas_used_delta, parent_gas_target, BASE_FEE_CHANGE_DENOMINATOR);
+        const base_fee_delta = calculate_fee_delta(base_fee, gas_used_delta, parent_gas_target, BASE_FEE_CHANGE_DENOMINATOR);
 
         if (parent_gas_used > parent_gas_target) {
-            initial_base_fee = initial_base_fee + base_fee_delta;
-        } else if (initial_base_fee > base_fee_delta) {
-            initial_base_fee = initial_base_fee - base_fee_delta;
+            base_fee = base_fee + base_fee_delta;
+        } else if (base_fee > base_fee_delta) {
+            base_fee = base_fee - base_fee_delta;
         }
     }
 
     // Ensure base fee is at least the minimum
-    initial_base_fee = @max(initial_base_fee, MIN_BASE_FEE);
+    base_fee = @max(base_fee, MIN_BASE_FEE);
 
-    logger.info("Initial base fee calculated: {d} wei", .{initial_base_fee});
-    return initial_base_fee;
+    logger.info("Initial base fee calculated: {d} wei", .{base_fee});
+    return base_fee;
 }
 
 /// Calculate the next block's base fee based on the current block
@@ -121,7 +121,7 @@ pub fn next_base_fee(parent_base_fee: u64, parent_gas_used: u64, parent_gas_targ
     }
 
     // Calculate base fee delta
-    var next_base_fee = parent_base_fee;
+    var new_base_fee = parent_base_fee;
 
     if (parent_gas_used == parent_gas_target) {
         // If parent block used exactly the target gas, keep the base fee the same
@@ -137,7 +137,7 @@ pub fn next_base_fee(parent_base_fee: u64, parent_gas_used: u64, parent_gas_targ
 
         // Increase the base fee
         // The overflow check is probably unnecessary given gas limits, but it's a good safety measure
-        next_base_fee = std.math.add(u64, parent_base_fee, base_fee_delta) catch parent_base_fee;
+        new_base_fee = std.math.add(u64, parent_base_fee, base_fee_delta) catch parent_base_fee;
 
         logger.debug("Parent block used more than target gas, increasing base fee by {d} wei", .{base_fee_delta});
     } else {
@@ -150,7 +150,7 @@ pub fn next_base_fee(parent_base_fee: u64, parent_gas_used: u64, parent_gas_targ
         const base_fee_delta = calculate_fee_delta(parent_base_fee, gas_used_delta, parent_gas_target, BASE_FEE_CHANGE_DENOMINATOR);
 
         // Decrease the base fee, but don't go below the minimum
-        next_base_fee = if (parent_base_fee > base_fee_delta)
+        new_base_fee = if (parent_base_fee > base_fee_delta)
             parent_base_fee - base_fee_delta
         else
             MIN_BASE_FEE;
@@ -159,10 +159,10 @@ pub fn next_base_fee(parent_base_fee: u64, parent_gas_used: u64, parent_gas_targ
     }
 
     // Ensure base fee is at least the minimum
-    next_base_fee = @max(next_base_fee, MIN_BASE_FEE);
+    new_base_fee = @max(new_base_fee, MIN_BASE_FEE);
 
-    logger.info("Next block base fee calculated: {d} wei", .{next_base_fee});
-    return next_base_fee;
+    logger.info("Next block base fee calculated: {d} wei", .{new_base_fee});
+    return new_base_fee;
 }
 
 /// Calculate the effective gas price for an EIP-1559 transaction
