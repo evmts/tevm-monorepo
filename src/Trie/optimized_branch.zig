@@ -37,7 +37,7 @@ pub const CompactBranchNode = struct {
     }
     
     /// Adds a child at the specified position
-    pub fn addChild(self: *CompactBranchNode, index: u4, value: HashValue, is_tree: bool, is_hash: bool) !void {
+    pub fn add_child(self: *CompactBranchNode, index: u4, value: HashValue, is_tree: bool, is_hash: bool) !void {
         if (self.children_mask.is_set(index)) {
             // Replace existing child
             var idx: usize = 0;
@@ -87,7 +87,7 @@ pub const CompactBranchNode = struct {
     }
     
     /// Get the child at the specified position
-    pub fn getChild(self: *const CompactBranchNode, index: u4) ?HashValue {
+    pub fn get_child(self: *const CompactBranchNode, index: u4) ?HashValue {
         if (!self.children_mask.is_set(index)) {
             return null;
         }
@@ -104,7 +104,7 @@ pub const CompactBranchNode = struct {
     }
     
     /// Removes a child at the specified position
-    pub fn removeChild(self: *CompactBranchNode, index: u4) !void {
+    pub fn remove_child(self: *CompactBranchNode, index: u4) !void {
         if (!self.children_mask.is_set(index)) {
             return; // Nothing to remove
         }
@@ -164,12 +164,12 @@ pub const CompactBranchNode = struct {
     }
     
     /// Check if the branch has only one child and no value
-    pub fn hasOnlyOneChild(self: *const CompactBranchNode) bool {
+    pub fn has_only_one_child(self: *const CompactBranchNode) bool {
         return self.children_mask.bit_count() == 1 and self.value == null;
     }
     
     /// Get the only child's index, if there is only one
-    pub fn getOnlyChildIndex(self: *const CompactBranchNode) ?u4 {
+    pub fn get_only_child_index(self: *const CompactBranchNode) ?u4 {
         if (!self.hasOnlyOneChild()) {
             return null;
         }

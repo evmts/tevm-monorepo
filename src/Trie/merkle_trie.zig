@@ -46,7 +46,7 @@ pub const MerkleTrie = struct {
 
     /// Get the root hash of the trie
     pub fn root_hash(self: *const MerkleTrie) ?[32]u8 {
-        return self.builder.rootHash();
+        return self.builder.root_hash();
     }
 
     /// Generate a Merkle proof for a key
@@ -56,16 +56,16 @@ pub const MerkleTrie = struct {
         defer retainer.deinit();
 
         // Get the root hash
-        const root = self.builder.rootHash() orelse return &[_][]const u8{};
+        const root = self.builder.root_hash() orelse return &[_][]const u8{};
 
         // Get the root node
-        const root_hash_str = try bytesToHexString(self.allocator, &root);
+        const root_hash_str = try bytes_to_hex_string(self.allocator, &root);
         defer self.allocator.free(root_hash_str);
 
         const root_node = self.builder.nodes.get(root_hash_str) orelse return TrieError.NonExistentNode;
 
         // Generate the proof by collecting nodes along the path
-        _ = try self.collectProofNodes(&retainer, root_node, &[_]u8{});
+        _ = try self.collect_proof_nodes(&retainer, root_node, &[_]u8{});
 
         // Get the proof as a list of RLP-encoded nodes
         return try retainer.get_proof().to_node_list(self.allocator);
@@ -136,11 +136,11 @@ pub const MerkleTrie = struct {
                         return TrieError.InvalidNode;
                     },
                     .Hash => |hash| {
-                        const hash_str = try bytesToHexString(self.allocator, &hash);
+                        const hash_str = try bytes_to_hex_string(self.allocator, &hash);
                         defer self.allocator.free(hash_str);
 
                         const next_node = self.builder.nodes.get(hash_str) orelse return TrieError.NonExistentNode;
-                        return try self.collectProofNodes(retainer, next_node, new_prefix);
+                        return try self.collect_proof_nodes(retainer, next_node, new_prefix);
                     },
                 }
             },
@@ -176,11 +176,11 @@ pub const MerkleTrie = struct {
                         return true;
                     },
                     .Hash => |hash| {
-                        const hash_str = try bytesToHexString(self.allocator, &hash);
+                        const hash_str = try bytes_to_hex_string(self.allocator, &hash);
                         defer self.allocator.free(hash_str);
 
                         const next_node = self.builder.nodes.get(hash_str) orelse return TrieError.NonExistentNode;
-                        return try self.collectProofNodes(retainer, next_node, new_prefix);
+                        return try self.collect_proof_nodes(retainer, next_node, new_prefix);
                     },
                 }
             },
@@ -212,13 +212,13 @@ test "MerkleTrie - basic operations" {
     defer trie_instance.deinit();
     
     // Trie should start empty
-    try testing.expect(trie_instance.rootHash() == null);
+    try testing.expect(trie_instance.root_hash() == null);
     
     // Put a key-value pair
     try trie_instance.put(&[_]u8{1, 2, 3}, "value1");
     
     // Root hash should now exist
-    try testing.expect(trie_instance.rootHash() != null);
+    try testing.expect(trie_instance.root_hash() != null);
     
     // Get the value
     const value = try trie_instance.get(&[_]u8{1, 2, 3});
@@ -233,7 +233,7 @@ test "MerkleTrie - basic operations" {
     try testing.expect(deleted == null);
     
     // Trie should be empty again
-    try testing.expect(trie_instance.rootHash() == null);
+    try testing.expect(trie_instance.root_hash() == null);
 }
 
 test "MerkleTrie - proof generation and verification" {
@@ -247,7 +247,7 @@ test "MerkleTrie - proof generation and verification" {
     try trie_instance.put(&[_]u8{1, 2, 3}, "value1");
     
     // Get the root hash
-    const root = trie_instance.rootHash().?;
+    const root = trie_instance.root_hash().?;
     
     // Generate proof for the key
     const proof1 = try trie_instance.prove(&[_]u8{1, 2, 3});
@@ -259,7 +259,7 @@ test "MerkleTrie - proof generation and verification" {
     }
     
     // Verify the proof
-    const result1 = try trie_instance.verifyProof(root, &[_]u8{1, 2, 3}, proof1, "value1");
+    const result1 = try trie_instance.verify_proof(root, &[_]u8{1, 2, 3}, proof1, "value1");
     try testing.expect(result1);
 }
 
@@ -321,7 +321,7 @@ test "MerkleTrie - multiple operations" {
     
     // Clear the trie
     trie_instance.clear();
-    try testing.expect(trie_instance.rootHash() == null);
+    try testing.expect(trie_instance.root_hash() == null);
     
     // All values should be gone
     const cleared1 = try trie_instance.get(&[_]u8{1, 2, 4});

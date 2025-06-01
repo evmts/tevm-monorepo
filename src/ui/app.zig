@@ -7,8 +7,8 @@ const Self = @This();
 window: webui,
 
 pub fn init() Self {
-    const window = webui.newWindow();
-    webui.setConfig(.multi_client, true);
+    const window = webui.new_window();
+    webui.set_config(.multi_client, true);
     return Self{ .window = window };
 }
 
@@ -22,7 +22,7 @@ pub fn handler(filename: []const u8) ?[]const u8 {
 }
 
 pub fn run(self: *Self) !void {
-    self.window.setFileHandler(handler);
+    self.window.set_file_handler(handler);
     try self.window.show("index.html");
     webui.wait();
 }

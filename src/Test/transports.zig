@@ -3,7 +3,7 @@ const std = @import("std");
 pub const EnvUrls = struct {
     /// Parse a comma-separated list of RPC URLs from an environment variable
     /// Returns a string slice array containing each URL
-    pub fn fromEnv(allocator: std.mem.Allocator, env_var_name: []const u8) !std.ArrayList([]const u8) {
+    pub fn from_env(allocator: std.mem.Allocator, env_var_name: []const u8) !std.ArrayList([]const u8) {
         var urls = std.ArrayList([]const u8).init(allocator);
         
         // Get the environment variable
@@ -44,7 +44,7 @@ pub const EnvUrls = struct {
 
 /// Parses environment variables for RPC URLs
 /// Returns a struct with arrays of URLs for different networks
-pub fn getTransports(allocator: std.mem.Allocator) !struct {
+pub fn get_transports(allocator: std.mem.Allocator) !struct {
     mainnet: std.ArrayList([]const u8),
     optimism: std.ArrayList([]const u8),
 } {
