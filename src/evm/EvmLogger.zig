@@ -24,7 +24,7 @@ pub const EvmLogger = struct {
     }
 };
 
-pub fn createLogger(file: []const u8) EvmLogger {
+pub fn create_logger(file: []const u8) EvmLogger {
     _ = file;
     return EvmLogger{};
 }
@@ -37,7 +37,7 @@ pub const ScopedLogger = struct {
     }
 };
 
-pub fn createScopedLogger(logger: EvmLogger, scope: []const u8) ScopedLogger {
+pub fn create_scoped_logger(logger: EvmLogger, scope: []const u8) ScopedLogger {
     _ = logger;
     _ = scope;
     return ScopedLogger{};

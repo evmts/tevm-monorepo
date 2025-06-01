@@ -25,7 +25,7 @@ pub const Error = error{
 };
 
 /// Get a human-readable description for an execution error
-pub fn getDescription(err: Error) []const u8 {
+pub fn get_description(err: Error) []const u8 {
     return switch (err) {
         Error.STOP => "Normal STOP opcode execution",
         Error.REVERT => "REVERT opcode - state reverted",

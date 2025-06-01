@@ -48,7 +48,7 @@ pub const BASE_FEE_CHANGE_DENOMINATOR: u64 = 8;
 /// - parent_gas_limit: Gas limit of the parent block
 ///
 /// Returns: The initial base fee (in wei)
-pub fn initialBaseFee(parent_gas_used: u64, parent_gas_limit: u64) u64 {
+pub fn initial_base_fee(parent_gas_used: u64, parent_gas_limit: u64) u64 {
     const logger = getLogger();
     const scoped = createScopedLogger(logger, "initialBaseFee()");
     defer scoped.deinit();
@@ -104,7 +104,7 @@ pub fn initialBaseFee(parent_gas_used: u64, parent_gas_limit: u64) u64 {
 /// - parent_gas_target: Target gas usage of the parent block
 ///
 /// Returns: The next block's base fee (in wei)
-pub fn nextBaseFee(parent_base_fee: u64, parent_gas_used: u64, parent_gas_target: u64) u64 {
+pub fn next_base_fee(parent_base_fee: u64, parent_gas_used: u64, parent_gas_target: u64) u64 {
     const logger = getLogger();
     const scoped = createScopedLogger(logger, "nextBaseFee()");
     defer scoped.deinit();
@@ -177,7 +177,7 @@ pub fn nextBaseFee(parent_base_fee: u64, parent_gas_used: u64, parent_gas_target
 /// - max_priority_fee_per_gas: Maximum tip the sender is willing to pay to the miner
 ///
 /// Returns: The effective gas price, and the miner's portion of the fee
-pub fn getEffectiveGasPrice(base_fee_per_gas: u64, max_fee_per_gas: u64, max_priority_fee_per_gas: u64) struct { effective_gas_price: u64, miner_fee: u64 } {
+pub fn get_effective_gas_price(base_fee_per_gas: u64, max_fee_per_gas: u64, max_priority_fee_per_gas: u64) struct { effective_gas_price: u64, miner_fee: u64 } {
     const logger = getLogger();
     const scoped = createScopedLogger(logger, "getEffectiveGasPrice()");
     defer scoped.deinit();
@@ -215,6 +215,6 @@ pub fn getEffectiveGasPrice(base_fee_per_gas: u64, max_fee_per_gas: u64, max_pri
 /// - gas_limit: The block's gas limit
 ///
 /// Returns: The gas target for the block
-pub fn getGasTarget(gas_limit: u64) u64 {
+pub fn get_gas_target(gas_limit: u64) u64 {
     return gas_limit / 2;
 }

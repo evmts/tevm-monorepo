@@ -47,7 +47,7 @@ pub const CopyGas: u64 = 3;
 
 // Define a default undefined operation
 var UNDEFINED = Operation{
-    .execute = undefinedExecute,
+    .execute = undefined_execute,
     .constant_gas = 0,
     .min_stack = 0,
     .max_stack = 0,
@@ -97,7 +97,7 @@ pub fn init_from_hardfork(allocator: std.mem.Allocator, hardfork: Hardfork) Self
     _ = hardfork;
     const add_op = allocator.create(Operation);
     add_op.* = Operation{
-        .execute = dummyExecute, // TODO: implement opAdd
+        .execute = dummy_execute, // TODO: implement opAdd
         .constant_gas = GasFastestStep,
         .min_stack = 2,
         .max_stack = Stack.CAPACITY,
@@ -134,21 +134,21 @@ pub fn max_swap_stack(n: u32) u32 {
     return n;
 }
 
-fn undefinedExecute(pc: usize, interpreter: anytype, state: anytype) ExecutionError![]const u8 {
+fn undefined_execute(pc: usize, interpreter: anytype, state: anytype) ExecutionError![]const u8 {
     _ = pc;
     _ = interpreter;
     _ = state;
     return ExecutionError.INVALID;
 }
 
-fn stopExecute(pc: usize, interpreter: anytype, state: anytype) ExecutionError![]const u8 {
+fn stop_execute(pc: usize, interpreter: anytype, state: anytype) ExecutionError![]const u8 {
     _ = pc;
     _ = interpreter;
     _ = state;
     return ExecutionError.STOP;
 }
 
-fn dummyExecute(pc: usize, interpreter: anytype, state: anytype) ExecutionError![]const u8 {
+fn dummy_execute(pc: usize, interpreter: anytype, state: anytype) ExecutionError![]const u8 {
     _ = pc;
     _ = interpreter;
     _ = state;
@@ -162,19 +162,19 @@ pub fn new_frontier_instruction_set(allocator: std.mem.Allocator) !Self {
     // Setup operation table manually instead of using opcodes structs directly
     const stop_op = try allocator.create(Operation);
     stop_op.* = Operation{
-        .execute = stopExecute,
+        .execute = stop_execute,
         .constant_gas = 0,
-        .min_stack = minStack(0, 0),
-        .max_stack = maxStack(0, 0),
+        .min_stack = min_stack(0, 0),
+        .max_stack = max_stack(0, 0),
     };
     jt.table[0x00] = stop_op;
 
     const add_op = try allocator.create(Operation);
     add_op.* = Operation{
-        .execute = dummyExecute,
+        .execute = dummy_execute,
         .constant_gas = GasFastestStep,
-        .min_stack = minStack(2, 1),
-        .max_stack = maxStack(2, 1),
+        .min_stack = min_stack(2, 1),
+        .max_stack = max_stack(2, 1),
     };
     jt.table[0x01] = add_op;
 
@@ -189,7 +189,7 @@ pub fn new_frontier_instruction_set(allocator: std.mem.Allocator) !Self {
 test "JumpTable basic operations" {
     const allocator = std.testing.allocator;
 
-    var jt = try newFrontierInstructionSet(allocator);
+    var jt = try new_frontier_instruction_set(allocator);
     defer {
         // Free allocated operations
         for (0..256) |i| {
@@ -200,14 +200,14 @@ test "JumpTable basic operations" {
     }
 
     // Test a couple of operations
-    const stop_op = jt.getOperation(0x00);
+    const stop_op = jt.get_operation(0x00);
     try std.testing.expectEqual(@as(u64, 0), stop_op.constant_gas);
 
-    const add_op = jt.getOperation(0x01);
+    const add_op = jt.get_operation(0x01);
     try std.testing.expectEqual(@as(u64, GasFastestStep), add_op.constant_gas);
 
     // Test an undefined operation
-    const undef_op = jt.getOperation(0xFF);
+    const undef_op = jt.get_operation(0xFF);
     try std.testing.expect(undef_op.undefined);
 }
 
@@ -233,14 +233,14 @@ test "JumpTable initialization and validation" {
 }
 
 test "JumpTable stack calculation helpers" {
-    try std.testing.expectEqual(@as(u32, 2), minStack(2, 1));
-    try std.testing.expectEqual(@as(u32, 1), maxStack(2, 1));
+    try std.testing.expectEqual(@as(u32, 2), min_stack(2, 1));
+    try std.testing.expectEqual(@as(u32, 1), max_stack(2, 1));
 
-    try std.testing.expectEqual(@as(u32, 3), minDupStack(3));
-    try std.testing.expectEqual(@as(u32, 4), maxDupStack(3));
+    try std.testing.expectEqual(@as(u32, 3), min_dup_stack(3));
+    try std.testing.expectEqual(@as(u32, 4), max_dup_stack(3));
 
-    try std.testing.expectEqual(@as(u32, 4), minSwapStack(4));
-    try std.testing.expectEqual(@as(u32, 4), maxSwapStack(4));
+    try std.testing.expectEqual(@as(u32, 4), min_swap_stack(4));
+    try std.testing.expectEqual(@as(u32, 4), max_swap_stack(4));
 }
 
 test "JumpTable gas constants" {
