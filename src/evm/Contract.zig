@@ -370,8 +370,8 @@ pub fn analyze_code(code: []const u8, code_hash: [32]u8) !*const CodeAnalysis {
         }
 
         // Skip PUSH data
-        if (constants.isPush(op)) {
-            const push_size = constants.getPushSize(op);
+        if (constants.is_push(op)) {
+            const push_size = constants.get_push_size(op);
             i += push_size + 1;
         } else {
             i += 1;
