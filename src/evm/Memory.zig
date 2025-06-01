@@ -101,7 +101,7 @@ pub fn isEmpty(self: *const Self) bool {
 /// - Preserves existing data when shrinking
 pub fn resize(self: *Self, new_size: usize) Error!void {
     // Note: This is a cold path - memory expansion is relatively infrequent
-    // Consider using @branchHint(.unlikely) when available in future Zig versions
+    // @setCold is not available in Zig 0.14.0
     
     if (new_size > self.memory_limit) return Error.MemoryLimitExceeded;
     
