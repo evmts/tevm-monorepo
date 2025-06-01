@@ -1,17 +1,18 @@
 const std = @import("std");
 
 // Import all EVM modules
-pub const CodeAnalysis = @import("CodeAnalysis.zig");
+pub const CodeAnalysis = @import("code_analysis.zig");
 pub const Contract = @import("Contract.zig");
-pub const ExecutionError = @import("ExecutionError.zig");
+pub const ExecutionError = @import("execution_error.zig");
+pub const EvmLogger = @import("evm_logger.zig");
 pub const Frame = @import("Frame.zig");
-pub const Hardfork = @import("Hardfork.zig");
-pub const JumpTable = @import("JumpTable.zig");
+pub const Hardfork = @import("hardfork.zig");
+pub const JumpTable = @import("jump_table.zig");
 pub const Memory = @import("memory.zig");
 pub const Opcode = @import("Opcode.zig");
 pub const Operation = @import("Operation.zig");
 pub const Stack = @import("Stack.zig");
-pub const StoragePool = @import("StoragePool.zig");
+pub const StoragePool = @import("storage_pool.zig");
 pub const Vm = @import("Vm.zig");
 
 // Import utility modules

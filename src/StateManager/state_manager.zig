@@ -78,7 +78,7 @@ const hex = struct {
     }
 };
 
-const logger = @import("./Logger.zig");
+const logger = @import("./logger.zig");
 
 const errors = struct {
     const StateError = error{
@@ -168,7 +168,7 @@ const Cache = struct {
         // In this simplified version, we don't implement reverts
     }
 };
-const CacheType = @import("./Cache.zig").CacheType;
+const CacheType = @import("./cache.zig").CacheType;
 const Account = struct {
     nonce: u64,
     balance: U256,

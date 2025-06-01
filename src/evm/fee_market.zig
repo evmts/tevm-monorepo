@@ -1,4 +1,12 @@
 const std = @import("std");
+const EvmLogger = @import("evm_logger.zig").EvmLogger;
+const createLogger = @import("evm_logger.zig").createLogger;
+const createScopedLogger = @import("evm_logger.zig").createScopedLogger;
+
+// Module logger will be initialized when functions are called
+fn getLogger() EvmLogger {
+    return createLogger(@src().file);
+}
 
 // FeeMarket implements the EIP-1559 fee market mechanism
 ///
