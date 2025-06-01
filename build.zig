@@ -690,46 +690,41 @@ const GenerateAssetsStep = struct {
             \\// This file is auto-generated. Do not edit manually.
             \\const std = @import("std");
             \\
-            \\// creates the response of our assets at compile time
-            \\fn createResponse(comptime content: []const u8, comptime mime_type: []const u8) [:0]const u8 {
+            \\const Self = @This();
+            \\
+            \\path: []const u8,
+            \\content: []const u8,
+            \\mime_type: []const u8,
+            \\response: [:0]const u8,
+            \\
+            \\pub fn init(
+            \\    comptime path: []const u8,
+            \\    comptime content: []const u8,
+            \\    comptime mime_type: []const u8,
+            \\) Self {
             \\    var buf: [20]u8 = undefined;
             \\    const n = std.fmt.bufPrint(&buf, "{d}", .{content.len}) catch unreachable;
             \\    const content_length = buf[0..n.len];
-            \\    return "HTTP/1.1 200 OK\n" ++
+            \\    const response = "HTTP/1.1 200 OK\n" ++
             \\        "Content-Type: " ++ mime_type ++ "\n" ++
             \\        "Content-Length: " ++ content_length ++ "\n" ++
             \\        "\n" ++
             \\        content;
+            \\    return Self{
+            \\        .path = path,
+            \\        .content = content,
+            \\        .mime_type = mime_type,
+            \\        .response = response,
+            \\    };
             \\}
             \\
-            \\pub const Asset = struct {
-            \\    const Self = @This();
+            \\pub const not_found_asset = Self.init(
+            \\    "/notfound.html",
+            \\    "<div>Page not found</div>",
+            \\    "text/html",
+            \\);
             \\
-            \\    path: []const u8,
-            \\    content: []const u8,
-            \\    mime_type: []const u8,
-            \\    response: [:0]const u8,
-            \\
-            \\    pub fn init(
-            \\        comptime path: []const u8,
-            \\        comptime content: []const u8,
-            \\        comptime mime_type: []const u8,
-            \\    ) Self {
-            \\        return Self{
-            \\            .path = path,
-            \\            .content = content,
-            \\            .mime_type = mime_type,
-            \\            .response = createResponse(content, mime_type),
-            \\        };
-            \\    }
-            \\
-            \\    pub const not_found_asset = Asset.init(
-            \\        "/notfound.html",
-            \\        "<div>Page not found</div>",
-            \\        "text/html",
-            \\    );
-            \\
-            \\    pub const assets = [_]Asset{
+            \\pub const assets = [_]Self{
             \\
         );
 
@@ -737,18 +732,17 @@ const GenerateAssetsStep = struct {
         var dir = std.fs.cwd().openDir(self.ui_dist_path, .{ .iterate = true }) catch {
             std.log.info("UI dist directory not found at {s}, creating empty assets file", .{self.ui_dist_path});
             try writer.writeAll(
-                \\        not_found_asset,
-                \\    };
-                \\
-                \\    pub fn getAsset(filename: []const u8) ?Asset {
-                \\        for (assets) |asset| {
-                \\            if (std.mem.eql(u8, asset.path, filename)) {
-                \\                return asset;
-                \\            }
-                \\        }
-                \\        return null;
-                \\    }
+                \\    not_found_asset,
                 \\};
+                \\
+                \\pub fn getAsset(filename: []const u8) ?Self {
+                \\    for (assets) |asset| {
+                \\        if (std.mem.eql(u8, asset.path, filename)) {
+                \\            return asset;
+                \\        }
+                \\    }
+                \\    return null;
+                \\}
                 \\
             );
 
@@ -772,28 +766,27 @@ const GenerateAssetsStep = struct {
             defer self.builder.allocator.free(embed_path);
 
             try writer.print(
-                \\        Asset.init(
-                \\            "/{s}",
-                \\            @embedFile("{s}"),
-                \\            "{s}",
-                \\        ),
+                \\    Self.init(
+                \\        "/{s}",
+                \\        @embedFile("{s}"),
+                \\        "{s}",
+                \\    ),
                 \\
             , .{ entry.path, embed_path, mime_type });
         }
 
         try writer.writeAll(
-            \\        not_found_asset,
-            \\    };
-            \\
-            \\    pub fn getAsset(filename: []const u8) ?Asset {
-            \\        for (assets) |asset| {
-            \\            if (std.mem.eql(u8, asset.path, filename)) {
-            \\                return asset;
-            \\            }
-            \\        }
-            \\        return null;
-            \\    }
+            \\    not_found_asset,
             \\};
+            \\
+            \\pub fn getAsset(filename: []const u8) ?Self {
+            \\    for (assets) |asset| {
+            \\        if (std.mem.eql(u8, asset.path, filename)) {
+            \\            return asset;
+            \\        }
+            \\    }
+            \\    return null;
+            \\}
             \\
         );
 
