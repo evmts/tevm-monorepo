@@ -171,6 +171,32 @@ fn benchmarkSliceReading(allocator: std.mem.Allocator) void {
     }
 }
 
+// Benchmark resize operations (both byte-exact and word-aligned)
+fn benchmarkResizeOperations(allocator: std.mem.Allocator) void {
+    var mem = Memory.init(allocator) catch return;
+    defer mem.deinit();
+    
+    // Test various resize operations
+    const sizes = [_]usize{ 33, 100, 256, 512, 1024, 2048, 4096 };
+    for (sizes) |size| {
+        mem.resize(size) catch return;
+        std.mem.doNotOptimizeAway(mem.size());
+    }
+}
+
+// Benchmark word-aligned resize operations
+fn benchmarkWordAlignedResize(allocator: std.mem.Allocator) void {
+    var mem = Memory.init(allocator) catch return;
+    defer mem.deinit();
+    
+    // Test word-aligned resize operations
+    const sizes = [_]usize{ 33, 100, 256, 512, 1024, 2048, 4096 };
+    for (sizes) |size| {
+        mem.resizeWordAligned(size) catch return;
+        std.mem.doNotOptimizeAway(mem.size());
+    }
+}
+
 pub fn main() !void {
     const stdout = std.io.getStdOut().writer();
     try stdout.print("EVM Memory Benchmarks\n", .{});
@@ -192,6 +218,8 @@ pub fn main() !void {
     try bench.add("Memory Copy (MCOPY)", benchmarkMemoryCopy, .{});
     try bench.add("Bounded Copy", benchmarkBoundedCopy, .{});
     try bench.add("Slice Reading", benchmarkSliceReading, .{});
+    try bench.add("Resize Operations", benchmarkResizeOperations, .{});
+    try bench.add("Word-Aligned Resize", benchmarkWordAlignedResize, .{});
 
     // Run benchmarks
     try stdout.print("Running benchmarks...\n\n", .{});
