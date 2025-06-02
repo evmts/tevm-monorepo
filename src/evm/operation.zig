@@ -4,11 +4,15 @@ const ExecutionError = @import("execution_error.zig");
 const Stack = @import("stack.zig");
 const Memory = @import("memory.zig");
 
+/// Forward declarations - these would be defined by the actual interpreter
+pub const Interpreter = opaque {};
+pub const State = opaque {};
+
 /// ExecutionFunc is a function executed by the EVM during interpretation
-pub const ExecutionFunc = *const fn (pc: usize, interpreter: anytype, state: anytype) ExecutionError.Error![]const u8;
+pub const ExecutionFunc = *const fn (pc: usize, interpreter: *Interpreter, state: *State) ExecutionError.Error![]const u8;
 
 /// GasFunc calculates the gas required for an operation
-pub const GasFunc = *const fn (interpreter: anytype, state: anytype, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64;
+pub const GasFunc = *const fn (interpreter: *Interpreter, state: *State, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64;
 
 /// MemorySizeFunc calculates the memory size required for an operation
 pub const MemorySizeFunc = *const fn (stack: *Stack) Opcode.MemorySize;
@@ -41,9 +45,9 @@ pub const NULL = Self{
     .undefined = true,
 };
 
-fn undefined_execute(pc: usize, interpreter: anytype, state: anytype) ExecutionError.Error![]const u8 {
+fn undefined_execute(pc: usize, interpreter: *Interpreter, state: *State) ExecutionError.Error![]const u8 {
     _ = pc;
     _ = interpreter;
     _ = state;
-    return ExecutionError.INVALID;
+    return ExecutionError.Error.InvalidOpcode;
 }

@@ -21,7 +21,7 @@ pub fn init(allocator: std.mem.Allocator, contract: *Contract) Self {
     return Self{
         .allocator = allocator,
         .contract = contract,
-        .memory = Memory.init(allocator) catch @panic("Failed to initialize memory"),
+        .memory = Memory.init_default(allocator) catch @panic("Failed to initialize memory"),
         .stack = .{},
     };
 }
@@ -41,7 +41,7 @@ pub fn init_with_state(
     return Self{
         .allocator = allocator,
         .contract = contract,
-        .memory = memory orelse Memory.init(allocator) catch @panic("Failed to initialize memory"),
+        .memory = memory orelse Memory.init_default(allocator) catch @panic("Failed to initialize memory"),
         .stack = stack orelse .{},
         .op = op orelse undefined,
         .pc = pc orelse 0,

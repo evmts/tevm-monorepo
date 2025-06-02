@@ -46,7 +46,7 @@ pub const MerkleTrie = struct {
 
     /// Get the root hash of the trie
     pub fn root_hash(self: *const MerkleTrie) ?[32]u8 {
-        return self.builder.root_hash();
+        return self.builder.root_hash;
     }
 
     /// Generate a Merkle proof for a key
@@ -56,7 +56,7 @@ pub const MerkleTrie = struct {
         defer retainer.deinit();
 
         // Get the root hash
-        const root = self.builder.root_hash() orelse return &[_][]const u8{};
+        const root = self.builder.root_hash orelse return &[_][]const u8{};
 
         // Get the root node
         const root_hash_str = try bytes_to_hex_string(self.allocator, &root);
@@ -74,7 +74,7 @@ pub const MerkleTrie = struct {
     /// Verify a Merkle proof
     pub fn verify_proof(
         self: *const MerkleTrie,
-        root_hash: [32]u8,
+        expected_root_hash: [32]u8,
         key: []const u8,
         proof_nodes: []const []const u8,
         expected_value: ?[]const u8
@@ -87,11 +87,11 @@ pub const MerkleTrie = struct {
         for (proof_nodes) |node_data| {
             var hash: [32]u8 = undefined;
             std.crypto.hash.sha3.Keccak256.hash(node_data, &hash, .{});
-            try proof.addNode(hash, node_data);
+            try proof.add_node(hash, node_data);
         }
 
         // Verify the proof
-        return try proof.verify(self.allocator, root_hash, key, expected_value);
+        return try proof.verify(self.allocator, expected_root_hash, key, expected_value);
     }
 
     /// Reset the trie to an empty state
@@ -109,7 +109,7 @@ pub const MerkleTrie = struct {
         path_prefix: []const u8
     ) !bool {
         // Add this node to the proof if it's on the key path
-        const on_path = try retainer.collectNode(node, path_prefix);
+        const on_path = try retainer.collect_node(node, path_prefix);
         if (!on_path) {
             return false; // Not on path, stop recursion
         }

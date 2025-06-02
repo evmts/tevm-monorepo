@@ -123,7 +123,7 @@ pub fn init_deployment(
         .is_empty = code.len == 0,
     };
 
-    if (!salt) {
+    if (salt == null) {
         return contract;
     }
     // TODO: Use salt for CREATE2 address calculation
@@ -159,12 +159,16 @@ pub fn valid_jumpdest(self: *Self, dest: u256) bool {
     // Binary search in sorted JUMPDEST positions
     if (self.analysis) |analysis| {
         if (analysis.jumpdest_positions.len > 0) {
+            const Context = struct { target: u32 };
             const found = std.sort.binarySearch(
                 u32,
-                pos,
                 analysis.jumpdest_positions,
-                {},
-                comptime std.sort.asc(u32),
+                Context{ .target = pos },
+                struct {
+                    fn compare(ctx: Context, item: u32) std.math.Order {
+                        return std.math.order(ctx.target, item);
+                    }
+                }.compare,
             );
             return found != null;
         }
@@ -355,7 +359,7 @@ pub fn analyze_code(code: []const u8, code_hash: [32]u8) !*const CodeAnalysis {
     const analysis = try allocator.create(CodeAnalysis);
 
     // Analyze code segments
-    analysis.code_segments = try bitvec.code_bitmap(code);
+    analysis.code_segments = bitvec.code_bitmap(code);
 
     // Find and sort JUMPDEST positions
     var jumpdests = std.ArrayList(u32).init(allocator);
@@ -379,7 +383,7 @@ pub fn analyze_code(code: []const u8, code_hash: [32]u8) !*const CodeAnalysis {
     }
 
     // Sort for binary search
-    std.sort.sort(u32, jumpdests.items, {}, comptime std.sort.asc(u32));
+    std.mem.sort(u32, jumpdests.items, {}, comptime std.sort.asc(u32));
     analysis.jumpdest_positions = try jumpdests.toOwnedSlice();
 
     // Analyze other properties

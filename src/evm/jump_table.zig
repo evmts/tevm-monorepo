@@ -78,21 +78,17 @@ pub fn validate(self: *Self) void {
 
 // Get a copy of the jump table
 pub fn copy(self: *const Self, allocator: std.mem.Allocator) !Self {
-    var new_table = Self.init();
-    for (0..256) |i| {
-        if (self.table[i] != null) {
-            const op_copy = try allocator.create(Operation);
-            op_copy.* = self.table[i].?.*;
-            new_table.table[i] = op_copy;
-        }
-    }
-    return new_table;
+    _ = allocator;
+    // Simple copy since operations are static
+    return Self{
+        .table = self.table,
+    };
 }
 
-pub fn init_from_hardfork(allocator: std.mem.Allocator, hardfork: Hardfork) Self {
-    var jump_table = Self{};
+pub fn init_from_hardfork(allocator: std.mem.Allocator, hardfork: Hardfork) !Self {
+    var jump_table = Self.init();
     _ = hardfork;
-    const add_op = allocator.create(Operation);
+    const add_op = try allocator.create(Operation);
     add_op.* = Operation{
         .execute = dummy_execute, // TODO: implement opAdd
         .constant_gas = GasFastestStep,
@@ -131,53 +127,52 @@ pub fn max_swap_stack(n: u32) u32 {
     return n;
 }
 
-fn undefined_execute(pc: usize, interpreter: anytype, state: anytype) ExecutionError![]const u8 {
+fn undefined_execute(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
     _ = pc;
     _ = interpreter;
     _ = state;
-    return ExecutionError.INVALID;
+    return ExecutionError.Error.InvalidOpcode;
 }
 
-fn stop_execute(pc: usize, interpreter: anytype, state: anytype) ExecutionError![]const u8 {
+fn stop_execute(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
     _ = pc;
     _ = interpreter;
     _ = state;
-    return ExecutionError.STOP;
+    return ExecutionError.Error.STOP;
 }
 
-fn dummy_execute(pc: usize, interpreter: anytype, state: anytype) ExecutionError![]const u8 {
+fn dummy_execute(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
     _ = pc;
     _ = interpreter;
     _ = state;
     return "";
 }
 
+// Define operations as comptime constants
+const STOP_OP = Operation{
+    .execute = stop_execute,
+    .constant_gas = 0,
+    .min_stack = min_stack(0, 0),
+    .max_stack = max_stack(0, 0),
+};
+
+const ADD_OP = Operation{
+    .execute = dummy_execute,
+    .constant_gas = GasFastestStep,
+    .min_stack = min_stack(2, 1),
+    .max_stack = max_stack(2, 1),
+};
+
 // Create a new frontier instruction set
 pub fn new_frontier_instruction_set(allocator: std.mem.Allocator) !Self {
+    _ = allocator;
     var jt = Self.init();
 
-    // Setup operation table manually instead of using opcodes structs directly
-    const stop_op = try allocator.create(Operation);
-    stop_op.* = Operation{
-        .execute = stop_execute,
-        .constant_gas = 0,
-        .min_stack = min_stack(0, 0),
-        .max_stack = max_stack(0, 0),
-    };
-    jt.table[0x00] = stop_op;
+    // Setup operation table
+    jt.table[0x00] = &STOP_OP;
+    jt.table[0x01] = &ADD_OP;
 
-    const add_op = try allocator.create(Operation);
-    add_op.* = Operation{
-        .execute = dummy_execute,
-        .constant_gas = GasFastestStep,
-        .min_stack = min_stack(2, 1),
-        .max_stack = max_stack(2, 1),
-    };
-    jt.table[0x01] = add_op;
-
-    // Add more operations based on Geth's frontier implementation
-    // This would continue for all opcodes...
-
+    // Fill remaining with UNDEFINED
     jt.validate();
     return jt;
 }
@@ -186,15 +181,7 @@ pub fn new_frontier_instruction_set(allocator: std.mem.Allocator) !Self {
 test "JumpTable basic operations" {
     const allocator = std.testing.allocator;
 
-    var jt = try new_frontier_instruction_set(allocator);
-    defer {
-        // Free allocated operations
-        for (0..256) |i| {
-            if (jt.table[i] != null and !jt.table[i].?.undefined) {
-                allocator.destroy(jt.table[i].?);
-            }
-        }
-    }
+    const jt = try new_frontier_instruction_set(allocator);
 
     // Test a couple of operations
     const stop_op = jt.get_operation(0x00);
@@ -214,8 +201,8 @@ test "JumpTable initialization and validation" {
     try std.testing.expectEqual(@as(usize, 256), jt.table.len);
 
     // Check that all entries are initially null
-    for (jt.table) |entry| {
-        try std.testing.expectEqual(true, entry == null);
+    for (0..256) |i| {
+        try std.testing.expectEqual(@as(?*const Operation, null), jt.table[i]);
     }
 
     // Validate should fill all nulls with UNDEFINED
@@ -223,8 +210,9 @@ test "JumpTable initialization and validation" {
     mutable_jt.validate();
 
     // Now check that all entries have been filled
-    for (mutable_jt.table) |entry| {
-        try std.testing.expectEqual(false, entry == null);
+    for (0..256) |i| {
+        const entry = mutable_jt.table[i];
+        try std.testing.expect(entry != null);
         try std.testing.expectEqual(true, entry.?.undefined);
     }
 }

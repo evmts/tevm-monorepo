@@ -131,7 +131,7 @@ pub fn for_hardfork(hardfork: Hardfork) Self {
     std.log.debug("Creating chain rules for hardfork: {s}", .{@tagName(hardfork)});
     var rules = Self{};
     switch (hardfork) {
-        .Frontier => {
+        .FRONTIER => {
             rules.IsHomestead = false;
             rules.IsEIP150 = false;
             rules.IsEIP158 = false;
@@ -152,7 +152,7 @@ pub fn for_hardfork(hardfork: Hardfork) Self {
             rules.IsEIP4895 = false;
             rules.IsEIP4844 = false;
         },
-        .Homestead => {
+        .HOMESTEAD => {
             rules.IsEIP150 = false;
             rules.IsEIP158 = false;
             rules.IsByzantium = false;
@@ -172,7 +172,9 @@ pub fn for_hardfork(hardfork: Hardfork) Self {
             rules.IsEIP4895 = false;
             rules.IsEIP4844 = false;
         },
-        .TangerineWhistle => {
+        .DAO => {
+            // DAO fork has same rules as Homestead
+            rules.IsEIP150 = false;
             rules.IsEIP158 = false;
             rules.IsByzantium = false;
             rules.IsConstantinople = false;
@@ -191,7 +193,8 @@ pub fn for_hardfork(hardfork: Hardfork) Self {
             rules.IsEIP4895 = false;
             rules.IsEIP4844 = false;
         },
-        .SpuriousDragon => {
+        .TANGERINE_WHISTLE => {
+            rules.IsEIP158 = false;
             rules.IsByzantium = false;
             rules.IsConstantinople = false;
             rules.IsPetersburg = false;
@@ -209,7 +212,8 @@ pub fn for_hardfork(hardfork: Hardfork) Self {
             rules.IsEIP4895 = false;
             rules.IsEIP4844 = false;
         },
-        .Byzantium => {
+        .SPURIOUS_DRAGON => {
+            rules.IsByzantium = false;
             rules.IsConstantinople = false;
             rules.IsPetersburg = false;
             rules.IsIstanbul = false;
@@ -226,7 +230,8 @@ pub fn for_hardfork(hardfork: Hardfork) Self {
             rules.IsEIP4895 = false;
             rules.IsEIP4844 = false;
         },
-        .Constantinople => {
+        .BYZANTIUM => {
+            rules.IsConstantinople = false;
             rules.IsPetersburg = false;
             rules.IsIstanbul = false;
             rules.IsBerlin = false;
@@ -242,7 +247,8 @@ pub fn for_hardfork(hardfork: Hardfork) Self {
             rules.IsEIP4895 = false;
             rules.IsEIP4844 = false;
         },
-        .Petersburg => {
+        .CONSTANTINOPLE => {
+            rules.IsPetersburg = false;
             rules.IsIstanbul = false;
             rules.IsBerlin = false;
             rules.IsLondon = false;
@@ -257,7 +263,8 @@ pub fn for_hardfork(hardfork: Hardfork) Self {
             rules.IsEIP4895 = false;
             rules.IsEIP4844 = false;
         },
-        .Istanbul => {
+        .PETERSBURG => {
+            rules.IsIstanbul = false;
             rules.IsBerlin = false;
             rules.IsLondon = false;
             rules.IsMerge = false;
@@ -271,7 +278,36 @@ pub fn for_hardfork(hardfork: Hardfork) Self {
             rules.IsEIP4895 = false;
             rules.IsEIP4844 = false;
         },
-        .Berlin => {
+        .ISTANBUL => {
+            rules.IsBerlin = false;
+            rules.IsLondon = false;
+            rules.IsMerge = false;
+            rules.IsShanghai = false;
+            rules.IsCancun = false;
+            rules.IsEIP1559 = false;
+            rules.IsEIP2930 = false;
+            rules.IsEIP3651 = false;
+            rules.IsEIP3855 = false;
+            rules.IsEIP3860 = false;
+            rules.IsEIP4895 = false;
+            rules.IsEIP4844 = false;
+        },
+        .MUIR_GLACIER => {
+            // MUIR_GLACIER has same rules as Istanbul
+            rules.IsBerlin = false;
+            rules.IsLondon = false;
+            rules.IsMerge = false;
+            rules.IsShanghai = false;
+            rules.IsCancun = false;
+            rules.IsEIP1559 = false;
+            rules.IsEIP2930 = false;
+            rules.IsEIP3651 = false;
+            rules.IsEIP3855 = false;
+            rules.IsEIP3860 = false;
+            rules.IsEIP4895 = false;
+            rules.IsEIP4844 = false;
+        },
+        .BERLIN => {
             rules.IsLondon = false;
             rules.IsMerge = false;
             rules.IsShanghai = false;
@@ -284,7 +320,7 @@ pub fn for_hardfork(hardfork: Hardfork) Self {
             rules.IsEIP4895 = false;
             rules.IsEIP4844 = false;
         },
-        .London => {
+        .LONDON => {
             rules.IsMerge = false;
             rules.IsShanghai = false;
             rules.IsCancun = false;
@@ -295,7 +331,7 @@ pub fn for_hardfork(hardfork: Hardfork) Self {
             rules.IsEIP4844 = false;
             rules.IsEIP5656 = false;
         },
-        .ArrowGlacier => {
+        .ARROW_GLACIER => {
             rules.IsMerge = false;
             rules.IsShanghai = false;
             rules.IsCancun = false;
@@ -306,7 +342,7 @@ pub fn for_hardfork(hardfork: Hardfork) Self {
             rules.IsEIP4844 = false;
             rules.IsEIP5656 = false;
         },
-        .GrayGlacier => {
+        .GRAY_GLACIER => {
             rules.IsMerge = false;
             rules.IsShanghai = false;
             rules.IsCancun = false;
@@ -317,7 +353,7 @@ pub fn for_hardfork(hardfork: Hardfork) Self {
             rules.IsEIP4844 = false;
             rules.IsEIP5656 = false;
         },
-        .Merge => {
+        .MERGE => {
             rules.IsShanghai = false;
             rules.IsCancun = false;
             rules.IsEIP3651 = false;
@@ -327,19 +363,12 @@ pub fn for_hardfork(hardfork: Hardfork) Self {
             rules.IsEIP4844 = false;
             rules.IsEIP5656 = false;
         },
-        .Shanghai => {
+        .SHANGHAI => {
             rules.IsCancun = false;
             rules.IsEIP4844 = false;
             rules.IsEIP5656 = false;
         },
-        .Cancun => {},
-        .Prague => {
-            rules.IsPrague = true;
-        },
-        .Verkle => {
-            rules.IsPrague = true;
-            rules.IsVerkle = true;
-        },
+        .CANCUN => {},
     }
     std.log.debug("Chain rules created for hardfork: {s}", .{@tagName(hardfork)});
     return rules;

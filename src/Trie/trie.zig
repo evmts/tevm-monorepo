@@ -520,7 +520,7 @@ test "encodePath and decodePath" {
         try testing.expectEqual(@as(u8, 0x12), encoded[1]);
         try testing.expectEqual(@as(u8, 0x34), encoded[2]);
         
-        const decoded = try decodePath(allocator, encoded);
+        const decoded = try decode_path(allocator, encoded);
         defer allocator.free(decoded.nibbles);
         
         try testing.expectEqual(false, decoded.is_leaf);
@@ -538,7 +538,7 @@ test "encodePath and decodePath" {
         try testing.expectEqual(@as(u8, 0x23), encoded[1]);
         try testing.expectEqual(@as(u8, 0x45), encoded[2]);
         
-        const decoded = try decodePath(allocator, encoded);
+        const decoded = try decode_path(allocator, encoded);
         defer allocator.free(decoded.nibbles);
         
         try testing.expectEqual(true, decoded.is_leaf);
