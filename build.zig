@@ -399,9 +399,8 @@ pub fn build(b: *std.Build) void {
     });
 
     // Add dependencies to compiler_test
-    compiler_test.root_module.addImport("Compiler", compiler_mod);
     compiler_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
-    compiler_test.root_module.addIncludePath(b.path("src/Compilers"));
+    compiler_test.root_module.addIncludePath(b.path("include"));
 
     const run_compiler_test = b.addRunArtifact(compiler_test);
 
@@ -550,10 +549,17 @@ pub fn build(b: *std.Build) void {
 
     // Link the Rust library to the compiler test
     compiler_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
-    // Link macOS frameworks if on macOS
-    if (target.result.os.tag == .macos) {
+    compiler_test.linkLibC(); // Explicitly link LibC
+
+    // Link system libraries required by Rust static lib on different OS
+    if (target.result.os.tag == .linux) {
+        compiler_test.linkSystemLibrary("unwind");
+        compiler_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
         compiler_test.linkFramework("CoreFoundation");
         compiler_test.linkFramework("Security");
+        // Consider adding SystemConfiguration if rust_build.zig links it for its own tests
+        // compiler_test.linkFramework("SystemConfiguration");
     }
 
     const run_lib_unit_tests = b.addRunArtifact(lib_unit_tests);
