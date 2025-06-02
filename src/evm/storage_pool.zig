@@ -44,8 +44,8 @@ pub fn return_access_map(self: *Self, map: *std.AutoHashMap(u256, bool)) void {
 }
 
 pub fn borrow_storage_map(self: *Self) !*std.AutoHashMap(u256, u256) {
-    if (self.storage_maps.items.len > 0) {
-        return self.storage_maps.pop();
+    if (self.storage_maps.pop()) |map| {
+        return map;
     }
     const map = try self.allocator.create(std.AutoHashMap(u256, u256));
     map.* = std.AutoHashMap(u256, u256).init(self.allocator);

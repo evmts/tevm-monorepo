@@ -17,10 +17,10 @@ data: [CAPACITY]u256 align(32) = [_]u256{0} ** CAPACITY,
 
 size: usize = 0,
 
-pub fn from_slice(values: []const u256) Error!void {
-    const stack = Self{};
+pub fn from_slice(values: []const u256) Error!Self {
+    var stack = Self{};
     for (values) |value| {
-        stack.append(value);
+        try stack.append(value);
     }
     return stack;
 }

@@ -425,7 +425,7 @@ test "compile simple contract" {
 
     const settings = CompilerSettings{};
     
-    var result = try Compiler.compileSource(
+    var result = try Compiler.compile_source(
         allocator,
         "SimpleStorage.sol",
         source,

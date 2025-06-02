@@ -70,7 +70,7 @@ test "Memory stress: concurrent access patterns" {
         for (0..10) |i| {
             const read_offset = offset + (i * 1024);
             if (read_offset + 32 <= size) {
-                const word = try mem.getWord(read_offset);
+                const word = try mem.get_word(read_offset);
                 try testing.expectEqualSlices(u8, &expected, &word);
             }
         }
