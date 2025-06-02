@@ -1,7 +1,7 @@
 import type { Hex } from 'viem'
 
 export type TxStatus = {
-	id: ReturnType<typeof crypto.randomUUID>
+	id: string
 	timestamp: number
 } & (
 	| {

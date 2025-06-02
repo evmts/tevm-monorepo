@@ -5,9 +5,8 @@ import type { Address, Hex } from '@tevm/utils'
 import { type EIP1193RequestFn } from 'viem'
 import { FieldLayout } from '../FieldLayout.js'
 
-const getTablesWithRecords = async (getState: () => Promise<State>) => {
-	const state = await getState()
-
+const getTablesWithRecords = async (getState: () => State) => {
+	const state = getState()
 	return Object.values(state.config)
 		.flatMap((namespace) => Object.values(namespace) as readonly Table[])
 		.map((table) => ({
@@ -18,15 +17,14 @@ const getTablesWithRecords = async (getState: () => Promise<State>) => {
 
 export const mudStoreGetStorageAtOverride =
 	(transport: { request: EIP1193RequestFn }, clientType: 'internal' | 'optimistic', logger?: Logger) =>
-	({ getState, storeAddress }: { getState: () => Promise<State>; storeAddress: Address }): EIP1193RequestFn => {
+	({ getState, storeAddress }: { getState: () => State; storeAddress: Address }): EIP1193RequestFn => {
 		const tableIdToFieldLayout = new Map<Hex, FieldLayout>()
-		getState().then(({ config }) => {
-			for (const namespace of Object.values(config)) {
-				for (const table of Object.values(namespace)) {
-					tableIdToFieldLayout.set(table.tableId, new FieldLayout(table))
-				}
+		const { config } = getState()
+		for (const namespace of Object.values(config)) {
+			for (const table of Object.values(namespace)) {
+				tableIdToFieldLayout.set(table.tableId, new FieldLayout(table))
 			}
-		})
+		}
 
 		const originalRequest = transport.request
 		// @ts-expect-error - Type 'unknown' is not assignable to type '_returnType'.

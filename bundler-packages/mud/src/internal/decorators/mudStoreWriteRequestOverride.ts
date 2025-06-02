@@ -1,9 +1,10 @@
 import type { Logger } from '@tevm/logger'
 import type { MemoryClient } from '@tevm/memory-client'
 import { type Address, createAddressFromString } from '@tevm/utils'
-import { type Client, type TransactionReceipt, publicActions } from 'viem'
+import { type Client, type TransactionReceipt, concatHex, encodeFunctionData, publicActions } from 'viem'
 import { type TxStatusSubscriber, notifyTxStatus } from '../../subscribeTx.js'
 import type { SessionClient } from '../../types.js'
+import { generateTxIdentifier } from '../txIdentifier.js'
 
 export const mudStoreWriteRequestOverride =
 	(client: Client | SessionClient, logger?: Logger) =>
@@ -21,16 +22,17 @@ export const mudStoreWriteRequestOverride =
 			const originalWriteContract = client.writeContract
 
 			client.writeContract = async function interceptedWriteContract(args) {
-				const originalRes = originalWriteContract(args)
+				const txIdentifier = generateTxIdentifier()
+
+				const originalRes = originalWriteContract({ ...args, dataSuffix: txIdentifier })
 				logger?.debug(
 					{ functionName: args.functionName, args: args.args, response: originalRes },
 					'Intercepted writeContract',
 				)
 
 				const simulateTx = async () => {
-					const txId = crypto.randomUUID()
 					notifyTxStatus(txStatusSubscribers)({
-						id: txId,
+						id: txIdentifier,
 						status: 'simulating',
 						timestamp: Date.now(),
 					})
@@ -43,11 +45,16 @@ export const mudStoreWriteRequestOverride =
 
 					logger?.debug({ functionName: args.functionName, args: args.args }, 'Simulating MUD tx with tevmContract')
 					try {
-						const { txHash: optimisticTxHash, errors } = await memoryClient.tevmContract({
+						const { txHash: optimisticTxHash, errors } = await memoryClient.tevmCall({
 							to: args.address,
-							abi: args.abi,
-							functionName: args.functionName,
-							args: args.args,
+							data: concatHex([
+								encodeFunctionData({
+									abi: args.abi,
+									functionName: args.functionName,
+									args: args.args,
+								}),
+								txIdentifier,
+							]),
 							caller: client.userAddress,
 							throwOnFail: false,
 							skipBalance: true,
@@ -69,14 +76,14 @@ export const mudStoreWriteRequestOverride =
 						}
 
 						notifyTxStatus(txStatusSubscribers)({
-							id: txId,
+							id: txIdentifier,
 							status: 'optimistic',
 							timestamp: Date.now(),
 						})
 
 						const txHash = await originalRes
 						notifyTxStatus(txStatusSubscribers)({
-							id: txId,
+							id: txIdentifier,
 							hash: txHash,
 							status: 'optimistic',
 							timestamp: Date.now(),
@@ -85,7 +92,7 @@ export const mudStoreWriteRequestOverride =
 						// if we didn't intercept getStorageAt requests we would want to mine the tx to update the fork state additionally
 						const receipt = (await publicClient.waitForTransactionReceipt({ hash: txHash })) as TransactionReceipt
 						notifyTxStatus(txStatusSubscribers)({
-							id: txId,
+							id: txIdentifier,
 							hash: txHash,
 							status: receipt.status === 'success' ? 'confirmed' : 'reverted',
 							timestamp: Date.now(),
@@ -95,7 +102,10 @@ export const mudStoreWriteRequestOverride =
 							{ functionName: args.functionName, args: args.args, txHash },
 							'Method completed successfully.',
 						)
-						if (optimisticTxHash) (await txPool).removeByHash(optimisticTxHash)
+						if (optimisticTxHash)
+							txPool.then((pool) => {
+								if (pool.getByHash(optimisticTxHash)) pool.removeByHash(optimisticTxHash)
+							})
 					} catch (error) {
 						logger?.error({ functionName: args.functionName, args: args.args, error }, 'Method failed with error.')
 						throw error
