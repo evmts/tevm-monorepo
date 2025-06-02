@@ -14,7 +14,6 @@
     "svelte-ethers",
     "mdt-repro",
     "@tevm/bench",
-    "@tevm/scripts",
-    "@tevm/root"
+    "@tevm/scripts"
   ]
 }
