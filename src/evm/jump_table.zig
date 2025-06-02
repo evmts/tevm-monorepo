@@ -85,10 +85,10 @@ pub fn copy(self: *const Self, allocator: std.mem.Allocator) !Self {
     };
 }
 
-pub fn init_from_hardfork(allocator: std.mem.Allocator, hardfork: Hardfork) Self {
+pub fn init_from_hardfork(allocator: std.mem.Allocator, hardfork: Hardfork) !Self {
     var jump_table = Self.init();
     _ = hardfork;
-    const add_op = allocator.create(Operation);
+    const add_op = try allocator.create(Operation);
     add_op.* = Operation{
         .execute = dummy_execute, // TODO: implement opAdd
         .constant_gas = GasFastestStep,

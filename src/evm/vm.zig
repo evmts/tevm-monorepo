@@ -4,6 +4,7 @@ const Stack = @import("stack.zig");
 const Memory = @import("memory.zig");
 const JumpTable = @import("jump_table.zig");
 const Frame = @import("frame.zig");
+const Operation = @import("operation.zig");
 
 const Self = @This();
 
