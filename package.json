@@ -53,7 +53,6 @@
     "@sveltejs/kit": "^2.21.1",
     "@sveltejs/vite-plugin-svelte": "^5.0.3",
     "@tanstack/svelte-query": "^5.77.2",
-    "app": "^0.1.0",
     "svelte": "^5.33.3",
     "svelte-check": "^4.2.1"
   },
