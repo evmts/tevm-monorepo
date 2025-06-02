@@ -140,7 +140,7 @@ pub const ProofNodes = struct {
                             }
 
                             // Decode the path
-                            const decoded_path = try trie.decodePath(allocator, path_bytes);
+                            const decoded_path = try trie.decode_path(allocator, path_bytes);
                             defer allocator.free(decoded_path.nibbles);
 
                             if (decoded_path.is_leaf) {

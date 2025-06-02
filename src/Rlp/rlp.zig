@@ -49,17 +49,17 @@ pub fn encode(allocator: Allocator, input: anytype) ![]u8 {
     if (info == .array) {
         const child_info = @typeInfo(info.array.child);
         if (child_info == .int and child_info.int.bits == 8) {
-            return try encodeBytes(allocator, &input);
+            return try encode_bytes(allocator, &input);
         }
     } else if (info == .pointer) {
         const child_info = @typeInfo(info.pointer.child);
         if (child_info == .int and child_info.int.bits == 8) {
-            return try encodeBytes(allocator, input);
+            return try encode_bytes(allocator, input);
         } else if (child_info == .array) {
             const elem_info = @typeInfo(child_info.array.child);
             if (elem_info == .int and elem_info.int.bits == 8) {
                 // Handle string literals like "a" which are *const [N:0]u8
-                return try encodeBytes(allocator, input);
+                return try encode_bytes(allocator, input);
             }
         }
     }
@@ -89,7 +89,7 @@ pub fn encode(allocator: Allocator, input: anytype) ![]u8 {
         if (total_len < 56) {
             try result.append(0xc0 + @as(u8, @intCast(total_len)));
         } else {
-            const len_bytes = try encodeLength(allocator, total_len);
+            const len_bytes = try encode_length(allocator, total_len);
             defer allocator.free(len_bytes);
             try result.append(0xf7 + @as(u8, @intCast(len_bytes.len)));
             try result.appendSlice(len_bytes);
@@ -132,7 +132,7 @@ pub fn encode(allocator: Allocator, input: anytype) ![]u8 {
             }
         }
         
-        return try encodeBytes(allocator, bytes.items);
+        return try encode_bytes(allocator, bytes.items);
     }
     
     @compileError("Unsupported type for RLP encoding: " ++ @typeName(T));
@@ -156,7 +156,7 @@ fn encode_bytes(allocator: Allocator, bytes: []const u8) ![]u8 {
     }
     
     // If string is >55 bytes long, return [0xb7+len(len(data)), len(data), data]
-    const len_bytes = try encodeLength(allocator, bytes.len);
+    const len_bytes = try encode_length(allocator, bytes.len);
     defer allocator.free(len_bytes);
     
     const result = try allocator.alloc(u8, 1 + len_bytes.len + bytes.len);
