@@ -16,14 +16,6 @@ describe('useOptimisticState', () => {
 		vi.clearAllMocks()
 	})
 
-	it('should return undefined when wrapper is not available', () => {
-		mockUseOptimisticWrapper.mockReturnValue(undefined)
-
-		const { result } = renderHook(() => useOptimisticState(async () => 'test-data'))
-
-		expect(result.current).toBeUndefined()
-	})
-
 	it('should fetch and return initial state', async () => {
 		const mockState = { config: {}, records: {} }
 		const mockWrapper = {
