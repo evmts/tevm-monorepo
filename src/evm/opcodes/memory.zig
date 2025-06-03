@@ -1,0 +1,302 @@
+const std = @import("std");
+const Operation = @import("../operation.zig");
+const ExecutionError = @import("../execution_error.zig");
+const Stack = @import("../stack.zig");
+const Frame = @import("../frame.zig");
+const Memory = @import("../memory.zig");
+const gas_constants = @import("../gas_constants.zig");
+
+// Helper to convert Stack errors to ExecutionError
+inline fn stack_pop(stack: *Stack) ExecutionError.Error!u256 {
+    return stack.pop() catch |err| switch (err) {
+        Stack.Error.Underflow => return ExecutionError.Error.StackUnderflow,
+        else => return ExecutionError.Error.StackUnderflow,
+    };
+}
+
+inline fn stack_push(stack: *Stack, value: u256) ExecutionError.Error!void {
+    return stack.append(value) catch |err| switch (err) {
+        Stack.Error.Overflow => return ExecutionError.Error.StackOverflow,
+        else => return ExecutionError.Error.StackOverflow,
+    };
+}
+
+pub fn op_mload(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+    _ = pc;
+    _ = interpreter;
+    
+    const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    
+    const offset = try stack_pop(&frame.stack);
+    
+    if (offset > std.math.maxInt(usize)) {
+        return ExecutionError.Error.OutOfOffset;
+    }
+    
+    const offset_usize = @as(usize, @intCast(offset));
+    
+    // Ensure memory is available
+    _ = frame.memory.ensure_context_capacity(offset_usize + 32) catch return ExecutionError.Error.OutOfOffset;
+    
+    // Read 32 bytes from memory
+    const value = frame.memory.get_u256(offset_usize) catch return ExecutionError.Error.OutOfOffset;
+    
+    try stack_push(&frame.stack, value);
+    
+    return "";
+}
+
+pub fn op_mstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+    _ = pc;
+    _ = interpreter;
+    
+    const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    
+    const offset = try stack_pop(&frame.stack);
+    const value = try stack_pop(&frame.stack);
+    
+    if (offset > std.math.maxInt(usize)) {
+        return ExecutionError.Error.OutOfOffset;
+    }
+    
+    const offset_usize = @as(usize, @intCast(offset));
+    
+    // Ensure memory is available
+    _ = frame.memory.ensure_context_capacity(offset_usize + 32) catch return ExecutionError.Error.OutOfOffset;
+    
+    // Write 32 bytes to memory (big-endian)
+    frame.memory.set_u256(offset_usize, value) catch return ExecutionError.Error.OutOfOffset;
+    
+    return "";
+}
+
+pub fn op_mstore8(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+    _ = pc;
+    _ = interpreter;
+    
+    const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    
+    const offset = try stack_pop(&frame.stack);
+    const value = try stack_pop(&frame.stack);
+    
+    if (offset > std.math.maxInt(usize)) {
+        return ExecutionError.Error.OutOfOffset;
+    }
+    
+    const offset_usize = @as(usize, @intCast(offset));
+    
+    // Ensure memory is available
+    _ = frame.memory.ensure_context_capacity(offset_usize + 1) catch return ExecutionError.Error.OutOfOffset;
+    
+    // Write single byte to memory
+    frame.memory.set_byte(offset_usize, @as(u8, @truncate(value))) catch return ExecutionError.Error.OutOfOffset;
+    
+    return "";
+}
+
+pub fn op_msize(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+    _ = pc;
+    _ = interpreter;
+    
+    const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    
+    const size = frame.memory.context_size();
+    
+    try stack_push(&frame.stack, @as(u256, @intCast(size)));
+    
+    return "";
+}
+
+pub fn op_mcopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+    _ = pc;
+    _ = interpreter;
+    
+    const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    
+    const dest = try stack_pop(&frame.stack);
+    const src = try stack_pop(&frame.stack);
+    const size = try stack_pop(&frame.stack);
+    
+    if (size == 0) {
+        return "";
+    }
+    
+    if (dest > std.math.maxInt(usize) or src > std.math.maxInt(usize) or size > std.math.maxInt(usize)) {
+        return ExecutionError.Error.OutOfOffset;
+    }
+    
+    const dest_usize = @as(usize, @intCast(dest));
+    const src_usize = @as(usize, @intCast(src));
+    const size_usize = @as(usize, @intCast(size));
+    
+    // Ensure memory is available for both source and destination
+    const max_addr = @max(dest_usize + size_usize, src_usize + size_usize);
+    _ = frame.memory.ensure_context_capacity(max_addr) catch return ExecutionError.Error.OutOfOffset;
+    
+    // Copy with overlap handling
+    frame.memory.copy_within(src_usize, dest_usize, size_usize) catch return ExecutionError.Error.OutOfOffset;
+    
+    return "";
+}
+
+pub fn op_calldataload(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+    _ = pc;
+    _ = interpreter;
+    
+    const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    
+    const offset = try stack_pop(&frame.stack);
+    
+    if (offset > std.math.maxInt(usize)) {
+        try stack_push(&frame.stack, 0);
+        return "";
+    }
+    
+    const offset_usize = @as(usize, @intCast(offset));
+    
+    // Read 32 bytes from calldata (pad with zeros)
+    var result: u256 = 0;
+    
+    for (0..32) |i| {
+        if (offset_usize + i < frame.input.len) {
+            result = (result << 8) | frame.input[offset_usize + i];
+        } else {
+            result = result << 8;
+        }
+    }
+    
+    try stack_push(&frame.stack, result);
+    
+    return "";
+}
+
+pub fn op_calldatasize(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+    _ = pc;
+    _ = interpreter;
+    
+    const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    
+    try stack_push(&frame.stack, @as(u256, @intCast(frame.input.len)));
+    
+    return "";
+}
+
+pub fn op_calldatacopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+    _ = pc;
+    _ = interpreter;
+    
+    const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    
+    const mem_offset = try stack_pop(&frame.stack);
+    const data_offset = try stack_pop(&frame.stack);
+    const size = try stack_pop(&frame.stack);
+    
+    if (size == 0) {
+        return "";
+    }
+    
+    if (mem_offset > std.math.maxInt(usize) or data_offset > std.math.maxInt(usize) or size > std.math.maxInt(usize)) {
+        return ExecutionError.Error.OutOfOffset;
+    }
+    
+    const mem_offset_usize = @as(usize, @intCast(mem_offset));
+    const data_offset_usize = @as(usize, @intCast(data_offset));
+    const size_usize = @as(usize, @intCast(size));
+    
+    // Ensure memory is available
+    _ = frame.memory.ensure_context_capacity(mem_offset_usize + size_usize) catch return ExecutionError.Error.OutOfOffset;
+    
+    // Copy calldata to memory
+    frame.memory.set_data_bounded(mem_offset_usize, frame.input, data_offset_usize, size_usize) catch return ExecutionError.Error.OutOfOffset;
+    
+    return "";
+}
+
+pub fn op_codesize(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+    _ = pc;
+    _ = interpreter;
+    
+    const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    
+    try stack_push(&frame.stack, @as(u256, @intCast(frame.contract.code.len)));
+    
+    return "";
+}
+
+pub fn op_codecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+    _ = pc;
+    _ = interpreter;
+    
+    const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    
+    const mem_offset = try stack_pop(&frame.stack);
+    const code_offset = try stack_pop(&frame.stack);
+    const size = try stack_pop(&frame.stack);
+    
+    if (size == 0) {
+        return "";
+    }
+    
+    if (mem_offset > std.math.maxInt(usize) or code_offset > std.math.maxInt(usize) or size > std.math.maxInt(usize)) {
+        return ExecutionError.Error.OutOfOffset;
+    }
+    
+    const mem_offset_usize = @as(usize, @intCast(mem_offset));
+    const code_offset_usize = @as(usize, @intCast(code_offset));
+    const size_usize = @as(usize, @intCast(size));
+    
+    // Ensure memory is available
+    _ = frame.memory.ensure_context_capacity(mem_offset_usize + size_usize) catch return ExecutionError.Error.OutOfOffset;
+    
+    // Copy code to memory
+    frame.memory.set_data_bounded(mem_offset_usize, frame.contract.code, code_offset_usize, size_usize) catch return ExecutionError.Error.OutOfOffset;
+    
+    return "";
+}
+
+pub fn op_returndatasize(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+    _ = pc;
+    _ = interpreter;
+    
+    const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    
+    try stack_push(&frame.stack, @as(u256, @intCast(frame.return_data_buffer.len)));
+    
+    return "";
+}
+
+pub fn op_returndatacopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+    _ = pc;
+    _ = interpreter;
+    
+    const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    
+    const mem_offset = try stack_pop(&frame.stack);
+    const data_offset = try stack_pop(&frame.stack);
+    const size = try stack_pop(&frame.stack);
+    
+    if (size == 0) {
+        return "";
+    }
+    
+    if (mem_offset > std.math.maxInt(usize) or data_offset > std.math.maxInt(usize) or size > std.math.maxInt(usize)) {
+        return ExecutionError.Error.OutOfOffset;
+    }
+    
+    const mem_offset_usize = @as(usize, @intCast(mem_offset));
+    const data_offset_usize = @as(usize, @intCast(data_offset));
+    const size_usize = @as(usize, @intCast(size));
+    
+    // Check bounds
+    if (data_offset_usize + size_usize > frame.return_data_buffer.len) {
+        return ExecutionError.Error.ReturnDataOutOfBounds;
+    }
+    
+    // Ensure memory is available
+    _ = frame.memory.ensure_context_capacity(mem_offset_usize + size_usize) catch return ExecutionError.Error.OutOfOffset;
+    
+    // Copy return data to memory
+    frame.memory.set_data(mem_offset_usize, frame.return_data_buffer[data_offset_usize..data_offset_usize + size_usize]) catch return ExecutionError.Error.OutOfOffset;
+    
+    return "";
+}
