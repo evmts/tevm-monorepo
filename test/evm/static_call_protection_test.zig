@@ -2,7 +2,7 @@ const std = @import("std");
 const testing = std.testing;
 const evm = @import("evm");
 const VM = evm.Vm;
-const Address = @import("Address");
+const Address = evm.Address;
 const ExecutionError = evm.ExecutionError;
 
 test "Static call protection - validate_static_context" {

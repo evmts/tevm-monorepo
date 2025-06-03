@@ -4,7 +4,7 @@ const evm = @import("evm");
 const opcodes = evm.opcodes;
 const test_helpers = @import("test_helpers.zig");
 const ExecutionError = evm.ExecutionError;
-const Address = @import("Address");
+const Address = evm.Address;
 const gas_constants = evm.gas_constants;
 const Hardfork = evm.Hardfork.Hardfork;
 

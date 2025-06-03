@@ -4,7 +4,7 @@ const test_helpers = @import("test_helpers");
 const evm = @import("evm");
 const opcodes = evm.opcodes;
 const ExecutionError = evm.ExecutionError;
-const Address = @import("Address");
+const Address = evm.Address;
 
 // Test contract creation workflow
 test "Integration: contract creation and initialization" {

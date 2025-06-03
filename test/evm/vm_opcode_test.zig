@@ -2,7 +2,7 @@ const std = @import("std");
 const testing = std.testing;
 const evm = @import("evm");
 const Vm = evm.Vm;
-const Address = @import("Address");
+const Address = evm.Address;
 const ExecutionError = evm.ExecutionError;
 const Contract = evm.Contract;
 
