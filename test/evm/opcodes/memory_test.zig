@@ -24,442 +24,609 @@ test "MLOAD: load 32 bytes from memory" {
     defer test_frame.deinit();
     
     // Write 32 bytes to memory
+    var data: [32]u8 = undefined;
     var i: usize = 0;
     while (i < 32) : (i += 1) {
-        try frame.memory.write_byte(i, @intCast(i));
+        data[i] = @intCast(i);
     }
+    try test_frame.setMemory(0, &data);
     
     // Push offset 0
-    try frame.pushValue(0);
+    try test_frame.pushStack(&[_]u256{0});
     
     // Execute MLOAD
-    try test_helpers.executeOpcode(opcodes.memory.op_mload, &frame);
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_mload, &test_vm.vm, &test_frame.frame);
     
     // Should load 32 bytes as u256 (big-endian)
-    const result = try frame.popValue();
+    const result = try test_frame.popStack();
     // First byte (0) should be in the most significant position
     try testing.expect((result >> 248) == 0);
     try testing.expect(((result >> 240) & 0xFF) == 1);
 }
 
 test "MLOAD: load with offset" {
-    var vm = test_helpers.TestVm.init();
-    defer vm.deinit();
+    const allocator = testing.allocator;
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Write pattern to memory
+    var data: [64]u8 = undefined;
     var i: usize = 0;
     while (i < 64) : (i += 1) {
-        try frame.memory.write_byte(i, @intCast(i + 0x10));
+        data[i] = @intCast(i + 0x10);
     }
+    try test_frame.setMemory(0, &data);
     
     // Push offset 16
-    try frame.pushValue(16);
+    try test_frame.pushStack(&[_]u256{16});
     
     // Execute MLOAD
-    try test_helpers.executeOpcode(opcodes.memory.op_mload, &frame);
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_mload, &test_vm.vm, &test_frame.frame);
     
     // Should load 32 bytes starting at offset 16
-    const result = try frame.popValue();
+    const result = try test_frame.popStack();
     // First byte should be 0x20 (16 + 0x10)
     try testing.expect((result >> 248) == 0x20);
 }
 
 test "MLOAD: load from uninitialized memory returns zeros" {
-    var vm = test_helpers.TestVm.init();
-    defer vm.deinit();
+    const allocator = testing.allocator;
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Push offset to uninitialized area
-    try frame.pushValue(1000);
+    try test_frame.pushStack(&[_]u256{1000});
     
     // Execute MLOAD
-    try test_helpers.executeOpcode(opcodes.memory.op_mload, &frame);
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_mload, &test_vm.vm, &test_frame.frame);
     
     // Should return all zeros
-    try testing.expectEqual(@as(u256, 0), try frame.popValue());
+    try testing.expectEqual(@as(u256, 0), try test_frame.popStack());
 }
 
 // Test MSTORE operation
 test "MSTORE: store 32 bytes to memory" {
-    var vm = test_helpers.TestVm.init();
-    defer vm.deinit();
+    const allocator = testing.allocator;
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Push value and offset
     const value: u256 = 0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20;
-    try frame.pushValue(value); // value
-    try frame.pushValue(0);     // offset
+    try test_frame.pushStack(&[_]u256{0, value}); // offset, value
     
     // Execute MSTORE
-    try test_helpers.executeOpcode(opcodes.memory.op_mstore, &frame);
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_mstore, &test_vm.vm, &test_frame.frame);
     
     // Check memory contents
-    try testing.expectEqual(@as(u8, 0x01), frame.memory.read_byte(0));
-    try testing.expectEqual(@as(u8, 0x02), frame.memory.read_byte(1));
-    try testing.expectEqual(@as(u8, 0x20), frame.memory.read_byte(31));
+    const mem = try test_frame.getMemory(0, 32);
+    try testing.expectEqual(@as(u8, 0x01), mem[0]);
+    try testing.expectEqual(@as(u8, 0x02), mem[1]);
+    try testing.expectEqual(@as(u8, 0x20), mem[31]);
 }
 
 test "MSTORE: store with offset" {
-    var vm = test_helpers.TestVm.init();
-    defer vm.deinit();
+    const allocator = testing.allocator;
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Push value and offset
     const value: u256 = 0xFFEEDDCCBBAA99887766554433221100;
-    try frame.pushValue(value); // value
-    try frame.pushValue(64);    // offset
+    try test_frame.pushStack(&[_]u256{64, value}); // offset, value
     
     // Execute MSTORE
-    try test_helpers.executeOpcode(opcodes.memory.op_mstore, &frame);
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_mstore, &test_vm.vm, &test_frame.frame);
     
     // Check memory contents at offset
-    try testing.expectEqual(@as(u8, 0x00), frame.memory.read_byte(79));
-    try testing.expectEqual(@as(u8, 0x00), frame.memory.read_byte(80));
-    // ... more bytes in the middle are zeros...
-    try testing.expectEqual(@as(u8, 0xFF), frame.memory.read_byte(80 - 16)); // Most significant bytes
+    const mem = try test_frame.getMemory(64, 32);
+    // The value is stored big-endian, so most significant bytes are first
+    try testing.expectEqual(@as(u8, 0x00), mem[15]); // Byte at position 79
+    try testing.expectEqual(@as(u8, 0x00), mem[16]); // Byte at position 80
 }
 
 // Test MSTORE8 operation
 test "MSTORE8: store single byte to memory" {
-    var vm = test_helpers.TestVm.init();
-    defer vm.deinit();
+    const allocator = testing.allocator;
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Push value and offset
-    try frame.pushValue(0x1234); // value (only lowest byte 0x34 will be stored)
-    try frame.pushValue(10);     // offset
+    try test_frame.pushStack(&[_]u256{10, 0x1234}); // offset, value (only lowest byte 0x34 will be stored)
     
     // Execute MSTORE8
-    try test_helpers.executeOpcode(opcodes.memory.op_mstore8, &frame);
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_mstore8, &test_vm.vm, &test_frame.frame);
     
     // Check memory contents
-    try testing.expectEqual(@as(u8, 0x34), frame.memory.read_byte(10));
+    const mem = try test_frame.getMemory(10, 1);
+    try testing.expectEqual(@as(u8, 0x34), mem[0]);
     // Adjacent bytes should be unaffected (zero)
-    try testing.expectEqual(@as(u8, 0), frame.memory.read_byte(9));
-    try testing.expectEqual(@as(u8, 0), frame.memory.read_byte(11));
+    const mem_before = try test_frame.getMemory(9, 1);
+    const mem_after = try test_frame.getMemory(11, 1);
+    try testing.expectEqual(@as(u8, 0), mem_before[0]);
+    try testing.expectEqual(@as(u8, 0), mem_after[0]);
 }
 
 test "MSTORE8: store only lowest byte" {
-    var vm = test_helpers.TestVm.init();
-    defer vm.deinit();
+    const allocator = testing.allocator;
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Push value with all bytes set
-    try frame.pushValue(0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFAB); // only 0xAB should be stored
-    try frame.pushValue(0);                                    // offset
+    try test_frame.pushStack(&[_]u256{0, 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFAB}); // offset, value (only 0xAB should be stored)
     
     // Execute MSTORE8
-    try test_helpers.executeOpcode(opcodes.memory.op_mstore8, &frame);
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_mstore8, &test_vm.vm, &test_frame.frame);
     
     // Check that only lowest byte was stored
-    try testing.expectEqual(@as(u8, 0xAB), frame.memory.read_byte(0));
+    const mem = try test_frame.getMemory(0, 1);
+    try testing.expectEqual(@as(u8, 0xAB), mem[0]);
 }
 
 // Test MSIZE operation
 test "MSIZE: get memory size" {
-    var vm = test_helpers.TestVm.init();
-    defer vm.deinit();
+    const allocator = testing.allocator;
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Initially memory size should be 0
-    try test_helpers.executeOpcode(opcodes.memory.op_msize, &frame);
-    try testing.expectEqual(@as(u256, 0), try frame.popValue());
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_msize, &test_vm.vm, &test_frame.frame);
+    try testing.expectEqual(@as(u256, 0), try test_frame.popStack());
     
     // Write to memory at offset 31 (should expand to 32 bytes)
-    try frame.memory.write_byte(31, 0xFF);
+    try test_frame.setMemory(31, &[_]u8{0xFF});
     
     // Check size again
-    try test_helpers.executeOpcode(opcodes.memory.op_msize, &frame);
-    try testing.expectEqual(@as(u256, 32), try frame.popValue());
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_msize, &test_vm.vm, &test_frame.frame);
+    try testing.expectEqual(@as(u256, 32), try test_frame.popStack());
     
     // Write to memory at offset 32 (should expand to 64 bytes - word aligned)
-    try frame.memory.write_byte(32, 0xFF);
+    try test_frame.setMemory(32, &[_]u8{0xFF});
     
     // Check size again
-    try test_helpers.executeOpcode(opcodes.memory.op_msize, &frame);
-    try testing.expectEqual(@as(u256, 64), try frame.popValue());
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_msize, &test_vm.vm, &test_frame.frame);
+    try testing.expectEqual(@as(u256, 64), try test_frame.popStack());
 }
 
 // Test MCOPY operation (EIP-5656)
 test "MCOPY: copy memory to memory" {
-    var vm = test_helpers.TestVm.init();
-    defer vm.deinit();
+    const allocator = testing.allocator;
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Write source data
     const src_data = [_]u8{ 0xAA, 0xBB, 0xCC, 0xDD, 0xEE };
-    var i: usize = 0;
-    while (i < src_data.len) : (i += 1) {
-        try frame.memory.write_byte(10 + i, src_data[i]);
-    }
+    try test_frame.setMemory(10, &src_data);
     
-    // Push length, source offset, destination offset
-    try frame.pushValue(5);  // length
-    try frame.pushValue(10); // source offset
-    try frame.pushValue(50); // destination offset
+    // Push destination offset, source offset, length
+    try test_frame.pushStack(&[_]u256{50, 10, 5}); // dest, src, length
     
     // Execute MCOPY
-    try test_helpers.executeOpcode(opcodes.memory.op_mcopy, &frame);
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_mcopy, &test_vm.vm, &test_frame.frame);
     
     // Check that data was copied
-    i = 0;
+    const dest_data = try test_frame.getMemory(50, 5);
+    var i: usize = 0;
     while (i < src_data.len) : (i += 1) {
-        try testing.expectEqual(src_data[i], frame.memory.read_byte(50 + i));
+        try testing.expectEqual(src_data[i], dest_data[i]);
     }
     
     // Original data should still be there
+    const orig_data = try test_frame.getMemory(10, 5);
     i = 0;
     while (i < src_data.len) : (i += 1) {
-        try testing.expectEqual(src_data[i], frame.memory.read_byte(10 + i));
+        try testing.expectEqual(src_data[i], orig_data[i]);
     }
 }
 
 test "MCOPY: overlapping copy forward" {
-    var vm = test_helpers.TestVm.init();
-    defer vm.deinit();
+    const allocator = testing.allocator;
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Write source data
     const src_data = [_]u8{ 0x11, 0x22, 0x33, 0x44, 0x55 };
-    var i: usize = 0;
-    while (i < src_data.len) : (i += 1) {
-        try frame.memory.write_byte(10 + i, src_data[i]);
-    }
+    try test_frame.setMemory(10, &src_data);
     
     // Copy with overlap (forward)
-    try frame.pushValue(5);  // length
-    try frame.pushValue(10); // source offset
-    try frame.pushValue(12); // destination offset (overlaps by 3 bytes)
+    try test_frame.pushStack(&[_]u256{12, 10, 5}); // dest, src, length (overlaps by 3 bytes)
     
     // Execute MCOPY
-    try test_helpers.executeOpcode(opcodes.memory.op_mcopy, &frame);
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_mcopy, &test_vm.vm, &test_frame.frame);
     
     // Check result - should handle overlap correctly
-    try testing.expectEqual(@as(u8, 0x11), frame.memory.read_byte(12));
-    try testing.expectEqual(@as(u8, 0x22), frame.memory.read_byte(13));
-    try testing.expectEqual(@as(u8, 0x33), frame.memory.read_byte(14));
-    try testing.expectEqual(@as(u8, 0x44), frame.memory.read_byte(15));
-    try testing.expectEqual(@as(u8, 0x55), frame.memory.read_byte(16));
+    const result = try test_frame.getMemory(12, 5);
+    try testing.expectEqual(@as(u8, 0x11), result[0]);
+    try testing.expectEqual(@as(u8, 0x22), result[1]);
+    try testing.expectEqual(@as(u8, 0x33), result[2]);
+    try testing.expectEqual(@as(u8, 0x44), result[3]);
+    try testing.expectEqual(@as(u8, 0x55), result[4]);
 }
 
 test "MCOPY: overlapping copy backward" {
-    var vm = test_helpers.TestVm.init();
-    defer vm.deinit();
+    const allocator = testing.allocator;
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Write source data
     const src_data = [_]u8{ 0xAA, 0xBB, 0xCC, 0xDD, 0xEE };
-    var i: usize = 0;
-    while (i < src_data.len) : (i += 1) {
-        try frame.memory.write_byte(10 + i, src_data[i]);
-    }
+    try test_frame.setMemory(10, &src_data);
     
     // Copy with overlap (backward)
-    try frame.pushValue(5);  // length
-    try frame.pushValue(10); // source offset
-    try frame.pushValue(8);  // destination offset (overlaps by 3 bytes)
+    try test_frame.pushStack(&[_]u256{8, 10, 5}); // dest, src, length (overlaps by 3 bytes)
     
     // Execute MCOPY
-    try test_helpers.executeOpcode(opcodes.memory.op_mcopy, &frame);
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_mcopy, &test_vm.vm, &test_frame.frame);
     
     // Check result
-    try testing.expectEqual(@as(u8, 0xAA), frame.memory.read_byte(8));
-    try testing.expectEqual(@as(u8, 0xBB), frame.memory.read_byte(9));
-    try testing.expectEqual(@as(u8, 0xCC), frame.memory.read_byte(10));
-    try testing.expectEqual(@as(u8, 0xDD), frame.memory.read_byte(11));
-    try testing.expectEqual(@as(u8, 0xEE), frame.memory.read_byte(12));
+    const result = try test_frame.getMemory(8, 5);
+    try testing.expectEqual(@as(u8, 0xAA), result[0]);
+    try testing.expectEqual(@as(u8, 0xBB), result[1]);
+    try testing.expectEqual(@as(u8, 0xCC), result[2]);
+    try testing.expectEqual(@as(u8, 0xDD), result[3]);
+    try testing.expectEqual(@as(u8, 0xEE), result[4]);
 }
 
 test "MCOPY: zero length copy" {
-    var vm = test_helpers.TestVm.init();
-    defer vm.deinit();
+    const allocator = testing.allocator;
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Push length 0
-    try frame.pushValue(0);   // length
-    try frame.pushValue(100); // source offset
-    try frame.pushValue(200); // destination offset
+    try test_frame.pushStack(&[_]u256{200, 100, 0}); // dest, src, length
     
     // Execute MCOPY
-    try test_helpers.executeOpcode(opcodes.memory.op_mcopy, &frame);
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_mcopy, &test_vm.vm, &test_frame.frame);
     
     // Should succeed without doing anything
-    try testing.expectEqual(@as(usize, 0), frame.stack.items.len);
+    try testing.expectEqual(@as(usize, 0), test_frame.stackSize());
 }
 
 // Test gas consumption
 test "MLOAD: memory expansion gas" {
-    var vm = test_helpers.TestVm.init();
-    defer vm.deinit();
+    const allocator = testing.allocator;
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
     
-    // Set initial gas
-    frame.frame.gas_remaining = 1000;
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Push offset that requires memory expansion
-    try frame.pushValue(256); // offset (requires 288 bytes = 9 words)
+    try test_frame.pushStack(&[_]u256{256}); // offset (requires 288 bytes = 9 words)
     
-    const gas_before = frame.frame.gas_remaining;
+    const gas_before = test_frame.gasRemaining();
     
     // Execute MLOAD
-    try test_helpers.executeOpcode(opcodes.memory.op_mload, &frame);
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_mload, &test_vm.vm, &test_frame.frame);
     
     // Should consume gas for memory expansion
-    const gas_used = gas_before - frame.frame.gas_remaining;
+    const gas_used = gas_before - test_frame.gasRemaining();
     try testing.expect(gas_used > 0); // Memory expansion should cost gas
 }
 
 test "MSTORE: memory expansion gas" {
-    var vm = test_helpers.TestVm.init();
-    defer vm.deinit();
+    const allocator = testing.allocator;
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
     
-    // Set initial gas
-    frame.frame.gas_remaining = 1000;
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Push value and offset that requires expansion
-    try frame.pushValue(0x123456); // value
-    try frame.pushValue(512);      // offset (requires 544 bytes)
+    try test_frame.pushStack(&[_]u256{512, 0x123456}); // offset, value (requires 544 bytes)
     
-    const gas_before = frame.frame.gas_remaining;
+    const gas_before = test_frame.gasRemaining();
     
     // Execute MSTORE
-    try test_helpers.executeOpcode(opcodes.memory.op_mstore, &frame);
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_mstore, &test_vm.vm, &test_frame.frame);
     
     // Should consume gas for memory expansion
-    const gas_used = gas_before - frame.frame.gas_remaining;
+    const gas_used = gas_before - test_frame.gasRemaining();
     try testing.expect(gas_used > 0);
 }
 
 test "MCOPY: gas consumption" {
-    var vm = test_helpers.TestVm.init();
-    defer vm.deinit();
+    const allocator = testing.allocator;
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
     
-    // Set initial gas
-    frame.frame.gas_remaining = 1000;
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Push parameters for 32 byte copy
-    try frame.pushValue(32);  // length
-    try frame.pushValue(0);   // source
-    try frame.pushValue(100); // destination
+    try test_frame.pushStack(&[_]u256{100, 0, 32}); // dest, src, length
     
-    const gas_before = frame.frame.gas_remaining;
+    const gas_before = test_frame.gasRemaining();
     
     // Execute MCOPY
-    try test_helpers.executeOpcode(opcodes.memory.op_mcopy, &frame);
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_mcopy, &test_vm.vm, &test_frame.frame);
     
     // MCOPY costs 3 gas per word
     // 32 bytes = 1 word = 3 gas
     // Plus memory expansion for destination
-    const gas_used = gas_before - frame.frame.gas_remaining;
+    const gas_used = gas_before - test_frame.gasRemaining();
     try testing.expect(gas_used >= 3);
 }
 
 // Test stack errors
 test "MLOAD: stack underflow" {
-    var vm = test_helpers.TestVm.init();
-    defer vm.deinit();
+    const allocator = testing.allocator;
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Empty stack
     
     // Execute MLOAD - should fail
-    const result = test_helpers.executeOpcode(opcodes.memory.op_mload, &frame);
+    const result = test_helpers.executeOpcode(opcodes.memory.op_mload, &test_vm.vm, &test_frame.frame);
     try testing.expectError(ExecutionError.Error.StackUnderflow, result);
 }
 
 test "MSTORE: stack underflow" {
-    var vm = test_helpers.TestVm.init();
-    defer vm.deinit();
+    const allocator = testing.allocator;
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Push only one value (need two)
-    try frame.pushValue(0);
+    try test_frame.pushStack(&[_]u256{0});
     
     // Execute MSTORE - should fail
-    const result = test_helpers.executeOpcode(opcodes.memory.op_mstore, &frame);
+    const result = test_helpers.executeOpcode(opcodes.memory.op_mstore, &test_vm.vm, &test_frame.frame);
     try testing.expectError(ExecutionError.Error.StackUnderflow, result);
 }
 
 test "MCOPY: stack underflow" {
-    var vm = test_helpers.TestVm.init();
-    defer vm.deinit();
+    const allocator = testing.allocator;
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Push only two values (need three)
-    try frame.pushValue(10); // length
-    try frame.pushValue(0);  // source
+    try test_frame.pushStack(&[_]u256{0, 10}); // source, length (missing dest)
     
     // Execute MCOPY - should fail
-    const result = test_helpers.executeOpcode(opcodes.memory.op_mcopy, &frame);
+    const result = test_helpers.executeOpcode(opcodes.memory.op_mcopy, &test_vm.vm, &test_frame.frame);
     try testing.expectError(ExecutionError.Error.StackUnderflow, result);
 }
 
 // Test out of offset
 test "MLOAD: offset overflow" {
-    var vm = test_helpers.TestVm.init();
-    defer vm.deinit();
+    const allocator = testing.allocator;
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Push offset that would overflow when adding 32
-    try frame.pushValue(std.math.maxInt(u256) - 10);
+    try test_frame.pushStack(&[_]u256{std.math.maxInt(u256) - 10});
     
     // Execute MLOAD - should fail
-    const result = test_helpers.executeOpcode(opcodes.memory.op_mload, &frame);
+    const result = test_helpers.executeOpcode(opcodes.memory.op_mload, &test_vm.vm, &test_frame.frame);
     try testing.expectError(ExecutionError.Error.OutOfOffset, result);
 }
 
 test "MCOPY: source offset overflow" {
-    var vm = test_helpers.TestVm.init();
-    defer vm.deinit();
+    const allocator = testing.allocator;
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Push parameters that would overflow
-    try frame.pushValue(100);                   // length
-    try frame.pushValue(std.math.maxInt(u256)); // source offset
-    try frame.pushValue(0);                     // destination
+    try test_frame.pushStack(&[_]u256{0, std.math.maxInt(u256), 100}); // dest, src (overflow), length
     
     // Execute MCOPY - should fail
-    const result = test_helpers.executeOpcode(opcodes.memory.op_mcopy, &frame);
+    const result = test_helpers.executeOpcode(opcodes.memory.op_mcopy, &test_vm.vm, &test_frame.frame);
     try testing.expectError(ExecutionError.Error.OutOfOffset, result);
 }

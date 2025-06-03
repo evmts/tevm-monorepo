@@ -3,7 +3,8 @@ const testing = std.testing;
 const helpers = @import("test_helpers.zig");
 
 // Import opcodes to test
-const control = @import("../../../src/evm/opcodes/control.zig");
+const evm = @import("evm");
+const control = evm.opcodes.control;
 
 test "Control: STOP halts execution" {
     const allocator = testing.allocator;
