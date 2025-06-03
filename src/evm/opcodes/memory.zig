@@ -132,9 +132,10 @@ pub fn op_mcopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
-    const dest = try stack_pop(&frame.stack);
-    const src = try stack_pop(&frame.stack);
+    // EVM stack order: [size, src, dest] (top to bottom)
     const size = try stack_pop(&frame.stack);
+    const src = try stack_pop(&frame.stack);
+    const dest = try stack_pop(&frame.stack);
     
     if (size == 0) {
         return Operation.ExecutionResult{};
@@ -163,6 +164,11 @@ pub fn op_mcopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     
     // Copy with overlap handling
     try error_mapping.memory_copy_within(&frame.memory, src_usize, dest_usize, size_usize);
+    
+    // Debug logging
+    if (@import("builtin").mode == .Debug) {
+        std.debug.print("MCOPY: src={}, dest={}, size={}\n", .{ src_usize, dest_usize, size_usize });
+    }
     
     return Operation.ExecutionResult{};
 }
