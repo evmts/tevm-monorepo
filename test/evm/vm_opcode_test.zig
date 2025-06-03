@@ -1208,9 +1208,9 @@ test "VM: EXP opcode" {
     }
     
     const bytecode = [_]u8{
-        0x60, 0x03,  // PUSH1 3 (exponent)
-        0x60, 0x02,  // PUSH1 2 (base)
-        0x0A,        // EXP (2^3 = 8)
+        0x60, 0x03,  // PUSH1 3 (base)
+        0x60, 0x02,  // PUSH1 2 (exponent)
+        0x0A,        // EXP (3^2 = 9)
         0x00,        // STOP
     };
     
@@ -1218,7 +1218,7 @@ test "VM: EXP opcode" {
     defer if (result.output) |output| allocator.free(output);
     
     try testing.expect(result.status == .Success);
-    try testing.expectEqual(@as(u256, 8), vm.last_stack_value.?);
+    try testing.expectEqual(@as(u256, 9), vm.last_stack_value.?);
 }
 
 // ===== Comparison Opcodes =====

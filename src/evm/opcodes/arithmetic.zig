@@ -61,15 +61,15 @@ pub fn op_div(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
-    const b = try error_mapping.stack_pop(&frame.stack);
     const a = try error_mapping.stack_pop(&frame.stack);
+    const b = try error_mapping.stack_pop(&frame.stack);
     
-    if (b == 0) {
+    if (a == 0) {
         try error_mapping.stack_push(&frame.stack, 0);
         return Operation.ExecutionResult{};
     }
     
-    try error_mapping.stack_push(&frame.stack, a / b);
+    try error_mapping.stack_push(&frame.stack, b / a);
     
     return Operation.ExecutionResult{};
 }
@@ -80,10 +80,10 @@ pub fn op_sdiv(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
-    const b = try error_mapping.stack_pop(&frame.stack);
     const a = try error_mapping.stack_pop(&frame.stack);
+    const b = try error_mapping.stack_pop(&frame.stack);
     
-    if (b == 0) {
+    if (a == 0) {
         try error_mapping.stack_push(&frame.stack, 0);
         return Operation.ExecutionResult{};
     }
@@ -94,12 +94,12 @@ pub fn op_sdiv(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     
     // Special case: division overflow
     const min_i256 = @as(i256, 1) << 255;
-    if (a_i256 == min_i256 and b_i256 == -1) {
+    if (b_i256 == min_i256 and a_i256 == -1) {
         try error_mapping.stack_push(&frame.stack, @as(u256, @bitCast(min_i256)));
         return Operation.ExecutionResult{};
     }
     
-    const result_i256 = @divTrunc(a_i256, b_i256);
+    const result_i256 = @divTrunc(b_i256, a_i256);
     try error_mapping.stack_push(&frame.stack, @as(u256, @bitCast(result_i256)));
     
     return Operation.ExecutionResult{};
@@ -111,15 +111,15 @@ pub fn op_mod(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
-    const b = try error_mapping.stack_pop(&frame.stack);
     const a = try error_mapping.stack_pop(&frame.stack);
+    const b = try error_mapping.stack_pop(&frame.stack);
     
-    if (b == 0) {
+    if (a == 0) {
         try error_mapping.stack_push(&frame.stack, 0);
         return Operation.ExecutionResult{};
     }
     
-    try error_mapping.stack_push(&frame.stack, a % b);
+    try error_mapping.stack_push(&frame.stack, b % a);
     
     return Operation.ExecutionResult{};
 }
@@ -130,10 +130,10 @@ pub fn op_smod(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
-    const b = try error_mapping.stack_pop(&frame.stack);
     const a = try error_mapping.stack_pop(&frame.stack);
+    const b = try error_mapping.stack_pop(&frame.stack);
     
-    if (b == 0) {
+    if (a == 0) {
         try error_mapping.stack_push(&frame.stack, 0);
         return Operation.ExecutionResult{};
     }
@@ -142,7 +142,7 @@ pub fn op_smod(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     const a_i256 = @as(i256, @bitCast(a));
     const b_i256 = @as(i256, @bitCast(b));
     
-    const result_i256 = @rem(a_i256, b_i256);
+    const result_i256 = @rem(b_i256, a_i256);
     try error_mapping.stack_push(&frame.stack, @as(u256, @bitCast(result_i256)));
     
     return Operation.ExecutionResult{};
@@ -178,9 +178,9 @@ pub fn op_addmod(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
-    const n = try error_mapping.stack_pop(&frame.stack);
-    const b = try error_mapping.stack_pop(&frame.stack);
     const a = try error_mapping.stack_pop(&frame.stack);
+    const b = try error_mapping.stack_pop(&frame.stack);
+    const n = try error_mapping.stack_pop(&frame.stack);
     
     // Special case: modulo by zero returns zero (EVM specification)
     if (n == 0) {
@@ -250,9 +250,9 @@ pub fn op_mulmod(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
-    const n = try error_mapping.stack_pop(&frame.stack);
-    const b = try error_mapping.stack_pop(&frame.stack);
     const a = try error_mapping.stack_pop(&frame.stack);
+    const b = try error_mapping.stack_pop(&frame.stack);
+    const n = try error_mapping.stack_pop(&frame.stack);
     
     // Special case: modulo by zero returns zero (EVM specification)
     if (n == 0) {
@@ -347,8 +347,8 @@ pub fn op_exp(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
     _ = vm;
     
-    const base = try error_mapping.stack_pop(&frame.stack);
     const exp = try error_mapping.stack_pop(&frame.stack);
+    const base = try error_mapping.stack_pop(&frame.stack);
     
     // Calculate dynamic gas cost based on exponent size
     // Gas = 50 * number_of_bytes_in_exponent
