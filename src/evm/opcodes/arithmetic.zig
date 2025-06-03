@@ -83,9 +83,10 @@ pub fn op_div(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     
     if (b == 0) {
         try stack_push(&frame.stack, 0);
-    } else {
-        try stack_push(&frame.stack, a / b);
+        return Operation.ExecutionResult{};
     }
+    
+    try stack_push(&frame.stack, a / b);
     
     return Operation.ExecutionResult{};
 }
@@ -112,10 +113,11 @@ pub fn op_sdiv(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     const min_i256 = @as(i256, 1) << 255;
     if (a_i256 == min_i256 and b_i256 == -1) {
         try stack_push(&frame.stack, @as(u256, @bitCast(min_i256)));
-    } else {
-        const result_i256 = @divTrunc(a_i256, b_i256);
-        try stack_push(&frame.stack, @as(u256, @bitCast(result_i256)));
+        return Operation.ExecutionResult{};
     }
+    
+    const result_i256 = @divTrunc(a_i256, b_i256);
+    try stack_push(&frame.stack, @as(u256, @bitCast(result_i256)));
     
     return Operation.ExecutionResult{};
 }
@@ -131,9 +133,10 @@ pub fn op_mod(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     
     if (b == 0) {
         try stack_push(&frame.stack, 0);
-    } else {
-        try stack_push(&frame.stack, a % b);
+        return Operation.ExecutionResult{};
     }
+    
+    try stack_push(&frame.stack, a % b);
     
     return Operation.ExecutionResult{};
 }

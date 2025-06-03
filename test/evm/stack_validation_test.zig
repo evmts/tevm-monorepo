@@ -36,7 +36,7 @@ test "Stack validation: binary operations" {
     defer frame.memory.deinit();
     
     // Create jump table
-    var table = JumpTable.init_from_hardfork(.Frontier);
+    var table = JumpTable.init_from_hardfork(.FRONTIER);
     
     // Get ADD operation
     const add_op = table.get_operation(0x01);
@@ -85,7 +85,7 @@ test "Stack validation: PUSH operations" {
     var frame = Frame.init(allocator, &contract);
     defer frame.memory.deinit();
     
-    var table = JumpTable.init_from_hardfork(.Frontier);
+    var table = JumpTable.init_from_hardfork(.FRONTIER);
     const push1_op = table.get_operation(0x60);
     
     // PUSH operations have min_stack = 0
@@ -124,7 +124,7 @@ test "Stack validation: DUP operations" {
     var frame = Frame.init(allocator, &contract);
     defer frame.memory.deinit();
     
-    var table = JumpTable.init_from_hardfork(.Frontier);
+    var table = JumpTable.init_from_hardfork(.FRONTIER);
     const dup1_op = table.get_operation(0x80);
     
     // DUP1 needs at least 1 item
@@ -170,7 +170,7 @@ test "Stack validation: SWAP operations" {
     var frame = Frame.init(allocator, &contract);
     defer frame.memory.deinit();
     
-    var table = JumpTable.init_from_hardfork(.Frontier);
+    var table = JumpTable.init_from_hardfork(.FRONTIER);
     const swap1_op = table.get_operation(0x90);
     
     // SWAP1 needs at least 2 items
@@ -242,7 +242,7 @@ test "Stack validation: integration with jump table execution" {
     // Provide enough gas
     frame.gas_remaining = 1000;
     
-    var table = JumpTable.init_from_hardfork(.Frontier);
+    var table = JumpTable.init_from_hardfork(.FRONTIER);
     
     // Try to execute ADD without enough stack items
     const interpreter_ptr: *Operation.Interpreter = @ptrCast(@alignCast(&frame));

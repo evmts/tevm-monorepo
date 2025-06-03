@@ -1,9 +1,9 @@
 const std = @import("std");
 const testing = std.testing;
 const evm = @import("evm");
-const VM = evm.vm;
+const VM = evm.Vm;
 const Address = @import("Address");
-const ExecutionError = evm.execution_error;
+const ExecutionError = evm.ExecutionError;
 
 test "Static call protection - validate_static_context" {
     const allocator = testing.allocator;
@@ -25,7 +25,7 @@ test "Static call protection - storage operations" {
     var vm = try VM.init(allocator);
     defer vm.deinit();
     
-    const test_address = Address.init([_]u8{0x01} ** 20);
+    const test_address = [_]u8{0x01} ** 20;
     const test_slot: u256 = 42;
     const test_value: u256 = 100;
     
@@ -50,7 +50,7 @@ test "Static call protection - transient storage operations" {
     var vm = try VM.init(allocator);
     defer vm.deinit();
     
-    const test_address = Address.init([_]u8{0x02} ** 20);
+    const test_address = [_]u8{0x02} ** 20;
     const test_slot: u256 = 50;
     const test_value: u256 = 150;
     
@@ -71,7 +71,7 @@ test "Static call protection - balance operations" {
     var vm = try VM.init(allocator);
     defer vm.deinit();
     
-    const test_address = Address.init([_]u8{0x03} ** 20);
+    const test_address = [_]u8{0x03} ** 20;
     const test_balance: u256 = 1000;
     
     // Test 1: Normal context allows balance updates
@@ -91,7 +91,7 @@ test "Static call protection - code operations" {
     var vm = try VM.init(allocator);
     defer vm.deinit();
     
-    const test_address = Address.init([_]u8{0x04} ** 20);
+    const test_address = [_]u8{0x04} ** 20;
     const test_code = [_]u8{0x60, 0x01, 0x60, 0x02}; // PUSH1 1 PUSH1 2
     
     // Test 1: Normal context allows code updates
@@ -112,7 +112,7 @@ test "Static call protection - log operations" {
     var vm = try VM.init(allocator);
     defer vm.deinit();
     
-    const test_address = Address.init([_]u8{0x05} ** 20);
+    const test_address = [_]u8{0x05} ** 20;
     const topics = [_]u256{0x123, 0x456};
     const data = [_]u8{0x01, 0x02, 0x03};
     
@@ -135,7 +135,7 @@ test "Static call protection - contract creation" {
     var vm = try VM.init(allocator);
     defer vm.deinit();
     
-    const creator = Address.init([_]u8{0x06} ** 20);
+    const creator = [_]u8{0x06} ** 20;
     const value: u256 = 1000;
     const init_code = [_]u8{0x60, 0x00}; // PUSH1 0
     const gas: u64 = 100000;
@@ -155,7 +155,7 @@ test "Static call protection - CREATE2 contract creation" {
     var vm = try VM.init(allocator);
     defer vm.deinit();
     
-    const creator = Address.init([_]u8{0x07} ** 20);
+    const creator = ([_]u8{0x07} ** 20);
     const value: u256 = 1000;
     const init_code = [_]u8{0x60, 0x00}; // PUSH1 0
     const salt: u256 = 0xdeadbeef;
@@ -195,8 +195,8 @@ test "Static call protection - selfdestruct" {
     var vm = try VM.init(allocator);
     defer vm.deinit();
     
-    const contract = Address.init([_]u8{0x08} ** 20);
-    const beneficiary = Address.init([_]u8{0x09} ** 20);
+    const contract = ([_]u8{0x08} ** 20);
+    const beneficiary = ([_]u8{0x09} ** 20);
     
     // Test 1: Normal context allows selfdestruct
     vm.read_only = false;
@@ -213,7 +213,7 @@ test "Static call protection - comprehensive scenario" {
     var vm = try VM.init(allocator);
     defer vm.deinit();
     
-    const test_address = Address.init([_]u8{0x0A} ** 20);
+    const test_address = ([_]u8{0x0A} ** 20);
     
     // Set up initial state in normal context
     vm.read_only = false;
