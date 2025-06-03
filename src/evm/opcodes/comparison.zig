@@ -25,8 +25,10 @@ pub fn op_lt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.S
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
-    const a = try stack_pop(&frame.stack);
-    const b = try stack_pop(&frame.stack);
+    // Pop operands in correct order: b is top (val2), a is second (val1)
+    // Stack: [..., val1, val2] -> [..., (val1 < val2)]
+    const b = try stack_pop(&frame.stack); // val2 (top)
+    const a = try stack_pop(&frame.stack); // val1 (second)
     
     const result: u256 = if (a < b) 1 else 0;
     
@@ -41,8 +43,10 @@ pub fn op_gt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.S
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
-    const a = try stack_pop(&frame.stack);
-    const b = try stack_pop(&frame.stack);
+    // Pop operands in correct order: b is top (val2), a is second (val1)
+    // Stack: [..., val1, val2] -> [..., (val1 > val2)]
+    const b = try stack_pop(&frame.stack); // val2 (top)
+    const a = try stack_pop(&frame.stack); // val1 (second)
     
     const result: u256 = if (a > b) 1 else 0;
     
@@ -57,8 +61,10 @@ pub fn op_slt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
-    const a = try stack_pop(&frame.stack);
-    const b = try stack_pop(&frame.stack);
+    // Pop operands in correct order: b is top (val2), a is second (val1)
+    // Stack: [..., val1, val2] -> [..., (val1 < val2)]
+    const b = try stack_pop(&frame.stack); // val2 (top)
+    const a = try stack_pop(&frame.stack); // val1 (second)
     
     // Signed less than
     const a_i256 = @as(i256, @bitCast(a));
@@ -77,8 +83,10 @@ pub fn op_sgt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
-    const a = try stack_pop(&frame.stack);
-    const b = try stack_pop(&frame.stack);
+    // Pop operands in correct order: b is top (val2), a is second (val1)
+    // Stack: [..., val1, val2] -> [..., (val1 > val2)]
+    const b = try stack_pop(&frame.stack); // val2 (top)
+    const a = try stack_pop(&frame.stack); // val1 (second)
     
     // Signed greater than
     const a_i256 = @as(i256, @bitCast(a));
