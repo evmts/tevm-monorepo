@@ -26,15 +26,9 @@ const system = opcodes.system;
 
 const Self = @This();
 
-// Cache line size (typically 64 bytes on modern processors)
+// Cache line alignment for better performance
 const CACHE_LINE_SIZE = 64;
 
-// Align the jump table to cache line boundary for better performance
-// Each pointer is 8 bytes, so 8 pointers per cache line
-// This optimization reduces cache misses during opcode dispatch:
-// - Frequently used opcodes (PUSH, DUP, arithmetic) cluster in early cache lines
-// - Sequential opcode fetches benefit from spatial locality
-// - Aligned access prevents straddling cache line boundaries
 table: [256]?*const Operation align(CACHE_LINE_SIZE),
 
 pub fn init() Self {
@@ -43,10 +37,7 @@ pub fn init() Self {
     };
 }
 
-// Inline for hot path optimization
 pub inline fn get_operation(self: *const Self, opcode: u8) *const Operation {
-    // The table is guaranteed to have all 256 entries after validate()
-    // This allows the compiler to optimize better
     return self.table[opcode] orelse &Operation.NULL;
 }
 

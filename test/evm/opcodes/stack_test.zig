@@ -25,7 +25,7 @@ test "PUSH0: append zero value" {
     defer test_frame.deinit();
     
     // Execute PUSH0
-    _ = try test_helpers.executeOpcode(opcodes.stack.op_push0, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.stack.op_push0, &test_vm.vm, test_frame.frame);
     
     // Should append 0
     try testing.expectEqual(@as(u256, 0), try test_frame.frame.stack.pop());
@@ -57,7 +57,7 @@ test "PUSH1: append 1 byte value" {
     test_frame.frame.program_counter = 0;
     
     // Execute PUSH1
-    const result = try test_helpers.executeOpcode(opcodes.stack.op_push1, &test_vm.vm, &test_frame.frame);
+    const result = try test_helpers.executeOpcode(opcodes.stack.op_push1, &test_vm.vm, test_frame.frame);
     
     // Should consume 2 bytes (opcode + data)
     try testing.expectEqual(@as(usize, 2), result.bytes_consumed);
@@ -91,7 +91,7 @@ test "PUSH2: append 2 byte value" {
     test_frame.frame.program_counter = 0;
     
     // Execute PUSH2
-    const result = try test_helpers.executeOpcode(opcodes.stack.op_push2, &test_vm.vm, &test_frame.frame);
+    const result = try test_helpers.executeOpcode(opcodes.stack.op_push2, &test_vm.vm, test_frame.frame);
     
     // Should consume 3 bytes
     try testing.expectEqual(@as(usize, 3), result.bytes_consumed);
@@ -129,7 +129,7 @@ test "PUSH32: append 32 byte value" {
     test_frame.frame.program_counter = 0;
     
     // Execute PUSH32
-    const result = try test_helpers.executeOpcode(opcodes.stack.op_push32, &test_vm.vm, &test_frame.frame);
+    const result = try test_helpers.executeOpcode(opcodes.stack.op_push32, &test_vm.vm, test_frame.frame);
     
     // Should consume 33 bytes
     try testing.expectEqual(@as(usize, 33), result.bytes_consumed);
@@ -165,7 +165,7 @@ test "POP: remove top stack item" {
     try test_frame.frame.stack.append(0x456);
     
     // Execute POP
-    _ = try test_helpers.executeOpcode(opcodes.stack.op_pop, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.stack.op_pop, &test_vm.vm, test_frame.frame);
     
     // Should have removed top item (0x456)
     try testing.expectEqual(@as(u256, 0x123), try test_frame.frame.stack.pop());
@@ -195,7 +195,7 @@ test "DUP1: duplicate top stack item" {
     try test_frame.frame.stack.append(0xABCD);
     
     // Execute DUP1
-    _ = try test_helpers.executeOpcode(opcodes.stack.op_dup1, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.stack.op_dup1, &test_vm.vm, test_frame.frame);
     
     // Should have two copies of the value
     try testing.expectEqual(@as(u256, 0xABCD), try test_frame.frame.stack.pop());
@@ -225,7 +225,7 @@ test "DUP2: duplicate second stack item" {
     try test_frame.frame.stack.append(0x222); // top
     
     // Execute DUP2
-    _ = try test_helpers.executeOpcode(opcodes.stack.op_dup2, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.stack.op_dup2, &test_vm.vm, test_frame.frame);
     
     // Stack should be: 0x111, 0x222, 0x111
     try testing.expectEqual(@as(u256, 0x111), try test_frame.frame.stack.pop());
@@ -258,7 +258,7 @@ test "DUP16: duplicate 16th stack item" {
     }
     
     // Execute DUP16
-    _ = try test_helpers.executeOpcode(opcodes.stack.op_dup16, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.stack.op_dup16, &test_vm.vm, test_frame.frame);
     
     // Should duplicate the bottom item (100)
     try testing.expectEqual(@as(u256, 100), try test_frame.frame.stack.pop());
@@ -294,7 +294,7 @@ test "SWAP1: swap top two stack items" {
     try test_frame.frame.stack.append(0x222); // top
     
     // Execute SWAP1
-    _ = try test_helpers.executeOpcode(opcodes.stack.op_swap1, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.stack.op_swap1, &test_vm.vm, test_frame.frame);
     
     // Order should be swapped
     try testing.expectEqual(@as(u256, 0x111), try test_frame.frame.stack.pop());
@@ -325,7 +325,7 @@ test "SWAP2: swap 1st and 3rd stack items" {
     try test_frame.frame.stack.append(0x333); // top
     
     // Execute SWAP2
-    _ = try test_helpers.executeOpcode(opcodes.stack.op_swap2, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.stack.op_swap2, &test_vm.vm, test_frame.frame);
     
     // Stack should be: 0x222, 0x111, 0x333
     try testing.expectEqual(@as(u256, 0x111), try test_frame.frame.stack.pop());
@@ -358,7 +358,7 @@ test "SWAP16: swap 1st and 17th stack items" {
     }
     
     // Execute SWAP16
-    _ = try test_helpers.executeOpcode(opcodes.stack.op_swap16, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.stack.op_swap16, &test_vm.vm, test_frame.frame);
     
     // Top should now be 1, bottom should be 17
     try testing.expectEqual(@as(u256, 1), try test_frame.frame.stack.pop());
@@ -398,7 +398,7 @@ test "PUSH1: at end of code" {
     test_frame.frame.program_counter = 0;
     
     // Execute PUSH1
-    const result = try test_helpers.executeOpcode(opcodes.stack.op_push1, &test_vm.vm, &test_frame.frame);
+    const result = try test_helpers.executeOpcode(opcodes.stack.op_push1, &test_vm.vm, test_frame.frame);
     
     // Should consume 2 bytes (even though only 1 exists)
     try testing.expectEqual(@as(usize, 2), result.bytes_consumed);
@@ -436,7 +436,7 @@ test "PUSH32: partial data available" {
     test_frame.frame.program_counter = 0;
     
     // Execute PUSH32
-    const result = try test_helpers.executeOpcode(opcodes.stack.op_push32, &test_vm.vm, &test_frame.frame);
+    const result = try test_helpers.executeOpcode(opcodes.stack.op_push32, &test_vm.vm, test_frame.frame);
     
     // Should consume 33 bytes
     try testing.expectEqual(@as(usize, 33), result.bytes_consumed);
@@ -476,7 +476,7 @@ test "POP: stack underflow" {
     // Empty stack
     
     // Execute POP - should fail
-    const result = test_helpers.executeOpcode(opcodes.stack.op_pop, &test_vm.vm, &test_frame.frame);
+    const result = test_helpers.executeOpcode(opcodes.stack.op_pop, &test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.StackUnderflow, result);
 }
 
@@ -501,7 +501,7 @@ test "DUP1: stack underflow" {
     // Empty stack
     
     // Execute DUP1 - should fail
-    const result = test_helpers.executeOpcode(opcodes.stack.op_dup1, &test_vm.vm, &test_frame.frame);
+    const result = test_helpers.executeOpcode(opcodes.stack.op_dup1, &test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.StackUnderflow, result);
 }
 
@@ -530,7 +530,7 @@ test "DUP16: insufficient stack items" {
     }
     
     // Execute DUP16 - should fail
-    const result = test_helpers.executeOpcode(opcodes.stack.op_dup16, &test_vm.vm, &test_frame.frame);
+    const result = test_helpers.executeOpcode(opcodes.stack.op_dup16, &test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.StackUnderflow, result);
 }
 
@@ -556,7 +556,7 @@ test "SWAP1: stack underflow" {
     try test_frame.frame.stack.append(0x123);
     
     // Execute SWAP1 - should fail
-    const result = test_helpers.executeOpcode(opcodes.stack.op_swap1, &test_vm.vm, &test_frame.frame);
+    const result = test_helpers.executeOpcode(opcodes.stack.op_swap1, &test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.StackUnderflow, result);
 }
 
@@ -590,7 +590,7 @@ test "PUSH1: stack overflow" {
     test_frame.frame.program_counter = 0;
     
     // Execute PUSH1 - should fail with stack overflow
-    const result = test_helpers.executeOpcode(opcodes.stack.op_push1, &test_vm.vm, &test_frame.frame);
+    const result = test_helpers.executeOpcode(opcodes.stack.op_push1, &test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.StackOverflow, result);
 }
 
@@ -619,6 +619,6 @@ test "DUP1: stack overflow" {
     }
     
     // Execute DUP1 - should fail with stack overflow
-    const result = test_helpers.executeOpcode(opcodes.stack.op_dup1, &test_vm.vm, &test_frame.frame);
+    const result = test_helpers.executeOpcode(opcodes.stack.op_dup1, &test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.StackOverflow, result);
 }

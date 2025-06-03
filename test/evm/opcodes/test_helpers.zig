@@ -75,20 +75,28 @@ pub const TestVm = struct {
 
 /// Test frame with standard setup for opcode testing
 pub const TestFrame = struct {
-    frame: Frame,
+    frame: *Frame,
     allocator: std.mem.Allocator,
     
     pub fn init(allocator: std.mem.Allocator, contract: *Contract, gas: u64) !TestFrame {
-        var frame = try Frame.init(allocator, contract);
-        frame.gas_remaining = gas;
+        const frame_ptr = try allocator.create(Frame);
+        errdefer allocator.destroy(frame_ptr);
+        
+        frame_ptr.* = try Frame.init(allocator, contract);
+        frame_ptr.gas_remaining = gas;
+        
+        // Now that frame is at its final location, finalize the memory
+        frame_ptr.memory.finalize_root();
+        
         return TestFrame{
-            .frame = frame,
+            .frame = frame_ptr,
             .allocator = allocator,
         };
     }
     
     pub fn deinit(self: *TestFrame) void {
         self.frame.deinit();
+        self.allocator.destroy(self.frame);
     }
     
     /// Push values to stack
@@ -153,13 +161,24 @@ pub fn createTestContract(
     code: []const u8,
 ) !Contract {
     _ = allocator; // Not needed for Contract.init
+    
+    // Calculate proper code hash
+    var code_hash: [32]u8 = undefined;
+    if (code.len > 0) {
+        var hasher = std.crypto.hash.sha3.Keccak256.init(.{});
+        hasher.update(code);
+        hasher.final(&code_hash);
+    } else {
+        code_hash = [_]u8{0} ** 32;
+    }
+    
     return Contract.init(
         caller,
         address,
         value,
         1_000_000, // Default gas
         code,
-        [_]u8{0} ** 32, // Empty code hash
+        code_hash,
         &[_]u8{}, // Empty input
         false, // Not static
     );

@@ -8,7 +8,7 @@ const ExecutionError = evm.ExecutionError;
 const Frame = evm.Frame;
 const Contract = evm.Contract;
 const Address = evm.Address;
-const stack_validation = @import("../../src/evm/stack_validation.zig");
+const stack_validation = evm.stack_validation;
 
 // Test stack validation in the context of actual opcodes
 

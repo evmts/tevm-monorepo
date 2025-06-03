@@ -14,7 +14,9 @@ fn createTestVm(allocator: std.mem.Allocator) !*Vm {
     // Set up basic context
     vm.chain_id = 1;
     vm.gas_price = 1000000000; // 1 gwei
-    vm.tx_origin = Address.address_from_hex("0x1234567890123456789012345678901234567890".*);
+    // Use a simple test address
+    const tx_origin: Address.Address = [_]u8{0x12} ** 20;
+    vm.tx_origin = tx_origin;
     
     // Set up block context
     vm.block_number = 10000;
@@ -898,7 +900,12 @@ test "VM: SSTORE and SLOAD opcodes" {
         allocator.destroy(vm);
     }
     
-    const contract_address = Address.address_from_hex("0xc0ffee000000000000000000000000000000cafe".*);
+    // Create a test contract address
+    var contract_address: Address.Address = [_]u8{0} ** 20;
+    contract_address[0] = 0xc0;
+    contract_address[1] = 0xff;
+    contract_address[2] = 0xee;
+    contract_address[19] = 0xfe;
     
     const bytecode = [_]u8{
         0x60, 0x42,  // PUSH1 66 (value)
@@ -926,7 +933,12 @@ test "VM: ADDRESS opcode" {
         allocator.destroy(vm);
     }
     
-    const contract_address = Address.address_from_hex("0xc0ffee000000000000000000000000000000cafe".*);
+    // Create a test contract address
+    var contract_address: Address.Address = [_]u8{0} ** 20;
+    contract_address[0] = 0xc0;
+    contract_address[1] = 0xff;
+    contract_address[2] = 0xee;
+    contract_address[19] = 0xfe;
     
     const bytecode = [_]u8{
         0x30,  // ADDRESS
@@ -937,7 +949,7 @@ test "VM: ADDRESS opcode" {
     defer if (result.output) |output| allocator.free(output);
     
     try testing.expect(result.status == .Success);
-    const expected_addr = try std.fmt.parseInt(u256, "c0ffee000000000000000000000000000000cafe", 16);
+    const expected_addr = try std.fmt.parseInt(u256, "c0ffee00000000000000000000000000000000fe", 16);
     try testing.expectEqual(expected_addr, vm.last_stack_value.?);
 }
 

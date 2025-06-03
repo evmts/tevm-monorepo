@@ -16,6 +16,7 @@ pub const MemoryV2 = @import("memory_v2.zig").MemoryV2;
 pub const Opcode = @import("opcode.zig");
 pub const Operation = @import("operation.zig");
 pub const Stack = @import("stack.zig");
+pub const stack_validation = @import("stack_validation.zig");
 pub const StoragePool = @import("storage_pool.zig");
 pub const Vm = @import("vm.zig");
 

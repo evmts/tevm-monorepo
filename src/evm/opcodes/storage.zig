@@ -57,10 +57,8 @@ pub fn op_sload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     
     // EIP-2929: Check if storage slot is cold and consume appropriate gas
     const is_cold = try frame.contract.mark_storage_slot_warm(slot, null);
-    if (is_cold) {
-        // Cold storage access costs more (2100 gas)
-        try frame.consume_gas(gas_constants.ColdSloadCost - gas_constants.WarmStorageReadCost); // Subtract the warm cost already consumed by the opcode
-    }
+    const gas_cost = if (is_cold) gas_constants.ColdSloadCost else gas_constants.WarmStorageReadCost;
+    try frame.consume_gas(gas_cost);
     
     // Get storage value
     const value = try error_mapping.vm_get_storage(vm, frame.contract.address, slot);

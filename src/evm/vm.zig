@@ -81,7 +81,7 @@ pub fn init(allocator: std.mem.Allocator) !Self {
     
     return Self{ 
         .allocator = allocator, 
-        .table = JumpTable.init(),
+        .table = JumpTable.new_cancun_instruction_set(),
         .storage = storage,
         .balances = balances,
         .code = code,

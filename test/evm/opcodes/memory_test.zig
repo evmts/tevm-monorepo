@@ -36,7 +36,7 @@ test "MLOAD: load 32 bytes from memory" {
     try test_frame.pushStack(&[_]u256{0});
     
     // Execute MLOAD
-    _ = try test_helpers.executeOpcode(opcodes.memory.op_mload, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_mload, &test_vm.vm, test_frame.frame);
     
     // Should load 32 bytes as u256 (big-endian)
     const result = try test_frame.popStack();
@@ -75,7 +75,7 @@ test "MLOAD: load with offset" {
     try test_frame.pushStack(&[_]u256{16});
     
     // Execute MLOAD
-    _ = try test_helpers.executeOpcode(opcodes.memory.op_mload, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_mload, &test_vm.vm, test_frame.frame);
     
     // Should load 32 bytes starting at offset 16
     const result = try test_frame.popStack();
@@ -105,7 +105,7 @@ test "MLOAD: load from uninitialized memory returns zeros" {
     try test_frame.pushStack(&[_]u256{1000});
     
     // Execute MLOAD
-    _ = try test_helpers.executeOpcode(opcodes.memory.op_mload, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_mload, &test_vm.vm, test_frame.frame);
     
     // Should return all zeros
     try testing.expectEqual(@as(u256, 0), try test_frame.popStack());
@@ -135,7 +135,7 @@ test "MSTORE: store 32 bytes to memory" {
     try test_frame.pushStack(&[_]u256{0, value}); // offset, value
     
     // Execute MSTORE
-    _ = try test_helpers.executeOpcode(opcodes.memory.op_mstore, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_mstore, &test_vm.vm, test_frame.frame);
     
     // Check memory contents
     const mem = try test_frame.getMemory(0, 32);
@@ -167,7 +167,7 @@ test "MSTORE: store with offset" {
     try test_frame.pushStack(&[_]u256{64, value}); // offset, value
     
     // Execute MSTORE
-    _ = try test_helpers.executeOpcode(opcodes.memory.op_mstore, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_mstore, &test_vm.vm, test_frame.frame);
     
     // Check memory contents at offset
     const mem = try test_frame.getMemory(64, 32);
@@ -199,7 +199,7 @@ test "MSTORE8: store single byte to memory" {
     try test_frame.pushStack(&[_]u256{10, 0x1234}); // offset, value (only lowest byte 0x34 will be stored)
     
     // Execute MSTORE8
-    _ = try test_helpers.executeOpcode(opcodes.memory.op_mstore8, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_mstore8, &test_vm.vm, test_frame.frame);
     
     // Check memory contents
     const mem = try test_frame.getMemory(10, 1);
@@ -233,7 +233,7 @@ test "MSTORE8: store only lowest byte" {
     try test_frame.pushStack(&[_]u256{0, 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFAB}); // offset, value (only 0xAB should be stored)
     
     // Execute MSTORE8
-    _ = try test_helpers.executeOpcode(opcodes.memory.op_mstore8, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_mstore8, &test_vm.vm, test_frame.frame);
     
     // Check that only lowest byte was stored
     const mem = try test_frame.getMemory(0, 1);
@@ -260,21 +260,21 @@ test "MSIZE: get memory size" {
     defer test_frame.deinit();
     
     // Initially memory size should be 0
-    _ = try test_helpers.executeOpcode(opcodes.memory.op_msize, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_msize, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(u256, 0), try test_frame.popStack());
     
     // Write to memory at offset 31 (should expand to 32 bytes)
     try test_frame.setMemory(31, &[_]u8{0xFF});
     
     // Check size again
-    _ = try test_helpers.executeOpcode(opcodes.memory.op_msize, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_msize, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(u256, 32), try test_frame.popStack());
     
     // Write to memory at offset 32 (should expand to 64 bytes - word aligned)
     try test_frame.setMemory(32, &[_]u8{0xFF});
     
     // Check size again
-    _ = try test_helpers.executeOpcode(opcodes.memory.op_msize, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_msize, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(u256, 64), try test_frame.popStack());
 }
 
@@ -305,7 +305,7 @@ test "MCOPY: copy memory to memory" {
     try test_frame.pushStack(&[_]u256{50, 10, 5}); // dest, src, length
     
     // Execute MCOPY
-    _ = try test_helpers.executeOpcode(opcodes.memory.op_mcopy, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_mcopy, &test_vm.vm, test_frame.frame);
     
     // Check that data was copied
     const dest_data = try test_frame.getMemory(50, 5);
@@ -348,7 +348,7 @@ test "MCOPY: overlapping copy forward" {
     try test_frame.pushStack(&[_]u256{12, 10, 5}); // dest, src, length (overlaps by 3 bytes)
     
     // Execute MCOPY
-    _ = try test_helpers.executeOpcode(opcodes.memory.op_mcopy, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_mcopy, &test_vm.vm, test_frame.frame);
     
     // Check result - should handle overlap correctly
     const result = try test_frame.getMemory(12, 5);
@@ -385,7 +385,7 @@ test "MCOPY: overlapping copy backward" {
     try test_frame.pushStack(&[_]u256{8, 10, 5}); // dest, src, length (overlaps by 3 bytes)
     
     // Execute MCOPY
-    _ = try test_helpers.executeOpcode(opcodes.memory.op_mcopy, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_mcopy, &test_vm.vm, test_frame.frame);
     
     // Check result
     const result = try test_frame.getMemory(8, 5);
@@ -418,7 +418,7 @@ test "MCOPY: zero length copy" {
     try test_frame.pushStack(&[_]u256{200, 100, 0}); // dest, src, length
     
     // Execute MCOPY
-    _ = try test_helpers.executeOpcode(opcodes.memory.op_mcopy, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_mcopy, &test_vm.vm, test_frame.frame);
     
     // Should succeed without doing anything
     try testing.expectEqual(@as(usize, 0), test_frame.stackSize());
@@ -449,7 +449,7 @@ test "MLOAD: memory expansion gas" {
     const gas_before = test_frame.gasRemaining();
     
     // Execute MLOAD
-    _ = try test_helpers.executeOpcode(opcodes.memory.op_mload, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_mload, &test_vm.vm, test_frame.frame);
     
     // Should consume gas for memory expansion
     const gas_used = gas_before - test_frame.gasRemaining();
@@ -480,7 +480,7 @@ test "MSTORE: memory expansion gas" {
     const gas_before = test_frame.gasRemaining();
     
     // Execute MSTORE
-    _ = try test_helpers.executeOpcode(opcodes.memory.op_mstore, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_mstore, &test_vm.vm, test_frame.frame);
     
     // Should consume gas for memory expansion
     const gas_used = gas_before - test_frame.gasRemaining();
@@ -511,7 +511,7 @@ test "MCOPY: gas consumption" {
     const gas_before = test_frame.gasRemaining();
     
     // Execute MCOPY
-    _ = try test_helpers.executeOpcode(opcodes.memory.op_mcopy, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.memory.op_mcopy, &test_vm.vm, test_frame.frame);
     
     // MCOPY costs 3 gas per word
     // 32 bytes = 1 word = 3 gas
@@ -542,7 +542,7 @@ test "MLOAD: stack underflow" {
     // Empty stack
     
     // Execute MLOAD - should fail
-    const result = test_helpers.executeOpcode(opcodes.memory.op_mload, &test_vm.vm, &test_frame.frame);
+    const result = test_helpers.executeOpcode(opcodes.memory.op_mload, &test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.StackUnderflow, result);
 }
 
@@ -568,7 +568,7 @@ test "MSTORE: stack underflow" {
     try test_frame.pushStack(&[_]u256{0});
     
     // Execute MSTORE - should fail
-    const result = test_helpers.executeOpcode(opcodes.memory.op_mstore, &test_vm.vm, &test_frame.frame);
+    const result = test_helpers.executeOpcode(opcodes.memory.op_mstore, &test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.StackUnderflow, result);
 }
 
@@ -594,7 +594,7 @@ test "MCOPY: stack underflow" {
     try test_frame.pushStack(&[_]u256{0, 10}); // source, length (missing dest)
     
     // Execute MCOPY - should fail
-    const result = test_helpers.executeOpcode(opcodes.memory.op_mcopy, &test_vm.vm, &test_frame.frame);
+    const result = test_helpers.executeOpcode(opcodes.memory.op_mcopy, &test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.StackUnderflow, result);
 }
 
@@ -621,7 +621,7 @@ test "MLOAD: offset overflow" {
     try test_frame.pushStack(&[_]u256{std.math.maxInt(u256) - 10});
     
     // Execute MLOAD - should fail
-    const result = test_helpers.executeOpcode(opcodes.memory.op_mload, &test_vm.vm, &test_frame.frame);
+    const result = test_helpers.executeOpcode(opcodes.memory.op_mload, &test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.OutOfOffset, result);
 }
 
@@ -647,6 +647,6 @@ test "MCOPY: source offset overflow" {
     try test_frame.pushStack(&[_]u256{0, std.math.maxInt(u256), 100}); // dest, src (overflow), length
     
     // Execute MCOPY - should fail
-    const result = test_helpers.executeOpcode(opcodes.memory.op_mcopy, &test_vm.vm, &test_frame.frame);
+    const result = test_helpers.executeOpcode(opcodes.memory.op_mcopy, &test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.OutOfOffset, result);
 }

@@ -1,23 +1,16 @@
 const std = @import("std");
 const ArenaMemory = @import("arena_memory.zig").ArenaMemory;
 
-/// Memory V2 - A compatibility wrapper around ArenaMemory that maintains
-/// the same interface as the original Memory implementation but uses
-/// ArenaMemory internally. This allows gradual migration.
+/// Memory V2 - Compatibility wrapper around ArenaMemory
 pub const MemoryV2 = struct {
     const Self = @This();
     
-    // Re-export error types for compatibility
     pub const MemoryError = ArenaMemory.MemoryError;
     
-    /// The underlying arena memory
     arena: *ArenaMemory,
-    /// Whether we own the arena (for deinitialization)
     owns_arena: bool,
-    /// Compatibility: track if this is a child context
     is_child: bool,
     
-    // Re-export constants
     pub const InitialCapacity: usize = 4 * 1024;
     pub const DefaultMemoryLimit: u64 = ArenaMemory.DefaultMemoryLimit;
     
@@ -27,7 +20,7 @@ pub const MemoryV2 = struct {
         initial_capacity: usize,
         memory_limit: u64,
     ) !Self {
-        _ = initial_capacity; // Arena handles its own capacity
+        _ = initial_capacity;
         
         const arena = try allocator.create(ArenaMemory);
         errdefer allocator.destroy(arena);
@@ -41,10 +34,8 @@ pub const MemoryV2 = struct {
         };
     }
     
-    /// Compatibility: finalize_root is a no-op for V2
     pub fn finalize_root(self: *Self) void {
         _ = self;
-        // No-op - ArenaMemory doesn't need this
     }
     
     /// Convenience function for default initialization

@@ -1,11 +1,6 @@
 const std = @import("std");
 
-/// Arena-based memory implementation for EVM that fixes the architectural issues
-/// of the previous self-referential design. This implementation:
-/// - Uses a single arena allocator for all memory within a transaction
-/// - Properly tracks child contexts with RAII cleanup
-/// - Prevents memory leaks through automatic cleanup
-/// - Avoids self-referential pointers
+/// Arena-based memory implementation for EVM
 pub const ArenaMemory = struct {
     const Self = @This();
     
@@ -17,13 +12,9 @@ pub const ArenaMemory = struct {
         NoActiveContext,
     };
     
-    /// Context represents a memory region for a single call frame
     pub const Context = struct {
-        /// Start offset in the arena where this context begins
         start_offset: usize,
-        /// Current size of this context's memory
         size: usize,
-        /// Parent context index (null for root)
         parent: ?usize,
     };
     

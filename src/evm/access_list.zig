@@ -129,13 +129,9 @@ pub fn init_transaction(self: *AccessList, tx_origin: Address.Address, coinbase:
     // Clear previous transaction data
     self.clear();
     
-    // Pre-warm tx.origin
     try self.addresses.put(tx_origin, {});
-    
-    // Pre-warm block.coinbase
     try self.addresses.put(coinbase, {});
     
-    // Pre-warm to address if it exists (not a contract creation)
     if (to) |to_address| {
         try self.addresses.put(to_address, {});
     }
@@ -146,7 +142,7 @@ pub fn init_transaction(self: *AccessList, tx_origin: Address.Address, coinbase:
 pub fn get_call_cost(self: *AccessList, address: Address.Address) !u64 {
     const result = try self.addresses.getOrPut(address);
     if (result.found_existing) {
-        return 0; // No extra cost for warm address
+        return 0;
     }
     return COLD_CALL_EXTRA_COST;
 }

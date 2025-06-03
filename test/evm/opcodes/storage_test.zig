@@ -31,7 +31,7 @@ test "SLOAD: load value from storage" {
     try test_frame.pushStack(&[_]u256{0x123});
     
     // Execute SLOAD
-    _ = try test_helpers.executeOpcode(opcodes.storage.op_sload, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_sload, &test_vm.vm, test_frame.frame);
     
     // Should return the stored value
     try testing.expectEqual(@as(u256, 0x456789), try test_frame.popStack());
@@ -59,7 +59,7 @@ test "SLOAD: load from uninitialized slot returns zero" {
     try test_frame.pushStack(&[_]u256{0x999});
     
     // Execute SLOAD
-    _ = try test_helpers.executeOpcode(opcodes.storage.op_sload, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_sload, &test_vm.vm, test_frame.frame);
     
     // Should return 0
     try testing.expectEqual(@as(u256, 0), try test_frame.popStack());
@@ -89,7 +89,7 @@ test "SLOAD: cold storage access costs more gas" {
     const gas_before = test_frame.frame.gas_remaining;
     
     // Execute SLOAD - cold access
-    _ = try test_helpers.executeOpcode(opcodes.storage.op_sload, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_sload, &test_vm.vm, test_frame.frame);
     
     // Should consume 2100 gas for cold access (minus warm cost already in base)
     const cold_gas_used = gas_before - test_frame.frame.gas_remaining;
@@ -99,7 +99,7 @@ test "SLOAD: cold storage access costs more gas" {
     try test_frame.pushStack(&[_]u256{0x123});
     const gas_before_warm = test_frame.frame.gas_remaining;
     
-    _ = try test_helpers.executeOpcode(opcodes.storage.op_sload, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_sload, &test_vm.vm, test_frame.frame);
     
     // Should consume 0 additional gas for warm access
     try testing.expectEqual(@as(u64, 0), gas_before_warm - test_frame.frame.gas_remaining);
@@ -129,7 +129,7 @@ test "SSTORE: store value to storage" {
     try test_frame.pushStack(&[_]u256{0xABCDEF}); // value
     
     // Execute SSTORE
-    _ = try test_helpers.executeOpcode(opcodes.storage.op_sstore, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_sstore, &test_vm.vm, test_frame.frame);
     
     // Check that value was stored
     const stored_value = test_vm.getStorage(test_helpers.TestAddresses.CONTRACT, 0x555);
@@ -162,7 +162,7 @@ test "SSTORE: overwrite existing value" {
     try test_frame.pushStack(&[_]u256{0x222}); // new value
     
     // Execute SSTORE
-    _ = try test_helpers.executeOpcode(opcodes.storage.op_sstore, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_sstore, &test_vm.vm, test_frame.frame);
     
     // Check that value was updated
     const stored_value = test_vm.getStorage(test_helpers.TestAddresses.CONTRACT, 0x100);
@@ -195,7 +195,7 @@ test "SSTORE: write protection in static call" {
     try test_frame.pushStack(&[_]u256{0x123}); // value
     
     // Execute SSTORE - should fail
-    const result = test_helpers.executeOpcode(opcodes.storage.op_sstore, &test_vm.vm, &test_frame.frame);
+    const result = test_helpers.executeOpcode(opcodes.storage.op_sstore, &test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.WriteProtection, result);
 }
 
@@ -224,7 +224,7 @@ test "SSTORE: cold storage access costs more gas" {
     const gas_before = test_frame.frame.gas_remaining;
     
     // Execute SSTORE - cold access
-    _ = try test_helpers.executeOpcode(opcodes.storage.op_sstore, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_sstore, &test_vm.vm, test_frame.frame);
     
     // Should consume 2100 gas for cold access
     const cold_gas_used = gas_before - test_frame.frame.gas_remaining;
@@ -235,7 +235,7 @@ test "SSTORE: cold storage access costs more gas" {
     try test_frame.pushStack(&[_]u256{0x456}); // different value
     const gas_before_warm = test_frame.frame.gas_remaining;
     
-    _ = try test_helpers.executeOpcode(opcodes.storage.op_sstore, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_sstore, &test_vm.vm, test_frame.frame);
     
     // Should consume 0 additional gas for warm access
     try testing.expectEqual(@as(u64, 0), gas_before_warm - test_frame.frame.gas_remaining);
@@ -267,7 +267,7 @@ test "TLOAD: load value from transient storage" {
     try test_frame.pushStack(&[_]u256{0xAAA});
     
     // Execute TLOAD
-    _ = try test_helpers.executeOpcode(opcodes.storage.op_tload, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_tload, &test_vm.vm, test_frame.frame);
     
     // Should return the transient value
     try testing.expectEqual(@as(u256, 0xBBBBBB), try test_frame.popStack());
@@ -295,7 +295,7 @@ test "TLOAD: load from uninitialized slot returns zero" {
     try test_frame.pushStack(&[_]u256{0xFFF});
     
     // Execute TLOAD
-    _ = try test_helpers.executeOpcode(opcodes.storage.op_tload, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_tload, &test_vm.vm, test_frame.frame);
     
     // Should return 0
     try testing.expectEqual(@as(u256, 0), try test_frame.popStack());
@@ -325,14 +325,14 @@ test "TLOAD: transient storage is separate from regular storage" {
     
     // Load from transient storage
     try test_frame.pushStack(&[_]u256{0x100});
-    _ = try test_helpers.executeOpcode(opcodes.storage.op_tload, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_tload, &test_vm.vm, test_frame.frame);
     
     // Should return transient value, not regular storage value
     try testing.expectEqual(@as(u256, 0x222), try test_frame.popStack());
     
     // Load from regular storage
     try test_frame.pushStack(&[_]u256{0x100});
-    _ = try test_helpers.executeOpcode(opcodes.storage.op_sload, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_sload, &test_vm.vm, test_frame.frame);
     
     // Should return regular storage value
     try testing.expectEqual(@as(u256, 0x111), try test_frame.popStack());
@@ -362,7 +362,7 @@ test "TSTORE: store value to transient storage" {
     try test_frame.pushStack(&[_]u256{0xDEADBEEF}); // value
     
     // Execute TSTORE
-    _ = try test_helpers.executeOpcode(opcodes.storage.op_tstore, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_tstore, &test_vm.vm, test_frame.frame);
     
     // Check that value was stored
     const stored_value = test_vm.getTransientStorage(test_helpers.TestAddresses.CONTRACT, 0x777);
@@ -395,7 +395,7 @@ test "TSTORE: overwrite existing transient value" {
     try test_frame.pushStack(&[_]u256{0x444}); // new value
     
     // Execute TSTORE
-    _ = try test_helpers.executeOpcode(opcodes.storage.op_tstore, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_tstore, &test_vm.vm, test_frame.frame);
     
     // Check that value was updated
     const stored_value = test_vm.getTransientStorage(test_helpers.TestAddresses.CONTRACT, 0x200);
@@ -428,7 +428,7 @@ test "TSTORE: write protection in static call" {
     try test_frame.pushStack(&[_]u256{0x123}); // value
     
     // Execute TSTORE - should fail
-    const result = test_helpers.executeOpcode(opcodes.storage.op_tstore, &test_vm.vm, &test_frame.frame);
+    const result = test_helpers.executeOpcode(opcodes.storage.op_tstore, &test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.WriteProtection, result);
 }
 
@@ -458,7 +458,7 @@ test "TSTORE: does not affect regular storage" {
     try test_frame.pushStack(&[_]u256{0x666}); // value
     
     // Execute TSTORE
-    _ = try test_helpers.executeOpcode(opcodes.storage.op_tstore, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_tstore, &test_vm.vm, test_frame.frame);
     
     // Regular storage should be unchanged
     const regular_value = test_vm.getStorage(test_helpers.TestAddresses.CONTRACT, 0x300);
@@ -491,7 +491,7 @@ test "SLOAD: stack underflow" {
     // Empty stack
     
     // Execute SLOAD - should fail
-    const result = test_helpers.executeOpcode(opcodes.storage.op_sload, &test_vm.vm, &test_frame.frame);
+    const result = test_helpers.executeOpcode(opcodes.storage.op_sload, &test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.StackUnderflow, result);
 }
 
@@ -517,7 +517,7 @@ test "SSTORE: stack underflow" {
     try test_frame.pushStack(&[_]u256{0x123});
     
     // Execute SSTORE - should fail
-    const result = test_helpers.executeOpcode(opcodes.storage.op_sstore, &test_vm.vm, &test_frame.frame);
+    const result = test_helpers.executeOpcode(opcodes.storage.op_sstore, &test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.StackUnderflow, result);
 }
 
@@ -542,7 +542,7 @@ test "TLOAD: stack underflow" {
     // Empty stack
     
     // Execute TLOAD - should fail
-    const result = test_helpers.executeOpcode(opcodes.storage.op_tload, &test_vm.vm, &test_frame.frame);
+    const result = test_helpers.executeOpcode(opcodes.storage.op_tload, &test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.StackUnderflow, result);
 }
 
@@ -568,7 +568,7 @@ test "TSTORE: stack underflow" {
     try test_frame.pushStack(&[_]u256{0x789});
     
     // Execute TSTORE - should fail
-    const result = test_helpers.executeOpcode(opcodes.storage.op_tstore, &test_vm.vm, &test_frame.frame);
+    const result = test_helpers.executeOpcode(opcodes.storage.op_tstore, &test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.StackUnderflow, result);
 }
 
@@ -597,7 +597,7 @@ test "TLOAD: gas consumption" {
     const gas_before = test_frame.frame.gas_remaining;
     
     // Execute TLOAD
-    _ = try test_helpers.executeOpcode(opcodes.storage.op_tload, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_tload, &test_vm.vm, test_frame.frame);
     
     // TLOAD base cost is 100 gas (no cold/warm distinction for transient storage)
     try testing.expectEqual(@as(u64, 0), gas_before - test_frame.frame.gas_remaining);
@@ -628,7 +628,7 @@ test "TSTORE: gas consumption" {
     const gas_before = test_frame.frame.gas_remaining;
     
     // Execute TSTORE
-    _ = try test_helpers.executeOpcode(opcodes.storage.op_tstore, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_tstore, &test_vm.vm, test_frame.frame);
     
     // TSTORE base cost is 100 gas (no cold/warm distinction for transient storage)
     try testing.expectEqual(@as(u64, 0), gas_before - test_frame.frame.gas_remaining);

@@ -44,33 +44,33 @@ test "Integration: Arithmetic with conditional jumps" {
     defer test_frame.deinit();
     
     // Execute sequence: PUSH 5, PUSH 10, ADD
-    _ = try helpers.executeOpcode(opcodes.stack.op_push1, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(opcodes.stack.op_push1, &test_vm.vm, test_frame.frame);
     test_frame.frame.pc += 2; // Advance past PUSH1 data
     
-    _ = try helpers.executeOpcode(opcodes.stack.op_push1, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(opcodes.stack.op_push1, &test_vm.vm, test_frame.frame);
     test_frame.frame.pc += 2; // Advance past PUSH1 data
     
-    _ = try helpers.executeOpcode(opcodes.arithmetic.op_add, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(opcodes.arithmetic.op_add, &test_vm.vm, test_frame.frame);
     
     // Stack should have 15
-    try helpers.expectStackValue(&test_frame.frame, 0, 15);
+    try helpers.expectStackValue(test_frame.frame, 0, 15);
     
     // Continue: PUSH 12, GT
     test_frame.frame.pc += 1;
-    _ = try helpers.executeOpcode(opcodes.stack.op_push1, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(opcodes.stack.op_push1, &test_vm.vm, test_frame.frame);
     test_frame.frame.pc += 2;
     
-    _ = try helpers.executeOpcode(opcodes.comparison.op_gt, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(opcodes.comparison.op_gt, &test_vm.vm, test_frame.frame);
     
     // 15 > 12 should be 1
-    try helpers.expectStackValue(&test_frame.frame, 0, 1);
+    try helpers.expectStackValue(test_frame.frame, 0, 1);
     
     // Continue: PUSH 12, JUMPI
     test_frame.frame.pc += 1;
-    _ = try helpers.executeOpcode(opcodes.stack.op_push1, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(opcodes.stack.op_push1, &test_vm.vm, test_frame.frame);
     test_frame.frame.pc += 2;
     
-    _ = try helpers.executeOpcode(opcodes.control.op_jumpi, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(opcodes.control.op_jumpi, &test_vm.vm, test_frame.frame);
     
     // Should have jumped to position 12
     try testing.expectEqual(@as(usize, 12), test_frame.frame.pc);
@@ -99,15 +99,15 @@ test "Integration: Complex arithmetic expression evaluation" {
     
     // Push values and execute
     try test_frame.pushStack(&[_]u256{10, 5});
-    _ = try helpers.executeOpcode(opcodes.arithmetic.op_add, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(opcodes.arithmetic.op_add, &test_vm.vm, test_frame.frame);
     
     try test_frame.pushStack(&[_]u256{3});
-    _ = try helpers.executeOpcode(opcodes.arithmetic.op_mul, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(opcodes.arithmetic.op_mul, &test_vm.vm, test_frame.frame);
     
     try test_frame.pushStack(&[_]u256{7});
-    _ = try helpers.executeOpcode(opcodes.arithmetic.op_sub, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(opcodes.arithmetic.op_sub, &test_vm.vm, test_frame.frame);
     
-    try helpers.expectStackValue(&test_frame.frame, 0, 38);
+    try helpers.expectStackValue(test_frame.frame, 0, 38);
 }
 
 test "Integration: Modular arithmetic chain" {
@@ -133,12 +133,12 @@ test "Integration: Modular arithmetic chain" {
     // (4 * 3) % 5 = 12 % 5 = 2
     
     try test_frame.pushStack(&[_]u256{10, 15, 7});
-    _ = try helpers.executeOpcode(opcodes.arithmetic.op_addmod, &test_vm.vm, &test_frame.frame);
-    try helpers.expectStackValue(&test_frame.frame, 0, 4);
+    _ = try helpers.executeOpcode(opcodes.arithmetic.op_addmod, &test_vm.vm, test_frame.frame);
+    try helpers.expectStackValue(test_frame.frame, 0, 4);
     
     try test_frame.pushStack(&[_]u256{3, 5});
-    _ = try helpers.executeOpcode(opcodes.arithmetic.op_mulmod, &test_vm.vm, &test_frame.frame);
-    try helpers.expectStackValue(&test_frame.frame, 0, 2);
+    _ = try helpers.executeOpcode(opcodes.arithmetic.op_mulmod, &test_vm.vm, test_frame.frame);
+    try helpers.expectStackValue(test_frame.frame, 0, 2);
 }
 
 test "Integration: Division by zero handling in expression" {
@@ -161,12 +161,12 @@ test "Integration: Division by zero handling in expression" {
     
     // Test: 10 / 0 = 0, then 0 + 5 = 5
     try test_frame.pushStack(&[_]u256{10, 0});
-    _ = try helpers.executeOpcode(opcodes.arithmetic.op_div, &test_vm.vm, &test_frame.frame);
-    try helpers.expectStackValue(&test_frame.frame, 0, 0); // Division by zero returns 0
+    _ = try helpers.executeOpcode(opcodes.arithmetic.op_div, &test_vm.vm, test_frame.frame);
+    try helpers.expectStackValue(test_frame.frame, 0, 0); // Division by zero returns 0
     
     try test_frame.pushStack(&[_]u256{5});
-    _ = try helpers.executeOpcode(opcodes.arithmetic.op_add, &test_vm.vm, &test_frame.frame);
-    try helpers.expectStackValue(&test_frame.frame, 0, 5);
+    _ = try helpers.executeOpcode(opcodes.arithmetic.op_add, &test_vm.vm, test_frame.frame);
+    try helpers.expectStackValue(test_frame.frame, 0, 5);
 }
 
 test "Integration: Bitwise operations with arithmetic" {
@@ -191,16 +191,16 @@ test "Integration: Bitwise operations with arithmetic" {
     // Expected: ((0x0F) << 4) + 10 = 0xF0 + 10 = 240 + 10 = 250
     
     try test_frame.pushStack(&[_]u256{0xFF, 0x0F});
-    _ = try helpers.executeOpcode(opcodes.bitwise.op_and, &test_vm.vm, &test_frame.frame);
-    try helpers.expectStackValue(&test_frame.frame, 0, 0x0F);
+    _ = try helpers.executeOpcode(opcodes.bitwise.op_and, &test_vm.vm, test_frame.frame);
+    try helpers.expectStackValue(test_frame.frame, 0, 0x0F);
     
     try test_frame.pushStack(&[_]u256{4});
-    _ = try helpers.executeOpcode(opcodes.bitwise.op_shl, &test_vm.vm, &test_frame.frame);
-    try helpers.expectStackValue(&test_frame.frame, 0, 0xF0);
+    _ = try helpers.executeOpcode(opcodes.bitwise.op_shl, &test_vm.vm, test_frame.frame);
+    try helpers.expectStackValue(test_frame.frame, 0, 0xF0);
     
     try test_frame.pushStack(&[_]u256{10});
-    _ = try helpers.executeOpcode(opcodes.arithmetic.op_add, &test_vm.vm, &test_frame.frame);
-    try helpers.expectStackValue(&test_frame.frame, 0, 250);
+    _ = try helpers.executeOpcode(opcodes.arithmetic.op_add, &test_vm.vm, test_frame.frame);
+    try helpers.expectStackValue(test_frame.frame, 0, 250);
 }
 
 test "Integration: Stack manipulation with arithmetic" {
@@ -229,20 +229,20 @@ test "Integration: Stack manipulation with arithmetic" {
     // SUB -> [30]
     
     try test_frame.pushStack(&[_]u256{10, 20});
-    _ = try helpers.executeOpcode(opcodes.stack.op_dup1, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(opcodes.stack.op_dup1, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 3), test_frame.stackSize());
     
-    _ = try helpers.executeOpcode(opcodes.arithmetic.op_add, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(opcodes.arithmetic.op_add, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 2), test_frame.stackSize());
-    try helpers.expectStackValue(&test_frame.frame, 0, 40);
-    try helpers.expectStackValue(&test_frame.frame, 1, 10);
+    try helpers.expectStackValue(test_frame.frame, 0, 40);
+    try helpers.expectStackValue(test_frame.frame, 1, 10);
     
-    _ = try helpers.executeOpcode(opcodes.stack.op_swap1, &test_vm.vm, &test_frame.frame);
-    try helpers.expectStackValue(&test_frame.frame, 0, 10);
-    try helpers.expectStackValue(&test_frame.frame, 1, 40);
+    _ = try helpers.executeOpcode(opcodes.stack.op_swap1, &test_vm.vm, test_frame.frame);
+    try helpers.expectStackValue(test_frame.frame, 0, 10);
+    try helpers.expectStackValue(test_frame.frame, 1, 40);
     
-    _ = try helpers.executeOpcode(opcodes.arithmetic.op_sub, &test_vm.vm, &test_frame.frame);
-    try helpers.expectStackValue(&test_frame.frame, 0, 30);
+    _ = try helpers.executeOpcode(opcodes.arithmetic.op_sub, &test_vm.vm, test_frame.frame);
+    try helpers.expectStackValue(test_frame.frame, 0, 30);
 }
 
 test "Integration: Comparison chain for range checking" {
@@ -269,22 +269,22 @@ test "Integration: Comparison chain for range checking" {
     
     // Check value >= 10
     try test_frame.pushStack(&[_]u256{value, 10});
-    _ = try helpers.executeOpcode(opcodes.comparison.op_lt, &test_vm.vm, &test_frame.frame);
-    _ = try helpers.executeOpcode(opcodes.comparison.op_iszero, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(opcodes.comparison.op_lt, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(opcodes.comparison.op_iszero, &test_vm.vm, test_frame.frame);
     const ge_10 = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 1), ge_10); // 15 >= 10 is true
     
     // Check value <= 20
     try test_frame.pushStack(&[_]u256{20, value});
-    _ = try helpers.executeOpcode(opcodes.comparison.op_lt, &test_vm.vm, &test_frame.frame);
-    _ = try helpers.executeOpcode(opcodes.comparison.op_iszero, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(opcodes.comparison.op_lt, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(opcodes.comparison.op_iszero, &test_vm.vm, test_frame.frame);
     const le_20 = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 1), le_20); // 15 <= 20 is true
     
     // AND the results
     try test_frame.pushStack(&[_]u256{ge_10, le_20});
-    _ = try helpers.executeOpcode(opcodes.bitwise.op_and, &test_vm.vm, &test_frame.frame);
-    try helpers.expectStackValue(&test_frame.frame, 0, 1); // In range
+    _ = try helpers.executeOpcode(opcodes.bitwise.op_and, &test_vm.vm, test_frame.frame);
+    try helpers.expectStackValue(test_frame.frame, 0, 1); // In range
 }
 
 test "Integration: EXP with modular arithmetic" {
@@ -307,12 +307,12 @@ test "Integration: EXP with modular arithmetic" {
     
     // Calculate (2^8) % 100 = 256 % 100 = 56
     try test_frame.pushStack(&[_]u256{2, 8});
-    _ = try helpers.executeOpcode(opcodes.arithmetic.op_exp, &test_vm.vm, &test_frame.frame);
-    try helpers.expectStackValue(&test_frame.frame, 0, 256);
+    _ = try helpers.executeOpcode(opcodes.arithmetic.op_exp, &test_vm.vm, test_frame.frame);
+    try helpers.expectStackValue(test_frame.frame, 0, 256);
     
     try test_frame.pushStack(&[_]u256{100});
-    _ = try helpers.executeOpcode(opcodes.arithmetic.op_mod, &test_vm.vm, &test_frame.frame);
-    try helpers.expectStackValue(&test_frame.frame, 0, 56);
+    _ = try helpers.executeOpcode(opcodes.arithmetic.op_mod, &test_vm.vm, test_frame.frame);
+    try helpers.expectStackValue(test_frame.frame, 0, 56);
 }
 
 test "Integration: Signed arithmetic with comparisons" {
@@ -338,14 +338,14 @@ test "Integration: Signed arithmetic with comparisons" {
     const neg_5 = std.math.maxInt(u256) - 4; // Two's complement of -5
     
     try test_frame.pushStack(&[_]u256{neg_5, 10});
-    _ = try helpers.executeOpcode(opcodes.comparison.op_slt, &test_vm.vm, &test_frame.frame);
-    try helpers.expectStackValue(&test_frame.frame, 0, 1); // -5 < 10 is true
+    _ = try helpers.executeOpcode(opcodes.comparison.op_slt, &test_vm.vm, test_frame.frame);
+    try helpers.expectStackValue(test_frame.frame, 0, 1); // -5 < 10 is true
     
     // SDIV: -10 / 3 = -3 (rounds toward zero)
     test_frame.frame.stack.clear();
     const neg_10 = std.math.maxInt(u256) - 9; // Two's complement of -10
     try test_frame.pushStack(&[_]u256{neg_10, 3});
-    _ = try helpers.executeOpcode(opcodes.arithmetic.op_sdiv, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(opcodes.arithmetic.op_sdiv, &test_vm.vm, test_frame.frame);
     
     const result = try test_frame.popStack();
     const expected_neg_3 = std.math.maxInt(u256) - 2; // Two's complement of -3

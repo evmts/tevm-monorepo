@@ -33,7 +33,7 @@ test "LOG0: emit log with no topics" {
     try test_frame.pushStack(&[_]u256{0, 4}); // offset, length
     
     // Execute LOG0
-    _ = try test_helpers.executeOpcode(log.op_log0, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(log.op_log0, &test_vm.vm, test_frame.frame);
     
     // Check that log was emitted
     try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
@@ -64,7 +64,7 @@ test "LOG0: emit log with empty data" {
     try test_frame.pushStack(&[_]u256{0, 0}); // offset, length
     
     // Execute LOG0
-    _ = try test_helpers.executeOpcode(log.op_log0, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(log.op_log0, &test_vm.vm, test_frame.frame);
     
     // Check that log was emitted with empty data
     try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
@@ -102,7 +102,7 @@ test "LOG1: emit log with one topic" {
     try test_frame.pushStack(&[_]u256{0, 2, 0x123456}); // offset, length, topic
     
     // Execute LOG1
-    _ = try test_helpers.executeOpcode(log.op_log1, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(log.op_log1, &test_vm.vm, test_frame.frame);
     
     // Check that log was emitted
     try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
@@ -141,7 +141,7 @@ test "LOG2: emit log with two topics" {
     try test_frame.pushStack(&[_]u256{10, 3, 0xCAFE, 0xBEEF}); // offset, length, topic1, topic2
     
     // Execute LOG2
-    _ = try test_helpers.executeOpcode(log.op_log2, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(log.op_log2, &test_vm.vm, test_frame.frame);
     
     // Check that log was emitted
     try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
@@ -174,7 +174,7 @@ test "LOG3: emit log with three topics" {
     try test_frame.pushStack(&[_]u256{0, 0, 0x111, 0x222, 0x333}); // offset, length (empty data), topic1, topic2, topic3
     
     // Execute LOG3
-    _ = try test_helpers.executeOpcode(log.op_log3, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(log.op_log3, &test_vm.vm, test_frame.frame);
     
     // Check that log was emitted
     try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
@@ -216,7 +216,7 @@ test "LOG4: emit log with four topics" {
     try test_frame.pushStack(&[_]u256{0, 100, 0x1111, 0x2222, 0x3333, 0x4444}); // offset, length, topic1, topic2, topic3, topic4
     
     // Execute LOG4
-    _ = try test_helpers.executeOpcode(log.op_log4, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(log.op_log4, &test_vm.vm, test_frame.frame);
     
     // Check that log was emitted
     try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
@@ -254,7 +254,7 @@ test "LOG0: write protection in static call" {
     try test_frame.pushStack(&[_]u256{0, 0}); // offset, length
     
     // Execute LOG0 - should fail
-    const result = test_helpers.executeOpcode(log.op_log0, &test_vm.vm, &test_frame.frame);
+    const result = test_helpers.executeOpcode(log.op_log0, &test_vm.vm, test_frame.frame);
     try testing.expectError(test_helpers.ExecutionError.Error.WriteProtection, result);
 }
 
@@ -282,7 +282,7 @@ test "LOG1: write protection in static call" {
     try test_frame.pushStack(&[_]u256{0, 0, 0x123}); // offset, length, topic
     
     // Execute LOG1 - should fail
-    const result = test_helpers.executeOpcode(log.op_log1, &test_vm.vm, &test_frame.frame);
+    const result = test_helpers.executeOpcode(log.op_log1, &test_vm.vm, test_frame.frame);
     try testing.expectError(test_helpers.ExecutionError.Error.WriteProtection, result);
 }
 
@@ -310,7 +310,7 @@ test "LOG0: gas consumption" {
     const gas_before = test_frame.frame.gas_remaining;
     
     // Execute LOG0
-    _ = try test_helpers.executeOpcode(log.op_log0, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(log.op_log0, &test_vm.vm, test_frame.frame);
     
     // LOG0 base cost is 375 gas
     // Plus 8 gas per byte: 32 * 8 = 256
@@ -341,7 +341,7 @@ test "LOG4: gas consumption with topics" {
     const gas_before = test_frame.frame.gas_remaining;
     
     // Execute LOG4
-    _ = try test_helpers.executeOpcode(log.op_log4, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(log.op_log4, &test_vm.vm, test_frame.frame);
     
     // LOG4 base cost is 375 gas
     // Plus 375 gas per topic: 4 * 375 = 1500
@@ -374,7 +374,7 @@ test "LOG0: memory expansion gas" {
     const gas_before = test_frame.frame.gas_remaining;
     
     // Execute LOG0
-    _ = try test_helpers.executeOpcode(log.op_log0, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(log.op_log0, &test_vm.vm, test_frame.frame);
     
     // Should consume gas for LOG0 plus memory expansion
     const gas_used = gas_before - test_frame.frame.gas_remaining;
@@ -403,7 +403,7 @@ test "LOG0: stack underflow" {
     try test_frame.pushStack(&[_]u256{0});
     
     // Execute LOG0 - should fail
-    const result = test_helpers.executeOpcode(log.op_log0, &test_vm.vm, &test_frame.frame);
+    const result = test_helpers.executeOpcode(log.op_log0, &test_vm.vm, test_frame.frame);
     try testing.expectError(test_helpers.ExecutionError.Error.StackUnderflow, result);
 }
 
@@ -429,7 +429,7 @@ test "LOG4: stack underflow" {
     // Missing offset
     
     // Execute LOG4 - should fail
-    const result = test_helpers.executeOpcode(log.op_log4, &test_vm.vm, &test_frame.frame);
+    const result = test_helpers.executeOpcode(log.op_log4, &test_vm.vm, test_frame.frame);
     try testing.expectError(test_helpers.ExecutionError.Error.StackUnderflow, result);
 }
 
@@ -455,6 +455,6 @@ test "LOG0: out of gas" {
     try test_frame.pushStack(&[_]u256{0, 1000}); // offset, length (would cost 8000 gas for data alone)
     
     // Execute LOG0 - should fail
-    const result = test_helpers.executeOpcode(log.op_log0, &test_vm.vm, &test_frame.frame);
+    const result = test_helpers.executeOpcode(log.op_log0, &test_vm.vm, test_frame.frame);
     try testing.expectError(test_helpers.ExecutionError.Error.OutOfGas, result);
 }

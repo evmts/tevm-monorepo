@@ -25,15 +25,13 @@ output: []const u8 = &[_]u8{},
 program_counter: usize = 0,
 
 pub fn init(allocator: std.mem.Allocator, contract: *Contract) !Self {
-    var self = Self{
+    // Don't call finalize_root here - let the caller do it after Frame is at its final location
+    return Self{
         .allocator = allocator,
         .contract = contract,
         .memory = try Memory.init_default(allocator),
         .stack = .{},
     };
-    // Finalize root after memory is at its stable address
-    self.memory.finalize_root();
-    return self;
 }
 
 pub fn init_with_state(
@@ -57,8 +55,8 @@ pub fn init_with_state(
 ) Self {
     // Create memory if not provided
     const mem: Memory = if (memory) |m| m else blk: {
-        var new_memory = Memory.init_default(allocator) catch @panic("Failed to initialize memory");
-        new_memory.finalize_root();
+        const new_memory = Memory.init_default(allocator) catch @panic("Failed to initialize memory");
+        // Don't finalize_root here - memory will be copied
         break :blk new_memory;
     };
     
