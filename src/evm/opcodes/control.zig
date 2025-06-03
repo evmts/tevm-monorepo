@@ -9,14 +9,14 @@ const Address = @import("Address");
 const from_u256 = Address.from_u256;
 
 // Helper to convert Stack errors to ExecutionError
-inline fn stack_pop(stack: *Stack) ExecutionError.Error!u256 {
+fn stack_pop(stack: *Stack) ExecutionError.Error!u256 {
     return stack.pop() catch |err| switch (err) {
         Stack.Error.Underflow => return ExecutionError.Error.StackUnderflow,
         else => return ExecutionError.Error.StackUnderflow,
     };
 }
 
-inline fn stack_push(stack: *Stack, value: u256) ExecutionError.Error!void {
+fn stack_push(stack: *Stack, value: u256) ExecutionError.Error!void {
     return stack.append(value) catch |err| switch (err) {
         Stack.Error.Overflow => return ExecutionError.Error.StackOverflow,
         else => return ExecutionError.Error.StackOverflow,

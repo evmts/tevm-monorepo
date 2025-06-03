@@ -7,6 +7,7 @@ const Operation = evm.Operation;
 const ExecutionError = evm.ExecutionError;
 const Frame = evm.Frame;
 const Contract = evm.Contract;
+const Address = evm.Address;
 const stack_validation = @import("../../src/evm/stack_validation.zig");
 
 // Test stack validation in the context of actual opcodes
@@ -15,11 +16,24 @@ test "Stack validation: binary operations" {
     const allocator = testing.allocator;
     
     // Create a simple contract with ADD operation
-    var contract = try Contract.init(allocator, &[_]u8{0x01}, 0); // ADD opcode
-    defer contract.deinit();
+    const zero_address = Address.Address{ .inner = [_]u8{0} ** 20 };
+    const code = [_]u8{0x01}; // ADD opcode
+    const code_hash = [_]u8{0} ** 32;
+    const input = [_]u8{};
+    
+    var contract = Contract.init(
+        zero_address, // caller
+        zero_address, // address
+        0,           // value
+        1000,        // gas
+        &code,       // code
+        code_hash,   // code_hash
+        &input,      // input
+        false,       // is_static
+    );
     
     var frame = Frame.init(allocator, &contract);
-    defer frame.deinit(allocator);
+    defer frame.memory.deinit();
     
     // Create jump table
     var table = JumpTable.init_from_hardfork(.Frontier);
@@ -51,11 +65,25 @@ test "Stack validation: binary operations" {
 test "Stack validation: PUSH operations" {
     const allocator = testing.allocator;
     
-    var contract = try Contract.init(allocator, &[_]u8{0x60}, 0); // PUSH1 opcode
-    defer contract.deinit();
+    // Create contract with PUSH1 opcode
+    const zero_address = Address.Address{ .inner = [_]u8{0} ** 20 };
+    const code = [_]u8{0x60}; // PUSH1 opcode
+    const code_hash = [_]u8{0} ** 32;
+    const input = [_]u8{};
+    
+    var contract = Contract.init(
+        zero_address, // caller
+        zero_address, // address
+        0,           // value
+        1000,        // gas
+        &code,       // code
+        code_hash,   // code_hash
+        &input,      // input
+        false,       // is_static
+    );
     
     var frame = Frame.init(allocator, &contract);
-    defer frame.deinit(allocator);
+    defer frame.memory.deinit();
     
     var table = JumpTable.init_from_hardfork(.Frontier);
     const push1_op = table.get_operation(0x60);
@@ -76,11 +104,25 @@ test "Stack validation: PUSH operations" {
 test "Stack validation: DUP operations" {
     const allocator = testing.allocator;
     
-    var contract = try Contract.init(allocator, &[_]u8{0x80}, 0); // DUP1 opcode
-    defer contract.deinit();
+    // Create contract with DUP1 opcode
+    const zero_address = Address.Address{ .inner = [_]u8{0} ** 20 };
+    const code = [_]u8{0x80}; // DUP1 opcode
+    const code_hash = [_]u8{0} ** 32;
+    const input = [_]u8{};
+    
+    var contract = Contract.init(
+        zero_address, // caller
+        zero_address, // address
+        0,           // value
+        1000,        // gas
+        &code,       // code
+        code_hash,   // code_hash
+        &input,      // input
+        false,       // is_static
+    );
     
     var frame = Frame.init(allocator, &contract);
-    defer frame.deinit(allocator);
+    defer frame.memory.deinit();
     
     var table = JumpTable.init_from_hardfork(.Frontier);
     const dup1_op = table.get_operation(0x80);
@@ -109,11 +151,24 @@ test "Stack validation: DUP operations" {
 test "Stack validation: SWAP operations" {
     const allocator = testing.allocator;
     
-    var contract = try Contract.init(allocator, &[_]u8{0x90}, 0); // SWAP1 opcode
-    defer contract.deinit();
+    // Create contract with SWAP1 opcode
+    const zero_address = Address.Address{ .inner = [_]u8{0} ** 20 };
+    const code = [_]u8{0x90}; // SWAP1 opcode
+    const code_hash = [_]u8{0} ** 32;
+    const input = [_]u8{};
     
+    var contract = Contract.init(
+        zero_address, // caller
+        zero_address, // address
+        0,           // value
+        1000,        // gas
+        &code,       // code
+        code_hash,   // code_hash
+        &input,      // input
+        false,       // is_static
+    );
     var frame = Frame.init(allocator, &contract);
-    defer frame.deinit(allocator);
+    defer frame.memory.deinit();
     
     var table = JumpTable.init_from_hardfork(.Frontier);
     const swap1_op = table.get_operation(0x90);
@@ -164,11 +219,25 @@ test "Stack validation: max_stack calculations" {
 test "Stack validation: integration with jump table execution" {
     const allocator = testing.allocator;
     
-    var contract = try Contract.init(allocator, &[_]u8{0x01}, 0); // ADD
-    defer contract.deinit();
+    // Create contract with ADD opcode
+    const zero_address = Address.Address{ .inner = [_]u8{0} ** 20 };
+    const code = [_]u8{0x01}; // ADD opcode
+    const code_hash = [_]u8{0} ** 32;
+    const input = [_]u8{};
+    
+    var contract = Contract.init(
+        zero_address, // caller
+        zero_address, // address
+        0,           // value
+        1000,        // gas
+        &code,       // code
+        code_hash,   // code_hash
+        &input,      // input
+        false,       // is_static
+    );
     
     var frame = Frame.init(allocator, &contract);
-    defer frame.deinit(allocator);
+    defer frame.memory.deinit();
     
     // Provide enough gas
     frame.gas_remaining = 1000;
@@ -195,7 +264,7 @@ test "Stack validation: all operation categories" {
     // This test verifies that all operation categories have appropriate
     // min_stack and max_stack values set
     
-    var table = JumpTable.init_from_hardfork(evm.Hardfork.Hardfork.CANCUN);
+    var table = JumpTable.init_from_hardfork(.CANCUN);
     
     const test_cases = [_]struct {
         opcode: u8,

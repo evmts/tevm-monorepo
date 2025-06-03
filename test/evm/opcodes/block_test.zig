@@ -54,7 +54,7 @@ test "Block: COINBASE operations" {
     defer test_vm.deinit();
     
     // Set coinbase address
-    test_vm.vm.coinbase = helpers.TestAddresses.CHARLIE;
+    test_vm.vm.block_coinbase = helpers.TestAddresses.CHARLIE;
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -69,7 +69,7 @@ test "Block: COINBASE operations" {
     
     // Test: Push coinbase address to stack
     _ = try helpers.executeOpcode(block.op_coinbase, &test_vm.vm, &test_frame.frame);
-    const coinbase_as_u256 = helpers.bytesToU256(&test_vm.vm.coinbase.bytes);
+    const coinbase_as_u256 = helpers.bytesToU256(&test_vm.vm.block_coinbase);
     try helpers.expectStackValue(&test_frame.frame, 0, coinbase_as_u256);
     
     // Test gas consumption
@@ -83,7 +83,7 @@ test "Block: TIMESTAMP operations" {
     defer test_vm.deinit();
     
     // Set block timestamp
-    test_vm.vm.timestamp = 1234567890;
+    test_vm.vm.block_timestamp = 1234567890;
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -139,7 +139,7 @@ test "Block: DIFFICULTY/PREVRANDAO operations" {
     defer test_vm.deinit();
     
     // Set difficulty/prevrandao
-    test_vm.vm.difficulty = 0x123456789ABCDEF0;
+    test_vm.vm.block_difficulty = 0x123456789ABCDEF0;
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -167,7 +167,7 @@ test "Block: GASLIMIT operations" {
     defer test_vm.deinit();
     
     // Set gas limit
-    test_vm.vm.gas_limit = 30_000_000;
+    test_vm.vm.block_gas_limit = 30_000_000;
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -195,7 +195,7 @@ test "Block: BASEFEE operations (London)" {
     defer test_vm.deinit();
     
     // Set base fee
-    test_vm.vm.base_fee = 1_000_000_000; // 1 gwei
+    test_vm.vm.block_base_fee = 1_000_000_000; // 1 gwei
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -345,10 +345,10 @@ test "Block: Edge cases" {
     
     // Test with maximum values
     test_vm.vm.block_number = std.math.maxInt(u256);
-    test_vm.vm.timestamp = std.math.maxInt(u256);
-    test_vm.vm.gas_limit = std.math.maxInt(u256);
-    test_vm.vm.difficulty = std.math.maxInt(u256);
-    test_vm.vm.base_fee = std.math.maxInt(u256);
+    test_vm.vm.block_timestamp = std.math.maxInt(u64);
+    test_vm.vm.block_gas_limit = std.math.maxInt(u64);
+    test_vm.vm.block_difficulty = std.math.maxInt(u256);
+    test_vm.vm.block_base_fee = std.math.maxInt(u256);
     test_vm.vm.blob_base_fee = std.math.maxInt(u256);
     
     // Test all opcodes still work with max values

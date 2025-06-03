@@ -140,7 +140,7 @@ pub fn op_addmod_optimized(pc: usize, interpreter: *Operation.Interpreter, state
 }
 
 // Helper function for ADDMOD
-inline fn addmod_inner(a: u256, b: u256, n: u256) u256 {
+fn addmod_inner(a: u256, b: u256, n: u256) u256 {
     if (a + b < a) {
         // Overflow occurred
         const complement = @as(u256, @bitCast(@as(i256, -@as(i256, @intCast(n)))));

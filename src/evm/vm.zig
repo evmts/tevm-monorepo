@@ -8,9 +8,9 @@ const Operation = @import("operation.zig");
 const Address = @import("Address");
 const StoragePool = @import("storage_pool.zig");
 
-// Import Log from opcodes package
-const opcodes = @import("opcodes/package.zig");
-pub const Log = opcodes.log.Log;
+// Import Log struct
+const log_module = @import("opcodes/log.zig");
+pub const Log = log_module.Log;
 
 const Self = @This();
 
@@ -110,13 +110,31 @@ pub fn set_transient_storage(self: *Self, address: Address.Address, slot: u256, 
 }
 
 pub fn interpret(self: *Self, contract: *Contract, input: []const u8) ![]const u8 {
+    return self.interpret_with_context(contract, input, false);
+}
+
+pub fn interpret_static(self: *Self, contract: *Contract, input: []const u8) ![]const u8 {
+    return self.interpret_with_context(contract, input, true);
+}
+
+pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u8, is_static: bool) ![]const u8 {
     _ = input;
 
     self.depth += 1;
     defer self.depth -= 1;
 
+    // Save previous read_only state and set new one
+    const prev_read_only = self.read_only;
+    defer self.read_only = prev_read_only;
+    
+    // If entering a static context or already in one, maintain read-only
+    self.read_only = self.read_only or is_static;
+
     var pc: usize = 0;
     var frame = Frame.init(self.allocator, contract);
+    frame.is_static = self.read_only;
+    frame.depth = @as(u32, @intCast(self.depth));
+    frame.input = input;
 
     while (true) {
         const opcode = contract.get_op(pc);
@@ -272,6 +290,7 @@ pub fn staticcall_contract(self: *Self, caller: Address.Address, to: Address.Add
     _ = input;
     _ = gas;
     
+    // TODO: When implementing, ensure to call interpret_static or set read_only = true
     // For now, return a failed call
     return CallResult{
         .success = false,
@@ -347,5 +366,65 @@ pub fn init_transaction_access_list(self: *Self) !void {
     
     // Note: The 'to' address would be pre-warmed when the transaction starts
     // This is typically done in the transaction processor, not here
+}
+
+// Static call protection validation
+pub fn validate_static_context(self: *const Self) !void {
+    if (self.read_only) {
+        return error.WriteProtection;
+    }
+}
+
+// State modification methods with static protection
+pub fn set_storage_protected(self: *Self, address: Address.Address, slot: u256, value: u256) !void {
+    try self.validate_static_context();
+    try self.set_storage(address, slot, value);
+}
+
+pub fn set_transient_storage_protected(self: *Self, address: Address.Address, slot: u256, value: u256) !void {
+    try self.validate_static_context();
+    try self.set_transient_storage(address, slot, value);
+}
+
+pub fn set_balance_protected(self: *Self, address: Address.Address, balance: u256) !void {
+    try self.validate_static_context();
+    try self.set_balance(address, balance);
+}
+
+pub fn set_code_protected(self: *Self, address: Address.Address, code: []const u8) !void {
+    try self.validate_static_context();
+    try self.set_code(address, code);
+}
+
+pub fn emit_log_protected(self: *Self, address: Address.Address, topics: []const u256, data: []const u8) !void {
+    try self.validate_static_context();
+    try self.emit_log(address, topics, data);
+}
+
+// Contract creation with static protection
+pub fn create_contract_protected(self: *Self, creator: Address.Address, value: u256, init_code: []const u8, gas: u64) !CreateResult {
+    try self.validate_static_context();
+    return self.create_contract(creator, value, init_code, gas);
+}
+
+pub fn create2_contract_protected(self: *Self, creator: Address.Address, value: u256, init_code: []const u8, salt: u256, gas: u64) !CreateResult {
+    try self.validate_static_context();
+    return self.create2_contract(creator, value, init_code, salt, gas);
+}
+
+// Value transfer validation
+pub fn validate_value_transfer(self: *const Self, value: u256) !void {
+    if (self.read_only and value != 0) {
+        return error.WriteProtection;
+    }
+}
+
+// SELFDESTRUCT with static protection
+pub fn selfdestruct_protected(self: *Self, contract: Address.Address, beneficiary: Address.Address) !void {
+    try self.validate_static_context();
+    // Implementation would transfer balance and mark contract for deletion
+    _ = contract;
+    _ = beneficiary;
+    // TODO: Implement actual selfdestruct logic
 }
 
