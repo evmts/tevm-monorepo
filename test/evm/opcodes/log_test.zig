@@ -6,7 +6,8 @@ const ExecutionError = opcodes.ExecutionError;
 
 // Test LOG0 operation
 test "LOG0: emit log with no topics" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -35,7 +36,8 @@ test "LOG0: emit log with no topics" {
 }
 
 test "LOG0: emit log with empty data" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -57,7 +59,8 @@ test "LOG0: emit log with empty data" {
 
 // Test LOG1 operation
 test "LOG1: emit log with one topic" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -88,7 +91,8 @@ test "LOG1: emit log with one topic" {
 
 // Test LOG2 operation
 test "LOG2: emit log with two topics" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -121,7 +125,8 @@ test "LOG2: emit log with two topics" {
 
 // Test LOG3 operation
 test "LOG3: emit log with three topics" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -149,7 +154,8 @@ test "LOG3: emit log with three topics" {
 
 // Test LOG4 operation
 test "LOG4: emit log with four topics" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -187,7 +193,8 @@ test "LOG4: emit log with four topics" {
 
 // Test LOG operations in static call
 test "LOG0: write protection in static call" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -206,7 +213,8 @@ test "LOG0: write protection in static call" {
 }
 
 test "LOG1: write protection in static call" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -227,7 +235,8 @@ test "LOG1: write protection in static call" {
 
 // Test gas consumption
 test "LOG0: gas consumption" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -252,7 +261,8 @@ test "LOG0: gas consumption" {
 }
 
 test "LOG4: gas consumption with topics" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -283,7 +293,8 @@ test "LOG4: gas consumption with topics" {
 
 // Test memory expansion
 test "LOG0: memory expansion gas" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -308,7 +319,8 @@ test "LOG0: memory expansion gas" {
 
 // Test stack underflow
 test "LOG0: stack underflow" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -323,7 +335,8 @@ test "LOG0: stack underflow" {
 }
 
 test "LOG4: stack underflow" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -344,7 +357,8 @@ test "LOG4: stack underflow" {
 
 // Test out of gas
 test "LOG0: out of gas" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);

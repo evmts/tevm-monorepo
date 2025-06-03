@@ -2,8 +2,9 @@ const std = @import("std");
 const testing = std.testing;
 const helpers = @import("test_helpers.zig");
 
-// Import opcodes to test
-const arithmetic = @import("../../../src/evm/opcodes/arithmetic.zig");
+// Import opcodes through evm module
+const evm = @import("evm");
+const arithmetic = evm.opcodes.arithmetic;
 
 test "Arithmetic: ADD basic operations" {
     const allocator = testing.allocator;
