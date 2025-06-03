@@ -251,10 +251,11 @@ Based on the comprehensive code review, here are the issues that need to be addr
 - **Effort**: 3 hours
 
 #### ISSUE-019: Fix JUMP/JUMPI Contract Integration
-- **Status**: In Progress (Working on it)
+- **Status**: Complete
 - **Component**: control.zig
 - **Description**: Uses contract.valid_jumpdest which may not exist
 - **Effort**: 2 hours
+- **Resolution**: Fixed the parameter type mismatch in JUMP and JUMPI opcodes. The contract.valid_jumpdest method expects a u64 parameter, but the opcodes were passing a u256. Updated both op_jump and op_jumpi to pass dest_usize (the converted usize value) instead of dest (the raw u256 value) to the valid_jumpdest method.
 
 ### 🏛️ Hardfork Support
 
@@ -279,11 +280,13 @@ Based on the comprehensive code review, here are the issues that need to be addr
     - Cancun: BLOBHASH, BLOBBASEFEE, MCOPY, TLOAD, TSTORE
 
 #### ISSUE-021: Add Hardfork-Specific Gas Costs
+- **Status**: In Progress (Working on it)
 - **Component**: jump_table.zig
 - **Description**: Gas costs change between hardforks
 - **Effort**: 4 hours
 
 #### ISSUE-022: Implement EIP-2929 Access Lists
+- **Status**: Pending
 - **Component**: storage.zig, environment.zig
 - **Description**: Cold/warm access tracking for Berlin+
 - **Effort**: 6 hours

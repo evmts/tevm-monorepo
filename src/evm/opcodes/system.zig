@@ -55,6 +55,12 @@ pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
         const offset_usize = @as(usize, @intCast(offset));
         const size_usize = @as(usize, @intCast(size));
         
+        // Calculate memory expansion gas cost
+        const current_size = frame.memory.total_size();
+        const new_size = offset_usize + size_usize;
+        const memory_gas = gas_constants.memory_gas_cost(current_size, new_size);
+        try frame.consume_gas(memory_gas);
+        
         _ = try frame.memory.ensure_capacity(offset_usize + size_usize);
         init_code = frame.memory.slice()[offset_usize..offset_usize + size_usize];
     }
@@ -115,6 +121,12 @@ pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
         
         const offset_usize = @as(usize, @intCast(offset));
         const size_usize = @as(usize, @intCast(size));
+        
+        // Calculate memory expansion gas cost
+        const current_size = frame.memory.total_size();
+        const new_size = offset_usize + size_usize;
+        const memory_gas = gas_constants.memory_gas_cost(current_size, new_size);
+        try frame.consume_gas(memory_gas);
         
         _ = try frame.memory.ensure_capacity(offset_usize + size_usize);
         init_code = frame.memory.slice()[offset_usize..offset_usize + size_usize];

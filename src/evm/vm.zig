@@ -8,6 +8,9 @@ const Operation = @import("operation.zig");
 const Address = @import("Address");
 const StoragePool = @import("storage_pool.zig");
 
+// Import Log from log.zig
+pub const Log = @import("opcodes/log.zig").Log;
+
 const Self = @This();
 
 allocator: std.mem.Allocator,
@@ -27,6 +30,7 @@ storage: std.AutoHashMap(StorageKey, u256),
 balances: std.AutoHashMap(Address.Address, u256),
 code: std.AutoHashMap(Address.Address, []const u8),
 transient_storage: std.AutoHashMap(StorageKey, u256),
+logs: std.ArrayList(Log),
 
 // Transaction context (temporary placeholder)
 tx_origin: Address.Address = Address.ZERO_ADDRESS,
@@ -58,6 +62,7 @@ pub fn init(allocator: std.mem.Allocator) !Self {
         .balances = std.AutoHashMap(Address.Address, u256).init(allocator),
         .code = std.AutoHashMap(Address.Address, []const u8).init(allocator),
         .transient_storage = std.AutoHashMap(StorageKey, u256).init(allocator),
+        .logs = std.ArrayList(Log).init(allocator),
     };
 }
 
@@ -67,6 +72,7 @@ pub fn deinit(self: *Self) void {
     self.balances.deinit();
     self.code.deinit();
     self.transient_storage.deinit();
+    self.logs.deinit();
 }
 
 // Storage methods

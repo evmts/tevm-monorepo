@@ -1216,3 +1216,44 @@ test "JumpTable Shanghai opcodes" {
     try std.testing.expectEqual(@as(u32, 0), push0_op.min_stack);
     try std.testing.expectEqual(@as(u32, Stack.CAPACITY - 1), push0_op.max_stack);
 }
+
+test "JumpTable Cancun opcodes" {
+    // Test that Cancun opcodes are properly configured
+    const jt_shanghai = init_from_hardfork(.SHANGHAI);
+    const jt_cancun = init_from_hardfork(.CANCUN);
+    
+    // Cancun opcodes should not be in Shanghai
+    try std.testing.expect(jt_shanghai.get_operation(0x49).undefined); // BLOBHASH
+    try std.testing.expect(jt_shanghai.get_operation(0x4a).undefined); // BLOBBASEFEE
+    try std.testing.expect(jt_shanghai.get_operation(0x5e).undefined); // MCOPY
+    try std.testing.expect(jt_shanghai.get_operation(0x5c).undefined); // TLOAD
+    try std.testing.expect(jt_shanghai.get_operation(0x5d).undefined); // TSTORE
+    
+    // Cancun opcodes should be in Cancun
+    try std.testing.expect(!jt_cancun.get_operation(0x49).undefined); // BLOBHASH
+    try std.testing.expect(!jt_cancun.get_operation(0x4a).undefined); // BLOBBASEFEE
+    try std.testing.expect(!jt_cancun.get_operation(0x5e).undefined); // MCOPY
+    try std.testing.expect(!jt_cancun.get_operation(0x5c).undefined); // TLOAD
+    try std.testing.expect(!jt_cancun.get_operation(0x5d).undefined); // TSTORE
+    
+    // Verify correct operation properties
+    const blobhash_op = jt_cancun.get_operation(0x49);
+    try std.testing.expectEqual(@as(u64, GasFastestStep), blobhash_op.constant_gas);
+    try std.testing.expectEqual(@as(u32, 1), blobhash_op.min_stack);
+    
+    const blobbasefee_op = jt_cancun.get_operation(0x4a);
+    try std.testing.expectEqual(@as(u64, GasQuickStep), blobbasefee_op.constant_gas);
+    try std.testing.expectEqual(@as(u32, 0), blobbasefee_op.min_stack);
+    
+    const mcopy_op = jt_cancun.get_operation(0x5e);
+    try std.testing.expectEqual(@as(u64, GasFastestStep), mcopy_op.constant_gas);
+    try std.testing.expectEqual(@as(u32, 3), mcopy_op.min_stack);
+    
+    const tload_op = jt_cancun.get_operation(0x5c);
+    try std.testing.expectEqual(@as(u64, 100), tload_op.constant_gas);
+    try std.testing.expectEqual(@as(u32, 1), tload_op.min_stack);
+    
+    const tstore_op = jt_cancun.get_operation(0x5d);
+    try std.testing.expectEqual(@as(u64, 100), tstore_op.constant_gas);
+    try std.testing.expectEqual(@as(u32, 2), tstore_op.min_stack);
+}

@@ -4,6 +4,15 @@ const ExecutionError = @import("../execution_error.zig");
 const Stack = @import("../stack.zig");
 const Frame = @import("../frame.zig");
 const Vm = @import("../vm.zig");
+const gas_constants = @import("../gas_constants.zig");
+const Address = @import("Address");
+
+// Log structure
+pub const Log = struct {
+    address: Address.Address,
+    topics: []const u256,
+    data: []const u8,
+};
 
 // Helper to convert Stack errors to ExecutionError
 inline fn stack_pop(stack: *Stack) ExecutionError.Error!u256 {
@@ -54,6 +63,12 @@ fn make_log(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.State)
             
             const offset_usize = @as(usize, @intCast(offset));
             const size_usize = @as(usize, @intCast(size));
+            
+            // Calculate memory expansion gas cost
+            const current_size = frame.memory.context_size();
+            const new_size = offset_usize + size_usize;
+            const memory_gas = gas_constants.memory_gas_cost(current_size, new_size);
+            try frame.consume_gas(memory_gas);
             
             // Dynamic gas for data
             const byte_cost = 8 * size_usize;

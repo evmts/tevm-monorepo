@@ -44,7 +44,7 @@ pub fn op_jump(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     const dest_usize = @as(usize, @intCast(dest));
     
     // Check if destination is a valid JUMPDEST
-    if (!frame.contract.valid_jumpdest(dest)) {
+    if (!frame.contract.valid_jumpdest(dest_usize)) {
         return ExecutionError.Error.InvalidJump;
     }
     
@@ -70,7 +70,7 @@ pub fn op_jumpi(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
         const dest_usize = @as(usize, @intCast(dest));
         
         // Check if destination is a valid JUMPDEST
-        if (!frame.contract.valid_jumpdest(dest)) {
+        if (!frame.contract.valid_jumpdest(dest_usize)) {
             return ExecutionError.Error.InvalidJump;
         }
         
@@ -159,9 +159,13 @@ pub fn op_revert(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
         const offset_usize = @as(usize, @intCast(offset));
         const size_usize = @as(usize, @intCast(size));
         
-        // Ensure memory is available
+        // Calculate memory expansion gas cost
+        const current_size = frame.memory.context_size();
         const end = offset_usize + size_usize;
         if (end > offset_usize) { // Check for overflow
+            const memory_gas = gas_constants.memory_gas_cost(current_size, end);
+            try frame.consume_gas(memory_gas);
+            
             _ = frame.memory.ensure_context_capacity(end) catch return ExecutionError.Error.OutOfOffset;
         }
         
