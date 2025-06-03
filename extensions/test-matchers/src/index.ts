@@ -22,8 +22,8 @@ interface CustomMatchers {
 	toBeBigInt(): void
 	toBeAddress(opts?: IsAddressOptions): void
 	toBeHex(opts?: IsHexOptions): void
-	toEqualAddress(expected: string): void
-	toEqualHex(expected: string, opts?: EqualHexOptions): void
+	toEqualAddress(expected: unknown): void
+	toEqualHex(expected: unknown, opts?: EqualHexOptions): void
 }
 
 declare module 'vitest' {
