@@ -21,7 +21,7 @@ inline fn stack_push(stack: *Stack, value: u256) ExecutionError.Error!void {
     };
 }
 
-pub fn op_sload(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_sload(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
@@ -43,10 +43,10 @@ pub fn op_sload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     
     try stack_push(&frame.stack, value);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
@@ -72,10 +72,10 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
         error.OutOfMemory => return ExecutionError.Error.OutOfGas,
     };
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_tload(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_tload(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
@@ -90,10 +90,10 @@ pub fn op_tload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     
     try stack_push(&frame.stack, value);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_tstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_tstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
@@ -112,5 +112,5 @@ pub fn op_tstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
         error.OutOfMemory => return ExecutionError.Error.OutOfGas,
     };
     
-    return "";
+    return Operation.ExecutionResult{};
 }

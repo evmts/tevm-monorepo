@@ -29,9 +29,9 @@ inline fn stack_push(stack: *Stack, value: u256) ExecutionError.Error!void {
     };
 }
 
-fn make_log(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.State) ExecutionError.Error![]const u8 {
+fn make_log(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     return struct {
-        pub fn log(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+        pub fn log(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
             _ = pc;
             
             const frame = @as(*Frame, @ptrCast(@alignCast(state)));
@@ -53,7 +53,7 @@ fn make_log(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.State)
             if (size == 0) {
                 // Empty data
                 try vm.emit_log(frame.contract.address, topics[0..n], &[_]u8{});
-                return "";
+                return Operation.ExecutionResult{};
             }
             
             if (offset > std.math.maxInt(usize) or size > std.math.maxInt(usize)) {
@@ -82,7 +82,7 @@ fn make_log(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.State)
             // Add log
             try vm.emit_log(frame.contract.address, topics[0..n], data);
             
-            return "";
+            return Operation.ExecutionResult{};
         }
     }.log;
 }

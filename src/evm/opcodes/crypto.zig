@@ -20,7 +20,7 @@ inline fn stack_push(stack: *Stack, value: u256) ExecutionError.Error!void {
     };
 }
 
-pub fn op_sha3(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_sha3(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
@@ -33,7 +33,7 @@ pub fn op_sha3(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
         // Hash of empty data = keccak256("")
         const empty_hash: u256 = 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470;
         try stack_push(&frame.stack, empty_hash);
-        return "";
+        return Operation.ExecutionResult{};
     }
     
     if (offset > std.math.maxInt(usize) or size > std.math.maxInt(usize)) {
@@ -67,7 +67,7 @@ pub fn op_sha3(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     
     try stack_push(&frame.stack, result);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
 // Alias for backwards compatibility

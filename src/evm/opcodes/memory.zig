@@ -21,7 +21,7 @@ inline fn stack_push(stack: *Stack, value: u256) ExecutionError.Error!void {
     };
 }
 
-pub fn op_mload(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_mload(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -49,10 +49,10 @@ pub fn op_mload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     
     try stack_push(&frame.stack, value);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_mstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_mstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -79,10 +79,10 @@ pub fn op_mstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     // Write 32 bytes to memory (big-endian)
     frame.memory.set_u256(offset_usize, value) catch return ExecutionError.Error.OutOfOffset;
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_mstore8(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_mstore8(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -109,10 +109,10 @@ pub fn op_mstore8(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     // Write single byte to memory
     frame.memory.set_byte(offset_usize, @as(u8, @truncate(value))) catch return ExecutionError.Error.OutOfOffset;
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_msize(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_msize(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -122,10 +122,10 @@ pub fn op_msize(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     
     try stack_push(&frame.stack, @as(u256, @intCast(size)));
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_mcopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_mcopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -136,7 +136,7 @@ pub fn op_mcopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     const size = try stack_pop(&frame.stack);
     
     if (size == 0) {
-        return "";
+        return Operation.ExecutionResult{};
     }
     
     if (dest > std.math.maxInt(usize) or src > std.math.maxInt(usize) or size > std.math.maxInt(usize)) {
@@ -163,10 +163,10 @@ pub fn op_mcopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     // Copy with overlap handling
     frame.memory.copy_within(src_usize, dest_usize, size_usize) catch return ExecutionError.Error.OutOfOffset;
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_calldataload(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_calldataload(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -176,7 +176,7 @@ pub fn op_calldataload(pc: usize, interpreter: *Operation.Interpreter, state: *O
     
     if (offset > std.math.maxInt(usize)) {
         try stack_push(&frame.stack, 0);
-        return "";
+        return Operation.ExecutionResult{};
     }
     
     const offset_usize = @as(usize, @intCast(offset));
@@ -194,10 +194,10 @@ pub fn op_calldataload(pc: usize, interpreter: *Operation.Interpreter, state: *O
     
     try stack_push(&frame.stack, result);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_calldatasize(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_calldatasize(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -205,10 +205,10 @@ pub fn op_calldatasize(pc: usize, interpreter: *Operation.Interpreter, state: *O
     
     try stack_push(&frame.stack, @as(u256, @intCast(frame.input.len)));
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_calldatacopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_calldatacopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -219,7 +219,7 @@ pub fn op_calldatacopy(pc: usize, interpreter: *Operation.Interpreter, state: *O
     const size = try stack_pop(&frame.stack);
     
     if (size == 0) {
-        return "";
+        return Operation.ExecutionResult{};
     }
     
     if (mem_offset > std.math.maxInt(usize) or data_offset > std.math.maxInt(usize) or size > std.math.maxInt(usize)) {
@@ -246,10 +246,10 @@ pub fn op_calldatacopy(pc: usize, interpreter: *Operation.Interpreter, state: *O
     // Copy calldata to memory
     frame.memory.set_data_bounded(mem_offset_usize, frame.input, data_offset_usize, size_usize) catch return ExecutionError.Error.OutOfOffset;
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_codesize(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_codesize(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -257,10 +257,10 @@ pub fn op_codesize(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     
     try stack_push(&frame.stack, @as(u256, @intCast(frame.contract.code.len)));
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_codecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_codecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -271,7 +271,7 @@ pub fn op_codecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     const size = try stack_pop(&frame.stack);
     
     if (size == 0) {
-        return "";
+        return Operation.ExecutionResult{};
     }
     
     if (mem_offset > std.math.maxInt(usize) or code_offset > std.math.maxInt(usize) or size > std.math.maxInt(usize)) {
@@ -298,10 +298,10 @@ pub fn op_codecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     // Copy code to memory
     frame.memory.set_data_bounded(mem_offset_usize, frame.contract.code, code_offset_usize, size_usize) catch return ExecutionError.Error.OutOfOffset;
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_returndatasize(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_returndatasize(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -309,10 +309,10 @@ pub fn op_returndatasize(pc: usize, interpreter: *Operation.Interpreter, state: 
     
     try stack_push(&frame.stack, @as(u256, @intCast(frame.return_data_buffer.len)));
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_returndatacopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_returndatacopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -323,7 +323,7 @@ pub fn op_returndatacopy(pc: usize, interpreter: *Operation.Interpreter, state: 
     const size = try stack_pop(&frame.stack);
     
     if (size == 0) {
-        return "";
+        return Operation.ExecutionResult{};
     }
     
     if (mem_offset > std.math.maxInt(usize) or data_offset > std.math.maxInt(usize) or size > std.math.maxInt(usize)) {
@@ -355,5 +355,5 @@ pub fn op_returndatacopy(pc: usize, interpreter: *Operation.Interpreter, state: 
     // Copy return data to memory
     frame.memory.set_data(mem_offset_usize, frame.return_data_buffer[data_offset_usize..data_offset_usize + size_usize]) catch return ExecutionError.Error.OutOfOffset;
     
-    return "";
+    return Operation.ExecutionResult{};
 }

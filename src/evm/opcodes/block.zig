@@ -21,7 +21,7 @@ inline fn stack_push(stack: *Stack, value: u256) ExecutionError.Error!void {
     };
 }
 
-pub fn op_blockhash(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_blockhash(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
@@ -40,10 +40,10 @@ pub fn op_blockhash(pc: usize, interpreter: *Operation.Interpreter, state: *Oper
         try stack_push(&frame.stack, hash);
     }
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_coinbase(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_coinbase(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
@@ -52,10 +52,10 @@ pub fn op_coinbase(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     // Get coinbase from block context
     try stack_push(&frame.stack, Address.to_u256(vm.block_coinbase));
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_timestamp(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_timestamp(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
@@ -64,10 +64,10 @@ pub fn op_timestamp(pc: usize, interpreter: *Operation.Interpreter, state: *Oper
     // Get timestamp from block context
     try stack_push(&frame.stack, @as(u256, @intCast(vm.block_timestamp)));
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_number(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_number(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
@@ -76,10 +76,10 @@ pub fn op_number(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     // Get block number from block context
     try stack_push(&frame.stack, @as(u256, @intCast(vm.block_number)));
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_difficulty(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_difficulty(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
@@ -89,15 +89,15 @@ pub fn op_difficulty(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
     // Post-merge this returns PREVRANDAO
     try stack_push(&frame.stack, vm.block_difficulty);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_prevrandao(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_prevrandao(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     // Same as difficulty post-merge
     return op_difficulty(pc, interpreter, state);
 }
 
-pub fn op_gaslimit(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_gaslimit(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
@@ -106,10 +106,10 @@ pub fn op_gaslimit(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     // Get gas limit from block context
     try stack_push(&frame.stack, @as(u256, @intCast(vm.block_gas_limit)));
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_basefee(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_basefee(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
@@ -119,10 +119,10 @@ pub fn op_basefee(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     // Push base fee (EIP-1559)
     try stack_push(&frame.stack, vm.block_base_fee);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_blobhash(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_blobhash(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
@@ -138,10 +138,10 @@ pub fn op_blobhash(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
         try stack_push(&frame.stack, vm.blob_hashes[idx]);
     }
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_blobbasefee(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_blobbasefee(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
@@ -151,5 +151,5 @@ pub fn op_blobbasefee(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     // Push blob base fee (EIP-4844)
     try stack_push(&frame.stack, vm.blob_base_fee);
     
-    return "";
+    return Operation.ExecutionResult{};
 }

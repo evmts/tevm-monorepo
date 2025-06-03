@@ -19,7 +19,7 @@ inline fn stack_push(stack: *Stack, value: u256) ExecutionError.Error!void {
     };
 }
 
-pub fn op_lt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_lt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -32,10 +32,10 @@ pub fn op_lt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.S
     
     try stack_push(&frame.stack, result);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_gt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_gt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -48,10 +48,10 @@ pub fn op_gt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.S
     
     try stack_push(&frame.stack, result);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_slt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_slt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -68,10 +68,10 @@ pub fn op_slt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     
     try stack_push(&frame.stack, result);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_sgt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_sgt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -88,10 +88,10 @@ pub fn op_sgt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     
     try stack_push(&frame.stack, result);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_eq(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_eq(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -104,10 +104,10 @@ pub fn op_eq(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.S
     
     try stack_push(&frame.stack, result);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_iszero(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_iszero(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -119,5 +119,5 @@ pub fn op_iszero(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     
     try stack_push(&frame.stack, result);
     
-    return "";
+    return Operation.ExecutionResult{};
 }

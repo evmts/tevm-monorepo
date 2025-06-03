@@ -24,7 +24,7 @@ inline fn stack_push(stack: *Stack, value: u256) ExecutionError.Error!void {
     };
 }
 
-pub fn op_address(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_address(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -34,10 +34,10 @@ pub fn op_address(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     const addr = to_u256(frame.contract.address);
     try stack_push(&frame.stack, addr);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_balance(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_balance(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
@@ -57,10 +57,10 @@ pub fn op_balance(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     const balance = vm.balances.get(address) orelse 0;
     try stack_push(&frame.stack, balance);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_origin(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_origin(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
@@ -70,10 +70,10 @@ pub fn op_origin(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     const origin = to_u256(vm.tx_origin);
     try stack_push(&frame.stack, origin);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_caller(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_caller(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -83,10 +83,10 @@ pub fn op_caller(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     const caller = to_u256(frame.contract.caller);
     try stack_push(&frame.stack, caller);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_callvalue(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_callvalue(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -95,10 +95,10 @@ pub fn op_callvalue(pc: usize, interpreter: *Operation.Interpreter, state: *Oper
     // Push call value
     try stack_push(&frame.stack, frame.contract.value);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_gasprice(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_gasprice(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
@@ -107,10 +107,10 @@ pub fn op_gasprice(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     // Push gas price from transaction context
     try stack_push(&frame.stack, vm.gas_price);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_extcodesize(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_extcodesize(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
@@ -130,10 +130,10 @@ pub fn op_extcodesize(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     const code = vm.code.get(address) orelse &[_]u8{};
     try stack_push(&frame.stack, @as(u256, @intCast(code.len)));
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_extcodecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_extcodecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
@@ -145,7 +145,7 @@ pub fn op_extcodecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     const size = try stack_pop(&frame.stack);
     
     if (size == 0) {
-        return "";
+        return Operation.ExecutionResult{};
     }
     
     if (mem_offset > std.math.maxInt(usize) or size > std.math.maxInt(usize) or code_offset > std.math.maxInt(usize)) {
@@ -191,10 +191,10 @@ pub fn op_extcodecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Op
         }
     }
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_extcodehash(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_extcodehash(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
@@ -228,10 +228,10 @@ pub fn op_extcodehash(pc: usize, interpreter: *Operation.Interpreter, state: *Op
         try stack_push(&frame.stack, hash_u256);
     }
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_selfbalance(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_selfbalance(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
@@ -242,10 +242,10 @@ pub fn op_selfbalance(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     const balance = vm.balances.get(self_address) orelse 0;
     try stack_push(&frame.stack, balance);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_chainid(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_chainid(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
@@ -254,5 +254,5 @@ pub fn op_chainid(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     // Push chain ID from VM context
     try stack_push(&frame.stack, vm.chain_id);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
