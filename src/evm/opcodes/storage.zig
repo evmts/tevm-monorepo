@@ -76,15 +76,26 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     const slot = try stack_pop(&frame.stack);
     const value = try stack_pop(&frame.stack);
     
-    const is_cold = try frame.contract.mark_storage_slot_warm(slot, null);
-    if (is_cold) {
-        try frame.consume_gas(gas_constants.ColdSloadCost);
-    }
-    
+    // Get current value first to calculate gas properly
     const current_value = try error_mapping.vm_get_storage(vm, frame.contract.address, slot);
     
+    // Check if slot is cold and mark it warm
+    const is_cold = try frame.contract.mark_storage_slot_warm(slot, null);
+    
+    // Calculate total gas cost
+    var total_gas: u64 = 0;
+    
+    // Add cold access cost if needed
+    if (is_cold) {
+        total_gas += gas_constants.ColdSloadCost;
+    }
+    
+    // Add dynamic gas based on value change
     const dynamic_gas = calculate_sstore_gas(current_value, value);
-    try frame.consume_gas(dynamic_gas);
+    total_gas += dynamic_gas;
+    
+    // Consume all gas at once
+    try frame.consume_gas(total_gas);
     
     try error_mapping.vm_set_storage(vm, frame.contract.address, slot, value);
     

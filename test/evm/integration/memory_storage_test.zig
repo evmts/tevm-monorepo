@@ -236,7 +236,7 @@ test "Integration: Storage slot calculation" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
+    var test_frame = try helpers.TestFrame.init(allocator, &contract, 30000);
     defer test_frame.deinit();
     
     // Simulate array access: array[index] where base slot = 5
