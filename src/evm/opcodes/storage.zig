@@ -108,8 +108,7 @@ pub fn op_tload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
     
-    // TLOAD gas cost is 100 (no cold/warm distinction)
-    try frame.consume_gas(gas_constants.WarmStorageReadCost);
+    // Gas is already handled by jump table constant_gas = 100
     
     const slot = try stack_pop(&frame.stack);
     
@@ -130,8 +129,7 @@ pub fn op_tstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
         return ExecutionError.Error.WriteProtection;
     }
     
-    // TSTORE gas cost is 100 (no cold/warm distinction)
-    try frame.consume_gas(gas_constants.WarmStorageReadCost);
+    // Gas is already handled by jump table constant_gas = 100
     
     const slot = try stack_pop(&frame.stack);
     const value = try stack_pop(&frame.stack);

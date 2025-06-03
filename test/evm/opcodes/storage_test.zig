@@ -21,7 +21,7 @@ test "SLOAD: load value from storage" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 3000);
     defer test_frame.deinit();
     
     // Set storage value
@@ -52,7 +52,7 @@ test "SLOAD: load from uninitialized slot returns zero" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 3000);
     defer test_frame.deinit();
     
     // Push storage slot that hasn't been set
@@ -121,7 +121,7 @@ test "SSTORE: store value to storage" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 25000);
     defer test_frame.deinit();
     
     // Push value and slot (value first, then slot - stack is LIFO)
@@ -184,7 +184,7 @@ test "SSTORE: write protection in static call" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 3000);
     defer test_frame.deinit();
     
     // Set static call
@@ -257,7 +257,7 @@ test "TLOAD: load value from transient storage" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 3000);
     defer test_frame.deinit();
     
     // Set transient storage value
@@ -288,7 +288,7 @@ test "TLOAD: load from uninitialized slot returns zero" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 3000);
     defer test_frame.deinit();
     
     // Push storage slot that hasn't been set
@@ -354,7 +354,7 @@ test "TSTORE: store value to transient storage" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 3000);
     defer test_frame.deinit();
     
     // Push value and slot (value first, then slot - stack is LIFO)
@@ -384,7 +384,7 @@ test "TSTORE: overwrite existing transient value" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 3000);
     defer test_frame.deinit();
     
     // Set initial transient value
@@ -417,7 +417,7 @@ test "TSTORE: write protection in static call" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 3000);
     defer test_frame.deinit();
     
     // Set static call
@@ -447,7 +447,7 @@ test "TSTORE: does not affect regular storage" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 3000);
     defer test_frame.deinit();
     
     // Set regular storage value
@@ -485,7 +485,7 @@ test "SLOAD: stack underflow" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 3000);
     defer test_frame.deinit();
     
     // Empty stack
@@ -510,7 +510,7 @@ test "SSTORE: stack underflow" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 3000);
     defer test_frame.deinit();
     
     // Push only one value (need two)
@@ -536,7 +536,7 @@ test "TLOAD: stack underflow" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 3000);
     defer test_frame.deinit();
     
     // Empty stack
@@ -561,7 +561,7 @@ test "TSTORE: stack underflow" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 3000);
     defer test_frame.deinit();
     
     // Push only one value (need two)
@@ -588,7 +588,7 @@ test "TLOAD: gas consumption" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 3000);
     defer test_frame.deinit();
     
     // Push storage slot
@@ -618,7 +618,7 @@ test "TSTORE: gas consumption" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 3000);
     defer test_frame.deinit();
     
     // Push value and slot
