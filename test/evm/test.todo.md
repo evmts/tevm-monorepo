@@ -498,6 +498,7 @@ The debugging and fixing process will be considered successful when the followin
         1.  Trace parameters and memory state in `op_codecopy`.
 
 19. **Failure Message:** `error: 'complex_interactions_test.test.Integration: Token balance check pattern' failed: OutOfOffset` in `op_mstore`.
+    *   **Status:** IN PROGRESS - Agent A1 - Worktree: `g/evm-fix-mstore-offset`
     *   **Affected File:** `test/evm/integration/complex_interactions_test.zig`, `src/evm/opcodes/memory.zig` (`op_mstore`)
     *   **Theory 1:** Incorrect offset calculation for `MSTORE` (0x52) or insufficient memory expansion.
     *   **Logging:**
