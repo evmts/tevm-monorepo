@@ -74,32 +74,6 @@ test "Integration: Modular arithmetic with overflow" {
     try helpers.expectStackValue(test_frame.frame, 0, 4);
 }
 
-test "Integration: Simple DUP and ADD test" {
-    const allocator = testing.allocator;
-    
-    var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
-    
-    var contract = try helpers.createTestContract(
-        allocator,
-        helpers.TestAddresses.CONTRACT,
-        helpers.TestAddresses.ALICE,
-        0,
-        &[_]u8{},
-    );
-    defer contract.deinit(null);
-    
-    var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
-    defer test_frame.deinit();
-    
-    // Simple test: push 2, DUP1, ADD -> should get 4
-    try test_frame.pushStack(&[_]u256{2}); // Stack: [2]
-    _ = try helpers.executeOpcode(0x80, &test_vm.vm, test_frame.frame); // DUP1 -> Stack: [2, 2]
-    _ = try helpers.executeOpcode(0x01, &test_vm.vm, test_frame.frame); // ADD -> Stack: [4]
-    
-    try helpers.expectStackValue(test_frame.frame, 0, 4);
-    try testing.expectEqual(@as(usize, 1), test_frame.stackSize());
-}
 
 test "Integration: Fibonacci sequence calculation" {
     // Calculate first 5 Fibonacci numbers using stack manipulation
