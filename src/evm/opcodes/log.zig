@@ -57,9 +57,8 @@ fn make_log(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.State)
             
             // Dynamic gas for data
             const byte_cost = 8 * size_usize;
-            // TODO: consume gas
-            _ = byte_cost;
             _ = vm;
+            try frame.consume_gas(byte_cost);
             
             // Ensure memory is available
             _ = frame.memory.ensure_context_capacity(offset_usize + size_usize) catch return ExecutionError.Error.OutOfOffset;

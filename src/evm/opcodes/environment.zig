@@ -4,7 +4,7 @@ const ExecutionError = @import("../execution_error.zig");
 const Stack = @import("../stack.zig");
 const Frame = @import("../frame.zig");
 const Vm = @import("../vm.zig");
-const Address = @import("../../Address/address.zig");
+const Address = @import("Address");
 const to_u256 = Address.to_u256;
 const from_u256 = Address.from_u256;
 
@@ -107,14 +107,13 @@ pub fn op_extcodesize(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
-    _ = vm;
     
-    const address = try stack_pop(&frame.stack);
-    _ = address;
+    const address_u256 = try stack_pop(&frame.stack);
+    const address = from_u256(address_u256);
     
-    // TODO: Get code size from state
-    // For now, push zero
-    try stack_push(&frame.stack, 0);
+    // Get code size from VM state
+    const code = vm.code.get(address) orelse &[_]u8{};
+    try stack_push(&frame.stack, @as(u256, @intCast(code.len)));
     
     return "";
 }
@@ -124,34 +123,40 @@ pub fn op_extcodecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
-    _ = vm;
     
-    const address = try stack_pop(&frame.stack);
+    const address_u256 = try stack_pop(&frame.stack);
     const mem_offset = try stack_pop(&frame.stack);
     const code_offset = try stack_pop(&frame.stack);
     const size = try stack_pop(&frame.stack);
-    
-    _ = address;
-    _ = code_offset;
     
     if (size == 0) {
         return "";
     }
     
-    if (mem_offset > std.math.maxInt(usize) or size > std.math.maxInt(usize)) {
+    if (mem_offset > std.math.maxInt(usize) or size > std.math.maxInt(usize) or code_offset > std.math.maxInt(usize)) {
         return ExecutionError.Error.OutOfOffset;
     }
     
+    const address = from_u256(address_u256);
     const mem_offset_usize = @as(usize, @intCast(mem_offset));
+    const code_offset_usize = @as(usize, @intCast(code_offset));
     const size_usize = @as(usize, @intCast(size));
     
-    // TODO: Get external code and copy to memory
-    // For now, just ensure memory is available and fill with zeros
+    // Get external code from VM state
+    const code = vm.code.get(address) orelse &[_]u8{};
+    
+    // Ensure memory is available
     _ = try frame.memory.ensure_capacity(mem_offset_usize + size_usize);
     
     const memory_slice = frame.memory.slice();
+    
+    // Copy code to memory, padding with zeros if necessary
     for (0..size_usize) |i| {
-        memory_slice[mem_offset_usize + i] = 0;
+        if (code_offset_usize + i < code.len) {
+            memory_slice[mem_offset_usize + i] = code[code_offset_usize + i];
+        } else {
+            memory_slice[mem_offset_usize + i] = 0;
+        }
     }
     
     return "";
@@ -162,14 +167,27 @@ pub fn op_extcodehash(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
-    _ = vm;
     
-    const address = try stack_pop(&frame.stack);
-    _ = address;
+    const address_u256 = try stack_pop(&frame.stack);
+    const address = from_u256(address_u256);
     
-    // TODO: Get code hash from state
-    // For now, push zero hash
-    try stack_push(&frame.stack, 0);
+    // Get code from VM state and compute hash
+    const code = vm.code.get(address) orelse &[_]u8{};
+    if (code.len == 0) {
+        // Empty account - return zero
+        try stack_push(&frame.stack, 0);
+    } else {
+        // Compute keccak256 hash of the code
+        var hash: [32]u8 = undefined;
+        std.crypto.hash.sha3.Keccak256.hash(code, &hash, .{});
+        
+        // Convert hash to u256
+        var hash_u256: u256 = 0;
+        for (hash) |byte| {
+            hash_u256 = (hash_u256 << 8) | byte;
+        }
+        try stack_push(&frame.stack, hash_u256);
+    }
     
     return "";
 }
@@ -179,11 +197,11 @@ pub fn op_selfbalance(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
-    _ = vm;
     
-    // TODO: Get self balance
-    // For now, push zero
-    try stack_push(&frame.stack, 0);
+    // Get balance of current executing contract
+    const self_address = frame.contract.address;
+    const balance = vm.balances.get(self_address) orelse 0;
+    try stack_push(&frame.stack, balance);
     
     return "";
 }
@@ -193,11 +211,9 @@ pub fn op_chainid(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
-    _ = vm;
     
-    // TODO: Push chain ID
-    // For now, push mainnet chain ID
-    try stack_push(&frame.stack, 1);
+    // Push chain ID from VM context
+    try stack_push(&frame.stack, vm.chain_id);
     
     return "";
 }

@@ -38,6 +38,8 @@ block_difficulty: u256 = 0,
 block_gas_limit: u64 = 0,
 chain_id: u256 = 1,
 block_base_fee: u256 = 0,
+blob_hashes: []const u256 = &[_]u256{},
+blob_base_fee: u256 = 0,
 
 pub const StorageKey = struct {
     address: Address.Address,
@@ -98,11 +100,12 @@ pub fn interpret(self: *Self, contract: *Contract, input: []const u8) ![]const u
     var frame = Frame.init(self.allocator, contract);
 
     while (true) {
-        const operation = self.table.get_operation(contract.get_op(pc));
+        const opcode = contract.get_op(pc);
         // Cast self and frame to the opaque types expected by execute
         const interpreter_ptr: *Operation.Interpreter = @ptrCast(self);
         const state_ptr: *Operation.State = @ptrCast(&frame);
-        const result = try operation.execute(pc, interpreter_ptr, state_ptr);
+        // Use jump table's execute method which handles gas consumption
+        const result = try self.table.execute(pc, interpreter_ptr, state_ptr, opcode);
         
         // Update pc based on result (for now, just increment)
         pc += 1;
@@ -112,4 +115,97 @@ pub fn interpret(self: *Self, contract: *Contract, input: []const u8) ![]const u
             return result;
         }
     }
+}
+
+// Balance methods
+pub fn get_balance(self: *Self, address: Address.Address) !u256 {
+    return self.balances.get(address) orelse 0;
+}
+
+pub fn set_balance(self: *Self, address: Address.Address, balance: u256) !void {
+    try self.balances.put(address, balance);
+}
+
+// Code methods
+pub fn get_code(self: *Self, address: Address.Address) ![]const u8 {
+    return self.code.get(address) orelse &[_]u8{};
+}
+
+pub fn set_code(self: *Self, address: Address.Address, code: []const u8) !void {
+    try self.code.put(address, code);
+}
+
+// Contract creation result
+pub const CreateResult = struct {
+    success: bool,
+    address: Address.Address,
+    gas_left: u64,
+    output: ?[]const u8,
+};
+
+// Contract call result
+pub const CallResult = struct {
+    success: bool,
+    gas_left: u64,
+    output: ?[]const u8,
+};
+
+// Placeholder contract creation - to be implemented properly later
+pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_code: []const u8, gas: u64) !CreateResult {
+    _ = self;
+    _ = creator;
+    _ = value;
+    _ = init_code;
+    _ = gas;
+    
+    // For now, return a failed creation
+    return CreateResult{
+        .success = false,
+        .address = Address.ZERO_ADDRESS,
+        .gas_left = 0,
+        .output = null,
+    };
+}
+
+// Placeholder contract call - to be implemented properly later
+pub fn call_contract(self: *Self, caller: Address.Address, to: Address.Address, value: u256, input: []const u8, gas: u64, is_static: bool) !CallResult {
+    _ = self;
+    _ = caller;
+    _ = to;
+    _ = value;
+    _ = input;
+    _ = gas;
+    _ = is_static;
+    
+    // For now, return a failed call
+    return CallResult{
+        .success = false,
+        .gas_left = 0,
+        .output = null,
+    };
+}
+
+// Gas consumption method for opcodes
+pub fn consume_gas(self: *Self, amount: u64) !void {
+    _ = self;
+    _ = amount;
+    // TODO: Implement proper gas tracking
+}
+
+// CREATE2 specific method
+pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init_code: []const u8, salt: u256, gas: u64) !CreateResult {
+    _ = self;
+    _ = creator;  
+    _ = value;
+    _ = init_code;
+    _ = salt;
+    _ = gas;
+    
+    // For now, return a failed creation
+    return CreateResult{
+        .success = false,
+        .address = Address.ZERO_ADDRESS,
+        .gas_left = 0,
+        .output = null,
+    };
 }

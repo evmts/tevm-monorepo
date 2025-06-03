@@ -35,6 +35,12 @@ pub fn op_mload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     
     const offset_usize = @as(usize, @intCast(offset));
     
+    // Calculate memory expansion gas cost
+    const current_size = frame.memory.context_size();
+    const new_size = offset_usize + 32;
+    const gas_cost = gas_constants.memory_gas_cost(current_size, new_size);
+    try frame.consume_gas(gas_cost);
+    
     // Ensure memory is available
     _ = frame.memory.ensure_context_capacity(offset_usize + 32) catch return ExecutionError.Error.OutOfOffset;
     
@@ -61,6 +67,12 @@ pub fn op_mstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     
     const offset_usize = @as(usize, @intCast(offset));
     
+    // Calculate memory expansion gas cost
+    const current_size = frame.memory.context_size();
+    const new_size = offset_usize + 32;
+    const gas_cost = gas_constants.memory_gas_cost(current_size, new_size);
+    try frame.consume_gas(gas_cost);
+    
     // Ensure memory is available
     _ = frame.memory.ensure_context_capacity(offset_usize + 32) catch return ExecutionError.Error.OutOfOffset;
     
@@ -84,6 +96,12 @@ pub fn op_mstore8(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     }
     
     const offset_usize = @as(usize, @intCast(offset));
+    
+    // Calculate memory expansion gas cost
+    const current_size = frame.memory.context_size();
+    const new_size = offset_usize + 1;
+    const gas_cost = gas_constants.memory_gas_cost(current_size, new_size);
+    try frame.consume_gas(gas_cost);
     
     // Ensure memory is available
     _ = frame.memory.ensure_context_capacity(offset_usize + 1) catch return ExecutionError.Error.OutOfOffset;
@@ -129,8 +147,17 @@ pub fn op_mcopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     const src_usize = @as(usize, @intCast(src));
     const size_usize = @as(usize, @intCast(size));
     
-    // Ensure memory is available for both source and destination
+    // Calculate memory expansion gas cost
+    const current_size = frame.memory.context_size();
     const max_addr = @max(dest_usize + size_usize, src_usize + size_usize);
+    const memory_gas = gas_constants.memory_gas_cost(current_size, max_addr);
+    try frame.consume_gas(memory_gas);
+    
+    // Dynamic gas for copy operation
+    const word_size = (size_usize + 31) / 32;
+    try frame.consume_gas(gas_constants.CopyGas * word_size);
+    
+    // Ensure memory is available for both source and destination
     _ = frame.memory.ensure_context_capacity(max_addr) catch return ExecutionError.Error.OutOfOffset;
     
     // Copy with overlap handling

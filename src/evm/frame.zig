@@ -66,3 +66,10 @@ pub fn init_with_state(
         .depth = depth orelse 0,
     };
 }
+
+pub fn consume_gas(self: *Self, amount: u64) ExecutionError.Error!void {
+    if (amount > self.gas_remaining) {
+        return ExecutionError.Error.OutOfGas;
+    }
+    self.gas_remaining -= amount;
+}

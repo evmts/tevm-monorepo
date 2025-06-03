@@ -4,6 +4,7 @@ const ExecutionError = @import("../execution_error.zig");
 const Stack = @import("../stack.zig");
 const Frame = @import("../frame.zig");
 const Vm = @import("../vm.zig");
+const Address = @import("Address");
 
 // Helper to convert Stack errors to ExecutionError
 inline fn stack_pop(stack: *Stack) ExecutionError.Error!u256 {
@@ -22,7 +23,6 @@ inline fn stack_push(stack: *Stack, value: u256) ExecutionError.Error!void {
 
 pub fn op_blockhash(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
     _ = pc;
-    _ = interpreter;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
@@ -50,7 +50,7 @@ pub fn op_coinbase(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
     
     // Get coinbase from block context
-    try stack_push(&frame.stack, vm.block_coinbase.toU256());
+    try stack_push(&frame.stack, Address.to_u256(vm.block_coinbase));
     
     return "";
 }
@@ -124,29 +124,32 @@ pub fn op_basefee(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
 
 pub fn op_blobhash(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
     _ = pc;
-    _ = interpreter;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
     
     const index = try stack_pop(&frame.stack);
-    _ = index;
     
-    // TODO: Implement blob hash retrieval
     // EIP-4844: Get blob hash at index
-    try stack_push(&frame.stack, 0);
+    if (index >= vm.blob_hashes.len) {
+        try stack_push(&frame.stack, 0);
+    } else {
+        const idx = @as(usize, @intCast(index));
+        try stack_push(&frame.stack, vm.blob_hashes[idx]);
+    }
     
     return "";
 }
 
 pub fn op_blobbasefee(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
     _ = pc;
-    _ = interpreter;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
     
-    // TODO: Get blob base fee from block context
+    // Get blob base fee from block context
     // Push blob base fee (EIP-4844)
-    try stack_push(&frame.stack, 0);
+    try stack_push(&frame.stack, vm.blob_base_fee);
     
     return "";
 }

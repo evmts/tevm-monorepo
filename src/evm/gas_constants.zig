@@ -88,3 +88,18 @@ pub const BlobBaseFeeGas: u64 = 2;
 pub const TLoadGas: u64 = 100;
 // Gas for memory copy operations
 pub const TStoreGas: u64 = 100;
+
+// Calculate memory expansion gas cost
+pub fn memory_gas_cost(current_size: u64, new_size: u64) u64 {
+    if (new_size <= current_size) {
+        return 0;
+    }
+    
+    const current_words = (current_size + 31) / 32;
+    const new_words = (new_size + 31) / 32;
+    
+    const current_cost = MemoryGas * current_words + (current_words * current_words) / QuadCoeffDiv;
+    const new_cost = MemoryGas * new_words + (new_words * new_words) / QuadCoeffDiv;
+    
+    return new_cost - current_cost;
+}

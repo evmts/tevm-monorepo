@@ -6,6 +6,8 @@ const ExecutionError = @import("execution_error.zig");
 const Stack = @import("stack.zig");
 const Memory = @import("memory.zig");
 const Frame = @import("frame.zig");
+const Contract = @import("contract.zig");
+const Address = @import("Address");
 
 // Import all opcode modules
 const opcodes = @import("opcodes/package.zig");
@@ -70,6 +72,21 @@ pub fn init() Self {
 
 pub fn get_operation(self: *const Self, opcode: u8) *const Operation {
     return self.table[opcode] orelse &Operation.NULL;
+}
+
+pub fn execute(self: *const Self, pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State, opcode: u8) ExecutionError.Error![]const u8 {
+    const operation = self.get_operation(opcode);
+    
+    // Cast state to Frame to access gas_remaining
+    const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    
+    // Consume base gas cost before executing the opcode
+    if (operation.constant_gas > 0) {
+        try frame.consume_gas(operation.constant_gas);
+    }
+    
+    // Execute the opcode handler
+    return operation.execute(pc, interpreter, state);
 }
 
 pub fn validate(self: *Self) void {
@@ -576,6 +593,35 @@ const SELFDESTRUCT = Operation{
     .max_stack = Stack.CAPACITY,
 };
 
+// Byzantium operations
+const RETURNDATASIZE = Operation{
+    .execute = memory_ops.op_returndatasize,
+    .constant_gas = GasQuickStep,
+    .min_stack = 0,
+    .max_stack = Stack.CAPACITY - 1,
+};
+
+const RETURNDATACOPY = Operation{
+    .execute = memory_ops.op_returndatacopy,
+    .constant_gas = GasFastestStep,
+    .min_stack = 3,
+    .max_stack = Stack.CAPACITY,
+};
+
+const REVERT = Operation{
+    .execute = control.op_revert,
+    .constant_gas = 0,
+    .min_stack = 2,
+    .max_stack = Stack.CAPACITY,
+};
+
+const STATICCALL = Operation{
+    .execute = system.op_staticcall,
+    .constant_gas = CallGas,
+    .min_stack = 6,
+    .max_stack = Stack.CAPACITY,
+};
+
 // Helper to convert Stack errors to ExecutionError
 inline fn stack_push(stack: *Stack, value: u256) ExecutionError.Error!void {
     return stack.append(value) catch |err| switch (err) {
@@ -784,10 +830,11 @@ pub fn new_frontier_instruction_set() Self {
 
     // 0xf0s: System operations
     jt.table[0xf0] = &CREATE;
-
     jt.table[0xf1] = &CALL;
     jt.table[0xf2] = &CALLCODE;
     jt.table[0xf3] = &RETURN;
+    jt.table[0xfa] = &STATICCALL;  // Byzantium addition
+    jt.table[0xfd] = &REVERT;      // Byzantium addition
     jt.table[0xfe] = &INVALID;
     jt.table[0xff] = &SELFDESTRUCT;
 
@@ -797,9 +844,27 @@ pub fn new_frontier_instruction_set() Self {
 }
 
 pub fn init_from_hardfork(hardfork: Hardfork) Self {
-    _ = hardfork;
-    // For now, just return frontier instruction set
-    return new_frontier_instruction_set();
+    var jt = new_frontier_instruction_set();
+    
+    // Add hardfork-specific opcodes
+    switch (hardfork) {
+        .Frontier => {},
+        .Homestead, .TangerineWhistle, .SpuriousDragon => {
+            // Homestead adds DELEGATECALL (0xf4)
+            // But we need to define DELEGATECALL first
+        },
+        .Byzantium, .Constantinople, .Petersburg, .Istanbul, .Berlin, .London, .Paris, .Shanghai, .Cancun, .Prague => {
+            // Byzantium additions
+            jt.table[0x3d] = &RETURNDATASIZE;
+            jt.table[0x3e] = &RETURNDATACOPY;
+            jt.table[0xfd] = &REVERT;
+            jt.table[0xfa] = &STATICCALL;
+            
+            // Additional opcodes for later hardforks would go here
+        },
+    }
+    
+    return jt;
 }
 
 
@@ -862,4 +927,51 @@ test "JumpTable gas constants" {
     try std.testing.expectEqual(@as(u64, 30), Keccak256Gas);
     try std.testing.expectEqual(@as(u64, 375), LogGas);
     try std.testing.expectEqual(@as(u64, 32000), CreateGas);
+}
+
+test "JumpTable execute consumes gas before opcode execution" {
+    const jt = new_frontier_instruction_set();
+    
+    // Create a test frame with some gas
+    const test_allocator = std.testing.allocator;
+    var test_contract = Contract{
+        .address = Address.ZERO_ADDRESS,
+        .caller = Address.ZERO_ADDRESS,
+        .value = 0,
+        .code = &[_]u8{0x01}, // ADD opcode
+        .code_hash = [_]u8{0} ** 32,
+        .code_size = 1,
+        .analysis = null,
+        .gas = 1000,
+        .gas_refund = 0,
+        .input = &[_]u8{},
+        .is_deployment = false,
+        .is_system_call = false,
+        .is_static = false,
+        .storage_access = null,
+        .original_storage = null,
+    };
+    var test_frame = Frame.init(test_allocator, &test_contract);
+    test_frame.gas_remaining = 100;
+    
+    // Push two values for ADD operation
+    try test_frame.stack.append(10);
+    try test_frame.stack.append(20);
+    
+    // Create interpreter and state pointers
+    var test_vm = struct {
+        allocator: std.mem.Allocator,
+    }{ .allocator = test_allocator };
+    const interpreter_ptr: *Operation.Interpreter = @ptrCast(&test_vm);
+    const state_ptr: *Operation.State = @ptrCast(&test_frame);
+    
+    // Execute ADD opcode (0x01) which has GasFastestStep (3) gas cost
+    _ = try jt.execute(0, interpreter_ptr, state_ptr, 0x01);
+    
+    // Check that gas was consumed
+    try std.testing.expectEqual(@as(u64, 97), test_frame.gas_remaining);
+    
+    // Check that ADD operation was performed
+    const result = try test_frame.stack.pop();
+    try std.testing.expectEqual(@as(u256, 30), result);
 }

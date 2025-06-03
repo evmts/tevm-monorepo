@@ -241,8 +241,7 @@ pub fn op_exp(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     }
     if (byte_size > 0) {
         const gas_cost = 50 * byte_size;
-        // TODO: Implement gas consumption
-        _ = gas_cost;
+        try frame.consume_gas(gas_cost);
     }
     
     // Calculate base^exp

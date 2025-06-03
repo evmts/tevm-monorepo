@@ -46,9 +46,8 @@ pub fn op_sha3(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     // Dynamic gas cost for hashing
     const word_size = (size_usize + 31) / 32;
     const gas_cost = 6 * word_size;
-    _ = gas_cost;
     _ = vm;
-    // TODO: consume dynamic gas
+    try frame.consume_gas(gas_cost);
     
     // Ensure memory is available
     _ = frame.memory.ensure_context_capacity(offset_usize + size_usize) catch return ExecutionError.Error.OutOfOffset;

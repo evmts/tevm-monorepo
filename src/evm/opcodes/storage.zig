@@ -29,7 +29,9 @@ pub fn op_sload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     const slot = try stack_pop(&frame.stack);
     
     // Get storage value
-    const value = try vm.get_storage(frame.contract.address, slot);
+    const value = vm.get_storage(frame.contract.address, slot) catch |err| switch (err) {
+        error.OutOfMemory => return ExecutionError.Error.OutOfGas,
+    };
     
     try stack_push(&frame.stack, value);
     
@@ -51,7 +53,9 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     const value = try stack_pop(&frame.stack);
     
     // Set storage value
-    try vm.set_storage(frame.contract.address, slot, value);
+    vm.set_storage(frame.contract.address, slot, value) catch |err| switch (err) {
+        error.OutOfMemory => return ExecutionError.Error.OutOfGas,
+    };
     
     return "";
 }
@@ -65,7 +69,9 @@ pub fn op_tload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     const slot = try stack_pop(&frame.stack);
     
     // Get transient storage value (EIP-1153)
-    const value = try vm.get_transient_storage(frame.contract.address, slot);
+    const value = vm.get_transient_storage(frame.contract.address, slot) catch |err| switch (err) {
+        error.OutOfMemory => return ExecutionError.Error.OutOfGas,
+    };
     
     try stack_push(&frame.stack, value);
     
@@ -87,7 +93,9 @@ pub fn op_tstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     const value = try stack_pop(&frame.stack);
     
     // Set transient storage value (EIP-1153)
-    try vm.set_transient_storage(frame.contract.address, slot, value);
+    vm.set_transient_storage(frame.contract.address, slot, value) catch |err| switch (err) {
+        error.OutOfMemory => return ExecutionError.Error.OutOfGas,
+    };
     
     return "";
 }
