@@ -245,10 +245,15 @@ Based on the comprehensive code review, here are the issues that need to be addr
   - All copy operations (CALLDATACOPY, CODECOPY, RETURNDATACOPY, MCOPY) handle gas correctly
 
 #### ISSUE-018: Implement LOG Operations
-- **Status**: In Progress
+- **Status**: Complete
 - **Component**: log.zig
 - **Description**: Currently calculates gas but doesn't emit logs
 - **Effort**: 3 hours
+- **Resolution**: 
+  - Added emit_log method to VM that properly stores logs with cloned data
+  - Updated all LOG operations (LOG0-LOG4) to call vm.emit_log() with the contract address, topics, and data
+  - Added proper cleanup in VM deinit to free allocated memory for log topics and data
+  - Removed TODO comments and unused vm parameter statements
 
 #### ISSUE-019: Fix JUMP/JUMPI Contract Integration
 - **Status**: Complete
@@ -280,13 +285,28 @@ Based on the comprehensive code review, here are the issues that need to be addr
     - Cancun: BLOBHASH, BLOBBASEFEE, MCOPY, TLOAD, TSTORE
 
 #### ISSUE-021: Add Hardfork-Specific Gas Costs
-- **Status**: In Progress (Working on it)
+- **Status**: Complete
 - **Component**: jump_table.zig
 - **Description**: Gas costs change between hardforks
 - **Effort**: 4 hours
+- **Resolution**: Implemented hardfork-specific gas cost changes:
+  - **Tangerine Whistle (EIP-150)**: Increased gas costs for IO-heavy operations
+    - BALANCE: 20 → 400
+    - EXTCODESIZE/EXTCODECOPY: 20 → 700
+    - SLOAD: 50 → 200
+    - CALL/CALLCODE/DELEGATECALL: 40 → 700
+    - SELFDESTRUCT: 0 → 5000
+  - **Istanbul (EIP-1884)**: Further gas cost adjustments
+    - BALANCE: 400 → 700
+    - SLOAD: 200 → 800
+    - EXTCODEHASH: 400 → 700
+  - **Berlin (EIP-2929)**: Introduced cold/warm access lists
+    - Set base gas to 0 for state-accessing opcodes (BALANCE, EXTCODESIZE, EXTCODECOPY, EXTCODEHASH, SLOAD)
+    - Dynamic gas calculation now handles cold (2600/2100) vs warm (100) access costs
+    - Note: Actual cold/warm tracking is handled in opcode implementations
 
 #### ISSUE-022: Implement EIP-2929 Access Lists
-- **Status**: Pending
+- **Status**: In Progress
 - **Component**: storage.zig, environment.zig
 - **Description**: Cold/warm access tracking for Berlin+
 - **Effort**: 6 hours

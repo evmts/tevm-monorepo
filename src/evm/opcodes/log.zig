@@ -52,8 +52,7 @@ fn make_log(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.State)
             
             if (size == 0) {
                 // Empty data
-                // TODO: Add log
-                _ = vm;
+                try vm.emit_log(frame.contract.address, topics[0..n], &[_]u8{});
                 return "";
             }
             
@@ -72,7 +71,6 @@ fn make_log(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.State)
             
             // Dynamic gas for data
             const byte_cost = 8 * size_usize;
-            _ = vm;
             try frame.consume_gas(byte_cost);
             
             // Ensure memory is available
@@ -82,9 +80,7 @@ fn make_log(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.State)
             const data = frame.memory.get_slice(offset_usize, size_usize) catch return ExecutionError.Error.OutOfOffset;
             
             // Add log
-            // TODO: Add log
-            _ = vm;
-            _ = data;
+            try vm.emit_log(frame.contract.address, topics[0..n], data);
             
             return "";
         }

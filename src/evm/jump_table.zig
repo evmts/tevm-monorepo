@@ -941,6 +941,40 @@ pub fn init_from_hardfork(hardfork: Hardfork) Self {
             // Homestead adds DELEGATECALL (0xf4)
             jt.table[0xf4] = &DELEGATECALL;
             
+            // Apply Tangerine Whistle gas cost changes (EIP-150)
+            if (hardfork != .FRONTIER and hardfork != .HOMESTEAD and hardfork != .DAO) {
+                // BALANCE: 20 -> 400
+                if (jt.table[0x31]) |op| {
+                    @constCast(op).constant_gas = 400;
+                }
+                // EXTCODESIZE: 20 -> 700
+                if (jt.table[0x3b]) |op| {
+                    @constCast(op).constant_gas = 700;
+                }
+                // EXTCODECOPY: 20 -> 700
+                if (jt.table[0x3c]) |op| {
+                    @constCast(op).constant_gas = 700;
+                }
+                // SLOAD: 50 -> 200
+                if (jt.table[0x54]) |op| {
+                    @constCast(op).constant_gas = 200;
+                }
+                // CALL/CALLCODE/DELEGATECALL: 40 -> 700
+                if (jt.table[0xf1]) |op| {
+                    @constCast(op).constant_gas = 700;
+                }
+                if (jt.table[0xf2]) |op| {
+                    @constCast(op).constant_gas = 700;
+                }
+                if (jt.table[0xf4]) |op| {
+                    @constCast(op).constant_gas = 700;
+                }
+                // SELFDESTRUCT: 0 -> 5000
+                if (jt.table[0xff]) |op| {
+                    @constCast(op).constant_gas = 5000;
+                }
+            }
+            
             // Continue with other hardforks
             switch (hardfork) {
                 .FRONTIER, .HOMESTEAD, .DAO, .TANGERINE_WHISTLE, .SPURIOUS_DRAGON => {},
@@ -969,6 +1003,52 @@ pub fn init_from_hardfork(hardfork: Hardfork) Self {
                                     // Istanbul additions
                                     jt.table[0x46] = &CHAINID;
                                     jt.table[0x47] = &SELFBALANCE;
+                                    
+                                    // Istanbul gas cost changes (EIP-1884)
+                                    // BALANCE: 400 -> 700
+                                    if (jt.table[0x31]) |op| {
+                                        @constCast(op).constant_gas = 700;
+                                    }
+                                    // SLOAD: 200 -> 800
+                                    if (jt.table[0x54]) |op| {
+                                        @constCast(op).constant_gas = 800;
+                                    }
+                                    // EXTCODEHASH: 400 -> 700
+                                    if (jt.table[0x3f]) |op| {
+                                        @constCast(op).constant_gas = 700;
+                                    }
+                                    
+                                    // Continue with Berlin and later
+                                    if (hardfork != .FRONTIER and hardfork != .HOMESTEAD and hardfork != .DAO and 
+                                        hardfork != .TANGERINE_WHISTLE and hardfork != .SPURIOUS_DRAGON and
+                                        hardfork != .BYZANTIUM and hardfork != .CONSTANTINOPLE and
+                                        hardfork != .PETERSBURG and hardfork != .ISTANBUL and hardfork != .MUIR_GLACIER) {
+                                        // Berlin gas cost changes (EIP-2929)
+                                        // Note: Berlin introduces cold/warm access with dynamic gas costs
+                                        // These are handled in the opcode implementations rather than base gas
+                                        // Cold access costs:
+                                        // - BALANCE/EXTCODESIZE/EXTCODECOPY/EXTCODEHASH: 2600 (cold), 100 (warm)
+                                        // - SLOAD: 2100 (cold), 100 (warm)
+                                        // - CALL/CALLCODE/DELEGATECALL/STATICCALL: +2600 for cold address
+                                        
+                                        // Set base gas to 0 for opcodes that now have fully dynamic gas
+                                        if (jt.table[0x31]) |op| { // BALANCE
+                                            @constCast(op).constant_gas = 0;
+                                        }
+                                        if (jt.table[0x3b]) |op| { // EXTCODESIZE
+                                            @constCast(op).constant_gas = 0;
+                                        }
+                                        if (jt.table[0x3c]) |op| { // EXTCODECOPY
+                                            @constCast(op).constant_gas = 0;
+                                        }
+                                        if (jt.table[0x3f]) |op| { // EXTCODEHASH
+                                            @constCast(op).constant_gas = 0;
+                                        }
+                                        if (jt.table[0x54]) |op| { // SLOAD
+                                            @constCast(op).constant_gas = 0;
+                                        }
+                                        // CALL operations keep base gas but add dynamic cold access cost
+                                    }
                                     
                                     // Continue with London and later
                                     switch (hardfork) {

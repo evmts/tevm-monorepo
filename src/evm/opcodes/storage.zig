@@ -28,6 +28,13 @@ pub fn op_sload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     
     const slot = try stack_pop(&frame.stack);
     
+    // EIP-2929: Check if storage slot is cold and consume appropriate gas
+    const is_cold = try frame.contract.mark_storage_slot_warm(slot, null);
+    if (is_cold) {
+        // Cold storage access costs more (2100 gas)
+        try frame.consume_gas(2100 - 100); // Subtract the 100 already consumed by the opcode
+    }
+    
     // Get storage value
     const value = vm.get_storage(frame.contract.address, slot) catch |err| switch (err) {
         error.OutOfMemory => return ExecutionError.Error.OutOfGas,
@@ -51,6 +58,13 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     
     const slot = try stack_pop(&frame.stack);
     const value = try stack_pop(&frame.stack);
+    
+    // EIP-2929: Check if storage slot is cold and consume appropriate gas
+    const is_cold = try frame.contract.mark_storage_slot_warm(slot, null);
+    if (is_cold) {
+        // Cold storage access costs more (2100 gas)
+        try frame.consume_gas(2100);
+    }
     
     // Set storage value
     vm.set_storage(frame.contract.address, slot, value) catch |err| switch (err) {

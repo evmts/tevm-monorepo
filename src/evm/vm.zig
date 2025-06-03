@@ -32,6 +32,9 @@ code: std.AutoHashMap(Address.Address, []const u8),
 transient_storage: std.AutoHashMap(StorageKey, u256),
 logs: std.ArrayList(Log),
 
+// EIP-2929: Address access tracking (cold/warm)
+address_access: std.AutoHashMap(Address.Address, bool),
+
 // Transaction context (temporary placeholder)
 tx_origin: Address.Address = Address.ZERO_ADDRESS,
 gas_price: u256 = 0,
@@ -63,6 +66,7 @@ pub fn init(allocator: std.mem.Allocator) !Self {
         .code = std.AutoHashMap(Address.Address, []const u8).init(allocator),
         .transient_storage = std.AutoHashMap(StorageKey, u256).init(allocator),
         .logs = std.ArrayList(Log).init(allocator),
+        .address_access = std.AutoHashMap(Address.Address, bool).init(allocator),
     };
 }
 
@@ -72,6 +76,13 @@ pub fn deinit(self: *Self) void {
     self.balances.deinit();
     self.code.deinit();
     self.transient_storage.deinit();
+    self.address_access.deinit();
+    
+    // Clean up logs - free allocated memory for topics and data
+    for (self.logs.items) |log| {
+        self.allocator.free(log.topics);
+        self.allocator.free(log.data);
+    }
     self.logs.deinit();
 }
 
@@ -265,4 +276,37 @@ pub fn staticcall_contract(self: *Self, caller: Address.Address, to: Address.Add
         .gas_left = 0,
         .output = null,
     };
+}
+
+// Emit a log event
+pub fn emit_log(self: *Self, address: Address.Address, topics: []const u256, data: []const u8) !void {
+    // Clone the data to ensure it persists
+    const data_copy = try self.allocator.alloc(u8, data.len);
+    @memcpy(data_copy, data);
+    
+    // Clone the topics to ensure they persist
+    const topics_copy = try self.allocator.alloc(u256, topics.len);
+    @memcpy(topics_copy, topics);
+    
+    const log = Log{
+        .address = address,
+        .topics = topics_copy,
+        .data = data_copy,
+    };
+    
+    try self.logs.append(log);
+}
+
+// EIP-2929: Mark address as warm and return if it was cold
+pub fn mark_address_warm(self: *Self, address: Address.Address) !bool {
+    const was_cold = !self.address_access.contains(address);
+    if (was_cold) {
+        try self.address_access.put(address, true);
+    }
+    return was_cold;
+}
+
+// EIP-2929: Check if address is cold
+pub fn is_address_cold(self: *const Self, address: Address.Address) bool {
+    return !self.address_access.contains(address);
 }
