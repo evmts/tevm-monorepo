@@ -7,10 +7,10 @@ import type {
 	ChainableAssertion,
 	ExtractVitestArgs,
 	InferredVitestChainableResult,
+	IsAsync,
 	MatcherResult,
 	VitestMatcherConfig,
 	VitestMatcherFunction,
-	IsAsync,
 } from './types.js'
 
 let chaiUtils: ChaiUtils | undefined = undefined
@@ -30,7 +30,7 @@ const setupPromise = (assertion: Assertion, utils: ChaiUtils): void => {
 }
 
 const isAsyncMatcher = <TReceived, TState>(
-	matcher: VitestMatcherFunction<TReceived, boolean, TState>
+	matcher: VitestMatcherFunction<TReceived, boolean, TState>,
 ): matcher is VitestMatcherFunction<TReceived, true, TState> => {
 	return matcher.constructor.name === 'AsyncFunction'
 }
@@ -53,13 +53,22 @@ const buildChainState = (assertion: Assertion, utils: ChaiUtils): ChainState => 
 	// Use the most recent chained matcher
 	const matcherName = chainHistory[chainHistory.length - 1]
 
-	return {
+	// For async matchers, use the current object (which gets updated)
+	// rather than the stored value (which might be a Promise)
+	let previousValue = utils.flag(assertion, `${matcherName}.value`)
+	const currentObj = utils.flag(assertion, 'object')
+	// If the stored value is a Promise but current object is resolved, use current object
+	if (previousValue && typeof previousValue.then === 'function' && currentObj !== previousValue) previousValue = currentObj
+
+	const state = {
 		chainedFrom: matcherName,
 		previousPassed: utils.flag(assertion, `${matcherName}.passed`),
-		previousValue: utils.flag(assertion, `${matcherName}.value`),
+		previousValue,
 		previousState: utils.flag(assertion, `${matcherName}.state`),
 		previousArgs: utils.flag(assertion, `${matcherName}.args`),
 	}
+
+	return state
 }
 
 // Used to fail an assertion in chai with vitest highlighting and trace
@@ -136,6 +145,18 @@ function makeVitestSyncChainable<
 ): Assertion {
 	assert(chaiUtils !== undefined, 'ChaiUtils not initialized')
 
+	// Check if we're in an async chain
+	const callPromise = chaiUtils.flag(this, 'callPromise')
+	if (callPromise && typeof callPromise.then === 'function') {
+		// We're chaining after an async matcher - join the promise chain
+		return makeVitestAsyncChainable.call(
+			this,
+			name,
+			vitestMatcher as VitestMatcherFunction,
+			args
+		)
+	}
+
 	const obj = chaiUtils.flag(this, 'object')
 	const chainState = buildChainState(this, chaiUtils)
 
@@ -166,14 +187,29 @@ function makeVitestAsyncChainable<
 	assert(chaiUtils !== undefined, 'ChaiUtils not initialized')
 
 	setupPromise(this, chaiUtils)
-	// Store negation flag consistently using chaiUtils (async pattern - BEFORE promise)
 	const isNegated = chaiUtils.flag(this, 'negate') === true
+
+	// Build chain state BEFORE storing our own state
+	const chainState = buildChainState(this, chaiUtils)
+
+	// Get the current object (might be a Promise)
+	const obj = chaiUtils.flag(this, 'object')
+	// Store promise initially, will update with resolved value
+	chaiUtils.flag(this, `${name}.value`, obj)
+
+	// Track chain history synchronously
+	const chainHistory: string[] = chaiUtils.flag(this, 'chainHistory') || []
+	chainHistory.push(name)
+	chaiUtils.flag(this, 'chainHistory', chainHistory)
 
 	const callPromiseValue = chaiUtils.flag(this, 'callPromise')
 	const derivedPromise = callPromiseValue.then(async () => {
 		assert(chaiUtils !== undefined, 'ChaiUtils not initialized')
-		const obj = chaiUtils.flag(this, 'object')
 		const actualObj = await obj
+
+		// Update the stored value with resolved object immediately
+		// This ensures chained matchers get the resolved value, not the Promise
+		chaiUtils.flag(this, `${name}.value`, actualObj)
 
 		// Update object with resolved value for further chaining
 		chaiUtils.flag(this, 'object', actualObj)
@@ -182,14 +218,16 @@ function makeVitestAsyncChainable<
 		const currentNegated = chaiUtils.flag(this, 'negate') === true
 		chaiUtils.flag(this, 'negate', isNegated)
 
-		const chainState = buildChainState(this, chaiUtils)
 		const result = await (vitestMatcher(actualObj as TReceived, ...args, chainState) as Promise<MatcherResult<TState>>)
+
 		expectResult(result, isNegated)
 
 		// Restore negation flag
 		chaiUtils.flag(this, 'negate', currentNegated)
 
-		storeChainState(this, chaiUtils, name, actualObj, args, result)
+		// 🔧 UPDATE the stored state with actual results
+		chaiUtils.flag(this, `${name}.passed`, result.pass)
+		chaiUtils.flag(this, `${name}.state`, result.state)
 	})
 
 	// Make thenable (waffle-chai pattern)
@@ -205,13 +243,15 @@ export const createChainableFromVitest = <
 	TName extends string,
 	TReceived = any,
 	TState = unknown,
-	TMatcher extends VitestMatcherFunction<TReceived, boolean, TState> = VitestMatcherFunction<TReceived, boolean, TState>
->(
-	config: {
-		name: TName
-		vitestMatcher: TMatcher
-	}
-) => {
+	TMatcher extends VitestMatcherFunction<TReceived, boolean, TState> = VitestMatcherFunction<
+		TReceived,
+		boolean,
+		TState
+	>,
+>(config: {
+	name: TName
+	vitestMatcher: TMatcher
+}) => {
 	const { name, vitestMatcher } = config
 	const isAsync = isAsyncMatcher(vitestMatcher)
 
@@ -221,13 +261,18 @@ export const createChainableFromVitest = <
 		methodFunction: function (this: ChaiContext, ...args: ExtractVitestArgs<typeof vitestMatcher>) {
 			if (isAsync) {
 				return (makeVitestAsyncChainable<TName, ExtractVitestArgs<typeof vitestMatcher>, TReceived, true, TState>).call(
-					this, name, vitestMatcher as VitestMatcherFunction<TReceived, true, TState>, args
-				)
-			} else {
-				return (makeVitestSyncChainable<TName, ExtractVitestArgs<typeof vitestMatcher>, TReceived, false, TState>).call(
-					this as ChaiContext<false>, name, vitestMatcher as VitestMatcherFunction<TReceived, false, TState>, args as ExtractVitestArgs<typeof vitestMatcher>
+					this,
+					name,
+					vitestMatcher as VitestMatcherFunction<TReceived, true, TState>,
+					args,
 				)
 			}
+			return (makeVitestSyncChainable<TName, ExtractVitestArgs<typeof vitestMatcher>, TReceived, false, TState>).call(
+				this as ChaiContext<false>,
+				name,
+				vitestMatcher as VitestMatcherFunction<TReceived, false, TState>,
+				args as ExtractVitestArgs<typeof vitestMatcher>,
+			)
 		},
 		chainFunction: function (this: ChaiContext): Assertion {
 			assert(chaiUtils !== undefined, 'ChaiUtils not initialized')

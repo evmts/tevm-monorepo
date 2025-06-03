@@ -3,7 +3,7 @@ import { type Assertion, chai } from 'vitest'
 export type ChaiStatic = ReturnType<(typeof chai)['use']>
 export type ChaiUtils = typeof chai.util
 export type ChaiAssert = typeof chai.assert
-export type ChaiContext<TAsync extends boolean = false, T = unknown> = Assertion<T> & {
+export type ChaiContext<TAsync extends boolean = boolean, T = unknown> = Assertion<T> & {
 	__flags: any
 	__methods: any
 	_obj: any
@@ -21,7 +21,7 @@ export type MatcherResult<TState = unknown> = {
 }
 
 // Vitest-style matcher function (returns MatcherResult)
-export type VitestMatcherFunction<TReceived = unknown, TAsync extends boolean = boolean, TState = unknown> = (
+export type VitestMatcherFunction<TReceived = any, TAsync extends boolean = boolean, TState = unknown> = (
 	received: TReceived,
 	...args: any[]
 ) => TAsync extends true ? Promise<MatcherResult<TState>> : MatcherResult<TState>
@@ -41,11 +41,13 @@ export type ExtractVitestArgs<T> = T extends (received: unknown, ...args: infer 
 // Helper types for assertion return types
 export type ChainableAssertion<T = unknown> = Promise<Assertion<T>> & Assertion<T>
 
+export type IsAsync<T> = T extends (...args: any[]) => Promise<any> ? true : false
+
 // Configuration for converting vitest matchers to chainable
 export interface VitestMatcherConfig<
 	TName extends string,
 	TReceived = unknown,
-	TAsync extends boolean = false,
+	TAsync extends boolean = boolean,
 	TState = unknown,
 > {
 	readonly name: TName

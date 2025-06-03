@@ -1,34 +1,39 @@
 import { assert, describe, expect, it } from 'vitest'
 import { toBeAddress, toBeBigInt, toBeHex } from '../matchers/utils/index.js'
 import { createChainableFromVitest, registerChainableMatchers } from './chainable.js'
-import type { ChainState } from './types.js'
+import type { ChainableAssertion, ChainState } from './types.js'
 
 /* ---------------------------------- TYPES --------------------------------- */
 export interface CustomMatchers {
 	/**
 	 * Assert that a value is a BigInt
 	 */
-	toBeBigIntChainable(): this
+	toBeBigIntChainable(): ChainableAssertion
 
 	/**
 	 * Assert that a value is a hex string
 	 */
-	toBeHexChainable(): this
+	toBeHexChainable(): ChainableAssertion
 
 	/**
 	 * Assert that a value is an address
 	 */
-	toBeAddressChainable(): this
+	toBeAddressChainable(): ChainableAssertion
 
 	/**
 	 * Assert and return state
 	 */
-	toPassDownStateChainable(a: unknown, b: unknown): this
+	toPassDownStateChainable(a: unknown, b: unknown): ChainableAssertion
 
 	/**
 	 * Assert that previous state was passed correctly
 	 */
-	toUsePreviousStateAndBigIntChainable(): this
+	toUsePreviousStateAndBigIntChainable(): ChainableAssertion
+
+	/**
+	 * Assert that a promise resolves to a string (async)
+	 */
+	toResolveToStringChainable(): ChainableAssertion
 }
 
 // Augment vitest's Assertion - this preserves ALL existing functionality including 'not'
@@ -79,6 +84,30 @@ const toUsePreviousStateAndBigInt = (received: unknown, chainState?: ChainState<
 	}
 }
 
+// Add this async vitest matcher
+const toResolveToString = async (received: Promise<unknown>) => {
+	try {
+		const resolved = await received
+		const pass = typeof resolved === 'string'
+		return {
+			pass,
+			actual: resolved,
+			expected: 'a string',
+			message: () => pass
+				? `Expected promise not to resolve to a string but got: ${resolved}`
+				: `Expected promise to resolve to a string but got: ${typeof resolved}`,
+			state: { resolved, wasAsync: true },
+		}
+	} catch (error) {
+		return {
+			pass: false,
+			actual: error,
+			expected: 'a resolved promise',
+			message: () => `Expected promise to resolve but it rejected with: ${error}`,
+		}
+	}
+}
+
 /* ----------------------------- CHAINABLE MATCHERS ---------------------------- */
 // Convert existing util matchers to chainable
 const toBeBigIntChainable = createChainableFromVitest({
@@ -107,6 +136,12 @@ const toUsePreviousStateAndBigIntChainable = createChainableFromVitest({
 	vitestMatcher: toUsePreviousStateAndBigInt,
 })
 
+// Create the async chainable matcher
+const toResolveToStringChainable = createChainableFromVitest({
+	name: 'toResolveToStringChainable' as const,
+	vitestMatcher: toResolveToString,
+})
+
 // Register all test matchers
 export const testMatchers = {
 	toBeBigIntChainable,
@@ -114,6 +149,7 @@ export const testMatchers = {
 	toBeAddressChainable,
 	toPassDownStateChainable,
 	toUsePreviousStateAndBigIntChainable,
+	toResolveToStringChainable,
 }
 
 registerChainableMatchers(testMatchers)
@@ -161,5 +197,30 @@ describe('chainable matchers', () => {
 		expect(() =>
 			expect(5n).toPassDownStateChainable(1n, 2n).toUsePreviousStateAndBigIntChainable().not.toBeBigIntChainable(),
 		).toThrow('Expected 5 not to be a BigInt')
+	})
+
+	it('async matchers work correctly', async () => {
+		// Test async matcher standalone
+		await expect(Promise.resolve('hello')).toResolveToStringChainable()
+
+		// Test async with negation
+		await expect(Promise.resolve(123)).not.toResolveToStringChainable()
+
+		// Test async with chaining
+		await expect(Promise.resolve('0x123')).toResolveToStringChainable().toBeHexChainable()
+	})
+
+	it('async error handling', async () => {
+		await expect(() =>
+			expect(Promise.resolve(123)).toResolveToStringChainable()
+		).rejects.toThrow('Expected promise to resolve to a string but got: number')
+
+		await expect(() =>
+			expect(Promise.resolve('hello')).not.toResolveToStringChainable()
+		).rejects.toThrow('Expected promise not to resolve to a string but got: hello')
+
+		await expect(() =>
+			expect(Promise.resolve('hello')).toResolveToStringChainable().toBeHexChainable()
+		).rejects.toThrow('Expected hello to start with "0x"')
 	})
 })

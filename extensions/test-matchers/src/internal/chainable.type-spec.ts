@@ -12,31 +12,17 @@ import type {
 	VitestMatcherFunction,
 } from './types.js'
 
-// Import existing chainable matchers from spec
+// Import existing chainable matchers from spec (now includes async one!)
 const {
 	toBeBigIntChainable,
 	toBeHexChainable,
 	toBeAddressChainable,
 	toPassDownStateChainable,
 	toUsePreviousStateAndBigIntChainable,
+	toResolveToStringChainable, // <-- Use the real async matcher
 } = testMatchers
 
-// Create a few additional test matchers for type testing
-const asyncMatcher: VitestMatcherFunction<Promise<string>, true, { processed: boolean }> = async (
-	received: Promise<string>,
-) => {
-	const resolved = await received
-	return {
-		pass: typeof resolved === 'string',
-		message: () => 'async test',
-		state: { processed: true },
-	}
-}
-
-const asyncChainable = createChainableFromVitest({
-	name: 'asyncTest' as const,
-	vitestMatcher: asyncMatcher,
-})
+// Remove the separate asyncMatcher and asyncChainable - use the shared one
 
 describe('chainable type system (exhaustive)', () => {
 	it('type: basic configuration inference', () => {
@@ -45,14 +31,23 @@ describe('chainable type system (exhaustive)', () => {
 			InferredVitestChainableResult<VitestMatcherConfig<'toBeBigIntChainable', unknown, false, unknown>>
 		>()
 
-		expectTypeOf<typeof asyncChainable>().toExtend<
-			InferredVitestChainableResult<VitestMatcherConfig<'asyncTest', Promise<string>, true, { processed: boolean }>>
+		expectTypeOf<typeof toBeHexChainable>().toEqualTypeOf<
+			InferredVitestChainableResult<VitestMatcherConfig<'toBeHexChainable', unknown, false, unknown>>
+		>()
+
+		expectTypeOf<typeof toBeAddressChainable>().toEqualTypeOf<
+			InferredVitestChainableResult<VitestMatcherConfig<'toBeAddressChainable', unknown, false, unknown>>
+		>()
+
+		expectTypeOf<typeof toResolveToStringChainable>().toExtend<
+			InferredVitestChainableResult<VitestMatcherConfig<'toResolveToStringChainable', Promise<string>, true, { resolved: boolean }>>
 		>()
 
 		// Name should be inferred correctly
 		expectTypeOf<typeof toBeBigIntChainable.name>().toEqualTypeOf<'toBeBigIntChainable'>()
 		expectTypeOf<typeof toBeHexChainable.name>().toEqualTypeOf<'toBeHexChainable'>()
-		expectTypeOf<typeof asyncChainable.name>().toEqualTypeOf<'asyncTest'>()
+		expectTypeOf<typeof toBeAddressChainable.name>().toEqualTypeOf<'toBeAddressChainable'>()
+		expectTypeOf<typeof toResolveToStringChainable.name>().toEqualTypeOf<'toResolveToStringChainable'>()
 	})
 
 	it('type: isAsync flag inference', () => {
@@ -62,7 +57,7 @@ describe('chainable type system (exhaustive)', () => {
 		expectTypeOf<typeof toBeAddressChainable.isAsync>().toEqualTypeOf<false>()
 
 		// Async matcher should have isAsync: true
-		expectTypeOf<typeof asyncChainable.isAsync>().toEqualTypeOf<true>()
+		expectTypeOf<typeof toResolveToStringChainable.isAsync>().toEqualTypeOf<true>()
 	})
 
 	it('type: method function parameter inference', () => {
@@ -70,7 +65,7 @@ describe('chainable type system (exhaustive)', () => {
 		expectTypeOf<typeof toBeBigIntChainable.methodFunction>().toBeFunction()
 		expectTypeOf<typeof toBeHexChainable.methodFunction>().toBeFunction()
 		expectTypeOf<typeof toPassDownStateChainable.methodFunction>().toBeFunction()
-		expectTypeOf<typeof asyncChainable.methodFunction>().toBeFunction()
+		expectTypeOf<typeof toResolveToStringChainable.methodFunction>().toBeFunction()
 	})
 
 	it('type: return type inference (sync vs async)', () => {
@@ -80,7 +75,7 @@ describe('chainable type system (exhaustive)', () => {
 		expectTypeOf<ReturnType<typeof toPassDownStateChainable.methodFunction>>().toEqualTypeOf<Assertion>()
 
 		// Async matchers return ChainableAssertion
-		expectTypeOf<ReturnType<typeof asyncChainable.methodFunction>>().toExtend<ChainableAssertion>()
+		expectTypeOf<ReturnType<typeof toResolveToStringChainable.methodFunction>>().toExtend<ChainableAssertion>()
 	})
 
 	it('type: chain function consistency', () => {
@@ -88,21 +83,21 @@ describe('chainable type system (exhaustive)', () => {
 		expectTypeOf<typeof toBeBigIntChainable.chainFunction>().toBeFunction()
 		expectTypeOf<typeof toBeHexChainable.chainFunction>().toBeFunction()
 		expectTypeOf<typeof toPassDownStateChainable.chainFunction>().toBeFunction()
-		expectTypeOf<typeof asyncChainable.chainFunction>().toBeFunction()
+		expectTypeOf<typeof toResolveToStringChainable.chainFunction>().toBeFunction()
 	})
 
 	it('type: vitest matcher function types', () => {
 		// Test that vitest matcher types are properly structured
 		expectTypeOf<VitestMatcherFunction<unknown, false, unknown>>().toBeFunction()
-		expectTypeOf<VitestMatcherFunction<Promise<string>, true, { processed: boolean }>>().toBeFunction()
+		expectTypeOf<VitestMatcherFunction<Promise<string>, true, { resolved: boolean }>>().toBeFunction()
 
 		// Test specific return type structure
-		expectTypeOf<MatcherResult<{ processed: boolean }>>().toEqualTypeOf<{
+		expectTypeOf<MatcherResult<{ resolved: boolean }>>().toEqualTypeOf<{
 			pass: boolean
 			message: () => string
 			actual?: unknown
 			expected?: unknown
-			state?: { processed: boolean }
+			state?: { resolved: boolean }
 		}>()
 	})
 
@@ -119,11 +114,11 @@ describe('chainable type system (exhaustive)', () => {
 		}>()
 
 		// Test that ChainState can be used with different types
-		expectTypeOf<ChainState<string, { processed: boolean }>>().toEqualTypeOf<{
+		expectTypeOf<ChainState<string, { resolved: boolean }>>().toEqualTypeOf<{
 			chainedFrom: string | undefined
 			previousPassed: boolean | undefined
 			previousValue: string | undefined
-			previousState: { processed: boolean } | undefined
+			previousState: { resolved: boolean } | undefined
 			previousArgs: readonly unknown[] | undefined
 		}>()
 	})
@@ -141,6 +136,10 @@ describe('chainable type system (exhaustive)', () => {
 		expectTypeOf<typeof toBeAddressChainable>().toEqualTypeOf<
 			InferredVitestChainableResult<VitestMatcherConfig<'toBeAddressChainable', unknown, false, unknown>>
 		>()
+
+		expectTypeOf<typeof toResolveToStringChainable>().toExtend<
+			InferredVitestChainableResult<VitestMatcherConfig<'toResolveToStringChainable', Promise<string>, true, { resolved: boolean }>>
+		>()
 	})
 
 	it('type: state-aware matchers', () => {
@@ -156,9 +155,9 @@ describe('chainable type system (exhaustive)', () => {
 
 	it('type: utility types exist and work', () => {
 		// Test that ChainState is properly generic and has the right properties
-		expectTypeOf<ChainState<string, { test: boolean }>>().toHaveProperty('previousValue')
-		expectTypeOf<ChainState<string, { test: boolean }>>().toHaveProperty('previousState')
-		expectTypeOf<ChainState<string, { test: boolean }>>().toHaveProperty('chainedFrom')
+		expectTypeOf<ChainState<string, { resolved: boolean }>>().toHaveProperty('previousValue')
+		expectTypeOf<ChainState<string, { resolved: boolean }>>().toHaveProperty('previousState')
+		expectTypeOf<ChainState<string, { resolved: boolean }>>().toHaveProperty('chainedFrom')
 	})
 
 	it('type: custom matchers interface', () => {
@@ -168,6 +167,7 @@ describe('chainable type system (exhaustive)', () => {
 		expectTypeOf<CustomMatchers>().toHaveProperty('toBeAddressChainable')
 		expectTypeOf<CustomMatchers>().toHaveProperty('toPassDownStateChainable')
 		expectTypeOf<CustomMatchers>().toHaveProperty('toUsePreviousStateAndBigIntChainable')
+		expectTypeOf<CustomMatchers>().toHaveProperty('toResolveToStringChainable')
 	})
 
 	it('type: negative test cases (should not compile)', () => {
@@ -205,7 +205,7 @@ describe('chainable type system (exhaustive)', () => {
 		type AsyncResult = VitestMatcherFunction<
 			Promise<string>,
 			true,
-			{ processed: boolean }
+			{ resolved: boolean }
 		> extends VitestMatcherFunction<any, true, any>
 			? ChainableAssertion
 			: Assertion
