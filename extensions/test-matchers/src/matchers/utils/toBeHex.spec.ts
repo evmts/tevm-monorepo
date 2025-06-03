@@ -153,7 +153,7 @@ describe('toBeHex', () => {
 		it('should provide helpful error messages for missing 0x prefix', () => {
 			try {
 				expect('1234').toBeHex()
-			} catch (error) {
+			} catch (error: any) {
 				expect(error.message).toBe('Expected 1234 to start with "0x"')
 				expect(error.actual).toBe('1234')
 			}
@@ -162,7 +162,7 @@ describe('toBeHex', () => {
 		it('should provide helpful error messages for invalid hex characters', () => {
 			try {
 				expect('0xghij').toBeHex()
-			} catch (error) {
+			} catch (error: any) {
 				expect(error.message).toBe('Expected 0xghij to contain only hex characters (0-9, a-f, A-F) after "0x"')
 				expect(error.actual).toBe('0xghij')
 			}
@@ -171,7 +171,7 @@ describe('toBeHex', () => {
 		it('should provide helpful error messages for wrong size', () => {
 			try {
 				expect('0x123').toBeHex({ size: 2 })
-			} catch (error) {
+			} catch (error: any) {
 				expect(error.message).toBe('Expected 0x123 to have 2 bytes, but got 1.5 bytes')
 				expect(error.actual).toBe('0x123')
 			}
@@ -200,7 +200,7 @@ describe('toBeHex', () => {
 			testCases.forEach(({ input, options, expectedMessage, actual }) => {
 				try {
 					expect(input).toBeHex(options)
-				} catch (error) {
+				} catch (error: any) {
 					expect(error.message).toBe(expectedMessage)
 					expect(error.actual).toBe(actual)
 				}

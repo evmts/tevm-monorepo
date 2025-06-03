@@ -1,7 +1,8 @@
+import type { Hex } from 'viem'
 import { describe, expect, it } from 'vitest'
 
 describe('toEqualHex', () => {
-	const validHexPairs = [
+	const validHexPairs: [Hex, Hex][] = [
 		// Same hex - different cases
 		['0x1234abcd', '0x1234ABCD'],
 		['0xdeadbeef', '0xDEADBEEF'],
@@ -21,7 +22,7 @@ describe('toEqualHex', () => {
 		['0x0000000000000001', '0x1'],
 	]
 
-	const differentHexPairs = [
+	const differentHexPairs: [Hex, Hex][] = [
 		['0x1234abcd', '0x1234abce'],
 		['0xdeadbeef', '0xdeadbeee'],
 		['0x0', '0x1'],
@@ -29,7 +30,7 @@ describe('toEqualHex', () => {
 		['0x1234567890abcdef', '0x1234567890abcdee'],
 	]
 
-	const invalidHexPairs = [
+	const invalidHexPairs: [Hex | string, Hex | string][] = [
 		['0x123g', '0x1234'], // invalid hex char
 		['0x1234', '0x123g'], // invalid hex char
 		['invalid', '0x1234'], // completely invalid
@@ -38,7 +39,7 @@ describe('toEqualHex', () => {
 		['0x1234', '123'], // missing 0x prefix
 	]
 
-	const normalizedPairs = [
+	const normalizedPairs: [Hex, Hex][] = [
 		// These should be equal with default (normalized) comparison
 		['0x0', '0x00'],
 		['0x000123', '0x123'],
@@ -48,7 +49,7 @@ describe('toEqualHex', () => {
 		['0x000000000000000000000000000000000000000000000000000000000000001a', '0x1a'],
 	]
 
-	const exactMismatchPairs = [
+	const exactMismatchPairs: [Hex, Hex][] = [
 		// These should NOT be equal with exact comparison but ARE equal with normalized
 		['0x0', '0x00'],
 		['0x000123', '0x123'],
@@ -134,7 +135,7 @@ describe('toEqualHex', () => {
 	it('should provide helpful error messages', () => {
 		try {
 			expect('0x1234abcd').toEqualHex('0x1234abce')
-		} catch (error) {
+		} catch (error: any) {
 			expect(error.message).toBe('Expected hex strings to be equal (normalized comparison)')
 			expect(error.actual).toBe('0x1234abcd')
 			expect(error.expected).toBe('0x1234abce')
@@ -142,7 +143,7 @@ describe('toEqualHex', () => {
 
 		try {
 			expect('0x123g').toEqualHex('0x1234')
-		} catch (error) {
+		} catch (error: any) {
 			expect(error.message).toBe('Expected 0x123g to be a valid hex string')
 			expect(error.actual).toBe('0x123g')
 			expect(error.expected).toBe('0x1234')
@@ -150,7 +151,7 @@ describe('toEqualHex', () => {
 
 		try {
 			expect('0x000123').toEqualHex('0x123', { exact: true })
-		} catch (error) {
+		} catch (error: any) {
 			expect(error.message).toBe('Expected hex strings to be equal (exact match)')
 			expect(error.actual).toBe('0x000123')
 			expect(error.expected).toBe('0x123')

@@ -38,14 +38,14 @@ declare module 'vitest' {
 		toBeBigInt(): T
 		toBeAddress(opts?: IsAddressOptions): T
 		toBeHex(opts?: IsHexOptions): T
-		toEqualAddress(expected: string): T
-		toEqualHex(expected: string, opts?: EqualHexOptions): T
+		toEqualAddress(expected: unknown): T
+		toEqualHex(expected: unknown, opts?: EqualHexOptions): T
 	}
 	interface AsymmetricMatchersContaining {
 		toBeBigInt(): any
 		toBeAddress(): any
 		toBeHex(opts?: IsHexOptions): any
-		toEqualAddress(expected: string): any
-		toEqualHex(expected: string, opts?: EqualHexOptions): any
+		toEqualAddress(expected: unknown): any
+		toEqualHex(expected: unknown, opts?: EqualHexOptions): any
 	}
 }

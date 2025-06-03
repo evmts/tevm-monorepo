@@ -98,14 +98,14 @@ describe('toBeAddress', () => {
 			it('should provide helpful error messages for invalid format', () => {
 				try {
 					expect('0x123').toBeAddress()
-				} catch (error) {
+				} catch (error: any) {
 					expect(error.message).toBe('Expected 0x123 to be a valid Ethereum address (checksummed)')
 					expect(error.actual).toBe('0x123')
 				}
 
 				try {
 					expect(123).toBeAddress()
-				} catch (error) {
+				} catch (error: any) {
 					expect(error.message).toBe('Expected 123 to be a valid Ethereum address (checksummed)')
 					expect(error.actual).toBe(123)
 				}
@@ -114,7 +114,7 @@ describe('toBeAddress', () => {
 			it('should mention checksum in error messages when strict mode fails', () => {
 				try {
 					expect('0xa5cc3c03994db5b0d9a5eedd10cabab0813678ac').toBeAddress({ strict: true })
-				} catch (error) {
+				} catch (error: any) {
 					expect(error.message).toBe(
 						'Expected 0xa5cc3c03994db5b0d9a5eedd10cabab0813678ac to be a valid Ethereum address (checksummed)',
 					)
@@ -125,7 +125,7 @@ describe('toBeAddress', () => {
 			it('should mention checksum in error messages for default mode (which is strict)', () => {
 				try {
 					expect('0xa5cc3c03994db5b0d9a5eedd10cabab0813678ac').toBeAddress()
-				} catch (error) {
+				} catch (error: any) {
 					expect(error.message).toBe(
 						'Expected 0xa5cc3c03994db5b0d9a5eedd10cabab0813678ac to be a valid Ethereum address (checksummed)',
 					)
@@ -136,7 +136,7 @@ describe('toBeAddress', () => {
 			it('should not mention checksum when strict: false', () => {
 				try {
 					expect('invalid').toBeAddress({ strict: false })
-				} catch (error) {
+				} catch (error: any) {
 					expect(error.message).toBe('Expected invalid to be a valid Ethereum address')
 					expect(error.actual).toBe('invalid')
 				}
