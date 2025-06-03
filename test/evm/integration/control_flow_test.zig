@@ -153,8 +153,8 @@ test "Integration: Return data handling" {
     const result = helpers.executeOpcode(0xF3, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.STOP, result);
     
-    // The return data would be available in frame.output
-    try testing.expectEqual(@as(usize, 32), test_frame.frame.output.len);
+    // The return data would be available in frame.return_data_buffer
+    try testing.expectEqual(@as(usize, 32), test_frame.frame.return_data_buffer.len);
 }
 
 test "Integration: Revert with reason" {
@@ -187,9 +187,9 @@ test "Integration: Revert with reason" {
     const result = helpers.executeOpcode(0xFD, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.REVERT, result);
     
-    // The revert data would be available in frame.output
-    try testing.expectEqual(@as(usize, error_msg.len), test_frame.frame.output.len);
-    try testing.expectEqualSlices(u8, error_msg, test_frame.frame.output);
+    // The revert data would be available in frame.return_data_buffer
+    try testing.expectEqual(@as(usize, error_msg.len), test_frame.frame.return_data_buffer.len);
+    try testing.expectEqualSlices(u8, error_msg, test_frame.frame.return_data_buffer);
 }
 
 test "Integration: PC tracking through operations" {
