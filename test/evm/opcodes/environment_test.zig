@@ -249,7 +249,7 @@ test "Environment: EXTCODECOPY opcode" {
     
     // Verify partial copy
     for (0..4) |i| {
-        const mem_byte = test_frame.frame.memory.get_byte(32 + i).?;
+        const mem_byte = try test_frame.frame.memory.get_byte(32 + i);
         try testing.expectEqual(test_code[2 + i], mem_byte);
     }
     

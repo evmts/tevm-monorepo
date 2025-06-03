@@ -343,84 +343,104 @@ test "LOG4: gas consumption with topics" {
 // Test memory expansion
 test "LOG0: memory expansion gas" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
     
-    // Set initial gas
-    frame.frame.gas_remaining = 10000;
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
+    defer test_frame.deinit();
     
     // Push offset and length that requires memory expansion
-    try test_frame.pushStack(32);  // length
-    try test_frame.pushStack(256); // offset (requires expansion)
+    try test_frame.pushStack(&[_]u256{256, 32}); // offset (requires expansion), length
     
-    const gas_before = frame.frame.gas_remaining;
+    const gas_before = test_frame.frame.gas_remaining;
     
     // Execute LOG0
     _ = try test_helpers.executeOpcode(log.op_log0, &test_vm.vm, &test_frame.frame);
     
     // Should consume gas for LOG0 plus memory expansion
-    const gas_used = gas_before - frame.frame.gas_remaining;
+    const gas_used = gas_before - test_frame.frame.gas_remaining;
     try testing.expect(gas_used > 631); // More than just LOG0 + data cost
 }
 
 // Test stack underflow
 test "LOG0: stack underflow" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Push only one value (need two)
-    try test_frame.pushStack(0);
+    try test_frame.pushStack(&[_]u256{0});
     
     // Execute LOG0 - should fail
-    const result = test_helpers.executeOpcode(opcodes.log.op_log0, &frame);
-    try testing.expectError(ExecutionError.Error.StackUnderflow, result);
+    const result = test_helpers.executeOpcode(log.op_log0, &test_vm.vm, &test_frame.frame);
+    try testing.expectError(test_helpers.ExecutionError.Error.StackUnderflow, result);
 }
 
 test "LOG4: stack underflow" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Push only 5 values (need 6 for LOG4)
-    try test_frame.pushStack(0x4); // topic4
-    try test_frame.pushStack(0x3); // topic3
-    try test_frame.pushStack(0x2); // topic2
-    try test_frame.pushStack(0x1); // topic1
-    try test_frame.pushStack(0);   // length
+    try test_frame.pushStack(&[_]u256{0, 0x1, 0x2, 0x3, 0x4}); // length, topic1, topic2, topic3, topic4
     // Missing offset
     
     // Execute LOG4 - should fail
-    const result = test_helpers.executeOpcode(opcodes.log.op_log4, &frame);
-    try testing.expectError(ExecutionError.Error.StackUnderflow, result);
+    const result = test_helpers.executeOpcode(log.op_log4, &test_vm.vm, &test_frame.frame);
+    try testing.expectError(test_helpers.ExecutionError.Error.StackUnderflow, result);
 }
 
 // Test out of gas
 test "LOG0: out of gas" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
     
-    // Set very limited gas
-    frame.frame.gas_remaining = 100;
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 100);
+    defer test_frame.deinit();
     
     // Push offset and length for large data
-    try test_frame.pushStack(1000); // length (would cost 8000 gas for data alone)
-    try test_frame.pushStack(0);    // offset
+    try test_frame.pushStack(&[_]u256{0, 1000}); // offset, length (would cost 8000 gas for data alone)
     
     // Execute LOG0 - should fail
-    const result = test_helpers.executeOpcode(opcodes.log.op_log0, &frame);
-    try testing.expectError(ExecutionError.Error.OutOfGas, result);
+    const result = test_helpers.executeOpcode(log.op_log0, &test_vm.vm, &test_frame.frame);
+    try testing.expectError(test_helpers.ExecutionError.Error.OutOfGas, result);
 }

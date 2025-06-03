@@ -246,8 +246,8 @@ test "Integration: Log emission with topics" {
     
     // Prepare topics (e.g., Transfer event signature and addresses)
     const topic1: u256 = 0x1234567890abcdef; // Event signature
-    const topic2: u256 = @as(u256, @bitCast(helpers.TestAddresses.ALICE.inner)); // From
-    const topic3: u256 = @as(u256, @bitCast(helpers.TestAddresses.BOB.inner)); // To
+    const topic2: u256 = helpers.toU256(helpers.TestAddresses.ALICE); // From
+    const topic3: u256 = helpers.toU256(helpers.TestAddresses.BOB); // To
     
     // Emit LOG3 (3 topics)
     try test_frame.pushStack(&[_]u256{
@@ -302,7 +302,7 @@ test "Integration: External code operations" {
     defer test_frame.deinit();
     
     // Test EXTCODESIZE
-    try test_frame.pushStack(&[_]u256{@as(u256, @bitCast(helpers.TestAddresses.BOB.inner))});
+    try test_frame.pushStack(&[_]u256{helpers.toU256(helpers.TestAddresses.BOB)});
     _ = try helpers.executeOpcode(environment.op_extcodesize, &test_vm.vm, &test_frame.frame);
     try helpers.expectStackValue(&test_frame.frame, 0, external_code.len);
     _ = try helpers.executeOpcode(stack.op_pop, &test_vm.vm, &test_frame.frame);
@@ -321,7 +321,7 @@ test "Integration: External code operations" {
     try testing.expectEqualSlices(u8, &external_code, copied_code);
     
     // Test EXTCODEHASH
-    try test_frame.pushStack(&[_]u256{@as(u256, @bitCast(helpers.TestAddresses.BOB.inner))});
+    try test_frame.pushStack(&[_]u256{helpers.toU256(helpers.TestAddresses.BOB)});
     _ = try helpers.executeOpcode(environment.op_extcodehash, &test_vm.vm, &test_frame.frame);
     
     // Hash should be non-zero for account with code

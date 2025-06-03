@@ -315,11 +315,12 @@ test "Gas: CALL operations gas forwarding" {
     defer test_frame.deinit();
     
     // Mock successful call
-    test_vm.vm.call_result = .{
-        .success = true,
-        .gas_left = 40000, // Will use 10000 gas
-        .output = null,
-    };
+    // TODO: Fix this when call_result is implemented
+    // test_vm.vm.call_result = .{
+    //     .success = true,
+    //     .gas_left = 40000, // Will use 10000 gas
+    //     .output = null,
+    // };
     
     // Test CALL with gas calculation
     const target = helpers.toU256(helpers.TestAddresses.BOB);
@@ -366,12 +367,13 @@ test "Gas: CREATE operations with init code" {
     }
     
     // Mock successful creation
-    test_vm.vm.create_result = .{
-        .success = true,
-        .address = helpers.TestAddresses.CHARLIE,
-        .gas_left = 150000,
-        .output = null,
-    };
+    // TODO: Fix this when create_result is implemented
+    // test_vm.vm.create_result = .{
+    //     .success = true,
+    //     .address = helpers.TestAddresses.CHARLIE,
+    //     .gas_left = 150000,
+    //     .output = null,
+    // };
     
     // Test CREATE gas (32000 base + 200 per byte of init code)
     try test_frame.pushStack(&[_]u256{init_code.len, 0, 0}); // size, offset, value
@@ -386,7 +388,7 @@ test "Gas: CREATE operations with init code" {
     
     // Test CREATE2 with additional hashing cost
     test_frame.frame.stack.clear();
-    test_vm.vm.create_result.gas_left = 150000; // Reset
+    // test_vm.vm.create_result.gas_left = 150000; // Reset
     
     try test_frame.pushStack(&[_]u256{0x12345678, init_code.len, 0, 0}); // salt, size, offset, value
     const gas_before_create2 = test_frame.frame.gas_remaining;
@@ -422,7 +424,7 @@ test "Gas: Copy operations (CALLDATACOPY, CODECOPY, etc.)" {
     // Test CALLDATACOPY (3 gas per word + memory expansion)
     try test_frame.pushStack(&[_]u256{64, 0, 0}); // size, data_offset, mem_offset
     const gas_before_cdc = test_frame.frame.gas_remaining;
-    _ = try helpers.executeOpcode(opcodes.environment.op_calldatacopy, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(opcodes.memory.op_calldatacopy, &test_vm.vm, &test_frame.frame);
     const gas_used_cdc = gas_before_cdc - test_frame.frame.gas_remaining;
     // 3 gas base + 3 * 2 words + memory expansion (3 * 2 words)
     try testing.expectEqual(@as(u64, 3 + 6 + 6), gas_used_cdc);
@@ -431,7 +433,7 @@ test "Gas: Copy operations (CALLDATACOPY, CODECOPY, etc.)" {
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{32, 0, 100}); // size, code_offset, mem_offset
     const gas_before_cc = test_frame.frame.gas_remaining;
-    _ = try helpers.executeOpcode(opcodes.environment.op_codecopy, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(opcodes.memory.op_codecopy, &test_vm.vm, &test_frame.frame);
     const gas_used_cc = gas_before_cc - test_frame.frame.gas_remaining;
     // 3 gas base + 3 * 1 word + memory expansion
     try testing.expect(gas_used_cc >= 6);
@@ -511,7 +513,7 @@ test "Gas: Environmental query costs" {
     // Test CODESIZE (2 gas)
     test_frame.frame.stack.clear();
     const gas_before_codesize = test_frame.frame.gas_remaining;
-    _ = try helpers.executeOpcode(opcodes.environment.op_codesize, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(opcodes.memory.op_codesize, &test_vm.vm, &test_frame.frame);
     try testing.expectEqual(@as(u64, gas_constants.GasQuickStep), gas_before_codesize - test_frame.frame.gas_remaining);
     
     // Test GASPRICE (2 gas)

@@ -66,7 +66,7 @@ test "Crypto: KECCAK256 (SHA3) basic operations" {
     try test_frame.pushStack(&[_]u256{32, 64}); // offset=64, size=32
     _ = try helpers.executeOpcode(crypto.op_sha3, &test_vm.vm, &test_frame.frame);
     
-    const offset_result = test_frame.frame.stack.peek(0).?;
+    const offset_result = try test_frame.frame.stack.peek();
     try testing.expect(offset_result != 0); // Hash should not be zero
     try testing.expect(offset_result != result); // Different data should produce different hash
 }
