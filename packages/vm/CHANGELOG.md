@@ -1,5 +1,11 @@
 # @tevm/state
 
+## 1.0.0-next.147
+
+### Patch Changes
+
+- a360683: Skip balance & nonce in mineHandler when adding tx to BlockBuilder.
+
 ## 1.0.0-next.146
 
 ### Patch Changes

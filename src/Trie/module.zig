@@ -21,8 +21,8 @@ pub const TrieError = trie.TrieError;
 pub const ProofError = proof.ProofError;
 
 // Utility functions
-pub const keyToNibbles = trie.keyToNibbles;
-pub const nibblesToKey = trie.nibblesToKey;
+pub const key_to_nibbles = trie.key_to_nibbles;
+pub const nibbles_to_key = trie.nibbles_to_key;
 
 // Tests
 test {
