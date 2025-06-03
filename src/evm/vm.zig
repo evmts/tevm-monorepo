@@ -8,9 +8,12 @@ const Operation = @import("operation.zig");
 const Address = @import("Address");
 const StoragePool = @import("storage_pool.zig");
 
-// Import Log struct
-const log_module = @import("opcodes/log.zig");
-pub const Log = log_module.Log;
+// Log struct for EVM event logs (LOG0-LOG4 opcodes)
+pub const Log = struct {
+    address: Address.Address,
+    topics: []const u256,
+    data: []const u8,
+};
 
 const Self = @This();
 

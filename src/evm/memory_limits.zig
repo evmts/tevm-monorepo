@@ -44,7 +44,7 @@ test "memory gas costs" {
     
     // Test small allocations
     try testing.expectEqual(@as(u64, 3), calculate_memory_gas_cost(32)); // 1 word
-    try testing.expectEqual(@as(u64, 9), calculate_memory_gas_cost(64)); // 2 words
+    try testing.expectEqual(@as(u64, 6), calculate_memory_gas_cost(64)); // 2 words
     
     // Test 1 KB
     const kb_cost = calculate_memory_gas_cost(1024);

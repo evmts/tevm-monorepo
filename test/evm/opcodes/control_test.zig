@@ -72,7 +72,7 @@ test "Control: JUMP basic operations" {
     // Test 4: Jump to max u256 (out of range)
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{std.math.maxInt(u256)});
-    const result3 = control.op_jump(0, &test_vm.vm, &test_frame.frame);
+    const result3 = helpers.executeOpcode(control.op_jump, &test_vm.vm, &test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.InvalidJump, result3);
 }
 
@@ -379,7 +379,7 @@ test "Control: Stack underflow errors" {
     defer test_frame.deinit();
     
     // Test JUMP with empty stack
-    const jump_result = control.op_jump(0, &test_vm.vm, &test_frame.frame);
+    const jump_result = helpers.executeOpcode(control.op_jump, &test_vm.vm, &test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, jump_result);
     
     // Test JUMPI with insufficient stack

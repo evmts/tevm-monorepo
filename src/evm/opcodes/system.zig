@@ -79,13 +79,15 @@ pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     // Update gas remaining
     frame.gas_remaining = frame.gas_remaining / 64 + result.gas_left;
     
-    if (result.success) {
-        // EIP-2929: Mark the newly created address as warm
-        _ = try vm.mark_address_warm(result.address);
-        try stack_push(&frame.stack, to_u256(result.address));
-    } else {
+    if (!result.success) {
         try stack_push(&frame.stack, 0);
+        frame.return_data_buffer = result.output orelse &[_]u8{};
+        return Operation.ExecutionResult{};
     }
+    
+    // EIP-2929: Mark the newly created address as warm
+    _ = try vm.mark_address_warm(result.address);
+    try stack_push(&frame.stack, to_u256(result.address));
     
     // Set return data
     frame.return_data_buffer = result.output orelse &[_]u8{};
@@ -149,13 +151,15 @@ pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     // Update gas remaining
     frame.gas_remaining = frame.gas_remaining / 64 + result.gas_left;
     
-    if (result.success) {
-        // EIP-2929: Mark the newly created address as warm
-        _ = try vm.mark_address_warm(result.address);
-        try stack_push(&frame.stack, to_u256(result.address));
-    } else {
+    if (!result.success) {
         try stack_push(&frame.stack, 0);
+        frame.return_data_buffer = result.output orelse &[_]u8{};
+        return Operation.ExecutionResult{};
     }
+    
+    // EIP-2929: Mark the newly created address as warm
+    _ = try vm.mark_address_warm(result.address);
+    try stack_push(&frame.stack, to_u256(result.address));
     
     // Set return data
     frame.return_data_buffer = result.output orelse &[_]u8{};

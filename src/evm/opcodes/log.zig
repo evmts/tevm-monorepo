@@ -7,12 +7,8 @@ const Vm = @import("../vm.zig");
 const gas_constants = @import("../gas_constants.zig");
 const Address = @import("Address");
 
-// Log structure
-pub const Log = struct {
-    address: Address.Address,
-    topics: []const u256,
-    data: []const u8,
-};
+// Import Log struct from VM
+const Log = Vm.Log;
 
 // Helper to convert Stack errors to ExecutionError
 fn stack_pop(stack: *Stack) ExecutionError.Error!u256 {
