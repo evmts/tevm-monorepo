@@ -18,6 +18,7 @@ const std = @import("std");
 const constants = @import("constants.zig");
 const bitvec = @import("bitvec.zig");
 const Address = @import("Address").Address;
+const zero_address = @import("Address").zero;
 const CodeAnalysis = @import("code_analysis.zig");
 const StoragePool = @import("storage_pool.zig");
 
@@ -103,7 +104,7 @@ pub fn init_deployment(
     salt: ?[32]u8,
 ) Self {
     const contract = Self{
-        .address = [_]u8{0} ** 20,
+        .address = zero_address(),
         .caller = caller,
         .value = value,
         .gas = gas,
