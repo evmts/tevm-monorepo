@@ -93,13 +93,14 @@ pub fn op_byte(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     
     if (index >= 32) {
         try stack_push(&frame.stack, 0);
-    } else {
-        // Get byte at position from the left (big-endian)
-        const byte_index = 31 - @as(u8, @intCast(index));
-        const shift_amount = @as(u8, @intCast(@min(byte_index * 8, 255)));
-        const byte_value = (value >> shift_amount) & 0xFF;
-        try stack_push(&frame.stack, byte_value);
+        return Operation.ExecutionResult{};
     }
+    
+    // Get byte at position from the left (big-endian)
+    const byte_index = 31 - @as(u8, @intCast(index));
+    const shift_amount = @as(u8, @intCast(@min(byte_index * 8, 255)));
+    const byte_value = (value >> shift_amount) & 0xFF;
+    try stack_push(&frame.stack, byte_value);
     
     return Operation.ExecutionResult{};
 }
@@ -115,10 +116,11 @@ pub fn op_shl(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     
     if (shift >= 256) {
         try stack_push(&frame.stack, 0);
-    } else {
-        const result = value << @as(u8, @intCast(shift));
-        try stack_push(&frame.stack, result);
+        return Operation.ExecutionResult{};
     }
+    
+    const result = value << @as(u8, @intCast(shift));
+    try stack_push(&frame.stack, result);
     
     return Operation.ExecutionResult{};
 }
@@ -134,9 +136,11 @@ pub fn op_shr(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     
     if (shift >= 256) {
         try stack_push(&frame.stack, 0);
-    } else {
-        const result = value >> @as(u8, @intCast(shift));
-        try stack_push(&frame.stack, result);
+        return Operation.ExecutionResult{};
+    }
+    
+    const result = value >> @as(u8, @intCast(shift));
+    try stack_push(&frame.stack, result);
     }
     
     return Operation.ExecutionResult{};
@@ -159,14 +163,15 @@ pub fn op_sar(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
         } else {
             try stack_push(&frame.stack, 0);
         }
-    } else {
-        // Arithmetic shift preserving sign
-        const shift_amount = @as(u8, @intCast(shift));
-        const value_i256 = @as(i256, @bitCast(value));
-        const result_i256 = value_i256 >> shift_amount;
-        const result = @as(u256, @bitCast(result_i256));
-        try stack_push(&frame.stack, result);
+        return Operation.ExecutionResult{};
     }
+    
+    // Arithmetic shift preserving sign
+    const shift_amount = @as(u8, @intCast(shift));
+    const value_i256 = @as(i256, @bitCast(value));
+    const result_i256 = value_i256 >> shift_amount;
+    const result = @as(u256, @bitCast(result_i256));
+    try stack_push(&frame.stack, result);
     
     return Operation.ExecutionResult{};
 }

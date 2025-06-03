@@ -299,7 +299,7 @@ test "Bitwise: SAR (arithmetic shift right) operations" {
     try test_frame.pushStack(&[_]u256{negative, 8});
     _ = try helpers.executeOpcode(bitwise.op_sar, &test_vm.vm, &test_frame.frame);
     // Should fill with 1s from left
-    const expected = std.math.maxInt(u256) << 247 | (negative >> 8);
+    const expected = ((@as(u256, 0xFF) << 248) | (negative >> 8));
     try helpers.expectStackValue(&test_frame.frame, 0, expected);
     
     // Test 3: SAR by >= 256 with negative number (should return all 1s)

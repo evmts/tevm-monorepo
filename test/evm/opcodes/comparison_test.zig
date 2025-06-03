@@ -397,7 +397,7 @@ test "Comparison: Gas consumption verification" {
         .{ .name = "ISZERO", .op = comparison.op_iszero, .stack_items = 1 },
     };
     
-    for (operations) |op_info| {
+    inline for (operations) |op_info| {
         test_frame.frame.stack.clear();
         test_frame.frame.gas_remaining = 1000;
         

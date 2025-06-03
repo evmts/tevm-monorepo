@@ -59,7 +59,9 @@ memory_limit: u64,
 root_ptr: *Self,
 
 pub const InitialCapacity: usize = 4 * 1024;
-pub const DefaultMemoryLimit: u64 = std.math.maxInt(u64);
+// 32 MB default limit - matches common EVM implementations
+// At this size, gas costs would exceed any reasonable block gas limit
+pub const DefaultMemoryLimit: u64 = 32 * 1024 * 1024;
 
 // Initialization Functions
 

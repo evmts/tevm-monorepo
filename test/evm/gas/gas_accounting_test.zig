@@ -1,8 +1,9 @@
 const std = @import("std");
 const testing = std.testing;
-const helpers = @import("../opcodes/test_helpers.zig");
-const opcodes = @import("../../../src/evm/opcodes/package.zig");
-const gas_constants = @import("../../../src/evm/gas_constants.zig");
+const evm = @import("evm");
+const helpers = @import("../package.zig").test_helpers;
+const opcodes = evm.opcodes;
+const gas_constants = evm.gas_constants;
 
 // Gas accounting tests to verify calculations match the Ethereum Yellow Paper
 
@@ -163,7 +164,7 @@ test "Gas: SHA3 dynamic costs" {
     // Prepare data in memory
     var i: usize = 0;
     while (i < 128) : (i += 1) {
-        try test_frame.setMemory(i, &[_]u8{@intCast(u8, i & 0xFF)});
+        try test_frame.setMemory(i, &[_]u8{@intCast(i & 0xFF)});
     }
     
     // Test SHA3 of 0 bytes (30 gas only)

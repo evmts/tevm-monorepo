@@ -7,7 +7,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
 **Total Issues**: 48  
 **P0 (Critical)**: 15  
 **P1 (High)**: 18  
-**P2 (Medium)**: 15  
+**P2 (Medium)**: 15
 
 **Estimated Total Effort**: 3-4 weeks with 2 developers
 
@@ -18,6 +18,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
 ### 🏗️ Infrastructure Issues
 
 #### ISSUE-001: Fix Import Organization
+
 - **Status**: Complete
 - **Component**: All opcode files + jump_table.zig
 - **Description**: Imports are missing or incorrectly placed. Frame import is at bottom of jump_table.zig
@@ -26,7 +27,8 @@ Based on the comprehensive code review, here are the issues that need to be addr
 - **Resolution**: Fixed Frame import location in jump_table.zig. Note: Address imports in opcodes need to use @import("Address") module syntax to avoid conflicts
 
 #### ISSUE-002: Add Missing u256 Type Import
-- **Status**: Complete
+
+- **Status**: Canceled
 - **Component**: All opcode files
 - **Description**: u256 type is used throughout but never imported
 - **Effort**: 1 hour
@@ -34,6 +36,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
 - **Resolution**: u256 is a built-in type in Zig (unsigned 256-bit integer) and doesn't require import
 
 #### ISSUE-003: Define VM Interface
+
 - **Status**: Complete
 - **Component**: Core infrastructure
 - **Description**: Opcodes reference VM methods that don't exist
@@ -52,6 +55,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
 - **Resolution**: All required VM interface methods have been added to vm.zig including storage, balance, code, transient storage, and placeholder methods for contract creation/calling. Fixed Address import to use package module syntax.
 
 #### ISSUE-004: Complete Frame Structure
+
 - **Status**: Complete
 - **Component**: frame.zig
 - **Description**: Frame is missing required fields
@@ -66,6 +70,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
 ### 🔥 Critical Opcode Issues
 
 #### ISSUE-005: Storage Operations Are Completely Stubbed
+
 - **Status**: Complete
 - **Component**: storage.zig
 - **Description**: SLOAD/SSTORE return dummy values, no actual storage access
@@ -79,6 +84,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
   - Fixed VM's interpreter/state pointer casting to pass VM as interpreter
 
 #### ISSUE-006: Environment Opcodes Return Hardcoded Values
+
 - **Status**: Complete
 - **Component**: environment.zig
 - **Description**: BALANCE, ORIGIN, CALLER, etc. return placeholder values
@@ -87,7 +93,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
 - **Resolution**: Updated all environment opcodes to use actual VM state:
   - op_balance: Gets balance from vm.balances
   - op_origin: Returns vm.tx_origin
-  - op_gasprice: Returns vm.gas_price  
+  - op_gasprice: Returns vm.gas_price
   - op_extcodesize: Gets code size from vm.code
   - op_extcodecopy: Copies code from vm.code to memory
   - op_extcodehash: Computes keccak256 of code from vm.code
@@ -95,6 +101,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
   - op_chainid: Returns vm.chain_id
 
 #### ISSUE-007: Block Opcodes Return Hardcoded Values
+
 - **Status**: Complete
 - **Component**: block.zig
 - **Description**: TIMESTAMP returns 1, NUMBER returns 0, etc.
@@ -103,12 +110,13 @@ Based on the comprehensive code review, here are the issues that need to be addr
 - **Resolution**: Updated all block opcodes to use VM block context fields. Added blob_hashes and blob_base_fee fields to VM structure for EIP-4844 support.
 
 #### ISSUE-008: Call Operations Not Implemented
+
 - **Status**: Complete
 - **Component**: system.zig
 - **Description**: CALL, DELEGATECALL, STATICCALL, CREATE are stubs
 - **Effort**: 8 hours
 - **Impact**: No contract interaction possible
-- **Resolution**: 
+- **Resolution**:
   - Completed STATICCALL implementation to match CALL but with is_static=true
   - All call operations (CREATE, CREATE2, CALL, CALLCODE, DELEGATECALL, STATICCALL) now properly:
     - Check call depth (1024 limit)
@@ -125,6 +133,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
 ### ⛽ Gas Accounting Issues
 
 #### ISSUE-009: Dynamic Gas Not Consumed
+
 - **Status**: Complete
 - **Component**: All opcode files
 - **Description**: Gas is calculated but never consumed via frame.gas.consume()
@@ -138,6 +147,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
   - All memory operations now correctly calculate and consume memory expansion gas using gas_constants.memory_gas_cost()
 
 #### ISSUE-010: Missing Gas Consumption in Jump Table
+
 - **Status**: Complete
 - **Component**: jump_table.zig
 - **Description**: execute() method should consume base gas before calling handler
@@ -147,6 +157,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
 ### 🚨 Missing Essential Opcodes
 
 #### ISSUE-011: Missing Byzantium Opcodes
+
 - **Status**: Complete
 - **Component**: jump_table.zig
 - **Opcodes**: RETURNDATASIZE (0x3d), RETURNDATACOPY (0x3e), REVERT (0xfd), STATICCALL (0xfa)
@@ -157,14 +168,15 @@ Based on the comprehensive code review, here are the issues that need to be addr
   - All opcodes were already implemented in their respective modules
 
 #### ISSUE-012: Missing Constantinople Opcodes
+
 - **Status**: Complete
 - **Component**: jump_table.zig
 - **Opcodes**: CREATE2 (0xf5), EXTCODEHASH (0x3f), SHL/SHR/SAR (0x1b-0x1d)
 - **Effort**: 4 hours
 - **Note**: Bitwise shifts are implemented but not in jump table
-- **Resolution**: 
+- **Resolution**:
   - Added CREATE2 operation definition with gas cost and stack requirements
-  - Added DELEGATECALL operation definition (needed for Homestead+) 
+  - Added DELEGATECALL operation definition (needed for Homestead+)
   - Fixed EXTCODEHASH to only be added for Constantinople+ (was incorrectly in Frontier)
   - Fixed SHL/SHR/SAR to only be added for Constantinople+ (was incorrectly in Frontier)
   - Updated init_from_hardfork to properly handle hardfork progression:
@@ -173,13 +185,14 @@ Based on the comprehensive code review, here are the issues that need to be addr
     - Constantinople+ adds CREATE2 (0xf5), EXTCODEHASH (0x3f), SHL/SHR/SAR (0x1b-0x1d)
 
 #### ISSUE-013: Missing Istanbul+ Opcodes
+
 - **Status**: Complete
 - **Component**: jump_table.zig
 - **Opcodes**: CHAINID (0x46), SELFBALANCE (0x47), BASEFEE (0x48)
 - **Effort**: 2 hours
 - **Resolution**:
   - Added CHAINID and SELFBALANCE operation definitions (Istanbul)
-  - Added BASEFEE operation definition (London) 
+  - Added BASEFEE operation definition (London)
   - Updated init_from_hardfork to properly handle Istanbul and London hardforks:
     - Istanbul+ adds CHAINID (0x46) and SELFBALANCE (0x47)
     - London+ adds BASEFEE (0x48)
@@ -187,6 +200,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
   - All three opcodes were already implemented in their respective modules (environment.zig and block.zig)
 
 #### ISSUE-014: Missing Shanghai Opcodes
+
 - **Status**: Complete
 - **Component**: jump_table.zig
 - **Opcodes**: PUSH0 (0x5f)
@@ -198,6 +212,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
   - PUSH0 was already implemented in stack.zig
 
 #### ISSUE-015: Missing Cancun Opcodes
+
 - **Status**: Complete
 - **Component**: jump_table.zig
 - **Opcodes**: BLOBHASH (0x49), BLOBBASEFEE (0x4a), MCOPY (0x5e), TLOAD (0x5c), TSTORE (0x5d)
@@ -219,6 +234,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
 ### 🔧 Implementation Completion
 
 #### ISSUE-016: Complete ADDMOD/MULMOD Implementation
+
 - **Status**: Complete
 - **Component**: arithmetic.zig
 - **Description**: Need proper 512-bit intermediate calculations
@@ -228,10 +244,11 @@ Based on the comprehensive code review, here are the issues that need to be addr
   - Uses modular arithmetic properties to compute (a + b) % n without needing 512-bit integers
   - Handles the overflow case by computing 2^256 % n using two's complement arithmetic
   - Implemented proper MULMOD using Russian peasant multiplication algorithm
-  - Computes (a * b) % n iteratively, taking modulo at each step to avoid overflow
-  - Both implementations now correctly handle all edge cases including when a*b or a+b exceed 2^256
+  - Computes (a \* b) % n iteratively, taking modulo at each step to avoid overflow
+  - Both implementations now correctly handle all edge cases including when a\*b or a+b exceed 2^256
 
 #### ISSUE-017: Implement Memory Operations Fully
+
 - **Status**: Complete
 - **Component**: memory.zig
 - **Description**: Connect to actual memory management, fix RETURNDATACOPY
@@ -245,17 +262,19 @@ Based on the comprehensive code review, here are the issues that need to be addr
   - All copy operations (CALLDATACOPY, CODECOPY, RETURNDATACOPY, MCOPY) handle gas correctly
 
 #### ISSUE-018: Implement LOG Operations
+
 - **Status**: Complete
 - **Component**: log.zig
 - **Description**: Currently calculates gas but doesn't emit logs
 - **Effort**: 3 hours
-- **Resolution**: 
+- **Resolution**:
   - Added emit_log method to VM that properly stores logs with cloned data
   - Updated all LOG operations (LOG0-LOG4) to call vm.emit_log() with the contract address, topics, and data
   - Added proper cleanup in VM deinit to free allocated memory for log topics and data
   - Removed TODO comments and unused vm parameter statements
 
 #### ISSUE-019: Fix JUMP/JUMPI Contract Integration
+
 - **Status**: Complete
 - **Component**: control.zig
 - **Description**: Uses contract.valid_jumpdest which may not exist
@@ -265,6 +284,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
 ### 🏛️ Hardfork Support
 
 #### ISSUE-020: Implement Hardfork Configuration System
+
 - **Status**: Complete
 - **Component**: jump_table.zig
 - **Description**: Only Frontier is implemented, need all hardforks
@@ -285,6 +305,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
     - Cancun: BLOBHASH, BLOBBASEFEE, MCOPY, TLOAD, TSTORE
 
 #### ISSUE-021: Add Hardfork-Specific Gas Costs
+
 - **Status**: Complete
 - **Component**: jump_table.zig
 - **Description**: Gas costs change between hardforks
@@ -306,6 +327,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
     - Note: Actual cold/warm tracking is handled in opcode implementations
 
 #### ISSUE-022: Implement EIP-2929 Access Lists
+
 - **Status**: Complete
 - **Component**: storage.zig, environment.zig, system.zig, control.zig, vm.zig
 - **Description**: Cold/warm access tracking for Berlin+
@@ -337,12 +359,13 @@ Based on the comprehensive code review, here are the issues that need to be addr
 ### 🧪 Testing Infrastructure
 
 #### ISSUE-023: Create Unit Test Framework
+
 - **Status**: Complete
 - **Component**: tests/evm/opcodes/
 - **Description**: No tests exist at all
 - **Effort**: 4 hours
 - **Resolution**: Created comprehensive unit test framework for EVM opcodes:
-  - **Test Helpers** (`test_helpers.zig`): 
+  - **Test Helpers** (`test_helpers.zig`):
     - TestVm: Simplified VM for testing with state setup methods
     - TestFrame: Test wrapper with easy stack/memory manipulation
     - Helper functions for executing opcodes and asserting results
@@ -353,15 +376,16 @@ Based on the comprehensive code review, here are the issues that need to be addr
     - Edge cases (overflow, underflow, zero values)
     - Error conditions (stack underflow)
     - Gas consumption verification
-  - **Build Integration**: 
+  - **Build Integration**:
     - Added opcodes test to build.zig
     - Created package.zig for test module
     - Tests can be run with `zig build test-opcodes`
   - **Documentation**: Created README.md with testing guidelines
 
 #### ISSUE-024: Add Opcode Unit Tests
+
 - **Status**: Complete
-- **Component**: tests/evm/opcodes/*_test.zig
+- **Component**: tests/evm/opcodes/\*\_test.zig
 - **Description**: Every opcode needs comprehensive tests
 - **Effort**: 16 hours (30 min per opcode average)
 - **Resolution**: Completed all test files for all opcode categories:
@@ -379,6 +403,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
   - system_test.zig (CREATE, CREATE2, CALL, CALLCODE, DELEGATECALL, STATICCALL)
 
 #### ISSUE-025: Add Integration Tests
+
 - **Status**: Complete
 - **Component**: tests/evm/integration/
 - **Description**: Test opcode sequences and interactions
@@ -391,6 +416,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
   - README.md: Documentation for integration test structure and patterns
 
 #### ISSUE-026: Add Gas Accounting Tests
+
 - **Status**: Complete
 - **Component**: tests/evm/gas/
 - **Description**: Verify gas calculations match Yellow Paper
@@ -412,6 +438,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
 ### 🐛 Bug Fixes
 
 #### ISSUE-027: Fix PC Manipulation in PUSH Operations
+
 - **Status**: Complete
 - **Component**: stack.zig, vm.zig, operation.zig, jump_table.zig
 - **Description**: PUSH ops modify PC which may conflict with VM loop
@@ -425,6 +452,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
   - This properly handles PC advancement for variable-length PUSH instructions without conflicts
 
 #### ISSUE-028: Fix Memory Allocation in RETURN/REVERT
+
 - **Status**: Complete
 - **Component**: control.zig
 - **Description**: Unbounded allocation is potential DOS vector
@@ -437,6 +465,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
   - This eliminates the DOS vector while maintaining correct behavior
 
 #### ISSUE-029: Fix Address Type Usage
+
 - **Status**: Complete
 - **Component**: contract.zig, environment.zig
 - **Description**: Inconsistent Address type usage and imports
@@ -450,6 +479,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
   - All files now consistently import the module and access its members using the same pattern
 
 #### ISSUE-030: Fix Error Type Mappings
+
 - **Status**: Complete
 - **Component**: All opcode files
 - **Description**: Stack/Memory errors not properly mapped to ExecutionError
@@ -469,6 +499,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
   - The mappings are semantically correct for EVM execution context
 
 #### ISSUE-030a: Complete ExecutionResult Migration
+
 - **Status**: Complete
 - **Component**: All opcode files except control.zig and stack.zig
 - **Description**: ISSUE-027 only partially migrated opcodes to return ExecutionResult
@@ -489,6 +520,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
 ### 📝 Documentation
 
 #### ISSUE-031: Document VM Interface Requirements
+
 - **Status**: Complete
 - **Component**: Documentation
 - **Description**: Define clear interface between opcodes and VM
@@ -507,6 +539,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
   - Implementation notes and testing considerations
 
 #### ISSUE-032: Document Gas Calculation Rules
+
 - **Status**: Complete
 - **Component**: Documentation
 - **Description**: Document dynamic gas calculation for each opcode
@@ -526,6 +559,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
   - References to Yellow Paper and relevant EIPs
 
 #### ISSUE-033: Document Hardfork Differences
+
 - **Status**: Complete
 - **Component**: Documentation
 - **Description**: Create hardfork compatibility matrix
@@ -548,31 +582,37 @@ Based on the comprehensive code review, here are the issues that need to be addr
 ### 🏗️ Code Quality
 
 #### ISSUE-041: Standardize Error Handling
+
 - **Component**: All files
 - **Description**: Consistent error types and handling patterns
 - **Effort**: 4 hours
 
 #### ISSUE-042: Remove All TODO Comments
+
 - **Component**: All files
 - **Description**: Replace TODOs with actual implementations
 - **Effort**: Included in other issues
 
 #### ISSUE-043: Add Inline Documentation
+
 - **Component**: Complex operations
 - **Description**: Document complex gas calculations and edge cases
 - **Effort**: 3 hours
 
 #### ISSUE-048: Remove inline from opcode methods
+
 - **Component**: All opcode files
 - **Description**: Remove the inline keyword from opcode-related methods and let the compiler decide on inlining
 - **Effort**: 2 hours
 - **Rationale**: The compiler is generally smarter than us at deciding what to inline. Manual inline hints can actually hurt performance by causing code bloat and instruction cache misses. We may add inline back later for specific hot paths after profiling, but should start without it.
 
 #### ISSUE-049: Flatten Code Structure
+
 - **Component**: All source files
 - **Description**: Reduce code indentation and improve linear readability through early returns and guard clauses
 - **Effort**: 3 hours
 - **Rationale**: This is purely a stylistic change to improve code readability without changing behavior. The goal is to reduce nesting levels by using early returns, continue statements, and guard clauses. For example:
+
   ```zig
   // Instead of:
   if (condition) {
@@ -581,18 +621,20 @@ Based on the comprehensive code review, here are the issues that need to be addr
           // even more indented code
       }
   }
-  
+
   // Prefer:
   if (!condition) return;
   // code at lower indentation
   if (!another_condition) return;
   // more code at lower indentation
   ```
+
   This pattern makes code easier to read linearly, reduces cognitive load, and makes the happy path more obvious. Apply to while loops, if statements, and any control flow that creates deep nesting.
 
 ### ⚡ Performance Optimizations
 
 #### ISSUE-034: Implement Batched Stack Operations
+
 - **Status**: Complete
 - **Component**: Stack operations
 - **Description**: Add pop2_push1 style optimizations
@@ -611,6 +653,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
   - These optimizations reduce memory operations and improve cache locality
 
 #### ISSUE-035: Add Cache-Line Alignment
+
 - **Status**: Complete
 - **Component**: jump_table.zig
 - **Description**: Align jump table for better cache performance
@@ -625,6 +668,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
   - Frequently used opcodes cluster in early cache lines for better locality
 
 #### ISSUE-036: Create Unsafe Operation Variants
+
 - **Status**: Cancelled
 - **Component**: Stack/Memory operations
 - **Description**: Add unsafe variants for hot paths
@@ -632,6 +676,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
 - **Reason**: Not a requirement for initial launch. The current implementation with proper error handling is sufficient for the initial release. Unsafe variants can be added later after profiling identifies actual hot paths.
 
 #### ISSUE-037: Optimize 256-bit Arithmetic
+
 - **Status**: Cancelled
 - **Component**: arithmetic.zig
 - **Description**: Use specialized 256-bit math library
@@ -641,6 +686,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
 ### 🔒 Security Enhancements
 
 #### ISSUE-038: Add Stack Depth Validation
+
 - **Status**: Complete
 - **Component**: All opcode files
 - **Description**: Ensure stack depth limits are enforced
@@ -658,11 +704,13 @@ Based on the comprehensive code review, here are the issues that need to be addr
   - Stack validation now happens automatically before every opcode execution
 
 #### ISSUE-039: Add Memory Limit Enforcement
+
 - **Component**: memory.zig
 - **Description**: Prevent excessive memory allocation
 - **Effort**: 2 hours
 
 #### ISSUE-040: Add Static Call Protection Validation
+
 - **Status**: Complete
 - **Component**: All write operations
 - **Description**: Ensure all state modifications check is_static
@@ -679,6 +727,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
 ### 🔧 Additional Features
 
 #### ISSUE-044: Add Opcode Tracing Support
+
 - **Status**: Out of Scope
 - **Component**: jump_table.zig
 - **Description**: Hook for debugging/tracing opcode execution
@@ -686,6 +735,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
 - **Reason**: Out of scope for this implementation. Tracing functionality should be handled at a higher level in the execution environment.
 
 #### ISSUE-045: Add Benchmark Suite
+
 - **Status**: Out of Scope
 - **Component**: benchmarks/
 - **Description**: Performance benchmarks for optimization
@@ -697,6 +747,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
 ## Implementation Roadmap
 
 ### Week 1: Critical Infrastructure (P0) - COMPLETE ✅
+
 - ✅ Fix all import issues (ISSUE-001, ISSUE-002)
 - ✅ Define VM interface (ISSUE-003)
 - ✅ Complete Frame structure (ISSUE-004)
@@ -706,6 +757,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
 - ✅ Implement call operations (ISSUE-008)
 
 ### Week 2: Core Functionality (P0 + P1) - IN PROGRESS
+
 - ✅ Complete ADDMOD/MULMOD implementation (ISSUE-016)
 - ✅ Implement memory operations fully (ISSUE-017)
 - ✅ Implement LOG operations (ISSUE-018)
@@ -720,12 +772,14 @@ Based on the comprehensive code review, here are the issues that need to be addr
 - 🚧 Begin unit testing (ISSUE-023, ISSUE-024)
 
 ### Week 3: Testing & Refinement (P1)
+
 - Complete all unit tests
 - Add integration tests
 - Fix all identified bugs
 - Complete documentation
 
 ### Week 4: Optimization & Polish (P2)
+
 - Performance optimizations
 - Security enhancements
 - Benchmark suite
@@ -750,6 +804,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
 ## Current Status Summary
 
 ### ✅ Completed (39 issues)
+
 - All P0 critical infrastructure and opcode issues resolved
 - VM interface fully defined and implemented
 - Storage, environment, and block operations connected to VM state
@@ -763,20 +818,24 @@ Based on the comprehensive code review, here are the issues that need to be addr
 - Static call protection validation implemented (ISSUE-040)
 
 ### 🚧 In Progress (0 issues)
+
 - None currently
 
 ### 🔴 Pending (5 issues)
+
 - Security enhancements (1 issue: ISSUE-039)
 - Code quality (4 issues: ISSUE-041, ISSUE-043, ISSUE-048)
 - Additional features (0 issues)
 
 ### ❌ Cancelled/Out of Scope (3 issues)
+
 - ISSUE-036: Create Unsafe Operation Variants (not required for initial launch)
 - ISSUE-037: Optimize 256-bit Arithmetic (not required for initial launch)
 - ISSUE-044: Add Opcode Tracing Support (out of scope)
 - ISSUE-045: Add Benchmark Suite (using Snail Trail instead)
 
 #### ISSUE-048: Remove inline from opcode methods
+
 - **Component**: All opcode files
 - **Description**: Remove the inline keyword from opcode-related methods and let the compiler decide on inlining
 - **Effort**: 2 hours

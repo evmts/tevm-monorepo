@@ -3,14 +3,15 @@ const testing = std.testing;
 const pkg = @import("package.zig");
 const helpers = pkg.test_helpers;
 
-// Import opcodes
-const environment = @import("../../../src/evm/opcodes/environment.zig");
-const system = @import("../../../src/evm/opcodes/system.zig");
-const block = @import("../../../src/evm/opcodes/block.zig");
-const stack = @import("../../../src/evm/opcodes/stack.zig");
-const arithmetic = @import("../../../src/evm/opcodes/arithmetic.zig");
-const memory = @import("../../../src/evm/opcodes/memory.zig");
-const log = @import("../../../src/evm/opcodes/log.zig");
+// Import opcodes from evm module
+const evm = @import("evm");
+const environment = evm.opcodes.environment;
+const system = evm.opcodes.system;
+const block = evm.opcodes.block;
+const stack = evm.opcodes.stack;
+const arithmetic = evm.opcodes.arithmetic;
+const memory = evm.opcodes.memory;
+const log = evm.opcodes.log;
 
 test "Integration: Contract deployment simulation" {
     // Simulate CREATE operation with constructor

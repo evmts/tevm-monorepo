@@ -80,36 +80,7 @@ pub fn op_addmod_optimized(pc: usize, interpreter: *Operation.Interpreter, state
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
-    if (frame.stack.size >= 3) {
-        const values = frame.stack.pop3_push1_unsafe(0);
-        const n = values.c;
-        
-        if (n == 0) {
-            // Result already pushed as 0
-            return Operation.ExecutionResult{};
-        }
-        
-        // Calculate (a + b) % n handling overflow
-        const a = values.a;
-        const b = values.b;
-        var result: u256 = undefined;
-        
-        if (a >= n) {
-            const a_mod = a % n;
-            if (b >= n) {
-                result = addmod_inner(a_mod, b % n, n);
-            } else {
-                result = addmod_inner(a_mod, b, n);
-            }
-        } else if (b >= n) {
-            result = addmod_inner(a, b % n, n);
-        } else {
-            result = addmod_inner(a, b, n);
-        }
-        
-        // Update the pushed value
-        frame.stack.data[frame.stack.size - 1] = result;
-    } else {
+    if (frame.stack.size < 3) {
         // Safe fallback
         const values = frame.stack.pop3_push1(0) catch |err| switch (err) {
             Stack.Error.OutOfBounds => return ExecutionError.Error.StackUnderflow,
@@ -137,20 +108,50 @@ pub fn op_addmod_optimized(pc: usize, interpreter: *Operation.Interpreter, state
         }
         
         frame.stack.data[frame.stack.size - 1] = result;
+        return Operation.ExecutionResult{};
     }
+    
+    const values = frame.stack.pop3_push1_unsafe(0);
+    const n = values.c;
+    
+    if (n == 0) {
+        // Result already pushed as 0
+        return Operation.ExecutionResult{};
+    }
+    
+    // Calculate (a + b) % n handling overflow
+    const a = values.a;
+    const b = values.b;
+    var result: u256 = undefined;
+    
+    if (a >= n) {
+        const a_mod = a % n;
+        if (b >= n) {
+            result = addmod_inner(a_mod, b % n, n);
+        } else {
+            result = addmod_inner(a_mod, b, n);
+        }
+    } else if (b >= n) {
+        result = addmod_inner(a, b % n, n);
+    } else {
+        result = addmod_inner(a, b, n);
+    }
+    
+    // Update the pushed value
+    frame.stack.data[frame.stack.size - 1] = result;
     
     return Operation.ExecutionResult{};
 }
 
 // Helper function for ADDMOD
 fn addmod_inner(a: u256, b: u256, n: u256) u256 {
-    if (a + b < a) {
-        // Overflow occurred
-        const complement = @as(u256, @bitCast(@as(i256, -@as(i256, @intCast(n)))));
-        return (a % n + b % n + complement % n) % n;
-    } else {
+    if (a + b >= a) {
         return (a + b) % n;
     }
+    
+    // Overflow occurred
+    const complement = @as(u256, @bitCast(@as(i256, -@as(i256, @intCast(n)))));
+    return (a % n + b % n + complement % n) % n;
 }
 
 /// Comparison operations can benefit from pop2 without push
@@ -203,13 +204,13 @@ pub fn op_gas_estimation(pc: usize, interpreter: *Operation.Interpreter, state: 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
     // For an operation that needs to look at top 3 values to estimate gas
-    if (frame.stack.size >= 3) {
-        const values = try frame.stack.peek_multiple(3);
-        // Use values[0], values[1], values[2] for gas calculation
-        return calculate_dynamic_gas(values[0], values[1], values[2]);
+    if (frame.stack.size < 3) {
+        return 0;
     }
     
-    return 0;
+    const values = try frame.stack.peek_multiple(3);
+    // Use values[0], values[1], values[2] for gas calculation
+    return calculate_dynamic_gas(values[0], values[1], values[2]);
 }
 
 fn calculate_dynamic_gas(a: u256, b: u256, c: u256) u64 {

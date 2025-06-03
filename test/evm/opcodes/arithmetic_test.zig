@@ -255,7 +255,7 @@ test "Arithmetic: MULMOD complex operations" {
     try test_frame.pushStack(&[_]u256{1000, large, large}); // (large * large) % 1000
     _ = try helpers.executeOpcode(arithmetic.op_mulmod, &test_vm.vm, &test_frame.frame);
     // The result should be correct even though large * large overflows
-    try testing.expect(test_frame.frame.stack.peek(0).? < 1000);
+    try testing.expect((try test_frame.frame.stack.peek_n(0)) < 1000);
     
     // Test 3: Modulo by zero
     test_frame.frame.stack.clear();

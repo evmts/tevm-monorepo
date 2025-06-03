@@ -27,6 +27,7 @@ pub const constants = @import("constants.zig");
 pub const eip_7702_bytecode = @import("eip_7702_bytecode.zig");
 pub const fee_market = @import("fee_market.zig");
 pub const gas_constants = @import("gas_constants.zig");
+pub const memory_limits = @import("memory_limits.zig");
 
 // Tests - run all module tests
 test {

@@ -23,7 +23,7 @@ test "Control: STOP halts execution" {
     defer test_frame.deinit();
     
     // Execute STOP opcode - should return STOP error
-    const result = control.op_stop(0, &test_vm.vm, &test_frame.frame);
+    const result = helpers.executeOpcode(control.op_stop, &test_vm.vm, &test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.STOP, result);
     
     // Gas should not be consumed by the opcode itself (jump table handles base gas)
@@ -60,13 +60,13 @@ test "Control: JUMP basic operations" {
     // Test 2: Invalid jump (not a JUMPDEST)
     test_frame.frame.pc = 0; // Reset PC
     try test_frame.pushStack(&[_]u256{3}); // Jump to position 3 (not JUMPDEST)
-    const result = control.op_jump(0, &test_vm.vm, &test_frame.frame);
+    const result = helpers.executeOpcode(control.op_jump, &test_vm.vm, &test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.InvalidJump, result);
     
     // Test 3: Jump out of bounds
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{100}); // Jump beyond code size
-    const result2 = control.op_jump(0, &test_vm.vm, &test_frame.frame);
+    const result2 = helpers.executeOpcode(control.op_jump, &test_vm.vm, &test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.InvalidJump, result2);
     
     // Test 4: Jump to max u256 (out of range)
@@ -113,7 +113,7 @@ test "Control: JUMPI conditional jump" {
     // Test 3: Invalid jump with non-zero condition
     test_frame.frame.pc = 0;
     try test_frame.pushStack(&[_]u256{3, 1}); // destination=3 (not JUMPDEST), condition=1
-    const result = control.op_jumpi(0, &test_vm.vm, &test_frame.frame);
+    const result = helpers.executeOpcode(control.op_jumpi, &test_vm.vm, &test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.InvalidJump, result);
     
     // Test 4: Invalid destination is OK if condition is zero
@@ -148,7 +148,7 @@ test "Control: PC returns program counter" {
     // Test 2: PC at position 42
     test_frame.frame.stack.clear();
     test_frame.frame.pc = 42;
-    _ = try helpers.executeOpcodeAt(control.op_pc, 42, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(control.op_pc, &test_vm.vm, &test_frame.frame);
     try helpers.expectStackValue(&test_frame.frame, 0, 42);
     
     // Test 3: PC at large position
@@ -212,7 +212,7 @@ test "Control: RETURN with data" {
     try test_frame.setMemory(10, &test_data);
     try test_frame.pushStack(&[_]u256{10, 4}); // offset=10, size=4
     
-    const result = control.op_return(0, &test_vm.vm, &test_frame.frame);
+    const result = helpers.executeOpcode(control.op_return, &test_vm.vm, &test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.STOP, result); // RETURN uses STOP error
     
     // Check return data was set
@@ -261,7 +261,7 @@ test "Control: REVERT with data" {
     try test_frame.setMemory(0, &test_data);
     try test_frame.pushStack(&[_]u256{0, 4}); // offset=0, size=4
     
-    const result = control.op_revert(0, &test_vm.vm, &test_frame.frame);
+    const result = helpers.executeOpcode(control.op_revert, &test_vm.vm, &test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.REVERT, result);
     
     // Check return data was set

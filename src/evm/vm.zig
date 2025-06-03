@@ -320,11 +320,12 @@ pub fn emit_log(self: *Self, address: Address.Address, topics: []const u256, dat
 // EIP-2929: Mark address as warm and return if it was cold
 pub fn mark_address_warm(self: *Self, address: Address.Address) !bool {
     const result = try self.address_access.getOrPut(address);
-    if (!result.found_existing) {
-        result.value_ptr.* = true;
-        return true; // Was cold
+    if (result.found_existing) {
+        return false; // Was already warm
     }
-    return false; // Was already warm
+    
+    result.value_ptr.* = true;
+    return true; // Was cold
 }
 
 // EIP-2929: Check if an address is cold

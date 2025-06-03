@@ -44,7 +44,7 @@ test "Block: BLOCKHASH operations" {
     try helpers.expectStackValue(&test_frame.frame, 0, 0);
     
     // Test gas consumption
-    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.gas_constants.GasExt);
+    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.gas_constants.GasExtStep);
 }
 
 test "Block: COINBASE operations" {
@@ -344,7 +344,7 @@ test "Block: Edge cases" {
     defer test_frame.deinit();
     
     // Test with maximum values
-    test_vm.vm.block_number = std.math.maxInt(u256);
+    test_vm.vm.block_number = std.math.maxInt(u64);
     test_vm.vm.block_timestamp = std.math.maxInt(u64);
     test_vm.vm.block_gas_limit = std.math.maxInt(u64);
     test_vm.vm.block_difficulty = std.math.maxInt(u256);
