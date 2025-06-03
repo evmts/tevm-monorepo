@@ -71,6 +71,7 @@
     "lint:deps": "bunx depcheck"
   },
   "dependencies": {
+    "@latticexyz/common": "2.2.21",
     "@latticexyz/config": "^2.2.21",
     "@latticexyz/protocol-parser": "^2.2.21",
     "@latticexyz/schema-type": "^2.2.21",
