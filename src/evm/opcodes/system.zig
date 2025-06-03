@@ -361,7 +361,7 @@ pub fn op_callcode(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     return "";
 }
 
-pub fn op_delegatecall(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_delegatecall(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
@@ -450,7 +450,7 @@ pub fn op_delegatecall(pc: usize, interpreter: *Operation.Interpreter, state: *O
     // Push success status
     try stack_push(&frame.stack, if (result.success) 1 else 0);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
 pub fn op_staticcall(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {

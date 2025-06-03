@@ -19,7 +19,7 @@ inline fn stack_push(stack: *Stack, value: u256) ExecutionError.Error!void {
     };
 }
 
-pub fn op_and(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_and(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -32,10 +32,10 @@ pub fn op_and(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     
     try stack_push(&frame.stack, result);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_or(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_or(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -48,10 +48,10 @@ pub fn op_or(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.S
     
     try stack_push(&frame.stack, result);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_xor(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_xor(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -64,10 +64,10 @@ pub fn op_xor(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     
     try stack_push(&frame.stack, result);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_not(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_not(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -79,10 +79,10 @@ pub fn op_not(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     
     try stack_push(&frame.stack, result);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_byte(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_byte(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -101,10 +101,10 @@ pub fn op_byte(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
         try stack_push(&frame.stack, byte_value);
     }
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_shl(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_shl(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -120,10 +120,10 @@ pub fn op_shl(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
         try stack_push(&frame.stack, result);
     }
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_shr(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_shr(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -139,10 +139,10 @@ pub fn op_shr(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
         try stack_push(&frame.stack, result);
     }
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_sar(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_sar(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -168,5 +168,5 @@ pub fn op_sar(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
         try stack_push(&frame.stack, result);
     }
     
-    return "";
+    return Operation.ExecutionResult{};
 }

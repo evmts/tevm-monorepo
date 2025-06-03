@@ -20,7 +20,7 @@ inline fn stack_push(stack: *Stack, value: u256) ExecutionError.Error!void {
     };
 }
 
-pub fn op_add(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_add(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -33,10 +33,10 @@ pub fn op_add(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     
     try stack_push(&frame.stack, result);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_mul(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_mul(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -49,10 +49,10 @@ pub fn op_mul(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     
     try stack_push(&frame.stack, result);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_sub(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_sub(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -65,10 +65,10 @@ pub fn op_sub(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     
     try stack_push(&frame.stack, result);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_div(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_div(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -83,10 +83,10 @@ pub fn op_div(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
         try stack_push(&frame.stack, a / b);
     }
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_sdiv(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_sdiv(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -97,7 +97,7 @@ pub fn op_sdiv(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     
     if (b == 0) {
         try stack_push(&frame.stack, 0);
-        return "";
+        return Operation.ExecutionResult{};
     }
     
     // Signed division for u256
@@ -113,10 +113,10 @@ pub fn op_sdiv(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
         try stack_push(&frame.stack, @as(u256, @bitCast(result_i256)));
     }
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_mod(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_mod(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -131,10 +131,10 @@ pub fn op_mod(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
         try stack_push(&frame.stack, a % b);
     }
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_smod(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_smod(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -145,7 +145,7 @@ pub fn op_smod(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     
     if (b == 0) {
         try stack_push(&frame.stack, 0);
-        return "";
+        return Operation.ExecutionResult{};
     }
     
     // Signed modulo for u256
@@ -155,10 +155,10 @@ pub fn op_smod(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     const result_i256 = @rem(a_i256, b_i256);
     try stack_push(&frame.stack, @as(u256, @bitCast(result_i256)));
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_addmod(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_addmod(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -203,10 +203,10 @@ pub fn op_addmod(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
         }
     }
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_mulmod(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_mulmod(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -274,10 +274,10 @@ pub fn op_mulmod(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
         }
     }
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_exp(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_exp(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
@@ -313,10 +313,10 @@ pub fn op_exp(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     
     try stack_push(&frame.stack, result);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_signextend(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_signextend(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -328,7 +328,7 @@ pub fn op_signextend(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
     // If byte_num >= 31, just return x unchanged
     if (byte_num >= 31) {
         try stack_push(&frame.stack, x);
-        return "";
+        return Operation.ExecutionResult{};
     }
     
     const byte_index = @as(u8, @intCast(byte_num));
@@ -351,5 +351,5 @@ pub fn op_signextend(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
     
     try stack_push(&frame.stack, result);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
