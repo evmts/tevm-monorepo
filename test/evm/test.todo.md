@@ -359,7 +359,12 @@ The debugging and fixing process will be considered successful when the followin
         3.  The issue is likely that the test isn't actually JUMPing. It's a manual loop in Zig. The `_ = try helpers.executeOpcode(0x03, &test_vm.vm, test_frame.frame);` etc. only executes one opcode. The test is not running a bytecode loop.
 
 9.  **Failure Message:** `error: 'control_flow_test.test.Integration: Return data handling' failed: OutOfGas` in `op_mstore`.
-    *   **Status:** IN PROGRESS - Agent AI - Worktree: `g/evm-fix-mstore-gas`
+    *   **Status:** COMPLETE - Agent AI - Worktree: `g/evm-fix-mstore-gas`
+    *   **Report:**
+        *   **Fix:** This test was already fixed by the previous commit that changed the test to check frame.return_data_buffer instead of frame.output. The OutOfGas error was a side effect.
+        *   **Tests Fixed:** Already fixed in commit 4ce6f72ea
+        *   **Regressions Checked:** No additional changes needed.
+        *   **Commit SHA:** No new commits - issue was already resolved.
     *   **Affected File:** `test/evm/integration/control_flow_test.zig`, `src/evm/opcodes/memory.zig` (`op_mstore`)
     *   **Theory 1:** Gas calculation for `MSTORE` (0x52) or memory expansion during `RETURN` (0xF3) sequence is incorrect, leading to `OutOfGas`. `RETURN` itself calls `ensure_context_capacity`.
     *   **Logging:**
@@ -447,6 +452,7 @@ The debugging and fixing process will be considered successful when the followin
 
 15. **Failure Message:** `error: 'environment_system_test.test.Integration: Log emission with topics' failed: OutOfOffset` in `op_log`.
     *   **Affected File:** `test/evm/integration/environment_system_test.zig`, `src/evm/opcodes/log.zig`
+    *   **Status:** IN PROGRESS - Agent AI-2 - Worktree: `g/evm-fix-log-emission`
     *   **Theory 1:** `op_logN` is calculating memory offsets/sizes incorrectly when trying to read log data from memory, leading to `OutOfOffset`.
     *   **Logging:**
         *   In `make_log` (the generator for `op_logN`): Log `offset_usize`, `size_usize`, `current_size` of memory before `ensure_context_capacity` and before `get_slice`.
@@ -538,7 +544,12 @@ The debugging and fixing process will be considered successful when the followin
 Many of these failures seem related to issues already identified (e.g., gas costs, memory operations, specific opcode logic, jump table mappings). The strategy should be to fix the core issues and then re-evaluate these.
 
 1.  **Failure Message:** `error: 'block_test.test.Block: BLOCKHASH operations' failed: ... expected 0, found 11130678850859817302`
-    *   **Status:** IN PROGRESS - Agent AI-Blockhash - Worktree: `g/evm-fix-blockhash`
+    *   **Status:** COMPLETE - Agent AI-Blockhash - Worktree: `g/evm-fix-blockhash`
+    *   **Report:**
+        *   **Fix:** Corrected BLOCKHASH opcode logic for determining when to return 0
+        *   **Issue:** Original condition had backwards comparison for blocks older than 256 blocks
+        *   **Changes:** Fixed condition to properly check if block is outside 256 block window, added genesis block handling
+        *   **Commit SHA:** b4e1a67fe (on feat/evm-fix-blockhash branch)
     *   **Affected File:** `test/evm/opcodes/block_test.zig`, `src/evm/opcodes/block.zig` (`op_blockhash`)
     *   **Theory 1:** `op_blockhash` (0x40) is returning a pseudo-hash instead of 0 for blocks older than 256 or future blocks. The test specifically expects 0 for these cases.
     *   **Logging:**
