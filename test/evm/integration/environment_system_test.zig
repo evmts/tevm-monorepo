@@ -95,7 +95,7 @@ test "Integration: Call with value transfer" {
     // CALL(gas, address, value, argsOffset, argsSize, retOffset, retSize)
     try test_frame.pushStack(&[_]u256{
         50000,                                              // gas
-        @as(u256, @bitCast(helpers.TestAddresses.BOB.inner)), // address
+        helpers.toU256(helpers.TestAddresses.BOB), // address
         helpers.TestValues.ONE_GWEI,                        // value
         0,                                                  // argsOffset
         0,                                                  // argsSize
@@ -143,17 +143,17 @@ test "Integration: Environment data access" {
     
     // Test ADDRESS
     _ = try helpers.executeOpcode(environment.op_address, &test_vm.vm, &test_frame.frame);
-    try helpers.expectStackValue(&test_frame.frame, 0, @as(u256, @bitCast(helpers.TestAddresses.CONTRACT.inner)));
+    try helpers.expectStackValue(&test_frame.frame, 0, helpers.toU256(helpers.TestAddresses.CONTRACT));
     _ = try helpers.executeOpcode(stack.op_pop, &test_vm.vm, &test_frame.frame);
     
     // Test ORIGIN
     _ = try helpers.executeOpcode(environment.op_origin, &test_vm.vm, &test_frame.frame);
-    try helpers.expectStackValue(&test_frame.frame, 0, @as(u256, @bitCast(helpers.TestAddresses.ALICE.inner)));
+    try helpers.expectStackValue(&test_frame.frame, 0, helpers.toU256(helpers.TestAddresses.ALICE));
     _ = try helpers.executeOpcode(stack.op_pop, &test_vm.vm, &test_frame.frame);
     
     // Test CALLER
     _ = try helpers.executeOpcode(environment.op_caller, &test_vm.vm, &test_frame.frame);
-    try helpers.expectStackValue(&test_frame.frame, 0, @as(u256, @bitCast(helpers.TestAddresses.BOB.inner)));
+    try helpers.expectStackValue(&test_frame.frame, 0, helpers.toU256(helpers.TestAddresses.BOB));
     _ = try helpers.executeOpcode(stack.op_pop, &test_vm.vm, &test_frame.frame);
     
     // Test CALLVALUE
@@ -209,7 +209,7 @@ test "Integration: Block information access" {
     
     // Test COINBASE
     _ = try helpers.executeOpcode(block.op_coinbase, &test_vm.vm, &test_frame.frame);
-    try helpers.expectStackValue(&test_frame.frame, 0, @as(u256, @bitCast(helpers.TestAddresses.CHARLIE.inner)));
+    try helpers.expectStackValue(&test_frame.frame, 0, helpers.toU256(helpers.TestAddresses.CHARLIE));
     _ = try helpers.executeOpcode(stack.op_pop, &test_vm.vm, &test_frame.frame);
     
     // Test GASLIMIT
@@ -309,7 +309,7 @@ test "Integration: External code operations" {
     
     // Test EXTCODECOPY
     try test_frame.pushStack(&[_]u256{
-        @as(u256, @bitCast(helpers.TestAddresses.BOB.inner)), // address
+        helpers.toU256(helpers.TestAddresses.BOB), // address
         0,                                                    // destOffset
         0,                                                    // offset
         external_code.len,                                    // size

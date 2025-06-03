@@ -338,7 +338,7 @@ test "Integration: Self-destruct with beneficiary" {
     try testing.expectEqual(beneficiary_initial, initial_balance);
     
     // Execute selfdestruct with BOB as beneficiary
-    try test_frame.pushStack(&[_]u256{@as(u256, @bitCast(helpers.TestAddresses.BOB.inner))});
+    try test_frame.pushStack(&[_]u256{helpers.toU256(helpers.TestAddresses.BOB)});
     
     // Note: Actual selfdestruct implementation would transfer balance and mark for deletion
     // For this test, we're just verifying the opcode executes

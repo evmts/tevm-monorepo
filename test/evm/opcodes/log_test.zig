@@ -35,43 +35,58 @@ test "LOG0: emit log with no topics" {
     _ = try test_helpers.executeOpcode(log.op_log0, &test_vm.vm, &test_frame.frame);
     
     // Check that log was emitted
-    try testing.expectEqual(@as(usize, 1), vm.vm.logs.items.len);
-    const log = vm.vm.logs.items[0];
-    try testing.expectEqual(test_helpers.TEST_CONTRACT_ADDRESS, log.address);
-    try testing.expectEqual(@as(usize, 0), log.topics.len);
-    try testing.expectEqualSlices(u8, &log_data, log.data);
+    try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
+    const emitted_log = test_vm.vm.logs.items[0];
+    try testing.expectEqual(test_helpers.TestAddresses.CONTRACT, emitted_log.address);
+    try testing.expectEqual(@as(usize, 0), emitted_log.topics.len);
+    try testing.expectEqualSlices(u8, &log_data, emitted_log.data);
 }
 
 test "LOG0: emit log with empty data" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Push offset and length for empty data
-    try test_frame.pushStack(0); // length
-    try test_frame.pushStack(0); // offset
+    try test_frame.pushStack(&[_]u256{0, 0}); // offset, length
     
     // Execute LOG0
     _ = try test_helpers.executeOpcode(log.op_log0, &test_vm.vm, &test_frame.frame);
     
     // Check that log was emitted with empty data
-    try testing.expectEqual(@as(usize, 1), vm.vm.logs.items.len);
-    const log = vm.vm.logs.items[0];
-    try testing.expectEqual(@as(usize, 0), log.topics.len);
-    try testing.expectEqual(@as(usize, 0), log.data.len);
+    try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
+    const emitted_log = test_vm.vm.logs.items[0];
+    try testing.expectEqual(@as(usize, 0), emitted_log.topics.len);
+    try testing.expectEqual(@as(usize, 0), emitted_log.data.len);
 }
 
 // Test LOG1 operation
 test "LOG1: emit log with one topic" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Write data to memory
     const log_data = [_]u8{ 0xAA, 0xBB };
@@ -81,92 +96,107 @@ test "LOG1: emit log with one topic" {
     }
     
     // Push topic, offset and length
-    try test_frame.pushStack(0x123456); // topic
-    try test_frame.pushStack(2);        // length
-    try test_frame.pushStack(0);        // offset
+    try test_frame.pushStack(&[_]u256{0, 2, 0x123456}); // offset, length, topic
     
     // Execute LOG1
-    try test_helpers.executeOpcode(opcodes.log.op_log1, &frame);
+    _ = try test_helpers.executeOpcode(log.op_log1, &test_vm.vm, &test_frame.frame);
     
     // Check that log was emitted
-    try testing.expectEqual(@as(usize, 1), vm.vm.logs.items.len);
-    const log = vm.vm.logs.items[0];
-    try testing.expectEqual(@as(usize, 1), log.topics.len);
-    try testing.expectEqual(@as(u256, 0x123456), log.topics[0]);
-    try testing.expectEqualSlices(u8, &log_data, log.data);
+    try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
+    const emitted_log = test_vm.vm.logs.items[0];
+    try testing.expectEqual(@as(usize, 1), emitted_log.topics.len);
+    try testing.expectEqual(@as(u256, 0x123456), emitted_log.topics[0]);
+    try testing.expectEqualSlices(u8, &log_data, emitted_log.data);
 }
 
 // Test LOG2 operation
 test "LOG2: emit log with two topics" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Write data to memory
     const log_data = [_]u8{ 0x01, 0x02, 0x03 };
     var i: usize = 0;
     while (i < log_data.len) : (i += 1) {
-        try frame.memory.write_byte(10 + i, log_data[i]);
+        try test_frame.frame.memory.set_byte(10 + i, log_data[i]);
     }
     
     // Push topics, offset and length
-    try test_frame.pushStack(0xBEEF);   // topic2
-    try test_frame.pushStack(0xCAFE);   // topic1
-    try test_frame.pushStack(3);         // length
-    try test_frame.pushStack(10);        // offset
+    try test_frame.pushStack(&[_]u256{10, 3, 0xCAFE, 0xBEEF}); // offset, length, topic1, topic2
     
     // Execute LOG2
-    try test_helpers.executeOpcode(opcodes.log.op_log2, &frame);
+    _ = try test_helpers.executeOpcode(log.op_log2, &test_vm.vm, &test_frame.frame);
     
     // Check that log was emitted
-    try testing.expectEqual(@as(usize, 1), vm.vm.logs.items.len);
-    const log = vm.vm.logs.items[0];
-    try testing.expectEqual(@as(usize, 2), log.topics.len);
-    try testing.expectEqual(@as(u256, 0xCAFE), log.topics[0]);
-    try testing.expectEqual(@as(u256, 0xBEEF), log.topics[1]);
-    try testing.expectEqualSlices(u8, &log_data, log.data);
+    try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
+    const emitted_log = test_vm.vm.logs.items[0];
+    try testing.expectEqual(@as(usize, 2), emitted_log.topics.len);
+    try testing.expectEqual(@as(u256, 0xCAFE), emitted_log.topics[0]);
+    try testing.expectEqual(@as(u256, 0xBEEF), emitted_log.topics[1]);
+    try testing.expectEqualSlices(u8, &log_data, emitted_log.data);
 }
 
 // Test LOG3 operation
 test "LOG3: emit log with three topics" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Push topics, offset and length
-    try test_frame.pushStack(0x333);    // topic3
-    try test_frame.pushStack(0x222);    // topic2
-    try test_frame.pushStack(0x111);    // topic1
-    try test_frame.pushStack(0);        // length (empty data)
-    try test_frame.pushStack(0);        // offset
+    try test_frame.pushStack(&[_]u256{0, 0, 0x111, 0x222, 0x333}); // offset, length (empty data), topic1, topic2, topic3
     
     // Execute LOG3
-    try test_helpers.executeOpcode(opcodes.log.op_log3, &frame);
+    _ = try test_helpers.executeOpcode(log.op_log3, &test_vm.vm, &test_frame.frame);
     
     // Check that log was emitted
-    try testing.expectEqual(@as(usize, 1), vm.vm.logs.items.len);
-    const log = vm.vm.logs.items[0];
-    try testing.expectEqual(@as(usize, 3), log.topics.len);
-    try testing.expectEqual(@as(u256, 0x111), log.topics[0]);
-    try testing.expectEqual(@as(u256, 0x222), log.topics[1]);
-    try testing.expectEqual(@as(u256, 0x333), log.topics[2]);
-    try testing.expectEqual(@as(usize, 0), log.data.len);
+    try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
+    const emitted_log = test_vm.vm.logs.items[0];
+    try testing.expectEqual(@as(usize, 3), emitted_log.topics.len);
+    try testing.expectEqual(@as(u256, 0x111), emitted_log.topics[0]);
+    try testing.expectEqual(@as(u256, 0x222), emitted_log.topics[1]);
+    try testing.expectEqual(@as(u256, 0x333), emitted_log.topics[2]);
+    try testing.expectEqual(@as(usize, 0), emitted_log.data.len);
 }
 
 // Test LOG4 operation
 test "LOG4: emit log with four topics" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Write large data to memory
     var log_data: [100]u8 = undefined;
@@ -177,86 +207,98 @@ test "LOG4: emit log with four topics" {
     }
     
     // Push topics, offset and length
-    try test_frame.pushStack(0x4444);   // topic4
-    try test_frame.pushStack(0x3333);   // topic3
-    try test_frame.pushStack(0x2222);   // topic2
-    try test_frame.pushStack(0x1111);   // topic1
-    try test_frame.pushStack(100);       // length
-    try test_frame.pushStack(0);         // offset
+    try test_frame.pushStack(&[_]u256{0, 100, 0x1111, 0x2222, 0x3333, 0x4444}); // offset, length, topic1, topic2, topic3, topic4
     
     // Execute LOG4
-    try test_helpers.executeOpcode(opcodes.log.op_log4, &frame);
+    _ = try test_helpers.executeOpcode(log.op_log4, &test_vm.vm, &test_frame.frame);
     
     // Check that log was emitted
-    try testing.expectEqual(@as(usize, 1), vm.vm.logs.items.len);
-    const log = vm.vm.logs.items[0];
-    try testing.expectEqual(@as(usize, 4), log.topics.len);
-    try testing.expectEqual(@as(u256, 0x1111), log.topics[0]);
-    try testing.expectEqual(@as(u256, 0x2222), log.topics[1]);
-    try testing.expectEqual(@as(u256, 0x3333), log.topics[2]);
-    try testing.expectEqual(@as(u256, 0x4444), log.topics[3]);
-    try testing.expectEqualSlices(u8, &log_data, log.data);
+    try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
+    const emitted_log = test_vm.vm.logs.items[0];
+    try testing.expectEqual(@as(usize, 4), emitted_log.topics.len);
+    try testing.expectEqual(@as(u256, 0x1111), emitted_log.topics[0]);
+    try testing.expectEqual(@as(u256, 0x2222), emitted_log.topics[1]);
+    try testing.expectEqual(@as(u256, 0x3333), emitted_log.topics[2]);
+    try testing.expectEqual(@as(u256, 0x4444), emitted_log.topics[3]);
+    try testing.expectEqualSlices(u8, &log_data, emitted_log.data);
 }
 
 // Test LOG operations in static call
 test "LOG0: write protection in static call" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Set static call
-    frame.frame.is_static = true;
+    test_frame.frame.is_static = true;
     
     // Push offset and length
-    try test_frame.pushStack(0); // length
-    try test_frame.pushStack(0); // offset
+    try test_frame.pushStack(&[_]u256{0, 0}); // offset, length
     
     // Execute LOG0 - should fail
-    const result = test_helpers.executeOpcode(opcodes.log.op_log0, &frame);
-    try testing.expectError(ExecutionError.Error.WriteProtection, result);
+    const result = test_helpers.executeOpcode(log.op_log0, &test_vm.vm, &test_frame.frame);
+    try testing.expectError(test_helpers.ExecutionError.Error.WriteProtection, result);
 }
 
 test "LOG1: write protection in static call" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Set static call
-    frame.frame.is_static = true;
+    test_frame.frame.is_static = true;
     
     // Push topic, offset and length
-    try test_frame.pushStack(0x123); // topic
-    try test_frame.pushStack(0);     // length
-    try test_frame.pushStack(0);     // offset
+    try test_frame.pushStack(&[_]u256{0, 0, 0x123}); // offset, length, topic
     
     // Execute LOG1 - should fail
-    const result = test_helpers.executeOpcode(opcodes.log.op_log1, &frame);
-    try testing.expectError(ExecutionError.Error.WriteProtection, result);
+    const result = test_helpers.executeOpcode(log.op_log1, &test_vm.vm, &test_frame.frame);
+    try testing.expectError(test_helpers.ExecutionError.Error.WriteProtection, result);
 }
 
 // Test gas consumption
 test "LOG0: gas consumption" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
     
-    // Set initial gas
-    frame.frame.gas_remaining = 10000;
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
+    defer test_frame.deinit();
     
     // Push offset and length for 32 bytes
-    try test_frame.pushStack(32); // length
-    try test_frame.pushStack(0);  // offset
+    try test_frame.pushStack(&[_]u256{0, 32}); // offset, length
     
-    const gas_before = frame.frame.gas_remaining;
+    const gas_before = test_frame.frame.gas_remaining;
     
     // Execute LOG0
     _ = try test_helpers.executeOpcode(log.op_log0, &test_vm.vm, &test_frame.frame);
@@ -264,38 +306,38 @@ test "LOG0: gas consumption" {
     // LOG0 base cost is 375 gas
     // Plus 8 gas per byte: 32 * 8 = 256
     // Total: 375 + 256 = 631
-    try testing.expectEqual(@as(u64, 631), gas_before - frame.frame.gas_remaining);
+    try testing.expectEqual(@as(u64, 631), gas_before - test_frame.frame.gas_remaining);
 }
 
 test "LOG4: gas consumption with topics" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
     
-    // Set initial gas
-    frame.frame.gas_remaining = 10000;
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
+    defer test_frame.deinit();
     
     // Push topics, offset and length
-    try test_frame.pushStack(0x4); // topic4
-    try test_frame.pushStack(0x3); // topic3
-    try test_frame.pushStack(0x2); // topic2
-    try test_frame.pushStack(0x1); // topic1
-    try test_frame.pushStack(10);  // length
-    try test_frame.pushStack(0);   // offset
+    try test_frame.pushStack(&[_]u256{0, 10, 0x1, 0x2, 0x3, 0x4}); // offset, length, topic1, topic2, topic3, topic4
     
-    const gas_before = frame.frame.gas_remaining;
+    const gas_before = test_frame.frame.gas_remaining;
     
     // Execute LOG4
-    try test_helpers.executeOpcode(opcodes.log.op_log4, &frame);
+    _ = try test_helpers.executeOpcode(log.op_log4, &test_vm.vm, &test_frame.frame);
     
     // LOG4 base cost is 375 gas
     // Plus 375 gas per topic: 4 * 375 = 1500
     // Plus 8 gas per byte: 10 * 8 = 80
     // Total: 375 + 1500 + 80 = 1955
-    try testing.expectEqual(@as(u64, 1955), gas_before - frame.frame.gas_remaining);
+    try testing.expectEqual(@as(u64, 1955), gas_before - test_frame.frame.gas_remaining);
 }
 
 // Test memory expansion

@@ -34,7 +34,7 @@ test "Integration: Token balance check pattern" {
     // Storage slot = keccak256(address . uint256(0))
     
     // Store Alice's address in memory at offset 0
-    const alice_addr = @as(u256, @bitCast(helpers.TestAddresses.ALICE.inner));
+    const alice_addr = helpers.toU256(helpers.TestAddresses.ALICE);
     try test_frame.pushStack(&[_]u256{0, alice_addr});
     _ = try helpers.executeOpcode(memory.op_mstore, &test_vm.vm, &test_frame.frame);
     
