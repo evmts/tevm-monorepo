@@ -141,7 +141,6 @@ pub fn op_shr(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     
     const result = value >> @as(u8, @intCast(shift));
     try stack_push(&frame.stack, result);
-    }
     
     return Operation.ExecutionResult{};
 }
