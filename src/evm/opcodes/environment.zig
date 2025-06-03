@@ -169,19 +169,18 @@ pub fn op_extcodecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     // Get external code from VM state
     const code = vm.code.get(address) orelse &[_]u8{};
     
-    // Ensure memory is available
-    _ = try frame.memory.ensure_capacity(mem_offset_usize + size_usize);
-    
-    const memory_slice = frame.memory.slice();
-    
-    // Copy code to memory, padding with zeros if necessary
-    for (0..size_usize) |i| {
-        if (code_offset_usize + i < code.len) {
-            memory_slice[mem_offset_usize + i] = code[code_offset_usize + i];
-        } else {
-            memory_slice[mem_offset_usize + i] = 0;
+    // Use set_data_bounded to copy the code to memory
+    // This handles partial copies and zero-padding automatically
+    frame.memory.set_data_bounded(mem_offset_usize, code, code_offset_usize, size_usize) catch |err| {
+        switch (err) {
+            error.InvalidOffset => return ExecutionError.Error.InvalidOffset,
+            error.InvalidSize => return ExecutionError.Error.OutOfOffset,
+            error.MemoryLimitExceeded => return ExecutionError.Error.OutOfGas,
+            error.OutOfMemory => return ExecutionError.Error.OutOfGas,
+            error.ChildContextActive => return ExecutionError.Error.OutOfGas,
+            error.NoChildContextToRevertOrCommit => return ExecutionError.Error.OutOfGas,
         }
-    }
+    };
     
     return Operation.ExecutionResult{};
 }
@@ -341,19 +340,18 @@ pub fn op_codecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     // Get current contract code
     const code = frame.contract.code;
     
-    // Ensure memory is available
-    _ = try frame.memory.ensure_capacity(mem_offset_usize + size_usize);
-    
-    const memory_slice = frame.memory.slice();
-    
-    // Copy code to memory, padding with zeros if necessary
-    for (0..size_usize) |i| {
-        if (code_offset_usize + i < code.len) {
-            memory_slice[mem_offset_usize + i] = code[code_offset_usize + i];
-        } else {
-            memory_slice[mem_offset_usize + i] = 0;
+    // Use set_data_bounded to copy the code to memory
+    // This handles partial copies and zero-padding automatically
+    frame.memory.set_data_bounded(mem_offset_usize, code, code_offset_usize, size_usize) catch |err| {
+        switch (err) {
+            error.InvalidOffset => return ExecutionError.Error.InvalidOffset,
+            error.InvalidSize => return ExecutionError.Error.OutOfOffset,
+            error.MemoryLimitExceeded => return ExecutionError.Error.OutOfGas,
+            error.OutOfMemory => return ExecutionError.Error.OutOfGas,
+            error.ChildContextActive => return ExecutionError.Error.OutOfGas,
+            error.NoChildContextToRevertOrCommit => return ExecutionError.Error.OutOfGas,
         }
-    }
+    };
     
     return Operation.ExecutionResult{};
 }
