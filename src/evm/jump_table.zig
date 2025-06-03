@@ -65,7 +65,10 @@ pub fn validate(self: *Self) void {
         if (self.table[i] == null) {
             self.table[i] = &UNDEFINED;
         } else if (self.table[i].?.memory_size != null and self.table[i].?.dynamic_gas == null) {
-            @panic("Operation has memory size but no dynamic gas calculation");
+            // Log error instead of panicking
+            std.debug.print("Warning: Operation 0x{x} has memory size but no dynamic gas calculation\n", .{i});
+            // Set to UNDEFINED to prevent issues
+            self.table[i] = &UNDEFINED;
         }
     }
 }

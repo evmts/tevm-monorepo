@@ -52,10 +52,10 @@ pub fn init_with_state(
     depth: ?u32,
     output: ?[]const u8,
     program_counter: ?usize,
-) Self {
+) !Self {
     // Create memory if not provided
     const mem: Memory = if (memory) |m| m else blk: {
-        const new_memory = Memory.init_default(allocator) catch @panic("Failed to initialize memory");
+        const new_memory = try Memory.init_default(allocator);
         // Don't finalize_root here - memory will be copied
         break :blk new_memory;
     };
