@@ -24,13 +24,17 @@ test "Integration: Conditional jump patterns" {
     code[20] = 0x5b; // JUMPDEST at position 20
     code[30] = 0x5b; // JUMPDEST at position 30
     
+    // Calculate proper code hash after setting up the code
+    var code_hash: [32]u8 = undefined;
+    std.crypto.hash.sha3.Keccak256.hash(&code, &code_hash, .{});
+    
     var contract = Contract.init(
         helpers.TestAddresses.ALICE,
         helpers.TestAddresses.CONTRACT,
         0,
         1_000_000,
         &code,
-        [_]u8{0} ** 32,
+        code_hash,
         &[_]u8{},
         false,
     );
@@ -80,13 +84,17 @@ test "Integration: Loop implementation with JUMP" {
     code[0] = 0x5b;  // JUMPDEST (loop start)
     code[50] = 0x5b; // JUMPDEST (loop end)
     
+    // Calculate proper code hash after setting up the code
+    var code_hash: [32]u8 = undefined;
+    std.crypto.hash.sha3.Keccak256.hash(&code, &code_hash, .{});
+    
     var contract = Contract.init(
         helpers.TestAddresses.ALICE,
         helpers.TestAddresses.CONTRACT,
         0,
         1_000_000,
         &code,
-        [_]u8{0} ** 32,
+        code_hash,
         &[_]u8{},
         false,
     );
@@ -264,13 +272,17 @@ test "Integration: Nested conditions with jumps" {
     code[40] = 0x5b; // JUMPDEST (both conditions true)
     code[60] = 0x5b; // JUMPDEST (end)
     
+    // Calculate proper code hash after setting up the code
+    var code_hash: [32]u8 = undefined;
+    std.crypto.hash.sha3.Keccak256.hash(&code, &code_hash, .{});
+    
     var contract = Contract.init(
         helpers.TestAddresses.ALICE,
         helpers.TestAddresses.CONTRACT,
         0,
         1_000_000,
         &code,
-        [_]u8{0} ** 32,
+        code_hash,
         &[_]u8{},
         false,
     );
