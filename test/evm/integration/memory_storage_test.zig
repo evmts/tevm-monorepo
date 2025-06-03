@@ -35,7 +35,7 @@ test "Integration: Memory operations with arithmetic" {
     
     // Load from memory and verify
     try test_frame.pushStack(&[_]u256{0}); // offset
-    _ = try helpers.executeOpcode(op_mload, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x51, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 30);
     
     // Check memory size
@@ -77,16 +77,16 @@ test "Integration: Storage with conditional updates" {
     try helpers.expectStackValue(test_frame.frame, 0, 150);
     
     // Duplicate for comparison
-    _ = try helpers.executeOpcode(op_dup1, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x80, &test_vm.vm, test_frame.frame);
     
     // Compare with 120
     try test_frame.pushStack(&[_]u256{120});
-    _ = try helpers.executeOpcode(op_gt, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x11, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 1); // 150 > 120 is true
     
     // Since condition is true, store the value
     // Stack: [150, 1] - need to remove condition and keep value
-    _ = try helpers.executeOpcode(op_pop, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
     
     // Store value
     try test_frame.pushStack(&[_]u256{slot});
@@ -127,11 +127,11 @@ test "Integration: Memory copy operations" {
     
     // Copy 32 bytes from offset 0 to offset 64
     try test_frame.pushStack(&[_]u256{64, 0, 32}); // dst, src, size
-    _ = try helpers.executeOpcode(op_mcopy, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x5E, &test_vm.vm, test_frame.frame);
     
     // Verify copy
     try test_frame.pushStack(&[_]u256{64}); // offset
-    _ = try helpers.executeOpcode(op_mload, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x51, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, data1);
     
     // Check memory size expanded
@@ -165,11 +165,11 @@ test "Integration: Transient storage with arithmetic" {
     
     // Load, double it, store back
     try test_frame.pushStack(&[_]u256{slot});
-    _ = try helpers.executeOpcode(op_tload, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x5C, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 1000);
     
     // Double the value
-    _ = try helpers.executeOpcode(op_dup1, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x80, &test_vm.vm, test_frame.frame);
     _ = try helpers.executeOpcode(0x01, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 2000);
     
@@ -179,7 +179,7 @@ test "Integration: Transient storage with arithmetic" {
     
     // Verify
     try test_frame.pushStack(&[_]u256{slot});
-    _ = try helpers.executeOpcode(op_tload, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x5C, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 2000);
 }
 
@@ -213,7 +213,7 @@ test "Integration: MSTORE8 with bitwise operations" {
     
     // Load the full word
     try test_frame.pushStack(&[_]u256{0});
-    _ = try helpers.executeOpcode(op_mload, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x51, &test_vm.vm, test_frame.frame);
     
     // The result should be 0xDEADBEEF0000...
     const result = try test_frame.popStack();

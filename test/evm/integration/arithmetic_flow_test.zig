@@ -60,7 +60,7 @@ test "Integration: Arithmetic with conditional jumps" {
     _ = try helpers.executeOpcode(op_push1, &test_vm.vm, test_frame.frame);
     test_frame.frame.pc += 2;
     
-    _ = try helpers.executeOpcode(op_gt, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x11, &test_vm.vm, test_frame.frame);
     
     // 15 > 12 should be 1
     try helpers.expectStackValue(test_frame.frame, 0, 1);
@@ -229,7 +229,7 @@ test "Integration: Stack manipulation with arithmetic" {
     // SUB -> [30]
     
     try test_frame.pushStack(&[_]u256{10, 20});
-    _ = try helpers.executeOpcode(op_dup1, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x80, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 3), test_frame.stackSize());
     
     _ = try helpers.executeOpcode(0x01, &test_vm.vm, test_frame.frame);

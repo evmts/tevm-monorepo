@@ -386,7 +386,7 @@ test "Integration: Return data handling across calls" {
     
     // Verify data was copied
     try test_frame.pushStack(&[_]u256{200});
-    _ = try helpers.executeOpcode(op_mload, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x51, &test_vm.vm, test_frame.frame);
     
     // Should have 0xAABBCCDD in the most significant bytes
     const expected = (@as(u256, 0xAABBCCDD) << (28 * 8));

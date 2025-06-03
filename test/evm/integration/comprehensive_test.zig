@@ -263,7 +263,7 @@ test "Integration: Complex control flow with nested conditions" {
     test_frame.frame.pc = 2;
     
     // DUP1
-    _ = try helpers.executeOpcode(op_dup1, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x80, &test_vm.vm, test_frame.frame);
     test_frame.frame.pc = 3;
     
     // Push 100
@@ -290,7 +290,7 @@ test "Integration: Complex control flow with nested conditions" {
     test_frame.frame.pc = 15; // Skip JUMPDEST
     
     // DUP1
-    _ = try helpers.executeOpcode(op_dup1, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x80, &test_vm.vm, test_frame.frame);
     test_frame.frame.pc = 16;
     
     // Push 200
@@ -298,7 +298,7 @@ test "Integration: Complex control flow with nested conditions" {
     test_frame.frame.pc = 18;
     
     // GT
-    _ = try helpers.executeOpcode(op_gt, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x11, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0); // 150 > 200 is false
     test_frame.frame.pc = 19;
     
@@ -328,7 +328,7 @@ test "Integration: Complex control flow with nested conditions" {
     
     // Verify result in memory
     try test_frame.pushStack(&[_]u256{0});
-    _ = try helpers.executeOpcode(op_mload, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x51, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 300);
 }
 
