@@ -16,6 +16,11 @@ contract: *Contract,
 return_data: ?[]u8 = null,
 allocator: std.mem.Allocator,
 stop: bool = false,
+gas_remaining: u64 = 0,
+is_static: bool = false,
+return_data_buffer: []const u8 = &[_]u8{},
+input: []const u8 = &[_]u8{},
+depth: u16 = 0,
 
 pub fn init(allocator: std.mem.Allocator, contract: *Contract) Self {
     return Self{
