@@ -55,7 +55,11 @@ test "Comparison: LT (less than) operations" {
     _ = try helpers.executeOpcode(0x10, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 1); // (max-1) < max = true
     
-    // Test gas consumption
+    // Test gas consumption for a single operation
+    test_frame.frame.stack.clear();
+    test_frame.frame.gas_remaining = 1000;
+    try test_frame.pushStack(&[_]u256{1, 2});
+    _ = try helpers.executeOpcode(0x10, &test_vm.vm, test_frame.frame);
     try helpers.expectGasUsed(test_frame.frame, 1000, helpers.opcodes.gas_constants.GasFastestStep);
 }
 
@@ -100,7 +104,11 @@ test "Comparison: GT (greater than) operations" {
     _ = try helpers.executeOpcode(0x11, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 1); // 1 > 0 = true
     
-    // Test gas consumption
+    // Test gas consumption for a single operation
+    test_frame.frame.stack.clear();
+    test_frame.frame.gas_remaining = 1000;
+    try test_frame.pushStack(&[_]u256{1, 2});
+    _ = try helpers.executeOpcode(0x11, &test_vm.vm, test_frame.frame);
     try helpers.expectGasUsed(test_frame.frame, 1000, helpers.opcodes.gas_constants.GasFastestStep);
 }
 
@@ -155,7 +163,11 @@ test "Comparison: SLT (signed less than) operations" {
     _ = try helpers.executeOpcode(0x12, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 1); // most_negative < most_positive = true
     
-    // Test gas consumption
+    // Test gas consumption for a single operation
+    test_frame.frame.stack.clear();
+    test_frame.frame.gas_remaining = 1000;
+    try test_frame.pushStack(&[_]u256{1, 2});
+    _ = try helpers.executeOpcode(0x12, &test_vm.vm, test_frame.frame);
     try helpers.expectGasUsed(test_frame.frame, 1000, helpers.opcodes.gas_constants.GasFastestStep);
 }
 
@@ -202,7 +214,11 @@ test "Comparison: SGT (signed greater than) operations" {
     _ = try helpers.executeOpcode(0x13, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 1); // -1 > -2 = true
     
-    // Test gas consumption
+    // Test gas consumption for a single operation
+    test_frame.frame.stack.clear();
+    test_frame.frame.gas_remaining = 1000;
+    try test_frame.pushStack(&[_]u256{1, 2});
+    _ = try helpers.executeOpcode(0x13, &test_vm.vm, test_frame.frame);
     try helpers.expectGasUsed(test_frame.frame, 1000, helpers.opcodes.gas_constants.GasFastestStep);
 }
 
@@ -248,7 +264,11 @@ test "Comparison: EQ (equal) operations" {
     _ = try helpers.executeOpcode(0x14, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 1); // max == max = true
     
-    // Test gas consumption
+    // Test gas consumption for a single operation
+    test_frame.frame.stack.clear();
+    test_frame.frame.gas_remaining = 1000;
+    try test_frame.pushStack(&[_]u256{1, 2});
+    _ = try helpers.executeOpcode(0x14, &test_vm.vm, test_frame.frame);
     try helpers.expectGasUsed(test_frame.frame, 1000, helpers.opcodes.gas_constants.GasFastestStep);
 }
 
@@ -293,7 +313,11 @@ test "Comparison: ISZERO operations" {
     _ = try helpers.executeOpcode(0x15, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0); // max == 0 = false
     
-    // Test gas consumption
+    // Test gas consumption for a single operation
+    test_frame.frame.stack.clear();
+    test_frame.frame.gas_remaining = 1000;
+    try test_frame.pushStack(&[_]u256{0});
+    _ = try helpers.executeOpcode(0x15, &test_vm.vm, test_frame.frame);
     try helpers.expectGasUsed(test_frame.frame, 1000, helpers.opcodes.gas_constants.GasFastestStep);
 }
 

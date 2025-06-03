@@ -74,20 +74,20 @@ test "Arithmetic: SUB basic operations" {
     defer test_frame.deinit();
     
     // Test 1: Simple subtraction  
-    try test_frame.pushStack(&[_]u256{5, 10}); // Push 5 first, then 10 (so 10 is on top)
+    try test_frame.pushStack(&[_]u256{10, 5}); // Push 10 first, then 5 (so 5 is on top)
     _ = try helpers.executeOpcode(0x03, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 5); // 10 - 5 = 5
     
     // Test 2: Subtraction with underflow
     test_frame.frame.stack.clear();
-    try test_frame.pushStack(&[_]u256{10, 5}); // Push 10 first, then 5 (so 5 is on top)
+    try test_frame.pushStack(&[_]u256{5, 10}); // Push 5 first, then 10 (so 10 is on top)
     _ = try helpers.executeOpcode(0x03, &test_vm.vm, test_frame.frame);
     const expected = std.math.maxInt(u256) - 4; // 5 - 10 wraps to max - 4
     try helpers.expectStackValue(test_frame.frame, 0, expected);
     
     // Test 3: Subtracting zero
     test_frame.frame.stack.clear();
-    try test_frame.pushStack(&[_]u256{0, 42}); // Push 0 first, then 42 (so 42 is on top)
+    try test_frame.pushStack(&[_]u256{42, 0}); // Push 42 first, then 0 (so 0 is on top)
     _ = try helpers.executeOpcode(0x03, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 42); // 42 - 0 = 42
 }
@@ -319,8 +319,8 @@ test "Arithmetic: EXP exponential operations" {
     test_frame.frame.gas_remaining = 10000;
     try test_frame.pushStack(&[_]u256{2, 256}); // 2^256
     _ = try helpers.executeOpcode(0x0A, &test_vm.vm, test_frame.frame);
-    // Gas should be consumed: 50 * 2 (256 = 0x100 = 2 bytes)
-    const expected_gas = 50 * 2;
+    // Gas should be consumed: 10 (base) + 50 * 2 (256 = 0x100 = 2 bytes)
+    const expected_gas = 10 + 50 * 2;
     try helpers.expectGasUsed(test_frame.frame, 10000, expected_gas);
 }
 

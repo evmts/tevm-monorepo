@@ -405,8 +405,8 @@ test "Bitwise: Gas consumption" {
         .{ .name = "SAR", .op = bitwise.op_sar, .stack_items = 2 },
     };
     
-    // Create jump table for gas testing
-    const jump_table = helpers.JumpTable.new_frontier_instruction_set();
+    // Create jump table for gas testing - use Cancun to include SHL/SHR/SAR
+    const jump_table = helpers.JumpTable.new_cancun_instruction_set();
     
     // Map operations to their opcodes
     const opcode_map = [_]u8{

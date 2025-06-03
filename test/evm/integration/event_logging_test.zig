@@ -40,7 +40,7 @@ test "Integration: ERC20 Transfer event logging" {
     try frame.pushValue(0);  // offset
     
     // Execute LOG3 (3 topics)
-    try test_helpers.executeOpcode(op_log3, &frame);
+    try test_helpers.executeOpcode(0xA3, &frame);
     
     // Verify log was emitted
     try testing.expectEqual(@as(usize, 1), vm.vm.logs.items.len);
@@ -71,7 +71,7 @@ test "Integration: multiple event emissions" {
     
     try frame.pushValue(4); // size
     try frame.pushValue(0); // offset
-    try test_helpers.executeOpcode(op_log0, &frame);
+    try test_helpers.executeOpcode(0xA0, &frame);
     
     // Emit event 2: Indexed event (LOG1)
     const topic1: u256 = 0x1234567890ABCDEF;
@@ -84,7 +84,7 @@ test "Integration: multiple event emissions" {
     try frame.pushValue(topic1);
     try frame.pushValue(2);   // size
     try frame.pushValue(100); // offset
-    try test_helpers.executeOpcode(op_log1, &frame);
+    try test_helpers.executeOpcode(0xA1, &frame);
     
     // Emit event 3: Complex event (LOG4)
     const topic2: u256 = 0x2222222222222222;
@@ -97,7 +97,7 @@ test "Integration: multiple event emissions" {
     try frame.pushValue(topic1);
     try frame.pushValue(0); // size (empty data)
     try frame.pushValue(0); // offset
-    try test_helpers.executeOpcode(op_log4, &frame);
+    try test_helpers.executeOpcode(0xA4, &frame);
     
     // Verify all logs
     try testing.expectEqual(@as(usize, 3), vm.vm.logs.items.len);
@@ -155,7 +155,7 @@ test "Integration: event with dynamic array data" {
     try frame.pushValue(0);  // offset
     
     // Execute LOG2
-    try test_helpers.executeOpcode(op_log2, &frame);
+    try test_helpers.executeOpcode(0xA2, &frame);
     
     // Verify
     try testing.expectEqual(@as(usize, 1), vm.vm.logs.items.len);
@@ -188,7 +188,7 @@ test "Integration: log gas consumption patterns" {
     try frame.pushValue(0); // offset
     
     const gas_before_log0 = frame.frame.gas_remaining;
-    try test_helpers.executeOpcode(op_log0, &frame);
+    try test_helpers.executeOpcode(0xA0, &frame);
     
     const log0_gas = gas_before_log0 - frame.frame.gas_remaining;
     // LOG0 base: 375, data: 8 * 4 = 32, total: 407
@@ -209,7 +209,7 @@ test "Integration: log gas consumption patterns" {
     try frame.pushValue(100);              // offset
     
     const gas_before_log4 = frame.frame.gas_remaining;
-    try test_helpers.executeOpcode(op_log4, &frame);
+    try test_helpers.executeOpcode(0xA4, &frame);
     
     const log4_gas = gas_before_log4 - frame.frame.gas_remaining;
     // LOG4 base: 375, topics: 375 * 4 = 1500, data: 8 * 64 = 512, total: 2387
@@ -231,7 +231,7 @@ test "Integration: logging restrictions in static calls" {
     try frame.pushValue(0); // size
     try frame.pushValue(0); // offset
     
-    var result = test_helpers.executeOpcode(op_log0, &frame);
+    var result = test_helpers.executeOpcode(0xA0, &frame);
     try testing.expectError(ExecutionError.Error.WriteProtection, result);
     
     // Try LOG1
@@ -240,7 +240,7 @@ test "Integration: logging restrictions in static calls" {
     try frame.pushValue(0);      // size
     try frame.pushValue(0);      // offset
     
-    result = test_helpers.executeOpcode(op_log1, &frame);
+    result = test_helpers.executeOpcode(0xA1, &frame);
     try testing.expectError(ExecutionError.Error.WriteProtection, result);
     
     // Verify no logs were emitted
@@ -268,7 +268,7 @@ test "Integration: event topics for bloom filter" {
     try frame.pushValue(token_transfer_sig);
     try frame.pushValue(0); // size
     try frame.pushValue(0); // offset
-    try test_helpers.executeOpcode(op_log3, &frame);
+    try test_helpers.executeOpcode(0xA3, &frame);
     
     // Emit Approval event
     try frame.pushValue(test_helpers.to_u256(test_helpers.TEST_ADDRESS_3)); // spender
@@ -276,14 +276,14 @@ test "Integration: event topics for bloom filter" {
     try frame.pushValue(approval_sig);
     try frame.pushValue(0); // size
     try frame.pushValue(0); // offset
-    try test_helpers.executeOpcode(op_log3, &frame);
+    try test_helpers.executeOpcode(0xA3, &frame);
     
     // Emit Mint event
     try frame.pushValue(test_helpers.to_u256(test_helpers.TEST_ADDRESS_2)); // to
     try frame.pushValue(mint_sig);
     try frame.pushValue(0); // size
     try frame.pushValue(0); // offset
-    try test_helpers.executeOpcode(op_log2, &frame);
+    try test_helpers.executeOpcode(0xA2, &frame);
     
     // Verify all events were logged
     try testing.expectEqual(@as(usize, 3), vm.vm.logs.items.len);
@@ -320,7 +320,7 @@ test "Integration: log memory expansion costs" {
     try frame.pushValue(1000); // high offset - requires memory expansion
     
     const gas_before = frame.frame.gas_remaining;
-    try test_helpers.executeOpcode(op_log0, &frame);
+    try test_helpers.executeOpcode(0xA0, &frame);
     
     const gas_used = gas_before - frame.frame.gas_remaining;
     
@@ -352,21 +352,21 @@ test "Integration: event filtering by topics" {
     try frame.pushValue(event_type_1);
     try frame.pushValue(0); // size
     try frame.pushValue(0); // offset
-    try test_helpers.executeOpcode(op_log2, &frame);
+    try test_helpers.executeOpcode(0xA2, &frame);
     
     // Event 2: Type1 from Sender2
     try frame.pushValue(sender_2);
     try frame.pushValue(event_type_1);
     try frame.pushValue(0); // size
     try frame.pushValue(0); // offset
-    try test_helpers.executeOpcode(op_log2, &frame);
+    try test_helpers.executeOpcode(0xA2, &frame);
     
     // Event 3: Type2 from Sender1
     try frame.pushValue(sender_1);
     try frame.pushValue(event_type_2);
     try frame.pushValue(0); // size
     try frame.pushValue(0); // offset
-    try test_helpers.executeOpcode(op_log2, &frame);
+    try test_helpers.executeOpcode(0xA2, &frame);
     
     // Count events by type
     var type1_count: usize = 0;

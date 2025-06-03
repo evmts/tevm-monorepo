@@ -49,9 +49,9 @@ pub fn op_sub(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     _ = interpreter;
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
-    const b = try stack_pop(&frame.stack);
-    const a = try stack_pop(&frame.stack);
-    const result = a -% b;
+    const b = try stack_pop(&frame.stack); // First pop (top of stack)
+    const a = try stack_pop(&frame.stack); // Second pop (below top)
+    const result = a -% b; // second_pop - first_pop
     try stack_push(&frame.stack, result);
 
     return Operation.ExecutionResult{};

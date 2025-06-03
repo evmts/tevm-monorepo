@@ -388,7 +388,7 @@ test "Integration: Calldata operations" {
         0,              // offset
         calldata.len,   // size
     });
-    _ = try helpers.executeOpcode(memory_ops.op_calldatacopy, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x37, &test_vm.vm, test_frame.frame);
     
     // Verify calldata was copied to memory
     const copied_data = try test_frame.getMemory(0, calldata.len);

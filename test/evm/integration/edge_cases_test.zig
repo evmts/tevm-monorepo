@@ -24,18 +24,18 @@ test "Integration: stack limit boundary conditions" {
     try testing.expectEqual(@as(usize, 1024), frame.stack.items.len);
     
     // DUP1 should fail (would exceed 1024)
-    const dup_result = test_helpers.executeOpcode(op_dup1, &frame);
+    const dup_result = test_helpers.executeOpcode(0x80, &frame);
     try testing.expectError(ExecutionError.Error.StackOverflow, dup_result);
     
     // SWAP1 should succeed (doesn't increase stack size)
-    try test_helpers.executeOpcode(op_swap1, &frame);
+    try test_helpers.executeOpcode(0x90, &frame);
     
     // POP should succeed and make room
-    try test_helpers.executeOpcode(op_pop, &frame);
+    try test_helpers.executeOpcode(0x50, &frame);
     try testing.expectEqual(@as(usize, 1023), frame.stack.items.len);
     
     // Now DUP1 should succeed
-    try test_helpers.executeOpcode(op_dup1, &frame);
+    try test_helpers.executeOpcode(0x80, &frame);
     try testing.expectEqual(@as(usize, 1024), frame.stack.items.len);
 }
 
@@ -89,7 +89,7 @@ test "Integration: arithmetic overflow and underflow" {
     // Test subtraction underflow (wraps around)
     try frame.pushValue(0);
     try frame.pushValue(1);
-    try test_helpers.executeOpcode(op_sub, &frame);
+    try test_helpers.executeOpcode(0x03, &frame);
     try testing.expectEqual(max_u256, try frame.popValue());
     
     // Test multiplication overflow
@@ -101,13 +101,13 @@ test "Integration: arithmetic overflow and underflow" {
     // Test division by zero
     try frame.pushValue(100);
     try frame.pushValue(0);
-    try test_helpers.executeOpcode(op_div, &frame);
+    try test_helpers.executeOpcode(0x04, &frame);
     try testing.expectEqual(@as(u256, 0), try frame.popValue()); // EVM returns 0 for division by zero
     
     // Test modulo by zero
     try frame.pushValue(100);
     try frame.pushValue(0);
-    try test_helpers.executeOpcode(op_mod, &frame);
+    try test_helpers.executeOpcode(0x06, &frame);
     try testing.expectEqual(@as(u256, 0), try frame.popValue()); // EVM returns 0 for modulo by zero
 }
 
@@ -127,19 +127,19 @@ test "Integration: signed arithmetic boundaries" {
     // Test SLT with boundary values
     try frame.pushValue(max_signed); // Maximum positive
     try frame.pushValue(min_signed); // Minimum negative
-    try test_helpers.executeOpcode(op_slt, &frame);
+    try test_helpers.executeOpcode(0x12, &frame);
     try testing.expectEqual(@as(u256, 1), try frame.popValue()); // -2^255 < 2^255-1
     
     // Test SGT with boundary values
     try frame.pushValue(min_signed); // Minimum negative
     try frame.pushValue(max_signed); // Maximum positive
-    try test_helpers.executeOpcode(op_sgt, &frame);
+    try test_helpers.executeOpcode(0x13, &frame);
     try testing.expectEqual(@as(u256, 1), try frame.popValue()); // 2^255-1 > -2^255
     
     // Test SDIV with overflow case
     try frame.pushValue(min_signed); // -2^255
     try frame.pushValue(std.math.maxInt(u256)); // -1 in two's complement
-    try test_helpers.executeOpcode(op_sdiv, &frame);
+    try test_helpers.executeOpcode(0x05, &frame);
     try testing.expectEqual(min_signed, try frame.popValue()); // -2^255 / -1 = -2^255 (overflow)
 }
 
@@ -154,35 +154,35 @@ test "Integration: bitwise operation boundaries" {
     // Test shift operations with large shift amounts
     try frame.pushValue(0xFF);
     try frame.pushValue(256); // Shift by full width
-    try test_helpers.executeOpcode(op_shl, &frame);
+    try test_helpers.executeOpcode(0x1B, &frame);
     try testing.expectEqual(@as(u256, 0), try frame.popValue()); // Shifts out completely
     
     try frame.pushValue(0xFF << 248); // Byte in most significant position
     try frame.pushValue(256); // Shift right by full width
-    try test_helpers.executeOpcode(op_shr, &frame);
+    try test_helpers.executeOpcode(0x1C, &frame);
     try testing.expectEqual(@as(u256, 0), try frame.popValue()); // Shifts out completely
     
     // Test SAR with negative number
     const negative_one = std.math.maxInt(u256); // -1 in two's complement
     try frame.pushValue(negative_one);
     try frame.pushValue(255); // Shift right by 255 bits
-    try test_helpers.executeOpcode(op_sar, &frame);
+    try test_helpers.executeOpcode(0x1D, &frame);
     try testing.expectEqual(negative_one, try frame.popValue()); // Sign extension fills with 1s
     
     // Test BYTE operation edge cases
     try frame.pushValue(0x0102030405060708090A0B0C0D0E0F101112131415161718191A1B1C1D1E1F20);
     try frame.pushValue(0); // Get most significant byte
-    try test_helpers.executeOpcode(op_byte, &frame);
+    try test_helpers.executeOpcode(0x1A, &frame);
     try testing.expectEqual(@as(u256, 0x01), try frame.popValue());
     
     try frame.pushValue(0x0102030405060708090A0B0C0D0E0F101112131415161718191A1B1C1D1E1F20);
     try frame.pushValue(31); // Get least significant byte
-    try test_helpers.executeOpcode(op_byte, &frame);
+    try test_helpers.executeOpcode(0x1A, &frame);
     try testing.expectEqual(@as(u256, 0x20), try frame.popValue());
     
     try frame.pushValue(0x0102030405060708090A0B0C0D0E0F101112131415161718191A1B1C1D1E1F20);
     try frame.pushValue(32); // Out of range
-    try test_helpers.executeOpcode(op_byte, &frame);
+    try test_helpers.executeOpcode(0x1A, &frame);
     try testing.expectEqual(@as(u256, 0), try frame.popValue()); // Returns 0 for out of range
 }
 
@@ -211,7 +211,7 @@ test "Integration: call gas calculation edge cases" {
     try frame.pushValue(test_helpers.to_u256(test_helpers.TEST_ADDRESS_1)); // to
     try frame.pushValue(2000); // gas (more than available)
     
-    try test_helpers.executeOpcode(op_call, &frame);
+    try test_helpers.executeOpcode(0xF1, &frame);
     
     // Call should fail but not error
     try testing.expectEqual(@as(u256, 0), try frame.popValue());
@@ -238,7 +238,7 @@ test "Integration: return data boundary conditions" {
     try frame.pushValue(1); // data offset
     try frame.pushValue(0); // memory offset
     
-    try test_helpers.executeOpcode(op_returndatacopy, &frame);
+    try test_helpers.executeOpcode(0x3E, &frame);
     
     try testing.expectEqual(@as(u8, 0x22), frame.memory.read_byte(0));
     try testing.expectEqual(@as(u8, 0x33), frame.memory.read_byte(1));
@@ -248,7 +248,7 @@ test "Integration: return data boundary conditions" {
     try frame.pushValue(3); // data offset (last valid)
     try frame.pushValue(10); // memory offset
     
-    try test_helpers.executeOpcode(op_returndatacopy, &frame);
+    try test_helpers.executeOpcode(0x3E, &frame);
     
     try testing.expectEqual(@as(u8, 0x44), frame.memory.read_byte(10));
     
@@ -257,7 +257,7 @@ test "Integration: return data boundary conditions" {
     try frame.pushValue(3); // data offset (would read beyond)
     try frame.pushValue(20); // memory offset
     
-    const result = test_helpers.executeOpcode(op_returndatacopy, &frame);
+    const result = test_helpers.executeOpcode(0x3E, &frame);
     try testing.expectError(ExecutionError.Error.ReturnDataOutOfBounds, result);
     
     // Test 4: Offset beyond data - should fail
@@ -265,7 +265,7 @@ test "Integration: return data boundary conditions" {
     try frame.pushValue(5); // data offset (beyond data)
     try frame.pushValue(30); // memory offset
     
-    const result2 = test_helpers.executeOpcode(op_returndatacopy, &frame);
+    const result2 = test_helpers.executeOpcode(0x3E, &frame);
     try testing.expectError(ExecutionError.Error.ReturnDataOutOfBounds, result2);
 }
 
@@ -280,31 +280,31 @@ test "Integration: exponentiation edge cases" {
     // Test 0^0 = 1
     try frame.pushValue(0); // exponent
     try frame.pushValue(0); // base
-    try test_helpers.executeOpcode(op_exp, &frame);
+    try test_helpers.executeOpcode(0x0A, &frame);
     try testing.expectEqual(@as(u256, 1), try frame.popValue());
     
     // Test x^0 = 1
     try frame.pushValue(0); // exponent
     try frame.pushValue(12345); // base
-    try test_helpers.executeOpcode(op_exp, &frame);
+    try test_helpers.executeOpcode(0x0A, &frame);
     try testing.expectEqual(@as(u256, 1), try frame.popValue());
     
     // Test 0^x = 0 (x > 0)
     try frame.pushValue(5); // exponent
     try frame.pushValue(0); // base
-    try test_helpers.executeOpcode(op_exp, &frame);
+    try test_helpers.executeOpcode(0x0A, &frame);
     try testing.expectEqual(@as(u256, 0), try frame.popValue());
     
     // Test 1^x = 1
     try frame.pushValue(std.math.maxInt(u256)); // huge exponent
     try frame.pushValue(1); // base
-    try test_helpers.executeOpcode(op_exp, &frame);
+    try test_helpers.executeOpcode(0x0A, &frame);
     try testing.expectEqual(@as(u256, 1), try frame.popValue());
     
     // Test 2^256 (overflow)
     try frame.pushValue(256); // exponent
     try frame.pushValue(2); // base
-    try test_helpers.executeOpcode(op_exp, &frame);
+    try test_helpers.executeOpcode(0x0A, &frame);
     try testing.expectEqual(@as(u256, 0), try frame.popValue()); // Overflows to 0
 }
 
@@ -329,13 +329,13 @@ test "Integration: jump destination validation" {
     
     // Jump to position 1 (inside PUSH data) - should fail
     try frame.pushValue(1);
-    const result1 = test_helpers.executeOpcode(op_jump, &frame);
+    const result1 = test_helpers.executeOpcode(0x56, &frame);
     try testing.expectError(ExecutionError.Error.InvalidJump, result1);
     
     // Jump to position 3 (valid JUMPDEST) - should succeed
     frame.stack.clear();
     try frame.pushValue(3);
-    const result2 = try test_helpers.executeOpcode(op_jump, &frame);
+    const result2 = try test_helpers.executeOpcode(0x56, &frame);
     try testing.expectEqual(@as(?usize, 3), result2.jump_dest);
 }
 
@@ -394,7 +394,7 @@ test "Integration: MCOPY overlap handling" {
     try frame.pushValue(2); // source offset
     try frame.pushValue(5); // dest offset (overlaps last 3 bytes)
     
-    try test_helpers.executeOpcode(op_mcopy, &frame);
+    try test_helpers.executeOpcode(0x5E, &frame);
     
     // Memory should be: 1,2,3,4,5,3,4,5,6,7,8
     try testing.expectEqual(@as(u8, 3), frame.memory.read_byte(5));

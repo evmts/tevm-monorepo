@@ -30,7 +30,7 @@ test "Integration: arithmetic calculation sequence" {
     
     // Push 1 and subtract
     try frame.pushValue(1);
-    try test_helpers.executeOpcode(op_sub, &frame);
+    try test_helpers.executeOpcode(0x03, &frame);
     
     // Final result
     try testing.expectEqual(@as(u256, 15), try frame.popValue());
@@ -53,14 +53,14 @@ test "Integration: stack manipulation with DUP and SWAP" {
     // Stack: [10, 20, 30] (top is 30)
     
     // DUP2 - duplicate second item
-    try test_helpers.executeOpcode(op_dup2, &frame);
+    try test_helpers.executeOpcode(0x81, &frame);
     
     // Stack: [10, 20, 30, 20]
     try testing.expectEqual(@as(u256, 20), frame.peekStack(0));
     try testing.expectEqual(@as(u256, 30), frame.peekStack(1));
     
     // SWAP1 - swap top two
-    try test_helpers.executeOpcode(op_swap1, &frame);
+    try test_helpers.executeOpcode(0x90, &frame);
     
     // Stack: [10, 20, 20, 30]
     try testing.expectEqual(@as(u256, 30), frame.peekStack(0));
@@ -95,7 +95,7 @@ test "Integration: memory to storage workflow" {
     
     // Load from memory
     try frame.pushValue(32); // offset
-    try test_helpers.executeOpcode(op_mload, &frame);
+    try test_helpers.executeOpcode(0x51, &frame);
     
     // Store in storage slot 5
     try frame.pushValue(5); // slot
@@ -133,13 +133,13 @@ test "Integration: conditional branching" {
     try frame.pushValue(200);
     
     // Check if 100 < 200 (true)
-    try test_helpers.executeOpcode(op_lt, &frame);
+    try test_helpers.executeOpcode(0x10, &frame);
     
     // JUMPI to 10 if true
     try frame.pushValue(10); // destination
     try frame.swapStack(0, 1); // put condition on top
     
-    const result1 = try test_helpers.executeOpcode(op_jumpi, &frame);
+    const result1 = try test_helpers.executeOpcode(0x57, &frame);
     try testing.expectEqual(@as(?usize, 10), result1.jump_dest);
     
     // Test 2: Jump not taken (condition false)
@@ -148,13 +148,13 @@ test "Integration: conditional branching" {
     try frame.pushValue(100);
     
     // Check if 200 < 100 (false)
-    try test_helpers.executeOpcode(op_lt, &frame);
+    try test_helpers.executeOpcode(0x10, &frame);
     
     // JUMPI to 20 if true (won't jump)
     try frame.pushValue(20); // destination
     try frame.swapStack(0, 1); // put condition on top
     
-    const result2 = try test_helpers.executeOpcode(op_jumpi, &frame);
+    const result2 = try test_helpers.executeOpcode(0x57, &frame);
     try testing.expectEqual(@as(?usize, null), result2.jump_dest);
 }
 
@@ -180,7 +180,7 @@ test "Integration: hash and compare workflow" {
     // Hash first data
     try frame.pushValue(4); // length
     try frame.pushValue(0); // offset
-    try test_helpers.executeOpcode(op_sha3, &frame);
+    try test_helpers.executeOpcode(0x20, &frame);
     
     const hash1 = frame.peekStack(0);
     
@@ -193,10 +193,10 @@ test "Integration: hash and compare workflow" {
     // Hash second data
     try frame.pushValue(4);   // length
     try frame.pushValue(100); // offset
-    try test_helpers.executeOpcode(op_sha3, &frame);
+    try test_helpers.executeOpcode(0x20, &frame);
     
     // Compare hashes (should be equal)
-    try test_helpers.executeOpcode(op_eq, &frame);
+    try test_helpers.executeOpcode(0x14, &frame);
     try testing.expectEqual(@as(u256, 1), try frame.popValue());
     
     // Write third data (different)
@@ -209,10 +209,10 @@ test "Integration: hash and compare workflow" {
     try frame.pushValue(hash1); // Push first hash back
     try frame.pushValue(4);     // length
     try frame.pushValue(200);   // offset
-    try test_helpers.executeOpcode(op_sha3, &frame);
+    try test_helpers.executeOpcode(0x20, &frame);
     
     // Compare hashes (should be different)
-    try test_helpers.executeOpcode(op_eq, &frame);
+    try test_helpers.executeOpcode(0x14, &frame);
     try testing.expectEqual(@as(u256, 0), try frame.popValue());
 }
 
@@ -239,30 +239,30 @@ test "Integration: call data processing" {
     frame.frame.input = &call_data;
     
     // Get call data size
-    try test_helpers.executeOpcode(op_calldatasize, &frame);
+    try test_helpers.executeOpcode(0x36, &frame);
     try testing.expectEqual(@as(u256, call_data.len), try frame.popValue());
     
     // Load function selector (first 4 bytes)
     try frame.pushValue(0); // offset
-    try test_helpers.executeOpcode(op_calldataload, &frame);
+    try test_helpers.executeOpcode(0x35, &frame);
     
     // Extract selector by shifting right
     try frame.pushValue(224); // 256 - 32 = 224 bits
-    try test_helpers.executeOpcode(op_shr, &frame);
+    try test_helpers.executeOpcode(0x1C, &frame);
     
     const selector = try frame.popValue();
     try testing.expectEqual(@as(u256, 0xa9059cbb), selector);
     
     // Load first parameter (address)
     try frame.pushValue(4); // offset past selector
-    try test_helpers.executeOpcode(op_calldataload, &frame);
+    try test_helpers.executeOpcode(0x35, &frame);
     
     const param1 = try frame.popValue();
     try testing.expectEqual(@as(u256, 0x123456789abcdef01234567800000000000000000000000000000000), param1);
     
     // Load second parameter (amount)
     try frame.pushValue(36); // offset to second parameter
-    try test_helpers.executeOpcode(op_calldataload, &frame);
+    try test_helpers.executeOpcode(0x35, &frame);
     
     const param2 = try frame.popValue();
     try testing.expectEqual(@as(u256, 1000), param2);
@@ -294,7 +294,7 @@ test "Integration: gas tracking through operations" {
     try frame.pushValue(1000); // offset
     
     const gas_before_sha3 = frame.frame.gas_remaining;
-    try test_helpers.executeOpcode(op_sha3, &frame);
+    try test_helpers.executeOpcode(0x20, &frame);
     
     const sha3_gas = gas_before_sha3 - frame.frame.gas_remaining;
     try testing.expect(sha3_gas >= 30 + 6); // Base cost + 1 word
@@ -336,7 +336,7 @@ test "Integration: error handling in sequences" {
     try frame.pushValue(0);     // offset
     
     // Should fail with out of gas
-    const result = test_helpers.executeOpcode(op_sha3, &frame);
+    const result = test_helpers.executeOpcode(0x20, &frame);
     try testing.expectError(ExecutionError.Error.OutOfGas, result);
     
     // Stack should still be valid
@@ -374,7 +374,7 @@ test "Integration: transient storage usage" {
     
     // Load from transient storage
     try frame.pushValue(slot);
-    try test_helpers.executeOpcode(op_tload, &frame);
+    try test_helpers.executeOpcode(0x5C, &frame);
     const transient_result = try frame.popValue();
     try testing.expectEqual(transient_value, transient_result);
     

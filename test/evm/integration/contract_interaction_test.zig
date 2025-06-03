@@ -43,7 +43,7 @@ test "Integration: contract creation and initialization" {
     try frame.pushValue(0);              // offset
     try frame.pushValue(1000);           // value to send
     
-    try test_helpers.executeOpcode(op_create, &frame);
+    try test_helpers.executeOpcode(0xF0, &frame);
     
     // Check result
     const created_address = try frame.popValue();
@@ -93,7 +93,7 @@ test "Integration: inter-contract calls" {
     try frame.pushValue(test_helpers.to_u256(test_helpers.TEST_ADDRESS_1)); // to
     try frame.pushValue(50000); // gas
     
-    try test_helpers.executeOpcode(op_call, &frame);
+    try test_helpers.executeOpcode(0xF1, &frame);
     
     // Check success
     try testing.expectEqual(@as(u256, 1), try frame.popValue());
@@ -144,7 +144,7 @@ test "Integration: delegatecall context preservation" {
     try frame.pushValue(test_helpers.to_u256(test_helpers.TEST_ADDRESS_1)); // to
     try frame.pushValue(30000); // gas
     
-    try test_helpers.executeOpcode(op_delegatecall, &frame);
+    try test_helpers.executeOpcode(0xF4, &frame);
     
     // Check success
     try testing.expectEqual(@as(u256, 1), try frame.popValue());
@@ -179,7 +179,7 @@ test "Integration: staticcall restrictions" {
     try frame.pushValue(test_helpers.to_u256(test_helpers.TEST_ADDRESS_1)); // to
     try frame.pushValue(30000); // gas
     
-    try test_helpers.executeOpcode(op_staticcall, &frame);
+    try test_helpers.executeOpcode(0xFA, &frame);
     
     // Check success
     try testing.expectEqual(@as(u256, 1), try frame.popValue());
@@ -197,7 +197,7 @@ test "Integration: staticcall restrictions" {
     frame.stack.clear();
     try frame.pushValue(0); // size
     try frame.pushValue(0); // offset
-    const log_result = test_helpers.executeOpcode(op_log0, &frame);
+    const log_result = test_helpers.executeOpcode(0xA0, &frame);
     try testing.expectError(ExecutionError.Error.WriteProtection, log_result);
     
     // Try CREATE - should fail
@@ -205,7 +205,7 @@ test "Integration: staticcall restrictions" {
     try frame.pushValue(0); // size
     try frame.pushValue(0); // offset
     try frame.pushValue(0); // value
-    const create_result = test_helpers.executeOpcode(op_create, &frame);
+    const create_result = test_helpers.executeOpcode(0xF0, &frame);
     try testing.expectError(ExecutionError.Error.WriteProtection, create_result);
 }
 
@@ -243,7 +243,7 @@ test "Integration: CREATE2 deterministic deployment" {
     try frame.pushValue(0);              // offset
     try frame.pushValue(0);              // value
     
-    try test_helpers.executeOpcode(op_create2, &frame);
+    try test_helpers.executeOpcode(0xF5, &frame);
     
     // Check result
     const created_address = try frame.popValue();
@@ -277,7 +277,7 @@ test "Integration: selfdestruct with balance transfer" {
     // Execute SELFDESTRUCT
     try frame.pushValue(test_helpers.to_u256(beneficiary));
     
-    const result = test_helpers.executeOpcode(op_selfdestruct, &frame);
+    const result = test_helpers.executeOpcode(0xFF, &frame);
     try testing.expectError(ExecutionError.Error.STOP, result);
     
     // Verify contract is marked for deletion
@@ -303,7 +303,7 @@ test "Integration: call depth limit enforcement" {
     try frame.pushValue(0); // offset
     try frame.pushValue(0); // value
     
-    try test_helpers.executeOpcode(op_create, &frame);
+    try test_helpers.executeOpcode(0xF0, &frame);
     
     // Should push 0 for failure
     try testing.expectEqual(@as(u256, 0), try frame.popValue());
@@ -317,7 +317,7 @@ test "Integration: call depth limit enforcement" {
     try frame.pushValue(test_helpers.to_u256(test_helpers.TEST_ADDRESS_1)); // to
     try frame.pushValue(1000); // gas
     
-    try test_helpers.executeOpcode(op_call, &frame);
+    try test_helpers.executeOpcode(0xF1, &frame);
     
     // Should push 0 for failure
     try testing.expectEqual(@as(u256, 0), try frame.popValue());
@@ -332,7 +332,7 @@ test "Integration: return data buffer management" {
     defer frame.deinit();
     
     // Initial state - no return data
-    try test_helpers.executeOpcode(op_returndatasize, &frame);
+    try test_helpers.executeOpcode(0x3D, &frame);
     try testing.expectEqual(@as(u256, 0), try frame.popValue());
     
     // Make a call that returns data
@@ -352,11 +352,11 @@ test "Integration: return data buffer management" {
     try frame.pushValue(test_helpers.to_u256(test_helpers.TEST_ADDRESS_1)); // to
     try frame.pushValue(30000); // gas
     
-    try test_helpers.executeOpcode(op_call, &frame);
+    try test_helpers.executeOpcode(0xF1, &frame);
     _ = try frame.popValue(); // Discard success flag
     
     // Check return data size
-    try test_helpers.executeOpcode(op_returndatasize, &frame);
+    try test_helpers.executeOpcode(0x3D, &frame);
     try testing.expectEqual(@as(u256, return_data.len), try frame.popValue());
     
     // Copy return data to memory
@@ -364,7 +364,7 @@ test "Integration: return data buffer management" {
     try frame.pushValue(0);                // data offset
     try frame.pushValue(200);              // memory offset
     
-    try test_helpers.executeOpcode(op_returndatacopy, &frame);
+    try test_helpers.executeOpcode(0x3E, &frame);
     
     // Verify data was copied
     var i: usize = 0;
@@ -377,6 +377,6 @@ test "Integration: return data buffer management" {
     try frame.pushValue(0);                // data offset
     try frame.pushValue(300);              // memory offset
     
-    const copy_result = test_helpers.executeOpcode(op_returndatacopy, &frame);
+    const copy_result = test_helpers.executeOpcode(0x3E, &frame);
     try testing.expectError(ExecutionError.Error.ReturnDataOutOfBounds, copy_result);
 }
