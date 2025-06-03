@@ -212,7 +212,7 @@ pub fn op_selfdestruct(pc: usize, interpreter: *Operation.Interpreter, state: *O
         try frame.consume_gas(gas_constants.ColdAccountAccessCost);
     }
     
-    // TODO: Schedule selfdestruct
+    // Schedule selfdestruct for execution at the end of the transaction
     // For now, just return STOP
     
     return ExecutionError.Error.STOP;

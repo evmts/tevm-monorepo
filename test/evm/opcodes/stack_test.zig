@@ -24,7 +24,7 @@ test "PUSH0: append zero value" {
     defer test_frame.deinit();
     
     // Execute PUSH0
-    _ = try test_helpers.executeOpcode(opcodes.stack.op_append0, &test_vm.vm, &test_frame.frame);
+    _ = try test_helpers.executeOpcode(opcodes.stack.op_push0, &test_vm.vm, &test_frame.frame);
     
     // Should append 0
     try testing.expectEqual(@as(u256, 0), try test_frame.frame.stack.pop());

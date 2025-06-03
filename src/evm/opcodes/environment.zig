@@ -264,7 +264,7 @@ pub fn op_calldatasize(pc: usize, interpreter: *Operation.Interpreter, state: *O
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
     // Push size of calldata
-    try stack_push(&frame.stack, @as(u256, @intCast(frame.input.len)));
+    try stack_push(&frame.stack, @as(u256, @intCast(frame.contract.input.len)));
     
     return Operation.ExecutionResult{};
 }
@@ -277,6 +277,93 @@ pub fn op_codesize(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     
     // Push size of current contract's code
     try stack_push(&frame.stack, @as(u256, @intCast(frame.contract.code.len)));
+    
+    return Operation.ExecutionResult{};
+}
+
+pub fn op_calldataload(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
+    _ = pc;
+    _ = interpreter;
+    
+    const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    
+    // Pop offset from stack
+    const offset = try stack_pop(&frame.stack);
+    
+    if (offset > std.math.maxInt(usize)) {
+        // Offset too large, push zero
+        try stack_push(&frame.stack, 0);
+        return Operation.ExecutionResult{};
+    }
+    
+    const offset_usize = @as(usize, @intCast(offset));
+    const calldata = frame.contract.input;
+    
+    // Load 32 bytes from calldata, padding with zeros if necessary
+    var value: u256 = 0;
+    var i: usize = 0;
+    while (i < 32) : (i += 1) {
+        if (offset_usize + i < calldata.len) {
+            value = (value << 8) | calldata[offset_usize + i];
+        } else {
+            value = value << 8; // Pad with zero
+        }
+    }
+    
+    try stack_push(&frame.stack, value);
+    
+    return Operation.ExecutionResult{};
+}
+
+pub fn op_codecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
+    _ = pc;
+    _ = interpreter;
+    
+    const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    
+    // Pop memory offset, code offset, and size
+    const mem_offset = try stack_pop(&frame.stack);
+    const code_offset = try stack_pop(&frame.stack);
+    const size = try stack_pop(&frame.stack);
+    
+    if (size == 0) {
+        return Operation.ExecutionResult{};
+    }
+    
+    if (mem_offset > std.math.maxInt(usize) or size > std.math.maxInt(usize) or code_offset > std.math.maxInt(usize)) {
+        return ExecutionError.Error.OutOfOffset;
+    }
+    
+    const mem_offset_usize = @as(usize, @intCast(mem_offset));
+    const code_offset_usize = @as(usize, @intCast(code_offset));
+    const size_usize = @as(usize, @intCast(size));
+    
+    // Calculate memory expansion gas cost
+    const current_size = frame.memory.context_size();
+    const new_size = mem_offset_usize + size_usize;
+    const memory_gas = gas_constants.memory_gas_cost(current_size, new_size);
+    try frame.consume_gas(memory_gas);
+    
+    // Dynamic gas for copy operation
+    const word_size = (size_usize + 31) / 32;
+    try frame.consume_gas(gas_constants.CopyGas * word_size);
+    
+    // Get current contract code
+    const code = frame.contract.code;
+    
+    // Ensure memory is available
+    _ = try frame.memory.ensure_capacity(mem_offset_usize + size_usize);
+    
+    const memory_slice = frame.memory.slice();
+    
+    // Copy code to memory, padding with zeros if necessary
+    for (0..size_usize) |i| {
+        if (code_offset_usize + i < code.len) {
+            memory_slice[mem_offset_usize + i] = code[code_offset_usize + i];
+        } else {
+            memory_slice[mem_offset_usize + i] = 0;
+        }
+    }
     
     return Operation.ExecutionResult{};
 }

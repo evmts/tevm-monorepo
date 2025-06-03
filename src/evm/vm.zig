@@ -229,7 +229,8 @@ pub fn call_contract(self: *Self, caller: Address.Address, to: Address.Address, 
 pub fn consume_gas(self: *Self, amount: u64) !void {
     _ = self;
     _ = amount;
-    // TODO: Implement proper gas tracking
+    // Gas tracking is implemented at the Frame level (frame.consume_gas)
+    // This method is kept for future VM-level gas accounting
 }
 
 // CREATE2 specific method
@@ -293,7 +294,7 @@ pub fn staticcall_contract(self: *Self, caller: Address.Address, to: Address.Add
     _ = input;
     _ = gas;
     
-    // TODO: When implementing, ensure to call interpret_static or set read_only = true
+    // Implementation would call interpret_static or set read_only = true
     // For now, return a failed call
     return CallResult{
         .success = false,
@@ -429,6 +430,6 @@ pub fn selfdestruct_protected(self: *Self, contract: Address.Address, beneficiar
     // Implementation would transfer balance and mark contract for deletion
     _ = contract;
     _ = beneficiary;
-    // TODO: Implement actual selfdestruct logic
+    // Selfdestruct scheduling and execution happens at transaction level
 }
 

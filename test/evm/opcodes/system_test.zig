@@ -31,7 +31,7 @@ test "CREATE: create new contract" {
     }
     
     // Set gas and mock create result
-    test_vm.vm.create_result = .{
+    test_vm.create_result = .{
         .success = true,
         .address = test_helpers.TestAddresses.ALICE,
         .gas_left = 90000,
@@ -68,9 +68,9 @@ test "CREATE: failed creation pushes zero" {
     defer test_frame.deinit();
     
     // Set gas and mock failed create result
-    test_vm.vm.create_result = .{
+    test_vm.create_result = .{
         .success = false,
-        .address = Address.zero(),
+        .address = Address.ZERO_ADDRESS,
         .gas_left = 0,
         .output = null,
     };
@@ -172,7 +172,7 @@ test "CREATE2: create with deterministic address" {
     }
     
     // Set gas and mock create result
-    test_vm.vm.create_result = .{
+    test_vm.create_result = .{
         .success = true,
         .address = test_helpers.TestAddresses.BOB,
         .gas_left = 90000,
@@ -218,7 +218,7 @@ test "CALL: successful call" {
     }
     
     // Set gas and mock call result
-    test_vm.vm.call_result = .{
+    test_vm.call_result = .{
         .success = true,
         .gas_left = 90000,
         .output = &[_]u8{ 0xAA, 0xBB },
@@ -267,7 +267,7 @@ test "CALL: failed call" {
     defer test_frame.deinit();
     
     // Set gas and mock failed call result
-    test_vm.vm.call_result = .{
+    test_vm.call_result = .{
         .success = false,
         .gas_left = 0,
         .output = null,
@@ -306,7 +306,7 @@ test "CALL: cold address access costs more gas" {
     defer test_frame.deinit();
     
     // Set gas and mock call result
-    test_vm.vm.call_result = .{
+    test_vm.call_result = .{
         .success = true,
         .gas_left = 5000,
         .output = null,
@@ -382,7 +382,7 @@ test "DELEGATECALL: execute code in current context" {
     defer test_frame.deinit();
     
     // Set gas and mock call result
-    test_vm.vm.call_result = .{
+    test_vm.call_result = .{
         .success = true,
         .gas_left = 90000,
         .output = &[_]u8{ 0xCC, 0xDD },
@@ -425,7 +425,7 @@ test "STATICCALL: read-only call" {
     defer test_frame.deinit();
     
     // Set gas and mock call result
-    test_vm.vm.call_result = .{
+    test_vm.call_result = .{
         .success = true,
         .gas_left = 90000,
         .output = &[_]u8{ 0xEE, 0xFF },
@@ -511,7 +511,7 @@ test "CREATE: gas consumption" {
     }
     
     // Set gas
-    test_vm.vm.create_result = .{
+    test_vm.create_result = .{
         .success = true,
         .address = test_helpers.TestAddresses.ALICE,
         .gas_left = 90000,
@@ -558,7 +558,7 @@ test "CREATE2: additional gas for hashing" {
     }
     
     // Set gas
-    test_vm.vm.create_result = .{
+    test_vm.create_result = .{
         .success = true,
         .address = test_helpers.TestAddresses.BOB,
         .gas_left = 90000,
@@ -656,7 +656,7 @@ test "CREATE: memory expansion for init code" {
     defer test_frame.deinit();
     
     // Set gas
-    test_vm.vm.create_result = .{
+    test_vm.create_result = .{
         .success = true,
         .address = test_helpers.TestAddresses.ALICE,
         .gas_left = 90000,

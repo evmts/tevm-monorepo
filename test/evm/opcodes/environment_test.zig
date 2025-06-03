@@ -265,7 +265,7 @@ test "Environment: EXTCODECOPY opcode" {
     
     // Verify padding with zeros
     for (test_code.len..16) |i| {
-        const mem_byte = test_frame.frame.memory.get_byte(64 + i).?;
+        const mem_byte = try test_frame.frame.memory.get_byte(64 + i);
         try testing.expectEqual(@as(u8, 0), mem_byte);
     }
 }

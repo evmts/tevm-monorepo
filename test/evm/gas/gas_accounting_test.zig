@@ -24,38 +24,41 @@ test "Gas: Arithmetic operations basic costs" {
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
+    // Create jump table for gas consumption
+    const jump_table = helpers.JumpTable.new_frontier_instruction_set();
+    
     // Test ADD (3 gas)
     try test_frame.pushStack(&[_]u256{10, 20});
     const gas_before_add = test_frame.frame.gas_remaining;
-    _ = try helpers.executeOpcode(opcodes.arithmetic.op_add, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcodeWithGas(&jump_table, 0x01, &test_vm.vm, &test_frame.frame); // 0x01 = ADD
     try testing.expectEqual(@as(u64, gas_constants.GasFastestStep), gas_before_add - test_frame.frame.gas_remaining);
     
     // Test MUL (5 gas)
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{10, 20});
     const gas_before_mul = test_frame.frame.gas_remaining;
-    _ = try helpers.executeOpcode(opcodes.arithmetic.op_mul, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcodeWithGas(&jump_table, 0x02, &test_vm.vm, &test_frame.frame); // 0x02 = MUL
     try testing.expectEqual(@as(u64, gas_constants.GasFastStep), gas_before_mul - test_frame.frame.gas_remaining);
     
     // Test SUB (3 gas)
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{20, 10});
     const gas_before_sub = test_frame.frame.gas_remaining;
-    _ = try helpers.executeOpcode(opcodes.arithmetic.op_sub, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcodeWithGas(&jump_table, 0x03, &test_vm.vm, &test_frame.frame); // 0x03 = SUB
     try testing.expectEqual(@as(u64, gas_constants.GasFastestStep), gas_before_sub - test_frame.frame.gas_remaining);
     
     // Test DIV (5 gas)
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{20, 10});
     const gas_before_div = test_frame.frame.gas_remaining;
-    _ = try helpers.executeOpcode(opcodes.arithmetic.op_div, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcodeWithGas(&jump_table, 0x04, &test_vm.vm, &test_frame.frame); // 0x04 = DIV
     try testing.expectEqual(@as(u64, gas_constants.GasFastStep), gas_before_div - test_frame.frame.gas_remaining);
     
     // Test ADDMOD (8 gas)
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{10, 20, 7});
     const gas_before_addmod = test_frame.frame.gas_remaining;
-    _ = try helpers.executeOpcode(opcodes.arithmetic.op_addmod, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcodeWithGas(&jump_table, 0x08, &test_vm.vm, &test_frame.frame); // 0x08 = ADDMOD
     try testing.expectEqual(@as(u64, gas_constants.GasMidStep), gas_before_addmod - test_frame.frame.gas_remaining);
 }
 
@@ -76,10 +79,13 @@ test "Gas: EXP dynamic gas calculation" {
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
+    // Create jump table for gas consumption
+    const jump_table = helpers.JumpTable.new_frontier_instruction_set();
+    
     // Test EXP with small exponent (10 + 50 * 1 = 60 gas)
     try test_frame.pushStack(&[_]u256{2, 8}); // 2^8
     const gas_before_small = test_frame.frame.gas_remaining;
-    _ = try helpers.executeOpcode(opcodes.arithmetic.op_exp, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcodeWithGas(&jump_table, 0x0a, &test_vm.vm, &test_frame.frame); // 0x0a = EXP
     const gas_used_small = gas_before_small - test_frame.frame.gas_remaining;
     try testing.expectEqual(@as(u64, 10 + 50 * 1), gas_used_small);
     
@@ -87,7 +93,7 @@ test "Gas: EXP dynamic gas calculation" {
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{2, 0x1000}); // 2^4096
     const gas_before_large = test_frame.frame.gas_remaining;
-    _ = try helpers.executeOpcode(opcodes.arithmetic.op_exp, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcodeWithGas(&jump_table, 0x0a, &test_vm.vm, &test_frame.frame); // 0x0a = EXP
     const gas_used_large = gas_before_large - test_frame.frame.gas_remaining;
     try testing.expectEqual(@as(u64, 10 + 50 * 2), gas_used_large);
     
@@ -95,7 +101,7 @@ test "Gas: EXP dynamic gas calculation" {
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{2, 0}); // 2^0
     const gas_before_zero = test_frame.frame.gas_remaining;
-    _ = try helpers.executeOpcode(opcodes.arithmetic.op_exp, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcodeWithGas(&jump_table, 0x0a, &test_vm.vm, &test_frame.frame); // 0x0a = EXP
     const gas_used_zero = gas_before_zero - test_frame.frame.gas_remaining;
     try testing.expectEqual(@as(u64, 10), gas_used_zero);
 }

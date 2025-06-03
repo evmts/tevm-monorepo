@@ -11,6 +11,7 @@ test "Arithmetic: ADD basic operations" {
     
     // Set up test VM and frame
     var test_vm = try helpers.TestVm.init(allocator);
+    errdefer test_vm.deinit();
     defer test_vm.deinit();
     
     var contract = try helpers.createTestContract(
@@ -22,6 +23,7 @@ test "Arithmetic: ADD basic operations" {
     );
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
+    errdefer test_frame.deinit();
     defer test_frame.deinit();
     
     // Test 1: Simple addition

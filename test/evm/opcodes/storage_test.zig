@@ -458,110 +458,158 @@ test "TSTORE: does not affect regular storage" {
 // Test stack errors
 test "SLOAD: stack underflow" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Empty stack
     
     // Execute SLOAD - should fail
-    const result = test_helpers.executeOpcode(opcodes.storage.op_sload, &frame);
+    const result = test_helpers.executeOpcode(opcodes.storage.op_sload, &test_vm.vm, &test_frame.frame);
     try testing.expectError(ExecutionError.Error.StackUnderflow, result);
 }
 
 test "SSTORE: stack underflow" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Push only one value (need two)
-    try frame.pushValue(0x123);
+    try test_frame.pushStack(&[_]u256{0x123});
     
     // Execute SSTORE - should fail
-    const result = test_helpers.executeOpcode(opcodes.storage.op_sstore, &frame);
+    const result = test_helpers.executeOpcode(opcodes.storage.op_sstore, &test_vm.vm, &test_frame.frame);
     try testing.expectError(ExecutionError.Error.StackUnderflow, result);
 }
 
 test "TLOAD: stack underflow" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Empty stack
     
     // Execute TLOAD - should fail
-    const result = test_helpers.executeOpcode(opcodes.storage.op_tload, &frame);
+    const result = test_helpers.executeOpcode(opcodes.storage.op_tload, &test_vm.vm, &test_frame.frame);
     try testing.expectError(ExecutionError.Error.StackUnderflow, result);
 }
 
 test "TSTORE: stack underflow" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Push only one value (need two)
-    try frame.pushValue(0x789);
+    try test_frame.pushStack(&[_]u256{0x789});
     
     // Execute TSTORE - should fail
-    const result = test_helpers.executeOpcode(opcodes.storage.op_tstore, &frame);
+    const result = test_helpers.executeOpcode(opcodes.storage.op_tstore, &test_vm.vm, &test_frame.frame);
     try testing.expectError(ExecutionError.Error.StackUnderflow, result);
 }
 
 // Test gas consumption
 test "TLOAD: gas consumption" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
     
-    // Set initial gas
-    frame.frame.gas_remaining = 1000;
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Push storage slot
-    try frame.pushValue(0x123);
+    try test_frame.pushStack(&[_]u256{0x123});
     
-    const gas_before = frame.frame.gas_remaining;
+    const gas_before = test_frame.frame.gas_remaining;
     
     // Execute TLOAD
-    try test_helpers.executeOpcode(opcodes.storage.op_tload, &frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_tload, &test_vm.vm, &test_frame.frame);
     
     // TLOAD base cost is 100 gas (no cold/warm distinction for transient storage)
-    try testing.expectEqual(@as(u64, 0), gas_before - frame.frame.gas_remaining);
+    try testing.expectEqual(@as(u64, 0), gas_before - test_frame.frame.gas_remaining);
 }
 
 test "TSTORE: gas consumption" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
     
-    // Set initial gas
-    frame.frame.gas_remaining = 1000;
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Push value and slot
-    try frame.pushValue(0x123); // value
-    try frame.pushValue(0x456); // slot
+    try test_frame.pushStack(&[_]u256{0x456}); // slot
+    try test_frame.pushStack(&[_]u256{0x123}); // value
     
-    const gas_before = frame.frame.gas_remaining;
+    const gas_before = test_frame.frame.gas_remaining;
     
     // Execute TSTORE
-    try test_helpers.executeOpcode(opcodes.storage.op_tstore, &frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_tstore, &test_vm.vm, &test_frame.frame);
     
     // TSTORE base cost is 100 gas (no cold/warm distinction for transient storage)
-    try testing.expectEqual(@as(u64, 0), gas_before - frame.frame.gas_remaining);
+    try testing.expectEqual(@as(u64, 0), gas_before - test_frame.frame.gas_remaining);
 }

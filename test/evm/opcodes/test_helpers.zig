@@ -14,11 +14,16 @@ pub const Operation = evm.Operation;
 pub const ExecutionError = evm.ExecutionError;
 pub const gas_constants = evm.gas_constants;
 pub const Hardfork = evm.Hardfork;
+pub const JumpTable = evm.JumpTable;
 
 /// Test VM with minimal setup for testing opcodes
 pub const TestVm = struct {
     vm: Vm,
     allocator: std.mem.Allocator,
+    
+    // Mock results for testing system opcodes
+    create_result: ?Vm.CreateResult = null,
+    call_result: ?Vm.CallResult = null,
     
     pub fn init(allocator: std.mem.Allocator) !TestVm {
         var vm = try Vm.init(allocator);
@@ -159,6 +164,18 @@ pub fn executeOpcode(
     const interpreter_ptr: *Operation.Interpreter = @ptrCast(vm);
     const state_ptr: *Operation.State = @ptrCast(frame);
     return try opcode_fn(0, interpreter_ptr, state_ptr);
+}
+
+/// Execute an opcode through the jump table (with gas consumption)
+pub fn executeOpcodeWithGas(
+    jump_table: *const JumpTable,
+    opcode: u8,
+    vm: *Vm,
+    frame: *Frame,
+) !Operation.ExecutionResult {
+    const interpreter_ptr: *Operation.Interpreter = @ptrCast(vm);
+    const state_ptr: *Operation.State = @ptrCast(frame);
+    return try jump_table.execute(0, interpreter_ptr, state_ptr, opcode);
 }
 
 
