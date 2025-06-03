@@ -212,14 +212,14 @@ test "Integration: PC tracking through operations" {
     defer test_frame.deinit();
     
     // Set PC to a specific value
-    test_frame.frame.program_counter = 42;
+    test_frame.frame.pc = 42;
     
     // Get current PC
     _ = try helpers.executeOpcode(0x58, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 42);
     
     // Change PC and get again
-    test_frame.frame.program_counter = 100;
+    test_frame.frame.pc = 100;
     _ = try helpers.executeOpcode(0x58, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 100);
 }
