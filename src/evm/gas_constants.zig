@@ -91,9 +91,7 @@ pub const TStoreGas: u64 = 100;
 
 // Calculate memory expansion gas cost
 pub fn memory_gas_cost(current_size: u64, new_size: u64) u64 {
-    if (new_size <= current_size) {
-        return 0;
-    }
+    if (new_size <= current_size) return 0;
     
     const current_words = (current_size + 31) / 32;
     const new_words = (new_size + 31) / 32;
