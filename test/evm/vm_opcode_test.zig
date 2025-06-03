@@ -175,6 +175,58 @@ test "VM: ADD opcode" {
     try testing.expectEqual(@as(u256, 8), vm.last_stack_value.?);
 }
 
+test "VM: ADD opcode overflow" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    // Test addition overflow: MAX_U256 + 1 = 0
+    const bytecode = [_]u8{
+        0x7f, // PUSH32
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, // MAX_U256
+        0x60, 0x01,  // PUSH1 1
+        0x01,        // ADD
+        0x00,        // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    try testing.expectEqual(@as(u256, 0), vm.last_stack_value.?); // Should wrap to 0
+}
+
+test "VM: ADD complex sequence" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    // Test: (5 + 3) + 2 = 10
+    const bytecode = [_]u8{
+        0x60, 0x05,  // PUSH1 5
+        0x60, 0x03,  // PUSH1 3
+        0x01,        // ADD (result: 8)
+        0x60, 0x02,  // PUSH1 2
+        0x01,        // ADD (result: 10)
+        0x00,        // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    try testing.expectEqual(@as(u256, 10), vm.last_stack_value.?);
+}
+
 test "VM: MUL opcode" {
     const allocator = testing.allocator;
     var vm = try createTestVm(allocator);
@@ -195,6 +247,136 @@ test "VM: MUL opcode" {
     
     try testing.expect(result.status == .Success);
     try testing.expectEqual(@as(u256, 42), vm.last_stack_value.?);
+}
+
+test "VM: MUL opcode overflow" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    // Test multiplication overflow: MAX_U256 * 2 should wrap
+    const bytecode = [_]u8{
+        0x7f, // PUSH32
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, // MAX_U256
+        0x60, 0x02,  // PUSH1 2
+        0x02,        // MUL
+        0x00,        // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    // MAX_U256 * 2 = 2^257 - 2, which wraps to MAX_U256 - 1
+    const expected = std.math.maxInt(u256) - 1;
+    try testing.expectEqual(expected, vm.last_stack_value.?);
+}
+
+test "VM: MUL by zero" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    // Test multiplication by zero
+    const bytecode = [_]u8{
+        0x61, 0x04, 0xD2,  // PUSH2 1234
+        0x60, 0x00,        // PUSH1 0
+        0x02,              // MUL
+        0x00,              // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    try testing.expectEqual(@as(u256, 0), vm.last_stack_value.?);
+}
+
+test "VM: MUL by one" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    // Test multiplication by one (identity)
+    const bytecode = [_]u8{
+        0x61, 0x04, 0xD2,  // PUSH2 1234
+        0x60, 0x01,        // PUSH1 1
+        0x02,              // MUL
+        0x00,              // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    try testing.expectEqual(@as(u256, 1234), vm.last_stack_value.?);
+}
+
+test "VM: MUL complex sequence" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    // Test: 2 * 3 * 4 = 24
+    const bytecode = [_]u8{
+        0x60, 0x02,  // PUSH1 2
+        0x60, 0x03,  // PUSH1 3
+        0x02,        // MUL (result: 6)
+        0x60, 0x04,  // PUSH1 4
+        0x02,        // MUL (result: 24)
+        0x00,        // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    try testing.expectEqual(@as(u256, 24), vm.last_stack_value.?);
+}
+
+test "VM: MUL large numbers" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    // Test large number multiplication that doesn't overflow
+    // 2^128 * 2^127 = 2^255 (fits in u256)
+    const bytecode = [_]u8{
+        0x70, // PUSH17 (for 2^128)
+        0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 2^128
+        0x6F, // PUSH16 (for 2^127)
+        0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 2^127
+        0x02, // MUL
+        0x00, // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    // 2^128 * 2^127 = 2^255
+    const expected = @as(u256, 1) << 255;
+    try testing.expectEqual(expected, vm.last_stack_value.?);
 }
 
 test "VM: SUB opcode" {

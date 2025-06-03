@@ -12,17 +12,17 @@ This document tracks the implementation and testing status of all EVM opcodes. E
 - ⚠️ Needs Review (implementation exists but needs verification)
 
 ## Arithmetic Operations (0x01-0x0B)
-- [🔨] **ADD** (0x01) - Addition operation
-  - Implementation: `src/evm/opcodes/arithmetic.zig`
+- [✅] **ADD** (0x01) - Addition operation
+  - Implementation: `src/evm/opcodes/arithmetic.zig` ✅ Verified against revm
   - Revm: `revm/crates/interpreter/src/instructions/arithmetic.rs::add`
-  - Tests: `test/evm/opcodes/arithmetic_test.zig`
-  - VM Tests: `test/evm/vm_opcode_test.zig` ✅ Added VM test
+  - Tests: `test/evm/opcodes/arithmetic_test.zig` ✅ Has unit tests
+  - VM Tests: `test/evm/vm_opcode_test.zig` ✅ Added comprehensive VM tests
 
-- [ ] **MUL** (0x02) - Multiplication operation
+- [🔨] **MUL** (0x02) - Multiplication operation
   - Implementation: `src/evm/opcodes/arithmetic.zig`
   - Revm: `revm/crates/interpreter/src/instructions/arithmetic.rs::mul`
   - Tests: `test/evm/opcodes/arithmetic_test.zig`
-  - VM Tests: ⚠️ Needs additional VM-level tests
+  - VM Tests: `test/evm/vm_opcode_test.zig` ⚠️ Basic test exists, needs expansion
 
 - [ ] **SUB** (0x03) - Subtraction operation
   - Implementation: `src/evm/opcodes/arithmetic.zig`

@@ -493,8 +493,12 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
             switch (err) {
                 ExecutionError.Error.STOP => {
                     // Save top stack value for testing
-                    if (frame.stack.len > 0) {
-                        self.last_stack_value = frame.stack.peek() catch null;
+                    if (frame.stack.size > 0) {
+                        if (frame.stack.peek()) |val| {
+                            self.last_stack_value = val.*;
+                        } else |_| {
+                            self.last_stack_value = null;
+                        }
                     }
                     return RunResult{
                         .status = .Success,
@@ -541,8 +545,12 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
     
     // If we reach end of bytecode without explicit stop/return
     // Save top stack value for testing
-    if (frame.stack.len > 0) {
-        self.last_stack_value = frame.stack.peek() catch null;
+    if (frame.stack.size > 0) {
+        if (frame.stack.peek()) |val| {
+            self.last_stack_value = val.*;
+        } else |_| {
+            self.last_stack_value = null;
+        }
     }
     return RunResult{
         .status = .Success,

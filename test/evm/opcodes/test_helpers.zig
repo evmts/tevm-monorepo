@@ -268,10 +268,10 @@ pub fn toU256(address: Address.Address) u256 {
 
 /// Print stack contents for debugging
 pub fn printStack(frame: *const Frame) void {
-    std.debug.print("Stack (size={}): ", .{frame.stack.len()});
+    std.debug.print("Stack (size={}): ", .{frame.stack.size});
     var i: usize = 0;
-    while (i < frame.stack.len()) : (i += 1) {
-        const value = frame.stack.peek(i) catch break;
+    while (i < frame.stack.size) : (i += 1) {
+        const value = frame.stack.peek_n(i) catch break;
         std.debug.print("0x{x} ", .{value});
     }
     std.debug.print("\n", .{});

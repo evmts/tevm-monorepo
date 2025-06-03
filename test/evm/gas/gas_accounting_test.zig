@@ -418,7 +418,12 @@ test "Gas: CREATE operations with init code" {
     
     // Test CREATE2 with additional hashing cost
     test_frame.frame.stack.clear();
-    test_vm.create_result.gas_left = 150000; // Reset
+    test_vm.create_result = .{
+        .success = true,
+        .address = helpers.TestAddresses.CHARLIE,
+        .gas_left = 150000,
+        .output = null,
+    }; // Reset
     
     try test_frame.pushStack(&[_]u256{0x12345678, init_code.len, 0, 0}); // salt, size, offset, value
     const gas_before_create2 = test_frame.frame.gas_remaining;
