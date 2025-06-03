@@ -3,7 +3,8 @@ const testing = std.testing;
 const helpers = @import("test_helpers.zig");
 
 // Import opcodes to test
-const comparison = @import("../../../src/evm/opcodes/comparison.zig");
+const evm = @import("evm");
+const comparison = evm.opcodes.comparison;
 
 test "Comparison: LT (less than) operations" {
     const allocator = testing.allocator;

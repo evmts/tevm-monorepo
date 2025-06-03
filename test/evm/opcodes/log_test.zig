@@ -1,28 +1,35 @@
 const std = @import("std");
 const testing = std.testing;
-const opcodes = @import("../../../src/evm/opcodes/package.zig");
 const test_helpers = @import("test_helpers.zig");
-const ExecutionError = opcodes.ExecutionError;
+const evm = @import("evm");
+const log = evm.opcodes.log;
 
 // Test LOG0 operation
 test "LOG0: emit log with no topics" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Write data to memory
     const log_data = [_]u8{ 0x11, 0x22, 0x33, 0x44 };
     var i: usize = 0;
     while (i < log_data.len) : (i += 1) {
-        try frame.memory.write_byte(i, log_data[i]);
+        try test_frame.frame.memory.set_byte(i, log_data[i]);
     }
     
     // Push offset and length
-    try frame.pushValue(4); // length
-    try frame.pushValue(0); // offset
+    try test_frame.pushStack(&[_]u256{0, 4}); // offset, length
     
     // Execute LOG0
     try test_helpers.executeOpcode(opcodes.log.op_log0, &frame);
@@ -44,8 +51,8 @@ test "LOG0: emit log with empty data" {
     defer frame.deinit();
     
     // Push offset and length for empty data
-    try frame.pushValue(0); // length
-    try frame.pushValue(0); // offset
+    try test_frame.pushStack(0); // length
+    try test_frame.pushStack(0); // offset
     
     // Execute LOG0
     try test_helpers.executeOpcode(opcodes.log.op_log0, &frame);
@@ -70,13 +77,13 @@ test "LOG1: emit log with one topic" {
     const log_data = [_]u8{ 0xAA, 0xBB };
     var i: usize = 0;
     while (i < log_data.len) : (i += 1) {
-        try frame.memory.write_byte(i, log_data[i]);
+        try test_frame.frame.memory.set_byte(i, log_data[i]);
     }
     
     // Push topic, offset and length
-    try frame.pushValue(0x123456); // topic
-    try frame.pushValue(2);        // length
-    try frame.pushValue(0);        // offset
+    try test_frame.pushStack(0x123456); // topic
+    try test_frame.pushStack(2);        // length
+    try test_frame.pushStack(0);        // offset
     
     // Execute LOG1
     try test_helpers.executeOpcode(opcodes.log.op_log1, &frame);
@@ -106,10 +113,10 @@ test "LOG2: emit log with two topics" {
     }
     
     // Push topics, offset and length
-    try frame.pushValue(0xBEEF);   // topic2
-    try frame.pushValue(0xCAFE);   // topic1
-    try frame.pushValue(3);         // length
-    try frame.pushValue(10);        // offset
+    try test_frame.pushStack(0xBEEF);   // topic2
+    try test_frame.pushStack(0xCAFE);   // topic1
+    try test_frame.pushStack(3);         // length
+    try test_frame.pushStack(10);        // offset
     
     // Execute LOG2
     try test_helpers.executeOpcode(opcodes.log.op_log2, &frame);
@@ -133,11 +140,11 @@ test "LOG3: emit log with three topics" {
     defer frame.deinit();
     
     // Push topics, offset and length
-    try frame.pushValue(0x333);    // topic3
-    try frame.pushValue(0x222);    // topic2
-    try frame.pushValue(0x111);    // topic1
-    try frame.pushValue(0);        // length (empty data)
-    try frame.pushValue(0);        // offset
+    try test_frame.pushStack(0x333);    // topic3
+    try test_frame.pushStack(0x222);    // topic2
+    try test_frame.pushStack(0x111);    // topic1
+    try test_frame.pushStack(0);        // length (empty data)
+    try test_frame.pushStack(0);        // offset
     
     // Execute LOG3
     try test_helpers.executeOpcode(opcodes.log.op_log3, &frame);
@@ -166,16 +173,16 @@ test "LOG4: emit log with four topics" {
     var i: usize = 0;
     while (i < 100) : (i += 1) {
         log_data[i] = @intCast(i);
-        try frame.memory.write_byte(i, log_data[i]);
+        try test_frame.frame.memory.set_byte(i, log_data[i]);
     }
     
     // Push topics, offset and length
-    try frame.pushValue(0x4444);   // topic4
-    try frame.pushValue(0x3333);   // topic3
-    try frame.pushValue(0x2222);   // topic2
-    try frame.pushValue(0x1111);   // topic1
-    try frame.pushValue(100);       // length
-    try frame.pushValue(0);         // offset
+    try test_frame.pushStack(0x4444);   // topic4
+    try test_frame.pushStack(0x3333);   // topic3
+    try test_frame.pushStack(0x2222);   // topic2
+    try test_frame.pushStack(0x1111);   // topic1
+    try test_frame.pushStack(100);       // length
+    try test_frame.pushStack(0);         // offset
     
     // Execute LOG4
     try test_helpers.executeOpcode(opcodes.log.op_log4, &frame);
@@ -204,8 +211,8 @@ test "LOG0: write protection in static call" {
     frame.frame.is_static = true;
     
     // Push offset and length
-    try frame.pushValue(0); // length
-    try frame.pushValue(0); // offset
+    try test_frame.pushStack(0); // length
+    try test_frame.pushStack(0); // offset
     
     // Execute LOG0 - should fail
     const result = test_helpers.executeOpcode(opcodes.log.op_log0, &frame);
@@ -224,9 +231,9 @@ test "LOG1: write protection in static call" {
     frame.frame.is_static = true;
     
     // Push topic, offset and length
-    try frame.pushValue(0x123); // topic
-    try frame.pushValue(0);     // length
-    try frame.pushValue(0);     // offset
+    try test_frame.pushStack(0x123); // topic
+    try test_frame.pushStack(0);     // length
+    try test_frame.pushStack(0);     // offset
     
     // Execute LOG1 - should fail
     const result = test_helpers.executeOpcode(opcodes.log.op_log1, &frame);
@@ -246,8 +253,8 @@ test "LOG0: gas consumption" {
     frame.frame.gas_remaining = 10000;
     
     // Push offset and length for 32 bytes
-    try frame.pushValue(32); // length
-    try frame.pushValue(0);  // offset
+    try test_frame.pushStack(32); // length
+    try test_frame.pushStack(0);  // offset
     
     const gas_before = frame.frame.gas_remaining;
     
@@ -272,12 +279,12 @@ test "LOG4: gas consumption with topics" {
     frame.frame.gas_remaining = 10000;
     
     // Push topics, offset and length
-    try frame.pushValue(0x4); // topic4
-    try frame.pushValue(0x3); // topic3
-    try frame.pushValue(0x2); // topic2
-    try frame.pushValue(0x1); // topic1
-    try frame.pushValue(10);  // length
-    try frame.pushValue(0);   // offset
+    try test_frame.pushStack(0x4); // topic4
+    try test_frame.pushStack(0x3); // topic3
+    try test_frame.pushStack(0x2); // topic2
+    try test_frame.pushStack(0x1); // topic1
+    try test_frame.pushStack(10);  // length
+    try test_frame.pushStack(0);   // offset
     
     const gas_before = frame.frame.gas_remaining;
     
@@ -304,8 +311,8 @@ test "LOG0: memory expansion gas" {
     frame.frame.gas_remaining = 10000;
     
     // Push offset and length that requires memory expansion
-    try frame.pushValue(32);  // length
-    try frame.pushValue(256); // offset (requires expansion)
+    try test_frame.pushStack(32);  // length
+    try test_frame.pushStack(256); // offset (requires expansion)
     
     const gas_before = frame.frame.gas_remaining;
     
@@ -327,7 +334,7 @@ test "LOG0: stack underflow" {
     defer frame.deinit();
     
     // Push only one value (need two)
-    try frame.pushValue(0);
+    try test_frame.pushStack(0);
     
     // Execute LOG0 - should fail
     const result = test_helpers.executeOpcode(opcodes.log.op_log0, &frame);
@@ -343,11 +350,11 @@ test "LOG4: stack underflow" {
     defer frame.deinit();
     
     // Push only 5 values (need 6 for LOG4)
-    try frame.pushValue(0x4); // topic4
-    try frame.pushValue(0x3); // topic3
-    try frame.pushValue(0x2); // topic2
-    try frame.pushValue(0x1); // topic1
-    try frame.pushValue(0);   // length
+    try test_frame.pushStack(0x4); // topic4
+    try test_frame.pushStack(0x3); // topic3
+    try test_frame.pushStack(0x2); // topic2
+    try test_frame.pushStack(0x1); // topic1
+    try test_frame.pushStack(0);   // length
     // Missing offset
     
     // Execute LOG4 - should fail
@@ -368,8 +375,8 @@ test "LOG0: out of gas" {
     frame.frame.gas_remaining = 100;
     
     // Push offset and length for large data
-    try frame.pushValue(1000); // length (would cost 8000 gas for data alone)
-    try frame.pushValue(0);    // offset
+    try test_frame.pushStack(1000); // length (would cost 8000 gas for data alone)
+    try test_frame.pushStack(0);    // offset
     
     // Execute LOG0 - should fail
     const result = test_helpers.executeOpcode(opcodes.log.op_log0, &frame);

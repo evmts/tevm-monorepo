@@ -2,8 +2,9 @@ const std = @import("std");
 const testing = std.testing;
 const helpers = @import("test_helpers.zig");
 
-// Import opcodes to test
-const bitwise = @import("../../../src/evm/opcodes/bitwise.zig");
+// Import opcodes through evm module
+const evm = @import("evm");
+const bitwise = evm.opcodes.bitwise;
 
 test "Bitwise: AND basic operations" {
     const allocator = testing.allocator;

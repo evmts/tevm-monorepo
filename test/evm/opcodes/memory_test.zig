@@ -1,16 +1,27 @@
 const std = @import("std");
 const testing = std.testing;
-const opcodes = @import("../../../src/evm/opcodes/package.zig");
+const evm = @import("evm");
+const opcodes = evm.opcodes;
 const test_helpers = @import("test_helpers.zig");
-const ExecutionError = opcodes.ExecutionError;
+const ExecutionError = evm.ExecutionError;
 
 // Test MLOAD operation
 test "MLOAD: load 32 bytes from memory" {
-    var vm = test_helpers.TestVm.init();
-    defer vm.deinit();
+    const allocator = testing.allocator;
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Write 32 bytes to memory
     var i: usize = 0;

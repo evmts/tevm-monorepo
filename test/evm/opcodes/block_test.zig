@@ -3,7 +3,8 @@ const testing = std.testing;
 const helpers = @import("test_helpers.zig");
 
 // Import opcodes to test
-const block = @import("../../../src/evm/opcodes/block.zig");
+const evm = @import("evm");
+const block = evm.opcodes.block;
 
 test "Block: BLOCKHASH operations" {
     const allocator = testing.allocator;
