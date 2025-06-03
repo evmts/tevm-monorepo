@@ -434,19 +434,66 @@ pub fn op_staticcall(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
         return "";
     }
     
-    // Similar to CALL but guaranteed not to modify state
-    // Implementation similar to CALL but with is_static = true
+    // Get call data
+    var args: []const u8 = &[_]u8{};
+    if (args_size > 0) {
+        if (args_offset > std.math.maxInt(usize) or args_size > std.math.maxInt(usize)) {
+            return ExecutionError.Error.OutOfOffset;
+        }
+        
+        const args_offset_usize = @as(usize, @intCast(args_offset));
+        const args_size_usize = @as(usize, @intCast(args_size));
+        
+        _ = frame.memory.ensure_context_capacity(args_offset_usize + args_size_usize) catch return ExecutionError.Error.OutOfOffset;
+        args = frame.memory.get_slice(args_offset_usize, args_size_usize) catch return ExecutionError.Error.OutOfOffset;
+    }
     
-    // For now, simplified implementation
-    _ = gas;
-    _ = to;
-    _ = args_offset;
-    _ = args_size;
-    _ = ret_offset;
-    _ = ret_size;
-    _ = vm;
+    // Ensure return memory
+    if (ret_size > 0) {
+        if (ret_offset > std.math.maxInt(usize) or ret_size > std.math.maxInt(usize)) {
+            return ExecutionError.Error.OutOfOffset;
+        }
+        
+        const ret_offset_usize = @as(usize, @intCast(ret_offset));
+        const ret_size_usize = @as(usize, @intCast(ret_size));
+        
+        _ = frame.memory.ensure_context_capacity(ret_offset_usize + ret_size_usize) catch return ExecutionError.Error.OutOfOffset;
+    }
     
-    try stack_push(&frame.stack, 1); // Success
+    // Convert to address
+    const to_address = from_u256(to);
+    
+    // Calculate gas to give to the call
+    var gas_for_call = if (gas > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(gas));
+    gas_for_call = @min(gas_for_call, frame.gas_remaining - (frame.gas_remaining / 64));
+    
+    // Execute the static call (no value transfer, is_static = true)
+    const result = try vm.call_contract(frame.contract.address, to_address, 0, args, gas_for_call, true);
+    
+    // Update gas remaining
+    frame.gas_remaining = frame.gas_remaining - gas_for_call + result.gas_left;
+    
+    // Write return data to memory if requested
+    if (ret_size > 0 and result.output != null) {
+        const ret_offset_usize = @as(usize, @intCast(ret_offset));
+        const ret_size_usize = @as(usize, @intCast(ret_size));
+        const output = result.output.?;
+        
+        const copy_size = @min(ret_size_usize, output.len);
+        const memory_slice = frame.memory.slice();
+        @memcpy(memory_slice[ret_offset_usize..ret_offset_usize + copy_size], output[0..copy_size]);
+        
+        // Zero out remaining bytes if output was smaller than requested
+        if (copy_size < ret_size_usize) {
+            @memset(memory_slice[ret_offset_usize + copy_size..ret_offset_usize + ret_size_usize], 0);
+        }
+    }
+    
+    // Set return data
+    frame.return_data_buffer = result.output orelse &[_]u8{};
+    
+    // Push success status
+    try stack_push(&frame.stack, if (result.success) 1 else 0);
     
     return "";
 }

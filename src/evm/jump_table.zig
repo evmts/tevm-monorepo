@@ -645,6 +645,73 @@ const DELEGATECALL = Operation{
     .max_stack = Stack.CAPACITY,
 };
 
+// Istanbul operations
+const CHAINID = Operation{
+    .execute = environment.op_chainid,
+    .constant_gas = GasQuickStep,
+    .min_stack = 0,
+    .max_stack = Stack.CAPACITY - 1,
+};
+
+const SELFBALANCE = Operation{
+    .execute = environment.op_selfbalance,
+    .constant_gas = GasFastStep,
+    .min_stack = 0,
+    .max_stack = Stack.CAPACITY - 1,
+};
+
+// London operations
+const BASEFEE = Operation{
+    .execute = block.op_basefee,
+    .constant_gas = GasQuickStep,
+    .min_stack = 0,
+    .max_stack = Stack.CAPACITY - 1,
+};
+
+// Shanghai operations
+const PUSH0 = Operation{
+    .execute = stack_ops.op_push0,
+    .constant_gas = GasQuickStep,
+    .min_stack = 0,
+    .max_stack = Stack.CAPACITY - 1,
+};
+
+// Cancun operations
+const BLOBHASH = Operation{
+    .execute = block.op_blobhash,
+    .constant_gas = GasFastestStep,
+    .min_stack = 1,
+    .max_stack = Stack.CAPACITY,
+};
+
+const BLOBBASEFEE = Operation{
+    .execute = block.op_blobbasefee,
+    .constant_gas = GasQuickStep,
+    .min_stack = 0,
+    .max_stack = Stack.CAPACITY - 1,
+};
+
+const MCOPY = Operation{
+    .execute = memory_ops.op_mcopy,
+    .constant_gas = GasFastestStep,
+    .min_stack = 3,
+    .max_stack = Stack.CAPACITY,
+};
+
+const TLOAD = Operation{
+    .execute = storage.op_tload,
+    .constant_gas = 100,
+    .min_stack = 1,
+    .max_stack = Stack.CAPACITY,
+};
+
+const TSTORE = Operation{
+    .execute = storage.op_tstore,
+    .constant_gas = 100,
+    .min_stack = 2,
+    .max_stack = Stack.CAPACITY,
+};
+
 // Helper to convert Stack errors to ExecutionError
 inline fn stack_push(stack: *Stack, value: u256) ExecutionError.Error!void {
     return stack.append(value) catch |err| switch (err) {
@@ -869,15 +936,15 @@ pub fn init_from_hardfork(hardfork: Hardfork) Self {
     
     // Add hardfork-specific opcodes
     switch (hardfork) {
-        .Frontier => {},
-        .Homestead, .TangerineWhistle, .SpuriousDragon, .Byzantium, .Constantinople, .Petersburg, .Istanbul, .Berlin, .London, .Paris, .Shanghai, .Cancun, .Prague => {
+        .FRONTIER => {},
+        .HOMESTEAD, .DAO, .TANGERINE_WHISTLE, .SPURIOUS_DRAGON, .BYZANTIUM, .CONSTANTINOPLE, .PETERSBURG, .ISTANBUL, .MUIR_GLACIER, .BERLIN, .LONDON, .ARROW_GLACIER, .GRAY_GLACIER, .MERGE, .SHANGHAI, .CANCUN => {
             // Homestead adds DELEGATECALL (0xf4)
             jt.table[0xf4] = &DELEGATECALL;
             
             // Continue with other hardforks
             switch (hardfork) {
-                .Homestead, .TangerineWhistle, .SpuriousDragon => {},
-                .Byzantium, .Constantinople, .Petersburg, .Istanbul, .Berlin, .London, .Paris, .Shanghai, .Cancun, .Prague => {
+                .FRONTIER, .HOMESTEAD, .DAO, .TANGERINE_WHISTLE, .SPURIOUS_DRAGON => {},
+                .BYZANTIUM, .CONSTANTINOPLE, .PETERSBURG, .ISTANBUL, .MUIR_GLACIER, .BERLIN, .LONDON, .ARROW_GLACIER, .GRAY_GLACIER, .MERGE, .SHANGHAI, .CANCUN => {
                     // Byzantium additions
                     jt.table[0x3d] = &RETURNDATASIZE;
                     jt.table[0x3e] = &RETURNDATACOPY;
@@ -886,14 +953,55 @@ pub fn init_from_hardfork(hardfork: Hardfork) Self {
                     
                     // Continue with Constantinople and later
                     switch (hardfork) {
-                        .Byzantium => {},
-                        .Constantinople, .Petersburg, .Istanbul, .Berlin, .London, .Paris, .Shanghai, .Cancun, .Prague => {
+                        .FRONTIER, .HOMESTEAD, .DAO, .TANGERINE_WHISTLE, .SPURIOUS_DRAGON, .BYZANTIUM => {},
+                        .CONSTANTINOPLE, .PETERSBURG, .ISTANBUL, .MUIR_GLACIER, .BERLIN, .LONDON, .ARROW_GLACIER, .GRAY_GLACIER, .MERGE, .SHANGHAI, .CANCUN => {
                             // Constantinople additions
                             jt.table[0xf5] = &CREATE2;
                             jt.table[0x3f] = &EXTCODEHASH;
                             jt.table[0x1b] = &SHL;
                             jt.table[0x1c] = &SHR;
                             jt.table[0x1d] = &SAR;
+                            
+                            // Continue with Istanbul and later
+                            switch (hardfork) {
+                                .FRONTIER, .HOMESTEAD, .DAO, .TANGERINE_WHISTLE, .SPURIOUS_DRAGON, .BYZANTIUM, .CONSTANTINOPLE, .PETERSBURG => {},
+                                .ISTANBUL, .MUIR_GLACIER, .BERLIN, .LONDON, .ARROW_GLACIER, .GRAY_GLACIER, .MERGE, .SHANGHAI, .CANCUN => {
+                                    // Istanbul additions
+                                    jt.table[0x46] = &CHAINID;
+                                    jt.table[0x47] = &SELFBALANCE;
+                                    
+                                    // Continue with London and later
+                                    switch (hardfork) {
+                                        .FRONTIER, .HOMESTEAD, .DAO, .TANGERINE_WHISTLE, .SPURIOUS_DRAGON, .BYZANTIUM, .CONSTANTINOPLE, .PETERSBURG, .ISTANBUL, .MUIR_GLACIER, .BERLIN => {},
+                                        .LONDON, .ARROW_GLACIER, .GRAY_GLACIER, .MERGE, .SHANGHAI, .CANCUN => {
+                                            // London additions
+                                            jt.table[0x48] = &BASEFEE;
+                                            
+                                            // Continue with Shanghai and later
+                                            switch (hardfork) {
+                                                .FRONTIER, .HOMESTEAD, .DAO, .TANGERINE_WHISTLE, .SPURIOUS_DRAGON, .BYZANTIUM, .CONSTANTINOPLE, .PETERSBURG, .ISTANBUL, .MUIR_GLACIER, .BERLIN, .LONDON, .ARROW_GLACIER, .GRAY_GLACIER, .MERGE => {},
+                                                .SHANGHAI, .CANCUN => {
+                                                    // Shanghai additions
+                                                    jt.table[0x5f] = &PUSH0;
+                                                    
+                                                    // Continue with Cancun
+                                                    switch (hardfork) {
+                                                        .FRONTIER, .HOMESTEAD, .DAO, .TANGERINE_WHISTLE, .SPURIOUS_DRAGON, .BYZANTIUM, .CONSTANTINOPLE, .PETERSBURG, .ISTANBUL, .MUIR_GLACIER, .BERLIN, .LONDON, .ARROW_GLACIER, .GRAY_GLACIER, .MERGE, .SHANGHAI => {},
+                                                        .CANCUN => {
+                                                            // Cancun additions
+                                                            jt.table[0x49] = &BLOBHASH;
+                                                            jt.table[0x4a] = &BLOBBASEFEE;
+                                                            jt.table[0x5e] = &MCOPY;
+                                                            jt.table[0x5c] = &TLOAD;
+                                                            jt.table[0x5d] = &TSTORE;
+                                                        },
+                                                    }
+                                                },
+                                            }
+                                        },
+                                    }
+                                },
+                            }
                         },
                     }
                 },
@@ -971,9 +1079,10 @@ test "JumpTable execute consumes gas before opcode execution" {
     
     // Create a test frame with some gas
     const test_allocator = std.testing.allocator;
+    const ZERO_ADDRESS = [_]u8{0} ** 20;
     var test_contract = Contract{
-        .address = Address.ZERO_ADDRESS,
-        .caller = Address.ZERO_ADDRESS,
+        .address = ZERO_ADDRESS,
+        .caller = ZERO_ADDRESS,
         .value = 0,
         .code = &[_]u8{0x01}, // ADD opcode
         .code_hash = [_]u8{0} ** 32,
@@ -1011,4 +1120,99 @@ test "JumpTable execute consumes gas before opcode execution" {
     // Check that ADD operation was performed
     const result = try test_frame.stack.pop();
     try std.testing.expectEqual(@as(u256, 30), result);
+}
+
+test "JumpTable Constantinople opcodes" {
+    // Test that Constantinople opcodes are properly configured
+    const jt_frontier = init_from_hardfork(.FRONTIER);
+    const jt_byzantium = init_from_hardfork(.BYZANTIUM);
+    const jt_constantinople = init_from_hardfork(.CONSTANTINOPLE);
+    
+    // Constantinople opcodes should not be in Frontier
+    try std.testing.expect(jt_frontier.get_operation(0xf5).undefined); // CREATE2
+    try std.testing.expect(jt_frontier.get_operation(0x3f).undefined); // EXTCODEHASH
+    try std.testing.expect(jt_frontier.get_operation(0x1b).undefined); // SHL
+    try std.testing.expect(jt_frontier.get_operation(0x1c).undefined); // SHR
+    try std.testing.expect(jt_frontier.get_operation(0x1d).undefined); // SAR
+    
+    // Constantinople opcodes should not be in Byzantium
+    try std.testing.expect(jt_byzantium.get_operation(0xf5).undefined); // CREATE2
+    try std.testing.expect(jt_byzantium.get_operation(0x3f).undefined); // EXTCODEHASH
+    try std.testing.expect(jt_byzantium.get_operation(0x1b).undefined); // SHL
+    try std.testing.expect(jt_byzantium.get_operation(0x1c).undefined); // SHR
+    try std.testing.expect(jt_byzantium.get_operation(0x1d).undefined); // SAR
+    
+    // Constantinople opcodes should be in Constantinople
+    try std.testing.expect(!jt_constantinople.get_operation(0xf5).undefined); // CREATE2
+    try std.testing.expect(!jt_constantinople.get_operation(0x3f).undefined); // EXTCODEHASH
+    try std.testing.expect(!jt_constantinople.get_operation(0x1b).undefined); // SHL
+    try std.testing.expect(!jt_constantinople.get_operation(0x1c).undefined); // SHR
+    try std.testing.expect(!jt_constantinople.get_operation(0x1d).undefined); // SAR
+    
+    // Verify correct operation properties
+    const create2_op = jt_constantinople.get_operation(0xf5);
+    try std.testing.expectEqual(@as(u64, CreateGas), create2_op.constant_gas);
+    try std.testing.expectEqual(@as(u32, 4), create2_op.min_stack);
+    
+    const extcodehash_op = jt_constantinople.get_operation(0x3f);
+    try std.testing.expectEqual(@as(u64, 700), extcodehash_op.constant_gas);
+    try std.testing.expectEqual(@as(u32, 1), extcodehash_op.min_stack);
+    
+    const shl_op = jt_constantinople.get_operation(0x1b);
+    try std.testing.expectEqual(@as(u64, GasFastestStep), shl_op.constant_gas);
+    try std.testing.expectEqual(@as(u32, 2), shl_op.min_stack);
+}
+
+test "JumpTable Istanbul opcodes" {
+    // Test that Istanbul opcodes are properly configured
+    const jt_constantinople = init_from_hardfork(.CONSTANTINOPLE);
+    const jt_istanbul = init_from_hardfork(.ISTANBUL);
+    const jt_london = init_from_hardfork(.LONDON);
+    
+    // Istanbul opcodes should not be in Constantinople
+    try std.testing.expect(jt_constantinople.get_operation(0x46).undefined); // CHAINID
+    try std.testing.expect(jt_constantinople.get_operation(0x47).undefined); // SELFBALANCE
+    
+    // Istanbul opcodes should be in Istanbul
+    try std.testing.expect(!jt_istanbul.get_operation(0x46).undefined); // CHAINID
+    try std.testing.expect(!jt_istanbul.get_operation(0x47).undefined); // SELFBALANCE
+    
+    // BASEFEE should not be in Istanbul
+    try std.testing.expect(jt_istanbul.get_operation(0x48).undefined); // BASEFEE
+    
+    // BASEFEE should be in London
+    try std.testing.expect(!jt_london.get_operation(0x48).undefined); // BASEFEE
+    
+    // Verify correct operation properties
+    const chainid_op = jt_istanbul.get_operation(0x46);
+    try std.testing.expectEqual(@as(u64, GasQuickStep), chainid_op.constant_gas);
+    try std.testing.expectEqual(@as(u32, 0), chainid_op.min_stack);
+    
+    const selfbalance_op = jt_istanbul.get_operation(0x47);
+    try std.testing.expectEqual(@as(u64, GasFastStep), selfbalance_op.constant_gas);
+    try std.testing.expectEqual(@as(u32, 0), selfbalance_op.min_stack);
+    
+    const basefee_op = jt_london.get_operation(0x48);
+    try std.testing.expectEqual(@as(u64, GasQuickStep), basefee_op.constant_gas);
+    try std.testing.expectEqual(@as(u32, 0), basefee_op.min_stack);
+}
+
+test "JumpTable Shanghai opcodes" {
+    // Test that Shanghai opcodes are properly configured
+    const jt_london = init_from_hardfork(.LONDON);
+    const jt_merge = init_from_hardfork(.MERGE);
+    const jt_shanghai = init_from_hardfork(.SHANGHAI);
+    
+    // PUSH0 should not be in London/Merge
+    try std.testing.expect(jt_london.get_operation(0x5f).undefined); // PUSH0
+    try std.testing.expect(jt_merge.get_operation(0x5f).undefined); // PUSH0
+    
+    // PUSH0 should be in Shanghai
+    try std.testing.expect(!jt_shanghai.get_operation(0x5f).undefined); // PUSH0
+    
+    // Verify correct operation properties
+    const push0_op = jt_shanghai.get_operation(0x5f);
+    try std.testing.expectEqual(@as(u64, GasQuickStep), push0_op.constant_gas);
+    try std.testing.expectEqual(@as(u32, 0), push0_op.min_stack);
+    try std.testing.expectEqual(@as(u32, Stack.CAPACITY - 1), push0_op.max_stack);
 }
