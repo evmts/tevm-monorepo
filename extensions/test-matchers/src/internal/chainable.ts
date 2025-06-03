@@ -108,6 +108,13 @@ const storeChainState = <TName extends string, TAsync extends boolean = false>(
 	utils.flag(assertion, 'chainHistory', chainHistory)
 }
 
+export const parseChainArgs = <TData = unknown, TState = unknown>(args: readonly unknown[]) => {
+	const argsWithoutChainState = args.slice(0, -1)
+	const chainState = args[args.length - 1]
+	assert(chainState && typeof chainState === 'object' && 'chainedFrom' in chainState, 'Internal error: no chain state found')
+	return { args: argsWithoutChainState, chainState: chainState as ChainState<TData, TState> }
+}
+
 // Vitest matcher wrapper for sync matchers
 function makeVitestSyncChainable<
 	TName extends string,
