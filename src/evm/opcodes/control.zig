@@ -4,6 +4,7 @@ const ExecutionError = @import("../execution_error.zig");
 const Stack = @import("../stack.zig");
 const Frame = @import("../frame.zig");
 const Vm = @import("../vm.zig");
+const gas_constants = @import("../gas_constants.zig");
 
 // Helper to convert Stack errors to ExecutionError
 inline fn stack_pop(stack: *Stack) ExecutionError.Error!u256 {
@@ -117,9 +118,13 @@ pub fn op_return(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
         const offset_usize = @as(usize, @intCast(offset));
         const size_usize = @as(usize, @intCast(size));
         
-        // Ensure memory is available
+        // Calculate memory expansion gas cost
+        const current_size = frame.memory.context_size();
         const end = offset_usize + size_usize;
         if (end > offset_usize) { // Check for overflow
+            const memory_gas = gas_constants.memory_gas_cost(current_size, end);
+            try frame.consume_gas(memory_gas);
+            
             _ = frame.memory.ensure_context_capacity(end) catch return ExecutionError.Error.OutOfOffset;
         }
         

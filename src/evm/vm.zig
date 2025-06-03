@@ -209,3 +209,54 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
         .output = null,
     };
 }
+
+// CALLCODE specific method - executes code of 'to' in the context of the current contract
+pub fn callcode_contract(self: *Self, current: Address.Address, code_address: Address.Address, value: u256, input: []const u8, gas: u64, is_static: bool) !CallResult {
+    _ = self;
+    _ = current;
+    _ = code_address;
+    _ = value;
+    _ = input;
+    _ = gas;
+    _ = is_static;
+    
+    // For now, return a failed call
+    return CallResult{
+        .success = false,
+        .gas_left = 0,
+        .output = null,
+    };
+}
+
+// DELEGATECALL specific method - executes code of 'to' with current contract's storage and sender/value
+pub fn delegatecall_contract(self: *Self, current: Address.Address, code_address: Address.Address, input: []const u8, gas: u64, is_static: bool) !CallResult {
+    _ = self;
+    _ = current;
+    _ = code_address;
+    _ = input;
+    _ = gas;
+    _ = is_static;
+    
+    // For now, return a failed call
+    return CallResult{
+        .success = false,
+        .gas_left = 0,
+        .output = null,
+    };
+}
+
+// STATICCALL specific method - guaranteed read-only call
+pub fn staticcall_contract(self: *Self, caller: Address.Address, to: Address.Address, input: []const u8, gas: u64) !CallResult {
+    _ = self;
+    _ = caller;
+    _ = to;
+    _ = input;
+    _ = gas;
+    
+    // For now, return a failed call
+    return CallResult{
+        .success = false,
+        .gas_left = 0,
+        .output = null,
+    };
+}

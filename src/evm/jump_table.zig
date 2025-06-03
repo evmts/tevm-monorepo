@@ -422,6 +422,13 @@ const GASPRICE = Operation{
     .max_stack = Stack.CAPACITY - 1,
 };
 
+const EXTCODEHASH = Operation{
+    .execute = environment.op_extcodehash,
+    .constant_gas = 700,
+    .min_stack = 1,
+    .max_stack = Stack.CAPACITY,
+};
+
 // Block operations
 const BLOCKHASH = Operation{
     .execute = block.op_blockhash,
@@ -617,6 +624,22 @@ const REVERT = Operation{
 
 const STATICCALL = Operation{
     .execute = system.op_staticcall,
+    .constant_gas = CallGas,
+    .min_stack = 6,
+    .max_stack = Stack.CAPACITY,
+};
+
+// Constantinople operations
+const CREATE2 = Operation{
+    .execute = system.op_create2,
+    .constant_gas = CreateGas,
+    .min_stack = 4,
+    .max_stack = Stack.CAPACITY,
+};
+
+// Homestead operations
+const DELEGATECALL = Operation{
+    .execute = system.op_delegatecall,
     .constant_gas = CallGas,
     .min_stack = 6,
     .max_stack = Stack.CAPACITY,
@@ -833,8 +856,6 @@ pub fn new_frontier_instruction_set() Self {
     jt.table[0xf1] = &CALL;
     jt.table[0xf2] = &CALLCODE;
     jt.table[0xf3] = &RETURN;
-    jt.table[0xfa] = &STATICCALL;  // Byzantium addition
-    jt.table[0xfd] = &REVERT;      // Byzantium addition
     jt.table[0xfe] = &INVALID;
     jt.table[0xff] = &SELFDESTRUCT;
 
@@ -849,18 +870,34 @@ pub fn init_from_hardfork(hardfork: Hardfork) Self {
     // Add hardfork-specific opcodes
     switch (hardfork) {
         .Frontier => {},
-        .Homestead, .TangerineWhistle, .SpuriousDragon => {
+        .Homestead, .TangerineWhistle, .SpuriousDragon, .Byzantium, .Constantinople, .Petersburg, .Istanbul, .Berlin, .London, .Paris, .Shanghai, .Cancun, .Prague => {
             // Homestead adds DELEGATECALL (0xf4)
-            // But we need to define DELEGATECALL first
-        },
-        .Byzantium, .Constantinople, .Petersburg, .Istanbul, .Berlin, .London, .Paris, .Shanghai, .Cancun, .Prague => {
-            // Byzantium additions
-            jt.table[0x3d] = &RETURNDATASIZE;
-            jt.table[0x3e] = &RETURNDATACOPY;
-            jt.table[0xfd] = &REVERT;
-            jt.table[0xfa] = &STATICCALL;
+            jt.table[0xf4] = &DELEGATECALL;
             
-            // Additional opcodes for later hardforks would go here
+            // Continue with other hardforks
+            switch (hardfork) {
+                .Homestead, .TangerineWhistle, .SpuriousDragon => {},
+                .Byzantium, .Constantinople, .Petersburg, .Istanbul, .Berlin, .London, .Paris, .Shanghai, .Cancun, .Prague => {
+                    // Byzantium additions
+                    jt.table[0x3d] = &RETURNDATASIZE;
+                    jt.table[0x3e] = &RETURNDATACOPY;
+                    jt.table[0xfd] = &REVERT;
+                    jt.table[0xfa] = &STATICCALL;
+                    
+                    // Continue with Constantinople and later
+                    switch (hardfork) {
+                        .Byzantium => {},
+                        .Constantinople, .Petersburg, .Istanbul, .Berlin, .London, .Paris, .Shanghai, .Cancun, .Prague => {
+                            // Constantinople additions
+                            jt.table[0xf5] = &CREATE2;
+                            jt.table[0x3f] = &EXTCODEHASH;
+                            jt.table[0x1b] = &SHL;
+                            jt.table[0x1c] = &SHR;
+                            jt.table[0x1d] = &SAR;
+                        },
+                    }
+                },
+            }
         },
     }
     

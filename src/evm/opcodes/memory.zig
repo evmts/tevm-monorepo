@@ -230,6 +230,16 @@ pub fn op_calldatacopy(pc: usize, interpreter: *Operation.Interpreter, state: *O
     const data_offset_usize = @as(usize, @intCast(data_offset));
     const size_usize = @as(usize, @intCast(size));
     
+    // Calculate memory expansion gas cost
+    const current_size = frame.memory.context_size();
+    const new_size = mem_offset_usize + size_usize;
+    const memory_gas = gas_constants.memory_gas_cost(current_size, new_size);
+    try frame.consume_gas(memory_gas);
+    
+    // Dynamic gas for copy operation
+    const word_size = (size_usize + 31) / 32;
+    try frame.consume_gas(gas_constants.CopyGas * word_size);
+    
     // Ensure memory is available
     _ = frame.memory.ensure_context_capacity(mem_offset_usize + size_usize) catch return ExecutionError.Error.OutOfOffset;
     
@@ -271,6 +281,16 @@ pub fn op_codecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     const mem_offset_usize = @as(usize, @intCast(mem_offset));
     const code_offset_usize = @as(usize, @intCast(code_offset));
     const size_usize = @as(usize, @intCast(size));
+    
+    // Calculate memory expansion gas cost
+    const current_size = frame.memory.context_size();
+    const new_size = mem_offset_usize + size_usize;
+    const memory_gas = gas_constants.memory_gas_cost(current_size, new_size);
+    try frame.consume_gas(memory_gas);
+    
+    // Dynamic gas for copy operation
+    const word_size = (size_usize + 31) / 32;
+    try frame.consume_gas(gas_constants.CopyGas * word_size);
     
     // Ensure memory is available
     _ = frame.memory.ensure_context_capacity(mem_offset_usize + size_usize) catch return ExecutionError.Error.OutOfOffset;
@@ -318,6 +338,16 @@ pub fn op_returndatacopy(pc: usize, interpreter: *Operation.Interpreter, state: 
     if (data_offset_usize + size_usize > frame.return_data_buffer.len) {
         return ExecutionError.Error.ReturnDataOutOfBounds;
     }
+    
+    // Calculate memory expansion gas cost
+    const current_size = frame.memory.context_size();
+    const new_size = mem_offset_usize + size_usize;
+    const memory_gas = gas_constants.memory_gas_cost(current_size, new_size);
+    try frame.consume_gas(memory_gas);
+    
+    // Dynamic gas for copy operation
+    const word_size = (size_usize + 31) / 32;
+    try frame.consume_gas(gas_constants.CopyGas * word_size);
     
     // Ensure memory is available
     _ = frame.memory.ensure_context_capacity(mem_offset_usize + size_usize) catch return ExecutionError.Error.OutOfOffset;

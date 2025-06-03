@@ -7,6 +7,7 @@ const Vm = @import("../vm.zig");
 const Address = @import("Address");
 const to_u256 = Address.to_u256;
 const from_u256 = Address.from_u256;
+const gas_constants = @import("../gas_constants.zig");
 
 // Helper to convert Stack errors to ExecutionError
 inline fn stack_pop(stack: *Stack) ExecutionError.Error!u256 {
@@ -141,6 +142,16 @@ pub fn op_extcodecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     const mem_offset_usize = @as(usize, @intCast(mem_offset));
     const code_offset_usize = @as(usize, @intCast(code_offset));
     const size_usize = @as(usize, @intCast(size));
+    
+    // Calculate memory expansion gas cost
+    const current_size = frame.memory.context_size();
+    const new_size = mem_offset_usize + size_usize;
+    const memory_gas = gas_constants.memory_gas_cost(current_size, new_size);
+    try frame.consume_gas(memory_gas);
+    
+    // Dynamic gas for copy operation
+    const word_size = (size_usize + 31) / 32;
+    try frame.consume_gas(gas_constants.CopyGas * word_size);
     
     // Get external code from VM state
     const code = vm.code.get(address) orelse &[_]u8{};
