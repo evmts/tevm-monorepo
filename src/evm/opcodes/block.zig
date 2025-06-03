@@ -31,7 +31,17 @@ pub fn op_blockhash(pc: usize, interpreter: *Operation.Interpreter, state: *Oper
     
     // Only last 256 blocks are available
     const current_block = vm.block_number;
-    if (block_number >= current_block or (current_block > 256 and block_number < current_block - 256)) {
+    
+    // Return 0 for future blocks or blocks older than 256 blocks ago
+    if (block_number >= current_block) {
+        // Future block
+        try stack_push(&frame.stack, 0);
+    } else if (current_block > 256 and block_number + 256 < current_block) {
+        // Block is older than 256 blocks ago
+        // Equivalent to: block_number < current_block - 256
+        try stack_push(&frame.stack, 0);
+    } else if (block_number == 0) {
+        // Genesis block always returns 0
         try stack_push(&frame.stack, 0);
     } else {
         // Return a pseudo-hash based on block number for testing

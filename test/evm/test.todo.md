@@ -538,6 +538,7 @@ The debugging and fixing process will be considered successful when the followin
 Many of these failures seem related to issues already identified (e.g., gas costs, memory operations, specific opcode logic, jump table mappings). The strategy should be to fix the core issues and then re-evaluate these.
 
 1.  **Failure Message:** `error: 'block_test.test.Block: BLOCKHASH operations' failed: ... expected 0, found 11130678850859817302`
+    *   **Status:** IN PROGRESS - Agent AI-Blockhash - Worktree: `g/evm-fix-blockhash`
     *   **Affected File:** `test/evm/opcodes/block_test.zig`, `src/evm/opcodes/block.zig` (`op_blockhash`)
     *   **Theory 1:** `op_blockhash` (0x40) is returning a pseudo-hash instead of 0 for blocks older than 256 or future blocks. The test specifically expects 0 for these cases.
     *   **Logging:**
