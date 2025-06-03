@@ -164,8 +164,9 @@ pub const ArenaMemory = struct {
         if (old_size >= min_size) return 0;
         
         const old_words = calculate_num_words(old_size);
-        try self.resize_context(min_size);
         const new_words = calculate_num_words(min_size);
+        const word_aligned_size = new_words * 32;
+        try self.resize_context(word_aligned_size);
         
         return new_words - old_words;
     }
