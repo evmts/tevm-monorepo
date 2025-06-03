@@ -59,8 +59,9 @@ pub fn op_mstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
-    const offset = try stack_pop(&frame.stack);
-    const value = try stack_pop(&frame.stack);
+    // EVM Stack: [..., offset, value] where value is on top
+    const value = try stack_pop(&frame.stack);  // Pop value from top
+    const offset = try stack_pop(&frame.stack); // Pop offset second
     
     if (offset > std.math.maxInt(usize)) {
         return ExecutionError.Error.OutOfOffset;
@@ -89,8 +90,9 @@ pub fn op_mstore8(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
-    const offset = try stack_pop(&frame.stack);
-    const value = try stack_pop(&frame.stack);
+    // EVM Stack: [..., offset, value] where value is on top
+    const value = try stack_pop(&frame.stack);  // Pop value from top
+    const offset = try stack_pop(&frame.stack); // Pop offset second
     
     if (offset > std.math.maxInt(usize)) {
         return ExecutionError.Error.OutOfOffset;
@@ -108,7 +110,8 @@ pub fn op_mstore8(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     try error_mapping.memory_ensure_capacity(&frame.memory, offset_usize + 1);
     
     // Write single byte to memory
-    try error_mapping.memory_set_byte(&frame.memory, offset_usize, @as(u8, @truncate(value)));
+    const byte_value = @as(u8, @truncate(value));
+    try error_mapping.memory_set_byte(&frame.memory, offset_usize, byte_value);
     
     return Operation.ExecutionResult{};
 }
