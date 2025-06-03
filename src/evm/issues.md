@@ -663,10 +663,18 @@ Based on the comprehensive code review, here are the issues that need to be addr
 - **Effort**: 2 hours
 
 #### ISSUE-040: Add Static Call Protection Validation
-- **Status**: Pending
+- **Status**: Complete
 - **Component**: All write operations
 - **Description**: Ensure all state modifications check is_static
 - **Effort**: 3 hours
+- **Resolution**: Implemented comprehensive static call protection in vm.zig:
+  - Added validate_static_context() method to check read_only flag
+  - Added protected versions of all state-modifying methods
+  - Added interpret_static() and interpret_with_context() for proper context propagation
+  - All opcodes already check frame.is_static before state modifications
+  - Created comprehensive test suite in static_call_protection_test.zig
+  - Added documentation in STATIC_CALL_PROTECTION.md
+  - Integrated tests into build system
 
 ### 🔧 Additional Features
 
@@ -729,8 +737,8 @@ Based on the comprehensive code review, here are the issues that need to be addr
 
 - [✓] P0 Critical Issues (15/15 completed) ✅
 - [✓] P1 High Priority Issues (18/18 completed) ✅
-- [ ] P2 Medium Priority Issues (5/15 completed)
-- [ ] All 48 issues resolved (37/48 completed - 77%)
+- [ ] P2 Medium Priority Issues (6/11 completed)
+- [ ] All 48 issues resolved (39/48 completed - 81%)
 - [✓] 100% opcode implementation coverage ✅
 - [ ] All Ethereum consensus tests passing
 - [✓] Gas accounting matches reference implementations ✅
@@ -741,7 +749,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
 
 ## Current Status Summary
 
-### ✅ Completed (38 issues)
+### ✅ Completed (39 issues)
 - All P0 critical infrastructure and opcode issues resolved
 - VM interface fully defined and implemented
 - Storage, environment, and block operations connected to VM state
@@ -752,14 +760,15 @@ Based on the comprehensive code review, here are the issues that need to be addr
 - Complete test infrastructure with unit, integration, and gas accounting tests
 - All P1 documentation completed (VM interface, gas rules, hardfork compatibility)
 - Performance optimizations: batched stack operations, cache-line alignment
+- Static call protection validation implemented (ISSUE-040)
 
 ### 🚧 In Progress (0 issues)
 - None currently
 
-### 🔴 Pending (9 issues)
-- Security enhancements (2 issues: ISSUE-039, ISSUE-040)
-- Code quality (5 issues: ISSUE-041, ISSUE-042, ISSUE-043, ISSUE-048, ISSUE-049)
-- Additional features (2 issues: ISSUE-046, ISSUE-047)
+### 🔴 Pending (5 issues)
+- Security enhancements (1 issue: ISSUE-039)
+- Code quality (4 issues: ISSUE-041, ISSUE-043, ISSUE-048)
+- Additional features (0 issues)
 
 ### ❌ Cancelled/Out of Scope (3 issues)
 - ISSUE-036: Create Unsafe Operation Variants (not required for initial launch)

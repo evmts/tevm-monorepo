@@ -155,7 +155,7 @@ test "Static call protection - CREATE2 contract creation" {
     var vm = try VM.init(allocator);
     defer vm.deinit();
     
-    const creator = ([_]u8{0x07} ** 20);
+    const creator = [_]u8{0x07} ** 20;
     const value: u256 = 1000;
     const init_code = [_]u8{0x60, 0x00}; // PUSH1 0
     const salt: u256 = 0xdeadbeef;
@@ -195,8 +195,8 @@ test "Static call protection - selfdestruct" {
     var vm = try VM.init(allocator);
     defer vm.deinit();
     
-    const contract = ([_]u8{0x08} ** 20);
-    const beneficiary = ([_]u8{0x09} ** 20);
+    const contract = [_]u8{0x08} ** 20;
+    const beneficiary = [_]u8{0x09} ** 20;
     
     // Test 1: Normal context allows selfdestruct
     vm.read_only = false;
@@ -213,7 +213,7 @@ test "Static call protection - comprehensive scenario" {
     var vm = try VM.init(allocator);
     defer vm.deinit();
     
-    const test_address = ([_]u8{0x0A} ** 20);
+    const test_address = [_]u8{0x0A} ** 20;
     
     // Set up initial state in normal context
     vm.read_only = false;

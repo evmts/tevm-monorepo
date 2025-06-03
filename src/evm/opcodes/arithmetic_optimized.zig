@@ -15,17 +15,18 @@ pub fn op_add_optimized(pc: usize, interpreter: *Operation.Interpreter, state: *
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
     // For hot paths where we've already validated stack requirements
-    if (frame.stack.size >= 2) {
-        // Use unsafe batched operation
-        const values = frame.stack.pop2_unsafe();
-        const sum = values.a +% values.b;
-        frame.stack.append_unsafe(sum);
-    } else {
+    if (frame.stack.size < 2) {
         // Fallback to safe version
         const values = frame.stack.pop2() catch return ExecutionError.Error.StackUnderflow;
         const sum = values.a +% values.b;
         frame.stack.append(sum) catch return ExecutionError.Error.StackOverflow;
+        return Operation.ExecutionResult{};
     }
+    
+    // Use unsafe batched operation
+    const values = frame.stack.pop2_unsafe();
+    const sum = values.a +% values.b;
+    frame.stack.append_unsafe(sum);
     
     return Operation.ExecutionResult{};
 }
@@ -37,15 +38,16 @@ pub fn op_mul_optimized(pc: usize, interpreter: *Operation.Interpreter, state: *
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
-    if (frame.stack.size >= 2) {
-        const values = frame.stack.pop2_unsafe();
-        const product = values.a *% values.b;
-        frame.stack.append_unsafe(product);
-    } else {
+    if (frame.stack.size < 2) {
         const values = frame.stack.pop2() catch return ExecutionError.Error.StackUnderflow;
         const product = values.a *% values.b;
         frame.stack.append(product) catch return ExecutionError.Error.StackOverflow;
+        return Operation.ExecutionResult{};
     }
+    
+    const values = frame.stack.pop2_unsafe();
+    const product = values.a *% values.b;
+    frame.stack.append_unsafe(product);
     
     return Operation.ExecutionResult{};
 }
@@ -57,15 +59,16 @@ pub fn op_sub_optimized(pc: usize, interpreter: *Operation.Interpreter, state: *
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
-    if (frame.stack.size >= 2) {
-        const values = frame.stack.pop2_unsafe();
-        const diff = values.a -% values.b;
-        frame.stack.append_unsafe(diff);
-    } else {
+    if (frame.stack.size < 2) {
         const values = frame.stack.pop2() catch return ExecutionError.Error.StackUnderflow;
         const diff = values.a -% values.b;
         frame.stack.append(diff) catch return ExecutionError.Error.StackOverflow;
+        return Operation.ExecutionResult{};
     }
+    
+    const values = frame.stack.pop2_unsafe();
+    const diff = values.a -% values.b;
+    frame.stack.append_unsafe(diff);
     
     return Operation.ExecutionResult{};
 }
@@ -157,15 +160,16 @@ pub fn op_lt_optimized(pc: usize, interpreter: *Operation.Interpreter, state: *O
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
-    if (frame.stack.size >= 2) {
-        const values = frame.stack.pop2_unsafe();
-        const result: u256 = if (values.a < values.b) 1 else 0;
-        frame.stack.append_unsafe(result);
-    } else {
+    if (frame.stack.size < 2) {
         const values = frame.stack.pop2() catch return ExecutionError.Error.StackUnderflow;
         const result: u256 = if (values.a < values.b) 1 else 0;
         frame.stack.append(result) catch return ExecutionError.Error.StackOverflow;
+        return Operation.ExecutionResult{};
     }
+    
+    const values = frame.stack.pop2_unsafe();
+    const result: u256 = if (values.a < values.b) 1 else 0;
+    frame.stack.append_unsafe(result);
     
     return Operation.ExecutionResult{};
 }
@@ -177,15 +181,16 @@ pub fn op_not_optimized(pc: usize, interpreter: *Operation.Interpreter, state: *
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
-    if (frame.stack.size >= 1) {
-        const value = frame.stack.pop1_push1_unsafe(0);
-        const result = ~value;
-        frame.stack.data[frame.stack.size - 1] = result;
-    } else {
+    if (frame.stack.size < 1) {
         const value = frame.stack.pop1_push1(0) catch return ExecutionError.Error.StackUnderflow;
         const result = ~value;
         frame.stack.data[frame.stack.size - 1] = result;
+        return Operation.ExecutionResult{};
     }
+    
+    const value = frame.stack.pop1_push1_unsafe(0);
+    const result = ~value;
+    frame.stack.data[frame.stack.size - 1] = result;
     
     return Operation.ExecutionResult{};
 }

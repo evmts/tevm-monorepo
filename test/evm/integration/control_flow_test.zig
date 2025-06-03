@@ -3,13 +3,14 @@ const testing = std.testing;
 const pkg = @import("package.zig");
 const helpers = pkg.test_helpers;
 
-// Import opcodes
-const control = @import("../../../src/evm/opcodes/control.zig");
-const comparison = @import("../../../src/evm/opcodes/comparison.zig");
-const stack = @import("../../../src/evm/opcodes/stack.zig");
-const arithmetic = @import("../../../src/evm/opcodes/arithmetic.zig");
-const memory = @import("../../../src/evm/opcodes/memory.zig");
-const Contract = @import("../../../src/evm/contract.zig");
+// Import opcodes through evm module
+const evm = @import("evm");
+const control = evm.opcodes.control;
+const comparison = evm.opcodes.comparison;
+const stack = evm.opcodes.stack;
+const arithmetic = evm.opcodes.arithmetic;
+const memory = evm.opcodes.memory;
+const Contract = evm.Contract;
 
 test "Integration: Conditional jump patterns" {
     // Test JUMPI with various conditions
