@@ -212,8 +212,8 @@ test "Stack validation: max_stack calculations" {
     // ADDMOD (pop 3, push 1) - net effect -2
     try testing.expectEqual(@as(u32, Stack.CAPACITY), stack_validation.calculate_max_stack(3, 1));
     
-    // CALL-like operations that can push up to 1
-    try testing.expectEqual(@as(u32, Stack.CAPACITY - 1), stack_validation.calculate_max_stack(7, 1));
+    // CALL-like operations that pop 7 and push 1 - net effect -6
+    try testing.expectEqual(@as(u32, Stack.CAPACITY), stack_validation.calculate_max_stack(7, 1));
 }
 
 test "Stack validation: integration with jump table execution" {
