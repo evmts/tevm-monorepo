@@ -36,15 +36,15 @@ test "Integration: Token balance check pattern" {
     
     // Store Alice's address in memory at offset 0
     const alice_addr = helpers.toU256(helpers.TestAddresses.ALICE);
-    try test_frame.pushStack(&[_]u256{0, alice_addr});
+    try test_frame.pushStack(&[_]u256{alice_addr, 0}); // value first, then offset
     _ = try helpers.executeOpcode(0x52, &test_vm.vm, test_frame.frame);
     
     // Store mapping slot (0) at offset 32
-    try test_frame.pushStack(&[_]u256{32, 0});
+    try test_frame.pushStack(&[_]u256{0, 32}); // value first, then offset
     _ = try helpers.executeOpcode(0x52, &test_vm.vm, test_frame.frame);
     
     // Hash to get storage slot
-    try test_frame.pushStack(&[_]u256{0, 64}); // Hash 64 bytes
+    try test_frame.pushStack(&[_]u256{64, 0}); // size first, then offset
     _ = try helpers.executeOpcode(0x20, &test_vm.vm, test_frame.frame);
     
     // Set initial balance
@@ -346,7 +346,7 @@ test "Integration: Signature verification simulation" {
     try test_frame.setMemory(0, message);
     
     // Hash the message
-    try test_frame.pushStack(&[_]u256{0, message.len});
+    try test_frame.pushStack(&[_]u256{message.len, 0}); // size first, then offset
     _ = try helpers.executeOpcode(0x20, &test_vm.vm, test_frame.frame);
     const message_hash = try test_frame.popStack();
     
@@ -355,7 +355,7 @@ test "Integration: Signature verification simulation" {
     try test_frame.setMemory(100, prefix);
     
     // Store message length as ASCII
-    try test_frame.pushStack(&[_]u256{0x3136, 100 + prefix.len}); // "16" in hex
+    try test_frame.pushStack(&[_]u256{100 + prefix.len, 0x3136}); // offset first, then value
     _ = try helpers.executeOpcode(0x52, &test_vm.vm, test_frame.frame);
     
     // Final hash would include prefix + length + message hash
