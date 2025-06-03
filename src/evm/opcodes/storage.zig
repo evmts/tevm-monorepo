@@ -28,12 +28,10 @@ pub fn op_sload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     
     const slot = try stack_pop(&frame.stack);
     
-    // TODO: Get storage value
-    _ = vm;
-    _ = slot;
+    // Get storage value
+    const value = try vm.get_storage(frame.contract.address, slot);
     
-    // For now, push zero
-    try stack_push(&frame.stack, 0);
+    try stack_push(&frame.stack, value);
     
     return "";
 }
@@ -52,10 +50,8 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     const slot = try stack_pop(&frame.stack);
     const value = try stack_pop(&frame.stack);
     
-    // TODO: Set storage value
-    _ = vm;
-    _ = slot;
-    _ = value;
+    // Set storage value
+    try vm.set_storage(frame.contract.address, slot, value);
     
     return "";
 }

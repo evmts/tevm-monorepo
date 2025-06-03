@@ -4,7 +4,7 @@ const ExecutionError = @import("../execution_error.zig");
 const Stack = @import("../stack.zig");
 const Frame = @import("../frame.zig");
 const Vm = @import("../vm.zig");
-const Address = @import("Address");
+const Address = @import("../../Address/address.zig");
 const to_u256 = Address.to_u256;
 const from_u256 = Address.from_u256;
 
@@ -41,14 +41,13 @@ pub fn op_balance(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
-    _ = vm;
     
-    const address = try stack_pop(&frame.stack);
-    _ = address;
+    const address_u256 = try stack_pop(&frame.stack);
+    const address = from_u256(address_u256);
     
-    // TODO: Get balance from state
-    // For now, push zero balance
-    try stack_push(&frame.stack, 0);
+    // Get balance from VM state
+    const balance = vm.balances.get(address) orelse 0;
+    try stack_push(&frame.stack, balance);
     
     return "";
 }
@@ -58,11 +57,10 @@ pub fn op_origin(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
-    _ = vm;
     
-    // TODO: Push transaction origin address
-    // For now, push zero address
-    try stack_push(&frame.stack, 0);
+    // Push transaction origin address
+    const origin = to_u256(vm.tx_origin);
+    try stack_push(&frame.stack, origin);
     
     return "";
 }
@@ -97,11 +95,9 @@ pub fn op_gasprice(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
-    _ = vm;
     
-    // TODO: Push gas price
-    // For now, push zero
-    try stack_push(&frame.stack, 0);
+    // Push gas price from transaction context
+    try stack_push(&frame.stack, vm.gas_price);
     
     return "";
 }

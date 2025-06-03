@@ -18,9 +18,9 @@ allocator: std.mem.Allocator,
 stop: bool = false,
 gas_remaining: u64 = 0,
 is_static: bool = false,
-return_data_buffer: []const u8 = &[_]u8{},
+return_data_buffer: []u8 = &[_]u8{},
 input: []const u8 = &[_]u8{},
-depth: u16 = 0,
+depth: u32 = 0,
 
 pub fn init(allocator: std.mem.Allocator, contract: *Contract) Self {
     return Self{
@@ -42,6 +42,11 @@ pub fn init_with_state(
     stack: ?Stack,
     return_data: ?[]u8,
     stop: ?bool,
+    gas_remaining: ?u64,
+    is_static: ?bool,
+    return_data_buffer: ?[]u8,
+    input: ?[]const u8,
+    depth: ?u32,
 ) Self {
     return Self{
         .allocator = allocator,
@@ -54,5 +59,10 @@ pub fn init_with_state(
         .err = err,
         .return_data = return_data,
         .stop = stop orelse false,
+        .gas_remaining = gas_remaining orelse 0,
+        .is_static = is_static orelse false,
+        .return_data_buffer = return_data_buffer orelse &[_]u8{},
+        .input = input orelse &[_]u8{},
+        .depth = depth orelse 0,
     };
 }

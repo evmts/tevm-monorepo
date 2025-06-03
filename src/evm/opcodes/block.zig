@@ -25,26 +25,32 @@ pub fn op_blockhash(pc: usize, interpreter: *Operation.Interpreter, state: *Oper
     _ = interpreter;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
     
     const block_number = try stack_pop(&frame.stack);
-    _ = block_number;
     
-    // TODO: Implement block hash retrieval
-    // For now, return zero hash
-    try stack_push(&frame.stack, 0);
+    // Only last 256 blocks are available
+    const current_block = vm.block_number;
+    if (block_number >= current_block or (current_block > 256 and block_number < current_block - 256)) {
+        try stack_push(&frame.stack, 0);
+    } else {
+        // TODO: Implement actual block hash retrieval from chain
+        // For now, return a pseudo-hash based on block number
+        const hash = std.hash.Wyhash.hash(0, std.mem.asBytes(&block_number));
+        try stack_push(&frame.stack, hash);
+    }
     
     return "";
 }
 
 pub fn op_coinbase(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
     _ = pc;
-    _ = interpreter;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
     
-    // TODO: Get coinbase from block context
-    // For now, push zero address
-    try stack_push(&frame.stack, 0);
+    // Get coinbase from block context
+    try stack_push(&frame.stack, vm.block_coinbase.toU256());
     
     return "";
 }
@@ -53,11 +59,10 @@ pub fn op_timestamp(pc: usize, interpreter: *Operation.Interpreter, state: *Oper
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-    _ = interpreter;
+    const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
     
-    // TODO: Get timestamp from block context
-    // For now, push a placeholder value
-    try stack_push(&frame.stack, 1234567890);
+    // Get timestamp from block context
+    try stack_push(&frame.stack, @as(u256, @intCast(vm.block_timestamp)));
     
     return "";
 }
@@ -66,24 +71,23 @@ pub fn op_number(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-    _ = interpreter;
+    const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
     
-    // TODO: Get block number from block context
-    // For now, push a placeholder value
-    try stack_push(&frame.stack, 1);
+    // Get block number from block context
+    try stack_push(&frame.stack, @as(u256, @intCast(vm.block_number)));
     
     return "";
 }
 
 pub fn op_difficulty(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
     _ = pc;
-    _ = interpreter;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
     
-    // TODO: Get difficulty/prevrandao from block context
+    // Get difficulty/prevrandao from block context
     // Post-merge this returns PREVRANDAO
-    try stack_push(&frame.stack, 0);
+    try stack_push(&frame.stack, vm.block_difficulty);
     
     return "";
 }
@@ -95,26 +99,25 @@ pub fn op_prevrandao(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
 
 pub fn op_gaslimit(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
     _ = pc;
-    _ = interpreter;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
     
-    // TODO: Get gas limit from block context
-    // Push block gas limit
-    try stack_push(&frame.stack, 30_000_000);
+    // Get gas limit from block context
+    try stack_push(&frame.stack, @as(u256, @intCast(vm.block_gas_limit)));
     
     return "";
 }
 
 pub fn op_basefee(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
     _ = pc;
-    _ = interpreter;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
     
-    // TODO: Get base fee from block context
+    // Get base fee from block context
     // Push base fee (EIP-1559)
-    try stack_push(&frame.stack, 0);
+    try stack_push(&frame.stack, vm.block_base_fee);
     
     return "";
 }

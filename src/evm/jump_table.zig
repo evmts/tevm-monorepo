@@ -5,6 +5,7 @@ const Hardfork = @import("hardfork.zig").Hardfork;
 const ExecutionError = @import("execution_error.zig");
 const Stack = @import("stack.zig");
 const Memory = @import("memory.zig");
+const Frame = @import("frame.zig");
 
 // Import all opcode modules
 const opcodes = @import("opcodes/package.zig");
@@ -801,8 +802,6 @@ pub fn init_from_hardfork(hardfork: Hardfork) Self {
     return new_frontier_instruction_set();
 }
 
-// Import Frame for gas_op
-const Frame = @import("frame.zig");
 
 // Tests
 test "JumpTable basic operations" {
