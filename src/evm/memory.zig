@@ -536,3 +536,21 @@ pub fn ensure_capacity(self: *Self, min_size: usize) MemoryError!u64 {
 pub fn resize_word_aligned(self: *Self, min_size: usize) MemoryError!void {
     return self.resize_context_word_aligned(min_size);
 }
+
+/// Copy within memory (alias for copy method for backwards compatibility)
+pub fn copy_within(self: *Self, src: usize, dest: usize, len: usize) MemoryError!void {
+    return self.copy(dest, src, len);
+}
+
+/// Get total size of memory (context size)
+pub fn total_size(self: *const Self) usize {
+    return self.context_size();
+}
+
+/// Get a mutable slice to the entire memory buffer (context-relative)
+pub fn slice(self: *Self) []u8 {
+    const ctx_size = self.context_size();
+    const abs_start = self.my_checkpoint;
+    const abs_end = abs_start + ctx_size;
+    return self.root_ptr.shared_buffer.items[abs_start..abs_end];
+}

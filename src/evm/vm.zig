@@ -8,8 +8,9 @@ const Operation = @import("operation.zig");
 const Address = @import("Address");
 const StoragePool = @import("storage_pool.zig");
 
-// Import Log from log.zig
-pub const Log = @import("opcodes/log.zig").Log;
+// Import Log from opcodes package
+const opcodes = @import("opcodes/package.zig");
+pub const Log = opcodes.log.Log;
 
 const Self = @This();
 

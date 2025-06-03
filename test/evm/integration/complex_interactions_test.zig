@@ -1,11 +1,16 @@
 const std = @import("std");
 const testing = std.testing;
-const pkg = @import("package.zig");
-const helpers = pkg.test_helpers;
+const helpers = @import("../opcodes/test_helpers.zig");
 
 // Import opcodes through evm module
 const evm = @import("evm");
-const opcodes = evm.opcodes;
+const memory = evm.opcodes.memory;
+const storage = evm.opcodes.storage;
+const bitwise = evm.opcodes.bitwise;
+const arithmetic = evm.opcodes.arithmetic;
+const crypto = evm.opcodes.crypto;
+const stack = evm.opcodes.stack;
+const comparison = evm.opcodes.comparison;
 
 test "Integration: Token balance check pattern" {
     // Simulate checking and updating a token balance
@@ -174,7 +179,7 @@ test "Integration: Reentrancy guard pattern" {
     defer test_frame.deinit();
     
     const guard_slot: u256 = 99;
-    const NOT_ENTERED: u256 = 1;
+    _ = 1; // NOT_ENTERED constant (not used in this test)
     const ENTERED: u256 = 2;
     
     // Check guard status

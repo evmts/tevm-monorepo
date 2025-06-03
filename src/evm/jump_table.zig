@@ -89,8 +89,12 @@ pub inline fn get_operation(self: *const Self, opcode: u8) *const Operation {
 pub fn execute(self: *const Self, pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State, opcode: u8) ExecutionError.Error!Operation.ExecutionResult {
     const operation = self.get_operation(opcode);
     
-    // Cast state to Frame to access gas_remaining
+    // Cast state to Frame to access gas_remaining and stack
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    
+    // Validate stack requirements before execution
+    const stack_validation = @import("stack_validation.zig");
+    try stack_validation.validate_stack_requirements(&frame.stack, operation);
     
     // Consume base gas cost before executing the opcode
     if (operation.constant_gas > 0) {
@@ -175,7 +179,7 @@ const ADD = Operation{
     .execute = arithmetic.op_add,
     .constant_gas = GasFastestStep,
     .min_stack = 2,
-    .max_stack = Stack.CAPACITY,
+    .max_stack = Stack.CAPACITY, // Binary op: pop 2, push 1 - net -1
 };
 
 const MUL = Operation{
@@ -1188,8 +1192,12 @@ test "JumpTable execute consumes gas before opcode execution" {
         .is_static = false,
         .storage_access = null,
         .original_storage = null,
+        .is_cold = false,
+        .has_jumpdests = false,
+        .is_empty = false,
     };
     var test_frame = Frame.init(test_allocator, &test_contract);
+    defer test_frame.memory.deinit();
     test_frame.gas_remaining = 100;
     
     // Push two values for ADD operation

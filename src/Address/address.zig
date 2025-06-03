@@ -50,7 +50,7 @@ pub fn address_to_hex(address: Address) [42]u8 {
     var result: [42]u8 = undefined;
     result[0] = '0';
     result[1] = 'x';
-    const hex = bytesToHex(.lower, &address);
+    const hex = bytesToHex(&address, .lower);
     @memcpy(result[2..], &hex);
     return result;
 }

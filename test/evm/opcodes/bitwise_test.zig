@@ -372,7 +372,7 @@ test "Bitwise: Gas consumption" {
     defer test_frame.deinit();
     
     // All bitwise operations cost 3 gas (GasFastestStep)
-    const operations = [_]struct {
+    const operations = comptime [_]struct {
         name: []const u8,
         op: fn(usize, *helpers.Operation.Interpreter, *helpers.Operation.State) helpers.ExecutionError.Error!helpers.Operation.ExecutionResult,
         stack_items: u8,
@@ -387,7 +387,7 @@ test "Bitwise: Gas consumption" {
         .{ .name = "SAR", .op = bitwise.op_sar, .stack_items = 2 },
     };
     
-    for (operations) |op_info| {
+    inline for (operations) |op_info| {
         test_frame.frame.stack.clear();
         test_frame.frame.gas_remaining = 1000;
         

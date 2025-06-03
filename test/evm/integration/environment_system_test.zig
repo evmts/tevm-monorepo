@@ -370,7 +370,6 @@ test "Integration: Calldata operations" {
     
     // Should load 32 bytes starting from offset 0
     const loaded_value = try test_frame.popStack();
-    const expected_selector = @as(u256, 0x12345678) << (28 * 8); // Shift to most significant bytes
     try testing.expect((loaded_value >> (28 * 8)) == 0x12345678);
     
     // Test CALLDATALOAD at offset 4 (first argument)

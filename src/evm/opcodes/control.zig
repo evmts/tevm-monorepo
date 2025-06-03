@@ -204,7 +204,9 @@ pub fn op_selfdestruct(pc: usize, interpreter: *Operation.Interpreter, state: *O
     const beneficiary = from_u256(beneficiary_u256);
     
     // EIP-2929: Check if beneficiary address is cold and consume appropriate gas
-    const is_cold = try vm.mark_address_warm(beneficiary);
+    const is_cold = vm.mark_address_warm(beneficiary) catch |err| switch (err) {
+        error.OutOfMemory => return ExecutionError.Error.OutOfGas,
+    };
     if (is_cold) {
         // Cold address access costs more (2600 gas)
         try frame.consume_gas(gas_constants.ColdAccountAccessCost);

@@ -17,6 +17,9 @@ pub const Stack = @import("stack.zig");
 pub const StoragePool = @import("storage_pool.zig");
 pub const Vm = @import("vm.zig");
 
+// Import opcodes
+pub const opcodes = @import("opcodes/package.zig");
+
 // Import utility modules
 pub const bitvec = @import("bitvec.zig");
 pub const chain_rules = @import("chain_rules.zig");

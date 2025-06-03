@@ -18,7 +18,7 @@ allocator: std.mem.Allocator,
 stop: bool = false,
 gas_remaining: u64 = 0,
 is_static: bool = false,
-return_data_buffer: []u8 = &[_]u8{},
+return_data_buffer: []const u8 = &[_]u8{},
 input: []const u8 = &[_]u8{},
 depth: u32 = 0,
 
@@ -44,7 +44,7 @@ pub fn init_with_state(
     stop: ?bool,
     gas_remaining: ?u64,
     is_static: ?bool,
-    return_data_buffer: ?[]u8,
+    return_data_buffer: ?[]const u8,
     input: ?[]const u8,
     depth: ?u32,
 ) Self {
