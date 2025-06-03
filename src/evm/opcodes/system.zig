@@ -25,7 +25,7 @@ inline fn stack_push(stack: *Stack, value: u256) ExecutionError.Error!void {
     };
 }
 
-pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
@@ -43,7 +43,7 @@ pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     // Check depth
     if (frame.depth >= 1024) {
         try stack_push(&frame.stack, 0);
-        return "";
+        return Operation.ExecutionResult{};
     }
     
     // Get init code from memory
@@ -90,10 +90,10 @@ pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     // Set return data
     frame.return_data_buffer = result.output orelse &[_]u8{};
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
@@ -112,7 +112,7 @@ pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     // Check depth
     if (frame.depth >= 1024) {
         try stack_push(&frame.stack, 0);
-        return "";
+        return Operation.ExecutionResult{};
     }
     
     // Get init code
@@ -160,10 +160,10 @@ pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     // Set return data
     frame.return_data_buffer = result.output orelse &[_]u8{};
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_call(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_call(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
@@ -180,7 +180,7 @@ pub fn op_call(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     // Check depth
     if (frame.depth >= 1024) {
         try stack_push(&frame.stack, 0);
-        return "";
+        return Operation.ExecutionResult{};
     }
     
     // Get call data
@@ -261,10 +261,10 @@ pub fn op_call(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     // Push success status
     try stack_push(&frame.stack, if (result.success) 1 else 0);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_callcode(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_callcode(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
@@ -281,7 +281,7 @@ pub fn op_callcode(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     // Check depth
     if (frame.depth >= 1024) {
         try stack_push(&frame.stack, 0);
-        return "";
+        return Operation.ExecutionResult{};
     }
     
     // Get call data
@@ -358,7 +358,7 @@ pub fn op_callcode(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     // Push success status
     try stack_push(&frame.stack, if (result.success) 1 else 0);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
 pub fn op_delegatecall(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
@@ -377,7 +377,7 @@ pub fn op_delegatecall(pc: usize, interpreter: *Operation.Interpreter, state: *O
     // Check depth
     if (frame.depth >= 1024) {
         try stack_push(&frame.stack, 0);
-        return "";
+        return Operation.ExecutionResult{};
     }
     
     // Get call data
@@ -453,7 +453,7 @@ pub fn op_delegatecall(pc: usize, interpreter: *Operation.Interpreter, state: *O
     return Operation.ExecutionResult{};
 }
 
-pub fn op_staticcall(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_staticcall(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
@@ -469,7 +469,7 @@ pub fn op_staticcall(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
     // Check depth
     if (frame.depth >= 1024) {
         try stack_push(&frame.stack, 0);
-        return "";
+        return Operation.ExecutionResult{};
     }
     
     // Get call data
@@ -540,5 +540,5 @@ pub fn op_staticcall(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
     // Push success status
     try stack_push(&frame.stack, if (result.success) 1 else 0);
     
-    return "";
+    return Operation.ExecutionResult{};
 }

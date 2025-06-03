@@ -500,6 +500,26 @@ pub fn build(b: *std.Build) void {
     const stack_test_step = b.step("test-stack", "Run Stack tests");
     stack_test_step.dependOn(&run_stack_test.step);
 
+    // Add Opcodes tests
+    const opcodes_test = b.addTest(.{
+        .name = "opcodes-test",
+        .root_source_file = b.path("src/evm/opcodes/package.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    // Add module imports to opcodes test
+    opcodes_test.root_module.addImport("Address", address_mod);
+    opcodes_test.root_module.addImport("Block", block_mod);
+    opcodes_test.root_module.addImport("evm", evm_mod);
+    opcodes_test.root_module.addImport("Utils", utils_mod);
+
+    const run_opcodes_test = b.addRunArtifact(opcodes_test);
+
+    // Add a separate step for testing Opcodes
+    const opcodes_test_step = b.step("test-opcodes", "Run Opcodes tests");
+    opcodes_test_step.dependOn(&run_opcodes_test.step);
+
     // Add Memory benchmark
     const memory_benchmark = b.addExecutable(.{
         .name = "memory-benchmark",
@@ -588,6 +608,8 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_memory_test.step);
     test_step.dependOn(&run_memory_stress_test.step);
     test_step.dependOn(&run_memory_comparison_test.step);
+    test_step.dependOn(&run_stack_test.step);
+    test_step.dependOn(&run_opcodes_test.step);
 
     // Define a single test step that runs all tests
     const test_all_step = b.step("test-all", "Run all unit tests");

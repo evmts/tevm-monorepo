@@ -337,16 +337,34 @@ Based on the comprehensive code review, here are the issues that need to be addr
 ### 🧪 Testing Infrastructure
 
 #### ISSUE-023: Create Unit Test Framework
-- **Status**: In Progress (Working on it)
+- **Status**: Complete
 - **Component**: tests/evm/opcodes/
 - **Description**: No tests exist at all
 - **Effort**: 4 hours
+- **Resolution**: Created comprehensive unit test framework for EVM opcodes:
+  - **Test Helpers** (`test_helpers.zig`): 
+    - TestVm: Simplified VM for testing with state setup methods
+    - TestFrame: Test wrapper with easy stack/memory manipulation
+    - Helper functions for executing opcodes and asserting results
+    - Pre-defined test addresses and values
+    - Utility functions for hex/u256 conversions
+  - **Test Structure**: Example arithmetic tests demonstrating:
+    - Basic operations testing
+    - Edge cases (overflow, underflow, zero values)
+    - Error conditions (stack underflow)
+    - Gas consumption verification
+  - **Build Integration**: 
+    - Added opcodes test to build.zig
+    - Created package.zig for test module
+    - Tests can be run with `zig build test-opcodes`
+  - **Documentation**: Created README.md with testing guidelines
 
 #### ISSUE-024: Add Opcode Unit Tests
-- **Status**: In Progress
+- **Status**: In Progress (Working on it)
 - **Component**: tests/evm/opcodes/*_test.zig
 - **Description**: Every opcode needs comprehensive tests
 - **Effort**: 16 hours (30 min per opcode average)
+- **Progress**: Created bitwise_test.zig and comparison_test.zig
 
 #### ISSUE-025: Add Integration Tests
 - **Component**: tests/evm/integration/
@@ -418,7 +436,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
   - The mappings are semantically correct for EVM execution context
 
 #### ISSUE-030a: Complete ExecutionResult Migration
-- **Status**: In Progress (Working on it)
+- **Status**: Complete
 - **Component**: All opcode files except control.zig and stack.zig
 - **Description**: ISSUE-027 only partially migrated opcodes to return ExecutionResult
 - **Effort**: 3 hours
@@ -428,6 +446,12 @@ Based on the comprehensive code review, here are the issues that need to be addr
   - Replace return "" with return Operation.ExecutionResult{}
   - Replace return ExecutionError.Error.STOP with return ExecutionError.Error.STOP (no change needed for errors)
   - Files that need updating: arithmetic.zig, bitwise.zig, block.zig, comparison.zig, crypto.zig, environment.zig, log.zig, memory.zig, storage.zig, system.zig
+- **Resolution**: Successfully migrated all remaining opcode files to return Operation.ExecutionResult:
+  - Updated function signatures from ExecutionError.Error![]const u8 to ExecutionError.Error!Operation.ExecutionResult
+  - Replaced all return "" statements with return Operation.ExecutionResult{}
+  - Files updated: arithmetic.zig, bitwise.zig, block.zig, comparison.zig, crypto.zig, environment.zig, log.zig, memory.zig, system.zig
+  - storage.zig was already updated previously
+  - All opcodes now consistently use the ExecutionResult return type for proper PC advancement
 
 ### 📝 Documentation
 
