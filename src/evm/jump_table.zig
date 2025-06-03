@@ -357,14 +357,14 @@ const CALLVALUE = Operation{
 };
 
 const CALLDATALOAD = Operation{
-    .execute = memory_ops.op_calldataload,
+    .execute = environment.op_calldataload,
     .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 1,
     .max_stack = Stack.CAPACITY,
 };
 
 const CALLDATASIZE = Operation{
-    .execute = memory_ops.op_calldatasize,
+    .execute = environment.op_calldatasize,
     .constant_gas = opcodes.gas_constants.GasQuickStep,
     .min_stack = 0,
     .max_stack = Stack.CAPACITY - 1,
@@ -378,14 +378,14 @@ const CALLDATACOPY = Operation{
 };
 
 const CODESIZE = Operation{
-    .execute = memory_ops.op_codesize,
+    .execute = environment.op_codesize,
     .constant_gas = opcodes.gas_constants.GasQuickStep,
     .min_stack = 0,
     .max_stack = Stack.CAPACITY - 1,
 };
 
 const CODECOPY = Operation{
-    .execute = memory_ops.op_codecopy,
+    .execute = environment.op_codecopy,
     .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 3,
     .max_stack = Stack.CAPACITY,
@@ -396,6 +396,20 @@ const GASPRICE = Operation{
     .constant_gas = opcodes.gas_constants.GasQuickStep,
     .min_stack = 0,
     .max_stack = Stack.CAPACITY - 1,
+};
+
+const EXTCODESIZE = Operation{
+    .execute = environment.op_extcodesize,
+    .constant_gas = 700, // Will be adjusted for different hardforks
+    .min_stack = 1,
+    .max_stack = Stack.CAPACITY,
+};
+
+const EXTCODECOPY = Operation{
+    .execute = environment.op_extcodecopy,
+    .constant_gas = 700, // Will be adjusted for different hardforks
+    .min_stack = 4,
+    .max_stack = Stack.CAPACITY,
 };
 
 const EXTCODEHASH = Operation{
@@ -1033,6 +1047,8 @@ pub fn new_frontier_instruction_set_legacy() Self {
     jt.table[0x38] = &CODESIZE;
     jt.table[0x39] = &CODECOPY;
     jt.table[0x3a] = &GASPRICE;
+    jt.table[0x3b] = &EXTCODESIZE;
+    jt.table[0x3c] = &EXTCODECOPY;
 
     // 0x40s: Block Information
     jt.table[0x40] = &BLOCKHASH;
