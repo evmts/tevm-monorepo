@@ -1,5 +1,4 @@
 packages:
-  - app
   - bundler-packages/*
   - bundler-packages/resolutions-rs/npm/*
   - bundler-packages/runtime-rs/npm/*
@@ -13,6 +12,7 @@ packages:
   - packages/*
   - scripts
   - src
+  - src/ui
   - tevm
   - test/*
 onlyBuiltDependencies:

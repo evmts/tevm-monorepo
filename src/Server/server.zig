@@ -1,10 +1,10 @@
 const std = @import("std");
 const httpz = @import("httpz");
-const Logger = @import("middleware/Logger.zig");
+const Logger = @import("middleware/logger.zig");
 
 pub const JsonRpcRequest = struct { id: ?u32, method: []const u8, jsonrpc: []const u8, params: ?std.json.Value };
 
-pub fn createServer(allocator: std.mem.Allocator, port: u16) !httpz.Server(void) {
+pub fn create_server(allocator: std.mem.Allocator, port: u16) !httpz.Server(void) {
     var server = try httpz.Server(void).init(allocator, .{
         .port = port,
     }, {});
@@ -39,7 +39,7 @@ test "server handles JSON-RPC requests" {
     const test_port = 18545;
     std.debug.print("Creating server on port {d}\n", .{test_port});
 
-    var server = try createServer(allocator, test_port);
+    var server = try create_server(allocator, test_port);
     defer server.deinit();
 
     std.debug.print("Starting server thread\n", .{});

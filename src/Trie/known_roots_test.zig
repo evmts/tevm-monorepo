@@ -9,7 +9,7 @@ test "Empty trie matches known root" {
     defer trie_impl.deinit();
     
     // Empty trie should have no root
-    try testing.expect(trie_impl.rootHash() == null);
+    try testing.expect(trie_impl.root_hash() == null);
 }
 
 test "Simple entry trie matches known root" {
@@ -25,7 +25,7 @@ test "Simple entry trie matches known root" {
     try trie_impl.put(key, value);
     
     // The trie should now have a root
-    const root = trie_impl.rootHash();
+    const root = trie_impl.root_hash();
     try testing.expect(root != null);
     
     // Verify we can retrieve the value
@@ -43,7 +43,7 @@ test "Simple entry trie matches known root" {
     try testing.expect(after_delete == null);
     
     // After deletion of the only key, root should be null again
-    try testing.expect(trie_impl.rootHash() == null);
+    try testing.expect(trie_impl.root_hash() == null);
 }
 
 // Test with multiple entries to verify trie structure
@@ -73,7 +73,7 @@ test "Multiple entries trie" {
     }
     
     // The root should exist
-    try testing.expect(trie_impl.rootHash() != null);
+    try testing.expect(trie_impl.root_hash() != null);
     
     // For a real implementation, we should check if the trie produces correct roots
     // for common Ethereum operations like block headers, transactions, etc.
@@ -103,8 +103,8 @@ test "Trie invariant tests" {
         allocator.free(proof);
     }
     
-    const root_hash = trie_impl.rootHash().?;
-    const result = try trie_impl.verifyProof(root_hash, key1, proof, value1);
+    const root_hash = trie_impl.root_hash().?;
+    const result = try trie_impl.verify_proof(root_hash, key1, proof, value1);
     try testing.expect(result);
 }
 

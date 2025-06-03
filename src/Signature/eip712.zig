@@ -70,17 +70,17 @@ pub const Eip712Domain = struct {
 /// Interface for types that can be EIP-712 signed
 pub const Eip712Type = struct {
     /// Get the primary type name
-    pub fn typeName(self: @This()) []const u8 {
+    pub fn type_name(self: @This()) []const u8 {
         @compileError("Not implemented");
     }
     
     /// Get the mapping of type name to type string
-    pub fn typeHash(self: @This()) [32]u8 {
+    pub fn type_hash(self: @This()) [32]u8 {
         @compileError("Not implemented");
     }
     
     /// Get the struct hash for this value
-    pub fn structHash(self: @This()) [32]u8 {
+    pub fn struct_hash(self: @This()) [32]u8 {
         @compileError("Not implemented");
     }
     
@@ -131,7 +131,7 @@ pub const Eip712Encoder = struct {
     }
     
     /// Calculate the type hash for a struct type
-    pub fn typeHash(self: Eip712Encoder) ![32]u8 {
+    pub fn type_hash(self: Eip712Encoder) ![32]u8 {
         // Pseudocode:
         // 1. Generate type string in EIP-712 format
         //    (e.g., "Person(string name,uint256 age)")
@@ -141,7 +141,7 @@ pub const Eip712Encoder = struct {
     }
     
     /// Calculate the struct hash for a struct value
-    pub fn structHash(self: Eip712Encoder, value: struct_type.Struct) ![32]u8 {
+    pub fn struct_hash(self: Eip712Encoder, value: struct_type.Struct) ![32]u8 {
         // Pseudocode:
         // 1. Get the type hash
         // 2. Encode each field according to EIP-712 rules

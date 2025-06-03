@@ -49,17 +49,17 @@ pub fn encode(allocator: Allocator, input: anytype) ![]u8 {
     if (info == .array) {
         const child_info = @typeInfo(info.array.child);
         if (child_info == .int and child_info.int.bits == 8) {
-            return try encodeBytes(allocator, &input);
+            return try encode_bytes(allocator, &input);
         }
     } else if (info == .pointer) {
         const child_info = @typeInfo(info.pointer.child);
         if (child_info == .int and child_info.int.bits == 8) {
-            return try encodeBytes(allocator, input);
+            return try encode_bytes(allocator, input);
         } else if (child_info == .array) {
             const elem_info = @typeInfo(child_info.array.child);
             if (elem_info == .int and elem_info.int.bits == 8) {
                 // Handle string literals like "a" which are *const [N:0]u8
-                return try encodeBytes(allocator, input);
+                return try encode_bytes(allocator, input);
             }
         }
     }
@@ -89,7 +89,7 @@ pub fn encode(allocator: Allocator, input: anytype) ![]u8 {
         if (total_len < 56) {
             try result.append(0xc0 + @as(u8, @intCast(total_len)));
         } else {
-            const len_bytes = try encodeLength(allocator, total_len);
+            const len_bytes = try encode_length(allocator, total_len);
             defer allocator.free(len_bytes);
             try result.append(0xf7 + @as(u8, @intCast(len_bytes.len)));
             try result.appendSlice(len_bytes);
@@ -132,14 +132,14 @@ pub fn encode(allocator: Allocator, input: anytype) ![]u8 {
             }
         }
         
-        return try encodeBytes(allocator, bytes.items);
+        return try encode_bytes(allocator, bytes.items);
     }
     
     @compileError("Unsupported type for RLP encoding: " ++ @typeName(T));
 }
 
 /// Encodes a byte array or slice according to RLP rules
-fn encodeBytes(allocator: Allocator, bytes: []const u8) ![]u8 {
+fn encode_bytes(allocator: Allocator, bytes: []const u8) ![]u8 {
     // If a single byte less than 0x80, return as is
     if (bytes.len == 1 and bytes[0] < 0x80) {
         const result = try allocator.alloc(u8, 1);
@@ -156,7 +156,7 @@ fn encodeBytes(allocator: Allocator, bytes: []const u8) ![]u8 {
     }
     
     // If string is >55 bytes long, return [0xb7+len(len(data)), len(data), data]
-    const len_bytes = try encodeLength(allocator, bytes.len);
+    const len_bytes = try encode_length(allocator, bytes.len);
     defer allocator.free(len_bytes);
     
     const result = try allocator.alloc(u8, 1 + len_bytes.len + bytes.len);
@@ -168,7 +168,7 @@ fn encodeBytes(allocator: Allocator, bytes: []const u8) ![]u8 {
 }
 
 /// Encodes an integer length as bytes
-fn encodeLength(allocator: Allocator, length: usize) ![]u8 {
+fn encode_length(allocator: Allocator, length: usize) ![]u8 {
     var len_bytes = std.ArrayList(u8).init(allocator);
     defer len_bytes.deinit();
     
@@ -379,17 +379,17 @@ fn _decode(allocator: Allocator, input: []const u8) !Decoded {
 // Utility functions
 
 /// Converts a byte slice to a hex string
-pub fn bytesToHex(allocator: Allocator, bytes: []const u8) ![]u8 {
+pub fn bytes_to_hex(allocator: Allocator, bytes: []const u8) ![]u8 {
     return try hex.bytesToHex(allocator, bytes);
 }
 
 /// Converts a hex string to bytes
-pub fn hexToBytes(allocator: Allocator, hex_str: []const u8) ![]u8 {
+pub fn hex_to_bytes(allocator: Allocator, hex_str: []const u8) ![]u8 {
     return try hex.hexToBytes(allocator, hex_str);
 }
 
 /// Concatenates multiple byte slices into one
-pub fn concatBytes(allocator: Allocator, arrays: []const []const u8) ![]u8 {
+pub fn concat_bytes(allocator: Allocator, arrays: []const []const u8) ![]u8 {
     var total_len: usize = 0;
     for (arrays) |arr| {
         total_len += arr.len;
@@ -594,7 +594,7 @@ test "RLP stream decoding" {
     
     // Concatenate all encoded items
     const arrays = [_][]const u8{ encoded_number, encoded_string, encoded_long_string, encoded_list };
-    const buffer_stream = try concatBytes(allocator, &arrays);
+    const buffer_stream = try concat_bytes(allocator, &arrays);
     defer allocator.free(buffer_stream);
     
     // Decode stream one by one

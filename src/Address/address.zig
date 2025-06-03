@@ -11,7 +11,7 @@ pub const Address = [20]u8;
 
 pub const ZERO_ADDRESS: Address = [_]u8{0} ** 20;
 
-pub fn addressFromHex(comptime hex: [42]u8) Address {
+pub fn address_from_hex(comptime hex: [42]u8) Address {
     if (!startsWith(u8, hex, "0x"))
         @compileError("hex must start with '0x'");
 
@@ -20,15 +20,15 @@ pub fn addressFromHex(comptime hex: [42]u8) Address {
     return out;
 }
 
-pub fn addressFromPublicKey(publicKey: PublicKey) Address {
-    return publicKey.toAddress();
+pub fn address_from_public_key(public_key: PublicKey) Address {
+    return public_key.to_address();
 }
 
-pub fn addressToHex(address: Address) [42]u8 {
+pub fn address_to_hex(address: Address) [42]u8 {
     return bytesToHex(address);
 }
 
-pub fn addressToChecksumHex(address: Address) [42]u8 {
+pub fn address_to_checksum_hex(address: Address) [42]u8 {
     var result: [42]u8 = undefined;
     var hex_without_prefix: [40]u8 = undefined;
 
@@ -76,7 +76,7 @@ pub const PublicKey = struct {
     x: [32]u8,
     y: [32]u8,
 
-    pub fn fromHex(hex: []const u8) !PublicKey {
+    pub fn from_hex(hex: []const u8) !PublicKey {
         if (hex.len < 2 or !std.mem.eql(u8, hex[0..2], "0x"))
             return error.InvalidPublicKeyFormat;
 
@@ -110,7 +110,7 @@ pub const PublicKey = struct {
         return error.InvalidPublicKeyLength;
     }
 
-    fn toAddress(self: PublicKey) Address {
+    fn to_address(self: PublicKey) Address {
         var hash: [32]u8 = undefined;
         var pubkey_bytes: [64]u8 = undefined;
 
@@ -129,7 +129,7 @@ pub const PublicKey = struct {
     }
 };
 
-pub fn isValidAddress(addr_str: []const u8) bool {
+pub fn is_valid_address(addr_str: []const u8) bool {
     if (addr_str.len != 42 or !startsWith(u8, addr_str, "0x"))
         return false;
 
@@ -144,19 +144,19 @@ pub fn isValidAddress(addr_str: []const u8) bool {
     return true;
 }
 
-pub fn isValidChecksumAddress(addr_str: []const u8) bool {
-    if (!isValidAddress(addr_str))
+pub fn is_valid_checksum_address(addr_str: []const u8) bool {
+    if (!is_valid_address(addr_str))
         return false;
 
     var addr: Address = undefined;
     _ = hexToBytes(&addr, addr_str[2..]) catch return false;
 
-    const checksummed = addressToChecksumHex(addr);
+    const checksummed = address_to_checksum_hex(addr);
     return std.mem.eql(u8, &checksummed, addr_str);
 }
 
-pub fn areAddressesEqual(a: []const u8, b: []const u8) !bool {
-    if (!isValidAddress(a) or !isValidAddress(b))
+pub fn are_addresses_equal(a: []const u8, b: []const u8) !bool {
+    if (!is_valid_address(a) or !is_valid_address(b))
         return error.InvalidAddress;
 
     var addr_a: Address = undefined;
@@ -168,9 +168,9 @@ pub fn areAddressesEqual(a: []const u8, b: []const u8) !bool {
     return std.mem.eql(u8, &addr_a, &addr_b);
 }
 
-test "PublicKey.fromHex" {
+test "PublicKey.from_hex" {
     const serialized = "0x048318535b54105d4a7aae60c08fc45f9687181b4fdfc625bd1a753fa7397fed753547f11ca8696646f2f3acb08e31016afac23e630c5d11f59f61fef57b0d2aa5";
-    const publicKey = try PublicKey.fromHex(serialized);
+    const publicKey = try PublicKey.from_hex(serialized);
 
     try std.testing.expectEqual(@as(u8, 0x04), publicKey.prefix);
 
@@ -204,7 +204,7 @@ test "Address - checksumAddress" {
         var addr: Address = undefined;
         _ = hexToBytes(&addr, tc.input[2..]) catch unreachable;
 
-        const checksummed = addressToChecksumHex(addr);
+        const checksummed = address_to_checksum_hex(addr);
 
         try std.testing.expectEqualStrings(tc.expected, &checksummed);
     }
@@ -212,46 +212,46 @@ test "Address - checksumAddress" {
 
 test "Address - fromPublicKey" {
     const serialized = "0x048318535b54105d4a7aae60c08fc45f9687181b4fdfc625bd1a753fa7397fed753547f11ca8696646f2f3acb08e31016afac23e630c5d11f59f61fef57b0d2aa5";
-    const publicKey = try PublicKey.fromHex(serialized);
+    const publicKey = try PublicKey.from_hex(serialized);
 
-    const addr = addressFromPublicKey(publicKey);
+    const addr = address_from_public_key(publicKey);
 
     var expected_addr: Address = undefined;
     _ = hexToBytes(&expected_addr, "f39fd6e51aad88f6f4ce6ab8827279cfffb92266") catch unreachable;
 
     try std.testing.expectEqualSlices(u8, &expected_addr, &addr);
 
-    const addr_checksum = addressToChecksumHex(addr);
+    const addr_checksum = address_to_checksum_hex(addr);
     const expected_checksum = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
 
     try std.testing.expectEqualStrings(expected_checksum, &addr_checksum);
 }
 
 test "Address - validation" {
-    try std.testing.expect(isValidAddress("0xa0cf798816d4b9b9866b5330eea46a18382f251e"));
-    try std.testing.expect(isValidAddress("0xA0Cf798816D4b9b9866b5330EEa46a18382f251e"));
+    try std.testing.expect(is_valid_address("0xa0cf798816d4b9b9866b5330eea46a18382f251e"));
+    try std.testing.expect(is_valid_address("0xA0Cf798816D4b9b9866b5330EEa46a18382f251e"));
 
-    try std.testing.expect(!isValidAddress("x"));
-    try std.testing.expect(!isValidAddress("0xa"));
-    try std.testing.expect(!isValidAddress("0xa5cc3c03994db5b0d9a5eEdD10Cabab0813678az"));
-    try std.testing.expect(!isValidAddress("0xa5cc3c03994db5b0d9a5eEdD10Cabab0813678aff"));
-    try std.testing.expect(!isValidAddress("a5cc3c03994db5b0d9a5eEdD10Cabab0813678ac"));
+    try std.testing.expect(!is_valid_address("x"));
+    try std.testing.expect(!is_valid_address("0xa"));
+    try std.testing.expect(!is_valid_address("0xa5cc3c03994db5b0d9a5eEdD10Cabab0813678az"));
+    try std.testing.expect(!is_valid_address("0xa5cc3c03994db5b0d9a5eEdD10Cabab0813678aff"));
+    try std.testing.expect(!is_valid_address("a5cc3c03994db5b0d9a5eEdD10Cabab0813678ac"));
 
-    try std.testing.expect(isValidChecksumAddress("0xA0Cf798816D4b9b9866b5330EEa46a18382f251e"));
-    try std.testing.expect(!isValidChecksumAddress("0xa0cf798816d4b9b9866b5330eea46a18382f251e"));
-    try std.testing.expect(!isValidChecksumAddress("0xA0CF798816D4B9B9866B5330EEA46A18382F251E"));
+    try std.testing.expect(is_valid_checksum_address("0xA0Cf798816D4b9b9866b5330EEa46a18382f251e"));
+    try std.testing.expect(!is_valid_checksum_address("0xa0cf798816d4b9b9866b5330eea46a18382f251e"));
+    try std.testing.expect(!is_valid_checksum_address("0xA0CF798816D4B9B9866B5330EEA46A18382F251E"));
 }
 
 test "Address - equality" {
-    try std.testing.expect(try areAddressesEqual("0xa5cc3c03994db5b0d9a5eEdD10Cabab0813678ac", "0xa5cc3c03994DB5b0d9A5eEdD10CabaB0813678AC"));
+    try std.testing.expect(try are_addresses_equal("0xa5cc3c03994db5b0d9a5eEdD10Cabab0813678ac", "0xa5cc3c03994DB5b0d9A5eEdD10CabaB0813678AC"));
 
-    try std.testing.expect(try areAddressesEqual("0xa0cf798816d4b9b9866b5330eea46a18382f251e", "0xA0Cf798816D4b9b9866b5330EEa46a18382f251e"));
+    try std.testing.expect(try are_addresses_equal("0xa0cf798816d4b9b9866b5330eea46a18382f251e", "0xA0Cf798816D4b9b9866b5330EEa46a18382f251e"));
 
-    try std.testing.expect(try areAddressesEqual("0xa5cc3c03994db5b0d9a5eEdD10Cabab0813678ac", "0xa5cc3c03994db5b0d9a5eEdD10Cabab0813678ac"));
+    try std.testing.expect(try are_addresses_equal("0xa5cc3c03994db5b0d9a5eEdD10Cabab0813678ac", "0xa5cc3c03994db5b0d9a5eEdD10Cabab0813678ac"));
 
-    try std.testing.expect(!try areAddressesEqual("0xa0cf798816d4b9b9866b5330eea46a18382f251e", "0xA0Cf798816D4b9b9866b5330EEa46a18382f251f"));
+    try std.testing.expect(!try are_addresses_equal("0xa0cf798816d4b9b9866b5330eea46a18382f251e", "0xA0Cf798816D4b9b9866b5330EEa46a18382f251f"));
 
-    try std.testing.expectError(error.InvalidAddress, areAddressesEqual("0xa5cc3c03994db5b0d9a5eEdD10Cabab0813678az", "0xa5cc3c03994db5b0d9a5eEdD10Cabab0813678ac"));
+    try std.testing.expectError(error.InvalidAddress, are_addresses_equal("0xa5cc3c03994db5b0d9a5eEdD10Cabab0813678az", "0xa5cc3c03994db5b0d9a5eEdD10Cabab0813678ac"));
 
-    try std.testing.expectError(error.InvalidAddress, areAddressesEqual("0xa5cc3c03994db5b0d9a5eEdD10Cabab0813678ac", "0xa5cc3c03994db5b0d9a5eEdD10Cabab0813678aff"));
+    try std.testing.expectError(error.InvalidAddress, are_addresses_equal("0xa5cc3c03994db5b0d9a5eEdD10Cabab0813678ac", "0xa5cc3c03994db5b0d9a5eEdD10Cabab0813678aff"));
 }

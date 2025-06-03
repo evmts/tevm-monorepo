@@ -37,15 +37,15 @@ pub const CompactBranchNode = struct {
     }
     
     /// Adds a child at the specified position
-    pub fn addChild(self: *CompactBranchNode, index: u4, value: HashValue, is_tree: bool, is_hash: bool) !void {
-        if (self.children_mask.isSet(index)) {
+    pub fn add_child(self: *CompactBranchNode, index: u4, value: HashValue, is_tree: bool, is_hash: bool) !void {
+        if (self.children_mask.is_set(index)) {
             // Replace existing child
             var idx: usize = 0;
             var current_index: u4 = 0;
             
             // Find the child position in the compact array
             while (current_index < index) : (current_index += 1) {
-                if (self.children_mask.isSet(current_index)) {
+                if (self.children_mask.is_set(current_index)) {
                     idx += 1;
                 }
             }
@@ -60,7 +60,7 @@ pub const CompactBranchNode = struct {
             // Count how many children are before this index
             var count: usize = 0;
             for (0..index) |i| {
-                if (self.children_mask.isSet(@intCast(i))) {
+                if (self.children_mask.is_set(@intCast(i))) {
                     count += 1;
                 }
             }
@@ -87,15 +87,15 @@ pub const CompactBranchNode = struct {
     }
     
     /// Get the child at the specified position
-    pub fn getChild(self: *const CompactBranchNode, index: u4) ?HashValue {
-        if (!self.children_mask.isSet(index)) {
+    pub fn get_child(self: *const CompactBranchNode, index: u4) ?HashValue {
+        if (!self.children_mask.is_set(index)) {
             return null;
         }
         
         // Count how many children are before this index
         var count: usize = 0;
         for (0..index) |i| {
-            if (self.children_mask.isSet(@intCast(i))) {
+            if (self.children_mask.is_set(@intCast(i))) {
                 count += 1;
             }
         }
@@ -104,15 +104,15 @@ pub const CompactBranchNode = struct {
     }
     
     /// Removes a child at the specified position
-    pub fn removeChild(self: *CompactBranchNode, index: u4) !void {
-        if (!self.children_mask.isSet(index)) {
+    pub fn remove_child(self: *CompactBranchNode, index: u4) !void {
+        if (!self.children_mask.is_set(index)) {
             return; // Nothing to remove
         }
         
         // Count how many children are before this index
         var count: usize = 0;
         for (0..index) |i| {
-            if (self.children_mask.isSet(@intCast(i))) {
+            if (self.children_mask.is_set(@intCast(i))) {
                 count += 1;
             }
         }
@@ -130,7 +130,7 @@ pub const CompactBranchNode = struct {
     }
     
     /// Convert to regular branch node
-    pub fn toBranchNode(self: *const CompactBranchNode, allocator: Allocator) !trie.BranchNode {
+    pub fn to_branch_node(self: *const CompactBranchNode, allocator: Allocator) !trie.BranchNode {
         var branch = trie.BranchNode.init();
         
         // Copy the masks
@@ -138,8 +138,8 @@ pub const CompactBranchNode = struct {
         
         // Copy the values
         for (0..16) |i| {
-            if (self.children_mask.isSet(@intCast(i))) {
-                const child = self.getChild(@intCast(i)).?;
+            if (self.children_mask.is_set(@intCast(i))) {
+                const child = self.get_child(@intCast(i)).?;
                 branch.children[i] = switch (child) {
                     .Raw => |data| HashValue{ .Raw = try allocator.dupe(u8, data) },
                     .Hash => |hash| HashValue{ .Hash = hash },
@@ -159,23 +159,23 @@ pub const CompactBranchNode = struct {
     }
     
     /// Check if the branch is empty
-    pub fn isEmpty(self: *const CompactBranchNode) bool {
-        return self.children_mask.isEmpty() and self.value == null;
+    pub fn is_empty(self: *const CompactBranchNode) bool {
+        return self.children_mask.is_empty() and self.value == null;
     }
     
     /// Check if the branch has only one child and no value
-    pub fn hasOnlyOneChild(self: *const CompactBranchNode) bool {
-        return self.children_mask.bitCount() == 1 and self.value == null;
+    pub fn has_only_one_child(self: *const CompactBranchNode) bool {
+        return self.children_mask.bit_count() == 1 and self.value == null;
     }
     
     /// Get the only child's index, if there is only one
-    pub fn getOnlyChildIndex(self: *const CompactBranchNode) ?u4 {
-        if (!self.hasOnlyOneChild()) {
+    pub fn get_only_child_index(self: *const CompactBranchNode) ?u4 {
+        if (!self.has_only_one_child()) {
             return null;
         }
         
         for (0..16) |i| {
-            if (self.children_mask.isSet(@intCast(i))) {
+            if (self.children_mask.is_set(@intCast(i))) {
                 return @intCast(i);
             }
         }
@@ -195,8 +195,8 @@ pub const CompactBranchNode = struct {
         
         // Encode each child or an empty string
         for (0..16) |i| {
-            if (self.children_mask.isSet(@intCast(i))) {
-                const child = self.getChild(@intCast(i)).?;
+            if (self.children_mask.is_set(@intCast(i))) {
+                const child = self.get_child(@intCast(i)).?;
                 switch (child) {
                     .Raw => |data| {
                         const encoded = try rlp.encode(allocator, data);
@@ -245,21 +245,21 @@ test "CompactBranchNode - basic operations" {
     defer branch.deinit();
     
     // Start empty
-    try testing.expect(branch.isEmpty());
-    try testing.expect(!branch.hasOnlyOneChild());
-    try testing.expect(branch.getOnlyChildIndex() == null);
+    try testing.expect(branch.is_empty());
+    try testing.expect(!branch.has_only_one_child());
+    try testing.expect(branch.get_only_child_index() == null);
     
     // Add one child
     const value1 = try allocator.dupe(u8, "value1");
-    try branch.addChild(3, HashValue{ .Raw = value1 }, false, false);
+    try branch.add_child(3, HashValue{ .Raw = value1 }, false, false);
     
-    try testing.expect(!branch.isEmpty());
-    try testing.expect(branch.hasOnlyOneChild());
-    try testing.expect(branch.getOnlyChildIndex() != null);
-    try testing.expectEqual(@as(u4, 3), branch.getOnlyChildIndex().?);
+    try testing.expect(!branch.is_empty());
+    try testing.expect(branch.has_only_one_child());
+    try testing.expect(branch.get_only_child_index() != null);
+    try testing.expectEqual(@as(u4, 3), branch.get_only_child_index().?);
     
     // Get the child
-    const child = branch.getChild(3);
+    const child = branch.get_child(3);
     try testing.expect(child != null);
     switch (child.?) {
         .Raw => |data| try testing.expectEqualStrings("value1", data),
@@ -270,27 +270,27 @@ test "CompactBranchNode - basic operations" {
     const hash2 = [_]u8{0} ** 32;
     var hash2_copy: [32]u8 = undefined;
     @memcpy(&hash2_copy, &hash2);
-    try branch.addChild(7, HashValue{ .Hash = hash2_copy }, true, true);
+    try branch.add_child(7, HashValue{ .Hash = hash2_copy }, true, true);
     
-    try testing.expect(!branch.isEmpty());
-    try testing.expect(!branch.hasOnlyOneChild());
-    try testing.expect(branch.getOnlyChildIndex() == null);
+    try testing.expect(!branch.is_empty());
+    try testing.expect(!branch.has_only_one_child());
+    try testing.expect(branch.get_only_child_index() == null);
     
     // Convert to regular branch
-    var regular_branch = try branch.toBranchNode(allocator);
+    var regular_branch = try branch.to_branch_node(allocator);
     defer regular_branch.deinit(allocator);
     
-    try testing.expect(regular_branch.children_mask.isSet(3));
-    try testing.expect(regular_branch.children_mask.isSet(7));
-    try testing.expect(!regular_branch.children_mask.isSet(0));
+    try testing.expect(regular_branch.children_mask.is_set(3));
+    try testing.expect(regular_branch.children_mask.is_set(7));
+    try testing.expect(!regular_branch.children_mask.is_set(0));
     
     // Remove children
-    try branch.removeChild(3);
-    try testing.expect(!branch.isEmpty());
-    try testing.expect(branch.hasOnlyOneChild());
-    try testing.expect(branch.getOnlyChildIndex() != null);
-    try testing.expectEqual(@as(u4, 7), branch.getOnlyChildIndex().?);
+    try branch.remove_child(3);
+    try testing.expect(!branch.is_empty());
+    try testing.expect(branch.has_only_one_child());
+    try testing.expect(branch.get_only_child_index() != null);
+    try testing.expectEqual(@as(u4, 7), branch.get_only_child_index().?);
     
-    try branch.removeChild(7);
-    try testing.expect(branch.isEmpty());
+    try branch.remove_child(7);
+    try testing.expect(branch.is_empty());
 }

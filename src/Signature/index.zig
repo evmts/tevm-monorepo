@@ -5,10 +5,10 @@ pub const utils = @import("utils.zig");
 pub const eip712 = @import("eip712.zig");
 
 // Export common utility functions
-pub const normalizeV = utils.normalizeV;
-pub const toEip155V = utils.toEip155V;
-pub const isLowerS = utils.isLowerS;
-pub const publicKeyToAddress = utils.publicKeyToAddress;
+pub const normalize_v = utils.normalize_v;
+pub const to_eip155_v = utils.to_eip155_v;
+pub const is_lower_s = utils.is_lower_s;
+pub const public_key_to_address = utils.public_key_to_address;
 
 // Export EIP-712 types
 pub const Eip712Domain = eip712.Eip712Domain;
