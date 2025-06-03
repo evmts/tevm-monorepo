@@ -499,15 +499,14 @@ The debugging and fixing process will be considered successful when the followin
         1.  Trace parameters and memory state in `op_codecopy`.
 
 19. **Failure Message:** `error: 'complex_interactions_test.test.Integration: Token balance check pattern' failed: OutOfOffset` in `op_mstore`.
-    *   **Status:** IN PROGRESS - Agent A1 - Worktree: `g/evm-fix-mstore-offset`
+    *   **Status:** COMPLETE - Fixed in commit e598e83d4
     *   **Affected File:** `test/evm/integration/complex_interactions_test.zig`, `src/evm/opcodes/memory.zig` (`op_mstore`)
     *   **Theory 1:** Incorrect offset calculation for `MSTORE` (0x52) or insufficient memory expansion.
-    *   **Logging:**
-        *   In `op_mstore`: Log `offset`, `current_size` of memory, `new_size` required.
-    *   **Coding Changes:**
-        1.  Review memory expansion logic in `op_mstore`.
-    *   **Plan:**
-        1.  Trace memory state and parameters in the failing MSTORE.
+    *   **Root Cause:** Test was pushing stack parameters in wrong order for MSTORE and KECCAK256 operations
+    *   **Fix Applied:** Corrected stack parameter order:
+        - MSTORE expects [offset, value] with offset on top
+        - KECCAK256 expects [size, offset] with offset on top
+    *   **Result:** OutOfOffset error resolved, test now progresses to stack validation
 
 20. **Failure Message:** `error: 'complex_interactions_test.test.Integration: Packed struct storage' failed: expected 12345, found 0`
     *   **Affected File:** `test/evm/integration/complex_interactions_test.zig`
@@ -530,6 +529,7 @@ The debugging and fixing process will be considered successful when the followin
         1.  Trace the test logic step by step, checking stack values.
 
 22. **Failure Message:** `error: 'complex_interactions_test.test.Integration: Safe math operations' failed: expected 0, found 1`
+    *   **Status:** IN PROGRESS - Agent Claude - Worktree: `g/evm-fix-safe-math`
     *   **Affected File:** `test/evm/integration/complex_interactions_test.zig`
     *   **Theory 1:** The overflow check logic (`sum < a` which is `LT` 0x10) is incorrect or the `ADD` (0x01) itself is not overflowing/underflowing as expected by the test. Test `a = MAX_U256 - 100`, `b = 50`. `sum = a + b` which is `MAX_U256 - 50`. `sum < a` (i.e., `MAX_U256 - 50 < MAX_U256 - 100`) is false (0). The test expects 0. This specific part is correct. The failure `expected 0, found 1` is for the *overflow* case: `a = MAX_U256 - 100`, `c = 200`. `sum = a + c` overflows. `overflow_sum` should be less than `a`. So `LT` should return 1. The test expects 1. Found 1. This means the test is failing at `try helpers.expectStackValue(test_frame.frame, 0, 0);` which is from the non-overflow case.
     *   **Logging:**
@@ -697,7 +697,12 @@ Many of these failures seem related to issues already identified (e.g., gas cost
 
 13. **Failure Message:** `error: 'memory_test.test.MSIZE: get memory size' failed: expected 64, found 33`
     *   **Affected File:** `memory_test.zig`, `opcodes/memory.zig` (`op_msize`)
-    *   **Status:** IN PROGRESS - Agent AI-2 - Worktree: `g/evm-fix-msize`
+    *   **Status:** COMPLETE - Agent AI-2 - Worktree: `g/evm-fix-msize`
+    *   **Report:**
+        *   **Fix:** Modified `ensure_context_capacity` in `src/evm/arena_memory.zig` to ensure memory expansion is word-aligned (32-byte boundaries) as per EVM specification.
+        *   **Tests Fixed:** `memory_test.test.MSIZE: get memory size`
+        *   **Regressions Checked:** Ran `test-opcodes` and `test-integration` suites, no new failures introduced.
+        *   **Commit SHA (on 06-02-feat_implement_jump_table_and_opcodes after cherry-pick):** `1689b3547`
     *   **Theory 1:** `MSIZE` (0x59) is not returning the correct memory size, or `MSTORE` (0x52) is not expanding memory correctly. The test writes to offset 32, which should expand memory to 64 bytes (2 words). `MSTORE8` to offset 31 expanded to 32. If `MSTORE` at 32 found size 33, it suggests `offset_usize + 1` logic somewhere.
     *   **Logging:**
         *   In `op_msize`: Log `frame.memory.context_size()`.
