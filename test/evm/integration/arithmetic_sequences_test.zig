@@ -23,6 +23,7 @@ test "Integration: Complex arithmetic calculation" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -56,6 +57,7 @@ test "Integration: Modular arithmetic with overflow" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -87,6 +89,7 @@ test "Integration: Fibonacci sequence calculation" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -131,6 +134,7 @@ test "Integration: Conditional arithmetic based on comparison" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -183,6 +187,7 @@ test "Integration: Calculate average of multiple values" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -217,6 +222,7 @@ test "Integration: Complex ADDMOD and MULMOD calculations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -262,6 +268,7 @@ test "Integration: Exponentiation chain" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 50000); // More gas for EXP
     defer test_frame.deinit();

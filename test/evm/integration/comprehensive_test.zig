@@ -27,6 +27,7 @@ test "Integration: Complete ERC20 transfer simulation" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -104,6 +105,7 @@ test "Integration: Smart contract deployment flow" {
         10000, // Deployer has funds
         &[_]u8{},
     );
+    defer deployer_contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &deployer_contract, 200000);
     defer test_frame.deinit();
@@ -248,6 +250,7 @@ test "Integration: Complex control flow with nested conditions" {
         0,
         &code,
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -342,6 +345,7 @@ test "Integration: Gas metering across operations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -407,6 +411,7 @@ test "Integration: Error propagation and recovery" {
         1000,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();

@@ -193,6 +193,7 @@ test "Integration: Block information access" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -236,6 +237,7 @@ test "Integration: Log emission with topics" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -297,6 +299,7 @@ test "Integration: External code operations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();

@@ -96,7 +96,7 @@ test "Memory stress: memory pressure scenarios" {
         // This might fail on systems with limited memory
         mem.resize_context(size) catch |err| {
             // Expected behavior - graceful failure
-            try testing.expect(err == error.OutOfMemory);
+            try testing.expect(err == error.MemoryLimitExceeded or err == error.OutOfMemory);
             break;
         };
 
@@ -148,8 +148,8 @@ test "Memory stress: maximum memory operations" {
     mem.finalize_root();
     defer mem.deinit();
 
-    // Test operations near maximum values
-    const large_offset = 1024 * 1024 * 100; // 100MB
+    // Test operations near maximum values but within default limit (32MB)
+    const large_offset = 1024 * 1024 * 20; // 20MB
 
     // Test large single write
     const large_data = try testing.allocator.alloc(u8, 1024 * 1024); // 1MB

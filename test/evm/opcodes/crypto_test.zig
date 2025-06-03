@@ -20,6 +20,7 @@ test "Crypto: KECCAK256 (SHA3) basic operations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -84,6 +85,7 @@ test "Crypto: KECCAK256 memory expansion and gas" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -125,6 +127,7 @@ test "Crypto: KECCAK256 edge cases" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -159,6 +162,7 @@ test "Crypto: Stack underflow errors" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();

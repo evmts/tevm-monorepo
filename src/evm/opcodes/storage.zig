@@ -7,6 +7,11 @@ const Vm = @import("../vm.zig");
 const gas_constants = @import("../gas_constants.zig");
 const error_mapping = @import("../error_mapping.zig");
 
+// EIP-3529 (London) gas costs for SSTORE
+const SSTORE_SET_GAS: u64 = 20000; // zero to non-zero
+const SSTORE_RESET_GAS: u64 = 2900; // non-zero to non-zero (reduced from 5000)
+const SSTORE_CLEARS_REFUND: u64 = 4800; // non-zero to zero refund (reduced from 15000)
+
 // Helper to convert Stack errors to ExecutionError
 fn stack_pop(stack: *Stack) ExecutionError.Error!u256 {
     return stack.pop() catch |err| switch (err) {
@@ -20,6 +25,26 @@ fn stack_push(stack: *Stack, value: u256) ExecutionError.Error!void {
         Stack.Error.Overflow => return ExecutionError.Error.StackOverflow,
         else => return ExecutionError.Error.StackOverflow,
     };
+}
+
+// Calculate SSTORE gas cost based on value transition
+fn calculate_sstore_gas(current: u256, new: u256) u64 {
+    if (current == new) {
+        return 0; // No change, no additional cost
+    }
+    
+    if (current == 0) {
+        return SSTORE_SET_GAS; // Zero to non-zero
+    }
+    
+    if (new == 0) {
+        // Non-zero to zero (clearing)
+        // Note: Refund is handled separately
+        return SSTORE_RESET_GAS;
+    }
+    
+    // Non-zero to different non-zero
+    return SSTORE_RESET_GAS;
 }
 
 pub fn op_sload(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
@@ -111,8 +136,13 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
         try frame.consume_gas(gas_constants.ColdSloadCost);
     }
     
-    // Note: Additional dynamic gas costs for the actual storage modification
-    // are handled by the VM's set_storage implementation based on state transition
+    // Get current value for gas calculation
+    const current_value = try error_mapping.vm_get_storage(vm, frame.contract.address, slot);
+    
+    // Calculate dynamic gas cost based on value transition
+    // This is simplified - full implementation would consider original value too
+    const dynamic_gas = calculate_sstore_gas(current_value, value);
+    try frame.consume_gas(dynamic_gas);
     
     // Set storage value
     try error_mapping.vm_set_storage(vm, frame.contract.address, slot, value);

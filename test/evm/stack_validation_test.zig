@@ -31,9 +31,10 @@ test "Stack validation: binary operations" {
         &input,      // input
         false,       // is_static
     );
+    defer contract.deinit(null);
     
-    var frame = Frame.init(allocator, &contract);
-    errdefer frame.deinit();
+    var frame = try Frame.init(allocator, &contract);
+    frame.memory.finalize_root();
     defer frame.deinit();
     
     // Create jump table
@@ -82,9 +83,10 @@ test "Stack validation: PUSH operations" {
         &input,      // input
         false,       // is_static
     );
+    defer contract.deinit(null);
     
-    var frame = Frame.init(allocator, &contract);
-    errdefer frame.deinit();
+    var frame = try Frame.init(allocator, &contract);
+    frame.memory.finalize_root();
     defer frame.deinit();
     
     var table = JumpTable.init_from_hardfork(.FRONTIER);
@@ -122,9 +124,10 @@ test "Stack validation: DUP operations" {
         &input,      // input
         false,       // is_static
     );
+    defer contract.deinit(null);
     
-    var frame = Frame.init(allocator, &contract);
-    errdefer frame.deinit();
+    var frame = try Frame.init(allocator, &contract);
+    frame.memory.finalize_root();
     defer frame.deinit();
     
     var table = JumpTable.init_from_hardfork(.FRONTIER);
@@ -170,8 +173,9 @@ test "Stack validation: SWAP operations" {
         &input,      // input
         false,       // is_static
     );
-    var frame = Frame.init(allocator, &contract);
-    errdefer frame.deinit();
+    defer contract.deinit(null);
+    var frame = try Frame.init(allocator, &contract);
+    frame.memory.finalize_root();
     defer frame.deinit();
     
     var table = JumpTable.init_from_hardfork(.FRONTIER);
@@ -239,9 +243,10 @@ test "Stack validation: integration with jump table execution" {
         &input,      // input
         false,       // is_static
     );
+    defer contract.deinit(null);
     
-    var frame = Frame.init(allocator, &contract);
-    errdefer frame.deinit();
+    var frame = try Frame.init(allocator, &contract);
+    frame.memory.finalize_root();
     defer frame.deinit();
     
     // Provide enough gas
@@ -314,3 +319,4 @@ test "Stack validation: all operation categories" {
         }
     }
 }
+

@@ -8,6 +8,7 @@ const Address = @import("Address");
 const to_u256 = Address.to_u256;
 const from_u256 = Address.from_u256;
 const gas_constants = @import("../gas_constants.zig");
+const AccessList = @import("../access_list.zig").AccessList;
 
 // Helper to convert Stack errors to ExecutionError
 fn stack_pop(stack: *Stack) ExecutionError.Error!u256 {
@@ -47,7 +48,8 @@ pub fn op_balance(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     const address = from_u256(address_u256);
     
     // EIP-2929: Check if address is cold and consume appropriate gas
-    const is_cold = try vm.mark_address_warm(address);
+    const access_cost = try vm.access_list.access_address(address);
+    const is_cold = access_cost == AccessList.COLD_ACCOUNT_ACCESS_COST;
     if (is_cold) {
         // Cold address access costs more (2600 gas)
         try frame.consume_gas(gas_constants.ColdAccountAccessCost);
@@ -120,7 +122,8 @@ pub fn op_extcodesize(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     const address = from_u256(address_u256);
     
     // EIP-2929: Check if address is cold and consume appropriate gas
-    const is_cold = try vm.mark_address_warm(address);
+    const access_cost = try vm.access_list.access_address(address);
+    const is_cold = access_cost == AccessList.COLD_ACCOUNT_ACCESS_COST;
     if (is_cold) {
         // Cold address access costs more (2600 gas)
         try frame.consume_gas(gas_constants.ColdAccountAccessCost);
@@ -158,7 +161,8 @@ pub fn op_extcodecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     const size_usize = @as(usize, @intCast(size));
     
     // EIP-2929: Check if address is cold and consume appropriate gas
-    const is_cold = try vm.mark_address_warm(address);
+    const access_cost = try vm.access_list.access_address(address);
+    const is_cold = access_cost == AccessList.COLD_ACCOUNT_ACCESS_COST;
     if (is_cold) {
         // Cold address access costs more (2600 gas)
         try frame.consume_gas(gas_constants.ColdAccountAccessCost);
@@ -204,7 +208,8 @@ pub fn op_extcodehash(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     const address = from_u256(address_u256);
     
     // EIP-2929: Check if address is cold and consume appropriate gas
-    const is_cold = try vm.mark_address_warm(address);
+    const access_cost = try vm.access_list.access_address(address);
+    const is_cold = access_cost == AccessList.COLD_ACCOUNT_ACCESS_COST;
     if (is_cold) {
         // Cold address access costs more (2600 gas)
         try frame.consume_gas(gas_constants.ColdAccountAccessCost);
@@ -364,6 +369,41 @@ pub fn op_codecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
             memory_slice[mem_offset_usize + i] = 0;
         }
     }
+    
+    return Operation.ExecutionResult{};
+}
+/// RETURNDATALOAD opcode (0xF7): Loads a 32-byte word from return data
+/// This is an EOF opcode that allows reading from the return data buffer
+pub fn op_returndataload(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
+    _ = pc;
+    _ = interpreter;
+    
+    const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    
+    // Pop offset from stack
+    const offset = try stack_pop(&frame.stack);
+    
+    // Check if offset is within bounds
+    if (offset > std.math.maxInt(usize)) {
+        return ExecutionError.Error.OutOfOffset;
+    }
+    
+    const offset_usize = @as(usize, @intCast(offset));
+    const return_data = frame.return_data_buffer;
+    
+    // If offset + 32 > return_data.len, this is an error (unlike CALLDATALOAD which pads with zeros)
+    if (offset_usize + 32 > return_data.len) {
+        return ExecutionError.Error.OutOfOffset;
+    }
+    
+    // Load 32 bytes from return data
+    var value: u256 = 0;
+    var i: usize = 0;
+    while (i < 32) : (i += 1) {
+        value = (value << 8) | return_data[offset_usize + i];
+    }
+    
+    try stack_push(&frame.stack, value);
     
     return Operation.ExecutionResult{};
 }

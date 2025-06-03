@@ -28,6 +28,7 @@ pub const Error = error{
     MemoryLimitExceeded, // For memory expansion beyond limits
     ChildContextActive, // For memory context errors
     NoChildContextToRevertOrCommit, // For memory context errors
+    EOFNotSupported, // For EOF opcodes that are not yet implemented
 };
 
 /// Get a human-readable description for an execution error
@@ -56,5 +57,6 @@ pub fn get_description(err: Error) []const u8 {
         Error.MemoryLimitExceeded => "Memory limit exceeded",
         Error.ChildContextActive => "Child context is active",
         Error.NoChildContextToRevertOrCommit => "No child context to revert or commit",
+        Error.EOFNotSupported => "EOF (EVM Object Format) opcode not supported",
     };
 }

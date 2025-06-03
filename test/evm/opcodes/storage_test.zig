@@ -19,6 +19,7 @@ test "SLOAD: load value from storage" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -49,6 +50,7 @@ test "SLOAD: load from uninitialized slot returns zero" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -76,6 +78,7 @@ test "SLOAD: cold storage access costs more gas" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 3000);
     defer test_frame.deinit();
@@ -116,6 +119,7 @@ test "SSTORE: store value to storage" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -145,6 +149,7 @@ test "SSTORE: overwrite existing value" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -177,6 +182,7 @@ test "SSTORE: write protection in static call" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -206,6 +212,7 @@ test "SSTORE: cold storage access costs more gas" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 25000);
     defer test_frame.deinit();
@@ -248,6 +255,7 @@ test "TLOAD: load value from transient storage" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -278,6 +286,7 @@ test "TLOAD: load from uninitialized slot returns zero" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -305,6 +314,7 @@ test "TLOAD: transient storage is separate from regular storage" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -342,6 +352,7 @@ test "TSTORE: store value to transient storage" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -371,6 +382,7 @@ test "TSTORE: overwrite existing transient value" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -403,6 +415,7 @@ test "TSTORE: write protection in static call" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -432,6 +445,7 @@ test "TSTORE: does not affect regular storage" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -469,6 +483,7 @@ test "SLOAD: stack underflow" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -493,6 +508,7 @@ test "SSTORE: stack underflow" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -518,6 +534,7 @@ test "TLOAD: stack underflow" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -542,6 +559,7 @@ test "TSTORE: stack underflow" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -568,6 +586,7 @@ test "TLOAD: gas consumption" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -597,6 +616,7 @@ test "TSTORE: gas consumption" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();

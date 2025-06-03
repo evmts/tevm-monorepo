@@ -1,7 +1,6 @@
 const std = @import("std");
 const Contract = @import("contract.zig");
 const Stack = @import("stack.zig");
-const Memory = @import("memory.zig");
 const JumpTable = @import("jump_table.zig");
 const Frame = @import("frame.zig");
 const Operation = @import("operation.zig");
@@ -23,7 +22,6 @@ allocator: std.mem.Allocator,
 return_data: []u8 = &[_]u8{},
 
 stack: Stack = .{},
-memory: Memory,
 table: JumpTable,
 
 depth: u16 = 0,
@@ -59,24 +57,37 @@ pub const StorageKey = struct {
 };
 
 pub fn init(allocator: std.mem.Allocator) !Self {
-    var memory = try Memory.init_default(allocator);
-    memory.finalize_root();
+    var storage = std.AutoHashMap(StorageKey, u256).init(allocator);
+    errdefer storage.deinit();
+    
+    var balances = std.AutoHashMap(Address.Address, u256).init(allocator);
+    errdefer balances.deinit();
+    
+    var code = std.AutoHashMap(Address.Address, []const u8).init(allocator);
+    errdefer code.deinit();
+    
+    var transient_storage = std.AutoHashMap(StorageKey, u256).init(allocator);
+    errdefer transient_storage.deinit();
+    
+    var logs = std.ArrayList(Log).init(allocator);
+    errdefer logs.deinit();
+    
+    var access_list = AccessList.init(allocator);
+    errdefer access_list.deinit();
     
     return Self{ 
         .allocator = allocator, 
-        .memory = memory,
         .table = JumpTable.init(),
-        .storage = std.AutoHashMap(StorageKey, u256).init(allocator),
-        .balances = std.AutoHashMap(Address.Address, u256).init(allocator),
-        .code = std.AutoHashMap(Address.Address, []const u8).init(allocator),
-        .transient_storage = std.AutoHashMap(StorageKey, u256).init(allocator),
-        .logs = std.ArrayList(Log).init(allocator),
-        .access_list = AccessList.init(allocator),
+        .storage = storage,
+        .balances = balances,
+        .code = code,
+        .transient_storage = transient_storage,
+        .logs = logs,
+        .access_list = access_list,
     };
 }
 
 pub fn deinit(self: *Self) void {
-    self.memory.deinit();
     self.storage.deinit();
     self.balances.deinit();
     self.code.deinit();
@@ -134,7 +145,8 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
     self.read_only = self.read_only or is_static;
 
     var pc: usize = 0;
-    var frame = Frame.init(self.allocator, contract);
+    var frame = try Frame.init(self.allocator, contract);
+    frame.memory.finalize_root();
     defer frame.memory.deinit();
     frame.is_static = self.read_only;
     frame.depth = @as(u32, @intCast(self.depth));

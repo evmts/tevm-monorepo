@@ -12,7 +12,7 @@ pub const Address = @import("Address");
 pub const Vm = evm.Vm;
 pub const Operation = evm.Operation;
 pub const ExecutionError = evm.ExecutionError;
-pub const gas_constants = evm.gas_constants;
+pub const opcodes = evm.opcodes;
 pub const Hardfork = evm.Hardfork;
 pub const JumpTable = evm.JumpTable;
 
@@ -69,7 +69,7 @@ pub const TestVm = struct {
     
     /// Mark address as warm for EIP-2929 testing
     pub fn warmAddress(self: *TestVm, address: Address.Address) !void {
-        _ = try self.vm.mark_address_warm(address);
+        _ = try self.vm.access_list.access_address(address);
     }
 };
 
@@ -79,7 +79,7 @@ pub const TestFrame = struct {
     allocator: std.mem.Allocator,
     
     pub fn init(allocator: std.mem.Allocator, contract: *Contract, gas: u64) !TestFrame {
-        var frame = Frame.init(allocator, contract);
+        var frame = try Frame.init(allocator, contract);
         frame.gas_remaining = gas;
         return TestFrame{
             .frame = frame,

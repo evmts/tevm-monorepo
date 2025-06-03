@@ -20,6 +20,7 @@ test "Environment: ADDRESS opcode" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -31,7 +32,7 @@ test "Environment: ADDRESS opcode" {
     const result = try test_frame.frame.stack.peek_n(0);
     const expected = helpers.Address.to_u256(contract_address);
     try testing.expectEqual(expected, result);
-    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.gas_constants.GasQuickStep);
+    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.opcodes.gas_constants.GasQuickStep);
 }
 
 test "Environment: BALANCE opcode" {
@@ -51,6 +52,7 @@ test "Environment: BALANCE opcode" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -87,6 +89,7 @@ test "Environment: ORIGIN and CALLER opcodes" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -119,6 +122,7 @@ test "Environment: CALLVALUE opcode" {
         call_value,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -146,6 +150,7 @@ test "Environment: GASPRICE opcode" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -173,6 +178,7 @@ test "Environment: EXTCODESIZE opcode" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -217,6 +223,7 @@ test "Environment: EXTCODECOPY opcode" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -287,6 +294,7 @@ test "Environment: EXTCODEHASH opcode" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -325,6 +333,7 @@ test "Environment: SELFBALANCE opcode (Istanbul)" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -333,7 +342,7 @@ test "Environment: SELFBALANCE opcode (Istanbul)" {
     _ = try helpers.executeOpcode(environment.op_selfbalance, &test_vm.vm, &test_frame.frame);
     
     try helpers.expectStackValue(&test_frame.frame, 0, contract_balance);
-    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.gas_constants.GasFastStep);
+    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.opcodes.gas_constants.GasFastStep);
 }
 
 test "Environment: CHAINID opcode (Istanbul)" {
@@ -353,6 +362,7 @@ test "Environment: CHAINID opcode (Istanbul)" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -379,6 +389,7 @@ test "Environment: Cold/Warm address access (EIP-2929)" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -413,6 +424,7 @@ test "Environment: Stack underflow errors" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();

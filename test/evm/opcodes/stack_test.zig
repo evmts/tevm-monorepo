@@ -19,6 +19,7 @@ test "PUSH0: append zero value" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -47,6 +48,7 @@ test "PUSH1: append 1 byte value" {
         0,
         &code,
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -81,6 +83,7 @@ test "PUSH2: append 2 byte value" {
         0,
         &code,
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -118,6 +121,7 @@ test "PUSH32: append 32 byte value" {
         0,
         &code,
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -151,6 +155,7 @@ test "POP: remove top stack item" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -181,6 +186,7 @@ test "DUP1: duplicate top stack item" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -209,6 +215,7 @@ test "DUP2: duplicate second stack item" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -239,6 +246,7 @@ test "DUP16: duplicate 16th stack item" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -276,6 +284,7 @@ test "SWAP1: swap top two stack items" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -305,6 +314,7 @@ test "SWAP2: swap 1st and 3rd stack items" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -336,6 +346,7 @@ test "SWAP16: swap 1st and 17th stack items" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -379,6 +390,7 @@ test "PUSH1: at end of code" {
         0,
         &code,
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -416,6 +428,7 @@ test "PUSH32: partial data available" {
         0,
         &code,
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -455,6 +468,7 @@ test "POP: stack underflow" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -479,6 +493,7 @@ test "DUP1: stack underflow" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -503,6 +518,7 @@ test "DUP16: insufficient stack items" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -531,6 +547,7 @@ test "SWAP1: stack underflow" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -559,6 +576,7 @@ test "PUSH1: stack overflow" {
         0,
         &code,
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -589,6 +607,7 @@ test "DUP1: stack overflow" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();

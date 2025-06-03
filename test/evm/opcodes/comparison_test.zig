@@ -20,6 +20,7 @@ test "Comparison: LT (less than) operations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -55,7 +56,7 @@ test "Comparison: LT (less than) operations" {
     try helpers.expectStackValue(&test_frame.frame, 0, 1); // (max-1) < max = true
     
     // Test gas consumption
-    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.gas_constants.GasFastestStep);
+    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.opcodes.gas_constants.GasFastestStep);
 }
 
 test "Comparison: GT (greater than) operations" {
@@ -71,6 +72,7 @@ test "Comparison: GT (greater than) operations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -99,7 +101,7 @@ test "Comparison: GT (greater than) operations" {
     try helpers.expectStackValue(&test_frame.frame, 0, 1); // 1 > 0 = true
     
     // Test gas consumption
-    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.gas_constants.GasFastestStep);
+    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.opcodes.gas_constants.GasFastestStep);
 }
 
 test "Comparison: SLT (signed less than) operations" {
@@ -115,6 +117,7 @@ test "Comparison: SLT (signed less than) operations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -153,7 +156,7 @@ test "Comparison: SLT (signed less than) operations" {
     try helpers.expectStackValue(&test_frame.frame, 0, 1); // most_negative < most_positive = true
     
     // Test gas consumption
-    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.gas_constants.GasFastestStep);
+    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.opcodes.gas_constants.GasFastestStep);
 }
 
 test "Comparison: SGT (signed greater than) operations" {
@@ -169,6 +172,7 @@ test "Comparison: SGT (signed greater than) operations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -199,7 +203,7 @@ test "Comparison: SGT (signed greater than) operations" {
     try helpers.expectStackValue(&test_frame.frame, 0, 1); // -1 > -2 = true
     
     // Test gas consumption
-    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.gas_constants.GasFastestStep);
+    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.opcodes.gas_constants.GasFastestStep);
 }
 
 test "Comparison: EQ (equal) operations" {
@@ -215,6 +219,7 @@ test "Comparison: EQ (equal) operations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -244,7 +249,7 @@ test "Comparison: EQ (equal) operations" {
     try helpers.expectStackValue(&test_frame.frame, 0, 1); // max == max = true
     
     // Test gas consumption
-    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.gas_constants.GasFastestStep);
+    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.opcodes.gas_constants.GasFastestStep);
 }
 
 test "Comparison: ISZERO operations" {
@@ -260,6 +265,7 @@ test "Comparison: ISZERO operations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -288,7 +294,7 @@ test "Comparison: ISZERO operations" {
     try helpers.expectStackValue(&test_frame.frame, 0, 0); // max == 0 = false
     
     // Test gas consumption
-    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.gas_constants.GasFastestStep);
+    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.opcodes.gas_constants.GasFastestStep);
 }
 
 test "Comparison: Stack underflow errors" {
@@ -304,6 +310,7 @@ test "Comparison: Stack underflow errors" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -342,6 +349,7 @@ test "Comparison: Edge cases" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -380,6 +388,7 @@ test "Comparison: Gas consumption verification" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -409,6 +418,6 @@ test "Comparison: Gas consumption verification" {
         }
         
         _ = try helpers.executeOpcode(op_info.op, &test_vm.vm, &test_frame.frame);
-        try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.gas_constants.GasFastestStep);
+        try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.opcodes.gas_constants.GasFastestStep);
     }
 }

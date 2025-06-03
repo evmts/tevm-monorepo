@@ -20,6 +20,7 @@ test "Bitwise: AND basic operations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -59,6 +60,7 @@ test "Bitwise: OR basic operations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -95,6 +97,7 @@ test "Bitwise: XOR basic operations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -130,6 +133,7 @@ test "Bitwise: NOT basic operations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -166,6 +170,7 @@ test "Bitwise: BYTE extraction operations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -208,6 +213,7 @@ test "Bitwise: SHL (shift left) operations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -250,6 +256,7 @@ test "Bitwise: SHR (logical shift right) operations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -285,6 +292,7 @@ test "Bitwise: SAR (arithmetic shift right) operations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -329,6 +337,7 @@ test "Bitwise: Stack underflow errors" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -368,6 +377,7 @@ test "Bitwise: Gas consumption" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -399,6 +409,6 @@ test "Bitwise: Gas consumption" {
         }
         
         _ = try helpers.executeOpcode(op_info.op, &test_vm.vm, &test_frame.frame);
-        try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.gas_constants.GasFastestStep);
+        try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.opcodes.gas_constants.GasFastestStep);
     }
 }

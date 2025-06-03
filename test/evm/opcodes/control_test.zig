@@ -19,6 +19,7 @@ test "Control: STOP halts execution" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -48,6 +49,7 @@ test "Control: JUMP basic operations" {
         0,
         &code,
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -94,6 +96,7 @@ test "Control: JUMPI conditional jump" {
         0,
         &code,
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -138,6 +141,7 @@ test "Control: PC returns program counter" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -172,6 +176,7 @@ test "Control: JUMPDEST is a no-op" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -204,6 +209,7 @@ test "Control: RETURN with data" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -253,6 +259,7 @@ test "Control: REVERT with data" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -297,6 +304,7 @@ test "Control: INVALID always fails" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -325,6 +333,7 @@ test "Control: SELFDESTRUCT basic operation" {
         100, // Contract has 100 wei
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -337,7 +346,7 @@ test "Control: SELFDESTRUCT basic operation" {
     try testing.expectError(helpers.ExecutionError.Error.STOP, result);
     
     // Gas should be consumed for cold address access (2600)
-    try helpers.expectGasUsed(&test_frame.frame, 10000, helpers.gas_constants.ColdAccountAccessCost);
+    try helpers.expectGasUsed(&test_frame.frame, 10000, helpers.opcodes.gas_constants.ColdAccountAccessCost);
     
     // Test 2: Selfdestruct with warm beneficiary
     test_frame.frame.stack.clear();
@@ -375,6 +384,7 @@ test "Control: Stack underflow errors" {
         0,
         &[_]u8{0x5b}, // JUMPDEST at position 0
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();

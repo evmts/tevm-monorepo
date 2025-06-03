@@ -11,7 +11,6 @@ test "Arithmetic: ADD basic operations" {
     
     // Set up test VM and frame
     var test_vm = try helpers.TestVm.init(allocator);
-    errdefer test_vm.deinit();
     defer test_vm.deinit();
     
     var contract = try helpers.createTestContract(
@@ -21,9 +20,9 @@ test "Arithmetic: ADD basic operations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
-    errdefer test_frame.deinit();
     defer test_frame.deinit();
     
     // Test 1: Simple addition
@@ -62,6 +61,7 @@ test "Arithmetic: SUB basic operations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -98,6 +98,7 @@ test "Arithmetic: MUL basic operations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -136,6 +137,7 @@ test "Arithmetic: DIV basic operations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -171,6 +173,7 @@ test "Arithmetic: MOD basic operations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -206,6 +209,7 @@ test "Arithmetic: ADDMOD complex operations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -243,6 +247,7 @@ test "Arithmetic: MULMOD complex operations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -280,6 +285,7 @@ test "Arithmetic: EXP exponential operations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000); // More gas for EXP
     defer test_frame.deinit();
@@ -324,6 +330,7 @@ test "Arithmetic: Stack underflow errors" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();

@@ -24,42 +24,6 @@ const crypto = opcodes.crypto;
 const log = opcodes.log;
 const system = opcodes.system;
 
-// Gas constants
-pub const GasQuickStep: u64 = 2;
-pub const GasFastestStep: u64 = 3;
-pub const GasFastStep: u64 = 5;
-pub const GasMidStep: u64 = 8;
-pub const GasSlowStep: u64 = 10;
-pub const GasExtStep: u64 = 20;
-
-// Parameter costs
-pub const Keccak256Gas: u64 = 30;
-pub const Keccak256WordGas: u64 = 6;
-pub const SloadGas: u64 = 50;
-pub const SstoreSentryGas: u64 = 2300;
-pub const SstoreSetGas: u64 = 20000;
-pub const SstoreResetGas: u64 = 5000;
-pub const SstoreClearGas: u64 = 5000;
-pub const SstoreRefundGas: u64 = 15000;
-pub const JumpdestGas: u64 = 1;
-pub const LogGas: u64 = 375;
-pub const LogDataGas: u64 = 8;
-pub const LogTopicGas: u64 = 375;
-pub const CreateGas: u64 = 32000;
-pub const CallGas: u64 = 40;
-pub const CallStipend: u64 = 2300;
-pub const CallValueTransferGas: u64 = 9000;
-pub const CallNewAccountGas: u64 = 25000;
-pub const SelfdestructRefundGas: u64 = 24000;
-pub const MemoryGas: u64 = 3;
-pub const QuadCoeffDiv: u64 = 512;
-pub const CreateDataGas: u64 = 200;
-pub const TxGas: u64 = 21000;
-pub const TxGasContractCreation: u64 = 53000;
-pub const TxDataZeroGas: u64 = 4;
-pub const TxDataNonZeroGas: u64 = 16;
-pub const CopyGas: u64 = 3;
-
 const Self = @This();
 
 // Cache line size (typically 64 bytes on modern processors)
@@ -177,63 +141,63 @@ const STOP = Operation{
 
 const ADD = Operation{
     .execute = arithmetic.op_add,
-    .constant_gas = GasFastestStep,
+    .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 2,
     .max_stack = Stack.CAPACITY, // Binary op: pop 2, push 1 - net -1
 };
 
 const MUL = Operation{
     .execute = arithmetic.op_mul,
-    .constant_gas = GasFastStep,
+    .constant_gas = opcodes.gas_constants.GasFastStep,
     .min_stack = 2,
     .max_stack = Stack.CAPACITY,
 };
 
 const SUB = Operation{
     .execute = arithmetic.op_sub,
-    .constant_gas = GasFastestStep,
+    .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 2,
     .max_stack = Stack.CAPACITY,
 };
 
 const DIV = Operation{
     .execute = arithmetic.op_div,
-    .constant_gas = GasFastStep,
+    .constant_gas = opcodes.gas_constants.GasFastStep,
     .min_stack = 2,
     .max_stack = Stack.CAPACITY,
 };
 
 const SDIV = Operation{
     .execute = arithmetic.op_sdiv,
-    .constant_gas = GasFastStep,
+    .constant_gas = opcodes.gas_constants.GasFastStep,
     .min_stack = 2,
     .max_stack = Stack.CAPACITY,
 };
 
 const MOD = Operation{
     .execute = arithmetic.op_mod,
-    .constant_gas = GasFastStep,
+    .constant_gas = opcodes.gas_constants.GasFastStep,
     .min_stack = 2,
     .max_stack = Stack.CAPACITY,
 };
 
 const SMOD = Operation{
     .execute = arithmetic.op_smod,
-    .constant_gas = GasFastStep,
+    .constant_gas = opcodes.gas_constants.GasFastStep,
     .min_stack = 2,
     .max_stack = Stack.CAPACITY,
 };
 
 const ADDMOD = Operation{
     .execute = arithmetic.op_addmod,
-    .constant_gas = GasMidStep,
+    .constant_gas = opcodes.gas_constants.GasMidStep,
     .min_stack = 3,
     .max_stack = Stack.CAPACITY,
 };
 
 const MULMOD = Operation{
     .execute = arithmetic.op_mulmod,
-    .constant_gas = GasMidStep,
+    .constant_gas = opcodes.gas_constants.GasMidStep,
     .min_stack = 3,
     .max_stack = Stack.CAPACITY,
 };
@@ -247,7 +211,7 @@ const EXP = Operation{
 
 const SIGNEXTEND = Operation{
     .execute = arithmetic.op_signextend,
-    .constant_gas = GasFastStep,
+    .constant_gas = opcodes.gas_constants.GasFastStep,
     .min_stack = 2,
     .max_stack = Stack.CAPACITY,
 };
@@ -255,42 +219,42 @@ const SIGNEXTEND = Operation{
 // Comparison operations
 const LT = Operation{
     .execute = comparison.op_lt,
-    .constant_gas = GasFastestStep,
+    .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 2,
     .max_stack = Stack.CAPACITY,
 };
 
 const GT = Operation{
     .execute = comparison.op_gt,
-    .constant_gas = GasFastestStep,
+    .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 2,
     .max_stack = Stack.CAPACITY,
 };
 
 const SLT = Operation{
     .execute = comparison.op_slt,
-    .constant_gas = GasFastestStep,
+    .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 2,
     .max_stack = Stack.CAPACITY,
 };
 
 const SGT = Operation{
     .execute = comparison.op_sgt,
-    .constant_gas = GasFastestStep,
+    .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 2,
     .max_stack = Stack.CAPACITY,
 };
 
 const EQ = Operation{
     .execute = comparison.op_eq,
-    .constant_gas = GasFastestStep,
+    .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 2,
     .max_stack = Stack.CAPACITY,
 };
 
 const ISZERO = Operation{
     .execute = comparison.op_iszero,
-    .constant_gas = GasFastestStep,
+    .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 1,
     .max_stack = Stack.CAPACITY,
 };
@@ -298,56 +262,56 @@ const ISZERO = Operation{
 // Bitwise operations
 const AND = Operation{
     .execute = bitwise.op_and,
-    .constant_gas = GasFastestStep,
+    .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 2,
     .max_stack = Stack.CAPACITY,
 };
 
 const OR = Operation{
     .execute = bitwise.op_or,
-    .constant_gas = GasFastestStep,
+    .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 2,
     .max_stack = Stack.CAPACITY,
 };
 
 const XOR = Operation{
     .execute = bitwise.op_xor,
-    .constant_gas = GasFastestStep,
+    .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 2,
     .max_stack = Stack.CAPACITY,
 };
 
 const NOT = Operation{
     .execute = bitwise.op_not,
-    .constant_gas = GasFastestStep,
+    .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 1,
     .max_stack = Stack.CAPACITY,
 };
 
 const BYTE = Operation{
     .execute = bitwise.op_byte,
-    .constant_gas = GasFastestStep,
+    .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 2,
     .max_stack = Stack.CAPACITY,
 };
 
 const SHL = Operation{
     .execute = bitwise.op_shl,
-    .constant_gas = GasFastestStep,
+    .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 2,
     .max_stack = Stack.CAPACITY,
 };
 
 const SHR = Operation{
     .execute = bitwise.op_shr,
-    .constant_gas = GasFastestStep,
+    .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 2,
     .max_stack = Stack.CAPACITY,
 };
 
 const SAR = Operation{
     .execute = bitwise.op_sar,
-    .constant_gas = GasFastestStep,
+    .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 2,
     .max_stack = Stack.CAPACITY,
 };
@@ -355,7 +319,7 @@ const SAR = Operation{
 // SHA3
 const SHA3 = Operation{
     .execute = crypto.op_sha3,
-    .constant_gas = Keccak256Gas,
+    .constant_gas = opcodes.gas_constants.Keccak256Gas,
     .min_stack = 2,
     .max_stack = Stack.CAPACITY,
 };
@@ -363,7 +327,7 @@ const SHA3 = Operation{
 // Environment operations
 const ADDRESS = Operation{
     .execute = environment.op_address,
-    .constant_gas = GasQuickStep,
+    .constant_gas = opcodes.gas_constants.GasQuickStep,
     .min_stack = 0,
     .max_stack = Stack.CAPACITY - 1,
 };
@@ -377,63 +341,63 @@ const BALANCE = Operation{
 
 const ORIGIN = Operation{
     .execute = environment.op_origin,
-    .constant_gas = GasQuickStep,
+    .constant_gas = opcodes.gas_constants.GasQuickStep,
     .min_stack = 0,
     .max_stack = Stack.CAPACITY - 1,
 };
 
 const CALLER = Operation{
     .execute = environment.op_caller,
-    .constant_gas = GasQuickStep,
+    .constant_gas = opcodes.gas_constants.GasQuickStep,
     .min_stack = 0,
     .max_stack = Stack.CAPACITY - 1,
 };
 
 const CALLVALUE = Operation{
     .execute = environment.op_callvalue,
-    .constant_gas = GasQuickStep,
+    .constant_gas = opcodes.gas_constants.GasQuickStep,
     .min_stack = 0,
     .max_stack = Stack.CAPACITY - 1,
 };
 
 const CALLDATALOAD = Operation{
     .execute = memory_ops.op_calldataload,
-    .constant_gas = GasFastestStep,
+    .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 1,
     .max_stack = Stack.CAPACITY,
 };
 
 const CALLDATASIZE = Operation{
     .execute = memory_ops.op_calldatasize,
-    .constant_gas = GasQuickStep,
+    .constant_gas = opcodes.gas_constants.GasQuickStep,
     .min_stack = 0,
     .max_stack = Stack.CAPACITY - 1,
 };
 
 const CALLDATACOPY = Operation{
     .execute = memory_ops.op_calldatacopy,
-    .constant_gas = GasFastestStep,
+    .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 3,
     .max_stack = Stack.CAPACITY,
 };
 
 const CODESIZE = Operation{
     .execute = memory_ops.op_codesize,
-    .constant_gas = GasQuickStep,
+    .constant_gas = opcodes.gas_constants.GasQuickStep,
     .min_stack = 0,
     .max_stack = Stack.CAPACITY - 1,
 };
 
 const CODECOPY = Operation{
     .execute = memory_ops.op_codecopy,
-    .constant_gas = GasFastestStep,
+    .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 3,
     .max_stack = Stack.CAPACITY,
 };
 
 const GASPRICE = Operation{
     .execute = environment.op_gasprice,
-    .constant_gas = GasQuickStep,
+    .constant_gas = opcodes.gas_constants.GasQuickStep,
     .min_stack = 0,
     .max_stack = Stack.CAPACITY - 1,
 };
@@ -448,42 +412,42 @@ const EXTCODEHASH = Operation{
 // Block operations
 const BLOCKHASH = Operation{
     .execute = block.op_blockhash,
-    .constant_gas = GasExtStep,
+    .constant_gas = opcodes.gas_constants.GasExtStep,
     .min_stack = 1,
     .max_stack = Stack.CAPACITY,
 };
 
 const COINBASE = Operation{
     .execute = block.op_coinbase,
-    .constant_gas = GasQuickStep,
+    .constant_gas = opcodes.gas_constants.GasQuickStep,
     .min_stack = 0,
     .max_stack = Stack.CAPACITY - 1,
 };
 
 const TIMESTAMP = Operation{
     .execute = block.op_timestamp,
-    .constant_gas = GasQuickStep,
+    .constant_gas = opcodes.gas_constants.GasQuickStep,
     .min_stack = 0,
     .max_stack = Stack.CAPACITY - 1,
 };
 
 const NUMBER = Operation{
     .execute = block.op_number,
-    .constant_gas = GasQuickStep,
+    .constant_gas = opcodes.gas_constants.GasQuickStep,
     .min_stack = 0,
     .max_stack = Stack.CAPACITY - 1,
 };
 
 const DIFFICULTY = Operation{
     .execute = block.op_difficulty,
-    .constant_gas = GasQuickStep,
+    .constant_gas = opcodes.gas_constants.GasQuickStep,
     .min_stack = 0,
     .max_stack = Stack.CAPACITY - 1,
 };
 
 const GASLIMIT = Operation{
     .execute = block.op_gaslimit,
-    .constant_gas = GasQuickStep,
+    .constant_gas = opcodes.gas_constants.GasQuickStep,
     .min_stack = 0,
     .max_stack = Stack.CAPACITY - 1,
 };
@@ -491,28 +455,28 @@ const GASLIMIT = Operation{
 // Stack operations
 const POP = Operation{
     .execute = stack_ops.op_pop,
-    .constant_gas = GasQuickStep,
+    .constant_gas = opcodes.gas_constants.GasQuickStep,
     .min_stack = 1,
     .max_stack = Stack.CAPACITY,
 };
 
 const MLOAD = Operation{
     .execute = memory_ops.op_mload,
-    .constant_gas = GasFastestStep,
+    .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 1,
     .max_stack = Stack.CAPACITY,
 };
 
 const MSTORE = Operation{
     .execute = memory_ops.op_mstore,
-    .constant_gas = GasFastestStep,
+    .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 2,
     .max_stack = Stack.CAPACITY,
 };
 
 const MSTORE8 = Operation{
     .execute = memory_ops.op_mstore8,
-    .constant_gas = GasFastestStep,
+    .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 2,
     .max_stack = Stack.CAPACITY,
 };
@@ -533,42 +497,42 @@ const SSTORE = Operation{
 
 const JUMP = Operation{
     .execute = control.op_jump,
-    .constant_gas = GasMidStep,
+    .constant_gas = opcodes.gas_constants.GasMidStep,
     .min_stack = 1,
     .max_stack = Stack.CAPACITY,
 };
 
 const JUMPI = Operation{
     .execute = control.op_jumpi,
-    .constant_gas = GasSlowStep,
+    .constant_gas = opcodes.gas_constants.GasSlowStep,
     .min_stack = 2,
     .max_stack = Stack.CAPACITY,
 };
 
 const PC = Operation{
     .execute = control.op_pc,
-    .constant_gas = GasQuickStep,
+    .constant_gas = opcodes.gas_constants.GasQuickStep,
     .min_stack = 0,
     .max_stack = Stack.CAPACITY - 1,
 };
 
 const MSIZE = Operation{
     .execute = memory_ops.op_msize,
-    .constant_gas = GasQuickStep,
+    .constant_gas = opcodes.gas_constants.GasQuickStep,
     .min_stack = 0,
     .max_stack = Stack.CAPACITY - 1,
 };
 
 const GAS = Operation{
     .execute = gas_op,
-    .constant_gas = GasQuickStep,
+    .constant_gas = opcodes.gas_constants.GasQuickStep,
     .min_stack = 0,
     .max_stack = Stack.CAPACITY - 1,
 };
 
 const JUMPDEST = Operation{
     .execute = control.op_jumpdest,
-    .constant_gas = JumpdestGas,
+    .constant_gas = opcodes.gas_constants.JumpdestGas,
     .min_stack = 0,
     .max_stack = Stack.CAPACITY,
 };
@@ -576,21 +540,21 @@ const JUMPDEST = Operation{
 // System operations
 const CREATE = Operation{
     .execute = system.op_create,
-    .constant_gas = CreateGas,
+    .constant_gas = opcodes.gas_constants.CreateGas,
     .min_stack = 3,
     .max_stack = Stack.CAPACITY,
 };
 
 const CALL = Operation{
     .execute = system.op_call,
-    .constant_gas = CallGas,
+    .constant_gas = opcodes.gas_constants.CallGas,
     .min_stack = 7,
     .max_stack = Stack.CAPACITY,
 };
 
 const CALLCODE = Operation{
     .execute = system.op_callcode,
-    .constant_gas = CallGas,
+    .constant_gas = opcodes.gas_constants.CallGas,
     .min_stack = 7,
     .max_stack = Stack.CAPACITY,
 };
@@ -619,14 +583,14 @@ const SELFDESTRUCT = Operation{
 // Byzantium operations
 const RETURNDATASIZE = Operation{
     .execute = memory_ops.op_returndatasize,
-    .constant_gas = GasQuickStep,
+    .constant_gas = opcodes.gas_constants.GasQuickStep,
     .min_stack = 0,
     .max_stack = Stack.CAPACITY - 1,
 };
 
 const RETURNDATACOPY = Operation{
     .execute = memory_ops.op_returndatacopy,
-    .constant_gas = GasFastestStep,
+    .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 3,
     .max_stack = Stack.CAPACITY,
 };
@@ -640,7 +604,7 @@ const REVERT = Operation{
 
 const STATICCALL = Operation{
     .execute = system.op_staticcall,
-    .constant_gas = CallGas,
+    .constant_gas = opcodes.gas_constants.CallGas,
     .min_stack = 6,
     .max_stack = Stack.CAPACITY,
 };
@@ -648,7 +612,7 @@ const STATICCALL = Operation{
 // Constantinople operations
 const CREATE2 = Operation{
     .execute = system.op_create2,
-    .constant_gas = CreateGas,
+    .constant_gas = opcodes.gas_constants.CreateGas,
     .min_stack = 4,
     .max_stack = Stack.CAPACITY,
 };
@@ -656,7 +620,7 @@ const CREATE2 = Operation{
 // Homestead operations
 const DELEGATECALL = Operation{
     .execute = system.op_delegatecall,
-    .constant_gas = CallGas,
+    .constant_gas = opcodes.gas_constants.CallGas,
     .min_stack = 6,
     .max_stack = Stack.CAPACITY,
 };
@@ -664,14 +628,14 @@ const DELEGATECALL = Operation{
 // Istanbul operations
 const CHAINID = Operation{
     .execute = environment.op_chainid,
-    .constant_gas = GasQuickStep,
+    .constant_gas = opcodes.gas_constants.GasQuickStep,
     .min_stack = 0,
     .max_stack = Stack.CAPACITY - 1,
 };
 
 const SELFBALANCE = Operation{
     .execute = environment.op_selfbalance,
-    .constant_gas = GasFastStep,
+    .constant_gas = opcodes.gas_constants.GasFastStep,
     .min_stack = 0,
     .max_stack = Stack.CAPACITY - 1,
 };
@@ -679,7 +643,7 @@ const SELFBALANCE = Operation{
 // London operations
 const BASEFEE = Operation{
     .execute = block.op_basefee,
-    .constant_gas = GasQuickStep,
+    .constant_gas = opcodes.gas_constants.GasQuickStep,
     .min_stack = 0,
     .max_stack = Stack.CAPACITY - 1,
 };
@@ -687,7 +651,7 @@ const BASEFEE = Operation{
 // Shanghai operations
 const PUSH0 = Operation{
     .execute = stack_ops.op_push0,
-    .constant_gas = GasQuickStep,
+    .constant_gas = opcodes.gas_constants.GasQuickStep,
     .min_stack = 0,
     .max_stack = Stack.CAPACITY - 1,
 };
@@ -695,21 +659,21 @@ const PUSH0 = Operation{
 // Cancun operations
 const BLOBHASH = Operation{
     .execute = block.op_blobhash,
-    .constant_gas = GasFastestStep,
+    .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 1,
     .max_stack = Stack.CAPACITY,
 };
 
 const BLOBBASEFEE = Operation{
     .execute = block.op_blobbasefee,
-    .constant_gas = GasQuickStep,
+    .constant_gas = opcodes.gas_constants.GasQuickStep,
     .min_stack = 0,
     .max_stack = Stack.CAPACITY - 1,
 };
 
 const MCOPY = Operation{
     .execute = memory_ops.op_mcopy,
-    .constant_gas = GasFastestStep,
+    .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 3,
     .max_stack = Stack.CAPACITY,
 };
@@ -855,7 +819,7 @@ pub fn new_frontier_instruction_set() Self {
                 32 => stack_ops.op_push32,
                 else => unreachable,
             },
-            .constant_gas = GasFastestStep,
+            .constant_gas = opcodes.gas_constants.GasFastestStep,
             .min_stack = 0,
             .max_stack = Stack.CAPACITY - 1,
         };
@@ -883,7 +847,7 @@ pub fn new_frontier_instruction_set() Self {
                 16 => stack_ops.op_dup16,
                 else => unreachable,
             },
-            .constant_gas = GasFastestStep,
+            .constant_gas = opcodes.gas_constants.GasFastestStep,
             .min_stack = min_dup_stack(@as(u32, @intCast(i))),
             .max_stack = max_dup_stack(@as(u32, @intCast(i))),
         };
@@ -911,7 +875,7 @@ pub fn new_frontier_instruction_set() Self {
                 16 => stack_ops.op_swap16,
                 else => unreachable,
             },
-            .constant_gas = GasFastestStep,
+            .constant_gas = opcodes.gas_constants.GasFastestStep,
             .min_stack = min_swap_stack(@as(u32, @intCast(i))),
             .max_stack = max_swap_stack(@as(u32, @intCast(i))),
         };
@@ -928,7 +892,7 @@ pub fn new_frontier_instruction_set() Self {
                 4 => log.op_log4,
                 else => unreachable,
             },
-            .constant_gas = LogGas + LogTopicGas * i,
+            .constant_gas = opcodes.gas_constants.LogGas + opcodes.gas_constants.LogTopicGas * i,
             .min_stack = @as(u32, @intCast(i + 2)),
             .max_stack = Stack.CAPACITY,
         };
@@ -1101,7 +1065,7 @@ test "JumpTable basic operations" {
     try std.testing.expectEqual(@as(u64, 0), stop_op.constant_gas);
 
     const add_op = jt.get_operation(0x01);
-    try std.testing.expectEqual(@as(u64, GasFastestStep), add_op.constant_gas);
+    try std.testing.expectEqual(@as(u64, opcodes.gas_constants.GasFastestStep), add_op.constant_gas);
 
     // Test an undefined operation
     const undef_op = jt.get_operation(0xef);
@@ -1141,16 +1105,16 @@ test "JumpTable stack calculation helpers" {
 }
 
 test "JumpTable gas constants" {
-    try std.testing.expectEqual(@as(u64, 2), GasQuickStep);
-    try std.testing.expectEqual(@as(u64, 3), GasFastestStep);
-    try std.testing.expectEqual(@as(u64, 5), GasFastStep);
-    try std.testing.expectEqual(@as(u64, 8), GasMidStep);
-    try std.testing.expectEqual(@as(u64, 10), GasSlowStep);
-    try std.testing.expectEqual(@as(u64, 20), GasExtStep);
+    try std.testing.expectEqual(@as(u64, 2), opcodes.gas_constants.GasQuickStep);
+    try std.testing.expectEqual(@as(u64, 3), opcodes.gas_constants.GasFastestStep);
+    try std.testing.expectEqual(@as(u64, 5), opcodes.gas_constants.GasFastStep);
+    try std.testing.expectEqual(@as(u64, 8), opcodes.gas_constants.GasMidStep);
+    try std.testing.expectEqual(@as(u64, 10), opcodes.gas_constants.GasSlowStep);
+    try std.testing.expectEqual(@as(u64, 20), opcodes.gas_constants.GasExtStep);
 
-    try std.testing.expectEqual(@as(u64, 30), Keccak256Gas);
-    try std.testing.expectEqual(@as(u64, 375), LogGas);
-    try std.testing.expectEqual(@as(u64, 32000), CreateGas);
+    try std.testing.expectEqual(@as(u64, 30), opcodes.gas_constants.Keccak256Gas);
+    try std.testing.expectEqual(@as(u64, 375), opcodes.gas_constants.LogGas);
+    try std.testing.expectEqual(@as(u64, 32000), opcodes.gas_constants.CreateGas);
 }
 
 test "JumpTable execute consumes gas before opcode execution" {
@@ -1179,9 +1143,10 @@ test "JumpTable execute consumes gas before opcode execution" {
         .has_jumpdests = false,
         .is_empty = false,
     };
-    var test_frame = Frame.init(test_allocator, &test_contract);
+    defer test_contract.deinit(null);
+    var test_frame = try Frame.init(test_allocator, &test_contract);
     test_frame.memory.finalize_root();
-    defer test_frame.memory.deinit();
+    defer test_frame.deinit();
     test_frame.gas_remaining = 100;
     
     // Push two values for ADD operation
@@ -1235,7 +1200,7 @@ test "JumpTable Constantinople opcodes" {
     
     // Verify correct operation properties
     const create2_op = jt_constantinople.get_operation(0xf5);
-    try std.testing.expectEqual(@as(u64, CreateGas), create2_op.constant_gas);
+    try std.testing.expectEqual(@as(u64, opcodes.gas_constants.CreateGas), create2_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 4), create2_op.min_stack);
     
     const extcodehash_op = jt_constantinople.get_operation(0x3f);
@@ -1243,7 +1208,7 @@ test "JumpTable Constantinople opcodes" {
     try std.testing.expectEqual(@as(u32, 1), extcodehash_op.min_stack);
     
     const shl_op = jt_constantinople.get_operation(0x1b);
-    try std.testing.expectEqual(@as(u64, GasFastestStep), shl_op.constant_gas);
+    try std.testing.expectEqual(@as(u64, opcodes.gas_constants.GasFastestStep), shl_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 2), shl_op.min_stack);
 }
 
@@ -1269,15 +1234,15 @@ test "JumpTable Istanbul opcodes" {
     
     // Verify correct operation properties
     const chainid_op = jt_istanbul.get_operation(0x46);
-    try std.testing.expectEqual(@as(u64, GasQuickStep), chainid_op.constant_gas);
+    try std.testing.expectEqual(@as(u64, opcodes.gas_constants.GasQuickStep), chainid_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 0), chainid_op.min_stack);
     
     const selfbalance_op = jt_istanbul.get_operation(0x47);
-    try std.testing.expectEqual(@as(u64, GasFastStep), selfbalance_op.constant_gas);
+    try std.testing.expectEqual(@as(u64, opcodes.gas_constants.GasFastStep), selfbalance_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 0), selfbalance_op.min_stack);
     
     const basefee_op = jt_london.get_operation(0x48);
-    try std.testing.expectEqual(@as(u64, GasQuickStep), basefee_op.constant_gas);
+    try std.testing.expectEqual(@as(u64, opcodes.gas_constants.GasQuickStep), basefee_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 0), basefee_op.min_stack);
 }
 
@@ -1296,7 +1261,7 @@ test "JumpTable Shanghai opcodes" {
     
     // Verify correct operation properties
     const push0_op = jt_shanghai.get_operation(0x5f);
-    try std.testing.expectEqual(@as(u64, GasQuickStep), push0_op.constant_gas);
+    try std.testing.expectEqual(@as(u64, opcodes.gas_constants.GasQuickStep), push0_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 0), push0_op.min_stack);
     try std.testing.expectEqual(@as(u32, Stack.CAPACITY - 1), push0_op.max_stack);
 }
@@ -1322,15 +1287,15 @@ test "JumpTable Cancun opcodes" {
     
     // Verify correct operation properties
     const blobhash_op = jt_cancun.get_operation(0x49);
-    try std.testing.expectEqual(@as(u64, GasFastestStep), blobhash_op.constant_gas);
+    try std.testing.expectEqual(@as(u64, opcodes.gas_constants.GasFastestStep), blobhash_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 1), blobhash_op.min_stack);
     
     const blobbasefee_op = jt_cancun.get_operation(0x4a);
-    try std.testing.expectEqual(@as(u64, GasQuickStep), blobbasefee_op.constant_gas);
+    try std.testing.expectEqual(@as(u64, opcodes.gas_constants.GasQuickStep), blobbasefee_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 0), blobbasefee_op.min_stack);
     
     const mcopy_op = jt_cancun.get_operation(0x5e);
-    try std.testing.expectEqual(@as(u64, GasFastestStep), mcopy_op.constant_gas);
+    try std.testing.expectEqual(@as(u64, opcodes.gas_constants.GasFastestStep), mcopy_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 3), mcopy_op.min_stack);
     
     const tload_op = jt_cancun.get_operation(0x5c);

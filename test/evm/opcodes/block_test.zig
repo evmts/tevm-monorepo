@@ -23,6 +23,7 @@ test "Block: BLOCKHASH operations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -45,7 +46,7 @@ test "Block: BLOCKHASH operations" {
     try helpers.expectStackValue(&test_frame.frame, 0, 0);
     
     // Test gas consumption
-    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.gas_constants.GasExtStep);
+    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.opcodes.gas_constants.GasExtStep);
 }
 
 test "Block: COINBASE operations" {
@@ -64,6 +65,7 @@ test "Block: COINBASE operations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -74,7 +76,7 @@ test "Block: COINBASE operations" {
     try helpers.expectStackValue(&test_frame.frame, 0, coinbase_as_u256);
     
     // Test gas consumption
-    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.gas_constants.GasQuickStep);
+    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.opcodes.gas_constants.GasQuickStep);
 }
 
 test "Block: TIMESTAMP operations" {
@@ -93,6 +95,7 @@ test "Block: TIMESTAMP operations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -102,7 +105,7 @@ test "Block: TIMESTAMP operations" {
     try helpers.expectStackValue(&test_frame.frame, 0, 1234567890);
     
     // Test gas consumption
-    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.gas_constants.GasQuickStep);
+    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.opcodes.gas_constants.GasQuickStep);
 }
 
 test "Block: NUMBER operations" {
@@ -121,6 +124,7 @@ test "Block: NUMBER operations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -130,7 +134,7 @@ test "Block: NUMBER operations" {
     try helpers.expectStackValue(&test_frame.frame, 0, 987654321);
     
     // Test gas consumption
-    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.gas_constants.GasQuickStep);
+    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.opcodes.gas_constants.GasQuickStep);
 }
 
 test "Block: DIFFICULTY/PREVRANDAO operations" {
@@ -149,6 +153,7 @@ test "Block: DIFFICULTY/PREVRANDAO operations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -158,7 +163,7 @@ test "Block: DIFFICULTY/PREVRANDAO operations" {
     try helpers.expectStackValue(&test_frame.frame, 0, 0x123456789ABCDEF0);
     
     // Test gas consumption
-    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.gas_constants.GasQuickStep);
+    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.opcodes.gas_constants.GasQuickStep);
 }
 
 test "Block: GASLIMIT operations" {
@@ -177,6 +182,7 @@ test "Block: GASLIMIT operations" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -186,7 +192,7 @@ test "Block: GASLIMIT operations" {
     try helpers.expectStackValue(&test_frame.frame, 0, 30_000_000);
     
     // Test gas consumption
-    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.gas_constants.GasQuickStep);
+    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.opcodes.gas_constants.GasQuickStep);
 }
 
 test "Block: BASEFEE operations (London)" {
@@ -205,6 +211,7 @@ test "Block: BASEFEE operations (London)" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -214,7 +221,7 @@ test "Block: BASEFEE operations (London)" {
     try helpers.expectStackValue(&test_frame.frame, 0, 1_000_000_000);
     
     // Test gas consumption
-    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.gas_constants.GasQuickStep);
+    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.opcodes.gas_constants.GasQuickStep);
 }
 
 test "Block: BLOBHASH operations (Cancun)" {
@@ -237,6 +244,7 @@ test "Block: BLOBHASH operations (Cancun)" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -265,7 +273,7 @@ test "Block: BLOBHASH operations (Cancun)" {
     try helpers.expectStackValue(&test_frame.frame, 0, 0); // Returns 0 for out of bounds
     
     // Test gas consumption
-    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.gas_constants.GasFastestStep);
+    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.opcodes.gas_constants.GasFastestStep);
 }
 
 test "Block: BLOBBASEFEE operations (Cancun)" {
@@ -284,6 +292,7 @@ test "Block: BLOBBASEFEE operations (Cancun)" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -293,7 +302,7 @@ test "Block: BLOBBASEFEE operations (Cancun)" {
     try helpers.expectStackValue(&test_frame.frame, 0, 100_000_000);
     
     // Test gas consumption
-    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.gas_constants.GasQuickStep);
+    try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.opcodes.gas_constants.GasQuickStep);
 }
 
 test "Block: Stack underflow errors" {
@@ -309,6 +318,7 @@ test "Block: Stack underflow errors" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -340,6 +350,7 @@ test "Block: Edge cases" {
         0,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();

@@ -4,7 +4,7 @@ const evm = @import("evm");
 const Vm = evm.Vm;
 const Address = @import("Address");
 const ExecutionError = evm.ExecutionError;
-const gas_constants = evm.gas_constants;
+const opcodes = evm.opcodes;
 
 // Helper function to create a test VM with initial setup
 fn createTestVm(allocator: std.mem.Allocator) !*Vm {

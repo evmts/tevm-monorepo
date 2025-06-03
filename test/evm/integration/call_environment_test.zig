@@ -23,6 +23,7 @@ test "Integration: Call with value transfer and balance check" {
         1000,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -90,6 +91,7 @@ test "Integration: Environment opcodes in context" {
         500, // Contract received 500 wei
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -149,6 +151,7 @@ test "Integration: CREATE with init code from memory" {
         10000, // Contract has enough balance
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -219,6 +222,7 @@ test "Integration: DELEGATECALL preserves context" {
         1000,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -260,6 +264,7 @@ test "Integration: STATICCALL prevents state changes" {
         1000,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -301,6 +306,7 @@ test "Integration: Call depth limit handling" {
         1000,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -337,6 +343,7 @@ test "Integration: Return data handling across calls" {
         1000,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -401,6 +408,7 @@ test "Integration: Gas forwarding in calls" {
         1000,
         &[_]u8{},
     );
+    defer contract.deinit(null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();

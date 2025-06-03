@@ -5,6 +5,7 @@ const Stack = @import("../stack.zig");
 const Frame = @import("../frame.zig");
 const Vm = @import("../vm.zig");
 const gas_constants = @import("../gas_constants.zig");
+const AccessList = @import("../access_list.zig").AccessList;
 const Address = @import("Address");
 const from_u256 = Address.from_u256;
 
@@ -204,9 +205,10 @@ pub fn op_selfdestruct(pc: usize, interpreter: *Operation.Interpreter, state: *O
     const beneficiary = from_u256(beneficiary_u256);
     
     // EIP-2929: Check if beneficiary address is cold and consume appropriate gas
-    const is_cold = vm.mark_address_warm(beneficiary) catch |err| switch (err) {
+    const access_cost = vm.access_list.access_address(beneficiary) catch |err| switch (err) {
         error.OutOfMemory => return ExecutionError.Error.OutOfGas,
     };
+    const is_cold = access_cost == AccessList.COLD_ACCOUNT_ACCESS_COST;
     if (is_cold) {
         // Cold address access costs more (2600 gas)
         try frame.consume_gas(gas_constants.ColdAccountAccessCost);

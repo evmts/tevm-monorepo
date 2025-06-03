@@ -24,16 +24,16 @@ depth: u32 = 0,
 output: []const u8 = &[_]u8{},
 program_counter: usize = 0,
 
-pub fn init(allocator: std.mem.Allocator, contract: *Contract) Self {
-    var memory = Memory.init_default(allocator) catch @panic("Failed to initialize memory");
-    memory.finalize_root();
-    
-    return Self{
+pub fn init(allocator: std.mem.Allocator, contract: *Contract) !Self {
+    var self = Self{
         .allocator = allocator,
         .contract = contract,
-        .memory = memory,
+        .memory = try Memory.init_default(allocator),
         .stack = .{},
     };
+    // Finalize root after memory is at its stable address
+    self.memory.finalize_root();
+    return self;
 }
 
 pub fn init_with_state(
@@ -58,11 +58,7 @@ pub fn init_with_state(
     return Self{
         .allocator = allocator,
         .contract = contract,
-        .memory = memory orelse blk: {
-            var mem = Memory.init_default(allocator) catch @panic("Failed to initialize memory");
-            mem.finalize_root();
-            break :blk mem;
-        },
+        .memory = memory orelse Memory.init_default(allocator) catch @panic("Failed to initialize memory"),
         .stack = stack orelse .{},
         .op = op orelse undefined,
         .pc = pc orelse 0,

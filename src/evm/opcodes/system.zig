@@ -9,6 +9,7 @@ const Address = @import("Address");
 const to_u256 = Address.to_u256;
 const from_u256 = Address.from_u256;
 const gas_constants = @import("../gas_constants.zig");
+const AccessList = @import("../access_list.zig").AccessList;
 
 // Helper to convert Stack errors to ExecutionError
 fn stack_pop(stack: *Stack) ExecutionError.Error!u256 {
@@ -86,7 +87,7 @@ pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     }
     
     // EIP-2929: Mark the newly created address as warm
-    _ = try vm.mark_address_warm(result.address);
+    _ = try vm.access_list.access_address(result.address);
     try stack_push(&frame.stack, to_u256(result.address));
     
     // Set return data
@@ -195,7 +196,7 @@ pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     }
     
     // EIP-2929: Mark the newly created address as warm
-    _ = try vm.mark_address_warm(result.address);
+    _ = try vm.access_list.access_address(result.address);
     try stack_push(&frame.stack, to_u256(result.address));
     
     // Set return data
@@ -259,7 +260,8 @@ pub fn op_call(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     const to_address = from_u256(to);
     
     // EIP-2929: Check if address is cold and consume appropriate gas
-    const is_cold = try vm.mark_address_warm(to_address);
+    const access_cost = try vm.access_list.access_address(to_address);
+    const is_cold = access_cost == AccessList.COLD_ACCOUNT_ACCESS_COST;
     if (is_cold) {
         // Cold address access costs more (2600 gas)
         try frame.consume_gas(gas_constants.ColdAccountAccessCost);
@@ -355,7 +357,8 @@ pub fn op_callcode(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     const to_address = from_u256(to);
     
     // EIP-2929: Check if address is cold and consume appropriate gas
-    const is_cold = try vm.mark_address_warm(to_address);
+    const access_cost = try vm.access_list.access_address(to_address);
+    const is_cold = access_cost == AccessList.COLD_ACCOUNT_ACCESS_COST;
     if (is_cold) {
         // Cold address access costs more (2600 gas)
         try frame.consume_gas(gas_constants.ColdAccountAccessCost);
@@ -451,7 +454,8 @@ pub fn op_delegatecall(pc: usize, interpreter: *Operation.Interpreter, state: *O
     const to_address = from_u256(to);
     
     // EIP-2929: Check if address is cold and consume appropriate gas
-    const is_cold = try vm.mark_address_warm(to_address);
+    const access_cost = try vm.access_list.access_address(to_address);
+    const is_cold = access_cost == AccessList.COLD_ACCOUNT_ACCESS_COST;
     if (is_cold) {
         // Cold address access costs more (2600 gas)
         try frame.consume_gas(gas_constants.ColdAccountAccessCost);
@@ -543,7 +547,8 @@ pub fn op_staticcall(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
     const to_address = from_u256(to);
     
     // EIP-2929: Check if address is cold and consume appropriate gas
-    const is_cold = try vm.mark_address_warm(to_address);
+    const access_cost = try vm.access_list.access_address(to_address);
+    const is_cold = access_cost == AccessList.COLD_ACCOUNT_ACCESS_COST;
     if (is_cold) {
         // Cold address access costs more (2600 gas)
         try frame.consume_gas(gas_constants.ColdAccountAccessCost);
@@ -582,4 +587,36 @@ pub fn op_staticcall(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
     try stack_push(&frame.stack, if (result.success) 1 else 0);
     
     return Operation.ExecutionResult{};
+}
+/// EXTCALL opcode (0xF8): External call with EOF validation
+/// Not implemented - EOF feature
+pub fn op_extcall(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
+    _ = pc;
+    _ = interpreter;
+    _ = state;
+    
+    // This is an EOF (EVM Object Format) opcode, not yet implemented
+    return ExecutionError.Error.EOFNotSupported;
+}
+
+/// EXTDELEGATECALL opcode (0xF9): External delegate call with EOF validation
+/// Not implemented - EOF feature
+pub fn op_extdelegatecall(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
+    _ = pc;
+    _ = interpreter;
+    _ = state;
+    
+    // This is an EOF (EVM Object Format) opcode, not yet implemented
+    return ExecutionError.Error.EOFNotSupported;
+}
+
+/// EXTSTATICCALL opcode (0xFB): External static call with EOF validation
+/// Not implemented - EOF feature
+pub fn op_extstaticcall(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
+    _ = pc;
+    _ = interpreter;
+    _ = state;
+    
+    // This is an EOF (EVM Object Format) opcode, not yet implemented
+    return ExecutionError.Error.EOFNotSupported;
 }
