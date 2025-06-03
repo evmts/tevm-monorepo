@@ -11,6 +11,7 @@ test "Gas: Arithmetic operations basic costs" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
+    errdefer test_vm.deinit();
     defer test_vm.deinit();
     
     var contract = try helpers.createTestContract(
@@ -22,6 +23,7 @@ test "Gas: Arithmetic operations basic costs" {
     );
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
+    errdefer test_frame.deinit();
     defer test_frame.deinit();
     
     // Create jump table for gas consumption
@@ -66,6 +68,7 @@ test "Gas: EXP dynamic gas calculation" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
+    errdefer test_vm.deinit();
     defer test_vm.deinit();
     
     var contract = try helpers.createTestContract(
@@ -77,6 +80,7 @@ test "Gas: EXP dynamic gas calculation" {
     );
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
+    errdefer test_frame.deinit();
     defer test_frame.deinit();
     
     // Create jump table for gas consumption

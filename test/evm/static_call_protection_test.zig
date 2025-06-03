@@ -8,6 +8,7 @@ const ExecutionError = evm.ExecutionError;
 test "Static call protection - validate_static_context" {
     const allocator = testing.allocator;
     var vm = try VM.init(allocator);
+    errdefer vm.deinit();
     defer vm.deinit();
     
     // Test 1: Normal context should allow modifications
@@ -23,6 +24,7 @@ test "Static call protection - validate_static_context" {
 test "Static call protection - storage operations" {
     const allocator = testing.allocator;
     var vm = try VM.init(allocator);
+    errdefer vm.deinit();
     defer vm.deinit();
     
     const test_address = [_]u8{0x01} ** 20;
@@ -48,6 +50,7 @@ test "Static call protection - storage operations" {
 test "Static call protection - transient storage operations" {
     const allocator = testing.allocator;
     var vm = try VM.init(allocator);
+    errdefer vm.deinit();
     defer vm.deinit();
     
     const test_address = [_]u8{0x02} ** 20;
@@ -69,6 +72,7 @@ test "Static call protection - transient storage operations" {
 test "Static call protection - balance operations" {
     const allocator = testing.allocator;
     var vm = try VM.init(allocator);
+    errdefer vm.deinit();
     defer vm.deinit();
     
     const test_address = [_]u8{0x03} ** 20;
@@ -89,6 +93,7 @@ test "Static call protection - balance operations" {
 test "Static call protection - code operations" {
     const allocator = testing.allocator;
     var vm = try VM.init(allocator);
+    errdefer vm.deinit();
     defer vm.deinit();
     
     const test_address = [_]u8{0x04} ** 20;
@@ -110,6 +115,7 @@ test "Static call protection - code operations" {
 test "Static call protection - log operations" {
     const allocator = testing.allocator;
     var vm = try VM.init(allocator);
+    errdefer vm.deinit();
     defer vm.deinit();
     
     const test_address = [_]u8{0x05} ** 20;
@@ -133,6 +139,7 @@ test "Static call protection - log operations" {
 test "Static call protection - contract creation" {
     const allocator = testing.allocator;
     var vm = try VM.init(allocator);
+    errdefer vm.deinit();
     defer vm.deinit();
     
     const creator = [_]u8{0x06} ** 20;
@@ -153,6 +160,7 @@ test "Static call protection - contract creation" {
 test "Static call protection - CREATE2 contract creation" {
     const allocator = testing.allocator;
     var vm = try VM.init(allocator);
+    errdefer vm.deinit();
     defer vm.deinit();
     
     const creator = [_]u8{0x07} ** 20;
@@ -174,6 +182,7 @@ test "Static call protection - CREATE2 contract creation" {
 test "Static call protection - value transfer validation" {
     const allocator = testing.allocator;
     var vm = try VM.init(allocator);
+    errdefer vm.deinit();
     defer vm.deinit();
     
     // Test 1: Normal context allows value transfers
@@ -193,6 +202,7 @@ test "Static call protection - value transfer validation" {
 test "Static call protection - selfdestruct" {
     const allocator = testing.allocator;
     var vm = try VM.init(allocator);
+    errdefer vm.deinit();
     defer vm.deinit();
     
     const contract = [_]u8{0x08} ** 20;
@@ -211,6 +221,7 @@ test "Static call protection - selfdestruct" {
 test "Static call protection - comprehensive scenario" {
     const allocator = testing.allocator;
     var vm = try VM.init(allocator);
+    errdefer vm.deinit();
     defer vm.deinit();
     
     const test_address = [_]u8{0x0A} ** 20;

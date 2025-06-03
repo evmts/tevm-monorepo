@@ -55,7 +55,7 @@ test "PUSH1: append 1 byte value" {
     test_frame.frame.program_counter = 0;
     
     // Execute PUSH1
-    const result = try test_helpers.executeOpcode(opcodes.stack.op_append1, &test_vm.vm, &test_frame.frame);
+    const result = try test_helpers.executeOpcode(opcodes.stack.op_push1, &test_vm.vm, &test_frame.frame);
     
     // Should consume 2 bytes (opcode + data)
     try testing.expectEqual(@as(usize, 2), result.bytes_consumed);
@@ -88,7 +88,7 @@ test "PUSH2: append 2 byte value" {
     test_frame.frame.program_counter = 0;
     
     // Execute PUSH2
-    const result = try test_helpers.executeOpcode(opcodes.stack.op_append2, &test_vm.vm, &test_frame.frame);
+    const result = try test_helpers.executeOpcode(opcodes.stack.op_push2, &test_vm.vm, &test_frame.frame);
     
     // Should consume 3 bytes
     try testing.expectEqual(@as(usize, 3), result.bytes_consumed);
@@ -125,7 +125,7 @@ test "PUSH32: append 32 byte value" {
     test_frame.frame.program_counter = 0;
     
     // Execute PUSH32
-    const result = try test_helpers.executeOpcode(opcodes.stack.op_append32, &test_vm.vm, &test_frame.frame);
+    const result = try test_helpers.executeOpcode(opcodes.stack.op_push32, &test_vm.vm, &test_frame.frame);
     
     // Should consume 33 bytes
     try testing.expectEqual(@as(usize, 33), result.bytes_consumed);
@@ -386,7 +386,7 @@ test "PUSH1: at end of code" {
     test_frame.frame.program_counter = 0;
     
     // Execute PUSH1
-    const result = try test_helpers.executeOpcode(opcodes.stack.op_append1, &test_vm.vm, &test_frame.frame);
+    const result = try test_helpers.executeOpcode(opcodes.stack.op_push1, &test_vm.vm, &test_frame.frame);
     
     // Should consume 2 bytes (even though only 1 exists)
     try testing.expectEqual(@as(usize, 2), result.bytes_consumed);
@@ -423,7 +423,7 @@ test "PUSH32: partial data available" {
     test_frame.frame.program_counter = 0;
     
     // Execute PUSH32
-    const result = try test_helpers.executeOpcode(opcodes.stack.op_append32, &test_vm.vm, &test_frame.frame);
+    const result = try test_helpers.executeOpcode(opcodes.stack.op_push32, &test_vm.vm, &test_frame.frame);
     
     // Should consume 33 bytes
     try testing.expectEqual(@as(usize, 33), result.bytes_consumed);
@@ -572,7 +572,7 @@ test "PUSH1: stack overflow" {
     test_frame.frame.program_counter = 0;
     
     // Execute PUSH1 - should fail with stack overflow
-    const result = test_helpers.executeOpcode(opcodes.stack.op_append1, &test_vm.vm, &test_frame.frame);
+    const result = test_helpers.executeOpcode(opcodes.stack.op_push1, &test_vm.vm, &test_frame.frame);
     try testing.expectError(ExecutionError.Error.StackOverflow, result);
 }
 

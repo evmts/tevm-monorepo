@@ -57,6 +57,16 @@ pub const TestVm = struct {
         return try self.vm.get_storage(address, slot);
     }
     
+    /// Set transient storage value
+    pub fn setTransientStorage(self: *TestVm, address: Address.Address, slot: u256, value: u256) !void {
+        try self.vm.set_transient_storage(address, slot, value);
+    }
+    
+    /// Get transient storage value
+    pub fn getTransientStorage(self: *TestVm, address: Address.Address, slot: u256) !u256 {
+        return try self.vm.get_transient_storage(address, slot);
+    }
+    
     /// Mark address as warm for EIP-2929 testing
     pub fn warmAddress(self: *TestVm, address: Address.Address) !void {
         _ = try self.vm.mark_address_warm(address);

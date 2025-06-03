@@ -24,7 +24,7 @@ test "SLOAD: load value from storage" {
     defer test_frame.deinit();
     
     // Set storage value
-    test_vm.setStorage(test_helpers.TestAddresses.CONTRACT, 0x123, 0x456789);
+    try test_vm.setStorage(test_helpers.TestAddresses.CONTRACT, 0x123, 0x456789);
     
     // Push storage slot
     try test_frame.pushStack(&[_]u256{0x123});
@@ -150,7 +150,7 @@ test "SSTORE: overwrite existing value" {
     defer test_frame.deinit();
     
     // Set initial value
-    test_vm.setStorage(test_helpers.TestAddresses.CONTRACT, 0x100, 0x111);
+    try test_vm.setStorage(test_helpers.TestAddresses.CONTRACT, 0x100, 0x111);
     
     // Push new value and slot
     try test_frame.pushStack(&[_]u256{0x100}); // slot
@@ -253,7 +253,7 @@ test "TLOAD: load value from transient storage" {
     defer test_frame.deinit();
     
     // Set transient storage value
-    test_vm.setTransientStorage(test_helpers.TestAddresses.CONTRACT, 0xAAA, 0xBBBBBB);
+    try test_vm.setTransientStorage(test_helpers.TestAddresses.CONTRACT, 0xAAA, 0xBBBBBB);
     
     // Push storage slot
     try test_frame.pushStack(&[_]u256{0xAAA});
@@ -310,8 +310,8 @@ test "TLOAD: transient storage is separate from regular storage" {
     defer test_frame.deinit();
     
     // Set same slot in both storages with different values
-    test_vm.setStorage(test_helpers.TestAddresses.CONTRACT, 0x100, 0x111);
-    test_vm.setTransientStorage(test_helpers.TestAddresses.CONTRACT, 0x100, 0x222);
+    try test_vm.setStorage(test_helpers.TestAddresses.CONTRACT, 0x100, 0x111);
+    try test_vm.setTransientStorage(test_helpers.TestAddresses.CONTRACT, 0x100, 0x222);
     
     // Load from transient storage
     try test_frame.pushStack(&[_]u256{0x100});
@@ -376,7 +376,7 @@ test "TSTORE: overwrite existing transient value" {
     defer test_frame.deinit();
     
     // Set initial transient value
-    test_vm.setTransientStorage(test_helpers.TestAddresses.CONTRACT, 0x200, 0x333);
+    try test_vm.setTransientStorage(test_helpers.TestAddresses.CONTRACT, 0x200, 0x333);
     
     // Push new value and slot
     try test_frame.pushStack(&[_]u256{0x200}); // slot
@@ -437,7 +437,7 @@ test "TSTORE: does not affect regular storage" {
     defer test_frame.deinit();
     
     // Set regular storage value
-    test_vm.setStorage(test_helpers.TestAddresses.CONTRACT, 0x300, 0x555);
+    try test_vm.setStorage(test_helpers.TestAddresses.CONTRACT, 0x300, 0x555);
     
     // Store to transient storage at same slot
     try test_frame.pushStack(&[_]u256{0x300}); // slot

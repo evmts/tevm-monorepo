@@ -27,7 +27,7 @@ test "CREATE: create new contract" {
     const init_code = [_]u8{ 0x60, 0x00, 0x60, 0x00, 0xF3 }; // PUSH1 0 PUSH1 0 RETURN
     var i: usize = 0;
     while (i < init_code.len) : (i += 1) {
-        try test_frame.frame.memory.write_byte(i, init_code[i]);
+        try test_frame.frame.memory.set_byte(i, init_code[i]);
     }
     
     // Set gas and mock create result
@@ -168,7 +168,7 @@ test "CREATE2: create with deterministic address" {
     const init_code = [_]u8{ 0x60, 0x00, 0x60, 0x00, 0xF3 };
     var i: usize = 0;
     while (i < init_code.len) : (i += 1) {
-        try test_frame.frame.memory.write_byte(i, init_code[i]);
+        try test_frame.frame.memory.set_byte(i, init_code[i]);
     }
     
     // Set gas and mock create result
@@ -214,7 +214,7 @@ test "CALL: successful call" {
     const call_data = [_]u8{ 0x11, 0x22, 0x33, 0x44 };
     var i: usize = 0;
     while (i < call_data.len) : (i += 1) {
-        try test_frame.frame.memory.write_byte(i, call_data[i]);
+        try test_frame.frame.memory.set_byte(i, call_data[i]);
     }
     
     // Set gas and mock call result
@@ -240,13 +240,13 @@ test "CALL: successful call" {
     try testing.expectEqual(@as(u256, 1), try test_frame.popStack());
     
     // Return data should be written to memory
-    try testing.expectEqual(@as(u8, 0xAA), test_frame.frame.memory.read_byte(100));
-    try testing.expectEqual(@as(u8, 0xBB), test_frame.frame.memory.read_byte(101));
+    try testing.expectEqual(@as(u8, 0xAA), test_frame.frame.memory.get_byte(100));
+    try testing.expectEqual(@as(u8, 0xBB), test_frame.frame.memory.get_byte(101));
     
     // Remaining return area should be zeroed
     i = 2;
     while (i < 10) : (i += 1) {
-        try testing.expectEqual(@as(u8, 0), test_frame.frame.memory.read_byte(100 + i));
+        try testing.expectEqual(@as(u8, 0), test_frame.frame.memory.get_byte(100 + i));
     }
 }
 
@@ -327,8 +327,13 @@ test "CALL: cold address access costs more gas" {
     _ = try test_helpers.executeOpcode(opcodes.system.op_call, &test_vm.vm, &test_frame.frame);
     
     // Should consume 2600 gas for cold access
-    const gas_used = gas_before - test_frame.frame.gas_remaining - (1000 - 5000); // Subtract the gas given to call
-    try testing.expect(gas_used >= 2600);
+    // Gas used = (gas_before - gas_remaining) - (gas_given - gas_returned)
+    // Gas used = (gas_before - gas_remaining) - (1000 - 5000) 
+    // But gas_returned (5000) > gas_given (1000), which means we got gas back
+    const gas_consumed = gas_before - test_frame.frame.gas_remaining;
+    const gas_refunded = 5000 - 1000; // 4000 gas refunded
+    const net_gas_used = gas_consumed -| gas_refunded; // Saturating subtraction
+    try testing.expect(net_gas_used >= 2600);
 }
 
 test "CALL: value transfer in static call fails" {
@@ -403,8 +408,8 @@ test "DELEGATECALL: execute code in current context" {
     try testing.expectEqual(@as(u256, 1), try test_frame.popStack());
     
     // Return data should be written to memory
-    try testing.expectEqual(@as(u8, 0xCC), test_frame.frame.memory.read_byte(50));
-    try testing.expectEqual(@as(u8, 0xDD), test_frame.frame.memory.read_byte(51));
+    try testing.expectEqual(@as(u8, 0xCC), test_frame.frame.memory.get_byte(50));
+    try testing.expectEqual(@as(u8, 0xDD), test_frame.frame.memory.get_byte(51));
 }
 
 // Test STATICCALL operation
@@ -446,8 +451,8 @@ test "STATICCALL: read-only call" {
     try testing.expectEqual(@as(u256, 1), try test_frame.popStack());
     
     // Return data should be written to memory
-    try testing.expectEqual(@as(u8, 0xEE), test_frame.frame.memory.read_byte(200));
-    try testing.expectEqual(@as(u8, 0xFF), test_frame.frame.memory.read_byte(201));
+    try testing.expectEqual(@as(u8, 0xEE), test_frame.frame.memory.get_byte(200));
+    try testing.expectEqual(@as(u8, 0xFF), test_frame.frame.memory.get_byte(201));
 }
 
 // Test depth limit for calls
@@ -507,7 +512,7 @@ test "CREATE: gas consumption" {
     const init_code = [_]u8{ 0x60, 0x00, 0x60, 0x00, 0xF3 };
     var i: usize = 0;
     while (i < init_code.len) : (i += 1) {
-        try test_frame.frame.memory.write_byte(i, init_code[i]);
+        try test_frame.frame.memory.set_byte(i, init_code[i]);
     }
     
     // Set gas
@@ -554,7 +559,7 @@ test "CREATE2: additional gas for hashing" {
     const init_code = [_]u8{ 0x60, 0x00, 0x60, 0x00, 0xF3 };
     var i: usize = 0;
     while (i < init_code.len) : (i += 1) {
-        try test_frame.frame.memory.write_byte(i, init_code[i]);
+        try test_frame.frame.memory.set_byte(i, init_code[i]);
     }
     
     // Set gas
