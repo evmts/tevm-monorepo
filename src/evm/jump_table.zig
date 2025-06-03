@@ -47,6 +47,11 @@ pub fn execute(self: *const Self, pc: usize, interpreter: *Operation.Interpreter
     // Cast state to Frame to access gas_remaining and stack
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
+    // Debug output for stack issues
+    if (opcode == 0x80 or opcode == 0x90) { // DUP1 or SWAP1
+        std.debug.print("DEBUG: Opcode 0x{x}, stack.size={}, stack.data[0]={}, CAPACITY={}\n", .{opcode, frame.stack.size, if (frame.stack.size > 0) frame.stack.data[0] else 0, Stack.CAPACITY});
+    }
+    
     // Validate stack requirements before execution
     const stack_validation = @import("stack_validation.zig");
     try stack_validation.validate_stack_requirements(&frame.stack, operation);
@@ -870,60 +875,40 @@ pub fn new_frontier_instruction_set_legacy() Self {
     }
 
     // 0x80s: Duplication Operations
-    inline for (1..17) |i| {
-        jt.table[0x80 + i - 1] = &Operation{
-            .execute = switch (i) {
-                1 => stack_ops.op_dup1,
-                2 => stack_ops.op_dup2,
-                3 => stack_ops.op_dup3,
-                4 => stack_ops.op_dup4,
-                5 => stack_ops.op_dup5,
-                6 => stack_ops.op_dup6,
-                7 => stack_ops.op_dup7,
-                8 => stack_ops.op_dup8,
-                9 => stack_ops.op_dup9,
-                10 => stack_ops.op_dup10,
-                11 => stack_ops.op_dup11,
-                12 => stack_ops.op_dup12,
-                13 => stack_ops.op_dup13,
-                14 => stack_ops.op_dup14,
-                15 => stack_ops.op_dup15,
-                16 => stack_ops.op_dup16,
-                else => unreachable,
-            },
-            .constant_gas = opcodes.gas_constants.GasFastestStep,
-            .min_stack = min_dup_stack(@as(u32, @intCast(i))),
-            .max_stack = max_dup_stack(@as(u32, @intCast(i))),
-        };
-    }
+    jt.table[0x80] = &DUP1;
+    jt.table[0x81] = &DUP2;
+    jt.table[0x82] = &DUP3;
+    jt.table[0x83] = &DUP4;
+    jt.table[0x84] = &DUP5;
+    jt.table[0x85] = &DUP6;
+    jt.table[0x86] = &DUP7;
+    jt.table[0x87] = &DUP8;
+    jt.table[0x88] = &DUP9;
+    jt.table[0x89] = &DUP10;
+    jt.table[0x8a] = &DUP11;
+    jt.table[0x8b] = &DUP12;
+    jt.table[0x8c] = &DUP13;
+    jt.table[0x8d] = &DUP14;
+    jt.table[0x8e] = &DUP15;
+    jt.table[0x8f] = &DUP16;
 
     // 0x90s: Exchange Operations
-    inline for (1..17) |i| {
-        jt.table[0x90 + i - 1] = &Operation{
-            .execute = switch (i) {
-                1 => stack_ops.op_swap1,
-                2 => stack_ops.op_swap2,
-                3 => stack_ops.op_swap3,
-                4 => stack_ops.op_swap4,
-                5 => stack_ops.op_swap5,
-                6 => stack_ops.op_swap6,
-                7 => stack_ops.op_swap7,
-                8 => stack_ops.op_swap8,
-                9 => stack_ops.op_swap9,
-                10 => stack_ops.op_swap10,
-                11 => stack_ops.op_swap11,
-                12 => stack_ops.op_swap12,
-                13 => stack_ops.op_swap13,
-                14 => stack_ops.op_swap14,
-                15 => stack_ops.op_swap15,
-                16 => stack_ops.op_swap16,
-                else => unreachable,
-            },
-            .constant_gas = opcodes.gas_constants.GasFastestStep,
-            .min_stack = min_swap_stack(@as(u32, @intCast(i))),
-            .max_stack = max_swap_stack(@as(u32, @intCast(i))),
-        };
-    }
+    jt.table[0x90] = &SWAP1;
+    jt.table[0x91] = &SWAP2;
+    jt.table[0x92] = &SWAP3;
+    jt.table[0x93] = &SWAP4;
+    jt.table[0x94] = &SWAP5;
+    jt.table[0x95] = &SWAP6;
+    jt.table[0x96] = &SWAP7;
+    jt.table[0x97] = &SWAP8;
+    jt.table[0x98] = &SWAP9;
+    jt.table[0x99] = &SWAP10;
+    jt.table[0x9a] = &SWAP11;
+    jt.table[0x9b] = &SWAP12;
+    jt.table[0x9c] = &SWAP13;
+    jt.table[0x9d] = &SWAP14;
+    jt.table[0x9e] = &SWAP15;
+    jt.table[0x9f] = &SWAP16;
 
     // 0xa0s: Logging Operations
     inline for (0..5) |i| {

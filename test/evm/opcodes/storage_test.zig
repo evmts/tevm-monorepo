@@ -124,9 +124,9 @@ test "SSTORE: store value to storage" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
     
-    // Push value and slot
-    try test_frame.pushStack(&[_]u256{0x555});    // slot
+    // Push value and slot (value first, then slot - stack is LIFO)
     try test_frame.pushStack(&[_]u256{0xABCDEF}); // value
+    try test_frame.pushStack(&[_]u256{0x555});    // slot
     
     // Execute SSTORE
     _ = try test_helpers.executeOpcode(opcodes.storage.op_sstore, &test_vm.vm, test_frame.frame);
@@ -157,9 +157,9 @@ test "SSTORE: overwrite existing value" {
     // Set initial value
     try test_vm.setStorage(test_helpers.TestAddresses.CONTRACT, 0x100, 0x111);
     
-    // Push new value and slot
-    try test_frame.pushStack(&[_]u256{0x100}); // slot
+    // Push new value and slot (value first, then slot - stack is LIFO)
     try test_frame.pushStack(&[_]u256{0x222}); // new value
+    try test_frame.pushStack(&[_]u256{0x100}); // slot
     
     // Execute SSTORE
     _ = try test_helpers.executeOpcode(opcodes.storage.op_sstore, &test_vm.vm, test_frame.frame);
@@ -190,9 +190,9 @@ test "SSTORE: write protection in static call" {
     // Set static call
     test_frame.frame.is_static = true;
     
-    // Push value and slot
-    try test_frame.pushStack(&[_]u256{0x456}); // slot
+    // Push value and slot (value first, then slot - stack is LIFO)
     try test_frame.pushStack(&[_]u256{0x123}); // value
+    try test_frame.pushStack(&[_]u256{0x456}); // slot
     
     // Execute SSTORE - should fail
     const result = test_helpers.executeOpcode(opcodes.storage.op_sstore, &test_vm.vm, test_frame.frame);
@@ -357,15 +357,15 @@ test "TSTORE: store value to transient storage" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
     
-    // Push value and slot
-    try test_frame.pushStack(&[_]u256{0x777});      // slot
+    // Push value and slot (value first, then slot - stack is LIFO)
     try test_frame.pushStack(&[_]u256{0xDEADBEEF}); // value
+    try test_frame.pushStack(&[_]u256{0x777});      // slot
     
     // Execute TSTORE
     _ = try test_helpers.executeOpcode(opcodes.storage.op_tstore, &test_vm.vm, test_frame.frame);
     
     // Check that value was stored
-    const stored_value = test_vm.getTransientStorage(test_helpers.TestAddresses.CONTRACT, 0x777);
+    const stored_value = try test_vm.getTransientStorage(test_helpers.TestAddresses.CONTRACT, 0x777);
     try testing.expectEqual(@as(u256, 0xDEADBEEF), stored_value);
 }
 
