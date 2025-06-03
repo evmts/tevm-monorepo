@@ -184,25 +184,25 @@ test "Bitwise: BYTE extraction operations" {
     
     // Test 1: Extract first byte (most significant)
     const test_value = 0xABCDEF1234567890;
-    try test_frame.pushStack(&[_]u256{0, test_value}); // Push index 0 first, then value
+    try test_frame.pushStack(&[_]u256{test_value, 0}); // Push value first, then index (so index is on top)
     _ = try helpers.executeOpcode(0x1A, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0); // Byte 0 is 0x00 in a 256-bit number
     
     // Test 2: Extract last byte (least significant)
     test_frame.frame.stack.clear();
-    try test_frame.pushStack(&[_]u256{31, test_value}); // Push index 31 first, then value
+    try test_frame.pushStack(&[_]u256{test_value, 31}); // Push value first, then index (so index is on top)
     _ = try helpers.executeOpcode(0x1A, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x90);
     
     // Test 3: Out of bounds index
     test_frame.frame.stack.clear();
-    try test_frame.pushStack(&[_]u256{32, test_value}); // Push index 32 first, then value
+    try test_frame.pushStack(&[_]u256{test_value, 32}); // Push value first, then index (so index is on top)
     _ = try helpers.executeOpcode(0x1A, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0); // Should return 0
     
     // Test 4: Extract from byte 24 
     test_frame.frame.stack.clear();
-    try test_frame.pushStack(&[_]u256{24, test_value}); // Push index 24 first, then value
+    try test_frame.pushStack(&[_]u256{test_value, 24}); // Push value first, then index (so index is on top)
     _ = try helpers.executeOpcode(0x1A, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0xAB); // Byte 24 is where 0xAB is located
 }

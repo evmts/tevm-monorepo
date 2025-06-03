@@ -91,6 +91,8 @@ pub fn op_byte(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     const i = try stack_pop(&frame.stack);
     const val = try stack_pop(&frame.stack);
 
+    std.debug.print("BYTE opcode: i={}, val=0x{x}\n", .{i, val});
+
     if (i >= 32) {
         try stack_push(&frame.stack, 0);
     } else {
@@ -99,6 +101,7 @@ pub fn op_byte(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
         // To get byte i, we need to shift right by (31 - i) * 8 positions
         const shift_amount = (31 - i_usize) * 8;
         const result = (val >> @intCast(shift_amount)) & 0xFF;
+        std.debug.print("  shift_amount={}, result=0x{x}\n", .{shift_amount, result});
         try stack_push(&frame.stack, result);
     }
 

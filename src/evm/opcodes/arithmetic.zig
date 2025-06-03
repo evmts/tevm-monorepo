@@ -48,11 +48,9 @@ pub fn op_sub(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     _ = pc;
     _ = interpreter;
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-
-    const a = try stack_pop(&frame.stack); // First value popped from stack (top item)
-    const b = try stack_pop(&frame.stack); // Second value popped from stack (item below top)
-
-    // EVM standard: SUB pops two values and computes first_popped - second_popped
+    
+    const b = try stack_pop(&frame.stack);
+    const a = try stack_pop(&frame.stack);
     const result = a -% b;
     try stack_push(&frame.stack, result);
 
