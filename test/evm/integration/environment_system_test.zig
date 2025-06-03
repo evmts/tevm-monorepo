@@ -9,7 +9,7 @@ const system = evm.opcodes.system;
 const block = evm.opcodes.block;
 const stack = evm.opcodes.stack;
 const arithmetic = evm.opcodes.arithmetic;
-const memory = evm.opcodes.memory;
+const memory_ops = evm.opcodes.memory;
 const log = evm.opcodes.log;
 
 test "Integration: Contract deployment simulation" {
@@ -384,7 +384,7 @@ test "Integration: Calldata operations" {
         0,              // offset
         calldata.len,   // size
     });
-    _ = try helpers.executeOpcode(environment.op_calldatacopy, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(memory_ops.op_calldatacopy, &test_vm.vm, &test_frame.frame);
     
     // Verify calldata was copied to memory
     const copied_data = try test_frame.getMemory(0, calldata.len);

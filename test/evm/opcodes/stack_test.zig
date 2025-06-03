@@ -164,7 +164,7 @@ test "POP: remove top stack item" {
     
     // Should have removed top item (0x456)
     try testing.expectEqual(@as(u256, 0x123), try test_frame.frame.stack.pop());
-    try testing.expectEqual(@as(usize, 0), test_frame.frame.stack.len());
+    try testing.expectEqual(@as(usize, 0), test_frame.stackSize());
 }
 
 // Test DUP operations

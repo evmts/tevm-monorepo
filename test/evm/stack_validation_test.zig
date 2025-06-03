@@ -33,6 +33,7 @@ test "Stack validation: binary operations" {
     );
     
     var frame = Frame.init(allocator, &contract);
+    errdefer frame.deinit();
     defer frame.deinit();
     
     // Create jump table
@@ -83,6 +84,7 @@ test "Stack validation: PUSH operations" {
     );
     
     var frame = Frame.init(allocator, &contract);
+    errdefer frame.deinit();
     defer frame.deinit();
     
     var table = JumpTable.init_from_hardfork(.FRONTIER);
@@ -122,6 +124,7 @@ test "Stack validation: DUP operations" {
     );
     
     var frame = Frame.init(allocator, &contract);
+    errdefer frame.deinit();
     defer frame.deinit();
     
     var table = JumpTable.init_from_hardfork(.FRONTIER);
@@ -168,6 +171,7 @@ test "Stack validation: SWAP operations" {
         false,       // is_static
     );
     var frame = Frame.init(allocator, &contract);
+    errdefer frame.deinit();
     defer frame.deinit();
     
     var table = JumpTable.init_from_hardfork(.FRONTIER);
@@ -237,6 +241,7 @@ test "Stack validation: integration with jump table execution" {
     );
     
     var frame = Frame.init(allocator, &contract);
+    errdefer frame.deinit();
     defer frame.deinit();
     
     // Provide enough gas

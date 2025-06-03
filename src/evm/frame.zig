@@ -25,10 +25,13 @@ output: []const u8 = &[_]u8{},
 program_counter: usize = 0,
 
 pub fn init(allocator: std.mem.Allocator, contract: *Contract) Self {
+    var memory = Memory.init_default(allocator) catch @panic("Failed to initialize memory");
+    memory.finalize_root();
+    
     return Self{
         .allocator = allocator,
         .contract = contract,
-        .memory = Memory.init_default(allocator) catch @panic("Failed to initialize memory"),
+        .memory = memory,
         .stack = .{},
     };
 }
@@ -55,7 +58,11 @@ pub fn init_with_state(
     return Self{
         .allocator = allocator,
         .contract = contract,
-        .memory = memory orelse Memory.init_default(allocator) catch @panic("Failed to initialize memory"),
+        .memory = memory orelse blk: {
+            var mem = Memory.init_default(allocator) catch @panic("Failed to initialize memory");
+            mem.finalize_root();
+            break :blk mem;
+        },
         .stack = stack orelse .{},
         .op = op orelse undefined,
         .pc = pc orelse 0,

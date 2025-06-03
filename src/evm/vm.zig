@@ -7,6 +7,7 @@ const Frame = @import("frame.zig");
 const Operation = @import("operation.zig");
 const Address = @import("Address");
 const StoragePool = @import("storage_pool.zig");
+const AccessList = @import("access_list.zig");
 
 // Log struct for EVM event logs (LOG0-LOG4 opcodes)
 pub const Log = struct {
@@ -36,8 +37,8 @@ code: std.AutoHashMap(Address.Address, []const u8),
 transient_storage: std.AutoHashMap(StorageKey, u256),
 logs: std.ArrayList(Log),
 
-// EIP-2929: Address access tracking (cold/warm)
-address_access: std.AutoHashMap(Address.Address, bool),
+// EIP-2929: Access list for gas cost calculation
+access_list: AccessList,
 
 // Transaction context (temporary placeholder)
 tx_origin: Address.Address = Address.ZERO_ADDRESS,
@@ -70,7 +71,7 @@ pub fn init(allocator: std.mem.Allocator) !Self {
         .code = std.AutoHashMap(Address.Address, []const u8).init(allocator),
         .transient_storage = std.AutoHashMap(StorageKey, u256).init(allocator),
         .logs = std.ArrayList(Log).init(allocator),
-        .address_access = std.AutoHashMap(Address.Address, bool).init(allocator),
+        .access_list = AccessList.init(allocator),
     };
 }
 
@@ -88,7 +89,7 @@ pub fn deinit(self: *Self) void {
     }
     self.logs.deinit();
     
-    self.address_access.deinit();
+    self.access_list.deinit();
 }
 
 // Storage methods
@@ -322,55 +323,34 @@ pub fn emit_log(self: *Self, address: Address.Address, topics: []const u256, dat
     try self.logs.append(log);
 }
 
-// EIP-2929: Mark address as warm and return if it was cold
-pub fn mark_address_warm(self: *Self, address: Address.Address) !bool {
-    const result = try self.address_access.getOrPut(address);
-    if (result.found_existing) {
-        return false; // Was already warm
-    }
-    
-    result.value_ptr.* = true;
-    return true; // Was cold
+// EIP-2929: Initialize transaction access list
+pub fn init_transaction_access_list(self: *Self, to: ?Address.Address) !void {
+    try self.access_list.init_transaction(self.tx_origin, self.block_coinbase, to);
 }
 
-// EIP-2929: Check if an address is cold
-pub fn is_address_cold(self: *const Self, address: Address.Address) bool {
-    return !self.address_access.contains(address);
-}
-
-// EIP-2929: Clear access list for new transaction
-pub fn clear_access_list(self: *Self) void {
-    self.address_access.clearRetainingCapacity();
-    // Also clear storage access in all contracts
-    // Note: This would be done at transaction level, not here
-}
-
-// EIP-2929: Pre-warm addresses from access list (EIP-2930)
+// EIP-2929: Pre-warm addresses from EIP-2930 access list
 pub fn pre_warm_addresses(self: *Self, addresses: []const Address.Address) !void {
-    for (addresses) |address| {
-        try self.address_access.put(address, true);
-    }
+    try self.access_list.pre_warm_addresses(addresses);
 }
 
-// EIP-2929: Pre-warm storage slots from access list (EIP-2930)
+// EIP-2929: Pre-warm storage slots from EIP-2930 access list
 pub fn pre_warm_storage_slots(self: *Self, address: Address.Address, slots: []const u256) !void {
-    // This would need to be implemented at the contract level
-    // For now, we'll leave this as a placeholder
-    _ = self;
-    _ = address;
-    _ = slots;
+    try self.access_list.pre_warm_storage_slots(address, slots);
 }
 
-// Initialize transaction with pre-warmed addresses (tx.origin, coinbase, to)
-pub fn init_transaction_access_list(self: *Self) !void {
-    // Pre-warm transaction origin
-    try self.address_access.put(self.tx_origin, true);
-    
-    // Pre-warm coinbase
-    try self.address_access.put(self.block_coinbase, true);
-    
-    // Note: The 'to' address would be pre-warmed when the transaction starts
-    // This is typically done in the transaction processor, not here
+// EIP-2929: Get gas cost for accessing an address
+pub fn get_address_access_cost(self: *Self, address: Address.Address) !u64 {
+    return self.access_list.access_address(address);
+}
+
+// EIP-2929: Get gas cost for accessing a storage slot
+pub fn get_storage_access_cost(self: *Self, address: Address.Address, slot: u256) !u64 {
+    return self.access_list.access_storage_slot(address, slot);
+}
+
+// EIP-2929: Get extra gas cost for CALL to an address
+pub fn get_call_cost(self: *Self, address: Address.Address) !u64 {
+    return self.access_list.get_call_cost(address);
 }
 
 // Static call protection validation

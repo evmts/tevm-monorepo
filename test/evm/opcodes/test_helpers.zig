@@ -29,7 +29,7 @@ pub const TestVm = struct {
         var vm = try Vm.init(allocator);
         
         // Initialize transaction access list (pre-warm common addresses)
-        try vm.init_transaction_access_list();
+        try vm.init_transaction_access_list(null);
         
         return TestVm{
             .vm = vm,

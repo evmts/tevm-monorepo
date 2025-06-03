@@ -114,6 +114,7 @@ test "Gas: Memory expansion costs" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
+    errdefer test_vm.deinit();
     defer test_vm.deinit();
     
     var contract = try helpers.createTestContract(
@@ -125,6 +126,7 @@ test "Gas: Memory expansion costs" {
     );
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
+    errdefer test_frame.deinit();
     defer test_frame.deinit();
     
     // Test memory expansion to 32 bytes (1 word)
@@ -158,6 +160,7 @@ test "Gas: SHA3 dynamic costs" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
+    errdefer test_vm.deinit();
     defer test_vm.deinit();
     
     var contract = try helpers.createTestContract(
@@ -169,6 +172,7 @@ test "Gas: SHA3 dynamic costs" {
     );
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
+    errdefer test_frame.deinit();
     defer test_frame.deinit();
     
     // Prepare data in memory
@@ -213,6 +217,7 @@ test "Gas: LOG operations dynamic costs" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
+    errdefer test_vm.deinit();
     defer test_vm.deinit();
     
     var contract = try helpers.createTestContract(
@@ -224,6 +229,7 @@ test "Gas: LOG operations dynamic costs" {
     );
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
+    errdefer test_frame.deinit();
     defer test_frame.deinit();
     
     // Prepare log data
@@ -260,6 +266,7 @@ test "Gas: Storage operations with access lists (EIP-2929)" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
+    errdefer test_vm.deinit();
     defer test_vm.deinit();
     
     var contract = try helpers.createTestContract(
@@ -271,6 +278,7 @@ test "Gas: Storage operations with access lists (EIP-2929)" {
     );
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
+    errdefer test_frame.deinit();
     defer test_frame.deinit();
     
     // Test SLOAD cold (2100 gas)
@@ -311,6 +319,7 @@ test "Gas: CALL operations gas forwarding" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
+    errdefer test_vm.deinit();
     defer test_vm.deinit();
     
     var contract = try helpers.createTestContract(
@@ -322,6 +331,7 @@ test "Gas: CALL operations gas forwarding" {
     );
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
+    errdefer test_frame.deinit();
     defer test_frame.deinit();
     
     // Mock successful call
@@ -356,6 +366,7 @@ test "Gas: CREATE operations with init code" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
+    errdefer test_vm.deinit();
     defer test_vm.deinit();
     
     var contract = try helpers.createTestContract(
@@ -367,6 +378,7 @@ test "Gas: CREATE operations with init code" {
     );
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 200000);
+    errdefer test_frame.deinit();
     defer test_frame.deinit();
     
     // Prepare init code
@@ -416,6 +428,7 @@ test "Gas: Copy operations (CALLDATACOPY, CODECOPY, etc.)" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
+    errdefer test_vm.deinit();
     defer test_vm.deinit();
     
     // Set up contract with call data
@@ -429,6 +442,7 @@ test "Gas: Copy operations (CALLDATACOPY, CODECOPY, etc.)" {
     contract.input = &[_]u8{0x12, 0x34, 0x56, 0x78} ** 16; // 64 bytes of input
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
+    errdefer test_frame.deinit();
     defer test_frame.deinit();
     
     // Test CALLDATACOPY (3 gas per word + memory expansion)
@@ -453,6 +467,7 @@ test "Gas: Stack operations costs" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
+    errdefer test_vm.deinit();
     defer test_vm.deinit();
     
     var contract = try helpers.createTestContract(
@@ -464,6 +479,7 @@ test "Gas: Stack operations costs" {
     );
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
+    errdefer test_frame.deinit();
     defer test_frame.deinit();
     
     // Test POP (2 gas)
@@ -496,6 +512,7 @@ test "Gas: Environmental query costs" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
+    errdefer test_vm.deinit();
     defer test_vm.deinit();
     
     var contract = try helpers.createTestContract(
@@ -507,6 +524,7 @@ test "Gas: Environmental query costs" {
     );
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
+    errdefer test_frame.deinit();
     defer test_frame.deinit();
     
     // Test ADDRESS (2 gas)
