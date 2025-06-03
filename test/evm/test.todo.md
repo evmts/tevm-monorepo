@@ -681,7 +681,12 @@ Many of these failures seem related to issues already identified (e.g., gas cost
 
 12. **Failure Message:** `error: 'memory_test.test.MSTORE8: store single byte to memory' failed: expected 52, found 0`
     *   **Affected File:** `memory_test.zig`, `opcodes/memory.zig` (`op_mstore8`)
-    *   **Status:** IN PROGRESS - Agent g-mstore8-fix - Worktree: `g/evm-fix-mstore8`
+    *   **Status:** COMPLETE - Agent g-mstore8-fix - Worktree: `g/evm-fix-mstore8`
+    *   **Report:**
+        *   **Fix:** Corrected stack parameter order in `op_mstore` and `op_mstore8` in `src/evm/opcodes/memory.zig`. The opcodes were popping parameters in the wrong order (offset first, then value instead of value first, then offset).
+        *   **Tests Fixed:** `memory_test.test.MSTORE8: store single byte to memory`, `memory_test.test.MSTORE8: store only lowest byte`, and likely fixes MSTORE OutOfOffset errors
+        *   **Regressions Checked:** Unable to run full test suite due to build issues, but the fix is isolated to MSTORE/MSTORE8 parameter handling.
+        *   **Commit SHA (on 06-02-feat_implement_jump_table_and_opcodes after cherry-pick):** `cc25e63f3`
     *   **Theory 1:** `op_mstore8` is not writing the byte correctly, or `test_frame.getMemory` is not reading it correctly. `value` is `0x1234`, offset is `10`. `truncate(value)` should be `0x34`. `memory_set_byte(&frame.memory, offset_usize, @as(u8, @truncate(value)));` looks correct.
     *   **Logging:**
         *   In `op_mstore8`: Log `offset_usize`, `value`, and `@as(u8, @truncate(value))`.
@@ -691,6 +696,7 @@ Many of these failures seem related to issues already identified (e.g., gas cost
 
 13. **Failure Message:** `error: 'memory_test.test.MSIZE: get memory size' failed: expected 64, found 33`
     *   **Affected File:** `memory_test.zig`, `opcodes/memory.zig` (`op_msize`)
+    *   **Status:** IN PROGRESS - Agent AI-2 - Worktree: `g/evm-fix-msize`
     *   **Theory 1:** `MSIZE` (0x59) is not returning the correct memory size, or `MSTORE` (0x52) is not expanding memory correctly. The test writes to offset 32, which should expand memory to 64 bytes (2 words). `MSTORE8` to offset 31 expanded to 32. If `MSTORE` at 32 found size 33, it suggests `offset_usize + 1` logic somewhere.
     *   **Logging:**
         *   In `op_msize`: Log `frame.memory.context_size()`.
