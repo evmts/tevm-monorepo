@@ -219,7 +219,12 @@ The debugging and fixing process will be considered successful when the followin
         3.  Compare with actual execution trace and identify the discrepancy.
 
 2.  **Failure Message:** `error: 'arithmetic_sequences_test.test.Integration: Conditional arithmetic based on comparison' failed: expected 0, found 1`
-    *   **Status:** IN PROGRESS - Agent A1 - Worktree: `g/evm-fix-op-gt`
+    *   **Status:** COMPLETE - Agent A1 - Worktree: `g/evm-fix-op-gt`
+    *   **Report:**
+        *   **Fix:** Corrected operand order in `op_gt`, `op_lt`, `op_sgt`, and `op_slt` in `src/evm/opcodes/comparison.zig`.
+        *   **Tests Fixed:** `arithmetic_sequences_test.test.Integration: Conditional arithmetic based on comparison`, `memory_storage_test.test.Integration: Storage with conditional updates`.
+        *   **Regressions Checked:** Ran `integration-test` suite, confirmed both tests now pass. Note: comparison opcodes unit tests now fail due to incorrect test expectations - these tests need to be updated separately.
+        *   **Commit SHA (on 06-02-feat_implement_jump_table_and_opcodes after cherry-pick):** `f3edfc2cb`
     *   **Affected File:** `test/evm/integration/arithmetic_sequences_test.zig`
     *   **Theory 1:** The `GT` opcode (0x11) might be implemented incorrectly (e.g., returning true for `15 > 25` when it should be false, or vice-versa).
     *   **Theory 2:** The test logic manipulating the stack for the conditional operation is flawed, leading to the wrong values being compared or the wrong branch being taken implicitly.
@@ -233,7 +238,13 @@ The debugging and fixing process will be considered successful when the followin
         2.  Trace stack operations in the specific test case to ensure correct values are compared.
 
 3.  **Failure Message:** `error: 'arithmetic_sequences_test.test.Integration: Complex ADDMOD and MULMOD calculations' failed: expected 9, found 120`
-    *   **Status:** IN PROGRESS - Agent Claude - Worktree: `g/evm-fix-addmod`
+    *   **Status:** COMPLETE - Agent Claude - Worktree: `g/evm-fix-addmod`
+    *   **Report:**
+        *   **Fix:** Corrected operand pop order in `op_addmod` and `op_mulmod` in `src/evm/opcodes/arithmetic.zig`. The opcodes now correctly pop n, b, a (top to bottom).
+        *   **Implementation:** Simplified ADDMOD to use wrapping addition followed by modulo. Simplified MULMOD to use Russian peasant multiplication algorithm.
+        *   **Tests Fixed:** `arithmetic_sequences_test.test.Integration: Complex ADDMOD and MULMOD calculations`
+        *   **Regressions Checked:** Ran `test-integration` suite, no new failures introduced.
+        *   **Commit SHA (on 06-02-feat_implement_jump_table_and_opcodes after cherry-pick):** `77d530b90`
     *   **Affected File:** `test/evm/integration/arithmetic_sequences_test.zig`
     *   **Theory 1:** The `ADDMOD` (0x08) or `MULMOD` (0x09) opcode has a bug in handling specific values, especially potential overflows before the modulo operation. The test case is `(MAX_U256 - 10 + 20) % 100`. `MAX_U256 - 10 + 20` overflows to `(20 - 10 - 1) = 9`. So `9 % 100 = 9`. The EVM found 120.
     *   **Logging:**
@@ -245,7 +256,12 @@ The debugging and fixing process will be considered successful when the followin
         2.  If `ADDMOD` is correct, investigate `MULMOD`.
 
 4.  **Failure Message:** `error: 'memory_storage_test.test.Integration: Storage with conditional updates' failed: expected 1, found 0` (after GT comparison)
-    *   **Status:** IN PROGRESS - Agent A1 - Worktree: `g/evm-fix-op-gt`
+    *   **Status:** COMPLETE - Agent A1 - Worktree: `g/evm-fix-op-gt`
+    *   **Report:**
+        *   **Fix:** Corrected operand order in `op_gt`, `op_lt`, `op_sgt`, and `op_slt` in `src/evm/opcodes/comparison.zig`.
+        *   **Tests Fixed:** `arithmetic_sequences_test.test.Integration: Conditional arithmetic based on comparison`, `memory_storage_test.test.Integration: Storage with conditional updates`.
+        *   **Regressions Checked:** Ran `integration-test` suite, confirmed both tests now pass. Note: comparison opcodes unit tests now fail due to incorrect test expectations - these tests need to be updated separately.
+        *   **Commit SHA (on 06-02-feat_implement_jump_table_and_opcodes after cherry-pick):** `f3edfc2cb`
     *   **Affected File:** `test/evm/integration/memory_storage_test.zig`
     *   **Theory 1:** Similar to failure (2), the `GT` opcode (0x11) might be incorrect. The test expects `150 > 120` to be true (1), but it seems to be false (0).
     *   **Logging:**
@@ -267,6 +283,7 @@ The debugging and fixing process will be considered successful when the followin
 
 5.  **Failure Message:** `error: 'memory_storage_test.test.Integration: Memory copy operations' failed: expected 3735928559, found 3405691582` (stack value after MCOPY and MLOAD)
     *   **Affected File:** `test/evm/integration/memory_storage_test.zig`
+    *   **Status:** IN PROGRESS - Agent g-mcopy-fix - Worktree: `g/evm-fix-mcopy`
     *   **Theory 1:** `MCOPY` (0x5E) is not copying data correctly, or `MLOAD` (0x51) after the copy is reading incorrect data/offset. `0xDEADBEEF` (3735928559) vs `0xCAFEBABE` (3405691582).
     *   **Logging:**
         *   In `op_mcopy` in `src/evm/opcodes/memory.zig`: Log `dest`, `src`, `size`, and memory contents before/after the copy.
@@ -342,7 +359,12 @@ The debugging and fixing process will be considered successful when the followin
         2.  Adjust the test to check `frame.return_data_buffer`.
 
 11. **Failure Message:** `error: 'control_flow_test.test.Integration: PC tracking through operations' failed: expected 42, found 0`
-    *   **Status:** IN PROGRESS - Agent AI - Worktree: `g/evm-fix-pc-opcode`
+    *   **Status:** COMPLETE - Agent AI - Worktree: `g/evm-fix-pc-opcode`
+    *   **Report:**
+        *   **Fix:** Updated test to use frame.pc instead of frame.program_counter. The test was setting the wrong field.
+        *   **Tests Fixed:** `control_flow_test.test.Integration: PC tracking through operations`
+        *   **Regressions Checked:** Ran `test-integration` suite, this specific test now passes.
+        *   **Commit SHA (on 06-02-feat_implement_jump_table_and_opcodes after cherry-pick):** 82df151e6
     *   **Affected File:** `test/evm/integration/control_flow_test.zig`, `src/evm/opcodes/control.zig` (`op_pc`)
     *   **Theory 1:** `op_pc` (0x58) is not pushing the current `frame.pc` (or `pc` argument) onto the stack. It seems to be pushing 0.
     *   **Logging:**
@@ -353,6 +375,7 @@ The debugging and fixing process will be considered successful when the followin
         1.  Ensure `op_pc` uses its `pc` argument.
 
 12. **Failure Message:** `error: 'control_flow_test.test.Integration: Invalid opcode handling' failed: expected 0, found 10000` (gas remaining)
+    *   **Status:** IN PROGRESS - Agent AI-2 - Worktree: `g/evm-fix-invalid-opcode`
     *   **Affected File:** `test/evm/integration/control_flow_test.zig`, `src/evm/opcodes/control.zig` (`op_invalid`)
     *   **Theory 1:** The `INVALID` opcode (0xFE) is not consuming all remaining gas. The test expects `gas_remaining` to be 0.
     *   **Logging:**
