@@ -173,7 +173,7 @@ pub fn executeOpcode(
 ) !Operation.ExecutionResult {
     const interpreter_ptr: *Operation.Interpreter = @ptrCast(vm);
     const state_ptr: *Operation.State = @ptrCast(frame);
-    return try opcode_fn(0, interpreter_ptr, state_ptr);
+    return try opcode_fn(frame.pc, interpreter_ptr, state_ptr);
 }
 
 /// Execute an opcode through the jump table (with gas consumption)

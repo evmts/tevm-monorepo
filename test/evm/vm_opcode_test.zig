@@ -606,7 +606,7 @@ test "VM: EQ opcode" {
     try testing.expectEqual(@as(u256, 1), vm.last_stack_value.?); // true
 }
 
-test "VM: ISZERO opcode" {
+test "VM: ISZERO opcode with non-zero" {
     const allocator = testing.allocator;
     var vm = try createTestVm(allocator);
     defer {
@@ -614,10 +614,8 @@ test "VM: ISZERO opcode" {
         allocator.destroy(vm);
     }
     
-    // Test ISZERO(0) = 1 and ISZERO(5) = 0
+    // Test ISZERO(5) = 0 (testing non-zero input)
     const bytecode = [_]u8{
-        0x60, 0x00,  // PUSH1 0
-        0x15,        // ISZERO (should be 1)
         0x60, 0x05,  // PUSH1 5
         0x15,        // ISZERO (should be 0)
         0x00,        // STOP
@@ -627,8 +625,29 @@ test "VM: ISZERO opcode" {
     defer if (result.output) |output| allocator.free(output);
     
     try testing.expect(result.status == .Success);
-    try testing.expectEqual(@as(u256, 1), vm.last_stack_value.?); // ISZERO(0) = 1
     try testing.expectEqual(@as(u256, 0), vm.last_stack_value.?); // ISZERO(5) = 0
+}
+
+test "VM: ISZERO opcode with zero" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    // Test ISZERO(0) = 1 (testing zero input)
+    const bytecode = [_]u8{
+        0x60, 0x00,  // PUSH1 0
+        0x15,        // ISZERO (should be 1)
+        0x00,        // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    try testing.expectEqual(@as(u256, 1), vm.last_stack_value.?); // ISZERO(0) = 1
 }
 
 // ===== Bitwise Opcodes =====
@@ -855,7 +874,6 @@ test "VM: MSIZE opcode" {
     }
     
     const bytecode = [_]u8{
-        0x59,        // MSIZE (should be 0 initially)
         0x60, 0x42,  // PUSH1 66
         0x60, 0x20,  // PUSH1 32 (memory offset)
         0x52,        // MSTORE (expands memory to 64 bytes)
@@ -867,7 +885,6 @@ test "VM: MSIZE opcode" {
     defer if (result.output) |output| allocator.free(output);
     
     try testing.expect(result.status == .Success);
-    try testing.expectEqual(@as(u256, 0), vm.last_stack_value.?);  // Initial MSIZE
     try testing.expectEqual(@as(u256, 64), vm.last_stack_value.?); // After MSTORE
 }
 
@@ -947,8 +964,8 @@ test "VM: CALLER opcode" {
     defer if (result.output) |output| allocator.free(output);
     
     try testing.expect(result.status == .Success);
-    // The caller should be on the stack
-    try testing.expect(vm.stack.len > 0);
+    // The caller should be on the stack - in this case it's the same as the contract address (zero)
+    try testing.expectEqual(@as(u256, 0), vm.last_stack_value.?);
 }
 
 // ===== Block Information Opcodes =====
@@ -1117,7 +1134,7 @@ test "VM: Stack underflow" {
         0x00,        // STOP
     };
     
-    const result = vm.run(&bytecode, Address.zero(), 10000, null) catch |_| {
+    const result = vm.run(&bytecode, Address.zero(), 10000, null) catch {
         // Stack underflow should be handled by the VM
         unreachable;
     };

@@ -193,6 +193,7 @@ pub const MemoryV2 = struct {
     // Snapshot methods - implement using context push/pop
     
     pub fn snapshot_context(self: *Self, allocator: std.mem.Allocator) ![]u8 {
+        _ = self;
         // For compatibility, return empty snapshot
         return allocator.alloc(u8, 0);
     }

@@ -40,18 +40,17 @@ pub fn op_jump(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     
     const dest = try stack_pop(&frame.stack);
     
+    // Check if destination is a valid JUMPDEST (pass u256 directly)
+    if (!frame.contract.valid_jumpdest(dest)) {
+        return ExecutionError.Error.InvalidJump;
+    }
+    
+    // After validation, convert to usize for setting pc
     if (dest > std.math.maxInt(usize)) {
         return ExecutionError.Error.InvalidJump;
     }
     
-    const dest_usize = @as(usize, @intCast(dest));
-    
-    // Check if destination is a valid JUMPDEST
-    if (!frame.contract.valid_jumpdest(dest_usize)) {
-        return ExecutionError.Error.InvalidJump;
-    }
-    
-    frame.pc = dest_usize;
+    frame.pc = @as(usize, @intCast(dest));
     
     return Operation.ExecutionResult{};
 }
@@ -66,18 +65,17 @@ pub fn op_jumpi(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     const condition = try stack_pop(&frame.stack);
     
     if (condition != 0) {
+        // Check if destination is a valid JUMPDEST (pass u256 directly)
+        if (!frame.contract.valid_jumpdest(dest)) {
+            return ExecutionError.Error.InvalidJump;
+        }
+        
+        // After validation, convert to usize for setting pc
         if (dest > std.math.maxInt(usize)) {
             return ExecutionError.Error.InvalidJump;
         }
         
-        const dest_usize = @as(usize, @intCast(dest));
-        
-        // Check if destination is a valid JUMPDEST
-        if (!frame.contract.valid_jumpdest(dest_usize)) {
-            return ExecutionError.Error.InvalidJump;
-        }
-        
-        frame.pc = dest_usize;
+        frame.pc = @as(usize, @intCast(dest));
     }
     
     return Operation.ExecutionResult{};

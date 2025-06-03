@@ -34,7 +34,7 @@ pub fn from_u256(value: u256) Address {
 }
 
 pub fn address_from_hex(comptime hex: [42]u8) Address {
-    if (!startsWith(u8, hex, "0x"))
+    if (!startsWith(u8, &hex, "0x"))
         @compileError("hex must start with '0x'");
 
     var out: Address = undefined;
