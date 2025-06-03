@@ -125,7 +125,7 @@ Based on the comprehensive code review, here are the issues that need to be addr
 ### ⛽ Gas Accounting Issues
 
 #### ISSUE-009: Dynamic Gas Not Consumed
-- **Status**: Complete
+- **Status**: In Progress (Working on it)
 - **Component**: All opcode files
 - **Description**: Gas is calculated but never consumed via frame.gas.consume()
 - **Effort**: 4 hours
@@ -220,14 +220,30 @@ Based on the comprehensive code review, here are the issues that need to be addr
 ### 🔧 Implementation Completion
 
 #### ISSUE-016: Complete ADDMOD/MULMOD Implementation
+- **Status**: Complete
 - **Component**: arithmetic.zig
 - **Description**: Need proper 512-bit intermediate calculations
 - **Effort**: 3 hours
+- **Resolution**:
+  - Implemented proper ADDMOD that correctly handles overflow when (a + b) exceeds u256
+  - Uses modular arithmetic properties to compute (a + b) % n without needing 512-bit integers
+  - Handles the overflow case by computing 2^256 % n using two's complement arithmetic
+  - Implemented proper MULMOD using Russian peasant multiplication algorithm
+  - Computes (a * b) % n iteratively, taking modulo at each step to avoid overflow
+  - Both implementations now correctly handle all edge cases including when a*b or a+b exceed 2^256
 
 #### ISSUE-017: Implement Memory Operations Fully
+- **Status**: Complete
 - **Component**: memory.zig
 - **Description**: Connect to actual memory management, fix RETURNDATACOPY
 - **Effort**: 4 hours
+- **Resolution**:
+  - All memory operations (MLOAD, MSTORE, MSTORE8, MSIZE, MCOPY) are properly implemented
+  - RETURNDATACOPY is correctly implemented with bounds checking and gas calculations
+  - All operations properly calculate and consume memory expansion gas
+  - Memory module uses efficient checkpointing system with shared buffer
+  - Proper context-relative memory operations with child context support
+  - All copy operations (CALLDATACOPY, CODECOPY, RETURNDATACOPY, MCOPY) handle gas correctly
 
 #### ISSUE-018: Implement LOG Operations
 - **Component**: log.zig
