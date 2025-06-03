@@ -236,7 +236,7 @@ pub fn bytesToU256(bytes: []const u8) u256 {
 
 /// Helper to convert Address to u256
 pub fn toU256(address: Address.Address) u256 {
-    return @as(u256, @bitCast(address.inner));
+    return Address.to_u256(address);
 }
 
 /// Print stack contents for debugging
