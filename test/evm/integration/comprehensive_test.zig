@@ -1,8 +1,8 @@
 const std = @import("std");
 const testing = std.testing;
-const pkg = @import("package.zig");
-const helpers = pkg.test_helpers;
-const opcodes = @import("../../../src/evm/opcodes/package.zig");
+const helpers = @import("test_helpers");
+const evm = @import("evm");
+const opcodes = evm.opcodes;
 
 // Comprehensive integration tests combining multiple opcode categories
 

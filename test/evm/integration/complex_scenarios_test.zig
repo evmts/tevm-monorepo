@@ -1,8 +1,9 @@
 const std = @import("std");
 const testing = std.testing;
-const Vm = @import("vm").Vm;
+const evm = @import("evm");
+const Vm = evm.Vm;
 const Address = @import("Address");
-const ExecutionError = @import("execution_error").ExecutionError;
+const ExecutionError = evm.ExecutionError;
 
 // Helper to create and setup a test VM
 fn createTestVm(allocator: std.mem.Allocator) !*Vm {

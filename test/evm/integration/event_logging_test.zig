@@ -1,8 +1,9 @@
 const std = @import("std");
 const testing = std.testing;
-const test_helpers = @import("../opcodes/test_helpers.zig");
-const opcodes = @import("../../../src/evm/opcodes/package.zig");
-const ExecutionError = opcodes.ExecutionError;
+const test_helpers = @import("test_helpers");
+const evm = @import("evm");
+const opcodes = evm.opcodes;
+const ExecutionError = evm.ExecutionError;
 
 // Test ERC20 Transfer event pattern
 test "Integration: ERC20 Transfer event logging" {

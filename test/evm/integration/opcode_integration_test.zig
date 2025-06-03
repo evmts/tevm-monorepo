@@ -1,9 +1,10 @@
 const std = @import("std");
 const testing = std.testing;
-const Vm = @import("vm").Vm;
+const evm = @import("evm");
+const Vm = evm.Vm;
 const Address = @import("Address");
-const ExecutionError = @import("execution_error").ExecutionError;
-const gas_constants = @import("gas_constants");
+const ExecutionError = evm.ExecutionError;
+const gas_constants = evm.gas_constants;
 
 // Helper function to create a test VM with initial setup
 fn createTestVm(allocator: std.mem.Allocator) !*Vm {

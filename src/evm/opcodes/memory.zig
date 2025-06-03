@@ -5,6 +5,7 @@ const Stack = @import("../stack.zig");
 const Frame = @import("../frame.zig");
 const Memory = @import("../memory.zig");
 const gas_constants = @import("../gas_constants.zig");
+const error_mapping = @import("../error_mapping.zig");
 
 // Helper to convert Stack errors to ExecutionError
 fn stack_pop(stack: *Stack) ExecutionError.Error!u256 {
@@ -74,10 +75,10 @@ pub fn op_mstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     try frame.consume_gas(gas_cost);
     
     // Ensure memory is available
-    _ = frame.memory.ensure_context_capacity(offset_usize + 32) catch return ExecutionError.Error.OutOfOffset;
+    try error_mapping.memory_ensure_capacity(&frame.memory, offset_usize + 32);
     
     // Write 32 bytes to memory (big-endian)
-    frame.memory.set_u256(offset_usize, value) catch return ExecutionError.Error.OutOfOffset;
+    try error_mapping.memory_set_u256(&frame.memory, offset_usize, value);
     
     return Operation.ExecutionResult{};
 }
@@ -104,10 +105,10 @@ pub fn op_mstore8(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     try frame.consume_gas(gas_cost);
     
     // Ensure memory is available
-    _ = frame.memory.ensure_context_capacity(offset_usize + 1) catch return ExecutionError.Error.OutOfOffset;
+    try error_mapping.memory_ensure_capacity(&frame.memory, offset_usize + 1);
     
     // Write single byte to memory
-    frame.memory.set_byte(offset_usize, @as(u8, @truncate(value))) catch return ExecutionError.Error.OutOfOffset;
+    try error_mapping.memory_set_byte(&frame.memory, offset_usize, @as(u8, @truncate(value)));
     
     return Operation.ExecutionResult{};
 }
@@ -158,10 +159,10 @@ pub fn op_mcopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     try frame.consume_gas(gas_constants.CopyGas * word_size);
     
     // Ensure memory is available for both source and destination
-    _ = frame.memory.ensure_context_capacity(max_addr) catch return ExecutionError.Error.OutOfOffset;
+    try error_mapping.memory_ensure_capacity(&frame.memory, max_addr);
     
     // Copy with overlap handling
-    frame.memory.copy_within(src_usize, dest_usize, size_usize) catch return ExecutionError.Error.OutOfOffset;
+    try error_mapping.memory_copy_within(&frame.memory, src_usize, dest_usize, size_usize);
     
     return Operation.ExecutionResult{};
 }

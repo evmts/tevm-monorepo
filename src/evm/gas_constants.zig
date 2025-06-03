@@ -89,13 +89,42 @@ pub const TLoadGas: u64 = 100;
 // Gas for memory copy operations
 pub const TStoreGas: u64 = 100;
 
-// Calculate memory expansion gas cost
+/// Calculate memory expansion gas cost
+/// 
+/// Computes the gas cost for expanding EVM memory from current_size to new_size bytes.
+/// Memory expansion follows a quadratic cost formula to prevent DoS attacks.
+/// 
+/// ## Parameters
+/// - `current_size`: Current memory size in bytes
+/// - `new_size`: Requested new memory size in bytes
+/// 
+/// ## Returns
+/// - Gas cost for the expansion (0 if new_size <= current_size)
+/// 
+/// ## Formula
+/// The total memory cost for n words is: 3n + n²/512
+/// Where a word is 32 bytes.
+/// 
+/// The expansion cost is: total_cost(new_size) - total_cost(current_size)
+/// 
+/// ## Examples
+/// - Expanding from 0 to 32 bytes (1 word): 3 + 0 = 3 gas
+/// - Expanding from 0 to 64 bytes (2 words): 6 + 0 = 6 gas
+/// - Expanding from 0 to 1024 bytes (32 words): 96 + 2 = 98 gas
+/// - Expanding from 1024 to 2048 bytes: 294 - 98 = 196 gas
+/// 
+/// ## Edge Cases
+/// - If new_size <= current_size, no expansion needed, returns 0
+/// - Sizes are rounded up to the nearest word (32 bytes)
+/// - At 32MB, gas cost exceeds 2 billion, effectively preventing larger allocations
 pub fn memory_gas_cost(current_size: u64, new_size: u64) u64 {
     if (new_size <= current_size) return 0;
     
+    // Round up to words (32 bytes)
     const current_words = (current_size + 31) / 32;
     const new_words = (new_size + 31) / 32;
     
+    // Calculate total cost: 3n + n²/512
     const current_cost = MemoryGas * current_words + (current_words * current_words) / QuadCoeffDiv;
     const new_cost = MemoryGas * new_words + (new_words * new_words) / QuadCoeffDiv;
     

@@ -1,7 +1,6 @@
 const std = @import("std");
 const testing = std.testing;
-const pkg = @import("package.zig");
-const helpers = pkg.test_helpers;
+const helpers = @import("test_helpers");
 
 // Import opcodes from evm module
 const evm = @import("evm");

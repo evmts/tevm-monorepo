@@ -57,8 +57,8 @@ pub fn memory_set_byte(memory: *Memory, offset: usize, value: u8) ExecutionError
     return memory.set_byte(offset, value) catch |err| map_memory_error(err);
 }
 
-pub fn memory_set_word(memory: *Memory, offset: usize, value: u256) ExecutionError.Error!void {
-    return memory.set_word(offset, value) catch |err| map_memory_error(err);
+pub fn memory_set_u256(memory: *Memory, offset: usize, value: u256) ExecutionError.Error!void {
+    return memory.set_u256(offset, value) catch |err| map_memory_error(err);
 }
 
 pub fn memory_set_data(memory: *Memory, offset: usize, data: []const u8) ExecutionError.Error!void {
@@ -71,6 +71,18 @@ pub fn memory_get_slice(memory: *const Memory, offset: usize, size: usize) Execu
 
 pub fn memory_ensure_capacity(memory: *Memory, size: usize) ExecutionError.Error!void {
     _ = memory.ensure_context_capacity(size) catch |err| return map_memory_error(err);
+}
+
+pub fn memory_copy_within(memory: *Memory, src: usize, dest: usize, size: usize) ExecutionError.Error!void {
+    return memory.copy_within(src, dest, size) catch |err| map_memory_error(err);
+}
+
+pub fn memory_get_u256(memory: *const Memory, offset: usize) ExecutionError.Error!u256 {
+    return memory.get_u256(offset) catch |err| map_memory_error(err);
+}
+
+pub fn memory_set_data_bounded(memory: *Memory, offset: usize, data: []const u8, data_offset: usize, size: usize) ExecutionError.Error!void {
+    return memory.set_data_bounded(offset, data, data_offset, size) catch |err| map_memory_error(err);
 }
 
 /// Helper function for VM storage operations with error mapping
@@ -90,7 +102,6 @@ pub fn vm_get_transient_storage(vm: anytype, address: anytype, slot: u256) Execu
     return vm.get_transient_storage(address, slot) catch |err| map_vm_error(err);
 }
 
-/// Tests for error mapping functions
 test "map_stack_error" {
     const testing = std.testing;
     
