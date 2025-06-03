@@ -1,7 +1,7 @@
 import { assert, describe, expect, it } from 'vitest'
 import { toBeAddress, toBeBigInt, toBeHex } from '../matchers/utils/index.js'
 import { createChainableFromVitest, registerChainableMatchers } from './chainable.js'
-import type { ChainableAssertion, ChainState } from './types.js'
+import type { ChainState, ChainableAssertion } from './types.js'
 
 /* ---------------------------------- TYPES --------------------------------- */
 export interface CustomMatchers {
@@ -93,9 +93,10 @@ const toResolveToString = async (received: Promise<unknown>) => {
 			pass,
 			actual: resolved,
 			expected: 'a string',
-			message: () => pass
-				? `Expected promise not to resolve to a string but got: ${resolved}`
-				: `Expected promise to resolve to a string but got: ${typeof resolved}`,
+			message: () =>
+				pass
+					? `Expected promise not to resolve to a string but got: ${resolved}`
+					: `Expected promise to resolve to a string but got: ${typeof resolved}`,
 			state: { resolved, wasAsync: true },
 		}
 	} catch (error) {
@@ -211,16 +212,16 @@ describe('chainable matchers', () => {
 	})
 
 	it('async error handling', async () => {
-		await expect(() =>
-			expect(Promise.resolve(123)).toResolveToStringChainable()
-		).rejects.toThrow('Expected promise to resolve to a string but got: number')
+		await expect(() => expect(Promise.resolve(123)).toResolveToStringChainable()).rejects.toThrow(
+			'Expected promise to resolve to a string but got: number',
+		)
+
+		await expect(() => expect(Promise.resolve('hello')).not.toResolveToStringChainable()).rejects.toThrow(
+			'Expected promise not to resolve to a string but got: hello',
+		)
 
 		await expect(() =>
-			expect(Promise.resolve('hello')).not.toResolveToStringChainable()
-		).rejects.toThrow('Expected promise not to resolve to a string but got: hello')
-
-		await expect(() =>
-			expect(Promise.resolve('hello')).toResolveToStringChainable().toBeHexChainable()
+			expect(Promise.resolve('hello')).toResolveToStringChainable().toBeHexChainable(),
 		).rejects.toThrow('Expected hello to start with "0x"')
 	})
 })

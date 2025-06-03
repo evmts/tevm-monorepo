@@ -58,7 +58,8 @@ const buildChainState = (assertion: Assertion, utils: ChaiUtils): ChainState => 
 	let previousValue = utils.flag(assertion, `${matcherName}.value`)
 	const currentObj = utils.flag(assertion, 'object')
 	// If the stored value is a Promise but current object is resolved, use current object
-	if (previousValue && typeof previousValue.then === 'function' && currentObj !== previousValue) previousValue = currentObj
+	if (previousValue && typeof previousValue.then === 'function' && currentObj !== previousValue)
+		previousValue = currentObj
 
 	const state = {
 		chainedFrom: matcherName,
@@ -149,12 +150,7 @@ function makeVitestSyncChainable<
 	const callPromise = chaiUtils.flag(this, 'callPromise')
 	if (callPromise && typeof callPromise.then === 'function') {
 		// We're chaining after an async matcher - join the promise chain
-		return makeVitestAsyncChainable.call(
-			this,
-			name,
-			vitestMatcher as VitestMatcherFunction,
-			args
-		)
+		return makeVitestAsyncChainable.call(this, name, vitestMatcher as VitestMatcherFunction, args)
 	}
 
 	const obj = chaiUtils.flag(this, 'object')

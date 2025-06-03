@@ -40,7 +40,9 @@ describe('chainable type system (exhaustive)', () => {
 		>()
 
 		expectTypeOf<typeof toResolveToStringChainable>().toExtend<
-			InferredVitestChainableResult<VitestMatcherConfig<'toResolveToStringChainable', Promise<string>, true, { resolved: boolean }>>
+			InferredVitestChainableResult<
+				VitestMatcherConfig<'toResolveToStringChainable', Promise<string>, true, { resolved: boolean }>
+			>
 		>()
 
 		// Name should be inferred correctly
@@ -138,7 +140,9 @@ describe('chainable type system (exhaustive)', () => {
 		>()
 
 		expectTypeOf<typeof toResolveToStringChainable>().toExtend<
-			InferredVitestChainableResult<VitestMatcherConfig<'toResolveToStringChainable', Promise<string>, true, { resolved: boolean }>>
+			InferredVitestChainableResult<
+				VitestMatcherConfig<'toResolveToStringChainable', Promise<string>, true, { resolved: boolean }>
+			>
 		>()
 	})
 
