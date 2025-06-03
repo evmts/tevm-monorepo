@@ -1,5 +1,8 @@
 const std = @import("std");
 
+// Import external modules
+pub const Address = @import("Address");
+
 // Import all EVM modules
 pub const CodeAnalysis = @import("code_analysis.zig");
 pub const Contract = @import("contract.zig");
