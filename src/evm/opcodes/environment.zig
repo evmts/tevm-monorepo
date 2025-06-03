@@ -256,3 +256,27 @@ pub fn op_chainid(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     
     return Operation.ExecutionResult{};
 }
+
+pub fn op_calldatasize(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
+    _ = pc;
+    _ = interpreter;
+    
+    const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    
+    // Push size of calldata
+    try stack_push(&frame.stack, @as(u256, @intCast(frame.contract.calldata.len)));
+    
+    return Operation.ExecutionResult{};
+}
+
+pub fn op_codesize(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
+    _ = pc;
+    _ = interpreter;
+    
+    const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    
+    // Push size of current contract's code
+    try stack_push(&frame.stack, @as(u256, @intCast(frame.contract.code.len)));
+    
+    return Operation.ExecutionResult{};
+}

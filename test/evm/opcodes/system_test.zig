@@ -8,7 +8,8 @@ const Address = @import("Address");
 
 // Test CREATE operation
 test "CREATE: create new contract" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -47,7 +48,8 @@ test "CREATE: create new contract" {
 }
 
 test "CREATE: failed creation pushes zero" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -75,7 +77,8 @@ test "CREATE: failed creation pushes zero" {
 }
 
 test "CREATE: write protection in static call" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -95,7 +98,8 @@ test "CREATE: write protection in static call" {
 }
 
 test "CREATE: depth limit" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -118,7 +122,8 @@ test "CREATE: depth limit" {
 
 // Test CREATE2 operation
 test "CREATE2: create with deterministic address" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -156,7 +161,8 @@ test "CREATE2: create with deterministic address" {
 
 // Test CALL operation
 test "CALL: successful call" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -204,7 +210,8 @@ test "CALL: successful call" {
 }
 
 test "CALL: failed call" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -235,7 +242,8 @@ test "CALL: failed call" {
 }
 
 test "CALL: cold address access costs more gas" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -269,7 +277,8 @@ test "CALL: cold address access costs more gas" {
 }
 
 test "CALL: value transfer in static call fails" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -294,7 +303,8 @@ test "CALL: value transfer in static call fails" {
 
 // Test DELEGATECALL operation
 test "DELEGATECALL: execute code in current context" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -329,7 +339,8 @@ test "DELEGATECALL: execute code in current context" {
 
 // Test STATICCALL operation
 test "STATICCALL: read-only call" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -364,7 +375,8 @@ test "STATICCALL: read-only call" {
 
 // Test depth limit for calls
 test "CALL: depth limit" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -391,7 +403,8 @@ test "CALL: depth limit" {
 
 // Test gas calculation
 test "CREATE: gas consumption" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -430,7 +443,8 @@ test "CREATE: gas consumption" {
 }
 
 test "CREATE2: additional gas for hashing" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -472,7 +486,8 @@ test "CREATE2: additional gas for hashing" {
 
 // Test stack errors
 test "CREATE: stack underflow" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -488,7 +503,8 @@ test "CREATE: stack underflow" {
 }
 
 test "CALL: stack underflow" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -509,7 +525,8 @@ test "CALL: stack underflow" {
 
 // Test memory expansion
 test "CREATE: memory expansion for init code" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);

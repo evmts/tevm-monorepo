@@ -7,7 +7,8 @@ const ExecutionError = evm.ExecutionError;
 
 // Test SLOAD operation
 test "SLOAD: load value from storage" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -27,7 +28,8 @@ test "SLOAD: load value from storage" {
 }
 
 test "SLOAD: load from uninitialized slot returns zero" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -44,7 +46,8 @@ test "SLOAD: load from uninitialized slot returns zero" {
 }
 
 test "SLOAD: cold storage access costs more gas" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -77,7 +80,8 @@ test "SLOAD: cold storage access costs more gas" {
 
 // Test SSTORE operation
 test "SSTORE: store value to storage" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -96,7 +100,8 @@ test "SSTORE: store value to storage" {
 }
 
 test "SSTORE: overwrite existing value" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -118,7 +123,8 @@ test "SSTORE: overwrite existing value" {
 }
 
 test "SSTORE: write protection in static call" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -137,7 +143,8 @@ test "SSTORE: write protection in static call" {
 }
 
 test "SSTORE: cold storage access costs more gas" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -172,7 +179,8 @@ test "SSTORE: cold storage access costs more gas" {
 
 // Test TLOAD operation (EIP-1153)
 test "TLOAD: load value from transient storage" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -192,7 +200,8 @@ test "TLOAD: load value from transient storage" {
 }
 
 test "TLOAD: load from uninitialized slot returns zero" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -209,7 +218,8 @@ test "TLOAD: load from uninitialized slot returns zero" {
 }
 
 test "TLOAD: transient storage is separate from regular storage" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -236,7 +246,8 @@ test "TLOAD: transient storage is separate from regular storage" {
 
 // Test TSTORE operation (EIP-1153)
 test "TSTORE: store value to transient storage" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -255,7 +266,8 @@ test "TSTORE: store value to transient storage" {
 }
 
 test "TSTORE: overwrite existing transient value" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -277,7 +289,8 @@ test "TSTORE: overwrite existing transient value" {
 }
 
 test "TSTORE: write protection in static call" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -296,7 +309,8 @@ test "TSTORE: write protection in static call" {
 }
 
 test "TSTORE: does not affect regular storage" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -323,7 +337,8 @@ test "TSTORE: does not affect regular storage" {
 
 // Test stack errors
 test "SLOAD: stack underflow" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -337,7 +352,8 @@ test "SLOAD: stack underflow" {
 }
 
 test "SSTORE: stack underflow" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -352,7 +368,8 @@ test "SSTORE: stack underflow" {
 }
 
 test "TLOAD: stack underflow" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -366,7 +383,8 @@ test "TLOAD: stack underflow" {
 }
 
 test "TSTORE: stack underflow" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -382,7 +400,8 @@ test "TSTORE: stack underflow" {
 
 // Test gas consumption
 test "TLOAD: gas consumption" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);
@@ -404,7 +423,8 @@ test "TLOAD: gas consumption" {
 }
 
 test "TSTORE: gas consumption" {
-    var vm = test_helpers.TestVm.init();
+    const allocator = testing.allocator;
+    var vm = try test_helpers.TestVm.init(allocator);
     defer vm.deinit();
     
     var frame = test_helpers.TestFrame.init(&vm);

@@ -425,3 +425,8 @@ pub fn clear_analysis_cache() void {
         analysis_cache = null;
     }
 }
+
+/// Analyze jump destinations - public wrapper for ensure_analysis
+pub fn analyze_jumpdests(self: *Self) void {
+    self.ensure_analysis();
+}

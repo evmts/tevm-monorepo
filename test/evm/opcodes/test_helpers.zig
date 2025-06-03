@@ -73,7 +73,7 @@ pub const TestFrame = struct {
     }
     
     pub fn deinit(self: *TestFrame) void {
-        self.frame.memory.deinit();
+        self.frame.deinit();
     }
     
     /// Push values to stack
