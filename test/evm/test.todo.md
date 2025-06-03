@@ -344,7 +344,7 @@ The debugging and fixing process will be considered successful when the followin
         2.  Trace `valid_jumpdest` logic for the failing jump.
 
 8.  **Failure Message:** `error: 'control_flow_test.test.Integration: Loop implementation with JUMP' failed: expected 0, found 4`
-    *   **Status:** IN PROGRESS - Agent Claude - Worktree: `g/evm-fix-loop-jump`
+    *   **Status:** COMPLETE - Agent Claude - Worktree: `g/evm-fix-loop-jump`
     *   **Affected File:** `test/evm/integration/control_flow_test.zig`
     *   **Theory 1:** The loop termination condition (counter check) or the `JUMP` (0x56) logic is flawed, causing the loop to exit prematurely or the counter not to reach zero.
     *   **Logging:**
@@ -357,6 +357,7 @@ The debugging and fixing process will be considered successful when the followin
         1.  The test pops the condition: `const condition = try test_frame.popStack(); if (condition == 0) break;`. If `GT` produces 1 (true, counter > 0), then `condition` is 1, so loop continues. The loop should run 5 times.
         2.  The debug log `Opcode 0x80, stack.size=1, stack.data[0]=4` means after the first iteration (5-1=4), `DUP1` pushed 4. The error suggests the loop exited here. This implies the `GT` comparison with 0, or the `if (condition == 0) break` logic is inverted in the test. `GT 0` means "is positive". So loop continues if positive. Break if NOT positive (i.e. 0). Test seems correct.
         3.  The issue is likely that the test isn't actually JUMPing. It's a manual loop in Zig. The `_ = try helpers.executeOpcode(0x03, &test_vm.vm, test_frame.frame);` etc. only executes one opcode. The test is not running a bytecode loop.
+    *   **Report:** Resolved by the GT opcode fix that was already implemented by another agent. The GT opcode (0x11) had incorrect operand order in `src/evm/opcodes/comparison.zig`, which was causing 4 > 0 to evaluate to 0 instead of 1, causing the loop to exit after the first iteration. The fix ensures correct stack operand order: pop b (top), then a (second), compute a > b. With this fix, the loop now runs 5 times (5→4→3→2→1→0) as expected.
 
 9.  **Failure Message:** `error: 'control_flow_test.test.Integration: Return data handling' failed: OutOfGas` in `op_mstore`.
     *   **Status:** COMPLETE - Agent AI - Worktree: `g/evm-fix-mstore-gas`
