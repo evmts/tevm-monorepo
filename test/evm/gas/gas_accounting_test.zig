@@ -1,7 +1,7 @@
 const std = @import("std");
 const testing = std.testing;
 const evm = @import("evm");
-const helpers = @import("../opcodes/test_helpers.zig");
+const helpers = @import("test_helpers");
 const opcodes = evm.opcodes;
 const gas_constants = evm.gas_constants;
 

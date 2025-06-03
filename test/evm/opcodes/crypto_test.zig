@@ -53,7 +53,7 @@ test "Crypto: KECCAK256 (SHA3) basic operations" {
     _ = try helpers.executeOpcode(crypto.op_sha3, &test_vm.vm, &test_frame.frame);
     
     // Should produce a valid hash (exact value would depend on actual keccak256 implementation)
-    const result = test_frame.frame.stack.peek(0).?;
+    const result = try test_frame.frame.stack.peek_n(0);
     try testing.expect(result != 0); // Hash should not be zero
     
     // Test 4: Hash with non-zero offset

@@ -562,6 +562,15 @@ pub fn build(b: *std.Build) void {
     const opcodes_test_step = b.step("test-opcodes", "Run Opcodes tests");
     opcodes_test_step.dependOn(&run_opcodes_test.step);
 
+    // Create test_helpers module
+    const test_helpers_mod = b.addModule("test_helpers", .{
+        .root_source_file = b.path("test/evm/opcodes/test_helpers.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    test_helpers_mod.addImport("Address", address_mod);
+    test_helpers_mod.addImport("evm", evm_mod);
+
     // Add Integration tests
     const integration_test = b.addTest(.{
         .name = "integration-test",
@@ -575,6 +584,7 @@ pub fn build(b: *std.Build) void {
     integration_test.root_module.addImport("Block", block_mod);
     integration_test.root_module.addImport("evm", evm_mod);
     integration_test.root_module.addImport("Utils", utils_mod);
+    integration_test.root_module.addImport("test_helpers", test_helpers_mod);
 
     const run_integration_test = b.addRunArtifact(integration_test);
 
@@ -595,6 +605,7 @@ pub fn build(b: *std.Build) void {
     gas_test.root_module.addImport("Block", block_mod);
     gas_test.root_module.addImport("evm", evm_mod);
     gas_test.root_module.addImport("Utils", utils_mod);
+    gas_test.root_module.addImport("test_helpers", test_helpers_mod);
 
     const run_gas_test = b.addRunArtifact(gas_test);
 

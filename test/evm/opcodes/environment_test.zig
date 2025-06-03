@@ -27,7 +27,7 @@ test "Environment: ADDRESS opcode" {
     _ = try helpers.executeOpcode(environment.op_address, &test_vm.vm, &test_frame.frame);
     
     // Should push contract address to stack
-    const result = test_frame.frame.stack.peek(0).?;
+    const result = try test_frame.frame.stack.peek_n(0);
     const expected = helpers.Address.to_u256(contract_address);
     try testing.expectEqual(expected, result);
     try helpers.expectGasUsed(&test_frame.frame, 1000, helpers.gas_constants.GasQuickStep);
@@ -92,14 +92,14 @@ test "Environment: ORIGIN and CALLER opcodes" {
     
     // Test ORIGIN
     _ = try helpers.executeOpcode(environment.op_origin, &test_vm.vm, &test_frame.frame);
-    const origin_result = test_frame.frame.stack.peek(0).?;
+    const origin_result = try test_frame.frame.stack.peek_n(0);
     const expected_origin = helpers.Address.to_u256(helpers.TestAddresses.ALICE);
     try testing.expectEqual(expected_origin, origin_result);
     
     // Test CALLER
     test_frame.frame.stack.clear();
     _ = try helpers.executeOpcode(environment.op_caller, &test_vm.vm, &test_frame.frame);
-    const caller_result = test_frame.frame.stack.peek(0).?;
+    const caller_result = try test_frame.frame.stack.peek_n(0);
     const expected_caller = helpers.Address.to_u256(helpers.TestAddresses.BOB);
     try testing.expectEqual(expected_caller, caller_result);
 }
@@ -232,7 +232,7 @@ test "Environment: EXTCODECOPY opcode" {
     
     // Verify code was copied to memory
     for (test_code, 0..) |byte, i| {
-        const mem_byte = test_frame.frame.memory.get_byte(i).?;
+        const mem_byte = try test_frame.frame.memory.get_byte(i);
         try testing.expectEqual(byte, mem_byte);
     }
     
@@ -295,7 +295,7 @@ test "Environment: EXTCODEHASH opcode" {
     try test_frame.pushStack(&[_]u256{bob_u256});
     _ = try helpers.executeOpcode(environment.op_extcodehash, &test_vm.vm, &test_frame.frame);
     
-    const hash = test_frame.frame.stack.peek(0).?;
+    const hash = try test_frame.frame.stack.peek_n(0);
     try testing.expect(hash != 0); // Should be non-zero hash
     
     // Test 2: Get hash of empty account (should return 0)
