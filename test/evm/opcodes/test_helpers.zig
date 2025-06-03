@@ -90,7 +90,7 @@ pub const TestFrame = struct {
     
     /// Get stack size
     pub fn stackSize(self: *const TestFrame) usize {
-        return self.frame.stack.len();
+        return self.frame.stack.size;
     }
     
     /// Set memory at offset

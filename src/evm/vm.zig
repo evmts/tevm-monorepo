@@ -118,7 +118,6 @@ pub fn interpret_static(self: *Self, contract: *Contract, input: []const u8) ![]
 }
 
 pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u8, is_static: bool) ![]const u8 {
-    _ = input;
 
     self.depth += 1;
     defer self.depth -= 1;
