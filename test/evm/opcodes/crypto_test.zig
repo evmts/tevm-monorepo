@@ -3,7 +3,8 @@ const testing = std.testing;
 const helpers = @import("test_helpers.zig");
 
 // Import opcodes to test
-const crypto = @import("../../../src/evm/opcodes/crypto.zig");
+const evm = @import("evm");
+const crypto = evm.opcodes.crypto;
 
 test "Crypto: KECCAK256 (SHA3) basic operations" {
     const allocator = testing.allocator;

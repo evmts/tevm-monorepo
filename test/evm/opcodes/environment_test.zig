@@ -3,7 +3,8 @@ const testing = std.testing;
 const helpers = @import("test_helpers.zig");
 
 // Import opcodes to test
-const environment = @import("../../../src/evm/opcodes/environment.zig");
+const evm = @import("evm");
+const environment = evm.opcodes.environment;
 
 test "Environment: ADDRESS opcode" {
     const allocator = testing.allocator;

@@ -838,13 +838,13 @@ Based on the comprehensive code review, here are the issues that need to be addr
 - Memory limit enforcement implemented (ISSUE-039)
 - Code flattening completed across all source files (ISSUE-049)
 
-### 🚧 In Progress (0 issues)
+### 🚧 In Progress (1 issue)
 
-- None currently
+- ISSUE-048: Remove inline from opcode methods
 
-### 🔴 Pending (4 issues)
+### 🔴 Pending (2 issues)
 
-- Code quality (4 issues: ISSUE-041, ISSUE-043, ISSUE-048, ISSUE-049)
+- Code quality (2 issues: ISSUE-041, ISSUE-043)
 - Additional features (0 issues)
 
 ### ❌ Cancelled/Out of Scope (3 issues)

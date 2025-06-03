@@ -1,8 +1,9 @@
 const std = @import("std");
 const testing = std.testing;
-const opcodes = @import("../../../src/evm/opcodes/package.zig");
+const evm = @import("evm");
+const opcodes = evm.opcodes;
 const test_helpers = @import("test_helpers.zig");
-const ExecutionError = opcodes.ExecutionError;
+const ExecutionError = evm.ExecutionError;
 
 // Test SLOAD operation
 test "SLOAD: load value from storage" {
