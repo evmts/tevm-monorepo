@@ -14,13 +14,13 @@ fn createTestVm(allocator: std.mem.Allocator) !*Vm {
     // Set up basic context
     vm.chain_id = 1;
     vm.gas_price = 1000000000; // 1 gwei
-    vm.tx_origin = Address.fromString("0x1234567890123456789012345678901234567890");
+    vm.tx_origin = Address.address_from_hex("0x1234567890123456789012345678901234567890".*);
     
     // Set up block context
     vm.block_number = 10000;
     vm.block_timestamp = 1234567890;
     vm.block_difficulty = 1000000;
-    vm.block_coinbase = Address.fromString("0x0000000000000000000000000000000000000000");
+    vm.block_coinbase = Address.zero();
     vm.block_gas_limit = 30000000;
     vm.block_base_fee = 100000000; // 0.1 gwei
     
@@ -881,7 +881,7 @@ test "VM: SSTORE and SLOAD opcodes" {
         allocator.destroy(vm);
     }
     
-    const contract_address = Address.fromString("0xc0ffee000000000000000000000000000000cafe");
+    const contract_address = Address.address_from_hex("0xc0ffee000000000000000000000000000000cafe".*);
     
     const bytecode = [_]u8{
         0x60, 0x42,  // PUSH1 66 (value)
@@ -909,7 +909,7 @@ test "VM: ADDRESS opcode" {
         allocator.destroy(vm);
     }
     
-    const contract_address = Address.fromString("0xc0ffee000000000000000000000000000000cafe");
+    const contract_address = Address.address_from_hex("0xc0ffee000000000000000000000000000000cafe".*);
     
     const bytecode = [_]u8{
         0x30,  // ADDRESS
@@ -1092,7 +1092,7 @@ test "VM: Invalid JUMP destination" {
         0x60, 0x42,  // PUSH1 66
     };
     
-    const result = vm.run(&bytecode, Address.zero(), 10000, null) catch |_| {
+    const result = vm.run(&bytecode, Address.zero(), 10000, null) catch {
         // InvalidJump is not a direct error from run, it would be wrapped
         // We expect the VM to handle this and return an Invalid status
         unreachable;

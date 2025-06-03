@@ -571,6 +571,24 @@ pub fn build(b: *std.Build) void {
     test_helpers_mod.addImport("Address", address_mod);
     test_helpers_mod.addImport("evm", evm_mod);
 
+    // Add VM opcode tests
+    const vm_opcode_test = b.addTest(.{
+        .name = "vm-opcode-test",
+        .root_source_file = b.path("test/evm/vm_opcode_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    // Add module imports to VM opcode test
+    vm_opcode_test.root_module.addImport("Address", address_mod);
+    vm_opcode_test.root_module.addImport("evm", evm_mod);
+
+    const run_vm_opcode_test = b.addRunArtifact(vm_opcode_test);
+
+    // Add a separate step for testing VM opcodes
+    const vm_opcode_test_step = b.step("test-vm-opcodes", "Run VM opcode tests");
+    vm_opcode_test_step.dependOn(&run_vm_opcode_test.step);
+
     // Add Integration tests
     const integration_test = b.addTest(.{
         .name = "integration-test",
@@ -726,6 +744,7 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_stack_batched_test.step);
     test_step.dependOn(&run_stack_validation_test.step);
     test_step.dependOn(&run_opcodes_test.step);
+    test_step.dependOn(&run_vm_opcode_test.step);
     test_step.dependOn(&run_integration_test.step);
     test_step.dependOn(&run_gas_test.step);
     test_step.dependOn(&run_static_protection_test.step);
