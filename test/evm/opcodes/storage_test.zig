@@ -237,158 +237,221 @@ test "SSTORE: cold storage access costs more gas" {
 // Test TLOAD operation (EIP-1153)
 test "TLOAD: load value from transient storage" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Set transient storage value
-    vm.setTransientStorage(test_helpers.TEST_CONTRACT_ADDRESS, 0xAAA, 0xBBBBBB);
+    test_vm.setTransientStorage(test_helpers.TestAddresses.CONTRACT, 0xAAA, 0xBBBBBB);
     
     // Push storage slot
-    try frame.pushValue(0xAAA);
+    try test_frame.pushStack(&[_]u256{0xAAA});
     
     // Execute TLOAD
-    try test_helpers.executeOpcode(opcodes.storage.op_tload, &frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_tload, &test_vm.vm, &test_frame.frame);
     
     // Should return the transient value
-    try testing.expectEqual(@as(u256, 0xBBBBBB), try frame.popValue());
+    try testing.expectEqual(@as(u256, 0xBBBBBB), try test_frame.popStack());
 }
 
 test "TLOAD: load from uninitialized slot returns zero" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Push storage slot that hasn't been set
-    try frame.pushValue(0xFFF);
+    try test_frame.pushStack(&[_]u256{0xFFF});
     
     // Execute TLOAD
-    try test_helpers.executeOpcode(opcodes.storage.op_tload, &frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_tload, &test_vm.vm, &test_frame.frame);
     
     // Should return 0
-    try testing.expectEqual(@as(u256, 0), try frame.popValue());
+    try testing.expectEqual(@as(u256, 0), try test_frame.popStack());
 }
 
 test "TLOAD: transient storage is separate from regular storage" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Set same slot in both storages with different values
-    vm.setStorage(test_helpers.TEST_CONTRACT_ADDRESS, 0x100, 0x111);
-    vm.setTransientStorage(test_helpers.TEST_CONTRACT_ADDRESS, 0x100, 0x222);
+    test_vm.setStorage(test_helpers.TestAddresses.CONTRACT, 0x100, 0x111);
+    test_vm.setTransientStorage(test_helpers.TestAddresses.CONTRACT, 0x100, 0x222);
     
     // Load from transient storage
-    try frame.pushValue(0x100);
-    try test_helpers.executeOpcode(opcodes.storage.op_tload, &frame);
+    try test_frame.pushStack(&[_]u256{0x100});
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_tload, &test_vm.vm, &test_frame.frame);
     
     // Should return transient value, not regular storage value
-    try testing.expectEqual(@as(u256, 0x222), try frame.popValue());
+    try testing.expectEqual(@as(u256, 0x222), try test_frame.popStack());
     
     // Load from regular storage
-    try frame.pushValue(0x100);
-    try test_helpers.executeOpcode(opcodes.storage.op_sload, &frame);
+    try test_frame.pushStack(&[_]u256{0x100});
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_sload, &test_vm.vm, &test_frame.frame);
     
     // Should return regular storage value
-    try testing.expectEqual(@as(u256, 0x111), try frame.popValue());
+    try testing.expectEqual(@as(u256, 0x111), try test_frame.popStack());
 }
 
 // Test TSTORE operation (EIP-1153)
 test "TSTORE: store value to transient storage" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Push value and slot
-    try frame.pushValue(0xDEADBEEF); // value
-    try frame.pushValue(0x777);      // slot
+    try test_frame.pushStack(&[_]u256{0x777});      // slot
+    try test_frame.pushStack(&[_]u256{0xDEADBEEF}); // value
     
     // Execute TSTORE
-    try test_helpers.executeOpcode(opcodes.storage.op_tstore, &frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_tstore, &test_vm.vm, &test_frame.frame);
     
     // Check that value was stored
-    const stored_value = vm.getTransientStorage(test_helpers.TEST_CONTRACT_ADDRESS, 0x777);
+    const stored_value = test_vm.getTransientStorage(test_helpers.TestAddresses.CONTRACT, 0x777);
     try testing.expectEqual(@as(u256, 0xDEADBEEF), stored_value);
 }
 
 test "TSTORE: overwrite existing transient value" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Set initial transient value
-    vm.setTransientStorage(test_helpers.TEST_CONTRACT_ADDRESS, 0x200, 0x333);
+    test_vm.setTransientStorage(test_helpers.TestAddresses.CONTRACT, 0x200, 0x333);
     
     // Push new value and slot
-    try frame.pushValue(0x444); // new value
-    try frame.pushValue(0x200); // slot
+    try test_frame.pushStack(&[_]u256{0x200}); // slot
+    try test_frame.pushStack(&[_]u256{0x444}); // new value
     
     // Execute TSTORE
-    try test_helpers.executeOpcode(opcodes.storage.op_tstore, &frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_tstore, &test_vm.vm, &test_frame.frame);
     
     // Check that value was updated
-    const stored_value = vm.getTransientStorage(test_helpers.TEST_CONTRACT_ADDRESS, 0x200);
+    const stored_value = test_vm.getTransientStorage(test_helpers.TestAddresses.CONTRACT, 0x200);
     try testing.expectEqual(@as(u256, 0x444), stored_value);
 }
 
 test "TSTORE: write protection in static call" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Set static call
-    frame.frame.is_static = true;
+    test_frame.frame.is_static = true;
     
     // Push value and slot
-    try frame.pushValue(0x123); // value
-    try frame.pushValue(0x456); // slot
+    try test_frame.pushStack(&[_]u256{0x456}); // slot
+    try test_frame.pushStack(&[_]u256{0x123}); // value
     
     // Execute TSTORE - should fail
-    const result = test_helpers.executeOpcode(opcodes.storage.op_tstore, &frame);
+    const result = test_helpers.executeOpcode(opcodes.storage.op_tstore, &test_vm.vm, &test_frame.frame);
     try testing.expectError(ExecutionError.Error.WriteProtection, result);
 }
 
 test "TSTORE: does not affect regular storage" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Set regular storage value
-    vm.setStorage(test_helpers.TEST_CONTRACT_ADDRESS, 0x300, 0x555);
+    test_vm.setStorage(test_helpers.TestAddresses.CONTRACT, 0x300, 0x555);
     
     // Store to transient storage at same slot
-    try frame.pushValue(0x666); // value
-    try frame.pushValue(0x300); // slot
+    try test_frame.pushStack(&[_]u256{0x300}); // slot
+    try test_frame.pushStack(&[_]u256{0x666}); // value
     
     // Execute TSTORE
-    try test_helpers.executeOpcode(opcodes.storage.op_tstore, &frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_tstore, &test_vm.vm, &test_frame.frame);
     
     // Regular storage should be unchanged
-    const regular_value = vm.getStorage(test_helpers.TEST_CONTRACT_ADDRESS, 0x300);
+    const regular_value = test_vm.getStorage(test_helpers.TestAddresses.CONTRACT, 0x300);
     try testing.expectEqual(@as(u256, 0x555), regular_value);
     
     // Transient storage should have new value
-    const transient_value = vm.getTransientStorage(test_helpers.TEST_CONTRACT_ADDRESS, 0x300);
+    const transient_value = test_vm.getTransientStorage(test_helpers.TestAddresses.CONTRACT, 0x300);
     try testing.expectEqual(@as(u256, 0x666), transient_value);
 }
 
