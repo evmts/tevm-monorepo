@@ -32,7 +32,7 @@ test "LOG0: emit log with no topics" {
     try test_frame.pushStack(&[_]u256{0, 4}); // offset, length
     
     // Execute LOG0
-    try test_helpers.executeOpcode(opcodes.log.op_log0, &frame);
+    _ = try test_helpers.executeOpcode(log.op_log0, &test_vm.vm, &test_frame.frame);
     
     // Check that log was emitted
     try testing.expectEqual(@as(usize, 1), vm.vm.logs.items.len);
@@ -55,7 +55,7 @@ test "LOG0: emit log with empty data" {
     try test_frame.pushStack(0); // offset
     
     // Execute LOG0
-    try test_helpers.executeOpcode(opcodes.log.op_log0, &frame);
+    _ = try test_helpers.executeOpcode(log.op_log0, &test_vm.vm, &test_frame.frame);
     
     // Check that log was emitted with empty data
     try testing.expectEqual(@as(usize, 1), vm.vm.logs.items.len);
@@ -259,7 +259,7 @@ test "LOG0: gas consumption" {
     const gas_before = frame.frame.gas_remaining;
     
     // Execute LOG0
-    try test_helpers.executeOpcode(opcodes.log.op_log0, &frame);
+    _ = try test_helpers.executeOpcode(log.op_log0, &test_vm.vm, &test_frame.frame);
     
     // LOG0 base cost is 375 gas
     // Plus 8 gas per byte: 32 * 8 = 256
@@ -317,7 +317,7 @@ test "LOG0: memory expansion gas" {
     const gas_before = frame.frame.gas_remaining;
     
     // Execute LOG0
-    try test_helpers.executeOpcode(opcodes.log.op_log0, &frame);
+    _ = try test_helpers.executeOpcode(log.op_log0, &test_vm.vm, &test_frame.frame);
     
     // Should consume gas for LOG0 plus memory expansion
     const gas_used = gas_before - frame.frame.gas_remaining;
