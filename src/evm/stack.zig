@@ -36,6 +36,10 @@ pub fn append_unsafe(self: *Self, value: u256) void {
         self.size += 1;
     }
 
+pub fn appendUnsafe(self: *Self, value: u256) void {
+        self.append_unsafe(value);
+    }
+
 pub fn pop(self: *Self) Error!u256 {
         if (self.size == 0) return Error.Underflow;
         self.size -= 1;
@@ -51,6 +55,10 @@ pub fn pop_unsafe(self: *Self) u256 {
         return value;
     }
 
+pub fn popUnsafe(self: *Self) u256 {
+        return self.pop_unsafe();
+    }
+
 pub fn peek(self: *const Self) Error!*const u256 {
         if (self.size == 0) return Error.OutOfBounds;
         return &self.data[self.size - 1];
@@ -60,12 +68,24 @@ pub fn peek_unsafe(self: *const Self) *const u256 {
         return &self.data[self.size - 1];
     }
 
+pub fn peekUnsafe(self: *const Self) *const u256 {
+        return self.peek_unsafe();
+    }
+
 pub fn is_empty(self: *const Self) bool {
         return self.size == 0;
     }
 
+pub fn isEmpty(self: *const Self) bool {
+        return self.is_empty();
+    }
+
 pub fn is_full(self: *const Self) bool {
         return self.size == CAPACITY;
+    }
+
+pub fn isFull(self: *const Self) bool {
+        return self.is_full();
     }
 
 pub fn back(self: *const Self, n: usize) Error!u256 {
@@ -77,9 +97,17 @@ pub fn back_unsafe(self: *const Self, n: usize) u256 {
         return self.data[self.size - n - 1];
     }
 
+pub fn backUnsafe(self: *const Self, n: usize) u256 {
+        return self.back_unsafe(n);
+    }
+
 pub fn peek_n(self: *const Self, n: usize) Error!u256 {
         if (n >= self.size) return Error.OutOfBounds;
         return self.data[self.size - n - 1];
+    }
+
+pub fn peekN(self: *const Self, n: usize) Error!u256 {
+        return self.peek_n(n);
     }
 
 pub fn peek_n_unsafe(self: *const Self, n: usize) Error!u256 {
@@ -96,12 +124,20 @@ pub fn swap_unsafe(self: *Self, n: usize) Error!void {
         std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - n - 1]);
     }
 
+pub fn swapUnsafe(self: *Self, n: usize) void {
+        std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - n - 1]);
+    }
+
 pub fn swap_n(self: *Self, comptime N: usize) Error!void {
         if (N == 0 or N > 16) @compileError("Invalid swap position");
         if (self.size <= N) return Error.OutOfBounds;
         const top_idx = self.size - 1;
         const swap_idx = self.size - N - 1;
         std.mem.swap(@TypeOf(self.data[0]), &self.data[top_idx], &self.data[swap_idx]);
+    }
+
+pub fn swapN(self: *Self, n: usize) Error!void {
+        return self.swap(n);
     }
 
 pub fn swap_n_unsafe(self: *Self, comptime N: usize) void {
@@ -115,6 +151,12 @@ pub fn swap_n_unsafe(self: *Self, comptime N: usize) void {
         self.data[swap_idx] = temp;
     }
 
+pub fn swapNUnsafe(self: *Self, n: usize) void {
+        const top_idx = self.size - 1;
+        const swap_idx = self.size - n - 1;
+        std.mem.swap(u256, &self.data[top_idx], &self.data[swap_idx]);
+    }
+
 pub fn dup(self: *Self, n: usize) Error!void {
         if (n == 0 or n > 16) return Error.InvalidPosition;
         if (n > self.size) return Error.OutOfBounds;
@@ -126,11 +168,19 @@ pub fn dup_unsafe(self: *Self, n: usize) void {
         self.append_unsafe(self.data[self.size - n]);
     }
 
+pub fn dupUnsafe(self: *Self, n: usize) void {
+        self.dup_unsafe(n);
+    }
+
 pub fn dup_n(self: *Self, comptime N: usize) Error!void {
         if (N == 0 or N > 16) @compileError("Invalid dup position");
         if (N > self.size) return Error.OutOfBounds;
         if (self.size >= CAPACITY) return Error.Overflow;
         try self.append(self.data[self.size - N]);
+    }
+
+pub fn dupN(self: *Self, n: usize) Error!void {
+        return self.dup(n);
     }
 
 pub fn dup_n_unsafe(self: *Self, comptime N: usize) void {
@@ -139,6 +189,10 @@ pub fn dup_n_unsafe(self: *Self, comptime N: usize) void {
         std.debug.assert(N <= self.size);
         std.debug.assert(self.size < CAPACITY);
         self.append_unsafe(self.data[self.size - N]);
+    }
+
+pub fn dupNUnsafe(self: *Self, n: usize) void {
+        self.append_unsafe(self.data[self.size - n]);
     }
 
 pub fn pop_n(self: *Self, comptime N: usize) Error![N]u256 {
@@ -156,6 +210,15 @@ pub fn pop_n(self: *Self, comptime N: usize) Error![N]u256 {
         return result;
     }
 
+pub fn popn(self: *Self, n: usize) Error![]u256 {
+        if (self.size < n) return Error.OutOfBounds;
+        
+        self.size -= n;
+        const result = self.data[self.size..self.size + n];
+        
+        return result;
+    }
+
 /// Pop N values and return reference to new top (for opcodes that pop N and push 1)
 pub fn pop_n_top(self: *Self, comptime N: usize) Error!struct {
         values: [N]u256,
@@ -163,6 +226,15 @@ pub fn pop_n_top(self: *Self, comptime N: usize) Error!struct {
     } {
         if (self.size <= N) return Error.OutOfBounds;
         const values = try self.pop_n(N);
+        return .{ .values = values, .top = &self.data[self.size - 1] };
+    }
+
+pub fn popn_top(self: *Self, n: usize) Error!struct {
+        values: []u256,
+        top: *u256,
+    } {
+        if (self.size <= n) return Error.OutOfBounds;
+        const values = try self.popn(n);
         return .{ .values = values, .top = &self.data[self.size - 1] };
     }
 
@@ -177,6 +249,10 @@ pub fn dup_n_dynamic(self: *Self, n: u8) Error!void {
         try self.append(self.data[self.size - idx]);
     }
 
+pub fn dupn(self: *Self, n: usize) Error!void {
+        return self.dup(n);
+    }
+
 /// SWAPN - swap top with Nth element (dynamic N from bytecode)
 pub fn swap_n_dynamic(self: *Self, n: u8) Error!void {
         // EIP-663: swap the top element with the one at `depth + 1`
@@ -187,6 +263,10 @@ pub fn swap_n_dynamic(self: *Self, n: u8) Error!void {
             &self.data[last],
             &self.data[last - n],
         );
+    }
+
+pub fn swapn(self: *Self, n: usize) Error!void {
+        return self.swap(n);
     }
 
 pub fn exchange(self: *Self, n: u8, m: u8) Error!void {
@@ -209,6 +289,14 @@ pub fn to_slice(self: *const Self) []const u256 {
     return self.data[0..self.size];
 }
 
+pub fn toSlice(self: *const Self) []const u256 {
+    return self.to_slice();
+}
+
 pub fn check_requirements(self: *const Self, pop_count: usize, push_count: usize) bool {
     return self.size >= pop_count and (self.size - pop_count + push_count) <= CAPACITY;
+}
+
+pub fn checkRequirements(self: *const Self, pop_count: usize, push_count: usize) bool {
+    return self.check_requirements(pop_count, push_count);
 }

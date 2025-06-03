@@ -520,6 +520,46 @@ pub fn build(b: *std.Build) void {
     const opcodes_test_step = b.step("test-opcodes", "Run Opcodes tests");
     opcodes_test_step.dependOn(&run_opcodes_test.step);
 
+    // Add Integration tests
+    const integration_test = b.addTest(.{
+        .name = "integration-test",
+        .root_source_file = b.path("test/evm/integration/package.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    // Add module imports to integration test
+    integration_test.root_module.addImport("Address", address_mod);
+    integration_test.root_module.addImport("Block", block_mod);
+    integration_test.root_module.addImport("evm", evm_mod);
+    integration_test.root_module.addImport("Utils", utils_mod);
+
+    const run_integration_test = b.addRunArtifact(integration_test);
+
+    // Add a separate step for testing Integration
+    const integration_test_step = b.step("test-integration", "Run Integration tests");
+    integration_test_step.dependOn(&run_integration_test.step);
+
+    // Add Gas Accounting tests
+    const gas_test = b.addTest(.{
+        .name = "gas-test",
+        .root_source_file = b.path("test/evm/gas/gas_accounting_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    // Add module imports to gas test
+    gas_test.root_module.addImport("Address", address_mod);
+    gas_test.root_module.addImport("Block", block_mod);
+    gas_test.root_module.addImport("evm", evm_mod);
+    gas_test.root_module.addImport("Utils", utils_mod);
+
+    const run_gas_test = b.addRunArtifact(gas_test);
+
+    // Add a separate step for testing Gas Accounting
+    const gas_test_step = b.step("test-gas", "Run Gas Accounting tests");
+    gas_test_step.dependOn(&run_gas_test.step);
+
     // Add Memory benchmark
     const memory_benchmark = b.addExecutable(.{
         .name = "memory-benchmark",
@@ -610,6 +650,7 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_memory_comparison_test.step);
     test_step.dependOn(&run_stack_test.step);
     test_step.dependOn(&run_opcodes_test.step);
+    test_step.dependOn(&run_integration_test.step);
 
     // Define a single test step that runs all tests
     const test_all_step = b.step("test-all", "Run all unit tests");

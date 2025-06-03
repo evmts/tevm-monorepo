@@ -6,21 +6,19 @@ test {
     // Test helpers
     _ = @import("../../../test/evm/opcodes/test_helpers.zig");
     
-    // Arithmetic tests
+    // Opcode tests
     _ = @import("../../../test/evm/opcodes/arithmetic_test.zig");
-    
-    // TODO: Add more test files as they are created
-    // _ = @import("../../../test/evm/opcodes/bitwise_test.zig");
-    // _ = @import("../../../test/evm/opcodes/comparison_test.zig");
-    // _ = @import("../../../test/evm/opcodes/block_test.zig");
-    // _ = @import("../../../test/evm/opcodes/crypto_test.zig");
-    // _ = @import("../../../test/evm/opcodes/environment_test.zig");
-    // _ = @import("../../../test/evm/opcodes/log_test.zig");
-    // _ = @import("../../../test/evm/opcodes/memory_test.zig");
-    // _ = @import("../../../test/evm/opcodes/stack_test.zig");
-    // _ = @import("../../../test/evm/opcodes/storage_test.zig");
-    // _ = @import("../../../test/evm/opcodes/system_test.zig");
-    // _ = @import("../../../test/evm/opcodes/control_test.zig");
+    _ = @import("../../../test/evm/opcodes/bitwise_test.zig");
+    _ = @import("../../../test/evm/opcodes/comparison_test.zig");
+    _ = @import("../../../test/evm/opcodes/block_test.zig");
+    _ = @import("../../../test/evm/opcodes/crypto_test.zig");
+    _ = @import("../../../test/evm/opcodes/environment_test.zig");
+    _ = @import("../../../test/evm/opcodes/log_test.zig");
+    _ = @import("../../../test/evm/opcodes/memory_test.zig");
+    _ = @import("../../../test/evm/opcodes/stack_test.zig");
+    _ = @import("../../../test/evm/opcodes/storage_test.zig");
+    _ = @import("../../../test/evm/opcodes/system_test.zig");
+    _ = @import("../../../test/evm/opcodes/control_test.zig");
 }
 
 // Re-export all opcode modules for easy access
