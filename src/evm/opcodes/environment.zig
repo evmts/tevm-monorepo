@@ -264,7 +264,7 @@ pub fn op_calldatasize(pc: usize, interpreter: *Operation.Interpreter, state: *O
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
     // Push size of calldata
-    try stack_push(&frame.stack, @as(u256, @intCast(frame.contract.calldata.len)));
+    try stack_push(&frame.stack, @as(u256, @intCast(frame.input.len)));
     
     return Operation.ExecutionResult{};
 }

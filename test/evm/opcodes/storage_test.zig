@@ -8,173 +8,230 @@ const ExecutionError = evm.ExecutionError;
 // Test SLOAD operation
 test "SLOAD: load value from storage" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Set storage value
-    vm.setStorage(test_helpers.TEST_CONTRACT_ADDRESS, 0x123, 0x456789);
+    test_vm.setStorage(test_helpers.TestAddresses.CONTRACT, 0x123, 0x456789);
     
     // Push storage slot
-    try frame.pushValue(0x123);
+    try test_frame.pushStack(&[_]u256{0x123});
     
     // Execute SLOAD
-    try test_helpers.executeOpcode(opcodes.storage.op_sload, &frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_sload, &test_vm.vm, &test_frame.frame);
     
     // Should return the stored value
-    try testing.expectEqual(@as(u256, 0x456789), try frame.popValue());
+    try testing.expectEqual(@as(u256, 0x456789), try test_frame.popStack());
 }
 
 test "SLOAD: load from uninitialized slot returns zero" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Push storage slot that hasn't been set
-    try frame.pushValue(0x999);
+    try test_frame.pushStack(&[_]u256{0x999});
     
     // Execute SLOAD
-    try test_helpers.executeOpcode(opcodes.storage.op_sload, &frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_sload, &test_vm.vm, &test_frame.frame);
     
     // Should return 0
-    try testing.expectEqual(@as(u256, 0), try frame.popValue());
+    try testing.expectEqual(@as(u256, 0), try test_frame.popStack());
 }
 
 test "SLOAD: cold storage access costs more gas" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
     
-    // Set initial gas
-    frame.frame.gas_remaining = 3000;
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 3000);
+    defer test_frame.deinit();
     
     // Push storage slot
-    try frame.pushValue(0x123);
+    try test_frame.pushStack(&[_]u256{0x123});
     
-    const gas_before = frame.frame.gas_remaining;
+    const gas_before = test_frame.frame.gas_remaining;
     
     // Execute SLOAD - cold access
-    try test_helpers.executeOpcode(opcodes.storage.op_sload, &frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_sload, &test_vm.vm, &test_frame.frame);
     
     // Should consume 2100 gas for cold access (minus warm cost already in base)
-    const cold_gas_used = gas_before - frame.frame.gas_remaining;
+    const cold_gas_used = gas_before - test_frame.frame.gas_remaining;
     try testing.expectEqual(@as(u64, 2000), cold_gas_used); // 2100 - 100 warm cost
     
     // Second access should be warm
-    try frame.pushValue(0x123);
-    const gas_before_warm = frame.frame.gas_remaining;
+    try test_frame.pushStack(&[_]u256{0x123});
+    const gas_before_warm = test_frame.frame.gas_remaining;
     
-    try test_helpers.executeOpcode(opcodes.storage.op_sload, &frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_sload, &test_vm.vm, &test_frame.frame);
     
     // Should consume 0 additional gas for warm access
-    try testing.expectEqual(@as(u64, 0), gas_before_warm - frame.frame.gas_remaining);
+    try testing.expectEqual(@as(u64, 0), gas_before_warm - test_frame.frame.gas_remaining);
 }
 
 // Test SSTORE operation
 test "SSTORE: store value to storage" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Push value and slot
-    try frame.pushValue(0xABCDEF); // value
-    try frame.pushValue(0x555);    // slot
+    try test_frame.pushStack(&[_]u256{0x555});    // slot
+    try test_frame.pushStack(&[_]u256{0xABCDEF}); // value
     
     // Execute SSTORE
-    try test_helpers.executeOpcode(opcodes.storage.op_sstore, &frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_sstore, &test_vm.vm, &test_frame.frame);
     
     // Check that value was stored
-    const stored_value = vm.getStorage(test_helpers.TEST_CONTRACT_ADDRESS, 0x555);
+    const stored_value = test_vm.getStorage(test_helpers.TestAddresses.CONTRACT, 0x555);
     try testing.expectEqual(@as(u256, 0xABCDEF), stored_value);
 }
 
 test "SSTORE: overwrite existing value" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Set initial value
-    vm.setStorage(test_helpers.TEST_CONTRACT_ADDRESS, 0x100, 0x111);
+    test_vm.setStorage(test_helpers.TestAddresses.CONTRACT, 0x100, 0x111);
     
     // Push new value and slot
-    try frame.pushValue(0x222); // new value
-    try frame.pushValue(0x100); // slot
+    try test_frame.pushStack(&[_]u256{0x100}); // slot
+    try test_frame.pushStack(&[_]u256{0x222}); // new value
     
     // Execute SSTORE
-    try test_helpers.executeOpcode(opcodes.storage.op_sstore, &frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_sstore, &test_vm.vm, &test_frame.frame);
     
     // Check that value was updated
-    const stored_value = vm.getStorage(test_helpers.TEST_CONTRACT_ADDRESS, 0x100);
+    const stored_value = test_vm.getStorage(test_helpers.TestAddresses.CONTRACT, 0x100);
     try testing.expectEqual(@as(u256, 0x222), stored_value);
 }
 
 test "SSTORE: write protection in static call" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
     
     // Set static call
-    frame.frame.is_static = true;
+    test_frame.frame.is_static = true;
     
     // Push value and slot
-    try frame.pushValue(0x123); // value
-    try frame.pushValue(0x456); // slot
+    try test_frame.pushStack(&[_]u256{0x456}); // slot
+    try test_frame.pushStack(&[_]u256{0x123}); // value
     
     // Execute SSTORE - should fail
-    const result = test_helpers.executeOpcode(opcodes.storage.op_sstore, &frame);
+    const result = test_helpers.executeOpcode(opcodes.storage.op_sstore, &test_vm.vm, &test_frame.frame);
     try testing.expectError(ExecutionError.Error.WriteProtection, result);
 }
 
 test "SSTORE: cold storage access costs more gas" {
     const allocator = testing.allocator;
-    var vm = try test_helpers.TestVm.init(allocator);
-    defer vm.deinit();
     
-    var frame = test_helpers.TestFrame.init(&vm);
-    defer frame.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
     
-    // Set initial gas
-    frame.frame.gas_remaining = 25000;
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 25000);
+    defer test_frame.deinit();
     
     // Push value and slot
-    try frame.pushValue(0x123); // value
-    try frame.pushValue(0x789); // slot
+    try test_frame.pushStack(&[_]u256{0x789}); // slot
+    try test_frame.pushStack(&[_]u256{0x123}); // value
     
-    const gas_before = frame.frame.gas_remaining;
+    const gas_before = test_frame.frame.gas_remaining;
     
     // Execute SSTORE - cold access
-    try test_helpers.executeOpcode(opcodes.storage.op_sstore, &frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_sstore, &test_vm.vm, &test_frame.frame);
     
     // Should consume 2100 gas for cold access
-    const cold_gas_used = gas_before - frame.frame.gas_remaining;
+    const cold_gas_used = gas_before - test_frame.frame.gas_remaining;
     try testing.expectEqual(@as(u64, 2100), cold_gas_used);
     
     // Second access to same slot should be warm
-    try frame.pushValue(0x456); // different value
-    try frame.pushValue(0x789); // same slot
-    const gas_before_warm = frame.frame.gas_remaining;
+    try test_frame.pushStack(&[_]u256{0x789}); // same slot
+    try test_frame.pushStack(&[_]u256{0x456}); // different value
+    const gas_before_warm = test_frame.frame.gas_remaining;
     
-    try test_helpers.executeOpcode(opcodes.storage.op_sstore, &frame);
+    _ = try test_helpers.executeOpcode(opcodes.storage.op_sstore, &test_vm.vm, &test_frame.frame);
     
     // Should consume 0 additional gas for warm access
-    try testing.expectEqual(@as(u64, 0), gas_before_warm - frame.frame.gas_remaining);
+    try testing.expectEqual(@as(u64, 0), gas_before_warm - test_frame.frame.gas_remaining);
 }
 
 // Test TLOAD operation (EIP-1153)
