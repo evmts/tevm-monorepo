@@ -99,6 +99,8 @@ pub const TestFrame = struct {
 
         frame_ptr.* = try Frame.init(allocator, contract);
         frame_ptr.gas_remaining = gas;
+        // Set the frame input from the contract input for testing
+        frame_ptr.input = contract.input;
 
         // Now that frame is at its final location, finalize the memory
         frame_ptr.memory.finalize_root();

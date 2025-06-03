@@ -252,8 +252,9 @@ pub fn op_calldatasize(pc: usize, interpreter: *Operation.Interpreter, state: *O
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
-    // Push size of calldata
-    try stack_push(&frame.stack, @as(u256, @intCast(frame.contract.input.len)));
+    // Push size of calldata - use frame.input which is set by the VM
+    // The frame.input is the actual calldata for this execution context
+    try stack_push(&frame.stack, @as(u256, @intCast(frame.input.len)));
     
     return Operation.ExecutionResult{};
 }
@@ -286,7 +287,7 @@ pub fn op_calldataload(pc: usize, interpreter: *Operation.Interpreter, state: *O
     }
     
     const offset_usize = @as(usize, @intCast(offset));
-    const calldata = frame.contract.input;
+    const calldata = frame.input; // Use frame.input, not frame.contract.input
     
     // Load 32 bytes from calldata, padding with zeros if necessary
     var value: u256 = 0;
