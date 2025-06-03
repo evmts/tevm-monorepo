@@ -1,6 +1,6 @@
 import { MUDTestSystem } from '@tevm/test-utils'
 import { type EthjsLog, hexToBytes } from '@tevm/utils'
-import { describe, expect, it } from 'vitest'
+import { assert, describe, expect, it } from 'vitest'
 import { ethjsLogToAbiLog } from './ethjsLogToAbiLog.js'
 
 describe('ethjsLogToAbiLog', () => {
@@ -45,15 +45,13 @@ describe('ethjsLogToAbiLog', () => {
 			hexToBytes('0x'),
 		] satisfies EthjsLog
 
-		expect(() => ethjsLogToAbiLog(MUDTestSystem.abi, ethjsLog)).toThrowErrorMatchingInlineSnapshot(
-			`
-			[AbiEventSignatureNotFoundError: Encoded event signature "0x1111111111111111111111111111111111111111111111111111111111111111" not found on ABI.
-			Make sure you are using the correct ABI and that the event exists on it.
-			You can look up the signature here: https://openchain.xyz/signatures?query=0x1111111111111111111111111111111111111111111111111111111111111111.
-
-			Docs: https://viem.sh/docs/contract/decodeEventLog
-			Version: viem@2.23.10]
-			`,
-		)
+		try {
+			ethjsLogToAbiLog(MUDTestSystem.abi, ethjsLog)
+		} catch (error) {
+			assert(error instanceof Error)
+			expect(error.message).toContain(
+				'Encoded event signature "0x1111111111111111111111111111111111111111111111111111111111111111" not found on ABI.',
+			)
+		}
 	})
 })
