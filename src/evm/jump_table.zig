@@ -43,7 +43,7 @@ pub const TxDataNonZeroGas: u64 = 16;
 pub const CopyGas: u64 = 3;
 
 // Define a default undefined operation
-var UNDEFINED = Operation{
+const UNDEFINED = Operation{
     .execute = undefined_execute,
     .constant_gas = 0,
     .min_stack = 0,
@@ -53,6 +53,7 @@ var UNDEFINED = Operation{
 
 /// JumpTable contains the EVM opcodes supported at a given fork
 const Self = @This();
+
 table: [256]?*const Operation,
 
 pub fn init() Self {
