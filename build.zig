@@ -588,6 +588,26 @@ pub fn build(b: *std.Build) void {
     const gas_test_step = b.step("test-gas", "Run Gas Accounting tests");
     gas_test_step.dependOn(&run_gas_test.step);
 
+    // Add Static Call Protection tests
+    const static_protection_test = b.addTest(.{
+        .name = "static-protection-test",
+        .root_source_file = b.path("test/evm/static_call_protection_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    // Add module imports to static protection test
+    static_protection_test.root_module.addImport("Address", address_mod);
+    static_protection_test.root_module.addImport("Block", block_mod);
+    static_protection_test.root_module.addImport("evm", evm_mod);
+    static_protection_test.root_module.addImport("Utils", utils_mod);
+
+    const run_static_protection_test = b.addRunArtifact(static_protection_test);
+
+    // Add a separate step for testing Static Call Protection
+    const static_protection_test_step = b.step("test-static-protection", "Run Static Call Protection tests");
+    static_protection_test_step.dependOn(&run_static_protection_test.step);
+
     // Add Memory benchmark
     const memory_benchmark = b.addExecutable(.{
         .name = "memory-benchmark",
@@ -681,6 +701,8 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_stack_validation_test.step);
     test_step.dependOn(&run_opcodes_test.step);
     test_step.dependOn(&run_integration_test.step);
+    test_step.dependOn(&run_gas_test.step);
+    test_step.dependOn(&run_static_protection_test.step);
 
     // Define a single test step that runs all tests
     const test_all_step = b.step("test-all", "Run all unit tests");

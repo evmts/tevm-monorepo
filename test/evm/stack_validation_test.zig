@@ -16,7 +16,7 @@ test "Stack validation: binary operations" {
     const allocator = testing.allocator;
     
     // Create a simple contract with ADD operation
-    const zero_address = Address.Address{ .inner = [_]u8{0} ** 20 };
+    const zero_address = Address.ZERO_ADDRESS;
     const code = [_]u8{0x01}; // ADD opcode
     const code_hash = [_]u8{0} ** 32;
     const input = [_]u8{};
@@ -66,7 +66,7 @@ test "Stack validation: PUSH operations" {
     const allocator = testing.allocator;
     
     // Create contract with PUSH1 opcode
-    const zero_address = Address.Address{ .inner = [_]u8{0} ** 20 };
+    const zero_address = Address.ZERO_ADDRESS;
     const code = [_]u8{0x60}; // PUSH1 opcode
     const code_hash = [_]u8{0} ** 32;
     const input = [_]u8{};
@@ -105,7 +105,7 @@ test "Stack validation: DUP operations" {
     const allocator = testing.allocator;
     
     // Create contract with DUP1 opcode
-    const zero_address = Address.Address{ .inner = [_]u8{0} ** 20 };
+    const zero_address = Address.ZERO_ADDRESS;
     const code = [_]u8{0x80}; // DUP1 opcode
     const code_hash = [_]u8{0} ** 32;
     const input = [_]u8{};
@@ -152,7 +152,7 @@ test "Stack validation: SWAP operations" {
     const allocator = testing.allocator;
     
     // Create contract with SWAP1 opcode
-    const zero_address = Address.Address{ .inner = [_]u8{0} ** 20 };
+    const zero_address = Address.ZERO_ADDRESS;
     const code = [_]u8{0x90}; // SWAP1 opcode
     const code_hash = [_]u8{0} ** 32;
     const input = [_]u8{};
@@ -220,7 +220,7 @@ test "Stack validation: integration with jump table execution" {
     const allocator = testing.allocator;
     
     // Create contract with ADD opcode
-    const zero_address = Address.Address{ .inner = [_]u8{0} ** 20 };
+    const zero_address = Address.ZERO_ADDRESS;
     const code = [_]u8{0x01}; // ADD opcode
     const code_hash = [_]u8{0} ** 32;
     const input = [_]u8{};

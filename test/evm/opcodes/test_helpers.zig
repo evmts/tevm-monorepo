@@ -164,7 +164,7 @@ pub fn executeOpcode(
 
 /// Assert stack value at position (0 is top)
 pub fn expectStackValue(frame: *const Frame, position: usize, expected: u256) !void {
-    const actual = frame.stack.peek(position) catch |err| {
+    const actual = frame.stack.peek_n(position) catch |err| {
         std.debug.print("Failed to peek stack at position {}: {}\n", .{position, err});
         return err;
     };

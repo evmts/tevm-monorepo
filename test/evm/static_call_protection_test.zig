@@ -1,8 +1,9 @@
 const std = @import("std");
 const testing = std.testing;
-const VM = @import("../../src/evm/vm.zig");
+const evm = @import("evm");
+const VM = evm.vm;
 const Address = @import("Address");
-const ExecutionError = @import("../../src/evm/execution_error.zig");
+const ExecutionError = evm.execution_error;
 
 test "Static call protection - validate_static_context" {
     const allocator = testing.allocator;
