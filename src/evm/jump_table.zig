@@ -47,11 +47,6 @@ pub fn execute(self: *const Self, pc: usize, interpreter: *Operation.Interpreter
     // Cast state to Frame to access gas_remaining and stack
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // Debug output for stack issues
-    if (opcode == 0x80 or opcode == 0x90) { // DUP1 or SWAP1
-        std.debug.print("DEBUG: Opcode 0x{x}, stack.size={}, stack.data[0]={}, CAPACITY={}\n", .{ opcode, frame.stack.size, if (frame.stack.size > 0) frame.stack.data[0] else 0, Stack.CAPACITY });
-    }
-
     // Validate stack requirements before execution
     const stack_validation = @import("stack_validation.zig");
     try stack_validation.validate_stack_requirements(&frame.stack, operation);

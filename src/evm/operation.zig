@@ -50,7 +50,7 @@ pub const NULL = Self{
     .execute = undefined_execute,
     .constant_gas = 0,
     .min_stack = 0,
-    .max_stack = 0,
+    .max_stack = Stack.CAPACITY,
     .undefined = true,
 };
 

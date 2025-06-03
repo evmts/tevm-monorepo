@@ -19,7 +19,6 @@ pub fn validate_stack_requirements(
     // max_stack represents the maximum stack size allowed BEFORE the operation
     // to ensure we don't overflow after the operation completes
     if (stack_size > operation.max_stack) {
-        std.debug.print("Stack validation failed: size={} > max_stack={}\n", .{ stack_size, operation.max_stack });
         return ExecutionError.Error.StackOverflow;
     }
 }
