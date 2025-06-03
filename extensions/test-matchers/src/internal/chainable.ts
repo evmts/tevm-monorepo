@@ -109,13 +109,13 @@ const storeChainState = <TName extends string, TAsync extends boolean = false>(
 	args: readonly unknown[],
 	result: MatcherResult,
 ) => {
-	utils.flag(assertion, `${name}.passed`, true)
+	utils.flag(assertion, `${name}.passed`, result.pass)
 	utils.flag(assertion, `${name}.value`, obj)
 	utils.flag(assertion, `${name}.state`, result.state)
 	utils.flag(assertion, `${name}.args`, args)
 
 	// Track chain history
-	const chainHistory: string[] = utils.flag(assertion, 'chainHistory') || []
+	const chainHistory: string[] = utils.flag(assertion, 'chainHistory') ?? []
 	chainHistory.push(name)
 	utils.flag(assertion, 'chainHistory', chainHistory)
 }
@@ -189,30 +189,20 @@ function makeVitestAsyncChainable<
 	setupPromise(this, chaiUtils)
 	const isNegated = chaiUtils.flag(this, 'negate') === true
 
-	// Build chain state BEFORE storing our own state
-	const chainState = buildChainState(this, chaiUtils)
-
 	// Get the current object (might be a Promise)
 	const obj = chaiUtils.flag(this, 'object')
-	// Store promise initially, will update with resolved value
-	chaiUtils.flag(this, `${name}.value`, obj)
-
-	// Track chain history synchronously
-	const chainHistory: string[] = chaiUtils.flag(this, 'chainHistory') || []
-	chainHistory.push(name)
-	chaiUtils.flag(this, 'chainHistory', chainHistory)
 
 	const callPromiseValue = chaiUtils.flag(this, 'callPromise')
 	const derivedPromise = callPromiseValue.then(async () => {
 		assert(chaiUtils !== undefined, 'ChaiUtils not initialized')
 		const actualObj = await obj
 
-		// Update the stored value with resolved object immediately
-		// This ensures chained matchers get the resolved value, not the Promise
-		chaiUtils.flag(this, `${name}.value`, actualObj)
-
 		// Update object with resolved value for further chaining
 		chaiUtils.flag(this, 'object', actualObj)
+
+		// Build chain state AFTER promise resolves, but BEFORE updating history
+		// This ensures we get the fully populated state from previous matchers
+		const chainState = buildChainState(this, chaiUtils)
 
 		// Store and restore negation flag properly (async pattern)
 		const currentNegated = chaiUtils.flag(this, 'negate') === true
@@ -225,9 +215,8 @@ function makeVitestAsyncChainable<
 		// Restore negation flag
 		chaiUtils.flag(this, 'negate', currentNegated)
 
-		// 🔧 UPDATE the stored state with actual results
-		chaiUtils.flag(this, `${name}.passed`, result.pass)
-		chaiUtils.flag(this, `${name}.state`, result.state)
+		// Store the results for future chained matchers
+		storeChainState(this, chaiUtils, name, actualObj, args, result)
 	})
 
 	// Make thenable (waffle-chai pattern)
