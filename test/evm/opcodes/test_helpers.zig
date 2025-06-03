@@ -189,6 +189,7 @@ pub const TestAddresses = struct {
     pub const BOB = Address.from_u256(0x2222222222222222222222222222222222222222);
     pub const CONTRACT = Address.from_u256(0x3333333333333333333333333333333333333333);
     pub const CHARLIE = Address.from_u256(0x4444444444444444444444444444444444444444);
+    pub const RANDOM = Address.from_u256(0x5555555555555555555555555555555555555555);
 };
 
 /// Common test values
@@ -231,6 +232,11 @@ pub fn bytesToU256(bytes: []const u8) u256 {
         value = (value << 8) | byte;
     }
     return value;
+}
+
+/// Helper to convert Address to u256
+pub fn toU256(address: Address.Address) u256 {
+    return @as(u256, @bitCast(address.inner));
 }
 
 /// Print stack contents for debugging

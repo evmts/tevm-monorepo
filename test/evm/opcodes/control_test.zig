@@ -154,7 +154,7 @@ test "Control: PC returns program counter" {
     // Test 3: PC at large position
     test_frame.frame.stack.clear();
     test_frame.frame.pc = 1000;
-    _ = try helpers.executeOpcodeAt(control.op_pc, 1000, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(control.op_pc, &test_vm.vm, &test_frame.frame);
     try helpers.expectStackValue(&test_frame.frame, 0, 1000);
 }
 
@@ -223,7 +223,7 @@ test "Control: RETURN with data" {
     test_frame.frame.return_data_buffer = &[_]u8{1, 2, 3}; // Set some existing data
     try test_frame.pushStack(&[_]u256{0, 0}); // offset=0, size=0
     
-    const result2 = control.op_return(0, &test_vm.vm, &test_frame.frame);
+    const result2 = helpers.executeOpcode(control.op_return, &test_vm.vm, &test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.STOP, result2);
     try testing.expectEqual(@as(usize, 0), test_frame.frame.return_data_buffer.len);
     
@@ -232,7 +232,7 @@ test "Control: RETURN with data" {
     test_frame.frame.gas_remaining = 1000;
     try test_frame.pushStack(&[_]u256{100, 32}); // offset=100, size=32
     
-    const result3 = control.op_return(0, &test_vm.vm, &test_frame.frame);
+    const result3 = helpers.executeOpcode(control.op_return, &test_vm.vm, &test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.STOP, result3);
     
     // Gas should be consumed for memory expansion
@@ -271,7 +271,7 @@ test "Control: REVERT with data" {
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{0, 0}); // offset=0, size=0
     
-    const result2 = control.op_revert(0, &test_vm.vm, &test_frame.frame);
+    const result2 = helpers.executeOpcode(control.op_revert, &test_vm.vm, &test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.REVERT, result2);
     try testing.expectEqual(@as(usize, 0), test_frame.frame.return_data_buffer.len);
     
@@ -279,7 +279,7 @@ test "Control: REVERT with data" {
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{std.math.maxInt(u256), 32});
     
-    const result3 = control.op_revert(0, &test_vm.vm, &test_frame.frame);
+    const result3 = helpers.executeOpcode(control.op_revert, &test_vm.vm, &test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.OutOfOffset, result3);
 }
 
@@ -301,12 +301,12 @@ test "Control: INVALID always fails" {
     defer test_frame.deinit();
     
     // INVALID should always return InvalidOpcode error
-    const result = control.op_invalid(0, &test_vm.vm, &test_frame.frame);
+    const result = helpers.executeOpcode(control.op_invalid, &test_vm.vm, &test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.InvalidOpcode, result);
     
     // Stack should be unchanged
     try test_frame.pushStack(&[_]u256{42});
-    const result2 = control.op_invalid(0, &test_vm.vm, &test_frame.frame);
+    const result2 = helpers.executeOpcode(control.op_invalid, &test_vm.vm, &test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.InvalidOpcode, result2);
     try testing.expectEqual(@as(usize, 1), test_frame.stackSize());
 }
@@ -332,7 +332,7 @@ test "Control: SELFDESTRUCT basic operation" {
     const beneficiary = helpers.toU256(helpers.TestAddresses.BOB);
     try test_frame.pushStack(&[_]u256{beneficiary});
     
-    const result = control.op_selfdestruct(0, &test_vm.vm, &test_frame.frame);
+    const result = helpers.executeOpcode(control.op_selfdestruct, &test_vm.vm, &test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.STOP, result);
     
     // Gas should be consumed for cold address access (2600)
@@ -346,7 +346,7 @@ test "Control: SELFDESTRUCT basic operation" {
     try test_vm.warmAddress(helpers.TestAddresses.BOB);
     try test_frame.pushStack(&[_]u256{beneficiary});
     
-    const result2 = control.op_selfdestruct(0, &test_vm.vm, &test_frame.frame);
+    const result2 = helpers.executeOpcode(control.op_selfdestruct, &test_vm.vm, &test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.STOP, result2);
     
     // No gas should be consumed for warm address
@@ -357,7 +357,7 @@ test "Control: SELFDESTRUCT basic operation" {
     test_frame.frame.is_static = true;
     try test_frame.pushStack(&[_]u256{beneficiary});
     
-    const result3 = control.op_selfdestruct(0, &test_vm.vm, &test_frame.frame);
+    const result3 = helpers.executeOpcode(control.op_selfdestruct, &test_vm.vm, &test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.WriteProtection, result3);
 }
 
@@ -384,21 +384,21 @@ test "Control: Stack underflow errors" {
     
     // Test JUMPI with insufficient stack
     try test_frame.pushStack(&[_]u256{0}); // Only destination, no condition
-    const jumpi_result = control.op_jumpi(0, &test_vm.vm, &test_frame.frame);
+    const jumpi_result = helpers.executeOpcode(control.op_jumpi, &test_vm.vm, &test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, jumpi_result);
     
     // Test RETURN with empty stack
     test_frame.frame.stack.clear();
-    const return_result = control.op_return(0, &test_vm.vm, &test_frame.frame);
+    const return_result = helpers.executeOpcode(control.op_return, &test_vm.vm, &test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, return_result);
     
     // Test REVERT with only one value
     try test_frame.pushStack(&[_]u256{0});
-    const revert_result = control.op_revert(0, &test_vm.vm, &test_frame.frame);
+    const revert_result = helpers.executeOpcode(control.op_revert, &test_vm.vm, &test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, revert_result);
     
     // Test SELFDESTRUCT with empty stack
     test_frame.frame.stack.clear();
-    const selfdestruct_result = control.op_selfdestruct(0, &test_vm.vm, &test_frame.frame);
+    const selfdestruct_result = helpers.executeOpcode(control.op_selfdestruct, &test_vm.vm, &test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, selfdestruct_result);
 }
