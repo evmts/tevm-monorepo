@@ -31,7 +31,6 @@ export function toBeHex(received: unknown, opts?: IsHexOptions) {
 	return {
 		pass,
 		actual: received,
-		expected: expectedDescription,
 		message: () => {
 			if (pass) return `Expected ${received} not to be ${expectedDescription}`
 			if (!isStringReceived) return `Expected ${typeof received} to be a hex string`

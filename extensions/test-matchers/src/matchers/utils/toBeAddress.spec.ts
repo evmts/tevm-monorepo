@@ -101,7 +101,6 @@ describe('toBeAddress', () => {
 				} catch (error) {
 					expect(error.message).toBe('Expected 0x123 to be a valid Ethereum address (checksummed)')
 					expect(error.actual).toBe('0x123')
-					expect(error.expected).toBe('valid Ethereum address')
 				}
 
 				try {
@@ -109,7 +108,6 @@ describe('toBeAddress', () => {
 				} catch (error) {
 					expect(error.message).toBe('Expected 123 to be a valid Ethereum address (checksummed)')
 					expect(error.actual).toBe(123)
-					expect(error.expected).toBe('valid Ethereum address')
 				}
 			})
 
@@ -121,7 +119,6 @@ describe('toBeAddress', () => {
 						'Expected 0xa5cc3c03994db5b0d9a5eedd10cabab0813678ac to be a valid Ethereum address (checksummed)',
 					)
 					expect(error.actual).toBe('0xa5cc3c03994db5b0d9a5eedd10cabab0813678ac')
-					expect(error.expected).toBe('valid Ethereum address (checksummed)')
 				}
 			})
 
@@ -133,7 +130,6 @@ describe('toBeAddress', () => {
 						'Expected 0xa5cc3c03994db5b0d9a5eedd10cabab0813678ac to be a valid Ethereum address (checksummed)',
 					)
 					expect(error.actual).toBe('0xa5cc3c03994db5b0d9a5eedd10cabab0813678ac')
-					expect(error.expected).toBe('valid Ethereum address (checksummed)')
 				}
 			})
 
@@ -143,7 +139,6 @@ describe('toBeAddress', () => {
 				} catch (error) {
 					expect(error.message).toBe('Expected invalid to be a valid Ethereum address')
 					expect(error.actual).toBe('invalid')
-					expect(error.expected).toBe('valid Ethereum address')
 				}
 			})
 		})
