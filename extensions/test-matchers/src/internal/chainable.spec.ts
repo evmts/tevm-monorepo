@@ -108,13 +108,15 @@ const toUsePreviousStateAndBigIntChainable = createChainableFromVitest({
 })
 
 // Register all test matchers
-registerChainableMatchers({
+export const testMatchers = {
 	toBeBigIntChainable,
 	toBeHexChainable,
 	toBeAddressChainable,
 	toPassDownStateChainable,
 	toUsePreviousStateAndBigIntChainable,
-})
+}
+
+registerChainableMatchers(testMatchers)
 
 /* ----------------------------- TESTING ----------------------------- */
 describe('chainable matchers', () => {
