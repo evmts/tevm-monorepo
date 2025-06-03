@@ -6,7 +6,22 @@ const ExecutionError = @import("execution_error.zig");
 const Stack = @import("stack.zig");
 const Memory = @import("memory.zig");
 
-// Constants for gas calculation
+// Import all opcode modules
+const opcodes = @import("opcodes/package.zig");
+const arithmetic = opcodes.arithmetic;
+const comparison = opcodes.comparison;
+const bitwise = opcodes.bitwise;
+const memory_ops = opcodes.memory;
+const storage = opcodes.storage;
+const control = opcodes.control;
+const stack_ops = opcodes.stack;
+const environment = opcodes.environment;
+const block = opcodes.block;
+const crypto = opcodes.crypto;
+const log = opcodes.log;
+const system = opcodes.system;
+
+// Gas constants
 pub const GasQuickStep: u64 = 2;
 pub const GasFastestStep: u64 = 3;
 pub const GasFastStep: u64 = 5;
@@ -42,16 +57,6 @@ pub const TxDataZeroGas: u64 = 4;
 pub const TxDataNonZeroGas: u64 = 16;
 pub const CopyGas: u64 = 3;
 
-// Define a default undefined operation
-const UNDEFINED = Operation{
-    .execute = undefined_execute,
-    .constant_gas = 0,
-    .min_stack = 0,
-    .max_stack = 0,
-    .undefined = true,
-};
-
-/// JumpTable contains the EVM opcodes supported at a given fork
 const Self = @This();
 
 table: [256]?*const Operation,
@@ -69,7 +74,6 @@ pub fn get_operation(self: *const Self, opcode: u8) *const Operation {
 pub fn validate(self: *Self) void {
     for (0..256) |i| {
         if (self.table[i] == null) {
-            // Fill unassigned slots with UNDEFINED
             self.table[i] = &UNDEFINED;
         } else if (self.table[i].?.memory_size != null and self.table[i].?.dynamic_gas == null) {
             @panic("Operation has memory size but no dynamic gas calculation");
@@ -77,56 +81,50 @@ pub fn validate(self: *Self) void {
     }
 }
 
-// Get a copy of the jump table
 pub fn copy(self: *const Self, allocator: std.mem.Allocator) !Self {
     _ = allocator;
-    // Simple copy since operations are static
     return Self{
         .table = self.table,
     };
 }
 
-pub fn init_from_hardfork(allocator: std.mem.Allocator, hardfork: Hardfork) !Self {
-    var jump_table = Self.init();
-    _ = hardfork;
-    const add_op = try allocator.create(Operation);
-    add_op.* = Operation{
-        .execute = dummy_execute, // TODO: implement opAdd
-        .constant_gas = GasFastestStep,
-        .min_stack = 2,
-        .max_stack = Stack.CAPACITY,
-    };
-    jump_table.table[0x01] = add_op;
-
-    return jump_table;
-}
-
-// Helper function to calculate min/max stack values
+// Helper functions
 pub fn min_stack(min_pop: u32, min_push: u32) u32 {
-    _ = min_push; // autofix
+    _ = min_push;
     return min_pop;
 }
 
 pub fn max_stack(max_pop: u32, max_push: u32) u32 {
-    _ = max_pop; // autofix
-    return max_push;
+    _ = max_pop;
+    _ = max_push;
+    return Stack.CAPACITY;
 }
 
 pub fn min_dup_stack(n: u32) u32 {
     return n;
 }
 
-pub fn max_dup_stack(n: u32) u32 {
-    return n + 1;
+pub fn max_dup_stack(_: u32) u32 {
+    return Stack.CAPACITY - 1;
 }
 
 pub fn min_swap_stack(n: u32) u32 {
-    return n;
+    return n + 1;
 }
 
 pub fn max_swap_stack(n: u32) u32 {
-    return n;
+    _ = n;
+    return Stack.CAPACITY;
 }
+
+// Define operations
+const UNDEFINED = Operation{
+    .execute = undefined_execute,
+    .constant_gas = 0,
+    .min_stack = 0,
+    .max_stack = Stack.CAPACITY,
+    .undefined = true,
+};
 
 fn undefined_execute(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
     _ = pc;
@@ -135,54 +133,680 @@ fn undefined_execute(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
     return ExecutionError.Error.InvalidOpcode;
 }
 
-fn stop_execute(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
-    _ = pc;
-    _ = interpreter;
-    _ = state;
-    return ExecutionError.Error.STOP;
+// Define all operations as comptime constants
+const STOP = Operation{
+    .execute = control.op_stop,
+    .constant_gas = 0,
+    .min_stack = 0,
+    .max_stack = Stack.CAPACITY,
+};
+
+const ADD = Operation{
+    .execute = arithmetic.op_add,
+    .constant_gas = GasFastestStep,
+    .min_stack = 2,
+    .max_stack = Stack.CAPACITY,
+};
+
+const MUL = Operation{
+    .execute = arithmetic.op_mul,
+    .constant_gas = GasFastStep,
+    .min_stack = 2,
+    .max_stack = Stack.CAPACITY,
+};
+
+const SUB = Operation{
+    .execute = arithmetic.op_sub,
+    .constant_gas = GasFastestStep,
+    .min_stack = 2,
+    .max_stack = Stack.CAPACITY,
+};
+
+const DIV = Operation{
+    .execute = arithmetic.op_div,
+    .constant_gas = GasFastStep,
+    .min_stack = 2,
+    .max_stack = Stack.CAPACITY,
+};
+
+const SDIV = Operation{
+    .execute = arithmetic.op_sdiv,
+    .constant_gas = GasFastStep,
+    .min_stack = 2,
+    .max_stack = Stack.CAPACITY,
+};
+
+const MOD = Operation{
+    .execute = arithmetic.op_mod,
+    .constant_gas = GasFastStep,
+    .min_stack = 2,
+    .max_stack = Stack.CAPACITY,
+};
+
+const SMOD = Operation{
+    .execute = arithmetic.op_smod,
+    .constant_gas = GasFastStep,
+    .min_stack = 2,
+    .max_stack = Stack.CAPACITY,
+};
+
+const ADDMOD = Operation{
+    .execute = arithmetic.op_addmod,
+    .constant_gas = GasMidStep,
+    .min_stack = 3,
+    .max_stack = Stack.CAPACITY,
+};
+
+const MULMOD = Operation{
+    .execute = arithmetic.op_mulmod,
+    .constant_gas = GasMidStep,
+    .min_stack = 3,
+    .max_stack = Stack.CAPACITY,
+};
+
+const EXP = Operation{
+    .execute = arithmetic.op_exp,
+    .constant_gas = 10,
+    .min_stack = 2,
+    .max_stack = Stack.CAPACITY,
+};
+
+const SIGNEXTEND = Operation{
+    .execute = arithmetic.op_signextend,
+    .constant_gas = GasFastStep,
+    .min_stack = 2,
+    .max_stack = Stack.CAPACITY,
+};
+
+// Comparison operations
+const LT = Operation{
+    .execute = comparison.op_lt,
+    .constant_gas = GasFastestStep,
+    .min_stack = 2,
+    .max_stack = Stack.CAPACITY,
+};
+
+const GT = Operation{
+    .execute = comparison.op_gt,
+    .constant_gas = GasFastestStep,
+    .min_stack = 2,
+    .max_stack = Stack.CAPACITY,
+};
+
+const SLT = Operation{
+    .execute = comparison.op_slt,
+    .constant_gas = GasFastestStep,
+    .min_stack = 2,
+    .max_stack = Stack.CAPACITY,
+};
+
+const SGT = Operation{
+    .execute = comparison.op_sgt,
+    .constant_gas = GasFastestStep,
+    .min_stack = 2,
+    .max_stack = Stack.CAPACITY,
+};
+
+const EQ = Operation{
+    .execute = comparison.op_eq,
+    .constant_gas = GasFastestStep,
+    .min_stack = 2,
+    .max_stack = Stack.CAPACITY,
+};
+
+const ISZERO = Operation{
+    .execute = comparison.op_iszero,
+    .constant_gas = GasFastestStep,
+    .min_stack = 1,
+    .max_stack = Stack.CAPACITY,
+};
+
+// Bitwise operations
+const AND = Operation{
+    .execute = bitwise.op_and,
+    .constant_gas = GasFastestStep,
+    .min_stack = 2,
+    .max_stack = Stack.CAPACITY,
+};
+
+const OR = Operation{
+    .execute = bitwise.op_or,
+    .constant_gas = GasFastestStep,
+    .min_stack = 2,
+    .max_stack = Stack.CAPACITY,
+};
+
+const XOR = Operation{
+    .execute = bitwise.op_xor,
+    .constant_gas = GasFastestStep,
+    .min_stack = 2,
+    .max_stack = Stack.CAPACITY,
+};
+
+const NOT = Operation{
+    .execute = bitwise.op_not,
+    .constant_gas = GasFastestStep,
+    .min_stack = 1,
+    .max_stack = Stack.CAPACITY,
+};
+
+const BYTE = Operation{
+    .execute = bitwise.op_byte,
+    .constant_gas = GasFastestStep,
+    .min_stack = 2,
+    .max_stack = Stack.CAPACITY,
+};
+
+const SHL = Operation{
+    .execute = bitwise.op_shl,
+    .constant_gas = GasFastestStep,
+    .min_stack = 2,
+    .max_stack = Stack.CAPACITY,
+};
+
+const SHR = Operation{
+    .execute = bitwise.op_shr,
+    .constant_gas = GasFastestStep,
+    .min_stack = 2,
+    .max_stack = Stack.CAPACITY,
+};
+
+const SAR = Operation{
+    .execute = bitwise.op_sar,
+    .constant_gas = GasFastestStep,
+    .min_stack = 2,
+    .max_stack = Stack.CAPACITY,
+};
+
+// SHA3
+const SHA3 = Operation{
+    .execute = crypto.op_sha3,
+    .constant_gas = Keccak256Gas,
+    .min_stack = 2,
+    .max_stack = Stack.CAPACITY,
+};
+
+// Environment operations
+const ADDRESS = Operation{
+    .execute = environment.op_address,
+    .constant_gas = GasQuickStep,
+    .min_stack = 0,
+    .max_stack = Stack.CAPACITY - 1,
+};
+
+const BALANCE = Operation{
+    .execute = environment.op_balance,
+    .constant_gas = 700,
+    .min_stack = 1,
+    .max_stack = Stack.CAPACITY,
+};
+
+const ORIGIN = Operation{
+    .execute = environment.op_origin,
+    .constant_gas = GasQuickStep,
+    .min_stack = 0,
+    .max_stack = Stack.CAPACITY - 1,
+};
+
+const CALLER = Operation{
+    .execute = environment.op_caller,
+    .constant_gas = GasQuickStep,
+    .min_stack = 0,
+    .max_stack = Stack.CAPACITY - 1,
+};
+
+const CALLVALUE = Operation{
+    .execute = environment.op_callvalue,
+    .constant_gas = GasQuickStep,
+    .min_stack = 0,
+    .max_stack = Stack.CAPACITY - 1,
+};
+
+const CALLDATALOAD = Operation{
+    .execute = memory_ops.op_calldataload,
+    .constant_gas = GasFastestStep,
+    .min_stack = 1,
+    .max_stack = Stack.CAPACITY,
+};
+
+const CALLDATASIZE = Operation{
+    .execute = memory_ops.op_calldatasize,
+    .constant_gas = GasQuickStep,
+    .min_stack = 0,
+    .max_stack = Stack.CAPACITY - 1,
+};
+
+const CALLDATACOPY = Operation{
+    .execute = memory_ops.op_calldatacopy,
+    .constant_gas = GasFastestStep,
+    .min_stack = 3,
+    .max_stack = Stack.CAPACITY,
+};
+
+const CODESIZE = Operation{
+    .execute = memory_ops.op_codesize,
+    .constant_gas = GasQuickStep,
+    .min_stack = 0,
+    .max_stack = Stack.CAPACITY - 1,
+};
+
+const CODECOPY = Operation{
+    .execute = memory_ops.op_codecopy,
+    .constant_gas = GasFastestStep,
+    .min_stack = 3,
+    .max_stack = Stack.CAPACITY,
+};
+
+const GASPRICE = Operation{
+    .execute = environment.op_gasprice,
+    .constant_gas = GasQuickStep,
+    .min_stack = 0,
+    .max_stack = Stack.CAPACITY - 1,
+};
+
+// Block operations
+const BLOCKHASH = Operation{
+    .execute = block.op_blockhash,
+    .constant_gas = GasExtStep,
+    .min_stack = 1,
+    .max_stack = Stack.CAPACITY,
+};
+
+const COINBASE = Operation{
+    .execute = block.op_coinbase,
+    .constant_gas = GasQuickStep,
+    .min_stack = 0,
+    .max_stack = Stack.CAPACITY - 1,
+};
+
+const TIMESTAMP = Operation{
+    .execute = block.op_timestamp,
+    .constant_gas = GasQuickStep,
+    .min_stack = 0,
+    .max_stack = Stack.CAPACITY - 1,
+};
+
+const NUMBER = Operation{
+    .execute = block.op_number,
+    .constant_gas = GasQuickStep,
+    .min_stack = 0,
+    .max_stack = Stack.CAPACITY - 1,
+};
+
+const DIFFICULTY = Operation{
+    .execute = block.op_difficulty,
+    .constant_gas = GasQuickStep,
+    .min_stack = 0,
+    .max_stack = Stack.CAPACITY - 1,
+};
+
+const GASLIMIT = Operation{
+    .execute = block.op_gaslimit,
+    .constant_gas = GasQuickStep,
+    .min_stack = 0,
+    .max_stack = Stack.CAPACITY - 1,
+};
+
+// Stack operations
+const POP = Operation{
+    .execute = stack_ops.op_pop,
+    .constant_gas = GasQuickStep,
+    .min_stack = 1,
+    .max_stack = Stack.CAPACITY,
+};
+
+const MLOAD = Operation{
+    .execute = memory_ops.op_mload,
+    .constant_gas = GasFastestStep,
+    .min_stack = 1,
+    .max_stack = Stack.CAPACITY,
+};
+
+const MSTORE = Operation{
+    .execute = memory_ops.op_mstore,
+    .constant_gas = GasFastestStep,
+    .min_stack = 2,
+    .max_stack = Stack.CAPACITY,
+};
+
+const MSTORE8 = Operation{
+    .execute = memory_ops.op_mstore8,
+    .constant_gas = GasFastestStep,
+    .min_stack = 2,
+    .max_stack = Stack.CAPACITY,
+};
+
+const SLOAD = Operation{
+    .execute = storage.op_sload,
+    .constant_gas = 800,
+    .min_stack = 1,
+    .max_stack = Stack.CAPACITY,
+};
+
+const SSTORE = Operation{
+    .execute = storage.op_sstore,
+    .constant_gas = 0, // Dynamic gas calculation
+    .min_stack = 2,
+    .max_stack = Stack.CAPACITY,
+};
+
+const JUMP = Operation{
+    .execute = control.op_jump,
+    .constant_gas = GasMidStep,
+    .min_stack = 1,
+    .max_stack = Stack.CAPACITY,
+};
+
+const JUMPI = Operation{
+    .execute = control.op_jumpi,
+    .constant_gas = GasSlowStep,
+    .min_stack = 2,
+    .max_stack = Stack.CAPACITY,
+};
+
+const PC = Operation{
+    .execute = control.op_pc,
+    .constant_gas = GasQuickStep,
+    .min_stack = 0,
+    .max_stack = Stack.CAPACITY - 1,
+};
+
+const MSIZE = Operation{
+    .execute = memory_ops.op_msize,
+    .constant_gas = GasQuickStep,
+    .min_stack = 0,
+    .max_stack = Stack.CAPACITY - 1,
+};
+
+const GAS = Operation{
+    .execute = gas_op,
+    .constant_gas = GasQuickStep,
+    .min_stack = 0,
+    .max_stack = Stack.CAPACITY - 1,
+};
+
+const JUMPDEST = Operation{
+    .execute = control.op_jumpdest,
+    .constant_gas = JumpdestGas,
+    .min_stack = 0,
+    .max_stack = Stack.CAPACITY,
+};
+
+// System operations
+const CREATE = Operation{
+    .execute = system.op_create,
+    .constant_gas = CreateGas,
+    .min_stack = 3,
+    .max_stack = Stack.CAPACITY,
+};
+
+const CALL = Operation{
+    .execute = system.op_call,
+    .constant_gas = CallGas,
+    .min_stack = 7,
+    .max_stack = Stack.CAPACITY,
+};
+
+const CALLCODE = Operation{
+    .execute = system.op_callcode,
+    .constant_gas = CallGas,
+    .min_stack = 7,
+    .max_stack = Stack.CAPACITY,
+};
+
+const RETURN = Operation{
+    .execute = control.op_return,
+    .constant_gas = 0,
+    .min_stack = 2,
+    .max_stack = Stack.CAPACITY,
+};
+
+const INVALID = Operation{
+    .execute = control.op_invalid,
+    .constant_gas = 0,
+    .min_stack = 0,
+    .max_stack = Stack.CAPACITY,
+};
+
+const SELFDESTRUCT = Operation{
+    .execute = control.op_selfdestruct,
+    .constant_gas = 5000,
+    .min_stack = 1,
+    .max_stack = Stack.CAPACITY,
+};
+
+// Helper to convert Stack errors to ExecutionError
+inline fn stack_push(stack: *Stack, value: u256) ExecutionError.Error!void {
+    return stack.append(value) catch |err| switch (err) {
+        Stack.Error.Overflow => return ExecutionError.Error.StackOverflow,
+        else => return ExecutionError.Error.StackOverflow,
+    };
 }
 
-fn dummy_execute(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+// Gas opcode handler
+fn gas_op(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
     _ = pc;
     _ = interpreter;
-    _ = state;
+    
+    const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    
+    try stack_push(&frame.stack, @as(u256, @intCast(frame.gas_remaining)));
+    
     return "";
 }
 
-// Define operations as comptime constants
-const STOP_OP = Operation{
-    .execute = stop_execute,
-    .constant_gas = 0,
-    .min_stack = min_stack(0, 0),
-    .max_stack = max_stack(0, 0),
-};
-
-const ADD_OP = Operation{
-    .execute = dummy_execute,
-    .constant_gas = GasFastestStep,
-    .min_stack = min_stack(2, 1),
-    .max_stack = max_stack(2, 1),
-};
-
-// Create a new frontier instruction set
-pub fn new_frontier_instruction_set(allocator: std.mem.Allocator) !Self {
-    _ = allocator;
+// Create jump table for specific hardfork
+pub fn new_frontier_instruction_set() Self {
     var jt = Self.init();
 
-    // Setup operation table
-    jt.table[0x00] = &STOP_OP;
-    jt.table[0x01] = &ADD_OP;
+    // Setup operation table for Frontier
+    jt.table[0x00] = &STOP;
+    jt.table[0x01] = &ADD;
+    jt.table[0x02] = &MUL;
+    jt.table[0x03] = &SUB;
+    jt.table[0x04] = &DIV;
+    jt.table[0x05] = &SDIV;
+    jt.table[0x06] = &MOD;
+    jt.table[0x07] = &SMOD;
+    jt.table[0x08] = &ADDMOD;
+    jt.table[0x09] = &MULMOD;
+    jt.table[0x0a] = &EXP;
+    jt.table[0x0b] = &SIGNEXTEND;
+
+    // 0x10s: Comparison & Bitwise Logic
+    jt.table[0x10] = &LT;
+    jt.table[0x11] = &GT;
+    jt.table[0x12] = &SLT;
+    jt.table[0x13] = &SGT;
+    jt.table[0x14] = &EQ;
+    jt.table[0x15] = &ISZERO;
+    jt.table[0x16] = &AND;
+    jt.table[0x17] = &OR;
+    jt.table[0x18] = &XOR;
+    jt.table[0x19] = &NOT;
+    jt.table[0x1a] = &BYTE;
+
+    // 0x20s: SHA3
+    jt.table[0x20] = &SHA3;
+
+    // 0x30s: Environmental Information
+    jt.table[0x30] = &ADDRESS;
+    jt.table[0x31] = &BALANCE;
+    jt.table[0x32] = &ORIGIN;
+    jt.table[0x33] = &CALLER;
+    jt.table[0x34] = &CALLVALUE;
+    jt.table[0x35] = &CALLDATALOAD;
+    jt.table[0x36] = &CALLDATASIZE;
+    jt.table[0x37] = &CALLDATACOPY;
+    jt.table[0x38] = &CODESIZE;
+    jt.table[0x39] = &CODECOPY;
+    jt.table[0x3a] = &GASPRICE;
+
+    // 0x40s: Block Information
+    jt.table[0x40] = &BLOCKHASH;
+    jt.table[0x41] = &COINBASE;
+    jt.table[0x42] = &TIMESTAMP;
+    jt.table[0x43] = &NUMBER;
+    jt.table[0x44] = &DIFFICULTY;
+    jt.table[0x45] = &GASLIMIT;
+
+    // 0x50s: Stack, Memory, Storage and Flow Operations
+    jt.table[0x50] = &POP;
+    jt.table[0x51] = &MLOAD;
+    jt.table[0x52] = &MSTORE;
+    jt.table[0x53] = &MSTORE8;
+    jt.table[0x54] = &SLOAD;
+    jt.table[0x55] = &SSTORE;
+    jt.table[0x56] = &JUMP;
+    jt.table[0x57] = &JUMPI;
+    jt.table[0x58] = &PC;
+    jt.table[0x59] = &MSIZE;
+    jt.table[0x5a] = &GAS;
+    jt.table[0x5b] = &JUMPDEST;
+
+    // 0x60s & 0x70s: Push operations
+    inline for (0..32) |i| {
+        jt.table[0x60 + i] = &Operation{
+            .execute = switch (i + 1) {
+                1 => stack_ops.op_push1,
+                2 => stack_ops.op_push2,
+                3 => stack_ops.op_push3,
+                4 => stack_ops.op_push4,
+                5 => stack_ops.op_push5,
+                6 => stack_ops.op_push6,
+                7 => stack_ops.op_push7,
+                8 => stack_ops.op_push8,
+                9 => stack_ops.op_push9,
+                10 => stack_ops.op_push10,
+                11 => stack_ops.op_push11,
+                12 => stack_ops.op_push12,
+                13 => stack_ops.op_push13,
+                14 => stack_ops.op_push14,
+                15 => stack_ops.op_push15,
+                16 => stack_ops.op_push16,
+                17 => stack_ops.op_push17,
+                18 => stack_ops.op_push18,
+                19 => stack_ops.op_push19,
+                20 => stack_ops.op_push20,
+                21 => stack_ops.op_push21,
+                22 => stack_ops.op_push22,
+                23 => stack_ops.op_push23,
+                24 => stack_ops.op_push24,
+                25 => stack_ops.op_push25,
+                26 => stack_ops.op_push26,
+                27 => stack_ops.op_push27,
+                28 => stack_ops.op_push28,
+                29 => stack_ops.op_push29,
+                30 => stack_ops.op_push30,
+                31 => stack_ops.op_push31,
+                32 => stack_ops.op_push32,
+                else => unreachable,
+            },
+            .constant_gas = GasFastestStep,
+            .min_stack = 0,
+            .max_stack = Stack.CAPACITY - 1,
+        };
+    }
+
+    // 0x80s: Duplication Operations
+    inline for (1..17) |i| {
+        jt.table[0x80 + i - 1] = &Operation{
+            .execute = switch (i) {
+                1 => stack_ops.op_dup1,
+                2 => stack_ops.op_dup2,
+                3 => stack_ops.op_dup3,
+                4 => stack_ops.op_dup4,
+                5 => stack_ops.op_dup5,
+                6 => stack_ops.op_dup6,
+                7 => stack_ops.op_dup7,
+                8 => stack_ops.op_dup8,
+                9 => stack_ops.op_dup9,
+                10 => stack_ops.op_dup10,
+                11 => stack_ops.op_dup11,
+                12 => stack_ops.op_dup12,
+                13 => stack_ops.op_dup13,
+                14 => stack_ops.op_dup14,
+                15 => stack_ops.op_dup15,
+                16 => stack_ops.op_dup16,
+                else => unreachable,
+            },
+            .constant_gas = GasFastestStep,
+            .min_stack = min_dup_stack(@as(u32, @intCast(i))),
+            .max_stack = max_dup_stack(@as(u32, @intCast(i))),
+        };
+    }
+
+    // 0x90s: Exchange Operations
+    inline for (1..17) |i| {
+        jt.table[0x90 + i - 1] = &Operation{
+            .execute = switch (i) {
+                1 => stack_ops.op_swap1,
+                2 => stack_ops.op_swap2,
+                3 => stack_ops.op_swap3,
+                4 => stack_ops.op_swap4,
+                5 => stack_ops.op_swap5,
+                6 => stack_ops.op_swap6,
+                7 => stack_ops.op_swap7,
+                8 => stack_ops.op_swap8,
+                9 => stack_ops.op_swap9,
+                10 => stack_ops.op_swap10,
+                11 => stack_ops.op_swap11,
+                12 => stack_ops.op_swap12,
+                13 => stack_ops.op_swap13,
+                14 => stack_ops.op_swap14,
+                15 => stack_ops.op_swap15,
+                16 => stack_ops.op_swap16,
+                else => unreachable,
+            },
+            .constant_gas = GasFastestStep,
+            .min_stack = min_swap_stack(@as(u32, @intCast(i))),
+            .max_stack = max_swap_stack(@as(u32, @intCast(i))),
+        };
+    }
+
+    // 0xa0s: Logging Operations
+    inline for (0..5) |i| {
+        jt.table[0xa0 + i] = &Operation{
+            .execute = switch (i) {
+                0 => log.op_log0,
+                1 => log.op_log1,
+                2 => log.op_log2,
+                3 => log.op_log3,
+                4 => log.op_log4,
+                else => unreachable,
+            },
+            .constant_gas = LogGas + LogTopicGas * i,
+            .min_stack = @as(u32, @intCast(i + 2)),
+            .max_stack = Stack.CAPACITY,
+        };
+    }
+
+    // 0xf0s: System operations
+    jt.table[0xf0] = &CREATE;
+
+    jt.table[0xf1] = &CALL;
+    jt.table[0xf2] = &CALLCODE;
+    jt.table[0xf3] = &RETURN;
+    jt.table[0xfe] = &INVALID;
+    jt.table[0xff] = &SELFDESTRUCT;
 
     // Fill remaining with UNDEFINED
     jt.validate();
     return jt;
 }
 
-// Create test for the Self
-test "JumpTable basic operations" {
-    const allocator = std.testing.allocator;
+pub fn init_from_hardfork(hardfork: Hardfork) Self {
+    _ = hardfork;
+    // For now, just return frontier instruction set
+    return new_frontier_instruction_set();
+}
 
-    const jt = try new_frontier_instruction_set(allocator);
+// Import Frame for gas_op
+const Frame = @import("frame.zig");
+
+// Tests
+test "JumpTable basic operations" {
+    const jt = new_frontier_instruction_set();
 
     // Test a couple of operations
     const stop_op = jt.get_operation(0x00);
@@ -192,11 +816,10 @@ test "JumpTable basic operations" {
     try std.testing.expectEqual(@as(u64, GasFastestStep), add_op.constant_gas);
 
     // Test an undefined operation
-    const undef_op = jt.get_operation(0xFF);
+    const undef_op = jt.get_operation(0xef);
     try std.testing.expect(undef_op.undefined);
 }
 
-// Create a very basic test for JumpTable that doesn't depend on external implementation details
 test "JumpTable initialization and validation" {
     const jt = Self.init();
     try std.testing.expectEqual(@as(usize, 256), jt.table.len);
@@ -220,13 +843,13 @@ test "JumpTable initialization and validation" {
 
 test "JumpTable stack calculation helpers" {
     try std.testing.expectEqual(@as(u32, 2), min_stack(2, 1));
-    try std.testing.expectEqual(@as(u32, 1), max_stack(2, 1));
+    try std.testing.expectEqual(@as(u32, Stack.CAPACITY), max_stack(2, 1));
 
     try std.testing.expectEqual(@as(u32, 3), min_dup_stack(3));
-    try std.testing.expectEqual(@as(u32, 4), max_dup_stack(3));
+    try std.testing.expectEqual(@as(u32, Stack.CAPACITY - 1), max_dup_stack(3));
 
-    try std.testing.expectEqual(@as(u32, 4), min_swap_stack(4));
-    try std.testing.expectEqual(@as(u32, 4), max_swap_stack(4));
+    try std.testing.expectEqual(@as(u32, 5), min_swap_stack(4));
+    try std.testing.expectEqual(@as(u32, Stack.CAPACITY), max_swap_stack(4));
 }
 
 test "JumpTable gas constants" {
