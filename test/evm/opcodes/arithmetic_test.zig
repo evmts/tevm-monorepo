@@ -44,7 +44,14 @@ test "Arithmetic: ADD basic operations" {
     _ = try helpers.executeOpcode(arithmetic.op_add, &test_vm.vm, &test_frame.frame);
     try helpers.expectStackValue(&test_frame.frame, 0, 42);
     
-    // Test gas consumption
+    // Test gas consumption - create a new frame with jump table
+    test_frame.frame.stack.clear();
+    test_frame.frame.gas_remaining = 1000;
+    try test_frame.pushStack(&[_]u256{5, 10});
+    
+    // Create jump table for gas testing
+    const jump_table = helpers.JumpTable.new_frontier_instruction_set();
+    _ = try helpers.executeOpcodeWithGas(&jump_table, 0x01, &test_vm.vm, &test_frame.frame); // 0x01 = ADD
     try helpers.expectGasUsed(&test_frame.frame, 1000, 3); // ADD costs GasFastestStep = 3
 }
 

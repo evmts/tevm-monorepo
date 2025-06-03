@@ -55,10 +55,17 @@ pub fn init_with_state(
     output: ?[]const u8,
     program_counter: ?usize,
 ) Self {
+    // Create memory if not provided
+    const mem: Memory = if (memory) |m| m else blk: {
+        var new_memory = Memory.init_default(allocator) catch @panic("Failed to initialize memory");
+        new_memory.finalize_root();
+        break :blk new_memory;
+    };
+    
     return Self{
         .allocator = allocator,
         .contract = contract,
-        .memory = memory orelse Memory.init_default(allocator) catch @panic("Failed to initialize memory"),
+        .memory = mem,
         .stack = stack orelse .{},
         .op = op orelse undefined,
         .pc = pc orelse 0,

@@ -52,6 +52,9 @@ block_base_fee: u256 = 0,
 blob_hashes: []const u256 = &[_]u256{},
 blob_base_fee: u256 = 0,
 
+// Testing helper
+last_stack_value: ?u256 = null,
+
 pub const StorageKey = struct {
     address: Address.Address,
     slot: u256,
@@ -147,8 +150,7 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
 
     var pc: usize = 0;
     var frame = try Frame.init(self.allocator, contract);
-    frame.memory.finalize_root();
-    defer frame.memory.deinit();
+    defer frame.deinit();
     frame.is_static = self.read_only;
     frame.depth = @as(u32, @intCast(self.depth));
     frame.input = input;
@@ -466,8 +468,7 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
     
     // Create a frame for execution
     var frame = try Frame.init(self.allocator, &contract);
-    frame.memory.finalize_root();
-    defer frame.memory.deinit();
+    defer frame.deinit();
     
     frame.gas_remaining = gas;
     frame.input = input orelse &[_]u8{};
@@ -491,6 +492,10 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
             // Handle execution errors
             switch (err) {
                 ExecutionError.Error.STOP => {
+                    // Save top stack value for testing
+                    if (frame.stack.len > 0) {
+                        self.last_stack_value = frame.stack.peek() catch null;
+                    }
                     return RunResult{
                         .status = .Success,
                         .gas_left = frame.gas_remaining,
@@ -535,6 +540,10 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
     }
     
     // If we reach end of bytecode without explicit stop/return
+    // Save top stack value for testing
+    if (frame.stack.len > 0) {
+        self.last_stack_value = frame.stack.peek() catch null;
+    }
     return RunResult{
         .status = .Success,
         .gas_left = frame.gas_remaining,
@@ -542,7 +551,4 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
         .output = null,
     };
 }
-
-// Helper to preserve last frame stack for testing
-pub var last_stack_value: ?u256 = null;
 

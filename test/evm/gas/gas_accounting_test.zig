@@ -399,6 +399,7 @@ test "Gas: CREATE operations with init code" {
         .success = true,
         .address = helpers.TestAddresses.CHARLIE,
         .gas_left = 150000,
+        .output = null,
     };
     
     // Create jump table for gas consumption

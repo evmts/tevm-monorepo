@@ -5,6 +5,7 @@ const opcodes = evm.opcodes;
 const test_helpers = @import("test_helpers.zig");
 const ExecutionError = evm.ExecutionError;
 const Address = @import("Address");
+const gas_constants = evm.gas_constants;
 
 // Test CREATE operation
 test "CREATE: create new contract" {
@@ -223,6 +224,9 @@ test "CALL: successful call" {
         try test_frame.frame.memory.set_byte(i, call_data[i]);
     }
     
+    // Pre-expand memory to accommodate return data at offset 100
+    _ = try test_frame.frame.memory.ensure_capacity(110); // Need at least 100 + 10 bytes
+    
     // Set gas and mock call result
     test_vm.call_result = .{
         .success = true,
@@ -396,6 +400,9 @@ test "DELEGATECALL: execute code in current context" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
     
+    // Pre-expand memory to accommodate return data at offset 50
+    _ = try test_frame.frame.memory.ensure_capacity(52); // Need at least 50 + 2 bytes
+    
     // Set gas and mock call result
     test_vm.call_result = .{
         .success = true,
@@ -439,6 +446,9 @@ test "STATICCALL: read-only call" {
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
+    
+    // Pre-expand memory to accommodate return data at offset 200
+    _ = try test_frame.frame.memory.ensure_capacity(202); // Need at least 200 + 2 bytes
     
     // Set gas and mock call result
     test_vm.call_result = .{
@@ -698,4 +708,109 @@ test "CREATE: memory expansion for init code" {
     // Should consume gas for memory expansion
     const gas_used = gas_before - test_frame.frame.gas_remaining;
     try testing.expect(gas_used > 100 * 200); // More than just init code cost
+}
+
+// Test EIP-3860: Limit and meter initcode
+test "CREATE: EIP-3860 initcode size limit" {
+    const allocator = testing.allocator;
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    defer contract.deinit(null);
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000000);
+    defer test_frame.deinit();
+    
+    // Push parameters with size exceeding MaxInitcodeSize (49152)
+    try test_frame.pushStack(&[_]u256{0});      // value
+    try test_frame.pushStack(&[_]u256{0});      // offset
+    try test_frame.pushStack(&[_]u256{49153}); // size (one byte over limit)
+    
+    // Execute CREATE - should fail with MaxCodeSizeExceeded
+    const result = test_helpers.executeOpcode(opcodes.system.op_create, &test_vm.vm, &test_frame.frame);
+    try testing.expectError(ExecutionError.Error.MaxCodeSizeExceeded, result);
+}
+
+test "CREATE: EIP-3860 initcode word gas" {
+    const allocator = testing.allocator;
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    defer contract.deinit(null);
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 100000);
+    defer test_frame.deinit();
+    
+    // Write 64 bytes of init code (2 words)
+    var i: usize = 0;
+    while (i < 64) : (i += 1) {
+        try test_frame.frame.memory.set_byte(i, 0x00);
+    }
+    
+    test_vm.create_result = .{
+        .success = true,
+        .address = test_helpers.TestAddresses.ALICE,
+        .gas_left = 90000,
+        .output = null,
+    };
+    
+    // Push parameters
+    try test_frame.pushStack(&[_]u256{0});  // value
+    try test_frame.pushStack(&[_]u256{0});  // offset
+    try test_frame.pushStack(&[_]u256{64}); // size (2 words)
+    
+    const gas_before = test_frame.frame.gas_remaining;
+    
+    // Execute CREATE
+    _ = try test_helpers.executeOpcode(opcodes.system.op_create, &test_vm.vm, &test_frame.frame);
+    
+    // Should consume gas for init code + word gas
+    const expected_init_gas = 64 * gas_constants.CreateDataGas;
+    const expected_word_gas = 2 * gas_constants.InitcodeWordGas; // 2 words * 2 gas
+    const gas_used = gas_before - test_frame.frame.gas_remaining;
+    
+    // Gas used should include the word gas cost
+    try testing.expect(gas_used >= expected_init_gas + expected_word_gas);
+}
+
+test "CREATE2: EIP-3860 initcode size limit" {
+    const allocator = testing.allocator;
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try test_helpers.createTestContract(
+        allocator,
+        test_helpers.TestAddresses.CONTRACT,
+        test_helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    defer contract.deinit(null);
+    
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000000);
+    defer test_frame.deinit();
+    
+    // Push parameters with size exceeding MaxInitcodeSize (49152)
+    try test_frame.pushStack(&[_]u256{0});      // value
+    try test_frame.pushStack(&[_]u256{0});      // offset
+    try test_frame.pushStack(&[_]u256{49153}); // size (one byte over limit)
+    try test_frame.pushStack(&[_]u256{0x123}); // salt
+    
+    // Execute CREATE2 - should fail with MaxCodeSizeExceeded
+    const result = test_helpers.executeOpcode(opcodes.system.op_create2, &test_vm.vm, &test_frame.frame);
+    try testing.expectError(ExecutionError.Error.MaxCodeSizeExceeded, result);
 }
