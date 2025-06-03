@@ -13,7 +13,7 @@ pub const Vm = evm.Vm;
 pub const Operation = evm.Operation;
 pub const ExecutionError = evm.ExecutionError;
 pub const opcodes = evm.opcodes;
-pub const Hardfork = evm.Hardfork;
+pub const Hardfork = evm.Hardfork.Hardfork;
 pub const JumpTable = evm.JumpTable;
 
 /// Test VM with minimal setup for testing opcodes

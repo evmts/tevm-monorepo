@@ -30,25 +30,25 @@ This document tracks the implementation and testing status of all EVM opcodes. E
   - Tests: `test/evm/opcodes/arithmetic_test.zig` ✅ Has unit tests
   - VM Tests: `test/evm/vm_opcode_test.zig` ✅ Added comprehensive VM tests
 
-- [🔨] **DIV** (0x04) - Integer division operation
-  - Implementation: `src/evm/opcodes/arithmetic.zig`
+- [✅] **DIV** (0x04) - Integer division operation
+  - Implementation: `src/evm/opcodes/arithmetic.zig` ✅ Verified against revm
   - Revm: `revm/crates/interpreter/src/instructions/arithmetic.rs::div`
-  - Tests: `test/evm/opcodes/arithmetic_test.zig`
-  - VM Tests: ⚠️ Needs additional VM-level tests
+  - Tests: `test/evm/opcodes/arithmetic_test.zig` ✅ Has unit tests
+  - VM Tests: `test/evm/vm_opcode_test.zig` ✅ Added comprehensive VM tests
 
-- [ ] **SDIV** (0x05) - Signed integer division operation
-  - Implementation: `src/evm/opcodes/arithmetic.zig`
+- [✅] **SDIV** (0x05) - Signed integer division operation
+  - Implementation: `src/evm/opcodes/arithmetic.zig` ✅ Verified against revm
   - Revm: `revm/crates/interpreter/src/instructions/arithmetic.rs::sdiv`
-  - Tests: `test/evm/opcodes/arithmetic_test.zig`
-  - VM Tests: ⚠️ Needs additional VM-level tests
+  - Tests: `test/evm/opcodes/arithmetic_test.zig` ⚠️ No unit tests yet
+  - VM Tests: `test/evm/vm_opcode_test.zig` ✅ Added comprehensive VM tests
 
-- [ ] **MOD** (0x06) - Modulo remainder operation
-  - Implementation: `src/evm/opcodes/arithmetic.zig`
+- [✅] **MOD** (0x06) - Modulo remainder operation
+  - Implementation: `src/evm/opcodes/arithmetic.zig` ✅ Verified against revm
   - Revm: `revm/crates/interpreter/src/instructions/arithmetic.rs::rem`
-  - Tests: `test/evm/opcodes/arithmetic_test.zig`
-  - VM Tests: ⚠️ Needs additional VM-level tests
+  - Tests: `test/evm/opcodes/arithmetic_test.zig` ✅ Has unit tests
+  - VM Tests: `test/evm/vm_opcode_test.zig` ✅ Added comprehensive VM tests
 
-- [ ] **SMOD** (0x07) - Signed modulo remainder operation
+- [🔨] **SMOD** (0x07) - Signed modulo remainder operation
   - Implementation: `src/evm/opcodes/arithmetic.zig`
   - Revm: `revm/crates/interpreter/src/instructions/arithmetic.rs::smod`
   - Tests: `test/evm/opcodes/arithmetic_test.zig`

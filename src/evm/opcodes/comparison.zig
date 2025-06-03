@@ -25,8 +25,8 @@ pub fn op_lt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.S
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
-    const b = try stack_pop(&frame.stack);
     const a = try stack_pop(&frame.stack);
+    const b = try stack_pop(&frame.stack);
     
     const result: u256 = if (a < b) 1 else 0;
     
@@ -41,8 +41,8 @@ pub fn op_gt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.S
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
-    const b = try stack_pop(&frame.stack);
     const a = try stack_pop(&frame.stack);
+    const b = try stack_pop(&frame.stack);
     
     const result: u256 = if (a > b) 1 else 0;
     
@@ -57,8 +57,8 @@ pub fn op_slt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
-    const b = try stack_pop(&frame.stack);
     const a = try stack_pop(&frame.stack);
+    const b = try stack_pop(&frame.stack);
     
     // Signed less than
     const a_i256 = @as(i256, @bitCast(a));
@@ -77,8 +77,8 @@ pub fn op_sgt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
-    const b = try stack_pop(&frame.stack);
     const a = try stack_pop(&frame.stack);
+    const b = try stack_pop(&frame.stack);
     
     // Signed greater than
     const a_i256 = @as(i256, @bitCast(a));
@@ -97,8 +97,8 @@ pub fn op_eq(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.S
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
-    const b = try stack_pop(&frame.stack);
     const a = try stack_pop(&frame.stack);
+    const b = try stack_pop(&frame.stack);
     
     const result: u256 = if (a == b) 1 else 0;
     

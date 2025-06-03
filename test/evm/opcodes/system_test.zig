@@ -6,6 +6,7 @@ const test_helpers = @import("test_helpers.zig");
 const ExecutionError = evm.ExecutionError;
 const Address = @import("Address");
 const gas_constants = evm.gas_constants;
+const Hardfork = evm.Hardfork.Hardfork;
 
 // Test CREATE operation
 test "CREATE: create new contract" {
@@ -714,7 +715,7 @@ test "CREATE: memory expansion for init code" {
 test "CREATE: EIP-3860 initcode size limit" {
     const allocator = testing.allocator;
     // Use Shanghai hardfork to test EIP-3860
-    var test_vm = try test_helpers.TestVm.initWithHardfork(allocator, .SHANGHAI);
+    var test_vm = try test_helpers.TestVm.initWithHardfork(allocator, Hardfork.SHANGHAI);
     defer test_vm.deinit();
     
     var contract = try test_helpers.createTestContract(
@@ -742,7 +743,7 @@ test "CREATE: EIP-3860 initcode size limit" {
 test "CREATE: EIP-3860 initcode word gas" {
     const allocator = testing.allocator;
     // Use Shanghai hardfork to test EIP-3860
-    var test_vm = try test_helpers.TestVm.initWithHardfork(allocator, .SHANGHAI);
+    var test_vm = try test_helpers.TestVm.initWithHardfork(allocator, Hardfork.SHANGHAI);
     defer test_vm.deinit();
     
     var contract = try test_helpers.createTestContract(
@@ -792,7 +793,7 @@ test "CREATE: EIP-3860 initcode word gas" {
 test "CREATE2: EIP-3860 initcode size limit" {
     const allocator = testing.allocator;
     // Use Shanghai hardfork to test EIP-3860
-    var test_vm = try test_helpers.TestVm.initWithHardfork(allocator, .SHANGHAI);
+    var test_vm = try test_helpers.TestVm.initWithHardfork(allocator, Hardfork.SHANGHAI);
     defer test_vm.deinit();
     
     var contract = try test_helpers.createTestContract(

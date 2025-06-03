@@ -91,9 +91,9 @@ test "SLOAD: cold storage access costs more gas" {
     // Execute SLOAD - cold access
     _ = try test_helpers.executeOpcode(opcodes.storage.op_sload, &test_vm.vm, test_frame.frame);
     
-    // Should consume 2100 gas for cold access (minus warm cost already in base)
+    // Should consume 2100 gas for cold access
     const cold_gas_used = gas_before - test_frame.frame.gas_remaining;
-    try testing.expectEqual(@as(u64, 2000), cold_gas_used); // 2100 - 100 warm cost
+    try testing.expectEqual(@as(u64, 2100), cold_gas_used);
     
     // Second access should be warm
     try test_frame.pushStack(&[_]u256{0x123});
@@ -101,8 +101,8 @@ test "SLOAD: cold storage access costs more gas" {
     
     _ = try test_helpers.executeOpcode(opcodes.storage.op_sload, &test_vm.vm, test_frame.frame);
     
-    // Should consume 0 additional gas for warm access
-    try testing.expectEqual(@as(u64, 0), gas_before_warm - test_frame.frame.gas_remaining);
+    // Should consume 100 gas for warm access
+    try testing.expectEqual(@as(u64, 100), gas_before_warm - test_frame.frame.gas_remaining);
 }
 
 // Test SSTORE operation
@@ -151,7 +151,7 @@ test "SSTORE: overwrite existing value" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 25000);
     defer test_frame.deinit();
     
     // Set initial value
@@ -226,9 +226,9 @@ test "SSTORE: cold storage access costs more gas" {
     // Execute SSTORE - cold access
     _ = try test_helpers.executeOpcode(opcodes.storage.op_sstore, &test_vm.vm, test_frame.frame);
     
-    // Should consume 2100 gas for cold access
+    // Should consume 2100 gas for cold access + 20000 for SSTORE_SET (new non-zero value)
     const cold_gas_used = gas_before - test_frame.frame.gas_remaining;
-    try testing.expectEqual(@as(u64, 2100), cold_gas_used);
+    try testing.expectEqual(@as(u64, 22100), cold_gas_used);
     
     // Second access to same slot should be warm
     try test_frame.pushStack(&[_]u256{0x789}); // same slot
@@ -237,8 +237,8 @@ test "SSTORE: cold storage access costs more gas" {
     
     _ = try test_helpers.executeOpcode(opcodes.storage.op_sstore, &test_vm.vm, test_frame.frame);
     
-    // Should consume 0 additional gas for warm access
-    try testing.expectEqual(@as(u64, 0), gas_before_warm - test_frame.frame.gas_remaining);
+    // Should consume 2900 gas for warm SSTORE_RESET (changing existing non-zero value)
+    try testing.expectEqual(@as(u64, 2900), gas_before_warm - test_frame.frame.gas_remaining);
 }
 
 // Test TLOAD operation (EIP-1153)
@@ -316,7 +316,7 @@ test "TLOAD: transient storage is separate from regular storage" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 5000);
     defer test_frame.deinit();
     
     // Set same slot in both storages with different values

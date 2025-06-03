@@ -29,8 +29,8 @@ pub fn op_mul(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
-    const b = try error_mapping.stack_pop(&frame.stack);
     const a = try error_mapping.stack_pop(&frame.stack);
+    const b = try error_mapping.stack_pop(&frame.stack);
     
     const result = a *% b; // Wrapping multiplication
     
@@ -347,8 +347,8 @@ pub fn op_exp(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
     _ = vm;
     
-    const exp = try error_mapping.stack_pop(&frame.stack);
     const base = try error_mapping.stack_pop(&frame.stack);
+    const exp = try error_mapping.stack_pop(&frame.stack);
     
     // Calculate dynamic gas cost based on exponent size
     // Gas = 50 * number_of_bytes_in_exponent

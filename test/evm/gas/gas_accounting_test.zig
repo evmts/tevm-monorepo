@@ -397,8 +397,8 @@ test "Gas: CREATE operations with init code" {
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 500000);
     defer test_frame.deinit();
     
-    // Prepare init code
-    const init_code = [_]u8{0x60, 0x00, 0x60, 0x00, 0xf3} ** 10; // 50 bytes
+    // Prepare init code - smaller to use less gas
+    const init_code = [_]u8{0x60, 0x00, 0x60, 0x00, 0xf3}; // 5 bytes (PUSH1 0x00 PUSH1 0x00 RETURN)
     var i: usize = 0;
     while (i < init_code.len) : (i += 1) {
         try test_frame.setMemory(i, &[_]u8{init_code[i]});
@@ -408,7 +408,7 @@ test "Gas: CREATE operations with init code" {
     test_vm.create_result = .{
         .success = true,
         .address = helpers.TestAddresses.CHARLIE,
-        .gas_left = 150000,
+        .gas_left = 450000, // Return most of the gas
         .output = null,
     };
     
@@ -421,10 +421,14 @@ test "Gas: CREATE operations with init code" {
     _ = try helpers.executeOpcodeWithGas(&jump_table, 0xf0, &test_vm.vm, test_frame.frame); // 0xf0 = CREATE
     const gas_after_create = test_frame.frame.gas_remaining;
     
-    // Should consume at least init code cost (200 per byte)
-    const min_gas = @as(u64, init_code.len) * 200;
+    // Should consume base gas + init code cost + memory expansion + word cost
+    // Base: 32000, init code: 5 * 200 = 1000, word cost: 1 * 2 = 2
+    // Memory expansion to 5 bytes: 3 gas
+    // Total minimum: 32000 + 1000 + 2 + 3 = 33005
+    // But we get back most of the gas given to the call
     const actual_gas = gas_before_create - gas_after_create;
-    try testing.expect(actual_gas >= min_gas);
+    const expected_min_gas = 33005;
+    try testing.expect(actual_gas >= expected_min_gas);
     
     // Test CREATE2 with additional hashing cost
     test_frame.frame.stack.clear();
@@ -432,7 +436,7 @@ test "Gas: CREATE operations with init code" {
     test_vm.create_result = .{
         .success = true,
         .address = helpers.TestAddresses.CHARLIE,
-        .gas_left = 150000,
+        .gas_left = 450000, // Return most of the gas
         .output = null,
     }; // Reset
     
@@ -441,11 +445,13 @@ test "Gas: CREATE operations with init code" {
     _ = try helpers.executeOpcodeWithGas(&jump_table, 0xf5, &test_vm.vm, test_frame.frame); // 0xf5 = CREATE2
     const gas_after_create2 = test_frame.frame.gas_remaining;
     
-    // Should consume init code cost + hashing cost (6 per word)
-    const hash_words = (init_code.len + 31) / 32;
-    const min_gas2 = @as(u64, init_code.len) * 200 + hash_words * 6;
+    // Should consume base gas + init code cost + hash cost + word cost
+    // Base: 32000, init code: 5 * 200 = 1000, hash: 1 * 6 = 6, word cost: 1 * 2 = 2
+    // Memory already expanded, no additional cost
+    // Total minimum: 32000 + 1000 + 6 + 2 = 33008
     const actual_gas2 = gas_before_create2 - gas_after_create2;
-    try testing.expect(actual_gas2 >= min_gas2);
+    const expected_min_gas2 = 33008;
+    try testing.expect(actual_gas2 >= expected_min_gas2);
 }
 
 test "Gas: Copy operations (CALLDATACOPY, CODECOPY, etc.)" {

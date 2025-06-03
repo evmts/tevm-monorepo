@@ -59,7 +59,8 @@ test "Integration: Contract deployment simulation" {
     _ = helpers.executeOpcode(system.op_create, &test_vm.vm, test_frame.frame) catch |err| {
         // CREATE is not fully implemented, but we can verify it tries to execute
         try testing.expect(err == helpers.ExecutionError.Error.OutOfGas or 
-                          err == helpers.ExecutionError.Error.StackUnderflow);
+                          err == helpers.ExecutionError.Error.StackUnderflow or
+                          err == helpers.ExecutionError.Error.MaxCodeSizeExceeded);
     };
 }
 

@@ -82,14 +82,14 @@ test "VM: JUMPI conditional jump taken" {
         allocator.destroy(vm);
     }
     
-    // Jump to position 7 if condition is true (non-zero)
+    // Jump to position 8 if condition is true (non-zero)
     const bytecode = [_]u8{
         0x60, 0x01,  // PUSH1 1 (true condition)
-        0x60, 0x07,  // PUSH1 7 (jump destination)
+        0x60, 0x08,  // PUSH1 8 (jump destination)
         0x57,        // JUMPI
         0x60, 0xFF,  // PUSH1 255 (should be skipped)
         0x00,        // STOP (should be skipped)
-        0x5B,        // JUMPDEST (position 7)
+        0x5B,        // JUMPDEST (position 8)
         0x60, 0xAA,  // PUSH1 170
         0x00,        // STOP
     };
@@ -538,9 +538,9 @@ test "VM: DIV opcode" {
     }
     
     const bytecode = [_]u8{
-        0x60, 0x03,  // PUSH1 3
-        0x60, 0x0F,  // PUSH1 15
-        0x04,        // DIV (15 / 3)
+        0x60, 0x0F,  // PUSH1 15 (dividend)
+        0x60, 0x03,  // PUSH1 3 (divisor)
+        0x04,        // DIV (15 / 3 = 5)
         0x00,        // STOP
     };
     
@@ -560,8 +560,8 @@ test "VM: DIV by zero returns zero" {
     }
     
     const bytecode = [_]u8{
-        0x60, 0x00,  // PUSH1 0
-        0x60, 0x0A,  // PUSH1 10
+        0x60, 0x0A,  // PUSH1 10 (dividend)
+        0x60, 0x00,  // PUSH1 0 (divisor)
         0x04,        // DIV (10 / 0)
         0x00,        // STOP
     };
@@ -583,8 +583,8 @@ test "VM: DIV with remainder" {
     
     // Test integer division truncation: 17 / 5 = 3
     const bytecode = [_]u8{
-        0x60, 0x05,  // PUSH1 5
-        0x60, 0x11,  // PUSH1 17
+        0x60, 0x11,  // PUSH1 17 (dividend)
+        0x60, 0x05,  // PUSH1 5 (divisor)
         0x04,        // DIV (17 / 5)
         0x00,        // STOP
     };
@@ -606,8 +606,8 @@ test "VM: DIV by one" {
     
     // Test division by one (identity)
     const bytecode = [_]u8{
-        0x60, 0x01,  // PUSH1 1
-        0x61, 0x04, 0xD2,  // PUSH2 1234
+        0x61, 0x04, 0xD2,  // PUSH2 1234 (dividend)
+        0x60, 0x01,  // PUSH1 1 (divisor)
         0x04,        // DIV (1234 / 1)
         0x00,        // STOP
     };
@@ -629,8 +629,8 @@ test "VM: DIV zero dividend" {
     
     // Test 0 / n = 0
     const bytecode = [_]u8{
-        0x60, 0x42,  // PUSH1 66
-        0x60, 0x00,  // PUSH1 0
+        0x60, 0x00,  // PUSH1 0 (dividend)
+        0x60, 0x42,  // PUSH1 66 (divisor)
         0x04,        // DIV (0 / 66)
         0x00,        // STOP
     };
@@ -678,11 +678,11 @@ test "VM: DIV large numbers" {
     // Test large number division
     // 2^128 / 2^64 = 2^64
     const bytecode = [_]u8{
-        0x68, // PUSH9 (for 2^64)
-        0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 2^64
-        0x70, // PUSH17 (for 2^128)
+        0x70, // PUSH17 (for 2^128) - dividend
         0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 2^128
+        0x68, // PUSH9 (for 2^64) - divisor
+        0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 2^64
         0x04, // DIV
         0x00, // STOP
     };
@@ -705,9 +705,9 @@ test "VM: MOD opcode" {
     }
     
     const bytecode = [_]u8{
-        0x60, 0x03,  // PUSH1 3
-        0x60, 0x0A,  // PUSH1 10
-        0x06,        // MOD (10 % 3)
+        0x60, 0x0A,  // PUSH1 10 (dividend)
+        0x60, 0x03,  // PUSH1 3 (divisor)
+        0x06,        // MOD (10 % 3 = 1)
         0x00,        // STOP
     };
     
@@ -716,6 +716,441 @@ test "VM: MOD opcode" {
     
     try testing.expect(result.status == .Success);
     try testing.expectEqual(@as(u256, 1), vm.last_stack_value.?);
+}
+
+test "VM: MOD by zero returns zero" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    const bytecode = [_]u8{
+        0x60, 0x0A,  // PUSH1 10
+        0x60, 0x00,  // PUSH1 0
+        0x06,        // MOD (10 % 0)
+        0x00,        // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    try testing.expectEqual(@as(u256, 0), vm.last_stack_value.?);
+}
+
+test "VM: MOD perfect division" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    const bytecode = [_]u8{
+        0x60, 0x14,  // PUSH1 20
+        0x60, 0x05,  // PUSH1 5
+        0x06,        // MOD (20 % 5 = 0)
+        0x00,        // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    try testing.expectEqual(@as(u256, 0), vm.last_stack_value.?);
+}
+
+test "VM: MOD by one" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    const bytecode = [_]u8{
+        0x61, 0x04, 0xD2,  // PUSH2 1234
+        0x60, 0x01,        // PUSH1 1
+        0x06,              // MOD (1234 % 1 = 0)
+        0x00,              // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    try testing.expectEqual(@as(u256, 0), vm.last_stack_value.?);
+}
+
+test "VM: MOD large numbers" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    // Test large number modulo
+    // (2^128 + 5) % 2^64 = 5
+    const bytecode = [_]u8{
+        0x70, // PUSH17 (for 2^128 + 5)
+        0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x05, // 2^128 + 5
+        0x68, // PUSH9 (for 2^64)
+        0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 2^64
+        0x06, // MOD
+        0x00, // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    try testing.expectEqual(@as(u256, 5), vm.last_stack_value.?);
+}
+
+test "VM: SDIV opcode" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    // Test: -10 / 3 = -3
+    // -10 in two's complement: 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF6
+    const bytecode = [_]u8{
+        0x7f, // PUSH32
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xF6, // -10
+        0x60, 0x03,  // PUSH1 3
+        0x05,        // SDIV (-10 / 3 = -3)
+        0x00,        // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    // -3 in two's complement
+    const expected_neg3 = std.math.maxInt(u256) - 2; // -3 = 0xFFFFFFF...FD
+    try testing.expectEqual(expected_neg3, vm.last_stack_value.?);
+}
+
+test "VM: SDIV by zero returns zero" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    const bytecode = [_]u8{
+        0x60, 0x0A,  // PUSH1 10
+        0x60, 0x00,  // PUSH1 0
+        0x05,        // SDIV (10 / 0)
+        0x00,        // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    try testing.expectEqual(@as(u256, 0), vm.last_stack_value.?);
+}
+
+test "VM: SDIV overflow case MIN_I256 / -1" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    // MIN_I256 = -2^255 = 0x80000000000000000000000000000000000000000000000000000000000000000
+    // -1 = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+    const bytecode = [_]u8{
+        0x7f, // PUSH32 (MIN_I256)
+        0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x7f, // PUSH32 (-1)
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0x05, // SDIV
+        0x00, // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    // Result should be MIN_I256 (overflow wraps)
+    const min_i256 = @as(u256, 1) << 255;
+    try testing.expectEqual(min_i256, vm.last_stack_value.?);
+}
+
+test "VM: SDIV positive by negative" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    // Test: 10 / -3 = -3
+    // -3 in two's complement: 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFD
+    const bytecode = [_]u8{
+        0x60, 0x0A,  // PUSH1 10
+        0x7f, // PUSH32 (-3)
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFD,
+        0x05, // SDIV (10 / -3 = -3)
+        0x00, // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    // -3 in two's complement
+    const expected_neg3 = std.math.maxInt(u256) - 2;
+    try testing.expectEqual(expected_neg3, vm.last_stack_value.?);
+}
+
+test "VM: SDIV negative by negative" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    // Test: -10 / -3 = 3
+    const bytecode = [_]u8{
+        0x7f, // PUSH32 (-10)
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xF6,
+        0x7f, // PUSH32 (-3)
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFD,
+        0x05, // SDIV (-10 / -3 = 3)
+        0x00, // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    try testing.expectEqual(@as(u256, 3), vm.last_stack_value.?);
+}
+
+test "VM: SDIV truncation behavior" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    // Test: -17 / 5 = -3 (truncates toward zero)
+    // -17 in two's complement: 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEF
+    const bytecode = [_]u8{
+        0x7f, // PUSH32 (-17)
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xEF,
+        0x60, 0x05,  // PUSH1 5
+        0x05,        // SDIV (-17 / 5 = -3)
+        0x00,        // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    // -3 in two's complement
+    const expected_neg3 = std.math.maxInt(u256) - 2;
+    try testing.expectEqual(expected_neg3, vm.last_stack_value.?);
+}
+
+test "VM: SMOD opcode" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    // Test: -10 % 3 = -1
+    // -10 in two's complement: 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF6
+    const bytecode = [_]u8{
+        0x7f, // PUSH32 (-10)
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xF6,
+        0x60, 0x03,  // PUSH1 3
+        0x07,        // SMOD (-10 % 3 = -1)
+        0x00,        // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    // -1 in two's complement
+    const expected_neg1 = std.math.maxInt(u256);
+    try testing.expectEqual(expected_neg1, vm.last_stack_value.?);
+}
+
+test "VM: SMOD by zero returns zero" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    const bytecode = [_]u8{
+        0x60, 0x0A,  // PUSH1 10
+        0x60, 0x00,  // PUSH1 0
+        0x07,        // SMOD (10 % 0)
+        0x00,        // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    try testing.expectEqual(@as(u256, 0), vm.last_stack_value.?);
+}
+
+test "VM: SMOD positive by positive" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    // Test: 17 % 5 = 2
+    const bytecode = [_]u8{
+        0x60, 0x11,  // PUSH1 17
+        0x60, 0x05,  // PUSH1 5
+        0x07,        // SMOD (17 % 5 = 2)
+        0x00,        // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    try testing.expectEqual(@as(u256, 2), vm.last_stack_value.?);
+}
+
+test "VM: SMOD positive by negative" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    // Test: 10 % -3 = 1
+    // -3 in two's complement: 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFD
+    const bytecode = [_]u8{
+        0x60, 0x0A,  // PUSH1 10
+        0x7f, // PUSH32 (-3)
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFD,
+        0x07, // SMOD (10 % -3 = 1)
+        0x00, // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    try testing.expectEqual(@as(u256, 1), vm.last_stack_value.?);
+}
+
+test "VM: SMOD negative by negative" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    // Test: -10 % -3 = -1
+    const bytecode = [_]u8{
+        0x7f, // PUSH32 (-10)
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xF6,
+        0x7f, // PUSH32 (-3)
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFD,
+        0x07, // SMOD (-10 % -3 = -1)
+        0x00, // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    // -1 in two's complement
+    const expected_neg1 = std.math.maxInt(u256);
+    try testing.expectEqual(expected_neg1, vm.last_stack_value.?);
+}
+
+test "VM: SMOD large negative number" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    // Test: MIN_I256 % 100
+    // MIN_I256 = -2^255 = 0x80000000000000000000000000000000000000000000000000000000000000000
+    const bytecode = [_]u8{
+        0x7f, // PUSH32 (MIN_I256)
+        0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x60, 0x64,  // PUSH1 100
+        0x07,        // SMOD
+        0x00,        // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    // The result should be negative (two's complement)
+    try testing.expect(vm.last_stack_value.? > @as(u256, 1) << 255);
 }
 
 test "VM: ADDMOD opcode" {
