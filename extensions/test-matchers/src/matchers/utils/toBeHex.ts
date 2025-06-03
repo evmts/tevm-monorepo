@@ -25,7 +25,9 @@ export function toBeHex(received: unknown, opts?: IsHexOptions) {
 	const isValidSize = opts?.size === undefined || receivedSize === opts.size
 	const pass = isValidHex && isValidSize
 
-	const expectedDescription = `valid hex string${opts?.size ? ` with size ${opts.size} bytes` : ''}`
+	const expectedDescription = pass
+		? 'not a valid hex string'
+		: `a valid hex string${opts?.size ? ` with size ${opts.size} bytes` : ''}`
 	return {
 		pass,
 		actual: received,

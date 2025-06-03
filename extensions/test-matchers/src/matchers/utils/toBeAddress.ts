@@ -12,9 +12,10 @@ export function toBeAddress(received: unknown, opts?: IsAddressOptions) {
 	return {
 		pass,
 		actual: received,
-		expected: 'valid Ethereum address',
+		expected: pass ? 'invalid Ethereum address' : 'valid Ethereum address',
 		message: () => {
-			if (pass) return `Expected ${received} not to be a valid Ethereum address`
+			if (pass)
+				return `Expected ${received} not to be ${opts?.strict !== false ? 'a valid Ethereum address (checksummed)' : 'a valid Ethereum address'}`
 			// Default is strict: true, so mention checksum unless explicitly strict: false
 			return `Expected ${received} to be a ${opts?.strict !== false ? 'valid Ethereum address (checksummed)' : 'valid Ethereum address'}`
 		},

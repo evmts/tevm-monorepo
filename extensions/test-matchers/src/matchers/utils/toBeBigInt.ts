@@ -9,7 +9,7 @@ export function toBeBigInt(received: unknown) {
 	return {
 		pass,
 		actual: received,
-		expected: 'bigint',
+		expected: pass ? 'not a bigint' : 'bigint',
 		message: () => {
 			if (pass) return `Expected ${received} not to be a BigInt`
 			return `Expected ${received} to be a BigInt`

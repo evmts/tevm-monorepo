@@ -12,30 +12,16 @@ npm install @tevm/test-matchers --save-dev
 
 ## Setup
 
-### Option 1: Automatic Setup (Recommended)
-
 Add to your `vitest.config.ts`:
 
 ```typescript
 import { defineConfig } from 'vitest/config'
+import '@tevm/test-matchers'
 
 export default defineConfig({
   test: {
     setupFiles: ['@tevm/test-matchers'],
   },
-})
-```
-
-### Option 2: Manual Import
-
-Import in your test files:
-
-```typescript
-import '@tevm/test-matchers'
-import { expect, test } from 'vitest'
-
-test('example', () => {
-  expect(BigInt(42)).toBeBigInt()
 })
 ```
 

@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest'
-import '../../index.js' // Import to extend expect with our matchers
 
 describe('toBeHex', () => {
 	const validHexStrings = [
@@ -157,7 +156,7 @@ describe('toBeHex', () => {
 			} catch (error) {
 				expect(error.message).toBe('Expected 1234 to start with "0x"')
 				expect(error.actual).toBe('1234')
-				expect(error.expected).toBe('valid hex string')
+				expect(error.expected).toBe('a valid hex string')
 			}
 		})
 
@@ -167,7 +166,7 @@ describe('toBeHex', () => {
 			} catch (error) {
 				expect(error.message).toBe('Expected 0xghij to contain only hex characters (0-9, a-f, A-F) after "0x"')
 				expect(error.actual).toBe('0xghij')
-				expect(error.expected).toBe('valid hex string')
+				expect(error.expected).toBe('a valid hex string')
 			}
 		})
 
@@ -177,7 +176,7 @@ describe('toBeHex', () => {
 			} catch (error) {
 				expect(error.message).toBe('Expected 0x123 to have 2 bytes, but got 1.5 bytes')
 				expect(error.actual).toBe('0x123')
-				expect(error.expected).toBe('valid hex string with size 2 bytes')
+				expect(error.expected).toBe('a valid hex string with size 2 bytes')
 			}
 		})
 
@@ -186,20 +185,20 @@ describe('toBeHex', () => {
 				{
 					input: 'hello',
 					expectedMessage: 'Expected hello to start with "0x"',
-					expected: 'valid hex string',
+					expected: 'a valid hex string',
 					actual: 'hello',
 				},
 				{
 					input: '0xGHIJ',
 					expectedMessage: 'Expected 0xGHIJ to contain only hex characters (0-9, a-f, A-F) after "0x"',
-					expected: 'valid hex string',
+					expected: 'a valid hex string',
 					actual: '0xGHIJ',
 				},
 				{
 					input: '0x123',
 					options: { size: 2 },
 					expectedMessage: 'Expected 0x123 to have 2 bytes, but got 1.5 bytes',
-					expected: 'valid hex string with size 2 bytes',
+					expected: 'a valid hex string with size 2 bytes',
 					actual: '0x123',
 				},
 			]

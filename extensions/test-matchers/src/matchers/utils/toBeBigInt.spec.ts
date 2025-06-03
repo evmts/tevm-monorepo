@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest'
-import '../../index.js' // Import to extend expect with our matchers
 
 describe('toBeBigInt', () => {
 	const bigints = [BigInt(42), 123n, BigInt(0), BigInt('999999999999999999999')]
