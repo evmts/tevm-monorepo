@@ -92,12 +92,12 @@ test "Logger - basic functionality" {
     logger.critical("Critical message: {}", .{131415});
     
     // Test with higher log level that should filter out lower messages
-    var infoLogger = Logger.init(allocator, .Info, "info-only");
-    defer infoLogger.deinit();
+    var info_logger = Logger.init(allocator, .Info, "info-only");
+    defer info_logger.deinit();
     
-    infoLogger.debug("This debug message should not appear", .{}); // Should be filtered
-    infoLogger.info("This info message should appear", .{});       // Should appear
-    infoLogger.err("This error message should appear", .{});     // Should appear
+    info_logger.debug("This debug message should not appear", .{}); // Should be filtered
+    info_logger.info("This info message should appear", .{});       // Should appear
+    info_logger.err("This error message should appear", .{});     // Should appear
 }
 
 test "Logger - level filtering" {
@@ -105,15 +105,15 @@ test "Logger - level filtering" {
     const allocator = testing.allocator;
     
     // Create logger with Error level - should filter out Debug, Info, Warning
-    var errorLogger = Logger.init(allocator, .Error, "error-only");
-    defer errorLogger.deinit();
+    var error_logger = Logger.init(allocator, .Error, "error-only");
+    defer error_logger.deinit();
     
     // These should be filtered out
-    errorLogger.debug("Debug message should not appear", .{});
-    errorLogger.info("Info message should not appear", .{});
-    errorLogger.warn("Warning message should not appear", .{});
+    error_logger.debug("Debug message should not appear", .{});
+    error_logger.info("Info message should not appear", .{});
+    error_logger.warn("Warning message should not appear", .{});
     
     // These should appear
-    errorLogger.err("Error message should appear", .{});
-    errorLogger.critical("Critical message should appear", .{});
+    error_logger.err("Error message should appear", .{});
+    error_logger.critical("Critical message should appear", .{});
 }

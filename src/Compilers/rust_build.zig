@@ -1,6 +1,6 @@
 const std = @import("std");
 
-pub fn addRustIntegration(b: *std.Build, target: std.Build.ResolvedTarget, optimize: std.builtin.OptimizeMode) !*std.Build.Step {
+pub fn add_rust_integration(b: *std.Build, target: std.Build.ResolvedTarget, optimize: std.builtin.OptimizeMode) !*std.Build.Step {
     // Build the Rust static library
     const cargo_build = b.addSystemCommand(&.{
         "cargo",
@@ -61,7 +61,7 @@ pub fn addRustIntegration(b: *std.Build, target: std.Build.ResolvedTarget, optim
     const artifacts = [_]*std.Build.Step.Compile{
         b.addExecutable(.{
             .name = "foundry-test",
-            .root_source_file = b.path("src/Solidity/SnailTracerTest.zig"),
+            .root_source_file = b.path("src/Solidity/snail_tracer_test.zig"),
             .target = target,
             .optimize = optimize,
         }),

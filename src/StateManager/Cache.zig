@@ -28,8 +28,8 @@ pub fn Cache(comptime K: type, comptime V: type) type {
         };
         
         allocator: std.mem.Allocator,
-        cacheType: CacheType,
-        maxSize: usize,
+        cache_type: CacheType,
+        max_size: usize,
         map: std.HashMap(K, *Node, struct {
             pub fn hash(context: void, key: K) u64 {
                 _ = context;
@@ -47,11 +47,11 @@ pub fn Cache(comptime K: type, comptime V: type) type {
         tail: ?*Node, // Least recently used
         
         // Create a new cache
-        pub fn init(allocator: std.mem.Allocator, cacheType: CacheType, maxSize: usize) Self {
+        pub fn init(allocator: std.mem.Allocator, cache_type: CacheType, max_size: usize) Self {
             return Self{
                 .allocator = allocator,
-                .cacheType = cacheType,
-                .maxSize = maxSize,
+                .cache_type = cache_type,
+                .max_size = max_size,
                 .map = std.HashMap(K, *Node, struct {
                     pub fn hash(context: void, key: K) u64 {
                         _ = context;
@@ -91,8 +91,8 @@ pub fn Cache(comptime K: type, comptime V: type) type {
             const entry = self.map.get(key) orelse return null;
             
             // Move to front of LRU if using LRU cache
-            if (self.cacheType == .LRU) {
-                self.moveToFront(entry);
+            if (self.cache_type == .LRU) {
+                self.move_to_front(entry);
             }
             
             return entry.value;
@@ -115,10 +115,10 @@ pub fn Cache(comptime K: type, comptime V: type) type {
                 
                 // If not found, record the current value before changing it
                 if (!found) {
-                    const oldValue = self.get(key);
+                    const old_value = self.get(key);
                     try cp.entries.append(.{
                         .key = key,
-                        .value = oldValue,
+                        .value = old_value,
                     });
                 }
             }
@@ -128,14 +128,14 @@ pub fn Cache(comptime K: type, comptime V: type) type {
                 existingNode.value = value;
                 
                 // Move to front of LRU if using LRU cache
-                if (self.cacheType == .LRU) {
-                    self.moveToFront(existingNode);
+                if (self.cache_type == .LRU) {
+                    self.move_to_front(existingNode);
                 }
                 return;
             }
             
             // Check if we need to evict an entry
-            if (self.map.count() >= self.maxSize and self.cacheType == .LRU) {
+            if (self.map.count() >= self.max_size and self.cache_type == .LRU) {
                 if (self.tail) |leastUsed| {
                     _ = self.map.remove(leastUsed.key);
                     
@@ -164,7 +164,7 @@ pub fn Cache(comptime K: type, comptime V: type) type {
             try self.map.put(key, node);
             
             // Update LRU pointers if using LRU cache
-            if (self.cacheType == .LRU) {
+            if (self.cache_type == .LRU) {
                 // If this is the first entry
                 if (self.head == null) {
                     self.head = node;
@@ -197,10 +197,10 @@ pub fn Cache(comptime K: type, comptime V: type) type {
                 
                 // If not found, record the current value before deleting
                 if (!found) {
-                    const oldValue = self.get(key);
+                    const old_value = self.get(key);
                     try cp.entries.append(.{
                         .key = key,
-                        .value = oldValue,
+                        .value = old_value,
                     });
                 }
             }
@@ -294,7 +294,7 @@ pub fn Cache(comptime K: type, comptime V: type) type {
         }
         
         // Move a node to the front of the LRU list
-        fn moveToFront(self: *Self, node: *Node) void {
+        fn move_to_front(self: *Self, node: *Node) void {
             if (self.head == node) {
                 // Already at the front
                 return;

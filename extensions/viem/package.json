@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/viem",
-	"version": "1.0.0-next.146",
+	"version": "1.0.0-next.147",
 	"private": false,
 	"description": "A typesafe library for writing forge scripts in typescript",
 	"keywords": [

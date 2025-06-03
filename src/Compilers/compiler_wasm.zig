@@ -114,7 +114,7 @@ pub const Compiler = struct {
     }
 
     /// Stub version check for WASM
-    pub fn getVersion(self: *Compiler) ![]const u8 {
+    pub fn get_version(self: *Compiler) ![]const u8 {
         return try self.allocator.dupe(u8, "WASM-stub");
     }
 };

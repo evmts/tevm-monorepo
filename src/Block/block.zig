@@ -5,10 +5,10 @@ pub const Block = struct {
     coinbase: [20]u8,
     timestamp: u64,
     difficulty: u256,
-    prevRandao: [32]u8,
-    gasLimit: u265,
-    baseFeePerGas: ?u256 = null,
-    getBlobGasPrice: u256,
+    prev_randao: [32]u8,
+    gas_limit: u265,
+    base_fee_per_gas: ?u256 = null,
+    get_blob_gas_price: u256,
 };
 
 pub const emptyBlock = Block{
@@ -16,8 +16,8 @@ pub const emptyBlock = Block{
     .coinbase = address.ZERO_ADDRESS,
     .timestamp = 0,
     .difficulty = 0,
-    .prevRandao = .{0} ** 32,
-    .gasLimit = 0,
-    .getBlobGasPrice = 0,
-    .baseFeePerGas = null,
+    .prev_randao = .{0} ** 32,
+    .gas_limit = 0,
+    .get_blob_gas_price = 0,
+    .base_fee_per_gas = null,
 };

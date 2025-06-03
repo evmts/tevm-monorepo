@@ -39,9 +39,7 @@
 "@tevm/vscode": patch
 "@tevm/lsp": patch
 "tevm": patch
-"app": patch
 "@tevm/cli": patch
-"@tevm/zig": patch
 ---
 
 pnpm up --latest all packages
