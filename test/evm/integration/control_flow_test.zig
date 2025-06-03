@@ -42,19 +42,19 @@ test "Integration: Conditional jump patterns" {
     defer test_frame.deinit();
     
     // Test 1: Jump when condition is true
-    test_frame.frame.program_counter = 0;
+    test_frame.frame.pc = 0;
     try test_frame.pushStack(&[_]u256{10, 1}); // destination, condition (true)
     _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
-    try testing.expectEqual(@as(usize, 10), test_frame.frame.program_counter);
+    try testing.expectEqual(@as(usize, 10), test_frame.frame.pc);
     
     // Test 2: Don't jump when condition is false
-    test_frame.frame.program_counter = 0;
+    test_frame.frame.pc = 0;
     try test_frame.pushStack(&[_]u256{20, 0}); // destination, condition (false)
     _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
-    try testing.expectEqual(@as(usize, 0), test_frame.frame.program_counter); // PC unchanged
+    try testing.expectEqual(@as(usize, 0), test_frame.frame.pc); // PC unchanged
     
     // Test 3: Complex condition evaluation
-    test_frame.frame.program_counter = 0;
+    test_frame.frame.pc = 0;
     
     // Calculate condition: 5 > 3
     try test_frame.pushStack(&[_]u256{5, 3});
@@ -65,7 +65,7 @@ test "Integration: Conditional jump patterns" {
     _ = try helpers.executeOpcode(0x90, &test_vm.vm, test_frame.frame); // Swap to get [dest, cond]
     
     _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
-    try testing.expectEqual(@as(usize, 30), test_frame.frame.program_counter);
+    try testing.expectEqual(@as(usize, 30), test_frame.frame.pc);
 }
 
 test "Integration: Loop implementation with JUMP" {
