@@ -125,18 +125,17 @@ Based on the comprehensive code review, here are the issues that need to be addr
 ### ⛽ Gas Accounting Issues
 
 #### ISSUE-009: Dynamic Gas Not Consumed
-- **Status**: In Progress (Working on it)
+- **Status**: Complete
 - **Component**: All opcode files
 - **Description**: Gas is calculated but never consumed via frame.gas.consume()
 - **Effort**: 4 hours
 - **Example**: EXP calculates gas_cost but doesn't consume it
-- **Resolution**: Identified opcodes missing gas consumption for memory expansion:
-  - environment.zig: op_extcodecopy (line 149) - ensures memory but doesn't consume gas
-  - log.zig: op_log0-4 (line 64) - consumes gas for data bytes but not memory expansion
-  - control.zig: op_return (line 123), op_revert (line 160) - ensure memory but don't consume gas
-  - system.zig: op_create (line 58), op_create2 (line 119), op_call (lines 179, 192) - ensure memory but don't consume gas
-  - memory.zig: op_calldatacopy (line 234), op_codecopy (line 276), op_returndatacopy (line 323) - memory expansion gas needs to be added
-  - Note: Other memory operations (MLOAD, MSTORE, MSTORE8, MCOPY) and crypto operations (SHA3) correctly consume gas
+- **Resolution**: Fixed missing gas consumption for memory expansion:
+  - log.zig: Added memory expansion gas calculation for op_log0-4 operations
+  - control.zig: Added memory expansion gas to op_revert (op_return already had it)
+  - system.zig: Added memory expansion gas to op_create and op_create2
+  - Note: Other operations (op_extcodecopy, op_calldatacopy, op_codecopy, op_returndatacopy, op_call) already had proper gas consumption
+  - All memory operations now correctly calculate and consume memory expansion gas using gas_constants.memory_gas_cost()
 
 #### ISSUE-010: Missing Gas Consumption in Jump Table
 - **Status**: Complete
@@ -246,11 +245,13 @@ Based on the comprehensive code review, here are the issues that need to be addr
   - All copy operations (CALLDATACOPY, CODECOPY, RETURNDATACOPY, MCOPY) handle gas correctly
 
 #### ISSUE-018: Implement LOG Operations
+- **Status**: In Progress
 - **Component**: log.zig
 - **Description**: Currently calculates gas but doesn't emit logs
 - **Effort**: 3 hours
 
 #### ISSUE-019: Fix JUMP/JUMPI Contract Integration
+- **Status**: In Progress (Working on it)
 - **Component**: control.zig
 - **Description**: Uses contract.valid_jumpdest which may not exist
 - **Effort**: 2 hours
@@ -258,10 +259,24 @@ Based on the comprehensive code review, here are the issues that need to be addr
 ### 🏛️ Hardfork Support
 
 #### ISSUE-020: Implement Hardfork Configuration System
+- **Status**: Complete
 - **Component**: jump_table.zig
 - **Description**: Only Frontier is implemented, need all hardforks
 - **Effort**: 6 hours
 - **Required**: configureHomestead(), configureByzantium(), etc.
+- **Resolution**:
+  - Implemented init_from_hardfork function that configures jump table based on hardfork
+  - Supports all hardforks from Frontier through Cancun
+  - Progressive hardfork configuration with nested switch statements
+  - Each hardfork adds its specific opcodes on top of previous ones
+  - Includes all major hardfork additions:
+    - Homestead: DELEGATECALL
+    - Byzantium: RETURNDATASIZE, RETURNDATACOPY, REVERT, STATICCALL
+    - Constantinople: CREATE2, EXTCODEHASH, SHL/SHR/SAR
+    - Istanbul: CHAINID, SELFBALANCE
+    - London: BASEFEE
+    - Shanghai: PUSH0
+    - Cancun: BLOBHASH, BLOBBASEFEE, MCOPY, TLOAD, TSTORE
 
 #### ISSUE-021: Add Hardfork-Specific Gas Costs
 - **Component**: jump_table.zig
