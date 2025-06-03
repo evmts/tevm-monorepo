@@ -44,6 +44,14 @@
             .url = "git+https://github.com/Raiden1411/zabi.git?ref=zig_version_0.14.0#b91004e008f81b34aee13fd78f1a3c8cf597eac3",
             .hash = "zabi-0.16.1-UB4phl86SABdBvFceyCgBARQTki8rNko7MLouY-TeGVQ",
         },
+        .webui = .{
+            .hash = "webui-2.5.0-beta.4-pxqD5esSNwCHzwq6ndnW-ShzC_nPNAzGu13l4Unk0rFl",
+            .url = "https://github.com/webui-dev/webui/archive/699119f42fc64ae42c9121bc4749b740f71949af.tar.gz",
+        },
+        .zbench = .{
+            .url = "https://github.com/hendriknielaender/zBench/archive/refs/heads/main.tar.gz",
+            .hash = "zbench-0.10.0-YTdc714iAQDO4lTHMnIljYHPZ5v_sNTsw75vAmO1pyT-",
+        },
     },
     .paths = .{
         "build.zig",

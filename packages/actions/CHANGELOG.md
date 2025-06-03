@@ -1,5 +1,15 @@
 # @tevm/contract
 
+## 1.0.0-next.147
+
+### Patch Changes
+
+- a360683: Skip balance & nonce in mineHandler when adding tx to BlockBuilder.
+- Updated dependencies [a360683]
+  - @tevm/vm@1.0.0-next.147
+  - @tevm/node@1.0.0-next.147
+  - @tevm/txpool@1.0.0-next.147
+
 ## 1.0.0-next.146
 
 ### Patch Changes

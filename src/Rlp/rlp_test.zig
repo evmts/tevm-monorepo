@@ -183,7 +183,7 @@ test "RLP stream decoding" {
     
     // Concatenate all encoded items to create a stream
     const arrays = [_][]const u8{ encoded_byte, encoded_string, encoded_long_string, encoded_list };
-    const stream = try rlp.concatBytes(allocator, &arrays);
+    const stream = try rlp.concat_bytes(allocator, &arrays);
     defer allocator.free(stream);
     
     // Decode the stream one item at a time

@@ -2,7 +2,7 @@
 const std = @import("std");
 
 // Helper function to convert a hex character to its numerical value
-fn hexCharToValue(c: u8) ?u8 {
+fn hex_char_to_value(c: u8) ?u8 {
     return switch (c) {
         '0'...'9' => c - '0',
         'a'...'f' => c - 'a' + 10,

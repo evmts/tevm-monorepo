@@ -1,5 +1,22 @@
 # @tevm/contract
 
+## 1.0.0-next.147
+
+### Patch Changes
+
+- Updated dependencies [a360683]
+  - @tevm/actions@1.0.0-next.147
+  - @tevm/vm@1.0.0-next.147
+  - @tevm/cli@1.0.0-next.147
+  - @tevm/viem@1.0.0-next.147
+  - @tevm/client-types@1.0.0-next.146
+  - @tevm/decorators@1.0.0-next.147
+  - @tevm/memory-client@1.0.0-next.147
+  - @tevm/server@1.0.0-next.147
+  - @tevm/node@1.0.0-next.147
+  - @tevm/txpool@1.0.0-next.147
+  - @tevm/http-client@1.0.0-next.147
+
 ## 1.0.0-next.146
 
 ### Patch Changes

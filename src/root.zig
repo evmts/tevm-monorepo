@@ -12,7 +12,7 @@ pub const EvmState = extern struct {
     pc: u32 = 0,
     opcode: [*c]const u8 = null,
     opcode_len: usize = 0,
-    gasLeft: u64 = 0,
+    gas_left: u64 = 0,
     depth: u32 = 0,
     stack: [*c][*c]const u8 = null,
     stack_lengths: [*c]usize = null,
@@ -27,8 +27,8 @@ pub const EvmState = extern struct {
     logs: [*c][*c]const u8 = null,
     logs_lengths: [*c]usize = null,
     logs_count: usize = 0,
-    returnData: [*c]const u8 = null,
-    returnData_len: usize = 0,
+    return_data: [*c]const u8 = null,
+    return_data_len: usize = 0,
 };
 
 export fn keccak256(input_ptr: [*]const u8, input_len: usize, output_ptr: [*]u8) void {
@@ -77,11 +77,11 @@ export fn getEvmState(state_ptr: [*]u8, state_len: *usize) void {
 
     var state = EvmState{
         .pc = 42,
-        .gasLeft = 100000,
+        .gas_left = 100000,
         .depth = 1,
     };
 
-    const allocStr = struct {
+    const alloc_str = struct {
         fn func(alloc: std.mem.Allocator, str: []const u8) ![*c]const u8 {
             const buf = try alloc.alloc(u8, str.len);
             @memcpy(buf, str);
@@ -90,7 +90,7 @@ export fn getEvmState(state_ptr: [*]u8, state_len: *usize) void {
     }.func;
 
     const opcode = "PUSH1";
-    state.opcode = allocStr(allocator, opcode) catch {
+    state.opcode = alloc_str(allocator, opcode) catch {
         state_len.* = 0;
         return;
     };
@@ -113,7 +113,7 @@ export fn getEvmState(state_ptr: [*]u8, state_len: *usize) void {
     };
 
     for (stack_items, 0..) |item, i| {
-        stack_ptrs[i] = allocStr(allocator, item) catch {
+        stack_ptrs[i] = alloc_str(allocator, item) catch {
             state_len.* = 0;
             return;
         };
@@ -125,7 +125,7 @@ export fn getEvmState(state_ptr: [*]u8, state_len: *usize) void {
     state.stack_count = stack_count;
 
     const memory = "0x0000000000000000000000000000000000000000000000000000000000000000";
-    state.memory = allocStr(allocator, memory) catch {
+    state.memory = alloc_str(allocator, memory) catch {
         state_len.* = 0;
         return;
     };
@@ -164,13 +164,13 @@ export fn getEvmState(state_ptr: [*]u8, state_len: *usize) void {
     };
 
     for (storage_pairs, 0..) |pair, i| {
-        storage_key_ptrs[i] = allocStr(allocator, pair.key) catch {
+        storage_key_ptrs[i] = alloc_str(allocator, pair.key) catch {
             state_len.* = 0;
             return;
         };
         storage_key_lens[i] = pair.key.len;
 
-        storage_value_ptrs[i] = allocStr(allocator, pair.value) catch {
+        storage_value_ptrs[i] = alloc_str(allocator, pair.value) catch {
             state_len.* = 0;
             return;
         };
@@ -199,7 +199,7 @@ export fn getEvmState(state_ptr: [*]u8, state_len: *usize) void {
     };
 
     for (logs, 0..) |log, i| {
-        logs_ptrs[i] = allocStr(allocator, log) catch {
+        logs_ptrs[i] = alloc_str(allocator, log) catch {
             state_len.* = 0;
             return;
         };
@@ -211,11 +211,11 @@ export fn getEvmState(state_ptr: [*]u8, state_len: *usize) void {
     state.logs_count = logs_count;
 
     const return_data = "0x";
-    state.returnData = allocStr(allocator, return_data) catch {
+    state.return_data = alloc_str(allocator, return_data) catch {
         state_len.* = 0;
         return;
     };
-    state.returnData_len = return_data.len;
+    state.return_data_len = return_data.len;
 
     const state_size = @sizeOf(EvmState);
     if (state_size <= state_len.*) {

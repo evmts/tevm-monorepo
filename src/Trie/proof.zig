@@ -39,8 +39,8 @@ pub const ProofNodes = struct {
     }
 
     /// Add a node to the proof
-    pub fn addNode(self: *ProofNodes, hash: [32]u8, node_data: []const u8) !void {
-        const hash_str = try bytesToHexString(self.allocator, &hash);
+    pub fn add_node(self: *ProofNodes, hash: [32]u8, node_data: []const u8) !void {
+        const hash_str = try bytes_to_hex_string(self.allocator, &hash);
         errdefer self.allocator.free(hash_str);
 
         // Check if already exists
@@ -58,7 +58,7 @@ pub const ProofNodes = struct {
     }
 
     /// Convert to a list of RLP-encoded nodes for external use
-    pub fn toNodeList(self: *const ProofNodes, allocator: Allocator) ![]const []const u8 {
+    pub fn to_node_list(self: *const ProofNodes, allocator: Allocator) ![]const []const u8 {
         var node_list = std.ArrayList([]const u8).init(allocator);
         errdefer {
             for (node_list.items) |item| {
@@ -85,11 +85,11 @@ pub const ProofNodes = struct {
         expected_value: ?[]const u8
     ) !bool {
         // Convert key to nibbles
-        const nibbles = try trie.keyToNibbles(allocator, key);
+        const nibbles = try trie.key_to_nibbles(allocator, key);
         defer allocator.free(nibbles);
 
         // Get root node
-        const root_hash_str = try bytesToHexString(allocator, &root_hash);
+        const root_hash_str = try bytes_to_hex_string(allocator, &root_hash);
         defer allocator.free(root_hash_str);
 
         const root_node_data = self.nodes.get(root_hash_str) orelse {
@@ -107,11 +107,11 @@ pub const ProofNodes = struct {
         const decoded = try rlp.decode(allocator, root_node_data, false);
         defer decoded.data.deinit(allocator);
 
-        return try self.verifyPath(allocator, decoded.data, nibbles, expected_value);
+        return try self.verify_path(allocator, decoded.data, nibbles, expected_value);
     }
 
     /// Verify a path in the proof
-    fn verifyPath(
+    fn verify_path(
         self: *const ProofNodes,
         allocator: Allocator,
         node_data: rlp.Data,
@@ -140,7 +140,7 @@ pub const ProofNodes = struct {
                             }
 
                             // Decode the path
-                            const decoded_path = try trie.decodePath(allocator, path_bytes);
+                            const decoded_path = try trie.decode_path(allocator, path_bytes);
                             defer allocator.free(decoded_path.nibbles);
 
                             if (decoded_path.is_leaf) {
@@ -196,7 +196,7 @@ pub const ProofNodes = struct {
                                         @memcpy(&hash_buf, next_hash);
 
                                         // Get the next node
-                                        const hash_str = try bytesToHexString(allocator, &hash_buf);
+                                        const hash_str = try bytes_to_hex_string(allocator, &hash_buf);
                                         defer allocator.free(hash_str);
 
                                         const next_node_data = self.nodes.get(hash_str) orelse {
@@ -215,7 +215,7 @@ pub const ProofNodes = struct {
                                         defer next_decoded.data.deinit(allocator);
 
                                         // Continue verification
-                                        return try self.verifyPath(
+                                        return try self.verify_path(
                                             allocator,
                                             next_decoded.data,
                                             remaining_path[decoded_path.nibbles.len..],
@@ -267,7 +267,7 @@ pub const ProofNodes = struct {
                                     @memcpy(&hash_buf, next);
 
                                     // Get the next node
-                                    const hash_str = try bytesToHexString(allocator, &hash_buf);
+                                    const hash_str = try bytes_to_hex_string(allocator, &hash_buf);
                                     defer allocator.free(hash_str);
 
                                     const next_node_data = self.nodes.get(hash_str) orelse {
@@ -286,7 +286,7 @@ pub const ProofNodes = struct {
                                     defer next_decoded.data.deinit(allocator);
 
                                     // Continue verification
-                                    return try self.verifyPath(
+                                    return try self.verify_path(
                                         allocator,
                                         next_decoded.data,
                                         remaining_path[1..],
@@ -326,7 +326,7 @@ pub const ProofRetainer = struct {
 
     pub fn init(allocator: Allocator, key: []const u8) !ProofRetainer {
         // Convert key to nibbles
-        const nibbles = try trie.keyToNibbles(allocator, key);
+        const nibbles = try trie.key_to_nibbles(allocator, key);
         errdefer allocator.free(nibbles);
 
         return ProofRetainer{
@@ -342,7 +342,7 @@ pub const ProofRetainer = struct {
     }
 
     /// Collect a node for the proof if it's relevant to the key path
-    pub fn collectNode(self: *ProofRetainer, node: TrieNode, path_prefix: []const u8) !bool {
+    pub fn collect_node(self: *ProofRetainer, node: TrieNode, path_prefix: []const u8) !bool {
         // Check if this node is on the path to our key
         if (path_prefix.len > self.key_nibbles.len) {
             return false; // Path is longer than key, not relevant
@@ -361,18 +361,18 @@ pub const ProofRetainer = struct {
         std.crypto.hash.sha3.Keccak256.hash(encoded, &hash, .{});
 
         // Add to proof
-        try self.proof.addNode(hash, encoded);
+        try self.proof.add_node(hash, encoded);
         return true;
     }
 
     /// Get the collected proof
-    pub fn getProof(self: *const ProofRetainer) *const ProofNodes {
+    pub fn get_proof(self: *const ProofRetainer) *const ProofNodes {
         return &self.proof;
     }
 };
 
 // Helper function - Duplicated from hash_builder.zig for modularity
-fn bytesToHexString(allocator: Allocator, bytes: []const u8) ![]u8 {
+fn bytes_to_hex_string(allocator: Allocator, bytes: []const u8) ![]u8 {
     const hex_chars = "0123456789abcdef";
     const hex = try allocator.alloc(u8, bytes.len * 2);
     errdefer allocator.free(hex);
@@ -414,10 +414,10 @@ test "ProofNodes - add and verify" {
     std.crypto.hash.sha3.Keccak256.hash(encoded, &hash, .{});
     
     // Add to proof nodes
-    try proof_nodes.addNode(hash, encoded);
+    try proof_nodes.add_node(hash, encoded);
     
     // Convert to node list
-    const nodes = try proof_nodes.toNodeList(allocator);
+    const nodes = try proof_nodes.to_node_list(allocator);
     defer {
         for (nodes) |node_data| {
             allocator.free(node_data);
@@ -453,16 +453,16 @@ test "ProofRetainer - collect nodes" {
     defer node.deinit(allocator);
     
     // Collect the node
-    const collected = try retainer.collectNode(node, &path);
+    const collected = try retainer.collect_node(node, &path);
     try testing.expect(collected);
     
     // Verify it was added to the proof
-    const proof = retainer.getProof();
+    const proof = retainer.get_proof();
     try testing.expectEqual(@as(usize, 1), proof.nodes.count());
     
     // Node not on path
     const off_path = [_]u8{5, 6};
-    const not_collected = try retainer.collectNode(node, &off_path);
+    const not_collected = try retainer.collect_node(node, &off_path);
     try testing.expect(!not_collected);
     
     // Still only one node in proof

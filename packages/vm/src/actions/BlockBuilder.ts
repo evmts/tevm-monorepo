@@ -219,7 +219,11 @@ export class BlockBuilder {
 	 */
 	async addTransaction(
 		tx: TypedTransaction | ImpersonatedTx,
-		{ skipBalance, skipNonce, skipHardForkValidation }: Pick<RunTxOpts, 'skipBalance' | 'skipNonce' | 'skipHardForkValidation'> = {},
+		{
+			skipBalance,
+			skipNonce,
+			skipHardForkValidation,
+		}: Pick<RunTxOpts, 'skipBalance' | 'skipNonce' | 'skipHardForkValidation'> = {},
 	) {
 		let _tx = tx
 		this.checkStatus()

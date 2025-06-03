@@ -40,7 +40,6 @@
 "@tevm/lsp": patch
 "tevm": patch
 "@tevm/cli": patch
-"@tevm/zig": patch
 ---
 
 pnpm up --latest all packages
