@@ -28,12 +28,12 @@ const setupPromise = (assertion: Assertion, utils: ChaiUtils): void => {
 	}
 }
 
-function isAsyncFunction<T extends Function>(fn: T): fn is T & { constructor: { name: 'AsyncFunction' } } {
+const isAsyncFunction = <T extends Function>(fn: T): fn is T & { constructor: { name: 'AsyncFunction' } } => {
 	return fn.constructor.name === 'AsyncFunction'
 }
 
 // Build chain state from flags - automatically detect any previous matcher
-function buildChainState(assertion: Assertion, utils: ChaiUtils): ChainState {
+const buildChainState = (assertion: Assertion, utils: ChaiUtils): ChainState => {
 	// Get the chain history from a dedicated flag
 	const chainHistory: string[] = utils.flag(assertion, 'chainHistory') || []
 
@@ -60,7 +60,7 @@ function buildChainState(assertion: Assertion, utils: ChaiUtils): ChainState {
 }
 
 // Used to fail an assertion in chai with vitest highlighting and trace
-function createInternalResultHandler() {
+const createInternalResultHandler = () => {
 	return {
 		__expectResult: function (this: any, result: MatcherResult, isNegated: boolean) {
 			assert(chaiUtils !== undefined, 'ChaiUtils not initialized')
@@ -80,7 +80,7 @@ function createInternalResultHandler() {
 	}
 }
 
-function expectResult(result: MatcherResult, isNegated: boolean) {
+const expectResult = (result: MatcherResult, isNegated: boolean) => {
 	;(
 		expect(result) as unknown as {
 			__expectResult: (isNegated: boolean) => MatcherResult
@@ -89,14 +89,14 @@ function expectResult(result: MatcherResult, isNegated: boolean) {
 }
 
 // Only extract truly common parts
-function storeChainState<TName extends string, TAsync extends boolean = false>(
+const storeChainState = <TName extends string, TAsync extends boolean = false>(
 	assertion: ChaiContext<TAsync>,
 	utils: ChaiUtils,
 	name: TName,
 	obj: unknown,
 	args: readonly unknown[],
 	result: MatcherResult,
-) {
+) => {
 	utils.flag(assertion, `${name}.passed`, true)
 	utils.flag(assertion, `${name}.value`, obj)
 	utils.flag(assertion, `${name}.state`, result.state)
@@ -188,12 +188,14 @@ function makeVitestAsyncChainable<
 }
 
 // Convert existing vitest matcher to chainable with perfect type inference
-export function createChainableFromVitest<
+export const createChainableFromVitest = <
 	TName extends string,
 	TReceived = unknown,
 	TAsync extends boolean = false,
 	TState = unknown,
->(config: VitestMatcherConfig<TName, TReceived, TAsync, TState>) {
+>(
+	config: VitestMatcherConfig<TName, TReceived, TAsync, TState>,
+) => {
 	const { name, vitestMatcher } = config
 	const actualIsAsync = isAsyncFunction(vitestMatcher) as TAsync
 
@@ -221,9 +223,9 @@ export function createChainableFromVitest<
 }
 
 // Plugin creator with context-aware registration
-export function createChainablePlugin(
+export const createChainablePlugin = (
 	matchers: Record<string, InferredVitestChainableResult<VitestMatcherConfig<string, any, boolean, any>>>,
-) {
+) => {
 	return (_chai: ChaiStatic, utils: ChaiUtils) => {
 		// Store utils reference
 		chaiUtils = utils
@@ -235,9 +237,9 @@ export function createChainablePlugin(
 }
 
 // Convenience function to register chainable matchers
-export function registerChainableMatchers(
+export const registerChainableMatchers = (
 	matchers: Record<string, InferredVitestChainableResult<VitestMatcherConfig<string, any, boolean, any>>>,
-): void {
+): void => {
 	expect.extend(createInternalResultHandler())
 	chai.use(createChainablePlugin(matchers))
 }

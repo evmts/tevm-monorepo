@@ -44,7 +44,7 @@ type ToPassDownStateState = {
 }
 
 // State-aware vitest matcher for testing
-function toPassDownState(received: unknown, a: unknown, b: unknown) {
+const toPassDownState = (received: unknown, a: unknown, b: unknown) => {
 	const pass = true
 	return {
 		pass,
@@ -56,7 +56,7 @@ function toPassDownState(received: unknown, a: unknown, b: unknown) {
 }
 
 // Chained matcher that uses previous state - simplified ChainState signature
-function toUsePreviousStateAndBigInt(received: unknown, chainState?: ChainState<unknown, ToPassDownStateState>) {
+const toUsePreviousStateAndBigInt = (received: unknown, chainState?: ChainState<unknown, ToPassDownStateState>) => {
 	const { previousState, previousArgs } = chainState ?? {}
 	// We want the state to be preserved regardless of pass or not (it should pass even with a not. modifier)
 	assert(
@@ -108,15 +108,13 @@ const toUsePreviousStateAndBigIntChainable = createChainableFromVitest({
 })
 
 // Register all test matchers
-export const testMatchers = {
+registerChainableMatchers({
 	toBeBigIntChainable,
 	toBeHexChainable,
 	toBeAddressChainable,
 	toPassDownStateChainable,
 	toUsePreviousStateAndBigIntChainable,
-}
-
-registerChainableMatchers(testMatchers)
+})
 
 /* ----------------------------- TESTING ----------------------------- */
 describe('chainable matchers', () => {

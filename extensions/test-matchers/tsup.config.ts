@@ -1,4 +1,4 @@
-import { createTsUpOptions } from "@tevm/tsupconfig";
+import { createTsUpOptions } from '@tevm/tsupconfig'
 
 export default createTsUpOptions({
 	target: 'js',
