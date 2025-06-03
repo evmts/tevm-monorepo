@@ -30,7 +30,7 @@ This document tracks the implementation and testing status of all EVM opcodes. E
   - Tests: `test/evm/opcodes/arithmetic_test.zig` ✅ Has unit tests
   - VM Tests: `test/evm/vm_opcode_test.zig` ✅ Added comprehensive VM tests
 
-- [ ] **DIV** (0x04) - Integer division operation
+- [🔨] **DIV** (0x04) - Integer division operation
   - Implementation: `src/evm/opcodes/arithmetic.zig`
   - Revm: `revm/crates/interpreter/src/instructions/arithmetic.rs::div`
   - Tests: `test/evm/opcodes/arithmetic_test.zig`

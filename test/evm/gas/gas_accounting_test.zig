@@ -394,7 +394,7 @@ test "Gas: CREATE operations with init code" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try helpers.TestFrame.init(allocator, &contract, 300000);
+    var test_frame = try helpers.TestFrame.init(allocator, &contract, 500000);
     defer test_frame.deinit();
     
     // Prepare init code
@@ -412,8 +412,8 @@ test "Gas: CREATE operations with init code" {
         .output = null,
     };
     
-    // Create jump table for gas consumption - need Constantinople for CREATE2
-    const jump_table = helpers.JumpTable.new_constantinople_instruction_set();
+    // Create jump table for gas consumption - need Shanghai for EIP-3860
+    const jump_table = helpers.JumpTable.new_shanghai_instruction_set();
     
     // Test CREATE gas (32000 base + 200 per byte of init code)
     try test_frame.pushStack(&[_]u256{init_code.len, 0, 0}); // size, offset, value
@@ -428,6 +428,7 @@ test "Gas: CREATE operations with init code" {
     
     // Test CREATE2 with additional hashing cost
     test_frame.frame.stack.clear();
+    test_frame.frame.gas_remaining = 500000; // Reset gas for CREATE2 test
     test_vm.create_result = .{
         .success = true,
         .address = helpers.TestAddresses.CHARLIE,
@@ -435,7 +436,7 @@ test "Gas: CREATE operations with init code" {
         .output = null,
     }; // Reset
     
-    try test_frame.pushStack(&[_]u256{0x12345678, init_code.len, 0, 0}); // salt, size, offset, value
+    try test_frame.pushStack(&[_]u256{0, 0, init_code.len, 0x12345678}); // value, offset, size, salt
     const gas_before_create2 = test_frame.frame.gas_remaining;
     _ = try helpers.executeOpcodeWithGas(&jump_table, 0xf5, &test_vm.vm, test_frame.frame); // 0xf5 = CREATE2
     const gas_after_create2 = test_frame.frame.gas_remaining;

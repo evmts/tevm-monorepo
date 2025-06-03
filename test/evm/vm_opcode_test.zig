@@ -573,6 +573,129 @@ test "VM: DIV by zero returns zero" {
     try testing.expectEqual(@as(u256, 0), vm.last_stack_value.?);
 }
 
+test "VM: DIV with remainder" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    // Test integer division truncation: 17 / 5 = 3
+    const bytecode = [_]u8{
+        0x60, 0x05,  // PUSH1 5
+        0x60, 0x11,  // PUSH1 17
+        0x04,        // DIV (17 / 5)
+        0x00,        // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    try testing.expectEqual(@as(u256, 3), vm.last_stack_value.?); // Integer division
+}
+
+test "VM: DIV by one" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    // Test division by one (identity)
+    const bytecode = [_]u8{
+        0x60, 0x01,  // PUSH1 1
+        0x61, 0x04, 0xD2,  // PUSH2 1234
+        0x04,        // DIV (1234 / 1)
+        0x00,        // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    try testing.expectEqual(@as(u256, 1234), vm.last_stack_value.?);
+}
+
+test "VM: DIV zero dividend" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    // Test 0 / n = 0
+    const bytecode = [_]u8{
+        0x60, 0x42,  // PUSH1 66
+        0x60, 0x00,  // PUSH1 0
+        0x04,        // DIV (0 / 66)
+        0x00,        // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    try testing.expectEqual(@as(u256, 0), vm.last_stack_value.?);
+}
+
+test "VM: DIV complex sequence" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    // Test: 100 / 2 / 5 = 10
+    const bytecode = [_]u8{
+        0x60, 0x64,  // PUSH1 100
+        0x60, 0x02,  // PUSH1 2
+        0x04,        // DIV (result: 50)
+        0x60, 0x05,  // PUSH1 5
+        0x04,        // DIV (result: 10)
+        0x00,        // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    try testing.expectEqual(@as(u256, 10), vm.last_stack_value.?);
+}
+
+test "VM: DIV large numbers" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    // Test large number division
+    // 2^128 / 2^64 = 2^64
+    const bytecode = [_]u8{
+        0x68, // PUSH9 (for 2^64)
+        0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 2^64
+        0x70, // PUSH17 (for 2^128)
+        0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 2^128
+        0x04, // DIV
+        0x00, // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    // 2^128 / 2^64 = 2^64
+    const expected = @as(u256, 1) << 64;
+    try testing.expectEqual(expected, vm.last_stack_value.?);
+}
+
 test "VM: MOD opcode" {
     const allocator = testing.allocator;
     var vm = try createTestVm(allocator);
