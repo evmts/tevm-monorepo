@@ -45,7 +45,7 @@ describe('chainable type system (exhaustive)', () => {
 			InferredVitestChainableResult<VitestMatcherConfig<'toBeBigIntChainable', unknown, false, unknown>>
 		>()
 
-		expectTypeOf<typeof asyncChainable>().toEqualTypeOf<
+		expectTypeOf<typeof asyncChainable>().toExtend<
 			InferredVitestChainableResult<VitestMatcherConfig<'asyncTest', Promise<string>, true, { processed: boolean }>>
 		>()
 

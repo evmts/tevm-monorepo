@@ -10,6 +10,7 @@ import type {
 	MatcherResult,
 	VitestMatcherConfig,
 	VitestMatcherFunction,
+	IsAsync,
 } from './types.js'
 
 let chaiUtils: ChaiUtils | undefined = undefined
@@ -28,8 +29,10 @@ const setupPromise = (assertion: Assertion, utils: ChaiUtils): void => {
 	}
 }
 
-const isAsyncFunction = <T extends Function>(fn: T): fn is T & { constructor: { name: 'AsyncFunction' } } => {
-	return fn.constructor.name === 'AsyncFunction'
+const isAsyncMatcher = <TReceived, TState>(
+	matcher: VitestMatcherFunction<TReceived, boolean, TState>
+): matcher is VitestMatcherFunction<TReceived, true, TState> => {
+	return matcher.constructor.name === 'AsyncFunction'
 }
 
 // Build chain state from flags - automatically detect any previous matcher
@@ -111,7 +114,10 @@ const storeChainState = <TName extends string, TAsync extends boolean = false>(
 export const parseChainArgs = <TData = unknown, TState = unknown>(args: readonly unknown[]) => {
 	const argsWithoutChainState = args.slice(0, -1)
 	const chainState = args[args.length - 1]
-	assert(chainState && typeof chainState === 'object' && 'chainedFrom' in chainState, 'Internal error: no chain state found')
+	assert(
+		chainState && typeof chainState === 'object' && 'chainedFrom' in chainState,
+		'Internal error: no chain state found',
+	)
 	return { args: argsWithoutChainState, chainState: chainState as ChainState<TData, TState> }
 }
 
@@ -197,36 +203,38 @@ function makeVitestAsyncChainable<
 // Convert existing vitest matcher to chainable with perfect type inference
 export const createChainableFromVitest = <
 	TName extends string,
-	TReceived = unknown,
-	TAsync extends boolean = false,
+	TReceived = any,
 	TState = unknown,
+	TMatcher extends VitestMatcherFunction<TReceived, boolean, TState> = VitestMatcherFunction<TReceived, boolean, TState>
 >(
-	config: VitestMatcherConfig<TName, TReceived, TAsync, TState>,
+	config: {
+		name: TName
+		vitestMatcher: TMatcher
+	}
 ) => {
 	const { name, vitestMatcher } = config
-	const actualIsAsync = isAsyncFunction(vitestMatcher) as TAsync
+	const isAsync = isAsyncMatcher(vitestMatcher)
 
 	return {
 		name,
-		isAsync: actualIsAsync,
-
-		// Method function (when called as .method())
+		isAsync,
 		methodFunction: function (this: ChaiContext, ...args: ExtractVitestArgs<typeof vitestMatcher>) {
-			if (actualIsAsync) {
-				const asyncWrapper = makeVitestAsyncChainable<TName, typeof args, TReceived, TAsync, TState>
-				return asyncWrapper.call(this, name, vitestMatcher, args)
+			if (isAsync) {
+				return (makeVitestAsyncChainable<TName, ExtractVitestArgs<typeof vitestMatcher>, TReceived, true, TState>).call(
+					this, name, vitestMatcher as VitestMatcherFunction<TReceived, true, TState>, args
+				)
+			} else {
+				return (makeVitestSyncChainable<TName, ExtractVitestArgs<typeof vitestMatcher>, TReceived, false, TState>).call(
+					this as ChaiContext<false>, name, vitestMatcher as VitestMatcherFunction<TReceived, false, TState>, args as ExtractVitestArgs<typeof vitestMatcher>
+				)
 			}
-			const syncWrapper = makeVitestSyncChainable<TName, typeof args, TReceived, TAsync, TState>
-			return syncWrapper.call(this, name, vitestMatcher, args)
 		},
-
-		// Chain function (when accessed as .method.something) - REMOVE chain tracking
 		chainFunction: function (this: ChaiContext): Assertion {
 			assert(chaiUtils !== undefined, 'ChaiUtils not initialized')
 			chaiUtils.flag(this, `${name}.chained`, true)
 			return this
 		},
-	} as InferredVitestChainableResult<typeof config>
+	} as InferredVitestChainableResult<VitestMatcherConfig<TName, TReceived, IsAsync<TMatcher>, TState>>
 }
 
 // Plugin creator with context-aware registration
