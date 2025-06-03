@@ -10,42 +10,23 @@ import {
 	toEqualHex,
 } from './matchers/utils/index.js'
 
-// Define all matchers
-const matchers = {
+expect.extend({
 	toBeBigInt,
 	toBeAddress,
 	toBeHex,
 	toEqualAddress,
 	toEqualHex,
+})
+
+interface CustomMatchers {
+	toBeBigInt(): void
+	toBeAddress(opts?: IsAddressOptions): void
+	toBeHex(opts?: IsHexOptions): void
+	toEqualAddress(expected: string): void
+	toEqualHex(expected: string, opts?: EqualHexOptions): void
 }
 
-// Extend expect with all matchers
-expect.extend(matchers)
-
-// Export matchers for manual usage if needed
-export { matchers }
-
-// Export individual matchers
-export { toBeBigInt } from './matchers/utils/toBeBigInt.js'
-export { toBeAddress } from './matchers/utils/toBeAddress.js'
-export { toBeHex } from './matchers/utils/toBeHex.js'
-export { toEqualAddress } from './matchers/utils/toEqualAddress.js'
-export { toEqualHex } from './matchers/utils/toEqualHex.js'
-
-// Type declarations for TypeScript
 declare module 'vitest' {
-	interface Assertion<T = any> {
-		toBeBigInt(): T
-		toBeAddress(opts?: IsAddressOptions): T
-		toBeHex(opts?: IsHexOptions): T
-		toEqualAddress(expected: string): T
-		toEqualHex(expected: string, opts?: EqualHexOptions): T
-	}
-	interface AsymmetricMatchersContaining {
-		toBeBigInt(): any
-		toBeAddress(): any
-		toBeHex(opts?: IsHexOptions): any
-		toEqualAddress(expected: string): any
-		toEqualHex(expected: string, opts?: EqualHexOptions): any
-	}
+	interface Assertion<T = any> extends CustomMatchers {}
+	interface AsymmetricMatchersContaining extends CustomMatchers {}
 }
