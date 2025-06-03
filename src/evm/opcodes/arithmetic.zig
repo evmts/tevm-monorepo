@@ -131,39 +131,20 @@ pub fn op_addmod(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     _ = pc;
     _ = interpreter;
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-    const a = try stack_pop(&frame.stack);
-    const b = try stack_pop(&frame.stack);
-    const n = try stack_pop(&frame.stack);
+    const n = try stack_pop(&frame.stack);  // First pop: modulus
+    const b = try stack_pop(&frame.stack);  // Second pop: second addend
+    const a = try stack_pop(&frame.stack);  // Third pop: first addend
+    
     if (n == 0) {
         try stack_push(&frame.stack, 0);
     } else {
-        // Proper implementation of (a + b) % n handling overflow
-        // We use the property: (a + b) % n = ((a % n) + (b % n)) % n
-        // But we need to handle the case where (a % n) + (b % n) overflows
-        const a_mod = a % n;
-        const b_mod = b % n;
-        // Check if a_mod + b_mod would overflow
-        const sum_result = @addWithOverflow(a_mod, b_mod);
-        if (sum_result[1] != 0) {
-            // If overflow occurs, we know that a_mod + b_mod >= 2^256
-            // Since both a_mod and b_mod are < n, and n <= 2^256 - 1,
-            // we have: a_mod + b_mod < 2n
-            // So (a_mod + b_mod) - 2^256 < n, and we can compute:
-            // (a_mod + b_mod) % n = (a_mod + b_mod - 2^256) + 2^256 % n
-
-            // First compute 2^256 % n
-            // Since we're in u256, we can't represent 2^256 directly
-            // But 2^256 % n = (2^256 - n + n) % n = ((2^256 - n) % n + n) % n = (2^256 - n) % n
-            // And 2^256 - n = ~n + 1 in two's complement
-            const two_pow_256_mod_n = (~n +% 1) % n;
-            const overflow_part = sum_result[0]; // This is (a_mod + b_mod) - 2^256 due to wrapping
-            const result = (overflow_part +% two_pow_256_mod_n) % n;
-            try stack_push(&frame.stack, result);
-        } else {
-            // No overflow, simple case
-            const sum = sum_result[0] % n;
-            try stack_push(&frame.stack, sum);
-        }
+        // The EVM ADDMOD operation computes (a + b) % n
+        // Since we're working with u256, overflow wraps automatically
+        // So (a +% b) gives us (a + b) mod 2^256
+        // Then we just need to compute that result mod n
+        const sum = a +% b;  // Wrapping addition
+        const result = sum % n;
+        try stack_push(&frame.stack, result);
     }
     return Operation.ExecutionResult{};
 }
@@ -172,60 +153,38 @@ pub fn op_mulmod(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     _ = pc;
     _ = interpreter;
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-    const a = try stack_pop(&frame.stack);
-    const b = try stack_pop(&frame.stack);
-    const n = try stack_pop(&frame.stack);
+    const n = try stack_pop(&frame.stack);  // First pop: modulus
+    const b = try stack_pop(&frame.stack);  // Second pop: second multiplicand
+    const a = try stack_pop(&frame.stack);  // Third pop: first multiplicand
     if (n == 0) {
         try stack_push(&frame.stack, 0);
     } else {
-        // For multiplication, we can't use the same trick as addition
-        // We need to use a different approach based on decomposition
-        // First, check if we can do it without overflow
-        const result = @mulWithOverflow(a, b);
-        if (result[1] == 0) {
-            // No overflow, simple case
-            const product = result[0] % n;
-            try stack_push(&frame.stack, product);
-        } else {
-            // Overflow case - we need to compute (a * b) % n where a * b > 2^256
-            // We'll use the fact that we can decompose the multiplication
-            // and compute modulo at each step to keep numbers manageable
-            // Method: Russian peasant multiplication with modulo
-            // This computes (a * b) % n without needing full 512-bit arithmetic
-            var result_mod: u256 = 0;
-            var a_temp = a % n;
-            var b_temp = b % n;
-            while (b_temp > 0) {
-                // If b_temp is odd, add a_temp to result
-                if ((b_temp & 1) == 1) {
-                    // result_mod = (result_mod + a_temp) % n
-                    const add_result = @addWithOverflow(result_mod, a_temp);
-                    if (add_result[1] != 0) {
-                        // Handle overflow in addition
-                        const two_pow_256_mod_n = (~n +% 1) % n;
-                        const overflow_part = add_result[0];
-                        result_mod = (overflow_part +% two_pow_256_mod_n) % n;
-                    } else {
-                        result_mod = add_result[0] % n;
-                    }
-                }
-                // Double a_temp (mod n)
-                const double_result = @addWithOverflow(a_temp, a_temp);
-                if (double_result[1] != 0) {
-                    // Handle overflow in doubling
-                    const two_pow_256_mod_n = (~n +% 1) % n;
-                    const overflow_part = double_result[0];
-                    a_temp = (overflow_part +% two_pow_256_mod_n) % n;
-                } else {
-                    a_temp = double_result[0] % n;
-                }
-
-                // Halve b_temp
-                b_temp >>= 1;
+        // For MULMOD, we need to compute (a * b) % n where a * b might overflow
+        // We can't just do (a *% b) % n because that would give us ((a * b) % 2^256) % n
+        // which is not the same as (a * b) % n when a * b >= 2^256
+        
+        // We'll use the Russian peasant multiplication algorithm with modular reduction
+        // This allows us to compute (a * b) % n without needing the full 512-bit product
+        var result: u256 = 0;
+        var x = a % n;  // Reduce a modulo n first
+        var y = b % n;  // Reduce b modulo n first
+        
+        while (y > 0) {
+            // If y is odd, add x to result (mod n)
+            if ((y & 1) == 1) {
+                // result = (result + x) % n
+                const sum = result +% x;  // Wrapping addition
+                result = sum % n;
             }
-
-            try stack_push(&frame.stack, result_mod);
+            
+            // Double x (mod n)
+            x = (x +% x) % n;
+            
+            // Halve y
+            y >>= 1;
         }
+        
+        try stack_push(&frame.stack, result);
     }
 
     return Operation.ExecutionResult{};
