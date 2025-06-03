@@ -104,48 +104,13 @@ pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     return Operation.ExecutionResult{};
 }
 
-/// CREATE2 opcode (0xf5): Create contract with deterministic address
-/// 
-/// Creates a new contract with a deterministic address based on the deployer's
-/// address, a salt value, and the init code hash. This allows predicting the
-/// contract address before deployment.
-/// 
-/// ## Stack Requirements
-/// - Consumes 4 values: [value, offset, size, salt]
-///   - `value`: Wei to send to the new contract
-///   - `offset`: Memory offset of init code
-///   - `size`: Size of init code in bytes
-///   - `salt`: 256-bit salt for address generation
-/// - Pushes 1 value: New contract address (or 0 on failure)
-/// 
-/// ## Gas Cost
-/// - Static: 32000 gas base cost
-/// - Dynamic: 
-///   - Memory expansion: quadratic cost for reading init code
-///   - Init code: 200 gas per byte
-///   - Hashing: 6 gas per 32-byte word (for address calculation)
-///   - Execution: All gas except 1/64th is forwarded to init code
-/// 
-/// ## Address Calculation
-/// address = keccak256(0xff ++ deployer_address ++ salt ++ keccak256(init_code))[12:]
-/// 
-/// ## Edge Cases
-/// - Fails in static calls (state modification not allowed)
-/// - Returns 0 if call depth >= 1024
-/// - Returns 0 if account already exists at computed address
-/// - Init code size limited by EIP-3860 (max 49152 bytes)
-/// - Address collision is astronomically unlikely but would fail creation
-/// 
-/// ## EIP References
-/// - EIP-1014: Introduced CREATE2 in Constantinople
-/// - EIP-3860: Limit and meter initcode
+/// CREATE2 opcode - Create contract with deterministic address
 pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
     
-    // Check if we're in a static call - no state modifications allowed
     if (frame.is_static) {
         return ExecutionError.Error.WriteProtection;
     }
@@ -155,7 +120,6 @@ pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     const size = try stack_pop(&frame.stack);
     const salt = try stack_pop(&frame.stack);
     
-    // Check call depth limit (protection against stack overflow)
     if (frame.depth >= 1024) {
         try stack_push(&frame.stack, 0);
         return Operation.ExecutionResult{};
@@ -186,10 +150,7 @@ pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
         init_code = frame.memory.slice()[offset_usize..offset_usize + size_usize];
     }
     
-    // Calculate gas costs specific to CREATE2
-    // Init code gas: 200 per byte (discourages large contracts)
     const init_code_cost = @as(u64, @intCast(init_code.len)) * gas_constants.CreateDataGas;
-    // Hash gas: 6 per word for keccak256(init_code) in address calculation
     const hash_cost = @as(u64, @intCast((init_code.len + 31) / 32)) * gas_constants.Keccak256WordGas;
     
     // EIP-3860: Add gas cost for initcode word size (2 gas per 32-byte word)
@@ -267,19 +228,15 @@ pub fn op_call(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
         _ = frame.memory.ensure_context_capacity(ret_offset_usize + ret_size_usize) catch return ExecutionError.Error.OutOfOffset;
     }
     
-    // Check if we're in a static call and trying to transfer value
     if (frame.is_static and value != 0) {
         return ExecutionError.Error.WriteProtection;
     }
     
-    // Convert to address to Address type
     const to_address = from_u256(to);
     
-    // EIP-2929: Check if address is cold and consume appropriate gas
     const access_cost = try vm.access_list.access_address(to_address);
     const is_cold = access_cost == AccessList.COLD_ACCOUNT_ACCESS_COST;
     if (is_cold) {
-        // Cold address access costs more (2600 gas)
         try frame.consume_gas(gas_constants.ColdAccountAccessCost);
     }
     
@@ -287,9 +244,8 @@ pub fn op_call(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     var gas_for_call = if (gas > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(gas));
     gas_for_call = @min(gas_for_call, frame.gas_remaining - (frame.gas_remaining / 64));
     
-    // Add stipend for value transfers
     if (value != 0) {
-        gas_for_call += 2300; // Call stipend
+        gas_for_call += 2300; // Stipend
     }
     
     // Execute the call
@@ -384,9 +340,8 @@ pub fn op_callcode(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     var gas_for_call = if (gas > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(gas));
     gas_for_call = @min(gas_for_call, frame.gas_remaining - (frame.gas_remaining / 64));
     
-    // Add stipend for value transfers
     if (value != 0) {
-        gas_for_call += 2300; // Call stipend
+        gas_for_call += 2300; // Stipend
     }
     
     // Execute the callcode (execute target's code with current storage context)

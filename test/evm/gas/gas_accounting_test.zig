@@ -394,7 +394,7 @@ test "Gas: CREATE operations with init code" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try helpers.TestFrame.init(allocator, &contract, 200000);
+    var test_frame = try helpers.TestFrame.init(allocator, &contract, 300000);
     defer test_frame.deinit();
     
     // Prepare init code

@@ -49,11 +49,7 @@ pub fn op_balance(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     
     // EIP-2929: Check if address is cold and consume appropriate gas
     const access_cost = try vm.access_list.access_address(address);
-    const is_cold = access_cost == AccessList.COLD_ACCOUNT_ACCESS_COST;
-    if (is_cold) {
-        // Cold address access costs more (2600 gas)
-        try frame.consume_gas(gas_constants.ColdAccountAccessCost);
-    }
+    try frame.consume_gas(access_cost);
     
     // Get balance from VM state
     const balance = vm.balances.get(address) orelse 0;
@@ -123,11 +119,7 @@ pub fn op_extcodesize(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     
     // EIP-2929: Check if address is cold and consume appropriate gas
     const access_cost = try vm.access_list.access_address(address);
-    const is_cold = access_cost == AccessList.COLD_ACCOUNT_ACCESS_COST;
-    if (is_cold) {
-        // Cold address access costs more (2600 gas)
-        try frame.consume_gas(gas_constants.ColdAccountAccessCost);
-    }
+    try frame.consume_gas(access_cost);
     
     // Get code size from VM state
     const code = vm.code.get(address) orelse &[_]u8{};
@@ -162,11 +154,7 @@ pub fn op_extcodecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     
     // EIP-2929: Check if address is cold and consume appropriate gas
     const access_cost = try vm.access_list.access_address(address);
-    const is_cold = access_cost == AccessList.COLD_ACCOUNT_ACCESS_COST;
-    if (is_cold) {
-        // Cold address access costs more (2600 gas)
-        try frame.consume_gas(gas_constants.ColdAccountAccessCost);
-    }
+    try frame.consume_gas(access_cost);
     
     // Calculate memory expansion gas cost
     const current_size = frame.memory.context_size();
@@ -209,11 +197,7 @@ pub fn op_extcodehash(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     
     // EIP-2929: Check if address is cold and consume appropriate gas
     const access_cost = try vm.access_list.access_address(address);
-    const is_cold = access_cost == AccessList.COLD_ACCOUNT_ACCESS_COST;
-    if (is_cold) {
-        // Cold address access costs more (2600 gas)
-        try frame.consume_gas(gas_constants.ColdAccountAccessCost);
-    }
+    try frame.consume_gas(access_cost);
     
     // Get code from VM state and compute hash
     const code = vm.code.get(address) orelse &[_]u8{};

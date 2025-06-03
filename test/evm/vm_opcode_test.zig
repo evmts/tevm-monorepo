@@ -44,7 +44,7 @@ test "VM: STOP opcode halts execution" {
     defer if (result.output) |output| allocator.free(output);
     
     try testing.expect(result.status == .Success);
-    try testing.expect(result.gas_used > 0); // Some gas should be consumed
+    try testing.expectEqual(@as(u64, 0), result.gas_used); // STOP has zero gas cost
 }
 
 test "VM: JUMPDEST and JUMP sequence" {
@@ -401,6 +401,132 @@ test "VM: SUB opcode" {
     
     try testing.expect(result.status == .Success);
     try testing.expectEqual(@as(u256, 5), vm.last_stack_value.?);
+}
+
+test "VM: SUB opcode underflow" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    // Test subtraction underflow: 5 - 10 should wrap
+    const bytecode = [_]u8{
+        0x60, 0x0A,  // PUSH1 10
+        0x60, 0x05,  // PUSH1 5
+        0x03,        // SUB (5 - 10)
+        0x00,        // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    // 5 - 10 = -5, which wraps to MAX_U256 - 4
+    const expected = std.math.maxInt(u256) - 4;
+    try testing.expectEqual(expected, vm.last_stack_value.?);
+}
+
+test "VM: SUB from zero" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    // Test 0 - 1 = MAX_U256
+    const bytecode = [_]u8{
+        0x60, 0x01,  // PUSH1 1
+        0x60, 0x00,  // PUSH1 0
+        0x03,        // SUB (0 - 1)
+        0x00,        // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    try testing.expectEqual(std.math.maxInt(u256), vm.last_stack_value.?);
+}
+
+test "VM: SUB identity" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    // Test n - n = 0
+    const bytecode = [_]u8{
+        0x61, 0x04, 0xD2,  // PUSH2 1234
+        0x61, 0x04, 0xD2,  // PUSH2 1234
+        0x03,              // SUB (1234 - 1234)
+        0x00,              // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    try testing.expectEqual(@as(u256, 0), vm.last_stack_value.?);
+}
+
+test "VM: SUB complex sequence" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    // Test: 100 - 30 - 20 = 50
+    const bytecode = [_]u8{
+        0x60, 0x64,  // PUSH1 100
+        0x60, 0x1E,  // PUSH1 30
+        0x03,        // SUB (result: 70)
+        0x60, 0x14,  // PUSH1 20
+        0x03,        // SUB (result: 50)
+        0x00,        // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    try testing.expectEqual(@as(u256, 50), vm.last_stack_value.?);
+}
+
+test "VM: SUB large numbers" {
+    const allocator = testing.allocator;
+    var vm = try createTestVm(allocator);
+    defer {
+        vm.deinit();
+        allocator.destroy(vm);
+    }
+    
+    // Test large number subtraction
+    // 2^255 - 2^254 = 2^254
+    const bytecode = [_]u8{
+        0x6F, // PUSH16 (for 2^254)
+        0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 2^254
+        0x6F, // PUSH16 (for 2^255)
+        0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 2^255
+        0x03, // SUB
+        0x00, // STOP
+    };
+    
+    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    defer if (result.output) |output| allocator.free(output);
+    
+    try testing.expect(result.status == .Success);
+    // 2^255 - 2^254 = 2^254
+    const expected = @as(u256, 1) << 254;
+    try testing.expectEqual(expected, vm.last_stack_value.?);
 }
 
 test "VM: DIV opcode" {

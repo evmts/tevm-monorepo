@@ -18,15 +18,10 @@ pub const ArenaMemory = struct {
         parent: ?usize,
     };
     
-    /// The arena allocator that owns all memory
     arena: std.heap.ArenaAllocator,
-    /// The actual memory buffer
     buffer: std.ArrayList(u8),
-    /// Stack of contexts (call frames)
     contexts: std.ArrayList(Context),
-    /// Maximum memory limit
     memory_limit: u64,
-    /// Total memory allocated across all contexts
     total_allocated: usize,
     
     pub const DefaultMemoryLimit: u64 = 32 * 1024 * 1024; // 32MB
@@ -98,8 +93,7 @@ pub const ArenaMemory = struct {
         }
         
         const ctx_opt = self.contexts.pop();
-        const ctx = ctx_opt.?; // We already checked length > 1
-        // Revert buffer to context start
+        const ctx = ctx_opt.?;
         self.buffer.items.len = ctx.start_offset;
         self.total_allocated -= ctx.size;
     }
@@ -111,10 +105,9 @@ pub const ArenaMemory = struct {
         }
         
         const child_opt = self.contexts.pop();
-        const child = child_opt.?; // We already checked length > 1
+        const child = child_opt.?;
         var parent = try self.current_context();
         
-        // Update parent size to include child's memory
         const child_end = child.start_offset + child.size;
         const parent_end = parent.start_offset + parent.size;
         if (child_end > parent_end) {

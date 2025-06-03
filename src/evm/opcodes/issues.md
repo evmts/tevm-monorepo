@@ -18,17 +18,17 @@ This document tracks the implementation and testing status of all EVM opcodes. E
   - Tests: `test/evm/opcodes/arithmetic_test.zig` ✅ Has unit tests
   - VM Tests: `test/evm/vm_opcode_test.zig` ✅ Added comprehensive VM tests
 
-- [🔨] **MUL** (0x02) - Multiplication operation
-  - Implementation: `src/evm/opcodes/arithmetic.zig`
+- [✅] **MUL** (0x02) - Multiplication operation
+  - Implementation: `src/evm/opcodes/arithmetic.zig` ✅ Verified against revm
   - Revm: `revm/crates/interpreter/src/instructions/arithmetic.rs::mul`
-  - Tests: `test/evm/opcodes/arithmetic_test.zig`
-  - VM Tests: `test/evm/vm_opcode_test.zig` ⚠️ Basic test exists, needs expansion
+  - Tests: `test/evm/opcodes/arithmetic_test.zig` ✅ Has unit tests
+  - VM Tests: `test/evm/vm_opcode_test.zig` ✅ Added comprehensive VM tests
 
-- [ ] **SUB** (0x03) - Subtraction operation
-  - Implementation: `src/evm/opcodes/arithmetic.zig`
+- [✅] **SUB** (0x03) - Subtraction operation
+  - Implementation: `src/evm/opcodes/arithmetic.zig` ✅ Verified against revm
   - Revm: `revm/crates/interpreter/src/instructions/arithmetic.rs::sub`
-  - Tests: `test/evm/opcodes/arithmetic_test.zig`
-  - VM Tests: ⚠️ Needs additional VM-level tests
+  - Tests: `test/evm/opcodes/arithmetic_test.zig` ✅ Has unit tests
+  - VM Tests: `test/evm/vm_opcode_test.zig` ✅ Added comprehensive VM tests
 
 - [ ] **DIV** (0x04) - Integer division operation
   - Implementation: `src/evm/opcodes/arithmetic.zig`

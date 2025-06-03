@@ -151,6 +151,8 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
     var pc: usize = 0;
     var frame = try Frame.init(self.allocator, contract);
     defer frame.deinit();
+    // Finalize the root memory now that frame is at its final location
+    frame.memory.finalize_root();
     frame.is_static = self.read_only;
     frame.depth = @as(u32, @intCast(self.depth));
     frame.input = input;
@@ -469,6 +471,8 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
     // Create a frame for execution
     var frame = try Frame.init(self.allocator, &contract);
     defer frame.deinit();
+    // Finalize the root memory now that frame is at its final location
+    frame.memory.finalize_root();
     
     frame.gas_remaining = gas;
     frame.input = input orelse &[_]u8{};
@@ -482,6 +486,9 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
     var pc: usize = 0;
     while (pc < bytecode.len) {
         const opcode = bytecode[pc];
+        
+        // Update frame PC to match current PC
+        frame.pc = pc;
         
         // Cast self and frame to the opaque types expected by execute
         const interpreter_ptr: *Operation.Interpreter = @ptrCast(self);
@@ -539,8 +546,13 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
             }
         };
         
-        // Update PC based on bytes consumed (for PUSH operations)
-        pc += result.bytes_consumed;
+        // Check if PC was modified by JUMP/JUMPI opcodes
+        if (frame.pc != pc) {
+            pc = frame.pc;
+        } else {
+            // Update PC based on bytes consumed (for PUSH operations)
+            pc += result.bytes_consumed;
+        }
     }
     
     // If we reach end of bytecode without explicit stop/return

@@ -37,6 +37,21 @@ pub const TestVm = struct {
         };
     }
     
+    pub fn initWithHardfork(allocator: std.mem.Allocator, hardfork: Hardfork) !TestVm {
+        var vm = try Vm.init(allocator);
+        
+        // Set the jump table to the specific hardfork
+        vm.table = JumpTable.init_from_hardfork(hardfork);
+        
+        // Initialize transaction access list (pre-warm common addresses)
+        try vm.init_transaction_access_list(null);
+        
+        return TestVm{
+            .vm = vm,
+            .allocator = allocator,
+        };
+    }
+    
     pub fn deinit(self: *TestVm) void {
         self.vm.deinit();
     }
