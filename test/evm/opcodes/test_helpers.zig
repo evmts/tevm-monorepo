@@ -1,18 +1,17 @@
 const std = @import("std");
 const testing = std.testing;
-const evm = @import("evm");
 
 // Import necessary EVM components
-pub const Stack = evm.Stack;
-pub const Memory = evm.Memory;
-pub const Frame = evm.Frame;
-pub const Contract = evm.Contract;
-pub const Address = evm.Address;
-pub const Vm = evm.Vm;
-pub const Operation = evm.Operation;
-pub const ExecutionError = evm.ExecutionError;
-pub const gas_constants = evm.gas_constants;
-pub const Hardfork = evm.Hardfork;
+pub const Stack = @import("../../../src/evm/stack.zig");
+pub const Memory = @import("../../../src/evm/memory.zig");
+pub const Frame = @import("../../../src/evm/frame.zig");
+pub const Contract = @import("../../../src/evm/contract.zig");
+pub const Address = @import("Address");
+pub const Vm = @import("../../../src/evm/vm.zig");
+pub const Operation = @import("../../../src/evm/operation.zig");
+pub const ExecutionError = @import("../../../src/evm/execution_error.zig");
+pub const gas_constants = @import("../../../src/evm/gas_constants.zig");
+pub const Hardfork = @import("../../../src/evm/hardfork.zig");
 
 /// Test VM with minimal setup for testing opcodes
 pub const TestVm = struct {
@@ -150,17 +149,6 @@ pub fn createTestContract(
 
 /// Execute an opcode and return the result
 pub fn executeOpcode(
-    opcode_fn: fn(usize, *Operation.Interpreter, *Operation.State) ExecutionError.Error![]const u8,
-    vm: *Vm,
-    frame: *Frame,
-) ![]const u8 {
-    const interpreter_ptr: *Operation.Interpreter = @ptrCast(vm);
-    const state_ptr: *Operation.State = @ptrCast(frame);
-    return try opcode_fn(0, interpreter_ptr, state_ptr);
-}
-
-/// Execute an opcode that returns ExecutionResult
-pub fn executeOpcodeWithResult(
     opcode_fn: fn(usize, *Operation.Interpreter, *Operation.State) ExecutionError.Error!Operation.ExecutionResult,
     vm: *Vm,
     frame: *Frame,
@@ -169,6 +157,7 @@ pub fn executeOpcodeWithResult(
     const state_ptr: *Operation.State = @ptrCast(frame);
     return try opcode_fn(0, interpreter_ptr, state_ptr);
 }
+
 
 /// Assert stack value at position (0 is top)
 pub fn expectStackValue(frame: *const Frame, position: usize, expected: u256) !void {

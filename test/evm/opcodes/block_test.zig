@@ -28,19 +28,19 @@ test "Block: BLOCKHASH operations" {
     
     // Test 1: Get blockhash (currently returns 0 as not implemented)
     try test_frame.pushStack(&[_]u256{999}); // Block number
-    _ = try helpers.executeOpcodeWithResult(block.op_blockhash, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(block.op_blockhash, &test_vm.vm, &test_frame.frame);
     try helpers.expectStackValue(&test_frame.frame, 0, 0); // Returns 0 as not implemented
     
     // Test 2: Block number too old (> 256 blocks ago)
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{700}); // More than 256 blocks ago
-    _ = try helpers.executeOpcodeWithResult(block.op_blockhash, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(block.op_blockhash, &test_vm.vm, &test_frame.frame);
     try helpers.expectStackValue(&test_frame.frame, 0, 0);
     
     // Test 3: Future block number
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{1001}); // Future block
-    _ = try helpers.executeOpcodeWithResult(block.op_blockhash, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(block.op_blockhash, &test_vm.vm, &test_frame.frame);
     try helpers.expectStackValue(&test_frame.frame, 0, 0);
     
     // Test gas consumption
@@ -68,7 +68,7 @@ test "Block: COINBASE operations" {
     defer test_frame.deinit();
     
     // Test: Push coinbase address to stack
-    _ = try helpers.executeOpcodeWithResult(block.op_coinbase, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(block.op_coinbase, &test_vm.vm, &test_frame.frame);
     const coinbase_as_u256 = helpers.bytesToU256(&test_vm.vm.coinbase.bytes);
     try helpers.expectStackValue(&test_frame.frame, 0, coinbase_as_u256);
     
@@ -97,7 +97,7 @@ test "Block: TIMESTAMP operations" {
     defer test_frame.deinit();
     
     // Test: Push timestamp to stack
-    _ = try helpers.executeOpcodeWithResult(block.op_timestamp, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(block.op_timestamp, &test_vm.vm, &test_frame.frame);
     try helpers.expectStackValue(&test_frame.frame, 0, 1234567890);
     
     // Test gas consumption
@@ -125,7 +125,7 @@ test "Block: NUMBER operations" {
     defer test_frame.deinit();
     
     // Test: Push block number to stack
-    _ = try helpers.executeOpcodeWithResult(block.op_number, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(block.op_number, &test_vm.vm, &test_frame.frame);
     try helpers.expectStackValue(&test_frame.frame, 0, 987654321);
     
     // Test gas consumption
@@ -153,7 +153,7 @@ test "Block: DIFFICULTY/PREVRANDAO operations" {
     defer test_frame.deinit();
     
     // Test: Push difficulty to stack
-    _ = try helpers.executeOpcodeWithResult(block.op_difficulty, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(block.op_difficulty, &test_vm.vm, &test_frame.frame);
     try helpers.expectStackValue(&test_frame.frame, 0, 0x123456789ABCDEF0);
     
     // Test gas consumption
@@ -181,7 +181,7 @@ test "Block: GASLIMIT operations" {
     defer test_frame.deinit();
     
     // Test: Push gas limit to stack
-    _ = try helpers.executeOpcodeWithResult(block.op_gaslimit, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(block.op_gaslimit, &test_vm.vm, &test_frame.frame);
     try helpers.expectStackValue(&test_frame.frame, 0, 30_000_000);
     
     // Test gas consumption
@@ -209,7 +209,7 @@ test "Block: BASEFEE operations (London)" {
     defer test_frame.deinit();
     
     // Test: Push base fee to stack
-    _ = try helpers.executeOpcodeWithResult(block.op_basefee, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(block.op_basefee, &test_vm.vm, &test_frame.frame);
     try helpers.expectStackValue(&test_frame.frame, 0, 1_000_000_000);
     
     // Test gas consumption
@@ -242,25 +242,25 @@ test "Block: BLOBHASH operations (Cancun)" {
     
     // Test 1: Get first blob hash
     try test_frame.pushStack(&[_]u256{0});
-    _ = try helpers.executeOpcodeWithResult(block.op_blobhash, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(block.op_blobhash, &test_vm.vm, &test_frame.frame);
     try helpers.expectStackValue(&test_frame.frame, 0, 0x1111111111111111111111111111111111111111111111111111111111111111);
     
     // Test 2: Get second blob hash
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{1});
-    _ = try helpers.executeOpcodeWithResult(block.op_blobhash, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(block.op_blobhash, &test_vm.vm, &test_frame.frame);
     try helpers.expectStackValue(&test_frame.frame, 0, 0x2222222222222222222222222222222222222222222222222222222222222222);
     
     // Test 3: Out of bounds index
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{3});
-    _ = try helpers.executeOpcodeWithResult(block.op_blobhash, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(block.op_blobhash, &test_vm.vm, &test_frame.frame);
     try helpers.expectStackValue(&test_frame.frame, 0, 0); // Returns 0 for out of bounds
     
     // Test 4: Very large index
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{std.math.maxInt(u256)});
-    _ = try helpers.executeOpcodeWithResult(block.op_blobhash, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(block.op_blobhash, &test_vm.vm, &test_frame.frame);
     try helpers.expectStackValue(&test_frame.frame, 0, 0); // Returns 0 for out of bounds
     
     // Test gas consumption
@@ -288,7 +288,7 @@ test "Block: BLOBBASEFEE operations (Cancun)" {
     defer test_frame.deinit();
     
     // Test: Push blob base fee to stack
-    _ = try helpers.executeOpcodeWithResult(block.op_blobbasefee, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(block.op_blobbasefee, &test_vm.vm, &test_frame.frame);
     try helpers.expectStackValue(&test_frame.frame, 0, 100_000_000);
     
     // Test gas consumption
@@ -315,14 +315,14 @@ test "Block: Stack underflow errors" {
     // Test BLOCKHASH with empty stack
     try testing.expectError(
         helpers.ExecutionError.Error.StackUnderflow,
-        helpers.executeOpcodeWithResult(block.op_blockhash, &test_vm.vm, &test_frame.frame)
+        helpers.executeOpcode(block.op_blockhash, &test_vm.vm, &test_frame.frame)
     );
     
     // Test BLOBHASH with empty stack (Cancun)
     test_frame.frame.stack.clear();
     try testing.expectError(
         helpers.ExecutionError.Error.StackUnderflow,
-        helpers.executeOpcodeWithResult(block.op_blobhash, &test_vm.vm, &test_frame.frame)
+        helpers.executeOpcode(block.op_blobhash, &test_vm.vm, &test_frame.frame)
     );
 }
 
@@ -352,10 +352,10 @@ test "Block: Edge cases" {
     test_vm.vm.blob_base_fee = std.math.maxInt(u256);
     
     // Test all opcodes still work with max values
-    _ = try helpers.executeOpcodeWithResult(block.op_number, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(block.op_number, &test_vm.vm, &test_frame.frame);
     try helpers.expectStackValue(&test_frame.frame, 0, std.math.maxInt(u256));
     
     test_frame.frame.stack.clear();
-    _ = try helpers.executeOpcodeWithResult(block.op_timestamp, &test_vm.vm, &test_frame.frame);
+    _ = try helpers.executeOpcode(block.op_timestamp, &test_vm.vm, &test_frame.frame);
     try helpers.expectStackValue(&test_frame.frame, 0, std.math.maxInt(u256));
 }

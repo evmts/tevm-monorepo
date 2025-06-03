@@ -503,7 +503,7 @@ pub fn build(b: *std.Build) void {
     // Add Opcodes tests
     const opcodes_test = b.addTest(.{
         .name = "opcodes-test",
-        .root_source_file = b.path("src/evm/opcodes/package.zig"),
+        .root_source_file = b.path("test/evm/opcodes/opcodes_test.zig"),
         .target = target,
         .optimize = optimize,
     });
