@@ -97,6 +97,9 @@ pub fn op_tload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
     
+    // TLOAD gas cost is 100 (no cold/warm distinction)
+    try frame.consume_gas(gas_constants.WarmStorageReadCost);
+    
     const slot = try stack_pop(&frame.stack);
     
     const value = try error_mapping.vm_get_transient_storage(vm, frame.contract.address, slot);
@@ -115,6 +118,9 @@ pub fn op_tstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     if (frame.is_static) {
         return ExecutionError.Error.WriteProtection;
     }
+    
+    // TSTORE gas cost is 100 (no cold/warm distinction)
+    try frame.consume_gas(gas_constants.WarmStorageReadCost);
     
     const slot = try stack_pop(&frame.stack);
     const value = try stack_pop(&frame.stack);

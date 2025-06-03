@@ -43,24 +43,24 @@ pub inline fn get_operation(self: *const Self, opcode: u8) *const Operation {
 
 pub fn execute(self: *const Self, pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State, opcode: u8) ExecutionError.Error!Operation.ExecutionResult {
     const operation = self.get_operation(opcode);
-    
+
     // Cast state to Frame to access gas_remaining and stack
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-    
+
     // Debug output for stack issues
     if (opcode == 0x80 or opcode == 0x90) { // DUP1 or SWAP1
-        std.debug.print("DEBUG: Opcode 0x{x}, stack.size={}, stack.data[0]={}, CAPACITY={}\n", .{opcode, frame.stack.size, if (frame.stack.size > 0) frame.stack.data[0] else 0, Stack.CAPACITY});
+        std.debug.print("DEBUG: Opcode 0x{x}, stack.size={}, stack.data[0]={}, CAPACITY={}\n", .{ opcode, frame.stack.size, if (frame.stack.size > 0) frame.stack.data[0] else 0, Stack.CAPACITY });
     }
-    
+
     // Validate stack requirements before execution
     const stack_validation = @import("stack_validation.zig");
     try stack_validation.validate_stack_requirements(&frame.stack, operation);
-    
+
     // Consume base gas cost before executing the opcode
     if (operation.constant_gas > 0) {
         try frame.consume_gas(operation.constant_gas);
     }
-    
+
     // Execute the opcode handler
     return operation.execute(pc, interpreter, state);
 }
@@ -649,112 +649,112 @@ const DUP1 = Operation{
     .execute = stack_ops.op_dup1,
     .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 1,
-    .max_stack = Stack.CAPACITY,
+    .max_stack = Stack.CAPACITY - 1,
 };
 
 const DUP2 = Operation{
     .execute = stack_ops.op_dup2,
     .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 2,
-    .max_stack = Stack.CAPACITY,
+    .max_stack = Stack.CAPACITY - 1,
 };
 
 const DUP3 = Operation{
     .execute = stack_ops.op_dup3,
     .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 3,
-    .max_stack = Stack.CAPACITY,
+    .max_stack = Stack.CAPACITY - 1,
 };
 
 const DUP4 = Operation{
     .execute = stack_ops.op_dup4,
     .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 4,
-    .max_stack = Stack.CAPACITY,
+    .max_stack = Stack.CAPACITY - 1,
 };
 
 const DUP5 = Operation{
     .execute = stack_ops.op_dup5,
     .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 5,
-    .max_stack = Stack.CAPACITY,
+    .max_stack = Stack.CAPACITY - 1,
 };
 
 const DUP6 = Operation{
     .execute = stack_ops.op_dup6,
     .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 6,
-    .max_stack = Stack.CAPACITY,
+    .max_stack = Stack.CAPACITY - 1,
 };
 
 const DUP7 = Operation{
     .execute = stack_ops.op_dup7,
     .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 7,
-    .max_stack = Stack.CAPACITY,
+    .max_stack = Stack.CAPACITY - 1,
 };
 
 const DUP8 = Operation{
     .execute = stack_ops.op_dup8,
     .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 8,
-    .max_stack = Stack.CAPACITY,
+    .max_stack = Stack.CAPACITY - 1,
 };
 
 const DUP9 = Operation{
     .execute = stack_ops.op_dup9,
     .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 9,
-    .max_stack = Stack.CAPACITY,
+    .max_stack = Stack.CAPACITY - 1,
 };
 
 const DUP10 = Operation{
     .execute = stack_ops.op_dup10,
     .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 10,
-    .max_stack = Stack.CAPACITY,
+    .max_stack = Stack.CAPACITY - 1,
 };
 
 const DUP11 = Operation{
     .execute = stack_ops.op_dup11,
     .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 11,
-    .max_stack = Stack.CAPACITY,
+    .max_stack = Stack.CAPACITY - 1,
 };
 
 const DUP12 = Operation{
     .execute = stack_ops.op_dup12,
     .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 12,
-    .max_stack = Stack.CAPACITY,
+    .max_stack = Stack.CAPACITY - 1,
 };
 
 const DUP13 = Operation{
     .execute = stack_ops.op_dup13,
     .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 13,
-    .max_stack = Stack.CAPACITY,
+    .max_stack = Stack.CAPACITY - 1,
 };
 
 const DUP14 = Operation{
     .execute = stack_ops.op_dup14,
     .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 14,
-    .max_stack = Stack.CAPACITY,
+    .max_stack = Stack.CAPACITY - 1,
 };
 
 const DUP15 = Operation{
     .execute = stack_ops.op_dup15,
     .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 15,
-    .max_stack = Stack.CAPACITY,
+    .max_stack = Stack.CAPACITY - 1,
 };
 
 const DUP16 = Operation{
     .execute = stack_ops.op_dup16,
     .constant_gas = opcodes.gas_constants.GasFastestStep,
     .min_stack = 16,
-    .max_stack = Stack.CAPACITY,
+    .max_stack = Stack.CAPACITY - 1,
 };
 
 // SWAP operations
@@ -926,11 +926,11 @@ inline fn stack_push(stack: *Stack, value: u256) ExecutionError.Error!void {
 fn gas_op(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
-    
+
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-    
+
     try stack_push(&frame.stack, @as(u256, @intCast(frame.gas_remaining)));
-    
+
     return Operation.ExecutionResult{};
 }
 
@@ -1168,20 +1168,20 @@ pub fn new_frontier_instruction_set_legacy() Self {
 
 pub fn init_from_hardfork(hardfork: Hardfork) Self {
     var jt = new_frontier_instruction_set_legacy();
-    
+
     // Guard clause for Frontier
     if (hardfork == .FRONTIER) {
         return jt;
     }
-    
+
     // Homestead and later additions
     jt.table[0xf4] = &DELEGATECALL;
-    
+
     // Apply Tangerine Whistle gas cost changes (EIP-150)
     if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.TANGERINE_WHISTLE)) {
         apply_tangerine_whistle_gas_changes(&jt);
     }
-    
+
     // Byzantium additions
     if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.BYZANTIUM)) {
         jt.table[0x3d] = &RETURNDATASIZE;
@@ -1189,7 +1189,7 @@ pub fn init_from_hardfork(hardfork: Hardfork) Self {
         jt.table[0xfd] = &REVERT;
         jt.table[0xfa] = &STATICCALL;
     }
-    
+
     // Constantinople additions
     if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.CONSTANTINOPLE)) {
         jt.table[0xf5] = &CREATE2;
@@ -1198,29 +1198,29 @@ pub fn init_from_hardfork(hardfork: Hardfork) Self {
         jt.table[0x1c] = &SHR;
         jt.table[0x1d] = &SAR;
     }
-    
+
     // Istanbul additions
     if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.ISTANBUL)) {
         jt.table[0x46] = &CHAINID;
         jt.table[0x47] = &SELFBALANCE;
         apply_istanbul_gas_changes(&jt);
     }
-    
+
     // Berlin additions
     if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.BERLIN)) {
         apply_berlin_gas_changes(&jt);
     }
-    
+
     // London additions
     if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.LONDON)) {
         jt.table[0x48] = &BASEFEE;
     }
-    
+
     // Shanghai additions
     if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.SHANGHAI)) {
         jt.table[0x5f] = &PUSH0;
     }
-    
+
     // Cancun additions
     if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.CANCUN)) {
         jt.table[0x49] = &BLOBHASH;
@@ -1229,7 +1229,7 @@ pub fn init_from_hardfork(hardfork: Hardfork) Self {
         jt.table[0x5c] = &TLOAD;
         jt.table[0x5d] = &TSTORE;
     }
-    
+
     return jt;
 }
 
@@ -1290,7 +1290,7 @@ fn apply_berlin_gas_changes(jt: *Self) void {
     // - BALANCE/EXTCODESIZE/EXTCODECOPY/EXTCODEHASH: 2600 (cold), 100 (warm)
     // - SLOAD: 2100 (cold), 100 (warm)
     // - CALL/CALLCODE/DELEGATECALL/STATICCALL: +2600 for cold address
-    
+
     // Set base gas to 0 for opcodes that now have fully dynamic gas
     if (jt.table[0x31]) |op| { // BALANCE
         @constCast(op).constant_gas = 0;
@@ -1309,7 +1309,6 @@ fn apply_berlin_gas_changes(jt: *Self) void {
     }
     // CALL operations keep base gas but add dynamic cold access cost
 }
-
 
 // Tests
 test "JumpTable basic operations" {
@@ -1374,7 +1373,7 @@ test "JumpTable gas constants" {
 
 test "JumpTable execute consumes gas before opcode execution" {
     const jt = new_frontier_instruction_set();
-    
+
     // Create a test frame with some gas
     const test_allocator = std.testing.allocator;
     const ZERO_ADDRESS = [_]u8{0} ** 20;
@@ -1403,24 +1402,24 @@ test "JumpTable execute consumes gas before opcode execution" {
     test_frame.memory.finalize_root();
     defer test_frame.deinit();
     test_frame.gas_remaining = 100;
-    
+
     // Push two values for ADD operation
     try test_frame.stack.append(10);
     try test_frame.stack.append(20);
-    
+
     // Create interpreter and state pointers
     var test_vm = struct {
         allocator: std.mem.Allocator,
     }{ .allocator = test_allocator };
     const interpreter_ptr: *Operation.Interpreter = @ptrCast(&test_vm);
     const state_ptr: *Operation.State = @ptrCast(&test_frame);
-    
+
     // Execute ADD opcode (0x01) which has GasFastestStep (3) gas cost
     _ = try jt.execute(0, interpreter_ptr, state_ptr, 0x01);
-    
+
     // Check that gas was consumed
     try std.testing.expectEqual(@as(u64, 97), test_frame.gas_remaining);
-    
+
     // Check that ADD operation was performed
     const result = try test_frame.stack.pop();
     try std.testing.expectEqual(@as(u256, 30), result);
@@ -1431,37 +1430,37 @@ test "JumpTable Constantinople opcodes" {
     const jt_frontier = init_from_hardfork(.FRONTIER);
     const jt_byzantium = init_from_hardfork(.BYZANTIUM);
     const jt_constantinople = init_from_hardfork(.CONSTANTINOPLE);
-    
+
     // Constantinople opcodes should not be in Frontier
     try std.testing.expect(jt_frontier.get_operation(0xf5).undefined); // CREATE2
     try std.testing.expect(jt_frontier.get_operation(0x3f).undefined); // EXTCODEHASH
     try std.testing.expect(jt_frontier.get_operation(0x1b).undefined); // SHL
     try std.testing.expect(jt_frontier.get_operation(0x1c).undefined); // SHR
     try std.testing.expect(jt_frontier.get_operation(0x1d).undefined); // SAR
-    
+
     // Constantinople opcodes should not be in Byzantium
     try std.testing.expect(jt_byzantium.get_operation(0xf5).undefined); // CREATE2
     try std.testing.expect(jt_byzantium.get_operation(0x3f).undefined); // EXTCODEHASH
     try std.testing.expect(jt_byzantium.get_operation(0x1b).undefined); // SHL
     try std.testing.expect(jt_byzantium.get_operation(0x1c).undefined); // SHR
     try std.testing.expect(jt_byzantium.get_operation(0x1d).undefined); // SAR
-    
+
     // Constantinople opcodes should be in Constantinople
     try std.testing.expect(!jt_constantinople.get_operation(0xf5).undefined); // CREATE2
     try std.testing.expect(!jt_constantinople.get_operation(0x3f).undefined); // EXTCODEHASH
     try std.testing.expect(!jt_constantinople.get_operation(0x1b).undefined); // SHL
     try std.testing.expect(!jt_constantinople.get_operation(0x1c).undefined); // SHR
     try std.testing.expect(!jt_constantinople.get_operation(0x1d).undefined); // SAR
-    
+
     // Verify correct operation properties
     const create2_op = jt_constantinople.get_operation(0xf5);
     try std.testing.expectEqual(@as(u64, opcodes.gas_constants.CreateGas), create2_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 4), create2_op.min_stack);
-    
+
     const extcodehash_op = jt_constantinople.get_operation(0x3f);
     try std.testing.expectEqual(@as(u64, 700), extcodehash_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 1), extcodehash_op.min_stack);
-    
+
     const shl_op = jt_constantinople.get_operation(0x1b);
     try std.testing.expectEqual(@as(u64, opcodes.gas_constants.GasFastestStep), shl_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 2), shl_op.min_stack);
@@ -1472,30 +1471,30 @@ test "JumpTable Istanbul opcodes" {
     const jt_constantinople = init_from_hardfork(.CONSTANTINOPLE);
     const jt_istanbul = init_from_hardfork(.ISTANBUL);
     const jt_london = init_from_hardfork(.LONDON);
-    
+
     // Istanbul opcodes should not be in Constantinople
     try std.testing.expect(jt_constantinople.get_operation(0x46).undefined); // CHAINID
     try std.testing.expect(jt_constantinople.get_operation(0x47).undefined); // SELFBALANCE
-    
+
     // Istanbul opcodes should be in Istanbul
     try std.testing.expect(!jt_istanbul.get_operation(0x46).undefined); // CHAINID
     try std.testing.expect(!jt_istanbul.get_operation(0x47).undefined); // SELFBALANCE
-    
+
     // BASEFEE should not be in Istanbul
     try std.testing.expect(jt_istanbul.get_operation(0x48).undefined); // BASEFEE
-    
+
     // BASEFEE should be in London
     try std.testing.expect(!jt_london.get_operation(0x48).undefined); // BASEFEE
-    
+
     // Verify correct operation properties
     const chainid_op = jt_istanbul.get_operation(0x46);
     try std.testing.expectEqual(@as(u64, opcodes.gas_constants.GasQuickStep), chainid_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 0), chainid_op.min_stack);
-    
+
     const selfbalance_op = jt_istanbul.get_operation(0x47);
     try std.testing.expectEqual(@as(u64, opcodes.gas_constants.GasFastStep), selfbalance_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 0), selfbalance_op.min_stack);
-    
+
     const basefee_op = jt_london.get_operation(0x48);
     try std.testing.expectEqual(@as(u64, opcodes.gas_constants.GasQuickStep), basefee_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 0), basefee_op.min_stack);
@@ -1506,14 +1505,14 @@ test "JumpTable Shanghai opcodes" {
     const jt_london = init_from_hardfork(.LONDON);
     const jt_merge = init_from_hardfork(.MERGE);
     const jt_shanghai = init_from_hardfork(.SHANGHAI);
-    
+
     // PUSH0 should not be in London/Merge
     try std.testing.expect(jt_london.get_operation(0x5f).undefined); // PUSH0
     try std.testing.expect(jt_merge.get_operation(0x5f).undefined); // PUSH0
-    
+
     // PUSH0 should be in Shanghai
     try std.testing.expect(!jt_shanghai.get_operation(0x5f).undefined); // PUSH0
-    
+
     // Verify correct operation properties
     const push0_op = jt_shanghai.get_operation(0x5f);
     try std.testing.expectEqual(@as(u64, opcodes.gas_constants.GasQuickStep), push0_op.constant_gas);
@@ -1525,38 +1524,38 @@ test "JumpTable Cancun opcodes" {
     // Test that Cancun opcodes are properly configured
     const jt_shanghai = init_from_hardfork(.SHANGHAI);
     const jt_cancun = init_from_hardfork(.CANCUN);
-    
+
     // Cancun opcodes should not be in Shanghai
     try std.testing.expect(jt_shanghai.get_operation(0x49).undefined); // BLOBHASH
     try std.testing.expect(jt_shanghai.get_operation(0x4a).undefined); // BLOBBASEFEE
     try std.testing.expect(jt_shanghai.get_operation(0x5e).undefined); // MCOPY
     try std.testing.expect(jt_shanghai.get_operation(0x5c).undefined); // TLOAD
     try std.testing.expect(jt_shanghai.get_operation(0x5d).undefined); // TSTORE
-    
+
     // Cancun opcodes should be in Cancun
     try std.testing.expect(!jt_cancun.get_operation(0x49).undefined); // BLOBHASH
     try std.testing.expect(!jt_cancun.get_operation(0x4a).undefined); // BLOBBASEFEE
     try std.testing.expect(!jt_cancun.get_operation(0x5e).undefined); // MCOPY
     try std.testing.expect(!jt_cancun.get_operation(0x5c).undefined); // TLOAD
     try std.testing.expect(!jt_cancun.get_operation(0x5d).undefined); // TSTORE
-    
+
     // Verify correct operation properties
     const blobhash_op = jt_cancun.get_operation(0x49);
     try std.testing.expectEqual(@as(u64, opcodes.gas_constants.GasFastestStep), blobhash_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 1), blobhash_op.min_stack);
-    
+
     const blobbasefee_op = jt_cancun.get_operation(0x4a);
     try std.testing.expectEqual(@as(u64, opcodes.gas_constants.GasQuickStep), blobbasefee_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 0), blobbasefee_op.min_stack);
-    
+
     const mcopy_op = jt_cancun.get_operation(0x5e);
     try std.testing.expectEqual(@as(u64, opcodes.gas_constants.GasFastestStep), mcopy_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 3), mcopy_op.min_stack);
-    
+
     const tload_op = jt_cancun.get_operation(0x5c);
     try std.testing.expectEqual(@as(u64, 100), tload_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 1), tload_op.min_stack);
-    
+
     const tstore_op = jt_cancun.get_operation(0x5d);
     try std.testing.expectEqual(@as(u64, 100), tstore_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 2), tstore_op.min_stack);

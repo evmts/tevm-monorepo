@@ -26,7 +26,7 @@ test "Environment: ADDRESS opcode" {
     defer test_frame.deinit();
     
     // Execute ADDRESS opcode
-    _ = try helpers.executeOpcode(environment.op_address, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x30, &test_vm.vm, test_frame.frame);
     
     // Should push contract address to stack
     const result = try test_frame.frame.stack.peek_n(0);
@@ -60,7 +60,7 @@ test "Environment: BALANCE opcode" {
     // Test 1: Get balance of existing account
     const alice_u256 = helpers.Address.to_u256(helpers.TestAddresses.ALICE);
     try test_frame.pushStack(&[_]u256{alice_u256});
-    _ = try helpers.executeOpcode(environment.op_balance, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x31, &test_vm.vm, test_frame.frame);
     
     try helpers.expectStackValue(test_frame.frame, 0, test_balance);
     
@@ -68,7 +68,7 @@ test "Environment: BALANCE opcode" {
     test_frame.frame.stack.clear();
     const random_address = helpers.Address.to_u256(helpers.TestAddresses.RANDOM);
     try test_frame.pushStack(&[_]u256{random_address});
-    _ = try helpers.executeOpcode(environment.op_balance, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x31, &test_vm.vm, test_frame.frame);
     
     try helpers.expectStackValue(test_frame.frame, 0, 0);
 }
@@ -95,14 +95,14 @@ test "Environment: ORIGIN and CALLER opcodes" {
     defer test_frame.deinit();
     
     // Test ORIGIN
-    _ = try helpers.executeOpcode(environment.op_origin, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x32, &test_vm.vm, test_frame.frame);
     const origin_result = try test_frame.frame.stack.peek_n(0);
     const expected_origin = helpers.Address.to_u256(helpers.TestAddresses.ALICE);
     try testing.expectEqual(expected_origin, origin_result);
     
     // Test CALLER
     test_frame.frame.stack.clear();
-    _ = try helpers.executeOpcode(environment.op_caller, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x33, &test_vm.vm, test_frame.frame);
     const caller_result = try test_frame.frame.stack.peek_n(0);
     const expected_caller = helpers.Address.to_u256(helpers.TestAddresses.BOB);
     try testing.expectEqual(expected_caller, caller_result);
@@ -128,7 +128,7 @@ test "Environment: CALLVALUE opcode" {
     defer test_frame.deinit();
     
     // Execute CALLVALUE
-    _ = try helpers.executeOpcode(environment.op_callvalue, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x34, &test_vm.vm, test_frame.frame);
     
     try helpers.expectStackValue(test_frame.frame, 0, call_value);
 }
@@ -156,7 +156,7 @@ test "Environment: GASPRICE opcode" {
     defer test_frame.deinit();
     
     // Execute GASPRICE
-    _ = try helpers.executeOpcode(environment.op_gasprice, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x3A, &test_vm.vm, test_frame.frame);
     
     try helpers.expectStackValue(test_frame.frame, 0, gas_price);
 }
@@ -186,7 +186,7 @@ test "Environment: EXTCODESIZE opcode" {
     // Test 1: Get code size of account with code
     const bob_u256 = helpers.Address.to_u256(helpers.TestAddresses.BOB);
     try test_frame.pushStack(&[_]u256{bob_u256});
-    _ = try helpers.executeOpcode(environment.op_extcodesize, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x3B, &test_vm.vm, test_frame.frame);
     
     try helpers.expectStackValue(test_frame.frame, 0, test_code.len);
     
@@ -194,7 +194,7 @@ test "Environment: EXTCODESIZE opcode" {
     test_frame.frame.stack.clear();
     const alice_u256 = helpers.Address.to_u256(helpers.TestAddresses.ALICE);
     try test_frame.pushStack(&[_]u256{alice_u256});
-    _ = try helpers.executeOpcode(environment.op_extcodesize, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x3B, &test_vm.vm, test_frame.frame);
     
     try helpers.expectStackValue(test_frame.frame, 0, 0);
 }
@@ -236,7 +236,7 @@ test "Environment: EXTCODECOPY opcode" {
         0,             // memory offset
         bob_u256,      // address
     });
-    _ = try helpers.executeOpcode(environment.op_extcodecopy, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x3C, &test_vm.vm, test_frame.frame);
     
     // Verify code was copied to memory
     for (test_code, 0..) |byte, i| {
@@ -252,7 +252,7 @@ test "Environment: EXTCODECOPY opcode" {
         32,       // memory offset
         bob_u256, // address
     });
-    _ = try helpers.executeOpcode(environment.op_extcodecopy, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x3C, &test_vm.vm, test_frame.frame);
     
     // Verify partial copy
     for (0..4) |i| {
@@ -268,7 +268,7 @@ test "Environment: EXTCODECOPY opcode" {
         64,       // memory offset
         bob_u256, // address
     });
-    _ = try helpers.executeOpcode(environment.op_extcodecopy, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x3C, &test_vm.vm, test_frame.frame);
     
     // Verify padding with zeros
     for (test_code.len..16) |i| {
@@ -302,7 +302,7 @@ test "Environment: EXTCODEHASH opcode" {
     // Test 1: Get hash of account with code
     const bob_u256 = helpers.Address.to_u256(helpers.TestAddresses.BOB);
     try test_frame.pushStack(&[_]u256{bob_u256});
-    _ = try helpers.executeOpcode(environment.op_extcodehash, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x3F, &test_vm.vm, test_frame.frame);
     
     const hash = try test_frame.frame.stack.peek_n(0);
     try testing.expect(hash != 0); // Should be non-zero hash
@@ -311,7 +311,7 @@ test "Environment: EXTCODEHASH opcode" {
     test_frame.frame.stack.clear();
     const alice_u256 = helpers.Address.to_u256(helpers.TestAddresses.ALICE);
     try test_frame.pushStack(&[_]u256{alice_u256});
-    _ = try helpers.executeOpcode(environment.op_extcodehash, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x3F, &test_vm.vm, test_frame.frame);
     
     try helpers.expectStackValue(test_frame.frame, 0, 0);
 }
@@ -339,7 +339,7 @@ test "Environment: SELFBALANCE opcode (Istanbul)" {
     defer test_frame.deinit();
     
     // Execute SELFBALANCE
-    _ = try helpers.executeOpcode(environment.op_selfbalance, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x47, &test_vm.vm, test_frame.frame);
     
     try helpers.expectStackValue(test_frame.frame, 0, contract_balance);
     try helpers.expectGasUsed(test_frame.frame, 1000, helpers.opcodes.gas_constants.GasFastStep);
@@ -368,7 +368,7 @@ test "Environment: CHAINID opcode (Istanbul)" {
     defer test_frame.deinit();
     
     // Execute CHAINID
-    _ = try helpers.executeOpcode(environment.op_chainid, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x46, &test_vm.vm, test_frame.frame);
     
     try helpers.expectStackValue(test_frame.frame, 0, chain_id);
 }
@@ -398,7 +398,7 @@ test "Environment: Cold/Warm address access (EIP-2929)" {
     const bob_u256 = helpers.Address.to_u256(helpers.TestAddresses.BOB);
     try test_frame.pushStack(&[_]u256{bob_u256});
     const initial_gas = test_frame.frame.gas_remaining;
-    _ = try helpers.executeOpcode(environment.op_balance, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x31, &test_vm.vm, test_frame.frame);
     const cold_gas_used = initial_gas - test_frame.frame.gas_remaining;
     try testing.expectEqual(@as(u64, 2600), cold_gas_used);
     
@@ -406,7 +406,7 @@ test "Environment: Cold/Warm address access (EIP-2929)" {
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{bob_u256});
     const warm_initial_gas = test_frame.frame.gas_remaining;
-    _ = try helpers.executeOpcode(environment.op_balance, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x31, &test_vm.vm, test_frame.frame);
     const warm_gas_used = warm_initial_gas - test_frame.frame.gas_remaining;
     try testing.expectEqual(@as(u64, 0), warm_gas_used); // Base cost handled by jump table
 }
@@ -432,23 +432,23 @@ test "Environment: Stack underflow errors" {
     // Test opcodes that require stack items
     try testing.expectError(
         helpers.ExecutionError.Error.StackUnderflow,
-        helpers.executeOpcode(environment.op_balance, &test_vm.vm, test_frame.frame)
+        helpers.executeOpcode(0x31, &test_vm.vm, test_frame.frame)
     );
     
     try testing.expectError(
         helpers.ExecutionError.Error.StackUnderflow,
-        helpers.executeOpcode(environment.op_extcodesize, &test_vm.vm, test_frame.frame)
+        helpers.executeOpcode(0x3B, &test_vm.vm, test_frame.frame)
     );
     
     try testing.expectError(
         helpers.ExecutionError.Error.StackUnderflow,
-        helpers.executeOpcode(environment.op_extcodehash, &test_vm.vm, test_frame.frame)
+        helpers.executeOpcode(0x3F, &test_vm.vm, test_frame.frame)
     );
     
     // EXTCODECOPY needs 4 stack items
     try test_frame.pushStack(&[_]u256{1, 2, 3}); // Only 3 items
     try testing.expectError(
         helpers.ExecutionError.Error.StackUnderflow,
-        helpers.executeOpcode(environment.op_extcodecopy, &test_vm.vm, test_frame.frame)
+        helpers.executeOpcode(0x3C, &test_vm.vm, test_frame.frame)
     );
 }

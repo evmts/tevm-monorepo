@@ -47,7 +47,7 @@ test "CREATE: create new contract" {
     try test_frame.pushStack(&[_]u256{init_code.len}); // size
     
     // Execute CREATE
-    _ = try test_helpers.executeOpcode(opcodes.system.op_create, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xF0, &test_vm.vm, test_frame.frame);
     
     // Should push new contract address
     const result = try test_frame.popStack();
@@ -85,7 +85,7 @@ test "CREATE: failed creation pushes zero" {
     try test_frame.pushStack(&[_]u256{0}); // size
     
     // Execute CREATE
-    _ = try test_helpers.executeOpcode(opcodes.system.op_create, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xF0, &test_vm.vm, test_frame.frame);
     
     // Should push 0 for failed creation
     try testing.expectEqual(@as(u256, 0), try test_frame.popStack());
@@ -117,7 +117,7 @@ test "CREATE: write protection in static call" {
     try test_frame.pushStack(&[_]u256{0}); // size
     
     // Execute CREATE - should fail
-    const result = test_helpers.executeOpcode(opcodes.system.op_create, &test_vm.vm, test_frame.frame);
+    const result = test_helpers.executeOpcode(0xF0, &test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.WriteProtection, result);
 }
 
@@ -147,7 +147,7 @@ test "CREATE: depth limit" {
     try test_frame.pushStack(&[_]u256{0}); // size
     
     // Execute CREATE
-    _ = try test_helpers.executeOpcode(opcodes.system.op_create, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xF0, &test_vm.vm, test_frame.frame);
     
     // Should push 0 due to depth limit
     try testing.expectEqual(@as(u256, 0), try test_frame.popStack());
@@ -193,7 +193,7 @@ test "CREATE2: create with deterministic address" {
     try test_frame.pushStack(&[_]u256{0x12345678});    // salt
     
     // Execute CREATE2
-    _ = try test_helpers.executeOpcode(opcodes.system.op_create2, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xF5, &test_vm.vm, test_frame.frame);
     
     // Should push new contract address
     const result = try test_frame.popStack();
@@ -245,7 +245,7 @@ test "CALL: successful call" {
     try test_frame.pushStack(&[_]u256{10});  // ret_size
     
     // Execute CALL
-    _ = try test_helpers.executeOpcode(opcodes.system.op_call, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xF1, &test_vm.vm, test_frame.frame);
     
     // Should push 1 for success
     try testing.expectEqual(@as(u256, 1), try test_frame.popStack());
@@ -295,7 +295,7 @@ test "CALL: failed call" {
     try test_frame.pushStack(&[_]u256{0}); // ret_size
     
     // Execute CALL
-    _ = try test_helpers.executeOpcode(opcodes.system.op_call, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xF1, &test_vm.vm, test_frame.frame);
     
     // Should push 0 for failure
     try testing.expectEqual(@as(u256, 0), try test_frame.popStack());
@@ -337,7 +337,7 @@ test "CALL: cold address access costs more gas" {
     const gas_before = test_frame.frame.gas_remaining;
     
     // Execute CALL
-    _ = try test_helpers.executeOpcode(opcodes.system.op_call, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xF1, &test_vm.vm, test_frame.frame);
     
     // Should consume 2600 gas for cold access
     // Gas used = (gas_before - gas_remaining) - (gas_given - gas_returned)
@@ -379,7 +379,7 @@ test "CALL: value transfer in static call fails" {
     try test_frame.pushStack(&[_]u256{0}); // ret_size
     
     // Execute CALL - should fail
-    const result = test_helpers.executeOpcode(opcodes.system.op_call, &test_vm.vm, test_frame.frame);
+    const result = test_helpers.executeOpcode(0xF1, &test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.WriteProtection, result);
 }
 
@@ -420,7 +420,7 @@ test "DELEGATECALL: execute code in current context" {
     try test_frame.pushStack(&[_]u256{2});  // ret_size
     
     // Execute DELEGATECALL
-    _ = try test_helpers.executeOpcode(opcodes.system.op_delegatecall, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xF4, &test_vm.vm, test_frame.frame);
     
     // Should push 1 for success
     try testing.expectEqual(@as(u256, 1), try test_frame.popStack());
@@ -467,7 +467,7 @@ test "STATICCALL: read-only call" {
     try test_frame.pushStack(&[_]u256{2});   // ret_size
     
     // Execute STATICCALL
-    _ = try test_helpers.executeOpcode(opcodes.system.op_staticcall, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xFA, &test_vm.vm, test_frame.frame);
     
     // Should push 1 for success
     try testing.expectEqual(@as(u256, 1), try test_frame.popStack());
@@ -508,7 +508,7 @@ test "CALL: depth limit" {
     try test_frame.pushStack(&[_]u256{0}); // ret_size
     
     // Execute CALL
-    _ = try test_helpers.executeOpcode(opcodes.system.op_call, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xF1, &test_vm.vm, test_frame.frame);
     
     // Should push 0 due to depth limit
     try testing.expectEqual(@as(u256, 0), try test_frame.popStack());
@@ -555,7 +555,7 @@ test "CREATE: gas consumption" {
     const gas_before = test_frame.frame.gas_remaining;
     
     // Execute CREATE
-    _ = try test_helpers.executeOpcode(opcodes.system.op_create, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xF0, &test_vm.vm, test_frame.frame);
     
     // Should consume gas for init code (200 per byte)
     const expected_init_gas = @as(u64, init_code.len) * 200;
@@ -604,7 +604,7 @@ test "CREATE2: additional gas for hashing" {
     const gas_before = test_frame.frame.gas_remaining;
     
     // Execute CREATE2
-    _ = try test_helpers.executeOpcode(opcodes.system.op_create2, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xF5, &test_vm.vm, test_frame.frame);
     
     // Should consume gas for init code + hashing
     const expected_init_gas = @as(u64, init_code.len) * 200;
@@ -636,7 +636,7 @@ test "CREATE: stack underflow" {
     try test_frame.pushStack(&[_]u256{0}); // size
     
     // Execute CREATE - should fail
-    const result = test_helpers.executeOpcode(opcodes.system.op_create, &test_vm.vm, test_frame.frame);
+    const result = test_helpers.executeOpcode(0xF0, &test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.StackUnderflow, result);
 }
 
@@ -666,7 +666,7 @@ test "CALL: stack underflow" {
     try test_frame.pushStack(&[_]u256{0}); // ret_size
     
     // Execute CALL - should fail
-    const result = test_helpers.executeOpcode(opcodes.system.op_call, &test_vm.vm, test_frame.frame);
+    const result = test_helpers.executeOpcode(0xF1, &test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.StackUnderflow, result);
 }
 
@@ -704,7 +704,7 @@ test "CREATE: memory expansion for init code" {
     const gas_before = test_frame.frame.gas_remaining;
     
     // Execute CREATE
-    _ = try test_helpers.executeOpcode(opcodes.system.op_create, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xF0, &test_vm.vm, test_frame.frame);
     
     // Should consume gas for memory expansion
     const gas_used = gas_before - test_frame.frame.gas_remaining;
@@ -736,7 +736,7 @@ test "CREATE: EIP-3860 initcode size limit" {
     try test_frame.pushStack(&[_]u256{49153}); // size (one byte over limit)
     
     // Execute CREATE - should fail with MaxCodeSizeExceeded
-    const result = test_helpers.executeOpcode(opcodes.system.op_create, &test_vm.vm, test_frame.frame);
+    const result = test_helpers.executeOpcode(0xF0, &test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.MaxCodeSizeExceeded, result);
 }
 
@@ -779,7 +779,7 @@ test "CREATE: EIP-3860 initcode word gas" {
     const gas_before = test_frame.frame.gas_remaining;
     
     // Execute CREATE
-    _ = try test_helpers.executeOpcode(opcodes.system.op_create, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xF0, &test_vm.vm, test_frame.frame);
     
     // Should consume gas for init code + word gas
     const expected_init_gas = 64 * gas_constants.CreateDataGas;
@@ -815,6 +815,6 @@ test "CREATE2: EIP-3860 initcode size limit" {
     try test_frame.pushStack(&[_]u256{0x123}); // salt
     
     // Execute CREATE2 - should fail with MaxCodeSizeExceeded
-    const result = test_helpers.executeOpcode(opcodes.system.op_create2, &test_vm.vm, test_frame.frame);
+    const result = test_helpers.executeOpcode(0xF5, &test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.MaxCodeSizeExceeded, result);
 }

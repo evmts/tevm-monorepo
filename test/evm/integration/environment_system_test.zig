@@ -56,7 +56,7 @@ test "Integration: Contract deployment simulation" {
     });
     
     // Execute CREATE (will fail with placeholder implementation)
-    _ = helpers.executeOpcode(system.op_create, &test_vm.vm, test_frame.frame) catch |err| {
+    _ = helpers.executeOpcode(0xF0, &test_vm.vm, test_frame.frame) catch |err| {
         // CREATE is not fully implemented, but we can verify it tries to execute
         try testing.expect(err == helpers.ExecutionError.Error.OutOfGas or 
                           err == helpers.ExecutionError.Error.StackUnderflow or
@@ -105,7 +105,7 @@ test "Integration: Call with value transfer" {
     });
     
     // Execute CALL (placeholder implementation)
-    _ = helpers.executeOpcode(system.op_call, &test_vm.vm, test_frame.frame) catch |err| {
+    _ = helpers.executeOpcode(0xF1, &test_vm.vm, test_frame.frame) catch |err| {
         // CALL is not fully implemented
         try testing.expect(err == helpers.ExecutionError.Error.OutOfGas or 
                           err == helpers.ExecutionError.Error.StackUnderflow);
@@ -143,32 +143,32 @@ test "Integration: Environment data access" {
     defer test_frame.deinit();
     
     // Test ADDRESS
-    _ = try helpers.executeOpcode(environment.op_address, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x30, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, helpers.toU256(helpers.TestAddresses.CONTRACT));
-    _ = try helpers.executeOpcode(stack.op_pop, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
     
     // Test ORIGIN
-    _ = try helpers.executeOpcode(environment.op_origin, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x32, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, helpers.toU256(helpers.TestAddresses.ALICE));
-    _ = try helpers.executeOpcode(stack.op_pop, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
     
     // Test CALLER
-    _ = try helpers.executeOpcode(environment.op_caller, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x33, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, helpers.toU256(helpers.TestAddresses.BOB));
-    _ = try helpers.executeOpcode(stack.op_pop, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
     
     // Test CALLVALUE
-    _ = try helpers.executeOpcode(environment.op_callvalue, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x34, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, helpers.TestValues.ONE_GWEI);
-    _ = try helpers.executeOpcode(stack.op_pop, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
     
     // Test GASPRICE
-    _ = try helpers.executeOpcode(environment.op_gasprice, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x3A, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 20 * helpers.TestValues.ONE_GWEI);
-    _ = try helpers.executeOpcode(stack.op_pop, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
     
     // Test CHAINID
-    _ = try helpers.executeOpcode(environment.op_chainid, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x46, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 1);
 }
 
@@ -200,27 +200,27 @@ test "Integration: Block information access" {
     defer test_frame.deinit();
     
     // Test NUMBER
-    _ = try helpers.executeOpcode(block.op_number, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x43, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 17000000);
-    _ = try helpers.executeOpcode(stack.op_pop, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
     
     // Test TIMESTAMP
-    _ = try helpers.executeOpcode(block.op_timestamp, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x42, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 1683000000);
-    _ = try helpers.executeOpcode(stack.op_pop, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
     
     // Test COINBASE
-    _ = try helpers.executeOpcode(block.op_coinbase, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x41, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, helpers.toU256(helpers.TestAddresses.CHARLIE));
-    _ = try helpers.executeOpcode(stack.op_pop, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
     
     // Test GASLIMIT
-    _ = try helpers.executeOpcode(block.op_gaslimit, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x45, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 30000000);
-    _ = try helpers.executeOpcode(stack.op_pop, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
     
     // Test BASEFEE
-    _ = try helpers.executeOpcode(block.op_basefee, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x48, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 30 * helpers.TestValues.ONE_GWEI);
 }
 
@@ -262,7 +262,7 @@ test "Integration: Log emission with topics" {
     });
     
     const initial_log_count = test_vm.vm.logs.items.len;
-    _ = try helpers.executeOpcode(log.op_log3, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0xA3, &test_vm.vm, test_frame.frame);
     
     // Verify log was emitted
     try testing.expectEqual(initial_log_count + 1, test_vm.vm.logs.items.len);
@@ -307,9 +307,9 @@ test "Integration: External code operations" {
     
     // Test EXTCODESIZE
     try test_frame.pushStack(&[_]u256{helpers.toU256(helpers.TestAddresses.BOB)});
-    _ = try helpers.executeOpcode(environment.op_extcodesize, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x3B, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, external_code.len);
-    _ = try helpers.executeOpcode(stack.op_pop, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
     
     // Test EXTCODECOPY
     try test_frame.pushStack(&[_]u256{
@@ -318,7 +318,7 @@ test "Integration: External code operations" {
         0,                                                    // offset
         external_code.len,                                    // size
     });
-    _ = try helpers.executeOpcode(environment.op_extcodecopy, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x3C, &test_vm.vm, test_frame.frame);
     
     // Verify code was copied to memory
     const copied_code = try test_frame.getMemory(0, external_code.len);
@@ -326,7 +326,7 @@ test "Integration: External code operations" {
     
     // Test EXTCODEHASH
     try test_frame.pushStack(&[_]u256{helpers.toU256(helpers.TestAddresses.BOB)});
-    _ = try helpers.executeOpcode(environment.op_extcodehash, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x3F, &test_vm.vm, test_frame.frame);
     
     // Hash should be non-zero for account with code
     const code_hash = try test_frame.popStack();
@@ -364,13 +364,13 @@ test "Integration: Calldata operations" {
     defer test_frame.deinit();
     
     // Test CALLDATASIZE
-    _ = try helpers.executeOpcode(environment.op_calldatasize, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x36, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, calldata.len);
-    _ = try helpers.executeOpcode(stack.op_pop, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
     
     // Test CALLDATALOAD at offset 0 (function selector)
     try test_frame.pushStack(&[_]u256{0});
-    _ = try helpers.executeOpcode(environment.op_calldataload, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x35, &test_vm.vm, test_frame.frame);
     
     // Should load 32 bytes starting from offset 0
     const loaded_value = try test_frame.popStack();
@@ -378,9 +378,9 @@ test "Integration: Calldata operations" {
     
     // Test CALLDATALOAD at offset 4 (first argument)
     try test_frame.pushStack(&[_]u256{4});
-    _ = try helpers.executeOpcode(environment.op_calldataload, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x35, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x42);
-    _ = try helpers.executeOpcode(stack.op_pop, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
     
     // Test CALLDATACOPY
     try test_frame.pushStack(&[_]u256{
@@ -431,14 +431,14 @@ test "Integration: Self balance and code operations" {
     defer test_frame.deinit();
     
     // Test SELFBALANCE
-    _ = try helpers.executeOpcode(environment.op_selfbalance, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x47, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, helpers.TestValues.ONE_ETHER);
-    _ = try helpers.executeOpcode(stack.op_pop, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
     
     // Test CODESIZE
-    _ = try helpers.executeOpcode(environment.op_codesize, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x38, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, contract_code.len);
-    _ = try helpers.executeOpcode(stack.op_pop, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
     
     // Test CODECOPY
     try test_frame.pushStack(&[_]u256{
@@ -446,7 +446,7 @@ test "Integration: Self balance and code operations" {
         0,                  // offset
         contract_code.len,  // size
     });
-    _ = try helpers.executeOpcode(environment.op_codecopy, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x39, &test_vm.vm, test_frame.frame);
     
     // Verify code was copied to memory
     const copied_code = try test_frame.getMemory(0, contract_code.len);

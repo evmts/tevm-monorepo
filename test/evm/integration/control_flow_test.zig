@@ -44,13 +44,13 @@ test "Integration: Conditional jump patterns" {
     // Test 1: Jump when condition is true
     test_frame.frame.program_counter = 0;
     try test_frame.pushStack(&[_]u256{10, 1}); // destination, condition (true)
-    _ = try helpers.executeOpcode(control.op_jumpi, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 10), test_frame.frame.program_counter);
     
     // Test 2: Don't jump when condition is false
     test_frame.frame.program_counter = 0;
     try test_frame.pushStack(&[_]u256{20, 0}); // destination, condition (false)
-    _ = try helpers.executeOpcode(control.op_jumpi, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 0), test_frame.frame.program_counter); // PC unchanged
     
     // Test 3: Complex condition evaluation
@@ -58,13 +58,13 @@ test "Integration: Conditional jump patterns" {
     
     // Calculate condition: 5 > 3
     try test_frame.pushStack(&[_]u256{5, 3});
-    _ = try helpers.executeOpcode(comparison.op_gt, &test_vm.vm, test_frame.frame); // Result: 1
+    _ = try helpers.executeOpcode(0x11, &test_vm.vm, test_frame.frame); // Result: 1
     
     // Push destination
     try test_frame.pushStack(&[_]u256{30});
-    _ = try helpers.executeOpcode(stack.op_swap1, &test_vm.vm, test_frame.frame); // Swap to get [dest, cond]
+    _ = try helpers.executeOpcode(0x90, &test_vm.vm, test_frame.frame); // Swap to get [dest, cond]
     
-    _ = try helpers.executeOpcode(control.op_jumpi, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 30), test_frame.frame.program_counter);
 }
 
@@ -104,14 +104,14 @@ test "Integration: Loop implementation with JUMP" {
     while (iterations < 5) : (iterations += 1) {
         // Decrement counter
         try test_frame.pushStack(&[_]u256{1});
-        _ = try helpers.executeOpcode(arithmetic.op_sub, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x03, &test_vm.vm, test_frame.frame);
         
         // Duplicate for comparison
-        _ = try helpers.executeOpcode(stack.op_dup1, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x80, &test_vm.vm, test_frame.frame);
         
         // Check if counter > 0
         try test_frame.pushStack(&[_]u256{0});
-        _ = try helpers.executeOpcode(comparison.op_gt, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x11, &test_vm.vm, test_frame.frame);
         
         // If counter > 0, we would jump back to loop start
         const condition = try test_frame.popStack();
@@ -144,13 +144,13 @@ test "Integration: Return data handling" {
     // Store data in memory
     const return_value: u256 = 0x42424242;
     try test_frame.pushStack(&[_]u256{0, return_value}); // offset, value
-    _ = try helpers.executeOpcode(memory.op_mstore, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x52, &test_vm.vm, test_frame.frame);
     
     // Return 32 bytes from offset 0
     try test_frame.pushStack(&[_]u256{0, 32}); // offset, size
     
     // RETURN will throw an error (ExecutionError.STOP) which is expected
-    const result = helpers.executeOpcode(control.op_return, &test_vm.vm, test_frame.frame);
+    const result = helpers.executeOpcode(0xF3, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.STOP, result);
     
     // The return data would be available in frame.output
@@ -184,7 +184,7 @@ test "Integration: Revert with reason" {
     try test_frame.pushStack(&[_]u256{0, error_msg.len}); // offset, size
     
     // REVERT will throw an error (ExecutionError.REVERT) which is expected
-    const result = helpers.executeOpcode(control.op_revert, &test_vm.vm, test_frame.frame);
+    const result = helpers.executeOpcode(0xFD, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.REVERT, result);
     
     // The revert data would be available in frame.output
@@ -215,12 +215,12 @@ test "Integration: PC tracking through operations" {
     test_frame.frame.program_counter = 42;
     
     // Get current PC
-    _ = try helpers.executeOpcode(control.op_pc, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x58, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 42);
     
     // Change PC and get again
     test_frame.frame.program_counter = 100;
-    _ = try helpers.executeOpcode(control.op_pc, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x58, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 100);
 }
 
@@ -244,7 +244,7 @@ test "Integration: Invalid opcode handling" {
     defer test_frame.deinit();
     
     // Execute INVALID opcode
-    const result = helpers.executeOpcode(control.op_invalid, &test_vm.vm, test_frame.frame);
+    const result = helpers.executeOpcode(0xFE, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.InvalidOpcode, result);
     
     // All gas should be consumed
@@ -288,13 +288,13 @@ test "Integration: Nested conditions with jumps" {
     
     // First condition: a > b (should be true)
     try test_frame.pushStack(&[_]u256{a, b});
-    _ = try helpers.executeOpcode(comparison.op_gt, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x11, &test_vm.vm, test_frame.frame);
     
     // If first condition is false, jump to end
-    _ = try helpers.executeOpcode(stack.op_dup1, &test_vm.vm, test_frame.frame);
-    _ = try helpers.executeOpcode(comparison.op_iszero, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x80, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x15, &test_vm.vm, test_frame.frame);
     try test_frame.pushStack(&[_]u256{60}); // Jump to end if false
-    _ = try helpers.executeOpcode(stack.op_swap1, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x90, &test_vm.vm, test_frame.frame);
     
     // This would be a JUMPI in real execution
     const should_skip_first = try test_frame.popStack();
@@ -303,10 +303,10 @@ test "Integration: Nested conditions with jumps" {
     
     // Second condition: c < d (should be true)
     try test_frame.pushStack(&[_]u256{c, d});
-    _ = try helpers.executeOpcode(comparison.op_lt, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x10, &test_vm.vm, test_frame.frame);
     
     // AND the conditions
-    _ = try helpers.executeOpcode(arithmetic.op_mul, &test_vm.vm, test_frame.frame); // Using MUL as AND for 0/1 values
+    _ = try helpers.executeOpcode(0x02, &test_vm.vm, test_frame.frame); // Using MUL as AND for 0/1 values
     
     try helpers.expectStackValue(test_frame.frame, 0, 1); // Both conditions true
 }
@@ -347,6 +347,6 @@ test "Integration: Self-destruct with beneficiary" {
     
     // Note: Actual selfdestruct implementation would transfer balance and mark for deletion
     // For this test, we're just verifying the opcode executes
-    const result = helpers.executeOpcode(control.op_selfdestruct, &test_vm.vm, test_frame.frame);
+    const result = helpers.executeOpcode(0xFF, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.STOP, result);
 }

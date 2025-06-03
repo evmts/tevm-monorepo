@@ -20,68 +20,68 @@ pub const JumpTable = evm.JumpTable;
 pub const TestVm = struct {
     vm: Vm,
     allocator: std.mem.Allocator,
-    
+
     // Mock results for testing system opcodes
     create_result: ?Vm.CreateResult = null,
     call_result: ?Vm.CallResult = null,
-    
+
     pub fn init(allocator: std.mem.Allocator) !TestVm {
         var vm = try Vm.init(allocator);
-        
+
         // Initialize transaction access list (pre-warm common addresses)
         try vm.init_transaction_access_list(null);
-        
+
         return TestVm{
             .vm = vm,
             .allocator = allocator,
         };
     }
-    
+
     pub fn initWithHardfork(allocator: std.mem.Allocator, hardfork: Hardfork) !TestVm {
         var vm = try Vm.init(allocator);
-        
+
         // Set the jump table to the specific hardfork
         vm.table = JumpTable.init_from_hardfork(hardfork);
-        
+
         // Initialize transaction access list (pre-warm common addresses)
         try vm.init_transaction_access_list(null);
-        
+
         return TestVm{
             .vm = vm,
             .allocator = allocator,
         };
     }
-    
+
     pub fn deinit(self: *TestVm) void {
         self.vm.deinit();
     }
-    
+
     /// Set up test account with balance and code
     pub fn setAccount(self: *TestVm, address: Address.Address, balance: u256, code: []const u8) !void {
         try self.vm.set_balance(address, balance);
         try self.vm.set_code(address, code);
     }
-    
+
     /// Set storage value
     pub fn setStorage(self: *TestVm, address: Address.Address, slot: u256, value: u256) !void {
         try self.vm.set_storage(address, slot, value);
     }
-    
+
     /// Get storage value
     pub fn getStorage(self: *TestVm, address: Address.Address, slot: u256) !u256 {
         return try self.vm.get_storage(address, slot);
     }
-    
+
     /// Set transient storage value
     pub fn setTransientStorage(self: *TestVm, address: Address.Address, slot: u256, value: u256) !void {
         try self.vm.set_transient_storage(address, slot, value);
     }
-    
+
     /// Get transient storage value
     pub fn getTransientStorage(self: *TestVm, address: Address.Address, slot: u256) !u256 {
         return try self.vm.get_transient_storage(address, slot);
     }
-    
+
     /// Mark address as warm for EIP-2929 testing
     pub fn warmAddress(self: *TestVm, address: Address.Address) !void {
         _ = try self.vm.access_list.access_address(address);
@@ -92,75 +92,75 @@ pub const TestVm = struct {
 pub const TestFrame = struct {
     frame: *Frame,
     allocator: std.mem.Allocator,
-    
+
     pub fn init(allocator: std.mem.Allocator, contract: *Contract, gas: u64) !TestFrame {
         const frame_ptr = try allocator.create(Frame);
         errdefer allocator.destroy(frame_ptr);
-        
+
         frame_ptr.* = try Frame.init(allocator, contract);
         frame_ptr.gas_remaining = gas;
-        
+
         // Now that frame is at its final location, finalize the memory
         frame_ptr.memory.finalize_root();
-        
+
         return TestFrame{
             .frame = frame_ptr,
             .allocator = allocator,
         };
     }
-    
+
     pub fn deinit(self: *TestFrame) void {
         self.frame.deinit();
         self.allocator.destroy(self.frame);
     }
-    
+
     /// Push values to stack
     pub fn pushStack(self: *TestFrame, values: []const u256) !void {
         for (values) |value| {
             try self.frame.stack.append(value);
         }
     }
-    
+
     /// Pop value from stack
     pub fn popStack(self: *TestFrame) !u256 {
         return try self.frame.stack.pop();
     }
-    
+
     /// Get stack size
     pub fn stackSize(self: *const TestFrame) usize {
         return self.frame.stack.size;
     }
-    
+
     /// Set memory at offset
     pub fn setMemory(self: *TestFrame, offset: usize, data: []const u8) !void {
         try self.frame.memory.set_data(offset, data);
     }
-    
+
     /// Get memory slice
     pub fn getMemory(self: *const TestFrame, offset: usize, size: usize) ![]const u8 {
         return try self.frame.memory.get_slice(offset, size);
     }
-    
+
     /// Set input data
     pub fn setInput(self: *TestFrame, data: []const u8) void {
         self.frame.input = data;
     }
-    
+
     /// Set return data buffer
     pub fn setReturnData(self: *TestFrame, data: []u8) void {
         self.frame.return_data_buffer = data;
     }
-    
+
     /// Check if frame is static
     pub fn setStatic(self: *TestFrame, is_static: bool) void {
         self.frame.is_static = is_static;
     }
-    
+
     /// Get remaining gas
     pub fn gasRemaining(self: *const TestFrame) u64 {
         return self.frame.gas_remaining;
     }
-    
+
     /// Get gas used
     pub fn gasUsed(self: *const TestFrame, initial_gas: u64) u64 {
         return initial_gas - self.frame.gas_remaining;
@@ -176,7 +176,7 @@ pub fn createTestContract(
     code: []const u8,
 ) !Contract {
     _ = allocator; // Not needed for Contract.init
-    
+
     // Calculate proper code hash
     var code_hash: [32]u8 = undefined;
     if (code.len > 0) {
@@ -186,7 +186,7 @@ pub fn createTestContract(
     } else {
         code_hash = [_]u8{0} ** 32;
     }
-    
+
     return Contract.init(
         caller,
         address,
@@ -201,13 +201,15 @@ pub fn createTestContract(
 
 /// Execute an opcode and return the result
 pub fn executeOpcode(
-    opcode_fn: fn(usize, *Operation.Interpreter, *Operation.State) ExecutionError.Error!Operation.ExecutionResult,
+    opcode_byte: u8,
     vm: *Vm,
     frame: *Frame,
-) !Operation.ExecutionResult {
+) ExecutionError.Error!Operation.ExecutionResult {
     const interpreter_ptr: *Operation.Interpreter = @ptrCast(vm);
     const state_ptr: *Operation.State = @ptrCast(frame);
-    return try opcode_fn(frame.pc, interpreter_ptr, state_ptr);
+    // Use the Vm's jump table to execute the opcode
+    // frame.pc should be set correctly by the test before calling this
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
 }
 
 /// Execute an opcode through the jump table (with gas consumption)
@@ -222,11 +224,10 @@ pub fn executeOpcodeWithGas(
     return try jump_table.execute(0, interpreter_ptr, state_ptr, opcode);
 }
 
-
 /// Assert stack value at position (0 is top)
 pub fn expectStackValue(frame: *const Frame, position: usize, expected: u256) !void {
     const actual = frame.stack.peek_n(position) catch |err| {
-        std.debug.print("Failed to peek stack at position {}: {}\n", .{position, err});
+        std.debug.print("Failed to peek stack at position {}: {}\n", .{ position, err });
         return err;
     };
     try testing.expectEqual(expected, actual);
@@ -266,7 +267,7 @@ pub fn hexToBytes(comptime hex: []const u8) [hex.len / 2]u8 {
         var bytes: [hex.len / 2]u8 = undefined;
         var i: usize = 0;
         while (i < hex.len) : (i += 2) {
-            const byte = std.fmt.parseInt(u8, hex[i..i+2], 16) catch unreachable;
+            const byte = std.fmt.parseInt(u8, hex[i .. i + 2], 16) catch unreachable;
             bytes[i / 2] = byte;
         }
         return bytes;
@@ -317,7 +318,7 @@ pub fn printMemory(frame: *const Frame, offset: usize, size: usize) void {
         std.debug.print("Failed to read memory at offset {}\n", .{offset});
         return;
     };
-    std.debug.print("Memory[{}..{}]: ", .{offset, offset + size});
+    std.debug.print("Memory[{}..{}]: ", .{ offset, offset + size });
     for (data) |byte| {
         std.debug.print("{x:0>2} ", .{byte});
     }

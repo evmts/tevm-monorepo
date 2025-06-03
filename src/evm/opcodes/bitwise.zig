@@ -22,138 +22,138 @@ fn stack_push(stack: *Stack, value: u256) ExecutionError.Error!void {
 pub fn op_and(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
-    
+
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-    
+
     const b = try stack_pop(&frame.stack);
     const a = try stack_pop(&frame.stack);
-    
+
     const result = a & b;
-    
+
     try stack_push(&frame.stack, result);
-    
+
     return Operation.ExecutionResult{};
 }
 
 pub fn op_or(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
-    
+
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-    
+
     const b = try stack_pop(&frame.stack);
     const a = try stack_pop(&frame.stack);
-    
+
     const result = a | b;
-    
+
     try stack_push(&frame.stack, result);
-    
+
     return Operation.ExecutionResult{};
 }
 
 pub fn op_xor(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
-    
+
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-    
+
     const b = try stack_pop(&frame.stack);
     const a = try stack_pop(&frame.stack);
-    
+
     const result = a ^ b;
-    
+
     try stack_push(&frame.stack, result);
-    
+
     return Operation.ExecutionResult{};
 }
 
 pub fn op_not(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
-    
+
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-    
+
     const a = try stack_pop(&frame.stack);
-    
+
     const result = ~a;
-    
+
     try stack_push(&frame.stack, result);
-    
+
     return Operation.ExecutionResult{};
 }
 
 pub fn op_byte(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
-    
+
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-    
-    const index = try stack_pop(&frame.stack);
-    const value = try stack_pop(&frame.stack);
-    
-    if (index >= 32) {
+
+    const i = try stack_pop(&frame.stack);
+    const val = try stack_pop(&frame.stack);
+
+    if (i >= 32) {
         try stack_push(&frame.stack, 0);
-        return Operation.ExecutionResult{};
+    } else {
+        const i_usize = @as(usize, @intCast(i));
+        // Byte 0 is MSB, byte 31 is LSB
+        // To get byte i, we need to shift right by (31 - i) * 8 positions
+        const shift_amount = (31 - i_usize) * 8;
+        const result = (val >> @intCast(shift_amount)) & 0xFF;
+        try stack_push(&frame.stack, result);
     }
-    
-    // Get byte at position from the left (big-endian)
-    const byte_index = 31 - @as(u8, @intCast(index));
-    const shift_amount = @as(u8, @intCast(@min(byte_index * 8, 255)));
-    const byte_value = (value >> shift_amount) & 0xFF;
-    try stack_push(&frame.stack, byte_value);
-    
+
     return Operation.ExecutionResult{};
 }
 
 pub fn op_shl(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
-    
+
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-    
+
     const shift = try stack_pop(&frame.stack);
     const value = try stack_pop(&frame.stack);
-    
+
     if (shift >= 256) {
         try stack_push(&frame.stack, 0);
         return Operation.ExecutionResult{};
     }
-    
+
     const result = value << @as(u8, @intCast(shift));
     try stack_push(&frame.stack, result);
-    
+
     return Operation.ExecutionResult{};
 }
 
 pub fn op_shr(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
-    
+
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-    
+
     const shift = try stack_pop(&frame.stack);
     const value = try stack_pop(&frame.stack);
-    
+
     if (shift >= 256) {
         try stack_push(&frame.stack, 0);
         return Operation.ExecutionResult{};
     }
-    
+
     const result = value >> @as(u8, @intCast(shift));
     try stack_push(&frame.stack, result);
-    
+
     return Operation.ExecutionResult{};
 }
 
 pub fn op_sar(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
-    
+
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-    
+
     const shift = try stack_pop(&frame.stack);
     const value = try stack_pop(&frame.stack);
-    
+
     if (shift >= 256) {
         // Check sign bit
         const sign_bit = value >> 255;
@@ -164,13 +164,13 @@ pub fn op_sar(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
         }
         return Operation.ExecutionResult{};
     }
-    
+
     // Arithmetic shift preserving sign
     const shift_amount = @as(u8, @intCast(shift));
     const value_i256 = @as(i256, @bitCast(value));
     const result_i256 = value_i256 >> shift_amount;
     const result = @as(u256, @bitCast(result_i256));
     try stack_push(&frame.stack, result);
-    
+
     return Operation.ExecutionResult{};
 }

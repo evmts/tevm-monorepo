@@ -63,24 +63,24 @@ pub const StorageKey = struct {
 pub fn init(allocator: std.mem.Allocator) !Self {
     var storage = std.AutoHashMap(StorageKey, u256).init(allocator);
     errdefer storage.deinit();
-    
+
     var balances = std.AutoHashMap(Address.Address, u256).init(allocator);
     errdefer balances.deinit();
-    
+
     var code = std.AutoHashMap(Address.Address, []const u8).init(allocator);
     errdefer code.deinit();
-    
+
     var transient_storage = std.AutoHashMap(StorageKey, u256).init(allocator);
     errdefer transient_storage.deinit();
-    
+
     var logs = std.ArrayList(Log).init(allocator);
     errdefer logs.deinit();
-    
+
     var access_list = AccessList.init(allocator);
     errdefer access_list.deinit();
-    
-    return Self{ 
-        .allocator = allocator, 
+
+    return Self{
+        .allocator = allocator,
         .table = JumpTable.new_cancun_instruction_set(),
         .storage = storage,
         .balances = balances,
@@ -96,14 +96,14 @@ pub fn deinit(self: *Self) void {
     self.balances.deinit();
     self.code.deinit();
     self.transient_storage.deinit();
-    
+
     // Clean up logs - free allocated memory for topics and data
     for (self.logs.items) |log| {
         self.allocator.free(log.topics);
         self.allocator.free(log.data);
     }
     self.logs.deinit();
-    
+
     self.access_list.deinit();
 }
 
@@ -137,14 +137,13 @@ pub fn interpret_static(self: *Self, contract: *Contract, input: []const u8) ![]
 }
 
 pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u8, is_static: bool) ![]const u8 {
-
     self.depth += 1;
     defer self.depth -= 1;
 
     // Save previous read_only state and set new one
     const prev_read_only = self.read_only;
     defer self.read_only = prev_read_only;
-    
+
     // If entering a static context or already in one, maintain read-only
     self.read_only = self.read_only or is_static;
 
@@ -164,10 +163,10 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
         const state_ptr: *Operation.State = @ptrCast(&frame);
         // Use jump table's execute method which handles gas consumption
         const result = try self.table.execute(pc, interpreter_ptr, state_ptr, opcode);
-        
+
         // Update pc based on result - PUSH operations consume more than 1 byte
         pc += result.bytes_consumed;
-        
+
         // Check if we should stop
         if (result.output.len > 0 or pc >= contract.code_size) {
             return result.output;
@@ -215,7 +214,7 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
     _ = value;
     _ = init_code;
     _ = gas;
-    
+
     // For now, return a failed creation
     return CreateResult{
         .success = false,
@@ -234,7 +233,7 @@ pub fn call_contract(self: *Self, caller: Address.Address, to: Address.Address, 
     _ = input;
     _ = gas;
     _ = is_static;
-    
+
     // For now, return a failed call
     return CallResult{
         .success = false,
@@ -254,12 +253,12 @@ pub fn consume_gas(self: *Self, amount: u64) !void {
 // CREATE2 specific method
 pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init_code: []const u8, salt: u256, gas: u64) !CreateResult {
     _ = self;
-    _ = creator;  
+    _ = creator;
     _ = value;
     _ = init_code;
     _ = salt;
     _ = gas;
-    
+
     // For now, return a failed creation
     return CreateResult{
         .success = false,
@@ -278,7 +277,7 @@ pub fn callcode_contract(self: *Self, current: Address.Address, code_address: Ad
     _ = input;
     _ = gas;
     _ = is_static;
-    
+
     // For now, return a failed call
     return CallResult{
         .success = false,
@@ -295,7 +294,7 @@ pub fn delegatecall_contract(self: *Self, current: Address.Address, code_address
     _ = input;
     _ = gas;
     _ = is_static;
-    
+
     // For now, return a failed call
     return CallResult{
         .success = false,
@@ -311,7 +310,7 @@ pub fn staticcall_contract(self: *Self, caller: Address.Address, to: Address.Add
     _ = to;
     _ = input;
     _ = gas;
-    
+
     // Implementation would call interpret_static or set read_only = true
     // For now, return a failed call
     return CallResult{
@@ -332,17 +331,17 @@ pub fn emit_log(self: *Self, address: Address.Address, topics: []const u256, dat
     // Clone the data to ensure it persists
     const data_copy = try self.allocator.alloc(u8, data.len);
     @memcpy(data_copy, data);
-    
+
     // Clone the topics to ensure they persist
     const topics_copy = try self.allocator.alloc(u256, topics.len);
     @memcpy(topics_copy, topics);
-    
+
     const log = Log{
         .address = address,
         .topics = topics_copy,
         .data = data_copy,
     };
-    
+
     try self.logs.append(log);
 }
 
@@ -451,7 +450,7 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
     hasher.update(bytecode);
     var code_hash: [32]u8 = undefined;
     hasher.final(&code_hash);
-    
+
     // Create a contract with the bytecode
     var contract = Contract.init(
         address, // caller
@@ -464,36 +463,36 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
         false, // not static
     );
     defer contract.deinit(null);
-    
+
     // Set the code for the contract address
     try self.set_code(address, bytecode);
-    
+
     // Create a frame for execution
     var frame = try Frame.init(self.allocator, &contract);
     defer frame.deinit();
     // Finalize the root memory now that frame is at its final location
     frame.memory.finalize_root();
-    
+
     frame.gas_remaining = gas;
     frame.input = input orelse &[_]u8{};
     frame.depth = 0;
     frame.is_static = false;
-    
+
     // Save initial gas for tracking
     const initial_gas = gas;
-    
+
     // Execution loop
     var pc: usize = 0;
     while (pc < bytecode.len) {
         const opcode = bytecode[pc];
-        
+
         // Update frame PC to match current PC
         frame.pc = pc;
-        
+
         // Cast self and frame to the opaque types expected by execute
         const interpreter_ptr: *Operation.Interpreter = @ptrCast(self);
         const state_ptr: *Operation.State = @ptrCast(&frame);
-        
+
         // Execute opcode through jump table
         const result = self.table.execute(pc, interpreter_ptr, state_ptr, opcode) catch |err| {
             // Handle execution errors
@@ -511,9 +510,10 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
                         .status = .Success,
                         .gas_left = frame.gas_remaining,
                         .gas_used = initial_gas - frame.gas_remaining,
-                        .output = if (frame.return_data_buffer.len > 0) 
-                            try self.allocator.dupe(u8, frame.return_data_buffer) 
-                        else null,
+                        .output = if (frame.return_data_buffer.len > 0)
+                            try self.allocator.dupe(u8, frame.return_data_buffer)
+                        else
+                            null,
                     };
                 },
                 ExecutionError.Error.REVERT => {
@@ -521,9 +521,18 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
                         .status = .Revert,
                         .gas_left = frame.gas_remaining,
                         .gas_used = initial_gas - frame.gas_remaining,
-                        .output = if (frame.return_data_buffer.len > 0) 
-                            try self.allocator.dupe(u8, frame.return_data_buffer) 
-                        else null,
+                        .output = if (frame.return_data_buffer.len > 0)
+                            try self.allocator.dupe(u8, frame.return_data_buffer)
+                        else
+                            null,
+                    };
+                },
+                ExecutionError.Error.InvalidJump => {
+                    return RunResult{
+                        .status = .Invalid,
+                        .gas_left = 0,
+                        .gas_used = initial_gas,
+                        .output = null,
                     };
                 },
                 ExecutionError.Error.InvalidOpcode => {
@@ -542,10 +551,18 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
                         .output = null,
                     };
                 },
+                ExecutionError.Error.StackUnderflow => {
+                    return RunResult{
+                        .status = .Invalid,
+                        .gas_left = 0,
+                        .gas_used = initial_gas,
+                        .output = null,
+                    };
+                },
                 else => return err,
             }
         };
-        
+
         // Check if PC was modified by JUMP/JUMPI opcodes
         if (frame.pc != pc) {
             pc = frame.pc;
@@ -554,7 +571,7 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
             pc += result.bytes_consumed;
         }
     }
-    
+
     // If we reach end of bytecode without explicit stop/return
     // Save top stack value for testing
     if (frame.stack.size > 0) {
@@ -571,4 +588,3 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
         .output = null,
     };
 }
-

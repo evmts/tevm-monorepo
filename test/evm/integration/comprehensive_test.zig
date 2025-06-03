@@ -37,35 +37,35 @@ test "Integration: Complete ERC20 transfer simulation" {
     
     // 1. Load Alice's balance
     try test_frame.pushStack(&[_]u256{0}); // Alice's slot
-    _ = try helpers.executeOpcode(opcodes.storage.op_sload, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame);
     const alice_initial = try test_frame.popStack();
     try testing.expectEqual(alice_balance, alice_initial);
     
     // 2. Check if Alice has enough balance
     try test_frame.pushStack(&[_]u256{alice_initial, transfer_amount});
-    _ = try helpers.executeOpcode(opcodes.comparison.op_lt, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(op_lt, &test_vm.vm, test_frame.frame);
     const insufficient = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 0), insufficient); // Should be false (sufficient balance)
     
     // 3. Calculate new balances
     try test_frame.pushStack(&[_]u256{alice_initial, transfer_amount});
-    _ = try helpers.executeOpcode(opcodes.arithmetic.op_sub, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(op_sub, &test_vm.vm, test_frame.frame);
     const alice_new = try test_frame.popStack();
     
     try test_frame.pushStack(&[_]u256{1}); // Bob's slot
-    _ = try helpers.executeOpcode(opcodes.storage.op_sload, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame);
     const bob_initial = try test_frame.popStack();
     
     try test_frame.pushStack(&[_]u256{bob_initial, transfer_amount});
-    _ = try helpers.executeOpcode(opcodes.arithmetic.op_add, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x01, &test_vm.vm, test_frame.frame);
     const bob_new = try test_frame.popStack();
     
     // 4. Update storage
     try test_frame.pushStack(&[_]u256{alice_new, 0}); // value, slot
-    _ = try helpers.executeOpcode(opcodes.storage.op_sstore, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
     
     try test_frame.pushStack(&[_]u256{bob_new, 1}); // value, slot
-    _ = try helpers.executeOpcode(opcodes.storage.op_sstore, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
     
     // 5. Emit Transfer event
     const transfer_sig: u256 = 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef;
@@ -82,7 +82,7 @@ test "Integration: Complete ERC20 transfer simulation" {
         32,                                          // data size
         0,                                           // data offset
     });
-    _ = try helpers.executeOpcode(opcodes.log.op_log3, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(op_log3, &test_vm.vm, test_frame.frame);
     
     // 6. Verify final balances
     const alice_final = try test_vm.getStorage(helpers.TestAddresses.CONTRACT, 0);
@@ -163,7 +163,7 @@ test "Integration: Smart contract deployment flow" {
         0,                    // value
     });
     
-    _ = try helpers.executeOpcode(opcodes.system.op_create, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(op_create, &test_vm.vm, test_frame.frame);
     
     const deployed_address = try test_frame.popStack();
     try testing.expectEqual(helpers.toU256(helpers.TestAddresses.BOB), deployed_address);
@@ -182,7 +182,7 @@ test "Integration: Smart contract deployment flow" {
         50000,
     });
     
-    _ = try helpers.executeOpcode(opcodes.system.op_call, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(op_call, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 1); // Success
 }
 
@@ -263,7 +263,7 @@ test "Integration: Complex control flow with nested conditions" {
     test_frame.frame.pc = 2;
     
     // DUP1
-    _ = try helpers.executeOpcode(opcodes.stack.op_dup1, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(op_dup1, &test_vm.vm, test_frame.frame);
     test_frame.frame.pc = 3;
     
     // Push 100
@@ -271,11 +271,11 @@ test "Integration: Complex control flow with nested conditions" {
     test_frame.frame.pc = 5;
     
     // LT
-    _ = try helpers.executeOpcode(opcodes.comparison.op_lt, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(op_lt, &test_vm.vm, test_frame.frame);
     test_frame.frame.pc = 6;
     
     // ISZERO
-    _ = try helpers.executeOpcode(opcodes.comparison.op_iszero, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(op_iszero, &test_vm.vm, test_frame.frame);
     test_frame.frame.pc = 7;
     
     // Push jump destination
@@ -283,14 +283,14 @@ test "Integration: Complex control flow with nested conditions" {
     test_frame.frame.pc = 9;
     
     // JUMPI (should jump to 14)
-    _ = try helpers.executeOpcode(opcodes.control.op_jumpi, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(op_jumpi, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 14), test_frame.frame.pc);
     
     // Continue execution from JUMPDEST at 14
     test_frame.frame.pc = 15; // Skip JUMPDEST
     
     // DUP1
-    _ = try helpers.executeOpcode(opcodes.stack.op_dup1, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(op_dup1, &test_vm.vm, test_frame.frame);
     test_frame.frame.pc = 16;
     
     // Push 200
@@ -298,7 +298,7 @@ test "Integration: Complex control flow with nested conditions" {
     test_frame.frame.pc = 18;
     
     // GT
-    _ = try helpers.executeOpcode(opcodes.comparison.op_gt, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(op_gt, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0); // 150 > 200 is false
     test_frame.frame.pc = 19;
     
@@ -307,7 +307,7 @@ test "Integration: Complex control flow with nested conditions" {
     test_frame.frame.pc = 21;
     
     // JUMPI (should not jump)
-    _ = try helpers.executeOpcode(opcodes.control.op_jumpi, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(op_jumpi, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 21), test_frame.frame.pc); // No jump
     
     // Continue with multiplication
@@ -318,17 +318,17 @@ test "Integration: Complex control flow with nested conditions" {
     test_frame.frame.pc = 24;
     
     // MUL
-    _ = try helpers.executeOpcode(opcodes.arithmetic.op_mul, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x02, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 300); // 150 * 2
     
     // Store result
     test_frame.frame.pc = 25;
     try test_frame.pushStack(&[_]u256{0}); // offset
-    _ = try helpers.executeOpcode(opcodes.memory.op_mstore, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x52, &test_vm.vm, test_frame.frame);
     
     // Verify result in memory
     try test_frame.pushStack(&[_]u256{0});
-    _ = try helpers.executeOpcode(opcodes.memory.op_mload, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(op_mload, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 300);
 }
 
@@ -355,13 +355,13 @@ test "Integration: Gas metering across operations" {
     
     // 1. Arithmetic operations
     try test_frame.pushStack(&[_]u256{10, 20});
-    _ = try helpers.executeOpcode(opcodes.arithmetic.op_add, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x01, &test_vm.vm, test_frame.frame);
     total_gas_used += initial_gas - test_frame.frame.gas_remaining;
     
     // 2. Memory operation
     try test_frame.pushStack(&[_]u256{0}); // offset
     const gas_before_mstore = test_frame.frame.gas_remaining;
-    _ = try helpers.executeOpcode(opcodes.memory.op_mstore, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x52, &test_vm.vm, test_frame.frame);
     const mstore_gas = gas_before_mstore - test_frame.frame.gas_remaining;
     total_gas_used += mstore_gas;
     try testing.expect(mstore_gas > 3); // Should include memory expansion
@@ -370,7 +370,7 @@ test "Integration: Gas metering across operations" {
     const slot: u256 = 999;
     try test_frame.pushStack(&[_]u256{slot});
     const gas_before_sload = test_frame.frame.gas_remaining;
-    _ = try helpers.executeOpcode(opcodes.storage.op_sload, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame);
     const sload_gas = gas_before_sload - test_frame.frame.gas_remaining;
     try testing.expectEqual(@as(u64, 2100), sload_gas); // Cold access
     total_gas_used += sload_gas;
@@ -379,7 +379,7 @@ test "Integration: Gas metering across operations" {
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{0, 32}); // offset, size
     const gas_before_sha3 = test_frame.frame.gas_remaining;
-    _ = try helpers.executeOpcode(opcodes.crypto.op_sha3, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(op_sha3, &test_vm.vm, test_frame.frame);
     const sha3_gas = gas_before_sha3 - test_frame.frame.gas_remaining;
     try testing.expectEqual(@as(u64, 30 + 6), sha3_gas); // Base + 1 word
     total_gas_used += sha3_gas;
@@ -389,7 +389,7 @@ test "Integration: Gas metering across operations" {
     const cold_address = helpers.toU256(helpers.TestAddresses.CHARLIE);
     try test_frame.pushStack(&[_]u256{cold_address});
     const gas_before_balance = test_frame.frame.gas_remaining;
-    _ = try helpers.executeOpcode(opcodes.environment.op_balance, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(op_balance, &test_vm.vm, test_frame.frame);
     const balance_gas = gas_before_balance - test_frame.frame.gas_remaining;
     try testing.expectEqual(@as(u64, 2600), balance_gas); // Cold address
     total_gas_used += balance_gas;
@@ -422,7 +422,7 @@ test "Integration: Error propagation and recovery" {
     
     // Stack should still be usable
     try test_frame.pushStack(&[_]u256{10, 5});
-    _ = try helpers.executeOpcode(opcodes.arithmetic.op_div, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(op_div, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 2);
     
     // Test 2: Out of gas recovery
@@ -454,7 +454,7 @@ test "Integration: Error propagation and recovery" {
     test_frame.frame.is_static = false;
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{42, 0});
-    _ = try helpers.executeOpcode(opcodes.storage.op_sstore, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
     
     // Verify storage was updated
     const stored_value = try test_vm.getStorage(helpers.TestAddresses.CONTRACT, 0);
