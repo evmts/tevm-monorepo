@@ -534,7 +534,9 @@ pub fn build(b: *std.Build) void {
         .root_source_file = b.path("test/evm/stack_validation_test.zig"),
         .target = target,
         .optimize = optimize,
+        .single_threaded = true,
     });
+    stack_validation_test.root_module.stack_check = false;
     stack_validation_test.root_module.addImport("evm", evm_mod);
 
     const run_stack_validation_test = b.addRunArtifact(stack_validation_test);
@@ -548,7 +550,9 @@ pub fn build(b: *std.Build) void {
         .root_source_file = b.path("test/evm/opcodes/opcodes_test.zig"),
         .target = target,
         .optimize = optimize,
+        .single_threaded = true,
     });
+    opcodes_test.root_module.stack_check = false;
 
     // Add module imports to opcodes test
     opcodes_test.root_module.addImport("Address", address_mod);
@@ -568,6 +572,8 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    test_helpers_mod.stack_check = false;
+    test_helpers_mod.single_threaded = true;
     test_helpers_mod.addImport("Address", address_mod);
     test_helpers_mod.addImport("evm", evm_mod);
 
@@ -577,7 +583,9 @@ pub fn build(b: *std.Build) void {
         .root_source_file = b.path("test/evm/vm_opcode_test.zig"),
         .target = target,
         .optimize = optimize,
+        .single_threaded = true,
     });
+    vm_opcode_test.root_module.stack_check = false;
 
     // Add module imports to VM opcode test
     vm_opcode_test.root_module.addImport("Address", address_mod);
@@ -595,7 +603,9 @@ pub fn build(b: *std.Build) void {
         .root_source_file = b.path("test/evm/integration/package.zig"),
         .target = target,
         .optimize = optimize,
+        .single_threaded = true,
     });
+    integration_test.root_module.stack_check = false;
 
     // Add module imports to integration test
     integration_test.root_module.addImport("Address", address_mod);
@@ -616,7 +626,9 @@ pub fn build(b: *std.Build) void {
         .root_source_file = b.path("test/evm/gas/gas_accounting_test.zig"),
         .target = target,
         .optimize = optimize,
+        .single_threaded = true,
     });
+    gas_test.root_module.stack_check = false;
 
     // Add module imports to gas test
     gas_test.root_module.addImport("Address", address_mod);
@@ -637,7 +649,9 @@ pub fn build(b: *std.Build) void {
         .root_source_file = b.path("test/evm/static_call_protection_test.zig"),
         .target = target,
         .optimize = optimize,
+        .single_threaded = true,
     });
+    static_protection_test.root_module.stack_check = false;
 
     // Add module imports to static protection test
     static_protection_test.root_module.addImport("Address", address_mod);
