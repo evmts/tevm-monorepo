@@ -434,6 +434,10 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
+    // Add module imports to interpreter test
+    interpreter_test.root_module.addImport("Address", address_mod);
+    interpreter_test.root_module.addImport("Block", block_mod);
+
     const run_interpreter_test = b.addRunArtifact(interpreter_test);
 
     // Add a separate step for testing Interpreter
