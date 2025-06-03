@@ -884,9 +884,173 @@ Based on the comprehensive code review, here are the issues that need to be addr
 - ISSUE-044: Add Opcode Tracing Support (out of scope)
 - ISSUE-045: Add Benchmark Suite (using Snail Trail instead)
 
-#### ISSUE-048: Remove inline from opcode methods
+---
 
-- **Component**: All opcode files
-- **Description**: Remove the inline keyword from opcode-related methods and let the compiler decide on inlining
-- **Effort**: 2 hours
-- **Rationale**: The compiler is generally smarter than us at deciding what to inline. Manual inline hints can actually hurt performance by causing code bloat and instruction cache misses. We may add inline back later for specific hot paths after profiling, but should start without it.
+## Future Implementation Issues (Not Active)
+
+These issues are documented for future reference based on the revm implementation but are not currently active.
+
+### ISSUE-050: Implement Proper Contract Creation
+- **Status**: Not Active
+- **Component**: vm.zig
+- **Description**: The create_contract and create2_contract methods are currently placeholders
+- **Effort**: 16 hours
+- **Reference**: https://github.com/bluealloy/revm/blob/main/crates/handler/src/frame.rs#L157-L221
+- **Requirements**:
+  - Calculate new contract address (CREATE uses nonce, CREATE2 uses salt)
+  - Check for address collision
+  - Transfer value from creator to new contract
+  - Execute init code in new context
+  - Store resulting code if successful
+  - Handle gas accounting for code storage (200 gas per byte)
+  - Enforce maximum code size (24KB)
+  - Handle depth limit (1024)
+
+### ISSUE-051: Implement Proper Contract Calls
+- **Status**: Not Active
+- **Component**: vm.zig
+- **Description**: The call_contract family of methods are currently placeholders
+- **Effort**: 12 hours
+- **Reference**: https://github.com/bluealloy/revm/blob/main/crates/handler/src/frame.rs#L223-L412
+- **Requirements**:
+  - Handle value transfer for CALL
+  - Setup proper execution context for each call type
+  - CALL: New context with target address
+  - CALLCODE: Current address context with target code
+  - DELEGATECALL: Preserve caller and value from parent
+  - STATICCALL: Set read-only flag
+  - Calculate gas to forward (63/64 rule)
+  - Handle call stipend (2300 gas for value transfers)
+  - Execute called code and return result
+  - Update return data buffer
+
+### ISSUE-052: Implement Precompiled Contracts
+- **Status**: Not Active
+- **Component**: New precompiles/ module
+- **Description**: EVM has 9 precompiled contracts that need implementation
+- **Effort**: 20 hours
+- **Reference**: https://github.com/bluealloy/revm/tree/main/crates/precompile/src
+- **Contracts**:
+  1. 0x01: ECRECOVER - Elliptic curve signature recovery
+  2. 0x02: SHA256 - SHA256 hash function
+  3. 0x03: RIPEMD160 - RIPEMD160 hash function
+  4. 0x04: IDENTITY - Identity function (data copy)
+  5. 0x05: MODEXP - Modular exponentiation
+  6. 0x06: ECADD - Elliptic curve addition
+  7. 0x07: ECMUL - Elliptic curve multiplication
+  8. 0x08: ECPAIRING - Elliptic curve pairing check
+  9. 0x09: BLAKE2F - BLAKE2 compression function
+
+### ISSUE-053: Implement Transaction Validation
+- **Status**: Not Active
+- **Component**: New transaction/ module
+- **Description**: Validate transactions before execution
+- **Effort**: 8 hours
+- **Reference**: https://github.com/bluealloy/revm/blob/main/crates/handler/src/validation.rs
+- **Requirements**:
+  - Validate nonce matches sender account
+  - Check sender has sufficient balance for value + gas
+  - Validate gas limit is sufficient for intrinsic gas
+  - Calculate intrinsic gas (21000 base + data costs)
+  - Validate EIP-2930 access list format
+  - Check max fee per gas for EIP-1559 transactions
+
+### ISSUE-054: Implement State Journaling
+- **Status**: Not Active
+- **Component**: New journal/ module
+- **Description**: Track state changes for reverting
+- **Effort**: 12 hours
+- **Reference**: https://github.com/bluealloy/revm/blob/main/crates/context/src/journal.rs
+- **Requirements**:
+  - Journal all state changes (storage, balance, nonce, code)
+  - Support checkpointing for nested calls
+  - Implement revert to checkpoint
+  - Track account creation/destruction
+  - Handle transient storage journaling
+  - Optimize for common patterns
+
+### ISSUE-055: Implement Block Hash Oracle
+- **Status**: Not Active
+- **Component**: vm.zig
+- **Description**: Proper block hash retrieval for last 256 blocks
+- **Effort**: 4 hours
+- **Reference**: https://github.com/bluealloy/revm/blob/main/crates/handler/src/mainnet_handler.rs#L234
+- **Requirements**:
+  - Store last 256 block hashes
+  - Return zero for blocks outside range
+  - Handle current block (returns zero)
+  - Update ring buffer on new blocks
+
+### ISSUE-056: Implement Gas Refund Mechanism
+- **Status**: Not Active
+- **Component**: vm.zig, storage.zig
+- **Description**: Track and apply gas refunds
+- **Effort**: 6 hours
+- **Reference**: https://github.com/bluealloy/revm/blob/main/crates/handler/src/post_execution.rs
+- **Requirements**:
+  - Track gas refunds from SSTORE operations
+  - Apply EIP-3529 refund cap (max 1/5 of gas used)
+  - Handle SELFDESTRUCT refunds (pre-London)
+  - Calculate final gas used after refunds
+
+### ISSUE-057: Implement SELFDESTRUCT Scheduling
+- **Status**: Not Active
+- **Component**: vm.zig
+- **Description**: Proper SELFDESTRUCT implementation with scheduling
+- **Effort**: 6 hours
+- **Reference**: https://github.com/bluealloy/revm/blob/main/crates/handler/src/mainnet_handler.rs#L456
+- **Requirements**:
+  - Transfer balance to beneficiary immediately
+  - Schedule account for deletion at end of transaction
+  - Handle self-destruction to self (burns funds)
+  - Track in journal for potential revert
+  - Apply EIP-6049 deprecation warnings
+
+### ISSUE-058: Implement Full State Transition
+- **Status**: Not Active
+- **Component**: New execution/ module
+- **Description**: Complete transaction execution flow
+- **Effort**: 16 hours
+- **Reference**: https://github.com/bluealloy/revm/blob/main/crates/handler/src/handler.rs
+- **Requirements**:
+  - Pre-execution validation
+  - Deduct gas upfront
+  - Execute transaction
+  - Apply state changes
+  - Calculate gas refunds
+  - Generate receipt
+  - Update account states
+  - Emit logs
+
+### ISSUE-059: Add Performance Profiling Hooks
+- **Status**: Not Active
+- **Component**: All performance-critical paths
+- **Description**: Add hooks for performance analysis
+- **Effort**: 4 hours
+- **Requirements**:
+  - Opcode execution counters
+  - Gas usage tracking
+  - Memory allocation tracking
+  - Hot path identification
+  - Integration with Snail Trail
+
+### ISSUE-060: Implement Optimistic Execution
+- **Status**: Not Active
+- **Component**: vm.zig
+- **Description**: Optimistic execution for common patterns
+- **Effort**: 8 hours
+- **Reference**: Similar to revm's optimizations
+- **Requirements**:
+  - Fast path for simple transfers
+  - Skip validation for trusted transactions
+  - Batch state updates
+  - Parallel transaction validation
+
+---
+
+## Notes
+
+- Issues 50-60 are documented for completeness but marked as "Not Active"
+- These represent the gap between current implementation and full EVM compatibility
+- Priority should be given to completing active issues before starting these
+- Estimated total effort for future issues: ~110 hours

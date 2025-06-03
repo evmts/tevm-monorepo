@@ -284,9 +284,8 @@ test "Gas: Storage operations with access lists (EIP-2929)" {
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
     
-    // Create jump table for gas consumption
-    // TODO: This test needs Berlin hardfork for EIP-2929 support
-    const jump_table = helpers.JumpTable.new_frontier_instruction_set();
+    // Create jump table for gas consumption with EIP-2929 support
+    const jump_table = helpers.JumpTable.new_berlin_instruction_set();
     
     // Test SLOAD cold (2100 gas)
     const cold_slot: u256 = 12345;
@@ -370,70 +369,67 @@ test "Gas: CALL operations gas forwarding" {
     try testing.expect(actual_gas > 0);
 }
 
-// TODO: Fix CREATE/CREATE2 implementation
-// // test "Gas: CREATE operations with init code" {
-//     const allocator = testing.allocator;
-//     
-//     var test_vm = try helpers.TestVm.init(allocator);
-//     defer test_vm.deinit();
-//     
-//     var contract = try helpers.createTestContract(
-//         allocator,
-//         helpers.TestAddresses.CONTRACT,
-//         helpers.TestAddresses.ALICE,
-//         10000,
-//         &[_]u8{},
-//     );
-//     defer contract.deinit(null);
-//     
-//     var test_frame = try helpers.TestFrame.init(allocator, &contract, 200000);
-//     defer test_frame.deinit();
-//     
-//     // Prepare init code
-//     const init_code = [_]u8{0x60, 0x00, 0x60, 0x00, 0xf3} ** 10; // 50 bytes
-//     var i: usize = 0;
-//     while (i < init_code.len) : (i += 1) {
-//         try test_frame.setMemory(i, &[_]u8{init_code[i]});
-//     }
-//     
-//     // Mock successful creation
-//     // TODO: Fix this when create_result is implemented
-//     // test_vm.vm.create_result = .{
-//     //     .success = true,
-//     //     .address = helpers.TestAddresses.CHARLIE,
-//     //     .gas_left = 150000,
-//     //     .output = null,
-//     // };
-//     
-//     // Create jump table for gas consumption
-//     const jump_table = helpers.JumpTable.new_frontier_instruction_set();
-//     
-//     // Test CREATE gas (32000 base + 200 per byte of init code)
-//     try test_frame.pushStack(&[_]u256{init_code.len, 0, 0}); // size, offset, value
-//     const gas_before_create = test_frame.frame.gas_remaining;
-//     _ = try helpers.executeOpcodeWithGas(&jump_table, 0xf0, &test_vm.vm, &test_frame.frame); // 0xf0 = CREATE
-//     const gas_after_create = test_frame.frame.gas_remaining;
-//     
-//     // Should consume at least init code cost (200 per byte)
-//     const min_gas = @as(u64, init_code.len) * 200;
-//     const actual_gas = gas_before_create - gas_after_create;
-//     try testing.expect(actual_gas >= min_gas);
-//     
-//     // Test CREATE2 with additional hashing cost
-//     test_frame.frame.stack.clear();
-//     // test_vm.vm.create_result.gas_left = 150000; // Reset
-//     
-//     try test_frame.pushStack(&[_]u256{0x12345678, init_code.len, 0, 0}); // salt, size, offset, value
-//     const gas_before_create2 = test_frame.frame.gas_remaining;
-//     _ = try helpers.executeOpcodeWithGas(&jump_table, 0xf5, &test_vm.vm, &test_frame.frame); // 0xf5 = CREATE2
-//     const gas_after_create2 = test_frame.frame.gas_remaining;
-//     
-//     // Should consume init code cost + hashing cost (6 per word)
-//     const hash_words = (init_code.len + 31) / 32;
-//     const min_gas2 = @as(u64, init_code.len) * 200 + hash_words * 6;
-//     const actual_gas2 = gas_before_create2 - gas_after_create2;
-//     try testing.expect(actual_gas2 >= min_gas2);
-// }
+test "Gas: CREATE operations with init code" {
+    const allocator = testing.allocator;
+    
+    var test_vm = try helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+    
+    var contract = try helpers.createTestContract(
+        allocator,
+        helpers.TestAddresses.CONTRACT,
+        helpers.TestAddresses.ALICE,
+        10000,
+        &[_]u8{},
+    );
+    defer contract.deinit(null);
+    
+    var test_frame = try helpers.TestFrame.init(allocator, &contract, 200000);
+    defer test_frame.deinit();
+    
+    // Prepare init code
+    const init_code = [_]u8{0x60, 0x00, 0x60, 0x00, 0xf3} ** 10; // 50 bytes
+    var i: usize = 0;
+    while (i < init_code.len) : (i += 1) {
+        try test_frame.setMemory(i, &[_]u8{init_code[i]});
+    }
+    
+    // Mock successful creation
+    test_vm.create_result = .{
+        .success = true,
+        .address = helpers.TestAddresses.CHARLIE,
+        .gas_left = 150000,
+    };
+    
+    // Create jump table for gas consumption
+    const jump_table = helpers.JumpTable.new_frontier_instruction_set();
+    
+    // Test CREATE gas (32000 base + 200 per byte of init code)
+    try test_frame.pushStack(&[_]u256{init_code.len, 0, 0}); // size, offset, value
+    const gas_before_create = test_frame.frame.gas_remaining;
+    _ = try helpers.executeOpcodeWithGas(&jump_table, 0xf0, &test_vm.vm, &test_frame.frame); // 0xf0 = CREATE
+    const gas_after_create = test_frame.frame.gas_remaining;
+    
+    // Should consume at least init code cost (200 per byte)
+    const min_gas = @as(u64, init_code.len) * 200;
+    const actual_gas = gas_before_create - gas_after_create;
+    try testing.expect(actual_gas >= min_gas);
+    
+    // Test CREATE2 with additional hashing cost
+    test_frame.frame.stack.clear();
+    test_vm.create_result.gas_left = 150000; // Reset
+    
+    try test_frame.pushStack(&[_]u256{0x12345678, init_code.len, 0, 0}); // salt, size, offset, value
+    const gas_before_create2 = test_frame.frame.gas_remaining;
+    _ = try helpers.executeOpcodeWithGas(&jump_table, 0xf5, &test_vm.vm, &test_frame.frame); // 0xf5 = CREATE2
+    const gas_after_create2 = test_frame.frame.gas_remaining;
+    
+    // Should consume init code cost + hashing cost (6 per word)
+    const hash_words = (init_code.len + 31) / 32;
+    const min_gas2 = @as(u64, init_code.len) * 200 + hash_words * 6;
+    const actual_gas2 = gas_before_create2 - gas_after_create2;
+    try testing.expect(actual_gas2 >= min_gas2);
+}
 
 test "Gas: Copy operations (CALLDATACOPY, CODECOPY, etc.)" {
     const allocator = testing.allocator;

@@ -712,8 +712,61 @@ fn gas_op(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.Stat
     return Operation.ExecutionResult{};
 }
 
-// Create jump table for specific hardfork
+// Convenience functions for creating jump tables for specific hardforks
 pub fn new_frontier_instruction_set() Self {
+    return init_from_hardfork(.FRONTIER);
+}
+
+pub fn new_homestead_instruction_set() Self {
+    return init_from_hardfork(.HOMESTEAD);
+}
+
+pub fn new_tangerine_whistle_instruction_set() Self {
+    return init_from_hardfork(.TANGERINE_WHISTLE);
+}
+
+pub fn new_spurious_dragon_instruction_set() Self {
+    return init_from_hardfork(.SPURIOUS_DRAGON);
+}
+
+pub fn new_byzantium_instruction_set() Self {
+    return init_from_hardfork(.BYZANTIUM);
+}
+
+pub fn new_constantinople_instruction_set() Self {
+    return init_from_hardfork(.CONSTANTINOPLE);
+}
+
+pub fn new_petersburg_instruction_set() Self {
+    return init_from_hardfork(.PETERSBURG);
+}
+
+pub fn new_istanbul_instruction_set() Self {
+    return init_from_hardfork(.ISTANBUL);
+}
+
+pub fn new_berlin_instruction_set() Self {
+    return init_from_hardfork(.BERLIN);
+}
+
+pub fn new_london_instruction_set() Self {
+    return init_from_hardfork(.LONDON);
+}
+
+pub fn new_merge_instruction_set() Self {
+    return init_from_hardfork(.MERGE);
+}
+
+pub fn new_shanghai_instruction_set() Self {
+    return init_from_hardfork(.SHANGHAI);
+}
+
+pub fn new_cancun_instruction_set() Self {
+    return init_from_hardfork(.CANCUN);
+}
+
+// Legacy function for backward compatibility
+pub fn new_frontier_instruction_set_legacy() Self {
     var jt = Self.init();
 
     // Setup operation table for Frontier
@@ -912,7 +965,7 @@ pub fn new_frontier_instruction_set() Self {
 }
 
 pub fn init_from_hardfork(hardfork: Hardfork) Self {
-    var jt = new_frontier_instruction_set();
+    var jt = new_frontier_instruction_set_legacy();
     
     // Guard clause for Frontier
     if (hardfork == .FRONTIER) {

@@ -7,6 +7,7 @@ const Operation = @import("operation.zig");
 const Address = @import("Address");
 const StoragePool = @import("storage_pool.zig");
 const AccessList = @import("access_list.zig");
+const ExecutionError = @import("execution_error.zig");
 
 // Log struct for EVM event logs (LOG0-LOG4 opcodes)
 pub const Log = struct {
@@ -317,6 +318,12 @@ pub fn staticcall_contract(self: *Self, caller: Address.Address, to: Address.Add
 }
 
 // Emit a log event
+// TODO: Architecture for freeable logs following Rust ownership best practices:
+// 1. Log should own its data and topics, not just hold pointers
+// 2. When VM is deinitialized, it should free all log data
+// 3. Consider using Arena allocator for logs within a transaction
+// 4. Alternative: Log could hold indices into a central buffer that's freed at once
+// 5. For now, we're leaking memory - this needs to be fixed
 pub fn emit_log(self: *Self, address: Address.Address, topics: []const u256, data: []const u8) !void {
     // Clone the data to ensure it persists
     const data_copy = try self.allocator.alloc(u8, data.len);
@@ -424,4 +431,118 @@ pub fn selfdestruct_protected(self: *Self, contract: Address.Address, beneficiar
     _ = beneficiary;
     // Selfdestruct scheduling and execution happens at transaction level
 }
+
+// Run result structure
+pub const RunResult = struct {
+    status: enum { Success, Revert, Invalid, OutOfGas },
+    gas_left: u64,
+    gas_used: u64,
+    output: ?[]const u8,
+};
+
+// Simple bytecode execution for testing
+pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64, input: ?[]const u8) !RunResult {
+    // Calculate code hash for the contract
+    var hasher = std.crypto.hash.sha3.Keccak256.init(.{});
+    hasher.update(bytecode);
+    var code_hash: [32]u8 = undefined;
+    hasher.final(&code_hash);
+    
+    // Create a contract with the bytecode
+    var contract = Contract.init(
+        address, // caller
+        address, // address
+        0, // value
+        gas,
+        bytecode,
+        code_hash,
+        input orelse &[_]u8{},
+        false, // not static
+    );
+    defer contract.deinit(null);
+    
+    // Set the code for the contract address
+    try self.set_code(address, bytecode);
+    
+    // Create a frame for execution
+    var frame = try Frame.init(self.allocator, &contract);
+    frame.memory.finalize_root();
+    defer frame.memory.deinit();
+    
+    frame.gas_remaining = gas;
+    frame.input = input orelse &[_]u8{};
+    frame.depth = 0;
+    frame.is_static = false;
+    
+    // Save initial gas for tracking
+    const initial_gas = gas;
+    
+    // Execution loop
+    var pc: usize = 0;
+    while (pc < bytecode.len) {
+        const opcode = bytecode[pc];
+        
+        // Cast self and frame to the opaque types expected by execute
+        const interpreter_ptr: *Operation.Interpreter = @ptrCast(self);
+        const state_ptr: *Operation.State = @ptrCast(&frame);
+        
+        // Execute opcode through jump table
+        const result = self.table.execute(pc, interpreter_ptr, state_ptr, opcode) catch |err| {
+            // Handle execution errors
+            switch (err) {
+                ExecutionError.Error.STOP => {
+                    return RunResult{
+                        .status = .Success,
+                        .gas_left = frame.gas_remaining,
+                        .gas_used = initial_gas - frame.gas_remaining,
+                        .output = if (frame.return_data_buffer.len > 0) 
+                            try self.allocator.dupe(u8, frame.return_data_buffer) 
+                        else null,
+                    };
+                },
+                ExecutionError.Error.REVERT => {
+                    return RunResult{
+                        .status = .Revert,
+                        .gas_left = frame.gas_remaining,
+                        .gas_used = initial_gas - frame.gas_remaining,
+                        .output = if (frame.return_data_buffer.len > 0) 
+                            try self.allocator.dupe(u8, frame.return_data_buffer) 
+                        else null,
+                    };
+                },
+                ExecutionError.Error.InvalidOpcode => {
+                    return RunResult{
+                        .status = .Invalid,
+                        .gas_left = 0,
+                        .gas_used = initial_gas,
+                        .output = null,
+                    };
+                },
+                ExecutionError.Error.OutOfGas => {
+                    return RunResult{
+                        .status = .OutOfGas,
+                        .gas_left = 0,
+                        .gas_used = initial_gas,
+                        .output = null,
+                    };
+                },
+                else => return err,
+            }
+        };
+        
+        // Update PC based on bytes consumed (for PUSH operations)
+        pc += result.bytes_consumed;
+    }
+    
+    // If we reach end of bytecode without explicit stop/return
+    return RunResult{
+        .status = .Success,
+        .gas_left = frame.gas_remaining,
+        .gas_used = initial_gas - frame.gas_remaining,
+        .output = null,
+    };
+}
+
+// Helper to preserve last frame stack for testing
+pub var last_stack_value: ?u256 = null;
 

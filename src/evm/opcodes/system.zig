@@ -57,6 +57,11 @@ pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
         const offset_usize = @as(usize, @intCast(offset));
         const size_usize = @as(usize, @intCast(size));
         
+        // EIP-3860: Check initcode size limit (Shanghai)
+        if (size_usize > gas_constants.MaxInitcodeSize) {
+            return ExecutionError.Error.MaxCodeSizeExceeded;
+        }
+        
         // Calculate memory expansion gas cost
         const current_size = frame.memory.total_size();
         const new_size = offset_usize + size_usize;
@@ -68,8 +73,11 @@ pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     }
     
     // Calculate gas for creation
-    const init_code_cost = @as(u64, @intCast(init_code.len)) * 200; // CREATE data gas
-    try frame.consume_gas(init_code_cost);
+    const init_code_cost = @as(u64, @intCast(init_code.len)) * gas_constants.CreateDataGas;
+    
+    // EIP-3860: Add gas cost for initcode word size (2 gas per 32-byte word)
+    const initcode_word_cost = @as(u64, @intCast((init_code.len + 31) / 32)) * gas_constants.InitcodeWordGas;
+    try frame.consume_gas(init_code_cost + initcode_word_cost);
     
     // Calculate gas to give to the new contract (all but 1/64th)
     const gas_for_call = frame.gas_remaining - (frame.gas_remaining / 64);
@@ -163,6 +171,11 @@ pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
         const offset_usize = @as(usize, @intCast(offset));
         const size_usize = @as(usize, @intCast(size));
         
+        // EIP-3860: Check initcode size limit (Shanghai)
+        if (size_usize > gas_constants.MaxInitcodeSize) {
+            return ExecutionError.Error.MaxCodeSizeExceeded;
+        }
+        
         // Calculate memory expansion gas cost
         const current_size = frame.memory.total_size();
         const new_size = offset_usize + size_usize;
@@ -175,10 +188,13 @@ pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     
     // Calculate gas costs specific to CREATE2
     // Init code gas: 200 per byte (discourages large contracts)
-    const init_code_cost = @as(u64, @intCast(init_code.len)) * 200;
+    const init_code_cost = @as(u64, @intCast(init_code.len)) * gas_constants.CreateDataGas;
     // Hash gas: 6 per word for keccak256(init_code) in address calculation
-    const hash_cost = @as(u64, @intCast((init_code.len + 31) / 32)) * 6;
-    try frame.consume_gas(init_code_cost + hash_cost);
+    const hash_cost = @as(u64, @intCast((init_code.len + 31) / 32)) * gas_constants.Keccak256WordGas;
+    
+    // EIP-3860: Add gas cost for initcode word size (2 gas per 32-byte word)
+    const initcode_word_cost = @as(u64, @intCast((init_code.len + 31) / 32)) * gas_constants.InitcodeWordGas;
+    try frame.consume_gas(init_code_cost + hash_cost + initcode_word_cost);
     
     // Calculate gas to give to the new contract (all but 1/64th)
     const gas_for_call = frame.gas_remaining - (frame.gas_remaining / 64);

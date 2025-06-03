@@ -36,8 +36,7 @@ test "Integration: Conditional jump patterns" {
     );
     
     // Pre-analyze jump destinations
-    // TODO: Fix when analyze_jumpdests is implemented
-    // _ = contract.analyze_jumpdests();
+    contract.analyze_jumpdests();
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -92,7 +91,7 @@ test "Integration: Loop implementation with JUMP" {
         false,
     );
     
-    _ = contract.analyze_jumpdests();
+    contract.analyze_jumpdests();
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -276,7 +275,7 @@ test "Integration: Nested conditions with jumps" {
         false,
     );
     
-    _ = contract.analyze_jumpdests();
+    contract.analyze_jumpdests();
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();

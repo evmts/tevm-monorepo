@@ -1,9 +1,9 @@
 const std = @import("std");
 const testing = std.testing;
-const evm = @import("evm");
-const Vm = evm.Vm;
+const Vm = @import("../../src/evm/vm.zig");
 const Address = @import("Address");
-const ExecutionError = evm.ExecutionError;
+const ExecutionError = @import("../../src/evm/execution_error.zig");
+const Contract = @import("../../src/evm/contract.zig");
 
 // Helper function to create a test VM with basic setup
 fn createTestVm(allocator: std.mem.Allocator) !*Vm {
