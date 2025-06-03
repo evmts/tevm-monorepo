@@ -1,12 +1,11 @@
 const std = @import("std");
 const testing = std.testing;
-const helpers = @import("../opcodes/test_helpers.zig");
+const pkg = @import("package.zig");
+const helpers = pkg.test_helpers;
 
-// Import opcodes
-const arithmetic = @import("../../../src/evm/opcodes/arithmetic.zig");
-const stack = @import("../../../src/evm/opcodes/stack.zig");
-const comparison = @import("../../../src/evm/opcodes/comparison.zig");
-const control = @import("../../../src/evm/opcodes/control.zig");
+// Import opcodes through evm module
+const evm = @import("evm");
+const opcodes = evm.opcodes;
 
 test "Integration: Complex arithmetic calculation" {
     // Test: Calculate (10 + 20) * 3 - 15

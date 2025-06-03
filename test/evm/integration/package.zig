@@ -1,4 +1,8 @@
 // Integration tests module
+
+// Import test helpers through opcodes package
+pub const opcodes = @import("../opcodes/package.zig");
+pub const test_helpers = opcodes.test_helpers;
 pub const arithmetic_sequences_test = @import("arithmetic_sequences_test.zig");
 pub const memory_storage_test = @import("memory_storage_test.zig");
 pub const control_flow_test = @import("control_flow_test.zig");

@@ -300,3 +300,147 @@ pub fn check_requirements(self: *const Self, pop_count: usize, push_count: usize
 pub fn checkRequirements(self: *const Self, pop_count: usize, push_count: usize) bool {
     return self.check_requirements(pop_count, push_count);
 }
+
+// Batched operations for performance optimization
+
+/// Pop 2 values and push 1 result - common pattern for binary operations
+pub fn pop2_push1(self: *Self, result: u256) Error!struct { a: u256, b: u256 } {
+    if (self.size < 2) return Error.OutOfBounds;
+    
+    // Pop two values
+    self.size -= 2;
+    const a = self.data[self.size];
+    const b = self.data[self.size + 1];
+    
+    // Push result (reuses first popped slot)
+    self.data[self.size] = result;
+    self.size += 1;
+    
+    return .{ .a = a, .b = b };
+}
+
+/// Pop 2 values and push 1 result (unsafe version for hot paths)
+pub fn pop2_push1_unsafe(self: *Self, result: u256) struct { a: u256, b: u256 } {
+    @setRuntimeSafety(false);
+    
+    self.size -= 2;
+    const a = self.data[self.size];
+    const b = self.data[self.size + 1];
+    
+    self.data[self.size] = result;
+    self.size += 1;
+    
+    return .{ .a = a, .b = b };
+}
+
+/// Pop 3 values and push 1 result - common for ternary operations
+pub fn pop3_push1(self: *Self, result: u256) Error!struct { a: u256, b: u256, c: u256 } {
+    if (self.size < 3) return Error.OutOfBounds;
+    
+    self.size -= 3;
+    const a = self.data[self.size];
+    const b = self.data[self.size + 1];
+    const c = self.data[self.size + 2];
+    
+    self.data[self.size] = result;
+    self.size += 1;
+    
+    return .{ .a = a, .b = b, .c = c };
+}
+
+/// Pop 3 values and push 1 result (unsafe version)
+pub fn pop3_push1_unsafe(self: *Self, result: u256) struct { a: u256, b: u256, c: u256 } {
+    @setRuntimeSafety(false);
+    
+    self.size -= 3;
+    const a = self.data[self.size];
+    const b = self.data[self.size + 1];
+    const c = self.data[self.size + 2];
+    
+    self.data[self.size] = result;
+    self.size += 1;
+    
+    return .{ .a = a, .b = b, .c = c };
+}
+
+/// Pop 1 value and push 1 result - for unary operations
+pub fn pop1_push1(self: *Self, result: u256) Error!u256 {
+    if (self.size < 1) return Error.OutOfBounds;
+    
+    const value = self.data[self.size - 1];
+    self.data[self.size - 1] = result;
+    
+    return value;
+}
+
+/// Pop 1 value and push 1 result (unsafe version)
+pub fn pop1_push1_unsafe(self: *Self, result: u256) u256 {
+    @setRuntimeSafety(false);
+    
+    const value = self.data[self.size - 1];
+    self.data[self.size - 1] = result;
+    
+    return value;
+}
+
+/// Pop 2 values without pushing - for comparison operations
+pub fn pop2(self: *Self) Error!struct { a: u256, b: u256 } {
+    if (self.size < 2) return Error.OutOfBounds;
+    
+    self.size -= 2;
+    return .{
+        .a = self.data[self.size],
+        .b = self.data[self.size + 1],
+    };
+}
+
+/// Pop 2 values without pushing (unsafe version)
+pub fn pop2_unsafe(self: *Self) struct { a: u256, b: u256 } {
+    @setRuntimeSafety(false);
+    
+    self.size -= 2;
+    return .{
+        .a = self.data[self.size],
+        .b = self.data[self.size + 1],
+    };
+}
+
+/// Specialized swap for SWAP1 (most common swap)
+pub fn swap1_optimized(self: *Self) Error!void {
+    if (self.size < 2) return Error.OutOfBounds;
+    
+    const top_idx = self.size - 1;
+    const second_idx = self.size - 2;
+    
+    const temp = self.data[top_idx];
+    self.data[top_idx] = self.data[second_idx];
+    self.data[second_idx] = temp;
+}
+
+/// Specialized dup for DUP1 (most common dup)
+pub fn dup1_optimized(self: *Self) Error!void {
+    if (self.size == 0) return Error.OutOfBounds;
+    if (self.size >= CAPACITY) return Error.Overflow;
+    
+    self.data[self.size] = self.data[self.size - 1];
+    self.size += 1;
+}
+
+/// Batch push multiple values
+pub fn push_batch(self: *Self, values: []const u256) Error!void {
+    if (self.size + values.len > CAPACITY) return Error.Overflow;
+    
+    @memcpy(self.data[self.size..self.size + values.len], values);
+    self.size += values.len;
+}
+
+/// Get multiple top values without popping (for opcodes that need to peek at multiple values)
+pub fn peek_multiple(self: *const Self, comptime N: usize) Error![N]u256 {
+    if (self.size < N) return Error.OutOfBounds;
+    
+    var result: [N]u256 = undefined;
+    inline for (0..N) |i| {
+        result[i] = self.data[self.size - N + i];
+    }
+    return result;
+}

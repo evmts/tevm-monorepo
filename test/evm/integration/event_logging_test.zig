@@ -234,7 +234,7 @@ test "Integration: logging restrictions in static calls" {
     try testing.expectError(ExecutionError.Error.WriteProtection, result);
     
     // Try LOG1
-    frame.stack.clearRetainingCapacity();
+    frame.stack.clear();
     try frame.pushValue(0x1234); // topic
     try frame.pushValue(0);      // size
     try frame.pushValue(0);      // offset

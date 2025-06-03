@@ -1,6 +1,7 @@
 const std = @import("std");
 const testing = std.testing;
-const helpers = @import("../opcodes/test_helpers.zig");
+const pkg = @import("package.zig");
+const helpers = pkg.test_helpers;
 
 // Import opcodes
 const environment = @import("../../../src/evm/opcodes/environment.zig");

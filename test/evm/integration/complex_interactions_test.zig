@@ -1,16 +1,11 @@
 const std = @import("std");
 const testing = std.testing;
-const helpers = @import("../opcodes/test_helpers.zig");
+const pkg = @import("package.zig");
+const helpers = pkg.test_helpers;
 
-// Import opcodes
-const stack = @import("../../../src/evm/opcodes/stack.zig");
-const arithmetic = @import("../../../src/evm/opcodes/arithmetic.zig");
-const comparison = @import("../../../src/evm/opcodes/comparison.zig");
-const bitwise = @import("../../../src/evm/opcodes/bitwise.zig");
-const memory = @import("../../../src/evm/opcodes/memory.zig");
-const storage = @import("../../../src/evm/opcodes/storage.zig");
-const crypto = @import("../../../src/evm/opcodes/crypto.zig");
-const environment = @import("../../../src/evm/opcodes/environment.zig");
+// Import opcodes through evm module
+const evm = @import("evm");
+const opcodes = evm.opcodes;
 
 test "Integration: Token balance check pattern" {
     // Simulate checking and updating a token balance

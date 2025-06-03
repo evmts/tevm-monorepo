@@ -2,16 +2,18 @@ const std = @import("std");
 const testing = std.testing;
 
 // Import necessary EVM components
-pub const Stack = @import("../../../src/evm/stack.zig");
-pub const Memory = @import("../../../src/evm/memory.zig");
-pub const Frame = @import("../../../src/evm/frame.zig");
-pub const Contract = @import("../../../src/evm/contract.zig");
+// Import through evm module to avoid path issues
+const evm = @import("evm");
+pub const Stack = evm.Stack;
+pub const Memory = evm.Memory;
+pub const Frame = evm.Frame;
+pub const Contract = evm.Contract;
 pub const Address = @import("Address");
-pub const Vm = @import("../../../src/evm/vm.zig");
-pub const Operation = @import("../../../src/evm/operation.zig");
-pub const ExecutionError = @import("../../../src/evm/execution_error.zig");
-pub const gas_constants = @import("../../../src/evm/gas_constants.zig");
-pub const Hardfork = @import("../../../src/evm/hardfork.zig");
+pub const Vm = evm.Vm;
+pub const Operation = evm.Operation;
+pub const ExecutionError = evm.ExecutionError;
+pub const gas_constants = evm.gas_constants;
+pub const Hardfork = evm.Hardfork;
 
 /// Test VM with minimal setup for testing opcodes
 pub const TestVm = struct {
@@ -135,6 +137,7 @@ pub fn createTestContract(
     value: u256,
     code: []const u8,
 ) !Contract {
+    _ = allocator; // Not needed for Contract.init
     return Contract.init(
         caller,
         address,

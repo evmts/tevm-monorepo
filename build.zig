@@ -500,6 +500,20 @@ pub fn build(b: *std.Build) void {
     const stack_test_step = b.step("test-stack", "Run Stack tests");
     stack_test_step.dependOn(&run_stack_test.step);
 
+    // Add Stack batched operations tests
+    const stack_batched_test = b.addTest(.{
+        .name = "stack-batched-test",
+        .root_source_file = b.path("test/evm/stack_batched_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    stack_batched_test.root_module.addImport("evm", evm_mod);
+
+    const run_stack_batched_test = b.addRunArtifact(stack_batched_test);
+
+    const stack_batched_test_step = b.step("test-stack-batched", "Run Stack batched operations tests");
+    stack_batched_test_step.dependOn(&run_stack_batched_test.step);
+
     // Add Opcodes tests
     const opcodes_test = b.addTest(.{
         .name = "opcodes-test",
@@ -649,6 +663,7 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_memory_stress_test.step);
     test_step.dependOn(&run_memory_comparison_test.step);
     test_step.dependOn(&run_stack_test.step);
+    test_step.dependOn(&run_stack_batched_test.step);
     test_step.dependOn(&run_opcodes_test.step);
     test_step.dependOn(&run_integration_test.step);
 

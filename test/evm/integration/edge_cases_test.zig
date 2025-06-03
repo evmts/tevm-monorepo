@@ -332,7 +332,7 @@ test "Integration: jump destination validation" {
     try testing.expectError(ExecutionError.Error.InvalidJump, result1);
     
     // Jump to position 3 (valid JUMPDEST) - should succeed
-    frame.stack.clearRetainingCapacity();
+    frame.stack.clear();
     try frame.pushValue(3);
     const result2 = try test_helpers.executeOpcode(opcodes.control.op_jump, &frame);
     try testing.expectEqual(@as(?usize, 3), result2.jump_dest);

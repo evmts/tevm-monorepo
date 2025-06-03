@@ -526,9 +526,20 @@ Based on the comprehensive code review, here are the issues that need to be addr
   - References to Yellow Paper and relevant EIPs
 
 #### ISSUE-033: Document Hardfork Differences
+- **Status**: Complete
 - **Component**: Documentation
 - **Description**: Create hardfork compatibility matrix
 - **Effort**: 2 hours
+- **Resolution**: Created comprehensive HARDFORK_COMPATIBILITY.md documentation covering:
+  - Complete hardfork timeline with block numbers and dates
+  - Opcode introduction matrix showing availability across all hardforks
+  - Gas cost evolution tracking all repricing events
+  - Behavioral changes for each hardfork
+  - Removed and deprecated features
+  - Implementation checklist for hardfork support
+  - Visual matrix with legends for easy reference
+  - Code examples for hardfork configuration
+  - References to all relevant EIPs
 
 ---
 
@@ -537,14 +548,24 @@ Based on the comprehensive code review, here are the issues that need to be addr
 ### ⚡ Performance Optimizations
 
 #### ISSUE-034: Implement Batched Stack Operations
+- **Status**: In Progress
 - **Component**: Stack operations
 - **Description**: Add pop2_push1 style optimizations
 - **Effort**: 4 hours
 
 #### ISSUE-035: Add Cache-Line Alignment
+- **Status**: Complete
 - **Component**: jump_table.zig
 - **Description**: Align jump table for better cache performance
 - **Effort**: 1 hour
+- **Resolution**: Implemented cache-line alignment optimizations:
+  - Added CACHE_LINE_SIZE constant (64 bytes) for modern processor optimization
+  - Aligned jump table array to cache line boundary using align(64) attribute
+  - Marked get_operation function as inline for hot path optimization
+  - Added comprehensive documentation explaining performance benefits
+  - Created tests to verify alignment and cache characteristics
+  - The 256-entry jump table now uses exactly 32 cache lines (2048 bytes)
+  - Frequently used opcodes cluster in early cache lines for better locality
 
 #### ISSUE-036: Create Unsafe Operation Variants
 - **Component**: Stack/Memory operations

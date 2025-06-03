@@ -193,14 +193,14 @@ test "Integration: staticcall restrictions" {
     try testing.expectError(ExecutionError.Error.WriteProtection, sstore_result);
     
     // Try LOG0 - should fail
-    frame.stack.clearRetainingCapacity();
+    frame.stack.clear();
     try frame.pushValue(0); // size
     try frame.pushValue(0); // offset
     const log_result = test_helpers.executeOpcode(opcodes.log.op_log0, &frame);
     try testing.expectError(ExecutionError.Error.WriteProtection, log_result);
     
     // Try CREATE - should fail
-    frame.stack.clearRetainingCapacity();
+    frame.stack.clear();
     try frame.pushValue(0); // size
     try frame.pushValue(0); // offset
     try frame.pushValue(0); // value

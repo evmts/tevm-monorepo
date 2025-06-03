@@ -26,12 +26,16 @@ pub fn op_add(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
-    const b = try stack_pop(&frame.stack);
-    const a = try stack_pop(&frame.stack);
+    // First pop the values to calculate the sum
+    const values = frame.stack.pop2() catch |err| switch (err) {
+        Stack.Error.OutOfBounds => return ExecutionError.Error.StackUnderflow,
+        else => return ExecutionError.Error.StackUnderflow,
+    };
     
-    const result = a +% b; // Wrapping addition
+    const sum = values.a +% values.b;
     
-    try stack_push(&frame.stack, result);
+    // Push the result
+    try stack_push(&frame.stack, sum);
     
     return Operation.ExecutionResult{};
 }
