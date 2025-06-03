@@ -8,6 +8,7 @@ const Contract = @import("../contract.zig");
 const Address = @import("Address");
 const to_u256 = Address.to_u256;
 const from_u256 = Address.from_u256;
+const gas_constants = @import("../gas_constants.zig");
 
 // Helper to convert Stack errors to ExecutionError
 inline fn stack_pop(stack: *Stack) ExecutionError.Error!u256 {
@@ -79,6 +80,8 @@ pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     frame.gas_remaining = frame.gas_remaining / 64 + result.gas_left;
     
     if (result.success) {
+        // EIP-2929: Mark the newly created address as warm
+        _ = try vm.mark_address_warm(result.address);
         try stack_push(&frame.stack, to_u256(result.address));
     } else {
         try stack_push(&frame.stack, 0);
@@ -147,6 +150,8 @@ pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     frame.gas_remaining = frame.gas_remaining / 64 + result.gas_left;
     
     if (result.success) {
+        // EIP-2929: Mark the newly created address as warm
+        _ = try vm.mark_address_warm(result.address);
         try stack_push(&frame.stack, to_u256(result.address));
     } else {
         try stack_push(&frame.stack, 0);
@@ -211,6 +216,13 @@ pub fn op_call(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     
     // Convert to address to Address type
     const to_address = from_u256(to);
+    
+    // EIP-2929: Check if address is cold and consume appropriate gas
+    const is_cold = try vm.mark_address_warm(to_address);
+    if (is_cold) {
+        // Cold address access costs more (2600 gas)
+        try frame.consume_gas(gas_constants.ColdAccountAccessCost);
+    }
     
     // Calculate gas to give to the call
     var gas_for_call = if (gas > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(gas));
@@ -301,6 +313,13 @@ pub fn op_callcode(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     // Convert to address
     const to_address = from_u256(to);
     
+    // EIP-2929: Check if address is cold and consume appropriate gas
+    const is_cold = try vm.mark_address_warm(to_address);
+    if (is_cold) {
+        // Cold address access costs more (2600 gas)
+        try frame.consume_gas(gas_constants.ColdAccountAccessCost);
+    }
+    
     // Calculate gas to give to the call
     var gas_for_call = if (gas > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(gas));
     gas_for_call = @min(gas_for_call, frame.gas_remaining - (frame.gas_remaining / 64));
@@ -390,6 +409,13 @@ pub fn op_delegatecall(pc: usize, interpreter: *Operation.Interpreter, state: *O
     // Convert to address
     const to_address = from_u256(to);
     
+    // EIP-2929: Check if address is cold and consume appropriate gas
+    const is_cold = try vm.mark_address_warm(to_address);
+    if (is_cold) {
+        // Cold address access costs more (2600 gas)
+        try frame.consume_gas(gas_constants.ColdAccountAccessCost);
+    }
+    
     // Calculate gas to give to the call
     var gas_for_call = if (gas > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(gas));
     gas_for_call = @min(gas_for_call, frame.gas_remaining - (frame.gas_remaining / 64));
@@ -474,6 +500,13 @@ pub fn op_staticcall(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
     
     // Convert to address
     const to_address = from_u256(to);
+    
+    // EIP-2929: Check if address is cold and consume appropriate gas
+    const is_cold = try vm.mark_address_warm(to_address);
+    if (is_cold) {
+        // Cold address access costs more (2600 gas)
+        try frame.consume_gas(gas_constants.ColdAccountAccessCost);
+    }
     
     // Calculate gas to give to the call
     var gas_for_call = if (gas > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(gas));

@@ -306,10 +306,33 @@ Based on the comprehensive code review, here are the issues that need to be addr
     - Note: Actual cold/warm tracking is handled in opcode implementations
 
 #### ISSUE-022: Implement EIP-2929 Access Lists
-- **Status**: In Progress
-- **Component**: storage.zig, environment.zig
+- **Status**: Complete
+- **Component**: storage.zig, environment.zig, system.zig, control.zig, vm.zig
 - **Description**: Cold/warm access tracking for Berlin+
 - **Effort**: 6 hours
+- **Resolution**:
+  - Added cold/warm storage slot tracking in op_sload and op_sstore (2100 gas for cold access)
+  - Added address access tracking to VM with mark_address_warm and is_address_cold methods
+  - Updated environment opcodes to track cold/warm address access:
+    - op_balance: 2600 gas for cold address access
+    - op_extcodesize: 2600 gas for cold address access
+    - op_extcodecopy: 2600 gas for cold address access
+    - op_extcodehash: 2600 gas for cold address access
+  - Updated system opcodes to track cold/warm address access:
+    - op_call: 2600 gas for cold address access
+    - op_callcode: 2600 gas for cold address access
+    - op_delegatecall: 2600 gas for cold address access
+    - op_staticcall: 2600 gas for cold address access
+    - op_create: marks newly created address as warm
+    - op_create2: marks newly created address as warm
+  - Updated control opcodes:
+    - op_selfdestruct: 2600 gas for cold beneficiary address access
+  - Added VM methods for transaction-level access list management:
+    - clear_access_list(): clears access list for new transaction
+    - pre_warm_addresses(): pre-warms addresses from EIP-2930 access list
+    - pre_warm_storage_slots(): pre-warms storage slots from EIP-2930 access list
+    - init_transaction_access_list(): initializes access list with tx.origin, coinbase, and to address
+  - Note: The base gas cost for these opcodes should be 0 for Berlin+ (handled in jump_table.zig)
 
 ### 🧪 Testing Infrastructure
 
@@ -336,21 +359,45 @@ Based on the comprehensive code review, here are the issues that need to be addr
 ### 🐛 Bug Fixes
 
 #### ISSUE-027: Fix PC Manipulation in PUSH Operations
-- **Component**: stack.zig
+- **Status**: Complete
+- **Component**: stack.zig, vm.zig, operation.zig, jump_table.zig
 - **Description**: PUSH ops modify PC which may conflict with VM loop
 - **Effort**: 2 hours
+- **Resolution**:
+  - Modified Operation module to return ExecutionResult struct instead of just output data
+  - ExecutionResult includes bytes_consumed field (default 1) and output field
+  - Updated all PUSH operations to return bytes_consumed = 1 + n (where n is the number of data bytes)
+  - Updated VM's interpret function to advance PC by result.bytes_consumed instead of always 1
+  - Updated jump_table.execute() and all control flow operations to use ExecutionResult
+  - This properly handles PC advancement for variable-length PUSH instructions without conflicts
 
 #### ISSUE-028: Fix Memory Allocation in RETURN/REVERT
+- **Status**: Complete
 - **Component**: control.zig
 - **Description**: Unbounded allocation is potential DOS vector
 - **Effort**: 2 hours
+- **Resolution**:
+  - Removed unnecessary allocation and memcpy in op_return and op_revert
+  - The memory gas cost calculation already protects against excessive memory use
+  - Changed to directly reference the memory slice instead of allocating a separate buffer
+  - The VM layer should handle copying the data when needed (e.g., when returning to caller)
+  - This eliminates the DOS vector while maintaining correct behavior
 
 #### ISSUE-029: Fix Address Type Usage
+- **Status**: Complete
 - **Component**: contract.zig, environment.zig
 - **Description**: Inconsistent Address type usage and imports
 - **Effort**: 2 hours
+- **Resolution**:
+  - Standardized Address module imports across all files to use `const Address = @import("Address");`
+  - Fixed contract.zig to match the pattern used by other files:
+    - Changed from `const Address = @import("Address").Address;` to `const Address = @import("Address");`
+    - Updated all type references from `Address` to `Address.Address`
+    - Changed `zero_address()` to `Address.zero()`
+  - All files now consistently import the module and access its members using the same pattern
 
 #### ISSUE-030: Fix Error Type Mappings
+- **Status**: Pending
 - **Component**: All opcode files
 - **Description**: Stack/Memory errors not properly mapped to ExecutionError
 - **Effort**: 3 hours

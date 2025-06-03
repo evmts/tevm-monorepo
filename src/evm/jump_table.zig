@@ -74,7 +74,7 @@ pub fn get_operation(self: *const Self, opcode: u8) *const Operation {
     return self.table[opcode] orelse &Operation.NULL;
 }
 
-pub fn execute(self: *const Self, pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State, opcode: u8) ExecutionError.Error![]const u8 {
+pub fn execute(self: *const Self, pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State, opcode: u8) ExecutionError.Error!Operation.ExecutionResult {
     const operation = self.get_operation(opcode);
     
     // Cast state to Frame to access gas_remaining
@@ -144,7 +144,7 @@ const UNDEFINED = Operation{
     .undefined = true,
 };
 
-fn undefined_execute(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+fn undefined_execute(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     _ = state;
@@ -721,7 +721,7 @@ inline fn stack_push(stack: *Stack, value: u256) ExecutionError.Error!void {
 }
 
 // Gas opcode handler
-fn gas_op(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+fn gas_op(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -729,7 +729,7 @@ fn gas_op(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.Stat
     
     try stack_push(&frame.stack, @as(u256, @intCast(frame.gas_remaining)));
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
 // Create jump table for specific hardfork

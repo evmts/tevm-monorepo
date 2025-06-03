@@ -76,7 +76,6 @@ pub fn deinit(self: *Self) void {
     self.balances.deinit();
     self.code.deinit();
     self.transient_storage.deinit();
-    self.address_access.deinit();
     
     // Clean up logs - free allocated memory for topics and data
     for (self.logs.items) |log| {
@@ -84,6 +83,8 @@ pub fn deinit(self: *Self) void {
         self.allocator.free(log.data);
     }
     self.logs.deinit();
+    
+    self.address_access.deinit();
 }
 
 // Storage methods
@@ -124,12 +125,12 @@ pub fn interpret(self: *Self, contract: *Contract, input: []const u8) ![]const u
         // Use jump table's execute method which handles gas consumption
         const result = try self.table.execute(pc, interpreter_ptr, state_ptr, opcode);
         
-        // Update pc based on result (for now, just increment)
-        pc += 1;
+        // Update pc based on result - PUSH operations consume more than 1 byte
+        pc += result.bytes_consumed;
         
         // Check if we should stop
-        if (result.len > 0 or pc >= contract.code_size) {
-            return result;
+        if (result.output.len > 0 or pc >= contract.code_size) {
+            return result.output;
         }
     }
 }
@@ -299,14 +300,93 @@ pub fn emit_log(self: *Self, address: Address.Address, topics: []const u256, dat
 
 // EIP-2929: Mark address as warm and return if it was cold
 pub fn mark_address_warm(self: *Self, address: Address.Address) !bool {
-    const was_cold = !self.address_access.contains(address);
-    if (was_cold) {
-        try self.address_access.put(address, true);
+    const result = try self.address_access.getOrPut(address);
+    if (!result.found_existing) {
+        result.value_ptr.* = true;
+        return true; // Was cold
     }
-    return was_cold;
+    return false; // Was already warm
 }
 
-// EIP-2929: Check if address is cold
+// EIP-2929: Check if an address is cold
 pub fn is_address_cold(self: *const Self, address: Address.Address) bool {
     return !self.address_access.contains(address);
+}
+
+// EIP-2929: Clear access list for new transaction
+pub fn clear_access_list(self: *Self) void {
+    self.address_access.clearRetainingCapacity();
+    // Also clear storage access in all contracts
+    // Note: This would be done at transaction level, not here
+}
+
+// EIP-2929: Pre-warm addresses from access list (EIP-2930)
+pub fn pre_warm_addresses(self: *Self, addresses: []const Address.Address) !void {
+    for (addresses) |address| {
+        try self.address_access.put(address, true);
+    }
+}
+
+// EIP-2929: Pre-warm storage slots from access list (EIP-2930)
+pub fn pre_warm_storage_slots(self: *Self, address: Address.Address, slots: []const u256) !void {
+    // This would need to be implemented at the contract level
+    // For now, we'll leave this as a placeholder
+    _ = self;
+    _ = address;
+    _ = slots;
+}
+
+// Initialize transaction with pre-warmed addresses (tx.origin, coinbase, to)
+pub fn init_transaction_access_list(self: *Self) !void {
+    // Pre-warm transaction origin
+    try self.address_access.put(self.tx_origin, true);
+    
+    // Pre-warm coinbase
+    try self.address_access.put(self.block_coinbase, true);
+    
+    // Note: The 'to' address would be pre-warmed when the transaction starts
+    // This is typically done in the transaction processor, not here
+}
+
+// EIP-2929: Clear access list for new transaction
+pub fn clear_access_list(self: *Self) void {
+    self.address_access.clearRetainingCapacity();
+}
+
+// EIP-2929: Pre-warm addresses from access list (EIP-2930)
+pub fn pre_warm_addresses(self: *Self, addresses: []const Address.Address) !void {
+    for (addresses) |address| {
+        try self.address_access.put(address, true);
+    }
+}
+
+// EIP-2929: Pre-warm storage slots from access list (EIP-2930)
+pub fn pre_warm_storage_slots(self: *Self, slots: []const struct { address: Address.Address, slot: u256 }, contracts: std.AutoHashMap(Address.Address, *Contract)) !void {
+    for (slots) |entry| {
+        // Pre-warm the address
+        try self.address_access.put(entry.address, true);
+        
+        // Pre-warm the storage slot if we have the contract
+        if (contracts.get(entry.address)) |contract| {
+            _ = try contract.mark_storage_slot_warm(entry.slot, null);
+        }
+    }
+}
+
+// EIP-2929: Initialize access list for a new transaction
+// This should be called at the beginning of each transaction
+pub fn init_transaction_access_list(self: *Self, to: ?Address.Address) !void {
+    // Clear the access list
+    self.clear_access_list();
+    
+    // Pre-warm the transaction origin (tx.origin)
+    try self.address_access.put(self.tx_origin, true);
+    
+    // Pre-warm the block coinbase
+    try self.address_access.put(self.block_coinbase, true);
+    
+    // Pre-warm the 'to' address if it exists (not a contract creation)
+    if (to) |to_address| {
+        try self.address_access.put(to_address, true);
+    }
 }

@@ -4,6 +4,7 @@ const ExecutionError = @import("../execution_error.zig");
 const Stack = @import("../stack.zig");
 const Frame = @import("../frame.zig");
 const Vm = @import("../vm.zig");
+const gas_constants = @import("../gas_constants.zig");
 
 // Helper to convert Stack errors to ExecutionError
 inline fn stack_pop(stack: *Stack) ExecutionError.Error!u256 {
@@ -32,7 +33,7 @@ pub fn op_sload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     const is_cold = try frame.contract.mark_storage_slot_warm(slot, null);
     if (is_cold) {
         // Cold storage access costs more (2100 gas)
-        try frame.consume_gas(2100 - 100); // Subtract the 100 already consumed by the opcode
+        try frame.consume_gas(gas_constants.ColdSloadCost - gas_constants.WarmStorageReadCost); // Subtract the warm cost already consumed by the opcode
     }
     
     // Get storage value
@@ -63,7 +64,7 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     const is_cold = try frame.contract.mark_storage_slot_warm(slot, null);
     if (is_cold) {
         // Cold storage access costs more (2100 gas)
-        try frame.consume_gas(2100);
+        try frame.consume_gas(gas_constants.ColdSloadCost);
     }
     
     // Set storage value

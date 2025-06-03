@@ -19,7 +19,7 @@ inline fn stack_push(stack: *Stack, value: u256) ExecutionError.Error!void {
     };
 }
 
-pub fn op_pop(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_pop(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -27,10 +27,10 @@ pub fn op_pop(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     
     _ = try stack_pop(&frame.stack);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
-pub fn op_push0(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+pub fn op_push0(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
     
@@ -38,13 +38,13 @@ pub fn op_push0(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     
     try stack_push(&frame.stack, 0);
     
-    return "";
+    return Operation.ExecutionResult{};
 }
 
 // Generate push operations for PUSH1 through PUSH32
-pub fn make_push(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.State) ExecutionError.Error![]const u8 {
+pub fn make_push(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     return struct {
-        pub fn push(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+        pub fn push(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
             _ = interpreter;
             
             const frame = @as(*Frame, @ptrCast(@alignCast(state)));
@@ -63,10 +63,9 @@ pub fn make_push(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.S
             
             try stack_push(&frame.stack, value);
             
-            // Skip past the push data
-            frame.pc += n;
-            
-            return "";
+            // PUSH operations consume 1 + n bytes
+            // (1 for the opcode itself, n for the immediate data)
+            return Operation.ExecutionResult{ .bytes_consumed = 1 + n };
         }
     }.push;
 }
@@ -106,9 +105,9 @@ pub const op_push31 = make_push(31);
 pub const op_push32 = make_push(32);
 
 // Generate dup operations
-pub fn make_dup(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.State) ExecutionError.Error![]const u8 {
+pub fn make_dup(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     return struct {
-        pub fn dup(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+        pub fn dup(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
             _ = pc;
             _ = interpreter;
             
@@ -122,7 +121,7 @@ pub fn make_dup(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.St
                 Stack.Error.InvalidPosition => return ExecutionError.Error.StackUnderflow,
             };
             
-            return "";
+            return Operation.ExecutionResult{};
         }
     }.dup;
 }
@@ -146,9 +145,9 @@ pub const op_dup15 = make_dup(15);
 pub const op_dup16 = make_dup(16);
 
 // Generate swap operations
-pub fn make_swap(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.State) ExecutionError.Error![]const u8 {
+pub fn make_swap(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     return struct {
-        pub fn swap(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error![]const u8 {
+        pub fn swap(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
             _ = pc;
             _ = interpreter;
             
@@ -161,7 +160,7 @@ pub fn make_swap(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.S
                 else => return ExecutionError.Error.StackUnderflow,
             };
             
-            return "";
+            return Operation.ExecutionResult{};
         }
     }.swap;
 }

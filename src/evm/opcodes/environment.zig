@@ -46,6 +46,13 @@ pub fn op_balance(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     const address_u256 = try stack_pop(&frame.stack);
     const address = from_u256(address_u256);
     
+    // EIP-2929: Check if address is cold and consume appropriate gas
+    const is_cold = try vm.mark_address_warm(address);
+    if (is_cold) {
+        // Cold address access costs more (2600 gas)
+        try frame.consume_gas(gas_constants.ColdAccountAccessCost);
+    }
+    
     // Get balance from VM state
     const balance = vm.balances.get(address) orelse 0;
     try stack_push(&frame.stack, balance);
@@ -112,6 +119,13 @@ pub fn op_extcodesize(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     const address_u256 = try stack_pop(&frame.stack);
     const address = from_u256(address_u256);
     
+    // EIP-2929: Check if address is cold and consume appropriate gas
+    const is_cold = try vm.mark_address_warm(address);
+    if (is_cold) {
+        // Cold address access costs more (2600 gas)
+        try frame.consume_gas(gas_constants.ColdAccountAccessCost);
+    }
+    
     // Get code size from VM state
     const code = vm.code.get(address) orelse &[_]u8{};
     try stack_push(&frame.stack, @as(u256, @intCast(code.len)));
@@ -142,6 +156,13 @@ pub fn op_extcodecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     const mem_offset_usize = @as(usize, @intCast(mem_offset));
     const code_offset_usize = @as(usize, @intCast(code_offset));
     const size_usize = @as(usize, @intCast(size));
+    
+    // EIP-2929: Check if address is cold and consume appropriate gas
+    const is_cold = try vm.mark_address_warm(address);
+    if (is_cold) {
+        // Cold address access costs more (2600 gas)
+        try frame.consume_gas(gas_constants.ColdAccountAccessCost);
+    }
     
     // Calculate memory expansion gas cost
     const current_size = frame.memory.context_size();
@@ -181,6 +202,13 @@ pub fn op_extcodehash(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     
     const address_u256 = try stack_pop(&frame.stack);
     const address = from_u256(address_u256);
+    
+    // EIP-2929: Check if address is cold and consume appropriate gas
+    const is_cold = try vm.mark_address_warm(address);
+    if (is_cold) {
+        // Cold address access costs more (2600 gas)
+        try frame.consume_gas(gas_constants.ColdAccountAccessCost);
+    }
     
     // Get code from VM state and compute hash
     const code = vm.code.get(address) orelse &[_]u8{};

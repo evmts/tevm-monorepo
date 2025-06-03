@@ -17,8 +17,7 @@
 const std = @import("std");
 const constants = @import("constants.zig");
 const bitvec = @import("bitvec.zig");
-const Address = @import("Address").Address;
-const zero_address = @import("Address").zero;
+const Address = @import("Address");
 const CodeAnalysis = @import("code_analysis.zig");
 const StoragePool = @import("storage_pool.zig");
 
@@ -32,8 +31,8 @@ var cache_mutex: std.Thread.Mutex = .{};
 /// Contract represents the execution context for a single call in the EVM
 const Self = @This();
 // Identity and context
-address: Address,
-caller: Address,
+address: Address.Address,
+caller: Address.Address,
 value: u256,
 
 // Code and analysis
@@ -65,8 +64,8 @@ is_empty: bool, // For empty contracts
 
 /// Initialize a new Contract with optimizations
 pub fn init(
-    caller: Address,
-    addr: Address,
+    caller: Address.Address,
+    addr: Address.Address,
     value: u256,
     gas: u64,
     code: []const u8,
@@ -97,14 +96,14 @@ pub fn init(
 }
 
 pub fn init_deployment(
-    caller: Address,
+    caller: Address.Address,
     value: u256,
     gas: u64,
     code: []const u8,
     salt: ?[32]u8,
 ) Self {
     const contract = Self{
-        .address = zero_address(),
+        .address = Address.zero(),
         .caller = caller,
         .value = value,
         .gas = gas,

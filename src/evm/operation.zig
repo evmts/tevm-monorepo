@@ -8,8 +8,17 @@ const Memory = @import("memory.zig");
 pub const Interpreter = opaque {};
 pub const State = opaque {};
 
+/// ExecutionResult holds the result of executing an opcode
+pub const ExecutionResult = struct {
+    /// Number of bytes consumed by this opcode (including immediate data)
+    /// For most opcodes this is 1, but PUSH opcodes consume 1 + n bytes
+    bytes_consumed: usize = 1,
+    /// Return data if the execution should halt (empty means continue)
+    output: []const u8 = "",
+};
+
 /// ExecutionFunc is a function executed by the EVM during interpretation
-pub const ExecutionFunc = *const fn (pc: usize, interpreter: *Interpreter, state: *State) ExecutionError.Error![]const u8;
+pub const ExecutionFunc = *const fn (pc: usize, interpreter: *Interpreter, state: *State) ExecutionError.Error!ExecutionResult;
 
 /// GasFunc calculates the gas required for an operation
 pub const GasFunc = *const fn (interpreter: *Interpreter, state: *State, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64;
@@ -45,7 +54,7 @@ pub const NULL = Self{
     .undefined = true,
 };
 
-fn undefined_execute(pc: usize, interpreter: *Interpreter, state: *State) ExecutionError.Error![]const u8 {
+fn undefined_execute(pc: usize, interpreter: *Interpreter, state: *State) ExecutionError.Error!ExecutionResult {
     _ = pc;
     _ = interpreter;
     _ = state;
