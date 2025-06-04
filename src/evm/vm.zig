@@ -10,6 +10,7 @@ const AccessList = @import("access_list.zig");
 const ExecutionError = @import("execution_error.zig");
 const rlp = @import("Rlp");
 const Keccak256 = std.crypto.hash.sha3.Keccak256;
+const ChainRules = @import("chain_rules.zig");
 
 // Log struct for EVM event logs (LOG0-LOG4 opcodes)
 pub const Log = struct {
@@ -26,6 +27,7 @@ return_data: []u8 = &[_]u8{},
 
 stack: Stack = .{},
 table: JumpTable,
+chain_rules: ChainRules,
 
 depth: u16 = 0,
 

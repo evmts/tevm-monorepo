@@ -9,21 +9,12 @@ const to_u256 = Address.to_u256;
 const from_u256 = Address.from_u256;
 const gas_constants = @import("../gas_constants.zig");
 const AccessList = @import("../access_list.zig").AccessList;
+const error_mapping = @import("../error_mapping.zig");
 
-// Helper to convert Stack errors to ExecutionError
-fn stack_pop(stack: *Stack) ExecutionError.Error!u256 {
-    return stack.pop() catch |err| switch (err) {
-        Stack.Error.Underflow => return ExecutionError.Error.StackUnderflow,
-        else => return ExecutionError.Error.StackUnderflow,
-    };
-}
-
-fn stack_push(stack: *Stack, value: u256) ExecutionError.Error!void {
-    return stack.append(value) catch |err| switch (err) {
-        Stack.Error.Overflow => return ExecutionError.Error.StackOverflow,
-        else => return ExecutionError.Error.StackOverflow,
-    };
-}
+// Import helper functions from error_mapping
+const stack_pop = error_mapping.stack_pop;
+const stack_push = error_mapping.stack_push;
+const map_memory_error = error_mapping.map_memory_error;
 
 pub fn op_address(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
@@ -171,16 +162,7 @@ pub fn op_extcodecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     
     // Use set_data_bounded to copy the code to memory
     // This handles partial copies and zero-padding automatically
-    frame.memory.set_data_bounded(mem_offset_usize, code, code_offset_usize, size_usize) catch |err| {
-        switch (err) {
-            error.InvalidOffset => return ExecutionError.Error.InvalidOffset,
-            error.InvalidSize => return ExecutionError.Error.OutOfOffset,
-            error.MemoryLimitExceeded => return ExecutionError.Error.OutOfGas,
-            error.OutOfMemory => return ExecutionError.Error.OutOfGas,
-            error.ChildContextActive => return ExecutionError.Error.OutOfGas,
-            error.NoChildContextToRevertOrCommit => return ExecutionError.Error.OutOfGas,
-        }
-    };
+    try error_mapping.memory_set_data_bounded(&frame.memory, mem_offset_usize, code, code_offset_usize, size_usize);
     
     return Operation.ExecutionResult{};
 }
@@ -342,16 +324,7 @@ pub fn op_codecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     
     // Use set_data_bounded to copy the code to memory
     // This handles partial copies and zero-padding automatically
-    frame.memory.set_data_bounded(mem_offset_usize, code, code_offset_usize, size_usize) catch |err| {
-        switch (err) {
-            error.InvalidOffset => return ExecutionError.Error.InvalidOffset,
-            error.InvalidSize => return ExecutionError.Error.OutOfOffset,
-            error.MemoryLimitExceeded => return ExecutionError.Error.OutOfGas,
-            error.OutOfMemory => return ExecutionError.Error.OutOfGas,
-            error.ChildContextActive => return ExecutionError.Error.OutOfGas,
-            error.NoChildContextToRevertOrCommit => return ExecutionError.Error.OutOfGas,
-        }
-    };
+    try error_mapping.memory_set_data_bounded(&frame.memory, mem_offset_usize, code, code_offset_usize, size_usize);
     
     return Operation.ExecutionResult{};
 }
