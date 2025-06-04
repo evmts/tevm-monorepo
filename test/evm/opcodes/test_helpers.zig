@@ -31,6 +31,9 @@ pub const TestVm = struct {
         // Initialize transaction access list (pre-warm common addresses)
         try vm.init_transaction_access_list(null);
 
+        std.debug.print("TestVm.init: VM created with hardfork CANCUN (default)\n", .{});
+        std.debug.print("  chain_rules.IsBerlin = {}\n", .{vm.chain_rules.IsBerlin});
+
         return TestVm{
             .vm = vm,
             .allocator = allocator,

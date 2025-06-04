@@ -370,7 +370,9 @@ test "DUP operations: Stack underflow" {
     
     // Empty stack - DUP1 should fail
     test_frame.frame.pc = 0;
+    std.debug.print("\nDUP underflow test: Empty stack size = {}\n", .{test_frame.frame.stack.size});
     var result = helpers.executeOpcode(0x80, &test_vm.vm, test_frame.frame);
+    std.debug.print("DUP1 on empty stack result: {any}\n", .{result});
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
     
     // Push 1 value

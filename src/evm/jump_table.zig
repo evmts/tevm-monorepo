@@ -47,6 +47,17 @@ pub fn execute(self: *const Self, pc: usize, interpreter: *Operation.Interpreter
     // Cast state to Frame to access gas_remaining and stack
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
+    // Debug print for SLOAD
+    if (opcode == 0x54) {
+        std.debug.print("\nDEBUG: SLOAD opcode 0x54 detected\n", .{});
+        std.debug.print("  operation.undefined = {}\n", .{operation.undefined});
+        if (self.table[0x54]) |op| {
+            std.debug.print("  table[0x54] is set, undefined = {}\n", .{op.undefined});
+        } else {
+            std.debug.print("  table[0x54] is null\n", .{});
+        }
+    }
+
     // Check if this is an undefined/invalid opcode
     if (operation.undefined) {
         // Invalid opcode - consume all gas and return error
@@ -56,11 +67,7 @@ pub fn execute(self: *const Self, pc: usize, interpreter: *Operation.Interpreter
 
     // Validate stack requirements before execution
     const stack_validation = @import("stack_validation.zig");
-    std.debug.print("JumpTable: validating opcode 0x{X:0>2}, min_stack={}, stack_size={}\n", .{ opcode, operation.min_stack, frame.stack.size });
-    stack_validation.validate_stack_requirements(&frame.stack, operation) catch |err| {
-        std.debug.print("Stack validation: {} - size {} < min_stack {}\n", .{ err, frame.stack.size, operation.min_stack });
-        return err;
-    };
+    try stack_validation.validate_stack_requirements(&frame.stack, operation);
 
     // Consume base gas cost before executing the opcode
     if (operation.constant_gas > 0) {

@@ -298,21 +298,34 @@ pub fn op_signextend(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
     }
 
     const byte_index = @as(u8, @intCast(byte_num));
-    const bit_index: u9 = @as(u9, byte_index) * 8 + 7;
-    const bit_shift: u8 = @as(u8, @intCast(255 - bit_index));
-
-    // Get the sign bit - need to cast bit_index to u8 for shift
-    const sign_bit = (x >> @as(u8, @intCast(bit_index))) & 1;
-
-    var result = x;
+    // The sign bit is at position (byte_index * 8 + 7)
+    const sign_bit_pos = byte_index * 8 + 7;
+    
+    // Get the sign bit
+    const sign_bit = (x >> @intCast(sign_bit_pos)) & 1;
+    
+    // Create a mask for the bits we want to keep (0 to sign_bit_pos)
+    const keep_bits = sign_bit_pos + 1;
+    
+    var result: u256 = undefined;
     if (sign_bit == 1) {
-        // Sign extend - set all bits above bit_index to 1
-        const mask = ~(@as(u256, 0) >> @as(u8, @intCast(bit_shift)));
-        result |= mask;
+        // Sign bit is 1, extend with 1s
+        // First, create a mask of all 1s for the upper bits
+        if (keep_bits >= 256) {
+            result = x;
+        } else {
+            const shift_amount = @as(u9, 256) - @as(u9, keep_bits);
+            const ones_mask = ~(@as(u256, 0) >> @intCast(shift_amount));
+            result = x | ones_mask;
+        }
     } else {
-        // Clear all bits above bit_index
-        const mask = @as(u256, 1) << @as(u8, @intCast(bit_index + 1));
-        result &= (mask - 1);
+        // Sign bit is 0, extend with 0s (just mask out upper bits)
+        if (keep_bits >= 256) {
+            result = x;
+        } else {
+            const zero_mask = (@as(u256, 1) << @intCast(keep_bits)) - 1;
+            result = x & zero_mask;
+        }
     }
 
     try stack_push(&frame.stack, result);

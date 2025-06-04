@@ -114,11 +114,16 @@ test "SWAP3-SWAP5: Various swaps" {
     
     // Execute SWAP3 (swap top with 4th)
     test_frame.frame.pc = 0;
+    std.debug.print("Before SWAP3:\n", .{});
+    helpers.printStack(test_frame.frame);
     var result = try helpers.executeOpcode(0x92, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 1), result.bytes_consumed);
+    std.debug.print("After SWAP3:\n", .{});
+    helpers.printStack(test_frame.frame);
     // Stack was: [0x10, 0x20, 0x30, 0x40, 0x50, 0x60]
-    // Now: [0x10, 0x20, 0x30, 0x60, 0x50, 0x40]
-    try helpers.expectStackValue(test_frame.frame, 0, 0x40);
+    // SWAP3 swaps top (0x60) with 4th from top (0x30)
+    // Now: [0x10, 0x20, 0x60, 0x40, 0x50, 0x30]
+    try helpers.expectStackValue(test_frame.frame, 0, 0x30);
     try helpers.expectStackValue(test_frame.frame, 3, 0x60);
     
     // Execute SWAP4 (swap new top with 5th)
