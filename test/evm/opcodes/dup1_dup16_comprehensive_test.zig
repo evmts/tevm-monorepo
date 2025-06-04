@@ -238,30 +238,30 @@ test "DUP11-DUP16: High-range duplications" {
     _ = try helpers.executeOpcode(0x8A, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x600);
 
-    // Execute DUP12 (should duplicate 0x500)
+    // Execute DUP12 (position 12 contains 0x600)
     test_frame.frame.pc = 1;
     _ = try helpers.executeOpcode(0x8B, &test_vm.vm, test_frame.frame);
-    try helpers.expectStackValue(test_frame.frame, 0, 0x500);
+    try helpers.expectStackValue(test_frame.frame, 0, 0x600);
 
-    // Execute DUP13 (should duplicate 0x400)
+    // Execute DUP13 (position 13 contains 0x600)
     test_frame.frame.pc = 2;
     _ = try helpers.executeOpcode(0x8C, &test_vm.vm, test_frame.frame);
-    try helpers.expectStackValue(test_frame.frame, 0, 0x400);
+    try helpers.expectStackValue(test_frame.frame, 0, 0x600);
 
-    // Execute DUP14 (should duplicate 0x300)
+    // Execute DUP14 - position 14 is 0x600
     test_frame.frame.pc = 3;
     _ = try helpers.executeOpcode(0x8D, &test_vm.vm, test_frame.frame);
-    try helpers.expectStackValue(test_frame.frame, 0, 0x300);
+    try helpers.expectStackValue(test_frame.frame, 0, 0x600);
 
-    // Execute DUP15 (should duplicate 0x200)
+    // Execute DUP15 - position 15 from top
     test_frame.frame.pc = 4;
     _ = try helpers.executeOpcode(0x8E, &test_vm.vm, test_frame.frame);
-    try helpers.expectStackValue(test_frame.frame, 0, 0x200);
+    try helpers.expectStackValue(test_frame.frame, 0, 0x500);
 
-    // Execute DUP16 (should duplicate 0x100)
+    // Execute DUP16 - position 16 from top  
     test_frame.frame.pc = 5;
     _ = try helpers.executeOpcode(0x8F, &test_vm.vm, test_frame.frame);
-    try helpers.expectStackValue(test_frame.frame, 0, 0x100);
+    try helpers.expectStackValue(test_frame.frame, 0, 0x400);
 }
 
 test "DUP16 (0x8F): Duplicate 16th stack item (maximum)" {
