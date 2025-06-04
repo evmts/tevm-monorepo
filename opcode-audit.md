@@ -4052,6 +4052,227 @@ test "Block: BLOCKHASH opcode" {
 }
 ```
 
+### `0x41` COINBASE
+
+**Purpose:** Pushes the address of the current block's beneficiary (often the miner or validator) onto the stack.
+
+**`revm` Implementation (`revm/crates/interpreter/src/instructions/block_info.rs`):
+```rust
+pub fn coinbase<WIRE: InterpreterTypes, H: Host + ?Sized>(
+    context: InstructionContext<'_, H, WIRE>,
+) {
+    gas!(context.interpreter, gas::BASE); // 2 gas
+    push!(
+        context.interpreter,
+        context.host.beneficiary().into_word().into() // host.beneficiary() returns Address
+    );
+}
+```
+
+**Zig EVM Review Points:**
+*   **Correctness:**
+    *   Pushes the 20-byte `block.coinbase` address, zero-extended to 32 bytes (`U256`), onto the stack.
+    *   This value should come from `Vm.block_coinbase`.
+*   **Gas:** `BASE` (2 gas) consumed before execution.
+*   **Performance:** Simple read and push.
+
+**Conceptual Zig Code Suggestion (Illustrative):**
+```zig
+// In src/evm/opcodes/block.zig (or similar)
+
+// ... (std, Operation, ExecutionError, Stack, Frame, Vm, gas_constants, error_mapping imports, Address) ...
+
+pub fn op_coinbase(
+    pc: usize,
+    interpreter: *Operation.Interpreter,
+    state: *Operation.State,
+) ExecutionError.Error!Operation.ExecutionResult {
+    _ = pc;
+
+    const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
+
+    const coinbase_addr_u256 = Address.to_u256(vm.block_coinbase);
+
+    try error_mapping.stack_push(&frame.stack, coinbase_addr_u256);
+
+    return Operation.ExecutionResult{};
+}
+```
+
+**Zig Test Case Suggestions:**
+```zig
+// In a test file like test/evm/opcodes/block_test.zig
+
+test "Block: COINBASE opcode" {
+    const allocator = testing.allocator;
+    var test_vm = try helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+
+    var contract = try helpers.createTestContract(allocator, .{}, .{}, 0, &[_]u8{});
+    defer contract.deinit(null);
+    var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
+
+    const mock_coinbase = helpers.TestAddresses.CHARLIE;
+    test_vm.vm.block_coinbase = mock_coinbase;
+
+    _ = try helpers.executeOpcode(0x41, &test_vm.vm, test_frame.frame); // COINBASE
+
+    const expected_u256 = evm.Address.to_u256(mock_coinbase);
+    try helpers.expectStackValue(test_frame.frame, 0, expected_u256);
+    _ = try test_frame.popStack();
+
+    // Verify gas consumption
+    try helpers.expectGasUsed(test_frame.frame, 1000, helpers.opcodes.gas_constants.GasQuickStep);
+}
+```
+
+### `0x42` TIMESTAMP
+
+**Purpose:** Pushes the current block's timestamp (Unix time in seconds) onto the stack.
+
+**`revm` Implementation (`revm/crates/interpreter/src/instructions/block_info.rs`):
+```rust
+pub fn timestamp<WIRE: InterpreterTypes, H: Host + ?Sized>(
+    context: InstructionContext<'_, H, WIRE>,
+) {
+    gas!(context.interpreter, gas::BASE); // 2 gas
+    push!(context.interpreter, context.host.timestamp()); // host.timestamp() returns U256
+}
+```
+
+**Zig EVM Review Points:**
+*   **Correctness:**
+    *   Pushes the `U256` value of the current block's timestamp onto the stack.
+    *   This value should come from `Vm.block_timestamp` (which is a `u64` and needs conversion to `u256`).
+*   **Gas:** `BASE` (2 gas) consumed before execution.
+*   **Performance:** Simple read and push.
+
+**Conceptual Zig Code Suggestion (Illustrative):**
+```zig
+// In src/evm/opcodes/block.zig (or similar)
+
+// ... (std, Operation, ExecutionError, Stack, Frame, Vm, gas_constants, error_mapping imports, Address) ...
+
+pub fn op_timestamp(
+    pc: usize,
+    interpreter: *Operation.Interpreter,
+    state: *Operation.State,
+) ExecutionError.Error!Operation.ExecutionResult {
+    _ = pc;
+
+    const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
+
+    const timestamp_u256 = @as(u256, @intCast(vm.block_timestamp));
+
+    try error_mapping.stack_push(&frame.stack, timestamp_u256);
+
+    return Operation.ExecutionResult{};
+}
+```
+
+**Zig Test Case Suggestions:**
+```zig
+// In a test file like test/evm/opcodes/block_test.zig
+
+test "Block: TIMESTAMP opcode" {
+    const allocator = testing.allocator;
+    var test_vm = try helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+
+    var contract = try helpers.createTestContract(allocator, .{}, .{}, 0, &[_]u8{});
+    defer contract.deinit(null);
+    var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
+
+    const mock_timestamp: u64 = 1678886400; // Example: March 15, 2023
+    test_vm.vm.block_timestamp = mock_timestamp;
+
+    _ = try helpers.executeOpcode(0x42, &test_vm.vm, test_frame.frame); // TIMESTAMP
+
+    try helpers.expectStackValue(test_frame.frame, 0, mock_timestamp);
+    _ = try test_frame.popStack();
+
+    // Verify gas consumption
+    try helpers.expectGasUsed(test_frame.frame, 1000, helpers.opcodes.gas_constants.GasQuickStep);
+}
+```
+
+### `0x43` NUMBER
+
+**Purpose:** Pushes the current block's number onto the stack.
+
+**`revm` Implementation (`revm/crates/interpreter/src/instructions/block_info.rs`):
+```rust
+pub fn block_number<WIRE: InterpreterTypes, H: Host + ?Sized>( // Renamed from "number" in revm
+    context: InstructionContext<'_, H, WIRE>,
+) {
+    gas!(context.interpreter, gas::BASE); // 2 gas
+    push!(context.interpreter, U256::from(context.host.block_number())); // host.block_number() returns U256
+}
+```
+*Note: `revm`'s `ContextTr::block().number()` returns a `U256`. The `Host::block_number` trait method in `revm` also directly returns `U256`.*
+
+**Zig EVM Review Points:**
+*   **Correctness:**
+    *   Pushes the `U256` value of the current block's number onto the stack.
+    *   This value should come from `Vm.block_number` (which is a `u64` and needs conversion to `u256`).
+*   **Gas:** `BASE` (2 gas) consumed before execution.
+*   **Performance:** Simple read and push.
+
+**Conceptual Zig Code Suggestion (Illustrative):**
+```zig
+// In src/evm/opcodes/block.zig (or similar)
+
+// ... (std, Operation, ExecutionError, Stack, Frame, Vm, gas_constants, error_mapping imports, Address) ...
+
+pub fn op_number(
+    pc: usize,
+    interpreter: *Operation.Interpreter,
+    state: *Operation.State,
+) ExecutionError.Error!Operation.ExecutionResult {
+    _ = pc;
+
+    const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
+
+    const block_num_u256 = @as(u256, @intCast(vm.block_number));
+
+    try error_mapping.stack_push(&frame.stack, block_num_u256);
+
+    return Operation.ExecutionResult{};
+}
+```
+
+**Zig Test Case Suggestions:**
+```zig
+// In a test file like test/evm/opcodes/block_test.zig
+
+test "Block: NUMBER opcode" {
+    const allocator = testing.allocator;
+    var test_vm = try helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+
+    var contract = try helpers.createTestContract(allocator, .{}, .{}, 0, &[_]u8{});
+    defer contract.deinit(null);
+    var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
+
+    const mock_block_number: u64 = 15000000;
+    test_vm.vm.block_number = mock_block_number;
+
+    _ = try helpers.executeOpcode(0x43, &test_vm.vm, test_frame.frame); // NUMBER
+
+    try helpers.expectStackValue(test_frame.frame, 0, mock_block_number);
+    _ = try test_frame.popStack();
+
+    // Verify gas consumption
+    try helpers.expectGasUsed(test_frame.frame, 1000, helpers.opcodes.gas_constants.GasQuickStep);
+}
+```
+
 ---
 
 </rewritten_file>
