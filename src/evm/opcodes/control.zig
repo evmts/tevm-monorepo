@@ -206,8 +206,10 @@ pub fn op_invalid(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
+    std.debug.print("op_invalid: Entered. Frame gas before setting to 0: {d}\n", .{frame.gas_remaining});
     // INVALID opcode consumes all remaining gas
     frame.gas_remaining = 0;
+    std.debug.print("op_invalid: Frame gas after setting to 0: {d}. Returning InvalidOpcode error.\n", .{frame.gas_remaining});
 
     return ExecutionError.Error.InvalidOpcode;
 }
