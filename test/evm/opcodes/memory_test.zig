@@ -130,9 +130,9 @@ test "MSTORE: store 32 bytes to memory" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
     
-    // Push value and offset
+    // Push value and offset (stack is LIFO)
     const value: u256 = 0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20;
-    try test_frame.pushStack(&[_]u256{0, value}); // offset, value
+    try test_frame.pushStack(&[_]u256{value, 0}); // value first, then offset (offset on top)
     
     // Execute MSTORE
     _ = try test_helpers.executeOpcode(0x52, &test_vm.vm, test_frame.frame);
@@ -162,18 +162,19 @@ test "MSTORE: store with offset" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
     
-    // Push value and offset
+    // Push value and offset (stack is LIFO)
     const value: u256 = 0xFFEEDDCCBBAA99887766554433221100;
-    try test_frame.pushStack(&[_]u256{64, value}); // offset, value
+    try test_frame.pushStack(&[_]u256{value, 64}); // value first, then offset (offset on top)
     
     // Execute MSTORE
     _ = try test_helpers.executeOpcode(0x52, &test_vm.vm, test_frame.frame);
     
     // Check memory contents at offset
     const mem = try test_frame.getMemory(64, 32);
-    // The value is stored big-endian, so most significant bytes are first
-    try testing.expectEqual(@as(u8, 0x00), mem[15]); // Byte at position 79
-    try testing.expectEqual(@as(u8, 0x00), mem[16]); // Byte at position 80
+    // The value 0xFFEEDDCCBBAA99887766554433221100 is stored big-endian
+    // Most significant bytes first: 00 00 ... 00 FF EE DD CC BB AA ...
+    try testing.expectEqual(@as(u8, 0x00), mem[15]); // Byte 15 at offset 64+15=79
+    try testing.expectEqual(@as(u8, 0xFF), mem[16]); // Byte 16 at offset 64+16=80 is 0xFF
 }
 
 // Test MSTORE8 operation
@@ -195,8 +196,8 @@ test "MSTORE8: store single byte to memory" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
     
-    // Push value and offset
-    try test_frame.pushStack(&[_]u256{10, 0x1234}); // offset, value (only lowest byte 0x34 will be stored)
+    // Push value and offset (stack is LIFO)
+    try test_frame.pushStack(&[_]u256{0x1234, 10}); // value first, then offset (offset on top) - only lowest byte 0x34 will be stored
     
     // Execute MSTORE8
     _ = try test_helpers.executeOpcode(0x53, &test_vm.vm, test_frame.frame);
@@ -229,8 +230,8 @@ test "MSTORE8: store only lowest byte" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
     
-    // Push value with all bytes set
-    try test_frame.pushStack(&[_]u256{0, 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFAB}); // offset, value (only 0xAB should be stored)
+    // Push value with all bytes set (stack is LIFO)
+    try test_frame.pushStack(&[_]u256{0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFAB, 0}); // value first, then offset (offset on top) - only 0xAB should be stored
     
     // Execute MSTORE8
     _ = try test_helpers.executeOpcode(0x53, &test_vm.vm, test_frame.frame);
@@ -301,8 +302,10 @@ test "MCOPY: copy memory to memory" {
     const src_data = [_]u8{ 0xAA, 0xBB, 0xCC, 0xDD, 0xEE };
     try test_frame.setMemory(10, &src_data);
     
-    // Push destination offset, source offset, length
-    try test_frame.pushStack(&[_]u256{50, 10, 5}); // dest, src, length
+    // Push parameters in order for stack
+    // MCOPY pops: size (first), src (second), dest (third)
+    // So push: dest, src, size (size on top)
+    try test_frame.pushStack(&[_]u256{50, 10, 5}); // dest, src, size
     
     // Execute MCOPY
     _ = try test_helpers.executeOpcode(0x5E, &test_vm.vm, test_frame.frame);
@@ -345,7 +348,8 @@ test "MCOPY: overlapping copy forward" {
     try test_frame.setMemory(10, &src_data);
     
     // Copy with overlap (forward)
-    try test_frame.pushStack(&[_]u256{12, 10, 5}); // dest, src, length (overlaps by 3 bytes)
+    // MCOPY pops: size, src, dest
+    try test_frame.pushStack(&[_]u256{12, 10, 5}); // dest, src, size (overlaps by 3 bytes)
     
     // Execute MCOPY
     _ = try test_helpers.executeOpcode(0x5E, &test_vm.vm, test_frame.frame);
@@ -382,7 +386,8 @@ test "MCOPY: overlapping copy backward" {
     try test_frame.setMemory(10, &src_data);
     
     // Copy with overlap (backward)
-    try test_frame.pushStack(&[_]u256{8, 10, 5}); // dest, src, length (overlaps by 3 bytes)
+    // MCOPY pops: size, src, dest
+    try test_frame.pushStack(&[_]u256{8, 10, 5}); // dest, src, size (overlaps by 3 bytes)
     
     // Execute MCOPY
     _ = try test_helpers.executeOpcode(0x5E, &test_vm.vm, test_frame.frame);
@@ -415,7 +420,8 @@ test "MCOPY: zero length copy" {
     defer test_frame.deinit();
     
     // Push length 0
-    try test_frame.pushStack(&[_]u256{200, 100, 0}); // dest, src, length
+    // MCOPY pops: size, src, dest
+    try test_frame.pushStack(&[_]u256{200, 100, 0}); // dest, src, size
     
     // Execute MCOPY
     _ = try test_helpers.executeOpcode(0x5E, &test_vm.vm, test_frame.frame);
@@ -474,8 +480,8 @@ test "MSTORE: memory expansion gas" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
     
-    // Push value and offset that requires expansion
-    try test_frame.pushStack(&[_]u256{512, 0x123456}); // offset, value (requires 544 bytes)
+    // Push value and offset that requires expansion (stack is LIFO)
+    try test_frame.pushStack(&[_]u256{0x123456, 512}); // value, offset (requires 544 bytes)
     
     const gas_before = test_frame.gasRemaining();
     
@@ -506,7 +512,8 @@ test "MCOPY: gas consumption" {
     defer test_frame.deinit();
     
     // Push parameters for 32 byte copy
-    try test_frame.pushStack(&[_]u256{100, 0, 32}); // dest, src, length
+    // MCOPY pops: size, src, dest
+    try test_frame.pushStack(&[_]u256{100, 0, 32}); // dest, src, size
     
     const gas_before = test_frame.gasRemaining();
     
@@ -591,7 +598,8 @@ test "MCOPY: stack underflow" {
     defer test_frame.deinit();
     
     // Push only two values (need three)
-    try test_frame.pushStack(&[_]u256{0, 10}); // source, length (missing dest)
+    // MCOPY needs: dest, src, size on stack
+    try test_frame.pushStack(&[_]u256{0, 10}); // only two values
     
     // Execute MCOPY - should fail
     const result = test_helpers.executeOpcode(0x5E, &test_vm.vm, test_frame.frame);
@@ -644,7 +652,8 @@ test "MCOPY: source offset overflow" {
     defer test_frame.deinit();
     
     // Push parameters that would overflow
-    try test_frame.pushStack(&[_]u256{0, std.math.maxInt(u256), 100}); // dest, src (overflow), length
+    // MCOPY pops: size, src, dest
+    try test_frame.pushStack(&[_]u256{0, std.math.maxInt(u256), 100}); // dest, src (overflow), size
     
     // Execute MCOPY - should fail
     const result = test_helpers.executeOpcode(0x5E, &test_vm.vm, test_frame.frame);
