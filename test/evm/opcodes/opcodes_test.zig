@@ -25,4 +25,5 @@ test {
     _ = @import("environment_comprehensive_test.zig");
     _ = @import("returndata_block_comprehensive_test.zig");
     _ = @import("block_info_comprehensive_test.zig");
+    _ = @import("stack_memory_control_comprehensive_test.zig");
 }
