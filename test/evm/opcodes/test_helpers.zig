@@ -219,6 +219,14 @@ pub fn executeOpcode(
 ) ExecutionError.Error!Operation.ExecutionResult {
     const interpreter_ptr: *Operation.Interpreter = @ptrCast(vm);
     const state_ptr: *Operation.State = @ptrCast(frame);
+    
+    // Debug: Check if jump table has the opcode
+    const operation = vm.table.get_operation(opcode_byte);
+    if (opcode_byte == 0x80) { // DUP1
+        std.debug.print("executeOpcode: DUP1 (0x80) - operation undefined: {}, min_stack: {}\n", .{operation.undefined, operation.min_stack});
+        std.debug.print("  Stack size: {}\n", .{frame.stack.size});
+    }
+    
     // Use the Vm's jump table to execute the opcode
     // frame.pc should be set correctly by the test before calling this
     return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);

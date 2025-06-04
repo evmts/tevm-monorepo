@@ -6,6 +6,7 @@ const Frame = @import("../frame.zig");
 const Vm = @import("../vm.zig");
 const gas_constants = @import("../gas_constants.zig");
 const error_mapping = @import("../error_mapping.zig");
+const Address = @import("Address");
 
 // EIP-3529 (London) gas costs for SSTORE
 const SSTORE_SET_GAS: u64 = 20000;
@@ -50,6 +51,8 @@ pub fn op_sload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
     
     const slot = try stack_pop(&frame.stack);
+    
+    // Debug: SLOAD operation
     
     // Check if we're in Berlin or later for cold/warm access logic
     if (vm.chain_rules.IsBerlin) {

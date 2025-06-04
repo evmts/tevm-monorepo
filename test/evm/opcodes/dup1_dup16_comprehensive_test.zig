@@ -243,10 +243,10 @@ test "DUP11-DUP16: High-range duplications" {
     _ = try helpers.executeOpcode(0x8B, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x600);
     
-    // Execute DUP13 (should duplicate 0x500)
+    // Execute DUP13 (should duplicate 0x400)
     test_frame.frame.pc = 2;
     _ = try helpers.executeOpcode(0x8C, &test_vm.vm, test_frame.frame);
-    try helpers.expectStackValue(test_frame.frame, 0, 0x500);
+    try helpers.expectStackValue(test_frame.frame, 0, 0x400);
     
     // Execute DUP14 (should duplicate 0x500)
     test_frame.frame.pc = 3;
@@ -382,10 +382,11 @@ test "DUP operations: Stack underflow" {
     const result2 = try helpers.executeOpcode(0x80, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 1), result2.bytes_consumed);
     
-    // DUP2 should fail (only 2 items on stack, need at least 2 for DUP2)
+    // DUP2 should succeed with 2 items on stack
     test_frame.frame.pc = 1;
-    result = helpers.executeOpcode(0x81, &test_vm.vm, test_frame.frame);
-    try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
+    const result3 = try helpers.executeOpcode(0x81, &test_vm.vm, test_frame.frame);
+    try testing.expectEqual(@as(usize, 1), result3.bytes_consumed);
+    try testing.expectEqual(@as(usize, 3), test_frame.frame.stack.size);
     
     // Push more values
     for (0..4) |i| {
