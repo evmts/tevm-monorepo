@@ -52,10 +52,10 @@ pub fn op_jumpi(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // EVM spec: JUMPI pops counter (destination) first, then b (condition)
-    // Stack: [... counter b] -> counter is popped first (was on top)
-    const dest = try stack_pop(&frame.stack);
+    // EVM spec: JUMPI pops condition first (from top), then destination
+    // Stack: [... destination condition] -> condition is popped first (was on top)
     const condition = try stack_pop(&frame.stack);
+    const dest = try stack_pop(&frame.stack);
 
     const dest_usize = if (dest > std.math.maxInt(usize)) std.math.maxInt(usize) else @as(usize, @intCast(dest));
 

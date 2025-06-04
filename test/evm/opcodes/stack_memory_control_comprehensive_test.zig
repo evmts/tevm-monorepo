@@ -300,10 +300,10 @@ test "JUMP (0x56): Unconditional jump" {
     
     // Create bytecode with JUMPDEST
     const code = [_]u8{
-        0x60, 0x05, // PUSH1 5
+        0x60, 0x04, // PUSH1 4
         0x56,       // JUMP
         0x00,       // STOP (should be skipped)
-        0x5B,       // JUMPDEST at position 5
+        0x5B,       // JUMPDEST at position 4
         0x60, 0x42, // PUSH1 0x42
         0x00,       // STOP
     };
@@ -321,9 +321,9 @@ test "JUMP (0x56): Unconditional jump" {
     defer test_frame.deinit();
     
     // Test 1: Valid jump
-    try test_frame.pushStack(&[_]u256{5}); // Jump to JUMPDEST at position 5
+    try test_frame.pushStack(&[_]u256{4}); // Jump to JUMPDEST at position 4
     _ = try helpers.executeOpcode(0x56, &test_vm.vm, test_frame.frame);
-    try testing.expectEqual(@as(usize, 5), test_frame.frame.pc);
+    try testing.expectEqual(@as(usize, 4), test_frame.frame.pc);
     
     // Test 2: Invalid jump (not a JUMPDEST)
     test_frame.frame.pc = 0;
@@ -368,26 +368,26 @@ test "JUMPI (0x57): Conditional jump" {
     defer test_frame.deinit();
     
     // Test 1: Jump with non-zero condition
-    try test_frame.pushStack(&[_]u256{8, 1}); // dest, condition (non-zero)
+    try test_frame.pushStack(&[_]u256{1, 8}); // condition, dest (dest on top)
     _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 8), test_frame.frame.pc);
     
     // Test 2: No jump with zero condition
     test_frame.frame.pc = 0;
-    try test_frame.pushStack(&[_]u256{8, 0}); // dest, condition (zero)
+    try test_frame.pushStack(&[_]u256{0, 8}); // condition (zero), dest
     const pc_before = test_frame.frame.pc;
     _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(pc_before, test_frame.frame.pc); // PC unchanged
     
     // Test 3: Jump with large non-zero condition
     test_frame.frame.pc = 0;
-    try test_frame.pushStack(&[_]u256{8, std.math.maxInt(u256)}); // dest, large condition
+    try test_frame.pushStack(&[_]u256{std.math.maxInt(u256), 8}); // large condition, dest
     _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 8), test_frame.frame.pc);
     
     // Test 4: Invalid jump destination with non-zero condition
     test_frame.frame.pc = 0;
-    try test_frame.pushStack(&[_]u256{3, 1}); // Invalid dest, non-zero condition
+    try test_frame.pushStack(&[_]u256{1, 3}); // non-zero condition, invalid dest
     const result = helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.InvalidJump, result);
 }
@@ -588,7 +588,7 @@ test "Jump operations: Code analysis integration" {
     
     // Complex bytecode with multiple JUMPDESTs
     const code = [_]u8{
-        0x60, 0x0A, // PUSH1 10
+        0x60, 0x09, // PUSH1 9
         0x56,       // JUMP
         0x00,       // STOP
         0x00,       // STOP
@@ -596,15 +596,15 @@ test "Jump operations: Code analysis integration" {
         0x00,       // STOP
         0x00,       // STOP
         0x00,       // STOP
-        0x5B,       // JUMPDEST at position 10
-        0x60, 0x14, // PUSH1 20
+        0x5B,       // JUMPDEST at position 9
+        0x60, 0x13, // PUSH1 19
         0x60, 0x01, // PUSH1 1
         0x57,       // JUMPI
         0x00,       // STOP
         0x00,       // STOP
         0x00,       // STOP
         0x00,       // STOP
-        0x5B,       // JUMPDEST at position 20
+        0x5B,       // JUMPDEST at position 19
         0x00,       // STOP
     };
     
@@ -623,14 +623,14 @@ test "Jump operations: Code analysis integration" {
     // Test chained jumps
     test_frame.frame.pc = 0;
     
-    // First JUMP to position 10
-    try test_frame.pushStack(&[_]u256{10});
+    // First JUMP to position 9
+    try test_frame.pushStack(&[_]u256{9});
     _ = try helpers.executeOpcode(0x56, &test_vm.vm, test_frame.frame);
-    try testing.expectEqual(@as(usize, 10), test_frame.frame.pc);
+    try testing.expectEqual(@as(usize, 9), test_frame.frame.pc);
     
-    // Simulate execution at JUMPDEST, then JUMPI to position 20
-    test_frame.frame.pc = 12; // After PUSH1 20
-    try test_frame.pushStack(&[_]u256{20, 1}); // dest, condition
+    // Simulate execution at JUMPDEST, then JUMPI to position 19
+    test_frame.frame.pc = 11; // After PUSH1 19
+    try test_frame.pushStack(&[_]u256{1, 19}); // condition, dest
     _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
-    try testing.expectEqual(@as(usize, 20), test_frame.frame.pc);
+    try testing.expectEqual(@as(usize, 19), test_frame.frame.pc);
 }

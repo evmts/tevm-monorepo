@@ -22,22 +22,22 @@ fn stack_push(stack: *Stack, value: u256) ExecutionError.Error!void {
 pub fn op_pop(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
-    
+
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-    
+
     _ = try stack_pop(&frame.stack);
-    
+
     return Operation.ExecutionResult{};
 }
 
 pub fn op_push0(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
-    
+
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-    
+
     try stack_push(&frame.stack, 0);
-    
+
     return Operation.ExecutionResult{};
 }
 
@@ -46,13 +46,13 @@ pub fn make_push(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.S
     return struct {
         pub fn push(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
             _ = interpreter;
-            
+
             const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-            
+
             // Read n bytes from code after PC
             var value: u256 = 0;
             const code = frame.contract.code;
-            
+
             for (0..n) |i| {
                 if (pc + 1 + i < code.len) {
                     value = (value << 8) | code[pc + 1 + i];
@@ -60,9 +60,9 @@ pub fn make_push(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.S
                     value = value << 8;
                 }
             }
-            
+
             try stack_push(&frame.stack, value);
-            
+
             // PUSH operations consume 1 + n bytes
             // (1 for the opcode itself, n for the immediate data)
             return Operation.ExecutionResult{ .bytes_consumed = 1 + n };
@@ -110,9 +110,9 @@ pub fn make_dup(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.St
         pub fn dup(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
             _ = pc;
             _ = interpreter;
-            
+
             const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-            
+
             // Duplicate the nth item from the top
             frame.stack.dup(n) catch |err| switch (err) {
                 Stack.Error.Underflow => return ExecutionError.Error.StackUnderflow,
@@ -120,7 +120,7 @@ pub fn make_dup(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.St
                 Stack.Error.OutOfBounds => return ExecutionError.Error.StackUnderflow,
                 Stack.Error.InvalidPosition => return ExecutionError.Error.StackUnderflow,
             };
-            
+
             return Operation.ExecutionResult{};
         }
     }.dup;
@@ -150,16 +150,16 @@ pub fn make_swap(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.S
         pub fn swap(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
             _ = pc;
             _ = interpreter;
-            
+
             const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-            
+
             // Swap the top item with the nth item
             frame.stack.swap(n) catch |err| switch (err) {
                 Stack.Error.OutOfBounds => return ExecutionError.Error.StackUnderflow,
                 Stack.Error.InvalidPosition => return ExecutionError.Error.StackUnderflow,
                 else => return ExecutionError.Error.StackUnderflow,
             };
-            
+
             return Operation.ExecutionResult{};
         }
     }.swap;
