@@ -59,13 +59,13 @@ test "LOG1 (0xA1): Emit log with one topic" {
     defer test_vm.deinit();
     
     const code = [_]u8{
-        0x60, 0x10,    // PUSH1 0x10 (size = 16 bytes)
-        0x60, 0x20,    // PUSH1 0x20 (offset = 32)
         0x7F,          // PUSH32 topic (ERC20 Transfer event signature)
         0xDD, 0xF2, 0x52, 0xAD, 0x1B, 0xE2, 0xC8, 0x9B,
         0x69, 0xC2, 0xB0, 0x68, 0xFC, 0x37, 0x8D, 0xAA,
         0x95, 0x2B, 0xA7, 0xF1, 0x63, 0xC4, 0xA1, 0x16,
         0x28, 0xF5, 0x5A, 0x4D, 0xF5, 0x23, 0xB3, 0xEF,
+        0x60, 0x10,    // PUSH1 0x10 (size = 16 bytes)
+        0x60, 0x20,    // PUSH1 0x20 (offset = 32)
         0xA1,          // LOG1
     };
     
@@ -87,11 +87,11 @@ test "LOG1 (0xA1): Emit log with one topic" {
     
     // Execute push operations
     test_frame.frame.pc = 0;
-    _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
-    test_frame.frame.pc = 2;
-    _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
-    test_frame.frame.pc = 4;
-    _ = try helpers.executeOpcode(0x7F, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x7F, &test_vm.vm, test_frame.frame);  // PUSH32 topic
+    test_frame.frame.pc = 33;
+    _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);  // PUSH1 size
+    test_frame.frame.pc = 35;
+    _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);  // PUSH1 offset
     test_frame.frame.pc = 37;
     
     // Execute LOG1
