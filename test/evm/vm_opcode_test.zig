@@ -1680,9 +1680,11 @@ test "VM: LT opcode" {
     }
 
     // Test 5 < 10 (true)
+    // Stack after pushes: [5, 10] where 10 is top
+    // LT pops 10, then 5, computes 5 < 10 = true
     const bytecode = [_]u8{
-        0x60, 0x0A, // PUSH1 10
         0x60, 0x05, // PUSH1 5
+        0x60, 0x0A, // PUSH1 10
         0x10, // LT
         0x00, // STOP
     };
@@ -1703,9 +1705,11 @@ test "VM: GT opcode" {
     }
 
     // Test 10 > 5 (true)
+    // Stack after pushes: [10, 5] where 5 is top
+    // GT pops 5, then 10, computes 10 > 5 = true
     const bytecode = [_]u8{
-        0x60, 0x05, // PUSH1 5
         0x60, 0x0A, // PUSH1 10
+        0x60, 0x05, // PUSH1 5
         0x11, // GT
         0x00, // STOP
     };
