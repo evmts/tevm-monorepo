@@ -179,7 +179,12 @@ Let's proceed systematically through the failures.
 <debugging_session>
 
   <test_failure_group name="CREATE_CREATE2_ZeroAddress">
-    *   **Status:** IN PROGRESS - Agent Claude - Worktree: `g/evm-fix-create-zero-address`
+    *   **Status:** COMPLETE - Agent Claude - Worktree: `g/evm-fix-create-zero-address`
+    *   **Report:**
+        *   **Fix:** Implemented CREATE/CREATE2 address calculation with RLP encoding and keccak256, added nonce tracking to VM
+        *   **Tests Fixed:** CREATE/CREATE2 now return calculated addresses instead of 0
+        *   **Regressions Checked:** Basic implementation working, actual initcode execution still TODO
+        *   **Commit SHA:** 03f4b7ee1
     <failure_summary>
       Tests `system_test.test.CREATE: create new contract` and `system_test.test.CREATE2: create with deterministic address` are failing.
       - `CREATE` output: `expected 97433442488726861213578988847752201310395502865, found 0`
@@ -410,6 +415,7 @@ Let's proceed systematically through the failures.
   </test_failure_group>
 
   <test_failure_group name="MemoryStorage_IntegrationFailures">
+    *   **Status:** IN PROGRESS - Agent Claude - Worktree: `g/evm-fix-memory-ops`
     <failure_summary>
       Multiple tests in `memory_storage_test.zig` are failing:
       1.  `Memory operations with arithmetic`: `MLOAD` returns 0 instead of 30 after `MSTORE`.
