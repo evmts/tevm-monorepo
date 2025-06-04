@@ -11,6 +11,7 @@ const ExecutionError = @import("execution_error.zig");
 const rlp = @import("Rlp");
 const Keccak256 = std.crypto.hash.sha3.Keccak256;
 const ChainRules = @import("chain_rules.zig");
+const gas_constants = @import("gas_constants.zig");
 
 // Log struct for EVM event logs (LOG0-LOG4 opcodes)
 pub const Log = struct {
@@ -259,15 +260,15 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
 
     // Get and increment nonce for the creator
     const nonce = try self.increment_nonce(creator);
-    
+
     // Calculate the new contract address using CREATE formula:
     // address = keccak256(rlp([sender, nonce]))[12:]
     const new_address = try self.calculate_create_address(creator, nonce);
     std.debug.print("CREATE: Calculated address: 0x{x} for creator: 0x{x}, nonce: {}\n", .{ Address.to_u256(new_address), Address.to_u256(creator), nonce });
-    
+
     // Log init code info
     _ = init_code.len; // Use init_code to avoid unused parameter warning
-    
+
     // Check if account already exists at this address
     const existing_code = try self.get_code(new_address);
     if (existing_code.len > 0) {
@@ -279,7 +280,7 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
             .output = null,
         };
     }
-    
+
     // Check if creator has sufficient balance for value transfer
     const creator_balance = try self.get_balance(creator);
     std.debug.print("CREATE: Checking balance. Creator: 0x{x}, balance: {}, required value: {}\n", .{ Address.to_u256(creator), creator_balance, value });
@@ -292,27 +293,27 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
             .output = null,
         };
     }
-    
+
     // Transfer value from creator to new contract
     if (value > 0) {
         try self.set_balance(creator, creator_balance - value);
         try self.set_balance(new_address, value);
     }
-    
+
     // Execute the init code to get the deployed bytecode
     // For now, we'll simulate successful execution and return the address
     // TODO: Actually execute the init code in a new frame
-    
+
     // Simulate successful deployment (temporary)
     // In a real implementation, we would:
     // 1. Create a new frame with the init code
     // 2. Execute the init code
     // 3. Get the return data (deployed bytecode)
     // 4. Store the deployed bytecode at the new address
-    
+
     // For testing purposes, assume success and consume some gas
     const gas_used = @min(gas / 2, 50000); // Simulate gas usage
-    
+
     return CreateResult{
         .success = true,
         .address = new_address,
@@ -361,7 +362,7 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
     // Calculate the new contract address using CREATE2 formula:
     // address = keccak256(0xff ++ sender ++ salt ++ keccak256(init_code))[12:]
     const new_address = try self.calculate_create2_address(creator, salt, init_code);
-    
+
     // Check if account already exists at this address
     const existing_code = try self.get_code(new_address);
     if (existing_code.len > 0) {
@@ -373,7 +374,7 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
             .output = null,
         };
     }
-    
+
     // Check if creator has sufficient balance for value transfer
     const creator_balance = try self.get_balance(creator);
     if (creator_balance < value) {
@@ -385,27 +386,27 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
             .output = null,
         };
     }
-    
+
     // Transfer value from creator to new contract
     if (value > 0) {
         try self.set_balance(creator, creator_balance - value);
         try self.set_balance(new_address, value);
     }
-    
+
     // Execute the init code to get the deployed bytecode
     // For now, we'll simulate successful execution and return the address
     // TODO: Actually execute the init code in a new frame
-    
+
     // Simulate successful deployment (temporary)
     // In a real implementation, we would:
     // 1. Create a new frame with the init code
     // 2. Execute the init code
     // 3. Get the return data (deployed bytecode)
     // 4. Store the deployed bytecode at the new address
-    
+
     // For testing purposes, assume success and consume some gas
     const gas_used = @min(gas / 2, 50000); // Simulate gas usage
-    
+
     return CreateResult{
         .success = true,
         .address = new_address,
@@ -754,36 +755,36 @@ fn calculate_create_address(self: *Self, creator: Address.Address, nonce: u64) !
     // Convert nonce to bytes, stripping leading zeros
     var nonce_bytes: [8]u8 = undefined;
     std.mem.writeInt(u64, &nonce_bytes, nonce, .big);
-    
+
     // Find first non-zero byte
     var nonce_start: usize = 0;
     for (nonce_bytes) |byte| {
         if (byte != 0) break;
         nonce_start += 1;
     }
-    
+
     // If nonce is 0, use empty slice
     const nonce_slice = if (nonce == 0) &[_]u8{} else nonce_bytes[nonce_start..];
-    
+
     // Create a list for RLP encoding [creator_address, nonce]
     var list = std.ArrayList([]const u8).init(self.allocator);
     defer list.deinit();
-    
+
     try list.append(&creator);
     try list.append(nonce_slice);
-    
+
     // RLP encode the list
     const encoded = try rlp.encode(self.allocator, list.items);
     defer self.allocator.free(encoded);
-    
+
     // Hash the RLP encoded data
     var hash: [32]u8 = undefined;
     Keccak256.hash(encoded, &hash, .{});
-    
+
     // Take last 20 bytes as address
     var address: Address.Address = undefined;
     @memcpy(&address, hash[12..32]);
-    
+
     return address;
 }
 
@@ -792,17 +793,17 @@ fn calculate_create2_address(self: *Self, creator: Address.Address, salt: u256, 
     // First hash the init code
     var code_hash: [32]u8 = undefined;
     Keccak256.hash(init_code, &code_hash, .{});
-    
+
     // Create the data to hash: 0xff ++ creator ++ salt ++ keccak256(init_code)
     var data = std.ArrayList(u8).init(self.allocator);
     defer data.deinit();
-    
+
     // Add 0xff prefix
     try data.append(0xff);
-    
+
     // Add creator address (20 bytes)
     try data.appendSlice(&creator);
-    
+
     // Add salt (32 bytes, big-endian)
     var salt_bytes: [32]u8 = undefined;
     var temp_salt = salt;
@@ -811,17 +812,17 @@ fn calculate_create2_address(self: *Self, creator: Address.Address, salt: u256, 
         temp_salt >>= 8;
     }
     try data.appendSlice(&salt_bytes);
-    
+
     // Add init code hash (32 bytes)
     try data.appendSlice(&code_hash);
-    
+
     // Hash the combined data
     var hash: [32]u8 = undefined;
     Keccak256.hash(data.items, &hash, .{});
-    
+
     // Take last 20 bytes as address
     var address: Address.Address = undefined;
     @memcpy(&address, hash[12..32]);
-    
+
     return address;
 }
