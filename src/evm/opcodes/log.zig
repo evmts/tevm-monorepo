@@ -33,15 +33,15 @@ fn make_log(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.State)
                 return ExecutionError.Error.WriteProtection;
             }
 
+            // Pop offset and size first (they are on top of stack)
+            const offset = try stack_pop(&frame.stack);
+            const size = try stack_pop(&frame.stack);
+            
             var topics: [4]u256 = undefined;
-            // Pop topics first (they are on top of stack)
+            // Then pop topics
             for (0..n) |i| {
                 topics[i] = try stack_pop(&frame.stack);
             }
-
-            // Then pop offset and size
-            const offset = try stack_pop(&frame.stack);
-            const size = try stack_pop(&frame.stack);
 
             if (size == 0) {
                 // Empty data

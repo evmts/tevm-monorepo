@@ -13,48 +13,6 @@ const Contract = evm.Contract;
 
 // WORKING ON THIS: Fixing conditional jump patterns test
 
-test "Debug: Simple JUMPDEST validation" {
-    const allocator = testing.allocator;
-
-    var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
-
-    // Create simple bytecode with one JUMPDEST
-    var code = [_]u8{0} ** 20;
-    code[10] = 0x5b; // JUMPDEST at position 10
-
-    var code_hash: [32]u8 = undefined;
-    std.crypto.hash.sha3.Keccak256.hash(&code, &code_hash, .{});
-
-    var contract = Contract.init(
-        helpers.TestAddresses.ALICE,
-        helpers.TestAddresses.CONTRACT,
-        0,
-        1_000_000,
-        &code,
-        code_hash,
-        &[_]u8{},
-        false,
-    );
-
-    std.debug.print("Debug: Code length: {}, has_jumpdests: {}\n", .{ contract.code.len, contract.has_jumpdests });
-    std.debug.print("Debug: Opcode at pos 10: 0x{x:0>2}\n", .{contract.code[10]});
-
-    // Pre-analyze jump destinations
-    contract.analyze_jumpdests();
-
-    std.debug.print("Debug: Analysis present: {}\n", .{contract.analysis != null});
-    if (contract.analysis) |analysis| {
-        std.debug.print("Debug: JUMPDEST positions: {any}\n", .{analysis.jumpdest_positions});
-    }
-
-    // Test validation directly
-    const is_valid = contract.valid_jumpdest(10);
-    std.debug.print("Debug: valid_jumpdest(10) = {}\n", .{is_valid});
-
-    try testing.expect(is_valid);
-}
-
 test "Integration: Conditional jump patterns" {
     // Test JUMPI with various conditions
     const allocator = testing.allocator;

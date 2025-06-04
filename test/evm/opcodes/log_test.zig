@@ -29,9 +29,9 @@ test "LOG0: emit log with no topics" {
         try test_frame.frame.memory.set_byte(i, log_data[i]);
     }
     
-    // Push length and offset (stack is LIFO)
-    try test_frame.pushStack(&[_]u256{4}); // length (pushed first, popped second)
-    try test_frame.pushStack(&[_]u256{0}); // offset (pushed last, popped first)
+    // Push offset and size (bottom to top)
+    try test_frame.pushStack(&[_]u256{0}); // offset
+    try test_frame.pushStack(&[_]u256{4}); // size
     
     // Execute LOG0
     _ = try test_helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
@@ -61,9 +61,9 @@ test "LOG0: emit log with empty data" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
-    // Push length and offset for empty data (stack is LIFO)
-    try test_frame.pushStack(&[_]u256{0}); // length (pushed first, popped second)
-    try test_frame.pushStack(&[_]u256{0}); // offset (pushed last, popped first)
+    // Push offset and size for empty data
+    try test_frame.pushStack(&[_]u256{0}); // offset
+    try test_frame.pushStack(&[_]u256{0}); // size
     
     // Execute LOG0
     _ = try test_helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
@@ -100,10 +100,10 @@ test "LOG1: emit log with one topic" {
         try test_frame.frame.memory.set_byte(i, log_data[i]);
     }
     
-    // Push topic, length and offset (stack is LIFO)
-    try test_frame.pushStack(&[_]u256{0x123456}); // topic (pushed first, popped third)
-    try test_frame.pushStack(&[_]u256{2}); // length (pushed second, popped second)
-    try test_frame.pushStack(&[_]u256{0}); // offset (pushed last, popped first)
+    // Push in order: topic, offset, size (bottom to top on stack)
+    try test_frame.pushStack(&[_]u256{0x123456}); // topic
+    try test_frame.pushStack(&[_]u256{0}); // offset
+    try test_frame.pushStack(&[_]u256{2}); // size
     
     // Execute LOG1
     _ = try test_helpers.executeOpcode(0xA1, &test_vm.vm, test_frame.frame);
@@ -141,11 +141,11 @@ test "LOG2: emit log with two topics" {
         try test_frame.frame.memory.set_byte(10 + i, log_data[i]);
     }
     
-    // Push topics, length and offset (stack is LIFO - reverse order)
-    try test_frame.pushStack(&[_]u256{0xCAFE}); // topic1 (pushed first, popped fourth)
-    try test_frame.pushStack(&[_]u256{0xBEEF}); // topic2 (pushed second, popped third)
-    try test_frame.pushStack(&[_]u256{3}); // length (pushed third, popped second)
-    try test_frame.pushStack(&[_]u256{10}); // offset (pushed last, popped first)
+    // Push in order: topic1, topic2, offset, size (bottom to top on stack)
+    try test_frame.pushStack(&[_]u256{0xCAFE}); // topic1
+    try test_frame.pushStack(&[_]u256{0xBEEF}); // topic2
+    try test_frame.pushStack(&[_]u256{10}); // offset
+    try test_frame.pushStack(&[_]u256{3}); // size
     
     // Execute LOG2
     _ = try test_helpers.executeOpcode(0xA2, &test_vm.vm, test_frame.frame);
