@@ -56,7 +56,11 @@ pub fn execute(self: *const Self, pc: usize, interpreter: *Operation.Interpreter
 
     // Validate stack requirements before execution
     const stack_validation = @import("stack_validation.zig");
-    try stack_validation.validate_stack_requirements(&frame.stack, operation);
+    std.debug.print("JumpTable: validating opcode 0x{X:0>2}, min_stack={}, stack_size={}\n", .{ opcode, operation.min_stack, frame.stack.size });
+    stack_validation.validate_stack_requirements(&frame.stack, operation) catch |err| {
+        std.debug.print("Stack validation: {} - size {} < min_stack {}\n", .{ err, frame.stack.size, operation.min_stack });
+        return err;
+    };
 
     // Consume base gas cost before executing the opcode
     if (operation.constant_gas > 0) {

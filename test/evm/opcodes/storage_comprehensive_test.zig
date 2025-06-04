@@ -271,6 +271,7 @@ test "SSTORE: EIP-2200 gas cost scenarios" {
     try testing.expect(gas_update < gas_fresh);
 }
 
+// TODO: Claude is working on fixing this test - large value storage
 test "SSTORE: Large storage values" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
