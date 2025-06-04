@@ -277,7 +277,7 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
     // Calculate the new contract address using CREATE formula:
     // address = keccak256(rlp([sender, nonce]))[12:]
     const new_address = try self.calculate_create_address(creator, nonce);
-    std.debug.print("CREATE: Calculated address: 0x{x} for creator: 0x{x}, nonce: {}\n", .{ Address.to_u256(new_address), Address.to_u256(creator), nonce });
+    std.debug.print("CREATE: Calculated address: 0x{x} for creator: 0x{x}, nonce: {d}\n", .{ Address.to_u256(new_address), Address.to_u256(creator), nonce });
 
     // Log init code info
     _ = init_code.len; // Use init_code to avoid unused parameter warning
@@ -296,7 +296,7 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
 
     // Check if creator has sufficient balance for value transfer
     const creator_balance = try self.get_balance(creator);
-    std.debug.print("CREATE: Checking balance. Creator: 0x{x}, balance: {}, required value: {}\n", .{ Address.to_u256(creator), creator_balance, value });
+    std.debug.print("CREATE: Checking balance. Creator: 0x{x}, balance: {d}, required value: {d}\n", .{ Address.to_u256(creator), creator_balance, value });
     if (creator_balance < value) {
         std.debug.print("CREATE: Insufficient balance. Returning failure with zero address\n", .{});
         return CreateResult{
@@ -459,7 +459,7 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
     // Check if creator has sufficient balance for value transfer
     const creator_balance = try self.get_balance(creator);
     if (creator_balance < value) {
-        std.debug.print("CREATE2: Insufficient balance. Creator balance: {}, required value: {}\n", .{ creator_balance, value });
+        std.debug.print("CREATE2: Insufficient balance. Creator balance: {d}, required value: {d}\n", .{ creator_balance, value });
         return CreateResult{
             .success = false,
             .address = Address.ZERO_ADDRESS,
