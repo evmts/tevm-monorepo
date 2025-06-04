@@ -1,0 +1,8 @@
+LOG tests partially fixed:
+- Fixed stack order for LOG operations
+- Fixed memory initialization using setMemory
+- Fixed gas consumption expectations
+- LOG0 test now passes
+- LOG1-4 still have some OutOfGas issues to investigate
+
+Tests improved from 352/401 to 360/401 in opcodes
