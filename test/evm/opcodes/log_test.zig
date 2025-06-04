@@ -223,10 +223,6 @@ test "LOG4: emit log with four topics" {
         try test_frame.frame.memory.set_byte(i, log_data[i]);
     }
     
-<<<<<<< HEAD
-    // Push topics, offset and length
-    try test_frame.pushStack(&[_]u256{0, 100, 0x1111, 0x2222, 0x3333, 0x4444}); // offset, length, topic1, topic2, topic3, topic4
-=======
     // Push topics, length and offset (stack is LIFO - reverse order)
     try test_frame.pushStack(&[_]u256{0x1111}); // topic1 (pushed first, popped sixth)
     try test_frame.pushStack(&[_]u256{0x2222}); // topic2 (pushed second, popped fifth)
@@ -234,7 +230,6 @@ test "LOG4: emit log with four topics" {
     try test_frame.pushStack(&[_]u256{0x4444}); // topic4 (pushed fourth, popped third)
     try test_frame.pushStack(&[_]u256{100}); // length (pushed fifth, popped second)
     try test_frame.pushStack(&[_]u256{0}); // offset (pushed last, popped first)
->>>>>>> dae37b4c6 (fix: Fix LOG opcodes stack order and gas issues)
     
     // Execute LOG4
     _ = try test_helpers.executeOpcode(0xA4, &test_vm.vm, test_frame.frame);
@@ -271,14 +266,9 @@ test "LOG0: write protection in static call" {
     // Set static call
     test_frame.frame.is_static = true;
     
-<<<<<<< HEAD
-    // Push offset and length
-    try test_frame.pushStack(&[_]u256{0, 0}); // offset, length
-=======
     // Push length and offset (stack is LIFO)
     try test_frame.pushStack(&[_]u256{0}); // length (pushed first, popped second)
     try test_frame.pushStack(&[_]u256{0}); // offset (pushed last, popped first)
->>>>>>> dae37b4c6 (fix: Fix LOG opcodes stack order and gas issues)
     
     // Execute LOG0 - should fail
     const result = test_helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
@@ -305,15 +295,10 @@ test "LOG1: write protection in static call" {
     // Set static call
     test_frame.frame.is_static = true;
     
-<<<<<<< HEAD
-    // Push topic, offset and length
-    try test_frame.pushStack(&[_]u256{0, 0, 0x123}); // offset, length, topic
-=======
     // Push topic, length and offset (stack is LIFO)
     try test_frame.pushStack(&[_]u256{0x123}); // topic (pushed first, popped third)
     try test_frame.pushStack(&[_]u256{0}); // length (pushed second, popped second)
     try test_frame.pushStack(&[_]u256{0}); // offset (pushed last, popped first)
->>>>>>> dae37b4c6 (fix: Fix LOG opcodes stack order and gas issues)
     
     // Execute LOG1 - should fail
     const result = test_helpers.executeOpcode(0xA1, &test_vm.vm, test_frame.frame);
@@ -338,14 +323,9 @@ test "LOG0: gas consumption" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
-<<<<<<< HEAD
-    // Push offset and length for 32 bytes
-    try test_frame.pushStack(&[_]u256{0, 32}); // offset, length
-=======
     // Push length and offset for 32 bytes (stack is LIFO)
     try test_frame.pushStack(&[_]u256{32}); // length (pushed first, popped second)
     try test_frame.pushStack(&[_]u256{0}); // offset (pushed last, popped first)
->>>>>>> dae37b4c6 (fix: Fix LOG opcodes stack order and gas issues)
     
     const gas_before = test_frame.frame.gas_remaining;
     
@@ -354,8 +334,9 @@ test "LOG0: gas consumption" {
     
     // LOG0 base cost is 375 gas
     // Plus 8 gas per byte: 32 * 8 = 256
-    // Total: 375 + 256 = 631
-    try testing.expectEqual(@as(u64, 631), gas_before - test_frame.frame.gas_remaining);
+    // Plus memory expansion: 3 gas (for 1 word)
+    // Total: 375 + 256 + 3 = 634
+    try testing.expectEqual(@as(u64, 634), gas_before - test_frame.frame.gas_remaining);
 }
 
 test "LOG4: gas consumption with topics" {
@@ -375,10 +356,6 @@ test "LOG4: gas consumption with topics" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
-<<<<<<< HEAD
-    // Push topics, offset and length
-    try test_frame.pushStack(&[_]u256{0, 10, 0x1, 0x2, 0x3, 0x4}); // offset, length, topic1, topic2, topic3, topic4
-=======
     // Push topics, length and offset (stack is LIFO - reverse order)
     try test_frame.pushStack(&[_]u256{0x1}); // topic1 (pushed first, popped last)
     try test_frame.pushStack(&[_]u256{0x2}); // topic2
@@ -386,7 +363,6 @@ test "LOG4: gas consumption with topics" {
     try test_frame.pushStack(&[_]u256{0x4}); // topic4
     try test_frame.pushStack(&[_]u256{10}); // length (pushed fifth, popped second)
     try test_frame.pushStack(&[_]u256{0}); // offset (pushed last, popped first)
->>>>>>> dae37b4c6 (fix: Fix LOG opcodes stack order and gas issues)
     
     const gas_before = test_frame.frame.gas_remaining;
     
@@ -396,8 +372,9 @@ test "LOG4: gas consumption with topics" {
     // LOG4 base cost is 375 gas
     // Plus 375 gas per topic: 4 * 375 = 1500
     // Plus 8 gas per byte: 10 * 8 = 80
-    // Total: 375 + 1500 + 80 = 1955
-    try testing.expectEqual(@as(u64, 1955), gas_before - test_frame.frame.gas_remaining);
+    // Plus memory expansion: 3 gas (for 1 word)
+    // Total: 375 + 1500 + 80 + 3 = 1958
+    try testing.expectEqual(@as(u64, 1958), gas_before - test_frame.frame.gas_remaining);
 }
 
 // Test memory expansion
@@ -418,14 +395,9 @@ test "LOG0: memory expansion gas" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
-<<<<<<< HEAD
-    // Push offset and length that requires memory expansion
-    try test_frame.pushStack(&[_]u256{256, 32}); // offset (requires expansion), length
-=======
     // Push length and offset that requires memory expansion (stack is LIFO)
     try test_frame.pushStack(&[_]u256{32}); // length (pushed first, popped second)
     try test_frame.pushStack(&[_]u256{256}); // offset (pushed last, popped first - requires expansion)
->>>>>>> dae37b4c6 (fix: Fix LOG opcodes stack order and gas issues)
     
     const gas_before = test_frame.frame.gas_remaining;
     
@@ -481,7 +453,7 @@ test "LOG4: stack underflow" {
     defer test_frame.deinit();
     
     // Push only 5 values (need 6 for LOG4)
-    try test_frame.pushStack(&[_]u256{0, 0x1, 0x2, 0x3, 0x4}); // length, topic1, topic2, topic3, topic4
+    try test_frame.pushStack(&[_]u256{0x1, 0x2, 0x3, 0x4, 0}); // topic1, topic2, topic3, topic4, length
     // Missing offset
     
     // Execute LOG4 - should fail
@@ -507,8 +479,9 @@ test "LOG0: out of gas" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 100);
     defer test_frame.deinit();
     
-    // Push offset and length for large data
-    try test_frame.pushStack(&[_]u256{0, 1000}); // offset, length (would cost 8000 gas for data alone)
+    // Push length and offset for large data (stack is LIFO)
+    try test_frame.pushStack(&[_]u256{1000}); // length (pushed first, popped second - would cost 8000 gas for data alone)
+    try test_frame.pushStack(&[_]u256{0}); // offset (pushed last, popped first)
     
     // Execute LOG0 - should fail
     const result = test_helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);

@@ -28,10 +28,12 @@ test "Block: BLOCKHASH operations" {
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
     
-    // Test 1: Get blockhash (currently returns 0 as not implemented)
-    try test_frame.pushStack(&[_]u256{999}); // Block number
+    // Test 1: Get blockhash for recent block (should return a hash)
+    try test_frame.pushStack(&[_]u256{999}); // Block number (1 block ago)
     _ = try helpers.executeOpcode(0x40, &test_vm.vm, test_frame.frame);
-    try helpers.expectStackValue(test_frame.frame, 0, 0); // Returns 0 as not implemented
+    const hash_value = try test_frame.popStack();
+    // Should return a non-zero hash for recent blocks
+    try testing.expect(hash_value != 0);
     
     // Test 2: Block number too old (> 256 blocks ago)
     test_frame.frame.stack.clear();
