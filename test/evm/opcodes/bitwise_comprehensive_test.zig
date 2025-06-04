@@ -484,8 +484,8 @@ test "BYTE: Extract from full u256" {
     const test_value = @as(u256, 0x0102030405060708);
     
     // Test extracting byte 24 (should be 0x01)
-    try test_frame.pushStack(&[_]u256{24});
-    try test_frame.pushStack(&[_]u256{test_value});
+    try test_frame.pushStack(&[_]u256{test_value}); // value (pushed first, popped second)
+    try test_frame.pushStack(&[_]u256{24}); // byte index (pushed last, popped first)
     
     _ = try helpers.executeOpcode(0x1A, &test_vm.vm, test_frame.frame);
     
@@ -677,8 +677,8 @@ test "BYTE: Byte extraction patterns" {
     }
     
     // Test extracting byte 28 (should be 3)
-    try test_frame.pushStack(&[_]u256{28});
-    try test_frame.pushStack(&[_]u256{test_value});
+    try test_frame.pushStack(&[_]u256{test_value}); // value (pushed first, popped second)
+    try test_frame.pushStack(&[_]u256{28}); // byte index (pushed last, popped first)
     
     _ = try helpers.executeOpcode(0x1A, &test_vm.vm, test_frame.frame);
     
