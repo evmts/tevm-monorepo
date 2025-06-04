@@ -730,9 +730,10 @@ test "CREATE: EIP-3860 initcode size limit" {
     defer test_frame.deinit();
     
     // Push parameters with size exceeding MaxInitcodeSize (49152)
-    try test_frame.pushStack(&[_]u256{0});      // value
-    try test_frame.pushStack(&[_]u256{0});      // offset
+    // Stack order: push in reverse order for LIFO stack
     try test_frame.pushStack(&[_]u256{49153}); // size (one byte over limit)
+    try test_frame.pushStack(&[_]u256{0});      // offset
+    try test_frame.pushStack(&[_]u256{0});      // value
     
     // Execute CREATE - should fail with MaxCodeSizeExceeded
     const result = test_helpers.executeOpcode(0xF0, &test_vm.vm, test_frame.frame);
@@ -808,10 +809,11 @@ test "CREATE2: EIP-3860 initcode size limit" {
     defer test_frame.deinit();
     
     // Push parameters with size exceeding MaxInitcodeSize (49152)
-    try test_frame.pushStack(&[_]u256{0});      // value
-    try test_frame.pushStack(&[_]u256{0});      // offset
-    try test_frame.pushStack(&[_]u256{49153}); // size (one byte over limit)
+    // Stack order: push in reverse order for LIFO stack
     try test_frame.pushStack(&[_]u256{0x123}); // salt
+    try test_frame.pushStack(&[_]u256{49153}); // size (one byte over limit)
+    try test_frame.pushStack(&[_]u256{0});      // offset
+    try test_frame.pushStack(&[_]u256{0});      // value
     
     // Execute CREATE2 - should fail with MaxCodeSizeExceeded
     const result = test_helpers.executeOpcode(0xF5, &test_vm.vm, test_frame.frame);
