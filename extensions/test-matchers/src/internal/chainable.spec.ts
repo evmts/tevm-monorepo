@@ -1,12 +1,12 @@
 import { assert, describe, expect, it } from 'vitest'
-import { toBeAddress, toBeBigInt, toBeHex } from '../matchers/utils/index.js'
+import { toBeAddress, toBeHex } from '../matchers/utils/index.js'
 import { createChainableFromVitest, registerChainableMatchers } from './chainable.js'
 import type { ChainState, ChainableAssertion } from './types.js'
 
 /* ---------------------------------- TYPES --------------------------------- */
 export interface CustomMatchers {
 	/**
-	 * Assert that a value is a BigInt
+	 * Assert that a value is a bigint
 	 */
 	toBeBigIntChainable(): ChainableAssertion
 
@@ -110,12 +110,24 @@ const toResolveToString = async (received: Promise<unknown>) => {
 }
 
 /* ----------------------------- CHAINABLE MATCHERS ---------------------------- */
-// Convert existing util matchers to chainable
+// Create a vitest matcher and convert it inline
 const toBeBigIntChainable = createChainableFromVitest({
 	name: 'toBeBigIntChainable' as const,
-	vitestMatcher: toBeBigInt,
+	vitestMatcher: (received: unknown) => {
+		const pass = typeof received === 'bigint'
+		return {
+			pass,
+			actual: received,
+			expected: 'a bigint',
+			message: () =>
+				pass
+					? `Expected ${received} not to be a BigInt`
+					: `Expected ${received} to be a BigInt`,
+		}
+	},
 })
 
+// Convert existing util matchers to chainable
 const toBeHexChainable = createChainableFromVitest({
 	name: 'toBeHexChainable' as const,
 	vitestMatcher: toBeHex,

@@ -1,6 +1,6 @@
 import { describe, expectTypeOf, it } from 'vitest'
 import type { Assertion } from 'vitest'
-import { toBeAddress, toBeBigInt, toBeHex } from '../matchers/utils/index.js'
+import { toBeAddress, toBeHex } from '../matchers/utils/index.js'
 import { createChainableFromVitest } from './chainable.js'
 import { type CustomMatchers, testMatchers } from './chainable.spec.js'
 import type {
@@ -12,14 +12,14 @@ import type {
 	VitestMatcherFunction,
 } from './types.js'
 
-// Import existing chainable matchers from spec (now includes async one!)
+// Import existing chainable matchers from spec
 const {
 	toBeBigIntChainable,
 	toBeHexChainable,
 	toBeAddressChainable,
 	toPassDownStateChainable,
 	toUsePreviousStateAndBigIntChainable,
-	toResolveToStringChainable, // <-- Use the real async matcher
+	toResolveToStringChainable,
 } = testMatchers
 
 // Remove the separate asyncMatcher and asyncChainable - use the shared one
@@ -231,14 +231,13 @@ describe('chainable type system (exhaustive)', () => {
 
 	it('type: real matcher functions from utils', () => {
 		// Test that the original vitest matchers are properly typed
-		expectTypeOf<typeof toBeBigInt>().toBeFunction()
 		expectTypeOf<typeof toBeHex>().toBeFunction()
 		expectTypeOf<typeof toBeAddress>().toBeFunction()
 
 		// Test that they can be used to create chainable matchers
 		const testChainable = createChainableFromVitest({
 			name: 'testMatcher' as const,
-			vitestMatcher: toBeBigInt,
+			vitestMatcher: toBeHex,
 		})
 
 		expectTypeOf<typeof testChainable>().toEqualTypeOf<
