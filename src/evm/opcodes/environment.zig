@@ -286,6 +286,49 @@ pub fn op_calldataload(pc: usize, interpreter: *Operation.Interpreter, state: *O
     return Operation.ExecutionResult{};
 }
 
+pub fn op_calldatacopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
+    _ = pc;
+    _ = interpreter;
+    
+    const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    
+    // Pop memory offset, data offset, and size
+    const mem_offset = try stack_pop(&frame.stack);
+    const data_offset = try stack_pop(&frame.stack);
+    const size = try stack_pop(&frame.stack);
+    
+    if (size == 0) {
+        return Operation.ExecutionResult{};
+    }
+    
+    if (mem_offset > std.math.maxInt(usize) or size > std.math.maxInt(usize) or data_offset > std.math.maxInt(usize)) {
+        return ExecutionError.Error.OutOfOffset;
+    }
+    
+    const mem_offset_usize = @as(usize, @intCast(mem_offset));
+    const data_offset_usize = @as(usize, @intCast(data_offset));
+    const size_usize = @as(usize, @intCast(size));
+    
+    // Calculate memory expansion gas cost
+    const current_size = frame.memory.context_size();
+    const new_size = mem_offset_usize + size_usize;
+    const memory_gas = gas_constants.memory_gas_cost(current_size, new_size);
+    try frame.consume_gas(memory_gas);
+    
+    // Dynamic gas for copy operation (VERYLOW * word_count)
+    const word_size = (size_usize + 31) / 32;
+    try frame.consume_gas(gas_constants.CopyGas * word_size);
+    
+    // Get calldata from frame.input
+    const calldata = frame.input;
+    
+    // Use set_data_bounded to copy the calldata to memory
+    // This handles partial copies and zero-padding automatically
+    try error_mapping.memory_set_data_bounded(&frame.memory, mem_offset_usize, calldata, data_offset_usize, size_usize);
+    
+    return Operation.ExecutionResult{};
+}
+
 pub fn op_codecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;

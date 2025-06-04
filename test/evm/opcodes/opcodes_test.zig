@@ -22,4 +22,5 @@ test {
     _ = @import("control_test.zig");
     _ = @import("shift_crypto_comprehensive_test.zig");
     _ = @import("invalid_opcodes_test.zig");
+    _ = @import("environment_comprehensive_test.zig");
 }
