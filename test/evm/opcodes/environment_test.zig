@@ -402,13 +402,13 @@ test "Environment: Cold/Warm address access (EIP-2929)" {
     const cold_gas_used = initial_gas - test_frame.frame.gas_remaining;
     try testing.expectEqual(@as(u64, 2600), cold_gas_used);
     
-    // Second access should be warm (100 gas from base cost)
+    // Second access should be warm (100 gas)
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{bob_u256});
     const warm_initial_gas = test_frame.frame.gas_remaining;
     _ = try helpers.executeOpcode(0x31, &test_vm.vm, test_frame.frame);
     const warm_gas_used = warm_initial_gas - test_frame.frame.gas_remaining;
-    try testing.expectEqual(@as(u64, 0), warm_gas_used); // Base cost handled by jump table
+    try testing.expectEqual(@as(u64, 100), warm_gas_used); // Warm access costs 100 gas
 }
 
 test "Environment: Stack underflow errors" {

@@ -336,7 +336,7 @@ const ADDRESS = Operation{
 
 const BALANCE = Operation{
     .execute = environment.op_balance,
-    .constant_gas = 700,
+    .constant_gas = 0, // Gas handled by access_list in opcode
     .min_stack = 1,
     .max_stack = Stack.CAPACITY,
 };
@@ -406,21 +406,21 @@ const GASPRICE = Operation{
 
 const EXTCODESIZE = Operation{
     .execute = environment.op_extcodesize,
-    .constant_gas = 700, // Will be adjusted for different hardforks
+    .constant_gas = 0, // Gas handled by access_list in opcode
     .min_stack = 1,
     .max_stack = Stack.CAPACITY,
 };
 
 const EXTCODECOPY = Operation{
     .execute = environment.op_extcodecopy,
-    .constant_gas = 700, // Will be adjusted for different hardforks
+    .constant_gas = 0, // Gas handled by access_list in opcode
     .min_stack = 4,
     .max_stack = Stack.CAPACITY,
 };
 
 const EXTCODEHASH = Operation{
     .execute = environment.op_extcodehash,
-    .constant_gas = 700,
+    .constant_gas = 0, // Gas handled by access_list in opcode
     .min_stack = 1,
     .max_stack = Stack.CAPACITY,
 };
@@ -499,7 +499,7 @@ const MSTORE8 = Operation{
 
 const SLOAD = Operation{
     .execute = storage.op_sload,
-    .constant_gas = 800,
+    .constant_gas = 0, // Gas handled by access_list in opcode
     .min_stack = 1,
     .max_stack = Stack.CAPACITY,
 };
