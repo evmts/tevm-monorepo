@@ -291,8 +291,9 @@ test "SSTORE: Large storage values" {
     
     // Store maximum u256 value
     const max_value = std.math.maxInt(u256);
-    try test_frame.pushStack(&[_]u256{0x80}); // slot
+    // SSTORE pops slot first, then value - so push value first, then slot
     try test_frame.pushStack(&[_]u256{max_value}); // value
+    try test_frame.pushStack(&[_]u256{0x80}); // slot (on top)
     
     test_frame.frame.pc = 0;
     _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
