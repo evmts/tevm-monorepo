@@ -56,7 +56,7 @@ test "SHL: Comprehensive shift left edge cases" {
         
         // Overflow cases (bits shifted out)
         .{ .value = 0xFF, .shift = 250, .expected = (@as(u256, 0xFF) << 250), .desc = "0xFF << 250 (partial overflow)" },
-        .{ .value = std.math.maxInt(u256), .shift = 1, .expected = std.math.maxInt(u256) & ~(@as(u256, 1) << 255), .desc = "MAX << 1 (MSB lost)" },
+        .{ .value = std.math.maxInt(u256), .shift = 1, .expected = std.math.maxInt(u256) - 1, .desc = "MAX << 1 (MSB lost, LSB becomes 0)" },
         .{ .value = (@as(u256, 1) << 255) | 1, .shift = 1, .expected = 2, .desc = "MSB|LSB << 1 = 2" },
         
         // Pattern preservation

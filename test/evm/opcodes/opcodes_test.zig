@@ -28,4 +28,6 @@ test {
     _ = @import("stack_memory_control_comprehensive_test.zig");
     _ = @import("msize_gas_jumpdest_comprehensive_test.zig");
     _ = @import("transient_mcopy_push_comprehensive_test.zig");
+    _ = @import("push4_push12_comprehensive_test.zig");
+    _ = @import("push14_push32_comprehensive_test.zig");
 }

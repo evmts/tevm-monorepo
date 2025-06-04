@@ -24,13 +24,17 @@ pub fn op_and(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     _ = interpreter;
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-
-    const b = try stack_pop(&frame.stack);
-    const a = try stack_pop(&frame.stack);
-
-    const result = a & b;
-
-    try stack_push(&frame.stack, result);
+    
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size >= 2);
+    
+    // Direct access - no error handling needed
+    const b = frame.stack.data[frame.stack.size - 1];
+    const a = frame.stack.data[frame.stack.size - 2];
+    frame.stack.size -= 1;
+    
+    // Modify in-place (now at top of stack)
+    frame.stack.data[frame.stack.size - 1] = a & b;
 
     return Operation.ExecutionResult{};
 }
@@ -40,13 +44,17 @@ pub fn op_or(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.S
     _ = interpreter;
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-
-    const b = try stack_pop(&frame.stack);
-    const a = try stack_pop(&frame.stack);
-
-    const result = a | b;
-
-    try stack_push(&frame.stack, result);
+    
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size >= 2);
+    
+    // Direct access - no error handling needed
+    const b = frame.stack.data[frame.stack.size - 1];
+    const a = frame.stack.data[frame.stack.size - 2];
+    frame.stack.size -= 1;
+    
+    // Modify in-place (now at top of stack)
+    frame.stack.data[frame.stack.size - 1] = a | b;
 
     return Operation.ExecutionResult{};
 }
@@ -56,13 +64,17 @@ pub fn op_xor(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     _ = interpreter;
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-
-    const b = try stack_pop(&frame.stack);
-    const a = try stack_pop(&frame.stack);
-
-    const result = a ^ b;
-
-    try stack_push(&frame.stack, result);
+    
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size >= 2);
+    
+    // Direct access - no error handling needed
+    const b = frame.stack.data[frame.stack.size - 1];
+    const a = frame.stack.data[frame.stack.size - 2];
+    frame.stack.size -= 1;
+    
+    // Modify in-place (now at top of stack)
+    frame.stack.data[frame.stack.size - 1] = a ^ b;
 
     return Operation.ExecutionResult{};
 }
@@ -72,12 +84,13 @@ pub fn op_not(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     _ = interpreter;
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-
-    const a = try stack_pop(&frame.stack);
-
-    const result = ~a;
-
-    try stack_push(&frame.stack, result);
+    
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size >= 1);
+    
+    // Modify top of stack in-place
+    const value_ptr = &frame.stack.data[frame.stack.size - 1];
+    value_ptr.* = ~value_ptr.*;
 
     return Operation.ExecutionResult{};
 }
@@ -87,22 +100,26 @@ pub fn op_byte(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     _ = interpreter;
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-
-    const i = try stack_pop(&frame.stack);
-    const val = try stack_pop(&frame.stack);
-
-    std.debug.print("BYTE opcode: i={}, val=0x{x}\n", .{i, val});
-
+    
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size >= 2);
+    
+    // Direct access - no error handling needed
+    const i = frame.stack.data[frame.stack.size - 1];
+    const val = frame.stack.data[frame.stack.size - 2];
+    frame.stack.size -= 1;
+    
+    // Modify value in-place (now at top of stack)
+    const value_ptr = &frame.stack.data[frame.stack.size - 1];
+    
     if (i >= 32) {
-        try stack_push(&frame.stack, 0);
+        value_ptr.* = 0;
     } else {
         const i_usize = @as(usize, @intCast(i));
         // Byte 0 is MSB, byte 31 is LSB
         // To get byte i, we need to shift right by (31 - i) * 8 positions
         const shift_amount = (31 - i_usize) * 8;
-        const result = (val >> @intCast(shift_amount)) & 0xFF;
-        std.debug.print("  shift_amount={}, result=0x{x}\n", .{shift_amount, result});
-        try stack_push(&frame.stack, result);
+        value_ptr.* = (val >> @intCast(shift_amount)) & 0xFF;
     }
 
     return Operation.ExecutionResult{};
@@ -138,17 +155,22 @@ pub fn op_shr(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     _ = interpreter;
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-
-    const shift = try stack_pop(&frame.stack);
-    const value = try stack_pop(&frame.stack);
-
+    
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size >= 2);
+    
+    // Direct access - no error handling needed
+    const shift = frame.stack.data[frame.stack.size - 1];
+    frame.stack.size -= 1;
+    
+    // Modify value in-place (now at top of stack)
+    const value_ptr = &frame.stack.data[frame.stack.size - 1];
+    
     if (shift >= 256) {
-        try stack_push(&frame.stack, 0);
-        return Operation.ExecutionResult{};
+        value_ptr.* = 0;
+    } else {
+        value_ptr.* >>= @intCast(shift);
     }
-
-    const result = value >> @as(u8, @intCast(shift));
-    try stack_push(&frame.stack, result);
 
     return Operation.ExecutionResult{};
 }
@@ -158,27 +180,33 @@ pub fn op_sar(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     _ = interpreter;
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-
-    const shift = try stack_pop(&frame.stack);
-    const value = try stack_pop(&frame.stack);
+    
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size >= 2);
+    
+    // Direct access - no error handling needed
+    const shift = frame.stack.data[frame.stack.size - 1];
+    frame.stack.size -= 1;
+    
+    // Get mutable reference to value (now at top of stack)
+    const value_ptr = &frame.stack.data[frame.stack.size - 1];
+    const value = value_ptr.*;
 
     if (shift >= 256) {
         // Check sign bit
         const sign_bit = value >> 255;
         if (sign_bit == 1) {
-            try stack_push(&frame.stack, std.math.maxInt(u256)); // All 1s
+            value_ptr.* = std.math.maxInt(u256); // All 1s
         } else {
-            try stack_push(&frame.stack, 0);
+            value_ptr.* = 0;
         }
-        return Operation.ExecutionResult{};
+    } else {
+        // Arithmetic shift preserving sign
+        const shift_amount = @as(u8, @intCast(shift));
+        const value_i256 = @as(i256, @bitCast(value));
+        const result_i256 = value_i256 >> shift_amount;
+        value_ptr.* = @as(u256, @bitCast(result_i256));
     }
-
-    // Arithmetic shift preserving sign
-    const shift_amount = @as(u8, @intCast(shift));
-    const value_i256 = @as(i256, @bitCast(value));
-    const result_i256 = value_i256 >> shift_amount;
-    const result = @as(u256, @bitCast(result_i256));
-    try stack_push(&frame.stack, result);
 
     return Operation.ExecutionResult{};
 }

@@ -24,12 +24,18 @@ pub fn op_add(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     _ = pc;
     _ = interpreter;
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-    const values = frame.stack.pop2() catch |err| switch (err) {
-        Stack.Error.OutOfBounds => return ExecutionError.Error.StackUnderflow,
-        else => return ExecutionError.Error.StackUnderflow,
-    };
-    const sum = values.a +% values.b;
-    try stack_push(&frame.stack, sum);
+    
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size >= 2);
+    
+    // Direct access - no error handling needed
+    const b = frame.stack.data[frame.stack.size - 1];
+    const a = frame.stack.data[frame.stack.size - 2];
+    frame.stack.size -= 1;
+    
+    // Modify in-place (now at top of stack)
+    frame.stack.data[frame.stack.size - 1] = a +% b;
+    
     return Operation.ExecutionResult{};
 }
 
