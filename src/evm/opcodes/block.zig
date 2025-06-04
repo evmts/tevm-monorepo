@@ -39,9 +39,10 @@ pub fn op_blockhash(pc: usize, interpreter: *Operation.Interpreter, state: *Oper
         // Future block
         std.debug.print("BLOCKHASH: future block, returning 0\n", .{});
         try stack_push(&frame.stack, 0);
-    } else if (current_block > 256 and block_number + 256 < current_block) {
+    } else if (current_block > block_number + 256) {
         // Block is older than 256 blocks ago
-        // Equivalent to: block_number < current_block - 256
+        // This is true when: current_block - block_number > 256
+        std.debug.print("BLOCKHASH: old block (current={}, requested={}, diff={}), returning 0\n", .{current_block, block_number, current_block - block_number});
         try stack_push(&frame.stack, 0);
     } else if (block_number == 0) {
         // Genesis block always returns 0
