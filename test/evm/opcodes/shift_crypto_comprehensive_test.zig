@@ -251,7 +251,7 @@ test "KECCAK256: Comprehensive hash edge cases" {
         .{
             .data = "message digest",
             .offset = 300,
-            .expected_hash = 0xf7846f55cf23e14eebeab5b4e1550cad5b509e3348fbc4efa3a1413d393cb650,
+            .expected_hash = 0x856ab8a3ad0f6168a4d0ba8d77487243f3655db6fc5b0e1669bc05b1287e0147,
             .desc = "'message digest'"
         },
     };

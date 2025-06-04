@@ -20,7 +20,7 @@ pub const JumpTable = evm.JumpTable;
 pub const TestVm = struct {
     vm: Vm,
     allocator: std.mem.Allocator,
-    
+
     // Mock results for testing
     call_result: ?Vm.CallResult = null,
     create_result: ?Vm.CreateResult = null,
@@ -89,7 +89,7 @@ pub const TestVm = struct {
     pub fn warmAddress(self: *TestVm, address: Address.Address) !void {
         _ = try self.vm.access_list.access_address(address);
     }
-    
+
     /// Sync mock results to VM - call this after setting call_result or create_result
     pub fn syncMocks(self: *TestVm) void {
         self.vm.call_result = self.call_result;
@@ -218,10 +218,15 @@ pub fn executeOpcode(
 ) ExecutionError.Error!Operation.ExecutionResult {
     const interpreter_ptr: *Operation.Interpreter = @ptrCast(vm);
     const state_ptr: *Operation.State = @ptrCast(frame);
-    
+
+    // EXTREME DEBUG: Should definitely show up
+    if (opcode_byte == 0x54 or opcode_byte == 0x55) {
+        std.debug.print("=== HELPER: Executing opcode 0x{x:0>2} ===\n", .{opcode_byte});
+    }
+
     // Debug: Check if jump table has the opcode
     // const operation = vm.table.get_operation(opcode_byte);
-    
+
     // Use the Vm's jump table to execute the opcode
     // frame.pc should be set correctly by the test before calling this
     return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);

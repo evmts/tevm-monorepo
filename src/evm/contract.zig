@@ -144,17 +144,11 @@ fn contains_jumpdest(code: []const u8) bool {
 pub fn valid_jumpdest(self: *Self, dest: u256) bool {
     // Fast path: empty code or out of bounds
     if (self.is_empty or dest >= self.code_size) {
-        if (@import("builtin").mode == .Debug) {
-            std.debug.print("valid_jumpdest: FAILED - empty={}, dest={}, code_size={}\n", .{ self.is_empty, dest, self.code_size });
-        }
         return false;
     }
 
     // Fast path: no JUMPDESTs in code
     if (!self.has_jumpdests) {
-        if (@import("builtin").mode == .Debug) {
-            std.debug.print("valid_jumpdest: FAILED - no JUMPDESTs detected in code\n", .{});
-        }
         return false;
     }
     const pos: u32 = @intCast(@min(dest, std.math.maxInt(u32)));
@@ -162,19 +156,9 @@ pub fn valid_jumpdest(self: *Self, dest: u256) bool {
     // Ensure analysis is performed
     self.ensure_analysis();
 
-    if (@import("builtin").mode == .Debug) {
-        std.debug.print("valid_jumpdest: checking dest={}, pos={}, has_analysis={}\n", .{ dest, pos, self.analysis != null });
-        if (pos < self.code.len) {
-            std.debug.print("valid_jumpdest: opcode at pos {} is 0x{x:0>2}\n", .{ pos, self.code[pos] });
-        }
-    }
-
     // Binary search in sorted JUMPDEST positions
     if (self.analysis) |analysis| {
         if (analysis.jumpdest_positions.len > 0) {
-            if (@import("builtin").mode == .Debug) {
-                std.debug.print("valid_jumpdest: jumpdest_positions = {any}\n", .{analysis.jumpdest_positions});
-            }
             const Context = struct { target: u32 };
             const found = std.sort.binarySearch(
                 u32,
@@ -186,23 +170,11 @@ pub fn valid_jumpdest(self: *Self, dest: u256) bool {
                     }
                 }.compare,
             );
-            const result = found != null;
-            if (@import("builtin").mode == .Debug) {
-                std.debug.print("valid_jumpdest: binary search result={}\n", .{result});
-            }
-            return result;
-        } else {
-            if (@import("builtin").mode == .Debug) {
-                std.debug.print("valid_jumpdest: FAILED - analysis exists but no jumpdest_positions found\n", .{});
-            }
+            return found != null;
         }
     }
     // Fallback to bitvec check
-    const result = self.is_code(pos);
-    if (@import("builtin").mode == .Debug) {
-        std.debug.print("valid_jumpdest: fallback bitvec check result={}\n", .{result});
-    }
-    return result;
+    return self.is_code(pos);
 }
 
 /// Ensure code analysis is performed

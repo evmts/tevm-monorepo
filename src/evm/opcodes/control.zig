@@ -57,33 +57,7 @@ pub fn op_jumpi(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     const condition = try stack_pop(&frame.stack);
     const dest = try stack_pop(&frame.stack);
 
-    const dest_usize = if (dest > std.math.maxInt(usize)) std.math.maxInt(usize) else @as(usize, @intCast(dest));
-
-    // Debug: JUMPI attempting jump
-
     if (condition != 0) {
-        if (dest_usize < frame.contract.code.len) {
-            // Debug: JUMPI target check
-            if (frame.contract.analysis) |analysis| {
-                if (analysis.jumpdest_positions.len > 0) {
-                    var found_in_list = false;
-                    for (analysis.jumpdest_positions) |jd_pos| {
-                        if (jd_pos == dest_usize) {
-                            found_in_list = true;
-                            break;
-                        }
-                    }
-                    // Debug: JUMPI detail - jumpdest positions
-                } else {
-                    // Debug: JUMPI detail - empty jumpdest positions
-                }
-            } else {
-                // Debug: JUMPI detail - analysis is null
-            }
-        } else {
-            // Debug: JUMPI target out of bounds
-        }
-
         // Check if destination is a valid JUMPDEST (pass u256 directly)
         if (!frame.contract.valid_jumpdest(dest)) {
             return ExecutionError.Error.InvalidJump;

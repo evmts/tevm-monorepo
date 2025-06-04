@@ -12,23 +12,20 @@ const memory = evm.opcodes.memory;
 const Contract = evm.Contract;
 
 // WORKING ON THIS: Fixing conditional jump patterns test
-test "Integration: Conditional jump patterns" {
-    // Test JUMPI with various conditions
+
+test "Debug: Simple JUMPDEST validation" {
     const allocator = testing.allocator;
-    
+
     var test_vm = try helpers.TestVm.init(allocator);
     defer test_vm.deinit();
-    
-    // Create bytecode with jump destinations
-    var code = [_]u8{0} ** 100;
+
+    // Create simple bytecode with one JUMPDEST
+    var code = [_]u8{0} ** 20;
     code[10] = 0x5b; // JUMPDEST at position 10
-    code[20] = 0x5b; // JUMPDEST at position 20
-    code[30] = 0x5b; // JUMPDEST at position 30
-    
-    // Calculate proper code hash after setting up the code
+
     var code_hash: [32]u8 = undefined;
     std.crypto.hash.sha3.Keccak256.hash(&code, &code_hash, .{});
-    
+
     var contract = Contract.init(
         helpers.TestAddresses.ALICE,
         helpers.TestAddresses.CONTRACT,
@@ -39,36 +36,82 @@ test "Integration: Conditional jump patterns" {
         &[_]u8{},
         false,
     );
-    
+
+    std.debug.print("Debug: Code length: {}, has_jumpdests: {}\n", .{ contract.code.len, contract.has_jumpdests });
+    std.debug.print("Debug: Opcode at pos 10: 0x{x:0>2}\n", .{contract.code[10]});
+
     // Pre-analyze jump destinations
     contract.analyze_jumpdests();
-    
+
+    std.debug.print("Debug: Analysis present: {}\n", .{contract.analysis != null});
+    if (contract.analysis) |analysis| {
+        std.debug.print("Debug: JUMPDEST positions: {any}\n", .{analysis.jumpdest_positions});
+    }
+
+    // Test validation directly
+    const is_valid = contract.valid_jumpdest(10);
+    std.debug.print("Debug: valid_jumpdest(10) = {}\n", .{is_valid});
+
+    try testing.expect(is_valid);
+}
+
+test "Integration: Conditional jump patterns" {
+    // Test JUMPI with various conditions
+    const allocator = testing.allocator;
+
+    var test_vm = try helpers.TestVm.init(allocator);
+    defer test_vm.deinit();
+
+    // Create bytecode with jump destinations
+    var code = [_]u8{0} ** 100;
+    code[10] = 0x5b; // JUMPDEST at position 10
+    code[20] = 0x5b; // JUMPDEST at position 20
+    code[30] = 0x5b; // JUMPDEST at position 30
+
+    // Calculate proper code hash after setting up the code
+    var code_hash: [32]u8 = undefined;
+    std.crypto.hash.sha3.Keccak256.hash(&code, &code_hash, .{});
+
+    var contract = Contract.init(
+        helpers.TestAddresses.ALICE,
+        helpers.TestAddresses.CONTRACT,
+        0,
+        1_000_000,
+        &code,
+        code_hash,
+        &[_]u8{},
+        false,
+    );
+
+    // Pre-analyze jump destinations
+    contract.analyze_jumpdests();
+
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
-    
+
     // Test 1: Jump when condition is true
     test_frame.frame.pc = 0;
-    try test_frame.pushStack(&[_]u256{10, 1}); // destination, condition (true)
+    try test_frame.pushStack(&[_]u256{ 10, 1 }); // destination, condition (true)
     _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 10), test_frame.frame.pc);
-    
+
     // Test 2: Don't jump when condition is false
     test_frame.frame.pc = 0;
-    try test_frame.pushStack(&[_]u256{20, 0}); // destination, condition (false)
+    try test_frame.pushStack(&[_]u256{ 20, 0 }); // destination, condition (false)
     _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 0), test_frame.frame.pc); // PC unchanged
-    
+
     // Test 3: Complex condition evaluation
     test_frame.frame.pc = 0;
-    
+
     // Calculate condition: 5 > 3
-    try test_frame.pushStack(&[_]u256{5, 3});
+    try test_frame.pushStack(&[_]u256{ 5, 3 });
     _ = try helpers.executeOpcode(0x11, &test_vm.vm, test_frame.frame); // Result: 1
-    
+
     // Push destination
     try test_frame.pushStack(&[_]u256{30});
     _ = try helpers.executeOpcode(0x90, &test_vm.vm, test_frame.frame); // Swap to get [dest, cond]
-    
+
     _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 30), test_frame.frame.pc);
 }
@@ -76,19 +119,19 @@ test "Integration: Conditional jump patterns" {
 test "Integration: Loop implementation with JUMP" {
     // Implement a simple counter loop
     const allocator = testing.allocator;
-    
+
     var test_vm = try helpers.TestVm.init(allocator);
     defer test_vm.deinit();
-    
+
     // Create bytecode for loop
     var code = [_]u8{0} ** 100;
-    code[0] = 0x5b;  // JUMPDEST (loop start)
+    code[0] = 0x5b; // JUMPDEST (loop start)
     code[50] = 0x5b; // JUMPDEST (loop end)
-    
+
     // Calculate proper code hash after setting up the code
     var code_hash: [32]u8 = undefined;
     std.crypto.hash.sha3.Keccak256.hash(&code, &code_hash, .{});
-    
+
     var contract = Contract.init(
         helpers.TestAddresses.ALICE,
         helpers.TestAddresses.CONTRACT,
@@ -99,34 +142,34 @@ test "Integration: Loop implementation with JUMP" {
         &[_]u8{},
         false,
     );
-    
+
     contract.analyze_jumpdests();
-    
+
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
-    
+
     // Initialize counter to 5
     try test_frame.pushStack(&[_]u256{5});
-    
+
     // Simulate loop iterations
     var iterations: u32 = 0;
     while (iterations < 5) : (iterations += 1) {
         // Decrement counter
         try test_frame.pushStack(&[_]u256{1});
         _ = try helpers.executeOpcode(0x03, &test_vm.vm, test_frame.frame);
-        
+
         // Duplicate for comparison
         _ = try helpers.executeOpcode(0x80, &test_vm.vm, test_frame.frame);
-        
+
         // Check if counter > 0
         try test_frame.pushStack(&[_]u256{0});
         _ = try helpers.executeOpcode(0x11, &test_vm.vm, test_frame.frame);
-        
+
         // If counter > 0, we would jump back to loop start
         const condition = try test_frame.popStack();
         if (condition == 0) break;
     }
-    
+
     // Counter should be 0
     try helpers.expectStackValue(test_frame.frame, 0, 0);
 }
@@ -134,10 +177,10 @@ test "Integration: Loop implementation with JUMP" {
 test "Integration: Return data handling" {
     // Test RETURN with memory data
     const allocator = testing.allocator;
-    
+
     var test_vm = try helpers.TestVm.init(allocator);
     defer test_vm.deinit();
-    
+
     var contract = try helpers.createTestContract(
         allocator,
         helpers.TestAddresses.CONTRACT,
@@ -146,22 +189,22 @@ test "Integration: Return data handling" {
         &[_]u8{},
     );
     defer contract.deinit(null);
-    
+
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
-    
+
     // Store data in memory
     const return_value: u256 = 0x42424242;
-    try test_frame.pushStack(&[_]u256{0, return_value}); // offset, value
+    try test_frame.pushStack(&[_]u256{ 0, return_value }); // offset, value
     _ = try helpers.executeOpcode(0x52, &test_vm.vm, test_frame.frame);
-    
+
     // Return 32 bytes from offset 0
-    try test_frame.pushStack(&[_]u256{0, 32}); // offset, size
-    
+    try test_frame.pushStack(&[_]u256{ 0, 32 }); // offset, size
+
     // RETURN will throw an error (ExecutionError.STOP) which is expected
     const result = helpers.executeOpcode(0xF3, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.STOP, result);
-    
+
     // The return data would be available in frame.return_data_buffer
     try testing.expectEqual(@as(usize, 32), test_frame.frame.return_data_buffer.len);
 }
@@ -169,10 +212,10 @@ test "Integration: Return data handling" {
 test "Integration: Revert with reason" {
     // Test REVERT with error message
     const allocator = testing.allocator;
-    
+
     var test_vm = try helpers.TestVm.init(allocator);
     defer test_vm.deinit();
-    
+
     var contract = try helpers.createTestContract(
         allocator,
         helpers.TestAddresses.CONTRACT,
@@ -181,21 +224,21 @@ test "Integration: Revert with reason" {
         &[_]u8{},
     );
     defer contract.deinit(null);
-    
+
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
-    
+
     // Store error message in memory
     const error_msg = "Insufficient balance";
     try test_frame.setMemory(0, error_msg);
-    
+
     // Revert with error message
-    try test_frame.pushStack(&[_]u256{0, error_msg.len}); // offset, size
-    
+    try test_frame.pushStack(&[_]u256{ 0, error_msg.len }); // offset, size
+
     // REVERT will throw an error (ExecutionError.REVERT) which is expected
     const result = helpers.executeOpcode(0xFD, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.REVERT, result);
-    
+
     // The revert data would be available in frame.return_data_buffer
     try testing.expectEqual(@as(usize, error_msg.len), test_frame.frame.return_data_buffer.len);
     try testing.expectEqualSlices(u8, error_msg, test_frame.frame.return_data_buffer);
@@ -204,10 +247,10 @@ test "Integration: Revert with reason" {
 test "Integration: PC tracking through operations" {
     // Test PC opcode and tracking
     const allocator = testing.allocator;
-    
+
     var test_vm = try helpers.TestVm.init(allocator);
     defer test_vm.deinit();
-    
+
     var contract = try helpers.createTestContract(
         allocator,
         helpers.TestAddresses.CONTRACT,
@@ -216,17 +259,17 @@ test "Integration: PC tracking through operations" {
         &[_]u8{},
     );
     defer contract.deinit(null);
-    
+
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
-    
+
     // Set PC to a specific value
     test_frame.frame.pc = 42;
-    
+
     // Get current PC
     _ = try helpers.executeOpcode(0x58, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 42);
-    
+
     // Change PC and get again
     test_frame.frame.pc = 100;
     _ = try helpers.executeOpcode(0x58, &test_vm.vm, test_frame.frame);
@@ -236,10 +279,10 @@ test "Integration: PC tracking through operations" {
 test "Integration: Invalid opcode handling" {
     // Test INVALID opcode
     const allocator = testing.allocator;
-    
+
     var test_vm = try helpers.TestVm.init(allocator);
     defer test_vm.deinit();
-    
+
     var contract = try helpers.createTestContract(
         allocator,
         helpers.TestAddresses.CONTRACT,
@@ -248,16 +291,16 @@ test "Integration: Invalid opcode handling" {
         &[_]u8{},
     );
     defer contract.deinit(null);
-    
+
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
-    
+
     // Execute INVALID opcode
     std.debug.print("\nInvalid opcode test: Gas before execution: {}\n", .{test_frame.frame.gas_remaining});
     const result = helpers.executeOpcode(0xFE, &test_vm.vm, test_frame.frame);
     std.debug.print("Invalid opcode test: Gas after execution: {}\n", .{test_frame.frame.gas_remaining});
     try testing.expectError(helpers.ExecutionError.Error.InvalidOpcode, result);
-    
+
     // All gas should be consumed
     try testing.expectEqual(@as(u64, 0), test_frame.frame.gas_remaining);
 }
@@ -265,20 +308,20 @@ test "Integration: Invalid opcode handling" {
 test "Integration: Nested conditions with jumps" {
     // Test complex control flow: if (a > b && c < d) { ... }
     const allocator = testing.allocator;
-    
+
     var test_vm = try helpers.TestVm.init(allocator);
     defer test_vm.deinit();
-    
+
     // Create bytecode with multiple jump destinations
     var code = [_]u8{0} ** 100;
     code[20] = 0x5b; // JUMPDEST (first condition false)
     code[40] = 0x5b; // JUMPDEST (both conditions true)
     code[60] = 0x5b; // JUMPDEST (end)
-    
+
     // Calculate proper code hash after setting up the code
     var code_hash: [32]u8 = undefined;
     std.crypto.hash.sha3.Keccak256.hash(&code, &code_hash, .{});
-    
+
     var contract = Contract.init(
         helpers.TestAddresses.ALICE,
         helpers.TestAddresses.CONTRACT,
@@ -289,58 +332,58 @@ test "Integration: Nested conditions with jumps" {
         &[_]u8{},
         false,
     );
-    
+
     contract.analyze_jumpdests();
-    
+
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
-    
+
     // Test values: a=10, b=5, c=3, d=8
     const a: u256 = 10;
     const b: u256 = 5;
     const c: u256 = 3;
     const d: u256 = 8;
-    
+
     // First condition: a > b (should be true)
-    try test_frame.pushStack(&[_]u256{a, b});
+    try test_frame.pushStack(&[_]u256{ a, b });
     _ = try helpers.executeOpcode(0x11, &test_vm.vm, test_frame.frame);
-    
+
     // If first condition is false, jump to end
     _ = try helpers.executeOpcode(0x80, &test_vm.vm, test_frame.frame);
     _ = try helpers.executeOpcode(0x15, &test_vm.vm, test_frame.frame);
     try test_frame.pushStack(&[_]u256{60}); // Jump to end if false
     _ = try helpers.executeOpcode(0x90, &test_vm.vm, test_frame.frame);
-    
+
     // This would be a JUMPI in real execution
     const should_skip_first = try test_frame.popStack();
     _ = try test_frame.popStack(); // Pop destination
     try testing.expectEqual(@as(u256, 0), should_skip_first); // Should not skip
-    
+
     // Second condition: c < d (should be true)
-    try test_frame.pushStack(&[_]u256{c, d});
+    try test_frame.pushStack(&[_]u256{ c, d });
     _ = try helpers.executeOpcode(0x10, &test_vm.vm, test_frame.frame);
-    
+
     // AND the conditions
     _ = try helpers.executeOpcode(0x02, &test_vm.vm, test_frame.frame); // Using MUL as AND for 0/1 values
-    
+
     try helpers.expectStackValue(test_frame.frame, 0, 1); // Both conditions true
 }
 
 test "Integration: Self-destruct with beneficiary" {
     // Test SELFDESTRUCT operation
     const allocator = testing.allocator;
-    
+
     var test_vm = try helpers.TestVm.init(allocator);
     defer test_vm.deinit();
-    
+
     // Set up contract with balance
     const contract_balance: u256 = 1000;
     try test_vm.setAccount(helpers.TestAddresses.CONTRACT, contract_balance, &[_]u8{});
-    
+
     // Set up beneficiary
     const beneficiary_initial: u256 = 500;
     try test_vm.setAccount(helpers.TestAddresses.BOB, beneficiary_initial, &[_]u8{});
-    
+
     var contract = try helpers.createTestContract(
         allocator,
         helpers.TestAddresses.CONTRACT,
@@ -349,17 +392,17 @@ test "Integration: Self-destruct with beneficiary" {
         &[_]u8{},
     );
     defer contract.deinit(null);
-    
+
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
-    
+
     // Get initial beneficiary balance
     const initial_balance = try test_vm.vm.get_balance(helpers.TestAddresses.BOB);
     try testing.expectEqual(beneficiary_initial, initial_balance);
-    
+
     // Execute selfdestruct with BOB as beneficiary
     try test_frame.pushStack(&[_]u256{helpers.toU256(helpers.TestAddresses.BOB)});
-    
+
     // Note: Actual selfdestruct implementation would transfer balance and mark for deletion
     // For this test, we're just verifying the opcode executes
     const result = helpers.executeOpcode(0xFF, &test_vm.vm, test_frame.frame);

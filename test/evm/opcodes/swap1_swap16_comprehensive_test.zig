@@ -598,14 +598,20 @@ test "SWAP operations: No side effects" {
     try test_frame.pushStack(&[_]u256{0x44});
     try test_frame.pushStack(&[_]u256{0x55});
     
+    std.debug.print("Before SWAP3:\n", .{});
+    helpers.printStack(test_frame.frame);
+    
     // Execute SWAP3
     _ = try helpers.executeOpcode(0x92, &test_vm.vm, test_frame.frame);
     
+    std.debug.print("After SWAP3:\n", .{});
+    helpers.printStack(test_frame.frame);
+    
     // Verify only positions 0 and 3 were swapped
-    try helpers.expectStackValue(test_frame.frame, 0, 0x33); // Was at position 3
+    try helpers.expectStackValue(test_frame.frame, 0, 0x22); // Was at position 3
     try helpers.expectStackValue(test_frame.frame, 1, 0x44); // Unchanged
-    try helpers.expectStackValue(test_frame.frame, 2, 0x55); // Unchanged  
-    try helpers.expectStackValue(test_frame.frame, 3, 0x22); // Was at position 0
+    try helpers.expectStackValue(test_frame.frame, 2, 0x33); // Unchanged  
+    try helpers.expectStackValue(test_frame.frame, 3, 0x55); // Was at position 0
     try helpers.expectStackValue(test_frame.frame, 4, 0x11); // Unchanged
     
     // Stack size should remain the same

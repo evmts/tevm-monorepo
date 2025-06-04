@@ -233,8 +233,8 @@ test "LOG0-LOG4: Gas consumption" {
     defer test_frame.deinit();
     
     // Test LOG0 gas consumption
-    try test_frame.pushStack(&[_]u256{0});     // offset
     try test_frame.pushStack(&[_]u256{32});    // size (32 bytes)
+    try test_frame.pushStack(&[_]u256{0});     // offset
     
     test_frame.frame.pc = 0;
     const gas_before_log0 = test_frame.frame.gas_remaining;
@@ -242,12 +242,12 @@ test "LOG0-LOG4: Gas consumption" {
     const gas_used_log0 = gas_before_log0 - test_frame.frame.gas_remaining;
     
     // LOG0 gas = 375 (base) + 8*32 (data) + memory expansion
-    // Memory expansion for 32 bytes = 3 + 3*1 = 6
-    try testing.expectEqual(@as(u64, 375 + 256 + 6), gas_used_log0);
+    // Memory expansion from 0 to 32 bytes (1 word) = 3
+    try testing.expectEqual(@as(u64, 375 + 256 + 3), gas_used_log0);
     
     // Test LOG1 gas consumption
-    try test_frame.pushStack(&[_]u256{0});     // offset
     try test_frame.pushStack(&[_]u256{16});    // size (16 bytes)
+    try test_frame.pushStack(&[_]u256{0});     // offset
     try test_frame.pushStack(&[_]u256{0x123}); // topic
     
     test_frame.frame.pc = 1;
@@ -259,8 +259,8 @@ test "LOG0-LOG4: Gas consumption" {
     try testing.expectEqual(@as(u64, 375 + 375 + 128), gas_used_log1);
     
     // Test LOG4 gas consumption (empty data)
-    try test_frame.pushStack(&[_]u256{0});     // offset
     try test_frame.pushStack(&[_]u256{0});     // size (0 bytes - empty data)
+    try test_frame.pushStack(&[_]u256{0});     // offset
     try test_frame.pushStack(&[_]u256{0x111}); // topic1
     try test_frame.pushStack(&[_]u256{0x222}); // topic2
     try test_frame.pushStack(&[_]u256{0x333}); // topic3
@@ -306,8 +306,8 @@ test "LOG operations: Static call protection" {
     test_frame.frame.is_static = true;
     
     // Push parameters
-    try test_frame.pushStack(&[_]u256{0}); // offset
     try test_frame.pushStack(&[_]u256{0}); // size
+    try test_frame.pushStack(&[_]u256{0}); // offset
     
     // LOG0 should fail with WriteProtection error
     test_frame.frame.pc = 4;
@@ -321,8 +321,8 @@ test "LOG operations: Static call protection" {
         test_frame.frame.stack.clear();
         
         // Push required parameters
-        try test_frame.pushStack(&[_]u256{0}); // offset
         try test_frame.pushStack(&[_]u256{0}); // size
+        try test_frame.pushStack(&[_]u256{0}); // offset
         
         // Push topics if needed
         const num_topics = opcode - 0xA0;
