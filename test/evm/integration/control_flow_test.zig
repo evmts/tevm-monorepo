@@ -252,7 +252,9 @@ test "Integration: Invalid opcode handling" {
     defer test_frame.deinit();
     
     // Execute INVALID opcode
+    std.debug.print("\nInvalid opcode test: Gas before execution: {}\n", .{test_frame.frame.gas_remaining});
     const result = helpers.executeOpcode(0xFE, &test_vm.vm, test_frame.frame);
+    std.debug.print("Invalid opcode test: Gas after execution: {}\n", .{test_frame.frame.gas_remaining});
     try testing.expectError(helpers.ExecutionError.Error.InvalidOpcode, result);
     
     // All gas should be consumed
