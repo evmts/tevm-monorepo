@@ -33,4 +33,6 @@ test {
     _ = @import("dup1_dup16_comprehensive_test.zig");
     _ = @import("swap1_swap16_comprehensive_test.zig");
     _ = @import("log0_log4_comprehensive_test.zig");
+    _ = @import("create_call_comprehensive_test.zig");
+    _ = @import("control_system_comprehensive_test.zig");
 }
