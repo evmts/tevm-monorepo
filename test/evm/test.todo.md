@@ -336,7 +336,7 @@ Let's proceed systematically through the failures.
   </test_failure_group>
 
   <test_failure_group name="JUMPI_InvalidJump_ControlTest">
-    *   **Status:** IN PROGRESS - Agent Claude - Worktree: `g/evm-fix-jumpi-validation`
+    *   **Status:** IN PROGRESS - Agent Claude (Current Session) - Worktree: `g/evm-fix-jumpi-validation`
     <failure_summary>
       Test `control_test.test.Control: JUMPI conditional jump` fails with `ExecutionError.Error.InvalidJump` from `src/evm/opcodes/control.zig:70:13` in `op_jumpi`.
       This indicates the jump destination was invalid. The `JumpTable` logs show constant gas consumed but no change after `op_execute`, meaning the error happened early.

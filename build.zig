@@ -315,7 +315,7 @@ pub fn build(b: *std.Build) void {
     // Add a test for evm.zig
     const evm_test = b.addTest(.{
         .name = "evm-test",
-        .root_source_file = b.path("src/evm/jump_table.zig"),
+        .root_source_file = b.path("src/evm/evm.zig"),
         .target = target,
         .optimize = optimize,
     });
@@ -429,7 +429,7 @@ pub fn build(b: *std.Build) void {
     trie_test_step.dependOn(&run_trie_test.step);
 
     const interpreter_test = b.addTest(.{
-        .name = "evm-test",
+        .name = "interpreter-test",
         .root_source_file = b.path("src/evm/jump_table.zig"),
         .target = target,
         .optimize = optimize,
@@ -438,6 +438,7 @@ pub fn build(b: *std.Build) void {
     // Add module imports to interpreter test
     interpreter_test.root_module.addImport("Address", address_mod);
     interpreter_test.root_module.addImport("Block", block_mod);
+    interpreter_test.root_module.addImport("Rlp", rlp_mod);
 
     const run_interpreter_test = b.addRunArtifact(interpreter_test);
 
