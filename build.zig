@@ -149,6 +149,7 @@ pub fn build(b: *std.Build) void {
     // Add imports to the evm_mod
     evm_mod.addImport("Address", address_mod);
     evm_mod.addImport("Block", block_mod);
+    evm_mod.addImport("Rlp", rlp_mod);
 
     // Create a ZigEVM module - our core EVM implementation
     const target_architecture_mod = b.createModule(.{

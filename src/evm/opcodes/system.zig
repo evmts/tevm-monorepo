@@ -79,6 +79,7 @@ pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     // Calculate gas to give to the new contract (all but 1/64th)
     const gas_for_call = frame.gas_remaining - (frame.gas_remaining / 64);
     
+    
     // Create the contract
     const result = try vm.create_contract(frame.contract.address, value, init_code, gas_for_call);
     
@@ -155,6 +156,7 @@ pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     
     // Calculate gas to give to the new contract (all but 1/64th)
     const gas_for_call = frame.gas_remaining - (frame.gas_remaining / 64);
+    
     
     // Create the contract with CREATE2
     const result = try vm.create2_contract(frame.contract.address, value, init_code, salt, gas_for_call);
