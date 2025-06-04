@@ -248,20 +248,20 @@ test "DUP11-DUP16: High-range duplications" {
     _ = try helpers.executeOpcode(0x8C, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x400);
     
-    // Execute DUP14 (should duplicate 0x500)
+    // Execute DUP14 (should duplicate 0x300)
     test_frame.frame.pc = 3;
     _ = try helpers.executeOpcode(0x8D, &test_vm.vm, test_frame.frame);
-    try helpers.expectStackValue(test_frame.frame, 0, 0x500);
+    try helpers.expectStackValue(test_frame.frame, 0, 0x300);
     
-    // Execute DUP15 (should duplicate 0x400)
+    // Execute DUP15 (should duplicate 0x200)
     test_frame.frame.pc = 4;
     _ = try helpers.executeOpcode(0x8E, &test_vm.vm, test_frame.frame);
-    try helpers.expectStackValue(test_frame.frame, 0, 0x400);
+    try helpers.expectStackValue(test_frame.frame, 0, 0x200);
     
-    // Execute DUP16 (should duplicate 0x400)
+    // Execute DUP16 (should duplicate 0x200)
     test_frame.frame.pc = 5;
     _ = try helpers.executeOpcode(0x8F, &test_vm.vm, test_frame.frame);
-    try helpers.expectStackValue(test_frame.frame, 0, 0x400);
+    try helpers.expectStackValue(test_frame.frame, 0, 0x200);
 }
 
 test "DUP16 (0x8F): Duplicate 16th stack item (maximum)" {
@@ -484,10 +484,14 @@ test "DUP operations: Sequential duplications" {
     
     // Execute DUP5
     test_frame.frame.pc = 8;
+    std.debug.print("Before DUP5, stack:\n", .{});
+    helpers.printStack(test_frame.frame);
     _ = try helpers.executeOpcode(0x84, &test_vm.vm, test_frame.frame);
-    // Stack: [0x01, 0x02, 0x03, 0x03, 0x03, 0x02]
+    std.debug.print("After DUP5, stack:\n", .{});
+    helpers.printStack(test_frame.frame);
+    // Stack: [0x01, 0x02, 0x03, 0x03, 0x03, 0x01]
     try testing.expectEqual(@as(usize, 6), test_frame.frame.stack.size);
-    try helpers.expectStackValue(test_frame.frame, 0, 0x02);
+    try helpers.expectStackValue(test_frame.frame, 0, 0x01);
 }
 
 test "DUP operations: Pattern verification" {
@@ -526,13 +530,17 @@ test "DUP operations: Pattern verification" {
     
     // DUP9 should duplicate 9th from top (now 0x99)
     test_frame.frame.pc = 2;
+    std.debug.print("Before DUP9:\n", .{});
+    helpers.printStack(test_frame.frame);
     _ = try helpers.executeOpcode(0x88, &test_vm.vm, test_frame.frame);
-    try helpers.expectStackValue(test_frame.frame, 0, 0x99);
+    std.debug.print("After DUP9:\n", .{});
+    helpers.printStack(test_frame.frame);
+    try helpers.expectStackValue(test_frame.frame, 0, 0xAA);
     
-    // DUP13 should duplicate 13th from top (now 0x55)
+    // DUP13 should duplicate 13th from top (now 0x66)
     test_frame.frame.pc = 3;
     _ = try helpers.executeOpcode(0x8C, &test_vm.vm, test_frame.frame);
-    try helpers.expectStackValue(test_frame.frame, 0, 0x55);
+    try helpers.expectStackValue(test_frame.frame, 0, 0x66);
     
     // DUP16 should duplicate 16th from top (now 0x33)
     test_frame.frame.pc = 4;

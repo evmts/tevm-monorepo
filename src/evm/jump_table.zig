@@ -47,15 +47,9 @@ pub fn execute(self: *const Self, pc: usize, interpreter: *Operation.Interpreter
     // Cast state to Frame to access gas_remaining and stack
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // Debug print for SLOAD
-    if (opcode == 0x54) {
-        std.debug.print("\nDEBUG: SLOAD opcode 0x54 detected\n", .{});
-        std.debug.print("  operation.undefined = {}\n", .{operation.undefined});
-        if (self.table[0x54]) |op| {
-            std.debug.print("  table[0x54] is set, undefined = {}\n", .{op.undefined});
-        } else {
-            std.debug.print("  table[0x54] is null\n", .{});
-        }
+    // Debug print for undefined opcodes
+    if (operation.undefined) {
+        std.debug.print("\nERROR: Undefined opcode 0x{x:0>2} at pc={}\n", .{opcode, pc});
     }
 
     // Check if this is an undefined/invalid opcode

@@ -185,6 +185,9 @@ test "MSTORE8 (0x53): Store single byte to memory" {
 
 test "SLOAD (0x54): Load from storage" {
     const allocator = testing.allocator;
+    
+    std.debug.print("\n=== Starting SLOAD test ===\n", .{});
+    
     var test_vm = try helpers.TestVm.init(allocator);
     defer test_vm.deinit();
     
@@ -201,12 +204,15 @@ test "SLOAD (0x54): Load from storage" {
     defer test_frame.deinit();
     
     // Test 1: Load from empty slot (should return 0)
+    std.debug.print("Test 1: Loading from empty slot 42\n", .{});
     try test_frame.pushStack(&[_]u256{42}); // slot
     _ = try helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0);
     _ = try test_frame.popStack();
+    std.debug.print("Test 1: PASSED\n", .{});
     
     // Test 2: Load from populated slot
+    std.debug.print("Test 2: Loading from populated slot\n", .{});
     const slot: u256 = 100;
     const value: u256 = 0xdeadbeef;
     try test_vm.vm.set_storage(contract.address, slot, value);
@@ -215,24 +221,36 @@ test "SLOAD (0x54): Load from storage" {
     _ = try helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, value);
     _ = try test_frame.popStack();
+    std.debug.print("Test 2: PASSED\n", .{});
     
     // Test 3: Load multiple different slots
+    std.debug.print("Test 3: Loading multiple different slots\n", .{});
     const test_slots = [_]struct { slot: u256, value: u256 }{
         .{ .slot = 0, .value = 1 },
         .{ .slot = 1, .value = 1000 },
         .{ .slot = std.math.maxInt(u256), .value = 42 },
     };
     
-    for (test_slots) |ts| {
+    for (test_slots, 0..) |ts, i| {
+        std.debug.print("  Test 3.{}: slot={}, value={}\n", .{i, ts.slot, ts.value});
         try test_vm.vm.set_storage(contract.address, ts.slot, ts.value);
         try test_frame.pushStack(&[_]u256{ts.slot});
         _ = try helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame);
+        const stack_value = test_frame.frame.stack.peek() catch |err| {
+            std.debug.print("  Test 3.{}: Failed to peek stack: {}\n", .{i, err});
+            return err;
+        };
+        std.debug.print("  Test 3.{}: Stack value after SLOAD: {}\n", .{i, stack_value});
         try helpers.expectStackValue(test_frame.frame, 0, ts.value);
         _ = try test_frame.popStack();
+        std.debug.print("  Test 3.{}: PASSED\n", .{i});
     }
+    std.debug.print("Test 3: PASSED\n", .{});
+    std.debug.print("\n=== SLOAD test completed successfully ===\n\n", .{});
 }
 
 test "SSTORE (0x55): Store to storage" {
+    std.debug.print("\n=== Starting SSTORE test ===\n", .{});
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
     defer test_vm.deinit();

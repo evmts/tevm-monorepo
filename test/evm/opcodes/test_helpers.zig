@@ -31,8 +31,7 @@ pub const TestVm = struct {
         // Initialize transaction access list (pre-warm common addresses)
         try vm.init_transaction_access_list(null);
 
-        std.debug.print("TestVm.init: VM created with hardfork CANCUN (default)\n", .{});
-        std.debug.print("  chain_rules.IsBerlin = {}\n", .{vm.chain_rules.IsBerlin});
+        // VM created with hardfork CANCUN (default)
 
         return TestVm{
             .vm = vm,
@@ -221,11 +220,7 @@ pub fn executeOpcode(
     const state_ptr: *Operation.State = @ptrCast(frame);
     
     // Debug: Check if jump table has the opcode
-    const operation = vm.table.get_operation(opcode_byte);
-    if (opcode_byte == 0x80) { // DUP1
-        std.debug.print("executeOpcode: DUP1 (0x80) - operation undefined: {}, min_stack: {}\n", .{operation.undefined, operation.min_stack});
-        std.debug.print("  Stack size: {}\n", .{frame.stack.size});
-    }
+    // const operation = vm.table.get_operation(opcode_byte);
     
     // Use the Vm's jump table to execute the opcode
     // frame.pc should be set correctly by the test before calling this

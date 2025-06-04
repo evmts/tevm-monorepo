@@ -128,12 +128,10 @@ test "SWAP3-SWAP5: Various swaps" {
     
     // Execute SWAP4 (swap new top with 5th)
     test_frame.frame.pc = 1;
-    std.debug.print("Before SWAP4:\n", .{});
-    helpers.printStack(test_frame.frame);
+    // Before SWAP4
     result = try helpers.executeOpcode(0x93, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 1), result.bytes_consumed);
-    std.debug.print("After SWAP4:\n", .{});
-    helpers.printStack(test_frame.frame);
+    // After SWAP4
     // Stack was: [0x10, 0x20, 0x60, 0x40, 0x50, 0x30]
     // SWAP4 swaps top (0x30) with 5th from top (0x20)
     // Now: [0x10, 0x30, 0x60, 0x40, 0x50, 0x20]
@@ -142,12 +140,10 @@ test "SWAP3-SWAP5: Various swaps" {
     
     // Execute SWAP5 (swap new top with 6th)
     test_frame.frame.pc = 2;
-    std.debug.print("Before SWAP5:\n", .{});
-    helpers.printStack(test_frame.frame);
+    // Before SWAP5
     result = try helpers.executeOpcode(0x94, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 1), result.bytes_consumed);
-    std.debug.print("After SWAP5:\n", .{});
-    helpers.printStack(test_frame.frame);
+    // After SWAP5
     // Stack was: [0x10, 0x30, 0x60, 0x40, 0x50, 0x20]
     // SWAP5 swaps top (0x20) with 6th from top (0x10)
     // Now: [0x20, 0x30, 0x60, 0x40, 0x50, 0x10]
