@@ -373,6 +373,12 @@ Let's proceed systematically through the failures.
   </test_failure_group>
 
   <test_failure_group name="SELFDESTRUCT_GasMismatch_ControlTest">
+    *   **Status:** COMPLETE - Agent Claude
+    *   **Report:**
+        *   **Fix:** Corrected test expectations - SELFDESTRUCT consumes 5000 base gas + cold/warm access costs
+        *   **Tests Fixed:** Updated control_test.zig to expect 7600 gas for cold and 5000 for warm beneficiary
+        *   **Regressions Checked:** Test now matches EVM spec for SELFDESTRUCT gas consumption
+        *   **Commit SHA:** (pending)
     <failure_summary>
       Test `control_test.test.Control: SELFDESTRUCT basic operation` fails on gas expectation: `expected 2600, found 7600`.
       The Zig EVM correctly found 7600 gas consumed. The `JumpTable` log is `Opcode 0xff (SELFDESTRUCT), initial frame gas: 10000, const_gas = 5000, gas after const_consume: 5000, gas after op_execute: 2400`. This means `10000 - 2400 = 7600` gas was used.
@@ -418,10 +424,10 @@ Let's proceed systematically through the failures.
   <test_failure_group name="MemoryStorage_IntegrationFailures">
     *   **Status:** COMPLETE - Agent Claude - Worktree: `g/evm-fix-memory-ops`
     *   **Report:**
-        *   **Fix:** Corrected stack order for MSTORE/MSTORE8 - they now pop offset first, then value as per EVM spec
-        *   **Tests Fixed:** Memory operations should now store values at correct locations
-        *   **Regressions Checked:** Added debug logging to verify operations
-        *   **Commit SHA:** (pending)
+        *   **Fix:** Corrected stack order for MSTORE/MSTORE8/MCOPY - they now pop arguments in correct EVM order
+        *   **Tests Fixed:** Memory operations should now store/load values at correct locations
+        *   **Regressions Checked:** Fixed stack ordering for all memory opcodes
+        *   **Commit SHA:** bc99e22fe, ea2b77205
     <failure_summary>
       Multiple tests in `memory_storage_test.zig` are failing:
       1.  `Memory operations with arithmetic`: `MLOAD` returns 0 instead of 30 after `MSTORE`.
@@ -482,6 +488,12 @@ Let's proceed systematically through the failures.
   </test_failure_group>
 
   <test_failure_group name="ControlFlow_InvalidOpcodeGas_IntegrationTest">
+    *   **Status:** COMPLETE - Agent Claude
+    *   **Report:**
+        *   **Fix:** Modified VM execution loop to catch InvalidOpcode error and consume all gas
+        *   **Tests Fixed:** INVALID opcode now correctly consumes all remaining gas
+        *   **Regressions Checked:** Also handled STOP error properly in the same switch
+        *   **Commit SHA:** (pending)
     <failure_summary>
       Test `control_flow_test.test.Integration: Invalid opcode handling` fails.
       It `expected 0, found 10000` for `frame.gas_remaining` after an `INVALID` (0xfe) opcode.

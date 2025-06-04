@@ -345,8 +345,8 @@ test "Control: SELFDESTRUCT basic operation" {
     const result = helpers.executeOpcode(0xFF, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.STOP, result);
     
-    // Gas should be consumed for cold address access (2600)
-    try helpers.expectGasUsed(test_frame.frame, 10000, helpers.opcodes.gas_constants.ColdAccountAccessCost);
+    // Gas should be consumed for base SELFDESTRUCT (5000) + cold address access (2600)
+    try helpers.expectGasUsed(test_frame.frame, 10000, 5000 + helpers.opcodes.gas_constants.ColdAccountAccessCost);
     
     // Test 2: Selfdestruct with warm beneficiary
     test_frame.frame.stack.clear();
@@ -359,8 +359,8 @@ test "Control: SELFDESTRUCT basic operation" {
     const result2 = helpers.executeOpcode(0xFF, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.STOP, result2);
     
-    // No gas should be consumed for warm address
-    try testing.expectEqual(@as(u64, 10000), test_frame.frame.gas_remaining);
+    // Only base SELFDESTRUCT gas (5000) should be consumed for warm address
+    try helpers.expectGasUsed(test_frame.frame, 10000, 5000);
     
     // Test 3: Selfdestruct in static context should fail
     test_frame.frame.stack.clear();

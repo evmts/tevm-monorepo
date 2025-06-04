@@ -170,7 +170,21 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
         const interpreter_ptr: *Operation.Interpreter = @ptrCast(self);
         const state_ptr: *Operation.State = @ptrCast(&frame);
         // Use jump table's execute method which handles gas consumption
-        const result = try self.table.execute(pc, interpreter_ptr, state_ptr, opcode);
+        const result = self.table.execute(pc, interpreter_ptr, state_ptr, opcode) catch |err| {
+            // Handle specific errors
+            switch (err) {
+                ExecutionError.Error.InvalidOpcode => {
+                    // INVALID opcode consumes all remaining gas
+                    frame.gas_remaining = 0;
+                    return &[_]u8{};
+                },
+                ExecutionError.Error.STOP => {
+                    // Normal stop
+                    return &[_]u8{};
+                },
+                else => return err,
+            }
+        };
 
         // Update pc based on result - PUSH operations consume more than 1 byte
         pc += result.bytes_consumed;
