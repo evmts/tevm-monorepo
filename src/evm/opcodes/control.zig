@@ -58,11 +58,11 @@ pub fn op_jumpi(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     const dest_usize = if (dest > std.math.maxInt(usize)) std.math.maxInt(usize) else @as(usize, @intCast(dest));
 
-    std.debug.print("JUMPI @ PC={d}: Attempting jump. Popped dest_u256=0x{x} (usize={d}), condition_u256={any}. Code len={d}.\n", .{ pc, dest, dest_usize, condition, frame.contract.code.len });
+    // Debug: JUMPI attempting jump
 
     if (condition != 0) {
         if (dest_usize < frame.contract.code.len) {
-            std.debug.print("  JUMPI Target Check: Opcode at dest_usize ({d}) is 0x{x}. Is valid_jumpdest? {any}\n", .{ dest_usize, frame.contract.code[dest_usize], frame.contract.valid_jumpdest(dest) });
+            // Debug: JUMPI target check
             if (frame.contract.analysis) |analysis| {
                 if (analysis.jumpdest_positions.len > 0) {
                     var found_in_list = false;
@@ -72,15 +72,15 @@ pub fn op_jumpi(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
                             break;
                         }
                     }
-                    std.debug.print("    JUMPI Detail: dest_usize ({d}) found in analysis.jumpdest_positions? {any}. analysis.code_segments.is_set({d})? {any}\n", .{ dest_usize, found_in_list, dest_usize, analysis.code_segments.is_set(dest_usize) });
+                    // Debug: JUMPI detail - jumpdest positions
                 } else {
-                    std.debug.print("    JUMPI Detail: analysis.jumpdest_positions is empty. analysis.code_segments.is_set({d})? {any}\n", .{ dest_usize, analysis.code_segments.is_set(dest_usize) });
+                    // Debug: JUMPI detail - empty jumpdest positions
                 }
             } else {
-                std.debug.print("    JUMPI Detail: frame.contract.analysis is null.\n", .{});
+                // Debug: JUMPI detail - analysis is null
             }
         } else {
-            std.debug.print("  JUMPI Target Check: dest_usize ({d}) is out of bounds.\n", .{dest_usize});
+            // Debug: JUMPI target out of bounds
         }
 
         // Check if destination is a valid JUMPDEST (pass u256 directly)
@@ -206,10 +206,10 @@ pub fn op_invalid(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    std.debug.print("op_invalid: Entered. Frame gas before setting to 0: {d}\n", .{frame.gas_remaining});
+    // Debug: op_invalid entered
     // INVALID opcode consumes all remaining gas
     frame.gas_remaining = 0;
-    std.debug.print("op_invalid: Frame gas after setting to 0: {d}. Returning InvalidOpcode error.\n", .{frame.gas_remaining});
+    // Debug: op_invalid returning InvalidOpcode
 
     return ExecutionError.Error.InvalidOpcode;
 }

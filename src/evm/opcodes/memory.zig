@@ -33,7 +33,7 @@ pub fn op_mload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     const offset_usize = @as(usize, @intCast(offset));
 
-    std.debug.print("MLOAD: offset={}, current_mem_size={}\n", .{ offset_usize, frame.memory.context_size() });
+    // Debug: MLOAD offset and memory size
 
     // Calculate memory expansion gas cost
     const current_size = frame.memory.context_size();
@@ -41,7 +41,7 @@ pub fn op_mload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     const gas_cost = gas_constants.memory_gas_cost(current_size, new_size);
     
     if (gas_cost > 0) {
-        std.debug.print("MLOAD: expanding memory from {} to {}, gas_cost={}\n", .{ current_size, new_size, gas_cost });
+        // Debug: MLOAD memory expansion
     }
     try frame.consume_gas(gas_cost);
 
@@ -51,7 +51,7 @@ pub fn op_mload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     // Read 32 bytes from memory
     const value = frame.memory.get_u256(offset_usize) catch |err| return map_memory_error(err);
 
-    std.debug.print("MLOAD: read value={} from offset={}, mem_size_after={}\n", .{ value, offset_usize, frame.memory.context_size() });
+    // Debug: MLOAD read value
 
     try stack_push(&frame.stack, value);
 
@@ -139,7 +139,7 @@ pub fn op_msize(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     const size = frame.memory.context_size();
     const word_aligned_size = ((size + 31) / 32) * 32;
     
-    std.debug.print("MSIZE: returning memory size={} (actual={})\n", .{word_aligned_size, size});
+    // Debug: MSIZE returning size
 
     try stack_push(&frame.stack, @as(u256, @intCast(word_aligned_size)));
 
@@ -187,7 +187,7 @@ pub fn op_mcopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     // Debug logging
     if (@import("builtin").mode == .Debug) {
-        std.debug.print("MCOPY: src={}, dest={}, size={}\n", .{ src_usize, dest_usize, size_usize });
+        // Debug: MCOPY operation
     }
 
     return Operation.ExecutionResult{};

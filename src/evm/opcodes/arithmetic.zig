@@ -78,8 +78,7 @@ pub fn op_sub(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     // Store for testing
     vm.last_stack_value = result;
     
-    // Debug logging
-    std.debug.print("\nSUB operation: a={}, b={}, result={}\n", .{a, b, result});
+    // Debug logging removed
 
     return Operation.ExecutionResult{};
 }

@@ -399,8 +399,8 @@ test "BYTE (0x1A): Extract first byte" {
     defer test_frame.deinit();
     
     // Test: Extract byte 0 (most significant) from 0x123456...
-    try test_frame.pushStack(&[_]u256{0}); // byte index
-    try test_frame.pushStack(&[_]u256{0x1234567890ABCDEF}); // value
+    try test_frame.pushStack(&[_]u256{0x1234567890ABCDEF}); // value (pushed first, popped second)
+    try test_frame.pushStack(&[_]u256{0}); // byte index (pushed last, popped first)
     
     _ = try helpers.executeOpcode(0x1A, &test_vm.vm, test_frame.frame);
     
@@ -426,8 +426,8 @@ test "BYTE: Extract last byte" {
     defer test_frame.deinit();
     
     // Test: Extract byte 31 (least significant) from value
-    try test_frame.pushStack(&[_]u256{31}); // byte index
-    try test_frame.pushStack(&[_]u256{0x1234567890ABCDEF}); // value
+    try test_frame.pushStack(&[_]u256{0x1234567890ABCDEF}); // value (pushed first, popped second)
+    try test_frame.pushStack(&[_]u256{31}); // byte index (pushed last, popped first)
     
     _ = try helpers.executeOpcode(0x1A, &test_vm.vm, test_frame.frame);
     
@@ -453,8 +453,8 @@ test "BYTE: Out of bounds returns zero" {
     defer test_frame.deinit();
     
     // Test: Byte index >= 32 returns 0
-    try test_frame.pushStack(&[_]u256{32}); // byte index (out of bounds)
-    try test_frame.pushStack(&[_]u256{0xFFFFFFFFFFFFFFFF}); // value
+    try test_frame.pushStack(&[_]u256{0xFFFFFFFFFFFFFFFF}); // value (pushed first, popped second)
+    try test_frame.pushStack(&[_]u256{32}); // byte index (out of bounds) (pushed last, popped first)
     
     _ = try helpers.executeOpcode(0x1A, &test_vm.vm, test_frame.frame);
     

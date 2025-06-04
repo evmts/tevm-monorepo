@@ -668,15 +668,17 @@ test "ADDMOD: No intermediate overflow" {
     
     // Test with values that would overflow u256
     const max = std.math.maxInt(u256);
-    try test_frame.pushStack(&[_]u256{max});
-    try test_frame.pushStack(&[_]u256{max});
-    try test_frame.pushStack(&[_]u256{10});
+    try test_frame.pushStack(&[_]u256{max});   // first addend (pushed first, popped third)
+    try test_frame.pushStack(&[_]u256{max});   // second addend (pushed second, popped second)
+    try test_frame.pushStack(&[_]u256{10});    // modulus (pushed last, popped first)
     
     _ = try helpers.executeOpcode(0x08, &test_vm.vm, test_frame.frame);
     
     const value = try test_frame.popStack();
-    // (MAX + MAX) % 10 = 8 (because MAX + MAX = 2^257 - 2, and (2^257 - 2) % 10 = 8)
-    try testing.expectEqual(@as(u256, 8), value);
+    // (MAX + MAX) % 10 = 4
+    // MAX + MAX in u256 wraps to: 2^256 - 2 (since MAX = 2^256 - 1)
+    // (2^256 - 2) % 10 = 4 (since 2^256 % 10 = 6)
+    try testing.expectEqual(@as(u256, 4), value);
 }
 
 // ============================
@@ -879,8 +881,8 @@ test "SIGNEXTEND (0x0B): Extend positive byte" {
     defer test_frame.deinit();
     
     // Test: sign extend 0x7F (positive) from byte 0
-    try test_frame.pushStack(&[_]u256{0}); // byte position
-    try test_frame.pushStack(&[_]u256{0x7F}); // value
+    try test_frame.pushStack(&[_]u256{0x7F}); // value (pushed first, popped second)
+    try test_frame.pushStack(&[_]u256{0}); // byte position (pushed last, popped first)
     
     _ = try helpers.executeOpcode(0x0B, &test_vm.vm, test_frame.frame);
     
@@ -906,8 +908,8 @@ test "SIGNEXTEND: Extend negative byte" {
     defer test_frame.deinit();
     
     // Test: sign extend 0xFF (negative) from byte 0
-    try test_frame.pushStack(&[_]u256{0}); // byte position
-    try test_frame.pushStack(&[_]u256{0xFF}); // value
+    try test_frame.pushStack(&[_]u256{0xFF}); // value (pushed first, popped second)
+    try test_frame.pushStack(&[_]u256{0}); // byte position (pushed last, popped first)
     
     _ = try helpers.executeOpcode(0x0B, &test_vm.vm, test_frame.frame);
     
@@ -935,8 +937,8 @@ test "SIGNEXTEND: Extend from higher byte position" {
     defer test_frame.deinit();
     
     // Test: sign extend 0x00FF from byte 1 (second byte)
-    try test_frame.pushStack(&[_]u256{1}); // byte position
-    try test_frame.pushStack(&[_]u256{0x00FF}); // value
+    try test_frame.pushStack(&[_]u256{0x00FF}); // value (pushed first, popped second)
+    try test_frame.pushStack(&[_]u256{1}); // byte position (pushed last, popped first)
     
     _ = try helpers.executeOpcode(0x0B, &test_vm.vm, test_frame.frame);
     
@@ -964,8 +966,8 @@ test "SIGNEXTEND: Byte position >= 31 returns value unchanged" {
     
     // Test: byte position >= 31 returns original value
     const test_value = 0x123456789ABCDEF;
-    try test_frame.pushStack(&[_]u256{31}); // byte position
-    try test_frame.pushStack(&[_]u256{test_value});
+    try test_frame.pushStack(&[_]u256{test_value}); // value (pushed first, popped second)
+    try test_frame.pushStack(&[_]u256{31}); // byte position (pushed last, popped first)
     
     _ = try helpers.executeOpcode(0x0B, &test_vm.vm, test_frame.frame);
     
