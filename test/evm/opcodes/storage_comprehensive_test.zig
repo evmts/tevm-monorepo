@@ -486,18 +486,17 @@ test "SSTORE: Overwriting values" {
     const slot = 0xBEEF;
     
     // Store initial value
-    try test_frame.pushStack(&[_]u256{slot});
-    try test_frame.pushStack(&[_]u256{0x111});
+    // SSTORE pops: slot (first), value (second)
+    // So push: value, slot (slot on top)
+    try test_frame.pushStack(&[_]u256{0x111, slot});
     _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
     
     // Overwrite with new value
-    try test_frame.pushStack(&[_]u256{slot});
-    try test_frame.pushStack(&[_]u256{0x222});
+    try test_frame.pushStack(&[_]u256{0x222, slot});
     _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
     
     // Overwrite again
-    try test_frame.pushStack(&[_]u256{slot});
-    try test_frame.pushStack(&[_]u256{0x333});
+    try test_frame.pushStack(&[_]u256{0x333, slot});
     _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
     
     // Verify final value
