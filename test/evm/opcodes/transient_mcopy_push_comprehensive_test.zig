@@ -195,7 +195,7 @@ test "PUSH0 (0x5F): Push zero onto stack" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try helpers.TestFrame.init(allocator, &contract, 3000);
     defer test_frame.deinit();
     
     // Test 1: Basic PUSH0
