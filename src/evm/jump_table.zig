@@ -47,17 +47,23 @@ pub fn execute(self: *const Self, pc: usize, interpreter: *Operation.Interpreter
     // Cast state to Frame to access gas_remaining and stack
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
+    const opcode_enum = @as(Opcode.Enum, @enumFromInt(opcode));
+    std.debug.print("JumpTable: Opcode 0x{x} ({s}), initial frame gas: {}\n", .{ opcode, Opcode.get_name(opcode_enum), frame.gas_remaining });
     // Validate stack requirements before execution
     const stack_validation = @import("stack_validation.zig");
     try stack_validation.validate_stack_requirements(&frame.stack, operation);
 
     // Consume base gas cost before executing the opcode
     if (operation.constant_gas > 0) {
+        const gas_before_const = frame.gas_remaining;
         try frame.consume_gas(operation.constant_gas);
+        std.debug.print("JumpTable: Opcode 0x{x}, const_gas = {}, gas after const_consume: {} (consumed {})\n", .{ opcode, operation.constant_gas, frame.gas_remaining, gas_before_const - frame.gas_remaining });
     }
 
     // Execute the opcode handler
-    return operation.execute(pc, interpreter, state);
+    const res = operation.execute(pc, interpreter, state);
+    std.debug.print("JumpTable: Opcode 0x{x}, gas after op_execute: {}\n", .{ opcode, frame.gas_remaining });
+    return res;
 }
 
 pub fn validate(self: *Self) void {
