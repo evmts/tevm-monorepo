@@ -20,7 +20,7 @@ interface OptimisticWrapperProviderProps<TConfig extends StoreConfig> extends Cr
 // We need to do that work now as otherwise we get both multiple writeContract wrappers (next one will wrap the previous wrapper itself) and multiple txPool subscriptions
 // that apply the same txs inconsistently
 // This is awful and obviously needs to be fixed as soon as there is a better solution
-const handlerRegistry = new WeakMap<Client | SessionClient, CreateOptimisticHandlerResult<any>>()
+const handlerRegistry = new WeakMap<Client | SessionClient, CreateOptimisticHandlerResult<StoreConfig>>()
 
 /**
  * Provider component that initializes the optimistic handler and makes its utilities available
@@ -45,11 +45,11 @@ export const OptimisticWrapperProvider: React.FC<OptimisticWrapperProviderProps<
 		}
 	}, [])
 
-	if (sync && (sync.enabled === undefined || (sync.enabled && client.chain))) {
+	if (sync && ((sync.enabled === undefined || sync.enabled) && client.chain)) {
 		return (
 			<OptimisticWrapperContext.Provider value={handlerResult}>
 				<SyncProvider
-					chainId={client.chain!.id}
+					chainId={client.chain.id}
 					address={storeAddress}
 					startBlock={sync.startBlock ?? 0n}
 					adapter={handlerResult.syncAdapter}

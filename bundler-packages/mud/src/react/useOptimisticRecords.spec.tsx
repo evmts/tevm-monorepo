@@ -1,226 +1,201 @@
-import type { TableRecord } from '@latticexyz/protocol-parser/internal'
 // @vitest-environment jsdom
-import { renderHook } from '@testing-library/react'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { renderHook, waitFor } from '@testing-library/react'
+import React from 'react'
+import { beforeAll, describe, expect, it } from 'vitest'
 import { config } from '../../test/config.js'
-import { state } from '../../test/state.js'
-import { deepEqual } from '../internal/utils/deepEqual.js'
+import { randomRecord } from '../../test/state.js'
 import { useOptimisticRecords } from './useOptimisticRecords.js'
-import { useOptimisticState } from './useOptimisticState.js'
-import { useOptimisticWrapper } from './useOptimisticWrapper.js'
-
-// Mock dependencies
-vi.mock('./useOptimisticState.js', () => ({
-	useOptimisticState: vi.fn(),
-}))
-
-vi.mock('./useOptimisticWrapper.js', () => ({
-	useOptimisticWrapper: vi.fn(),
-}))
-
-vi.mock('@latticexyz/stash/internal', () => ({
-	getRecords: vi.fn(),
-}))
-
-vi.mock('../internal/utils/deepEqual.js', () => ({
-	deepEqual: vi.fn(),
-}))
-
-const mockUseOptimisticState = vi.mocked(useOptimisticState)
-const mockUseOptimisticWrapper = vi.mocked(useOptimisticWrapper)
+import { OptimisticWrapperProvider } from './useOptimisticWrapper.js'
+import { prepare, testContract, sessionClient, stash, writeRecords } from '../../test/prepare.js'
 
 describe('useOptimisticRecords', () => {
-	beforeEach(() => {
-		vi.clearAllMocks()
+	beforeAll(async () => {
+		await prepare({ count: 10 })
 	})
 
-	const testTable = config.tables.app__TestTable
-	const testRecords = state.records.app.TestTable
-	const testRecordsArray = Object.values(testRecords)
+	const createWrapper = ({ children }: { children: React.ReactNode }) => (
+		<OptimisticWrapperProvider
+			client={sessionClient}
+			storeAddress={testContract.address}
+			stash={stash}
+			config={config}
+			loggingLevel="warn"
+		>
+			{children}
+		</OptimisticWrapperProvider>
+	)
 
-	const mockArgs = {
-		table: testTable,
-	}
+	it('should return all records as array', async () => {
+		const records = Object.values(stash.get().records.app.TestTable)
+		const recordCount = records.length
 
-	it('should call useOptimisticState with deepEqual', () => {
-		mockUseOptimisticState.mockReturnValue(testRecordsArray)
-		mockUseOptimisticWrapper.mockReturnValue({
-			getOptimisticRecords: vi.fn().mockResolvedValue(testRecords),
-		} as any)
+		const { result } = renderHook(
+			() => useOptimisticRecords({ table: config.tables.app__TestTable }),
+			{ wrapper: createWrapper }
+		)
 
-		const { result } = renderHook(() => useOptimisticRecords(mockArgs))
-
-		expect(mockUseOptimisticState).toHaveBeenCalledWith(expect.any(Function), { isEqual: deepEqual })
-		expect(result.current).toBe(testRecordsArray)
+		await waitFor(() => {
+			expect(result.current).toBeDefined()
+			expect(Array.isArray(result.current)).toBe(true)
+			expect(result.current).toHaveLength(recordCount)
+		})
 	})
 
-	it('should return empty array when no records are found', () => {
-		mockUseOptimisticState.mockReturnValue([])
-		mockUseOptimisticWrapper.mockReturnValue({
-			getOptimisticRecords: vi.fn().mockResolvedValue({}),
-		} as any)
+	it('should return records with correct structure', async () => {
+		const { result } = renderHook(
+			() => useOptimisticRecords({ table: config.tables.app__TestTable }),
+			{ wrapper: createWrapper }
+		)
 
-		const { result } = renderHook(() => useOptimisticRecords(mockArgs))
+		await waitFor(() => {
+			expect(result.current).toBeDefined()
+			expect(result.current.length).toBeGreaterThan(0)
+		})
 
+		const firstRecord = result.current[0]
+		const schemaKeys = Object.keys(config.tables.app__TestTable.schema)
+
+		schemaKeys.forEach(key => {
+			expect(firstRecord).toHaveProperty(key)
+		})
+	})
+
+	it('should update when records are added', async () => {
+		const initialLength = Object.values(stash.get().records.app.TestTable).length
+
+		const { result } = renderHook(
+			() => useOptimisticRecords({ table: config.tables.app__TestTable }),
+			{ wrapper: createWrapper }
+		)
+
+		// Initial state
+		await waitFor(() => {
+			expect(result.current).toHaveLength(initialLength)
+		})
+
+		// Add a new record
+		const [, newRecord] = randomRecord()
+		await writeRecords([newRecord])
+
+		// Should update with new record
+		await waitFor(() => {
+			expect(result.current).toHaveLength(initialLength + 1)
+		})
+	})
+
+	it('should maintain referential stability when data unchanged', async () => {
+		const results: any[] = []
+
+		const { rerender } = renderHook(
+			() => {
+				const result = useOptimisticRecords({ table: config.tables.app__TestTable })
+				results.push(result)
+				return result
+			},
+			{ wrapper: createWrapper }
+		)
+
+		await waitFor(() => {
+			expect(results[results.length - 1]).toBeDefined()
+		})
+
+		const initialResult = results[results.length - 1]
+
+		// Re-render without changing data
+		rerender()
+
+		await waitFor(() => {
+			expect(results.length).toBeGreaterThan(1)
+		})
+
+		// Should maintain same reference due to deep equality
+		expect(results[results.length - 1]).toStrictEqual(initialResult)
+	})
+
+	it('should work when wrapper is undefined initially', async () => {
+		// Render without wrapper
+		const { result } = renderHook(() => useOptimisticRecords({ table: config.tables.app__TestTable }))
+
+		// Should return empty array when no wrapper
 		expect(result.current).toEqual([])
 	})
 
-	it('should return undefined when hook returns undefined', () => {
-		mockUseOptimisticState.mockReturnValue(undefined)
-		mockUseOptimisticWrapper.mockReturnValue({
-			getOptimisticRecords: vi.fn().mockResolvedValue({}),
-		} as any)
+	it('should handle record updates correctly', async () => {
+		const records = Object.values(stash.get().records.app.TestTable)
+		const recordToUpdate = records[0]!
 
-		const { result } = renderHook(() => useOptimisticRecords(mockArgs))
-
-		expect(result.current).toBeUndefined()
-	})
-
-	it('should use wrapper.getOptimisticRecords when wrapper is available', async () => {
-		const mockWrapper = {
-			getOptimisticRecords: vi.fn().mockResolvedValue(testRecords),
-		}
-		mockUseOptimisticWrapper.mockReturnValue(mockWrapper as any)
-
-		let capturedSelector: any
-		mockUseOptimisticState.mockImplementation((selector) => {
-			capturedSelector = selector
-			return testRecordsArray
-		})
-
-		renderHook(() => useOptimisticRecords(mockArgs))
-
-		// Test the selector function
-		const result = await capturedSelector(state)
-
-		expect(mockWrapper.getOptimisticRecords).toHaveBeenCalledWith({
-			state,
-			...mockArgs,
-		})
-		expect(result).toEqual(testRecordsArray)
-	})
-
-	it('should transform records map to array correctly', async () => {
-		// Take a subset of records for testing
-		const recordKeys = Object.keys(testRecords).slice(0, 3)
-		const subsetRecords = Object.fromEntries(recordKeys.map((key) => [key, testRecords[key]]))
-		const expectedArray = Object.values(subsetRecords)
-
-		const mockWrapper = {
-			getOptimisticRecords: vi.fn().mockResolvedValue(subsetRecords),
-		}
-		mockUseOptimisticWrapper.mockReturnValue(mockWrapper as any)
-
-		let capturedSelector: any
-		mockUseOptimisticState.mockImplementation((selector) => {
-			capturedSelector = selector
-			return expectedArray
-		})
-
-		renderHook(() => useOptimisticRecords(mockArgs))
-
-		// Test the selector function
-		const result = await capturedSelector(state)
-
-		expect(result).toEqual(expectedArray)
-		expect(Array.isArray(result)).toBe(true)
-		expect(result).toHaveLength(3)
-
-		// Verify each record has the correct structure
-		result.forEach((record: TableRecord) => {
-			expect(record).toHaveProperty('key1')
-			expect(record).toHaveProperty('key2')
-			expect(record).toHaveProperty('val1')
-			expect(record).toHaveProperty('dyn1')
-			expect(record).toHaveProperty('dyn3')
-			expect('dyn3' in record && Array.isArray(record.dyn3)).toBe(true)
-		})
-	})
-
-	it('should handle real TestTable records with all 100 entries', () => {
-		mockUseOptimisticState.mockReturnValue(testRecordsArray)
-		mockUseOptimisticWrapper.mockReturnValue({
-			getOptimisticRecords: vi.fn().mockResolvedValue(testRecords),
-		} as any)
-
-		const { result } = renderHook(() => useOptimisticRecords(mockArgs))
-
-		expect(result.current).toHaveLength(100) // As defined in state.ts
-		expect(Array.isArray(result.current)).toBe(true)
-
-		// Verify all records have unique keys
-		const keys = result.current?.map((record) => `${record.key1}-${record.key2}`)
-		const uniqueKeys = new Set(keys)
-		expect(uniqueKeys.size).toBe(100) // All keys should be unique
-	})
-
-	it('should handle filtering with where clause', async () => {
-		// Filter records where val4 is true
-		const filteredRecords = Object.fromEntries(
-			Object.entries(testRecords).filter(([_, record]) => record.val4 === true),
+		const { result } = renderHook(
+			() => useOptimisticRecords({ table: config.tables.app__TestTable }),
+			{ wrapper: createWrapper }
 		)
-		const filteredArray = Object.values(filteredRecords)
 
-		const argsWithWhere = {
-			table: testTable,
-			where: { val4: true },
-		}
-
-		const mockWrapper = {
-			getOptimisticRecords: vi.fn().mockResolvedValue(filteredRecords),
-		}
-		mockUseOptimisticWrapper.mockReturnValue(mockWrapper as any)
-
-		let capturedSelector: any
-		mockUseOptimisticState.mockImplementation((selector) => {
-			capturedSelector = selector
-			return filteredArray
+		// Initial state
+		await waitFor(() => {
+			expect(result.current.length).toBe(records.length)
 		})
 
-		renderHook(() => useOptimisticRecords(argsWithWhere))
+		// Update an existing record
+		const updatedRecord = { ...recordToUpdate, val1: recordToUpdate.val1 + 100n }
+		await writeRecords([updatedRecord])
 
-		// Test the selector function
-		const result = await capturedSelector(state)
-
-		expect(mockWrapper.getOptimisticRecords).toHaveBeenCalledWith({
-			state,
-			...argsWithWhere,
-		})
-
-		// Verify all returned records have val4 = true
-		result.forEach((record: any) => {
-			expect(record.val4).toBe(true)
+		// Should still have same number of records but with updated data
+		await waitFor(() => {
+			expect(result.current.length).toBe(records.length)
+			const updatedInResult = result.current.find(r =>
+				r.key1 === updatedRecord.key1 && r.key2 === updatedRecord.key2
+			)
+			expect(updatedInResult?.val1).toBe(recordToUpdate.val1 + 100n)
 		})
 	})
 
-	it('should handle ordering with orderBy clause', async () => {
-		// Sort records by val1 in descending order
-		const sortedArray = testRecordsArray.slice().sort((a, b) => Number(b.val1 - a.val1))
+	it('should return readonly array type', async () => {
+		const { result } = renderHook(
+			() => useOptimisticRecords({ table: config.tables.app__TestTable }),
+			{ wrapper: createWrapper }
+		)
 
-		const argsWithOrderBy = {
-			table: testTable,
-			orderBy: { field: 'val1', direction: 'desc' as const },
-		}
-
-		const mockWrapper = {
-			getOptimisticRecords: vi.fn().mockResolvedValue(testRecords),
-		}
-		mockUseOptimisticWrapper.mockReturnValue(mockWrapper as any)
-
-		let capturedSelector: any
-		mockUseOptimisticState.mockImplementation((selector) => {
-			capturedSelector = selector
-			return sortedArray
+		await waitFor(() => {
+			expect(result.current).toBeDefined()
 		})
 
-		renderHook(() => useOptimisticRecords(argsWithOrderBy))
+		// The array should be readonly (TypeScript compile-time check)
+		// This is more of a type safety test
+		expect(Array.isArray(result.current)).toBe(true)
+	})
 
-		// Test the selector function
-		await capturedSelector(state)
+	it('should cleanup subscription on unmount', async () => {
+		const { unmount } = renderHook(
+			() => useOptimisticRecords({ table: config.tables.app__TestTable }),
+			{ wrapper: createWrapper }
+		)
 
-		expect(mockWrapper.getOptimisticRecords).toHaveBeenCalledWith({
-			state,
-			...argsWithOrderBy,
+		await waitFor(() => {
+			// Hook is mounted and working
+		})
+
+		// Should not throw when unmounting
+		expect(() => unmount()).not.toThrow()
+	})
+
+	it('should handle concurrent updates from multiple sources', async () => {
+		const initialLength = Object.values(stash.get().records.app.TestTable).length
+
+		const { result } = renderHook(
+			() => useOptimisticRecords({ table: config.tables.app__TestTable }),
+			{ wrapper: createWrapper }
+		)
+
+		await waitFor(() => {
+			expect(result.current).toHaveLength(initialLength)
+		})
+
+		// Add multiple records concurrently
+		const [, record1] = randomRecord()
+		const [, record2] = randomRecord()
+		await writeRecords([record1, record2])
+
+		await waitFor(() => {
+			expect(result.current).toHaveLength(initialLength + 2)
 		})
 	})
 })

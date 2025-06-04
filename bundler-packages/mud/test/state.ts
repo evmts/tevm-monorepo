@@ -18,7 +18,7 @@ const randomKey = () => {
 	}
 }
 
-const randomRecord = (): [string, TableRecord<typeof config.tables.app__TestTable>] => {
+export const randomRecord = (): [string, TableRecord<typeof config.tables.app__TestTable>] => {
 	const { key, key1, key2 } = randomKey()
 	return [
 		key,
