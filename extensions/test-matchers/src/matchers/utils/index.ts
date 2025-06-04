@@ -1,4 +1,3 @@
-export { toBeBigInt } from './toBeBigInt.js'
 export { toBeAddress } from './toBeAddress.js'
 export { toBeHex, type IsHexOptions } from './toBeHex.js'
 export { toEqualAddress } from './toEqualAddress.js'

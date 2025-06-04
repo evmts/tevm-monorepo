@@ -4,14 +4,12 @@ import {
 	type EqualHexOptions,
 	type IsHexOptions,
 	toBeAddress,
-	toBeBigInt,
 	toBeHex,
 	toEqualAddress,
 	toEqualHex,
 } from './matchers/utils/index.js'
 
 expect.extend({
-	toBeBigInt,
 	toBeAddress,
 	toBeHex,
 	toEqualAddress,
@@ -19,7 +17,6 @@ expect.extend({
 })
 
 interface CustomMatchers {
-	toBeBigInt(): void
 	toBeAddress(opts?: IsAddressOptions): void
 	toBeHex(opts?: IsHexOptions): void
 	toEqualAddress(expected: unknown): void
