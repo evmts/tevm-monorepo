@@ -33,10 +33,16 @@ pub fn op_mload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     const offset_usize = @as(usize, @intCast(offset));
 
+    std.debug.print("MLOAD: offset={}, current_mem_size={}\n", .{ offset_usize, frame.memory.context_size() });
+
     // Calculate memory expansion gas cost
     const current_size = frame.memory.context_size();
     const new_size = offset_usize + 32;
     const gas_cost = gas_constants.memory_gas_cost(current_size, new_size);
+    
+    if (gas_cost > 0) {
+        std.debug.print("MLOAD: expanding memory from {} to {}, gas_cost={}\n", .{ current_size, new_size, gas_cost });
+    }
     try frame.consume_gas(gas_cost);
 
     // Ensure memory is available
@@ -44,6 +50,8 @@ pub fn op_mload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     // Read 32 bytes from memory
     const value = frame.memory.get_u256(offset_usize) catch |err| return map_memory_error(err);
+
+    std.debug.print("MLOAD: read value={} from offset={}, mem_size_after={}\n", .{ value, offset_usize, frame.memory.context_size() });
 
     try stack_push(&frame.stack, value);
 
@@ -56,9 +64,10 @@ pub fn op_mstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // EVM Stack: [..., offset, value] where value is on top
-    const value = try stack_pop(&frame.stack); // Pop value from top
-    const offset = try stack_pop(&frame.stack); // Pop offset second
+    // EVM Stack: [..., value, offset] where offset is on top
+    // MSTORE pops offset first, then value
+    const offset = try stack_pop(&frame.stack); // Pop offset from top
+    const value = try stack_pop(&frame.stack); // Pop value second
 
     if (offset > std.math.maxInt(usize)) {
         return ExecutionError.Error.OutOfOffset;
@@ -66,12 +75,16 @@ pub fn op_mstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     const offset_usize = @as(usize, @intCast(offset));
 
+    // Debug logging
+    std.debug.print("MSTORE: offset={}, value={}, current_mem_size={}\n", .{ offset_usize, value, frame.memory.context_size() });
+
     // Calculate memory expansion gas cost
     const current_size = frame.memory.context_size();
     const new_size = offset_usize + 32; // MSTORE writes 32 bytes
     const expansion_gas_cost = gas_constants.memory_gas_cost(current_size, new_size);
 
     if (expansion_gas_cost > 0) {
+        std.debug.print("MSTORE: expanding memory from {} to {}, gas_cost={}\n", .{ current_size, new_size, expansion_gas_cost });
         try frame.consume_gas(expansion_gas_cost);
     }
 
@@ -80,6 +93,10 @@ pub fn op_mstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     // Write 32 bytes to memory (big-endian)
     try error_mapping.memory_set_u256(&frame.memory, offset_usize, value);
+    
+    // Debug: verify write
+    const verify_value = try frame.memory.get_u256(offset_usize);
+    std.debug.print("MSTORE: wrote value={} at offset={}, verified={}, mem_size_after={}\n", .{ value, offset_usize, verify_value, frame.memory.context_size() });
 
     return Operation.ExecutionResult{};
 }
@@ -90,9 +107,10 @@ pub fn op_mstore8(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // EVM Stack: [..., offset, value] where value is on top
-    const value = try stack_pop(&frame.stack); // Pop value from top
-    const offset = try stack_pop(&frame.stack); // Pop offset second
+    // EVM Stack: [..., value, offset] where offset is on top
+    // MSTORE8 pops offset first, then value
+    const offset = try stack_pop(&frame.stack); // Pop offset from top
+    const value = try stack_pop(&frame.stack); // Pop value second
 
     if (offset > std.math.maxInt(usize)) {
         return ExecutionError.Error.OutOfOffset;
@@ -124,6 +142,8 @@ pub fn op_msize(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
     const size = frame.memory.context_size();
+    
+    std.debug.print("MSIZE: returning memory size={}\n", .{size});
 
     try stack_push(&frame.stack, @as(u256, @intCast(size)));
 
