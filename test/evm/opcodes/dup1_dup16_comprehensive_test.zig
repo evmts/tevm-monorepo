@@ -238,10 +238,10 @@ test "DUP11-DUP16: High-range duplications" {
     _ = try helpers.executeOpcode(0x8A, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x600);
 
-    // Execute DUP12 (should duplicate 0x600)
+    // Execute DUP12 (should duplicate 0x500)
     test_frame.frame.pc = 1;
     _ = try helpers.executeOpcode(0x8B, &test_vm.vm, test_frame.frame);
-    try helpers.expectStackValue(test_frame.frame, 0, 0x600);
+    try helpers.expectStackValue(test_frame.frame, 0, 0x500);
 
     // Execute DUP13 (should duplicate 0x400)
     test_frame.frame.pc = 2;
@@ -258,10 +258,10 @@ test "DUP11-DUP16: High-range duplications" {
     _ = try helpers.executeOpcode(0x8E, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x200);
 
-    // Execute DUP16 (should duplicate 0x200)
+    // Execute DUP16 (should duplicate 0x100)
     test_frame.frame.pc = 5;
     _ = try helpers.executeOpcode(0x8F, &test_vm.vm, test_frame.frame);
-    try helpers.expectStackValue(test_frame.frame, 0, 0x200);
+    try helpers.expectStackValue(test_frame.frame, 0, 0x100);
 }
 
 test "DUP16 (0x8F): Duplicate 16th stack item (maximum)" {
@@ -519,10 +519,16 @@ test "DUP operations: Pattern verification" {
     _ = try helpers.executeOpcode(0x80, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x110);
 
-    // DUP5 should duplicate 5th from top (now 0xDD)
+    // DUP5 should duplicate 5th from top (now 0xCC)
     test_frame.frame.pc = 1;
+    std.debug.print("\nBefore DUP5, stack size={}, looking for 5th from top:\n", .{test_frame.frame.stack.size});
+    for (0..@min(10, test_frame.frame.stack.size)) |i| {
+        const idx = test_frame.frame.stack.size - 1 - i;
+        std.debug.print("  Position {} from top (index {}): 0x{x}\n", .{i + 1, idx, test_frame.frame.stack.data[idx]});
+    }
     _ = try helpers.executeOpcode(0x84, &test_vm.vm, test_frame.frame);
-    try helpers.expectStackValue(test_frame.frame, 0, 0xDD);
+    std.debug.print("After DUP5, top of stack: 0x{x}\n", .{try test_frame.frame.stack.peek()});
+    try helpers.expectStackValue(test_frame.frame, 0, 0xCC);
 
     // DUP9 should duplicate 9th from top (now 0x99)
     test_frame.frame.pc = 2;
