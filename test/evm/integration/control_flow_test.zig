@@ -11,6 +11,7 @@ const arithmetic = evm.opcodes.arithmetic;
 const memory = evm.opcodes.memory;
 const Contract = evm.Contract;
 
+// WORKING ON THIS: Fixing conditional jump patterns test
 test "Integration: Conditional jump patterns" {
     // Test JUMPI with various conditions
     const allocator = testing.allocator;
