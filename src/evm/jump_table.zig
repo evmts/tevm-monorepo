@@ -47,9 +47,14 @@ pub fn execute(self: *const Self, pc: usize, interpreter: *Operation.Interpreter
     // Cast state to Frame to access gas_remaining and stack
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
+    // Debug: Log opcode execution
+    if (opcode == 0x54 or opcode == 0x55) {
+        std.debug.print("EXECUTE: opcode=0x{x:0>2}, operation defined={}\n", .{ opcode, !operation.undefined });
+    }
+
     // Debug print for undefined opcodes
     if (operation.undefined) {
-        std.debug.print("\nERROR: Undefined opcode 0x{x:0>2} at pc={}\n", .{opcode, pc});
+        std.debug.print("\nERROR: Undefined opcode 0x{x:0>2} at pc={}\n", .{ opcode, pc });
     }
 
     // Check if this is an undefined/invalid opcode
@@ -137,6 +142,21 @@ fn undefined_execute(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
     _ = state;
     return ExecutionError.Error.InvalidOpcode;
 }
+
+// Storage operations
+const SLOAD = Operation{
+    .execute = storage.op_sload,
+    .constant_gas = 0, // Gas handled dynamically in operation (cold/warm access)
+    .min_stack = 1,
+    .max_stack = Stack.CAPACITY,
+};
+
+const SSTORE = Operation{
+    .execute = storage.op_sstore,
+    .constant_gas = 0, // Gas handled dynamically in operation
+    .min_stack = 2,
+    .max_stack = Stack.CAPACITY,
+};
 
 // Define all operations as comptime constants
 const STOP = Operation{
@@ -498,20 +518,6 @@ const MSTORE = Operation{
 const MSTORE8 = Operation{
     .execute = memory_ops.op_mstore8,
     .constant_gas = opcodes.gas_constants.GasFastestStep,
-    .min_stack = 2,
-    .max_stack = Stack.CAPACITY,
-};
-
-const SLOAD = Operation{
-    .execute = storage.op_sload,
-    .constant_gas = 50, // Initial Frontier gas cost, will be modified by hardfork rules
-    .min_stack = 1,
-    .max_stack = Stack.CAPACITY,
-};
-
-const SSTORE = Operation{
-    .execute = storage.op_sstore,
-    .constant_gas = 0, // Dynamic gas calculation
     .min_stack = 2,
     .max_stack = Stack.CAPACITY,
 };
