@@ -21,10 +21,6 @@ pub const TestVm = struct {
     vm: Vm,
     allocator: std.mem.Allocator,
 
-    // Mock results for testing system opcodes
-    create_result: ?Vm.CreateResult = null,
-    call_result: ?Vm.CallResult = null,
-
     pub fn init(allocator: std.mem.Allocator) !TestVm {
         var vm = try Vm.init(allocator);
 

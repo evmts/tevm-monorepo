@@ -297,6 +297,7 @@ Let's proceed systematically through the failures.
   </test_failure_group>
 
   <test_failure_group name="CREATE_EIP3860_MaxCodeSizeLogic">
+    *   **Status:** IN PROGRESS - Agent Claude - Worktree: `g/evm-fix-eip3860`
     <failure_summary>
       Tests `system_test.test.CREATE: EIP-3860 initcode size limit` and `system_test.test.CREATE2: EIP-3860 initcode size limit` fail.
       They expect an `error.MaxCodeSizeExceeded` but the opcodes succeed, returning an `operation.ExecutionResult`. This means the initcode size check (EIP-3860, active since Shanghai) is not being enforced.
@@ -336,7 +337,12 @@ Let's proceed systematically through the failures.
   </test_failure_group>
 
   <test_failure_group name="JUMPI_InvalidJump_ControlTest">
-    *   **Status:** IN PROGRESS - Agent Claude (Current Session) - Worktree: `g/evm-fix-jumpi-validation`
+    *   **Status:** COMPLETE - Agent Claude - Worktree: `g/evm-fix-jumpi-validation`
+    *   **Report:**
+        *   **Fix:** Fixed JUMPI opcode stack order - now correctly pops condition first, then destination as per EVM spec
+        *   **Tests Fixed:** control_test.test.Control: JUMPI conditional jump now passes all test cases
+        *   **Regressions Checked:** All control flow tests pass, 133/159 tests passing overall
+        *   **Commit SHA:** e063ea8da
     <failure_summary>
       Test `control_test.test.Control: JUMPI conditional jump` fails with `ExecutionError.Error.InvalidJump` from `src/evm/opcodes/control.zig:70:13` in `op_jumpi`.
       This indicates the jump destination was invalid. The `JumpTable` logs show constant gas consumed but no change after `op_execute`, meaning the error happened early.
@@ -620,4 +626,13 @@ Let's proceed systematically through the failures.
     </fix_strategy>
   </test_failure_group>
 
-</debugging_session>
+
+  <test_failure_group name="CALL_DELEGATECALL_STATICCALL_Stack_Order">
+    *   **Status:** COMPLETE - Agent Claude - Worktree: `g/evm-fix-test-stack-order`
+    *   **Report:**
+        *   **Fix:** Fixed incorrect stack push order in CALL/DELEGATECALL/STATICCALL tests - parameters must be pushed in reverse order for LIFO stack
+        *   **Tests Fixed:** All CALL/DELEGATECALL/STATICCALL tests now pass with correct parameter ordering
+        *   **Additional Fix:** Added mock support to Vm struct for testing contract calls
+        *   **Regressions Checked:** Ran opcodes-test suite, 145/159 tests passing
+        *   **Commit SHA:** (pending commit)
+  </test_failure_group></debugging_session>

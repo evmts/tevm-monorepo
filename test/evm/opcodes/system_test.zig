@@ -34,7 +34,7 @@ test "CREATE: create new contract" {
     }
     
     // Set gas and mock create result
-    test_vm.create_result = .{
+    test_vm.vm.create_result = .{
         .success = true,
         .address = test_helpers.TestAddresses.ALICE,
         .gas_left = 90000,
@@ -72,7 +72,7 @@ test "CREATE: failed creation pushes zero" {
     defer test_frame.deinit();
     
     // Set gas and mock failed create result
-    test_vm.create_result = .{
+    test_vm.vm.create_result = .{
         .success = false,
         .address = Address.ZERO_ADDRESS,
         .gas_left = 0,
@@ -179,7 +179,7 @@ test "CREATE2: create with deterministic address" {
     }
     
     // Set gas and mock create result
-    test_vm.create_result = .{
+    test_vm.vm.create_result = .{
         .success = true,
         .address = test_helpers.TestAddresses.BOB,
         .gas_left = 90000,
@@ -229,20 +229,20 @@ test "CALL: successful call" {
     _ = try test_frame.frame.memory.ensure_capacity(110); // Need at least 100 + 10 bytes
     
     // Set gas and mock call result
-    test_vm.call_result = .{
+    test_vm.vm.call_result = .{
         .success = true,
         .gas_left = 90000,
         .output = &[_]u8{ 0xAA, 0xBB },
     };
     
-    // Push ret_size, ret_offset, args_size, args_offset, value, to, gas
-    try test_frame.pushStack(&[_]u256{50000}); // gas
-    try test_frame.pushStack(&[_]u256{Address.to_u256(test_helpers.TestAddresses.ALICE)}); // to
-    try test_frame.pushStack(&[_]u256{0});   // value
-    try test_frame.pushStack(&[_]u256{0});   // args_offset
-    try test_frame.pushStack(&[_]u256{4});   // args_size
-    try test_frame.pushStack(&[_]u256{100}); // ret_offset
+    // Push in reverse order for stack (LIFO): ret_size, ret_offset, args_size, args_offset, value, to, gas
     try test_frame.pushStack(&[_]u256{10});  // ret_size
+    try test_frame.pushStack(&[_]u256{100}); // ret_offset
+    try test_frame.pushStack(&[_]u256{4});   // args_size
+    try test_frame.pushStack(&[_]u256{0});   // args_offset
+    try test_frame.pushStack(&[_]u256{0});   // value
+    try test_frame.pushStack(&[_]u256{Address.to_u256(test_helpers.TestAddresses.ALICE)}); // to
+    try test_frame.pushStack(&[_]u256{50000}); // gas
     
     // Execute CALL
     _ = try test_helpers.executeOpcode(0xF1, &test_vm.vm, test_frame.frame);
@@ -279,20 +279,20 @@ test "CALL: failed call" {
     defer test_frame.deinit();
     
     // Set gas and mock failed call result
-    test_vm.call_result = .{
+    test_vm.vm.call_result = .{
         .success = false,
         .gas_left = 0,
         .output = null,
     };
     
-    // Push parameters
-    try test_frame.pushStack(&[_]u256{50000}); // gas
-    try test_frame.pushStack(&[_]u256{Address.to_u256(test_helpers.TestAddresses.ALICE)}); // to
-    try test_frame.pushStack(&[_]u256{0}); // value
-    try test_frame.pushStack(&[_]u256{0}); // args_offset
-    try test_frame.pushStack(&[_]u256{0}); // args_size
-    try test_frame.pushStack(&[_]u256{0}); // ret_offset
+    // Push in reverse order for stack (LIFO)
     try test_frame.pushStack(&[_]u256{0}); // ret_size
+    try test_frame.pushStack(&[_]u256{0}); // ret_offset
+    try test_frame.pushStack(&[_]u256{0}); // args_size
+    try test_frame.pushStack(&[_]u256{0}); // args_offset
+    try test_frame.pushStack(&[_]u256{0}); // value
+    try test_frame.pushStack(&[_]u256{Address.to_u256(test_helpers.TestAddresses.ALICE)}); // to
+    try test_frame.pushStack(&[_]u256{50000}); // gas
     
     // Execute CALL
     _ = try test_helpers.executeOpcode(0xF1, &test_vm.vm, test_frame.frame);
@@ -319,20 +319,20 @@ test "CALL: cold address access costs more gas" {
     defer test_frame.deinit();
     
     // Set gas and mock call result
-    test_vm.call_result = .{
+    test_vm.vm.call_result = .{
         .success = true,
-        .gas_left = 5000,
+        .gas_left = 500, // Less than the 1000 gas given
         .output = null,
     };
     
-    // Push parameters
-    try test_frame.pushStack(&[_]u256{1000}); // gas
-    try test_frame.pushStack(&[_]u256{Address.to_u256(test_helpers.TestAddresses.ALICE)}); // to
-    try test_frame.pushStack(&[_]u256{0}); // value
-    try test_frame.pushStack(&[_]u256{0}); // args_offset
-    try test_frame.pushStack(&[_]u256{0}); // args_size
-    try test_frame.pushStack(&[_]u256{0}); // ret_offset
+    // Push in reverse order for stack (LIFO)
     try test_frame.pushStack(&[_]u256{0}); // ret_size
+    try test_frame.pushStack(&[_]u256{0}); // ret_offset
+    try test_frame.pushStack(&[_]u256{0}); // args_size
+    try test_frame.pushStack(&[_]u256{0}); // args_offset
+    try test_frame.pushStack(&[_]u256{0}); // value
+    try test_frame.pushStack(&[_]u256{Address.to_u256(test_helpers.TestAddresses.ALICE)}); // to
+    try test_frame.pushStack(&[_]u256{1000}); // gas
     
     const gas_before = test_frame.frame.gas_remaining;
     
@@ -341,11 +341,10 @@ test "CALL: cold address access costs more gas" {
     
     // Should consume 2600 gas for cold access
     // Gas used = (gas_before - gas_remaining) - (gas_given - gas_returned)
-    // Gas used = (gas_before - gas_remaining) - (1000 - 5000) 
-    // But gas_returned (5000) > gas_given (1000), which means we got gas back
+    // Gas used = (gas_before - gas_remaining) - (1000 - 500) 
     const gas_consumed = gas_before - test_frame.frame.gas_remaining;
-    const gas_refunded = 5000 - 1000; // 4000 gas refunded
-    const net_gas_used = gas_consumed -| gas_refunded; // Saturating subtraction
+    const gas_used_by_call = 1000 - 500; // 500 gas used by the call
+    const net_gas_used = gas_consumed - gas_used_by_call;
     try testing.expect(net_gas_used >= 2600);
 }
 
@@ -369,14 +368,14 @@ test "CALL: value transfer in static call fails" {
     // Set static call
     test_frame.frame.is_static = true;
     
-    // Push parameters with non-zero value
-    try test_frame.pushStack(&[_]u256{1000}); // gas
-    try test_frame.pushStack(&[_]u256{Address.to_u256(test_helpers.TestAddresses.ALICE)}); // to
-    try test_frame.pushStack(&[_]u256{100}); // value (non-zero!)
-    try test_frame.pushStack(&[_]u256{0}); // args_offset
-    try test_frame.pushStack(&[_]u256{0}); // args_size
-    try test_frame.pushStack(&[_]u256{0}); // ret_offset
+    // Push in reverse order for stack (LIFO) with non-zero value
     try test_frame.pushStack(&[_]u256{0}); // ret_size
+    try test_frame.pushStack(&[_]u256{0}); // ret_offset
+    try test_frame.pushStack(&[_]u256{0}); // args_size
+    try test_frame.pushStack(&[_]u256{0}); // args_offset
+    try test_frame.pushStack(&[_]u256{100}); // value (non-zero!)
+    try test_frame.pushStack(&[_]u256{Address.to_u256(test_helpers.TestAddresses.ALICE)}); // to
+    try test_frame.pushStack(&[_]u256{1000}); // gas
     
     // Execute CALL - should fail
     const result = test_helpers.executeOpcode(0xF1, &test_vm.vm, test_frame.frame);
@@ -405,19 +404,19 @@ test "DELEGATECALL: execute code in current context" {
     _ = try test_frame.frame.memory.ensure_capacity(52); // Need at least 50 + 2 bytes
     
     // Set gas and mock call result
-    test_vm.call_result = .{
+    test_vm.vm.call_result = .{
         .success = true,
         .gas_left = 90000,
         .output = &[_]u8{ 0xCC, 0xDD },
     };
     
-    // Push ret_size, ret_offset, args_size, args_offset, to, gas
-    try test_frame.pushStack(&[_]u256{50000}); // gas
-    try test_frame.pushStack(&[_]u256{Address.to_u256(test_helpers.TestAddresses.ALICE)}); // to
-    try test_frame.pushStack(&[_]u256{0});  // args_offset
-    try test_frame.pushStack(&[_]u256{0});  // args_size
-    try test_frame.pushStack(&[_]u256{50}); // ret_offset
+    // Push in reverse order for stack (LIFO): ret_size, ret_offset, args_size, args_offset, to, gas
     try test_frame.pushStack(&[_]u256{2});  // ret_size
+    try test_frame.pushStack(&[_]u256{50}); // ret_offset
+    try test_frame.pushStack(&[_]u256{0});  // args_size
+    try test_frame.pushStack(&[_]u256{0});  // args_offset
+    try test_frame.pushStack(&[_]u256{Address.to_u256(test_helpers.TestAddresses.ALICE)}); // to
+    try test_frame.pushStack(&[_]u256{50000}); // gas
     
     // Execute DELEGATECALL
     _ = try test_helpers.executeOpcode(0xF4, &test_vm.vm, test_frame.frame);
@@ -452,19 +451,19 @@ test "STATICCALL: read-only call" {
     _ = try test_frame.frame.memory.ensure_capacity(202); // Need at least 200 + 2 bytes
     
     // Set gas and mock call result
-    test_vm.call_result = .{
+    test_vm.vm.call_result = .{
         .success = true,
         .gas_left = 90000,
         .output = &[_]u8{ 0xEE, 0xFF },
     };
     
-    // Push ret_size, ret_offset, args_size, args_offset, to, gas
-    try test_frame.pushStack(&[_]u256{50000}); // gas
-    try test_frame.pushStack(&[_]u256{Address.to_u256(test_helpers.TestAddresses.ALICE)}); // to
-    try test_frame.pushStack(&[_]u256{0});   // args_offset
-    try test_frame.pushStack(&[_]u256{0});   // args_size
-    try test_frame.pushStack(&[_]u256{200}); // ret_offset
+    // Push in reverse order for stack (LIFO): ret_size, ret_offset, args_size, args_offset, to, gas
     try test_frame.pushStack(&[_]u256{2});   // ret_size
+    try test_frame.pushStack(&[_]u256{200}); // ret_offset
+    try test_frame.pushStack(&[_]u256{0});   // args_size
+    try test_frame.pushStack(&[_]u256{0});   // args_offset
+    try test_frame.pushStack(&[_]u256{Address.to_u256(test_helpers.TestAddresses.ALICE)}); // to
+    try test_frame.pushStack(&[_]u256{50000}); // gas
     
     // Execute STATICCALL
     _ = try test_helpers.executeOpcode(0xFA, &test_vm.vm, test_frame.frame);
@@ -540,7 +539,7 @@ test "CREATE: gas consumption" {
     }
     
     // Set gas
-    test_vm.create_result = .{
+    test_vm.vm.create_result = .{
         .success = true,
         .address = test_helpers.TestAddresses.ALICE,
         .gas_left = 90000,
@@ -588,7 +587,7 @@ test "CREATE2: additional gas for hashing" {
     }
     
     // Set gas
-    test_vm.create_result = .{
+    test_vm.vm.create_result = .{
         .success = true,
         .address = test_helpers.TestAddresses.BOB,
         .gas_left = 90000,
@@ -689,7 +688,7 @@ test "CREATE: memory expansion for init code" {
     defer test_frame.deinit();
     
     // Set gas
-    test_vm.create_result = .{
+    test_vm.vm.create_result = .{
         .success = true,
         .address = test_helpers.TestAddresses.ALICE,
         .gas_left = 90000,
@@ -764,7 +763,7 @@ test "CREATE: EIP-3860 initcode word gas" {
         try test_frame.frame.memory.set_byte(i, 0x00);
     }
     
-    test_vm.create_result = .{
+    test_vm.vm.create_result = .{
         .success = true,
         .address = test_helpers.TestAddresses.ALICE,
         .gas_left = 90000,
