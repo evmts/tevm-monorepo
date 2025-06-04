@@ -4,7 +4,6 @@ const Stack = @import("stack.zig");
 const Memory = @import("memory.zig");
 
 /// Centralized error mapping functions for consistent error handling across the EVM
-
 /// Map Stack errors to ExecutionError
 pub fn map_stack_error(err: Stack.Error) ExecutionError.Error {
     return switch (err) {
@@ -18,10 +17,10 @@ pub fn map_stack_error(err: Stack.Error) ExecutionError.Error {
 /// Map Memory errors to ExecutionError
 pub fn map_memory_error(err: Memory.MemoryError) ExecutionError.Error {
     return switch (err) {
-        Memory.MemoryError.OutOfMemory => ExecutionError.Error.OutOfMemory,
+        Memory.MemoryError.OutOfMemory => ExecutionError.Error.OutOfGas,
         Memory.MemoryError.InvalidOffset => ExecutionError.Error.InvalidOffset,
         Memory.MemoryError.InvalidSize => ExecutionError.Error.InvalidSize,
-        Memory.MemoryError.MemoryLimitExceeded => ExecutionError.Error.MemoryLimitExceeded,
+        Memory.MemoryError.MemoryLimitExceeded => ExecutionError.Error.OutOfGas,
         Memory.MemoryError.ChildContextActive => ExecutionError.Error.ChildContextActive,
         Memory.MemoryError.NoChildContextToRevertOrCommit => ExecutionError.Error.NoChildContextToRevertOrCommit,
     };
@@ -104,7 +103,7 @@ pub fn vm_get_transient_storage(vm: anytype, address: anytype, slot: u256) Execu
 
 test "map_stack_error" {
     const testing = std.testing;
-    
+
     try testing.expectEqual(ExecutionError.Error.StackOverflow, map_stack_error(Stack.Error.Overflow));
     try testing.expectEqual(ExecutionError.Error.StackUnderflow, map_stack_error(Stack.Error.Underflow));
     try testing.expectEqual(ExecutionError.Error.StackUnderflow, map_stack_error(Stack.Error.OutOfBounds));
@@ -113,7 +112,7 @@ test "map_stack_error" {
 
 test "map_memory_error" {
     const testing = std.testing;
-    
+
     try testing.expectEqual(ExecutionError.Error.OutOfMemory, map_memory_error(Memory.MemoryError.OutOfMemory));
     try testing.expectEqual(ExecutionError.Error.InvalidOffset, map_memory_error(Memory.MemoryError.InvalidOffset));
     try testing.expectEqual(ExecutionError.Error.InvalidSize, map_memory_error(Memory.MemoryError.InvalidSize));
@@ -124,7 +123,7 @@ test "map_memory_error" {
 
 test "map_vm_error" {
     const testing = std.testing;
-    
+
     try testing.expectEqual(ExecutionError.Error.OutOfGas, map_vm_error(error.OutOfMemory));
     try testing.expectEqual(ExecutionError.Error.WriteProtection, map_vm_error(error.WriteProtection));
     // Test unknown error defaults to OutOfGas
