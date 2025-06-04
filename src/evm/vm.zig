@@ -704,6 +704,8 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
                     };
                 },
                 ExecutionError.Error.InvalidOpcode => {
+                    // INVALID opcode consumes all remaining gas
+                    frame.gas_remaining = 0;
                     return RunResult{
                         .status = .Invalid,
                         .gas_left = 0,

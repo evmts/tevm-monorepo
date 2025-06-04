@@ -178,7 +178,11 @@ pub fn op_revert(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 pub fn op_invalid(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
-    _ = state;
+    
+    const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    
+    // INVALID opcode consumes all remaining gas
+    frame.gas_remaining = 0;
     
     return ExecutionError.Error.InvalidOpcode;
 }
