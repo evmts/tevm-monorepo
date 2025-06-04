@@ -17,7 +17,7 @@ pub fn map_stack_error(err: Stack.Error) ExecutionError.Error {
 /// Map Memory errors to ExecutionError
 pub fn map_memory_error(err: Memory.MemoryError) ExecutionError.Error {
     return switch (err) {
-        Memory.MemoryError.OutOfMemory => ExecutionError.Error.OutOfGas,
+        Memory.MemoryError.OutOfMemory => ExecutionError.Error.OutOfMemory,
         Memory.MemoryError.InvalidOffset => ExecutionError.Error.InvalidOffset,
         Memory.MemoryError.InvalidSize => ExecutionError.Error.InvalidSize,
         Memory.MemoryError.MemoryLimitExceeded => ExecutionError.Error.OutOfGas, // Map memory limit exceeded to OutOfGas as per EVM spec
