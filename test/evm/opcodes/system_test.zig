@@ -687,18 +687,27 @@ test "CREATE: memory expansion for init code" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
     
-    // Set gas
+    // Set up sufficient balance for contract creation
+    try test_vm.setAccount(test_helpers.TestAddresses.CONTRACT, 1000000, &[_]u8{});
+    
+    // Initialize memory with some init code at offset 200
+    var i: usize = 0;
+    while (i < 100) : (i += 1) {
+        try test_frame.frame.memory.set_byte(200 + i, @intCast(i % 256));
+    }
+    
+    // Set gas - return reasonable amount that allows testing memory expansion costs
     test_vm.vm.create_result = .{
         .success = true,
         .address = test_helpers.TestAddresses.ALICE,
-        .gas_left = 90000,
+        .gas_left = 25000, // Return less than what we give so we can see gas consumption
         .output = null,
     };
     
     // Push parameters that require memory expansion
-    try test_frame.pushStack(&[_]u256{0});   // value
-    try test_frame.pushStack(&[_]u256{200}); // offset (requires expansion to 300 bytes)
     try test_frame.pushStack(&[_]u256{100}); // size
+    try test_frame.pushStack(&[_]u256{200}); // offset (requires expansion to 300 bytes)
+    try test_frame.pushStack(&[_]u256{0});   // value
     
     const gas_before = test_frame.frame.gas_remaining;
     
@@ -730,7 +739,6 @@ test "CREATE: EIP-3860 initcode size limit" {
     defer test_frame.deinit();
     
     // Push parameters with size exceeding MaxInitcodeSize (49152)
-    // Stack order: push in reverse order for LIFO stack
     try test_frame.pushStack(&[_]u256{49153}); // size (one byte over limit)
     try test_frame.pushStack(&[_]u256{0});      // offset
     try test_frame.pushStack(&[_]u256{0});      // value
@@ -758,6 +766,9 @@ test "CREATE: EIP-3860 initcode word gas" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
     
+    // Set up sufficient balance for contract creation
+    try test_vm.setAccount(test_helpers.TestAddresses.CONTRACT, 1000000, &[_]u8{});
+    
     // Write 64 bytes of init code (2 words)
     var i: usize = 0;
     while (i < 64) : (i += 1) {
@@ -767,14 +778,14 @@ test "CREATE: EIP-3860 initcode word gas" {
     test_vm.vm.create_result = .{
         .success = true,
         .address = test_helpers.TestAddresses.ALICE,
-        .gas_left = 90000,
+        .gas_left = 25000, // Return reasonable amount to see actual gas consumption
         .output = null,
     };
     
     // Push parameters
-    try test_frame.pushStack(&[_]u256{0});  // value
-    try test_frame.pushStack(&[_]u256{0});  // offset
     try test_frame.pushStack(&[_]u256{64}); // size (2 words)
+    try test_frame.pushStack(&[_]u256{0});  // offset
+    try test_frame.pushStack(&[_]u256{0});  // value
     
     const gas_before = test_frame.frame.gas_remaining;
     
@@ -809,7 +820,6 @@ test "CREATE2: EIP-3860 initcode size limit" {
     defer test_frame.deinit();
     
     // Push parameters with size exceeding MaxInitcodeSize (49152)
-    // Stack order: push in reverse order for LIFO stack
     try test_frame.pushStack(&[_]u256{0x123}); // salt
     try test_frame.pushStack(&[_]u256{49153}); // size (one byte over limit)
     try test_frame.pushStack(&[_]u256{0});      // offset
