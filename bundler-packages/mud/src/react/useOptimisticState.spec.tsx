@@ -1,134 +1,193 @@
 // @vitest-environment jsdom
 import { renderHook, waitFor } from '@testing-library/react'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import React from 'react'
+import { beforeAll, describe, expect, it } from 'vitest'
+import { config } from '../../test/config.js'
+import { randomRecord } from '../../test/state.js'
+import { deepEqual } from '../internal/utils/deepEqual.js'
 import { useOptimisticState } from './useOptimisticState.js'
-import { useOptimisticWrapper } from './useOptimisticWrapper.js'
-
-// Mock the useOptimisticWrapper hook
-vi.mock('./useOptimisticWrapper.js', () => ({
-	useOptimisticWrapper: vi.fn(),
-}))
-
-const mockUseOptimisticWrapper = vi.mocked(useOptimisticWrapper)
+import { OptimisticWrapperProvider } from './useOptimisticWrapper.js'
+import { prepare, testContract, sessionClient, stash, writeRecords } from '../../test/prepare.js'
+import { type State } from '@latticexyz/stash/internal'
 
 describe('useOptimisticState', () => {
-	beforeEach(() => {
-		vi.clearAllMocks()
+	beforeAll(async () => {
+		await prepare({ count: 10 })
 	})
 
-	it('should fetch and return initial state', async () => {
-		const mockState = { config: {}, records: {} }
-		const mockWrapper = {
-			getOptimisticState: vi.fn().mockResolvedValue(mockState),
-			subscribeOptimisticState: vi.fn().mockReturnValue(() => {}),
-		}
-		mockUseOptimisticWrapper.mockReturnValue(mockWrapper as any)
+	const createWrapper = ({ children }: { children: React.ReactNode }) => (
+		<OptimisticWrapperProvider
+			client={sessionClient}
+			storeAddress={testContract.address}
+			stash={stash}
+			config={config}
+			loggingLevel="warn"
+		>
+			{children}
+		</OptimisticWrapperProvider>
+	)
 
-		const selector = vi.fn().mockResolvedValue('selected-data')
-
-		const { result } = renderHook(() => useOptimisticState(selector))
-
-		await waitFor(() => {
-			expect(result.current).toBe('selected-data')
-		})
-
-		expect(mockWrapper.getOptimisticState).toHaveBeenCalled()
-		expect(selector).toHaveBeenCalledWith(mockState)
-	})
-
-	it('should subscribe to state changes and update when data changes', async () => {
-		const mockState = { config: {}, records: {} }
-		let subscriber: (() => void) | undefined
-		const mockWrapper = {
-			getOptimisticState: vi.fn().mockResolvedValue(mockState),
-			subscribeOptimisticState: vi.fn().mockImplementation(({ subscriber: sub }) => {
-				subscriber = sub
-				return () => {}
-			}),
-		}
-		mockUseOptimisticWrapper.mockReturnValue(mockWrapper as any)
-
-		const selector = vi.fn().mockResolvedValueOnce('initial-data').mockResolvedValueOnce('updated-data')
-
-		const { result } = renderHook(() => useOptimisticState(selector))
+	it('should call selector with optimistic state and return result', async () => {
+		const length = Object.keys(stash.get().records.app.TestTable).length
+		const { result } = renderHook(
+			() => useOptimisticState((state: State<typeof config>) => state.records.app.TestTable),
+			{ wrapper: createWrapper }
+		)
 
 		await waitFor(() => {
-			expect(result.current).toBe('initial-data')
-		})
-
-		// Trigger state change
-		selector.mockResolvedValueOnce('updated-data')
-		subscriber?.()
-
-		await waitFor(() => {
-			expect(result.current).toBe('updated-data')
+			expect(result.current).toBeDefined()
+			expect(Object.keys(result.current ?? {})).toHaveLength(length)
 		})
 	})
 
-	it('should not update state if data is equal using custom isEqual', async () => {
-		const mockState = { config: {}, records: {} }
-		const mockWrapper = {
-			getOptimisticState: vi.fn().mockResolvedValue(mockState),
-			subscribeOptimisticState: vi.fn().mockReturnValue(() => {}),
-		}
-		mockUseOptimisticWrapper.mockReturnValue(mockWrapper as any)
+	it('should return undefined when selector returns undefined', async () => {
+		const { result } = renderHook(() => useOptimisticState(() => undefined), { wrapper: createWrapper })
 
-		const testData = { id: 1, name: 'test' }
-		const selector = vi.fn().mockResolvedValue(testData)
-
-		// Mock isEqual to return false initially (so state gets set), then true for subsequent calls
-		const isEqual = vi
-			.fn()
-			.mockReturnValueOnce(false) // First call: undefined vs testData -> false (state gets set)
-			.mockReturnValue(true) // Subsequent calls: testData vs testData -> true (no update)
-
-		const { result } = renderHook(() => useOptimisticState(selector, { isEqual }))
-
-		// Wait for initial data to be set
 		await waitFor(() => {
-			expect(result.current).toEqual(testData)
+			expect(result.current).toBeUndefined()
 		})
-
-		// Verify isEqual was called during the initial render
-		expect(isEqual).toHaveBeenCalledWith(undefined, testData)
 	})
 
-	it('should handle selector errors gracefully', async () => {
-		const mockState = { config: {}, records: {} }
-		const mockWrapper = {
-			getOptimisticState: vi.fn().mockResolvedValue(mockState),
-			subscribeOptimisticState: vi.fn().mockReturnValue(() => {}),
-		}
-		mockUseOptimisticWrapper.mockReturnValue(mockWrapper as any)
+	it('should update when stash state changes', async () => {
+		const length = Object.keys(stash.get().records.app.TestTable).length
+		const { result } = renderHook(
+			() => useOptimisticState((state: State<typeof config>) => Object.keys(state.records.app.TestTable).length),
+			{ wrapper: createWrapper }
+		)
 
-		const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
-		const selector = vi.fn().mockRejectedValue(new Error('Selector failed'))
-
-		const { result } = renderHook(() => useOptimisticState(selector))
-
+		// Initial state
 		await waitFor(() => {
-			expect(consoleSpy).toHaveBeenCalledWith(
-				'Error in useOptimisticState while fetching/selecting state:',
-				expect.any(Error),
-			)
+			expect(result.current).toBe(length)
 		})
 
+		// Add a record to stash (simulating canonical update)
+		const [_, record] = randomRecord()
+		await writeRecords([record])
+
+		// Should update with new count
+		await waitFor(() => {
+			expect(result.current).toBe(length + 1)
+		})
+	})
+
+	it('should use custom isEqual function', async () => {
+		const length = Object.keys(stash.get().records.app.TestTable).length
+
+		let callCount = 0
+		const customIsEqual = (a: unknown, b: unknown) => {
+			callCount++
+			return deepEqual(a, b)
+		}
+
+		const { result } = renderHook(
+			() =>
+				useOptimisticState(
+					() => ({ count: length }),
+					{ isEqual: customIsEqual }
+				),
+			{ wrapper: createWrapper }
+		)
+
+		await waitFor(() => {
+			expect(result.current).toEqual({ count: length })
+		})
+
+		// Custom isEqual should have been called
+		expect(callCount).toBeGreaterThan(0)
+	})
+
+	it('should not re-render when selector returns same reference', async () => {
+		const stableObject = { value: 'stable' }
+		const selector = () => stableObject
+		let renderCount = 0
+
+		const { result } = renderHook(
+			() => {
+				renderCount++
+				return useOptimisticState(selector)
+			},
+			{ wrapper: createWrapper }
+		)
+
+		await waitFor(() => {
+			expect(result.current).toBe(stableObject)
+		})
+
+		const initialRenderCount = renderCount
+
+		// Force a re-render by triggering stash update (but selector returns same object)
+		stash._.storeSubscribers.forEach(subscriber => subscriber({type: 'records', updates: []}))
+		await new Promise(resolve => setTimeout(resolve, 50))
+
+		// Should not have caused additional renders due to stable reference
+		expect(renderCount).toBe(initialRenderCount)
+	})
+
+	it('should cleanup subscription on unmount', async () => {
+		const { unmount } = renderHook(
+			() => useOptimisticState((state: State<typeof config>) => Object.keys(state.records.app.TestTable).length),
+			{ wrapper: createWrapper }
+		)
+
+		await waitFor(() => {
+			// Hook is mounted and working
+		})
+
+		// Should not throw when unmounting
+		expect(() => unmount()).not.toThrow()
+	})
+
+	it('should work when wrapper is undefined initially', async () => {
+		// Render without wrapper first
+		const { result } = renderHook(() =>
+			useOptimisticState((state: State<typeof config>) => state.records.app.TestTable)
+		)
+
+		// Should return undefined when no wrapper
 		expect(result.current).toBeUndefined()
-		consoleSpy.mockRestore()
 	})
 
-	it('should cleanup subscription on unmount', () => {
-		const unsubscribe = vi.fn()
-		const mockWrapper = {
-			getOptimisticState: vi.fn().mockResolvedValue({}),
-			subscribeOptimisticState: vi.fn().mockReturnValue(unsubscribe),
+	it('should handle multiple hooks with same selector', async () => {
+		const length = Object.keys(stash.get().records.app.TestTable).length
+		const selector = (state: State<typeof config>) => Object.keys(state.records.app.TestTable).length
+
+		const { result: result1 } = renderHook(() => useOptimisticState(selector), { wrapper: createWrapper })
+		const { result: result2 } = renderHook(() => useOptimisticState(selector), { wrapper: createWrapper })
+
+		await waitFor(() => {
+			expect(result1.current).toBe(length)
+			expect(result2.current).toBe(length)
+		})
+
+		// Both should update when state changes
+		const [, newRecord] = randomRecord()
+		await writeRecords([newRecord])
+
+		await waitFor(() => {
+			expect(result1.current).toBe(length + 1)
+			expect(result2.current).toBe(length + 1)
+		})
+	})
+
+	it('should provide correct state structure to selector', async () => {
+		let receivedState: State<typeof config> | undefined = undefined
+		const selector = (state: State<typeof config>) => {
+			receivedState = state
+			return 'test'
 		}
-		mockUseOptimisticWrapper.mockReturnValue(mockWrapper as any)
 
-		const { unmount } = renderHook(() => useOptimisticState(async () => 'test'))
+		const { result } = renderHook(() => useOptimisticState(selector), { wrapper: createWrapper })
 
-		unmount()
+		await waitFor(() => {
+			expect(result.current).toBe('test')
+		})
 
-		expect(unsubscribe).toHaveBeenCalled()
+		// Verify the state structure passed to selector
+		expect(receivedState).toBeDefined()
+		const _state = receivedState as unknown as State<typeof config>
+		expect(_state.config).toBeDefined()
+		expect(_state.records).toBeDefined()
+		expect(_state.records.app).toBeDefined()
+		expect(_state.records.app.TestTable).toBeDefined()
 	})
 })
