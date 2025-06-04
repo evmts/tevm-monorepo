@@ -312,7 +312,8 @@ test "SSTORE: Large storage values" {
 // TODO: Claude is working on fixing this test - gas consumption mismatch
 test "Storage opcodes: Gas consumption patterns" {
     const allocator = testing.allocator;
-    var test_vm = try helpers.TestVm.init(allocator);
+    // Use Istanbul hardfork (pre-Berlin) for 800 gas SLOAD cost
+    var test_vm = try helpers.TestVm.initWithHardfork(allocator, .ISTANBUL);
     defer test_vm.deinit();
     
     var contract = try helpers.createTestContract(

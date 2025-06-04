@@ -51,11 +51,15 @@ pub fn op_sload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     
     const slot = try stack_pop(&frame.stack);
     
-    // Debug: SLOAD operation
-    
-    const is_cold = try frame.contract.mark_storage_slot_warm(slot, null);
-    const gas_cost = if (is_cold) gas_constants.ColdSloadCost else gas_constants.WarmStorageReadCost;
-    try frame.consume_gas(gas_cost);
+    // Check if we're in Berlin or later for cold/warm access logic
+    if (vm.chain_rules.IsBerlin) {
+        const is_cold = try frame.contract.mark_storage_slot_warm(slot, null);
+        const gas_cost = if (is_cold) gas_constants.ColdSloadCost else gas_constants.WarmStorageReadCost;
+        try frame.consume_gas(gas_cost);
+    } else {
+        // Pre-Berlin: gas is handled by jump table constant_gas
+        // For Istanbul, this would be 800 gas set in the jump table
+    }
     
     const value = try error_mapping.vm_get_storage(vm, frame.contract.address, slot);
     // Debug: SLOAD retrieved value

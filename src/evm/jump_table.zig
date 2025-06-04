@@ -499,7 +499,7 @@ const MSTORE8 = Operation{
 
 const SLOAD = Operation{
     .execute = storage.op_sload,
-    .constant_gas = 0, // Gas handled by access_list in opcode
+    .constant_gas = 50, // Initial Frontier gas cost, will be modified by hardfork rules
     .min_stack = 1,
     .max_stack = Stack.CAPACITY,
 };
