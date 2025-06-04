@@ -537,17 +537,17 @@ test "DUP operations: Pattern verification" {
     _ = try helpers.executeOpcode(0x88, &test_vm.vm, test_frame.frame);
     std.debug.print("After DUP9:\n", .{});
     helpers.printStack(test_frame.frame);
-    try helpers.expectStackValue(test_frame.frame, 0, 0x99); // After 2 DUPs, positions shift by 2
+    try helpers.expectStackValue(test_frame.frame, 0, 0xAA); // DUP9 gets 9th from top which is 0xAA
 
-    // DUP13 should duplicate 13th from top (now 0x55 after 3 DUPs)
+    // DUP13 should duplicate 13th from top (now 0x77 after 3 DUPs)
     test_frame.frame.pc = 3;
     _ = try helpers.executeOpcode(0x8C, &test_vm.vm, test_frame.frame);
-    try helpers.expectStackValue(test_frame.frame, 0, 0x55); // After 3 DUPs, positions shift by 3
+    try helpers.expectStackValue(test_frame.frame, 0, 0x77); // DUP13 gets 13th from top which is 0x77
 
-    // DUP16 should duplicate 16th from top (now 0x22 after 4 DUPs)
+    // DUP16 should duplicate 16th from top (now 0x44 after 4 DUPs)
     test_frame.frame.pc = 4;
     _ = try helpers.executeOpcode(0x8F, &test_vm.vm, test_frame.frame);
-    try helpers.expectStackValue(test_frame.frame, 0, 0x22); // After 4 DUPs, positions shift by 4
+    try helpers.expectStackValue(test_frame.frame, 0, 0x44); // DUP16 gets 16th from top which is 0x44
 
     // Final stack size should be 21 (16 original + 5 duplicated)
     try testing.expectEqual(@as(usize, 21), test_frame.frame.stack.size);
