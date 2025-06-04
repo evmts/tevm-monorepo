@@ -52,6 +52,8 @@ pub fn op_jumpi(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
+    // EVM spec: JUMPI pops counter (destination) first, then b (condition)
+    // Stack: [... counter b] -> counter is popped first (was on top)
     const dest = try stack_pop(&frame.stack);
     const condition = try stack_pop(&frame.stack);
     
