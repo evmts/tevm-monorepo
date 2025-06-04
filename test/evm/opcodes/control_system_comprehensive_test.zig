@@ -32,7 +32,7 @@ test "RETURN (0xF3): Return data from execution" {
     
     // Write data to memory
     const return_data = "Hello from RETURN!" ++ ([_]u8{0} ** 14);
-    try test_frame.frame.memory.set_data(0, &return_data);
+    try test_frame.frame.memory.set_data(0, return_data[0..]);
     
     // Execute push operations
     test_frame.frame.pc = 0;
@@ -48,7 +48,7 @@ test "RETURN (0xF3): Return data from execution" {
     try testing.expectError(helpers.ExecutionError.Error.STOP, result);
     
     // Check return data buffer was set
-    try testing.expectEqualSlices(u8, &return_data, test_frame.frame.return_data_buffer);
+    try testing.expectEqualSlices(u8, return_data[0..], test_frame.frame.return_data_buffer);
 }
 
 test "RETURN: Empty return data" {
@@ -118,7 +118,7 @@ test "REVERT (0xFD): Revert with data" {
     
     // Write revert reason to memory
     const revert_data = "Revert reason!" ++ ([_]u8{0} ** 2);
-    try test_frame.frame.memory.set_data(0, &revert_data);
+    try test_frame.frame.memory.set_data(0, revert_data[0..]);
     
     // Execute push operations
     test_frame.frame.pc = 0;
@@ -134,7 +134,7 @@ test "REVERT (0xFD): Revert with data" {
     try testing.expectError(helpers.ExecutionError.Error.REVERT, result);
     
     // Check revert data was set
-    try testing.expectEqualSlices(u8, &revert_data, test_frame.frame.return_data_buffer);
+    try testing.expectEqualSlices(u8, revert_data[0..], test_frame.frame.return_data_buffer);
 }
 
 test "REVERT: Empty revert data" {

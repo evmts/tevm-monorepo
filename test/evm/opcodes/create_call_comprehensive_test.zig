@@ -210,7 +210,7 @@ test "CREATE2 (0xF5): Deterministic contract creation" {
     test_frame.frame.pc = 8;
     
     // Mock create2_contract to return a successful result
-    test_vm.vm.create2_contract_result = .{
+    test_vm.create_result = .{
         .success = true,
         .address = [_]u8{0x34} ** 20,
         .gas_left = 5000,
@@ -400,7 +400,7 @@ test "CALLCODE (0xF2): Execute external code with current storage" {
     try test_frame.pushStack(&[_]u256{32});   // ret_size
     
     // Mock callcode result
-    test_vm.vm.callcode_contract_result = .{
+    test_vm.call_result = .{
         .success = true,
         .gas_left = 1500,
         .output = &([_]u8{0x99} ** 32),
@@ -447,10 +447,10 @@ test "DELEGATECALL (0xF4): Execute with current context" {
     try test_frame.pushStack(&[_]u256{32});   // ret_size
     
     // Write call data
-    _ = try test_frame.frame.memory.set_slice(0, &[_]u8{0x11, 0x22, 0x33, 0x44});
+    try test_frame.frame.memory.set_data(0, &[_]u8{0x11, 0x22, 0x33, 0x44});
     
     // Mock delegatecall result
-    test_vm.vm.delegatecall_contract_result = .{
+    test_vm.call_result = .{
         .success = true,
         .gas_left = 1800,
         .output = &([_]u8{0xAA} ** 32),

@@ -109,7 +109,7 @@ test "SWAP3-SWAP5: Various swaps" {
     
     // Push 6 distinct values
     for (1..7) |i| {
-        try test_frame.pushStack(@as(u256, i * 0x10)); // 0x10, 0x20, ..., 0x60
+        try test_frame.pushStack(&[_]u256{@as(u256, i * 0x10)}); // 0x10, 0x20, ..., 0x60
     }
     
     // Execute SWAP3 (swap top with 4th)
@@ -161,7 +161,7 @@ test "SWAP6-SWAP10: Mid-range swaps" {
     
     // Push 11 distinct values
     for (0..11) |i| {
-        try test_frame.pushStack(@as(u256, 0x100 + i)); // 0x100, 0x101, ..., 0x10A
+        try test_frame.pushStack(&[_]u256{@as(u256, 0x100 + i)}); // 0x100, 0x101, ..., 0x10A
     }
     
     // Execute SWAP6
@@ -213,7 +213,7 @@ test "SWAP11-SWAP16: High-range swaps" {
     
     // Push 17 distinct values (need 17 for SWAP16)
     for (0..17) |i| {
-        try test_frame.pushStack(@as(u256, 0x200 + i)); // 0x200-0x210
+        try test_frame.pushStack(&[_]u256{@as(u256, 0x200 + i)}); // 0x200-0x210
     }
     
     // Execute SWAP11
@@ -270,7 +270,7 @@ test "SWAP16 (0x9F): Swap with 16th position (maximum)" {
     
     // Push exactly 17 values (minimum for SWAP16)
     for (0..17) |i| {
-        try test_frame.pushStack(@as(u256, 0xA00 + i));
+        try test_frame.pushStack(&[_]u256{@as(u256, 0xA00 + i)});
     }
     
     // Before SWAP16: top is 0xA10, 16th position is 0xA00
@@ -313,7 +313,7 @@ test "SWAP1-SWAP16: Gas consumption" {
     
     // Push 17 values to satisfy all SWAP operations
     for (0..17) |i| {
-        try test_frame.pushStack(@intCast(i));
+        try test_frame.pushStack(&[_]u256{@intCast(i)});
     }
     
     // Test each SWAP operation
@@ -381,7 +381,7 @@ test "SWAP operations: Stack underflow" {
     
     // Push more values
     for (0..5) |i| {
-        try test_frame.pushStack(@intCast(i));
+        try test_frame.pushStack(&[_]u256{@intCast(i)});
     }
     
     // SWAP6 should succeed (have 7 items, need 7)
@@ -473,7 +473,7 @@ test "SWAP operations: Pattern verification" {
     
     // Push a pattern of values (17 values for SWAP16)
     for (0..17) |i| {
-        try test_frame.pushStack(@as(u256, 0xFF00 + i)); // 0xFF00-0xFF10
+        try test_frame.pushStack(&[_]u256{@as(u256, 0xFF00 + i)}); // 0xFF00-0xFF10
     }
     
     // Before any swaps, verify initial state
@@ -544,7 +544,7 @@ test "SWAP operations: Boundary test with exact stack size" {
     
     // Test SWAP16 with exactly 17 items
     for (1..18) |i| {
-        try test_frame.pushStack(@intCast(i));
+        try test_frame.pushStack(&[_]u256{@intCast(i)});
     }
     
     test_frame.frame.pc = 1;
@@ -555,7 +555,7 @@ test "SWAP operations: Boundary test with exact stack size" {
     // Test SWAP16 with 16 items (should fail)
     test_frame.frame.stack.clear();
     for (1..17) |i| {
-        try test_frame.pushStack(@intCast(i));
+        try test_frame.pushStack(&[_]u256{@intCast(i)});
     }
     const result = helpers.executeOpcode(0x9F, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);

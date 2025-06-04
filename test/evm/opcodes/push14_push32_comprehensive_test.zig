@@ -531,7 +531,7 @@ test "PUSH32: Hash value pattern" {
     const result = try helpers.executeOpcode(0x7F, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 33), result.bytes_consumed);
     
-    const expected_hash: u256 = 0xABCDEF0123456789_9ABCDEF012345678_8765432110FEDCBA9_89674523_01EFCDAB;
+    const expected_hash: u256 = 0xABCDEF0123456789ABCDEF0123456788765432110FEDCBA9896745230EFCDAB;
     try helpers.expectStackValue(test_frame.frame, 0, expected_hash);
 }
 
@@ -562,7 +562,7 @@ test "Large PUSH operations with stack near limit" {
     
     // Fill stack to near capacity (1023 items)
     for (0..1023) |i| {
-        try test_frame.pushStack(@intCast(i));
+        try test_frame.pushStack(&[_]u256{@intCast(i)});
     }
     
     // One more PUSH32 should succeed (reaching limit of 1024)

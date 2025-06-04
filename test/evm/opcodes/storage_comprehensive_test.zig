@@ -221,9 +221,9 @@ test "SSTORE: Gas refund for clearing storage" {
     try test_frame.pushStack(&[_]u256{0x50}); // slot
     try test_frame.pushStack(&[_]u256{0});    // value (zero)
     
-    const gas_refund_before = test_frame.frame.gas_refund;
+    const gas_refund_before = test_frame.frame.contract.gas_refund;
     _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
-    const gas_refund_after = test_frame.frame.gas_refund;
+    const gas_refund_after = test_frame.frame.contract.gas_refund;
     
     // Should receive refund for clearing storage
     try testing.expect(gas_refund_after > gas_refund_before);
@@ -247,7 +247,7 @@ test "SSTORE: EIP-2200 gas cost scenarios" {
     defer test_frame.deinit();
     
     // Enable EIP-2200
-    test_vm.vm.chain_rules.IsEIP2200 = true;
+    test_vm.vm.chain_rules.IsConstantinople = true; // EIP-2200 is part of Constantinople
     
     // Test 1: Fresh slot (0 -> non-zero)
     try test_frame.pushStack(&[_]u256{0x60}); // slot
