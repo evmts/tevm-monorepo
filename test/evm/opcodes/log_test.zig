@@ -373,8 +373,9 @@ test "LOG4: gas consumption with topics" {
     // LOG4 base cost is 375 gas
     // Plus 375 gas per topic: 4 * 375 = 1500
     // Plus 8 gas per byte: 10 * 8 = 80
-    // Total: 375 + 1500 + 80 = 1955
-    try testing.expectEqual(@as(u64, 1955), gas_before - test_frame.frame.gas_remaining);
+    // Plus memory expansion: 3 gas (for 10 bytes = 1 word)
+    // Total: 375 + 1500 + 80 + 3 = 1958
+    try testing.expectEqual(@as(u64, 1958), gas_before - test_frame.frame.gas_remaining);
 }
 
 // Test memory expansion
