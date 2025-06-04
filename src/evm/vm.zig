@@ -301,6 +301,7 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
     }
 
     // Execute the init code to get the deployed bytecode
+<<<<<<< HEAD
     // For now, we'll simulate successful execution and return the address
     // TODO: Actually execute the init code in a new frame
 
@@ -319,6 +320,94 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
         .address = new_address,
         .gas_left = gas - gas_used,
         .output = null,
+=======
+    if (init_code.len == 0) {
+        // No init code means empty contract
+        std.debug.print("CREATE: Empty init code, creating empty contract\n", .{});
+        return CreateResult{
+            .success = true,
+            .address = new_address,
+            .gas_left = gas,
+            .output = null,
+        };
+    }
+    
+    // Create a new contract for the init code execution
+    // Calculate code hash for the init code
+    var hasher = Keccak256.init(.{});
+    hasher.update(init_code);
+    var code_hash: [32]u8 = undefined;
+    hasher.final(&code_hash);
+    
+    // Create a contract to execute the init code
+    var init_contract = Contract.init(
+        creator,      // caller (who is creating this contract)
+        new_address,  // address (the new contract's address)
+        value,        // value being sent to this contract
+        gas,          // gas available for init code execution
+        init_code,    // the init code to execute
+        code_hash,    // hash of the init code
+        &[_]u8{},     // no input data for init code
+        false,        // not static
+    );
+    defer init_contract.deinit(null);
+    
+    std.debug.print("CREATE: Executing init code with gas: {d}\n", .{gas});
+    
+    // Execute the init code - this should return the deployment bytecode
+    const init_result = self.interpret_with_context(&init_contract, &[_]u8{}, false) catch |err| {
+        std.debug.print("CREATE: Init code execution failed with error: {any}\n", .{err});
+        
+        // Most initcode failures should return 0 address and consume all gas
+        return CreateResult{
+            .success = false,
+            .address = Address.ZERO_ADDRESS,
+            .gas_left = 0,  // Consume all gas on failure
+            .output = null,
+        };
+    };
+    
+    std.debug.print("CREATE: Init code execution completed, returned bytecode length: {d}\n", .{init_result.len});
+    
+    // Check EIP-170 MAX_CODE_SIZE limit on the returned bytecode (24,576 bytes)
+    const MAX_CODE_SIZE = 24576;
+    if (init_result.len > MAX_CODE_SIZE) {
+        std.debug.print("CREATE: Deployment bytecode too large: {d} > {d}\n", .{init_result.len, MAX_CODE_SIZE});
+        return CreateResult{
+            .success = false,
+            .address = Address.ZERO_ADDRESS,
+            .gas_left = 0,  // Consume all gas on failure
+            .output = null,
+        };
+    }
+    
+    // Charge gas for deployed code size (200 gas per byte)
+    const DEPLOY_CODE_GAS_PER_BYTE = 200;
+    const deploy_code_gas = @as(u64, @intCast(init_result.len)) * DEPLOY_CODE_GAS_PER_BYTE;
+    
+    // Check if we have enough gas for deployment
+    if (deploy_code_gas > gas) {
+        std.debug.print("CREATE: Insufficient gas for code deployment: required {d}, available {d}\n", .{deploy_code_gas, gas});
+        return CreateResult{
+            .success = false,
+            .address = Address.ZERO_ADDRESS,
+            .gas_left = 0,
+            .output = null,
+        };
+    }
+    
+    // Store the deployed bytecode at the new contract address
+    try self.set_code(new_address, init_result);
+    std.debug.print("CREATE: Stored bytecode of length {d} at address: 0x{x}\n", .{init_result.len, Address.to_u256(new_address)});
+    
+    const gas_left = gas - deploy_code_gas;
+    
+    return CreateResult{
+        .success = true,
+        .address = new_address,
+        .gas_left = gas_left,
+        .output = init_result,
+>>>>>>> aa17cd05f (feat(evm): Implement CREATE/CREATE2 initcode execution)
     };
 }
 
@@ -394,6 +483,7 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
     }
 
     // Execute the init code to get the deployed bytecode
+<<<<<<< HEAD
     // For now, we'll simulate successful execution and return the address
     // TODO: Actually execute the init code in a new frame
 
@@ -412,6 +502,94 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
         .address = new_address,
         .gas_left = gas - gas_used,
         .output = null,
+=======
+    if (init_code.len == 0) {
+        // No init code means empty contract
+        std.debug.print("CREATE2: Empty init code, creating empty contract\n", .{});
+        return CreateResult{
+            .success = true,
+            .address = new_address,
+            .gas_left = gas,
+            .output = null,
+        };
+    }
+    
+    // Create a new contract for the init code execution
+    // Calculate code hash for the init code
+    var hasher = Keccak256.init(.{});
+    hasher.update(init_code);
+    var code_hash: [32]u8 = undefined;
+    hasher.final(&code_hash);
+    
+    // Create a contract to execute the init code
+    var init_contract = Contract.init(
+        creator,      // caller (who is creating this contract)
+        new_address,  // address (the new contract's address)
+        value,        // value being sent to this contract
+        gas,          // gas available for init code execution
+        init_code,    // the init code to execute
+        code_hash,    // hash of the init code
+        &[_]u8{},     // no input data for init code
+        false,        // not static
+    );
+    defer init_contract.deinit(null);
+    
+    std.debug.print("CREATE2: Executing init code with gas: {d}\n", .{gas});
+    
+    // Execute the init code - this should return the deployment bytecode
+    const init_result = self.interpret_with_context(&init_contract, &[_]u8{}, false) catch |err| {
+        std.debug.print("CREATE2: Init code execution failed with error: {any}\n", .{err});
+        
+        // Most initcode failures should return 0 address and consume all gas
+        return CreateResult{
+            .success = false,
+            .address = Address.ZERO_ADDRESS,
+            .gas_left = 0,  // Consume all gas on failure
+            .output = null,
+        };
+    };
+    
+    std.debug.print("CREATE2: Init code execution completed, returned bytecode length: {d}\n", .{init_result.len});
+    
+    // Check EIP-170 MAX_CODE_SIZE limit on the returned bytecode (24,576 bytes)
+    const MAX_CODE_SIZE = 24576;
+    if (init_result.len > MAX_CODE_SIZE) {
+        std.debug.print("CREATE2: Deployment bytecode too large: {d} > {d}\n", .{init_result.len, MAX_CODE_SIZE});
+        return CreateResult{
+            .success = false,
+            .address = Address.ZERO_ADDRESS,
+            .gas_left = 0,  // Consume all gas on failure
+            .output = null,
+        };
+    }
+    
+    // Charge gas for deployed code size (200 gas per byte)
+    const DEPLOY_CODE_GAS_PER_BYTE = 200;
+    const deploy_code_gas = @as(u64, @intCast(init_result.len)) * DEPLOY_CODE_GAS_PER_BYTE;
+    
+    // Check if we have enough gas for deployment
+    if (deploy_code_gas > gas) {
+        std.debug.print("CREATE2: Insufficient gas for code deployment: required {d}, available {d}\n", .{deploy_code_gas, gas});
+        return CreateResult{
+            .success = false,
+            .address = Address.ZERO_ADDRESS,
+            .gas_left = 0,
+            .output = null,
+        };
+    }
+    
+    // Store the deployed bytecode at the new contract address
+    try self.set_code(new_address, init_result);
+    std.debug.print("CREATE2: Stored bytecode of length {d} at address: 0x{x}\n", .{init_result.len, Address.to_u256(new_address)});
+    
+    const gas_left = gas - deploy_code_gas;
+    
+    return CreateResult{
+        .success = true,
+        .address = new_address,
+        .gas_left = gas_left,
+        .output = init_result,
+>>>>>>> aa17cd05f (feat(evm): Implement CREATE/CREATE2 initcode execution)
     };
 }
 
