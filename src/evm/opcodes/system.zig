@@ -39,25 +39,27 @@ pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     const offset = try stack_pop(&frame.stack);
     const size = try stack_pop(&frame.stack);
     
+    std.debug.print("CREATE opcode: value={}, offset={}, size={}\n", .{value, offset, size});
+    
     // Check depth
     if (frame.depth >= 1024) {
         try stack_push(&frame.stack, 0);
         return Operation.ExecutionResult{};
     }
     
+    // EIP-3860: Check initcode size limit FIRST (Shanghai and later)
+    try check_offset_bounds(size);
+    const size_usize = @as(usize, @intCast(size));
+    if (vm.chain_rules.IsEIP3860 and size_usize > gas_constants.MaxInitcodeSize) {
+        return ExecutionError.Error.MaxCodeSizeExceeded;
+    }
+    
     // Get init code from memory
     var init_code: []const u8 = &[_]u8{};
     if (size > 0) {
         try check_offset_bounds(offset);
-        try check_offset_bounds(size);
         
         const offset_usize = @as(usize, @intCast(offset));
-        const size_usize = @as(usize, @intCast(size));
-        
-        // EIP-3860: Check initcode size limit (Shanghai and later)
-        if (vm.chain_rules.IsEIP3860 and size_usize > gas_constants.MaxInitcodeSize) {
-            return ExecutionError.Error.MaxCodeSizeExceeded;
-        }
         
         // Calculate memory expansion gas cost
         const current_size = frame.memory.total_size();
@@ -65,8 +67,9 @@ pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
         const memory_gas = gas_constants.memory_gas_cost(current_size, new_size);
         try frame.consume_gas(memory_gas);
         
-        _ = try frame.memory.ensure_capacity(offset_usize + size_usize);
-        init_code = frame.memory.slice()[offset_usize..offset_usize + size_usize];
+        // Ensure memory is available and get the slice
+        _ = frame.memory.ensure_context_capacity(offset_usize + size_usize) catch |err| return map_memory_error(err);
+        init_code = frame.memory.get_slice(offset_usize, size_usize) catch |err| return map_memory_error(err);
     }
     
     // Calculate gas for creation
@@ -126,19 +129,19 @@ pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
         return Operation.ExecutionResult{};
     }
     
+    // EIP-3860: Check initcode size limit FIRST (Shanghai and later)
+    try check_offset_bounds(size);
+    const size_usize = @as(usize, @intCast(size));
+    if (vm.chain_rules.IsEIP3860 and size_usize > gas_constants.MaxInitcodeSize) {
+        return ExecutionError.Error.MaxCodeSizeExceeded;
+    }
+    
     // Get init code from memory
     var init_code: []const u8 = &[_]u8{};
     if (size > 0) {
         try check_offset_bounds(offset);
-        try check_offset_bounds(size);
         
         const offset_usize = @as(usize, @intCast(offset));
-        const size_usize = @as(usize, @intCast(size));
-        
-        // EIP-3860: Check initcode size limit (Shanghai and later)
-        if (vm.chain_rules.IsEIP3860 and size_usize > gas_constants.MaxInitcodeSize) {
-            return ExecutionError.Error.MaxCodeSizeExceeded;
-        }
         
         // Calculate memory expansion gas cost
         const current_size = frame.memory.total_size();
@@ -146,8 +149,9 @@ pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
         const memory_gas = gas_constants.memory_gas_cost(current_size, new_size);
         try frame.consume_gas(memory_gas);
         
-        _ = try frame.memory.ensure_capacity(offset_usize + size_usize);
-        init_code = frame.memory.slice()[offset_usize..offset_usize + size_usize];
+        // Ensure memory is available and get the slice
+        _ = frame.memory.ensure_context_capacity(offset_usize + size_usize) catch |err| return map_memory_error(err);
+        init_code = frame.memory.get_slice(offset_usize, size_usize) catch |err| return map_memory_error(err);
     }
     
     const init_code_cost = @as(u64, @intCast(init_code.len)) * gas_constants.CreateDataGas;
