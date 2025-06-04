@@ -39,7 +39,7 @@ pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     const offset = try stack_pop(&frame.stack);
     const size = try stack_pop(&frame.stack);
     
-    std.debug.print("CREATE opcode: value={}, offset={}, size={}\n", .{value, offset, size});
+    std.debug.print("CREATE opcode: value={d}, offset={d}, size={d}\n", .{value, offset, size});
     
     // Check depth
     if (frame.depth >= 1024) {

@@ -137,7 +137,7 @@ test "Gas: Memory expansion costs" {
     _ = try helpers.executeOpcodeWithGas(&jump_table, 0x52, &test_vm.vm, test_frame.frame); // 0x52 = MSTORE
     std.debug.print("[Test MSTORE 1] Gas after executeOpcodeWithGas: {d}\\n", .{test_frame.frame.gas_remaining});
     const gas_used_32 = gas_before_32 - test_frame.frame.gas_remaining;
-    std.debug.print("[Test MSTORE 1] gas_used_32 = {d} (expected 6, found {d})\n", .{ gas_used_32, gas_used_32 });
+    std.debug.print("[Test MSTORE 1] gas_used_32 = {} (expected 6, found {d})\n", .{ gas_used_32, gas_used_32 });
     try testing.expectEqual(@as(u64, 3 + 3), gas_used_32); // 3 for MSTORE + 3 for memory
 
     // Test expansion to 64 bytes (2 words)
@@ -148,7 +148,7 @@ test "Gas: Memory expansion costs" {
     _ = try helpers.executeOpcodeWithGas(&jump_table, 0x52, &test_vm.vm, test_frame.frame); // 0x52 = MSTORE
     std.debug.print("[Test MSTORE 2] Gas after executeOpcodeWithGas: {d}\\n", .{test_frame.frame.gas_remaining});
     const gas_used_64 = gas_before_64 - test_frame.frame.gas_remaining;
-    std.debug.print("[Test MSTORE 2] gas_used_64 = {d} (expected 6, found {d})\n", .{ gas_used_64, gas_used_64 });
+    std.debug.print("[Test MSTORE 2] gas_used_64 = {} (expected 6, found {d})\n", .{ gas_used_64, gas_used_64 });
     try testing.expectEqual(@as(u64, 3 + 3), gas_used_64); // 3 for MSTORE + 3 for expansion
 
     // Test expansion to 1024 bytes (32 words)
@@ -161,7 +161,7 @@ test "Gas: Memory expansion costs" {
     _ = try helpers.executeOpcodeWithGas(&jump_table, 0x52, &test_vm.vm, test_frame.frame); // 0x52 = MSTORE
     std.debug.print("[Test MSTORE 3] Gas after executeOpcodeWithGas: {d}\\n", .{test_frame.frame.gas_remaining});
     const gas_used_1024 = gas_before_1024 - test_frame.frame.gas_remaining;
-    std.debug.print("[Test MSTORE 3] gas_used_1024 = {d} (expected 95, found {d})\n", .{ gas_used_1024, gas_used_1024 });
+    std.debug.print("[Test MSTORE 3] gas_used_1024 = {} (expected 95, found {d})\n", .{ gas_used_1024, gas_used_1024 });
     try testing.expectEqual(@as(u64, 3 + 92), gas_used_1024); // 3 for MSTORE + 92 for expansion
 }
 

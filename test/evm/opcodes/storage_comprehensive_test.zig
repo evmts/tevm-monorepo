@@ -162,8 +162,9 @@ test "SSTORE (0x55): Store to storage" {
     _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
     
     // Debug - print contract address
-    std.debug.print("\nTest: Reading storage from address: {any}\n", .{helpers.TestAddresses.CONTRACT});
-    std.debug.print("Test: Contract in frame has address: {any}\n", .{contract.address});
+    const Address = @import("Address");
+    std.debug.print("\nTest: Reading storage from address: 0x{x}\n", .{Address.to_u256(helpers.TestAddresses.CONTRACT)});
+    std.debug.print("Test: Contract in frame has address: 0x{x}\n", .{Address.to_u256(contract.address)});
     
     // Verify value was stored
     const stored = try test_vm.getStorage(helpers.TestAddresses.CONTRACT, 0x42);

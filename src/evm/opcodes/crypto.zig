@@ -34,6 +34,12 @@ pub fn op_sha3(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     const offset_usize = @as(usize, @intCast(offset));
     const size_usize = @as(usize, @intCast(size));
     
+    // Check if offset + size would overflow
+    const end = std.math.add(usize, offset_usize, size_usize) catch {
+        return ExecutionError.Error.OutOfOffset;
+    };
+    _ = end;
+    
     // Dynamic gas cost for hashing
     const word_size = (size_usize + 31) / 32;
     const gas_cost = 6 * word_size;

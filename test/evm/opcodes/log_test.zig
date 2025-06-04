@@ -4,6 +4,8 @@ const test_helpers = @import("test_helpers.zig");
 const evm = @import("evm");
 const log = evm.opcodes.log;
 
+// WORKTREE: g/opcode-test-fixes - Working on LOG opcode test failures
+
 // Test LOG0 operation
 test "LOG0: emit log with no topics" {
     const allocator = testing.allocator;

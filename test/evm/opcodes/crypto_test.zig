@@ -132,13 +132,12 @@ test "Crypto: KECCAK256 edge cases" {
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
-    // Test with maximum offset that fits in memory
-    const max_offset = std.math.maxInt(usize) - 32;
-    if (max_offset <= std.math.maxInt(u256)) {
-        try test_frame.pushStack(&[_]u256{0, max_offset});
-        const err = helpers.executeOpcode(0x20, &test_vm.vm, test_frame.frame);
-        try testing.expectError(helpers.ExecutionError.Error.OutOfOffset, err);
-    }
+    // Test with offset + size that would overflow
+    const large_offset: u256 = std.math.maxInt(u256) - 10;
+    const large_size: u256 = 32;
+    try test_frame.pushStack(&[_]u256{large_size, large_offset}); // size, offset
+    const err = helpers.executeOpcode(0x20, &test_vm.vm, test_frame.frame);
+    try testing.expectError(helpers.ExecutionError.Error.OutOfOffset, err);
     
     // Test with size exceeding available gas (would cost too much)
     test_frame.frame.stack.clear();
