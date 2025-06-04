@@ -309,6 +309,7 @@ test "SSTORE: Large storage values" {
 // Gas consumption tests
 // ============================
 
+// TODO: Claude is working on fixing this test - gas consumption mismatch
 test "Storage opcodes: Gas consumption patterns" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
