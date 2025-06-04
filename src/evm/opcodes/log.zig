@@ -6,24 +6,15 @@ const Frame = @import("../frame.zig");
 const Vm = @import("../vm.zig");
 const gas_constants = @import("../gas_constants.zig");
 const Address = @import("Address");
+const error_mapping = @import("../error_mapping.zig");
 
 // Import Log struct from VM
 const Log = Vm.Log;
 
-// Helper to convert Stack errors to ExecutionError
-fn stack_pop(stack: *Stack) ExecutionError.Error!u256 {
-    return stack.pop() catch |err| switch (err) {
-        Stack.Error.Underflow => return ExecutionError.Error.StackUnderflow,
-        else => return ExecutionError.Error.StackUnderflow,
-    };
-}
-
-fn stack_push(stack: *Stack, value: u256) ExecutionError.Error!void {
-    return stack.append(value) catch |err| switch (err) {
-        Stack.Error.Overflow => return ExecutionError.Error.StackOverflow,
-        else => return ExecutionError.Error.StackOverflow,
-    };
-}
+// Import helper functions from error_mapping
+const stack_pop = error_mapping.stack_pop;
+const stack_push = error_mapping.stack_push;
+const map_memory_error = error_mapping.map_memory_error;
 
 fn make_log(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     return struct {
@@ -70,10 +61,10 @@ fn make_log(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.State)
             try frame.consume_gas(byte_cost);
             
             // Ensure memory is available
-            _ = frame.memory.ensure_context_capacity(offset_usize + size_usize) catch return ExecutionError.Error.OutOfOffset;
+            _ = frame.memory.ensure_context_capacity(offset_usize + size_usize) catch |err| return map_memory_error(err);
             
             // Get log data
-            const data = frame.memory.get_slice(offset_usize, size_usize) catch return ExecutionError.Error.OutOfOffset;
+            const data = frame.memory.get_slice(offset_usize, size_usize) catch |err| return map_memory_error(err);
             
             // Add log
             try vm.emit_log(frame.contract.address, topics[0..n], data);

@@ -8,21 +8,12 @@ const gas_constants = @import("../gas_constants.zig");
 const AccessList = @import("../access_list.zig").AccessList;
 const Address = @import("Address");
 const from_u256 = Address.from_u256;
+const error_mapping = @import("../error_mapping.zig");
 
-// Helper to convert Stack errors to ExecutionError
-fn stack_pop(stack: *Stack) ExecutionError.Error!u256 {
-    return stack.pop() catch |err| switch (err) {
-        Stack.Error.Underflow => return ExecutionError.Error.StackUnderflow,
-        else => return ExecutionError.Error.StackUnderflow,
-    };
-}
-
-fn stack_push(stack: *Stack, value: u256) ExecutionError.Error!void {
-    return stack.append(value) catch |err| switch (err) {
-        Stack.Error.Overflow => return ExecutionError.Error.StackOverflow,
-        else => return ExecutionError.Error.StackOverflow,
-    };
-}
+// Import helper functions from error_mapping
+const stack_pop = error_mapping.stack_pop;
+const stack_push = error_mapping.stack_push;
+const map_memory_error = error_mapping.map_memory_error;
 
 pub fn op_stop(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
@@ -127,11 +118,11 @@ pub fn op_return(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
             const memory_gas = gas_constants.memory_gas_cost(current_size, end);
             try frame.consume_gas(memory_gas);
             
-            _ = frame.memory.ensure_context_capacity(end) catch return ExecutionError.Error.OutOfOffset;
+            _ = frame.memory.ensure_context_capacity(end) catch |err| return map_memory_error(err);
         }
         
         // Get data from memory
-        const data = frame.memory.get_slice(offset_usize, size_usize) catch return ExecutionError.Error.OutOfOffset;
+        const data = frame.memory.get_slice(offset_usize, size_usize) catch |err| return map_memory_error(err);
         
         // Note: The memory gas cost already protects against excessive memory use.
         // The VM should handle copying the data when needed. We just set the reference.
@@ -168,11 +159,11 @@ pub fn op_revert(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
             const memory_gas = gas_constants.memory_gas_cost(current_size, end);
             try frame.consume_gas(memory_gas);
             
-            _ = frame.memory.ensure_context_capacity(end) catch return ExecutionError.Error.OutOfOffset;
+            _ = frame.memory.ensure_context_capacity(end) catch |err| return map_memory_error(err);
         }
         
         // Get data from memory
-        const data = frame.memory.get_slice(offset_usize, size_usize) catch return ExecutionError.Error.OutOfOffset;
+        const data = frame.memory.get_slice(offset_usize, size_usize) catch |err| return map_memory_error(err);
         
         // Note: The memory gas cost already protects against excessive memory use.
         // The VM should handle copying the data when needed. We just set the reference.

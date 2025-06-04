@@ -7,19 +7,16 @@ const Memory = @import("../memory.zig");
 const gas_constants = @import("../gas_constants.zig");
 const error_mapping = @import("../error_mapping.zig");
 
-// Helper to convert Stack errors to ExecutionError
-fn stack_pop(stack: *Stack) ExecutionError.Error!u256 {
-    return stack.pop() catch |err| switch (err) {
-        Stack.Error.Underflow => return ExecutionError.Error.StackUnderflow,
-        else => return ExecutionError.Error.StackUnderflow,
-    };
-}
+// Import helper functions from error_mapping
+const stack_pop = error_mapping.stack_pop;
+const stack_push = error_mapping.stack_push;
+const map_memory_error = error_mapping.map_memory_error;
 
-fn stack_push(stack: *Stack, value: u256) ExecutionError.Error!void {
-    return stack.append(value) catch |err| switch (err) {
-        Stack.Error.Overflow => return ExecutionError.Error.StackOverflow,
-        else => return ExecutionError.Error.StackOverflow,
-    };
+// Helper to check if u256 fits in usize
+fn check_offset_bounds(value: u256) ExecutionError.Error!void {
+    if (value > std.math.maxInt(usize)) {
+        return ExecutionError.Error.InvalidOffset;
+    }
 }
 
 pub fn op_mload(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
@@ -43,10 +40,10 @@ pub fn op_mload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     try frame.consume_gas(gas_cost);
 
     // Ensure memory is available
-    _ = frame.memory.ensure_context_capacity(offset_usize + 32) catch return ExecutionError.Error.OutOfOffset;
+    _ = frame.memory.ensure_context_capacity(offset_usize + 32) catch |err| return map_memory_error(err);
 
     // Read 32 bytes from memory
-    const value = frame.memory.get_u256(offset_usize) catch return ExecutionError.Error.OutOfOffset;
+    const value = frame.memory.get_u256(offset_usize) catch |err| return map_memory_error(err);
 
     try stack_push(&frame.stack, value);
 
@@ -255,10 +252,10 @@ pub fn op_calldatacopy(pc: usize, interpreter: *Operation.Interpreter, state: *O
     try frame.consume_gas(gas_constants.CopyGas * word_size);
 
     // Ensure memory is available
-    _ = frame.memory.ensure_context_capacity(mem_offset_usize + size_usize) catch return ExecutionError.Error.OutOfOffset;
+    _ = frame.memory.ensure_context_capacity(mem_offset_usize + size_usize) catch |err| return map_memory_error(err);
 
     // Copy calldata to memory
-    frame.memory.set_data_bounded(mem_offset_usize, frame.input, data_offset_usize, size_usize) catch return ExecutionError.Error.OutOfOffset;
+    frame.memory.set_data_bounded(mem_offset_usize, frame.input, data_offset_usize, size_usize) catch |err| return map_memory_error(err);
 
     return Operation.ExecutionResult{};
 }
@@ -307,10 +304,10 @@ pub fn op_codecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     try frame.consume_gas(gas_constants.CopyGas * word_size);
 
     // Ensure memory is available
-    _ = frame.memory.ensure_context_capacity(mem_offset_usize + size_usize) catch return ExecutionError.Error.OutOfOffset;
+    _ = frame.memory.ensure_context_capacity(mem_offset_usize + size_usize) catch |err| return map_memory_error(err);
 
     // Copy code to memory
-    frame.memory.set_data_bounded(mem_offset_usize, frame.contract.code, code_offset_usize, size_usize) catch return ExecutionError.Error.OutOfOffset;
+    frame.memory.set_data_bounded(mem_offset_usize, frame.contract.code, code_offset_usize, size_usize) catch |err| return map_memory_error(err);
 
     return Operation.ExecutionResult{};
 }
@@ -364,10 +361,10 @@ pub fn op_returndatacopy(pc: usize, interpreter: *Operation.Interpreter, state: 
     try frame.consume_gas(gas_constants.CopyGas * word_size);
 
     // Ensure memory is available
-    _ = frame.memory.ensure_context_capacity(mem_offset_usize + size_usize) catch return ExecutionError.Error.OutOfOffset;
+    _ = frame.memory.ensure_context_capacity(mem_offset_usize + size_usize) catch |err| return map_memory_error(err);
 
     // Copy return data to memory
-    frame.memory.set_data(mem_offset_usize, frame.return_data_buffer[data_offset_usize .. data_offset_usize + size_usize]) catch return ExecutionError.Error.OutOfOffset;
+    frame.memory.set_data(mem_offset_usize, frame.return_data_buffer[data_offset_usize .. data_offset_usize + size_usize]) catch |err| return map_memory_error(err);
 
     return Operation.ExecutionResult{};
 }
