@@ -256,12 +256,12 @@ test "DUP11-DUP16: High-range duplications" {
     // Execute DUP15 - position 15 from top
     test_frame.frame.pc = 4;
     _ = try helpers.executeOpcode(0x8E, &test_vm.vm, test_frame.frame);
-    try helpers.expectStackValue(test_frame.frame, 0, 0x500);
+    try helpers.expectStackValue(test_frame.frame, 0, 0x600);
 
     // Execute DUP16 - position 16 from top  
     test_frame.frame.pc = 5;
     _ = try helpers.executeOpcode(0x8F, &test_vm.vm, test_frame.frame);
-    try helpers.expectStackValue(test_frame.frame, 0, 0x400);
+    try helpers.expectStackValue(test_frame.frame, 0, 0x500);
 }
 
 test "DUP16 (0x8F): Duplicate 16th stack item (maximum)" {
