@@ -179,12 +179,17 @@ Let's proceed systematically through the failures.
 <debugging_session>
 
   <test_failure_group name="CREATE_CREATE2_ZeroAddress">
-    *   **Status:** IN PROGRESS - Agent Claude - Worktree: `g/evm-fix-create-initcode`
+    *   **Status:** IN PROGRESS - Agent Gemini - Worktree: `g/evm-fix-create-execution`
     *   **Report (Previous):**
         *   **Fix:** Implemented CREATE/CREATE2 address calculation with RLP encoding and keccak256, added nonce tracking to VM
         *   **Tests Fixed:** CREATE/CREATE2 now return calculated addresses instead of 0
         *   **Regressions Checked:** Basic implementation working, actual initcode execution still TODO
         *   **Commit SHA:** 03f4b7ee1
+    *   **Report (Current Progress):**
+        *   **Implemented:** `Vm.create_contract` and `Vm.create2_contract` in `src/evm/vm.zig` now attempt actual initcode execution using `interpret_with_context`.
+        *   **Refactored:** `Vm.interpret_with_context` now returns a `RunResult` struct (similar to `Vm.run`), providing status, gas_left, and output data. This allows `create_contract` to handle initcode success/failure, gas, and deployment bytecode.
+        *   **Added:** Logic for EIP-3541 (reject 0xEF prefix), EIP-170 (max code size), and code deposit gas costs within the create functions.
+        *   **Next Steps:** Thoroughly test the updated `interpret_with_context`. Re-evaluate `system_test.zig` for CREATE/CREATE2, removing mocks where full execution is now intended. Verify all gas accounting and state change rules for successful and failed creations.
     <failure_summary>
       Tests `system_test.test.CREATE: create new contract` and `system_test.test.CREATE2: create with deterministic address` are failing.
       - `CREATE` output: `expected ..., found 0`
@@ -519,6 +524,7 @@ Let's proceed systematically through the failures.
         *   **Tests Fixed:** `control_flow_test.test.Integration: Invalid opcode handling` now correctly consumes all remaining gas when executing the INVALID opcode (0xFE).
         *   **Verification:** JumpTable logs confirmed: `Opcode 0xfe (INVALID), initial frame gas: 10000` followed by `gas after op_execute: 0`, proving the gas consumption works correctly.
         *   **Regressions Checked:** Integration tests show 31/40 tests passing, with this specific invalid opcode issue resolved.
+        *   **Final Verification:** Confirmed with `zig build test-all` - INVALID opcode gas consumption working correctly
         *   **Commit SHA:** Already present in main branch
     <failure_summary>
       Test `control_flow_test.test.Integration: Invalid opcode handling` fails.
