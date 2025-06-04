@@ -20,7 +20,7 @@ pub fn map_memory_error(err: Memory.MemoryError) ExecutionError.Error {
         Memory.MemoryError.OutOfMemory => ExecutionError.Error.OutOfGas,
         Memory.MemoryError.InvalidOffset => ExecutionError.Error.InvalidOffset,
         Memory.MemoryError.InvalidSize => ExecutionError.Error.InvalidSize,
-        Memory.MemoryError.MemoryLimitExceeded => ExecutionError.Error.OutOfGas,
+        Memory.MemoryError.MemoryLimitExceeded => ExecutionError.Error.OutOfGas, // Map memory limit exceeded to OutOfGas as per EVM spec
         Memory.MemoryError.ChildContextActive => ExecutionError.Error.ChildContextActive,
         Memory.MemoryError.NoChildContextToRevertOrCommit => ExecutionError.Error.NoChildContextToRevertOrCommit,
     };
@@ -116,7 +116,7 @@ test "map_memory_error" {
     try testing.expectEqual(ExecutionError.Error.OutOfMemory, map_memory_error(Memory.MemoryError.OutOfMemory));
     try testing.expectEqual(ExecutionError.Error.InvalidOffset, map_memory_error(Memory.MemoryError.InvalidOffset));
     try testing.expectEqual(ExecutionError.Error.InvalidSize, map_memory_error(Memory.MemoryError.InvalidSize));
-    try testing.expectEqual(ExecutionError.Error.MemoryLimitExceeded, map_memory_error(Memory.MemoryError.MemoryLimitExceeded));
+    try testing.expectEqual(ExecutionError.Error.OutOfGas, map_memory_error(Memory.MemoryError.MemoryLimitExceeded)); // Updated to match OutOfGas mapping
     try testing.expectEqual(ExecutionError.Error.ChildContextActive, map_memory_error(Memory.MemoryError.ChildContextActive));
     try testing.expectEqual(ExecutionError.Error.NoChildContextToRevertOrCommit, map_memory_error(Memory.MemoryError.NoChildContextToRevertOrCommit));
 }
