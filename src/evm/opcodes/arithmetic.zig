@@ -43,10 +43,18 @@ pub fn op_mul(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     _ = pc;
     _ = interpreter;
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-    const b = try stack_pop(&frame.stack);
-    const a = try stack_pop(&frame.stack);
-    const result = a *% b; // Wrapping multiplication
-    try stack_push(&frame.stack, result);
+    
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size >= 2);
+    
+    // Direct access - no error handling needed
+    const b = frame.stack.data[frame.stack.size - 1];
+    const a = frame.stack.data[frame.stack.size - 2];
+    frame.stack.size -= 1;
+    
+    // Modify in-place (now at top of stack)
+    frame.stack.data[frame.stack.size - 1] = a *% b;
+    
     return Operation.ExecutionResult{};
 }
 
@@ -55,10 +63,16 @@ pub fn op_sub(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     _ = interpreter;
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
-    const b = try stack_pop(&frame.stack); // First pop (top of stack)
-    const a = try stack_pop(&frame.stack); // Second pop (below top)
-    const result = a -% b; // second_pop - first_pop
-    try stack_push(&frame.stack, result);
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size >= 2);
+    
+    // Direct access - no error handling needed
+    const b = frame.stack.data[frame.stack.size - 1];
+    const a = frame.stack.data[frame.stack.size - 2];
+    frame.stack.size -= 1;
+    
+    // Modify in-place (now at top of stack)
+    frame.stack.data[frame.stack.size - 1] = a -% b;
 
     return Operation.ExecutionResult{};
 }
@@ -67,12 +81,20 @@ pub fn op_div(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     _ = pc;
     _ = interpreter;
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-    const b = try stack_pop(&frame.stack);
-    const a = try stack_pop(&frame.stack);
+    
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size >= 2);
+    
+    // Direct access - no error handling needed
+    const b = frame.stack.data[frame.stack.size - 1];
+    const a = frame.stack.data[frame.stack.size - 2];
+    frame.stack.size -= 1;
+    
+    // Modify in-place (now at top of stack)
     if (b == 0) {
-        try stack_push(&frame.stack, 0);
+        frame.stack.data[frame.stack.size - 1] = 0;
     } else {
-        try stack_push(&frame.stack, a / b);
+        frame.stack.data[frame.stack.size - 1] = a / b;
     }
     return Operation.ExecutionResult{};
 }
@@ -81,22 +103,33 @@ pub fn op_sdiv(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     _ = pc;
     _ = interpreter;
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-    const b = try stack_pop(&frame.stack);
-    const a = try stack_pop(&frame.stack);
+    
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size >= 2);
+    
+    // Direct access - no error handling needed
+    const b = frame.stack.data[frame.stack.size - 1];
+    const a = frame.stack.data[frame.stack.size - 2];
+    frame.stack.size -= 1;
+    
+    // Get pointer to result location (now at top of stack)
+    const result_ptr = &frame.stack.data[frame.stack.size - 1];
+    
     if (b == 0) {
-        try stack_push(&frame.stack, 0);
+        result_ptr.* = 0;
         return Operation.ExecutionResult{};
     }
+    
     // Signed division for u256
     const a_i256 = @as(i256, @bitCast(a));
     const b_i256 = @as(i256, @bitCast(b));
     // Special case: division overflow
     const min_i256 = @as(i256, 1) << 255;
     if (a_i256 == min_i256 and b_i256 == -1) {
-        try stack_push(&frame.stack, @as(u256, @bitCast(min_i256)));
+        result_ptr.* = @as(u256, @bitCast(min_i256));
     } else {
         const result_i256 = @divTrunc(a_i256, b_i256);
-        try stack_push(&frame.stack, @as(u256, @bitCast(result_i256)));
+        result_ptr.* = @as(u256, @bitCast(result_i256));
     }
     return Operation.ExecutionResult{};
 }
@@ -105,12 +138,20 @@ pub fn op_mod(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     _ = pc;
     _ = interpreter;
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-    const b = try stack_pop(&frame.stack);
-    const a = try stack_pop(&frame.stack);
+    
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size >= 2);
+    
+    // Direct access - no error handling needed
+    const b = frame.stack.data[frame.stack.size - 1];
+    const a = frame.stack.data[frame.stack.size - 2];
+    frame.stack.size -= 1;
+    
+    // Modify in-place (now at top of stack)
     if (b == 0) {
-        try stack_push(&frame.stack, 0);
+        frame.stack.data[frame.stack.size - 1] = 0;
     } else {
-        try stack_push(&frame.stack, a % b);
+        frame.stack.data[frame.stack.size - 1] = a % b;
     }
     return Operation.ExecutionResult{};
 }
