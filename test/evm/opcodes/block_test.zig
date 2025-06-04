@@ -45,8 +45,8 @@ test "Block: BLOCKHASH operations" {
     _ = try helpers.executeOpcode(0x40, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0);
     
-    // Test gas consumption
-    try helpers.expectGasUsed(test_frame.frame, 1000, helpers.opcodes.gas_constants.GasExtStep);
+    // Test gas consumption (3 BLOCKHASH operations * 20 gas each)
+    try helpers.expectGasUsed(test_frame.frame, 1000, 3 * helpers.opcodes.gas_constants.GasExtStep);
 }
 
 test "Block: COINBASE operations" {
@@ -272,8 +272,8 @@ test "Block: BLOBHASH operations (Cancun)" {
     _ = try helpers.executeOpcode(0x49, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0); // Returns 0 for out of bounds
     
-    // Test gas consumption
-    try helpers.expectGasUsed(test_frame.frame, 1000, helpers.opcodes.gas_constants.GasFastestStep);
+    // Test gas consumption (4 BLOBHASH operations * 3 gas each)
+    try helpers.expectGasUsed(test_frame.frame, 1000, 4 * helpers.opcodes.gas_constants.GasFastestStep);
 }
 
 test "Block: BLOBBASEFEE operations (Cancun)" {
@@ -365,9 +365,9 @@ test "Block: Edge cases" {
     
     // Test all opcodes still work with max values
     _ = try helpers.executeOpcode(0x43, &test_vm.vm, test_frame.frame);
-    try helpers.expectStackValue(test_frame.frame, 0, std.math.maxInt(u256));
+    try helpers.expectStackValue(test_frame.frame, 0, std.math.maxInt(u64));
     
     test_frame.frame.stack.clear();
     _ = try helpers.executeOpcode(0x42, &test_vm.vm, test_frame.frame);
-    try helpers.expectStackValue(test_frame.frame, 0, std.math.maxInt(u256));
+    try helpers.expectStackValue(test_frame.frame, 0, std.math.maxInt(u64));
 }
