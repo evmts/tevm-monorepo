@@ -3152,7 +3152,7 @@ test "Environment: CODECOPY opcode" {
     // Copy size=10, code_offset=4, mem_offset=50
     // Expected memory at 50: 016000550000 (reads 5 bytes from code, pads 5 with 0)
     test_frame.frame.stack.clear();
-    test_frame.frame.memory.resize_context(0) catch @panic("mem reset failed");
+    test_frame.frame.memory.resize_context(0) catch @panic("mem reset failed"); // Reset memory
     try test_frame.pushStack(&[_]u256{ 50, 4, 10 });
     _ = try helpers.executeOpcode(0x39, &test_vm.vm, test_frame.frame);
     copied_data = try test_frame.getMemory(50, 10);
@@ -4269,6 +4269,128 @@ test "Block: NUMBER opcode" {
     _ = try test_frame.popStack();
 
     // Verify gas consumption
+    try helpers.expectGasUsed(test_frame.frame, 1000, helpers.opcodes.gas_constants.GasQuickStep);
+}
+```
+
+### `0x44` DIFFICULTY / PREVRANDAO
+
+**Purpose:**
+*   **Pre-Merge (e.g., London and earlier):** Pushes the current block's difficulty onto the stack.
+*   **Post-Merge (Merge hardfork and later, EIP-4399):** Pushes the `prevrandao` value (the output of the randomness beacon from the previous block) from the block header onto the stack. The `DIFFICULTY` opcode (0x44) is repurposed to return `PREVRANDAO`.
+
+**`revm` Implementation (`revm/crates/interpreter/src/instructions/block_info.rs`):
+```rust
+pub fn difficulty<WIRE: InterpreterTypes, H: Host + ?Sized>( // Name remains difficulty for the opcode byte
+    context: InstructionContext<'_, H, WIRE>,
+) {
+    gas!(context.interpreter, gas::BASE); // 2 gas
+    if context
+        .interpreter
+        .runtime_flag
+        .spec_id()
+        .is_enabled_in(MERGE) // Check if Merge hardfork is active
+    {
+        // Unwrap is safe as this fields is checked in validation handler.
+        // Host::prevrandao() returns Option<U256>
+        push!(context.interpreter, context.host.prevrandao().unwrap());
+    } else {
+        push!(context.interpreter, context.host.difficulty()); // Host::difficulty() returns U256
+    }
+}
+```
+
+**Zig EVM Review Points:**
+*   **Correctness:**
+    *   **Hardfork Behavior:** This is the most critical aspect.
+        *   If `vm.chain_rules.IsMerge` (or equivalent) is true, the opcode must push `Vm.block_prevrandao` (a `[32]u8` or `u256` representing it).
+        *   If `vm.chain_rules.IsMerge` is false, it must push `Vm.block_difficulty` (a `u256`).
+    *   **Data Source:** `Vm.block_difficulty` or `Vm.block_prevrandao` (you'll need a field for prevrandao if supporting Merge+).
+    *   **Value:** `prevrandao` is a 32-byte value, pushed as `U256`. Difficulty is also `U256`.
+*   **Gas:** `BASE` (2 gas) consumed before execution, regardless of hardfork.
+*   **Performance:** Simple read and push.
+
+**Conceptual Zig Code Suggestion (Illustrative):**
+```zig
+// In src/evm/opcodes/block.zig (or similar)
+
+// ... (std, Operation, ExecutionError, Stack, Frame, Vm, gas_constants, error_mapping imports, Address, ChainRules) ...
+
+pub fn op_difficulty_or_prevrandao( // Renamed for clarity
+    pc: usize,
+    interpreter: *Operation.Interpreter,
+    state: *Operation.State,
+) ExecutionError.Error!Operation.ExecutionResult {
+    _ = pc;
+
+    const frame = @as(*Frame, @ptrCast(@alignCast(state)));
+    const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
+
+    var value_to_push: u256 = 0;
+
+    if (vm.chain_rules.IsMerge) { // Check if Merge hardfork is active
+        // Assuming Vm stores prevrandao as [32]u8 or u256 directly
+        // If it's [32]u8, convert to u256:
+        // value_to_push = std.mem.readInt(u256, &vm.block_prevrandao, .big);
+        // If it's already u256:
+        value_to_push = vm.block_prevrandao; // Assuming vm.block_prevrandao is u256
+    } else {
+        value_to_push = vm.block_difficulty;
+    }
+
+    try error_mapping.stack_push(&frame.stack, value_to_push);
+
+    return Operation.ExecutionResult{};
+}
+
+// In your JumpTable setup:
+// jt.table[0x44] = &op_difficulty_or_prevrandao;
+// or directly use op_difficulty if the logic is inside that.
+```
+
+**Zig Test Case Suggestions:**
+```zig
+// In a test file like test/evm/opcodes/block_test.zig
+
+test "Block: DIFFICULTY opcode (Pre-Merge)" {
+    const allocator = testing.allocator;
+    var test_vm = try helpers.TestVm.initWithHardfork(allocator, .LONDON); // Pre-Merge hardfork
+    defer test_vm.deinit();
+
+    var contract = try helpers.createTestContract(allocator, .{}, .{}, 0, &[_]u8{});
+    defer contract.deinit(null);
+    var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
+
+    const mock_difficulty: u256 = 123456789012345;
+    test_vm.vm.block_difficulty = mock_difficulty;
+    test_vm.vm.block_prevrandao = 0; // Should not be used
+
+    _ = try helpers.executeOpcode(0x44, &test_vm.vm, test_frame.frame); // DIFFICULTY
+
+    try helpers.expectStackValue(test_frame.frame, 0, mock_difficulty);
+    _ = try test_frame.popStack();
+    try helpers.expectGasUsed(test_frame.frame, 1000, helpers.opcodes.gas_constants.GasQuickStep);
+}
+
+test "Block: PREVRANDAO opcode (Post-Merge, via 0x44 DIFFICULTY)" {
+    const allocator = testing.allocator;
+    var test_vm = try helpers.TestVm.initWithHardfork(allocator, .MERGE); // Post-Merge hardfork
+    defer test_vm.deinit();
+
+    var contract = try helpers.createTestContract(allocator, .{}, .{}, 0, &[_]u8{});
+    defer contract.deinit(null);
+    var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
+    defer test_frame.deinit();
+
+    const mock_prevrandao: u256 = 0xABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789;
+    test_vm.vm.block_prevrandao = mock_prevrandao;
+    test_vm.vm.block_difficulty = 999; // Should not be used
+
+    _ = try helpers.executeOpcode(0x44, &test_vm.vm, test_frame.frame); // DIFFICULTY (becomes PREVRANDAO)
+
+    try helpers.expectStackValue(test_frame.frame, 0, mock_prevrandao);
+    _ = try test_frame.popStack();
     try helpers.expectGasUsed(test_frame.frame, 1000, helpers.opcodes.gas_constants.GasQuickStep);
 }
 ```

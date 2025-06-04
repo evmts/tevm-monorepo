@@ -47,8 +47,13 @@ pub fn execute(self: *const Self, pc: usize, interpreter: *Operation.Interpreter
     // Cast state to Frame to access gas_remaining and stack
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    const opcode_enum = @as(Opcode.Enum, @enumFromInt(opcode));
-    _ = opcode_enum;
+    // Check if this is an undefined/invalid opcode
+    if (operation.undefined) {
+        // Invalid opcode - consume all gas and return error
+        frame.gas_remaining = 0;
+        return ExecutionError.Error.InvalidOpcode;
+    }
+
     // Validate stack requirements before execution
     const stack_validation = @import("stack_validation.zig");
     try stack_validation.validate_stack_requirements(&frame.stack, operation);
