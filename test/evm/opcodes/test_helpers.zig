@@ -224,6 +224,11 @@ pub fn executeOpcode(
         std.debug.print("=== HELPER: Executing opcode 0x{x:0>2} ===\n", .{opcode_byte});
     }
 
+    // DEBUG: LOG opcodes
+    if (opcode_byte >= 0xA0 and opcode_byte <= 0xA4) {
+        std.debug.print("=== HELPER: Executing LOG opcode 0x{x:0>2} ===\n", .{opcode_byte});
+    }
+
     // Debug: Check if jump table has the opcode
     // const operation = vm.table.get_operation(opcode_byte);
 
