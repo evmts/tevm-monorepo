@@ -544,10 +544,10 @@ test "DUP operations: Pattern verification" {
     _ = try helpers.executeOpcode(0x8C, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x77); // DUP13 gets 13th from top which is 0x77
 
-    // DUP16 should duplicate 16th from top (now 0x44 after 4 DUPs)
+    // DUP16 should duplicate 16th from top (now 0x55 after 4 DUPs)
     test_frame.frame.pc = 4;
     _ = try helpers.executeOpcode(0x8F, &test_vm.vm, test_frame.frame);
-    try helpers.expectStackValue(test_frame.frame, 0, 0x44); // DUP16 gets 16th from top which is 0x44
+    try helpers.expectStackValue(test_frame.frame, 0, 0x55); // DUP16 gets 16th from top which is 0x55
 
     // Final stack size should be 21 (16 original + 5 duplicated)
     try testing.expectEqual(@as(usize, 21), test_frame.frame.stack.size);
