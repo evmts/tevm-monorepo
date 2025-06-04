@@ -27,23 +27,6 @@ export default defineConfig({
 
 ## Available Matchers
 
-### `toBeBigInt()`
-
-Asserts that a value is a BigInt.
-
-```typescript
-// ✅ Passes
-expect(BigInt(42)).toBeBigInt()
-expect(123n).toBeBigInt()
-
-// ❌ Fails
-expect(42).toBeBigInt()
-expect('123').toBeBigInt()
-
-// Works with .not
-expect(42).not.toBeBigInt()
-```
-
 ### `toBeAddress(opts?)`
 
 Asserts that a value is a valid Ethereum address with optional checksum validation.
@@ -303,12 +286,10 @@ import { expect, test } from 'vitest'
 
 test('TEVM result validation', () => {
   const result = {
-    executionGasUsed: 21000n,
     to: '0x742d35Cc5dB4c8E9f8D4Dc1Ef70c4c7c8E5b7A6b',
     data: '0x1234abcd'
   }
 
-  expect(result.executionGasUsed).toBeBigInt()
   expect(result.to).toBeAddress() // validates checksum by default
   expect(result.data).toBeHex()
 })

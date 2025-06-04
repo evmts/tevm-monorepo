@@ -7,7 +7,6 @@ import {
 	type IsHexOptions,
 	type UtilsMatchers,
 	toBeAddress,
-	toBeBigInt,
 	toBeHex,
 	toEqualAddress,
 	toEqualHex,
@@ -16,7 +15,6 @@ import {
 export type { IsAddressOptions, IsHexOptions, EqualHexOptions, ContractLike, TransactionLike }
 
 expect.extend({
-	toBeBigInt,
 	toBeAddress,
 	toBeHex,
 	toEqualAddress,

@@ -24,7 +24,8 @@
 	},
 	"license": "MIT",
 	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
+		"Will Cory <willcory10@gmail.com>",
+		"0xpolarzero <0xpolarzero@gmail.com>"
 	],
 	"sideEffects": false,
 	"type": "module",
