@@ -315,7 +315,7 @@ pub fn build(b: *std.Build) void {
     // Add a test for evm.zig
     const evm_test = b.addTest(.{
         .name = "evm-test",
-        .root_source_file = b.path("src/evm/jump_table.zig"),
+        .root_source_file = b.path("src/evm/evm.zig"),
         .target = target,
         .optimize = optimize,
     });
