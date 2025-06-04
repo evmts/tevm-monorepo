@@ -302,7 +302,9 @@ test "Integration: Memory expansion tracking" {
     _ = try helpers.executeOpcode(0x52, &test_vm.vm, test_frame.frame);
     
     _ = try helpers.executeOpcode(0x59, &test_vm.vm, test_frame.frame);
-    try helpers.expectStackValue(test_frame.frame, 0, 132); // Expanded to include offset 100-131
+    // Memory expands in 32-byte words. Offset 100 + 32 bytes = 132 bytes needed
+    // 132 bytes = 4.125 words, rounds up to 5 words = 160 bytes
+    try helpers.expectStackValue(test_frame.frame, 0, 160);
     
     // Store single byte at offset 200
     test_frame.frame.stack.clear();
@@ -310,7 +312,9 @@ test "Integration: Memory expansion tracking" {
     _ = try helpers.executeOpcode(0x53, &test_vm.vm, test_frame.frame);
     
     _ = try helpers.executeOpcode(0x59, &test_vm.vm, test_frame.frame);
-    try helpers.expectStackValue(test_frame.frame, 0, 201); // Expanded to include offset 200
+    // MSTORE8 at offset 200 needs byte 200, which requires 201 bytes
+    // 201 bytes = 6.28125 words, rounds up to 7 words = 224 bytes
+    try helpers.expectStackValue(test_frame.frame, 0, 224); // Memory expands to 7 words (224 bytes)
 }
 
 test "Integration: Cold/warm storage access patterns" {
