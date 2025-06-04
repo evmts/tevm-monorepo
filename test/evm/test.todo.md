@@ -225,7 +225,12 @@ Let's proceed systematically through the failures.
   </test_failure_group>
 
   <test_failure_group name="CALL_DELEGATECALL_STATICCALL_OutOfOffset_Mapping">
-    *   **Status:** IN PROGRESS - Agent Claude - Worktree: `g/evm-fix-error-mapping`
+    *   **Status:** COMPLETE - Agent Claude - Worktree: `g/evm-fix-error-mapping`
+    *   **Report:**
+        *   **Fix:** Implemented centralized error_mapping module and updated all opcode files to properly map memory errors instead of generic OutOfOffset
+        *   **Tests Fixed:** CALL/DELEGATECALL/STATICCALL memory error mapping issues
+        *   **Regressions Checked:** Cherry-picked to main branch
+        *   **Commit SHA:** e4e505a35
     <failure_summary>
       Tests for `CALL` (0xf1), `DELEGATECALL` (0xf4), and `STATICCALL` (0xfa) in `system_test.zig` and `environment_system_test.zig` are failing.
       - Many report `ExecutionError.Error.OutOfOffset` originating from the respective opcode handlers in `src/evm/opcodes/system.zig`.
