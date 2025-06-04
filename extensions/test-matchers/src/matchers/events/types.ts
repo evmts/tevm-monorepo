@@ -1,17 +1,9 @@
 import type { ExtractAbiEvent } from 'abitype'
 import type { ContractEventName, Log } from 'viem'
 import type { Abi } from 'viem'
+import type { ContainsContractAbi } from '../../common/types.js'
 
-// Contract-like object with ABI
-export interface ContractLike<TAbi extends Abi = Abi> {
-	abi: TAbi
-	address?: `0x${string}`
-}
 
-// Transaction-like object that has logs
-export interface TransactionLike {
-	logs: Log[]
-}
 
 // State for toEmit matcher to pass to chained matchers
 export type ToEmitState<
@@ -22,7 +14,7 @@ export type ToEmitState<
 > = TAbi extends Abi
 	? {
 			matchedLogs: Log[]
-			contract: ContractLike<TAbi>
+			contract: ContainsContractAbi<TAbi>
 			eventName: TEventName
 			eventAbi: ExtractAbiEvent<TAbi, TEventName>
 		}

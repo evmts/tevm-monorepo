@@ -4,7 +4,7 @@ import type { Abi } from 'viem'
 import { createChainableFromVitest } from '../../chainable/chainable.js'
 import type { ChainableAssertion } from '../../chainable/types.js'
 import { toEmit } from './toEmit.js'
-import type { ContractLike, TransactionLike } from './types.js'
+import type { ContainsContractAbi } from '../../common/types.js'
 import { withArgs } from './withArgs.js'
 import { type EventInputsToNamedArgs, withNamedArgs } from './withNamedArgs.js'
 
@@ -32,7 +32,6 @@ export const eventMatchers = {
 }
 
 export { toEmit, withArgs, withNamedArgs }
-export type { ContractLike, TransactionLike }
 
 // TypeScript declaration for vitest
 export interface EmitMatchers {
@@ -40,7 +39,7 @@ export interface EmitMatchers {
 	 * Assert that an event was emitted
 	 */
 	toEmit<TAbi extends Abi, TEventName extends ContractEventName<TAbi>>(
-		contract: ContractLike<TAbi>,
+		contract: ContainsContractAbi<TAbi>,
 		eventName: TEventName,
 	): Promise<EmitAssertionWithContract<TAbi, TEventName>> & EmitAssertionWithContract<TAbi, TEventName>
 
