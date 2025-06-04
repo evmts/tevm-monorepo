@@ -4,7 +4,6 @@ import {
 	type EqualHexOptions,
 	type IsHexOptions,
 	toBeAddress,
-	toBeBigInt,
 	toBeHex,
 	toEqualAddress,
 	toEqualHex,
@@ -12,7 +11,6 @@ import {
 
 // Define all matchers
 const matchers = {
-	toBeBigInt,
 	toBeAddress,
 	toBeHex,
 	toEqualAddress,
@@ -26,7 +24,6 @@ expect.extend(matchers)
 export { matchers }
 
 // Export individual matchers
-export { toBeBigInt } from './matchers/utils/toBeBigInt.js'
 export { toBeAddress } from './matchers/utils/toBeAddress.js'
 export { toBeHex } from './matchers/utils/toBeHex.js'
 export { toEqualAddress } from './matchers/utils/toEqualAddress.js'
@@ -35,14 +32,12 @@ export { toEqualHex } from './matchers/utils/toEqualHex.js'
 // Type declarations for TypeScript
 declare module 'vitest' {
 	interface Assertion<T = any> {
-		toBeBigInt(): T
 		toBeAddress(opts?: IsAddressOptions): T
 		toBeHex(opts?: IsHexOptions): T
 		toEqualAddress(expected: unknown): T
 		toEqualHex(expected: unknown, opts?: EqualHexOptions): T
 	}
 	interface AsymmetricMatchersContaining {
-		toBeBigInt(): any
 		toBeAddress(): any
 		toBeHex(opts?: IsHexOptions): any
 		toEqualAddress(expected: unknown): any
