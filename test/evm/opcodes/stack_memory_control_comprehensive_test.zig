@@ -468,7 +468,7 @@ test "Stack, Memory, and Control opcodes: Gas consumption" {
     test_frame.frame.gas_remaining = gas_before;
     _ = try helpers.executeOpcode(0x51, &test_vm.vm, test_frame.frame);
     gas_used = gas_before - test_frame.frame.gas_remaining;
-    try testing.expectEqual(@as(u64, 3), gas_used);
+    try testing.expectEqual(@as(u64, 6), gas_used); // 3 base + 3 memory expansion
     
     // Test MSTORE gas
     test_frame.frame.stack.clear();
