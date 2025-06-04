@@ -35,4 +35,7 @@ test {
     _ = @import("log0_log4_comprehensive_test.zig");
     _ = @import("create_call_comprehensive_test.zig");
     _ = @import("control_system_comprehensive_test.zig");
+    _ = @import("arithmetic_comprehensive_test.zig");
+    _ = @import("bitwise_comprehensive_test.zig");
+    _ = @import("storage_comprehensive_test.zig");
 }
