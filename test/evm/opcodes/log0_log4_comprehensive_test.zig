@@ -247,8 +247,8 @@ test "LOG0-LOG4: Gas consumption" {
     
     // Test LOG1 gas consumption
     try test_frame.pushStack(&[_]u256{0x123}); // topic
-    try test_frame.pushStack(&[_]u256{0});     // offset
     try test_frame.pushStack(&[_]u256{16});    // size (16 bytes)
+    try test_frame.pushStack(&[_]u256{0});     // offset
     
     test_frame.frame.pc = 1;
     const gas_before_log1 = test_frame.frame.gas_remaining;
@@ -263,8 +263,8 @@ test "LOG0-LOG4: Gas consumption" {
     try test_frame.pushStack(&[_]u256{0x222}); // topic2
     try test_frame.pushStack(&[_]u256{0x333}); // topic3
     try test_frame.pushStack(&[_]u256{0x444}); // topic4
-    try test_frame.pushStack(&[_]u256{0});     // offset
     try test_frame.pushStack(&[_]u256{0});     // size (0 bytes - empty data)
+    try test_frame.pushStack(&[_]u256{0});     // offset
     
     test_frame.frame.pc = 4;
     const gas_before_log4 = test_frame.frame.gas_remaining;
