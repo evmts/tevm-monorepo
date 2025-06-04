@@ -23,10 +23,9 @@ import { type Table } from '@latticexyz/store/internal'
 import { createCommon } from '@tevm/common'
 import { createLogger } from '@tevm/logger'
 import { type MemoryClient, createMemoryClient } from '@tevm/memory-client'
-import type { TxPool } from '@tevm/txpool'
 import { type Address, createAddressFromString } from '@tevm/utils'
-import type { Vm } from '@tevm/vm'
-import { type Client, type Hex, bytesToHex, parseEventLogs, publicActions } from 'viem'
+import { type Client, type Hex, bytesToHex, parseEventLogs } from 'viem'
+import { getTransaction } from 'viem/actions'
 import { mudStoreGetStorageAtOverride } from './internal/decorators/mudStoreGetStorageAtOverride.js'
 import { mudStoreWriteRequestOverride } from './internal/decorators/mudStoreWriteRequestOverride.js'
 import { ethjsLogToAbiLog } from './internal/ethjsLogToAbiLog.js'
@@ -90,23 +89,10 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 	stash,
 	loggingLevel,
 }: CreateOptimisticHandlerOptions<TConfig>): CreateOptimisticHandlerResult<TConfig> => {
-	const logger = loggingLevel ? createLogger({ name: '@tevm/mud', level: loggingLevel }) : undefined
-	logger?.debug('Creating optimistic handler')
-
-	function createForkRequestOverrideClient(getState: () => State, type: 'internal' | 'optimistic') {
-		if (!client.chain) throw new Error('Client must be connected to a chain')
-		const transport = 'client' in client ? client.client : client
-		return createMemoryClient({
-			fork: {
-				transport: {
-					request: mudStoreGetStorageAtOverride(transport, type, logger)({ getState, storeAddress }),
-				},
-				blockTag: 'latest',
-			},
-			common: createCommon(client.chain),
-			...(loggingLevel ? { loggingLevel } : {}),
-		})
-	}
+	if (!client.chain) throw new Error('Client must be connected to a chain')
+	const transport = 'client' in client ? client.client : client
+	const logger = createLogger({ name: '@tevm/mud', level: loggingLevel ?? 'warn' })
+	logger.debug('Creating optimistic handler')
 
 	// Create optimistic subscribers
 	const optimisticTableSubscribers: TableSubscribers = {}
@@ -152,20 +138,18 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 	// Get the internal optimistic state at the latest applied tx
 	const getInternalView = () => getStateView(internalLogs)
 
-	let vm: Vm | undefined
-	let txPool: TxPool | undefined
 	// Function that processes transactions and updates logs
 	// we want to execute this function serially so there won't be multiple invocations modifying the same internalLogs variable
 	async function processTransactionsAndUpdateLogs(): Promise<void> {
-		if (!vm) vm = await internalClient.transport.tevm.getVm()
-		if (!txPool) txPool = await optimisticClient.transport.tevm.getTxPool()
+		const vm = await internalClient.transport.tevm.getVm()
+		const txPool = await optimisticClient.transport.tevm.getTxPool()
 
 		if (txPool.txsInPool === 0) {
-			logger?.debug('No txs in pool, clearing logs and returning canonical state.')
+			logger.debug('No txs in pool, clearing logs and returning canonical state.')
 			return
 		}
 
-		logger?.debug({ txsInPool: txPool.txsInPool }, 'Processing transactions.')
+		logger.debug({ txsInPool: txPool.txsInPool }, 'Processing transactions.')
 
 		const orderedTxs = await txPool.txsByPriceAndNonce()
 		const vmCopy = await vm.deepCopy()
@@ -188,7 +172,7 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 
 		// Process each transaction, building up internal logs
 		for (const tx of orderedTxs) {
-			logger?.debug(
+			logger.debug(
 				{ tx, hash: bytesToHex(tx.hash()) },
 				`Running tx ${orderedTxs.indexOf(tx) + 1}/${orderedTxs.length}.`,
 			)
@@ -234,7 +218,7 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 			notifyStashSubscribers({ stash: notificationStash, updates: optimisticLogs })
 		}
 
-		logger?.debug({ txsInPool: txPool.txsInPool }, 'Finished processing transactions and notified subscribers.')
+		logger.debug({ txsInPool: txPool.txsInPool }, 'Finished processing transactions and notified subscribers.')
 	}
 
 	// TODO: we don't want to have two clients but that's a workaround because we apply different getStorageAt interceptors:
@@ -242,8 +226,36 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 	// as the pool txs are executed (so the getStorageAt override reads the current optimistic state SO FAR, at each tx)
 	// - optimisticClient: used for the write interceptor, and uses a mudStoreGetStorageAtOverride that always reads the optimistic state
 	// from the _optimisticStateView
-	const internalClient = createForkRequestOverrideClient(getInternalView, 'internal')
-	const optimisticClient = createForkRequestOverrideClient(getOptimisticView, 'optimistic')
+	// const internalClient = createForkRequestOverrideClient(getInternalView, 'internal')
+	// const optimisticClient = createForkRequestOverrideClient(getOptimisticView, 'optimistic')
+	const internalClient = createMemoryClient({
+		fork: {
+			transport: {
+				request: mudStoreGetStorageAtOverride(
+					transport,
+					'internal',
+					logger,
+				)({ getState: getInternalView, storeAddress }),
+			},
+			blockTag: 'latest',
+		},
+		common: createCommon(client.chain),
+		...(loggingLevel ? { loggingLevel } : {}),
+	})
+	const optimisticClient = createMemoryClient({
+		fork: {
+			transport: {
+				request: mudStoreGetStorageAtOverride(
+					transport,
+					'optimistic',
+					logger,
+				)({ getState: getOptimisticView, storeAddress }),
+			},
+			blockTag: 'latest',
+		},
+		common: createCommon(client.chain),
+		...(loggingLevel ? { loggingLevel } : {}),
+	})
 
 	mudStoreWriteRequestOverride(
 		client,
@@ -256,20 +268,20 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 
 	// Update subscribers when the optimistic state changes or when the canonical state changes (and it's been synced to the optimistic state)
 	const _subscribeToOptimisticState = async () => {
-		logger?.debug('Subscribing to optimistic state')
-		if (!txPool) txPool = await optimisticClient.transport.tevm.getTxPool()
+		logger.debug('Subscribing to optimistic state')
+		const txPool = await optimisticClient.transport.tevm.getTxPool()
 
 		const unsubscribeTxAdded = txPool.on('txadded', () => {
-			logger?.debug('Tx added, updating optimistic state.')
+			logger.debug('Tx added, updating optimistic state.')
 			stateUpdateCoordinator.queueOptimisticUpdate(() => processTransactionsAndUpdateLogs())
 		})
 
 		const unsubscribeTxRemoved = txPool.on('txremoved', (hash) => {
-			logger?.debug('Tx removed, updating optimistic state.')
+			logger.debug('Tx removed, updating optimistic state.')
 			if (!syncedOptimisticHashes.has(hash as Hex))
 				stateUpdateCoordinator.queueOptimisticUpdate(() => processTransactionsAndUpdateLogs())
 			else {
-				logger?.debug(
+				logger.debug(
 					{ optimisticTxHash: hash },
 					'Skipping txremoved update for tx that is being handled by the canonical sync.',
 				)
@@ -280,7 +292,7 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 		const unsubscribeStash = subscribeStash({
 			stash,
 			subscriber: () => {
-				logger?.debug('Stash updated, updating optimistic state.')
+				logger.debug('Stash updated, updating optimistic state.')
 				processTransactionsAndUpdateLogs() // this listener is triggered during a queued canonical update already
 			},
 		})
@@ -311,16 +323,16 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 		syncAdapter: createSyncAdapter({
 			stash,
 			onTx: async ({ hash }) => {
-				if (!txPool) txPool = await optimisticClient.transport.tevm.getTxPool()
 				if (!hash) return
+				const txPool = await optimisticClient.transport.tevm.getTxPool()
 
-				const tx = await ('client' in client ? client.client : client).extend(publicActions).getTransaction({ hash })
+				const tx = await getTransaction(transport, { hash })
 				const data = tx?.input
 				if (!data) return
 
 				const optimisticTxHash = await matchOptimisticTxCounterpart(txPool, data)
 				if (optimisticTxHash) {
-					logger?.debug({ hash, optimisticTxHash }, 'Marking optimistic tx as being handled during canonical sync.')
+					logger.debug({ hash, optimisticTxHash }, 'Marking optimistic tx as being handled during canonical sync.')
 					syncedOptimisticHashes.add(optimisticTxHash)
 					if (txPool.getByHash(optimisticTxHash)) txPool.removeByHash(optimisticTxHash)
 				}
@@ -333,7 +345,7 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 			optimisticTableSubscribers,
 			cleanup: async () => {
 				try {
-					logger?.debug('Cleaning up optimistic handler')
+					logger.debug('Cleaning up optimistic handler')
 					;(await unsubscribe)()
 					// TODO: how do we completely get rid of a client?
 				} catch (error) {

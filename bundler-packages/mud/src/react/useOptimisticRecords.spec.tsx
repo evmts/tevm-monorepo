@@ -4,7 +4,7 @@ import { renderHook } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { config } from '../../test/config.js'
 import { state } from '../../test/state.js'
-import { arrayDeepEqual } from '../internal/utils/arrayDeepEqual.js'
+import { deepEqual } from '../internal/utils/deepEqual.js'
 import { useOptimisticRecords } from './useOptimisticRecords.js'
 import { useOptimisticState } from './useOptimisticState.js'
 import { useOptimisticWrapper } from './useOptimisticWrapper.js'
@@ -22,8 +22,8 @@ vi.mock('@latticexyz/stash/internal', () => ({
 	getRecords: vi.fn(),
 }))
 
-vi.mock('../internal/utils/arrayDeepEqual.js', () => ({
-	arrayDeepEqual: vi.fn(),
+vi.mock('../internal/utils/deepEqual.js', () => ({
+	deepEqual: vi.fn(),
 }))
 
 const mockUseOptimisticState = vi.mocked(useOptimisticState)
@@ -42,7 +42,7 @@ describe('useOptimisticRecords', () => {
 		table: testTable,
 	}
 
-	it('should call useOptimisticState with arrayDeepEqual', () => {
+	it('should call useOptimisticState with deepEqual', () => {
 		mockUseOptimisticState.mockReturnValue(testRecordsArray)
 		mockUseOptimisticWrapper.mockReturnValue({
 			getOptimisticRecords: vi.fn().mockResolvedValue(testRecords),
@@ -50,7 +50,7 @@ describe('useOptimisticRecords', () => {
 
 		const { result } = renderHook(() => useOptimisticRecords(mockArgs))
 
-		expect(mockUseOptimisticState).toHaveBeenCalledWith(expect.any(Function), { isEqual: arrayDeepEqual })
+		expect(mockUseOptimisticState).toHaveBeenCalledWith(expect.any(Function), { isEqual: deepEqual })
 		expect(result.current).toBe(testRecordsArray)
 	})
 

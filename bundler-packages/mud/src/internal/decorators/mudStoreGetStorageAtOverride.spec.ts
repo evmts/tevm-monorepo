@@ -4,6 +4,7 @@ import { type Address, type EIP1193RequestFn, pad } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { state } from '../../../test/state.js'
 import { mudStoreGetStorageAtOverride } from './mudStoreGetStorageAtOverride.js'
+import { createLogger } from '@tevm/logger'
 
 const testContract = MUDTestSystem.withAddress('0x5FbDB2315678afecb367f032d93F642f64180aa3')
 const getState = () => state
@@ -11,6 +12,7 @@ const client = createMemoryClient()
 const mudStoreRequestOverride = mudStoreGetStorageAtOverride(
 	{ request: (async () => {}) as EIP1193RequestFn },
 	'internal',
+	createLogger({ name: '@tevm/mud', level: 'debug' }),
 )({
 	getState,
 	storeAddress: testContract.address,
