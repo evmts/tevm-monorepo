@@ -12,7 +12,6 @@ import type { TxStatus } from './subscribeTx.js'
 
 const testContract = MUDTestSystem.withAddress('0x5FbDB2315678afecb367f032d93F642f64180aa3')
 
-// TODO: Fix block with hash does not exist error in todo tests
 describe('createOptimisticHandler', () => {
 	let client: Client
 	let stash: Stash<typeof config>
@@ -95,6 +94,7 @@ describe('createOptimisticHandler', () => {
 		expect(optimisticState).toMatchObject(canonicalState)
 	})
 
+	// TODO: Fix block with hash does not exist error
 	it.todo('should handle optimistic state with pending transactions', async () => {
 		const handler = createOptimisticHandler({
 			client,
@@ -112,7 +112,6 @@ describe('createOptimisticHandler', () => {
 			// @ts-expect-error - cannot type args
 			...testContract.write.set(...Object.values(newRecord)),
 			addToMempool: true,
-			blockTag: 'pending',
 		})
 
 		expect(txPool.txsInPool).toBe(1)
@@ -126,6 +125,7 @@ describe('createOptimisticHandler', () => {
 		expect(optimisticState.config).toEqual(canonicalState.config)
 	})
 
+	// TODO: Fix block with hash does not exist error
 	it.todo('should handle subscription to optimistic state changes', async () => {
 		const handler = createOptimisticHandler({
 			client,
@@ -149,7 +149,6 @@ describe('createOptimisticHandler', () => {
 			// @ts-expect-error - cannot type args
 			...testContract.write.set(...Object.values(newRecord)),
 			addToMempool: true,
-			blockTag: 'pending',
 		})
 
 		// Give some time for async notification
@@ -160,6 +159,7 @@ describe('createOptimisticHandler', () => {
 		unsubscribe()
 	})
 
+	// TODO: Fix block with hash does not exist error
 	it.todo('should handle transaction status subscriptions', async () => {
 		const handler = createOptimisticHandler({
 			client,
@@ -184,7 +184,6 @@ describe('createOptimisticHandler', () => {
 			// @ts-expect-error - cannot type args
 			...testContract.write.set(...Object.values(newRecord)),
 			addToMempool: true,
-			blockTag: 'pending',
 		})
 
 		await new Promise((resolve) => setTimeout(resolve, 10))
@@ -195,6 +194,7 @@ describe('createOptimisticHandler', () => {
 		unsubscribe()
 	})
 
+	// TODO: Fix block with hash does not exist error
 	it.todo('should handle transaction removal from pool', async () => {
 		const handler = createOptimisticHandler({
 			client,
@@ -212,7 +212,6 @@ describe('createOptimisticHandler', () => {
 			// @ts-expect-error - cannot type args
 			...testContract.write.set(...Object.values(newRecord)),
 			addToMempool: true,
-			blockTag: 'pending',
 		})
 
 		expect(txPool.txsInPool).toBe(1)
@@ -240,6 +239,7 @@ describe('createOptimisticHandler', () => {
 		await expect(handler._.cleanup()).resolves.toBeUndefined()
 	})
 
+	// TODO: Fix block with hash does not exist error
 	it.todo('should handle multiple pending transactions in order', async () => {
 		const handler = createOptimisticHandler({
 			client,
@@ -259,14 +259,12 @@ describe('createOptimisticHandler', () => {
 			// @ts-expect-error - cannot type args
 			...testContract.write.set(...Object.values(tx1Values)),
 			addToMempool: true,
-			blockTag: 'pending',
 		})
 
 		await optimisticClient.tevmContract({
 			// @ts-expect-error - cannot type args
 			...testContract.write.set(...Object.values(tx2Values)),
 			addToMempool: true,
-			blockTag: 'pending',
 		})
 
 		const txPool = await optimisticClient.transport.tevm.getTxPool()

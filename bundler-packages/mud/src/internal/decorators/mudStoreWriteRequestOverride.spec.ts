@@ -9,6 +9,7 @@ import { createBundlerClient } from 'viem/account-abstraction'
 import { describe, expect, it } from 'vitest'
 import { state } from '../../../test/state.js'
 import { mudStoreWriteRequestOverride } from './mudStoreWriteRequestOverride.js'
+import { createLogger } from '@tevm/logger'
 
 const testContract = MUDTestSystem.withAddress('0x5FbDB2315678afecb367f032d93F642f64180aa3')
 
@@ -44,7 +45,8 @@ describe('mudStoreWriteRequestOverride', () => {
 	it.todo('should correctly wrap writeContract calls with a bundler client', async () => {
 		const { client, viemClient, viemBundlerClient, optimisticClient } = await getClients()
 		const record = Object.values(state.records.app.TestTable)[0]!
-		mudStoreWriteRequestOverride(viemBundlerClient)({
+		mudStoreWriteRequestOverride(viemBundlerClient, createLogger({ name: '@tevm/mud', level: 'debug' }))(
+			{
 			memoryClient: optimisticClient,
 			storeAddress: testContract.address,
 			txStatusSubscribers: new Set(),

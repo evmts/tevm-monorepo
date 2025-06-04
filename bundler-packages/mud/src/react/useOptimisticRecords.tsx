@@ -1,6 +1,6 @@
 import { type GetRecordsArgs, type TableRecord, getRecords } from '@latticexyz/stash/internal'
 import type { Table } from '@latticexyz/store/internal'
-import { arrayDeepEqual } from '../internal/utils/arrayDeepEqual.js'
+import { deepEqual } from '../internal/utils/deepEqual.js'
 import { useOptimisticState } from './useOptimisticState.js'
 import { useOptimisticWrapper } from './useOptimisticWrapper.js'
 
@@ -17,7 +17,7 @@ export const useOptimisticRecords = <const TTable extends Table>(
 				return Object.values(records)
 			},
 			{
-				isEqual: arrayDeepEqual,
+				isEqual: deepEqual,
 			},
 		) ?? []
 	)
