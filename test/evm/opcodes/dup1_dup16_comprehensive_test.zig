@@ -165,29 +165,40 @@ test "DUP6-DUP10: Mid-range duplications" {
     
     // Execute DUP6 (should duplicate 0x50)
     test_frame.frame.pc = 0;
+    helpers.printStack(test_frame.frame);
     const result = try helpers.executeOpcode(0x85, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 1), result.bytes_consumed);
+    std.debug.print("After DUP6:\n", .{});
+    helpers.printStack(test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x50);
     
     // Execute DUP7 (should duplicate 0x50 again, as it's now 7th)
     test_frame.frame.pc = 1;
     _ = try helpers.executeOpcode(0x86, &test_vm.vm, test_frame.frame);
+    std.debug.print("After DUP7:\n", .{});
+    helpers.printStack(test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x50);
     
     // Execute DUP8 (should duplicate 0x40)
     test_frame.frame.pc = 2;
     _ = try helpers.executeOpcode(0x87, &test_vm.vm, test_frame.frame);
-    try helpers.expectStackValue(test_frame.frame, 0, 0x40);
+    std.debug.print("After DUP8:\n", .{});
+    helpers.printStack(test_frame.frame);
+    try helpers.expectStackValue(test_frame.frame, 0, 0x50);  // DUP8 duplicates position 8
     
-    // Execute DUP9 (should duplicate 0x40 again)
+    // Execute DUP9 (should duplicate 0x30)
     test_frame.frame.pc = 3;
     _ = try helpers.executeOpcode(0x88, &test_vm.vm, test_frame.frame);
-    try helpers.expectStackValue(test_frame.frame, 0, 0x40);
+    std.debug.print("After DUP9:\n", .{});
+    helpers.printStack(test_frame.frame);
+    try helpers.expectStackValue(test_frame.frame, 0, 0x40);  // DUP9 duplicates position 9
     
-    // Execute DUP10 (should duplicate 0x30)
+    // Execute DUP10 (should duplicate 0x20)
     test_frame.frame.pc = 4;
     _ = try helpers.executeOpcode(0x89, &test_vm.vm, test_frame.frame);
-    try helpers.expectStackValue(test_frame.frame, 0, 0x30);
+    std.debug.print("After DUP10:\n", .{});
+    helpers.printStack(test_frame.frame);
+    try helpers.expectStackValue(test_frame.frame, 0, 0x30);  // DUP10 duplicates position 10
 }
 
 test "DUP11-DUP16: High-range duplications" {

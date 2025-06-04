@@ -47,6 +47,7 @@ pub fn op_jump(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
 }
 
 pub fn op_jumpi(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
+    _ = pc;
     _ = interpreter;
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));

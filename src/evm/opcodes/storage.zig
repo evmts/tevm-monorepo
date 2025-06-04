@@ -51,8 +51,6 @@ pub fn op_sload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     
     const slot = try stack_pop(&frame.stack);
     
-    // Debug logging
-    const Address = @import("Address");
     // Debug: SLOAD operation
     
     const is_cold = try frame.contract.mark_storage_slot_warm(slot, null);
@@ -81,8 +79,6 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     const slot = try stack_pop(&frame.stack);
     const value = try stack_pop(&frame.stack);
     
-    // Debug logging
-    const Address = @import("Address");
     // Debug: SSTORE operation
     
     // Get current value first to calculate gas properly
@@ -108,8 +104,6 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     
     try error_mapping.vm_set_storage(vm, frame.contract.address, slot, value);
     
-    // Verify the value was stored
-    const stored_value = try error_mapping.vm_get_storage(vm, frame.contract.address, slot);
     // Debug: SSTORE after store
     
     return Operation.ExecutionResult{};
