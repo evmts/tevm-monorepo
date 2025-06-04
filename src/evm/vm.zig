@@ -301,26 +301,6 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
     }
 
     // Execute the init code to get the deployed bytecode
-<<<<<<< HEAD
-    // For now, we'll simulate successful execution and return the address
-    // TODO: Actually execute the init code in a new frame
-
-    // Simulate successful deployment (temporary)
-    // In a real implementation, we would:
-    // 1. Create a new frame with the init code
-    // 2. Execute the init code
-    // 3. Get the return data (deployed bytecode)
-    // 4. Store the deployed bytecode at the new address
-
-    // For testing purposes, assume success and consume some gas
-    const gas_used = @min(gas / 2, 50000); // Simulate gas usage
-
-    return CreateResult{
-        .success = true,
-        .address = new_address,
-        .gas_left = gas - gas_used,
-        .output = null,
-=======
     if (init_code.len == 0) {
         // No init code means empty contract
         std.debug.print("CREATE: Empty init code, creating empty contract\n", .{});
@@ -407,7 +387,6 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
         .address = new_address,
         .gas_left = gas_left,
         .output = init_result,
->>>>>>> aa17cd05f (feat(evm): Implement CREATE/CREATE2 initcode execution)
     };
 }
 
@@ -483,26 +462,6 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
     }
 
     // Execute the init code to get the deployed bytecode
-<<<<<<< HEAD
-    // For now, we'll simulate successful execution and return the address
-    // TODO: Actually execute the init code in a new frame
-
-    // Simulate successful deployment (temporary)
-    // In a real implementation, we would:
-    // 1. Create a new frame with the init code
-    // 2. Execute the init code
-    // 3. Get the return data (deployed bytecode)
-    // 4. Store the deployed bytecode at the new address
-
-    // For testing purposes, assume success and consume some gas
-    const gas_used = @min(gas / 2, 50000); // Simulate gas usage
-
-    return CreateResult{
-        .success = true,
-        .address = new_address,
-        .gas_left = gas - gas_used,
-        .output = null,
-=======
     if (init_code.len == 0) {
         // No init code means empty contract
         std.debug.print("CREATE2: Empty init code, creating empty contract\n", .{});
@@ -589,7 +548,6 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
         .address = new_address,
         .gas_left = gas_left,
         .output = init_result,
->>>>>>> aa17cd05f (feat(evm): Implement CREATE/CREATE2 initcode execution)
     };
 }
 
