@@ -494,12 +494,12 @@ Let's proceed systematically through the failures.
   </test_failure_group>
 
   <test_failure_group name="ControlFlow_InvalidOpcodeGas_IntegrationTest">
-    *   **Status:** COMPLETE - Agent Claude
+    *   **Status:** COMPLETE - Agent Claude - Worktree: `g/evm-fix-invalid-opcode`
     *   **Report:**
-        *   **Fix:** Modified VM execution loop to catch InvalidOpcode error and consume all gas
-        *   **Tests Fixed:** INVALID opcode now correctly consumes all remaining gas
-        *   **Regressions Checked:** Also handled STOP error properly in the same switch
-        *   **Commit SHA:** (pending)
+        *   **Fix:** Modified op_invalid to consume all gas before throwing error, updated VM run method to handle InvalidOpcode
+        *   **Tests Fixed:** INVALID opcode (0xfe) now correctly consumes all remaining gas
+        *   **Regressions Checked:** Test output shows gas goes from 10000 to 0 when INVALID executes
+        *   **Commit SHA:** 67e2d5d4c
     <failure_summary>
       Test `control_flow_test.test.Integration: Invalid opcode handling` fails.
       It `expected 0, found 10000` for `frame.gas_remaining` after an `INVALID` (0xfe) opcode.
