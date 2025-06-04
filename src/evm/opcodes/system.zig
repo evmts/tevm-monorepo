@@ -72,8 +72,11 @@ pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     // Calculate gas for creation
     const init_code_cost = @as(u64, @intCast(init_code.len)) * gas_constants.CreateDataGas;
     
-    // EIP-3860: Add gas cost for initcode word size (2 gas per 32-byte word)
-    const initcode_word_cost = @as(u64, @intCast((init_code.len + 31) / 32)) * gas_constants.InitcodeWordGas;
+    // EIP-3860: Add gas cost for initcode word size (2 gas per 32-byte word) - Shanghai and later
+    const initcode_word_cost = if (vm.chain_rules.IsEIP3860) 
+        @as(u64, @intCast((init_code.len + 31) / 32)) * gas_constants.InitcodeWordGas 
+    else 
+        0;
     try frame.consume_gas(init_code_cost + initcode_word_cost);
     
     // Calculate gas to give to the new contract (all but 1/64th)
@@ -150,8 +153,11 @@ pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     const init_code_cost = @as(u64, @intCast(init_code.len)) * gas_constants.CreateDataGas;
     const hash_cost = @as(u64, @intCast((init_code.len + 31) / 32)) * gas_constants.Keccak256WordGas;
     
-    // EIP-3860: Add gas cost for initcode word size (2 gas per 32-byte word)
-    const initcode_word_cost = @as(u64, @intCast((init_code.len + 31) / 32)) * gas_constants.InitcodeWordGas;
+    // EIP-3860: Add gas cost for initcode word size (2 gas per 32-byte word) - Shanghai and later
+    const initcode_word_cost = if (vm.chain_rules.IsEIP3860) 
+        @as(u64, @intCast((init_code.len + 31) / 32)) * gas_constants.InitcodeWordGas 
+    else 
+        0;
     try frame.consume_gas(init_code_cost + hash_cost + initcode_word_cost);
     
     // Calculate gas to give to the new contract (all but 1/64th)

@@ -68,6 +68,10 @@ pub const StorageKey = struct {
 };
 
 pub fn init(allocator: std.mem.Allocator) !Self {
+    return init_with_hardfork(allocator, .CANCUN);
+}
+
+pub fn init_with_hardfork(allocator: std.mem.Allocator, hardfork: @import("hardfork.zig").Hardfork) !Self {
     var storage = std.AutoHashMap(StorageKey, u256).init(allocator);
     errdefer storage.deinit();
 
@@ -91,7 +95,8 @@ pub fn init(allocator: std.mem.Allocator) !Self {
 
     return Self{
         .allocator = allocator,
-        .table = JumpTable.new_cancun_instruction_set(),
+        .table = JumpTable.init_from_hardfork(hardfork),
+        .chain_rules = ChainRules.for_hardfork(hardfork),
         .storage = storage,
         .balances = balances,
         .code = code,
