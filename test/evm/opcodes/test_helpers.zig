@@ -20,6 +20,10 @@ pub const JumpTable = evm.JumpTable;
 pub const TestVm = struct {
     vm: Vm,
     allocator: std.mem.Allocator,
+    
+    // Mock results for testing
+    call_result: ?Vm.CallResult = null,
+    create_result: ?Vm.CreateResult = null,
 
     pub fn init(allocator: std.mem.Allocator) !TestVm {
         var vm = try Vm.init(allocator);
@@ -30,6 +34,8 @@ pub const TestVm = struct {
         return TestVm{
             .vm = vm,
             .allocator = allocator,
+            .call_result = null,
+            .create_result = null,
         };
     }
 
@@ -42,6 +48,8 @@ pub const TestVm = struct {
         return TestVm{
             .vm = vm,
             .allocator = allocator,
+            .call_result = null,
+            .create_result = null,
         };
     }
 
@@ -78,6 +86,12 @@ pub const TestVm = struct {
     /// Mark address as warm for EIP-2929 testing
     pub fn warmAddress(self: *TestVm, address: Address.Address) !void {
         _ = try self.vm.access_list.access_address(address);
+    }
+    
+    /// Sync mock results to VM - call this after setting call_result or create_result
+    pub fn syncMocks(self: *TestVm) void {
+        self.vm.call_result = self.call_result;
+        self.vm.create_result = self.create_result;
     }
 };
 
