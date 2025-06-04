@@ -67,11 +67,12 @@ pub fn op_sub(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     std.debug.assert(frame.stack.size >= 2);
     
     // Direct access - no error handling needed
-    const b = frame.stack.data[frame.stack.size - 1];
-    const a = frame.stack.data[frame.stack.size - 2];
+    const b = frame.stack.data[frame.stack.size - 1]; // top (subtrahend)
+    const a = frame.stack.data[frame.stack.size - 2]; // second from top (minuend)
     frame.stack.size -= 1;
     
     // Modify in-place (now at top of stack)
+    // SUB computes: (second from top) - (top) = a - b
     frame.stack.data[frame.stack.size - 1] = a -% b;
 
     return Operation.ExecutionResult{};

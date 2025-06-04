@@ -47,13 +47,13 @@ test "Integration: Conditional jump patterns" {
     
     // Test 1: Jump when condition is true
     test_frame.frame.pc = 0;
-    try test_frame.pushStack(&[_]u256{10, 1}); // destination, condition (true)
+    try test_frame.pushStack(&[_]u256{1, 10}); // condition (true), destination
     _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 10), test_frame.frame.pc);
     
     // Test 2: Don't jump when condition is false
     test_frame.frame.pc = 0;
-    try test_frame.pushStack(&[_]u256{20, 0}); // destination, condition (false)
+    try test_frame.pushStack(&[_]u256{0, 20}); // condition (false), destination
     _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 0), test_frame.frame.pc); // PC unchanged
     
@@ -151,11 +151,11 @@ test "Integration: Return data handling" {
     
     // Store data in memory
     const return_value: u256 = 0x42424242;
-    try test_frame.pushStack(&[_]u256{0, return_value}); // offset, value
+    try test_frame.pushStack(&[_]u256{return_value, 0}); // value, offset (MSTORE order)
     _ = try helpers.executeOpcode(0x52, &test_vm.vm, test_frame.frame);
     
     // Return 32 bytes from offset 0
-    try test_frame.pushStack(&[_]u256{0, 32}); // offset, size
+    try test_frame.pushStack(&[_]u256{32, 0}); // size, offset (RETURN order)
     
     // RETURN will throw an error (ExecutionError.STOP) which is expected
     const result = helpers.executeOpcode(0xF3, &test_vm.vm, test_frame.frame);

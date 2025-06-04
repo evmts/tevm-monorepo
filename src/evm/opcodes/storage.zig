@@ -57,6 +57,9 @@ pub fn op_sload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     
     const value = try error_mapping.vm_get_storage(vm, frame.contract.address, slot);
     
+    // Debug log
+    std.debug.print("SLOAD: address={}, slot={}, value={}\n", .{frame.contract.address, slot, value});
+    
     try stack_push(&frame.stack, value);
     
     return Operation.ExecutionResult{};
@@ -98,6 +101,9 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     try frame.consume_gas(total_gas);
     
     try error_mapping.vm_set_storage(vm, frame.contract.address, slot, value);
+    
+    // Debug log
+    std.debug.print("SSTORE: address={}, slot={}, value={}\n", .{frame.contract.address, slot, value});
     
     return Operation.ExecutionResult{};
 }

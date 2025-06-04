@@ -32,7 +32,7 @@ test "LOG0 (0xA0): Emit log with no topics" {
     // Write some data to memory
     const test_data = "Hello, Ethereum logs!";
     const padded_data = test_data ++ ([_]u8{0} ** (32 - test_data.len));
-    _ = try test_frame.frame.memory.set_slice(0, padded_data);
+    try test_frame.frame.memory.set_data(0, padded_data);
     
     // Execute the push operations
     test_frame.frame.pc = 0;
@@ -83,7 +83,7 @@ test "LOG1 (0xA1): Emit log with one topic" {
     
     // Write some data to memory at offset 32
     const test_data: [16]u8 = .{ 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0x10 };
-    _ = try test_frame.frame.memory.set_slice(32, &test_data);
+    try test_frame.frame.memory.set_data(32, &test_data);
     
     // Execute push operations
     test_frame.frame.pc = 0;
@@ -153,9 +153,9 @@ test "LOG2-LOG4: Multiple topics" {
     const data1: [8]u8 = .{ 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08 };
     const data2: [8]u8 = .{ 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18 };
     const data3: [8]u8 = .{ 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28 };
-    _ = try test_frame.frame.memory.set_slice(0, &data1);
-    _ = try test_frame.frame.memory.set_slice(8, &data2);
-    _ = try test_frame.frame.memory.set_slice(16, &data3);
+    try test_frame.frame.memory.set_data(0, &data1);
+    _ = try test_frame.frame.memory.set_data(8, &data2);
+    _ = try test_frame.frame.memory.set_data(16, &data3);
     
     // Execute LOG2
     test_frame.frame.pc = 0;
@@ -233,8 +233,8 @@ test "LOG0-LOG4: Gas consumption" {
     defer test_frame.deinit();
     
     // Test LOG0 gas consumption
-    try test_frame.pushStack(0);     // offset
-    try test_frame.pushStack(32);    // size (32 bytes)
+    try test_frame.pushStack(&[_]u256{0});     // offset
+    try test_frame.pushStack(&[_]u256{32});    // size (32 bytes)
     
     test_frame.frame.pc = 0;
     const gas_before_log0 = test_frame.frame.gas_remaining;
@@ -246,9 +246,9 @@ test "LOG0-LOG4: Gas consumption" {
     try testing.expectEqual(@as(u64, 375 + 256 + 6), gas_used_log0);
     
     // Test LOG1 gas consumption
-    try test_frame.pushStack(0);     // offset
-    try test_frame.pushStack(16);    // size (16 bytes)
-    try test_frame.pushStack(0x123); // topic
+    try test_frame.pushStack(&[_]u256{0});     // offset
+    try test_frame.pushStack(&[_]u256{16});    // size (16 bytes)
+    try test_frame.pushStack(&[_]u256{0x123}); // topic
     
     test_frame.frame.pc = 1;
     const gas_before_log1 = test_frame.frame.gas_remaining;
@@ -259,12 +259,12 @@ test "LOG0-LOG4: Gas consumption" {
     try testing.expectEqual(@as(u64, 375 + 375 + 128), gas_used_log1);
     
     // Test LOG4 gas consumption (empty data)
-    try test_frame.pushStack(0);     // offset
-    try test_frame.pushStack(0);     // size (0 bytes - empty data)
-    try test_frame.pushStack(0x111); // topic1
-    try test_frame.pushStack(0x222); // topic2
-    try test_frame.pushStack(0x333); // topic3
-    try test_frame.pushStack(0x444); // topic4
+    try test_frame.pushStack(&[_]u256{0});     // offset
+    try test_frame.pushStack(&[_]u256{0});     // size (0 bytes - empty data)
+    try test_frame.pushStack(&[_]u256{0x111}); // topic1
+    try test_frame.pushStack(&[_]u256{0x222}); // topic2
+    try test_frame.pushStack(&[_]u256{0x333}); // topic3
+    try test_frame.pushStack(&[_]u256{0x444}); // topic4
     
     test_frame.frame.pc = 4;
     const gas_before_log4 = test_frame.frame.gas_remaining;
@@ -285,8 +285,8 @@ test "LOG operations: Static call protection" {
     defer test_vm.deinit();
     
     const code = [_]u8{
-        0x60, 0x00,    // PUSH1 0x00 (offset)
         0x60, 0x00,    // PUSH1 0x00 (size)
+        0x60, 0x00,    // PUSH1 0x00 (offset)
         0xA0,          // LOG0
     };
     
@@ -306,8 +306,8 @@ test "LOG operations: Static call protection" {
     test_frame.frame.is_static = true;
     
     // Push parameters
-    try test_frame.pushStack(0); // offset
-    try test_frame.pushStack(0); // size
+    try test_frame.pushStack(&[_]u256{0}); // offset
+    try test_frame.pushStack(&[_]u256{0}); // size
     
     // LOG0 should fail with WriteProtection error
     test_frame.frame.pc = 4;
@@ -321,13 +321,13 @@ test "LOG operations: Static call protection" {
         test_frame.frame.stack.clear();
         
         // Push required parameters
-        try test_frame.pushStack(0); // offset
-        try test_frame.pushStack(0); // size
+        try test_frame.pushStack(&[_]u256{0}); // offset
+        try test_frame.pushStack(&[_]u256{0}); // size
         
         // Push topics if needed
         const num_topics = opcode - 0xA0;
         for (0..num_topics) |_| {
-            try test_frame.pushStack(0);
+            try test_frame.pushStack(&[_]u256{0});
         }
         
         const res = helpers.executeOpcode(opcode, &test_vm.vm, test_frame.frame);
@@ -359,14 +359,14 @@ test "LOG operations: Stack underflow" {
     var result = helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
     
-    try test_frame.pushStack(0);
+    try test_frame.pushStack(&[_]u256{0});
     result = helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
     
     // Test LOG4 with insufficient stack (needs 6)
     test_frame.frame.stack.clear();
     for (0..5) |_| {
-        try test_frame.pushStack(0);
+        try test_frame.pushStack(&[_]u256{0});
     }
     test_frame.frame.pc = 4;
     result = helpers.executeOpcode(0xA4, &test_vm.vm, test_frame.frame);
@@ -435,8 +435,8 @@ test "LOG operations: Large memory offset" {
     defer test_frame.deinit();
     
     // Push large offset and size
-    try test_frame.pushStack(0x1000); // offset = 4096
-    try test_frame.pushStack(0x20);   // size = 32
+    try test_frame.pushStack(&[_]u256{0x1000}); // offset = 4096
+    try test_frame.pushStack(&[_]u256{0x20});   // size = 32
     
     const gas_before = test_frame.frame.gas_remaining;
     _ = try helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
@@ -491,7 +491,7 @@ test "LOG operations: ERC20 Transfer event pattern" {
     var amount_data: [32]u8 = [_]u8{0} ** 32;
     amount_data[31] = 0xE8;
     amount_data[30] = 0x03;
-    _ = try test_frame.frame.memory.set_slice(0, &amount_data);
+    try test_frame.frame.memory.set_data(0, &amount_data);
     
     // Execute all push operations
     test_frame.frame.pc = 0;
@@ -559,9 +559,9 @@ test "LOG operations: Multiple logs in sequence" {
     defer test_frame.deinit();
     
     // Write data to memory
-    _ = try test_frame.frame.memory.set_slice(0, &[_]u8{ 0xAA, 0xBB, 0xCC, 0xDD });
-    _ = try test_frame.frame.memory.set_slice(4, &[_]u8{ 0x11, 0x22, 0x33, 0x44 });
-    _ = try test_frame.frame.memory.set_slice(8, &[_]u8{ 0xFF, 0xEE, 0xDD, 0xCC });
+    try test_frame.frame.memory.set_data(0, &[_]u8{ 0xAA, 0xBB, 0xCC, 0xDD });
+    _ = try test_frame.frame.memory.set_data(4, &[_]u8{ 0x11, 0x22, 0x33, 0x44 });
+    _ = try test_frame.frame.memory.set_data(8, &[_]u8{ 0xFF, 0xEE, 0xDD, 0xCC });
     
     // Execute first LOG0
     for (0..2) |i| {

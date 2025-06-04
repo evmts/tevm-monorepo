@@ -32,7 +32,7 @@ test "RETURN (0xF3): Return data from execution" {
     
     // Write data to memory
     const return_data = "Hello from RETURN!" ++ ([_]u8{0} ** 14);
-    _ = try test_frame.frame.memory.set_slice(0, &return_data);
+    try test_frame.frame.memory.set_data(0, return_data[0..]);
     
     // Execute push operations
     test_frame.frame.pc = 0;
@@ -48,7 +48,7 @@ test "RETURN (0xF3): Return data from execution" {
     try testing.expectError(helpers.ExecutionError.Error.STOP, result);
     
     // Check return data buffer was set
-    try testing.expectEqualSlices(u8, &return_data, test_frame.frame.return_data_buffer);
+    try testing.expectEqualSlices(u8, return_data[0..], test_frame.frame.return_data_buffer);
 }
 
 test "RETURN: Empty return data" {
@@ -118,7 +118,7 @@ test "REVERT (0xFD): Revert with data" {
     
     // Write revert reason to memory
     const revert_data = "Revert reason!" ++ ([_]u8{0} ** 2);
-    _ = try test_frame.frame.memory.set_slice(0, &revert_data);
+    try test_frame.frame.memory.set_data(0, revert_data[0..]);
     
     // Execute push operations
     test_frame.frame.pc = 0;
@@ -134,7 +134,7 @@ test "REVERT (0xFD): Revert with data" {
     try testing.expectError(helpers.ExecutionError.Error.REVERT, result);
     
     // Check revert data was set
-    try testing.expectEqualSlices(u8, &revert_data, test_frame.frame.return_data_buffer);
+    try testing.expectEqualSlices(u8, revert_data[0..], test_frame.frame.return_data_buffer);
 }
 
 test "REVERT: Empty revert data" {
@@ -274,7 +274,7 @@ test "SELFDESTRUCT: Static call protection" {
     test_frame.frame.is_static = true;
     
     // Push beneficiary address
-    try test_frame.pushStack(Address.to_u256(helpers.TestAddresses.BOB));
+    try test_frame.pushStack(&[_]u256{Address.to_u256(helpers.TestAddresses.BOB)});
     
     // Execute SELFDESTRUCT
     const result = helpers.executeOpcode(0xFF, &test_vm.vm, test_frame.frame);
@@ -305,7 +305,7 @@ test "SELFDESTRUCT: Cold beneficiary address (EIP-2929)" {
     
     // Push cold beneficiary address
     const cold_address = [_]u8{0xDD} ** 20;
-    try test_frame.pushStack(Address.to_u256(cold_address));
+    try test_frame.pushStack(&[_]u256{Address.to_u256(cold_address)});
     
     const gas_before = test_frame.frame.gas_remaining;
     const result = helpers.executeOpcode(0xFF, &test_vm.vm, test_frame.frame);
@@ -342,8 +342,8 @@ test "Control opcodes: Gas consumption" {
     defer test_frame.deinit();
     
     // Return large data requiring memory expansion
-    try test_frame.pushStack(0);     // offset
-    try test_frame.pushStack(0x1000); // size (4096 bytes)
+    try test_frame.pushStack(&[_]u256{0});     // offset
+    try test_frame.pushStack(&[_]u256{0x1000}); // size (4096 bytes)
     
     const gas_before = test_frame.frame.gas_remaining;
     const result = helpers.executeOpcode(0xF3, &test_vm.vm, test_frame.frame);
@@ -379,8 +379,8 @@ test "RETURN/REVERT: Large memory offset" {
         defer test_frame.deinit();
         
         // Push large offset
-        try test_frame.pushStack(0x1000); // offset = 4096
-        try test_frame.pushStack(32);     // size = 32
+        try test_frame.pushStack(&[_]u256{0x1000}); // offset = 4096
+        try test_frame.pushStack(&[_]u256{32});     // size = 32
         
         const gas_before = test_frame.frame.gas_remaining;
         const result = helpers.executeOpcode(opcode, &test_vm.vm, test_frame.frame);
@@ -422,7 +422,7 @@ test "RETURN/REVERT: Stack underflow" {
         try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
         
         // Only one item on stack (need 2)
-        try test_frame.pushStack(0);
+        try test_frame.pushStack(&[_]u256{0});
         const result2 = helpers.executeOpcode(opcode, &test_vm.vm, test_frame.frame);
         try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result2);
     }
@@ -448,17 +448,17 @@ test "Control flow interaction: Call with REVERT" {
     defer test_frame.deinit();
     
     // Push CALL parameters
-    try test_frame.pushStack(2000); // gas
-    try test_frame.pushStack(Address.to_u256(helpers.TestAddresses.BOB)); // to
-    try test_frame.pushStack(0);    // value
-    try test_frame.pushStack(0);    // args_offset
-    try test_frame.pushStack(0);    // args_size
-    try test_frame.pushStack(0);    // ret_offset
-    try test_frame.pushStack(32);   // ret_size
+    try test_frame.pushStack(&[_]u256{2000}); // gas
+    try test_frame.pushStack(&[_]u256{Address.to_u256(helpers.TestAddresses.BOB)}); // to
+    try test_frame.pushStack(&[_]u256{0});    // value
+    try test_frame.pushStack(&[_]u256{0});    // args_offset
+    try test_frame.pushStack(&[_]u256{0});    // args_size
+    try test_frame.pushStack(&[_]u256{0});    // ret_offset
+    try test_frame.pushStack(&[_]u256{32});   // ret_size
     
     // Mock call result with revert
     const revert_reason = "Called contract reverted!";
-    test_vm.vm.call_contract_result = .{
+    test_vm.vm.call_result = .{
         .success = false,
         .gas_left = 500,
         .output = revert_reason,

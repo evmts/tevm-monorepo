@@ -130,6 +130,11 @@ pub const TestFrame = struct {
         }
     }
 
+    /// Push a single value to stack
+    pub fn pushStackValue(self: *TestFrame, value: u256) !void {
+        try self.frame.stack.append(value);
+    }
+
     /// Pop value from stack
     pub fn popStack(self: *TestFrame) !u256 {
         return try self.frame.stack.pop();

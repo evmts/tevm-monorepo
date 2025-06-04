@@ -76,8 +76,8 @@ test "DUP2 (0x81): Duplicate 2nd stack item" {
     defer test_frame.deinit();
     
     // Push two values
-    try test_frame.pushStack(0x42);
-    try test_frame.pushStack(0x33);
+    try test_frame.pushStack(&[_]u256{0x42});
+    try test_frame.pushStack(&[_]u256{0x33});
     
     // Execute DUP2
     test_frame.frame.pc = 4;
@@ -111,11 +111,11 @@ test "DUP3-DUP5: Various duplications" {
     defer test_frame.deinit();
     
     // Push 5 distinct values
-    try test_frame.pushStack(0x11); // Bottom
-    try test_frame.pushStack(0x22);
-    try test_frame.pushStack(0x33);
-    try test_frame.pushStack(0x44);
-    try test_frame.pushStack(0x55); // Top
+    try test_frame.pushStack(&[_]u256{0x11}); // Bottom
+    try test_frame.pushStack(&[_]u256{0x22});
+    try test_frame.pushStack(&[_]u256{0x33});
+    try test_frame.pushStack(&[_]u256{0x44});
+    try test_frame.pushStack(&[_]u256{0x55}); // Top
     
     // Execute DUP3 (should duplicate 0x33)
     test_frame.frame.pc = 0;
@@ -160,7 +160,7 @@ test "DUP6-DUP10: Mid-range duplications" {
     
     // Push 10 distinct values
     for (1..11) |i| {
-        try test_frame.pushStack(@as(u256, i * 0x10));
+        try test_frame.pushStack(&[_]u256{@as(u256, i * 0x10)});
     }
     
     // Execute DUP6 (should duplicate 0x50)
@@ -211,7 +211,7 @@ test "DUP11-DUP16: High-range duplications" {
     
     // Push 16 distinct values
     for (1..17) |i| {
-        try test_frame.pushStack(@as(u256, i * 0x100));
+        try test_frame.pushStack(&[_]u256{@as(u256, i * 0x100)});
     }
     
     // Execute DUP11 (should duplicate 0x600)
@@ -266,7 +266,7 @@ test "DUP16 (0x8F): Duplicate 16th stack item (maximum)" {
     
     // Push exactly 16 values
     for (0..16) |i| {
-        try test_frame.pushStack(@as(u256, 0x1000 + i));
+        try test_frame.pushStack(&[_]u256{@as(u256, 0x1000 + i)});
     }
     
     // The 16th item from top should be 0x1000 (first pushed)
@@ -306,7 +306,7 @@ test "DUP1-DUP16: Gas consumption" {
     
     // Push 16 values to satisfy all DUP operations
     for (0..16) |i| {
-        try test_frame.pushStack(@intCast(i));
+        try test_frame.pushStack(&[_]u256{@intCast(i)});
     }
     
     // Test each DUP operation
@@ -355,11 +355,10 @@ test "DUP operations: Stack underflow" {
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
     
     // Push 1 value
-    try test_frame.pushStack(0x42);
+    try test_frame.pushStack(&[_]u256{0x42});
     
     // DUP1 should succeed
-    result = helpers.executeOpcode(0x80, &test_vm.vm, test_frame.frame);
-    try testing.expect(result == .{});
+    _ = try helpers.executeOpcode(0x80, &test_vm.vm, test_frame.frame);
     
     // DUP2 should fail (only 2 items on stack, need at least 2 for DUP2)
     test_frame.frame.pc = 1;
@@ -368,7 +367,7 @@ test "DUP operations: Stack underflow" {
     
     // Push more values
     for (0..4) |i| {
-        try test_frame.pushStack(@intCast(i));
+        try test_frame.pushStack(&[_]u256{@intCast(i)});
     }
     
     // DUP6 should succeed (6 items on stack)
@@ -402,7 +401,7 @@ test "DUP operations: Stack overflow" {
     
     // Fill stack to capacity (1024 items)
     for (0..1024) |i| {
-        try test_frame.pushStack(@intCast(i & 0xFF));
+        try test_frame.pushStack(&[_]u256{@intCast(i & 0xFF)});
     }
     
     // DUP1 should fail with stack overflow
@@ -489,7 +488,7 @@ test "DUP operations: Pattern verification" {
     
     // Push a pattern of values
     for (0..16) |i| {
-        try test_frame.pushStack(@as(u256, (i + 1) * 0x11)); // 0x11, 0x22, ..., 0x110
+        try test_frame.pushStack(&[_]u256{@as(u256, (i + 1) * 0x11)}); // 0x11, 0x22, ..., 0x110
     }
     
     // DUP1 should duplicate the top (0x110)
@@ -541,7 +540,7 @@ test "DUP operations: Boundary test with exact stack size" {
     defer test_frame.deinit();
     
     // Test DUP1 with exactly 1 item
-    try test_frame.pushStack(0xAA);
+    try test_frame.pushStack(&[_]u256{0xAA});
     test_frame.frame.pc = 0;
     _ = try helpers.executeOpcode(0x80, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 2), test_frame.frame.stack.size);
@@ -553,7 +552,7 @@ test "DUP operations: Boundary test with exact stack size" {
     
     // Test DUP16 with exactly 16 items
     for (1..17) |i| {
-        try test_frame.pushStack(@intCast(i));
+        try test_frame.pushStack(&[_]u256{@intCast(i)});
     }
     test_frame.frame.pc = 1;
     _ = try helpers.executeOpcode(0x8F, &test_vm.vm, test_frame.frame);
@@ -563,7 +562,7 @@ test "DUP operations: Boundary test with exact stack size" {
     // Test DUP16 with 15 items (should fail)
     test_frame.frame.stack.clear();
     for (1..16) |i| {
-        try test_frame.pushStack(@intCast(i));
+        try test_frame.pushStack(&[_]u256{@intCast(i)});
     }
     const result = helpers.executeOpcode(0x8F, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
