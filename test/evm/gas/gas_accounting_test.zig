@@ -364,6 +364,7 @@ test "Gas: CALL operations gas forwarding" {
         .gas_left = 40000, // Will use 10000 gas
         .output = null,
     };
+    test_vm.syncMocks();
 
     // Test CALL with gas calculation
     const target = helpers.toU256(helpers.TestAddresses.BOB);
@@ -419,6 +420,7 @@ test "Gas: CREATE operations with init code" {
         .gas_left = 450000, // Return most of the gas
         .output = null,
     };
+    test_vm.syncMocks();
 
     // Create jump table for gas consumption - need Shanghai for EIP-3860
     const jump_table = helpers.JumpTable.new_shanghai_instruction_set();
