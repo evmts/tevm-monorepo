@@ -265,6 +265,7 @@ test "Integration: Storage slot calculation" {
     try helpers.expectStackValue(test_frame.frame, 0, value);
 }
 
+// WORKING ON THIS: Fixing memory expansion tracking expectations
 test "Integration: Memory expansion tracking" {
     const allocator = testing.allocator;
     
