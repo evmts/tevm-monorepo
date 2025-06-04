@@ -30,4 +30,7 @@ test {
     _ = @import("transient_mcopy_push_comprehensive_test.zig");
     _ = @import("push4_push12_comprehensive_test.zig");
     _ = @import("push14_push32_comprehensive_test.zig");
+    _ = @import("dup1_dup16_comprehensive_test.zig");
+    _ = @import("swap1_swap16_comprehensive_test.zig");
+    _ = @import("log0_log4_comprehensive_test.zig");
 }
