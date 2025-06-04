@@ -26,7 +26,7 @@ test "LOG0 (0xA0): Emit log with no topics" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
     // Write some data to memory
@@ -78,7 +78,7 @@ test "LOG1 (0xA1): Emit log with one topic" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
     // Write some data to memory at offset 32
@@ -299,7 +299,7 @@ test "LOG operations: Static call protection" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
     // Set static mode
@@ -351,7 +351,7 @@ test "LOG operations: Stack underflow" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
     // Test LOG0 with insufficient stack (needs 2)
@@ -394,7 +394,7 @@ test "LOG operations: Empty data" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
     // Execute push operations

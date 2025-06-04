@@ -108,9 +108,14 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     
     try error_mapping.vm_set_storage(vm, frame.contract.address, slot, value);
     
+<<<<<<< HEAD
     // Verify the value was stored
     const stored_value = try error_mapping.vm_get_storage(vm, frame.contract.address, slot);
     std.debug.print("SSTORE: After store, value in storage: {}\n", .{stored_value});
+=======
+    // Debug log
+    std.debug.print("SSTORE: address={any}, slot={}, value={}\n", .{frame.contract.address, slot, value});
+>>>>>>> dae37b4c6 (fix: Fix LOG opcodes stack order and gas issues)
     
     return Operation.ExecutionResult{};
 }

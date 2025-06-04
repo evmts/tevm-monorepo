@@ -23,6 +23,7 @@ fn make_log(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.State)
 
             const frame = @as(*Frame, @ptrCast(@alignCast(state)));
             const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
+            
 
             // Check if we're in a static call
             if (frame.is_static) {
@@ -33,8 +34,10 @@ fn make_log(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.State)
             const size = try stack_pop(&frame.stack);
 
             var topics: [4]u256 = undefined;
+            // Pop topics in reverse order (stack is LIFO)
+            // The first topic pushed should be topics[0]
             for (0..n) |i| {
-                topics[i] = try stack_pop(&frame.stack);
+                topics[n - 1 - i] = try stack_pop(&frame.stack);
             }
 
             if (size == 0) {

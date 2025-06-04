@@ -19,7 +19,7 @@ test "LOG0: emit log with no topics" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
     // Write data to memory
@@ -29,8 +29,9 @@ test "LOG0: emit log with no topics" {
         try test_frame.frame.memory.set_byte(i, log_data[i]);
     }
     
-    // Push offset and length
-    try test_frame.pushStack(&[_]u256{0, 4}); // offset, length
+    // Push length and offset (stack is LIFO)
+    try test_frame.pushStack(&[_]u256{4}); // length (pushed first, popped second)
+    try test_frame.pushStack(&[_]u256{0}); // offset (pushed last, popped first)
     
     // Execute LOG0
     _ = try test_helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
@@ -57,11 +58,12 @@ test "LOG0: emit log with empty data" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
-    // Push offset and length for empty data
-    try test_frame.pushStack(&[_]u256{0, 0}); // offset, length
+    // Push length and offset for empty data (stack is LIFO)
+    try test_frame.pushStack(&[_]u256{0}); // length (pushed first, popped second)
+    try test_frame.pushStack(&[_]u256{0}); // offset (pushed last, popped first)
     
     // Execute LOG0
     _ = try test_helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
@@ -88,7 +90,7 @@ test "LOG1: emit log with one topic" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
     // Write data to memory
@@ -98,8 +100,10 @@ test "LOG1: emit log with one topic" {
         try test_frame.frame.memory.set_byte(i, log_data[i]);
     }
     
-    // Push topic, offset and length
-    try test_frame.pushStack(&[_]u256{0, 2, 0x123456}); // offset, length, topic
+    // Push topic, length and offset (stack is LIFO)
+    try test_frame.pushStack(&[_]u256{0x123456}); // topic (pushed first, popped third)
+    try test_frame.pushStack(&[_]u256{2}); // length (pushed second, popped second)
+    try test_frame.pushStack(&[_]u256{0}); // offset (pushed last, popped first)
     
     // Execute LOG1
     _ = try test_helpers.executeOpcode(0xA1, &test_vm.vm, test_frame.frame);
@@ -127,7 +131,7 @@ test "LOG2: emit log with two topics" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
     // Write data to memory
@@ -137,8 +141,11 @@ test "LOG2: emit log with two topics" {
         try test_frame.frame.memory.set_byte(10 + i, log_data[i]);
     }
     
-    // Push topics, offset and length
-    try test_frame.pushStack(&[_]u256{10, 3, 0xCAFE, 0xBEEF}); // offset, length, topic1, topic2
+    // Push topics, length and offset (stack is LIFO - reverse order)
+    try test_frame.pushStack(&[_]u256{0xCAFE}); // topic1 (pushed first, popped fourth)
+    try test_frame.pushStack(&[_]u256{0xBEEF}); // topic2 (pushed second, popped third)
+    try test_frame.pushStack(&[_]u256{3}); // length (pushed third, popped second)
+    try test_frame.pushStack(&[_]u256{10}); // offset (pushed last, popped first)
     
     // Execute LOG2
     _ = try test_helpers.executeOpcode(0xA2, &test_vm.vm, test_frame.frame);
@@ -167,11 +174,15 @@ test "LOG3: emit log with three topics" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
-    // Push topics, offset and length
-    try test_frame.pushStack(&[_]u256{0, 0, 0x111, 0x222, 0x333}); // offset, length (empty data), topic1, topic2, topic3
+    // Push topics, length and offset (stack is LIFO - reverse order)
+    try test_frame.pushStack(&[_]u256{0x111}); // topic1 (pushed first, popped fifth)
+    try test_frame.pushStack(&[_]u256{0x222}); // topic2 (pushed second, popped fourth)
+    try test_frame.pushStack(&[_]u256{0x333}); // topic3 (pushed third, popped third)
+    try test_frame.pushStack(&[_]u256{0}); // length (pushed fourth, popped second - empty data)
+    try test_frame.pushStack(&[_]u256{0}); // offset (pushed last, popped first)
     
     // Execute LOG3
     _ = try test_helpers.executeOpcode(0xA3, &test_vm.vm, test_frame.frame);
@@ -201,7 +212,7 @@ test "LOG4: emit log with four topics" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
     // Write large data to memory
@@ -212,8 +223,18 @@ test "LOG4: emit log with four topics" {
         try test_frame.frame.memory.set_byte(i, log_data[i]);
     }
     
+<<<<<<< HEAD
     // Push topics, offset and length
     try test_frame.pushStack(&[_]u256{0, 100, 0x1111, 0x2222, 0x3333, 0x4444}); // offset, length, topic1, topic2, topic3, topic4
+=======
+    // Push topics, length and offset (stack is LIFO - reverse order)
+    try test_frame.pushStack(&[_]u256{0x1111}); // topic1 (pushed first, popped sixth)
+    try test_frame.pushStack(&[_]u256{0x2222}); // topic2 (pushed second, popped fifth)
+    try test_frame.pushStack(&[_]u256{0x3333}); // topic3 (pushed third, popped fourth)
+    try test_frame.pushStack(&[_]u256{0x4444}); // topic4 (pushed fourth, popped third)
+    try test_frame.pushStack(&[_]u256{100}); // length (pushed fifth, popped second)
+    try test_frame.pushStack(&[_]u256{0}); // offset (pushed last, popped first)
+>>>>>>> dae37b4c6 (fix: Fix LOG opcodes stack order and gas issues)
     
     // Execute LOG4
     _ = try test_helpers.executeOpcode(0xA4, &test_vm.vm, test_frame.frame);
@@ -244,14 +265,20 @@ test "LOG0: write protection in static call" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
     // Set static call
     test_frame.frame.is_static = true;
     
+<<<<<<< HEAD
     // Push offset and length
     try test_frame.pushStack(&[_]u256{0, 0}); // offset, length
+=======
+    // Push length and offset (stack is LIFO)
+    try test_frame.pushStack(&[_]u256{0}); // length (pushed first, popped second)
+    try test_frame.pushStack(&[_]u256{0}); // offset (pushed last, popped first)
+>>>>>>> dae37b4c6 (fix: Fix LOG opcodes stack order and gas issues)
     
     // Execute LOG0 - should fail
     const result = test_helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
@@ -272,14 +299,21 @@ test "LOG1: write protection in static call" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
     // Set static call
     test_frame.frame.is_static = true;
     
+<<<<<<< HEAD
     // Push topic, offset and length
     try test_frame.pushStack(&[_]u256{0, 0, 0x123}); // offset, length, topic
+=======
+    // Push topic, length and offset (stack is LIFO)
+    try test_frame.pushStack(&[_]u256{0x123}); // topic (pushed first, popped third)
+    try test_frame.pushStack(&[_]u256{0}); // length (pushed second, popped second)
+    try test_frame.pushStack(&[_]u256{0}); // offset (pushed last, popped first)
+>>>>>>> dae37b4c6 (fix: Fix LOG opcodes stack order and gas issues)
     
     // Execute LOG1 - should fail
     const result = test_helpers.executeOpcode(0xA1, &test_vm.vm, test_frame.frame);
@@ -304,8 +338,14 @@ test "LOG0: gas consumption" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
+<<<<<<< HEAD
     // Push offset and length for 32 bytes
     try test_frame.pushStack(&[_]u256{0, 32}); // offset, length
+=======
+    // Push length and offset for 32 bytes (stack is LIFO)
+    try test_frame.pushStack(&[_]u256{32}); // length (pushed first, popped second)
+    try test_frame.pushStack(&[_]u256{0}); // offset (pushed last, popped first)
+>>>>>>> dae37b4c6 (fix: Fix LOG opcodes stack order and gas issues)
     
     const gas_before = test_frame.frame.gas_remaining;
     
@@ -335,8 +375,18 @@ test "LOG4: gas consumption with topics" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
+<<<<<<< HEAD
     // Push topics, offset and length
     try test_frame.pushStack(&[_]u256{0, 10, 0x1, 0x2, 0x3, 0x4}); // offset, length, topic1, topic2, topic3, topic4
+=======
+    // Push topics, length and offset (stack is LIFO - reverse order)
+    try test_frame.pushStack(&[_]u256{0x1}); // topic1 (pushed first, popped last)
+    try test_frame.pushStack(&[_]u256{0x2}); // topic2
+    try test_frame.pushStack(&[_]u256{0x3}); // topic3
+    try test_frame.pushStack(&[_]u256{0x4}); // topic4
+    try test_frame.pushStack(&[_]u256{10}); // length (pushed fifth, popped second)
+    try test_frame.pushStack(&[_]u256{0}); // offset (pushed last, popped first)
+>>>>>>> dae37b4c6 (fix: Fix LOG opcodes stack order and gas issues)
     
     const gas_before = test_frame.frame.gas_remaining;
     
@@ -368,8 +418,14 @@ test "LOG0: memory expansion gas" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
+<<<<<<< HEAD
     // Push offset and length that requires memory expansion
     try test_frame.pushStack(&[_]u256{256, 32}); // offset (requires expansion), length
+=======
+    // Push length and offset that requires memory expansion (stack is LIFO)
+    try test_frame.pushStack(&[_]u256{32}); // length (pushed first, popped second)
+    try test_frame.pushStack(&[_]u256{256}); // offset (pushed last, popped first - requires expansion)
+>>>>>>> dae37b4c6 (fix: Fix LOG opcodes stack order and gas issues)
     
     const gas_before = test_frame.frame.gas_remaining;
     
@@ -396,7 +452,7 @@ test "LOG0: stack underflow" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
     // Push only one value (need two)
@@ -421,7 +477,7 @@ test "LOG4: stack underflow" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
     // Push only 5 values (need 6 for LOG4)
