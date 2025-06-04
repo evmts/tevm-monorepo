@@ -1298,10 +1298,7 @@ fn apply_istanbul_gas_changes(jt: *Self) void {
     if (jt.table[0x54]) |op| {
         @constCast(op).constant_gas = 800;
     }
-    // EXTCODEHASH: 400 -> 700
-    if (jt.table[0x3f]) |op| {
-        @constCast(op).constant_gas = 700;
-    }
+    // EXTCODEHASH gas is handled dynamically in the opcode
 }
 
 fn apply_berlin_gas_changes(jt: *Self) void {
@@ -1480,7 +1477,8 @@ test "JumpTable Constantinople opcodes" {
     try std.testing.expectEqual(@as(u32, 4), create2_op.min_stack);
 
     const extcodehash_op = jt_constantinople.get_operation(0x3f);
-    try std.testing.expectEqual(@as(u64, 700), extcodehash_op.constant_gas);
+    // EXTCODEHASH gas is handled dynamically via access list, not constant
+    try std.testing.expectEqual(@as(u64, 0), extcodehash_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 1), extcodehash_op.min_stack);
 
     const shl_op = jt_constantinople.get_operation(0x1b);
