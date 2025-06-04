@@ -54,8 +54,8 @@ pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
         const offset_usize = @as(usize, @intCast(offset));
         const size_usize = @as(usize, @intCast(size));
         
-        // EIP-3860: Check initcode size limit (Shanghai)
-        if (size_usize > gas_constants.MaxInitcodeSize) {
+        // EIP-3860: Check initcode size limit (Shanghai and later)
+        if (vm.chain_rules.IsEIP3860 and size_usize > gas_constants.MaxInitcodeSize) {
             return ExecutionError.Error.MaxCodeSizeExceeded;
         }
         
@@ -132,8 +132,8 @@ pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
         const offset_usize = @as(usize, @intCast(offset));
         const size_usize = @as(usize, @intCast(size));
         
-        // EIP-3860: Check initcode size limit (Shanghai)
-        if (size_usize > gas_constants.MaxInitcodeSize) {
+        // EIP-3860: Check initcode size limit (Shanghai and later)
+        if (vm.chain_rules.IsEIP3860 and size_usize > gas_constants.MaxInitcodeSize) {
             return ExecutionError.Error.MaxCodeSizeExceeded;
         }
         
