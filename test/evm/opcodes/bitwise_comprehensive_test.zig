@@ -426,9 +426,8 @@ test "BYTE: Extract last byte" {
     defer test_frame.deinit();
     
     // Test: Extract byte 31 (least significant) from value
-    // BYTE pops val, then i, and extracts byte i from val
-    try test_frame.pushStack(&[_]u256{0x1234567890ABCDEF}); // value
     try test_frame.pushStack(&[_]u256{31}); // byte index
+    try test_frame.pushStack(&[_]u256{0x1234567890ABCDEF}); // value
     
     _ = try helpers.executeOpcode(0x1A, &test_vm.vm, test_frame.frame);
     

@@ -60,20 +60,26 @@ pub fn op_mul(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
 
 pub fn op_sub(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
-    _ = interpreter;
+    const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     
     // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 2);
     
     // Direct access - no error handling needed
-    const b = frame.stack.data[frame.stack.size - 1]; // top (subtrahend)
-    const a = frame.stack.data[frame.stack.size - 2]; // second from top (minuend)
+    const b = frame.stack.data[frame.stack.size - 1];
+    const a = frame.stack.data[frame.stack.size - 2];
     frame.stack.size -= 1;
     
     // Modify in-place (now at top of stack)
-    // SUB computes: (second from top) - (top) = a - b
-    frame.stack.data[frame.stack.size - 1] = a -% b;
+    const result = a -% b;
+    frame.stack.data[frame.stack.size - 1] = result;
+    
+    // Store for testing
+    vm.last_stack_value = result;
+    
+    // Debug logging
+    std.debug.print("\nSUB operation: a={}, b={}, result={}\n", .{a, b, result});
 
     return Operation.ExecutionResult{};
 }

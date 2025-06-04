@@ -32,7 +32,7 @@ test "RETURN (0xF3): Return data from execution" {
     
     // Write data to memory
     const return_data = "Hello from RETURN!" ++ ([_]u8{0} ** 14);
-    try test_frame.frame.memory.set_data(0, return_data[0..]);
+    _ = try test_frame.frame.memory.set_data(0, return_data[0..]);
     
     // Execute push operations
     test_frame.frame.pc = 0;
@@ -118,7 +118,7 @@ test "REVERT (0xFD): Revert with data" {
     
     // Write revert reason to memory
     const revert_data = "Revert reason!" ++ ([_]u8{0} ** 2);
-    try test_frame.frame.memory.set_data(0, revert_data[0..]);
+    _ = try test_frame.frame.memory.set_data(0, revert_data[0..]);
     
     // Execute push operations
     test_frame.frame.pc = 0;
@@ -458,11 +458,12 @@ test "Control flow interaction: Call with REVERT" {
     
     // Mock call result with revert
     const revert_reason = "Called contract reverted!";
-    test_vm.vm.call_result = .{
+    test_vm.call_result = .{
         .success = false,
         .gas_left = 500,
         .output = revert_reason,
     };
+    test_vm.syncMocks();
     
     _ = try helpers.executeOpcode(0xF1, &test_vm.vm, test_frame.frame);
     

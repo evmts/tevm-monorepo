@@ -6,8 +6,6 @@ const helpers = @import("test_helpers.zig");
 const evm = @import("evm");
 const block = evm.opcodes.block;
 
-// WORKTREE: g/opcode-test-fixes - Fixed BLOCKHASH to return 0 for simplified testing
-
 test "Block: BLOCKHASH operations" {
     const allocator = testing.allocator;
     

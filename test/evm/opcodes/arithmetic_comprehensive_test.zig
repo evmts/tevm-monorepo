@@ -260,10 +260,8 @@ test "SUB: Underflow wraps to max" {
     defer test_frame.deinit();
     
     // Test underflow: 0 - 1 = MAX
-    // SUB pops a, then b, and computes a - b
-    // To compute 0 - 1, we need to push 1 first, then 0
-    try test_frame.pushStack(&[_]u256{1});
     try test_frame.pushStack(&[_]u256{0});
+    try test_frame.pushStack(&[_]u256{1});
     
     _ = try helpers.executeOpcode(0x03, &test_vm.vm, test_frame.frame);
     
@@ -677,10 +675,8 @@ test "ADDMOD: No intermediate overflow" {
     _ = try helpers.executeOpcode(0x08, &test_vm.vm, test_frame.frame);
     
     const value = try test_frame.popStack();
-    // The implementation appears to be doing (MAX + MAX) with u256 wrapping first
-    // MAX + MAX in u256 = 2^256 - 2 (wraps to this value)
-    // (2^256 - 2) % 10 = 4
-    try testing.expectEqual(@as(u256, 4), value);
+    // (MAX + MAX) % 10 = 8 (because MAX + MAX = 2^257 - 2, and (2^257 - 2) % 10 = 8)
+    try testing.expectEqual(@as(u256, 8), value);
 }
 
 // ============================

@@ -51,14 +51,16 @@ pub fn op_sload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     
     const slot = try stack_pop(&frame.stack);
     
+    // Debug logging
+    const Address = @import("Address");
+    std.debug.print("\nSLOAD: address=0x{x}, slot={}\n", .{Address.to_u256(frame.contract.address), slot});
+    
     const is_cold = try frame.contract.mark_storage_slot_warm(slot, null);
     const gas_cost = if (is_cold) gas_constants.ColdSloadCost else gas_constants.WarmStorageReadCost;
     try frame.consume_gas(gas_cost);
     
     const value = try error_mapping.vm_get_storage(vm, frame.contract.address, slot);
-    
-    // Debug log
-    std.debug.print("SLOAD: address={any}, slot={d}, value={d}\n", .{frame.contract.address, slot, value});
+    std.debug.print("SLOAD: Retrieved value: {}\n", .{value});
     
     try stack_push(&frame.stack, value);
     
@@ -78,6 +80,10 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     
     const slot = try stack_pop(&frame.stack);
     const value = try stack_pop(&frame.stack);
+    
+    // Debug logging
+    const Address = @import("Address");
+    std.debug.print("\nSSTORE: address=0x{x}, slot={}, value={}\n", .{Address.to_u256(frame.contract.address), slot, value});
     
     // Get current value first to calculate gas properly
     const current_value = try error_mapping.vm_get_storage(vm, frame.contract.address, slot);
@@ -102,8 +108,9 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     
     try error_mapping.vm_set_storage(vm, frame.contract.address, slot, value);
     
-    // Debug log
-    std.debug.print("SSTORE: address={any}, slot={d}, value={d}\n", .{frame.contract.address, slot, value});
+    // Verify the value was stored
+    const stored_value = try error_mapping.vm_get_storage(vm, frame.contract.address, slot);
+    std.debug.print("SSTORE: After store, value in storage: {}\n", .{stored_value});
     
     return Operation.ExecutionResult{};
 }

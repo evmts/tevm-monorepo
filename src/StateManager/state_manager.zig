@@ -103,14 +103,14 @@ const Cache = struct {
     accounts: std.StringHashMap(Account),
 
     pub fn get(self: *Cache, address: B160) ?Account {
-        const key = std.fmt.allocPrint(self.allocator, "{s}", .{std.fmt.fmtSliceHexLower(address.bytes[0..])}) catch return null;
+        const key = std.fmt.allocPrint(self.allocator, "{}", .{std.fmt.fmtSliceHexLower(address.bytes[0..])}) catch return null;
         defer self.allocator.free(key);
         return self.accounts.get(key);
     }
 
     pub fn put(self: *Cache, address: B160, account: ?Account) !void {
         if (account) |acc| {
-            const key = try std.fmt.allocPrint(self.allocator, "{s}", .{std.fmt.fmtSliceHexLower(address.bytes[0..])});
+            const key = try std.fmt.allocPrint(self.allocator, "{}", .{std.fmt.fmtSliceHexLower(address.bytes[0..])});
             // First check if we already have this key and need to replace it
             const existing = self.accounts.getKey(key);
             if (existing) |existingKey| {
@@ -125,7 +125,7 @@ const Cache = struct {
     }
 
     pub fn delete(self: *Cache, address: B160) void {
-        const key = std.fmt.allocPrint(self.allocator, "{s}", .{std.fmt.fmtSliceHexLower(address.bytes[0..])}) catch return;
+        const key = std.fmt.allocPrint(self.allocator, "{}", .{std.fmt.fmtSliceHexLower(address.bytes[0..])}) catch return;
         defer self.allocator.free(key);
 
         // Find the actual stored key

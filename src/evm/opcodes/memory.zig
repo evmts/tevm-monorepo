@@ -33,7 +33,7 @@ pub fn op_mload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     const offset_usize = @as(usize, @intCast(offset));
 
-    std.debug.print("MLOAD: offset={d}, current_mem_size={d}\n", .{ offset_usize, frame.memory.context_size() });
+    std.debug.print("MLOAD: offset={}, current_mem_size={}\n", .{ offset_usize, frame.memory.context_size() });
 
     // Calculate memory expansion gas cost
     const current_size = frame.memory.context_size();
@@ -41,7 +41,7 @@ pub fn op_mload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     const gas_cost = gas_constants.memory_gas_cost(current_size, new_size);
     
     if (gas_cost > 0) {
-        std.debug.print("MLOAD: expanding memory from {d} to {d}, gas_cost={d}\n", .{ current_size, new_size, gas_cost });
+        std.debug.print("MLOAD: expanding memory from {} to {}, gas_cost={}\n", .{ current_size, new_size, gas_cost });
     }
     try frame.consume_gas(gas_cost);
 
@@ -51,7 +51,7 @@ pub fn op_mload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     // Read 32 bytes from memory
     const value = frame.memory.get_u256(offset_usize) catch |err| return map_memory_error(err);
 
-    std.debug.print("MLOAD: read value={d} from offset={d}, mem_size_after={d}\n", .{ value, offset_usize, frame.memory.context_size() });
+    std.debug.print("MLOAD: read value={} from offset={}, mem_size_after={}\n", .{ value, offset_usize, frame.memory.context_size() });
 
     try stack_push(&frame.stack, value);
 
@@ -76,7 +76,7 @@ pub fn op_mstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     const offset_usize = @as(usize, @intCast(offset));
 
     // Debug logging
-    std.debug.print("MSTORE: offset={d}, value={d}, current_mem_size={d}\n", .{ offset_usize, value, frame.memory.context_size() });
+    std.debug.print("MSTORE: offset={}, value={}, current_mem_size={}\n", .{ offset_usize, value, frame.memory.context_size() });
 
     // Calculate memory expansion gas cost
     const current_size = frame.memory.context_size();
@@ -84,7 +84,7 @@ pub fn op_mstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     const expansion_gas_cost = gas_constants.memory_gas_cost(current_size, new_size);
 
     if (expansion_gas_cost > 0) {
-        std.debug.print("MSTORE: expanding memory from {d} to {d}, gas_cost={d}\n", .{ current_size, new_size, expansion_gas_cost });
+        std.debug.print("MSTORE: expanding memory from {} to {}, gas_cost={}\n", .{ current_size, new_size, expansion_gas_cost });
         try frame.consume_gas(expansion_gas_cost);
     }
 
@@ -96,7 +96,7 @@ pub fn op_mstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     
     // Debug: verify write
     const verify_value = try frame.memory.get_u256(offset_usize);
-    std.debug.print("MSTORE: wrote value={d} at offset={d}, verified={d}, mem_size_after={d}\n", .{ value, offset_usize, verify_value, frame.memory.context_size() });
+    std.debug.print("MSTORE: wrote value={} at offset={}, verified={}, mem_size_after={}\n", .{ value, offset_usize, verify_value, frame.memory.context_size() });
 
     return Operation.ExecutionResult{};
 }
@@ -146,7 +146,7 @@ pub fn op_msize(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     const size = frame.memory.context_size();
     const word_aligned_size = ((size + 31) / 32) * 32;
     
-    std.debug.print("MSIZE: returning memory size={d} (actual={d})\n", .{word_aligned_size, size});
+    std.debug.print("MSIZE: returning memory size={} (actual={})\n", .{word_aligned_size, size});
 
     try stack_push(&frame.stack, @as(u256, @intCast(word_aligned_size)));
 
@@ -194,7 +194,7 @@ pub fn op_mcopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     // Debug logging
     if (@import("builtin").mode == .Debug) {
-        std.debug.print("MCOPY: src={d}, dest={d}, size={d}\n", .{ src_usize, dest_usize, size_usize });
+        std.debug.print("MCOPY: src={}, dest={}, size={}\n", .{ src_usize, dest_usize, size_usize });
     }
 
     return Operation.ExecutionResult{};

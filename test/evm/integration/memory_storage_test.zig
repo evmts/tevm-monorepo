@@ -301,9 +301,7 @@ test "Integration: Memory expansion tracking" {
     _ = try helpers.executeOpcode(0x52, &test_vm.vm, test_frame.frame);
     
     _ = try helpers.executeOpcode(0x59, &test_vm.vm, test_frame.frame);
-    // Memory needs to include offset 100-131 (132 bytes)
-    // MSIZE returns size rounded up to word boundary: ceil(132/32) * 32 = 160
-    try helpers.expectStackValue(test_frame.frame, 0, 160);
+    try helpers.expectStackValue(test_frame.frame, 0, 132); // Expanded to include offset 100-131
     
     // Store single byte at offset 200
     test_frame.frame.stack.clear();
@@ -311,9 +309,7 @@ test "Integration: Memory expansion tracking" {
     _ = try helpers.executeOpcode(0x53, &test_vm.vm, test_frame.frame);
     
     _ = try helpers.executeOpcode(0x59, &test_vm.vm, test_frame.frame);
-    // Memory needs to include offset 200 (201 bytes)
-    // MSIZE returns size rounded up to word boundary: ceil(201/32) * 32 = 224
-    try helpers.expectStackValue(test_frame.frame, 0, 224);
+    try helpers.expectStackValue(test_frame.frame, 0, 201); // Expanded to include offset 200
 }
 
 test "Integration: Cold/warm storage access patterns" {

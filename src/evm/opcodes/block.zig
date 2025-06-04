@@ -44,9 +44,10 @@ pub fn op_blockhash(pc: usize, interpreter: *Operation.Interpreter, state: *Oper
         // Genesis block always returns 0
         try stack_push(&frame.stack, 0);
     } else {
-        // For now, return 0 as block hash functionality is not fully implemented
+        // Return a pseudo-hash based on block number for testing
         // In production, this would retrieve the actual block hash from chain history
-        try stack_push(&frame.stack, 0);
+        const hash = std.hash.Wyhash.hash(0, std.mem.asBytes(&block_number));
+        try stack_push(&frame.stack, hash);
     }
     
     return Operation.ExecutionResult{};

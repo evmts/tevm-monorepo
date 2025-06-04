@@ -37,7 +37,7 @@ test "CREATE (0xF0): Basic contract creation" {
         0x60, 0x00,    // PUSH1 0x00  
         0xF3,          // RETURN
     } ++ ([_]u8{0} ** 11);
-    try test_frame.frame.memory.set_data(0, &init_code);
+    _ = try test_frame.frame.memory.set_data(0, &init_code);
     
     // Execute push operations
     for (0..3) |i| {
@@ -47,12 +47,14 @@ test "CREATE (0xF0): Basic contract creation" {
     test_frame.frame.pc = 6;
     
     // Mock create_contract to return a successful result
-    test_vm.vm.create_result = .{
+    test_vm.create_result = .{
         .success = true,
         .address = [_]u8{0x12} ** 20,
         .gas_left = 5000,
         .output = &[_]u8{},
     };
+    test_vm.syncMocks();
+    test_vm.syncMocks();
     
     const gas_before = test_frame.frame.gas_remaining;
     const result = try helpers.executeOpcode(0xF0, &test_vm.vm, test_frame.frame);
@@ -197,7 +199,7 @@ test "CREATE2 (0xF5): Deterministic contract creation" {
     
     // Write init code to memory
     const init_code = [_]u8{0x60, 0x00, 0x60, 0x00, 0xF3} ++ ([_]u8{0} ** 11);
-    try test_frame.frame.memory.set_data(0, &init_code);
+    _ = try test_frame.frame.memory.set_data(0, &init_code);
     
     // Execute push operations
     for (0..4) |i| {
@@ -206,13 +208,14 @@ test "CREATE2 (0xF5): Deterministic contract creation" {
     }
     test_frame.frame.pc = 8;
     
-    // Mock create2_contract to return a successful result
-    test_vm.vm.create_result = .{
+    // Mock create2 result (uses same create_result)
+    test_vm.create_result = .{
         .success = true,
         .address = [_]u8{0x34} ** 20,
         .gas_left = 5000,
         .output = &[_]u8{},
     };
+    test_vm.syncMocks();
     
     const gas_before = test_frame.frame.gas_remaining;
     const result = try helpers.executeOpcode(0xF5, &test_vm.vm, test_frame.frame);
@@ -262,11 +265,12 @@ test "CALL (0xF1): Basic external call" {
     try test_frame.pushStack(&[_]u256{32});   // ret_size
     
     // Mock call result
-    test_vm.vm.call_result = .{
+    test_vm.call_result = .{
         .success = true,
         .gas_left = 1500,
         .output = &([_]u8{0x42} ** 32),
     };
+    test_vm.syncMocks();
     
     const result = try helpers.executeOpcode(0xF1, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 1), result.bytes_consumed);
@@ -347,11 +351,12 @@ test "CALL: Cold address access (EIP-2929)" {
     try test_frame.pushStack(&[_]u256{0});    // ret_size
     
     // Mock call result
-    test_vm.vm.call_result = .{
+    test_vm.call_result = .{
         .success = true,
         .gas_left = 800,
         .output = &[_]u8{},
     };
+    test_vm.syncMocks();
     
     const gas_before = test_frame.frame.gas_remaining;
     _ = try helpers.executeOpcode(0xF1, &test_vm.vm, test_frame.frame);
@@ -394,11 +399,12 @@ test "CALLCODE (0xF2): Execute external code with current storage" {
     try test_frame.pushStack(&[_]u256{32});   // ret_size
     
     // Mock callcode result
-    test_vm.vm.call_result = .{
+    test_vm.call_result = .{
         .success = true,
         .gas_left = 1500,
         .output = &([_]u8{0x99} ** 32),
     };
+    test_vm.syncMocks();
     
     const result = try helpers.executeOpcode(0xF2, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 1), result.bytes_consumed);
@@ -440,14 +446,15 @@ test "DELEGATECALL (0xF4): Execute with current context" {
     try test_frame.pushStack(&[_]u256{32});   // ret_size
     
     // Write call data
-    try test_frame.frame.memory.set_data(0, &[_]u8{0x11, 0x22, 0x33, 0x44});
+    _ = try test_frame.frame.memory.set_data(0, &[_]u8{0x11, 0x22, 0x33, 0x44});
     
-    // Mock delegatecall result
-    test_vm.vm.call_result = .{
+    // Mock delegatecall result (uses regular call_result)
+    test_vm.call_result = .{
         .success = true,
         .gas_left = 1800,
         .output = &([_]u8{0xAA} ** 32),
     };
+    test_vm.syncMocks();
     
     const result = try helpers.executeOpcode(0xF4, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 1), result.bytes_consumed);
@@ -489,11 +496,12 @@ test "STATICCALL (0xFA): Read-only external call" {
     try test_frame.pushStack(&[_]u256{32});   // ret_size
     
     // Mock call result (staticcall uses regular call with is_static=true)
-    test_vm.vm.call_result = .{
+    test_vm.call_result = .{
         .success = true,
         .gas_left = 1900,
         .output = &([_]u8{0xBB} ** 32),
     };
+    test_vm.syncMocks();
     
     const result = try helpers.executeOpcode(0xFA, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 1), result.bytes_consumed);
@@ -531,18 +539,19 @@ test "System opcodes: Gas consumption" {
     
     // Write 64 bytes of init code
     const init_code: [64]u8 = [_]u8{0xFF} ** 64;
-    try test_frame.frame.memory.set_data(0, &init_code);
+    _ = try test_frame.frame.memory.set_data(0, &init_code);
     
     try test_frame.pushStack(&[_]u256{0});  // value
     try test_frame.pushStack(&[_]u256{0});  // offset
     try test_frame.pushStack(&[_]u256{64}); // size
     
-    test_vm.vm.create_result = .{
+    test_vm.create_result = .{
         .success = true,
         .address = [_]u8{0} ** 20,
         .gas_left = 50000,
         .output = &[_]u8{},
     };
+    test_vm.syncMocks();
     
     const gas_before = test_frame.frame.gas_remaining;
     _ = try helpers.executeOpcode(0xF0, &test_vm.vm, test_frame.frame);
@@ -636,12 +645,13 @@ test "CREATE/CREATE2: Failed creation scenarios" {
     try test_frame.pushStack(&[_]u256{0}); // size
     
     // Mock failed creation
-    test_vm.vm.create_result = .{
+    test_vm.create_result = .{
         .success = false,
         .address = [_]u8{0} ** 20,
         .gas_left = 0,
         .output = &[_]u8{},
     };
+    test_vm.syncMocks();
     
     _ = try helpers.executeOpcode(0xF0, &test_vm.vm, test_frame.frame);
     

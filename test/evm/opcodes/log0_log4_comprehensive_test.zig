@@ -32,7 +32,7 @@ test "LOG0 (0xA0): Emit log with no topics" {
     // Write some data to memory
     const test_data = "Hello, Ethereum logs!";
     const padded_data = test_data ++ ([_]u8{0} ** (32 - test_data.len));
-    try test_frame.frame.memory.set_data(0, padded_data);
+    _ = try test_frame.frame.memory.set_data(0, padded_data);
     
     // Execute the push operations
     test_frame.frame.pc = 0;
@@ -83,7 +83,7 @@ test "LOG1 (0xA1): Emit log with one topic" {
     
     // Write some data to memory at offset 32
     const test_data: [16]u8 = .{ 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0x10 };
-    try test_frame.frame.memory.set_data(32, &test_data);
+    _ = try test_frame.frame.memory.set_data(32, &test_data);
     
     // Execute push operations
     test_frame.frame.pc = 0;
@@ -153,7 +153,7 @@ test "LOG2-LOG4: Multiple topics" {
     const data1: [8]u8 = .{ 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08 };
     const data2: [8]u8 = .{ 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18 };
     const data3: [8]u8 = .{ 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28 };
-    try test_frame.frame.memory.set_data(0, &data1);
+    _ = try test_frame.frame.memory.set_data(0, &data1);
     _ = try test_frame.frame.memory.set_data(8, &data2);
     _ = try test_frame.frame.memory.set_data(16, &data3);
     
@@ -285,8 +285,8 @@ test "LOG operations: Static call protection" {
     defer test_vm.deinit();
     
     const code = [_]u8{
-        0x60, 0x00,    // PUSH1 0x00 (size)
         0x60, 0x00,    // PUSH1 0x00 (offset)
+        0x60, 0x00,    // PUSH1 0x00 (size)
         0xA0,          // LOG0
     };
     
@@ -491,7 +491,7 @@ test "LOG operations: ERC20 Transfer event pattern" {
     var amount_data: [32]u8 = [_]u8{0} ** 32;
     amount_data[31] = 0xE8;
     amount_data[30] = 0x03;
-    try test_frame.frame.memory.set_data(0, &amount_data);
+    _ = try test_frame.frame.memory.set_data(0, &amount_data);
     
     // Execute all push operations
     test_frame.frame.pc = 0;
@@ -559,7 +559,7 @@ test "LOG operations: Multiple logs in sequence" {
     defer test_frame.deinit();
     
     // Write data to memory
-    try test_frame.frame.memory.set_data(0, &[_]u8{ 0xAA, 0xBB, 0xCC, 0xDD });
+    _ = try test_frame.frame.memory.set_data(0, &[_]u8{ 0xAA, 0xBB, 0xCC, 0xDD });
     _ = try test_frame.frame.memory.set_data(4, &[_]u8{ 0x11, 0x22, 0x33, 0x44 });
     _ = try test_frame.frame.memory.set_data(8, &[_]u8{ 0xFF, 0xEE, 0xDD, 0xCC });
     

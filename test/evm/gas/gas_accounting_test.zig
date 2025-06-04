@@ -131,37 +131,37 @@ test "Gas: Memory expansion costs" {
 
     // Test memory expansion to 32 bytes (1 word)
     // Cost = 3 * 1 + 1²/512 = 3 gas
-    try test_frame.pushStack(&[_]u256{ 42, 0 }); // value, offset (stack order for MSTORE)
+    try test_frame.pushStack(&[_]u256{ 0, 42 }); // offset, value (stack reverses on pop)
     const gas_before_32 = test_frame.frame.gas_remaining;
-    std.debug.print("\\n[Test MSTORE 1] Gas before executeOpcodeWithGas: {d}\\n", .{gas_before_32});
+    std.debug.print("\\n[Test MSTORE 1] Gas before executeOpcodeWithGas: {}\\n", .{gas_before_32});
     _ = try helpers.executeOpcodeWithGas(&jump_table, 0x52, &test_vm.vm, test_frame.frame); // 0x52 = MSTORE
-    std.debug.print("[Test MSTORE 1] Gas after executeOpcodeWithGas: {d}\\n", .{test_frame.frame.gas_remaining});
+    std.debug.print("[Test MSTORE 1] Gas after executeOpcodeWithGas: {}\\n", .{test_frame.frame.gas_remaining});
     const gas_used_32 = gas_before_32 - test_frame.frame.gas_remaining;
-    std.debug.print("[Test MSTORE 1] gas_used_32 = {d} (expected 6, found {d})\n", .{ gas_used_32, gas_used_32 });
+    std.debug.print("[Test MSTORE 1] gas_used_32 = {} (expected 6, found {})\n", .{ gas_used_32, gas_used_32 });
     try testing.expectEqual(@as(u64, 3 + 3), gas_used_32); // 3 for MSTORE + 3 for memory
 
     // Test expansion to 64 bytes (2 words)
     // Additional cost = 3 * 1 + 0 = 3 gas (total memory cost = 6)
-    try test_frame.pushStack(&[_]u256{ 99, 32 }); // value, offset
+    try test_frame.pushStack(&[_]u256{ 32, 99 }); // offset, value
     const gas_before_64 = test_frame.frame.gas_remaining;
-    std.debug.print("\\n[Test MSTORE 2] Gas before executeOpcodeWithGas: {d}\\n", .{gas_before_64});
+    std.debug.print("\\n[Test MSTORE 2] Gas before executeOpcodeWithGas: {}\\n", .{gas_before_64});
     _ = try helpers.executeOpcodeWithGas(&jump_table, 0x52, &test_vm.vm, test_frame.frame); // 0x52 = MSTORE
-    std.debug.print("[Test MSTORE 2] Gas after executeOpcodeWithGas: {d}\\n", .{test_frame.frame.gas_remaining});
+    std.debug.print("[Test MSTORE 2] Gas after executeOpcodeWithGas: {}\\n", .{test_frame.frame.gas_remaining});
     const gas_used_64 = gas_before_64 - test_frame.frame.gas_remaining;
-    std.debug.print("[Test MSTORE 2] gas_used_64 = {d} (expected 6, found {d})\n", .{ gas_used_64, gas_used_64 });
+    std.debug.print("[Test MSTORE 2] gas_used_64 = {} (expected 6, found {})\n", .{ gas_used_64, gas_used_64 });
     try testing.expectEqual(@as(u64, 3 + 3), gas_used_64); // 3 for MSTORE + 3 for expansion
 
     // Test expansion to 1024 bytes (32 words)
     // Total memory cost = 3 * 32 + 32²/512 = 96 + 2 = 98
     // Previous memory cost = 3 * 2 + 2²/512 = 6 + 0 = 6
     // Additional cost = 98 - 6 = 92
-    try test_frame.pushStack(&[_]u256{ 111, 992 }); // value, offset 992 (expands to 1024)
+    try test_frame.pushStack(&[_]u256{ 992, 111 }); // offset, value 992 (expands to 1024)
     const gas_before_1024 = test_frame.frame.gas_remaining;
-    std.debug.print("\\n[Test MSTORE 3] Gas before executeOpcodeWithGas: {d}\\n", .{gas_before_1024});
+    std.debug.print("\\n[Test MSTORE 3] Gas before executeOpcodeWithGas: {}\\n", .{gas_before_1024});
     _ = try helpers.executeOpcodeWithGas(&jump_table, 0x52, &test_vm.vm, test_frame.frame); // 0x52 = MSTORE
-    std.debug.print("[Test MSTORE 3] Gas after executeOpcodeWithGas: {d}\\n", .{test_frame.frame.gas_remaining});
+    std.debug.print("[Test MSTORE 3] Gas after executeOpcodeWithGas: {}\\n", .{test_frame.frame.gas_remaining});
     const gas_used_1024 = gas_before_1024 - test_frame.frame.gas_remaining;
-    std.debug.print("[Test MSTORE 3] gas_used_1024 = {d} (expected 95, found {d})\n", .{ gas_used_1024, gas_used_1024 });
+    std.debug.print("[Test MSTORE 3] gas_used_1024 = {} (expected 95, found {})\n", .{ gas_used_1024, gas_used_1024 });
     try testing.expectEqual(@as(u64, 3 + 92), gas_used_1024); // 3 for MSTORE + 92 for expansion
 }
 
