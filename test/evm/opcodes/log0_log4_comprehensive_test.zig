@@ -164,17 +164,17 @@ test "LOG2-LOG4: Multiple topics" {
         test_frame.frame.pc += 2;
     }
     _ = try helpers.executeOpcode(0xA2, &test_vm.vm, test_frame.frame);
-    test_frame.frame.pc += 1;
     
-    // Execute LOG3
+    // Execute LOG3 - PC should be at 9 (4 PUSH1s * 2 bytes + LOG2)
+    test_frame.frame.pc = 9;
     for (0..5) |_| {
         _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
         test_frame.frame.pc += 2;
     }
     _ = try helpers.executeOpcode(0xA3, &test_vm.vm, test_frame.frame);
-    test_frame.frame.pc += 1;
     
-    // Execute LOG4
+    // Execute LOG4 - PC should be at 20 (9 + 5 PUSH1s * 2 bytes + LOG3)
+    test_frame.frame.pc = 20;
     for (0..6) |_| {
         _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
         test_frame.frame.pc += 2;
