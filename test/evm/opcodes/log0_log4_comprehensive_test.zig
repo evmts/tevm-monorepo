@@ -146,7 +146,7 @@ test "LOG2-LOG4: Multiple topics" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try helpers.TestFrame.init(allocator, &contract, 2000);
+    var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
     // Write test data to memory
@@ -484,7 +484,7 @@ test "LOG operations: ERC20 Transfer event pattern" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try helpers.TestFrame.init(allocator, &contract, 2000);
+    var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
     // Write amount to memory (1000 tokens = 0x3E8)
@@ -555,7 +555,7 @@ test "LOG operations: Multiple logs in sequence" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try helpers.TestFrame.init(allocator, &contract, 2000);
+    var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
     // Write data to memory
