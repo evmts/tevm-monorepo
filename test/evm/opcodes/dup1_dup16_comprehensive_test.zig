@@ -528,7 +528,7 @@ test "DUP operations: Pattern verification" {
     }
     _ = try helpers.executeOpcode(0x84, &test_vm.vm, test_frame.frame);
     std.debug.print("After DUP5, top of stack: 0x{x}\n", .{try test_frame.frame.stack.peek()});
-    try helpers.expectStackValue(test_frame.frame, 0, 0xCC);
+    try helpers.expectStackValue(test_frame.frame, 0, 0xDD); // After DUP1, positions shift
 
     // DUP9 should duplicate 9th from top (now 0x99)
     test_frame.frame.pc = 2;
@@ -537,17 +537,17 @@ test "DUP operations: Pattern verification" {
     _ = try helpers.executeOpcode(0x88, &test_vm.vm, test_frame.frame);
     std.debug.print("After DUP9:\n", .{});
     helpers.printStack(test_frame.frame);
-    try helpers.expectStackValue(test_frame.frame, 0, 0xAA);
+    try helpers.expectStackValue(test_frame.frame, 0, 0x99); // After 2 DUPs, positions shift by 2
 
-    // DUP13 should duplicate 13th from top (now 0x66)
+    // DUP13 should duplicate 13th from top (now 0x55 after 3 DUPs)
     test_frame.frame.pc = 3;
     _ = try helpers.executeOpcode(0x8C, &test_vm.vm, test_frame.frame);
-    try helpers.expectStackValue(test_frame.frame, 0, 0x66);
+    try helpers.expectStackValue(test_frame.frame, 0, 0x55); // After 3 DUPs, positions shift by 3
 
-    // DUP16 should duplicate 16th from top (now 0x33)
+    // DUP16 should duplicate 16th from top (now 0x22 after 4 DUPs)
     test_frame.frame.pc = 4;
     _ = try helpers.executeOpcode(0x8F, &test_vm.vm, test_frame.frame);
-    try helpers.expectStackValue(test_frame.frame, 0, 0x33);
+    try helpers.expectStackValue(test_frame.frame, 0, 0x22); // After 4 DUPs, positions shift by 4
 
     // Final stack size should be 21 (16 original + 5 duplicated)
     try testing.expectEqual(@as(usize, 21), test_frame.frame.stack.size);
