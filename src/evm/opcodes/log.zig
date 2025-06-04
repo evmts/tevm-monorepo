@@ -27,12 +27,9 @@ fn make_log(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.State)
             const frame = @as(*Frame, @ptrCast(@alignCast(state)));
             const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
-<<<<<<< Updated upstream
-=======
             // Always print to see if function is called
             std.debug.print("*** LOG{}: FUNCTION CALLED ***\n", .{n});
 
->>>>>>> Stashed changes
             if (@import("builtin").mode == .Debug) {
                 std.debug.print("LOG{}: gas_remaining={}\n", .{ n, frame.gas_remaining });
             }
@@ -42,18 +39,12 @@ fn make_log(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.State)
                 return ExecutionError.Error.WriteProtection;
             }
 
-<<<<<<< Updated upstream
-            // Pop offset and size first (correct order: offset is on top, then size)
-            const offset = try stack_pop(&frame.stack);
-            const size = try stack_pop(&frame.stack);
-=======
             // Pop size and offset first (correct order: size is on top, then offset)
             const size = try stack_pop(&frame.stack);
             const offset = try stack_pop(&frame.stack);
 
             // ALWAYS print key debug info to understand the issue
             std.debug.print("*** LOG{}: size={}, offset={}, memory_size={} ***\n", .{ n, size, offset, frame.memory.context_size() });
->>>>>>> Stashed changes
 
             if (@import("builtin").mode == .Debug) {
                 std.debug.print("LOG{}: popped size={}, offset={}\n", .{ n, size, offset });
@@ -61,18 +52,11 @@ fn make_log(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.State)
             }
 
             var topics: [4]u256 = undefined;
-            // Then pop topics (they come in reverse order from stack)
-            // Pop from stack and store in reverse order to maintain correct topic order
+            // Then pop topics
             for (0..n) |i| {
-<<<<<<< Updated upstream
-                topics[n - 1 - i] = try stack_pop(&frame.stack);
-                if (@import("builtin").mode == .Debug) {
-                    std.debug.print("LOG{}: popped topic[{}]={}\n", .{ n, n - 1 - i, topics[n - 1 - i] });
-=======
                 topics[i] = try stack_pop(&frame.stack);
                 if (@import("builtin").mode == .Debug) {
                     std.debug.print("LOG{}: popped topic[{}]={}\n", .{ n, i, topics[i] });
->>>>>>> Stashed changes
                 }
             }
 
@@ -122,10 +106,7 @@ fn make_log(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.State)
 
             if (@import("builtin").mode == .Debug) {
                 std.debug.print("LOG{}: byte_cost={} (8 * {})\n", .{ n, byte_cost, size_usize });
-<<<<<<< Updated upstream
-=======
                 std.debug.print("LOG{}: about to consume byte_cost gas\n", .{n});
->>>>>>> Stashed changes
             }
 
             try frame.consume_gas(byte_cost);
