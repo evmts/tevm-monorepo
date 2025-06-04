@@ -26,4 +26,6 @@ test {
     _ = @import("returndata_block_comprehensive_test.zig");
     _ = @import("block_info_comprehensive_test.zig");
     _ = @import("stack_memory_control_comprehensive_test.zig");
+    _ = @import("msize_gas_jumpdest_comprehensive_test.zig");
+    _ = @import("transient_mcopy_push_comprehensive_test.zig");
 }

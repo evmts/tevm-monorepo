@@ -113,17 +113,22 @@ pub fn op_shl(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     _ = interpreter;
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-
-    const shift = try stack_pop(&frame.stack);
-    const value = try stack_pop(&frame.stack);
-
+    
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size >= 2);
+    
+    // Direct access - no error handling needed
+    const shift = frame.stack.data[frame.stack.size - 1];
+    frame.stack.size -= 1;
+    
+    // Modify value in-place (now at top of stack)
+    const value_ptr = &frame.stack.data[frame.stack.size - 1];
+    
     if (shift >= 256) {
-        try stack_push(&frame.stack, 0);
-        return Operation.ExecutionResult{};
+        value_ptr.* = 0;
+    } else {
+        value_ptr.* <<= @intCast(shift);
     }
-
-    const result = value << @as(u8, @intCast(shift));
-    try stack_push(&frame.stack, result);
 
     return Operation.ExecutionResult{};
 }

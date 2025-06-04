@@ -141,11 +141,14 @@ pub fn op_msize(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
+    // MSIZE returns the size in bytes, but memory is always expanded in 32-byte words
+    // So we need to round up to the nearest word boundary
     const size = frame.memory.context_size();
+    const word_aligned_size = ((size + 31) / 32) * 32;
     
-    std.debug.print("MSIZE: returning memory size={}\n", .{size});
+    std.debug.print("MSIZE: returning memory size={} (actual={})\n", .{word_aligned_size, size});
 
-    try stack_push(&frame.stack, @as(u256, @intCast(size)));
+    try stack_push(&frame.stack, @as(u256, @intCast(word_aligned_size)));
 
     return Operation.ExecutionResult{};
 }
