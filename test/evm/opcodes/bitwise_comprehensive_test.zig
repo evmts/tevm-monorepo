@@ -26,8 +26,8 @@ test "AND (0x16): Basic bitwise AND" {
     defer test_frame.deinit();
     
     // Test: 0xFF00 & 0x0FF0 = 0x0F00
-    try test_frame.pushStack(0xFF00);
-    try test_frame.pushStack(0x0FF0);
+    try test_frame.pushStack(&[_]u256{0xFF00});
+    try test_frame.pushStack(&[_]u256{0x0FF0});
     
     const result = try helpers.executeOpcode(0x16, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 1), result.bytes_consumed);
@@ -54,8 +54,8 @@ test "AND: All zeros" {
     defer test_frame.deinit();
     
     // Test: 0xFFFF & 0x0000 = 0x0000
-    try test_frame.pushStack(0xFFFF);
-    try test_frame.pushStack(0x0000);
+    try test_frame.pushStack(&[_]u256{0xFFFF});
+    try test_frame.pushStack(&[_]u256{0x0000});
     
     _ = try helpers.executeOpcode(0x16, &test_vm.vm, test_frame.frame);
     
@@ -82,8 +82,8 @@ test "AND: All ones" {
     
     // Test: MAX & MAX = MAX
     const max = std.math.maxInt(u256);
-    try test_frame.pushStack(max);
-    try test_frame.pushStack(max);
+    try test_frame.pushStack(&[_]u256{max});
+    try test_frame.pushStack(&[_]u256{max});
     
     _ = try helpers.executeOpcode(0x16, &test_vm.vm, test_frame.frame);
     
@@ -109,8 +109,8 @@ test "AND: Masking operations" {
     defer test_frame.deinit();
     
     // Test: Extract lower byte with mask
-    try test_frame.pushStack(0x123456);
-    try test_frame.pushStack(0xFF);
+    try test_frame.pushStack(&[_]u256{0x123456});
+    try test_frame.pushStack(&[_]u256{0xFF});
     
     _ = try helpers.executeOpcode(0x16, &test_vm.vm, test_frame.frame);
     
@@ -140,8 +140,8 @@ test "OR (0x17): Basic bitwise OR" {
     defer test_frame.deinit();
     
     // Test: 0xF000 | 0x00F0 = 0xF0F0
-    try test_frame.pushStack(0xF000);
-    try test_frame.pushStack(0x00F0);
+    try test_frame.pushStack(&[_]u256{0xF000});
+    try test_frame.pushStack(&[_]u256{0x00F0});
     
     _ = try helpers.executeOpcode(0x17, &test_vm.vm, test_frame.frame);
     
@@ -167,8 +167,8 @@ test "OR: With zero" {
     defer test_frame.deinit();
     
     // Test: 0x1234 | 0x0000 = 0x1234
-    try test_frame.pushStack(0x1234);
-    try test_frame.pushStack(0x0000);
+    try test_frame.pushStack(&[_]u256{0x1234});
+    try test_frame.pushStack(&[_]u256{0x0000});
     
     _ = try helpers.executeOpcode(0x17, &test_vm.vm, test_frame.frame);
     
@@ -194,8 +194,8 @@ test "OR: Setting bits" {
     defer test_frame.deinit();
     
     // Test: Set specific bits
-    try test_frame.pushStack(0x1000);
-    try test_frame.pushStack(0x0200);
+    try test_frame.pushStack(&[_]u256{0x1000});
+    try test_frame.pushStack(&[_]u256{0x0200});
     
     _ = try helpers.executeOpcode(0x17, &test_vm.vm, test_frame.frame);
     
@@ -225,8 +225,8 @@ test "XOR (0x18): Basic bitwise XOR" {
     defer test_frame.deinit();
     
     // Test: 0xFF00 ^ 0x0FF0 = 0xF0F0
-    try test_frame.pushStack(0xFF00);
-    try test_frame.pushStack(0x0FF0);
+    try test_frame.pushStack(&[_]u256{0xFF00});
+    try test_frame.pushStack(&[_]u256{0x0FF0});
     
     _ = try helpers.executeOpcode(0x18, &test_vm.vm, test_frame.frame);
     
@@ -252,8 +252,8 @@ test "XOR: Self XOR equals zero" {
     defer test_frame.deinit();
     
     // Test: X ^ X = 0
-    try test_frame.pushStack(0x123456);
-    try test_frame.pushStack(0x123456);
+    try test_frame.pushStack(&[_]u256{0x123456});
+    try test_frame.pushStack(&[_]u256{0x123456});
     
     _ = try helpers.executeOpcode(0x18, &test_vm.vm, test_frame.frame);
     
@@ -279,8 +279,8 @@ test "XOR: Toggle bits" {
     defer test_frame.deinit();
     
     // Test: Toggle specific bits
-    try test_frame.pushStack(0b1010);
-    try test_frame.pushStack(0b1100);
+    try test_frame.pushStack(&[_]u256{0b1010});
+    try test_frame.pushStack(&[_]u256{0b1100});
     
     _ = try helpers.executeOpcode(0x18, &test_vm.vm, test_frame.frame);
     
@@ -310,7 +310,7 @@ test "NOT (0x19): Basic bitwise NOT" {
     defer test_frame.deinit();
     
     // Test: NOT 0 = MAX
-    try test_frame.pushStack(0);
+    try test_frame.pushStack(&[_]u256{0});
     
     _ = try helpers.executeOpcode(0x19, &test_vm.vm, test_frame.frame);
     
@@ -336,7 +336,7 @@ test "NOT: Invert all bits" {
     defer test_frame.deinit();
     
     // Test: NOT MAX = 0
-    try test_frame.pushStack(std.math.maxInt(u256));
+    try test_frame.pushStack(&[_]u256{std.math.maxInt(u256)});
     
     _ = try helpers.executeOpcode(0x19, &test_vm.vm, test_frame.frame);
     
@@ -363,7 +363,7 @@ test "NOT: Double NOT returns original" {
     
     // Test: NOT(NOT(X)) = X
     const original = 0x123456789ABCDEF;
-    try test_frame.pushStack(original);
+    try test_frame.pushStack(&[_]u256{original});
     
     // First NOT
     test_frame.frame.pc = 0;
@@ -399,8 +399,8 @@ test "BYTE (0x1A): Extract first byte" {
     defer test_frame.deinit();
     
     // Test: Extract byte 0 (most significant) from 0x123456...
-    try test_frame.pushStack(0); // byte index
-    try test_frame.pushStack(0x1234567890ABCDEF); // value
+    try test_frame.pushStack(&[_]u256{0}); // byte index
+    try test_frame.pushStack(&[_]u256{0x1234567890ABCDEF}); // value
     
     _ = try helpers.executeOpcode(0x1A, &test_vm.vm, test_frame.frame);
     
@@ -426,8 +426,8 @@ test "BYTE: Extract last byte" {
     defer test_frame.deinit();
     
     // Test: Extract byte 31 (least significant) from value
-    try test_frame.pushStack(31); // byte index
-    try test_frame.pushStack(0x1234567890ABCDEF); // value
+    try test_frame.pushStack(&[_]u256{31}); // byte index
+    try test_frame.pushStack(&[_]u256{0x1234567890ABCDEF}); // value
     
     _ = try helpers.executeOpcode(0x1A, &test_vm.vm, test_frame.frame);
     
@@ -453,8 +453,8 @@ test "BYTE: Out of bounds returns zero" {
     defer test_frame.deinit();
     
     // Test: Byte index >= 32 returns 0
-    try test_frame.pushStack(32); // byte index (out of bounds)
-    try test_frame.pushStack(0xFFFFFFFFFFFFFFFF); // value
+    try test_frame.pushStack(&[_]u256{32}); // byte index (out of bounds)
+    try test_frame.pushStack(&[_]u256{0xFFFFFFFFFFFFFFFF}); // value
     
     _ = try helpers.executeOpcode(0x1A, &test_vm.vm, test_frame.frame);
     
@@ -484,8 +484,8 @@ test "BYTE: Extract from full u256" {
     const test_value = @as(u256, 0x0102030405060708);
     
     // Test extracting byte 24 (should be 0x01)
-    try test_frame.pushStack(24);
-    try test_frame.pushStack(test_value);
+    try test_frame.pushStack(&[_]u256{24});
+    try test_frame.pushStack(&[_]u256{test_value});
     
     _ = try helpers.executeOpcode(0x1A, &test_vm.vm, test_frame.frame);
     
@@ -509,36 +509,36 @@ test "Bitwise opcodes: Gas consumption" {
     }{
         .{ .opcode = 0x16, .expected_gas = 3, .setup = struct { // AND
             fn setup(frame: *helpers.TestFrame) !void {
-                try frame.pushStack(0xFF);
-                try frame.pushStack(0x0F);
+                try frame.pushStack(&[_]u256{0xFF});
+                try frame.pushStack(&[_]u256{0x0F});
             }
         }.setup },
         .{ .opcode = 0x17, .expected_gas = 3, .setup = struct { // OR
             fn setup(frame: *helpers.TestFrame) !void {
-                try frame.pushStack(0xFF);
-                try frame.pushStack(0x0F);
+                try frame.pushStack(&[_]u256{0xFF});
+                try frame.pushStack(&[_]u256{0x0F});
             }
         }.setup },
         .{ .opcode = 0x18, .expected_gas = 3, .setup = struct { // XOR
             fn setup(frame: *helpers.TestFrame) !void {
-                try frame.pushStack(0xFF);
-                try frame.pushStack(0x0F);
+                try frame.pushStack(&[_]u256{0xFF});
+                try frame.pushStack(&[_]u256{0x0F});
             }
         }.setup },
         .{ .opcode = 0x19, .expected_gas = 3, .setup = struct { // NOT
             fn setup(frame: *helpers.TestFrame) !void {
-                try frame.pushStack(0xFF);
+                try frame.pushStack(&[_]u256{0xFF});
             }
         }.setup },
         .{ .opcode = 0x1A, .expected_gas = 3, .setup = struct { // BYTE
             fn setup(frame: *helpers.TestFrame) !void {
-                try frame.pushStack(0);
-                try frame.pushStack(0xFF);
+                try frame.pushStack(&[_]u256{0});
+                try frame.pushStack(&[_]u256{0xFF});
             }
         }.setup },
     };
     
-    for (test_cases) |tc| {
+    inline for (test_cases) |tc| {
         var contract = try helpers.createTestContract(
             allocator,
             helpers.TestAddresses.CONTRACT,
@@ -592,7 +592,7 @@ test "Bitwise opcodes: Stack underflow" {
         try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
         
         // Only one item (need two)
-        try test_frame.pushStack(10);
+        try test_frame.pushStack(&[_]u256{10});
         const result2 = helpers.executeOpcode(opcode, &test_vm.vm, test_frame.frame);
         try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result2);
     }
@@ -642,8 +642,8 @@ test "Bitwise operations: Large values" {
     const max = std.math.maxInt(u256);
     const half_max = max >> 1;
     
-    try test_frame.pushStack(max);
-    try test_frame.pushStack(half_max);
+    try test_frame.pushStack(&[_]u256{max});
+    try test_frame.pushStack(&[_]u256{half_max});
     
     _ = try helpers.executeOpcode(0x16, &test_vm.vm, test_frame.frame);
     
@@ -677,8 +677,8 @@ test "BYTE: Byte extraction patterns" {
     }
     
     // Test extracting byte 28 (should be 3)
-    try test_frame.pushStack(28);
-    try test_frame.pushStack(test_value);
+    try test_frame.pushStack(&[_]u256{28});
+    try test_frame.pushStack(&[_]u256{test_value});
     
     _ = try helpers.executeOpcode(0x1A, &test_vm.vm, test_frame.frame);
     

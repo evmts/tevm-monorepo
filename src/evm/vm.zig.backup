@@ -271,7 +271,7 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
     // Check if creator has sufficient balance for value transfer
     const creator_balance = try self.get_balance(creator);
     if (creator_balance < value) {
-        std.debug.print("CREATE: Insufficient balance. Creator balance: {}, required value: {}\n", .{ creator_balance, value });
+        std.debug.print("CREATE: Insufficient balance. Creator balance: {d}, required value: {d}\n", .{ creator_balance, value });
         return CreateResult{
             .success = false,
             .address = Address.ZERO_ADDRESS,
@@ -373,7 +373,7 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
     // Check if creator has sufficient balance for value transfer
     const creator_balance = try self.get_balance(creator);
     if (creator_balance < value) {
-        std.debug.print("CREATE: Insufficient balance. Creator balance: {}, required value: {}\n", .{ creator_balance, value });
+        std.debug.print("CREATE: Insufficient balance. Creator balance: {d}, required value: {d}\n", .{ creator_balance, value });
         return CreateResult{
             .success = false,
             .address = Address.ZERO_ADDRESS,

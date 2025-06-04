@@ -574,7 +574,7 @@ test "Large PUSH operations with stack near limit" {
     _ = try test_frame.popStack();
     
     // Fill to exactly 1024
-    try test_frame.pushStack(0);
+    try test_frame.pushStack(&[_]u256{0});
     
     // Next PUSH should fail with stack overflow
     test_frame.frame.pc = 0;

@@ -56,8 +56,8 @@ test "ADD (0x01): Basic addition" {
     defer test_frame.deinit();
     
     // Test basic addition: 5 + 10 = 15
-    try test_frame.pushStack(5);
-    try test_frame.pushStack(10);
+    try test_frame.pushStack(&[_]u256{5});
+    try test_frame.pushStack(&[_]u256{10});
     
     const result = try helpers.executeOpcode(0x01, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 1), result.bytes_consumed);
@@ -85,8 +85,8 @@ test "ADD: Overflow wraps to zero" {
     
     // Test overflow: MAX + 1 = 0
     const max_u256 = std.math.maxInt(u256);
-    try test_frame.pushStack(max_u256);
-    try test_frame.pushStack(1);
+    try test_frame.pushStack(&[_]u256{max_u256});
+    try test_frame.pushStack(&[_]u256{1});
     
     _ = try helpers.executeOpcode(0x01, &test_vm.vm, test_frame.frame);
     
@@ -114,8 +114,8 @@ test "ADD: Large numbers" {
     // Test large number addition
     const large1 = std.math.maxInt(u256) / 2;
     const large2 = std.math.maxInt(u256) / 3;
-    try test_frame.pushStack(large1);
-    try test_frame.pushStack(large2);
+    try test_frame.pushStack(&[_]u256{large1});
+    try test_frame.pushStack(&[_]u256{large2});
     
     _ = try helpers.executeOpcode(0x01, &test_vm.vm, test_frame.frame);
     
@@ -146,8 +146,8 @@ test "MUL (0x02): Basic multiplication" {
     defer test_frame.deinit();
     
     // Test basic multiplication: 5 * 10 = 50
-    try test_frame.pushStack(5);
-    try test_frame.pushStack(10);
+    try test_frame.pushStack(&[_]u256{5});
+    try test_frame.pushStack(&[_]u256{10});
     
     _ = try helpers.executeOpcode(0x02, &test_vm.vm, test_frame.frame);
     
@@ -173,8 +173,8 @@ test "MUL: Multiplication by zero" {
     defer test_frame.deinit();
     
     // Test multiplication by zero
-    try test_frame.pushStack(1000);
-    try test_frame.pushStack(0);
+    try test_frame.pushStack(&[_]u256{1000});
+    try test_frame.pushStack(&[_]u256{0});
     
     _ = try helpers.executeOpcode(0x02, &test_vm.vm, test_frame.frame);
     
@@ -201,8 +201,8 @@ test "MUL: Overflow behavior" {
     
     // Test overflow: (2^128) * (2^128) should wrap
     const half_max = @as(u256, 1) << 128;
-    try test_frame.pushStack(half_max);
-    try test_frame.pushStack(half_max);
+    try test_frame.pushStack(&[_]u256{half_max});
+    try test_frame.pushStack(&[_]u256{half_max});
     
     _ = try helpers.executeOpcode(0x02, &test_vm.vm, test_frame.frame);
     
@@ -233,8 +233,8 @@ test "SUB (0x03): Basic subtraction" {
     defer test_frame.deinit();
     
     // Test basic subtraction: 10 - 5 = 5
-    try test_frame.pushStack(10);
-    try test_frame.pushStack(5);
+    try test_frame.pushStack(&[_]u256{10});
+    try test_frame.pushStack(&[_]u256{5});
     
     _ = try helpers.executeOpcode(0x03, &test_vm.vm, test_frame.frame);
     
@@ -260,8 +260,8 @@ test "SUB: Underflow wraps to max" {
     defer test_frame.deinit();
     
     // Test underflow: 0 - 1 = MAX
-    try test_frame.pushStack(0);
-    try test_frame.pushStack(1);
+    try test_frame.pushStack(&[_]u256{0});
+    try test_frame.pushStack(&[_]u256{1});
     
     _ = try helpers.executeOpcode(0x03, &test_vm.vm, test_frame.frame);
     
@@ -291,8 +291,8 @@ test "DIV (0x04): Basic division" {
     defer test_frame.deinit();
     
     // Test basic division: 20 / 5 = 4
-    try test_frame.pushStack(20);
-    try test_frame.pushStack(5);
+    try test_frame.pushStack(&[_]u256{20});
+    try test_frame.pushStack(&[_]u256{5});
     
     _ = try helpers.executeOpcode(0x04, &test_vm.vm, test_frame.frame);
     
@@ -318,8 +318,8 @@ test "DIV: Division by zero returns zero" {
     defer test_frame.deinit();
     
     // Test division by zero: 100 / 0 = 0
-    try test_frame.pushStack(100);
-    try test_frame.pushStack(0);
+    try test_frame.pushStack(&[_]u256{100});
+    try test_frame.pushStack(&[_]u256{0});
     
     _ = try helpers.executeOpcode(0x04, &test_vm.vm, test_frame.frame);
     
@@ -345,8 +345,8 @@ test "DIV: Integer division truncates" {
     defer test_frame.deinit();
     
     // Test truncation: 7 / 3 = 2 (not 2.33...)
-    try test_frame.pushStack(7);
-    try test_frame.pushStack(3);
+    try test_frame.pushStack(&[_]u256{7});
+    try test_frame.pushStack(&[_]u256{3});
     
     _ = try helpers.executeOpcode(0x04, &test_vm.vm, test_frame.frame);
     
@@ -376,8 +376,8 @@ test "SDIV (0x05): Signed division positive" {
     defer test_frame.deinit();
     
     // Test positive division: 20 / 5 = 4
-    try test_frame.pushStack(20);
-    try test_frame.pushStack(5);
+    try test_frame.pushStack(&[_]u256{20});
+    try test_frame.pushStack(&[_]u256{5});
     
     _ = try helpers.executeOpcode(0x05, &test_vm.vm, test_frame.frame);
     
@@ -405,8 +405,8 @@ test "SDIV: Signed division negative" {
     // Test negative division: -20 / 5 = -4
     // In two's complement: -20 = MAX - 19
     const neg_20 = std.math.maxInt(u256) - 19;
-    try test_frame.pushStack(neg_20);
-    try test_frame.pushStack(5);
+    try test_frame.pushStack(&[_]u256{neg_20});
+    try test_frame.pushStack(&[_]u256{5});
     
     _ = try helpers.executeOpcode(0x05, &test_vm.vm, test_frame.frame);
     
@@ -433,8 +433,8 @@ test "SDIV: Division by zero returns zero" {
     defer test_frame.deinit();
     
     // Test division by zero
-    try test_frame.pushStack(100);
-    try test_frame.pushStack(0);
+    try test_frame.pushStack(&[_]u256{100});
+    try test_frame.pushStack(&[_]u256{0});
     
     _ = try helpers.executeOpcode(0x05, &test_vm.vm, test_frame.frame);
     
@@ -462,8 +462,8 @@ test "SDIV: Edge case MIN / -1" {
     // Test MIN / -1 = MIN (special case)
     const min_i256 = @as(u256, 1) << 255; // -2^255 in two's complement
     const neg_1 = std.math.maxInt(u256); // -1 in two's complement
-    try test_frame.pushStack(min_i256);
-    try test_frame.pushStack(neg_1);
+    try test_frame.pushStack(&[_]u256{min_i256});
+    try test_frame.pushStack(&[_]u256{neg_1});
     
     _ = try helpers.executeOpcode(0x05, &test_vm.vm, test_frame.frame);
     
@@ -493,8 +493,8 @@ test "MOD (0x06): Basic modulo" {
     defer test_frame.deinit();
     
     // Test basic modulo: 17 % 5 = 2
-    try test_frame.pushStack(17);
-    try test_frame.pushStack(5);
+    try test_frame.pushStack(&[_]u256{17});
+    try test_frame.pushStack(&[_]u256{5});
     
     _ = try helpers.executeOpcode(0x06, &test_vm.vm, test_frame.frame);
     
@@ -520,8 +520,8 @@ test "MOD: Modulo by zero returns zero" {
     defer test_frame.deinit();
     
     // Test modulo by zero: 100 % 0 = 0
-    try test_frame.pushStack(100);
-    try test_frame.pushStack(0);
+    try test_frame.pushStack(&[_]u256{100});
+    try test_frame.pushStack(&[_]u256{0});
     
     _ = try helpers.executeOpcode(0x06, &test_vm.vm, test_frame.frame);
     
@@ -551,8 +551,8 @@ test "SMOD (0x07): Signed modulo positive" {
     defer test_frame.deinit();
     
     // Test positive modulo: 17 % 5 = 2
-    try test_frame.pushStack(17);
-    try test_frame.pushStack(5);
+    try test_frame.pushStack(&[_]u256{17});
+    try test_frame.pushStack(&[_]u256{5});
     
     _ = try helpers.executeOpcode(0x07, &test_vm.vm, test_frame.frame);
     
@@ -579,8 +579,8 @@ test "SMOD: Signed modulo negative" {
     
     // Test negative modulo: -17 % 5 = -2
     const neg_17 = std.math.maxInt(u256) - 16;
-    try test_frame.pushStack(neg_17);
-    try test_frame.pushStack(5);
+    try test_frame.pushStack(&[_]u256{neg_17});
+    try test_frame.pushStack(&[_]u256{5});
     
     _ = try helpers.executeOpcode(0x07, &test_vm.vm, test_frame.frame);
     
@@ -611,9 +611,9 @@ test "ADDMOD (0x08): Basic modular addition" {
     defer test_frame.deinit();
     
     // Test: (10 + 10) % 8 = 4
-    try test_frame.pushStack(10);
-    try test_frame.pushStack(10);
-    try test_frame.pushStack(8);
+    try test_frame.pushStack(&[_]u256{10});
+    try test_frame.pushStack(&[_]u256{10});
+    try test_frame.pushStack(&[_]u256{8});
     
     _ = try helpers.executeOpcode(0x08, &test_vm.vm, test_frame.frame);
     
@@ -639,9 +639,9 @@ test "ADDMOD: Modulo zero returns zero" {
     defer test_frame.deinit();
     
     // Test: (10 + 10) % 0 = 0
-    try test_frame.pushStack(10);
-    try test_frame.pushStack(10);
-    try test_frame.pushStack(0);
+    try test_frame.pushStack(&[_]u256{10});
+    try test_frame.pushStack(&[_]u256{10});
+    try test_frame.pushStack(&[_]u256{0});
     
     _ = try helpers.executeOpcode(0x08, &test_vm.vm, test_frame.frame);
     
@@ -668,9 +668,9 @@ test "ADDMOD: No intermediate overflow" {
     
     // Test with values that would overflow u256
     const max = std.math.maxInt(u256);
-    try test_frame.pushStack(max);
-    try test_frame.pushStack(max);
-    try test_frame.pushStack(10);
+    try test_frame.pushStack(&[_]u256{max});
+    try test_frame.pushStack(&[_]u256{max});
+    try test_frame.pushStack(&[_]u256{10});
     
     _ = try helpers.executeOpcode(0x08, &test_vm.vm, test_frame.frame);
     
@@ -701,9 +701,9 @@ test "MULMOD (0x09): Basic modular multiplication" {
     defer test_frame.deinit();
     
     // Test: (10 * 10) % 8 = 4
-    try test_frame.pushStack(10);
-    try test_frame.pushStack(10);
-    try test_frame.pushStack(8);
+    try test_frame.pushStack(&[_]u256{10});
+    try test_frame.pushStack(&[_]u256{10});
+    try test_frame.pushStack(&[_]u256{8});
     
     _ = try helpers.executeOpcode(0x09, &test_vm.vm, test_frame.frame);
     
@@ -730,9 +730,9 @@ test "MULMOD: No intermediate overflow" {
     
     // Test with values that would overflow u256
     const large = @as(u256, 1) << 200;
-    try test_frame.pushStack(large);
-    try test_frame.pushStack(large);
-    try test_frame.pushStack(100);
+    try test_frame.pushStack(&[_]u256{large});
+    try test_frame.pushStack(&[_]u256{large});
+    try test_frame.pushStack(&[_]u256{100});
     
     _ = try helpers.executeOpcode(0x09, &test_vm.vm, test_frame.frame);
     
@@ -763,8 +763,8 @@ test "EXP (0x0A): Basic exponentiation" {
     defer test_frame.deinit();
     
     // Test: 2^8 = 256
-    try test_frame.pushStack(2);
-    try test_frame.pushStack(8);
+    try test_frame.pushStack(&[_]u256{2});
+    try test_frame.pushStack(&[_]u256{8});
     
     _ = try helpers.executeOpcode(0x0A, &test_vm.vm, test_frame.frame);
     
@@ -790,8 +790,8 @@ test "EXP: Zero exponent" {
     defer test_frame.deinit();
     
     // Test: 100^0 = 1
-    try test_frame.pushStack(100);
-    try test_frame.pushStack(0);
+    try test_frame.pushStack(&[_]u256{100});
+    try test_frame.pushStack(&[_]u256{0});
     
     _ = try helpers.executeOpcode(0x0A, &test_vm.vm, test_frame.frame);
     
@@ -817,8 +817,8 @@ test "EXP: Zero base with non-zero exponent" {
     defer test_frame.deinit();
     
     // Test: 0^10 = 0
-    try test_frame.pushStack(0);
-    try test_frame.pushStack(10);
+    try test_frame.pushStack(&[_]u256{0});
+    try test_frame.pushStack(&[_]u256{10});
     
     _ = try helpers.executeOpcode(0x0A, &test_vm.vm, test_frame.frame);
     
@@ -844,8 +844,8 @@ test "EXP: Gas consumption scales with exponent size" {
     defer test_frame.deinit();
     
     // Test with large exponent
-    try test_frame.pushStack(2);
-    try test_frame.pushStack(0x10000); // Large exponent
+    try test_frame.pushStack(&[_]u256{2});
+    try test_frame.pushStack(&[_]u256{0x10000}); // Large exponent
     
     const gas_before = test_frame.frame.gas_remaining;
     _ = try helpers.executeOpcode(0x0A, &test_vm.vm, test_frame.frame);
@@ -879,8 +879,8 @@ test "SIGNEXTEND (0x0B): Extend positive byte" {
     defer test_frame.deinit();
     
     // Test: sign extend 0x7F (positive) from byte 0
-    try test_frame.pushStack(0); // byte position
-    try test_frame.pushStack(0x7F); // value
+    try test_frame.pushStack(&[_]u256{0}); // byte position
+    try test_frame.pushStack(&[_]u256{0x7F}); // value
     
     _ = try helpers.executeOpcode(0x0B, &test_vm.vm, test_frame.frame);
     
@@ -906,8 +906,8 @@ test "SIGNEXTEND: Extend negative byte" {
     defer test_frame.deinit();
     
     // Test: sign extend 0xFF (negative) from byte 0
-    try test_frame.pushStack(0); // byte position
-    try test_frame.pushStack(0xFF); // value
+    try test_frame.pushStack(&[_]u256{0}); // byte position
+    try test_frame.pushStack(&[_]u256{0xFF}); // value
     
     _ = try helpers.executeOpcode(0x0B, &test_vm.vm, test_frame.frame);
     
@@ -935,8 +935,8 @@ test "SIGNEXTEND: Extend from higher byte position" {
     defer test_frame.deinit();
     
     // Test: sign extend 0x00FF from byte 1 (second byte)
-    try test_frame.pushStack(1); // byte position
-    try test_frame.pushStack(0x00FF); // value
+    try test_frame.pushStack(&[_]u256{1}); // byte position
+    try test_frame.pushStack(&[_]u256{0x00FF}); // value
     
     _ = try helpers.executeOpcode(0x0B, &test_vm.vm, test_frame.frame);
     
@@ -964,8 +964,8 @@ test "SIGNEXTEND: Byte position >= 31 returns value unchanged" {
     
     // Test: byte position >= 31 returns original value
     const test_value = 0x123456789ABCDEF;
-    try test_frame.pushStack(31); // byte position
-    try test_frame.pushStack(test_value);
+    try test_frame.pushStack(&[_]u256{31}); // byte position
+    try test_frame.pushStack(&[_]u256{test_value});
     
     _ = try helpers.executeOpcode(0x0B, &test_vm.vm, test_frame.frame);
     
@@ -989,26 +989,26 @@ test "Arithmetic opcodes: Gas consumption" {
     }{
         .{ .opcode = 0x01, .expected_gas = 3, .setup = struct { // ADD
             fn setup(frame: *helpers.TestFrame) !void {
-                try frame.pushStack(5);
-                try frame.pushStack(10);
+                try frame.pushStack(&[_]u256{5});
+                try frame.pushStack(&[_]u256{10});
             }
         }.setup },
         .{ .opcode = 0x02, .expected_gas = 5, .setup = struct { // MUL
             fn setup(frame: *helpers.TestFrame) !void {
-                try frame.pushStack(5);
-                try frame.pushStack(10);
+                try frame.pushStack(&[_]u256{5});
+                try frame.pushStack(&[_]u256{10});
             }
         }.setup },
         .{ .opcode = 0x08, .expected_gas = 8, .setup = struct { // ADDMOD
             fn setup(frame: *helpers.TestFrame) !void {
-                try frame.pushStack(10);
-                try frame.pushStack(10);
-                try frame.pushStack(8);
+                try frame.pushStack(&[_]u256{10});
+                try frame.pushStack(&[_]u256{10});
+                try frame.pushStack(&[_]u256{8});
             }
         }.setup },
     };
     
-    for (test_cases) |tc| {
+    inline for (test_cases) |tc| {
         var contract = try helpers.createTestContract(
             allocator,
             helpers.TestAddresses.CONTRACT,
@@ -1062,7 +1062,7 @@ test "Arithmetic opcodes: Stack underflow" {
         try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
         
         // Only one item
-        try test_frame.pushStack(10);
+        try test_frame.pushStack(&[_]u256{10});
         const result2 = helpers.executeOpcode(opcode, &test_vm.vm, test_frame.frame);
         try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result2);
     }
@@ -1082,8 +1082,8 @@ test "Arithmetic opcodes: Stack underflow" {
         defer test_frame.deinit();
         
         // Only two items (need three)
-        try test_frame.pushStack(10);
-        try test_frame.pushStack(20);
+        try test_frame.pushStack(&[_]u256{10});
+        try test_frame.pushStack(&[_]u256{20});
         const result = helpers.executeOpcode(opcode, &test_vm.vm, test_frame.frame);
         try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
     }

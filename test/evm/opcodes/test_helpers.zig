@@ -236,7 +236,7 @@ pub fn executeOpcodeWithGas(
 /// Assert stack value at position (0 is top)
 pub fn expectStackValue(frame: *const Frame, position: usize, expected: u256) !void {
     const actual = frame.stack.peek_n(position) catch |err| {
-        std.debug.print("Failed to peek stack at position {}: {}\n", .{ position, err });
+        std.debug.print("Failed to peek stack at position {d}: {any}\n", .{ position, err });
         return err;
     };
     try testing.expectEqual(expected, actual);
@@ -312,7 +312,7 @@ pub fn toU256(address: Address.Address) u256 {
 
 /// Print stack contents for debugging
 pub fn printStack(frame: *const Frame) void {
-    std.debug.print("Stack (size={}): ", .{frame.stack.size});
+    std.debug.print("Stack (size={d}): ", .{frame.stack.size});
     var i: usize = 0;
     while (i < frame.stack.size) : (i += 1) {
         const value = frame.stack.peek_n(i) catch break;

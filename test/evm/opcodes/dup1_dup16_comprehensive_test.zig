@@ -76,8 +76,8 @@ test "DUP2 (0x81): Duplicate 2nd stack item" {
     defer test_frame.deinit();
     
     // Push two values
-    try test_frame.pushStack(0x42);
-    try test_frame.pushStack(0x33);
+    try test_frame.pushStack(&[_]u256{0x42});
+    try test_frame.pushStack(&[_]u256{0x33});
     
     // Execute DUP2
     test_frame.frame.pc = 4;
@@ -111,11 +111,11 @@ test "DUP3-DUP5: Various duplications" {
     defer test_frame.deinit();
     
     // Push 5 distinct values
-    try test_frame.pushStack(0x11); // Bottom
-    try test_frame.pushStack(0x22);
-    try test_frame.pushStack(0x33);
-    try test_frame.pushStack(0x44);
-    try test_frame.pushStack(0x55); // Top
+    try test_frame.pushStack(&[_]u256{0x11}); // Bottom
+    try test_frame.pushStack(&[_]u256{0x22});
+    try test_frame.pushStack(&[_]u256{0x33});
+    try test_frame.pushStack(&[_]u256{0x44});
+    try test_frame.pushStack(&[_]u256{0x55}); // Top
     
     // Execute DUP3 (should duplicate 0x33)
     test_frame.frame.pc = 0;
@@ -355,7 +355,7 @@ test "DUP operations: Stack underflow" {
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
     
     // Push 1 value
-    try test_frame.pushStack(0x42);
+    try test_frame.pushStack(&[_]u256{0x42});
     
     // DUP1 should succeed
     result = helpers.executeOpcode(0x80, &test_vm.vm, test_frame.frame);
@@ -541,7 +541,7 @@ test "DUP operations: Boundary test with exact stack size" {
     defer test_frame.deinit();
     
     // Test DUP1 with exactly 1 item
-    try test_frame.pushStack(0xAA);
+    try test_frame.pushStack(&[_]u256{0xAA});
     test_frame.frame.pc = 0;
     _ = try helpers.executeOpcode(0x80, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 2), test_frame.frame.stack.size);

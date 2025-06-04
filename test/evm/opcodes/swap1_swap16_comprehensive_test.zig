@@ -73,9 +73,9 @@ test "SWAP2 (0x91): Swap 1st and 3rd stack items" {
     defer test_frame.deinit();
     
     // Push three values
-    try test_frame.pushStack(0x11); // Bottom
-    try test_frame.pushStack(0x22); // Middle
-    try test_frame.pushStack(0x33); // Top
+    try test_frame.pushStack(&[_]u256{0x11}); // Bottom
+    try test_frame.pushStack(&[_]u256{0x22}); // Middle
+    try test_frame.pushStack(&[_]u256{0x33}); // Top
     
     // Execute SWAP2
     const result = try helpers.executeOpcode(0x91, &test_vm.vm, test_frame.frame);
@@ -362,14 +362,14 @@ test "SWAP operations: Stack underflow" {
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
     
     // Push 1 value
-    try test_frame.pushStack(0x42);
+    try test_frame.pushStack(&[_]u256{0x42});
     
     // SWAP1 still fails (needs 2 items)
     result = helpers.executeOpcode(0x90, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
     
     // Push another value
-    try test_frame.pushStack(0x43);
+    try test_frame.pushStack(&[_]u256{0x43});
     
     // SWAP1 should succeed now (2 items)
     _ = try helpers.executeOpcode(0x90, &test_vm.vm, test_frame.frame);
@@ -531,8 +531,8 @@ test "SWAP operations: Boundary test with exact stack size" {
     defer test_frame.deinit();
     
     // Test SWAP1 with exactly 2 items
-    try test_frame.pushStack(0xAA);
-    try test_frame.pushStack(0xBB);
+    try test_frame.pushStack(&[_]u256{0xAA});
+    try test_frame.pushStack(&[_]u256{0xBB});
     
     test_frame.frame.pc = 0;
     _ = try helpers.executeOpcode(0x90, &test_vm.vm, test_frame.frame);
@@ -581,11 +581,11 @@ test "SWAP operations: No side effects" {
     defer test_frame.deinit();
     
     // Push 5 values
-    try test_frame.pushStack(0x11);
-    try test_frame.pushStack(0x22);
-    try test_frame.pushStack(0x33);
-    try test_frame.pushStack(0x44);
-    try test_frame.pushStack(0x55);
+    try test_frame.pushStack(&[_]u256{0x11});
+    try test_frame.pushStack(&[_]u256{0x22});
+    try test_frame.pushStack(&[_]u256{0x33});
+    try test_frame.pushStack(&[_]u256{0x44});
+    try test_frame.pushStack(&[_]u256{0x55});
     
     // Execute SWAP3
     _ = try helpers.executeOpcode(0x92, &test_vm.vm, test_frame.frame);
