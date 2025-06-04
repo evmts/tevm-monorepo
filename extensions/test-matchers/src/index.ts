@@ -1,5 +1,5 @@
 import { expect } from 'vitest'
-import { registerChainableMatchers } from './internal/chainable.js'
+import { registerChainableMatchers } from './chainable/chainable.js'
 import { type ContractLike, type EmitMatchers, type TransactionLike, eventMatchers } from './matchers/events/index.js'
 import {
 	type EqualHexOptions,

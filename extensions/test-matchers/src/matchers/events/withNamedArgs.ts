@@ -1,7 +1,7 @@
 import type { AbiEventParameter, AbiParameterToPrimitiveType, ExtractAbiEvent } from 'abitype'
 import { type Abi, type ContractEventName, decodeEventLog } from 'viem'
 import { assert } from 'vitest'
-import type { ChainState, MatcherResult } from '../../internal/types.js'
+import type { ChainState, MatcherResult } from '../../chainable/types.js'
 import type { ToEmitState } from './types.js'
 
 // Helper type to convert ABI event inputs to named object

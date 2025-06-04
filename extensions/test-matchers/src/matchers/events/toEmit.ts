@@ -1,7 +1,7 @@
 import type { ContractEventName, Hex } from 'viem'
 import { decodeEventLog, encodeEventTopics, getAddress, isHex, toEventSelector } from 'viem'
 import type { Abi, AbiEvent } from 'viem'
-import type { MatcherResult } from '../../internal/types.js'
+import type { MatcherResult } from '../../chainable/types.js'
 import type { ContractLike, ToEmitState, TransactionLike } from './types.js'
 
 // Vitest-style matcher function

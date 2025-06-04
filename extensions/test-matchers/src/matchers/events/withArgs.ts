@@ -1,7 +1,7 @@
 import type { AbiEventParameter, AbiParametersToPrimitiveTypes, ExtractAbiEvent } from 'abitype'
 import { type Abi, type ContractEventName, decodeEventLog } from 'viem'
-import { parseChainArgs } from '../../internal/chainable.js'
-import type { ChainState, MatcherResult } from '../../internal/types.js'
+import { parseChainArgs } from '../../chainable/chainable.js'
+import type { ChainState, MatcherResult } from '../../chainable/types.js'
 import type { ToEmitState } from './types.js'
 
 export const withArgs = <
