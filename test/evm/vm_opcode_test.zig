@@ -2218,17 +2218,17 @@ test "VM: Conditional logic with comparison" {
 
     // If 10 > 5, push 100, else push 200
     const bytecode = [_]u8{
-        0x60, 0x05, // PUSH1 5
         0x60, 0x0A, // PUSH1 10
+        0x60, 0x05, // PUSH1 5
         0x11, // GT (10 > 5 = 1)
-        0x60, 0x0B, // PUSH1 11 (jump dest if true)
+        0x60, 0x0D, // PUSH1 13 (jump dest if true)
         0x57, // JUMPI
         0x60, 0xC8, // PUSH1 200 (false path)
-        0x60, 0x0D, // PUSH1 13 (jump to end)
+        0x60, 0x0F, // PUSH1 15 (jump to end)
         0x56, // JUMP
-        0x5B, // JUMPDEST (position 11)
-        0x60, 0x64, // PUSH1 100 (true path)
         0x5B, // JUMPDEST (position 13)
+        0x60, 0x64, // PUSH1 100 (true path)
+        0x5B, // JUMPDEST (position 15)
         0x00, // STOP
     };
 
