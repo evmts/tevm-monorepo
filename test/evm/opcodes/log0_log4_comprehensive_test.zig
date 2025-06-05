@@ -385,9 +385,9 @@ test "LOG operations: Empty data" {
     defer test_vm.deinit();
     
     const code = [_]u8{
+        0x60, 0x42,    // PUSH1 0x42 (topic)
         0x60, 0x00,    // PUSH1 0x00 (size = 0)
         0x60, 0xFF,    // PUSH1 0xFF (offset - doesn't matter)
-        0x60, 0x42,    // PUSH1 0x42 (topic)
         0xA1,          // LOG1
     };
     
