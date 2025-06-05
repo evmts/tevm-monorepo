@@ -155,11 +155,11 @@ test "Integration: Return data handling" {
 
     // Store data in memory
     const return_value: u256 = 0x42424242;
-    try test_frame.pushStack(&[_]u256{ 0, return_value }); // offset, value
+    try test_frame.pushStack(&[_]u256{ return_value, 0 }); // value, offset - corrected order for MSTORE
     _ = try helpers.executeOpcode(0x52, &test_vm.vm, test_frame.frame);
 
     // Return 32 bytes from offset 0
-    try test_frame.pushStack(&[_]u256{ 0, 32 }); // offset, size
+    try test_frame.pushStack(&[_]u256{ 0, 32 }); // offset, size - correct order for RETURN
 
     // RETURN will throw an error (ExecutionError.STOP) which is expected
     const result = helpers.executeOpcode(0xF3, &test_vm.vm, test_frame.frame);
@@ -193,7 +193,7 @@ test "Integration: Revert with reason" {
     try test_frame.setMemory(0, error_msg);
 
     // Revert with error message
-    try test_frame.pushStack(&[_]u256{ 0, error_msg.len }); // offset, size
+    try test_frame.pushStack(&[_]u256{ 0, error_msg.len }); // offset, size - correct order for REVERT
 
     // REVERT will throw an error (ExecutionError.REVERT) which is expected
     const result = helpers.executeOpcode(0xFD, &test_vm.vm, test_frame.frame);
