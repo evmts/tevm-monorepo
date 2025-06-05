@@ -1,5 +1,8 @@
 const std = @import("std");
 
+// Import external modules
+pub const Address = @import("Address");
+
 // Import all EVM modules
 pub const CodeAnalysis = @import("code_analysis.zig");
 pub const Contract = @import("contract.zig");
@@ -8,11 +11,17 @@ pub const Frame = @import("frame.zig");
 pub const Hardfork = @import("hardfork.zig");
 pub const JumpTable = @import("jump_table.zig");
 pub const Memory = @import("memory.zig");
+pub const ArenaMemory = @import("arena_memory.zig");
+pub const MemoryV2 = @import("memory_v2.zig").MemoryV2;
 pub const Opcode = @import("opcode.zig");
 pub const Operation = @import("operation.zig");
 pub const Stack = @import("stack.zig");
+pub const stack_validation = @import("stack_validation.zig");
 pub const StoragePool = @import("storage_pool.zig");
 pub const Vm = @import("vm.zig");
+
+// Import opcodes
+pub const opcodes = @import("opcodes/package.zig");
 
 // Import utility modules
 pub const bitvec = @import("bitvec.zig");
@@ -21,6 +30,7 @@ pub const constants = @import("constants.zig");
 pub const eip_7702_bytecode = @import("eip_7702_bytecode.zig");
 pub const fee_market = @import("fee_market.zig");
 pub const gas_constants = @import("gas_constants.zig");
+pub const memory_limits = @import("memory_limits.zig");
 
 // Tests - run all module tests
 test {
