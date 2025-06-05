@@ -99,9 +99,9 @@ pub fn op_return(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // Stack order: push [size, offset] -> pop gets [offset, size]
-    const offset = try stack_pop(&frame.stack); // First pop gets offset
-    const size = try stack_pop(&frame.stack); // Second pop gets size
+    // Stack order: push [offset, size] -> pop gets [size, offset]
+    const size = try stack_pop(&frame.stack); // First pop gets size (4)
+    const offset = try stack_pop(&frame.stack); // Second pop gets offset (10)
 
     if (size == 0) {
         frame.return_data_buffer = &[_]u8{};
@@ -140,9 +140,9 @@ pub fn op_revert(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // Stack order: push [size, offset] -> pop gets [offset, size]
-    const offset = try stack_pop(&frame.stack); // First pop gets offset
-    const size = try stack_pop(&frame.stack); // Second pop gets size
+    // Stack order: push [offset, size] -> pop gets [size, offset]
+    const size = try stack_pop(&frame.stack);
+    const offset = try stack_pop(&frame.stack);
 
     if (size == 0) {
         frame.return_data_buffer = &[_]u8{};
