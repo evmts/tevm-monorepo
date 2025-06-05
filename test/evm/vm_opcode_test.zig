@@ -557,6 +557,7 @@ test "VM: SUB complex sequence" {
     try testing.expectEqual(@as(u256, 50), vm.last_stack_value.?);
 }
 
+// WORKING ON THIS TEST - Agent fixing SUB large number wraparound issue
 test "VM: SUB large numbers" {
     const allocator = testing.allocator;
     var vm = try createTestVm(allocator);
