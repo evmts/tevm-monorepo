@@ -26,6 +26,7 @@ exports[`callProcedure > should handle errors from callHandler 1`] = `
 {
   "code": -32602,
   "data": {
+    "data": "0x",
     "errors": [
       "Invalid Address 0x$asdf
 
