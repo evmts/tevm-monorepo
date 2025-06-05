@@ -87,7 +87,7 @@ describe('ethGetTransactionReceiptHandler', () => {
 			contractAddress: null,
 			logs: expect.any(Array),
 			logsBloom: expect.any(String),
-			status: undefined,
+			status: '0x1',
 		})
 	})
 
