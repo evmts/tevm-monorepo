@@ -69,17 +69,26 @@ pub fn op_sub(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     // Direct access - no error handling needed
     const b = frame.stack.data[frame.stack.size - 1];
     const a = frame.stack.data[frame.stack.size - 2];
+    
+    // Debug output for large numbers test
+    std.debug.print("=== SUB DEBUG ===\n", .{});
+    std.debug.print("a (second from top) = {}\n", .{a});
+    std.debug.print("b (top) = {}\n", .{b});
+    std.debug.print("Expected 2^255 = {}\n", .{@as(u256, 1) << 255});
+    std.debug.print("Expected 2^254 = {}\n", .{@as(u256, 1) << 254});
+    
     frame.stack.size -= 1;
     
     // Modify in-place (now at top of stack)
     const result = a -% b;
     frame.stack.data[frame.stack.size - 1] = result;
     
+    std.debug.print("result (a - b) = {}\n", .{result});
+    std.debug.print("=== END SUB DEBUG ===\n", .{});
+    
     // Store for testing
     vm.last_stack_value = result;
     
-    // Debug logging removed
-
     return Operation.ExecutionResult{};
 }
 

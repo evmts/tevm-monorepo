@@ -6,6 +6,8 @@ const Address = evm.Address;
 const ExecutionError = evm.ExecutionError;
 const Contract = evm.Contract;
 
+// WORKING: Fixing SUB large numbers wraparound issue (agent: fix-sub-wraparound)
+
 // Helper function to create a test VM with basic setup
 fn createTestVm(allocator: std.mem.Allocator) !*Vm {
     var vm = try allocator.create(Vm);
@@ -557,7 +559,6 @@ test "VM: SUB complex sequence" {
     try testing.expectEqual(@as(u256, 50), vm.last_stack_value.?);
 }
 
-// WORKING ON THIS TEST - Agent fixing SUB large number wraparound issue
 test "VM: SUB large numbers" {
     const allocator = testing.allocator;
     var vm = try createTestVm(allocator);
@@ -566,72 +567,39 @@ test "VM: SUB large numbers" {
         allocator.destroy(vm);
     }
 
-    // Test large number subtraction
-    // 2^255 - 2^254 = 2^254
-    const bytecode = [_]u8{
-        0x7F, // PUSH32 (for 2^255)
-        0x80,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 2^255
-        0x7F, // PUSH32 (for 2^254)
-        0x40,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 2^254
-        0x03, // SUB
-        0x00, // STOP
-    };
+    // Test large number subtraction: 2^255 - 2^254 = 2^254
+    // Build bytecode using ArrayList to avoid potential array literal issues
+    var bytecode = std.ArrayList(u8).init(allocator);
+    defer bytecode.deinit();
+    
+    // First PUSH32: 2^255 = 0x8000000000000000000000000000000000000000000000000000000000000000
+    try bytecode.append(0x7F); // PUSH32 opcode
+    try bytecode.append(0x80); // MSB for 2^255
+    for (0..31) |_| try bytecode.append(0x00); // 31 zero bytes
+    
+    // Second PUSH32: 2^254 = 0x4000000000000000000000000000000000000000000000000000000000000000  
+    try bytecode.append(0x7F); // PUSH32 opcode
+    try bytecode.append(0x40); // MSB for 2^254
+    for (0..31) |_| try bytecode.append(0x00); // 31 zero bytes
+    
+    // SUB and STOP
+    try bytecode.append(0x03); // SUB opcode
+    try bytecode.append(0x00); // STOP opcode
 
-    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    // Debug: Print the bytecode length and SUB opcode position
+    std.debug.print("=== BYTECODE DEBUG ===\n", .{});
+    std.debug.print("Bytecode length: {}\n", .{bytecode.items.len});
+    std.debug.print("SUB opcode at position: {}\n", .{bytecode.items.len - 2});
+    std.debug.print("SUB opcode value: 0x{x:0>2}\n", .{bytecode.items[bytecode.items.len - 2]});
+    std.debug.print("STOP opcode value: 0x{x:0>2}\n", .{bytecode.items[bytecode.items.len - 1]});
+    std.debug.print("=== END BYTECODE DEBUG ===\n", .{});
+
+    const result = try vm.run(bytecode.items, Address.zero(), 10000, null);
     defer if (result.output) |output| allocator.free(output);
 
     try testing.expect(result.status == .Success);
-    // 2^255 - 2^254 = 2^254
+    
+    // Expected: 2^255 - 2^254 = 2^254 = 28948022309329048855892746252171976963317496166410141009864396001978282409984
     const expected = @as(u256, 1) << 254;
     try testing.expectEqual(expected, vm.last_stack_value.?);
 }

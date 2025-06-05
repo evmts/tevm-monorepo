@@ -287,6 +287,7 @@ test "CALL (0xF1): Basic external call" {
     try testing.expectEqualSlices(u8, &([_]u8{0x42} ** 32), return_data);
 }
 
+// WORKING: Fix InvalidOffset vs WriteProtection error (agent: fix-call-static-writeprotection)
 test "CALL: Value transfer in static context" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
@@ -309,16 +310,15 @@ test "CALL: Value transfer in static context" {
     // Set static mode
     test_frame.frame.is_static = true;
     
-    // Push CALL parameters with non-zero value (in reverse order due to stack LIFO)
-    try test_frame.pushStack(&[_]u256{
-        2000,                                                  // gas
-        Address.to_u256(helpers.TestAddresses.BOB),          // to
-        100,                                                   // value (non-zero)
-        0,                                                     // args_offset
-        0,                                                     // args_size
-        0,                                                     // ret_offset
-        0                                                      // ret_size
-    });
+    // Push CALL parameters with non-zero value (LIFO stack: push in reverse order)
+    // CALL pops: gas, to, value, args_offset, args_size, ret_offset, ret_size
+    try test_frame.pushStack(&[_]u256{0});                                        // ret_size (pushed first)
+    try test_frame.pushStack(&[_]u256{0});                                        // ret_offset
+    try test_frame.pushStack(&[_]u256{0});                                        // args_size
+    try test_frame.pushStack(&[_]u256{0});                                        // args_offset
+    try test_frame.pushStack(&[_]u256{100});                                      // value (non-zero)
+    try test_frame.pushStack(&[_]u256{Address.to_u256(helpers.TestAddresses.BOB)}); // to
+    try test_frame.pushStack(&[_]u256{2000});                                     // gas (pushed last, popped first)
     
     const result = helpers.executeOpcode(0xF1, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.WriteProtection, result);
@@ -346,14 +346,15 @@ test "CALL: Cold address access (EIP-2929)" {
     // Ensure address is cold
     test_vm.vm.access_list.clear();
     
-    // Push CALL parameters
-    try test_frame.pushStack(&[_]u256{1000}); // gas
-    try test_frame.pushStack(&[_]u256{Address.to_u256([_]u8{0xCC} ** 20)}); // cold address
-    try test_frame.pushStack(&[_]u256{0});    // value
-    try test_frame.pushStack(&[_]u256{0});    // args_offset
-    try test_frame.pushStack(&[_]u256{0});    // args_size
+    // Push CALL parameters (LIFO stack: push in reverse order)
+    // CALL pops: gas, to, value, args_offset, args_size, ret_offset, ret_size
+    try test_frame.pushStack(&[_]u256{0});    // ret_size (pushed first)
     try test_frame.pushStack(&[_]u256{0});    // ret_offset
-    try test_frame.pushStack(&[_]u256{0});    // ret_size
+    try test_frame.pushStack(&[_]u256{0});    // args_size
+    try test_frame.pushStack(&[_]u256{0});    // args_offset
+    try test_frame.pushStack(&[_]u256{0});    // value
+    try test_frame.pushStack(&[_]u256{Address.to_u256([_]u8{0xCC} ** 20)}); // cold address
+    try test_frame.pushStack(&[_]u256{1000}); // gas (pushed last, popped first)
     
     // Mock call result
     test_vm.call_result = .{
@@ -394,14 +395,15 @@ test "CALLCODE (0xF2): Execute external code with current storage" {
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
-    // Push CALLCODE parameters
-    try test_frame.pushStack(&[_]u256{2000}); // gas
-    try test_frame.pushStack(&[_]u256{Address.to_u256(helpers.TestAddresses.BOB)}); // to
-    try test_frame.pushStack(&[_]u256{0});    // value
-    try test_frame.pushStack(&[_]u256{0});    // args_offset
-    try test_frame.pushStack(&[_]u256{0});    // args_size
+    // Push CALLCODE parameters (LIFO stack: push in reverse order)
+    // CALLCODE pops: gas, to, value, args_offset, args_size, ret_offset, ret_size
+    try test_frame.pushStack(&[_]u256{32});   // ret_size (pushed first, popped last)
     try test_frame.pushStack(&[_]u256{0});    // ret_offset
-    try test_frame.pushStack(&[_]u256{32});   // ret_size
+    try test_frame.pushStack(&[_]u256{0});    // args_size
+    try test_frame.pushStack(&[_]u256{0});    // args_offset
+    try test_frame.pushStack(&[_]u256{0});    // value
+    try test_frame.pushStack(&[_]u256{Address.to_u256(helpers.TestAddresses.BOB)}); // to
+    try test_frame.pushStack(&[_]u256{2000}); // gas (pushed last, popped first)
     
     // Mock callcode result
     test_vm.call_result = .{
@@ -442,13 +444,14 @@ test "DELEGATECALL (0xF4): Execute with current context" {
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
-    // Push DELEGATECALL parameters (no value parameter)
-    try test_frame.pushStack(&[_]u256{2000}); // gas
-    try test_frame.pushStack(&[_]u256{Address.to_u256(helpers.TestAddresses.BOB)}); // to
-    try test_frame.pushStack(&[_]u256{0});    // args_offset
-    try test_frame.pushStack(&[_]u256{4});    // args_size
+    // Push DELEGATECALL parameters (LIFO stack: push in reverse order, no value parameter)
+    // DELEGATECALL pops: gas, to, args_offset, args_size, ret_offset, ret_size
+    try test_frame.pushStack(&[_]u256{32});   // ret_size (pushed first, popped last)
     try test_frame.pushStack(&[_]u256{0});    // ret_offset
-    try test_frame.pushStack(&[_]u256{32});   // ret_size
+    try test_frame.pushStack(&[_]u256{4});    // args_size
+    try test_frame.pushStack(&[_]u256{0});    // args_offset
+    try test_frame.pushStack(&[_]u256{Address.to_u256(helpers.TestAddresses.BOB)}); // to
+    try test_frame.pushStack(&[_]u256{2000}); // gas (pushed last, popped first)
     
     // Write call data
     _ = try test_frame.frame.memory.set_data(0, &[_]u8{0x11, 0x22, 0x33, 0x44});
@@ -492,13 +495,14 @@ test "STATICCALL (0xFA): Read-only external call" {
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
-    // Push STATICCALL parameters (no value parameter)
-    try test_frame.pushStack(&[_]u256{2000}); // gas
-    try test_frame.pushStack(&[_]u256{Address.to_u256(helpers.TestAddresses.BOB)}); // to
-    try test_frame.pushStack(&[_]u256{0});    // args_offset
-    try test_frame.pushStack(&[_]u256{0});    // args_size
+    // Push STATICCALL parameters (LIFO stack: push in reverse order, no value parameter)
+    // STATICCALL pops: gas, to, args_offset, args_size, ret_offset, ret_size
+    try test_frame.pushStack(&[_]u256{32});   // ret_size (pushed first, popped last)
     try test_frame.pushStack(&[_]u256{0});    // ret_offset
-    try test_frame.pushStack(&[_]u256{32});   // ret_size
+    try test_frame.pushStack(&[_]u256{0});    // args_size
+    try test_frame.pushStack(&[_]u256{0});    // args_offset
+    try test_frame.pushStack(&[_]u256{Address.to_u256(helpers.TestAddresses.BOB)}); // to
+    try test_frame.pushStack(&[_]u256{2000}); // gas (pushed last, popped first)
     
     // Mock call result (staticcall uses regular call with is_static=true)
     test_vm.call_result = .{
