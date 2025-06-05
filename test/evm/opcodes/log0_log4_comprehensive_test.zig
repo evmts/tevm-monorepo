@@ -440,9 +440,9 @@ test "LOG operations: Large memory offset" {
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
-    // Push large offset and size
-    try test_frame.pushStack(&[_]u256{0x1000}); // offset = 4096
+    // Push large offset and size (bottom to top: size, offset)
     try test_frame.pushStack(&[_]u256{0x20});   // size = 32
+    try test_frame.pushStack(&[_]u256{0x1000}); // offset = 4096
     
     const gas_before = test_frame.frame.gas_remaining;
     _ = try helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
