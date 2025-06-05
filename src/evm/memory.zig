@@ -1,4 +1,5 @@
 const std = @import("std");
+const logger = @import("logger.zig").logger;
 
 /// Memory implementation for efficient EVM call context management.
 const Self = @This();
@@ -120,7 +121,6 @@ pub fn context_size(self: *const Self) usize {
     const total_len = self.root_ptr.shared_buffer.items.len;
     if (total_len < self.my_checkpoint) {
         // This indicates a bug or inconsistent state
-        std.debug.print("Warning: total_len ({d}) < my_checkpoint ({d})\n", .{ total_len, self.my_checkpoint });
         return 0;
     }
     return total_len - self.my_checkpoint;
@@ -180,7 +180,6 @@ pub fn resize_context(self: *Self, new_context_size: usize) MemoryError!void {
             const doubled = @mulWithOverflow(new_capacity, 2);
             if (doubled[1] != 0) {
                 // Overflow occurred
-                std.debug.print("Capacity calculation overflowed\n", .{});
                 return MemoryError.OutOfMemory;
             }
             new_capacity = doubled[0];

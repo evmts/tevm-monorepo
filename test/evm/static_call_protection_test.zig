@@ -58,7 +58,8 @@ test "Static call protection - transient storage operations" {
     // Test 1: Normal context allows transient storage writes
     vm.read_only = false;
     try vm.set_transient_storage_protected(test_address, test_slot, test_value);
-    const stored_value = try vm.get_transient_storage(test_address, test_slot);
+    const key = VM.StorageKey{ .address = test_address, .slot = test_slot };
+    const stored_value = vm.transient_storage.get(key) orelse 0;
     try testing.expectEqual(test_value, stored_value);
     
     // Test 2: Static context prevents transient storage writes

@@ -19,10 +19,8 @@ test "EXTCODESIZE (0x3B): Get external code size" {
         0x00,       // STOP
     };
     
-    // Set code directly in the HashMap
-    const code_copy = try test_vm.vm.allocator.alloc(u8, test_code.len);
-    @memcpy(code_copy, &test_code);
-    try test_vm.vm.code.put(helpers.TestAddresses.BOB, code_copy);
+    // Set code using tracked allocation
+    try test_vm.setCodeWithAlloc(helpers.TestAddresses.BOB, &test_code);
     // Set balance directly in the HashMap
     try test_vm.vm.balances.put(helpers.TestAddresses.BOB, 1000);
     
@@ -69,10 +67,8 @@ test "EXTCODECOPY (0x3C): Copy external code to memory" {
         0x00,       // STOP
     };
     
-    // Set code directly in the HashMap
-    const external_code_copy = try test_vm.vm.allocator.alloc(u8, external_code.len);
-    @memcpy(external_code_copy, &external_code);
-    try test_vm.vm.code.put(helpers.TestAddresses.BOB, external_code_copy);
+    // Set code using tracked allocation
+    try test_vm.setCodeWithAlloc(helpers.TestAddresses.BOB, &external_code);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -202,10 +198,8 @@ test "EXTCODEHASH (0x3F): Get external code hash" {
     
     // Set up contract with known code
     const test_code = [_]u8{0x60, 0x00, 0x60, 0x01, 0x01}; // PUSH1 0, PUSH1 1, ADD
-    // Set code directly in the HashMap
-    const code_copy = try test_vm.vm.allocator.alloc(u8, test_code.len);
-    @memcpy(code_copy, &test_code);
-    try test_vm.vm.code.put(helpers.TestAddresses.BOB, code_copy);
+    // Set code using tracked allocation
+    try test_vm.setCodeWithAlloc(helpers.TestAddresses.BOB, &test_code);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -441,10 +435,8 @@ test "EXTCODE* opcodes: Gas consumption with EIP-2929" {
     
     // Set up external code
     const code = [_]u8{0x60, 0x42};
-    // Set code directly in the HashMap
-    const code_copy = try test_vm.vm.allocator.alloc(u8, code.len);
-    @memcpy(code_copy, &code);
-    try test_vm.vm.code.put(helpers.TestAddresses.BOB, code_copy);
+    // Set code using tracked allocation
+    try test_vm.setCodeWithAlloc(helpers.TestAddresses.BOB, &code);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -572,10 +564,8 @@ test "Memory copy opcodes: Memory expansion" {
     
     // Set up external code
     const code = [_]u8{0xFF} ** 32;
-    // Set code directly in the HashMap
-    const code_copy = try test_vm.vm.allocator.alloc(u8, code.len);
-    @memcpy(code_copy, &code);
-    try test_vm.vm.code.put(helpers.TestAddresses.BOB, code_copy);
+    // Set code using tracked allocation
+    try test_vm.setCodeWithAlloc(helpers.TestAddresses.BOB, &code);
     
     var contract = try helpers.createTestContract(
         allocator,

@@ -71,17 +71,7 @@ pub fn op_sha3(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     var hash: [32]u8 = undefined;
     std.crypto.hash.sha3.Keccak256.hash(data, &hash, .{});
     
-    if (@import("builtin").mode == .Debug and size_usize <= 32) {
-        std.debug.print("KECCAK256: offset={}, size={}, data=", .{offset_usize, size_usize});
-        for (data) |byte| {
-            std.debug.print("{x:0>2}", .{byte});
-        }
-        std.debug.print(", hash=", .{});
-        for (hash) |byte| {
-            std.debug.print("{x:0>2}", .{byte});
-        }
-        std.debug.print("\n", .{});
-    }
+    // Hash calculated successfully
     
     // Convert hash to u256
     var result: u256 = 0;

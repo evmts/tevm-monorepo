@@ -20,6 +20,9 @@ pub const JumpTable = evm.JumpTable;
 pub const TestVm = struct {
     vm: Vm,
     allocator: std.mem.Allocator,
+    
+    // Track allocated code for cleanup
+    allocated_code: std.ArrayList([]u8),
 
     // Mock results for testing
     call_result: ?Vm.CallResult = null,
@@ -36,6 +39,7 @@ pub const TestVm = struct {
         return TestVm{
             .vm = vm,
             .allocator = allocator,
+            .allocated_code = std.ArrayList([]u8).init(allocator),
             .call_result = null,
             .create_result = null,
         };
@@ -50,12 +54,19 @@ pub const TestVm = struct {
         return TestVm{
             .vm = vm,
             .allocator = allocator,
+            .allocated_code = std.ArrayList([]u8).init(allocator),
             .call_result = null,
             .create_result = null,
         };
     }
 
     pub fn deinit(self: *TestVm) void {
+        // Free all tracked allocated code
+        for (self.allocated_code.items) |code| {
+            self.allocator.free(code);
+        }
+        self.allocated_code.deinit();
+        
         self.vm.deinit();
     }
 
@@ -66,6 +77,22 @@ pub const TestVm = struct {
             return err;
         };
         self.vm.code.put(address, code) catch |err| {
+            std.log.debug("Failed to set code for address 0x{x}: {any}", .{ Address.to_u256(address), err });
+            return err;
+        };
+    }
+    
+    /// Set code with allocation tracking for proper cleanup
+    pub fn setCodeWithAlloc(self: *TestVm, address: Address.Address, code: []const u8) !void {
+        // Allocate and copy the code
+        const code_copy = try self.allocator.alloc(u8, code.len);
+        @memcpy(code_copy, code);
+        
+        // Track the allocation
+        try self.allocated_code.append(code_copy);
+        
+        // Set the code in the VM
+        self.vm.code.put(address, code_copy) catch |err| {
             std.log.debug("Failed to set code for address 0x{x}: {any}", .{ Address.to_u256(address), err });
             return err;
         };

@@ -12,6 +12,9 @@ const rlp = @import("Rlp");
 const Keccak256 = std.crypto.hash.sha3.Keccak256;
 const ChainRules = @import("chain_rules.zig");
 const gas_constants = @import("gas_constants.zig");
+const logger_module = @import("logger.zig");
+const logger = logger_module.logger;
+const Logger = logger_module.Logger;
 
 // Error types for VM operations
 pub const VmError = ExecutionError.Error || std.mem.Allocator.Error || Frame.FrameError;
@@ -96,7 +99,7 @@ pub const StorageKey = struct {
 
 pub fn init(allocator: std.mem.Allocator) VmInitError!Self {
     return init_with_hardfork(allocator, .CANCUN) catch |err| {
-        std.log.debug("Failed to initialize VM with default hardfork: {any}", .{err});
+        Logger.debug("Failed to initialize VM with default hardfork: {any}", .{err});
         return err;
     };
 }
@@ -156,14 +159,14 @@ pub fn deinit(self: *Self) void {
 
 pub fn interpret(self: *Self, contract: *Contract, input: []const u8) VmInterpretError![]const u8 {
     return self.interpret_with_context(contract, input, false) catch |err| {
-        std.log.debug("Failed to interpret contract: {any}", .{err});
+        Logger.debug("Failed to interpret contract: {any}", .{err});
         return err;
     };
 }
 
 pub fn interpret_static(self: *Self, contract: *Contract, input: []const u8) VmInterpretError![]const u8 {
     return self.interpret_with_context(contract, input, true) catch |err| {
-        std.log.debug("Failed to interpret contract in static context: {any}", .{err});
+        Logger.debug("Failed to interpret contract in static context: {any}", .{err});
         return err;
     };
 }
@@ -181,7 +184,7 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
 
     var pc: usize = 0;
     var frame = Frame.init(self.allocator, contract) catch |err| {
-        std.log.debug("Failed to initialize frame: {any}", .{err});
+        Logger.debug("Failed to initialize frame: {any}", .{err});
         return switch (err) {
             Frame.FrameError.OutOfMemory => ExecutionError.Error.OutOfMemory,
             Frame.FrameError.InvalidContract => ExecutionError.Error.InvalidCodeEntry,
@@ -276,14 +279,13 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
     const nonce = current_nonce;
     const new_nonce = current_nonce + 1;
     self.nonces.put(creator, new_nonce) catch |err| {
-        std.log.debug("Failed to increment nonce for address 0x{x}: {any}", .{ Address.to_u256(creator), err });
+        Logger.debug("Failed to increment nonce for address 0x{x}: {any}", .{ Address.to_u256(creator), err });
         return err;
     };
 
     // Calculate the new contract address using CREATE formula:
     // address = keccak256(rlp([sender, nonce]))[12:]
     const new_address = try Address.calculate_create_address(self.allocator, creator, nonce);
-    std.debug.print("CREATE: Calculated address: 0x{x} for creator: 0x{x}, nonce: {d}\n", .{ Address.to_u256(new_address), Address.to_u256(creator), nonce });
 
     // Log init code info
     _ = init_code.len; // Use init_code to avoid unused parameter warning
@@ -302,9 +304,7 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
 
     // Check if creator has sufficient balance for value transfer
     const creator_balance = self.balances.get(creator) orelse 0;
-    std.debug.print("CREATE: Checking balance. Creator: 0x{x}, balance: {d}, required value: {d}\n", .{ Address.to_u256(creator), creator_balance, value });
     if (creator_balance < value) {
-        std.debug.print("CREATE: Insufficient balance. Returning failure with zero address\n", .{});
         return CreateResult{
             .success = false,
             .address = Address.zero(),
@@ -316,11 +316,11 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
     // Transfer value from creator to new contract
     if (value > 0) {
         self.balances.put(creator, creator_balance - value) catch |err| {
-            std.log.debug("Failed to set balance for address 0x{x}: {any}", .{ Address.to_u256(creator), err });
+            Logger.debug("Failed to set balance for address 0x{x}: {any}", .{ Address.to_u256(creator), err });
             return err;
         };
         self.balances.put(new_address, value) catch |err| {
-            std.log.debug("Failed to set balance for address 0x{x}: {any}", .{ Address.to_u256(new_address), err });
+            Logger.debug("Failed to set balance for address 0x{x}: {any}", .{ Address.to_u256(new_address), err });
             return err;
         };
     }
@@ -328,7 +328,6 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
     // Execute the init code to get the deployed bytecode
     if (init_code.len == 0) {
         // No init code means empty contract
-        std.debug.print("CREATE: Empty init code, creating empty contract\n", .{});
         return CreateResult{
             .success = true,
             .address = new_address,
@@ -357,11 +356,9 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
     );
     defer init_contract.deinit(null);
 
-    std.debug.print("CREATE: Executing init code with gas: {d}\n", .{gas});
 
     // Execute the init code - this should return the deployment bytecode
-    const init_result = self.interpret_with_context(&init_contract, &[_]u8{}, false) catch |err| {
-        std.debug.print("CREATE: Init code execution failed with error: {any}\n", .{err});
+    const init_result = self.interpret_with_context(&init_contract, &[_]u8{}, false) catch {
 
         // Most initcode failures should return 0 address and consume all gas
         return CreateResult{
@@ -372,12 +369,10 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
         };
     };
 
-    std.debug.print("CREATE: Init code execution completed, returned bytecode length: {d}\n", .{init_result.len});
 
     // Check EIP-170 MAX_CODE_SIZE limit on the returned bytecode (24,576 bytes)
     const MAX_CODE_SIZE = 24576;
     if (init_result.len > MAX_CODE_SIZE) {
-        std.debug.print("CREATE: Deployment bytecode too large: {d} > {d}\n", .{ init_result.len, MAX_CODE_SIZE });
         return CreateResult{
             .success = false,
             .address = Address.zero(),
@@ -392,7 +387,6 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
 
     // Check if we have enough gas for deployment
     if (deploy_code_gas > gas) {
-        std.debug.print("CREATE: Insufficient gas for code deployment: required {d}, available {d}\n", .{ deploy_code_gas, gas });
         return CreateResult{
             .success = false,
             .address = Address.zero(),
@@ -403,10 +397,9 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
 
     // Store the deployed bytecode at the new contract address
     self.code.put(new_address, init_result) catch |err| {
-        std.log.debug("Failed to set code for address 0x{x}: {any}", .{ Address.to_u256(new_address), err });
+        Logger.debug("Failed to set code for address 0x{x}: {any}", .{ Address.to_u256(new_address), err });
         return err;
     };
-    std.debug.print("CREATE: Stored bytecode of length {d} at address: 0x{x}\n", .{ init_result.len, Address.to_u256(new_address) });
 
     const gas_left = gas - deploy_code_gas;
 
@@ -474,7 +467,6 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
     // Check if creator has sufficient balance for value transfer
     const creator_balance = self.balances.get(creator) orelse 0;
     if (creator_balance < value) {
-        std.debug.print("CREATE2: Insufficient balance. Creator balance: {d}, required value: {d}\n", .{ creator_balance, value });
         return CreateResult{
             .success = false,
             .address = Address.zero(),
@@ -486,11 +478,11 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
     // Transfer value from creator to new contract
     if (value > 0) {
         self.balances.put(creator, creator_balance - value) catch |err| {
-            std.log.debug("Failed to set balance for address 0x{x}: {any}", .{ Address.to_u256(creator), err });
+            Logger.debug("Failed to set balance for address 0x{x}: {any}", .{ Address.to_u256(creator), err });
             return err;
         };
         self.balances.put(new_address, value) catch |err| {
-            std.log.debug("Failed to set balance for address 0x{x}: {any}", .{ Address.to_u256(new_address), err });
+            Logger.debug("Failed to set balance for address 0x{x}: {any}", .{ Address.to_u256(new_address), err });
             return err;
         };
     }
@@ -498,7 +490,6 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
     // Execute the init code to get the deployed bytecode
     if (init_code.len == 0) {
         // No init code means empty contract
-        std.debug.print("CREATE2: Empty init code, creating empty contract\n", .{});
         return CreateResult{
             .success = true,
             .address = new_address,
@@ -527,11 +518,9 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
     );
     defer init_contract.deinit(null);
 
-    std.debug.print("CREATE2: Executing init code with gas: {d}\n", .{gas});
 
     // Execute the init code - this should return the deployment bytecode
-    const init_result = self.interpret_with_context(&init_contract, &[_]u8{}, false) catch |err| {
-        std.debug.print("CREATE2: Init code execution failed with error: {any}\n", .{err});
+    const init_result = self.interpret_with_context(&init_contract, &[_]u8{}, false) catch {
 
         // Most initcode failures should return 0 address and consume all gas
         return CreateResult{
@@ -542,12 +531,10 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
         };
     };
 
-    std.debug.print("CREATE2: Init code execution completed, returned bytecode length: {d}\n", .{init_result.len});
 
     // Check EIP-170 MAX_CODE_SIZE limit on the returned bytecode (24,576 bytes)
     const MAX_CODE_SIZE = 24576;
     if (init_result.len > MAX_CODE_SIZE) {
-        std.debug.print("CREATE2: Deployment bytecode too large: {d} > {d}\n", .{ init_result.len, MAX_CODE_SIZE });
         return CreateResult{
             .success = false,
             .address = Address.zero(),
@@ -562,7 +549,6 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
 
     // Check if we have enough gas for deployment
     if (deploy_code_gas > gas) {
-        std.debug.print("CREATE2: Insufficient gas for code deployment: required {d}, available {d}\n", .{ deploy_code_gas, gas });
         return CreateResult{
             .success = false,
             .address = Address.zero(),
@@ -572,8 +558,10 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
     }
 
     // Store the deployed bytecode at the new contract address
-    try self.set_code(new_address, init_result);
-    std.debug.print("CREATE2: Stored bytecode of length {d} at address: 0x{x}\n", .{ init_result.len, Address.to_u256(new_address) });
+    self.code.put(new_address, init_result) catch |err| {
+        Logger.debug("Failed to set code for address 0x{x}: {any}", .{ Address.to_u256(new_address), err });
+        return err;
+    };
 
     const gas_left = gas - deploy_code_gas;
 
@@ -716,7 +704,7 @@ pub fn set_storage_protected(self: *Self, address: Address.Address, slot: u256, 
     try self.validate_static_context();
     const key = Self.StorageKey{ .address = address, .slot = slot };
     self.storage.put(key, value) catch |err| {
-        std.log.debug("Failed to set storage for address 0x{x}, slot {d}: {any}", .{ Address.to_u256(address), slot, err });
+        Logger.debug("Failed to set storage for address 0x{x}, slot {d}: {any}", .{ Address.to_u256(address), slot, err });
         return err;
     };
 }
@@ -725,7 +713,7 @@ pub fn set_transient_storage_protected(self: *Self, address: Address.Address, sl
     try self.validate_static_context();
     const key = Self.StorageKey{ .address = address, .slot = slot };
     self.transient_storage.put(key, value) catch |err| {
-        std.log.debug("Failed to set transient storage for address 0x{x}, slot {d}: {any}", .{ Address.to_u256(address), slot, err });
+        Logger.debug("Failed to set transient storage for address 0x{x}, slot {d}: {any}", .{ Address.to_u256(address), slot, err });
         return err;
     };
 }
@@ -733,7 +721,7 @@ pub fn set_transient_storage_protected(self: *Self, address: Address.Address, sl
 pub fn set_balance_protected(self: *Self, address: Address.Address, balance: u256) !void {
     try self.validate_static_context();
     self.balances.put(address, balance) catch |err| {
-        std.log.debug("Failed to set balance for address 0x{x}: {any}", .{ Address.to_u256(address), err });
+        Logger.debug("Failed to set balance for address 0x{x}: {any}", .{ Address.to_u256(address), err });
         return err;
     };
 }
@@ -741,7 +729,7 @@ pub fn set_balance_protected(self: *Self, address: Address.Address, balance: u25
 pub fn set_code_protected(self: *Self, address: Address.Address, code: []const u8) !void {
     try self.validate_static_context();
     self.code.put(address, code) catch |err| {
-        std.log.debug("Failed to set code for address 0x{x}: {any}", .{ Address.to_u256(address), err });
+        Logger.debug("Failed to set code for address 0x{x}: {any}", .{ Address.to_u256(address), err });
         return err;
     };
 }
@@ -810,13 +798,13 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
 
     // Set the code for the contract address
     self.code.put(address, bytecode) catch |err| {
-        std.log.debug("Failed to set code for address 0x{x}: {any}", .{ Address.to_u256(address), err });
+        Logger.debug("Failed to set code for address 0x{x}: {any}", .{ Address.to_u256(address), err });
         return err;
     };
 
     // Create a frame for execution
     var frame = Frame.init(self.allocator, &contract) catch |err| {
-        std.log.debug("Failed to initialize frame: {any}", .{err});
+        Logger.debug("Failed to initialize frame: {any}", .{err});
         return err;
     };
     defer frame.deinit();
