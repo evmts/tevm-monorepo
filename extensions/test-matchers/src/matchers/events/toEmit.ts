@@ -2,8 +2,8 @@ import type { ContractEventName, Hex } from 'viem'
 import { decodeEventLog, encodeEventTopics, getAddress, isHex, toEventSelector } from 'viem'
 import type { Abi, AbiEvent } from 'viem'
 import type { MatcherResult } from '../../chainable/types.js'
-import type { ToEmitState } from './types.js'
 import type { ContainsContractAbi, ContainsTransactionLogs } from '../../common/types.js'
+import type { ToEmitState } from './types.js'
 
 // Vitest-style matcher function
 export const toEmit = async <
@@ -11,7 +11,9 @@ export const toEmit = async <
 	TEventName extends TAbi extends Abi ? ContractEventName<TAbi> : never = TAbi extends Abi
 		? ContractEventName<TAbi>
 		: never,
-	TContract extends TAbi extends Abi ? ContainsContractAbi<TAbi> : never = TAbi extends Abi ? ContainsContractAbi<TAbi> : never,
+	TContract extends TAbi extends Abi ? ContainsContractAbi<TAbi> : never = TAbi extends Abi
+		? ContainsContractAbi<TAbi>
+		: never,
 >(
 	received: ContainsTransactionLogs | Promise<ContainsTransactionLogs>,
 	contractOrEventIdentifier: TContract | Hex | string,
