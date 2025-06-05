@@ -51,7 +51,7 @@ export class RevertError extends BaseError {
 	 * The error code for RevertError.
 	 * @type {number}
 	 */
-	static code = -32000
+	static code = 3
 
 	/**
 	 * Constructs a RevertError.
