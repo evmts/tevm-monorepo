@@ -13,8 +13,8 @@ test "RETURN (0xF3): Return data from execution" {
     defer test_vm.deinit();
     
     const code = [_]u8{
-        0x60, 0x20,    // PUSH1 0x20 (size = 32 bytes)
         0x60, 0x00,    // PUSH1 0x00 (offset = 0)
+        0x60, 0x20,    // PUSH1 0x20 (size = 32 bytes)
         0xF3,          // RETURN
     };
     
@@ -99,8 +99,8 @@ test "REVERT (0xFD): Revert with data" {
     defer test_vm.deinit();
     
     const code = [_]u8{
-        0x60, 0x10,    // PUSH1 0x10 (size = 16 bytes)
         0x60, 0x00,    // PUSH1 0x00 (offset = 0)
+        0x60, 0x10,    // PUSH1 0x10 (size = 16 bytes)
         0xFD,          // REVERT
     };
     
