@@ -193,25 +193,25 @@ test "LOG2-LOG4: Multiple topics" {
     // Check LOG2
     const log2 = test_vm.vm.logs.items[0];
     try testing.expectEqual(@as(usize, 2), log2.topics.len);
-    try testing.expectEqual(@as(u256, 0xAA), log2.topics[0]);
-    try testing.expectEqual(@as(u256, 0xBB), log2.topics[1]);
+    try testing.expectEqual(@as(u256, 0xBB), log2.topics[0]); // Last pushed = first topic
+    try testing.expectEqual(@as(u256, 0xAA), log2.topics[1]); // First pushed = second topic
     try testing.expectEqualSlices(u8, &data1, log2.data);
     
     // Check LOG3
     const log3 = test_vm.vm.logs.items[1];
     try testing.expectEqual(@as(usize, 3), log3.topics.len);
-    try testing.expectEqual(@as(u256, 0xCC), log3.topics[0]);
-    try testing.expectEqual(@as(u256, 0xDD), log3.topics[1]);
-    try testing.expectEqual(@as(u256, 0xEE), log3.topics[2]);
+    try testing.expectEqual(@as(u256, 0xCC), log3.topics[0]); // First pushed = first topic
+    try testing.expectEqual(@as(u256, 0xDD), log3.topics[1]); // Middle pushed = second topic
+    try testing.expectEqual(@as(u256, 0xEE), log3.topics[2]); // Last pushed = third topic
     try testing.expectEqualSlices(u8, &data2, log3.data);
     
     // Check LOG4
     const log4 = test_vm.vm.logs.items[2];
     try testing.expectEqual(@as(usize, 4), log4.topics.len);
-    try testing.expectEqual(@as(u256, 0x11), log4.topics[0]);
-    try testing.expectEqual(@as(u256, 0x22), log4.topics[1]);
-    try testing.expectEqual(@as(u256, 0x33), log4.topics[2]);
-    try testing.expectEqual(@as(u256, 0x44), log4.topics[3]);
+    try testing.expectEqual(@as(u256, 0x44), log4.topics[0]); // Last pushed = first topic
+    try testing.expectEqual(@as(u256, 0x33), log4.topics[1]); // Third pushed = second topic
+    try testing.expectEqual(@as(u256, 0x22), log4.topics[2]); // Second pushed = third topic
+    try testing.expectEqual(@as(u256, 0x11), log4.topics[3]); // First pushed = fourth topic
     try testing.expectEqualSlices(u8, &data3, log4.data);
 }
 

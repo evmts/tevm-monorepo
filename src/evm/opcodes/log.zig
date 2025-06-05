@@ -39,24 +39,24 @@ fn make_log(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.State)
                 return ExecutionError.Error.WriteProtection;
             }
 
-            // Pop size and offset first (correct order: size is on top, then offset)
-            const size = try stack_pop(&frame.stack);
+            // REVM EXACT MATCH: Pop offset first, then len (revm: popn!([offset, len]))
             const offset = try stack_pop(&frame.stack);
+            const size = try stack_pop(&frame.stack);
 
             // ALWAYS print key debug info to understand the issue
-            std.debug.print("*** LOG{}: size={}, offset={}, memory_size={} ***\n", .{ n, size, offset, frame.memory.context_size() });
+            std.debug.print("*** LOG{}: offset={}, size={}, memory_size={} ***\n", .{ n, offset, size, frame.memory.context_size() });
 
             if (@import("builtin").mode == .Debug) {
-                std.debug.print("LOG{}: popped size={}, offset={}\n", .{ n, size, offset });
+                std.debug.print("LOG{}: popped offset={}, size={})\n", .{ n, offset, size });
                 std.debug.print("LOG{}: current memory size={}\n", .{ n, frame.memory.context_size() });
             }
 
+            // Pop N topics in order and store them in REVERSE (revm: stack.popn::<N>() returns in push order)
             var topics: [4]u256 = undefined;
-            // Then pop topics
             for (0..n) |i| {
-                topics[i] = try stack_pop(&frame.stack);
+                topics[n - 1 - i] = try stack_pop(&frame.stack);
                 if (@import("builtin").mode == .Debug) {
-                    std.debug.print("LOG{}: popped topic[{}]={}\n", .{ n, i, topics[i] });
+                    std.debug.print("LOG{}: popped topic -> topics[{}]={}\n", .{ n, n - 1 - i, topics[n - 1 - i] });
                 }
             }
 
