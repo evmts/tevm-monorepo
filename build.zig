@@ -126,6 +126,9 @@ pub fn build(b: *std.Build) void {
     // Add imports to the rlp_mod
     rlp_mod.addImport("Utils", utils_mod);
 
+    // Add imports to the address_mod
+    address_mod.addImport("Rlp", rlp_mod);
+
     // Add imports to the trie_mod
     trie_mod.addImport("Rlp", rlp_mod);
     trie_mod.addImport("Utils", utils_mod);

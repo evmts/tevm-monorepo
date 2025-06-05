@@ -1,5 +1,6 @@
 const std = @import("std");
 const crypto = std.crypto;
+const rlp = @import("Rlp");
 
 const startsWith = std.mem.startsWith;
 const hexToBytes = std.fmt.hexToBytes;
@@ -9,7 +10,7 @@ const Keccak256 = crypto.hash.sha3.Keccak256;
 
 pub const Address = [20]u8;
 
-pub const ZERO_ADDRESS: Address = [_]u8{0} ** 20;
+pub const ZERO_ADDRESS: Address = [20]u8{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 pub fn zero() Address {
     return ZERO_ADDRESS;
@@ -193,6 +194,81 @@ pub fn are_addresses_equal(a: []const u8, b: []const u8) !bool {
     _ = try hexToBytes(&addr_b, b[2..]);
 
     return std.mem.eql(u8, &addr_a, &addr_b);
+}
+
+pub fn calculate_create_address(allocator: std.mem.Allocator, creator: Address, nonce: u64) !Address {
+    // Convert nonce to bytes, stripping leading zeros
+    var nonce_bytes: [8]u8 = undefined;
+    std.mem.writeInt(u64, &nonce_bytes, nonce, .big);
+
+    // Find first non-zero byte
+    var nonce_start: usize = 0;
+    for (nonce_bytes) |byte| {
+        if (byte != 0) break;
+        nonce_start += 1;
+    }
+
+    // If nonce is 0, use empty slice
+    const nonce_slice = if (nonce == 0) &[_]u8{} else nonce_bytes[nonce_start..];
+
+    // Create a list for RLP encoding [creator_address, nonce]
+    var list = std.ArrayList([]const u8).init(allocator);
+    defer list.deinit();
+
+    try list.append(&creator);
+    try list.append(nonce_slice);
+
+    // RLP encode the list
+    const encoded = try rlp.encode(allocator, list.items);
+    defer allocator.free(encoded);
+
+    // Hash the RLP encoded data
+    var hash: [32]u8 = undefined;
+    Keccak256.hash(encoded, &hash, .{});
+
+    // Take last 20 bytes as address
+    var address: Address = undefined;
+    @memcpy(&address, hash[12..32]);
+
+    return address;
+}
+
+pub fn calculate_create2_address(allocator: std.mem.Allocator, creator: Address, salt: u256, init_code: []const u8) !Address {
+    // First hash the init code
+    var code_hash: [32]u8 = undefined;
+    Keccak256.hash(init_code, &code_hash, .{});
+
+    // Create the data to hash: 0xff ++ creator ++ salt ++ keccak256(init_code)
+    var data = std.ArrayList(u8).init(allocator);
+    defer data.deinit();
+
+    // Add 0xff prefix
+    try data.append(0xff);
+
+    // Add creator address (20 bytes)
+    try data.appendSlice(&creator);
+
+    // Add salt (32 bytes, big-endian)
+    var salt_bytes: [32]u8 = undefined;
+    var temp_salt = salt;
+    for (0..32) |i| {
+        salt_bytes[31 - i] = @intCast(temp_salt & 0xFF);
+        temp_salt >>= 8;
+    }
+    try data.appendSlice(&salt_bytes);
+
+    // Add init code hash (32 bytes)
+    try data.appendSlice(&code_hash);
+
+    // Hash the combined data
+    var hash: [32]u8 = undefined;
+    Keccak256.hash(data.items, &hash, .{});
+
+    // Take last 20 bytes as address
+    var address: Address = undefined;
+    @memcpy(&address, hash[12..32]);
+
+    return address;
 }
 
 test "PublicKey.from_hex" {

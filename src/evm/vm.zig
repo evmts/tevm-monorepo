@@ -59,11 +59,11 @@ logs: std.ArrayList(Log),
 access_list: AccessList,
 
 // Transaction context (temporary placeholder)
-tx_origin: Address.Address = Address.ZERO_ADDRESS,
+tx_origin: Address.Address = Address.zero(),
 gas_price: u256 = 0,
 block_number: u64 = 0,
 block_timestamp: u64 = 0,
-block_coinbase: Address.Address = Address.ZERO_ADDRESS,
+block_coinbase: Address.Address = Address.zero(),
 block_difficulty: u256 = 0,
 block_gas_limit: u64 = 0,
 chain_id: u256 = 1,
@@ -345,7 +345,7 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
 
     // Calculate the new contract address using CREATE formula:
     // address = keccak256(rlp([sender, nonce]))[12:]
-    const new_address = try self.calculate_create_address(creator, nonce);
+    const new_address = try Address.calculate_create_address(self.allocator, creator, nonce);
     std.debug.print("CREATE: Calculated address: 0x{x} for creator: 0x{x}, nonce: {d}\n", .{ Address.to_u256(new_address), Address.to_u256(creator), nonce });
 
     // Log init code info
@@ -357,7 +357,7 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
         // Contract already exists at this address
         return CreateResult{
             .success = false,
-            .address = Address.ZERO_ADDRESS,
+            .address = Address.zero(),
             .gas_left = gas,
             .output = null,
         };
@@ -370,7 +370,7 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
         std.debug.print("CREATE: Insufficient balance. Returning failure with zero address\n", .{});
         return CreateResult{
             .success = false,
-            .address = Address.ZERO_ADDRESS,
+            .address = Address.zero(),
             .gas_left = gas,
             .output = null,
         };
@@ -423,7 +423,7 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
         // Most initcode failures should return 0 address and consume all gas
         return CreateResult{
             .success = false,
-            .address = Address.ZERO_ADDRESS,
+            .address = Address.zero(),
             .gas_left = 0, // Consume all gas on failure
             .output = null,
         };
@@ -437,7 +437,7 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
         std.debug.print("CREATE: Deployment bytecode too large: {d} > {d}\n", .{ init_result.len, MAX_CODE_SIZE });
         return CreateResult{
             .success = false,
-            .address = Address.ZERO_ADDRESS,
+            .address = Address.zero(),
             .gas_left = 0, // Consume all gas on failure
             .output = null,
         };
@@ -452,7 +452,7 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
         std.debug.print("CREATE: Insufficient gas for code deployment: required {d}, available {d}\n", .{ deploy_code_gas, gas });
         return CreateResult{
             .success = false,
-            .address = Address.ZERO_ADDRESS,
+            .address = Address.zero(),
             .gas_left = 0,
             .output = null,
         };
@@ -511,7 +511,7 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
 
     // Calculate the new contract address using CREATE2 formula:
     // address = keccak256(0xff ++ sender ++ salt ++ keccak256(init_code))[12:]
-    const new_address = try self.calculate_create2_address(creator, salt, init_code);
+    const new_address = try Address.calculate_create2_address(self.allocator, creator, salt, init_code);
 
     // Check if account already exists at this address
     const existing_code = try self.get_code(new_address);
@@ -519,7 +519,7 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
         // Contract already exists at this address
         return CreateResult{
             .success = false,
-            .address = Address.ZERO_ADDRESS,
+            .address = Address.zero(),
             .gas_left = gas,
             .output = null,
         };
@@ -531,7 +531,7 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
         std.debug.print("CREATE2: Insufficient balance. Creator balance: {d}, required value: {d}\n", .{ creator_balance, value });
         return CreateResult{
             .success = false,
-            .address = Address.ZERO_ADDRESS,
+            .address = Address.zero(),
             .gas_left = gas,
             .output = null,
         };
@@ -584,7 +584,7 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
         // Most initcode failures should return 0 address and consume all gas
         return CreateResult{
             .success = false,
-            .address = Address.ZERO_ADDRESS,
+            .address = Address.zero(),
             .gas_left = 0, // Consume all gas on failure
             .output = null,
         };
@@ -598,7 +598,7 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
         std.debug.print("CREATE2: Deployment bytecode too large: {d} > {d}\n", .{ init_result.len, MAX_CODE_SIZE });
         return CreateResult{
             .success = false,
-            .address = Address.ZERO_ADDRESS,
+            .address = Address.zero(),
             .gas_left = 0, // Consume all gas on failure
             .output = null,
         };
@@ -613,7 +613,7 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
         std.debug.print("CREATE2: Insufficient gas for code deployment: required {d}, available {d}\n", .{ deploy_code_gas, gas });
         return CreateResult{
             .success = false,
-            .address = Address.ZERO_ADDRESS,
+            .address = Address.zero(),
             .gas_left = 0,
             .output = null,
         };
@@ -810,6 +810,7 @@ pub fn selfdestruct_protected(self: *Self, contract: Address.Address, beneficiar
     _ = contract;
     _ = beneficiary;
     // Selfdestruct scheduling and execution happens at transaction level
+    @panic("Unimplemented");
 }
 
 // Run result structure
@@ -972,81 +973,4 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
         .gas_used = initial_gas - frame.gas_remaining,
         .output = null,
     };
-}
-
-// Calculate address for CREATE opcode
-fn calculate_create_address(self: *Self, creator: Address.Address, nonce: u64) !Address.Address {
-    // Convert nonce to bytes, stripping leading zeros
-    var nonce_bytes: [8]u8 = undefined;
-    std.mem.writeInt(u64, &nonce_bytes, nonce, .big);
-
-    // Find first non-zero byte
-    var nonce_start: usize = 0;
-    for (nonce_bytes) |byte| {
-        if (byte != 0) break;
-        nonce_start += 1;
-    }
-
-    // If nonce is 0, use empty slice
-    const nonce_slice = if (nonce == 0) &[_]u8{} else nonce_bytes[nonce_start..];
-
-    // Create a list for RLP encoding [creator_address, nonce]
-    var list = std.ArrayList([]const u8).init(self.allocator);
-    defer list.deinit();
-
-    try list.append(&creator);
-    try list.append(nonce_slice);
-
-    // RLP encode the list
-    const encoded = try rlp.encode(self.allocator, list.items);
-    defer self.allocator.free(encoded);
-
-    // Hash the RLP encoded data
-    var hash: [32]u8 = undefined;
-    Keccak256.hash(encoded, &hash, .{});
-
-    // Take last 20 bytes as address
-    var address: Address.Address = undefined;
-    @memcpy(&address, hash[12..32]);
-
-    return address;
-}
-
-// Calculate address for CREATE2 opcode
-fn calculate_create2_address(self: *Self, creator: Address.Address, salt: u256, init_code: []const u8) !Address.Address {
-    // First hash the init code
-    var code_hash: [32]u8 = undefined;
-    Keccak256.hash(init_code, &code_hash, .{});
-
-    // Create the data to hash: 0xff ++ creator ++ salt ++ keccak256(init_code)
-    var data = std.ArrayList(u8).init(self.allocator);
-    defer data.deinit();
-
-    // Add 0xff prefix
-    try data.append(0xff);
-
-    // Add creator address (20 bytes)
-    try data.appendSlice(&creator);
-
-    // Add salt (32 bytes, big-endian)
-    var salt_bytes: [32]u8 = undefined;
-    var temp_salt = salt;
-    for (0..32) |i| {
-        salt_bytes[31 - i] = @intCast(temp_salt & 0xFF);
-        temp_salt >>= 8;
-    }
-    try data.appendSlice(&salt_bytes);
-
-    // Add init code hash (32 bytes)
-    try data.appendSlice(&code_hash);
-
-    // Hash the combined data
-    var hash: [32]u8 = undefined;
-    Keccak256.hash(data.items, &hash, .{});
-
-    // Take last 20 bytes as address
-    var address: Address.Address = undefined;
-    @memcpy(&address, hash[12..32]);
-
-    return address;
 }
