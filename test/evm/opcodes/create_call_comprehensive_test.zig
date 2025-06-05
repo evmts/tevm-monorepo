@@ -257,7 +257,7 @@ test "CALL (0xF1): Basic external call" {
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
-    // Push CALL parameters (LIFO stack: push in reverse order)
+    // Push CALL parameters (LIFO: push in reverse order)
     // CALL pops: gas, to, value, args_offset, args_size, ret_offset, ret_size
     try test_frame.pushStack(&[_]u256{32});   // ret_size (pushed first, popped last)
     try test_frame.pushStack(&[_]u256{0});    // ret_offset
