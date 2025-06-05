@@ -61,8 +61,6 @@ pub fn make_push(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.S
                 }
             }
 
-            // Removed debug output
-
             try stack_push(&frame.stack, value);
 
             // PUSH operations consume 1 + n bytes

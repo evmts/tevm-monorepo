@@ -34,20 +34,10 @@ pub const ArenaMemory = struct {
         var arena = std.heap.ArenaAllocator.init(allocator);
         errdefer arena.deinit();
 
-        var buffer = std.ArrayList(u8).init(arena.allocator()) catch |err| {
-            std.log.debug("Failed to initialize buffer ArrayList: {any}", .{err});
-            return switch (err) {
-                std.mem.Allocator.Error.OutOfMemory => MemoryError.OutOfMemory,
-            };
-        };
+        var buffer = std.ArrayList(u8).init(arena.allocator());
         errdefer buffer.deinit();
 
-        var contexts = std.ArrayList(Context).init(arena.allocator()) catch |err| {
-            std.log.debug("Failed to initialize contexts ArrayList: {any}", .{err});
-            return switch (err) {
-                std.mem.Allocator.Error.OutOfMemory => MemoryError.OutOfMemory,
-            };
-        };
+        var contexts = std.ArrayList(Context).init(arena.allocator());
         errdefer contexts.deinit();
 
         // Create root context

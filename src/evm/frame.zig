@@ -4,6 +4,14 @@ const Stack = @import("stack.zig");
 const Contract = @import("contract.zig");
 const ExecutionError = @import("execution_error.zig");
 
+/// Error types for Frame operations
+pub const FrameError = error{
+    OutOfMemory,
+    InvalidContract,
+    InvalidMemoryOperation,
+    InvalidStackOperation,
+};
+
 const Self = @This();
 
 op: []const u8 = undefined,
@@ -24,12 +32,19 @@ depth: u32 = 0,
 output: []const u8 = &[_]u8{},
 program_counter: usize = 0,
 
-pub fn init(allocator: std.mem.Allocator, contract: *Contract) !Self {
+pub fn init(allocator: std.mem.Allocator, contract: *Contract) FrameError!Self {
     // Don't call finalize_root here - let the caller do it after Frame is at its final location
+    const memory = Memory.init_default(allocator) catch |err| {
+        std.log.debug("Failed to initialize memory: {any}", .{err});
+        return switch (err) {
+            std.mem.Allocator.Error.OutOfMemory => FrameError.OutOfMemory,
+        };
+    };
+
     return Self{
         .allocator = allocator,
         .contract = contract,
-        .memory = try Memory.init_default(allocator),
+        .memory = memory,
         .stack = .{},
     };
 }
@@ -52,14 +67,19 @@ pub fn init_with_state(
     depth: ?u32,
     output: ?[]const u8,
     program_counter: ?usize,
-) !Self {
+) FrameError!Self {
     // Create memory if not provided
     const mem: Memory = if (memory) |m| m else blk: {
-        const new_memory = try Memory.init_default(allocator);
+        const new_memory = Memory.init_default(allocator) catch |mem_err| {
+            std.log.debug("Failed to initialize memory: {any}", .{mem_err});
+            return switch (mem_err) {
+                std.mem.Allocator.Error.OutOfMemory => FrameError.OutOfMemory,
+            };
+        };
         // Don't finalize_root here - memory will be copied
         break :blk new_memory;
     };
-    
+
     return Self{
         .allocator = allocator,
         .contract = contract,

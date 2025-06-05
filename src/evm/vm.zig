@@ -19,7 +19,11 @@ pub const VmStorageError = std.mem.Allocator.Error;
 pub const VmStateError = ExecutionError.Error;
 pub const VmInitError = std.mem.Allocator.Error;
 pub const VmInterpretError = ExecutionError.Error || Frame.FrameError;
-pub const VmAccessListError = AccessList.AccessListError;
+pub const VmAccessListError = error{
+    OutOfMemory,
+    InvalidAddress,
+    InvalidSlot,
+};
 pub const VmAddressCalculationError = std.mem.Allocator.Error;
 
 // Log struct for EVM event logs (LOG0-LOG4 opcodes)
@@ -206,8 +210,10 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
     var frame = Frame.init(self.allocator, contract) catch |err| {
         std.log.debug("Failed to initialize frame: {any}", .{err});
         return switch (err) {
-            Frame.FrameError.OutOfMemory => Frame.FrameError.OutOfMemory,
-            Frame.FrameError.InvalidContract => Frame.FrameError.InvalidContract,
+            Frame.FrameError.OutOfMemory => ExecutionError.Error.OutOfMemory,
+            Frame.FrameError.InvalidContract => ExecutionError.Error.InvalidCodeEntry,
+            Frame.FrameError.InvalidMemoryOperation => ExecutionError.Error.OutOfMemory,
+            Frame.FrameError.InvalidStackOperation => ExecutionError.Error.StackUnderflow,
         };
     };
     defer frame.deinit();
@@ -229,11 +235,11 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
                 ExecutionError.Error.InvalidOpcode => {
                     // INVALID opcode consumes all remaining gas
                     frame.gas_remaining = 0;
-                    &[_]u8{};
+                    return &[_]u8{};
                 },
                 ExecutionError.Error.STOP => {
                     // Normal stop
-                    &[_]u8{};
+                    return &[_]u8{};
                 },
                 ExecutionError.Error.REVERT => err,
                 ExecutionError.Error.INVALID => err,
@@ -839,7 +845,10 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
     try self.set_code(address, bytecode);
 
     // Create a frame for execution
-    var frame = try Frame.init(self.allocator, &contract);
+    var frame = Frame.init(self.allocator, &contract) catch |err| {
+        std.log.debug("Failed to initialize frame: {any}", .{err});
+        return err;
+    };
     defer frame.deinit();
     // Finalize the root memory now that frame is at its final location
     frame.memory.finalize_root();
@@ -869,7 +878,7 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
         // Execute opcode through jump table
         const result = self.table.execute(pc, interpreter_ptr, state_ptr, opcode) catch |err| {
             // Handle execution errors
-            switch (err) {
+            const instruction_result = switch (err) {
                 ExecutionError.Error.STOP => {
                     // Save top stack value for testing
                     if (frame.stack.size > 0) {
@@ -935,7 +944,8 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
                     };
                 },
                 else => return err,
-            }
+            };
+            _ = instruction_result; // autofix
         };
 
         // Check if PC was modified by JUMP/JUMPI opcodes

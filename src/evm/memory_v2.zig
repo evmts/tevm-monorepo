@@ -219,11 +219,10 @@ pub const MemoryV2 = struct {
             std.log.debug("Failed to convert memory to hex: {any}", .{err});
             return switch (err) {
                 MemoryError.NoActiveContext => MemoryError.NoActiveContext,
-                MemoryError.OutOfMemory => MemoryError.OutOfMemory,
                 MemoryError.InvalidOffset => MemoryError.InvalidOffset,
                 MemoryError.InvalidSize => MemoryError.InvalidSize,
                 MemoryError.MemoryLimitExceeded => MemoryError.MemoryLimitExceeded,
-                std.mem.Allocator.Error.OutOfMemory => MemoryError.OutOfMemory,
+                MemoryError.OutOfMemory => MemoryError.OutOfMemory,
             };
         };
     }

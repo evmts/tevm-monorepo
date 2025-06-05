@@ -24,18 +24,18 @@ pub fn op_add(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     _ = pc;
     _ = interpreter;
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-    
+
     // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 2);
-    
+
     // Direct access - no error handling needed
     const b = frame.stack.data[frame.stack.size - 1];
     const a = frame.stack.data[frame.stack.size - 2];
     frame.stack.size -= 1;
-    
+
     // Modify in-place (now at top of stack)
     frame.stack.data[frame.stack.size - 1] = a +% b;
-    
+
     return Operation.ExecutionResult{};
 }
 
@@ -43,18 +43,18 @@ pub fn op_mul(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     _ = pc;
     _ = interpreter;
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-    
+
     // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 2);
-    
+
     // Direct access - no error handling needed
     const b = frame.stack.data[frame.stack.size - 1];
     const a = frame.stack.data[frame.stack.size - 2];
     frame.stack.size -= 1;
-    
+
     // Modify in-place (now at top of stack)
     frame.stack.data[frame.stack.size - 1] = a *% b;
-    
+
     return Operation.ExecutionResult{};
 }
 
@@ -62,20 +62,22 @@ pub fn op_sub(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     _ = pc;
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-    
+
     // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 2);
-    
+
     // EVM SUB behavior: SUB pops b first (from top), then a, computes a - b
     // Stack: [... a b] -> b is on top, a is second
-    const b = frame.stack.data[frame.stack.size - 1];  // second operand (top of stack)
-    const a = frame.stack.data[frame.stack.size - 2];  // first operand (second from top)
+    const b = frame.stack.data[frame.stack.size - 1]; // second operand (top of stack)
+    const a = frame.stack.data[frame.stack.size - 2]; // first operand (second from top)
+
     frame.stack.size -= 1;
-    
+
     // Modify in-place (now at top of stack)
+    // EVM SUB computes: (second from top) - (top) = a - b
     const result = a -% b;
     frame.stack.data[frame.stack.size - 1] = result;
-    
+
     // Store for testing
     vm.last_stack_value = result;
 
@@ -86,15 +88,15 @@ pub fn op_div(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     _ = pc;
     _ = interpreter;
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-    
+
     // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 2);
-    
+
     // Direct access - no error handling needed
     const b = frame.stack.data[frame.stack.size - 1];
     const a = frame.stack.data[frame.stack.size - 2];
     frame.stack.size -= 1;
-    
+
     // Modify in-place (now at top of stack)
     if (b == 0) {
         frame.stack.data[frame.stack.size - 1] = 0;
@@ -108,23 +110,23 @@ pub fn op_sdiv(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     _ = pc;
     _ = interpreter;
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-    
+
     // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 2);
-    
+
     // Direct access - no error handling needed
     const b = frame.stack.data[frame.stack.size - 1];
     const a = frame.stack.data[frame.stack.size - 2];
     frame.stack.size -= 1;
-    
+
     // Get pointer to result location (now at top of stack)
     const result_ptr = &frame.stack.data[frame.stack.size - 1];
-    
+
     if (b == 0) {
         result_ptr.* = 0;
         return Operation.ExecutionResult{};
     }
-    
+
     // Signed division for u256
     const a_i256 = @as(i256, @bitCast(a));
     const b_i256 = @as(i256, @bitCast(b));
@@ -143,15 +145,15 @@ pub fn op_mod(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     _ = pc;
     _ = interpreter;
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-    
+
     // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 2);
-    
+
     // Direct access - no error handling needed
     const b = frame.stack.data[frame.stack.size - 1];
     const a = frame.stack.data[frame.stack.size - 2];
     frame.stack.size -= 1;
-    
+
     // Modify in-place (now at top of stack)
     if (b == 0) {
         frame.stack.data[frame.stack.size - 1] = 0;
@@ -183,10 +185,10 @@ pub fn op_addmod(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     _ = pc;
     _ = interpreter;
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-    const n = try stack_pop(&frame.stack);  // First pop: modulus
-    const b = try stack_pop(&frame.stack);  // Second pop: second addend
-    const a = try stack_pop(&frame.stack);  // Third pop: first addend
-    
+    const n = try stack_pop(&frame.stack); // First pop: modulus
+    const b = try stack_pop(&frame.stack); // Second pop: second addend
+    const a = try stack_pop(&frame.stack); // Third pop: first addend
+
     if (n == 0) {
         try stack_push(&frame.stack, 0);
     } else {
@@ -194,7 +196,7 @@ pub fn op_addmod(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
         // Since we're working with u256, overflow wraps automatically
         // So (a +% b) gives us (a + b) mod 2^256
         // Then we just need to compute that result mod n
-        const sum = a +% b;  // Wrapping addition
+        const sum = a +% b; // Wrapping addition
         const result = sum % n;
         try stack_push(&frame.stack, result);
     }
@@ -205,37 +207,37 @@ pub fn op_mulmod(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     _ = pc;
     _ = interpreter;
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-    const n = try stack_pop(&frame.stack);  // First pop: modulus
-    const b = try stack_pop(&frame.stack);  // Second pop: second multiplicand
-    const a = try stack_pop(&frame.stack);  // Third pop: first multiplicand
+    const n = try stack_pop(&frame.stack); // First pop: modulus
+    const b = try stack_pop(&frame.stack); // Second pop: second multiplicand
+    const a = try stack_pop(&frame.stack); // Third pop: first multiplicand
     if (n == 0) {
         try stack_push(&frame.stack, 0);
     } else {
         // For MULMOD, we need to compute (a * b) % n where a * b might overflow
         // We can't just do (a *% b) % n because that would give us ((a * b) % 2^256) % n
         // which is not the same as (a * b) % n when a * b >= 2^256
-        
+
         // We'll use the Russian peasant multiplication algorithm with modular reduction
         // This allows us to compute (a * b) % n without needing the full 512-bit product
         var result: u256 = 0;
-        var x = a % n;  // Reduce a modulo n first
-        var y = b % n;  // Reduce b modulo n first
-        
+        var x = a % n; // Reduce a modulo n first
+        var y = b % n; // Reduce b modulo n first
+
         while (y > 0) {
             // If y is odd, add x to result (mod n)
             if ((y & 1) == 1) {
                 // result = (result + x) % n
-                const sum = result +% x;  // Wrapping addition
+                const sum = result +% x; // Wrapping addition
                 result = sum % n;
             }
-            
+
             // Double x (mod n)
             x = (x +% x) % n;
-            
+
             // Halve y
             y >>= 1;
         }
-        
+
         try stack_push(&frame.stack, result);
     }
 
@@ -299,13 +301,13 @@ pub fn op_signextend(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
     const byte_index = @as(u8, @intCast(byte_num));
     // The sign bit is at position (byte_index * 8 + 7)
     const sign_bit_pos = byte_index * 8 + 7;
-    
+
     // Get the sign bit
     const sign_bit = (x >> @intCast(sign_bit_pos)) & 1;
-    
+
     // Create a mask for the bits we want to keep (0 to sign_bit_pos)
     const keep_bits = sign_bit_pos + 1;
-    
+
     var result: u256 = undefined;
     if (sign_bit == 1) {
         // Sign bit is 1, extend with 1s
