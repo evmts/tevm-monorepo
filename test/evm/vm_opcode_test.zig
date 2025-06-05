@@ -74,6 +74,7 @@ test "VM: JUMPDEST and JUMP sequence" {
     try testing.expectEqual(@as(u256, 66), vm.last_stack_value.?);
 }
 
+// TODO: Working on fixing JUMPI stack order (worktree: g/fix-jumpi-stack-order)
 test "VM: JUMPI conditional jump taken" {
     const allocator = testing.allocator;
     var vm = try createTestVm(allocator);
