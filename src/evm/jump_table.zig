@@ -945,6 +945,144 @@ const TSTORE = Operation{
     .max_stack = Stack.CAPACITY,
 };
 
+// ===== HARDFORK-SPECIFIC OPERATION VARIANTS =====
+// These replace the unsafe @constCast approach with immutable operation objects
+// Following the pattern: OPCODE_HARDFORK_FROM_TO_HARDFORK_TO
+
+// BALANCE variants for different hardforks
+const BALANCE_FRONTIER_TO_TANGERINE = Operation{
+    .execute = environment.op_balance,
+    .constant_gas = opcodes.gas_constants.GasExtStep, // 20
+    .min_stack = 1,
+    .max_stack = Stack.CAPACITY,
+};
+
+const BALANCE_TANGERINE_TO_ISTANBUL = Operation{
+    .execute = environment.op_balance,
+    .constant_gas = 400,
+    .min_stack = 1,
+    .max_stack = Stack.CAPACITY,
+};
+
+const BALANCE_ISTANBUL_TO_BERLIN = Operation{
+    .execute = environment.op_balance,
+    .constant_gas = 700,
+    .min_stack = 1,
+    .max_stack = Stack.CAPACITY,
+};
+
+const BALANCE_BERLIN_TO_PRESENT = Operation{
+    .execute = environment.op_balance,
+    .constant_gas = 0, // Dynamic gas in Berlin+
+    .min_stack = 1,
+    .max_stack = Stack.CAPACITY,
+};
+
+// EXTCODESIZE variants
+const EXTCODESIZE_FRONTIER_TO_TANGERINE = Operation{
+    .execute = environment.op_extcodesize,
+    .constant_gas = opcodes.gas_constants.GasExtStep, // 20
+    .min_stack = 1,
+    .max_stack = Stack.CAPACITY,
+};
+
+const EXTCODESIZE_TANGERINE_TO_BERLIN = Operation{
+    .execute = environment.op_extcodesize,
+    .constant_gas = 700,
+    .min_stack = 1,
+    .max_stack = Stack.CAPACITY,
+};
+
+// EXTCODECOPY variants
+const EXTCODECOPY_FRONTIER_TO_TANGERINE = Operation{
+    .execute = environment.op_extcodecopy,
+    .constant_gas = opcodes.gas_constants.GasExtStep, // 20
+    .min_stack = 4,
+    .max_stack = Stack.CAPACITY,
+};
+
+const EXTCODECOPY_TANGERINE_TO_BERLIN = Operation{
+    .execute = environment.op_extcodecopy,
+    .constant_gas = 700,
+    .min_stack = 4,
+    .max_stack = Stack.CAPACITY,
+};
+
+// SLOAD variants
+const SLOAD_FRONTIER_TO_TANGERINE = Operation{
+    .execute = storage.op_sload,
+    .constant_gas = opcodes.gas_constants.SloadGas, // 50
+    .min_stack = 1,
+    .max_stack = Stack.CAPACITY,
+};
+
+const SLOAD_TANGERINE_TO_ISTANBUL = Operation{
+    .execute = storage.op_sload,
+    .constant_gas = 200,
+    .min_stack = 1,
+    .max_stack = Stack.CAPACITY,
+};
+
+const SLOAD_ISTANBUL_TO_BERLIN = Operation{
+    .execute = storage.op_sload,
+    .constant_gas = 800,
+    .min_stack = 1,
+    .max_stack = Stack.CAPACITY,
+};
+
+// CALL variants
+const CALL_FRONTIER_TO_TANGERINE = Operation{
+    .execute = system.op_call,
+    .constant_gas = opcodes.gas_constants.CallGas, // 40
+    .min_stack = 7,
+    .max_stack = Stack.CAPACITY,
+};
+
+const CALL_TANGERINE_TO_PRESENT = Operation{
+    .execute = system.op_call,
+    .constant_gas = 700,
+    .min_stack = 7,
+    .max_stack = Stack.CAPACITY,
+};
+
+// CALLCODE variants
+const CALLCODE_FRONTIER_TO_TANGERINE = Operation{
+    .execute = system.op_callcode,
+    .constant_gas = opcodes.gas_constants.CallGas, // 40
+    .min_stack = 7,
+    .max_stack = Stack.CAPACITY,
+};
+
+const CALLCODE_TANGERINE_TO_PRESENT = Operation{
+    .execute = system.op_callcode,
+    .constant_gas = 700,
+    .min_stack = 7,
+    .max_stack = Stack.CAPACITY,
+};
+
+// DELEGATECALL variants
+const DELEGATECALL_TANGERINE_TO_PRESENT = Operation{
+    .execute = system.op_delegatecall,
+    .constant_gas = 700,
+    .min_stack = 6,
+    .max_stack = Stack.CAPACITY,
+};
+
+// SELFDESTRUCT variants
+const SELFDESTRUCT_FRONTIER_TO_TANGERINE = Operation{
+    .execute = control.op_selfdestruct,
+    .constant_gas = 0,
+    .min_stack = 1,
+    .max_stack = Stack.CAPACITY,
+};
+
+const SELFDESTRUCT_TANGERINE_TO_PRESENT = Operation{
+    .execute = control.op_selfdestruct,
+    .constant_gas = 5000,
+    .min_stack = 1,
+    .max_stack = Stack.CAPACITY,
+};
+
 // Helper to convert Stack errors to ExecutionError
 inline fn stack_push(stack: *Stack, value: u256) ExecutionError.Error!void {
     return stack.append(value) catch |err| switch (err) {
@@ -1054,7 +1192,7 @@ pub fn new_frontier_instruction_set_legacy() Self {
 
     // 0x30s: Environmental Information
     jt.table[0x30] = &ADDRESS;
-    jt.table[0x31] = &BALANCE;
+    jt.table[0x31] = &BALANCE_FRONTIER_TO_TANGERINE;
     jt.table[0x32] = &ORIGIN;
     jt.table[0x33] = &CALLER;
     jt.table[0x34] = &CALLVALUE;
@@ -1064,8 +1202,8 @@ pub fn new_frontier_instruction_set_legacy() Self {
     jt.table[0x38] = &CODESIZE;
     jt.table[0x39] = &CODECOPY;
     jt.table[0x3a] = &GASPRICE;
-    jt.table[0x3b] = &EXTCODESIZE;
-    jt.table[0x3c] = &EXTCODECOPY;
+    jt.table[0x3b] = &EXTCODESIZE_FRONTIER_TO_TANGERINE;
+    jt.table[0x3c] = &EXTCODECOPY_FRONTIER_TO_TANGERINE;
 
     // 0x40s: Block Information
     jt.table[0x40] = &BLOCKHASH;
@@ -1080,7 +1218,7 @@ pub fn new_frontier_instruction_set_legacy() Self {
     jt.table[0x51] = &MLOAD;
     jt.table[0x52] = &MSTORE;
     jt.table[0x53] = &MSTORE8;
-    jt.table[0x54] = &SLOAD;
+    jt.table[0x54] = &SLOAD_FRONTIER_TO_TANGERINE;
     jt.table[0x55] = &SSTORE;
     jt.table[0x56] = &JUMP;
     jt.table[0x57] = &JUMPI;
@@ -1188,11 +1326,11 @@ pub fn new_frontier_instruction_set_legacy() Self {
 
     // 0xf0s: System operations
     jt.table[0xf0] = &CREATE;
-    jt.table[0xf1] = &CALL;
-    jt.table[0xf2] = &CALLCODE;
+    jt.table[0xf1] = &CALL_FRONTIER_TO_TANGERINE;
+    jt.table[0xf2] = &CALLCODE_FRONTIER_TO_TANGERINE;
     jt.table[0xf3] = &RETURN;
     jt.table[0xfe] = &INVALID;
-    jt.table[0xff] = &SELFDESTRUCT;
+    jt.table[0xff] = &SELFDESTRUCT_FRONTIER_TO_TANGERINE;
 
     // Fill remaining with UNDEFINED
     jt.validate();
@@ -1267,76 +1405,33 @@ pub fn init_from_hardfork(hardfork: Hardfork) Self {
 }
 
 fn apply_tangerine_whistle_gas_changes(jt: *Self) void {
-    // BALANCE: 20 -> 400
-    if (jt.table[0x31]) |op| {
-        @constCast(op).constant_gas = 400;
-    }
-    // EXTCODESIZE: 20 -> 700
-    if (jt.table[0x3b]) |op| {
-        @constCast(op).constant_gas = 700;
-    }
-    // EXTCODECOPY: 20 -> 700
-    if (jt.table[0x3c]) |op| {
-        @constCast(op).constant_gas = 700;
-    }
-    // SLOAD: 50 -> 200
-    if (jt.table[0x54]) |op| {
-        @constCast(op).constant_gas = 200;
-    }
-    // CALL/CALLCODE/DELEGATECALL: 40 -> 700
-    if (jt.table[0xf1]) |op| {
-        @constCast(op).constant_gas = 700;
-    }
-    if (jt.table[0xf2]) |op| {
-        @constCast(op).constant_gas = 700;
-    }
-    if (jt.table[0xf4]) |op| {
-        @constCast(op).constant_gas = 700;
-    }
-    // SELFDESTRUCT: 0 -> 5000
-    if (jt.table[0xff]) |op| {
-        @constCast(op).constant_gas = 5000;
-    }
+    // SAFE: Replace operations with hardfork-specific variants instead of @constCast
+    jt.table[0x31] = &BALANCE_TANGERINE_TO_ISTANBUL; // BALANCE: 20 -> 400
+    jt.table[0x3b] = &EXTCODESIZE_TANGERINE_TO_BERLIN; // EXTCODESIZE: 20 -> 700
+    jt.table[0x3c] = &EXTCODECOPY_TANGERINE_TO_BERLIN; // EXTCODECOPY: 20 -> 700
+    jt.table[0x54] = &SLOAD_TANGERINE_TO_ISTANBUL; // SLOAD: 50 -> 200
+    jt.table[0xf1] = &CALL_TANGERINE_TO_PRESENT; // CALL: 40 -> 700
+    jt.table[0xf2] = &CALLCODE_TANGERINE_TO_PRESENT; // CALLCODE: 40 -> 700
+    jt.table[0xf4] = &DELEGATECALL_TANGERINE_TO_PRESENT; // DELEGATECALL: 40 -> 700
+    jt.table[0xff] = &SELFDESTRUCT_TANGERINE_TO_PRESENT; // SELFDESTRUCT: 0 -> 5000
 }
 
 fn apply_istanbul_gas_changes(jt: *Self) void {
-    // Istanbul gas cost changes (EIP-1884)
-    // BALANCE: 400 -> 700
-    if (jt.table[0x31]) |op| {
-        @constCast(op).constant_gas = 700;
-    }
-    // SLOAD: 200 -> 800
-    if (jt.table[0x54]) |op| {
-        @constCast(op).constant_gas = 800;
-    }
+    // SAFE: Replace operations with hardfork-specific variants instead of @constCast
+    jt.table[0x31] = &BALANCE_ISTANBUL_TO_BERLIN; // BALANCE: 400 -> 700
+    jt.table[0x54] = &SLOAD_ISTANBUL_TO_BERLIN; // SLOAD: 200 -> 800
     // EXTCODEHASH gas is handled dynamically in the opcode
 }
 
 fn apply_berlin_gas_changes(jt: *Self) void {
-    // Berlin gas cost changes (EIP-2929)
-    // Note: Berlin introduces cold/warm access with dynamic gas costs
+    // SAFE: Replace operations with hardfork-specific variants instead of @constCast
+    // Berlin introduces cold/warm access with dynamic gas costs
     // These are handled in the opcode implementations rather than base gas
-    // Cold access costs:
-    // - BALANCE/EXTCODESIZE/EXTCODECOPY/EXTCODEHASH: 2600 (cold), 100 (warm)
-    // - SLOAD: 2100 (cold), 100 (warm)
-    // - CALL/CALLCODE/DELEGATECALL/STATICCALL: +2600 for cold address
-
-    // Set base gas to 0 for opcodes that now have fully dynamic gas
-    if (jt.table[0x31]) |op| { // BALANCE
-        @constCast(op).constant_gas = 0;
-    }
-    if (jt.table[0x3b]) |op| { // EXTCODESIZE
-        @constCast(op).constant_gas = 0;
-    }
-    if (jt.table[0x3c]) |op| { // EXTCODECOPY
-        @constCast(op).constant_gas = 0;
-    }
-    if (jt.table[0x3f]) |op| { // EXTCODEHASH
-        @constCast(op).constant_gas = 0;
-    }
-    if (jt.table[0x54]) |op| { // SLOAD
-        @constCast(op).constant_gas = 0;
-    }
+    jt.table[0x31] = &BALANCE_BERLIN_TO_PRESENT; // BALANCE: 700 -> 0 (dynamic)
+    jt.table[0x3b] = &EXTCODESIZE; // EXTCODESIZE: 700 -> 0 (dynamic)
+    jt.table[0x3c] = &EXTCODECOPY; // EXTCODECOPY: 700 -> 0 (dynamic)
+    jt.table[0x3f] = &EXTCODEHASH; // EXTCODEHASH: 0 -> 0 (dynamic)
+    jt.table[0x54] = &SLOAD; // SLOAD: 800 -> 0 (dynamic)
     // CALL operations keep base gas but add dynamic cold access cost
 }
 
@@ -1590,4 +1685,17 @@ test "JumpTable Cancun opcodes" {
     const tstore_op = jt_cancun.get_operation(0x5d);
     try std.testing.expectEqual(@as(u64, 100), tstore_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 2), tstore_op.min_stack);
+}
+
+test "JumpTable @constCast memory safety issue reproduction" {
+    // This test verifies that our safe hardfork-specific operation variants work correctly
+    // Previously this would segfault in CI due to @constCast modifying read-only memory
+    const jt = init_from_hardfork(.TANGERINE_WHISTLE);
+
+    // This should work without @constCast modifications
+    const balance_op = jt.get_operation(0x31); // BALANCE
+
+    // The operation should now have the correct gas cost for Tangerine Whistle (400)
+    // using our safe hardfork-specific operation variants
+    try std.testing.expectEqual(@as(u64, 400), balance_op.constant_gas);
 }
