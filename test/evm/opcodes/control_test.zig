@@ -102,29 +102,29 @@ test "Control: JUMPI conditional jump" {
     defer test_frame.deinit();
     
     // Test 1: Jump when condition is non-zero
-    // Stack order: push condition first, then destination (destination will be on top)
-    try test_frame.pushStack(&[_]u256{1, 5}); // condition=1, destination=5
+    // Stack order: push destination first, then condition (condition will be on top)
+    try test_frame.pushStack(&[_]u256{5, 1}); // destination=5, condition=1
     _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 5), test_frame.frame.pc);
     try testing.expectEqual(@as(usize, 0), test_frame.stackSize());
     
     // Test 2: No jump when condition is zero
     test_frame.frame.pc = 0; // Reset PC
-    try test_frame.pushStack(&[_]u256{0, 5}); // condition=0, destination=5
+    try test_frame.pushStack(&[_]u256{5, 0}); // destination=5, condition=0
     _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 0), test_frame.frame.pc); // PC unchanged
     try testing.expectEqual(@as(usize, 0), test_frame.stackSize());
     
     // Test 3: Invalid jump with non-zero condition
     test_frame.frame.pc = 0;
-    try test_frame.pushStack(&[_]u256{1, 3}); // condition=1, destination=3 (not JUMPDEST)
+    try test_frame.pushStack(&[_]u256{3, 1}); // destination=3 (not JUMPDEST), condition=1
     const result = helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.InvalidJump, result);
     
     // Test 4: Invalid destination is OK if condition is zero
     test_frame.frame.stack.clear();
     test_frame.frame.pc = 0;
-    try test_frame.pushStack(&[_]u256{0, 3}); // condition=0, destination=3 (invalid)
+    try test_frame.pushStack(&[_]u256{3, 0}); // destination=3 (invalid), condition=0
     _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 0), test_frame.frame.pc); // No jump occurred
 }
