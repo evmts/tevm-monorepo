@@ -71,6 +71,7 @@ export const callProcedure = (client) => async (request) => {
 				code: error.code,
 				message: error.message,
 				data: {
+					data: result.rawData,
 					errors: errors.map(({ message }) => message),
 				},
 			},
