@@ -90,6 +90,12 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
         return ExecutionError.Error.WriteProtection;
     }
 
+    // EIP-1706: Disable SSTORE with gasleft lower than call stipend (2300)
+    // This prevents reentrancy attacks by ensuring enough gas remains for exception handling
+    if (vm.chain_rules.IsIstanbul and frame.gas_remaining <= gas_constants.SstoreSentryGas) {
+        return ExecutionError.Error.OutOfGas;
+    }
+
     // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 2);
 
