@@ -52,10 +52,10 @@ pub fn op_jumpi(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // EVM spec: JUMPI pops condition first (from top), then destination
-    // Stack: [... destination condition] -> condition is popped first (was on top)
-    const condition = try stack_pop(&frame.stack);
+    // EVM spec: JUMPI pops destination first (from top), then condition
+    // Stack: [... condition destination] -> destination is popped first (was on top)
     const dest = try stack_pop(&frame.stack);
+    const condition = try stack_pop(&frame.stack);
 
     if (condition != 0) {
         // Check if destination is a valid JUMPDEST (pass u256 directly)
