@@ -6,6 +6,7 @@ const test_helpers = @import("test_helpers.zig");
 const ExecutionError = evm.ExecutionError;
 
 // Test SLOAD operation
+// WORKING ON THIS TEST - Agent fixing SLOAD gas calculation issue
 test "SLOAD: load value from storage" {
     const allocator = testing.allocator;
     
@@ -65,6 +66,7 @@ test "SLOAD: load from uninitialized slot returns zero" {
     try testing.expectEqual(@as(u256, 0), try test_frame.popStack());
 }
 
+// WORKING ON THIS TEST - Agent fixing SLOAD gas calculation issue
 test "SLOAD: cold storage access costs more gas" {
     const allocator = testing.allocator;
     
