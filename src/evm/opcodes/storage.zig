@@ -53,8 +53,8 @@ pub fn op_sload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 1);
 
-    // Pop slot unsafely - bounds checking is done in jump_table.zig
-    const slot = frame.stack.pop_unsafe();
+    // Get slot from top of stack unsafely - bounds checking is done in jump_table.zig
+    const slot = frame.stack.peek_unsafe().*;
 
     // Check if we're in Berlin or later for cold/warm access logic
     if (vm.chain_rules.IsBerlin) {
@@ -73,8 +73,8 @@ pub fn op_sload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     const value = try error_mapping.vm_get_storage(vm, frame.contract.address, slot);
 
-    // Push result unsafely - bounds checking is done in jump_table.zig
-    frame.stack.append_unsafe(value);
+    // Replace top of stack with loaded value unsafely - bounds checking is done in jump_table.zig
+    frame.stack.set_top_unsafe(value);
 
     return Operation.ExecutionResult{};
 }
@@ -90,8 +90,14 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
         return ExecutionError.Error.WriteProtection;
     }
 
-    const slot = try stack_pop(&frame.stack);
-    const value = try stack_pop(&frame.stack);
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size >= 2);
+
+    // Pop two values unsafely using batch operation - bounds checking is done in jump_table.zig
+    // Stack order: [..., value, slot] where slot is on top
+    const popped = frame.stack.pop2_unsafe();
+    const value = popped.a; // First popped (was second from top)
+    const slot = popped.b;  // Second popped (was top)
 
     // Get current value first to calculate gas properly
     const current_value = try error_mapping.vm_get_storage(vm, frame.contract.address, slot);
@@ -133,11 +139,16 @@ pub fn op_tload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     // Gas is already handled by jump table constant_gas = 100
 
-    const slot = try stack_pop(&frame.stack);
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size >= 1);
+
+    // Get slot from top of stack unsafely - bounds checking is done in jump_table.zig
+    const slot = frame.stack.peek_unsafe().*;
 
     const value = try error_mapping.vm_get_transient_storage(vm, frame.contract.address, slot);
 
-    try stack_push(&frame.stack, value);
+    // Replace top of stack with loaded value unsafely - bounds checking is done in jump_table.zig
+    frame.stack.set_top_unsafe(value);
 
     return Operation.ExecutionResult{};
 }
@@ -154,8 +165,14 @@ pub fn op_tstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     // Gas is already handled by jump table constant_gas = 100
 
-    const slot = try stack_pop(&frame.stack);
-    const value = try stack_pop(&frame.stack);
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size >= 2);
+
+    // Pop two values unsafely using batch operation - bounds checking is done in jump_table.zig
+    // Stack order: [..., value, slot] where slot is on top
+    const popped = frame.stack.pop2_unsafe();
+    const value = popped.a; // First popped (was second from top)
+    const slot = popped.b;  // Second popped (was top)
 
     try error_mapping.vm_set_transient_storage(vm, frame.contract.address, slot, value);
 

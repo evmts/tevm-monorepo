@@ -31,7 +31,7 @@ pub fn append(self: *Self, value: u256) Error!void {
     self.size += 1;
 }
 
-pub fn append_unsafe(self: *Self, value: u256) void {
+pub inline fn append_unsafe(self: *Self, value: u256) void {
     self.data[self.size] = value;
     self.size += 1;
 }
@@ -48,7 +48,7 @@ pub fn pop(self: *Self) Error!u256 {
     return value;
 }
 
-pub fn pop_unsafe(self: *Self) u256 {
+pub inline fn pop_unsafe(self: *Self) u256 {
     self.size -= 1;
     const value = self.data[self.size];
     self.data[self.size] = 0;
@@ -64,7 +64,7 @@ pub fn peek(self: *const Self) Error!*const u256 {
     return &self.data[self.size - 1];
 }
 
-pub fn peek_unsafe(self: *const Self) *const u256 {
+pub inline fn peek_unsafe(self: *const Self) *const u256 {
     return &self.data[self.size - 1];
 }
 
@@ -93,7 +93,7 @@ pub fn back(self: *const Self, n: usize) Error!u256 {
     return self.data[self.size - n - 1];
 }
 
-pub fn back_unsafe(self: *const Self, n: usize) u256 {
+pub inline fn back_unsafe(self: *const Self, n: usize) u256 {
     return self.data[self.size - n - 1];
 }
 
@@ -110,7 +110,7 @@ pub fn peekN(self: *const Self, n: usize) Error!u256 {
     return self.peek_n(n);
 }
 
-pub fn peek_n_unsafe(self: *const Self, n: usize) Error!u256 {
+pub inline fn peek_n_unsafe(self: *const Self, n: usize) Error!u256 {
     return self.data[self.size - n - 1];
 }
 
@@ -120,7 +120,7 @@ pub fn swap(self: *Self, n: usize) Error!void {
     std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - n - 1]);
 }
 
-pub fn swap_unsafe(self: *Self, n: usize) Error!void {
+pub inline fn swap_unsafe(self: *Self, n: usize) Error!void {
     std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - n - 1]);
 }
 
@@ -140,7 +140,7 @@ pub fn swapN(self: *Self, n: usize) Error!void {
     return self.swap(n);
 }
 
-pub fn swap_n_unsafe(self: *Self, comptime N: usize) void {
+pub inline fn swap_n_unsafe(self: *Self, comptime N: usize) void {
     if (N == 0 or N > 16) @compileError("Invalid swap position");
     @setRuntimeSafety(false);
     // Unsafe: No bounds checking - caller must ensure self.size > N
@@ -164,7 +164,7 @@ pub fn dup(self: *Self, n: usize) Error!void {
     try self.append(self.data[self.size - n]);
 }
 
-pub fn dup_unsafe(self: *Self, n: usize) void {
+pub inline fn dup_unsafe(self: *Self, n: usize) void {
     self.append_unsafe(self.data[self.size - n]);
 }
 
@@ -183,7 +183,7 @@ pub fn dupN(self: *Self, n: usize) Error!void {
     return self.dup(n);
 }
 
-pub fn dup_n_unsafe(self: *Self, comptime N: usize) void {
+pub inline fn dup_n_unsafe(self: *Self, comptime N: usize) void {
     if (N == 0 or N > 16) @compileError("Invalid dup position");
     @setRuntimeSafety(false);
     // Unsafe: No bounds checking - caller must ensure N <= self.size and self.size < CAPACITY
@@ -319,7 +319,7 @@ pub fn pop2_push1(self: *Self, result: u256) Error!struct { a: u256, b: u256 } {
 }
 
 /// Pop 2 values and push 1 result (unsafe version for hot paths)
-pub fn pop2_push1_unsafe(self: *Self, result: u256) struct { a: u256, b: u256 } {
+pub inline fn pop2_push1_unsafe(self: *Self, result: u256) struct { a: u256, b: u256 } {
     @setRuntimeSafety(false);
 
     self.size -= 2;
@@ -348,7 +348,7 @@ pub fn pop3_push1(self: *Self, result: u256) Error!struct { a: u256, b: u256, c:
 }
 
 /// Pop 3 values and push 1 result (unsafe version)
-pub fn pop3_push1_unsafe(self: *Self, result: u256) struct { a: u256, b: u256, c: u256 } {
+pub inline fn pop3_push1_unsafe(self: *Self, result: u256) struct { a: u256, b: u256, c: u256 } {
     @setRuntimeSafety(false);
 
     self.size -= 3;
@@ -373,7 +373,7 @@ pub fn pop1_push1(self: *Self, result: u256) Error!u256 {
 }
 
 /// Pop 1 value and push 1 result (unsafe version)
-pub fn pop1_push1_unsafe(self: *Self, result: u256) u256 {
+pub inline fn pop1_push1_unsafe(self: *Self, result: u256) u256 {
     @setRuntimeSafety(false);
 
     const value = self.data[self.size - 1];
@@ -394,7 +394,7 @@ pub fn pop2(self: *Self) Error!struct { a: u256, b: u256 } {
 }
 
 /// Pop 2 values without pushing (unsafe version)
-pub fn pop2_unsafe(self: *Self) struct { a: u256, b: u256 } {
+pub inline fn pop2_unsafe(self: *Self) struct { a: u256, b: u256 } {
     @setRuntimeSafety(false);
 
     self.size -= 2;
@@ -444,9 +444,15 @@ pub fn peek_multiple(self: *const Self, comptime N: usize) Error![N]u256 {
     return result;
 }
 
-pub fn set_top_unsafe(self: *Self, value: u256) void {
+pub inline fn set_top_unsafe(self: *Self, value: u256) void {
     // @setRuntimeSafety(false); // Removed as per user feedback
     // Assumes stack is not empty; this should be guaranteed by jump_table validation
     // for opcodes that use this pattern (e.g., after a pop and peek on a stack with >= 2 items).
     self.data[self.size - 1] = value;
+}
+
+pub inline fn set_top_two_unsafe(self: *Self, top: u256, second: u256) void {
+    // Assumes stack has at least 2 elements; this should be guaranteed by jump_table validation
+    self.data[self.size - 1] = top;
+    self.data[self.size - 2] = second;
 }
