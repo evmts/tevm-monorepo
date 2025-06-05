@@ -49,13 +49,15 @@ test "Integration: Conditional jump patterns" {
 
     // Test 1: Jump when condition is true
     test_frame.frame.pc = 0;
-    try test_frame.pushStack(&[_]u256{ 10, 1 }); // destination, condition (true)
+    // JUMPI expects stack: [condition, destination] with destination on top
+    try test_frame.pushStack(&[_]u256{ 1, 10 }); // condition=1, destination=10
     _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 10), test_frame.frame.pc);
 
     // Test 2: Don't jump when condition is false
     test_frame.frame.pc = 0;
-    try test_frame.pushStack(&[_]u256{ 20, 0 }); // destination, condition (false)
+    // JUMPI expects stack: [condition, destination] with destination on top
+    try test_frame.pushStack(&[_]u256{ 0, 20 }); // condition=0, destination=20
     _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 0), test_frame.frame.pc); // PC unchanged
 
@@ -64,11 +66,11 @@ test "Integration: Conditional jump patterns" {
 
     // Calculate condition: 5 > 3
     try test_frame.pushStack(&[_]u256{ 5, 3 });
-    _ = try helpers.executeOpcode(0x11, &test_vm.vm, test_frame.frame); // Result: 1
+    _ = try helpers.executeOpcode(0x11, &test_vm.vm, test_frame.frame); // GT Result: 1, Stack: [1]
 
-    // Push destination
-    try test_frame.pushStack(&[_]u256{30});
-    _ = try helpers.executeOpcode(0x90, &test_vm.vm, test_frame.frame); // Swap to get [dest, cond]
+    // Push destination (30) on top of condition
+    try test_frame.pushStack(&[_]u256{30}); // Stack: [1, 30] with 30 on top
+    // Now stack is [condition=1, destination=30] which is correct for JUMPI
 
     _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 30), test_frame.frame.pc);

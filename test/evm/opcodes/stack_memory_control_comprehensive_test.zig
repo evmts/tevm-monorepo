@@ -368,26 +368,26 @@ test "JUMPI (0x57): Conditional jump" {
     defer test_frame.deinit();
     
     // Test 1: Jump with non-zero condition
-    try test_frame.pushStack(&[_]u256{8, 1}); // dest, condition (condition on top)
+    try test_frame.pushStack(&[_]u256{1, 8}); // condition, dest (dest on top)
     _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 8), test_frame.frame.pc);
     
     // Test 2: No jump with zero condition
     test_frame.frame.pc = 0;
-    try test_frame.pushStack(&[_]u256{8, 0}); // dest, condition (zero)
+    try test_frame.pushStack(&[_]u256{0, 8}); // condition, dest (zero condition)
     const pc_before = test_frame.frame.pc;
     _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(pc_before, test_frame.frame.pc); // PC unchanged
     
     // Test 3: Jump with large non-zero condition
     test_frame.frame.pc = 0;
-    try test_frame.pushStack(&[_]u256{8, std.math.maxInt(u256)}); // dest, large condition
+    try test_frame.pushStack(&[_]u256{std.math.maxInt(u256), 8}); // large condition, dest
     _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 8), test_frame.frame.pc);
     
     // Test 4: Invalid jump destination with non-zero condition
     test_frame.frame.pc = 0;
-    try test_frame.pushStack(&[_]u256{3, 1}); // invalid dest, non-zero condition
+    try test_frame.pushStack(&[_]u256{1, 3}); // non-zero condition, invalid dest
     const result = helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.InvalidJump, result);
 }
