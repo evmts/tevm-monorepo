@@ -196,7 +196,8 @@ fn ensure_analysis(self: *Self) void {
 /// Check if position is code (not data)
 pub inline fn is_code(self: *const Self, pos: u64) bool {
     if (self.analysis) |analysis| {
-        return analysis.code_segments.is_set(pos);
+        // We know pos is within bounds if analysis exists, so use unchecked version
+        return analysis.code_segments.is_set_unchecked(pos);
     }
     return true; // Assume code if not analyzed
 }
@@ -416,7 +417,7 @@ pub fn analyze_code(code: []const u8, code_hash: [32]u8) CodeAnalysisError!*cons
     };
 
     // Analyze code segments
-    analysis.code_segments = bitvec.code_bitmap(code);
+    analysis.code_segments = bitvec.code_bitmap_fallback(code);
 
     // Find and sort JUMPDEST positions
     var jumpdests = std.ArrayList(u32).init(allocator);
@@ -426,7 +427,7 @@ pub fn analyze_code(code: []const u8, code_hash: [32]u8) CodeAnalysisError!*cons
     while (i < code.len) {
         const op = code[i];
 
-        if (op == constants.JUMPDEST and analysis.code_segments.is_set(i)) {
+        if (op == constants.JUMPDEST and analysis.code_segments.is_set_unchecked(i)) {
             jumpdests.append(@as(u32, @intCast(i))) catch |err| {
                 std.log.debug("Failed to append jumpdest position {d}: {any}", .{ i, err });
                 return err;
