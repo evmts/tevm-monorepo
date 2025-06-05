@@ -12,6 +12,9 @@ pub const ArenaMemory = struct {
         NoActiveContext,
     };
 
+    /// Error union for operations that may involve allocator errors
+    pub const ArenaOperationError = MemoryError || std.mem.Allocator.Error;
+
     pub const Context = struct {
         start_offset: usize,
         size: usize,
@@ -27,7 +30,7 @@ pub const ArenaMemory = struct {
     pub const DefaultMemoryLimit: u64 = 32 * 1024 * 1024; // 32MB
 
     /// Initialize a new ArenaMemory
-    pub fn init(allocator: std.mem.Allocator, memory_limit: u64) !Self {
+    pub fn init(allocator: std.mem.Allocator, memory_limit: u64) ArenaOperationError!Self {
         var arena = std.heap.ArenaAllocator.init(allocator);
         errdefer arena.deinit();
 
@@ -38,11 +41,16 @@ pub const ArenaMemory = struct {
         errdefer contexts.deinit();
 
         // Create root context
-        try contexts.append(Context{
+        contexts.append(Context{
             .start_offset = 0,
             .size = 0,
             .parent = null,
-        });
+        }) catch |err| {
+            std.log.debug("Failed to append root context: {any}", .{err});
+            return switch (err) {
+                std.mem.Allocator.Error.OutOfMemory => MemoryError.OutOfMemory,
+            };
+        };
 
         return Self{
             .arena = arena,
@@ -59,36 +67,44 @@ pub const ArenaMemory = struct {
     }
 
     /// Get the current context
-    fn current_context(self: *Self) !*Context {
+    fn current_context(self: *Self) MemoryError!*Context {
         if (self.contexts.items.len == 0) {
+            std.log.debug("No active context available", .{});
             return MemoryError.NoActiveContext;
         }
         return &self.contexts.items[self.contexts.items.len - 1];
     }
 
     /// Get the current context (const)
-    fn current_context_const(self: *const Self) !Context {
+    fn current_context_const(self: *const Self) MemoryError!Context {
         if (self.contexts.items.len == 0) {
+            std.log.debug("No active context available (const)", .{});
             return MemoryError.NoActiveContext;
         }
         return self.contexts.items[self.contexts.items.len - 1];
     }
 
     /// Push a new context for a child call
-    pub fn push_context(self: *Self) !void {
+    pub fn push_context(self: *Self) ArenaOperationError!void {
         const parent_idx = self.contexts.items.len - 1;
         const new_start = self.buffer.items.len;
 
-        try self.contexts.append(Context{
+        self.contexts.append(Context{
             .start_offset = new_start,
             .size = 0,
             .parent = parent_idx,
-        });
+        }) catch |err| {
+            std.log.debug("Failed to push new context: {any}", .{err});
+            return switch (err) {
+                std.mem.Allocator.Error.OutOfMemory => MemoryError.OutOfMemory,
+            };
+        };
     }
 
     /// Pop the current context and revert changes
-    pub fn pop_context(self: *Self) !void {
+    pub fn pop_context(self: *Self) MemoryError!void {
         if (self.contexts.items.len <= 1) {
+            std.log.debug("Cannot pop root context", .{});
             return MemoryError.NoActiveContext; // Can't pop root
         }
 
@@ -99,14 +115,18 @@ pub const ArenaMemory = struct {
     }
 
     /// Commit the current context changes to parent
-    pub fn commit_context(self: *Self) !void {
+    pub fn commit_context(self: *Self) MemoryError!void {
         if (self.contexts.items.len <= 1) {
+            std.log.debug("Cannot commit root context", .{});
             return MemoryError.NoActiveContext; // Can't commit root
         }
 
         const child_opt = self.contexts.pop();
         const child = child_opt.?;
-        var parent = try self.current_context();
+        var parent = self.current_context() catch |err| {
+            std.log.debug("Failed to get parent context for commit: {any}", .{err});
+            return err;
+        };
 
         const child_end = child.start_offset + child.size;
         const parent_end = parent.start_offset + parent.size;
@@ -123,8 +143,11 @@ pub const ArenaMemory = struct {
     }
 
     /// Resize the current context
-    pub fn resize_context(self: *Self, new_size: usize) !void {
-        var ctx = try self.current_context();
+    pub fn resize_context(self: *Self, new_size: usize) ArenaOperationError!void {
+        var ctx = self.current_context() catch |err| {
+            std.log.debug("Failed to get current context for resize: {any}", .{err});
+            return err;
+        };
         const old_size = ctx.size;
 
         if (new_size == old_size) return;
@@ -132,6 +155,7 @@ pub const ArenaMemory = struct {
         // Check memory limit
         const size_change = if (new_size > old_size) new_size - old_size else 0;
         if (self.total_allocated + size_change > self.memory_limit) {
+            std.log.debug("Memory limit exceeded: current {d} + change {d} > limit {d}", .{ self.total_allocated, size_change, self.memory_limit });
             return MemoryError.MemoryLimitExceeded;
         }
 
@@ -142,7 +166,12 @@ pub const ArenaMemory = struct {
         if (ctx_end > buffer_end) {
             // Need to grow buffer
             const old_len = self.buffer.items.len;
-            try self.buffer.resize(ctx_end);
+            self.buffer.resize(ctx_end) catch |err| {
+                std.log.debug("Failed to resize buffer from {d} to {d}: {any}", .{ old_len, ctx_end, err });
+                return switch (err) {
+                    std.mem.Allocator.Error.OutOfMemory => MemoryError.OutOfMemory,
+                };
+            };
             // Zero initialize new memory
             @memset(self.buffer.items[old_len..ctx_end], 0);
         }
@@ -157,8 +186,11 @@ pub const ArenaMemory = struct {
     }
 
     /// Ensure capacity for the current context
-    pub fn ensure_context_capacity(self: *Self, min_size: usize) !u64 {
-        const ctx = try self.current_context_const();
+    pub fn ensure_context_capacity(self: *Self, min_size: usize) ArenaOperationError!u64 {
+        const ctx = self.current_context_const() catch |err| {
+            std.log.debug("Failed to get current context for capacity check: {any}", .{err});
+            return err;
+        };
         const old_logical_size_for_context = ctx.size;
 
         // Calculate gas based on highest word accessed *before* this operation
@@ -180,7 +212,10 @@ pub const ArenaMemory = struct {
         if (min_size > old_logical_size_for_context) {
             // This will update ctx.size to min_size (logical)
             // and ensure the physical buffer can hold up to ctx.start_offset + min_size.
-            try self.resize_context(min_size);
+            self.resize_context(min_size) catch |err| {
+                std.log.debug("Failed to resize context to {d}: {any}", .{ min_size, err });
+                return err;
+            };
         }
         // If min_size <= old_logical_size_for_context, no logical expansion of this context is needed.
         // The physical buffer is assumed to be large enough to cover old_logical_size_for_context from previous operations.
@@ -194,17 +229,25 @@ pub const ArenaMemory = struct {
     }
 
     /// Read operations
-    pub fn get_byte(self: *const Self, offset: usize) !u8 {
-        const ctx = try self.current_context_const();
+    pub fn get_byte(self: *const Self, offset: usize) MemoryError!u8 {
+        const ctx = self.current_context_const() catch |err| {
+            std.log.debug("Failed to get current context for byte read: {any}", .{err});
+            return err;
+        };
         if (offset >= ctx.size) {
+            std.log.debug("Byte read out of bounds: offset {d} >= size {d}", .{ offset, ctx.size });
             return MemoryError.InvalidOffset;
         }
         return self.buffer.items[ctx.start_offset + offset];
     }
 
-    pub fn get_word(self: *const Self, offset: usize) ![32]u8 {
-        const ctx = try self.current_context_const();
+    pub fn get_word(self: *const Self, offset: usize) MemoryError![32]u8 {
+        const ctx = self.current_context_const() catch |err| {
+            std.log.debug("Failed to get current context for word read: {any}", .{err});
+            return err;
+        };
         if (offset + 32 > ctx.size) {
+            std.log.debug("Word read out of bounds: offset {d} + 32 > size {d}", .{ offset, ctx.size });
             return MemoryError.InvalidOffset;
         }
 
@@ -214,12 +257,19 @@ pub const ArenaMemory = struct {
         return word;
     }
 
-    pub fn get_slice(self: *const Self, offset: usize, len: usize) ![]const u8 {
+    pub fn get_slice(self: *const Self, offset: usize, len: usize) MemoryError![]const u8 {
         if (len == 0) return &[_]u8{};
 
-        const ctx = try self.current_context_const();
-        const end = std.math.add(usize, offset, len) catch return MemoryError.InvalidSize;
+        const ctx = self.current_context_const() catch |err| {
+            std.log.debug("Failed to get current context for slice read: {any}", .{err});
+            return err;
+        };
+        const end = std.math.add(usize, offset, len) catch {
+            std.log.debug("Slice read size overflow: offset {d} + len {d}", .{ offset, len });
+            return MemoryError.InvalidSize;
+        };
         if (end > ctx.size) {
+            std.log.debug("Slice read out of bounds: end {d} > size {d}", .{ end, ctx.size });
             return MemoryError.InvalidOffset;
         }
 
@@ -227,8 +277,11 @@ pub const ArenaMemory = struct {
         return self.buffer.items[abs_offset .. abs_offset + len];
     }
 
-    pub fn get_u256(self: *const Self, offset: usize) !u256 {
-        const word = try self.get_word(offset);
+    pub fn get_u256(self: *const Self, offset: usize) MemoryError!u256 {
+        const word = self.get_word(offset) catch |err| {
+            std.log.debug("Failed to get word for u256 at offset {d}: {any}", .{ offset, err });
+            return err;
+        };
         var value: u256 = 0;
         for (word) |byte| {
             value = (value << 8) | byte;
@@ -237,31 +290,52 @@ pub const ArenaMemory = struct {
     }
 
     /// Write operations
-    pub fn set_byte(self: *Self, offset: usize, value: u8) !void {
-        _ = try self.ensure_context_capacity(offset + 1);
-        const ctx = try self.current_context_const();
+    pub fn set_byte(self: *Self, offset: usize, value: u8) ArenaOperationError!void {
+        _ = self.ensure_context_capacity(offset + 1) catch |err| {
+            std.log.debug("Failed to ensure capacity for byte write at offset {d}: {any}", .{ offset, err });
+            return err;
+        };
+        const ctx = self.current_context_const() catch |err| {
+            std.log.debug("Failed to get current context for byte write: {any}", .{err});
+            return err;
+        };
         self.buffer.items[ctx.start_offset + offset] = value;
     }
 
-    pub fn set_word(self: *Self, offset: usize, value: [32]u8) !void {
-        _ = try self.ensure_context_capacity(offset + 32);
-        const ctx = try self.current_context_const();
+    pub fn set_word(self: *Self, offset: usize, value: [32]u8) ArenaOperationError!void {
+        _ = self.ensure_context_capacity(offset + 32) catch |err| {
+            std.log.debug("Failed to ensure capacity for word write at offset {d}: {any}", .{ offset, err });
+            return err;
+        };
+        const ctx = self.current_context_const() catch |err| {
+            std.log.debug("Failed to get current context for word write: {any}", .{err});
+            return err;
+        };
         const abs_offset = ctx.start_offset + offset;
         @memcpy(self.buffer.items[abs_offset .. abs_offset + 32], &value);
     }
 
-    pub fn set_data(self: *Self, offset: usize, data: []const u8) !void {
+    pub fn set_data(self: *Self, offset: usize, data: []const u8) ArenaOperationError!void {
         if (data.len == 0) return;
 
-        const end = std.math.add(usize, offset, data.len) catch return MemoryError.InvalidSize;
-        _ = try self.ensure_context_capacity(end);
+        const end = std.math.add(usize, offset, data.len) catch {
+            std.log.debug("Data write size overflow: offset {d} + len {d}", .{ offset, data.len });
+            return MemoryError.InvalidSize;
+        };
+        _ = self.ensure_context_capacity(end) catch |err| {
+            std.log.debug("Failed to ensure capacity for data write at offset {d}, len {d}: {any}", .{ offset, data.len, err });
+            return err;
+        };
 
-        const ctx = try self.current_context_const();
+        const ctx = self.current_context_const() catch |err| {
+            std.log.debug("Failed to get current context for data write: {any}", .{err});
+            return err;
+        };
         const abs_offset = ctx.start_offset + offset;
         @memcpy(self.buffer.items[abs_offset .. abs_offset + data.len], data);
     }
 
-    pub fn set_u256(self: *Self, offset: usize, value: u256) !void {
+    pub fn set_u256(self: *Self, offset: usize, value: u256) ArenaOperationError!void {
         var word: [32]u8 = [_]u8{0} ** 32;
         var v = value;
         var i: usize = 31;
@@ -270,7 +344,10 @@ pub const ArenaMemory = struct {
             v >>= 8;
             if (i == 0) break;
         }
-        try self.set_word(offset, word);
+        self.set_word(offset, word) catch |err| {
+            std.log.debug("Failed to set word for u256 at offset {d}: {any}", .{ offset, err });
+            return err;
+        };
     }
 
     pub fn set_data_bounded(
@@ -279,13 +356,22 @@ pub const ArenaMemory = struct {
         data: []const u8,
         data_offset: usize,
         len: usize,
-    ) !void {
+    ) ArenaOperationError!void {
         if (len == 0) return;
 
-        const end = std.math.add(usize, memory_offset, len) catch return MemoryError.InvalidSize;
-        _ = try self.ensure_context_capacity(end);
+        const end = std.math.add(usize, memory_offset, len) catch {
+            std.log.debug("Bounded data write size overflow: memory_offset {d} + len {d}", .{ memory_offset, len });
+            return MemoryError.InvalidSize;
+        };
+        _ = self.ensure_context_capacity(end) catch |err| {
+            std.log.debug("Failed to ensure capacity for bounded data write: {any}", .{err});
+            return err;
+        };
 
-        const ctx = try self.current_context_const();
+        const ctx = self.current_context_const() catch |err| {
+            std.log.debug("Failed to get current context for bounded data write: {any}", .{err});
+            return err;
+        };
         const abs_offset = ctx.start_offset + memory_offset;
 
         // Calculate how much we can actually copy
@@ -303,19 +389,32 @@ pub const ArenaMemory = struct {
     }
 
     /// Copy within current context
-    pub fn copy(self: *Self, dst_offset: usize, src_offset: usize, len: usize) !void {
+    pub fn copy(self: *Self, dst_offset: usize, src_offset: usize, len: usize) ArenaOperationError!void {
         if (len == 0) return;
 
-        const src_end = std.math.add(usize, src_offset, len) catch return MemoryError.InvalidSize;
-        const dst_end = std.math.add(usize, dst_offset, len) catch return MemoryError.InvalidSize;
+        const src_end = std.math.add(usize, src_offset, len) catch {
+            std.log.debug("Copy src size overflow: src_offset {d} + len {d}", .{ src_offset, len });
+            return MemoryError.InvalidSize;
+        };
+        const dst_end = std.math.add(usize, dst_offset, len) catch {
+            std.log.debug("Copy dst size overflow: dst_offset {d} + len {d}", .{ dst_offset, len });
+            return MemoryError.InvalidSize;
+        };
 
         // Ensure destination has capacity
-        _ = try self.ensure_context_capacity(dst_end);
+        _ = self.ensure_context_capacity(dst_end) catch |err| {
+            std.log.debug("Failed to ensure capacity for copy destination: {any}", .{err});
+            return err;
+        };
 
-        const ctx = try self.current_context_const();
+        const ctx = self.current_context_const() catch |err| {
+            std.log.debug("Failed to get current context for copy: {any}", .{err});
+            return err;
+        };
 
         // Source must be within current size
         if (src_end > ctx.size) {
+            std.log.debug("Copy source out of bounds: src_end {d} > size {d}", .{ src_end, ctx.size });
             return MemoryError.InvalidOffset;
         }
 
@@ -332,18 +431,37 @@ pub const ArenaMemory = struct {
     }
 
     /// Get hex representation (for debugging)
-    pub fn to_hex(self: *const Self, allocator: std.mem.Allocator) ![]u8 {
-        const ctx = try self.current_context_const();
+    pub fn to_hex(self: *const Self, allocator: std.mem.Allocator) ArenaOperationError![]u8 {
+        const ctx = self.current_context_const() catch |err| {
+            std.log.debug("Failed to get current context for hex conversion: {any}", .{err});
+            return err;
+        };
         if (ctx.size == 0) {
-            return allocator.alloc(u8, 0);
+            return allocator.alloc(u8, 0) catch |err| {
+                std.log.debug("Failed to allocate empty hex string: {any}", .{err});
+                return switch (err) {
+                    std.mem.Allocator.Error.OutOfMemory => MemoryError.OutOfMemory,
+                };
+            };
         }
 
         const hex_len = ctx.size * 2;
-        const hex = try allocator.alloc(u8, hex_len);
+        const hex = allocator.alloc(u8, hex_len) catch |err| {
+            std.log.debug("Failed to allocate hex string of length {d}: {any}", .{ hex_len, err });
+            return switch (err) {
+                std.mem.Allocator.Error.OutOfMemory => MemoryError.OutOfMemory,
+            };
+        };
 
         const abs_start = ctx.start_offset;
         const abs_end = abs_start + ctx.size;
-        _ = try std.fmt.bufPrint(hex, "{x}", .{std.fmt.fmtSliceHexLower(self.buffer.items[abs_start..abs_end])});
+        _ = std.fmt.bufPrint(hex, "{x}", .{std.fmt.fmtSliceHexLower(self.buffer.items[abs_start..abs_end])}) catch |err| {
+            std.log.debug("Failed to format hex string: {any}", .{err});
+            allocator.free(hex);
+            return switch (err) {
+                error.NoSpaceLeft => MemoryError.InvalidSize,
+            };
+        };
 
         return hex;
     }

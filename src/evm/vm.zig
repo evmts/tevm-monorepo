@@ -13,6 +13,19 @@ const Keccak256 = std.crypto.hash.sha3.Keccak256;
 const ChainRules = @import("chain_rules.zig");
 const gas_constants = @import("gas_constants.zig");
 
+// Error types for VM operations
+pub const VmError = ExecutionError.Error || std.mem.Allocator.Error || Frame.FrameError;
+pub const VmStorageError = std.mem.Allocator.Error;
+pub const VmStateError = ExecutionError.Error;
+pub const VmInitError = std.mem.Allocator.Error;
+pub const VmInterpretError = ExecutionError.Error || Frame.FrameError;
+pub const VmAccessListError = error{
+    OutOfMemory,
+    InvalidAddress,
+    InvalidSlot,
+};
+pub const VmAddressCalculationError = std.mem.Allocator.Error;
+
 // Log struct for EVM event logs (LOG0-LOG4 opcodes)
 pub const Log = struct {
     address: Address.Address,
@@ -66,7 +79,7 @@ create_result: ?CreateResult = null,
 pub const StorageKey = struct {
     address: Address.Address,
     slot: u256,
-    
+
     pub fn hash(self: StorageKey, hasher: anytype) void {
         // Hash the address bytes
         hasher.update(&self.address);
@@ -75,17 +88,20 @@ pub const StorageKey = struct {
         std.mem.writeInt(u256, &slot_bytes, self.slot, .big);
         hasher.update(&slot_bytes);
     }
-    
+
     pub fn eql(a: StorageKey, b: StorageKey) bool {
         return std.mem.eql(u8, &a.address, &b.address) and a.slot == b.slot;
     }
 };
 
-pub fn init(allocator: std.mem.Allocator) !Self {
-    return init_with_hardfork(allocator, .CANCUN);
+pub fn init(allocator: std.mem.Allocator) VmInitError!Self {
+    return init_with_hardfork(allocator, .CANCUN) catch |err| {
+        std.log.debug("Failed to initialize VM with default hardfork: {any}", .{err});
+        return err;
+    };
 }
 
-pub fn init_with_hardfork(allocator: std.mem.Allocator, hardfork: @import("hardfork.zig").Hardfork) !Self {
+pub fn init_with_hardfork(allocator: std.mem.Allocator, hardfork: @import("hardfork.zig").Hardfork) VmInitError!Self {
     var storage = std.AutoHashMap(StorageKey, u256).init(allocator);
     errdefer storage.deinit();
 
@@ -139,35 +155,47 @@ pub fn deinit(self: *Self) void {
 }
 
 // Storage methods
-pub fn get_storage(self: *Self, address: Address.Address, slot: u256) !u256 {
+pub fn get_storage(self: *Self, address: Address.Address, slot: u256) VmStorageError!u256 {
     const key = StorageKey{ .address = address, .slot = slot };
     return self.storage.get(key) orelse 0;
 }
 
-pub fn set_storage(self: *Self, address: Address.Address, slot: u256, value: u256) !void {
+pub fn set_storage(self: *Self, address: Address.Address, slot: u256, value: u256) VmStorageError!void {
     const key = StorageKey{ .address = address, .slot = slot };
-    try self.storage.put(key, value);
+    self.storage.put(key, value) catch |err| {
+        std.log.debug("Failed to set storage for address 0x{x}, slot {d}: {any}", .{ Address.to_u256(address), slot, err });
+        return err;
+    };
 }
 
-pub fn get_transient_storage(self: *Self, address: Address.Address, slot: u256) !u256 {
+pub fn get_transient_storage(self: *Self, address: Address.Address, slot: u256) VmStorageError!u256 {
     const key = StorageKey{ .address = address, .slot = slot };
     return self.transient_storage.get(key) orelse 0;
 }
 
-pub fn set_transient_storage(self: *Self, address: Address.Address, slot: u256, value: u256) !void {
+pub fn set_transient_storage(self: *Self, address: Address.Address, slot: u256, value: u256) VmStorageError!void {
     const key = StorageKey{ .address = address, .slot = slot };
-    try self.transient_storage.put(key, value);
+    self.transient_storage.put(key, value) catch |err| {
+        std.log.debug("Failed to set transient storage for address 0x{x}, slot {d}: {any}", .{ Address.to_u256(address), slot, err });
+        return err;
+    };
 }
 
-pub fn interpret(self: *Self, contract: *Contract, input: []const u8) ![]const u8 {
-    return self.interpret_with_context(contract, input, false);
+pub fn interpret(self: *Self, contract: *Contract, input: []const u8) VmInterpretError![]const u8 {
+    return self.interpret_with_context(contract, input, false) catch |err| {
+        std.log.debug("Failed to interpret contract: {any}", .{err});
+        return err;
+    };
 }
 
-pub fn interpret_static(self: *Self, contract: *Contract, input: []const u8) ![]const u8 {
-    return self.interpret_with_context(contract, input, true);
+pub fn interpret_static(self: *Self, contract: *Contract, input: []const u8) VmInterpretError![]const u8 {
+    return self.interpret_with_context(contract, input, true) catch |err| {
+        std.log.debug("Failed to interpret contract in static context: {any}", .{err});
+        return err;
+    };
 }
 
-pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u8, is_static: bool) ![]const u8 {
+pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u8, is_static: bool) VmInterpretError![]const u8 {
     self.depth += 1;
     defer self.depth -= 1;
 
@@ -179,7 +207,15 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
     self.read_only = self.read_only or is_static;
 
     var pc: usize = 0;
-    var frame = try Frame.init(self.allocator, contract);
+    var frame = Frame.init(self.allocator, contract) catch |err| {
+        std.log.debug("Failed to initialize frame: {any}", .{err});
+        return switch (err) {
+            Frame.FrameError.OutOfMemory => ExecutionError.Error.OutOfMemory,
+            Frame.FrameError.InvalidContract => ExecutionError.Error.InvalidCodeEntry,
+            Frame.FrameError.InvalidMemoryOperation => ExecutionError.Error.OutOfMemory,
+            Frame.FrameError.InvalidStackOperation => ExecutionError.Error.StackUnderflow,
+        };
+    };
     defer frame.deinit();
     // Finalize the root memory now that frame is at its final location
     frame.memory.finalize_root();
@@ -194,8 +230,8 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
         const state_ptr: *Operation.State = @ptrCast(&frame);
         // Use jump table's execute method which handles gas consumption
         const result = self.table.execute(pc, interpreter_ptr, state_ptr, opcode) catch |err| {
-            // Handle specific errors
-            switch (err) {
+            // Handle specific errors with exhaustive switch
+            return switch (err) {
                 ExecutionError.Error.InvalidOpcode => {
                     // INVALID opcode consumes all remaining gas
                     frame.gas_remaining = 0;
@@ -205,8 +241,29 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
                     // Normal stop
                     return &[_]u8{};
                 },
-                else => return err,
-            }
+                ExecutionError.Error.REVERT => err,
+                ExecutionError.Error.INVALID => err,
+                ExecutionError.Error.OutOfGas => err,
+                ExecutionError.Error.StackUnderflow => err,
+                ExecutionError.Error.StackOverflow => err,
+                ExecutionError.Error.InvalidJump => err,
+                ExecutionError.Error.StaticStateChange => err,
+                ExecutionError.Error.OutOfOffset => err,
+                ExecutionError.Error.GasUintOverflow => err,
+                ExecutionError.Error.WriteProtection => err,
+                ExecutionError.Error.ReturnDataOutOfBounds => err,
+                ExecutionError.Error.DeployCodeTooBig => err,
+                ExecutionError.Error.MaxCodeSizeExceeded => err,
+                ExecutionError.Error.InvalidCodeEntry => err,
+                ExecutionError.Error.DepthLimit => err,
+                ExecutionError.Error.OutOfMemory => err,
+                ExecutionError.Error.InvalidOffset => err,
+                ExecutionError.Error.InvalidSize => err,
+                ExecutionError.Error.MemoryLimitExceeded => err,
+                ExecutionError.Error.ChildContextActive => err,
+                ExecutionError.Error.NoChildContextToRevertOrCommit => err,
+                ExecutionError.Error.EOFNotSupported => err,
+            };
         };
 
         // Update pc based on result - PUSH operations consume more than 1 byte
@@ -220,32 +277,44 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
 }
 
 // Balance methods
-pub fn get_balance(self: *Self, address: Address.Address) !u256 {
+pub fn get_balance(self: *Self, address: Address.Address) VmStorageError!u256 {
     return self.balances.get(address) orelse 0;
 }
 
-pub fn set_balance(self: *Self, address: Address.Address, balance: u256) !void {
-    try self.balances.put(address, balance);
+pub fn set_balance(self: *Self, address: Address.Address, balance: u256) VmStorageError!void {
+    self.balances.put(address, balance) catch |err| {
+        std.log.debug("Failed to set balance for address 0x{x}: {any}", .{ Address.to_u256(address), err });
+        return err;
+    };
 }
 
 // Code methods
-pub fn get_code(self: *Self, address: Address.Address) ![]const u8 {
+pub fn get_code(self: *Self, address: Address.Address) VmStorageError![]const u8 {
     return self.code.get(address) orelse &[_]u8{};
 }
 
-pub fn set_code(self: *Self, address: Address.Address, code: []const u8) !void {
-    try self.code.put(address, code);
+pub fn set_code(self: *Self, address: Address.Address, code: []const u8) VmStorageError!void {
+    self.code.put(address, code) catch |err| {
+        std.log.debug("Failed to set code for address 0x{x}: {any}", .{ Address.to_u256(address), err });
+        return err;
+    };
 }
 
 // Nonce methods
-pub fn get_nonce(self: *Self, address: Address.Address) !u64 {
+pub fn get_nonce(self: *Self, address: Address.Address) VmStorageError!u64 {
     return self.nonces.get(address) orelse 0;
 }
 
-pub fn increment_nonce(self: *Self, address: Address.Address) !u64 {
-    const current_nonce = try self.get_nonce(address);
+pub fn increment_nonce(self: *Self, address: Address.Address) VmStorageError!u64 {
+    const current_nonce = self.get_nonce(address) catch |err| {
+        std.log.debug("Failed to get current nonce for address 0x{x}: {any}", .{ Address.to_u256(address), err });
+        return err;
+    };
     const new_nonce = current_nonce + 1;
-    try self.nonces.put(address, new_nonce);
+    self.nonces.put(address, new_nonce) catch |err| {
+        std.log.debug("Failed to increment nonce for address 0x{x}: {any}", .{ Address.to_u256(address), err });
+        return err;
+    };
     return current_nonce; // Return the nonce that was used
 }
 
@@ -324,63 +393,63 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
             .output = null,
         };
     }
-    
+
     // Create a new contract for the init code execution
     // Calculate code hash for the init code
     var hasher = Keccak256.init(.{});
     hasher.update(init_code);
     var code_hash: [32]u8 = undefined;
     hasher.final(&code_hash);
-    
+
     // Create a contract to execute the init code
     var init_contract = Contract.init(
-        creator,      // caller (who is creating this contract)
-        new_address,  // address (the new contract's address)
-        value,        // value being sent to this contract
-        gas,          // gas available for init code execution
-        init_code,    // the init code to execute
-        code_hash,    // hash of the init code
-        &[_]u8{},     // no input data for init code
-        false,        // not static
+        creator, // caller (who is creating this contract)
+        new_address, // address (the new contract's address)
+        value, // value being sent to this contract
+        gas, // gas available for init code execution
+        init_code, // the init code to execute
+        code_hash, // hash of the init code
+        &[_]u8{}, // no input data for init code
+        false, // not static
     );
     defer init_contract.deinit(null);
-    
+
     std.debug.print("CREATE: Executing init code with gas: {d}\n", .{gas});
-    
+
     // Execute the init code - this should return the deployment bytecode
     const init_result = self.interpret_with_context(&init_contract, &[_]u8{}, false) catch |err| {
         std.debug.print("CREATE: Init code execution failed with error: {any}\n", .{err});
-        
+
         // Most initcode failures should return 0 address and consume all gas
         return CreateResult{
             .success = false,
             .address = Address.ZERO_ADDRESS,
-            .gas_left = 0,  // Consume all gas on failure
+            .gas_left = 0, // Consume all gas on failure
             .output = null,
         };
     };
-    
+
     std.debug.print("CREATE: Init code execution completed, returned bytecode length: {d}\n", .{init_result.len});
-    
+
     // Check EIP-170 MAX_CODE_SIZE limit on the returned bytecode (24,576 bytes)
     const MAX_CODE_SIZE = 24576;
     if (init_result.len > MAX_CODE_SIZE) {
-        std.debug.print("CREATE: Deployment bytecode too large: {d} > {d}\n", .{init_result.len, MAX_CODE_SIZE});
+        std.debug.print("CREATE: Deployment bytecode too large: {d} > {d}\n", .{ init_result.len, MAX_CODE_SIZE });
         return CreateResult{
             .success = false,
             .address = Address.ZERO_ADDRESS,
-            .gas_left = 0,  // Consume all gas on failure
+            .gas_left = 0, // Consume all gas on failure
             .output = null,
         };
     }
-    
+
     // Charge gas for deployed code size (200 gas per byte)
     const DEPLOY_CODE_GAS_PER_BYTE = 200;
     const deploy_code_gas = @as(u64, @intCast(init_result.len)) * DEPLOY_CODE_GAS_PER_BYTE;
-    
+
     // Check if we have enough gas for deployment
     if (deploy_code_gas > gas) {
-        std.debug.print("CREATE: Insufficient gas for code deployment: required {d}, available {d}\n", .{deploy_code_gas, gas});
+        std.debug.print("CREATE: Insufficient gas for code deployment: required {d}, available {d}\n", .{ deploy_code_gas, gas });
         return CreateResult{
             .success = false,
             .address = Address.ZERO_ADDRESS,
@@ -388,13 +457,13 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
             .output = null,
         };
     }
-    
+
     // Store the deployed bytecode at the new contract address
     try self.set_code(new_address, init_result);
-    std.debug.print("CREATE: Stored bytecode of length {d} at address: 0x{x}\n", .{init_result.len, Address.to_u256(new_address)});
-    
+    std.debug.print("CREATE: Stored bytecode of length {d} at address: 0x{x}\n", .{ init_result.len, Address.to_u256(new_address) });
+
     const gas_left = gas - deploy_code_gas;
-    
+
     return CreateResult{
         .success = true,
         .address = new_address,
@@ -485,63 +554,63 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
             .output = null,
         };
     }
-    
+
     // Create a new contract for the init code execution
     // Calculate code hash for the init code
     var hasher = Keccak256.init(.{});
     hasher.update(init_code);
     var code_hash: [32]u8 = undefined;
     hasher.final(&code_hash);
-    
+
     // Create a contract to execute the init code
     var init_contract = Contract.init(
-        creator,      // caller (who is creating this contract)
-        new_address,  // address (the new contract's address)
-        value,        // value being sent to this contract
-        gas,          // gas available for init code execution
-        init_code,    // the init code to execute
-        code_hash,    // hash of the init code
-        &[_]u8{},     // no input data for init code
-        false,        // not static
+        creator, // caller (who is creating this contract)
+        new_address, // address (the new contract's address)
+        value, // value being sent to this contract
+        gas, // gas available for init code execution
+        init_code, // the init code to execute
+        code_hash, // hash of the init code
+        &[_]u8{}, // no input data for init code
+        false, // not static
     );
     defer init_contract.deinit(null);
-    
+
     std.debug.print("CREATE2: Executing init code with gas: {d}\n", .{gas});
-    
+
     // Execute the init code - this should return the deployment bytecode
     const init_result = self.interpret_with_context(&init_contract, &[_]u8{}, false) catch |err| {
         std.debug.print("CREATE2: Init code execution failed with error: {any}\n", .{err});
-        
+
         // Most initcode failures should return 0 address and consume all gas
         return CreateResult{
             .success = false,
             .address = Address.ZERO_ADDRESS,
-            .gas_left = 0,  // Consume all gas on failure
+            .gas_left = 0, // Consume all gas on failure
             .output = null,
         };
     };
-    
+
     std.debug.print("CREATE2: Init code execution completed, returned bytecode length: {d}\n", .{init_result.len});
-    
+
     // Check EIP-170 MAX_CODE_SIZE limit on the returned bytecode (24,576 bytes)
     const MAX_CODE_SIZE = 24576;
     if (init_result.len > MAX_CODE_SIZE) {
-        std.debug.print("CREATE2: Deployment bytecode too large: {d} > {d}\n", .{init_result.len, MAX_CODE_SIZE});
+        std.debug.print("CREATE2: Deployment bytecode too large: {d} > {d}\n", .{ init_result.len, MAX_CODE_SIZE });
         return CreateResult{
             .success = false,
             .address = Address.ZERO_ADDRESS,
-            .gas_left = 0,  // Consume all gas on failure
+            .gas_left = 0, // Consume all gas on failure
             .output = null,
         };
     }
-    
+
     // Charge gas for deployed code size (200 gas per byte)
     const DEPLOY_CODE_GAS_PER_BYTE = 200;
     const deploy_code_gas = @as(u64, @intCast(init_result.len)) * DEPLOY_CODE_GAS_PER_BYTE;
-    
+
     // Check if we have enough gas for deployment
     if (deploy_code_gas > gas) {
-        std.debug.print("CREATE2: Insufficient gas for code deployment: required {d}, available {d}\n", .{deploy_code_gas, gas});
+        std.debug.print("CREATE2: Insufficient gas for code deployment: required {d}, available {d}\n", .{ deploy_code_gas, gas });
         return CreateResult{
             .success = false,
             .address = Address.ZERO_ADDRESS,
@@ -549,13 +618,13 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
             .output = null,
         };
     }
-    
+
     // Store the deployed bytecode at the new contract address
     try self.set_code(new_address, init_result);
-    std.debug.print("CREATE2: Stored bytecode of length {d} at address: 0x{x}\n", .{init_result.len, Address.to_u256(new_address)});
-    
+    std.debug.print("CREATE2: Stored bytecode of length {d} at address: 0x{x}\n", .{ init_result.len, Address.to_u256(new_address) });
+
     const gas_left = gas - deploy_code_gas;
-    
+
     return CreateResult{
         .success = true,
         .address = new_address,
@@ -776,7 +845,10 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
     try self.set_code(address, bytecode);
 
     // Create a frame for execution
-    var frame = try Frame.init(self.allocator, &contract);
+    var frame = Frame.init(self.allocator, &contract) catch |err| {
+        std.log.debug("Failed to initialize frame: {any}", .{err});
+        return err;
+    };
     defer frame.deinit();
     // Finalize the root memory now that frame is at its final location
     frame.memory.finalize_root();
@@ -794,6 +866,8 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
     while (pc < bytecode.len) {
         const opcode = bytecode[pc];
 
+        // Removed debug output
+
         // Update frame PC to match current PC
         frame.pc = pc;
 
@@ -804,7 +878,7 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
         // Execute opcode through jump table
         const result = self.table.execute(pc, interpreter_ptr, state_ptr, opcode) catch |err| {
             // Handle execution errors
-            switch (err) {
+            const instruction_result = switch (err) {
                 ExecutionError.Error.STOP => {
                     // Save top stack value for testing
                     if (frame.stack.size > 0) {
@@ -870,7 +944,8 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
                     };
                 },
                 else => return err,
-            }
+            };
+            _ = instruction_result; // autofix
         };
 
         // Check if PC was modified by JUMP/JUMPI opcodes

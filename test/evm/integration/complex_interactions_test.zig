@@ -50,12 +50,12 @@ test "Integration: Token balance check pattern" {
     // Set initial balance
     const initial_balance: u256 = 1000;
     _ = try helpers.executeOpcode(0x80, &test_vm.vm, test_frame.frame); // Duplicate slot
-    try test_frame.pushStack(&[_]u256{initial_balance});
-    _ = try helpers.executeOpcode(0x90, &test_vm.vm, test_frame.frame);
-    _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
+    try test_frame.pushStack(&[_]u256{initial_balance}); // Stack: [slot_hash, slot_hash, initial_balance]
+    _ = try helpers.executeOpcode(0x90, &test_vm.vm, test_frame.frame); // SWAP1: [slot_hash, initial_balance, slot_hash]
+    _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame); // SSTORE: pops slot_hash, then initial_balance
 
     // Load balance
-    _ = try helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame); // SLOAD using the remaining slot_hash
 
     // Check if balance >= 100. The original test comment implied this, but the code aimed for 100 < balance.
     // We will stick to making `100 < balance` evaluate to true (1) as the expectStackValue suggests.
@@ -102,9 +102,8 @@ test "Integration: Packed struct storage" {
 
     // Store packed value
     const slot: u256 = 5;
-    try test_frame.pushStack(&[_]u256{slot});
-    _ = try helpers.executeOpcode(0x90, &test_vm.vm, test_frame.frame);
-    _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
+    try test_frame.pushStack(&[_]u256{slot}); // Now stack is [packed_value, slot]
+    _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame); // SSTORE: pops slot, then packed_value
 
     // Load and unpack 'a' (lower 128 bits)
     try test_frame.pushStack(&[_]u256{slot});
@@ -159,9 +158,8 @@ test "Integration: Dynamic array length update" {
 
     // Store new length
     _ = try helpers.executeOpcode(0x80, &test_vm.vm, test_frame.frame); // Duplicate new length
-    try test_frame.pushStack(&[_]u256{array_slot});
-    _ = try helpers.executeOpcode(0x90, &test_vm.vm, test_frame.frame);
-    _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
+    try test_frame.pushStack(&[_]u256{array_slot}); // Stack: [old_length, new_length, array_slot]
+    _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame); // SSTORE: pops array_slot, then new_length
 
     // New length should be 1
     try helpers.expectStackValue(test_frame.frame, 0, 1);
@@ -204,11 +202,9 @@ test "Integration: Reentrancy guard pattern" {
     _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
 
     // Set guard to ENTERED
-    try test_frame.pushStack(&[_]u256{guard_slot});
-    _ = try helpers.executeOpcode(0x90, &test_vm.vm, test_frame.frame);
-    _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame); // Remove old value
-    try test_frame.pushStack(&[_]u256{ ENTERED, guard_slot });
-    _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame); // Remove old value from stack
+    try test_frame.pushStack(&[_]u256{ ENTERED, guard_slot }); // Stack: [ENTERED, guard_slot]
+    _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame); // SSTORE: pops guard_slot, then ENTERED
 
     // Verify guard is set
     try test_frame.pushStack(&[_]u256{guard_slot});
@@ -395,17 +391,24 @@ test "Integration: Multi-sig wallet threshold check" {
     try test_frame.pushStack(&[_]u256{ 3, 0 });
     _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
 
-    // Simulate adding confirmations
-    var confirmations: u256 = 0;
-
-    // First confirmation
-    confirmations += 1;
-    try test_frame.pushStack(&[_]u256{ confirmations, 1 });
+    // Initialize confirmation count to 0
+    try test_frame.pushStack(&[_]u256{ 0, 1 });
     _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
 
-    // Second confirmation
-    confirmations += 1;
-    try test_frame.pushStack(&[_]u256{ confirmations, 1 });
+    // First confirmation - load, increment, store
+    try test_frame.pushStack(&[_]u256{1}); // Load current count
+    _ = try helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame);
+    try test_frame.pushStack(&[_]u256{1});
+    _ = try helpers.executeOpcode(0x01, &test_vm.vm, test_frame.frame); // Add 1
+    try test_frame.pushStack(&[_]u256{1}); // Slot 1
+    _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
+
+    // Second confirmation - load, increment, store
+    try test_frame.pushStack(&[_]u256{1}); // Load current count
+    _ = try helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame);
+    try test_frame.pushStack(&[_]u256{1});
+    _ = try helpers.executeOpcode(0x01, &test_vm.vm, test_frame.frame); // Add 1
+    try test_frame.pushStack(&[_]u256{1}); // Slot 1
     _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
 
     // Check if we have enough confirmations
@@ -416,16 +419,20 @@ test "Integration: Multi-sig wallet threshold check" {
     _ = try helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame);
 
     // Compare: confirmations >= required
-    _ = try helpers.executeOpcode(0x10, &test_vm.vm, test_frame.frame); // required < confirmations
-    _ = try helpers.executeOpcode(0x15, &test_vm.vm, test_frame.frame); // NOT(required < confirmations)
+    // Stack is [confirmations, required], LT computes confirmations < required
+    _ = try helpers.executeOpcode(0x10, &test_vm.vm, test_frame.frame); // LT: confirmations < required
+    _ = try helpers.executeOpcode(0x15, &test_vm.vm, test_frame.frame); // NOT(confirmations < required) = confirmations >= required
 
-    // Should be 0 (false) since 2 < 3
-    try helpers.expectStackValue(test_frame.frame, 0, 1); // Actually checking required <= confirmations
+    // Should be 0 (false) since 2 >= 3 is false
+    try helpers.expectStackValue(test_frame.frame, 0, 0);
     _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
 
     // Add third confirmation
-    confirmations += 1;
-    try test_frame.pushStack(&[_]u256{ confirmations, 1 });
+    try test_frame.pushStack(&[_]u256{1}); // Load current count from slot 1
+    _ = try helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame);
+    try test_frame.pushStack(&[_]u256{1});
+    _ = try helpers.executeOpcode(0x01, &test_vm.vm, test_frame.frame); // Add 1
+    try test_frame.pushStack(&[_]u256{1}); // Store back to slot 1
     _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
 
     // Check again
@@ -436,10 +443,10 @@ test "Integration: Multi-sig wallet threshold check" {
     _ = try helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame);
 
     // Compare: confirmations >= required
-    _ = try helpers.executeOpcode(0x81, &test_vm.vm, test_frame.frame); // Dup confirmations
-    _ = try helpers.executeOpcode(0x90, &test_vm.vm, test_frame.frame); // Swap to get [req, conf, conf]
-    _ = try helpers.executeOpcode(0x10, &test_vm.vm, test_frame.frame); // required < confirmations
+    // Stack is [confirmations, required], LT computes confirmations < required
+    _ = try helpers.executeOpcode(0x10, &test_vm.vm, test_frame.frame); // LT: confirmations < required
+    _ = try helpers.executeOpcode(0x15, &test_vm.vm, test_frame.frame); // NOT(confirmations < required) = confirmations >= required
 
-    // Should be 0 (false) since 3 == 3, not less than
-    try helpers.expectStackValue(test_frame.frame, 0, 0);
+    // Should be 1 (true) since 3 >= 3 is true, so NOT(3 < 3) = NOT(false) = true
+    try helpers.expectStackValue(test_frame.frame, 0, 1);
 }

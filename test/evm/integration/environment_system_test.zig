@@ -15,14 +15,14 @@ const log = evm.opcodes.log;
 test "Integration: Contract deployment simulation" {
     // Simulate CREATE operation with constructor
     const allocator = testing.allocator;
-    
+
     var test_vm = try helpers.TestVm.init(allocator);
     defer test_vm.deinit();
-    
+
     // Set up deployer account
     const deployer_balance: u256 = helpers.TestValues.ONE_ETHER;
     try test_vm.setAccount(helpers.TestAddresses.ALICE, deployer_balance, &[_]u8{});
-    
+
     var contract = helpers.Contract.init(
         helpers.TestAddresses.ALICE,
         helpers.TestAddresses.ALICE, // Deployer is also the contract during creation
@@ -33,48 +33,48 @@ test "Integration: Contract deployment simulation" {
         &[_]u8{},
         false,
     );
-    
+
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
-    
+
     // Prepare constructor bytecode in memory
     // Simple constructor that stores a value
     const constructor_code = [_]u8{
         0x60, 0x42, // PUSH1 0x42
         0x60, 0x00, // PUSH1 0x00
-        0x55,       // SSTORE (store 0x42 at slot 0)
-        0x00,       // STOP
+        0x55, // SSTORE (store 0x42 at slot 0)
+        0x00, // STOP
     };
-    
+
     try test_frame.setMemory(0, &constructor_code);
-    
+
     // Push CREATE parameters: value, offset, size
     try test_frame.pushStack(&[_]u256{
         helpers.TestValues.ONE_GWEI, // value
-        0,                           // offset
-        constructor_code.len,        // size
+        0, // offset
+        constructor_code.len, // size
     });
-    
+
     // Execute CREATE (will fail with placeholder implementation)
     _ = helpers.executeOpcode(0xF0, &test_vm.vm, test_frame.frame) catch |err| {
         // CREATE is not fully implemented, but we can verify it tries to execute
-        try testing.expect(err == helpers.ExecutionError.Error.OutOfGas or 
-                          err == helpers.ExecutionError.Error.StackUnderflow or
-                          err == helpers.ExecutionError.Error.MaxCodeSizeExceeded);
+        try testing.expect(err == helpers.ExecutionError.Error.OutOfGas or
+            err == helpers.ExecutionError.Error.StackUnderflow or
+            err == helpers.ExecutionError.Error.MaxCodeSizeExceeded);
     };
 }
 
 test "Integration: Call with value transfer" {
     // Test CALL operation with ETH transfer
     const allocator = testing.allocator;
-    
+
     var test_vm = try helpers.TestVm.init(allocator);
     defer test_vm.deinit();
-    
+
     // Set up accounts
     try test_vm.setAccount(helpers.TestAddresses.ALICE, helpers.TestValues.ONE_ETHER, &[_]u8{});
     try test_vm.setAccount(helpers.TestAddresses.BOB, 0, &[_]u8{});
-    
+
     var contract = helpers.Contract.init(
         helpers.TestAddresses.ALICE,
         helpers.TestAddresses.CONTRACT,
@@ -85,40 +85,40 @@ test "Integration: Call with value transfer" {
         &[_]u8{},
         false,
     );
-    
+
     // Give contract some balance to transfer
     try test_vm.setAccount(helpers.TestAddresses.CONTRACT, helpers.TestValues.ONE_ETHER, &[_]u8{});
-    
+
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
-    
+
     // Prepare CALL parameters
     // CALL(gas, address, value, argsOffset, argsSize, retOffset, retSize)
     try test_frame.pushStack(&[_]u256{
-        50000,                                              // gas
+        50000, // gas
         helpers.toU256(helpers.TestAddresses.BOB), // address
-        helpers.TestValues.ONE_GWEI,                        // value
-        0,                                                  // argsOffset
-        0,                                                  // argsSize
-        0,                                                  // retOffset
-        0,                                                  // retSize
+        helpers.TestValues.ONE_GWEI, // value
+        0, // argsOffset
+        0, // argsSize
+        0, // retOffset
+        0, // retSize
     });
-    
+
     // Execute CALL (placeholder implementation)
     _ = helpers.executeOpcode(0xF1, &test_vm.vm, test_frame.frame) catch |err| {
         // CALL is not fully implemented
-        try testing.expect(err == helpers.ExecutionError.Error.OutOfGas or 
-                          err == helpers.ExecutionError.Error.StackUnderflow);
+        try testing.expect(err == helpers.ExecutionError.Error.OutOfGas or
+            err == helpers.ExecutionError.Error.StackUnderflow);
     };
 }
 
 test "Integration: Environment data access" {
     // Test accessing various environment data
     const allocator = testing.allocator;
-    
+
     var test_vm = try helpers.TestVm.init(allocator);
     defer test_vm.deinit();
-    
+
     // Set up VM environment
     test_vm.vm.tx_origin = helpers.TestAddresses.ALICE;
     test_vm.vm.gas_price = 20 * helpers.TestValues.ONE_GWEI;
@@ -127,46 +127,46 @@ test "Integration: Environment data access" {
     test_vm.vm.block_coinbase = helpers.TestAddresses.CHARLIE;
     test_vm.vm.block_gas_limit = 30000000;
     test_vm.vm.chain_id = 1; // Mainnet
-    
+
     var contract = helpers.Contract.init(
-        helpers.TestAddresses.BOB,    // caller
+        helpers.TestAddresses.BOB, // caller
         helpers.TestAddresses.CONTRACT,
-        helpers.TestValues.ONE_GWEI,  // callvalue
+        helpers.TestValues.ONE_GWEI, // callvalue
         1_000_000,
         &[_]u8{},
         [_]u8{0} ** 32,
         &[_]u8{},
         false,
     );
-    
+
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
-    
+
     // Test ADDRESS
     _ = try helpers.executeOpcode(0x30, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, helpers.toU256(helpers.TestAddresses.CONTRACT));
     _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
-    
+
     // Test ORIGIN
     _ = try helpers.executeOpcode(0x32, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, helpers.toU256(helpers.TestAddresses.ALICE));
     _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
-    
+
     // Test CALLER
     _ = try helpers.executeOpcode(0x33, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, helpers.toU256(helpers.TestAddresses.BOB));
     _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
-    
+
     // Test CALLVALUE
     _ = try helpers.executeOpcode(0x34, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, helpers.TestValues.ONE_GWEI);
     _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
-    
+
     // Test GASPRICE
     _ = try helpers.executeOpcode(0x3A, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 20 * helpers.TestValues.ONE_GWEI);
     _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
-    
+
     // Test CHAINID
     _ = try helpers.executeOpcode(0x46, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 1);
@@ -175,10 +175,10 @@ test "Integration: Environment data access" {
 test "Integration: Block information access" {
     // Test block-related opcodes
     const allocator = testing.allocator;
-    
+
     var test_vm = try helpers.TestVm.init(allocator);
     defer test_vm.deinit();
-    
+
     // Set up block information
     test_vm.vm.block_number = 17000000;
     test_vm.vm.block_timestamp = 1683000000;
@@ -186,7 +186,7 @@ test "Integration: Block information access" {
     test_vm.vm.block_difficulty = 0; // Post-merge
     test_vm.vm.block_gas_limit = 30000000;
     test_vm.vm.block_base_fee = 30 * helpers.TestValues.ONE_GWEI;
-    
+
     var contract = try helpers.createTestContract(
         allocator,
         helpers.TestAddresses.CONTRACT,
@@ -195,30 +195,30 @@ test "Integration: Block information access" {
         &[_]u8{},
     );
     defer contract.deinit(null);
-    
+
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
-    
+
     // Test NUMBER
     _ = try helpers.executeOpcode(0x43, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 17000000);
     _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
-    
+
     // Test TIMESTAMP
     _ = try helpers.executeOpcode(0x42, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 1683000000);
     _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
-    
+
     // Test COINBASE
     _ = try helpers.executeOpcode(0x41, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, helpers.toU256(helpers.TestAddresses.CHARLIE));
     _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
-    
+
     // Test GASLIMIT
     _ = try helpers.executeOpcode(0x45, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 30000000);
     _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
-    
+
     // Test BASEFEE
     _ = try helpers.executeOpcode(0x48, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 30 * helpers.TestValues.ONE_GWEI);
@@ -227,10 +227,10 @@ test "Integration: Block information access" {
 test "Integration: Log emission with topics" {
     // Test LOG operations
     const allocator = testing.allocator;
-    
+
     var test_vm = try helpers.TestVm.init(allocator);
     defer test_vm.deinit();
-    
+
     var contract = try helpers.createTestContract(
         allocator,
         helpers.TestAddresses.CONTRACT,
@@ -239,34 +239,34 @@ test "Integration: Log emission with topics" {
         &[_]u8{},
     );
     defer contract.deinit(null);
-    
+
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
-    
+
     // Prepare log data in memory
     const log_data = "Transfer successful";
     try test_frame.setMemory(0, log_data);
-    
+
     // Prepare topics (e.g., Transfer event signature and addresses)
     const topic1: u256 = 0x1234567890abcdef; // Event signature
     const topic2: u256 = helpers.toU256(helpers.TestAddresses.ALICE); // From
     const topic3: u256 = helpers.toU256(helpers.TestAddresses.BOB); // To
-    
+
     // Emit LOG3 (3 topics)
     try test_frame.pushStack(&[_]u256{
-        0,              // offset
-        log_data.len,   // size
-        topic1,
-        topic2,
-        topic3,
+        topic1, // topic0 (bottom)
+        topic2, // topic1
+        topic3, // topic2
+        log_data.len, // size
+        0, // offset (top)
     });
-    
+
     const initial_log_count = test_vm.vm.logs.items.len;
     _ = try helpers.executeOpcode(0xA3, &test_vm.vm, test_frame.frame);
-    
+
     // Verify log was emitted
     try testing.expectEqual(initial_log_count + 1, test_vm.vm.logs.items.len);
-    
+
     const emitted_log = test_vm.vm.logs.items[test_vm.vm.logs.items.len - 1];
     try testing.expectEqual(helpers.TestAddresses.CONTRACT, emitted_log.address);
     try testing.expectEqual(@as(usize, 3), emitted_log.topics.len);
@@ -279,20 +279,20 @@ test "Integration: Log emission with topics" {
 test "Integration: External code operations" {
     // Test EXTCODESIZE, EXTCODECOPY, EXTCODEHASH
     const allocator = testing.allocator;
-    
+
     var test_vm = try helpers.TestVm.init(allocator);
     defer test_vm.deinit();
-    
+
     // Set up external contract with code
     const external_code = [_]u8{
         0x60, 0x80, // PUSH1 0x80
         0x60, 0x40, // PUSH1 0x40
-        0x52,       // MSTORE
-        0x00,       // STOP
+        0x52, // MSTORE
+        0x00, // STOP
     };
-    
+
     try test_vm.setAccount(helpers.TestAddresses.BOB, 0, &external_code);
-    
+
     var contract = try helpers.createTestContract(
         allocator,
         helpers.TestAddresses.CONTRACT,
@@ -301,33 +301,33 @@ test "Integration: External code operations" {
         &[_]u8{},
     );
     defer contract.deinit(null);
-    
+
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
-    
+
     // Test EXTCODESIZE
     try test_frame.pushStack(&[_]u256{helpers.toU256(helpers.TestAddresses.BOB)});
     _ = try helpers.executeOpcode(0x3B, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, external_code.len);
     _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
-    
+
     // Test EXTCODECOPY
     try test_frame.pushStack(&[_]u256{
-        helpers.toU256(helpers.TestAddresses.BOB), // address
-        0,                                                    // destOffset
-        0,                                                    // offset
-        external_code.len,                                    // size
+        external_code.len, // size (bottom)
+        0, // code_offset
+        0, // mem_offset
+        helpers.toU256(helpers.TestAddresses.BOB), // address (top)
     });
     _ = try helpers.executeOpcode(0x3C, &test_vm.vm, test_frame.frame);
-    
+
     // Verify code was copied to memory
     const copied_code = try test_frame.getMemory(0, external_code.len);
     try testing.expectEqualSlices(u8, &external_code, copied_code);
-    
+
     // Test EXTCODEHASH
     try test_frame.pushStack(&[_]u256{helpers.toU256(helpers.TestAddresses.BOB)});
     _ = try helpers.executeOpcode(0x3F, &test_vm.vm, test_frame.frame);
-    
+
     // Hash should be non-zero for account with code
     const code_hash = try test_frame.popStack();
     try testing.expect(code_hash != 0);
@@ -336,19 +336,22 @@ test "Integration: External code operations" {
 test "Integration: Calldata operations" {
     // Test CALLDATALOAD, CALLDATASIZE, CALLDATACOPY
     const allocator = testing.allocator;
-    
+
     var test_vm = try helpers.TestVm.init(allocator);
     defer test_vm.deinit();
-    
+
     // Prepare calldata
     const calldata = [_]u8{
         0x12, 0x34, 0x56, 0x78, // Function selector
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00,
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x42, // uint256 argument = 66
     };
-    
+
     var contract = helpers.Contract.init(
         helpers.TestAddresses.ALICE,
         helpers.TestAddresses.CONTRACT,
@@ -359,37 +362,37 @@ test "Integration: Calldata operations" {
         &calldata,
         false,
     );
-    
+
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
-    
+
     // Test CALLDATASIZE
     _ = try helpers.executeOpcode(0x36, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, calldata.len);
     _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
-    
+
     // Test CALLDATALOAD at offset 0 (function selector)
     try test_frame.pushStack(&[_]u256{0});
     _ = try helpers.executeOpcode(0x35, &test_vm.vm, test_frame.frame);
-    
+
     // Should load 32 bytes starting from offset 0
     const loaded_value = try test_frame.popStack();
     try testing.expect((loaded_value >> (28 * 8)) == 0x12345678);
-    
+
     // Test CALLDATALOAD at offset 4 (first argument)
     try test_frame.pushStack(&[_]u256{4});
     _ = try helpers.executeOpcode(0x35, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x42);
     _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
-    
+
     // Test CALLDATACOPY
     try test_frame.pushStack(&[_]u256{
-        0,              // destOffset
-        0,              // offset
-        calldata.len,   // size
+        calldata.len, // size (bottom)
+        0, // data_offset
+        0, // mem_offset (top)
     });
     _ = try helpers.executeOpcode(0x37, &test_vm.vm, test_frame.frame);
-    
+
     // Verify calldata was copied to memory
     const copied_data = try test_frame.getMemory(0, calldata.len);
     try testing.expectEqualSlices(u8, &calldata, copied_data);
@@ -398,24 +401,24 @@ test "Integration: Calldata operations" {
 test "Integration: Self balance and code operations" {
     // Test SELFBALANCE, CODESIZE, CODECOPY
     const allocator = testing.allocator;
-    
+
     var test_vm = try helpers.TestVm.init(allocator);
     defer test_vm.deinit();
-    
+
     // Contract code
     const contract_code = [_]u8{
         0x60, 0x00, // PUSH1 0x00
-        0x35,       // CALLDATALOAD
+        0x35, // CALLDATALOAD
         0x60, 0x00, // PUSH1 0x00
-        0x52,       // MSTORE
+        0x52, // MSTORE
         0x60, 0x20, // PUSH1 0x20
         0x60, 0x00, // PUSH1 0x00
-        0xf3,       // RETURN
+        0xf3, // RETURN
     };
-    
+
     // Set up contract with balance and code
     try test_vm.setAccount(helpers.TestAddresses.CONTRACT, helpers.TestValues.ONE_ETHER, &contract_code);
-    
+
     var contract = helpers.Contract.init(
         helpers.TestAddresses.ALICE,
         helpers.TestAddresses.CONTRACT,
@@ -426,28 +429,28 @@ test "Integration: Self balance and code operations" {
         &[_]u8{},
         false,
     );
-    
+
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
-    
+
     // Test SELFBALANCE
     _ = try helpers.executeOpcode(0x47, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, helpers.TestValues.ONE_ETHER);
     _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
-    
+
     // Test CODESIZE
     _ = try helpers.executeOpcode(0x38, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, contract_code.len);
     _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
-    
+
     // Test CODECOPY
     try test_frame.pushStack(&[_]u256{
-        0,                  // destOffset
-        0,                  // offset
-        contract_code.len,  // size
+        contract_code.len, // size (bottom)
+        0, // code_offset
+        0, // mem_offset (top)
     });
     _ = try helpers.executeOpcode(0x39, &test_vm.vm, test_frame.frame);
-    
+
     // Verify code was copied to memory
     const copied_code = try test_frame.getMemory(0, contract_code.len);
     try testing.expectEqualSlices(u8, &contract_code, copied_code);
