@@ -119,10 +119,7 @@ const toBeBigIntChainable = createChainableFromVitest({
 			pass,
 			actual: received,
 			expected: 'a bigint',
-			message: () =>
-				pass
-					? `Expected ${received} not to be a BigInt`
-					: `Expected ${received} to be a BigInt`,
+			message: () => (pass ? `Expected ${received} not to be a BigInt` : `Expected ${received} to be a BigInt`),
 		}
 	},
 })
