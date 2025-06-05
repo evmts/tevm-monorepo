@@ -404,6 +404,30 @@ pub inline fn pop2_unsafe(self: *Self) struct { a: u256, b: u256 } {
     };
 }
 
+/// Pop 3 values without pushing - for memory operations
+pub fn pop3(self: *Self) Error!struct { a: u256, b: u256, c: u256 } {
+    if (self.size < 3) return Error.OutOfBounds;
+
+    self.size -= 3;
+    return .{
+        .a = self.data[self.size],
+        .b = self.data[self.size + 1],
+        .c = self.data[self.size + 2],
+    };
+}
+
+/// Pop 3 values without pushing (unsafe version)
+pub inline fn pop3_unsafe(self: *Self) struct { a: u256, b: u256, c: u256 } {
+    @setRuntimeSafety(false);
+
+    self.size -= 3;
+    return .{
+        .a = self.data[self.size],
+        .b = self.data[self.size + 1],
+        .c = self.data[self.size + 2],
+    };
+}
+
 /// Specialized swap for SWAP1 (most common swap)
 pub fn swap1_optimized(self: *Self) Error!void {
     if (self.size < 2) return Error.OutOfBounds;
