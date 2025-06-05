@@ -18,6 +18,7 @@ const std = @import("std");
 const constants = @import("constants.zig");
 const bitvec = @import("bitvec.zig");
 const Address = @import("Address");
+const ExecutionError = @import("execution_error.zig");
 const CodeAnalysis = @import("code_analysis.zig");
 const StoragePool = @import("storage_pool.zig");
 
@@ -222,13 +223,25 @@ pub inline fn sub_gas_refund(self: *Self, amount: u64) void {
     self.gas_refund = if (self.gas_refund > amount) self.gas_refund - amount else 0;
 }
 
+pub const MarkStorageSlotWarmError = error{
+    OutOfAllocatorMemory,
+};
+
 /// Mark storage slot as warm with pool support
-pub fn mark_storage_slot_warm(self: *Self, slot: u256, pool: ?*StoragePool) !bool {
+pub fn mark_storage_slot_warm(self: *Self, slot: u256, pool: ?*StoragePool) MarkStorageSlotWarmError!bool {
     if (self.storage_access == null) {
         if (pool) |p| {
-            self.storage_access = try p.borrow_access_map();
+            self.storage_access = p.borrow_access_map() catch |err| switch (err) {
+                StoragePool.BorrowAccessMapError.OutOfAllocatorMemory => {
+                    std.debug.print("Contract.mark_storage_slot_warm: failed to borrow access map: {}\n", .{err});
+                    return MarkStorageSlotWarmError.OutOfAllocatorMemory;
+                },
+            };
         } else {
-            self.storage_access = try std.heap.page_allocator.create(std.AutoHashMap(u256, bool));
+            self.storage_access = std.heap.page_allocator.create(std.AutoHashMap(u256, bool)) catch |err| {
+                std.debug.print("Contract.mark_storage_slot_warm: allocation failed: {}\n", .{err});
+                return MarkStorageSlotWarmError.OutOfAllocatorMemory;
+            };
             self.storage_access.?.* = std.AutoHashMap(u256, bool).init(std.heap.page_allocator);
         }
     }
@@ -236,7 +249,10 @@ pub fn mark_storage_slot_warm(self: *Self, slot: u256, pool: ?*StoragePool) !boo
     const map = self.storage_access.?;
     const was_cold = !map.contains(slot);
     if (was_cold) {
-        try map.put(slot, true);
+        map.put(slot, true) catch |err| {
+            std.debug.print("Contract.mark_storage_slot_warm: map.put failed: {}\n", .{err});
+            return MarkStorageSlotWarmError.OutOfAllocatorMemory;
+        };
     }
     return was_cold;
 }

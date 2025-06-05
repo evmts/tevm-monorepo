@@ -200,7 +200,7 @@ test "SLOAD (0x54): Load from storage" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
+    var test_frame = try helpers.TestFrame.init(allocator, &contract, 50000);
     defer test_frame.deinit();
     
     // Test 1: Load from empty slot (should return 0)
@@ -240,7 +240,7 @@ test "SLOAD (0x54): Load from storage" {
             std.debug.print("  Test 3.{}: Failed to peek stack: {}\n", .{i, err});
             return err;
         };
-        std.debug.print("  Test 3.{}: Stack value after SLOAD: {}\n", .{i, stack_value});
+        std.debug.print("  Test 3.{}: Stack value after SLOAD: {}\n", .{i, stack_value.*});
         try helpers.expectStackValue(test_frame.frame, 0, ts.value);
         _ = try test_frame.popStack();
         std.debug.print("  Test 3.{}: PASSED\n", .{i});

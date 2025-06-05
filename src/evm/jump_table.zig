@@ -47,6 +47,11 @@ pub fn execute(self: *const Self, pc: usize, interpreter: *Operation.Interpreter
     // Cast state to Frame to access gas_remaining and stack
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
+    // Debug print for SLOAD
+    if (opcode == 0x54) {
+        std.debug.print("\nJUMP_TABLE: Executing SLOAD (0x54), operation.undefined={}\n", .{operation.undefined});
+    }
+
     // Debug print for undefined opcodes
     if (operation.undefined) {
         std.debug.print("\nERROR: Undefined opcode 0x{x:0>2} at pc={}\n", .{ opcode, pc });
