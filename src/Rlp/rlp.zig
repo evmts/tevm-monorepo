@@ -13,6 +13,8 @@ pub const RlpError = error{
     ExtraZeros,
 };
 
+pub const EncodeError = std.mem.Allocator.Error;
+
 pub const Decoded = struct {
     data: Data,
     remainder: []const u8,
@@ -41,7 +43,7 @@ pub const Data = union(enum) {
 /// Encodes input into RLP format according to the Ethereum RLP specification.
 /// The input can be a slice of bytes or a list of other RLP encodable items.
 /// Allocates memory for the result, which must be freed by the caller.
-pub fn encode(allocator: Allocator, input: anytype) ![]u8 {
+pub fn encode(allocator: Allocator, input: anytype) EncodeError![]u8 {
     const T = @TypeOf(input);
     const info = @typeInfo(T);
 

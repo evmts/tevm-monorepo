@@ -12,6 +12,10 @@ pub const Address = [20]u8;
 
 pub const ZERO_ADDRESS: Address = [20]u8{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
+// Error types for Address operations
+pub const CalculateAddressError = std.mem.Allocator.Error || rlp.EncodeError;
+pub const CalculateCreate2AddressError = std.mem.Allocator.Error;
+
 pub fn zero() Address {
     return ZERO_ADDRESS;
 }
@@ -196,7 +200,7 @@ pub fn are_addresses_equal(a: []const u8, b: []const u8) !bool {
     return std.mem.eql(u8, &addr_a, &addr_b);
 }
 
-pub fn calculate_create_address(allocator: std.mem.Allocator, creator: Address, nonce: u64) !Address {
+pub fn calculate_create_address(allocator: std.mem.Allocator, creator: Address, nonce: u64) CalculateAddressError!Address {
     // Convert nonce to bytes, stripping leading zeros
     var nonce_bytes: [8]u8 = undefined;
     std.mem.writeInt(u64, &nonce_bytes, nonce, .big);
@@ -233,7 +237,7 @@ pub fn calculate_create_address(allocator: std.mem.Allocator, creator: Address, 
     return address;
 }
 
-pub fn calculate_create2_address(allocator: std.mem.Allocator, creator: Address, salt: u256, init_code: []const u8) !Address {
+pub fn calculate_create2_address(allocator: std.mem.Allocator, creator: Address, salt: u256, init_code: []const u8) CalculateCreate2AddressError!Address {
     // First hash the init code
     var code_hash: [32]u8 = undefined;
     Keccak256.hash(init_code, &code_hash, .{});

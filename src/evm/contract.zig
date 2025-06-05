@@ -48,8 +48,8 @@ value: u256,
 // Code and analysis
 code: []const u8,
 code_hash: [32]u8,
-code_size: u64, // Pre-computed for efficiency
-analysis: ?*const CodeAnalysis, // Enhanced analysis structure
+code_size: u64,
+analysis: ?*const CodeAnalysis,
 
 // Gas tracking
 gas: u64,
@@ -69,10 +69,9 @@ original_storage: ?*std.AutoHashMap(u256, u256),
 is_cold: bool,
 
 // Optimization fields
-has_jumpdests: bool, // Quick check to skip analysis
-is_empty: bool, // For empty contracts
+has_jumpdests: bool,
+is_empty: bool,
 
-/// Initialize a new Contract with optimizations
 pub fn init(
     caller: Address.Address,
     addr: Address.Address,
@@ -200,7 +199,7 @@ pub inline fn is_code(self: *const Self, pos: u64) bool {
         // We know pos is within bounds if analysis exists, so use unchecked version
         return analysis.code_segments.is_set_unchecked(pos);
     }
-    return true; // Assume code if not analyzed
+    return true;
 }
 
 /// Use gas with inline optimization
@@ -272,7 +271,7 @@ pub fn is_storage_slot_cold(self: *const Self, slot: u256) bool {
     if (self.storage_access) |map| {
         return !map.contains(slot);
     }
-    return true; // All slots are cold if not tracked
+    return true;
 }
 
 /// Batch mark storage slots as warm
@@ -365,12 +364,11 @@ pub fn set_call_code(self: *Self, hash: [32]u8, code: []const u8) void {
     self.code_size = code.len;
     self.has_jumpdests = contains_jumpdest(code);
     self.is_empty = code.len == 0;
-    self.analysis = null; // Reset analysis
+    self.analysis = null;
 }
 
 /// Clean up contract resources
 pub fn deinit(self: *Self, pool: ?*StoragePool) void {
-    // Return maps to pool if available
     if (pool) |p| {
         if (self.storage_access) |map| {
             p.return_access_map(map);
@@ -381,7 +379,6 @@ pub fn deinit(self: *Self, pool: ?*StoragePool) void {
             self.original_storage = null;
         }
     } else {
-        // Direct cleanup
         if (self.storage_access) |map| {
             map.deinit();
             std.heap.page_allocator.destroy(map);
@@ -398,7 +395,6 @@ pub fn deinit(self: *Self, pool: ?*StoragePool) void {
 
 /// Analyze code and cache results
 pub fn analyze_code(code: []const u8, code_hash: [32]u8) CodeAnalysisError!*const CodeAnalysis {
-    // Check cache first
     cache_mutex.lock();
     defer cache_mutex.unlock();
 
@@ -410,17 +406,14 @@ pub fn analyze_code(code: []const u8, code_hash: [32]u8) CodeAnalysisError!*cons
         return cached;
     }
 
-    // Perform analysis
     const allocator = std.heap.page_allocator;
     const analysis = allocator.create(CodeAnalysis) catch |err| {
         Log.debug("Failed to allocate CodeAnalysis: {any}", .{err});
         return err;
     };
 
-    // Analyze code segments
     analysis.code_segments = bitvec.code_bitmap_fallback(code);
 
-    // Find and sort JUMPDEST positions
     var jumpdests = std.ArrayList(u32).init(allocator);
     defer jumpdests.deinit();
 
@@ -435,7 +428,6 @@ pub fn analyze_code(code: []const u8, code_hash: [32]u8) CodeAnalysisError!*cons
             };
         }
 
-        // Skip PUSH data
         if (constants.is_push(op)) {
             const push_size = constants.get_push_size(op);
             i += push_size + 1;
@@ -451,15 +443,13 @@ pub fn analyze_code(code: []const u8, code_hash: [32]u8) CodeAnalysisError!*cons
         return err;
     };
 
-    // Analyze other properties
-    analysis.max_stack_depth = 0; // Stack depth analysis is optional for optimization
-    analysis.block_gas_costs = null; // Gas cost analysis is optional for optimization
+    analysis.max_stack_depth = 0;
+    analysis.block_gas_costs = null;
     analysis.has_dynamic_jumps = contains_op(code, &[_]u8{ constants.JUMP, constants.JUMPI });
-    analysis.has_static_jumps = false; // Static jump detection is optional for optimization
+    analysis.has_static_jumps = false;
     analysis.has_selfdestruct = contains_op(code, &[_]u8{constants.SELFDESTRUCT});
     analysis.has_create = contains_op(code, &[_]u8{ constants.CREATE, constants.CREATE2 });
 
-    // Cache the analysis
     analysis_cache.?.put(code_hash, analysis) catch |err| {
         Log.debug("Failed to cache code analysis: {any}", .{err});
         // Continue without caching - return the analysis anyway

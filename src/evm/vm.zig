@@ -12,8 +12,13 @@ const rlp = @import("Rlp");
 const Keccak256 = std.crypto.hash.sha3.Keccak256;
 const ChainRules = @import("chain_rules.zig");
 const gas_constants = @import("gas_constants.zig");
+const constants = @import("constants.zig");
 const Log = @import("log.zig");
 const EvmLog = @import("evm_log.zig");
+pub const StorageKey = @import("storage_key.zig");
+pub const CreateResult = @import("create_result.zig");
+pub const CallResult = @import("call_result.zig");
+pub const RunResult = @import("run_result.zig");
 
 // Error types for VM operations
 pub const VmError = ExecutionError.Error || std.mem.Allocator.Error || Frame.FrameError;
@@ -70,24 +75,6 @@ blob_base_fee: u256 = 0,
 last_stack_value: ?u256 = null,
 call_result: ?CallResult = null,
 create_result: ?CreateResult = null,
-
-pub const StorageKey = struct {
-    address: Address.Address,
-    slot: u256,
-
-    pub fn hash(self: StorageKey, hasher: anytype) void {
-        // Hash the address bytes
-        hasher.update(&self.address);
-        // Hash the slot as bytes
-        var slot_bytes: [32]u8 = undefined;
-        std.mem.writeInt(u256, &slot_bytes, self.slot, .big);
-        hasher.update(&slot_bytes);
-    }
-
-    pub fn eql(a: StorageKey, b: StorageKey) bool {
-        return std.mem.eql(u8, &a.address, &b.address) and a.slot == b.slot;
-    }
-};
 
 pub fn init(allocator: std.mem.Allocator) VmInitError!Self {
     return init_with_hardfork(allocator, .CANCUN) catch |err| {
@@ -244,23 +231,9 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
     }
 }
 
-// Contract creation result
-pub const CreateResult = struct {
-    success: bool,
-    address: Address.Address,
-    gas_left: u64,
-    output: ?[]const u8,
-};
-
-// Contract call result
-pub const CallResult = struct {
-    success: bool,
-    gas_left: u64,
-    output: ?[]const u8,
-};
-
 // Contract creation with CREATE opcode
-pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_code: []const u8, gas: u64) !CreateResult {
+pub const CreateContractError = std.mem.Allocator.Error || Address.CalculateAddressError;
+pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_code: []const u8, gas: u64) CreateContractError!CreateResult {
     // Check if we have a mocked create result for testing
     if (self.create_result) |result| {
         return result;
@@ -361,8 +334,7 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
     };
 
     // Check EIP-170 MAX_CODE_SIZE limit on the returned bytecode (24,576 bytes)
-    const MAX_CODE_SIZE = 24576;
-    if (init_result.len > MAX_CODE_SIZE) {
+    if (init_result.len > constants.MAX_CODE_SIZE) {
         return CreateResult{
             .success = false,
             .address = Address.zero(),
@@ -372,8 +344,7 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
     }
 
     // Charge gas for deployed code size (200 gas per byte)
-    const DEPLOY_CODE_GAS_PER_BYTE = 200;
-    const deploy_code_gas = @as(u64, @intCast(init_result.len)) * DEPLOY_CODE_GAS_PER_BYTE;
+    const deploy_code_gas = @as(u64, @intCast(init_result.len)) * constants.DEPLOY_CODE_GAS_PER_BYTE;
 
     // Check if we have enough gas for deployment
     if (deploy_code_gas > gas) {
@@ -402,7 +373,8 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
 }
 
 // Placeholder contract call - to be implemented properly later
-pub fn call_contract(self: *Self, caller: Address.Address, to: Address.Address, value: u256, input: []const u8, gas: u64, is_static: bool) !CallResult {
+pub const CallContractError = std.mem.Allocator.Error;
+pub fn call_contract(self: *Self, caller: Address.Address, to: Address.Address, value: u256, input: []const u8, gas: u64, is_static: bool) CallContractError!CallResult {
     _ = caller;
     _ = to;
     _ = value;
@@ -424,7 +396,8 @@ pub fn call_contract(self: *Self, caller: Address.Address, to: Address.Address, 
 }
 
 // Gas consumption method for opcodes
-pub fn consume_gas(self: *Self, amount: u64) !void {
+pub const ConsumeGasError = ExecutionError.Error;
+pub fn consume_gas(self: *Self, amount: u64) ConsumeGasError!void {
     _ = self;
     _ = amount;
     // Gas tracking is implemented at the Frame level (frame.consume_gas)
@@ -432,7 +405,8 @@ pub fn consume_gas(self: *Self, amount: u64) !void {
 }
 
 // CREATE2 specific method
-pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init_code: []const u8, salt: u256, gas: u64) !CreateResult {
+pub const Create2ContractError = std.mem.Allocator.Error || Address.CalculateCreate2AddressError;
+pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init_code: []const u8, salt: u256, gas: u64) Create2ContractError!CreateResult {
     // Check if we have a mocked create result for testing
     if (self.create_result) |result| {
         return result;
@@ -521,8 +495,7 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
     };
 
     // Check EIP-170 MAX_CODE_SIZE limit on the returned bytecode (24,576 bytes)
-    const MAX_CODE_SIZE = 24576;
-    if (init_result.len > MAX_CODE_SIZE) {
+    if (init_result.len > constants.MAX_CODE_SIZE) {
         return CreateResult{
             .success = false,
             .address = Address.zero(),
@@ -532,8 +505,7 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
     }
 
     // Charge gas for deployed code size (200 gas per byte)
-    const DEPLOY_CODE_GAS_PER_BYTE = 200;
-    const deploy_code_gas = @as(u64, @intCast(init_result.len)) * DEPLOY_CODE_GAS_PER_BYTE;
+    const deploy_code_gas = @as(u64, @intCast(init_result.len)) * constants.DEPLOY_CODE_GAS_PER_BYTE;
 
     // Check if we have enough gas for deployment
     if (deploy_code_gas > gas) {
@@ -562,7 +534,8 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
 }
 
 // CALLCODE specific method - executes code of 'to' in the context of the current contract
-pub fn callcode_contract(self: *Self, current: Address.Address, code_address: Address.Address, value: u256, input: []const u8, gas: u64, is_static: bool) !CallResult {
+pub const CallcodeContractError = std.mem.Allocator.Error;
+pub fn callcode_contract(self: *Self, current: Address.Address, code_address: Address.Address, value: u256, input: []const u8, gas: u64, is_static: bool) CallcodeContractError!CallResult {
     _ = current;
     _ = code_address;
     _ = value;
@@ -584,7 +557,8 @@ pub fn callcode_contract(self: *Self, current: Address.Address, code_address: Ad
 }
 
 // DELEGATECALL specific method - executes code of 'to' with current contract's storage and sender/value
-pub fn delegatecall_contract(self: *Self, current: Address.Address, code_address: Address.Address, input: []const u8, gas: u64, is_static: bool) !CallResult {
+pub const DelegatecallContractError = std.mem.Allocator.Error;
+pub fn delegatecall_contract(self: *Self, current: Address.Address, code_address: Address.Address, input: []const u8, gas: u64, is_static: bool) DelegatecallContractError!CallResult {
     _ = current;
     _ = code_address;
     _ = input;
@@ -605,7 +579,8 @@ pub fn delegatecall_contract(self: *Self, current: Address.Address, code_address
 }
 
 // STATICCALL specific method - guaranteed read-only call
-pub fn staticcall_contract(self: *Self, caller: Address.Address, to: Address.Address, input: []const u8, gas: u64) !CallResult {
+pub const StaticcallContractError = std.mem.Allocator.Error;
+pub fn staticcall_contract(self: *Self, caller: Address.Address, to: Address.Address, input: []const u8, gas: u64) StaticcallContractError!CallResult {
     _ = caller;
     _ = to;
     _ = input;
@@ -632,7 +607,8 @@ pub fn staticcall_contract(self: *Self, caller: Address.Address, to: Address.Add
 // 3. Consider using Arena allocator for logs within a transaction
 // 4. Alternative: Log could hold indices into a central buffer that's freed at once
 // 5. For now, we're leaking memory - this needs to be fixed
-pub fn emit_log(self: *Self, address: Address.Address, topics: []const u256, data: []const u8) !void {
+pub const EmitLogError = std.mem.Allocator.Error;
+pub fn emit_log(self: *Self, address: Address.Address, topics: []const u256, data: []const u8) EmitLogError!void {
     // Clone the data to ensure it persists
     const data_copy = try self.allocator.alloc(u8, data.len);
     @memcpy(data_copy, data);
@@ -651,44 +627,52 @@ pub fn emit_log(self: *Self, address: Address.Address, topics: []const u256, dat
 }
 
 // EIP-2929: Initialize transaction access list
-pub fn init_transaction_access_list(self: *Self, to: ?Address.Address) !void {
+pub const InitTransactionAccessListError = AccessList.InitTransactionError;
+pub fn init_transaction_access_list(self: *Self, to: ?Address.Address) InitTransactionAccessListError!void {
     try self.access_list.init_transaction(self.tx_origin, self.block_coinbase, to);
 }
 
 // EIP-2929: Pre-warm addresses from EIP-2930 access list
-pub fn pre_warm_addresses(self: *Self, addresses: []const Address.Address) !void {
+pub const PreWarmAddressesError = AccessList.PreWarmAddressesError;
+pub fn pre_warm_addresses(self: *Self, addresses: []const Address.Address) PreWarmAddressesError!void {
     try self.access_list.pre_warm_addresses(addresses);
 }
 
 // EIP-2929: Pre-warm storage slots from EIP-2930 access list
-pub fn pre_warm_storage_slots(self: *Self, address: Address.Address, slots: []const u256) !void {
+pub const PreWarmStorageSlotsError = AccessList.PreWarmStorageSlotsError;
+pub fn pre_warm_storage_slots(self: *Self, address: Address.Address, slots: []const u256) PreWarmStorageSlotsError!void {
     try self.access_list.pre_warm_storage_slots(address, slots);
 }
 
 // EIP-2929: Get gas cost for accessing an address
-pub fn get_address_access_cost(self: *Self, address: Address.Address) !u64 {
+pub const GetAddressAccessCostError = AccessList.AccessAddressError;
+pub fn get_address_access_cost(self: *Self, address: Address.Address) GetAddressAccessCostError!u64 {
     return self.access_list.access_address(address);
 }
 
 // EIP-2929: Get gas cost for accessing a storage slot
-pub fn get_storage_access_cost(self: *Self, address: Address.Address, slot: u256) !u64 {
+pub const GetStorageAccessCostError = AccessList.AccessStorageSlotError;
+pub fn get_storage_access_cost(self: *Self, address: Address.Address, slot: u256) GetStorageAccessCostError!u64 {
     return self.access_list.access_storage_slot(address, slot);
 }
 
 // EIP-2929: Get extra gas cost for CALL to an address
-pub fn get_call_cost(self: *Self, address: Address.Address) !u64 {
+pub const GetCallCostError = AccessList.GetCallCostError;
+pub fn get_call_cost(self: *Self, address: Address.Address) GetCallCostError!u64 {
     return self.access_list.get_call_cost(address);
 }
 
 // Static call protection validation
-pub fn validate_static_context(self: *const Self) !void {
+pub const ValidateStaticContextError = error{WriteProtection};
+pub fn validate_static_context(self: *const Self) ValidateStaticContextError!void {
     if (self.read_only) {
         return error.WriteProtection;
     }
 }
 
 // State modification methods with static protection
-pub fn set_storage_protected(self: *Self, address: Address.Address, slot: u256, value: u256) !void {
+pub const SetStorageProtectedError = ValidateStaticContextError || std.mem.Allocator.Error;
+pub fn set_storage_protected(self: *Self, address: Address.Address, slot: u256, value: u256) SetStorageProtectedError!void {
     try self.validate_static_context();
     const key = Self.StorageKey{ .address = address, .slot = slot };
     self.storage.put(key, value) catch |err| {
@@ -697,7 +681,8 @@ pub fn set_storage_protected(self: *Self, address: Address.Address, slot: u256, 
     };
 }
 
-pub fn set_transient_storage_protected(self: *Self, address: Address.Address, slot: u256, value: u256) !void {
+pub const SetTransientStorageProtectedError = ValidateStaticContextError || std.mem.Allocator.Error;
+pub fn set_transient_storage_protected(self: *Self, address: Address.Address, slot: u256, value: u256) SetTransientStorageProtectedError!void {
     try self.validate_static_context();
     const key = Self.StorageKey{ .address = address, .slot = slot };
     self.transient_storage.put(key, value) catch |err| {
@@ -706,7 +691,8 @@ pub fn set_transient_storage_protected(self: *Self, address: Address.Address, sl
     };
 }
 
-pub fn set_balance_protected(self: *Self, address: Address.Address, balance: u256) !void {
+pub const SetBalanceProtectedError = ValidateStaticContextError || std.mem.Allocator.Error;
+pub fn set_balance_protected(self: *Self, address: Address.Address, balance: u256) SetBalanceProtectedError!void {
     try self.validate_static_context();
     self.balances.put(address, balance) catch |err| {
         Log.debug("Failed to set balance for address 0x{x}: {any}", .{ Address.to_u256(address), err });
@@ -714,7 +700,8 @@ pub fn set_balance_protected(self: *Self, address: Address.Address, balance: u25
     };
 }
 
-pub fn set_code_protected(self: *Self, address: Address.Address, code: []const u8) !void {
+pub const SetCodeProtectedError = ValidateStaticContextError || std.mem.Allocator.Error;
+pub fn set_code_protected(self: *Self, address: Address.Address, code: []const u8) SetCodeProtectedError!void {
     try self.validate_static_context();
     self.code.put(address, code) catch |err| {
         Log.debug("Failed to set code for address 0x{x}: {any}", .{ Address.to_u256(address), err });
@@ -722,31 +709,36 @@ pub fn set_code_protected(self: *Self, address: Address.Address, code: []const u
     };
 }
 
-pub fn emit_log_protected(self: *Self, address: Address.Address, topics: []const u256, data: []const u8) !void {
+pub const EmitLogProtectedError = ValidateStaticContextError || EmitLogError;
+pub fn emit_log_protected(self: *Self, address: Address.Address, topics: []const u256, data: []const u8) EmitLogProtectedError!void {
     try self.validate_static_context();
     try self.emit_log(address, topics, data);
 }
 
 // Contract creation with static protection
-pub fn create_contract_protected(self: *Self, creator: Address.Address, value: u256, init_code: []const u8, gas: u64) !CreateResult {
+pub const CreateContractProtectedError = ValidateStaticContextError || CreateContractError;
+pub fn create_contract_protected(self: *Self, creator: Address.Address, value: u256, init_code: []const u8, gas: u64) CreateContractProtectedError!CreateResult {
     try self.validate_static_context();
     return self.create_contract(creator, value, init_code, gas);
 }
 
-pub fn create2_contract_protected(self: *Self, creator: Address.Address, value: u256, init_code: []const u8, salt: u256, gas: u64) !CreateResult {
+pub const Create2ContractProtectedError = ValidateStaticContextError || Create2ContractError;
+pub fn create2_contract_protected(self: *Self, creator: Address.Address, value: u256, init_code: []const u8, salt: u256, gas: u64) Create2ContractProtectedError!CreateResult {
     try self.validate_static_context();
     return self.create2_contract(creator, value, init_code, salt, gas);
 }
 
 // Value transfer validation
-pub fn validate_value_transfer(self: *const Self, value: u256) !void {
+pub const ValidateValueTransferError = error{WriteProtection};
+pub fn validate_value_transfer(self: *const Self, value: u256) ValidateValueTransferError!void {
     if (self.read_only and value != 0) {
         return error.WriteProtection;
     }
 }
 
 // SELFDESTRUCT with static protection
-pub fn selfdestruct_protected(self: *Self, contract: Address.Address, beneficiary: Address.Address) !void {
+pub const SelfdestructProtectedError = ValidateStaticContextError;
+pub fn selfdestruct_protected(self: *Self, contract: Address.Address, beneficiary: Address.Address) SelfdestructProtectedError!void {
     try self.validate_static_context();
     // Implementation would transfer balance and mark contract for deletion
     _ = contract;
@@ -755,16 +747,9 @@ pub fn selfdestruct_protected(self: *Self, contract: Address.Address, beneficiar
     // For now, this is a stub that only validates static context
 }
 
-// Run result structure
-pub const RunResult = struct {
-    status: enum { Success, Revert, Invalid, OutOfGas },
-    gas_left: u64,
-    gas_used: u64,
-    output: ?[]const u8,
-};
-
 // Simple bytecode execution for testing
-pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64, input: ?[]const u8) !RunResult {
+pub const RunError = std.mem.Allocator.Error || Frame.FrameError || ExecutionError.Error;
+pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64, input: ?[]const u8) RunError!RunResult {
     // Calculate code hash for the contract
     var hasher = std.crypto.hash.sha3.Keccak256.init(.{});
     hasher.update(bytecode);

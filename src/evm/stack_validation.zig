@@ -2,6 +2,7 @@ const std = @import("std");
 const Stack = @import("stack.zig");
 const Operation = @import("operation.zig");
 const ExecutionError = @import("execution_error.zig");
+pub const ValidationPatterns = @import("validation_patterns.zig");
 
 /// Validates stack requirements before executing an opcode
 pub fn validate_stack_requirements(
@@ -58,54 +59,6 @@ pub fn calculate_max_stack(pop_count: u32, push_count: u32) u32 {
     return Stack.CAPACITY;
 }
 
-/// Batch validation for common patterns
-pub const ValidationPatterns = struct {
-    /// Binary operation (pop 2, push 1)
-    pub fn validate_binary_op(stack: *const Stack) ExecutionError.Error!void {
-        return validate_stack_operation(stack, 2, 1);
-    }
-
-    /// Ternary operation (pop 3, push 1)
-    pub fn validate_ternary_op(stack: *const Stack) ExecutionError.Error!void {
-        return validate_stack_operation(stack, 3, 1);
-    }
-
-    /// Comparison operation (pop 2, push 1)
-    pub fn validate_comparison_op(stack: *const Stack) ExecutionError.Error!void {
-        return validate_stack_operation(stack, 2, 1);
-    }
-
-    /// Unary operation (pop 1, push 1)
-    pub fn validate_unary_op(stack: *const Stack) ExecutionError.Error!void {
-        return validate_stack_operation(stack, 1, 1);
-    }
-
-    /// DUP operation validation
-    pub fn validate_dup(stack: *const Stack, n: u32) ExecutionError.Error!void {
-        // DUP pops 0 and pushes 1
-        if (stack.size < n) {
-            return ExecutionError.Error.StackUnderflow;
-        }
-        if (stack.size >= Stack.CAPACITY) {
-            return ExecutionError.Error.StackOverflow;
-        }
-    }
-
-    /// SWAP operation validation
-    pub fn validate_swap(stack: *const Stack, n: u32) ExecutionError.Error!void {
-        // SWAP needs at least n+1 items on stack
-        if (stack.size <= n) {
-            return ExecutionError.Error.StackUnderflow;
-        }
-    }
-
-    /// PUSH operation validation
-    pub fn validate_push(stack: *const Stack) ExecutionError.Error!void {
-        if (stack.size >= Stack.CAPACITY) {
-            return ExecutionError.Error.StackOverflow;
-        }
-    }
-};
 
 // Tests
 const testing = std.testing;

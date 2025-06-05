@@ -255,3 +255,12 @@ pub inline fn modifies_state(op: u8) bool {
 pub inline fn is_valid(op: u8) bool {
     return op != INVALID;
 }
+
+// EIP-170 Contract size limit constants
+/// Maximum allowed size for deployed contract bytecode (24,576 bytes)
+/// Defined by EIP-170: https://eips.ethereum.org/EIPS/eip-170
+pub const MAX_CODE_SIZE: u32 = 24576;
+
+/// Gas cost per byte of deployed contract code (200 gas per byte)
+/// Used during contract creation to charge for code storage
+pub const DEPLOY_CODE_GAS_PER_BYTE: u64 = 200;

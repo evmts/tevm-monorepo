@@ -3,19 +3,12 @@ const Opcode = @import("opcode.zig");
 const ExecutionError = @import("execution_error.zig");
 const Stack = @import("stack.zig");
 const Memory = @import("memory.zig");
+pub const ExecutionResult = @import("execution_result.zig");
 
 /// Forward declarations - these would be defined by the actual interpreter
 pub const Interpreter = opaque {};
 pub const State = opaque {};
 
-/// ExecutionResult holds the result of executing an opcode
-pub const ExecutionResult = struct {
-    /// Number of bytes consumed by this opcode (including immediate data)
-    /// For most opcodes this is 1, but PUSH opcodes consume 1 + n bytes
-    bytes_consumed: usize = 1,
-    /// Return data if the execution should halt (empty means continue)
-    output: []const u8 = "",
-};
 
 /// ExecutionFunc is a function executed by the EVM during interpretation
 pub const ExecutionFunc = *const fn (pc: usize, interpreter: *Interpreter, state: *State) ExecutionError.Error!ExecutionResult;
