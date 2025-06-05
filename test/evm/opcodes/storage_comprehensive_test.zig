@@ -161,9 +161,9 @@ test "SSTORE (0x55): Store to storage" {
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 30000);
     defer test_frame.deinit();
 
-    // Push slot and value
-    try test_frame.pushStack(&[_]u256{0x42}); // slot
+    // Push value first, then slot (SSTORE pops slot from top, then value)
     try test_frame.pushStack(&[_]u256{0x999}); // value
+    try test_frame.pushStack(&[_]u256{0x42}); // slot
 
     _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
 
@@ -192,9 +192,9 @@ test "SSTORE: Static call protection" {
     // Set static mode
     test_frame.frame.is_static = true;
 
-    // Try to store
-    try test_frame.pushStack(&[_]u256{0x10}); // slot
+    // Try to store (push value first, then slot)
     try test_frame.pushStack(&[_]u256{0x20}); // value
+    try test_frame.pushStack(&[_]u256{0x10}); // slot
 
     const result = helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.WriteProtection, result);
@@ -254,8 +254,8 @@ test "SSTORE: EIP-2200 gas cost scenarios" {
     // EIP-2200 is active in latest hardforks by default
 
     // Test 1: Fresh slot (0 -> non-zero)
-    try test_frame.pushStack(&[_]u256{0x60}); // slot
     try test_frame.pushStack(&[_]u256{0x111}); // value
+    try test_frame.pushStack(&[_]u256{0x60}); // slot
 
     const gas_before_fresh = test_frame.frame.gas_remaining;
     _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
@@ -265,8 +265,8 @@ test "SSTORE: EIP-2200 gas cost scenarios" {
     try testing.expect(gas_fresh >= 20000);
 
     // Test 2: Update existing value (non-zero -> different non-zero)
-    try test_frame.pushStack(&[_]u256{0x60}); // same slot
     try test_frame.pushStack(&[_]u256{0x222}); // different value
+    try test_frame.pushStack(&[_]u256{0x60}); // same slot
 
     const gas_before_update = test_frame.frame.gas_remaining;
     _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
@@ -346,9 +346,9 @@ test "Storage opcodes: Gas consumption patterns" {
     // Pre-Berlin: 800 gas
     try testing.expectEqual(@as(u64, 800), gas_sload);
 
-    // SSTORE to fresh slot
-    try test_frame.pushStack(&[_]u256{0xA0}); // slot
+    // SSTORE to fresh slot (push value first, then slot)
     try test_frame.pushStack(&[_]u256{0x123}); // value
+    try test_frame.pushStack(&[_]u256{0xA0}); // slot
 
     const gas_before_sstore = test_frame.frame.gas_remaining;
     test_frame.frame.pc = 1;
@@ -495,16 +495,19 @@ test "SSTORE: Overwriting values" {
 
     // Store initial value
     // SSTORE pops: slot (first), value (second)
-    // So push: value, slot (slot on top)
-    try test_frame.pushStack(&[_]u256{ 0x111, slot });
+    // So push: value first, then slot
+    try test_frame.pushStack(&[_]u256{0x111}); // value
+    try test_frame.pushStack(&[_]u256{slot}); // slot
     _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
 
     // Overwrite with new value
-    try test_frame.pushStack(&[_]u256{ 0x222, slot });
+    try test_frame.pushStack(&[_]u256{0x222}); // value
+    try test_frame.pushStack(&[_]u256{slot}); // slot
     _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
 
     // Overwrite again
-    try test_frame.pushStack(&[_]u256{ 0x333, slot });
+    try test_frame.pushStack(&[_]u256{0x333}); // value
+    try test_frame.pushStack(&[_]u256{slot}); // slot
     _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
 
     // Verify final value
