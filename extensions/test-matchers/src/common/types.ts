@@ -1,4 +1,4 @@
-import type { Abi, Log } from "viem"
+import type { Abi, Log } from 'viem'
 
 // Contract-like object with ABI
 export interface ContainsContractAbi<TAbi extends Abi = Abi> {

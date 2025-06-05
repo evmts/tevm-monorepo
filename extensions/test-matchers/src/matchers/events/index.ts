@@ -3,8 +3,8 @@ import type { ContractEventName, Hex } from 'viem'
 import type { Abi } from 'viem'
 import { createChainableFromVitest } from '../../chainable/chainable.js'
 import type { ChainableAssertion } from '../../chainable/types.js'
-import { toEmit } from './toEmit.js'
 import type { ContainsContractAbi } from '../../common/types.js'
+import { toEmit } from './toEmit.js'
 import { withArgs } from './withArgs.js'
 import { type EventInputsToNamedArgs, withNamedArgs } from './withNamedArgs.js'
 
@@ -25,7 +25,7 @@ export const withNamedArgsChainable = createChainableFromVitest({
 })
 
 // Register the chainable matchers
-export const eventMatchers = {
+export const chainableEventMatchers = {
 	toEmit: toEmitChainable,
 	withArgs: withArgsChainable,
 	withNamedArgs: withNamedArgsChainable,
