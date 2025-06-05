@@ -165,7 +165,7 @@ test "Stack: swapN compile-time operations" {
     try testing.expectEqual(@as(u256, 17), try stack.back(3));
 
     // Test swapUnsafe
-    try stack.swapUnsafe(1);
+    stack.swapUnsafe(1);
     try testing.expectEqual(@as(u256, 16), (try stack.peek()).*);
     try testing.expectEqual(@as(u256, 14), try stack.back(1));
 

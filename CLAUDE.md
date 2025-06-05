@@ -167,6 +167,8 @@ Note source code is in Js with jsdoc but the rest of it is ts.
 
 - **IMPORTANT** Never run `test` command. Always use `test:coverage`. `test` is interactive and will time out
 
+- **CRITICAL FOR ZIG TESTS**: Always run Zig tests using `zig build test` or `zig build test-<target>` (e.g., `zig build test-opcodes`). Never run tests directly with `zig test` because test files use `@import("evm")` and other module imports that are configured by the build system (build.zig). Running tests directly will result in "no module named 'evm' available" errors.
+
 - We NEVER mock things if we can get away with it. The exception is the bundler packages in bundler-packages/\* which is pretty hard to test without mocking.
 - But even in bundler package we generally should NEVER mock if we don't have to. Create fixtures if you need to.
 - This includes RPCs which we use real examples to

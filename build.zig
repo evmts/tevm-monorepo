@@ -149,6 +149,16 @@ pub fn build(b: *std.Build) void {
     // Add imports to the evm_mod
     evm_mod.addImport("Address", address_mod);
     evm_mod.addImport("Block", block_mod);
+    evm_mod.addImport("Rlp", rlp_mod);
+
+    // Create contracts module
+    const contracts_mod = b.createModule(.{
+        .root_source_file = b.path("src/contracts/package.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    contracts_mod.stack_check = false;
+    contracts_mod.single_threaded = true;
 
     // Create a ZigEVM module - our core EVM implementation
     const target_architecture_mod = b.createModule(.{
@@ -167,6 +177,7 @@ pub fn build(b: *std.Build) void {
     target_architecture_mod.addImport("Block", block_mod);
     target_architecture_mod.addImport("Bytecode", bytecode_mod);
     target_architecture_mod.addImport("Compiler", compiler_mod);
+    target_architecture_mod.addImport("Contracts", contracts_mod);
     target_architecture_mod.addImport("evm", evm_mod);
     target_architecture_mod.addImport("Rlp", rlp_mod);
     target_architecture_mod.addImport("Token", token_mod);
@@ -197,6 +208,7 @@ pub fn build(b: *std.Build) void {
     wasm_mod.addImport("Block", block_mod);
     wasm_mod.addImport("Bytecode", bytecode_mod);
     wasm_mod.addImport("Compiler", compiler_wasm_mod);
+    wasm_mod.addImport("Contracts", contracts_mod);
     wasm_mod.addImport("evm", evm_mod);
     wasm_mod.addImport("Rlp", rlp_mod);
     wasm_mod.addImport("Token", token_mod);
@@ -408,6 +420,37 @@ pub fn build(b: *std.Build) void {
     const compiler_test_step = b.step("test-compiler", "Run Compiler tests");
     compiler_test_step.dependOn(&run_compiler_test.step);
 
+    // Add a test for Contracts
+    const contracts_test = b.addTest(.{
+        .name = "contracts-test",
+        .root_source_file = b.path("src/contracts/package.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    const run_contracts_test = b.addRunArtifact(contracts_test);
+
+    // Add a separate step for testing Contracts
+    const contracts_test_step = b.step("test-contracts", "Run Contracts tests");
+    contracts_test_step.dependOn(&run_contracts_test.step);
+
+    // Add a test for SnailTracer contract specifically
+    const snail_tracer_test = b.addTest(.{
+        .name = "snail-tracer-test",
+        .root_source_file = b.path("test/contracts/snail_tracer_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    // Add dependencies to snail_tracer_test
+    snail_tracer_test.root_module.addImport("Contracts", contracts_mod);
+
+    const run_snail_tracer_test = b.addRunArtifact(snail_tracer_test);
+
+    // Add a separate step for testing SnailTracer
+    const snail_tracer_test_step = b.step("test-snail-tracer", "Run SnailTracer contract tests");
+    snail_tracer_test_step.dependOn(&run_snail_tracer_test.step);
+
     // Add a test for Trie tests
     const trie_test = b.addTest(.{
         .name = "trie-test",
@@ -428,11 +471,16 @@ pub fn build(b: *std.Build) void {
     trie_test_step.dependOn(&run_trie_test.step);
 
     const interpreter_test = b.addTest(.{
-        .name = "evm-test",
+        .name = "interpreter-test",
         .root_source_file = b.path("src/evm/jump_table.zig"),
         .target = target,
         .optimize = optimize,
     });
+
+    // Add module imports to interpreter test
+    interpreter_test.root_module.addImport("Address", address_mod);
+    interpreter_test.root_module.addImport("Block", block_mod);
+    interpreter_test.root_module.addImport("Rlp", rlp_mod);
 
     const run_interpreter_test = b.addRunArtifact(interpreter_test);
 
@@ -482,6 +530,20 @@ pub fn build(b: *std.Build) void {
     const memory_comparison_test_step = b.step("test-memory-comparison", "Run Memory comparison tests");
     memory_comparison_test_step.dependOn(&run_memory_comparison_test.step);
 
+    // Add Memory limit tests
+    const memory_limit_test = b.addTest(.{
+        .name = "memory-limit-test",
+        .root_source_file = b.path("test/evm/memory_limit_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    memory_limit_test.root_module.addImport("evm", evm_mod);
+
+    const run_memory_limit_test = b.addRunArtifact(memory_limit_test);
+
+    const memory_limit_test_step = b.step("test-memory-limit", "Run Memory limit tests");
+    memory_limit_test_step.dependOn(&run_memory_limit_test.step);
+
     // Add Stack tests
     const stack_test = b.addTest(.{
         .name = "stack-test",
@@ -495,6 +557,157 @@ pub fn build(b: *std.Build) void {
 
     const stack_test_step = b.step("test-stack", "Run Stack tests");
     stack_test_step.dependOn(&run_stack_test.step);
+
+    // Add Stack batched operations tests
+    const stack_batched_test = b.addTest(.{
+        .name = "stack-batched-test",
+        .root_source_file = b.path("test/evm/stack_batched_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    stack_batched_test.root_module.addImport("evm", evm_mod);
+
+    const run_stack_batched_test = b.addRunArtifact(stack_batched_test);
+
+    const stack_batched_test_step = b.step("test-stack-batched", "Run Stack batched operations tests");
+    stack_batched_test_step.dependOn(&run_stack_batched_test.step);
+
+    // Add Stack validation tests
+    const stack_validation_test = b.addTest(.{
+        .name = "stack-validation-test",
+        .root_source_file = b.path("test/evm/stack_validation_test.zig"),
+        .target = target,
+        .optimize = optimize,
+        .single_threaded = true,
+    });
+    stack_validation_test.root_module.stack_check = false;
+    stack_validation_test.root_module.addImport("evm", evm_mod);
+
+    const run_stack_validation_test = b.addRunArtifact(stack_validation_test);
+
+    const stack_validation_test_step = b.step("test-stack-validation", "Run Stack validation tests");
+    stack_validation_test_step.dependOn(&run_stack_validation_test.step);
+
+    // Add Opcodes tests
+    const opcodes_test = b.addTest(.{
+        .name = "opcodes-test",
+        .root_source_file = b.path("test/evm/opcodes/opcodes_test.zig"),
+        .target = target,
+        .optimize = optimize,
+        .single_threaded = true,
+    });
+    opcodes_test.root_module.stack_check = false;
+
+    // Add module imports to opcodes test
+    opcodes_test.root_module.addImport("Address", address_mod);
+    opcodes_test.root_module.addImport("Block", block_mod);
+    opcodes_test.root_module.addImport("evm", evm_mod);
+    opcodes_test.root_module.addImport("Utils", utils_mod);
+
+    const run_opcodes_test = b.addRunArtifact(opcodes_test);
+
+    // Add a separate step for testing Opcodes
+    const opcodes_test_step = b.step("test-opcodes", "Run Opcodes tests");
+    opcodes_test_step.dependOn(&run_opcodes_test.step);
+
+    // Create test_helpers module
+    const test_helpers_mod = b.addModule("test_helpers", .{
+        .root_source_file = b.path("test/evm/opcodes/test_helpers.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    test_helpers_mod.stack_check = false;
+    test_helpers_mod.single_threaded = true;
+    test_helpers_mod.addImport("Address", address_mod);
+    test_helpers_mod.addImport("evm", evm_mod);
+
+    // Add VM opcode tests
+    const vm_opcode_test = b.addTest(.{
+        .name = "vm-opcode-test",
+        .root_source_file = b.path("test/evm/vm_opcode_test.zig"),
+        .target = target,
+        .optimize = optimize,
+        .single_threaded = true,
+    });
+    vm_opcode_test.root_module.stack_check = false;
+
+    // Add module imports to VM opcode test
+    vm_opcode_test.root_module.addImport("Address", address_mod);
+    vm_opcode_test.root_module.addImport("evm", evm_mod);
+
+    const run_vm_opcode_test = b.addRunArtifact(vm_opcode_test);
+
+    // Add a separate step for testing VM opcodes
+    const vm_opcode_test_step = b.step("test-vm-opcodes", "Run VM opcode tests");
+    vm_opcode_test_step.dependOn(&run_vm_opcode_test.step);
+
+    // Add Integration tests
+    const integration_test = b.addTest(.{
+        .name = "integration-test",
+        .root_source_file = b.path("test/evm/integration/package.zig"),
+        .target = target,
+        .optimize = optimize,
+        .single_threaded = true,
+    });
+    integration_test.root_module.stack_check = false;
+
+    // Add module imports to integration test
+    integration_test.root_module.addImport("Address", address_mod);
+    integration_test.root_module.addImport("Block", block_mod);
+    integration_test.root_module.addImport("evm", evm_mod);
+    integration_test.root_module.addImport("Utils", utils_mod);
+    integration_test.root_module.addImport("test_helpers", test_helpers_mod);
+
+    const run_integration_test = b.addRunArtifact(integration_test);
+
+    // Add a separate step for testing Integration
+    const integration_test_step = b.step("test-integration", "Run Integration tests");
+    integration_test_step.dependOn(&run_integration_test.step);
+
+    // Add Gas Accounting tests
+    const gas_test = b.addTest(.{
+        .name = "gas-test",
+        .root_source_file = b.path("test/evm/gas/gas_accounting_test.zig"),
+        .target = target,
+        .optimize = optimize,
+        .single_threaded = true,
+    });
+    gas_test.root_module.stack_check = false;
+
+    // Add module imports to gas test
+    gas_test.root_module.addImport("Address", address_mod);
+    gas_test.root_module.addImport("Block", block_mod);
+    gas_test.root_module.addImport("evm", evm_mod);
+    gas_test.root_module.addImport("Utils", utils_mod);
+    gas_test.root_module.addImport("test_helpers", test_helpers_mod);
+
+    const run_gas_test = b.addRunArtifact(gas_test);
+
+    // Add a separate step for testing Gas Accounting
+    const gas_test_step = b.step("test-gas", "Run Gas Accounting tests");
+    gas_test_step.dependOn(&run_gas_test.step);
+
+    // Add Static Call Protection tests
+    const static_protection_test = b.addTest(.{
+        .name = "static-protection-test",
+        .root_source_file = b.path("test/evm/static_call_protection_test.zig"),
+        .target = target,
+        .optimize = optimize,
+        .single_threaded = true,
+    });
+    static_protection_test.root_module.stack_check = false;
+
+    // Add module imports to static protection test
+    static_protection_test.root_module.addImport("Address", address_mod);
+    static_protection_test.root_module.addImport("Block", block_mod);
+    static_protection_test.root_module.addImport("evm", evm_mod);
+    static_protection_test.root_module.addImport("Utils", utils_mod);
+
+    const run_static_protection_test = b.addRunArtifact(static_protection_test);
+
+    // Add a separate step for testing Static Call Protection
+    const static_protection_test_step = b.step("test-static-protection", "Run Static Call Protection tests");
+    static_protection_test_step.dependOn(&run_static_protection_test.step);
 
     // Add Memory benchmark
     const memory_benchmark = b.addExecutable(.{
@@ -584,6 +797,15 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_memory_test.step);
     test_step.dependOn(&run_memory_stress_test.step);
     test_step.dependOn(&run_memory_comparison_test.step);
+    test_step.dependOn(&run_memory_limit_test.step);
+    test_step.dependOn(&run_stack_test.step);
+    test_step.dependOn(&run_stack_batched_test.step);
+    test_step.dependOn(&run_stack_validation_test.step);
+    test_step.dependOn(&run_opcodes_test.step);
+    test_step.dependOn(&run_vm_opcode_test.step);
+    test_step.dependOn(&run_integration_test.step);
+    test_step.dependOn(&run_gas_test.step);
+    test_step.dependOn(&run_static_protection_test.step);
 
     // Define a single test step that runs all tests
     const test_all_step = b.step("test-all", "Run all unit tests");

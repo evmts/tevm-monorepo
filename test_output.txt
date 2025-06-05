@@ -1,0 +1,1204 @@
+Building Rust Foundry wrapper...
+Looking for cbindgen...
+cbindgen command configured
+test-opcodes
++- run opcodes-test 343/401 passed, 58 failed
+error: 'memory_test.test.MSTORE: store 32 bytes to memory' failed: SUB operation: a=10, b=5, result=5
+
+SUB operation: a=5, b=10, result=115792089237316195423570985008687907853269984665640564039457584007913129639931
+
+SUB operation: a=42, b=0, result=42
+BLOCKHASH: requested block=999, current_block=1000
+BLOCKHASH: requested block=700, current_block=1000
+BLOCKHASH: old block (current=1000, requested=700, diff=300), returning 0
+BLOCKHASH: requested block=1001, current_block=1000
+BLOCKHASH: future block, returning 0
+MLOAD: offset=0, current_mem_size=32
+MLOAD: read value=1780731860627700044960722568376592200742329637303199754547598369979440671 from offset=0, mem_size_after=32
+MLOAD: offset=16, current_mem_size=64
+MLOAD: read value=14532552714582660066924456880521368950258152170031413196862950297402215317055 from offset=16, mem_size_after=64
+MLOAD: offset=1000, current_mem_size=0
+MLOAD: expanding memory from 0 to 1032, gas_cost=101
+MLOAD: read value=0 from offset=1000, mem_size_after=1032
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/opcodes/memory.zig:73:9: 0x100841977 in op_mstore (opcodes-test)
+        return ExecutionError.Error.OutOfOffset;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:67:17: 0x10080f62f in execute (opcodes-test)
+    const res = try operation.execute(pc, interpreter, state);
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/memory_test.zig:138:9: 0x1008ba8b3 in test.MSTORE: store 32 bytes to memory (opcodes-test)
+    _ = try test_helpers.executeOpcode(0x52, &test_vm.vm, test_frame.frame);
+        ^
+error: 'memory_test.test.MSTORE: store with offset' failed: /Users/williamcory/tevm/main/g/fix-blockhash/src/evm/opcodes/memory.zig:73:9: 0x100841977 in op_mstore (opcodes-test)
+        return ExecutionError.Error.OutOfOffset;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:67:17: 0x10080f62f in execute (opcodes-test)
+    const res = try operation.execute(pc, interpreter, state);
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/memory_test.zig:170:9: 0x1008bafe3 in test.MSTORE: store with offset (opcodes-test)
+    _ = try test_helpers.executeOpcode(0x52, &test_vm.vm, test_frame.frame);
+        ^
+error: 'memory_test.test.MSTORE8: store single byte to memory' failed: expected 52, found 0
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:103:17: 0x1008a9eeb in expectEqualInner__anon_35683 (opcodes-test)
+                return error.TestExpectedEqual;
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/memory_test.zig:206:5: 0x1008bb7ab in test.MSTORE8: store single byte to memory (opcodes-test)
+    try testing.expectEqual(@as(u8, 0x34), mem[0]);
+    ^
+error: 'memory_test.test.MSTORE8: store only lowest byte' failed: /Users/williamcory/tevm/main/g/fix-blockhash/src/evm/opcodes/memory.zig:116:9: 0x10084266f in op_mstore8 (opcodes-test)
+        return ExecutionError.Error.OutOfOffset;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:67:17: 0x10080f62f in execute (opcodes-test)
+    const res = try operation.execute(pc, interpreter, state);
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/memory_test.zig:236:9: 0x1008bbe9f in test.MSTORE8: store only lowest byte (opcodes-test)
+    _ = try test_helpers.executeOpcode(0x53, &test_vm.vm, test_frame.frame);
+        ^
+error: 'memory_test.test.MSTORE: memory expansion gas' failed: MSIZE: returning memory size=0 (actual=0)
+MSIZE: returning memory size=32 (actual=32)
+MSIZE: returning memory size=64 (actual=33)
+MCOPY: src=10, dest=50, size=5
+MCOPY: src=10, dest=12, size=5
+MCOPY: src=10, dest=8, size=5
+MLOAD: offset=256, current_mem_size=0
+MLOAD: expanding memory from 0 to 288, gas_cost=27
+MLOAD: read value=0 from offset=256, mem_size_after=288
+MSTORE: offset=1193046, value=512, current_mem_size=0
+MSTORE: expanding memory from 0 to 1193078, gas_cost=2826884
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/frame.zig:90:9: 0x10081348b in consume_gas (opcodes-test)
+        return ExecutionError.Error.OutOfGas;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/opcodes/memory.zig:88:9: 0x100841b1f in op_mstore (opcodes-test)
+        try frame.consume_gas(expansion_gas_cost);
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:67:17: 0x10080f62f in execute (opcodes-test)
+    const res = try operation.execute(pc, interpreter, state);
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/memory_test.zig:483:9: 0x1008bf34f in test.MSTORE: memory expansion gas (opcodes-test)
+    _ = try test_helpers.executeOpcode(0x52, &test_vm.vm, test_frame.frame);
+        ^
+error: 'shift_crypto_comprehensive_test.test.KECCAK256: Comprehensive hash edge cases' failed: MCOPY: src=0, dest=100, size=32
+
+SLOAD: address=0x3333333333333333333333333333333333333333, slot=291
+SLOAD: Retrieved value: 4548489
+
+SLOAD: address=0x3333333333333333333333333333333333333333, slot=2457
+SLOAD: Retrieved value: 0
+
+SLOAD: address=0x3333333333333333333333333333333333333333, slot=291
+SLOAD: Retrieved value: 0
+
+SLOAD: address=0x3333333333333333333333333333333333333333, slot=291
+SLOAD: Retrieved value: 0
+
+SSTORE: address=0x3333333333333333333333333333333333333333, slot=1365, value=11259375
+SSTORE: After store, value in storage: 11259375
+
+SSTORE: address=0x3333333333333333333333333333333333333333, slot=256, value=546
+SSTORE: After store, value in storage: 546
+
+SSTORE: address=0x3333333333333333333333333333333333333333, slot=1929, value=291
+SSTORE: After store, value in storage: 291
+
+SSTORE: address=0x3333333333333333333333333333333333333333, slot=1929, value=1110
+SSTORE: After store, value in storage: 1110
+
+SLOAD: address=0x3333333333333333333333333333333333333333, slot=256
+SLOAD: Retrieved value: 273
+CREATE opcode: value=5, offset=0, size=0
+CREATE opcode: value=0, offset=0, size=0
+CREATE opcode: value=0, offset=0, size=0
+CREATE opcode: value=5, offset=0, size=0
+CREATE opcode: value=0, offset=200, size=100
+CREATE opcode: value=0, offset=0, size=49153
+CREATE opcode: value=0, offset=0, size=64
+JUMPI @ PC=0: Attempting jump. Popped dest_u256=0x5 (usize=5), condition_u256=1. Code len=10.
+  JUMPI Target Check: Opcode at dest_usize (5) is 0x5b. Is valid_jumpdest? true
+    JUMPI Detail: dest_usize (5) found in analysis.jumpdest_positions? true. analysis.code_segments.is_set(5)? true
+JUMPI @ PC=0: Attempting jump. Popped dest_u256=0x5 (usize=5), condition_u256=0. Code len=10.
+JUMPI @ PC=0: Attempting jump. Popped dest_u256=0x3 (usize=3), condition_u256=1. Code len=10.
+  JUMPI Target Check: Opcode at dest_usize (3) is 0x0. Is valid_jumpdest? false
+    JUMPI Detail: dest_usize (3) found in analysis.jumpdest_positions? false. analysis.code_segments.is_set(3)? true
+JUMPI @ PC=0: Attempting jump. Popped dest_u256=0x3 (usize=3), condition_u256=0. Code len=10.
+op_invalid: Entered. Frame gas before setting to 0: 1000
+op_invalid: Frame gas after setting to 0: 0. Returning InvalidOpcode error.
+op_invalid: Entered. Frame gas before setting to 0: 0
+op_invalid: Frame gas after setting to 0: 0. Returning InvalidOpcode error.
+expected 111955265819871909716827306439419755622291943856968105496643362699818370381392, found 60346168984465408232479599328723212520136568185040615215285012531303921090887
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:103:17: 0x10080ebff in expectEqualInner__anon_25606 (opcodes-test)
+                return error.TestExpectedEqual;
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:242:5: 0x10080edbb in expectStackValue (opcodes-test)
+    try testing.expectEqual(expected, actual);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/shift_crypto_comprehensive_test.zig:272:9: 0x1008e20f3 in test.KECCAK256: Comprehensive hash edge cases (opcodes-test)
+        try helpers.expectStackValue(test_frame.frame, 0, kh.expected_hash);
+        ^
+error: 'stack_memory_control_comprehensive_test.test.SLOAD (0x54): Load from storage' failed: BLOCKHASH: requested block=999, current_block=1000
+BLOCKHASH: requested block=995, current_block=1000
+BLOCKHASH: requested block=700, current_block=1000
+BLOCKHASH: old block (current=1000, requested=700, diff=300), returning 0
+BLOCKHASH: requested block=1001, current_block=1000
+BLOCKHASH: future block, returning 0
+BLOCKHASH: requested block=1000, current_block=1000
+BLOCKHASH: future block, returning 0
+BLOCKHASH: requested block=0, current_block=1000
+BLOCKHASH: old block (current=1000, requested=0, diff=1000), returning 0
+BLOCKHASH: requested block=999, current_block=0
+BLOCKHASH: future block, returning 0
+BLOCKHASH: requested block=115792089237316195423570985008687907853269984665640564039457584007913129639935, current_block=1000
+BLOCKHASH: future block, returning 0
+MLOAD: offset=0, current_mem_size=0
+MLOAD: expanding memory from 0 to 32, gas_cost=3
+MLOAD: read value=0 from offset=0, mem_size_after=32
+MLOAD: offset=32, current_mem_size=64
+MLOAD: read value=8234104122482341265491137074636836252947884782870784360943022469005013929455 from offset=32, mem_size_after=64
+MLOAD: offset=16, current_mem_size=64
+MLOAD: read value=24197857200151252728969465429440056815 from offset=16, mem_size_after=64
+MSTORE: offset=0, value=16045690984503098046, current_mem_size=0
+MSTORE: expanding memory from 0 to 32, gas_cost=3
+MSTORE: wrote value=16045690984503098046 at offset=0, verified=16045690984503098046, mem_size_after=32
+MSTORE: offset=32, value=1311768467294899695, current_mem_size=32
+MSTORE: expanding memory from 32 to 64, gas_cost=3
+MSTORE: wrote value=1311768467294899695 at offset=32, verified=1311768467294899695, mem_size_after=64
+MSTORE: offset=1024, value=18446744073709551615, current_mem_size=64
+MSTORE: expanding memory from 64 to 1056, gas_cost=95
+MSTORE: wrote value=18446744073709551615 at offset=1024, verified=18446744073709551615, mem_size_after=1056
+
+SLOAD: address=0x3333333333333333333333333333333333333333, slot=42
+SLOAD: Retrieved value: 0
+
+SLOAD: address=0x3333333333333333333333333333333333333333, slot=100
+SLOAD: Retrieved value: 3735928559
+
+SLOAD: address=0x3333333333333333333333333333333333333333, slot=0
+SLOAD: Retrieved value: 1
+
+SLOAD: address=0x3333333333333333333333333333333333333333, slot=1
+SLOAD: Retrieved value: 1000
+
+SLOAD: address=0x3333333333333333333333333333333333333333, slot=115792089237316195423570985008687907853269984665640564039457584007913129639935
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:54:9: 0x10080f4c7 in execute (opcodes-test)
+        return ExecutionError.Error.InvalidOpcode;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:54:9: 0x10080f4c7 in execute (opcodes-test)
+        return ExecutionError.Error.InvalidOpcode;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:54:9: 0x10080f4c7 in execute (opcodes-test)
+        return ExecutionError.Error.InvalidOpcode;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:54:9: 0x10080f4c7 in execute (opcodes-test)
+        return ExecutionError.Error.InvalidOpcode;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:54:9: 0x10080f4c7 in execute (opcodes-test)
+        return ExecutionError.Error.InvalidOpcode;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:54:9: 0x10080f4c7 in execute (opcodes-test)
+        return ExecutionError.Error.InvalidOpcode;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:54:9: 0x10080f4c7 in execute (opcodes-test)
+        return ExecutionError.Error.InvalidOpcode;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:54:9: 0x10080f4c7 in execute (opcodes-test)
+        return ExecutionError.Error.InvalidOpcode;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:54:9: 0x10080f4c7 in execute (opcodes-test)
+        return ExecutionError.Error.InvalidOpcode;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:54:9: 0x10080f4c7 in execute (opcodes-test)
+        return ExecutionError.Error.InvalidOpcode;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:54:9: 0x10080f4c7 in execute (opcodes-test)
+        return ExecutionError.Error.InvalidOpcode;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:54:9: 0x10080f4c7 in execute (opcodes-test)
+        return ExecutionError.Error.InvalidOpcode;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:54:9: 0x10080f4c7 in execute (opcodes-test)
+        return ExecutionError.Error.InvalidOpcode;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:54:9: 0x10080f4c7 in execute (opcodes-test)
+        return ExecutionError.Error.InvalidOpcode;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:54:9: 0x10080f4c7 in execute (opcodes-test)
+        return ExecutionError.Error.InvalidOpcode;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:54:9: 0x10080f4c7 in execute (opcodes-test)
+        return ExecutionError.Error.InvalidOpcode;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+(40 additional stack frames skipped...)
+error: 'stack_memory_control_comprehensive_test.test.JUMP (0x56): Unconditional jump' failed: SSTORE: address=0x3333333333333333333333333333333333333333, slot=10, value=12345
+SSTORE: After store, value in storage: 12345
+
+SSTORE: address=0x3333333333333333333333333333333333333333, slot=10, value=67890
+SSTORE: After store, value in storage: 67890
+
+SSTORE: address=0x3333333333333333333333333333333333333333, slot=10, value=0
+SSTORE: After store, value in storage: 0
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/opcodes/control.zig:36:9: 0x100844a8f in op_jump (opcodes-test)
+        return ExecutionError.Error.InvalidJump;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:67:17: 0x10080f62f in execute (opcodes-test)
+    const res = try operation.execute(pc, interpreter, state);
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/stack_memory_control_comprehensive_test.zig:307:9: 0x100900e9b in test.JUMP (0x56): Unconditional jump (opcodes-test)
+    _ = try helpers.executeOpcode(0x56, &test_vm.vm, test_frame.frame);
+        ^
+error: 'stack_memory_control_comprehensive_test.test.JUMPI (0x57): Conditional jump' failed: JUMPI @ PC=0: Attempting jump. Popped dest_u256=0x1 (usize=1), condition_u256=8. Code len=12.
+  JUMPI Target Check: Opcode at dest_usize (1) is 0x8. Is valid_jumpdest? false
+    JUMPI Detail: frame.contract.analysis is null.
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/opcodes/control.zig:88:13: 0x1008454cb in op_jumpi (opcodes-test)
+            return ExecutionError.Error.InvalidJump;
+            ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:67:17: 0x10080f62f in execute (opcodes-test)
+    const res = try operation.execute(pc, interpreter, state);
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/stack_memory_control_comprehensive_test.zig:354:9: 0x10090164f in test.JUMPI (0x57): Conditional jump (opcodes-test)
+    _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
+        ^
+error: 'stack_memory_control_comprehensive_test.test.Stack, Memory, and Control opcodes: Gas consumption' failed: MLOAD: offset=0, current_mem_size=0
+MLOAD: expanding memory from 0 to 32, gas_cost=3
+MLOAD: read value=0 from offset=0, mem_size_after=32
+expected 3, found 6
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:103:17: 0x10080f75f in expectEqualInner__anon_25686 (opcodes-test)
+                return error.TestExpectedEqual;
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/stack_memory_control_comprehensive_test.zig:453:5: 0x100902d03 in test.Stack, Memory, and Control opcodes: Gas consumption (opcodes-test)
+    try testing.expectEqual(@as(u64, 3), gas_used);
+    ^
+error: 'stack_memory_control_comprehensive_test.test.Jump operations: Code analysis integration' failed: SLOAD: address=0x3333333333333333333333333333333333333333, slot=42
+SLOAD: Retrieved value: 0
+
+SLOAD: address=0x3333333333333333333333333333333333333333, slot=42
+SLOAD: Retrieved value: 0
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/opcodes/control.zig:36:9: 0x100844a8f in op_jump (opcodes-test)
+        return ExecutionError.Error.InvalidJump;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:67:17: 0x10080f62f in execute (opcodes-test)
+    const res = try operation.execute(pc, interpreter, state);
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/stack_memory_control_comprehensive_test.zig:610:9: 0x1009046f3 in test.Jump operations: Code analysis integration (opcodes-test)
+    _ = try helpers.executeOpcode(0x56, &test_vm.vm, test_frame.frame);
+        ^
+error: 'msize_gas_jumpdest_comprehensive_test.test.JUMPDEST: Code analysis integration' failed: MSIZE: returning memory size=0 (actual=0)
+MSTORE: offset=0, value=3735928559, current_mem_size=0
+MSTORE: expanding memory from 0 to 32, gas_cost=3
+MSTORE: wrote value=3735928559 at offset=0, verified=3735928559, mem_size_after=32
+MSIZE: returning memory size=32 (actual=32)
+MSTORE: offset=32, value=3405691582, current_mem_size=32
+MSTORE: expanding memory from 32 to 64, gas_cost=3
+MSTORE: wrote value=3405691582 at offset=32, verified=3405691582, mem_size_after=64
+MSIZE: returning memory size=64 (actual=64)
+MSTORE: offset=100, value=305419896, current_mem_size=64
+MSTORE: expanding memory from 64 to 132, gas_cost=9
+MSTORE: wrote value=305419896 at offset=100, verified=305419896, mem_size_after=132
+MSIZE: returning memory size=160 (actual=132)
+MSIZE: returning memory size=224 (actual=224)
+MSIZE: returning memory size=0 (actual=0)
+MLOAD: offset=64, current_mem_size=0
+MLOAD: expanding memory from 0 to 96, gas_cost=9
+MLOAD: read value=0 from offset=64, mem_size_after=96
+MSIZE: returning memory size=96 (actual=96)
+MSIZE: returning memory size=224 (actual=204)
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:580:14: 0x10089033b in expect (opcodes-test)
+    if (!ok) return error.TestUnexpectedResult;
+             ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/msize_gas_jumpdest_comprehensive_test.zig:314:5: 0x10090844f in test.JUMPDEST: Code analysis integration (opcodes-test)
+    try testing.expect(!contract.valid_jumpdest(5));
+    ^
+error: 'transient_mcopy_push_comprehensive_test.test.PUSH0 (0x5F): Push zero onto stack' failed: MSIZE: returning memory size=0 (actual=0)
+MSTORE: offset=0, value=295990755076957304699390954000840642031, current_mem_size=0
+MSTORE: expanding memory from 0 to 32, gas_cost=3
+MSTORE: wrote value=295990755076957304699390954000840642031 at offset=0, verified=295990755076957304699390954000840642031, mem_size_after=32
+MCOPY: src=0, dest=64, size=32
+MLOAD: offset=64, current_mem_size=96
+MLOAD: read value=295990755076957304699390954000840642031 from offset=64, mem_size_after=96
+MCOPY: src=0, dest=16, size=32
+MSTORE: offset=32, value=338859572287140669045478177412140104398, current_mem_size=96
+MSTORE: wrote value=338859572287140669045478177412140104398 at offset=32, verified=338859572287140669045478177412140104398, mem_size_after=96
+MCOPY: src=32, dest=16, size=32
+MCOPY: src=0, dest=1000, size=256
+MSIZE: returning memory size=1280 (actual=1256)
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/frame.zig:90:9: 0x10081348b in consume_gas (opcodes-test)
+        return ExecutionError.Error.OutOfGas;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:63:9: 0x10080f5db in execute (opcodes-test)
+        try frame.consume_gas(operation.constant_gas);
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/transient_mcopy_push_comprehensive_test.zig:221:13: 0x10090c5db in test.PUSH0 (0x5F): Push zero onto stack (opcodes-test)
+        _ = try helpers.executeOpcode(0x5F, &test_vm.vm, test_frame.frame);
+            ^
+error: 'push14_push32_comprehensive_test.test.PUSH32: Hash value pattern' failed: MCOPY: src=0, dest=100, size=32
+expected 77709350304069432351687792090344447291305201105595172622908691436287758054486, found 77709350304069432351687792090344447291305201105594842505565017639371873963435
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:103:17: 0x10080ebff in expectEqualInner__anon_25606 (opcodes-test)
+                return error.TestExpectedEqual;
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:242:5: 0x10080edbb in expectStackValue (opcodes-test)
+    try testing.expectEqual(expected, actual);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/push14_push32_comprehensive_test.zig:539:5: 0x10091bb8f in test.PUSH32: Hash value pattern (opcodes-test)
+    try helpers.expectStackValue(test_frame.frame, 0, expected_hash);
+    ^
+error: 'dup1_dup16_comprehensive_test.test.DUP3-DUP5: Various duplications' failed: expected 68, found 51
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:103:17: 0x10080ebff in expectEqualInner__anon_25606 (opcodes-test)
+                return error.TestExpectedEqual;
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:242:5: 0x10080edbb in expectStackValue (opcodes-test)
+    try testing.expectEqual(expected, actual);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/dup1_dup16_comprehensive_test.zig:139:5: 0x10091ed87 in test.DUP3-DUP5: Various duplications (opcodes-test)
+    try helpers.expectStackValue(test_frame.frame, 0, 0x44); // Duplicated value on top
+    ^
+error: 'dup1_dup16_comprehensive_test.test.DUP6-DUP10: Mid-range duplications' failed: expected 64, found 80
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:103:17: 0x10080ebff in expectEqualInner__anon_25606 (opcodes-test)
+                return error.TestExpectedEqual;
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:242:5: 0x10080edbb in expectStackValue (opcodes-test)
+    try testing.expectEqual(expected, actual);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/dup1_dup16_comprehensive_test.zig:180:5: 0x10091f63f in test.DUP6-DUP10: Mid-range duplications (opcodes-test)
+    try helpers.expectStackValue(test_frame.frame, 0, 0x40);
+    ^
+error: 'dup1_dup16_comprehensive_test.test.DUP11-DUP16: High-range duplications' failed: expected 1280, found 1536
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:103:17: 0x10080ebff in expectEqualInner__anon_25606 (opcodes-test)
+                return error.TestExpectedEqual;
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:242:5: 0x10080edbb in expectStackValue (opcodes-test)
+    try testing.expectEqual(expected, actual);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/dup1_dup16_comprehensive_test.zig:230:5: 0x10092011b in test.DUP11-DUP16: High-range duplications (opcodes-test)
+    try helpers.expectStackValue(test_frame.frame, 0, 0x500);
+    ^
+error: 'dup1_dup16_comprehensive_test.test.DUP operations: Stack underflow' failed: expected error.StackUnderflow, found operation.ExecutionResult{ .bytes_consumed = 1, .output = {  } }
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:50:9: 0x100892177 in expectError__anon_34931 (opcodes-test)
+        return error.TestExpectedError;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/dup1_dup16_comprehensive_test.zig:367:5: 0x10092197b in test.DUP operations: Stack underflow (opcodes-test)
+    try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
+    ^
+error: 'dup1_dup16_comprehensive_test.test.DUP operations: Sequential duplications' failed: expected 2, found 1
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:103:17: 0x10080ebff in expectEqualInner__anon_25606 (opcodes-test)
+                return error.TestExpectedEqual;
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:242:5: 0x10080edbb in expectStackValue (opcodes-test)
+    try testing.expectEqual(expected, actual);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/dup1_dup16_comprehensive_test.zig:468:5: 0x100922c3f in test.DUP operations: Sequential duplications (opcodes-test)
+    try helpers.expectStackValue(test_frame.frame, 0, 0x02);
+    ^
+error: 'dup1_dup16_comprehensive_test.test.DUP operations: Pattern verification' failed: expected 153, found 170
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:103:17: 0x10080ebff in expectEqualInner__anon_25606 (opcodes-test)
+                return error.TestExpectedEqual;
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:242:5: 0x10080edbb in expectStackValue (opcodes-test)
+    try testing.expectEqual(expected, actual);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/dup1_dup16_comprehensive_test.zig:508:5: 0x100923447 in test.DUP operations: Pattern verification (opcodes-test)
+    try helpers.expectStackValue(test_frame.frame, 0, 0x99);
+    ^
+error: 'swap1_swap16_comprehensive_test.test.SWAP3-SWAP5: Various swaps' failed: expected 64, found 48
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:103:17: 0x10080ebff in expectEqualInner__anon_25606 (opcodes-test)
+                return error.TestExpectedEqual;
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:242:5: 0x10080edbb in expectStackValue (opcodes-test)
+    try testing.expectEqual(expected, actual);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/swap1_swap16_comprehensive_test.zig:121:5: 0x100925afb in test.SWAP3-SWAP5: Various swaps (opcodes-test)
+    try helpers.expectStackValue(test_frame.frame, 0, 0x40);
+    ^
+error: 'swap1_swap16_comprehensive_test.test.SWAP operations: No side effects' failed: expected 51, found 34
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:103:17: 0x10080ebff in expectEqualInner__anon_25606 (opcodes-test)
+                return error.TestExpectedEqual;
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:242:5: 0x10080edbb in expectStackValue (opcodes-test)
+    try testing.expectEqual(expected, actual);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/swap1_swap16_comprehensive_test.zig:594:5: 0x10092bf9b in test.SWAP operations: No side effects (opcodes-test)
+    try helpers.expectStackValue(test_frame.frame, 0, 0x33); // Was at position 3
+    ^
+error: 'log0_log4_comprehensive_test.test.LOG1 (0xA1): Emit log with one topic' failed: /Users/williamcory/tevm/main/g/fix-blockhash/src/evm/opcodes/log.zig:50:17: 0x10081ac8b in log (opcodes-test)
+                return ExecutionError.Error.OutOfOffset;
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:67:17: 0x10080f62f in execute (opcodes-test)
+    const res = try operation.execute(pc, interpreter, state);
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/log0_log4_comprehensive_test.zig:98:20: 0x10092d2a7 in test.LOG1 (0xA1): Emit log with one topic (opcodes-test)
+    const result = try helpers.executeOpcode(0xA1, &test_vm.vm, test_frame.frame);
+                   ^
+error: 'log0_log4_comprehensive_test.test.LOG2-LOG4: Multiple topics' failed: /Users/williamcory/tevm/main/g/fix-blockhash/src/evm/frame.zig:90:9: 0x10081348b in consume_gas (opcodes-test)
+        return ExecutionError.Error.OutOfGas;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/opcodes/log.zig:64:13: 0x10081b893 in log (opcodes-test)
+            try frame.consume_gas(byte_cost);
+            ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:67:17: 0x10080f62f in execute (opcodes-test)
+    const res = try operation.execute(pc, interpreter, state);
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/log0_log4_comprehensive_test.zig:166:9: 0x10092dd13 in test.LOG2-LOG4: Multiple topics (opcodes-test)
+    _ = try helpers.executeOpcode(0xA2, &test_vm.vm, test_frame.frame);
+        ^
+error: 'log0_log4_comprehensive_test.test.LOG0-LOG4: Gas consumption' failed: expected 637, found 375
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:103:17: 0x10080f75f in expectEqualInner__anon_25686 (opcodes-test)
+                return error.TestExpectedEqual;
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/log0_log4_comprehensive_test.zig:246:5: 0x10092f643 in test.LOG0-LOG4: Gas consumption (opcodes-test)
+    try testing.expectEqual(@as(u64, 375 + 256 + 6), gas_used_log0);
+    ^
+error: 'log0_log4_comprehensive_test.test.LOG operations: Empty data' failed: expected 0, found 255
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:103:17: 0x10080f217 in expectEqualInner__anon_25634 (opcodes-test)
+                return error.TestExpectedEqual;
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/log0_log4_comprehensive_test.zig:414:5: 0x1009315f3 in test.LOG operations: Empty data (opcodes-test)
+    try testing.expectEqual(@as(usize, 0), log.data.len);
+    ^
+error: 'log0_log4_comprehensive_test.test.LOG operations: Large memory offset' failed: /Users/williamcory/tevm/main/g/fix-blockhash/src/evm/frame.zig:90:9: 0x10081348b in consume_gas (opcodes-test)
+        return ExecutionError.Error.OutOfGas;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/opcodes/log.zig:64:13: 0x10081a42f in log (opcodes-test)
+            try frame.consume_gas(byte_cost);
+            ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:67:17: 0x10080f62f in execute (opcodes-test)
+    const res = try operation.execute(pc, interpreter, state);
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/log0_log4_comprehensive_test.zig:442:9: 0x100931b7f in test.LOG operations: Large memory offset (opcodes-test)
+    _ = try helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
+        ^
+error: 'log0_log4_comprehensive_test.test.LOG operations: ERC20 Transfer event pattern' failed: /Users/williamcory/tevm/main/g/fix-blockhash/src/evm/opcodes/log.zig:50:17: 0x10081c0fb in log (opcodes-test)
+                return ExecutionError.Error.OutOfOffset;
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:67:17: 0x10080f62f in execute (opcodes-test)
+    const res = try operation.execute(pc, interpreter, state);
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/log0_log4_comprehensive_test.zig:510:9: 0x10093250f in test.LOG operations: ERC20 Transfer event pattern (opcodes-test)
+    _ = try helpers.executeOpcode(0xA3, &test_vm.vm, test_frame.frame);
+        ^
+error: 'log0_log4_comprehensive_test.test.LOG operations: Multiple logs in sequence' failed: expected 153, found 4
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:103:17: 0x10080ebff in expectEqualInner__anon_25606 (opcodes-test)
+                return error.TestExpectedEqual;
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/log0_log4_comprehensive_test.zig:599:5: 0x100933a67 in test.LOG operations: Multiple logs in sequence (opcodes-test)
+    try testing.expectEqual(@as(u256, 0x99), test_vm.vm.logs.items[1].topics[0]);
+    ^
+error: 'create_call_comprehensive_test.test.CREATE (0xF0): Basic contract creation' failed: /Users/williamcory/tevm/main/g/fix-blockhash/src/evm/frame.zig:90:9: 0x10081348b in consume_gas (opcodes-test)
+        return ExecutionError.Error.OutOfGas;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:63:9: 0x10080f5db in execute (opcodes-test)
+        try frame.consume_gas(operation.constant_gas);
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/create_call_comprehensive_test.zig:60:20: 0x1009342a3 in test.CREATE (0xF0): Basic contract creation (opcodes-test)
+    const result = try helpers.executeOpcode(0xF0, &test_vm.vm, test_frame.frame);
+                   ^
+error: 'create_call_comprehensive_test.test.CREATE: Static call protection' failed: expected error.WriteProtection, found error.OutOfGas
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/frame.zig:90:9: 0x10081348b in consume_gas (opcodes-test)
+        return ExecutionError.Error.OutOfGas;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:63:9: 0x10080f5db in execute (opcodes-test)
+        try frame.consume_gas(operation.constant_gas);
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:57:13: 0x100892227 in expectError__anon_34931 (opcodes-test)
+            return error.TestUnexpectedError;
+            ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/create_call_comprehensive_test.zig:102:5: 0x100934bf3 in test.CREATE: Static call protection (opcodes-test)
+    try testing.expectError(helpers.ExecutionError.Error.WriteProtection, result);
+    ^
+error: 'create_call_comprehensive_test.test.CREATE: EIP-3860 initcode size limit' failed: CREATE opcode: value=49153, offset=0, size=0
+CREATE: Calculated address: 0x504c121153ff3534566430504c2b05ad27c7cd6f for creator: 0x3333333333333333333333333333333333333333, nonce: 0
+CREATE: Checking balance. Creator: 0x3333333333333333333333333333333333333333, balance: 0, required value: 49153
+CREATE: Insufficient balance. Returning failure with zero address
+expected error.MaxCodeSizeExceeded, found operation.ExecutionResult{ .bytes_consumed = 1, .output = {  } }
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:50:9: 0x100892177 in expectError__anon_34931 (opcodes-test)
+        return error.TestExpectedError;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/create_call_comprehensive_test.zig:133:5: 0x10093515b in test.CREATE: EIP-3860 initcode size limit (opcodes-test)
+    try testing.expectError(helpers.ExecutionError.Error.MaxCodeSizeExceeded, result);
+    ^
+error: 'create_call_comprehensive_test.test.CREATE: Depth limit' failed: /Users/williamcory/tevm/main/g/fix-blockhash/src/evm/frame.zig:90:9: 0x10081348b in consume_gas (opcodes-test)
+        return ExecutionError.Error.OutOfGas;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:63:9: 0x10080f5db in execute (opcodes-test)
+        try frame.consume_gas(operation.constant_gas);
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/create_call_comprehensive_test.zig:163:20: 0x100935677 in test.CREATE: Depth limit (opcodes-test)
+    const result = try helpers.executeOpcode(0xF0, &test_vm.vm, test_frame.frame);
+                   ^
+error: 'create_call_comprehensive_test.test.CREATE2 (0xF5): Deterministic contract creation' failed: /Users/williamcory/tevm/main/g/fix-blockhash/src/evm/frame.zig:90:9: 0x10081348b in consume_gas (opcodes-test)
+        return ExecutionError.Error.OutOfGas;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:63:9: 0x10080f5db in execute (opcodes-test)
+        try frame.consume_gas(operation.constant_gas);
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/create_call_comprehensive_test.zig:221:20: 0x100935e1f in test.CREATE2 (0xF5): Deterministic contract creation (opcodes-test)
+    const result = try helpers.executeOpcode(0xF5, &test_vm.vm, test_frame.frame);
+                   ^
+error: 'create_call_comprehensive_test.test.CALL (0xF1): Basic external call' failed: /Users/williamcory/tevm/main/g/fix-blockhash/src/evm/opcodes/system.zig:23:9: 0x10081eb3f in check_offset_bounds (opcodes-test)
+        return ExecutionError.Error.InvalidOffset;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/opcodes/system.zig:228:9: 0x10085180f in op_call (opcodes-test)
+        try check_offset_bounds(ret_offset);
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:67:17: 0x10080f62f in execute (opcodes-test)
+    const res = try operation.execute(pc, interpreter, state);
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/create_call_comprehensive_test.zig:275:20: 0x10093697b in test.CALL (0xF1): Basic external call (opcodes-test)
+    const result = try helpers.executeOpcode(0xF1, &test_vm.vm, test_frame.frame);
+                   ^
+error: 'create_call_comprehensive_test.test.CALL: Value transfer in static context' failed: expected error.WriteProtection, found error.InvalidOffset
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/opcodes/system.zig:23:9: 0x10081eb3f in check_offset_bounds (opcodes-test)
+        return ExecutionError.Error.InvalidOffset;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/opcodes/system.zig:228:9: 0x10085180f in op_call (opcodes-test)
+        try check_offset_bounds(ret_offset);
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:67:17: 0x10080f62f in execute (opcodes-test)
+    const res = try operation.execute(pc, interpreter, state);
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:57:13: 0x100892227 in expectError__anon_34931 (opcodes-test)
+            return error.TestUnexpectedError;
+            ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/create_call_comprehensive_test.zig:319:5: 0x1009374db in test.CALL: Value transfer in static context (opcodes-test)
+    try testing.expectError(helpers.ExecutionError.Error.WriteProtection, result);
+    ^
+error: 'create_call_comprehensive_test.test.CALL: Cold address access (EIP-2929)' failed: /Users/williamcory/tevm/main/g/fix-blockhash/src/evm/opcodes/system.zig:23:9: 0x10081eb3f in check_offset_bounds (opcodes-test)
+        return ExecutionError.Error.InvalidOffset;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/opcodes/system.zig:228:9: 0x10085180f in op_call (opcodes-test)
+        try check_offset_bounds(ret_offset);
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:67:17: 0x10080f62f in execute (opcodes-test)
+    const res = try operation.execute(pc, interpreter, state);
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/create_call_comprehensive_test.zig:362:9: 0x100937d0f in test.CALL: Cold address access (EIP-2929) (opcodes-test)
+    _ = try helpers.executeOpcode(0xF1, &test_vm.vm, test_frame.frame);
+        ^
+error: 'create_call_comprehensive_test.test.CALLCODE (0xF2): Execute external code with current storage' failed: /Users/williamcory/tevm/main/g/fix-blockhash/src/evm/opcodes/system.zig:23:9: 0x10081eb3f in check_offset_bounds (opcodes-test)
+        return ExecutionError.Error.InvalidOffset;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/opcodes/system.zig:323:9: 0x100852edb in op_callcode (opcodes-test)
+        try check_offset_bounds(ret_offset);
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:67:17: 0x10080f62f in execute (opcodes-test)
+    const res = try operation.execute(pc, interpreter, state);
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/create_call_comprehensive_test.zig:409:20: 0x1009385cf in test.CALLCODE (0xF2): Execute external code with current storage (opcodes-test)
+    const result = try helpers.executeOpcode(0xF2, &test_vm.vm, test_frame.frame);
+                   ^
+error: 'create_call_comprehensive_test.test.DELEGATECALL (0xF4): Execute with current context' failed: /Users/williamcory/tevm/main/g/fix-blockhash/src/evm/opcodes/system.zig:23:9: 0x10081eb3f in check_offset_bounds (opcodes-test)
+        return ExecutionError.Error.InvalidOffset;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/opcodes/system.zig:417:9: 0x10081de83 in op_delegatecall (opcodes-test)
+        try check_offset_bounds(ret_offset);
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:67:17: 0x10080f62f in execute (opcodes-test)
+    const res = try operation.execute(pc, interpreter, state);
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/create_call_comprehensive_test.zig:459:20: 0x100939013 in test.DELEGATECALL (0xF4): Execute with current context (opcodes-test)
+    const result = try helpers.executeOpcode(0xF4, &test_vm.vm, test_frame.frame);
+                   ^
+error: 'create_call_comprehensive_test.test.STATICCALL (0xFA): Read-only external call' failed: /Users/williamcory/tevm/main/g/fix-blockhash/src/evm/opcodes/system.zig:23:9: 0x10081eb3f in check_offset_bounds (opcodes-test)
+        return ExecutionError.Error.InvalidOffset;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/opcodes/system.zig:508:9: 0x1008214a7 in op_staticcall (opcodes-test)
+        try check_offset_bounds(ret_offset);
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:67:17: 0x10080f62f in execute (opcodes-test)
+    const res = try operation.execute(pc, interpreter, state);
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/create_call_comprehensive_test.zig:506:20: 0x1009399ab in test.STATICCALL (0xFA): Read-only external call (opcodes-test)
+    const result = try helpers.executeOpcode(0xFA, &test_vm.vm, test_frame.frame);
+                   ^
+error: 'create_call_comprehensive_test.test.CREATE/CREATE2: Failed creation scenarios' failed: CREATE opcode: value=64, offset=0, size=0
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/frame.zig:90:9: 0x10081348b in consume_gas (opcodes-test)
+        return ExecutionError.Error.OutOfGas;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:63:9: 0x10080f5db in execute (opcodes-test)
+        try frame.consume_gas(operation.constant_gas);
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/create_call_comprehensive_test.zig:656:9: 0x10093b6cb in test.CREATE/CREATE2: Failed creation scenarios (opcodes-test)
+    _ = try helpers.executeOpcode(0xF0, &test_vm.vm, test_frame.frame);
+        ^
+error: 'control_system_comprehensive_test.test.RETURN (0xF3): Return data from execution' failed: slices differ. first difference occurs at index 0 (0x0)
+
+============ expected this output: =============  len: 32 (0x20)
+
+48 65 6C 6C 6F 20 66 72  6F 6D 20 52 45 54 55 52  Hello from RETUR
+4E 21 00 00 00 00 00 00  00 00 00 00 00 00 00 00  N!..............
+
+============= instead found this: ==============  len: 0 (0x0)
+
+                                                  
+
+================================================
+
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/opcodes/control.zig:159:5: 0x100853b8b in op_return (opcodes-test)
+    return ExecutionError.Error.STOP; // RETURN ends execution normally
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:67:17: 0x10080f62f in execute (opcodes-test)
+    const res = try operation.execute(pc, interpreter, state);
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:435:5: 0x1008b0043 in expectEqualSlices__anon_35747 (opcodes-test)
+    return error.TestExpectedEqual;
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/control_system_comprehensive_test.zig:51:5: 0x10093beab in test.RETURN (0xF3): Return data from execution (opcodes-test)
+    try testing.expectEqualSlices(u8, return_data[0..], test_frame.frame.return_data_buffer);
+    ^
+error: 'control_system_comprehensive_test.test.REVERT (0xFD): Revert with data' failed: slices differ. first difference occurs at index 0 (0x0)
+
+============ expected this output: =============  len: 16 (0x10)
+
+52 65 76 65 72 74 20 72  65 61 73 6F 6E 21 00 00  Revert reason!..
+
+============= instead found this: ==============  len: 0 (0x0)
+
+                                                  
+
+================================================
+
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/opcodes/control.zig:200:5: 0x10082064b in op_revert (opcodes-test)
+    return ExecutionError.Error.REVERT;
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:67:17: 0x10080f62f in execute (opcodes-test)
+    const res = try operation.execute(pc, interpreter, state);
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:435:5: 0x1008b0043 in expectEqualSlices__anon_35747 (opcodes-test)
+    return error.TestExpectedEqual;
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/control_system_comprehensive_test.zig:137:5: 0x10093caab in test.REVERT (0xFD): Revert with data (opcodes-test)
+    try testing.expectEqualSlices(u8, revert_data[0..], test_frame.frame.return_data_buffer);
+    ^
+error: 'control_system_comprehensive_test.test.SELFDESTRUCT: Static call protection' failed: op_invalid: Entered. Frame gas before setting to 0: 10000
+op_invalid: Frame gas after setting to 0: 0. Returning InvalidOpcode error.
+expected error.WriteProtection, found error.OutOfGas
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/frame.zig:90:9: 0x10081348b in consume_gas (opcodes-test)
+        return ExecutionError.Error.OutOfGas;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:63:9: 0x10080f5db in execute (opcodes-test)
+        try frame.consume_gas(operation.constant_gas);
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:57:13: 0x100892227 in expectError__anon_34931 (opcodes-test)
+            return error.TestUnexpectedError;
+            ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/control_system_comprehensive_test.zig:281:5: 0x10093dd63 in test.SELFDESTRUCT: Static call protection (opcodes-test)
+    try testing.expectError(helpers.ExecutionError.Error.WriteProtection, result);
+    ^
+error: 'control_system_comprehensive_test.test.Control flow interaction: Call with REVERT' failed: /Users/williamcory/tevm/main/g/fix-blockhash/src/evm/opcodes/control.zig:159:5: 0x100853b8b in op_return (opcodes-test)
+    return ExecutionError.Error.STOP; // RETURN ends execution normally
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:67:17: 0x10080f62f in execute (opcodes-test)
+    const res = try operation.execute(pc, interpreter, state);
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/opcodes/control.zig:200:5: 0x10082064b in op_revert (opcodes-test)
+    return ExecutionError.Error.REVERT;
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:67:17: 0x10080f62f in execute (opcodes-test)
+    const res = try operation.execute(pc, interpreter, state);
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/stack_validation.zig:15:9: 0x1008133cb in validate_stack_requirements (opcodes-test)
+        return ExecutionError.Error.StackUnderflow;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:59:5: 0x10080f523 in execute (opcodes-test)
+    try stack_validation.validate_stack_requirements(&frame.stack, operation);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/stack_validation.zig:15:9: 0x1008133cb in validate_stack_requirements (opcodes-test)
+        return ExecutionError.Error.StackUnderflow;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:59:5: 0x10080f523 in execute (opcodes-test)
+    try stack_validation.validate_stack_requirements(&frame.stack, operation);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/stack_validation.zig:15:9: 0x1008133cb in validate_stack_requirements (opcodes-test)
+        return ExecutionError.Error.StackUnderflow;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:59:5: 0x10080f523 in execute (opcodes-test)
+    try stack_validation.validate_stack_requirements(&frame.stack, operation);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/stack_validation.zig:15:9: 0x1008133cb in validate_stack_requirements (opcodes-test)
+        return ExecutionError.Error.StackUnderflow;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:59:5: 0x10080f523 in execute (opcodes-test)
+    try stack_validation.validate_stack_requirements(&frame.stack, operation);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/opcodes/system.zig:23:9: 0x10081eb3f in check_offset_bounds (opcodes-test)
+        return ExecutionError.Error.InvalidOffset;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/opcodes/system.zig:228:9: 0x10085180f in op_call (opcodes-test)
+        try check_offset_bounds(ret_offset);
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:67:17: 0x10080f62f in execute (opcodes-test)
+    const res = try operation.execute(pc, interpreter, state);
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/control_system_comprehensive_test.zig:468:9: 0x10093fc77 in test.Control flow interaction: Call with REVERT (opcodes-test)
+    _ = try helpers.executeOpcode(0xF1, &test_vm.vm, test_frame.frame);
+        ^
+error: 'arithmetic_comprehensive_test.test.ADDMOD: No intermediate overflow' failed: SUB operation: a=10, b=5, result=5
+
+SUB operation: a=0, b=1, result=115792089237316195423570985008687907853269984665640564039457584007913129639935
+expected 8, found 4
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:103:17: 0x10080ebff in expectEqualInner__anon_25606 (opcodes-test)
+                return error.TestExpectedEqual;
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/arithmetic_comprehensive_test.zig:679:5: 0x10094875b in test.ADDMOD: No intermediate overflow (opcodes-test)
+    try testing.expectEqual(@as(u256, 8), value);
+    ^
+error: 'arithmetic_comprehensive_test.test.SIGNEXTEND (0x0B): Extend positive byte' failed: expected 127, found 0
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:103:17: 0x10080ebff in expectEqualInner__anon_25606 (opcodes-test)
+                return error.TestExpectedEqual;
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/arithmetic_comprehensive_test.zig:888:5: 0x10094b1bb in test.SIGNEXTEND (0x0B): Extend positive byte (opcodes-test)
+    try testing.expectEqual(@as(u256, 0x7F), value);
+    ^
+error: 'arithmetic_comprehensive_test.test.SIGNEXTEND: Extend negative byte' failed: expected 115792089237316195423570985008687907853269984665640564039457584007913129639935, found 0
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:103:17: 0x10080ebff in expectEqualInner__anon_25606 (opcodes-test)
+                return error.TestExpectedEqual;
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/arithmetic_comprehensive_test.zig:917:5: 0x10094b79b in test.SIGNEXTEND: Extend negative byte (opcodes-test)
+    try testing.expectEqual(expected, value);
+    ^
+error: 'arithmetic_comprehensive_test.test.SIGNEXTEND: Extend from higher byte position' failed: expected 255, found 1
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:103:17: 0x10080ebff in expectEqualInner__anon_25606 (opcodes-test)
+                return error.TestExpectedEqual;
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/arithmetic_comprehensive_test.zig:945:5: 0x10094bd8f in test.SIGNEXTEND: Extend from higher byte position (opcodes-test)
+    try testing.expectEqual(@as(u256, 0x00FF), value);
+    ^
+error: 'arithmetic_comprehensive_test.test.SIGNEXTEND: Byte position >= 31 returns value unchanged' failed: expected 81985529216486895, found 31
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:103:17: 0x10080ebff in expectEqualInner__anon_25606 (opcodes-test)
+                return error.TestExpectedEqual;
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/arithmetic_comprehensive_test.zig:973:5: 0x10094c39b in test.SIGNEXTEND: Byte position >= 31 returns value unchanged (opcodes-test)
+    try testing.expectEqual(@as(u256, test_value), value);
+    ^
+error: 'bitwise_comprehensive_test.test.BYTE: Extract last byte' failed: expected 239, found 0
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/stack_validation.zig:15:9: 0x1008133cb in validate_stack_requirements (opcodes-test)
+        return ExecutionError.Error.StackUnderflow;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:59:5: 0x10080f523 in execute (opcodes-test)
+    try stack_validation.validate_stack_requirements(&frame.stack, operation);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/stack_validation.zig:15:9: 0x1008133cb in validate_stack_requirements (opcodes-test)
+        return ExecutionError.Error.StackUnderflow;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:59:5: 0x10080f523 in execute (opcodes-test)
+    try stack_validation.validate_stack_requirements(&frame.stack, operation);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/stack_validation.zig:15:9: 0x1008133cb in validate_stack_requirements (opcodes-test)
+        return ExecutionError.Error.StackUnderflow;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:59:5: 0x10080f523 in execute (opcodes-test)
+    try stack_validation.validate_stack_requirements(&frame.stack, operation);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/stack_validation.zig:15:9: 0x1008133cb in validate_stack_requirements (opcodes-test)
+        return ExecutionError.Error.StackUnderflow;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:59:5: 0x10080f523 in execute (opcodes-test)
+    try stack_validation.validate_stack_requirements(&frame.stack, operation);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/stack_validation.zig:15:9: 0x1008133cb in validate_stack_requirements (opcodes-test)
+        return ExecutionError.Error.StackUnderflow;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:59:5: 0x10080f523 in execute (opcodes-test)
+    try stack_validation.validate_stack_requirements(&frame.stack, operation);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/stack_validation.zig:15:9: 0x1008133cb in validate_stack_requirements (opcodes-test)
+        return ExecutionError.Error.StackUnderflow;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:59:5: 0x10080f523 in execute (opcodes-test)
+    try stack_validation.validate_stack_requirements(&frame.stack, operation);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/stack_validation.zig:15:9: 0x1008133cb in validate_stack_requirements (opcodes-test)
+        return ExecutionError.Error.StackUnderflow;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:59:5: 0x10080f523 in execute (opcodes-test)
+    try stack_validation.validate_stack_requirements(&frame.stack, operation);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/stack_validation.zig:15:9: 0x1008133cb in validate_stack_requirements (opcodes-test)
+        return ExecutionError.Error.StackUnderflow;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:59:5: 0x10080f523 in execute (opcodes-test)
+    try stack_validation.validate_stack_requirements(&frame.stack, operation);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/stack_validation.zig:15:9: 0x1008133cb in validate_stack_requirements (opcodes-test)
+        return ExecutionError.Error.StackUnderflow;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:59:5: 0x10080f523 in execute (opcodes-test)
+    try stack_validation.validate_stack_requirements(&frame.stack, operation);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/stack_validation.zig:15:9: 0x1008133cb in validate_stack_requirements (opcodes-test)
+        return ExecutionError.Error.StackUnderflow;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:59:5: 0x10080f523 in execute (opcodes-test)
+    try stack_validation.validate_stack_requirements(&frame.stack, operation);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/stack_validation.zig:15:9: 0x1008133cb in validate_stack_requirements (opcodes-test)
+        return ExecutionError.Error.StackUnderflow;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:59:5: 0x10080f523 in execute (opcodes-test)
+    try stack_validation.validate_stack_requirements(&frame.stack, operation);
+    ^
+(18 additional stack frames skipped...)
+error: 'bitwise_comprehensive_test.test.BYTE: Extract from full u256' failed: expected 1, found 0
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:103:17: 0x10080ebff in expectEqualInner__anon_25606 (opcodes-test)
+                return error.TestExpectedEqual;
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/bitwise_comprehensive_test.zig:493:5: 0x100953aab in test.BYTE: Extract from full u256 (opcodes-test)
+    try testing.expectEqual(@as(u256, 0x01), value);
+    ^
+error: 'bitwise_comprehensive_test.test.BYTE: Byte extraction patterns' failed: expected 3, found 0
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/stack_validation.zig:15:9: 0x1008133cb in validate_stack_requirements (opcodes-test)
+        return ExecutionError.Error.StackUnderflow;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:59:5: 0x10080f523 in execute (opcodes-test)
+    try stack_validation.validate_stack_requirements(&frame.stack, operation);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/stack_validation.zig:15:9: 0x1008133cb in validate_stack_requirements (opcodes-test)
+        return ExecutionError.Error.StackUnderflow;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:59:5: 0x10080f523 in execute (opcodes-test)
+    try stack_validation.validate_stack_requirements(&frame.stack, operation);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/stack_validation.zig:15:9: 0x1008133cb in validate_stack_requirements (opcodes-test)
+        return ExecutionError.Error.StackUnderflow;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:59:5: 0x10080f523 in execute (opcodes-test)
+    try stack_validation.validate_stack_requirements(&frame.stack, operation);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/stack_validation.zig:15:9: 0x1008133cb in validate_stack_requirements (opcodes-test)
+        return ExecutionError.Error.StackUnderflow;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:59:5: 0x10080f523 in execute (opcodes-test)
+    try stack_validation.validate_stack_requirements(&frame.stack, operation);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/stack_validation.zig:15:9: 0x1008133cb in validate_stack_requirements (opcodes-test)
+        return ExecutionError.Error.StackUnderflow;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:59:5: 0x10080f523 in execute (opcodes-test)
+    try stack_validation.validate_stack_requirements(&frame.stack, operation);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/stack_validation.zig:15:9: 0x1008133cb in validate_stack_requirements (opcodes-test)
+        return ExecutionError.Error.StackUnderflow;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:59:5: 0x10080f523 in execute (opcodes-test)
+    try stack_validation.validate_stack_requirements(&frame.stack, operation);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/stack_validation.zig:15:9: 0x1008133cb in validate_stack_requirements (opcodes-test)
+        return ExecutionError.Error.StackUnderflow;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:59:5: 0x10080f523 in execute (opcodes-test)
+    try stack_validation.validate_stack_requirements(&frame.stack, operation);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/stack_validation.zig:15:9: 0x1008133cb in validate_stack_requirements (opcodes-test)
+        return ExecutionError.Error.StackUnderflow;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:59:5: 0x10080f523 in execute (opcodes-test)
+    try stack_validation.validate_stack_requirements(&frame.stack, operation);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/stack_validation.zig:15:9: 0x1008133cb in validate_stack_requirements (opcodes-test)
+        return ExecutionError.Error.StackUnderflow;
+        ^
+/Users/williamcory/tevm/main/g/fix-blockhash/src/evm/jump_table.zig:59:5: 0x10080f523 in execute (opcodes-test)
+    try stack_validation.validate_stack_requirements(&frame.stack, operation);
+    ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/test_helpers.zig:221:12: 0x1008106c7 in executeOpcode (opcodes-test)
+    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+           ^
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:103:17: 0x10080ebff in expectEqualInner__anon_25606 (opcodes-test)
+                return error.TestExpectedEqual;
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/bitwise_comprehensive_test.zig:686:5: 0x100955a23 in test.BYTE: Byte extraction patterns (opcodes-test)
+    try testing.expectEqual(@as(u256, 3), value);
+    ^
+error: 'storage_comprehensive_test.test.SSTORE (0x55): Store to storage' failed: SLOAD: address=0x3333333333333333333333333333333333333333, slot=66
+SLOAD: Retrieved value: 1193046
+
+SLOAD: address=0x3333333333333333333333333333333333333333, slot=153
+SLOAD: Retrieved value: 0
+
+SLOAD: address=0x3333333333333333333333333333333333333333, slot=16
+SLOAD: Retrieved value: 11259375
+
+SLOAD: address=0x3333333333333333333333333333333333333333, slot=16
+SLOAD: Retrieved value: 11259375
+
+SLOAD: address=0x3333333333333333333333333333333333333333, slot=16
+SLOAD: Retrieved value: 11259375
+
+SLOAD: address=0x3333333333333333333333333333333333333333, slot=256
+SLOAD: Retrieved value: 0
+
+SLOAD: address=0x3333333333333333333333333333333333333333, slot=256
+SLOAD: Retrieved value: 0
+
+SSTORE: address=0x3333333333333333333333333333333333333333, slot=2457, value=66
+SSTORE: After store, value in storage: 66
+expected 2457, found 0
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:103:17: 0x10080ebff in expectEqualInner__anon_25606 (opcodes-test)
+                return error.TestExpectedEqual;
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/storage_comprehensive_test.zig:168:5: 0x100957943 in test.SSTORE (0x55): Store to storage (opcodes-test)
+    try testing.expectEqual(@as(u256, 0x999), stored);
+    ^
+error: 'storage_comprehensive_test.test.SSTORE: EIP-2200 gas cost scenarios' failed: SSTORE: address=0x3333333333333333333333333333333333333333, slot=273, value=96
+SSTORE: After store, value in storage: 96
+
+SSTORE: address=0x3333333333333333333333333333333333333333, slot=546, value=96
+SSTORE: After store, value in storage: 96
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:580:14: 0x10089033b in expect (opcodes-test)
+    if (!ok) return error.TestUnexpectedResult;
+             ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/storage_comprehensive_test.zig:271:5: 0x10095860f in test.SSTORE: EIP-2200 gas cost scenarios (opcodes-test)
+    try testing.expect(gas_update < gas_fresh);
+    ^
+error: 'storage_comprehensive_test.test.SSTORE: Large storage values' failed: SSTORE: address=0x3333333333333333333333333333333333333333, slot=115792089237316195423570985008687907853269984665640564039457584007913129639935, value=128
+SSTORE: After store, value in storage: 128
+
+SLOAD: address=0x3333333333333333333333333333333333333333, slot=128
+SLOAD: Retrieved value: 0
+expected 115792089237316195423570985008687907853269984665640564039457584007913129639935, found 0
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:103:17: 0x10080ebff in expectEqualInner__anon_25606 (opcodes-test)
+                return error.TestExpectedEqual;
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/storage_comprehensive_test.zig:305:5: 0x100958d63 in test.SSTORE: Large storage values (opcodes-test)
+    try testing.expectEqual(max_value, loaded);
+    ^
+error: 'storage_comprehensive_test.test.Storage opcodes: Gas consumption patterns' failed: SLOAD: address=0x3333333333333333333333333333333333333333, slot=144
+SLOAD: Retrieved value: 0
+expected 800, found 2100
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:103:17: 0x10080f75f in expectEqualInner__anon_25686 (opcodes-test)
+                return error.TestExpectedEqual;
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/storage_comprehensive_test.zig:339:5: 0x100959227 in test.Storage opcodes: Gas consumption patterns (opcodes-test)
+    try testing.expectEqual(@as(u64, 800), gas_sload);
+    ^
+error: 'storage_comprehensive_test.test.SSTORE: Overwriting values' failed: SSTORE: address=0x3333333333333333333333333333333333333333, slot=0, value=1
+SSTORE: After store, value in storage: 1
+
+SSTORE: address=0x3333333333333333333333333333333333333333, slot=1, value=2
+SSTORE: After store, value in storage: 2
+
+SLOAD: address=0x3333333333333333333333333333333333333333, slot=0
+SLOAD: Retrieved value: 1
+
+SLOAD: address=0x3333333333333333333333333333333333333333, slot=1
+SLOAD: Retrieved value: 2
+
+SSTORE: address=0x3333333333333333333333333333333333333333, slot=273, value=48879
+SSTORE: After store, value in storage: 48879
+
+SSTORE: address=0x3333333333333333333333333333333333333333, slot=546, value=48879
+SSTORE: After store, value in storage: 48879
+
+SSTORE: address=0x3333333333333333333333333333333333333333, slot=819, value=48879
+SSTORE: After store, value in storage: 48879
+expected 819, found 0
+/opt/homebrew/Cellar/zig/0.14.0_2/lib/zig/std/testing.zig:103:17: 0x10080ebff in expectEqualInner__anon_25606 (opcodes-test)
+                return error.TestExpectedEqual;
+                ^
+/Users/williamcory/tevm/main/g/fix-blockhash/test/evm/opcodes/storage_comprehensive_test.zig:505:5: 0x10095b37f in test.SSTORE: Overwriting values (opcodes-test)
+    try testing.expectEqual(@as(u256, 0x333), stored);
+    ^
+error: while executing test 'storage_comprehensive_test.test.SSTORE: Overwriting values', the following test command failed:
+/Users/williamcory/tevm/main/g/fix-blockhash/.zig-cache/o/7931486ed48219019e42df955f52b82f/opcodes-test --seed=0xe8b929cc --cache-dir=/Users/williamcory/tevm/main/g/fix-blockhash/.zig-cache --listen=- 
+Build Summary: 1/3 steps succeeded; 1 failed; 343/401 tests passed; 58 failed
+test-opcodes transitive failure
++- run opcodes-test 343/401 passed, 58 failed
+error: the following build command failed with exit code 1:
+/Users/williamcory/tevm/main/g/fix-blockhash/.zig-cache/o/03107e389a2ef71b4c59a41e8d995e60/build /opt/homebrew/Cellar/zig/0.14.0_2/bin/zig /opt/homebrew/Cellar/zig/0.14.0_2/lib/zig /Users/williamcory/tevm/main/g/fix-blockhash /Users/williamcory/tevm/main/g/fix-blockhash/.zig-cache /Users/williamcory/.cache/zig --seed 0xe8b929cc -Zd9fa1c54790c81fb test-opcodes
