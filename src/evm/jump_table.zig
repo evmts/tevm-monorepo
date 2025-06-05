@@ -8,10 +8,11 @@ const Memory = @import("memory.zig");
 const Frame = @import("frame.zig");
 const Contract = @import("contract.zig");
 const Address = @import("Address");
-const logger = @import("logger.zig").logger;
+const logger = @import("logger.zig");
 
 // Import all opcode modules
 const opcodes = @import("opcodes/package.zig");
+const operations = @import("operations/package.zig");
 const arithmetic = opcodes.arithmetic;
 const comparison = opcodes.comparison;
 const bitwise = opcodes.bitwise;
@@ -120,7 +121,7 @@ pub fn max_swap_stack(n: u32) u32 {
     return Stack.CAPACITY;
 }
 
-// Define operations
+// Define UNDEFINED operation directly
 const UNDEFINED = Operation{
     .execute = undefined_execute,
     .constant_gas = 0,

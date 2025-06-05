@@ -7,9 +7,7 @@ const Vm = @import("../vm.zig");
 const gas_constants = @import("../gas_constants.zig");
 const error_mapping = @import("../error_mapping.zig");
 const Address = @import("Address");
-const logger_module = @import("../logger.zig");
-const logger = logger_module.logger;
-const Logger = logger_module.Logger;
+const Logger = @import("../logger.zig").Logger;
 
 // EIP-3529 (London) gas costs for SSTORE
 const SSTORE_SET_GAS: u64 = 20000;

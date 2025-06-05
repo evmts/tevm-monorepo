@@ -7,7 +7,7 @@ const Vm = @import("../vm.zig");
 const gas_constants = @import("../gas_constants.zig");
 const Address = @import("Address");
 const error_mapping = @import("../error_mapping.zig");
-const logger = @import("../logger.zig").logger;
+const logger = @import("../logger.zig");
 
 // Compile-time verification that this file is being used
 const COMPILE_TIME_LOG_VERSION = "2024_LOG_FIX_V2";
