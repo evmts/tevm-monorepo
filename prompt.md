@@ -630,4 +630,25 @@
     </FailureDetails>
   </FailingTest>
 
+  <FailingTest name="CALL InvalidOffset Test" status="pending">
+    <Description>
+      Multiple CALL-related opcodes (CALL, CALLCODE, DELEGATECALL, STATICCALL) are failing with InvalidOffset error when checking memory bounds, even with valid parameters.
+    </Description>
+    <Opcodes>
+      <Opcode code="0xF1">CALL</Opcode>
+      <Opcode code="0xF2">CALLCODE</Opcode>
+      <Opcode code="0xF4">DELEGATECALL</Opcode>
+      <Opcode code="0xFA">STATICCALL</Opcode>
+    </Opcodes>
+    <TestFile>test/evm/opcodes/create_call_comprehensive_test.zig</TestFile>
+    <FailureDetails>
+      <Expected>
+        CALL operations should succeed with valid parameters, or fail with appropriate errors (WriteProtection for static context).
+      </Expected>
+      <Actual>
+        All CALL-related tests failing with InvalidOffset error from check_offset_bounds function in system.zig:23.
+      </Actual>
+    </FailureDetails>
+  </FailingTest>
+
 </FailingTests>

@@ -267,7 +267,7 @@ test "SELFDESTRUCT: Static call protection" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
+    var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
     // Set static mode
@@ -447,14 +447,15 @@ test "Control flow interaction: Call with REVERT" {
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
-    // Push CALL parameters
-    try test_frame.pushStack(&[_]u256{2000}); // gas
-    try test_frame.pushStack(&[_]u256{Address.to_u256(helpers.TestAddresses.BOB)}); // to
-    try test_frame.pushStack(&[_]u256{0});    // value
-    try test_frame.pushStack(&[_]u256{0});    // args_offset
-    try test_frame.pushStack(&[_]u256{0});    // args_size
+    // Push CALL parameters (LIFO stack: push in reverse order)
+    // CALL pops: gas, to, value, args_offset, args_size, ret_offset, ret_size
+    try test_frame.pushStack(&[_]u256{32});   // ret_size (pushed first, popped last)
     try test_frame.pushStack(&[_]u256{0});    // ret_offset
-    try test_frame.pushStack(&[_]u256{32});   // ret_size
+    try test_frame.pushStack(&[_]u256{0});    // args_size
+    try test_frame.pushStack(&[_]u256{0});    // args_offset
+    try test_frame.pushStack(&[_]u256{0});    // value
+    try test_frame.pushStack(&[_]u256{Address.to_u256(helpers.TestAddresses.BOB)}); // to
+    try test_frame.pushStack(&[_]u256{2000}); // gas (pushed last, popped first)
     
     // Mock call result with revert
     const revert_reason = "Called contract reverted!";
