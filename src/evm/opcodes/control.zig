@@ -99,9 +99,11 @@ pub fn op_return(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // Stack order: push [offset, size] -> pop gets [size, offset]
-    const size = try stack_pop(&frame.stack); // First pop gets size (4)
-    const offset = try stack_pop(&frame.stack); // Second pop gets offset (10)
+    // EVM spec: RETURN expects stack [... offset size] where size is on top
+    // When test does pushStack(&[_]u256{10, 4}), it pushes offset=10 first, then size=4
+    // Stack becomes [10, 4] with 4 on top, so we pop size first, then offset
+    const size = try stack_pop(&frame.stack); // First pop gets size (top of stack)
+    const offset = try stack_pop(&frame.stack); // Second pop gets offset
 
     if (size == 0) {
         frame.return_data_buffer = &[_]u8{};
@@ -140,7 +142,8 @@ pub fn op_revert(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // Stack order: push [offset, size] -> pop gets [size, offset]
+    // EVM spec: REVERT expects stack [... offset size] where size is on top
+    // Same as RETURN - pop size first (from top), then offset
     const size = try stack_pop(&frame.stack);
     const offset = try stack_pop(&frame.stack);
 
