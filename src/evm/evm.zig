@@ -81,14 +81,14 @@ pub const StorageOperationError = Contract.StorageOperationError;
 pub const CodeAnalysisError = Contract.CodeAnalysisError;
 pub const MarkStorageSlotWarmError = Contract.MarkStorageSlotWarmError;
 
-// Access List error types
-pub const AccessList = @import("access_list.zig");
-pub const AccessAddressError = AccessList.AccessAddressError;
-pub const AccessStorageSlotError = AccessList.AccessStorageSlotError;
-pub const PreWarmAddressesAccessListError = AccessList.PreWarmAddressesError;
-pub const PreWarmStorageSlotsAccessListError = AccessList.PreWarmStorageSlotsError;
-pub const InitTransactionError = AccessList.InitTransactionError;
-pub const GetCallCostAccessListError = AccessList.GetCallCostError;
+// Access List error types (imported via import statement to avoid circular deps)
+const AccessListModule = @import("access_list.zig");
+pub const AccessAddressError = AccessListModule.AccessAddressError;
+pub const AccessStorageSlotError = AccessListModule.AccessStorageSlotError;
+pub const PreWarmAddressesAccessListError = AccessListModule.PreWarmAddressesError;
+pub const PreWarmStorageSlotsAccessListError = AccessListModule.PreWarmStorageSlotsError;
+pub const InitTransactionError = AccessListModule.InitTransactionError;
+pub const GetCallCostAccessListError = AccessListModule.GetCallCostError;
 
 // Address error types
 pub const CalculateAddressError = Address.CalculateAddressError;
