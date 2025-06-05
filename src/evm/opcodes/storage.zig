@@ -50,7 +50,11 @@ pub fn op_sload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
-    const slot = try stack_pop(&frame.stack);
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size >= 1);
+
+    // Pop slot unsafely - bounds checking is done in jump_table.zig
+    const slot = frame.stack.pop_unsafe();
 
     // Check if we're in Berlin or later for cold/warm access logic
     if (vm.chain_rules.IsBerlin) {
@@ -69,7 +73,8 @@ pub fn op_sload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     const value = try error_mapping.vm_get_storage(vm, frame.contract.address, slot);
 
-    try stack_push(&frame.stack, value);
+    // Push result unsafely - bounds checking is done in jump_table.zig
+    frame.stack.append_unsafe(value);
 
     return Operation.ExecutionResult{};
 }
