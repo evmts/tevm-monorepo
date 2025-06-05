@@ -2,9 +2,9 @@ const std = @import("std");
 
 // Re-export all trie functionality
 pub const trie = @import("trie.zig");
-pub const hash_builder = @import("hash_builder.zig");
-pub const proof = @import("proof.zig");
 pub const merkle_trie = @import("merkle_trie.zig");
+pub const hash_builder = @import("hash_builder_simple.zig");
+pub const proof = @import("proof.zig");
 pub const optimized_branch = @import("optimized_branch.zig");
 pub const known_roots_test = @import("known_roots_test.zig");
 
