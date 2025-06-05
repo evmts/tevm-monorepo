@@ -11,7 +11,6 @@ pub const Frame = @import("frame.zig");
 pub const Hardfork = @import("hardfork.zig");
 pub const JumpTable = @import("jump_table.zig");
 pub const Memory = @import("memory.zig");
-pub const MemoryV2 = @import("memory_v2.zig").MemoryV2;
 pub const Opcode = @import("opcode.zig");
 pub const Operation = @import("operation.zig");
 pub const Stack = @import("stack.zig");
