@@ -30,7 +30,7 @@ test "CREATE (0xF0): Basic contract creation" {
     );
     defer contract.deinit(null);
     
-    var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
+    var test_frame = try helpers.TestFrame.init(allocator, &contract, 50000);
     defer test_frame.deinit();
     
     // Write init code to memory (simple bytecode that returns empty)

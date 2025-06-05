@@ -213,11 +213,17 @@ pub fn op_call(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     // Get call data
     var args: []const u8 = &[_]u8{};
     if (args_size > 0) {
-        try check_offset_bounds(args_offset);
-        try check_offset_bounds(args_size);
-        
+        // Check that offset + size doesn't overflow and fits in usize
+        if (args_offset > std.math.maxInt(usize) or args_size > std.math.maxInt(usize)) {
+            return ExecutionError.Error.InvalidOffset;
+        }
         const args_offset_usize = @as(usize, @intCast(args_offset));
         const args_size_usize = @as(usize, @intCast(args_size));
+        
+        // Check that offset + size doesn't overflow usize
+        if (args_offset_usize > std.math.maxInt(usize) - args_size_usize) {
+            return ExecutionError.Error.InvalidOffset;
+        }
         
         _ = frame.memory.ensure_context_capacity(args_offset_usize + args_size_usize) catch |err| return map_memory_error(err);
         args = frame.memory.get_slice(args_offset_usize, args_size_usize) catch |err| return map_memory_error(err);
@@ -225,11 +231,17 @@ pub fn op_call(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     
     // Ensure return memory
     if (ret_size > 0) {
-        try check_offset_bounds(ret_offset);
-        try check_offset_bounds(ret_size);
-        
+        // Check that offset + size doesn't overflow and fits in usize
+        if (ret_offset > std.math.maxInt(usize) or ret_size > std.math.maxInt(usize)) {
+            return ExecutionError.Error.InvalidOffset;
+        }
         const ret_offset_usize = @as(usize, @intCast(ret_offset));
         const ret_size_usize = @as(usize, @intCast(ret_size));
+        
+        // Check that offset + size doesn't overflow usize
+        if (ret_offset_usize > std.math.maxInt(usize) - ret_size_usize) {
+            return ExecutionError.Error.InvalidOffset;
+        }
         
         _ = frame.memory.ensure_context_capacity(ret_offset_usize + ret_size_usize) catch |err| return map_memory_error(err);
     }
