@@ -193,8 +193,8 @@ test "LOG2-LOG4: Multiple topics" {
     // Check LOG2
     const log2 = test_vm.vm.logs.items[0];
     try testing.expectEqual(@as(usize, 2), log2.topics.len);
-    try testing.expectEqual(@as(u256, 0xBB), log2.topics[0]); // Last pushed = first topic
-    try testing.expectEqual(@as(u256, 0xAA), log2.topics[1]); // First pushed = second topic
+    try testing.expectEqual(@as(u256, 0xAA), log2.topics[0]); // First pushed = first topic
+    try testing.expectEqual(@as(u256, 0xBB), log2.topics[1]); // Last pushed = second topic
     try testing.expectEqualSlices(u8, &data1, log2.data);
     
     // Check LOG3
@@ -208,10 +208,10 @@ test "LOG2-LOG4: Multiple topics" {
     // Check LOG4
     const log4 = test_vm.vm.logs.items[2];
     try testing.expectEqual(@as(usize, 4), log4.topics.len);
-    try testing.expectEqual(@as(u256, 0x44), log4.topics[0]); // Last pushed = first topic
-    try testing.expectEqual(@as(u256, 0x33), log4.topics[1]); // Third pushed = second topic
-    try testing.expectEqual(@as(u256, 0x22), log4.topics[2]); // Second pushed = third topic
-    try testing.expectEqual(@as(u256, 0x11), log4.topics[3]); // First pushed = fourth topic
+    try testing.expectEqual(@as(u256, 0x11), log4.topics[0]); // First pushed = first topic
+    try testing.expectEqual(@as(u256, 0x22), log4.topics[1]); // Second pushed = second topic
+    try testing.expectEqual(@as(u256, 0x33), log4.topics[2]); // Third pushed = third topic
+    try testing.expectEqual(@as(u256, 0x44), log4.topics[3]); // Last pushed = fourth topic
     try testing.expectEqualSlices(u8, &data3, log4.data);
 }
 
@@ -520,11 +520,11 @@ test "LOG operations: ERC20 Transfer event pattern" {
     try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
     const log = test_vm.vm.logs.items[0];
     
-    // Check topics - LOG pops in reverse order: signature last, to first
+    // Check topics - LOG stores topics in push order after reversing pops
     try testing.expectEqual(@as(usize, 3), log.topics.len);
-    try testing.expectEqual(@as(u256, 0x2222222222222222222222222222222222222222), log.topics[0]); // to (last pushed)
+    try testing.expectEqual(@as(u256, 0xDDF252AD1BE2C89B69C2B068FC378DAA952BA7F163C4A11628F55A4DF523B3EF), log.topics[0]); // Transfer signature
     try testing.expectEqual(@as(u256, 0x1111111111111111111111111111111111111111), log.topics[1]); // from
-    try testing.expectEqual(@as(u256, 0xDDF252AD1BE2C89B69C2B068FC378DAA952BA7F163C4A11628F55A4DF523B3EF), log.topics[2]); // Transfer signature (first pushed)
+    try testing.expectEqual(@as(u256, 0x2222222222222222222222222222222222222222), log.topics[2]); // to
     
     // Check data (amount)
     try testing.expectEqualSlices(u8, &amount_data, log.data);
