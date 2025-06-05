@@ -51,36 +51,25 @@ pub fn op_sload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
     const slot = try stack_pop(&frame.stack);
-    std.debug.print("SLOAD: popped slot={}\n", .{slot});
 
     // Check if we're in Berlin or later for cold/warm access logic
     if (vm.chain_rules.IsBerlin) {
-        std.debug.print("SLOAD: Berlin rules, checking cold/warm\n", .{});
         const Contract = @import("../contract.zig");
         const is_cold = frame.contract.mark_storage_slot_warm(slot, null) catch |err| switch (err) {
             Contract.MarkStorageSlotWarmError.OutOfAllocatorMemory => {
-                std.debug.print("SLOAD: mark_storage_slot_warm failed: {}\n", .{err});
                 return ExecutionError.Error.OutOfMemory;
             },
         };
         const gas_cost = if (is_cold) gas_constants.ColdSloadCost else gas_constants.WarmStorageReadCost;
-        std.debug.print("SLOAD: is_cold={}, gas_cost={}, gas_remaining={}\n", .{is_cold, gas_cost, frame.gas_remaining});
-        frame.consume_gas(gas_cost) catch |err| {
-            std.debug.print("SLOAD: consume_gas failed with error: {}\n", .{err});
-            return err;
-        };
+        try frame.consume_gas(gas_cost);
     } else {
         // Pre-Berlin: gas is handled by jump table constant_gas
         // For Istanbul, this would be 800 gas set in the jump table
-        std.debug.print("SLOAD: Pre-Berlin rules\n", .{});
     }
 
-    std.debug.print("SLOAD: Getting storage value\n", .{});
     const value = try error_mapping.vm_get_storage(vm, frame.contract.address, slot);
-    std.debug.print("SLOAD: Got value={}\n", .{value});
 
     try stack_push(&frame.stack, value);
-    std.debug.print("SLOAD: Pushed value to stack\n", .{});
 
     return Operation.ExecutionResult{};
 }
