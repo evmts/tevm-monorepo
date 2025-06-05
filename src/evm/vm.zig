@@ -794,6 +794,8 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
     while (pc < bytecode.len) {
         const opcode = bytecode[pc];
 
+        // Removed debug output
+
         // Update frame PC to match current PC
         frame.pc = pc;
 

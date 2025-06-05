@@ -66,9 +66,10 @@ pub fn op_sub(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 2);
     
-    // Direct access - no error handling needed
-    const b = frame.stack.data[frame.stack.size - 1];
-    const a = frame.stack.data[frame.stack.size - 2];
+    // EVM SUB behavior: SUB pops b first (from top), then a, computes a - b
+    // Stack: [... a b] -> b is on top, a is second
+    const b = frame.stack.data[frame.stack.size - 1];  // second operand (top of stack)
+    const a = frame.stack.data[frame.stack.size - 2];  // first operand (second from top)
     frame.stack.size -= 1;
     
     // Modify in-place (now at top of stack)
@@ -77,8 +78,6 @@ pub fn op_sub(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     
     // Store for testing
     vm.last_stack_value = result;
-    
-    // Debug logging removed
 
     return Operation.ExecutionResult{};
 }
