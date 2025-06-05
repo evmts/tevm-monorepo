@@ -68,7 +68,7 @@ test "BALANCE (0x31): Get account balance" {
     _ = try test_frame.popStack();
     
     // Test 3: Check non-existent account (should return 0)
-    const zero_addr = helpers.Address.ZERO_ADDRESS;
+    const zero_addr = helpers.Address.zero();
     try test_frame.pushStack(&[_]u256{helpers.Address.to_u256(zero_addr)});
     _ = try helpers.executeOpcode(0x31, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0);

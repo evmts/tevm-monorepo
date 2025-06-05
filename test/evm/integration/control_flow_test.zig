@@ -356,8 +356,8 @@ test "Integration: Self-destruct with beneficiary" {
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
 
-    // Get initial beneficiary balance
-    const initial_balance = try test_vm.vm.get_balance(helpers.TestAddresses.BOB);
+    // Get initial beneficiary balance directly from the HashMap
+    const initial_balance = test_vm.vm.balances.get(helpers.TestAddresses.BOB) orelse 0;
     try testing.expectEqual(beneficiary_initial, initial_balance);
 
     // Execute selfdestruct with BOB as beneficiary

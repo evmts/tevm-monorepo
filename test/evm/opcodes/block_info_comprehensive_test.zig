@@ -102,8 +102,8 @@ test "SELFBALANCE (0x47): Get contract's own balance" {
         );
         defer contract.deinit(null);
         
-        // Set the contract's balance
-        try test_vm.vm.set_balance(contract.address, balance);
+        // Set the contract's balance directly in the HashMap
+        try test_vm.vm.balances.put(contract.address, balance);
         
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
         defer test_frame.deinit();
@@ -356,16 +356,16 @@ test "SELFBALANCE: Balance changes during execution" {
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
-    // Initial balance: 1000 wei
-    try test_vm.vm.set_balance(contract.address, 1000);
+    // Initial balance: 1000 wei - set directly in the HashMap
+    try test_vm.vm.balances.put(contract.address, 1000);
     
     // Check initial balance
     _ = try helpers.executeOpcode(0x47, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 1000);
     _ = try test_frame.popStack();
     
-    // Simulate balance change (e.g., from a transfer)
-    try test_vm.vm.set_balance(contract.address, 2500);
+    // Simulate balance change (e.g., from a transfer) - set directly in the HashMap
+    try test_vm.vm.balances.put(contract.address, 2500);
     
     // Check updated balance
     _ = try helpers.executeOpcode(0x47, &test_vm.vm, test_frame.frame);

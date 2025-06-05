@@ -74,7 +74,7 @@ test "CREATE: failed creation pushes zero" {
     // Set gas and mock failed create result
     test_vm.vm.create_result = .{
         .success = false,
-        .address = Address.ZERO_ADDRESS,
+        .address = Address.zero(),
         .gas_left = 0,
         .output = null,
     };

@@ -61,28 +61,44 @@ pub const TestVm = struct {
 
     /// Set up test account with balance and code
     pub fn setAccount(self: *TestVm, address: Address.Address, balance: u256, code: []const u8) !void {
-        try self.vm.set_balance(address, balance);
-        try self.vm.set_code(address, code);
+        self.vm.balances.put(address, balance) catch |err| {
+            std.log.debug("Failed to set balance for address 0x{x}: {any}", .{ Address.to_u256(address), err });
+            return err;
+        };
+        self.vm.code.put(address, code) catch |err| {
+            std.log.debug("Failed to set code for address 0x{x}: {any}", .{ Address.to_u256(address), err });
+            return err;
+        };
     }
 
     /// Set storage value
     pub fn setStorage(self: *TestVm, address: Address.Address, slot: u256, value: u256) !void {
-        try self.vm.set_storage(address, slot, value);
+        const key = Vm.StorageKey{ .address = address, .slot = slot };
+        self.vm.storage.put(key, value) catch |err| {
+            std.log.debug("Failed to set storage for address 0x{x}, slot {d}: {any}", .{ Address.to_u256(address), slot, err });
+            return err;
+        };
     }
 
     /// Get storage value
     pub fn getStorage(self: *TestVm, address: Address.Address, slot: u256) !u256 {
-        return try self.vm.get_storage(address, slot);
+        const key = Vm.StorageKey{ .address = address, .slot = slot };
+        return self.vm.storage.get(key) orelse 0;
     }
 
     /// Set transient storage value
     pub fn setTransientStorage(self: *TestVm, address: Address.Address, slot: u256, value: u256) !void {
-        try self.vm.set_transient_storage(address, slot, value);
+        const key = Vm.StorageKey{ .address = address, .slot = slot };
+        self.vm.transient_storage.put(key, value) catch |err| {
+            std.log.debug("Failed to set transient storage for address 0x{x}, slot {d}: {any}", .{ Address.to_u256(address), slot, err });
+            return err;
+        };
     }
 
     /// Get transient storage value
     pub fn getTransientStorage(self: *TestVm, address: Address.Address, slot: u256) !u256 {
-        return try self.vm.get_transient_storage(address, slot);
+        const key = Vm.StorageKey{ .address = address, .slot = slot };
+        return self.vm.transient_storage.get(key) orelse 0;
     }
 
     /// Mark address as warm for EIP-2929 testing

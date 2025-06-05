@@ -13,7 +13,7 @@ pub const Block = struct {
 
 pub const emptyBlock = Block{
     .number = 0,
-    .coinbase = address.ZERO_ADDRESS,
+    .coinbase = address.zero(),
     .timestamp = 0,
     .difficulty = 0,
     .prev_randao = .{0} ** 32,

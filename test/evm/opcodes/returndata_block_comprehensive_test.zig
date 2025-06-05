@@ -19,8 +19,12 @@ test "EXTCODESIZE (0x3B): Get external code size" {
         0x00,       // STOP
     };
     
-    try test_vm.vm.set_code(helpers.TestAddresses.BOB, &test_code);
-    try test_vm.vm.set_balance(helpers.TestAddresses.BOB, 1000);
+    // Set code directly in the HashMap
+    const code_copy = try test_vm.vm.allocator.alloc(u8, test_code.len);
+    @memcpy(code_copy, &test_code);
+    try test_vm.vm.code.put(helpers.TestAddresses.BOB, code_copy);
+    // Set balance directly in the HashMap
+    try test_vm.vm.balances.put(helpers.TestAddresses.BOB, 1000);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -47,7 +51,7 @@ test "EXTCODESIZE (0x3B): Get external code size" {
     _ = try test_frame.popStack();
     
     // Test 3: Get code size of non-existent account (should be 0)
-    const zero_addr = helpers.Address.ZERO_ADDRESS;
+    const zero_addr = helpers.Address.zero();
     try test_frame.pushStack(&[_]u256{helpers.Address.to_u256(zero_addr)});
     _ = try helpers.executeOpcode(0x3B, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0);
@@ -65,7 +69,10 @@ test "EXTCODECOPY (0x3C): Copy external code to memory" {
         0x00,       // STOP
     };
     
-    try test_vm.vm.set_code(helpers.TestAddresses.BOB, &external_code);
+    // Set code directly in the HashMap
+    const external_code_copy = try test_vm.vm.allocator.alloc(u8, external_code.len);
+    @memcpy(external_code_copy, &external_code);
+    try test_vm.vm.code.put(helpers.TestAddresses.BOB, external_code_copy);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -195,7 +202,10 @@ test "EXTCODEHASH (0x3F): Get external code hash" {
     
     // Set up contract with known code
     const test_code = [_]u8{0x60, 0x00, 0x60, 0x01, 0x01}; // PUSH1 0, PUSH1 1, ADD
-    try test_vm.vm.set_code(helpers.TestAddresses.BOB, &test_code);
+    // Set code directly in the HashMap
+    const code_copy = try test_vm.vm.allocator.alloc(u8, test_code.len);
+    @memcpy(code_copy, &test_code);
+    try test_vm.vm.code.put(helpers.TestAddresses.BOB, code_copy);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -431,7 +441,10 @@ test "EXTCODE* opcodes: Gas consumption with EIP-2929" {
     
     // Set up external code
     const code = [_]u8{0x60, 0x42};
-    try test_vm.vm.set_code(helpers.TestAddresses.BOB, &code);
+    // Set code directly in the HashMap
+    const code_copy = try test_vm.vm.allocator.alloc(u8, code.len);
+    @memcpy(code_copy, &code);
+    try test_vm.vm.code.put(helpers.TestAddresses.BOB, code_copy);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -559,7 +572,10 @@ test "Memory copy opcodes: Memory expansion" {
     
     // Set up external code
     const code = [_]u8{0xFF} ** 32;
-    try test_vm.vm.set_code(helpers.TestAddresses.BOB, &code);
+    // Set code directly in the HashMap
+    const code_copy = try test_vm.vm.allocator.alloc(u8, code.len);
+    @memcpy(code_copy, &code);
+    try test_vm.vm.code.put(helpers.TestAddresses.BOB, code_copy);
     
     var contract = try helpers.createTestContract(
         allocator,

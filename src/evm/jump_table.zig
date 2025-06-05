@@ -1501,10 +1501,10 @@ test "JumpTable execute consumes gas before opcode execution" {
 
     // Create a test frame with some gas
     const test_allocator = std.testing.allocator;
-    const ZERO_ADDRESS = [_]u8{0} ** 20;
+    const zero_address = Address.zero();
     var test_contract = Contract{
-        .address = ZERO_ADDRESS,
-        .caller = ZERO_ADDRESS,
+        .address = zero_address,
+        .caller = zero_address,
         .value = 0,
         .code = &[_]u8{0x01}, // ADD opcode
         .code_hash = [_]u8{0} ** 32,

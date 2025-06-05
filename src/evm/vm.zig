@@ -48,11 +48,11 @@ depth: u16 = 0,
 read_only: bool = false,
 
 // Storage and state management
-storage: std.AutoHashMap(StorageKey, u256),
+storage: std.AutoHashMap(Self.StorageKey, u256),
 balances: std.AutoHashMap(Address.Address, u256),
 code: std.AutoHashMap(Address.Address, []const u8),
 nonces: std.AutoHashMap(Address.Address, u64),
-transient_storage: std.AutoHashMap(StorageKey, u256),
+transient_storage: std.AutoHashMap(Self.StorageKey, u256),
 logs: std.ArrayList(Log),
 
 // EIP-2929: Access list for gas cost calculation
@@ -102,7 +102,7 @@ pub fn init(allocator: std.mem.Allocator) VmInitError!Self {
 }
 
 pub fn init_with_hardfork(allocator: std.mem.Allocator, hardfork: @import("hardfork.zig").Hardfork) VmInitError!Self {
-    var storage = std.AutoHashMap(StorageKey, u256).init(allocator);
+    var storage = std.AutoHashMap(Self.StorageKey, u256).init(allocator);
     errdefer storage.deinit();
 
     var balances = std.AutoHashMap(Address.Address, u256).init(allocator);
@@ -114,7 +114,7 @@ pub fn init_with_hardfork(allocator: std.mem.Allocator, hardfork: @import("hardf
     var nonces = std.AutoHashMap(Address.Address, u64).init(allocator);
     errdefer nonces.deinit();
 
-    var transient_storage = std.AutoHashMap(StorageKey, u256).init(allocator);
+    var transient_storage = std.AutoHashMap(Self.StorageKey, u256).init(allocator);
     errdefer transient_storage.deinit();
 
     var logs = std.ArrayList(Log).init(allocator);
@@ -152,33 +152,6 @@ pub fn deinit(self: *Self) void {
     self.logs.deinit();
 
     self.access_list.deinit();
-}
-
-// Storage methods
-pub fn get_storage(self: *Self, address: Address.Address, slot: u256) VmStorageError!u256 {
-    const key = StorageKey{ .address = address, .slot = slot };
-    return self.storage.get(key) orelse 0;
-}
-
-pub fn set_storage(self: *Self, address: Address.Address, slot: u256, value: u256) VmStorageError!void {
-    const key = StorageKey{ .address = address, .slot = slot };
-    self.storage.put(key, value) catch |err| {
-        std.log.debug("Failed to set storage for address 0x{x}, slot {d}: {any}", .{ Address.to_u256(address), slot, err });
-        return err;
-    };
-}
-
-pub fn get_transient_storage(self: *Self, address: Address.Address, slot: u256) VmStorageError!u256 {
-    const key = StorageKey{ .address = address, .slot = slot };
-    return self.transient_storage.get(key) orelse 0;
-}
-
-pub fn set_transient_storage(self: *Self, address: Address.Address, slot: u256, value: u256) VmStorageError!void {
-    const key = StorageKey{ .address = address, .slot = slot };
-    self.transient_storage.put(key, value) catch |err| {
-        std.log.debug("Failed to set transient storage for address 0x{x}, slot {d}: {any}", .{ Address.to_u256(address), slot, err });
-        return err;
-    };
 }
 
 pub fn interpret(self: *Self, contract: *Contract, input: []const u8) VmInterpretError![]const u8 {
@@ -276,48 +249,6 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
     }
 }
 
-// Balance methods
-pub fn get_balance(self: *Self, address: Address.Address) VmStorageError!u256 {
-    return self.balances.get(address) orelse 0;
-}
-
-pub fn set_balance(self: *Self, address: Address.Address, balance: u256) VmStorageError!void {
-    self.balances.put(address, balance) catch |err| {
-        std.log.debug("Failed to set balance for address 0x{x}: {any}", .{ Address.to_u256(address), err });
-        return err;
-    };
-}
-
-// Code methods
-pub fn get_code(self: *Self, address: Address.Address) VmStorageError![]const u8 {
-    return self.code.get(address) orelse &[_]u8{};
-}
-
-pub fn set_code(self: *Self, address: Address.Address, code: []const u8) VmStorageError!void {
-    self.code.put(address, code) catch |err| {
-        std.log.debug("Failed to set code for address 0x{x}: {any}", .{ Address.to_u256(address), err });
-        return err;
-    };
-}
-
-// Nonce methods
-pub fn get_nonce(self: *Self, address: Address.Address) VmStorageError!u64 {
-    return self.nonces.get(address) orelse 0;
-}
-
-pub fn increment_nonce(self: *Self, address: Address.Address) VmStorageError!u64 {
-    const current_nonce = self.get_nonce(address) catch |err| {
-        std.log.debug("Failed to get current nonce for address 0x{x}: {any}", .{ Address.to_u256(address), err });
-        return err;
-    };
-    const new_nonce = current_nonce + 1;
-    self.nonces.put(address, new_nonce) catch |err| {
-        std.log.debug("Failed to increment nonce for address 0x{x}: {any}", .{ Address.to_u256(address), err });
-        return err;
-    };
-    return current_nonce; // Return the nonce that was used
-}
-
 // Contract creation result
 pub const CreateResult = struct {
     success: bool,
@@ -341,7 +272,13 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
     }
 
     // Get and increment nonce for the creator
-    const nonce = try self.increment_nonce(creator);
+    const current_nonce = self.nonces.get(creator) orelse 0;
+    const nonce = current_nonce;
+    const new_nonce = current_nonce + 1;
+    self.nonces.put(creator, new_nonce) catch |err| {
+        std.log.debug("Failed to increment nonce for address 0x{x}: {any}", .{ Address.to_u256(creator), err });
+        return err;
+    };
 
     // Calculate the new contract address using CREATE formula:
     // address = keccak256(rlp([sender, nonce]))[12:]
@@ -352,7 +289,7 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
     _ = init_code.len; // Use init_code to avoid unused parameter warning
 
     // Check if account already exists at this address
-    const existing_code = try self.get_code(new_address);
+    const existing_code = self.code.get(new_address) orelse &[_]u8{};
     if (existing_code.len > 0) {
         // Contract already exists at this address
         return CreateResult{
@@ -364,7 +301,7 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
     }
 
     // Check if creator has sufficient balance for value transfer
-    const creator_balance = try self.get_balance(creator);
+    const creator_balance = self.balances.get(creator) orelse 0;
     std.debug.print("CREATE: Checking balance. Creator: 0x{x}, balance: {d}, required value: {d}\n", .{ Address.to_u256(creator), creator_balance, value });
     if (creator_balance < value) {
         std.debug.print("CREATE: Insufficient balance. Returning failure with zero address\n", .{});
@@ -378,8 +315,14 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
 
     // Transfer value from creator to new contract
     if (value > 0) {
-        try self.set_balance(creator, creator_balance - value);
-        try self.set_balance(new_address, value);
+        self.balances.put(creator, creator_balance - value) catch |err| {
+            std.log.debug("Failed to set balance for address 0x{x}: {any}", .{ Address.to_u256(creator), err });
+            return err;
+        };
+        self.balances.put(new_address, value) catch |err| {
+            std.log.debug("Failed to set balance for address 0x{x}: {any}", .{ Address.to_u256(new_address), err });
+            return err;
+        };
     }
 
     // Execute the init code to get the deployed bytecode
@@ -459,7 +402,10 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
     }
 
     // Store the deployed bytecode at the new contract address
-    try self.set_code(new_address, init_result);
+    self.code.put(new_address, init_result) catch |err| {
+        std.log.debug("Failed to set code for address 0x{x}: {any}", .{ Address.to_u256(new_address), err });
+        return err;
+    };
     std.debug.print("CREATE: Stored bytecode of length {d} at address: 0x{x}\n", .{ init_result.len, Address.to_u256(new_address) });
 
     const gas_left = gas - deploy_code_gas;
@@ -514,7 +460,7 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
     const new_address = try Address.calculate_create2_address(self.allocator, creator, salt, init_code);
 
     // Check if account already exists at this address
-    const existing_code = try self.get_code(new_address);
+    const existing_code = self.code.get(new_address) orelse &[_]u8{};
     if (existing_code.len > 0) {
         // Contract already exists at this address
         return CreateResult{
@@ -526,7 +472,7 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
     }
 
     // Check if creator has sufficient balance for value transfer
-    const creator_balance = try self.get_balance(creator);
+    const creator_balance = self.balances.get(creator) orelse 0;
     if (creator_balance < value) {
         std.debug.print("CREATE2: Insufficient balance. Creator balance: {d}, required value: {d}\n", .{ creator_balance, value });
         return CreateResult{
@@ -539,8 +485,14 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
 
     // Transfer value from creator to new contract
     if (value > 0) {
-        try self.set_balance(creator, creator_balance - value);
-        try self.set_balance(new_address, value);
+        self.balances.put(creator, creator_balance - value) catch |err| {
+            std.log.debug("Failed to set balance for address 0x{x}: {any}", .{ Address.to_u256(creator), err });
+            return err;
+        };
+        self.balances.put(new_address, value) catch |err| {
+            std.log.debug("Failed to set balance for address 0x{x}: {any}", .{ Address.to_u256(new_address), err });
+            return err;
+        };
     }
 
     // Execute the init code to get the deployed bytecode
@@ -762,22 +714,36 @@ pub fn validate_static_context(self: *const Self) !void {
 // State modification methods with static protection
 pub fn set_storage_protected(self: *Self, address: Address.Address, slot: u256, value: u256) !void {
     try self.validate_static_context();
-    try self.set_storage(address, slot, value);
+    const key = Self.StorageKey{ .address = address, .slot = slot };
+    self.storage.put(key, value) catch |err| {
+        std.log.debug("Failed to set storage for address 0x{x}, slot {d}: {any}", .{ Address.to_u256(address), slot, err });
+        return err;
+    };
 }
 
 pub fn set_transient_storage_protected(self: *Self, address: Address.Address, slot: u256, value: u256) !void {
     try self.validate_static_context();
-    try self.set_transient_storage(address, slot, value);
+    const key = Self.StorageKey{ .address = address, .slot = slot };
+    self.transient_storage.put(key, value) catch |err| {
+        std.log.debug("Failed to set transient storage for address 0x{x}, slot {d}: {any}", .{ Address.to_u256(address), slot, err });
+        return err;
+    };
 }
 
 pub fn set_balance_protected(self: *Self, address: Address.Address, balance: u256) !void {
     try self.validate_static_context();
-    try self.set_balance(address, balance);
+    self.balances.put(address, balance) catch |err| {
+        std.log.debug("Failed to set balance for address 0x{x}: {any}", .{ Address.to_u256(address), err });
+        return err;
+    };
 }
 
 pub fn set_code_protected(self: *Self, address: Address.Address, code: []const u8) !void {
     try self.validate_static_context();
-    try self.set_code(address, code);
+    self.code.put(address, code) catch |err| {
+        std.log.debug("Failed to set code for address 0x{x}: {any}", .{ Address.to_u256(address), err });
+        return err;
+    };
 }
 
 pub fn emit_log_protected(self: *Self, address: Address.Address, topics: []const u256, data: []const u8) !void {
@@ -809,8 +775,8 @@ pub fn selfdestruct_protected(self: *Self, contract: Address.Address, beneficiar
     // Implementation would transfer balance and mark contract for deletion
     _ = contract;
     _ = beneficiary;
-    // Selfdestruct scheduling and execution happens at transaction level
-    @panic("Unimplemented");
+    // TODO: Selfdestruct scheduling and execution happens at transaction level
+    // For now, this is a stub that only validates static context
 }
 
 // Run result structure
@@ -843,7 +809,10 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
     defer contract.deinit(null);
 
     // Set the code for the contract address
-    try self.set_code(address, bytecode);
+    self.code.put(address, bytecode) catch |err| {
+        std.log.debug("Failed to set code for address 0x{x}: {any}", .{ Address.to_u256(address), err });
+        return err;
+    };
 
     // Create a frame for execution
     var frame = Frame.init(self.allocator, &contract) catch |err| {

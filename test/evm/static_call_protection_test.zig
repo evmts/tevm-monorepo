@@ -32,7 +32,8 @@ test "Static call protection - storage operations" {
     // Test 1: Normal context allows storage writes
     vm.read_only = false;
     try vm.set_storage_protected(test_address, test_slot, test_value);
-    const stored_value = try vm.get_storage(test_address, test_slot);
+    const storage_key = VM.StorageKey{ .address = test_address, .slot = test_slot };
+    const stored_value = vm.storage.get(storage_key) orelse 0;
     try testing.expectEqual(test_value, stored_value);
     
     // Test 2: Static context prevents storage writes
@@ -41,7 +42,7 @@ test "Static call protection - storage operations" {
     try testing.expectError(error.WriteProtection, result);
     
     // Verify value didn't change
-    const unchanged_value = try vm.get_storage(test_address, test_slot);
+    const unchanged_value = vm.storage.get(storage_key) orelse 0;
     try testing.expectEqual(test_value, unchanged_value);
 }
 
@@ -77,7 +78,7 @@ test "Static call protection - balance operations" {
     // Test 1: Normal context allows balance updates
     vm.read_only = false;
     try vm.set_balance_protected(test_address, test_balance);
-    const balance = try vm.get_balance(test_address);
+    const balance = vm.balances.get(test_address) orelse 0;
     try testing.expectEqual(test_balance, balance);
     
     // Test 2: Static context prevents balance updates
@@ -97,7 +98,7 @@ test "Static call protection - code operations" {
     // Test 1: Normal context allows code updates
     vm.read_only = false;
     try vm.set_code_protected(test_address, &test_code);
-    const code = try vm.get_code(test_address);
+    const code = vm.code.get(test_address) orelse &[_]u8{};
     try testing.expectEqualSlices(u8, &test_code, code);
     
     // Test 2: Static context prevents code updates
@@ -224,10 +225,11 @@ test "Static call protection - comprehensive scenario" {
     vm.read_only = true;
     
     // Verify reads still work
-    const balance = try vm.get_balance(test_address);
+    const balance = vm.balances.get(test_address) orelse 0;
     try testing.expectEqual(@as(u256, 5000), balance);
     
-    const storage_value = try vm.get_storage(test_address, 1);
+    const storage_key = VM.StorageKey{ .address = test_address, .slot = 1 };
+    const storage_value = vm.storage.get(storage_key) orelse 0;
     try testing.expectEqual(@as(u256, 100), storage_value);
     
     // Verify all writes fail
@@ -239,9 +241,9 @@ test "Static call protection - comprehensive scenario" {
     try testing.expectError(error.WriteProtection, vm.selfdestruct_protected(test_address, test_address));
     
     // Verify state unchanged
-    const final_balance = try vm.get_balance(test_address);
+    const final_balance = vm.balances.get(test_address) orelse 0;
     try testing.expectEqual(@as(u256, 5000), final_balance);
     
-    const final_storage = try vm.get_storage(test_address, 1);
+    const final_storage = vm.storage.get(storage_key) orelse 0;
     try testing.expectEqual(@as(u256, 100), final_storage);
 }
