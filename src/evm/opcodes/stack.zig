@@ -49,6 +49,9 @@ pub fn make_push(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.S
 
             const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
+            // Debug-only bounds check - compiled out in release builds
+            std.debug.assert(frame.stack.size < Stack.CAPACITY);
+
             // Read n bytes from code after PC
             var value: u256 = 0;
             const code = frame.contract.code;
@@ -61,7 +64,8 @@ pub fn make_push(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.S
                 }
             }
 
-            try stack_push(&frame.stack, value);
+            // Push value unsafely - bounds checking is done in jump_table.zig
+            frame.stack.append_unsafe(value);
 
             // PUSH operations consume 1 + n bytes
             // (1 for the opcode itself, n for the immediate data)
@@ -113,13 +117,12 @@ pub fn make_dup(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.St
 
             const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-            // Duplicate the nth item from the top
-            frame.stack.dup(n) catch |err| switch (err) {
-                Stack.Error.Underflow => return ExecutionError.Error.StackUnderflow,
-                Stack.Error.Overflow => return ExecutionError.Error.StackOverflow,
-                Stack.Error.OutOfBounds => return ExecutionError.Error.StackUnderflow,
-                Stack.Error.InvalidPosition => return ExecutionError.Error.StackUnderflow,
-            };
+            // Debug-only bounds check - compiled out in release builds
+            std.debug.assert(frame.stack.size >= n);
+            std.debug.assert(frame.stack.size < Stack.CAPACITY);
+
+            // Duplicate the nth item from the top unsafely - bounds checking is done in jump_table.zig
+            frame.stack.dup_unsafe(n);
 
             return Operation.ExecutionResult{};
         }
@@ -153,12 +156,11 @@ pub fn make_swap(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.S
 
             const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-            // Swap the top item with the nth item
-            frame.stack.swap(n) catch |err| switch (err) {
-                Stack.Error.OutOfBounds => return ExecutionError.Error.StackUnderflow,
-                Stack.Error.InvalidPosition => return ExecutionError.Error.StackUnderflow,
-                else => return ExecutionError.Error.StackUnderflow,
-            };
+            // Debug-only bounds check - compiled out in release builds
+            std.debug.assert(frame.stack.size >= n + 1);
+
+            // Swap the top item with the nth item unsafely - bounds checking is done in jump_table.zig
+            frame.stack.swapUnsafe(n);
 
             return Operation.ExecutionResult{};
         }
