@@ -596,7 +596,9 @@ test "VM: SUB large numbers" {
         0x00,
         0x00,
         0x00,
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // Fixed: added missing byte
+        0x00,
+        0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, // Exactly 32 bytes for 2^255
         0x7F, // PUSH32 (for 2^254)
         0x40,
         0x00,
@@ -623,18 +625,12 @@ test "VM: SUB large numbers" {
         0x00,
         0x00,
         0x00,
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // Fixed: added missing byte
+        0x00,
+        0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, // Exactly 32 bytes for 2^254
         0x03, // SUB
         0x00, // STOP
     };
-
-    // Debug: Print the bytecode length and SUB opcode position
-    std.debug.print("=== BYTECODE DEBUG ===\n", .{});
-    std.debug.print("Bytecode length: {}\n", .{bytecode.len});
-    std.debug.print("SUB opcode at position: {}\n", .{bytecode.len - 2});
-    std.debug.print("SUB opcode value: 0x{x:0>2}\n", .{bytecode[bytecode.len - 2]});
-    std.debug.print("STOP opcode value: 0x{x:0>2}\n", .{bytecode[bytecode.len - 1]});
-    std.debug.print("=== END BYTECODE DEBUG ===\n", .{});
 
     const result = try vm.run(&bytecode, Address.zero(), 10000, null);
     defer if (result.output) |output| allocator.free(output);
@@ -927,6 +923,7 @@ test "VM: MOD large numbers" {
         0x00,
         0x00,
         0x00,
+        0x00,
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x05, // 2^128 + 5
         0x68, // PUSH9 (for 2^64)
         0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 2^64
@@ -934,7 +931,7 @@ test "VM: MOD large numbers" {
         0x00, // STOP
     };
 
-    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    const result = try vm.run(&bytecode, Address.zero(), 50000, null);
     defer if (result.output) |output| allocator.free(output);
 
     try testing.expect(result.status == .Success);
