@@ -151,6 +151,15 @@ pub fn build(b: *std.Build) void {
     evm_mod.addImport("Block", block_mod);
     evm_mod.addImport("Rlp", rlp_mod);
 
+    // Create contracts module
+    const contracts_mod = b.createModule(.{
+        .root_source_file = b.path("src/contracts/package.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    contracts_mod.stack_check = false;
+    contracts_mod.single_threaded = true;
+
     // Create a ZigEVM module - our core EVM implementation
     const target_architecture_mod = b.createModule(.{
         .root_source_file = b.path("src/root.zig"),
@@ -168,6 +177,7 @@ pub fn build(b: *std.Build) void {
     target_architecture_mod.addImport("Block", block_mod);
     target_architecture_mod.addImport("Bytecode", bytecode_mod);
     target_architecture_mod.addImport("Compiler", compiler_mod);
+    target_architecture_mod.addImport("Contracts", contracts_mod);
     target_architecture_mod.addImport("evm", evm_mod);
     target_architecture_mod.addImport("Rlp", rlp_mod);
     target_architecture_mod.addImport("Token", token_mod);
@@ -198,6 +208,7 @@ pub fn build(b: *std.Build) void {
     wasm_mod.addImport("Block", block_mod);
     wasm_mod.addImport("Bytecode", bytecode_mod);
     wasm_mod.addImport("Compiler", compiler_wasm_mod);
+    wasm_mod.addImport("Contracts", contracts_mod);
     wasm_mod.addImport("evm", evm_mod);
     wasm_mod.addImport("Rlp", rlp_mod);
     wasm_mod.addImport("Token", token_mod);
@@ -408,6 +419,37 @@ pub fn build(b: *std.Build) void {
     // Add a separate step for testing Compiler
     const compiler_test_step = b.step("test-compiler", "Run Compiler tests");
     compiler_test_step.dependOn(&run_compiler_test.step);
+
+    // Add a test for Contracts
+    const contracts_test = b.addTest(.{
+        .name = "contracts-test",
+        .root_source_file = b.path("src/contracts/package.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    const run_contracts_test = b.addRunArtifact(contracts_test);
+
+    // Add a separate step for testing Contracts
+    const contracts_test_step = b.step("test-contracts", "Run Contracts tests");
+    contracts_test_step.dependOn(&run_contracts_test.step);
+
+    // Add a test for SnailTracer contract specifically
+    const snail_tracer_test = b.addTest(.{
+        .name = "snail-tracer-test",
+        .root_source_file = b.path("test/contracts/snail_tracer_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    // Add dependencies to snail_tracer_test
+    snail_tracer_test.root_module.addImport("Contracts", contracts_mod);
+
+    const run_snail_tracer_test = b.addRunArtifact(snail_tracer_test);
+
+    // Add a separate step for testing SnailTracer
+    const snail_tracer_test_step = b.step("test-snail-tracer", "Run SnailTracer contract tests");
+    snail_tracer_test_step.dependOn(&run_snail_tracer_test.step);
 
     // Add a test for Trie tests
     const trie_test = b.addTest(.{
