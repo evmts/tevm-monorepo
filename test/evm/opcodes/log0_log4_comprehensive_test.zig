@@ -520,11 +520,11 @@ test "LOG operations: ERC20 Transfer event pattern" {
     try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
     const log = test_vm.vm.logs.items[0];
     
-    // Check topics
+    // Check topics - LOG pops in reverse order: signature last, to first
     try testing.expectEqual(@as(usize, 3), log.topics.len);
-    try testing.expectEqual(@as(u256, 0xDDF252AD1BE2C89B69C2B068FC378DAA952BA7F163C4A11628F55A4DF523B3EF), log.topics[0]); // Transfer signature
+    try testing.expectEqual(@as(u256, 0x2222222222222222222222222222222222222222), log.topics[0]); // to (last pushed)
     try testing.expectEqual(@as(u256, 0x1111111111111111111111111111111111111111), log.topics[1]); // from
-    try testing.expectEqual(@as(u256, 0x2222222222222222222222222222222222222222), log.topics[2]); // to
+    try testing.expectEqual(@as(u256, 0xDDF252AD1BE2C89B69C2B068FC378DAA952BA7F163C4A11628F55A4DF523B3EF), log.topics[2]); // Transfer signature (first pushed)
     
     // Check data (amount)
     try testing.expectEqualSlices(u8, &amount_data, log.data);
@@ -542,9 +542,9 @@ test "LOG operations: Multiple logs in sequence" {
         0xA0,          // LOG0
         
         // Second LOG1
+        0x60, 0x99,    // PUSH1 0x99 (topic)
         0x60, 0x04,    // PUSH1 0x04 (size)
         0x60, 0x04,    // PUSH1 0x04 (offset)
-        0x60, 0x99,    // PUSH1 0x99 (topic)
         0xA1,          // LOG1
         
         // Third LOG0
