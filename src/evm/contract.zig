@@ -25,6 +25,14 @@ const StoragePool = @import("storage_pool.zig");
 /// Maximum gas refund allowed (EIP-3529)
 const MAX_REFUND_QUOTIENT = 5;
 
+/// Error types for Contract operations
+pub const ContractError = std.mem.Allocator.Error || StorageOperationError;
+pub const StorageOperationError = error{
+    OutOfAllocatorMemory,
+    InvalidStorageOperation,
+};
+pub const CodeAnalysisError = std.mem.Allocator.Error;
+
 /// Global analysis cache (simplified version)
 var analysis_cache: ?std.AutoHashMap([32]u8, *CodeAnalysis) = null;
 var cache_mutex: std.Thread.Mutex = .{};
@@ -109,7 +117,7 @@ pub fn init_deployment(
         .value = value,
         .gas = gas,
         .code = code,
-        .code_hash = [_]u8{0} ** 32, // Deployment doesn't have code hash. This could be kekkak256(0) instead of 0
+        .code_hash = [_]u8{0} ** 32, // Deployment doesn't have code hash. This could be kekkac256(0) instead of 0
         .code_size = code.len,
         .input = &[_]u8{},
         .is_static = false,
@@ -233,13 +241,13 @@ pub fn mark_storage_slot_warm(self: *Self, slot: u256, pool: ?*StoragePool) Mark
         if (pool) |p| {
             self.storage_access = p.borrow_access_map() catch |err| switch (err) {
                 StoragePool.BorrowAccessMapError.OutOfAllocatorMemory => {
-                    std.debug.print("Contract.mark_storage_slot_warm: failed to borrow access map: {}\n", .{err});
+                    std.log.debug("Contract.mark_storage_slot_warm: failed to borrow access map: {any}", .{err});
                     return MarkStorageSlotWarmError.OutOfAllocatorMemory;
                 },
             };
         } else {
             self.storage_access = std.heap.page_allocator.create(std.AutoHashMap(u256, bool)) catch |err| {
-                std.debug.print("Contract.mark_storage_slot_warm: allocation failed: {}\n", .{err});
+                std.log.debug("Contract.mark_storage_slot_warm: allocation failed: {any}", .{err});
                 return MarkStorageSlotWarmError.OutOfAllocatorMemory;
             };
             self.storage_access.?.* = std.AutoHashMap(u256, bool).init(std.heap.page_allocator);
@@ -250,7 +258,7 @@ pub fn mark_storage_slot_warm(self: *Self, slot: u256, pool: ?*StoragePool) Mark
     const was_cold = !map.contains(slot);
     if (was_cold) {
         map.put(slot, true) catch |err| {
-            std.debug.print("Contract.mark_storage_slot_warm: map.put failed: {}\n", .{err});
+            std.log.debug("Contract.mark_storage_slot_warm: map.put failed: {any}", .{err});
             return MarkStorageSlotWarmError.OutOfAllocatorMemory;
         };
     }
@@ -266,20 +274,35 @@ pub fn is_storage_slot_cold(self: *const Self, slot: u256) bool {
 }
 
 /// Batch mark storage slots as warm
-pub fn mark_storage_slots_warm(self: *Self, slots: []const u256, pool: ?*StoragePool) !void {
+pub fn mark_storage_slots_warm(self: *Self, slots: []const u256, pool: ?*StoragePool) ContractError!void {
     if (slots.len == 0) return;
 
     if (self.storage_access == null) {
         if (pool) |p| {
-            self.storage_access = try p.borrow_access_map();
+            self.storage_access = p.borrow_access_map() catch |err| {
+                std.log.debug("Failed to borrow access map from pool: {any}", .{err});
+                return switch (err) {
+                    StoragePool.BorrowAccessMapError.OutOfAllocatorMemory => StorageOperationError.OutOfAllocatorMemory,
+                };
+            };
         } else {
-            self.storage_access = try std.heap.page_allocator.create(std.AutoHashMap(u256, bool));
+            self.storage_access = std.heap.page_allocator.create(std.AutoHashMap(u256, bool)) catch |err| {
+                std.log.debug("Failed to create storage access map: {any}", .{err});
+                return switch (err) {
+                    std.mem.Allocator.Error.OutOfMemory => std.mem.Allocator.Error.OutOfMemory,
+                };
+            };
             self.storage_access.?.* = std.AutoHashMap(u256, bool).init(std.heap.page_allocator);
         }
     }
 
     const map = self.storage_access.?;
-    try map.ensureTotalCapacity(@as(u32, @intCast(map.count() + slots.len)));
+    map.ensureTotalCapacity(@as(u32, @intCast(map.count() + slots.len))) catch |err| {
+        std.log.debug("Failed to ensure capacity for {d} storage slots: {any}", .{ slots.len, err });
+        return switch (err) {
+            std.mem.Allocator.Error.OutOfMemory => std.mem.Allocator.Error.OutOfMemory,
+        };
+    };
 
     for (slots) |slot| {
         map.putAssumeCapacity(slot, true);
@@ -287,17 +310,32 @@ pub fn mark_storage_slots_warm(self: *Self, slots: []const u256, pool: ?*Storage
 }
 
 /// Store original storage value
-pub fn set_original_storage_value(self: *Self, slot: u256, value: u256, pool: ?*StoragePool) !void {
+pub fn set_original_storage_value(self: *Self, slot: u256, value: u256, pool: ?*StoragePool) ContractError!void {
     if (self.original_storage == null) {
         if (pool) |p| {
-            self.original_storage = try p.borrow_storage_map();
+            self.original_storage = p.borrow_storage_map() catch |err| {
+                std.log.debug("Failed to borrow storage map from pool: {any}", .{err});
+                return switch (err) {
+                    StoragePool.BorrowStorageMapError.OutOfAllocatorMemory => StorageOperationError.OutOfAllocatorMemory,
+                };
+            };
         } else {
-            self.original_storage = try std.heap.page_allocator.create(std.AutoHashMap(u256, u256));
+            self.original_storage = std.heap.page_allocator.create(std.AutoHashMap(u256, u256)) catch |err| {
+                std.log.debug("Failed to create original storage map: {any}", .{err});
+                return switch (err) {
+                    std.mem.Allocator.Error.OutOfMemory => std.mem.Allocator.Error.OutOfMemory,
+                };
+            };
             self.original_storage.?.* = std.AutoHashMap(u256, u256).init(std.heap.page_allocator);
         }
     }
 
-    try self.original_storage.?.put(slot, value);
+    self.original_storage.?.put(slot, value) catch |err| {
+        std.log.debug("Failed to store original storage value for slot {d}: {any}", .{ slot, err });
+        return switch (err) {
+            std.mem.Allocator.Error.OutOfMemory => std.mem.Allocator.Error.OutOfMemory,
+        };
+    };
 }
 
 /// Get original storage value
@@ -357,7 +395,7 @@ pub fn deinit(self: *Self, pool: ?*StoragePool) void {
 }
 
 /// Analyze code and cache results
-pub fn analyze_code(code: []const u8, code_hash: [32]u8) !*const CodeAnalysis {
+pub fn analyze_code(code: []const u8, code_hash: [32]u8) CodeAnalysisError!*const CodeAnalysis {
     // Check cache first
     cache_mutex.lock();
     defer cache_mutex.unlock();
@@ -372,7 +410,10 @@ pub fn analyze_code(code: []const u8, code_hash: [32]u8) !*const CodeAnalysis {
 
     // Perform analysis
     const allocator = std.heap.page_allocator;
-    const analysis = try allocator.create(CodeAnalysis);
+    const analysis = allocator.create(CodeAnalysis) catch |err| {
+        std.log.debug("Failed to allocate CodeAnalysis: {any}", .{err});
+        return err;
+    };
 
     // Analyze code segments
     analysis.code_segments = bitvec.code_bitmap(code);
@@ -386,7 +427,10 @@ pub fn analyze_code(code: []const u8, code_hash: [32]u8) !*const CodeAnalysis {
         const op = code[i];
 
         if (op == constants.JUMPDEST and analysis.code_segments.is_set(i)) {
-            try jumpdests.append(@as(u32, @intCast(i)));
+            jumpdests.append(@as(u32, @intCast(i))) catch |err| {
+                std.log.debug("Failed to append jumpdest position {d}: {any}", .{ i, err });
+                return err;
+            };
         }
 
         // Skip PUSH data
@@ -400,7 +444,10 @@ pub fn analyze_code(code: []const u8, code_hash: [32]u8) !*const CodeAnalysis {
 
     // Sort for binary search
     std.mem.sort(u32, jumpdests.items, {}, comptime std.sort.asc(u32));
-    analysis.jumpdest_positions = try jumpdests.toOwnedSlice();
+    analysis.jumpdest_positions = jumpdests.toOwnedSlice() catch |err| {
+        std.log.debug("Failed to convert jumpdests to owned slice: {any}", .{err});
+        return err;
+    };
 
     // Analyze other properties
     analysis.max_stack_depth = 0; // Stack depth analysis is optional for optimization
@@ -411,7 +458,10 @@ pub fn analyze_code(code: []const u8, code_hash: [32]u8) !*const CodeAnalysis {
     analysis.has_create = contains_op(code, &[_]u8{ constants.CREATE, constants.CREATE2 });
 
     // Cache the analysis
-    try analysis_cache.?.put(code_hash, analysis);
+    analysis_cache.?.put(code_hash, analysis) catch |err| {
+        std.log.debug("Failed to cache code analysis: {any}", .{err});
+        // Continue without caching - return the analysis anyway
+    };
 
     return analysis;
 }
