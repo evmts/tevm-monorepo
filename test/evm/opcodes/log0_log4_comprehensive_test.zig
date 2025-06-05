@@ -465,19 +465,20 @@ test "LOG operations: ERC20 Transfer event pattern" {
     
     const code = [_]u8{
         // ERC20 Transfer(from, to, amount) - LOG3
-        0x60, 0x20,    // PUSH1 0x20 (size = 32 bytes for amount)
-        0x60, 0x00,    // PUSH1 0x00 (offset = 0)
-        0x73,          // PUSH20 (from address)
-        0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11,
-        0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11,
-        0x73,          // PUSH20 (to address)  
+        // Push in reverse order: to, from, signature, size, offset
+        0x73,          // PUSH20 (to address - topic3)
         0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22,
         0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22,
-        0x7F,          // PUSH32 (Transfer event signature)
+        0x73,          // PUSH20 (from address - topic2)
+        0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11,
+        0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11,
+        0x7F,          // PUSH32 (Transfer event signature - topic1)
         0xDD, 0xF2, 0x52, 0xAD, 0x1B, 0xE2, 0xC8, 0x9B,
         0x69, 0xC2, 0xB0, 0x68, 0xFC, 0x37, 0x8D, 0xAA,
         0x95, 0x2B, 0xA7, 0xF1, 0x63, 0xC4, 0xA1, 0x16,
         0x28, 0xF5, 0x5A, 0x4D, 0xF5, 0x23, 0xB3, 0xEF,
+        0x60, 0x20,    // PUSH1 0x20 (size = 32 bytes for amount)
+        0x60, 0x00,    // PUSH1 0x00 (offset = 0)
         0xA3,          // LOG3
     };
     
@@ -499,17 +500,17 @@ test "LOG operations: ERC20 Transfer event pattern" {
     amount_data[30] = 0x03;
     _ = try test_frame.frame.memory.set_data(0, &amount_data);
     
-    // Execute all push operations
+    // Execute all push operations in new order
     test_frame.frame.pc = 0;
-    _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame); // size
-    test_frame.frame.pc = 2;
-    _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame); // offset
-    test_frame.frame.pc = 4;
-    _ = try helpers.executeOpcode(0x73, &test_vm.vm, test_frame.frame); // from
-    test_frame.frame.pc = 25;
-    _ = try helpers.executeOpcode(0x73, &test_vm.vm, test_frame.frame); // to
-    test_frame.frame.pc = 46;
+    _ = try helpers.executeOpcode(0x73, &test_vm.vm, test_frame.frame); // to address
+    test_frame.frame.pc = 21;
+    _ = try helpers.executeOpcode(0x73, &test_vm.vm, test_frame.frame); // from address
+    test_frame.frame.pc = 42;
     _ = try helpers.executeOpcode(0x7F, &test_vm.vm, test_frame.frame); // signature
+    test_frame.frame.pc = 75;
+    _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame); // size
+    test_frame.frame.pc = 77;
+    _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame); // offset
     test_frame.frame.pc = 79;
     
     // Execute LOG3
