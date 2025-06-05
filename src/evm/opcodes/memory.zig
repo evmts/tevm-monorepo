@@ -7,13 +7,11 @@ const Memory = @import("../memory.zig");
 const gas_constants = @import("../gas_constants.zig");
 const error_mapping = @import("../error_mapping.zig");
 
-// Import helper functions from error_mapping
-const stack_pop = error_mapping.stack_pop;
-const stack_push = error_mapping.stack_push;
+// Import helper functions from error_mapping for operations we can't optimize
 const map_memory_error = error_mapping.map_memory_error;
 
 // Helper to check if u256 fits in usize
-fn check_offset_bounds(value: u256) ExecutionError.Error!void {
+inline fn check_offset_bounds(value: u256) ExecutionError.Error!void {
     if (value > std.math.maxInt(usize)) {
         return ExecutionError.Error.InvalidOffset;
     }
@@ -25,7 +23,11 @@ pub fn op_mload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    const offset = try stack_pop(&frame.stack);
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size >= 1);
+
+    // Get offset from top of stack unsafely - bounds checking is done in jump_table.zig
+    const offset = frame.stack.peek_unsafe().*;
 
     if (offset > std.math.maxInt(usize)) {
         return ExecutionError.Error.OutOfOffset;
@@ -33,16 +35,11 @@ pub fn op_mload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     const offset_usize = @as(usize, @intCast(offset));
 
-    // Debug: MLOAD offset and memory size
-
     // Calculate memory expansion gas cost
     const current_size = frame.memory.context_size();
     const new_size = offset_usize + 32;
     const gas_cost = gas_constants.memory_gas_cost(current_size, new_size);
     
-    if (gas_cost > 0) {
-        // Debug: MLOAD memory expansion
-    }
     try frame.consume_gas(gas_cost);
 
     // Ensure memory is available
@@ -51,9 +48,8 @@ pub fn op_mload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     // Read 32 bytes from memory
     const value = frame.memory.get_u256(offset_usize) catch |err| return map_memory_error(err);
 
-    // Debug: MLOAD read value
-
-    try stack_push(&frame.stack, value);
+    // Replace top of stack with loaded value unsafely - bounds checking is done in jump_table.zig
+    frame.stack.set_top_unsafe(value);
 
     return Operation.ExecutionResult{};
 }
@@ -64,10 +60,14 @@ pub fn op_mstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size >= 2);
+
+    // Pop two values unsafely using batch operation - bounds checking is done in jump_table.zig
     // EVM Stack: [..., value, offset] where offset is on top
-    // MSTORE pops offset first, then value
-    const offset = try stack_pop(&frame.stack); // Pop offset from top
-    const value = try stack_pop(&frame.stack); // Pop value second
+    const popped = frame.stack.pop2_unsafe();
+    const value = popped.a; // First popped (was second from top)
+    const offset = popped.b; // Second popped (was top)
 
     if (offset > std.math.maxInt(usize)) {
         return ExecutionError.Error.OutOfOffset;
@@ -75,15 +75,12 @@ pub fn op_mstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     const offset_usize = @as(usize, @intCast(offset));
 
-
     // Calculate memory expansion gas cost
     const current_size = frame.memory.context_size();
     const new_size = offset_usize + 32; // MSTORE writes 32 bytes
     const expansion_gas_cost = gas_constants.memory_gas_cost(current_size, new_size);
 
-    if (expansion_gas_cost > 0) {
-        try frame.consume_gas(expansion_gas_cost);
-    }
+    try frame.consume_gas(expansion_gas_cost);
 
     // Ensure memory is available
     try error_mapping.memory_ensure_capacity(&frame.memory, offset_usize + 32);
@@ -100,10 +97,14 @@ pub fn op_mstore8(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size >= 2);
+
+    // Pop two values unsafely using batch operation - bounds checking is done in jump_table.zig
     // EVM Stack: [..., value, offset] where offset is on top
-    // MSTORE8 pops offset first, then value
-    const offset = try stack_pop(&frame.stack); // Pop offset from top
-    const value = try stack_pop(&frame.stack); // Pop value second
+    const popped = frame.stack.pop2_unsafe();
+    const value = popped.a; // First popped (was second from top)
+    const offset = popped.b; // Second popped (was top)
 
     if (offset > std.math.maxInt(usize)) {
         return ExecutionError.Error.OutOfOffset;
@@ -134,14 +135,16 @@ pub fn op_msize(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size < Stack.CAPACITY);
+
     // MSIZE returns the size in bytes, but memory is always expanded in 32-byte words
     // So we need to round up to the nearest word boundary
     const size = frame.memory.context_size();
     const word_aligned_size = ((size + 31) / 32) * 32;
-    
-    // Debug: MSIZE returning size
 
-    try stack_push(&frame.stack, @as(u256, @intCast(word_aligned_size)));
+    // Push result unsafely - bounds checking is done in jump_table.zig
+    frame.stack.append_unsafe(@as(u256, @intCast(word_aligned_size)));
 
     return Operation.ExecutionResult{};
 }
@@ -152,10 +155,14 @@ pub fn op_mcopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // EVM stack order: [size, src, dest] (top to bottom)
-    const size = try stack_pop(&frame.stack);
-    const src = try stack_pop(&frame.stack);
-    const dest = try stack_pop(&frame.stack);
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size >= 3);
+
+    // Pop three values unsafely - bounds checking is done in jump_table.zig
+    // EVM stack order: [..., dest, src, size] (top to bottom)
+    const size = frame.stack.pop_unsafe();
+    const src = frame.stack.pop_unsafe();
+    const dest = frame.stack.pop_unsafe();
 
     if (size == 0) {
         return Operation.ExecutionResult{};
@@ -185,11 +192,6 @@ pub fn op_mcopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     // Copy with overlap handling
     try error_mapping.memory_copy_within(&frame.memory, src_usize, dest_usize, size_usize);
 
-    // Debug logging
-    if (@import("builtin").mode == .Debug) {
-        // Debug: MCOPY operation
-    }
-
     return Operation.ExecutionResult{};
 }
 
@@ -199,10 +201,15 @@ pub fn op_calldataload(pc: usize, interpreter: *Operation.Interpreter, state: *O
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    const offset = try stack_pop(&frame.stack);
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size >= 1);
+
+    // Get offset from top of stack unsafely - bounds checking is done in jump_table.zig
+    const offset = frame.stack.peek_unsafe().*;
 
     if (offset > std.math.maxInt(usize)) {
-        try stack_push(&frame.stack, 0);
+        // Replace top of stack with 0
+        frame.stack.set_top_unsafe(0);
         return Operation.ExecutionResult{};
     }
 
@@ -219,7 +226,8 @@ pub fn op_calldataload(pc: usize, interpreter: *Operation.Interpreter, state: *O
         }
     }
 
-    try stack_push(&frame.stack, result);
+    // Replace top of stack with loaded value unsafely - bounds checking is done in jump_table.zig
+    frame.stack.set_top_unsafe(result);
 
     return Operation.ExecutionResult{};
 }
@@ -230,7 +238,11 @@ pub fn op_calldatasize(pc: usize, interpreter: *Operation.Interpreter, state: *O
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    try stack_push(&frame.stack, @as(u256, @intCast(frame.input.len)));
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size < Stack.CAPACITY);
+
+    // Push result unsafely - bounds checking is done in jump_table.zig
+    frame.stack.append_unsafe(@as(u256, @intCast(frame.input.len)));
 
     return Operation.ExecutionResult{};
 }
@@ -241,9 +253,14 @@ pub fn op_calldatacopy(pc: usize, interpreter: *Operation.Interpreter, state: *O
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    const mem_offset = try stack_pop(&frame.stack);
-    const data_offset = try stack_pop(&frame.stack);
-    const size = try stack_pop(&frame.stack);
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size >= 3);
+
+    // Pop three values unsafely - bounds checking is done in jump_table.zig
+    // EVM stack order: [..., size, data_offset, mem_offset] (top to bottom)
+    const mem_offset = frame.stack.pop_unsafe();
+    const data_offset = frame.stack.pop_unsafe();
+    const size = frame.stack.pop_unsafe();
 
     if (size == 0) {
         return Operation.ExecutionResult{};
@@ -282,7 +299,11 @@ pub fn op_codesize(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    try stack_push(&frame.stack, @as(u256, @intCast(frame.contract.code.len)));
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size < Stack.CAPACITY);
+
+    // Push result unsafely - bounds checking is done in jump_table.zig
+    frame.stack.append_unsafe(@as(u256, @intCast(frame.contract.code.len)));
 
     return Operation.ExecutionResult{};
 }
@@ -293,9 +314,14 @@ pub fn op_codecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    const mem_offset = try stack_pop(&frame.stack);
-    const code_offset = try stack_pop(&frame.stack);
-    const size = try stack_pop(&frame.stack);
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size >= 3);
+
+    // Pop three values unsafely - bounds checking is done in jump_table.zig
+    // EVM stack order: [..., size, code_offset, mem_offset] (top to bottom)
+    const mem_offset = frame.stack.pop_unsafe();
+    const code_offset = frame.stack.pop_unsafe();
+    const size = frame.stack.pop_unsafe();
 
     if (size == 0) {
         return Operation.ExecutionResult{};
@@ -334,7 +360,11 @@ pub fn op_returndatasize(pc: usize, interpreter: *Operation.Interpreter, state: 
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    try stack_push(&frame.stack, @as(u256, @intCast(frame.return_data_buffer.len)));
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size < Stack.CAPACITY);
+
+    // Push result unsafely - bounds checking is done in jump_table.zig
+    frame.stack.append_unsafe(@as(u256, @intCast(frame.return_data_buffer.len)));
 
     return Operation.ExecutionResult{};
 }
@@ -345,9 +375,14 @@ pub fn op_returndatacopy(pc: usize, interpreter: *Operation.Interpreter, state: 
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    const mem_offset = try stack_pop(&frame.stack);
-    const data_offset = try stack_pop(&frame.stack);
-    const size = try stack_pop(&frame.stack);
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size >= 3);
+
+    // Pop three values unsafely - bounds checking is done in jump_table.zig
+    // EVM stack order: [..., size, data_offset, mem_offset] (top to bottom)
+    const mem_offset = frame.stack.pop_unsafe();
+    const data_offset = frame.stack.pop_unsafe();
+    const size = frame.stack.pop_unsafe();
 
     if (size == 0) {
         return Operation.ExecutionResult{};

@@ -10,9 +10,7 @@ const Address = @import("Address");
 const from_u256 = Address.from_u256;
 const error_mapping = @import("../error_mapping.zig");
 
-// Import helper functions from error_mapping
-const stack_pop = error_mapping.stack_pop;
-const stack_push = error_mapping.stack_push;
+// Import helper function from error_mapping
 const map_memory_error = error_mapping.map_memory_error;
 
 pub fn op_stop(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
@@ -29,7 +27,11 @@ pub fn op_jump(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    const dest = try stack_pop(&frame.stack);
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size >= 1);
+
+    // Use unsafe pop since bounds checking is done by jump_table
+    const dest = frame.stack.pop_unsafe();
 
     // Check if destination is a valid JUMPDEST (pass u256 directly)
     if (!frame.contract.valid_jumpdest(dest)) {
@@ -52,12 +54,13 @@ pub fn op_jumpi(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // Based on test expectations: pushStack({1, 5}) where condition=1, destination=5
-    // This creates stack [1, 5] with 5 on top
-    // Test expects jump to position 5, so 5 must be destination
-    // Therefore: pop destination first (5), then condition (1)
-    const dest = try stack_pop(&frame.stack);
-    const condition = try stack_pop(&frame.stack);
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size >= 2);
+
+    // Use batch pop for performance - pop 2 values at once
+    const values = frame.stack.pop2_unsafe();
+    const dest = values.b;      // Second from top (was on top)
+    const condition = values.a;  // Third from top (was second)
 
     if (condition != 0) {
         // Check if destination is a valid JUMPDEST (pass u256 directly)
@@ -81,7 +84,11 @@ pub fn op_pc(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.S
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    try stack_push(&frame.stack, @as(u256, @intCast(pc)));
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size < Stack.CAPACITY);
+
+    // Use unsafe push since bounds checking is done by jump_table
+    frame.stack.append_unsafe(@as(u256, @intCast(pc)));
 
     return Operation.ExecutionResult{};
 }
@@ -101,11 +108,13 @@ pub fn op_return(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // EVM spec: RETURN expects stack [... offset size] where size is on top
-    // When test does pushStack(&[_]u256{10, 4}), it pushes offset=10 first, then size=4
-    // Stack becomes [10, 4] with 4 on top, so we pop size first, then offset
-    const size = try stack_pop(&frame.stack); // First pop gets size (top of stack)
-    const offset = try stack_pop(&frame.stack); // Second pop gets offset
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size >= 2);
+
+    // Use batch pop for performance - pop 2 values at once
+    const values = frame.stack.pop2_unsafe();
+    const size = values.b;    // Second from top (was on top)
+    const offset = values.a;  // Third from top (was second)
 
     if (size == 0) {
         frame.return_data_buffer = &[_]u8{};
@@ -144,10 +153,13 @@ pub fn op_revert(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // EVM spec: REVERT expects stack [... offset size] where size is on top
-    // Same as RETURN - pop size first (from top), then offset
-    const size = try stack_pop(&frame.stack);
-    const offset = try stack_pop(&frame.stack);
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size >= 2);
+
+    // Use batch pop for performance - pop 2 values at once
+    const values = frame.stack.pop2_unsafe();
+    const size = values.b;    // Second from top (was on top)
+    const offset = values.a;  // Third from top (was second)
 
     if (size == 0) {
         frame.return_data_buffer = &[_]u8{};
@@ -205,7 +217,11 @@ pub fn op_selfdestruct(pc: usize, interpreter: *Operation.Interpreter, state: *O
         return ExecutionError.Error.WriteProtection;
     }
 
-    const beneficiary_u256 = try stack_pop(&frame.stack);
+    // Debug-only bounds check - compiled out in release builds
+    std.debug.assert(frame.stack.size >= 1);
+
+    // Use unsafe pop since bounds checking is done by jump_table
+    const beneficiary_u256 = frame.stack.pop_unsafe();
     const beneficiary = from_u256(beneficiary_u256);
 
     // EIP-2929: Check if beneficiary address is cold and consume appropriate gas
