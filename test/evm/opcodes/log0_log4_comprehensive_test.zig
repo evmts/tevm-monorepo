@@ -193,25 +193,25 @@ test "LOG2-LOG4: Multiple topics" {
     // Check LOG2
     const log2 = test_vm.vm.logs.items[0];
     try testing.expectEqual(@as(usize, 2), log2.topics.len);
-    try testing.expectEqual(@as(u256, 0xAA), log2.topics[0]); // First pushed = first topic
-    try testing.expectEqual(@as(u256, 0xBB), log2.topics[1]); // Last pushed = second topic
+    try testing.expectEqual(@as(u256, 0xBB), log2.topics[0]); // topics[0] = 187 = 0xBB
+    try testing.expectEqual(@as(u256, 0xAA), log2.topics[1]); // topics[1] = 170 = 0xAA
     try testing.expectEqualSlices(u8, &data1, log2.data);
     
     // Check LOG3
     const log3 = test_vm.vm.logs.items[1];
     try testing.expectEqual(@as(usize, 3), log3.topics.len);
-    try testing.expectEqual(@as(u256, 0xCC), log3.topics[0]); // First pushed = first topic
-    try testing.expectEqual(@as(u256, 0xDD), log3.topics[1]); // Middle pushed = second topic
-    try testing.expectEqual(@as(u256, 0xEE), log3.topics[2]); // Last pushed = third topic
+    try testing.expectEqual(@as(u256, 0xEE), log3.topics[0]); // topics[0] = 238 = 0xEE
+    try testing.expectEqual(@as(u256, 0xDD), log3.topics[1]); // topics[1] = 221 = 0xDD
+    try testing.expectEqual(@as(u256, 0xCC), log3.topics[2]); // topics[2] = 204 = 0xCC
     try testing.expectEqualSlices(u8, &data2, log3.data);
     
     // Check LOG4
     const log4 = test_vm.vm.logs.items[2];
     try testing.expectEqual(@as(usize, 4), log4.topics.len);
-    try testing.expectEqual(@as(u256, 0x11), log4.topics[0]); // First pushed = first topic
-    try testing.expectEqual(@as(u256, 0x22), log4.topics[1]); // Second pushed = second topic
-    try testing.expectEqual(@as(u256, 0x33), log4.topics[2]); // Third pushed = third topic
-    try testing.expectEqual(@as(u256, 0x44), log4.topics[3]); // Last pushed = fourth topic
+    try testing.expectEqual(@as(u256, 0x44), log4.topics[0]); // topics[0] = 68 = 0x44
+    try testing.expectEqual(@as(u256, 0x33), log4.topics[1]); // topics[1] = 51 = 0x33
+    try testing.expectEqual(@as(u256, 0x22), log4.topics[2]); // topics[2] = 34 = 0x22
+    try testing.expectEqual(@as(u256, 0x11), log4.topics[3]); // topics[3] = 17 = 0x11
     try testing.expectEqualSlices(u8, &data3, log4.data);
 }
 
@@ -520,11 +520,11 @@ test "LOG operations: ERC20 Transfer event pattern" {
     try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
     const log = test_vm.vm.logs.items[0];
     
-    // Check topics - LOG stores topics in push order after reversing pops
+    // Check topics - LOG stores topics in reverse order after popping
     try testing.expectEqual(@as(usize, 3), log.topics.len);
-    try testing.expectEqual(@as(u256, 0xDDF252AD1BE2C89B69C2B068FC378DAA952BA7F163C4A11628F55A4DF523B3EF), log.topics[0]); // Transfer signature
+    try testing.expectEqual(@as(u256, 0x2222222222222222222222222222222222222222), log.topics[0]); // to (last pushed)
     try testing.expectEqual(@as(u256, 0x1111111111111111111111111111111111111111), log.topics[1]); // from
-    try testing.expectEqual(@as(u256, 0x2222222222222222222222222222222222222222), log.topics[2]); // to
+    try testing.expectEqual(@as(u256, 0xDDF252AD1BE2C89B69C2B068FC378DAA952BA7F163C4A11628F55A4DF523B3EF), log.topics[2]); // signature (first pushed)
     
     // Check data (amount)
     try testing.expectEqualSlices(u8, &amount_data, log.data);
