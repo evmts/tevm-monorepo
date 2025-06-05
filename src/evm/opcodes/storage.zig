@@ -7,7 +7,7 @@ const Vm = @import("../vm.zig");
 const gas_constants = @import("../gas_constants.zig");
 const error_mapping = @import("../error_mapping.zig");
 const Address = @import("Address");
-const Logger = @import("../logger.zig").Logger;
+const Log = @import("../log.zig");
 
 // EIP-3529 (London) gas costs for SSTORE
 const SSTORE_SET_GAS: u64 = 20000;
@@ -113,7 +113,7 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     const Contract = @import("../contract.zig");
     const is_cold = frame.contract.mark_storage_slot_warm(slot, null) catch |err| switch (err) {
         Contract.MarkStorageSlotWarmError.OutOfAllocatorMemory => {
-            Logger.err("SSTORE: mark_storage_slot_warm failed: {}", .{err});
+            Log.err("SSTORE: mark_storage_slot_warm failed: {}", .{err});
             return ExecutionError.Error.OutOfMemory;
         },
     };

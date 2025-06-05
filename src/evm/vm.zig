@@ -12,9 +12,8 @@ const rlp = @import("Rlp");
 const Keccak256 = std.crypto.hash.sha3.Keccak256;
 const ChainRules = @import("chain_rules.zig");
 const gas_constants = @import("gas_constants.zig");
-const logger_module = @import("logger.zig");
-const logger = logger_module.logger;
-const Logger = logger_module.Logger;
+const Log = @import("log.zig");
+const EvmLog = @import("evm_log.zig");
 
 // Error types for VM operations
 pub const VmError = ExecutionError.Error || std.mem.Allocator.Error || Frame.FrameError;
@@ -28,13 +27,6 @@ pub const VmAccessListError = error{
     InvalidSlot,
 };
 pub const VmAddressCalculationError = std.mem.Allocator.Error;
-
-// Log struct for EVM event logs (LOG0-LOG4 opcodes)
-pub const Log = struct {
-    address: Address.Address,
-    topics: []const u256,
-    data: []const u8,
-};
 
 const Self = @This();
 
@@ -56,7 +48,7 @@ balances: std.AutoHashMap(Address.Address, u256),
 code: std.AutoHashMap(Address.Address, []const u8),
 nonces: std.AutoHashMap(Address.Address, u64),
 transient_storage: std.AutoHashMap(Self.StorageKey, u256),
-logs: std.ArrayList(Log),
+logs: std.ArrayList(EvmLog),
 
 // EIP-2929: Access list for gas cost calculation
 access_list: AccessList,
@@ -99,7 +91,7 @@ pub const StorageKey = struct {
 
 pub fn init(allocator: std.mem.Allocator) VmInitError!Self {
     return init_with_hardfork(allocator, .CANCUN) catch |err| {
-        Logger.debug("Failed to initialize VM with default hardfork: {any}", .{err});
+        Log.debug("Failed to initialize VM with default hardfork: {any}", .{err});
         return err;
     };
 }
@@ -120,7 +112,7 @@ pub fn init_with_hardfork(allocator: std.mem.Allocator, hardfork: @import("hardf
     var transient_storage = std.AutoHashMap(Self.StorageKey, u256).init(allocator);
     errdefer transient_storage.deinit();
 
-    var logs = std.ArrayList(Log).init(allocator);
+    var logs = std.ArrayList(EvmLog).init(allocator);
     errdefer logs.deinit();
 
     var access_list = AccessList.init(allocator);
@@ -159,14 +151,14 @@ pub fn deinit(self: *Self) void {
 
 pub fn interpret(self: *Self, contract: *Contract, input: []const u8) VmInterpretError![]const u8 {
     return self.interpret_with_context(contract, input, false) catch |err| {
-        Logger.debug("Failed to interpret contract: {any}", .{err});
+        Log.debug("Failed to interpret contract: {any}", .{err});
         return err;
     };
 }
 
 pub fn interpret_static(self: *Self, contract: *Contract, input: []const u8) VmInterpretError![]const u8 {
     return self.interpret_with_context(contract, input, true) catch |err| {
-        Logger.debug("Failed to interpret contract in static context: {any}", .{err});
+        Log.debug("Failed to interpret contract in static context: {any}", .{err});
         return err;
     };
 }
@@ -184,7 +176,7 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
 
     var pc: usize = 0;
     var frame = Frame.init(self.allocator, contract) catch |err| {
-        Logger.debug("Failed to initialize frame: {any}", .{err});
+        Log.debug("Failed to initialize frame: {any}", .{err});
         return switch (err) {
             Frame.FrameError.OutOfMemory => ExecutionError.Error.OutOfMemory,
             Frame.FrameError.InvalidContract => ExecutionError.Error.InvalidCodeEntry,
@@ -279,7 +271,7 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
     const nonce = current_nonce;
     const new_nonce = current_nonce + 1;
     self.nonces.put(creator, new_nonce) catch |err| {
-        Logger.debug("Failed to increment nonce for address 0x{x}: {any}", .{ Address.to_u256(creator), err });
+        Log.debug("Failed to increment nonce for address 0x{x}: {any}", .{ Address.to_u256(creator), err });
         return err;
     };
 
@@ -316,11 +308,11 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
     // Transfer value from creator to new contract
     if (value > 0) {
         self.balances.put(creator, creator_balance - value) catch |err| {
-            Logger.debug("Failed to set balance for address 0x{x}: {any}", .{ Address.to_u256(creator), err });
+            Log.debug("Failed to set balance for address 0x{x}: {any}", .{ Address.to_u256(creator), err });
             return err;
         };
         self.balances.put(new_address, value) catch |err| {
-            Logger.debug("Failed to set balance for address 0x{x}: {any}", .{ Address.to_u256(new_address), err });
+            Log.debug("Failed to set balance for address 0x{x}: {any}", .{ Address.to_u256(new_address), err });
             return err;
         };
     }
@@ -356,7 +348,6 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
     );
     defer init_contract.deinit(null);
 
-
     // Execute the init code - this should return the deployment bytecode
     const init_result = self.interpret_with_context(&init_contract, &[_]u8{}, false) catch {
 
@@ -368,7 +359,6 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
             .output = null,
         };
     };
-
 
     // Check EIP-170 MAX_CODE_SIZE limit on the returned bytecode (24,576 bytes)
     const MAX_CODE_SIZE = 24576;
@@ -397,7 +387,7 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
 
     // Store the deployed bytecode at the new contract address
     self.code.put(new_address, init_result) catch |err| {
-        Logger.debug("Failed to set code for address 0x{x}: {any}", .{ Address.to_u256(new_address), err });
+        Log.debug("Failed to set code for address 0x{x}: {any}", .{ Address.to_u256(new_address), err });
         return err;
     };
 
@@ -478,11 +468,11 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
     // Transfer value from creator to new contract
     if (value > 0) {
         self.balances.put(creator, creator_balance - value) catch |err| {
-            Logger.debug("Failed to set balance for address 0x{x}: {any}", .{ Address.to_u256(creator), err });
+            Log.debug("Failed to set balance for address 0x{x}: {any}", .{ Address.to_u256(creator), err });
             return err;
         };
         self.balances.put(new_address, value) catch |err| {
-            Logger.debug("Failed to set balance for address 0x{x}: {any}", .{ Address.to_u256(new_address), err });
+            Log.debug("Failed to set balance for address 0x{x}: {any}", .{ Address.to_u256(new_address), err });
             return err;
         };
     }
@@ -518,7 +508,6 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
     );
     defer init_contract.deinit(null);
 
-
     // Execute the init code - this should return the deployment bytecode
     const init_result = self.interpret_with_context(&init_contract, &[_]u8{}, false) catch {
 
@@ -530,7 +519,6 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
             .output = null,
         };
     };
-
 
     // Check EIP-170 MAX_CODE_SIZE limit on the returned bytecode (24,576 bytes)
     const MAX_CODE_SIZE = 24576;
@@ -559,7 +547,7 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
 
     // Store the deployed bytecode at the new contract address
     self.code.put(new_address, init_result) catch |err| {
-        Logger.debug("Failed to set code for address 0x{x}: {any}", .{ Address.to_u256(new_address), err });
+        Log.debug("Failed to set code for address 0x{x}: {any}", .{ Address.to_u256(new_address), err });
         return err;
     };
 
@@ -653,7 +641,7 @@ pub fn emit_log(self: *Self, address: Address.Address, topics: []const u256, dat
     const topics_copy = try self.allocator.alloc(u256, topics.len);
     @memcpy(topics_copy, topics);
 
-    const log = Log{
+    const log = EvmLog{
         .address = address,
         .topics = topics_copy,
         .data = data_copy,
@@ -704,7 +692,7 @@ pub fn set_storage_protected(self: *Self, address: Address.Address, slot: u256, 
     try self.validate_static_context();
     const key = Self.StorageKey{ .address = address, .slot = slot };
     self.storage.put(key, value) catch |err| {
-        Logger.debug("Failed to set storage for address 0x{x}, slot {d}: {any}", .{ Address.to_u256(address), slot, err });
+        Log.debug("Failed to set storage for address 0x{x}, slot {d}: {any}", .{ Address.to_u256(address), slot, err });
         return err;
     };
 }
@@ -713,7 +701,7 @@ pub fn set_transient_storage_protected(self: *Self, address: Address.Address, sl
     try self.validate_static_context();
     const key = Self.StorageKey{ .address = address, .slot = slot };
     self.transient_storage.put(key, value) catch |err| {
-        Logger.debug("Failed to set transient storage for address 0x{x}, slot {d}: {any}", .{ Address.to_u256(address), slot, err });
+        Log.debug("Failed to set transient storage for address 0x{x}, slot {d}: {any}", .{ Address.to_u256(address), slot, err });
         return err;
     };
 }
@@ -721,7 +709,7 @@ pub fn set_transient_storage_protected(self: *Self, address: Address.Address, sl
 pub fn set_balance_protected(self: *Self, address: Address.Address, balance: u256) !void {
     try self.validate_static_context();
     self.balances.put(address, balance) catch |err| {
-        Logger.debug("Failed to set balance for address 0x{x}: {any}", .{ Address.to_u256(address), err });
+        Log.debug("Failed to set balance for address 0x{x}: {any}", .{ Address.to_u256(address), err });
         return err;
     };
 }
@@ -729,7 +717,7 @@ pub fn set_balance_protected(self: *Self, address: Address.Address, balance: u25
 pub fn set_code_protected(self: *Self, address: Address.Address, code: []const u8) !void {
     try self.validate_static_context();
     self.code.put(address, code) catch |err| {
-        Logger.debug("Failed to set code for address 0x{x}: {any}", .{ Address.to_u256(address), err });
+        Log.debug("Failed to set code for address 0x{x}: {any}", .{ Address.to_u256(address), err });
         return err;
     };
 }
@@ -798,13 +786,13 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
 
     // Set the code for the contract address
     self.code.put(address, bytecode) catch |err| {
-        Logger.debug("Failed to set code for address 0x{x}: {any}", .{ Address.to_u256(address), err });
+        Log.debug("Failed to set code for address 0x{x}: {any}", .{ Address.to_u256(address), err });
         return err;
     };
 
     // Create a frame for execution
     var frame = Frame.init(self.allocator, &contract) catch |err| {
-        Logger.debug("Failed to initialize frame: {any}", .{err});
+        Log.debug("Failed to initialize frame: {any}", .{err});
         return err;
     };
     defer frame.deinit();

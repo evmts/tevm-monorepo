@@ -8,7 +8,7 @@ const Memory = @import("memory.zig");
 const Frame = @import("frame.zig");
 const Contract = @import("contract.zig");
 const Address = @import("Address");
-const logger = @import("logger.zig");
+const Log = @import("log.zig");
 
 // Import all opcode modules
 const opcodes = @import("opcodes/package.zig");

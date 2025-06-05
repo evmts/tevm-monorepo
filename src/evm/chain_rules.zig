@@ -1,5 +1,6 @@
 const std = @import("std");
 const Hardfork = @import("hardfork.zig").Hardfork;
+const Log = @import("log.zig");
 
 /// Chain rules for different Ethereum hardforks
 ///
@@ -118,7 +119,7 @@ IsEIP3541: bool = true,
 
 /// Create chain rules for a specific hardfork
 pub fn for_hardfork(hardfork: Hardfork) Self {
-    std.log.debug("Creating chain rules for hardfork: {s}", .{@tagName(hardfork)});
+    Log.debug("Creating chain rules for hardfork: {s}", .{@tagName(hardfork)});
     var rules = Self{};
     switch (hardfork) {
         .FRONTIER => {
@@ -360,6 +361,6 @@ pub fn for_hardfork(hardfork: Hardfork) Self {
         },
         .CANCUN => {},
     }
-    std.log.debug("Chain rules created for hardfork: {s}", .{@tagName(hardfork)});
+    Log.debug("Chain rules created for hardfork: {s}", .{@tagName(hardfork)});
     return rules;
 }

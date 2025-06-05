@@ -20,7 +20,7 @@ pub const JumpTable = evm.JumpTable;
 pub const TestVm = struct {
     vm: Vm,
     allocator: std.mem.Allocator,
-    
+
     // Track allocated code for cleanup
     allocated_code: std.ArrayList([]u8),
 
@@ -66,7 +66,7 @@ pub const TestVm = struct {
             self.allocator.free(code);
         }
         self.allocated_code.deinit();
-        
+
         self.vm.deinit();
     }
 
@@ -81,16 +81,16 @@ pub const TestVm = struct {
             return err;
         };
     }
-    
+
     /// Set code with allocation tracking for proper cleanup
     pub fn setCodeWithAlloc(self: *TestVm, address: Address.Address, code: []const u8) !void {
         // Allocate and copy the code
         const code_copy = try self.allocator.alloc(u8, code.len);
         @memcpy(code_copy, code);
-        
+
         // Track the allocation
         try self.allocated_code.append(code_copy);
-        
+
         // Set the code in the VM
         self.vm.code.put(address, code_copy) catch |err| {
             std.log.debug("Failed to set code for address 0x{x}: {any}", .{ Address.to_u256(address), err });
@@ -261,16 +261,6 @@ pub fn executeOpcode(
 ) ExecutionError.Error!Operation.ExecutionResult {
     const interpreter_ptr: *Operation.Interpreter = @ptrCast(vm);
     const state_ptr: *Operation.State = @ptrCast(frame);
-
-    // EXTREME DEBUG: Should definitely show up
-    if (opcode_byte == 0x54 or opcode_byte == 0x55) {
-        std.debug.print("=== HELPER: Executing opcode 0x{x:0>2} ===\n", .{opcode_byte});
-    }
-
-    // DEBUG: LOG opcodes
-    if (opcode_byte >= 0xA0 and opcode_byte <= 0xA4) {
-        std.debug.print("=== HELPER: Executing LOG opcode 0x{x:0>2} ===\n", .{opcode_byte});
-    }
 
     // Debug: Check if jump table has the opcode
     // const operation = vm.table.get_operation(opcode_byte);

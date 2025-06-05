@@ -3,8 +3,7 @@ const Memory = @import("memory.zig");
 const Stack = @import("stack.zig");
 const Contract = @import("contract.zig");
 const ExecutionError = @import("execution_error.zig");
-const logger_module = @import("logger.zig");
-const Logger = logger_module.Logger;
+const Log = @import("log.zig");
 
 /// Error types for Frame operations
 pub const FrameError = error{
@@ -37,7 +36,7 @@ program_counter: usize = 0,
 pub fn init(allocator: std.mem.Allocator, contract: *Contract) FrameError!Self {
     // Don't call finalize_root here - let the caller do it after Frame is at its final location
     const memory = Memory.init_default(allocator) catch |err| {
-        Logger.debug("Failed to initialize memory: {any}", .{err});
+        Log.debug("Failed to initialize memory: {any}", .{err});
         return switch (err) {
             std.mem.Allocator.Error.OutOfMemory => FrameError.OutOfMemory,
         };
@@ -73,7 +72,7 @@ pub fn init_with_state(
     // Create memory if not provided
     const mem: Memory = if (memory) |m| m else blk: {
         const new_memory = Memory.init_default(allocator) catch |mem_err| {
-            Logger.debug("Failed to initialize memory: {any}", .{mem_err});
+            Log.debug("Failed to initialize memory: {any}", .{mem_err});
             return switch (mem_err) {
                 std.mem.Allocator.Error.OutOfMemory => FrameError.OutOfMemory,
             };

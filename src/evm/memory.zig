@@ -1,5 +1,5 @@
 const std = @import("std");
-const logger = @import("logger.zig").logger;
+const Log = @import("log.zig");
 
 /// Memory implementation for efficient EVM call context management.
 const Self = @This();
