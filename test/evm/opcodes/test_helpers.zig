@@ -286,3 +286,32 @@ pub fn printMemory(frame: *const Frame, offset: usize, size: usize) void {
     }
     std.debug.print("\n", .{});
 }
+
+/// Helper function to run bytecode for testing (replaces vm.run_bytecode)
+/// This sets up a contract at the given address with the bytecode and executes it
+pub const RunBytecodeError = std.mem.Allocator.Error || ExecutionError.Error;
+pub fn runBytecode(
+    vm: *Vm,
+    bytecode: []const u8,
+    address: Address.Address,
+    gas: u64,
+    input: ?[]const u8,
+) RunBytecodeError!evm.RunResult {
+    // Create a contract at the specified address
+    var contract = Contract.init_at_address(
+        address, // caller
+        address, // address where code executes
+        0, // value
+        gas,
+        bytecode,
+        input orelse &[_]u8{},
+        false, // not static
+    );
+    defer contract.deinit(vm.allocator, null);
+
+    // Set the code for the contract address in VM state
+    try vm.state.set_code(address, bytecode);
+
+    // Execute the contract
+    return try vm.interpret(&contract, input orelse &[_]u8{});
+}

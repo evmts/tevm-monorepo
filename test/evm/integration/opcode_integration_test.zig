@@ -5,6 +5,7 @@ const Vm = evm.Vm;
 const Address = evm.Address;
 const ExecutionError = evm.ExecutionError;
 const opcodes = evm.opcodes;
+const test_helpers = @import("../opcodes/test_helpers.zig");
 
 // Helper function to convert u256 to 32-byte big-endian array
 fn u256ToBytes32(value: u256) [32]u8 {
@@ -27,13 +28,15 @@ fn createTestVm(allocator: std.mem.Allocator) !*Vm {
     // Set up basic context
     vm.context.chain_id = 1;
     vm.context.gas_price = 1000000000; // 1 gwei
-    vm.context.tx_origin = Address.fromString("0x1234567890123456789012345678901234567890");
+    // Use a simple test address
+    const tx_origin: Address.Address = [_]u8{0x12} ** 20;
+    vm.context.tx_origin = tx_origin;
 
     // Set up block context
     vm.context.block_number = 10000;
     vm.context.block_timestamp = 1234567890;
     vm.context.block_difficulty = 1000000;
-    vm.context.block_coinbase = Address.fromString("0x0000000000000000000000000000000000000000");
+    vm.context.block_coinbase = Address.zero();
     vm.context.block_gas_limit = 30000000;
     vm.context.block_base_fee = 100000000; // 0.1 gwei
 
@@ -59,7 +62,7 @@ test "integration: simple arithmetic sequence" {
         0x00, // STOP
     };
 
-    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    const result = try test_helpers.runBytecode(vm, &bytecode, Address.zero(), 10000, null);
     defer if (result.output) |output| allocator.free(output);
 
     try testing.expect(result.status == .Success);
@@ -90,7 +93,7 @@ test "integration: memory operations sequence" {
         0xF3, // RETURN
     };
 
-    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    const result = try test_helpers.runBytecode(vm, &bytecode, Address.zero(), 10000, null);
     defer if (result.output) |output| allocator.free(output);
 
     try testing.expect(result.status == .Success);
@@ -122,7 +125,7 @@ test "integration: storage operations sequence" {
         0xF3, // RETURN
     };
 
-    const result = try vm.run(&bytecode, contract_address, 50000, null);
+    const result = try test_helpers.runBytecode(vm, &bytecode, contract_address, 50000, null);
     defer if (result.output) |output| allocator.free(output);
 
     try testing.expect(result.status == .Success);
@@ -154,7 +157,7 @@ test "integration: control flow with jumps" {
         0xF3, // RETURN
     };
 
-    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    const result = try test_helpers.runBytecode(vm, &bytecode, Address.zero(), 10000, null);
     defer if (result.output) |output| allocator.free(output);
 
     try testing.expect(result.status == .Success);
@@ -187,7 +190,7 @@ test "integration: environment access sequence" {
         0xF3, // RETURN
     };
 
-    const result = try vm.run(&bytecode, contract_address, 10000, null);
+    const result = try test_helpers.runBytecode(vm, &bytecode, contract_address, 10000, null);
     defer if (result.output) |output| allocator.free(output);
 
     try testing.expect(result.status == .Success);
@@ -221,7 +224,7 @@ test "integration: stack operations sequence" {
         0xF3, // RETURN
     };
 
-    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    const result = try test_helpers.runBytecode(vm, &bytecode, Address.zero(), 10000, null);
     defer if (result.output) |output| allocator.free(output);
 
     try testing.expect(result.status == .Success);
@@ -248,7 +251,7 @@ test "integration: return data handling" {
         0xf3, // RETURN
     };
 
-    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    const result = try test_helpers.runBytecode(vm, &bytecode, Address.zero(), 10000, null);
     defer if (result.output) |output| allocator.free(output);
 
     try testing.expect(result.status == .Success);
@@ -279,7 +282,7 @@ test "integration: revert with reason" {
         0xfd, // REVERT
     };
 
-    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    const result = try test_helpers.runBytecode(vm, &bytecode, Address.zero(), 10000, null);
     defer if (result.output) |output| allocator.free(output);
 
     try testing.expect(result.status == .Revert);
@@ -310,7 +313,7 @@ test "integration: gas consumption tracking" {
         0x00, // STOP (0 gas)
     };
 
-    const result = try vm.run(&bytecode, Address.zero(), initial_gas, null);
+    const result = try test_helpers.runBytecode(vm, &bytecode, Address.zero(), initial_gas, null);
     defer if (result.output) |output| allocator.free(output);
 
     try testing.expect(result.status == .Success);
@@ -336,7 +339,7 @@ test "integration: out of gas scenario" {
         0x00, // STOP
     };
 
-    const result = try vm.run(&bytecode, Address.zero(), 5, null); // Only 5 gas
+    const result = try test_helpers.runBytecode(vm, &bytecode, Address.zero(), 5, null); // Only 5 gas
     defer if (result.output) |output| allocator.free(output);
 
     try testing.expect(result.status == .OutOfGas);
@@ -357,7 +360,7 @@ test "integration: invalid opcode handling" {
         0x00, // STOP (should not reach)
     };
 
-    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    const result = try test_helpers.runBytecode(vm, &bytecode, Address.zero(), 10000, null);
     defer if (result.output) |output| allocator.free(output);
 
     try testing.expect(result.status == .Invalid);
@@ -387,7 +390,7 @@ test "integration: transient storage operations" {
         0xF3, // RETURN
     };
 
-    const result = try vm.run(&bytecode, contract_address, 10000, null);
+    const result = try test_helpers.runBytecode(vm, &bytecode, contract_address, 10000, null);
     defer if (result.output) |output| allocator.free(output);
 
     try testing.expect(result.status == .Success);
@@ -418,7 +421,7 @@ test "integration: logging operations" {
         0x00, // STOP
     };
 
-    const result = try vm.run(&bytecode, contract_address, 10000, null);
+    const result = try test_helpers.runBytecode(vm, &bytecode, contract_address, 10000, null);
     defer if (result.output) |output| allocator.free(output);
 
     try testing.expect(result.status == .Success);
@@ -453,7 +456,7 @@ test "integration: cold/warm storage access (EIP-2929)" {
     };
 
     const initial_gas: u64 = 10000;
-    const result = try vm.run(&bytecode, contract_address, initial_gas, null);
+    const result = try test_helpers.runBytecode(vm, &bytecode, contract_address, initial_gas, null);
     defer if (result.output) |output| allocator.free(output);
 
     try testing.expect(result.status == .Success);
@@ -483,7 +486,7 @@ test "integration: push0 operation (Shanghai)" {
         0xF3, // RETURN
     };
 
-    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    const result = try test_helpers.runBytecode(vm, &bytecode, Address.zero(), 10000, null);
     defer if (result.output) |output| allocator.free(output);
 
     try testing.expect(result.status == .Success);
@@ -549,7 +552,7 @@ test "integration: mcopy operation (Cancun)" {
 0xF3, // RETURN
     };
 
-    const result = try vm.run(&bytecode, Address.zero(), 10000, null);
+    const result = try test_helpers.runBytecode(vm, &bytecode, Address.zero(), 10000, null);
     defer if (result.output) |output| allocator.free(output);
 
     try testing.expect(result.status == .Success);
