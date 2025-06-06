@@ -1,7 +1,7 @@
 const std = @import("std");
 const testing = std.testing;
+const evm = @import("evm");
 const helpers = @import("test_helpers.zig");
-const evm = @import("evm.zig");
 
 // COMPLETED: Storage operations (SLOAD/SSTORE) - Fixed missing jump table mappings
 // Results: SLOAD/SSTORE now working correctly, tests passing, 365/401 opcodes working (+2 improvement)
@@ -323,7 +323,7 @@ test "SSTORE: Large storage values" {
 test "Storage opcodes: Gas consumption patterns" {
     const allocator = testing.allocator;
     // Use Istanbul hardfork (pre-Berlin) for 800 gas SLOAD cost
-    var test_vm = try helpers.TestVm.init(allocator);
+    var test_vm = try helpers.TestVm.init_with_hardfork(allocator, evm.Hardfork.Hardfork.ISTANBUL);
     defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
@@ -483,36 +483,28 @@ test "SSTORE: Overwriting values" {
     var test_vm = try helpers.TestVm.init(allocator);
     defer test_vm.deinit(allocator);
 
-    var contract = try helpers.createTestContract(
-        allocator,
-        helpers.TestAddresses.CONTRACT,
-        helpers.TestAddresses.ALICE,
-        0,
-        &[_]u8{0x55},
-    );
-    defer contract.deinit(allocator, null);
-
-    var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
-    defer test_frame.deinit();
-
     const slot = 0xBEEF;
 
-    // Store initial value
-    // SSTORE pops: slot (first), value (second)
-    // So push: value first, then slot
-    try test_frame.pushStack(&[_]u256{0x111}); // value
-    try test_frame.pushStack(&[_]u256{slot}); // slot
-    _ = try helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
+    // Store and overwrite values using separate contracts and frames
+    const values = [_]u256{ 0x111, 0x222, 0x333 };
+    for (values) |value| {
+        const code = [_]u8{0x55}; // SSTORE
+        var contract = try helpers.createTestContract(
+            allocator,
+            helpers.TestAddresses.CONTRACT,
+            helpers.TestAddresses.ALICE,
+            0,
+            &code,
+        );
+        defer contract.deinit(allocator, null);
 
-    // Overwrite with new value
-    try test_frame.pushStack(&[_]u256{0x222}); // value
-    try test_frame.pushStack(&[_]u256{slot}); // slot
-    _ = try helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
-
-    // Overwrite again
-    try test_frame.pushStack(&[_]u256{0x333}); // value
-    try test_frame.pushStack(&[_]u256{slot}); // slot
-    _ = try helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
+        var test_frame = try helpers.TestFrame.init(allocator, &contract, 30000);
+        defer test_frame.deinit();
+        
+        try test_frame.pushStack(&[_]u256{value}); // value
+        try test_frame.pushStack(&[_]u256{slot}); // slot
+        _ = try helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
+    }
 
     // Verify final value
     const storage_key = evm.Vm.StorageKey{ .address = helpers.TestAddresses.CONTRACT, .slot = slot };

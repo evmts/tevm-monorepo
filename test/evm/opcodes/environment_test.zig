@@ -170,7 +170,7 @@ test "Environment: EXTCODESIZE opcode" {
     // Set up account with code
     const test_code = [_]u8{ 0x60, 0x00, 0x60, 0x00, 0x00 }; // PUSH1 0 PUSH1 0 STOP
     try test_vm.vm.balances.put(helpers.TestAddresses.BOB, 0);
-    try test_vm.vm.code.put(helpers.TestAddresses.BOB, try allocator.dupe(u8, &test_code));
+    try test_vm.vm.code.put(helpers.TestAddresses.BOB, &test_code);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -216,7 +216,7 @@ test "Environment: EXTCODECOPY opcode" {
         0x00, // STOP
     };
     try test_vm.vm.balances.put(helpers.TestAddresses.BOB, 0);
-    try test_vm.vm.code.put(helpers.TestAddresses.BOB, try allocator.dupe(u8, &test_code));
+    try test_vm.vm.code.put(helpers.TestAddresses.BOB, &test_code);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -288,7 +288,7 @@ test "Environment: EXTCODEHASH opcode" {
     // Set up account with code
     const test_code = [_]u8{ 0x60, 0x00, 0x00 }; // PUSH1 0 STOP
     try test_vm.vm.balances.put(helpers.TestAddresses.BOB, 0);
-    try test_vm.vm.code.put(helpers.TestAddresses.BOB, try allocator.dupe(u8, &test_code));
+    try test_vm.vm.code.put(helpers.TestAddresses.BOB, &test_code);
 
     var contract = try helpers.createTestContract(
         allocator,

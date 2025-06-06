@@ -30,7 +30,7 @@ pub const TestVm = struct {
         };
     }
 
-    pub fn init_with_hardfork(allocator: std.mem.Allocator, hardfork: evm.Hardfork) !Self {
+    pub fn init_with_hardfork(allocator: std.mem.Allocator, hardfork: evm.Hardfork.Hardfork) !Self {
         const vm = try allocator.create(Vm);
         vm.* = try Vm.init_with_hardfork(allocator, hardfork);
         return Self{

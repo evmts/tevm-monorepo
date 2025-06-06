@@ -48,19 +48,31 @@ test "CREATE (0xF0): Basic contract creation" {
     }
     test_frame.frame.pc = 6;
 
-    // Remove mocking - VM handles contract creation with real behavior
+    // Debug: Print stack before CREATE
+    std.debug.print("\nCREATE test - Stack before CREATE:\n", .{});
+    helpers.printStack(test_frame.frame);
 
     const gas_before = test_frame.frame.gas_remaining;
-    const result = try helpers.executeOpcode(0xF0, test_vm.vm, test_frame.frame);
+    const result = helpers.executeOpcode(0xF0, test_vm.vm, test_frame.frame) catch |err| {
+        std.debug.print("CREATE failed with error: {}\n", .{err});
+        return err;
+    };
     try testing.expectEqual(@as(usize, 1), result.bytes_consumed);
 
     // Check gas consumption (VM consumes gas regardless of success/failure)
     const gas_used = gas_before - test_frame.frame.gas_remaining;
+    std.debug.print("Gas used: {}\n", .{gas_used});
     try testing.expect(gas_used > 0); // Should consume some gas for CREATE
 
-    // Check that result was pushed to stack (VM currently returns 0 for failed creation)
+    // Debug: Print stack after CREATE
+    std.debug.print("Stack after CREATE:\n", .{});
+    helpers.printStack(test_frame.frame);
+
+    // Check that result was pushed to stack
     const created_address = try test_frame.popStack();
-    try testing.expectEqual(@as(u256, 0), created_address);
+    std.debug.print("Created address: 0x{x}\n", .{created_address});
+    // VM successfully creates a contract, so we should have a non-zero address
+    try testing.expect(created_address != 0);
 }
 
 test "CREATE: Static call protection" {
