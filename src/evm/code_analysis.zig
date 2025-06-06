@@ -1,7 +1,34 @@
 const std = @import("std");
 const bitvec = @import("bitvec.zig");
 
-/// Advanced code analysis for optimization
+/// Advanced code analysis for EVM bytecode optimization.
+///
+/// This structure holds pre-computed analysis results for a contract's bytecode,
+/// enabling efficient execution by pre-identifying jump destinations, code segments,
+/// and other properties that would otherwise need to be computed at runtime.
+///
+/// The analysis is performed once when a contract is first loaded and cached for
+/// subsequent executions, significantly improving performance for frequently-used
+/// contracts.
+///
+/// ## Fields
+/// - `code_segments`: Bit vector marking which bytes are executable code vs data
+/// - `jumpdest_positions`: Sorted array of valid JUMPDEST positions for O(log n) validation
+/// - `block_gas_costs`: Optional pre-computed gas costs for basic blocks
+/// - `max_stack_depth`: Maximum stack depth required by the contract
+/// - `has_dynamic_jumps`: Whether the code contains JUMP/JUMPI with dynamic targets
+/// - `has_static_jumps`: Whether the code contains JUMP/JUMPI with static targets
+/// - `has_selfdestruct`: Whether the code contains SELFDESTRUCT opcode
+/// - `has_create`: Whether the code contains CREATE/CREATE2 opcodes
+///
+/// ## Performance
+/// - Jump destination validation: O(log n) using binary search
+/// - Code segment checking: O(1) using bit vector
+/// - Enables dead code elimination and other optimizations
+///
+/// ## Memory Management
+/// The analysis owns its allocated memory and must be properly cleaned up
+/// using the `deinit` method to prevent memory leaks.
 const Self = @This();
 
 /// Bit vector marking code vs data bytes

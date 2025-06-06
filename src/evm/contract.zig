@@ -39,8 +39,12 @@ var analysis_cache: ?std.AutoHashMap([32]u8, *CodeAnalysis) = null;
 // Use conditional compilation for thread safety
 const is_single_threaded = @import("builtin").single_threaded;
 const Mutex = if (is_single_threaded) struct {
-    pub fn lock(self: *@This()) void { _ = self; }
-    pub fn unlock(self: *@This()) void { _ = self; }
+    pub fn lock(self: *@This()) void {
+        _ = self;
+    }
+    pub fn unlock(self: *@This()) void {
+        _ = self;
+    }
 } else std.Thread.Mutex;
 
 var cache_mutex: Mutex = .{};
@@ -493,4 +497,44 @@ pub fn clear_analysis_cache(allocator: std.mem.Allocator) void {
 /// Analyze jump destinations - public wrapper for ensure_analysis
 pub fn analyze_jumpdests(self: *Self, allocator: std.mem.Allocator) void {
     self.ensure_analysis(allocator);
+}
+
+/// Create a contract to execute bytecode at a specific address
+/// This is useful for testing or executing code that should be treated as if it's deployed at an address
+/// The caller must separately call vm.state.set_code(address, bytecode) to deploy the code
+pub fn init_at_address(
+    caller: Address.Address,
+    address: Address.Address,
+    value: u256,
+    gas: u64,
+    bytecode: []const u8,
+    input: []const u8,
+    is_static: bool,
+) Self {
+    // Calculate code hash for the bytecode
+    var hasher = std.crypto.hash.sha3.Keccak256.init(.{});
+    hasher.update(bytecode);
+    var code_hash: [32]u8 = undefined;
+    hasher.final(&code_hash);
+
+    return Self{
+        .address = address,
+        .caller = caller,
+        .value = value,
+        .gas = gas,
+        .code = bytecode,
+        .code_hash = code_hash,
+        .code_size = bytecode.len,
+        .input = input,
+        .is_static = is_static,
+        .analysis = null,
+        .storage_access = null,
+        .original_storage = null,
+        .is_cold = true,
+        .gas_refund = 0,
+        .is_deployment = false,
+        .is_system_call = false,
+        .has_jumpdests = contains_jumpdest(bytecode),
+        .is_empty = bytecode.len == 0,
+    };
 }

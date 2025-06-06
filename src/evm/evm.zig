@@ -57,7 +57,11 @@ pub const CreateContractProtectedError = Vm.CreateContractProtectedError;
 pub const Create2ContractProtectedError = Vm.Create2ContractProtectedError;
 pub const ValidateValueTransferError = Vm.ValidateValueTransferError;
 pub const SelfdestructProtectedError = Vm.SelfdestructProtectedError;
-pub const RunError = Vm.RunError;
+
+// VM result types
+pub const RunResult = Vm.RunResult;
+pub const CreateResult = Vm.CreateResult;
+pub const CallResult = Vm.CallResult;
 
 // Memory error types
 pub const MemoryError = Memory.MemoryError;
