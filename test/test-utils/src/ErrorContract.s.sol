@@ -22,7 +22,7 @@ contract ErrorContract {
         revert ErrorWithSingleParam(100);
     }
 
-    function reverWithCustomErrorMultipleParams() external {
+    function revertWithCustomErrorMultipleParams() external {
         address[] memory users = new address[](2);
         users[0] = address(1);
         users[1] = address(2);
@@ -43,6 +43,18 @@ contract ErrorContract {
 
     function revertWithRequireAndMessage() external {
         require(false, "Require failed with message");
+    }
+
+    // =================
+    // EMPTY REVERT
+    // =================
+
+    function revertWithoutMessage() external {
+        revert(); // Empty revert data
+    }
+
+    function revertWithRequireNoMessage() external {
+        require(false); // Also empty revert
     }
 
     // =================
@@ -69,28 +81,16 @@ contract ErrorContract {
     }
 
     // =================
-    // EMPTY REVERT
-    // =================
-
-    function revertWithoutMessage() external {
-        revert(); // Empty revert data
-    }
-
-    function revertWithRequireNoMessage() external {
-        require(false); // Also empty revert
-    }
-
-    // =================
     // OTHER ERRORS
     // =================
 
-    function revertOutOfGas() external {
+    function errorOutOfGas() external {
         while (true) {
             keccak256("consume gas");
         }
     }
 
-    function revertWithInvalidOpcode() external {
+    function errorWithInvalidOpcode() external {
         assembly {
             invalid()
         }
