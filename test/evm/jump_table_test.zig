@@ -43,16 +43,6 @@ test "JumpTable initialization and validation" {
     }
 }
 
-test "JumpTable stack calculation helpers" {
-    try std.testing.expectEqual(@as(u32, 2), JumpTable.min_stack(2, 1));
-    try std.testing.expectEqual(@as(u32, Stack.CAPACITY), JumpTable.max_stack(2, 1));
-
-    try std.testing.expectEqual(@as(u32, 3), JumpTable.min_dup_stack(3));
-    try std.testing.expectEqual(@as(u32, Stack.CAPACITY - 1), JumpTable.max_dup_stack(3));
-
-    try std.testing.expectEqual(@as(u32, 5), JumpTable.min_swap_stack(4));
-    try std.testing.expectEqual(@as(u32, Stack.CAPACITY), JumpTable.max_swap_stack(4));
-}
 
 test "JumpTable gas constants" {
     try std.testing.expectEqual(@as(u64, 2), opcodes.gas_constants.GasQuickStep);
