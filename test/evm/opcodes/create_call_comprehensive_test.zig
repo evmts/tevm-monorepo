@@ -28,7 +28,7 @@ test "CREATE (0xF0): Basic contract creation" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -77,7 +77,7 @@ test "CREATE: Static call protection" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -110,7 +110,7 @@ test "CREATE: EIP-3860 initcode size limit" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -143,7 +143,7 @@ test "CREATE: Depth limit" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -190,7 +190,7 @@ test "CREATE2 (0xF5): Deterministic contract creation" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -239,7 +239,7 @@ test "CALL (0xF1): Basic external call" {
         1000, // Give contract some balance
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -280,7 +280,7 @@ test "CALL: Value transfer in static context" {
         1000,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -317,7 +317,7 @@ test "CALL: Cold address access (EIP-2929)" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -364,7 +364,7 @@ test "CALLCODE (0xF2): Execute external code with current storage" {
         1000,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -408,7 +408,7 @@ test "DELEGATECALL (0xF4): Execute with current context" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -454,7 +454,7 @@ test "STATICCALL (0xFA): Read-only external call" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -497,7 +497,7 @@ test "System opcodes: Gas consumption" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -545,7 +545,7 @@ test "CALL operations: Depth limit" {
             0,
             &[_]u8{opcode},
         );
-        defer contract.deinit(null);
+        defer contract.deinit(allocator, null);
 
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
         defer test_frame.deinit();
@@ -598,7 +598,7 @@ test "CREATE/CREATE2: Failed creation scenarios" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();

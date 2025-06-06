@@ -25,7 +25,7 @@ test "RETURN (0xF3): Return data from execution" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -69,7 +69,7 @@ test "RETURN: Empty return data" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -111,7 +111,7 @@ test "REVERT (0xFD): Revert with data" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -155,7 +155,7 @@ test "REVERT: Empty revert data" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -193,7 +193,7 @@ test "INVALID (0xFE): Consume all gas and fail" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -253,7 +253,7 @@ test "SELFDESTRUCT (0xFF): Schedule contract destruction" {
         1000, // Give contract some balance
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -284,7 +284,7 @@ test "SELFDESTRUCT: Static call protection" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -314,7 +314,7 @@ test "SELFDESTRUCT: Cold beneficiary address (EIP-2929)" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -355,7 +355,7 @@ test "Control opcodes: Gas consumption" {
         0,
         &return_code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -392,7 +392,7 @@ test "RETURN/REVERT: Large memory offset" {
             0,
             &[_]u8{opcode},
         );
-        defer contract.deinit(null);
+        defer contract.deinit(allocator, null);
 
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
         defer test_frame.deinit();
@@ -431,7 +431,7 @@ test "RETURN/REVERT: Stack underflow" {
             0,
             &[_]u8{opcode},
         );
-        defer contract.deinit(null);
+        defer contract.deinit(allocator, null);
 
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
         defer test_frame.deinit();
@@ -461,7 +461,7 @@ test "Control flow interaction: Call with REVERT" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();

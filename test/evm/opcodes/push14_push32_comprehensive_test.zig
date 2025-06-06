@@ -23,7 +23,7 @@ test "PUSH14 (0x6D): Push 14 bytes onto stack" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -57,7 +57,7 @@ test "PUSH15 (0x6E): Push 15 bytes onto stack" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -84,7 +84,7 @@ test "PUSH16 (0x6F): Push 16 bytes onto stack" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -138,7 +138,7 @@ test "PUSH17-PUSH19: Various sizes" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -213,7 +213,7 @@ test "PUSH20-PUSH24: Various sizes" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -288,7 +288,7 @@ test "PUSH25-PUSH31: Various sizes" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -349,7 +349,7 @@ test "PUSH32 (0x7F): Push full 32 bytes onto stack" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -407,7 +407,7 @@ test "PUSH14-PUSH32: Gas consumption" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -455,7 +455,7 @@ test "PUSH operations: Truncated data at end of code" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -489,7 +489,7 @@ test "PUSH20: Address pushing pattern" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -523,7 +523,7 @@ test "PUSH32: Hash value pattern" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -556,7 +556,7 @@ test "Large PUSH operations with stack near limit" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -605,7 +605,7 @@ test "PUSH operations sequence verification" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();

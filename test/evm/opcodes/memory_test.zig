@@ -19,7 +19,7 @@ test "MLOAD: load 32 bytes from memory" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -58,7 +58,7 @@ test "MLOAD: load with offset" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -96,7 +96,7 @@ test "MLOAD: load from uninitialized memory returns zeros" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -125,7 +125,7 @@ test "MSTORE: store 32 bytes to memory" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -157,7 +157,7 @@ test "MSTORE: store with offset" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -191,7 +191,7 @@ test "MSTORE8: store single byte to memory" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -225,7 +225,7 @@ test "MSTORE8: store only lowest byte" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -255,7 +255,7 @@ test "MSIZE: get memory size" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -293,7 +293,7 @@ test "MCOPY: copy memory to memory" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -338,7 +338,7 @@ test "MCOPY: overlapping copy forward" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -376,7 +376,7 @@ test "MCOPY: overlapping copy backward" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -414,7 +414,7 @@ test "MCOPY: zero length copy" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -444,7 +444,7 @@ test "MLOAD: memory expansion gas" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -475,7 +475,7 @@ test "MSTORE: memory expansion gas" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -506,7 +506,7 @@ test "MCOPY: gas consumption" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -541,7 +541,7 @@ test "MLOAD: stack underflow" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -566,7 +566,7 @@ test "MSTORE: stack underflow" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -592,7 +592,7 @@ test "MCOPY: stack underflow" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -620,7 +620,7 @@ test "MLOAD: offset overflow" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -646,7 +646,7 @@ test "MCOPY: source offset overflow" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();

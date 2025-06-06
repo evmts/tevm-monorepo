@@ -18,7 +18,7 @@ test "MSIZE (0x59): Get current memory size" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -74,7 +74,7 @@ test "GAS (0x5A): Get remaining gas" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     // Test with different initial gas amounts
     const test_cases = [_]u64{
@@ -137,7 +137,7 @@ test "JUMPDEST (0x5B): Mark valid jump destination" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -154,20 +154,20 @@ test "JUMPDEST (0x5B): Mark valid jump destination" {
     try testing.expectEqual(@as(u64, gas_before - 1), test_frame.frame.gas_remaining);
 
     // Test 2: Verify jump destinations are valid
-    try testing.expect(contract.valid_jumpdest(0)); // Position 0
-    try testing.expect(contract.valid_jumpdest(3)); // Position 3
-    try testing.expect(contract.valid_jumpdest(6)); // Position 6
+    try testing.expect(contract.valid_jumpdest(allocator, 0)); // Position 0
+    try testing.expect(contract.valid_jumpdest(allocator, 3)); // Position 3
+    try testing.expect(contract.valid_jumpdest(allocator, 6)); // Position 6
 
     // Test 3: Verify non-JUMPDEST positions are invalid
-    try testing.expect(!contract.valid_jumpdest(1)); // PUSH1 opcode
-    try testing.expect(!contract.valid_jumpdest(2)); // PUSH1 data
-    try testing.expect(!contract.valid_jumpdest(4)); // PUSH1 opcode
-    try testing.expect(!contract.valid_jumpdest(5)); // PUSH1 data
-    try testing.expect(!contract.valid_jumpdest(7)); // STOP
+    try testing.expect(!contract.valid_jumpdest(allocator, 1)); // PUSH1 opcode
+    try testing.expect(!contract.valid_jumpdest(allocator, 2)); // PUSH1 data
+    try testing.expect(!contract.valid_jumpdest(allocator, 4)); // PUSH1 opcode
+    try testing.expect(!contract.valid_jumpdest(allocator, 5)); // PUSH1 data
+    try testing.expect(!contract.valid_jumpdest(allocator, 7)); // STOP
 
     // Test 4: Verify out of bounds positions are invalid
-    try testing.expect(!contract.valid_jumpdest(100));
-    try testing.expect(!contract.valid_jumpdest(std.math.maxInt(u256)));
+    try testing.expect(!contract.valid_jumpdest(allocator, 100));
+    try testing.expect(!contract.valid_jumpdest(allocator, std.math.maxInt(u256)));
 }
 
 // ============================
@@ -186,7 +186,7 @@ test "MSIZE, GAS, JUMPDEST: Gas consumption" {
         0,
         &[_]u8{0x5B}, // Include JUMPDEST
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -229,7 +229,7 @@ test "MSIZE: Memory expansion scenarios" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -264,7 +264,7 @@ test "GAS: Low gas scenarios" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     // Test with exactly enough gas for GAS opcode
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 2);
@@ -305,16 +305,16 @@ test "JUMPDEST: Code analysis integration" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     // Force code analysis
-    contract.analyze_jumpdests();
+    contract.analyze_jumpdests(allocator);
 
     // The JUMPDEST at position 5 SHOULD be valid (it's standalone, not PUSH data)
-    try testing.expect(contract.valid_jumpdest(5));
+    try testing.expect(contract.valid_jumpdest(allocator, 5));
 
     // The JUMPDEST at position 8 should be valid
-    try testing.expect(contract.valid_jumpdest(8));
+    try testing.expect(contract.valid_jumpdest(allocator, 8));
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -343,7 +343,7 @@ test "Stack operations: MSIZE and GAS push exactly one value" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();

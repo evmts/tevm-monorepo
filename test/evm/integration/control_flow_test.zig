@@ -42,7 +42,7 @@ test "Integration: Conditional jump patterns" {
     );
 
     // Pre-analyze jump destinations
-    contract.analyze_jumpdests();
+    contract.analyze_jumpdests(allocator);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -103,7 +103,7 @@ test "Integration: Loop implementation with JUMP" {
         false,
     );
 
-    contract.analyze_jumpdests();
+    contract.analyze_jumpdests(allocator);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -148,7 +148,7 @@ test "Integration: Return data handling" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -183,7 +183,7 @@ test "Integration: Revert with reason" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -218,7 +218,7 @@ test "Integration: PC tracking through operations" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -250,7 +250,7 @@ test "Integration: Invalid opcode handling" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -293,7 +293,7 @@ test "Integration: Nested conditions with jumps" {
         false,
     );
 
-    contract.analyze_jumpdests();
+    contract.analyze_jumpdests(allocator);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -351,7 +351,7 @@ test "Integration: Self-destruct with beneficiary" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();

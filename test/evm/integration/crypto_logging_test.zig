@@ -19,7 +19,7 @@ test "Integration: SHA3 with dynamic data" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -64,7 +64,7 @@ test "Integration: Logging with topics and data" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -110,7 +110,7 @@ test "Integration: LOG operations with multiple topics" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -163,7 +163,7 @@ test "Integration: Hash-based address calculation" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -222,7 +222,7 @@ test "Integration: Event emission patterns" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -294,7 +294,7 @@ test "Integration: Dynamic log data with memory expansion" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -347,7 +347,7 @@ test "Integration: SHA3 for signature verification" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -385,7 +385,7 @@ test "Integration: Log in static context fails" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();

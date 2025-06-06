@@ -18,7 +18,7 @@ test "POP (0x50): Remove top stack item" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -60,7 +60,7 @@ test "MLOAD (0x51): Load word from memory" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -101,7 +101,7 @@ test "MSTORE (0x52): Store 32 bytes to memory" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -148,7 +148,7 @@ test "MSTORE8 (0x53): Store single byte to memory" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -198,7 +198,7 @@ test "SLOAD (0x54): Load from storage" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 50000);
     defer test_frame.deinit();
@@ -264,7 +264,7 @@ test "SSTORE (0x55): Store to storage" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 30000);
     defer test_frame.deinit();
@@ -318,7 +318,7 @@ test "JUMP (0x56): Unconditional jump" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -365,7 +365,7 @@ test "JUMPI (0x57): Conditional jump" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -407,7 +407,7 @@ test "PC (0x58): Get program counter" {
         0,
         &[_]u8{ 0x58, 0x58, 0x58 }, // PC, PC, PC
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -450,7 +450,7 @@ test "Stack, Memory, and Control opcodes: Gas consumption" {
         0,
         &[_]u8{0x5B}, // JUMPDEST for jump tests
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -512,7 +512,7 @@ test "SLOAD/SSTORE: EIP-2929 gas costs" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 50000);
     defer test_frame.deinit();
@@ -550,7 +550,7 @@ test "Invalid opcode 0x4F" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -572,7 +572,7 @@ test "Memory operations: Large offset handling" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100); // Limited gas
     defer test_frame.deinit();
@@ -618,7 +618,7 @@ test "Jump operations: Code analysis integration" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();

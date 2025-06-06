@@ -17,7 +17,7 @@ test "LOG0: emit log with no topics" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -56,7 +56,7 @@ test "LOG0: emit log with empty data" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -88,7 +88,7 @@ test "LOG1: emit log with one topic" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -129,7 +129,7 @@ test "LOG2: emit log with two topics" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -172,7 +172,7 @@ test "LOG3: emit log with three topics" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -210,7 +210,7 @@ test "LOG4: emit log with four topics" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -258,7 +258,7 @@ test "LOG0: write protection in static call" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -287,7 +287,7 @@ test "LOG1: write protection in static call" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -318,7 +318,7 @@ test "LOG0: gas consumption" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -351,7 +351,7 @@ test "LOG4: gas consumption with topics" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -390,7 +390,7 @@ test "LOG0: memory expansion gas" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -422,7 +422,7 @@ test "LOG0: stack underflow" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -447,7 +447,7 @@ test "LOG4: stack underflow" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -474,7 +474,7 @@ test "LOG0: out of gas" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 100);
     defer test_frame.deinit();

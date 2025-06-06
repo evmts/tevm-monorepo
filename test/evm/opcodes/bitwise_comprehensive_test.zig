@@ -20,7 +20,7 @@ test "AND (0x16): Basic bitwise AND" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -48,7 +48,7 @@ test "AND: All zeros" {
         0,
         &[_]u8{0x16},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -75,7 +75,7 @@ test "AND: All ones" {
         0,
         &[_]u8{0x16},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -103,7 +103,7 @@ test "AND: Masking operations" {
         0,
         &[_]u8{0x16},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -134,7 +134,7 @@ test "OR (0x17): Basic bitwise OR" {
         0,
         &[_]u8{0x17},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -161,7 +161,7 @@ test "OR: With zero" {
         0,
         &[_]u8{0x17},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -188,7 +188,7 @@ test "OR: Setting bits" {
         0,
         &[_]u8{0x17},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -219,7 +219,7 @@ test "XOR (0x18): Basic bitwise XOR" {
         0,
         &[_]u8{0x18},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -246,7 +246,7 @@ test "XOR: Self XOR equals zero" {
         0,
         &[_]u8{0x18},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -273,7 +273,7 @@ test "XOR: Toggle bits" {
         0,
         &[_]u8{0x18},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -304,7 +304,7 @@ test "NOT (0x19): Basic bitwise NOT" {
         0,
         &[_]u8{0x19},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -330,7 +330,7 @@ test "NOT: Invert all bits" {
         0,
         &[_]u8{0x19},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -356,7 +356,7 @@ test "NOT: Double NOT returns original" {
         0,
         &[_]u8{0x19, 0x19},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -393,7 +393,7 @@ test "BYTE (0x1A): Extract first byte" {
         0,
         &[_]u8{0x1A},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -420,7 +420,7 @@ test "BYTE: Extract last byte" {
         0,
         &[_]u8{0x1A},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -447,7 +447,7 @@ test "BYTE: Out of bounds returns zero" {
         0,
         &[_]u8{0x1A},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -474,7 +474,7 @@ test "BYTE: Extract from full u256" {
         0,
         &[_]u8{0x1A},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -546,7 +546,7 @@ test "Bitwise opcodes: Gas consumption" {
             0,
             &[_]u8{tc.opcode},
         );
-        defer contract.deinit(null);
+        defer contract.deinit(allocator, null);
         
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
         defer test_frame.deinit();
@@ -582,7 +582,7 @@ test "Bitwise opcodes: Stack underflow" {
             0,
             &[_]u8{opcode},
         );
-        defer contract.deinit(null);
+        defer contract.deinit(allocator, null);
         
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
         defer test_frame.deinit();
@@ -606,7 +606,7 @@ test "Bitwise opcodes: Stack underflow" {
             0,
             &[_]u8{opcode},
         );
-        defer contract.deinit(null);
+        defer contract.deinit(allocator, null);
         
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
         defer test_frame.deinit();
@@ -633,7 +633,7 @@ test "Bitwise operations: Large values" {
         0,
         &[_]u8{0x16}, // AND
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -663,7 +663,7 @@ test "BYTE: Byte extraction patterns" {
         0,
         &[_]u8{0x1A},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();

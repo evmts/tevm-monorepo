@@ -60,7 +60,7 @@ pub fn op_sload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     // Check if we're in Berlin or later for cold/warm access logic
     if (vm.chain_rules.IsBerlin) {
         const Contract = @import("../contract.zig");
-        const is_cold = frame.contract.mark_storage_slot_warm(slot, null) catch |err| switch (err) {
+        const is_cold = frame.contract.mark_storage_slot_warm(frame.allocator, slot, null) catch |err| switch (err) {
             Contract.MarkStorageSlotWarmError.OutOfAllocatorMemory => {
                 return ExecutionError.Error.OutOfMemory;
             },
@@ -104,14 +104,14 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     // Stack order: [..., value, slot] where slot is on top
     const popped = frame.stack.pop2_unsafe();
     const value = popped.a; // First popped (was second from top)
-    const slot = popped.b;  // Second popped (was top)
+    const slot = popped.b; // Second popped (was top)
 
     // Get current value first to calculate gas properly
     const current_value = try error_mapping.vm_get_storage(vm, frame.contract.address, slot);
 
     // Check if slot is cold and mark it warm
     const Contract = @import("../contract.zig");
-    const is_cold = frame.contract.mark_storage_slot_warm(slot, null) catch |err| switch (err) {
+    const is_cold = frame.contract.mark_storage_slot_warm(frame.allocator, slot, null) catch |err| switch (err) {
         Contract.MarkStorageSlotWarmError.OutOfAllocatorMemory => {
             Log.err("SSTORE: mark_storage_slot_warm failed: {}", .{err});
             return ExecutionError.Error.OutOfMemory;
@@ -179,7 +179,7 @@ pub fn op_tstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     // Stack order: [..., value, slot] where slot is on top
     const popped = frame.stack.pop2_unsafe();
     const value = popped.a; // First popped (was second from top)
-    const slot = popped.b;  // Second popped (was top)
+    const slot = popped.b; // Second popped (was top)
 
     try error_mapping.vm_set_transient_storage(vm, frame.contract.address, slot, value);
 

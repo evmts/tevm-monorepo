@@ -20,7 +20,7 @@ test "ADDRESS (0x30): Push current contract address" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -45,7 +45,7 @@ test "BALANCE (0x31): Get account balance" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -89,7 +89,7 @@ test "ORIGIN (0x32): Get transaction origin" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -117,7 +117,7 @@ test "CALLER (0x33): Get immediate caller" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -150,7 +150,7 @@ test "CALLVALUE (0x34): Get msg.value" {
             value, // Set call value
             &[_]u8{},
         );
-        defer contract.deinit(null);
+        defer contract.deinit(allocator, null);
         
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
         defer test_frame.deinit();
@@ -183,7 +183,7 @@ test "CALLDATALOAD (0x35): Load 32 bytes from calldata" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -246,7 +246,7 @@ test "CALLDATASIZE (0x36): Get calldata size" {
             0,
             &[_]u8{},
         );
-        defer contract.deinit(null);
+        defer contract.deinit(allocator, null);
         
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
         defer test_frame.deinit();
@@ -278,7 +278,7 @@ test "CALLDATACOPY (0x37): Copy calldata to memory" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -342,7 +342,7 @@ test "CODESIZE (0x38): Get code size" {
             0,
             tc.code,
         );
-        defer contract.deinit(null);
+        defer contract.deinit(allocator, null);
         
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
         defer test_frame.deinit();
@@ -375,7 +375,7 @@ test "CODECOPY (0x39): Copy code to memory" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -431,7 +431,7 @@ test "GASPRICE (0x3A): Get gas price" {
             0,
             &[_]u8{},
         );
-        defer contract.deinit(null);
+        defer contract.deinit(allocator, null);
         
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
         defer test_frame.deinit();
@@ -459,7 +459,7 @@ test "Environmental opcodes: Gas consumption" {
         0,
         &[_]u8{0x60, 0x00}, // Simple code
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -506,7 +506,7 @@ test "Environmental opcodes: Stack underflow" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -539,7 +539,7 @@ test "Environmental opcodes: Memory expansion limits" {
         0,
         &[_]u8{0x00}, // Minimal code
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100); // Limited gas
     defer test_frame.deinit();
@@ -564,7 +564,7 @@ test "BALANCE: EIP-2929 cold/warm account access" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();

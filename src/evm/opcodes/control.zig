@@ -34,7 +34,7 @@ pub fn op_jump(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     const dest = frame.stack.pop_unsafe();
 
     // Check if destination is a valid JUMPDEST (pass u256 directly)
-    if (!frame.contract.valid_jumpdest(dest)) {
+    if (!frame.contract.valid_jumpdest(frame.allocator, dest)) {
         return ExecutionError.Error.InvalidJump;
     }
 
@@ -59,12 +59,12 @@ pub fn op_jumpi(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     // Use batch pop for performance - pop 2 values at once
     const values = frame.stack.pop2_unsafe();
-    const dest = values.b;      // Second from top (was on top)
-    const condition = values.a;  // Third from top (was second)
+    const dest = values.b; // Second from top (was on top)
+    const condition = values.a; // Third from top (was second)
 
     if (condition != 0) {
         // Check if destination is a valid JUMPDEST (pass u256 directly)
-        if (!frame.contract.valid_jumpdest(dest)) {
+        if (!frame.contract.valid_jumpdest(frame.allocator, dest)) {
             return ExecutionError.Error.InvalidJump;
         }
 
@@ -113,8 +113,8 @@ pub fn op_return(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     // Use batch pop for performance - pop 2 values at once
     const values = frame.stack.pop2_unsafe();
-    const size = values.b;    // Second from top (was on top)
-    const offset = values.a;  // Third from top (was second)
+    const size = values.b; // Second from top (was on top)
+    const offset = values.a; // Third from top (was second)
 
     if (size == 0) {
         frame.return_data_buffer = &[_]u8{};
@@ -158,8 +158,8 @@ pub fn op_revert(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     // Use batch pop for performance - pop 2 values at once
     const values = frame.stack.pop2_unsafe();
-    const size = values.b;    // Second from top (was on top)
-    const offset = values.a;  // Third from top (was second)
+    const size = values.b; // Second from top (was on top)
+    const offset = values.a; // Third from top (was second)
 
     if (size == 0) {
         frame.return_data_buffer = &[_]u8{};

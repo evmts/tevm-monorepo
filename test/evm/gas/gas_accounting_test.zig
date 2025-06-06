@@ -20,7 +20,7 @@ test "Gas: Arithmetic operations basic costs" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -76,7 +76,7 @@ test "Gas: EXP dynamic gas calculation" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -121,7 +121,7 @@ test "Gas: Memory expansion costs" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -178,7 +178,7 @@ test "Gas: SHA3 dynamic costs" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -237,7 +237,7 @@ test "Gas: LOG operations dynamic costs" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -298,7 +298,7 @@ test "Gas: Storage operations with access lists (EIP-2929)" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -353,7 +353,7 @@ test "Gas: CALL operations gas forwarding" {
         10000,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -401,7 +401,7 @@ test "Gas: CREATE operations with init code" {
         10000,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 500000);
     defer test_frame.deinit();
@@ -478,7 +478,7 @@ test "Gas: Copy operations (CALLDATACOPY, CODECOPY, etc.)" {
         0,
         &[_]u8{ 0x60, 0x80, 0x60, 0x40 } ** 16, // 64 bytes of code
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     contract.input = &[_]u8{ 0x12, 0x34, 0x56, 0x78 } ** 16; // 64 bytes of input
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
@@ -518,7 +518,7 @@ test "Gas: Stack operations costs" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -565,7 +565,7 @@ test "Gas: Environmental query costs" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();

@@ -29,7 +29,7 @@ test "GASLIMIT (0x45): Get block gas limit" {
             0,
             &[_]u8{},
         );
-        defer contract.deinit(null);
+        defer contract.deinit(allocator, null);
         
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
         defer test_frame.deinit();
@@ -67,7 +67,7 @@ test "CHAINID (0x46): Get chain ID" {
             0,
             &[_]u8{},
         );
-        defer contract.deinit(null);
+        defer contract.deinit(allocator, null);
         
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
         defer test_frame.deinit();
@@ -100,7 +100,7 @@ test "SELFBALANCE (0x47): Get contract's own balance" {
             0,
             &[_]u8{},
         );
-        defer contract.deinit(null);
+        defer contract.deinit(allocator, null);
         
         // Set the contract's balance directly in the HashMap
         try test_vm.vm.balances.put(contract.address, balance);
@@ -139,7 +139,7 @@ test "BASEFEE (0x48): Get block base fee" {
             0,
             &[_]u8{},
         );
-        defer contract.deinit(null);
+        defer contract.deinit(allocator, null);
         
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
         defer test_frame.deinit();
@@ -171,7 +171,7 @@ test "BLOBHASH (0x49): Get blob versioned hash" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -230,7 +230,7 @@ test "BLOBBASEFEE (0x4A): Get blob base fee" {
             0,
             &[_]u8{},
         );
-        defer contract.deinit(null);
+        defer contract.deinit(allocator, null);
         
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
         defer test_frame.deinit();
@@ -262,7 +262,7 @@ test "Block info opcodes: Gas consumption" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -313,7 +313,7 @@ test "Invalid opcodes 0x4B-0x4E: Should revert" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -351,7 +351,7 @@ test "SELFBALANCE: Balance changes during execution" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -387,7 +387,7 @@ test "BLOBHASH: Empty blob list" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -413,7 +413,7 @@ test "CHAINID: EIP-1344 behavior" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -442,7 +442,7 @@ test "Stack operations: All opcodes push exactly one value" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();

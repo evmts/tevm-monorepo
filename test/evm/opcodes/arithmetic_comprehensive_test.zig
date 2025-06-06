@@ -20,7 +20,7 @@ test "STOP (0x00): Halt execution" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -50,7 +50,7 @@ test "ADD (0x01): Basic addition" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -78,7 +78,7 @@ test "ADD: Overflow wraps to zero" {
         0,
         &[_]u8{0x01},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -106,7 +106,7 @@ test "ADD: Large numbers" {
         0,
         &[_]u8{0x01},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -140,7 +140,7 @@ test "MUL (0x02): Basic multiplication" {
         0,
         &[_]u8{0x02},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -167,7 +167,7 @@ test "MUL: Multiplication by zero" {
         0,
         &[_]u8{0x02},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -194,7 +194,7 @@ test "MUL: Overflow behavior" {
         0,
         &[_]u8{0x02},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -227,7 +227,7 @@ test "SUB (0x03): Basic subtraction" {
         0,
         &[_]u8{0x03},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -254,7 +254,7 @@ test "SUB: Underflow wraps to max" {
         0,
         &[_]u8{0x03},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -285,7 +285,7 @@ test "DIV (0x04): Basic division" {
         0,
         &[_]u8{0x04},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -312,7 +312,7 @@ test "DIV: Division by zero returns zero" {
         0,
         &[_]u8{0x04},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -339,7 +339,7 @@ test "DIV: Integer division truncates" {
         0,
         &[_]u8{0x04},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -370,7 +370,7 @@ test "SDIV (0x05): Signed division positive" {
         0,
         &[_]u8{0x05},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -397,7 +397,7 @@ test "SDIV: Signed division negative" {
         0,
         &[_]u8{0x05},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -427,7 +427,7 @@ test "SDIV: Division by zero returns zero" {
         0,
         &[_]u8{0x05},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -454,7 +454,7 @@ test "SDIV: Edge case MIN / -1" {
         0,
         &[_]u8{0x05},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -487,7 +487,7 @@ test "MOD (0x06): Basic modulo" {
         0,
         &[_]u8{0x06},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -514,7 +514,7 @@ test "MOD: Modulo by zero returns zero" {
         0,
         &[_]u8{0x06},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -545,7 +545,7 @@ test "SMOD (0x07): Signed modulo positive" {
         0,
         &[_]u8{0x07},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -572,7 +572,7 @@ test "SMOD: Signed modulo negative" {
         0,
         &[_]u8{0x07},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -605,7 +605,7 @@ test "ADDMOD (0x08): Basic modular addition" {
         0,
         &[_]u8{0x08},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -633,7 +633,7 @@ test "ADDMOD: Modulo zero returns zero" {
         0,
         &[_]u8{0x08},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -661,7 +661,7 @@ test "ADDMOD: No intermediate overflow" {
         0,
         &[_]u8{0x08},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -697,7 +697,7 @@ test "MULMOD (0x09): Basic modular multiplication" {
         0,
         &[_]u8{0x09},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -725,7 +725,7 @@ test "MULMOD: No intermediate overflow" {
         0,
         &[_]u8{0x09},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -759,7 +759,7 @@ test "EXP (0x0A): Basic exponentiation" {
         0,
         &[_]u8{0x0A},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -786,7 +786,7 @@ test "EXP: Zero exponent" {
         0,
         &[_]u8{0x0A},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -813,7 +813,7 @@ test "EXP: Zero base with non-zero exponent" {
         0,
         &[_]u8{0x0A},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -840,7 +840,7 @@ test "EXP: Gas consumption scales with exponent size" {
         0,
         &[_]u8{0x0A},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -875,7 +875,7 @@ test "SIGNEXTEND (0x0B): Extend positive byte" {
         0,
         &[_]u8{0x0B},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -902,7 +902,7 @@ test "SIGNEXTEND: Extend negative byte" {
         0,
         &[_]u8{0x0B},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -931,7 +931,7 @@ test "SIGNEXTEND: Extend from higher byte position" {
         0,
         &[_]u8{0x0B},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -959,7 +959,7 @@ test "SIGNEXTEND: Byte position >= 31 returns value unchanged" {
         0,
         &[_]u8{0x0B},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -1018,7 +1018,7 @@ test "Arithmetic opcodes: Gas consumption" {
             0,
             &[_]u8{tc.opcode},
         );
-        defer contract.deinit(null);
+        defer contract.deinit(allocator, null);
         
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
         defer test_frame.deinit();
@@ -1054,7 +1054,7 @@ test "Arithmetic opcodes: Stack underflow" {
             0,
             &[_]u8{opcode},
         );
-        defer contract.deinit(null);
+        defer contract.deinit(allocator, null);
         
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
         defer test_frame.deinit();
@@ -1078,7 +1078,7 @@ test "Arithmetic opcodes: Stack underflow" {
             0,
             &[_]u8{opcode},
         );
-        defer contract.deinit(null);
+        defer contract.deinit(allocator, null);
         
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
         defer test_frame.deinit();

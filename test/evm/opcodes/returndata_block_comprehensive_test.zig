@@ -31,7 +31,7 @@ test "EXTCODESIZE (0x3B): Get external code size" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -77,7 +77,7 @@ test "EXTCODECOPY (0x3C): Copy external code to memory" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -121,7 +121,7 @@ test "RETURNDATASIZE (0x3D): Get return data size" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -159,7 +159,7 @@ test "RETURNDATACOPY (0x3E): Copy return data to memory" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -208,7 +208,7 @@ test "EXTCODEHASH (0x3F): Get external code hash" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -249,7 +249,7 @@ test "BLOCKHASH (0x40): Get block hash" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -309,7 +309,7 @@ test "COINBASE (0x41): Get block coinbase" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -343,7 +343,7 @@ test "TIMESTAMP (0x42): Get block timestamp" {
             0,
             &[_]u8{},
         );
-        defer contract.deinit(null);
+        defer contract.deinit(allocator, null);
         
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
         defer test_frame.deinit();
@@ -378,7 +378,7 @@ test "NUMBER (0x43): Get block number" {
             0,
             &[_]u8{},
         );
-        defer contract.deinit(null);
+        defer contract.deinit(allocator, null);
         
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
         defer test_frame.deinit();
@@ -412,7 +412,7 @@ test "PREVRANDAO (0x44): Get previous RANDAO" {
             0,
             &[_]u8{},
         );
-        defer contract.deinit(null);
+        defer contract.deinit(allocator, null);
         
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
         defer test_frame.deinit();
@@ -445,7 +445,7 @@ test "EXTCODE* opcodes: Gas consumption with EIP-2929" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -478,7 +478,7 @@ test "Block opcodes: Gas consumption" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -528,7 +528,7 @@ test "RETURNDATACOPY: Out of bounds access" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -574,7 +574,7 @@ test "Memory copy opcodes: Memory expansion" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100); // Limited gas
     defer test_frame.deinit();
@@ -602,7 +602,7 @@ test "BLOCKHASH: Edge cases" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();

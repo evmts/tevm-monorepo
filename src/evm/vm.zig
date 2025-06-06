@@ -319,7 +319,7 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
         &[_]u8{}, // no input data for init code
         false, // not static
     );
-    defer init_contract.deinit(null);
+    defer init_contract.deinit(self.allocator, null);
 
     // Execute the init code - this should return the deployment bytecode
     const init_result = self.interpret_with_context(&init_contract, &[_]u8{}, false) catch {
@@ -480,7 +480,7 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
         &[_]u8{}, // no input data for init code
         false, // not static
     );
-    defer init_contract.deinit(null);
+    defer init_contract.deinit(self.allocator, null);
 
     // Execute the init code - this should return the deployment bytecode
     const init_result = self.interpret_with_context(&init_contract, &[_]u8{}, false) catch {
@@ -767,7 +767,7 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
         input orelse &[_]u8{},
         false, // not static
     );
-    defer contract.deinit(null);
+    defer contract.deinit(self.allocator, null);
 
     // Set the code for the contract address
     self.code.put(address, bytecode) catch |err| {

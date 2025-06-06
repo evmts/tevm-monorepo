@@ -146,12 +146,3 @@ pub fn code_bitmap(allocator: std.mem.Allocator, code: []const u8) CodeBitmapErr
     return bitmap;
 }
 
-/// Analyze bytecode to identify valid JUMPDEST locations and code segments using a fallback allocator
-/// This version is for compatibility with existing code that doesn't pass an allocator
-pub fn code_bitmap_fallback(code: []const u8) Self {
-    const allocator = std.heap.page_allocator;
-    return code_bitmap(allocator, code) catch {
-        // If allocation fails, return an empty bitmap
-        return Self{ .bits = &.{}, .size = 0, .owned = false };
-    };
-}

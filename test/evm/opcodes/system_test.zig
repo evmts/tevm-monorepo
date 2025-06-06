@@ -21,7 +21,7 @@ test "CREATE: create new contract" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -60,7 +60,7 @@ test "CREATE: empty init code creates empty contract" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -91,7 +91,7 @@ test "CREATE: write protection in static call" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -121,7 +121,7 @@ test "CREATE: depth limit" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -154,7 +154,7 @@ test "CREATE2: create with deterministic address" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -195,7 +195,7 @@ test "CALL: basic call behavior" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -240,7 +240,7 @@ test "CALL: failed call" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -275,7 +275,7 @@ test "CALL: cold address access costs more gas" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -314,7 +314,7 @@ test "CALL: value transfer in static call fails" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -349,7 +349,7 @@ test "DELEGATECALL: execute code in current context" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -387,7 +387,7 @@ test "STATICCALL: read-only call" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -425,7 +425,7 @@ test "CALL: depth limit" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -462,7 +462,7 @@ test "CREATE: gas consumption" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -503,7 +503,7 @@ test "CREATE2: additional gas for hashing" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -546,7 +546,7 @@ test "CREATE: stack underflow" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -572,7 +572,7 @@ test "CALL: stack underflow" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -603,7 +603,7 @@ test "CREATE: memory expansion for init code" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -648,7 +648,7 @@ test "CREATE: EIP-3860 initcode size limit" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000000);
     defer test_frame.deinit();
@@ -676,7 +676,7 @@ test "CREATE: EIP-3860 initcode word gas" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -720,7 +720,7 @@ test "CREATE2: EIP-3860 initcode size limit" {
         0,
         &[_]u8{},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 10000000);
     defer test_frame.deinit();

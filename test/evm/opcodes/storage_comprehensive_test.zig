@@ -24,7 +24,7 @@ test "SLOAD (0x54): Load from storage" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 3000);
     defer test_frame.deinit();
@@ -54,7 +54,7 @@ test "SLOAD: Load from uninitialized slot returns zero" {
         0,
         &[_]u8{0x54},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 3000);
     defer test_frame.deinit();
@@ -80,7 +80,7 @@ test "SLOAD: Multiple loads from same slot" {
         0,
         &[_]u8{0x54},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 6000);
     defer test_frame.deinit();
@@ -109,7 +109,7 @@ test "SLOAD: EIP-2929 cold/warm access" {
         0,
         &[_]u8{0x54},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -156,7 +156,7 @@ test "SSTORE (0x55): Store to storage" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 30000);
     defer test_frame.deinit();
@@ -184,7 +184,7 @@ test "SSTORE: Static call protection" {
         0,
         &[_]u8{0x55},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -212,7 +212,7 @@ test "SSTORE: Static call protection" {
 //         0,
 //         &[_]u8{0x55},
 //     );
-//     defer contract.deinit(null);
+//     defer contract.deinit(allocator, null);
 //
 //     var test_frame = try helpers.TestFrame.init(allocator, &contract, 50000);
 //     defer test_frame.deinit();
@@ -246,7 +246,7 @@ test "SSTORE: EIP-2200 gas cost scenarios" {
         0,
         &[_]u8{0x55},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -289,7 +289,7 @@ test "SSTORE: Large storage values" {
         0,
         &[_]u8{ 0x55, 0x54 }, // SSTORE, SLOAD
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 50000);
     defer test_frame.deinit();
@@ -329,7 +329,7 @@ test "Storage opcodes: Gas consumption patterns" {
         0,
         &[_]u8{ 0x54, 0x55 },
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -376,7 +376,7 @@ test "Storage opcodes: Stack underflow" {
         0,
         &[_]u8{0x54},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -392,7 +392,7 @@ test "Storage opcodes: Stack underflow" {
         0,
         &[_]u8{0x55},
     );
-    defer contract2.deinit(null);
+    defer contract2.deinit(allocator, null);
 
     var test_frame2 = try helpers.TestFrame.init(allocator, &contract2, 1000);
     defer test_frame2.deinit();
@@ -436,7 +436,7 @@ test "Storage: Multiple consecutive operations" {
         0,
         &code,
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -486,7 +486,7 @@ test "SSTORE: Overwriting values" {
         0,
         &[_]u8{0x55},
     );
-    defer contract.deinit(null);
+    defer contract.deinit(allocator, null);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
