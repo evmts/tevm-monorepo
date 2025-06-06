@@ -21,7 +21,7 @@ test "Integration: Contract deployment simulation" {
 
     // Set up deployer account
     const deployer_balance: u256 = helpers.TestValues.ONE_ETHER;
-    try test_vm.vm.balances.put(helpers.TestAddresses.ALICE, deployer_balance);
+    try test_vm.vm.state.set_balance(helpers.TestAddresses.ALICE, deployer_balance);
 
     var contract = helpers.Contract.init(
         helpers.TestAddresses.ALICE,
@@ -72,8 +72,8 @@ test "Integration: Call with value transfer" {
     defer test_vm.deinit(allocator);
 
     // Set up accounts
-    try test_vm.vm.balances.put(helpers.TestAddresses.ALICE, helpers.TestValues.ONE_ETHER);
-    try test_vm.vm.balances.put(helpers.TestAddresses.BOB, 0);
+    try test_vm.vm.state.set_balance(helpers.TestAddresses.ALICE, helpers.TestValues.ONE_ETHER);
+    try test_vm.vm.state.set_balance(helpers.TestAddresses.BOB, 0);
 
     var contract = helpers.Contract.init(
         helpers.TestAddresses.ALICE,
@@ -87,7 +87,7 @@ test "Integration: Call with value transfer" {
     );
 
     // Give contract some balance to transfer
-    try test_vm.vm.balances.put(helpers.TestAddresses.CONTRACT, helpers.TestValues.ONE_ETHER);
+    try test_vm.vm.state.set_balance(helpers.TestAddresses.CONTRACT, helpers.TestValues.ONE_ETHER);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -120,13 +120,13 @@ test "Integration: Environment data access" {
     defer test_vm.deinit(allocator);
 
     // Set up VM environment
-    test_vm.vm.tx_origin = helpers.TestAddresses.ALICE;
-    test_vm.vm.gas_price = 20 * helpers.TestValues.ONE_GWEI;
-    test_vm.vm.block_number = 15000000;
-    test_vm.vm.block_timestamp = 1234567890;
-    test_vm.vm.block_coinbase = helpers.TestAddresses.CHARLIE;
-    test_vm.vm.block_gas_limit = 30000000;
-    test_vm.vm.chain_id = 1; // Mainnet
+    test_vm.vm.context.tx_origin = helpers.TestAddresses.ALICE;
+    test_vm.vm.context.gas_price = 20 * helpers.TestValues.ONE_GWEI;
+    test_vm.vm.context.block_number = 15000000;
+    test_vm.vm.context.block_timestamp = 1234567890;
+    test_vm.vm.context.block_coinbase = helpers.TestAddresses.CHARLIE;
+    test_vm.vm.context.block_gas_limit = 30000000;
+    test_vm.vm.context.chain_id = 1; // Mainnet
 
     var contract = helpers.Contract.init(
         helpers.TestAddresses.BOB, // caller
@@ -180,12 +180,12 @@ test "Integration: Block information access" {
     defer test_vm.deinit(allocator);
 
     // Set up block information
-    test_vm.vm.block_number = 17000000;
-    test_vm.vm.block_timestamp = 1683000000;
-    test_vm.vm.block_coinbase = helpers.TestAddresses.CHARLIE;
-    test_vm.vm.block_difficulty = 0; // Post-merge
-    test_vm.vm.block_gas_limit = 30000000;
-    test_vm.vm.block_base_fee = 30 * helpers.TestValues.ONE_GWEI;
+    test_vm.vm.context.block_number = 17000000;
+    test_vm.vm.context.block_timestamp = 1683000000;
+    test_vm.vm.context.block_coinbase = helpers.TestAddresses.CHARLIE;
+    test_vm.vm.context.block_difficulty = 0; // Post-merge
+    test_vm.vm.context.block_gas_limit = 30000000;
+    test_vm.vm.context.block_base_fee = 30 * helpers.TestValues.ONE_GWEI;
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -261,13 +261,13 @@ test "Integration: Log emission with topics" {
         0, // offset (top)
     });
 
-    const initial_log_count = test_vm.vm.logs.items.len;
+    const initial_log_count = test_vm.vm.state.logs.items.len;
     _ = try helpers.executeOpcode(0xA3, test_vm.vm, test_frame.frame);
 
     // Verify log was emitted
-    try testing.expectEqual(initial_log_count + 1, test_vm.vm.logs.items.len);
+    try testing.expectEqual(initial_log_count + 1, test_vm.vm.state.logs.items.len);
 
-    const emitted_log = test_vm.vm.logs.items[test_vm.vm.logs.items.len - 1];
+    const emitted_log = test_vm.vm.state.logs.items[test_vm.vm.state.logs.items.len - 1];
     try testing.expectEqual(helpers.TestAddresses.CONTRACT, emitted_log.address);
     try testing.expectEqual(@as(usize, 3), emitted_log.topics.len);
     try testing.expectEqual(topic1, emitted_log.topics[0]);
@@ -291,8 +291,8 @@ test "Integration: External code operations" {
         0x00, // STOP
     };
 
-    try test_vm.vm.balances.put(helpers.TestAddresses.BOB, 0);
-    try test_vm.vm.code.put(helpers.TestAddresses.BOB, &external_code);
+    try test_vm.vm.state.set_balance(helpers.TestAddresses.BOB, 0);
+    try test_vm.vm.state.set_code(helpers.TestAddresses.BOB, &external_code);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -418,8 +418,8 @@ test "Integration: Self balance and code operations" {
     };
 
     // Set up contract with balance and code
-    try test_vm.vm.balances.put(helpers.TestAddresses.CONTRACT, helpers.TestValues.ONE_ETHER);
-    try test_vm.vm.code.put(helpers.TestAddresses.CONTRACT, &contract_code);
+    try test_vm.vm.state.set_balance(helpers.TestAddresses.CONTRACT, helpers.TestValues.ONE_ETHER);
+    try test_vm.vm.state.set_code(helpers.TestAddresses.CONTRACT, &contract_code);
 
     var contract = helpers.Contract.init(
         helpers.TestAddresses.ALICE,

@@ -43,7 +43,7 @@ test "Environment: BALANCE opcode" {
 
     // Set up accounts with balances
     const test_balance: u256 = 1000000;
-    try test_vm.vm.balances.put(helpers.TestAddresses.ALICE, test_balance);
+    try test_vm.vm.state.set_balance(helpers.TestAddresses.ALICE, test_balance);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -80,7 +80,7 @@ test "Environment: ORIGIN and CALLER opcodes" {
     defer test_vm.deinit(allocator);
 
     // Set transaction origin
-    test_vm.vm.tx_origin = helpers.TestAddresses.ALICE;
+    test_vm.vm.context.tx_origin = helpers.TestAddresses.ALICE;
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -141,7 +141,7 @@ test "Environment: GASPRICE opcode" {
 
     // Set gas price
     const gas_price: u256 = 20_000_000_000; // 20 gwei
-    test_vm.vm.gas_price = gas_price;
+    test_vm.vm.context.gas_price = gas_price;
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -169,8 +169,8 @@ test "Environment: EXTCODESIZE opcode" {
 
     // Set up account with code
     const test_code = [_]u8{ 0x60, 0x00, 0x60, 0x00, 0x00 }; // PUSH1 0 PUSH1 0 STOP
-    try test_vm.vm.balances.put(helpers.TestAddresses.BOB, 0);
-    try test_vm.vm.code.put(helpers.TestAddresses.BOB, &test_code);
+    try test_vm.vm.state.set_balance(helpers.TestAddresses.BOB, 0);
+    try test_vm.vm.state.set_code(helpers.TestAddresses.BOB, &test_code);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -215,8 +215,8 @@ test "Environment: EXTCODECOPY opcode" {
         0x02, // MUL
         0x00, // STOP
     };
-    try test_vm.vm.balances.put(helpers.TestAddresses.BOB, 0);
-    try test_vm.vm.code.put(helpers.TestAddresses.BOB, &test_code);
+    try test_vm.vm.state.set_balance(helpers.TestAddresses.BOB, 0);
+    try test_vm.vm.state.set_code(helpers.TestAddresses.BOB, &test_code);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -287,8 +287,8 @@ test "Environment: EXTCODEHASH opcode" {
 
     // Set up account with code
     const test_code = [_]u8{ 0x60, 0x00, 0x00 }; // PUSH1 0 STOP
-    try test_vm.vm.balances.put(helpers.TestAddresses.BOB, 0);
-    try test_vm.vm.code.put(helpers.TestAddresses.BOB, &test_code);
+    try test_vm.vm.state.set_balance(helpers.TestAddresses.BOB, 0);
+    try test_vm.vm.state.set_code(helpers.TestAddresses.BOB, &test_code);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -327,7 +327,7 @@ test "Environment: SELFBALANCE opcode (Istanbul)" {
 
     // Set balance for contract
     const contract_balance: u256 = 2_000_000;
-    try test_vm.vm.balances.put(helpers.TestAddresses.CONTRACT, contract_balance);
+    try test_vm.vm.state.set_balance(helpers.TestAddresses.CONTRACT, contract_balance);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -356,7 +356,7 @@ test "Environment: CHAINID opcode (Istanbul)" {
 
     // Set chain ID
     const chain_id: u256 = 1; // Mainnet
-    test_vm.vm.chain_id = chain_id;
+    test_vm.vm.context.chain_id = chain_id;
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -383,7 +383,7 @@ test "Environment: Cold/Warm address access (EIP-2929)" {
     defer test_vm.deinit(allocator);
 
     // Set up account
-    try test_vm.vm.balances.put(helpers.TestAddresses.BOB, 1000);
+    try test_vm.vm.state.set_balance(helpers.TestAddresses.BOB, 1000);
 
     var contract = try helpers.createTestContract(
         allocator,

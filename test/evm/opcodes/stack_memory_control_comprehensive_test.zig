@@ -215,8 +215,8 @@ test "SLOAD (0x54): Load from storage" {
     std.debug.print("Test 2: Loading from populated slot\n", .{});
     const slot: u256 = 100;
     const value: u256 = 0xdeadbeef;
-    const storage_key = helpers.Vm.StorageKey{ .address = contract.address, .slot = slot };
-    try test_vm.vm.storage.put(storage_key, value);
+    // Set storage value directly in the state
+    try test_vm.vm.state.set_storage(contract.address, slot, value);
 
     try test_frame.pushStack(&[_]u256{slot});
     _ = try helpers.executeOpcode(0x54, test_vm.vm, test_frame.frame);
@@ -234,8 +234,8 @@ test "SLOAD (0x54): Load from storage" {
 
     for (test_slots, 0..) |ts, i| {
         std.debug.print("  Test 3.{}: slot={}, value={}\n", .{ i, ts.slot, ts.value });
-        const ts_storage_key = helpers.Vm.StorageKey{ .address = contract.address, .slot = ts.slot };
-        try test_vm.vm.storage.put(ts_storage_key, ts.value);
+        // Set storage value directly in the state
+        try test_vm.vm.state.set_storage(contract.address, ts.slot, ts.value);
         try test_frame.pushStack(&[_]u256{ts.slot});
         _ = try helpers.executeOpcode(0x54, test_vm.vm, test_frame.frame);
         const stack_value = test_frame.frame.stack.peek() catch |err| {
@@ -276,8 +276,8 @@ test "SSTORE (0x55): Store to storage" {
     _ = try helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
 
     // Verify storage was updated
-    const storage_key1 = helpers.Vm.StorageKey{ .address = contract.address, .slot = slot1 };
-    const stored1 = test_vm.vm.storage.get(storage_key1) orelse 0;
+    // Get storage value from state
+    const stored1 = test_vm.vm.state.get_storage(contract.address, slot1);
     try testing.expectEqual(value1, stored1);
 
     // Test 2: Update existing slot
@@ -285,14 +285,14 @@ test "SSTORE (0x55): Store to storage" {
     try test_frame.pushStack(&[_]u256{ value2, slot1 }); // value, slot
     _ = try helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
 
-    const stored2 = test_vm.vm.storage.get(storage_key1) orelse 0;
+    const stored2 = test_vm.vm.state.get_storage(contract.address, slot1);
     try testing.expectEqual(value2, stored2);
 
     // Test 3: Clear slot (set to 0)
     try test_frame.pushStack(&[_]u256{ 0, slot1 }); // value, slot
     _ = try helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
 
-    const stored3 = test_vm.vm.storage.get(storage_key1) orelse 0;
+    const stored3 = test_vm.vm.state.get_storage(contract.address, slot1);
     try testing.expectEqual(@as(u256, 0), stored3);
 }
 

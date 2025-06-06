@@ -37,8 +37,8 @@ test "LOG0: emit log with no topics" {
     _ = try test_helpers.executeOpcode(0xA0, test_vm.vm, test_frame.frame);
     
     // Check that log was emitted
-    try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
-    const emitted_log = test_vm.vm.logs.items[0];
+    try testing.expectEqual(@as(usize, 1), test_vm.vm.state.logs.items.len);
+    const emitted_log = test_vm.vm.state.logs.items[0];
     try testing.expectEqual(test_helpers.TestAddresses.CONTRACT, emitted_log.address);
     try testing.expectEqual(@as(usize, 0), emitted_log.topics.len);
     try testing.expectEqualSlices(u8, &log_data, emitted_log.data);
@@ -69,8 +69,8 @@ test "LOG0: emit log with empty data" {
     _ = try test_helpers.executeOpcode(0xA0, test_vm.vm, test_frame.frame);
     
     // Check that log was emitted with empty data
-    try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
-    const emitted_log = test_vm.vm.logs.items[0];
+    try testing.expectEqual(@as(usize, 1), test_vm.vm.state.logs.items.len);
+    const emitted_log = test_vm.vm.state.logs.items[0];
     try testing.expectEqual(@as(usize, 0), emitted_log.topics.len);
     try testing.expectEqual(@as(usize, 0), emitted_log.data.len);
 }
@@ -109,8 +109,8 @@ test "LOG1: emit log with one topic" {
     _ = try test_helpers.executeOpcode(0xA1, test_vm.vm, test_frame.frame);
     
     // Check that log was emitted
-    try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
-    const emitted_log = test_vm.vm.logs.items[0];
+    try testing.expectEqual(@as(usize, 1), test_vm.vm.state.logs.items.len);
+    const emitted_log = test_vm.vm.state.logs.items[0];
     try testing.expectEqual(@as(usize, 1), emitted_log.topics.len);
     try testing.expectEqual(@as(u256, 0x123456), emitted_log.topics[0]);
     try testing.expectEqualSlices(u8, &log_data, emitted_log.data);
@@ -151,8 +151,8 @@ test "LOG2: emit log with two topics" {
     _ = try test_helpers.executeOpcode(0xA2, test_vm.vm, test_frame.frame);
     
     // Check that log was emitted
-    try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
-    const emitted_log = test_vm.vm.logs.items[0];
+    try testing.expectEqual(@as(usize, 1), test_vm.vm.state.logs.items.len);
+    const emitted_log = test_vm.vm.state.logs.items[0];
     try testing.expectEqual(@as(usize, 2), emitted_log.topics.len);
     try testing.expectEqual(@as(u256, 0xCAFE), emitted_log.topics[0]);
     try testing.expectEqual(@as(u256, 0xBEEF), emitted_log.topics[1]);
@@ -188,8 +188,8 @@ test "LOG3: emit log with three topics" {
     _ = try test_helpers.executeOpcode(0xA3, test_vm.vm, test_frame.frame);
     
     // Check that log was emitted
-    try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
-    const emitted_log = test_vm.vm.logs.items[0];
+    try testing.expectEqual(@as(usize, 1), test_vm.vm.state.logs.items.len);
+    const emitted_log = test_vm.vm.state.logs.items[0];
     try testing.expectEqual(@as(usize, 3), emitted_log.topics.len);
     try testing.expectEqual(@as(u256, 0x111), emitted_log.topics[0]);
     try testing.expectEqual(@as(u256, 0x222), emitted_log.topics[1]);
@@ -235,8 +235,8 @@ test "LOG4: emit log with four topics" {
     _ = try test_helpers.executeOpcode(0xA4, test_vm.vm, test_frame.frame);
     
     // Check that log was emitted
-    try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
-    const emitted_log = test_vm.vm.logs.items[0];
+    try testing.expectEqual(@as(usize, 1), test_vm.vm.state.logs.items.len);
+    const emitted_log = test_vm.vm.state.logs.items[0];
     try testing.expectEqual(@as(usize, 4), emitted_log.topics.len);
     try testing.expectEqual(@as(u256, 0x1111), emitted_log.topics[0]);
     try testing.expectEqual(@as(u256, 0x2222), emitted_log.topics[1]);

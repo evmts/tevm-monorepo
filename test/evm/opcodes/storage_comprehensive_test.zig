@@ -31,8 +31,7 @@ test "SLOAD (0x54): Load from storage" {
     defer test_frame.deinit();
 
     // Set storage value
-    const storage_key = evm.Vm.StorageKey{ .address = helpers.TestAddresses.CONTRACT, .slot = 0x42 };
-    try test_vm.vm.storage.put(storage_key, 0x123456);
+    try test_vm.vm.state.set_storage(helpers.TestAddresses.CONTRACT, 0x42, 0x123456);
 
     // Push storage slot
     try test_frame.pushStack(&[_]u256{0x42});
@@ -88,8 +87,7 @@ test "SLOAD: Multiple loads from same slot" {
     defer test_frame.deinit();
 
     // Set storage value
-    const storage_key = evm.Vm.StorageKey{ .address = helpers.TestAddresses.CONTRACT, .slot = 0x10 };
-    try test_vm.vm.storage.put(storage_key, 0xABCDEF);
+    try test_vm.vm.state.set_storage(helpers.TestAddresses.CONTRACT, 0x10, 0xABCDEF);
 
     // Load same slot multiple times
     for (0..3) |_| {
@@ -171,8 +169,7 @@ test "SSTORE (0x55): Store to storage" {
     _ = try helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
 
     // Verify value was stored
-    const storage_key = evm.Vm.StorageKey{ .address = helpers.TestAddresses.CONTRACT, .slot = 0x42 };
-    const stored = test_vm.vm.storage.get(storage_key) orelse 0;
+    const stored = test_vm.vm.state.get_storage(helpers.TestAddresses.CONTRACT, 0x42);
     try testing.expectEqual(@as(u256, 0x999), stored);
 }
 
@@ -507,7 +504,6 @@ test "SSTORE: Overwriting values" {
     }
 
     // Verify final value
-    const storage_key = evm.Vm.StorageKey{ .address = helpers.TestAddresses.CONTRACT, .slot = slot };
-    const stored = test_vm.vm.storage.get(storage_key) orelse 0;
+    const stored = test_vm.vm.state.get_storage(helpers.TestAddresses.CONTRACT, slot);
     try testing.expectEqual(@as(u256, 0x333), stored);
 }

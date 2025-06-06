@@ -19,10 +19,10 @@ test "EXTCODESIZE (0x3B): Get external code size" {
         0x00,       // STOP
     };
     
-    // Set code directly in the HashMap
-    try test_vm.vm.code.put(helpers.TestAddresses.BOB, &test_code);
-    // Set balance directly in the HashMap
-    try test_vm.vm.balances.put(helpers.TestAddresses.BOB, 1000);
+    // Set code directly in the state
+    try test_vm.vm.state.set_code(helpers.TestAddresses.BOB, &test_code);
+    // Set balance directly in the state
+    try test_vm.vm.state.set_balance(helpers.TestAddresses.BOB, 1000);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -67,8 +67,8 @@ test "EXTCODECOPY (0x3C): Copy external code to memory" {
         0x00,       // STOP
     };
     
-    // Set code directly in the HashMap
-    try test_vm.vm.code.put(helpers.TestAddresses.BOB, &external_code);
+    // Set code directly in the state
+    try test_vm.vm.state.set_code(helpers.TestAddresses.BOB, &external_code);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -199,7 +199,7 @@ test "EXTCODEHASH (0x3F): Get external code hash" {
     // Set up contract with known code
     const test_code = [_]u8{0x60, 0x00, 0x60, 0x01, 0x01}; // PUSH1 0, PUSH1 1, ADD
     // Set code using tracked allocation
-    try test_vm.vm.code.put(helpers.TestAddresses.BOB, &test_code);
+    try test_vm.vm.state.set_code(helpers.TestAddresses.BOB, &test_code);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -240,7 +240,7 @@ test "BLOCKHASH (0x40): Get block hash" {
     defer test_vm.deinit(allocator);
     
     // Set up block context
-    test_vm.vm.block_number = 1000;
+    test_vm.vm.context.block_number = 1000;
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -300,7 +300,7 @@ test "COINBASE (0x41): Get block coinbase" {
     
     // Set coinbase address
     const coinbase_addr = [_]u8{0xC0, 0x1B, 0xBA, 0x5E} ++ [_]u8{0} ** 16;
-    test_vm.vm.block_coinbase = coinbase_addr;
+    test_vm.vm.context.block_coinbase = coinbase_addr;
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -334,7 +334,7 @@ test "TIMESTAMP (0x42): Get block timestamp" {
     };
     
     for (test_cases) |timestamp| {
-        test_vm.vm.block_timestamp = timestamp;
+        test_vm.vm.context.block_timestamp = timestamp;
         
         var contract = try helpers.createTestContract(
             allocator,
@@ -369,7 +369,7 @@ test "NUMBER (0x43): Get block number" {
     };
     
     for (test_cases) |block_num| {
-        test_vm.vm.block_number = block_num;
+        test_vm.vm.context.block_number = block_num;
         
         var contract = try helpers.createTestContract(
             allocator,
@@ -403,7 +403,7 @@ test "PREVRANDAO (0x44): Get previous RANDAO" {
     };
     
     for (test_values) |randao| {
-        test_vm.vm.block_difficulty = randao; // Post-merge, this is PREVRANDAO
+        test_vm.vm.context.block_difficulty = randao; // Post-merge, this is PREVRANDAO
         
         var contract = try helpers.createTestContract(
             allocator,
@@ -436,7 +436,7 @@ test "EXTCODE* opcodes: Gas consumption with EIP-2929" {
     // Set up external code
     const code = [_]u8{0x60, 0x42};
     // Set code using tracked allocation
-    try test_vm.vm.code.put(helpers.TestAddresses.BOB, &code);
+    try test_vm.vm.state.set_code(helpers.TestAddresses.BOB, &code);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -565,7 +565,7 @@ test "Memory copy opcodes: Memory expansion" {
     // Set up external code
     const code = [_]u8{0xFF} ** 32;
     // Set code using tracked allocation
-    try test_vm.vm.code.put(helpers.TestAddresses.BOB, &code);
+    try test_vm.vm.state.set_code(helpers.TestAddresses.BOB, &code);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -593,7 +593,7 @@ test "BLOCKHASH: Edge cases" {
     var test_vm = try helpers.TestVm.init(allocator);
     defer test_vm.deinit(allocator);
     
-    test_vm.vm.block_number = 1000;
+    test_vm.vm.context.block_number = 1000;
     
     var contract = try helpers.createTestContract(
         allocator,

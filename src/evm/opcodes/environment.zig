@@ -43,7 +43,7 @@ pub fn op_balance(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     try frame.consume_gas(access_cost);
 
     // Get balance from VM state
-    const balance = vm.balances.get(address) orelse 0;
+    const balance = vm.state.get_balance(address);
     try stack_push(&frame.stack, balance);
 
     return Operation.ExecutionResult{};
@@ -56,7 +56,7 @@ pub fn op_origin(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
     // Push transaction origin address
-    const origin = to_u256(vm.tx_origin);
+    const origin = to_u256(vm.context.tx_origin);
     try stack_push(&frame.stack, origin);
 
     return Operation.ExecutionResult{};
@@ -94,7 +94,7 @@ pub fn op_gasprice(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
     // Push gas price from transaction context
-    try stack_push(&frame.stack, vm.gas_price);
+    try stack_push(&frame.stack, vm.context.gas_price);
 
     return Operation.ExecutionResult{};
 }
@@ -113,7 +113,7 @@ pub fn op_extcodesize(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     try frame.consume_gas(access_cost);
 
     // Get code size from VM state
-    const code = vm.code.get(address) orelse &[_]u8{};
+    const code = vm.state.get_code(address);
     try stack_push(&frame.stack, @as(u256, @intCast(code.len)));
 
     return Operation.ExecutionResult{};
@@ -158,7 +158,7 @@ pub fn op_extcodecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     try frame.consume_gas(gas_constants.CopyGas * word_size);
 
     // Get external code from VM state
-    const code = vm.code.get(address) orelse &[_]u8{};
+    const code = vm.state.get_code(address);
 
     // Use set_data_bounded to copy the code to memory
     // This handles partial copies and zero-padding automatically
@@ -181,7 +181,7 @@ pub fn op_extcodehash(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     try frame.consume_gas(access_cost);
 
     // Get code from VM state and compute hash
-    const code = vm.code.get(address) orelse &[_]u8{};
+    const code = vm.state.get_code(address);
     if (code.len == 0) {
         // Empty account - return zero
         try stack_push(&frame.stack, 0);
@@ -209,7 +209,7 @@ pub fn op_selfbalance(pc: usize, interpreter: *Operation.Interpreter, state: *Op
 
     // Get balance of current executing contract
     const self_address = frame.contract.address;
-    const balance = vm.balances.get(self_address) orelse 0;
+    const balance = vm.state.get_balance(self_address);
     try stack_push(&frame.stack, balance);
 
     return Operation.ExecutionResult{};
@@ -222,7 +222,7 @@ pub fn op_chainid(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
     // Push chain ID from VM context
-    try stack_push(&frame.stack, vm.chain_id);
+    try stack_push(&frame.stack, vm.context.chain_id);
 
     return Operation.ExecutionResult{};
 }

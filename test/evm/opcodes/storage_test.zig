@@ -26,8 +26,7 @@ test "SLOAD: load value from storage" {
     defer test_frame.deinit();
     
     // Set storage value
-    const storage_key = test_helpers.Vm.StorageKey{ .address = test_helpers.TestAddresses.CONTRACT, .slot = 0x123 };
-    try test_vm.vm.storage.put(storage_key, 0x456789);
+    try test_vm.vm.state.set_storage(test_helpers.TestAddresses.CONTRACT, 0x123, 0x456789);
     
     // Push storage slot
     try test_frame.pushStack(&[_]u256{0x123});
@@ -135,8 +134,7 @@ test "SSTORE: store value to storage" {
     _ = try test_helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
     
     // Check that value was stored
-    const storage_key = test_helpers.Vm.StorageKey{ .address = test_helpers.TestAddresses.CONTRACT, .slot = 0x555 };
-    const stored_value = test_vm.vm.storage.get(storage_key) orelse 0;
+    const stored_value = test_vm.vm.state.get_storage(test_helpers.TestAddresses.CONTRACT, 0x555);
     try testing.expectEqual(@as(u256, 0xABCDEF), stored_value);
 }
 
@@ -159,8 +157,7 @@ test "SSTORE: overwrite existing value" {
     defer test_frame.deinit();
     
     // Set initial value
-    const storage_key = test_helpers.Vm.StorageKey{ .address = test_helpers.TestAddresses.CONTRACT, .slot = 0x100 };
-    try test_vm.vm.storage.put(storage_key, 0x111);
+    try test_vm.vm.state.set_storage(test_helpers.TestAddresses.CONTRACT, 0x100, 0x111);
     
     // Push new value and slot (value first, then slot - stack is LIFO)
     try test_frame.pushStack(&[_]u256{0x222}); // new value
@@ -170,7 +167,7 @@ test "SSTORE: overwrite existing value" {
     _ = try test_helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
     
     // Check that value was updated
-    const stored_value = test_vm.vm.storage.get(storage_key) orelse 0;
+    const stored_value = test_vm.vm.state.get_storage(test_helpers.TestAddresses.CONTRACT, 0x100);
     try testing.expectEqual(@as(u256, 0x222), stored_value);
 }
 
@@ -266,8 +263,7 @@ test "TLOAD: load value from transient storage" {
     defer test_frame.deinit();
     
     // Set transient storage value
-    const ts_key = test_helpers.Vm.StorageKey{ .address = test_helpers.TestAddresses.CONTRACT, .slot = 0xAAA };
-    try test_vm.vm.transient_storage.put(ts_key, 0xBBBBBB);
+    try test_vm.vm.state.set_transient_storage(test_helpers.TestAddresses.CONTRACT, 0xAAA, 0xBBBBBB);
     
     // Push storage slot
     try test_frame.pushStack(&[_]u256{0xAAA});
@@ -326,9 +322,8 @@ test "TLOAD: transient storage is separate from regular storage" {
     defer test_frame.deinit();
     
     // Set same slot in both storages with different values
-    const storage_key = test_helpers.Vm.StorageKey{ .address = test_helpers.TestAddresses.CONTRACT, .slot = 0x100 };
-    try test_vm.vm.storage.put(storage_key, 0x111);
-    try test_vm.vm.transient_storage.put(storage_key, 0x222);
+    try test_vm.vm.state.set_storage(test_helpers.TestAddresses.CONTRACT, 0x100, 0x111);
+    try test_vm.vm.state.set_transient_storage(test_helpers.TestAddresses.CONTRACT, 0x100, 0x222);
     
     // Load from transient storage
     try test_frame.pushStack(&[_]u256{0x100});
@@ -372,8 +367,7 @@ test "TSTORE: store value to transient storage" {
     _ = try test_helpers.executeOpcode(0x5D, test_vm.vm, test_frame.frame);
     
     // Check that value was stored
-    const ts_key = test_helpers.Vm.StorageKey{ .address = test_helpers.TestAddresses.CONTRACT, .slot = 0x777 };
-    const stored_value = test_vm.vm.transient_storage.get(ts_key) orelse 0;
+    const stored_value = test_vm.vm.state.get_transient_storage(test_helpers.TestAddresses.CONTRACT, 0x777);
     try testing.expectEqual(@as(u256, 0xDEADBEEF), stored_value);
 }
 
@@ -396,8 +390,7 @@ test "TSTORE: overwrite existing transient value" {
     defer test_frame.deinit();
     
     // Set initial transient value
-    const ts_key = test_helpers.Vm.StorageKey{ .address = test_helpers.TestAddresses.CONTRACT, .slot = 0x200 };
-    try test_vm.vm.transient_storage.put(ts_key, 0x333);
+    try test_vm.vm.state.set_transient_storage(test_helpers.TestAddresses.CONTRACT, 0x200, 0x333);
     
     // Push new value and slot
     try test_frame.pushStack(&[_]u256{0x444}); // new value
@@ -407,7 +400,7 @@ test "TSTORE: overwrite existing transient value" {
     _ = try test_helpers.executeOpcode(0x5D, test_vm.vm, test_frame.frame);
     
     // Check that value was updated
-    const stored_value = test_vm.vm.transient_storage.get(ts_key) orelse 0;
+    const stored_value = test_vm.vm.state.get_transient_storage(test_helpers.TestAddresses.CONTRACT, 0x200);
     try testing.expectEqual(@as(u256, 0x444), stored_value);
 }
 
@@ -460,8 +453,7 @@ test "TSTORE: does not affect regular storage" {
     defer test_frame.deinit();
     
     // Set regular storage value
-    const storage_key = test_helpers.Vm.StorageKey{ .address = test_helpers.TestAddresses.CONTRACT, .slot = 0x300 };
-    try test_vm.vm.storage.put(storage_key, 0x555);
+    try test_vm.vm.state.set_storage(test_helpers.TestAddresses.CONTRACT, 0x300, 0x555);
     
     // Store to transient storage at same slot
     try test_frame.pushStack(&[_]u256{0x666}); // value
@@ -471,11 +463,11 @@ test "TSTORE: does not affect regular storage" {
     _ = try test_helpers.executeOpcode(0x5D, test_vm.vm, test_frame.frame);
     
     // Regular storage should be unchanged
-    const regular_value = test_vm.vm.storage.get(storage_key) orelse 0;
+    const regular_value = test_vm.vm.state.get_storage(test_helpers.TestAddresses.CONTRACT, 0x300);
     try testing.expectEqual(@as(u256, 0x555), regular_value);
     
     // Transient storage should have new value
-    const transient_value = test_vm.vm.transient_storage.get(storage_key) orelse 0;
+    const transient_value = test_vm.vm.state.get_transient_storage(test_helpers.TestAddresses.CONTRACT, 0x300);
     try testing.expectEqual(@as(u256, 0x666), transient_value);
 }
 

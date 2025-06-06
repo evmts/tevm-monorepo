@@ -52,8 +52,8 @@ test "BALANCE (0x31): Get account balance" {
     
     // Set balances for test addresses
     const test_balance: u256 = 1_000_000_000_000_000_000; // 1 ETH in wei
-    try test_vm.vm.balances.put(helpers.TestAddresses.ALICE, test_balance);
-    try test_vm.vm.balances.put(helpers.TestAddresses.BOB, test_balance * 2);
+    try test_vm.vm.state.set_balance(helpers.TestAddresses.ALICE, test_balance);
+    try test_vm.vm.state.set_balance(helpers.TestAddresses.BOB, test_balance * 2);
     
     // Test 1: Check ALICE's balance
     try test_frame.pushStack(&[_]u256{helpers.Address.to_u256(helpers.TestAddresses.ALICE)});
@@ -80,7 +80,7 @@ test "ORIGIN (0x32): Get transaction origin" {
     defer test_vm.deinit(allocator);
     
     // Set transaction origin
-    test_vm.vm.tx_origin = helpers.TestAddresses.ALICE;
+    test_vm.vm.context.tx_origin = helpers.TestAddresses.ALICE;
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -108,7 +108,7 @@ test "CALLER (0x33): Get immediate caller" {
     defer test_vm.deinit(allocator);
     
     // Set transaction origin different from caller
-    test_vm.vm.tx_origin = helpers.TestAddresses.ALICE;
+    test_vm.vm.context.tx_origin = helpers.TestAddresses.ALICE;
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -422,7 +422,7 @@ test "GASPRICE (0x3A): Get gas price" {
     };
     
     for (test_prices) |price| {
-        test_vm.vm.gas_price = price;
+        test_vm.vm.context.gas_price = price;
         
         var contract = try helpers.createTestContract(
             allocator,

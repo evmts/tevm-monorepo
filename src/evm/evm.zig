@@ -33,9 +33,6 @@ pub const memory_limits = @import("memory_limits.zig");
 // Export all error types for strongly typed error handling
 
 // VM error types
-pub const VmError = Vm.VmError;
-pub const VmInitError = Vm.VmInitError;
-pub const VmInterpretError = Vm.VmInterpretError;
 pub const CreateContractError = Vm.CreateContractError;
 pub const CallContractError = Vm.CallContractError;
 pub const ConsumeGasError = Vm.ConsumeGasError;

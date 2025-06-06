@@ -65,7 +65,7 @@ test "Integration: Storage with conditional updates" {
     const slot: u256 = 42;
     const initial_value: u256 = 100;
     const storage_key = helpers.Vm.StorageKey{ .address = helpers.TestAddresses.CONTRACT, .slot = slot };
-    try test_vm.vm.storage.put(storage_key, initial_value);
+    try test_vm.vm.state.set_storage(storage_key.address, storage_key.slot, initial_value);
     
     // Load value, add 50, store back if result > 120
     try test_frame.pushStack(&[_]u256{slot});
@@ -94,7 +94,7 @@ test "Integration: Storage with conditional updates" {
     _ = try helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
     
     // Verify storage was updated
-    const updated_value = test_vm.vm.storage.get(storage_key) orelse 0;
+    const updated_value = test_vm.vm.state.get_storage(storage_key.address, storage_key.slot);
     try testing.expectEqual(@as(u256, 150), updated_value);
 }
 
