@@ -64,16 +64,15 @@ pub fn deinit(self: *Self) void {
     Contract.clear_analysis_cache(self.allocator);
 }
 
-pub const InterpretError = ExecutionError.Error || Frame.FrameError;
-pub fn interpret(self: *Self, contract: *Contract, input: []const u8) InterpretError![]const u8 {
+pub fn interpret(self: *Self, contract: *Contract, input: []const u8) ExecutionError.Error![]const u8 {
     return try self.interpret_with_context(contract, input, false);
 }
 
-pub fn interpret_static(self: *Self, contract: *Contract, input: []const u8) InterpretError![]const u8 {
+pub fn interpret_static(self: *Self, contract: *Contract, input: []const u8) ExecutionError.Error![]const u8 {
     return try self.interpret_with_context(contract, input, true);
 }
 
-pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u8, is_static: bool) InterpretError![]const u8 {
+pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u8, is_static: bool) ExecutionError.Error![]const u8 {
     self.depth += 1;
     defer self.depth -= 1;
 
@@ -572,7 +571,7 @@ pub fn selfdestruct_protected(self: *Self, contract: Address.Address, beneficiar
 }
 
 // Simple bytecode execution for testing
-pub const RunError = std.mem.Allocator.Error || Frame.FrameError || ExecutionError.Error;
+pub const RunError = std.mem.Allocator.Error || ExecutionError.Error;
 pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64, input: ?[]const u8) RunError!RunResult {
     // Calculate code hash for the contract
     var hasher = std.crypto.hash.sha3.Keccak256.init(.{});
