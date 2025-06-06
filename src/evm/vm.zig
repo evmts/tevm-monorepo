@@ -22,16 +22,8 @@ pub const RunResult = @import("run_result.zig");
 
 // Error types for VM operations
 pub const VmError = ExecutionError.Error || std.mem.Allocator.Error || Frame.FrameError;
-pub const VmStorageError = std.mem.Allocator.Error;
-pub const VmStateError = ExecutionError.Error;
 pub const VmInitError = std.mem.Allocator.Error;
 pub const VmInterpretError = ExecutionError.Error || Frame.FrameError;
-pub const VmAccessListError = error{
-    OutOfMemory,
-    InvalidAddress,
-    InvalidSlot,
-};
-pub const VmAddressCalculationError = std.mem.Allocator.Error;
 
 const Self = @This();
 
