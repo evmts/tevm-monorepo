@@ -1,46 +1,39 @@
 const std = @import("std");
-const testing = std.testing;
+const evm = @import("src/evm/evm.zig");
+const utils = @import("src/Utils/utils.zig");
+const Address = @import("src/Address/Address.ts");
 
-// Import test helpers
-const helpers = @import("test/evm/opcodes/test_helpers.zig");
+pub fn main() \!void {
+    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    defer _ = gpa.deinit();
+    const allocator = gpa.allocator();
 
-test "Simple RETURN test" {
-    const allocator = testing.allocator;
+    // Initialize VM
+    var vm = try evm.Vm.init(allocator);
+    defer vm.deinit();
+
+    // Bytecode: PUSH1 0x05, PUSH1 0x00, MSTORE, PUSH1 0x20, PUSH1 0x00, RETURN
+    const bytecode = [_]u8{ 0x60, 0x05, 0x60, 0x00, 0x52, 0x60, 0x20, 0x60, 0x00, 0xf3 };
+
+    // Run bytecode
+    const result = try vm.run(&bytecode, Address.zero(), 100000, null);
+    defer if (result.output) |output| allocator.free(output);
+
+    std.debug.print("Result status: {}\n", .{result.status});
+    std.debug.print("Gas left: {}\n", .{result.gas_left});
+    std.debug.print("Gas used: {}\n", .{result.gas_used});
     
-    var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
-    
-    var contract = try helpers.createTestContract(
-        allocator,
-        helpers.TestAddresses.CONTRACT,
-        helpers.TestAddresses.ALICE,
-        0,
-        &[_]u8{},
-    );
-    defer contract.deinit(null);
-    
-    var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
-    defer test_frame.deinit();
-    
-    // Push values to stack: offset=10, size=4
-    try test_frame.pushStack(&[_]u256{10, 4});
-    
-    std.debug.print("\nBefore executeOpcode:\n", .{});
-    std.debug.print("  Stack size: {}\n", .{test_frame.stackSize()});
-    std.debug.print("  Stack[0]: {}\n", .{test_frame.frame.stack.data[0]});
-    std.debug.print("  Stack[1]: {}\n", .{test_frame.frame.stack.data[1]});
-    
-    // Check jump table
-    const operation = test_vm.vm.table.get_operation(0xF3);
-    std.debug.print("  RETURN operation defined: {}\n", .{!operation.undefined});
-    std.debug.print("  RETURN min_stack: {}\n", .{operation.min_stack});
-    std.debug.print("  RETURN max_stack: {}\n", .{operation.max_stack});
-    
-    const result = helpers.executeOpcode(0xF3, &test_vm.vm, test_frame.frame);
-    
-    if (result) |_| {
-        std.debug.print("\nRETURN succeeded unexpectedly\n", .{});
-    } else |err| {
-        std.debug.print("\nRETURN error: {}\n", .{err});
+    if (result.output) |output| {
+        std.debug.print("Output length: {}\n", .{output.len});
+        if (output.len > 0) {
+            std.debug.print("Output data: ", .{});
+            for (output) |byte| {
+                std.debug.print("{x:0>2} ", .{byte});
+            }
+            std.debug.print("\n", .{});
+        }
+    } else {
+        std.debug.print("Output is null\n", .{});
     }
 }
+EOF < /dev/null

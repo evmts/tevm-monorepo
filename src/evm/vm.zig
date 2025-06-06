@@ -134,6 +134,9 @@ pub fn deinit(self: *Self) void {
     self.logs.deinit();
 
     self.access_list.deinit();
+
+    // Clean up the global contract analysis cache
+    Contract.clear_analysis_cache(self.allocator);
 }
 
 pub fn interpret(self: *Self, contract: *Contract, input: []const u8) VmInterpretError![]const u8 {

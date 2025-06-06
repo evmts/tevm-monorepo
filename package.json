@@ -22,7 +22,7 @@
     "build:rust:app": "pnpm -r build --filter=my_rust_node_lib",
     "build:rust:lib": "pnpm -r build --filter=my_rust_node_lib",
     "build:types": "pnpm -r build:types && pnpm -r typecheck",
-    "build:wasm": "zig build wasm && mkdir -p ../dist && find ../.zig-cache -name \"*.wasm\" -exec cp {} ../dist/zigevm.wasm \\; && echo \"WASM build completed\" && echo \"WASM size: $(ls -lh ../dist/zigevm.wasm | awk '{print $5}')\" && echo \"WASM path: $(realpath ../dist/zigevm.wasm)\"",
+    "build:wasm": "zig build wasm && echo \"WASM build completed\" && echo \"WASM size: $(ls -lh zig-out/dist/zigevm.wasm | awk '{print $5}')\" && echo \"WASM path: $(realpath zig-out/dist/zigevm.wasm)\"",
     "build:zig": "zig build",
     "clean": "pnpm -r clean && rm -rf node_modules && rm -rf .nx",
     "e2e": "pnpm -r e2e --filter=e2e",

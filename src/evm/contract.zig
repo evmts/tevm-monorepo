@@ -36,7 +36,14 @@ pub const CodeAnalysisError = std.mem.Allocator.Error;
 
 /// Global analysis cache (simplified version)
 var analysis_cache: ?std.AutoHashMap([32]u8, *CodeAnalysis) = null;
-var cache_mutex: std.Thread.Mutex = .{};
+// Use conditional compilation for thread safety
+const is_single_threaded = @import("builtin").single_threaded;
+const Mutex = if (is_single_threaded) struct {
+    pub fn lock(self: *@This()) void { _ = self; }
+    pub fn unlock(self: *@This()) void { _ = self; }
+} else std.Thread.Mutex;
+
+var cache_mutex: Mutex = .{};
 
 /// Contract represents the execution context for a single call in the EVM
 const Self = @This();
@@ -197,7 +204,7 @@ fn ensure_analysis(self: *Self, allocator: std.mem.Allocator) void {
 pub inline fn is_code(self: *const Self, pos: u64) bool {
     if (self.analysis) |analysis| {
         // We know pos is within bounds if analysis exists, so use unchecked version
-        return analysis.code_segments.is_set_unchecked(pos);
+        return analysis.code_segments.is_set_unchecked(@intCast(pos));
     }
     return true;
 }
@@ -349,7 +356,7 @@ pub fn get_original_storage_value(self: *const Self, slot: u256) ?u256 {
 
 /// Get opcode at position (inline for performance)
 pub fn get_op(self: *const Self, n: u64) u8 {
-    return if (n < self.code_size) self.code[n] else constants.STOP;
+    return if (n < self.code_size) self.code[@intCast(n)] else constants.STOP;
 }
 
 /// Get opcode at position without bounds check
