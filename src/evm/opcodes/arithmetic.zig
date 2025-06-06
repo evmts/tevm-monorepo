@@ -5,7 +5,6 @@ const Stack = @import("../stack.zig");
 const Frame = @import("../frame.zig");
 const Vm = @import("../vm.zig");
 
-
 pub fn op_add(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
     _ = interpreter;
@@ -51,7 +50,7 @@ pub fn op_mul(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
 
 pub fn op_sub(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
-    const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
+    _ = interpreter;
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
     // Debug-only bounds check - compiled out in release builds
@@ -67,9 +66,6 @@ pub fn op_sub(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
 
     // Modify the current top of the stack in-place with the result
     frame.stack.set_top_unsafe(result);
-
-    // Store for testing
-    vm.last_stack_value = result;
 
     return Operation.ExecutionResult{};
 }

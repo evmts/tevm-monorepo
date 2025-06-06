@@ -1,5 +1,6 @@
 const std = @import("std");
 const testing = std.testing;
+const evm = @import("evm");
 const helpers = @import("test_helpers.zig");
 
 // COMPLETED: Storage operations (SLOAD/SSTORE) - Fixed missing jump table mappings
@@ -13,7 +14,7 @@ const helpers = @import("test_helpers.zig");
 test "SLOAD (0x54): Load from storage" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     const code = [_]u8{0x54}; // SLOAD
 
@@ -30,12 +31,13 @@ test "SLOAD (0x54): Load from storage" {
     defer test_frame.deinit();
 
     // Set storage value
-    try test_vm.setStorage(helpers.TestAddresses.CONTRACT, 0x42, 0x123456);
+    const storage_key = evm.Vm.StorageKey{ .address = helpers.TestAddresses.CONTRACT, .slot = 0x42 };
+    try test_vm.vm.storage.put(storage_key, 0x123456);
 
     // Push storage slot
     try test_frame.pushStack(&[_]u256{0x42});
 
-    const result = try helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame);
+    const result = try helpers.executeOpcode(0x54, test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 1), result.bytes_consumed);
 
     const value = try test_frame.popStack();
@@ -45,7 +47,7 @@ test "SLOAD (0x54): Load from storage" {
 test "SLOAD: Load from uninitialized slot returns zero" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -62,7 +64,7 @@ test "SLOAD: Load from uninitialized slot returns zero" {
     // Load from slot that was never written
     try test_frame.pushStack(&[_]u256{0x99});
 
-    _ = try helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x54, test_vm.vm, test_frame.frame);
 
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 0), value);
@@ -71,7 +73,7 @@ test "SLOAD: Load from uninitialized slot returns zero" {
 test "SLOAD: Multiple loads from same slot" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -86,12 +88,13 @@ test "SLOAD: Multiple loads from same slot" {
     defer test_frame.deinit();
 
     // Set storage value
-    try test_vm.setStorage(helpers.TestAddresses.CONTRACT, 0x10, 0xABCDEF);
+    const storage_key = evm.Vm.StorageKey{ .address = helpers.TestAddresses.CONTRACT, .slot = 0x10 };
+    try test_vm.vm.storage.put(storage_key, 0xABCDEF);
 
     // Load same slot multiple times
     for (0..3) |_| {
         try test_frame.pushStack(&[_]u256{0x10});
-        _ = try helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x54, test_vm.vm, test_frame.frame);
         const value = try test_frame.popStack();
         try testing.expectEqual(@as(u256, 0xABCDEF), value);
     }
@@ -100,7 +103,7 @@ test "SLOAD: Multiple loads from same slot" {
 test "SLOAD: EIP-2929 cold/warm access" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -122,7 +125,7 @@ test "SLOAD: EIP-2929 cold/warm access" {
     // First access (cold)
     try test_frame.pushStack(&[_]u256{0x100});
     const gas_before_cold = test_frame.frame.gas_remaining;
-    _ = try helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x54, test_vm.vm, test_frame.frame);
     const gas_used_cold = gas_before_cold - test_frame.frame.gas_remaining;
 
     // Should consume 2100 gas for cold access
@@ -131,7 +134,7 @@ test "SLOAD: EIP-2929 cold/warm access" {
     // Second access (warm)
     try test_frame.pushStack(&[_]u256{0x100});
     const gas_before_warm = test_frame.frame.gas_remaining;
-    _ = try helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x54, test_vm.vm, test_frame.frame);
     const gas_used_warm = gas_before_warm - test_frame.frame.gas_remaining;
 
     // Should consume 100 gas for warm access
@@ -145,7 +148,7 @@ test "SLOAD: EIP-2929 cold/warm access" {
 test "SSTORE (0x55): Store to storage" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     const code = [_]u8{0x55}; // SSTORE
 
@@ -165,17 +168,18 @@ test "SSTORE (0x55): Store to storage" {
     try test_frame.pushStack(&[_]u256{0x999}); // value
     try test_frame.pushStack(&[_]u256{0x42}); // slot
 
-    _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
 
     // Verify value was stored
-    const stored = try test_vm.getStorage(helpers.TestAddresses.CONTRACT, 0x42);
+    const storage_key = evm.Vm.StorageKey{ .address = helpers.TestAddresses.CONTRACT, .slot = 0x42 };
+    const stored = test_vm.vm.storage.get(storage_key) orelse 0;
     try testing.expectEqual(@as(u256, 0x999), stored);
 }
 
 test "SSTORE: Static call protection" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -196,14 +200,14 @@ test "SSTORE: Static call protection" {
     try test_frame.pushStack(&[_]u256{0x20}); // value
     try test_frame.pushStack(&[_]u256{0x10}); // slot
 
-    const result = helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
+    const result = helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.WriteProtection, result);
 }
 
 // test "SSTORE: Gas refund for clearing storage" {
 //     const allocator = testing.allocator;
 //     var test_vm = try helpers.TestVm.init(allocator);
-//     defer test_vm.deinit();
+//     defer test_vm.deinit(allocator);
 //
 //     var contract = try helpers.createTestContract(
 //         allocator,
@@ -226,7 +230,7 @@ test "SSTORE: Static call protection" {
 //
 //     // TODO: gas_refund is not exposed in the current VM API
 //     // const gas_refund_before = test_vm.vm.gas_refund;
-//     _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
+//     _ = try helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
 //     // const gas_refund_after = test_vm.vm.gas_refund;
 //
 //     // Should receive refund for clearing storage
@@ -237,7 +241,7 @@ test "SSTORE: Static call protection" {
 test "SSTORE: EIP-2200 gas cost scenarios" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -258,7 +262,7 @@ test "SSTORE: EIP-2200 gas cost scenarios" {
     try test_frame.pushStack(&[_]u256{0x60}); // slot
 
     const gas_before_fresh = test_frame.frame.gas_remaining;
-    _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
     const gas_fresh = gas_before_fresh - test_frame.frame.gas_remaining;
 
     // Should consume 20000 gas for fresh slot
@@ -269,7 +273,7 @@ test "SSTORE: EIP-2200 gas cost scenarios" {
     try test_frame.pushStack(&[_]u256{0x60}); // same slot
 
     const gas_before_update = test_frame.frame.gas_remaining;
-    _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
     const gas_update = gas_before_update - test_frame.frame.gas_remaining;
 
     // Should consume less gas for update
@@ -280,7 +284,7 @@ test "SSTORE: EIP-2200 gas cost scenarios" {
 test "SSTORE: Large storage values" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -301,12 +305,12 @@ test "SSTORE: Large storage values" {
     try test_frame.pushStack(&[_]u256{0x80}); // slot (on top)
 
     test_frame.frame.pc = 0;
-    _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
 
     // Load it back
     try test_frame.pushStack(&[_]u256{0x80}); // same slot
     test_frame.frame.pc = 1;
-    _ = try helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x54, test_vm.vm, test_frame.frame);
 
     const loaded = try test_frame.popStack();
     try testing.expectEqual(max_value, loaded);
@@ -319,8 +323,8 @@ test "SSTORE: Large storage values" {
 test "Storage opcodes: Gas consumption patterns" {
     const allocator = testing.allocator;
     // Use Istanbul hardfork (pre-Berlin) for 800 gas SLOAD cost
-    var test_vm = try helpers.TestVm.initWithHardfork(allocator, .ISTANBUL);
-    defer test_vm.deinit();
+    var test_vm = try helpers.TestVm.init_with_hardfork(allocator, evm.Hardfork.Hardfork.ISTANBUL);
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -340,7 +344,7 @@ test "Storage opcodes: Gas consumption patterns" {
 
     const gas_before_sload = test_frame.frame.gas_remaining;
     test_frame.frame.pc = 0;
-    _ = try helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x54, test_vm.vm, test_frame.frame);
     const gas_sload = gas_before_sload - test_frame.frame.gas_remaining;
 
     // Pre-Berlin: 800 gas
@@ -352,7 +356,7 @@ test "Storage opcodes: Gas consumption patterns" {
 
     const gas_before_sstore = test_frame.frame.gas_remaining;
     test_frame.frame.pc = 1;
-    _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
     const gas_sstore = gas_before_sstore - test_frame.frame.gas_remaining;
 
     // Fresh slot store is expensive
@@ -366,7 +370,7 @@ test "Storage opcodes: Gas consumption patterns" {
 test "Storage opcodes: Stack underflow" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     // Test SLOAD with empty stack
     var contract = try helpers.createTestContract(
@@ -381,7 +385,7 @@ test "Storage opcodes: Stack underflow" {
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
 
-    const result = helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame);
+    const result = helpers.executeOpcode(0x54, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
 
     // Test SSTORE with insufficient stack
@@ -398,12 +402,12 @@ test "Storage opcodes: Stack underflow" {
     defer test_frame2.deinit();
 
     // Empty stack
-    const result2 = helpers.executeOpcode(0x55, &test_vm.vm, test_frame2.frame);
+    const result2 = helpers.executeOpcode(0x55, test_vm.vm, test_frame2.frame);
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result2);
 
     // Only one item (need two)
     try test_frame2.pushStack(&[_]u256{0x10});
-    const result3 = helpers.executeOpcode(0x55, &test_vm.vm, test_frame2.frame);
+    const result3 = helpers.executeOpcode(0x55, test_vm.vm, test_frame2.frame);
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result3);
 }
 
@@ -414,7 +418,7 @@ test "Storage opcodes: Stack underflow" {
 test "Storage: Multiple consecutive operations" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     const code = [_]u8{
         0x60, 0x01, // PUSH1 0x01 (value1)
@@ -443,28 +447,28 @@ test "Storage: Multiple consecutive operations" {
 
     // Execute all operations
     test_frame.frame.pc = 0;
-    _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame);
     test_frame.frame.pc = 2;
-    _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame);
     test_frame.frame.pc = 4;
-    _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
 
     test_frame.frame.pc = 5;
-    _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame);
     test_frame.frame.pc = 7;
-    _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame);
     test_frame.frame.pc = 9;
-    _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
 
     test_frame.frame.pc = 10;
-    _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame);
     test_frame.frame.pc = 12;
-    _ = try helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x54, test_vm.vm, test_frame.frame);
 
     test_frame.frame.pc = 13;
-    _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame);
     test_frame.frame.pc = 15;
-    _ = try helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x54, test_vm.vm, test_frame.frame);
 
     // Check loaded values
     const value1 = try test_frame.popStack();
@@ -477,40 +481,33 @@ test "Storage: Multiple consecutive operations" {
 test "SSTORE: Overwriting values" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
-
-    var contract = try helpers.createTestContract(
-        allocator,
-        helpers.TestAddresses.CONTRACT,
-        helpers.TestAddresses.ALICE,
-        0,
-        &[_]u8{0x55},
-    );
-    defer contract.deinit(allocator, null);
-
-    var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
-    defer test_frame.deinit();
+    defer test_vm.deinit(allocator);
 
     const slot = 0xBEEF;
 
-    // Store initial value
-    // SSTORE pops: slot (first), value (second)
-    // So push: value first, then slot
-    try test_frame.pushStack(&[_]u256{0x111}); // value
-    try test_frame.pushStack(&[_]u256{slot}); // slot
-    _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
+    // Store and overwrite values using separate contracts and frames
+    const values = [_]u256{ 0x111, 0x222, 0x333 };
+    for (values) |value| {
+        const code = [_]u8{0x55}; // SSTORE
+        var contract = try helpers.createTestContract(
+            allocator,
+            helpers.TestAddresses.CONTRACT,
+            helpers.TestAddresses.ALICE,
+            0,
+            &code,
+        );
+        defer contract.deinit(allocator, null);
 
-    // Overwrite with new value
-    try test_frame.pushStack(&[_]u256{0x222}); // value
-    try test_frame.pushStack(&[_]u256{slot}); // slot
-    _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
-
-    // Overwrite again
-    try test_frame.pushStack(&[_]u256{0x333}); // value
-    try test_frame.pushStack(&[_]u256{slot}); // slot
-    _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
+        var test_frame = try helpers.TestFrame.init(allocator, &contract, 30000);
+        defer test_frame.deinit();
+        
+        try test_frame.pushStack(&[_]u256{value}); // value
+        try test_frame.pushStack(&[_]u256{slot}); // slot
+        _ = try helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
+    }
 
     // Verify final value
-    const stored = try test_vm.getStorage(helpers.TestAddresses.CONTRACT, slot);
+    const storage_key = evm.Vm.StorageKey{ .address = helpers.TestAddresses.CONTRACT, .slot = slot };
+    const stored = test_vm.vm.storage.get(storage_key) orelse 0;
     try testing.expectEqual(@as(u256, 0x333), stored);
 }

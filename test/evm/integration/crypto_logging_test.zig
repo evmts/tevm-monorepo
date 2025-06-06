@@ -10,7 +10,7 @@ test "Integration: SHA3 with dynamic data" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -29,14 +29,14 @@ test "Integration: SHA3 with dynamic data" {
     const data2: u256 = 0xFEDCBA0987654321;
     
     try test_frame.pushStack(&[_]u256{data1, 0});
-    _ = try helpers.executeOpcode(0x52, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
     
     try test_frame.pushStack(&[_]u256{data2, 32});
-    _ = try helpers.executeOpcode(0x52, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
     
     // Hash 64 bytes starting at offset 0
     try test_frame.pushStack(&[_]u256{0, 64}); // offset, size
-    _ = try helpers.executeOpcode(0x20, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x20, test_vm.vm, test_frame.frame);
     
     // Result should be a valid hash (non-zero)
     const hash = try test_frame.popStack();
@@ -44,7 +44,7 @@ test "Integration: SHA3 with dynamic data" {
     
     // Hash empty data should give known result
     try test_frame.pushStack(&[_]u256{0, 0}); // offset, size
-    _ = try helpers.executeOpcode(0x20, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x20, test_vm.vm, test_frame.frame);
     
     // Empty hash: keccak256("") = 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470
     const empty_hash = try test_frame.popStack();
@@ -55,7 +55,7 @@ test "Integration: Logging with topics and data" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -87,7 +87,7 @@ test "Integration: Logging with topics and data" {
         0,            // offset
     });
     
-    _ = try helpers.executeOpcode(0xA1, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0xA1, test_vm.vm, test_frame.frame);
     
     // Verify log was emitted (in real implementation)
     try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
@@ -101,7 +101,7 @@ test "Integration: LOG operations with multiple topics" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -132,7 +132,7 @@ test "Integration: LOG operations with multiple topics" {
         0,            // offset
     });
     
-    _ = try helpers.executeOpcode(0xA3, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0xA3, test_vm.vm, test_frame.frame);
     
     // Clear logs for next test
     test_vm.vm.logs.clearRetainingCapacity();
@@ -143,7 +143,7 @@ test "Integration: LOG operations with multiple topics" {
         0,            // offset
     });
     
-    _ = try helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0xA0, test_vm.vm, test_frame.frame);
     
     // Verify LOG0
     try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
@@ -154,7 +154,7 @@ test "Integration: Hash-based address calculation" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -198,7 +198,7 @@ test "Integration: Hash-based address calculation" {
     
     // Hash all components (1 + 20 + 32 + 32 = 85 bytes)
     try test_frame.pushStack(&[_]u256{0, 85});
-    _ = try helpers.executeOpcode(0x20, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x20, test_vm.vm, test_frame.frame);
     
     // Extract address from hash (last 20 bytes)
     const full_hash = try test_frame.popStack();
@@ -213,7 +213,7 @@ test "Integration: Event emission patterns" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -250,7 +250,7 @@ test "Integration: Event emission patterns" {
         0,            // offset in memory
     });
     
-    _ = try helpers.executeOpcode(0xA3, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0xA3, test_vm.vm, test_frame.frame);
     
     // Simulate ERC20 Approval event
     // Approval(address indexed owner, address indexed spender, uint256 value)
@@ -275,7 +275,7 @@ test "Integration: Event emission patterns" {
         32,           // offset in memory
     });
     
-    _ = try helpers.executeOpcode(0xA3, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0xA3, test_vm.vm, test_frame.frame);
     
     // Both events should be recorded
     try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
@@ -285,7 +285,7 @@ test "Integration: Dynamic log data with memory expansion" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -307,7 +307,7 @@ test "Integration: Dynamic log data with memory expansion" {
     try test_frame.setMemory(high_offset, message);
     
     // Check memory size before
-    _ = try helpers.executeOpcode(0x59, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x59, test_vm.vm, test_frame.frame);
     const size_before = try test_frame.popStack();
     
     // Log with data from high offset
@@ -318,11 +318,11 @@ test "Integration: Dynamic log data with memory expansion" {
     });
     
     const gas_before = test_frame.frame.gas_remaining;
-    _ = try helpers.executeOpcode(0xA1, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0xA1, test_vm.vm, test_frame.frame);
     const gas_after = test_frame.frame.gas_remaining;
     
     // Check memory size after
-    _ = try helpers.executeOpcode(0x59, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x59, test_vm.vm, test_frame.frame);
     const size_after = try test_frame.popStack();
     
     // Memory should have expanded
@@ -338,7 +338,7 @@ test "Integration: SHA3 for signature verification" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -359,7 +359,7 @@ test "Integration: SHA3 for signature verification" {
     
     // Hash the function signature
     try test_frame.pushStack(&[_]u256{0, function_sig.len});
-    _ = try helpers.executeOpcode(0x20, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x20, test_vm.vm, test_frame.frame);
     
     // Extract first 4 bytes as selector
     const full_hash = try test_frame.popStack();
@@ -376,7 +376,7 @@ test "Integration: Log in static context fails" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -396,13 +396,13 @@ test "Integration: Log in static context fails" {
     // Try to emit LOG0
     try test_frame.pushStack(&[_]u256{0, 0}); // size, offset
     
-    const result = opcodes.log.op_log0(0, &test_vm.vm, test_frame.frame);
+    const result = opcodes.log.op_log0(0, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.WriteProtection, result);
     
     // Try LOG1
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{0x1111, 0, 0}); // topic, size, offset
     
-    const result1 = opcodes.log.op_log1(0, &test_vm.vm, test_frame.frame);
+    const result1 = opcodes.log.op_log1(0, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.WriteProtection, result1);
 }

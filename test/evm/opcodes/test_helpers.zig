@@ -16,127 +16,31 @@ pub const opcodes = evm.opcodes;
 pub const Hardfork = evm.Hardfork.Hardfork;
 pub const JumpTable = evm.JumpTable;
 
-/// Test VM with minimal setup for testing opcodes
+/// Mock settings for testing
 pub const TestVm = struct {
-    vm: Vm,
-    allocator: std.mem.Allocator,
+    vm: *Vm,
 
-    // Track allocated code for cleanup
-    allocated_code: std.ArrayList([]u8),
+    const Self = @This();
 
-    // Mock results for testing
-    call_result: ?Vm.CallResult = null,
-    create_result: ?Vm.CreateResult = null,
-
-    pub fn init(allocator: std.mem.Allocator) !TestVm {
-        var vm = try Vm.init(allocator);
-
-        // Initialize transaction access list (pre-warm common addresses)
-        try vm.init_transaction_access_list(null);
-
-        // VM created with hardfork CANCUN (default)
-
-        return TestVm{
+    pub fn init(allocator: std.mem.Allocator) !Self {
+        const vm = try allocator.create(Vm);
+        vm.* = try Vm.init(allocator);
+        return Self{
             .vm = vm,
-            .allocator = allocator,
-            .allocated_code = std.ArrayList([]u8).init(allocator),
-            .call_result = null,
-            .create_result = null,
         };
     }
 
-    pub fn initWithHardfork(allocator: std.mem.Allocator, hardfork: Hardfork) !TestVm {
-        var vm = try Vm.init_with_hardfork(allocator, hardfork);
-
-        // Initialize transaction access list (pre-warm common addresses)
-        try vm.init_transaction_access_list(null);
-
-        return TestVm{
+    pub fn init_with_hardfork(allocator: std.mem.Allocator, hardfork: evm.Hardfork.Hardfork) !Self {
+        const vm = try allocator.create(Vm);
+        vm.* = try Vm.init_with_hardfork(allocator, hardfork);
+        return Self{
             .vm = vm,
-            .allocator = allocator,
-            .allocated_code = std.ArrayList([]u8).init(allocator),
-            .call_result = null,
-            .create_result = null,
         };
     }
 
-    pub fn deinit(self: *TestVm) void {
-        // Free all tracked allocated code
-        for (self.allocated_code.items) |code| {
-            self.allocator.free(code);
-        }
-        self.allocated_code.deinit();
-
+    pub fn deinit(self: *Self, allocator: std.mem.Allocator) void {
         self.vm.deinit();
-    }
-
-    /// Set up test account with balance and code
-    pub fn setAccount(self: *TestVm, address: Address.Address, balance: u256, code: []const u8) !void {
-        self.vm.balances.put(address, balance) catch |err| {
-            std.log.debug("Failed to set balance for address 0x{x}: {any}", .{ Address.to_u256(address), err });
-            return err;
-        };
-        self.vm.code.put(address, code) catch |err| {
-            std.log.debug("Failed to set code for address 0x{x}: {any}", .{ Address.to_u256(address), err });
-            return err;
-        };
-    }
-
-    /// Set code with allocation tracking for proper cleanup
-    pub fn setCodeWithAlloc(self: *TestVm, address: Address.Address, code: []const u8) !void {
-        // Allocate and copy the code
-        const code_copy = try self.allocator.alloc(u8, code.len);
-        @memcpy(code_copy, code);
-
-        // Track the allocation
-        try self.allocated_code.append(code_copy);
-
-        // Set the code in the VM
-        self.vm.code.put(address, code_copy) catch |err| {
-            std.log.debug("Failed to set code for address 0x{x}: {any}", .{ Address.to_u256(address), err });
-            return err;
-        };
-    }
-
-    /// Set storage value
-    pub fn setStorage(self: *TestVm, address: Address.Address, slot: u256, value: u256) !void {
-        const key = Vm.StorageKey{ .address = address, .slot = slot };
-        self.vm.storage.put(key, value) catch |err| {
-            std.log.debug("Failed to set storage for address 0x{x}, slot {d}: {any}", .{ Address.to_u256(address), slot, err });
-            return err;
-        };
-    }
-
-    /// Get storage value
-    pub fn getStorage(self: *TestVm, address: Address.Address, slot: u256) !u256 {
-        const key = Vm.StorageKey{ .address = address, .slot = slot };
-        return self.vm.storage.get(key) orelse 0;
-    }
-
-    /// Set transient storage value
-    pub fn setTransientStorage(self: *TestVm, address: Address.Address, slot: u256, value: u256) !void {
-        const key = Vm.StorageKey{ .address = address, .slot = slot };
-        self.vm.transient_storage.put(key, value) catch |err| {
-            std.log.debug("Failed to set transient storage for address 0x{x}, slot {d}: {any}", .{ Address.to_u256(address), slot, err });
-            return err;
-        };
-    }
-
-    /// Get transient storage value
-    pub fn getTransientStorage(self: *TestVm, address: Address.Address, slot: u256) !u256 {
-        const key = Vm.StorageKey{ .address = address, .slot = slot };
-        return self.vm.transient_storage.get(key) orelse 0;
-    }
-
-    /// Mark address as warm for EIP-2929 testing
-    pub fn warmAddress(self: *TestVm, address: Address.Address) !void {
-        _ = try self.vm.access_list.access_address(address);
-    }
-
-    /// Sync mock results to VM - call this after setting call_result or create_result
-    pub fn syncMocks(self: *TestVm) void {
-        self.vm.call_result = self.call_result;
-        self.vm.create_result = self.create_result;
+        allocator.destroy(self.vm);
     }
 };
 

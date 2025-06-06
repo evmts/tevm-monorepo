@@ -12,7 +12,7 @@ const Hardfork = evm.Hardfork.Hardfork;
 test "CREATE: create new contract" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -41,7 +41,7 @@ test "CREATE: create new contract" {
     try test_frame.pushStack(&[_]u256{init_code.len}); // size
 
     // Execute CREATE
-    _ = try test_helpers.executeOpcode(0xF0, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xF0, test_vm.vm, test_frame.frame);
 
     // Should push 0 for failure - VM doesn't execute init code yet
     const result = try test_frame.popStack();
@@ -51,7 +51,7 @@ test "CREATE: create new contract" {
 test "CREATE: empty init code creates empty contract" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -73,7 +73,7 @@ test "CREATE: empty init code creates empty contract" {
     try test_frame.pushStack(&[_]u256{0}); // size
 
     // Execute CREATE
-    _ = try test_helpers.executeOpcode(0xF0, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xF0, test_vm.vm, test_frame.frame);
     // Should push non-zero address for successful empty contract creation
     const created_address = try test_frame.popStack();
     try testing.expect(created_address != 0);
@@ -82,7 +82,7 @@ test "CREATE: empty init code creates empty contract" {
 test "CREATE: write protection in static call" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -105,14 +105,14 @@ test "CREATE: write protection in static call" {
     try test_frame.pushStack(&[_]u256{0}); // size
 
     // Execute CREATE - should fail
-    const result = test_helpers.executeOpcode(0xF0, &test_vm.vm, test_frame.frame);
+    const result = test_helpers.executeOpcode(0xF0, test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.WriteProtection, result);
 }
 
 test "CREATE: depth limit" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -135,7 +135,7 @@ test "CREATE: depth limit" {
     try test_frame.pushStack(&[_]u256{0}); // size
 
     // Execute CREATE
-    _ = try test_helpers.executeOpcode(0xF0, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xF0, test_vm.vm, test_frame.frame);
 
     // Should push 0 due to depth limit
     try testing.expectEqual(@as(u256, 0), try test_frame.popStack());
@@ -145,7 +145,7 @@ test "CREATE: depth limit" {
 test "CREATE2: create with deterministic address" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -175,7 +175,7 @@ test "CREATE2: create with deterministic address" {
     try test_frame.pushStack(&[_]u256{0x12345678}); // salt
 
     // Execute CREATE2
-    _ = try test_helpers.executeOpcode(0xF5, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xF5, test_vm.vm, test_frame.frame);
 
     // Should push 0 for failed creation (VM doesn't execute init code yet)
     const result = try test_frame.popStack();
@@ -186,7 +186,7 @@ test "CREATE2: create with deterministic address" {
 test "CALL: basic call behavior" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -222,7 +222,7 @@ test "CALL: basic call behavior" {
     try test_frame.pushStack(&[_]u256{50000}); // gas
 
     // Execute CALL
-    _ = try test_helpers.executeOpcode(0xF1, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xF1, test_vm.vm, test_frame.frame);
 
     // Should push 0 for failure (VM doesn't implement external calls yet)
     try testing.expectEqual(@as(u256, 0), try test_frame.popStack());
@@ -231,7 +231,7 @@ test "CALL: basic call behavior" {
 test "CALL: failed call" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -257,7 +257,7 @@ test "CALL: failed call" {
     try test_frame.pushStack(&[_]u256{50000}); // gas
 
     // Execute CALL
-    _ = try test_helpers.executeOpcode(0xF1, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xF1, test_vm.vm, test_frame.frame);
 
     // Should push 0 for failure
     try testing.expectEqual(@as(u256, 0), try test_frame.popStack());
@@ -266,7 +266,7 @@ test "CALL: failed call" {
 test "CALL: cold address access costs more gas" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -294,7 +294,7 @@ test "CALL: cold address access costs more gas" {
     const gas_before = test_frame.frame.gas_remaining;
 
     // Execute CALL
-    _ = try test_helpers.executeOpcode(0xF1, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xF1, test_vm.vm, test_frame.frame);
 
     // Should push 0 for failure and consume some gas
     try testing.expectEqual(@as(u256, 0), try test_frame.popStack());
@@ -305,7 +305,7 @@ test "CALL: cold address access costs more gas" {
 test "CALL: value transfer in static call fails" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -332,7 +332,7 @@ test "CALL: value transfer in static call fails" {
     try test_frame.pushStack(&[_]u256{1000}); // gas
 
     // Execute CALL - should fail
-    const result = test_helpers.executeOpcode(0xF1, &test_vm.vm, test_frame.frame);
+    const result = test_helpers.executeOpcode(0xF1, test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.WriteProtection, result);
 }
 
@@ -340,7 +340,7 @@ test "CALL: value transfer in static call fails" {
 test "DELEGATECALL: execute code in current context" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -368,7 +368,7 @@ test "DELEGATECALL: execute code in current context" {
     try test_frame.pushStack(&[_]u256{50000}); // gas
 
     // Execute DELEGATECALL
-    _ = try test_helpers.executeOpcode(0xF4, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xF4, test_vm.vm, test_frame.frame);
 
     // Should push 0 for failure (VM doesn't implement delegatecall yet)
     try testing.expectEqual(@as(u256, 0), try test_frame.popStack());
@@ -378,7 +378,7 @@ test "DELEGATECALL: execute code in current context" {
 test "STATICCALL: read-only call" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -406,7 +406,7 @@ test "STATICCALL: read-only call" {
     try test_frame.pushStack(&[_]u256{50000}); // gas
 
     // Execute STATICCALL
-    _ = try test_helpers.executeOpcode(0xFA, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xFA, test_vm.vm, test_frame.frame);
 
     // Should push 0 for failure (VM doesn't implement staticcall yet)
     try testing.expectEqual(@as(u256, 0), try test_frame.popStack());
@@ -416,7 +416,7 @@ test "STATICCALL: read-only call" {
 test "CALL: depth limit" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -443,7 +443,7 @@ test "CALL: depth limit" {
     try test_frame.pushStack(&[_]u256{0}); // ret_size
 
     // Execute CALL
-    _ = try test_helpers.executeOpcode(0xF1, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xF1, test_vm.vm, test_frame.frame);
 
     // Should push 0 due to depth limit
     try testing.expectEqual(@as(u256, 0), try test_frame.popStack());
@@ -453,7 +453,7 @@ test "CALL: depth limit" {
 test "CREATE: gas consumption" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -484,7 +484,7 @@ test "CREATE: gas consumption" {
     const gas_before = test_frame.frame.gas_remaining;
 
     // Execute CREATE
-    _ = try test_helpers.executeOpcode(0xF0, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xF0, test_vm.vm, test_frame.frame);
 
     // Should consume gas for CREATE operation regardless of success/failure
     const gas_used = gas_before - test_frame.frame.gas_remaining;
@@ -494,7 +494,7 @@ test "CREATE: gas consumption" {
 test "CREATE2: additional gas for hashing" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -526,7 +526,7 @@ test "CREATE2: additional gas for hashing" {
     const gas_before = test_frame.frame.gas_remaining;
 
     // Execute CREATE2
-    _ = try test_helpers.executeOpcode(0xF5, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xF5, test_vm.vm, test_frame.frame);
 
     // Should consume gas for CREATE2 operation regardless of success/failure
     const gas_used = gas_before - test_frame.frame.gas_remaining;
@@ -537,7 +537,7 @@ test "CREATE2: additional gas for hashing" {
 test "CREATE: stack underflow" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -556,14 +556,14 @@ test "CREATE: stack underflow" {
     try test_frame.pushStack(&[_]u256{0}); // size
 
     // Execute CREATE - should fail
-    const result = test_helpers.executeOpcode(0xF0, &test_vm.vm, test_frame.frame);
+    const result = test_helpers.executeOpcode(0xF0, test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.StackUnderflow, result);
 }
 
 test "CALL: stack underflow" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -586,7 +586,7 @@ test "CALL: stack underflow" {
     try test_frame.pushStack(&[_]u256{0}); // ret_size
 
     // Execute CALL - should fail
-    const result = test_helpers.executeOpcode(0xF1, &test_vm.vm, test_frame.frame);
+    const result = test_helpers.executeOpcode(0xF1, test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.StackUnderflow, result);
 }
 
@@ -594,7 +594,7 @@ test "CALL: stack underflow" {
 test "CREATE: memory expansion for init code" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -609,7 +609,7 @@ test "CREATE: memory expansion for init code" {
     defer test_frame.deinit();
 
     // Set up sufficient balance for contract creation
-    try test_vm.setAccount(test_helpers.TestAddresses.CONTRACT, 1000000, &[_]u8{});
+    try test_vm.vm.balances.put(test_helpers.TestAddresses.CONTRACT, 1000000);
 
     // Initialize memory with some init code at offset 200
     var i: usize = 0;
@@ -627,7 +627,7 @@ test "CREATE: memory expansion for init code" {
     const gas_before = test_frame.frame.gas_remaining;
 
     // Execute CREATE
-    _ = try test_helpers.executeOpcode(0xF0, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xF0, test_vm.vm, test_frame.frame);
 
     // Should consume gas for memory expansion regardless of success/failure
     const gas_used = gas_before - test_frame.frame.gas_remaining;
@@ -638,8 +638,8 @@ test "CREATE: memory expansion for init code" {
 test "CREATE: EIP-3860 initcode size limit" {
     const allocator = testing.allocator;
     // Use Shanghai hardfork to test EIP-3860
-    var test_vm = try test_helpers.TestVm.initWithHardfork(allocator, Hardfork.SHANGHAI);
-    defer test_vm.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit(allocator);
 
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -659,15 +659,15 @@ test "CREATE: EIP-3860 initcode size limit" {
     try test_frame.pushStack(&[_]u256{0}); // value
 
     // Execute CREATE with oversized code - should fail
-    const result = test_helpers.executeOpcode(0xF0, &test_vm.vm, test_frame.frame);
+    const result = test_helpers.executeOpcode(0xF0, test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.MaxCodeSizeExceeded, result);
 }
 
 test "CREATE: EIP-3860 initcode word gas" {
     const allocator = testing.allocator;
     // Use Shanghai hardfork to test EIP-3860
-    var test_vm = try test_helpers.TestVm.initWithHardfork(allocator, Hardfork.SHANGHAI);
-    defer test_vm.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit(allocator);
 
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -682,7 +682,7 @@ test "CREATE: EIP-3860 initcode word gas" {
     defer test_frame.deinit();
 
     // Set up sufficient balance for contract creation
-    try test_vm.setAccount(test_helpers.TestAddresses.CONTRACT, 1000000, &[_]u8{});
+    try test_vm.vm.balances.put(test_helpers.TestAddresses.CONTRACT, 1000000);
 
     // Write 64 bytes of init code (2 words)
     var i: usize = 0;
@@ -700,7 +700,7 @@ test "CREATE: EIP-3860 initcode word gas" {
     const gas_before = test_frame.frame.gas_remaining;
 
     // Execute CREATE
-    _ = try test_helpers.executeOpcode(0xF0, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xF0, test_vm.vm, test_frame.frame);
 
     // Should consume gas for CREATE operation regardless of success/failure
     const gas_used = gas_before - test_frame.frame.gas_remaining;
@@ -710,8 +710,8 @@ test "CREATE: EIP-3860 initcode word gas" {
 test "CREATE2: EIP-3860 initcode size limit" {
     const allocator = testing.allocator;
     // Use Shanghai hardfork to test EIP-3860
-    var test_vm = try test_helpers.TestVm.initWithHardfork(allocator, Hardfork.SHANGHAI);
-    defer test_vm.deinit();
+    var test_vm = try test_helpers.TestVm.init(allocator);
+    defer test_vm.deinit(allocator);
 
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -732,6 +732,6 @@ test "CREATE2: EIP-3860 initcode size limit" {
     try test_frame.pushStack(&[_]u256{0}); // value
 
     // Execute CREATE2 - should fail with MaxCodeSizeExceeded
-    const result = test_helpers.executeOpcode(0xF5, &test_vm.vm, test_frame.frame);
+    const result = test_helpers.executeOpcode(0xF5, test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.MaxCodeSizeExceeded, result);
 }

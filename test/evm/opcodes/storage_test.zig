@@ -11,7 +11,7 @@ test "SLOAD: load value from storage" {
     const allocator = testing.allocator;
     
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -26,13 +26,14 @@ test "SLOAD: load value from storage" {
     defer test_frame.deinit();
     
     // Set storage value
-    try test_vm.setStorage(test_helpers.TestAddresses.CONTRACT, 0x123, 0x456789);
+    const storage_key = test_helpers.Vm.StorageKey{ .address = test_helpers.TestAddresses.CONTRACT, .slot = 0x123 };
+    try test_vm.vm.storage.put(storage_key, 0x456789);
     
     // Push storage slot
     try test_frame.pushStack(&[_]u256{0x123});
     
     // Execute SLOAD
-    _ = try test_helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0x54, test_vm.vm, test_frame.frame);
     
     // Should return the stored value
     try testing.expectEqual(@as(u256, 0x456789), try test_frame.popStack());
@@ -42,7 +43,7 @@ test "SLOAD: load from uninitialized slot returns zero" {
     const allocator = testing.allocator;
     
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -60,7 +61,7 @@ test "SLOAD: load from uninitialized slot returns zero" {
     try test_frame.pushStack(&[_]u256{0x999});
     
     // Execute SLOAD
-    _ = try test_helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0x54, test_vm.vm, test_frame.frame);
     
     // Should return 0
     try testing.expectEqual(@as(u256, 0), try test_frame.popStack());
@@ -71,7 +72,7 @@ test "SLOAD: cold storage access costs more gas" {
     const allocator = testing.allocator;
     
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -91,7 +92,7 @@ test "SLOAD: cold storage access costs more gas" {
     const gas_before = test_frame.frame.gas_remaining;
     
     // Execute SLOAD - cold access
-    _ = try test_helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0x54, test_vm.vm, test_frame.frame);
     
     // Should consume 2100 gas for cold access
     const cold_gas_used = gas_before - test_frame.frame.gas_remaining;
@@ -101,7 +102,7 @@ test "SLOAD: cold storage access costs more gas" {
     try test_frame.pushStack(&[_]u256{0x123});
     const gas_before_warm = test_frame.frame.gas_remaining;
     
-    _ = try test_helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0x54, test_vm.vm, test_frame.frame);
     
     // Should consume 100 gas for warm access
     try testing.expectEqual(@as(u64, 100), gas_before_warm - test_frame.frame.gas_remaining);
@@ -112,7 +113,7 @@ test "SSTORE: store value to storage" {
     const allocator = testing.allocator;
     
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -131,10 +132,11 @@ test "SSTORE: store value to storage" {
     try test_frame.pushStack(&[_]u256{0x555});    // slot
     
     // Execute SSTORE
-    _ = try test_helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
     
     // Check that value was stored
-    const stored_value = try test_vm.getStorage(test_helpers.TestAddresses.CONTRACT, 0x555);
+    const storage_key = test_helpers.Vm.StorageKey{ .address = test_helpers.TestAddresses.CONTRACT, .slot = 0x555 };
+    const stored_value = test_vm.vm.storage.get(storage_key) orelse 0;
     try testing.expectEqual(@as(u256, 0xABCDEF), stored_value);
 }
 
@@ -142,7 +144,7 @@ test "SSTORE: overwrite existing value" {
     const allocator = testing.allocator;
     
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -157,17 +159,18 @@ test "SSTORE: overwrite existing value" {
     defer test_frame.deinit();
     
     // Set initial value
-    try test_vm.setStorage(test_helpers.TestAddresses.CONTRACT, 0x100, 0x111);
+    const storage_key = test_helpers.Vm.StorageKey{ .address = test_helpers.TestAddresses.CONTRACT, .slot = 0x100 };
+    try test_vm.vm.storage.put(storage_key, 0x111);
     
     // Push new value and slot (value first, then slot - stack is LIFO)
     try test_frame.pushStack(&[_]u256{0x222}); // new value
     try test_frame.pushStack(&[_]u256{0x100}); // slot
     
     // Execute SSTORE
-    _ = try test_helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
     
     // Check that value was updated
-    const stored_value = try test_vm.getStorage(test_helpers.TestAddresses.CONTRACT, 0x100);
+    const stored_value = test_vm.vm.storage.get(storage_key) orelse 0;
     try testing.expectEqual(@as(u256, 0x222), stored_value);
 }
 
@@ -175,7 +178,7 @@ test "SSTORE: write protection in static call" {
     const allocator = testing.allocator;
     
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -197,7 +200,7 @@ test "SSTORE: write protection in static call" {
     try test_frame.pushStack(&[_]u256{0x456}); // slot
     
     // Execute SSTORE - should fail
-    const result = test_helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
+    const result = test_helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.WriteProtection, result);
 }
 
@@ -205,7 +208,7 @@ test "SSTORE: cold storage access costs more gas" {
     const allocator = testing.allocator;
     
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -226,7 +229,7 @@ test "SSTORE: cold storage access costs more gas" {
     const gas_before = test_frame.frame.gas_remaining;
     
     // Execute SSTORE - cold access
-    _ = try test_helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
     
     // Should consume 2100 gas for cold access + 20000 for SSTORE_SET (new non-zero value)
     const cold_gas_used = gas_before - test_frame.frame.gas_remaining;
@@ -237,7 +240,7 @@ test "SSTORE: cold storage access costs more gas" {
     try test_frame.pushStack(&[_]u256{0x789}); // same slot
     const gas_before_warm = test_frame.frame.gas_remaining;
     
-    _ = try test_helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
     
     // Should consume 2900 gas for warm SSTORE_RESET (changing existing non-zero value)
     try testing.expectEqual(@as(u64, 2900), gas_before_warm - test_frame.frame.gas_remaining);
@@ -248,7 +251,7 @@ test "TLOAD: load value from transient storage" {
     const allocator = testing.allocator;
     
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -263,13 +266,14 @@ test "TLOAD: load value from transient storage" {
     defer test_frame.deinit();
     
     // Set transient storage value
-    try test_vm.setTransientStorage(test_helpers.TestAddresses.CONTRACT, 0xAAA, 0xBBBBBB);
+    const ts_key = test_helpers.Vm.StorageKey{ .address = test_helpers.TestAddresses.CONTRACT, .slot = 0xAAA };
+    try test_vm.vm.transient_storage.put(ts_key, 0xBBBBBB);
     
     // Push storage slot
     try test_frame.pushStack(&[_]u256{0xAAA});
     
     // Execute TLOAD
-    _ = try test_helpers.executeOpcode(0x5C, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0x5C, test_vm.vm, test_frame.frame);
     
     // Should return the transient value
     try testing.expectEqual(@as(u256, 0xBBBBBB), try test_frame.popStack());
@@ -279,7 +283,7 @@ test "TLOAD: load from uninitialized slot returns zero" {
     const allocator = testing.allocator;
     
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -297,7 +301,7 @@ test "TLOAD: load from uninitialized slot returns zero" {
     try test_frame.pushStack(&[_]u256{0xFFF});
     
     // Execute TLOAD
-    _ = try test_helpers.executeOpcode(0x5C, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0x5C, test_vm.vm, test_frame.frame);
     
     // Should return 0
     try testing.expectEqual(@as(u256, 0), try test_frame.popStack());
@@ -307,7 +311,7 @@ test "TLOAD: transient storage is separate from regular storage" {
     const allocator = testing.allocator;
     
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -322,19 +326,20 @@ test "TLOAD: transient storage is separate from regular storage" {
     defer test_frame.deinit();
     
     // Set same slot in both storages with different values
-    try test_vm.setStorage(test_helpers.TestAddresses.CONTRACT, 0x100, 0x111);
-    try test_vm.setTransientStorage(test_helpers.TestAddresses.CONTRACT, 0x100, 0x222);
+    const storage_key = test_helpers.Vm.StorageKey{ .address = test_helpers.TestAddresses.CONTRACT, .slot = 0x100 };
+    try test_vm.vm.storage.put(storage_key, 0x111);
+    try test_vm.vm.transient_storage.put(storage_key, 0x222);
     
     // Load from transient storage
     try test_frame.pushStack(&[_]u256{0x100});
-    _ = try test_helpers.executeOpcode(0x5C, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0x5C, test_vm.vm, test_frame.frame);
     
     // Should return transient value, not regular storage value
     try testing.expectEqual(@as(u256, 0x222), try test_frame.popStack());
     
     // Load from regular storage
     try test_frame.pushStack(&[_]u256{0x100});
-    _ = try test_helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0x54, test_vm.vm, test_frame.frame);
     
     // Should return regular storage value
     try testing.expectEqual(@as(u256, 0x111), try test_frame.popStack());
@@ -345,7 +350,7 @@ test "TSTORE: store value to transient storage" {
     const allocator = testing.allocator;
     
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -364,10 +369,11 @@ test "TSTORE: store value to transient storage" {
     try test_frame.pushStack(&[_]u256{0x777});      // slot
     
     // Execute TSTORE
-    _ = try test_helpers.executeOpcode(0x5D, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0x5D, test_vm.vm, test_frame.frame);
     
     // Check that value was stored
-    const stored_value = try test_vm.getTransientStorage(test_helpers.TestAddresses.CONTRACT, 0x777);
+    const ts_key = test_helpers.Vm.StorageKey{ .address = test_helpers.TestAddresses.CONTRACT, .slot = 0x777 };
+    const stored_value = test_vm.vm.transient_storage.get(ts_key) orelse 0;
     try testing.expectEqual(@as(u256, 0xDEADBEEF), stored_value);
 }
 
@@ -375,7 +381,7 @@ test "TSTORE: overwrite existing transient value" {
     const allocator = testing.allocator;
     
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -390,17 +396,18 @@ test "TSTORE: overwrite existing transient value" {
     defer test_frame.deinit();
     
     // Set initial transient value
-    try test_vm.setTransientStorage(test_helpers.TestAddresses.CONTRACT, 0x200, 0x333);
+    const ts_key = test_helpers.Vm.StorageKey{ .address = test_helpers.TestAddresses.CONTRACT, .slot = 0x200 };
+    try test_vm.vm.transient_storage.put(ts_key, 0x333);
     
     // Push new value and slot
     try test_frame.pushStack(&[_]u256{0x444}); // new value
     try test_frame.pushStack(&[_]u256{0x200}); // slot
     
     // Execute TSTORE
-    _ = try test_helpers.executeOpcode(0x5D, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0x5D, test_vm.vm, test_frame.frame);
     
     // Check that value was updated
-    const stored_value = try test_vm.getTransientStorage(test_helpers.TestAddresses.CONTRACT, 0x200);
+    const stored_value = test_vm.vm.transient_storage.get(ts_key) orelse 0;
     try testing.expectEqual(@as(u256, 0x444), stored_value);
 }
 
@@ -408,7 +415,7 @@ test "TSTORE: write protection in static call" {
     const allocator = testing.allocator;
     
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -430,7 +437,7 @@ test "TSTORE: write protection in static call" {
     try test_frame.pushStack(&[_]u256{0x456}); // slot
     
     // Execute TSTORE - should fail
-    const result = test_helpers.executeOpcode(0x5D, &test_vm.vm, test_frame.frame);
+    const result = test_helpers.executeOpcode(0x5D, test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.WriteProtection, result);
 }
 
@@ -438,7 +445,7 @@ test "TSTORE: does not affect regular storage" {
     const allocator = testing.allocator;
     
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -453,21 +460,22 @@ test "TSTORE: does not affect regular storage" {
     defer test_frame.deinit();
     
     // Set regular storage value
-    try test_vm.setStorage(test_helpers.TestAddresses.CONTRACT, 0x300, 0x555);
+    const storage_key = test_helpers.Vm.StorageKey{ .address = test_helpers.TestAddresses.CONTRACT, .slot = 0x300 };
+    try test_vm.vm.storage.put(storage_key, 0x555);
     
     // Store to transient storage at same slot
     try test_frame.pushStack(&[_]u256{0x666}); // value
     try test_frame.pushStack(&[_]u256{0x300}); // slot
     
     // Execute TSTORE
-    _ = try test_helpers.executeOpcode(0x5D, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0x5D, test_vm.vm, test_frame.frame);
     
     // Regular storage should be unchanged
-    const regular_value = try test_vm.getStorage(test_helpers.TestAddresses.CONTRACT, 0x300);
+    const regular_value = test_vm.vm.storage.get(storage_key) orelse 0;
     try testing.expectEqual(@as(u256, 0x555), regular_value);
     
     // Transient storage should have new value
-    const transient_value = try test_vm.getTransientStorage(test_helpers.TestAddresses.CONTRACT, 0x300);
+    const transient_value = test_vm.vm.transient_storage.get(storage_key) orelse 0;
     try testing.expectEqual(@as(u256, 0x666), transient_value);
 }
 
@@ -476,7 +484,7 @@ test "SLOAD: stack underflow" {
     const allocator = testing.allocator;
     
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -493,7 +501,7 @@ test "SLOAD: stack underflow" {
     // Empty stack
     
     // Execute SLOAD - should fail
-    const result = test_helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame);
+    const result = test_helpers.executeOpcode(0x54, test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.StackUnderflow, result);
 }
 
@@ -501,7 +509,7 @@ test "SSTORE: stack underflow" {
     const allocator = testing.allocator;
     
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -519,7 +527,7 @@ test "SSTORE: stack underflow" {
     try test_frame.pushStack(&[_]u256{0x123});
     
     // Execute SSTORE - should fail
-    const result = test_helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
+    const result = test_helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.StackUnderflow, result);
 }
 
@@ -527,7 +535,7 @@ test "TLOAD: stack underflow" {
     const allocator = testing.allocator;
     
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -544,7 +552,7 @@ test "TLOAD: stack underflow" {
     // Empty stack
     
     // Execute TLOAD - should fail
-    const result = test_helpers.executeOpcode(0x5C, &test_vm.vm, test_frame.frame);
+    const result = test_helpers.executeOpcode(0x5C, test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.StackUnderflow, result);
 }
 
@@ -552,7 +560,7 @@ test "TSTORE: stack underflow" {
     const allocator = testing.allocator;
     
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -570,7 +578,7 @@ test "TSTORE: stack underflow" {
     try test_frame.pushStack(&[_]u256{0x789});
     
     // Execute TSTORE - should fail
-    const result = test_helpers.executeOpcode(0x5D, &test_vm.vm, test_frame.frame);
+    const result = test_helpers.executeOpcode(0x5D, test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.StackUnderflow, result);
 }
 
@@ -579,7 +587,7 @@ test "TLOAD: gas consumption" {
     const allocator = testing.allocator;
     
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -599,7 +607,7 @@ test "TLOAD: gas consumption" {
     const gas_before = test_frame.frame.gas_remaining;
     
     // Execute TLOAD
-    _ = try test_helpers.executeOpcode(0x5C, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0x5C, test_vm.vm, test_frame.frame);
     
     // TLOAD base cost is 100 gas (no cold/warm distinction for transient storage)
     try testing.expectEqual(@as(u64, 100), gas_before - test_frame.frame.gas_remaining);
@@ -609,7 +617,7 @@ test "TSTORE: gas consumption" {
     const allocator = testing.allocator;
     
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -630,7 +638,7 @@ test "TSTORE: gas consumption" {
     const gas_before = test_frame.frame.gas_remaining;
     
     // Execute TSTORE
-    _ = try test_helpers.executeOpcode(0x5D, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0x5D, test_vm.vm, test_frame.frame);
     
     // TSTORE base cost is 100 gas (no cold/warm distinction for transient storage)
     try testing.expectEqual(@as(u64, 100), gas_before - test_frame.frame.gas_remaining);

@@ -9,7 +9,7 @@ const helpers = @import("test_helpers.zig");
 test "SWAP1 (0x90): Swap top two stack items" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     const code = [_]u8{
         0x60, 0x01,    // PUSH1 0x01
@@ -31,11 +31,11 @@ test "SWAP1 (0x90): Swap top two stack items" {
     
     // Execute PUSH1 0x01
     test_frame.frame.pc = 0;
-    _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame);
     test_frame.frame.pc = 2;
     
     // Execute PUSH1 0x02
-    _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame);
     test_frame.frame.pc = 4;
     
     // Stack should be [0x01, 0x02] (top is 0x02)
@@ -44,7 +44,7 @@ test "SWAP1 (0x90): Swap top two stack items" {
     try helpers.expectStackValue(test_frame.frame, 1, 0x01);
     
     // Execute SWAP1
-    const result = try helpers.executeOpcode(0x90, &test_vm.vm, test_frame.frame);
+    const result = try helpers.executeOpcode(0x90, test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 1), result.bytes_consumed);
     
     // Stack should now be [0x02, 0x01] (swapped)
@@ -56,7 +56,7 @@ test "SWAP1 (0x90): Swap top two stack items" {
 test "SWAP2 (0x91): Swap 1st and 3rd stack items" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     const code = [_]u8{0x91}; // SWAP2
     
@@ -78,7 +78,7 @@ test "SWAP2 (0x91): Swap 1st and 3rd stack items" {
     try test_frame.pushStack(&[_]u256{0x33}); // Top
     
     // Execute SWAP2
-    const result = try helpers.executeOpcode(0x91, &test_vm.vm, test_frame.frame);
+    const result = try helpers.executeOpcode(0x91, test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 1), result.bytes_consumed);
     
     // Stack should now be [0x33, 0x22, 0x11] -> [0x11, 0x22, 0x33]
@@ -91,7 +91,7 @@ test "SWAP2 (0x91): Swap 1st and 3rd stack items" {
 test "SWAP3-SWAP5: Various swaps" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     const code = [_]u8{0x92, 0x93, 0x94}; // SWAP3, SWAP4, SWAP5
     
@@ -116,7 +116,7 @@ test "SWAP3-SWAP5: Various swaps" {
     test_frame.frame.pc = 0;
     std.debug.print("Before SWAP3:\n", .{});
     helpers.printStack(test_frame.frame);
-    var result = try helpers.executeOpcode(0x92, &test_vm.vm, test_frame.frame);
+    var result = try helpers.executeOpcode(0x92, test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 1), result.bytes_consumed);
     std.debug.print("After SWAP3:\n", .{});
     helpers.printStack(test_frame.frame);
@@ -129,7 +129,7 @@ test "SWAP3-SWAP5: Various swaps" {
     // Execute SWAP4 (swap new top with 5th)
     test_frame.frame.pc = 1;
     // Before SWAP4
-    result = try helpers.executeOpcode(0x93, &test_vm.vm, test_frame.frame);
+    result = try helpers.executeOpcode(0x93, test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 1), result.bytes_consumed);
     // After SWAP4
     // Stack was: [0x10, 0x20, 0x60, 0x40, 0x50, 0x30]
@@ -141,7 +141,7 @@ test "SWAP3-SWAP5: Various swaps" {
     // Execute SWAP5 (swap new top with 6th)
     test_frame.frame.pc = 2;
     // Before SWAP5
-    result = try helpers.executeOpcode(0x94, &test_vm.vm, test_frame.frame);
+    result = try helpers.executeOpcode(0x94, test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 1), result.bytes_consumed);
     // After SWAP5
     // Stack was: [0x10, 0x30, 0x60, 0x40, 0x50, 0x20]
@@ -154,7 +154,7 @@ test "SWAP3-SWAP5: Various swaps" {
 test "SWAP6-SWAP10: Mid-range swaps" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     const code = [_]u8{0x95, 0x96, 0x97, 0x98, 0x99}; // SWAP6-SWAP10
     
@@ -177,36 +177,36 @@ test "SWAP6-SWAP10: Mid-range swaps" {
     
     // Execute SWAP6
     test_frame.frame.pc = 0;
-    const result6 = try helpers.executeOpcode(0x95, &test_vm.vm, test_frame.frame);
+    const result6 = try helpers.executeOpcode(0x95, test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 1), result6.bytes_consumed);
     try helpers.expectStackValue(test_frame.frame, 0, 0x104); // Was at position 6
     try helpers.expectStackValue(test_frame.frame, 6, 0x10A); // Was at top
     
     // Execute SWAP7
     test_frame.frame.pc = 1;
-    _ = try helpers.executeOpcode(0x96, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x96, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x103); // Was at position 7
     
     // Execute SWAP8
     test_frame.frame.pc = 2;
-    _ = try helpers.executeOpcode(0x97, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x97, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x102); // Was at position 8
     
     // Execute SWAP9
     test_frame.frame.pc = 3;
-    _ = try helpers.executeOpcode(0x98, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x98, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x101); // Was at position 9
     
     // Execute SWAP10
     test_frame.frame.pc = 4;
-    _ = try helpers.executeOpcode(0x99, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x99, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x100); // Was at position 10 (bottom)
 }
 
 test "SWAP11-SWAP16: High-range swaps" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     const code = [_]u8{0x9A, 0x9B, 0x9C, 0x9D, 0x9E, 0x9F}; // SWAP11-SWAP16
     
@@ -229,33 +229,33 @@ test "SWAP11-SWAP16: High-range swaps" {
     
     // Execute SWAP11
     test_frame.frame.pc = 0;
-    _ = try helpers.executeOpcode(0x9A, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x9A, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x205); // Was at position 11
     try helpers.expectStackValue(test_frame.frame, 11, 0x210); // Was at top
     
     // Execute SWAP12
     test_frame.frame.pc = 1;
-    _ = try helpers.executeOpcode(0x9B, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x9B, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x204); // Was at position 12
     
     // Execute SWAP13
     test_frame.frame.pc = 2;
-    _ = try helpers.executeOpcode(0x9C, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x9C, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x203); // Was at position 13
     
     // Execute SWAP14
     test_frame.frame.pc = 3;
-    _ = try helpers.executeOpcode(0x9D, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x9D, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x202); // Was at position 14
     
     // Execute SWAP15
     test_frame.frame.pc = 4;
-    _ = try helpers.executeOpcode(0x9E, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x9E, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x201); // Was at position 15
     
     // Execute SWAP16
     test_frame.frame.pc = 5;
-    _ = try helpers.executeOpcode(0x9F, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x9F, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x200); // Was at position 16 (bottom)
     try helpers.expectStackValue(test_frame.frame, 16, 0x201); // Previous top value
 }
@@ -263,7 +263,7 @@ test "SWAP11-SWAP16: High-range swaps" {
 test "SWAP16 (0x9F): Swap with 16th position (maximum)" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     const code = [_]u8{0x9F}; // SWAP16
     
@@ -288,7 +288,7 @@ test "SWAP16 (0x9F): Swap with 16th position (maximum)" {
     try helpers.expectStackValue(test_frame.frame, 0, 0xA10);
     try helpers.expectStackValue(test_frame.frame, 16, 0xA00);
     
-    const result = try helpers.executeOpcode(0x9F, &test_vm.vm, test_frame.frame);
+    const result = try helpers.executeOpcode(0x9F, test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 1), result.bytes_consumed);
     
     // After SWAP16: positions should be swapped
@@ -303,7 +303,7 @@ test "SWAP16 (0x9F): Swap with 16th position (maximum)" {
 test "SWAP1-SWAP16: Gas consumption" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     const code = [_]u8{
         0x90, 0x91, 0x92, 0x93, 0x94, 0x95, 0x96, 0x97,
@@ -333,7 +333,7 @@ test "SWAP1-SWAP16: Gas consumption" {
         const gas_before = test_frame.frame.gas_remaining;
         
         const opcode = @as(u8, @intCast(0x90 + i));
-        const result = try helpers.executeOpcode(opcode, &test_vm.vm, test_frame.frame);
+        const result = try helpers.executeOpcode(opcode, test_vm.vm, test_frame.frame);
         
         // All SWAP operations cost 3 gas (GasFastestStep)
         const gas_used = gas_before - test_frame.frame.gas_remaining;
@@ -351,7 +351,7 @@ test "SWAP1-SWAP16: Gas consumption" {
 test "SWAP operations: Stack underflow" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     const code = [_]u8{0x90, 0x91, 0x95, 0x9F}; // SWAP1, SWAP2, SWAP6, SWAP16
     
@@ -369,25 +369,25 @@ test "SWAP operations: Stack underflow" {
     
     // Empty stack - SWAP1 should fail (needs 2 items)
     test_frame.frame.pc = 0;
-    var result = helpers.executeOpcode(0x90, &test_vm.vm, test_frame.frame);
+    var result = helpers.executeOpcode(0x90, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
     
     // Push 1 value
     try test_frame.pushStack(&[_]u256{0x42});
     
     // SWAP1 still fails (needs 2 items)
-    result = helpers.executeOpcode(0x90, &test_vm.vm, test_frame.frame);
+    result = helpers.executeOpcode(0x90, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
     
     // Push another value
     try test_frame.pushStack(&[_]u256{0x43});
     
     // SWAP1 should succeed now (2 items)
-    _ = try helpers.executeOpcode(0x90, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x90, test_vm.vm, test_frame.frame);
     
     // SWAP2 should fail (needs 3 items, only have 2)
     test_frame.frame.pc = 1;
-    result = helpers.executeOpcode(0x91, &test_vm.vm, test_frame.frame);
+    result = helpers.executeOpcode(0x91, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
     
     // Push more values
@@ -397,18 +397,18 @@ test "SWAP operations: Stack underflow" {
     
     // SWAP6 should succeed (have 7 items, need 7)
     test_frame.frame.pc = 2;
-    _ = try helpers.executeOpcode(0x95, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x95, test_vm.vm, test_frame.frame);
     
     // SWAP16 should fail (have 7 items, need 17)
     test_frame.frame.pc = 3;
-    result = helpers.executeOpcode(0x9F, &test_vm.vm, test_frame.frame);
+    result = helpers.executeOpcode(0x9F, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
 }
 
 test "SWAP operations: Sequential swaps" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     const code = [_]u8{
         0x60, 0x01,    // PUSH1 0x01
@@ -435,7 +435,7 @@ test "SWAP operations: Sequential swaps" {
     // Execute PUSH operations
     for (0..4) |i| {
         test_frame.frame.pc = i * 2;
-        _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame);
     }
     
     // Stack: [0x01, 0x02, 0x03, 0x04]
@@ -443,21 +443,21 @@ test "SWAP operations: Sequential swaps" {
     
     // Execute first SWAP1
     test_frame.frame.pc = 8;
-    _ = try helpers.executeOpcode(0x90, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x90, test_vm.vm, test_frame.frame);
     // Stack: [0x01, 0x02, 0x04, 0x03]
     try helpers.expectStackValue(test_frame.frame, 0, 0x03);
     try helpers.expectStackValue(test_frame.frame, 1, 0x04);
     
     // Execute SWAP2
     test_frame.frame.pc = 9;
-    _ = try helpers.executeOpcode(0x91, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x91, test_vm.vm, test_frame.frame);
     // Stack: [0x01, 0x03, 0x04, 0x02]
     try helpers.expectStackValue(test_frame.frame, 0, 0x02);
     try helpers.expectStackValue(test_frame.frame, 2, 0x03);
     
     // Execute second SWAP1
     test_frame.frame.pc = 10;
-    _ = try helpers.executeOpcode(0x90, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x90, test_vm.vm, test_frame.frame);
     // Stack: [0x01, 0x03, 0x02, 0x04]
     try helpers.expectStackValue(test_frame.frame, 0, 0x04);
     try helpers.expectStackValue(test_frame.frame, 1, 0x02);
@@ -466,7 +466,7 @@ test "SWAP operations: Sequential swaps" {
 test "SWAP operations: Pattern verification" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     const code = [_]u8{0x90, 0x94, 0x98, 0x9C, 0x9F}; // SWAP1, SWAP5, SWAP9, SWAP13, SWAP16
     
@@ -493,31 +493,31 @@ test "SWAP operations: Pattern verification" {
     
     // SWAP1: swap top (0xFF10) with second (0xFF0F)
     test_frame.frame.pc = 0;
-    _ = try helpers.executeOpcode(0x90, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x90, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0xFF0F);
     try helpers.expectStackValue(test_frame.frame, 1, 0xFF10);
     
     // SWAP5: swap new top (0xFF0F) with 6th position (0xFF0B)
     test_frame.frame.pc = 1;
-    _ = try helpers.executeOpcode(0x94, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x94, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0xFF0B);
     try helpers.expectStackValue(test_frame.frame, 5, 0xFF0F);
     
     // SWAP9: swap new top (0xFF0B) with 10th position (0xFF07)
     test_frame.frame.pc = 2;
-    _ = try helpers.executeOpcode(0x98, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x98, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0xFF07);
     try helpers.expectStackValue(test_frame.frame, 9, 0xFF0B);
     
     // SWAP13: swap new top (0xFF07) with 14th position (0xFF03)
     test_frame.frame.pc = 3;
-    _ = try helpers.executeOpcode(0x9C, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x9C, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0xFF03);
     try helpers.expectStackValue(test_frame.frame, 13, 0xFF07);
     
     // SWAP16: swap new top (0xFF03) with 17th position (0xFF00)
     test_frame.frame.pc = 4;
-    _ = try helpers.executeOpcode(0x9F, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x9F, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0xFF00);
     try helpers.expectStackValue(test_frame.frame, 16, 0xFF03);
 }
@@ -525,7 +525,7 @@ test "SWAP operations: Pattern verification" {
 test "SWAP operations: Boundary test with exact stack size" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     const code = [_]u8{0x90, 0x9F}; // SWAP1, SWAP16
     
@@ -546,7 +546,7 @@ test "SWAP operations: Boundary test with exact stack size" {
     try test_frame.pushStack(&[_]u256{0xBB});
     
     test_frame.frame.pc = 0;
-    _ = try helpers.executeOpcode(0x90, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x90, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0xAA);
     try helpers.expectStackValue(test_frame.frame, 1, 0xBB);
     
@@ -559,7 +559,7 @@ test "SWAP operations: Boundary test with exact stack size" {
     }
     
     test_frame.frame.pc = 1;
-    _ = try helpers.executeOpcode(0x9F, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x9F, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 1); // Swapped with bottom
     try helpers.expectStackValue(test_frame.frame, 16, 17); // Was top
     
@@ -568,14 +568,14 @@ test "SWAP operations: Boundary test with exact stack size" {
     for (1..17) |i| {
         try test_frame.pushStack(&[_]u256{@as(u256, @intCast(i))});
     }
-    const result = helpers.executeOpcode(0x9F, &test_vm.vm, test_frame.frame);
+    const result = helpers.executeOpcode(0x9F, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
 }
 
 test "SWAP operations: No side effects" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     const code = [_]u8{0x92}; // SWAP3
     
@@ -602,7 +602,7 @@ test "SWAP operations: No side effects" {
     helpers.printStack(test_frame.frame);
     
     // Execute SWAP3
-    _ = try helpers.executeOpcode(0x92, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x92, test_vm.vm, test_frame.frame);
     
     std.debug.print("After SWAP3:\n", .{});
     helpers.printStack(test_frame.frame);

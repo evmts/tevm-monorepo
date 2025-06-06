@@ -8,7 +8,7 @@ const helpers = @import("test_helpers.zig");
 test "SHL: Comprehensive shift left edge cases" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -67,7 +67,7 @@ test "SHL: Comprehensive shift left edge cases" {
     for (test_cases) |tc| {
         test_frame.frame.stack.clear();
         try test_frame.pushStack(&[_]u256{ tc.value, tc.shift });
-        _ = try helpers.executeOpcode(0x1B, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x1B, test_vm.vm, test_frame.frame);
         try helpers.expectStackValue(test_frame.frame, 0, tc.expected);
         _ = try test_frame.popStack();
     }
@@ -79,7 +79,7 @@ test "SHL: Comprehensive shift left edge cases" {
 test "SHR: Comprehensive logical shift right edge cases" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -133,7 +133,7 @@ test "SHR: Comprehensive logical shift right edge cases" {
     for (test_cases) |tc| {
         test_frame.frame.stack.clear();
         try test_frame.pushStack(&[_]u256{ tc.value, tc.shift });
-        _ = try helpers.executeOpcode(0x1C, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x1C, test_vm.vm, test_frame.frame);
         try helpers.expectStackValue(test_frame.frame, 0, tc.expected);
         _ = try test_frame.popStack();
     }
@@ -145,7 +145,7 @@ test "SHR: Comprehensive logical shift right edge cases" {
 test "SAR: Comprehensive arithmetic shift right edge cases" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -197,7 +197,7 @@ test "SAR: Comprehensive arithmetic shift right edge cases" {
     for (test_cases) |tc| {
         test_frame.frame.stack.clear();
         try test_frame.pushStack(&[_]u256{ tc.value, tc.shift });
-        _ = try helpers.executeOpcode(0x1D, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x1D, test_vm.vm, test_frame.frame);
         try helpers.expectStackValue(test_frame.frame, 0, tc.expected);
         _ = try test_frame.popStack();
     }
@@ -209,7 +209,7 @@ test "SAR: Comprehensive arithmetic shift right edge cases" {
 test "KECCAK256: Comprehensive hash edge cases" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -268,7 +268,7 @@ test "KECCAK256: Comprehensive hash edge cases" {
         
         // Hash it (push size first, then offset, so offset is on top)
         try test_frame.pushStack(&[_]u256{ kh.data.len, kh.offset });
-        _ = try helpers.executeOpcode(0x20, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x20, test_vm.vm, test_frame.frame);
         try helpers.expectStackValue(test_frame.frame, 0, kh.expected_hash);
         _ = try test_frame.popStack();
     }
@@ -285,7 +285,7 @@ test "KECCAK256: Comprehensive hash edge cases" {
         }
         
         try test_frame.pushStack(&[_]u256{ length, 0 });
-        _ = try helpers.executeOpcode(0x20, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x20, test_vm.vm, test_frame.frame);
         
         // Verify we got a hash (non-zero)
         const hash = try test_frame.popStack();
@@ -301,7 +301,7 @@ test "KECCAK256: Comprehensive hash edge cases" {
         try test_frame.frame.memory.set_byte(0 + i, byte);
     }
     try test_frame.pushStack(&[_]u256{ test_data.len, 0 });
-    _ = try helpers.executeOpcode(0x20, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x20, test_vm.vm, test_frame.frame);
     const hash1 = try test_frame.popStack();
     
     // Write at offset 1000
@@ -309,7 +309,7 @@ test "KECCAK256: Comprehensive hash edge cases" {
         try test_frame.frame.memory.set_byte(1000 + i, byte);
     }
     try test_frame.pushStack(&[_]u256{ test_data.len, 1000 });
-    _ = try helpers.executeOpcode(0x20, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x20, test_vm.vm, test_frame.frame);
     const hash2 = try test_frame.popStack();
     
     try testing.expectEqual(hash1, hash2);
@@ -318,7 +318,7 @@ test "KECCAK256: Comprehensive hash edge cases" {
 test "KECCAK256: Gas consumption patterns" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -359,7 +359,7 @@ test "KECCAK256: Gas consumption patterns" {
         
         const gas_before = test_frame.frame.gas_remaining;
         try test_frame.pushStack(&[_]u256{ tc.size, tc.offset });
-        _ = try helpers.executeOpcode(0x20, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x20, test_vm.vm, test_frame.frame);
         const gas_after = test_frame.frame.gas_remaining;
         
         const gas_used = gas_before - gas_after;
@@ -372,7 +372,7 @@ test "KECCAK256: Gas consumption patterns" {
 test "KECCAK256: Memory expansion edge cases" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -391,7 +391,7 @@ test "KECCAK256: Memory expansion edge cases" {
     const size = 32;
     
     try test_frame.pushStack(&[_]u256{ size, large_offset });
-    _ = try helpers.executeOpcode(0x20, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x20, test_vm.vm, test_frame.frame);
     
     // Memory should have expanded
     try testing.expect(test_frame.frame.memory.size() >= large_offset + size);
@@ -405,7 +405,7 @@ test "KECCAK256: Memory expansion edge cases" {
     try test_frame.pushStack(&[_]u256{ overflow_size, overflow_offset });
     try testing.expectError(
         helpers.ExecutionError.Error.OutOfOffset,
-        helpers.executeOpcode(0x20, &test_vm.vm, test_frame.frame)
+        helpers.executeOpcode(0x20, test_vm.vm, test_frame.frame)
     );
 
     // Test 3: Size too large for available gas
@@ -416,7 +416,7 @@ test "KECCAK256: Memory expansion edge cases" {
     try test_frame.pushStack(&[_]u256{ huge_size, 0 });
     try testing.expectError(
         helpers.ExecutionError.Error.OutOfGas,
-        helpers.executeOpcode(0x20, &test_vm.vm, test_frame.frame)
+        helpers.executeOpcode(0x20, test_vm.vm, test_frame.frame)
     );
 }
 
@@ -426,7 +426,7 @@ test "KECCAK256: Memory expansion edge cases" {
 test "Shifts: Combined operations and properties" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -452,12 +452,12 @@ test "Shifts: Combined operations and properties" {
             if (@clz(val) >= shift) {
                 // Shift left
                 try test_frame.pushStack(&[_]u256{ val, shift });
-                _ = try helpers.executeOpcode(0x1B, &test_vm.vm, test_frame.frame);
+                _ = try helpers.executeOpcode(0x1B, test_vm.vm, test_frame.frame);
                 const shifted_left = try test_frame.popStack();
                 
                 // Shift right
                 try test_frame.pushStack(&[_]u256{ shifted_left, shift });
-                _ = try helpers.executeOpcode(0x1C, &test_vm.vm, test_frame.frame);
+                _ = try helpers.executeOpcode(0x1C, test_vm.vm, test_frame.frame);
                 const result = try test_frame.popStack();
                 
                 try testing.expectEqual(val, result);
@@ -473,7 +473,7 @@ test "Shifts: Combined operations and properties" {
     
     // SAR by 4
     try test_frame.pushStack(&[_]u256{ negative_val, 4 });
-    _ = try helpers.executeOpcode(0x1D, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x1D, test_vm.vm, test_frame.frame);
     const sar_result = try test_frame.popStack();
     
     // Check MSB is still 1 (negative)
@@ -487,7 +487,7 @@ test "Shifts: Combined operations and properties" {
     
     // Hash it to get a deterministic value
     try test_frame.pushStack(&[_]u256{ 1, 0 });
-    _ = try helpers.executeOpcode(0x20, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x20, test_vm.vm, test_frame.frame);
     const hash_of_8 = try test_frame.popStack();
     
     // Use lower bits as shift amount (should be non-zero)
@@ -496,7 +496,7 @@ test "Shifts: Combined operations and properties" {
     
     // Perform shift with this amount
     try test_frame.pushStack(&[_]u256{ 0xFF00, shift_from_hash });
-    _ = try helpers.executeOpcode(0x1C, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x1C, test_vm.vm, test_frame.frame);
     const shifted_by_hash = try test_frame.popStack();
     
     // Just verify we got a result, since the exact value depends on the hash
@@ -509,7 +509,7 @@ test "Shifts: Combined operations and properties" {
 test "Shift and Crypto: Stack underflow errors" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -530,14 +530,14 @@ test "Shift and Crypto: Stack underflow errors" {
         test_frame.frame.stack.clear();
         try testing.expectError(
             helpers.ExecutionError.Error.StackUnderflow,
-            helpers.executeOpcode(opcode, &test_vm.vm, test_frame.frame)
+            helpers.executeOpcode(opcode, test_vm.vm, test_frame.frame)
         );
         
         // With only one item
         try test_frame.pushStack(&[_]u256{42});
         try testing.expectError(
             helpers.ExecutionError.Error.StackUnderflow,
-            helpers.executeOpcode(opcode, &test_vm.vm, test_frame.frame)
+            helpers.executeOpcode(opcode, test_vm.vm, test_frame.frame)
         );
         test_frame.frame.stack.clear();
     }
@@ -545,13 +545,13 @@ test "Shift and Crypto: Stack underflow errors" {
     // Test KECCAK256 with insufficient stack
     try testing.expectError(
         helpers.ExecutionError.Error.StackUnderflow,
-        helpers.executeOpcode(0x20, &test_vm.vm, test_frame.frame)
+        helpers.executeOpcode(0x20, test_vm.vm, test_frame.frame)
     );
     
     try test_frame.pushStack(&[_]u256{100});
     try testing.expectError(
         helpers.ExecutionError.Error.StackUnderflow,
-        helpers.executeOpcode(0x20, &test_vm.vm, test_frame.frame)
+        helpers.executeOpcode(0x20, test_vm.vm, test_frame.frame)
     );
 }
 
@@ -561,7 +561,7 @@ test "Shift and Crypto: Stack underflow errors" {
 test "Performance: Rapid shift operations" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -585,19 +585,19 @@ test "Performance: Rapid shift operations" {
         // Shift left by i % 8
         const shift_amount = i % 8;
         try test_frame.pushStack(&[_]u256{ value, shift_amount });
-        _ = try helpers.executeOpcode(0x1B, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x1B, test_vm.vm, test_frame.frame);
         value = try test_frame.popStack();
         
         // Shift right by (i + 1) % 8
         const shift_right = (i + 1) % 8;
         try test_frame.pushStack(&[_]u256{ value, shift_right });
-        _ = try helpers.executeOpcode(0x1C, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x1C, test_vm.vm, test_frame.frame);
         value = try test_frame.popStack();
         
         // SAR by i % 4
         const sar_amount = i % 4;
         try test_frame.pushStack(&[_]u256{ value, sar_amount });
-        _ = try helpers.executeOpcode(0x1D, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x1D, test_vm.vm, test_frame.frame);
         value = try test_frame.popStack();
     }
     
@@ -608,7 +608,7 @@ test "Performance: Rapid shift operations" {
 test "KECCAK256: Hash collision resistance" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -639,7 +639,7 @@ test "KECCAK256: Hash collision resistance" {
         
         // Hash 4 bytes
         try test_frame.pushStack(&[_]u256{ 4, 0 });
-        _ = try helpers.executeOpcode(0x20, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x20, test_vm.vm, test_frame.frame);
         const hash = try test_frame.popStack();
         
         // Check for collisions

@@ -18,7 +18,7 @@ test "Integration: Conditional jump patterns" {
     const allocator = testing.allocator;
 
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     // Create bytecode with jump destinations
     var code = [_]u8{0} ** 100;
@@ -51,14 +51,14 @@ test "Integration: Conditional jump patterns" {
     test_frame.frame.pc = 0;
     // JUMPI expects stack: [condition, destination] with destination on top
     try test_frame.pushStack(&[_]u256{ 1, 10 }); // condition=1, destination=10
-    _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x57, test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 10), test_frame.frame.pc);
 
     // Test 2: Don't jump when condition is false
     test_frame.frame.pc = 0;
     // JUMPI expects stack: [condition, destination] with destination on top
     try test_frame.pushStack(&[_]u256{ 0, 20 }); // condition=0, destination=20
-    _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x57, test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 0), test_frame.frame.pc); // PC unchanged
 
     // Test 3: Complex condition evaluation
@@ -66,13 +66,13 @@ test "Integration: Conditional jump patterns" {
 
     // Calculate condition: 5 > 3
     try test_frame.pushStack(&[_]u256{ 5, 3 });
-    _ = try helpers.executeOpcode(0x11, &test_vm.vm, test_frame.frame); // GT Result: 1, Stack: [1]
+    _ = try helpers.executeOpcode(0x11, test_vm.vm, test_frame.frame); // GT Result: 1, Stack: [1]
 
     // Push destination (30) on top of condition
     try test_frame.pushStack(&[_]u256{30}); // Stack: [1, 30] with 30 on top
     // Now stack is [condition=1, destination=30] which is correct for JUMPI
 
-    _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x57, test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 30), test_frame.frame.pc);
 }
 
@@ -81,7 +81,7 @@ test "Integration: Loop implementation with JUMP" {
     const allocator = testing.allocator;
 
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     // Create bytecode for loop
     var code = [_]u8{0} ** 100;
@@ -116,14 +116,14 @@ test "Integration: Loop implementation with JUMP" {
     while (iterations < 5) : (iterations += 1) {
         // Decrement counter
         try test_frame.pushStack(&[_]u256{1});
-        _ = try helpers.executeOpcode(0x03, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x03, test_vm.vm, test_frame.frame);
 
         // Duplicate for comparison
-        _ = try helpers.executeOpcode(0x80, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x80, test_vm.vm, test_frame.frame);
 
         // Check if counter > 0
         try test_frame.pushStack(&[_]u256{0});
-        _ = try helpers.executeOpcode(0x11, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x11, test_vm.vm, test_frame.frame);
 
         // If counter > 0, we would jump back to loop start
         const condition = try test_frame.popStack();
@@ -139,7 +139,7 @@ test "Integration: Return data handling" {
     const allocator = testing.allocator;
 
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -156,13 +156,13 @@ test "Integration: Return data handling" {
     // Store data in memory
     const return_value: u256 = 0x42424242;
     try test_frame.pushStack(&[_]u256{ return_value, 0 }); // value, offset - corrected order for MSTORE
-    _ = try helpers.executeOpcode(0x52, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
 
     // Return 32 bytes from offset 0
     try test_frame.pushStack(&[_]u256{ 0, 32 }); // offset, size - correct order for RETURN
 
     // RETURN will throw an error (ExecutionError.STOP) which is expected
-    const result = helpers.executeOpcode(0xF3, &test_vm.vm, test_frame.frame);
+    const result = helpers.executeOpcode(0xF3, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.STOP, result);
 
     // The return data would be available in frame.return_data_buffer
@@ -174,7 +174,7 @@ test "Integration: Revert with reason" {
     const allocator = testing.allocator;
 
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -196,7 +196,7 @@ test "Integration: Revert with reason" {
     try test_frame.pushStack(&[_]u256{ 0, error_msg.len }); // offset, size - correct order for REVERT
 
     // REVERT will throw an error (ExecutionError.REVERT) which is expected
-    const result = helpers.executeOpcode(0xFD, &test_vm.vm, test_frame.frame);
+    const result = helpers.executeOpcode(0xFD, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.REVERT, result);
 
     // The revert data would be available in frame.return_data_buffer
@@ -209,7 +209,7 @@ test "Integration: PC tracking through operations" {
     const allocator = testing.allocator;
 
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -227,12 +227,12 @@ test "Integration: PC tracking through operations" {
     test_frame.frame.pc = 42;
 
     // Get current PC
-    _ = try helpers.executeOpcode(0x58, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x58, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 42);
 
     // Change PC and get again
     test_frame.frame.pc = 100;
-    _ = try helpers.executeOpcode(0x58, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x58, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 100);
 }
 
@@ -241,7 +241,7 @@ test "Integration: Invalid opcode handling" {
     const allocator = testing.allocator;
 
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -257,7 +257,7 @@ test "Integration: Invalid opcode handling" {
 
     // Execute INVALID opcode
     std.debug.print("\nInvalid opcode test: Gas before execution: {}\n", .{test_frame.frame.gas_remaining});
-    const result = helpers.executeOpcode(0xFE, &test_vm.vm, test_frame.frame);
+    const result = helpers.executeOpcode(0xFE, test_vm.vm, test_frame.frame);
     std.debug.print("Invalid opcode test: Gas after execution: {}\n", .{test_frame.frame.gas_remaining});
     try testing.expectError(helpers.ExecutionError.Error.InvalidOpcode, result);
 
@@ -270,7 +270,7 @@ test "Integration: Nested conditions with jumps" {
     const allocator = testing.allocator;
 
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     // Create bytecode with multiple jump destinations
     var code = [_]u8{0} ** 100;
@@ -306,13 +306,13 @@ test "Integration: Nested conditions with jumps" {
 
     // First condition: a > b (should be true)
     try test_frame.pushStack(&[_]u256{ a, b });
-    _ = try helpers.executeOpcode(0x11, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x11, test_vm.vm, test_frame.frame);
 
     // If first condition is false, jump to end
-    _ = try helpers.executeOpcode(0x80, &test_vm.vm, test_frame.frame);
-    _ = try helpers.executeOpcode(0x15, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x80, test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x15, test_vm.vm, test_frame.frame);
     try test_frame.pushStack(&[_]u256{60}); // Jump to end if false
-    _ = try helpers.executeOpcode(0x90, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x90, test_vm.vm, test_frame.frame);
 
     // This would be a JUMPI in real execution
     const should_skip_first = try test_frame.popStack();
@@ -321,10 +321,10 @@ test "Integration: Nested conditions with jumps" {
 
     // Second condition: c < d (should be true)
     try test_frame.pushStack(&[_]u256{ c, d });
-    _ = try helpers.executeOpcode(0x10, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x10, test_vm.vm, test_frame.frame);
 
     // AND the conditions
-    _ = try helpers.executeOpcode(0x02, &test_vm.vm, test_frame.frame); // Using MUL as AND for 0/1 values
+    _ = try helpers.executeOpcode(0x02, test_vm.vm, test_frame.frame); // Using MUL as AND for 0/1 values
 
     try helpers.expectStackValue(test_frame.frame, 0, 1); // Both conditions true
 }
@@ -334,15 +334,15 @@ test "Integration: Self-destruct with beneficiary" {
     const allocator = testing.allocator;
 
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     // Set up contract with balance
     const contract_balance: u256 = 1000;
-    try test_vm.setAccount(helpers.TestAddresses.CONTRACT, contract_balance, &[_]u8{});
+    try test_vm.vm.balances.put(helpers.TestAddresses.CONTRACT, contract_balance);
 
     // Set up beneficiary
     const beneficiary_initial: u256 = 500;
-    try test_vm.setAccount(helpers.TestAddresses.BOB, beneficiary_initial, &[_]u8{});
+    try test_vm.vm.balances.put(helpers.TestAddresses.BOB, beneficiary_initial);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -365,6 +365,6 @@ test "Integration: Self-destruct with beneficiary" {
 
     // Note: Actual selfdestruct implementation would transfer balance and mark for deletion
     // For this test, we're just verifying the opcode executes
-    const result = helpers.executeOpcode(0xFF, &test_vm.vm, test_frame.frame);
+    const result = helpers.executeOpcode(0xFF, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.STOP, result);
 }

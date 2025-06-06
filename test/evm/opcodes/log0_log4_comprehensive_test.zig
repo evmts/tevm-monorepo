@@ -9,7 +9,7 @@ const helpers = @import("test_helpers.zig");
 test "LOG0 (0xA0): Emit log with no topics" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     const code = [_]u8{
         0x60, 0x20,    // PUSH1 0x20 (size = 32 bytes)
@@ -36,13 +36,13 @@ test "LOG0 (0xA0): Emit log with no topics" {
     
     // Execute the push operations
     test_frame.frame.pc = 0;
-    _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame);
     test_frame.frame.pc = 2;
-    _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame);
     test_frame.frame.pc = 4;
     
     // Execute LOG0
-    const result = try helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
+    const result = try helpers.executeOpcode(0xA0, test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 1), result.bytes_consumed);
     
     // Check that log was emitted
@@ -56,7 +56,7 @@ test "LOG0 (0xA0): Emit log with no topics" {
 test "LOG1 (0xA1): Emit log with one topic" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     const code = [_]u8{
         0x7F,          // PUSH32 topic (ERC20 Transfer event signature)
@@ -87,15 +87,15 @@ test "LOG1 (0xA1): Emit log with one topic" {
     
     // Execute push operations
     test_frame.frame.pc = 0;
-    _ = try helpers.executeOpcode(0x7F, &test_vm.vm, test_frame.frame);  // PUSH32 topic
+    _ = try helpers.executeOpcode(0x7F, test_vm.vm, test_frame.frame);  // PUSH32 topic
     test_frame.frame.pc = 33;
-    _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);  // PUSH1 size
+    _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame);  // PUSH1 size
     test_frame.frame.pc = 35;
-    _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);  // PUSH1 offset
+    _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame);  // PUSH1 offset
     test_frame.frame.pc = 37;
     
     // Execute LOG1
-    const result = try helpers.executeOpcode(0xA1, &test_vm.vm, test_frame.frame);
+    const result = try helpers.executeOpcode(0xA1, test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 1), result.bytes_consumed);
     
     // Check log
@@ -109,7 +109,7 @@ test "LOG1 (0xA1): Emit log with one topic" {
 test "LOG2-LOG4: Multiple topics" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     const code = [_]u8{
         // Setup for LOG2
@@ -160,10 +160,10 @@ test "LOG2-LOG4: Multiple topics" {
     // Execute LOG2
     test_frame.frame.pc = 0;
     for (0..4) |_| {
-        _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame);
         test_frame.frame.pc += 2;
     }
-    _ = try helpers.executeOpcode(0xA2, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0xA2, test_vm.vm, test_frame.frame);
     
     // Clear stack before LOG3
     test_frame.frame.stack.clear();
@@ -171,10 +171,10 @@ test "LOG2-LOG4: Multiple topics" {
     // Execute LOG3 - PC should be at 9 (4 PUSH1s * 2 bytes + LOG2)
     test_frame.frame.pc = 9;
     for (0..5) |_| {
-        _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame);
         test_frame.frame.pc += 2;
     }
-    _ = try helpers.executeOpcode(0xA3, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0xA3, test_vm.vm, test_frame.frame);
     
     // Clear stack before LOG4
     test_frame.frame.stack.clear();
@@ -182,10 +182,10 @@ test "LOG2-LOG4: Multiple topics" {
     // Execute LOG4 - PC should be at 20 (9 + 5 PUSH1s * 2 bytes + LOG3)
     test_frame.frame.pc = 20;
     for (0..6) |_| {
-        _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame);
         test_frame.frame.pc += 2;
     }
-    _ = try helpers.executeOpcode(0xA4, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0xA4, test_vm.vm, test_frame.frame);
     
     // Verify all logs
     try testing.expectEqual(@as(usize, 3), test_vm.vm.logs.items.len);
@@ -222,7 +222,7 @@ test "LOG2-LOG4: Multiple topics" {
 test "LOG0-LOG4: Gas consumption" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     const code = [_]u8{0xA0, 0xA1, 0xA2, 0xA3, 0xA4}; // LOG0-LOG4
     
@@ -244,7 +244,7 @@ test "LOG0-LOG4: Gas consumption" {
     
     test_frame.frame.pc = 0;
     const gas_before_log0 = test_frame.frame.gas_remaining;
-    _ = try helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0xA0, test_vm.vm, test_frame.frame);
     const gas_used_log0 = gas_before_log0 - test_frame.frame.gas_remaining;
     
     // LOG0 gas = 375 (base) + 8*32 (data) + memory expansion
@@ -258,7 +258,7 @@ test "LOG0-LOG4: Gas consumption" {
     
     test_frame.frame.pc = 1;
     const gas_before_log1 = test_frame.frame.gas_remaining;
-    _ = try helpers.executeOpcode(0xA1, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0xA1, test_vm.vm, test_frame.frame);
     const gas_used_log1 = gas_before_log1 - test_frame.frame.gas_remaining;
     
     // LOG1 gas = 375 (base) + 375 (1 topic) + 8*16 (data) + 0 (no new memory)
@@ -274,7 +274,7 @@ test "LOG0-LOG4: Gas consumption" {
     
     test_frame.frame.pc = 4;
     const gas_before_log4 = test_frame.frame.gas_remaining;
-    _ = try helpers.executeOpcode(0xA4, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0xA4, test_vm.vm, test_frame.frame);
     const gas_used_log4 = gas_before_log4 - test_frame.frame.gas_remaining;
     
     // LOG4 gas = 375 (base) + 375*4 (4 topics) + 0 (no data) + 0 (no memory)
@@ -288,7 +288,7 @@ test "LOG0-LOG4: Gas consumption" {
 test "LOG operations: Static call protection" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     const code = [_]u8{
         0x60, 0x00,    // PUSH1 0x00 (offset)
@@ -317,7 +317,7 @@ test "LOG operations: Static call protection" {
     
     // LOG0 should fail with WriteProtection error
     test_frame.frame.pc = 4;
-    const result = helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
+    const result = helpers.executeOpcode(0xA0, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.WriteProtection, result);
     
     // Test all LOG opcodes in static mode
@@ -336,7 +336,7 @@ test "LOG operations: Static call protection" {
             try test_frame.pushStack(&[_]u256{0});
         }
         
-        const res = helpers.executeOpcode(opcode, &test_vm.vm, test_frame.frame);
+        const res = helpers.executeOpcode(opcode, test_vm.vm, test_frame.frame);
         try testing.expectError(helpers.ExecutionError.Error.WriteProtection, res);
     }
 }
@@ -344,7 +344,7 @@ test "LOG operations: Static call protection" {
 test "LOG operations: Stack underflow" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     const code = [_]u8{0xA0, 0xA1, 0xA2, 0xA3, 0xA4}; // All LOG opcodes
     
@@ -362,11 +362,11 @@ test "LOG operations: Stack underflow" {
     
     // Test LOG0 with insufficient stack (needs 2)
     test_frame.frame.pc = 0;
-    var result = helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
+    var result = helpers.executeOpcode(0xA0, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
     
     try test_frame.pushStack(&[_]u256{0});
-    result = helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
+    result = helpers.executeOpcode(0xA0, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
     
     // Test LOG4 with insufficient stack (needs 6)
@@ -375,14 +375,14 @@ test "LOG operations: Stack underflow" {
         try test_frame.pushStack(&[_]u256{0});
     }
     test_frame.frame.pc = 4;
-    result = helpers.executeOpcode(0xA4, &test_vm.vm, test_frame.frame);
+    result = helpers.executeOpcode(0xA4, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
 }
 
 test "LOG operations: Empty data" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     const code = [_]u8{
         0x60, 0x42,    // PUSH1 0x42 (topic)
@@ -406,12 +406,12 @@ test "LOG operations: Empty data" {
     // Execute push operations
     for (0..3) |i| {
         test_frame.frame.pc = i * 2;
-        _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame);
     }
     
     // Execute LOG1 with empty data
     test_frame.frame.pc = 6;
-    const result = try helpers.executeOpcode(0xA1, &test_vm.vm, test_frame.frame);
+    const result = try helpers.executeOpcode(0xA1, test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 1), result.bytes_consumed);
     
     // Check log has empty data
@@ -424,7 +424,7 @@ test "LOG operations: Empty data" {
 test "LOG operations: Large memory offset" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     const code = [_]u8{0xA0}; // LOG0
     
@@ -445,7 +445,7 @@ test "LOG operations: Large memory offset" {
     try test_frame.pushStack(&[_]u256{0x1000}); // offset = 4096
     
     const gas_before = test_frame.frame.gas_remaining;
-    _ = try helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0xA0, test_vm.vm, test_frame.frame);
     const gas_used = gas_before - test_frame.frame.gas_remaining;
     
     // Should include memory expansion cost
@@ -461,7 +461,7 @@ test "LOG operations: Large memory offset" {
 test "LOG operations: ERC20 Transfer event pattern" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     const code = [_]u8{
         // ERC20 Transfer(from, to, amount) - LOG3
@@ -502,19 +502,19 @@ test "LOG operations: ERC20 Transfer event pattern" {
     
     // Execute all push operations in new order
     test_frame.frame.pc = 0;
-    _ = try helpers.executeOpcode(0x73, &test_vm.vm, test_frame.frame); // to address
+    _ = try helpers.executeOpcode(0x73, test_vm.vm, test_frame.frame); // to address
     test_frame.frame.pc = 21;
-    _ = try helpers.executeOpcode(0x73, &test_vm.vm, test_frame.frame); // from address
+    _ = try helpers.executeOpcode(0x73, test_vm.vm, test_frame.frame); // from address
     test_frame.frame.pc = 42;
-    _ = try helpers.executeOpcode(0x7F, &test_vm.vm, test_frame.frame); // signature
+    _ = try helpers.executeOpcode(0x7F, test_vm.vm, test_frame.frame); // signature
     test_frame.frame.pc = 75;
-    _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame); // size
+    _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame); // size
     test_frame.frame.pc = 77;
-    _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame); // offset
+    _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame); // offset
     test_frame.frame.pc = 79;
     
     // Execute LOG3
-    _ = try helpers.executeOpcode(0xA3, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0xA3, test_vm.vm, test_frame.frame);
     
     // Verify Transfer event
     try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
@@ -533,7 +533,7 @@ test "LOG operations: ERC20 Transfer event pattern" {
 test "LOG operations: Multiple logs in sequence" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     const code = [_]u8{
         // First LOG0
@@ -573,26 +573,26 @@ test "LOG operations: Multiple logs in sequence" {
     // Execute first LOG0
     for (0..2) |i| {
         test_frame.frame.pc = i * 2;
-        _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame);
     }
     test_frame.frame.pc = 4;
-    _ = try helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0xA0, test_vm.vm, test_frame.frame);
     
     // Execute LOG1
     for (0..3) |i| {
         test_frame.frame.pc = 5 + i * 2;
-        _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame);
     }
     test_frame.frame.pc = 11;
-    _ = try helpers.executeOpcode(0xA1, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0xA1, test_vm.vm, test_frame.frame);
     
     // Execute second LOG0
     for (0..2) |i| {
         test_frame.frame.pc = 12 + i * 2;
-        _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame);
     }
     test_frame.frame.pc = 16;
-    _ = try helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0xA0, test_vm.vm, test_frame.frame);
     
     // Verify all logs
     try testing.expectEqual(@as(usize, 3), test_vm.vm.logs.items.len);
