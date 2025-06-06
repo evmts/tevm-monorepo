@@ -25,17 +25,17 @@ fn createTestVm(allocator: std.mem.Allocator) !*Vm {
     vm.* = try Vm.init(allocator);
 
     // Set up basic context
-    vm.chain_id = 1;
-    vm.gas_price = 1000000000; // 1 gwei
-    vm.tx_origin = Address.fromString("0x1234567890123456789012345678901234567890");
+    vm.context.chain_id = 1;
+    vm.context.gas_price = 1000000000; // 1 gwei
+    vm.context.tx_origin = Address.fromString("0x1234567890123456789012345678901234567890");
 
     // Set up block context
-    vm.block_number = 10000;
-    vm.block_timestamp = 1234567890;
-    vm.block_difficulty = 1000000;
-    vm.block_coinbase = Address.fromString("0x0000000000000000000000000000000000000000");
-    vm.block_gas_limit = 30000000;
-    vm.block_base_fee = 100000000; // 0.1 gwei
+    vm.context.block_number = 10000;
+    vm.context.block_timestamp = 1234567890;
+    vm.context.block_difficulty = 1000000;
+    vm.context.block_coinbase = Address.fromString("0x0000000000000000000000000000000000000000");
+    vm.context.block_gas_limit = 30000000;
+    vm.context.block_base_fee = 100000000; // 0.1 gwei
 
     return vm;
 }

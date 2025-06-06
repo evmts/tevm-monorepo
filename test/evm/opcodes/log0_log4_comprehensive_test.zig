@@ -46,8 +46,8 @@ test "LOG0 (0xA0): Emit log with no topics" {
     try testing.expectEqual(@as(usize, 1), result.bytes_consumed);
     
     // Check that log was emitted
-    try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
-    const log = test_vm.vm.logs.items[0];
+    try testing.expectEqual(@as(usize, 1), test_vm.vm.state.logs.items.len);
+    const log = test_vm.vm.state.logs.items[0];
     try testing.expectEqualSlices(u8, &helpers.TestAddresses.CONTRACT, &log.address);
     try testing.expectEqual(@as(usize, 0), log.topics.len); // No topics for LOG0
     try testing.expectEqualSlices(u8, padded_data, log.data);
@@ -99,8 +99,8 @@ test "LOG1 (0xA1): Emit log with one topic" {
     try testing.expectEqual(@as(usize, 1), result.bytes_consumed);
     
     // Check log
-    try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
-    const log = test_vm.vm.logs.items[0];
+    try testing.expectEqual(@as(usize, 1), test_vm.vm.state.logs.items.len);
+    const log = test_vm.vm.state.logs.items[0];
     try testing.expectEqual(@as(usize, 1), log.topics.len);
     try testing.expectEqual(@as(u256, 0xDDF252AD1BE2C89B69C2B068FC378DAA952BA7F163C4A11628F55A4DF523B3EF), log.topics[0]);
     try testing.expectEqualSlices(u8, &test_data, log.data);
@@ -188,17 +188,17 @@ test "LOG2-LOG4: Multiple topics" {
     _ = try helpers.executeOpcode(0xA4, test_vm.vm, test_frame.frame);
     
     // Verify all logs
-    try testing.expectEqual(@as(usize, 3), test_vm.vm.logs.items.len);
+    try testing.expectEqual(@as(usize, 3), test_vm.vm.state.logs.items.len);
     
     // Check LOG2
-    const log2 = test_vm.vm.logs.items[0];
+    const log2 = test_vm.vm.state.logs.items[0];
     try testing.expectEqual(@as(usize, 2), log2.topics.len);
     try testing.expectEqual(@as(u256, 0xBB), log2.topics[0]); // topics[0] = 187 = 0xBB
     try testing.expectEqual(@as(u256, 0xAA), log2.topics[1]); // topics[1] = 170 = 0xAA
     try testing.expectEqualSlices(u8, &data1, log2.data);
     
     // Check LOG3
-    const log3 = test_vm.vm.logs.items[1];
+    const log3 = test_vm.vm.state.logs.items[1];
     try testing.expectEqual(@as(usize, 3), log3.topics.len);
     try testing.expectEqual(@as(u256, 0xEE), log3.topics[0]); // topics[0] = 238 = 0xEE
     try testing.expectEqual(@as(u256, 0xDD), log3.topics[1]); // topics[1] = 221 = 0xDD
@@ -206,7 +206,7 @@ test "LOG2-LOG4: Multiple topics" {
     try testing.expectEqualSlices(u8, &data2, log3.data);
     
     // Check LOG4
-    const log4 = test_vm.vm.logs.items[2];
+    const log4 = test_vm.vm.state.logs.items[2];
     try testing.expectEqual(@as(usize, 4), log4.topics.len);
     try testing.expectEqual(@as(u256, 0x44), log4.topics[0]); // topics[0] = 68 = 0x44
     try testing.expectEqual(@as(u256, 0x33), log4.topics[1]); // topics[1] = 51 = 0x33
@@ -415,8 +415,8 @@ test "LOG operations: Empty data" {
     try testing.expectEqual(@as(usize, 1), result.bytes_consumed);
     
     // Check log has empty data
-    try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
-    const log = test_vm.vm.logs.items[0];
+    try testing.expectEqual(@as(usize, 1), test_vm.vm.state.logs.items.len);
+    const log = test_vm.vm.state.logs.items[0];
     try testing.expectEqual(@as(usize, 0), log.data.len);
     try testing.expectEqual(@as(u256, 0x42), log.topics[0]);
 }
@@ -455,7 +455,7 @@ test "LOG operations: Large memory offset" {
     try testing.expect(gas_used > 1000); // Significant gas for memory expansion
     
     // Check log was created
-    try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
+    try testing.expectEqual(@as(usize, 1), test_vm.vm.state.logs.items.len);
 }
 
 test "LOG operations: ERC20 Transfer event pattern" {
@@ -517,8 +517,8 @@ test "LOG operations: ERC20 Transfer event pattern" {
     _ = try helpers.executeOpcode(0xA3, test_vm.vm, test_frame.frame);
     
     // Verify Transfer event
-    try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
-    const log = test_vm.vm.logs.items[0];
+    try testing.expectEqual(@as(usize, 1), test_vm.vm.state.logs.items.len);
+    const log = test_vm.vm.state.logs.items[0];
     
     // Check topics - LOG stores topics in reverse order after popping
     try testing.expectEqual(@as(usize, 3), log.topics.len);
@@ -595,18 +595,18 @@ test "LOG operations: Multiple logs in sequence" {
     _ = try helpers.executeOpcode(0xA0, test_vm.vm, test_frame.frame);
     
     // Verify all logs
-    try testing.expectEqual(@as(usize, 3), test_vm.vm.logs.items.len);
+    try testing.expectEqual(@as(usize, 3), test_vm.vm.state.logs.items.len);
     
     // First LOG0
-    try testing.expectEqual(@as(usize, 0), test_vm.vm.logs.items[0].topics.len);
-    try testing.expectEqualSlices(u8, &[_]u8{ 0xAA, 0xBB, 0xCC, 0xDD }, test_vm.vm.logs.items[0].data);
+    try testing.expectEqual(@as(usize, 0), test_vm.vm.state.logs.items[0].topics.len);
+    try testing.expectEqualSlices(u8, &[_]u8{ 0xAA, 0xBB, 0xCC, 0xDD }, test_vm.vm.state.logs.items[0].data);
     
     // LOG1
-    try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items[1].topics.len);
-    try testing.expectEqual(@as(u256, 0x99), test_vm.vm.logs.items[1].topics[0]);
-    try testing.expectEqualSlices(u8, &[_]u8{ 0x11, 0x22, 0x33, 0x44 }, test_vm.vm.logs.items[1].data);
+    try testing.expectEqual(@as(usize, 1), test_vm.vm.state.logs.items[1].topics.len);
+    try testing.expectEqual(@as(u256, 0x99), test_vm.vm.state.logs.items[1].topics[0]);
+    try testing.expectEqualSlices(u8, &[_]u8{ 0x11, 0x22, 0x33, 0x44 }, test_vm.vm.state.logs.items[1].data);
     
     // Second LOG0
-    try testing.expectEqual(@as(usize, 0), test_vm.vm.logs.items[2].topics.len);
-    try testing.expectEqualSlices(u8, &[_]u8{ 0xFF, 0xEE, 0xDD, 0xCC }, test_vm.vm.logs.items[2].data);
+    try testing.expectEqual(@as(usize, 0), test_vm.vm.state.logs.items[2].topics.len);
+    try testing.expectEqualSlices(u8, &[_]u8{ 0xFF, 0xEE, 0xDD, 0xCC }, test_vm.vm.state.logs.items[2].data);
 }

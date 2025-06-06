@@ -30,7 +30,7 @@ pub fn op_blockhash(pc: usize, interpreter: *Operation.Interpreter, state: *Oper
     const block_number = try stack_pop(&frame.stack);
     
     // Only last 256 blocks are available
-    const current_block = vm.block_number;
+    const current_block = vm.context.block_number;
     
     // Return 0 for future blocks or blocks older than 256 blocks ago
     if (block_number >= current_block) {
@@ -60,7 +60,7 @@ pub fn op_coinbase(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
     
     // Get coinbase from block context
-    try stack_push(&frame.stack, Address.to_u256(vm.block_coinbase));
+    try stack_push(&frame.stack, Address.to_u256(vm.context.block_coinbase));
     
     return Operation.ExecutionResult{};
 }
@@ -72,7 +72,7 @@ pub fn op_timestamp(pc: usize, interpreter: *Operation.Interpreter, state: *Oper
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
     
     // Get timestamp from block context
-    try stack_push(&frame.stack, @as(u256, @intCast(vm.block_timestamp)));
+    try stack_push(&frame.stack, @as(u256, @intCast(vm.context.block_timestamp)));
     
     return Operation.ExecutionResult{};
 }
@@ -84,7 +84,7 @@ pub fn op_number(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
     
     // Get block number from block context
-    try stack_push(&frame.stack, @as(u256, @intCast(vm.block_number)));
+    try stack_push(&frame.stack, @as(u256, @intCast(vm.context.block_number)));
     
     return Operation.ExecutionResult{};
 }
@@ -97,7 +97,7 @@ pub fn op_difficulty(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
     
     // Get difficulty/prevrandao from block context
     // Post-merge this returns PREVRANDAO
-    try stack_push(&frame.stack, vm.block_difficulty);
+    try stack_push(&frame.stack, vm.context.block_difficulty);
     
     return Operation.ExecutionResult{};
 }
@@ -114,7 +114,7 @@ pub fn op_gaslimit(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
     
     // Get gas limit from block context
-    try stack_push(&frame.stack, @as(u256, @intCast(vm.block_gas_limit)));
+    try stack_push(&frame.stack, @as(u256, @intCast(vm.context.block_gas_limit)));
     
     return Operation.ExecutionResult{};
 }
@@ -127,7 +127,7 @@ pub fn op_basefee(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     
     // Get base fee from block context
     // Push base fee (EIP-1559)
-    try stack_push(&frame.stack, vm.block_base_fee);
+    try stack_push(&frame.stack, vm.context.block_base_fee);
     
     return Operation.ExecutionResult{};
 }
@@ -141,11 +141,11 @@ pub fn op_blobhash(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     const index = try stack_pop(&frame.stack);
     
     // EIP-4844: Get blob hash at index
-    if (index >= vm.blob_hashes.len) {
+    if (index >= vm.context.blob_hashes.len) {
         try stack_push(&frame.stack, 0);
     } else {
         const idx = @as(usize, @intCast(index));
-        try stack_push(&frame.stack, vm.blob_hashes[idx]);
+        try stack_push(&frame.stack, vm.context.blob_hashes[idx]);
     }
     
     return Operation.ExecutionResult{};
@@ -159,7 +159,7 @@ pub fn op_blobbasefee(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     
     // Get blob base fee from block context
     // Push blob base fee (EIP-4844)
-    try stack_push(&frame.stack, vm.blob_base_fee);
+    try stack_push(&frame.stack, vm.context.blob_base_fee);
     
     return Operation.ExecutionResult{};
 }

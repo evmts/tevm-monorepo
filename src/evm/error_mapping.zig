@@ -86,27 +86,19 @@ pub fn memory_set_data_bounded(memory: *Memory, offset: usize, data: []const u8,
 
 /// Helper function for VM storage operations with error mapping
 pub fn vm_set_storage(vm: anytype, address: anytype, slot: u256, value: u256) ExecutionError.Error!void {
-    const Vm = @import("vm.zig");
-    const key = Vm.StorageKey{ .address = address, .slot = slot };
-    vm.storage.put(key, value) catch |err| return map_vm_error(err);
+    vm.state.set_storage(address, slot, value) catch |err| return map_vm_error(err);
 }
 
 pub fn vm_get_storage(vm: anytype, address: anytype, slot: u256) ExecutionError.Error!u256 {
-    const Vm = @import("vm.zig");
-    const key = Vm.StorageKey{ .address = address, .slot = slot };
-    return vm.storage.get(key) orelse 0;
+    return vm.state.get_storage(address, slot);
 }
 
 pub fn vm_set_transient_storage(vm: anytype, address: anytype, slot: u256, value: u256) ExecutionError.Error!void {
-    const Vm = @import("vm.zig");
-    const key = Vm.StorageKey{ .address = address, .slot = slot };
-    vm.transient_storage.put(key, value) catch |err| return map_vm_error(err);
+    vm.state.set_transient_storage(address, slot, value) catch |err| return map_vm_error(err);
 }
 
 pub fn vm_get_transient_storage(vm: anytype, address: anytype, slot: u256) ExecutionError.Error!u256 {
-    const Vm = @import("vm.zig");
-    const key = Vm.StorageKey{ .address = address, .slot = slot };
-    return vm.transient_storage.get(key) orelse 0;
+    return vm.state.get_transient_storage(address, slot);
 }
 
 test "map_stack_error" {

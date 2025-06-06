@@ -338,11 +338,11 @@ test "Integration: Self-destruct with beneficiary" {
 
     // Set up contract with balance
     const contract_balance: u256 = 1000;
-    try test_vm.vm.balances.put(helpers.TestAddresses.CONTRACT, contract_balance);
+    try test_vm.vm.state.set_balance(helpers.TestAddresses.CONTRACT, contract_balance);
 
     // Set up beneficiary
     const beneficiary_initial: u256 = 500;
-    try test_vm.vm.balances.put(helpers.TestAddresses.BOB, beneficiary_initial);
+    try test_vm.vm.state.set_balance(helpers.TestAddresses.BOB, beneficiary_initial);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -357,7 +357,7 @@ test "Integration: Self-destruct with beneficiary" {
     defer test_frame.deinit();
 
     // Get initial beneficiary balance directly from the HashMap
-    const initial_balance = test_vm.vm.balances.get(helpers.TestAddresses.BOB) orelse 0;
+    const initial_balance = test_vm.vm.state.get_balance(helpers.TestAddresses.BOB);
     try testing.expectEqual(beneficiary_initial, initial_balance);
 
     // Execute selfdestruct with BOB as beneficiary

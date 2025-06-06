@@ -259,11 +259,11 @@ test "Gas: LOG operations dynamic costs" {
     // Test LOG1 (375 + 375 + 8 * data_size)
     test_frame.frame.stack.clear();
     // Free existing logs before clearing
-    for (test_vm.vm.logs.items) |log| {
+    for (test_vm.vm.state.logs.items) |log| {
         test_vm.vm.allocator.free(log.topics);
         test_vm.vm.allocator.free(log.data);
     }
-    test_vm.vm.logs.clearRetainingCapacity();
+    test_vm.vm.state.logs.clearRetainingCapacity();
     try test_frame.pushStack(&[_]u256{ 0x1111, 8, 0 }); // topic, size, offset
     const gas_before_log1 = test_frame.frame.gas_remaining;
     _ = try helpers.executeOpcodeWithGas(&jump_table, 0xa1, test_vm.vm, test_frame.frame); // 0xa1 = LOG1
@@ -273,11 +273,11 @@ test "Gas: LOG operations dynamic costs" {
     // Test LOG4 (375 + 4*375 + 8 * data_size)
     test_frame.frame.stack.clear();
     // Free existing logs before clearing
-    for (test_vm.vm.logs.items) |log| {
+    for (test_vm.vm.state.logs.items) |log| {
         test_vm.vm.allocator.free(log.topics);
         test_vm.vm.allocator.free(log.data);
     }
-    test_vm.vm.logs.clearRetainingCapacity();
+    test_vm.vm.state.logs.clearRetainingCapacity();
     try test_frame.pushStack(&[_]u256{ 0x4444, 0x3333, 0x2222, 0x1111, 8, 0 });
     const gas_before_log4 = test_frame.frame.gas_remaining;
     _ = try helpers.executeOpcodeWithGas(&jump_table, 0xa4, test_vm.vm, test_frame.frame); // 0xa4 = LOG4
