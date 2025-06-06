@@ -354,7 +354,7 @@ test "Control: SELFDESTRUCT basic operation" {
     test_frame.frame.gas_remaining = 10000;
 
     // Pre-warm the beneficiary address
-    try test_vm.warmAddress(helpers.TestAddresses.BOB);
+    _ = try test_vm.vm.access_list.access_address(helpers.TestAddresses.BOB);
     try test_frame.pushStack(&[_]u256{beneficiary});
 
     const result2 = helpers.executeOpcode(0xFF, test_vm.vm, test_frame.frame);

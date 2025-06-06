@@ -457,6 +457,7 @@ test "Integration: Error propagation and recovery" {
     _ = try helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
     
     // Verify storage was updated
-    const stored_value = try test_vm.getStorage(helpers.TestAddresses.CONTRACT, 0);
+    const storage_key = helpers.Vm.StorageKey{ .address = helpers.TestAddresses.CONTRACT, .slot = 0 };
+    const stored_value = test_vm.vm.storage.get(storage_key) orelse 0;
     try testing.expectEqual(@as(u256, 42), stored_value);
 }

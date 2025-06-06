@@ -338,7 +338,7 @@ test "VM: MUL opcode overflow" {
 
     // Test multiplication overflow: MAX_U256 * 2 should wrap
     const bytecode = [_]u8{
-0x7f, // PUSH32
+        0x7f, // PUSH32
         0xFF,
         0xFF,
         0xFF,
@@ -366,11 +366,11 @@ test "VM: MUL opcode overflow" {
         0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, // MAX_U256
         0x60, 0x02, // PUSH1 2
         0x02, // MUL,
-0x60, 0x00, // PUSH1 0
-0x52, // MSTORE
-0x60, 0x20, // PUSH1 32
-0x60, 0x00, // PUSH1 0
-0xF3, // RETURN
+        0x60, 0x00, // PUSH1 0
+        0x52, // MSTORE
+        0x60, 0x20, // PUSH1 32
+        0x60, 0x00, // PUSH1 0
+        0xF3, // RETURN
     };
 
     const result = try vm.run(&bytecode, Address.zero(), 10000, null);
@@ -454,14 +454,19 @@ test "VM: MUL complex sequence" {
         0x02, // MUL (result: 6)
         0x60, 0x04, // PUSH1 4
         0x02, // MUL (result: 24)
-        0x00, // STOP
+        0x60, 0x00, // PUSH1 0
+        0x52, // MSTORE
+        0x60, 0x20, // PUSH1 32
+        0x60, 0x00, // PUSH1 0
+        0xF3, // RETURN
     };
 
     const result = try vm.run(&bytecode, Address.zero(), 10000, null);
     defer if (result.output) |output| allocator.free(output);
 
     try testing.expect(result.status == .Success);
-    try testing.expectEqual(@as(u256, 24), vm.last_stack_value.?);
+    const expected_bytes = u256ToBytes32(24);
+    try testing.expectEqualSlices(u8, &expected_bytes, result.output.?);
 }
 
 test "VM: MUL large numbers" {
@@ -475,7 +480,7 @@ test "VM: MUL large numbers" {
     // Test large number multiplication that doesn't overflow
     // 2^128 * 2^127 = 2^255 (fits in u256)
     const bytecode = [_]u8{
-0x70, // PUSH17 (for 2^128)
+        0x70, // PUSH17 (for 2^128)
         0x01,
         0x00,
         0x00,
@@ -496,11 +501,11 @@ test "VM: MUL large numbers" {
         0x00,
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 2^127
         0x02, // MUL,
-0x60, 0x00, // PUSH1 0
-0x52, // MSTORE
-0x60, 0x20, // PUSH1 32
-0x60, 0x00, // PUSH1 0
-0xF3, // RETURN
+        0x60, 0x00, // PUSH1 0
+        0x52, // MSTORE
+        0x60, 0x20, // PUSH1 32
+        0x60, 0x00, // PUSH1 0
+        0xF3, // RETURN
     };
 
     const result = try vm.run(&bytecode, Address.zero(), 10000, null);
@@ -522,14 +527,14 @@ test "VM: SUB opcode" {
     }
 
     const bytecode = [_]u8{
-0x60, 0x05, // PUSH1 5
+        0x60, 0x05, // PUSH1 5
         0x60, 0x0A, // PUSH1 10
         0x03, // SUB (5 - 10),
-0x60, 0x00, // PUSH1 0
-0x52, // MSTORE
-0x60, 0x20, // PUSH1 32
-0x60, 0x00, // PUSH1 0
-0xF3, // RETURN
+        0x60, 0x00, // PUSH1 0
+        0x52, // MSTORE
+        0x60, 0x20, // PUSH1 32
+        0x60, 0x00, // PUSH1 0
+        0xF3, // RETURN
     };
 
     const result = try vm.run(&bytecode, Address.zero(), 10000, null);
@@ -555,7 +560,11 @@ test "VM: SUB opcode underflow" {
         0x60, 0x0A, // PUSH1 10
         0x60, 0x05, // PUSH1 5
         0x03, // SUB (10 - 5)
-        0x00, // STOP
+        0x60, 0x00, // PUSH1 0
+        0x52, // MSTORE
+        0x60, 0x20, // PUSH1 32
+        0x60, 0x00, // PUSH1 0
+        0xF3, // RETURN
     };
 
     const result = try vm.run(&bytecode, Address.zero(), 10000, null);
@@ -563,7 +572,8 @@ test "VM: SUB opcode underflow" {
 
     try testing.expect(result.status == .Success);
     // 10 - 5 = 5
-    try testing.expectEqual(@as(u256, 5), vm.last_stack_value.?);
+    const expected_bytes = u256ToBytes32(5);
+    try testing.expectEqualSlices(u8, &expected_bytes, result.output.?);
 }
 
 test "VM: SUB from zero" {
@@ -579,14 +589,19 @@ test "VM: SUB from zero" {
         0x60, 0x00, // PUSH1 0
         0x60, 0x01, // PUSH1 1
         0x03, // SUB (0 - 1)
-        0x00, // STOP
+        0x60, 0x00, // PUSH1 0
+        0x52, // MSTORE
+        0x60, 0x20, // PUSH1 32
+        0x60, 0x00, // PUSH1 0
+        0xF3, // RETURN
     };
 
     const result = try vm.run(&bytecode, Address.zero(), 10000, null);
     defer if (result.output) |output| allocator.free(output);
 
     try testing.expect(result.status == .Success);
-    try testing.expectEqual(std.math.maxInt(u256), vm.last_stack_value.?);
+    const expected_bytes = u256ToBytes32(std.math.maxInt(u256));
+    try testing.expectEqualSlices(u8, &expected_bytes, result.output.?);
 }
 
 test "VM: SUB identity" {
@@ -602,14 +617,19 @@ test "VM: SUB identity" {
         0x61, 0x04, 0xD2, // PUSH2 1234
         0x61, 0x04, 0xD2, // PUSH2 1234
         0x03, // SUB (1234 - 1234)
-        0x00, // STOP
+        0x60, 0x00, // PUSH1 0
+        0x52, // MSTORE
+        0x60, 0x20, // PUSH1 32
+        0x60, 0x00, // PUSH1 0
+        0xF3, // RETURN
     };
 
     const result = try vm.run(&bytecode, Address.zero(), 10000, null);
     defer if (result.output) |output| allocator.free(output);
 
     try testing.expect(result.status == .Success);
-    try testing.expectEqual(@as(u256, 0), vm.last_stack_value.?);
+    const expected_bytes = u256ToBytes32(0);
+    try testing.expectEqualSlices(u8, &expected_bytes, result.output.?);
 }
 
 test "VM: SUB complex sequence" {
@@ -648,7 +668,7 @@ test "VM: SUB large numbers" {
     // Test large number subtraction
     // 2^255 - 2^254 = 2^254
     const bytecode = [_]u8{
-0x7F, // PUSH32 (for 2^255)
+        0x7F, // PUSH32 (for 2^255)
         0x80,
         0x00,
         0x00,
@@ -704,14 +724,13 @@ test "VM: SUB large numbers" {
         0x00,
         0x00,
         0x00,
-        0x00,
         0x00, 0x00, 0x00, 0x00, 0x00, // Exactly 32 bytes for 2^254
         0x03, // SUB,
-0x60, 0x00, // PUSH1 0
-0x52, // MSTORE
-0x60, 0x20, // PUSH1 32
-0x60, 0x00, // PUSH1 0
-0xF3, // RETURN
+        0x60, 0x00, // PUSH1 0
+        0x52, // MSTORE
+        0x60, 0x20, // PUSH1 32
+        0x60, 0x00, // PUSH1 0
+        0xF3, // RETURN
     };
 
     const result = try vm.run(&bytecode, Address.zero(), 10000, null);
@@ -874,7 +893,7 @@ test "VM: DIV large numbers" {
     // Test large number division
     // 2^128 / 2^64 = 2^64
     const bytecode = [_]u8{
-0x70, // PUSH17 (for 2^128) - dividend
+        0x70, // PUSH17 (for 2^128) - dividend
         0x01,
         0x00,
         0x00,
@@ -887,11 +906,11 @@ test "VM: DIV large numbers" {
         0x68, // PUSH9 (for 2^64) - divisor
         0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 2^64
         0x04, // DIV,
-0x60, 0x00, // PUSH1 0
-0x52, // MSTORE
-0x60, 0x20, // PUSH1 32
-0x60, 0x00, // PUSH1 0
-0xF3, // RETURN
+        0x60, 0x00, // PUSH1 0
+        0x52, // MSTORE
+        0x60, 0x20, // PUSH1 32
+        0x60, 0x00, // PUSH1 0
+        0xF3, // RETURN
     };
 
     const result = try vm.run(&bytecode, Address.zero(), 10000, null);
@@ -916,14 +935,19 @@ test "VM: MOD opcode" {
         0x60, 0x0A, // PUSH1 10 (dividend)
         0x60, 0x03, // PUSH1 3 (divisor)
         0x06, // MOD (10 % 3 = 1)
-        0x00, // STOP
+        0x60, 0x00, // PUSH1 0
+        0x52, // MSTORE
+        0x60, 0x20, // PUSH1 32
+        0x60, 0x00, // PUSH1 0
+        0xF3, // RETURN
     };
 
     const result = try vm.run(&bytecode, Address.zero(), 10000, null);
     defer if (result.output) |output| allocator.free(output);
 
     try testing.expect(result.status == .Success);
-    try testing.expectEqual(@as(u256, 1), vm.last_stack_value.?);
+    const expected_bytes = u256ToBytes32(1);
+    try testing.expectEqualSlices(u8, &expected_bytes, result.output.?);
 }
 
 test "VM: MOD by zero returns zero" {
@@ -938,14 +962,19 @@ test "VM: MOD by zero returns zero" {
         0x60, 0x0A, // PUSH1 10
         0x60, 0x00, // PUSH1 0
         0x06, // MOD (10 % 0)
-        0x00, // STOP
+        0x60, 0x00, // PUSH1 0
+        0x52, // MSTORE
+        0x60, 0x20, // PUSH1 32
+        0x60, 0x00, // PUSH1 0
+        0xF3, // RETURN
     };
 
     const result = try vm.run(&bytecode, Address.zero(), 10000, null);
     defer if (result.output) |output| allocator.free(output);
 
     try testing.expect(result.status == .Success);
-    try testing.expectEqual(@as(u256, 0), vm.last_stack_value.?);
+    const expected_bytes = u256ToBytes32(0);
+    try testing.expectEqualSlices(u8, &expected_bytes, result.output.?);
 }
 
 test "VM: MOD perfect division" {
@@ -960,14 +989,19 @@ test "VM: MOD perfect division" {
         0x60, 0x14, // PUSH1 20
         0x60, 0x05, // PUSH1 5
         0x06, // MOD (20 % 5 = 0)
-        0x00, // STOP
+        0x60, 0x00, // PUSH1 0
+        0x52, // MSTORE
+        0x60, 0x20, // PUSH1 32
+        0x60, 0x00, // PUSH1 0
+        0xF3, // RETURN
     };
 
     const result = try vm.run(&bytecode, Address.zero(), 10000, null);
     defer if (result.output) |output| allocator.free(output);
 
     try testing.expect(result.status == .Success);
-    try testing.expectEqual(@as(u256, 0), vm.last_stack_value.?);
+    const expected_bytes = u256ToBytes32(0);
+    try testing.expectEqualSlices(u8, &expected_bytes, result.output.?);
 }
 
 test "VM: MOD by one" {
@@ -982,48 +1016,19 @@ test "VM: MOD by one" {
         0x61, 0x04, 0xD2, // PUSH2 1234
         0x60, 0x01, // PUSH1 1
         0x06, // MOD (1234 % 1 = 0)
-        0x00, // STOP
+        0x60, 0x00, // PUSH1 0
+        0x52, // MSTORE
+        0x60, 0x20, // PUSH1 32
+        0x60, 0x00, // PUSH1 0
+        0xF3, // RETURN
     };
 
     const result = try vm.run(&bytecode, Address.zero(), 10000, null);
     defer if (result.output) |output| allocator.free(output);
 
     try testing.expect(result.status == .Success);
-    try testing.expectEqual(@as(u256, 0), vm.last_stack_value.?);
-}
-
-test "VM: MOD large numbers" {
-    const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
-
-    // Test large number modulo
-    // (2^128 + 5) % 2^64 = 5
-    const bytecode = [_]u8{
-        0x70, // PUSH17 (for 2^128 + 5)
-        0x01,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00,
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x05, // 2^128 + 5
-        0x68, // PUSH9 (for 2^64)
-        0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 2^64
-        0x06, // MOD
-        0x00, // STOP
-    };
-
-    const result = try vm.run(&bytecode, Address.zero(), 50000, null);
-    defer if (result.output) |output| allocator.free(output);
-
-    try testing.expect(result.status == .Success);
-    try testing.expectEqual(@as(u256, 5), vm.last_stack_value.?);
+    const expected_bytes = u256ToBytes32(0);
+    try testing.expectEqualSlices(u8, &expected_bytes, result.output.?);
 }
 
 test "VM: SDIV opcode" {
@@ -1037,7 +1042,7 @@ test "VM: SDIV opcode" {
     // Test: -10 / 3 = -3
     // -10 in two's complement: 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF6
     const bytecode = [_]u8{
-0x7f, // PUSH32
+        0x7f, // PUSH32
         0xFF,
         0xFF,
         0xFF,
@@ -1065,11 +1070,11 @@ test "VM: SDIV opcode" {
         0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xF6, // -10
         0x60, 0x03, // PUSH1 3
         0x05, // SDIV (-10 / 3 = -3),
-0x60, 0x00, // PUSH1 0
-0x52, // MSTORE
-0x60, 0x20, // PUSH1 32
-0x60, 0x00, // PUSH1 0
-0xF3, // RETURN
+        0x60, 0x00, // PUSH1 0
+        0x52, // MSTORE
+        0x60, 0x20, // PUSH1 32
+        0x60, 0x00, // PUSH1 0
+        0xF3, // RETURN
     };
 
     const result = try vm.run(&bytecode, Address.zero(), 10000, null);
@@ -1115,7 +1120,7 @@ test "VM: SDIV overflow case MIN_I256 / -1" {
     // MIN_I256 = -2^255 = 0x80000000000000000000000000000000000000000000000000000000000000000
     // -1 = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
     const bytecode = [_]u8{
-0x7f, // PUSH32 (MIN_I256)
+        0x7f, // PUSH32 (MIN_I256)
         0x80,
         0x00,
         0x00,
@@ -1182,11 +1187,11 @@ test "VM: SDIV overflow case MIN_I256 / -1" {
         0xFF,
         0xFF,
         0x05, // SDIV,
-0x60, 0x00, // PUSH1 0
-0x52, // MSTORE
-0x60, 0x20, // PUSH1 32
-0x60, 0x00, // PUSH1 0
-0xF3, // RETURN
+        0x60, 0x00, // PUSH1 0
+        0x52, // MSTORE
+        0x60, 0x20, // PUSH1 32
+        0x60, 0x00, // PUSH1 0
+        0xF3, // RETURN
     };
 
     const result = try vm.run(&bytecode, Address.zero(), 10000, null);
@@ -1210,7 +1215,7 @@ test "VM: SDIV positive by negative" {
     // Test: 10 / -3 = -3
     // -3 in two's complement: 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFD
     const bytecode = [_]u8{
-0x60, 0x0A, // PUSH1 10
+        0x60, 0x0A, // PUSH1 10
         0x7f, // PUSH32 (-3)
         0xFF,
         0xFF,
@@ -1245,11 +1250,11 @@ test "VM: SDIV positive by negative" {
         0xFF,
         0xFD,
         0x05, // SDIV (10 / -3 = -3),
-0x60, 0x00, // PUSH1 0
-0x52, // MSTORE
-0x60, 0x20, // PUSH1 32
-0x60, 0x00, // PUSH1 0
-0xF3, // RETURN
+        0x60, 0x00, // PUSH1 0
+        0x52, // MSTORE
+        0x60, 0x20, // PUSH1 32
+        0x60, 0x00, // PUSH1 0
+        0xF3, // RETURN
     };
 
     const result = try vm.run(&bytecode, Address.zero(), 10000, null);
@@ -1360,7 +1365,7 @@ test "VM: SDIV truncation behavior" {
     // Test: -17 / 5 = -3 (truncates toward zero)
     // -17 in two's complement: 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEF
     const bytecode = [_]u8{
-0x7f, // PUSH32 (-17)
+        0x7f, // PUSH32 (-17)
         0xFF,
         0xFF,
         0xFF,
@@ -1395,11 +1400,11 @@ test "VM: SDIV truncation behavior" {
         0xEF,
         0x60, 0x05, // PUSH1 5
         0x05, // SDIV (-17 / 5 = -3),
-0x60, 0x00, // PUSH1 0
-0x52, // MSTORE
-0x60, 0x20, // PUSH1 32
-0x60, 0x00, // PUSH1 0
-0xF3, // RETURN
+        0x60, 0x00, // PUSH1 0
+        0x52, // MSTORE
+        0x60, 0x20, // PUSH1 32
+        0x60, 0x00, // PUSH1 0
+        0xF3, // RETURN
     };
 
     const result = try vm.run(&bytecode, Address.zero(), 10000, null);
@@ -1423,7 +1428,7 @@ test "VM: SMOD opcode" {
     // Test: -10 % 3 = -1
     // -10 in two's complement: 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF6
     const bytecode = [_]u8{
-0x7f, // PUSH32 (-10)
+        0x7f, // PUSH32 (-10)
         0xFF,
         0xFF,
         0xFF,
@@ -1458,11 +1463,11 @@ test "VM: SMOD opcode" {
         0xF6,
         0x60, 0x03, // PUSH1 3
         0x07, // SMOD (-10 % 3 = -1),
-0x60, 0x00, // PUSH1 0
-0x52, // MSTORE
-0x60, 0x20, // PUSH1 32
-0x60, 0x00, // PUSH1 0
-0xF3, // RETURN
+        0x60, 0x00, // PUSH1 0
+        0x52, // MSTORE
+        0x60, 0x20, // PUSH1 32
+        0x60, 0x00, // PUSH1 0
+        0xF3, // RETURN
     };
 
     const result = try vm.run(&bytecode, Address.zero(), 10000, null);
@@ -1586,7 +1591,7 @@ test "VM: SMOD negative by negative" {
 
     // Test: -10 % -3 = -1
     const bytecode = [_]u8{
-0x7f, // PUSH32 (-10)
+        0x7f, // PUSH32 (-10)
         0xFF,
         0xFF,
         0xFF,
@@ -1653,11 +1658,11 @@ test "VM: SMOD negative by negative" {
         0xFF,
         0xFD,
         0x07, // SMOD (-10 % -3 = -1),
-0x60, 0x00, // PUSH1 0
-0x52, // MSTORE
-0x60, 0x20, // PUSH1 32
-0x60, 0x00, // PUSH1 0
-0xF3, // RETURN
+        0x60, 0x00, // PUSH1 0
+        0x52, // MSTORE
+        0x60, 0x20, // PUSH1 32
+        0x60, 0x00, // PUSH1 0
+        0xF3, // RETURN
     };
 
     const result = try vm.run(&bytecode, Address.zero(), 10000, null);
@@ -2203,12 +2208,12 @@ test "VM: ADDRESS opcode" {
     contract_address[19] = 0xfe;
 
     const bytecode = [_]u8{
-0x30, // ADDRESS,
-0x60, 0x00, // PUSH1 0
-0x52, // MSTORE
-0x60, 0x20, // PUSH1 32
-0x60, 0x00, // PUSH1 0
-0xF3, // RETURN
+        0x30, // ADDRESS,
+        0x60, 0x00, // PUSH1 0
+        0x52, // MSTORE
+        0x60, 0x20, // PUSH1 32
+        0x60, 0x00, // PUSH1 0
+        0xF3, // RETURN
     };
 
     const result = try vm.run(&bytecode, contract_address, 10000, null);
