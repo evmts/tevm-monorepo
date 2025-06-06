@@ -338,11 +338,11 @@ test "Integration: Self-destruct with beneficiary" {
 
     // Set up contract with balance
     const contract_balance: u256 = 1000;
-    try test_vm.setAccount(helpers.TestAddresses.CONTRACT, contract_balance, &[_]u8{});
+    try test_vm.vm.balances.put(helpers.TestAddresses.CONTRACT, contract_balance);
 
     // Set up beneficiary
     const beneficiary_initial: u256 = 500;
-    try test_vm.setAccount(helpers.TestAddresses.BOB, beneficiary_initial, &[_]u8{});
+    try test_vm.vm.balances.put(helpers.TestAddresses.BOB, beneficiary_initial);
 
     var contract = try helpers.createTestContract(
         allocator,

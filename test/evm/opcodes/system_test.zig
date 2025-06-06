@@ -609,7 +609,7 @@ test "CREATE: memory expansion for init code" {
     defer test_frame.deinit();
 
     // Set up sufficient balance for contract creation
-    try test_vm.setAccount(test_helpers.TestAddresses.CONTRACT, 1000000, &[_]u8{});
+    try test_vm.vm.balances.put(test_helpers.TestAddresses.CONTRACT, 1000000);
 
     // Initialize memory with some init code at offset 200
     var i: usize = 0;
@@ -682,7 +682,7 @@ test "CREATE: EIP-3860 initcode word gas" {
     defer test_frame.deinit();
 
     // Set up sufficient balance for contract creation
-    try test_vm.setAccount(test_helpers.TestAddresses.CONTRACT, 1000000, &[_]u8{});
+    try test_vm.vm.balances.put(test_helpers.TestAddresses.CONTRACT, 1000000);
 
     // Write 64 bytes of init code (2 words)
     var i: usize = 0;

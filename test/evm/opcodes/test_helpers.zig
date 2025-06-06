@@ -42,6 +42,45 @@ pub const TestVm = struct {
         self.vm.deinit();
         allocator.destroy(self.vm);
     }
+
+    // Helper methods for test compatibility
+    pub fn setStorage(self: *Self, address: Address.Address, slot: u256, value: u256) !void {
+        const key = Vm.StorageKey{ .address = address, .slot = slot };
+        try self.vm.storage.put(key, value);
+    }
+
+    pub fn getStorage(self: *const Self, address: Address.Address, slot: u256) !u256 {
+        const key = Vm.StorageKey{ .address = address, .slot = slot };
+        return self.vm.storage.get(key) orelse 0;
+    }
+
+    pub fn setTransientStorage(self: *Self, address: Address.Address, slot: u256, value: u256) !void {
+        const key = Vm.StorageKey{ .address = address, .slot = slot };
+        try self.vm.transient_storage.put(key, value);
+    }
+
+    pub fn getTransientStorage(self: *const Self, address: Address.Address, slot: u256) !u256 {
+        const key = Vm.StorageKey{ .address = address, .slot = slot };
+        return self.vm.transient_storage.get(key) orelse 0;
+    }
+
+    pub fn setAccount(self: *Self, address: Address.Address, balance: u256, code: []const u8) !void {
+        try self.vm.balances.put(address, balance);
+        if (code.len > 0) {
+            try self.vm.code.put(address, code);
+        }
+    }
+
+    pub fn warmAddress(self: *Self, address: Address.Address) !void {
+        _ = try self.vm.access_list.access_address(address);
+    }
+
+    pub fn setCodeWithAlloc(self: *Self, address: Address.Address, code: []const u8) !void {
+        // For tests, we just set the code directly without worrying about allocation
+        if (code.len > 0) {
+            try self.vm.code.put(address, code);
+        }
+    }
 };
 
 /// Test frame with standard setup for opcode testing

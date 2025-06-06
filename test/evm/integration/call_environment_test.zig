@@ -13,8 +13,8 @@ test "Integration: Call with value transfer and balance check" {
     defer test_vm.deinit(allocator);
     
     // Set up accounts with balances
-    try test_vm.setAccount(helpers.TestAddresses.ALICE, 1000, &[_]u8{});
-    try test_vm.setAccount(helpers.TestAddresses.BOB, 500, &[_]u8{});
+    try test_vm.vm.balances.put(helpers.TestAddresses.ALICE, 1000);
+    try test_vm.vm.balances.put(helpers.TestAddresses.BOB, 500);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -37,12 +37,8 @@ test "Integration: Call with value transfer and balance check" {
     test_frame.frame.stack.clear();
     const value: u256 = 100;
     
-    // Mock successful call
-    test_vm.vm.call_result = .{
-        .success = true,
-        .gas_left = 90000,
-        .output = null,
-    };
+    // Note: In black box testing, we don't mock internal state.
+    // The CALL opcode will execute and return its actual result.
     
     // Push CALL parameters
     try test_frame.pushStack(&[_]u256{
@@ -60,8 +56,8 @@ test "Integration: Call with value transfer and balance check" {
     
     // In a real implementation, balance would be updated
     // For now, manually update for testing
-    try test_vm.setAccount(helpers.TestAddresses.ALICE, 900, &[_]u8{});
-    try test_vm.setAccount(helpers.TestAddresses.BOB, 600, &[_]u8{});
+    try test_vm.vm.balances.put(helpers.TestAddresses.ALICE, 900);
+    try test_vm.vm.balances.put(helpers.TestAddresses.BOB, 600);
     
     // Check balance of BOB after call
     test_frame.frame.stack.clear();
@@ -213,7 +209,8 @@ test "Integration: DELEGATECALL preserves context" {
         0x33, // CALLER - push caller to stack
         0x00, // STOP
     };
-    try test_vm.setAccount(helpers.TestAddresses.BOB, 0, &delegate_code);
+    try test_vm.vm.balances.put(helpers.TestAddresses.BOB, 0);
+    try test_vm.vm.code.put(helpers.TestAddresses.BOB, &delegate_code);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -227,12 +224,8 @@ test "Integration: DELEGATECALL preserves context" {
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
     
-    // Mock successful delegatecall that returns caller address
-    test_vm.vm.call_result = .{
-        .success = true,
-        .gas_left = 90000,
-        .output = null, // In real execution, delegate would push CALLER
-    };
+    // Note: In black box testing, we don't mock internal state.
+    // The DELEGATECALL opcode will execute and return its actual result.
     
     // Execute DELEGATECALL
     try test_frame.pushStack(&[_]u256{
@@ -269,12 +262,8 @@ test "Integration: STATICCALL prevents state changes" {
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
     
-    // Mock successful staticcall
-    test_vm.vm.call_result = .{
-        .success = true,
-        .gas_left = 90000,
-        .output = &[_]u8{0x01}, // Return some data
-    };
+    // Note: In black box testing, we don't mock internal state.
+    // The STATICCALL opcode will execute and return its actual result.
     
     // Execute STATICCALL
     try test_frame.pushStack(&[_]u256{

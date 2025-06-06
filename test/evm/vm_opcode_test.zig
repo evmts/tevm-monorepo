@@ -173,7 +173,11 @@ test "VM: PC opcode returns current program counter" {
         0x58, // PC (at position 0)
         0x60, 0x01, // PUSH1 1
         0x58, // PC (at position 3)
-        0x00, // STOP
+        0x60, 0x00, // PUSH1 0
+        0x52, // MSTORE
+        0x60, 0x20, // PUSH1 32
+        0x60, 0x00, // PUSH1 0
+        0xF3, // RETURN
     };
 
     const result = try vm.run(&bytecode, Address.zero(), 10000, null);
@@ -181,7 +185,8 @@ test "VM: PC opcode returns current program counter" {
 
     try testing.expect(result.status == .Success);
     // Top of stack should be 3 (the last PC value pushed)
-    try testing.expectEqual(@as(u256, 3), vm.last_stack_value.?);
+    const expected_bytes = u256ToBytes32(3);
+    try testing.expectEqualSlices(u8, &expected_bytes, result.output.?);
 }
 
 // ===== Arithmetic Opcodes =====
@@ -198,14 +203,19 @@ test "VM: ADD opcode" {
         0x60, 0x05, // PUSH1 5
         0x60, 0x03, // PUSH1 3
         0x01, // ADD
-        0x00, // STOP
+        0x60, 0x00, // PUSH1 0
+        0x52, // MSTORE
+        0x60, 0x20, // PUSH1 32
+        0x60, 0x00, // PUSH1 0
+        0xF3, // RETURN
     };
 
     const result = try vm.run(&bytecode, Address.zero(), 10000, null);
     defer if (result.output) |output| allocator.free(output);
 
     try testing.expect(result.status == .Success);
-    try testing.expectEqual(@as(u256, 8), vm.last_stack_value.?);
+    const expected_bytes = u256ToBytes32(8);
+    try testing.expectEqualSlices(u8, &expected_bytes, result.output.?);
 }
 
 test "VM: ADD opcode overflow" {
@@ -246,14 +256,19 @@ test "VM: ADD opcode overflow" {
         0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, // MAX_U256
         0x60, 0x01, // PUSH1 1
         0x01, // ADD
-        0x00, // STOP
+        0x60, 0x00, // PUSH1 0
+        0x52, // MSTORE
+        0x60, 0x20, // PUSH1 32
+        0x60, 0x00, // PUSH1 0
+        0xF3, // RETURN
     };
 
     const result = try vm.run(&bytecode, Address.zero(), 10000, null);
     defer if (result.output) |output| allocator.free(output);
 
     try testing.expect(result.status == .Success);
-    try testing.expectEqual(@as(u256, 0), vm.last_stack_value.?); // Should wrap to 0
+    const expected_bytes = u256ToBytes32(0); // Should wrap to 0
+    try testing.expectEqualSlices(u8, &expected_bytes, result.output.?);
 }
 
 test "VM: ADD complex sequence" {
@@ -271,14 +286,19 @@ test "VM: ADD complex sequence" {
         0x01, // ADD (result: 8)
         0x60, 0x02, // PUSH1 2
         0x01, // ADD (result: 10)
-        0x00, // STOP
+        0x60, 0x00, // PUSH1 0
+        0x52, // MSTORE
+        0x60, 0x20, // PUSH1 32
+        0x60, 0x00, // PUSH1 0
+        0xF3, // RETURN
     };
 
     const result = try vm.run(&bytecode, Address.zero(), 10000, null);
     defer if (result.output) |output| allocator.free(output);
 
     try testing.expect(result.status == .Success);
-    try testing.expectEqual(@as(u256, 10), vm.last_stack_value.?);
+    const expected_bytes = u256ToBytes32(10);
+    try testing.expectEqualSlices(u8, &expected_bytes, result.output.?);
 }
 
 test "VM: MUL opcode" {
@@ -293,14 +313,19 @@ test "VM: MUL opcode" {
         0x60, 0x07, // PUSH1 7
         0x60, 0x06, // PUSH1 6
         0x02, // MUL
-        0x00, // STOP
+        0x60, 0x00, // PUSH1 0
+        0x52, // MSTORE
+        0x60, 0x20, // PUSH1 32
+        0x60, 0x00, // PUSH1 0
+        0xF3, // RETURN
     };
 
     const result = try vm.run(&bytecode, Address.zero(), 10000, null);
     defer if (result.output) |output| allocator.free(output);
 
     try testing.expect(result.status == .Success);
-    try testing.expectEqual(@as(u256, 42), vm.last_stack_value.?);
+    const expected_bytes = u256ToBytes32(42);
+    try testing.expectEqualSlices(u8, &expected_bytes, result.output.?);
 }
 
 test "VM: MUL opcode overflow" {
@@ -371,14 +396,19 @@ test "VM: MUL by zero" {
         0x61, 0x04, 0xD2, // PUSH2 1234
         0x60, 0x00, // PUSH1 0
         0x02, // MUL
-        0x00, // STOP
+        0x60, 0x00, // PUSH1 0
+        0x52, // MSTORE
+        0x60, 0x20, // PUSH1 32
+        0x60, 0x00, // PUSH1 0
+        0xF3, // RETURN
     };
 
     const result = try vm.run(&bytecode, Address.zero(), 10000, null);
     defer if (result.output) |output| allocator.free(output);
 
     try testing.expect(result.status == .Success);
-    try testing.expectEqual(@as(u256, 0), vm.last_stack_value.?);
+    const expected_bytes = u256ToBytes32(0);
+    try testing.expectEqualSlices(u8, &expected_bytes, result.output.?);
 }
 
 test "VM: MUL by one" {
@@ -394,14 +424,19 @@ test "VM: MUL by one" {
         0x61, 0x04, 0xD2, // PUSH2 1234
         0x60, 0x01, // PUSH1 1
         0x02, // MUL
-        0x00, // STOP
+        0x60, 0x00, // PUSH1 0
+        0x52, // MSTORE
+        0x60, 0x20, // PUSH1 32
+        0x60, 0x00, // PUSH1 0
+        0xF3, // RETURN
     };
 
     const result = try vm.run(&bytecode, Address.zero(), 10000, null);
     defer if (result.output) |output| allocator.free(output);
 
     try testing.expect(result.status == .Success);
-    try testing.expectEqual(@as(u256, 1234), vm.last_stack_value.?);
+    const expected_bytes = u256ToBytes32(1234);
+    try testing.expectEqualSlices(u8, &expected_bytes, result.output.?);
 }
 
 test "VM: MUL complex sequence" {

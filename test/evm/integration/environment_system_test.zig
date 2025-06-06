@@ -21,7 +21,7 @@ test "Integration: Contract deployment simulation" {
 
     // Set up deployer account
     const deployer_balance: u256 = helpers.TestValues.ONE_ETHER;
-    try test_vm.setAccount(helpers.TestAddresses.ALICE, deployer_balance, &[_]u8{});
+    try test_vm.vm.balances.put(helpers.TestAddresses.ALICE, deployer_balance);
 
     var contract = helpers.Contract.init(
         helpers.TestAddresses.ALICE,
@@ -72,8 +72,8 @@ test "Integration: Call with value transfer" {
     defer test_vm.deinit(allocator);
 
     // Set up accounts
-    try test_vm.setAccount(helpers.TestAddresses.ALICE, helpers.TestValues.ONE_ETHER, &[_]u8{});
-    try test_vm.setAccount(helpers.TestAddresses.BOB, 0, &[_]u8{});
+    try test_vm.vm.balances.put(helpers.TestAddresses.ALICE, helpers.TestValues.ONE_ETHER);
+    try test_vm.vm.balances.put(helpers.TestAddresses.BOB, 0);
 
     var contract = helpers.Contract.init(
         helpers.TestAddresses.ALICE,
@@ -87,7 +87,7 @@ test "Integration: Call with value transfer" {
     );
 
     // Give contract some balance to transfer
-    try test_vm.setAccount(helpers.TestAddresses.CONTRACT, helpers.TestValues.ONE_ETHER, &[_]u8{});
+    try test_vm.vm.balances.put(helpers.TestAddresses.CONTRACT, helpers.TestValues.ONE_ETHER);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
@@ -291,7 +291,8 @@ test "Integration: External code operations" {
         0x00, // STOP
     };
 
-    try test_vm.setAccount(helpers.TestAddresses.BOB, 0, &external_code);
+    try test_vm.vm.balances.put(helpers.TestAddresses.BOB, 0);
+    try test_vm.vm.code.put(helpers.TestAddresses.BOB, &external_code);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -417,7 +418,8 @@ test "Integration: Self balance and code operations" {
     };
 
     // Set up contract with balance and code
-    try test_vm.setAccount(helpers.TestAddresses.CONTRACT, helpers.TestValues.ONE_ETHER, &contract_code);
+    try test_vm.vm.balances.put(helpers.TestAddresses.CONTRACT, helpers.TestValues.ONE_ETHER);
+    try test_vm.vm.code.put(helpers.TestAddresses.CONTRACT, &contract_code);
 
     var contract = helpers.Contract.init(
         helpers.TestAddresses.ALICE,
