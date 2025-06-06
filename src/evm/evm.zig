@@ -34,12 +34,8 @@ pub const memory_limits = @import("memory_limits.zig");
 
 // VM error types
 pub const VmError = Vm.VmError;
-pub const VmStorageError = Vm.VmStorageError;
-pub const VmStateError = Vm.VmStateError;
 pub const VmInitError = Vm.VmInitError;
 pub const VmInterpretError = Vm.VmInterpretError;
-pub const VmAccessListError = Vm.VmAccessListError;
-pub const VmAddressCalculationError = Vm.VmAddressCalculationError;
 pub const CreateContractError = Vm.CreateContractError;
 pub const CallContractError = Vm.CallContractError;
 pub const ConsumeGasError = Vm.ConsumeGasError;
