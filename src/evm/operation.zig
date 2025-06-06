@@ -3,13 +3,15 @@ const Opcode = @import("opcode.zig");
 const ExecutionError = @import("execution_error.zig");
 const Stack = @import("stack.zig");
 const Memory = @import("memory.zig");
+pub const ExecutionResult = @import("execution_result.zig");
 
 /// Forward declarations - these would be defined by the actual interpreter
 pub const Interpreter = opaque {};
 pub const State = opaque {};
 
+
 /// ExecutionFunc is a function executed by the EVM during interpretation
-pub const ExecutionFunc = *const fn (pc: usize, interpreter: *Interpreter, state: *State) ExecutionError.Error![]const u8;
+pub const ExecutionFunc = *const fn (pc: usize, interpreter: *Interpreter, state: *State) ExecutionError.Error!ExecutionResult;
 
 /// GasFunc calculates the gas required for an operation
 pub const GasFunc = *const fn (interpreter: *Interpreter, state: *State, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64;
@@ -41,11 +43,11 @@ pub const NULL = Self{
     .execute = undefined_execute,
     .constant_gas = 0,
     .min_stack = 0,
-    .max_stack = 0,
+    .max_stack = Stack.CAPACITY,
     .undefined = true,
 };
 
-fn undefined_execute(pc: usize, interpreter: *Interpreter, state: *State) ExecutionError.Error![]const u8 {
+fn undefined_execute(pc: usize, interpreter: *Interpreter, state: *State) ExecutionError.Error!ExecutionResult {
     _ = pc;
     _ = interpreter;
     _ = state;

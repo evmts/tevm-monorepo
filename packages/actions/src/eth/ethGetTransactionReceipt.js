@@ -149,7 +149,12 @@ export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 			/** @type any*/ (receipt).stateRoot instanceof Uint8Array
 				? bytesToHex(/** @type any*/ (receipt).stateRoot)
 				: undefined,
-		status: /** @type any*/ (receipt).status instanceof Uint8Array ? /** @type any*/ (receipt).status : typeof /** @type any*/ (receipt).status === 'number' ? numberToHex(/** @type any*/ (receipt).status) : undefined,
+		status:
+			/** @type any*/ (receipt).status instanceof Uint8Array
+				? /** @type any*/ (receipt).status
+				: typeof (/** @type any*/ (receipt).status) === 'number'
+					? numberToHex(/** @type any*/ (receipt).status)
+					: undefined,
 		logs: await Promise.all(
 			receipt.logs.map((log, i) => ({
 				address: bytesToHex(log[0]),

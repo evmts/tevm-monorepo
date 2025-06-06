@@ -1,13 +1,12 @@
 const std = @import("std");
 const Hardfork = @import("hardfork.zig").Hardfork;
+const Log = @import("log.zig");
 
-// Chain rules for different Ethereum hardforks
+/// Chain rules for different Ethereum hardforks
 ///
-// This struct configures which Ethereum protocol rules and EIPs are active
-// during EVM execution. The default is set to the latest Ethereum version (Cancun),
-// but can be configured for any supported hardfork.
-///
-// Each field represents a specific hardfork or EIP activation status.
+/// This struct configures which Ethereum protocol rules and EIPs are active
+/// during EVM execution. The default is set to the latest Ethereum version (Cancun),
+/// but can be configured for any supported hardfork.
 const Self = @This();
 
 /// Is Homestead rules enabled (March 2016)
@@ -119,16 +118,8 @@ IsEIP5656: bool = true,
 IsEIP3541: bool = true,
 
 /// Create chain rules for a specific hardfork
-///
-/// This is a factory method that creates a ChainRules configuration
-/// properly configured for the specified Ethereum hardfork.
-///
-/// Parameters:
-/// - hardfork: The Ethereum hardfork to create rules for
-///
-/// Returns: A ChainRules instance configured for the specified hardfork
 pub fn for_hardfork(hardfork: Hardfork) Self {
-    std.log.debug("Creating chain rules for hardfork: {s}", .{@tagName(hardfork)});
+    Log.debug("Creating chain rules for hardfork: {s}", .{@tagName(hardfork)});
     var rules = Self{};
     switch (hardfork) {
         .FRONTIER => {
@@ -370,6 +361,6 @@ pub fn for_hardfork(hardfork: Hardfork) Self {
         },
         .CANCUN => {},
     }
-    std.log.debug("Chain rules created for hardfork: {s}", .{@tagName(hardfork)});
+    Log.debug("Chain rules created for hardfork: {s}", .{@tagName(hardfork)});
     return rules;
 }

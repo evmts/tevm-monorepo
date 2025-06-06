@@ -1,5 +1,6 @@
 const std = @import("std");
 const crypto = std.crypto;
+const rlp = @import("Rlp");
 
 const startsWith = std.mem.startsWith;
 const hexToBytes = std.fmt.hexToBytes;
@@ -9,10 +10,36 @@ const Keccak256 = crypto.hash.sha3.Keccak256;
 
 pub const Address = [20]u8;
 
-pub const ZERO_ADDRESS: Address = [_]u8{0} ** 20;
+pub const ZERO_ADDRESS: Address = [20]u8{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+
+// Error types for Address operations
+pub const CalculateAddressError = std.mem.Allocator.Error || rlp.EncodeError;
+pub const CalculateCreate2AddressError = std.mem.Allocator.Error;
+
+pub fn zero() Address {
+    return ZERO_ADDRESS;
+}
+
+pub fn to_u256(addr: Address) u256 {
+    var result: u256 = 0;
+    for (addr) |byte| {
+        result = (result << 8) | byte;
+    }
+    return result;
+}
+
+pub fn from_u256(value: u256) Address {
+    var addr: Address = undefined;
+    var v = value;
+    for (0..20) |i| {
+        addr[19 - i] = @truncate(v & 0xFF);
+        v >>= 8;
+    }
+    return addr;
+}
 
 pub fn address_from_hex(comptime hex: [42]u8) Address {
-    if (!startsWith(u8, hex, "0x"))
+    if (!startsWith(u8, &hex, "0x"))
         @compileError("hex must start with '0x'");
 
     var out: Address = undefined;
@@ -25,7 +52,12 @@ pub fn address_from_public_key(public_key: PublicKey) Address {
 }
 
 pub fn address_to_hex(address: Address) [42]u8 {
-    return bytesToHex(address);
+    var result: [42]u8 = undefined;
+    result[0] = '0';
+    result[1] = 'x';
+    const hex = bytesToHex(&address, .lower);
+    @memcpy(result[2..], &hex);
+    return result;
 }
 
 pub fn address_to_checksum_hex(address: Address) [42]u8 {
@@ -166,6 +198,81 @@ pub fn are_addresses_equal(a: []const u8, b: []const u8) !bool {
     _ = try hexToBytes(&addr_b, b[2..]);
 
     return std.mem.eql(u8, &addr_a, &addr_b);
+}
+
+pub fn calculate_create_address(allocator: std.mem.Allocator, creator: Address, nonce: u64) CalculateAddressError!Address {
+    // Convert nonce to bytes, stripping leading zeros
+    var nonce_bytes: [8]u8 = undefined;
+    std.mem.writeInt(u64, &nonce_bytes, nonce, .big);
+
+    // Find first non-zero byte
+    var nonce_start: usize = 0;
+    for (nonce_bytes) |byte| {
+        if (byte != 0) break;
+        nonce_start += 1;
+    }
+
+    // If nonce is 0, use empty slice
+    const nonce_slice = if (nonce == 0) &[_]u8{} else nonce_bytes[nonce_start..];
+
+    // Create a list for RLP encoding [creator_address, nonce]
+    var list = std.ArrayList([]const u8).init(allocator);
+    defer list.deinit();
+
+    try list.append(&creator);
+    try list.append(nonce_slice);
+
+    // RLP encode the list
+    const encoded = try rlp.encode(allocator, list.items);
+    defer allocator.free(encoded);
+
+    // Hash the RLP encoded data
+    var hash: [32]u8 = undefined;
+    Keccak256.hash(encoded, &hash, .{});
+
+    // Take last 20 bytes as address
+    var address: Address = undefined;
+    @memcpy(&address, hash[12..32]);
+
+    return address;
+}
+
+pub fn calculate_create2_address(allocator: std.mem.Allocator, creator: Address, salt: u256, init_code: []const u8) CalculateCreate2AddressError!Address {
+    // First hash the init code
+    var code_hash: [32]u8 = undefined;
+    Keccak256.hash(init_code, &code_hash, .{});
+
+    // Create the data to hash: 0xff ++ creator ++ salt ++ keccak256(init_code)
+    var data = std.ArrayList(u8).init(allocator);
+    defer data.deinit();
+
+    // Add 0xff prefix
+    try data.append(0xff);
+
+    // Add creator address (20 bytes)
+    try data.appendSlice(&creator);
+
+    // Add salt (32 bytes, big-endian)
+    var salt_bytes: [32]u8 = undefined;
+    var temp_salt = salt;
+    for (0..32) |i| {
+        salt_bytes[31 - i] = @intCast(temp_salt & 0xFF);
+        temp_salt >>= 8;
+    }
+    try data.appendSlice(&salt_bytes);
+
+    // Add init code hash (32 bytes)
+    try data.appendSlice(&code_hash);
+
+    // Hash the combined data
+    var hash: [32]u8 = undefined;
+    Keccak256.hash(data.items, &hash, .{});
+
+    // Take last 20 bytes as address
+    var address: Address = undefined;
+    @memcpy(&address, hash[12..32]);
+
+    return address;
 }
 
 test "PublicKey.from_hex" {

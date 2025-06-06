@@ -1,31 +1,16 @@
 const std = @import("std");
+const Log = @import("log.zig");
 
 /// Memory implementation for efficient EVM call context management.
-///
-/// This implementation is inspired by revm's Memory design and provides:
-/// - Single shared buffer for all contexts (avoids copying on calls)
-/// - Checkpointing system for reverting/committing child context changes
-/// - Context-relative memory operations
-/// - Efficient memory expansion with gas calculation
-///
-/// Memory Layout Example:
-/// ```
-/// Shared Buffer: [----ROOT----][---CHILD1---][--GRANDCHILD--]
-///                ^             ^             ^
-///                |             |             |
-///                0             1024          2048
-///                (root         (child1       (grandchild
-///                 checkpoint)   checkpoint)   checkpoint)
-/// ```
 const Self = @This();
 
 pub const MemoryError = error{
-    OutOfMemory, // Allocation failure for the shared buffer
-    InvalidOffset, // Accessing offset outside the current context's bounds
-    InvalidSize, // Requested size would cause overflow or is invalid
-    MemoryLimitExceeded, // Operation would exceed the global memory_limit
-    ChildContextActive, // Attempted to create a new child when one is already active
-    NoChildContextToRevertOrCommit, // Attempted to revert/commit with no active child checkpoint
+    OutOfMemory,
+    InvalidOffset,
+    InvalidSize,
+    MemoryLimitExceeded,
+    ChildContextActive,
+    NoChildContextToRevertOrCommit,
 };
 
 /// Calculate number of 32-byte words needed for byte length (rounds up)
@@ -33,35 +18,15 @@ pub fn calculate_num_words(len: usize) usize {
     return (len + 31) / 32;
 }
 
-/// The single, shared underlying byte buffer. Owned by the root Memory instance.
-/// Child contexts will hold a pointer to this.
 shared_buffer: std.ArrayList(u8),
-
-/// Allocator used for the shared_buffer. Owned by the root Memory instance.
 allocator: std.mem.Allocator,
-
-/// The offset in shared_buffer where this Memory instance's active memory region begins.
-/// For the root context, this is 0.
 my_checkpoint: usize,
-
-/// If this context is a parent and has created a child, this stores the length of
-/// `shared_buffer.items` *before* the child context began its operations.
-/// This is the point to revert to if the child call is rolled back.
-/// `null` if no child context is currently active from this parent.
 child_active_checkpoint: ?usize,
-
-/// Maximum total size (in bytes) the *shared_buffer* can grow to.
-/// This limit is shared across all contexts.
 memory_limit: u64,
-
-/// Pointer to the root Memory instance, which owns the buffer and allocator.
-/// For the root instance, this points to itself.
 root_ptr: *Self,
 
 pub const InitialCapacity: usize = 4 * 1024;
-pub const DefaultMemoryLimit: u64 = std.math.maxInt(u64);
-
-// Initialization Functions
+pub const DefaultMemoryLimit: u64 = 32 * 1024 * 1024; // 32 MB
 
 /// Initializes the root Memory context. This instance owns the shared_buffer.
 /// The caller must ensure the returned Memory is stored at a stable address
@@ -81,7 +46,7 @@ pub fn init(
         .my_checkpoint = 0,
         .child_active_checkpoint = null,
         .memory_limit = memory_limit,
-        .root_ptr = undefined, // Must be set by finalize_root()
+        .root_ptr = undefined,
     };
 }
 
@@ -91,7 +56,6 @@ pub fn finalize_root(self: *Self) void {
     self.root_ptr = self;
 }
 
-/// Convenience function for default initial capacity and limit.
 pub fn init_default(allocator: std.mem.Allocator) !Self {
     return try init(allocator, InitialCapacity, DefaultMemoryLimit);
 }
@@ -99,19 +63,12 @@ pub fn init_default(allocator: std.mem.Allocator) !Self {
 /// Deinitializes the shared_buffer. Should ONLY be called on the root Memory instance.
 /// Child contexts should not call this.
 pub fn deinit(self: *Self) void {
-    // Ensure this is only called on the root
     if (self.my_checkpoint == 0 and self.root_ptr == self) {
         self.shared_buffer.deinit();
     }
-    // Child contexts do not own the buffer, so their deinit is a no-op regarding the buffer.
 }
 
-// Context Management Functions
-
 /// Creates a new child Memory context.
-/// The parent (self) records the current shared_buffer length as the revert point.
-/// The returned child Memory operates on the same shared_buffer but with a new
-/// `my_checkpoint`.
 pub fn new_child_context(self: *Self) MemoryError!Self {
     if (self.child_active_checkpoint != null) {
         return MemoryError.ChildContextActive;
@@ -120,12 +77,12 @@ pub fn new_child_context(self: *Self) MemoryError!Self {
     self.child_active_checkpoint = new_checkpoint;
 
     return Self{
-        .shared_buffer = undefined, // Child does not own, will use root_ptr.shared_buffer
-        .allocator = undefined, // Child does not own
+        .shared_buffer = undefined,
+        .allocator = undefined,
         .my_checkpoint = new_checkpoint,
         .child_active_checkpoint = null,
-        .memory_limit = self.memory_limit, // Inherit limit
-        .root_ptr = self.root_ptr, // Point to the same root
+        .memory_limit = self.memory_limit,
+        .root_ptr = self.root_ptr,
     };
 }
 
@@ -164,7 +121,6 @@ pub fn context_size(self: *const Self) usize {
     const total_len = self.root_ptr.shared_buffer.items.len;
     if (total_len < self.my_checkpoint) {
         // This indicates a bug or inconsistent state
-        std.debug.print("Warning: total_len ({d}) < my_checkpoint ({d})\n", .{ total_len, self.my_checkpoint });
         return 0;
     }
     return total_len - self.my_checkpoint;
@@ -224,7 +180,6 @@ pub fn resize_context(self: *Self, new_context_size: usize) MemoryError!void {
             const doubled = @mulWithOverflow(new_capacity, 2);
             if (doubled[1] != 0) {
                 // Overflow occurred
-                std.debug.print("Capacity calculation overflowed\n", .{});
                 return MemoryError.OutOfMemory;
             }
             new_capacity = doubled[0];
@@ -535,4 +490,22 @@ pub fn ensure_capacity(self: *Self, min_size: usize) MemoryError!u64 {
 /// Resize word aligned (alias for compatibility).
 pub fn resize_word_aligned(self: *Self, min_size: usize) MemoryError!void {
     return self.resize_context_word_aligned(min_size);
+}
+
+/// Copy within memory (alias for copy method for backwards compatibility)
+pub fn copy_within(self: *Self, src: usize, dest: usize, len: usize) MemoryError!void {
+    return self.copy(dest, src, len);
+}
+
+/// Get total size of memory (context size)
+pub fn total_size(self: *const Self) usize {
+    return self.context_size();
+}
+
+/// Get a mutable slice to the entire memory buffer (context-relative)
+pub fn slice(self: *Self) []u8 {
+    const ctx_size = self.context_size();
+    const abs_start = self.my_checkpoint;
+    const abs_end = abs_start + ctx_size;
+    return self.root_ptr.shared_buffer.items[abs_start..abs_end];
 }

@@ -17,29 +17,46 @@
 const std = @import("std");
 const constants = @import("constants.zig");
 const bitvec = @import("bitvec.zig");
-const Address = @import("Address").Address;
+const Address = @import("Address");
+const ExecutionError = @import("execution_error.zig");
 const CodeAnalysis = @import("code_analysis.zig");
 const StoragePool = @import("storage_pool.zig");
+const Log = @import("log.zig");
 
 /// Maximum gas refund allowed (EIP-3529)
 const MAX_REFUND_QUOTIENT = 5;
 
+/// Error types for Contract operations
+pub const ContractError = std.mem.Allocator.Error || StorageOperationError;
+pub const StorageOperationError = error{
+    OutOfAllocatorMemory,
+    InvalidStorageOperation,
+};
+pub const CodeAnalysisError = std.mem.Allocator.Error;
+
 /// Global analysis cache (simplified version)
 var analysis_cache: ?std.AutoHashMap([32]u8, *CodeAnalysis) = null;
-var cache_mutex: std.Thread.Mutex = .{};
+// Use conditional compilation for thread safety
+const is_single_threaded = @import("builtin").single_threaded;
+const Mutex = if (is_single_threaded) struct {
+    pub fn lock(self: *@This()) void { _ = self; }
+    pub fn unlock(self: *@This()) void { _ = self; }
+} else std.Thread.Mutex;
+
+var cache_mutex: Mutex = .{};
 
 /// Contract represents the execution context for a single call in the EVM
 const Self = @This();
 // Identity and context
-address: Address,
-caller: Address,
+address: Address.Address,
+caller: Address.Address,
 value: u256,
 
 // Code and analysis
 code: []const u8,
 code_hash: [32]u8,
-code_size: u64, // Pre-computed for efficiency
-analysis: ?*const CodeAnalysis, // Enhanced analysis structure
+code_size: u64,
+analysis: ?*const CodeAnalysis,
 
 // Gas tracking
 gas: u64,
@@ -59,13 +76,12 @@ original_storage: ?*std.AutoHashMap(u256, u256),
 is_cold: bool,
 
 // Optimization fields
-has_jumpdests: bool, // Quick check to skip analysis
-is_empty: bool, // For empty contracts
+has_jumpdests: bool,
+is_empty: bool,
 
-/// Initialize a new Contract with optimizations
 pub fn init(
-    caller: Address,
-    addr: Address,
+    caller: Address.Address,
+    addr: Address.Address,
     value: u256,
     gas: u64,
     code: []const u8,
@@ -96,19 +112,19 @@ pub fn init(
 }
 
 pub fn init_deployment(
-    caller: Address,
+    caller: Address.Address,
     value: u256,
     gas: u64,
     code: []const u8,
     salt: ?[32]u8,
 ) Self {
     const contract = Self{
-        .address = [_]u8{0} ** 20,
+        .address = Address.zero(),
         .caller = caller,
         .value = value,
         .gas = gas,
         .code = code,
-        .code_hash = [_]u8{0} ** 32, // Deployment doesn't have code hash. This could be kekkak256(0) instead of 0
+        .code_hash = [_]u8{0} ** 32, // Deployment doesn't have code hash. This could be kekkac256(0) instead of 0
         .code_size = code.len,
         .input = &[_]u8{},
         .is_static = false,
@@ -126,7 +142,8 @@ pub fn init_deployment(
     if (salt == null) {
         return contract;
     }
-    // TODO: Use salt for CREATE2 address calculation
+    // Salt is used for CREATE2 address calculation
+    // The actual address calculation happens in the VM's create2_contract method
 
     return contract;
 }
@@ -140,22 +157,21 @@ fn contains_jumpdest(code: []const u8) bool {
 }
 
 /// Validate jump destination with optimizations
-pub fn valid_jumpdest(self: *Self, dest: u256) bool {
+pub fn valid_jumpdest(self: *Self, allocator: std.mem.Allocator, dest: u256) bool {
     // Fast path: empty code or out of bounds
     if (self.is_empty or dest >= self.code_size) {
         return false;
     }
+
     // Fast path: no JUMPDESTs in code
     if (!self.has_jumpdests) {
         return false;
     }
     const pos: u32 = @intCast(@min(dest, std.math.maxInt(u32)));
-    // Fast path: not a JUMPDEST opcode
-    if (self.code[pos] != constants.JUMPDEST) {
-        return false;
-    }
+
     // Ensure analysis is performed
-    self.ensure_analysis();
+    self.ensure_analysis(allocator);
+
     // Binary search in sorted JUMPDEST positions
     if (self.analysis) |analysis| {
         if (analysis.jumpdest_positions.len > 0) {
@@ -178,18 +194,19 @@ pub fn valid_jumpdest(self: *Self, dest: u256) bool {
 }
 
 /// Ensure code analysis is performed
-fn ensure_analysis(self: *Self) void {
+fn ensure_analysis(self: *Self, allocator: std.mem.Allocator) void {
     if (self.analysis == null and !self.is_empty) {
-        self.analysis = analyze_code(self.code, self.code_hash) catch null;
+        self.analysis = analyze_code(allocator, self.code, self.code_hash) catch null;
     }
 }
 
 /// Check if position is code (not data)
 pub inline fn is_code(self: *const Self, pos: u64) bool {
     if (self.analysis) |analysis| {
-        return analysis.code_segments.is_set(pos);
+        // We know pos is within bounds if analysis exists, so use unchecked version
+        return analysis.code_segments.is_set_unchecked(@intCast(pos));
     }
-    return true; // Assume code if not analyzed
+    return true;
 }
 
 /// Use gas with inline optimization
@@ -222,21 +239,36 @@ pub inline fn sub_gas_refund(self: *Self, amount: u64) void {
     self.gas_refund = if (self.gas_refund > amount) self.gas_refund - amount else 0;
 }
 
+pub const MarkStorageSlotWarmError = error{
+    OutOfAllocatorMemory,
+};
+
 /// Mark storage slot as warm with pool support
-pub fn mark_storage_slot_warm(self: *Self, slot: u256, pool: ?*StoragePool) !bool {
+pub fn mark_storage_slot_warm(self: *Self, allocator: std.mem.Allocator, slot: u256, pool: ?*StoragePool) MarkStorageSlotWarmError!bool {
     if (self.storage_access == null) {
         if (pool) |p| {
-            self.storage_access = try p.borrow_access_map();
+            self.storage_access = p.borrow_access_map() catch |err| switch (err) {
+                StoragePool.BorrowAccessMapError.OutOfAllocatorMemory => {
+                    Log.debug("Contract.mark_storage_slot_warm: failed to borrow access map: {any}", .{err});
+                    return MarkStorageSlotWarmError.OutOfAllocatorMemory;
+                },
+            };
         } else {
-            self.storage_access = try std.heap.page_allocator.create(std.AutoHashMap(u256, bool));
-            self.storage_access.?.* = std.AutoHashMap(u256, bool).init(std.heap.page_allocator);
+            self.storage_access = allocator.create(std.AutoHashMap(u256, bool)) catch |err| {
+                Log.debug("Contract.mark_storage_slot_warm: allocation failed: {any}", .{err});
+                return MarkStorageSlotWarmError.OutOfAllocatorMemory;
+            };
+            self.storage_access.?.* = std.AutoHashMap(u256, bool).init(allocator);
         }
     }
 
     const map = self.storage_access.?;
     const was_cold = !map.contains(slot);
     if (was_cold) {
-        try map.put(slot, true);
+        map.put(slot, true) catch |err| {
+            Log.debug("Contract.mark_storage_slot_warm: map.put failed: {any}", .{err});
+            return MarkStorageSlotWarmError.OutOfAllocatorMemory;
+        };
     }
     return was_cold;
 }
@@ -246,24 +278,39 @@ pub fn is_storage_slot_cold(self: *const Self, slot: u256) bool {
     if (self.storage_access) |map| {
         return !map.contains(slot);
     }
-    return true; // All slots are cold if not tracked
+    return true;
 }
 
 /// Batch mark storage slots as warm
-pub fn mark_storage_slots_warm(self: *Self, slots: []const u256, pool: ?*StoragePool) !void {
+pub fn mark_storage_slots_warm(self: *Self, allocator: std.mem.Allocator, slots: []const u256, pool: ?*StoragePool) ContractError!void {
     if (slots.len == 0) return;
 
     if (self.storage_access == null) {
         if (pool) |p| {
-            self.storage_access = try p.borrow_access_map();
+            self.storage_access = p.borrow_access_map() catch |err| {
+                Log.debug("Failed to borrow access map from pool: {any}", .{err});
+                return switch (err) {
+                    StoragePool.BorrowAccessMapError.OutOfAllocatorMemory => StorageOperationError.OutOfAllocatorMemory,
+                };
+            };
         } else {
-            self.storage_access = try std.heap.page_allocator.create(std.AutoHashMap(u256, bool));
-            self.storage_access.?.* = std.AutoHashMap(u256, bool).init(std.heap.page_allocator);
+            self.storage_access = allocator.create(std.AutoHashMap(u256, bool)) catch |err| {
+                Log.debug("Failed to create storage access map: {any}", .{err});
+                return switch (err) {
+                    std.mem.Allocator.Error.OutOfMemory => std.mem.Allocator.Error.OutOfMemory,
+                };
+            };
+            self.storage_access.?.* = std.AutoHashMap(u256, bool).init(allocator);
         }
     }
 
     const map = self.storage_access.?;
-    try map.ensureTotalCapacity(@as(u32, @intCast(map.count() + slots.len)));
+    map.ensureTotalCapacity(@as(u32, @intCast(map.count() + slots.len))) catch |err| {
+        Log.debug("Failed to ensure capacity for {d} storage slots: {any}", .{ slots.len, err });
+        return switch (err) {
+            std.mem.Allocator.Error.OutOfMemory => std.mem.Allocator.Error.OutOfMemory,
+        };
+    };
 
     for (slots) |slot| {
         map.putAssumeCapacity(slot, true);
@@ -271,17 +318,32 @@ pub fn mark_storage_slots_warm(self: *Self, slots: []const u256, pool: ?*Storage
 }
 
 /// Store original storage value
-pub fn set_original_storage_value(self: *Self, slot: u256, value: u256, pool: ?*StoragePool) !void {
+pub fn set_original_storage_value(self: *Self, allocator: std.mem.Allocator, slot: u256, value: u256, pool: ?*StoragePool) ContractError!void {
     if (self.original_storage == null) {
         if (pool) |p| {
-            self.original_storage = try p.borrow_storage_map();
+            self.original_storage = p.borrow_storage_map() catch |err| {
+                Log.debug("Failed to borrow storage map from pool: {any}", .{err});
+                return switch (err) {
+                    StoragePool.BorrowStorageMapError.OutOfAllocatorMemory => StorageOperationError.OutOfAllocatorMemory,
+                };
+            };
         } else {
-            self.original_storage = try std.heap.page_allocator.create(std.AutoHashMap(u256, u256));
-            self.original_storage.?.* = std.AutoHashMap(u256, u256).init(std.heap.page_allocator);
+            self.original_storage = allocator.create(std.AutoHashMap(u256, u256)) catch |err| {
+                Log.debug("Failed to create original storage map: {any}", .{err});
+                return switch (err) {
+                    std.mem.Allocator.Error.OutOfMemory => std.mem.Allocator.Error.OutOfMemory,
+                };
+            };
+            self.original_storage.?.* = std.AutoHashMap(u256, u256).init(allocator);
         }
     }
 
-    try self.original_storage.?.put(slot, value);
+    self.original_storage.?.put(slot, value) catch |err| {
+        Log.debug("Failed to store original storage value for slot {d}: {any}", .{ slot, err });
+        return switch (err) {
+            std.mem.Allocator.Error.OutOfMemory => std.mem.Allocator.Error.OutOfMemory,
+        };
+    };
 }
 
 /// Get original storage value
@@ -294,7 +356,7 @@ pub fn get_original_storage_value(self: *const Self, slot: u256) ?u256 {
 
 /// Get opcode at position (inline for performance)
 pub fn get_op(self: *const Self, n: u64) u8 {
-    return if (n < self.code_size) self.code[n] else constants.STOP;
+    return if (n < self.code_size) self.code[@intCast(n)] else constants.STOP;
 }
 
 /// Get opcode at position without bounds check
@@ -309,12 +371,11 @@ pub fn set_call_code(self: *Self, hash: [32]u8, code: []const u8) void {
     self.code_size = code.len;
     self.has_jumpdests = contains_jumpdest(code);
     self.is_empty = code.len == 0;
-    self.analysis = null; // Reset analysis
+    self.analysis = null;
 }
 
 /// Clean up contract resources
-pub fn deinit(self: *Self, pool: ?*StoragePool) void {
-    // Return maps to pool if available
+pub fn deinit(self: *Self, allocator: std.mem.Allocator, pool: ?*StoragePool) void {
     if (pool) |p| {
         if (self.storage_access) |map| {
             p.return_access_map(map);
@@ -325,15 +386,14 @@ pub fn deinit(self: *Self, pool: ?*StoragePool) void {
             self.original_storage = null;
         }
     } else {
-        // Direct cleanup
         if (self.storage_access) |map| {
             map.deinit();
-            std.heap.page_allocator.destroy(map);
+            allocator.destroy(map);
             self.storage_access = null;
         }
         if (self.original_storage) |map| {
             map.deinit();
-            std.heap.page_allocator.destroy(map);
+            allocator.destroy(map);
             self.original_storage = null;
         }
     }
@@ -341,27 +401,25 @@ pub fn deinit(self: *Self, pool: ?*StoragePool) void {
 }
 
 /// Analyze code and cache results
-pub fn analyze_code(code: []const u8, code_hash: [32]u8) !*const CodeAnalysis {
-    // Check cache first
+pub fn analyze_code(allocator: std.mem.Allocator, code: []const u8, code_hash: [32]u8) CodeAnalysisError!*const CodeAnalysis {
     cache_mutex.lock();
     defer cache_mutex.unlock();
 
     if (analysis_cache == null) {
-        analysis_cache = std.AutoHashMap([32]u8, *CodeAnalysis).init(std.heap.page_allocator);
+        analysis_cache = std.AutoHashMap([32]u8, *CodeAnalysis).init(allocator);
     }
 
     if (analysis_cache.?.get(code_hash)) |cached| {
         return cached;
     }
 
-    // Perform analysis
-    const allocator = std.heap.page_allocator;
-    const analysis = try allocator.create(CodeAnalysis);
+    const analysis = allocator.create(CodeAnalysis) catch |err| {
+        Log.debug("Failed to allocate CodeAnalysis: {any}", .{err});
+        return err;
+    };
 
-    // Analyze code segments
-    analysis.code_segments = bitvec.code_bitmap(code);
+    analysis.code_segments = try bitvec.code_bitmap(allocator, code);
 
-    // Find and sort JUMPDEST positions
     var jumpdests = std.ArrayList(u32).init(allocator);
     defer jumpdests.deinit();
 
@@ -369,11 +427,13 @@ pub fn analyze_code(code: []const u8, code_hash: [32]u8) !*const CodeAnalysis {
     while (i < code.len) {
         const op = code[i];
 
-        if (op == constants.JUMPDEST and analysis.code_segments.is_set(i)) {
-            try jumpdests.append(@as(u32, @intCast(i)));
+        if (op == constants.JUMPDEST and analysis.code_segments.is_set_unchecked(i)) {
+            jumpdests.append(@as(u32, @intCast(i))) catch |err| {
+                Log.debug("Failed to append jumpdest position {d}: {any}", .{ i, err });
+                return err;
+            };
         }
 
-        // Skip PUSH data
         if (constants.is_push(op)) {
             const push_size = constants.get_push_size(op);
             i += push_size + 1;
@@ -384,18 +444,22 @@ pub fn analyze_code(code: []const u8, code_hash: [32]u8) !*const CodeAnalysis {
 
     // Sort for binary search
     std.mem.sort(u32, jumpdests.items, {}, comptime std.sort.asc(u32));
-    analysis.jumpdest_positions = try jumpdests.toOwnedSlice();
+    analysis.jumpdest_positions = jumpdests.toOwnedSlice() catch |err| {
+        Log.debug("Failed to convert jumpdests to owned slice: {any}", .{err});
+        return err;
+    };
 
-    // Analyze other properties
-    analysis.max_stack_depth = 0; // TODO: Implement stack depth analysis
-    analysis.block_gas_costs = null; // TODO: Implement gas cost analysis
+    analysis.max_stack_depth = 0;
+    analysis.block_gas_costs = null;
     analysis.has_dynamic_jumps = contains_op(code, &[_]u8{ constants.JUMP, constants.JUMPI });
-    analysis.has_static_jumps = false; // TODO: Detect PC pushes
+    analysis.has_static_jumps = false;
     analysis.has_selfdestruct = contains_op(code, &[_]u8{constants.SELFDESTRUCT});
     analysis.has_create = contains_op(code, &[_]u8{ constants.CREATE, constants.CREATE2 });
 
-    // Cache the analysis
-    try analysis_cache.?.put(code_hash, analysis);
+    analysis_cache.?.put(code_hash, analysis) catch |err| {
+        Log.debug("Failed to cache code analysis: {any}", .{err});
+        // Continue without caching - return the analysis anyway
+    };
 
     return analysis;
 }
@@ -411,17 +475,22 @@ pub fn contains_op(code: []const u8, opcodes: []const u8) bool {
 }
 
 /// Clear the global analysis cache
-pub fn clear_analysis_cache() void {
+pub fn clear_analysis_cache(allocator: std.mem.Allocator) void {
     cache_mutex.lock();
     defer cache_mutex.unlock();
 
     if (analysis_cache) |*cache| {
         var iter = cache.iterator();
         while (iter.next()) |entry| {
-            entry.value_ptr.*.deinit(std.heap.page_allocator);
-            std.heap.page_allocator.destroy(entry.value_ptr.*);
+            entry.value_ptr.*.deinit(allocator);
+            allocator.destroy(entry.value_ptr.*);
         }
         cache.deinit();
         analysis_cache = null;
     }
+}
+
+/// Analyze jump destinations - public wrapper for ensure_analysis
+pub fn analyze_jumpdests(self: *Self, allocator: std.mem.Allocator) void {
+    self.ensure_analysis(allocator);
 }

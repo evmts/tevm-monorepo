@@ -22,6 +22,13 @@ pub const Error = error{
     MaxCodeSizeExceeded,
     InvalidCodeEntry,
     DepthLimit,
+    OutOfMemory, // For allocation failures
+    InvalidOffset, // For memory offset errors
+    InvalidSize, // For memory size errors
+    MemoryLimitExceeded, // For memory expansion beyond limits
+    ChildContextActive, // For memory context errors
+    NoChildContextToRevertOrCommit, // For memory context errors
+    EOFNotSupported, // For EOF opcodes that are not yet implemented
 };
 
 /// Get a human-readable description for an execution error
@@ -44,5 +51,12 @@ pub fn get_description(err: Error) []const u8 {
         Error.MaxCodeSizeExceeded => "Contract code size exceeds limit",
         Error.InvalidCodeEntry => "Invalid contract entry code",
         Error.DepthLimit => "Call depth exceeds limit (1024)",
+        Error.OutOfMemory => "Out of memory allocation failed",
+        Error.InvalidOffset => "Invalid memory offset",
+        Error.InvalidSize => "Invalid memory size",
+        Error.MemoryLimitExceeded => "Memory limit exceeded",
+        Error.ChildContextActive => "Child context is active",
+        Error.NoChildContextToRevertOrCommit => "No child context to revert or commit",
+        Error.EOFNotSupported => "EOF (EVM Object Format) opcode not supported",
     };
 }
