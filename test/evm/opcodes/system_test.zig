@@ -272,12 +272,7 @@ test "CALL: failed call" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
 
-    // Set gas and mock failed call result
-    test_vm.vm.call_result = .{
-        .success = false,
-        .gas_left = 0,
-        .output = null,
-    };
+    // Remove mocking - VM currently returns failed calls, so expect 0 on stack
 
     // Push in reverse order for stack (LIFO)
     try test_frame.pushStack(&[_]u256{0}); // ret_size
