@@ -54,7 +54,7 @@ test "CREATE: create new contract" {
     try testing.expect(result != 0);
 }
 
-test "CREATE: failed creation pushes zero" {
+test "CREATE: empty init code creates empty contract" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
     defer test_vm.deinit();
@@ -71,7 +71,7 @@ test "CREATE: failed creation pushes zero" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 100000);
     defer test_frame.deinit();
 
-    // Remove mocking - VM currently returns failed creates, so expect 0 on stack
+    // Remove mocking - VM correctly creates empty contracts for zero-sized init code
 
     // Push size, offset, value
     try test_frame.pushStack(&[_]u256{0}); // value
@@ -81,7 +81,8 @@ test "CREATE: failed creation pushes zero" {
     // Execute CREATE
     _ = try test_helpers.executeOpcode(0xF0, &test_vm.vm, test_frame.frame);
     // Should push non-zero address for successful empty contract creation
-    const created_address = try test_frame.popStack(); try testing.expect(created_address != 0);
+    const created_address = try test_frame.popStack();
+    try testing.expect(created_address != 0);
 }
 
 test "CREATE: write protection in static call" {
@@ -821,36 +822,4 @@ test "CREATE2: EIP-3860 initcode size limit" {
     // Execute CREATE2 - should fail with MaxCodeSizeExceeded
     const result = test_helpers.executeOpcode(0xF5, &test_vm.vm, test_frame.frame);
     try testing.expectError(ExecutionError.Error.MaxCodeSizeExceeded, result);
-}
-
-test "CREATE: empty init code creates empty contract" {
-    const allocator = testing.allocator;
-    var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
-
-    var contract = try test_helpers.createTestContract(
-        allocator,
-        test_helpers.TestAddresses.CONTRACT,
-        test_helpers.TestAddresses.ALICE,
-        0,
-        &[_]u8{},
-    );
-    defer contract.deinit(null);
-
-    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 100000);
-    defer test_frame.deinit();
-
-    // Remove mocking - VM correctly creates empty contracts for zero-sized init code
-
-    // Push size, offset, value
-    try test_frame.pushStack(&[_]u256{0}); // value
-    try test_frame.pushStack(&[_]u256{0}); // offset
-    try test_frame.pushStack(&[_]u256{0}); // size
-
-    // Execute CREATE
-    _ = try test_helpers.executeOpcode(0xF0, &test_vm.vm, test_frame.frame);
-
-    // Should push non-zero address for successful empty contract creation
-    const created_address = try test_frame.popStack();
-    try testing.expect(created_address != 0);
 }
