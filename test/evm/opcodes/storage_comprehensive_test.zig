@@ -1,6 +1,7 @@
 const std = @import("std");
 const testing = std.testing;
 const helpers = @import("test_helpers.zig");
+const evm = @import("evm.zig");
 
 // COMPLETED: Storage operations (SLOAD/SSTORE) - Fixed missing jump table mappings
 // Results: SLOAD/SSTORE now working correctly, tests passing, 365/401 opcodes working (+2 improvement)
@@ -30,7 +31,8 @@ test "SLOAD (0x54): Load from storage" {
     defer test_frame.deinit();
 
     // Set storage value
-    try test_vm.setStorage(helpers.TestAddresses.CONTRACT, 0x42, 0x123456);
+    const storage_key = evm.Vm.StorageKey{ .address = helpers.TestAddresses.CONTRACT, .slot = 0x42 };
+    try test_vm.vm.storage.put(storage_key, 0x123456);
 
     // Push storage slot
     try test_frame.pushStack(&[_]u256{0x42});
@@ -86,7 +88,8 @@ test "SLOAD: Multiple loads from same slot" {
     defer test_frame.deinit();
 
     // Set storage value
-    try test_vm.setStorage(helpers.TestAddresses.CONTRACT, 0x10, 0xABCDEF);
+    const storage_key = evm.Vm.StorageKey{ .address = helpers.TestAddresses.CONTRACT, .slot = 0x10 };
+    try test_vm.vm.storage.put(storage_key, 0xABCDEF);
 
     // Load same slot multiple times
     for (0..3) |_| {
@@ -168,7 +171,8 @@ test "SSTORE (0x55): Store to storage" {
     _ = try helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
 
     // Verify value was stored
-    const stored = try test_vm.getStorage(helpers.TestAddresses.CONTRACT, 0x42);
+    const storage_key = evm.Vm.StorageKey{ .address = helpers.TestAddresses.CONTRACT, .slot = 0x42 };
+    const stored = test_vm.vm.storage.get(storage_key) orelse 0;
     try testing.expectEqual(@as(u256, 0x999), stored);
 }
 
@@ -511,6 +515,7 @@ test "SSTORE: Overwriting values" {
     _ = try helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
 
     // Verify final value
-    const stored = try test_vm.getStorage(helpers.TestAddresses.CONTRACT, slot);
+    const storage_key = evm.Vm.StorageKey{ .address = helpers.TestAddresses.CONTRACT, .slot = slot };
+    const stored = test_vm.vm.storage.get(storage_key) orelse 0;
     try testing.expectEqual(@as(u256, 0x333), stored);
 }
