@@ -1,5 +1,4 @@
-/// Hardfork represents the different Ethereum hardforks
-pub const Hardfork = enum { 
+pub const Hardfork = enum {
     FRONTIER,
     HOMESTEAD,
     DAO,
@@ -17,4 +16,6 @@ pub const Hardfork = enum {
     MERGE,
     SHANGHAI,
     CANCUN,
+
+    pub const DEFAULT = Hardfork.CANCUN;
 };

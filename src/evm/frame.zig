@@ -5,14 +5,6 @@ const Contract = @import("contract.zig");
 const ExecutionError = @import("execution_error.zig");
 const Log = @import("log.zig");
 
-/// Error types for Frame operations
-pub const FrameError = error{
-    OutOfMemory,
-    InvalidContract,
-    InvalidMemoryOperation,
-    InvalidStackOperation,
-};
-
 const Self = @This();
 
 op: []const u8 = undefined,
@@ -33,19 +25,11 @@ depth: u32 = 0,
 output: []const u8 = &[_]u8{},
 program_counter: usize = 0,
 
-pub fn init(allocator: std.mem.Allocator, contract: *Contract) FrameError!Self {
-    // Don't call finalize_root here - let the caller do it after Frame is at its final location
-    const memory = Memory.init_default(allocator) catch |err| {
-        Log.debug("Failed to initialize memory: {any}", .{err});
-        return switch (err) {
-            std.mem.Allocator.Error.OutOfMemory => FrameError.OutOfMemory,
-        };
-    };
-
+pub fn init(allocator: std.mem.Allocator, contract: *Contract) std.mem.Allocator.Error!Self {
     return Self{
         .allocator = allocator,
         .contract = contract,
-        .memory = memory,
+        .memory = try Memory.init_default(allocator),
         .stack = .{},
     };
 }
@@ -68,23 +52,11 @@ pub fn init_with_state(
     depth: ?u32,
     output: ?[]const u8,
     program_counter: ?usize,
-) FrameError!Self {
-    // Create memory if not provided
-    const mem: Memory = if (memory) |m| m else blk: {
-        const new_memory = Memory.init_default(allocator) catch |mem_err| {
-            Log.debug("Failed to initialize memory: {any}", .{mem_err});
-            return switch (mem_err) {
-                std.mem.Allocator.Error.OutOfMemory => FrameError.OutOfMemory,
-            };
-        };
-        // Don't finalize_root here - memory will be copied
-        break :blk new_memory;
-    };
-
+) std.mem.Allocator.Error!Self {
     return Self{
         .allocator = allocator,
         .contract = contract,
-        .memory = mem,
+        .memory = memory orelse try Memory.init_default(allocator),
         .stack = stack orelse .{},
         .op = op orelse undefined,
         .pc = pc orelse 0,
@@ -106,9 +78,12 @@ pub fn deinit(self: *Self) void {
     self.memory.deinit();
 }
 
-pub fn consume_gas(self: *Self, amount: u64) ExecutionError.Error!void {
+pub const ConsumeGasError = error{
+    OutOfGas,
+};
+pub fn consume_gas(self: *Self, amount: u64) ConsumeGasError!void {
     if (amount > self.gas_remaining) {
-        return ExecutionError.Error.OutOfGas;
+        return ConsumeGasError.OutOfGas;
     }
     self.gas_remaining -= amount;
 }

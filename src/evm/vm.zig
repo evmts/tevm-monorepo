@@ -21,39 +21,27 @@ pub const StorageKey = @import("storage_key.zig");
 pub const CreateResult = @import("create_result.zig");
 pub const CallResult = @import("call_result.zig");
 pub const RunResult = @import("run_result.zig");
+pub const Hardfork = @import("hardfork.zig").Hardfork;
 
 /// The Vm Struct is the entrypoint into the zig based EVM implementation
 const Self = @This();
 
 allocator: std.mem.Allocator,
-
 return_data: []u8 = &[_]u8{},
-
 stack: Stack = .{},
 table: JumpTable,
 chain_rules: ChainRules,
-
+state: EvmState,
+context: Context,
+access_list: AccessList,
 depth: u16 = 0,
-
 read_only: bool = false,
 
-// EVM state management
-state: EvmState,
-
-// Transaction and block context
-context: Context,
-
-// EIP-2929: Access list for gas cost calculation
-access_list: AccessList,
-
 pub fn init(allocator: std.mem.Allocator) std.mem.Allocator.Error!Self {
-    return init_with_hardfork(allocator, .CANCUN) catch |err| {
-        Log.debug("Failed to initialize VM with default hardfork: {any}", .{err});
-        return err;
-    };
+    return try init_with_hardfork(allocator, Hardfork.DEFAULT);
 }
 
-pub fn init_with_hardfork(allocator: std.mem.Allocator, hardfork: @import("hardfork.zig").Hardfork) std.mem.Allocator.Error!Self {
+pub fn init_with_hardfork(allocator: std.mem.Allocator, hardfork: Hardfork) std.mem.Allocator.Error!Self {
     var state = try EvmState.init(allocator);
     errdefer state.deinit();
 
@@ -73,27 +61,18 @@ pub fn init_with_hardfork(allocator: std.mem.Allocator, hardfork: @import("hardf
 pub fn deinit(self: *Self) void {
     self.state.deinit();
     self.access_list.deinit();
-
-    // Clean up the global contract analysis cache
     Contract.clear_analysis_cache(self.allocator);
 }
 
-pub const InterpretError = ExecutionError.Error || Frame.FrameError;
-pub fn interpret(self: *Self, contract: *Contract, input: []const u8) InterpretError![]const u8 {
-    return self.interpret_with_context(contract, input, false) catch |err| {
-        Log.debug("Failed to interpret contract: {any}", .{err});
-        return err;
-    };
+pub fn interpret(self: *Self, contract: *Contract, input: []const u8) ExecutionError.Error![]const u8 {
+    return try self.interpret_with_context(contract, input, false);
 }
 
-pub fn interpret_static(self: *Self, contract: *Contract, input: []const u8) InterpretError![]const u8 {
-    return self.interpret_with_context(contract, input, true) catch |err| {
-        Log.debug("Failed to interpret contract in static context: {any}", .{err});
-        return err;
-    };
+pub fn interpret_static(self: *Self, contract: *Contract, input: []const u8) ExecutionError.Error![]const u8 {
+    return try self.interpret_with_context(contract, input, true);
 }
 
-pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u8, is_static: bool) InterpretError![]const u8 {
+pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u8, is_static: bool) ExecutionError.Error![]const u8 {
     self.depth += 1;
     defer self.depth -= 1;
 
@@ -103,15 +82,7 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
     self.read_only = self.read_only or is_static;
 
     var pc: usize = 0;
-    var frame = Frame.init(self.allocator, contract) catch |err| {
-        Log.debug("Failed to initialize frame: {any}", .{err});
-        return switch (err) {
-            Frame.FrameError.OutOfMemory => ExecutionError.Error.OutOfMemory,
-            Frame.FrameError.InvalidContract => ExecutionError.Error.InvalidCodeEntry,
-            Frame.FrameError.InvalidMemoryOperation => ExecutionError.Error.OutOfMemory,
-            Frame.FrameError.InvalidStackOperation => ExecutionError.Error.StackUnderflow,
-        };
-    };
+    var frame = try Frame.init(self.allocator, contract);
     defer frame.deinit();
     frame.memory.finalize_root();
     frame.is_static = self.read_only;
@@ -600,7 +571,7 @@ pub fn selfdestruct_protected(self: *Self, contract: Address.Address, beneficiar
 }
 
 // Simple bytecode execution for testing
-pub const RunError = std.mem.Allocator.Error || Frame.FrameError || ExecutionError.Error;
+pub const RunError = std.mem.Allocator.Error || ExecutionError.Error;
 pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64, input: ?[]const u8) RunError!RunResult {
     // Calculate code hash for the contract
     var hasher = std.crypto.hash.sha3.Keccak256.init(.{});

@@ -59,9 +59,6 @@ pub const ValidateValueTransferError = Vm.ValidateValueTransferError;
 pub const SelfdestructProtectedError = Vm.SelfdestructProtectedError;
 pub const RunError = Vm.RunError;
 
-// Frame error types
-pub const FrameError = Frame.FrameError;
-
 // Memory error types
 pub const MemoryError = Memory.MemoryError;
 
