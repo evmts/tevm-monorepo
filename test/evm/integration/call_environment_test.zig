@@ -10,7 +10,7 @@ test "Integration: Call with value transfer and balance check" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     // Set up accounts with balances
     try test_vm.setAccount(helpers.TestAddresses.ALICE, 1000, &[_]u8{});
@@ -30,7 +30,7 @@ test "Integration: Call with value transfer and balance check" {
     
     // Check balance of BOB before call
     try test_frame.pushStack(&[_]u256{helpers.toU256(helpers.TestAddresses.BOB)});
-    _ = try helpers.executeOpcode(0x31, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x31, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 500);
     
     // Prepare to call BOB with 100 wei
@@ -55,7 +55,7 @@ test "Integration: Call with value transfer and balance check" {
         50000,  // gas
     });
     
-    _ = try helpers.executeOpcode(0xF1, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0xF1, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 1); // Success
     
     // In a real implementation, balance would be updated
@@ -66,7 +66,7 @@ test "Integration: Call with value transfer and balance check" {
     // Check balance of BOB after call
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{helpers.toU256(helpers.TestAddresses.BOB)});
-    _ = try helpers.executeOpcode(0x31, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x31, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 600);
 }
 
@@ -74,7 +74,7 @@ test "Integration: Environment opcodes in context" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     // Set up VM environment
     test_vm.vm.tx_origin = helpers.TestAddresses.ALICE;
@@ -97,44 +97,44 @@ test "Integration: Environment opcodes in context" {
     defer test_frame.deinit();
     
     // Test ADDRESS
-    _ = try helpers.executeOpcode(0x30, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x30, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, helpers.toU256(helpers.TestAddresses.CONTRACT));
     
     // Test ORIGIN
     test_frame.frame.stack.clear();
-    _ = try helpers.executeOpcode(0x32, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x32, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, helpers.toU256(helpers.TestAddresses.ALICE));
     
     // Test CALLER
     test_frame.frame.stack.clear();
-    _ = try helpers.executeOpcode(0x33, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x33, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, helpers.toU256(helpers.TestAddresses.BOB));
     
     // Test CALLVALUE
     test_frame.frame.stack.clear();
-    _ = try helpers.executeOpcode(0x34, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x34, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 500);
     
     // Test GASPRICE
     test_frame.frame.stack.clear();
-    _ = try helpers.executeOpcode(0x3A, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x3A, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 20_000_000_000);
     
     // Test block-related opcodes
     test_frame.frame.stack.clear();
-    _ = try helpers.executeOpcode(0x43, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x43, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 15_000_000);
     
     test_frame.frame.stack.clear();
-    _ = try helpers.executeOpcode(0x42, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x42, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 1_650_000_000);
     
     test_frame.frame.stack.clear();
-    _ = try helpers.executeOpcode(0x41, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x41, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, helpers.toU256(helpers.TestAddresses.CHARLIE));
     
     test_frame.frame.stack.clear();
-    _ = try helpers.executeOpcode(0x46, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x46, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 1);
 }
 
@@ -142,7 +142,7 @@ test "Integration: CREATE with init code from memory" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -195,7 +195,7 @@ test "Integration: CREATE with init code from memory" {
         1000,           // value
     });
     
-    _ = try helpers.executeOpcode(0xF0, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0xF0, test_vm.vm, test_frame.frame);
     
     // Should push new contract address
     const addr = try test_frame.popStack();
@@ -206,7 +206,7 @@ test "Integration: DELEGATECALL preserves context" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     // Set up delegate contract with code
     const delegate_code = [_]u8{
@@ -244,7 +244,7 @@ test "Integration: DELEGATECALL preserves context" {
         50000,  // gas
     });
     
-    _ = try helpers.executeOpcode(0xF4, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0xF4, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 1); // Success
     
     // In DELEGATECALL, the called code should see the original caller (ALICE)
@@ -255,7 +255,7 @@ test "Integration: STATICCALL prevents state changes" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -286,7 +286,7 @@ test "Integration: STATICCALL prevents state changes" {
         50000,  // gas
     });
     
-    _ = try helpers.executeOpcode(0xFA, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0xFA, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 1); // Success
     
     // The is_static flag would be set in the called context,
@@ -297,7 +297,7 @@ test "Integration: Call depth limit handling" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -316,7 +316,7 @@ test "Integration: Call depth limit handling" {
     
     // Try CREATE at max depth
     try test_frame.pushStack(&[_]u256{0, 0, 0}); // size, offset, value
-    _ = try helpers.executeOpcode(0xF0, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0xF0, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0); // Should fail
     
     // Try CALL at max depth
@@ -326,7 +326,7 @@ test "Integration: Call depth limit handling" {
         helpers.toU256(helpers.TestAddresses.BOB),
         1000,
     });
-    _ = try helpers.executeOpcode(0xF1, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0xF1, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0); // Should fail
 }
 
@@ -334,7 +334,7 @@ test "Integration: Return data handling across calls" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -365,14 +365,14 @@ test "Integration: Return data handling across calls" {
         50000,
     });
     
-    _ = try helpers.executeOpcode(0xF1, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0xF1, test_vm.vm, test_frame.frame);
     
     // Set return data buffer to simulate real execution
     test_frame.frame.return_data_buffer = &return_data;
     
     // Check RETURNDATASIZE
     test_frame.frame.stack.clear();
-    _ = try helpers.executeOpcode(0x3D, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x3D, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 4);
     
     // Copy return data to memory
@@ -382,11 +382,11 @@ test "Integration: Return data handling across calls" {
         0,  // data offset
         200, // memory offset
     });
-    _ = try helpers.executeOpcode(0x3E, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x3E, test_vm.vm, test_frame.frame);
     
     // Verify data was copied
     try test_frame.pushStack(&[_]u256{200});
-    _ = try helpers.executeOpcode(0x51, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x51, test_vm.vm, test_frame.frame);
     
     // Should have 0xAABBCCDD in the most significant bytes
     const expected = (@as(u256, 0xAABBCCDD) << (28 * 8));
@@ -399,7 +399,7 @@ test "Integration: Gas forwarding in calls" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -431,7 +431,7 @@ test "Integration: Gas forwarding in calls" {
         requested_gas,
     });
     
-    _ = try helpers.executeOpcode(0xF1, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0xF1, test_vm.vm, test_frame.frame);
     
     // Gas should be deducted for:
     // 1. Cold address access (2600)

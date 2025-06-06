@@ -71,11 +71,6 @@ block_base_fee: u256 = 0,
 blob_hashes: []const u256 = &[_]u256{},
 blob_base_fee: u256 = 0,
 
-// Testing helpers
-last_stack_value: ?u256 = null,
-call_result: ?CallResult = null,
-create_result: ?CreateResult = null,
-
 pub fn init(allocator: std.mem.Allocator) VmInitError!Self {
     return init_with_hardfork(allocator, .CANCUN) catch |err| {
         Log.debug("Failed to initialize VM with default hardfork: {any}", .{err});
@@ -157,11 +152,9 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
     self.depth += 1;
     defer self.depth -= 1;
 
-    // Save previous read_only state and set new one
     const prev_read_only = self.read_only;
     defer self.read_only = prev_read_only;
 
-    // If entering a static context or already in one, maintain read-only
     self.read_only = self.read_only or is_static;
 
     var pc: usize = 0;
@@ -175,73 +168,57 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
         };
     };
     defer frame.deinit();
-    // Finalize the root memory now that frame is at its final location
     frame.memory.finalize_root();
     frame.is_static = self.read_only;
     frame.depth = @as(u32, @intCast(self.depth));
     frame.input = input;
+    frame.gas_remaining = contract.gas;
 
-    while (true) {
+    while (pc < contract.code_size) {
         const opcode = contract.get_op(pc);
-        // Cast self and frame to the opaque types expected by execute
+        frame.pc = pc;
+
         const interpreter_ptr: *Operation.Interpreter = @ptrCast(self);
         const state_ptr: *Operation.State = @ptrCast(&frame);
-        // Use jump table's execute method which handles gas consumption
         const result = self.table.execute(pc, interpreter_ptr, state_ptr, opcode) catch |err| {
+            // Update contract gas before returning
+            contract.gas = frame.gas_remaining;
+            self.return_data = @constCast(frame.return_data_buffer);
+
             // Handle specific errors with exhaustive switch
             return switch (err) {
                 ExecutionError.Error.InvalidOpcode => {
                     // INVALID opcode consumes all remaining gas
                     frame.gas_remaining = 0;
+                    contract.gas = 0;
                     return &[_]u8{};
                 },
                 ExecutionError.Error.STOP => {
                     // Normal stop
-                    return &[_]u8{};
+                    return frame.return_data_buffer;
                 },
-                ExecutionError.Error.REVERT => err,
-                ExecutionError.Error.INVALID => err,
-                ExecutionError.Error.OutOfGas => err,
-                ExecutionError.Error.StackUnderflow => err,
-                ExecutionError.Error.StackOverflow => err,
-                ExecutionError.Error.InvalidJump => err,
-                ExecutionError.Error.StaticStateChange => err,
-                ExecutionError.Error.OutOfOffset => err,
-                ExecutionError.Error.GasUintOverflow => err,
-                ExecutionError.Error.WriteProtection => err,
-                ExecutionError.Error.ReturnDataOutOfBounds => err,
-                ExecutionError.Error.DeployCodeTooBig => err,
-                ExecutionError.Error.MaxCodeSizeExceeded => err,
-                ExecutionError.Error.InvalidCodeEntry => err,
-                ExecutionError.Error.DepthLimit => err,
-                ExecutionError.Error.OutOfMemory => err,
-                ExecutionError.Error.InvalidOffset => err,
-                ExecutionError.Error.InvalidSize => err,
-                ExecutionError.Error.MemoryLimitExceeded => err,
-                ExecutionError.Error.ChildContextActive => err,
-                ExecutionError.Error.NoChildContextToRevertOrCommit => err,
-                ExecutionError.Error.EOFNotSupported => err,
+                else => return err,
             };
         };
 
-        // Update pc based on result - PUSH operations consume more than 1 byte
-        pc += result.bytes_consumed;
-
-        // Check if we should stop
-        if (result.output.len > 0 or pc >= contract.code_size) {
-            return result.output;
+        // BUGFIX: Correctly handle JUMP/JUMPI destinations
+        if (frame.pc != pc) {
+            pc = frame.pc;
+        } else {
+            // Update PC based on bytes consumed (for PUSH operations)
+            pc += result.bytes_consumed;
         }
     }
+
+    // Fell off end of bytecode, equivalent to a STOP
+    contract.gas = frame.gas_remaining;
+    self.return_data = @constCast(frame.return_data_buffer);
+    return &[_]u8{};
 }
 
 // Contract creation with CREATE opcode
 pub const CreateContractError = std.mem.Allocator.Error || Address.CalculateAddressError;
 pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_code: []const u8, gas: u64) CreateContractError!CreateResult {
-    // Check if we have a mocked create result for testing
-    if (self.create_result) |result| {
-        return result;
-    }
-
     // Get and increment nonce for the creator
     const current_nonce = self.nonces.get(creator) orelse 0;
     const nonce = current_nonce;
@@ -378,17 +355,13 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
 // Placeholder contract call - to be implemented properly later
 pub const CallContractError = std.mem.Allocator.Error;
 pub fn call_contract(self: *Self, caller: Address.Address, to: Address.Address, value: u256, input: []const u8, gas: u64, is_static: bool) CallContractError!CallResult {
+    _ = self; // autofix
     _ = caller;
     _ = to;
     _ = value;
     _ = input;
     _ = gas;
     _ = is_static;
-
-    // Check if we have a mocked call result for testing
-    if (self.call_result) |result| {
-        return result;
-    }
 
     // For now, return a failed call
     return CallResult{
@@ -410,11 +383,6 @@ pub fn consume_gas(self: *Self, amount: u64) ConsumeGasError!void {
 // CREATE2 specific method
 pub const Create2ContractError = std.mem.Allocator.Error || Address.CalculateCreate2AddressError;
 pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init_code: []const u8, salt: u256, gas: u64) Create2ContractError!CreateResult {
-    // Check if we have a mocked create result for testing
-    if (self.create_result) |result| {
-        return result;
-    }
-
     // Calculate the new contract address using CREATE2 formula:
     // address = keccak256(0xff ++ sender ++ salt ++ keccak256(init_code))[12:]
     const new_address = try Address.calculate_create2_address(self.allocator, creator, salt, init_code);
@@ -539,17 +507,13 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
 // CALLCODE specific method - executes code of 'to' in the context of the current contract
 pub const CallcodeContractError = std.mem.Allocator.Error;
 pub fn callcode_contract(self: *Self, current: Address.Address, code_address: Address.Address, value: u256, input: []const u8, gas: u64, is_static: bool) CallcodeContractError!CallResult {
+    _ = self; // autofix
     _ = current;
     _ = code_address;
     _ = value;
     _ = input;
     _ = gas;
     _ = is_static;
-
-    // Check if we have a mocked call result for testing
-    if (self.call_result) |result| {
-        return result;
-    }
 
     // For now, return a failed call
     return CallResult{
@@ -562,16 +526,12 @@ pub fn callcode_contract(self: *Self, current: Address.Address, code_address: Ad
 // DELEGATECALL specific method - executes code of 'to' with current contract's storage and sender/value
 pub const DelegatecallContractError = std.mem.Allocator.Error;
 pub fn delegatecall_contract(self: *Self, current: Address.Address, code_address: Address.Address, input: []const u8, gas: u64, is_static: bool) DelegatecallContractError!CallResult {
+    _ = self; // autofix
     _ = current;
     _ = code_address;
     _ = input;
     _ = gas;
     _ = is_static;
-
-    // Check if we have a mocked call result for testing
-    if (self.call_result) |result| {
-        return result;
-    }
 
     // For now, return a failed call
     return CallResult{
@@ -584,15 +544,11 @@ pub fn delegatecall_contract(self: *Self, current: Address.Address, code_address
 // STATICCALL specific method - guaranteed read-only call
 pub const StaticcallContractError = std.mem.Allocator.Error;
 pub fn staticcall_contract(self: *Self, caller: Address.Address, to: Address.Address, input: []const u8, gas: u64) StaticcallContractError!CallResult {
+    _ = self; // autofix
     _ = caller;
     _ = to;
     _ = input;
     _ = gas;
-
-    // Check if we have a mocked call result for testing
-    if (self.call_result) |result| {
-        return result;
-    }
 
     // Implementation would call interpret_static or set read_only = true
     // For now, return a failed call
@@ -778,132 +734,53 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
         return err;
     };
 
-    // Create a frame for execution
-    var frame = Frame.init(self.allocator, &contract) catch |err| {
-        Log.debug("Failed to initialize frame: {any}", .{err});
-        return err;
-    };
-    defer frame.deinit();
-    // Finalize the root memory now that frame is at its final location
-    frame.memory.finalize_root();
-
-    frame.gas_remaining = gas;
-    frame.input = input orelse &[_]u8{};
-    frame.depth = 0;
-    frame.is_static = false;
-
-    // Save initial gas for tracking
     const initial_gas = gas;
 
-    // Execution loop
-    var pc: usize = 0;
-    while (pc < bytecode.len) {
-        const opcode = bytecode[pc];
-
-        // Removed debug output
-
-        // Update frame PC to match current PC
-        frame.pc = pc;
-
-        // Cast self and frame to the opaque types expected by execute
-        const interpreter_ptr: *Operation.Interpreter = @ptrCast(self);
-        const state_ptr: *Operation.State = @ptrCast(&frame);
-
-        // Execute opcode through jump table
-        const result = self.table.execute(pc, interpreter_ptr, state_ptr, opcode) catch |err| {
-            // Handle execution errors
-            const instruction_result = switch (err) {
-                ExecutionError.Error.STOP => {
-                    // Save top stack value for testing
-                    if (frame.stack.size > 0) {
-                        if (frame.stack.peek()) |val| {
-                            self.last_stack_value = val.*;
-                        } else |_| {
-                            self.last_stack_value = null;
-                        }
-                    }
-                    return RunResult{
-                        .status = .Success,
-                        .gas_left = frame.gas_remaining,
-                        .gas_used = initial_gas - frame.gas_remaining,
-                        .output = if (frame.return_data_buffer.len > 0)
-                            try self.allocator.dupe(u8, frame.return_data_buffer)
-                        else
-                            null,
-                    };
-                },
-                ExecutionError.Error.REVERT => {
-                    return RunResult{
-                        .status = .Revert,
-                        .gas_left = frame.gas_remaining,
-                        .gas_used = initial_gas - frame.gas_remaining,
-                        .output = if (frame.return_data_buffer.len > 0)
-                            try self.allocator.dupe(u8, frame.return_data_buffer)
-                        else
-                            null,
-                    };
-                },
-                ExecutionError.Error.InvalidJump => {
-                    return RunResult{
-                        .status = .Invalid,
-                        .gas_left = 0,
-                        .gas_used = initial_gas,
-                        .output = null,
-                    };
-                },
-                ExecutionError.Error.InvalidOpcode => {
-                    // INVALID opcode consumes all remaining gas
-                    frame.gas_remaining = 0;
-                    return RunResult{
-                        .status = .Invalid,
-                        .gas_left = 0,
-                        .gas_used = initial_gas,
-                        .output = null,
-                    };
-                },
-                ExecutionError.Error.OutOfGas => {
-                    return RunResult{
-                        .status = .OutOfGas,
-                        .gas_left = 0,
-                        .gas_used = initial_gas,
-                        .output = null,
-                    };
-                },
-                ExecutionError.Error.StackUnderflow => {
-                    return RunResult{
-                        .status = .Invalid,
-                        .gas_left = 0,
-                        .gas_used = initial_gas,
-                        .output = null,
-                    };
-                },
-                else => return err,
-            };
-            _ = instruction_result; // autofix
-        };
-
-        // Check if PC was modified by JUMP/JUMPI opcodes
-        if (frame.pc != pc) {
-            pc = frame.pc;
-        } else {
-            // Update PC based on bytes consumed (for PUSH operations)
-            pc += result.bytes_consumed;
+    const output_data = self.interpret(&contract, input orelse &[_]u8{}) catch |err| {
+        var output: ?[]const u8 = null;
+        if (self.return_data.len > 0) {
+            output = try self.allocator.dupe(u8, self.return_data);
         }
+
+        switch (err) {
+            ExecutionError.Error.REVERT => {
+                return RunResult{
+                    .status = .Revert,
+                    .gas_left = contract.gas,
+                    .gas_used = initial_gas - contract.gas,
+                    .output = output,
+                };
+            },
+            ExecutionError.Error.OutOfGas => {
+                return RunResult{
+                    .status = .OutOfGas,
+                    .gas_left = contract.gas,
+                    .gas_used = initial_gas - contract.gas,
+                    .output = output,
+                };
+            },
+            ExecutionError.Error.InvalidJump, ExecutionError.Error.InvalidOpcode, ExecutionError.Error.StackUnderflow, ExecutionError.Error.StackOverflow, ExecutionError.Error.StaticStateChange, ExecutionError.Error.WriteProtection, ExecutionError.Error.DepthLimit, ExecutionError.Error.MaxCodeSizeExceeded => {
+                return RunResult{
+                    .status = .Invalid,
+                    .gas_left = contract.gas,
+                    .gas_used = initial_gas - contract.gas,
+                    .output = output,
+                };
+            },
+            else => return err, // Unexpected error
+        }
+    };
+
+    // If interpret returns successfully, it's a success status
+    var output: ?[]const u8 = null;
+    if (output_data.len > 0) {
+        output = try self.allocator.dupe(u8, output_data);
     }
 
-    // If we reach end of bytecode without explicit stop/return
-    // Save top stack value for testing
-    if (frame.stack.size > 0) {
-        if (frame.stack.peek()) |val| {
-            self.last_stack_value = val.*;
-        } else |_| {
-            self.last_stack_value = null;
-        }
-    }
     return RunResult{
         .status = .Success,
-        .gas_left = frame.gas_remaining,
-        .gas_used = initial_gas - frame.gas_remaining,
-        .output = null,
+        .gas_left = contract.gas,
+        .gas_used = initial_gas - contract.gas,
+        .output = output,
     };
 }

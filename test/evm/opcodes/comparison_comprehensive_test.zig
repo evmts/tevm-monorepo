@@ -11,7 +11,7 @@ const evm = @import("evm");
 test "LT: Comprehensive edge cases" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -61,7 +61,7 @@ test "LT: Comprehensive edge cases" {
     for (test_cases) |tc| {
         test_frame.frame.stack.clear();
         try test_frame.pushStack(&[_]u256{ tc.a, tc.b });
-        _ = try helpers.executeOpcode(0x10, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x10, test_vm.vm, test_frame.frame);
         try helpers.expectStackValue(test_frame.frame, 0, tc.expected);
         _ = try test_frame.popStack();
     }
@@ -73,7 +73,7 @@ test "LT: Comprehensive edge cases" {
 test "GT: Comprehensive edge cases" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -110,7 +110,7 @@ test "GT: Comprehensive edge cases" {
     for (test_cases) |tc| {
         test_frame.frame.stack.clear();
         try test_frame.pushStack(&[_]u256{ tc.a, tc.b });
-        _ = try helpers.executeOpcode(0x11, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x11, test_vm.vm, test_frame.frame);
         try helpers.expectStackValue(test_frame.frame, 0, tc.expected);
         _ = try test_frame.popStack();
     }
@@ -122,7 +122,7 @@ test "GT: Comprehensive edge cases" {
 test "SLT: Comprehensive signed comparison cases" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -181,7 +181,7 @@ test "SLT: Comprehensive signed comparison cases" {
     for (test_cases) |tc| {
         test_frame.frame.stack.clear();
         try test_frame.pushStack(&[_]u256{ tc.a, tc.b });
-        _ = try helpers.executeOpcode(0x12, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x12, test_vm.vm, test_frame.frame);
         try helpers.expectStackValue(test_frame.frame, 0, tc.expected);
         _ = try test_frame.popStack();
     }
@@ -193,7 +193,7 @@ test "SLT: Comprehensive signed comparison cases" {
 test "SGT: Comprehensive signed greater than cases" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -234,7 +234,7 @@ test "SGT: Comprehensive signed greater than cases" {
     for (test_cases) |tc| {
         test_frame.frame.stack.clear();
         try test_frame.pushStack(&[_]u256{ tc.a, tc.b });
-        _ = try helpers.executeOpcode(0x13, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x13, test_vm.vm, test_frame.frame);
         try helpers.expectStackValue(test_frame.frame, 0, tc.expected);
         _ = try test_frame.popStack();
     }
@@ -246,7 +246,7 @@ test "SGT: Comprehensive signed greater than cases" {
 test "EQ: Comprehensive equality cases" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -290,7 +290,7 @@ test "EQ: Comprehensive equality cases" {
     for (test_cases) |tc| {
         test_frame.frame.stack.clear();
         try test_frame.pushStack(&[_]u256{ tc.a, tc.b });
-        _ = try helpers.executeOpcode(0x14, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x14, test_vm.vm, test_frame.frame);
         try helpers.expectStackValue(test_frame.frame, 0, tc.expected);
         _ = try test_frame.popStack();
     }
@@ -302,7 +302,7 @@ test "EQ: Comprehensive equality cases" {
 test "ISZERO: Comprehensive zero detection cases" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -347,7 +347,7 @@ test "ISZERO: Comprehensive zero detection cases" {
     for (test_cases) |tc| {
         test_frame.frame.stack.clear();
         try test_frame.pushStack(&[_]u256{tc.value});
-        _ = try helpers.executeOpcode(0x15, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x15, test_vm.vm, test_frame.frame);
         try helpers.expectStackValue(test_frame.frame, 0, tc.expected);
         _ = try test_frame.popStack();
     }
@@ -359,7 +359,7 @@ test "ISZERO: Comprehensive zero detection cases" {
 test "AND: Comprehensive bitwise AND cases" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -405,7 +405,7 @@ test "AND: Comprehensive bitwise AND cases" {
     for (test_cases) |tc| {
         test_frame.frame.stack.clear();
         try test_frame.pushStack(&[_]u256{ tc.a, tc.b });
-        _ = try helpers.executeOpcode(0x16, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x16, test_vm.vm, test_frame.frame);
         try helpers.expectStackValue(test_frame.frame, 0, tc.expected);
         _ = try test_frame.popStack();
     }
@@ -417,7 +417,7 @@ test "AND: Comprehensive bitwise AND cases" {
 test "OR: Comprehensive bitwise OR cases" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -462,7 +462,7 @@ test "OR: Comprehensive bitwise OR cases" {
     for (test_cases) |tc| {
         test_frame.frame.stack.clear();
         try test_frame.pushStack(&[_]u256{ tc.a, tc.b });
-        _ = try helpers.executeOpcode(0x17, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x17, test_vm.vm, test_frame.frame);
         try helpers.expectStackValue(test_frame.frame, 0, tc.expected);
         _ = try test_frame.popStack();
     }
@@ -474,7 +474,7 @@ test "OR: Comprehensive bitwise OR cases" {
 test "XOR: Comprehensive bitwise XOR cases" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -520,7 +520,7 @@ test "XOR: Comprehensive bitwise XOR cases" {
     for (test_cases) |tc| {
         test_frame.frame.stack.clear();
         try test_frame.pushStack(&[_]u256{ tc.a, tc.b });
-        _ = try helpers.executeOpcode(0x18, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x18, test_vm.vm, test_frame.frame);
         try helpers.expectStackValue(test_frame.frame, 0, tc.expected);
         _ = try test_frame.popStack();
     }
@@ -532,12 +532,12 @@ test "XOR: Comprehensive bitwise XOR cases" {
     
     // Encrypt
     try test_frame.pushStack(&[_]u256{ data, key });
-    _ = try helpers.executeOpcode(0x18, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x18, test_vm.vm, test_frame.frame);
     const encrypted = try test_frame.popStack();
     
     // Decrypt
     try test_frame.pushStack(&[_]u256{ encrypted, key });
-    _ = try helpers.executeOpcode(0x18, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x18, test_vm.vm, test_frame.frame);
     const decrypted = try test_frame.popStack();
     
     try testing.expectEqual(data, decrypted);
@@ -549,7 +549,7 @@ test "XOR: Comprehensive bitwise XOR cases" {
 test "NOT: Comprehensive bitwise NOT cases" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -593,7 +593,7 @@ test "NOT: Comprehensive bitwise NOT cases" {
     for (test_cases) |tc| {
         test_frame.frame.stack.clear();
         try test_frame.pushStack(&[_]u256{tc.value});
-        _ = try helpers.executeOpcode(0x19, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x19, test_vm.vm, test_frame.frame);
         try helpers.expectStackValue(test_frame.frame, 0, tc.expected);
         _ = try test_frame.popStack();
     }
@@ -602,8 +602,8 @@ test "NOT: Comprehensive bitwise NOT cases" {
     test_frame.frame.stack.clear();
     const original: u256 = 0x123456789ABCDEF0;
     try test_frame.pushStack(&[_]u256{original});
-    _ = try helpers.executeOpcode(0x19, &test_vm.vm, test_frame.frame); // NOT
-    _ = try helpers.executeOpcode(0x19, &test_vm.vm, test_frame.frame); // NOT again
+    _ = try helpers.executeOpcode(0x19, test_vm.vm, test_frame.frame); // NOT
+    _ = try helpers.executeOpcode(0x19, test_vm.vm, test_frame.frame); // NOT again
     try helpers.expectStackValue(test_frame.frame, 0, original);
 }
 
@@ -613,7 +613,7 @@ test "NOT: Comprehensive bitwise NOT cases" {
 test "BYTE: Comprehensive byte extraction cases" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -639,7 +639,7 @@ test "BYTE: Comprehensive byte extraction cases" {
     while (i < 32) : (i += 1) {
         test_frame.frame.stack.clear();
         try test_frame.pushStack(&[_]u256{ test_value, i });
-        _ = try helpers.executeOpcode(0x1A, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x1A, test_vm.vm, test_frame.frame);
         try helpers.expectStackValue(test_frame.frame, 0, i + 1);
         _ = try test_frame.popStack();
     }
@@ -649,7 +649,7 @@ test "BYTE: Comprehensive byte extraction cases" {
     for (out_of_bounds_cases) |idx| {
         test_frame.frame.stack.clear();
         try test_frame.pushStack(&[_]u256{ test_value, idx });
-        _ = try helpers.executeOpcode(0x1A, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x1A, test_vm.vm, test_frame.frame);
         try helpers.expectStackValue(test_frame.frame, 0, 0);
         _ = try test_frame.popStack();
     }
@@ -673,7 +673,7 @@ test "BYTE: Comprehensive byte extraction cases" {
     for (pattern_tests) |tc| {
         test_frame.frame.stack.clear();
         try test_frame.pushStack(&[_]u256{ tc.value, tc.index });
-        _ = try helpers.executeOpcode(0x1A, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x1A, test_vm.vm, test_frame.frame);
         try helpers.expectStackValue(test_frame.frame, 0, tc.expected);
         _ = try test_frame.popStack();
     }
@@ -685,7 +685,7 @@ test "BYTE: Comprehensive byte extraction cases" {
 test "Combined: Complex bitwise and comparison operations" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -707,12 +707,12 @@ test "Combined: Complex bitwise and comparison operations" {
         
         // Calculate a AND a
         try test_frame.pushStack(&[_]u256{ val, val });
-        _ = try helpers.executeOpcode(0x16, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x16, test_vm.vm, test_frame.frame);
         const and_result = try test_frame.popStack();
         
         // Calculate a OR a
         try test_frame.pushStack(&[_]u256{ val, val });
-        _ = try helpers.executeOpcode(0x17, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x17, test_vm.vm, test_frame.frame);
         const or_result = try test_frame.popStack();
         
         // They should be equal
@@ -725,11 +725,11 @@ test "Combined: Complex bitwise and comparison operations" {
     
     // Create a comparison result (5 < 10) = 1
     try test_frame.pushStack(&[_]u256{ 5, 10 });
-    _ = try helpers.executeOpcode(0x10, &test_vm.vm, test_frame.frame); // LT
+    _ = try helpers.executeOpcode(0x10, test_vm.vm, test_frame.frame); // LT
     
     // Use it as a mask with AND
     try test_frame.pushStack(&[_]u256{ 0xFFFFFFFF });
-    _ = try helpers.executeOpcode(0x16, &test_vm.vm, test_frame.frame); // AND
+    _ = try helpers.executeOpcode(0x16, test_vm.vm, test_frame.frame); // AND
     try helpers.expectStackValue(test_frame.frame, 0, 1); // 0xFFFFFFFF AND 1 = 1
     
     // Test: Building conditional values using comparisons
@@ -738,13 +738,13 @@ test "Combined: Complex bitwise and comparison operations" {
     // Test that comparison results (0 or 1) can be used for conditional logic
     // Case 1: true comparison
     try test_frame.pushStack(&[_]u256{ 5, 10 });
-    _ = try helpers.executeOpcode(0x10, &test_vm.vm, test_frame.frame); // LT = 1
+    _ = try helpers.executeOpcode(0x10, test_vm.vm, test_frame.frame); // LT = 1
     const true_result = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 1), true_result);
     
     // Case 2: false comparison  
     try test_frame.pushStack(&[_]u256{ 10, 5 });
-    _ = try helpers.executeOpcode(0x10, &test_vm.vm, test_frame.frame); // LT = 0
+    _ = try helpers.executeOpcode(0x10, test_vm.vm, test_frame.frame); // LT = 0
     const false_result = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 0), false_result);
 }
@@ -755,7 +755,7 @@ test "Combined: Complex bitwise and comparison operations" {
 test "Performance: Rapid successive operations" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -778,9 +778,9 @@ test "Performance: Rapid successive operations" {
         try test_frame.pushStack(&[_]u256{ i, i + 1, i * 2, i * 3 });
         
         // Do various operations
-        _ = try helpers.executeOpcode(0x10, &test_vm.vm, test_frame.frame); // LT
-        _ = try helpers.executeOpcode(0x16, &test_vm.vm, test_frame.frame); // AND
-        _ = try helpers.executeOpcode(0x19, &test_vm.vm, test_frame.frame); // NOT
+        _ = try helpers.executeOpcode(0x10, test_vm.vm, test_frame.frame); // LT
+        _ = try helpers.executeOpcode(0x16, test_vm.vm, test_frame.frame); // AND
+        _ = try helpers.executeOpcode(0x19, test_vm.vm, test_frame.frame); // NOT
         
         // Verify stack has one result
         try testing.expectEqual(@as(usize, 1), test_frame.stackSize());

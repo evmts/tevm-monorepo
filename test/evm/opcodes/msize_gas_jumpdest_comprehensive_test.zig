@@ -9,7 +9,7 @@ const helpers = @import("test_helpers.zig");
 test "MSIZE (0x59): Get current memory size" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -24,40 +24,40 @@ test "MSIZE (0x59): Get current memory size" {
     defer test_frame.deinit();
 
     // Test 1: Initial memory size (should be 0)
-    _ = try helpers.executeOpcode(0x59, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x59, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0);
     _ = try test_frame.popStack();
 
     // Test 2: After storing 32 bytes
     try test_frame.pushStack(&[_]u256{ 0xdeadbeef, 0 }); // value, offset
-    _ = try helpers.executeOpcode(0x52, &test_vm.vm, test_frame.frame); // MSTORE
+    _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame); // MSTORE
 
-    _ = try helpers.executeOpcode(0x59, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x59, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 32); // One word
     _ = try test_frame.popStack();
 
     // Test 3: After storing at offset 32
     try test_frame.pushStack(&[_]u256{ 0xcafebabe, 32 }); // value, offset
-    _ = try helpers.executeOpcode(0x52, &test_vm.vm, test_frame.frame); // MSTORE
+    _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame); // MSTORE
 
-    _ = try helpers.executeOpcode(0x59, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x59, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 64); // Two words
     _ = try test_frame.popStack();
 
     // Test 4: After storing at offset 100 (should expand to word boundary)
     try test_frame.pushStack(&[_]u256{ 0x12345678, 100 }); // value, offset
-    _ = try helpers.executeOpcode(0x52, &test_vm.vm, test_frame.frame); // MSTORE
+    _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame); // MSTORE
 
-    _ = try helpers.executeOpcode(0x59, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x59, test_vm.vm, test_frame.frame);
     // 100 + 32 = 132, rounded up to word boundary = 160 (5 words)
     try helpers.expectStackValue(test_frame.frame, 0, 160);
     _ = try test_frame.popStack();
 
     // Test 5: After MSTORE8 (single byte)
     try test_frame.pushStack(&[_]u256{ 0xFF, 200 }); // value, offset
-    _ = try helpers.executeOpcode(0x53, &test_vm.vm, test_frame.frame); // MSTORE8
+    _ = try helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame); // MSTORE8
 
-    _ = try helpers.executeOpcode(0x59, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x59, test_vm.vm, test_frame.frame);
     // 200 + 1 = 201, rounded up to word boundary = 224 (7 words)
     try helpers.expectStackValue(test_frame.frame, 0, 224);
 }
@@ -65,7 +65,7 @@ test "MSIZE (0x59): Get current memory size" {
 test "GAS (0x5A): Get remaining gas" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -91,7 +91,7 @@ test "GAS (0x5A): Get remaining gas" {
         defer test_frame.deinit();
 
         // Execute GAS opcode
-        _ = try helpers.executeOpcode(0x5A, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x5A, test_vm.vm, test_frame.frame);
 
         // The value pushed should be initial_gas minus the gas cost of GAS itself (2)
         const expected_gas = initial_gas - 2;
@@ -103,11 +103,11 @@ test "GAS (0x5A): Get remaining gas" {
 
         // Execute some operations to consume gas
         try test_frame.pushStack(&[_]u256{ 5, 10 }); // Push two values
-        _ = try helpers.executeOpcode(0x01, &test_vm.vm, test_frame.frame); // ADD (costs 3)
+        _ = try helpers.executeOpcode(0x01, test_vm.vm, test_frame.frame); // ADD (costs 3)
         _ = try test_frame.popStack();
 
         // Execute GAS again
-        _ = try helpers.executeOpcode(0x5A, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(0x5A, test_vm.vm, test_frame.frame);
 
         // Should have consumed gas for ADD (3) and GAS (2)
         const expected_remaining = gas_before - 3 - 2;
@@ -118,7 +118,7 @@ test "GAS (0x5A): Get remaining gas" {
 test "JUMPDEST (0x5B): Mark valid jump destination" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     // Create bytecode with multiple JUMPDESTs
     const code = [_]u8{
@@ -145,7 +145,7 @@ test "JUMPDEST (0x5B): Mark valid jump destination" {
     // Test 1: Execute JUMPDEST - should be a no-op
     const stack_size_before = test_frame.frame.stack.size;
     const gas_before = test_frame.frame.gas_remaining;
-    _ = try helpers.executeOpcode(0x5B, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x5B, test_vm.vm, test_frame.frame);
 
     // Stack should be unchanged
     try testing.expectEqual(stack_size_before, test_frame.frame.stack.size);
@@ -177,7 +177,7 @@ test "JUMPDEST (0x5B): Mark valid jump destination" {
 test "MSIZE, GAS, JUMPDEST: Gas consumption" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -206,7 +206,7 @@ test "MSIZE, GAS, JUMPDEST: Gas consumption" {
         const gas_before = 1000;
         test_frame.frame.gas_remaining = gas_before;
 
-        _ = try helpers.executeOpcode(op.opcode, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(op.opcode, test_vm.vm, test_frame.frame);
 
         const gas_used = gas_before - test_frame.frame.gas_remaining;
         try testing.expectEqual(op.expected_gas, gas_used);
@@ -220,7 +220,7 @@ test "MSIZE, GAS, JUMPDEST: Gas consumption" {
 test "MSIZE: Memory expansion scenarios" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -236,26 +236,26 @@ test "MSIZE: Memory expansion scenarios" {
 
     // Test expansion via MLOAD
     try test_frame.pushStack(&[_]u256{64}); // offset
-    _ = try helpers.executeOpcode(0x51, &test_vm.vm, test_frame.frame); // MLOAD
+    _ = try helpers.executeOpcode(0x51, test_vm.vm, test_frame.frame); // MLOAD
     _ = try test_frame.popStack();
 
-    _ = try helpers.executeOpcode(0x59, &test_vm.vm, test_frame.frame); // MSIZE
+    _ = try helpers.executeOpcode(0x59, test_vm.vm, test_frame.frame); // MSIZE
     try helpers.expectStackValue(test_frame.frame, 0, 96); // 64 + 32 = 96
     _ = try test_frame.popStack();
 
     // Test expansion via CALLDATACOPY
     test_frame.frame.input = &[_]u8{ 0x01, 0x02, 0x03, 0x04 };
     try test_frame.pushStack(&[_]u256{ 4, 0, 200 }); // size, data_offset, mem_offset
-    _ = try helpers.executeOpcode(0x37, &test_vm.vm, test_frame.frame); // CALLDATACOPY
+    _ = try helpers.executeOpcode(0x37, test_vm.vm, test_frame.frame); // CALLDATACOPY
 
-    _ = try helpers.executeOpcode(0x59, &test_vm.vm, test_frame.frame); // MSIZE
+    _ = try helpers.executeOpcode(0x59, test_vm.vm, test_frame.frame); // MSIZE
     try helpers.expectStackValue(test_frame.frame, 0, 224); // 200 + 4 = 204, rounded to 224
 }
 
 test "GAS: Low gas scenarios" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -270,20 +270,20 @@ test "GAS: Low gas scenarios" {
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 2);
     defer test_frame.deinit();
 
-    _ = try helpers.executeOpcode(0x5A, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x5A, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0); // All gas consumed
     _ = try test_frame.popStack();
 
     // Test with not enough gas
     test_frame.frame.gas_remaining = 1;
-    const result = helpers.executeOpcode(0x5A, &test_vm.vm, test_frame.frame);
+    const result = helpers.executeOpcode(0x5A, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.OutOfGas, result);
 }
 
 test "JUMPDEST: Code analysis integration" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     // Complex bytecode with JUMPDEST in data section
     const code = [_]u8{
@@ -321,20 +321,20 @@ test "JUMPDEST: Code analysis integration" {
 
     // Jump to valid JUMPDEST should succeed
     try test_frame.pushStack(&[_]u256{8});
-    _ = try helpers.executeOpcode(0x56, &test_vm.vm, test_frame.frame); // JUMP
+    _ = try helpers.executeOpcode(0x56, test_vm.vm, test_frame.frame); // JUMP
     try testing.expectEqual(@as(usize, 8), test_frame.frame.pc);
 
     // Jump to position 5 should also succeed (it's a valid JUMPDEST)
     test_frame.frame.pc = 0;
     try test_frame.pushStack(&[_]u256{5});
-    _ = try helpers.executeOpcode(0x56, &test_vm.vm, test_frame.frame); // JUMP
+    _ = try helpers.executeOpcode(0x56, test_vm.vm, test_frame.frame); // JUMP
     try testing.expectEqual(@as(usize, 5), test_frame.frame.pc);
 }
 
 test "Stack operations: MSIZE and GAS push exactly one value" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -354,7 +354,7 @@ test "Stack operations: MSIZE and GAS push exactly one value" {
         test_frame.frame.stack.clear();
         const initial_stack_len = test_frame.frame.stack.size;
 
-        _ = try helpers.executeOpcode(opcode, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(opcode, test_vm.vm, test_frame.frame);
 
         // Check that exactly one value was pushed
         try testing.expectEqual(initial_stack_len + 1, test_frame.frame.stack.size);

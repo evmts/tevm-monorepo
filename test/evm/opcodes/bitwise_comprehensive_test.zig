@@ -9,7 +9,7 @@ const helpers = @import("test_helpers.zig");
 test "AND (0x16): Basic bitwise AND" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     const code = [_]u8{0x16}; // AND
     
@@ -29,7 +29,7 @@ test "AND (0x16): Basic bitwise AND" {
     try test_frame.pushStack(&[_]u256{0xFF00});
     try test_frame.pushStack(&[_]u256{0x0FF0});
     
-    const result = try helpers.executeOpcode(0x16, &test_vm.vm, test_frame.frame);
+    const result = try helpers.executeOpcode(0x16, test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 1), result.bytes_consumed);
     
     const value = try test_frame.popStack();
@@ -39,7 +39,7 @@ test "AND (0x16): Basic bitwise AND" {
 test "AND: All zeros" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -57,7 +57,7 @@ test "AND: All zeros" {
     try test_frame.pushStack(&[_]u256{0xFFFF});
     try test_frame.pushStack(&[_]u256{0x0000});
     
-    _ = try helpers.executeOpcode(0x16, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x16, test_vm.vm, test_frame.frame);
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 0), value);
@@ -66,7 +66,7 @@ test "AND: All zeros" {
 test "AND: All ones" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -85,7 +85,7 @@ test "AND: All ones" {
     try test_frame.pushStack(&[_]u256{max});
     try test_frame.pushStack(&[_]u256{max});
     
-    _ = try helpers.executeOpcode(0x16, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x16, test_vm.vm, test_frame.frame);
     
     const value = try test_frame.popStack();
     try testing.expectEqual(max, value);
@@ -94,7 +94,7 @@ test "AND: All ones" {
 test "AND: Masking operations" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -112,7 +112,7 @@ test "AND: Masking operations" {
     try test_frame.pushStack(&[_]u256{0x123456});
     try test_frame.pushStack(&[_]u256{0xFF});
     
-    _ = try helpers.executeOpcode(0x16, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x16, test_vm.vm, test_frame.frame);
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 0x56), value);
@@ -125,7 +125,7 @@ test "AND: Masking operations" {
 test "OR (0x17): Basic bitwise OR" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -143,7 +143,7 @@ test "OR (0x17): Basic bitwise OR" {
     try test_frame.pushStack(&[_]u256{0xF000});
     try test_frame.pushStack(&[_]u256{0x00F0});
     
-    _ = try helpers.executeOpcode(0x17, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x17, test_vm.vm, test_frame.frame);
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 0xF0F0), value);
@@ -152,7 +152,7 @@ test "OR (0x17): Basic bitwise OR" {
 test "OR: With zero" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -170,7 +170,7 @@ test "OR: With zero" {
     try test_frame.pushStack(&[_]u256{0x1234});
     try test_frame.pushStack(&[_]u256{0x0000});
     
-    _ = try helpers.executeOpcode(0x17, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x17, test_vm.vm, test_frame.frame);
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 0x1234), value);
@@ -179,7 +179,7 @@ test "OR: With zero" {
 test "OR: Setting bits" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -197,7 +197,7 @@ test "OR: Setting bits" {
     try test_frame.pushStack(&[_]u256{0x1000});
     try test_frame.pushStack(&[_]u256{0x0200});
     
-    _ = try helpers.executeOpcode(0x17, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x17, test_vm.vm, test_frame.frame);
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 0x1200), value);
@@ -210,7 +210,7 @@ test "OR: Setting bits" {
 test "XOR (0x18): Basic bitwise XOR" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -228,7 +228,7 @@ test "XOR (0x18): Basic bitwise XOR" {
     try test_frame.pushStack(&[_]u256{0xFF00});
     try test_frame.pushStack(&[_]u256{0x0FF0});
     
-    _ = try helpers.executeOpcode(0x18, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x18, test_vm.vm, test_frame.frame);
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 0xF0F0), value);
@@ -237,7 +237,7 @@ test "XOR (0x18): Basic bitwise XOR" {
 test "XOR: Self XOR equals zero" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -255,7 +255,7 @@ test "XOR: Self XOR equals zero" {
     try test_frame.pushStack(&[_]u256{0x123456});
     try test_frame.pushStack(&[_]u256{0x123456});
     
-    _ = try helpers.executeOpcode(0x18, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x18, test_vm.vm, test_frame.frame);
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 0), value);
@@ -264,7 +264,7 @@ test "XOR: Self XOR equals zero" {
 test "XOR: Toggle bits" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -282,7 +282,7 @@ test "XOR: Toggle bits" {
     try test_frame.pushStack(&[_]u256{0b1010});
     try test_frame.pushStack(&[_]u256{0b1100});
     
-    _ = try helpers.executeOpcode(0x18, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x18, test_vm.vm, test_frame.frame);
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 0b0110), value);
@@ -295,7 +295,7 @@ test "XOR: Toggle bits" {
 test "NOT (0x19): Basic bitwise NOT" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -312,7 +312,7 @@ test "NOT (0x19): Basic bitwise NOT" {
     // Test: NOT 0 = MAX
     try test_frame.pushStack(&[_]u256{0});
     
-    _ = try helpers.executeOpcode(0x19, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x19, test_vm.vm, test_frame.frame);
     
     const value = try test_frame.popStack();
     try testing.expectEqual(std.math.maxInt(u256), value);
@@ -321,7 +321,7 @@ test "NOT (0x19): Basic bitwise NOT" {
 test "NOT: Invert all bits" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -338,7 +338,7 @@ test "NOT: Invert all bits" {
     // Test: NOT MAX = 0
     try test_frame.pushStack(&[_]u256{std.math.maxInt(u256)});
     
-    _ = try helpers.executeOpcode(0x19, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x19, test_vm.vm, test_frame.frame);
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 0), value);
@@ -347,7 +347,7 @@ test "NOT: Invert all bits" {
 test "NOT: Double NOT returns original" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -367,11 +367,11 @@ test "NOT: Double NOT returns original" {
     
     // First NOT
     test_frame.frame.pc = 0;
-    _ = try helpers.executeOpcode(0x19, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x19, test_vm.vm, test_frame.frame);
     
     // Second NOT
     test_frame.frame.pc = 1;
-    _ = try helpers.executeOpcode(0x19, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x19, test_vm.vm, test_frame.frame);
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, original), value);
@@ -384,7 +384,7 @@ test "NOT: Double NOT returns original" {
 test "BYTE (0x1A): Extract first byte" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -402,7 +402,7 @@ test "BYTE (0x1A): Extract first byte" {
     try test_frame.pushStack(&[_]u256{0x1234567890ABCDEF}); // value (pushed first, popped second)
     try test_frame.pushStack(&[_]u256{0}); // byte index (pushed last, popped first)
     
-    _ = try helpers.executeOpcode(0x1A, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x1A, test_vm.vm, test_frame.frame);
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 0), value); // Most significant byte is 0
@@ -411,7 +411,7 @@ test "BYTE (0x1A): Extract first byte" {
 test "BYTE: Extract last byte" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -429,7 +429,7 @@ test "BYTE: Extract last byte" {
     try test_frame.pushStack(&[_]u256{0x1234567890ABCDEF}); // value (pushed first, popped second)
     try test_frame.pushStack(&[_]u256{31}); // byte index (pushed last, popped first)
     
-    _ = try helpers.executeOpcode(0x1A, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x1A, test_vm.vm, test_frame.frame);
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 0xEF), value);
@@ -438,7 +438,7 @@ test "BYTE: Extract last byte" {
 test "BYTE: Out of bounds returns zero" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -456,7 +456,7 @@ test "BYTE: Out of bounds returns zero" {
     try test_frame.pushStack(&[_]u256{0xFFFFFFFFFFFFFFFF}); // value (pushed first, popped second)
     try test_frame.pushStack(&[_]u256{32}); // byte index (out of bounds) (pushed last, popped first)
     
-    _ = try helpers.executeOpcode(0x1A, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x1A, test_vm.vm, test_frame.frame);
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 0), value);
@@ -465,7 +465,7 @@ test "BYTE: Out of bounds returns zero" {
 test "BYTE: Extract from full u256" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -487,7 +487,7 @@ test "BYTE: Extract from full u256" {
     try test_frame.pushStack(&[_]u256{test_value}); // value (pushed first, popped second)
     try test_frame.pushStack(&[_]u256{24}); // byte index (pushed last, popped first)
     
-    _ = try helpers.executeOpcode(0x1A, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x1A, test_vm.vm, test_frame.frame);
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 0x01), value);
@@ -500,7 +500,7 @@ test "BYTE: Extract from full u256" {
 test "Bitwise opcodes: Gas consumption" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     const test_cases = [_]struct {
         opcode: u8,
@@ -554,7 +554,7 @@ test "Bitwise opcodes: Gas consumption" {
         try tc.setup(&test_frame);
         
         const gas_before = test_frame.frame.gas_remaining;
-        _ = try helpers.executeOpcode(tc.opcode, &test_vm.vm, test_frame.frame);
+        _ = try helpers.executeOpcode(tc.opcode, test_vm.vm, test_frame.frame);
         const gas_used = gas_before - test_frame.frame.gas_remaining;
         
         try testing.expectEqual(tc.expected_gas, gas_used);
@@ -568,7 +568,7 @@ test "Bitwise opcodes: Gas consumption" {
 test "Bitwise opcodes: Stack underflow" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     const binary_ops = [_]u8{0x16, 0x17, 0x18, 0x1A}; // AND, OR, XOR, BYTE
     const unary_ops = [_]u8{0x19}; // NOT
@@ -588,12 +588,12 @@ test "Bitwise opcodes: Stack underflow" {
         defer test_frame.deinit();
         
         // Empty stack
-        const result = helpers.executeOpcode(opcode, &test_vm.vm, test_frame.frame);
+        const result = helpers.executeOpcode(opcode, test_vm.vm, test_frame.frame);
         try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
         
         // Only one item (need two)
         try test_frame.pushStack(&[_]u256{10});
-        const result2 = helpers.executeOpcode(opcode, &test_vm.vm, test_frame.frame);
+        const result2 = helpers.executeOpcode(opcode, test_vm.vm, test_frame.frame);
         try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result2);
     }
     
@@ -612,7 +612,7 @@ test "Bitwise opcodes: Stack underflow" {
         defer test_frame.deinit();
         
         // Empty stack
-        const result = helpers.executeOpcode(opcode, &test_vm.vm, test_frame.frame);
+        const result = helpers.executeOpcode(opcode, test_vm.vm, test_frame.frame);
         try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
     }
 }
@@ -624,7 +624,7 @@ test "Bitwise opcodes: Stack underflow" {
 test "Bitwise operations: Large values" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -645,7 +645,7 @@ test "Bitwise operations: Large values" {
     try test_frame.pushStack(&[_]u256{max});
     try test_frame.pushStack(&[_]u256{half_max});
     
-    _ = try helpers.executeOpcode(0x16, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x16, test_vm.vm, test_frame.frame);
     
     const value = try test_frame.popStack();
     try testing.expectEqual(half_max, value);
@@ -654,7 +654,7 @@ test "Bitwise operations: Large values" {
 test "BYTE: Byte extraction patterns" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -680,7 +680,7 @@ test "BYTE: Byte extraction patterns" {
     try test_frame.pushStack(&[_]u256{test_value}); // value (pushed first, popped second)
     try test_frame.pushStack(&[_]u256{28}); // byte index (pushed last, popped first)
     
-    _ = try helpers.executeOpcode(0x1A, &test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x1A, test_vm.vm, test_frame.frame);
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 3), value);

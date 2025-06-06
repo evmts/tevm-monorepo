@@ -8,7 +8,7 @@ const log = evm.opcodes.log;
 test "LOG0: emit log with no topics" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -34,7 +34,7 @@ test "LOG0: emit log with no topics" {
     try test_frame.pushStack(&[_]u256{0}); // offset
     
     // Execute LOG0
-    _ = try test_helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xA0, test_vm.vm, test_frame.frame);
     
     // Check that log was emitted
     try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
@@ -47,7 +47,7 @@ test "LOG0: emit log with no topics" {
 test "LOG0: emit log with empty data" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -66,7 +66,7 @@ test "LOG0: emit log with empty data" {
     try test_frame.pushStack(&[_]u256{0}); // offset
     
     // Execute LOG0
-    _ = try test_helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xA0, test_vm.vm, test_frame.frame);
     
     // Check that log was emitted with empty data
     try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
@@ -79,7 +79,7 @@ test "LOG0: emit log with empty data" {
 test "LOG1: emit log with one topic" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -106,7 +106,7 @@ test "LOG1: emit log with one topic" {
     try test_frame.pushStack(&[_]u256{0}); // offset
     
     // Execute LOG1
-    _ = try test_helpers.executeOpcode(0xA1, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xA1, test_vm.vm, test_frame.frame);
     
     // Check that log was emitted
     try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
@@ -120,7 +120,7 @@ test "LOG1: emit log with one topic" {
 test "LOG2: emit log with two topics" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -148,7 +148,7 @@ test "LOG2: emit log with two topics" {
     try test_frame.pushStack(&[_]u256{10}); // offset
     
     // Execute LOG2
-    _ = try test_helpers.executeOpcode(0xA2, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xA2, test_vm.vm, test_frame.frame);
     
     // Check that log was emitted
     try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
@@ -163,7 +163,7 @@ test "LOG2: emit log with two topics" {
 test "LOG3: emit log with three topics" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -185,7 +185,7 @@ test "LOG3: emit log with three topics" {
     try test_frame.pushStack(&[_]u256{0}); // offset
     
     // Execute LOG3
-    _ = try test_helpers.executeOpcode(0xA3, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xA3, test_vm.vm, test_frame.frame);
     
     // Check that log was emitted
     try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
@@ -201,7 +201,7 @@ test "LOG3: emit log with three topics" {
 test "LOG4: emit log with four topics" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -232,7 +232,7 @@ test "LOG4: emit log with four topics" {
     try test_frame.pushStack(&[_]u256{0}); // offset
     
     // Execute LOG4
-    _ = try test_helpers.executeOpcode(0xA4, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xA4, test_vm.vm, test_frame.frame);
     
     // Check that log was emitted
     try testing.expectEqual(@as(usize, 1), test_vm.vm.logs.items.len);
@@ -249,7 +249,7 @@ test "LOG4: emit log with four topics" {
 test "LOG0: write protection in static call" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -271,14 +271,14 @@ test "LOG0: write protection in static call" {
     try test_frame.pushStack(&[_]u256{0}); // offset (pushed last, popped first)
     
     // Execute LOG0 - should fail
-    const result = test_helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
+    const result = test_helpers.executeOpcode(0xA0, test_vm.vm, test_frame.frame);
     try testing.expectError(test_helpers.ExecutionError.Error.WriteProtection, result);
 }
 
 test "LOG1: write protection in static call" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -301,7 +301,7 @@ test "LOG1: write protection in static call" {
     try test_frame.pushStack(&[_]u256{0}); // offset
     
     // Execute LOG1 - should fail
-    const result = test_helpers.executeOpcode(0xA1, &test_vm.vm, test_frame.frame);
+    const result = test_helpers.executeOpcode(0xA1, test_vm.vm, test_frame.frame);
     try testing.expectError(test_helpers.ExecutionError.Error.WriteProtection, result);
 }
 
@@ -309,7 +309,7 @@ test "LOG1: write protection in static call" {
 test "LOG0: gas consumption" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -330,7 +330,7 @@ test "LOG0: gas consumption" {
     const gas_before = test_frame.frame.gas_remaining;
     
     // Execute LOG0
-    _ = try test_helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xA0, test_vm.vm, test_frame.frame);
     
     // LOG0 base cost is 375 gas
     // Plus 8 gas per byte: 32 * 8 = 256
@@ -342,7 +342,7 @@ test "LOG0: gas consumption" {
 test "LOG4: gas consumption with topics" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -367,7 +367,7 @@ test "LOG4: gas consumption with topics" {
     const gas_before = test_frame.frame.gas_remaining;
     
     // Execute LOG4
-    _ = try test_helpers.executeOpcode(0xA4, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xA4, test_vm.vm, test_frame.frame);
     
     // LOG4 base cost is 375 gas
     // Plus 375 gas per topic: 4 * 375 = 1500
@@ -381,7 +381,7 @@ test "LOG4: gas consumption with topics" {
 test "LOG0: memory expansion gas" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -402,7 +402,7 @@ test "LOG0: memory expansion gas" {
     const gas_before = test_frame.frame.gas_remaining;
     
     // Execute LOG0
-    _ = try test_helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
+    _ = try test_helpers.executeOpcode(0xA0, test_vm.vm, test_frame.frame);
     
     // Should consume gas for LOG0 plus memory expansion
     const gas_used = gas_before - test_frame.frame.gas_remaining;
@@ -413,7 +413,7 @@ test "LOG0: memory expansion gas" {
 test "LOG0: stack underflow" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -431,14 +431,14 @@ test "LOG0: stack underflow" {
     try test_frame.pushStack(&[_]u256{0});
     
     // Execute LOG0 - should fail
-    const result = test_helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
+    const result = test_helpers.executeOpcode(0xA0, test_vm.vm, test_frame.frame);
     try testing.expectError(test_helpers.ExecutionError.Error.StackUnderflow, result);
 }
 
 test "LOG4: stack underflow" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -457,7 +457,7 @@ test "LOG4: stack underflow" {
     // Missing offset
     
     // Execute LOG4 - should fail
-    const result = test_helpers.executeOpcode(0xA4, &test_vm.vm, test_frame.frame);
+    const result = test_helpers.executeOpcode(0xA4, test_vm.vm, test_frame.frame);
     try testing.expectError(test_helpers.ExecutionError.Error.StackUnderflow, result);
 }
 
@@ -465,7 +465,7 @@ test "LOG4: stack underflow" {
 test "LOG0: out of gas" {
     const allocator = testing.allocator;
     var test_vm = try test_helpers.TestVm.init(allocator);
-    defer test_vm.deinit();
+    defer test_vm.deinit(allocator);
     
     var contract = try test_helpers.createTestContract(
         allocator,
@@ -484,6 +484,6 @@ test "LOG0: out of gas" {
     try test_frame.pushStack(&[_]u256{0}); // offset (pushed last, popped first)
     
     // Execute LOG0 - should fail
-    const result = test_helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
+    const result = test_helpers.executeOpcode(0xA0, test_vm.vm, test_frame.frame);
     try testing.expectError(test_helpers.ExecutionError.Error.OutOfGas, result);
 }
