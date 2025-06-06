@@ -5,7 +5,6 @@ const Contract = @import("contract.zig");
 const ExecutionError = @import("execution_error.zig");
 const Log = @import("log.zig");
 
-/// Error types for Frame operations
 pub const FrameError = error{
     OutOfMemory,
     InvalidContract,
@@ -33,15 +32,8 @@ depth: u32 = 0,
 output: []const u8 = &[_]u8{},
 program_counter: usize = 0,
 
-pub fn init(allocator: std.mem.Allocator, contract: *Contract) FrameError!Self {
-    // Don't call finalize_root here - let the caller do it after Frame is at its final location
-    const memory = Memory.init_default(allocator) catch |err| {
-        Log.debug("Failed to initialize memory: {any}", .{err});
-        return switch (err) {
-            std.mem.Allocator.Error.OutOfMemory => FrameError.OutOfMemory,
-        };
-    };
-
+pub fn init(allocator: std.mem.Allocator, contract: *Contract) std.mem.Allocator.Error!Self {
+    const memory = try Memory.init_default(allocator);
     return Self{
         .allocator = allocator,
         .contract = contract,
