@@ -23,7 +23,6 @@ pub fn op_mload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 1);
 
     // Get offset from top of stack unsafely - bounds checking is done in jump_table.zig
@@ -39,7 +38,7 @@ pub fn op_mload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     const current_size = frame.memory.context_size();
     const new_size = offset_usize + 32;
     const gas_cost = gas_constants.memory_gas_cost(current_size, new_size);
-    
+
     try frame.consume_gas(gas_cost);
 
     // Ensure memory is available
@@ -60,7 +59,6 @@ pub fn op_mstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 2);
 
     // Pop two values unsafely using batch operation - bounds checking is done in jump_table.zig
@@ -97,7 +95,6 @@ pub fn op_mstore8(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 2);
 
     // Pop two values unsafely using batch operation - bounds checking is done in jump_table.zig
@@ -135,7 +132,6 @@ pub fn op_msize(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size < Stack.CAPACITY);
 
     // MSIZE returns the size in bytes, but memory is always expanded in 32-byte words
@@ -155,7 +151,6 @@ pub fn op_mcopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 3);
 
     // Pop three values unsafely - bounds checking is done in jump_table.zig
@@ -201,7 +196,6 @@ pub fn op_calldataload(pc: usize, interpreter: *Operation.Interpreter, state: *O
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 1);
 
     // Get offset from top of stack unsafely - bounds checking is done in jump_table.zig
@@ -238,7 +232,6 @@ pub fn op_calldatasize(pc: usize, interpreter: *Operation.Interpreter, state: *O
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size < Stack.CAPACITY);
 
     // Push result unsafely - bounds checking is done in jump_table.zig
@@ -253,7 +246,6 @@ pub fn op_calldatacopy(pc: usize, interpreter: *Operation.Interpreter, state: *O
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 3);
 
     // Pop three values unsafely - bounds checking is done in jump_table.zig
@@ -299,7 +291,6 @@ pub fn op_codesize(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size < Stack.CAPACITY);
 
     // Push result unsafely - bounds checking is done in jump_table.zig
@@ -314,7 +305,6 @@ pub fn op_codecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 3);
 
     // Pop three values unsafely - bounds checking is done in jump_table.zig
@@ -360,7 +350,6 @@ pub fn op_returndatasize(pc: usize, interpreter: *Operation.Interpreter, state: 
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size < Stack.CAPACITY);
 
     // Push result unsafely - bounds checking is done in jump_table.zig
@@ -375,7 +364,6 @@ pub fn op_returndatacopy(pc: usize, interpreter: *Operation.Interpreter, state: 
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 3);
 
     // Pop three values unsafely - bounds checking is done in jump_table.zig

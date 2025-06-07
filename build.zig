@@ -795,6 +795,23 @@ pub fn build(b: *std.Build) void {
     build_ui_step.dependOn(&ui_exe.step);
     build_ui_step.dependOn(&gen_assets.step);
     build_ui_step.dependOn(b.getInstallStep());
+
+    // Documentation generation step for EVM module only
+    const docs_step = b.step("docs", "Generate EVM documentation");
+
+    const evm_docs = b.addTest(.{
+        .name = "evm-docs",
+        .root_module = evm_mod,
+    });
+
+    // Install the generated docs
+    const install_evm_docs = b.addInstallDirectory(.{
+        .source_dir = evm_docs.getEmittedDocs(),
+        .install_dir = .prefix,
+        .install_subdir = "docs/evm",
+    });
+
+    docs_step.dependOn(&install_evm_docs.step);
 }
 
 // Custom build step for building the SolidJS UI

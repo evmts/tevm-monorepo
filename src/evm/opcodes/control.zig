@@ -27,7 +27,6 @@ pub fn op_jump(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 1);
 
     // Use unsafe pop since bounds checking is done by jump_table
@@ -54,7 +53,6 @@ pub fn op_jumpi(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 2);
 
     // Use batch pop for performance - pop 2 values at once
@@ -84,7 +82,6 @@ pub fn op_pc(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.S
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size < Stack.CAPACITY);
 
     // Use unsafe push since bounds checking is done by jump_table
@@ -108,7 +105,6 @@ pub fn op_return(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 2);
 
     // Use batch pop for performance - pop 2 values at once
@@ -153,7 +149,6 @@ pub fn op_revert(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 2);
 
     // Use batch pop for performance - pop 2 values at once
@@ -217,7 +212,6 @@ pub fn op_selfdestruct(pc: usize, interpreter: *Operation.Interpreter, state: *O
         return ExecutionError.Error.WriteProtection;
     }
 
-    // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 1);
 
     // Use unsafe pop since bounds checking is done by jump_table

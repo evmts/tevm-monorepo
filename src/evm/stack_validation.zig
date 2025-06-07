@@ -2,9 +2,48 @@ const std = @import("std");
 const Stack = @import("stack.zig");
 const Operation = @import("operation.zig");
 const ExecutionError = @import("execution_error.zig");
+
+/// Stack validation utilities for EVM operations.
+///
+/// This module provides validation functions to ensure stack operations
+/// will succeed before attempting them. This is crucial for:
+/// - Preventing execution errors
+/// - Enabling optimized unsafe operations after validation
+/// - Maintaining EVM correctness
+///
+/// ## Validation Strategy
+/// The EVM uses two-phase validation:
+/// 1. Pre-execution validation (this module)
+/// 2. Unsafe operations after validation passes
+///
+/// This allows opcodes to use fast unsafe operations in hot paths
+/// while maintaining safety guarantees.
+///
+/// ## Stack Limits
+/// The EVM enforces strict stack limits:
+/// - Maximum depth: 1024 elements
+/// - Underflow: Cannot pop from empty stack
+/// - Overflow: Cannot exceed maximum depth
 pub const ValidationPatterns = @import("validation_patterns.zig");
 
-/// Validates stack requirements before executing an opcode
+/// Validates stack requirements using Operation metadata.
+///
+/// Each EVM operation has min_stack and max_stack requirements:
+/// - min_stack: Minimum elements needed on stack
+/// - max_stack: Maximum allowed before operation (to prevent overflow)
+///
+/// @param stack The stack to validate
+/// @param operation The operation with stack requirements
+/// @throws StackUnderflow if stack has fewer than min_stack elements
+/// @throws StackOverflow if stack has more than max_stack elements
+///
+/// Example:
+/// ```zig
+/// // Validate before executing an opcode
+/// try validate_stack_requirements(&frame.stack, &operation);
+/// // Safe to use unsafe operations now
+/// operation.execute(&frame);
+/// ```
 pub fn validate_stack_requirements(
     stack: *const Stack,
     operation: *const Operation,
@@ -24,8 +63,25 @@ pub fn validate_stack_requirements(
     }
 }
 
-/// Validates stack requirements for operations that pop and push
-/// This is a more detailed validation that considers the net stack effect
+/// Validates stack has capacity for pop/push operations.
+///
+/// More flexible than validate_stack_requirements, this function
+/// validates arbitrary pop/push counts. Used by:
+/// - Dynamic operations (e.g., LOG with variable topics)
+/// - Custom validation logic
+/// - Testing and debugging
+///
+/// @param stack The stack to validate
+/// @param pop_count Number of elements to pop
+/// @param push_count Number of elements to push
+/// @throws StackUnderflow if stack has < pop_count elements
+/// @throws StackOverflow if operation would exceed capacity
+///
+/// Example:
+/// ```zig
+/// // Validate LOG3 operation (pops 5, pushes 0)
+/// try validate_stack_operation(&stack, 5, 0);
+/// ```
 pub fn validate_stack_operation(
     stack: *const Stack,
     pop_count: u32,
@@ -47,9 +103,23 @@ pub fn validate_stack_operation(
     }
 }
 
-/// Helper to calculate max_stack for an operation
-/// max_stack = CAPACITY - (push_count - pop_count)
-/// This ensures we have room for the net stack growth
+/// Calculate the maximum allowed stack size for an operation.
+///
+/// The max_stack value ensures that after an operation completes,
+/// the stack won't exceed capacity. This is calculated as:
+/// - If operation grows stack: CAPACITY - net_growth
+/// - If operation shrinks/neutral: CAPACITY
+///
+/// @param pop_count Number of elements operation pops
+/// @param push_count Number of elements operation pushes
+/// @return Maximum allowed stack size before operation
+///
+/// Example:
+/// ```zig
+/// // PUSH1 operation (pop 0, push 1)
+/// const max = calculate_max_stack(0, 1); // Returns 1023
+/// // Stack must have <= 1023 elements before PUSH1
+/// ```
 pub fn calculate_max_stack(pop_count: u32, push_count: u32) u32 {
     if (push_count > pop_count) {
         const net_growth = push_count - pop_count;

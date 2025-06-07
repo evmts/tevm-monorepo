@@ -25,7 +25,6 @@ pub fn op_lt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.S
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 2);
 
     // Pop the top operand (b) unsafely
@@ -48,7 +47,6 @@ pub fn op_gt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.S
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 2);
 
     // Pop the top operand (b) unsafely
@@ -71,7 +69,6 @@ pub fn op_slt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 2);
 
     // Pop the top operand (b) unsafely
@@ -97,7 +94,6 @@ pub fn op_sgt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 2);
 
     // Pop the top operand (b) unsafely
@@ -123,7 +119,6 @@ pub fn op_eq(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.S
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 2);
 
     // Pop the top operand (b) unsafely
@@ -145,7 +140,6 @@ pub fn op_iszero(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 1);
 
     // Peek the operand unsafely

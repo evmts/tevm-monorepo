@@ -51,13 +51,10 @@ pub fn op_sload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
-    // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 1);
 
-    // Get slot from top of stack unsafely - bounds checking is done in jump_table.zig
     const slot = frame.stack.peek_unsafe().*;
 
-    // Check if we're in Berlin or later for cold/warm access logic
     if (vm.chain_rules.IsBerlin) {
         const Contract = @import("../contract.zig");
         const is_cold = frame.contract.mark_storage_slot_warm(frame.allocator, slot, null) catch |err| switch (err) {
@@ -74,7 +71,6 @@ pub fn op_sload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     const value = try error_mapping.vm_get_storage(vm, frame.contract.address, slot);
 
-    // Replace top of stack with loaded value unsafely - bounds checking is done in jump_table.zig
     frame.stack.set_top_unsafe(value);
 
     return Operation.ExecutionResult{};
@@ -97,19 +93,15 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
         return ExecutionError.Error.OutOfGas;
     }
 
-    // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 2);
 
-    // Pop two values unsafely using batch operation - bounds checking is done in jump_table.zig
     // Stack order: [..., value, slot] where slot is on top
     const popped = frame.stack.pop2_unsafe();
     const value = popped.a; // First popped (was second from top)
     const slot = popped.b; // Second popped (was top)
 
-    // Get current value first to calculate gas properly
     const current_value = try error_mapping.vm_get_storage(vm, frame.contract.address, slot);
 
-    // Check if slot is cold and mark it warm
     const Contract = @import("../contract.zig");
     const is_cold = frame.contract.mark_storage_slot_warm(frame.allocator, slot, null) catch |err| switch (err) {
         Contract.MarkStorageSlotWarmError.OutOfAllocatorMemory => {
@@ -118,10 +110,8 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
         },
     };
 
-    // Calculate total gas cost
     var total_gas: u64 = 0;
 
-    // Add cold access cost if needed
     if (is_cold) {
         total_gas += gas_constants.ColdSloadCost;
     }
@@ -146,7 +136,6 @@ pub fn op_tload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     // Gas is already handled by jump table constant_gas = 100
 
-    // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 1);
 
     // Get slot from top of stack unsafely - bounds checking is done in jump_table.zig
@@ -172,7 +161,6 @@ pub fn op_tstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     // Gas is already handled by jump table constant_gas = 100
 
-    // Debug-only bounds check - compiled out in release builds
     std.debug.assert(frame.stack.size >= 2);
 
     // Pop two values unsafely using batch operation - bounds checking is done in jump_table.zig

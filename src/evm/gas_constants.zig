@@ -1,92 +1,244 @@
-// Gas cost constants for basic operations
-// These define the static gas costs for various opcode categories
-// Very cheap operations (like PC, CALLDATASIZE)
+/// EVM gas cost constants for opcode execution
+///
+/// This module defines all gas cost constants used in EVM execution according
+/// to the Ethereum Yellow Paper and various EIPs. Gas costs are critical for
+/// preventing denial-of-service attacks and fairly pricing computational resources.
+///
+/// ## Gas Cost Categories
+///
+/// Operations are grouped by computational complexity:
+/// - **Quick** (2 gas): Trivial operations like PC, MSIZE, GAS
+/// - **Fastest** (3 gas): Simple arithmetic like ADD, SUB, NOT, LT, GT
+/// - **Fast** (5 gas): More complex arithmetic like MUL, DIV, MOD
+/// - **Mid** (8 gas): Advanced arithmetic like ADDMOD, MULMOD, SIGNEXTEND
+/// - **Slow** (10 gas): Operations requiring more computation
+/// - **Ext** (20+ gas): External operations like BALANCE, EXTCODESIZE
+///
+/// ## Historical Changes
+///
+/// Gas costs have evolved through various EIPs:
+/// - EIP-150: Increased costs for IO-heavy operations
+/// - EIP-2200: SSTORE net gas metering
+/// - EIP-2929: Increased costs for cold storage/account access
+/// - EIP-3529: Reduced refunds and cold access costs
+/// - EIP-3860: Initcode metering
+///
+/// ## Usage
+/// ```zig
+/// const gas_cost = switch (opcode) {
+///     0x01 => GasFastestStep, // ADD
+///     0x02 => GasFastStep,    // MUL
+///     0x20 => Keccak256Gas + (data_size_words * Keccak256WordGas),
+///     else => 0,
+/// };
+/// ```
+
+/// Gas cost for very cheap operations
+/// Operations: ADDRESS, ORIGIN, CALLER, CALLVALUE, CALLDATASIZE, CODESIZE,
+/// GASPRICE, RETURNDATASIZE, PC, MSIZE, GAS, CHAINID, SELFBALANCE
 pub const GasQuickStep: u64 = 2;
-// Fast operations (like ADD, SUB, NOT)
+
+/// Gas cost for simple arithmetic and logic operations
+/// Operations: ADD, SUB, NOT, LT, GT, SLT, SGT, EQ, ISZERO, AND, OR, XOR,
+/// CALLDATALOAD, MLOAD, MSTORE, MSTORE8, PUSH operations, DUP operations,
+/// SWAP operations
 pub const GasFastestStep: u64 = 3;
-// Faster operations (like MUL, DIV)
+
+/// Gas cost for multiplication and division operations
+/// Operations: MUL, DIV, SDIV, MOD, SMOD, EXP (per byte of exponent)
 pub const GasFastStep: u64 = 5;
-// Mid-range operations (like ADDMOD, MULMOD)
+
+/// Gas cost for advanced arithmetic operations
+/// Operations: ADDMOD, MULMOD, SIGNEXTEND, KECCAK256 (base cost)
 pub const GasMidStep: u64 = 8;
-// Slow operations
+
+/// Gas cost for operations requiring moderate computation
+/// Operations: JUMPI
 pub const GasSlowStep: u64 = 10;
-// Extended/expensive operations (like BALANCE)
+
+/// Gas cost for operations that interact with other accounts/contracts
+/// Operations: BALANCE, EXTCODESIZE, BLOCKHASH
 pub const GasExtStep: u64 = 20;
 
-// Gas cost constants for specific operations
-// Base gas for KECCAK256
+// ============================================================================
+// Hashing Operation Costs
+// ============================================================================
+
+/// Base gas cost for KECCAK256 (SHA3) operation
+/// This is the fixed cost regardless of input size
 pub const Keccak256Gas: u64 = 30;
-// Gas per word for KECCAK256
+
+/// Additional gas cost per 32-byte word for KECCAK256
+/// Total cost = Keccak256Gas + (word_count * Keccak256WordGas)
 pub const Keccak256WordGas: u64 = 6;
-// Base gas for SLOAD (warm access)
+
+// ============================================================================
+// Storage Operation Costs (EIP-2929 & EIP-2200)
+// ============================================================================
+
+/// Gas cost for SLOAD on a warm storage slot
+/// After EIP-2929, warm access is significantly cheaper than cold
 pub const SloadGas: u64 = 100;
-// Gas for first-time (cold) SLOAD access (EIP-2929)
+
+/// Gas cost for first-time (cold) SLOAD access in a transaction
+/// EIP-2929: Prevents underpriced state access attacks
 pub const ColdSloadCost: u64 = 2100;
-// Gas for first-time (cold) account access (EIP-2929)
+
+/// Gas cost for first-time (cold) account access in a transaction
+/// EIP-2929: Applied to BALANCE, EXTCODESIZE, EXTCODECOPY, EXTCODEHASH, CALL family
 pub const ColdAccountAccessCost: u64 = 2600;
-// Gas for warm storage access (EIP-2929)
+
+/// Gas cost for warm storage read operations
+/// EIP-2929: Subsequent accesses to the same slot/account in a transaction
 pub const WarmStorageReadCost: u64 = 100;
 
-// Gas sent with a call
+/// Minimum gas that must remain for SSTORE to succeed
+/// Prevents storage modifications when gas is nearly exhausted
 pub const SstoreSentryGas: u64 = 2300;
-// Gas for SSTORE when setting from zero
+
+/// Gas cost for SSTORE when setting a storage slot from zero to non-zero
+/// This is the most expensive storage operation as it increases state size
 pub const SstoreSetGas: u64 = 20000;
-// Gas for SSTORE when changing existing value
+
+/// Gas cost for SSTORE when changing an existing non-zero value to another non-zero value
+/// Cheaper than initial set since slot is already allocated
 pub const SstoreResetGas: u64 = 5000;
-// Gas for SSTORE when clearing to zero
+
+/// Gas cost for SSTORE when clearing a storage slot (non-zero to zero)
+/// Same cost as reset, but eligible for gas refund
 pub const SstoreClearGas: u64 = 5000;
-// Gas refund for clearing storage (EIP-3529 reduced from 15000)
+
+/// Gas refund for clearing storage slot to zero
+/// EIP-3529: Reduced from 15000 to prevent gas refund abuse
 pub const SstoreRefundGas: u64 = 4800;
-// Gas for JUMPDEST
+// ============================================================================
+// Control Flow Costs
+// ============================================================================
+
+/// Gas cost for JUMPDEST opcode
+/// Minimal cost as it's just a marker for valid jump destinations
 pub const JumpdestGas: u64 = 1;
-// Base gas for LOG
+
+// ============================================================================
+// Logging Operation Costs
+// ============================================================================
+
+/// Base gas cost for LOG operations (LOG0-LOG4)
+/// This is the fixed cost before considering data size and topics
 pub const LogGas: u64 = 375;
-// Gas per byte of LOG data
+
+/// Gas cost per byte of data in LOG operations
+/// Incentivizes efficient event data usage
 pub const LogDataGas: u64 = 8;
-// Gas per LOG topic
+
+/// Gas cost per topic in LOG operations
+/// Each additional topic (LOG1, LOG2, etc.) adds this cost
 pub const LogTopicGas: u64 = 375;
-// Gas for CREATE
+
+// ============================================================================
+// Contract Creation and Call Costs
+// ============================================================================
+
+/// Base gas cost for CREATE opcode
+/// High cost reflects the expense of deploying new contracts
 pub const CreateGas: u64 = 32000;
-// Base gas for CALL
+/// Base gas cost for CALL operations
+/// This is the minimum cost before additional charges
 pub const CallGas: u64 = 40;
-// Stipend for CALL when transferring value
+
+/// Gas stipend provided to called contract when transferring value
+/// Ensures called contract has minimum gas to execute basic operations
 pub const CallStipend: u64 = 2300;
-// Extra gas for transferring value in CALL
+
+/// Additional gas cost when CALL transfers value (ETH)
+/// Makes value transfers more expensive to prevent spam
 pub const CallValueTransferGas: u64 = 9000;
-// Extra gas for creating a new account in CALL
+
+/// Additional gas cost when CALL creates a new account
+/// Reflects the cost of adding a new entry to the state trie
 pub const CallNewAccountGas: u64 = 25000;
-// Gas refund for SELFDESTRUCT
+
+/// Gas refund for SELFDESTRUCT operation
+/// Incentivizes cleaning up unused contracts
 pub const SelfdestructRefundGas: u64 = 24000;
-// Linear coefficient for memory gas
+// ============================================================================
+// Memory Expansion Costs
+// ============================================================================
+
+/// Linear coefficient for memory gas calculation
+/// Part of the formula: gas = MemoryGas * words + words² / QuadCoeffDiv
 pub const MemoryGas: u64 = 3;
-// Quadratic coefficient divisor for memory gas
+
+/// Quadratic coefficient divisor for memory gas calculation
+/// Makes memory expansion quadratically expensive to prevent DoS attacks
 pub const QuadCoeffDiv: u64 = 512;
-// Gas per byte of CREATE data
+
+// ============================================================================
+// Contract Deployment Costs
+// ============================================================================
+
+/// Gas cost per byte of contract deployment code
+/// Applied to the bytecode being deployed via CREATE/CREATE2
 pub const CreateDataGas: u64 = 200;
-// EIP-3860: Limit and meter initcode
-// Gas per 32-byte word of initcode (EIP-3860)
+
+/// Gas cost per 32-byte word of initcode
+/// EIP-3860: Prevents deploying excessively large contracts
 pub const InitcodeWordGas: u64 = 2;
-// Maximum initcode size (2 * 24576 bytes) (EIP-3860)
+
+/// Maximum allowed initcode size in bytes
+/// EIP-3860: Limit is 49152 bytes (2 * MAX_CODE_SIZE)
 pub const MaxInitcodeSize: u64 = 49152;
-// Base gas for a transaction
+
+// ============================================================================
+// Transaction Costs
+// ============================================================================
+
+/// Base gas cost for a standard transaction
+/// Minimum cost for any transaction regardless of data or computation
 pub const TxGas: u64 = 21000;
-// Base gas for contract creation
+
+/// Base gas cost for contract creation transaction
+/// Higher than standard tx due to contract deployment overhead
 pub const TxGasContractCreation: u64 = 53000;
-// Gas per zero byte of tx data
+
+/// Gas cost per zero byte in transaction data
+/// Cheaper than non-zero bytes to incentivize data efficiency
 pub const TxDataZeroGas: u64 = 4;
-// Gas per non-zero byte of tx data
+
+/// Gas cost per non-zero byte in transaction data
+/// Higher cost reflects increased storage and bandwidth requirements
 pub const TxDataNonZeroGas: u64 = 16;
+
+/// Gas cost per word for copy operations
+/// Applied to CODECOPY, EXTCODECOPY, RETURNDATACOPY, etc.
 pub const CopyGas: u64 = 3;
-// Maximum refund quotient (EIP-3529 - gas_used/5 maximum)
+
+/// Maximum gas refund as a fraction of gas used
+/// EIP-3529: Reduced from 1/2 to 1/5 to prevent refund abuse
 pub const MaxRefundQuotient: u64 = 5;
 
+// ============================================================================
 // EIP-4844: Shard Blob Transactions
+// ============================================================================
+
+/// Gas cost for BLOBHASH opcode
+/// Returns the hash of a blob associated with the transaction
 pub const BlobHashGas: u64 = 3;
+
+/// Gas cost for BLOBBASEFEE opcode
+/// Returns the base fee for blob gas
 pub const BlobBaseFeeGas: u64 = 2;
 
+// ============================================================================
 // EIP-1153: Transient Storage
+// ============================================================================
+
+/// Gas cost for TLOAD (transient storage load)
+/// Transient storage is cleared after each transaction
 pub const TLoadGas: u64 = 100;
-// Gas for memory copy operations
+
+/// Gas cost for TSTORE (transient storage store)
+/// Same cost as TLOAD, much cheaper than persistent storage
 pub const TStoreGas: u64 = 100;
 
 /// Calculate memory expansion gas cost
