@@ -17,11 +17,11 @@ const Log = @import("log.zig");
 const EvmLog = @import("evm_log.zig");
 const Context = @import("context.zig");
 const EvmState = @import("evm_state.zig");
-pub const StorageKey = @import("storage_key.zig");
-pub const CreateResult = @import("create_result.zig");
-pub const CallResult = @import("call_result.zig");
-pub const RunResult = @import("run_result.zig");
-pub const Hardfork = @import("hardfork.zig").Hardfork;
+const StorageKey = @import("storage_key.zig");
+const CreateResult = @import("create_result.zig");
+const CallResult = @import("call_result.zig");
+const RunResult = @import("run_result.zig");
+const Hardfork = @import("hardfork.zig").Hardfork;
 
 /// Virtual Machine for executing Ethereum bytecode.
 ///
@@ -156,14 +156,14 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
     frame.input = input;
     frame.gas_remaining = contract.gas;
 
+    const interpreter_ptr: *Operation.Interpreter = @ptrCast(self);
+    const state_ptr: *Operation.State = @ptrCast(&frame);
+
     while (pc < contract.code_size) {
         const opcode = contract.get_op(pc);
         frame.pc = pc;
 
-        const interpreter_ptr: *Operation.Interpreter = @ptrCast(self);
-        const state_ptr: *Operation.State = @ptrCast(&frame);
         const result = self.table.execute(pc, interpreter_ptr, state_ptr, opcode) catch |err| {
-            // Update contract gas before returning
             contract.gas = frame.gas_remaining;
             self.return_data = @constCast(frame.return_data_buffer);
 
@@ -236,10 +236,7 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
     contract.gas = frame.gas_remaining;
     self.return_data = @constCast(frame.return_data_buffer);
 
-    var output: ?[]const u8 = null;
-    if (frame.return_data_buffer.len > 0) {
-        output = try self.allocator.dupe(u8, frame.return_data_buffer);
-    }
+    const output: ?[]const u8 = if (frame.return_data_buffer.len > 0) try self.allocator.dupe(u8, frame.return_data_buffer) else null;
 
     return RunResult{
         .err = null,
@@ -276,19 +273,12 @@ pub const CreateContractError = std.mem.Allocator.Error || Address.CalculateAddr
 ///
 /// See also: create2_contract() for deterministic addresses
 pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_code: []const u8, gas: u64) CreateContractError!CreateResult {
-    // Get and increment nonce for the creator
-    const nonce = try self.state.increment_nonce(creator);
+    _ = init_code.len;
 
-    // Calculate the new contract address using CREATE formula:
-    // address = keccak256(rlp([sender, nonce]))[12:]
+    const nonce = try self.state.increment_nonce(creator);
     const new_address = try Address.calculate_create_address(self.allocator, creator, nonce);
 
-    // Log init code info
-    _ = init_code.len; // Use init_code to avoid unused parameter warning
-
-    // Check if account already exists at this address
-    const existing_code = self.state.get_code(new_address);
-    if (existing_code.len > 0) {
+    if (self.state.get_code(new_address).len > 0) {
         // Contract already exists at this address
         return CreateResult{
             .success = false,
@@ -298,7 +288,6 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
         };
     }
 
-    // Check if creator has sufficient balance for value transfer
     const creator_balance = self.state.get_balance(creator);
     if (creator_balance < value) {
         return CreateResult{
@@ -309,13 +298,11 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
         };
     }
 
-    // Transfer value from creator to new contract
     if (value > 0) {
         try self.state.set_balance(creator, creator_balance - value);
         try self.state.set_balance(new_address, value);
     }
 
-    // Execute the init code to get the deployed bytecode
     if (init_code.len == 0) {
         // No init code means empty contract
         return CreateResult{
@@ -326,14 +313,11 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
         };
     }
 
-    // Create a new contract for the init code execution
-    // Calculate code hash for the init code
     var hasher = Keccak256.init(.{});
     hasher.update(init_code);
     var code_hash: [32]u8 = undefined;
     hasher.final(&code_hash);
 
-    // Create a contract to execute the init code
     var init_contract = Contract.init(
         creator, // caller (who is creating this contract)
         new_address, // address (the new contract's address)
@@ -348,7 +332,6 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
 
     // Execute the init code - this should return the deployment bytecode
     const init_result = self.interpret_with_context(&init_contract, &[_]u8{}, false) catch |err| {
-        // If we get an error, check if it's a revert
         if (err == ExecutionError.Error.REVERT) {
             // On revert, we should still consume gas but not all
             return CreateResult{
@@ -363,12 +346,11 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
         return CreateResult{
             .success = false,
             .address = Address.zero(),
-            .gas_left = 0, // Consume all gas on failure
+            .gas_left = 0,
             .output = null,
         };
     };
 
-    // Get the output from the RunResult
     const deployment_code = init_result.output orelse &[_]u8{};
 
     // Check EIP-170 MAX_CODE_SIZE limit on the returned bytecode (24,576 bytes)
@@ -381,10 +363,8 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
         };
     }
 
-    // Charge gas for deployed code size (200 gas per byte)
     const deploy_code_gas = @as(u64, @intCast(deployment_code.len)) * constants.DEPLOY_CODE_GAS_PER_BYTE;
 
-    // Check if we have enough gas for deployment
     if (deploy_code_gas > init_result.gas_left) {
         return CreateResult{
             .success = false,
@@ -394,7 +374,6 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
         };
     }
 
-    // Store the deployed bytecode at the new contract address
     try self.state.set_code(new_address, deployment_code);
 
     const gas_left = init_result.gas_left - deploy_code_gas;
@@ -425,14 +404,6 @@ pub fn call_contract(self: *Self, caller: Address.Address, to: Address.Address, 
 
 pub const ConsumeGasError = ExecutionError.Error;
 
-/// Consume gas at the VM level.
-/// DEPRECATED - gas consumption is now handled at the Frame level.
-/// This method exists for compatibility but performs no operation.
-pub fn consume_gas(self: *Self, amount: u64) ConsumeGasError!void {
-    _ = self;
-    _ = amount;
-}
-
 pub const Create2ContractError = std.mem.Allocator.Error || Address.CalculateCreate2AddressError;
 
 /// Create a new contract using CREATE2 opcode semantics.
@@ -445,9 +416,7 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
     // address = keccak256(0xff ++ sender ++ salt ++ keccak256(init_code))[12:]
     const new_address = try Address.calculate_create2_address(self.allocator, creator, salt, init_code);
 
-    // Check if account already exists at this address
-    const existing_code = self.state.get_code(new_address);
-    if (existing_code.len > 0) {
+    if (self.state.get_code(new_address).len > 0) {
         // Contract already exists at this address
         return CreateResult{
             .success = false,
@@ -457,7 +426,6 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
         };
     }
 
-    // Check if creator has sufficient balance for value transfer
     const creator_balance = self.state.get_balance(creator);
     if (creator_balance < value) {
         return CreateResult{
@@ -468,13 +436,11 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
         };
     }
 
-    // Transfer value from creator to new contract
     if (value > 0) {
         try self.state.set_balance(creator, creator_balance - value);
         try self.state.set_balance(new_address, value);
     }
 
-    // Execute the init code to get the deployed bytecode
     if (init_code.len == 0) {
         // No init code means empty contract
         return CreateResult{
@@ -485,14 +451,11 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
         };
     }
 
-    // Create a new contract for the init code execution
-    // Calculate code hash for the init code
     var hasher = Keccak256.init(.{});
     hasher.update(init_code);
     var code_hash: [32]u8 = undefined;
     hasher.final(&code_hash);
 
-    // Create a contract to execute the init code
     var init_contract = Contract.init(
         creator, // caller (who is creating this contract)
         new_address, // address (the new contract's address)
@@ -507,7 +470,6 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
 
     // Execute the init code - this should return the deployment bytecode
     const init_result = self.interpret_with_context(&init_contract, &[_]u8{}, false) catch |err| {
-        // If we get an error, check if it's a revert
         if (err == ExecutionError.Error.REVERT) {
             // On revert, we should still consume gas but not all
             return CreateResult{
@@ -540,10 +502,8 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
         };
     }
 
-    // Charge gas for deployed code size (200 gas per byte)
     const deploy_code_gas = @as(u64, @intCast(deployment_code.len)) * constants.DEPLOY_CODE_GAS_PER_BYTE;
 
-    // Check if we have enough gas for deployment
     if (deploy_code_gas > init_result.gas_left) {
         return CreateResult{
             .success = false,
@@ -553,7 +513,6 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
         };
     }
 
-    // Store the deployed bytecode at the new contract address
     try self.state.set_code(new_address, deployment_code);
 
     const gas_left = init_result.gas_left - deploy_code_gas;
@@ -568,6 +527,7 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
 
 pub const CallcodeContractError = std.mem.Allocator.Error;
 
+// TODO
 /// Execute a CALLCODE operation.
 /// NOT IMPLEMENTED - always returns failure.
 /// TODO: Execute target code in current contract's context while preserving caller information.
@@ -615,7 +575,6 @@ pub const EmitLogError = std.mem.Allocator.Error;
 
 /// Emit an event log (LOG0-LOG4 opcodes).
 /// Records an event that will be included in the transaction receipt.
-/// WARNING: Currently leaks memory - logs are not properly freed on VM deinit.
 pub fn emit_log(self: *Self, address: Address.Address, topics: []const u256, data: []const u8) EmitLogError!void {
     try self.state.emit_log(address, topics, data);
 }
@@ -755,7 +714,7 @@ pub const SelfdestructProtectedError = ValidateStaticContextError;
 /// NOT FULLY IMPLEMENTED - currently only validates static context.
 /// TODO: Transfer remaining balance to beneficiary and mark contract for deletion.
 pub fn selfdestruct_protected(self: *Self, contract: Address.Address, beneficiary: Address.Address) SelfdestructProtectedError!void {
-    try self.validate_static_context();
     _ = contract;
     _ = beneficiary;
+    try self.validate_static_context();
 }
