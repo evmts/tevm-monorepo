@@ -71,12 +71,15 @@ read_only: bool = false,
 /// var vm = try VM.init(allocator, null, null);
 /// ```
 pub fn init(allocator: std.mem.Allocator, jump_table: ?*const JumpTable, chain_rules: ?*const ChainRules) std.mem.Allocator.Error!Self {
+    Log.debug("VM.init: Initializing VM with allocator", .{});
+    
     var state = try EvmState.init(allocator);
     errdefer state.deinit();
 
     var access_list = AccessList.init(allocator);
     errdefer access_list.deinit();
 
+    Log.debug("VM.init: VM initialization complete", .{});
     return Self{
         .allocator = allocator,
         .table = (jump_table orelse &JumpTable.DEFAULT).*,
@@ -138,6 +141,8 @@ pub fn interpret_static(self: *Self, contract: *Contract, input: []const u8) Exe
 /// Runs the main VM loop, executing opcodes sequentially while tracking
 /// gas consumption and handling control flow changes.
 pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u8, is_static: bool) ExecutionError.Error!RunResult {
+    Log.debug("VM.interpret_with_context: Starting execution, depth={}, gas={}, static={}", .{ self.depth, contract.gas, is_static });
+    
     self.depth += 1;
     defer self.depth -= 1;
 

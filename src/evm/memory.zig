@@ -151,7 +151,12 @@ pub fn resize_context(self: *Self, new_context_size: usize) MemoryError!void {
     // @setCold(true); // Not available in Zig 0.14.0
     const new_total_len = self.my_checkpoint + new_context_size;
 
-    if (new_total_len > self.memory_limit) return MemoryError.MemoryLimitExceeded;
+    Log.debug("Memory.resize_context: Resizing to {} bytes, checkpoint={}, total_len={}", .{ new_context_size, self.my_checkpoint, new_total_len });
+
+    if (new_total_len > self.memory_limit) {
+        Log.debug("Memory.resize_context: Memory limit exceeded, limit={}", .{self.memory_limit});
+        return MemoryError.MemoryLimitExceeded;
+    }
 
     const root = self.root_ptr;
     const old_total_len = root.shared_buffer.items.len;
@@ -238,6 +243,7 @@ pub fn set_byte(self: *Self, relative_offset: usize, value: u8) MemoryError!void
     _ = try self.ensure_context_capacity(required_context_len);
 
     const abs_offset = self.my_checkpoint + relative_offset;
+    Log.debug("Memory.set_byte: Setting byte at offset={} to value=0x{x:0>2}", .{ relative_offset, value });
     self.root_ptr.shared_buffer.items[abs_offset] = value;
 }
 
