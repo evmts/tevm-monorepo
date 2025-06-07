@@ -58,6 +58,15 @@ const CACHE_LINE_SIZE = 64;
 /// Null entries are treated as undefined opcodes.
 table: [256]?*const Operation align(CACHE_LINE_SIZE),
 
+/// CANCUN jump table, pre-generated at compile time.
+/// This is the latest hardfork configuration.
+pub const CANCUN = init_from_hardfork(.CANCUN);
+
+/// Default jump table for the latest hardfork.
+/// References CANCUN to avoid generating the same table twice.
+/// This is what gets used when no jump table is specified.
+pub const DEFAULT = CANCUN;
+
 /// Create an empty jump table with all entries set to null.
 ///
 /// This creates a blank jump table that must be populated with

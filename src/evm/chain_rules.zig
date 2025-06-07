@@ -597,6 +597,10 @@ const HardforkRule = struct {
 
 /// Comptime-generated mapping of all chain rules to their introduction hardforks.
 /// This data-driven approach replaces the massive switch statement.
+/// Default chain rules for the latest hardfork (CANCUN).
+/// Pre-generated at compile time for zero runtime overhead.
+pub const DEFAULT = for_hardfork(.DEFAULT);
+
 const HARDFORK_RULES = [_]HardforkRule{
     .{ .field_name = "IsHomestead", .introduced_in = .HOMESTEAD },
     .{ .field_name = "IsEIP150", .introduced_in = .TANGERINE_WHISTLE },
@@ -625,7 +629,6 @@ const HARDFORK_RULES = [_]HardforkRule{
 };
 
 pub fn for_hardfork(hardfork: Hardfork) Self {
-    Log.debug("Creating chain rules for hardfork: {s}", .{@tagName(hardfork)});
     var rules = Self{}; // All fields default to true
     
     // Disable features that were introduced after the target hardfork
@@ -635,6 +638,5 @@ pub fn for_hardfork(hardfork: Hardfork) Self {
         }
     }
     
-    Log.debug("Chain rules created for hardfork: {s}", .{@tagName(hardfork)});
     return rules;
 }

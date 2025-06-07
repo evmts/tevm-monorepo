@@ -25,7 +25,7 @@ fn u256ToBytes32(value: u256) [32]u8 {
 // Helper function to create a test VM with basic setup
 fn createTestVm(allocator: std.mem.Allocator) !*Vm {
     var vm = try allocator.create(Vm);
-    vm.* = try Vm.init(allocator);
+    vm.* = try Vm.init(allocator, null, null);
 
     // Set up basic context
     vm.context.chain_id = 1;
