@@ -1,5 +1,28 @@
 # @tevm/contract
 
+## 1.0.0-next.148
+
+### Patch Changes
+
+- 9e0e1cd: - Improved error responses to include additional raw data for better context when call procedures fail, and allow viem `writeContract` to decode contract reverts.
+  - Enhanced transaction receipt responses by converting numeric status values to hexadecimal strings for consistency.
+  - Updated error code for specific Ethereum errors to align with standard codes (3 for revert).
+- Updated dependencies [9e0e1cd]
+  - @tevm/errors@1.0.0-next.148
+  - @tevm/address@1.0.0-next.148
+  - @tevm/block@1.0.0-next.148
+  - @tevm/blockchain@1.0.0-next.148
+  - @tevm/common@1.0.0-next.148
+  - @tevm/contract@1.0.0-next.148
+  - @tevm/evm@1.0.0-next.148
+  - @tevm/state@1.0.0-next.148
+  - @tevm/tx@1.0.0-next.148
+  - @tevm/utils@1.0.0-next.148
+  - @tevm/vm@1.0.0-next.148
+  - @tevm/node@1.0.0-next.148
+  - @tevm/receipt-manager@1.0.0-next.148
+  - @tevm/txpool@1.0.0-next.148
+
 ## 1.0.0-next.147
 
 ### Patch Changes
