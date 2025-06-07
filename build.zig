@@ -540,6 +540,23 @@ pub fn build(b: *std.Build) void {
     const stack_validation_test_step = b.step("test-stack-validation", "Run Stack validation tests");
     stack_validation_test_step.dependOn(&run_stack_validation_test.step);
 
+    // Add Journal tests
+    const journal_test = b.addTest(.{
+        .name = "journal-test",
+        .root_source_file = b.path("test/evm/journal_test.zig"),
+        .target = target,
+        .optimize = optimize,
+        .single_threaded = true,
+    });
+    journal_test.root_module.stack_check = false;
+    journal_test.root_module.addImport("evm", evm_mod);
+    journal_test.root_module.addImport("Address", address_mod);
+
+    const run_journal_test = b.addRunArtifact(journal_test);
+
+    const journal_test_step = b.step("test-journal", "Run Journal tests");
+    journal_test_step.dependOn(&run_journal_test.step);
+
     // Add Opcodes tests
     const opcodes_test = b.addTest(.{
         .name = "opcodes-test",
@@ -775,6 +792,7 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_stack_test.step);
     test_step.dependOn(&run_stack_batched_test.step);
     test_step.dependOn(&run_stack_validation_test.step);
+    test_step.dependOn(&run_journal_test.step);
     test_step.dependOn(&run_opcodes_test.step);
     test_step.dependOn(&run_vm_opcode_test.step);
     test_step.dependOn(&run_integration_test.step);

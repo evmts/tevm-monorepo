@@ -1,31 +1,31 @@
 //! EVM state management module - Tracks blockchain state during execution
-//! 
+//!
 //! This module provides the state storage layer for the EVM, managing all
 //! mutable blockchain state including account balances, storage, code, nonces,
 //! transient storage, and event logs.
-//! 
+//!
 //! ## State Components
-//! 
+//!
 //! The EVM state consists of:
 //! - **Account State**: Balances, nonces, and contract code
 //! - **Persistent Storage**: Contract storage slots (SSTORE/SLOAD)
 //! - **Transient Storage**: Temporary storage within transactions (TSTORE/TLOAD)
 //! - **Event Logs**: Emitted events from LOG0-LOG4 opcodes
-//! 
+//!
 //! ## Design Philosophy
-//! 
+//!
 //! This implementation uses hash maps for efficient lookups and modifications.
 //! All state changes are applied immediately (no journaling in this layer).
 //! For transaction rollback support, this should be wrapped in a higher-level
 //! state manager that implements checkpointing/journaling.
-//! 
+//!
 //! ## Memory Management
-//! 
+//!
 //! All state data is heap-allocated using the provided allocator. The state
 //! owns all data it stores and properly cleans up in deinit().
-//! 
+//!
 //! ## Thread Safety
-//! 
+//!
 //! This implementation is NOT thread-safe. Concurrent access must be synchronized
 //! externally.
 
@@ -34,9 +34,11 @@ const Address = @import("Address");
 const EvmLog = @import("evm_log.zig");
 const StorageKey = @import("storage_key.zig");
 const Log = @import("log.zig");
+const Journal = @import("journal.zig").Journal;
+const JournalEntry = @import("journal_entry.zig").JournalEntry;
 
 /// EVM state container
-/// 
+///
 /// Manages all mutable blockchain state during EVM execution.
 /// This includes account data, storage, and transaction artifacts.
 const Self = @This();
@@ -78,18 +80,24 @@ original_storage: std.AutoHashMap(StorageKey, u256),
 /// Track if we're in a transaction context
 in_transaction: bool = false,
 
+/// Journal of all state changes for the current transaction.
+journal: Journal,
+
+/// Set of accounts that have been marked for self-destruction.
+destructed: std.AutoHashMap(Address.Address, void),
+
 /// Initialize a new EVM state instance
-/// 
+///
 /// Creates empty state with the provided allocator. All maps and lists
 /// are initialized empty.
-/// 
+///
 /// ## Parameters
 /// - `allocator`: Memory allocator for all state allocations
-/// 
+///
 /// ## Returns
 /// - Success: New initialized state instance
 /// - Error: OutOfMemory if allocation fails
-/// 
+///
 /// ## Example
 /// ```zig
 /// var state = try EvmState.init(allocator);
@@ -117,6 +125,12 @@ pub fn init(allocator: std.mem.Allocator) std.mem.Allocator.Error!Self {
     var original_storage = std.AutoHashMap(StorageKey, u256).init(allocator);
     errdefer original_storage.deinit();
 
+    var journal = Journal.init(allocator);
+    errdefer journal.deinit();
+
+    var destructed = std.AutoHashMap(Address.Address, void).init(allocator);
+    errdefer destructed.deinit();
+
     return Self{
         .allocator = allocator,
         .storage = storage,
@@ -127,16 +141,18 @@ pub fn init(allocator: std.mem.Allocator) std.mem.Allocator.Error!Self {
         .logs = logs,
         .original_storage = original_storage,
         .in_transaction = false,
+        .journal = journal,
+        .destructed = destructed,
     };
 }
 
 /// Clean up all allocated resources
-/// 
+///
 /// Frees all memory used by the state, including:
 /// - All hash maps
 /// - Log data (topics and data arrays)
 /// - Any allocated slices
-/// 
+///
 /// ## Important
 /// After calling deinit(), the state instance is invalid and
 /// must not be used.
@@ -147,6 +163,8 @@ pub fn deinit(self: *Self) void {
     self.nonces.deinit();
     self.transient_storage.deinit();
     self.original_storage.deinit();
+    self.journal.deinit();
+    self.destructed.deinit();
 
     // Clean up logs - free allocated memory for topics and data
     for (self.logs.items) |log| {
@@ -156,20 +174,77 @@ pub fn deinit(self: *Self) void {
     self.logs.deinit();
 }
 
+// Journaling methods
+pub fn checkpoint(self: *Self) !void {
+    try self.journal.checkpoint();
+}
+
+pub fn commit(self: *Self) !void {
+    try self.journal.commit();
+}
+
+pub fn revert(self: *Self) !void {
+    if (self.journal.checkpoints.pop()) |checkpoint_index| {
+        const entries_to_revert = self.journal.entries.items[checkpoint_index..];
+
+        var i = entries_to_revert.len;
+        while (i > 0) {
+            i -= 1;
+            const entry = entries_to_revert[i];
+            switch (entry) {
+                .StorageChange => |change| {
+                    const key = StorageKey{ .address = change.address, .slot = change.key };
+                    try self.storage.put(key, change.old_value);
+                },
+                .BalanceChange => |change| {
+                    try self.balances.put(change.address, change.old_balance);
+                },
+                .NonceChange => |change| {
+                    try self.nonces.put(change.address, change.old_nonce);
+                },
+                .CodeChange => |change| {
+                    _ = self.code.remove(change.address);
+                },
+                .AccountCreated => |change| {
+                    _ = self.balances.remove(change.address);
+                    _ = self.nonces.remove(change.address);
+                    _ = self.code.remove(change.address);
+                    // Note: storage is not cleared here as it's assumed to be empty for a new account.
+                },
+                .AccountDestructed => |change| {
+                    _ = self.destructed.remove(change.address);
+                },
+                .TransientStorageChange => |change| {
+                    const key = StorageKey{ .address = change.address, .slot = change.key };
+                    try self.transient_storage.put(key, change.old_value);
+                },
+                .Log => {
+                    if (self.logs.pop()) |log| {
+                        self.allocator.free(log.topics);
+                        self.allocator.free(log.data);
+                    }
+                },
+            }
+        }
+
+        self.journal.entries.shrinkRetainingCapacity(checkpoint_index);
+    }
+}
+
 // State access methods
 
 /// Get a value from persistent storage
-/// 
+///
 /// Reads a storage slot for the given address. Returns 0 for
 /// uninitialized slots (EVM default).
-/// 
+///
 /// ## Parameters
 /// - `address`: Contract address
 /// - `slot`: Storage slot number
-/// 
+///
 /// ## Returns
 /// The stored value, or 0 if not set
-/// 
+///
 /// ## Gas Cost
 /// In real EVM: 100-2100 gas depending on cold/warm access
 pub fn get_storage(self: *const Self, address: Address.Address, slot: u256) u256 {
@@ -178,34 +253,38 @@ pub fn get_storage(self: *const Self, address: Address.Address, slot: u256) u256
 }
 
 /// Set a value in persistent storage
-/// 
+///
 /// Updates a storage slot for the given address. Setting a value
 /// to 0 is different from deleting it - it still consumes storage.
-/// 
+///
 /// ## Parameters
 /// - `address`: Contract address
-/// - `slot`: Storage slot number  
+/// - `slot`: Storage slot number
 /// - `value`: Value to store
-/// 
+///
 /// ## Returns
 /// - Success: void
 /// - Error: OutOfMemory if map expansion fails
-/// 
+///
 /// ## Gas Cost
 /// In real EVM: 2900-20000 gas depending on current/new value
 pub fn set_storage(self: *Self, address: Address.Address, slot: u256, value: u256) std.mem.Allocator.Error!void {
+    const old_value = self.get_storage(address, slot);
+    if (old_value == value) return;
+
+    try self.journal.record(.{ .StorageChange = .{ .address = address, .key = slot, .old_value = old_value } });
     const key = StorageKey{ .address = address, .slot = slot };
     try self.storage.put(key, value);
 }
 
 /// Get account balance
-/// 
+///
 /// Returns the balance in wei for the given address.
 /// Non-existent accounts have balance 0.
-/// 
+///
 /// ## Parameters
 /// - `address`: Account address
-/// 
+///
 /// ## Returns
 /// Balance in wei (0 for non-existent accounts)
 pub fn get_balance(self: *const Self, address: Address.Address) u256 {
@@ -213,35 +292,43 @@ pub fn get_balance(self: *const Self, address: Address.Address) u256 {
 }
 
 /// Set account balance
-/// 
+///
 /// Updates the balance for the given address. Setting balance
 /// creates the account if it doesn't exist.
-/// 
+///
 /// ## Parameters
 /// - `address`: Account address
 /// - `balance`: New balance in wei
-/// 
+///
 /// ## Returns
 /// - Success: void
 /// - Error: OutOfMemory if map expansion fails
-/// 
+///
 /// ## Note
 /// Balance can exceed total ETH supply in test scenarios
 pub fn set_balance(self: *Self, address: Address.Address, balance: u256) std.mem.Allocator.Error!void {
+    const old_balance = self.get_balance(address);
+    if (old_balance == balance) return;
+
+    if (!self.account_exists(address)) {
+        try self.journal.record(.{ .AccountCreated = .{ .address = address } });
+    }
+
+    try self.journal.record(.{ .BalanceChange = .{ .address = address, .old_balance = old_balance } });
     try self.balances.put(address, balance);
 }
 
 /// Get contract code
-/// 
+///
 /// Returns the bytecode deployed at the given address.
 /// EOAs and non-existent accounts return empty slice.
-/// 
+///
 /// ## Parameters
 /// - `address`: Contract address
-/// 
+///
 /// ## Returns
 /// Contract bytecode (empty slice for EOAs)
-/// 
+///
 /// ## Note
 /// The returned slice is owned by the state - do not free
 pub fn get_code(self: *const Self, address: Address.Address) []const u8 {
@@ -249,36 +336,42 @@ pub fn get_code(self: *const Self, address: Address.Address) []const u8 {
 }
 
 /// Set contract code
-/// 
+///
 /// Deploys bytecode to the given address. The state takes
 /// ownership of the code slice.
-/// 
+///
 /// ## Parameters
 /// - `address`: Contract address
 /// - `code`: Bytecode to deploy
-/// 
+///
 /// ## Returns
 /// - Success: void
 /// - Error: OutOfMemory if map expansion fails
-/// 
+///
 /// ## Important
 /// The state does NOT copy the code - it takes ownership
 /// of the provided slice
-pub fn set_code(self: *Self, address: Address.Address, code: []const u8) std.mem.Allocator.Error!void {
-    try self.code.put(address, code);
+pub fn set_code(self: *Self, address: Address.Address, code_slice: []const u8) std.mem.Allocator.Error!void {
+    if (self.get_code(address).len > 0) return; // Cannot change existing code
+
+    if (!self.account_exists(address)) {
+        try self.journal.record(.{ .AccountCreated = .{ .address = address } });
+    }
+    try self.journal.record(.{ .CodeChange = .{ .address = address } });
+    try self.code.put(address, code_slice);
 }
 
 /// Get account nonce
-/// 
+///
 /// Returns the transaction count for the given address.
 /// Non-existent accounts have nonce 0.
-/// 
+///
 /// ## Parameters
 /// - `address`: Account address
-/// 
+///
 /// ## Returns
 /// Current nonce (0 for new accounts)
-/// 
+///
 /// ## Note
 /// Nonce prevents transaction replay attacks
 pub fn get_nonce(self: *const Self, address: Address.Address) u64 {
@@ -286,35 +379,43 @@ pub fn get_nonce(self: *const Self, address: Address.Address) u64 {
 }
 
 /// Set account nonce
-/// 
+///
 /// Updates the transaction count for the given address.
-/// 
+///
 /// ## Parameters
 /// - `address`: Account address
 /// - `nonce`: New nonce value
-/// 
+///
 /// ## Returns
 /// - Success: void
 /// - Error: OutOfMemory if map expansion fails
-/// 
+///
 /// ## Warning
 /// Setting nonce below current value can enable replay attacks
 pub fn set_nonce(self: *Self, address: Address.Address, nonce: u64) std.mem.Allocator.Error!void {
+    const old_nonce = self.get_nonce(address);
+    if (old_nonce == nonce) return;
+
+    if (!self.account_exists(address)) {
+        try self.journal.record(.{ .AccountCreated = .{ .address = address } });
+    }
+
+    try self.journal.record(.{ .NonceChange = .{ .address = address, .old_nonce = old_nonce } });
     try self.nonces.put(address, nonce);
 }
 
 /// Increment account nonce
-/// 
+///
 /// Atomically increments the nonce and returns the previous value.
 /// Used when processing transactions from an account.
-/// 
+///
 /// ## Parameters
 /// - `address`: Account address
-/// 
+///
 /// ## Returns
 /// - Success: Previous nonce value (before increment)
 /// - Error: OutOfMemory if map expansion fails
-/// 
+///
 /// ## Example
 /// ```zig
 /// const tx_nonce = try state.increment_nonce(sender);
@@ -323,26 +424,25 @@ pub fn set_nonce(self: *Self, address: Address.Address, nonce: u64) std.mem.Allo
 /// ```
 pub fn increment_nonce(self: *Self, address: Address.Address) std.mem.Allocator.Error!u64 {
     const current_nonce = self.get_nonce(address);
-    const new_nonce = current_nonce + 1;
-    try self.set_nonce(address, new_nonce);
+    try self.set_nonce(address, current_nonce + 1);
     return current_nonce;
 }
 
 // Transient storage methods
 
 /// Get a value from transient storage
-/// 
+///
 /// Reads a transient storage slot (EIP-1153). Transient storage
 /// is cleared after each transaction, making it cheaper than
 /// persistent storage for temporary data.
-/// 
+///
 /// ## Parameters
 /// - `address`: Contract address
 /// - `slot`: Storage slot number
-/// 
+///
 /// ## Returns
 /// The stored value, or 0 if not set
-/// 
+///
 /// ## Gas Cost
 /// TLOAD: 100 gas (always warm)
 pub fn get_transient_storage(self: *const Self, address: Address.Address, slot: u256) u256 {
@@ -351,27 +451,31 @@ pub fn get_transient_storage(self: *const Self, address: Address.Address, slot: 
 }
 
 /// Set a value in transient storage
-/// 
+///
 /// Updates a transient storage slot (EIP-1153). Values are
 /// automatically cleared after the transaction completes.
-/// 
+///
 /// ## Parameters
 /// - `address`: Contract address
 /// - `slot`: Storage slot number
 /// - `value`: Value to store temporarily
-/// 
+///
 /// ## Returns
 /// - Success: void
 /// - Error: OutOfMemory if map expansion fails
-/// 
+///
 /// ## Gas Cost
 /// TSTORE: 100 gas (always warm)
-/// 
+///
 /// ## Use Cases
 /// - Reentrancy locks
 /// - Temporary computation results
 /// - Cross-contract communication within a transaction
 pub fn set_transient_storage(self: *Self, address: Address.Address, slot: u256, value: u256) std.mem.Allocator.Error!void {
+    const old_value = self.get_transient_storage(address, slot);
+    if (old_value == value) return;
+
+    try self.journal.record(.{ .TransientStorageChange = .{ .address = address, .key = slot, .old_value = old_value } });
     const key = StorageKey{ .address = address, .slot = slot };
     try self.transient_storage.put(key, value);
 }
@@ -379,30 +483,30 @@ pub fn set_transient_storage(self: *Self, address: Address.Address, slot: u256, 
 // Log methods
 
 /// Emit an event log
-/// 
+///
 /// Records an event log from LOG0-LOG4 opcodes. The log is added
 /// to the transaction's log list and cannot be removed.
-/// 
+///
 /// ## Parameters
 /// - `address`: Contract emitting the log
 /// - `topics`: Indexed topics (0-4 entries)
 /// - `data`: Non-indexed log data
-/// 
+///
 /// ## Returns
 /// - Success: void
 /// - Error: OutOfMemory if allocation fails
-/// 
+///
 /// ## Memory Management
 /// This function copies both topics and data to ensure they
 /// persist beyond the current execution context.
-/// 
+///
 /// ## Example
 /// ```zig
 /// // Emit Transfer event
 /// const topics = [_]u256{
 ///     0x123..., // Transfer event signature
 ///     from_addr, // indexed from
-///     to_addr,   // indexed to  
+///     to_addr,   // indexed to
 /// };
 /// const data = encode_u256(amount);
 /// try state.emit_log(contract_addr, &topics, data);
@@ -410,10 +514,12 @@ pub fn set_transient_storage(self: *Self, address: Address.Address, slot: u256, 
 pub fn emit_log(self: *Self, address: Address.Address, topics: []const u256, data: []const u8) std.mem.Allocator.Error!void {
     // Clone the data to ensure it persists
     const data_copy = try self.allocator.alloc(u8, data.len);
+    errdefer self.allocator.free(data_copy);
     @memcpy(data_copy, data);
 
     // Clone the topics to ensure they persist
     const topics_copy = try self.allocator.alloc(u256, topics.len);
+    errdefer self.allocator.free(topics_copy);
     @memcpy(topics_copy, topics);
 
     const log = EvmLog{
@@ -422,6 +528,7 @@ pub fn emit_log(self: *Self, address: Address.Address, topics: []const u256, dat
         .data = data_copy,
     };
 
+    try self.journal.record(.{ .Log = {} });
     try self.logs.append(log);
 }
 
@@ -465,4 +572,10 @@ pub fn end_transaction(self: *Self) void {
     self.original_storage.clearRetainingCapacity();
     self.transient_storage.clearRetainingCapacity();
     self.in_transaction = false;
+}
+
+fn account_exists(self: *const Self, address: Address.Address) bool {
+    return self.balances.contains(address) or
+        self.nonces.contains(address) or
+        self.code.contains(address);
 }

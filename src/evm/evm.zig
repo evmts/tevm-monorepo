@@ -100,6 +100,9 @@ pub const StoragePool = @import("storage_pool.zig");
 /// Main virtual machine implementation
 pub const Vm = @import("vm.zig");
 
+/// EVM state management
+pub const evm_state = @import("evm_state.zig");
+
 // Import opcodes
 /// All opcode implementations (arithmetic, stack, memory, etc.)
 pub const opcodes = @import("opcodes/package.zig");

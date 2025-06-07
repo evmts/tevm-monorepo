@@ -152,6 +152,7 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
         }
     }
     
+    try self.state.checkpoint();
     self.depth += 1;
     defer self.depth -= 1;
 
@@ -187,6 +188,7 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
                     // We are out of memory, which is a critical failure. The safest way to
                     // handle this is to treat it as an OutOfGas error, which consumes
                     // all gas and stops execution.
+                    try self.state.revert();
                     return RunResult.init(initial_gas, 0, .OutOfGas, ExecutionError.Error.OutOfMemory, null);
                 };
             }
@@ -196,15 +198,19 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
                     // INVALID opcode consumes all remaining gas
                     frame.gas_remaining = 0;
                     contract.gas = 0;
+                    try self.state.revert();
                     return RunResult.init(initial_gas, 0, .Invalid, err, output);
                 },
                 ExecutionError.Error.STOP => {
+                    try self.state.commit();
                     return RunResult.init(initial_gas, frame.gas_remaining, .Success, null, output);
                 },
                 ExecutionError.Error.REVERT => {
+                    try self.state.revert();
                     return RunResult.init(initial_gas, frame.gas_remaining, .Revert, err, output);
                 },
                 ExecutionError.Error.OutOfGas => {
+                    try self.state.revert();
                     return RunResult.init(initial_gas, frame.gas_remaining, .OutOfGas, err, output);
                 },
                 ExecutionError.Error.InvalidJump,
@@ -216,9 +222,13 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
                 ExecutionError.Error.MaxCodeSizeExceeded,
                 ExecutionError.Error.OutOfMemory,
                 => {
+                    try self.state.revert();
                     return RunResult.init(initial_gas, frame.gas_remaining, .Invalid, err, output);
                 },
-                else => return err, // Unexpected error
+                else => {
+                    try self.state.revert();
+                    return err;
+                },
             };
         };
 
@@ -247,6 +257,7 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
         final_gas_remaining = frame.gas_remaining + actual_refund;
     }
     
+    try self.state.commit();
     return RunResult.init(
         initial_gas,
         final_gas_remaining,
@@ -257,24 +268,19 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
 }
 
 fn create_contract_internal(self: *Self, creator: Address.Address, value: u256, init_code: []const u8, gas: u64, new_address: Address.Address) std.mem.Allocator.Error!CreateResult {
+    try self.state.checkpoint();
+    errdefer self.state.revert() catch {}; // Revert on any error from this function
+
     if (self.state.get_code(new_address).len > 0) {
         // Contract already exists at this address
-        return CreateResult{
-            .success = false,
-            .address = Address.zero(),
-            .gas_left = gas,
-            .output = null,
-        };
+        try self.state.revert();
+        return CreateResult.initFailure(gas, null);
     }
 
     const creator_balance = self.state.get_balance(creator);
     if (creator_balance < value) {
-        return CreateResult{
-            .success = false,
-            .address = Address.zero(),
-            .gas_left = gas,
-            .output = null,
-        };
+        try self.state.revert();
+        return CreateResult.initFailure(gas, null);
     }
 
     if (value > 0) {
@@ -284,6 +290,7 @@ fn create_contract_internal(self: *Self, creator: Address.Address, value: u256, 
 
     if (init_code.len == 0) {
         // No init code means empty contract
+        try self.state.commit();
         return CreateResult{
             .success = true,
             .address = new_address,
@@ -311,6 +318,8 @@ fn create_contract_internal(self: *Self, creator: Address.Address, value: u256, 
 
     // Execute the init code - this should return the deployment bytecode
     const init_result = self.interpret_with_context(&init_contract, &[_]u8{}, false) catch |err| {
+        try self.state.revert();
+
         if (err == ExecutionError.Error.REVERT) {
             // On revert, we should still consume gas but not all
             return CreateResult{
@@ -332,31 +341,30 @@ fn create_contract_internal(self: *Self, creator: Address.Address, value: u256, 
 
     const deployment_code = init_result.output orelse &[_]u8{};
 
+    // Check EIP-3541: Reject new contracts starting with 0xEF
+    if (self.chain_rules.IsEIP3541 and deployment_code.len > 0 and deployment_code[0] == 0xEF) {
+        try self.state.revert();
+        return CreateResult.initFailure(0, null);
+    }
+
     // Check EIP-170 MAX_CODE_SIZE limit on the returned bytecode (24,576 bytes)
     if (deployment_code.len > constants.MAX_CODE_SIZE) {
-        return CreateResult{
-            .success = false,
-            .address = Address.zero(),
-            .gas_left = 0,
-            .output = null,
-        };
+        try self.state.revert();
+        return CreateResult.initFailure(0, null);
     }
 
     const deploy_code_gas = @as(u64, @intCast(deployment_code.len)) * constants.DEPLOY_CODE_GAS_PER_BYTE;
 
     if (deploy_code_gas > init_result.gas_left) {
-        return CreateResult{
-            .success = false,
-            .address = Address.zero(),
-            .gas_left = 0,
-            .output = null,
-        };
+        try self.state.revert();
+        return CreateResult.initFailure(0, null);
     }
 
     try self.state.set_code(new_address, deployment_code);
 
     const gas_left = init_result.gas_left - deploy_code_gas;
 
+    try self.state.commit();
     return CreateResult{
         .success = true,
         .address = new_address,
