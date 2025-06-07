@@ -117,12 +117,8 @@ pub fn validate_unary_op(stack: *const Stack) ExecutionError.Error!void {
 /// ```
 pub fn validate_dup(stack: *const Stack, n: u32) ExecutionError.Error!void {
     // DUP pops 0 and pushes 1
-    if (stack.size < n) {
-        return ExecutionError.Error.StackUnderflow;
-    }
-    if (stack.size >= Stack.CAPACITY) {
-        return ExecutionError.Error.StackOverflow;
-    }
+    if (stack.size < n) return ExecutionError.Error.StackUnderflow;
+    if (stack.size >= Stack.CAPACITY) return ExecutionError.Error.StackOverflow;
 }
 
 /// Validates stack requirements for SWAP operations.
@@ -142,9 +138,7 @@ pub fn validate_dup(stack: *const Stack, n: u32) ExecutionError.Error!void {
 /// ```
 pub fn validate_swap(stack: *const Stack, n: u32) ExecutionError.Error!void {
     // SWAP needs at least n+1 items on stack
-    if (stack.size <= n) {
-        return ExecutionError.Error.StackUnderflow;
-    }
+    if (stack.size <= n) return ExecutionError.Error.StackUnderflow;
 }
 
 /// Validates stack requirements for PUSH operations.
@@ -163,9 +157,7 @@ pub fn validate_swap(stack: *const Stack, n: u32) ExecutionError.Error!void {
 /// frame.stack.push(value);
 /// ```
 pub fn validate_push(stack: *const Stack) ExecutionError.Error!void {
-    if (stack.size >= Stack.CAPACITY) {
-        return ExecutionError.Error.StackOverflow;
-    }
+    if (stack.size >= Stack.CAPACITY) return ExecutionError.Error.StackOverflow;
 }
 
 // Import the helper function

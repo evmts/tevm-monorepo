@@ -656,9 +656,7 @@ pub const ValidateStaticContextError = error{WriteProtection};
 /// Validate that state modifications are allowed in the current context.
 /// Returns WriteProtection error if called within a static (read-only) context.
 pub fn validate_static_context(self: *const Self) ValidateStaticContextError!void {
-    if (self.read_only) {
-        return error.WriteProtection;
-    }
+    if (self.read_only) return error.WriteProtection;
 }
 
 pub const SetStorageProtectedError = ValidateStaticContextError || std.mem.Allocator.Error;
@@ -729,9 +727,7 @@ pub const ValidateValueTransferError = error{WriteProtection};
 /// Validate that value transfer is allowed in the current context.
 /// Static calls cannot transfer value (msg.value must be 0).
 pub fn validate_value_transfer(self: *const Self, value: u256) ValidateValueTransferError!void {
-    if (self.read_only and value != 0) {
-        return error.WriteProtection;
-    }
+    if (self.read_only and value != 0) return error.WriteProtection;
 }
 
 pub const SelfdestructProtectedError = ValidateStaticContextError;

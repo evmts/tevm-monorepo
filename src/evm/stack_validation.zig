@@ -51,16 +51,12 @@ pub fn validate_stack_requirements(
     const stack_size = stack.size;
 
     // Check minimum stack requirement
-    if (stack_size < operation.min_stack) {
-        return ExecutionError.Error.StackUnderflow;
-    }
+    if (stack_size < operation.min_stack) return ExecutionError.Error.StackUnderflow;
 
     // Check maximum stack requirement
     // max_stack represents the maximum stack size allowed BEFORE the operation
     // to ensure we don't overflow after the operation completes
-    if (stack_size > operation.max_stack) {
-        return ExecutionError.Error.StackOverflow;
-    }
+    if (stack_size > operation.max_stack) return ExecutionError.Error.StackOverflow;
 }
 
 /// Validates stack has capacity for pop/push operations.
@@ -90,17 +86,13 @@ pub fn validate_stack_operation(
     const stack_size = stack.size;
 
     // Check if we have enough items to pop
-    if (stack_size < pop_count) {
-        return ExecutionError.Error.StackUnderflow;
-    }
+    if (stack_size < pop_count) return ExecutionError.Error.StackUnderflow;
 
     // Calculate stack size after operation
     const new_size = stack_size - pop_count + push_count;
 
     // Check if result would overflow
-    if (new_size > Stack.CAPACITY) {
-        return ExecutionError.Error.StackOverflow;
-    }
+    if (new_size > Stack.CAPACITY) return ExecutionError.Error.StackOverflow;
 }
 
 /// Calculate the maximum allowed stack size for an operation.

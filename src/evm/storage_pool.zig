@@ -106,9 +106,7 @@ pub const BorrowAccessMapError = error{
 /// const was_accessed = access_map.get(slot) orelse false;
 /// ```
 pub fn borrow_access_map(self: *Self) BorrowAccessMapError!*std.AutoHashMap(u256, bool) {
-    if (self.access_maps.items.len > 0) {
-        return self.access_maps.pop() orelse unreachable;
-    }
+    if (self.access_maps.items.len > 0) return self.access_maps.pop() orelse unreachable;
     const map = self.allocator.create(std.AutoHashMap(u256, bool)) catch {
         return BorrowAccessMapError.OutOfAllocatorMemory;
     };
