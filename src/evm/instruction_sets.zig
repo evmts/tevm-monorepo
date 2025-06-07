@@ -1,6 +1,6 @@
 const std = @import("std");
 const Opcode = @import("opcode.zig");
-const Operation = @import("operation.zig");
+const Operation = @import("operations/operation.zig");
 const Hardfork = @import("hardfork.zig").Hardfork;
 const ExecutionError = @import("execution_error.zig");
 const Stack = @import("stack.zig");
@@ -12,7 +12,6 @@ const Log = @import("log.zig");
 
 // Import all opcode modules
 const opcodes = @import("opcodes/package.zig");
-const operations = @import("operations/package.zig");
 const arithmetic = opcodes.arithmetic;
 const comparison = opcodes.comparison;
 const bitwise = opcodes.bitwise;
@@ -37,21 +36,6 @@ const system = opcodes.system;
 ///
 /// Operations are organized by category and hardfork variants.
 
-// UNDEFINED operation for unassigned opcodes
-pub const UNDEFINED = Operation{
-    .execute = undefined_execute,
-    .constant_gas = 0,
-    .min_stack = 0,
-    .max_stack = Stack.CAPACITY,
-    .undefined = true,
-};
-
-fn undefined_execute(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
-    _ = pc;
-    _ = interpreter;
-    _ = state;
-    return ExecutionError.Error.InvalidOpcode;
-}
 
 // Storage operations
 pub const SLOAD = Operation{

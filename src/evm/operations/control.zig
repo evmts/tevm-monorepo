@@ -6,7 +6,7 @@
 /// error handling in the EVM.
 
 const std = @import("std");
-const Operation = @import("../operation.zig");
+const Operation = @import("operation.zig");
 const Stack = @import("../stack.zig");
 const ExecutionError = @import("../execution_error.zig");
 const opcodes = @import("../opcodes/package.zig");

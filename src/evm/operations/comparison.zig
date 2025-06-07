@@ -6,7 +6,7 @@
 /// All comparisons return 1 for true and 0 for false.
 
 const std = @import("std");
-const Operation = @import("../operation.zig");
+const Operation = @import("operation.zig");
 const Stack = @import("../stack.zig");
 const opcodes = @import("../opcodes/package.zig");
 

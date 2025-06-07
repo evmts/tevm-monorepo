@@ -6,7 +6,7 @@
 /// transactions, organized as a key-value mapping of 256-bit words.
 
 const std = @import("std");
-const Operation = @import("../operation.zig");
+const Operation = @import("operation.zig");
 const Stack = @import("../stack.zig");
 const opcodes = @import("../opcodes/package.zig");
 

@@ -1,6 +1,6 @@
 const std = @import("std");
 const Opcode = @import("opcode.zig");
-const Operation = @import("operation.zig");
+const Operation = @import("operations/operation.zig");
 const Hardfork = @import("hardfork.zig").Hardfork;
 const ExecutionError = @import("execution_error.zig");
 const Stack = @import("stack.zig");
@@ -10,7 +10,7 @@ const Contract = @import("contract.zig");
 const Address = @import("Address");
 const Log = @import("log.zig");
 
-const instruction_sets = @import("instruction_sets.zig");
+const operations = @import("operations/package.zig");
 const opcodes = @import("opcodes/package.zig");
 const stack_ops = opcodes.stack;
 const log = opcodes.log;
@@ -251,7 +251,7 @@ pub fn init_from_hardfork(hardfork: Hardfork) Self {
     }
 
     // Homestead and later additions
-    jt.table[0xf4] = &instruction_sets.DELEGATECALL;
+    jt.table[0xf4] = &operations.system.DELEGATECALL;
 
     // Apply Tangerine Whistle gas cost changes (EIP-150)
     if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.TANGERINE_WHISTLE)) {
@@ -260,25 +260,25 @@ pub fn init_from_hardfork(hardfork: Hardfork) Self {
 
     // Byzantium additions
     if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.BYZANTIUM)) {
-        jt.table[0x3d] = &instruction_sets.RETURNDATASIZE;
-        jt.table[0x3e] = &instruction_sets.RETURNDATACOPY;
-        jt.table[0xfd] = &instruction_sets.REVERT;
-        jt.table[0xfa] = &instruction_sets.STATICCALL;
+        jt.table[0x3d] = &operations.environment.RETURNDATASIZE;
+        jt.table[0x3e] = &operations.memory.RETURNDATACOPY;
+        jt.table[0xfd] = &operations.control.REVERT;
+        jt.table[0xfa] = &operations.system.STATICCALL;
     }
 
     // Constantinople additions
     if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.CONSTANTINOPLE)) {
-        jt.table[0xf5] = &instruction_sets.CREATE2;
-        jt.table[0x3f] = &instruction_sets.EXTCODEHASH;
-        jt.table[0x1b] = &instruction_sets.SHL;
-        jt.table[0x1c] = &instruction_sets.SHR;
-        jt.table[0x1d] = &instruction_sets.SAR;
+        jt.table[0xf5] = &operations.system.CREATE2;
+        jt.table[0x3f] = &operations.crypto.EXTCODEHASH;
+        jt.table[0x1b] = &operations.bitwise.SHL;
+        jt.table[0x1c] = &operations.bitwise.SHR;
+        jt.table[0x1d] = &operations.bitwise.SAR;
     }
 
     // Istanbul additions
     if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.ISTANBUL)) {
-        jt.table[0x46] = &instruction_sets.CHAINID;
-        jt.table[0x47] = &instruction_sets.SELFBALANCE;
+        jt.table[0x46] = &operations.environment.CHAINID;
+        jt.table[0x47] = &operations.environment.SELFBALANCE;
         apply_istanbul_gas_changes(&jt);
     }
 
@@ -289,21 +289,21 @@ pub fn init_from_hardfork(hardfork: Hardfork) Self {
 
     // London additions
     if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.LONDON)) {
-        jt.table[0x48] = &instruction_sets.BASEFEE;
+        jt.table[0x48] = &operations.block.BASEFEE;
     }
 
     // Shanghai additions
     if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.SHANGHAI)) {
-        jt.table[0x5f] = &instruction_sets.PUSH0;
+        jt.table[0x5f] = &operations.stack.PUSH0;
     }
 
     // Cancun additions
     if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.CANCUN)) {
-        jt.table[0x49] = &instruction_sets.BLOBHASH;
-        jt.table[0x4a] = &instruction_sets.BLOBBASEFEE;
-        jt.table[0x5e] = &instruction_sets.MCOPY;
-        jt.table[0x5c] = &instruction_sets.TLOAD;
-        jt.table[0x5d] = &instruction_sets.TSTORE;
+        jt.table[0x49] = &operations.block.BLOBHASH;
+        jt.table[0x4a] = &operations.block.BLOBBASEFEE;
+        jt.table[0x5e] = &operations.memory.MCOPY;
+        jt.table[0x5c] = &operations.storage.TLOAD;
+        jt.table[0x5d] = &operations.storage.TSTORE;
     }
 
     return jt;
@@ -314,71 +314,71 @@ pub fn new_frontier_instruction_set_legacy() Self {
     var jt = Self.init();
 
     // Setup operation table for Frontier
-    jt.table[0x00] = &instruction_sets.STOP;
-    jt.table[0x01] = &instruction_sets.ADD;
-    jt.table[0x02] = &instruction_sets.MUL;
-    jt.table[0x03] = &instruction_sets.SUB;
-    jt.table[0x04] = &instruction_sets.DIV;
-    jt.table[0x05] = &instruction_sets.SDIV;
-    jt.table[0x06] = &instruction_sets.MOD;
-    jt.table[0x07] = &instruction_sets.SMOD;
-    jt.table[0x08] = &instruction_sets.ADDMOD;
-    jt.table[0x09] = &instruction_sets.MULMOD;
-    jt.table[0x0a] = &instruction_sets.EXP;
-    jt.table[0x0b] = &instruction_sets.SIGNEXTEND;
+    jt.table[0x00] = &operations.control.STOP;
+    jt.table[0x01] = &operations.arithmetic.ADD;
+    jt.table[0x02] = &operations.arithmetic.MUL;
+    jt.table[0x03] = &operations.arithmetic.SUB;
+    jt.table[0x04] = &operations.arithmetic.DIV;
+    jt.table[0x05] = &operations.arithmetic.SDIV;
+    jt.table[0x06] = &operations.arithmetic.MOD;
+    jt.table[0x07] = &operations.arithmetic.SMOD;
+    jt.table[0x08] = &operations.arithmetic.ADDMOD;
+    jt.table[0x09] = &operations.arithmetic.MULMOD;
+    jt.table[0x0a] = &operations.arithmetic.EXP;
+    jt.table[0x0b] = &operations.arithmetic.SIGNEXTEND;
 
     // 0x10s: Comparison & Bitwise Logic
-    jt.table[0x10] = &instruction_sets.LT;
-    jt.table[0x11] = &instruction_sets.GT;
-    jt.table[0x12] = &instruction_sets.SLT;
-    jt.table[0x13] = &instruction_sets.SGT;
-    jt.table[0x14] = &instruction_sets.EQ;
-    jt.table[0x15] = &instruction_sets.ISZERO;
-    jt.table[0x16] = &instruction_sets.AND;
-    jt.table[0x17] = &instruction_sets.OR;
-    jt.table[0x18] = &instruction_sets.XOR;
-    jt.table[0x19] = &instruction_sets.NOT;
-    jt.table[0x1a] = &instruction_sets.BYTE;
+    jt.table[0x10] = &operations.comparison.LT;
+    jt.table[0x11] = &operations.comparison.GT;
+    jt.table[0x12] = &operations.comparison.SLT;
+    jt.table[0x13] = &operations.comparison.SGT;
+    jt.table[0x14] = &operations.comparison.EQ;
+    jt.table[0x15] = &operations.comparison.ISZERO;
+    jt.table[0x16] = &operations.bitwise.AND;
+    jt.table[0x17] = &operations.bitwise.OR;
+    jt.table[0x18] = &operations.bitwise.XOR;
+    jt.table[0x19] = &operations.bitwise.NOT;
+    jt.table[0x1a] = &operations.bitwise.BYTE;
 
     // 0x20s: SHA3
-    jt.table[0x20] = &instruction_sets.SHA3;
+    jt.table[0x20] = &operations.crypto.SHA3;
 
     // 0x30s: Environmental Information
-    jt.table[0x30] = &instruction_sets.ADDRESS;
-    jt.table[0x31] = &instruction_sets.BALANCE_FRONTIER_TO_TANGERINE;
-    jt.table[0x32] = &instruction_sets.ORIGIN;
-    jt.table[0x33] = &instruction_sets.CALLER;
-    jt.table[0x34] = &instruction_sets.CALLVALUE;
-    jt.table[0x35] = &instruction_sets.CALLDATALOAD;
-    jt.table[0x36] = &instruction_sets.CALLDATASIZE;
-    jt.table[0x37] = &instruction_sets.CALLDATACOPY;
-    jt.table[0x38] = &instruction_sets.CODESIZE;
-    jt.table[0x39] = &instruction_sets.CODECOPY;
-    jt.table[0x3a] = &instruction_sets.GASPRICE;
-    jt.table[0x3b] = &instruction_sets.EXTCODESIZE_FRONTIER_TO_TANGERINE;
-    jt.table[0x3c] = &instruction_sets.EXTCODECOPY_FRONTIER_TO_TANGERINE;
+    jt.table[0x30] = &operations.environment.ADDRESS;
+    jt.table[0x31] = &operations.environment.BALANCE_FRONTIER_TO_TANGERINE;
+    jt.table[0x32] = &operations.environment.ORIGIN;
+    jt.table[0x33] = &operations.environment.CALLER;
+    jt.table[0x34] = &operations.environment.CALLVALUE;
+    jt.table[0x35] = &operations.environment.CALLDATALOAD;
+    jt.table[0x36] = &operations.environment.CALLDATASIZE;
+    jt.table[0x37] = &operations.memory.CALLDATACOPY;
+    jt.table[0x38] = &operations.environment.CODESIZE;
+    jt.table[0x39] = &operations.memory.CODECOPY;
+    jt.table[0x3a] = &operations.environment.GASPRICE;
+    jt.table[0x3b] = &operations.misc.EXTCODESIZE_FRONTIER_TO_TANGERINE;
+    jt.table[0x3c] = &operations.memory.EXTCODECOPY_FRONTIER_TO_TANGERINE;
 
     // 0x40s: Block Information
-    jt.table[0x40] = &instruction_sets.BLOCKHASH;
-    jt.table[0x41] = &instruction_sets.COINBASE;
-    jt.table[0x42] = &instruction_sets.TIMESTAMP;
-    jt.table[0x43] = &instruction_sets.NUMBER;
-    jt.table[0x44] = &instruction_sets.DIFFICULTY;
-    jt.table[0x45] = &instruction_sets.GASLIMIT;
+    jt.table[0x40] = &operations.block.BLOCKHASH;
+    jt.table[0x41] = &operations.block.COINBASE;
+    jt.table[0x42] = &operations.block.TIMESTAMP;
+    jt.table[0x43] = &operations.block.NUMBER;
+    jt.table[0x44] = &operations.block.DIFFICULTY;
+    jt.table[0x45] = &operations.block.GASLIMIT;
 
     // 0x50s: Stack, Memory, Storage and Flow Operations
-    jt.table[0x50] = &instruction_sets.POP;
-    jt.table[0x51] = &instruction_sets.MLOAD;
-    jt.table[0x52] = &instruction_sets.MSTORE;
-    jt.table[0x53] = &instruction_sets.MSTORE8;
-    jt.table[0x54] = &instruction_sets.SLOAD_FRONTIER_TO_TANGERINE;
-    jt.table[0x55] = &instruction_sets.SSTORE;
-    jt.table[0x56] = &instruction_sets.JUMP;
-    jt.table[0x57] = &instruction_sets.JUMPI;
-    jt.table[0x58] = &instruction_sets.PC;
-    jt.table[0x59] = &instruction_sets.MSIZE;
-    jt.table[0x5a] = &instruction_sets.GAS;
-    jt.table[0x5b] = &instruction_sets.JUMPDEST;
+    jt.table[0x50] = &operations.stack.POP;
+    jt.table[0x51] = &operations.memory.MLOAD;
+    jt.table[0x52] = &operations.memory.MSTORE;
+    jt.table[0x53] = &operations.memory.MSTORE8;
+    jt.table[0x54] = &operations.storage.SLOAD_FRONTIER_TO_TANGERINE;
+    jt.table[0x55] = &operations.storage.SSTORE;
+    jt.table[0x56] = &operations.control.JUMP;
+    jt.table[0x57] = &operations.control.JUMPI;
+    jt.table[0x58] = &operations.control.PC;
+    jt.table[0x59] = &operations.memory.MSIZE;
+    jt.table[0x5a] = &operations.misc.GAS;
+    jt.table[0x5b] = &operations.control.JUMPDEST;
 
     // 0x60s & 0x70s: Push operations
     inline for (0..32) |i| {
@@ -425,40 +425,40 @@ pub fn new_frontier_instruction_set_legacy() Self {
     }
 
     // 0x80s: Duplication Operations
-    jt.table[0x80] = &instruction_sets.DUP1;
-    jt.table[0x81] = &instruction_sets.DUP2;
-    jt.table[0x82] = &instruction_sets.DUP3;
-    jt.table[0x83] = &instruction_sets.DUP4;
-    jt.table[0x84] = &instruction_sets.DUP5;
-    jt.table[0x85] = &instruction_sets.DUP6;
-    jt.table[0x86] = &instruction_sets.DUP7;
-    jt.table[0x87] = &instruction_sets.DUP8;
-    jt.table[0x88] = &instruction_sets.DUP9;
-    jt.table[0x89] = &instruction_sets.DUP10;
-    jt.table[0x8a] = &instruction_sets.DUP11;
-    jt.table[0x8b] = &instruction_sets.DUP12;
-    jt.table[0x8c] = &instruction_sets.DUP13;
-    jt.table[0x8d] = &instruction_sets.DUP14;
-    jt.table[0x8e] = &instruction_sets.DUP15;
-    jt.table[0x8f] = &instruction_sets.DUP16;
+    jt.table[0x80] = &operations.stack.DUP1;
+    jt.table[0x81] = &operations.stack.DUP2;
+    jt.table[0x82] = &operations.stack.DUP3;
+    jt.table[0x83] = &operations.stack.DUP4;
+    jt.table[0x84] = &operations.stack.DUP5;
+    jt.table[0x85] = &operations.stack.DUP6;
+    jt.table[0x86] = &operations.stack.DUP7;
+    jt.table[0x87] = &operations.stack.DUP8;
+    jt.table[0x88] = &operations.stack.DUP9;
+    jt.table[0x89] = &operations.stack.DUP10;
+    jt.table[0x8a] = &operations.stack.DUP11;
+    jt.table[0x8b] = &operations.stack.DUP12;
+    jt.table[0x8c] = &operations.stack.DUP13;
+    jt.table[0x8d] = &operations.stack.DUP14;
+    jt.table[0x8e] = &operations.stack.DUP15;
+    jt.table[0x8f] = &operations.stack.DUP16;
 
     // 0x90s: Exchange Operations
-    jt.table[0x90] = &instruction_sets.SWAP1;
-    jt.table[0x91] = &instruction_sets.SWAP2;
-    jt.table[0x92] = &instruction_sets.SWAP3;
-    jt.table[0x93] = &instruction_sets.SWAP4;
-    jt.table[0x94] = &instruction_sets.SWAP5;
-    jt.table[0x95] = &instruction_sets.SWAP6;
-    jt.table[0x96] = &instruction_sets.SWAP7;
-    jt.table[0x97] = &instruction_sets.SWAP8;
-    jt.table[0x98] = &instruction_sets.SWAP9;
-    jt.table[0x99] = &instruction_sets.SWAP10;
-    jt.table[0x9a] = &instruction_sets.SWAP11;
-    jt.table[0x9b] = &instruction_sets.SWAP12;
-    jt.table[0x9c] = &instruction_sets.SWAP13;
-    jt.table[0x9d] = &instruction_sets.SWAP14;
-    jt.table[0x9e] = &instruction_sets.SWAP15;
-    jt.table[0x9f] = &instruction_sets.SWAP16;
+    jt.table[0x90] = &operations.stack.SWAP1;
+    jt.table[0x91] = &operations.stack.SWAP2;
+    jt.table[0x92] = &operations.stack.SWAP3;
+    jt.table[0x93] = &operations.stack.SWAP4;
+    jt.table[0x94] = &operations.stack.SWAP5;
+    jt.table[0x95] = &operations.stack.SWAP6;
+    jt.table[0x96] = &operations.stack.SWAP7;
+    jt.table[0x97] = &operations.stack.SWAP8;
+    jt.table[0x98] = &operations.stack.SWAP9;
+    jt.table[0x99] = &operations.stack.SWAP10;
+    jt.table[0x9a] = &operations.stack.SWAP11;
+    jt.table[0x9b] = &operations.stack.SWAP12;
+    jt.table[0x9c] = &operations.stack.SWAP13;
+    jt.table[0x9d] = &operations.stack.SWAP14;
+    jt.table[0x9e] = &operations.stack.SWAP15;
+    jt.table[0x9f] = &operations.stack.SWAP16;
 
     // 0xa0s: Logging Operations
     inline for (0..5) |i| {
@@ -478,12 +478,12 @@ pub fn new_frontier_instruction_set_legacy() Self {
     }
 
     // 0xf0s: System operations
-    jt.table[0xf0] = &instruction_sets.CREATE;
-    jt.table[0xf1] = &instruction_sets.CALL_FRONTIER_TO_TANGERINE;
-    jt.table[0xf2] = &instruction_sets.CALLCODE_FRONTIER_TO_TANGERINE;
-    jt.table[0xf3] = &instruction_sets.RETURN;
-    jt.table[0xfe] = &instruction_sets.INVALID;
-    jt.table[0xff] = &instruction_sets.SELFDESTRUCT_FRONTIER_TO_TANGERINE;
+    jt.table[0xf0] = &operations.system.CREATE;
+    jt.table[0xf1] = &operations.system.CALL_FRONTIER_TO_TANGERINE;
+    jt.table[0xf2] = &operations.system.CALLCODE_FRONTIER_TO_TANGERINE;
+    jt.table[0xf3] = &operations.control.RETURN;
+    jt.table[0xfe] = &operations.control.INVALID;
+    jt.table[0xff] = &operations.system.SELFDESTRUCT_FRONTIER_TO_TANGERINE;
 
     // Fill remaining with UNDEFINED
     jt.validate();
@@ -492,20 +492,20 @@ pub fn new_frontier_instruction_set_legacy() Self {
 
 fn apply_tangerine_whistle_gas_changes(jt: *Self) void {
     // SAFE: Replace operations with hardfork-specific variants instead of @constCast
-    jt.table[0x31] = &instruction_sets.BALANCE_TANGERINE_TO_ISTANBUL; // BALANCE: 20 -> 400
-    jt.table[0x3b] = &instruction_sets.EXTCODESIZE_TANGERINE_TO_BERLIN; // EXTCODESIZE: 20 -> 700
-    jt.table[0x3c] = &instruction_sets.EXTCODECOPY_TANGERINE_TO_BERLIN; // EXTCODECOPY: 20 -> 700
-    jt.table[0x54] = &instruction_sets.SLOAD_TANGERINE_TO_ISTANBUL; // SLOAD: 50 -> 200
-    jt.table[0xf1] = &instruction_sets.CALL_TANGERINE_TO_PRESENT; // CALL: 40 -> 700
-    jt.table[0xf2] = &instruction_sets.CALLCODE_TANGERINE_TO_PRESENT; // CALLCODE: 40 -> 700
-    jt.table[0xf4] = &instruction_sets.DELEGATECALL_TANGERINE_TO_PRESENT; // DELEGATECALL: 40 -> 700
-    jt.table[0xff] = &instruction_sets.SELFDESTRUCT_TANGERINE_TO_PRESENT; // SELFDESTRUCT: 0 -> 5000
+    jt.table[0x31] = &operations.environment.BALANCE_TANGERINE_TO_ISTANBUL; // BALANCE: 20 -> 400
+    jt.table[0x3b] = &operations.misc.EXTCODESIZE_TANGERINE_TO_BERLIN; // EXTCODESIZE: 20 -> 700
+    jt.table[0x3c] = &operations.memory.EXTCODECOPY_TANGERINE_TO_BERLIN; // EXTCODECOPY: 20 -> 700
+    jt.table[0x54] = &operations.storage.SLOAD_TANGERINE_TO_ISTANBUL; // SLOAD: 50 -> 200
+    jt.table[0xf1] = &operations.system.CALL_TANGERINE_TO_PRESENT; // CALL: 40 -> 700
+    jt.table[0xf2] = &operations.system.CALLCODE_TANGERINE_TO_PRESENT; // CALLCODE: 40 -> 700
+    jt.table[0xf4] = &operations.system.DELEGATECALL_TANGERINE_TO_PRESENT; // DELEGATECALL: 40 -> 700
+    jt.table[0xff] = &operations.system.SELFDESTRUCT_TANGERINE_TO_PRESENT; // SELFDESTRUCT: 0 -> 5000
 }
 
 fn apply_istanbul_gas_changes(jt: *Self) void {
     // SAFE: Replace operations with hardfork-specific variants instead of @constCast
-    jt.table[0x31] = &instruction_sets.BALANCE_ISTANBUL_TO_BERLIN; // BALANCE: 400 -> 700
-    jt.table[0x54] = &instruction_sets.SLOAD_ISTANBUL_TO_BERLIN; // SLOAD: 200 -> 800
+    jt.table[0x31] = &operations.environment.BALANCE_ISTANBUL_TO_BERLIN; // BALANCE: 400 -> 700
+    jt.table[0x54] = &operations.storage.SLOAD_ISTANBUL_TO_BERLIN; // SLOAD: 200 -> 800
     // EXTCODEHASH gas is handled dynamically in the opcode
 }
 
@@ -513,10 +513,10 @@ fn apply_berlin_gas_changes(jt: *Self) void {
     // SAFE: Replace operations with hardfork-specific variants instead of @constCast
     // Berlin introduces cold/warm access with dynamic gas costs
     // These are handled in the opcode implementations rather than base gas
-    jt.table[0x31] = &instruction_sets.BALANCE_BERLIN_TO_PRESENT; // BALANCE: 700 -> 0 (dynamic)
-    jt.table[0x3b] = &instruction_sets.EXTCODESIZE; // EXTCODESIZE: 700 -> 0 (dynamic)
-    jt.table[0x3c] = &instruction_sets.EXTCODECOPY; // EXTCODECOPY: 700 -> 0 (dynamic)
-    jt.table[0x3f] = &instruction_sets.EXTCODEHASH; // EXTCODEHASH: 0 -> 0 (dynamic)
-    jt.table[0x54] = &instruction_sets.SLOAD; // SLOAD: 800 -> 0 (dynamic)
+    jt.table[0x31] = &operations.environment.BALANCE_BERLIN_TO_PRESENT; // BALANCE: 700 -> 0 (dynamic)
+    jt.table[0x3b] = &operations.misc.EXTCODESIZE; // EXTCODESIZE: 700 -> 0 (dynamic)
+    jt.table[0x3c] = &operations.memory.EXTCODECOPY; // EXTCODECOPY: 700 -> 0 (dynamic)
+    jt.table[0x3f] = &operations.crypto.EXTCODEHASH; // EXTCODEHASH: 0 -> 0 (dynamic)
+    jt.table[0x54] = &operations.storage.SLOAD; // SLOAD: 800 -> 0 (dynamic)
     // CALL operations keep base gas but add dynamic cold access cost
 }
