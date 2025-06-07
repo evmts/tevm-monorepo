@@ -119,7 +119,7 @@ Next-gen plugin for instant optimistic updates, auto-caching, and devnet magic i
 | **Language** | JS/Wasm (Zig WIP) | Rust | JS/Rust | JS | Go |
 | **Browser Support** | ✅ | ❌ | ❌ | ❌ | ✅ (SaaS) |
 | **Minimal Dependencies** | ✅ | ✅ | ❌ | ❌ | ✅ (SaaS) |
-| **Viem Integration** | Native | Yes (RPC) | Minimal | Minimal | Minimal |
+| **Viem Integration** | Native | Yes (RPC) | Minimal | Minimal | None |
 | **Forking (L1, Rollups)** | ✅ | ✅ | ✅ | Some | ✅ |
 | **Rebase/Fork Updates** | Soon | ❌ | ❌ | ❌ | ✅ |
 | **Solidity Tests** | Some | Yes | Yes | No | No |
@@ -133,7 +133,7 @@ Next-gen plugin for instant optimistic updates, auto-caching, and devnet magic i
 Tevm is funded by an Ethereum Foundation grant. Our roadmap:
 
 - ✅ **Tevm 1.0.0 Release**
-- 🔄 **Test Library** (with Wevm/Viem/Wagmi)
+- 🔄 **Test Library**
 - 🎮 **MUD Integration** for onchain games
 - 🚀 **ZigEvm Launch**: Fastest Wasm EVM ever
 
