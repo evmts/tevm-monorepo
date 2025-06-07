@@ -262,7 +262,6 @@ pub const Enum = enum(u8) {
     INVALID = 0xFE,
     /// Destroy current contract (0xFF)
     SELFDESTRUCT = 0xFF,
-
 };
 
 /// Convert an opcode to its byte representation.
@@ -279,8 +278,8 @@ pub const Enum = enum(u8) {
 /// const push1_byte = Opcode.Enum.PUSH1.to_u8(); // Returns 0x60
 /// ```
 pub fn to_u8(self: Enum) u8 {
-        return @intFromEnum(self);
-    }
+    return @intFromEnum(self);
+}
 
 /// Get the human-readable name of an opcode.
 ///
@@ -296,56 +295,30 @@ pub fn to_u8(self: Enum) u8 {
 /// std.debug.print("Executing opcode: {s}\n", .{name});
 /// ```
 pub fn get_name(self: Enum) []const u8 {
+    // Build a lookup table at comptime
     const names = comptime blk: {
-        var result: [256][]const u8 = undefined;
-        
+        var n: [256][]const u8 = undefined;
+
         // Initialize all to "UNDEFINED"
-        for (&result) |*name| {
+        for (&n) |*name| {
             name.* = "UNDEFINED";
         }
-        
+
         // Map enum values to their names using reflection
         const enum_info = @typeInfo(Enum);
         switch (enum_info) {
             .@"enum" => |e| {
                 for (e.fields) |field| {
                     const value = @field(Enum, field.name);
-                    result[@intFromEnum(value)] = field.name;
+                    n[@intFromEnum(value)] = field.name;
                 }
             },
             else => @compileError("get_name requires an enum type"),
         }
-        
-        break :blk result;
+
+        break :blk n;
     };
     
     return names[@intFromEnum(self)];
 }
 
-
-/// Common opcodes re-exported as module-level constants.
-///
-/// These provide convenient access to frequently used opcodes
-/// without needing to reference the Enum type. Useful for:
-/// - Bytecode analysis
-/// - Opcode matching in interpreters
-/// - Test assertions
-///
-/// Example:
-/// ```zig
-/// if (bytecode[pc] == Opcode.JUMPDEST) {
-///     // Mark as valid jump destination
-/// }
-/// ```
-pub const STOP = Enum.STOP;
-pub const ADD = Enum.ADD;
-pub const MUL = Enum.MUL;
-pub const SUB = Enum.SUB;
-pub const DIV = Enum.DIV;
-pub const JUMP = Enum.JUMP;
-pub const JUMPI = Enum.JUMPI;
-pub const JUMPDEST = Enum.JUMPDEST;
-pub const CREATE = Enum.CREATE;
-pub const CREATE2 = Enum.CREATE2;
-pub const SELFDESTRUCT = Enum.SELFDESTRUCT;
-pub const INVALID = Enum.INVALID;
