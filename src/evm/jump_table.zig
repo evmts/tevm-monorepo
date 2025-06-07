@@ -382,42 +382,9 @@ pub fn new_frontier_instruction_set_legacy() Self {
 
     // 0x60s & 0x70s: Push operations
     inline for (0..32) |i| {
+        const n = i + 1;
         jt.table[0x60 + i] = &Operation{
-            .execute = switch (i + 1) {
-                1 => stack_ops.op_push1,
-                2 => stack_ops.op_push2,
-                3 => stack_ops.op_push3,
-                4 => stack_ops.op_push4,
-                5 => stack_ops.op_push5,
-                6 => stack_ops.op_push6,
-                7 => stack_ops.op_push7,
-                8 => stack_ops.op_push8,
-                9 => stack_ops.op_push9,
-                10 => stack_ops.op_push10,
-                11 => stack_ops.op_push11,
-                12 => stack_ops.op_push12,
-                13 => stack_ops.op_push13,
-                14 => stack_ops.op_push14,
-                15 => stack_ops.op_push15,
-                16 => stack_ops.op_push16,
-                17 => stack_ops.op_push17,
-                18 => stack_ops.op_push18,
-                19 => stack_ops.op_push19,
-                20 => stack_ops.op_push20,
-                21 => stack_ops.op_push21,
-                22 => stack_ops.op_push22,
-                23 => stack_ops.op_push23,
-                24 => stack_ops.op_push24,
-                25 => stack_ops.op_push25,
-                26 => stack_ops.op_push26,
-                27 => stack_ops.op_push27,
-                28 => stack_ops.op_push28,
-                29 => stack_ops.op_push29,
-                30 => stack_ops.op_push30,
-                31 => stack_ops.op_push31,
-                32 => stack_ops.op_push32,
-                else => unreachable,
-            },
+            .execute = stack_ops.make_push(n),
             .constant_gas = opcodes.gas_constants.GasFastestStep,
             .min_stack = 0,
             .max_stack = Stack.CAPACITY - 1,
@@ -425,54 +392,31 @@ pub fn new_frontier_instruction_set_legacy() Self {
     }
 
     // 0x80s: Duplication Operations
-    jt.table[0x80] = &operations.stack.DUP1;
-    jt.table[0x81] = &operations.stack.DUP2;
-    jt.table[0x82] = &operations.stack.DUP3;
-    jt.table[0x83] = &operations.stack.DUP4;
-    jt.table[0x84] = &operations.stack.DUP5;
-    jt.table[0x85] = &operations.stack.DUP6;
-    jt.table[0x86] = &operations.stack.DUP7;
-    jt.table[0x87] = &operations.stack.DUP8;
-    jt.table[0x88] = &operations.stack.DUP9;
-    jt.table[0x89] = &operations.stack.DUP10;
-    jt.table[0x8a] = &operations.stack.DUP11;
-    jt.table[0x8b] = &operations.stack.DUP12;
-    jt.table[0x8c] = &operations.stack.DUP13;
-    jt.table[0x8d] = &operations.stack.DUP14;
-    jt.table[0x8e] = &operations.stack.DUP15;
-    jt.table[0x8f] = &operations.stack.DUP16;
+    inline for (1..17) |n| {
+        jt.table[0x80 + n - 1] = &Operation{
+            .execute = stack_ops.make_dup(n),
+            .constant_gas = opcodes.gas_constants.GasFastestStep,
+            .min_stack = @intCast(n),
+            .max_stack = Stack.CAPACITY - 1,
+        };
+    }
 
     // 0x90s: Exchange Operations
-    jt.table[0x90] = &operations.stack.SWAP1;
-    jt.table[0x91] = &operations.stack.SWAP2;
-    jt.table[0x92] = &operations.stack.SWAP3;
-    jt.table[0x93] = &operations.stack.SWAP4;
-    jt.table[0x94] = &operations.stack.SWAP5;
-    jt.table[0x95] = &operations.stack.SWAP6;
-    jt.table[0x96] = &operations.stack.SWAP7;
-    jt.table[0x97] = &operations.stack.SWAP8;
-    jt.table[0x98] = &operations.stack.SWAP9;
-    jt.table[0x99] = &operations.stack.SWAP10;
-    jt.table[0x9a] = &operations.stack.SWAP11;
-    jt.table[0x9b] = &operations.stack.SWAP12;
-    jt.table[0x9c] = &operations.stack.SWAP13;
-    jt.table[0x9d] = &operations.stack.SWAP14;
-    jt.table[0x9e] = &operations.stack.SWAP15;
-    jt.table[0x9f] = &operations.stack.SWAP16;
+    inline for (1..17) |n| {
+        jt.table[0x90 + n - 1] = &Operation{
+            .execute = stack_ops.make_swap(n),
+            .constant_gas = opcodes.gas_constants.GasFastestStep,
+            .min_stack = @intCast(n + 1),
+            .max_stack = Stack.CAPACITY,
+        };
+    }
 
     // 0xa0s: Logging Operations
-    inline for (0..5) |i| {
-        jt.table[0xa0 + i] = &Operation{
-            .execute = switch (i) {
-                0 => log.op_log0,
-                1 => log.op_log1,
-                2 => log.op_log2,
-                3 => log.op_log3,
-                4 => log.op_log4,
-                else => unreachable,
-            },
-            .constant_gas = opcodes.gas_constants.LogGas + opcodes.gas_constants.LogTopicGas * i,
-            .min_stack = @as(u32, @intCast(i + 2)),
+    inline for (0..5) |n| {
+        jt.table[0xa0 + n] = &Operation{
+            .execute = log.make_log(n),
+            .constant_gas = opcodes.gas_constants.LogGas + opcodes.gas_constants.LogTopicGas * n,
+            .min_stack = @intCast(n + 2),
             .max_stack = Stack.CAPACITY,
         };
     }

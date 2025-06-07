@@ -19,7 +19,7 @@ const stack_pop = error_mapping.stack_pop;
 const stack_push = error_mapping.stack_push;
 const map_memory_error = error_mapping.map_memory_error;
 
-fn make_log(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
+pub fn make_log(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     return struct {
         pub fn log(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
             _ = pc;
@@ -109,8 +109,4 @@ fn make_log(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.State)
     }.log;
 }
 
-pub const op_log0 = make_log(0);
-pub const op_log1 = make_log(1);
-pub const op_log2 = make_log(2);
-pub const op_log3 = make_log(3);
-pub const op_log4 = make_log(4);
+// LOG operations are now generated directly in jump_table.zig using make_log()
