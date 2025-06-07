@@ -589,249 +589,52 @@ IsEIP3541: bool = true,
 /// ## Hardfork Ordering
 /// Each hardfork case disables all features introduced after it,
 /// maintaining historical accuracy for transaction replay and testing.
+/// Mapping of chain rule fields to the hardfork in which they were introduced.
+const HardforkRule = struct {
+    field_name: []const u8,
+    introduced_in: Hardfork,
+};
+
+/// Comptime-generated mapping of all chain rules to their introduction hardforks.
+/// This data-driven approach replaces the massive switch statement.
+const HARDFORK_RULES = [_]HardforkRule{
+    .{ .field_name = "IsHomestead", .introduced_in = .HOMESTEAD },
+    .{ .field_name = "IsEIP150", .introduced_in = .TANGERINE_WHISTLE },
+    .{ .field_name = "IsEIP158", .introduced_in = .SPURIOUS_DRAGON },
+    .{ .field_name = "IsByzantium", .introduced_in = .BYZANTIUM },
+    .{ .field_name = "IsConstantinople", .introduced_in = .CONSTANTINOPLE },
+    .{ .field_name = "IsPetersburg", .introduced_in = .PETERSBURG },
+    .{ .field_name = "IsIstanbul", .introduced_in = .ISTANBUL },
+    .{ .field_name = "IsBerlin", .introduced_in = .BERLIN },
+    .{ .field_name = "IsLondon", .introduced_in = .LONDON },
+    .{ .field_name = "IsMerge", .introduced_in = .MERGE },
+    .{ .field_name = "IsShanghai", .introduced_in = .SHANGHAI },
+    .{ .field_name = "IsCancun", .introduced_in = .CANCUN },
+    // EIPs grouped by their hardfork
+    .{ .field_name = "IsEIP1559", .introduced_in = .LONDON },
+    .{ .field_name = "IsEIP2930", .introduced_in = .BERLIN },
+    .{ .field_name = "IsEIP3198", .introduced_in = .LONDON },
+    .{ .field_name = "IsEIP3541", .introduced_in = .LONDON },
+    .{ .field_name = "IsEIP3651", .introduced_in = .SHANGHAI },
+    .{ .field_name = "IsEIP3855", .introduced_in = .SHANGHAI },
+    .{ .field_name = "IsEIP3860", .introduced_in = .SHANGHAI },
+    .{ .field_name = "IsEIP4895", .introduced_in = .SHANGHAI },
+    .{ .field_name = "IsEIP4844", .introduced_in = .CANCUN },
+    .{ .field_name = "IsEIP1153", .introduced_in = .CANCUN },
+    .{ .field_name = "IsEIP5656", .introduced_in = .CANCUN },
+};
+
 pub fn for_hardfork(hardfork: Hardfork) Self {
     Log.debug("Creating chain rules for hardfork: {s}", .{@tagName(hardfork)});
-    var rules = Self{};
-    switch (hardfork) {
-        .FRONTIER => {
-            rules.IsHomestead = false;
-            rules.IsEIP150 = false;
-            rules.IsEIP158 = false;
-            rules.IsByzantium = false;
-            rules.IsConstantinople = false;
-            rules.IsPetersburg = false;
-            rules.IsIstanbul = false;
-            rules.IsBerlin = false;
-            rules.IsLondon = false;
-            rules.IsMerge = false;
-            rules.IsShanghai = false;
-            rules.IsCancun = false;
-            rules.IsEIP1559 = false;
-            rules.IsEIP2930 = false;
-            rules.IsEIP3651 = false;
-            rules.IsEIP3855 = false;
-            rules.IsEIP3860 = false;
-            rules.IsEIP4895 = false;
-            rules.IsEIP4844 = false;
-        },
-        .HOMESTEAD => {
-            rules.IsEIP150 = false;
-            rules.IsEIP158 = false;
-            rules.IsByzantium = false;
-            rules.IsConstantinople = false;
-            rules.IsPetersburg = false;
-            rules.IsIstanbul = false;
-            rules.IsBerlin = false;
-            rules.IsLondon = false;
-            rules.IsMerge = false;
-            rules.IsShanghai = false;
-            rules.IsCancun = false;
-            rules.IsEIP1559 = false;
-            rules.IsEIP2930 = false;
-            rules.IsEIP3651 = false;
-            rules.IsEIP3855 = false;
-            rules.IsEIP3860 = false;
-            rules.IsEIP4895 = false;
-            rules.IsEIP4844 = false;
-        },
-        .DAO => {
-            // DAO fork has same rules as Homestead
-            rules.IsEIP150 = false;
-            rules.IsEIP158 = false;
-            rules.IsByzantium = false;
-            rules.IsConstantinople = false;
-            rules.IsPetersburg = false;
-            rules.IsIstanbul = false;
-            rules.IsBerlin = false;
-            rules.IsLondon = false;
-            rules.IsMerge = false;
-            rules.IsShanghai = false;
-            rules.IsCancun = false;
-            rules.IsEIP1559 = false;
-            rules.IsEIP2930 = false;
-            rules.IsEIP3651 = false;
-            rules.IsEIP3855 = false;
-            rules.IsEIP3860 = false;
-            rules.IsEIP4895 = false;
-            rules.IsEIP4844 = false;
-        },
-        .TANGERINE_WHISTLE => {
-            rules.IsEIP158 = false;
-            rules.IsByzantium = false;
-            rules.IsConstantinople = false;
-            rules.IsPetersburg = false;
-            rules.IsIstanbul = false;
-            rules.IsBerlin = false;
-            rules.IsLondon = false;
-            rules.IsMerge = false;
-            rules.IsShanghai = false;
-            rules.IsCancun = false;
-            rules.IsEIP1559 = false;
-            rules.IsEIP2930 = false;
-            rules.IsEIP3651 = false;
-            rules.IsEIP3855 = false;
-            rules.IsEIP3860 = false;
-            rules.IsEIP4895 = false;
-            rules.IsEIP4844 = false;
-        },
-        .SPURIOUS_DRAGON => {
-            rules.IsByzantium = false;
-            rules.IsConstantinople = false;
-            rules.IsPetersburg = false;
-            rules.IsIstanbul = false;
-            rules.IsBerlin = false;
-            rules.IsLondon = false;
-            rules.IsMerge = false;
-            rules.IsShanghai = false;
-            rules.IsCancun = false;
-            rules.IsEIP1559 = false;
-            rules.IsEIP2930 = false;
-            rules.IsEIP3651 = false;
-            rules.IsEIP3855 = false;
-            rules.IsEIP3860 = false;
-            rules.IsEIP4895 = false;
-            rules.IsEIP4844 = false;
-        },
-        .BYZANTIUM => {
-            rules.IsConstantinople = false;
-            rules.IsPetersburg = false;
-            rules.IsIstanbul = false;
-            rules.IsBerlin = false;
-            rules.IsLondon = false;
-            rules.IsMerge = false;
-            rules.IsShanghai = false;
-            rules.IsCancun = false;
-            rules.IsEIP1559 = false;
-            rules.IsEIP2930 = false;
-            rules.IsEIP3651 = false;
-            rules.IsEIP3855 = false;
-            rules.IsEIP3860 = false;
-            rules.IsEIP4895 = false;
-            rules.IsEIP4844 = false;
-        },
-        .CONSTANTINOPLE => {
-            rules.IsPetersburg = false;
-            rules.IsIstanbul = false;
-            rules.IsBerlin = false;
-            rules.IsLondon = false;
-            rules.IsMerge = false;
-            rules.IsShanghai = false;
-            rules.IsCancun = false;
-            rules.IsEIP1559 = false;
-            rules.IsEIP2930 = false;
-            rules.IsEIP3651 = false;
-            rules.IsEIP3855 = false;
-            rules.IsEIP3860 = false;
-            rules.IsEIP4895 = false;
-            rules.IsEIP4844 = false;
-        },
-        .PETERSBURG => {
-            rules.IsIstanbul = false;
-            rules.IsBerlin = false;
-            rules.IsLondon = false;
-            rules.IsMerge = false;
-            rules.IsShanghai = false;
-            rules.IsCancun = false;
-            rules.IsEIP1559 = false;
-            rules.IsEIP2930 = false;
-            rules.IsEIP3651 = false;
-            rules.IsEIP3855 = false;
-            rules.IsEIP3860 = false;
-            rules.IsEIP4895 = false;
-            rules.IsEIP4844 = false;
-        },
-        .ISTANBUL => {
-            rules.IsBerlin = false;
-            rules.IsLondon = false;
-            rules.IsMerge = false;
-            rules.IsShanghai = false;
-            rules.IsCancun = false;
-            rules.IsEIP1559 = false;
-            rules.IsEIP2930 = false;
-            rules.IsEIP3651 = false;
-            rules.IsEIP3855 = false;
-            rules.IsEIP3860 = false;
-            rules.IsEIP4895 = false;
-            rules.IsEIP4844 = false;
-        },
-        .MUIR_GLACIER => {
-            // MUIR_GLACIER has same rules as Istanbul
-            rules.IsBerlin = false;
-            rules.IsLondon = false;
-            rules.IsMerge = false;
-            rules.IsShanghai = false;
-            rules.IsCancun = false;
-            rules.IsEIP1559 = false;
-            rules.IsEIP2930 = false;
-            rules.IsEIP3651 = false;
-            rules.IsEIP3855 = false;
-            rules.IsEIP3860 = false;
-            rules.IsEIP4895 = false;
-            rules.IsEIP4844 = false;
-        },
-        .BERLIN => {
-            rules.IsLondon = false;
-            rules.IsMerge = false;
-            rules.IsShanghai = false;
-            rules.IsCancun = false;
-            rules.IsEIP1559 = false;
-            rules.IsEIP3541 = false;
-            rules.IsEIP3651 = false;
-            rules.IsEIP3855 = false;
-            rules.IsEIP3860 = false;
-            rules.IsEIP4895 = false;
-            rules.IsEIP4844 = false;
-        },
-        .LONDON => {
-            rules.IsMerge = false;
-            rules.IsShanghai = false;
-            rules.IsCancun = false;
-            rules.IsEIP3651 = false;
-            rules.IsEIP3855 = false;
-            rules.IsEIP3860 = false;
-            rules.IsEIP4895 = false;
-            rules.IsEIP4844 = false;
-            rules.IsEIP5656 = false;
-        },
-        .ARROW_GLACIER => {
-            rules.IsMerge = false;
-            rules.IsShanghai = false;
-            rules.IsCancun = false;
-            rules.IsEIP3651 = false;
-            rules.IsEIP3855 = false;
-            rules.IsEIP3860 = false;
-            rules.IsEIP4895 = false;
-            rules.IsEIP4844 = false;
-            rules.IsEIP5656 = false;
-        },
-        .GRAY_GLACIER => {
-            rules.IsMerge = false;
-            rules.IsShanghai = false;
-            rules.IsCancun = false;
-            rules.IsEIP3651 = false;
-            rules.IsEIP3855 = false;
-            rules.IsEIP3860 = false;
-            rules.IsEIP4895 = false;
-            rules.IsEIP4844 = false;
-            rules.IsEIP5656 = false;
-        },
-        .MERGE => {
-            rules.IsShanghai = false;
-            rules.IsCancun = false;
-            rules.IsEIP3651 = false;
-            rules.IsEIP3855 = false;
-            rules.IsEIP3860 = false;
-            rules.IsEIP4895 = false;
-            rules.IsEIP4844 = false;
-            rules.IsEIP5656 = false;
-        },
-        .SHANGHAI => {
-            rules.IsCancun = false;
-            rules.IsEIP4844 = false;
-            rules.IsEIP5656 = false;
-        },
-        .CANCUN => {},
+    var rules = Self{}; // All fields default to true
+    
+    // Disable features that were introduced after the target hardfork
+    inline for (HARDFORK_RULES) |rule| {
+        if (@intFromEnum(hardfork) < @intFromEnum(rule.introduced_in)) {
+            @field(rules, rule.field_name) = false;
+        }
     }
+    
     Log.debug("Chain rules created for hardfork: {s}", .{@tagName(hardfork)});
     return rules;
 }

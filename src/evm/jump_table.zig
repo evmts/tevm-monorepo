@@ -162,7 +162,6 @@ pub fn copy(self: *const Self, allocator: std.mem.Allocator) !Self {
     };
 }
 
-
 // Convenience functions for creating jump tables for specific hardforks
 pub fn new_frontier_instruction_set() Self {
     return init_from_hardfork(.FRONTIER);
@@ -243,74 +242,6 @@ pub fn new_cancun_instruction_set() Self {
 /// // Table includes all opcodes through Cancun
 /// ```
 pub fn init_from_hardfork(hardfork: Hardfork) Self {
-    var jt = new_frontier_instruction_set_legacy();
-
-    // Guard clause for Frontier
-    if (hardfork == .FRONTIER) {
-        return jt;
-    }
-
-    // Homestead and later additions
-    jt.table[0xf4] = &operations.system.DELEGATECALL;
-
-    // Apply Tangerine Whistle gas cost changes (EIP-150)
-    if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.TANGERINE_WHISTLE)) {
-        apply_tangerine_whistle_gas_changes(&jt);
-    }
-
-    // Byzantium additions
-    if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.BYZANTIUM)) {
-        jt.table[0x3d] = &operations.memory.RETURNDATASIZE;
-        jt.table[0x3e] = &operations.memory.RETURNDATACOPY;
-        jt.table[0xfd] = &operations.control.REVERT;
-        jt.table[0xfa] = &operations.system.STATICCALL;
-    }
-
-    // Constantinople additions
-    if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.CONSTANTINOPLE)) {
-        jt.table[0xf5] = &operations.system.CREATE2;
-        jt.table[0x3f] = &operations.crypto.EXTCODEHASH;
-        jt.table[0x1b] = &operations.bitwise.SHL;
-        jt.table[0x1c] = &operations.bitwise.SHR;
-        jt.table[0x1d] = &operations.bitwise.SAR;
-    }
-
-    // Istanbul additions
-    if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.ISTANBUL)) {
-        jt.table[0x46] = &operations.environment.CHAINID;
-        jt.table[0x47] = &operations.environment.SELFBALANCE;
-        apply_istanbul_gas_changes(&jt);
-    }
-
-    // Berlin additions
-    if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.BERLIN)) {
-        apply_berlin_gas_changes(&jt);
-    }
-
-    // London additions
-    if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.LONDON)) {
-        jt.table[0x48] = &operations.block.BASEFEE;
-    }
-
-    // Shanghai additions
-    if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.SHANGHAI)) {
-        jt.table[0x5f] = &operations.stack.PUSH0;
-    }
-
-    // Cancun additions
-    if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.CANCUN)) {
-        jt.table[0x49] = &operations.block.BLOBHASH;
-        jt.table[0x4a] = &operations.block.BLOBBASEFEE;
-        jt.table[0x5e] = &operations.memory.MCOPY;
-        jt.table[0x5c] = &operations.storage.TLOAD;
-        jt.table[0x5d] = &operations.storage.TSTORE;
-    }
-
-    return jt;
-}
-
-// Legacy function for backward compatibility
-pub fn new_frontier_instruction_set_legacy() Self {
     var jt = Self.init();
 
     // Setup operation table for Frontier
@@ -431,6 +362,68 @@ pub fn new_frontier_instruction_set_legacy() Self {
 
     // Fill remaining with UNDEFINED
     jt.validate();
+
+    // Guard clause for Frontier
+    if (hardfork == .FRONTIER) {
+        return jt;
+    }
+
+    // Homestead and later additions
+    jt.table[0xf4] = &operations.system.DELEGATECALL;
+
+    // Apply Tangerine Whistle gas cost changes (EIP-150)
+    if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.TANGERINE_WHISTLE)) {
+        apply_tangerine_whistle_gas_changes(&jt);
+    }
+
+    // Byzantium additions
+    if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.BYZANTIUM)) {
+        jt.table[0x3d] = &operations.memory.RETURNDATASIZE;
+        jt.table[0x3e] = &operations.memory.RETURNDATACOPY;
+        jt.table[0xfd] = &operations.control.REVERT;
+        jt.table[0xfa] = &operations.system.STATICCALL;
+    }
+
+    // Constantinople additions
+    if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.CONSTANTINOPLE)) {
+        jt.table[0xf5] = &operations.system.CREATE2;
+        jt.table[0x3f] = &operations.crypto.EXTCODEHASH;
+        jt.table[0x1b] = &operations.bitwise.SHL;
+        jt.table[0x1c] = &operations.bitwise.SHR;
+        jt.table[0x1d] = &operations.bitwise.SAR;
+    }
+
+    // Istanbul additions
+    if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.ISTANBUL)) {
+        jt.table[0x46] = &operations.environment.CHAINID;
+        jt.table[0x47] = &operations.environment.SELFBALANCE;
+        apply_istanbul_gas_changes(&jt);
+    }
+
+    // Berlin additions
+    if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.BERLIN)) {
+        apply_berlin_gas_changes(&jt);
+    }
+
+    // London additions
+    if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.LONDON)) {
+        jt.table[0x48] = &operations.block.BASEFEE;
+    }
+
+    // Shanghai additions
+    if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.SHANGHAI)) {
+        jt.table[0x5f] = &operations.stack.PUSH0;
+    }
+
+    // Cancun additions
+    if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.CANCUN)) {
+        jt.table[0x49] = &operations.block.BLOBHASH;
+        jt.table[0x4a] = &operations.block.BLOBBASEFEE;
+        jt.table[0x5e] = &operations.memory.MCOPY;
+        jt.table[0x5c] = &operations.storage.TLOAD;
+        jt.table[0x5d] = &operations.storage.TSTORE;
+    }
+
     return jt;
 }
 

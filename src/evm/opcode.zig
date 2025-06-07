@@ -305,10 +305,15 @@ pub fn get_name(self: Enum) []const u8 {
         }
         
         // Map enum values to their names using reflection
-        const enum_info = @typeInfo(Enum).Enum;
-        for (enum_info.fields) |field| {
-            const value = @field(Enum, field.name);
-            result[@intFromEnum(value)] = field.name;
+        const enum_info = @typeInfo(Enum);
+        switch (enum_info) {
+            .@"enum" => |e| {
+                for (e.fields) |field| {
+                    const value = @field(Enum, field.name);
+                    result[@intFromEnum(value)] = field.name;
+                }
+            },
+            else => @compileError("get_name requires an enum type"),
         }
         
         break :blk result;
