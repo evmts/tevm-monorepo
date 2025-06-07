@@ -40,7 +40,7 @@ pub const ALL_OPERATIONS = [_]OpSpec{
     .{ .name = "MULMOD", .opcode = 0x09, .execute = opcodes.arithmetic.op_mulmod, .gas = gas_constants.GasMidStep, .min_stack = 3, .max_stack = Stack.CAPACITY },
     .{ .name = "EXP", .opcode = 0x0a, .execute = opcodes.arithmetic.op_exp, .gas = 10, .min_stack = 2, .max_stack = Stack.CAPACITY },
     .{ .name = "SIGNEXTEND", .opcode = 0x0b, .execute = opcodes.arithmetic.op_signextend, .gas = gas_constants.GasFastStep, .min_stack = 2, .max_stack = Stack.CAPACITY },
-    
+
     // 0x10s: Comparison & Bitwise Logic Operations
     .{ .name = "LT", .opcode = 0x10, .execute = opcodes.comparison.op_lt, .gas = gas_constants.GasFastestStep, .min_stack = 2, .max_stack = Stack.CAPACITY },
     .{ .name = "GT", .opcode = 0x11, .execute = opcodes.comparison.op_gt, .gas = gas_constants.GasFastestStep, .min_stack = 2, .max_stack = Stack.CAPACITY },
@@ -56,10 +56,10 @@ pub const ALL_OPERATIONS = [_]OpSpec{
     .{ .name = "SHL", .opcode = 0x1b, .execute = opcodes.bitwise.op_shl, .gas = gas_constants.GasFastestStep, .min_stack = 2, .max_stack = Stack.CAPACITY, .variant = "CONSTANTINOPLE" },
     .{ .name = "SHR", .opcode = 0x1c, .execute = opcodes.bitwise.op_shr, .gas = gas_constants.GasFastestStep, .min_stack = 2, .max_stack = Stack.CAPACITY, .variant = "CONSTANTINOPLE" },
     .{ .name = "SAR", .opcode = 0x1d, .execute = opcodes.bitwise.op_sar, .gas = gas_constants.GasFastestStep, .min_stack = 2, .max_stack = Stack.CAPACITY, .variant = "CONSTANTINOPLE" },
-    
+
     // 0x20s: Crypto
     .{ .name = "SHA3", .opcode = 0x20, .execute = opcodes.crypto.op_sha3, .gas = gas_constants.Keccak256Gas, .min_stack = 2, .max_stack = Stack.CAPACITY },
-    
+
     // 0x30s: Environmental Information
     .{ .name = "ADDRESS", .opcode = 0x30, .execute = opcodes.environment.op_address, .gas = gas_constants.GasQuickStep, .min_stack = 0, .max_stack = Stack.CAPACITY - 1 },
     .{ .name = "BALANCE_FRONTIER", .opcode = 0x31, .execute = opcodes.environment.op_balance, .gas = 20, .min_stack = 1, .max_stack = Stack.CAPACITY, .variant = "FRONTIER" },
@@ -86,7 +86,7 @@ pub const ALL_OPERATIONS = [_]OpSpec{
     .{ .name = "RETURNDATASIZE", .opcode = 0x3d, .execute = opcodes.memory.op_returndatasize, .gas = gas_constants.GasQuickStep, .min_stack = 0, .max_stack = Stack.CAPACITY - 1, .variant = "BYZANTIUM" },
     .{ .name = "RETURNDATACOPY", .opcode = 0x3e, .execute = opcodes.memory.op_returndatacopy, .gas = gas_constants.GasFastestStep, .min_stack = 3, .max_stack = Stack.CAPACITY, .variant = "BYZANTIUM" },
     .{ .name = "EXTCODEHASH", .opcode = 0x3f, .execute = opcodes.environment.op_extcodehash, .gas = 0, .min_stack = 1, .max_stack = Stack.CAPACITY, .variant = "CONSTANTINOPLE" },
-    
+
     // 0x40s: Block Information
     .{ .name = "BLOCKHASH", .opcode = 0x40, .execute = opcodes.block.op_blockhash, .gas = 20, .min_stack = 1, .max_stack = Stack.CAPACITY },
     .{ .name = "COINBASE", .opcode = 0x41, .execute = opcodes.block.op_coinbase, .gas = gas_constants.GasQuickStep, .min_stack = 0, .max_stack = Stack.CAPACITY - 1 },
@@ -99,7 +99,7 @@ pub const ALL_OPERATIONS = [_]OpSpec{
     .{ .name = "BASEFEE", .opcode = 0x48, .execute = opcodes.block.op_basefee, .gas = gas_constants.GasQuickStep, .min_stack = 0, .max_stack = Stack.CAPACITY - 1, .variant = "LONDON" },
     .{ .name = "BLOBHASH", .opcode = 0x49, .execute = opcodes.block.op_blobhash, .gas = gas_constants.BlobHashGas, .min_stack = 1, .max_stack = Stack.CAPACITY, .variant = "CANCUN" },
     .{ .name = "BLOBBASEFEE", .opcode = 0x4a, .execute = opcodes.block.op_blobbasefee, .gas = gas_constants.GasQuickStep, .min_stack = 0, .max_stack = Stack.CAPACITY - 1, .variant = "CANCUN" },
-    
+
     // 0x50s: Stack, Memory, Storage and Flow Operations
     .{ .name = "POP", .opcode = 0x50, .execute = opcodes.stack.op_pop, .gas = gas_constants.GasQuickStep, .min_stack = 1, .max_stack = Stack.CAPACITY },
     .{ .name = "MLOAD", .opcode = 0x51, .execute = opcodes.memory.op_mload, .gas = gas_constants.GasFastestStep, .min_stack = 1, .max_stack = Stack.CAPACITY },
@@ -120,12 +120,12 @@ pub const ALL_OPERATIONS = [_]OpSpec{
     .{ .name = "TSTORE", .opcode = 0x5d, .execute = opcodes.storage.op_tstore, .gas = gas_constants.WarmStorageReadCost, .min_stack = 2, .max_stack = Stack.CAPACITY, .variant = "CANCUN" },
     .{ .name = "MCOPY", .opcode = 0x5e, .execute = opcodes.memory.op_mcopy, .gas = gas_constants.GasFastestStep, .min_stack = 3, .max_stack = Stack.CAPACITY, .variant = "CANCUN" },
     .{ .name = "PUSH0", .opcode = 0x5f, .execute = opcodes.stack.op_push0, .gas = gas_constants.GasQuickStep, .min_stack = 0, .max_stack = Stack.CAPACITY - 1, .variant = "SHANGHAI" },
-    
+
     // 0x60s & 0x70s: Push operations (generated dynamically in jump table)
     // 0x80s: Duplication operations (generated dynamically in jump table)
     // 0x90s: Exchange operations (generated dynamically in jump table)
     // 0xa0s: Logging operations (generated dynamically in jump table)
-    
+
     // 0xf0s: System operations
     .{ .name = "CREATE", .opcode = 0xf0, .execute = opcodes.system.op_create, .gas = gas_constants.CreateGas, .min_stack = 3, .max_stack = Stack.CAPACITY - 1 },
     .{ .name = "CALL_FRONTIER", .opcode = 0xf1, .execute = opcodes.system.op_call, .gas = 40, .min_stack = 7, .max_stack = Stack.CAPACITY - 1, .variant = "FRONTIER" },
@@ -152,20 +152,3 @@ pub fn generate_operation(spec: OpSpec) Operation {
         .max_stack = spec.max_stack,
     };
 }
-
-// Example of how this would be used in practice:
-// 
-// In jump_table.zig, instead of:
-// jt.table[0x01] = &opcodes.arithmetic.ADD;
-// jt.table[0x02] = &opcodes.arithmetic.MUL;
-// ... hundreds more lines
-// 
-// We could do:
-// inline for (operation_specs.ALL_OPERATIONS) |spec| {
-//     const op = comptime generate_operation(spec);
-//     jt.table[spec.opcode] = &op;
-// }
-// 
-// This centralizes all operation definitions in one place, making it much
-// easier to see all opcodes at a glance, modify gas costs, add new opcodes,
-// or generate documentation.
