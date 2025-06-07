@@ -216,33 +216,43 @@ pub fn new_cancun_instruction_set() Self {
     return init_from_hardfork(.CANCUN);
 }
 
-/// Check if an operation variant is active for a given hardfork.
-fn is_variant_active(variant: ?[]const u8, hardfork: Hardfork) bool {
-    if (variant == null) return true;
+/// Get the hardfork when an operation was introduced based on its variant.
+fn get_operation_hardfork(variant: ?[]const u8) Hardfork {
+    if (variant == null) return .FRONTIER;
     
     const v = variant.?;
     
-    // Parse variant strings like "FRONTIER_TO_TANGERINE" or "BERLIN_TO_PRESENT"
-    if (std.mem.eql(u8, v, "FRONTIER_TO_TANGERINE")) {
-        return @intFromEnum(hardfork) >= @intFromEnum(Hardfork.FRONTIER) and 
-               @intFromEnum(hardfork) < @intFromEnum(Hardfork.TANGERINE_WHISTLE);
-    } else if (std.mem.eql(u8, v, "TANGERINE_TO_ISTANBUL")) {
-        return @intFromEnum(hardfork) >= @intFromEnum(Hardfork.TANGERINE_WHISTLE) and 
-               @intFromEnum(hardfork) < @intFromEnum(Hardfork.ISTANBUL);
-    } else if (std.mem.eql(u8, v, "ISTANBUL_TO_BERLIN")) {
-        return @intFromEnum(hardfork) >= @intFromEnum(Hardfork.ISTANBUL) and 
-               @intFromEnum(hardfork) < @intFromEnum(Hardfork.BERLIN);
-    } else if (std.mem.eql(u8, v, "TANGERINE_TO_BERLIN")) {
-        return @intFromEnum(hardfork) >= @intFromEnum(Hardfork.TANGERINE_WHISTLE) and 
-               @intFromEnum(hardfork) < @intFromEnum(Hardfork.BERLIN);
-    } else if (std.mem.eql(u8, v, "TANGERINE_TO_PRESENT")) {
-        return @intFromEnum(hardfork) >= @intFromEnum(Hardfork.TANGERINE_WHISTLE);
-    } else if (std.mem.eql(u8, v, "BERLIN_TO_PRESENT")) {
-        return @intFromEnum(hardfork) >= @intFromEnum(Hardfork.BERLIN);
+    // Map variant string to hardfork enum
+    if (std.mem.eql(u8, v, "FRONTIER")) {
+        return .FRONTIER;
+    } else if (std.mem.eql(u8, v, "HOMESTEAD")) {
+        return .HOMESTEAD;
+    } else if (std.mem.eql(u8, v, "TANGERINE_WHISTLE")) {
+        return .TANGERINE_WHISTLE;
+    } else if (std.mem.eql(u8, v, "SPURIOUS_DRAGON")) {
+        return .SPURIOUS_DRAGON;
+    } else if (std.mem.eql(u8, v, "BYZANTIUM")) {
+        return .BYZANTIUM;
+    } else if (std.mem.eql(u8, v, "CONSTANTINOPLE")) {
+        return .CONSTANTINOPLE;
+    } else if (std.mem.eql(u8, v, "PETERSBURG")) {
+        return .PETERSBURG;
+    } else if (std.mem.eql(u8, v, "ISTANBUL")) {
+        return .ISTANBUL;
+    } else if (std.mem.eql(u8, v, "BERLIN")) {
+        return .BERLIN;
+    } else if (std.mem.eql(u8, v, "LONDON")) {
+        return .LONDON;
+    } else if (std.mem.eql(u8, v, "MERGE")) {
+        return .MERGE;
+    } else if (std.mem.eql(u8, v, "SHANGHAI")) {
+        return .SHANGHAI;
+    } else if (std.mem.eql(u8, v, "CANCUN")) {
+        return .CANCUN;
     }
     
-    // Unknown variant, default to active
-    return true;
+    // Default to FRONTIER for unknown variants
+    return .FRONTIER;
 }
 
 /// Create a jump table configured for a specific hardfork.
@@ -272,16 +282,40 @@ fn is_variant_active(variant: ?[]const u8, hardfork: Hardfork) bool {
 /// // Table includes all opcodes through Cancun
 /// ```
 pub fn init_from_hardfork(hardfork: Hardfork) Self {
+    @setEvalBranchQuota(10000);
     var jt = Self.init();
 
-    // Load all operations from centralized specifications
-    inline for (operation_specs.ALL_OPERATIONS) |spec| {
-        if (spec.variant == null or is_variant_active(spec.variant, hardfork)) {
-            // Create a static operation for each spec
-            const op = struct {
-                pub const operation = operation_specs.generate_operation(spec);
-            };
-            jt.table[spec.opcode] = &op.operation;
+    // Apply operations in chronological order from FRONTIER to target hardfork
+    // This ensures later hardforks properly override earlier ones
+    const hardforks = [_]Hardfork{
+        .FRONTIER,
+        .HOMESTEAD,
+        .TANGERINE_WHISTLE,
+        .SPURIOUS_DRAGON,
+        .BYZANTIUM,
+        .CONSTANTINOPLE,
+        .PETERSBURG,
+        .ISTANBUL,
+        .BERLIN,
+        .LONDON,
+        .MERGE,
+        .SHANGHAI,
+        .CANCUN,
+    };
+    
+    // Apply operations for each hardfork up to and including the target
+    inline for (hardforks) |hf| {
+        if (@intFromEnum(hf) > @intFromEnum(hardfork)) break;
+        
+        // Load operations introduced in this hardfork
+        inline for (operation_specs.ALL_OPERATIONS) |spec| {
+            const op_hardfork = get_operation_hardfork(spec.variant);
+            if (op_hardfork == hf) {
+                const op = struct {
+                    pub const operation = operation_specs.generate_operation(spec);
+                };
+                jt.table[spec.opcode] = &op.operation;
+            }
         }
     }
 
