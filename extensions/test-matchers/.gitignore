@@ -3,6 +3,7 @@
 cache
 forge-artifacts
 broadcast
+tsconfig.vitest-temp.json
 
 # compiled output
 dist
