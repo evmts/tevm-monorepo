@@ -92,7 +92,7 @@ pub fn init() Self {
 /// ```zig
 /// const op = table.get_operation(0x01); // Get ADD operation
 /// ```
-pub inline fn get_operation(self: *const Self, opcode: u8) *const Operation {
+pub fn get_operation(self: *const Self, opcode: u8) *const Operation {
     return self.table[opcode] orelse &Operation.NULL;
 }
 

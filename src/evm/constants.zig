@@ -306,7 +306,7 @@ pub const SELFDESTRUCT: u8 = 0xFF;
 ///     // Read `data_size` bytes following the opcode
 /// }
 /// ```
-pub inline fn is_push(op: u8) bool {
+pub fn is_push(op: u8) bool {
     return op >= PUSH1 and op <= PUSH32;
 }
 
@@ -330,7 +330,7 @@ pub inline fn is_push(op: u8) bool {
 /// const size = get_push_size(PUSH20); // Returns 20
 /// const size2 = get_push_size(ADD);   // Returns 0
 /// ```
-pub inline fn get_push_size(op: u8) u8 {
+pub fn get_push_size(op: u8) u8 {
     if (!is_push(op)) return 0;
     return op - PUSH1 + 1;
 }
@@ -349,37 +349,37 @@ pub inline fn get_push_size(op: u8) u8 {
 ///
 /// ## Stack Effect
 /// DUPn: [... vn ... v1] -> [... vn ... v1 vn]
-pub inline fn is_dup(op: u8) bool {
+pub fn is_dup(op: u8) bool {
     return op >= DUP1 and op <= DUP16;
 }
 
 /// Get the stack position for a DUP opcode
 /// Returns 0 for non-DUP opcodes
-pub inline fn get_dup_position(op: u8) u8 {
+pub fn get_dup_position(op: u8) u8 {
     if (!is_dup(op)) return 0;
     return op - DUP1 + 1;
 }
 
 /// Check if an opcode is a SWAP operation
-pub inline fn is_swap(op: u8) bool {
+pub fn is_swap(op: u8) bool {
     return op >= SWAP1 and op <= SWAP16;
 }
 
 /// Get the stack position for a SWAP opcode
 /// Returns 0 for non-SWAP opcodes
-pub inline fn get_swap_position(op: u8) u8 {
+pub fn get_swap_position(op: u8) u8 {
     if (!is_swap(op)) return 0;
     return op - SWAP1 + 1;
 }
 
 /// Check if an opcode is a LOG operation
-pub inline fn is_log(op: u8) bool {
+pub fn is_log(op: u8) bool {
     return op >= LOG0 and op <= LOG4;
 }
 
 /// Get the number of topics for a LOG opcode
 /// Returns 0 for non-LOG opcodes
-pub inline fn get_log_topic_count(op: u8) u8 {
+pub fn get_log_topic_count(op: u8) u8 {
     if (!is_log(op)) return 0;
     return op - LOG0;
 }
@@ -410,18 +410,18 @@ pub inline fn get_log_topic_count(op: u8) u8 {
 ///     return;
 /// }
 /// ```
-pub inline fn is_terminating(op: u8) bool {
+pub fn is_terminating(op: u8) bool {
     return op == STOP or op == RETURN or op == REVERT or op == SELFDESTRUCT or op == INVALID;
 }
 
 /// Check if an opcode is a call operation
-pub inline fn is_call(op: u8) bool {
+pub fn is_call(op: u8) bool {
     return op == CALL or op == CALLCODE or op == DELEGATECALL or op == STATICCALL or
         op == EXTCALL or op == EXTDELEGATECALL or op == EXTSTATICCALL;
 }
 
 /// Check if an opcode is a create operation
-pub inline fn is_create(op: u8) bool {
+pub fn is_create(op: u8) bool {
     return op == CREATE or op == CREATE2;
 }
 
@@ -450,13 +450,13 @@ pub inline fn is_create(op: u8) bool {
 /// ## Static Call Protection
 /// These operations will fail with an error if executed within
 /// a STATICCALL context.
-pub inline fn modifies_state(op: u8) bool {
+pub fn modifies_state(op: u8) bool {
     return op == SSTORE or op == CREATE or op == CREATE2 or op == SELFDESTRUCT or
         op == LOG0 or op == LOG1 or op == LOG2 or op == LOG3 or op == LOG4;
 }
 
 /// Check if an opcode is valid
-pub inline fn is_valid(op: u8) bool {
+pub fn is_valid(op: u8) bool {
     return op != INVALID;
 }
 

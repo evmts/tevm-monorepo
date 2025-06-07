@@ -485,7 +485,7 @@ fn ensure_analysis(self: *Self, allocator: std.mem.Allocator) void {
 }
 
 /// Check if position is code (not data)
-pub inline fn is_code(self: *const Self, pos: u64) bool {
+pub fn is_code(self: *const Self, pos: u64) bool {
     if (self.analysis) |analysis| {
         // We know pos is within bounds if analysis exists, so use unchecked version
         return analysis.code_segments.is_set_unchecked(@intCast(pos));
@@ -516,30 +516,30 @@ pub inline fn is_code(self: *const Self, pos: u64) bool {
 /// ## Note
 /// This method is marked inline for performance as it's called
 /// millions of times during contract execution.
-pub inline fn use_gas(self: *Self, amount: u64) bool {
+pub fn use_gas(self: *Self, amount: u64) bool {
     if (self.gas < amount) return false;
     self.gas -= amount;
     return true;
 }
 
 /// Use gas without checking (when known safe)
-pub inline fn use_gas_unchecked(self: *Self, amount: u64) void {
+pub fn use_gas_unchecked(self: *Self, amount: u64) void {
     self.gas -= amount;
 }
 
 /// Refund gas to contract
-pub inline fn refund_gas(self: *Self, amount: u64) void {
+pub fn refund_gas(self: *Self, amount: u64) void {
     self.gas += amount;
 }
 
 /// Add to gas refund counter with clamping
-pub inline fn add_gas_refund(self: *Self, amount: u64) void {
+pub fn add_gas_refund(self: *Self, amount: u64) void {
     const max_refund = self.gas / MAX_REFUND_QUOTIENT;
     self.gas_refund = @min(self.gas_refund + amount, max_refund);
 }
 
 /// Subtract from gas refund counter with clamping
-pub inline fn sub_gas_refund(self: *Self, amount: u64) void {
+pub fn sub_gas_refund(self: *Self, amount: u64) void {
     self.gas_refund = if (self.gas_refund > amount) self.gas_refund - amount else 0;
 }
 
