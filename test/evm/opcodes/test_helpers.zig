@@ -173,9 +173,9 @@ pub fn executeOpcode(
     // Use the Vm's jump table to execute the opcode
     // For PC opcode (0x58), use the frame's program counter
     // For PUSH opcodes (0x60-0x7F), use the frame's program counter so they can read immediate data
-    const pc_value = if (opcode_byte == 0x58 or (opcode_byte >= 0x60 and opcode_byte <= 0x7F)) 
-        frame.program_counter 
-    else 
+    const pc_value = if (opcode_byte == 0x58 or (opcode_byte >= 0x60 and opcode_byte <= 0x7F))
+        frame.pc
+    else
         0;
     return try vm.table.execute(pc_value, interpreter_ptr, state_ptr, opcode_byte);
 }

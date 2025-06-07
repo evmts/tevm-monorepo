@@ -301,12 +301,12 @@ test "SSTORE: Large storage values" {
     try test_frame.pushStack(&[_]u256{max_value}); // value
     try test_frame.pushStack(&[_]u256{0x80}); // slot (on top)
 
-    test_frame.frame.program_counter = 0;
+    test_frame.frame.pc = 0;
     _ = try helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
 
     // Load it back
     try test_frame.pushStack(&[_]u256{0x80}); // same slot
-    test_frame.frame.program_counter = 1;
+    test_frame.frame.pc = 1;
     _ = try helpers.executeOpcode(0x54, test_vm.vm, test_frame.frame);
 
     const loaded = try test_frame.popStack();
@@ -340,7 +340,7 @@ test "Storage opcodes: Gas consumption patterns" {
     try test_frame.pushStack(&[_]u256{0x90});
 
     const gas_before_sload = test_frame.frame.gas_remaining;
-    test_frame.frame.program_counter = 0;
+    test_frame.frame.pc = 0;
     _ = try helpers.executeOpcode(0x54, test_vm.vm, test_frame.frame);
     const gas_sload = gas_before_sload - test_frame.frame.gas_remaining;
 
@@ -352,7 +352,7 @@ test "Storage opcodes: Gas consumption patterns" {
     try test_frame.pushStack(&[_]u256{0xA0}); // slot
 
     const gas_before_sstore = test_frame.frame.gas_remaining;
-    test_frame.frame.program_counter = 1;
+    test_frame.frame.pc = 1;
     _ = try helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
     const gas_sstore = gas_before_sstore - test_frame.frame.gas_remaining;
 
@@ -443,28 +443,28 @@ test "Storage: Multiple consecutive operations" {
     defer test_frame.deinit();
 
     // Execute all operations
-    test_frame.frame.program_counter = 0;
+    test_frame.frame.pc = 0;
     _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame);
-    test_frame.frame.program_counter = 2;
+    test_frame.frame.pc = 2;
     _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame);
-    test_frame.frame.program_counter = 4;
+    test_frame.frame.pc = 4;
     _ = try helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
 
-    test_frame.frame.program_counter = 5;
+    test_frame.frame.pc = 5;
     _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame);
-    test_frame.frame.program_counter = 7;
+    test_frame.frame.pc = 7;
     _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame);
-    test_frame.frame.program_counter = 9;
+    test_frame.frame.pc = 9;
     _ = try helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
 
-    test_frame.frame.program_counter = 10;
+    test_frame.frame.pc = 10;
     _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame);
-    test_frame.frame.program_counter = 12;
+    test_frame.frame.pc = 12;
     _ = try helpers.executeOpcode(0x54, test_vm.vm, test_frame.frame);
 
-    test_frame.frame.program_counter = 13;
+    test_frame.frame.pc = 13;
     _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame);
-    test_frame.frame.program_counter = 15;
+    test_frame.frame.pc = 15;
     _ = try helpers.executeOpcode(0x54, test_vm.vm, test_frame.frame);
 
     // Check loaded values
@@ -497,7 +497,7 @@ test "SSTORE: Overwriting values" {
 
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 30000);
         defer test_frame.deinit();
-        
+
         try test_frame.pushStack(&[_]u256{value}); // value
         try test_frame.pushStack(&[_]u256{slot}); // slot
         _ = try helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);

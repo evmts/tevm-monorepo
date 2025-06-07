@@ -39,7 +39,7 @@ pub fn op_jump(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     // After validation, convert to usize for setting pc
     if (dest > std.math.maxInt(usize)) return ExecutionError.Error.InvalidJump;
 
-    frame.program_counter = @as(usize, @intCast(dest));
+    frame.pc = @as(usize, @intCast(dest));
 
     return ExecutionResult{};
 }
@@ -64,7 +64,7 @@ pub fn op_jumpi(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
         // After validation, convert to usize for setting pc
         if (dest > std.math.maxInt(usize)) return ExecutionError.Error.InvalidJump;
 
-        frame.program_counter = @as(usize, @intCast(dest));
+        frame.pc = @as(usize, @intCast(dest));
     }
 
     return ExecutionResult{};

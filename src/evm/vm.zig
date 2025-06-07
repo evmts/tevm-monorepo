@@ -161,7 +161,7 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
 
     while (pc < contract.code_size) {
         const opcode = contract.get_op(pc);
-        frame.program_counter = pc;
+        frame.pc = pc;
 
         const result = self.table.execute(pc, interpreter_ptr, state_ptr, opcode) catch |err| {
             contract.gas = frame.gas_remaining;
@@ -208,8 +208,8 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
             };
         };
 
-        if (frame.program_counter != pc) {
-            pc = frame.program_counter;
+        if (frame.pc != pc) {
+            pc = frame.pc;
         } else {
             pc += result.bytes_consumed;
         }

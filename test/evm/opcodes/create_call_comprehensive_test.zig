@@ -43,10 +43,10 @@ test "CREATE (0xF0): Basic contract creation" {
 
     // Execute push operations
     for (0..3) |i| {
-        test_frame.frame.program_counter = i * 2;
+        test_frame.frame.pc = i * 2;
         _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame);
     }
-    test_frame.frame.program_counter = 6;
+    test_frame.frame.pc = 6;
 
     // Debug: Print stack before CREATE
     std.debug.print("\nCREATE test - Stack before CREATE:\n", .{});
@@ -213,10 +213,10 @@ test "CREATE2 (0xF5): Deterministic contract creation" {
 
     // Execute push operations
     for (0..4) |i| {
-        test_frame.frame.program_counter = i * 2;
+        test_frame.frame.pc = i * 2;
         _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame);
     }
-    test_frame.frame.program_counter = 8;
+    test_frame.frame.pc = 8;
 
     // Remove mocking - VM handles CREATE2 with real behavior
 

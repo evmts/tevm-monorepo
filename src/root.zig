@@ -9,7 +9,7 @@ export fn __zig_probe_stack() callconv(.C) void {
 }
 
 pub const EvmState = extern struct {
-    program_counter: u32 = 0,
+    pc: u32 = 0,
     opcode: [*c]const u8 = null,
     opcode_len: usize = 0,
     gas_left: u64 = 0,
@@ -76,7 +76,7 @@ export fn getEvmState(state_ptr: [*]u8, state_len: *usize) void {
     errdefer gpa.deinit();
 
     var state = EvmState{
-        .program_counter = 42,
+        .pc = 42,
         .gas_left = 100000,
         .depth = 1,
     };

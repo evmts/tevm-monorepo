@@ -48,21 +48,21 @@ test "Integration: Conditional jump patterns" {
     defer test_frame.deinit();
 
     // Test 1: Jump when condition is true
-    test_frame.frame.program_counter = 0;
+    test_frame.frame.pc = 0;
     // JUMPI expects stack: [condition, destination] with destination on top
     try test_frame.pushStack(&[_]u256{ 1, 10 }); // condition=1, destination=10
     _ = try helpers.executeOpcode(0x57, test_vm.vm, test_frame.frame);
-    try testing.expectEqual(@as(usize, 10), test_frame.frame.program_counter);
+    try testing.expectEqual(@as(usize, 10), test_frame.frame.pc);
 
     // Test 2: Don't jump when condition is false
-    test_frame.frame.program_counter = 0;
+    test_frame.frame.pc = 0;
     // JUMPI expects stack: [condition, destination] with destination on top
     try test_frame.pushStack(&[_]u256{ 0, 20 }); // condition=0, destination=20
     _ = try helpers.executeOpcode(0x57, test_vm.vm, test_frame.frame);
-    try testing.expectEqual(@as(usize, 0), test_frame.frame.program_counter); // PC unchanged
+    try testing.expectEqual(@as(usize, 0), test_frame.frame.pc); // PC unchanged
 
     // Test 3: Complex condition evaluation
-    test_frame.frame.program_counter = 0;
+    test_frame.frame.pc = 0;
 
     // Calculate condition: 5 > 3
     try test_frame.pushStack(&[_]u256{ 5, 3 });
@@ -73,7 +73,7 @@ test "Integration: Conditional jump patterns" {
     // Now stack is [condition=1, destination=30] which is correct for JUMPI
 
     _ = try helpers.executeOpcode(0x57, test_vm.vm, test_frame.frame);
-    try testing.expectEqual(@as(usize, 30), test_frame.frame.program_counter);
+    try testing.expectEqual(@as(usize, 30), test_frame.frame.pc);
 }
 
 test "Integration: Loop implementation with JUMP" {
@@ -224,14 +224,14 @@ test "Integration: PC tracking through operations" {
     defer test_frame.deinit();
 
     // Set PC to a specific value
-    test_frame.frame.program_counter = 42;
+    test_frame.frame.pc = 42;
 
     // Get current PC
     _ = try helpers.executeOpcode(0x58, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 42);
 
     // Change PC and get again
-    test_frame.frame.program_counter = 100;
+    test_frame.frame.pc = 100;
     _ = try helpers.executeOpcode(0x58, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 100);
 }
