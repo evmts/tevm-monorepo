@@ -94,8 +94,11 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     const current_value = try error_mapping.vm_get_storage(vm, frame.contract.address, slot);
     
-    // Get the original value at transaction start for EIP-2200 refunds
-    const original_value = try vm.state.get_original_storage(frame.contract.address, slot);
+    // Get original value for EIP-2200 refund calculations
+    const original_value = if (vm.state.in_transaction) 
+        try vm.state.get_original_storage(frame.contract.address, slot)
+    else 
+        current_value; // Fallback if not in transaction context
 
     const is_cold = frame.contract.mark_storage_slot_warm(frame.allocator, slot, null) catch |err| switch (err) {
         Contract.MarkStorageSlotWarmError.OutOfAllocatorMemory => {
