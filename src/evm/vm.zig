@@ -40,6 +40,7 @@ stack: Stack = .{},
 table: JumpTable,
 /// Protocol rules for the current hardfork
 chain_rules: ChainRules,
+// TODO should be injected
 /// World state including accounts, storage, and code
 state: EvmState,
 /// Transaction and block context
@@ -52,7 +53,7 @@ depth: u16 = 0,
 read_only: bool = false,
 
 /// Initialize VM with a jump table and corresponding chain rules.
-/// 
+///
 /// @param allocator Memory allocator for VM operations
 /// @param jump_table Optional jump table. If null, uses JumpTable.DEFAULT (latest hardfork)
 /// @param chain_rules Optional chain rules. If null, uses ChainRules.DEFAULT (latest hardfork)
