@@ -260,7 +260,7 @@ pub fn init_from_hardfork(hardfork: Hardfork) Self {
 
     // Byzantium additions
     if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.BYZANTIUM)) {
-        jt.table[0x3d] = &operations.environment.RETURNDATASIZE;
+        jt.table[0x3d] = &operations.memory.RETURNDATASIZE;
         jt.table[0x3e] = &operations.memory.RETURNDATACOPY;
         jt.table[0xfd] = &operations.control.REVERT;
         jt.table[0xfa] = &operations.system.STATICCALL;
@@ -353,10 +353,10 @@ pub fn new_frontier_instruction_set_legacy() Self {
     jt.table[0x36] = &operations.environment.CALLDATASIZE;
     jt.table[0x37] = &operations.memory.CALLDATACOPY;
     jt.table[0x38] = &operations.environment.CODESIZE;
-    jt.table[0x39] = &operations.memory.CODECOPY;
+    jt.table[0x39] = &operations.environment.CODECOPY;
     jt.table[0x3a] = &operations.environment.GASPRICE;
     jt.table[0x3b] = &operations.misc.EXTCODESIZE_FRONTIER_TO_TANGERINE;
-    jt.table[0x3c] = &operations.memory.EXTCODECOPY_FRONTIER_TO_TANGERINE;
+    jt.table[0x3c] = &operations.environment.EXTCODECOPY_FRONTIER_TO_TANGERINE;
 
     // 0x40s: Block Information
     jt.table[0x40] = &operations.block.BLOCKHASH;
@@ -483,7 +483,7 @@ pub fn new_frontier_instruction_set_legacy() Self {
     jt.table[0xf2] = &operations.system.CALLCODE_FRONTIER_TO_TANGERINE;
     jt.table[0xf3] = &operations.control.RETURN;
     jt.table[0xfe] = &operations.control.INVALID;
-    jt.table[0xff] = &operations.system.SELFDESTRUCT_FRONTIER_TO_TANGERINE;
+    jt.table[0xff] = &operations.control.SELFDESTRUCT_FRONTIER_TO_TANGERINE;
 
     // Fill remaining with UNDEFINED
     jt.validate();
@@ -494,12 +494,12 @@ fn apply_tangerine_whistle_gas_changes(jt: *Self) void {
     // SAFE: Replace operations with hardfork-specific variants instead of @constCast
     jt.table[0x31] = &operations.environment.BALANCE_TANGERINE_TO_ISTANBUL; // BALANCE: 20 -> 400
     jt.table[0x3b] = &operations.misc.EXTCODESIZE_TANGERINE_TO_BERLIN; // EXTCODESIZE: 20 -> 700
-    jt.table[0x3c] = &operations.memory.EXTCODECOPY_TANGERINE_TO_BERLIN; // EXTCODECOPY: 20 -> 700
+    jt.table[0x3c] = &operations.environment.EXTCODECOPY_TANGERINE_TO_BERLIN; // EXTCODECOPY: 20 -> 700
     jt.table[0x54] = &operations.storage.SLOAD_TANGERINE_TO_ISTANBUL; // SLOAD: 50 -> 200
     jt.table[0xf1] = &operations.system.CALL_TANGERINE_TO_PRESENT; // CALL: 40 -> 700
     jt.table[0xf2] = &operations.system.CALLCODE_TANGERINE_TO_PRESENT; // CALLCODE: 40 -> 700
     jt.table[0xf4] = &operations.system.DELEGATECALL_TANGERINE_TO_PRESENT; // DELEGATECALL: 40 -> 700
-    jt.table[0xff] = &operations.system.SELFDESTRUCT_TANGERINE_TO_PRESENT; // SELFDESTRUCT: 0 -> 5000
+    jt.table[0xff] = &operations.control.SELFDESTRUCT_TANGERINE_TO_PRESENT; // SELFDESTRUCT: 0 -> 5000
 }
 
 fn apply_istanbul_gas_changes(jt: *Self) void {
@@ -515,7 +515,7 @@ fn apply_berlin_gas_changes(jt: *Self) void {
     // These are handled in the opcode implementations rather than base gas
     jt.table[0x31] = &operations.environment.BALANCE_BERLIN_TO_PRESENT; // BALANCE: 700 -> 0 (dynamic)
     jt.table[0x3b] = &operations.misc.EXTCODESIZE; // EXTCODESIZE: 700 -> 0 (dynamic)
-    jt.table[0x3c] = &operations.memory.EXTCODECOPY; // EXTCODECOPY: 700 -> 0 (dynamic)
+    jt.table[0x3c] = &operations.environment.EXTCODECOPY; // EXTCODECOPY: 700 -> 0 (dynamic)
     jt.table[0x3f] = &operations.crypto.EXTCODEHASH; // EXTCODEHASH: 0 -> 0 (dynamic)
     jt.table[0x54] = &operations.storage.SLOAD; // SLOAD: 800 -> 0 (dynamic)
     // CALL operations keep base gas but add dynamic cold access cost

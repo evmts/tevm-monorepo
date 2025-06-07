@@ -1,5 +1,5 @@
 const std = @import("std");
-const Operation = @import("../operation.zig");
+const Operation = @import("../operations/operation.zig");
 const ExecutionError = @import("../execution_error.zig");
 const Stack = @import("../stack.zig");
 const Frame = @import("../frame.zig");
@@ -13,18 +13,18 @@ const map_memory_error = error_mapping.map_memory_error;
 
 pub fn op_sha3(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
-    
+
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
-    
+
     const offset = try stack_pop(&frame.stack);
     const size = try stack_pop(&frame.stack);
-    
+
     // Check bounds before anything else
     if (offset > std.math.maxInt(usize) or size > std.math.maxInt(usize)) {
         return ExecutionError.Error.OutOfOffset;
     }
-    
+
     if (size == 0) {
         // Even with size 0, we need to validate the offset is reasonable
         if (offset > 0) {
@@ -40,47 +40,47 @@ pub fn op_sha3(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
         try stack_push(&frame.stack, empty_hash);
         return Operation.ExecutionResult{};
     }
-    
+
     const offset_usize = @as(usize, @intCast(offset));
     const size_usize = @as(usize, @intCast(size));
-    
+
     // Check if offset + size would overflow
     const end = std.math.add(usize, offset_usize, size_usize) catch {
         return ExecutionError.Error.OutOfOffset;
     };
-    
+
     // Check if the end position exceeds reasonable memory limits
     const memory_limits = @import("../memory_limits.zig");
     if (end > memory_limits.MAX_MEMORY_SIZE) {
         return ExecutionError.Error.OutOfOffset;
     }
-    
+
     // Dynamic gas cost for hashing
     const word_size = (size_usize + 31) / 32;
     const gas_cost = 6 * word_size;
     _ = vm;
     try frame.consume_gas(gas_cost);
-    
+
     // Ensure memory is available
     _ = frame.memory.ensure_context_capacity(offset_usize + size_usize) catch |err| return map_memory_error(err);
-    
+
     // Get data and hash
     const data = frame.memory.get_slice(offset_usize, size_usize) catch |err| return map_memory_error(err);
-    
+
     // Calculate keccak256 hash
     var hash: [32]u8 = undefined;
     std.crypto.hash.sha3.Keccak256.hash(data, &hash, .{});
-    
+
     // Hash calculated successfully
-    
+
     // Convert hash to u256
     var result: u256 = 0;
     for (hash) |byte| {
         result = (result << 8) | byte;
     }
-    
+
     try stack_push(&frame.stack, result);
-    
+
     return Operation.ExecutionResult{};
 }
 

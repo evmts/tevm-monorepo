@@ -1,6 +1,6 @@
 const std = @import("std");
 const JumpTable = @import("../../src/evm/jump_table.zig");
-const Operation = @import("../../src/evm/operation.zig");
+const Operation = @import("../../src/evm/operations/operation.zig");
 const Stack = @import("../../src/evm/stack.zig");
 const Frame = @import("../../src/evm/frame.zig");
 const Contract = @import("../../src/evm/contract.zig");

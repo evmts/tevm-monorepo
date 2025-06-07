@@ -57,6 +57,45 @@ pub const SSTORE = Operation{
     .max_stack = Stack.CAPACITY,
 };
 
+/// SLOAD operation for Frontier to Tangerine Whistle
+/// 
+/// Early version with low gas cost.
+/// Gas: 50
+/// 
+/// Used in hardforks: Frontier, Homestead
+pub const SLOAD_FRONTIER_TO_TANGERINE = Operation{
+    .execute = storage.op_sload,
+    .constant_gas = opcodes.gas_constants.SloadGas, // 50
+    .min_stack = 1,
+    .max_stack = Stack.CAPACITY,
+};
+
+/// SLOAD operation for Tangerine Whistle to Istanbul
+/// 
+/// Increased gas cost to mitigate DoS attacks.
+/// Gas: 200
+/// 
+/// Used in hardforks: Tangerine Whistle through Constantinople
+pub const SLOAD_TANGERINE_TO_ISTANBUL = Operation{
+    .execute = storage.op_sload,
+    .constant_gas = 200,
+    .min_stack = 1,
+    .max_stack = Stack.CAPACITY,
+};
+
+/// SLOAD operation for Istanbul to Berlin
+/// 
+/// Further increased gas cost.
+/// Gas: 800
+/// 
+/// Used in hardforks: Istanbul, Muir Glacier
+pub const SLOAD_ISTANBUL_TO_BERLIN = Operation{
+    .execute = storage.op_sload,
+    .constant_gas = 800,
+    .min_stack = 1,
+    .max_stack = Stack.CAPACITY,
+};
+
 /// TLOAD operation (0x5C): Load from Transient Storage
 /// 
 /// Reads a 256-bit value from transient storage at the specified key.
