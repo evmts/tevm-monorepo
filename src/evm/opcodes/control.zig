@@ -1,5 +1,5 @@
 const std = @import("std");
-const Operation = @import("../operations/operation.zig");
+const Operation = @import("../operation.zig");
 const ExecutionError = @import("../execution_error.zig");
 const ExecutionResult = @import("../execution_result.zig");
 const Stack = @import("../stack.zig");

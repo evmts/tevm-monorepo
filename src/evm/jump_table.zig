@@ -1,6 +1,6 @@
 const std = @import("std");
 const Opcode = @import("opcode.zig");
-const Operation = @import("operations/operation.zig");
+const Operation = @import("operation.zig");
 const Hardfork = @import("hardfork.zig").Hardfork;
 const ExecutionError = @import("execution_error.zig");
 const Stack = @import("stack.zig");
@@ -10,7 +10,6 @@ const Contract = @import("contract.zig");
 const Address = @import("Address");
 const Log = @import("log.zig");
 
-const operations = @import("operations/package.zig");
 const opcodes = @import("opcodes/package.zig");
 const stack_ops = opcodes.stack;
 const log = opcodes.log;
@@ -228,9 +227,9 @@ pub fn new_cancun_instruction_set() Self {
 /// Get the hardfork when an operation was introduced based on its variant.
 fn get_operation_hardfork(variant: ?[]const u8) Hardfork {
     if (variant == null) return .FRONTIER;
-    
+
     const v = variant.?;
-    
+
     // Map variant string to hardfork enum
     if (std.mem.eql(u8, v, "FRONTIER")) {
         return .FRONTIER;
@@ -259,7 +258,7 @@ fn get_operation_hardfork(variant: ?[]const u8) Hardfork {
     } else if (std.mem.eql(u8, v, "CANCUN")) {
         return .CANCUN;
     }
-    
+
     // Default to FRONTIER for unknown variants
     return .FRONTIER;
 }
@@ -311,11 +310,11 @@ pub fn init_from_hardfork(hardfork: Hardfork) Self {
         .SHANGHAI,
         .CANCUN,
     };
-    
+
     // Apply operations for each hardfork up to and including the target
     inline for (hardforks) |hf| {
         if (@intFromEnum(hf) > @intFromEnum(hardfork)) break;
-        
+
         // Load operations introduced in this hardfork
         inline for (operation_specs.ALL_OPERATIONS) |spec| {
             const op_hardfork = get_operation_hardfork(spec.variant);
@@ -371,11 +370,7 @@ pub fn init_from_hardfork(hardfork: Hardfork) Self {
         };
     }
 
-    // Fill remaining with UNDEFINED
     jt.validate();
 
     return jt;
 }
-
-// Hardfork-specific operation variants are now handled by the centralized
-// operation specifications with variant checking in init_from_hardfork()

@@ -1,8 +1,8 @@
 const std = @import("std");
-const Opcode = @import("../opcode.zig");
-const ExecutionError = @import("../execution_error.zig");
-const Stack = @import("../stack.zig");
-const Memory = @import("../memory.zig");
+const Opcode = @import("opcode.zig");
+const ExecutionError = @import("execution_error.zig");
+const Stack = @import("stack.zig");
+const Memory = @import("memory.zig");
 
 /// Operation metadata and execution functions for EVM opcodes.
 ///
@@ -38,7 +38,7 @@ const Memory = @import("../memory.zig");
 ///     .max_stack = Stack.CAPACITY - 1,
 /// };
 /// ```
-pub const ExecutionResult = @import("../execution_result.zig");
+pub const ExecutionResult = @import("execution_result.zig");
 
 /// Forward declaration for the interpreter context.
 /// The actual interpreter implementation provides VM state and context.

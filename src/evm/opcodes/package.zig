@@ -16,7 +16,7 @@ pub const storage = @import("storage.zig");
 pub const system = @import("system.zig");
 
 // Re-export common types
-pub const Operation = @import("../operations/operation.zig");
+pub const Operation = @import("../operation.zig");
 pub const ExecutionError = @import("../execution_error.zig");
 pub const Frame = @import("../frame.zig");
 pub const Stack = @import("../stack.zig");
