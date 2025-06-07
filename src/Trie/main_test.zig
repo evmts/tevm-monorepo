@@ -10,13 +10,13 @@ const known_roots_test = @import("known_roots_test.zig");
 pub fn main() !void {
     // Run all tests and print a report
     std.debug.print("Running Trie tests...\n", .{});
-    
+
     var passed: usize = 0;
     var failed: usize = 0;
-    
+
     inline for (comptime get_all_tests()) |T| {
         std.debug.print("Test: {s}...", .{@typeName(T)});
-        
+
         if (run_test(T)) {
             std.debug.print(" PASSED\n", .{});
             passed += 1;
@@ -25,11 +25,9 @@ pub fn main() !void {
             failed += 1;
         }
     }
-    
-    std.debug.print("\nTest Report: {d} passed, {d} failed\n", .{passed, failed});
-    if (failed > 0) {
-        return error.TestsFailed;
-    }
+
+    std.debug.print("\nTest Report: {d} passed, {d} failed\n", .{ passed, failed });
+    if (failed > 0) return error.TestsFailed;
 }
 
 fn get_all_tests() []const type {
@@ -43,20 +41,20 @@ fn get_all_tests() []const type {
         trie.LeafNode,
         trie.ExtensionNode,
         trie.TrieNode,
-        
+
         // HashBuilder tests
         hash_builder.HashBuilder,
-        
+
         // Proof tests
         proof.ProofNodes,
         proof.ProofRetainer,
-        
+
         // MerkleTrie tests
         merkle_trie.MerkleTrie,
-        
+
         // Optimized branch tests
         optimized_branch.CompactBranchNode,
-        
+
         // Known roots tests
         known_roots_test,
     };
@@ -64,16 +62,14 @@ fn get_all_tests() []const type {
 
 fn run_test(comptime T: type) bool {
     // Skip types that don't have tests
-    if (!@hasDecl(T, "test")) {
-        return true;
-    }
-    
+    if (!@hasDecl(T, "test")) return true;
+
     const test_fn = @field(T, "test");
     test_fn() catch |err| {
         std.debug.print("Error: {}\n", .{err});
         return false;
     };
-    
+
     return true;
 }
 

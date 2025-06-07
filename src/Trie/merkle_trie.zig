@@ -99,9 +99,7 @@ pub const MerkleTrie = struct {
     fn collect_proof_nodes(self: *const MerkleTrie, retainer: *ProofRetainer, node: TrieNode, path_prefix: []const u8) !bool {
         // Add this node to the proof if it's on the key path
         const on_path = try retainer.collect_node(node, path_prefix);
-        if (!on_path) {
-            return false; // Not on path, stop recursion
-        }
+        if (!on_path) return false; // Not on path, stop recursion
 
         // Continue recursion based on node type
         switch (node) {
@@ -142,14 +140,10 @@ pub const MerkleTrie = struct {
                 }
 
                 const next_nibble = key_nibbles[path_prefix.len];
-                if (next_nibble >= 16) {
-                    return TrieError.InvalidKey; // Invalid nibble
-                }
+                if (next_nibble >= 16) return TrieError.InvalidKey; // Invalid nibble
 
                 // Check if there's a child at this position
-                if (!branch.children_mask.is_set(@intCast(next_nibble))) {
-                    return true; // No child, end of path
-                }
+                if (!branch.children_mask.is_set(@intCast(next_nibble))) return true; // No child, end of path
 
                 // Follow the child
                 const child = branch.children[next_nibble].?;

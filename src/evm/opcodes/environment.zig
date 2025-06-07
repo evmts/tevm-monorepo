@@ -130,13 +130,9 @@ pub fn op_extcodecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     const code_offset = try stack_pop(&frame.stack);
     const size = try stack_pop(&frame.stack);
 
-    if (size == 0) {
-        return Operation.ExecutionResult{};
-    }
+    if (size == 0) return Operation.ExecutionResult{};
 
-    if (mem_offset > std.math.maxInt(usize) or size > std.math.maxInt(usize) or code_offset > std.math.maxInt(usize)) {
-        return ExecutionError.Error.OutOfOffset;
-    }
+    if (mem_offset > std.math.maxInt(usize) or size > std.math.maxInt(usize) or code_offset > std.math.maxInt(usize)) return ExecutionError.Error.OutOfOffset;
 
     const address = from_u256(address_u256);
     const mem_offset_usize = @as(usize, @intCast(mem_offset));

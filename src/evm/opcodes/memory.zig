@@ -12,9 +12,7 @@ const map_memory_error = error_mapping.map_memory_error;
 
 // Helper to check if u256 fits in usize
 inline fn check_offset_bounds(value: u256) ExecutionError.Error!void {
-    if (value > std.math.maxInt(usize)) {
-        return ExecutionError.Error.InvalidOffset;
-    }
+    if (value > std.math.maxInt(usize)) return ExecutionError.Error.InvalidOffset;
 }
 
 pub fn op_mload(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {

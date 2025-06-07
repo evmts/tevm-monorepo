@@ -160,9 +160,7 @@ pub const HashBuilder = struct {
         };
         defer self.allocator.free(nibbles);
 
-        if (self.root_hash == null) {
-            return null; // Empty trie
-        }
+        if (self.root_hash == null) return null; // Empty trie
 
         const hash_str = try bytesToHexString(self.allocator, &self.root_hash.?);
         defer self.allocator.free(hash_str);
@@ -182,9 +180,7 @@ pub const HashBuilder = struct {
         };
         defer self.allocator.free(nibbles);
 
-        if (self.root_hash == null) {
-            return; // Empty trie, nothing to delete
-        }
+        if (self.root_hash == null) return; // Empty trie, nothing to delete
 
         const hash_str = try bytesToHexString(self.allocator, &self.root_hash.?);
         defer self.allocator.free(hash_str);
@@ -705,14 +701,10 @@ pub const HashBuilder = struct {
             },
             .Extension => |extension| {
                 // Check if extension path is a prefix of our path
-                if (nibbles.len < extension.nibbles.len) {
-                    return null; // Path too short
-                }
+                if (nibbles.len < extension.nibbles.len) return null; // Path too short
 
                 // Compare the prefix
-                if (!std.mem.eql(u8, extension.nibbles, nibbles[0..extension.nibbles.len])) {
-                    return null; // Prefix doesn't match
-                }
+                if (!std.mem.eql(u8, extension.nibbles, nibbles[0..extension.nibbles.len])) return null; // Prefix doesn't match
 
                 // Follow the extension
                 switch (extension.next) {
@@ -751,17 +743,13 @@ pub const HashBuilder = struct {
                 const key = nibbles[0];
 
                 // Check if there's a child at this position
-                if (!branch.children_mask.is_set(@intCast(key))) {
-                    return null; // No child at this position
-                }
+                if (!branch.children_mask.is_set(@intCast(key))) return null; // No child at this position
 
                 const child = branch.children[key].?;
                 switch (child) {
                     .Raw => |data| {
                         // Direct value in branch
-                        if (nibbles.len == 1) {
-                            return data;
-                        }
+                        if (nibbles.len == 1) return data;
                         return null; // Path too long
                     },
                     .Hash => |hash| {
@@ -808,14 +796,10 @@ pub const HashBuilder = struct {
             },
             .Extension => |extension| {
                 // Check if extension path is a prefix of our path
-                if (nibbles.len < extension.nibbles.len) {
-                    return current_node; // Path too short, nothing to delete
-                }
+                if (nibbles.len < extension.nibbles.len) return current_node; // Path too short, nothing to delete
 
                 // Compare the prefix
-                if (!std.mem.eql(u8, extension.nibbles, nibbles[0..extension.nibbles.len])) {
-                    return current_node; // Prefix doesn't match, nothing to delete
-                }
+                if (!std.mem.eql(u8, extension.nibbles, nibbles[0..extension.nibbles.len])) return current_node; // Prefix doesn't match, nothing to delete
 
                 // Follow the extension
                 var next_node: TrieNode = undefined;
@@ -855,9 +839,7 @@ pub const HashBuilder = struct {
                 if (nibbles.len == 0) {
                     // We're deleting the value at this branch
                     // Only duplicate if we actually have a value to delete
-                    if (branch.value == null) {
-                        return current_node; // Nothing to delete
-                    }
+                    if (branch.value == null) return current_node; // Nothing to delete
 
                     var new_branch = try branch.dupe(self.allocator);
                     var should_cleanup_branch = true;

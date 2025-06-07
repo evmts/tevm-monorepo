@@ -14,6 +14,7 @@ const operations = @import("operations/package.zig");
 const opcodes = @import("opcodes/package.zig");
 const stack_ops = opcodes.stack;
 const log = opcodes.log;
+const operation_specs = @import("operation_specs.zig");
 
 /// EVM jump table for efficient opcode dispatch.
 ///
@@ -243,6 +244,18 @@ pub fn new_cancun_instruction_set() Self {
 /// ```
 pub fn init_from_hardfork(hardfork: Hardfork) Self {
     var jt = Self.init();
+
+    // TODO: Once we migrate all operations to operation_specs.zig, we can replace
+    // the manual setup below with something like:
+    //
+    // inline for (operation_specs.ALL_OPERATIONS) |spec| {
+    //     if (spec.variant == null or is_variant_active(spec.variant, hardfork)) {
+    //         jt.table[spec.opcode] = &operation_specs.generate_operation(spec);
+    //     }
+    // }
+    //
+    // This would eliminate hundreds of lines of manual operation setup
+    // and centralize all operation definitions in one place.
 
     // Setup operation table for Frontier
     jt.table[0x00] = &operations.control.STOP;

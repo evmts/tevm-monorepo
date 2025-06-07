@@ -30,18 +30,9 @@ fn stack_push(stack: *Stack, value: u256) ExecutionError.Error!void {
 }
 
 fn calculate_sstore_gas(current: u256, new: u256) u64 {
-    if (current == new) {
-        return 0;
-    }
-
-    if (current == 0) {
-        return SSTORE_SET_GAS;
-    }
-
-    if (new == 0) {
-        return SSTORE_RESET_GAS;
-    }
-
+    if (current == new) return 0;
+    if (current == 0) return SSTORE_SET_GAS;
+    if (new == 0) return SSTORE_RESET_GAS;
     return SSTORE_RESET_GAS;
 }
 
