@@ -1,5 +1,16 @@
 # @tevm/cli
 
+## 1.0.0-next.148
+
+### Patch Changes
+
+- Updated dependencies [9e0e1cd]
+  - @tevm/actions@1.0.0-next.148
+  - @tevm/memory-client@1.0.0-next.148
+  - @tevm/server@1.0.0-next.148
+  - @tevm/common@1.0.0-next.148
+  - @tevm/utils@1.0.0-next.148
+
 ## 1.0.0-next.147
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @tevm/client
 
+## 1.0.0-next.148
+
+### Patch Changes
+
+- @tevm/viem@1.0.0-next.148
+- @tevm/memory-client@1.0.0-next.148
+- @tevm/address@1.0.0-next.148
+- @tevm/contract@1.0.0-next.148
+- @tevm/utils@1.0.0-next.148
+
 ## 1.0.0-next.147
 
 ### Patch Changes
