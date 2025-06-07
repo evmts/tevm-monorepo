@@ -1,6 +1,6 @@
 const std = @import("std");
 const Stack = @import("stack.zig");
-const Operation = @import("operations/operation.zig");
+const Operation = @import("operation.zig");
 const ExecutionError = @import("execution_error.zig");
 
 /// Stack validation utilities for EVM operations.

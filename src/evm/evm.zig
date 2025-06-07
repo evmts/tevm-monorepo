@@ -86,7 +86,7 @@ pub const Memory = @import("memory.zig");
 pub const Opcode = @import("opcode.zig");
 
 /// Opcode metadata (gas costs, stack effects)
-pub const Operation = @import("operations/operation.zig");
+pub const Operation = @import("operation.zig");
 
 /// 256-bit word stack implementation
 pub const Stack = @import("stack.zig");
