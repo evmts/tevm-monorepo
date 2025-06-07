@@ -17,10 +17,10 @@ const Log = @import("log.zig");
 const EvmLog = @import("evm_log.zig");
 const Context = @import("context.zig");
 const EvmState = @import("evm_state.zig");
-const StorageKey = @import("storage_key.zig");
-const CreateResult = @import("create_result.zig");
-const CallResult = @import("call_result.zig");
-const RunResult = @import("run_result.zig");
+pub const StorageKey = @import("storage_key.zig");
+pub const CreateResult = @import("create_result.zig");
+pub const CallResult = @import("call_result.zig");
+pub const RunResult = @import("run_result.zig");
 const Hardfork = @import("hardfork.zig").Hardfork;
 
 /// Virtual Machine for executing Ethereum bytecode.
@@ -169,7 +169,12 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
 
             var output: ?[]const u8 = null;
             if (frame.return_data_buffer.len > 0) {
-                output = try self.allocator.dupe(u8, frame.return_data_buffer);
+                output = self.allocator.dupe(u8, frame.return_data_buffer) catch {
+                    // We are out of memory, which is a critical failure. The safest way to
+                    // handle this is to treat it as an OutOfGas error, which consumes
+                    // all gas and stops execution.
+                    return RunResult.init(initial_gas, 0, .OutOfGas, ExecutionError.Error.OutOfMemory, null);
+                };
             }
 
             return switch (err) {
@@ -177,50 +182,27 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
                     // INVALID opcode consumes all remaining gas
                     frame.gas_remaining = 0;
                     contract.gas = 0;
-                    return RunResult{
-                        .err = err,
-                        .status = .Invalid,
-                        .gas_left = 0,
-                        .gas_used = initial_gas,
-                        .output = output,
-                    };
+                    return RunResult.init(initial_gas, 0, .Invalid, err, output);
                 },
                 ExecutionError.Error.STOP => {
-                    // Normal stop
-                    return RunResult{
-                        .err = null,
-                        .status = .Success,
-                        .gas_left = frame.gas_remaining,
-                        .gas_used = initial_gas - frame.gas_remaining,
-                        .output = output,
-                    };
+                    return RunResult.init(initial_gas, frame.gas_remaining, .Success, null, output);
                 },
                 ExecutionError.Error.REVERT => {
-                    return RunResult{
-                        .err = err,
-                        .status = .Revert,
-                        .gas_left = frame.gas_remaining,
-                        .gas_used = initial_gas - frame.gas_remaining,
-                        .output = output,
-                    };
+                    return RunResult.init(initial_gas, frame.gas_remaining, .Revert, err, output);
                 },
                 ExecutionError.Error.OutOfGas => {
-                    return RunResult{
-                        .err = err,
-                        .status = .OutOfGas,
-                        .gas_left = frame.gas_remaining,
-                        .gas_used = initial_gas - frame.gas_remaining,
-                        .output = output,
-                    };
+                    return RunResult.init(initial_gas, frame.gas_remaining, .OutOfGas, err, output);
                 },
-                ExecutionError.Error.InvalidJump, ExecutionError.Error.StackUnderflow, ExecutionError.Error.StackOverflow, ExecutionError.Error.StaticStateChange, ExecutionError.Error.WriteProtection, ExecutionError.Error.DepthLimit, ExecutionError.Error.MaxCodeSizeExceeded => {
-                    return RunResult{
-                        .err = err,
-                        .status = .Invalid,
-                        .gas_left = frame.gas_remaining,
-                        .gas_used = initial_gas - frame.gas_remaining,
-                        .output = output,
-                    };
+                ExecutionError.Error.InvalidJump,
+                ExecutionError.Error.StackUnderflow,
+                ExecutionError.Error.StackOverflow,
+                ExecutionError.Error.StaticStateChange,
+                ExecutionError.Error.WriteProtection,
+                ExecutionError.Error.DepthLimit,
+                ExecutionError.Error.MaxCodeSizeExceeded,
+                ExecutionError.Error.OutOfMemory,
+                => {
+                    return RunResult.init(initial_gas, frame.gas_remaining, .Invalid, err, output);
                 },
                 else => return err, // Unexpected error
             };
@@ -238,64 +220,24 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
 
     const output: ?[]const u8 = if (frame.return_data_buffer.len > 0) try self.allocator.dupe(u8, frame.return_data_buffer) else null;
 
-    return RunResult{
-        .err = null,
-        .status = .Success,
-        .gas_left = frame.gas_remaining,
-        .gas_used = initial_gas - frame.gas_remaining,
-        .output = output,
-    };
+    return RunResult.init(
+        initial_gas,
+        frame.gas_remaining,
+        .Success,
+        null,
+        output,
+    );
 }
 
-// Contract creation with CREATE opcode
-pub const CreateContractError = std.mem.Allocator.Error || Address.CalculateAddressError;
-
-/// Create a new contract using CREATE opcode semantics.
-///
-/// Increments creator's nonce, calculates address via keccak256(rlp([sender, nonce])),
-/// transfers value if specified, executes init code, and deploys resulting bytecode.
-///
-/// Parameters:
-/// - creator: Account initiating contract creation
-/// - value: Wei to transfer to new contract (0 for no transfer)
-/// - init_code: Bytecode executed to generate contract code
-/// - gas: Maximum gas for entire creation process
-///
-/// Returns CreateResult with success=false if:
-/// - Creator balance < value (insufficient funds)
-/// - Contract exists at calculated address (collision)
-/// - Init code reverts or runs out of gas
-/// - Deployed bytecode > 24,576 bytes (EIP-170)
-/// - Insufficient gas for deployment (200 gas/byte)
-///
-/// Time complexity: O(init_code_length + deployed_code_length)
-/// Memory: Allocates space for deployed bytecode
-///
-/// See also: create2_contract() for deterministic addresses
-pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_code: []const u8, gas: u64) CreateContractError!CreateResult {
-    _ = init_code.len;
-
-    const nonce = try self.state.increment_nonce(creator);
-    const new_address = try Address.calculate_create_address(self.allocator, creator, nonce);
-
+fn create_contract_internal(self: *Self, creator: Address.Address, value: u256, init_code: []const u8, gas: u64, new_address: Address.Address) std.mem.Allocator.Error!CreateResult {
     if (self.state.get_code(new_address).len > 0) {
         // Contract already exists at this address
-        return CreateResult{
-            .success = false,
-            .address = Address.zero(),
-            .gas_left = gas,
-            .output = null,
-        };
+        return CreateResult.initFailure(gas, null);
     }
 
     const creator_balance = self.state.get_balance(creator);
     if (creator_balance < value) {
-        return CreateResult{
-            .success = false,
-            .address = Address.zero(),
-            .gas_left = gas,
-            .output = null,
-        };
+        return CreateResult.initFailure(gas, null);
     }
 
     if (value > 0) {
@@ -334,44 +276,24 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
     const init_result = self.interpret_with_context(&init_contract, &[_]u8{}, false) catch |err| {
         if (err == ExecutionError.Error.REVERT) {
             // On revert, we should still consume gas but not all
-            return CreateResult{
-                .success = false,
-                .address = Address.zero(),
-                .gas_left = init_contract.gas,
-                .output = null,
-            };
+            return CreateResult.initFailure(init_contract.gas, null);
         }
 
         // Most initcode failures should return 0 address and consume all gas
-        return CreateResult{
-            .success = false,
-            .address = Address.zero(),
-            .gas_left = 0,
-            .output = null,
-        };
+        return CreateResult.initFailure(0, null);
     };
 
     const deployment_code = init_result.output orelse &[_]u8{};
 
     // Check EIP-170 MAX_CODE_SIZE limit on the returned bytecode (24,576 bytes)
     if (deployment_code.len > constants.MAX_CODE_SIZE) {
-        return CreateResult{
-            .success = false,
-            .address = Address.zero(),
-            .gas_left = 0, // Consume all gas on failure
-            .output = null,
-        };
+        return CreateResult.initFailure(0, null);
     }
 
     const deploy_code_gas = @as(u64, @intCast(deployment_code.len)) * constants.DEPLOY_CODE_GAS_PER_BYTE;
 
     if (deploy_code_gas > init_result.gas_left) {
-        return CreateResult{
-            .success = false,
-            .address = Address.zero(),
-            .gas_left = 0,
-            .output = null,
-        };
+        return CreateResult.initFailure(0, null);
     }
 
     try self.state.set_code(new_address, deployment_code);
@@ -384,6 +306,37 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
         .gas_left = gas_left,
         .output = deployment_code,
     };
+}
+
+// Contract creation with CREATE opcode
+pub const CreateContractError = std.mem.Allocator.Error || Address.CalculateAddressError;
+
+/// Create a new contract using CREATE opcode semantics.
+///
+/// Increments creator's nonce, calculates address via keccak256(rlp([sender, nonce])),
+/// transfers value if specified, executes init code, and deploys resulting bytecode.
+///
+/// Parameters:
+/// - creator: Account initiating contract creation
+/// - value: Wei to transfer to new contract (0 for no transfer)
+/// - init_code: Bytecode executed to generate contract code
+/// - gas: Maximum gas for entire creation process
+///
+/// Returns CreateResult with success=false if:
+/// - Creator balance < value (insufficient funds)
+/// - Contract exists at calculated address (collision)
+/// - Init code reverts or runs out of gas
+/// - Deployed bytecode > 24,576 bytes (EIP-170)
+/// - Insufficient gas for deployment (200 gas/byte)
+///
+/// Time complexity: O(init_code_length + deployed_code_length)
+/// Memory: Allocates space for deployed bytecode
+///
+/// See also: create2_contract() for deterministic addresses
+pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_code: []const u8, gas: u64) CreateContractError!CreateResult {
+    const nonce = try self.state.increment_nonce(creator);
+    const new_address = try Address.calculate_create_address(self.allocator, creator, nonce);
+    return self.create_contract_internal(creator, value, init_code, gas, new_address);
 }
 
 pub const CallContractError = std.mem.Allocator.Error;
@@ -415,114 +368,7 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
     // Calculate the new contract address using CREATE2 formula:
     // address = keccak256(0xff ++ sender ++ salt ++ keccak256(init_code))[12:]
     const new_address = try Address.calculate_create2_address(self.allocator, creator, salt, init_code);
-
-    if (self.state.get_code(new_address).len > 0) {
-        // Contract already exists at this address
-        return CreateResult{
-            .success = false,
-            .address = Address.zero(),
-            .gas_left = gas,
-            .output = null,
-        };
-    }
-
-    const creator_balance = self.state.get_balance(creator);
-    if (creator_balance < value) {
-        return CreateResult{
-            .success = false,
-            .address = Address.zero(),
-            .gas_left = gas,
-            .output = null,
-        };
-    }
-
-    if (value > 0) {
-        try self.state.set_balance(creator, creator_balance - value);
-        try self.state.set_balance(new_address, value);
-    }
-
-    if (init_code.len == 0) {
-        // No init code means empty contract
-        return CreateResult{
-            .success = true,
-            .address = new_address,
-            .gas_left = gas,
-            .output = null,
-        };
-    }
-
-    var hasher = Keccak256.init(.{});
-    hasher.update(init_code);
-    var code_hash: [32]u8 = undefined;
-    hasher.final(&code_hash);
-
-    var init_contract = Contract.init(
-        creator, // caller (who is creating this contract)
-        new_address, // address (the new contract's address)
-        value, // value being sent to this contract
-        gas, // gas available for init code execution
-        init_code, // the init code to execute
-        code_hash, // hash of the init code
-        &[_]u8{}, // no input data for init code
-        false, // not static
-    );
-    defer init_contract.deinit(self.allocator, null);
-
-    // Execute the init code - this should return the deployment bytecode
-    const init_result = self.interpret_with_context(&init_contract, &[_]u8{}, false) catch |err| {
-        if (err == ExecutionError.Error.REVERT) {
-            // On revert, we should still consume gas but not all
-            return CreateResult{
-                .success = false,
-                .address = Address.zero(),
-                .gas_left = init_contract.gas,
-                .output = null,
-            };
-        }
-
-        // Most initcode failures should return 0 address and consume all gas
-        return CreateResult{
-            .success = false,
-            .address = Address.zero(),
-            .gas_left = 0, // Consume all gas on failure
-            .output = null,
-        };
-    };
-
-    // Get the output from the RunResult
-    const deployment_code = init_result.output orelse &[_]u8{};
-
-    // Check EIP-170 MAX_CODE_SIZE limit on the returned bytecode (24,576 bytes)
-    if (deployment_code.len > constants.MAX_CODE_SIZE) {
-        return CreateResult{
-            .success = false,
-            .address = Address.zero(),
-            .gas_left = 0, // Consume all gas on failure
-            .output = null,
-        };
-    }
-
-    const deploy_code_gas = @as(u64, @intCast(deployment_code.len)) * constants.DEPLOY_CODE_GAS_PER_BYTE;
-
-    if (deploy_code_gas > init_result.gas_left) {
-        return CreateResult{
-            .success = false,
-            .address = Address.zero(),
-            .gas_left = 0,
-            .output = null,
-        };
-    }
-
-    try self.state.set_code(new_address, deployment_code);
-
-    const gas_left = init_result.gas_left - deploy_code_gas;
-
-    return CreateResult{
-        .success = true,
-        .address = new_address,
-        .gas_left = gas_left,
-        .output = deployment_code,
-    };
+    return self.create_contract_internal(creator, value, init_code, gas, new_address);
 }
 
 pub const CallcodeContractError = std.mem.Allocator.Error;

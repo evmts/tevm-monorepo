@@ -3,21 +3,7 @@ const Operation = @import("../operation.zig");
 const ExecutionError = @import("../execution_error.zig");
 const Stack = @import("../stack.zig");
 const Frame = @import("../frame.zig");
-
-// Helper to convert Stack errors to ExecutionError
-fn stack_pop(stack: *Stack) ExecutionError.Error!u256 {
-    return stack.pop() catch |err| switch (err) {
-        Stack.Error.Underflow => return ExecutionError.Error.StackUnderflow,
-        else => return ExecutionError.Error.StackUnderflow,
-    };
-}
-
-fn stack_push(stack: *Stack, value: u256) ExecutionError.Error!void {
-    return stack.append(value) catch |err| switch (err) {
-        Stack.Error.Overflow => return ExecutionError.Error.StackOverflow,
-        else => return ExecutionError.Error.StackOverflow,
-    };
-}
+const error_mapping = @import("../error_mapping.zig");
 
 pub fn op_pop(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
@@ -25,7 +11,7 @@ pub fn op_pop(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    _ = try stack_pop(&frame.stack);
+    _ = try error_mapping.stack_pop(&frame.stack);
 
     return Operation.ExecutionResult{};
 }
@@ -36,7 +22,7 @@ pub fn op_push0(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    try stack_push(&frame.stack, 0);
+    try error_mapping.stack_push(&frame.stack, 0);
 
     return Operation.ExecutionResult{};
 }
