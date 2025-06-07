@@ -660,6 +660,28 @@ pub fn build(b: *std.Build) void {
     // Add a separate step for testing Static Call Protection
     const static_protection_test_step = b.step("test-static-protection", "Run Static Call Protection tests");
     static_protection_test_step.dependOn(&run_static_protection_test.step);
+    
+    // Add SSTORE Refund tests
+    const sstore_refund_test = b.addTest(.{
+        .name = "sstore-refund-test",
+        .root_source_file = b.path("test/evm/sstore_refund_test.zig"),
+        .target = target,
+        .optimize = optimize,
+        .single_threaded = true,
+    });
+    sstore_refund_test.root_module.stack_check = false;
+    
+    // Add module imports to SSTORE refund test
+    sstore_refund_test.root_module.addImport("Address", address_mod);
+    sstore_refund_test.root_module.addImport("Block", block_mod);
+    sstore_refund_test.root_module.addImport("evm", evm_mod);
+    sstore_refund_test.root_module.addImport("Utils", utils_mod);
+    
+    const run_sstore_refund_test = b.addRunArtifact(sstore_refund_test);
+    
+    // Add a separate step for testing SSTORE Refunds
+    const sstore_refund_test_step = b.step("test-sstore-refund", "Run SSTORE Refund tests");
+    sstore_refund_test_step.dependOn(&run_sstore_refund_test.step);
 
     // Add Memory benchmark
     const memory_benchmark = b.addExecutable(.{
@@ -758,6 +780,7 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_integration_test.step);
     test_step.dependOn(&run_gas_test.step);
     test_step.dependOn(&run_static_protection_test.step);
+    test_step.dependOn(&run_sstore_refund_test.step);
 
     // Define a single test step that runs all tests
     const test_all_step = b.step("test-all", "Run all unit tests");

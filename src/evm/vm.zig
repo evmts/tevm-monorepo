@@ -138,6 +138,20 @@ pub fn interpret_static(self: *Self, contract: *Contract, input: []const u8) Exe
 /// Runs the main VM loop, executing opcodes sequentially while tracking
 /// gas consumption and handling control flow changes.
 pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u8, is_static: bool) ExecutionError.Error!RunResult {
+    // Check if this is a top-level transaction (depth 0)
+    const is_top_level = self.depth == 0;
+    
+    // Begin transaction if this is the top-level call
+    if (is_top_level) {
+        try self.state.begin_transaction();
+    }
+    defer {
+        // End transaction if this is the top-level call
+        if (is_top_level) {
+            self.state.end_transaction();
+        }
+    }
+    
     self.depth += 1;
     defer self.depth -= 1;
 
@@ -219,10 +233,23 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
     self.return_data = @constCast(frame.return_data_buffer);
 
     const output: ?[]const u8 = if (frame.return_data_buffer.len > 0) try self.allocator.dupe(u8, frame.return_data_buffer) else null;
-
+    
+    // Apply gas refund cap for top-level transactions
+    var final_gas_remaining = frame.gas_remaining;
+    if (is_top_level and contract.gas_refund > 0) {
+        const gas_used = initial_gas - frame.gas_remaining;
+        const max_refund = if (self.chain_rules.IsLondon)
+            gas_used / 5  // 20% cap (EIP-3529)
+        else
+            gas_used / 2; // 50% cap (pre-London)
+        
+        const actual_refund = @min(contract.gas_refund, max_refund);
+        final_gas_remaining = frame.gas_remaining + actual_refund;
+    }
+    
     return RunResult.init(
         initial_gas,
-        frame.gas_remaining,
+        final_gas_remaining,
         .Success,
         null,
         output,
@@ -232,12 +259,22 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
 fn create_contract_internal(self: *Self, creator: Address.Address, value: u256, init_code: []const u8, gas: u64, new_address: Address.Address) std.mem.Allocator.Error!CreateResult {
     if (self.state.get_code(new_address).len > 0) {
         // Contract already exists at this address
-        return CreateResult.initFailure(gas, null);
+        return CreateResult{
+            .success = false,
+            .address = Address.zero(),
+            .gas_left = gas,
+            .output = null,
+        };
     }
 
     const creator_balance = self.state.get_balance(creator);
     if (creator_balance < value) {
-        return CreateResult.initFailure(gas, null);
+        return CreateResult{
+            .success = false,
+            .address = Address.zero(),
+            .gas_left = gas,
+            .output = null,
+        };
     }
 
     if (value > 0) {
@@ -276,24 +313,44 @@ fn create_contract_internal(self: *Self, creator: Address.Address, value: u256, 
     const init_result = self.interpret_with_context(&init_contract, &[_]u8{}, false) catch |err| {
         if (err == ExecutionError.Error.REVERT) {
             // On revert, we should still consume gas but not all
-            return CreateResult.initFailure(init_contract.gas, null);
+            return CreateResult{
+                .success = false,
+                .address = Address.zero(),
+                .gas_left = init_contract.gas,
+                .output = null,
+            };
         }
 
         // Most initcode failures should return 0 address and consume all gas
-        return CreateResult.initFailure(0, null);
+        return CreateResult{
+            .success = false,
+            .address = Address.zero(),
+            .gas_left = 0,
+            .output = null,
+        };
     };
 
     const deployment_code = init_result.output orelse &[_]u8{};
 
     // Check EIP-170 MAX_CODE_SIZE limit on the returned bytecode (24,576 bytes)
     if (deployment_code.len > constants.MAX_CODE_SIZE) {
-        return CreateResult.initFailure(0, null);
+        return CreateResult{
+            .success = false,
+            .address = Address.zero(),
+            .gas_left = 0,
+            .output = null,
+        };
     }
 
     const deploy_code_gas = @as(u64, @intCast(deployment_code.len)) * constants.DEPLOY_CODE_GAS_PER_BYTE;
 
     if (deploy_code_gas > init_result.gas_left) {
-        return CreateResult.initFailure(0, null);
+        return CreateResult{
+            .success = false,
+            .address = Address.zero(),
+            .gas_left = 0,
+            .output = null,
+        };
     }
 
     try self.state.set_code(new_address, deployment_code);
@@ -334,6 +391,8 @@ pub const CreateContractError = std.mem.Allocator.Error || Address.CalculateAddr
 ///
 /// See also: create2_contract() for deterministic addresses
 pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_code: []const u8, gas: u64) CreateContractError!CreateResult {
+    _ = init_code.len;
+
     const nonce = try self.state.increment_nonce(creator);
     const new_address = try Address.calculate_create_address(self.allocator, creator, nonce);
     return self.create_contract_internal(creator, value, init_code, gas, new_address);

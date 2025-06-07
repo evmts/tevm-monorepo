@@ -71,6 +71,13 @@ transient_storage: std.AutoHashMap(StorageKey, u256),
 /// Ordered list of all LOG0-LOG4 events
 logs: std.ArrayList(EvmLog),
 
+/// Original storage values at transaction start
+/// Used for EIP-2200 gas refund calculations
+original_storage: std.AutoHashMap(StorageKey, u256),
+
+/// Track if we're in a transaction context
+in_transaction: bool = false,
+
 /// Initialize a new EVM state instance
 /// 
 /// Creates empty state with the provided allocator. All maps and lists
@@ -106,6 +113,9 @@ pub fn init(allocator: std.mem.Allocator) std.mem.Allocator.Error!Self {
 
     var logs = std.ArrayList(EvmLog).init(allocator);
     errdefer logs.deinit();
+    
+    var original_storage = std.AutoHashMap(StorageKey, u256).init(allocator);
+    errdefer original_storage.deinit();
 
     return Self{
         .allocator = allocator,
@@ -115,6 +125,8 @@ pub fn init(allocator: std.mem.Allocator) std.mem.Allocator.Error!Self {
         .nonces = nonces,
         .transient_storage = transient_storage,
         .logs = logs,
+        .original_storage = original_storage,
+        .in_transaction = false,
     };
 }
 
@@ -134,6 +146,7 @@ pub fn deinit(self: *Self) void {
     self.code.deinit();
     self.nonces.deinit();
     self.transient_storage.deinit();
+    self.original_storage.deinit();
 
     // Clean up logs - free allocated memory for topics and data
     for (self.logs.items) |log| {
@@ -410,4 +423,46 @@ pub fn emit_log(self: *Self, address: Address.Address, topics: []const u256, dat
     };
 
     try self.logs.append(log);
+}
+
+/// Get original storage value, caching it if first access
+/// 
+/// Used for EIP-2200 gas refund calculations. On first access of a storage
+/// slot in a transaction, the current value is cached as the original.
+/// 
+/// ## Parameters
+/// - `address`: Contract address
+/// - `slot`: Storage slot number
+/// 
+/// ## Returns
+/// The original value at transaction start
+pub fn get_original_storage(self: *Self, address: Address.Address, slot: u256) std.mem.Allocator.Error!u256 {
+    const key = StorageKey{ .address = address, .slot = slot };
+    
+    if (self.original_storage.get(key)) |value| {
+        return value;
+    }
+    
+    // First access in this transaction - current value is original
+    const current = self.get_storage(address, slot);
+    try self.original_storage.put(key, current);
+    return current;
+}
+
+/// Start a new transaction context
+/// 
+/// Clears the original storage cache to track fresh original values
+/// for the new transaction.
+pub fn begin_transaction(self: *Self) std.mem.Allocator.Error!void {
+    self.original_storage.clearRetainingCapacity();
+    self.in_transaction = true;
+}
+
+/// End transaction context
+/// 
+/// Clears the original storage cache and transient storage.
+pub fn end_transaction(self: *Self) void {
+    self.original_storage.clearRetainingCapacity();
+    self.transient_storage.clearRetainingCapacity();
+    self.in_transaction = false;
 }
