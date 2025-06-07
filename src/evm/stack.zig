@@ -299,8 +299,8 @@ pub inline fn swapN(self: *Self, n: usize) Error!void {
 }
 
 pub inline fn swap_n_unsafe(self: *Self, comptime N: usize) void {
-    if (N == 0 or N > 16) @compileError("Invalid swap position");
     @setRuntimeSafety(false);
+    if (N == 0 or N > 16) @compileError("Invalid swap position");
     // Unsafe: No bounds checking - caller must ensure self.size > N
     const top_idx = self.size - 1;
     const swap_idx = self.size - N - 1;
@@ -310,6 +310,7 @@ pub inline fn swap_n_unsafe(self: *Self, comptime N: usize) void {
 }
 
 pub inline fn swapNUnsafe(self: *Self, n: usize) void {
+    @setRuntimeSafety(false);
     const top_idx = self.size - 1;
     const swap_idx = self.size - n - 1;
     std.mem.swap(u256, &self.data[top_idx], &self.data[swap_idx]);
@@ -340,10 +341,12 @@ pub inline fn dup(self: *Self, n: usize) Error!void {
 }
 
 pub inline fn dup_unsafe(self: *Self, n: usize) void {
+    @setRuntimeSafety(false);
     self.append_unsafe(self.data[self.size - n]);
 }
 
 pub inline fn dupUnsafe(self: *Self, n: usize) void {
+    @setRuntimeSafety(false);
     self.dup_unsafe(n);
 }
 
@@ -359,13 +362,14 @@ pub inline fn dupN(self: *Self, n: usize) Error!void {
 }
 
 pub inline fn dup_n_unsafe(self: *Self, comptime N: usize) void {
-    if (N == 0 or N > 16) @compileError("Invalid dup position");
     @setRuntimeSafety(false);
+    if (N == 0 or N > 16) @compileError("Invalid dup position");
     // Unsafe: No bounds checking - caller must ensure N <= self.size and self.size < CAPACITY
     self.append_unsafe(self.data[self.size - N]);
 }
 
 pub inline fn dupNUnsafe(self: *Self, n: usize) void {
+    @setRuntimeSafety(false);
     self.append_unsafe(self.data[self.size - n]);
 }
 
