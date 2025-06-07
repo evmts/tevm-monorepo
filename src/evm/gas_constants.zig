@@ -257,6 +257,23 @@ pub const TStoreGas: u64 = 100;
 /// The total memory cost for n words is: 3n + n²/512
 /// Where a word is 32 bytes.
 /// 
+/// Pre-computed memory expansion costs for common sizes.
+/// 
+/// This lookup table stores the total memory cost for sizes up to 32KB (1024 words).
+/// Using a LUT converts runtime calculations to O(1) lookups for common cases.
+/// The formula is: 3n + n²/512 where n is the number of 32-byte words.
+pub const MEMORY_EXPANSION_LUT = blk: {
+    @setEvalBranchQuota(10000);
+    const max_words = 1024; // Pre-compute for up to 32KB of memory
+    var costs: [max_words]u64 = undefined;
+    
+    for (0..max_words) |words| {
+        costs[words] = MemoryGas * words + (words * words) / QuadCoeffDiv;
+    }
+    
+    break :blk costs;
+};
+
 /// The expansion cost is: total_cost(new_size) - total_cost(current_size)
 /// 
 /// ## Examples
@@ -269,16 +286,28 @@ pub const TStoreGas: u64 = 100;
 /// - If new_size <= current_size, no expansion needed, returns 0
 /// - Sizes are rounded up to the nearest word (32 bytes)
 /// - At 32MB, gas cost exceeds 2 billion, effectively preventing larger allocations
+/// 
+/// ## Performance
+/// - Uses pre-computed lookup table for sizes up to 32KB (O(1) lookup)
+/// - Falls back to calculation for larger sizes
 pub fn memory_gas_cost(current_size: u64, new_size: u64) u64 {
     if (new_size <= current_size) return 0;
     
-    // Round up to words (32 bytes)
     const current_words = (current_size + 31) / 32;
     const new_words = (new_size + 31) / 32;
     
-    // Calculate total cost: 3n + n²/512
+    // Use lookup table for common cases (up to 32KB)
+    if (new_words < MEMORY_EXPANSION_LUT.len) {
+        const current_cost = if (current_words < MEMORY_EXPANSION_LUT.len)
+            MEMORY_EXPANSION_LUT[current_words]
+        else
+            MemoryGas * current_words + (current_words * current_words) / QuadCoeffDiv;
+            
+        return MEMORY_EXPANSION_LUT[new_words] - current_cost;
+    }
+    
+    // Fall back to calculation for larger sizes
     const current_cost = MemoryGas * current_words + (current_words * current_words) / QuadCoeffDiv;
     const new_cost = MemoryGas * new_words + (new_words * new_words) / QuadCoeffDiv;
-    
     return new_cost - current_cost;
 }
