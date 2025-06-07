@@ -42,7 +42,7 @@ pub fn op_sload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
-    std.debug.assert(frame.stack.size >= 1);
+    if (frame.stack.size < 1) unreachable;
 
     const slot = frame.stack.peek_unsafe().*;
 
@@ -80,7 +80,7 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     // This prevents reentrancy attacks by ensuring enough gas remains for exception handling
     if (vm.chain_rules.IsIstanbul and frame.gas_remaining <= gas_constants.SstoreSentryGas) return ExecutionError.Error.OutOfGas;
 
-    std.debug.assert(frame.stack.size >= 2);
+    if (frame.stack.size < 2) unreachable;
 
     // Stack order: [..., value, slot] where slot is on top
     const popped = frame.stack.pop2_unsafe();
@@ -123,7 +123,7 @@ pub fn op_tload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     // Gas is already handled by jump table constant_gas = 100
 
-    std.debug.assert(frame.stack.size >= 1);
+    if (frame.stack.size < 1) unreachable;
 
     // Get slot from top of stack unsafely - bounds checking is done in jump_table.zig
     const slot = frame.stack.peek_unsafe().*;
@@ -146,7 +146,7 @@ pub fn op_tstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     // Gas is already handled by jump table constant_gas = 100
 
-    std.debug.assert(frame.stack.size >= 2);
+    if (frame.stack.size < 2) unreachable;
 
     // Pop two values unsafely using batch operation - bounds checking is done in jump_table.zig
     // Stack order: [..., value, slot] where slot is on top

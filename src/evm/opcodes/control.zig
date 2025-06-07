@@ -28,7 +28,7 @@ pub fn op_jump(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    std.debug.assert(frame.stack.size >= 1);
+    if (frame.stack.size < 1) unreachable;
 
     // Use unsafe pop since bounds checking is done by jump_table
     const dest = frame.stack.pop_unsafe();
@@ -50,7 +50,7 @@ pub fn op_jumpi(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    std.debug.assert(frame.stack.size >= 2);
+    if (frame.stack.size < 2) unreachable;
 
     // Use batch pop for performance - pop 2 values at once
     const values = frame.stack.pop2_unsafe();
@@ -75,7 +75,7 @@ pub fn op_pc(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.S
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    std.debug.assert(frame.stack.size < Stack.CAPACITY);
+    if (frame.stack.size >= Stack.CAPACITY) unreachable;
 
     // Use unsafe push since bounds checking is done by jump_table
     frame.stack.append_unsafe(@as(u256, @intCast(pc)));
@@ -98,7 +98,7 @@ pub fn op_return(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    std.debug.assert(frame.stack.size >= 2);
+    if (frame.stack.size < 2) unreachable;
 
     // Use batch pop for performance - pop 2 values at once
     const values = frame.stack.pop2_unsafe();
@@ -140,7 +140,7 @@ pub fn op_revert(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    std.debug.assert(frame.stack.size >= 2);
+    if (frame.stack.size < 2) unreachable;
 
     // Use batch pop for performance - pop 2 values at once
     const values = frame.stack.pop2_unsafe();
@@ -199,7 +199,7 @@ pub fn op_selfdestruct(pc: usize, interpreter: *Operation.Interpreter, state: *O
     // Check if we're in a static call
     if (frame.is_static) return ExecutionError.Error.WriteProtection;
 
-    std.debug.assert(frame.stack.size >= 1);
+    if (frame.stack.size < 1) unreachable;
 
     // Use unsafe pop since bounds checking is done by jump_table
     const beneficiary_u256 = frame.stack.pop_unsafe();
