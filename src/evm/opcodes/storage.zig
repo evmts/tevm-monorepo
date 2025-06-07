@@ -74,15 +74,11 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
-    if (frame.is_static) {
-        return ExecutionError.Error.WriteProtection;
-    }
+    if (frame.is_static) return ExecutionError.Error.WriteProtection;
 
     // EIP-1706: Disable SSTORE with gasleft lower than call stipend (2300)
     // This prevents reentrancy attacks by ensuring enough gas remains for exception handling
-    if (vm.chain_rules.IsIstanbul and frame.gas_remaining <= gas_constants.SstoreSentryGas) {
-        return ExecutionError.Error.OutOfGas;
-    }
+    if (vm.chain_rules.IsIstanbul and frame.gas_remaining <= gas_constants.SstoreSentryGas) return ExecutionError.Error.OutOfGas;
 
     std.debug.assert(frame.stack.size >= 2);
 
@@ -146,9 +142,7 @@ pub fn op_tstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
-    if (frame.is_static) {
-        return ExecutionError.Error.WriteProtection;
-    }
+    if (frame.is_static) return ExecutionError.Error.WriteProtection;
 
     // Gas is already handled by jump table constant_gas = 100
 

@@ -216,6 +216,35 @@ pub fn new_cancun_instruction_set() Self {
     return init_from_hardfork(.CANCUN);
 }
 
+/// Check if an operation variant is active for a given hardfork.
+fn is_variant_active(variant: ?[]const u8, hardfork: Hardfork) bool {
+    if (variant == null) return true;
+    
+    const v = variant.?;
+    
+    // Parse variant strings like "FRONTIER_TO_TANGERINE" or "BERLIN_TO_PRESENT"
+    if (std.mem.eql(u8, v, "FRONTIER_TO_TANGERINE")) {
+        return @intFromEnum(hardfork) >= @intFromEnum(Hardfork.FRONTIER) and 
+               @intFromEnum(hardfork) < @intFromEnum(Hardfork.TANGERINE_WHISTLE);
+    } else if (std.mem.eql(u8, v, "TANGERINE_TO_ISTANBUL")) {
+        return @intFromEnum(hardfork) >= @intFromEnum(Hardfork.TANGERINE_WHISTLE) and 
+               @intFromEnum(hardfork) < @intFromEnum(Hardfork.ISTANBUL);
+    } else if (std.mem.eql(u8, v, "ISTANBUL_TO_BERLIN")) {
+        return @intFromEnum(hardfork) >= @intFromEnum(Hardfork.ISTANBUL) and 
+               @intFromEnum(hardfork) < @intFromEnum(Hardfork.BERLIN);
+    } else if (std.mem.eql(u8, v, "TANGERINE_TO_BERLIN")) {
+        return @intFromEnum(hardfork) >= @intFromEnum(Hardfork.TANGERINE_WHISTLE) and 
+               @intFromEnum(hardfork) < @intFromEnum(Hardfork.BERLIN);
+    } else if (std.mem.eql(u8, v, "TANGERINE_TO_PRESENT")) {
+        return @intFromEnum(hardfork) >= @intFromEnum(Hardfork.TANGERINE_WHISTLE);
+    } else if (std.mem.eql(u8, v, "BERLIN_TO_PRESENT")) {
+        return @intFromEnum(hardfork) >= @intFromEnum(Hardfork.BERLIN);
+    }
+    
+    // Unknown variant, default to active
+    return true;
+}
+
 /// Create a jump table configured for a specific hardfork.
 ///
 /// This is the primary way to create a jump table. It starts with
@@ -245,84 +274,18 @@ pub fn new_cancun_instruction_set() Self {
 pub fn init_from_hardfork(hardfork: Hardfork) Self {
     var jt = Self.init();
 
-    // TODO: Once we migrate all operations to operation_specs.zig, we can replace
-    // the manual setup below with something like:
-    //
-    // inline for (operation_specs.ALL_OPERATIONS) |spec| {
-    //     if (spec.variant == null or is_variant_active(spec.variant, hardfork)) {
-    //         jt.table[spec.opcode] = &operation_specs.generate_operation(spec);
-    //     }
-    // }
-    //
-    // This would eliminate hundreds of lines of manual operation setup
-    // and centralize all operation definitions in one place.
+    // Load all operations from centralized specifications
+    inline for (operation_specs.ALL_OPERATIONS) |spec| {
+        if (spec.variant == null or is_variant_active(spec.variant, hardfork)) {
+            // Create a static operation for each spec
+            const op = struct {
+                pub const operation = operation_specs.generate_operation(spec);
+            };
+            jt.table[spec.opcode] = &op.operation;
+        }
+    }
 
-    // Setup operation table for Frontier
-    jt.table[0x00] = &operations.control.STOP;
-    jt.table[0x01] = &operations.arithmetic.ADD;
-    jt.table[0x02] = &operations.arithmetic.MUL;
-    jt.table[0x03] = &operations.arithmetic.SUB;
-    jt.table[0x04] = &operations.arithmetic.DIV;
-    jt.table[0x05] = &operations.arithmetic.SDIV;
-    jt.table[0x06] = &operations.arithmetic.MOD;
-    jt.table[0x07] = &operations.arithmetic.SMOD;
-    jt.table[0x08] = &operations.arithmetic.ADDMOD;
-    jt.table[0x09] = &operations.arithmetic.MULMOD;
-    jt.table[0x0a] = &operations.arithmetic.EXP;
-    jt.table[0x0b] = &operations.arithmetic.SIGNEXTEND;
-
-    // 0x10s: Comparison & Bitwise Logic
-    jt.table[0x10] = &operations.comparison.LT;
-    jt.table[0x11] = &operations.comparison.GT;
-    jt.table[0x12] = &operations.comparison.SLT;
-    jt.table[0x13] = &operations.comparison.SGT;
-    jt.table[0x14] = &operations.comparison.EQ;
-    jt.table[0x15] = &operations.comparison.ISZERO;
-    jt.table[0x16] = &operations.bitwise.AND;
-    jt.table[0x17] = &operations.bitwise.OR;
-    jt.table[0x18] = &operations.bitwise.XOR;
-    jt.table[0x19] = &operations.bitwise.NOT;
-    jt.table[0x1a] = &operations.bitwise.BYTE;
-
-    // 0x20s: SHA3
-    jt.table[0x20] = &operations.crypto.SHA3;
-
-    // 0x30s: Environmental Information
-    jt.table[0x30] = &operations.environment.ADDRESS;
-    jt.table[0x31] = &operations.environment.BALANCE_FRONTIER_TO_TANGERINE;
-    jt.table[0x32] = &operations.environment.ORIGIN;
-    jt.table[0x33] = &operations.environment.CALLER;
-    jt.table[0x34] = &operations.environment.CALLVALUE;
-    jt.table[0x35] = &operations.environment.CALLDATALOAD;
-    jt.table[0x36] = &operations.environment.CALLDATASIZE;
-    jt.table[0x37] = &operations.memory.CALLDATACOPY;
-    jt.table[0x38] = &operations.environment.CODESIZE;
-    jt.table[0x39] = &operations.environment.CODECOPY;
-    jt.table[0x3a] = &operations.environment.GASPRICE;
-    jt.table[0x3b] = &operations.misc.EXTCODESIZE_FRONTIER_TO_TANGERINE;
-    jt.table[0x3c] = &operations.environment.EXTCODECOPY_FRONTIER_TO_TANGERINE;
-
-    // 0x40s: Block Information
-    jt.table[0x40] = &operations.block.BLOCKHASH;
-    jt.table[0x41] = &operations.block.COINBASE;
-    jt.table[0x42] = &operations.block.TIMESTAMP;
-    jt.table[0x43] = &operations.block.NUMBER;
-    jt.table[0x44] = &operations.block.DIFFICULTY;
-    jt.table[0x45] = &operations.block.GASLIMIT;
-
-    // 0x50s: Stack, Memory, Storage and Flow Operations
-    jt.table[0x50] = &operations.stack.POP;
-    jt.table[0x51] = &operations.memory.MLOAD;
-    jt.table[0x52] = &operations.memory.MSTORE;
-    jt.table[0x53] = &operations.memory.MSTORE8;
-    jt.table[0x54] = &operations.storage.SLOAD_FRONTIER_TO_TANGERINE;
-    jt.table[0x55] = &operations.storage.SSTORE;
-    jt.table[0x56] = &operations.control.JUMP;
-    jt.table[0x57] = &operations.control.JUMPI;
-    jt.table[0x58] = &operations.control.PC;
-    jt.table[0x59] = &operations.memory.MSIZE;
-    jt.table[0x5a] = &operations.misc.GAS;
-    jt.table[0x5b] = &operations.control.JUMPDEST;
+    // Dynamic operations are still generated inline
 
     // 0x60s & 0x70s: Push operations
     inline for (0..32) |i| {
@@ -365,108 +328,11 @@ pub fn init_from_hardfork(hardfork: Hardfork) Self {
         };
     }
 
-    // 0xf0s: System operations
-    jt.table[0xf0] = &operations.system.CREATE;
-    jt.table[0xf1] = &operations.system.CALL_FRONTIER_TO_TANGERINE;
-    jt.table[0xf2] = &operations.system.CALLCODE_FRONTIER_TO_TANGERINE;
-    jt.table[0xf3] = &operations.control.RETURN;
-    jt.table[0xfe] = &operations.control.INVALID;
-    jt.table[0xff] = &operations.control.SELFDESTRUCT_FRONTIER_TO_TANGERINE;
-
     // Fill remaining with UNDEFINED
     jt.validate();
-
-    // Guard clause for Frontier
-    if (hardfork == .FRONTIER) {
-        return jt;
-    }
-
-    // Homestead and later additions
-    jt.table[0xf4] = &operations.system.DELEGATECALL;
-
-    // Apply Tangerine Whistle gas cost changes (EIP-150)
-    if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.TANGERINE_WHISTLE)) {
-        apply_tangerine_whistle_gas_changes(&jt);
-    }
-
-    // Byzantium additions
-    if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.BYZANTIUM)) {
-        jt.table[0x3d] = &operations.memory.RETURNDATASIZE;
-        jt.table[0x3e] = &operations.memory.RETURNDATACOPY;
-        jt.table[0xfd] = &operations.control.REVERT;
-        jt.table[0xfa] = &operations.system.STATICCALL;
-    }
-
-    // Constantinople additions
-    if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.CONSTANTINOPLE)) {
-        jt.table[0xf5] = &operations.system.CREATE2;
-        jt.table[0x3f] = &operations.crypto.EXTCODEHASH;
-        jt.table[0x1b] = &operations.bitwise.SHL;
-        jt.table[0x1c] = &operations.bitwise.SHR;
-        jt.table[0x1d] = &operations.bitwise.SAR;
-    }
-
-    // Istanbul additions
-    if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.ISTANBUL)) {
-        jt.table[0x46] = &operations.environment.CHAINID;
-        jt.table[0x47] = &operations.environment.SELFBALANCE;
-        apply_istanbul_gas_changes(&jt);
-    }
-
-    // Berlin additions
-    if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.BERLIN)) {
-        apply_berlin_gas_changes(&jt);
-    }
-
-    // London additions
-    if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.LONDON)) {
-        jt.table[0x48] = &operations.block.BASEFEE;
-    }
-
-    // Shanghai additions
-    if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.SHANGHAI)) {
-        jt.table[0x5f] = &operations.stack.PUSH0;
-    }
-
-    // Cancun additions
-    if (@intFromEnum(hardfork) >= @intFromEnum(Hardfork.CANCUN)) {
-        jt.table[0x49] = &operations.block.BLOBHASH;
-        jt.table[0x4a] = &operations.block.BLOBBASEFEE;
-        jt.table[0x5e] = &operations.memory.MCOPY;
-        jt.table[0x5c] = &operations.storage.TLOAD;
-        jt.table[0x5d] = &operations.storage.TSTORE;
-    }
 
     return jt;
 }
 
-fn apply_tangerine_whistle_gas_changes(jt: *Self) void {
-    // SAFE: Replace operations with hardfork-specific variants instead of @constCast
-    jt.table[0x31] = &operations.environment.BALANCE_TANGERINE_TO_ISTANBUL; // BALANCE: 20 -> 400
-    jt.table[0x3b] = &operations.misc.EXTCODESIZE_TANGERINE_TO_BERLIN; // EXTCODESIZE: 20 -> 700
-    jt.table[0x3c] = &operations.environment.EXTCODECOPY_TANGERINE_TO_BERLIN; // EXTCODECOPY: 20 -> 700
-    jt.table[0x54] = &operations.storage.SLOAD_TANGERINE_TO_ISTANBUL; // SLOAD: 50 -> 200
-    jt.table[0xf1] = &operations.system.CALL_TANGERINE_TO_PRESENT; // CALL: 40 -> 700
-    jt.table[0xf2] = &operations.system.CALLCODE_TANGERINE_TO_PRESENT; // CALLCODE: 40 -> 700
-    jt.table[0xf4] = &operations.system.DELEGATECALL_TANGERINE_TO_PRESENT; // DELEGATECALL: 40 -> 700
-    jt.table[0xff] = &operations.control.SELFDESTRUCT_TANGERINE_TO_PRESENT; // SELFDESTRUCT: 0 -> 5000
-}
-
-fn apply_istanbul_gas_changes(jt: *Self) void {
-    // SAFE: Replace operations with hardfork-specific variants instead of @constCast
-    jt.table[0x31] = &operations.environment.BALANCE_ISTANBUL_TO_BERLIN; // BALANCE: 400 -> 700
-    jt.table[0x54] = &operations.storage.SLOAD_ISTANBUL_TO_BERLIN; // SLOAD: 200 -> 800
-    // EXTCODEHASH gas is handled dynamically in the opcode
-}
-
-fn apply_berlin_gas_changes(jt: *Self) void {
-    // SAFE: Replace operations with hardfork-specific variants instead of @constCast
-    // Berlin introduces cold/warm access with dynamic gas costs
-    // These are handled in the opcode implementations rather than base gas
-    jt.table[0x31] = &operations.environment.BALANCE_BERLIN_TO_PRESENT; // BALANCE: 700 -> 0 (dynamic)
-    jt.table[0x3b] = &operations.misc.EXTCODESIZE; // EXTCODESIZE: 700 -> 0 (dynamic)
-    jt.table[0x3c] = &operations.environment.EXTCODECOPY; // EXTCODECOPY: 700 -> 0 (dynamic)
-    jt.table[0x3f] = &operations.crypto.EXTCODEHASH; // EXTCODEHASH: 0 -> 0 (dynamic)
-    jt.table[0x54] = &operations.storage.SLOAD; // SLOAD: 800 -> 0 (dynamic)
-    // CALL operations keep base gas but add dynamic cold access cost
-}
+// Hardfork-specific operation variants are now handled by the centralized
+// operation specifications with variant checking in init_from_hardfork()

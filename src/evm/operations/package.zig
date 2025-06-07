@@ -19,6 +19,9 @@
 /// - system: System operations (CREATE, CALL, etc.)
 /// - misc: Miscellaneous operations (GAS, UNDEFINED, etc.)
 
+// Re-export the Operation type
+pub const Operation = @import("operation.zig");
+
 // Re-export all operation modules
 pub const arithmetic = @import("arithmetic.zig");
 pub const comparison = @import("comparison.zig");

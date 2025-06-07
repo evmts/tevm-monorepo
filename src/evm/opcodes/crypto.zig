@@ -21,9 +21,7 @@ pub fn op_sha3(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     const size = try stack_pop(&frame.stack);
 
     // Check bounds before anything else
-    if (offset > std.math.maxInt(usize) or size > std.math.maxInt(usize)) {
-        return ExecutionError.Error.OutOfOffset;
-    }
+    if (offset > std.math.maxInt(usize) or size > std.math.maxInt(usize)) return ExecutionError.Error.OutOfOffset;
 
     if (size == 0) {
         // Even with size 0, we need to validate the offset is reasonable
@@ -31,9 +29,7 @@ pub fn op_sha3(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
             // Check if offset is beyond reasonable memory limits
             const offset_usize = @as(usize, @intCast(offset));
             const memory_limits = @import("../memory_limits.zig");
-            if (offset_usize > memory_limits.MAX_MEMORY_SIZE) {
-                return ExecutionError.Error.OutOfOffset;
-            }
+            if (offset_usize > memory_limits.MAX_MEMORY_SIZE) return ExecutionError.Error.OutOfOffset;
         }
         // Hash of empty data = keccak256("")
         const empty_hash: u256 = 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470;
@@ -51,9 +47,7 @@ pub fn op_sha3(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
 
     // Check if the end position exceeds reasonable memory limits
     const memory_limits = @import("../memory_limits.zig");
-    if (end > memory_limits.MAX_MEMORY_SIZE) {
-        return ExecutionError.Error.OutOfOffset;
-    }
+    if (end > memory_limits.MAX_MEMORY_SIZE) return ExecutionError.Error.OutOfOffset;
 
     // Dynamic gas cost for hashing
     const word_size = (size_usize + 31) / 32;

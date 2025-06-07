@@ -392,9 +392,7 @@ pub fn init_deployment(
         .is_empty = code.len == 0,
     };
 
-    if (salt == null) {
-        return contract;
-    }
+    if (salt == null) return contract;
     // Salt is used for CREATE2 address calculation
     // The actual address calculation happens in the VM's create2_contract method
 
@@ -449,14 +447,10 @@ fn contains_jumpdest(code: []const u8) bool {
 /// ```
 pub fn valid_jumpdest(self: *Self, allocator: std.mem.Allocator, dest: u256) bool {
     // Fast path: empty code or out of bounds
-    if (self.is_empty or dest >= self.code_size) {
-        return false;
-    }
+    if (self.is_empty or dest >= self.code_size) return false;
 
     // Fast path: no JUMPDESTs in code
-    if (!self.has_jumpdests) {
-        return false;
-    }
+    if (!self.has_jumpdests) return false;
     const pos: u32 = @intCast(@min(dest, std.math.maxInt(u32)));
 
     // Ensure analysis is performed
@@ -523,9 +517,7 @@ pub inline fn is_code(self: *const Self, pos: u64) bool {
 /// This method is marked inline for performance as it's called
 /// millions of times during contract execution.
 pub inline fn use_gas(self: *Self, amount: u64) bool {
-    if (self.gas < amount) {
-        return false;
-    }
+    if (self.gas < amount) return false;
     self.gas -= amount;
     return true;
 }

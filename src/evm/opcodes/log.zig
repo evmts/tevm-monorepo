@@ -30,9 +30,7 @@ pub fn make_log(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.St
             // Debug logging removed for production
 
             // Check if we're in a static call
-            if (frame.is_static) {
-                return ExecutionError.Error.WriteProtection;
-            }
+            if (frame.is_static) return ExecutionError.Error.WriteProtection;
 
             // REVM EXACT MATCH: Pop offset first, then len (revm: popn!([offset, len]))
             const offset = try stack_pop(&frame.stack);

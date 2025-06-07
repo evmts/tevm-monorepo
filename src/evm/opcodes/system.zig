@@ -31,9 +31,7 @@ pub fn gas_op(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
 
 // Helper to check if u256 fits in usize
 fn check_offset_bounds(value: u256) ExecutionError.Error!void {
-    if (value > std.math.maxInt(usize)) {
-        return ExecutionError.Error.InvalidOffset;
-    }
+    if (value > std.math.maxInt(usize)) return ExecutionError.Error.InvalidOffset;
 }
 
 pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
@@ -43,9 +41,7 @@ pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
     // Check if we're in a static call
-    if (frame.is_static) {
-        return ExecutionError.Error.WriteProtection;
-    }
+    if (frame.is_static) return ExecutionError.Error.WriteProtection;
 
     const value = try stack_pop(&frame.stack);
     const offset = try stack_pop(&frame.stack);
@@ -62,9 +58,7 @@ pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     // EIP-3860: Check initcode size limit FIRST (Shanghai and later)
     try check_offset_bounds(size);
     const size_usize = @as(usize, @intCast(size));
-    if (vm.chain_rules.IsEIP3860 and size_usize > gas_constants.MaxInitcodeSize) {
-        return ExecutionError.Error.MaxCodeSizeExceeded;
-    }
+    if (vm.chain_rules.IsEIP3860 and size_usize > gas_constants.MaxInitcodeSize) return ExecutionError.Error.MaxCodeSizeExceeded;
 
     // Get init code from memory
     var init_code: []const u8 = &[_]u8{};
@@ -126,9 +120,7 @@ pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
-    if (frame.is_static) {
-        return ExecutionError.Error.WriteProtection;
-    }
+    if (frame.is_static) return ExecutionError.Error.WriteProtection;
 
     const value = try stack_pop(&frame.stack);
     const offset = try stack_pop(&frame.stack);
@@ -143,9 +135,7 @@ pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     // EIP-3860: Check initcode size limit FIRST (Shanghai and later)
     try check_offset_bounds(size);
     const size_usize = @as(usize, @intCast(size));
-    if (vm.chain_rules.IsEIP3860 and size_usize > gas_constants.MaxInitcodeSize) {
-        return ExecutionError.Error.MaxCodeSizeExceeded;
-    }
+    if (vm.chain_rules.IsEIP3860 and size_usize > gas_constants.MaxInitcodeSize) return ExecutionError.Error.MaxCodeSizeExceeded;
 
     // Get init code from memory
     var init_code: []const u8 = &[_]u8{};
@@ -224,16 +214,12 @@ pub fn op_call(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     var args: []const u8 = &[_]u8{};
     if (args_size > 0) {
         // Check that offset + size doesn't overflow and fits in usize
-        if (args_offset > std.math.maxInt(usize) or args_size > std.math.maxInt(usize)) {
-            return ExecutionError.Error.InvalidOffset;
-        }
+        if (args_offset > std.math.maxInt(usize) or args_size > std.math.maxInt(usize)) return ExecutionError.Error.InvalidOffset;
         const args_offset_usize = @as(usize, @intCast(args_offset));
         const args_size_usize = @as(usize, @intCast(args_size));
 
         // Check that offset + size doesn't overflow usize
-        if (args_offset_usize > std.math.maxInt(usize) - args_size_usize) {
-            return ExecutionError.Error.InvalidOffset;
-        }
+        if (args_offset_usize > std.math.maxInt(usize) - args_size_usize) return ExecutionError.Error.InvalidOffset;
 
         _ = frame.memory.ensure_context_capacity(args_offset_usize + args_size_usize) catch |err| return map_memory_error(err);
         args = frame.memory.get_slice(args_offset_usize, args_size_usize) catch |err| return map_memory_error(err);
@@ -242,23 +228,17 @@ pub fn op_call(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     // Ensure return memory
     if (ret_size > 0) {
         // Check that offset + size doesn't overflow and fits in usize
-        if (ret_offset > std.math.maxInt(usize) or ret_size > std.math.maxInt(usize)) {
-            return ExecutionError.Error.InvalidOffset;
-        }
+        if (ret_offset > std.math.maxInt(usize) or ret_size > std.math.maxInt(usize)) return ExecutionError.Error.InvalidOffset;
         const ret_offset_usize = @as(usize, @intCast(ret_offset));
         const ret_size_usize = @as(usize, @intCast(ret_size));
 
         // Check that offset + size doesn't overflow usize
-        if (ret_offset_usize > std.math.maxInt(usize) - ret_size_usize) {
-            return ExecutionError.Error.InvalidOffset;
-        }
+        if (ret_offset_usize > std.math.maxInt(usize) - ret_size_usize) return ExecutionError.Error.InvalidOffset;
 
         _ = frame.memory.ensure_context_capacity(ret_offset_usize + ret_size_usize) catch |err| return map_memory_error(err);
     }
 
-    if (frame.is_static and value != 0) {
-        return ExecutionError.Error.WriteProtection;
-    }
+    if (frame.is_static and value != 0) return ExecutionError.Error.WriteProtection;
 
     const to_address = from_u256(to);
 

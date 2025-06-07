@@ -26,9 +26,7 @@ pub fn op_mload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     // Get offset from top of stack unsafely - bounds checking is done in jump_table.zig
     const offset = frame.stack.peek_unsafe().*;
 
-    if (offset > std.math.maxInt(usize)) {
-        return ExecutionError.Error.OutOfOffset;
-    }
+    if (offset > std.math.maxInt(usize)) return ExecutionError.Error.OutOfOffset;
 
     const offset_usize = @as(usize, @intCast(offset));
 
@@ -65,9 +63,7 @@ pub fn op_mstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     const value = popped.a; // First popped (was second from top)
     const offset = popped.b; // Second popped (was top)
 
-    if (offset > std.math.maxInt(usize)) {
-        return ExecutionError.Error.OutOfOffset;
-    }
+    if (offset > std.math.maxInt(usize)) return ExecutionError.Error.OutOfOffset;
 
     const offset_usize = @as(usize, @intCast(offset));
 
@@ -101,9 +97,7 @@ pub fn op_mstore8(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     const value = popped.a; // First popped (was second from top)
     const offset = popped.b; // Second popped (was top)
 
-    if (offset > std.math.maxInt(usize)) {
-        return ExecutionError.Error.OutOfOffset;
-    }
+    if (offset > std.math.maxInt(usize)) return ExecutionError.Error.OutOfOffset;
 
     const offset_usize = @as(usize, @intCast(offset));
 
@@ -157,13 +151,9 @@ pub fn op_mcopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     const src = frame.stack.pop_unsafe();
     const dest = frame.stack.pop_unsafe();
 
-    if (size == 0) {
-        return Operation.ExecutionResult{};
-    }
+    if (size == 0) return Operation.ExecutionResult{};
 
-    if (dest > std.math.maxInt(usize) or src > std.math.maxInt(usize) or size > std.math.maxInt(usize)) {
-        return ExecutionError.Error.OutOfOffset;
-    }
+    if (dest > std.math.maxInt(usize) or src > std.math.maxInt(usize) or size > std.math.maxInt(usize)) return ExecutionError.Error.OutOfOffset;
 
     const dest_usize = @as(usize, @intCast(dest));
     const src_usize = @as(usize, @intCast(src));
@@ -252,13 +242,9 @@ pub fn op_calldatacopy(pc: usize, interpreter: *Operation.Interpreter, state: *O
     const data_offset = frame.stack.pop_unsafe();
     const size = frame.stack.pop_unsafe();
 
-    if (size == 0) {
-        return Operation.ExecutionResult{};
-    }
+    if (size == 0) return Operation.ExecutionResult{};
 
-    if (mem_offset > std.math.maxInt(usize) or data_offset > std.math.maxInt(usize) or size > std.math.maxInt(usize)) {
-        return ExecutionError.Error.OutOfOffset;
-    }
+    if (mem_offset > std.math.maxInt(usize) or data_offset > std.math.maxInt(usize) or size > std.math.maxInt(usize)) return ExecutionError.Error.OutOfOffset;
 
     const mem_offset_usize = @as(usize, @intCast(mem_offset));
     const data_offset_usize = @as(usize, @intCast(data_offset));
@@ -311,13 +297,9 @@ pub fn op_codecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     const code_offset = frame.stack.pop_unsafe();
     const size = frame.stack.pop_unsafe();
 
-    if (size == 0) {
-        return Operation.ExecutionResult{};
-    }
+    if (size == 0) return Operation.ExecutionResult{};
 
-    if (mem_offset > std.math.maxInt(usize) or code_offset > std.math.maxInt(usize) or size > std.math.maxInt(usize)) {
-        return ExecutionError.Error.OutOfOffset;
-    }
+    if (mem_offset > std.math.maxInt(usize) or code_offset > std.math.maxInt(usize) or size > std.math.maxInt(usize)) return ExecutionError.Error.OutOfOffset;
 
     const mem_offset_usize = @as(usize, @intCast(mem_offset));
     const code_offset_usize = @as(usize, @intCast(code_offset));
@@ -370,22 +352,16 @@ pub fn op_returndatacopy(pc: usize, interpreter: *Operation.Interpreter, state: 
     const data_offset = frame.stack.pop_unsafe();
     const size = frame.stack.pop_unsafe();
 
-    if (size == 0) {
-        return Operation.ExecutionResult{};
-    }
+    if (size == 0) return Operation.ExecutionResult{};
 
-    if (mem_offset > std.math.maxInt(usize) or data_offset > std.math.maxInt(usize) or size > std.math.maxInt(usize)) {
-        return ExecutionError.Error.OutOfOffset;
-    }
+    if (mem_offset > std.math.maxInt(usize) or data_offset > std.math.maxInt(usize) or size > std.math.maxInt(usize)) return ExecutionError.Error.OutOfOffset;
 
     const mem_offset_usize = @as(usize, @intCast(mem_offset));
     const data_offset_usize = @as(usize, @intCast(data_offset));
     const size_usize = @as(usize, @intCast(size));
 
     // Check bounds
-    if (data_offset_usize + size_usize > frame.return_data_buffer.len) {
-        return ExecutionError.Error.ReturnDataOutOfBounds;
-    }
+    if (data_offset_usize + size_usize > frame.return_data_buffer.len) return ExecutionError.Error.ReturnDataOutOfBounds;
 
     // Calculate memory expansion gas cost
     const current_size = frame.memory.context_size();

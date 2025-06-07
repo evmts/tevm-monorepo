@@ -239,8 +239,6 @@ pub const ConsumeGasError = error{
 /// try frame.consume_gas(memory_cost);
 /// ```
 pub fn consume_gas(self: *Self, amount: u64) ConsumeGasError!void {
-    if (amount > self.gas_remaining) {
-        return ConsumeGasError.OutOfGas;
-    }
+    if (amount > self.gas_remaining) return ConsumeGasError.OutOfGas;
     self.gas_remaining -= amount;
 }

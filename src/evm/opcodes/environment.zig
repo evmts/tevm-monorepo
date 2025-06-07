@@ -293,13 +293,9 @@ pub fn op_calldatacopy(pc: usize, interpreter: *Operation.Interpreter, state: *O
     const data_offset = try stack_pop(&frame.stack);
     const size = try stack_pop(&frame.stack);
 
-    if (size == 0) {
-        return Operation.ExecutionResult{};
-    }
+    if (size == 0) return Operation.ExecutionResult{};
 
-    if (mem_offset > std.math.maxInt(usize) or size > std.math.maxInt(usize) or data_offset > std.math.maxInt(usize)) {
-        return ExecutionError.Error.OutOfOffset;
-    }
+    if (mem_offset > std.math.maxInt(usize) or size > std.math.maxInt(usize) or data_offset > std.math.maxInt(usize)) return ExecutionError.Error.OutOfOffset;
 
     const mem_offset_usize = @as(usize, @intCast(mem_offset));
     const data_offset_usize = @as(usize, @intCast(data_offset));
@@ -336,13 +332,9 @@ pub fn op_codecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     const code_offset = try stack_pop(&frame.stack);
     const size = try stack_pop(&frame.stack);
 
-    if (size == 0) {
-        return Operation.ExecutionResult{};
-    }
+    if (size == 0) return Operation.ExecutionResult{};
 
-    if (mem_offset > std.math.maxInt(usize) or size > std.math.maxInt(usize) or code_offset > std.math.maxInt(usize)) {
-        return ExecutionError.Error.OutOfOffset;
-    }
+    if (mem_offset > std.math.maxInt(usize) or size > std.math.maxInt(usize) or code_offset > std.math.maxInt(usize)) return ExecutionError.Error.OutOfOffset;
 
     const mem_offset_usize = @as(usize, @intCast(mem_offset));
     const code_offset_usize = @as(usize, @intCast(code_offset));
@@ -379,17 +371,13 @@ pub fn op_returndataload(pc: usize, interpreter: *Operation.Interpreter, state: 
     const offset = try stack_pop(&frame.stack);
 
     // Check if offset is within bounds
-    if (offset > std.math.maxInt(usize)) {
-        return ExecutionError.Error.OutOfOffset;
-    }
+    if (offset > std.math.maxInt(usize)) return ExecutionError.Error.OutOfOffset;
 
     const offset_usize = @as(usize, @intCast(offset));
     const return_data = frame.return_data_buffer;
 
     // If offset + 32 > return_data.len, this is an error (unlike CALLDATALOAD which pads with zeros)
-    if (offset_usize + 32 > return_data.len) {
-        return ExecutionError.Error.OutOfOffset;
-    }
+    if (offset_usize + 32 > return_data.len) return ExecutionError.Error.OutOfOffset;
 
     // Load 32 bytes from return data
     var value: u256 = 0;
