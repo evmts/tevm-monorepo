@@ -13,7 +13,6 @@ const AccessListStorageKeyContext = @import("access_list_storage_key_context.zig
 /// - Warm address access: 100 gas  
 /// - Cold storage slot access: 2100 gas
 /// - Warm storage slot access: 100 gas
-pub const AccessList = @This();
 
 // Error types for AccessList operations
 pub const AccessAddressError = std.mem.Allocator.Error;
@@ -22,6 +21,8 @@ pub const PreWarmAddressesError = std.mem.Allocator.Error;
 pub const PreWarmStorageSlotsError = std.mem.Allocator.Error;
 pub const InitTransactionError = std.mem.Allocator.Error;
 pub const GetCallCostError = std.mem.Allocator.Error;
+
+pub const AccessList = @This();
 
 
 // Gas costs defined by EIP-2929
@@ -60,7 +61,7 @@ pub fn clear(self: *AccessList) void {
 
 /// Mark an address as accessed and return the gas cost
 /// Returns COLD_ACCOUNT_ACCESS_COST if first access, WARM_ACCOUNT_ACCESS_COST if already accessed
-pub fn access_address(self: *AccessList, address: Address.Address) AccessAddressError!u64 {
+pub fn access_address(self: *AccessList, address: Address.Address) std.mem.Allocator.Error!u64 {
     const result = try self.addresses.getOrPut(address);
     if (result.found_existing) return WARM_ACCOUNT_ACCESS_COST;
     return COLD_ACCOUNT_ACCESS_COST;
@@ -68,7 +69,7 @@ pub fn access_address(self: *AccessList, address: Address.Address) AccessAddress
 
 /// Mark a storage slot as accessed and return the gas cost
 /// Returns COLD_SLOAD_COST if first access, WARM_SLOAD_COST if already accessed
-pub fn access_storage_slot(self: *AccessList, address: Address.Address, slot: u256) AccessStorageSlotError!u64 {
+pub fn access_storage_slot(self: *AccessList, address: Address.Address, slot: u256) std.mem.Allocator.Error!u64 {
     const key = AccessListStorageKey{ .address = address, .slot = slot };
     const result = try self.storage_slots.getOrPut(key);
     if (result.found_existing) return WARM_SLOAD_COST;
@@ -87,14 +88,14 @@ pub fn is_storage_slot_warm(self: *const AccessList, address: Address.Address, s
 }
 
 /// Pre-warm addresses from EIP-2930 access list
-pub fn pre_warm_addresses(self: *AccessList, addresses: []const Address.Address) PreWarmAddressesError!void {
+pub fn pre_warm_addresses(self: *AccessList, addresses: []const Address.Address) std.mem.Allocator.Error!void {
     for (addresses) |address| {
         try self.addresses.put(address, {});
     }
 }
 
 /// Pre-warm storage slots from EIP-2930 access list
-pub fn pre_warm_storage_slots(self: *AccessList, address: Address.Address, slots: []const u256) PreWarmStorageSlotsError!void {
+pub fn pre_warm_storage_slots(self: *AccessList, address: Address.Address, slots: []const u256) std.mem.Allocator.Error!void {
     for (slots) |slot| {
         const key = AccessListStorageKey{ .address = address, .slot = slot };
         try self.storage_slots.put(key, {});
@@ -103,7 +104,7 @@ pub fn pre_warm_storage_slots(self: *AccessList, address: Address.Address, slots
 
 /// Initialize transaction access list with pre-warmed addresses
 /// According to EIP-2929, tx.origin and block.coinbase are always pre-warmed
-pub fn init_transaction(self: *AccessList, tx_origin: Address.Address, coinbase: Address.Address, to: ?Address.Address) InitTransactionError!void {
+pub fn init_transaction(self: *AccessList, tx_origin: Address.Address, coinbase: Address.Address, to: ?Address.Address) std.mem.Allocator.Error!void {
     // Clear previous transaction data
     self.clear();
     
@@ -117,7 +118,7 @@ pub fn init_transaction(self: *AccessList, tx_origin: Address.Address, coinbase:
 
 /// Get the extra gas cost for accessing an address (for CALL operations)
 /// Returns 0 if warm, COLD_CALL_EXTRA_COST if cold
-pub fn get_call_cost(self: *AccessList, address: Address.Address) GetCallCostError!u64 {
+pub fn get_call_cost(self: *AccessList, address: Address.Address) std.mem.Allocator.Error!u64 {
     const result = try self.addresses.getOrPut(address);
     if (result.found_existing) return 0;
     return COLD_CALL_EXTRA_COST;

@@ -258,7 +258,7 @@ test "DUP11-DUP16: High-range duplications" {
     _ = try helpers.executeOpcode(0x8E, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x600);
 
-    // Execute DUP16 - position 16 from top  
+    // Execute DUP16 - position 16 from top
     test_frame.frame.pc = 5;
     _ = try helpers.executeOpcode(0x8F, test_vm.vm, test_frame.frame);
     // Stack now has 21 items. Position 16 from top should be one of the original values
@@ -525,7 +525,7 @@ test "DUP operations: Pattern verification" {
     std.debug.print("\nBefore DUP5, stack size={}, looking for 5th from top:\n", .{test_frame.frame.stack.size});
     for (0..@min(10, test_frame.frame.stack.size)) |i| {
         const idx = test_frame.frame.stack.size - 1 - i;
-        std.debug.print("  Position {} from top (index {}): 0x{x}\n", .{i + 1, idx, test_frame.frame.stack.data[idx]});
+        std.debug.print("  Position {} from top (index {}): 0x{x}\n", .{ i + 1, idx, test_frame.frame.stack.data[idx] });
     }
     _ = try helpers.executeOpcode(0x84, test_vm.vm, test_frame.frame);
     std.debug.print("After DUP5, top of stack: 0x{x}\n", .{try test_frame.frame.stack.peek()});

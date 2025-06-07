@@ -497,7 +497,7 @@ test "SSTORE: Overwriting values" {
 
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 30000);
         defer test_frame.deinit();
-        
+
         try test_frame.pushStack(&[_]u256{value}); // value
         try test_frame.pushStack(&[_]u256{slot}); // slot
         _ = try helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);

@@ -42,10 +42,6 @@ const Self = @This();
 /// Current opcode being executed (for debugging/tracing).
 op: []const u8 = undefined,
 
-/// Program counter position in bytecode.
-/// @deprecated Use program_counter instead
-pc: usize = 0,
-
 /// Gas cost of current operation.
 cost: u64 = 0,
 
@@ -63,10 +59,6 @@ stack: Stack,
 /// Contract being executed in this frame.
 /// Contains code, address, and contract metadata.
 contract: *Contract,
-
-/// Data returned from last call (for RETURNDATASIZE/COPY).
-/// @deprecated Use return_data_buffer instead
-return_data: ?[]u8 = null,
 
 /// Allocator for dynamic memory allocations.
 allocator: std.mem.Allocator,
@@ -101,7 +93,7 @@ output: []const u8 = &[_]u8{},
 
 /// Current position in contract bytecode.
 /// Incremented by opcode size, modified by JUMP/JUMPI.
-program_counter: usize = 0,
+pc: usize = 0,
 
 /// Create a new execution frame with default settings.
 ///
@@ -138,12 +130,10 @@ pub fn init(allocator: std.mem.Allocator, contract: *Contract) std.mem.Allocator
 /// @param allocator Memory allocator
 /// @param contract Contract to execute
 /// @param op Current opcode (optional)
-/// @param pc Program counter (optional, deprecated)
 /// @param cost Gas cost of current op (optional)
 /// @param err Existing error state (optional)
 /// @param memory Pre-initialized memory (optional)
 /// @param stack Pre-initialized stack (optional)
-/// @param return_data Return data buffer (optional, deprecated)
 /// @param stop Halt flag (optional)
 /// @param gas_remaining Available gas (optional)
 /// @param is_static Static call flag (optional)
@@ -151,7 +141,7 @@ pub fn init(allocator: std.mem.Allocator, contract: *Contract) std.mem.Allocator
 /// @param input Call data (optional)
 /// @param depth Call stack depth (optional)
 /// @param output Output buffer (optional)
-/// @param program_counter Current PC (optional)
+/// @param pc Current PC (optional)
 /// @return Configured frame instance
 /// @throws OutOfMemory if memory initialization fails
 ///
@@ -168,12 +158,10 @@ pub fn init_with_state(
     allocator: std.mem.Allocator,
     contract: *Contract,
     op: ?[]const u8,
-    pc: ?usize,
     cost: ?u64,
     err: ?ExecutionError.Error,
     memory: ?Memory,
     stack: ?Stack,
-    return_data: ?[]u8,
     stop: ?bool,
     gas_remaining: ?u64,
     is_static: ?bool,
@@ -181,7 +169,7 @@ pub fn init_with_state(
     input: ?[]const u8,
     depth: ?u32,
     output: ?[]const u8,
-    program_counter: ?usize,
+    pc: ?usize,
 ) std.mem.Allocator.Error!Self {
     return Self{
         .allocator = allocator,
@@ -189,10 +177,8 @@ pub fn init_with_state(
         .memory = memory orelse try Memory.init_default(allocator),
         .stack = stack orelse .{},
         .op = op orelse undefined,
-        .pc = pc orelse 0,
         .cost = cost orelse 0,
         .err = err,
-        .return_data = return_data,
         .stop = stop orelse false,
         .gas_remaining = gas_remaining orelse 0,
         .is_static = is_static orelse false,
@@ -200,7 +186,7 @@ pub fn init_with_state(
         .input = input orelse &[_]u8{},
         .depth = depth orelse 0,
         .output = output orelse &[_]u8{},
-        .program_counter = program_counter orelse 0,
+        .pc = pc orelse 0,
     };
 }
 
@@ -233,7 +219,7 @@ pub const ConsumeGasError = error{
 /// ```zig
 /// // Charge gas for operation
 /// try frame.consume_gas(operation.constant_gas);
-/// 
+///
 /// // Charge dynamic gas
 /// const memory_cost = calculate_memory_gas(size);
 /// try frame.consume_gas(memory_cost);
