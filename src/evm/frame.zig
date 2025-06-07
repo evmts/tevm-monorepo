@@ -42,9 +42,6 @@ const Self = @This();
 /// Current opcode being executed (for debugging/tracing).
 op: []const u8 = undefined,
 
-/// Program counter position in bytecode.
-/// @deprecated Use program_counter instead
-pc: usize = 0,
 
 /// Gas cost of current operation.
 cost: u64 = 0,
@@ -64,9 +61,6 @@ stack: Stack,
 /// Contains code, address, and contract metadata.
 contract: *Contract,
 
-/// Data returned from last call (for RETURNDATASIZE/COPY).
-/// @deprecated Use return_data_buffer instead
-return_data: ?[]u8 = null,
 
 /// Allocator for dynamic memory allocations.
 allocator: std.mem.Allocator,
@@ -138,12 +132,10 @@ pub fn init(allocator: std.mem.Allocator, contract: *Contract) std.mem.Allocator
 /// @param allocator Memory allocator
 /// @param contract Contract to execute
 /// @param op Current opcode (optional)
-/// @param pc Program counter (optional, deprecated)
 /// @param cost Gas cost of current op (optional)
 /// @param err Existing error state (optional)
 /// @param memory Pre-initialized memory (optional)
 /// @param stack Pre-initialized stack (optional)
-/// @param return_data Return data buffer (optional, deprecated)
 /// @param stop Halt flag (optional)
 /// @param gas_remaining Available gas (optional)
 /// @param is_static Static call flag (optional)
@@ -168,12 +160,10 @@ pub fn init_with_state(
     allocator: std.mem.Allocator,
     contract: *Contract,
     op: ?[]const u8,
-    pc: ?usize,
     cost: ?u64,
     err: ?ExecutionError.Error,
     memory: ?Memory,
     stack: ?Stack,
-    return_data: ?[]u8,
     stop: ?bool,
     gas_remaining: ?u64,
     is_static: ?bool,
@@ -189,10 +179,8 @@ pub fn init_with_state(
         .memory = memory orelse try Memory.init_default(allocator),
         .stack = stack orelse .{},
         .op = op orelse undefined,
-        .pc = pc orelse 0,
         .cost = cost orelse 0,
         .err = err,
-        .return_data = return_data,
         .stop = stop orelse false,
         .gas_remaining = gas_remaining orelse 0,
         .is_static = is_static orelse false,

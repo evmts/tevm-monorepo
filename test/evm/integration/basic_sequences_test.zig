@@ -143,7 +143,7 @@ test "Integration: conditional branching" {
     try testing.expectEqual(@as(?usize, 10), result1.jump_dest);
     
     // Test 2: Jump not taken (condition false)
-    frame.frame.pc = 0; // Reset PC
+    frame.frame.program_counter = 0; // Reset PC
     try frame.pushValue(200);
     try frame.pushValue(100);
     

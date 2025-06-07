@@ -257,12 +257,12 @@ test "PUSH1 (0x60): Push 1 byte onto stack" {
     const expected_values = [_]u256{ 0x42, 0xFF, 0x00, 0x7F };
 
     for (expected_values) |expected| {
-        const pc = test_frame.frame.pc;
+        const pc = test_frame.frame.program_counter;
         const result = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame);
 
         // Check that 2 bytes were consumed (opcode + data)
         try testing.expectEqual(@as(usize, 2), result.bytes_consumed);
-        test_frame.frame.pc = pc + 2;
+        test_frame.frame.program_counter = pc + 2;
 
         try helpers.expectStackValue(test_frame.frame, 0, expected);
         _ = try test_frame.popStack();
@@ -296,12 +296,12 @@ test "PUSH2 (0x61): Push 2 bytes onto stack" {
     const expected_values = [_]u256{ 0x1234, 0xFFFF, 0x0000, 0xABCD };
 
     for (expected_values) |expected| {
-        const pc = test_frame.frame.pc;
+        const pc = test_frame.frame.program_counter;
         const result = try helpers.executeOpcode(0x61, test_vm.vm, test_frame.frame);
 
         // Check that 3 bytes were consumed (opcode + 2 data bytes)
         try testing.expectEqual(@as(usize, 3), result.bytes_consumed);
-        test_frame.frame.pc = pc + 3;
+        test_frame.frame.program_counter = pc + 3;
 
         try helpers.expectStackValue(test_frame.frame, 0, expected);
         _ = try test_frame.popStack();
@@ -335,12 +335,12 @@ test "PUSH3 (0x62): Push 3 bytes onto stack" {
     const expected_values = [_]u256{ 0x123456, 0xFFFFFF, 0x000000, 0xABCDEF };
 
     for (expected_values) |expected| {
-        const pc = test_frame.frame.pc;
+        const pc = test_frame.frame.program_counter;
         const result = try helpers.executeOpcode(0x62, test_vm.vm, test_frame.frame);
 
         // Check that 4 bytes were consumed (opcode + 3 data bytes)
         try testing.expectEqual(@as(usize, 4), result.bytes_consumed);
-        test_frame.frame.pc = pc + 4;
+        test_frame.frame.program_counter = pc + 4;
 
         try helpers.expectStackValue(test_frame.frame, 0, expected);
         _ = try test_frame.popStack();
@@ -411,7 +411,7 @@ test "Transient storage and memory opcodes: Gas consumption" {
 
     // Test PUSH1 gas
     test_frame.frame.stack.clear();
-    test_frame.frame.pc = 0;
+    test_frame.frame.program_counter = 0;
     gas_before = test_frame.frame.gas_remaining;
     _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame);
     gas_used = gas_before - test_frame.frame.gas_remaining;
@@ -514,7 +514,7 @@ test "PUSH operations: Boundary conditions" {
     try testing.expectEqual(@as(usize, 2), result1.bytes_consumed);
     try helpers.expectStackValue(test_frame.frame, 0, 0x42);
     _ = try test_frame.popStack();
-    test_frame.frame.pc = 2;
+    test_frame.frame.program_counter = 2;
 
     // Second PUSH2 should pad with zeros
     const result2 = try helpers.executeOpcode(0x61, test_vm.vm, test_frame.frame);

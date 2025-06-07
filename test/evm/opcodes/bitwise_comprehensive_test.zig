@@ -366,11 +366,11 @@ test "NOT: Double NOT returns original" {
     try test_frame.pushStack(&[_]u256{original});
     
     // First NOT
-    test_frame.frame.pc = 0;
+    test_frame.frame.program_counter = 0;
     _ = try helpers.executeOpcode(0x19, test_vm.vm, test_frame.frame);
     
     // Second NOT
-    test_frame.frame.pc = 1;
+    test_frame.frame.program_counter = 1;
     _ = try helpers.executeOpcode(0x19, test_vm.vm, test_frame.frame);
     
     const value = try test_frame.popStack();

@@ -260,69 +260,69 @@ test "Integration: Complex control flow with nested conditions" {
     
     // Push 150
     _ = try helpers.executeOpcodeAt(0x60, 0, test_vm.vm, test_frame.frame);
-    test_frame.frame.pc = 2;
+    test_frame.frame.program_counter = 2;
     
     // DUP1
     _ = try helpers.executeOpcode(0x80, test_vm.vm, test_frame.frame);
-    test_frame.frame.pc = 3;
+    test_frame.frame.program_counter = 3;
     
     // Push 100
     _ = try helpers.executeOpcodeAt(0x60, 3, test_vm.vm, test_frame.frame);
-    test_frame.frame.pc = 5;
+    test_frame.frame.program_counter = 5;
     
     // LT
     _ = try helpers.executeOpcode(0x10, test_vm.vm, test_frame.frame);
-    test_frame.frame.pc = 6;
+    test_frame.frame.program_counter = 6;
     
     // ISZERO
     _ = try helpers.executeOpcode(0x15, test_vm.vm, test_frame.frame);
-    test_frame.frame.pc = 7;
+    test_frame.frame.program_counter = 7;
     
     // Push jump destination
     _ = try helpers.executeOpcodeAt(0x60, 7, test_vm.vm, test_frame.frame);
-    test_frame.frame.pc = 9;
+    test_frame.frame.program_counter = 9;
     
     // JUMPI (should jump to 14)
     _ = try helpers.executeOpcode(0x57, test_vm.vm, test_frame.frame);
-    try testing.expectEqual(@as(usize, 14), test_frame.frame.pc);
+    try testing.expectEqual(@as(usize, 14), test_frame.frame.program_counter);
     
     // Continue execution from JUMPDEST at 14
-    test_frame.frame.pc = 15; // Skip JUMPDEST
+    test_frame.frame.program_counter = 15; // Skip JUMPDEST
     
     // DUP1
     _ = try helpers.executeOpcode(0x80, test_vm.vm, test_frame.frame);
-    test_frame.frame.pc = 16;
+    test_frame.frame.program_counter = 16;
     
     // Push 200
     _ = try helpers.executeOpcodeAt(0x60, 16, test_vm.vm, test_frame.frame);
-    test_frame.frame.pc = 18;
+    test_frame.frame.program_counter = 18;
     
     // GT
     _ = try helpers.executeOpcode(0x11, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0); // 150 > 200 is false
-    test_frame.frame.pc = 19;
+    test_frame.frame.program_counter = 19;
     
     // Push jump destination
     _ = try helpers.executeOpcodeAt(0x60, 19, test_vm.vm, test_frame.frame);
-    test_frame.frame.pc = 21;
+    test_frame.frame.program_counter = 21;
     
     // JUMPI (should not jump)
     _ = try helpers.executeOpcode(0x57, test_vm.vm, test_frame.frame);
-    try testing.expectEqual(@as(usize, 21), test_frame.frame.pc); // No jump
+    try testing.expectEqual(@as(usize, 21), test_frame.frame.program_counter); // No jump
     
     // Continue with multiplication
-    test_frame.frame.pc = 22;
+    test_frame.frame.program_counter = 22;
     
     // Push 2
     _ = try helpers.executeOpcodeAt(0x60, 22, test_vm.vm, test_frame.frame);
-    test_frame.frame.pc = 24;
+    test_frame.frame.program_counter = 24;
     
     // MUL
     _ = try helpers.executeOpcode(0x02, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 300); // 150 * 2
     
     // Store result
-    test_frame.frame.pc = 25;
+    test_frame.frame.program_counter = 25;
     try test_frame.pushStack(&[_]u256{0}); // offset
     _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
     
