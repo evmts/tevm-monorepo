@@ -11,8 +11,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/evmts/tevm-monorepo/actions/workflows/nx.yml">
-    <img src="https://github.com/evmts/tevm-monorepo/actions/workflows/nx.yml/badge.svg" alt="CI Status" />
+  <a href="https://github.com/evmts/tevm-monorepo/actions/workflows/ci.yml">
+    <img src="https://github.com/evmts/tevm-monorepo/actions/workflows/ci.yml/badge.svg" alt="CI Status" />
   </a>
   <a href="https://www.npmjs.com/package/tevm">
     <img src="https://img.shields.io/npm/v/tevm" alt="NPM Version" />
