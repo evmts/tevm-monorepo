@@ -20,7 +20,7 @@ const EvmState = @import("evm_state.zig");
 const StorageKey = @import("storage_key.zig");
 const CreateResult = @import("create_result.zig");
 const CallResult = @import("call_result.zig");
-const RunResult = @import("run_result.zig");
+pub const RunResult = @import("run_result.zig");
 const Hardfork = @import("hardfork.zig").Hardfork;
 
 /// Virtual Machine for executing Ethereum bytecode.
@@ -246,6 +246,7 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
         const actual_refund = @min(contract.gas_refund, max_refund);
         final_gas_remaining = frame.gas_remaining + actual_refund;
     }
+    
     return RunResult.init(
         initial_gas,
         final_gas_remaining,
@@ -427,77 +428,6 @@ pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init
     // address = keccak256(0xff ++ sender ++ salt ++ keccak256(init_code))[12:]
     const new_address = try Address.calculate_create2_address(self.allocator, creator, salt, init_code);
     return self.create_contract_internal(creator, value, init_code, gas, new_address);
-    hasher.update(init_code);
-    var code_hash: [32]u8 = undefined;
-    hasher.final(&code_hash);
-
-    var init_contract = Contract.init(
-        creator, // caller (who is creating this contract)
-        new_address, // address (the new contract's address)
-        value, // value being sent to this contract
-        gas, // gas available for init code execution
-        init_code, // the init code to execute
-        code_hash, // hash of the init code
-        &[_]u8{}, // no input data for init code
-        false, // not static
-    );
-    defer init_contract.deinit(self.allocator, null);
-
-    // Execute the init code - this should return the deployment bytecode
-    const init_result = self.interpret_with_context(&init_contract, &[_]u8{}, false) catch |err| {
-        if (err == ExecutionError.Error.REVERT) {
-            // On revert, we should still consume gas but not all
-            return CreateResult{
-                .success = false,
-                .address = Address.zero(),
-                .gas_left = init_contract.gas,
-                .output = null,
-            };
-        }
-
-        // Most initcode failures should return 0 address and consume all gas
-        return CreateResult{
-            .success = false,
-            .address = Address.zero(),
-            .gas_left = 0, // Consume all gas on failure
-            .output = null,
-        };
-    };
-
-    // Get the output from the RunResult
-    const deployment_code = init_result.output orelse &[_]u8{};
-
-    // Check EIP-170 MAX_CODE_SIZE limit on the returned bytecode (24,576 bytes)
-    if (deployment_code.len > constants.MAX_CODE_SIZE) {
-        return CreateResult{
-            .success = false,
-            .address = Address.zero(),
-            .gas_left = 0, // Consume all gas on failure
-            .output = null,
-        };
-    }
-
-    const deploy_code_gas = @as(u64, @intCast(deployment_code.len)) * constants.DEPLOY_CODE_GAS_PER_BYTE;
-
-    if (deploy_code_gas > init_result.gas_left) {
-        return CreateResult{
-            .success = false,
-            .address = Address.zero(),
-            .gas_left = 0,
-            .output = null,
-        };
-    }
-
-    try self.state.set_code(new_address, deployment_code);
-
-    const gas_left = init_result.gas_left - deploy_code_gas;
-
-    return CreateResult{
-        .success = true,
-        .address = new_address,
-        .gas_left = gas_left,
-        .output = deployment_code,
-    };
 }
 
 pub const CallcodeContractError = std.mem.Allocator.Error;

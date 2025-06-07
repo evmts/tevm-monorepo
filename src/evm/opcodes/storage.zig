@@ -3,6 +3,7 @@ const Operation = @import("../operation.zig");
 const ExecutionError = @import("../execution_error.zig");
 const Stack = @import("../stack.zig");
 const Frame = @import("../frame.zig");
+const Contract = @import("../contract.zig");
 const Vm = @import("../vm.zig");
 const gas_constants = @import("../gas_constants.zig");
 const error_mapping = @import("../error_mapping.zig");
@@ -52,7 +53,6 @@ pub fn op_sload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     const slot = frame.stack.peek_unsafe().*;
 
     if (vm.chain_rules.IsBerlin) {
-        const Contract = @import("../contract.zig");
         const is_cold = frame.contract.mark_storage_slot_warm(frame.allocator, slot, null) catch |err| switch (err) {
             Contract.MarkStorageSlotWarmError.OutOfAllocatorMemory => {
                 return ExecutionError.Error.OutOfMemory;
@@ -97,7 +97,6 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     // Get the original value at transaction start for EIP-2200 refunds
     const original_value = try vm.state.get_original_storage(frame.contract.address, slot);
 
-    const Contract = @import("../contract.zig");
     const is_cold = frame.contract.mark_storage_slot_warm(frame.allocator, slot, null) catch |err| switch (err) {
         Contract.MarkStorageSlotWarmError.OutOfAllocatorMemory => {
             Log.err("SSTORE: mark_storage_slot_warm failed: {}", .{err});
@@ -142,7 +141,7 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 /// - `current`: Value before this SSTORE
 /// - `new`: Value being set
 /// - `rules`: Chain rules to determine refund amounts
-fn apply_sstore_refund(contract: *Frame.Contract, original: u256, current: u256, new: u256, rules: ChainRules) void {
+fn apply_sstore_refund(contract: *Contract, original: u256, current: u256, new: u256, rules: ChainRules) void {
     // Determine refund amount based on hardfork
     const refund_amount = if (rules.IsLondon) SSTORE_CLEARS_REFUND else SSTORE_CLEARS_REFUND_PRE_LONDON;
     
