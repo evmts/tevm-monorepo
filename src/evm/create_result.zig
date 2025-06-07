@@ -93,7 +93,7 @@ gas_left: u64,
 /// - Size must be ≤ 24,576 bytes (MAX_CODE_SIZE)
 /// - Empty output creates a contract with no code
 ///
-/// ## Failure Case  
+/// ## Failure Case
 /// - Contains revert reason if REVERT was used
 /// - `null` for out-of-gas or invalid operations
 /// - Useful for debugging deployment failures
@@ -115,3 +115,12 @@ gas_left: u64,
 /// }
 /// ```
 output: ?[]const u8,
+
+pub fn initFailure(gas_left: u64, output: ?[]const u8) Self {
+    return Self{
+        .success = false,
+        .address = Address.zero(),
+        .gas_left = gas_left,
+        .output = output,
+    };
+}

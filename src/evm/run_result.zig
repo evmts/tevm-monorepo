@@ -49,16 +49,17 @@ const Self = @This();
 /// - Revert: Explicit revert (REVERT opcode)
 /// - Invalid: Execution error (invalid opcode, stack error, etc.)
 /// - OutOfGas: Gas exhausted during execution
-status: enum { 
+pub const Status = enum {
     /// Execution completed successfully
-    Success, 
+    Success,
     /// Execution was explicitly reverted
-    Revert, 
+    Revert,
     /// Execution failed due to invalid operation
-    Invalid, 
+    Invalid,
     /// Execution ran out of gas
-    OutOfGas 
-},
+    OutOfGas,
+};
+status: Status,
 
 /// Optional execution error details.
 ///
@@ -91,3 +92,19 @@ gas_used: u64,
 /// Note: Empty output is different from null output.
 /// Empty means explicit empty return, null means no return.
 output: ?[]const u8,
+
+pub fn init(
+    initial_gas: u64,
+    gas_left: u64,
+    status: Status,
+    err: ?ExecutionError.Error,
+    output: ?[]const u8,
+) Self {
+    return Self{
+        .status = status,
+        .err = err,
+        .gas_left = gas_left,
+        .gas_used = initial_gas - gas_left,
+        .output = output,
+    };
+}

@@ -293,37 +293,15 @@ pub fn init_from_hardfork(hardfork: Hardfork) Self {
     @setEvalBranchQuota(10000);
     var jt = Self.init();
 
-    // Apply operations in chronological order from FRONTIER to target hardfork
-    // This ensures later hardforks properly override earlier ones
-    const hardforks = [_]Hardfork{
-        .FRONTIER,
-        .HOMESTEAD,
-        .TANGERINE_WHISTLE,
-        .SPURIOUS_DRAGON,
-        .BYZANTIUM,
-        .CONSTANTINOPLE,
-        .PETERSBURG,
-        .ISTANBUL,
-        .BERLIN,
-        .LONDON,
-        .MERGE,
-        .SHANGHAI,
-        .CANCUN,
-    };
-
-    // Apply operations for each hardfork up to and including the target
-    inline for (hardforks) |hf| {
-        if (@intFromEnum(hf) > @intFromEnum(hardfork)) break;
-
-        // Load operations introduced in this hardfork
-        inline for (operation_specs.ALL_OPERATIONS) |spec| {
-            const op_hardfork = get_operation_hardfork(spec.variant);
-            if (op_hardfork == hf) {
-                const op = struct {
-                    pub const operation = operation_specs.generate_operation(spec);
-                };
-                jt.table[spec.opcode] = &op.operation;
-            }
+    // With ALL_OPERATIONS sorted by hardfork, we can iterate once.
+    // Each opcode will be set to the latest active version for the target hardfork.
+    inline for (operation_specs.ALL_OPERATIONS) |spec| {
+        const op_hardfork = get_operation_hardfork(spec.variant);
+        if (@intFromEnum(op_hardfork) <= @intFromEnum(hardfork)) {
+            const op = struct {
+                pub const operation = operation_specs.generate_operation(spec);
+            };
+            jt.table[spec.opcode] = &op.operation;
         }
     }
 
