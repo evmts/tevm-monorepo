@@ -26,9 +26,7 @@ export fn free(ptr: [*]u8, len: usize) void {
 
 // Initialize the EVM
 export fn evmInit() i32 {
-    if (global_vm != null) {
-        return -1; // Already initialized
-    }
+    if (global_vm != null) return -1; // Already initialized
 
     // Initialize VM
     const vm = evm.Vm.init(gpa) catch return -2;
@@ -58,32 +56,32 @@ export fn evmCall(
     output_max_len: usize,
 ) i32 {
     const vm = global_vm orelse return -1;
-    
+
     const bytecode = bytecode_ptr[0..bytecode_len];
-    
+
     // Execute the bytecode
     const result = vm.run(bytecode, Address.zero(), gas_limit, null) catch {
         return -2;
     };
-    
+
     // Get output data
     const output_data = result.output orelse &[_]u8{};
-    
+
     // Check if output fits in buffer
     if (output_data.len + 8 > output_max_len) {
         return -3; // Output too large
     }
-    
+
     // Write output length as first 8 bytes (little-endian)
     const output_len: u64 = @intCast(output_data.len);
     const output_len_bytes = std.mem.asBytes(&output_len);
     @memcpy(output_ptr[0..8], output_len_bytes);
-    
+
     // Write output data after length
     if (output_data.len > 0) {
-        @memcpy(output_ptr[8..8 + output_data.len], output_data);
+        @memcpy(output_ptr[8 .. 8 + output_data.len], output_data);
     }
-    
+
     return if (result.status == .Success) 0 else -4;
 }
 

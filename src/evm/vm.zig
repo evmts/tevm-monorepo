@@ -3,7 +3,7 @@ const Contract = @import("contract.zig");
 const Stack = @import("stack.zig");
 const JumpTable = @import("jump_table.zig");
 const Frame = @import("frame.zig");
-const Operation = @import("operation.zig");
+const Operation = @import("operations/operation.zig");
 const Address = @import("Address");
 const StoragePool = @import("storage_pool.zig");
 const AccessList = @import("access_list.zig");
@@ -51,16 +51,25 @@ depth: u16 = 0,
 /// Whether the current context is read-only (STATICCALL)
 read_only: bool = false,
 
-/// Initialize VM with the default hardfork.
-/// Allocates and configures all VM components for the latest protocol version.
-pub fn init(allocator: std.mem.Allocator) std.mem.Allocator.Error!Self {
-    return try init_with_hardfork(allocator, Hardfork.DEFAULT);
-}
-
-/// Initialize VM with a specific hardfork.
-/// Use this for testing historical protocol versions or specific network configurations.
-/// The hardfork parameter determines which opcodes are available and their gas costs.
-pub fn init_with_hardfork(allocator: std.mem.Allocator, hardfork: Hardfork) std.mem.Allocator.Error!Self {
+/// Initialize VM with a jump table and corresponding chain rules.
+/// 
+/// @param allocator Memory allocator for VM operations
+/// @param jump_table Optional jump table. If null, uses JumpTable.DEFAULT (latest hardfork)
+/// @param chain_rules Optional chain rules. If null, uses ChainRules.DEFAULT (latest hardfork)
+/// @return Initialized VM instance
+///
+/// Example with custom jump table and rules:
+/// ```zig
+/// const my_table = comptime JumpTable.init_from_hardfork(.BERLIN);
+/// const my_rules = ChainRules.for_hardfork(.BERLIN);
+/// var vm = try VM.init(allocator, &my_table, &my_rules);
+/// ```
+///
+/// Example with default (latest):
+/// ```zig
+/// var vm = try VM.init(allocator, null, null);
+/// ```
+pub fn init(allocator: std.mem.Allocator, jump_table: ?*const JumpTable, chain_rules: ?*const ChainRules) std.mem.Allocator.Error!Self {
     var state = try EvmState.init(allocator);
     errdefer state.deinit();
 
@@ -69,12 +78,21 @@ pub fn init_with_hardfork(allocator: std.mem.Allocator, hardfork: Hardfork) std.
 
     return Self{
         .allocator = allocator,
-        .table = JumpTable.init_from_hardfork(hardfork),
-        .chain_rules = ChainRules.for_hardfork(hardfork),
+        .table = (jump_table orelse &JumpTable.DEFAULT).*,
+        .chain_rules = (chain_rules orelse &ChainRules.DEFAULT).*,
         .state = state,
         .context = Context.init(),
         .access_list = access_list,
     };
+}
+
+/// Initialize VM with a specific hardfork.
+/// Convenience function that creates the jump table at runtime.
+/// For production use, consider pre-generating the jump table at compile time.
+pub fn init_with_hardfork(allocator: std.mem.Allocator, hardfork: Hardfork) std.mem.Allocator.Error!Self {
+    const table = JumpTable.init_from_hardfork(hardfork);
+    const rules = ChainRules.for_hardfork(hardfork);
+    return init(allocator, &table, &rules);
 }
 
 /// Free all VM resources.
@@ -656,9 +674,7 @@ pub const ValidateStaticContextError = error{WriteProtection};
 /// Validate that state modifications are allowed in the current context.
 /// Returns WriteProtection error if called within a static (read-only) context.
 pub fn validate_static_context(self: *const Self) ValidateStaticContextError!void {
-    if (self.read_only) {
-        return error.WriteProtection;
-    }
+    if (self.read_only) return error.WriteProtection;
 }
 
 pub const SetStorageProtectedError = ValidateStaticContextError || std.mem.Allocator.Error;
@@ -729,9 +745,7 @@ pub const ValidateValueTransferError = error{WriteProtection};
 /// Validate that value transfer is allowed in the current context.
 /// Static calls cannot transfer value (msg.value must be 0).
 pub fn validate_value_transfer(self: *const Self, value: u256) ValidateValueTransferError!void {
-    if (self.read_only and value != 0) {
-        return error.WriteProtection;
-    }
+    if (self.read_only and value != 0) return error.WriteProtection;
 }
 
 pub const SelfdestructProtectedError = ValidateStaticContextError;

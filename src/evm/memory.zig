@@ -70,9 +70,7 @@ pub fn deinit(self: *Self) void {
 
 /// Creates a new child Memory context.
 pub fn new_child_context(self: *Self) MemoryError!Self {
-    if (self.child_active_checkpoint != null) {
-        return MemoryError.ChildContextActive;
-    }
+    if (self.child_active_checkpoint != null) return MemoryError.ChildContextActive;
     const new_checkpoint = self.root_ptr.shared_buffer.items.len;
     self.child_active_checkpoint = new_checkpoint;
 
@@ -106,9 +104,7 @@ pub fn revert_child_context(self: *Self) MemoryError!void {
 /// Commits memory changes made by the most recent child context.
 /// Essentially makes the current shared_buffer length the new baseline.
 pub fn commit_child_context(self: *Self) MemoryError!void {
-    if (self.child_active_checkpoint == null) {
-        return MemoryError.NoChildContextToRevertOrCommit;
-    }
+    if (self.child_active_checkpoint == null) return MemoryError.NoChildContextToRevertOrCommit;
     // Committing means the current length of the shared buffer is accepted.
     // We just clear the checkpoint, so the new length persists.
     self.child_active_checkpoint = null;
@@ -155,9 +151,7 @@ pub fn resize_context(self: *Self, new_context_size: usize) MemoryError!void {
     // @setCold(true); // Not available in Zig 0.14.0
     const new_total_len = self.my_checkpoint + new_context_size;
 
-    if (new_total_len > self.memory_limit) {
-        return MemoryError.MemoryLimitExceeded;
-    }
+    if (new_total_len > self.memory_limit) return MemoryError.MemoryLimitExceeded;
 
     const root = self.root_ptr;
     const old_total_len = root.shared_buffer.items.len;
@@ -188,9 +182,7 @@ pub fn resize_context(self: *Self, new_context_size: usize) MemoryError!void {
         if (new_capacity > self.memory_limit and self.memory_limit <= std.math.maxInt(usize)) {
             new_capacity = @intCast(self.memory_limit);
         }
-        if (new_total_len > new_capacity) {
-            return MemoryError.MemoryLimitExceeded;
-        }
+        if (new_total_len > new_capacity) return MemoryError.MemoryLimitExceeded;
         try root.shared_buffer.ensureTotalCapacity(new_capacity);
     }
 
@@ -211,9 +203,7 @@ pub fn resize_context_word_aligned(self: *Self, min_logical_context_size: usize)
 /// This is crucial for EVM gas calculation.
 pub fn ensure_context_capacity(self: *Self, min_context_size: usize) MemoryError!u64 {
     const required_total_len = self.my_checkpoint + min_context_size;
-    if (required_total_len > self.memory_limit) {
-        return MemoryError.MemoryLimitExceeded;
-    }
+    if (required_total_len > self.memory_limit) return MemoryError.MemoryLimitExceeded;
 
     const root = self.root_ptr;
     const old_total_buffer_len = root.shared_buffer.items.len;
@@ -230,20 +220,14 @@ pub fn ensure_context_capacity(self: *Self, min_context_size: usize) MemoryError
     const new_total_buffer_len = root.shared_buffer.items.len;
     const new_total_words = calculate_num_words(new_total_buffer_len);
 
-    if (new_total_words > old_total_words) {
-        return new_total_words - old_total_words;
-    } else {
-        return 0;
-    }
+    if (new_total_words > old_total_words) return new_total_words - old_total_words else return 0;
 }
 
 // Data Access Functions
 
 /// Read a single byte at context-relative offset.
 pub fn get_byte(self: *const Self, relative_offset: usize) MemoryError!u8 {
-    if (relative_offset >= self.context_size()) {
-        return MemoryError.InvalidOffset;
-    }
+    if (relative_offset >= self.context_size()) return MemoryError.InvalidOffset;
     const abs_offset = self.my_checkpoint + relative_offset;
     return self.root_ptr.shared_buffer.items[abs_offset];
 }
@@ -259,9 +243,7 @@ pub fn set_byte(self: *Self, relative_offset: usize, value: u8) MemoryError!void
 
 /// Read 32 bytes (word) at context-relative offset.
 pub fn get_word(self: *const Self, relative_offset: usize) MemoryError![32]u8 {
-    if (relative_offset + 32 > self.context_size()) {
-        return MemoryError.InvalidOffset;
-    }
+    if (relative_offset + 32 > self.context_size()) return MemoryError.InvalidOffset;
     var word: [32]u8 = undefined;
     const abs_offset = self.my_checkpoint + relative_offset;
     @memcpy(&word, self.root_ptr.shared_buffer.items[abs_offset .. abs_offset + 32]);
@@ -306,13 +288,9 @@ pub fn set_u256(self: *Self, relative_offset: usize, value: u256) MemoryError!vo
 
 /// Read arbitrary slice of memory at context-relative offset.
 pub fn get_slice(self: *const Self, relative_offset: usize, len: usize) MemoryError![]const u8 {
-    if (len == 0) {
-        return &[_]u8{};
-    }
+    if (len == 0) return &[_]u8{};
     const end = std.math.add(usize, relative_offset, len) catch return MemoryError.InvalidSize;
-    if (end > self.context_size()) {
-        return MemoryError.InvalidOffset;
-    }
+    if (end > self.context_size()) return MemoryError.InvalidOffset;
     const abs_offset = self.my_checkpoint + relative_offset;
     const abs_end = abs_offset + len;
     return self.root_ptr.shared_buffer.items[abs_offset..abs_end];
@@ -320,9 +298,7 @@ pub fn get_slice(self: *const Self, relative_offset: usize, len: usize) MemoryEr
 
 /// Write arbitrary data at context-relative offset.
 pub fn set_data(self: *Self, relative_offset: usize, data: []const u8) MemoryError!void {
-    if (data.len == 0) {
-        return;
-    }
+    if (data.len == 0) return;
 
     const end = std.math.add(usize, relative_offset, data.len) catch return MemoryError.InvalidSize;
     _ = try self.ensure_context_capacity(end);
@@ -340,9 +316,7 @@ pub fn set_data_bounded(
     data_offset: usize,
     len: usize,
 ) MemoryError!void {
-    if (len == 0) {
-        return;
-    }
+    if (len == 0) return;
 
     const end = std.math.add(usize, relative_memory_offset, len) catch return MemoryError.InvalidSize;
     _ = try self.ensure_context_capacity(end);
@@ -376,9 +350,7 @@ pub fn set_data_bounded(
 
 /// Copy within memory (handles overlapping regions correctly).
 pub fn copy(self: *Self, relative_dest: usize, relative_src: usize, len: usize) MemoryError!void {
-    if (len == 0) {
-        return;
-    }
+    if (len == 0) return;
 
     // Check for integer overflow
     const src_end = std.math.add(usize, relative_src, len) catch return MemoryError.InvalidSize;

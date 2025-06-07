@@ -1,22 +1,86 @@
 const std = @import("std");
 
-/// Stack represents the EVM stack with a maximum capacity of 1024 elements
+/// High-performance EVM stack implementation with fixed capacity.
+///
+/// The Stack is a core component of the EVM execution model, providing a
+/// Last-In-First-Out (LIFO) data structure for 256-bit values. All EVM
+/// computations operate on this stack, making its performance critical.
+///
+/// ## Design Rationale
+/// - Fixed capacity of 1024 elements (per EVM specification)
+/// - 32-byte alignment for optimal memory access on modern CPUs
+/// - Separate safe and unsafe variants of operations for flexibility
+/// - Batched operations for common patterns (pop2_push1, etc.)
+///
+/// ## EVM Stack Model
+/// The EVM uses a stack-based execution model where:
+/// - Most operations pop operands from the stack and push results
+/// - Stack depth is limited to 1024 to prevent DoS attacks
+/// - Stack underflow/overflow are execution errors
+/// - DUP and SWAP operations allow stack manipulation
+///
+/// ## Performance Optimizations
+/// - Aligned memory for SIMD-friendly access patterns
+/// - Unsafe variants skip bounds checking in hot paths
+/// - Batched operations reduce function call overhead
+/// - Specialized variants for common operations (DUP1, SWAP1)
+///
+/// ## Safety Model
+/// All operations have two variants:
+/// - Safe: Returns errors on invalid operations
+/// - Unsafe: Assumes preconditions are met (used after validation)
+///
+/// Example:
+/// ```zig
+/// var stack = Stack{};
+/// try stack.append(100); // Safe variant
+/// stack.append_unsafe(200); // Unsafe variant (faster)
+/// ```
 const Self = @This();
 
+/// Maximum stack capacity as defined by the EVM specification.
+/// This limit prevents stack-based DoS attacks.
 pub const CAPACITY: usize = 1024;
 
+/// Error types for stack operations.
+/// These map directly to EVM execution errors.
 pub const Error = error{
+    /// Stack would exceed 1024 elements
     Overflow,
+    /// Attempted to pop from empty stack
     Underflow,
+    /// Index out of valid range
     OutOfBounds,
+    /// Invalid position for DUP/SWAP (must be 1-16)
     InvalidPosition,
 };
 
-// Array of u256 aligned to 32 byte boundaries for performance reasons
+/// Stack storage aligned to 32-byte boundaries.
+/// Alignment improves performance on modern CPUs by:
+/// - Enabling SIMD operations
+/// - Reducing cache line splits
+/// - Improving memory prefetching
 data: [CAPACITY]u256 align(32) = [_]u256{0} ** CAPACITY,
 
+/// Current number of elements on the stack.
+/// Invariant: 0 <= size <= CAPACITY
 size: usize = 0,
 
+/// Create a new stack from a slice of values.
+///
+/// Useful for testing and initializing stacks with predefined values.
+/// Values are pushed in order, so values[0] will be deepest in stack.
+///
+/// @param values The values to initialize the stack with
+/// @return A new stack containing the values
+/// @throws Overflow if values.len > CAPACITY
+///
+/// Example:
+/// ```zig
+/// const values = [_]u256{10, 20, 30};
+/// const stack = try Stack.from_slice(&values);
+/// // Stack: [10, 20, 30] with 30 on top
+/// ```
 pub inline fn from_slice(values: []const u256) Error!Self {
     var stack = Self{};
     for (values) |value| {
@@ -25,21 +89,52 @@ pub inline fn from_slice(values: []const u256) Error!Self {
     return stack;
 }
 
+/// Push a value onto the stack (safe version).
+///
+/// @param self The stack to push onto
+/// @param value The 256-bit value to push
+/// @throws Overflow if stack is at capacity
+///
+/// Example:
+/// ```zig
+/// try stack.append(0x1234);
+/// ```
 pub inline fn append(self: *Self, value: u256) Error!void {
     if (self.size >= CAPACITY) return Error.Overflow;
     self.data[self.size] = value;
     self.size += 1;
 }
 
+/// Push a value onto the stack (unsafe version).
+///
+/// Caller must ensure stack has capacity. Used in hot paths
+/// after validation has already been performed.
+///
+/// @param self The stack to push onto
+/// @param value The 256-bit value to push
 pub inline fn append_unsafe(self: *Self, value: u256) void {
     self.data[self.size] = value;
     self.size += 1;
 }
 
+/// Alias for append_unsafe (camelCase compatibility).
 pub inline fn appendUnsafe(self: *Self, value: u256) void {
     self.append_unsafe(value);
 }
 
+/// Pop a value from the stack (safe version).
+///
+/// Removes and returns the top element. Clears the popped
+/// slot to prevent information leakage.
+///
+/// @param self The stack to pop from
+/// @return The popped value
+/// @throws Underflow if stack is empty
+///
+/// Example:
+/// ```zig
+/// const value = try stack.pop();
+/// ```
 pub inline fn pop(self: *Self) Error!u256 {
     if (self.size == 0) return Error.Underflow;
     self.size -= 1;
@@ -48,6 +143,13 @@ pub inline fn pop(self: *Self) Error!u256 {
     return value;
 }
 
+/// Pop a value from the stack (unsafe version).
+///
+/// Caller must ensure stack is not empty. Used in hot paths
+/// after validation.
+///
+/// @param self The stack to pop from
+/// @return The popped value
 pub inline fn pop_unsafe(self: *Self) u256 {
     self.size -= 1;
     const value = self.data[self.size];
@@ -59,11 +161,28 @@ pub inline fn popUnsafe(self: *Self) u256 {
     return self.pop_unsafe();
 }
 
+/// Peek at the top value without removing it (safe version).
+///
+/// @param self The stack to peek at
+/// @return Pointer to the top value
+/// @throws OutOfBounds if stack is empty
+///
+/// Example:
+/// ```zig
+/// const top = try stack.peek();
+/// std.debug.print("Top value: {}", .{top.*});
+/// ```
 pub inline fn peek(self: *const Self) Error!*const u256 {
     if (self.size == 0) return Error.OutOfBounds;
     return &self.data[self.size - 1];
 }
 
+/// Peek at the top value without removing it (unsafe version).
+///
+/// Caller must ensure stack is not empty.
+///
+/// @param self The stack to peek at
+/// @return Pointer to the top value
 pub inline fn peek_unsafe(self: *const Self) *const u256 {
     return &self.data[self.size - 1];
 }
@@ -72,6 +191,10 @@ pub inline fn peekUnsafe(self: *const Self) *const u256 {
     return self.peek_unsafe();
 }
 
+/// Check if the stack is empty.
+///
+/// @param self The stack to check
+/// @return true if stack has no elements
 pub inline fn is_empty(self: *const Self) bool {
     return self.size == 0;
 }
@@ -80,6 +203,10 @@ pub inline fn isEmpty(self: *const Self) bool {
     return self.is_empty();
 }
 
+/// Check if the stack is at capacity.
+///
+/// @param self The stack to check
+/// @return true if stack has 1024 elements
 pub inline fn is_full(self: *const Self) bool {
     return self.size == CAPACITY;
 }
@@ -88,6 +215,21 @@ pub inline fn isFull(self: *const Self) bool {
     return self.is_full();
 }
 
+/// Get value at position n from the top (0-indexed).
+///
+/// back(0) returns the top element, back(1) returns second from top, etc.
+///
+/// @param self The stack to access
+/// @param n Position from top (0-indexed)
+/// @return The value at position n
+/// @throws OutOfBounds if n >= stack size
+///
+/// Example:
+/// ```zig
+/// // Stack: [10, 20, 30] with 30 on top
+/// const top = try stack.back(0); // Returns 30
+/// const second = try stack.back(1); // Returns 20
+/// ```
 pub inline fn back(self: *const Self, n: usize) Error!u256 {
     if (n >= self.size) return Error.OutOfBounds;
     return self.data[self.size - n - 1];
@@ -114,6 +256,22 @@ pub inline fn peek_n_unsafe(self: *const Self, n: usize) Error!u256 {
     return self.data[self.size - n - 1];
 }
 
+/// Swap the top element with the nth element (1-indexed).
+///
+/// SWAP1 swaps top two elements, SWAP2 swaps top with 3rd, etc.
+/// Limited to SWAP1 through SWAP16 per EVM specification.
+///
+/// @param self The stack to operate on
+/// @param n Position to swap with (1-16)
+/// @throws InvalidPosition if n is 0 or > 16
+/// @throws OutOfBounds if stack has <= n elements
+///
+/// Example:
+/// ```zig
+/// // Stack: [10, 20, 30, 40] with 40 on top
+/// try stack.swap(2); // SWAP2
+/// // Stack: [10, 40, 30, 20] with 20 on top
+/// ```
 pub inline fn swap(self: *Self, n: usize) Error!void {
     if (n == 0 or n > 16) return Error.InvalidPosition;
     if (self.size <= n) return Error.OutOfBounds;
@@ -157,6 +315,23 @@ pub inline fn swapNUnsafe(self: *Self, n: usize) void {
     std.mem.swap(u256, &self.data[top_idx], &self.data[swap_idx]);
 }
 
+/// Duplicate the nth element onto the top of stack (1-indexed).
+///
+/// DUP1 duplicates the top element, DUP2 duplicates the 2nd, etc.
+/// Limited to DUP1 through DUP16 per EVM specification.
+///
+/// @param self The stack to operate on
+/// @param n Position to duplicate from (1-16)
+/// @throws InvalidPosition if n is 0 or > 16
+/// @throws OutOfBounds if stack has < n elements
+/// @throws Overflow if stack is at capacity
+///
+/// Example:
+/// ```zig
+/// // Stack: [10, 20, 30] with 30 on top
+/// try stack.dup(2); // DUP2
+/// // Stack: [10, 20, 30, 20] with 20 on top
+/// ```
 pub inline fn dup(self: *Self, n: usize) Error!void {
     if (n == 0 or n > 16) return Error.InvalidPosition;
     if (n > self.size) return Error.OutOfBounds;
@@ -279,6 +454,12 @@ pub inline fn exchange(self: *Self, n: u8, m: u8) Error!void {
     std.mem.swap(u256, &self.data[n_idx], &self.data[m_idx]);
 }
 
+/// Clear all elements from the stack.
+///
+/// Resets size to 0 and zeroes memory to prevent information leakage.
+/// The zeroing can be removed for performance if security is not a concern.
+///
+/// @param self The stack to clear
 pub inline fn clear(self: *Self) void {
     self.size = 0;
     @memset(&self.data, 0); // could consider removing for perf
@@ -292,6 +473,23 @@ pub inline fn toSlice(self: *const Self) []const u256 {
     return self.to_slice();
 }
 
+/// Check if a stack operation would succeed.
+///
+/// Validates that the stack has enough elements to pop and enough
+/// capacity for the pushes. Used by opcodes to pre-validate operations.
+///
+/// @param self The stack to check
+/// @param pop_count Number of elements that will be popped
+/// @param push_count Number of elements that will be pushed
+/// @return true if operation would succeed
+///
+/// Example:
+/// ```zig
+/// // Check if we can do a binary operation (pop 2, push 1)
+/// if (stack.check_requirements(2, 1)) {
+///     // Safe to proceed
+/// }
+/// ```
 pub inline fn check_requirements(self: *const Self, pop_count: usize, push_count: usize) bool {
     return self.size >= pop_count and (self.size - pop_count + push_count) <= CAPACITY;
 }
@@ -302,7 +500,23 @@ pub inline fn checkRequirements(self: *const Self, pop_count: usize, push_count:
 
 // Batched operations for performance optimization
 
-/// Pop 2 values and push 1 result - common pattern for binary operations
+/// Batched operation: pop 2 values and push 1 result.
+///
+/// Optimized for binary operations (ADD, MUL, etc.) that consume two
+/// operands and produce one result. Reduces overhead by combining
+/// operations into a single function.
+///
+/// @param self The stack to operate on
+/// @param result The value to push after popping
+/// @return The two popped values
+/// @throws OutOfBounds if stack has < 2 elements
+///
+/// Example:
+/// ```zig
+/// // Implementing ADD operation
+/// const operands = try stack.pop2_push1(a_plus_b);
+/// // operands.a and operands.b contain the popped values
+/// ```
 pub inline fn pop2_push1(self: *Self, result: u256) Error!struct { a: u256, b: u256 } {
     if (self.size < 2) return Error.OutOfBounds;
 
@@ -428,7 +642,21 @@ pub inline fn pop3_unsafe(self: *Self) struct { a: u256, b: u256, c: u256 } {
     };
 }
 
-/// Specialized swap for SWAP1 (most common swap)
+/// Optimized implementation of SWAP1 operation.
+///
+/// SWAP1 is the most common swap operation, so this specialized
+/// version avoids the generic swap overhead. Manually unrolled
+/// for maximum performance.
+///
+/// @param self The stack to operate on
+/// @throws OutOfBounds if stack has < 2 elements
+///
+/// Example:
+/// ```zig
+/// // Stack: [10, 20] with 20 on top
+/// try stack.swap1_optimized();
+/// // Stack: [20, 10] with 10 on top
+/// ```
 pub inline fn swap1_optimized(self: *Self) Error!void {
     if (self.size < 2) return Error.OutOfBounds;
 
@@ -440,7 +668,22 @@ pub inline fn swap1_optimized(self: *Self) Error!void {
     self.data[second_idx] = temp;
 }
 
-/// Specialized dup for DUP1 (most common dup)
+/// Optimized implementation of DUP1 operation.
+///
+/// DUP1 is the most common duplication operation, so this specialized
+/// version avoids the generic dup overhead. Directly copies the top
+/// element.
+///
+/// @param self The stack to operate on
+/// @throws OutOfBounds if stack is empty
+/// @throws Overflow if stack is at capacity
+///
+/// Example:
+/// ```zig
+/// // Stack: [10, 20] with 20 on top
+/// try stack.dup1_optimized();
+/// // Stack: [10, 20, 20] with 20 on top
+/// ```
 pub inline fn dup1_optimized(self: *Self) Error!void {
     if (self.size == 0) return Error.OutOfBounds;
     if (self.size >= CAPACITY) return Error.Overflow;

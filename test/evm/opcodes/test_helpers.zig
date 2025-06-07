@@ -15,6 +15,7 @@ pub const ExecutionError = evm.ExecutionError;
 pub const opcodes = evm.opcodes;
 pub const Hardfork = evm.Hardfork.Hardfork;
 pub const JumpTable = evm.JumpTable;
+pub const ChainRules = evm.chain_rules;
 
 /// Mock settings for testing
 pub const TestVm = struct {
@@ -24,7 +25,7 @@ pub const TestVm = struct {
 
     pub fn init(allocator: std.mem.Allocator) !Self {
         const vm = try allocator.create(Vm);
-        vm.* = try Vm.init(allocator);
+        vm.* = try Vm.init(allocator, null, null);
         return Self{
             .vm = vm,
         };

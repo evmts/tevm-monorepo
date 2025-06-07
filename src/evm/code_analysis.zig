@@ -31,21 +31,81 @@ const bitvec = @import("bitvec.zig");
 /// using the `deinit` method to prevent memory leaks.
 const Self = @This();
 
-/// Bit vector marking code vs data bytes
+/// Bit vector marking which bytes in the bytecode are executable code vs data.
+/// 
+/// Each bit corresponds to a byte in the contract bytecode:
+/// - 1 = executable code byte
+/// - 0 = data byte (e.g., PUSH arguments)
+///
+/// This is critical for JUMPDEST validation since jump destinations
+/// must point to actual code, not data bytes within PUSH instructions.
 code_segments: bitvec,
-/// Sorted array of JUMPDEST positions for binary search
+
+/// Sorted array of all valid JUMPDEST positions in the bytecode.
+///
+/// Pre-sorted to enable O(log n) binary search validation of jump targets.
+/// Only positions marked as code (not data) and containing the JUMPDEST
+/// opcode (0x5B) are included.
 jumpdest_positions: []const u32,
-/// Pre-computed gas costs per basic block
+
+/// Optional pre-computed gas costs for each basic block.
+///
+/// When present, enables advanced gas optimization by pre-calculating
+/// the gas cost of straight-line code sequences between jumps.
+/// This is an optional optimization that may not be computed for all contracts.
 block_gas_costs: ?[]const u32,
-/// Maximum stack depth required
+
+/// Maximum stack depth required by any execution path in the contract.
+///
+/// Pre-computed through static analysis to enable early detection of
+/// stack overflow conditions. A value of 0 indicates the depth wasn't analyzed.
 max_stack_depth: u16,
-/// Whether code contains certain opcodes
+
+/// Indicates whether the contract contains JUMP/JUMPI opcodes with dynamic targets.
+///
+/// Dynamic jumps (where the target is computed at runtime) prevent certain
+/// optimizations and require full jump destination validation at runtime.
 has_dynamic_jumps: bool,
+
+/// Indicates whether the contract contains JUMP/JUMPI opcodes with static targets.
+///
+/// Static jumps (where the target is a constant) can be pre-validated
+/// and optimized during analysis.
 has_static_jumps: bool,
+
+/// Indicates whether the contract contains the SELFDESTRUCT opcode (0xFF).
+///
+/// Contracts with SELFDESTRUCT require special handling for state management
+/// and cannot be marked as "pure" or side-effect free.
 has_selfdestruct: bool,
+
+/// Indicates whether the contract contains CREATE or CREATE2 opcodes.
+///
+/// Contracts that can deploy other contracts require additional
+/// gas reservation and state management considerations.
 has_create: bool,
 
-/// Clean up analysis resources
+/// Releases all memory allocated by this code analysis.
+///
+/// This method must be called when the analysis is no longer needed to prevent
+/// memory leaks. It safely handles all owned resources including:
+/// - The code segments bit vector
+/// - The jumpdest positions array
+/// - The optional block gas costs array
+///
+/// ## Parameters
+/// - `self`: The analysis instance to clean up
+/// - `allocator`: The same allocator used to create the analysis resources
+///
+/// ## Safety
+/// After calling deinit, the analysis instance should not be used again.
+/// All pointers to analysis data become invalid.
+///
+/// ## Example
+/// ```zig
+/// var analysis = try analyzeCode(allocator, bytecode);
+/// defer analysis.deinit(allocator);
+/// ```
 pub fn deinit(self: *Self, allocator: std.mem.Allocator) void {
     self.code_segments.deinit(allocator);
     if (self.jumpdest_positions.len > 0) {

@@ -77,13 +77,7 @@ pub const ProofNodes = struct {
     }
 
     /// Verify a key against the proof with expected root hash
-    pub fn verify(
-        self: *const ProofNodes,
-        allocator: Allocator,
-        root_hash: [32]u8,
-        key: []const u8,
-        expected_value: ?[]const u8
-    ) !bool {
+    pub fn verify(self: *const ProofNodes, allocator: Allocator, root_hash: [32]u8, key: []const u8, expected_value: ?[]const u8) !bool {
         // Convert key to nibbles
         const nibbles = try trie.key_to_nibbles(allocator, key);
         defer allocator.free(nibbles);
@@ -111,19 +105,11 @@ pub const ProofNodes = struct {
     }
 
     /// Verify a path in the proof
-    fn verify_path(
-        self: *const ProofNodes,
-        allocator: Allocator,
-        node_data: rlp.Data,
-        remaining_path: []const u8,
-        expected_value: ?[]const u8
-    ) !bool {
+    fn verify_path(self: *const ProofNodes, allocator: Allocator, node_data: rlp.Data, remaining_path: []const u8, expected_value: ?[]const u8) !bool {
         switch (node_data) {
             .String => {
                 // Empty node or single byte - shouldn't happen at this point
-                if (expected_value != null) {
-                    return false; // Expected value but reached a non-value node
-                }
+                if (expected_value != null) return false; // Expected value but reached a non-value node
                 return true; // Assuming empty proof is valid for non-existent keys
             },
             .List => |items| {
@@ -135,9 +121,7 @@ pub const ProofNodes = struct {
                     // Either leaf or extension node
                     switch (items[0]) {
                         .String => |path_bytes| {
-                            if (path_bytes.len == 0) {
-                                return ProofError.CorruptedNode;
-                            }
+                            if (path_bytes.len == 0) return ProofError.CorruptedNode;
 
                             // Decode the path
                             const decoded_path = try trie.decode_path(allocator, path_bytes);
@@ -146,9 +130,7 @@ pub const ProofNodes = struct {
                             if (decoded_path.is_leaf) {
                                 // Leaf node
                                 // Check if paths match
-                                if (!std.mem.eql(u8, decoded_path.nibbles, remaining_path)) {
-                                    return expected_value == null; // Path doesn't match, expect null
-                                }
+                                if (!std.mem.eql(u8, decoded_path.nibbles, remaining_path)) return expected_value == null; // Path doesn't match, expect null
 
                                 // Check value
                                 switch (items[1]) {
@@ -156,7 +138,7 @@ pub const ProofNodes = struct {
                                         // The value is RLP-encoded, so we need to decode it
                                         const decoded_value = try rlp.decode(allocator, value, false);
                                         defer decoded_value.data.deinit(allocator);
-                                        
+
                                         switch (decoded_value.data) {
                                             .String => |actual_value| {
                                                 // Found value, compare with expected
@@ -171,7 +153,7 @@ pub const ProofNodes = struct {
                                     },
                                     .List => {
                                         return ProofError.CorruptedNode; // Invalid value format
-                                    }
+                                    },
                                 }
                             } else {
                                 // Extension node
@@ -215,12 +197,7 @@ pub const ProofNodes = struct {
                                         defer next_decoded.data.deinit(allocator);
 
                                         // Continue verification
-                                        return try self.verify_path(
-                                            allocator,
-                                            next_decoded.data,
-                                            remaining_path[decoded_path.nibbles.len..],
-                                            expected_value
-                                        );
+                                        return try self.verify_path(allocator, next_decoded.data, remaining_path[decoded_path.nibbles.len..], expected_value);
                                     },
                                     .List => return ProofError.CorruptedNode, // Invalid next node format
                                 }
@@ -286,12 +263,7 @@ pub const ProofNodes = struct {
                                     defer next_decoded.data.deinit(allocator);
 
                                     // Continue verification
-                                    return try self.verify_path(
-                                        allocator,
-                                        next_decoded.data,
-                                        remaining_path[1..],
-                                        expected_value
-                                    );
+                                    return try self.verify_path(allocator, next_decoded.data, remaining_path[1..], expected_value);
                                 } else {
                                     // Direct value reference
                                     if (remaining_path.len == 1) {
@@ -344,13 +316,9 @@ pub const ProofRetainer = struct {
     /// Collect a node for the proof if it's relevant to the key path
     pub fn collect_node(self: *ProofRetainer, node: TrieNode, path_prefix: []const u8) !bool {
         // Check if this node is on the path to our key
-        if (path_prefix.len > self.key_nibbles.len) {
-            return false; // Path is longer than key, not relevant
-        }
+        if (path_prefix.len > self.key_nibbles.len) return false; // Path is longer than key, not relevant
 
-        if (!std.mem.eql(u8, path_prefix, self.key_nibbles[0..path_prefix.len])) {
-            return false; // Path doesn't match key prefix, not relevant
-        }
+        if (!std.mem.eql(u8, path_prefix, self.key_nibbles[0..path_prefix.len])) return false; // Path doesn't match key prefix, not relevant
 
         // This node is on the path, encode and collect it
         const encoded = try node.encode(self.allocator);
@@ -376,12 +344,12 @@ fn bytes_to_hex_string(allocator: Allocator, bytes: []const u8) ![]u8 {
     const hex_chars = "0123456789abcdef";
     const hex = try allocator.alloc(u8, bytes.len * 2);
     errdefer allocator.free(hex);
-    
+
     for (bytes, 0..) |byte, i| {
         hex[i * 2] = hex_chars[byte >> 4];
         hex[i * 2 + 1] = hex_chars[byte & 0x0F];
     }
-    
+
     return hex;
 }
 
@@ -390,32 +358,28 @@ fn bytes_to_hex_string(allocator: Allocator, bytes: []const u8) ![]u8 {
 test "ProofNodes - add and verify" {
     const testing = std.testing;
     const allocator = testing.allocator;
-    
+
     var proof_nodes = ProofNodes.init(allocator);
     defer proof_nodes.deinit();
-    
+
     // Create a sample leaf node
-    const path = [_]u8{1, 2, 3, 4};
+    const path = [_]u8{ 1, 2, 3, 4 };
     const value = "test_value";
-    
-    const leaf = try trie.LeafNode.init(
-        allocator,
-        try allocator.dupe(u8, &path),
-        trie.HashValue{ .Raw = try allocator.dupe(u8, value) }
-    );
+
+    const leaf = try trie.LeafNode.init(allocator, try allocator.dupe(u8, &path), trie.HashValue{ .Raw = try allocator.dupe(u8, value) });
     var node = trie.TrieNode{ .Leaf = leaf };
-    
+
     // Encode the node
     const encoded = try node.encode(allocator);
     defer allocator.free(encoded);
-    
+
     // Calculate the hash
     var hash: [32]u8 = undefined;
     std.crypto.hash.sha3.Keccak256.hash(encoded, &hash, .{});
-    
+
     // Add to proof nodes
     try proof_nodes.add_node(hash, encoded);
-    
+
     // Convert to node list
     const nodes = try proof_nodes.to_node_list(allocator);
     defer {
@@ -424,10 +388,10 @@ test "ProofNodes - add and verify" {
         }
         allocator.free(nodes);
     }
-    
+
     try testing.expectEqual(@as(usize, 1), nodes.len);
     try testing.expectEqualSlices(u8, encoded, nodes[0]);
-    
+
     // Clean up the node
     node.deinit(allocator);
 }
@@ -435,36 +399,32 @@ test "ProofNodes - add and verify" {
 test "ProofRetainer - collect nodes" {
     const testing = std.testing;
     const allocator = testing.allocator;
-    
-    const key = [_]u8{0x12, 0x34}; // This will become nibbles [1,2,3,4]
+
+    const key = [_]u8{ 0x12, 0x34 }; // This will become nibbles [1,2,3,4]
     var retainer = try ProofRetainer.init(allocator, &key);
     defer retainer.deinit();
-    
+
     // Create a node on the path - use the first 2 nibbles of the key
-    const path = [_]u8{1, 2}; // First two nibbles of key
+    const path = [_]u8{ 1, 2 }; // First two nibbles of key
     const value = "test_value";
-    
-    const extension = try trie.ExtensionNode.init(
-        allocator,
-        try allocator.dupe(u8, &path),
-        trie.HashValue{ .Raw = try allocator.dupe(u8, value) }
-    );
+
+    const extension = try trie.ExtensionNode.init(allocator, try allocator.dupe(u8, &path), trie.HashValue{ .Raw = try allocator.dupe(u8, value) });
     var node = trie.TrieNode{ .Extension = extension };
     defer node.deinit(allocator);
-    
+
     // Collect the node
     const collected = try retainer.collect_node(node, &path);
     try testing.expect(collected);
-    
+
     // Verify it was added to the proof
     const proof = retainer.get_proof();
     try testing.expectEqual(@as(usize, 1), proof.nodes.count());
-    
+
     // Node not on path
-    const off_path = [_]u8{5, 6};
+    const off_path = [_]u8{ 5, 6 };
     const not_collected = try retainer.collect_node(node, &off_path);
     try testing.expect(!not_collected);
-    
+
     // Still only one node in proof
     try testing.expectEqual(@as(usize, 1), proof.nodes.count());
 }

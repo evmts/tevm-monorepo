@@ -412,9 +412,7 @@ fn findAbiFunction(abi: []const zabi_abitypes.AbiItem, name: []const u8) !zabi_a
     for (abi) |item| {
         switch (item) {
             .abiFunction => |func| {
-                if (std.mem.eql(u8, func.name, name)) {
-                    return func;
-                }
+                if (std.mem.eql(u8, func.name, name)) return func;
             },
             else => {},
         }
@@ -463,18 +461,18 @@ test "compile simple contract" {
     // so we check for structure rather than exact values
     try std.testing.expect(contract.bytecode.len > 100);
     try std.testing.expect(contract.deployed_bytecode.len > 100);
-    
+
     // Check that bytecode starts with expected pattern
     try std.testing.expect(std.mem.startsWith(u8, contract.bytecode, "0x608060405234"));
     try std.testing.expect(std.mem.startsWith(u8, contract.deployed_bytecode, "0x6080604052348015"));
-    
+
     // Check that bytecode ends with metadata (contains "ipfs" hash and solc version)
     try std.testing.expect(std.mem.indexOf(u8, contract.bytecode, "6970667358") != null); // "ipfs" in hex
     try std.testing.expect(std.mem.indexOf(u8, contract.deployed_bytecode, "6970667358") != null);
-    
+
     // Check for Solidity version marker in metadata (0.8.x)
-    try std.testing.expect(std.mem.indexOf(u8, contract.bytecode, "736f6c6343000818") != null or 
-                          std.mem.indexOf(u8, contract.bytecode, "736f6c634300081e") != null); // v0.8.24 or v0.8.30
+    try std.testing.expect(std.mem.indexOf(u8, contract.bytecode, "736f6c6343000818") != null or
+        std.mem.indexOf(u8, contract.bytecode, "736f6c634300081e") != null); // v0.8.24 or v0.8.30
 
     // Validate the parsed ABI structure using zabi types
     // Find functions by name

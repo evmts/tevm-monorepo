@@ -1,47 +1,125 @@
+/// EVM opcode definitions and utilities.
+///
+/// This module defines all EVM opcodes as specified in the Ethereum Yellow Paper
+/// and various EIPs. Each opcode is a single byte instruction that the EVM
+/// interpreter executes.
+///
+/// ## Opcode Categories
+/// - Arithmetic: ADD, MUL, SUB, DIV, MOD, EXP, etc.
+/// - Comparison: LT, GT, EQ, ISZERO
+/// - Bitwise: AND, OR, XOR, NOT, SHL, SHR, SAR
+/// - Environmental: ADDRESS, BALANCE, CALLER, CALLVALUE
+/// - Block Information: BLOCKHASH, COINBASE, TIMESTAMP, NUMBER
+/// - Stack Operations: POP, PUSH1-PUSH32, DUP1-DUP16, SWAP1-SWAP16
+/// - Memory Operations: MLOAD, MSTORE, MSTORE8, MSIZE
+/// - Storage Operations: SLOAD, SSTORE, TLOAD, TSTORE
+/// - Flow Control: JUMP, JUMPI, PC, JUMPDEST
+/// - System Operations: CREATE, CALL, RETURN, REVERT, SELFDESTRUCT
+/// - Logging: LOG0-LOG4
+///
+/// ## Opcode Encoding
+/// Opcodes are encoded as single bytes (0x00-0xFF). Not all byte values
+/// are assigned; unassigned values are treated as INVALID operations.
+///
+/// ## Hardfork Evolution
+/// New opcodes are introduced through EIPs and activated at specific
+/// hardforks. Examples:
+/// - PUSH0 (EIP-3855): Shanghai hardfork
+/// - TLOAD/TSTORE (EIP-1153): Cancun hardfork
+/// - MCOPY (EIP-5656): Cancun hardfork
+///
+/// Example:
+/// ```zig
+/// const opcode = Opcode.Enum.ADD;
+/// const byte_value = opcode.to_u8(); // 0x01
+/// const name = opcode.get_name(); // "ADD"
+/// ```
 pub const MemorySize = @import("memory_size.zig");
 
-/// Opcode represents an EVM instruction
+/// Opcode module providing EVM instruction definitions.
 const Self = @This();
 
-/// The underlying enum of all EVM opcodes
+/// Enumeration of all EVM opcodes with their byte values.
+///
+/// Each opcode is assigned a specific byte value that remains
+/// constant across all EVM implementations. The enum ensures
+/// type safety when working with opcodes.
 pub const Enum = enum(u8) {
+    /// Halts execution (0x00)
     STOP = 0x00,
+    /// Addition operation: a + b (0x01)
     ADD = 0x01,
+    /// Multiplication operation: a * b (0x02)
     MUL = 0x02,
+    /// Subtraction operation: a - b (0x03)
     SUB = 0x03,
+    /// Integer division operation: a / b (0x04)
     DIV = 0x04,
+    /// Signed integer division operation (0x05)
     SDIV = 0x05,
+    /// Modulo operation: a % b (0x06)
     MOD = 0x06,
+    /// Signed modulo operation (0x07)
     SMOD = 0x07,
+    /// Addition modulo: (a + b) % N (0x08)
     ADDMOD = 0x08,
+    /// Multiplication modulo: (a * b) % N (0x09)
     MULMOD = 0x09,
+    /// Exponential operation: a ** b (0x0A)
     EXP = 0x0A,
+    /// Sign extend operation (0x0B)
     SIGNEXTEND = 0x0B,
+    /// Less-than comparison: a < b (0x10)
     LT = 0x10,
+    /// Greater-than comparison: a > b (0x11)
     GT = 0x11,
+    /// Signed less-than comparison (0x12)
     SLT = 0x12,
+    /// Signed greater-than comparison (0x13)
     SGT = 0x13,
+    /// Equality comparison: a == b (0x14)
     EQ = 0x14,
+    /// Check if value is zero (0x15)
     ISZERO = 0x15,
+    /// Bitwise AND operation (0x16)
     AND = 0x16,
+    /// Bitwise OR operation (0x17)
     OR = 0x17,
+    /// Bitwise XOR operation (0x18)
     XOR = 0x18,
+    /// Bitwise NOT operation (0x19)
     NOT = 0x19,
+    /// Retrieve single byte from word (0x1A)
     BYTE = 0x1A,
+    /// Logical shift left (0x1B)
     SHL = 0x1B,
+    /// Logical shift right (0x1C)
     SHR = 0x1C,
+    /// Arithmetic shift right (0x1D)
     SAR = 0x1D,
+    /// Compute Keccak-256 hash (0x20)
     KECCAK256 = 0x20,
+    /// Get address of currently executing account (0x30)
     ADDRESS = 0x30,
+    /// Get balance of the given account (0x31)
     BALANCE = 0x31,
+    /// Get execution origination address (0x32)
     ORIGIN = 0x32,
+    /// Get caller address (0x33)
     CALLER = 0x33,
+    /// Get deposited value by the caller (0x34)
     CALLVALUE = 0x34,
+    /// Load input data of current call (0x35)
     CALLDATALOAD = 0x35,
+    /// Get size of input data in current call (0x36)
     CALLDATASIZE = 0x36,
+    /// Copy input data to memory (0x37)
     CALLDATACOPY = 0x37,
+    /// Get size of code running in current environment (0x38)
     CODESIZE = 0x38,
+    /// Copy code to memory (0x39)
     CODECOPY = 0x39,
+    /// Get price of gas in current environment (0x3A)
     GASPRICE = 0x3A,
     EXTCODESIZE = 0x3B,
     EXTCODECOPY = 0x3C,
@@ -63,17 +141,29 @@ pub const Enum = enum(u8) {
     MLOAD = 0x51,
     MSTORE = 0x52,
     MSTORE8 = 0x53,
+    /// Load word from storage (0x54)
     SLOAD = 0x54,
+    /// Store word to storage (0x55)
     SSTORE = 0x55,
+    /// Unconditional jump (0x56)
     JUMP = 0x56,
+    /// Conditional jump (0x57)
     JUMPI = 0x57,
+    /// Get current program counter (0x58)
     PC = 0x58,
+    /// Get size of active memory in bytes (0x59)
     MSIZE = 0x59,
+    /// Get amount of available gas (0x5A)
     GAS = 0x5A,
+    /// Mark valid jump destination (0x5B)
     JUMPDEST = 0x5B,
+    /// Load word from transient storage (0x5C)
     TLOAD = 0x5C,
+    /// Store word to transient storage (0x5D)
     TSTORE = 0x5D,
+    /// Copy memory areas (0x5E)
     MCOPY = 0x5E,
+    /// Push zero onto stack (0x5F)
     PUSH0 = 0x5F,
     PUSH1 = 0x60,
     PUSH2 = 0x61,
@@ -144,189 +234,109 @@ pub const Enum = enum(u8) {
     LOG2 = 0xA2,
     LOG3 = 0xA3,
     LOG4 = 0xA4,
+    /// Create new contract (0xF0)
     CREATE = 0xF0,
+    /// Message-call into account (0xF1)
     CALL = 0xF1,
+    /// Message-call with current code (0xF2)
     CALLCODE = 0xF2,
+    /// Halt execution returning output data (0xF3)
     RETURN = 0xF3,
+    /// Call with current sender and value (0xF4)
     DELEGATECALL = 0xF4,
+    /// Create with deterministic address (0xF5)
     CREATE2 = 0xF5,
+    /// Load return data (0xF7)
     RETURNDATALOAD = 0xF7,
+    /// Extended call (EOF) (0xF8)
     EXTCALL = 0xF8,
+    /// Extended delegate call (EOF) (0xF9)
     EXTDELEGATECALL = 0xF9,
+    /// Static message-call (0xFA)
     STATICCALL = 0xFA,
+    /// Extended static call (EOF) (0xFB)
     EXTSTATICCALL = 0xFB,
+    /// Halt execution reverting state changes (0xFD)
     REVERT = 0xFD,
+    /// Invalid instruction (0xFE)
     INVALID = 0xFE,
+    /// Destroy current contract (0xFF)
     SELFDESTRUCT = 0xFF,
 
 };
 
-/// Convert an Opcode to its u8 representation
+/// Convert an opcode to its byte representation.
+///
+/// Returns the underlying byte value of the opcode for use in
+/// bytecode encoding/decoding and jump table lookups.
+///
+/// @param self The opcode to convert
+/// @return The byte value (0x00-0xFF)
+///
+/// Example:
+/// ```zig
+/// const add_byte = Opcode.Enum.ADD.to_u8(); // Returns 0x01
+/// const push1_byte = Opcode.Enum.PUSH1.to_u8(); // Returns 0x60
+/// ```
 pub fn to_u8(self: Enum) u8 {
         return @intFromEnum(self);
     }
 
-/// Get the name of an opcode as a string
+/// Get the human-readable name of an opcode.
+///
+/// Returns the mnemonic string representation of the opcode
+/// as used in assembly code and debugging output.
+///
+/// @param self The opcode to get the name of
+/// @return Static string containing the opcode mnemonic
+///
+/// Example:
+/// ```zig
+/// const name = Opcode.Enum.ADD.get_name(); // Returns "ADD"
+/// std.debug.print("Executing opcode: {s}\n", .{name});
+/// ```
 pub fn get_name(self: Enum) []const u8 {
-        return switch (self) {
-            .STOP => "STOP",
-            .ADD => "ADD",
-            .MUL => "MUL",
-            .SUB => "SUB",
-            .DIV => "DIV",
-            .SDIV => "SDIV",
-            .MOD => "MOD",
-            .SMOD => "SMOD",
-            .ADDMOD => "ADDMOD",
-            .MULMOD => "MULMOD",
-            .EXP => "EXP",
-            .SIGNEXTEND => "SIGNEXTEND",
-            .LT => "LT",
-            .GT => "GT",
-            .SLT => "SLT",
-            .SGT => "SGT",
-            .EQ => "EQ",
-            .ISZERO => "ISZERO",
-            .AND => "AND",
-            .OR => "OR",
-            .XOR => "XOR",
-            .NOT => "NOT",
-            .BYTE => "BYTE",
-            .SHL => "SHL",
-            .SHR => "SHR",
-            .SAR => "SAR",
-            .KECCAK256 => "KECCAK256",
-            .ADDRESS => "ADDRESS",
-            .BALANCE => "BALANCE",
-            .ORIGIN => "ORIGIN",
-            .CALLER => "CALLER",
-            .CALLVALUE => "CALLVALUE",
-            .CALLDATALOAD => "CALLDATALOAD",
-            .CALLDATASIZE => "CALLDATASIZE",
-            .CALLDATACOPY => "CALLDATACOPY",
-            .CODESIZE => "CODESIZE",
-            .CODECOPY => "CODECOPY",
-            .GASPRICE => "GASPRICE",
-            .EXTCODESIZE => "EXTCODESIZE",
-            .EXTCODECOPY => "EXTCODECOPY",
-            .RETURNDATASIZE => "RETURNDATASIZE",
-            .RETURNDATACOPY => "RETURNDATACOPY",
-            .EXTCODEHASH => "EXTCODEHASH",
-            .BLOCKHASH => "BLOCKHASH",
-            .COINBASE => "COINBASE",
-            .TIMESTAMP => "TIMESTAMP",
-            .NUMBER => "NUMBER",
-            .PREVRANDAO => "PREVRANDAO",
-            .GASLIMIT => "GASLIMIT",
-            .CHAINID => "CHAINID",
-            .SELFBALANCE => "SELFBALANCE",
-            .BASEFEE => "BASEFEE",
-            .BLOBHASH => "BLOBHASH",
-            .BLOBBASEFEE => "BLOBBASEFEE",
-            .POP => "POP",
-            .MLOAD => "MLOAD",
-            .MSTORE => "MSTORE",
-            .MSTORE8 => "MSTORE8",
-            .SLOAD => "SLOAD",
-            .SSTORE => "SSTORE",
-            .JUMP => "JUMP",
-            .JUMPI => "JUMPI",
-            .PC => "PC",
-            .MSIZE => "MSIZE",
-            .GAS => "GAS",
-            .JUMPDEST => "JUMPDEST",
-            .TLOAD => "TLOAD",
-            .TSTORE => "TSTORE",
-            .MCOPY => "MCOPY",
-            .PUSH0 => "PUSH0",
-            .PUSH1 => "PUSH1",
-            .PUSH2 => "PUSH2",
-            .PUSH3 => "PUSH3",
-            .PUSH4 => "PUSH4",
-            .PUSH5 => "PUSH5",
-            .PUSH6 => "PUSH6",
-            .PUSH7 => "PUSH7",
-            .PUSH8 => "PUSH8",
-            .PUSH9 => "PUSH9",
-            .PUSH10 => "PUSH10",
-            .PUSH11 => "PUSH11",
-            .PUSH12 => "PUSH12",
-            .PUSH13 => "PUSH13",
-            .PUSH14 => "PUSH14",
-            .PUSH15 => "PUSH15",
-            .PUSH16 => "PUSH16",
-            .PUSH17 => "PUSH17",
-            .PUSH18 => "PUSH18",
-            .PUSH19 => "PUSH19",
-            .PUSH20 => "PUSH20",
-            .PUSH21 => "PUSH21",
-            .PUSH22 => "PUSH22",
-            .PUSH23 => "PUSH23",
-            .PUSH24 => "PUSH24",
-            .PUSH25 => "PUSH25",
-            .PUSH26 => "PUSH26",
-            .PUSH27 => "PUSH27",
-            .PUSH28 => "PUSH28",
-            .PUSH29 => "PUSH29",
-            .PUSH30 => "PUSH30",
-            .PUSH31 => "PUSH31",
-            .PUSH32 => "PUSH32",
-            .DUP1 => "DUP1",
-            .DUP2 => "DUP2",
-            .DUP3 => "DUP3",
-            .DUP4 => "DUP4",
-            .DUP5 => "DUP5",
-            .DUP6 => "DUP6",
-            .DUP7 => "DUP7",
-            .DUP8 => "DUP8",
-            .DUP9 => "DUP9",
-            .DUP10 => "DUP10",
-            .DUP11 => "DUP11",
-            .DUP12 => "DUP12",
-            .DUP13 => "DUP13",
-            .DUP14 => "DUP14",
-            .DUP15 => "DUP15",
-            .DUP16 => "DUP16",
-            .SWAP1 => "SWAP1",
-            .SWAP2 => "SWAP2",
-            .SWAP3 => "SWAP3",
-            .SWAP4 => "SWAP4",
-            .SWAP5 => "SWAP5",
-            .SWAP6 => "SWAP6",
-            .SWAP7 => "SWAP7",
-            .SWAP8 => "SWAP8",
-            .SWAP9 => "SWAP9",
-            .SWAP10 => "SWAP10",
-            .SWAP11 => "SWAP11",
-            .SWAP12 => "SWAP12",
-            .SWAP13 => "SWAP13",
-            .SWAP14 => "SWAP14",
-            .SWAP15 => "SWAP15",
-            .SWAP16 => "SWAP16",
-            .LOG0 => "LOG0",
-            .LOG1 => "LOG1",
-            .LOG2 => "LOG2",
-            .LOG3 => "LOG3",
-            .LOG4 => "LOG4",
-            .CREATE => "CREATE",
-            .CALL => "CALL",
-            .CALLCODE => "CALLCODE",
-            .RETURN => "RETURN",
-            .DELEGATECALL => "DELEGATECALL",
-            .CREATE2 => "CREATE2",
-            .STATICCALL => "STATICCALL",
-            .REVERT => "REVERT",
-            .INVALID => "INVALID",
-            .SELFDESTRUCT => "SELFDESTRUCT",
-            .RETURNDATALOAD => "RETURNDATALOAD",
-            .EXTCALL => "EXTCALL",
-            .EXTDELEGATECALL => "EXTDELEGATECALL",
-            .EXTSTATICCALL => "EXTSTATICCALL",
-        };
+    const names = comptime blk: {
+        var result: [256][]const u8 = undefined;
+        
+        // Initialize all to "UNDEFINED"
+        for (&result) |*name| {
+            name.* = "UNDEFINED";
+        }
+        
+        // Map enum values to their names using reflection
+        const enum_info = @typeInfo(Enum);
+        switch (enum_info) {
+            .@"enum" => |e| {
+                for (e.fields) |field| {
+                    const value = @field(Enum, field.name);
+                    result[@intFromEnum(value)] = field.name;
+                }
+            },
+            else => @compileError("get_name requires an enum type"),
+        }
+        
+        break :blk result;
+    };
+    
+    return names[@intFromEnum(self)];
 }
 
 
-// Re-export common opcodes as constants for convenience
+/// Common opcodes re-exported as module-level constants.
+///
+/// These provide convenient access to frequently used opcodes
+/// without needing to reference the Enum type. Useful for:
+/// - Bytecode analysis
+/// - Opcode matching in interpreters
+/// - Test assertions
+///
+/// Example:
+/// ```zig
+/// if (bytecode[pc] == Opcode.JUMPDEST) {
+///     // Mark as valid jump destination
+/// }
+/// ```
 pub const STOP = Enum.STOP;
 pub const ADD = Enum.ADD;
 pub const MUL = Enum.MUL;

@@ -1,19 +1,42 @@
-/// Production-quality Contract module for EVM execution context
-///
-/// This module manages contract execution context including bytecode, gas accounting,
-/// storage access tracking, and JUMPDEST validation. It incorporates performance
-/// optimizations from modern EVM implementations like evmone and reth.
-///
-/// Performance characteristics:
-/// - O(log n) JUMPDEST validation using binary search
-/// - Zero-allocation paths for common operations
-/// - Inline hot-path functions for minimal overhead
-/// - Storage pooling to reduce allocation pressure
-///
-/// Reference implementations:
-/// - go-ethereum: https://github.com/ethereum/go-ethereum/blob/master/core/vm/contract.go
-/// - revm: https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/contract.rs
-/// - evmone: https://github.com/ethereum/evmone/blob/master/lib/evmone/execution_state.hpp
+//! Production-quality Contract module for EVM execution context.
+//!
+//! This module provides the core abstraction for contract execution in the EVM,
+//! managing bytecode, gas accounting, storage access tracking, and JUMPDEST validation.
+//! It incorporates performance optimizations from modern EVM implementations including
+//! evmone, revm, and go-ethereum.
+//!
+//! ## Architecture
+//! The Contract structure represents a single execution frame in the EVM call stack.
+//! Each contract call (CALL, DELEGATECALL, STATICCALL, CREATE) creates a new Contract
+//! instance that tracks its own gas, storage access, and execution state.
+//!
+//! ## Performance Characteristics
+//! - **JUMPDEST validation**: O(log n) using binary search on pre-sorted positions
+//! - **Storage access**: O(1) with warm/cold tracking for EIP-2929
+//! - **Code analysis**: Cached globally with thread-safe access
+//! - **Memory management**: Zero-allocation paths for common operations
+//! - **Storage pooling**: Reuses hash maps to reduce allocation pressure
+//!
+//! ## Key Features
+//! 1. **Code Analysis Caching**: Bytecode is analyzed once and cached globally
+//! 2. **EIP-2929 Support**: Tracks warm/cold storage slots for gas calculation
+//! 3. **Static Call Protection**: Prevents state modifications in read-only contexts
+//! 4. **Gas Refund Tracking**: Manages gas refunds with EIP-3529 limits
+//! 5. **Deployment Support**: Handles both CREATE and CREATE2 deployment flows
+//!
+//! ## Thread Safety
+//! The global analysis cache uses mutex protection when multi-threaded,
+//! automatically degrading to no-op mutexes in single-threaded builds.
+//!
+//! ## Memory Management
+//! Contracts can optionally use a StoragePool to reuse hash maps across
+//! multiple contract executions, significantly reducing allocation overhead
+//! in high-throughput scenarios.
+//!
+//! ## Reference Implementations
+//! - go-ethereum: https://github.com/ethereum/go-ethereum/blob/master/core/vm/contract.go
+//! - revm: https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/contract.rs
+//! - evmone: https://github.com/ethereum/evmone/blob/master/lib/evmone/execution_state.hpp
 const std = @import("std");
 const constants = @import("constants.zig");
 const bitvec = @import("bitvec.zig");
@@ -49,40 +72,232 @@ const Mutex = if (is_single_threaded) struct {
 
 var cache_mutex: Mutex = .{};
 
-/// Contract represents the execution context for a single call in the EVM
+/// Contract represents the execution context for a single call frame in the EVM.
+///
+/// Each contract execution (whether from external transaction, internal call,
+/// or contract creation) operates within its own Contract instance. This design
+/// enables proper isolation, gas accounting, and state management across the
+/// call stack.
 const Self = @This();
-// Identity and context
+
+// ============================================================================
+// Identity and Context Fields
+// ============================================================================
+
+/// The address where this contract's code is deployed.
+///
+/// - For regular calls: The callee's address
+/// - For DELEGATECALL: The current contract's address (code from elsewhere)
+/// - For CREATE/CREATE2: Initially zero, set after address calculation
 address: Address.Address,
+
+/// The address that initiated this contract execution.
+///
+/// - For external transactions: The EOA that signed the transaction
+/// - For internal calls: The contract that executed CALL/DELEGATECALL/etc
+/// - For CREATE/CREATE2: The creating contract's address
+///
+/// Note: This is msg.sender in Solidity, not tx.origin
 caller: Address.Address,
+
+/// The amount of Wei sent with this contract call.
+///
+/// - Regular calls: Can be any amount (if not static)
+/// - DELEGATECALL: Always 0 (uses parent's value)
+/// - STATICCALL: Always 0 (no value transfer allowed)
+/// - CREATE/CREATE2: Initial balance for new contract
 value: u256,
 
-// Code and analysis
+// ============================================================================
+// Code and Analysis Fields
+// ============================================================================
+
+/// The bytecode being executed in this context.
+///
+/// - Regular calls: The deployed contract's runtime bytecode
+/// - CALLCODE/DELEGATECALL: The external contract's code
+/// - CREATE/CREATE2: The initialization bytecode (constructor)
+///
+/// This slice is a view into existing memory, not owned by Contract.
 code: []const u8,
+
+/// Keccak256 hash of the contract bytecode.
+///
+/// Used for:
+/// - Code analysis caching (avoids re-analyzing same bytecode)
+/// - EXTCODEHASH opcode implementation
+/// - CREATE2 address calculation
+///
+/// For deployments, this is set to zero as there's no deployed code yet.
 code_hash: [32]u8,
+
+/// Cached length of the bytecode for performance.
+///
+/// Storing this separately avoids repeated slice.len calls in hot paths
+/// like bounds checking for PC and CODECOPY operations.
 code_size: u64,
+
+/// Optional reference to pre-computed code analysis.
+///
+/// Contains:
+/// - JUMPDEST positions for O(log n) validation
+/// - Code vs data segments (bitvector)
+/// - Static analysis results (has CREATE, has SELFDESTRUCT, etc)
+///
+/// This is lazily computed on first jump and cached globally.
 analysis: ?*const CodeAnalysis,
 
-// Gas tracking
+// ============================================================================
+// Gas Tracking Fields
+// ============================================================================
+
+/// Remaining gas available for execution.
+///
+/// Decremented by each operation according to its gas cost.
+/// If this reaches 0, execution halts with out-of-gas error.
+///
+/// Gas forwarding rules:
+/// - CALL: Limited by 63/64 rule (EIP-150)
+/// - DELEGATECALL/STATICCALL: Same rules as CALL
+/// - CREATE/CREATE2: All remaining gas minus stipend
 gas: u64,
+
+/// Accumulated gas refund from storage operations.
+///
+/// Tracks gas to be refunded at transaction end from:
+/// - SSTORE: Clearing storage slots
+/// - SELFDESTRUCT: Contract destruction (pre-London)
+///
+/// Limited to gas_used / 5 by EIP-3529 (London hardfork).
 gas_refund: u64,
 
-// Input/output
+// ============================================================================
+// Input/Output Fields
+// ============================================================================
+
+/// Input data passed to this contract execution.
+///
+/// - External transactions: Transaction data field
+/// - CALL/STATICCALL: Data passed in call
+/// - DELEGATECALL: Data passed (preserves msg.data)
+/// - CREATE/CREATE2: Constructor arguments
+///
+/// Accessed via CALLDATALOAD, CALLDATASIZE, CALLDATACOPY opcodes.
 input: []const u8,
 
-// Execution flags
-is_deployment: bool,
-is_system_call: bool,
-is_static: bool, // For STATICCALL context
+// ============================================================================
+// Execution Flags
+// ============================================================================
 
-// Storage access tracking (EIP-2929)
+/// Indicates this is a contract deployment (CREATE/CREATE2).
+///
+/// When true:
+/// - Executing initialization code (constructor)
+/// - No deployed code exists at the address yet
+/// - Result will be stored as contract code if successful
+is_deployment: bool,
+
+/// Indicates this is a system-level call.
+///
+/// System calls bypass certain checks and gas costs.
+/// Used for precompiles and protocol-level operations.
+is_system_call: bool,
+
+/// Indicates read-only execution context (STATICCALL).
+///
+/// When true, these operations will fail:
+/// - SSTORE (storage modification)
+/// - LOG0-LOG4 (event emission)
+/// - CREATE/CREATE2 (contract creation)
+/// - SELFDESTRUCT (contract destruction)
+/// - CALL with value transfer
+is_static: bool,
+
+// ============================================================================
+// Storage Access Tracking (EIP-2929)
+// ============================================================================
+
+/// Tracks which storage slots have been accessed (warm vs cold).
+///
+/// EIP-2929 charges different gas costs:
+/// - Cold access (first time): 2100 gas
+/// - Warm access (subsequent): 100 gas
+///
+/// Key: storage slot, Value: true (accessed)
+/// Can be borrowed from StoragePool for efficiency.
 storage_access: ?*std.AutoHashMap(u256, bool),
+
+/// Tracks original storage values for gas refund calculations.
+///
+/// Used by SSTORE to determine gas costs and refunds based on:
+/// - Original value (at transaction start)
+/// - Current value (in storage)
+/// - New value (being set)
+///
+/// Key: storage slot, Value: original value
 original_storage: ?*std.AutoHashMap(u256, u256),
+
+/// Whether this contract address was cold at call start.
+///
+/// Used for EIP-2929 gas calculations:
+/// - Cold contract: Additional 2600 gas for first access
+/// - Warm contract: No additional cost
+///
+/// Contracts become warm after first access in a transaction.
 is_cold: bool,
 
-// Optimization fields
+// ============================================================================
+// Optimization Fields
+// ============================================================================
+
+/// Quick flag indicating if bytecode contains any JUMPDEST opcodes.
+///
+/// Enables fast-path optimization:
+/// - If false, all jumps fail immediately (no valid destinations)
+/// - If true, full JUMPDEST analysis is needed
+///
+/// Set during initialization by scanning bytecode.
 has_jumpdests: bool,
+
+/// Flag indicating empty bytecode.
+///
+/// Empty contracts (no code) are common in Ethereum:
+/// - EOAs (externally owned accounts)
+/// - Destroyed contracts
+/// - Contracts that failed deployment
+///
+/// Enables fast-path for calls to codeless addresses.
 is_empty: bool,
 
+/// Creates a new Contract for executing existing deployed code.
+///
+/// This is the standard constructor for CALL, CALLCODE, DELEGATECALL,
+/// and STATICCALL operations. The contract code must already exist
+/// at the specified address.
+///
+/// ## Parameters
+/// - `caller`: The address initiating this call (msg.sender)
+/// - `addr`: The address where the code is deployed
+/// - `value`: Wei being transferred (0 for DELEGATECALL/STATICCALL)
+/// - `gas`: Gas allocated for this execution
+/// - `code`: The contract bytecode to execute
+/// - `code_hash`: Keccak256 hash of the bytecode
+/// - `input`: Call data (function selector + arguments)
+/// - `is_static`: Whether this is a read-only context
+///
+/// ## Example
+/// ```zig
+/// const contract = Contract.init(
+///     caller_address,
+///     contract_address,
+///     value,
+///     gas_limit,
+///     bytecode,
+///     bytecode_hash,
+///     calldata,
+///     false, // not static
+/// );
+/// ```
 pub fn init(
     caller: Address.Address,
     addr: Address.Address,
@@ -115,6 +330,40 @@ pub fn init(
     };
 }
 
+/// Creates a new Contract for deploying new bytecode.
+///
+/// Used for CREATE and CREATE2 operations. The contract address
+/// is initially zero and will be set by the VM after computing
+/// the deployment address.
+///
+/// ## Parameters
+/// - `caller`: The creating contract's address
+/// - `value`: Initial balance for the new contract
+/// - `gas`: Gas allocated for deployment
+/// - `code`: Initialization bytecode (constructor)
+/// - `salt`: Optional salt for CREATE2 (null for CREATE)
+///
+/// ## Address Calculation
+/// - CREATE: address = keccak256(rlp([sender, nonce]))[12:]
+/// - CREATE2: address = keccak256(0xff ++ sender ++ salt ++ keccak256(code))[12:]
+///
+/// ## Deployment Flow
+/// 1. Execute initialization code
+/// 2. Code returns runtime bytecode
+/// 3. VM stores runtime bytecode at computed address
+/// 4. Contract becomes callable at that address
+///
+/// ## Example
+/// ```zig
+/// // CREATE
+/// const contract = Contract.init_deployment(
+///     deployer_address,
+///     initial_balance,
+///     gas_limit,
+///     init_bytecode,
+///     null, // no salt for CREATE
+/// );
+/// ```
 pub fn init_deployment(
     caller: Address.Address,
     value: u256,
@@ -143,16 +392,26 @@ pub fn init_deployment(
         .is_empty = code.len == 0,
     };
 
-    if (salt == null) {
-        return contract;
-    }
+    if (salt == null) return contract;
     // Salt is used for CREATE2 address calculation
     // The actual address calculation happens in the VM's create2_contract method
 
     return contract;
 }
 
-/// Quick scan for JUMPDEST presence
+/// Performs a quick scan to check if bytecode contains any JUMPDEST opcodes.
+///
+/// This is a fast O(n) scan used during contract initialization to set
+/// the `has_jumpdests` flag. If no JUMPDESTs exist, we can skip all
+/// jump validation as any JUMP/JUMPI will fail.
+///
+/// ## Note
+/// This doesn't account for JUMPDEST bytes inside PUSH data.
+/// Full analysis is deferred until actually needed (lazy evaluation).
+///
+/// ## Returns
+/// - `true`: At least one 0x5B byte found
+/// - `false`: No JUMPDEST opcodes present
 fn contains_jumpdest(code: []const u8) bool {
     for (code) |op| {
         if (op == constants.JUMPDEST) return true;
@@ -160,17 +419,38 @@ fn contains_jumpdest(code: []const u8) bool {
     return false;
 }
 
-/// Validate jump destination with optimizations
+/// Validates if a jump destination is valid within the contract bytecode.
+///
+/// A valid jump destination must:
+/// 1. Be within code bounds (< code_size)
+/// 2. Point to a JUMPDEST opcode (0x5B)
+/// 3. Not be inside PUSH data (validated by code analysis)
+///
+/// ## Parameters
+/// - `allocator`: Allocator for lazy code analysis
+/// - `dest`: Target program counter from JUMP/JUMPI
+///
+/// ## Returns
+/// - `true`: Valid JUMPDEST at the target position
+/// - `false`: Invalid destination (out of bounds, not JUMPDEST, or in data)
+///
+/// ## Performance
+/// - Fast path: Empty code or no JUMPDESTs (immediate false)
+/// - Analyzed code: O(log n) binary search
+/// - First jump: O(n) analysis then O(log n) search
+///
+/// ## Example
+/// ```zig
+/// if (!contract.valid_jumpdest(allocator, jump_target)) {
+///     return ExecutionError.InvalidJump;
+/// }
+/// ```
 pub fn valid_jumpdest(self: *Self, allocator: std.mem.Allocator, dest: u256) bool {
     // Fast path: empty code or out of bounds
-    if (self.is_empty or dest >= self.code_size) {
-        return false;
-    }
+    if (self.is_empty or dest >= self.code_size) return false;
 
     // Fast path: no JUMPDESTs in code
-    if (!self.has_jumpdests) {
-        return false;
-    }
+    if (!self.has_jumpdests) return false;
     const pos: u32 = @intCast(@min(dest, std.math.maxInt(u32)));
 
     // Ensure analysis is performed
@@ -213,11 +493,31 @@ pub inline fn is_code(self: *const Self, pos: u64) bool {
     return true;
 }
 
-/// Use gas with inline optimization
+/// Attempts to consume gas from the contract's available gas.
+///
+/// This is the primary gas accounting method, called before every
+/// operation to ensure sufficient gas remains. The inline directive
+/// ensures this hot-path function has minimal overhead.
+///
+/// ## Parameters
+/// - `amount`: Gas units to consume
+///
+/// ## Returns
+/// - `true`: Gas successfully deducted
+/// - `false`: Insufficient gas (triggers out-of-gas error)
+///
+/// ## Usage
+/// ```zig
+/// if (!contract.use_gas(operation_cost)) {
+///     return ExecutionError.OutOfGas;
+/// }
+/// ```
+///
+/// ## Note
+/// This method is marked inline for performance as it's called
+/// millions of times during contract execution.
 pub inline fn use_gas(self: *Self, amount: u64) bool {
-    if (self.gas < amount) {
-        return false;
-    }
+    if (self.gas < amount) return false;
     self.gas -= amount;
     return true;
 }
@@ -404,7 +704,41 @@ pub fn deinit(self: *Self, allocator: std.mem.Allocator, pool: ?*StoragePool) vo
     // Analysis is typically cached globally, so don't free
 }
 
-/// Analyze code and cache results
+/// Analyzes bytecode and caches the results globally for reuse.
+///
+/// This function performs comprehensive static analysis on EVM bytecode:
+/// 1. Identifies code vs data segments (for JUMPDEST validation)
+/// 2. Extracts and sorts all JUMPDEST positions
+/// 3. Detects special opcodes (CREATE, SELFDESTRUCT, dynamic jumps)
+/// 4. Caches results by code hash for reuse
+///
+/// ## Parameters
+/// - `allocator`: Memory allocator for analysis structures
+/// - `code`: The bytecode to analyze
+/// - `code_hash`: Hash for cache lookup/storage
+///
+/// ## Returns
+/// Pointer to CodeAnalysis (cached or newly created)
+///
+/// ## Performance
+/// - First analysis: O(n) where n is code length
+/// - Subsequent calls: O(1) cache lookup
+/// - Thread-safe with mutex protection
+///
+/// ## Caching Strategy
+/// Analysis results are cached globally by code hash. This is highly
+/// effective as the same contract code is often executed many times
+/// across different addresses (e.g., proxy patterns, token contracts).
+///
+/// ## Example
+/// ```zig
+/// const analysis = try Contract.analyze_code(
+///     allocator,
+///     bytecode,
+///     bytecode_hash,
+/// );
+/// // Analysis is now cached for future use
+/// ```
 pub fn analyze_code(allocator: std.mem.Allocator, code: []const u8, code_hash: [32]u8) CodeAnalysisError!*const CodeAnalysis {
     cache_mutex.lock();
     defer cache_mutex.unlock();
