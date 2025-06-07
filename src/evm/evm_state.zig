@@ -556,26 +556,56 @@ pub fn get_original_storage(self: *Self, address: Address.Address, slot: u256) s
     return current;
 }
 
+fn account_exists(self: *const Self, address: Address.Address) bool {
+    return self.balances.contains(address) or
+        self.nonces.contains(address) or
+        self.code.contains(address);
+}
+
+// Transaction lifecycle management
+
 /// Start a new transaction context
-/// 
-/// Clears the original storage cache to track fresh original values
-/// for the new transaction.
-pub fn begin_transaction(self: *Self) std.mem.Allocator.Error!void {
+///
+/// Clears the original storage cache and marks that we're in a transaction.
+/// Should be called at the beginning of each transaction execution.
+pub fn begin_transaction(self: *Self) void {
     self.original_storage.clearRetainingCapacity();
     self.in_transaction = true;
 }
 
 /// End transaction context
-/// 
-/// Clears the original storage cache and transient storage.
+///
+/// Clears the original storage cache and marks that we're no longer in a transaction.
+/// Should be called after transaction execution completes (success or failure).
 pub fn end_transaction(self: *Self) void {
     self.original_storage.clearRetainingCapacity();
-    self.transient_storage.clearRetainingCapacity();
     self.in_transaction = false;
 }
 
-fn account_exists(self: *const Self, address: Address.Address) bool {
-    return self.balances.contains(address) or
-        self.nonces.contains(address) or
-        self.code.contains(address);
+/// Get original storage value, caching it if first access
+///
+/// Returns the storage value as it was at the start of the current transaction.
+/// On first access of a slot within a transaction, caches the current value as original.
+///
+/// ## Parameters
+/// - `address`: Contract address
+/// - `slot`: Storage slot number
+///
+/// ## Returns
+/// The original value of the storage slot at transaction start
+///
+/// ## Note
+/// This is used for EIP-2200 gas refund calculations which need to know
+/// the original value to properly calculate refunds.
+pub fn get_original_storage(self: *Self, address: Address.Address, slot: u256) std.mem.Allocator.Error!u256 {
+    const key = StorageKey{ .address = address, .slot = slot };
+    
+    if (self.original_storage.get(key)) |value| {
+        return value;
+    }
+    
+    // First access in this transaction - current value is original
+    const current = self.get_storage(address, slot);
+    try self.original_storage.put(key, current);
+    return current;
 }

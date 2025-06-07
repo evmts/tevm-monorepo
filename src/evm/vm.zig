@@ -143,7 +143,7 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
     
     // Begin transaction if this is the top-level call
     if (is_top_level) {
-        try self.state.begin_transaction();
+        self.state.begin_transaction();
     }
     defer {
         // End transaction if this is the top-level call
