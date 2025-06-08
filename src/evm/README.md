@@ -67,9 +67,20 @@ zig build test-gas        # Gas accounting tests
 
 All test and build targets are configured in build.zig. If an import isn't working you may need to add it there.
 
+## Learning zig
+
+Zig is pretty easy especially if you have used a memory managed language in the past. Here is what I did to learn it
+
+1. [ziglings](https://ziglings.org/) to learn basic syntax
+2. Skim through [std library docs](https://ziglang.org/documentation/master/std/)
+3. Write zig and ask AI questions as I go. The entire [zig language docs](https://ziglang.org/documentation/0.14.1/) fits in context.
+4. Read zig code from std library and other OSS code. Avoid Bun, however, as that project is a bit harder to read and understand.
+
 ## 🤖 AI
 
 Use both the root CLAUDE.md and src/evm/CLAUDE.md in your claude and cursor environments. They have important rules for the AI for this project.
+
+AI is decent at zig but it does hallucinate sometimes. It's not a big deal if you understand zig well. If you aren't comfy with zig consider sharign [zig language docs](https://ziglang.org/documentation/0.14.1/) anytime the ai isn't using zig right. They are small enough to almost always fit in context.
 
 ## ✅ Implementation Status
 
