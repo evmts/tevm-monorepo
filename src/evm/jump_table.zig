@@ -119,6 +119,7 @@ pub fn get_operation(self: *const Self, opcode: u8) *const Operation {
 /// const result = try table.execute(pc, &interpreter, &state, bytecode[pc]);
 /// ```
 pub fn execute(self: *const Self, pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State, opcode: u8) ExecutionError.Error!Operation.ExecutionResult {
+    @branchHint(.likely);
     const operation = self.get_operation(opcode);
 
     // Cast state to Frame to access gas_remaining and stack
@@ -127,6 +128,7 @@ pub fn execute(self: *const Self, pc: usize, interpreter: *Operation.Interpreter
     Log.debug("JumpTable.execute: Executing opcode 0x{x:0>2} at pc={}, gas={}, stack_size={}", .{ opcode, pc, frame.gas_remaining, frame.stack.size });
 
     if (operation.undefined) {
+        @branchHint(.cold);
         Log.debug("JumpTable.execute: Invalid opcode 0x{x:0>2}", .{opcode});
         frame.gas_remaining = 0;
         return ExecutionError.Error.InvalidOpcode;
@@ -136,6 +138,7 @@ pub fn execute(self: *const Self, pc: usize, interpreter: *Operation.Interpreter
     try stack_validation.validate_stack_requirements(&frame.stack, operation);
 
     if (operation.constant_gas > 0) {
+        @branchHint(.likely);
         Log.debug("JumpTable.execute: Consuming {} gas for opcode 0x{x:0>2}", .{ operation.constant_gas, opcode });
         try frame.consume_gas(operation.constant_gas);
     }
@@ -159,8 +162,10 @@ pub fn execute(self: *const Self, pc: usize, interpreter: *Operation.Interpreter
 pub fn validate(self: *Self) void {
     for (0..256) |i| {
         if (self.table[i] == null) {
+            @branchHint(.cold);
             self.table[i] = &Operation.NULL;
         } else if (self.table[i].?.memory_size != null and self.table[i].?.dynamic_gas == null) {
+            @branchHint(.likely);
             // Log error instead of panicking
             std.debug.print("Warning: Operation 0x{x} has memory size but no dynamic gas calculation\n", .{i});
             // Set to NULL to prevent issues

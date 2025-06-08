@@ -72,7 +72,7 @@ read_only: bool = false,
 /// ```
 pub fn init(allocator: std.mem.Allocator, jump_table: ?*const JumpTable, chain_rules: ?*const ChainRules) std.mem.Allocator.Error!Self {
     Log.debug("VM.init: Initializing VM with allocator", .{});
-    
+
     var state = try EvmState.init(allocator);
     errdefer state.deinit();
 
@@ -141,8 +141,9 @@ pub fn interpret_static(self: *Self, contract: *Contract, input: []const u8) Exe
 /// Runs the main VM loop, executing opcodes sequentially while tracking
 /// gas consumption and handling control flow changes.
 pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u8, is_static: bool) ExecutionError.Error!RunResult {
+    @branchHint(.likely);
     Log.debug("VM.interpret_with_context: Starting execution, depth={}, gas={}, static={}", .{ self.depth, contract.gas, is_static });
-    
+
     self.depth += 1;
     defer self.depth -= 1;
 
@@ -165,10 +166,12 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
     const state_ptr: *Operation.State = @ptrCast(&frame);
 
     while (pc < contract.code_size) {
+        @branchHint(.likely);
         const opcode = contract.get_op(pc);
         frame.pc = pc;
 
         const result = self.table.execute(pc, interpreter_ptr, state_ptr, opcode) catch |err| {
+            @branchHint(.likely);
             contract.gas = frame.gas_remaining;
             self.return_data = @constCast(frame.return_data_buffer);
 
@@ -214,6 +217,7 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
         };
 
         if (frame.pc != pc) {
+            @branchHint(.likely);
             pc = frame.pc;
         } else {
             pc += result.bytes_consumed;
@@ -236,12 +240,14 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
 
 fn create_contract_internal(self: *Self, creator: Address.Address, value: u256, init_code: []const u8, gas: u64, new_address: Address.Address) std.mem.Allocator.Error!CreateResult {
     if (self.state.get_code(new_address).len > 0) {
+        @branchHint(.unlikely);
         // Contract already exists at this address
         return CreateResult.initFailure(gas, null);
     }
 
     const creator_balance = self.state.get_balance(creator);
     if (creator_balance < value) {
+        @branchHint(.unlikely);
         return CreateResult.initFailure(gas, null);
     }
 
@@ -350,6 +356,7 @@ pub const CallContractError = std.mem.Allocator.Error;
 /// NOT IMPLEMENTED - always returns failure.
 /// TODO: Implement value transfer, gas calculation, recursive execution, and return data handling.
 pub fn call_contract(self: *Self, caller: Address.Address, to: Address.Address, value: u256, input: []const u8, gas: u64, is_static: bool) CallContractError!CallResult {
+    @branchHint(.likely);
     _ = self;
     _ = caller;
     _ = to;
