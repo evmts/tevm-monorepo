@@ -49,11 +49,11 @@ test "Stack: push_unsafe and pop_unsafe" {
     var stack = Stack{};
 
     // Test unsafe push
-    stack.appendUnsafe(42);
+    stack.append_unsafe(42);
     try testing.expectEqual(@as(usize, 1), stack.size);
 
     // Test unsafe pop
-    const value = stack.popUnsafe();
+    const value = stack.pop_unsafe();
     try testing.expectEqual(@as(u256, 42), value);
     try testing.expectEqual(@as(usize, 0), stack.size);
 }
@@ -377,7 +377,7 @@ test "Stack: exchange operation" {
     try stack.exchange(0, 2);
     try testing.expectEqual(@as(u256, 7), (try stack.peek()).*); // unchanged
     try testing.expectEqual(@as(u256, 6), try stack.back(1)); // unchanged
-    try testing.expectEqual(@as(u256, 5), try stack.back(2)); // unchanged  
+    try testing.expectEqual(@as(u256, 5), try stack.back(2)); // unchanged
     try testing.expectEqual(@as(u256, 2), try stack.back(3)); // was 4
 
     // Test invalid exchange (m=0)
