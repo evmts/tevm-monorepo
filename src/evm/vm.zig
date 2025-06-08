@@ -187,6 +187,7 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
 
             return switch (err) {
                 ExecutionError.Error.InvalidOpcode => {
+                    @branchHint(.cold);
                     // INVALID opcode consumes all remaining gas
                     frame.gas_remaining = 0;
                     contract.gas = 0;
@@ -210,6 +211,7 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
                 ExecutionError.Error.MaxCodeSizeExceeded,
                 ExecutionError.Error.OutOfMemory,
                 => {
+                    @branchHint(.cold);
                     return RunResult.init(initial_gas, frame.gas_remaining, .Invalid, err, output);
                 },
                 else => return err, // Unexpected error
