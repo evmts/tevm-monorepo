@@ -6,18 +6,32 @@ This directory contains a high-performance Ethereum Virtual Machine (EVM) implem
 
 ## Architecture
 
+### Directory Structure
+
+The EVM implementation is organized into logical subdirectories for better code organization:
+
+- **`access_list/`** - EIP-2929/2930 access list management for gas optimization
+- **`constants/`** - EVM constants, gas costs, and memory limits
+- **`contract/`** - Contract management, bytecode analysis, and storage
+- **`execution/`** - All opcode implementations and execution logic
+- **`hardforks/`** - Hardfork specifications and chain rules
+- **`jump_table/`** - Opcode dispatch and operation specifications  
+- **`opcodes/`** - Opcode definitions and operation interface
+- **`stack/`** - Stack implementation and validation logic
+- **`state/`** - EVM state management (accounts, storage, logs)
+
 ### Core Components
 
 - **VM (`vm.zig`)** - Main virtual machine orchestrating contract execution
-- **JumpTable (`jump_table.zig`)** - Opcode dispatch with O(1) lookup and pre-execution validation
-- **Stack (`stack.zig`)** - High-performance 1024-element stack with unsafe optimizations
-- **Memory (`memory.zig`)** - Context-aware memory management with copy-on-write semantics
-- **State (`evm_state.zig`)** - World state management (accounts, storage, logs)
 - **Frame (`frame.zig`)** - Execution context containing stack, memory, and gas accounting
+- **Memory (`memory.zig`)** - Context-aware memory management with copy-on-write semantics
+- **JumpTable (`jump_table/jump_table.zig`)** - Opcode dispatch with O(1) lookup
+- **Stack (`stack/stack.zig`)** - High-performance 1024-element stack
+- **State (`state/state.zig`)** - World state management
 
-### Opcode Implementation (`opcodes/`)
+### Opcode Implementation (`execution/`)
 
-Opcodes are organized by category:
+Opcodes are organized by category in the execution directory:
 - `arithmetic.zig` - ADD, MUL, SUB, DIV, etc.
 - `bitwise.zig` - AND, OR, XOR, NOT, bit shifts
 - `comparison.zig` - LT, GT, EQ, ISZERO
@@ -35,7 +49,7 @@ Opcodes are organized by category:
 
 ### Two-Stage Safety System
 
-1. **Pre-execution Validation** (`jump_table.zig` + `stack_validation.zig`)
+1. **Pre-execution Validation** (`jump_table/jump_table.zig` + `stack/stack_validation.zig`)
    - Validates all stack requirements before opcode execution
    - Consumes base gas costs upfront
    - Ensures all safety constraints are met
