@@ -1,27 +1,27 @@
 const std = @import("std");
 const Contract = @import("contract/contract.zig");
-const Stack = @import("stack.zig");
-const JumpTable = @import("jump_table.zig");
+const Stack = @import("stack/stack.zig");
+const JumpTable = @import("jump_table/jump_table.zig");
 const Frame = @import("frame.zig");
-const Operation = @import("operation.zig");
+const Operation = @import("opcodes/operation.zig");
 const Address = @import("Address");
 const StoragePool = @import("contract/storage_pool.zig");
 const AccessList = @import("access_list/access_list.zig");
 const ExecutionError = @import("execution/execution_error.zig");
 const rlp = @import("Rlp");
 const Keccak256 = std.crypto.hash.sha3.Keccak256;
-const ChainRules = @import("chain_rules.zig");
+const ChainRules = @import("hardforks/chain_rules.zig");
 const gas_constants = @import("constants/gas_constants.zig");
 const constants = @import("constants/constants.zig");
 const Log = @import("log.zig");
-const EvmLog = @import("evm_log.zig");
+const EvmLog = @import("state/evm_log.zig");
 const Context = @import("context.zig");
 const EvmState = @import("evm_state.zig");
-pub const StorageKey = @import("storage_key.zig");
+pub const StorageKey = @import("state/storage_key.zig");
 pub const CreateResult = @import("create_result.zig");
 pub const CallResult = @import("call_result.zig");
 pub const RunResult = @import("run_result.zig");
-const Hardfork = @import("hardfork.zig").Hardfork;
+const Hardfork = @import("hardforks/hardfork.zig").Hardfork;
 
 /// Virtual Machine for executing Ethereum bytecode.
 ///

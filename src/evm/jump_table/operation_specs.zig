@@ -1,8 +1,8 @@
 const std = @import("std");
-const execution = @import("execution/package.zig");
-const gas_constants = @import("constants/gas_constants.zig");
-const Stack = @import("stack.zig");
-const Operation = @import("operation.zig");
+const execution = @import("../execution/package.zig");
+const gas_constants = @import("../constants/gas_constants.zig");
+const Stack = @import("../stack/stack.zig");
+const Operation = @import("../opcodes/operation.zig");
 
 /// Specification for an EVM operation.
 /// This data structure allows us to define all operations in a single place

@@ -77,25 +77,25 @@ pub const ExecutionResult = @import("execution/execution_result.zig");
 pub const Frame = @import("frame.zig");
 
 /// Ethereum hardfork configuration
-pub const Hardfork = @import("hardfork.zig");
+pub const Hardfork = @import("hardforks/hardfork.zig");
 
 /// Opcode to implementation mapping
-pub const JumpTable = @import("jump_table.zig");
+pub const JumpTable = @import("jump_table/jump_table.zig");
 
 /// Byte-addressable memory implementation
 pub const Memory = @import("memory.zig");
 
 /// EVM instruction enumeration
-pub const Opcode = @import("opcode.zig");
+pub const Opcode = @import("opcodes/opcode.zig");
 
 /// Opcode metadata (gas costs, stack effects)
-pub const Operation = @import("operation.zig");
+pub const Operation = @import("opcodes/operation.zig");
 
 /// 256-bit word stack implementation
-pub const Stack = @import("stack.zig");
+pub const Stack = @import("stack/stack.zig");
 
 /// Stack depth validation utilities
-pub const stack_validation = @import("stack_validation.zig");
+pub const stack_validation = @import("stack/stack_validation.zig");
 
 /// Storage slot pooling for gas optimization
 pub const StoragePool = @import("contract/storage_pool.zig");
@@ -116,7 +116,7 @@ pub const opcodes = execution;
 pub const bitvec = @import("contract/bitvec.zig");
 
 /// Chain-specific validation rules
-pub const chain_rules = @import("chain_rules.zig");
+pub const chain_rules = @import("hardforks/chain_rules.zig");
 
 /// EVM constants (stack size, memory limits, etc.)
 pub const constants = @import("constants/constants.zig");

@@ -1,7 +1,7 @@
 const std = @import("std");
-const Operation = @import("../operation.zig");
+const Operation = @import("../opcodes/operation.zig");
 const ExecutionError = @import("execution_error.zig");
-const Stack = @import("../stack.zig");
+const Stack = @import("../stack/stack.zig");
 const Frame = @import("../frame.zig");
 
 pub fn op_and(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {

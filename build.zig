@@ -424,7 +424,7 @@ pub fn build(b: *std.Build) void {
 
     const interpreter_test = b.addTest(.{
         .name = "interpreter-test",
-        .root_source_file = b.path("src/evm/jump_table.zig"),
+        .root_source_file = b.path("test/evm/jump_table_test.zig"),
         .target = target,
         .optimize = optimize,
     });
@@ -433,6 +433,7 @@ pub fn build(b: *std.Build) void {
     interpreter_test.root_module.addImport("Address", address_mod);
     interpreter_test.root_module.addImport("Block", block_mod);
     interpreter_test.root_module.addImport("Rlp", rlp_mod);
+    interpreter_test.root_module.addImport("evm", evm_mod);
 
     const run_interpreter_test = b.addRunArtifact(interpreter_test);
 

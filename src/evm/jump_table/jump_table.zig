@@ -1,16 +1,16 @@
 const std = @import("std");
-const Opcode = @import("opcode.zig");
-const Operation = @import("operation.zig");
-const Hardfork = @import("hardfork.zig").Hardfork;
-const ExecutionError = @import("execution/execution_error.zig");
-const Stack = @import("stack.zig");
-const Memory = @import("memory.zig");
-const Frame = @import("frame.zig");
-const Contract = @import("contract/contract.zig");
+const Opcode = @import("../opcodes/opcode.zig");
+const Operation = @import("../opcodes/operation.zig");
+const Hardfork = @import("../hardforks/hardfork.zig").Hardfork;
+const ExecutionError = @import("../execution/execution_error.zig");
+const Stack = @import("../stack/stack.zig");
+const Memory = @import("../memory.zig");
+const Frame = @import("../frame.zig");
+const Contract = @import("../contract/contract.zig");
 const Address = @import("Address");
-const Log = @import("log.zig");
+const Log = @import("../log.zig");
 
-const execution = @import("execution/package.zig");
+const execution = @import("../execution/package.zig");
 const stack_ops = execution.stack;
 const log = execution.log;
 const operation_specs = @import("operation_specs.zig");
@@ -134,7 +134,7 @@ pub fn execute(self: *const Self, pc: usize, interpreter: *Operation.Interpreter
         return ExecutionError.Error.InvalidOpcode;
     }
 
-    const stack_validation = @import("stack_validation.zig");
+    const stack_validation = @import("../stack/stack_validation.zig");
     try stack_validation.validate_stack_requirements(&frame.stack, operation);
 
     if (operation.constant_gas > 0) {

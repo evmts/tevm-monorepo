@@ -1,6 +1,6 @@
 const std = @import("std");
 const Hardfork = @import("hardfork.zig").Hardfork;
-const Log = @import("log.zig");
+const Log = @import("../log.zig");
 
 /// Configuration for Ethereum protocol rules and EIP activations across hardforks.
 ///

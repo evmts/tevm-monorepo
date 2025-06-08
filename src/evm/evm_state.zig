@@ -31,8 +31,8 @@
 
 const std = @import("std");
 const Address = @import("Address");
-const EvmLog = @import("evm_log.zig");
-const StorageKey = @import("storage_key.zig");
+const EvmLog = @import("state/evm_log.zig");
+const StorageKey = @import("state/storage_key.zig");
 const Log = @import("log.zig");
 
 /// EVM state container

@@ -1,5 +1,5 @@
 const Stack = @import("stack.zig");
-const ExecutionError = @import("execution/execution_error.zig");
+const ExecutionError = @import("../execution/execution_error.zig");
 
 /// Common validation patterns for EVM stack operations.
 ///
