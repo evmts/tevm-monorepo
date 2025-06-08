@@ -52,9 +52,9 @@
 /// EXP          | [a, b]      | [a^b]        | Exponentiation
 /// SIGNEXTEND   | [b, x]      | [y]          | Sign extend x from byte b
 const std = @import("std");
-const Operation = @import("../operation.zig");
-const ExecutionError = @import("../execution_error.zig");
-const Stack = @import("../stack.zig");
+const Operation = @import("../opcodes/operation.zig");
+const ExecutionError = @import("execution_error.zig");
+const Stack = @import("../stack/stack.zig");
 const Frame = @import("../frame.zig");
 const Vm = @import("../vm.zig");
 

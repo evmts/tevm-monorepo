@@ -35,8 +35,8 @@
 //! ```
 
 const std = @import("std");
-const ExecutionError = @import("execution_error.zig");
-const Stack = @import("stack.zig");
+const ExecutionError = @import("execution/execution_error.zig");
+const Stack = @import("stack/stack.zig");
 const Memory = @import("memory.zig");
 
 /// Map Stack errors to ExecutionError

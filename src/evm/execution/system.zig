@@ -1,15 +1,15 @@
 const std = @import("std");
-const Operation = @import("../operation.zig");
-const ExecutionError = @import("../execution_error.zig");
-const Stack = @import("../stack.zig");
+const Operation = @import("../opcodes/operation.zig");
+const ExecutionError = @import("execution_error.zig");
+const Stack = @import("../stack/stack.zig");
 const Frame = @import("../frame.zig");
 const Vm = @import("../vm.zig");
-const Contract = @import("../contract.zig");
+const Contract = @import("../contract/contract.zig");
 const Address = @import("Address");
 const to_u256 = Address.to_u256;
 const from_u256 = Address.from_u256;
-const gas_constants = @import("../gas_constants.zig");
-const AccessList = @import("../access_list.zig").AccessList;
+const gas_constants = @import("../constants/gas_constants.zig");
+const AccessList = @import("../access_list/access_list.zig").AccessList;
 const error_mapping = @import("../error_mapping.zig");
 
 // Import helper functions from error_mapping

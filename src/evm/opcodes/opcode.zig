@@ -34,7 +34,7 @@
 /// const byte_value = opcode.to_u8(); // 0x01
 /// const name = opcode.get_name(); // "ADD"
 /// ```
-pub const MemorySize = @import("memory_size.zig");
+pub const MemorySize = @import("../memory_size.zig");
 
 /// Opcode module providing EVM instruction definitions.
 const Self = @This();

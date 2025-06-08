@@ -16,11 +16,11 @@ pub const storage = @import("storage.zig");
 pub const system = @import("system.zig");
 
 // Re-export common types
-pub const Operation = @import("../operation.zig");
-pub const ExecutionError = @import("../execution_error.zig");
+pub const Operation = @import("../opcodes/operation.zig");
+pub const ExecutionError = @import("execution_error.zig");
 pub const Frame = @import("../frame.zig");
-pub const Stack = @import("../stack.zig");
+pub const Stack = @import("../stack/stack.zig");
 pub const Memory = @import("../memory.zig");
 pub const Vm = @import("../vm.zig");
-pub const Contract = @import("../contract.zig");
-pub const gas_constants = @import("../gas_constants.zig");
+pub const Contract = @import("../contract/contract.zig");
+pub const gas_constants = @import("../constants/gas_constants.zig");

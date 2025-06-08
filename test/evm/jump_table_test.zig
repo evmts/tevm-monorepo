@@ -1,11 +1,13 @@
 const std = @import("std");
-const JumpTable = @import("../../src/evm/jump_table.zig");
-const Operation = @import("../../src/evm/operations/operation.zig");
-const Stack = @import("../../src/evm/stack.zig");
-const Frame = @import("../../src/evm/frame.zig");
-const Contract = @import("../../src/evm/contract.zig");
+const evm = @import("evm");
+const JumpTable = evm.JumpTable;
+const Operation = evm.Operation;
+const Stack = evm.Stack;
+const Frame = evm.Frame;
+const Contract = evm.Contract;
 const Address = @import("Address");
-const opcodes = @import("../../src/evm/opcodes/package.zig");
+const execution = evm.execution;
+const gas_constants = evm.gas_constants;
 
 test "JumpTable basic operations" {
     const jt = JumpTable.new_frontier_instruction_set();
@@ -15,7 +17,7 @@ test "JumpTable basic operations" {
     try std.testing.expectEqual(@as(u64, 0), stop_op.constant_gas);
 
     const add_op = jt.get_operation(0x01);
-    try std.testing.expectEqual(@as(u64, opcodes.gas_constants.GasFastestStep), add_op.constant_gas);
+    try std.testing.expectEqual(@as(u64, gas_constants.GasFastestStep), add_op.constant_gas);
 
     // Test an undefined operation
     const undef_op = jt.get_operation(0xef);
@@ -43,18 +45,17 @@ test "JumpTable initialization and validation" {
     }
 }
 
-
 test "JumpTable gas constants" {
-    try std.testing.expectEqual(@as(u64, 2), opcodes.gas_constants.GasQuickStep);
-    try std.testing.expectEqual(@as(u64, 3), opcodes.gas_constants.GasFastestStep);
-    try std.testing.expectEqual(@as(u64, 5), opcodes.gas_constants.GasFastStep);
-    try std.testing.expectEqual(@as(u64, 8), opcodes.gas_constants.GasMidStep);
-    try std.testing.expectEqual(@as(u64, 10), opcodes.gas_constants.GasSlowStep);
-    try std.testing.expectEqual(@as(u64, 20), opcodes.gas_constants.GasExtStep);
+    try std.testing.expectEqual(@as(u64, 2), gas_constants.GasQuickStep);
+    try std.testing.expectEqual(@as(u64, 3), gas_constants.GasFastestStep);
+    try std.testing.expectEqual(@as(u64, 5), gas_constants.GasFastStep);
+    try std.testing.expectEqual(@as(u64, 8), gas_constants.GasMidStep);
+    try std.testing.expectEqual(@as(u64, 10), gas_constants.GasSlowStep);
+    try std.testing.expectEqual(@as(u64, 20), gas_constants.GasExtStep);
 
-    try std.testing.expectEqual(@as(u64, 30), opcodes.gas_constants.Keccak256Gas);
-    try std.testing.expectEqual(@as(u64, 375), opcodes.gas_constants.LogGas);
-    try std.testing.expectEqual(@as(u64, 32000), opcodes.gas_constants.CreateGas);
+    try std.testing.expectEqual(@as(u64, 30), gas_constants.Keccak256Gas);
+    try std.testing.expectEqual(@as(u64, 375), gas_constants.LogGas);
+    try std.testing.expectEqual(@as(u64, 32000), gas_constants.CreateGas);
 }
 
 test "JumpTable execute consumes gas before opcode execution" {
@@ -63,27 +64,17 @@ test "JumpTable execute consumes gas before opcode execution" {
     // Create a test frame with some gas
     const test_allocator = std.testing.allocator;
     const zero_address = Address.zero();
-    var test_contract = Contract{
-        .address = zero_address,
-        .caller = zero_address,
-        .value = 0,
-        .code = &[_]u8{0x01}, // ADD opcode
-        .code_hash = [_]u8{0} ** 32,
-        .code_size = 1,
-        .analysis = null,
-        .gas = 1000,
-        .gas_refund = 0,
-        .input = &[_]u8{},
-        .is_deployment = false,
-        .is_system_call = false,
-        .is_static = false,
-        .storage_access = null,
-        .original_storage = null,
-        .is_cold = false,
-        .has_jumpdests = false,
-        .is_empty = false,
-    };
-    defer test_contract.deinit(allocator, null);
+    const test_code = [_]u8{0x01}; // ADD opcode
+    var test_contract = Contract.init(
+        zero_address, // caller
+        zero_address, // addr
+        0, // value
+        1000, // gas
+        &test_code, // code
+        [_]u8{0} ** 32, // code_hash
+        &[_]u8{}, // input
+        false, // is_static
+    );
     var test_frame = try Frame.init(test_allocator, &test_contract);
     test_frame.memory.finalize_root();
     defer test_frame.deinit();
@@ -140,7 +131,7 @@ test "JumpTable Constantinople opcodes" {
 
     // Verify correct operation properties
     const create2_op = jt_constantinople.get_operation(0xf5);
-    try std.testing.expectEqual(@as(u64, opcodes.gas_constants.CreateGas), create2_op.constant_gas);
+    try std.testing.expectEqual(@as(u64, gas_constants.CreateGas), create2_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 4), create2_op.min_stack);
 
     const extcodehash_op = jt_constantinople.get_operation(0x3f);
@@ -149,7 +140,7 @@ test "JumpTable Constantinople opcodes" {
     try std.testing.expectEqual(@as(u32, 1), extcodehash_op.min_stack);
 
     const shl_op = jt_constantinople.get_operation(0x1b);
-    try std.testing.expectEqual(@as(u64, opcodes.gas_constants.GasFastestStep), shl_op.constant_gas);
+    try std.testing.expectEqual(@as(u64, gas_constants.GasFastestStep), shl_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 2), shl_op.min_stack);
 }
 
@@ -175,15 +166,15 @@ test "JumpTable Istanbul opcodes" {
 
     // Verify correct operation properties
     const chainid_op = jt_istanbul.get_operation(0x46);
-    try std.testing.expectEqual(@as(u64, opcodes.gas_constants.GasQuickStep), chainid_op.constant_gas);
+    try std.testing.expectEqual(@as(u64, gas_constants.GasQuickStep), chainid_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 0), chainid_op.min_stack);
 
     const selfbalance_op = jt_istanbul.get_operation(0x47);
-    try std.testing.expectEqual(@as(u64, opcodes.gas_constants.GasFastStep), selfbalance_op.constant_gas);
+    try std.testing.expectEqual(@as(u64, gas_constants.GasFastStep), selfbalance_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 0), selfbalance_op.min_stack);
 
     const basefee_op = jt_london.get_operation(0x48);
-    try std.testing.expectEqual(@as(u64, opcodes.gas_constants.GasQuickStep), basefee_op.constant_gas);
+    try std.testing.expectEqual(@as(u64, gas_constants.GasQuickStep), basefee_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 0), basefee_op.min_stack);
 }
 
@@ -202,7 +193,7 @@ test "JumpTable Shanghai opcodes" {
 
     // Verify correct operation properties
     const push0_op = jt_shanghai.get_operation(0x5f);
-    try std.testing.expectEqual(@as(u64, opcodes.gas_constants.GasQuickStep), push0_op.constant_gas);
+    try std.testing.expectEqual(@as(u64, gas_constants.GasQuickStep), push0_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 0), push0_op.min_stack);
     try std.testing.expectEqual(@as(u32, Stack.CAPACITY - 1), push0_op.max_stack);
 }
@@ -228,15 +219,15 @@ test "JumpTable Cancun opcodes" {
 
     // Verify correct operation properties
     const blobhash_op = jt_cancun.get_operation(0x49);
-    try std.testing.expectEqual(@as(u64, opcodes.gas_constants.GasFastestStep), blobhash_op.constant_gas);
+    try std.testing.expectEqual(@as(u64, gas_constants.BlobHashGas), blobhash_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 1), blobhash_op.min_stack);
 
     const blobbasefee_op = jt_cancun.get_operation(0x4a);
-    try std.testing.expectEqual(@as(u64, opcodes.gas_constants.GasQuickStep), blobbasefee_op.constant_gas);
+    try std.testing.expectEqual(@as(u64, gas_constants.GasQuickStep), blobbasefee_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 0), blobbasefee_op.min_stack);
 
     const mcopy_op = jt_cancun.get_operation(0x5e);
-    try std.testing.expectEqual(@as(u64, opcodes.gas_constants.GasFastestStep), mcopy_op.constant_gas);
+    try std.testing.expectEqual(@as(u64, gas_constants.GasFastestStep), mcopy_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 3), mcopy_op.min_stack);
 
     const tload_op = jt_cancun.get_operation(0x5c);

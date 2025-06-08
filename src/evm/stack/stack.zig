@@ -1,5 +1,5 @@
 const std = @import("std");
-const Log = @import("log.zig");
+const Log = @import("../log.zig");
 
 /// High-performance EVM stack implementation with fixed capacity.
 ///

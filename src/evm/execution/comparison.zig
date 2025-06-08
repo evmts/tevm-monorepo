@@ -1,7 +1,7 @@
 const std = @import("std");
-const Operation = @import("../operation.zig");
-const ExecutionError = @import("../execution_error.zig");
-const Stack = @import("../stack.zig");
+const Operation = @import("../opcodes/operation.zig");
+const ExecutionError = @import("execution_error.zig");
+const Stack = @import("../stack/stack.zig");
 const Frame = @import("../frame.zig");
 
 // Helper to convert Stack errors to ExecutionError

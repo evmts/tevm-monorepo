@@ -38,13 +38,13 @@
 //! - revm: https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/contract.rs
 //! - evmone: https://github.com/ethereum/evmone/blob/master/lib/evmone/execution_state.hpp
 const std = @import("std");
-const constants = @import("constants.zig");
+const constants = @import("../constants/constants.zig");
 const bitvec = @import("bitvec.zig");
 const Address = @import("Address");
-const ExecutionError = @import("execution_error.zig");
+const ExecutionError = @import("../execution/execution_error.zig");
 const CodeAnalysis = @import("code_analysis.zig");
 const StoragePool = @import("storage_pool.zig");
-const Log = @import("log.zig");
+const Log = @import("../log.zig");
 
 /// Maximum gas refund allowed (EIP-3529)
 const MAX_REFUND_QUOTIENT = 5;

@@ -1,10 +1,10 @@
 const std = @import("std");
-const Operation = @import("../operation.zig");
-const ExecutionError = @import("../execution_error.zig");
-const Stack = @import("../stack.zig");
+const Operation = @import("../opcodes/operation.zig");
+const ExecutionError = @import("execution_error.zig");
+const Stack = @import("../stack/stack.zig");
 const Frame = @import("../frame.zig");
 const Vm = @import("../vm.zig");
-const gas_constants = @import("../gas_constants.zig");
+const gas_constants = @import("../constants/gas_constants.zig");
 const error_mapping = @import("../error_mapping.zig");
 const Address = @import("Address");
 const Log = @import("../log.zig");
@@ -47,7 +47,7 @@ pub fn op_sload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     const slot = frame.stack.peek_unsafe().*;
 
     if (vm.chain_rules.IsBerlin) {
-        const Contract = @import("../contract.zig");
+        const Contract = @import("../contract/contract.zig");
         const is_cold = frame.contract.mark_storage_slot_warm(frame.allocator, slot, null) catch |err| switch (err) {
             Contract.MarkStorageSlotWarmError.OutOfAllocatorMemory => {
                 return ExecutionError.Error.OutOfMemory;
@@ -89,7 +89,7 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     const current_value = try error_mapping.vm_get_storage(vm, frame.contract.address, slot);
 
-    const Contract = @import("../contract.zig");
+    const Contract = @import("../contract/contract.zig");
     const is_cold = frame.contract.mark_storage_slot_warm(frame.allocator, slot, null) catch |err| switch (err) {
         Contract.MarkStorageSlotWarmError.OutOfAllocatorMemory => {
             Log.err("SSTORE: mark_storage_slot_warm failed: {}", .{err});

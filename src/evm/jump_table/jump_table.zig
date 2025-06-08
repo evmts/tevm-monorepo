@@ -1,18 +1,18 @@
 const std = @import("std");
-const Opcode = @import("opcode.zig");
-const Operation = @import("operation.zig");
-const Hardfork = @import("hardfork.zig").Hardfork;
-const ExecutionError = @import("execution_error.zig");
-const Stack = @import("stack.zig");
-const Memory = @import("memory.zig");
-const Frame = @import("frame.zig");
-const Contract = @import("contract.zig");
+const Opcode = @import("../opcodes/opcode.zig");
+const Operation = @import("../opcodes/operation.zig");
+const Hardfork = @import("../hardforks/hardfork.zig").Hardfork;
+const ExecutionError = @import("../execution/execution_error.zig");
+const Stack = @import("../stack/stack.zig");
+const Memory = @import("../memory.zig");
+const Frame = @import("../frame.zig");
+const Contract = @import("../contract/contract.zig");
 const Address = @import("Address");
-const Log = @import("log.zig");
+const Log = @import("../log.zig");
 
-const opcodes = @import("opcodes/package.zig");
-const stack_ops = opcodes.stack;
-const log = opcodes.log;
+const execution = @import("../execution/package.zig");
+const stack_ops = execution.stack;
+const log = execution.log;
 const operation_specs = @import("operation_specs.zig");
 
 /// EVM jump table for efficient opcode dispatch.
@@ -134,7 +134,7 @@ pub fn execute(self: *const Self, pc: usize, interpreter: *Operation.Interpreter
         return ExecutionError.Error.InvalidOpcode;
     }
 
-    const stack_validation = @import("stack_validation.zig");
+    const stack_validation = @import("../stack/stack_validation.zig");
     try stack_validation.validate_stack_requirements(&frame.stack, operation);
 
     if (operation.constant_gas > 0) {
@@ -322,7 +322,7 @@ pub fn init_from_hardfork(hardfork: Hardfork) Self {
         const n = i + 1;
         jt.table[0x60 + i] = &Operation{
             .execute = stack_ops.make_push(n),
-            .constant_gas = opcodes.gas_constants.GasFastestStep,
+            .constant_gas = execution.gas_constants.GasFastestStep,
             .min_stack = 0,
             .max_stack = Stack.CAPACITY - 1,
         };
@@ -332,7 +332,7 @@ pub fn init_from_hardfork(hardfork: Hardfork) Self {
     inline for (1..17) |n| {
         jt.table[0x80 + n - 1] = &Operation{
             .execute = stack_ops.make_dup(n),
-            .constant_gas = opcodes.gas_constants.GasFastestStep,
+            .constant_gas = execution.gas_constants.GasFastestStep,
             .min_stack = @intCast(n),
             .max_stack = Stack.CAPACITY - 1,
         };
@@ -342,7 +342,7 @@ pub fn init_from_hardfork(hardfork: Hardfork) Self {
     inline for (1..17) |n| {
         jt.table[0x90 + n - 1] = &Operation{
             .execute = stack_ops.make_swap(n),
-            .constant_gas = opcodes.gas_constants.GasFastestStep,
+            .constant_gas = execution.gas_constants.GasFastestStep,
             .min_stack = @intCast(n + 1),
             .max_stack = Stack.CAPACITY,
         };
@@ -352,7 +352,7 @@ pub fn init_from_hardfork(hardfork: Hardfork) Self {
     inline for (0..5) |n| {
         jt.table[0xa0 + n] = &Operation{
             .execute = log.make_log(n),
-            .constant_gas = opcodes.gas_constants.LogGas + opcodes.gas_constants.LogTopicGas * n,
+            .constant_gas = execution.gas_constants.LogGas + execution.gas_constants.LogTopicGas * n,
             .min_stack = @intCast(n + 2),
             .max_stack = Stack.CAPACITY,
         };

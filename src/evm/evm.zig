@@ -19,7 +19,7 @@
 //! - **Opcode**: Enumeration of all EVM instructions
 //! - **Operation**: Metadata about each opcode (gas, stack effects)
 //! - **JumpTable**: Maps opcodes to their implementations
-//! - **opcodes/**: Individual opcode implementations
+//! - **execution/**: Individual opcode implementations
 //!
 //! ### Error Handling
 //! - **ExecutionError**: Unified error type for all execution failures
@@ -62,70 +62,79 @@ pub const Address = @import("Address");
 // Import all EVM modules
 
 /// Bytecode analysis for jump destination detection
-pub const CodeAnalysis = @import("code_analysis.zig");
+pub const CodeAnalysis = @import("contract/code_analysis.zig");
 
 /// Contract code and storage management
-pub const Contract = @import("contract.zig");
+pub const Contract = @import("contract/contract.zig");
 
 /// Unified error types for EVM execution
-pub const ExecutionError = @import("execution_error.zig");
+pub const ExecutionError = @import("execution/execution_error.zig");
+
+/// Execution result type
+pub const ExecutionResult = @import("execution/execution_result.zig");
 
 /// Execution frame/context management
 pub const Frame = @import("frame.zig");
 
 /// Ethereum hardfork configuration
-pub const Hardfork = @import("hardfork.zig");
+pub const Hardfork = @import("hardforks/hardfork.zig");
 
 /// Opcode to implementation mapping
-pub const JumpTable = @import("jump_table.zig");
+pub const JumpTable = @import("jump_table/jump_table.zig");
 
 /// Byte-addressable memory implementation
 pub const Memory = @import("memory.zig");
 
 /// EVM instruction enumeration
-pub const Opcode = @import("opcode.zig");
+pub const Opcode = @import("opcodes/opcode.zig");
 
 /// Opcode metadata (gas costs, stack effects)
-pub const Operation = @import("operation.zig");
+pub const Operation = @import("opcodes/operation.zig");
 
 /// 256-bit word stack implementation
-pub const Stack = @import("stack.zig");
+pub const Stack = @import("stack/stack.zig");
 
 /// Stack depth validation utilities
-pub const stack_validation = @import("stack_validation.zig");
+pub const stack_validation = @import("stack/stack_validation.zig");
 
 /// Storage slot pooling for gas optimization
-pub const StoragePool = @import("storage_pool.zig");
+pub const StoragePool = @import("contract/storage_pool.zig");
 
 /// Main virtual machine implementation
 pub const Vm = @import("vm.zig");
 
-// Import opcodes
+/// EVM state management (accounts, storage, logs)
+pub const EvmState = @import("state/state.zig");
+
+// Import execution
 /// All opcode implementations (arithmetic, stack, memory, etc.)
-pub const opcodes = @import("opcodes/package.zig");
+pub const execution = @import("execution/package.zig");
+
+// Backwards compatibility alias
+pub const opcodes = execution;
 
 // Import utility modules
 
 /// Bit vector utilities for jump destination tracking
-pub const bitvec = @import("bitvec.zig");
+pub const bitvec = @import("contract/bitvec.zig");
 
 /// Chain-specific validation rules
-pub const chain_rules = @import("chain_rules.zig");
+pub const chain_rules = @import("hardforks/chain_rules.zig");
 
 /// EVM constants (stack size, memory limits, etc.)
-pub const constants = @import("constants.zig");
+pub const constants = @import("constants/constants.zig");
 
 /// EIP-7702 EOA delegation bytecode format
-pub const eip_7702_bytecode = @import("eip_7702_bytecode.zig");
+pub const eip_7702_bytecode = @import("contract/eip_7702_bytecode.zig");
 
 /// Fee market calculations (EIP-1559)
 pub const fee_market = @import("fee_market.zig");
 
 /// Gas cost constants and calculations
-pub const gas_constants = @import("gas_constants.zig");
+pub const gas_constants = @import("constants/gas_constants.zig");
 
 /// Memory size limits and expansion rules
-pub const memory_limits = @import("memory_limits.zig");
+pub const memory_limits = @import("constants/memory_limits.zig");
 
 // Export all error types for strongly typed error handling
 ///
@@ -188,7 +197,7 @@ pub const MarkStorageSlotWarmError = Contract.MarkStorageSlotWarmError;
 
 // Access List error types (imported via import statement to avoid circular deps)
 /// Access list module for EIP-2929/2930 support
-const AccessListModule = @import("access_list.zig");
+const AccessListModule = @import("access_list/access_list.zig");
 /// Error accessing addresses in access list
 pub const AccessAddressError = AccessListModule.AccessAddressError;
 /// Error accessing storage slots in access list
