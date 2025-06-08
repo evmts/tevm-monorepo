@@ -1,6 +1,6 @@
 const std = @import("std");
 const Operation = @import("../operation.zig");
-const ExecutionError = @import("../execution_error.zig");
+const ExecutionError = @import("execution_error.zig");
 const Stack = @import("../stack.zig");
 const Frame = @import("../frame.zig");
 const error_mapping = @import("../error_mapping.zig");

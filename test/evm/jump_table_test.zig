@@ -5,7 +5,7 @@ const Stack = @import("../../src/evm/stack.zig");
 const Frame = @import("../../src/evm/frame.zig");
 const Contract = @import("../../src/evm/contract.zig");
 const Address = @import("Address");
-const opcodes = @import("../../src/evm/opcodes/package.zig");
+const execution = @import("../../src/evm/execution/package.zig");
 
 test "JumpTable basic operations" {
     const jt = JumpTable.new_frontier_instruction_set();

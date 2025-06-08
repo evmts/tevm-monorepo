@@ -35,7 +35,7 @@
 //! ```
 
 const std = @import("std");
-const ExecutionError = @import("execution_error.zig");
+const ExecutionError = @import("execution/execution_error.zig");
 const Stack = @import("stack.zig");
 const Memory = @import("memory.zig");
 

@@ -19,7 +19,7 @@
 //! - **Opcode**: Enumeration of all EVM instructions
 //! - **Operation**: Metadata about each opcode (gas, stack effects)
 //! - **JumpTable**: Maps opcodes to their implementations
-//! - **opcodes/**: Individual opcode implementations
+//! - **execution/**: Individual opcode implementations
 //!
 //! ### Error Handling
 //! - **ExecutionError**: Unified error type for all execution failures
@@ -68,7 +68,10 @@ pub const CodeAnalysis = @import("contract/code_analysis.zig");
 pub const Contract = @import("contract/contract.zig");
 
 /// Unified error types for EVM execution
-pub const ExecutionError = @import("execution_error.zig");
+pub const ExecutionError = @import("execution/execution_error.zig");
+
+/// Execution result type
+pub const ExecutionResult = @import("execution/execution_result.zig");
 
 /// Execution frame/context management
 pub const Frame = @import("frame.zig");
@@ -100,9 +103,12 @@ pub const StoragePool = @import("contract/storage_pool.zig");
 /// Main virtual machine implementation
 pub const Vm = @import("vm.zig");
 
-// Import opcodes
+// Import execution
 /// All opcode implementations (arithmetic, stack, memory, etc.)
-pub const opcodes = @import("opcodes/package.zig");
+pub const execution = @import("execution/package.zig");
+
+// Backwards compatibility alias
+pub const opcodes = execution;
 
 // Import utility modules
 

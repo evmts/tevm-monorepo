@@ -2,7 +2,7 @@ const std = @import("std");
 const Memory = @import("memory.zig");
 const Stack = @import("stack.zig");
 const Contract = @import("contract/contract.zig");
-const ExecutionError = @import("execution_error.zig");
+const ExecutionError = @import("execution/execution_error.zig");
 const Log = @import("log.zig");
 
 /// EVM execution frame representing a single call context.
