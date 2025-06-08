@@ -28,7 +28,7 @@ pub fn op_sha3(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
         if (offset > 0) {
             // Check if offset is beyond reasonable memory limits
             const offset_usize = @as(usize, @intCast(offset));
-            const memory_limits = @import("../memory_limits.zig");
+            const memory_limits = @import("../constants/memory_limits.zig");
             if (offset_usize > memory_limits.MAX_MEMORY_SIZE) return ExecutionError.Error.OutOfOffset;
         }
         // Hash of empty data = keccak256("")
@@ -46,7 +46,7 @@ pub fn op_sha3(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     };
 
     // Check if the end position exceeds reasonable memory limits
-    const memory_limits = @import("../memory_limits.zig");
+    const memory_limits = @import("../constants/memory_limits.zig");
     if (end > memory_limits.MAX_MEMORY_SIZE) return ExecutionError.Error.OutOfOffset;
 
     // Dynamic gas cost for hashing

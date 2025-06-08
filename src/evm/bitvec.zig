@@ -1,5 +1,5 @@
 const std = @import("std");
-const constants = @import("constants.zig");
+const constants = @import("constants/constants.zig");
 
 /// BitVec is a bit vector implementation used for tracking JUMPDEST positions in bytecode
 const Self = @This();

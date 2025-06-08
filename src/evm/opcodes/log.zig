@@ -4,7 +4,7 @@ const ExecutionError = @import("../execution_error.zig");
 const Stack = @import("../stack.zig");
 const Frame = @import("../frame.zig");
 const Vm = @import("../vm.zig");
-const gas_constants = @import("../gas_constants.zig");
+const gas_constants = @import("../constants/gas_constants.zig");
 const Address = @import("Address");
 const error_mapping = @import("../error_mapping.zig");
 

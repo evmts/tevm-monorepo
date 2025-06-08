@@ -113,7 +113,7 @@ pub const bitvec = @import("bitvec.zig");
 pub const chain_rules = @import("chain_rules.zig");
 
 /// EVM constants (stack size, memory limits, etc.)
-pub const constants = @import("constants.zig");
+pub const constants = @import("constants/constants.zig");
 
 /// EIP-7702 EOA delegation bytecode format
 pub const eip_7702_bytecode = @import("eip_7702_bytecode.zig");
@@ -122,10 +122,10 @@ pub const eip_7702_bytecode = @import("eip_7702_bytecode.zig");
 pub const fee_market = @import("fee_market.zig");
 
 /// Gas cost constants and calculations
-pub const gas_constants = @import("gas_constants.zig");
+pub const gas_constants = @import("constants/gas_constants.zig");
 
 /// Memory size limits and expansion rules
-pub const memory_limits = @import("memory_limits.zig");
+pub const memory_limits = @import("constants/memory_limits.zig");
 
 // Export all error types for strongly typed error handling
 ///

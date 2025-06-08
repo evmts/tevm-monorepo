@@ -1,6 +1,6 @@
 const std = @import("std");
 const opcodes = @import("opcodes/package.zig");
-const gas_constants = @import("gas_constants.zig");
+const gas_constants = @import("constants/gas_constants.zig");
 const Stack = @import("stack.zig");
 const Operation = @import("operation.zig");
 
