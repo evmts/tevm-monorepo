@@ -21,7 +21,7 @@ pub fn op_mload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    std.debug.assert(frame.stack.size >= 1);
+    if (frame.stack.size < 1) unreachable;
 
     // Get offset from top of stack unsafely - bounds checking is done in jump_table.zig
     const offset = frame.stack.peek_unsafe().*;
@@ -55,7 +55,7 @@ pub fn op_mstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    std.debug.assert(frame.stack.size >= 2);
+    if (frame.stack.size < 2) unreachable;
 
     // Pop two values unsafely using batch operation - bounds checking is done in jump_table.zig
     // EVM Stack: [..., value, offset] where offset is on top
@@ -89,7 +89,7 @@ pub fn op_mstore8(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    std.debug.assert(frame.stack.size >= 2);
+    if (frame.stack.size < 2) unreachable;
 
     // Pop two values unsafely using batch operation - bounds checking is done in jump_table.zig
     // EVM Stack: [..., value, offset] where offset is on top
@@ -124,7 +124,7 @@ pub fn op_msize(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    std.debug.assert(frame.stack.size < Stack.CAPACITY);
+    if (frame.stack.size >= Stack.CAPACITY) unreachable;
 
     // MSIZE returns the size in bytes, but memory is always expanded in 32-byte words
     // So we need to round up to the nearest word boundary
@@ -143,7 +143,7 @@ pub fn op_mcopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    std.debug.assert(frame.stack.size >= 3);
+    if (frame.stack.size < 3) unreachable;
 
     // Pop three values unsafely - bounds checking is done in jump_table.zig
     // EVM stack order: [..., dest, src, size] (top to bottom)
@@ -184,7 +184,7 @@ pub fn op_calldataload(pc: usize, interpreter: *Operation.Interpreter, state: *O
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    std.debug.assert(frame.stack.size >= 1);
+    if (frame.stack.size < 1) unreachable;
 
     // Get offset from top of stack unsafely - bounds checking is done in jump_table.zig
     const offset = frame.stack.peek_unsafe().*;
@@ -220,7 +220,7 @@ pub fn op_calldatasize(pc: usize, interpreter: *Operation.Interpreter, state: *O
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    std.debug.assert(frame.stack.size < Stack.CAPACITY);
+    if (frame.stack.size >= Stack.CAPACITY) unreachable;
 
     // Push result unsafely - bounds checking is done in jump_table.zig
     frame.stack.append_unsafe(@as(u256, @intCast(frame.input.len)));
@@ -234,7 +234,7 @@ pub fn op_calldatacopy(pc: usize, interpreter: *Operation.Interpreter, state: *O
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    std.debug.assert(frame.stack.size >= 3);
+    if (frame.stack.size < 3) unreachable;
 
     // Pop three values unsafely - bounds checking is done in jump_table.zig
     // EVM stack order: [..., size, data_offset, mem_offset] (top to bottom)
@@ -275,7 +275,7 @@ pub fn op_codesize(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    std.debug.assert(frame.stack.size < Stack.CAPACITY);
+    if (frame.stack.size >= Stack.CAPACITY) unreachable;
 
     // Push result unsafely - bounds checking is done in jump_table.zig
     frame.stack.append_unsafe(@as(u256, @intCast(frame.contract.code.len)));
@@ -289,7 +289,7 @@ pub fn op_codecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    std.debug.assert(frame.stack.size >= 3);
+    if (frame.stack.size < 3) unreachable;
 
     // Pop three values unsafely - bounds checking is done in jump_table.zig
     // EVM stack order: [..., size, code_offset, mem_offset] (top to bottom)
@@ -330,7 +330,7 @@ pub fn op_returndatasize(pc: usize, interpreter: *Operation.Interpreter, state: 
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    std.debug.assert(frame.stack.size < Stack.CAPACITY);
+    if (frame.stack.size >= Stack.CAPACITY) unreachable;
 
     // Push result unsafely - bounds checking is done in jump_table.zig
     frame.stack.append_unsafe(@as(u256, @intCast(frame.return_data_buffer.len)));
@@ -344,7 +344,7 @@ pub fn op_returndatacopy(pc: usize, interpreter: *Operation.Interpreter, state: 
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    std.debug.assert(frame.stack.size >= 3);
+    if (frame.stack.size < 3) unreachable;
 
     // Pop three values unsafely - bounds checking is done in jump_table.zig
     // EVM stack order: [..., size, data_offset, mem_offset] (top to bottom)

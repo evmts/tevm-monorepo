@@ -35,7 +35,7 @@ pub fn make_push(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.S
 
             const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-            std.debug.assert(frame.stack.size < Stack.CAPACITY);
+            if (frame.stack.size >= Stack.CAPACITY) unreachable;
 
             var value: u256 = 0;
             const code = frame.contract.code;
@@ -68,8 +68,8 @@ pub fn make_dup(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.St
 
             const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-            std.debug.assert(frame.stack.size >= n);
-            std.debug.assert(frame.stack.size < Stack.CAPACITY);
+            if (frame.stack.size < n) unreachable;
+            if (frame.stack.size >= Stack.CAPACITY) unreachable;
 
             frame.stack.dup_unsafe(n);
 
@@ -89,7 +89,7 @@ pub fn make_swap(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.S
 
             const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-            std.debug.assert(frame.stack.size >= n + 1);
+            if (frame.stack.size < n + 1) unreachable;
 
             frame.stack.swapUnsafe(n);
 

@@ -15,7 +15,7 @@ pub fn op_lt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.S
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    std.debug.assert(frame.stack.size >= 2);
+    if (frame.stack.size < 2) unreachable;
 
     // Pop the top operand (b) unsafely
     const b = frame.stack.pop_unsafe();
@@ -37,7 +37,7 @@ pub fn op_gt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.S
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    std.debug.assert(frame.stack.size >= 2);
+    if (frame.stack.size < 2) unreachable;
 
     // Pop the top operand (b) unsafely
     const b = frame.stack.pop_unsafe();
@@ -59,7 +59,7 @@ pub fn op_slt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    std.debug.assert(frame.stack.size >= 2);
+    if (frame.stack.size < 2) unreachable;
 
     // Pop the top operand (b) unsafely
     const b = frame.stack.pop_unsafe();
@@ -84,7 +84,7 @@ pub fn op_sgt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    std.debug.assert(frame.stack.size >= 2);
+    if (frame.stack.size < 2) unreachable;
 
     // Pop the top operand (b) unsafely
     const b = frame.stack.pop_unsafe();
@@ -109,7 +109,7 @@ pub fn op_eq(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.S
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    std.debug.assert(frame.stack.size >= 2);
+    if (frame.stack.size < 2) unreachable;
 
     // Pop the top operand (b) unsafely
     const b = frame.stack.pop_unsafe();
@@ -130,7 +130,7 @@ pub fn op_iszero(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    std.debug.assert(frame.stack.size >= 1);
+    if (frame.stack.size < 1) unreachable;
 
     // Peek the operand unsafely
     const a = frame.stack.peek_unsafe().*;
