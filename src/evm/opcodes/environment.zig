@@ -8,7 +8,7 @@ const Address = @import("Address");
 const to_u256 = Address.to_u256;
 const from_u256 = Address.from_u256;
 const gas_constants = @import("../gas_constants.zig");
-const AccessList = @import("../access_list.zig").AccessList;
+const AccessList = @import("../access_list/access_list.zig").AccessList;
 const error_mapping = @import("../error_mapping.zig");
 
 // Import helper functions from error_mapping

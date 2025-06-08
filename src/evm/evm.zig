@@ -188,7 +188,7 @@ pub const MarkStorageSlotWarmError = Contract.MarkStorageSlotWarmError;
 
 // Access List error types (imported via import statement to avoid circular deps)
 /// Access list module for EIP-2929/2930 support
-const AccessListModule = @import("access_list.zig");
+const AccessListModule = @import("access_list/access_list.zig");
 /// Error accessing addresses in access list
 pub const AccessAddressError = AccessListModule.AccessAddressError;
 /// Error accessing storage slots in access list
