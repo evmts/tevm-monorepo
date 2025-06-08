@@ -45,18 +45,17 @@ test "JumpTable initialization and validation" {
     }
 }
 
-
 test "JumpTable gas constants" {
     try std.testing.expectEqual(@as(u64, 2), gas_constants.GasQuickStep);
     try std.testing.expectEqual(@as(u64, 3), gas_constants.GasFastestStep);
     try std.testing.expectEqual(@as(u64, 5), gas_constants.GasFastStep);
     try std.testing.expectEqual(@as(u64, 8), gas_constants.GasMidStep);
-    try std.testing.expectEqual(@as(u64, 10), opcodes.gas_constants.GasSlowStep);
-    try std.testing.expectEqual(@as(u64, 20), opcodes.gas_constants.GasExtStep);
+    try std.testing.expectEqual(@as(u64, 10), gas_constants.GasSlowStep);
+    try std.testing.expectEqual(@as(u64, 20), gas_constants.GasExtStep);
 
-    try std.testing.expectEqual(@as(u64, 30), opcodes.gas_constants.Keccak256Gas);
-    try std.testing.expectEqual(@as(u64, 375), opcodes.gas_constants.LogGas);
-    try std.testing.expectEqual(@as(u64, 32000), opcodes.gas_constants.CreateGas);
+    try std.testing.expectEqual(@as(u64, 30), gas_constants.Keccak256Gas);
+    try std.testing.expectEqual(@as(u64, 375), gas_constants.LogGas);
+    try std.testing.expectEqual(@as(u64, 32000), gas_constants.CreateGas);
 }
 
 test "JumpTable execute consumes gas before opcode execution" {
@@ -65,27 +64,17 @@ test "JumpTable execute consumes gas before opcode execution" {
     // Create a test frame with some gas
     const test_allocator = std.testing.allocator;
     const zero_address = Address.zero();
-    var test_contract = Contract{
-        .address = zero_address,
-        .caller = zero_address,
-        .value = 0,
-        .code = &[_]u8{0x01}, // ADD opcode
-        .code_hash = [_]u8{0} ** 32,
-        .code_size = 1,
-        .analysis = null,
-        .gas = 1000,
-        .gas_refund = 0,
-        .input = &[_]u8{},
-        .is_deployment = false,
-        .is_system_call = false,
-        .is_static = false,
-        .storage_access = null,
-        .original_storage = null,
-        .is_cold = false,
-        .has_jumpdests = false,
-        .is_empty = false,
-    };
-    defer test_contract.deinit(test_allocator, null);
+    const test_code = [_]u8{0x01}; // ADD opcode
+    var test_contract = Contract.init(
+        zero_address, // caller
+        zero_address, // addr
+        0, // value
+        1000, // gas
+        &test_code, // code
+        [_]u8{0} ** 32, // code_hash
+        &[_]u8{}, // input
+        false, // is_static
+    );
     var test_frame = try Frame.init(test_allocator, &test_contract);
     test_frame.memory.finalize_root();
     defer test_frame.deinit();
@@ -185,7 +174,7 @@ test "JumpTable Istanbul opcodes" {
     try std.testing.expectEqual(@as(u32, 0), selfbalance_op.min_stack);
 
     const basefee_op = jt_london.get_operation(0x48);
-    try std.testing.expectEqual(@as(u64, opcodes.gas_constants.GasQuickStep), basefee_op.constant_gas);
+    try std.testing.expectEqual(@as(u64, gas_constants.GasQuickStep), basefee_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 0), basefee_op.min_stack);
 }
 
@@ -238,7 +227,7 @@ test "JumpTable Cancun opcodes" {
     try std.testing.expectEqual(@as(u32, 0), blobbasefee_op.min_stack);
 
     const mcopy_op = jt_cancun.get_operation(0x5e);
-    try std.testing.expectEqual(@as(u64, opcodes.gas_constants.GasFastestStep), mcopy_op.constant_gas);
+    try std.testing.expectEqual(@as(u64, gas_constants.GasFastestStep), mcopy_op.constant_gas);
     try std.testing.expectEqual(@as(u32, 3), mcopy_op.min_stack);
 
     const tload_op = jt_cancun.get_operation(0x5c);

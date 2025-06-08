@@ -423,17 +423,20 @@ pub fn build(b: *std.Build) void {
     trie_test_step.dependOn(&run_trie_test.step);
 
     const interpreter_test = b.addTest(.{
-        .name = "interpreter-test",
+        .name = "jump-table-test",
         .root_source_file = b.path("test/evm/jump_table_test.zig"),
         .target = target,
         .optimize = optimize,
+        .single_threaded = true,
     });
+    interpreter_test.root_module.stack_check = false;
 
     // Add module imports to interpreter test
     interpreter_test.root_module.addImport("Address", address_mod);
     interpreter_test.root_module.addImport("Block", block_mod);
     interpreter_test.root_module.addImport("Rlp", rlp_mod);
     interpreter_test.root_module.addImport("evm", evm_mod);
+    interpreter_test.root_module.addImport("Utils", utils_mod);
 
     const run_interpreter_test = b.addRunArtifact(interpreter_test);
 
