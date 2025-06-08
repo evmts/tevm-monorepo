@@ -104,7 +104,7 @@ pub const StoragePool = @import("contract/storage_pool.zig");
 pub const Vm = @import("vm.zig");
 
 /// EVM state management (accounts, storage, logs)
-pub const EvmState = @import("state_.zig");
+pub const EvmState = @import("state/state.zig");
 
 // Import execution
 /// All opcode implementations (arithmetic, stack, memory, etc.)
