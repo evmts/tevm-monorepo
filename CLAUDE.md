@@ -47,6 +47,12 @@ These action handlers translate between Viem-style parameters and the internal E
 - Test specific test: `vitest run <path-to-file> -t "<test-name>"`
 - Test with coverage: `bun test:coverage`
 
+### Zig-specific Commands
+
+- Test all Zig code: `zig build test-all`
+- **CRITICAL**: No Zig code should ever be committed until `zig build test-all` passes
+- Run `zig build test-all` early and often - Zig tests are extremely fast and provide valuable feedback
+
 ## Style Guide
 
 - Formatting: Biome with tabs (2 spaces wide), 120 char line width, single quotes
@@ -56,7 +62,7 @@ These action handlers translate between Viem-style parameters and the internal E
 - Error handling: Extend BaseError, include detailed diagnostics
 - Barrel files: Use explicit exports to prevent breaking changes
 
-### Zig Naming Conventions
+### Zig Style Conventions
 
 For Zig files, we use snake_case for everything except types:
 - **Functions**: snake_case (e.g., `calculate_gas_cost`, `init_memory`)
@@ -64,6 +70,11 @@ For Zig files, we use snake_case for everything except types:
 - **Structs/Types**: PascalCase (e.g., `ExecutionError`, `MemorySize`)
 - **Constants**: UPPER_SNAKE_CASE (e.g., `MAX_MEMORY_SIZE`, `DEFAULT_GAS`)
 - **File names**: snake_case (e.g., `memory.zig`, `jump_table.zig`)
+
+**Zig-specific Style Rules:**
+- **NO `inline` keyword**: Let the compiler decide on inlining for optimal WASM bundle size and performance
+- **Prefer `if (!condition) unreachable;` over `std.debug.assert`**: More readable and is the literal implementation
+- **Performance hints**: Use `@branchHint(.likely)` for hot paths and `@branchHint(.cold)` for error paths
 
 This convention applies to all Zig code in the project. We intentionally diverge from standard Zig conventions (which use camelCase for functions) to maintain consistency with snake_case throughout our codebase.
 
@@ -219,6 +230,16 @@ We start with jsdoc and type interface
 #### 5. Did you learn anything that should be documented for future use?
 
 If the a pattern or process of making the code change should be remembered in future consider recomending a change to the CLAUDE.md file in root of repo.
+
+## Commit and Pull Request Guidelines
+
+When creating commits and pull requests, follow these best practices:
+
+- **Emoji Conventional Commits**: Use emoji conventional commit format (e.g., `✨ feat:`, `🐛 fix:`, `⚡ perf:`, `📝 docs:`)
+- **Include Original Prompt**: Whenever possible, include the original user prompt that led to the changes in commit messages and PR descriptions, nested in `<prompt></prompt>` XML tags
+- **Clear Description**: Provide a clear summary of what was changed and why
+- **Testing**: Ensure all tests pass before committing/submitting
+- **Documentation**: Update relevant documentation if the changes affect user-facing functionality
 
 ## Typescript conventions
 

@@ -118,13 +118,9 @@ pub fn append(self: *Self, value: u256) Error!void {
 /// @param self The stack to push onto
 /// @param value The 256-bit value to push
 pub fn append_unsafe(self: *Self, value: u256) void {
+    @branchHint(.likely); // We generally only use unsafe methods
     self.data[self.size] = value;
     self.size += 1;
-}
-
-/// Alias for append_unsafe (camelCase compatibility).
-pub fn appendUnsafe(self: *Self, value: u256) void {
-    self.append_unsafe(value);
 }
 
 /// Pop a value from the stack (safe version).
@@ -160,14 +156,11 @@ pub fn pop(self: *Self) Error!u256 {
 /// @param self The stack to pop from
 /// @return The popped value
 pub fn pop_unsafe(self: *Self) u256 {
+    @branchHint(.likely);
     self.size -= 1;
     const value = self.data[self.size];
     self.data[self.size] = 0;
     return value;
-}
-
-pub fn popUnsafe(self: *Self) u256 {
-    return self.pop_unsafe();
 }
 
 /// Peek at the top value without removing it (safe version).
@@ -193,11 +186,8 @@ pub fn peek(self: *const Self) Error!*const u256 {
 /// @param self The stack to peek at
 /// @return Pointer to the top value
 pub fn peek_unsafe(self: *const Self) *const u256 {
+    @branchHint(.likely);
     return &self.data[self.size - 1];
-}
-
-pub fn peekUnsafe(self: *const Self) *const u256 {
-    return self.peek_unsafe();
 }
 
 /// Check if the stack is empty.
@@ -208,20 +198,12 @@ pub fn is_empty(self: *const Self) bool {
     return self.size == 0;
 }
 
-pub fn isEmpty(self: *const Self) bool {
-    return self.is_empty();
-}
-
 /// Check if the stack is at capacity.
 ///
 /// @param self The stack to check
 /// @return true if stack has 1024 elements
 pub fn is_full(self: *const Self) bool {
     return self.size == CAPACITY;
-}
-
-pub fn isFull(self: *const Self) bool {
-    return self.is_full();
 }
 
 /// Get value at position n from the top (0-indexed).
@@ -248,20 +230,13 @@ pub fn back_unsafe(self: *const Self, n: usize) u256 {
     return self.data[self.size - n - 1];
 }
 
-pub fn backUnsafe(self: *const Self, n: usize) u256 {
-    return self.back_unsafe(n);
-}
-
 pub fn peek_n(self: *const Self, n: usize) Error!u256 {
     if (n >= self.size) return Error.OutOfBounds;
     return self.data[self.size - n - 1];
 }
 
-pub fn peekN(self: *const Self, n: usize) Error!u256 {
-    return self.peek_n(n);
-}
-
 pub fn peek_n_unsafe(self: *const Self, n: usize) Error!u256 {
+    @branchHint(.likely);
     return self.data[self.size - n - 1];
 }
 
@@ -288,10 +263,7 @@ pub fn swap(self: *Self, n: usize) Error!void {
 }
 
 pub fn swap_unsafe(self: *Self, n: usize) Error!void {
-    std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - n - 1]);
-}
-
-pub fn swapUnsafe(self: *Self, n: usize) void {
+    @branchHint(.likely);
     std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - n - 1]);
 }
 
@@ -303,11 +275,8 @@ pub fn swap_n(self: *Self, comptime N: usize) Error!void {
     std.mem.swap(@TypeOf(self.data[0]), &self.data[top_idx], &self.data[swap_idx]);
 }
 
-pub fn swapN(self: *Self, n: usize) Error!void {
-    return self.swap(n);
-}
-
 pub fn swap_n_unsafe(self: *Self, comptime N: usize) void {
+    @branchHint(.likely);
     @setRuntimeSafety(false);
     if (N == 0 or N > 16) @compileError("Invalid swap position");
     // Unsafe: No bounds checking - caller must ensure self.size > N
@@ -316,13 +285,6 @@ pub fn swap_n_unsafe(self: *Self, comptime N: usize) void {
     const temp = self.data[top_idx];
     self.data[top_idx] = self.data[swap_idx];
     self.data[swap_idx] = temp;
-}
-
-pub fn swapNUnsafe(self: *Self, n: usize) void {
-    @setRuntimeSafety(false);
-    const top_idx = self.size - 1;
-    const swap_idx = self.size - n - 1;
-    std.mem.swap(u256, &self.data[top_idx], &self.data[swap_idx]);
 }
 
 /// Duplicate the nth element onto the top of stack (1-indexed).
@@ -350,24 +312,17 @@ pub fn dup(self: *Self, n: usize) Error!void {
 }
 
 pub fn dup_unsafe(self: *Self, n: usize) void {
+    @branchHint(.likely);
     @setRuntimeSafety(false);
     self.append_unsafe(self.data[self.size - n]);
 }
 
-pub fn dupUnsafe(self: *Self, n: usize) void {
-    @setRuntimeSafety(false);
-    self.dup_unsafe(n);
-}
-
 pub fn dup_n(self: *Self, comptime N: usize) Error!void {
+    @branchHint(.likely);
     if (N == 0 or N > 16) @compileError("Invalid dup position");
     if (N > self.size) return Error.OutOfBounds;
     if (self.size >= CAPACITY) return Error.Overflow;
     try self.append(self.data[self.size - N]);
-}
-
-pub fn dupN(self: *Self, n: usize) Error!void {
-    return self.dup(n);
 }
 
 pub fn dup_n_unsafe(self: *Self, comptime N: usize) void {
@@ -375,11 +330,6 @@ pub fn dup_n_unsafe(self: *Self, comptime N: usize) void {
     if (N == 0 or N > 16) @compileError("Invalid dup position");
     // Unsafe: No bounds checking - caller must ensure N <= self.size and self.size < CAPACITY
     self.append_unsafe(self.data[self.size - N]);
-}
-
-pub fn dupNUnsafe(self: *Self, n: usize) void {
-    @setRuntimeSafety(false);
-    self.append_unsafe(self.data[self.size - n]);
 }
 
 pub fn pop_n(self: *Self, comptime N: usize) Error![N]u256 {
@@ -393,15 +343,6 @@ pub fn pop_n(self: *Self, comptime N: usize) Error![N]u256 {
         // Can consider not clearing here for perf
         self.data[self.size + i] = 0;
     }
-
-    return result;
-}
-
-pub fn popn(self: *Self, n: usize) Error![]u256 {
-    if (self.size < n) return Error.OutOfBounds;
-
-    self.size -= n;
-    const result = self.data[self.size .. self.size + n];
 
     return result;
 }
@@ -482,10 +423,6 @@ pub fn to_slice(self: *const Self) []const u256 {
     return self.data[0..self.size];
 }
 
-pub fn toSlice(self: *const Self) []const u256 {
-    return self.to_slice();
-}
-
 /// Check if a stack operation would succeed.
 ///
 /// Validates that the stack has enough elements to pop and enough
@@ -505,10 +442,6 @@ pub fn toSlice(self: *const Self) []const u256 {
 /// ```
 pub fn check_requirements(self: *const Self, pop_count: usize, push_count: usize) bool {
     return self.size >= pop_count and (self.size - pop_count + push_count) <= CAPACITY;
-}
-
-pub fn checkRequirements(self: *const Self, pop_count: usize, push_count: usize) bool {
-    return self.check_requirements(pop_count, push_count);
 }
 
 // Batched operations for performance optimization
@@ -547,6 +480,7 @@ pub fn pop2_push1(self: *Self, result: u256) Error!struct { a: u256, b: u256 } {
 
 /// Pop 2 values and push 1 result (unsafe version for hot paths)
 pub fn pop2_push1_unsafe(self: *Self, result: u256) struct { a: u256, b: u256 } {
+    @branchHint(.likely); // We generally only use unsafe methods
     @setRuntimeSafety(false);
 
     self.size -= 2;
@@ -622,6 +556,7 @@ pub fn pop2(self: *Self) Error!struct { a: u256, b: u256 } {
 
 /// Pop 2 values without pushing (unsafe version)
 pub fn pop2_unsafe(self: *Self) struct { a: u256, b: u256 } {
+    @branchHint(.likely); // We generally only use unsafe methods
     @setRuntimeSafety(false);
 
     self.size -= 2;
@@ -645,6 +580,7 @@ pub fn pop3(self: *Self) Error!struct { a: u256, b: u256, c: u256 } {
 
 /// Pop 3 values without pushing (unsafe version)
 pub fn pop3_unsafe(self: *Self) struct { a: u256, b: u256, c: u256 } {
+    @branchHint(.likely); // We generally only use unsafe methods
     @setRuntimeSafety(false);
 
     self.size -= 3;
@@ -725,6 +661,7 @@ pub fn peek_multiple(self: *const Self, comptime N: usize) Error![N]u256 {
 }
 
 pub fn set_top_unsafe(self: *Self, value: u256) void {
+    @branchHint(.likely); // We generally only use unsafe methods
     // @setRuntimeSafety(false); // Removed as per user feedback
     // Assumes stack is not empty; this should be guaranteed by jump_table validation
     // for opcodes that use this pattern (e.g., after a pop and peek on a stack with >= 2 items).
@@ -735,4 +672,96 @@ pub fn set_top_two_unsafe(self: *Self, top: u256, second: u256) void {
     // Assumes stack has at least 2 elements; this should be guaranteed by jump_table validation
     self.data[self.size - 1] = top;
     self.data[self.size - 2] = second;
+}
+
+// CamelCase aliases for API compatibility with existing tests
+
+/// Check if the stack is empty (camelCase alias)
+pub fn isEmpty(self: *const Self) bool {
+    return self.is_empty();
+}
+
+/// Check if the stack is full (camelCase alias)
+pub fn isFull(self: *const Self) bool {
+    return self.is_full();
+}
+
+/// Peek at the top value without removing it (camelCase unsafe alias)
+pub fn peekUnsafe(self: *const Self) *const u256 {
+    return self.peek_unsafe();
+}
+
+/// Get value at position n from the top (camelCase unsafe alias)
+pub fn backUnsafe(self: *const Self, n: usize) u256 {
+    return self.back_unsafe(n);
+}
+
+/// Swap with nth element (camelCase alias)
+pub fn swapN(self: *Self, n: usize) Error!void {
+    return self.swap(n);
+}
+
+/// Swap with nth element (camelCase unsafe alias)
+pub fn swapUnsafe(self: *Self, n: usize) void {
+    // For compatibility with tests that expect this not to return an error
+    // Use unsafe swap that assumes bounds are already checked
+    std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - n - 1]);
+}
+
+/// Duplicate nth element (camelCase alias)
+pub fn dupN(self: *Self, n: usize) Error!void {
+    return self.dup(n);
+}
+
+/// Duplicate nth element unsafe (camelCase alias)
+pub fn dupUnsafe(self: *Self, n: usize) void {
+    self.dup_unsafe(n);
+}
+
+/// Swap with nth element comptime unsafe (camelCase alias)
+pub fn swapNUnsafe(self: *Self, n: usize) void {
+    // Direct unsafe swap without bounds checking
+    std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - n - 1]);
+}
+
+/// Duplicate nth element comptime unsafe (camelCase alias) 
+pub fn dupNUnsafe(self: *Self, n: usize) void {
+    // Direct unsafe dup without bounds checking
+    self.data[self.size] = self.data[self.size - n];
+    self.size += 1;
+}
+
+/// Peek at nth element (camelCase alias)
+pub fn peekN(self: *const Self, n: usize) Error!u256 {
+    return self.peek_n(n);
+}
+
+/// Pop n values (camelCase alias)
+pub fn popn(self: *Self, n: usize) Error![]u256 {
+    if (self.size < n) return Error.OutOfBounds;
+    
+    // Create array to hold the values - use a simple allocation approach
+    var values: [1024]u256 = undefined; // Max stack size
+    
+    // Copy values in the order they appear in the stack array (not LIFO order)
+    self.size -= n;
+    var i: usize = 0;
+    while (i < n) : (i += 1) {
+        values[i] = self.data[self.size + i];
+        // Clear the popped slot to prevent information leakage
+        self.data[self.size + i] = 0;
+    }
+    
+    // Return a slice of the needed portion
+    return values[0..n];
+}
+
+/// Get slice representation (camelCase alias)
+pub fn toSlice(self: *const Self) []const u256 {
+    return self.to_slice();
+}
+
+/// Check if stack requirements are met (camelCase alias)
+pub fn checkRequirements(self: *const Self, pop_count: usize, push_count: usize) bool {
+    return self.check_requirements(pop_count, push_count);
 }
