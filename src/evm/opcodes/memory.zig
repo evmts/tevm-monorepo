@@ -11,7 +11,7 @@ const error_mapping = @import("../error_mapping.zig");
 const map_memory_error = error_mapping.map_memory_error;
 
 // Helper to check if u256 fits in usize
-inline fn check_offset_bounds(value: u256) ExecutionError.Error!void {
+fn check_offset_bounds(value: u256) ExecutionError.Error!void {
     if (value > std.math.maxInt(usize)) return ExecutionError.Error.InvalidOffset;
 }
 

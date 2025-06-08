@@ -81,7 +81,7 @@ size: usize = 0,
 /// const stack = try Stack.from_slice(&values);
 /// // Stack: [10, 20, 30] with 30 on top
 /// ```
-pub inline fn from_slice(values: []const u256) Error!Self {
+pub fn from_slice(values: []const u256) Error!Self {
     var stack = Self{};
     for (values) |value| {
         try stack.append(value);
@@ -99,7 +99,7 @@ pub inline fn from_slice(values: []const u256) Error!Self {
 /// ```zig
 /// try stack.append(0x1234);
 /// ```
-pub inline fn append(self: *Self, value: u256) Error!void {
+pub fn append(self: *Self, value: u256) Error!void {
     if (self.size >= CAPACITY) return Error.Overflow;
     self.data[self.size] = value;
     self.size += 1;
@@ -112,13 +112,13 @@ pub inline fn append(self: *Self, value: u256) Error!void {
 ///
 /// @param self The stack to push onto
 /// @param value The 256-bit value to push
-pub inline fn append_unsafe(self: *Self, value: u256) void {
+pub fn append_unsafe(self: *Self, value: u256) void {
     self.data[self.size] = value;
     self.size += 1;
 }
 
 /// Alias for append_unsafe (camelCase compatibility).
-pub inline fn appendUnsafe(self: *Self, value: u256) void {
+pub fn appendUnsafe(self: *Self, value: u256) void {
     self.append_unsafe(value);
 }
 
@@ -135,7 +135,7 @@ pub inline fn appendUnsafe(self: *Self, value: u256) void {
 /// ```zig
 /// const value = try stack.pop();
 /// ```
-pub inline fn pop(self: *Self) Error!u256 {
+pub fn pop(self: *Self) Error!u256 {
     if (self.size == 0) return Error.Underflow;
     self.size -= 1;
     const value = self.data[self.size];
@@ -150,14 +150,14 @@ pub inline fn pop(self: *Self) Error!u256 {
 ///
 /// @param self The stack to pop from
 /// @return The popped value
-pub inline fn pop_unsafe(self: *Self) u256 {
+pub fn pop_unsafe(self: *Self) u256 {
     self.size -= 1;
     const value = self.data[self.size];
     self.data[self.size] = 0;
     return value;
 }
 
-pub inline fn popUnsafe(self: *Self) u256 {
+pub fn popUnsafe(self: *Self) u256 {
     return self.pop_unsafe();
 }
 
@@ -172,7 +172,7 @@ pub inline fn popUnsafe(self: *Self) u256 {
 /// const top = try stack.peek();
 /// std.debug.print("Top value: {}", .{top.*});
 /// ```
-pub inline fn peek(self: *const Self) Error!*const u256 {
+pub fn peek(self: *const Self) Error!*const u256 {
     if (self.size == 0) return Error.OutOfBounds;
     return &self.data[self.size - 1];
 }
@@ -183,11 +183,11 @@ pub inline fn peek(self: *const Self) Error!*const u256 {
 ///
 /// @param self The stack to peek at
 /// @return Pointer to the top value
-pub inline fn peek_unsafe(self: *const Self) *const u256 {
+pub fn peek_unsafe(self: *const Self) *const u256 {
     return &self.data[self.size - 1];
 }
 
-pub inline fn peekUnsafe(self: *const Self) *const u256 {
+pub fn peekUnsafe(self: *const Self) *const u256 {
     return self.peek_unsafe();
 }
 
@@ -195,11 +195,11 @@ pub inline fn peekUnsafe(self: *const Self) *const u256 {
 ///
 /// @param self The stack to check
 /// @return true if stack has no elements
-pub inline fn is_empty(self: *const Self) bool {
+pub fn is_empty(self: *const Self) bool {
     return self.size == 0;
 }
 
-pub inline fn isEmpty(self: *const Self) bool {
+pub fn isEmpty(self: *const Self) bool {
     return self.is_empty();
 }
 
@@ -207,11 +207,11 @@ pub inline fn isEmpty(self: *const Self) bool {
 ///
 /// @param self The stack to check
 /// @return true if stack has 1024 elements
-pub inline fn is_full(self: *const Self) bool {
+pub fn is_full(self: *const Self) bool {
     return self.size == CAPACITY;
 }
 
-pub inline fn isFull(self: *const Self) bool {
+pub fn isFull(self: *const Self) bool {
     return self.is_full();
 }
 
@@ -230,29 +230,29 @@ pub inline fn isFull(self: *const Self) bool {
 /// const top = try stack.back(0); // Returns 30
 /// const second = try stack.back(1); // Returns 20
 /// ```
-pub inline fn back(self: *const Self, n: usize) Error!u256 {
+pub fn back(self: *const Self, n: usize) Error!u256 {
     if (n >= self.size) return Error.OutOfBounds;
     return self.data[self.size - n - 1];
 }
 
-pub inline fn back_unsafe(self: *const Self, n: usize) u256 {
+pub fn back_unsafe(self: *const Self, n: usize) u256 {
     return self.data[self.size - n - 1];
 }
 
-pub inline fn backUnsafe(self: *const Self, n: usize) u256 {
+pub fn backUnsafe(self: *const Self, n: usize) u256 {
     return self.back_unsafe(n);
 }
 
-pub inline fn peek_n(self: *const Self, n: usize) Error!u256 {
+pub fn peek_n(self: *const Self, n: usize) Error!u256 {
     if (n >= self.size) return Error.OutOfBounds;
     return self.data[self.size - n - 1];
 }
 
-pub inline fn peekN(self: *const Self, n: usize) Error!u256 {
+pub fn peekN(self: *const Self, n: usize) Error!u256 {
     return self.peek_n(n);
 }
 
-pub inline fn peek_n_unsafe(self: *const Self, n: usize) Error!u256 {
+pub fn peek_n_unsafe(self: *const Self, n: usize) Error!u256 {
     return self.data[self.size - n - 1];
 }
 
@@ -272,21 +272,21 @@ pub inline fn peek_n_unsafe(self: *const Self, n: usize) Error!u256 {
 /// try stack.swap(2); // SWAP2
 /// // Stack: [10, 40, 30, 20] with 20 on top
 /// ```
-pub inline fn swap(self: *Self, n: usize) Error!void {
+pub fn swap(self: *Self, n: usize) Error!void {
     if (n == 0 or n > 16) return Error.InvalidPosition;
     if (self.size <= n) return Error.OutOfBounds;
     std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - n - 1]);
 }
 
-pub inline fn swap_unsafe(self: *Self, n: usize) Error!void {
+pub fn swap_unsafe(self: *Self, n: usize) Error!void {
     std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - n - 1]);
 }
 
-pub inline fn swapUnsafe(self: *Self, n: usize) void {
+pub fn swapUnsafe(self: *Self, n: usize) void {
     std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - n - 1]);
 }
 
-pub inline fn swap_n(self: *Self, comptime N: usize) Error!void {
+pub fn swap_n(self: *Self, comptime N: usize) Error!void {
     if (N == 0 or N > 16) @compileError("Invalid swap position");
     if (self.size <= N) return Error.OutOfBounds;
     const top_idx = self.size - 1;
@@ -294,11 +294,11 @@ pub inline fn swap_n(self: *Self, comptime N: usize) Error!void {
     std.mem.swap(@TypeOf(self.data[0]), &self.data[top_idx], &self.data[swap_idx]);
 }
 
-pub inline fn swapN(self: *Self, n: usize) Error!void {
+pub fn swapN(self: *Self, n: usize) Error!void {
     return self.swap(n);
 }
 
-pub inline fn swap_n_unsafe(self: *Self, comptime N: usize) void {
+pub fn swap_n_unsafe(self: *Self, comptime N: usize) void {
     @setRuntimeSafety(false);
     if (N == 0 or N > 16) @compileError("Invalid swap position");
     // Unsafe: No bounds checking - caller must ensure self.size > N
@@ -309,7 +309,7 @@ pub inline fn swap_n_unsafe(self: *Self, comptime N: usize) void {
     self.data[swap_idx] = temp;
 }
 
-pub inline fn swapNUnsafe(self: *Self, n: usize) void {
+pub fn swapNUnsafe(self: *Self, n: usize) void {
     @setRuntimeSafety(false);
     const top_idx = self.size - 1;
     const swap_idx = self.size - n - 1;
@@ -333,47 +333,47 @@ pub inline fn swapNUnsafe(self: *Self, n: usize) void {
 /// try stack.dup(2); // DUP2
 /// // Stack: [10, 20, 30, 20] with 20 on top
 /// ```
-pub inline fn dup(self: *Self, n: usize) Error!void {
+pub fn dup(self: *Self, n: usize) Error!void {
     if (n == 0 or n > 16) return Error.InvalidPosition;
     if (n > self.size) return Error.OutOfBounds;
     if (self.size >= CAPACITY) return Error.Overflow;
     try self.append(self.data[self.size - n]);
 }
 
-pub inline fn dup_unsafe(self: *Self, n: usize) void {
+pub fn dup_unsafe(self: *Self, n: usize) void {
     @setRuntimeSafety(false);
     self.append_unsafe(self.data[self.size - n]);
 }
 
-pub inline fn dupUnsafe(self: *Self, n: usize) void {
+pub fn dupUnsafe(self: *Self, n: usize) void {
     @setRuntimeSafety(false);
     self.dup_unsafe(n);
 }
 
-pub inline fn dup_n(self: *Self, comptime N: usize) Error!void {
+pub fn dup_n(self: *Self, comptime N: usize) Error!void {
     if (N == 0 or N > 16) @compileError("Invalid dup position");
     if (N > self.size) return Error.OutOfBounds;
     if (self.size >= CAPACITY) return Error.Overflow;
     try self.append(self.data[self.size - N]);
 }
 
-pub inline fn dupN(self: *Self, n: usize) Error!void {
+pub fn dupN(self: *Self, n: usize) Error!void {
     return self.dup(n);
 }
 
-pub inline fn dup_n_unsafe(self: *Self, comptime N: usize) void {
+pub fn dup_n_unsafe(self: *Self, comptime N: usize) void {
     @setRuntimeSafety(false);
     if (N == 0 or N > 16) @compileError("Invalid dup position");
     // Unsafe: No bounds checking - caller must ensure N <= self.size and self.size < CAPACITY
     self.append_unsafe(self.data[self.size - N]);
 }
 
-pub inline fn dupNUnsafe(self: *Self, n: usize) void {
+pub fn dupNUnsafe(self: *Self, n: usize) void {
     @setRuntimeSafety(false);
     self.append_unsafe(self.data[self.size - n]);
 }
 
-pub inline fn pop_n(self: *Self, comptime N: usize) Error![N]u256 {
+pub fn pop_n(self: *Self, comptime N: usize) Error![N]u256 {
     if (self.size < N) return Error.OutOfBounds;
 
     self.size -= N;
@@ -388,7 +388,7 @@ pub inline fn pop_n(self: *Self, comptime N: usize) Error![N]u256 {
     return result;
 }
 
-pub inline fn popn(self: *Self, n: usize) Error![]u256 {
+pub fn popn(self: *Self, n: usize) Error![]u256 {
     if (self.size < n) return Error.OutOfBounds;
 
     self.size -= n;
@@ -398,7 +398,7 @@ pub inline fn popn(self: *Self, n: usize) Error![]u256 {
 }
 
 /// Pop N values and return reference to new top (for opcodes that pop N and push 1)
-pub inline fn pop_n_top(self: *Self, comptime N: usize) Error!struct {
+pub fn pop_n_top(self: *Self, comptime N: usize) Error!struct {
     values: [N]u256,
     top: *u256,
 } {
@@ -407,7 +407,7 @@ pub inline fn pop_n_top(self: *Self, comptime N: usize) Error!struct {
     return .{ .values = values, .top = &self.data[self.size - 1] };
 }
 
-pub inline fn popn_top(self: *Self, n: usize) Error!struct {
+pub fn popn_top(self: *Self, n: usize) Error!struct {
     values: []u256,
     top: *u256,
 } {
@@ -419,7 +419,7 @@ pub inline fn popn_top(self: *Self, n: usize) Error!struct {
 // EIP-663 operations
 
 /// DUPN - duplicate Nth element (dynamic N from bytecode)
-pub inline fn dup_n_dynamic(self: *Self, n: u8) Error!void {
+pub fn dup_n_dynamic(self: *Self, n: u8) Error!void {
     if (n == 0) return Error.InvalidPosition;
     const idx = @as(usize, n);
     if (idx > self.size) return Error.OutOfBounds;
@@ -427,12 +427,12 @@ pub inline fn dup_n_dynamic(self: *Self, n: u8) Error!void {
     try self.append(self.data[self.size - idx]);
 }
 
-pub inline fn dupn(self: *Self, n: usize) Error!void {
+pub fn dupn(self: *Self, n: usize) Error!void {
     return self.dup(n);
 }
 
 /// SWAPN - swap top with Nth element (dynamic N from bytecode)
-pub inline fn swap_n_dynamic(self: *Self, n: u8) Error!void {
+pub fn swap_n_dynamic(self: *Self, n: u8) Error!void {
     // EIP-663: swap the top element with the one at `depth + 1`
     if (n >= self.size) return Error.OutOfBounds;
     const last = self.size - 1;
@@ -443,11 +443,11 @@ pub inline fn swap_n_dynamic(self: *Self, n: u8) Error!void {
     );
 }
 
-pub inline fn swapn(self: *Self, n: usize) Error!void {
+pub fn swapn(self: *Self, n: usize) Error!void {
     return self.swap(n);
 }
 
-pub inline fn exchange(self: *Self, n: u8, m: u8) Error!void {
+pub fn exchange(self: *Self, n: u8, m: u8) Error!void {
     if (m == 0) return Error.InvalidPosition;
 
     const n_idx = @as(usize, n) + 1;
@@ -464,16 +464,16 @@ pub inline fn exchange(self: *Self, n: u8, m: u8) Error!void {
 /// The zeroing can be removed for performance if security is not a concern.
 ///
 /// @param self The stack to clear
-pub inline fn clear(self: *Self) void {
+pub fn clear(self: *Self) void {
     self.size = 0;
     @memset(&self.data, 0); // could consider removing for perf
 }
 
-pub inline fn to_slice(self: *const Self) []const u256 {
+pub fn to_slice(self: *const Self) []const u256 {
     return self.data[0..self.size];
 }
 
-pub inline fn toSlice(self: *const Self) []const u256 {
+pub fn toSlice(self: *const Self) []const u256 {
     return self.to_slice();
 }
 
@@ -494,11 +494,11 @@ pub inline fn toSlice(self: *const Self) []const u256 {
 ///     // Safe to proceed
 /// }
 /// ```
-pub inline fn check_requirements(self: *const Self, pop_count: usize, push_count: usize) bool {
+pub fn check_requirements(self: *const Self, pop_count: usize, push_count: usize) bool {
     return self.size >= pop_count and (self.size - pop_count + push_count) <= CAPACITY;
 }
 
-pub inline fn checkRequirements(self: *const Self, pop_count: usize, push_count: usize) bool {
+pub fn checkRequirements(self: *const Self, pop_count: usize, push_count: usize) bool {
     return self.check_requirements(pop_count, push_count);
 }
 
@@ -521,7 +521,7 @@ pub inline fn checkRequirements(self: *const Self, pop_count: usize, push_count:
 /// const operands = try stack.pop2_push1(a_plus_b);
 /// // operands.a and operands.b contain the popped values
 /// ```
-pub inline fn pop2_push1(self: *Self, result: u256) Error!struct { a: u256, b: u256 } {
+pub fn pop2_push1(self: *Self, result: u256) Error!struct { a: u256, b: u256 } {
     if (self.size < 2) return Error.OutOfBounds;
 
     // Pop two values
@@ -537,7 +537,7 @@ pub inline fn pop2_push1(self: *Self, result: u256) Error!struct { a: u256, b: u
 }
 
 /// Pop 2 values and push 1 result (unsafe version for hot paths)
-pub inline fn pop2_push1_unsafe(self: *Self, result: u256) struct { a: u256, b: u256 } {
+pub fn pop2_push1_unsafe(self: *Self, result: u256) struct { a: u256, b: u256 } {
     @setRuntimeSafety(false);
 
     self.size -= 2;
@@ -551,7 +551,7 @@ pub inline fn pop2_push1_unsafe(self: *Self, result: u256) struct { a: u256, b: 
 }
 
 /// Pop 3 values and push 1 result - common for ternary operations
-pub inline fn pop3_push1(self: *Self, result: u256) Error!struct { a: u256, b: u256, c: u256 } {
+pub fn pop3_push1(self: *Self, result: u256) Error!struct { a: u256, b: u256, c: u256 } {
     if (self.size < 3) return Error.OutOfBounds;
 
     self.size -= 3;
@@ -566,7 +566,7 @@ pub inline fn pop3_push1(self: *Self, result: u256) Error!struct { a: u256, b: u
 }
 
 /// Pop 3 values and push 1 result (unsafe version)
-pub inline fn pop3_push1_unsafe(self: *Self, result: u256) struct { a: u256, b: u256, c: u256 } {
+pub fn pop3_push1_unsafe(self: *Self, result: u256) struct { a: u256, b: u256, c: u256 } {
     @setRuntimeSafety(false);
 
     self.size -= 3;
@@ -581,7 +581,7 @@ pub inline fn pop3_push1_unsafe(self: *Self, result: u256) struct { a: u256, b: 
 }
 
 /// Pop 1 value and push 1 result - for unary operations
-pub inline fn pop1_push1(self: *Self, result: u256) Error!u256 {
+pub fn pop1_push1(self: *Self, result: u256) Error!u256 {
     if (self.size < 1) return Error.OutOfBounds;
 
     const value = self.data[self.size - 1];
@@ -591,7 +591,7 @@ pub inline fn pop1_push1(self: *Self, result: u256) Error!u256 {
 }
 
 /// Pop 1 value and push 1 result (unsafe version)
-pub inline fn pop1_push1_unsafe(self: *Self, result: u256) u256 {
+pub fn pop1_push1_unsafe(self: *Self, result: u256) u256 {
     @setRuntimeSafety(false);
 
     const value = self.data[self.size - 1];
@@ -601,7 +601,7 @@ pub inline fn pop1_push1_unsafe(self: *Self, result: u256) u256 {
 }
 
 /// Pop 2 values without pushing - for comparison operations
-pub inline fn pop2(self: *Self) Error!struct { a: u256, b: u256 } {
+pub fn pop2(self: *Self) Error!struct { a: u256, b: u256 } {
     if (self.size < 2) return Error.OutOfBounds;
 
     self.size -= 2;
@@ -612,7 +612,7 @@ pub inline fn pop2(self: *Self) Error!struct { a: u256, b: u256 } {
 }
 
 /// Pop 2 values without pushing (unsafe version)
-pub inline fn pop2_unsafe(self: *Self) struct { a: u256, b: u256 } {
+pub fn pop2_unsafe(self: *Self) struct { a: u256, b: u256 } {
     @setRuntimeSafety(false);
 
     self.size -= 2;
@@ -623,7 +623,7 @@ pub inline fn pop2_unsafe(self: *Self) struct { a: u256, b: u256 } {
 }
 
 /// Pop 3 values without pushing - for memory operations
-pub inline fn pop3(self: *Self) Error!struct { a: u256, b: u256, c: u256 } {
+pub fn pop3(self: *Self) Error!struct { a: u256, b: u256, c: u256 } {
     if (self.size < 3) return Error.OutOfBounds;
 
     self.size -= 3;
@@ -635,7 +635,7 @@ pub inline fn pop3(self: *Self) Error!struct { a: u256, b: u256, c: u256 } {
 }
 
 /// Pop 3 values without pushing (unsafe version)
-pub inline fn pop3_unsafe(self: *Self) struct { a: u256, b: u256, c: u256 } {
+pub fn pop3_unsafe(self: *Self) struct { a: u256, b: u256, c: u256 } {
     @setRuntimeSafety(false);
 
     self.size -= 3;
@@ -661,7 +661,7 @@ pub inline fn pop3_unsafe(self: *Self) struct { a: u256, b: u256, c: u256 } {
 /// try stack.swap1_optimized();
 /// // Stack: [20, 10] with 10 on top
 /// ```
-pub inline fn swap1_optimized(self: *Self) Error!void {
+pub fn swap1_optimized(self: *Self) Error!void {
     if (self.size < 2) return Error.OutOfBounds;
 
     const top_idx = self.size - 1;
@@ -688,7 +688,7 @@ pub inline fn swap1_optimized(self: *Self) Error!void {
 /// try stack.dup1_optimized();
 /// // Stack: [10, 20, 20] with 20 on top
 /// ```
-pub inline fn dup1_optimized(self: *Self) Error!void {
+pub fn dup1_optimized(self: *Self) Error!void {
     if (self.size == 0) return Error.OutOfBounds;
     if (self.size >= CAPACITY) return Error.Overflow;
 
@@ -697,7 +697,7 @@ pub inline fn dup1_optimized(self: *Self) Error!void {
 }
 
 /// Batch push multiple values
-pub inline fn push_batch(self: *Self, values: []const u256) Error!void {
+pub fn push_batch(self: *Self, values: []const u256) Error!void {
     if (self.size + values.len > CAPACITY) return Error.Overflow;
 
     @memcpy(self.data[self.size .. self.size + values.len], values);
@@ -705,7 +705,7 @@ pub inline fn push_batch(self: *Self, values: []const u256) Error!void {
 }
 
 /// Get multiple top values without popping (for opcodes that need to peek at multiple values)
-pub inline fn peek_multiple(self: *const Self, comptime N: usize) Error![N]u256 {
+pub fn peek_multiple(self: *const Self, comptime N: usize) Error![N]u256 {
     if (self.size < N) return Error.OutOfBounds;
 
     var result: [N]u256 = undefined;
@@ -715,14 +715,14 @@ pub inline fn peek_multiple(self: *const Self, comptime N: usize) Error![N]u256 
     return result;
 }
 
-pub inline fn set_top_unsafe(self: *Self, value: u256) void {
+pub fn set_top_unsafe(self: *Self, value: u256) void {
     // @setRuntimeSafety(false); // Removed as per user feedback
     // Assumes stack is not empty; this should be guaranteed by jump_table validation
     // for opcodes that use this pattern (e.g., after a pop and peek on a stack with >= 2 items).
     self.data[self.size - 1] = value;
 }
 
-pub inline fn set_top_two_unsafe(self: *Self, top: u256, second: u256) void {
+pub fn set_top_two_unsafe(self: *Self, top: u256, second: u256) void {
     // Assumes stack has at least 2 elements; this should be guaranteed by jump_table validation
     self.data[self.size - 1] = top;
     self.data[self.size - 2] = second;
