@@ -22,5 +22,5 @@ pub const Frame = @import("../frame.zig");
 pub const Stack = @import("../stack.zig");
 pub const Memory = @import("../memory.zig");
 pub const Vm = @import("../vm.zig");
-pub const Contract = @import("../contract.zig");
+pub const Contract = @import("../contract/contract.zig");
 pub const gas_constants = @import("../constants/gas_constants.zig");

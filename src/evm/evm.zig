@@ -62,10 +62,10 @@ pub const Address = @import("Address");
 // Import all EVM modules
 
 /// Bytecode analysis for jump destination detection
-pub const CodeAnalysis = @import("code_analysis.zig");
+pub const CodeAnalysis = @import("contract/code_analysis.zig");
 
 /// Contract code and storage management
-pub const Contract = @import("contract.zig");
+pub const Contract = @import("contract/contract.zig");
 
 /// Unified error types for EVM execution
 pub const ExecutionError = @import("execution_error.zig");
@@ -95,7 +95,7 @@ pub const Stack = @import("stack.zig");
 pub const stack_validation = @import("stack_validation.zig");
 
 /// Storage slot pooling for gas optimization
-pub const StoragePool = @import("storage_pool.zig");
+pub const StoragePool = @import("contract/storage_pool.zig");
 
 /// Main virtual machine implementation
 pub const Vm = @import("vm.zig");
@@ -107,7 +107,7 @@ pub const opcodes = @import("opcodes/package.zig");
 // Import utility modules
 
 /// Bit vector utilities for jump destination tracking
-pub const bitvec = @import("bitvec.zig");
+pub const bitvec = @import("contract/bitvec.zig");
 
 /// Chain-specific validation rules
 pub const chain_rules = @import("chain_rules.zig");
@@ -116,7 +116,7 @@ pub const chain_rules = @import("chain_rules.zig");
 pub const constants = @import("constants/constants.zig");
 
 /// EIP-7702 EOA delegation bytecode format
-pub const eip_7702_bytecode = @import("eip_7702_bytecode.zig");
+pub const eip_7702_bytecode = @import("contract/eip_7702_bytecode.zig");
 
 /// Fee market calculations (EIP-1559)
 pub const fee_market = @import("fee_market.zig");

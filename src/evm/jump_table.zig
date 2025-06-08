@@ -6,7 +6,7 @@ const ExecutionError = @import("execution_error.zig");
 const Stack = @import("stack.zig");
 const Memory = @import("memory.zig");
 const Frame = @import("frame.zig");
-const Contract = @import("contract.zig");
+const Contract = @import("contract/contract.zig");
 const Address = @import("Address");
 const Log = @import("log.zig");
 

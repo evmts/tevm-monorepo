@@ -47,7 +47,7 @@ pub fn op_sload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     const slot = frame.stack.peek_unsafe().*;
 
     if (vm.chain_rules.IsBerlin) {
-        const Contract = @import("../contract.zig");
+        const Contract = @import("../contract/contract.zig");
         const is_cold = frame.contract.mark_storage_slot_warm(frame.allocator, slot, null) catch |err| switch (err) {
             Contract.MarkStorageSlotWarmError.OutOfAllocatorMemory => {
                 return ExecutionError.Error.OutOfMemory;
@@ -89,7 +89,7 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     const current_value = try error_mapping.vm_get_storage(vm, frame.contract.address, slot);
 
-    const Contract = @import("../contract.zig");
+    const Contract = @import("../contract/contract.zig");
     const is_cold = frame.contract.mark_storage_slot_warm(frame.allocator, slot, null) catch |err| switch (err) {
         Contract.MarkStorageSlotWarmError.OutOfAllocatorMemory => {
             Log.err("SSTORE: mark_storage_slot_warm failed: {}", .{err});
