@@ -89,6 +89,8 @@ logs: std.ArrayList(EvmLog),
 /// defer state.deinit();
 /// ```
 pub fn init(allocator: std.mem.Allocator) std.mem.Allocator.Error!Self {
+    Log.debug("EvmState.init: Initializing EVM state with allocator", .{});
+    
     var storage = std.AutoHashMap(StorageKey, u256).init(allocator);
     errdefer storage.deinit();
 
@@ -107,6 +109,7 @@ pub fn init(allocator: std.mem.Allocator) std.mem.Allocator.Error!Self {
     var logs = std.ArrayList(EvmLog).init(allocator);
     errdefer logs.deinit();
 
+    Log.debug("EvmState.init: EVM state initialization complete", .{});
     return Self{
         .allocator = allocator,
         .storage = storage,
@@ -161,7 +164,9 @@ pub fn deinit(self: *Self) void {
 /// In real EVM: 100-2100 gas depending on cold/warm access
 pub fn get_storage(self: *const Self, address: Address.Address, slot: u256) u256 {
     const key = StorageKey{ .address = address, .slot = slot };
-    return self.storage.get(key) orelse 0;
+    const value = self.storage.get(key) orelse 0;
+    Log.debug("EvmState.get_storage: addr={x}, slot={}, value={}", .{ Address.to_u256(address), slot, value });
+    return value;
 }
 
 /// Set a value in persistent storage
@@ -182,6 +187,7 @@ pub fn get_storage(self: *const Self, address: Address.Address, slot: u256) u256
 /// In real EVM: 2900-20000 gas depending on current/new value
 pub fn set_storage(self: *Self, address: Address.Address, slot: u256, value: u256) std.mem.Allocator.Error!void {
     const key = StorageKey{ .address = address, .slot = slot };
+    Log.debug("EvmState.set_storage: addr={x}, slot={}, value={}", .{ Address.to_u256(address), slot, value });
     try self.storage.put(key, value);
 }
 

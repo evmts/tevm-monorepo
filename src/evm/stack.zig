@@ -1,4 +1,5 @@
 const std = @import("std");
+const Log = @import("log.zig");
 
 /// High-performance EVM stack implementation with fixed capacity.
 ///
@@ -100,7 +101,11 @@ pub fn from_slice(values: []const u256) Error!Self {
 /// try stack.append(0x1234);
 /// ```
 pub fn append(self: *Self, value: u256) Error!void {
-    if (self.size >= CAPACITY) return Error.Overflow;
+    if (self.size >= CAPACITY) {
+        Log.debug("Stack.append: Stack overflow, size={}, capacity={}", .{ self.size, CAPACITY });
+        return Error.Overflow;
+    }
+    Log.debug("Stack.append: Pushing value={}, new_size={}", .{ value, self.size + 1 });
     self.data[self.size] = value;
     self.size += 1;
 }
@@ -136,10 +141,14 @@ pub fn appendUnsafe(self: *Self, value: u256) void {
 /// const value = try stack.pop();
 /// ```
 pub fn pop(self: *Self) Error!u256 {
-    if (self.size == 0) return Error.Underflow;
+    if (self.size == 0) {
+        Log.debug("Stack.pop: Stack underflow, size=0", .{});
+        return Error.Underflow;
+    }
     self.size -= 1;
     const value = self.data[self.size];
     self.data[self.size] = 0;
+    Log.debug("Stack.pop: Popped value={}, new_size={}", .{ value, self.size });
     return value;
 }
 

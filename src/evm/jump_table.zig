@@ -124,7 +124,10 @@ pub fn execute(self: *const Self, pc: usize, interpreter: *Operation.Interpreter
     // Cast state to Frame to access gas_remaining and stack
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
+    Log.debug("JumpTable.execute: Executing opcode 0x{x:0>2} at pc={}, gas={}, stack_size={}", .{ opcode, pc, frame.gas_remaining, frame.stack.size });
+
     if (operation.undefined) {
+        Log.debug("JumpTable.execute: Invalid opcode 0x{x:0>2}", .{opcode});
         frame.gas_remaining = 0;
         return ExecutionError.Error.InvalidOpcode;
     }
@@ -133,10 +136,12 @@ pub fn execute(self: *const Self, pc: usize, interpreter: *Operation.Interpreter
     try stack_validation.validate_stack_requirements(&frame.stack, operation);
 
     if (operation.constant_gas > 0) {
+        Log.debug("JumpTable.execute: Consuming {} gas for opcode 0x{x:0>2}", .{ operation.constant_gas, opcode });
         try frame.consume_gas(operation.constant_gas);
     }
 
     const res = try operation.execute(pc, interpreter, state);
+    Log.debug("JumpTable.execute: Opcode 0x{x:0>2} completed, gas_remaining={}", .{ opcode, frame.gas_remaining });
     return res;
 }
 
