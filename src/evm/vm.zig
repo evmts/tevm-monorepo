@@ -171,7 +171,6 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
         frame.pc = pc;
 
         const result = self.table.execute(pc, interpreter_ptr, state_ptr, opcode) catch |err| {
-            @branchHint(.likely);
             contract.gas = frame.gas_remaining;
             self.return_data = @constCast(frame.return_data_buffer);
 
@@ -187,6 +186,7 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
 
             return switch (err) {
                 ExecutionError.Error.InvalidOpcode => {
+                    @branchHint(.cold);
                     // INVALID opcode consumes all remaining gas
                     frame.gas_remaining = 0;
                     contract.gas = 0;
@@ -210,6 +210,7 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
                 ExecutionError.Error.MaxCodeSizeExceeded,
                 ExecutionError.Error.OutOfMemory,
                 => {
+                    @branchHint(.cold);
                     return RunResult.init(initial_gas, frame.gas_remaining, .Invalid, err, output);
                 },
                 else => return err, // Unexpected error
