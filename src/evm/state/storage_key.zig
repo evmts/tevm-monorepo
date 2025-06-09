@@ -86,8 +86,15 @@ pub fn hash(self: StorageKey, hasher: anytype) void {
 /// ```zig
 /// const key1 = StorageKey{ .address = addr, .slot = 0 };
 /// const key2 = StorageKey{ .address = addr, .slot = 0 };
-/// std.debug.assert(key1.eql(key2));
+/// if (!StorageKey.eql(key1, key2)) unreachable;
 /// ```
 pub fn eql(a: StorageKey, b: StorageKey) bool {
-    return std.mem.eql(u8, &a.address, &b.address) and a.slot == b.slot;
+    // Fast path for identical keys (likely in hot loops)
+    if (std.mem.eql(u8, &a.address, &b.address) and a.slot == b.slot) {
+        @branchHint(.likely);
+        return true;
+    } else {
+        @branchHint(.cold);
+        return false;
+    }
 }

@@ -42,7 +42,10 @@ pub fn is_precompile(address: Address) bool {
 /// @param chain_rules The current chain rules configuration
 /// @return true if the precompile is available with these chain rules
 pub fn is_available(address: Address, chain_rules: ChainRules) bool {
-    if (!is_precompile(address)) return false;
+    if (!is_precompile(address)) {
+        @branchHint(.cold);
+        return false;
+    }
     
     const precompile_id = addresses.get_precompile_id(address);
     
@@ -80,11 +83,13 @@ pub fn execute_precompile(
 ) PrecompileOutput {
     // Check if this is a valid precompile address
     if (!is_precompile(address)) {
+        @branchHint(.cold);
         return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
     }
     
     // Check if this precompile is available with the current chain rules
     if (!is_available(address, chain_rules)) {
+        @branchHint(.cold);
         return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
     }
     
@@ -92,20 +97,53 @@ pub fn execute_precompile(
     
     // Route to specific precompile implementation
     return switch (precompile_id) {
-        4 => identity.execute(input, output, gas_limit), // IDENTITY
+        4 => {
+            @branchHint(.likely);
+            return identity.execute(input, output, gas_limit);
+        }, // IDENTITY
         
         // Placeholder implementations for future precompiles
-        1 => PrecompileOutput.failure_result(PrecompileError.ExecutionFailed), // ECRECOVER - TODO
-        2 => PrecompileOutput.failure_result(PrecompileError.ExecutionFailed), // SHA256 - TODO
-        3 => PrecompileOutput.failure_result(PrecompileError.ExecutionFailed), // RIPEMD160 - TODO
-        5 => PrecompileOutput.failure_result(PrecompileError.ExecutionFailed), // MODEXP - TODO
-        6 => PrecompileOutput.failure_result(PrecompileError.ExecutionFailed), // ECADD - TODO
-        7 => PrecompileOutput.failure_result(PrecompileError.ExecutionFailed), // ECMUL - TODO
-        8 => PrecompileOutput.failure_result(PrecompileError.ExecutionFailed), // ECPAIRING - TODO
-        9 => PrecompileOutput.failure_result(PrecompileError.ExecutionFailed), // BLAKE2F - TODO
-        10 => PrecompileOutput.failure_result(PrecompileError.ExecutionFailed), // POINT_EVALUATION - TODO
+        1 => {
+            @branchHint(.cold);
+            return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
+        }, // ECRECOVER - TODO
+        2 => {
+            @branchHint(.cold);
+            return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
+        }, // SHA256 - TODO
+        3 => {
+            @branchHint(.cold);
+            return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
+        }, // RIPEMD160 - TODO
+        5 => {
+            @branchHint(.cold);
+            return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
+        }, // MODEXP - TODO
+        6 => {
+            @branchHint(.cold);
+            return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
+        }, // ECADD - TODO
+        7 => {
+            @branchHint(.cold);
+            return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
+        }, // ECMUL - TODO
+        8 => {
+            @branchHint(.cold);
+            return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
+        }, // ECPAIRING - TODO
+        9 => {
+            @branchHint(.cold);
+            return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
+        }, // BLAKE2F - TODO
+        10 => {
+            @branchHint(.cold);
+            return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
+        }, // POINT_EVALUATION - TODO
         
-        else => PrecompileOutput.failure_result(PrecompileError.ExecutionFailed),
+        else => {
+            @branchHint(.cold);
+            return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
+        },
     };
 }
 
@@ -120,10 +158,12 @@ pub fn execute_precompile(
 /// @return Estimated gas cost or error if not available
 pub fn estimate_gas(address: Address, input_size: usize, chain_rules: ChainRules) !u64 {
     if (!is_precompile(address)) {
+        @branchHint(.cold);
         return error.InvalidPrecompile;
     }
     
     if (!is_available(address, chain_rules)) {
+        @branchHint(.cold);
         return error.PrecompileNotAvailable;
     }
     
@@ -158,10 +198,12 @@ pub fn estimate_gas(address: Address, input_size: usize, chain_rules: ChainRules
 /// @return Expected output size or error if not available
 pub fn get_output_size(address: Address, input_size: usize, chain_rules: ChainRules) !usize {
     if (!is_precompile(address)) {
+        @branchHint(.cold);
         return error.InvalidPrecompile;
     }
     
     if (!is_available(address, chain_rules)) {
+        @branchHint(.cold);
         return error.PrecompileNotAvailable;
     }
     
@@ -196,9 +238,18 @@ pub fn get_output_size(address: Address, input_size: usize, chain_rules: ChainRu
 /// @param chain_rules Current chain rules
 /// @return true if the call would succeed
 pub fn validate_call(address: Address, input_size: usize, gas_limit: u64, chain_rules: ChainRules) bool {
-    if (!is_precompile(address)) return false;
-    if (!is_available(address, chain_rules)) return false;
+    if (!is_precompile(address)) {
+        @branchHint(.cold);
+        return false;
+    }
+    if (!is_available(address, chain_rules)) {
+        @branchHint(.cold);
+        return false;
+    }
     
-    const gas_cost = estimate_gas(address, input_size, chain_rules) catch return false;
+    const gas_cost = estimate_gas(address, input_size, chain_rules) catch {
+        @branchHint(.cold);
+        return false;
+    };
     return gas_cost <= gas_limit;
 }

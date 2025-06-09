@@ -37,7 +37,7 @@
 pub const MemorySize = @import("../memory_size.zig");
 
 /// Opcode module providing EVM instruction definitions.
-const Opcode = @This();
+pub const Opcode = struct {};
 
 /// Enumeration of all EVM opcodes with their byte values.
 ///

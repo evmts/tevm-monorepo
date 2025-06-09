@@ -29,7 +29,7 @@
 /// // Calculate required memory size
 /// const required = mem_size.offset + mem_size.size; // 0x120
 /// ```
-const Self = @This();
+const MemorySize = @This();
 
 /// Starting offset in memory where the operation begins.
 /// This is typically popped from the stack.

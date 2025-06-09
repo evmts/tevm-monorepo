@@ -1,6 +1,7 @@
 const std = @import("std");
 const Opcode = @import("../opcodes/opcode.zig");
-const Operation = @import("../opcodes/operation.zig");
+const operation_module = @import("../opcodes/operation.zig");
+const Operation = operation_module.Operation;
 const Hardfork = @import("../hardforks/hardfork.zig").Hardfork;
 const ExecutionError = @import("../execution/execution_error.zig");
 const Stack = @import("../stack/stack.zig");
@@ -46,7 +47,7 @@ const operation_config = @import("operation_config.zig");
 /// const operation = table.get_operation(opcode);
 /// const result = try table.execute(pc, interpreter, state, opcode);
 /// ```
-const JumpTable = @This();
+pub const JumpTable = @This();
 
 /// CPU cache line size for optimal memory alignment.
 /// Most modern x86/ARM processors use 64-byte cache lines.
@@ -93,7 +94,7 @@ pub fn init() JumpTable {
 /// const op = table.get_operation(0x01); // Get ADD operation
 /// ```
 pub fn get_operation(self: *const JumpTable, opcode: u8) *const Operation {
-    return self.table[opcode] orelse &Operation.NULL;
+    return self.table[opcode] orelse &operation_module.NULL_OPERATION;
 }
 
 /// Execute an opcode using the jump table.
@@ -118,8 +119,7 @@ pub fn get_operation(self: *const JumpTable, opcode: u8) *const Operation {
 /// ```zig
 /// const result = try table.execute(pc, &interpreter, &state, bytecode[pc]);
 /// ```
-pub fn execute(self: *const JumpTable, pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State, opcode: u8) ExecutionError.Error!Operation.ExecutionResult {
-    @branchHint(.likely);
+pub fn execute(self: *const JumpTable, pc: usize, interpreter: *operation_module.Interpreter, state: *operation_module.State, opcode: u8) ExecutionError.Error!operation_module.ExecutionResult {
     const operation = self.get_operation(opcode);
 
     // Cast state to Frame to access gas_remaining and stack
@@ -127,6 +127,7 @@ pub fn execute(self: *const JumpTable, pc: usize, interpreter: *Operation.Interp
 
     Log.debug("JumpTable.execute: Executing opcode 0x{x:0>2} at pc={}, gas={}, stack_size={}", .{ opcode, pc, frame.gas_remaining, frame.stack.size });
 
+    // Handle undefined opcodes (cold path)
     if (operation.undefined) {
         @branchHint(.cold);
         Log.debug("JumpTable.execute: Invalid opcode 0x{x:0>2}", .{opcode});
@@ -137,6 +138,7 @@ pub fn execute(self: *const JumpTable, pc: usize, interpreter: *Operation.Interp
     const stack_validation = @import("../stack/stack_validation.zig");
     try stack_validation.validate_stack_requirements(&frame.stack, operation);
 
+    // Gas consumption (likely path)
     if (operation.constant_gas > 0) {
         @branchHint(.likely);
         Log.debug("JumpTable.execute: Consuming {} gas for opcode 0x{x:0>2}", .{ operation.constant_gas, opcode });
@@ -161,15 +163,21 @@ pub fn execute(self: *const JumpTable, pc: usize, interpreter: *Operation.Interp
 /// @param self The jump table to validate
 pub fn validate(self: *JumpTable) void {
     for (0..256) |i| {
+        // Handle null entries (less common)
         if (self.table[i] == null) {
             @branchHint(.cold);
-            self.table[i] = &Operation.NULL;
-        } else if (self.table[i].?.memory_size != null and self.table[i].?.dynamic_gas == null) {
-            @branchHint(.likely);
+            self.table[i] = &operation_module.NULL_OPERATION;
+            continue;
+        }
+        
+        // Check for invalid operation configuration (error path)
+        const operation = self.table[i].?;
+        if (operation.memory_size != null and operation.dynamic_gas == null) {
+            @branchHint(.cold);
             // Log error instead of panicking
             std.debug.print("Warning: Operation 0x{x} has memory size but no dynamic gas calculation\n", .{i});
             // Set to NULL to prevent issues
-            self.table[i] = &Operation.NULL;
+            self.table[i] = &operation_module.NULL_OPERATION;
         }
     }
 }
@@ -215,6 +223,7 @@ pub fn init_from_hardfork(hardfork: Hardfork) JumpTable {
     // Each opcode will be set to the latest active version for the target hardfork.
     inline for (operation_config.ALL_OPERATIONS) |spec| {
         const op_hardfork = spec.variant orelse Hardfork.FRONTIER;
+        // Most operations are included in hardforks (likely path)
         if (@intFromEnum(op_hardfork) <= @intFromEnum(hardfork)) {
             const op = struct {
                 pub const operation = operation_config.generate_operation(spec);

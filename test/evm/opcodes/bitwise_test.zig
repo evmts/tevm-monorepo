@@ -392,7 +392,7 @@ test "Bitwise: Gas consumption" {
     // All bitwise operations cost 3 gas (GasFastestStep)
     const operations = comptime [_]struct {
         name: []const u8,
-        op: fn(usize, *helpers.Operation.Interpreter, *helpers.Operation.State) helpers.ExecutionError.Error!helpers.Operation.ExecutionResult,
+        op: fn(usize, *helpers.OperationModule.Interpreter, *helpers.OperationModule.State) helpers.ExecutionError.Error!helpers.OperationModule.ExecutionResult,
         stack_items: u8,
     }{
         .{ .name = "AND", .op = bitwise.op_and, .stack_items = 2 },

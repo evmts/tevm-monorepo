@@ -18,9 +18,9 @@ const EvmLog = @import("state/evm_log.zig");
 const Context = @import("context.zig");
 const EvmState = @import("state/state.zig");
 pub const StorageKey = @import("state/storage_key.zig");
-pub const CreateResult = @import("create_result.zig");
-pub const CallResult = @import("call_result.zig");
-pub const RunResult = @import("run_result.zig");
+pub const CreateResult = @import("create_result.zig").CreateResult;
+pub const CallResult = @import("call_result.zig").CallResult;
+pub const RunResult = @import("run_result.zig").RunResult;
 const Hardfork = @import("hardforks/hardfork.zig").Hardfork;
 const precompiles = @import("precompiles/precompiles.zig");
 

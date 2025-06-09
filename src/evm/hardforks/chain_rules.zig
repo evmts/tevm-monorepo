@@ -633,8 +633,12 @@ pub fn for_hardfork(hardfork: Hardfork) Self {
     
     // Disable features that were introduced after the target hardfork
     inline for (HARDFORK_RULES) |rule| {
+        // Use branch hint for the common case (later hardforks with more features)
         if (@intFromEnum(hardfork) < @intFromEnum(rule.introduced_in)) {
+            @branchHint(.cold);
             @field(rules, rule.field_name) = false;
+        } else {
+            @branchHint(.likely);
         }
     }
     

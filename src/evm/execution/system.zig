@@ -20,14 +20,17 @@ pub fn gas_op(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    try frame.stack.append( @as(u256, @intCast(frame.gas_remaining)));
+    try frame.stack.append(@as(u256, @intCast(frame.gas_remaining)));
 
     return Operation.ExecutionResult{};
 }
 
 // Helper to check if u256 fits in usize
 fn check_offset_bounds(value: u256) ExecutionError.Error!void {
-    if (value > std.math.maxInt(usize)) return ExecutionError.Error.InvalidOffset;
+    if (value > std.math.maxInt(usize)) {
+        @branchHint(.cold);
+        return ExecutionError.Error.InvalidOffset;
+    }
 }
 
 pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
@@ -37,7 +40,10 @@ pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
     // Check if we're in a static call
-    if (frame.is_static) return ExecutionError.Error.WriteProtection;
+    if (frame.is_static) {
+        @branchHint(.unlikely);
+        return ExecutionError.Error.WriteProtection;
+    }
 
     const value = try frame.stack.pop();
     const offset = try frame.stack.pop();
@@ -47,14 +53,18 @@ pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     // Check depth
     if (frame.depth >= 1024) {
-        try frame.stack.append( 0);
+        @branchHint(.cold);
+        try frame.stack.append(0);
         return Operation.ExecutionResult{};
     }
 
     // EIP-3860: Check initcode size limit FIRST (Shanghai and later)
     try check_offset_bounds(size);
     const size_usize = @as(usize, @intCast(size));
-    if (vm.chain_rules.IsEIP3860 and size_usize > gas_constants.MaxInitcodeSize) return ExecutionError.Error.MaxCodeSizeExceeded;
+    if (vm.chain_rules.IsEIP3860 and size_usize > gas_constants.MaxInitcodeSize) {
+        @branchHint(.unlikely);
+        return ExecutionError.Error.MaxCodeSizeExceeded;
+    }
 
     // Get init code from memory
     var init_code: []const u8 = &[_]u8{};
@@ -94,14 +104,15 @@ pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     frame.gas_remaining = frame.gas_remaining / 64 + result.gas_left;
 
     if (!result.success) {
-        try frame.stack.append( 0);
+        @branchHint(.unlikely);
+        try frame.stack.append(0);
         frame.return_data_buffer = result.output orelse &[_]u8{};
         return Operation.ExecutionResult{};
     }
 
     // EIP-2929: Mark the newly created address as warm
     _ = try vm.access_list.access_address(result.address);
-    try frame.stack.append( to_u256(result.address));
+    try frame.stack.append(to_u256(result.address));
 
     // Set return data
     frame.return_data_buffer = result.output orelse &[_]u8{};
@@ -116,7 +127,10 @@ pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
-    if (frame.is_static) return ExecutionError.Error.WriteProtection;
+    if (frame.is_static) {
+        @branchHint(.unlikely);
+        return ExecutionError.Error.WriteProtection;
+    }
 
     const value = try frame.stack.pop();
     const offset = try frame.stack.pop();
@@ -131,7 +145,10 @@ pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     // EIP-3860: Check initcode size limit FIRST (Shanghai and later)
     try check_offset_bounds(size);
     const size_usize = @as(usize, @intCast(size));
-    if (vm.chain_rules.IsEIP3860 and size_usize > gas_constants.MaxInitcodeSize) return ExecutionError.Error.MaxCodeSizeExceeded;
+    if (vm.chain_rules.IsEIP3860 and size_usize > gas_constants.MaxInitcodeSize) {
+        @branchHint(.unlikely);
+        return ExecutionError.Error.MaxCodeSizeExceeded;
+    }
 
     // Get init code from memory
     var init_code: []const u8 = &[_]u8{};
@@ -171,14 +188,15 @@ pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     frame.gas_remaining = frame.gas_remaining / 64 + result.gas_left;
 
     if (!result.success) {
-        try frame.stack.append( 0);
+        @branchHint(.unlikely);
+        try frame.stack.append(0);
         frame.return_data_buffer = result.output orelse &[_]u8{};
         return Operation.ExecutionResult{};
     }
 
     // EIP-2929: Mark the newly created address as warm
     _ = try vm.access_list.access_address(result.address);
-    try frame.stack.append( to_u256(result.address));
+    try frame.stack.append(to_u256(result.address));
 
     // Set return data
     frame.return_data_buffer = result.output orelse &[_]u8{};
@@ -202,7 +220,8 @@ pub fn op_call(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
 
     // Check depth
     if (frame.depth >= 1024) {
-        try frame.stack.append( 0);
+        @branchHint(.cold);
+        try frame.stack.append(0);
         return Operation.ExecutionResult{};
     }
 
@@ -210,12 +229,18 @@ pub fn op_call(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     var args: []const u8 = &[_]u8{};
     if (args_size > 0) {
         // Check that offset + size doesn't overflow and fits in usize
-        if (args_offset > std.math.maxInt(usize) or args_size > std.math.maxInt(usize)) return ExecutionError.Error.InvalidOffset;
+        if (args_offset > std.math.maxInt(usize) or args_size > std.math.maxInt(usize)) {
+            @branchHint(.cold);
+            return ExecutionError.Error.InvalidOffset;
+        }
         const args_offset_usize = @as(usize, @intCast(args_offset));
         const args_size_usize = @as(usize, @intCast(args_size));
 
         // Check that offset + size doesn't overflow usize
-        if (args_offset_usize > std.math.maxInt(usize) - args_size_usize) return ExecutionError.Error.InvalidOffset;
+        if (args_offset_usize > std.math.maxInt(usize) - args_size_usize) {
+            @branchHint(.cold);
+            return ExecutionError.Error.InvalidOffset;
+        }
 
         _ = try frame.memory.ensure_context_capacity(args_offset_usize + args_size_usize);
         args = try frame.memory.get_slice(args_offset_usize, args_size_usize);
@@ -224,23 +249,33 @@ pub fn op_call(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     // Ensure return memory
     if (ret_size > 0) {
         // Check that offset + size doesn't overflow and fits in usize
-        if (ret_offset > std.math.maxInt(usize) or ret_size > std.math.maxInt(usize)) return ExecutionError.Error.InvalidOffset;
+        if (ret_offset > std.math.maxInt(usize) or ret_size > std.math.maxInt(usize)) {
+            @branchHint(.cold);
+            return ExecutionError.Error.InvalidOffset;
+        }
         const ret_offset_usize = @as(usize, @intCast(ret_offset));
         const ret_size_usize = @as(usize, @intCast(ret_size));
 
         // Check that offset + size doesn't overflow usize
-        if (ret_offset_usize > std.math.maxInt(usize) - ret_size_usize) return ExecutionError.Error.InvalidOffset;
+        if (ret_offset_usize > std.math.maxInt(usize) - ret_size_usize) {
+            @branchHint(.cold);
+            return ExecutionError.Error.InvalidOffset;
+        }
 
         _ = try frame.memory.ensure_context_capacity(ret_offset_usize + ret_size_usize);
     }
 
-    if (frame.is_static and value != 0) return ExecutionError.Error.WriteProtection;
+    if (frame.is_static and value != 0) {
+        @branchHint(.unlikely);
+        return ExecutionError.Error.WriteProtection;
+    }
 
     const to_address = from_u256(to);
 
     const access_cost = try vm.access_list.access_address(to_address);
     const is_cold = access_cost == AccessList.COLD_ACCOUNT_ACCESS_COST;
     if (is_cold) {
+        @branchHint(.unlikely);
         try frame.consume_gas(gas_constants.ColdAccountAccessCost);
     }
 
@@ -266,10 +301,11 @@ pub fn op_call(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
 
         const copy_size = @min(ret_size_usize, output.len);
         const memory_slice = frame.memory.slice();
-        @memcpy(memory_slice[ret_offset_usize .. ret_offset_usize + copy_size], output[0..copy_size]);
+        std.mem.copyForwards(u8, memory_slice[ret_offset_usize .. ret_offset_usize + copy_size], output[0..copy_size]);
 
         // Zero out remaining bytes if output was smaller than requested
         if (copy_size < ret_size_usize) {
+            @branchHint(.unlikely);
             @memset(memory_slice[ret_offset_usize + copy_size .. ret_offset_usize + ret_size_usize], 0);
         }
     }
@@ -278,7 +314,7 @@ pub fn op_call(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     frame.return_data_buffer = result.output orelse &[_]u8{};
 
     // Push success status
-    try frame.stack.append( if (result.success) 1 else 0);
+    try frame.stack.append(if (result.success) 1 else 0);
 
     return Operation.ExecutionResult{};
 }
@@ -299,7 +335,8 @@ pub fn op_callcode(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
 
     // Check depth
     if (frame.depth >= 1024) {
-        try frame.stack.append( 0);
+        @branchHint(.cold);
+        try frame.stack.append(0);
         return Operation.ExecutionResult{};
     }
 
@@ -334,6 +371,7 @@ pub fn op_callcode(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     const access_cost = try vm.access_list.access_address(to_address);
     const is_cold = access_cost == AccessList.COLD_ACCOUNT_ACCESS_COST;
     if (is_cold) {
+        @branchHint(.unlikely);
         // Cold address access costs more (2600 gas)
         try frame.consume_gas(gas_constants.ColdAccountAccessCost);
     }
@@ -361,10 +399,11 @@ pub fn op_callcode(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
 
         const copy_size = @min(ret_size_usize, output.len);
         const memory_slice = frame.memory.slice();
-        @memcpy(memory_slice[ret_offset_usize .. ret_offset_usize + copy_size], output[0..copy_size]);
+        std.mem.copyForwards(u8, memory_slice[ret_offset_usize .. ret_offset_usize + copy_size], output[0..copy_size]);
 
         // Zero out remaining bytes if output was smaller than requested
         if (copy_size < ret_size_usize) {
+            @branchHint(.unlikely);
             @memset(memory_slice[ret_offset_usize + copy_size .. ret_offset_usize + ret_size_usize], 0);
         }
     }
@@ -373,7 +412,7 @@ pub fn op_callcode(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     frame.return_data_buffer = result.output orelse &[_]u8{};
 
     // Push success status
-    try frame.stack.append( if (result.success) 1 else 0);
+    try frame.stack.append(if (result.success) 1 else 0);
 
     return Operation.ExecutionResult{};
 }
@@ -393,7 +432,8 @@ pub fn op_delegatecall(pc: usize, interpreter: *Operation.Interpreter, state: *O
 
     // Check depth
     if (frame.depth >= 1024) {
-        try frame.stack.append( 0);
+        @branchHint(.cold);
+        try frame.stack.append(0);
         return Operation.ExecutionResult{};
     }
 
@@ -428,6 +468,7 @@ pub fn op_delegatecall(pc: usize, interpreter: *Operation.Interpreter, state: *O
     const access_cost = try vm.access_list.access_address(to_address);
     const is_cold = access_cost == AccessList.COLD_ACCOUNT_ACCESS_COST;
     if (is_cold) {
+        @branchHint(.unlikely);
         // Cold address access costs more (2600 gas)
         try frame.consume_gas(gas_constants.ColdAccountAccessCost);
     }
@@ -452,10 +493,11 @@ pub fn op_delegatecall(pc: usize, interpreter: *Operation.Interpreter, state: *O
 
         const copy_size = @min(ret_size_usize, output.len);
         const memory_slice = frame.memory.slice();
-        @memcpy(memory_slice[ret_offset_usize .. ret_offset_usize + copy_size], output[0..copy_size]);
+        std.mem.copyForwards(u8, memory_slice[ret_offset_usize .. ret_offset_usize + copy_size], output[0..copy_size]);
 
         // Zero out remaining bytes if output was smaller than requested
         if (copy_size < ret_size_usize) {
+            @branchHint(.unlikely);
             @memset(memory_slice[ret_offset_usize + copy_size .. ret_offset_usize + ret_size_usize], 0);
         }
     }
@@ -464,7 +506,7 @@ pub fn op_delegatecall(pc: usize, interpreter: *Operation.Interpreter, state: *O
     frame.return_data_buffer = result.output orelse &[_]u8{};
 
     // Push success status
-    try frame.stack.append( if (result.success) 1 else 0);
+    try frame.stack.append(if (result.success) 1 else 0);
 
     return Operation.ExecutionResult{};
 }
@@ -484,7 +526,8 @@ pub fn op_staticcall(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
 
     // Check depth
     if (frame.depth >= 1024) {
-        try frame.stack.append( 0);
+        @branchHint(.cold);
+        try frame.stack.append(0);
         return Operation.ExecutionResult{};
     }
 
@@ -519,6 +562,7 @@ pub fn op_staticcall(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
     const access_cost = try vm.access_list.access_address(to_address);
     const is_cold = access_cost == AccessList.COLD_ACCOUNT_ACCESS_COST;
     if (is_cold) {
+        @branchHint(.unlikely);
         // Cold address access costs more (2600 gas)
         try frame.consume_gas(gas_constants.ColdAccountAccessCost);
     }
@@ -541,10 +585,11 @@ pub fn op_staticcall(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
 
         const copy_size = @min(ret_size_usize, output.len);
         const memory_slice = frame.memory.slice();
-        @memcpy(memory_slice[ret_offset_usize .. ret_offset_usize + copy_size], output[0..copy_size]);
+        std.mem.copyForwards(u8, memory_slice[ret_offset_usize .. ret_offset_usize + copy_size], output[0..copy_size]);
 
         // Zero out remaining bytes if output was smaller than requested
         if (copy_size < ret_size_usize) {
+            @branchHint(.unlikely);
             @memset(memory_slice[ret_offset_usize + copy_size .. ret_offset_usize + ret_size_usize], 0);
         }
     }
@@ -553,7 +598,7 @@ pub fn op_staticcall(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
     frame.return_data_buffer = result.output orelse &[_]u8{};
 
     // Push success status
-    try frame.stack.append( if (result.success) 1 else 0);
+    try frame.stack.append(if (result.success) 1 else 0);
 
     return Operation.ExecutionResult{};
 }

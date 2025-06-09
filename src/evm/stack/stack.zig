@@ -27,7 +27,7 @@ const Log = @import("../log.zig");
 /// try stack.append(100); // Safe variant (for error_mapping)
 /// stack.append_unsafe(200); // Unsafe variant (for opcodes)
 /// ```
-const Stack = @This();
+pub const Stack = @This();
 
 /// Maximum stack capacity as defined by the EVM specification.
 /// This limit prevents stack-based DoS attacks.
@@ -82,7 +82,7 @@ pub fn append(self: *Stack, value: u256) Error!void {
 /// @param self The stack to push onto
 /// @param value The 256-bit value to push
 pub fn append_unsafe(self: *Stack, value: u256) void {
-    @branchHint(.likely); // We generally only use unsafe methods
+    @branchHint(.likely);
     self.data[self.size] = value;
     self.size += 1;
 }
@@ -153,9 +153,8 @@ pub fn dup_unsafe(self: *Stack, n: usize) void {
 
 /// Pop 2 values without pushing (unsafe version)
 pub fn pop2_unsafe(self: *Stack) struct { a: u256, b: u256 } {
-    @branchHint(.likely); // We generally only use unsafe methods
+    @branchHint(.likely);
     @setRuntimeSafety(false);
-
     self.size -= 2;
     return .{
         .a = self.data[self.size],
@@ -165,9 +164,8 @@ pub fn pop2_unsafe(self: *Stack) struct { a: u256, b: u256 } {
 
 /// Pop 3 values without pushing (unsafe version)
 pub fn pop3_unsafe(self: *Stack) struct { a: u256, b: u256, c: u256 } {
-    @branchHint(.likely); // We generally only use unsafe methods
+    @branchHint(.likely);
     @setRuntimeSafety(false);
-
     self.size -= 3;
     return .{
         .a = self.data[self.size],
@@ -177,7 +175,7 @@ pub fn pop3_unsafe(self: *Stack) struct { a: u256, b: u256, c: u256 } {
 }
 
 pub fn set_top_unsafe(self: *Stack, value: u256) void {
-    @branchHint(.likely); // We generally only use unsafe methods
+    @branchHint(.likely);
     // Assumes stack is not empty; this should be guaranteed by jump_table validation
     // for opcodes that use this pattern (e.g., after a pop and peek on a stack with >= 2 items).
     self.data[self.size - 1] = value;
@@ -192,6 +190,7 @@ pub fn swapUnsafe(self: *Stack, n: usize) void {
 /// Peek at the nth element from the top (for test compatibility)
 pub fn peek_n(self: *const Stack, n: usize) Error!u256 {
     if (n >= self.size) {
+        @branchHint(.cold);
         return Error.StackUnderflow;
     }
     return self.data[self.size - 1 - n];
@@ -207,6 +206,7 @@ pub fn clear(self: *Stack) void {
 /// Peek at the top value (for test compatibility)
 pub fn peek(self: *const Stack) Error!u256 {
     if (self.size == 0) {
+        @branchHint(.cold);
         return Error.StackUnderflow;
     }
     return self.data[self.size - 1];

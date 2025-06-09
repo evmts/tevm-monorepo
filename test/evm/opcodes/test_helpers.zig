@@ -11,6 +11,7 @@ pub const Contract = evm.Contract;
 pub const Address = evm.Address;
 pub const Vm = evm.Vm;
 pub const Operation = evm.Operation;
+pub const OperationModule = evm.OperationModule;
 pub const ExecutionError = evm.ExecutionError;
 pub const opcodes = evm.opcodes;
 pub const Hardfork = evm.Hardfork.Hardfork;
@@ -163,9 +164,9 @@ pub fn executeOpcode(
     opcode_byte: u8,
     vm: *Vm,
     frame: *Frame,
-) ExecutionError.Error!Operation.ExecutionResult {
-    const interpreter_ptr: *Operation.Interpreter = @ptrCast(vm);
-    const state_ptr: *Operation.State = @ptrCast(frame);
+) ExecutionError.Error!OperationModule.ExecutionResult {
+    const interpreter_ptr: *OperationModule.Interpreter = @ptrCast(vm);
+    const state_ptr: *OperationModule.State = @ptrCast(frame);
 
     // Debug: Check if jump table has the opcode
     // const operation = vm.table.get_operation(opcode_byte);
@@ -186,9 +187,9 @@ pub fn executeOpcodeWithGas(
     opcode: u8,
     vm: *Vm,
     frame: *Frame,
-) !Operation.ExecutionResult {
-    const interpreter_ptr: *Operation.Interpreter = @ptrCast(vm);
-    const state_ptr: *Operation.State = @ptrCast(frame);
+) !OperationModule.ExecutionResult {
+    const interpreter_ptr: *OperationModule.Interpreter = @ptrCast(vm);
+    const state_ptr: *OperationModule.State = @ptrCast(frame);
     return try jump_table.execute(0, interpreter_ptr, state_ptr, opcode);
 }
 
