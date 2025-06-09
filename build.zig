@@ -50,7 +50,7 @@ pub fn build(b: *std.Build) void {
     address_mod.single_threaded = true;
 
     const abi_mod = b.createModule(.{
-        .root_source_file = b.path("src/Abi/abi.zig"),
+        .root_source_file = b.path("src/abi_/abi.zig"),
         .target = target,
         .optimize = optimize,
     });
@@ -134,7 +134,7 @@ pub fn build(b: *std.Build) void {
     trie_mod.addImport("Utils", utils_mod);
 
     const token_mod = b.createModule(.{
-        .root_source_file = b.path("src/Token/token.zig"),
+        .root_source_file = b.path("src/token_/token.zig"),
         .target = target,
         .optimize = optimize,
     });
@@ -370,7 +370,7 @@ pub fn build(b: *std.Build) void {
     // Add a test for abi_test.zig
     const abi_specific_test = b.addTest(.{
         .name = "abi-test",
-        .root_source_file = b.path("src/Abi/abi_test.zig"),
+        .root_source_file = b.path("src/abi_/abi_test.zig"),
         .target = target,
         .optimize = optimize,
     });
