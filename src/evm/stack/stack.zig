@@ -186,3 +186,26 @@ pub fn swapUnsafe(self: *Self, n: usize) void {
     @branchHint(.likely);
     std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - n - 1]);
 }
+
+/// Peek at the nth element from the top (for test compatibility)
+pub fn peek_n(self: *const Self, n: usize) Error!u256 {
+    if (n >= self.size) {
+        return Error.StackUnderflow;
+    }
+    return self.data[self.size - 1 - n];
+}
+
+/// Clear the stack (for test compatibility)
+pub fn clear(self: *Self) void {
+    self.size = 0;
+    // Zero out the data for security
+    @memset(&self.data, 0);
+}
+
+/// Peek at the top value (for test compatibility)
+pub fn peek(self: *const Self) Error!u256 {
+    if (self.size == 0) {
+        return Error.StackUnderflow;
+    }
+    return self.data[self.size - 1];
+}

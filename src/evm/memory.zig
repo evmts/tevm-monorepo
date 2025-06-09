@@ -207,3 +207,39 @@ pub fn slice(self: *Self) []u8 {
     const abs_end = abs_start + ctx_size;
     return self.root_ptr.shared_buffer.items[abs_start..abs_end];
 }
+
+/// Read a single byte at context-relative offset (for test compatibility)
+pub fn get_byte(self: *const Self, relative_offset: usize) MemoryError!u8 {
+    if (relative_offset >= self.context_size()) return MemoryError.InvalidOffset;
+    const abs_offset = self.my_checkpoint + relative_offset;
+    return self.root_ptr.shared_buffer.items[abs_offset];
+}
+
+/// Resize the context to the specified size (for test compatibility)
+pub fn resize_context(self: *Self, new_size: usize) MemoryError!void {
+    _ = try self.ensure_context_capacity(new_size);
+}
+
+/// Get the memory size (alias for context_size for test compatibility)
+pub fn size(self: *const Self) usize {
+    return self.context_size();
+}
+
+/// Write u256 value at context-relative offset (for test compatibility)
+pub fn set_u256(self: *Self, relative_offset: usize, value: u256) MemoryError!void {
+    _ = try self.ensure_context_capacity(relative_offset + 32);
+    const abs_offset = self.my_checkpoint + relative_offset;
+    
+    // Convert u256 to big-endian bytes
+    var bytes: [32]u8 = undefined;
+    var val = value;
+    var i: usize = 32;
+    while (i > 0) {
+        i -= 1;
+        bytes[i] = @intCast(val & 0xFF);
+        val >>= 8;
+    }
+    
+    @memcpy(self.root_ptr.shared_buffer.items[abs_offset..abs_offset + 32], &bytes);
+}
+

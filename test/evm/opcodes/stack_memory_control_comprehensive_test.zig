@@ -242,7 +242,7 @@ test "SLOAD (0x54): Load from storage" {
             std.debug.print("  Test 3.{}: Failed to peek stack: {}\n", .{ i, err });
             return err;
         };
-        std.debug.print("  Test 3.{}: Stack value after SLOAD: {}\n", .{ i, stack_value.* });
+        std.debug.print("  Test 3.{}: Stack value after SLOAD: {}\n", .{ i, stack_value });
         try helpers.expectStackValue(test_frame.frame, 0, ts.value);
         _ = try test_frame.popStack();
         std.debug.print("  Test 3.{}: PASSED\n", .{i});

@@ -262,7 +262,7 @@ test "KECCAK256: Comprehensive hash edge cases" {
         // Write data to memory
         if (kh.data.len > 0) {
             for (kh.data, 0..) |byte, i| {
-                try test_frame.frame.memory.set_byte(kh.offset + i, byte);
+                try test_frame.frame.memory.set_data(kh.offset + i, &[_]u8{byte});
             }
         }
         
@@ -281,7 +281,7 @@ test "KECCAK256: Comprehensive hash edge cases" {
         
         // Fill memory with pattern
         for (0..length) |i| {
-            try test_frame.frame.memory.set_byte(i, @as(u8, @intCast(i & 0xFF)));
+            try test_frame.frame.memory.set_data(i, &[_]u8{@as(u8, @intCast(i & 0xFF))});
         }
         
         try test_frame.pushStack(&[_]u256{ length, 0 });
@@ -298,7 +298,7 @@ test "KECCAK256: Comprehensive hash edge cases" {
     
     // Write at offset 0
     for (test_data, 0..) |byte, i| {
-        try test_frame.frame.memory.set_byte(0 + i, byte);
+        try test_frame.frame.memory.set_data(0 + i, &[_]u8{byte});
     }
     try test_frame.pushStack(&[_]u256{ test_data.len, 0 });
     _ = try helpers.executeOpcode(0x20, test_vm.vm, test_frame.frame);
@@ -306,7 +306,7 @@ test "KECCAK256: Comprehensive hash edge cases" {
     
     // Write at offset 1000
     for (test_data, 0..) |byte, i| {
-        try test_frame.frame.memory.set_byte(1000 + i, byte);
+        try test_frame.frame.memory.set_data(1000 + i, &[_]u8{byte});
     }
     try test_frame.pushStack(&[_]u256{ test_data.len, 1000 });
     _ = try helpers.executeOpcode(0x20, test_vm.vm, test_frame.frame);
@@ -483,7 +483,7 @@ test "Shifts: Combined operations and properties" {
     test_frame.frame.stack.clear();
     
     // Store shift amount (8) in memory at offset 0
-    try test_frame.frame.memory.set_byte(0, 8);
+    try test_frame.frame.memory.set_data(0, &[_]u8{8});
     
     // Hash it to get a deterministic value
     try test_frame.pushStack(&[_]u256{ 1, 0 });
@@ -632,10 +632,10 @@ test "KECCAK256: Hash collision resistance" {
         test_frame.frame.stack.clear();
         
         // Write i to memory
-        try test_frame.frame.memory.set_byte(0, @as(u8, @intCast(i & 0xFF)));
-        try test_frame.frame.memory.set_byte(1, @as(u8, @intCast((i >> 8) & 0xFF)));
-        try test_frame.frame.memory.set_byte(2, @as(u8, @intCast((i >> 16) & 0xFF)));
-        try test_frame.frame.memory.set_byte(3, @as(u8, @intCast((i >> 24) & 0xFF)));
+        try test_frame.frame.memory.set_data(0, &[_]u8{@as(u8, @intCast(i & 0xFF))});
+        try test_frame.frame.memory.set_data(1, &[_]u8{@as(u8, @intCast((i >> 8) & 0xFF))});
+        try test_frame.frame.memory.set_data(2, &[_]u8{@as(u8, @intCast((i >> 16) & 0xFF))});
+        try test_frame.frame.memory.set_data(3, &[_]u8{@as(u8, @intCast((i >> 24) & 0xFF))});
         
         // Hash 4 bytes
         try test_frame.pushStack(&[_]u256{ 4, 0 });
