@@ -59,6 +59,7 @@ read_only: bool = false,
 /// @param jump_table Optional jump table. If null, uses JumpTable.DEFAULT (latest hardfork)
 /// @param chain_rules Optional chain rules. If null, uses ChainRules.DEFAULT (latest hardfork)
 /// @return Initialized VM instance
+/// @throws std.mem.Allocator.Error if allocation fails
 ///
 /// Example with custom jump table and rules:
 /// ```zig
@@ -71,7 +72,7 @@ read_only: bool = false,
 /// ```zig
 /// var vm = try VM.init(allocator, null, null);
 /// ```
-pub fn init(allocator: std.mem.Allocator, jump_table: ?*const JumpTable, chain_rules: ?*const ChainRules) std.mem.Allocator.Error!Self {
+pub fn init(allocator: std.mem.Allocator, jump_table: ?*const JumpTable, chain_rules: ?*const ChainRules) !Self {
     Log.debug("VM.init: Initializing VM with allocator", .{});
 
     var state = try EvmState.init(allocator);
@@ -94,10 +95,14 @@ pub fn init(allocator: std.mem.Allocator, jump_table: ?*const JumpTable, chain_r
 /// Initialize VM with a specific hardfork.
 /// Convenience function that creates the jump table at runtime.
 /// For production use, consider pre-generating the jump table at compile time.
-pub fn init_with_hardfork(allocator: std.mem.Allocator, hardfork: Hardfork) std.mem.Allocator.Error!Self {
+/// @param allocator Memory allocator for VM operations
+/// @param hardfork Ethereum hardfork to configure for
+/// @return Initialized VM instance
+/// @throws std.mem.Allocator.Error if allocation fails
+pub fn init_with_hardfork(allocator: std.mem.Allocator, hardfork: Hardfork) !Self {
     const table = JumpTable.init_from_hardfork(hardfork);
     const rules = ChainRules.for_hardfork(hardfork);
-    return init(allocator, &table, &rules);
+    return try init(allocator, &table, &rules);
 }
 
 /// Free all VM resources.
@@ -163,8 +168,8 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
     frame.input = input;
     frame.gas_remaining = contract.gas;
 
-    const interpreter_ptr: *Operation.Interpreter = @ptrCast(self);
-    const state_ptr: *Operation.State = @ptrCast(&frame);
+    const interpreter_ptr = @as(*Operation.Interpreter, @ptrCast(self));
+    const state_ptr = @as(*Operation.State, @ptrCast(&frame));
 
     while (pc < contract.code_size) {
         @branchHint(.likely);
@@ -172,7 +177,7 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
         frame.pc = pc;
 
         const result = self.table.execute(pc, interpreter_ptr, state_ptr, opcode) catch |err| {
-            @branchHint(.likely);
+            @branchHint(.cold);
             contract.gas = frame.gas_remaining;
             self.return_data = @constCast(frame.return_data_buffer);
 
@@ -241,7 +246,7 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
     );
 }
 
-fn create_contract_internal(self: *Self, creator: Address.Address, value: u256, init_code: []const u8, gas: u64, new_address: Address.Address) std.mem.Allocator.Error!CreateResult {
+fn create_contract_internal(self: *Self, creator: Address.Address, value: u256, init_code: []const u8, gas: u64, new_address: Address.Address) !CreateResult {
     if (self.state.get_code(new_address).len > 0) {
         @branchHint(.unlikely);
         // Contract already exists at this address
