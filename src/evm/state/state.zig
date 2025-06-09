@@ -71,6 +71,11 @@ transient_storage: std.AutoHashMap(StorageKey, u256),
 /// Ordered list of all LOG0-LOG4 events
 logs: std.ArrayList(EvmLog),
 
+/// Contracts marked for destruction (SELFDESTRUCT)
+/// Maps address -> recipient address for funds transfer
+/// Destruction happens at end of transaction
+selfdestructs: std.AutoHashMap(Address.Address, Address.Address),
+
 /// Initialize a new EVM state instance
 /// 
 /// Creates empty state with the provided allocator. All maps and lists
@@ -109,6 +114,9 @@ pub fn init(allocator: std.mem.Allocator) std.mem.Allocator.Error!Self {
     var logs = std.ArrayList(EvmLog).init(allocator);
     errdefer logs.deinit();
 
+    var selfdestructs = std.AutoHashMap(Address.Address, Address.Address).init(allocator);
+    errdefer selfdestructs.deinit();
+
     Log.debug("EvmState.init: EVM state initialization complete", .{});
     return Self{
         .allocator = allocator,
@@ -118,6 +126,7 @@ pub fn init(allocator: std.mem.Allocator) std.mem.Allocator.Error!Self {
         .nonces = nonces,
         .transient_storage = transient_storage,
         .logs = logs,
+        .selfdestructs = selfdestructs,
     };
 }
 
@@ -141,6 +150,7 @@ pub fn deinit(self: *Self) void {
     self.code.deinit();
     self.nonces.deinit();
     self.transient_storage.deinit();
+    self.selfdestructs.deinit();
 
     // Clean up logs - free allocated memory for topics and data
     for (self.logs.items) |log| {
@@ -438,4 +448,72 @@ pub fn emit_log(self: *Self, address: Address.Address, topics: []const u256, dat
 
     try self.logs.append(log);
     Log.debug("EvmState.emit_log: Log emitted, total_logs={}", .{self.logs.items.len});
+}
+
+// SELFDESTRUCT methods
+
+/// Mark a contract for destruction
+/// 
+/// Records that a contract should be destroyed at the end of the
+/// transaction. The contract's balance will be transferred to the
+/// recipient address.
+/// 
+/// ## Parameters
+/// - `contract_address`: Address of contract to destroy
+/// - `recipient`: Address to receive the contract's balance
+/// 
+/// ## Returns
+/// - Success: void
+/// - Error: OutOfMemory if map expansion fails
+/// 
+/// ## Note
+/// Multiple SELFDESTRUCT calls on the same contract only record
+/// the latest recipient address.
+pub fn mark_for_destruction(self: *Self, contract_address: Address.Address, recipient: Address.Address) std.mem.Allocator.Error!void {
+    Log.debug("EvmState.mark_for_destruction: contract={x}, recipient={x}", .{ Address.to_u256(contract_address), Address.to_u256(recipient) });
+    try self.selfdestructs.put(contract_address, recipient);
+}
+
+/// Check if a contract is marked for destruction
+/// 
+/// Returns whether the given address has been marked for destruction
+/// by a SELFDESTRUCT opcode in this transaction.
+/// 
+/// ## Parameters
+/// - `address`: Contract address to check
+/// 
+/// ## Returns
+/// true if marked for destruction, false otherwise
+pub fn is_marked_for_destruction(self: *const Self, address: Address.Address) bool {
+    return self.selfdestructs.contains(address);
+}
+
+/// Get the recipient address for a destructed contract
+/// 
+/// Returns the address that will receive the balance of a
+/// contract marked for destruction.
+/// 
+/// ## Parameters
+/// - `address`: Contract address
+/// 
+/// ## Returns
+/// - Some(recipient): If contract is marked for destruction
+/// - None: If contract is not marked for destruction
+pub fn get_destruction_recipient(self: *const Self, address: Address.Address) ?Address.Address {
+    return self.selfdestructs.get(address);
+}
+
+/// Clear transient storage for the next transaction
+/// 
+/// Clears all transient storage slots. Called at the end of
+/// each transaction as per EIP-1153.
+/// 
+/// ## Example
+/// ```zig
+/// // At end of transaction
+/// state.clear_transient_storage();
+/// ```
+pub fn clear_transient_storage(self: *Self) void {
+    Log.debug("EvmState.clear_transient_storage: Clearing transient storage", .{});
+    self.transient_storage.clearAndFree();
 }

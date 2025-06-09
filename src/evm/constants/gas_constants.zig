@@ -158,8 +158,13 @@ pub const CallValueTransferGas: u64 = 9000;
 /// Reflects the cost of adding a new entry to the state trie
 pub const CallNewAccountGas: u64 = 25000;
 
+/// Base gas cost for SELFDESTRUCT operation
+/// EIP-150 (Tangerine Whistle): Increased from 0 to 5000 gas
+pub const SelfdestructGas: u64 = 5000;
+
 /// Gas refund for SELFDESTRUCT operation
 /// Incentivizes cleaning up unused contracts
+/// Note: Removed in EIP-3529 (London)
 pub const SelfdestructRefundGas: u64 = 24000;
 // ============================================================================
 // Memory Expansion Costs

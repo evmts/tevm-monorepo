@@ -10,6 +10,8 @@ const to_u256 = Address.to_u256;
 const from_u256 = Address.from_u256;
 const gas_constants = @import("../constants/gas_constants.zig");
 const AccessList = @import("../access_list/access_list.zig").AccessList;
+const error_mapping = @import("../error_mapping.zig");
+const Log = @import("../log.zig");
 
 // Import helper functions from error_mapping
 
@@ -20,7 +22,7 @@ pub fn gas_op(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    try frame.stack.append( @as(u256, @intCast(frame.gas_remaining)));
+    try frame.stack.append(@as(u256, @intCast(frame.gas_remaining)));
 
     return Operation.ExecutionResult{};
 }
@@ -47,7 +49,7 @@ pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     // Check depth
     if (frame.depth >= 1024) {
-        try frame.stack.append( 0);
+        try frame.stack.append(0);
         return Operation.ExecutionResult{};
     }
 
@@ -94,14 +96,14 @@ pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     frame.gas_remaining = frame.gas_remaining / 64 + result.gas_left;
 
     if (!result.success) {
-        try frame.stack.append( 0);
+        try frame.stack.append(0);
         frame.return_data_buffer = result.output orelse &[_]u8{};
         return Operation.ExecutionResult{};
     }
 
     // EIP-2929: Mark the newly created address as warm
     _ = try vm.access_list.access_address(result.address);
-    try frame.stack.append( to_u256(result.address));
+    try frame.stack.append(to_u256(result.address));
 
     // Set return data
     frame.return_data_buffer = result.output orelse &[_]u8{};
@@ -124,7 +126,7 @@ pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     const salt = try frame.stack.pop();
 
     if (frame.depth >= 1024) {
-        try frame.stack.append( 0);
+        try frame.stack.append(0);
         return Operation.ExecutionResult{};
     }
 
@@ -171,14 +173,14 @@ pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     frame.gas_remaining = frame.gas_remaining / 64 + result.gas_left;
 
     if (!result.success) {
-        try frame.stack.append( 0);
+        try frame.stack.append(0);
         frame.return_data_buffer = result.output orelse &[_]u8{};
         return Operation.ExecutionResult{};
     }
 
     // EIP-2929: Mark the newly created address as warm
     _ = try vm.access_list.access_address(result.address);
-    try frame.stack.append( to_u256(result.address));
+    try frame.stack.append(to_u256(result.address));
 
     // Set return data
     frame.return_data_buffer = result.output orelse &[_]u8{};
@@ -202,7 +204,7 @@ pub fn op_call(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
 
     // Check depth
     if (frame.depth >= 1024) {
-        try frame.stack.append( 0);
+        try frame.stack.append(0);
         return Operation.ExecutionResult{};
     }
 
@@ -278,7 +280,7 @@ pub fn op_call(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     frame.return_data_buffer = result.output orelse &[_]u8{};
 
     // Push success status
-    try frame.stack.append( if (result.success) 1 else 0);
+    try frame.stack.append(if (result.success) 1 else 0);
 
     return Operation.ExecutionResult{};
 }
@@ -299,7 +301,7 @@ pub fn op_callcode(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
 
     // Check depth
     if (frame.depth >= 1024) {
-        try frame.stack.append( 0);
+        try frame.stack.append(0);
         return Operation.ExecutionResult{};
     }
 
@@ -373,7 +375,7 @@ pub fn op_callcode(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     frame.return_data_buffer = result.output orelse &[_]u8{};
 
     // Push success status
-    try frame.stack.append( if (result.success) 1 else 0);
+    try frame.stack.append(if (result.success) 1 else 0);
 
     return Operation.ExecutionResult{};
 }
@@ -393,7 +395,7 @@ pub fn op_delegatecall(pc: usize, interpreter: *Operation.Interpreter, state: *O
 
     // Check depth
     if (frame.depth >= 1024) {
-        try frame.stack.append( 0);
+        try frame.stack.append(0);
         return Operation.ExecutionResult{};
     }
 
@@ -464,7 +466,7 @@ pub fn op_delegatecall(pc: usize, interpreter: *Operation.Interpreter, state: *O
     frame.return_data_buffer = result.output orelse &[_]u8{};
 
     // Push success status
-    try frame.stack.append( if (result.success) 1 else 0);
+    try frame.stack.append(if (result.success) 1 else 0);
 
     return Operation.ExecutionResult{};
 }
@@ -484,7 +486,7 @@ pub fn op_staticcall(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
 
     // Check depth
     if (frame.depth >= 1024) {
-        try frame.stack.append( 0);
+        try frame.stack.append(0);
         return Operation.ExecutionResult{};
     }
 
@@ -553,7 +555,7 @@ pub fn op_staticcall(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
     frame.return_data_buffer = result.output orelse &[_]u8{};
 
     // Push success status
-    try frame.stack.append( if (result.success) 1 else 0);
+    try frame.stack.append(if (result.success) 1 else 0);
 
     return Operation.ExecutionResult{};
 }
