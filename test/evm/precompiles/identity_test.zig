@@ -1,6 +1,5 @@
 const std = @import("std");
 const testing = std.testing;
-const evm = @import("evm");
 const identity = @import("../../../src/evm/precompiles/identity.zig");
 const precompiles = @import("../../../src/evm/precompiles/precompiles.zig");
 const PrecompileOutput = @import("../../../src/evm/precompiles/precompile_result.zig").PrecompileOutput;
@@ -31,14 +30,12 @@ test "identity gas calculation" {
     try testing.expectEqual(@as(u64, 111), identity.calculate_gas(1024));
 }
 
-/// Test IDENTITY precompile checked gas calculation with overflow protection
 test "identity gas calculation checked" {
     // Normal cases should work
     try testing.expectEqual(@as(u64, 15), try identity.calculate_gas_checked(0));
     try testing.expectEqual(@as(u64, 18), try identity.calculate_gas_checked(32));
     
     // Very large input that could cause overflow should be handled gracefully
-    // This test verifies the overflow protection works
     const huge_size = std.math.maxInt(usize);
     if (identity.calculate_gas_checked(huge_size)) |_| {
         // If it succeeds, that's fine too (depends on platform)
@@ -47,7 +44,6 @@ test "identity gas calculation checked" {
     }
 }
 
-/// Test IDENTITY precompile execution with empty input
 test "identity execute empty input" {
     var output_buffer: [0]u8 = undefined;
     const result = identity.execute(&[_]u8{}, &output_buffer, 100);
@@ -57,7 +53,6 @@ test "identity execute empty input" {
     try testing.expectEqual(@as(usize, 0), result.get_output_size());
 }
 
-/// Test IDENTITY precompile execution with various input sizes
 test "identity execute with data" {
     const allocator = testing.allocator;
     
@@ -76,7 +71,6 @@ test "identity execute with data" {
     try testing.expectEqualSlices(u8, &input_data, output_buffer[0..32]);
 }
 
-/// Test IDENTITY precompile execution with different data patterns
 test "identity execute data integrity" {
     const allocator = testing.allocator;
     
@@ -99,7 +93,6 @@ test "identity execute data integrity" {
     try testing.expectEqualSlices(u8, &input_data, output_buffer[0..100]);
 }
 
-/// Test IDENTITY precompile execution with insufficient gas
 test "identity execute out of gas" {
     const input_data = [_]u8{1} ** 32;
     var output_buffer: [32]u8 = undefined;
@@ -112,7 +105,6 @@ test "identity execute out of gas" {
     try testing.expectEqual(@as(u64, 0), result.get_gas_used());
 }
 
-/// Test IDENTITY precompile execution with insufficient output buffer
 test "identity execute insufficient output buffer" {
     const input_data = [_]u8{1} ** 32;
     var output_buffer: [31]u8 = undefined; // Too small for 32-byte input
@@ -123,7 +115,6 @@ test "identity execute insufficient output buffer" {
     try testing.expectEqual(PrecompileError.ExecutionFailed, result.get_error().?);
 }
 
-/// Test IDENTITY gas requirement validation
 test "identity validate gas requirement" {
     // Valid cases
     try testing.expect(identity.validate_gas_requirement(0, 15));
@@ -135,7 +126,6 @@ test "identity validate gas requirement" {
     try testing.expect(!identity.validate_gas_requirement(64, 20)); // Need 21
 }
 
-/// Test IDENTITY output size calculation
 test "identity get output size" {
     try testing.expectEqual(@as(usize, 0), identity.get_output_size(0));
     try testing.expectEqual(@as(usize, 1), identity.get_output_size(1));
@@ -144,7 +134,6 @@ test "identity get output size" {
     try testing.expectEqual(@as(usize, 1024), identity.get_output_size(1024));
 }
 
-/// Test precompile dispatcher integration with IDENTITY
 test "precompile dispatcher identity integration" {
     const identity_address: Address = [_]u8{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x04 };
     
@@ -156,7 +145,6 @@ test "precompile dispatcher identity integration" {
     try testing.expect(precompiles.is_available(identity_address, chain_rules));
 }
 
-/// Test precompile dispatcher execution through main interface
 test "precompile dispatcher execute identity" {
     const allocator = testing.allocator;
     const identity_address: Address = [_]u8{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x04 };
@@ -180,7 +168,6 @@ test "precompile dispatcher execute identity" {
     try testing.expectEqualSlices(u8, &input_data, output_buffer[0..4]);
 }
 
-/// Test gas estimation through dispatcher
 test "precompile dispatcher estimate gas" {
     const identity_address: Address = [_]u8{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x04 };
     const chain_rules = ChainRules.DEFAULT;
@@ -190,7 +177,6 @@ test "precompile dispatcher estimate gas" {
     try testing.expectEqual(@as(u64, 21), try precompiles.estimate_gas(identity_address, 64, chain_rules));
 }
 
-/// Test output size estimation through dispatcher
 test "precompile dispatcher get output size" {
     const identity_address: Address = [_]u8{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x04 };
     const chain_rules = ChainRules.DEFAULT;
@@ -200,7 +186,6 @@ test "precompile dispatcher get output size" {
     try testing.expectEqual(@as(usize, 100), try precompiles.get_output_size(identity_address, 100, chain_rules));
 }
 
-/// Test call validation through dispatcher
 test "precompile dispatcher validate call" {
     const identity_address: Address = [_]u8{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x04 };
     const chain_rules = ChainRules.DEFAULT;
@@ -215,7 +200,6 @@ test "precompile dispatcher validate call" {
     try testing.expect(!precompiles.validate_call(identity_address, 64, 20, chain_rules));
 }
 
-/// Test error handling for invalid precompile addresses
 test "precompile dispatcher invalid address" {
     const invalid_address: Address = [_]u8{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xFF };
     var output_buffer: [32]u8 = undefined;
@@ -237,7 +221,6 @@ test "precompile dispatcher invalid address" {
     try testing.expectEqual(PrecompileError.ExecutionFailed, result.get_error().?);
 }
 
-/// Performance benchmark for IDENTITY precompile
 test "identity performance benchmark" {
     const allocator = testing.allocator;
     
@@ -270,7 +253,6 @@ test "identity performance benchmark" {
     try testing.expect(ns_per_op < 100_000); // 100 microseconds per operation
 }
 
-/// Test IDENTITY with various edge cases
 test "identity edge cases" {
     const allocator = testing.allocator;
     
