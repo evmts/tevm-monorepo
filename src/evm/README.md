@@ -101,18 +101,90 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 
 ### Missing Features
 
+#### 🔴 Critical System Features
 - [ ] **WASM Build** - Currently broken, needs fixing as well as integration into the overall Tevm typescript code
-- [ ] []**Journaling/State Reverting** - Need to implement state snapshots for proper revert handling
+- [ ] **Journaling/State Reverting** - Need to implement state snapshots for proper revert handling
 - [ ] **Complete CALL Operations** - These are the methods to recursively make inner calls. They are setup but currently not wired up to track gas or execute. CALL, CALLCODE, DELEGATECALL, STATICCALL need completion and gas validation
+- [ ] **Call Gas Management** - 63/64th gas forwarding rule implementation
+- [ ] **Call Context Switching** - Proper context isolation between contract calls
+- [ ] **Call Stack Depth Limits** - 1024 call depth enforcement
+- [ ] **Return Data Handling** - RETURNDATASIZE/RETURNDATACOPY after calls
 - [ ] **SELFDESTRUCT** - Contract destruction opcode
-- [ ] **Precompiles** - ECRECOVER, SHA256, RIPEMD160, IDENTITY, MODEXP, ECADD, ECMUL, ECPAIRING, BLAKE2F
-- [ ] **Gas Refunds** - SSTORE refund mechanism
-- [ ] **L2 Support** - Optimism, Arbitrum, and other L2-specific opcodes
+- [ ] **Database Interface/Traits** - Pluggable database abstraction for state management
+- [ ] **Handler Architecture** - Configurable execution handlers for pre/post processing
+- [ ] **Inspector Framework** - Runtime inspection and debugging capabilities
+
+#### 🟡 Precompiled Contracts (0/17 implemented)
+- [ ] **Standard Precompiles** - ECRECOVER, SHA256, RIPEMD160, IDENTITY, MODEXP, ECADD, ECMUL, ECPAIRING, BLAKE2F
+- [ ] **KZG Point Evaluation** - EIP-4844 blob verification precompile
+- [ ] **BLS12-381 Precompiles** - G1ADD, G1MSM, G2ADD, G2MSM, PAIRING, MAP_FP_TO_G1, MAP_FP2_TO_G2 (EIP-2537)
+- [ ] **OP Stack Precompiles** - P256VERIFY (RIP-7212) for SECP256R1 signature verification
+- [ ] **Future Precompiles** - EIP-7823/7883 ModExp improvements, SECP256R1 support
+
+#### 🟡 Advanced Gas & Performance
+- [ ] **Gas Refunds** - SSTORE refund mechanism and EIP-3529 compliance
+- [ ] **Instruction Block Optimization** - Basic block gas calculation (evmone-style optimization)
+- [ ] **Memory Expansion Edge Cases** - Complex memory growth scenarios
+- [ ] **Dynamic Gas Calculation** - Complete gas calculation for all call operations
+- [ ] **Memory Gas Optimization** - Pre-calculate and cache memory expansion costs
+- [ ] **Access List Gas Tracking** - Warm/cold storage and account access optimization
+- [ ] **Call Gas Stipend** - Proper gas stipend handling for value transfers
+
+#### 🟡 EIP Support & Hardforks
 - [ ] **EIP-4844 Support** - Blob transaction opcodes (BLOBHASH, BLOBBASEFEE)
-- [ ] **EOF Support** - (Not planned) EVM Object Format features
+- [ ] **EIP-7702** - Complete EOA account code delegation implementation
+- [ ] **Complete Cancun Support** - Ensure all Cancun features are fully implemented
+- [ ] **L2 Support** - Optimism, Arbitrum, and other L2-specific opcodes
+- [ ] **EOF Support** - EVM Object Format (EIP-3540, EIP-3670, EIP-4200, EIP-4750, EIP-5450)
+- [ ] **Future Prague Support** - Upcoming hardfork preparation with EOF container validation
+- [ ] **OP Stack Integration** - FastLZ compression, L1 block info, deposit transactions
+- [ ] **Optimism Hardforks** - Bedrock, Canyon, Delta, Ecotone, Fjord, Granite, Holocene support
+
+#### 🟢 Development Infrastructure
+- [ ] **Comprehensive Tracing** - Step-by-step execution monitoring and debugging
+- [ ] **EIP-3155 Tracing** - Standard execution trace format implementation
+- [ ] **Inspector Traits** - Pluggable inspection hooks for debugging and analysis
+- [ ] **Gas Inspector** - Detailed gas consumption analysis and reporting
+- [ ] **Advanced Debugging Tools** - Stack/memory inspection during execution
+- [ ] **Performance Profiling** - Hot path identification and optimization tools
+- [ ] **Consensus Test Suite** - Ethereum official test vectors compliance
+- [ ] **Fuzzing Infrastructure** - Automated edge case discovery and testing
+- [ ] **State Test Runner** - Official Ethereum state test execution and validation
+- [ ] **CLI Tools** - Command-line interface for testing and benchmarking (revme-style)
+
+#### 🟢 Production Hardening
+- [ ] **DoS Protection** - Comprehensive gas limit enforcement and validation
+- [ ] **Edge Case Handling** - Real-world scenario validation and robustness
 - [ ] **State Interface** - Make State a vtable interface for pluggable implementations
+- [ ] **Memory Safety Auditing** - Additional bounds checking and validation
+- [ ] **Async Database Support** - Non-blocking database operations for better performance
+- [ ] **State Caching** - Intelligent caching layer for frequently accessed state
+- [ ] **Bundle State Management** - Efficient state transitions and rollback mechanisms
+- [ ] **Account Status Tracking** - Detailed account lifecycle management
+
+#### 🟢 Performance & Optimization
+- [ ] **SIMD Optimizations** - Vectorized operations for 256-bit math operations
+- [ ] **Memory Allocator Tuning** - Specialized EVM memory allocators
+- [ ] **Cache Optimization** - Better cache utilization in hot execution paths
+- [ ] **Zero-Allocation Patterns** - Minimize memory allocations in hot paths
+- [ ] **Branch Prediction Optimization** - Strategic branch hinting for modern CPUs
+- [ ] **Interpreter Types System** - Configurable interpreter components for different use cases
+- [ ] **Call Frame Pooling** - Reuse execution frames to reduce allocation overhead
+- [ ] **Precompile Backend Selection** - Multiple crypto library backends (blst, arkworks, etc.)
 - [ ] **Performance Benchmarks** - Snailtracer benchmarking vs Geth and Reth. After feature complete add to [evm benchmarks](https://github.com/ziyadedher/evm-bench)
 - [ ] **CI/CD WASM Size Check** - Automated bundle size regression testing
+
+#### 🟢 Advanced Architecture Features
+- [ ] **Modular Context System** - Pluggable block, transaction, and configuration contexts
+- [ ] **Custom Chain Framework** - Easy implementation of custom blockchain variants
+- [ ] **Subroutine Stack** - EOF subroutine support for advanced contract execution
+- [ ] **Runtime Flags** - Efficient runtime behavior configuration
+- [ ] **Loop Control** - Advanced execution loop management and gas tracking
+- [ ] **Shared Memory** - Memory sharing between execution contexts
+- [ ] **External Bytecode** - Support for external bytecode loading and management
+- [ ] **Interpreter Action System** - Structured action handling for calls and creates
+- [ ] **Input Validation Framework** - Comprehensive input validation and sanitization
+- [ ] **Extension Points** - Configurable extension system for custom functionality
 
 ## 📁 Directory Structure
 
@@ -167,7 +239,7 @@ src/evm/
 │
 ├── jump_table/            # Opcode dispatch
 │   ├── jump_table.zig     # Jump table implementation
-│   └── operation_config.zig # Operation metadata
+│   └── operation_specs.zig # Operation metadata
 │
 ├── opcodes/               # Opcode definitions
 │   ├── opcode.zig         # Opcode enumeration
@@ -188,11 +260,11 @@ src/evm/
 
 The EVM implementation follows a modular architecture with clear separation of concerns:
 
-1. **Vm** (`vm.zig`) - Entrypoint. Orchestrates execution, manages call stack, handles gas accounting
-2. **Frame Data Structure** (`frame.zig`) - Represents individual execution contexts with their own stack, memory, and PC
-3. **Execution Handlers** (`execution/`) - Individual opcode implementations following a consistent pattern
-4. **State** (`state/`) - Manages accounts, storage, and logs with support for transient storage. Simple default used for development. Will later be pluggable
-5. **Validation Layer** - Pre-execution validation ensures safety, allowing optimized unsafe operations before the opcodes actually run
+1. **VM Layer** (`vm.zig`) - Orchestrates execution, manages call stack, handles gas accounting
+2. **Frame Layer** (`frame.zig`) - Represents individual execution contexts with their own stack, memory, and PC
+3. **Execution Layer** (`execution/`) - Individual opcode implementations following a consistent pattern
+4. **State Layer** (`state/`) - Manages accounts, storage, and logs with support for transient storage
+5. **Validation Layer** - Pre-execution validation ensures safety, allowing optimized unsafe operations
 
 ### Performance Optimizations
 
@@ -238,8 +310,6 @@ We're actively looking for contributors! The codebase is designed to be approach
 Please reach out or submit a PR. The Zig language makes contributing enjoyable and productive.
 
 ## 📚 References
-
-Huge thank you to the following references!
 
 - [Ethereum Yellow Paper](https://ethereum.github.io/yellowpaper/paper.pdf)
 - [EVM Opcodes Reference](https://www.evm.codes/)
