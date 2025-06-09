@@ -3,7 +3,7 @@ const Address = @import("Address");
 
 /// Storage slot key combining address and slot for access list operations
 /// This version provides direct hash output for use with HashMap
-const AccessListStorageKey = @This();
+pub const AccessListStorageKey = @This();
 
 address: Address.Address,
 slot: u256,
