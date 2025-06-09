@@ -912,8 +912,93 @@ test "Control Flow: Complex jump sequences" {
     try testing.expectEqual(@as(u256, 0x42), val3);
 }
 
+test "Control Flow: Simple JUMPDEST validation" {
+    const allocator = testing.allocator;
+    defer helpers.Contract.clear_analysis_cache(allocator); // Clean up cache after test
+    
+    // Simple test: just validate that a JUMPDEST at position 0 is recognized
+    const code = [_]u8{0x5B}; // Just a JUMPDEST
+    
+    var contract = try helpers.createTestContract(
+        allocator,
+        helpers.TestAddresses.CONTRACT,
+        helpers.TestAddresses.ALICE,
+        0,
+        &code,
+    );
+    defer contract.deinit(allocator, null);
+    
+    // Analyze jumpdests
+    contract.analyze_jumpdests(allocator);
+    
+    // This should return true for position 0
+    const is_valid = contract.valid_jumpdest(allocator, 0);
+    try testing.expect(is_valid);
+    
+    // This should return false for position 1 (out of bounds)
+    const is_invalid = contract.valid_jumpdest(allocator, 1);
+    try testing.expect(!is_invalid);
+}
+
+test "Control Flow: Stack operations validation" {
+    const allocator = testing.allocator;
+    defer helpers.Contract.clear_analysis_cache(allocator);
+    var test_vm = try helpers.TestVm.init(allocator);
+    defer test_vm.deinit(allocator);
+
+    var code = [_]u8{0} ** 8;
+    code[0] = 0x58; // PC 
+    code[1] = 0x58; // PC  
+    code[2] = 0x60; // PUSH1
+    code[3] = 0x06; // 6 (data for PUSH1)
+    code[4] = 0x56; // JUMP
+    code[5] = 0x58; // PC 
+    code[6] = 0x5B; // JUMPDEST
+    code[7] = 0x58; // PC
+
+    var contract = try helpers.createTestContract(
+        allocator,
+        helpers.TestAddresses.CONTRACT,
+        helpers.TestAddresses.ALICE,
+        0,
+        &code,
+    );
+    defer contract.deinit(allocator, null);
+
+    var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
+    defer test_frame.deinit();
+
+    // Test the individual operations
+    // Execute PC at position 0 → should push 0
+    test_frame.frame.pc = 0;
+    _ = try helpers.executeOpcode(0x58, test_vm.vm, test_frame.frame);
+    try helpers.expectStackValue(test_frame.frame, 0, 0);
+
+    // Execute PC at position 1 → should push 1
+    test_frame.frame.pc = 1;
+    _ = try helpers.executeOpcode(0x58, test_vm.vm, test_frame.frame);
+    try helpers.expectStackValue(test_frame.frame, 0, 1);
+
+    // Execute PUSH1 6 → should push 6
+    test_frame.frame.pc = 2;
+    _ = try helpers.executeOpcode(0x60, test_vm.vm, test_frame.frame);
+    try helpers.expectStackValue(test_frame.frame, 0, 6);
+
+    // Verify final stack state before JUMP
+    // Stack should be [0, 1, 6] (bottom to top)
+    const top = try test_frame.popStack(); // Should be 6
+    try testing.expectEqual(@as(u256, 6), top);
+    
+    const middle = try test_frame.popStack(); // Should be 1  
+    try testing.expectEqual(@as(u256, 1), middle);
+    
+    const bottom = try test_frame.popStack(); // Should be 0
+    try testing.expectEqual(@as(u256, 0), bottom);
+}
+
 test "Control Flow: Program counter tracking" {
     const allocator = testing.allocator;
+    defer helpers.Contract.clear_analysis_cache(allocator); // Clean up cache after test
     var test_vm = try helpers.TestVm.init(allocator);
     defer test_vm.deinit(allocator);
 

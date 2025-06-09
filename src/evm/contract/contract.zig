@@ -480,7 +480,11 @@ pub fn valid_jumpdest(self: *Self, allocator: std.mem.Allocator, dest: u256) boo
 /// Ensure code analysis is performed
 fn ensure_analysis(self: *Self, allocator: std.mem.Allocator) void {
     if (self.analysis == null and !self.is_empty) {
-        self.analysis = analyze_code(allocator, self.code, self.code_hash) catch null;
+        self.analysis = analyze_code(allocator, self.code, self.code_hash) catch |err| {
+            // Log analysis failure for debugging - but continue execution
+            Log.debug("Contract.ensure_analysis: analyze_code failed: {any}", .{err});
+            return;
+        };
     }
 }
 
