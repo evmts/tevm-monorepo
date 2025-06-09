@@ -37,7 +37,7 @@ const Log = @import("log.zig");
 /// frame.gas_remaining = 1000000;
 /// try frame.stack.append(42);
 /// ```
-const Self = @This();
+const Frame = @This();
 
 /// Current opcode being executed (for debugging/tracing).
 op: []const u8 = undefined,
@@ -112,8 +112,8 @@ pc: usize = 0,
 /// frame.gas_remaining = gas_limit;
 /// frame.input = calldata;
 /// ```
-pub fn init(allocator: std.mem.Allocator, contract: *Contract) !Self {
-    return Self{
+pub fn init(allocator: std.mem.Allocator, contract: *Contract) !Frame {
+    return Frame{
         .allocator = allocator,
         .contract = contract,
         .memory = try Memory.init_default(allocator),
@@ -170,8 +170,8 @@ pub fn init_with_state(
     depth: ?u32,
     output: ?[]const u8,
     pc: ?usize,
-) !Self {
-    return Self{
+) !Frame {
+    return Frame{
         .allocator = allocator,
         .contract = contract,
         .memory = memory orelse try Memory.init_default(allocator),
@@ -196,7 +196,7 @@ pub fn init_with_state(
 /// the frame is no longer needed to prevent memory leaks.
 ///
 /// @param self The frame to clean up
-pub fn deinit(self: *Self) void {
+pub fn deinit(self: *Frame) void {
     self.memory.deinit();
 }
 
@@ -224,7 +224,7 @@ pub const ConsumeGasError = error{
 /// const memory_cost = calculate_memory_gas(size);
 /// try frame.consume_gas(memory_cost);
 /// ```
-pub fn consume_gas(self: *Self, amount: u64) ConsumeGasError!void {
+pub fn consume_gas(self: *Frame, amount: u64) ConsumeGasError!void {
     if (amount > self.gas_remaining) {
         @branchHint(.cold);
         return ConsumeGasError.OutOfGas;
