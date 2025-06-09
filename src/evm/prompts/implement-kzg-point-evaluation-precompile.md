@@ -47,6 +47,127 @@ Implement the KZG Point Evaluation precompile (address 0x0A) for Ethereum Virtua
 5. **Validate all inputs thoroughly** - Invalid points can cause undefined behavior
 6. **Optimize for performance** - This is used in every blob transaction
 
+## Reference Implementations
+
+### geth
+
+<explanation>
+The go-ethereum implementation demonstrates the complete KZG point evaluation precompile pattern with proper input validation, versioned hash verification, and KZG proof verification. Key aspects include fixed gas cost (50,000), exact input length validation (192 bytes), versioned hash matching, and integration with the trusted setup for polynomial commitment verification.
+</explanation>
+
+**Gas Constant** - `/go-ethereum/params/protocol_params.go` (line 189):
+```go
+BlobTxPointEvaluationPrecompileGas uint64 = 50000 // Gas price for point evaluation precompile
+```
+
+**Full Implementation** - `/go-ethereum/core/vm/contracts.go` (lines 1170-1232):
+```go
+// pointEvaluation implements the EIP-4844 point evaluation precompile.
+type pointEvaluation struct{}
+
+func (c *pointEvaluation) RequiredGas(input []byte) uint64 {
+	return params.BlobTxPointEvaluationPrecompileGas
+}
+
+func (c *pointEvaluation) Run(input []byte) ([]byte, error) {
+	const blobVerifyInputLength = 192
+	if len(input) != blobVerifyInputLength {
+		return nil, errBlobVerifyInvalidInputLength
+	}
+	// versioned hash: first 32 bytes
+	var versionedHash common.Hash
+	copy(versionedHash[:], input[:32])
+
+	var (
+		point kzg4844.Point
+		claim kzg4844.Claim
+	)
+	copy(point[:], input[32:64])
+	copy(claim[:], input[64:96])
+
+	// commitment: next 48 bytes
+	var commitment kzg4844.Commitment
+	copy(commitment[:], input[96:144])
+
+	// proof: next 48 bytes
+	var proof kzg4844.Proof
+	copy(proof[:], input[144:192])
+
+	if kZGToVersionedHash(commitment) != versionedHash {
+		return nil, errBlobVerifyMismatchedVersion
+	}
+
+	if err := kzg4844.VerifyProof(commitment, point, claim, proof); err != nil {
+		return nil, fmt.Errorf("%w: %v", errBlobVerifyKZGProof, err)
+	}
+
+	return common.CopyBytes(blobTxPointEvaluationPrecompileReturnValue[:]), nil
+}
+
+func kZGToVersionedHash(kzg kzg4844.Commitment) common.Hash {
+	h := sha256.Sum256(kzg[:])
+	h[0] = blobCommitmentVersionKZG
+
+	return h
+}
+```
+
+**Error Definitions** - `/go-ethereum/core/vm/contracts.go` (lines 55-70):
+```go
+var (
+	errBlobVerifyInvalidInputLength = errors.New("invalid input length")
+	errBlobVerifyMismatchedVersion  = errors.New("mismatched versioned hash")
+	errBlobVerifyKZGProof           = errors.New("error verifying kzg proof")
+)
+
+const (
+	blobCommitmentVersionKZG uint8 = 0x01 // Version byte for KZG commitments
+)
+
+// The return value when point evaluation succeeds
+var blobTxPointEvaluationPrecompileReturnValue = [...]byte{
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x10, 0x00,
+	0x73, 0xed, 0xa7, 0x53, 0x29, 0x9d, 0x7d, 0x48,
+	0x33, 0x39, 0xd8, 0x08, 0x09, 0xa1, 0xd8, 0x05,
+	0x53, 0xbd, 0xa4, 0x02, 0xff, 0xfe, 0x5b, 0xfe,
+	0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x01,
+}
+```
+
+**KZG Data Types** - `/go-ethereum/crypto/kzg4844/kzg4844.go` (lines 33-45):
+```go
+// Blob represents a 4096 field element blob.
+type Blob [131072]byte
+
+// Commitment is a serialized commitment to a polynomial.
+type Commitment [48]byte
+
+// Proof is a serialized commitment to the quotient polynomial.
+type Proof [48]byte
+
+// Point is a BLS field element.
+type Point [32]byte
+
+// Claim is a BLS field element.
+type Claim [32]byte
+```
+
+**BLS12-381 Gas Constants** - `/go-ethereum/params/protocol_params.go` (lines 164-188):
+```go
+// BLS12-381 elliptic curve precompiles
+Bls12381G1AddGas         uint64 = 600       // Gas price for BLS12-381 elliptic curve G1 point addition
+Bls12381G1MulGas         uint64 = 12000     // Gas price for BLS12-381 elliptic curve G1 point scalar multiplication
+Bls12381G2AddGas         uint64 = 4500      // Gas price for BLS12-381 elliptic curve G2 point addition
+Bls12381G2MulGas         uint64 = 55000     // Gas price for BLS12-381 elliptic curve G2 point scalar multiplication
+Bls12381PairingBaseGas   uint64 = 115000    // Base gas price for BLS12-381 elliptic curve pairing check
+Bls12381PairingPerPairGas uint64 = 23000    // Per-pair gas price for BLS12-381 elliptic curve pairing check
+Bls12381MapG1Gas         uint64 = 5500      // Gas price for BLS12-381 mapping field element to G1 operation
+Bls12381MapG2Gas         uint64 = 110000    // Gas price for BLS12-381 mapping field element to G2 operation
+```
+
 ## References
 
 - [EIP-4844: Shard Blob Transactions](https://eips.ethereum.org/EIPS/eip-4844)

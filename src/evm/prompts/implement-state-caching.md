@@ -19,6 +19,266 @@
 
 Implement an intelligent state caching layer that provides fast access to frequently accessed state data while maintaining consistency and memory efficiency. This includes multi-level caching, cache invalidation strategies, LRU eviction policies, and integration with both synchronous and asynchronous state backends.
 
+## Reference Implementations
+
+### geth
+
+<explanation>
+The go-ethereum implementation demonstrates a sophisticated multi-tier state caching architecture with LRU eviction, concurrent prefetching, memory pooling, and hierarchical layer management. Key patterns include StateDB object caching, trie prefetching with background goroutines, PathDB layer-based caching, and FastCache integration for high-performance memory management.
+</explanation>
+
+**LRU Cache Implementation** - `/go-ethereum/common/lru/lru.go` (lines 22-50):
+```go
+// Cache is a thread-safe fixed size LRU cache.
+type Cache[K comparable, V any] struct {
+	cache map[K]*list.Element[*entry[K, V]]
+	lru   *list.List[*entry[K, V]] // LRU list of cache entries
+	cap   int
+	mu    sync.Mutex
+}
+
+type entry[K comparable, V any] struct {
+	key K
+	val V
+}
+
+// Add adds a value to the cache. Returns true if an eviction occurred.
+func (c *Cache[K, V]) Add(key K, value V) (evicted bool) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+
+	// Check for existing item
+	if ent, ok := c.cache[key]; ok {
+		c.lru.MoveToFront(ent)
+		ent.Value.val = value
+		return false
+	}
+	// Add new item
+	ent := &entry[K, V]{key, value}
+	entry := c.lru.PushFront(ent)
+	c.cache[key] = entry
+
+	evict := c.lru.Len() > c.cap
+	// Verify size not exceeded
+	if evict {
+		c.removeOldest()
+	}
+	return evict
+}
+```
+
+**StateDB Multi-Level Caching** - `/go-ethereum/core/state/statedb.go` (lines 85-120):
+```go
+// StateDB structs within the ethereum protocol are used to store anything
+// within the merkle trie. StateDBs take care of caching and storing
+// nested states. It's the general query interface to retrieve:
+//
+// * Contracts
+// * Accounts
+// * Storage
+type StateDB struct {
+	db         Database
+	prefetcher *triePrefetcher
+	trie       Trie
+	hasher     crypto.KeccakState
+
+	// Original root before any changes were made
+	originalRoot common.Hash
+
+	// Live objects cache
+	stateObjects      map[common.Address]*stateObject
+	stateObjectsDirty map[common.Address]struct{} // State objects modified in the current execution
+
+	// State objects that have been destroyed in the current block
+	stateObjectsDestruct map[common.Address]*stateObject
+
+	// Per-transaction access list
+	accessList *accessList
+
+	// Transient storage
+	transientStorage transientStorage
+
+	// Journal of state modifications. This is the backbone of
+	// Snapshot and RevertToSnapshot.
+	journal        *journal
+	validRevisions []revision
+	nextRevisionId int
+
+	// Measurements gathered during execution for debugging purposes
+	AccountReads         time.Duration
+	AccountHashes        time.Duration
+	AccountUpdates       time.Duration
+	AccountCommits       time.Duration
+	StorageReads         time.Duration
+	StorageHashes        time.Duration
+	StorageUpdates       time.Duration
+	StorageCommits       time.Duration
+	SnapshotAccountReads time.Duration
+	SnapshotStorageReads time.Duration
+	SnapshotCommits      time.Duration
+	TrieDBCommits        time.Duration
+
+	AccountUpdated int
+	StorageUpdated int
+	AccountDeleted int
+	StorageDeleted int
+}
+```
+
+**State Object Storage Caching** - `/go-ethereum/core/state/state_object.go` (lines 49-75):
+```go
+type stateObject struct {
+	db       *StateDB
+	address  common.Address      // address of ethereum account
+	addrHash common.Hash         // hash of ethereum address of the account
+	data     types.StateAccount  // cached account data
+	origin   *types.StateAccount // Account original data without any change applied, nil means it was not existent
+
+	// Write caches.
+	trie Trie // storage trie, which becomes non-nil on first access
+
+	code Code // contract bytecode, which gets set when code is loaded
+
+	// Storage cache of original entries to dedup rewrites
+	originStorage Storage
+	// Storage cache of dirty storage which is also
+	// used for pending storage modifications
+	pendingStorage Storage
+	// Storage entries which need to be flushed to disk, at the end of an entire block
+	dirtyStorage Storage
+
+	// Cache flags.
+	dirtyCode bool // true if the code was updated
+
+	// Flag whether the account was marked as self-destructed. The self-destructed account
+	// is still accessible in the scope of same transaction.
+	selfDestructed bool
+
+	// Flag whether the account was marked as deleted. A self-destructed account
+	// or an account that is considered as empty will be marked as deleted at
+	// the end of transaction and no longer accessible afterwards.
+	deleted bool
+
+	// Flag whether the object was created in the current transaction
+	created bool
+}
+```
+
+**Trie Prefetching System** - `/go-ethereum/core/state/trie_prefetcher.go` (lines 55-95):
+```go
+// triePrefetcher is an active prefetcher, which receives accounts or storage
+// items and does trie-loading of them. The goal is to get as much useful content
+// into the caches as possible.
+//
+// Note, the prefetcher's API is not thread safe.
+type triePrefetcher struct {
+	db       Database // Database to fetch trie nodes through
+	root     common.Hash
+	fetchers map[string]*subfetcher // Active prefetchers for each trie
+
+	deliveryMissMeter metrics.Meter
+	accountLoadMeter  metrics.Meter
+	accountDupMeter   metrics.Meter
+	accountSkipMeter  metrics.Meter
+	accountWasteMeter metrics.Meter
+	storageLoadMeter  metrics.Meter
+	storageDupMeter   metrics.Meter
+	storageSkipMeter  metrics.Meter
+	storageWasteMeter metrics.Meter
+}
+
+// prefetch schedules a batch of trie items to prefetch.
+func (p *triePrefetcher) prefetch(owner common.Hash, root common.Hash, addr common.Address, keys [][]byte, read func(key []byte) []byte) {
+	// If the prefetcher is an inactive one, bail out
+	if p == nil {
+		return
+	}
+	id := p.trieID(owner, root)
+	fetcher := p.fetchers[id]
+	if fetcher == nil {
+		fetcher = newSubfetcher(p.db, p.root, owner, root, addr)
+		p.fetchers[id] = fetcher
+	}
+	fetcher.schedule(keys, read)
+}
+```
+
+**PathDB Layer Management** - `/go-ethereum/triedb/pathdb/database.go` (lines 85-110):
+```go
+// Database is a multiple-layered structure for maintaining in-memory trie nodes.
+// It consists of one persistent base layer backed by a key-value store, on top
+// of which arbitrarily many diff layers are stacked. The memory usage of diff
+// layers is controlled with a configured threshold.
+type Database struct {
+	// readOnly is the flag whether the mutation is allowed to be applied.
+	// It will be set to true if the associated state is regarded as corrupted.
+	readOnly   bool
+	bufferSize int
+	config     *Config
+	diskdb     ethdb.Database
+	tree       *layerTree
+	freezer    *rawdb.ResettableFreezer
+
+	// Node cache, clean nodes
+	cleans  *fastcache.Cache
+	// State cache, clean states
+	stateCleans *fastcache.Cache
+
+	lock   sync.RWMutex
+	waitSync bool
+	closeOnce sync.Once
+}
+
+// layerTree is a specialized trie for managing diff layers. It maintains
+// a tree structure where each node represents a diff layer, allowing
+// for efficient traversal and management of the layer hierarchy.
+type layerTree struct {
+	lock   sync.RWMutex
+	layers map[common.Hash]layer
+}
+```
+
+**Memory Pool Pattern** - `/go-ethereum/trie/bytepool.go` (lines 24-45):
+```go
+// bytesPool is a byte slice pool for reusing allocations.
+type bytesPool struct {
+	c chan []byte
+	w int
+}
+
+// newBytesPool returns a slice pool of the given width. The pool
+// will create slices of the given width and reuse them if they
+// are returned via Put.
+func newBytesPool(sliceCap, nitems int) *bytesPool {
+	return &bytesPool{
+		c: make(chan []byte, nitems),
+		w: sliceCap,
+	}
+}
+
+// Get returns a slice of the pool width or creates a new one if none
+// are available.
+func (bp *bytesPool) Get() []byte {
+	select {
+	case b := <-bp.c:
+		return b
+	default:
+		return make([]byte, 0, bp.w)
+	}
+}
+
+// Put returns a slice back to the pool if it has the expected width.
+func (bp *bytesPool) Put(b []byte) {
+	if cap(b) != bp.w {
+		return
+	}
+	select {
+	case bp.c <- b[:0]:
+	default:
+	}
+}
+```
+
 ## State Caching Architecture Specifications
 
 ### Core Caching Framework
