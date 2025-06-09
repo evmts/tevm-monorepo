@@ -1,6 +1,6 @@
 const std = @import("std");
 const evm = @import("evm");
-const Address = @import("address_");
+const Address = @import("address");
 
 // Export stub for __zig_probe_stack to satisfy linker when linking with Rust
 export fn __zig_probe_stack() callconv(.C) void {

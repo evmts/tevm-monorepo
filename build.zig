@@ -42,7 +42,7 @@ pub fn build(b: *std.Build) void {
     ui_exe.linkLibrary(webui.artifact("webui"));
     // First create individual modules for each component
     const address_mod = b.createModule(.{
-        .root_source_file = b.path("src/address_/address.zig"),
+        .root_source_file = b.path("src/address/address.zig"),
         .target = target,
         .optimize = optimize,
     });
