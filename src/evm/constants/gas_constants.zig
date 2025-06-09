@@ -241,6 +241,18 @@ pub const TLoadGas: u64 = 100;
 /// Same cost as TLOAD, much cheaper than persistent storage
 pub const TStoreGas: u64 = 100;
 
+// ============================================================================
+// Precompile Operation Costs
+// ============================================================================
+
+/// Base gas cost for IDENTITY precompile (address 0x04)
+/// Minimum cost regardless of input size
+pub const IDENTITY_BASE_COST: u64 = 15;
+
+/// Gas cost per 32-byte word for IDENTITY precompile
+/// Total cost = IDENTITY_BASE_COST + (word_count * IDENTITY_WORD_COST)
+pub const IDENTITY_WORD_COST: u64 = 3;
+
 /// Calculate memory expansion gas cost
 /// 
 /// Computes the gas cost for expanding EVM memory from current_size to new_size bytes.

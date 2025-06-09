@@ -106,6 +106,9 @@ pub const Vm = @import("vm.zig");
 /// EVM state management (accounts, storage, logs)
 pub const EvmState = @import("state/state.zig");
 
+/// Precompiled contracts implementation (IDENTITY, SHA256, etc.)
+pub const Precompiles = @import("precompiles/precompiles.zig");
+
 // Import execution
 /// All opcode implementations (arithmetic, stack, memory, etc.)
 pub const execution = @import("execution/package.zig");
