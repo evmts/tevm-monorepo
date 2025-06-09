@@ -10,7 +10,7 @@ const execution = evm.execution;
 const gas_constants = evm.gas_constants;
 
 test "JumpTable basic operations" {
-    const jt = JumpTable.new_frontier_instruction_set();
+    const jt = JumpTable.init_from_hardfork(.FRONTIER);
 
     // Test a couple of operations
     const stop_op = jt.get_operation(0x00);
@@ -59,7 +59,7 @@ test "JumpTable gas constants" {
 }
 
 test "JumpTable execute consumes gas before opcode execution" {
-    const jt = JumpTable.new_frontier_instruction_set();
+    const jt = JumpTable.init_from_hardfork(.FRONTIER);
 
     // Create a test frame with some gas
     const test_allocator = std.testing.allocator;

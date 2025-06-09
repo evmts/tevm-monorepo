@@ -42,6 +42,9 @@ importers:
       '@effect/codemod':
         specifier: ^0.0.16
         version: 0.0.16
+      '@google/generative-ai':
+        specifier: ^0.24.1
+        version: 0.24.1
       '@monodon/rust':
         specifier: ^2.3.0
         version: 2.3.0(@napi-rs/cli@3.0.0-alpha.63(@emnapi/runtime@1.4.3)(emnapi@1.4.3))(nx@21.1.2(@swc/core@1.11.29))
@@ -1129,7 +1132,7 @@ importers:
         version: 0.2.0
       forge-std:
         specifier: github:foundry-rs/forge-std
-        version: https://codeload.github.com/foundry-rs/forge-std/tar.gz/f46d8301cf732f4f83846565aa475628265e51e0
+        version: https://codeload.github.com/foundry-rs/forge-std/tar.gz/ee93fdc45d1e5e4dee883afe0103109881a83549
       react-helmet:
         specifier: ^6.1.0
         version: 6.1.0(react@19.1.0)
@@ -3617,6 +3620,10 @@ packages:
 
   '@gerrit0/mini-shiki@3.4.2':
     resolution: {integrity: sha512-3jXo5bNjvvimvdbIhKGfFxSnKCX+MA8wzHv55ptzk/cx8wOzT+BRcYgj8aFN3yTiTs+zvQQiaZFr7Jce1ZG3fw==}
+
+  '@google/generative-ai@0.24.1':
+    resolution: {integrity: sha512-MqO+MLfM6kjxcKoy0p1wRzG3b4ZZXtPI+z2IE26UogS2Cm/XHO+7gGRBh6gcJsOiIVoH93UwKvW4HdgiOZCy9Q==}
+    engines: {node: '>=18.0.0'}
 
   '@hono/node-server@1.14.3':
     resolution: {integrity: sha512-KuDMwwghtFYSmIpr4WrKs1VpelTrptvJ+6x6mbUcZnFcc213cumTF5BdqfHyW93B19TNI4Vaev14vOI2a0Ie3w==}
@@ -7750,6 +7757,7 @@ packages:
 
   bun@1.2.5:
     resolution: {integrity: sha512-fbQLt+DPiGUrPKdmsHRRT7cQAlfjdxPVFvLZrsUPmKiTdv+pU50ypdx9yRJluknSbyaZchFVV7Lx2KXikXKX2Q==}
+    cpu: [arm64, x64, aarch64]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -9648,8 +9656,8 @@ packages:
     resolution: {integrity: sha512-W8+hV/qnShs4pZSIcHfYvKi7ds1FjNVW14XG5fMkkTBzbUGJh5BxbTc3KZZy7nWbPpaHLGnRszMZNZlLvi6qww==}
     hasBin: true
 
-  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/f46d8301cf732f4f83846565aa475628265e51e0:
-    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/f46d8301cf732f4f83846565aa475628265e51e0}
+  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/ee93fdc45d1e5e4dee883afe0103109881a83549:
+    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/ee93fdc45d1e5e4dee883afe0103109881a83549}
     version: 1.9.7
 
   form-data@4.0.2:
@@ -16827,6 +16835,8 @@ snapshots:
       '@shikijs/themes': 3.4.2
       '@shikijs/types': 3.4.2
       '@shikijs/vscode-textmate': 10.0.2
+
+  '@google/generative-ai@0.24.1': {}
 
   '@hono/node-server@1.14.3(hono@4.7.10)':
     dependencies:
@@ -24346,7 +24356,7 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/f46d8301cf732f4f83846565aa475628265e51e0: {}
+  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/ee93fdc45d1e5e4dee883afe0103109881a83549: {}
 
   form-data@4.0.2:
     dependencies:

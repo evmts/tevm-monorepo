@@ -26,7 +26,7 @@ test "Gas: Arithmetic operations basic costs" {
     defer test_frame.deinit();
 
     // Create jump table for gas consumption
-    const jump_table = helpers.JumpTable.new_frontier_instruction_set();
+    const jump_table = helpers.JumpTable.init_from_hardfork(.FRONTIER);
 
     // Test ADD (3 gas)
     try test_frame.pushStack(&[_]u256{ 10, 20 });
@@ -82,7 +82,7 @@ test "Gas: EXP dynamic gas calculation" {
     defer test_frame.deinit();
 
     // Create jump table for gas consumption
-    const jump_table = helpers.JumpTable.new_frontier_instruction_set();
+    const jump_table = helpers.JumpTable.init_from_hardfork(.FRONTIER);
 
     // Test EXP with small exponent (10 + 50 * 1 = 60 gas)
     try test_frame.pushStack(&[_]u256{ 2, 8 }); // 2^8
@@ -127,7 +127,7 @@ test "Gas: Memory expansion costs" {
     defer test_frame.deinit();
 
     // Create jump table for gas consumption
-    const jump_table = helpers.JumpTable.new_frontier_instruction_set();
+    const jump_table = helpers.JumpTable.init_from_hardfork(.FRONTIER);
 
     // Test memory expansion to 32 bytes (1 word)
     // Cost = 3 * 1 + 1²/512 = 3 gas
@@ -184,7 +184,7 @@ test "Gas: SHA3 dynamic costs" {
     defer test_frame.deinit();
 
     // Create jump table for gas consumption
-    const jump_table = helpers.JumpTable.new_frontier_instruction_set();
+    const jump_table = helpers.JumpTable.init_from_hardfork(.FRONTIER);
 
     // Prepare data in memory
     var i: usize = 0;
@@ -243,7 +243,7 @@ test "Gas: LOG operations dynamic costs" {
     defer test_frame.deinit();
 
     // Create jump table for gas consumption
-    const jump_table = helpers.JumpTable.new_frontier_instruction_set();
+    const jump_table = helpers.JumpTable.init_from_hardfork(.FRONTIER);
 
     // Prepare log data
     const log_data = [_]u8{ 1, 2, 3, 4, 5, 6, 7, 8 };
@@ -304,7 +304,7 @@ test "Gas: Storage operations with access lists (EIP-2929)" {
     defer test_frame.deinit();
 
     // Create jump table for gas consumption with EIP-2929 support
-    const jump_table = helpers.JumpTable.new_berlin_instruction_set();
+    const jump_table = helpers.JumpTable.init_from_hardfork(.BERLIN);
 
     // Test SLOAD cold (2100 gas)
     const cold_slot: u256 = 12345;
@@ -376,7 +376,7 @@ test "Gas: CALL operations gas forwarding" {
     });
 
     // Create jump table for gas consumption
-    const jump_table = helpers.JumpTable.new_frontier_instruction_set();
+    const jump_table = helpers.JumpTable.init_from_hardfork(.FRONTIER);
 
     const gas_before_call = test_frame.frame.gas_remaining;
     _ = try helpers.executeOpcodeWithGas(&jump_table, 0xf1, test_vm.vm, test_frame.frame); // 0xf1 = CALL
@@ -423,7 +423,7 @@ test "Gas: CREATE operations with init code" {
     // test_vm.syncMocks();
 
     // Create jump table for gas consumption - need Shanghai for EIP-3860
-    const jump_table = helpers.JumpTable.new_shanghai_instruction_set();
+    const jump_table = helpers.JumpTable.init_from_hardfork(.SHANGHAI);
 
     // Test CREATE gas (32000 base + 200 per byte of init code)
     try test_frame.pushStack(&[_]u256{ init_code.len, 0, 0 }); // size, offset, value
@@ -486,7 +486,7 @@ test "Gas: Copy operations (CALLDATACOPY, CODECOPY, etc.)" {
     defer test_frame.deinit();
 
     // Create jump table for gas consumption
-    const jump_table = helpers.JumpTable.new_frontier_instruction_set();
+    const jump_table = helpers.JumpTable.init_from_hardfork(.FRONTIER);
 
     // Test CALLDATACOPY (3 gas per word + memory expansion)
     try test_frame.pushStack(&[_]u256{ 64, 0, 0 }); // size, data_offset, mem_offset
@@ -525,7 +525,7 @@ test "Gas: Stack operations costs" {
     defer test_frame.deinit();
 
     // Create jump table for gas consumption
-    const jump_table = helpers.JumpTable.new_frontier_instruction_set();
+    const jump_table = helpers.JumpTable.init_from_hardfork(.FRONTIER);
 
     // Test POP (2 gas)
     try test_frame.pushStack(&[_]u256{42});
@@ -572,7 +572,7 @@ test "Gas: Environmental query costs" {
     defer test_frame.deinit();
 
     // Create jump table for gas consumption
-    const jump_table = helpers.JumpTable.new_frontier_instruction_set();
+    const jump_table = helpers.JumpTable.init_from_hardfork(.FRONTIER);
 
     // Test ADDRESS (2 gas)
     const gas_before_address = test_frame.frame.gas_remaining;

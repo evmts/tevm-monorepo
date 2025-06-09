@@ -13,7 +13,7 @@ const Log = @import("../log.zig");
 const execution = @import("../execution/package.zig");
 const stack_ops = execution.stack;
 const log = execution.log;
-const operation_specs = @import("operation_specs.zig");
+const operation_config = @import("operation_config.zig");
 
 /// EVM jump table for efficient opcode dispatch.
 ///
@@ -181,97 +181,6 @@ pub fn copy(self: *const Self, allocator: std.mem.Allocator) !Self {
     };
 }
 
-// Convenience functions for creating jump tables for specific hardforks
-pub fn new_frontier_instruction_set() Self {
-    return init_from_hardfork(.FRONTIER);
-}
-
-pub fn new_homestead_instruction_set() Self {
-    return init_from_hardfork(.HOMESTEAD);
-}
-
-pub fn new_tangerine_whistle_instruction_set() Self {
-    return init_from_hardfork(.TANGERINE_WHISTLE);
-}
-
-pub fn new_spurious_dragon_instruction_set() Self {
-    return init_from_hardfork(.SPURIOUS_DRAGON);
-}
-
-pub fn new_byzantium_instruction_set() Self {
-    return init_from_hardfork(.BYZANTIUM);
-}
-
-pub fn new_constantinople_instruction_set() Self {
-    return init_from_hardfork(.CONSTANTINOPLE);
-}
-
-pub fn new_petersburg_instruction_set() Self {
-    return init_from_hardfork(.PETERSBURG);
-}
-
-pub fn new_istanbul_instruction_set() Self {
-    return init_from_hardfork(.ISTANBUL);
-}
-
-pub fn new_berlin_instruction_set() Self {
-    return init_from_hardfork(.BERLIN);
-}
-
-pub fn new_london_instruction_set() Self {
-    return init_from_hardfork(.LONDON);
-}
-
-pub fn new_merge_instruction_set() Self {
-    return init_from_hardfork(.MERGE);
-}
-
-pub fn new_shanghai_instruction_set() Self {
-    return init_from_hardfork(.SHANGHAI);
-}
-
-pub fn new_cancun_instruction_set() Self {
-    return init_from_hardfork(.CANCUN);
-}
-
-/// Get the hardfork when an operation was introduced based on its variant.
-fn get_operation_hardfork(variant: ?[]const u8) Hardfork {
-    if (variant == null) return .FRONTIER;
-
-    const v = variant.?;
-
-    // Map variant string to hardfork enum
-    if (std.mem.eql(u8, v, "FRONTIER")) {
-        return .FRONTIER;
-    } else if (std.mem.eql(u8, v, "HOMESTEAD")) {
-        return .HOMESTEAD;
-    } else if (std.mem.eql(u8, v, "TANGERINE_WHISTLE")) {
-        return .TANGERINE_WHISTLE;
-    } else if (std.mem.eql(u8, v, "SPURIOUS_DRAGON")) {
-        return .SPURIOUS_DRAGON;
-    } else if (std.mem.eql(u8, v, "BYZANTIUM")) {
-        return .BYZANTIUM;
-    } else if (std.mem.eql(u8, v, "CONSTANTINOPLE")) {
-        return .CONSTANTINOPLE;
-    } else if (std.mem.eql(u8, v, "PETERSBURG")) {
-        return .PETERSBURG;
-    } else if (std.mem.eql(u8, v, "ISTANBUL")) {
-        return .ISTANBUL;
-    } else if (std.mem.eql(u8, v, "BERLIN")) {
-        return .BERLIN;
-    } else if (std.mem.eql(u8, v, "LONDON")) {
-        return .LONDON;
-    } else if (std.mem.eql(u8, v, "MERGE")) {
-        return .MERGE;
-    } else if (std.mem.eql(u8, v, "SHANGHAI")) {
-        return .SHANGHAI;
-    } else if (std.mem.eql(u8, v, "CANCUN")) {
-        return .CANCUN;
-    }
-
-    // Default to FRONTIER for unknown variants
-    return .FRONTIER;
-}
 
 /// Create a jump table configured for a specific hardfork.
 ///
@@ -305,11 +214,11 @@ pub fn init_from_hardfork(hardfork: Hardfork) Self {
 
     // With ALL_OPERATIONS sorted by hardfork, we can iterate once.
     // Each opcode will be set to the latest active version for the target hardfork.
-    inline for (operation_specs.ALL_OPERATIONS) |spec| {
-        const op_hardfork = get_operation_hardfork(spec.variant);
+    inline for (operation_config.ALL_OPERATIONS) |spec| {
+        const op_hardfork = spec.variant orelse Hardfork.FRONTIER;
         if (@intFromEnum(op_hardfork) <= @intFromEnum(hardfork)) {
             const op = struct {
-                pub const operation = operation_specs.generate_operation(spec);
+                pub const operation = operation_config.generate_operation(spec);
             };
             jt.table[spec.opcode] = &op.operation;
         }

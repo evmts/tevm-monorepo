@@ -14,21 +14,6 @@ const SSTORE_SET_GAS: u64 = 20000;
 const SSTORE_RESET_GAS: u64 = 2900;
 const SSTORE_CLEARS_REFUND: u64 = 4800;
 
-// Helper to convert Stack errors to ExecutionError
-fn stack_pop(stack: *Stack) ExecutionError.Error!u256 {
-    return stack.pop() catch |err| switch (err) {
-        Stack.Error.Underflow => return ExecutionError.Error.StackUnderflow,
-        else => return ExecutionError.Error.StackUnderflow,
-    };
-}
-
-fn stack_push(stack: *Stack, value: u256) ExecutionError.Error!void {
-    return stack.append(value) catch |err| switch (err) {
-        Stack.Error.Overflow => return ExecutionError.Error.StackOverflow,
-        else => return ExecutionError.Error.StackOverflow,
-    };
-}
-
 fn calculate_sstore_gas(current: u256, new: u256) u64 {
     if (current == new) return 0;
     if (current == 0) return SSTORE_SET_GAS;
@@ -47,11 +32,8 @@ pub fn op_sload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     const slot = frame.stack.peek_unsafe().*;
 
     if (vm.chain_rules.IsBerlin) {
-        const Contract = @import("../contract/contract.zig");
-        const is_cold = frame.contract.mark_storage_slot_warm(frame.allocator, slot, null) catch |err| switch (err) {
-            Contract.MarkStorageSlotWarmError.OutOfAllocatorMemory => {
-                return ExecutionError.Error.OutOfMemory;
-            },
+        const is_cold = frame.contract.mark_storage_slot_warm(frame.allocator, slot, null) catch {
+            return ExecutionError.Error.OutOfMemory;
         };
         const gas_cost = if (is_cold) gas_constants.ColdSloadCost else gas_constants.WarmStorageReadCost;
         try frame.consume_gas(gas_cost);
@@ -89,12 +71,9 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     const current_value = try error_mapping.vm_get_storage(vm, frame.contract.address, slot);
 
-    const Contract = @import("../contract/contract.zig");
-    const is_cold = frame.contract.mark_storage_slot_warm(frame.allocator, slot, null) catch |err| switch (err) {
-        Contract.MarkStorageSlotWarmError.OutOfAllocatorMemory => {
-            Log.err("SSTORE: mark_storage_slot_warm failed: {}", .{err});
-            return ExecutionError.Error.OutOfMemory;
-        },
+    const is_cold = frame.contract.mark_storage_slot_warm(frame.allocator, slot, null) catch |err| {
+        Log.err("SSTORE: mark_storage_slot_warm failed: {}", .{err});
+        return ExecutionError.Error.OutOfMemory;
     };
 
     var total_gas: u64 = 0;

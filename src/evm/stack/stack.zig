@@ -47,13 +47,13 @@ pub const CAPACITY: usize = 1024;
 /// These map directly to EVM execution errors.
 pub const Error = error{
     /// Stack would exceed 1024 elements
-    Overflow,
+    StackOverflow,
     /// Attempted to pop from empty stack
-    Underflow,
+    StackUnderflow,
     /// Index out of valid range
-    OutOfBounds,
+    StackOutOfBounds,
     /// Invalid position for DUP/SWAP (must be 1-16)
-    InvalidPosition,
+    StackInvalidPosition,
 };
 
 /// Stack storage aligned to 32-byte boundaries.
@@ -724,7 +724,7 @@ pub fn swapNUnsafe(self: *Self, n: usize) void {
     std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - n - 1]);
 }
 
-/// Duplicate nth element comptime unsafe (camelCase alias) 
+/// Duplicate nth element comptime unsafe (camelCase alias)
 pub fn dupNUnsafe(self: *Self, n: usize) void {
     // Direct unsafe dup without bounds checking
     self.data[self.size] = self.data[self.size - n];
@@ -739,10 +739,10 @@ pub fn peekN(self: *const Self, n: usize) Error!u256 {
 /// Pop n values (camelCase alias)
 pub fn popn(self: *Self, n: usize) Error![]u256 {
     if (self.size < n) return Error.OutOfBounds;
-    
+
     // Create array to hold the values - use a simple allocation approach
     var values: [1024]u256 = undefined; // Max stack size
-    
+
     // Copy values in the order they appear in the stack array (not LIFO order)
     self.size -= n;
     var i: usize = 0;
@@ -751,7 +751,7 @@ pub fn popn(self: *Self, n: usize) Error![]u256 {
         // Clear the popped slot to prevent information leakage
         self.data[self.size + i] = 0;
     }
-    
+
     // Return a slice of the needed portion
     return values[0..n];
 }

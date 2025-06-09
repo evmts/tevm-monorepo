@@ -63,13 +63,6 @@ pub const Bytecode = union(enum) {
         return primitives.keccak256(slice);
     }
 
-    pub fn eof(self: *const Bytecode) ?*Eof {
-        return switch (self.*) {
-            .Eof => |e| e,
-            else => null,
-        };
-    }
-
     pub fn is_eof(self: *const Bytecode) bool {
         return switch (self.*) { .Eof => true, else => false };
     }
@@ -87,10 +80,8 @@ pub const Bytecode = union(enum) {
     }
 
     pub fn new_raw_checked(bytes: Bytes) !Bytecode {
-        if (bytes.len >= 2 and bytes[0..2] == EOF_MAGIC_BYTES) {
-            const eof = try Eof.decode(bytes);
-            return Bytecode{ .Eof = &eof };
-        } else if (bytes.len >= 2 and bytes[0..2] == eip7702.EIP7702_MAGIC_BYTES) {
+        // EOF not supported
+        if (bytes.len >= 2 and bytes[0..2] == eip7702.EIP7702_MAGIC_BYTES) {
             const e2 = try eip7702.Eip7702Bytecode.newRaw(bytes);
             return Bytecode{ .Eip7702 = e2 };
         } else {

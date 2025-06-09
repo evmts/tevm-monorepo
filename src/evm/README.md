@@ -167,7 +167,7 @@ src/evm/
 │
 ├── jump_table/            # Opcode dispatch
 │   ├── jump_table.zig     # Jump table implementation
-│   └── operation_specs.zig # Operation metadata
+│   └── operation_config.zig # Operation metadata
 │
 ├── opcodes/               # Opcode definitions
 │   ├── opcode.zig         # Opcode enumeration
