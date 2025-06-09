@@ -52,26 +52,59 @@ test "JUMP (0x56): Basic unconditional jump" {
     try testing.expectEqual(@as(usize, 5), test_frame.frame.pc);
 }
 
+test "JUMP: Simple JUMPDEST validation" {
+    const allocator = testing.allocator;
+    defer helpers.Contract.clear_analysis_cache(allocator);
+    
+    // Simple test: just verify that JUMPDEST validation works
+    const code = [_]u8{
+        0x5B,       // JUMPDEST at position 0
+        0x60, 0x00, // PUSH1 0
+        0x56,       // JUMP back to 0
+    };
+    
+    var contract = try helpers.createTestContract(
+        allocator,
+        helpers.TestAddresses.CONTRACT,
+        helpers.TestAddresses.ALICE,
+        0,
+        &code,
+    );
+    defer contract.deinit(allocator, null);
+    
+    // Analyze jumpdests
+    contract.analyze_jumpdests(allocator);
+    
+    // Test that position 0 is valid
+    const is_valid = contract.valid_jumpdest(allocator, 0);
+    try testing.expect(is_valid);
+    
+    // Test that position 1 is invalid (it's a PUSH1 opcode)
+    const is_invalid = contract.valid_jumpdest(allocator, 1);
+    try testing.expect(!is_invalid);
+}
+
 test "JUMP: Jump to various valid destinations" {
     const allocator = testing.allocator;
+    defer helpers.Contract.clear_analysis_cache(allocator);
     var test_vm = try helpers.TestVm.init(allocator);
     defer test_vm.deinit(allocator);
 
     // Complex bytecode with multiple JUMPDESTs
     const code = [_]u8{
         0x5B,       // JUMPDEST at position 0
-        0x60, 0x05, // PUSH1 5
+        0x60, 0x05, // PUSH1 5 (positions 1-2)
         0x5B,       // JUMPDEST at position 3
-        0x60, 0x08, // PUSH1 8 
+        0x60, 0x08, // PUSH1 8 (positions 4-5)
         0x5B,       // JUMPDEST at position 6
-        0x60, 0x0C, // PUSH1 12
+        0x60, 0x0C, // PUSH1 12 (positions 7-8)
         0x5B,       // JUMPDEST at position 9
-        0x60, 0x0F, // PUSH1 15
+        0x60, 0x0F, // PUSH1 15 (positions 10-11)
         0x5B,       // JUMPDEST at position 12
-        0x60, 0x10, // PUSH1 16
-        0x00,       // STOP
-        0x5B,       // JUMPDEST at position 15
-        0x00,       // STOP
+        0x60, 0x10, // PUSH1 16 (positions 13-14)
+        0x00,       // STOP at position 15
+        0x5B,       // JUMPDEST at position 16
+        0x00,       // STOP at position 17
     };
 
     var contract = try helpers.createTestContract(
@@ -86,9 +119,9 @@ test "JUMP: Jump to various valid destinations" {
     // Analyze jumpdests in the contract
     contract.analyze_jumpdests(allocator);
 
-    // Test jumping to each valid JUMPDEST
-    const destinations = [_]u256{ 0, 3, 6, 9, 12, 15 };
-
+    // Test jumping to each valid JUMPDEST (check positions carefully!)
+    // Position 0: 0x5B, Position 3: 0x5B, Position 6: 0x5B, Position 9: 0x5B, Position 12: 0x5B, Position 16: 0x5B
+    const destinations = [_]u256{ 0, 3, 6, 9, 12, 16 };
     for (destinations) |dest| {
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
         defer test_frame.deinit();
@@ -1048,12 +1081,10 @@ test "Control Flow: Program counter tracking" {
     _ = try helpers.executeOpcode(0x58, test_vm.vm, test_frame.frame);
 
     // Verify stack contains correct PC values
-    // Expected stack from bottom to top: PC(0), PC(1), 6, PC(6)
+    // Expected stack from bottom to top: PC(0), PC(1), PC(6)
+    // Note: The PUSH1 6 value was consumed by the JUMP instruction
     const pc_at_6 = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 6), pc_at_6);
-
-    const val_6 = try test_frame.popStack(); // The pushed value 6 
-    try testing.expectEqual(@as(u256, 6), val_6);
 
     const pc_at_1 = try test_frame.popStack(); // PC at position 1
     try testing.expectEqual(@as(u256, 1), pc_at_1);

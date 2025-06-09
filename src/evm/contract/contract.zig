@@ -473,8 +473,11 @@ pub fn valid_jumpdest(self: *Self, allocator: std.mem.Allocator, dest: u256) boo
             return found != null;
         }
     }
-    // Fallback to bitvec check
-    return self.is_code(pos);
+    // Fallback: check if position is code and contains JUMPDEST opcode
+    if (self.is_code(pos) and pos < self.code_size) {
+        return self.code[@intCast(pos)] == constants.JUMPDEST;
+    }
+    return false;
 }
 
 /// Ensure code analysis is performed
