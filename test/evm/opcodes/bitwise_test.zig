@@ -49,7 +49,7 @@ test "Bitwise: AND basic operations" {
     try test_frame.pushStack(&[_]u256{0xFF00, 0xF0F0});
     
     // Create jump table for gas testing
-    const jump_table = helpers.JumpTable.new_frontier_instruction_set();
+    const jump_table = helpers.JumpTable.init_from_hardfork(.FRONTIER);
     _ = try helpers.executeOpcodeWithGas(&jump_table, 0x16, test_vm.vm, test_frame.frame); // 0x16 = AND
     try helpers.expectGasUsed(test_frame.frame, 1000, 3); // AND costs GasFastestStep = 3
 }
@@ -406,7 +406,7 @@ test "Bitwise: Gas consumption" {
     };
     
     // Create jump table for gas testing - use Cancun to include SHL/SHR/SAR
-    const jump_table = helpers.JumpTable.new_cancun_instruction_set();
+    const jump_table = helpers.JumpTable.init_from_hardfork(.CANCUN);
     
     // Map operations to their opcodes
     const opcode_map = [_]u8{

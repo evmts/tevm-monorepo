@@ -37,7 +37,7 @@ test "Crypto: KECCAK256 (SHA3) basic operations" {
     // Test 2: Hash single byte
     test_frame.frame.stack.clear();
     // Write 0x01 to memory at position 0
-    try test_frame.frame.memory.set_byte(0, 0x01);
+    try test_frame.frame.memory.set_data(0, &[_]u8{0x01});
     try test_frame.pushStack(&[_]u256{1, 0}); // offset=0, size=1
     _ = try helpers.executeOpcode(0x20, test_vm.vm, test_frame.frame);
     
@@ -49,7 +49,7 @@ test "Crypto: KECCAK256 (SHA3) basic operations" {
     test_frame.frame.stack.clear();
     // Write 32 bytes of 0xFF to memory
     for (0..32) |i| {
-        try test_frame.frame.memory.set_byte(i, 0xFF);
+        try test_frame.frame.memory.set_data(i, &[_]u8{0xFF});
     }
     try test_frame.pushStack(&[_]u256{32, 0}); // offset=0, size=32
     _ = try helpers.executeOpcode(0x20, test_vm.vm, test_frame.frame);
@@ -62,7 +62,7 @@ test "Crypto: KECCAK256 (SHA3) basic operations" {
     test_frame.frame.stack.clear();
     // Write pattern starting at offset 64
     for (64..96) |i| {
-        try test_frame.frame.memory.set_byte(i, @intCast(i & 0xFF));
+        try test_frame.frame.memory.set_data(i, &[_]u8{@intCast(i & 0xFF)});
     }
     try test_frame.pushStack(&[_]u256{32, 64}); // offset=64, size=32
     _ = try helpers.executeOpcode(0x20, test_vm.vm, test_frame.frame);

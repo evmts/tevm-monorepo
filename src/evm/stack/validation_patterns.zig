@@ -1,5 +1,6 @@
 const Stack = @import("stack.zig");
 const ExecutionError = @import("../execution/execution_error.zig");
+const Log = @import("../log.zig");
 
 /// Common validation patterns for EVM stack operations.
 ///
@@ -116,9 +117,17 @@ pub fn validate_unary_op(stack: *const Stack) ExecutionError.Error!void {
 /// frame.stack.push(value);
 /// ```
 pub fn validate_dup(stack: *const Stack, n: u32) ExecutionError.Error!void {
+    Log.debug("ValidationPatterns.validate_dup: Validating DUP{}, stack_size={}", .{ n, stack.size });
     // DUP pops 0 and pushes 1
-    if (stack.size < n) return ExecutionError.Error.StackUnderflow;
-    if (stack.size >= Stack.CAPACITY) return ExecutionError.Error.StackOverflow;
+    if (stack.size < n) {
+        Log.debug("ValidationPatterns.validate_dup: Stack underflow, size={} < n={}", .{ stack.size, n });
+        return ExecutionError.Error.StackUnderflow;
+    }
+    if (stack.size >= Stack.CAPACITY) {
+        Log.debug("ValidationPatterns.validate_dup: Stack overflow, size={} >= capacity={}", .{ stack.size, Stack.CAPACITY });
+        return ExecutionError.Error.StackOverflow;
+    }
+    Log.debug("ValidationPatterns.validate_dup: Validation passed", .{});
 }
 
 /// Validates stack requirements for SWAP operations.
@@ -137,8 +146,13 @@ pub fn validate_dup(stack: *const Stack, n: u32) ExecutionError.Error!void {
 /// frame.stack.swap(2);
 /// ```
 pub fn validate_swap(stack: *const Stack, n: u32) ExecutionError.Error!void {
+    Log.debug("ValidationPatterns.validate_swap: Validating SWAP{}, stack_size={}", .{ n, stack.size });
     // SWAP needs at least n+1 items on stack
-    if (stack.size <= n) return ExecutionError.Error.StackUnderflow;
+    if (stack.size <= n) {
+        Log.debug("ValidationPatterns.validate_swap: Stack underflow, size={} <= n={}", .{ stack.size, n });
+        return ExecutionError.Error.StackUnderflow;
+    }
+    Log.debug("ValidationPatterns.validate_swap: Validation passed", .{});
 }
 
 /// Validates stack requirements for PUSH operations.
@@ -157,7 +171,12 @@ pub fn validate_swap(stack: *const Stack, n: u32) ExecutionError.Error!void {
 /// frame.stack.push(value);
 /// ```
 pub fn validate_push(stack: *const Stack) ExecutionError.Error!void {
-    if (stack.size >= Stack.CAPACITY) return ExecutionError.Error.StackOverflow;
+    Log.debug("ValidationPatterns.validate_push: Validating PUSH, stack_size={}", .{stack.size});
+    if (stack.size >= Stack.CAPACITY) {
+        Log.debug("ValidationPatterns.validate_push: Stack overflow, size={} >= capacity={}", .{ stack.size, Stack.CAPACITY });
+        return ExecutionError.Error.StackOverflow;
+    }
+    Log.debug("ValidationPatterns.validate_push: Validation passed", .{});
 }
 
 // Import the helper function

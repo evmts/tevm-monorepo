@@ -26,7 +26,7 @@ test "LOG0: emit log with no topics" {
     const log_data = [_]u8{ 0x11, 0x22, 0x33, 0x44 };
     var i: usize = 0;
     while (i < log_data.len) : (i += 1) {
-        try test_frame.frame.memory.set_byte(i, log_data[i]);
+        try test_frame.frame.memory.set_data(i, &[_]u8{log_data[i]});
     }
     
     // Push size and offset (bottom to top on stack)
@@ -97,7 +97,7 @@ test "LOG1: emit log with one topic" {
     const log_data = [_]u8{ 0xAA, 0xBB };
     var i: usize = 0;
     while (i < log_data.len) : (i += 1) {
-        try test_frame.frame.memory.set_byte(i, log_data[i]);
+        try test_frame.frame.memory.set_data(i, &[_]u8{log_data[i]});
     }
     
     // Push in order: topic, size, offset (bottom to top on stack)
@@ -138,7 +138,7 @@ test "LOG2: emit log with two topics" {
     const log_data = [_]u8{ 0x01, 0x02, 0x03 };
     var i: usize = 0;
     while (i < log_data.len) : (i += 1) {
-        try test_frame.frame.memory.set_byte(10 + i, log_data[i]);
+        try test_frame.frame.memory.set_data(10 + i, &[_]u8{log_data[i]});
     }
     
     // Push in order: topic1, topic2, size, offset (bottom to top on stack)
@@ -220,7 +220,7 @@ test "LOG4: emit log with four topics" {
     var i: usize = 0;
     while (i < 100) : (i += 1) {
         log_data[i] = @intCast(i);
-        try test_frame.frame.memory.set_byte(i, log_data[i]);
+        try test_frame.frame.memory.set_data(i, &[_]u8{log_data[i]});
     }
     
     // Push in order: topic1, topic2, topic3, topic4, size, offset (bottom to top on stack)

@@ -94,14 +94,15 @@ test "Integration: Call with value transfer" {
 
     // Prepare CALL parameters
     // CALL(gas, address, value, argsOffset, argsSize, retOffset, retSize)
+    // Push in reverse order since stack is LIFO
     try test_frame.pushStack(&[_]u256{
-        50000, // gas
-        helpers.toU256(helpers.TestAddresses.BOB), // address
-        helpers.TestValues.ONE_GWEI, // value
-        0, // argsOffset
-        0, // argsSize
+        0, // retSize (will be popped last)
         0, // retOffset
-        0, // retSize
+        0, // argsSize
+        0, // argsOffset
+        helpers.TestValues.ONE_GWEI, // value
+        helpers.toU256(helpers.TestAddresses.BOB), // address
+        50000, // gas (will be popped first)
     });
 
     // Execute CALL (placeholder implementation)

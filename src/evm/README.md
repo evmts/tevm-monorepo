@@ -167,7 +167,7 @@ src/evm/
 │
 ├── jump_table/            # Opcode dispatch
 │   ├── jump_table.zig     # Jump table implementation
-│   └── operation_specs.zig # Operation metadata
+│   └── operation_config.zig # Operation metadata
 │
 ├── opcodes/               # Opcode definitions
 │   ├── opcode.zig         # Opcode enumeration
@@ -188,11 +188,11 @@ src/evm/
 
 The EVM implementation follows a modular architecture with clear separation of concerns:
 
-1. **VM Layer** (`vm.zig`) - Orchestrates execution, manages call stack, handles gas accounting
-2. **Frame Layer** (`frame.zig`) - Represents individual execution contexts with their own stack, memory, and PC
-3. **Execution Layer** (`execution/`) - Individual opcode implementations following a consistent pattern
-4. **State Layer** (`state/`) - Manages accounts, storage, and logs with support for transient storage
-5. **Validation Layer** - Pre-execution validation ensures safety, allowing optimized unsafe operations
+1. **Vm** (`vm.zig`) - Entrypoint. Orchestrates execution, manages call stack, handles gas accounting
+2. **Frame Data Structure** (`frame.zig`) - Represents individual execution contexts with their own stack, memory, and PC
+3. **Execution Handlers** (`execution/`) - Individual opcode implementations following a consistent pattern
+4. **State** (`state/`) - Manages accounts, storage, and logs with support for transient storage. Simple default used for development. Will later be pluggable
+5. **Validation Layer** - Pre-execution validation ensures safety, allowing optimized unsafe operations before the opcodes actually run
 
 ### Performance Optimizations
 
@@ -238,6 +238,8 @@ We're actively looking for contributors! The codebase is designed to be approach
 Please reach out or submit a PR. The Zig language makes contributing enjoyable and productive.
 
 ## 📚 References
+
+Huge thank you to the following references!
 
 - [Ethereum Yellow Paper](https://ethereum.github.io/yellowpaper/paper.pdf)
 - [EVM Opcodes Reference](https://www.evm.codes/)

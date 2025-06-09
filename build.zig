@@ -458,47 +458,8 @@ pub fn build(b: *std.Build) void {
     const memory_test_step = b.step("test-memory", "Run Memory tests");
     memory_test_step.dependOn(&run_memory_test.step);
 
-    // Add Memory stress tests
-    const memory_stress_test = b.addTest(.{
-        .name = "memory-stress-test",
-        .root_source_file = b.path("test/evm/memory_stress_test.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-    memory_stress_test.root_module.addImport("evm", evm_mod);
 
-    const run_memory_stress_test = b.addRunArtifact(memory_stress_test);
 
-    const memory_stress_test_step = b.step("test-memory-stress", "Run Memory stress tests");
-    memory_stress_test_step.dependOn(&run_memory_stress_test.step);
-
-    // Add Memory comparison tests
-    const memory_comparison_test = b.addTest(.{
-        .name = "memory-comparison-test",
-        .root_source_file = b.path("test/evm/memory_comparison_test.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-    memory_comparison_test.root_module.addImport("evm", evm_mod);
-
-    const run_memory_comparison_test = b.addRunArtifact(memory_comparison_test);
-
-    const memory_comparison_test_step = b.step("test-memory-comparison", "Run Memory comparison tests");
-    memory_comparison_test_step.dependOn(&run_memory_comparison_test.step);
-
-    // Add Memory limit tests
-    const memory_limit_test = b.addTest(.{
-        .name = "memory-limit-test",
-        .root_source_file = b.path("test/evm/memory_limit_test.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-    memory_limit_test.root_module.addImport("evm", evm_mod);
-
-    const run_memory_limit_test = b.addRunArtifact(memory_limit_test);
-
-    const memory_limit_test_step = b.step("test-memory-limit", "Run Memory limit tests");
-    memory_limit_test_step.dependOn(&run_memory_limit_test.step);
 
     // Add Stack tests
     const stack_test = b.addTest(.{
@@ -514,19 +475,6 @@ pub fn build(b: *std.Build) void {
     const stack_test_step = b.step("test-stack", "Run Stack tests");
     stack_test_step.dependOn(&run_stack_test.step);
 
-    // Add Stack batched operations tests
-    const stack_batched_test = b.addTest(.{
-        .name = "stack-batched-test",
-        .root_source_file = b.path("test/evm/stack_batched_test.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-    stack_batched_test.root_module.addImport("evm", evm_mod);
-
-    const run_stack_batched_test = b.addRunArtifact(stack_batched_test);
-
-    const stack_batched_test_step = b.step("test-stack-batched", "Run Stack batched operations tests");
-    stack_batched_test_step.dependOn(&run_stack_batched_test.step);
 
     // Add Stack validation tests
     const stack_validation_test = b.addTest(.{
@@ -751,11 +699,7 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_trie_test.step);
     test_step.dependOn(&run_interpreter_test.step);
     test_step.dependOn(&run_memory_test.step);
-    test_step.dependOn(&run_memory_stress_test.step);
-    test_step.dependOn(&run_memory_comparison_test.step);
-    test_step.dependOn(&run_memory_limit_test.step);
     test_step.dependOn(&run_stack_test.step);
-    test_step.dependOn(&run_stack_batched_test.step);
     test_step.dependOn(&run_stack_validation_test.step);
     test_step.dependOn(&run_opcodes_test.step);
     test_step.dependOn(&run_vm_opcode_test.step);

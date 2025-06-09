@@ -9,12 +9,8 @@ const to_u256 = Address.to_u256;
 const from_u256 = Address.from_u256;
 const gas_constants = @import("../constants/gas_constants.zig");
 const AccessList = @import("../access_list/access_list.zig").AccessList;
-const error_mapping = @import("../error_mapping.zig");
 
 // Import helper functions from error_mapping
-const stack_pop = error_mapping.stack_pop;
-const stack_push = error_mapping.stack_push;
-const map_memory_error = error_mapping.map_memory_error;
 
 pub fn op_address(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
@@ -24,7 +20,7 @@ pub fn op_address(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
 
     // Push contract address as u256
     const addr = to_u256(frame.contract.address);
-    try stack_push(&frame.stack, addr);
+    try frame.stack.append( addr);
 
     return Operation.ExecutionResult{};
 }
@@ -35,7 +31,7 @@ pub fn op_balance(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
-    const address_u256 = try stack_pop(&frame.stack);
+    const address_u256 = try frame.stack.pop();
     const address = from_u256(address_u256);
 
     // EIP-2929: Check if address is cold and consume appropriate gas
@@ -44,7 +40,7 @@ pub fn op_balance(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
 
     // Get balance from VM state
     const balance = vm.state.get_balance(address);
-    try stack_push(&frame.stack, balance);
+    try frame.stack.append( balance);
 
     return Operation.ExecutionResult{};
 }
@@ -57,7 +53,7 @@ pub fn op_origin(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     // Push transaction origin address
     const origin = to_u256(vm.context.tx_origin);
-    try stack_push(&frame.stack, origin);
+    try frame.stack.append( origin);
 
     return Operation.ExecutionResult{};
 }
@@ -70,7 +66,7 @@ pub fn op_caller(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     // Push caller address
     const caller = to_u256(frame.contract.caller);
-    try stack_push(&frame.stack, caller);
+    try frame.stack.append( caller);
 
     return Operation.ExecutionResult{};
 }
@@ -82,7 +78,7 @@ pub fn op_callvalue(pc: usize, interpreter: *Operation.Interpreter, state: *Oper
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
     // Push call value
-    try stack_push(&frame.stack, frame.contract.value);
+    try frame.stack.append( frame.contract.value);
 
     return Operation.ExecutionResult{};
 }
@@ -94,7 +90,7 @@ pub fn op_gasprice(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
     // Push gas price from transaction context
-    try stack_push(&frame.stack, vm.context.gas_price);
+    try frame.stack.append( vm.context.gas_price);
 
     return Operation.ExecutionResult{};
 }
@@ -105,7 +101,7 @@ pub fn op_extcodesize(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
-    const address_u256 = try stack_pop(&frame.stack);
+    const address_u256 = try frame.stack.pop();
     const address = from_u256(address_u256);
 
     // EIP-2929: Check if address is cold and consume appropriate gas
@@ -114,7 +110,7 @@ pub fn op_extcodesize(pc: usize, interpreter: *Operation.Interpreter, state: *Op
 
     // Get code size from VM state
     const code = vm.state.get_code(address);
-    try stack_push(&frame.stack, @as(u256, @intCast(code.len)));
+    try frame.stack.append( @as(u256, @intCast(code.len)));
 
     return Operation.ExecutionResult{};
 }
@@ -125,10 +121,10 @@ pub fn op_extcodecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
-    const address_u256 = try stack_pop(&frame.stack);
-    const mem_offset = try stack_pop(&frame.stack);
-    const code_offset = try stack_pop(&frame.stack);
-    const size = try stack_pop(&frame.stack);
+    const address_u256 = try frame.stack.pop();
+    const mem_offset = try frame.stack.pop();
+    const code_offset = try frame.stack.pop();
+    const size = try frame.stack.pop();
 
     if (size == 0) return Operation.ExecutionResult{};
 
@@ -158,7 +154,7 @@ pub fn op_extcodecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Op
 
     // Use set_data_bounded to copy the code to memory
     // This handles partial copies and zero-padding automatically
-    try error_mapping.memory_set_data_bounded(&frame.memory, mem_offset_usize, code, code_offset_usize, size_usize);
+    try frame.memory.set_data_bounded(mem_offset_usize, code, code_offset_usize, size_usize);
 
     return Operation.ExecutionResult{};
 }
@@ -169,7 +165,7 @@ pub fn op_extcodehash(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
-    const address_u256 = try stack_pop(&frame.stack);
+    const address_u256 = try frame.stack.pop();
     const address = from_u256(address_u256);
 
     // EIP-2929: Check if address is cold and consume appropriate gas
@@ -180,7 +176,7 @@ pub fn op_extcodehash(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     const code = vm.state.get_code(address);
     if (code.len == 0) {
         // Empty account - return zero
-        try stack_push(&frame.stack, 0);
+        try frame.stack.append( 0);
     } else {
         // Compute keccak256 hash of the code
         var hash: [32]u8 = undefined;
@@ -191,7 +187,7 @@ pub fn op_extcodehash(pc: usize, interpreter: *Operation.Interpreter, state: *Op
         for (hash) |byte| {
             hash_u256 = (hash_u256 << 8) | byte;
         }
-        try stack_push(&frame.stack, hash_u256);
+        try frame.stack.append( hash_u256);
     }
 
     return Operation.ExecutionResult{};
@@ -206,7 +202,7 @@ pub fn op_selfbalance(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     // Get balance of current executing contract
     const self_address = frame.contract.address;
     const balance = vm.state.get_balance(self_address);
-    try stack_push(&frame.stack, balance);
+    try frame.stack.append( balance);
 
     return Operation.ExecutionResult{};
 }
@@ -218,7 +214,7 @@ pub fn op_chainid(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
     // Push chain ID from VM context
-    try stack_push(&frame.stack, vm.context.chain_id);
+    try frame.stack.append( vm.context.chain_id);
 
     return Operation.ExecutionResult{};
 }
@@ -231,7 +227,7 @@ pub fn op_calldatasize(pc: usize, interpreter: *Operation.Interpreter, state: *O
 
     // Push size of calldata - use frame.input which is set by the VM
     // The frame.input is the actual calldata for this execution context
-    try stack_push(&frame.stack, @as(u256, @intCast(frame.input.len)));
+    try frame.stack.append( @as(u256, @intCast(frame.input.len)));
 
     return Operation.ExecutionResult{};
 }
@@ -243,7 +239,7 @@ pub fn op_codesize(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
     // Push size of current contract's code
-    try stack_push(&frame.stack, @as(u256, @intCast(frame.contract.code.len)));
+    try frame.stack.append( @as(u256, @intCast(frame.contract.code.len)));
 
     return Operation.ExecutionResult{};
 }
@@ -255,11 +251,11 @@ pub fn op_calldataload(pc: usize, interpreter: *Operation.Interpreter, state: *O
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
     // Pop offset from stack
-    const offset = try stack_pop(&frame.stack);
+    const offset = try frame.stack.pop();
 
     if (offset > std.math.maxInt(usize)) {
         // Offset too large, push zero
-        try stack_push(&frame.stack, 0);
+        try frame.stack.append( 0);
         return Operation.ExecutionResult{};
     }
 
@@ -277,7 +273,7 @@ pub fn op_calldataload(pc: usize, interpreter: *Operation.Interpreter, state: *O
         }
     }
 
-    try stack_push(&frame.stack, value);
+    try frame.stack.append( value);
 
     return Operation.ExecutionResult{};
 }
@@ -289,9 +285,9 @@ pub fn op_calldatacopy(pc: usize, interpreter: *Operation.Interpreter, state: *O
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
     // Pop memory offset, data offset, and size
-    const mem_offset = try stack_pop(&frame.stack);
-    const data_offset = try stack_pop(&frame.stack);
-    const size = try stack_pop(&frame.stack);
+    const mem_offset = try frame.stack.pop();
+    const data_offset = try frame.stack.pop();
+    const size = try frame.stack.pop();
 
     if (size == 0) return Operation.ExecutionResult{};
 
@@ -316,7 +312,7 @@ pub fn op_calldatacopy(pc: usize, interpreter: *Operation.Interpreter, state: *O
 
     // Use set_data_bounded to copy the calldata to memory
     // This handles partial copies and zero-padding automatically
-    try error_mapping.memory_set_data_bounded(&frame.memory, mem_offset_usize, calldata, data_offset_usize, size_usize);
+    try frame.memory.set_data_bounded(mem_offset_usize, calldata, data_offset_usize, size_usize);
 
     return Operation.ExecutionResult{};
 }
@@ -328,9 +324,9 @@ pub fn op_codecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
     // Pop memory offset, code offset, and size
-    const mem_offset = try stack_pop(&frame.stack);
-    const code_offset = try stack_pop(&frame.stack);
-    const size = try stack_pop(&frame.stack);
+    const mem_offset = try frame.stack.pop();
+    const code_offset = try frame.stack.pop();
+    const size = try frame.stack.pop();
 
     if (size == 0) return Operation.ExecutionResult{};
 
@@ -355,7 +351,7 @@ pub fn op_codecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
 
     // Use set_data_bounded to copy the code to memory
     // This handles partial copies and zero-padding automatically
-    try error_mapping.memory_set_data_bounded(&frame.memory, mem_offset_usize, code, code_offset_usize, size_usize);
+    try frame.memory.set_data_bounded(mem_offset_usize, code, code_offset_usize, size_usize);
 
     return Operation.ExecutionResult{};
 }
@@ -368,7 +364,7 @@ pub fn op_returndataload(pc: usize, interpreter: *Operation.Interpreter, state: 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
     // Pop offset from stack
-    const offset = try stack_pop(&frame.stack);
+    const offset = try frame.stack.pop();
 
     // Check if offset is within bounds
     if (offset > std.math.maxInt(usize)) return ExecutionError.Error.OutOfOffset;
@@ -386,7 +382,7 @@ pub fn op_returndataload(pc: usize, interpreter: *Operation.Interpreter, state: 
         value = (value << 8) | return_data[offset_usize + i];
     }
 
-    try stack_push(&frame.stack, value);
+    try frame.stack.append( value);
 
     return Operation.ExecutionResult{};
 }

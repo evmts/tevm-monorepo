@@ -9,10 +9,6 @@ const gas_constants = @import("../constants/gas_constants.zig");
 const AccessList = @import("../access_list/access_list.zig").AccessList;
 const Address = @import("Address");
 const from_u256 = Address.from_u256;
-const error_mapping = @import("../error_mapping.zig");
-
-// Import helper function from error_mapping
-const map_memory_error = error_mapping.map_memory_error;
 
 pub fn op_stop(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!ExecutionResult {
     _ = pc;
@@ -120,11 +116,11 @@ pub fn op_return(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
             const memory_gas = gas_constants.memory_gas_cost(current_size, end);
             try frame.consume_gas(memory_gas);
 
-            _ = frame.memory.ensure_context_capacity(end) catch |err| return map_memory_error(err);
+            _ = try frame.memory.ensure_context_capacity(end);
         }
 
         // Get data from memory
-        const data = frame.memory.get_slice(offset_usize, size_usize) catch |err| return map_memory_error(err);
+        const data = try frame.memory.get_slice(offset_usize, size_usize);
 
         // Note: The memory gas cost already protects against excessive memory use.
         // The VM should handle copying the data when needed. We just set the reference.
@@ -162,11 +158,11 @@ pub fn op_revert(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
             const memory_gas = gas_constants.memory_gas_cost(current_size, end);
             try frame.consume_gas(memory_gas);
 
-            _ = frame.memory.ensure_context_capacity(end) catch |err| return map_memory_error(err);
+            _ = try frame.memory.ensure_context_capacity(end);
         }
 
         // Get data from memory
-        const data = frame.memory.get_slice(offset_usize, size_usize) catch |err| return map_memory_error(err);
+        const data = try frame.memory.get_slice(offset_usize, size_usize);
 
         // Note: The memory gas cost already protects against excessive memory use.
         // The VM should handle copying the data when needed. We just set the reference.

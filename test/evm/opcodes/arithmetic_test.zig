@@ -50,7 +50,7 @@ test "Arithmetic: ADD basic operations" {
     try test_frame.pushStack(&[_]u256{ 5, 10 });
 
     // Create jump table for gas testing
-    const jump_table = helpers.JumpTable.new_frontier_instruction_set();
+    const jump_table = helpers.JumpTable.init_from_hardfork(.FRONTIER);
     _ = try helpers.executeOpcodeWithGas(&jump_table, 0x01, test_vm.vm, test_frame.frame); // 0x01 = ADD
     try helpers.expectGasUsed(test_frame.frame, 1000, 3); // ADD costs GasFastestStep = 3
 }

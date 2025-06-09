@@ -2,6 +2,7 @@ const std = @import("std");
 const Stack = @import("stack.zig");
 const Operation = @import("../opcodes/operation.zig");
 const ExecutionError = @import("../execution/execution_error.zig");
+const Log = @import("../log.zig");
 
 /// Stack validation utilities for EVM operations.
 ///
@@ -49,14 +50,23 @@ pub fn validate_stack_requirements(
     operation: *const Operation,
 ) ExecutionError.Error!void {
     const stack_size = stack.size;
+    Log.debug("StackValidation.validate_stack_requirements: Validating stack, size={}, min_required={}, max_allowed={}", .{ stack_size, operation.min_stack, operation.max_stack });
 
     // Check minimum stack requirement
-    if (stack_size < operation.min_stack) return ExecutionError.Error.StackUnderflow;
+    if (stack_size < operation.min_stack) {
+        Log.debug("StackValidation.validate_stack_requirements: Stack underflow, size={} < min_stack={}", .{ stack_size, operation.min_stack });
+        return ExecutionError.Error.StackUnderflow;
+    }
 
     // Check maximum stack requirement
     // max_stack represents the maximum stack size allowed BEFORE the operation
     // to ensure we don't overflow after the operation completes
-    if (stack_size > operation.max_stack) return ExecutionError.Error.StackOverflow;
+    if (stack_size > operation.max_stack) {
+        Log.debug("StackValidation.validate_stack_requirements: Stack overflow, size={} > max_stack={}", .{ stack_size, operation.max_stack });
+        return ExecutionError.Error.StackOverflow;
+    }
+    
+    Log.debug("StackValidation.validate_stack_requirements: Validation passed", .{});
 }
 
 /// Validates stack has capacity for pop/push operations.
@@ -84,15 +94,24 @@ pub fn validate_stack_operation(
     push_count: u32,
 ) ExecutionError.Error!void {
     const stack_size = stack.size;
+    Log.debug("StackValidation.validate_stack_operation: Validating operation, stack_size={}, pop_count={}, push_count={}", .{ stack_size, pop_count, push_count });
 
     // Check if we have enough items to pop
-    if (stack_size < pop_count) return ExecutionError.Error.StackUnderflow;
+    if (stack_size < pop_count) {
+        Log.debug("StackValidation.validate_stack_operation: Stack underflow, size={} < pop_count={}", .{ stack_size, pop_count });
+        return ExecutionError.Error.StackUnderflow;
+    }
 
     // Calculate stack size after operation
     const new_size = stack_size - pop_count + push_count;
 
     // Check if result would overflow
-    if (new_size > Stack.CAPACITY) return ExecutionError.Error.StackOverflow;
+    if (new_size > Stack.CAPACITY) {
+        Log.debug("StackValidation.validate_stack_operation: Stack overflow, new_size={} > capacity={}", .{ new_size, Stack.CAPACITY });
+        return ExecutionError.Error.StackOverflow;
+    }
+    
+    Log.debug("StackValidation.validate_stack_operation: Validation passed, new_size={}", .{new_size});
 }
 
 /// Calculate the maximum allowed stack size for an operation.

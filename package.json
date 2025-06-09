@@ -63,6 +63,7 @@
     "@changesets/changelog-github": "^0.5.1",
     "@changesets/cli": "^2.29.4",
     "@effect/codemod": "^0.0.16",
+    "@google/generative-ai": "^0.24.1",
     "@monodon/rust": "^2.3.0",
     "@napi-rs/cli": "3.0.0-alpha.63",
     "@napi-rs/wasm-runtime": "^0.2.10",

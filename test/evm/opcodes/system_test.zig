@@ -30,7 +30,7 @@ test "CREATE: create new contract" {
     const init_code = [_]u8{ 0x60, 0x00, 0x60, 0x00, 0xF3 }; // PUSH1 0 PUSH1 0 RETURN
     var i: usize = 0;
     while (i < init_code.len) : (i += 1) {
-        try test_frame.frame.memory.set_byte(i, init_code[i]);
+        try test_frame.frame.memory.set_data(i, &[_]u8{init_code[i]});
     }
 
     // Remove mocking - VM creates contracts successfully
@@ -163,7 +163,7 @@ test "CREATE2: create with deterministic address" {
     const init_code = [_]u8{ 0x60, 0x00, 0x60, 0x00, 0xF3 };
     var i: usize = 0;
     while (i < init_code.len) : (i += 1) {
-        try test_frame.frame.memory.set_byte(i, init_code[i]);
+        try test_frame.frame.memory.set_data(i, &[_]u8{init_code[i]});
     }
 
     // Remove mocking - VM should handle CREATE2 deterministic address calculation
@@ -204,11 +204,11 @@ test "CALL: basic call behavior" {
     const call_data = [_]u8{ 0x11, 0x22, 0x33, 0x44 };
     var i: usize = 0;
     while (i < call_data.len) : (i += 1) {
-        try test_frame.frame.memory.set_byte(i, call_data[i]);
+        try test_frame.frame.memory.set_data(i, &[_]u8{call_data[i]});
     }
 
     // Pre-expand memory to accommodate return data at offset 100
-    _ = try test_frame.frame.memory.ensure_capacity(110); // Need at least 100 + 10 bytes
+    _ = try test_frame.frame.memory.ensure_context_capacity(110); // Need at least 100 + 10 bytes
 
     // Remove mocking - VM currently returns failed calls
 
@@ -355,7 +355,7 @@ test "DELEGATECALL: execute code in current context" {
     defer test_frame.deinit();
 
     // Pre-expand memory to accommodate return data at offset 50
-    _ = try test_frame.frame.memory.ensure_capacity(52); // Need at least 50 + 2 bytes
+    _ = try test_frame.frame.memory.ensure_context_capacity(52); // Need at least 50 + 2 bytes
 
     // Remove mocking - VM currently returns failed delegatecalls
 
@@ -393,7 +393,7 @@ test "STATICCALL: read-only call" {
     defer test_frame.deinit();
 
     // Pre-expand memory to accommodate return data at offset 200
-    _ = try test_frame.frame.memory.ensure_capacity(202); // Need at least 200 + 2 bytes
+    _ = try test_frame.frame.memory.ensure_context_capacity(202); // Need at least 200 + 2 bytes
 
     // Remove mocking - VM currently returns failed staticcalls
 
@@ -471,7 +471,7 @@ test "CREATE: gas consumption" {
     const init_code = [_]u8{ 0x60, 0x00, 0x60, 0x00, 0xF3 };
     var i: usize = 0;
     while (i < init_code.len) : (i += 1) {
-        try test_frame.frame.memory.set_byte(i, init_code[i]);
+        try test_frame.frame.memory.set_data(i, &[_]u8{init_code[i]});
     }
 
     // Remove mocking - VM handles contract creation with real behavior
@@ -512,7 +512,7 @@ test "CREATE2: additional gas for hashing" {
     const init_code = [_]u8{ 0x60, 0x00, 0x60, 0x00, 0xF3 };
     var i: usize = 0;
     while (i < init_code.len) : (i += 1) {
-        try test_frame.frame.memory.set_byte(i, init_code[i]);
+        try test_frame.frame.memory.set_data(i, &[_]u8{init_code[i]});
     }
 
     // Remove mocking - VM handles CREATE2 with real behavior
@@ -614,7 +614,7 @@ test "CREATE: memory expansion for init code" {
     // Initialize memory with some init code at offset 200
     var i: usize = 0;
     while (i < 100) : (i += 1) {
-        try test_frame.frame.memory.set_byte(200 + i, @intCast(i % 256));
+        try test_frame.frame.memory.set_data(200 + i, &[_]u8{@intCast(i % 256)});
     }
 
     // Remove mocking - VM handles memory expansion with real behavior
@@ -687,7 +687,7 @@ test "CREATE: EIP-3860 initcode word gas" {
     // Write 64 bytes of init code (2 words)
     var i: usize = 0;
     while (i < 64) : (i += 1) {
-        try test_frame.frame.memory.set_byte(i, 0x00);
+        try test_frame.frame.memory.set_data(i, &[_]u8{0x00});
     }
 
     // Remove mocking - VM handles EIP-3860 word gas with real behavior

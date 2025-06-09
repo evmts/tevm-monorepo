@@ -6,7 +6,6 @@ const Frame = @import("../frame.zig");
 const Vm = @import("../vm.zig");
 const gas_constants = @import("../constants/gas_constants.zig");
 const Address = @import("Address");
-const error_mapping = @import("../error_mapping.zig");
 
 // Compile-time verification that this file is being used
 const COMPILE_TIME_LOG_VERSION = "2024_LOG_FIX_V2";
@@ -15,11 +14,8 @@ const COMPILE_TIME_LOG_VERSION = "2024_LOG_FIX_V2";
 const Log = Vm.Log;
 
 // Import helper functions from error_mapping
-const stack_pop = error_mapping.stack_pop;
-const stack_push = error_mapping.stack_push;
-const map_memory_error = error_mapping.map_memory_error;
 
-pub fn make_log(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
+pub fn make_log(comptime num_topics: u8) fn (usize, *Operation.Interpreter, *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     return struct {
         pub fn log(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
             _ = pc;
@@ -33,22 +29,22 @@ pub fn make_log(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.St
             if (frame.is_static) return ExecutionError.Error.WriteProtection;
 
             // REVM EXACT MATCH: Pop offset first, then len (revm: popn!([offset, len]))
-            const offset = try stack_pop(&frame.stack);
-            const size = try stack_pop(&frame.stack);
+            const offset = try frame.stack.pop();
+            const size = try frame.stack.pop();
 
             // Debug logging removed for production
 
             // Pop N topics in order and store them in REVERSE (revm: stack.popn::<N>() returns in push order)
             var topics: [4]u256 = undefined;
-            for (0..n) |i| {
-                topics[n - 1 - i] = try stack_pop(&frame.stack);
+            for (0..num_topics) |i| {
+                topics[num_topics - 1 - i] = try frame.stack.pop();
                 // Topic popped successfully
             }
 
             if (size == 0) {
                 // Empty data
                 // Emit empty log
-                try vm.emit_log(frame.contract.address, topics[0..n], &[_]u8{});
+                try vm.emit_log(frame.contract.address, topics[0..num_topics], &[_]u8{});
                 return Operation.ExecutionResult{};
             }
 
@@ -86,21 +82,15 @@ pub fn make_log(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.St
             // Gas consumed successfully
 
             // Ensure memory is available
-            _ = frame.memory.ensure_context_capacity(offset_usize + size_usize) catch |err| {
-                // Memory allocation failed
-                return map_memory_error(err);
-            };
+            _ = try frame.memory.ensure_context_capacity(offset_usize + size_usize);
 
             // Get log data
-            const data = frame.memory.get_slice(offset_usize, size_usize) catch |err| {
-                // Failed to get memory slice
-                return map_memory_error(err);
-            };
+            const data = try frame.memory.get_slice(offset_usize, size_usize);
 
             // Emit log with data
 
             // Add log
-            try vm.emit_log(frame.contract.address, topics[0..n], data);
+            try vm.emit_log(frame.contract.address, topics[0..num_topics], data);
 
             return Operation.ExecutionResult{};
         }
