@@ -112,7 +112,7 @@ pc: usize = 0,
 /// frame.gas_remaining = gas_limit;
 /// frame.input = calldata;
 /// ```
-pub fn init(allocator: std.mem.Allocator, contract: *Contract) std.mem.Allocator.Error!Self {
+pub fn init(allocator: std.mem.Allocator, contract: *Contract) !Self {
     return Self{
         .allocator = allocator,
         .contract = contract,
@@ -170,7 +170,7 @@ pub fn init_with_state(
     depth: ?u32,
     output: ?[]const u8,
     pc: ?usize,
-) std.mem.Allocator.Error!Self {
+) !Self {
     return Self{
         .allocator = allocator,
         .contract = contract,
@@ -225,7 +225,9 @@ pub const ConsumeGasError = error{
 /// try frame.consume_gas(memory_cost);
 /// ```
 pub fn consume_gas(self: *Self, amount: u64) ConsumeGasError!void {
-    @branchHint(.likely);
-    if (amount > self.gas_remaining) return ConsumeGasError.OutOfGas;
+    if (amount > self.gas_remaining) {
+        @branchHint(.cold);
+        return ConsumeGasError.OutOfGas;
+    }
     self.gas_remaining -= amount;
 }
