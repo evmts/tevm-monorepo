@@ -1,7 +1,7 @@
-const AccessListStorageKey = @import("access_list_storage_key.zig");
+const AccessListStorageKey = @import("access_list_storage_key.zig").AccessListStorageKey;
 
 /// HashMap context for AccessListStorageKey
-const AccessListStorageKeyContext = @This();
+pub const AccessListStorageKeyContext = @This();
 
 pub fn hash(ctx: AccessListStorageKeyContext, key: AccessListStorageKey) u64 {
     _ = ctx;
