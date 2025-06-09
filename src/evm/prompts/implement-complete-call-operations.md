@@ -456,3 +456,334 @@ test "mixed call type sequence" {
 - [EIP-7: DELEGATECALL](https://eips.ethereum.org/EIPS/eip-7)
 - [EIP-214: Static Call](https://eips.ethereum.org/EIPS/eip-214)
 - [Gas Cost Calculations](https://www.evm.codes/)
+
+## Reference Implementations
+
+### revm
+
+<explanation>
+Revm implements call operations in a sophisticated way that separates gas calculation, memory management, and actual call execution. The key patterns:
+
+1. **Gas Calculation**: Uses `call_cost()` function that considers hardfork rules, value transfers, and account state
+2. **Memory Management**: `get_memory_input_and_out_ranges()` handles input/output memory expansion with proper gas accounting
+3. **Call Execution**: Creates `CallInputs` structure and delegates to interpreter action system
+4. **63/64 Gas Rule**: Uses `remaining_63_of_64_parts()` for gas forwarding calculation
+
+The implementation is very clean with clear separation of concerns and proper hardfork compatibility.
+</explanation>
+
+<filename>revm/crates/interpreter/src/instructions/contract.rs</filename>
+<line start="528" end="588">
+```rust
+pub fn call<WIRE: InterpreterTypes, H: Host + ?Sized>(context: InstructionContext<'_, H, WIRE>) {
+    popn!([local_gas_limit, to, value], context.interpreter);
+    let to = to.into_address();
+    // Max gas limit is not possible in real ethereum situation.
+    let local_gas_limit = u64::try_from(local_gas_limit).unwrap_or(u64::MAX);
+
+    let has_transfer = !value.is_zero();
+    if context.interpreter.runtime_flag.is_static() && has_transfer {
+        context
+            .interpreter
+            .control
+            .set_instruction_result(InstructionResult::CallNotAllowedInsideStatic);
+        return;
+    }
+
+    let Some((input, return_memory_offset)) = get_memory_input_and_out_ranges(context.interpreter)
+    else {
+        return;
+    };
+
+    let Some(account_load) = context.host.load_account_delegated(to) else {
+        context
+            .interpreter
+            .control
+            .set_instruction_result(InstructionResult::FatalExternalError);
+        return;
+    };
+
+    let Some(mut gas_limit) = calc_call_gas(
+        context.interpreter,
+        account_load,
+        has_transfer,
+        local_gas_limit,
+    ) else {
+        return;
+    };
+
+    gas!(context.interpreter, gas_limit);
+
+    // Add call stipend if there is value to be transferred.
+    if has_transfer {
+        gas_limit = gas_limit.saturating_add(gas::CALL_STIPEND);
+    }
+
+    // Call host to interact with target contract
+    context.interpreter.control.set_next_action(
+        InterpreterAction::NewFrame(FrameInput::Call(Box::new(CallInputs {
+            input: CallInput::SharedBuffer(input),
+            gas_limit,
+            target_address: to,
+            caller: context.interpreter.input.target_address(),
+            bytecode_address: to,
+            value: CallValue::Transfer(value),
+            scheme: CallScheme::Call,
+            is_static: context.interpreter.runtime_flag.is_static(),
+            is_eof: false,
+            return_memory_offset,
+        }))),
+        InstructionResult::CallOrCreate,
+    );
+}
+```
+</line>
+
+<filename>revm/crates/interpreter/src/instructions/contract.rs</filename>
+<line start="645" end="691">
+```rust
+pub fn delegate_call<WIRE: InterpreterTypes, H: Host + ?Sized>(
+    context: InstructionContext<'_, H, WIRE>,
+) {
+    check!(context.interpreter, HOMESTEAD);
+    popn!([local_gas_limit, to], context.interpreter);
+    let to = Address::from_word(B256::from(to));
+    // Max gas limit is not possible in real ethereum situation.
+    let local_gas_limit = u64::try_from(local_gas_limit).unwrap_or(u64::MAX);
+
+    let Some((input, return_memory_offset)) = get_memory_input_and_out_ranges(context.interpreter)
+    else {
+        return;
+    };
+
+    let Some(mut load) = context.host.load_account_delegated(to) else {
+        context
+            .interpreter
+            .control
+            .set_instruction_result(InstructionResult::FatalExternalError);
+        return;
+    };
+
+    // Set is_empty to false as we are not creating this account.
+    load.is_empty = false;
+    let Some(gas_limit) = calc_call_gas(context.interpreter, load, false, local_gas_limit) else {
+        return;
+    };
+
+    gas!(context.interpreter, gas_limit);
+
+    // Call host to interact with target contract
+    context.interpreter.control.set_next_action(
+        InterpreterAction::NewFrame(FrameInput::Call(Box::new(CallInputs {
+            input: CallInput::SharedBuffer(input),
+            gas_limit,
+            target_address: context.interpreter.input.target_address(),
+            caller: context.interpreter.input.caller_address(),
+            bytecode_address: to,
+            value: CallValue::Apparent(context.interpreter.input.call_value()),
+            scheme: CallScheme::DelegateCall,
+            is_static: context.interpreter.runtime_flag.is_static(),
+            is_eof: false,
+            return_memory_offset,
+        }))),
+        InstructionResult::CallOrCreate,
+    );
+}
+```
+</line>
+
+<filename>revm/crates/interpreter/src/instructions/contract.rs</filename>
+<line start="693" end="737">
+```rust
+pub fn static_call<WIRE: InterpreterTypes, H: Host + ?Sized>(
+    context: InstructionContext<'_, H, WIRE>,
+) {
+    check!(context.interpreter, BYZANTIUM);
+    popn!([local_gas_limit, to], context.interpreter);
+    let to = Address::from_word(B256::from(to));
+    // Max gas limit is not possible in real ethereum situation.
+    let local_gas_limit = u64::try_from(local_gas_limit).unwrap_or(u64::MAX);
+
+    let Some((input, return_memory_offset)) = get_memory_input_and_out_ranges(context.interpreter)
+    else {
+        return;
+    };
+
+    let Some(mut load) = context.host.load_account_delegated(to) else {
+        context
+            .interpreter
+            .control
+            .set_instruction_result(InstructionResult::FatalExternalError);
+        return;
+    };
+    // Set `is_empty` to false as we are not creating this account.
+    load.is_empty = false;
+    let Some(gas_limit) = calc_call_gas(context.interpreter, load, false, local_gas_limit) else {
+        return;
+    };
+    gas!(context.interpreter, gas_limit);
+
+    // Call host to interact with target contract
+    context.interpreter.control.set_next_action(
+        InterpreterAction::NewFrame(FrameInput::Call(Box::new(CallInputs {
+            input: CallInput::SharedBuffer(input),
+            gas_limit,
+            target_address: to,
+            caller: context.interpreter.input.target_address(),
+            bytecode_address: to,
+            value: CallValue::Transfer(U256::ZERO),
+            scheme: CallScheme::StaticCall,
+            is_static: true,
+            is_eof: false,
+            return_memory_offset,
+        }))),
+        InstructionResult::CallOrCreate,
+    );
+}
+```
+</line>
+
+<filename>revm/crates/interpreter/src/instructions/contract/call_helpers.rs</filename>
+<line start="46" end="72">
+```rust
+#[inline]
+pub fn calc_call_gas(
+    interpreter: &mut Interpreter<impl InterpreterTypes>,
+    account_load: StateLoad<AccountLoad>,
+    has_transfer: bool,
+    local_gas_limit: u64,
+) -> Option<u64> {
+    let call_cost = gas::call_cost(
+        interpreter.runtime_flag.spec_id(),
+        has_transfer,
+        account_load,
+    );
+    gas!(interpreter, call_cost, None);
+
+    // EIP-150: Gas cost changes for IO-heavy operations
+    let gas_limit = if interpreter.runtime_flag.spec_id().is_enabled_in(TANGERINE) {
+        // Take l64 part of gas_limit
+        min(
+            interpreter.control.gas().remaining_63_of_64_parts(),
+            local_gas_limit,
+        )
+    } else {
+        local_gas_limit
+    };
+
+    Some(gas_limit)
+}
+```
+</line>
+
+<filename>revm/crates/interpreter/src/gas/calc.rs</filename>
+<line start="261" end="317">
+```rust
+/// Calculate call gas cost for the call instruction.
+///
+/// There is three types of gas.
+/// * Account access gas. after berlin it can be cold or warm.
+/// * Transfer value gas. If value is transferred and balance of target account is updated.
+/// * If account is not existing and needs to be created. After Spurious dragon
+///   this is only accounted if value is transferred.
+///
+/// account_load.is_empty will be accounted only if hardfork is SPURIOUS_DRAGON and
+/// there is transfer value.
+///
+/// This means that [`bytecode::opcode::EXTSTATICCALL`],
+/// [`bytecode::opcode::EXTDELEGATECALL`] that dont transfer value will not be
+/// effected by this field.
+///
+/// [`bytecode::opcode::CALL`], [`bytecode::opcode::EXTCALL`] use this field.
+///
+/// While [`bytecode::opcode::STATICCALL`], [`bytecode::opcode::DELEGATECALL`],
+/// [`bytecode::opcode::CALLCODE`] need to have this field hardcoded to false
+/// as they were present before SPURIOUS_DRAGON hardfork.
+#[inline]
+pub const fn call_cost(
+    spec_id: SpecId,
+    transfers_value: bool,
+    account_load: StateLoad<AccountLoad>,
+) -> u64 {
+    let is_empty = account_load.data.is_empty;
+    // Account access.
+    let mut gas = if spec_id.is_enabled_in(SpecId::BERLIN) {
+        warm_cold_cost_with_delegation(account_load)
+    } else if spec_id.is_enabled_in(SpecId::TANGERINE) {
+        // EIP-150: Gas cost changes for IO-heavy operations
+        700
+    } else {
+        40
+    };
+
+    // Transfer value cost
+    if transfers_value {
+        gas += CALLVALUE;
+    }
+
+    // New account cost
+    if is_empty {
+        // EIP-161: State trie clearing (invariant-preserving alternative)
+        if spec_id.is_enabled_in(SpecId::SPURIOUS_DRAGON) {
+            // Account only if there is value transferred.
+            if transfers_value {
+                gas += NEWACCOUNT;
+            }
+        } else {
+            gas += NEWACCOUNT;
+        }
+    }
+
+    gas
+}
+```
+</line>
+
+<filename>revm/crates/interpreter/src/instructions/system.rs</filename>
+<line start="155" end="197">
+```rust
+/// EIP-211: New opcodes: RETURNDATASIZE and RETURNDATACOPY
+pub fn returndatasize<WIRE: InterpreterTypes, H: ?Sized>(context: InstructionContext<'_, H, WIRE>) {
+    check!(context.interpreter, BYZANTIUM);
+    gas!(context.interpreter, gas::BASE);
+    push!(
+        context.interpreter,
+        U256::from(context.interpreter.return_data.buffer().len())
+    );
+}
+
+/// EIP-211: New opcodes: RETURNDATASIZE and RETURNDATACOPY
+pub fn returndatacopy<WIRE: InterpreterTypes, H: ?Sized>(context: InstructionContext<'_, H, WIRE>) {
+    check!(context.interpreter, BYZANTIUM);
+    popn!([memory_offset, offset, len], context.interpreter);
+
+    let len = as_usize_or_fail!(context.interpreter, len);
+    let data_offset = as_usize_saturated!(offset);
+
+    // Old legacy behavior is to panic if data_end is out of scope of return buffer.
+    // This behavior is changed in EOF.
+    let data_end = data_offset.saturating_add(len);
+    if data_end > context.interpreter.return_data.buffer().len()
+        && !context.interpreter.runtime_flag.is_eof()
+    {
+        context
+            .interpreter
+            .control
+            .set_instruction_result(InstructionResult::OutOfOffset);
+        return;
+    }
+
+    let Some(memory_offset) = memory_resize(context.interpreter, memory_offset, len) else {
+        return;
+    };
+
+    // Note: This can't panic because we resized memory to fit.
+    context.interpreter.memory.set_data(
+        memory_offset,
+        data_offset,
+        len,
+        context.interpreter.return_data.buffer(),
+    );
+}
+```
+</line>

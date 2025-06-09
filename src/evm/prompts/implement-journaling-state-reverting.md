@@ -385,3 +385,157 @@ fn test_nested_call_reversion() !void {
 - [revm Journal Implementation](https://github.com/bluealloy/revm)
 - [Geth State Object](https://github.com/ethereum/go-ethereum)
 - [Database Transactions Pattern](https://en.wikipedia.org/wiki/Database_transaction)
+
+## Reference Implementations
+
+### revm
+
+<explanation>
+Revm provides a sophisticated journaling system through its `JournalInner` and `Journal` structures. Key features and patterns:
+
+1. **Checkpoint/Revert System**: Uses `checkpoint()`, `checkpoint_commit()`, and `checkpoint_revert()` for nested state snapshots
+2. **Journal Entries**: Each state change creates a journal entry that knows how to revert itself
+3. **Transaction Boundaries**: Clear separation between transaction-level and call-level state changes
+4. **State Integration**: Journal is tightly integrated with state management for efficient tracking
+5. **Memory Management**: Careful cleanup and efficient storage of journal entries
+6. **Depth Tracking**: Tracks call depth for proper nested revert handling
+
+The implementation demonstrates excellent patterns for state change tracking and efficient revert operations.
+</explanation>
+
+<filename>revm/crates/context/src/journal/inner.rs</filename>
+<line start="453" end="486">
+```rust
+/// Makes a checkpoint that in case of Revert can bring back state to this point.
+#[inline]
+pub fn checkpoint(&mut self) -> JournalCheckpoint {
+    let checkpoint = JournalCheckpoint {
+        log_i: self.logs.len(),
+        journal_i: self.journal.len(),
+    };
+    self.depth += 1;
+    checkpoint
+}
+
+/// Commits the checkpoint.
+#[inline]
+pub fn checkpoint_commit(&mut self) {
+    self.depth -= 1;
+}
+
+/// Reverts all changes to state until given checkpoint.
+#[inline]
+pub fn checkpoint_revert(&mut self, checkpoint: JournalCheckpoint) {
+    let is_spurious_dragon_enabled = self.spec.is_enabled_in(SPURIOUS_DRAGON);
+    let state = &mut self.state;
+    let transient_storage = &mut self.transient_storage;
+    self.depth -= 1;
+    self.logs.truncate(checkpoint.log_i);
+
+    // iterate over last N journals sets and revert our global state
+    self.journal
+        .drain(checkpoint.journal_i..)
+        .rev()
+        .for_each(|entry| {
+            entry.revert(state, Some(transient_storage), is_spurious_dragon_enabled);
+        });
+}
+```
+</line>
+
+<filename>revm/crates/context/src/journal/inner.rs</filename>
+<line start="96" end="134">
+```rust
+/// Prepare for next transaction, by committing the current journal to history, incrementing the transaction id
+/// and returning the logs.
+///
+/// This function is used to prepare for next transaction. It will save the current journal
+/// and clear the journal for the next transaction.
+///
+/// `commit_tx` is used even for discarding transactions so transaction_id will be incremented.
+pub fn commit_tx(&mut self) {
+    // Clears all field from JournalInner. Doing it this way to avoid
+    // missing any field.
+    let Self {
+        state,
+        transient_storage,
+        logs,
+        depth,
+        journal,
+        transaction_id,
+        spec,
+        warm_preloaded_addresses,
+        precompiles,
+    } = self;
+    // Spec precompiles and state are not changed. It is always set again execution.
+    let _ = spec;
+    let _ = precompiles;
+    let _ = state;
+    transient_storage.clear();
+    *depth = 0;
+
+    // Do nothing with journal history so we can skip cloning present journal.
+    journal.clear();
+
+    // Load precompiles into warm_preloaded_addresses.
+    // TODO for precompiles we can use max transaction_id so they are always touched warm loaded.
+    // at least after state clear EIP.
+    warm_preloaded_addresses.clone_from(precompiles);
+    // increment transaction id.
+    *transaction_id += 1;
+    logs.clear();
+}
+```
+</line>
+
+<filename>revm/crates/context/src/journal/inner.rs</filename>
+<line start="136" end="161">
+```rust
+/// Discard the current transaction, by reverting the journal entries and incrementing the transaction id.
+pub fn discard_tx(&mut self) {
+    // if there is no journal entries, there has not been any changes.
+    let Self {
+        state,
+        transient_storage,
+        logs,
+        depth,
+        journal,
+        transaction_id,
+        spec,
+        warm_preloaded_addresses,
+        precompiles,
+    } = self;
+
+    let is_spurious_dragon_enabled = spec.is_enabled_in(SPURIOUS_DRAGON);
+    // iterate over all journals entries and revert our global state
+    journal.drain(..).rev().for_each(|entry| {
+        entry.revert(state, None, is_spurious_dragon_enabled);
+    });
+    transient_storage.clear();
+    *depth = 0;
+    logs.clear();
+    *transaction_id += 1;
+    warm_preloaded_addresses.clone_from(precompiles);
+}
+```
+</line>
+
+<filename>revm/crates/context/src/journal.rs</filename>
+<line start="245" end="257">
+```rust
+#[inline]
+fn checkpoint(&mut self) -> JournalCheckpoint {
+    self.inner.checkpoint()
+}
+
+#[inline]
+fn checkpoint_commit(&mut self) {
+    self.inner.checkpoint_commit()
+}
+
+#[inline]
+fn checkpoint_revert(&mut self, checkpoint: JournalCheckpoint) {
+    self.inner.checkpoint_revert(checkpoint)
+}
+```
+</line>

@@ -240,3 +240,86 @@ if (output.len < 32) return PrecompileError.InvalidOutput;
 - [Zig Crypto Documentation](https://ziglang.org/documentation/master/std/#std;crypto)
 - [Ethereum Yellow Paper - Precompiles](https://ethereum.github.io/yellowpaper/paper.pdf)
 - [RFC 6234 - SHA-2 Test Vectors](https://tools.ietf.org/rfc/rfc6234.txt)
+
+## Reference Implementations
+
+### revm
+
+<explanation>
+Revm provides a clean SHA256 precompile implementation using the sha2 crate. Key patterns:
+
+1. **Linear Gas Calculation**: Uses a helper function `calc_linear_cost_u32()` for the standard 60 + 12 * ceil(len/32) formula
+2. **External Crypto Library**: Uses the sha2 crate's `Sha256::digest()` for secure, optimized hashing
+3. **Simple Error Handling**: Returns `OutOfGas` if gas limit exceeded, otherwise returns hash output
+4. **Standard Pattern**: Follows consistent precompile patterns with gas check followed by computation
+5. **Efficient Output**: Direct conversion from digest to output bytes
+
+The implementation demonstrates the standard precompile pattern used across all hash-based precompiles.
+</explanation>
+
+<filename>revm/crates/precompile/src/hash.rs</filename>
+<line start="21" end="29">
+```rust
+pub fn sha256_run(input: &[u8], gas_limit: u64) -> PrecompileResult {
+    let cost = calc_linear_cost_u32(input.len(), 60, 12);
+    if cost > gas_limit {
+        Err(PrecompileError::OutOfGas)
+    } else {
+        let output = sha2::Sha256::digest(input);
+        Ok(PrecompileOutput::new(cost, output.to_vec().into()))
+    }
+}
+```
+</line>
+
+<filename>revm/crates/precompile/src/lib.rs</filename>
+<line start="60" end="62">
+```rust
+/// Calculate the linear cost of a precompile.
+pub fn calc_linear_cost_u32(len: usize, base: u64, word: u64) -> u64 {
+    (len as u64).div_ceil(32) * word + base
+}
+```
+</line>
+
+### geth
+
+<explanation>
+The go-ethereum implementation shows the standard pattern for precompile implementations: separate gas calculation and execution methods, with simple gas formula (60 + 12 * words) and direct use of Go's crypto/sha256 library.
+</explanation>
+
+**Gas Calculation** - `/go-ethereum/params/protocol_params.go` (lines 141-142):
+```go
+Sha256BaseGas       uint64 = 60   // Base price for a SHA256 operation
+Sha256PerWordGas    uint64 = 12   // Per-word price for a SHA256 operation
+```
+
+**Precompile Implementation** - `/go-ethereum/core/vm/contracts.go` (lines 303-315):
+```go
+type sha256hash struct{}
+
+// RequiredGas returns the gas required to execute the pre-compiled contract.
+//
+// This method does not require any overflow checking as the input size gas costs
+// required for anything significant is so high it's impossible to pay for.
+func (c *sha256hash) RequiredGas(input []byte) uint64 {
+	return uint64(len(input)+31)/32*params.Sha256PerWordGas + params.Sha256BaseGas
+}
+
+func (c *sha256hash) Run(input []byte) ([]byte, error) {
+	h := sha256.Sum256(input)
+	return h[:], nil
+}
+```
+
+**Usage in Precompile Maps** - `/go-ethereum/core/vm/contracts.go` (lines 55-60):
+```go
+// PrecompiledContractsHomestead contains the default set of pre-compiled Ethereum
+// contracts used in the Frontier and Homestead releases.
+var PrecompiledContractsHomestead = PrecompiledContracts{
+	common.BytesToAddress([]byte{0x1}): &ecrecover{},
+	common.BytesToAddress([]byte{0x2}): &sha256hash{},
+	common.BytesToAddress([]byte{0x3}): &ripemd160hash{},
+	common.BytesToAddress([]byte{0x4}): &dataCopy{},
+}
+```

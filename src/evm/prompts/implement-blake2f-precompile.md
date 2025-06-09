@@ -47,6 +47,82 @@ Implement the BLAKE2F precompile (address 0x09) for Ethereum Virtual Machine com
 5. **Validate inputs thoroughly** - Prevent malformed input issues
 6. **Use proven algorithms** - Follow BLAKE2b specification exactly
 
+## Reference Implementations
+
+### geth
+
+<explanation>
+The go-ethereum implementation demonstrates the complete BLAKE2F precompile pattern: gas calculation based on rounds count (1 gas per round), strict input validation (213 bytes exactly), proper endianness handling (big-endian for rounds, little-endian for hash data), and calling the optimized blake2b.F compression function.
+</explanation>
+
+**Constants and Errors** - `/go-ethereum/core/vm/contracts.go` (lines 707-714):
+```go
+const (
+	blake2FInputLength        = 213
+	blake2FFinalBlockBytes    = byte(1)
+	blake2FNonFinalBlockBytes = byte(0)
+)
+
+var (
+	errBlake2FInvalidInputLength = errors.New("invalid input length")
+	errBlake2FInvalidFinalFlag   = errors.New("invalid final flag")
+)
+```
+
+**Gas Calculation** - `/go-ethereum/core/vm/contracts.go` (lines 697-703):
+```go
+func (c *blake2F) RequiredGas(input []byte) uint64 {
+	// If the input is malformed, we can't calculate the gas, return 0 and let the
+	// actual call choke and fault.
+	if len(input) != blake2FInputLength {
+		return 0
+	}
+	return uint64(binary.BigEndian.Uint32(input[0:4]))
+}
+```
+
+**Full Implementation** - `/go-ethereum/core/vm/contracts.go` (lines 717-753):
+```go
+func (c *blake2F) Run(input []byte) ([]byte, error) {
+	// Make sure the input is valid (correct length and final flag)
+	if len(input) != blake2FInputLength {
+		return nil, errBlake2FInvalidInputLength
+	}
+	if input[212] != blake2FNonFinalBlockBytes && input[212] != blake2FFinalBlockBytes {
+		return nil, errBlake2FInvalidFinalFlag
+	}
+	// Parse the input into the Blake2b call parameters
+	var (
+		rounds = binary.BigEndian.Uint32(input[0:4])
+		final  = input[212] == blake2FFinalBlockBytes
+
+		h [8]uint64
+		m [16]uint64
+		t [2]uint64
+	)
+	for i := 0; i < 8; i++ {
+		offset := 4 + i*8
+		h[i] = binary.LittleEndian.Uint64(input[offset : offset+8])
+	}
+	for i := 0; i < 16; i++ {
+		offset := 68 + i*8
+		m[i] = binary.LittleEndian.Uint64(input[offset : offset+8])
+	}
+	t[0] = binary.LittleEndian.Uint64(input[196:204])
+	t[1] = binary.LittleEndian.Uint64(input[204:212])
+
+	// Execute the compression function, extract and return the result
+	blake2b.F(&h, m, t, final, rounds)
+
+	output := make([]byte, 64)
+	for i := 0; i < 8; i++ {
+		offset := i * 8
+		binary.LittleEndian.PutUint64(output[offset:offset+8], h[i])
+	}
+	return output, nil
+}
+```
+
 ## References
 
 - [EIP-152: Add BLAKE2 compression function F precompile](https://eips.ethereum.org/EIPS/eip-152)
