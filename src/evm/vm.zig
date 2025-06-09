@@ -22,6 +22,7 @@ pub const CreateResult = @import("create_result.zig");
 pub const CallResult = @import("call_result.zig");
 pub const RunResult = @import("run_result.zig");
 const Hardfork = @import("hardforks/hardfork.zig").Hardfork;
+const precompiles = @import("precompiles/precompiles.zig");
 
 /// Virtual Machine for executing Ethereum bytecode.
 ///
@@ -354,19 +355,112 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
 
 pub const CallContractError = std.mem.Allocator.Error;
 
-/// Execute a CALL operation to another contract.
-/// NOT IMPLEMENTED - always returns failure.
-/// TODO: Implement value transfer, gas calculation, recursive execution, and return data handling.
+/// Execute a CALL operation to another contract or precompile.
+///
+/// This method handles both regular contract calls and precompile calls.
+/// For precompiles, it routes to the appropriate precompile implementation.
+/// For regular contracts, it currently returns failure (TODO: implement contract execution).
+///
+/// @param caller The address initiating the call
+/// @param to The address being called (may be a precompile)
+/// @param value The amount of ETH being transferred (must be 0 for static calls)
+/// @param input Input data for the call
+/// @param gas Gas limit available for the call
+/// @param is_static Whether this is a static call (no state changes allowed)
+/// @return CallResult indicating success/failure and return data
 pub fn call_contract(self: *Self, caller: Address.Address, to: Address.Address, value: u256, input: []const u8, gas: u64, is_static: bool) CallContractError!CallResult {
     @branchHint(.likely);
-    _ = self;
-    _ = caller;
-    _ = to;
+    
+    Log.debug("VM.call_contract: Call from {any} to {any}, gas={}, static={}", .{ caller, to, gas, is_static });
+    
+    // Check if this is a precompile call
+    if (precompiles.is_precompile(to)) {
+        Log.debug("VM.call_contract: Detected precompile call to {any}", .{to});
+        return self.execute_precompile_call(to, input, gas, is_static);
+    }
+    
+    // Regular contract call - currently not implemented
+    // TODO: Implement value transfer, gas calculation, recursive execution, and return data handling
+    Log.debug("VM.call_contract: Regular contract call not implemented yet", .{});
     _ = value;
-    _ = input;
-    _ = gas;
-    _ = is_static;
-    return CallResult{ .success = false, .gas_left = 0, .output = null };
+    return CallResult{ .success = false, .gas_left = gas, .output = null };
+}
+
+/// Execute a precompile call
+///
+/// This method handles the execution of precompiled contracts. It performs
+/// the following steps:
+/// 1. Check if the precompile is available in the current hardfork
+/// 2. Validate that value transfers are zero (precompiles don't accept ETH)
+/// 3. Estimate output buffer size and allocate memory
+/// 4. Execute the precompile
+/// 5. Handle success/failure and return appropriate CallResult
+///
+/// @param address The precompile address
+/// @param input Input data for the precompile
+/// @param gas Gas limit available for execution
+/// @param is_static Whether this is a static call (doesn't affect precompiles)
+/// @return CallResult with success/failure, gas usage, and output data
+fn execute_precompile_call(self: *Self, address: Address.Address, input: []const u8, gas: u64, is_static: bool) CallContractError!CallResult {
+    _ = is_static; // Precompiles are inherently stateless, so static flag doesn't matter
+    
+    Log.debug("VM.execute_precompile_call: Executing precompile at {any}, input_size={}, gas={}", .{ address, input.len, gas });
+    
+    // Get current chain rules
+    const chain_rules = self.chain_rules;
+    
+    // Check if this precompile is available with current chain rules
+    if (!precompiles.is_available(address, chain_rules)) {
+        Log.debug("VM.execute_precompile_call: Precompile not available with current chain rules", .{});
+        return CallResult{ .success = false, .gas_left = gas, .output = null };
+    }
+    
+    // Estimate required output buffer size
+    const output_size = precompiles.get_output_size(address, input.len, chain_rules) catch |err| {
+        Log.debug("VM.execute_precompile_call: Failed to get output size: {}", .{err});
+        return CallResult{ .success = false, .gas_left = gas, .output = null };
+    };
+    
+    // Allocate output buffer
+    const output_buffer = self.allocator.alloc(u8, output_size) catch |err| {
+        Log.debug("VM.execute_precompile_call: Failed to allocate output buffer: {}", .{err});
+        return error.OutOfMemory;
+    };
+    
+    // Execute the precompile
+    const result = precompiles.execute_precompile(address, input, output_buffer, gas, chain_rules);
+    
+    if (result.is_success()) {
+        const gas_used = result.get_gas_used();
+        const actual_output_size = result.get_output_size();
+        
+        Log.debug("VM.execute_precompile_call: Precompile succeeded, gas_used={}, output_size={}", .{ gas_used, actual_output_size });
+        
+        // Resize buffer to actual output size if needed
+        if (actual_output_size < output_size) {
+            const resized_output = self.allocator.realloc(output_buffer, actual_output_size) catch output_buffer;
+            return CallResult{ 
+                .success = true, 
+                .gas_left = gas - gas_used, 
+                .output = resized_output[0..actual_output_size] 
+            };
+        }
+        
+        return CallResult{ 
+            .success = true, 
+            .gas_left = gas - gas_used, 
+            .output = output_buffer[0..actual_output_size] 
+        };
+    } else {
+        // Free the allocated buffer on failure
+        self.allocator.free(output_buffer);
+        
+        if (result.get_error()) |err| {
+            Log.debug("VM.execute_precompile_call: Precompile failed with error: {any}", .{err});
+        }
+        
+        return CallResult{ .success = false, .gas_left = gas, .output = null };
+    }
 }
 
 pub const ConsumeGasError = ExecutionError.Error;
