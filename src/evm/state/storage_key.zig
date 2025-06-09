@@ -35,7 +35,7 @@ const Address = @import("Address");
 /// The key implements a generic hash function that works with any hasher
 /// implementing the standard update() interface. The address is hashed first,
 /// followed by the slot number in big-endian format.
-const Self = @This();
+const StorageKey = @This();
 
 /// The contract address that owns this storage slot.
 /// Standard 20-byte Ethereum address.
@@ -63,7 +63,7 @@ slot: u256,
 /// const key = StorageKey{ .address = addr, .slot = slot };
 /// try map.put(key, value); // Uses hash() internally
 /// ```
-pub fn hash(self: Self, hasher: anytype) void {
+pub fn hash(self: StorageKey, hasher: anytype) void {
     // Hash the address bytes
     hasher.update(&self.address);
     // Hash the slot as bytes in big-endian format for consistency
@@ -88,6 +88,6 @@ pub fn hash(self: Self, hasher: anytype) void {
 /// const key2 = StorageKey{ .address = addr, .slot = 0 };
 /// std.debug.assert(key1.eql(key2));
 /// ```
-pub fn eql(a: Self, b: Self) bool {
+pub fn eql(a: StorageKey, b: StorageKey) bool {
     return std.mem.eql(u8, &a.address, &b.address) and a.slot == b.slot;
 }
