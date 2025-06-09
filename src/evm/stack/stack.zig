@@ -65,6 +65,7 @@ size: usize = 0,
 /// ```
 pub fn append(self: *Self, value: u256) Error!void {
     if (self.size >= CAPACITY) {
+        @branchHint(.cold);
         Log.debug("Stack.append: Stack overflow, size={}, capacity={}", .{ self.size, CAPACITY });
         return Error.StackOverflow;
     }
@@ -101,6 +102,7 @@ pub fn append_unsafe(self: *Self, value: u256) void {
 /// ```
 pub fn pop(self: *Self) Error!u256 {
     if (self.size == 0) {
+        @branchHint(.cold);
         Log.debug("Stack.pop: Stack underflow, size=0", .{});
         return Error.StackUnderflow;
     }
