@@ -42,3 +42,61 @@ Implement BLS12-381 G1 point addition precompile for EIP-2537 support. This prec
 - [EIP-2537: Precompile for BLS12-381 curve operations](https://eips.ethereum.org/EIPS/eip-2537)
 - [BLS12-381 Curve Specification](https://datatracker.ietf.org/doc/draft-irtf-cfrg-bls-signature/)
 - [BLS12-381 Implementation Guide](https://hackmd.io/@benjaminion/bls12-381)
+
+## Reference Implementations
+
+### geth
+
+<explanation>
+The go-ethereum implementation shows the standard BLS12-381 G1 point addition pattern: constant gas cost (375), strict input validation (256 bytes exactly), point decoding/validation, curve arithmetic using the consensys/gnark-crypto library, and proper encoding of the result. The key insight is that it uses a well-tested external crypto library for the complex elliptic curve operations.
+</explanation>
+
+**Gas Constant** - `/go-ethereum/params/protocol_params.go` (line 157):
+```go
+Bls12381G1AddGas          uint64 = 375   // Price for BLS12-381 elliptic curve G1 point addition
+```
+
+**Precompile Implementation** - `/go-ethereum/core/vm/contracts.go` (lines 763-795):
+```go
+// bls12381G1Add implements EIP-2537 G1Add precompile.
+type bls12381G1Add struct{}
+
+// RequiredGas returns the gas required to execute the pre-compiled contract.
+func (c *bls12381G1Add) RequiredGas(input []byte) uint64 {
+	return params.Bls12381G1AddGas
+}
+
+func (c *bls12381G1Add) Run(input []byte) ([]byte, error) {
+	// Implements EIP-2537 G1Add precompile.
+	// > G1 addition call expects `256` bytes as an input that is interpreted as byte concatenation of two G1 points (`128` bytes each).
+	// > Output is an encoding of addition operation result - single G1 point (`128` bytes).
+	if len(input) != 256 {
+		return nil, errBLS12381InvalidInputLength
+	}
+	var err error
+	var p0, p1 *bls12381.G1Affine
+
+	// Decode G1 point p_0
+	if p0, err = decodePointG1(input[:128]); err != nil {
+		return nil, err
+	}
+	// Decode G1 point p_1
+	if p1, err = decodePointG1(input[128:]); err != nil {
+		return nil, err
+	}
+
+	// No need to check the subgroup here, as specified by EIP-2537
+
+	// Compute r = p_0 + p_1
+	p0.Add(p0, p1)
+
+	// Encode the G1 point result into 128 bytes
+	return encodePointG1(p0), nil
+}
+```
+
+**Import Dependencies** - `/go-ethereum/core/vm/contracts.go` (lines 28-29):
+```go
+"github.com/consensys/gnark-crypto/ecc"
+bls12381 "github.com/consensys/gnark-crypto/ecc/bls12-381"
+```

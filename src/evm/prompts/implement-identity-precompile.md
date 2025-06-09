@@ -48,6 +48,47 @@ ExecutionResult identity_execute(const uint8_t* input, size_t input_size, uint8_
 
 ### revm Reference
 File: `/Users/williamcory/tevm/main/revm/crates/precompile/src/identity.rs:7-8`
+
+### geth
+
+<explanation>
+The go-ethereum implementation shows the standard pattern for identity/dataCopy precompile: straightforward gas calculation (15 + 3 * words) and simple data copying operation using the common.CopyBytes utility function which handles memory allocation and copying.
+</explanation>
+
+**Gas Constants** - `/go-ethereum/params/protocol_params.go` (lines 145-146):
+```go
+IdentityBaseGas     uint64 = 15   // Base price for a data copy operation
+IdentityPerWordGas  uint64 = 3    // Per-work price for a data copy operation
+```
+
+**Precompile Implementation** - `/go-ethereum/core/vm/contracts.go` (lines 334-346):
+```go
+type dataCopy struct{}
+
+// RequiredGas returns the gas required to execute the pre-compiled contract.
+//
+// This method does not require any overflow checking as the input size gas costs
+// required for anything significant is so high it's impossible to pay for.
+func (c *dataCopy) RequiredGas(input []byte) uint64 {
+	return uint64(len(input)+31)/32*params.IdentityPerWordGas + params.IdentityBaseGas
+}
+
+func (c *dataCopy) Run(in []byte) ([]byte, error) {
+	return common.CopyBytes(in), nil
+}
+```
+
+**Usage in Precompile Maps** - `/go-ethereum/core/vm/contracts.go` (lines 55-60):
+```go
+// PrecompiledContractsHomestead contains the default set of pre-compiled Ethereum
+// contracts used in the Frontier and Homestead releases.
+var PrecompiledContractsHomestead = PrecompiledContracts{
+	common.BytesToAddress([]byte{0x1}): &ecrecover{},
+	common.BytesToAddress([]byte{0x2}): &sha256hash{},
+	common.BytesToAddress([]byte{0x3}): &ripemd160hash{},
+	common.BytesToAddress([]byte{0x4}): &dataCopy{},
+}
+```
 ```rust
 pub const FUN: PrecompileWithAddress =
     PrecompileWithAddress(crate::u64_to_address(4), identity_run);

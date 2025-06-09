@@ -47,6 +47,75 @@ RIPEMD160 is a cryptographic hash function that produces a 160-bit (20-byte) has
 
 ## Implementation Approach
 
+### revm
+
+<explanation>
+Revm provides a RIPEMD160 precompile implementation using the ripemd crate. Key patterns:
+
+1. **Linear Gas Calculation**: Uses the same `calc_linear_cost_u32()` helper with base 600 and word cost 120
+2. **External Crypto Library**: Uses the ripemd crate's `Ripemd160` hasher for secure implementation
+3. **Proper Output Formatting**: Important detail - RIPEMD160 produces 20 bytes but Ethereum requires 32 bytes with zero padding
+4. **Memory Management**: Uses `finalize_into()` to write directly to the output buffer at the correct offset
+5. **Error Handling**: Simple OutOfGas check followed by hash computation
+
+The implementation shows the critical detail of left-padding the 20-byte hash to 32 bytes.
+</explanation>
+
+<filename>revm/crates/precompile/src/hash.rs</filename>
+<line start="37" end="49">
+```rust
+pub fn ripemd160_run(input: &[u8], gas_limit: u64) -> PrecompileResult {
+    let gas_used = calc_linear_cost_u32(input.len(), 600, 120);
+    if gas_used > gas_limit {
+        Err(PrecompileError::OutOfGas)
+    } else {
+        let mut hasher = ripemd::Ripemd160::new();
+        hasher.update(input);
+
+        let mut output = [0u8; 32];
+        hasher.finalize_into((&mut output[12..]).into());
+        Ok(PrecompileOutput::new(gas_used, output.to_vec().into()))
+    }
+}
+```
+</line>
+
+### geth
+
+<explanation>
+The go-ethereum implementation demonstrates the RIPEMD160 precompile pattern: gas calculation (600 + 120 * words), using the golang.org/x/crypto/ripemd160 library for hashing, and importantly left-padding the 20-byte hash result to 32 bytes as per Ethereum specification.
+</explanation>
+
+**Gas Constants** - `/go-ethereum/params/protocol_params.go` (lines 143-144):
+```go
+Ripemd160BaseGas    uint64 = 600  // Base price for a RIPEMD160 operation
+Ripemd160PerWordGas uint64 = 120  // Per-word price for a RIPEMD160 operation
+```
+
+**Precompile Implementation** - `/go-ethereum/core/vm/contracts.go` (lines 318-332):
+```go
+type ripemd160hash struct{}
+
+// RequiredGas returns the gas required to execute the pre-compiled contract.
+//
+// This method does not require any overflow checking as the input size gas costs
+// required for anything significant is so high it's impossible to pay for.
+func (c *ripemd160hash) RequiredGas(input []byte) uint64 {
+	return uint64(len(input)+31)/32*params.Ripemd160PerWordGas + params.Ripemd160BaseGas
+}
+
+func (c *ripemd160hash) Run(input []byte) ([]byte, error) {
+	ripemd := ripemd160.New()
+	ripemd.Write(input)
+	return common.LeftPadBytes(ripemd.Sum(nil), 32), nil
+}
+```
+
+**Import Declaration** - `/go-ethereum/core/vm/contracts.go` (line 39):
+```go
+"golang.org/x/crypto/ripemd160"
+```
+
 ### Option 1: Third-Party Zig Implementation
 Search for existing Zig RIPEMD160 implementations or crypto libraries that include it.
 

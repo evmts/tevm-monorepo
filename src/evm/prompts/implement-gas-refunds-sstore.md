@@ -48,6 +48,89 @@ If value != current_value:
     - If original_value == 0:
       - If current_value != 0: -20000 refund (un-creating)
       - If value == 0: +20000 refund (creating again)
+
+## Reference Implementations
+
+### geth
+
+<explanation>
+The go-ethereum implementation shows two distinct SSTORE gas calculation methods: legacy (gasSStore) for pre-Constantinople and EIP-2200 (gasSStoreEIP2200) for modern rules. Key patterns include original vs current state comparison, refund tracking via AddRefund/SubRefund, and reentrancy protection with gas sentry checks.
+</explanation>
+
+**Legacy SSTORE Gas** - `/go-ethereum/core/vm/gas_table.go` (lines 99-125):
+```go
+func gasSStore(evm *EVM, contract *Contract, stack *Stack, mem *Memory, memorySize uint64) (uint64, error) {
+	var (
+		y, x    = stack.Back(1), stack.Back(0)
+		current = evm.StateDB.GetState(contract.Address(), x.Bytes32())
+	)
+	// The legacy gas metering only takes into consideration the current state
+	// Legacy rules should be applied if we are in Petersburg (removal of EIP-1283)
+	// OR Constantinople is not active
+	if evm.chainRules.IsPetersburg || !evm.chainRules.IsConstantinople {
+		// This checks for 3 scenarios and calculates gas accordingly:
+		//
+		// 1. From a zero-value address to a non-zero value         (NEW VALUE)
+		// 2. From a non-zero value address to a zero-value address (DELETE)
+		// 3. From a non-zero to a non-zero                         (CHANGE)
+		switch {
+		case current == (common.Hash{}) && y.Sign() != 0: // 0 => non 0
+			return params.SstoreSetGas, nil
+		case current != (common.Hash{}) && y.Sign() == 0: // non 0 => 0
+			evm.StateDB.AddRefund(params.SstoreRefundGas)
+			return params.SstoreClearGas, nil
+		default: // non 0 => non 0 (or 0 => 0)
+			return params.SstoreResetGas, nil
+		}
+	}
+	// ... (continues with EIP-1283 logic)
+}
+```
+
+**EIP-2200 SSTORE Gas** - `/go-ethereum/core/vm/gas_table.go` (lines 184-215):
+```go
+func gasSStoreEIP2200(evm *EVM, contract *Contract, stack *Stack, mem *Memory, memorySize uint64) (uint64, error) {
+	// If we fail the minimum gas availability invariant, fail (0)
+	if contract.Gas <= params.SstoreSentryGasEIP2200 {
+		return 0, errors.New("not enough gas for reentrancy sentry")
+	}
+	// Gas sentry honoured, do the actual gas calculation based on the stored value
+	var (
+		y, x    = stack.Back(1), stack.Back(0)
+		current = evm.StateDB.GetState(contract.Address(), x.Bytes32())
+	)
+	value := common.Hash(y.Bytes32())
+
+	if current == value { // noop (1)
+		return params.SloadGasEIP2200, nil
+	}
+	original := evm.StateDB.GetCommittedState(contract.Address(), x.Bytes32())
+	if original == current {
+		if original == (common.Hash{}) { // create slot (2.1.1)
+			return params.SstoreSetGasEIP2200, nil
+		}
+		if value == (common.Hash{}) { // delete slot (2.1.2b)
+			evm.StateDB.AddRefund(params.SstoreClearsScheduleRefundEIP2200)
+		}
+		return params.SstoreResetGasEIP2200, nil // write existing slot (2.1.2)
+	}
+	if original != (common.Hash{}) {
+		if current == (common.Hash{}) { // recreate slot (2.2.1.1)
+			evm.StateDB.SubRefund(params.SstoreClearsScheduleRefundEIP2200)
+		} else if value == (common.Hash{}) { // delete slot (2.2.1.2)
+			evm.StateDB.AddRefund(params.SstoreClearsScheduleRefundEIP2200)
+		}
+	}
+	if original == value {
+		if original == (common.Hash{}) { // reset to original inexistent slot (2.2.2.1)
+			evm.StateDB.AddRefund(params.SstoreSetGasEIP2200 - params.SloadGasEIP2200)
+		} else { // reset to original existing slot (2.2.2.2)
+			evm.StateDB.AddRefund(params.SstoreResetGasEIP2200 - params.SloadGasEIP2200)
+		}
+	}
+	return params.SloadGasEIP2200, nil // dirty update (2.2)
+}
+```
     - Otherwise: 2500 gas
 ```
 

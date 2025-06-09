@@ -44,6 +44,86 @@ File: Search for `selfdestruct` in evmone codebase for gas costs and implementat
 ### revm Implementation  
 File: Search for `selfdestruct` in revm codebase for modern EIP-6780 behavior
 
+### geth
+
+<explanation>
+The go-ethereum implementation shows two distinct SELFDESTRUCT implementations: the original (opSelfdestruct) and EIP-6780 version (opSelfdestruct6780). Key patterns include read-only protection, balance transfer logic, state destruction calling, proper tracing, and returning errStopToken to halt execution. The gas calculation handles different hardfork rules and recipient creation costs.
+</explanation>
+
+**Gas Constants** - `/go-ethereum/params/protocol_params.go` (lines 90, 115, 126-129):
+```go
+SelfdestructRefundGas uint64 = 24000 // Refunded following a selfdestruct operation.
+SelfdestructGasEIP150        uint64 = 5000 // Cost of SELFDESTRUCT post EIP 150 (Tangerine)
+// CreateBySelfdestructGas is used when the refunded account is one that does
+// not exist. This logic is similar to call.
+// Comes from EIP161 spec: http://eips.ethereum.org/EIPS/eip-161
+CreateBySelfdestructGas uint64 = 25000
+```
+
+**Original SELFDESTRUCT Implementation** - `/go-ethereum/core/vm/instructions.go` (lines 885-900):
+```go
+func opSelfdestruct(pc *uint64, interpreter *EVMInterpreter, scope *ScopeContext) ([]byte, error) {
+	if interpreter.readOnly {
+		return nil, ErrWriteProtection
+	}
+	beneficiary := scope.Stack.pop()
+	balance := interpreter.evm.StateDB.GetBalance(scope.Contract.Address())
+	interpreter.evm.StateDB.AddBalance(beneficiary.Bytes20(), balance, tracing.BalanceIncreaseSelfdestruct)
+	interpreter.evm.StateDB.SelfDestruct(scope.Contract.Address())
+	if tracer := interpreter.evm.Config.Tracer; tracer != nil {
+		if tracer.OnEnter != nil {
+			tracer.OnEnter(interpreter.evm.depth, byte(SELFDESTRUCT), scope.Contract.Address(), beneficiary.Bytes20(), []byte{}, 0, balance.ToBig())
+		}
+		if tracer.OnExit != nil {
+			tracer.OnExit(interpreter.evm.depth, []byte{}, 0, nil, false)
+		}
+	}
+	return nil, errStopToken
+}
+```
+
+**EIP-6780 SELFDESTRUCT Implementation** - `/go-ethereum/core/vm/instructions.go` (lines 904-920):
+```go
+func opSelfdestruct6780(pc *uint64, interpreter *EVMInterpreter, scope *ScopeContext) ([]byte, error) {
+	if interpreter.readOnly {
+		return nil, ErrWriteProtection
+	}
+	beneficiary := scope.Stack.pop()
+	balance := interpreter.evm.StateDB.GetBalance(scope.Contract.Address())
+	interpreter.evm.StateDB.SubBalance(scope.Contract.Address(), balance, tracing.BalanceDecreaseSelfdestruct)
+	interpreter.evm.StateDB.AddBalance(beneficiary.Bytes20(), balance, tracing.BalanceIncreaseSelfdestruct)
+	interpreter.evm.StateDB.SelfDestruct6780(scope.Contract.Address())
+	// ... tracing code similar to original
+	return nil, errStopToken
+}
+```
+
+**Gas Calculation** - `/go-ethereum/core/vm/gas_table.go` (lines 466-485):
+```go
+func gasSelfdestruct(evm *EVM, contract *Contract, stack *Stack, mem *Memory, memorySize uint64) (uint64, error) {
+	var gas uint64
+	// EIP150 homestead gas reprice fork:
+	if evm.chainRules.IsEIP150 {
+		gas = params.SelfdestructGasEIP150
+		var address = common.Address(stack.Back(0).Bytes20())
+
+		if evm.chainRules.IsEIP158 {
+			// if empty and transfers value
+			if evm.StateDB.Empty(address) && evm.StateDB.GetBalance(contract.Address()).Sign() != 0 {
+				gas += params.CreateBySelfdestructGas
+			}
+		} else if !evm.StateDB.Exist(address) {
+			gas += params.CreateBySelfdestructGas
+		}
+	}
+
+	if !evm.StateDB.HasSelfDestructed(contract.Address()) {
+		evm.StateDB.AddRefund(params.SelfdestructRefundGas)
+	}
+	return gas, nil
+}
+```
+
 ## Implementation Requirements
 
 ### Core Functionality
