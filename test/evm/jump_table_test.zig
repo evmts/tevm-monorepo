@@ -31,7 +31,7 @@ test "JumpTable initialization and validation" {
 
     // Check that all entries are initially null
     for (0..256) |i| {
-        try std.testing.expectEqual(@as(?*const Operation, null), jt.table[i]);
+        try std.testing.expectEqual(@as(?*const Operation.Operation, null), jt.table[i]);
     }
 
     // Validate should fill all nulls with UNDEFINED
