@@ -241,6 +241,18 @@ pub const TLoadGas: u64 = 100;
 /// Same cost as TLOAD, much cheaper than persistent storage
 pub const TStoreGas: u64 = 100;
 
+// ============================================================================
+// Precompile Gas Costs
+// ============================================================================
+
+/// SHA256 precompile base gas cost
+/// This is the fixed cost regardless of input size
+pub const SHA256_BASE_COST: u64 = 60;
+
+/// SHA256 precompile gas cost per 32-byte word
+/// Total cost = SHA256_BASE_COST + (word_count * SHA256_WORD_COST)
+pub const SHA256_WORD_COST: u64 = 12;
+
 /// Calculate memory expansion gas cost
 /// 
 /// Computes the gas cost for expanding EVM memory from current_size to new_size bytes.

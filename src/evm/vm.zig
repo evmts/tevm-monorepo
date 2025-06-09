@@ -22,6 +22,7 @@ pub const CreateResult = @import("create_result.zig");
 pub const CallResult = @import("call_result.zig");
 pub const RunResult = @import("run_result.zig");
 const Hardfork = @import("hardforks/hardfork.zig").Hardfork;
+const precompiles = @import("precompiles/package.zig");
 
 /// Virtual Machine for executing Ethereum bytecode.
 ///
@@ -355,18 +356,68 @@ pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_
 pub const CallContractError = std.mem.Allocator.Error;
 
 /// Execute a CALL operation to another contract.
-/// NOT IMPLEMENTED - always returns failure.
-/// TODO: Implement value transfer, gas calculation, recursive execution, and return data handling.
+/// 
+/// Handles both precompile execution and regular contract calls.
+/// Precompiles are detected by address and executed immediately.
+/// Regular contract calls are still TODO.
 pub fn call_contract(self: *Self, caller: Address.Address, to: Address.Address, value: u256, input: []const u8, gas: u64, is_static: bool) CallContractError!CallResult {
-    @branchHint(.likely);
-    _ = self;
     _ = caller;
-    _ = to;
-    _ = value;
-    _ = input;
-    _ = gas;
+    _ = value; // TODO: Handle value transfer for non-precompiles
+    
+    // Check if target address is a precompile
+    if (precompiles.is_precompile(to)) {
+        return try self.execute_precompile(to, input, gas);
+    }
+    
+    // Regular contract call - still not implemented
     _ = is_static;
     return CallResult{ .success = false, .gas_left = 0, .output = null };
+}
+
+/// Execute a precompile contract
+/// 
+/// Internal method that handles precompile execution with proper gas accounting
+/// and return data management.
+fn execute_precompile(self: *Self, address: [20]u8, input: []const u8, gas: u64) CallContractError!CallResult {
+    // Convert hardfork to precompile hardfork enum
+    // TODO: Use actual hardfork from chain rules when available
+    const hardfork = .frontier; // Fallback to frontier for now
+    
+    // Allocate output buffer (precompiles have known max output sizes)
+    // SHA256 outputs 32 bytes, allocate a reasonable buffer
+    var output_buffer = try self.allocator.alloc(u8, 256);
+    defer self.allocator.free(output_buffer);
+    
+    // Execute the precompile
+    const result = precompiles.execute_precompile(address, input, output_buffer, gas, hardfork);
+    
+    switch (result) {
+        .success => |success_result| {
+            // Allocate return data
+            const return_data = try self.allocator.alloc(u8, success_result.output_size);
+            @memcpy(return_data, output_buffer[0..success_result.output_size]);
+            
+            // Update VM return data
+            if (self.return_data.len > 0) {
+                self.allocator.free(self.return_data);
+            }
+            self.return_data = return_data;
+            
+            return CallResult{
+                .success = true,
+                .gas_left = gas - success_result.gas_used,
+                .output = return_data,
+            };
+        },
+        .failure => |err| {
+            Log.debug("Precompile execution failed: {}", .{err});
+            return CallResult{
+                .success = false,
+                .gas_left = 0,
+                .output = null,
+            };
+        },
+    }
 }
 
 pub const ConsumeGasError = ExecutionError.Error;
