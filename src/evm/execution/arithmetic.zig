@@ -87,7 +87,10 @@ pub fn op_add(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     _ = interpreter;
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    if (frame.stack.size < 2) unreachable;
+    if (frame.stack.size < 2) {
+        @branchHint(.cold);
+        unreachable;
+    }
 
     const b = frame.stack.pop_unsafe();
     const a = frame.stack.peek_unsafe().*;
@@ -128,7 +131,10 @@ pub fn op_mul(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     _ = interpreter;
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    if (frame.stack.size < 2) unreachable;
+    if (frame.stack.size < 2) {
+        @branchHint(.cold);
+        unreachable;
+    }
 
     const b = frame.stack.pop_unsafe();
     const a = frame.stack.peek_unsafe().*;
@@ -168,7 +174,10 @@ pub fn op_sub(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     _ = interpreter;
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    if (frame.stack.size < 2) unreachable;
+    if (frame.stack.size < 2) {
+        @branchHint(.cold);
+        unreachable;
+    }
 
     const b = frame.stack.pop_unsafe();
     const a = frame.stack.peek_unsafe().*;
@@ -216,12 +225,18 @@ pub fn op_div(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     _ = interpreter;
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    if (frame.stack.size < 2) unreachable;
+    if (frame.stack.size < 2) {
+        @branchHint(.cold);
+        unreachable;
+    }
 
     const b = frame.stack.pop_unsafe();
     const a = frame.stack.peek_unsafe().*;
 
-    const result = if (b == 0) 0 else a / b;
+    const result = if (b == 0) blk: {
+        @branchHint(.unlikely);
+        break :blk 0;
+    } else a / b;
 
     frame.stack.set_top_unsafe(result);
 
@@ -267,19 +282,24 @@ pub fn op_sdiv(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     _ = interpreter;
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    if (frame.stack.size < 2) unreachable;
+    if (frame.stack.size < 2) {
+        @branchHint(.cold);
+        unreachable;
+    }
 
     const b = frame.stack.pop_unsafe();
     const a = frame.stack.peek_unsafe().*;
 
     var result: u256 = undefined;
     if (b == 0) {
+        @branchHint(.unlikely);
         result = 0;
     } else {
         const a_i256 = @as(i256, @bitCast(a));
         const b_i256 = @as(i256, @bitCast(b));
         const min_i256 = @as(i256, 1) << 255;
         if (a_i256 == min_i256 and b_i256 == -1) {
+            @branchHint(.unlikely);
             result = @as(u256, @bitCast(min_i256));
         } else {
             const result_i256 = @divTrunc(a_i256, b_i256);
@@ -327,12 +347,18 @@ pub fn op_mod(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     _ = interpreter;
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    if (frame.stack.size < 2) unreachable;
+    if (frame.stack.size < 2) {
+        @branchHint(.cold);
+        unreachable;
+    }
 
     const b = frame.stack.pop_unsafe();
     const a = frame.stack.peek_unsafe().*;
 
-    const result = if (b == 0) 0 else a % b;
+    const result = if (b == 0) blk: {
+        @branchHint(.unlikely);
+        break :blk 0;
+    } else a % b;
 
     frame.stack.set_top_unsafe(result);
 
@@ -378,13 +404,17 @@ pub fn op_smod(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     _ = interpreter;
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    if (frame.stack.size < 2) unreachable;
+    if (frame.stack.size < 2) {
+        @branchHint(.cold);
+        unreachable;
+    }
 
     const b = frame.stack.pop_unsafe();
     const a = frame.stack.peek_unsafe().*;
 
     var result: u256 = undefined;
     if (b == 0) {
+        @branchHint(.unlikely);
         result = 0;
     } else {
         const a_i256 = @as(i256, @bitCast(a));
@@ -437,7 +467,10 @@ pub fn op_addmod(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     _ = interpreter;
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    if (frame.stack.size < 3) unreachable;
+    if (frame.stack.size < 3) {
+        @branchHint(.cold);
+        unreachable;
+    }
 
     const n = frame.stack.pop_unsafe();
     const b = frame.stack.pop_unsafe();
@@ -504,7 +537,10 @@ pub fn op_mulmod(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     _ = interpreter;
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    if (frame.stack.size < 3) unreachable;
+    if (frame.stack.size < 3) {
+        @branchHint(.cold);
+        unreachable;
+    }
 
     const n = frame.stack.pop_unsafe();
     const b = frame.stack.pop_unsafe();
@@ -591,7 +627,10 @@ pub fn op_exp(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
     _ = vm;
 
-    if (frame.stack.size < 2) unreachable;
+    if (frame.stack.size < 2) {
+        @branchHint(.cold);
+        unreachable;
+    }
 
     const exp = frame.stack.pop_unsafe();
     const base = frame.stack.peek_unsafe().*;
@@ -602,6 +641,7 @@ pub fn op_exp(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
         byte_size += 1;
     }
     if (byte_size > 0) {
+        @branchHint(.likely);
         const gas_cost = 50 * byte_size;
         try frame.consume_gas(gas_cost);
     }
@@ -669,7 +709,10 @@ pub fn op_signextend(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    if (frame.stack.size < 2) unreachable;
+    if (frame.stack.size < 2) {
+        @branchHint(.cold);
+        unreachable;
+    }
 
     const byte_num = frame.stack.pop_unsafe();
     const x = frame.stack.peek_unsafe().*;
@@ -677,6 +720,7 @@ pub fn op_signextend(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
     var result: u256 = undefined;
 
     if (byte_num >= 31) {
+        @branchHint(.unlikely);
         result = x;
     } else {
         const byte_index = @as(u8, @intCast(byte_num));
