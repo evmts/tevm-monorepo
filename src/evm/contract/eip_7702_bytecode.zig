@@ -30,7 +30,7 @@ pub const EIP7702_MAGIC_BYTES = [2]u8{ 0xE7, 0x02 };
 /// 
 /// When the EVM encounters this bytecode format, it executes the code at the
 /// specified contract address in the context of the EOA.
-const Self = @This();
+const Eip7702Bytecode = @This();
 
 /// The contract address that this EOA delegates execution to
 address: Address.Address,
@@ -48,7 +48,7 @@ address: Address.Address,
 /// const delegate_address = Address.from_hex("0x742d35Cc6634C0532925a3b844Bc9e7595f62d3c");
 /// const bytecode = EIP7702Bytecode.new(delegate_address);
 /// ```
-pub fn new(address: Address.Address) Self {
+pub fn new(address: Address.Address) Eip7702Bytecode {
     return .{ .address = address };
 }
 
@@ -72,12 +72,12 @@ pub fn new(address: Address.Address) Self {
 /// const raw_bytecode = &[_]u8{0xE7, 0x02} ++ address_bytes;
 /// const bytecode = try EIP7702Bytecode.new_raw(raw_bytecode);
 /// ```
-pub fn new_raw(bytes: []const u8) !Self {
+pub fn new_raw(bytes: []const u8) !Eip7702Bytecode {
     var address: Address.Address = undefined;
     if (bytes.len > 20) {
         @memcpy(&address, bytes[2..22]);
     }
-    return Self.new(address);
+    return Eip7702Bytecode.new(address);
 }
 
 /// Returns the raw bytecode representation
@@ -95,7 +95,7 @@ pub fn new_raw(bytes: []const u8) !Self {
 /// This function should be implemented to return:
 /// - Bytes 0-1: EIP7702_MAGIC_BYTES
 /// - Bytes 2-21: The delegation address
-pub fn raw(self: *const Self) []const u8 {
+pub fn raw(self: *const Eip7702Bytecode) []const u8 {
     _ = self;
     return &[_]u8{};
 }
