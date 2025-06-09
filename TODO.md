@@ -30,10 +30,10 @@ Based on expert advice and Zig language standards, here's the systematic checkli
 - [x] `src/evm/contract/storage_pool.zig` ✅ Removed Self alias, used explicit type names
 
 ### Execution - Opcode Implementations (15 files)
-- [ ] `src/evm/execution/arithmetic.zig`
-- [ ] `src/evm/execution/bitwise.zig`
-- [ ] `src/evm/execution/block.zig`
-- [ ] `src/evm/execution/comparison.zig`
+- [x] `src/evm/execution/arithmetic.zig` ✅ Added conservative branch hints
+- [x] `src/evm/execution/bitwise.zig` ✅ Added conservative branch hints
+- [x] `src/evm/execution/block.zig` ✅ Added branch hints, fixed formatting
+- [x] `src/evm/execution/comparison.zig` ✅ Added conservative branch hints
 - [ ] `src/evm/execution/control.zig`
 - [ ] `src/evm/execution/crypto.zig`
 - [ ] `src/evm/execution/environment.zig`
@@ -92,8 +92,8 @@ Based on expert advice and Zig language standards, here's the systematic checkli
 ## Total: 53 files to audit
 
 ## Progress Summary
-- **Completed**: 18 files ✅
-- **Remaining**: 35 files
+- **Completed**: 22 files ✅
+- **Remaining**: 31 files
 
 ## Process for Each File
 1. **Read file** and understand current structure
