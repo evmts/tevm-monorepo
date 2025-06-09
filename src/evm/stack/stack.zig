@@ -40,10 +40,6 @@ pub const Error = error{
     StackOverflow,
     /// Attempted to pop from empty stack
     StackUnderflow,
-    /// Index out of valid range
-    StackUnderflow,
-    /// Invalid position for DUP/SWAP (must be 1-16)
-    StackUnderflow,
 };
 
 /// Stack storage aligned to 32-byte boundaries.

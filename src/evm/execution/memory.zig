@@ -5,10 +5,6 @@ const Stack = @import("../stack/stack.zig");
 const Frame = @import("../frame.zig");
 const Memory = @import("../memory.zig");
 const gas_constants = @import("../constants/gas_constants.zig");
-const error_mapping = @import("../error_mapping.zig");
-
-// Import helper functions from error_mapping for operations we can't optimize
-const map_memory_error = error_mapping.map_memory_error;
 
 // Helper to check if u256 fits in usize
 fn check_offset_bounds(value: u256) ExecutionError.Error!void {
@@ -38,10 +34,10 @@ pub fn op_mload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     try frame.consume_gas(gas_cost);
 
     // Ensure memory is available
-    _ = frame.memory.ensure_context_capacity(offset_usize + 32) catch |err| return map_memory_error(err);
+    _ = try frame.memory.ensure_context_capacity(offset_usize + 32);
 
     // Read 32 bytes from memory
-    const value = frame.memory.get_u256(offset_usize) catch |err| return map_memory_error(err);
+    const value = try frame.memory.get_u256(offset_usize);
 
     // Replace top of stack with loaded value unsafely - bounds checking is done in jump_table.zig
     frame.stack.set_top_unsafe(value);
@@ -75,10 +71,18 @@ pub fn op_mstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     try frame.consume_gas(expansion_gas_cost);
 
     // Ensure memory is available
-    try error_mapping.memory_ensure_capacity(&frame.memory, offset_usize + 32);
+    _ = try frame.memory.ensure_context_capacity(offset_usize + 32);
 
     // Write 32 bytes to memory (big-endian)
-    try error_mapping.memory_set_u256(&frame.memory, offset_usize, value);
+    var bytes: [32]u8 = undefined;
+    // Convert u256 to big-endian bytes
+    var temp = value;
+    var i: usize = 0;
+    while (i < 32) : (i += 1) {
+        bytes[31 - i] = @intCast(temp & 0xFF);
+        temp = temp >> 8;
+    }
+    try frame.memory.set_data(offset_usize, &bytes);
 
     return Operation.ExecutionResult{};
 }
@@ -109,11 +113,12 @@ pub fn op_mstore8(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
 
     // Ensure memory is available - expand to word boundary to match gas calculation
     const word_aligned_size = ((new_size + 31) / 32) * 32;
-    try error_mapping.memory_ensure_capacity(&frame.memory, word_aligned_size);
+    _ = try frame.memory.ensure_context_capacity(word_aligned_size);
 
     // Write single byte to memory
     const byte_value = @as(u8, @truncate(value));
-    try error_mapping.memory_set_byte(&frame.memory, offset_usize, byte_value);
+    const bytes = [_]u8{byte_value};
+    try frame.memory.set_data(offset_usize, &bytes);
 
     return Operation.ExecutionResult{};
 }
@@ -170,10 +175,17 @@ pub fn op_mcopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     try frame.consume_gas(gas_constants.CopyGas * word_size);
 
     // Ensure memory is available for both source and destination
-    try error_mapping.memory_ensure_capacity(&frame.memory, max_addr);
+    _ = try frame.memory.ensure_context_capacity(max_addr);
 
     // Copy with overlap handling
-    try error_mapping.memory_copy_within(&frame.memory, src_usize, dest_usize, size_usize);
+    // Get memory slice and handle overlapping copy
+    const mem_slice = frame.memory.slice();
+    if (mem_slice.len >= max_addr) {
+        // Use memmove for overlapping regions
+        std.mem.copyForwards(u8, mem_slice[dest_usize..dest_usize + size_usize], mem_slice[src_usize..src_usize + size_usize]);
+    } else {
+        return ExecutionError.Error.OutOfOffset;
+    }
 
     return Operation.ExecutionResult{};
 }
@@ -261,10 +273,10 @@ pub fn op_calldatacopy(pc: usize, interpreter: *Operation.Interpreter, state: *O
     try frame.consume_gas(gas_constants.CopyGas * word_size);
 
     // Ensure memory is available
-    _ = frame.memory.ensure_context_capacity(mem_offset_usize + size_usize) catch |err| return map_memory_error(err);
+    _ = try frame.memory.ensure_context_capacity(mem_offset_usize + size_usize);
 
     // Copy calldata to memory
-    frame.memory.set_data_bounded(mem_offset_usize, frame.input, data_offset_usize, size_usize) catch |err| return map_memory_error(err);
+    try frame.memory.set_data_bounded(mem_offset_usize, frame.input, data_offset_usize, size_usize);
 
     return Operation.ExecutionResult{};
 }
@@ -316,10 +328,10 @@ pub fn op_codecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     try frame.consume_gas(gas_constants.CopyGas * word_size);
 
     // Ensure memory is available
-    _ = frame.memory.ensure_context_capacity(mem_offset_usize + size_usize) catch |err| return map_memory_error(err);
+    _ = try frame.memory.ensure_context_capacity(mem_offset_usize + size_usize);
 
     // Copy code to memory
-    frame.memory.set_data_bounded(mem_offset_usize, frame.contract.code, code_offset_usize, size_usize) catch |err| return map_memory_error(err);
+    try frame.memory.set_data_bounded(mem_offset_usize, frame.contract.code, code_offset_usize, size_usize);
 
     return Operation.ExecutionResult{};
 }
@@ -374,10 +386,10 @@ pub fn op_returndatacopy(pc: usize, interpreter: *Operation.Interpreter, state: 
     try frame.consume_gas(gas_constants.CopyGas * word_size);
 
     // Ensure memory is available
-    _ = frame.memory.ensure_context_capacity(mem_offset_usize + size_usize) catch |err| return map_memory_error(err);
+    _ = try frame.memory.ensure_context_capacity(mem_offset_usize + size_usize);
 
     // Copy return data to memory
-    frame.memory.set_data(mem_offset_usize, frame.return_data_buffer[data_offset_usize .. data_offset_usize + size_usize]) catch |err| return map_memory_error(err);
+    try frame.memory.set_data(mem_offset_usize, frame.return_data_buffer[data_offset_usize .. data_offset_usize + size_usize]);
 
     return Operation.ExecutionResult{};
 }

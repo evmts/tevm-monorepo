@@ -4,12 +4,6 @@ const ExecutionError = @import("execution_error.zig");
 const Stack = @import("../stack/stack.zig");
 const Frame = @import("../frame.zig");
 const Vm = @import("../vm.zig");
-const error_mapping = @import("../error_mapping.zig");
-
-// Import helper functions from error_mapping
-const stack_pop = error_mapping.stack_pop;
-const stack_push = error_mapping.stack_push;
-const map_memory_error = error_mapping.map_memory_error;
 
 pub fn op_sha3(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
@@ -17,8 +11,8 @@ pub fn op_sha3(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
-    const offset = try stack_pop(&frame.stack);
-    const size = try stack_pop(&frame.stack);
+    const offset = try frame.stack.pop();
+    const size = try frame.stack.pop();
 
     // Check bounds before anything else
     if (offset > std.math.maxInt(usize) or size > std.math.maxInt(usize)) return ExecutionError.Error.OutOfOffset;
@@ -33,7 +27,7 @@ pub fn op_sha3(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
         }
         // Hash of empty data = keccak256("")
         const empty_hash: u256 = 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470;
-        try stack_push(&frame.stack, empty_hash);
+        try frame.stack.append( empty_hash);
         return Operation.ExecutionResult{};
     }
 
@@ -56,10 +50,10 @@ pub fn op_sha3(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     try frame.consume_gas(gas_cost);
 
     // Ensure memory is available
-    _ = frame.memory.ensure_context_capacity(offset_usize + size_usize) catch |err| return map_memory_error(err);
+    _ = try frame.memory.ensure_context_capacity(offset_usize + size_usize);
 
     // Get data and hash
-    const data = frame.memory.get_slice(offset_usize, size_usize) catch |err| return map_memory_error(err);
+    const data = try frame.memory.get_slice(offset_usize, size_usize);
 
     // Calculate keccak256 hash
     var hash: [32]u8 = undefined;
@@ -73,7 +67,7 @@ pub fn op_sha3(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
         result = (result << 8) | byte;
     }
 
-    try stack_push(&frame.stack, result);
+    try frame.stack.append(result);
 
     return Operation.ExecutionResult{};
 }

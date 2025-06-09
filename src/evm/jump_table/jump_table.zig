@@ -211,7 +211,6 @@ pub fn copy(self: *const Self, allocator: std.mem.Allocator) !Self {
 pub fn init_from_hardfork(hardfork: Hardfork) Self {
     @setEvalBranchQuota(10000);
     var jt = Self.init();
-
     // With ALL_OPERATIONS sorted by hardfork, we can iterate once.
     // Each opcode will be set to the latest active version for the target hardfork.
     inline for (operation_config.ALL_OPERATIONS) |spec| {
@@ -223,9 +222,6 @@ pub fn init_from_hardfork(hardfork: Hardfork) Self {
             jt.table[spec.opcode] = &op.operation;
         }
     }
-
-    // Dynamic operations are still generated inline
-
     // 0x60s & 0x70s: Push operations
     inline for (0..32) |i| {
         const n = i + 1;
@@ -236,7 +232,6 @@ pub fn init_from_hardfork(hardfork: Hardfork) Self {
             .max_stack = Stack.CAPACITY - 1,
         };
     }
-
     // 0x80s: Duplication Operations
     inline for (1..17) |n| {
         jt.table[0x80 + n - 1] = &Operation{
@@ -246,7 +241,6 @@ pub fn init_from_hardfork(hardfork: Hardfork) Self {
             .max_stack = Stack.CAPACITY - 1,
         };
     }
-
     // 0x90s: Exchange Operations
     inline for (1..17) |n| {
         jt.table[0x90 + n - 1] = &Operation{
@@ -256,7 +250,6 @@ pub fn init_from_hardfork(hardfork: Hardfork) Self {
             .max_stack = Stack.CAPACITY,
         };
     }
-
     // 0xa0s: Logging Operations
     inline for (0..5) |n| {
         jt.table[0xa0 + n] = &Operation{
@@ -266,8 +259,6 @@ pub fn init_from_hardfork(hardfork: Hardfork) Self {
             .max_stack = Stack.CAPACITY,
         };
     }
-
     jt.validate();
-
     return jt;
 }

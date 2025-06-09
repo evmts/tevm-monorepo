@@ -10,12 +10,8 @@ const to_u256 = Address.to_u256;
 const from_u256 = Address.from_u256;
 const gas_constants = @import("../constants/gas_constants.zig");
 const AccessList = @import("../access_list/access_list.zig").AccessList;
-const error_mapping = @import("../error_mapping.zig");
 
 // Import helper functions from error_mapping
-const stack_pop = error_mapping.stack_pop;
-const stack_push = error_mapping.stack_push;
-const map_memory_error = error_mapping.map_memory_error;
 
 // Gas opcode handler
 pub fn gas_op(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
@@ -24,7 +20,7 @@ pub fn gas_op(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    try stack_push(&frame.stack, @as(u256, @intCast(frame.gas_remaining)));
+    try frame.stack.append( @as(u256, @intCast(frame.gas_remaining)));
 
     return Operation.ExecutionResult{};
 }
@@ -43,15 +39,15 @@ pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     // Check if we're in a static call
     if (frame.is_static) return ExecutionError.Error.WriteProtection;
 
-    const value = try stack_pop(&frame.stack);
-    const offset = try stack_pop(&frame.stack);
-    const size = try stack_pop(&frame.stack);
+    const value = try frame.stack.pop();
+    const offset = try frame.stack.pop();
+    const size = try frame.stack.pop();
 
     // Debug: CREATE opcode: value, offset, size
 
     // Check depth
     if (frame.depth >= 1024) {
-        try stack_push(&frame.stack, 0);
+        try frame.stack.append( 0);
         return Operation.ExecutionResult{};
     }
 
@@ -74,8 +70,8 @@ pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
         try frame.consume_gas(memory_gas);
 
         // Ensure memory is available and get the slice
-        _ = frame.memory.ensure_context_capacity(offset_usize + size_usize) catch |err| return map_memory_error(err);
-        init_code = frame.memory.get_slice(offset_usize, size_usize) catch |err| return map_memory_error(err);
+        _ = try frame.memory.ensure_context_capacity(offset_usize + size_usize);
+        init_code = try frame.memory.get_slice(offset_usize, size_usize);
     }
 
     // Calculate gas for creation
@@ -98,14 +94,14 @@ pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     frame.gas_remaining = frame.gas_remaining / 64 + result.gas_left;
 
     if (!result.success) {
-        try stack_push(&frame.stack, 0);
+        try frame.stack.append( 0);
         frame.return_data_buffer = result.output orelse &[_]u8{};
         return Operation.ExecutionResult{};
     }
 
     // EIP-2929: Mark the newly created address as warm
     _ = try vm.access_list.access_address(result.address);
-    try stack_push(&frame.stack, to_u256(result.address));
+    try frame.stack.append( to_u256(result.address));
 
     // Set return data
     frame.return_data_buffer = result.output orelse &[_]u8{};
@@ -122,13 +118,13 @@ pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
 
     if (frame.is_static) return ExecutionError.Error.WriteProtection;
 
-    const value = try stack_pop(&frame.stack);
-    const offset = try stack_pop(&frame.stack);
-    const size = try stack_pop(&frame.stack);
-    const salt = try stack_pop(&frame.stack);
+    const value = try frame.stack.pop();
+    const offset = try frame.stack.pop();
+    const size = try frame.stack.pop();
+    const salt = try frame.stack.pop();
 
     if (frame.depth >= 1024) {
-        try stack_push(&frame.stack, 0);
+        try frame.stack.append( 0);
         return Operation.ExecutionResult{};
     }
 
@@ -151,8 +147,8 @@ pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
         try frame.consume_gas(memory_gas);
 
         // Ensure memory is available and get the slice
-        _ = frame.memory.ensure_context_capacity(offset_usize + size_usize) catch |err| return map_memory_error(err);
-        init_code = frame.memory.get_slice(offset_usize, size_usize) catch |err| return map_memory_error(err);
+        _ = try frame.memory.ensure_context_capacity(offset_usize + size_usize);
+        init_code = try frame.memory.get_slice(offset_usize, size_usize);
     }
 
     const init_code_cost = @as(u64, @intCast(init_code.len)) * gas_constants.CreateDataGas;
@@ -175,14 +171,14 @@ pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     frame.gas_remaining = frame.gas_remaining / 64 + result.gas_left;
 
     if (!result.success) {
-        try stack_push(&frame.stack, 0);
+        try frame.stack.append( 0);
         frame.return_data_buffer = result.output orelse &[_]u8{};
         return Operation.ExecutionResult{};
     }
 
     // EIP-2929: Mark the newly created address as warm
     _ = try vm.access_list.access_address(result.address);
-    try stack_push(&frame.stack, to_u256(result.address));
+    try frame.stack.append( to_u256(result.address));
 
     // Set return data
     frame.return_data_buffer = result.output orelse &[_]u8{};
@@ -196,17 +192,17 @@ pub fn op_call(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
-    const gas = try stack_pop(&frame.stack);
-    const to = try stack_pop(&frame.stack);
-    const value = try stack_pop(&frame.stack);
-    const args_offset = try stack_pop(&frame.stack);
-    const args_size = try stack_pop(&frame.stack);
-    const ret_offset = try stack_pop(&frame.stack);
-    const ret_size = try stack_pop(&frame.stack);
+    const gas = try frame.stack.pop();
+    const to = try frame.stack.pop();
+    const value = try frame.stack.pop();
+    const args_offset = try frame.stack.pop();
+    const args_size = try frame.stack.pop();
+    const ret_offset = try frame.stack.pop();
+    const ret_size = try frame.stack.pop();
 
     // Check depth
     if (frame.depth >= 1024) {
-        try stack_push(&frame.stack, 0);
+        try frame.stack.append( 0);
         return Operation.ExecutionResult{};
     }
 
@@ -221,8 +217,8 @@ pub fn op_call(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
         // Check that offset + size doesn't overflow usize
         if (args_offset_usize > std.math.maxInt(usize) - args_size_usize) return ExecutionError.Error.InvalidOffset;
 
-        _ = frame.memory.ensure_context_capacity(args_offset_usize + args_size_usize) catch |err| return map_memory_error(err);
-        args = frame.memory.get_slice(args_offset_usize, args_size_usize) catch |err| return map_memory_error(err);
+        _ = try frame.memory.ensure_context_capacity(args_offset_usize + args_size_usize);
+        args = try frame.memory.get_slice(args_offset_usize, args_size_usize);
     }
 
     // Ensure return memory
@@ -235,7 +231,7 @@ pub fn op_call(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
         // Check that offset + size doesn't overflow usize
         if (ret_offset_usize > std.math.maxInt(usize) - ret_size_usize) return ExecutionError.Error.InvalidOffset;
 
-        _ = frame.memory.ensure_context_capacity(ret_offset_usize + ret_size_usize) catch |err| return map_memory_error(err);
+        _ = try frame.memory.ensure_context_capacity(ret_offset_usize + ret_size_usize);
     }
 
     if (frame.is_static and value != 0) return ExecutionError.Error.WriteProtection;
@@ -282,7 +278,7 @@ pub fn op_call(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     frame.return_data_buffer = result.output orelse &[_]u8{};
 
     // Push success status
-    try stack_push(&frame.stack, if (result.success) 1 else 0);
+    try frame.stack.append( if (result.success) 1 else 0);
 
     return Operation.ExecutionResult{};
 }
@@ -293,17 +289,17 @@ pub fn op_callcode(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
-    const gas = try stack_pop(&frame.stack);
-    const to = try stack_pop(&frame.stack);
-    const value = try stack_pop(&frame.stack);
-    const args_offset = try stack_pop(&frame.stack);
-    const args_size = try stack_pop(&frame.stack);
-    const ret_offset = try stack_pop(&frame.stack);
-    const ret_size = try stack_pop(&frame.stack);
+    const gas = try frame.stack.pop();
+    const to = try frame.stack.pop();
+    const value = try frame.stack.pop();
+    const args_offset = try frame.stack.pop();
+    const args_size = try frame.stack.pop();
+    const ret_offset = try frame.stack.pop();
+    const ret_size = try frame.stack.pop();
 
     // Check depth
     if (frame.depth >= 1024) {
-        try stack_push(&frame.stack, 0);
+        try frame.stack.append( 0);
         return Operation.ExecutionResult{};
     }
 
@@ -316,8 +312,8 @@ pub fn op_callcode(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
         const args_offset_usize = @as(usize, @intCast(args_offset));
         const args_size_usize = @as(usize, @intCast(args_size));
 
-        _ = frame.memory.ensure_context_capacity(args_offset_usize + args_size_usize) catch |err| return map_memory_error(err);
-        args = frame.memory.get_slice(args_offset_usize, args_size_usize) catch |err| return map_memory_error(err);
+        _ = try frame.memory.ensure_context_capacity(args_offset_usize + args_size_usize);
+        args = try frame.memory.get_slice(args_offset_usize, args_size_usize);
     }
 
     // Ensure return memory
@@ -328,7 +324,7 @@ pub fn op_callcode(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
         const ret_offset_usize = @as(usize, @intCast(ret_offset));
         const ret_size_usize = @as(usize, @intCast(ret_size));
 
-        _ = frame.memory.ensure_context_capacity(ret_offset_usize + ret_size_usize) catch |err| return map_memory_error(err);
+        _ = try frame.memory.ensure_context_capacity(ret_offset_usize + ret_size_usize);
     }
 
     // Convert to address
@@ -377,7 +373,7 @@ pub fn op_callcode(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     frame.return_data_buffer = result.output orelse &[_]u8{};
 
     // Push success status
-    try stack_push(&frame.stack, if (result.success) 1 else 0);
+    try frame.stack.append( if (result.success) 1 else 0);
 
     return Operation.ExecutionResult{};
 }
@@ -388,16 +384,16 @@ pub fn op_delegatecall(pc: usize, interpreter: *Operation.Interpreter, state: *O
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
-    const gas = try stack_pop(&frame.stack);
-    const to = try stack_pop(&frame.stack);
-    const args_offset = try stack_pop(&frame.stack);
-    const args_size = try stack_pop(&frame.stack);
-    const ret_offset = try stack_pop(&frame.stack);
-    const ret_size = try stack_pop(&frame.stack);
+    const gas = try frame.stack.pop();
+    const to = try frame.stack.pop();
+    const args_offset = try frame.stack.pop();
+    const args_size = try frame.stack.pop();
+    const ret_offset = try frame.stack.pop();
+    const ret_size = try frame.stack.pop();
 
     // Check depth
     if (frame.depth >= 1024) {
-        try stack_push(&frame.stack, 0);
+        try frame.stack.append( 0);
         return Operation.ExecutionResult{};
     }
 
@@ -410,8 +406,8 @@ pub fn op_delegatecall(pc: usize, interpreter: *Operation.Interpreter, state: *O
         const args_offset_usize = @as(usize, @intCast(args_offset));
         const args_size_usize = @as(usize, @intCast(args_size));
 
-        _ = frame.memory.ensure_context_capacity(args_offset_usize + args_size_usize) catch |err| return map_memory_error(err);
-        args = frame.memory.get_slice(args_offset_usize, args_size_usize) catch |err| return map_memory_error(err);
+        _ = try frame.memory.ensure_context_capacity(args_offset_usize + args_size_usize);
+        args = try frame.memory.get_slice(args_offset_usize, args_size_usize);
     }
 
     // Ensure return memory
@@ -422,7 +418,7 @@ pub fn op_delegatecall(pc: usize, interpreter: *Operation.Interpreter, state: *O
         const ret_offset_usize = @as(usize, @intCast(ret_offset));
         const ret_size_usize = @as(usize, @intCast(ret_size));
 
-        _ = frame.memory.ensure_context_capacity(ret_offset_usize + ret_size_usize) catch |err| return map_memory_error(err);
+        _ = try frame.memory.ensure_context_capacity(ret_offset_usize + ret_size_usize);
     }
 
     // Convert to address
@@ -468,7 +464,7 @@ pub fn op_delegatecall(pc: usize, interpreter: *Operation.Interpreter, state: *O
     frame.return_data_buffer = result.output orelse &[_]u8{};
 
     // Push success status
-    try stack_push(&frame.stack, if (result.success) 1 else 0);
+    try frame.stack.append( if (result.success) 1 else 0);
 
     return Operation.ExecutionResult{};
 }
@@ -479,16 +475,16 @@ pub fn op_staticcall(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
-    const gas = try stack_pop(&frame.stack);
-    const to = try stack_pop(&frame.stack);
-    const args_offset = try stack_pop(&frame.stack);
-    const args_size = try stack_pop(&frame.stack);
-    const ret_offset = try stack_pop(&frame.stack);
-    const ret_size = try stack_pop(&frame.stack);
+    const gas = try frame.stack.pop();
+    const to = try frame.stack.pop();
+    const args_offset = try frame.stack.pop();
+    const args_size = try frame.stack.pop();
+    const ret_offset = try frame.stack.pop();
+    const ret_size = try frame.stack.pop();
 
     // Check depth
     if (frame.depth >= 1024) {
-        try stack_push(&frame.stack, 0);
+        try frame.stack.append( 0);
         return Operation.ExecutionResult{};
     }
 
@@ -501,8 +497,8 @@ pub fn op_staticcall(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
         const args_offset_usize = @as(usize, @intCast(args_offset));
         const args_size_usize = @as(usize, @intCast(args_size));
 
-        _ = frame.memory.ensure_context_capacity(args_offset_usize + args_size_usize) catch |err| return map_memory_error(err);
-        args = frame.memory.get_slice(args_offset_usize, args_size_usize) catch |err| return map_memory_error(err);
+        _ = try frame.memory.ensure_context_capacity(args_offset_usize + args_size_usize);
+        args = try frame.memory.get_slice(args_offset_usize, args_size_usize);
     }
 
     // Ensure return memory
@@ -513,7 +509,7 @@ pub fn op_staticcall(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
         const ret_offset_usize = @as(usize, @intCast(ret_offset));
         const ret_size_usize = @as(usize, @intCast(ret_size));
 
-        _ = frame.memory.ensure_context_capacity(ret_offset_usize + ret_size_usize) catch |err| return map_memory_error(err);
+        _ = try frame.memory.ensure_context_capacity(ret_offset_usize + ret_size_usize);
     }
 
     // Convert to address
@@ -557,7 +553,7 @@ pub fn op_staticcall(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
     frame.return_data_buffer = result.output orelse &[_]u8{};
 
     // Push success status
-    try stack_push(&frame.stack, if (result.success) 1 else 0);
+    try frame.stack.append( if (result.success) 1 else 0);
 
     return Operation.ExecutionResult{};
 }
