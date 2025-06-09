@@ -36,6 +36,9 @@ test "JUMP (0x56): Basic unconditional jump" {
     );
     defer contract.deinit(allocator, null);
 
+    // Analyze jumpdests in the contract
+    contract.analyze_jumpdests(allocator);
+
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
 
@@ -80,6 +83,9 @@ test "JUMP: Jump to various valid destinations" {
     );
     defer contract.deinit(allocator, null);
 
+    // Analyze jumpdests in the contract
+    contract.analyze_jumpdests(allocator);
+
     // Test jumping to each valid JUMPDEST
     const destinations = [_]u256{ 0, 3, 6, 9, 12, 15 };
 
@@ -115,6 +121,9 @@ test "JUMP: Invalid jump destinations" {
     );
     defer contract.deinit(allocator, null);
 
+    // Analyze jumpdests in the contract
+    contract.analyze_jumpdests(allocator);
+
     // Test jumping to invalid destinations
     const invalid_destinations = [_]u256{ 1, 2, 3, 5, 100, std.math.maxInt(usize) };
 
@@ -143,6 +152,9 @@ test "JUMP: Stack underflow" {
         &code,
     );
     defer contract.deinit(allocator, null);
+
+    // Analyze jumpdests in the contract
+    contract.analyze_jumpdests(allocator);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -924,6 +936,9 @@ test "Control Flow: Program counter tracking" {
     );
     defer contract.deinit(allocator, null);
 
+    // Analyze jumpdests in the contract
+    contract.analyze_jumpdests(allocator);
+
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
 
@@ -1021,6 +1036,9 @@ test "Control Flow: Stack operations edge cases" {
         &[_]u8{0x5B}, // JUMPDEST
     );
     defer contract.deinit(allocator, null);
+
+    // Analyze jumpdests in the contract
+    contract.analyze_jumpdests(allocator);
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();

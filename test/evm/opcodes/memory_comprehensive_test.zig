@@ -306,7 +306,7 @@ test "MSTORE: Memory expansion and gas costs" {
     _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
     const gas_after_minimal = test_frame.frame.gas_remaining;
     const gas_minimal = gas_before_minimal - gas_after_minimal;
-    try testing.expectEqual(@as(u64, 3), gas_minimal); // Only base cost, no significant expansion
+    try testing.expectEqual(@as(u64, 6), gas_minimal); // Base cost (3) + minimal expansion (3)
 
     // Test 4: Very large offset should fail with OutOfOffset
     // TODO: Re-enable after fixing stack overflow issue with very large offsets
