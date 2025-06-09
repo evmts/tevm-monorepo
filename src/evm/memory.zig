@@ -78,7 +78,9 @@ pub fn context_size(self: *const Self) usize {
 /// This is crucial for EVM gas calculation.
 pub fn ensure_context_capacity(self: *Self, min_context_size: usize) MemoryError!u64 {
     const required_total_len = self.my_checkpoint + min_context_size;
-    if (required_total_len > self.memory_limit) return MemoryError.MemoryLimitExceeded;
+    if (required_total_len > self.memory_limit) {
+        return MemoryError.MemoryLimitExceeded;
+    }
 
     const root = self.root_ptr;
     const old_total_buffer_len = root.shared_buffer.items.len;

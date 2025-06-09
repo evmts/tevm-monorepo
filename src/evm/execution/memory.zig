@@ -181,8 +181,17 @@ pub fn op_mcopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     // Get memory slice and handle overlapping copy
     const mem_slice = frame.memory.slice();
     if (mem_slice.len >= max_addr) {
-        // Use memmove for overlapping regions
-        std.mem.copyForwards(u8, mem_slice[dest_usize..dest_usize + size_usize], mem_slice[src_usize..src_usize + size_usize]);
+        // Handle overlapping memory copy correctly
+        if (dest_usize > src_usize and dest_usize < src_usize + size_usize) {
+            // Forward overlap: dest is within source range, copy backwards
+            std.mem.copyBackwards(u8, mem_slice[dest_usize..dest_usize + size_usize], mem_slice[src_usize..src_usize + size_usize]);
+        } else if (src_usize > dest_usize and src_usize < dest_usize + size_usize) {
+            // Backward overlap: src is within dest range, copy forwards  
+            std.mem.copyForwards(u8, mem_slice[dest_usize..dest_usize + size_usize], mem_slice[src_usize..src_usize + size_usize]);
+        } else {
+            // No overlap, either direction is fine
+            std.mem.copyForwards(u8, mem_slice[dest_usize..dest_usize + size_usize], mem_slice[src_usize..src_usize + size_usize]);
+        }
     } else {
         return ExecutionError.Error.OutOfOffset;
     }
