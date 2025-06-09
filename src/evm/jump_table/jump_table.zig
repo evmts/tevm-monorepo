@@ -46,7 +46,7 @@ const operation_config = @import("operation_config.zig");
 /// const operation = table.get_operation(opcode);
 /// const result = try table.execute(pc, interpreter, state, opcode);
 /// ```
-const Self = @This();
+const JumpTable = @This();
 
 /// CPU cache line size for optimal memory alignment.
 /// Most modern x86/ARM processors use 64-byte cache lines.
@@ -73,8 +73,8 @@ pub const DEFAULT = CANCUN;
 /// init_from_hardfork() instead to get a pre-configured table.
 ///
 /// @return An empty jump table
-pub fn init() Self {
-    return Self{
+pub fn init() JumpTable {
+    return JumpTable{
         .table = [_]?*const Operation{null} ** 256,
     };
 }
@@ -92,7 +92,7 @@ pub fn init() Self {
 /// ```zig
 /// const op = table.get_operation(0x01); // Get ADD operation
 /// ```
-pub fn get_operation(self: *const Self, opcode: u8) *const Operation {
+pub fn get_operation(self: *const JumpTable, opcode: u8) *const Operation {
     return self.table[opcode] orelse &Operation.NULL;
 }
 
@@ -118,7 +118,7 @@ pub fn get_operation(self: *const Self, opcode: u8) *const Operation {
 /// ```zig
 /// const result = try table.execute(pc, &interpreter, &state, bytecode[pc]);
 /// ```
-pub fn execute(self: *const Self, pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State, opcode: u8) ExecutionError.Error!Operation.ExecutionResult {
+pub fn execute(self: *const JumpTable, pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State, opcode: u8) ExecutionError.Error!Operation.ExecutionResult {
     @branchHint(.likely);
     const operation = self.get_operation(opcode);
 
@@ -159,7 +159,7 @@ pub fn execute(self: *const Self, pc: usize, interpreter: *Operation.Interpreter
 /// to ensure it's safe for execution.
 ///
 /// @param self The jump table to validate
-pub fn validate(self: *Self) void {
+pub fn validate(self: *JumpTable) void {
     for (0..256) |i| {
         if (self.table[i] == null) {
             @branchHint(.cold);
@@ -174,9 +174,9 @@ pub fn validate(self: *Self) void {
     }
 }
 
-pub fn copy(self: *const Self, allocator: std.mem.Allocator) !Self {
+pub fn copy(self: *const JumpTable, allocator: std.mem.Allocator) !JumpTable {
     _ = allocator;
-    return Self{
+    return JumpTable{
         .table = self.table,
     };
 }
@@ -208,9 +208,9 @@ pub fn copy(self: *const Self, allocator: std.mem.Allocator) !Self {
 /// const table = JumpTable.init_from_hardfork(.CANCUN);
 /// // Table includes all opcodes through Cancun
 /// ```
-pub fn init_from_hardfork(hardfork: Hardfork) Self {
+pub fn init_from_hardfork(hardfork: Hardfork) JumpTable {
     @setEvalBranchQuota(10000);
-    var jt = Self.init();
+    var jt = JumpTable.init();
     // With ALL_OPERATIONS sorted by hardfork, we can iterate once.
     // Each opcode will be set to the latest active version for the target hardfork.
     inline for (operation_config.ALL_OPERATIONS) |spec| {

@@ -15,12 +15,13 @@ const AccessListStorageKeyContext = @import("access_list_storage_key_context.zig
 /// - Warm storage slot access: 100 gas
 
 // Error types for AccessList operations
-pub const AccessAddressError = std.mem.Allocator.Error;
-pub const AccessStorageSlotError = std.mem.Allocator.Error;
-pub const PreWarmAddressesError = std.mem.Allocator.Error;
-pub const PreWarmStorageSlotsError = std.mem.Allocator.Error;
-pub const InitTransactionError = std.mem.Allocator.Error;
-pub const GetCallCostError = std.mem.Allocator.Error;
+pub const Error = std.mem.Allocator.Error;
+pub const AccessAddressError = Error;
+pub const AccessStorageSlotError = Error;
+pub const PreWarmAddressesError = Error;
+pub const PreWarmStorageSlotsError = Error;
+pub const InitTransactionError = Error;
+pub const GetCallCostError = Error;
 
 pub const AccessList = @This();
 

@@ -78,7 +78,7 @@ var cache_mutex: Mutex = .{};
 /// or contract creation) operates within its own Contract instance. This design
 /// enables proper isolation, gas accounting, and state management across the
 /// call stack.
-const Self = @This();
+const Contract = @This();
 
 // ============================================================================
 // Identity and Context Fields
@@ -307,8 +307,8 @@ pub fn init(
     code_hash: [32]u8,
     input: []const u8,
     is_static: bool,
-) Self {
-    return Self{
+) Contract {
+    return Contract{
         .address = addr,
         .caller = caller,
         .value = value,
@@ -370,8 +370,8 @@ pub fn init_deployment(
     gas: u64,
     code: []const u8,
     salt: ?[32]u8,
-) Self {
-    const contract = Self{
+) Contract {
+    const contract = Contract{
         .address = Address.zero(),
         .caller = caller,
         .value = value,
@@ -445,7 +445,7 @@ fn contains_jumpdest(code: []const u8) bool {
 ///     return ExecutionError.InvalidJump;
 /// }
 /// ```
-pub fn valid_jumpdest(self: *Self, allocator: std.mem.Allocator, dest: u256) bool {
+pub fn valid_jumpdest(self: *Contract, allocator: std.mem.Allocator, dest: u256) bool {
     // Fast path: empty code or out of bounds
     if (self.is_empty or dest >= self.code_size) return false;
 
@@ -481,7 +481,7 @@ pub fn valid_jumpdest(self: *Self, allocator: std.mem.Allocator, dest: u256) boo
 }
 
 /// Ensure code analysis is performed
-fn ensure_analysis(self: *Self, allocator: std.mem.Allocator) void {
+fn ensure_analysis(self: *Contract, allocator: std.mem.Allocator) void {
     if (self.analysis == null and !self.is_empty) {
         self.analysis = analyze_code(allocator, self.code, self.code_hash) catch |err| {
             // Log analysis failure for debugging - but continue execution
@@ -492,7 +492,7 @@ fn ensure_analysis(self: *Self, allocator: std.mem.Allocator) void {
 }
 
 /// Check if position is code (not data)
-pub fn is_code(self: *const Self, pos: u64) bool {
+pub fn is_code(self: *const Contract, pos: u64) bool {
     if (self.analysis) |analysis| {
         // We know pos is within bounds if analysis exists, so use unchecked version
         return analysis.code_segments.is_set_unchecked(@intCast(pos));
@@ -523,30 +523,30 @@ pub fn is_code(self: *const Self, pos: u64) bool {
 /// ## Note
 /// This method is marked inline for performance as it's called
 /// millions of times during contract execution.
-pub fn use_gas(self: *Self, amount: u64) bool {
+pub fn use_gas(self: *Contract, amount: u64) bool {
     if (self.gas < amount) return false;
     self.gas -= amount;
     return true;
 }
 
 /// Use gas without checking (when known safe)
-pub fn use_gas_unchecked(self: *Self, amount: u64) void {
+pub fn use_gas_unchecked(self: *Contract, amount: u64) void {
     self.gas -= amount;
 }
 
 /// Refund gas to contract
-pub fn refund_gas(self: *Self, amount: u64) void {
+pub fn refund_gas(self: *Contract, amount: u64) void {
     self.gas += amount;
 }
 
 /// Add to gas refund counter with clamping
-pub fn add_gas_refund(self: *Self, amount: u64) void {
+pub fn add_gas_refund(self: *Contract, amount: u64) void {
     const max_refund = self.gas / MAX_REFUND_QUOTIENT;
     self.gas_refund = @min(self.gas_refund + amount, max_refund);
 }
 
 /// Subtract from gas refund counter with clamping
-pub fn sub_gas_refund(self: *Self, amount: u64) void {
+pub fn sub_gas_refund(self: *Contract, amount: u64) void {
     self.gas_refund = if (self.gas_refund > amount) self.gas_refund - amount else 0;
 }
 
@@ -555,7 +555,7 @@ pub const MarkStorageSlotWarmError = error{
 };
 
 /// Mark storage slot as warm with pool support
-pub fn mark_storage_slot_warm(self: *Self, allocator: std.mem.Allocator, slot: u256, pool: ?*StoragePool) MarkStorageSlotWarmError!bool {
+pub fn mark_storage_slot_warm(self: *Contract, allocator: std.mem.Allocator, slot: u256, pool: ?*StoragePool) MarkStorageSlotWarmError!bool {
     if (self.storage_access == null) {
         if (pool) |p| {
             self.storage_access = p.borrow_access_map() catch |err| switch (err) {
@@ -585,7 +585,7 @@ pub fn mark_storage_slot_warm(self: *Self, allocator: std.mem.Allocator, slot: u
 }
 
 /// Check if storage slot is cold
-pub fn is_storage_slot_cold(self: *const Self, slot: u256) bool {
+pub fn is_storage_slot_cold(self: *const Contract, slot: u256) bool {
     if (self.storage_access) |map| {
         return !map.contains(slot);
     }
@@ -593,7 +593,7 @@ pub fn is_storage_slot_cold(self: *const Self, slot: u256) bool {
 }
 
 /// Batch mark storage slots as warm
-pub fn mark_storage_slots_warm(self: *Self, allocator: std.mem.Allocator, slots: []const u256, pool: ?*StoragePool) ContractError!void {
+pub fn mark_storage_slots_warm(self: *Contract, allocator: std.mem.Allocator, slots: []const u256, pool: ?*StoragePool) ContractError!void {
     if (slots.len == 0) return;
 
     if (self.storage_access == null) {
@@ -629,7 +629,7 @@ pub fn mark_storage_slots_warm(self: *Self, allocator: std.mem.Allocator, slots:
 }
 
 /// Store original storage value
-pub fn set_original_storage_value(self: *Self, allocator: std.mem.Allocator, slot: u256, value: u256, pool: ?*StoragePool) ContractError!void {
+pub fn set_original_storage_value(self: *Contract, allocator: std.mem.Allocator, slot: u256, value: u256, pool: ?*StoragePool) ContractError!void {
     if (self.original_storage == null) {
         if (pool) |p| {
             self.original_storage = p.borrow_storage_map() catch |err| {
@@ -658,7 +658,7 @@ pub fn set_original_storage_value(self: *Self, allocator: std.mem.Allocator, slo
 }
 
 /// Get original storage value
-pub fn get_original_storage_value(self: *const Self, slot: u256) ?u256 {
+pub fn get_original_storage_value(self: *const Contract, slot: u256) ?u256 {
     if (self.original_storage) |map| {
         return map.get(slot);
     }
@@ -666,17 +666,17 @@ pub fn get_original_storage_value(self: *const Self, slot: u256) ?u256 {
 }
 
 /// Get opcode at position (inline for performance)
-pub fn get_op(self: *const Self, n: u64) u8 {
+pub fn get_op(self: *const Contract, n: u64) u8 {
     return if (n < self.code_size) self.code[@intCast(n)] else constants.STOP;
 }
 
 /// Get opcode at position without bounds check
-pub fn get_op_unchecked(self: *const Self, n: u64) u8 {
+pub fn get_op_unchecked(self: *const Contract, n: u64) u8 {
     return self.code[n];
 }
 
 /// Set call code (for CALLCODE/DELEGATECALL)
-pub fn set_call_code(self: *Self, hash: [32]u8, code: []const u8) void {
+pub fn set_call_code(self: *Contract, hash: [32]u8, code: []const u8) void {
     self.code = code;
     self.code_hash = hash;
     self.code_size = code.len;
@@ -686,7 +686,7 @@ pub fn set_call_code(self: *Self, hash: [32]u8, code: []const u8) void {
 }
 
 /// Clean up contract resources
-pub fn deinit(self: *Self, allocator: std.mem.Allocator, pool: ?*StoragePool) void {
+pub fn deinit(self: *Contract, allocator: std.mem.Allocator, pool: ?*StoragePool) void {
     if (pool) |p| {
         if (self.storage_access) |map| {
             p.return_access_map(map);
@@ -836,7 +836,7 @@ pub fn clear_analysis_cache(allocator: std.mem.Allocator) void {
 }
 
 /// Analyze jump destinations - public wrapper for ensure_analysis
-pub fn analyze_jumpdests(self: *Self, allocator: std.mem.Allocator) void {
+pub fn analyze_jumpdests(self: *Contract, allocator: std.mem.Allocator) void {
     self.ensure_analysis(allocator);
 }
 
@@ -851,14 +851,14 @@ pub fn init_at_address(
     bytecode: []const u8,
     input: []const u8,
     is_static: bool,
-) Self {
+) Contract {
     // Calculate code hash for the bytecode
     var hasher = std.crypto.hash.sha3.Keccak256.init(.{});
     hasher.update(bytecode);
     var code_hash: [32]u8 = undefined;
     hasher.final(&code_hash);
 
-    return Self{
+    return Contract{
         .address = address,
         .caller = caller,
         .value = value,
