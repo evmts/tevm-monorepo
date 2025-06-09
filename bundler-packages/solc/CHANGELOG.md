@@ -461,7 +461,7 @@
 
   ![image](https://github.com/evmts/tevm-monorepo/assets/35039927/57277b41-195c-4c54-ab70-a4e1ef3fceaa)
 
-  This will be used internally to implement go-to-definition LSP support to [@tevm/ts-plugin](https://github.com/evmts/tevm-monorepo/tree/main/ts-plugin)
+  This will be used internally to implement go-to-definition LSP support to [@tevm/ts-plugin](https://github.com/evmts/tevm-monorepo/tree/main/lsp/ts-plugin)
 
 ### Patch Changes
 
