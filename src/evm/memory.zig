@@ -33,10 +33,12 @@ pub fn init(
     initial_capacity: usize,
     memory_limit: u64,
 ) !Self {
+    Log.debug("Memory.init: Initializing memory, initial_capacity={}, memory_limit={}", .{ initial_capacity, memory_limit });
     var shared_buffer = std.ArrayList(u8).init(allocator);
     errdefer shared_buffer.deinit();
     try shared_buffer.ensureTotalCapacity(initial_capacity);
 
+    Log.debug("Memory.init: Memory initialized successfully", .{});
     return Self{
         .shared_buffer = shared_buffer,
         .allocator = allocator,
@@ -49,6 +51,7 @@ pub fn init(
 /// Finalizes the root Memory by setting root_ptr to itself.
 /// Must be called after init() and the Memory is stored at its final address.
 pub fn finalize_root(self: *Self) void {
+    Log.debug("Memory.finalize_root: Finalizing root memory pointer", .{});
     self.root_ptr = self;
 }
 
@@ -59,7 +62,10 @@ pub fn init_default(allocator: std.mem.Allocator) !Self {
 /// Deinitializes the shared_buffer. Should ONLY be called on the root Memory instance.
 pub fn deinit(self: *Self) void {
     if (self.my_checkpoint == 0 and self.root_ptr == self) {
+        Log.debug("Memory.deinit: Deinitializing root memory, buffer_size={}", .{self.shared_buffer.items.len});
         self.shared_buffer.deinit();
+    } else {
+        Log.debug("Memory.deinit: Skipping deinit for non-root memory context, checkpoint={}", .{self.my_checkpoint});
     }
 }
 
@@ -78,7 +84,10 @@ pub fn context_size(self: *const Self) usize {
 /// This is crucial for EVM gas calculation.
 pub fn ensure_context_capacity(self: *Self, min_context_size: usize) MemoryError!u64 {
     const required_total_len = self.my_checkpoint + min_context_size;
+    Log.debug("Memory.ensure_context_capacity: Ensuring capacity, min_context_size={}, required_total_len={}, memory_limit={}", .{ min_context_size, required_total_len, self.memory_limit });
+    
     if (required_total_len > self.memory_limit) {
+        Log.debug("Memory.ensure_context_capacity: Memory limit exceeded, required={}, limit={}", .{ required_total_len, self.memory_limit });
         return MemoryError.MemoryLimitExceeded;
     }
 
@@ -88,11 +97,13 @@ pub fn ensure_context_capacity(self: *Self, min_context_size: usize) MemoryError
 
     if (required_total_len <= old_total_buffer_len) {
         // Buffer is already large enough
+        Log.debug("Memory.ensure_context_capacity: Buffer already large enough, no expansion needed", .{});
         return 0;
     }
 
     // Resize the buffer
     const new_total_len = required_total_len;
+    Log.debug("Memory.ensure_context_capacity: Expanding buffer from {} to {} bytes", .{ old_total_buffer_len, new_total_len });
     
     if (new_total_len > root.shared_buffer.capacity) {
         var new_capacity = root.shared_buffer.capacity;
@@ -118,12 +129,18 @@ pub fn ensure_context_capacity(self: *Self, min_context_size: usize) MemoryError
     @memset(root.shared_buffer.items[old_total_buffer_len..new_total_len], 0);
 
     const new_total_words = calculate_num_words(new_total_len);
-    if (new_total_words > old_total_words) return new_total_words - old_total_words else return 0;
+    const words_added = if (new_total_words > old_total_words) new_total_words - old_total_words else 0;
+    Log.debug("Memory.ensure_context_capacity: Expansion complete, old_words={}, new_words={}, words_added={}", .{ old_total_words, new_total_words, words_added });
+    return words_added;
 }
 
 /// Read 32 bytes as u256 at context-relative offset.
 pub fn get_u256(self: *const Self, relative_offset: usize) MemoryError!u256 {
-    if (relative_offset + 32 > self.context_size()) return MemoryError.InvalidOffset;
+    Log.debug("Memory.get_u256: Reading u256 at relative_offset={}, context_size={}", .{ relative_offset, self.context_size() });
+    if (relative_offset + 32 > self.context_size()) {
+        Log.debug("Memory.get_u256: Invalid offset, offset+32={} > context_size={}", .{ relative_offset + 32, self.context_size() });
+        return MemoryError.InvalidOffset;
+    }
     const abs_offset = self.my_checkpoint + relative_offset;
     const bytes = self.root_ptr.shared_buffer.items[abs_offset .. abs_offset + 32];
     
@@ -132,28 +149,42 @@ pub fn get_u256(self: *const Self, relative_offset: usize) MemoryError!u256 {
     for (bytes) |byte| {
         value = (value << 8) | byte;
     }
+    Log.debug("Memory.get_u256: Read value={} from offset={}", .{ value, relative_offset });
     return value;
 }
 
 /// Read arbitrary slice of memory at context-relative offset.
 pub fn get_slice(self: *const Self, relative_offset: usize, len: usize) MemoryError![]const u8 {
+    Log.debug("Memory.get_slice: Reading slice at relative_offset={}, len={}", .{ relative_offset, len });
     if (len == 0) return &[_]u8{};
-    const end = std.math.add(usize, relative_offset, len) catch return MemoryError.InvalidSize;
-    if (end > self.context_size()) return MemoryError.InvalidOffset;
+    const end = std.math.add(usize, relative_offset, len) catch {
+        Log.debug("Memory.get_slice: Invalid size overflow, offset={}, len={}", .{ relative_offset, len });
+        return MemoryError.InvalidSize;
+    };
+    if (end > self.context_size()) {
+        Log.debug("Memory.get_slice: Invalid offset, end={} > context_size={}", .{ end, self.context_size() });
+        return MemoryError.InvalidOffset;
+    }
     const abs_offset = self.my_checkpoint + relative_offset;
     const abs_end = abs_offset + len;
+    Log.debug("Memory.get_slice: Returning slice [{}..{}]", .{ abs_offset, abs_end });
     return self.root_ptr.shared_buffer.items[abs_offset..abs_end];
 }
 
 /// Write arbitrary data at context-relative offset.
 pub fn set_data(self: *Self, relative_offset: usize, data: []const u8) MemoryError!void {
+    Log.debug("Memory.set_data: Writing data at relative_offset={}, data_len={}", .{ relative_offset, data.len });
     if (data.len == 0) return;
 
-    const end = std.math.add(usize, relative_offset, data.len) catch return MemoryError.InvalidSize;
+    const end = std.math.add(usize, relative_offset, data.len) catch {
+        Log.debug("Memory.set_data: Invalid size overflow, offset={}, data_len={}", .{ relative_offset, data.len });
+        return MemoryError.InvalidSize;
+    };
     _ = try self.ensure_context_capacity(end);
 
     const abs_offset = self.my_checkpoint + relative_offset;
     const abs_end = abs_offset + data.len;
+    Log.debug("Memory.set_data: Writing to buffer [{}..{}]", .{ abs_offset, abs_end });
     @memcpy(self.root_ptr.shared_buffer.items[abs_offset..abs_end], data);
 }
 
@@ -229,6 +260,7 @@ pub fn size(self: *const Self) usize {
 
 /// Write u256 value at context-relative offset (for test compatibility)
 pub fn set_u256(self: *Self, relative_offset: usize, value: u256) MemoryError!void {
+    Log.debug("Memory.set_u256: Writing u256 value={} at relative_offset={}", .{ value, relative_offset });
     _ = try self.ensure_context_capacity(relative_offset + 32);
     const abs_offset = self.my_checkpoint + relative_offset;
     
@@ -242,6 +274,7 @@ pub fn set_u256(self: *Self, relative_offset: usize, value: u256) MemoryError!vo
         val >>= 8;
     }
     
+    Log.debug("Memory.set_u256: Writing bytes to buffer at abs_offset={}", .{abs_offset});
     @memcpy(self.root_ptr.shared_buffer.items[abs_offset..abs_offset + 32], &bytes);
 }
 
