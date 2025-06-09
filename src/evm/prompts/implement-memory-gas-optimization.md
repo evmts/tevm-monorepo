@@ -631,3 +631,52 @@ fn generate_lookup_table() [LOOKUP_TABLE_SIZE]u64 {
 - [EIP-150: Gas cost changes](https://eips.ethereum.org/EIPS/eip-150) - Memory gas history
 - [Go-Ethereum Memory Implementation](https://github.com/ethereum/go-ethereum/blob/master/core/vm/memory.go)
 - [Performance Engineering Handbook](https://performance.wiki/) - Cache optimization techniques
+
+## Reference Implementations
+
+### geth
+
+<explanation>
+The go-ethereum implementation shows the standard memory gas calculation with quadratic growth formula. The memoryGasCost function implements the exact EVM specification: linear cost (memory_size_word * 3) plus quadratic cost (memory_size_word^2 / 512), with proper overflow protection and word-aligned size calculation.
+</explanation>
+
+**Memory Gas Calculation** - `/go-ethereum/core/vm/gas_table.go` (lines 26-41):
+```go
+// memoryGasCost calculates the quadratic gas for memory expansion. It does so
+// only for the memory region that is expanded, not the total memory.
+func memoryGasCost(mem *Memory, newSize uint64) (uint64, error) {
+	if newSize == 0 {
+		return 0, nil
+	}
+	// The maximum that will fit in a uint64 is max_word_count - 1. This will
+	// result in a max_word_count of 0x40000000000000001, which is just greater than
+	// 2^62 (which would be 0x40000000000000000). Since we're adding the word count
+	// to itself, we're going to get 0x80000000000000002, which would wrap back
+	// around to 0x2. This is why we need to check for overflow.
+	if newSize > 0xffffffffe0 {
+		return 0, ErrGasUintOverflow
+	}
+
+	newMemSize := (newSize + 31) / 32
+	newMemSizeWords := newMemSize
+
+	if newMemSizeWords > uint64(mem.Len())/32 {
+		square := newMemSizeWords * newMemSizeWords
+		linCoeff := newMemSizeWords * params.MemoryGas
+		quadCoeff := square / params.QuadCoeffDiv
+		newTotalFee := linCoeff + quadCoeff
+
+		fee := newTotalFee - mem.lastGasCost
+		mem.lastGasCost = newTotalFee
+
+		return fee, nil
+	}
+	return 0, nil
+}
+```
+
+**Gas Constants** - `/go-ethereum/params/protocol_params.go` (lines 28-29):
+```go
+MemoryGas     uint64 = 3       // Times the address of the (highest referenced byte in memory + 1)
+QuadCoeffDiv  uint64 = 512     // Divisor for the quadratic particle of the memory cost equation
+```

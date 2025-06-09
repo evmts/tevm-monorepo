@@ -47,11 +47,243 @@ Input format (variable length):
 
 ## Reference Implementations
 
-### evmone Implementation
-File: Search for `modexp` in evmone precompiles for gas calculation and execution
+### geth
 
-### revm Implementation  
-File: Search for `modexp` in revm for modern optimization patterns
+<explanation>
+The go-ethereum implementation demonstrates the complete MODEXP precompile pattern with proper EIP-2565 gas calculation, input parsing for variable-length format, and big integer modular exponentiation using the Go crypto/big library. Key aspects include complexity-based gas calculation, overflow protection in size parsing, and special case handling for zero modulus.
+</explanation>
+
+**Gas Calculation** - `/go-ethereum/core/vm/contracts.go` (lines 430-471):
+```go
+func (c *bigModExp) RequiredGas(input []byte) uint64 {
+	var (
+		baseLen = new(big.Int).SetBytes(getData(input, 0, 32))
+		expLen  = new(big.Int).SetBytes(getData(input, 32, 32))
+		modLen  = new(big.Int).SetBytes(getData(input, 64, 32))
+	)
+	if len(input) > 96 {
+		input = input[96:]
+	} else {
+		input = input[:0]
+	}
+	// Retrieve the head 32 bytes of exp for the adjusted exponent length
+	var expHead *big.Int
+	if big.NewInt(int64(len(input))).Cmp(baseLen) > 0 {
+		if expLen.Cmp(big.NewInt(32)) > 0 {
+			expHead = new(big.Int).SetBytes(getData(input, baseLen.Uint64(), 32))
+		} else {
+			expHead = new(big.Int).SetBytes(getData(input, baseLen.Uint64(), expLen.Uint64()))
+		}
+	} else {
+		expHead = new(big.Int)
+	}
+
+	// Calculate the adjusted exponent length
+	var msb int
+	if bitlen := expHead.BitLen(); bitlen > 0 {
+		msb = bitlen - 1
+	}
+	adjExpLen := new(big.Int)
+	if expLen.Cmp(big.NewInt(32)) > 0 {
+		adjExpLen.Sub(expLen, big.NewInt(32))
+		adjExpLen.Mul(big.NewInt(8), adjExpLen)
+	}
+	adjExpLen.Add(adjExpLen, big.NewInt(int64(msb)))
+
+	// Calculate the gas cost
+	gas := new(big.Int)
+	gas.Set(math.BigMax(modLen, baseLen))
+	gas.Mul(gas, gas)
+
+	gas.Mul(gas, math.BigMax(adjExpLen, big.NewInt(1)))
+	gas.Div(gas, big.NewInt(3))
+
+	if gas.BitLen() > 64 {
+		return math.MaxUint64
+	}
+	return math.Max64(200, gas.Uint64())
+}
+```
+
+**Execution Logic** - `/go-ethereum/core/vm/contracts.go` (lines 473-510):
+```go
+func (c *bigModExp) Run(input []byte) ([]byte, error) {
+	var (
+		baseLen = new(big.Int).SetBytes(getData(input, 0, 32)).Uint64()
+		expLen  = new(big.Int).SetBytes(getData(input, 32, 32)).Uint64()
+		modLen  = new(big.Int).SetBytes(getData(input, 64, 32)).Uint64()
+	)
+	if len(input) > 96 {
+		input = input[96:]
+	} else {
+		input = input[:0]
+	}
+	// Handle a special case when both the base and mod length is zero
+	if baseLen == 0 && modLen == 0 {
+		return []byte{}, nil
+	}
+	// Retrieve the operands and execute the exponentiation
+	var (
+		base = new(big.Int).SetBytes(getData(input, 0, baseLen))
+		exp  = new(big.Int).SetBytes(getData(input, baseLen, expLen))
+		mod  = new(big.Int).SetBytes(getData(input, baseLen+expLen, modLen))
+	)
+	if mod.BitLen() == 0 {
+		// Modulo 0 is undefined, return zero
+		return common.LeftPadBytes([]byte{}, int(modLen)), nil
+	}
+	return common.LeftPadBytes(base.Exp(base, exp, mod).Bytes(), int(modLen)), nil
+}
+```
+
+### revm
+
+<explanation>
+Revm provides an excellent MODEXP implementation that demonstrates proper EIP-2565 gas calculation and uses an external optimized library (aurora-engine-modexp) for the actual computation. Key patterns:
+
+1. **Hardfork Support**: Different gas calculation functions for Byzantium, Berlin, and Osaka
+2. **Gas Calculation**: Sophisticated gas calculation that considers multiplication complexity and iteration count
+3. **Input Parsing**: Robust parsing of variable-length input format with proper bounds checking
+4. **Size Limits**: EIP-7823 size limits for large inputs in Osaka hardfork
+5. **External Library**: Uses aurora-engine-modexp for optimized modular exponentiation
+
+The implementation shows excellent separation between gas calculation logic and actual computation.
+</explanation>
+
+**Main Execution** - `/revm/crates/precompile/src/modexp.rs` (lines 62-144):
+```rust
+/// Run the modexp precompile.
+pub fn run_inner<F, const OSAKA: bool>(
+    input: &[u8],
+    gas_limit: u64,
+    min_gas: u64,
+    calc_gas: F,
+) -> PrecompileResult
+where
+    F: FnOnce(u64, u64, u64, &U256) -> u64,
+{
+    // If there is no minimum gas, return error.
+    if min_gas > gas_limit {
+        return Err(PrecompileError::OutOfGas);
+    }
+
+    // The format of input is:
+    // <length_of_BASE> <length_of_EXPONENT> <length_of_MODULUS> <BASE> <EXPONENT> <MODULUS>
+    // Where every length is a 32-byte left-padded integer representing the number of bytes
+    // to be taken up by the next value.
+    const HEADER_LENGTH: usize = 96;
+
+    // Extract the header
+    let base_len = U256::from_be_bytes(right_pad_with_offset::<32>(input, 0).into_owned());
+    let exp_len = U256::from_be_bytes(right_pad_with_offset::<32>(input, 32).into_owned());
+    let mod_len = U256::from_be_bytes(right_pad_with_offset::<32>(input, 64).into_owned());
+
+    // Cast base and modulus to usize, it does not make sense to handle larger values
+    let base_len =
+        usize::try_from(base_len).map_err(|_| PrecompileError::ModexpEip7823LimitSize)?;
+    let mod_len = usize::try_from(mod_len).map_err(|_| PrecompileError::ModexpEip7823LimitSize)?;
+    // cast exp len to the max size, it will fail later in gas calculation if it is too large.
+    let exp_len = usize::try_from(exp_len).unwrap_or(usize::MAX);
+
+    // for EIP-7823 we need to check size of imputs
+    if OSAKA
+        && (base_len > eip7823::INPUT_SIZE_LIMIT
+            || mod_len > eip7823::INPUT_SIZE_LIMIT
+            || exp_len > eip7823::INPUT_SIZE_LIMIT)
+    {
+        return Err(PrecompileError::ModexpEip7823LimitSize);
+    }
+
+    // special case for both base and mod length being 0.
+    if base_len == 0 && mod_len == 0 {
+        return Ok(PrecompileOutput::new(min_gas, Bytes::new()));
+    }
+
+    // Used to extract ADJUSTED_EXPONENT_LENGTH.
+    let exp_highp_len = min(exp_len, 32);
+
+    // Throw away the header data as we already extracted lengths.
+    let input = input.get(HEADER_LENGTH..).unwrap_or_default();
+
+    let exp_highp = {
+        // Get right padded bytes so if data.len is less then exp_len we will get right padded zeroes.
+        let right_padded_highp = right_pad_with_offset::<32>(input, base_len);
+        // If exp_len is less then 32 bytes get only exp_len bytes and do left padding.
+        let out = left_pad::<32>(&right_padded_highp[..exp_highp_len]);
+        U256::from_be_bytes(out.into_owned())
+    };
+
+    // Check if we have enough gas.
+    let gas_cost = calc_gas(base_len as u64, exp_len as u64, mod_len as u64, &exp_highp);
+    if gas_cost > gas_limit {
+        return Err(PrecompileError::OutOfGas);
+    }
+
+    // Padding is needed if the input does not contain all 3 values.
+    let input_len = base_len.saturating_add(exp_len).saturating_add(mod_len);
+    let input = right_pad_vec(input, input_len);
+    let (base, input) = input.split_at(base_len);
+    let (exponent, modulus) = input.split_at(exp_len);
+    debug_assert_eq!(modulus.len(), mod_len);
+
+    // Call the modexp.
+    let output = modexp(base, exponent, modulus);
+
+    // Left pad the result to modulus length. bytes will always by less or equal to modulus length.
+    Ok(PrecompileOutput::new(
+        gas_cost,
+        left_pad_vec(&output, mod_len).into_owned().into(),
+    ))
+}
+```
+
+**Gas Calculation** - `/revm/crates/precompile/src/modexp.rs` (lines 163-205):
+```rust
+/// Calculate gas cost according to EIP 2565:
+/// <https://eips.ethereum.org/EIPS/eip-2565>
+pub fn berlin_gas_calc(base_len: u64, exp_len: u64, mod_len: u64, exp_highp: &U256) -> u64 {
+    gas_calc::<200, 8, 3, _>(base_len, exp_len, mod_len, exp_highp, |max_len| -> U256 {
+        let words = U256::from(max_len.div_ceil(8));
+        words * words
+    })
+}
+
+/// Calculate gas cost.
+pub fn gas_calc<const MIN_PRICE: u64, const MULTIPLIER: u64, const GAS_DIVISOR: u64, F>(
+    base_len: u64,
+    exp_len: u64,
+    mod_len: u64,
+    exp_highp: &U256,
+    calculate_multiplication_complexity: F,
+) -> u64
+where
+    F: Fn(u64) -> U256,
+{
+    let multiplication_complexity = calculate_multiplication_complexity(max(base_len, mod_len));
+    let iteration_count = calculate_iteration_count::<MULTIPLIER>(exp_len, exp_highp);
+    let gas = (multiplication_complexity * U256::from(iteration_count)) / U256::from(GAS_DIVISOR);
+    max(MIN_PRICE, gas.saturating_to())
+}
+```
+
+**Iteration Count Calculation** - `/revm/crates/precompile/src/modexp.rs` (lines 46-60):
+```rust
+/// Calculate the iteration count for the modexp precompile.
+pub fn calculate_iteration_count<const MULTIPLIER: u64>(exp_length: u64, exp_highp: &U256) -> u64 {
+    let mut iteration_count: u64 = 0;
+
+    if exp_length <= 32 && exp_highp.is_zero() {
+        iteration_count = 0;
+    } else if exp_length <= 32 {
+        iteration_count = exp_highp.bit_len() as u64 - 1;
+    } else if exp_length > 32 {
+        iteration_count = (MULTIPLIER.saturating_mul(exp_length - 32))
+            .saturating_add(max(1, exp_highp.bit_len() as u64) - 1);
+    }
+
+    max(iteration_count, 1)
+}
+```
 
 ### EIP Specifications
 - **EIP-198**: Original MODEXP precompile specification
@@ -560,3 +792,183 @@ test "modexp fuzzing" {
 - [Montgomery Modular Multiplication](https://en.wikipedia.org/wiki/Montgomery_modular_multiplication)
 - [Handbook of Applied Cryptography](http://cacr.uwaterloo.ca/hac/) - Chapter 14
 - [Ethereum Test Vectors](https://github.com/ethereum/tests)
+
+## Reference Implementations
+
+### revm
+
+<explanation>
+Revm provides an excellent MODEXP implementation that demonstrates proper EIP-2565 gas calculation and uses an external optimized library (aurora-engine-modexp) for the actual computation. Key patterns:
+
+1. **Hardfork Support**: Different gas calculation functions for Byzantium, Berlin, and Osaka
+2. **Gas Calculation**: Sophisticated gas calculation that considers multiplication complexity and iteration count
+3. **Input Parsing**: Robust parsing of variable-length input format with proper bounds checking
+4. **Size Limits**: EIP-7823 size limits for large inputs in Osaka hardfork
+5. **External Library**: Uses aurora-engine-modexp for optimized modular exponentiation
+
+The implementation shows excellent separation between gas calculation logic and actual computation.
+</explanation>
+
+<filename>revm/crates/precompile/src/modexp.rs</filename>
+<line start="62" end="144">
+```rust
+/// Run the modexp precompile.
+pub fn run_inner<F, const OSAKA: bool>(
+    input: &[u8],
+    gas_limit: u64,
+    min_gas: u64,
+    calc_gas: F,
+) -> PrecompileResult
+where
+    F: FnOnce(u64, u64, u64, &U256) -> u64,
+{
+    // If there is no minimum gas, return error.
+    if min_gas > gas_limit {
+        return Err(PrecompileError::OutOfGas);
+    }
+
+    // The format of input is:
+    // <length_of_BASE> <length_of_EXPONENT> <length_of_MODULUS> <BASE> <EXPONENT> <MODULUS>
+    // Where every length is a 32-byte left-padded integer representing the number of bytes
+    // to be taken up by the next value.
+    const HEADER_LENGTH: usize = 96;
+
+    // Extract the header
+    let base_len = U256::from_be_bytes(right_pad_with_offset::<32>(input, 0).into_owned());
+    let exp_len = U256::from_be_bytes(right_pad_with_offset::<32>(input, 32).into_owned());
+    let mod_len = U256::from_be_bytes(right_pad_with_offset::<32>(input, 64).into_owned());
+
+    // Cast base and modulus to usize, it does not make sense to handle larger values
+    let base_len =
+        usize::try_from(base_len).map_err(|_| PrecompileError::ModexpEip7823LimitSize)?;
+    let mod_len = usize::try_from(mod_len).map_err(|_| PrecompileError::ModexpEip7823LimitSize)?;
+    // cast exp len to the max size, it will fail later in gas calculation if it is too large.
+    let exp_len = usize::try_from(exp_len).unwrap_or(usize::MAX);
+
+    // for EIP-7823 we need to check size of imputs
+    if OSAKA
+        && (base_len > eip7823::INPUT_SIZE_LIMIT
+            || mod_len > eip7823::INPUT_SIZE_LIMIT
+            || exp_len > eip7823::INPUT_SIZE_LIMIT)
+    {
+        return Err(PrecompileError::ModexpEip7823LimitSize);
+    }
+
+    // special case for both base and mod length being 0.
+    if base_len == 0 && mod_len == 0 {
+        return Ok(PrecompileOutput::new(min_gas, Bytes::new()));
+    }
+
+    // Used to extract ADJUSTED_EXPONENT_LENGTH.
+    let exp_highp_len = min(exp_len, 32);
+
+    // Throw away the header data as we already extracted lengths.
+    let input = input.get(HEADER_LENGTH..).unwrap_or_default();
+
+    let exp_highp = {
+        // Get right padded bytes so if data.len is less then exp_len we will get right padded zeroes.
+        let right_padded_highp = right_pad_with_offset::<32>(input, base_len);
+        // If exp_len is less then 32 bytes get only exp_len bytes and do left padding.
+        let out = left_pad::<32>(&right_padded_highp[..exp_highp_len]);
+        U256::from_be_bytes(out.into_owned())
+    };
+
+    // Check if we have enough gas.
+    let gas_cost = calc_gas(base_len as u64, exp_len as u64, mod_len as u64, &exp_highp);
+    if gas_cost > gas_limit {
+        return Err(PrecompileError::OutOfGas);
+    }
+
+    // Padding is needed if the input does not contain all 3 values.
+    let input_len = base_len.saturating_add(exp_len).saturating_add(mod_len);
+    let input = right_pad_vec(input, input_len);
+    let (base, input) = input.split_at(base_len);
+    let (exponent, modulus) = input.split_at(exp_len);
+    debug_assert_eq!(modulus.len(), mod_len);
+
+    // Call the modexp.
+    let output = modexp(base, exponent, modulus);
+
+    // Left pad the result to modulus length. bytes will always by less or equal to modulus length.
+    Ok(PrecompileOutput::new(
+        gas_cost,
+        left_pad_vec(&output, mod_len).into_owned().into(),
+    ))
+}
+```
+</line>
+
+<filename>revm/crates/precompile/src/modexp.rs</filename>
+<line start="163" end="188">
+```rust
+/// Calculate gas cost according to EIP 2565:
+/// <https://eips.ethereum.org/EIPS/eip-2565>
+pub fn berlin_gas_calc(base_len: u64, exp_len: u64, mod_len: u64, exp_highp: &U256) -> u64 {
+    gas_calc::<200, 8, 3, _>(base_len, exp_len, mod_len, exp_highp, |max_len| -> U256 {
+        let words = U256::from(max_len.div_ceil(8));
+        words * words
+    })
+}
+
+/// Calculate gas cost according to EIP-7883:
+/// <https://eips.ethereum.org/EIPS/eip-7883>
+///
+/// There are three changes:
+/// 1. Increase minimal price from 200 to 500
+/// 2. Increase cost when exponent is larger than 32 bytes
+/// 3. Increase cost when base or modulus is larger than 32 bytes
+pub fn osaka_gas_calc(base_len: u64, exp_len: u64, mod_len: u64, exp_highp: &U256) -> u64 {
+    gas_calc::<500, 16, 3, _>(base_len, exp_len, mod_len, exp_highp, |max_len| -> U256 {
+        let words = U256::from(max_len.div_ceil(8));
+        let words_square = words * words;
+        if max_len > 32 {
+            return words_square * U256::from(2);
+        }
+        words_square
+    })
+}
+```
+</line>
+
+<filename>revm/crates/precompile/src/modexp.rs</filename>
+<line start="190" end="205">
+```rust
+/// Calculate gas cost.
+pub fn gas_calc<const MIN_PRICE: u64, const MULTIPLIER: u64, const GAS_DIVISOR: u64, F>(
+    base_len: u64,
+    exp_len: u64,
+    mod_len: u64,
+    exp_highp: &U256,
+    calculate_multiplication_complexity: F,
+) -> u64
+where
+    F: Fn(u64) -> U256,
+{
+    let multiplication_complexity = calculate_multiplication_complexity(max(base_len, mod_len));
+    let iteration_count = calculate_iteration_count::<MULTIPLIER>(exp_len, exp_highp);
+    let gas = (multiplication_complexity * U256::from(iteration_count)) / U256::from(GAS_DIVISOR);
+    max(MIN_PRICE, gas.saturating_to())
+}
+```
+</line>
+
+<filename>revm/crates/precompile/src/modexp.rs</filename>
+<line start="46" end="60">
+```rust
+/// Calculate the iteration count for the modexp precompile.
+pub fn calculate_iteration_count<const MULTIPLIER: u64>(exp_length: u64, exp_highp: &U256) -> u64 {
+    let mut iteration_count: u64 = 0;
+
+    if exp_length <= 32 && exp_highp.is_zero() {
+        iteration_count = 0;
+    } else if exp_length <= 32 {
+        iteration_count = exp_highp.bit_len() as u64 - 1;
+    } else if exp_length > 32 {
+        iteration_count = (MULTIPLIER.saturating_mul(exp_length - 32))
+            .saturating_add(max(1, exp_highp.bit_len() as u64) - 1);
+    }
+
+    max(iteration_count, 1)
+}
+```
+</line>

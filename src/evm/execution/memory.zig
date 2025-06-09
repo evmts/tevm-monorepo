@@ -33,8 +33,9 @@ pub fn op_mload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     try frame.consume_gas(gas_cost);
 
-    // Ensure memory is available
-    _ = try frame.memory.ensure_context_capacity(offset_usize + 32);
+    // Ensure memory is available - expand to word boundary to match gas calculation
+    const word_aligned_size = ((offset_usize + 32 + 31) / 32) * 32;
+    _ = try frame.memory.ensure_context_capacity(word_aligned_size);
 
     // Read 32 bytes from memory
     const value = try frame.memory.get_u256(offset_usize);
@@ -70,8 +71,9 @@ pub fn op_mstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     try frame.consume_gas(expansion_gas_cost);
 
-    // Ensure memory is available
-    _ = try frame.memory.ensure_context_capacity(offset_usize + 32);
+    // Ensure memory is available - expand to word boundary to match gas calculation
+    const word_aligned_size = ((offset_usize + 32 + 31) / 32) * 32;
+    _ = try frame.memory.ensure_context_capacity(word_aligned_size);
 
     // Write 32 bytes to memory (big-endian)
     var bytes: [32]u8 = undefined;

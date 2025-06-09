@@ -49,6 +49,58 @@ File: Search for `ecrecover` in evmone precompiles for gas costs and validation
 ### revm Implementation
 File: Search for `ecrecover` in revm for modern implementation patterns
 
+### geth
+
+<explanation>
+The go-ethereum implementation shows the complete ECRECOVER pattern: fixed gas cost (3000), input padding to 128 bytes, parameter extraction and validation, signature component reordering, and public key recovery with address derivation. Key details include v value adjustment (subtract 27), signature validation, and Keccak256 hashing of the recovered public key.
+</explanation>
+
+**Gas Constant** - `/go-ethereum/params/protocol_params.go` (line 140):
+```go
+EcrecoverGas        uint64 = 3000 // Elliptic curve sender recovery gas price
+```
+
+**Full Implementation** - `/go-ethereum/core/vm/contracts.go` (lines 264-301):
+```go
+// ecrecover implemented as a native contract.
+type ecrecover struct{}
+
+func (c *ecrecover) RequiredGas(input []byte) uint64 {
+	return params.EcrecoverGas
+}
+
+func (c *ecrecover) Run(input []byte) ([]byte, error) {
+	const ecRecoverInputLength = 128
+
+	input = common.RightPadBytes(input, ecRecoverInputLength)
+	// "input" is (hash, v, r, s), each 32 bytes
+	// but for ecrecover we want (r, s, v)
+
+	r := new(big.Int).SetBytes(input[64:96])
+	s := new(big.Int).SetBytes(input[96:128])
+	v := input[63] - 27
+
+	// tighter sig s values input homestead only apply to tx sigs
+	if !allZero(input[32:63]) || !crypto.ValidateSignatureValues(v, r, s, false) {
+		return nil, nil
+	}
+	// We must make sure not to modify the 'input', so placing the 'v' along with
+	// the signature needs to be done on a new allocation
+	sig := make([]byte, 65)
+	copy(sig, input[64:128])
+	sig[64] = v
+	// v needs to be at the end for libsecp256k1
+	pubKey, err := crypto.Ecrecover(input[:32], sig)
+	// make sure the public key is a valid one
+	if err != nil {
+		return nil, nil
+	}
+
+	// the first byte of pubkey is bitcoin heritage
+	return common.LeftPadBytes(crypto.Keccak256(pubKey[1:])[12:], 32), nil
+}
+```
+
 ### secp256k1 Library
 Zig doesn't have a built-in secp256k1 implementation, so we'll need to either:
 1. Use a C library binding (libsecp256k1)
@@ -464,3 +516,82 @@ test "ecrecover malformed inputs" {
 - [EIP-155: Simple replay attack protection](https://eips.ethereum.org/EIPS/eip-155)
 - [ECDSA Recovery Explanation](https://cryptobook.nakov.com/digital-signatures/ecdsa-sign-verify-messages)
 - [Ethereum Test Vectors](https://github.com/ethereum/tests)
+
+## Reference Implementations
+
+### revm
+
+<explanation>
+Revm provides a sophisticated ECRECOVER implementation with multiple backend support. Key features:
+
+1. **Multiple Backends**: Supports secp256k1, k256, and libsecp256k1 libraries via features
+2. **Input Validation**: Proper validation of v parameter (must be 27 or 28)
+3. **Signature Normalization**: Handles signature normalization and recovery ID adjustment
+4. **Gas Accounting**: Fixed 3000 gas cost regardless of success/failure
+5. **Error Handling**: Returns empty output on any error, never panics
+
+The implementation shows excellent patterns for crypto library integration and robust error handling.
+</explanation>
+
+<filename>revm/crates/precompile/src/secp256k1.rs</filename>
+<line start="28" end="55">
+```rust
+/// `ecrecover` precompile function. Read more about input and output format in [this module docs](self).
+pub fn ec_recover_run(input: &[u8], gas_limit: u64) -> PrecompileResult {
+    const ECRECOVER_BASE: u64 = 3_000;
+
+    if ECRECOVER_BASE > gas_limit {
+        return Err(PrecompileError::OutOfGas);
+    }
+
+    let input = right_pad::<128>(input);
+
+    // `v` must be a 32-byte big-endian integer equal to 27 or 28.
+    if !(input[32..63].iter().all(|&b| b == 0) && matches!(input[63], 27 | 28)) {
+        return Ok(PrecompileOutput::new(ECRECOVER_BASE, Bytes::new()));
+    }
+
+    let msg = <&B256>::try_from(&input[0..32]).unwrap();
+    let recid = input[63] - 27;
+    let sig = <&B512>::try_from(&input[64..128]).unwrap();
+
+    let res = ecrecover(sig, recid, msg);
+
+    let out = res.map(|o| o.to_vec().into()).unwrap_or_default();
+    Ok(PrecompileOutput::new(ECRECOVER_BASE, out))
+}
+```
+</line>
+
+<filename>revm/crates/precompile/src/secp256k1/k256.rs</filename>
+<line start="5" end="31">
+```rust
+/// Recover the public key from a signature and a message.
+///
+/// This function is using the `k256` crate.
+pub fn ecrecover(sig: &B512, mut recid: u8, msg: &B256) -> Result<B256, Error> {
+    // parse signature
+    let mut sig = Signature::from_slice(sig.as_slice())?;
+
+    // normalize signature and flip recovery id if needed.
+    if let Some(sig_normalized) = sig.normalize_s() {
+        sig = sig_normalized;
+        recid ^= 1;
+    }
+    let recid = RecoveryId::from_byte(recid).expect("recovery ID is valid");
+
+    // recover key
+    let recovered_key = VerifyingKey::recover_from_prehash(&msg[..], &sig, recid)?;
+    // hash it
+    let mut hash = keccak256(
+        &recovered_key
+            .to_encoded_point(/* compress = */ false)
+            .as_bytes()[1..],
+    );
+
+    // truncate to 20 bytes
+    hash[..12].fill(0);
+    Ok(hash)
+}
+```
+</line>
