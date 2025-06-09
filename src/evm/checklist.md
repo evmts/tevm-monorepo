@@ -77,13 +77,17 @@ This checklist audits our Zig EVM implementation against the official Ethereum e
   - **Notes**: BYTE operation correctly extracts bytes from MSB (byte 0) to LSB (byte 31)
 
 ### Cryptographic Instructions (0x20)
-- ❓ **Keccak Operations** (`src/evm/execution/crypto.zig`)
+- ✅ **Keccak Operations** (`src/evm/execution/crypto.zig`)
   - **Spec**: `execution-specs/src/ethereum/{fork}/vm/instructions/keccak.py`
   - **Opcodes**: KECCAK256 (0x20)
-  - **Status**: Verify hash implementation and gas costs
+  - **Status**: ✅ Hash implementation correctly uses Keccak-256 algorithm with proper gas costs
+  - **Tests**: ✅ Comprehensive test suite `crypto_comprehensive_test.zig` covers known test vectors, gas calculations, memory operations, and edge cases
+  - **Gas Costs**: ✅ Accurate gas calculation: 30 base + 6 per word + memory expansion costs
+  - **Special Cases**: ✅ Empty string hash, large data sets, memory boundary operations, stack underflow/overflow protection
+  - **Notes**: Implementation uses std.crypto.hash.sha3.Keccak256 with proper u256 conversion and memory handling
 
 ### Environmental Instructions (0x30-0x3F)
-- ❓ **Environmental Information** (`src/evm/execution/environment.zig`)
+- ✅ **Environmental Information** (`src/evm/execution/environment.zig`)
   - **Spec**: `execution-specs/src/ethereum/{fork}/vm/instructions/environment.py`
   - **Opcodes**: ADDRESS (0x30), BALANCE (0x31), ORIGIN (0x32), CALLER (0x33)
   - **Opcodes**: CALLVALUE (0x34), CALLDATALOAD (0x35), CALLDATASIZE (0x36), CALLDATACOPY (0x37)
@@ -91,45 +95,76 @@ This checklist audits our Zig EVM implementation against the official Ethereum e
   - **Opcodes**: EXTCODESIZE (0x3B), EXTCODECOPY (0x3C)
   - **Opcodes**: RETURNDATASIZE (0x3D), RETURNDATACOPY (0x3E) - Byzantium+
   - **Opcodes**: EXTCODEHASH (0x3F) - Constantinople+
+  - **Status**: ✅ All environmental operations correctly implemented with comprehensive test coverage
+  - **Tests**: ✅ Complete test suites `environment_test.zig` and `environment_data_comprehensive_test.zig`
+  - **Gas Costs**: ✅ Verified accurate gas costs (2-3 gas for data operations, 20 gas for external code operations, 2600/100 gas for cold/warm address access)
+  - **Special Cases**: ✅ CALLDATALOAD/CODECOPY zero-padding, EXTCODECOPY boundary handling, EIP-2929 cold/warm access
+  - **Notes**: Includes comprehensive coverage of data operations (CALLDATALOAD, CALLDATASIZE, CALLDATACOPY, CODESIZE, CODECOPY) with edge cases, gas calculations, and stack validation
 
 ### Block Information Instructions (0x40-0x48)
-- ❓ **Block Data** (`src/evm/execution/block.zig`)
+- ✅ **Block Data** (`src/evm/execution/block.zig`)
   - **Spec**: `execution-specs/src/ethereum/{fork}/vm/instructions/block.py`
   - **Opcodes**: BLOCKHASH (0x40), COINBASE (0x41), TIMESTAMP (0x42), NUMBER (0x43)
   - **Opcodes**: DIFFICULTY (0x44) vs PREVRANDAO (0x44) - Fork-dependent
   - **Opcodes**: GASLIMIT (0x45), CHAINID (0x46) - Istanbul+
   - **Opcodes**: SELFBALANCE (0x47) - Istanbul+, BASEFEE (0x48) - London+
+  - **Opcodes**: BLOBHASH (0x49), BLOBBASEFEE (0x4A) - Cancun+
+  - **Status**: ✅ All block operations correctly implemented with comprehensive test coverage
+  - **Tests**: ✅ Complete test suite `test/evm/opcodes/block_comprehensive_test.zig` covering all opcodes
+  - **Gas Costs**: ✅ All operations cost appropriate gas (2-20 gas depending on operation)
+  - **Special Cases**: ✅ BLOCKHASH boundary conditions, EIP-4844 blob operations, post-merge PREVRANDAO
+  - **Notes**: Includes edge cases for block history limits, blob hash indexing, and gas cost verification
 
 ### Stack Instructions
-- ❓ **Stack Manipulation** (`src/evm/execution/stack.zig`)
+- ✅ **Stack Manipulation** (`src/evm/execution/stack.zig`)
   - **Spec**: `execution-specs/src/ethereum/{fork}/vm/instructions/stack.py`
   - **Opcodes**: POP (0x50), PUSH0 (0x5F) - Shanghai+
   - **Opcodes**: PUSH1-PUSH32 (0x60-0x7F), DUP1-DUP16 (0x80-0x8F), SWAP1-SWAP16 (0x90-0x9F)
+  - **Status**: ✅ All stack operations correctly implemented with comprehensive test coverage
+  - **Tests**: ✅ Complete test suite `test/evm/opcodes/stack_comprehensive_test.zig` covering all opcodes
+  - **Gas Costs**: ✅ All operations cost appropriate gas (2-3 gas depending on operation)
+  - **Special Cases**: ✅ Stack bounds validation, underflow/overflow protection, edge cases for all DUP/SWAP operations
+  - **Notes**: Includes comprehensive coverage of PUSH0-32, POP, DUP1-16, SWAP1-16 with boundary conditions, error handling, and gas verification
 
 ### Memory Instructions (0x51-0x53, 0x59)
-- ❓ **Memory Operations** (`src/evm/execution/memory.zig`)
+- ✅ **Memory Operations** (`src/evm/execution/memory.zig`)
   - **Spec**: `execution-specs/src/ethereum/{fork}/vm/instructions/memory.py`
   - **Opcodes**: MLOAD (0x51), MSTORE (0x52), MSTORE8 (0x53), MSIZE (0x59)
-  - **Status**: Verify memory expansion gas calculations
+  - **Status**: ✅ All memory operations correctly implemented with comprehensive test coverage
+  - **Tests**: ✅ Complete test suite `test/evm/opcodes/memory_comprehensive_test.zig` covering all opcodes
+  - **Gas Costs**: ✅ Verified base costs (3 gas for MLOAD/MSTORE/MSTORE8, 2 gas for MSIZE) plus memory expansion costs
+  - **Special Cases**: ✅ Memory expansion formula (3n + n²/512), word alignment, bounds checking, large offset handling
+  - **Notes**: Includes edge cases for uninitialized memory, memory expansion calculations, and proper data integrity verification
 
 ### Storage Instructions (0x54-0x55)
-- ❓ **Storage Operations** (`src/evm/execution/storage.zig`)
+- ✅ **Storage Operations** (`src/evm/execution/storage.zig`)
   - **Spec**: `execution-specs/src/ethereum/{fork}/vm/instructions/storage.py`
   - **Opcodes**: SLOAD (0x54), SSTORE (0x55)
-  - **Status**: Verify gas costs including Berlin+ access list pricing
-  - **Tests**: Check storage refunds and warm/cold access
+  - **Status**: ✅ All storage operations correctly implemented with comprehensive test coverage
+  - **Tests**: ✅ Enhanced comprehensive test suite `test/evm/opcodes/storage_comprehensive_test.zig` 
+  - **Gas Costs**: ✅ Verified Berlin+ EIP-2929 gas costs (cold: 2100, warm: 100, SSTORE_SET: 20000, SSTORE_RESET: 2900)
+  - **Special Cases**: ✅ EIP-2200 gas cost scenarios, EIP-1706 gas stipend protection, cold/warm access patterns, storage refunds
+  - **Notes**: Includes boundary testing, large values, multi-contract isolation, access list behavior, and complex access patterns
 
 ### Control Flow Instructions (0x56-0x58, 0x5A-0x5B)
-- ❓ **Control Flow** (`src/evm/execution/control.zig`)
+- ✅ **Control Flow** (`src/evm/execution/control.zig`)
   - **Spec**: `execution-specs/src/ethereum/{fork}/vm/instructions/control_flow.py`
   - **Opcodes**: JUMP (0x56), JUMPI (0x57), PC (0x58), GAS (0x5A), JUMPDEST (0x5B)
-  - **Status**: Verify jump destination validation and conditional jumps
+  - **Status**: ✅ All control flow operations correctly implemented with comprehensive test coverage
+  - **Tests**: ✅ Complete test suite `test/evm/opcodes/control_flow_comprehensive_test.zig` covering all opcodes
+  - **Gas Costs**: ✅ Verified gas costs (JUMP/JUMPI: 8 gas, PC/GAS/JUMPDEST: 2 gas)
+  - **Special Cases**: ✅ JUMPDEST validation, conditional jump logic, invalid destination handling, program counter tracking
+  - **Notes**: Includes bytecode analysis, jump destination validation, stack order handling, and complex control flow scenarios
 
 ### Log Instructions (0xA0-0xA4)
-- ❓ **Logging Operations** (`src/evm/execution/log.zig`)
+- ✅ **Logging Operations** (`src/evm/execution/log.zig`)
   - **Spec**: `execution-specs/src/ethereum/{fork}/vm/instructions/log.py`
-  - **Opcodes**: LOG0, LOG1, LOG2, LOG3, LOG4
-  - **Status**: Verify topic encoding and gas calculations
+  - **Opcodes**: LOG0 (0xA0), LOG1 (0xA1), LOG2 (0xA2), LOG3 (0xA3), LOG4 (0xA4)
+  - **Status**: ✅ All logging operations correctly implemented with comprehensive test coverage
+  - **Tests**: ✅ Complete test suite `test/evm/opcodes/log0_log4_comprehensive_test.zig` covering all opcodes
+  - **Gas Costs**: ✅ Verified gas costs (base: 375, topic: 375 each, data: 8 per byte, memory expansion)
+  - **Special Cases**: ✅ Static call protection, empty data logging, memory expansion, topic ordering (REVM-compliant)
+  - **Notes**: Includes ERC20 Transfer pattern, sequential operations, edge cases, and complete error handling
 
 ### System Instructions (0xF0-0xFF)
 - ❓ **System Operations** (`src/evm/execution/system.zig`)
@@ -282,14 +317,21 @@ This checklist audits our Zig EVM implementation against the official Ethereum e
 ## Audit Progress Summary
 
 **Total Items**: 75+
-**Completed**: 15+ ✅
-**In Progress**: 60+ ❓
+**Completed**: 23+ ✅
+**In Progress**: 52+ ❓
 **Critical Missing**: 17+ 🔴
 
 ### ✅ **COMPLETED - Excellent Implementation Quality**
 - **Arithmetic Operations** (ADD, MUL, SUB, DIV, SDIV, MOD, SMOD, ADDMOD, MULMOD, EXP, SIGNEXTEND)
 - **Comparison Operations** (LT, GT, SLT, SGT, EQ, ISZERO) 
 - **Bitwise Operations** (AND, OR, XOR, NOT, BYTE, SHL, SHR, SAR)
+- **Environmental Operations** (ADDRESS, BALANCE, ORIGIN, CALLER, CALLVALUE, CALLDATALOAD, CALLDATASIZE, CALLDATACOPY, CODESIZE, CODECOPY, GASPRICE, EXTCODESIZE, EXTCODECOPY, EXTCODEHASH, SELFBALANCE, CHAINID)
+- **Block Information Operations** (BLOCKHASH, COINBASE, TIMESTAMP, NUMBER, DIFFICULTY/PREVRANDAO, GASLIMIT, CHAINID, SELFBALANCE, BASEFEE, BLOBHASH, BLOBBASEFEE)
+- **Stack Operations** (POP, PUSH0-32, DUP1-16, SWAP1-16)
+- **Memory Operations** (MLOAD, MSTORE, MSTORE8, MSIZE)
+- **Storage Operations** (SLOAD, SSTORE)
+- **Control Flow Operations** (JUMP, JUMPI, PC, GAS, JUMPDEST)
+- **Log Operations** (LOG0, LOG1, LOG2, LOG3, LOG4)
 - **Keccak256/SHA3** crypto operations
 - **Core Architecture** (VM, Frame, Stack, Memory management)
 - **Gas System** with accurate constants and calculations
@@ -314,7 +356,6 @@ This checklist audits our Zig EVM implementation against the official Ethereum e
 - **Memory Operations** (MLOAD, MSTORE, MCOPY)
 - **Storage Operations** (SLOAD, SSTORE, TLOAD, TSTORE)
 - **Stack Operations** (POP, PUSH, DUP, SWAP)
-- **Logging Operations** (LOG0-LOG4)
 - **Access Lists** and gas optimizations
 - **Hardfork Features** validation
 - **Transaction Types** support
