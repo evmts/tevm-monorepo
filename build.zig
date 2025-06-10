@@ -66,7 +66,7 @@ pub fn build(b: *std.Build) void {
     utils_mod.single_threaded = true;
 
     const trie_mod = b.createModule(.{
-        .root_source_file = b.path("src/Trie/module.zig"),
+        .root_source_file = b.path("src/trie_/module.zig"),
         .target = target,
         .optimize = optimize,
     });
@@ -116,7 +116,7 @@ pub fn build(b: *std.Build) void {
     compiler_wasm_mod.single_threaded = true;
 
     const rlp_mod = b.createModule(.{
-        .root_source_file = b.path("src/Rlp/rlp.zig"),
+        .root_source_file = b.path("src/rlp_/rlp.zig"),
         .target = target,
         .optimize = optimize,
     });
@@ -352,7 +352,7 @@ pub fn build(b: *std.Build) void {
     // Add a test for rlp_test.zig
     const rlp_specific_test = b.addTest(.{
         .name = "rlp-test",
-        .root_source_file = b.path("src/Rlp/rlp_test.zig"),
+        .root_source_file = b.path("src/rlp_/rlp_test.zig"),
         .target = target,
         .optimize = optimize,
     });
@@ -406,7 +406,7 @@ pub fn build(b: *std.Build) void {
     // Add a test for Trie tests
     const trie_test = b.addTest(.{
         .name = "trie-test",
-        .root_source_file = b.path("src/Trie/main_test.zig"),
+        .root_source_file = b.path("src/trie_/main_test.zig"),
         .target = target,
         .optimize = optimize,
     });
