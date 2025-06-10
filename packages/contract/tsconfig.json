@@ -6,6 +6,7 @@
 				"name": "@evmts/ts-plugin"
 			}
 		],
+		"rootDir": "src",
 		"outDir": "types",
 		"skipLibCheck": true,
 		// this should be "Bundler" but don't want to fight a broken type
