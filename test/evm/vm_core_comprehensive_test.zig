@@ -324,7 +324,7 @@ test "VMCore: Frame initialization and cleanup" {
     try testing.expectEqual(false, frame.is_static);
     try testing.expectEqual(@as(u32, 0), frame.depth);
     try testing.expectEqual(@as(usize, 0), frame.pc);
-    try testing.expectEqual(@as(usize, 0), frame.return_data_buffer.len);
+    try testing.expectEqual(@as(usize, 0), frame.return_data.size());
     try testing.expectEqual(@as(usize, 0), frame.input.len);
     try testing.expectEqual(@as(usize, 0), frame.output.len);
     
