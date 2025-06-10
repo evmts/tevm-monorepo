@@ -112,6 +112,12 @@ pub const EvmState = @import("state/state.zig");
 /// Precompiled contracts implementation (IDENTITY, SHA256, etc.)
 pub const Precompiles = @import("precompiles/precompiles.zig");
 
+/// EIP-4844 blob transaction support (blobs, KZG verification, gas market)
+pub const blob = @import("blob/index.zig");
+
+/// Transaction types including EIP-4844 blob transactions
+pub const transaction = @import("transaction/index.zig");
+
 // Import execution
 /// All opcode implementations (arithmetic, stack, memory, etc.)
 pub const execution = @import("execution/package.zig");
@@ -141,6 +147,20 @@ pub const gas_constants = @import("constants/gas_constants.zig");
 
 /// Memory size limits and expansion rules
 pub const memory_limits = @import("constants/memory_limits.zig");
+
+// EIP-4844 blob exports for convenience
+/// Blob data structure from EIP-4844
+pub const Blob = blob.Blob;
+/// KZG commitment structure
+pub const KZGCommitment = blob.KZGCommitment;
+/// KZG proof structure
+pub const KZGProof = blob.KZGProof;
+/// Versioned hash for blob commitments
+pub const VersionedHash = blob.VersionedHash;
+/// Blob gas market implementation
+pub const BlobGasMarket = blob.BlobGasMarket;
+/// Blob transaction type
+pub const BlobTransaction = transaction.BlobTransaction;
 
 // Export all error types for strongly typed error handling
 ///

@@ -4,6 +4,7 @@ const addresses = @import("precompile_addresses.zig");
 const PrecompileOutput = @import("precompile_result.zig").PrecompileOutput;
 const PrecompileError = @import("precompile_result.zig").PrecompileError;
 const identity = @import("identity.zig");
+const kzg_point_evaluation = @import("kzg_point_evaluation.zig");
 const ChainRules = @import("../hardforks/chain_rules.zig");
 
 /// Main precompile dispatcher module
@@ -136,9 +137,9 @@ pub fn execute_precompile(
             return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
         }, // BLAKE2F - TODO
         10 => {
-            @branchHint(.cold);
-            return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
-        }, // POINT_EVALUATION - TODO
+            @branchHint(.unlikely);
+            return kzg_point_evaluation.execute(input, output, gas_limit);
+        }, // POINT_EVALUATION
         
         else => {
             @branchHint(.cold);
@@ -181,7 +182,7 @@ pub fn estimate_gas(address: Address, input_size: usize, chain_rules: ChainRules
         7 => error.NotImplemented, // ECMUL - TODO
         8 => error.NotImplemented, // ECPAIRING - TODO
         9 => error.NotImplemented, // BLAKE2F - TODO
-        10 => error.NotImplemented, // POINT_EVALUATION - TODO
+        10 => kzg_point_evaluation.calculate_gas_checked(input_size), // POINT_EVALUATION
         
         else => error.InvalidPrecompile,
     };
@@ -221,7 +222,7 @@ pub fn get_output_size(address: Address, input_size: usize, chain_rules: ChainRu
         7 => 64, // ECMUL - fixed 64 bytes (point)
         8 => 32, // ECPAIRING - fixed 32 bytes (boolean result)
         9 => 64, // BLAKE2F - fixed 64 bytes (state)
-        10 => 64, // POINT_EVALUATION - fixed 64 bytes (proof result)
+        10 => kzg_point_evaluation.get_output_size(input_size), // POINT_EVALUATION
         
         else => error.InvalidPrecompile,
     };
