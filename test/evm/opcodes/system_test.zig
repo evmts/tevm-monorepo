@@ -224,8 +224,8 @@ test "CALL: basic call behavior" {
     // Execute CALL
     _ = try test_helpers.executeOpcode(0xF1, test_vm.vm, test_frame.frame);
 
-    // Should push 0 for failure (VM doesn't implement external calls yet)
-    try testing.expectEqual(@as(u256, 0), try test_frame.popStack());
+    // Should push 1 for success (calling EOA succeeds)
+    try testing.expectEqual(@as(u256, 1), try test_frame.popStack());
 }
 
 test "CALL: failed call" {
@@ -259,8 +259,8 @@ test "CALL: failed call" {
     // Execute CALL
     _ = try test_helpers.executeOpcode(0xF1, test_vm.vm, test_frame.frame);
 
-    // Should push 0 for failure
-    try testing.expectEqual(@as(u256, 0), try test_frame.popStack());
+    // Should push 1 for success (calling EOA succeeds)
+    try testing.expectEqual(@as(u256, 1), try test_frame.popStack());
 }
 
 test "CALL: cold address access costs more gas" {
@@ -296,10 +296,10 @@ test "CALL: cold address access costs more gas" {
     // Execute CALL
     _ = try test_helpers.executeOpcode(0xF1, test_vm.vm, test_frame.frame);
 
-    // Should push 0 for failure and consume some gas
-    try testing.expectEqual(@as(u256, 0), try test_frame.popStack());
+    // Should push 1 for success and consume some gas (cold address access cost)
+    try testing.expectEqual(@as(u256, 1), try test_frame.popStack());
     const gas_used = gas_before - test_frame.frame.gas_remaining;
-    try testing.expect(gas_used > 0); // Should consume some gas even for failed calls
+    try testing.expect(gas_used > 0); // Should consume gas for cold address access
 }
 
 test "CALL: value transfer in static call fails" {
@@ -408,8 +408,8 @@ test "STATICCALL: read-only call" {
     // Execute STATICCALL
     _ = try test_helpers.executeOpcode(0xFA, test_vm.vm, test_frame.frame);
 
-    // Should push 0 for failure (VM doesn't implement staticcall yet)
-    try testing.expectEqual(@as(u256, 0), try test_frame.popStack());
+    // Should push 1 for success (STATICCALL to EOA succeeds)
+    try testing.expectEqual(@as(u256, 1), try test_frame.popStack());
 }
 
 // Test depth limit for calls

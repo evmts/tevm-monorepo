@@ -10,6 +10,7 @@ const to_u256 = Address.to_u256;
 const from_u256 = Address.from_u256;
 const gas_constants = @import("../constants/gas_constants.zig");
 const AccessList = @import("../access_list/access_list.zig").AccessList;
+const Log = @import("../log.zig");
 
 // Import helper functions from error_mapping
 
@@ -31,6 +32,54 @@ fn check_offset_bounds(value: u256) ExecutionError.Error!void {
         @branchHint(.cold);
         return ExecutionError.Error.InvalidOffset;
     }
+}
+
+// Snapshot and revert helper functions for opcode-level state management
+
+/// Create a snapshot for opcode-level state management
+///
+/// This function provides a convenient way for opcodes to create state snapshots
+/// before performing operations that might need to be reverted.
+///
+/// ## Parameters
+/// - `vm`: VM instance to create snapshot on
+///
+/// ## Returns
+/// - Success: Snapshot identifier
+/// - Error: OutOfMemory if snapshot allocation fails
+pub fn create_snapshot(vm: *Vm) std.mem.Allocator.Error!usize {
+    Log.debug("system.create_snapshot: Creating state snapshot", .{});
+    return try vm.create_snapshot();
+}
+
+/// Commit a snapshot, making all changes permanent
+///
+/// This function commits all state changes made since the snapshot was created.
+/// Once committed, the changes cannot be reverted using this snapshot.
+///
+/// ## Parameters
+/// - `vm`: VM instance to commit snapshot on
+/// - `snapshot_id`: Identifier of the snapshot to commit
+pub fn commit_snapshot(vm: *Vm, snapshot_id: usize) void {
+    Log.debug("system.commit_snapshot: Committing snapshot id={}", .{snapshot_id});
+    vm.commit_snapshot(snapshot_id);
+}
+
+/// Revert to a snapshot, undoing all changes since the snapshot was created
+///
+/// This function restores the VM state to exactly how it was when the snapshot
+/// was created. This is used for opcodes like REVERT and for failed operations.
+///
+/// ## Parameters
+/// - `vm`: VM instance to revert snapshot on
+/// - `snapshot_id`: Identifier of the snapshot to revert to
+///
+/// ## Returns
+/// - Success: void
+/// - Error: Invalid snapshot ID or reversion failure
+pub fn revert_to_snapshot(vm: *Vm, snapshot_id: usize) !void {
+    Log.debug("system.revert_to_snapshot: Reverting to snapshot id={}", .{snapshot_id});
+    try vm.revert_to_snapshot(snapshot_id);
 }
 
 pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
