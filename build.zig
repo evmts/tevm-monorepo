@@ -58,7 +58,7 @@ pub fn build(b: *std.Build) void {
     abi_mod.single_threaded = true;
 
     const utils_mod = b.createModule(.{
-        .root_source_file = b.path("src/utils_/utils.zig"),
+        .root_source_file = b.path("src/utils/utils.zig"),
         .target = target,
         .optimize = optimize,
     });
@@ -124,14 +124,14 @@ pub fn build(b: *std.Build) void {
     rlp_mod.single_threaded = true;
 
     // Add imports to the rlp_mod
-    rlp_mod.addImport("Utils", utils_mod);
+    rlp_mod.addImport("utils", utils_mod);
 
     // Add imports to the address_mod
     address_mod.addImport("Rlp", rlp_mod);
 
     // Add imports to the trie_mod
     trie_mod.addImport("Rlp", rlp_mod);
-    trie_mod.addImport("Utils", utils_mod);
+    trie_mod.addImport("utils", utils_mod);
 
     const token_mod = b.createModule(.{
         .root_source_file = b.path("src/token/token.zig"),
@@ -175,7 +175,7 @@ pub fn build(b: *std.Build) void {
     target_architecture_mod.addImport("Rlp", rlp_mod);
     target_architecture_mod.addImport("Token", token_mod);
     target_architecture_mod.addImport("Trie", trie_mod);
-    target_architecture_mod.addImport("Utils", utils_mod);
+    target_architecture_mod.addImport("utils", utils_mod);
 
     // Create the native executable module
     const exe_mod = b.createModule(.{
@@ -302,7 +302,7 @@ pub fn build(b: *std.Build) void {
     lib_unit_tests.root_module.addImport("Rlp", rlp_mod);
     lib_unit_tests.root_module.addImport("Token", token_mod);
     lib_unit_tests.root_module.addImport("Trie", trie_mod);
-    lib_unit_tests.root_module.addImport("Utils", utils_mod);
+    lib_unit_tests.root_module.addImport("utils", utils_mod);
 
     // Frame test removed - Frame_test.zig doesn't exist
 
@@ -324,7 +324,7 @@ pub fn build(b: *std.Build) void {
     evm_test.root_module.addImport("Rlp", rlp_mod);
     evm_test.root_module.addImport("Token", token_mod);
     evm_test.root_module.addImport("Trie", trie_mod);
-    evm_test.root_module.addImport("Utils", utils_mod);
+    evm_test.root_module.addImport("utils", utils_mod);
 
     const run_evm_test = b.addRunArtifact(evm_test);
 
@@ -359,7 +359,7 @@ pub fn build(b: *std.Build) void {
 
     // Add dependencies to rlp_test
     rlp_specific_test.root_module.addImport("Rlp", rlp_mod);
-    rlp_specific_test.root_module.addImport("Utils", utils_mod);
+    rlp_specific_test.root_module.addImport("utils", utils_mod);
 
     const run_rlp_test = b.addRunArtifact(rlp_specific_test);
 
@@ -377,7 +377,7 @@ pub fn build(b: *std.Build) void {
 
     // Add dependencies to abi_test
     abi_specific_test.root_module.addImport("Abi", abi_mod);
-    abi_specific_test.root_module.addImport("Utils", utils_mod);
+    abi_specific_test.root_module.addImport("utils", utils_mod);
 
     const run_abi_test = b.addRunArtifact(abi_specific_test);
 
@@ -413,7 +413,7 @@ pub fn build(b: *std.Build) void {
 
     // Add dependencies to trie_test
     trie_test.root_module.addImport("Rlp", rlp_mod);
-    trie_test.root_module.addImport("Utils", utils_mod);
+    trie_test.root_module.addImport("utils", utils_mod);
     trie_test.root_module.addImport("Trie", trie_mod);
 
     const run_trie_test = b.addRunArtifact(trie_test);
@@ -436,7 +436,7 @@ pub fn build(b: *std.Build) void {
     interpreter_test.root_module.addImport("Block", block_mod);
     interpreter_test.root_module.addImport("Rlp", rlp_mod);
     interpreter_test.root_module.addImport("evm", evm_mod);
-    interpreter_test.root_module.addImport("Utils", utils_mod);
+    interpreter_test.root_module.addImport("utils", utils_mod);
 
     const run_interpreter_test = b.addRunArtifact(interpreter_test);
 
@@ -506,7 +506,7 @@ pub fn build(b: *std.Build) void {
     opcodes_test.root_module.addImport("Address", address_mod);
     opcodes_test.root_module.addImport("Block", block_mod);
     opcodes_test.root_module.addImport("evm", evm_mod);
-    opcodes_test.root_module.addImport("Utils", utils_mod);
+    opcodes_test.root_module.addImport("utils", utils_mod);
 
     const run_opcodes_test = b.addRunArtifact(opcodes_test);
 
@@ -559,7 +559,7 @@ pub fn build(b: *std.Build) void {
     integration_test.root_module.addImport("Address", address_mod);
     integration_test.root_module.addImport("Block", block_mod);
     integration_test.root_module.addImport("evm", evm_mod);
-    integration_test.root_module.addImport("Utils", utils_mod);
+    integration_test.root_module.addImport("utils", utils_mod);
     integration_test.root_module.addImport("test_helpers", test_helpers_mod);
 
     const run_integration_test = b.addRunArtifact(integration_test);
@@ -582,7 +582,7 @@ pub fn build(b: *std.Build) void {
     gas_test.root_module.addImport("Address", address_mod);
     gas_test.root_module.addImport("Block", block_mod);
     gas_test.root_module.addImport("evm", evm_mod);
-    gas_test.root_module.addImport("Utils", utils_mod);
+    gas_test.root_module.addImport("utils", utils_mod);
     gas_test.root_module.addImport("test_helpers", test_helpers_mod);
 
     const run_gas_test = b.addRunArtifact(gas_test);
@@ -605,7 +605,7 @@ pub fn build(b: *std.Build) void {
     static_protection_test.root_module.addImport("Address", address_mod);
     static_protection_test.root_module.addImport("Block", block_mod);
     static_protection_test.root_module.addImport("evm", evm_mod);
-    static_protection_test.root_module.addImport("Utils", utils_mod);
+    static_protection_test.root_module.addImport("utils", utils_mod);
 
     const run_static_protection_test = b.addRunArtifact(static_protection_test);
 
