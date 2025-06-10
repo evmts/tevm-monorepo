@@ -481,10 +481,13 @@ test "Control flow interaction: Call with REVERT" {
     // Execute the CALL (VM handles the actual call)
     _ = try helpers.executeOpcode(0xF1, test_vm.vm, test_frame.frame);
 
-    // Check failure status pushed to stack
+    // Check success status pushed to stack (regular calls not implemented yet)
     const success = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 0), success);
 
+    // Note: This test verifies CALL behavior - currently fails because
+    // regular contract calls are not fully implemented in the VM yet
+    // with empty return data.
     // Note: The VM currently doesn't simulate the called contract reverting,
     // so we can't check the revert reason in return_data.
     // This test now just verifies that CALL executes and returns 0 (failure).
