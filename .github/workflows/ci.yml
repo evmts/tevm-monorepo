@@ -96,3 +96,26 @@ jobs:
         if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
         continue-on-error: true
         run: pnpm -r build:wasm
+
+      - name: Check Results
+        if: always()
+        run: |
+          echo "| Task | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|--------|" >> $GITHUB_STEP_SUMMARY
+
+          failed=""
+          steps_json='${{ toJson(steps) }}'
+
+          for step in build-types tests fixtures tests-rust typecheck lint lint-deps lint-packages build-app generate-docs build-rust build-wasm; do
+            conclusion=$(echo "$steps_json" | jq -r ".\"$step\".conclusion // \"skipped\"")
+            name=$(echo "$step" | sed 's/-/ /g' | sed 's/\b\w/\U&/g')  # Convert to Title Case
+
+            if [[ "$conclusion" == "success" ]]; then
+              echo "| $name | ✅ |" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "| $name | ❌ |" >> $GITHUB_STEP_SUMMARY
+              failed="$failed $step"
+            fi
+          done
+
+          [[ -n "$failed" ]] && { echo "❌ Failed:$failed" >> $GITHUB_STEP_SUMMARY; exit 1; } || echo "✅ All tasks passed" >> $GITHUB_STEP_SUMMARY
