@@ -72,10 +72,10 @@ read_only: bool = false,
 /// ```zig
 /// var vm = try VM.init(allocator, null, null);
 /// ```
-pub fn init(allocator: std.mem.Allocator, jump_table: ?*const JumpTable, chain_rules: ?*const ChainRules) !Vm {
-    Log.debug("VM.init: Initializing VM with allocator", .{});
+pub fn init(allocator: std.mem.Allocator, database: @import("state/database_interface.zig").DatabaseInterface, jump_table: ?*const JumpTable, chain_rules: ?*const ChainRules) !Vm {
+    Log.debug("VM.init: Initializing VM with allocator and database", .{});
 
-    var state = try EvmState.init(allocator);
+    var state = try EvmState.init(allocator, database);
     errdefer state.deinit();
 
     var access_list = AccessList.init(allocator);
@@ -96,13 +96,14 @@ pub fn init(allocator: std.mem.Allocator, jump_table: ?*const JumpTable, chain_r
 /// Convenience function that creates the jump table at runtime.
 /// For production use, consider pre-generating the jump table at compile time.
 /// @param allocator Memory allocator for VM operations
+/// @param database Database interface for state management
 /// @param hardfork Ethereum hardfork to configure for
 /// @return Initialized VM instance
 /// @throws std.mem.Allocator.Error if allocation fails
-pub fn init_with_hardfork(allocator: std.mem.Allocator, hardfork: Hardfork) !Vm {
+pub fn init_with_hardfork(allocator: std.mem.Allocator, database: @import("state/database_interface.zig").DatabaseInterface, hardfork: Hardfork) !Vm {
     const table = JumpTable.init_from_hardfork(hardfork);
     const rules = ChainRules.for_hardfork(hardfork);
-    return try init(allocator, &table, &rules);
+    return try init(allocator, database, &table, &rules);
 }
 
 /// Free all VM resources.
@@ -246,28 +247,18 @@ pub fn interpret_with_context(self: *Vm, contract: *Contract, input: []const u8,
     );
 }
 
-fn create_contract_internal(self: *Vm, creator: Address.Address, value: u256, init_code: []const u8, gas: u64, new_address: Address.Address) !CreateResult {
+fn create_contract_internal(self: *Vm, creator: Address.Address, value: u256, init_code: []const u8, gas: u64, new_address: Address.Address) (std.mem.Allocator.Error || @import("state/database_interface.zig").DatabaseError || ExecutionError.Error)!CreateResult {
     Log.debug("VM.create_contract_internal: Creating contract from {any} to {any}, value={}, gas={}", .{ creator, new_address, value, gas });
-    
-    // Create snapshot before contract creation for potential revert
-    const snapshot_id = try self.state.snapshot();
-    errdefer {
-        // Revert on any error during setup
-        self.state.revert(snapshot_id) catch {};
-    }
-    
     if (self.state.get_code(new_address).len > 0) {
         @branchHint(.unlikely);
-        // Contract already exists at this address - revert and fail
-        try self.state.revert(snapshot_id);
+        // Contract already exists at this address - fail
         return CreateResult.initFailure(gas, null);
     }
 
     const creator_balance = self.state.get_balance(creator);
     if (creator_balance < value) {
         @branchHint(.unlikely);
-        // Insufficient balance - revert and fail
-        try self.state.revert(snapshot_id);
+        // Insufficient balance - fail
         return CreateResult.initFailure(gas, null);
     }
 
@@ -277,8 +268,7 @@ fn create_contract_internal(self: *Vm, creator: Address.Address, value: u256, in
     }
 
     if (init_code.len == 0) {
-        // No init code means empty contract - commit the snapshot
-        self.state.commit(snapshot_id);
+        // No init code means empty contract
         return CreateResult{
             .success = true,
             .address = new_address,
@@ -307,13 +297,11 @@ fn create_contract_internal(self: *Vm, creator: Address.Address, value: u256, in
     // Execute the init code - this should return the deployment bytecode
     const init_result = self.interpret_with_context(&init_contract, &[_]u8{}, false) catch |err| {
         if (err == ExecutionError.Error.REVERT) {
-            // On revert, revert state changes and consume partial gas
-            try self.state.revert(snapshot_id);
+            // On revert, consume partial gas
             return CreateResult.initFailure(init_contract.gas, null);
         }
 
         // Most initcode failures should return 0 address and consume all gas
-        try self.state.revert(snapshot_id);
         return CreateResult.initFailure(0, null);
     };
 
@@ -321,23 +309,18 @@ fn create_contract_internal(self: *Vm, creator: Address.Address, value: u256, in
 
     // Check EIP-170 MAX_CODE_SIZE limit on the returned bytecode (24,576 bytes)
     if (deployment_code.len > constants.MAX_CODE_SIZE) {
-        try self.state.revert(snapshot_id);
         return CreateResult.initFailure(0, null);
     }
 
     const deploy_code_gas = @as(u64, @intCast(deployment_code.len)) * constants.DEPLOY_CODE_GAS_PER_BYTE;
 
     if (deploy_code_gas > init_result.gas_left) {
-        try self.state.revert(snapshot_id);
         return CreateResult.initFailure(0, null);
     }
 
     try self.state.set_code(new_address, deployment_code);
 
     const gas_left = init_result.gas_left - deploy_code_gas;
-
-    // Commit the snapshot on successful contract creation
-    self.state.commit(snapshot_id);
 
     return CreateResult{
         .success = true,
@@ -348,7 +331,7 @@ fn create_contract_internal(self: *Vm, creator: Address.Address, value: u256, in
 }
 
 // Contract creation with CREATE opcode
-pub const CreateContractError = std.mem.Allocator.Error || Address.CalculateAddressError;
+pub const CreateContractError = std.mem.Allocator.Error || Address.CalculateAddressError || @import("state/database_interface.zig").DatabaseError || ExecutionError.Error;
 
 /// Create a new contract using CREATE opcode semantics.
 ///
@@ -398,25 +381,10 @@ pub fn call_contract(self: *Vm, caller: Address.Address, to: Address.Address, va
     
     Log.debug("VM.call_contract: Call from {any} to {any}, gas={}, static={}", .{ caller, to, gas, is_static });
     
-    // Create snapshot before call for potential revert
-    const snapshot_id = try self.state.snapshot();
-    errdefer {
-        // Revert on any error during setup
-        self.state.revert(snapshot_id) catch {};
-    }
-    
     // Check if this is a precompile call
     if (precompiles.is_precompile(to)) {
         Log.debug("VM.call_contract: Detected precompile call to {any}", .{to});
-        const result = self.execute_precompile_call(to, input, gas, is_static) catch |err| {
-            // Revert state and propagate error
-            try self.state.revert(snapshot_id);
-            return err;
-        };
-        
-        // Handle result - precompiles don't modify state so always commit
-        self.state.commit(snapshot_id);
-        return result;
+        return self.execute_precompile_call(to, input, gas, is_static);
     }
     
     // Regular contract call - currently not implemented
@@ -424,8 +392,6 @@ pub fn call_contract(self: *Vm, caller: Address.Address, to: Address.Address, va
     Log.debug("VM.call_contract: Regular contract call not implemented yet", .{});
     _ = value;
     
-    // For now, revert the snapshot since we're not implementing the call
-    try self.state.revert(snapshot_id);
     return CallResult{ .success = false, .gas_left = gas, .output = null };
 }
 
@@ -508,7 +474,7 @@ fn execute_precompile_call(self: *Vm, address: Address.Address, input: []const u
 
 pub const ConsumeGasError = ExecutionError.Error;
 
-pub const Create2ContractError = std.mem.Allocator.Error || Address.CalculateCreate2AddressError;
+pub const Create2ContractError = std.mem.Allocator.Error || Address.CalculateCreate2AddressError || @import("state/database_interface.zig").DatabaseError || ExecutionError.Error;
 
 /// Create a new contract using CREATE2 opcode semantics.
 ///
@@ -547,18 +513,10 @@ pub const DelegatecallContractError = std.mem.Allocator.Error;
 pub fn delegatecall_contract(self: *Vm, current: Address.Address, code_address: Address.Address, input: []const u8, gas: u64, is_static: bool) DelegatecallContractError!CallResult {
     Log.debug("VM.delegatecall_contract: DELEGATECALL from {any} to {any}, gas={}, static={}", .{ current, code_address, gas, is_static });
     
-    // Create snapshot before call for potential revert
-    const snapshot_id = try self.state.snapshot();
-    errdefer {
-        // Revert on any error during setup
-        self.state.revert(snapshot_id) catch {};
-    }
-    
-    // DELEGATECALL not implemented yet - revert the snapshot
+    // DELEGATECALL not implemented yet
     Log.debug("VM.delegatecall_contract: DELEGATECALL not implemented yet", .{});
     _ = input;
     
-    try self.state.revert(snapshot_id);
     return CallResult{ .success = false, .gas_left = gas, .output = null };
 }
 
@@ -570,18 +528,10 @@ pub const StaticcallContractError = std.mem.Allocator.Error;
 pub fn staticcall_contract(self: *Vm, caller: Address.Address, to: Address.Address, input: []const u8, gas: u64) StaticcallContractError!CallResult {
     Log.debug("VM.staticcall_contract: STATICCALL from {any} to {any}, gas={}", .{ caller, to, gas });
     
-    // Create snapshot before call for potential revert
-    const snapshot_id = try self.state.snapshot();
-    errdefer {
-        // Revert on any error during setup
-        self.state.revert(snapshot_id) catch {};
-    }
-    
-    // STATICCALL not implemented yet - revert the snapshot
+    // STATICCALL not implemented yet
     Log.debug("VM.staticcall_contract: STATICCALL not implemented yet", .{});
     _ = input;
     
-    try self.state.revert(snapshot_id);
     return CallResult{ .success = false, .gas_left = gas, .output = null };
 }
 
@@ -651,7 +601,7 @@ pub fn validate_static_context(self: *const Vm) ValidateStaticContextError!void 
     if (self.read_only) return error.WriteProtection;
 }
 
-pub const SetStorageProtectedError = ValidateStaticContextError || std.mem.Allocator.Error;
+pub const SetStorageProtectedError = ValidateStaticContextError || std.mem.Allocator.Error || @import("state/database_interface.zig").DatabaseError;
 
 /// Set a storage value with static context protection.
 /// Used by the SSTORE opcode to prevent storage modifications in static calls.
@@ -669,7 +619,7 @@ pub fn set_transient_storage_protected(self: *Vm, address: Address.Address, slot
     try self.state.set_transient_storage(address, slot, value);
 }
 
-pub const SetBalanceProtectedError = ValidateStaticContextError || std.mem.Allocator.Error;
+pub const SetBalanceProtectedError = ValidateStaticContextError || std.mem.Allocator.Error || @import("state/database_interface.zig").DatabaseError;
 
 /// Set an account balance with static context protection.
 /// Prevents balance modifications during static calls.
@@ -678,7 +628,7 @@ pub fn set_balance_protected(self: *Vm, address: Address.Address, balance: u256)
     try self.state.set_balance(address, balance);
 }
 
-pub const SetCodeProtectedError = ValidateStaticContextError || std.mem.Allocator.Error;
+pub const SetCodeProtectedError = ValidateStaticContextError || std.mem.Allocator.Error || @import("state/database_interface.zig").DatabaseError;
 
 /// Deploy contract code with static context protection.
 /// Prevents code deployment during static calls.

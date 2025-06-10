@@ -17,32 +17,45 @@ pub const opcodes = evm.opcodes;
 pub const Hardfork = evm.Hardfork.Hardfork;
 pub const JumpTable = evm.JumpTable;
 pub const ChainRules = evm.chain_rules;
+pub const MemoryDatabase = evm.MemoryDatabase;
+pub const DatabaseInterface = evm.DatabaseInterface;
 
 /// Mock settings for testing
 pub const TestVm = struct {
     vm: *Vm,
+    memory_db: *MemoryDatabase,
 
     const Self = @This();
 
     pub fn init(allocator: std.mem.Allocator) !Self {
         const vm = try allocator.create(Vm);
-        vm.* = try Vm.init(allocator, null, null);
+        const memory_db = try allocator.create(MemoryDatabase);
+        memory_db.* = MemoryDatabase.init(allocator);
+        const db_interface = memory_db.to_database_interface();
+        vm.* = try Vm.init(allocator, db_interface, null, null);
         return Self{
             .vm = vm,
+            .memory_db = memory_db,
         };
     }
 
     pub fn init_with_hardfork(allocator: std.mem.Allocator, hardfork: evm.Hardfork.Hardfork) !Self {
         const vm = try allocator.create(Vm);
-        vm.* = try Vm.init_with_hardfork(allocator, hardfork);
+        const memory_db = try allocator.create(MemoryDatabase);
+        memory_db.* = MemoryDatabase.init(allocator);
+        const db_interface = memory_db.to_database_interface();
+        vm.* = try Vm.init_with_hardfork(allocator, db_interface, hardfork);
         return Self{
             .vm = vm,
+            .memory_db = memory_db,
         };
     }
 
     pub fn deinit(self: *Self, allocator: std.mem.Allocator) void {
         self.vm.deinit();
+        self.memory_db.deinit();
         allocator.destroy(self.vm);
+        allocator.destroy(self.memory_db);
     }
 };
 
