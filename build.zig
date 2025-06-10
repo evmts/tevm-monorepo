@@ -58,7 +58,7 @@ pub fn build(b: *std.Build) void {
     abi_mod.single_threaded = true;
 
     const utils_mod = b.createModule(.{
-        .root_source_file = b.path("src/Utils/utils.zig"),
+        .root_source_file = b.path("src/utils_/utils.zig"),
         .target = target,
         .optimize = optimize,
     });
