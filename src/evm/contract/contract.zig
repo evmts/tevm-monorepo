@@ -45,6 +45,7 @@ const ExecutionError = @import("../execution/execution_error.zig");
 const CodeAnalysis = @import("code_analysis.zig");
 const StoragePool = @import("storage_pool.zig");
 const Log = @import("../log.zig");
+const wasm_stubs = @import("../wasm_stubs.zig");
 
 /// Maximum gas refund allowed (EIP-3529)
 const MAX_REFUND_QUOTIENT = 5;
@@ -59,18 +60,8 @@ pub const CodeAnalysisError = std.mem.Allocator.Error;
 
 /// Global analysis cache (simplified version)
 var analysis_cache: ?std.AutoHashMap([32]u8, *CodeAnalysis) = null;
-// Use conditional compilation for thread safety
-const is_single_threaded = @import("builtin").single_threaded;
-const Mutex = if (is_single_threaded) struct {
-    pub fn lock(self: *@This()) void {
-        _ = self;
-    }
-    pub fn unlock(self: *@This()) void {
-        _ = self;
-    }
-} else std.Thread.Mutex;
-
-var cache_mutex: Mutex = .{};
+// Use WASM-compatible mutex type
+var cache_mutex: wasm_stubs.Mutex = .{};
 
 /// Contract represents the execution context for a single call frame in the EVM.
 ///

@@ -3,11 +3,13 @@ const builtin = @import("builtin");
 
 /// The presence of this declaration allows the program to override certain behaviors of the standard library.
 /// For a full list of available options, see the documentation for `std.Options`.
-pub const std_options: std.Options = .{
-    // Enable segfault handler for better debugging
+pub const std_options: std.Options = if (builtin.target.os.tag == .freestanding) .{
+    // Minimal options for freestanding/WASM builds
+    .enable_segfault_handler = false,
+    .logFn = noOpLogFn,
+} else .{
+    // Full options for native builds
     .enable_segfault_handler = true,
-    
-    // Use our isomorphic logging function that works across all architectures
     .logFn = isomorphicLogFn,
 };
 
@@ -54,10 +56,22 @@ fn wasiLog(
     comptime format: []const u8,
     args: anytype,
 ) void {
-    const stderr = std.io.getStdErr().writer();
-    stderr.print("[{s}] ({s}): " ++ format ++ "\n", .{ 
-        @tagName(level), @tagName(scope) 
-    } ++ args) catch {};
+    // For freestanding builds, just use WASM logging instead of WASI
+    if (comptime builtin.target.os.tag == .freestanding) {
+        wasmLog(level, scope, format, args);
+        return;
+    }
+    
+    // Only compile stderr access when actually targeting WASI
+    if (comptime builtin.target.os.tag == .wasi) {
+        const stderr = std.io.getStdErr().writer();
+        stderr.print("[{s}] ({s}): " ++ format ++ "\n", .{ 
+            @tagName(level), @tagName(scope) 
+        } ++ args) catch {};
+    } else {
+        // Fallback to WASM logging for non-WASI builds
+        wasmLog(level, scope, format, args);
+    }
 }
 
 /// WASM logging via buffer and optional JavaScript interop
@@ -79,7 +93,14 @@ fn wasmLog(
 /// Global log buffer for WASM environments
 var log_buffer: [8192]u8 = undefined;
 var log_buffer_pos: usize = 0;
-var log_buffer_mutex: std.Thread.Mutex = .{};
+
+// Simple mutex stub for WASM - no real threading in WASM
+const DummyMutex = struct {
+    pub fn lock(self: *@This()) void { _ = self; }
+    pub fn unlock(self: *@This()) void { _ = self; }
+};
+
+var log_buffer_mutex: DummyMutex = .{};
 
 /// Write log message to buffer that JavaScript can read
 fn writeToLogBuffer(
@@ -143,6 +164,19 @@ fn callJsConsoleLog(
 
 /// No-op logging for minimal/resource-constrained targets
 fn noOpLog(
+    comptime level: std.log.Level,
+    comptime scope: @Type(.enum_literal),
+    comptime format: []const u8,
+    args: anytype,
+) void {
+    _ = level;
+    _ = scope;
+    _ = format;
+    _ = args;
+}
+
+/// No-op logging function for freestanding builds
+fn noOpLogFn(
     comptime level: std.log.Level,
     comptime scope: @Type(.enum_literal),
     comptime format: []const u8,

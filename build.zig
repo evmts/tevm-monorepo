@@ -186,7 +186,7 @@ pub fn build(b: *std.Build) void {
     exe_mod.stack_check = false;
     exe_mod.single_threaded = true;
 
-    // Create WASM module with minimal WASM-specific source
+    // Create WASM module - start simple and working first
     const wasm_mod = b.createModule(.{
         .root_source_file = b.path("src/root_wasm_minimal.zig"),
         .target = wasm_target,
@@ -195,8 +195,8 @@ pub fn build(b: *std.Build) void {
     wasm_mod.stack_check = false;
     wasm_mod.single_threaded = true;
 
-    // Don't add dependencies for minimal WASM build
-    // We'll add them back once we fix the platform-specific issues
+    // For now, don't add any EVM dependencies until we solve the threading issues
+    // TODO: Add EVM dependencies once Thread/POSIX issues are resolved
 
     // Modules can depend on one another using the `std.Build.Module.addImport` function.
     exe_mod.addImport("zigevm", target_architecture_mod);
