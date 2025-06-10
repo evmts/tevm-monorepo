@@ -158,6 +158,30 @@ pub const CallValueTransferGas: u64 = 9000;
 /// Reflects the cost of adding a new entry to the state trie
 pub const CallNewAccountGas: u64 = 25000;
 
+// ============================================================================
+// Call Operation Specific Costs (EIP-150)
+// ============================================================================
+
+/// Gas cost for CALL operations with value transfer
+/// EIP-150: IO-heavy operations cost adjustments
+pub const CallValueCost: u64 = 9000;
+
+/// Gas cost for CALLCODE operations
+/// EIP-150: Same base cost as other call operations
+pub const CallCodeCost: u64 = 700;
+
+/// Gas cost for DELEGATECALL operations
+/// EIP-150: Introduced in Homestead hardfork
+pub const DelegateCallCost: u64 = 700;
+
+/// Gas cost for STATICCALL operations
+/// EIP-214: Introduced in Byzantium hardfork
+pub const StaticCallCost: u64 = 700;
+
+/// Cost for creating a new account during calls
+/// Applied when target account doesn't exist and value > 0
+pub const NewAccountCost: u64 = 25000;
+
 /// Gas refund for SELFDESTRUCT operation
 /// Incentivizes cleaning up unused contracts
 pub const SelfdestructRefundGas: u64 = 24000;

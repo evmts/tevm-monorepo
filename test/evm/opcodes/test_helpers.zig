@@ -107,8 +107,8 @@ pub const TestFrame = struct {
     }
 
     /// Set return data buffer
-    pub fn setReturnData(self: *TestFrame, data: []u8) void {
-        self.frame.return_data_buffer = data;
+    pub fn setReturnData(self: *TestFrame, data: []u8) !void {
+        try self.frame.return_data.set(data);
     }
 
     /// Check if frame is static

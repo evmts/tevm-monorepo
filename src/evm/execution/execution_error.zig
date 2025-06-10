@@ -78,6 +78,10 @@ pub const Error = error{
     /// Unlike other copy operations, this is a hard error
     ReturnDataOutOfBounds,
 
+    /// Invalid access to return data buffer
+    /// Occurs when RETURNDATACOPY offset + size > return data size
+    InvalidReturnDataAccess,
+
     /// Contract deployment code exceeds maximum size
     /// Deployment bytecode has its own size limits
     DeployCodeTooBig,
@@ -155,6 +159,7 @@ pub fn get_description(err: Error) []const u8 {
         Error.GasUintOverflow => "Gas calculation overflow",
         Error.WriteProtection => "Write to protected storage",
         Error.ReturnDataOutOfBounds => "Return data access out of bounds",
+        Error.InvalidReturnDataAccess => "Invalid return data access - offset + size exceeds data length",
         Error.DeployCodeTooBig => "Contract creation code too large",
         Error.MaxCodeSizeExceeded => "Contract code size exceeds limit",
         Error.InvalidCodeEntry => "Invalid contract entry code",

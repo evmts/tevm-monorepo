@@ -224,16 +224,16 @@ test "Control: RETURN with data" {
     try testing.expectError(helpers.ExecutionError.Error.STOP, result); // RETURN uses STOP error
 
     // Check return data was set
-    try testing.expectEqualSlices(u8, &test_data, test_frame.frame.return_data_buffer);
+    try testing.expectEqualSlices(u8, &test_data, test_frame.frame.return_data.get());
 
     // Test 2: Return with zero size
     test_frame.frame.stack.clear();
-    test_frame.frame.return_data_buffer = &[_]u8{ 1, 2, 3 }; // Set some existing data
+    try test_frame.frame.return_data.set(&[_]u8{ 1, 2, 3 }); // Set some existing data
     try test_frame.pushStack(&[_]u256{ 0, 0 }); // offset=0, size=0
 
     const result2 = helpers.executeOpcode(0xF3, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.STOP, result2);
-    try testing.expectEqual(@as(usize, 0), test_frame.frame.return_data_buffer.len);
+    try testing.expectEqual(@as(usize, 0), test_frame.frame.return_data.size());
 
     // Test 3: Return with memory expansion
     test_frame.frame.stack.clear();
@@ -274,7 +274,7 @@ test "Control: REVERT with data" {
     try testing.expectError(helpers.ExecutionError.Error.REVERT, result);
 
     // Check return data was set
-    try testing.expectEqualSlices(u8, &test_data, test_frame.frame.return_data_buffer);
+    try testing.expectEqualSlices(u8, &test_data, test_frame.frame.return_data.get());
 
     // Test 2: Revert with zero size
     test_frame.frame.stack.clear();
@@ -282,7 +282,7 @@ test "Control: REVERT with data" {
 
     const result2 = helpers.executeOpcode(0xFD, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.REVERT, result2);
-    try testing.expectEqual(@as(usize, 0), test_frame.frame.return_data_buffer.len);
+    try testing.expectEqual(@as(usize, 0), test_frame.frame.return_data.size());
 
     // Test 3: Revert with out of bounds offset
     test_frame.frame.stack.clear();
