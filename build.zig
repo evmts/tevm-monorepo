@@ -93,7 +93,7 @@ pub fn build(b: *std.Build) void {
     bytecode_mod.single_threaded = true;
 
     const compiler_mod = b.createModule(.{
-        .root_source_file = b.path("src/Compilers/compiler.zig"),
+        .root_source_file = b.path("src/compilers/compiler.zig"),
         .target = target,
         .optimize = optimize,
     });
@@ -108,7 +108,7 @@ pub fn build(b: *std.Build) void {
 
     // Create a separate compiler module for WASM without problematic dependencies
     const compiler_wasm_mod = b.createModule(.{
-        .root_source_file = b.path("src/Compilers/compiler_wasm.zig"),
+        .root_source_file = b.path("src/compilers/compiler_wasm.zig"),
         .target = wasm_target,
         .optimize = .ReleaseSmall,
     });
@@ -388,7 +388,7 @@ pub fn build(b: *std.Build) void {
     // Add a test for Compiler tests
     const compiler_test = b.addTest(.{
         .name = "compiler-test",
-        .root_source_file = b.path("src/Compilers/compiler.zig"),
+        .root_source_file = b.path("src/compilers/compiler.zig"),
         .target = target,
         .optimize = optimize,
     });
@@ -655,7 +655,7 @@ pub fn build(b: *std.Build) void {
     all_benchmark_step.dependOn(&run_evm_memory_benchmark.step);
 
     // Add Rust Foundry wrapper integration
-    const rust_build = @import("src/Compilers/rust_build.zig");
+    const rust_build = @import("src/compilers/rust_build.zig");
     const rust_step = rust_build.add_rust_integration(b, target, optimize) catch |err| {
         std.debug.print("Failed to add Rust integration: {}\n", .{err});
         return;

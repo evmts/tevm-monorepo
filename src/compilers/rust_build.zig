@@ -7,7 +7,7 @@ pub fn add_rust_integration(b: *std.Build, target: std.Build.ResolvedTarget, opt
         "build",
         "--release",
         "--manifest-path",
-        "src/Compilers/Cargo.toml",
+        "src/compilers/Cargo.toml",
         "--target-dir",
         "dist/target",
     });
@@ -28,7 +28,7 @@ pub fn add_rust_integration(b: *std.Build, target: std.Build.ResolvedTarget, opt
     });
     
     // Set the working directory to the Rust crate
-    cbindgen_cmd.setCwd(b.path("src/Compilers"));
+    cbindgen_cmd.setCwd(b.path("src/compilers"));
     
     // Set environment to ensure PATH is available
     // Include both Linux and macOS paths for cargo
@@ -49,7 +49,7 @@ pub fn add_rust_integration(b: *std.Build, target: std.Build.ResolvedTarget, opt
     
     // Create a module for the Compiler
     const compiler_mod = b.createModule(.{
-        .root_source_file = b.path("src/Compilers/compiler.zig"),
+        .root_source_file = b.path("src/compilers/compiler.zig"),
     });
     
     // Add zabi to the compiler module
@@ -61,7 +61,7 @@ pub fn add_rust_integration(b: *std.Build, target: std.Build.ResolvedTarget, opt
     const artifacts = [_]*std.Build.Step.Compile{
         b.addExecutable(.{
             .name = "foundry-test",
-            .root_source_file = b.path("src/Solidity/snail_tracer_test.zig"),
+            .root_source_file = b.path("src/solidity/snail_tracer_test.zig"),
             .target = target,
             .optimize = optimize,
         }),
@@ -106,7 +106,7 @@ pub fn add_rust_integration(b: *std.Build, target: std.Build.ResolvedTarget, opt
     // Add tests
     const foundry_test = b.addTest(.{
         .name = "foundry-test",
-        .root_source_file = b.path("src/Compilers/compiler.zig"),
+        .root_source_file = b.path("src/compilers/compiler.zig"),
         .target = target,
         .optimize = optimize,
     });
