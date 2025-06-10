@@ -388,7 +388,7 @@ pub fn op_returndataload(pc: usize, interpreter: *Operation.Interpreter, state: 
     }
 
     const offset_usize = @as(usize, @intCast(offset));
-    const return_data = frame.return_data_buffer;
+    const return_data = frame.return_data.get();
 
     // If offset + 32 > return_data.len, this is an error (unlike CALLDATALOAD which pads with zeros)
     if (offset_usize + 32 > return_data.len) {

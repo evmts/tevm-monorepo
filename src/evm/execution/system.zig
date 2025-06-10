@@ -13,6 +13,236 @@ const AccessList = @import("../access_list/access_list.zig").AccessList;
 
 // Import helper functions from error_mapping
 
+// ============================================================================
+// Call Operation Types and Gas Calculation
+// ============================================================================
+
+/// Call operation types for gas calculation
+pub const CallType = enum {
+    Call,
+    CallCode,
+    DelegateCall,
+    StaticCall,
+};
+
+/// Input parameters for contract call operations
+/// 
+/// Contains all necessary information to execute a contract call including
+/// addresses, value, call data, gas limits, and context information.
+pub const CallInput = struct {
+    /// Address of the contract to call
+    contract_address: Address,
+    
+    /// Address of the caller (msg.sender in the called contract)
+    caller: Address,
+    
+    /// Value to transfer (ETH amount in wei)
+    value: u256,
+    
+    /// Input data (calldata) to pass to the contract
+    input: []const u8,
+    
+    /// Gas limit for the call execution
+    gas_limit: u64,
+    
+    /// Whether this is a static call (read-only, no state changes)
+    is_static: bool,
+    
+    /// Current call depth in the call stack
+    depth: u32,
+    
+    /// Original caller for DELEGATECALL context preservation (optional)
+    original_caller: ?Address = null,
+    
+    /// Original value for DELEGATECALL context preservation (optional)
+    original_value: ?u256 = null,
+    
+    /// Create CallInput for a CALL operation
+    pub fn call(
+        contract_address: Address,
+        caller: Address,
+        value: u256,
+        input: []const u8,
+        gas_limit: u64,
+        is_static: bool,
+        depth: u32,
+    ) CallInput {
+        return CallInput{
+            .contract_address = contract_address,
+            .caller = caller,
+            .value = value,
+            .input = input,
+            .gas_limit = gas_limit,
+            .is_static = is_static,
+            .depth = depth,
+        };
+    }
+    
+    /// Create CallInput for a DELEGATECALL operation
+    /// Preserves original caller and value from parent context
+    pub fn delegate_call(
+        contract_address: Address,
+        original_caller: Address,
+        original_value: u256,
+        input: []const u8,
+        gas_limit: u64,
+        is_static: bool,
+        depth: u32,
+    ) CallInput {
+        return CallInput{
+            .contract_address = contract_address,
+            .caller = original_caller, // Preserve original caller
+            .value = original_value,   // Preserve original value
+            .input = input,
+            .gas_limit = gas_limit,
+            .is_static = is_static,
+            .depth = depth,
+            .original_caller = original_caller,
+            .original_value = original_value,
+        };
+    }
+    
+    /// Create CallInput for a STATICCALL operation
+    /// Implicitly sets value to 0 and is_static to true
+    pub fn static_call(
+        contract_address: Address,
+        caller: Address,
+        input: []const u8,
+        gas_limit: u64,
+        depth: u32,
+    ) CallInput {
+        return CallInput{
+            .contract_address = contract_address,
+            .caller = caller,
+            .value = 0, // Static calls cannot transfer value
+            .input = input,
+            .gas_limit = gas_limit,
+            .is_static = true, // Force static context
+            .depth = depth,
+        };
+    }
+};
+
+/// Result of a contract call operation
+/// 
+/// Contains the execution result, gas usage, output data, and success status.
+pub const CallResult = struct {
+    /// Whether the call succeeded (true) or reverted (false)
+    success: bool,
+    
+    /// Gas consumed during execution
+    gas_used: u64,
+    
+    /// Gas remaining after execution
+    gas_left: u64,
+    
+    /// Output data returned by the called contract
+    output: ?[]const u8,
+    
+    /// Create a successful call result
+    pub fn success_result(gas_used: u64, gas_left: u64, output: ?[]const u8) CallResult {
+        return CallResult{
+            .success = true,
+            .gas_used = gas_used,
+            .gas_left = gas_left,
+            .output = output,
+        };
+    }
+    
+    /// Create a failed call result
+    pub fn failure_result(gas_used: u64, gas_left: u64, output: ?[]const u8) CallResult {
+        return CallResult{
+            .success = false,
+            .gas_used = gas_used,
+            .gas_left = gas_left,
+            .output = output,
+        };
+    }
+};
+
+/// Calculate the 63/64th gas forwarding rule (EIP-150)
+/// 
+/// EIP-150 specifies that a maximum of 63/64 of remaining gas can be forwarded to subcalls.
+/// This prevents griefing attacks where all gas is forwarded, leaving no gas for cleanup.
+/// 
+/// @param remaining_gas Available gas before the call
+/// @return Maximum gas that can be forwarded (63/64 of remaining)
+fn calculate_63_64_gas(remaining_gas: u64) u64 {
+    if (remaining_gas == 0) return 0;
+    return remaining_gas - (remaining_gas / 64);
+}
+
+/// Calculate complete gas cost for call operations
+/// 
+/// Implements the complete gas calculation as per EVM specification including:
+/// - Base call cost (depends on call type)
+/// - Account access cost (cold vs warm)
+/// - Value transfer cost
+/// - Account creation cost  
+/// - Memory expansion cost
+/// - Gas forwarding calculation (63/64th rule)
+/// 
+/// @param call_type Type of call operation
+/// @param value Value being transferred (0 for non-value calls)
+/// @param target_exists Whether target account exists
+/// @param is_cold_access Whether this is first access to account (EIP-2929)
+/// @param remaining_gas Available gas before operation
+/// @param memory_expansion_cost Cost for expanding memory
+/// @param local_gas_limit Gas limit specified in call parameters
+/// @return Total gas cost including forwarded gas
+pub fn calculate_call_gas(
+    call_type: CallType,
+    value: u256,
+    target_exists: bool,
+    is_cold_access: bool,
+    remaining_gas: u64,
+    memory_expansion_cost: u64,
+    local_gas_limit: u64,
+) u64 {
+    var gas_cost: u64 = 0;
+    
+    // Base cost for call operation type
+    gas_cost += switch (call_type) {
+        .Call => if (value > 0) gas_constants.CallValueCost else gas_constants.CallCodeCost,
+        .CallCode => gas_constants.CallCodeCost,
+        .DelegateCall => gas_constants.DelegateCallCost,
+        .StaticCall => gas_constants.StaticCallCost,
+    };
+    
+    // Account access cost (EIP-2929)
+    if (is_cold_access) {
+        gas_cost += gas_constants.ColdAccountAccessCost;
+    }
+    
+    // Memory expansion cost
+    gas_cost += memory_expansion_cost;
+    
+    // Account creation cost for new accounts with value transfer
+    if (!target_exists and call_type == .Call and value > 0) {
+        gas_cost += gas_constants.NewAccountCost;
+    }
+    
+    // Calculate available gas for forwarding after subtracting operation costs
+    if (gas_cost >= remaining_gas) {
+        return gas_cost; // Out of gas - no forwarding possible
+    }
+    
+    const gas_after_operation = remaining_gas - gas_cost;
+    
+    // Apply 63/64th rule to determine maximum forwardable gas
+    const max_forwardable = calculate_63_64_gas(gas_after_operation);
+    
+    // Use minimum of requested gas and maximum forwardable
+    const gas_to_forward = @min(local_gas_limit, max_forwardable);
+    
+    return gas_cost + gas_to_forward;
+}
+
+// ============================================================================
+// Return Data Opcodes (EIP-211)
+// ============================================================================
+
+
 // Gas opcode handler
 pub fn gas_op(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
     _ = pc;
@@ -106,7 +336,7 @@ pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     if (!result.success) {
         @branchHint(.unlikely);
         try frame.stack.append(0);
-        frame.return_data_buffer = result.output orelse &[_]u8{};
+        try frame.return_data.set(result.output orelse &[_]u8{});
         return Operation.ExecutionResult{};
     }
 
@@ -115,7 +345,7 @@ pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     try frame.stack.append(to_u256(result.address));
 
     // Set return data
-    frame.return_data_buffer = result.output orelse &[_]u8{};
+    try frame.return_data.set(result.output orelse &[_]u8{});
 
     return Operation.ExecutionResult{};
 }
@@ -190,7 +420,7 @@ pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     if (!result.success) {
         @branchHint(.unlikely);
         try frame.stack.append(0);
-        frame.return_data_buffer = result.output orelse &[_]u8{};
+        try frame.return_data.set(result.output orelse &[_]u8{});
         return Operation.ExecutionResult{};
     }
 
@@ -199,7 +429,7 @@ pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     try frame.stack.append(to_u256(result.address));
 
     // Set return data
-    frame.return_data_buffer = result.output orelse &[_]u8{};
+    try frame.return_data.set(result.output orelse &[_]u8{});
 
     return Operation.ExecutionResult{};
 }
@@ -218,6 +448,12 @@ pub fn op_call(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     const ret_offset = try frame.stack.pop();
     const ret_size = try frame.stack.pop();
 
+    // Check static call restrictions
+    if (frame.is_static and value != 0) {
+        @branchHint(.unlikely);
+        return ExecutionError.Error.WriteProtection;
+    }
+
     // Check depth
     if (frame.depth >= 1024) {
         @branchHint(.cold);
@@ -228,19 +464,11 @@ pub fn op_call(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     // Get call data
     var args: []const u8 = &[_]u8{};
     if (args_size > 0) {
-        // Check that offset + size doesn't overflow and fits in usize
-        if (args_offset > std.math.maxInt(usize) or args_size > std.math.maxInt(usize)) {
-            @branchHint(.cold);
-            return ExecutionError.Error.InvalidOffset;
-        }
+        try check_offset_bounds(args_offset);
+        try check_offset_bounds(args_size);
+
         const args_offset_usize = @as(usize, @intCast(args_offset));
         const args_size_usize = @as(usize, @intCast(args_size));
-
-        // Check that offset + size doesn't overflow usize
-        if (args_offset_usize > std.math.maxInt(usize) - args_size_usize) {
-            @branchHint(.cold);
-            return ExecutionError.Error.InvalidOffset;
-        }
 
         _ = try frame.memory.ensure_context_capacity(args_offset_usize + args_size_usize);
         args = try frame.memory.get_slice(args_offset_usize, args_size_usize);
@@ -248,34 +476,24 @@ pub fn op_call(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
 
     // Ensure return memory
     if (ret_size > 0) {
-        // Check that offset + size doesn't overflow and fits in usize
-        if (ret_offset > std.math.maxInt(usize) or ret_size > std.math.maxInt(usize)) {
-            @branchHint(.cold);
-            return ExecutionError.Error.InvalidOffset;
-        }
+        try check_offset_bounds(ret_offset);
+        try check_offset_bounds(ret_size);
+
         const ret_offset_usize = @as(usize, @intCast(ret_offset));
         const ret_size_usize = @as(usize, @intCast(ret_size));
-
-        // Check that offset + size doesn't overflow usize
-        if (ret_offset_usize > std.math.maxInt(usize) - ret_size_usize) {
-            @branchHint(.cold);
-            return ExecutionError.Error.InvalidOffset;
-        }
 
         _ = try frame.memory.ensure_context_capacity(ret_offset_usize + ret_size_usize);
     }
 
-    if (frame.is_static and value != 0) {
-        @branchHint(.unlikely);
-        return ExecutionError.Error.WriteProtection;
-    }
-
+    // Convert to address
     const to_address = from_u256(to);
 
+    // EIP-2929: Check if address is cold and consume appropriate gas
     const access_cost = try vm.access_list.access_address(to_address);
     const is_cold = access_cost == AccessList.COLD_ACCOUNT_ACCESS_COST;
     if (is_cold) {
         @branchHint(.unlikely);
+        // Cold address access costs more (2600 gas)
         try frame.consume_gas(gas_constants.ColdAccountAccessCost);
     }
 
@@ -311,10 +529,10 @@ pub fn op_call(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     }
 
     // Set return data
-    frame.return_data_buffer = result.output orelse &[_]u8{};
+    try frame.return_data.set(result.output orelse &[_]u8{});
 
-    // Push success status
-    try frame.stack.append(if (result.success) 1 else 0);
+    // Push success status (bounds checking already done by jump table)
+    frame.stack.append_unsafe(if (result.success) 1 else 0);
 
     return Operation.ExecutionResult{};
 }
@@ -409,10 +627,10 @@ pub fn op_callcode(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     }
 
     // Set return data
-    frame.return_data_buffer = result.output orelse &[_]u8{};
+    try frame.return_data.set(result.output orelse &[_]u8{});
 
-    // Push success status
-    try frame.stack.append(if (result.success) 1 else 0);
+    // Push success status (bounds checking already done by jump table)
+    frame.stack.append_unsafe(if (result.success) 1 else 0);
 
     return Operation.ExecutionResult{};
 }
@@ -423,6 +641,7 @@ pub fn op_delegatecall(pc: usize, interpreter: *Operation.Interpreter, state: *O
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
+    // DELEGATECALL takes 6 parameters (no value parameter)
     const gas = try frame.stack.pop();
     const to = try frame.stack.pop();
     const args_offset = try frame.stack.pop();
@@ -430,7 +649,7 @@ pub fn op_delegatecall(pc: usize, interpreter: *Operation.Interpreter, state: *O
     const ret_offset = try frame.stack.pop();
     const ret_size = try frame.stack.pop();
 
-    // Check depth
+    // Check call depth limit
     if (frame.depth >= 1024) {
         @branchHint(.cold);
         try frame.stack.append(0);
@@ -477,9 +696,13 @@ pub fn op_delegatecall(pc: usize, interpreter: *Operation.Interpreter, state: *O
     var gas_for_call = if (gas > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(gas));
     gas_for_call = @min(gas_for_call, frame.gas_remaining - (frame.gas_remaining / 64));
 
-    // Execute the delegatecall (execute target's code with current storage context and msg.sender/value)
-    // For delegatecall, we preserve the current contract's context
-    // Note: delegatecall doesn't transfer value, it uses the current contract's value
+    // DELEGATECALL preserves the current context:
+    // - Uses current contract's storage
+    // - Preserves msg.sender and msg.value from parent call
+    // - Executes target contract's code in current context
+    // - Cannot transfer value (no value parameter)
+
+    // Execute the delegatecall (execute target's code with current context)
     const result = try vm.delegatecall_contract(frame.contract.address, to_address, args, gas_for_call, frame.is_static);
 
     // Update gas remaining
@@ -503,10 +726,10 @@ pub fn op_delegatecall(pc: usize, interpreter: *Operation.Interpreter, state: *O
     }
 
     // Set return data
-    frame.return_data_buffer = result.output orelse &[_]u8{};
+    try frame.return_data.set(result.output orelse &[_]u8{});
 
-    // Push success status
-    try frame.stack.append(if (result.success) 1 else 0);
+    // Push success status (bounds checking already done by jump table)
+    frame.stack.append_unsafe(if (result.success) 1 else 0);
 
     return Operation.ExecutionResult{};
 }
@@ -517,6 +740,7 @@ pub fn op_staticcall(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
+    // STATICCALL takes 6 parameters (no value parameter)
     const gas = try frame.stack.pop();
     const to = try frame.stack.pop();
     const args_offset = try frame.stack.pop();
@@ -524,7 +748,7 @@ pub fn op_staticcall(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
     const ret_offset = try frame.stack.pop();
     const ret_size = try frame.stack.pop();
 
-    // Check depth
+    // Check call depth limit
     if (frame.depth >= 1024) {
         @branchHint(.cold);
         try frame.stack.append(0);
@@ -571,8 +795,14 @@ pub fn op_staticcall(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
     var gas_for_call = if (gas > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(gas));
     gas_for_call = @min(gas_for_call, frame.gas_remaining - (frame.gas_remaining / 64));
 
-    // Execute the static call (no value transfer, is_static = true)
-    const result = try vm.call_contract(frame.contract.address, to_address, 0, args, gas_for_call, true);
+    // STATICCALL characteristics:
+    // - Forces static context (no state changes allowed in called contract)
+    // - Cannot transfer value (value is implicitly 0)
+    // - Prevents SSTORE, CREATE, SELFDESTRUCT in called contract
+    // - Uses clean call context (new msg.sender)
+
+    // Execute the staticcall (read-only call with static restrictions)
+    const result = try vm.staticcall_contract(frame.contract.address, to_address, args, gas_for_call);
 
     // Update gas remaining
     frame.gas_remaining = frame.gas_remaining - gas_for_call + result.gas_left;
@@ -595,10 +825,10 @@ pub fn op_staticcall(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
     }
 
     // Set return data
-    frame.return_data_buffer = result.output orelse &[_]u8{};
+    try frame.return_data.set(result.output orelse &[_]u8{});
 
-    // Push success status
-    try frame.stack.append(if (result.success) 1 else 0);
+    // Push success status (bounds checking already done by jump table)
+    frame.stack.append_unsafe(if (result.success) 1 else 0);
 
     return Operation.ExecutionResult{};
 }

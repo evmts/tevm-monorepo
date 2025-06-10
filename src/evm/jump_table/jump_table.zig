@@ -127,6 +127,7 @@ pub fn execute(self: *const JumpTable, pc: usize, interpreter: *operation_module
 
     Log.debug("JumpTable.execute: Executing opcode 0x{x:0>2} at pc={}, gas={}, stack_size={}", .{ opcode, pc, frame.gas_remaining, frame.stack.size });
 
+
     // Handle undefined opcodes (cold path)
     if (operation.undefined) {
         @branchHint(.cold);

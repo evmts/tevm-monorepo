@@ -179,11 +179,12 @@ pub fn interpret_with_context(self: *Vm, contract: *Contract, input: []const u8,
         const result = self.table.execute(pc, interpreter_ptr, state_ptr, opcode) catch |err| {
             @branchHint(.cold);
             contract.gas = frame.gas_remaining;
-            self.return_data = @constCast(frame.return_data_buffer);
+            self.return_data = @constCast(frame.return_data.get());
 
             var output: ?[]const u8 = null;
-            if (frame.return_data_buffer.len > 0) {
-                output = self.allocator.dupe(u8, frame.return_data_buffer) catch {
+            const return_data = frame.return_data.get();
+            if (return_data.len > 0) {
+                output = self.allocator.dupe(u8, return_data) catch {
                     // We are out of memory, which is a critical failure. The safest way to
                     // handle this is to treat it as an OutOfGas error, which consumes
                     // all gas and stops execution.
@@ -233,9 +234,10 @@ pub fn interpret_with_context(self: *Vm, contract: *Contract, input: []const u8,
     }
 
     contract.gas = frame.gas_remaining;
-    self.return_data = @constCast(frame.return_data_buffer);
+    self.return_data = @constCast(frame.return_data.get());
 
-    const output: ?[]const u8 = if (frame.return_data_buffer.len > 0) try self.allocator.dupe(u8, frame.return_data_buffer) else null;
+    const return_data = frame.return_data.get();
+    const output: ?[]const u8 = if (return_data.len > 0) try self.allocator.dupe(u8, return_data) else null;
 
     return RunResult.init(
         initial_gas,

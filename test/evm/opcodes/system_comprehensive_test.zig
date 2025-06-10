@@ -706,7 +706,7 @@ test "RETURN (0xF3): Return data from execution" {
     try testing.expectError(helpers.ExecutionError.Error.STOP, result);
 
     // Check return data buffer was set
-    try testing.expectEqualSlices(u8, return_data[0..], test_frame.frame.return_data_buffer);
+    try testing.expectEqualSlices(u8, return_data[0..], test_frame.frame.return_data.get());
 }
 
 test "RETURN: Empty return data" {
@@ -734,7 +734,7 @@ test "RETURN: Empty return data" {
     try testing.expectError(helpers.ExecutionError.Error.STOP, result);
 
     // Check empty return data
-    try testing.expectEqual(@as(usize, 0), test_frame.frame.return_data_buffer.len);
+    try testing.expectEqual(@as(usize, 0), test_frame.frame.return_data.size());
 }
 
 test "RETURN: Memory expansion gas cost" {
@@ -801,7 +801,7 @@ test "REVERT (0xFD): Revert with error data" {
     try testing.expectError(helpers.ExecutionError.Error.REVERT, result);
 
     // Check revert data was set
-    try testing.expectEqualSlices(u8, revert_data[0..], test_frame.frame.return_data_buffer);
+    try testing.expectEqualSlices(u8, revert_data[0..], test_frame.frame.return_data.get());
 }
 
 test "REVERT: Empty revert data" {
@@ -829,7 +829,7 @@ test "REVERT: Empty revert data" {
     try testing.expectError(helpers.ExecutionError.Error.REVERT, result);
 
     // Check empty revert data
-    try testing.expectEqual(@as(usize, 0), test_frame.frame.return_data_buffer.len);
+    try testing.expectEqual(@as(usize, 0), test_frame.frame.return_data.size());
 }
 
 // ============================
