@@ -14,26 +14,28 @@
 //! 
 //! ## Design Philosophy
 //! 
-//! This implementation uses hash maps for efficient lookups and modifications.
-//! All state changes are applied immediately (no journaling in this layer).
-//! For transaction rollback support, this should be wrapped in a higher-level
-//! state manager that implements checkpointing/journaling.
+//! This implementation now uses a pluggable database interface for state persistence,
+//! allowing different storage backends (memory, file, network) to be used without
+//! changing the core EVM logic. Transient storage and logs are still managed locally
+//! as they are transaction-scoped.
 //! 
 //! ## Memory Management
 //! 
-//! All state data is heap-allocated using the provided allocator. The state
-//! owns all data it stores and properly cleans up in deinit().
+//! State data persistence is managed by the database interface. Local data like
+//! transient storage and logs are heap-allocated using the provided allocator.
 //! 
 //! ## Thread Safety
 //! 
-//! This implementation is NOT thread-safe. Concurrent access must be synchronized
-//! externally.
+//! This implementation is NOT thread-safe. External synchronization is required
+//! for concurrent access.
 
 const std = @import("std");
 const Address = @import("Address");
 const EvmLog = @import("evm_log.zig");
 const StorageKey = @import("storage_key.zig");
-const Journal = @import("journal.zig").Journal;
+const DatabaseInterface = @import("database_interface.zig").DatabaseInterface;
+const DatabaseError = @import("database_interface.zig").DatabaseError;
+const Account = @import("database_interface.zig").Account;
 const Log = @import("../log.zig");
 
 /// EVM state container
@@ -42,47 +44,31 @@ const Log = @import("../log.zig");
 /// This includes account data, storage, and transaction artifacts.
 const EvmState = @This();
 
-/// Memory allocator for all state allocations
+/// Memory allocator for local allocations (transient storage, logs)
 allocator: std.mem.Allocator,
 
-/// Persistent contract storage (SSTORE/SLOAD)
-/// Maps (address, slot) -> value
-storage: std.AutoHashMap(StorageKey, u256),
-
-/// Account balances in wei
-/// Maps address -> balance
-balances: std.AutoHashMap(Address.Address, u256),
-
-/// Contract bytecode
-/// Maps address -> code bytes
-/// Empty slice for EOAs (Externally Owned Accounts)
-code: std.AutoHashMap(Address.Address, []const u8),
-
-/// Account nonces (transaction counters)
-/// Maps address -> nonce
-/// Incremented on each transaction from the account
-nonces: std.AutoHashMap(Address.Address, u64),
+/// Pluggable database interface for persistent state
+/// Handles accounts, storage, and code persistence
+database: DatabaseInterface,
 
 /// Transient storage (EIP-1153: TSTORE/TLOAD)
 /// Maps (address, slot) -> value
-/// Cleared after each transaction
+/// Cleared after each transaction, not persisted in database
 transient_storage: std.AutoHashMap(StorageKey, u256),
 
 /// Event logs emitted during execution
 /// Ordered list of all LOG0-LOG4 events
+/// Stored locally as they are transaction-scoped
 logs: std.ArrayList(EvmLog),
 
-/// Journal for tracking state changes and enabling snapshots/reverts
-/// Provides transaction-level rollback functionality
-journal: Journal,
-
-/// Initialize a new EVM state instance
+/// Initialize a new EVM state instance with database interface
 /// 
-/// Creates empty state with the provided allocator. All maps and lists
-/// are initialized empty.
+/// Creates empty state with the provided allocator and database interface.
+/// Only transient storage and logs are initialized locally.
 /// 
 /// ## Parameters
-/// - `allocator`: Memory allocator for all state allocations
+/// - `allocator`: Memory allocator for local allocations
+/// - `database`: Database interface for persistent state storage
 /// 
 /// ## Returns
 /// - Success: New initialized state instance
@@ -90,65 +76,45 @@ journal: Journal,
 /// 
 /// ## Example
 /// ```zig
-/// var state = try EvmState.init(allocator);
+/// const db_interface = try database_factory.createMemoryDatabase(allocator);
+/// defer database_factory.destroyDatabase(allocator, db_interface);
+/// 
+/// var state = try EvmState.init(allocator, db_interface);
 /// defer state.deinit();
 /// ```
-pub fn init(allocator: std.mem.Allocator) std.mem.Allocator.Error!EvmState {
-    Log.debug("EvmState.init: Initializing EVM state with allocator", .{});
+pub fn init(allocator: std.mem.Allocator, database: DatabaseInterface) std.mem.Allocator.Error!EvmState {
+    Log.debug("EvmState.init: Initializing EVM state with database interface", .{});
     
-    var storage = std.AutoHashMap(StorageKey, u256).init(allocator);
-    errdefer storage.deinit();
-
-    var balances = std.AutoHashMap(Address.Address, u256).init(allocator);
-    errdefer balances.deinit();
-
-    var code = std.AutoHashMap(Address.Address, []const u8).init(allocator);
-    errdefer code.deinit();
-
-    var nonces = std.AutoHashMap(Address.Address, u64).init(allocator);
-    errdefer nonces.deinit();
-
     var transient_storage = std.AutoHashMap(StorageKey, u256).init(allocator);
     errdefer transient_storage.deinit();
 
     var logs = std.ArrayList(EvmLog).init(allocator);
     errdefer logs.deinit();
 
-    var journal = Journal.init(allocator);
-    errdefer journal.deinit();
-
     Log.debug("EvmState.init: EVM state initialization complete", .{});
     return EvmState{
         .allocator = allocator,
-        .storage = storage,
-        .balances = balances,
-        .code = code,
-        .nonces = nonces,
+        .database = database,
         .transient_storage = transient_storage,
         .logs = logs,
-        .journal = journal,
     };
 }
 
 /// Clean up all allocated resources
 /// 
 /// Frees all memory used by the state, including:
-/// - All hash maps
+/// - Transient storage hash map
 /// - Log data (topics and data arrays)
-/// - Any allocated slices
 /// 
 /// ## Important
 /// After calling deinit(), the state instance is invalid and
-/// must not be used.
+/// must not be used. The database interface is NOT cleaned up
+/// as it may be owned by the caller.
 pub fn deinit(self: *EvmState) void {
-    Log.debug("EvmState.deinit: Cleaning up EVM state, storage_count={}, balance_count={}, code_count={}, logs_count={}", .{
-        self.storage.count(), self.balances.count(), self.code.count(), self.logs.items.len
+    Log.debug("EvmState.deinit: Cleaning up EVM state, logs_count={}", .{
+        self.logs.items.len
     });
     
-    self.storage.deinit();
-    self.balances.deinit();
-    self.code.deinit();
-    self.nonces.deinit();
     self.transient_storage.deinit();
 
     // Clean up logs - free allocated memory for topics and data
@@ -157,9 +123,6 @@ pub fn deinit(self: *EvmState) void {
         self.allocator.free(log.data);
     }
     self.logs.deinit();
-
-    // Clean up journal
-    self.journal.deinit();
     
     Log.debug("EvmState.deinit: EVM state cleanup complete", .{});
 }
@@ -168,38 +131,34 @@ pub fn deinit(self: *EvmState) void {
 
 /// Get a value from persistent storage
 /// 
-/// Reads a storage slot for the given address. Returns 0 for
-/// uninitialized slots (EVM default).
+/// Reads a storage slot for the given address through the database interface.
+/// Returns 0 for uninitialized slots (EVM default).
 /// 
 /// ## Parameters
 /// - `address`: Contract address
 /// - `slot`: Storage slot number
 /// 
 /// ## Returns
-/// The stored value, or 0 if not set
+/// The stored value, or 0 if not set or on database error
 /// 
 /// ## Gas Cost
 /// In real EVM: 100-2100 gas depending on cold/warm access
 pub fn get_storage(self: *const EvmState, address: Address.Address, slot: u256) u256 {
-    const key = StorageKey{ .address = address, .slot = slot };
-    // Hot path: most storage reads are cache hits
-    if (self.storage.get(key)) |value| {
-        @branchHint(.likely);
-        Log.debug("EvmState.get_storage: addr={x}, slot={}, value={}", .{ Address.to_u256(address), slot, value });
-        return value;
-    } else {
+    // Use database interface to get storage value
+    const value = self.database.get_storage(address, slot) catch |err| {
         @branchHint(.cold);
-        // Cold path: uninitialized storage defaults to 0
-        Log.debug("EvmState.get_storage: addr={x}, slot={}, value=0 (uninitialized)", .{ Address.to_u256(address), slot });
+        Log.debug("EvmState.get_storage: Database error {}, returning 0", .{err});
         return 0;
-    }
+    };
+    
+    Log.debug("EvmState.get_storage: addr={x}, slot={}, value={}", .{ Address.to_u256(address), slot, value });
+    return value;
 }
 
 /// Set a value in persistent storage
 /// 
-/// Updates a storage slot for the given address. Setting a value
-/// to 0 is different from deleting it - it still consumes storage.
-/// This function records the change in the journal for potential revert.
+/// Updates a storage slot for the given address through the database interface.
+/// Setting a value to 0 is different from deleting it - it still consumes storage.
 /// 
 /// ## Parameters
 /// - `address`: Contract address
@@ -208,64 +167,39 @@ pub fn get_storage(self: *const EvmState, address: Address.Address, slot: u256) 
 /// 
 /// ## Returns
 /// - Success: void
-/// - Error: OutOfMemory if map expansion fails
+/// - Error: DatabaseError if storage operation fails
 /// 
 /// ## Gas Cost
 /// In real EVM: 2900-20000 gas depending on current/new value
-pub fn set_storage(self: *EvmState, address: Address.Address, slot: u256, value: u256) std.mem.Allocator.Error!void {
-    // Record the previous value for potential revert
-    const previous_value = self.get_storage(address, slot);
-    
-    try self.journal.add_entry(.{ .storage_changed = .{
-        .address = address,
-        .slot = slot,
-        .previous_value = previous_value,
-    }});
-    
-    Log.debug("EvmState.set_storage: addr={x}, slot={}, value={}, prev_value={}", .{ 
-        Address.to_u256(address), slot, value, previous_value 
-    });
-    
-    try self.set_storage_direct(address, slot, value);
-}
-
-/// Set storage value directly without journaling
-/// 
-/// Internal function that applies storage changes without recording
-/// them in the journal. Used during revert operations.
-/// 
-/// ## Parameters
-/// - `address`: Contract address
-/// - `slot`: Storage slot number  
-/// - `value`: Value to store
-/// 
-/// ## Returns
-/// - Success: void
-/// - Error: OutOfMemory if map expansion fails
-pub fn set_storage_direct(self: *EvmState, address: Address.Address, slot: u256, value: u256) std.mem.Allocator.Error!void {
-    const key = StorageKey{ .address = address, .slot = slot };
-    try self.storage.put(key, value);
+pub fn set_storage(self: *EvmState, address: Address.Address, slot: u256, value: u256) DatabaseError!void {
+    Log.debug("EvmState.set_storage: addr={x}, slot={}, value={}", .{ Address.to_u256(address), slot, value });
+    try self.database.set_storage(address, slot, value);
 }
 
 /// Get account balance
 /// 
-/// Returns the balance in wei for the given address.
+/// Returns the balance in wei for the given address through the database interface.
 /// Non-existent accounts have balance 0.
 /// 
 /// ## Parameters
 /// - `address`: Account address
 /// 
 /// ## Returns
-/// Balance in wei (0 for non-existent accounts)
+/// Balance in wei (0 for non-existent accounts or on error)
 pub fn get_balance(self: *const EvmState, address: Address.Address) u256 {
-    // Hot path: account exists with balance
-    if (self.balances.get(address)) |balance| {
+    // Get account from database
+    const account = self.database.get_account(address) catch |err| {
+        @branchHint(.cold);
+        Log.debug("EvmState.get_balance: Database error {}, returning 0", .{err});
+        return 0;
+    };
+    
+    if (account) |acc| {
         @branchHint(.likely);
-        Log.debug("EvmState.get_balance: addr={x}, balance={}", .{ Address.to_u256(address), balance });
-        return balance;
+        Log.debug("EvmState.get_balance: addr={x}, balance={}", .{ Address.to_u256(address), acc.balance });
+        return acc.balance;
     } else {
         @branchHint(.cold);
-        // Cold path: new or zero-balance account
         Log.debug("EvmState.get_balance: addr={x}, balance=0 (new account)", .{ Address.to_u256(address) });
         return 0;
     }
@@ -273,9 +207,8 @@ pub fn get_balance(self: *const EvmState, address: Address.Address) u256 {
 
 /// Set account balance
 /// 
-/// Updates the balance for the given address. Setting balance
-/// creates the account if it doesn't exist. This function records
-/// the change in the journal for potential revert.
+/// Updates the balance for the given address through the database interface.
+/// Creates the account if it doesn't exist, preserving other account data.
 /// 
 /// ## Parameters
 /// - `address`: Account address
@@ -283,40 +216,22 @@ pub fn get_balance(self: *const EvmState, address: Address.Address) u256 {
 /// 
 /// ## Returns
 /// - Success: void
-/// - Error: OutOfMemory if map expansion fails
+/// - Error: DatabaseError if account operation fails
 /// 
 /// ## Note
 /// Balance can exceed total ETH supply in test scenarios
-pub fn set_balance(self: *EvmState, address: Address.Address, balance: u256) std.mem.Allocator.Error!void {
-    // Record the previous balance for potential revert
-    const previous_balance = self.get_balance(address);
+pub fn set_balance(self: *EvmState, address: Address.Address, balance: u256) DatabaseError!void {
+    Log.debug("EvmState.set_balance: addr={x}, balance={}", .{ Address.to_u256(address), balance });
     
-    try self.journal.add_entry(.{ .balance_changed = .{
-        .address = address,
-        .previous_balance = previous_balance,
-    }});
+    // Get existing account or create new one
+    var account = self.database.get_account(address) catch Account.zero();
+    if (account == null) {
+        account = Account.zero();
+    }
     
-    Log.debug("EvmState.set_balance: addr={x}, balance={}, prev_balance={}", .{ 
-        Address.to_u256(address), balance, previous_balance 
-    });
-    
-    try self.set_balance_direct(address, balance);
-}
-
-/// Set balance directly without journaling
-/// 
-/// Internal function that applies balance changes without recording
-/// them in the journal. Used during revert operations.
-/// 
-/// ## Parameters
-/// - `address`: Account address
-/// - `balance`: New balance in wei
-/// 
-/// ## Returns
-/// - Success: void
-/// - Error: OutOfMemory if map expansion fails
-pub fn set_balance_direct(self: *EvmState, address: Address.Address, balance: u256) std.mem.Allocator.Error!void {
-    try self.balances.put(address, balance);
+    // Update balance and save account
+    account.?.balance = balance;
+    try self.database.set_account(address, account.?);
 }
 
 /// Remove account balance
@@ -328,43 +243,63 @@ pub fn set_balance_direct(self: *EvmState, address: Address.Address, balance: u2
 /// - `address`: Account address
 /// 
 /// ## Returns
-/// - Success: true if balance was removed, false if it didn't exist
-pub fn remove_balance(self: *EvmState, address: Address.Address) bool {
-    return self.balances.remove(address);
+/// - Success: void
+/// - Error: DatabaseError if account operation fails
+pub fn remove_balance(self: *EvmState, address: Address.Address) DatabaseError!void {
+    // Set balance to 0 instead of removing - database interface handles persistence
+    try self.set_balance(address, 0);
 }
 
 /// Get contract code
 /// 
-/// Returns the bytecode deployed at the given address.
+/// Returns the bytecode deployed at the given address through the database interface.
 /// EOAs and non-existent accounts return empty slice.
 /// 
 /// ## Parameters
 /// - `address`: Contract address
 /// 
 /// ## Returns
-/// Contract bytecode (empty slice for EOAs)
+/// Contract bytecode (empty slice for EOAs or on error)
 /// 
 /// ## Note
-/// The returned slice is owned by the state - do not free
+/// The returned slice is owned by the database - do not free
 pub fn get_code(self: *const EvmState, address: Address.Address) []const u8 {
-    // Hot path: contract with code
-    if (self.code.get(address)) |code| {
-        @branchHint(.likely);
+    // Get account to find code hash
+    const account = self.database.get_account(address) catch |err| {
+        @branchHint(.cold);
+        Log.debug("EvmState.get_code: Database error {}, returning empty", .{err});
+        return &[_]u8{};
+    };
+    
+    if (account) |acc| {
+        // Check if account has code (non-zero code hash)
+        const zero_hash = [_]u8{0} ** 32;
+        if (std.mem.eql(u8, &acc.code_hash, &zero_hash)) {
+            @branchHint(.cold);
+            Log.debug("EvmState.get_code: addr={x}, code_len=0 (EOA)", .{ Address.to_u256(address) });
+            return &[_]u8{};
+        }
+        
+        // Get code by hash
+        const code = self.database.get_code(acc.code_hash) catch |err| {
+            @branchHint(.cold);
+            Log.debug("EvmState.get_code: Code fetch error {}, returning empty", .{err});
+            return &[_]u8{};
+        };
+        
         Log.debug("EvmState.get_code: addr={x}, code_len={}", .{ Address.to_u256(address), code.len });
         return code;
     } else {
         @branchHint(.cold);
-        // Cold path: EOA or non-existent account
-        Log.debug("EvmState.get_code: addr={x}, code_len=0 (EOA or non-existent)", .{ Address.to_u256(address) });
+        Log.debug("EvmState.get_code: addr={x}, code_len=0 (non-existent account)", .{ Address.to_u256(address) });
         return &[_]u8{};
     }
 }
 
 /// Set contract code
 /// 
-/// Deploys bytecode to the given address. The state takes
-/// ownership of the code slice. This function records the
-/// change in the journal for potential revert.
+/// Deploys bytecode to the given address through the database interface.
+/// Updates the account's code hash.
 /// 
 /// ## Parameters
 /// - `address`: Contract address
@@ -372,42 +307,25 @@ pub fn get_code(self: *const EvmState, address: Address.Address) []const u8 {
 /// 
 /// ## Returns
 /// - Success: void
-/// - Error: OutOfMemory if map expansion fails
+/// - Error: DatabaseError if code storage or account update fails
 /// 
 /// ## Important
-/// The state does NOT copy the code - it takes ownership
-/// of the provided slice
-pub fn set_code(self: *EvmState, address: Address.Address, code: []const u8) std.mem.Allocator.Error!void {
-    // Record the previous code for potential revert
-    const previous_code = self.get_code(address);
-    const previous_code_owned = if (previous_code.len > 0) previous_code else null;
+/// The database interface handles code storage and copying
+pub fn set_code(self: *EvmState, address: Address.Address, code: []const u8) DatabaseError!void {
+    Log.debug("EvmState.set_code: addr={x}, code_len={}", .{ Address.to_u256(address), code.len });
     
-    try self.journal.add_entry(.{ .code_changed = .{
-        .address = address,
-        .previous_code = previous_code_owned,
-    }});
+    // Store code in database and get its hash
+    const code_hash = try self.database.set_code(code);
     
-    Log.debug("EvmState.set_code: addr={x}, code_len={}, prev_code_len={}", .{ 
-        Address.to_u256(address), code.len, if (previous_code_owned) |pc| pc.len else 0
-    });
+    // Get existing account or create new one
+    var account = self.database.get_account(address) catch Account.zero();
+    if (account == null) {
+        account = Account.zero();
+    }
     
-    try self.set_code_direct(address, code);
-}
-
-/// Set code directly without journaling
-/// 
-/// Internal function that applies code changes without recording
-/// them in the journal. Used during revert operations.
-/// 
-/// ## Parameters
-/// - `address`: Contract address
-/// - `code`: Bytecode to deploy
-/// 
-/// ## Returns
-/// - Success: void
-/// - Error: OutOfMemory if map expansion fails
-pub fn set_code_direct(self: *EvmState, address: Address.Address, code: []const u8) std.mem.Allocator.Error!void {
-    try self.code.put(address, code);
+    // Update account with new code hash
+    account.?.code_hash = code_hash;
+    try self.database.set_account(address, account.?);
 }
 
 /// Remove contract code
@@ -419,33 +337,40 @@ pub fn set_code_direct(self: *EvmState, address: Address.Address, code: []const 
 /// - `address`: Contract address
 /// 
 /// ## Returns
-/// - Success: true if code was removed, false if it didn't exist
-pub fn remove_code(self: *EvmState, address: Address.Address) bool {
-    return self.code.remove(address);
+/// - Success: void
+/// - Error: DatabaseError if account operation fails
+pub fn remove_code(self: *EvmState, address: Address.Address) DatabaseError!void {
+    // Set empty code instead of removing - database interface handles persistence
+    try self.set_code(address, &[_]u8{});
 }
 
 /// Get account nonce
 /// 
-/// Returns the transaction count for the given address.
+/// Returns the transaction count for the given address through the database interface.
 /// Non-existent accounts have nonce 0.
 /// 
 /// ## Parameters
 /// - `address`: Account address
 /// 
 /// ## Returns
-/// Current nonce (0 for new accounts)
+/// Current nonce (0 for new accounts or on error)
 /// 
 /// ## Note
 /// Nonce prevents transaction replay attacks
 pub fn get_nonce(self: *const EvmState, address: Address.Address) u64 {
-    // Hot path: existing account with nonce
-    if (self.nonces.get(address)) |nonce| {
+    // Get account from database
+    const account = self.database.get_account(address) catch |err| {
+        @branchHint(.cold);
+        Log.debug("EvmState.get_nonce: Database error {}, returning 0", .{err});
+        return 0;
+    };
+    
+    if (account) |acc| {
         @branchHint(.likely);
-        Log.debug("EvmState.get_nonce: addr={x}, nonce={}", .{ Address.to_u256(address), nonce });
-        return nonce;
+        Log.debug("EvmState.get_nonce: addr={x}, nonce={}", .{ Address.to_u256(address), acc.nonce });
+        return acc.nonce;
     } else {
         @branchHint(.cold);
-        // Cold path: new account
         Log.debug("EvmState.get_nonce: addr={x}, nonce=0 (new account)", .{ Address.to_u256(address) });
         return 0;
     }
@@ -453,8 +378,7 @@ pub fn get_nonce(self: *const EvmState, address: Address.Address) u64 {
 
 /// Set account nonce
 /// 
-/// Updates the transaction count for the given address.
-/// This function records the change in the journal for potential revert.
+/// Updates the transaction count for the given address through the database interface.
 /// 
 /// ## Parameters
 /// - `address`: Account address
@@ -462,40 +386,22 @@ pub fn get_nonce(self: *const EvmState, address: Address.Address) u64 {
 /// 
 /// ## Returns
 /// - Success: void
-/// - Error: OutOfMemory if map expansion fails
+/// - Error: DatabaseError if account operation fails
 /// 
 /// ## Warning
 /// Setting nonce below current value can enable replay attacks
-pub fn set_nonce(self: *EvmState, address: Address.Address, nonce: u64) std.mem.Allocator.Error!void {
-    // Record the previous nonce for potential revert
-    const previous_nonce = self.get_nonce(address);
+pub fn set_nonce(self: *EvmState, address: Address.Address, nonce: u64) DatabaseError!void {
+    Log.debug("EvmState.set_nonce: addr={x}, nonce={}", .{ Address.to_u256(address), nonce });
     
-    try self.journal.add_entry(.{ .nonce_changed = .{
-        .address = address,
-        .previous_nonce = previous_nonce,
-    }});
+    // Get existing account or create new one
+    var account = self.database.get_account(address) catch Account.zero();
+    if (account == null) {
+        account = Account.zero();
+    }
     
-    Log.debug("EvmState.set_nonce: addr={x}, nonce={}, prev_nonce={}", .{ 
-        Address.to_u256(address), nonce, previous_nonce 
-    });
-    
-    try self.set_nonce_direct(address, nonce);
-}
-
-/// Set nonce directly without journaling
-/// 
-/// Internal function that applies nonce changes without recording
-/// them in the journal. Used during revert operations.
-/// 
-/// ## Parameters
-/// - `address`: Account address
-/// - `nonce`: New nonce value
-/// 
-/// ## Returns
-/// - Success: void
-/// - Error: OutOfMemory if map expansion fails
-pub fn set_nonce_direct(self: *EvmState, address: Address.Address, nonce: u64) std.mem.Allocator.Error!void {
-    try self.nonces.put(address, nonce);
+    // Update nonce and save account
+    account.?.nonce = nonce;
+    try self.database.set_account(address, account.?);
 }
 
 /// Remove account nonce
@@ -507,9 +413,11 @@ pub fn set_nonce_direct(self: *EvmState, address: Address.Address, nonce: u64) s
 /// - `address`: Account address
 /// 
 /// ## Returns
-/// - Success: true if nonce was removed, false if it didn't exist
-pub fn remove_nonce(self: *EvmState, address: Address.Address) bool {
-    return self.nonces.remove(address);
+/// - Success: void
+/// - Error: DatabaseError if account operation fails
+pub fn remove_nonce(self: *EvmState, address: Address.Address) DatabaseError!void {
+    // Set nonce to 0 instead of removing - database interface handles persistence
+    try self.set_nonce(address, 0);
 }
 
 /// Increment account nonce
@@ -523,7 +431,7 @@ pub fn remove_nonce(self: *EvmState, address: Address.Address) bool {
 /// 
 /// ## Returns
 /// - Success: Previous nonce value (before increment)
-/// - Error: OutOfMemory if map expansion fails
+/// - Error: DatabaseError if account operation fails
 /// 
 /// ## Example
 /// ```zig
@@ -531,7 +439,7 @@ pub fn remove_nonce(self: *EvmState, address: Address.Address) bool {
 /// // tx_nonce is used for the transaction
 /// // account nonce is now tx_nonce + 1
 /// ```
-pub fn increment_nonce(self: *EvmState, address: Address.Address) std.mem.Allocator.Error!u64 {
+pub fn increment_nonce(self: *EvmState, address: Address.Address) DatabaseError!u64 {
     const current_nonce = self.get_nonce(address);
     const new_nonce = current_nonce + 1;
     Log.debug("EvmState.increment_nonce: addr={x}, old_nonce={}, new_nonce={}", .{ Address.to_u256(address), current_nonce, new_nonce });
@@ -575,7 +483,6 @@ pub fn get_transient_storage(self: *const EvmState, address: Address.Address, sl
 /// 
 /// Updates a transient storage slot (EIP-1153). Values are
 /// automatically cleared after the transaction completes.
-/// This function records the change in the journal for potential revert.
 /// 
 /// ## Parameters
 /// - `address`: Contract address
@@ -594,36 +501,10 @@ pub fn get_transient_storage(self: *const EvmState, address: Address.Address, sl
 /// - Temporary computation results
 /// - Cross-contract communication within a transaction
 pub fn set_transient_storage(self: *EvmState, address: Address.Address, slot: u256, value: u256) std.mem.Allocator.Error!void {
-    // Record the previous value for potential revert
-    const previous_value = self.get_transient_storage(address, slot);
-    
-    try self.journal.add_entry(.{ .transient_storage_changed = .{
-        .address = address,
-        .slot = slot,
-        .previous_value = previous_value,
-    }});
-    
-    Log.debug("EvmState.set_transient_storage: addr={x}, slot={}, value={}, prev_value={}", .{ 
-        Address.to_u256(address), slot, value, previous_value 
+    Log.debug("EvmState.set_transient_storage: addr={x}, slot={}, value={}", .{ 
+        Address.to_u256(address), slot, value
     });
     
-    try self.set_transient_storage_direct(address, slot, value);
-}
-
-/// Set transient storage value directly without journaling
-/// 
-/// Internal function that applies transient storage changes without recording
-/// them in the journal. Used during revert operations.
-/// 
-/// ## Parameters
-/// - `address`: Contract address
-/// - `slot`: Storage slot number
-/// - `value`: Value to store temporarily
-/// 
-/// ## Returns
-/// - Success: void
-/// - Error: OutOfMemory if map expansion fails
-pub fn set_transient_storage_direct(self: *EvmState, address: Address.Address, slot: u256, value: u256) std.mem.Allocator.Error!void {
     const key = StorageKey{ .address = address, .slot = slot };
     try self.transient_storage.put(key, value);
 }
@@ -633,8 +514,7 @@ pub fn set_transient_storage_direct(self: *EvmState, address: Address.Address, s
 /// Emit an event log
 /// 
 /// Records an event log from LOG0-LOG4 opcodes. The log is added
-/// to the transaction's log list. This function records the change
-/// in the journal for potential revert.
+/// to the transaction's log list.
 /// 
 /// ## Parameters
 /// - `address`: Contract emitting the log
@@ -663,12 +543,6 @@ pub fn set_transient_storage_direct(self: *EvmState, address: Address.Address, s
 pub fn emit_log(self: *EvmState, address: Address.Address, topics: []const u256, data: []const u8) std.mem.Allocator.Error!void {
     Log.debug("EvmState.emit_log: addr={x}, topics_len={}, data_len={}", .{ Address.to_u256(address), topics.len, data.len });
     
-    // Record the log creation for potential revert
-    const log_index = self.logs.items.len;
-    try self.journal.add_entry(.{ .log_created = .{
-        .log_index = log_index,
-    }});
-    
     // Clone the data to ensure it persists
     const data_copy = try self.allocator.alloc(u8, data.len);
     @memcpy(data_copy, data);
@@ -684,7 +558,7 @@ pub fn emit_log(self: *EvmState, address: Address.Address, topics: []const u256,
     };
 
     try self.logs.append(log);
-    Log.debug("EvmState.emit_log: Log emitted, total_logs={}, log_index={}", .{self.logs.items.len, log_index});
+    Log.debug("EvmState.emit_log: Log emitted, total_logs={}", .{self.logs.items.len});
 }
 
 /// Remove a log entry
@@ -720,67 +594,3 @@ pub fn remove_log(self: *EvmState, log_index: usize) !void {
     Log.debug("EvmState.remove_log: Removed log at index={}, remaining_logs={}", .{log_index, self.logs.items.len});
 }
 
-// Journal interface methods
-
-/// Create a snapshot of the current state
-/// 
-/// Captures the current state for potential revert operations.
-/// Snapshots can be nested for handling complex call hierarchies.
-/// 
-/// ## Returns
-/// - Success: Snapshot ID that can be used for commit/revert
-/// - Error: OutOfMemory if snapshot allocation fails
-/// 
-/// ## Example
-/// ```zig
-/// const snapshot = try state.snapshot();
-/// // ... risky operations ...
-/// if (success) {
-///     state.commit(snapshot);
-/// } else {
-///     try state.revert(snapshot);
-/// }
-/// ```
-pub fn snapshot(self: *EvmState) std.mem.Allocator.Error!usize {
-    return try self.journal.snapshot();
-}
-
-/// Commit changes since the given snapshot
-/// 
-/// Finalizes all changes made since the snapshot was created.
-/// The snapshot is removed and can no longer be reverted to.
-/// 
-/// ## Parameters
-/// - `snapshot_id`: Snapshot ID returned from snapshot()
-/// 
-/// ## Example
-/// ```zig
-/// const snapshot = try state.snapshot();
-/// // ... successful operations ...
-/// state.commit(snapshot);
-/// ```
-pub fn commit(self: *EvmState, snapshot_id: usize) void {
-    self.journal.commit(snapshot_id);
-}
-
-/// Revert all changes since the given snapshot
-/// 
-/// Restores the state to exactly what it was when the snapshot
-/// was created. All changes since the snapshot are undone.
-/// 
-/// ## Parameters
-/// - `snapshot_id`: Snapshot ID returned from snapshot()
-/// 
-/// ## Returns
-/// - Success: void
-/// - Error: OutOfMemory or other state modification errors
-/// 
-/// ## Example
-/// ```zig
-/// const snapshot = try state.snapshot();
-/// // ... failed operations ...
-/// try state.revert(snapshot);
-/// ```
-pub fn revert(self: *EvmState, snapshot_id: usize) !void {
-    try self.journal.revert(snapshot_id, self);
-}

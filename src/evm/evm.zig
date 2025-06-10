@@ -109,6 +109,15 @@ pub const Vm = @import("vm.zig");
 /// EVM state management (accounts, storage, logs)
 pub const EvmState = @import("state/state.zig");
 
+/// Database interface for pluggable state storage
+pub const DatabaseInterface = @import("state/database_interface.zig").DatabaseInterface;
+
+/// Memory database implementation
+pub const MemoryDatabase = @import("state/memory_database.zig").MemoryDatabase;
+
+/// Database factory for creating different implementations
+pub const DatabaseFactory = @import("state/database_factory.zig");
+
 /// Precompiled contracts implementation (IDENTITY, SHA256, etc.)
 pub const Precompiles = @import("precompiles/precompiles.zig");
 
