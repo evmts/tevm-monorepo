@@ -246,7 +246,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 
 #### Critical System Features
 - [ ] 🔴 **WASM Build** - [Currently broken, needs fixing as well as integration into the overall Tevm typescript code](./prompts/implement-wasm-build-fix.md)
-- [ ] 🔴 **Journaling/State Reverting** - [Need to implement state snapshots for proper revert handling](./prompts/implement-journaling-state-reverting.md)
+- [x] **Journaling/State Reverting** - Complete state snapshots for proper revert handling ✅
 - [ ] 🔴 **Complete CALL Operations** - [Basic implementation exists but needs full gas tracking and execution](./prompts/implement-complete-call-operations.md)
   - [ ] **Call Gas Management** - 63/64th gas forwarding rule implementation
   - [ ] **Call Context Switching** - Proper context isolation between contract calls

@@ -247,15 +247,27 @@ pub fn interpret_with_context(self: *Vm, contract: *Contract, input: []const u8,
 }
 
 fn create_contract_internal(self: *Vm, creator: Address.Address, value: u256, init_code: []const u8, gas: u64, new_address: Address.Address) !CreateResult {
+    Log.debug("VM.create_contract_internal: Creating contract from {any} to {any}, value={}, gas={}", .{ creator, new_address, value, gas });
+    
+    // Create snapshot before contract creation for potential revert
+    const snapshot_id = try self.state.snapshot();
+    errdefer {
+        // Revert on any error during setup
+        self.state.revert(snapshot_id) catch {};
+    }
+    
     if (self.state.get_code(new_address).len > 0) {
         @branchHint(.unlikely);
-        // Contract already exists at this address
+        // Contract already exists at this address - revert and fail
+        try self.state.revert(snapshot_id);
         return CreateResult.initFailure(gas, null);
     }
 
     const creator_balance = self.state.get_balance(creator);
     if (creator_balance < value) {
         @branchHint(.unlikely);
+        // Insufficient balance - revert and fail
+        try self.state.revert(snapshot_id);
         return CreateResult.initFailure(gas, null);
     }
 
@@ -265,7 +277,8 @@ fn create_contract_internal(self: *Vm, creator: Address.Address, value: u256, in
     }
 
     if (init_code.len == 0) {
-        // No init code means empty contract
+        // No init code means empty contract - commit the snapshot
+        self.state.commit(snapshot_id);
         return CreateResult{
             .success = true,
             .address = new_address,
@@ -294,11 +307,13 @@ fn create_contract_internal(self: *Vm, creator: Address.Address, value: u256, in
     // Execute the init code - this should return the deployment bytecode
     const init_result = self.interpret_with_context(&init_contract, &[_]u8{}, false) catch |err| {
         if (err == ExecutionError.Error.REVERT) {
-            // On revert, we should still consume gas but not all
+            // On revert, revert state changes and consume partial gas
+            try self.state.revert(snapshot_id);
             return CreateResult.initFailure(init_contract.gas, null);
         }
 
         // Most initcode failures should return 0 address and consume all gas
+        try self.state.revert(snapshot_id);
         return CreateResult.initFailure(0, null);
     };
 
@@ -306,18 +321,23 @@ fn create_contract_internal(self: *Vm, creator: Address.Address, value: u256, in
 
     // Check EIP-170 MAX_CODE_SIZE limit on the returned bytecode (24,576 bytes)
     if (deployment_code.len > constants.MAX_CODE_SIZE) {
+        try self.state.revert(snapshot_id);
         return CreateResult.initFailure(0, null);
     }
 
     const deploy_code_gas = @as(u64, @intCast(deployment_code.len)) * constants.DEPLOY_CODE_GAS_PER_BYTE;
 
     if (deploy_code_gas > init_result.gas_left) {
+        try self.state.revert(snapshot_id);
         return CreateResult.initFailure(0, null);
     }
 
     try self.state.set_code(new_address, deployment_code);
 
     const gas_left = init_result.gas_left - deploy_code_gas;
+
+    // Commit the snapshot on successful contract creation
+    self.state.commit(snapshot_id);
 
     return CreateResult{
         .success = true,
@@ -378,16 +398,34 @@ pub fn call_contract(self: *Vm, caller: Address.Address, to: Address.Address, va
     
     Log.debug("VM.call_contract: Call from {any} to {any}, gas={}, static={}", .{ caller, to, gas, is_static });
     
+    // Create snapshot before call for potential revert
+    const snapshot_id = try self.state.snapshot();
+    errdefer {
+        // Revert on any error during setup
+        self.state.revert(snapshot_id) catch {};
+    }
+    
     // Check if this is a precompile call
     if (precompiles.is_precompile(to)) {
         Log.debug("VM.call_contract: Detected precompile call to {any}", .{to});
-        return self.execute_precompile_call(to, input, gas, is_static);
+        const result = self.execute_precompile_call(to, input, gas, is_static) catch |err| {
+            // Revert state and propagate error
+            try self.state.revert(snapshot_id);
+            return err;
+        };
+        
+        // Handle result - precompiles don't modify state so always commit
+        self.state.commit(snapshot_id);
+        return result;
     }
     
     // Regular contract call - currently not implemented
     // TODO: Implement value transfer, gas calculation, recursive execution, and return data handling
     Log.debug("VM.call_contract: Regular contract call not implemented yet", .{});
     _ = value;
+    
+    // For now, revert the snapshot since we're not implementing the call
+    try self.state.revert(snapshot_id);
     return CallResult{ .success = false, .gas_left = gas, .output = null };
 }
 
@@ -507,13 +545,21 @@ pub const DelegatecallContractError = std.mem.Allocator.Error;
 /// NOT IMPLEMENTED - always returns failure.
 /// TODO: Execute target code with current caller and value context preserved.
 pub fn delegatecall_contract(self: *Vm, current: Address.Address, code_address: Address.Address, input: []const u8, gas: u64, is_static: bool) DelegatecallContractError!CallResult {
-    _ = self;
-    _ = current;
-    _ = code_address;
+    Log.debug("VM.delegatecall_contract: DELEGATECALL from {any} to {any}, gas={}, static={}", .{ current, code_address, gas, is_static });
+    
+    // Create snapshot before call for potential revert
+    const snapshot_id = try self.state.snapshot();
+    errdefer {
+        // Revert on any error during setup
+        self.state.revert(snapshot_id) catch {};
+    }
+    
+    // DELEGATECALL not implemented yet - revert the snapshot
+    Log.debug("VM.delegatecall_contract: DELEGATECALL not implemented yet", .{});
     _ = input;
-    _ = gas;
-    _ = is_static;
-    return CallResult{ .success = false, .gas_left = 0, .output = null };
+    
+    try self.state.revert(snapshot_id);
+    return CallResult{ .success = false, .gas_left = gas, .output = null };
 }
 
 pub const StaticcallContractError = std.mem.Allocator.Error;
@@ -522,12 +568,21 @@ pub const StaticcallContractError = std.mem.Allocator.Error;
 /// NOT IMPLEMENTED - always returns failure.
 /// TODO: Execute target contract in guaranteed read-only mode.
 pub fn staticcall_contract(self: *Vm, caller: Address.Address, to: Address.Address, input: []const u8, gas: u64) StaticcallContractError!CallResult {
-    _ = self;
-    _ = caller;
-    _ = to;
+    Log.debug("VM.staticcall_contract: STATICCALL from {any} to {any}, gas={}", .{ caller, to, gas });
+    
+    // Create snapshot before call for potential revert
+    const snapshot_id = try self.state.snapshot();
+    errdefer {
+        // Revert on any error during setup
+        self.state.revert(snapshot_id) catch {};
+    }
+    
+    // STATICCALL not implemented yet - revert the snapshot
+    Log.debug("VM.staticcall_contract: STATICCALL not implemented yet", .{});
     _ = input;
-    _ = gas;
-    return CallResult{ .success = false, .gas_left = 0, .output = null };
+    
+    try self.state.revert(snapshot_id);
+    return CallResult{ .success = false, .gas_left = gas, .output = null };
 }
 
 pub const EmitLogError = std.mem.Allocator.Error;
