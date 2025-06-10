@@ -438,16 +438,15 @@ pub fn op_call(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     _ = pc;
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
-    _ = @as(*Vm, @ptrCast(@alignCast(interpreter)));
+    const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
-    // Stack validation is done by jump table - just pop the parameters
-    _ = try frame.stack.pop(); // gas
-    _ = try frame.stack.pop(); // to
-    const value = try frame.stack.pop(); // value
-    _ = try frame.stack.pop(); // args_offset
-    _ = try frame.stack.pop(); // args_size
-    _ = try frame.stack.pop(); // ret_offset
-    _ = try frame.stack.pop(); // ret_size
+    const gas = try frame.stack.pop();
+    const to = try frame.stack.pop();
+    const value = try frame.stack.pop();
+    const args_offset = try frame.stack.pop();
+    const args_size = try frame.stack.pop();
+    const ret_offset = try frame.stack.pop();
+    const ret_size = try frame.stack.pop();
 
     // Check static call restrictions
     if (frame.is_static and value != 0) {
@@ -455,8 +454,85 @@ pub fn op_call(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
         return ExecutionError.Error.WriteProtection;
     }
 
-    // Just push 0 (failure) for now
-    try frame.stack.append(0);
+    // Check depth
+    if (frame.depth >= 1024) {
+        @branchHint(.cold);
+        try frame.stack.append(0);
+        return Operation.ExecutionResult{};
+    }
+
+    // Get call data
+    var args: []const u8 = &[_]u8{};
+    if (args_size > 0) {
+        try check_offset_bounds(args_offset);
+        try check_offset_bounds(args_size);
+
+        const args_offset_usize = @as(usize, @intCast(args_offset));
+        const args_size_usize = @as(usize, @intCast(args_size));
+
+        _ = try frame.memory.ensure_context_capacity(args_offset_usize + args_size_usize);
+        args = try frame.memory.get_slice(args_offset_usize, args_size_usize);
+    }
+
+    // Ensure return memory
+    if (ret_size > 0) {
+        try check_offset_bounds(ret_offset);
+        try check_offset_bounds(ret_size);
+
+        const ret_offset_usize = @as(usize, @intCast(ret_offset));
+        const ret_size_usize = @as(usize, @intCast(ret_size));
+
+        _ = try frame.memory.ensure_context_capacity(ret_offset_usize + ret_size_usize);
+    }
+
+    // Convert to address
+    const to_address = from_u256(to);
+
+    // EIP-2929: Check if address is cold and consume appropriate gas
+    const access_cost = try vm.access_list.access_address(to_address);
+    const is_cold = access_cost == AccessList.COLD_ACCOUNT_ACCESS_COST;
+    if (is_cold) {
+        @branchHint(.unlikely);
+        // Cold address access costs more (2600 gas)
+        try frame.consume_gas(gas_constants.ColdAccountAccessCost);
+    }
+
+    // Calculate gas to give to the call
+    var gas_for_call = if (gas > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(gas));
+    gas_for_call = @min(gas_for_call, frame.gas_remaining - (frame.gas_remaining / 64));
+
+    if (value != 0) {
+        gas_for_call += 2300; // Stipend
+    }
+
+    // Execute the call
+    const result = try vm.call_contract(frame.contract.address, to_address, value, args, gas_for_call, frame.is_static);
+
+    // Update gas remaining
+    frame.gas_remaining = frame.gas_remaining - gas_for_call + result.gas_left;
+
+    // Write return data to memory if requested
+    if (ret_size > 0 and result.output != null) {
+        const ret_offset_usize = @as(usize, @intCast(ret_offset));
+        const ret_size_usize = @as(usize, @intCast(ret_size));
+        const output = result.output.?;
+
+        const copy_size = @min(ret_size_usize, output.len);
+        const memory_slice = frame.memory.slice();
+        std.mem.copyForwards(u8, memory_slice[ret_offset_usize .. ret_offset_usize + copy_size], output[0..copy_size]);
+
+        // Zero out remaining bytes if output was smaller than requested
+        if (copy_size < ret_size_usize) {
+            @branchHint(.unlikely);
+            @memset(memory_slice[ret_offset_usize + copy_size .. ret_offset_usize + ret_size_usize], 0);
+        }
+    }
+
+    // Set return data
+    try frame.return_data.set(result.output orelse &[_]u8{});
+
+    // Push success status (bounds checking already done by jump table)
+    frame.stack.append_unsafe(if (result.success) 1 else 0);
 
     return Operation.ExecutionResult{};
 }
@@ -565,6 +641,7 @@ pub fn op_delegatecall(pc: usize, interpreter: *Operation.Interpreter, state: *O
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
+    // DELEGATECALL takes 6 parameters (no value parameter)
     const gas = try frame.stack.pop();
     const to = try frame.stack.pop();
     const args_offset = try frame.stack.pop();
@@ -572,7 +649,7 @@ pub fn op_delegatecall(pc: usize, interpreter: *Operation.Interpreter, state: *O
     const ret_offset = try frame.stack.pop();
     const ret_size = try frame.stack.pop();
 
-    // Check depth
+    // Check call depth limit
     if (frame.depth >= 1024) {
         @branchHint(.cold);
         try frame.stack.append(0);
@@ -619,9 +696,13 @@ pub fn op_delegatecall(pc: usize, interpreter: *Operation.Interpreter, state: *O
     var gas_for_call = if (gas > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(gas));
     gas_for_call = @min(gas_for_call, frame.gas_remaining - (frame.gas_remaining / 64));
 
-    // Execute the delegatecall (execute target's code with current storage context and msg.sender/value)
-    // For delegatecall, we preserve the current contract's context
-    // Note: delegatecall doesn't transfer value, it uses the current contract's value
+    // DELEGATECALL preserves the current context:
+    // - Uses current contract's storage
+    // - Preserves msg.sender and msg.value from parent call
+    // - Executes target contract's code in current context
+    // - Cannot transfer value (no value parameter)
+
+    // Execute the delegatecall (execute target's code with current context)
     const result = try vm.delegatecall_contract(frame.contract.address, to_address, args, gas_for_call, frame.is_static);
 
     // Update gas remaining
@@ -659,6 +740,7 @@ pub fn op_staticcall(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
+    // STATICCALL takes 6 parameters (no value parameter)
     const gas = try frame.stack.pop();
     const to = try frame.stack.pop();
     const args_offset = try frame.stack.pop();
@@ -666,7 +748,7 @@ pub fn op_staticcall(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
     const ret_offset = try frame.stack.pop();
     const ret_size = try frame.stack.pop();
 
-    // Check depth
+    // Check call depth limit
     if (frame.depth >= 1024) {
         @branchHint(.cold);
         try frame.stack.append(0);
@@ -713,8 +795,14 @@ pub fn op_staticcall(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
     var gas_for_call = if (gas > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, @intCast(gas));
     gas_for_call = @min(gas_for_call, frame.gas_remaining - (frame.gas_remaining / 64));
 
-    // Execute the static call (no value transfer, is_static = true)
-    const result = try vm.call_contract(frame.contract.address, to_address, 0, args, gas_for_call, true);
+    // STATICCALL characteristics:
+    // - Forces static context (no state changes allowed in called contract)
+    // - Cannot transfer value (value is implicitly 0)
+    // - Prevents SSTORE, CREATE, SELFDESTRUCT in called contract
+    // - Uses clean call context (new msg.sender)
+
+    // Execute the staticcall (read-only call with static restrictions)
+    const result = try vm.staticcall_contract(frame.contract.address, to_address, args, gas_for_call);
 
     // Update gas remaining
     frame.gas_remaining = frame.gas_remaining - gas_for_call + result.gas_left;
