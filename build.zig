@@ -85,7 +85,7 @@ pub fn build(b: *std.Build) void {
     block_mod.addImport("Address", address_mod);
 
     const bytecode_mod = b.createModule(.{
-        .root_source_file = b.path("src/bytecode_/bytecode.zig"),
+        .root_source_file = b.path("src/bytecode/bytecode.zig"),
         .target = target,
         .optimize = optimize,
     });
