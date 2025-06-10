@@ -511,6 +511,7 @@ pub const DelegatecallContractError = std.mem.Allocator.Error;
 /// NOT IMPLEMENTED - always returns failure.
 /// TODO: Execute target code with current caller and value context preserved.
 pub fn delegatecall_contract(self: *Vm, current: Address.Address, code_address: Address.Address, input: []const u8, gas: u64, is_static: bool) DelegatecallContractError!CallResult {
+    _ = self;
     Log.debug("VM.delegatecall_contract: DELEGATECALL from {any} to {any}, gas={}, static={}", .{ current, code_address, gas, is_static });
     
     // DELEGATECALL not implemented yet
@@ -526,6 +527,7 @@ pub const StaticcallContractError = std.mem.Allocator.Error;
 /// NOT IMPLEMENTED - always returns failure.
 /// TODO: Execute target contract in guaranteed read-only mode.
 pub fn staticcall_contract(self: *Vm, caller: Address.Address, to: Address.Address, input: []const u8, gas: u64) StaticcallContractError!CallResult {
+    _ = self;
     Log.debug("VM.staticcall_contract: STATICCALL from {any} to {any}, gas={}", .{ caller, to, gas });
     
     // STATICCALL not implemented yet
