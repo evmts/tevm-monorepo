@@ -74,7 +74,7 @@ pub fn build(b: *std.Build) void {
     trie_mod.single_threaded = true;
 
     const block_mod = b.createModule(.{
-        .root_source_file = b.path("src/Block/block.zig"),
+        .root_source_file = b.path("src/block_/block.zig"),
         .target = target,
         .optimize = optimize,
     });
@@ -221,7 +221,7 @@ pub fn build(b: *std.Build) void {
     // Create a separate executable for the server
     const server_exe = b.addExecutable(.{
         .name = "zigevm-server",
-        .root_source_file = b.path("src/Server/main.zig"),
+        .root_source_file = b.path("src/server_/main.zig"),
         .target = target,
         .optimize = optimize,
     });
@@ -335,7 +335,7 @@ pub fn build(b: *std.Build) void {
     // Add a test for server.zig
     const server_test = b.addTest(.{
         .name = "server-test",
-        .root_source_file = b.path("src/Server/server.zig"),
+        .root_source_file = b.path("src/server_/server.zig"),
         .target = target,
         .optimize = optimize,
     });
