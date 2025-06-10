@@ -1,4 +1,4 @@
-const address = @import("Address");
+const address = @import("address");
 
 pub const Block = struct {
     number: u64,
