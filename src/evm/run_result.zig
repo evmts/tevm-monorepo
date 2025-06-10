@@ -40,7 +40,7 @@ const ExecutionError = @import("execution/execution_error.zig");
 ///     },
 /// }
 /// ```
-const Self = @This();
+pub const RunResult = @This();
 
 /// Execution completion status.
 ///
@@ -99,8 +99,8 @@ pub fn init(
     status: Status,
     err: ?ExecutionError.Error,
     output: ?[]const u8,
-) Self {
-    return Self{
+) RunResult {
+    return RunResult{
         .status = status,
         .err = err,
         .gas_left = gas_left,

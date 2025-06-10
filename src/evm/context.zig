@@ -44,7 +44,7 @@ const Address = @import("Address");
 ///     .blob_base_fee = 1,
 /// );
 /// ```
-const Self = @This();
+const Context = @This();
 
 /// The original sender address that initiated the transaction.
 ///
@@ -246,7 +246,7 @@ blob_base_fee: u256 = 0,
 /// ## Warning
 /// Default values may not be suitable for production use.
 /// Consider using `init_with_values` for realistic contexts.
-pub fn init() Self {
+pub fn init() Context {
     return .{};
 }
 
@@ -296,7 +296,7 @@ pub fn init_with_values(
     block_base_fee: u256,
     blob_hashes: []const u256,
     blob_base_fee: u256,
-) Self {
+) Context {
     return .{
         .tx_origin = tx_origin,
         .gas_price = gas_price,
@@ -335,6 +335,6 @@ pub fn init_with_values(
 /// ## Note
 /// This is a convenience method. For checking other chains,
 /// compare chain_id directly.
-pub fn is_eth_mainnet(self: Self) bool {
+pub fn is_eth_mainnet(self: Context) bool {
     return self.chain_id == 1;
 }

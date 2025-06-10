@@ -1,7 +1,7 @@
-// Package file for opcodes modules
-// This file serves as the entry point for importing opcode modules
+// Package file for execution modules
+// This file serves as the entry point for importing execution modules
 
-// Re-export all opcode modules for easy access
+// Re-export all execution modules for easy access
 pub const arithmetic = @import("arithmetic.zig");
 pub const bitwise = @import("bitwise.zig");
 pub const block = @import("block.zig");

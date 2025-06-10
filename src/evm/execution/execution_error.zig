@@ -18,7 +18,7 @@ const std = @import("std");
 /// 6. **Call Stack**: DepthLimit
 /// 7. **Memory Management**: OutOfMemory, InvalidOffset, InvalidSize, ChildContextActive
 /// 8. **Future Features**: EOFNotSupported
-const Self = @This();
+const ExecutionError = @This();
 
 /// Error types for EVM execution
 ///

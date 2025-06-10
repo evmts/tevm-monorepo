@@ -20,7 +20,7 @@ pub fn op_address(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
 
     // Push contract address as u256
     const addr = to_u256(frame.contract.address);
-    try frame.stack.append( addr);
+    try frame.stack.append(addr);
 
     return Operation.ExecutionResult{};
 }
@@ -40,7 +40,7 @@ pub fn op_balance(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
 
     // Get balance from VM state
     const balance = vm.state.get_balance(address);
-    try frame.stack.append( balance);
+    try frame.stack.append(balance);
 
     return Operation.ExecutionResult{};
 }
@@ -53,7 +53,7 @@ pub fn op_origin(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     // Push transaction origin address
     const origin = to_u256(vm.context.tx_origin);
-    try frame.stack.append( origin);
+    try frame.stack.append(origin);
 
     return Operation.ExecutionResult{};
 }
@@ -66,7 +66,7 @@ pub fn op_caller(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     // Push caller address
     const caller = to_u256(frame.contract.caller);
-    try frame.stack.append( caller);
+    try frame.stack.append(caller);
 
     return Operation.ExecutionResult{};
 }
@@ -78,7 +78,7 @@ pub fn op_callvalue(pc: usize, interpreter: *Operation.Interpreter, state: *Oper
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
     // Push call value
-    try frame.stack.append( frame.contract.value);
+    try frame.stack.append(frame.contract.value);
 
     return Operation.ExecutionResult{};
 }
@@ -90,7 +90,7 @@ pub fn op_gasprice(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
     // Push gas price from transaction context
-    try frame.stack.append( vm.context.gas_price);
+    try frame.stack.append(vm.context.gas_price);
 
     return Operation.ExecutionResult{};
 }
@@ -110,7 +110,7 @@ pub fn op_extcodesize(pc: usize, interpreter: *Operation.Interpreter, state: *Op
 
     // Get code size from VM state
     const code = vm.state.get_code(address);
-    try frame.stack.append( @as(u256, @intCast(code.len)));
+    try frame.stack.append(@as(u256, @intCast(code.len)));
 
     return Operation.ExecutionResult{};
 }
@@ -126,9 +126,15 @@ pub fn op_extcodecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     const code_offset = try frame.stack.pop();
     const size = try frame.stack.pop();
 
-    if (size == 0) return Operation.ExecutionResult{};
+    if (size == 0) {
+        @branchHint(.unlikely);
+        return Operation.ExecutionResult{};
+    }
 
-    if (mem_offset > std.math.maxInt(usize) or size > std.math.maxInt(usize) or code_offset > std.math.maxInt(usize)) return ExecutionError.Error.OutOfOffset;
+    if (mem_offset > std.math.maxInt(usize) or size > std.math.maxInt(usize) or code_offset > std.math.maxInt(usize)) {
+        @branchHint(.unlikely);
+        return ExecutionError.Error.OutOfOffset;
+    }
 
     const address = from_u256(address_u256);
     const mem_offset_usize = @as(usize, @intCast(mem_offset));
@@ -175,19 +181,17 @@ pub fn op_extcodehash(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     // Get code from VM state and compute hash
     const code = vm.state.get_code(address);
     if (code.len == 0) {
+        @branchHint(.unlikely);
         // Empty account - return zero
-        try frame.stack.append( 0);
+        try frame.stack.append(0);
     } else {
         // Compute keccak256 hash of the code
         var hash: [32]u8 = undefined;
         std.crypto.hash.sha3.Keccak256.hash(code, &hash, .{});
 
-        // Convert hash to u256
-        var hash_u256: u256 = 0;
-        for (hash) |byte| {
-            hash_u256 = (hash_u256 << 8) | byte;
-        }
-        try frame.stack.append( hash_u256);
+        // Convert hash to u256 using std.mem for efficiency
+        const hash_u256 = std.mem.readInt(u256, &hash, .big);
+        try frame.stack.append(hash_u256);
     }
 
     return Operation.ExecutionResult{};
@@ -202,7 +206,7 @@ pub fn op_selfbalance(pc: usize, interpreter: *Operation.Interpreter, state: *Op
     // Get balance of current executing contract
     const self_address = frame.contract.address;
     const balance = vm.state.get_balance(self_address);
-    try frame.stack.append( balance);
+    try frame.stack.append(balance);
 
     return Operation.ExecutionResult{};
 }
@@ -214,7 +218,7 @@ pub fn op_chainid(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
     // Push chain ID from VM context
-    try frame.stack.append( vm.context.chain_id);
+    try frame.stack.append(vm.context.chain_id);
 
     return Operation.ExecutionResult{};
 }
@@ -227,7 +231,7 @@ pub fn op_calldatasize(pc: usize, interpreter: *Operation.Interpreter, state: *O
 
     // Push size of calldata - use frame.input which is set by the VM
     // The frame.input is the actual calldata for this execution context
-    try frame.stack.append( @as(u256, @intCast(frame.input.len)));
+    try frame.stack.append(@as(u256, @intCast(frame.input.len)));
 
     return Operation.ExecutionResult{};
 }
@@ -239,7 +243,7 @@ pub fn op_codesize(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
     // Push size of current contract's code
-    try frame.stack.append( @as(u256, @intCast(frame.contract.code.len)));
+    try frame.stack.append(@as(u256, @intCast(frame.contract.code.len)));
 
     return Operation.ExecutionResult{};
 }
@@ -254,8 +258,9 @@ pub fn op_calldataload(pc: usize, interpreter: *Operation.Interpreter, state: *O
     const offset = try frame.stack.pop();
 
     if (offset > std.math.maxInt(usize)) {
+        @branchHint(.unlikely);
         // Offset too large, push zero
-        try frame.stack.append( 0);
+        try frame.stack.append(0);
         return Operation.ExecutionResult{};
     }
 
@@ -267,13 +272,14 @@ pub fn op_calldataload(pc: usize, interpreter: *Operation.Interpreter, state: *O
     var i: usize = 0;
     while (i < 32) : (i += 1) {
         if (offset_usize + i < calldata.len) {
+            @branchHint(.likely);
             value = (value << 8) | calldata[offset_usize + i];
         } else {
             value = value << 8; // Pad with zero
         }
     }
 
-    try frame.stack.append( value);
+    try frame.stack.append(value);
 
     return Operation.ExecutionResult{};
 }
@@ -289,7 +295,10 @@ pub fn op_calldatacopy(pc: usize, interpreter: *Operation.Interpreter, state: *O
     const data_offset = try frame.stack.pop();
     const size = try frame.stack.pop();
 
-    if (size == 0) return Operation.ExecutionResult{};
+    if (size == 0) {
+        @branchHint(.unlikely);
+        return Operation.ExecutionResult{};
+    }
 
     if (mem_offset > std.math.maxInt(usize) or size > std.math.maxInt(usize) or data_offset > std.math.maxInt(usize)) return ExecutionError.Error.OutOfOffset;
 
@@ -328,9 +337,15 @@ pub fn op_codecopy(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     const code_offset = try frame.stack.pop();
     const size = try frame.stack.pop();
 
-    if (size == 0) return Operation.ExecutionResult{};
+    if (size == 0) {
+        @branchHint(.unlikely);
+        return Operation.ExecutionResult{};
+    }
 
-    if (mem_offset > std.math.maxInt(usize) or size > std.math.maxInt(usize) or code_offset > std.math.maxInt(usize)) return ExecutionError.Error.OutOfOffset;
+    if (mem_offset > std.math.maxInt(usize) or size > std.math.maxInt(usize) or code_offset > std.math.maxInt(usize)) {
+        @branchHint(.unlikely);
+        return ExecutionError.Error.OutOfOffset;
+    }
 
     const mem_offset_usize = @as(usize, @intCast(mem_offset));
     const code_offset_usize = @as(usize, @intCast(code_offset));
@@ -367,13 +382,19 @@ pub fn op_returndataload(pc: usize, interpreter: *Operation.Interpreter, state: 
     const offset = try frame.stack.pop();
 
     // Check if offset is within bounds
-    if (offset > std.math.maxInt(usize)) return ExecutionError.Error.OutOfOffset;
+    if (offset > std.math.maxInt(usize)) {
+        @branchHint(.unlikely);
+        return ExecutionError.Error.OutOfOffset;
+    }
 
     const offset_usize = @as(usize, @intCast(offset));
     const return_data = frame.return_data_buffer;
 
     // If offset + 32 > return_data.len, this is an error (unlike CALLDATALOAD which pads with zeros)
-    if (offset_usize + 32 > return_data.len) return ExecutionError.Error.OutOfOffset;
+    if (offset_usize + 32 > return_data.len) {
+        @branchHint(.unlikely);
+        return ExecutionError.Error.OutOfOffset;
+    }
 
     // Load 32 bytes from return data
     var value: u256 = 0;
@@ -382,7 +403,7 @@ pub fn op_returndataload(pc: usize, interpreter: *Operation.Interpreter, state: 
         value = (value << 8) | return_data[offset_usize + i];
     }
 
-    try frame.stack.append( value);
+    try frame.stack.append(value);
 
     return Operation.ExecutionResult{};
 }

@@ -39,7 +39,7 @@ const Log = @import("../log.zig");
 /// 
 /// Manages all mutable blockchain state during EVM execution.
 /// This includes account data, storage, and transaction artifacts.
-const Self = @This();
+const EvmState = @This();
 
 /// Memory allocator for all state allocations
 allocator: std.mem.Allocator,
@@ -88,7 +88,7 @@ logs: std.ArrayList(EvmLog),
 /// var state = try EvmState.init(allocator);
 /// defer state.deinit();
 /// ```
-pub fn init(allocator: std.mem.Allocator) std.mem.Allocator.Error!Self {
+pub fn init(allocator: std.mem.Allocator) std.mem.Allocator.Error!EvmState {
     Log.debug("EvmState.init: Initializing EVM state with allocator", .{});
     
     var storage = std.AutoHashMap(StorageKey, u256).init(allocator);
@@ -110,7 +110,7 @@ pub fn init(allocator: std.mem.Allocator) std.mem.Allocator.Error!Self {
     errdefer logs.deinit();
 
     Log.debug("EvmState.init: EVM state initialization complete", .{});
-    return Self{
+    return EvmState{
         .allocator = allocator,
         .storage = storage,
         .balances = balances,
@@ -131,7 +131,7 @@ pub fn init(allocator: std.mem.Allocator) std.mem.Allocator.Error!Self {
 /// ## Important
 /// After calling deinit(), the state instance is invalid and
 /// must not be used.
-pub fn deinit(self: *Self) void {
+pub fn deinit(self: *EvmState) void {
     Log.debug("EvmState.deinit: Cleaning up EVM state, storage_count={}, balance_count={}, code_count={}, logs_count={}", .{
         self.storage.count(), self.balances.count(), self.code.count(), self.logs.items.len
     });
@@ -168,11 +168,19 @@ pub fn deinit(self: *Self) void {
 /// 
 /// ## Gas Cost
 /// In real EVM: 100-2100 gas depending on cold/warm access
-pub fn get_storage(self: *const Self, address: Address.Address, slot: u256) u256 {
+pub fn get_storage(self: *const EvmState, address: Address.Address, slot: u256) u256 {
     const key = StorageKey{ .address = address, .slot = slot };
-    const value = self.storage.get(key) orelse 0;
-    Log.debug("EvmState.get_storage: addr={x}, slot={}, value={}", .{ Address.to_u256(address), slot, value });
-    return value;
+    // Hot path: most storage reads are cache hits
+    if (self.storage.get(key)) |value| {
+        @branchHint(.likely);
+        Log.debug("EvmState.get_storage: addr={x}, slot={}, value={}", .{ Address.to_u256(address), slot, value });
+        return value;
+    } else {
+        @branchHint(.cold);
+        // Cold path: uninitialized storage defaults to 0
+        Log.debug("EvmState.get_storage: addr={x}, slot={}, value=0 (uninitialized)", .{ Address.to_u256(address), slot });
+        return 0;
+    }
 }
 
 /// Set a value in persistent storage
@@ -191,7 +199,7 @@ pub fn get_storage(self: *const Self, address: Address.Address, slot: u256) u256
 /// 
 /// ## Gas Cost
 /// In real EVM: 2900-20000 gas depending on current/new value
-pub fn set_storage(self: *Self, address: Address.Address, slot: u256, value: u256) std.mem.Allocator.Error!void {
+pub fn set_storage(self: *EvmState, address: Address.Address, slot: u256, value: u256) std.mem.Allocator.Error!void {
     const key = StorageKey{ .address = address, .slot = slot };
     Log.debug("EvmState.set_storage: addr={x}, slot={}, value={}", .{ Address.to_u256(address), slot, value });
     try self.storage.put(key, value);
@@ -207,10 +215,18 @@ pub fn set_storage(self: *Self, address: Address.Address, slot: u256, value: u25
 /// 
 /// ## Returns
 /// Balance in wei (0 for non-existent accounts)
-pub fn get_balance(self: *const Self, address: Address.Address) u256 {
-    const balance = self.balances.get(address) orelse 0;
-    Log.debug("EvmState.get_balance: addr={x}, balance={}", .{ Address.to_u256(address), balance });
-    return balance;
+pub fn get_balance(self: *const EvmState, address: Address.Address) u256 {
+    // Hot path: account exists with balance
+    if (self.balances.get(address)) |balance| {
+        @branchHint(.likely);
+        Log.debug("EvmState.get_balance: addr={x}, balance={}", .{ Address.to_u256(address), balance });
+        return balance;
+    } else {
+        @branchHint(.cold);
+        // Cold path: new or zero-balance account
+        Log.debug("EvmState.get_balance: addr={x}, balance=0 (new account)", .{ Address.to_u256(address) });
+        return 0;
+    }
 }
 
 /// Set account balance
@@ -228,7 +244,7 @@ pub fn get_balance(self: *const Self, address: Address.Address) u256 {
 /// 
 /// ## Note
 /// Balance can exceed total ETH supply in test scenarios
-pub fn set_balance(self: *Self, address: Address.Address, balance: u256) std.mem.Allocator.Error!void {
+pub fn set_balance(self: *EvmState, address: Address.Address, balance: u256) std.mem.Allocator.Error!void {
     Log.debug("EvmState.set_balance: addr={x}, balance={}", .{ Address.to_u256(address), balance });
     try self.balances.put(address, balance);
 }
@@ -246,10 +262,18 @@ pub fn set_balance(self: *Self, address: Address.Address, balance: u256) std.mem
 /// 
 /// ## Note
 /// The returned slice is owned by the state - do not free
-pub fn get_code(self: *const Self, address: Address.Address) []const u8 {
-    const code = self.code.get(address) orelse &[_]u8{};
-    Log.debug("EvmState.get_code: addr={x}, code_len={}", .{ Address.to_u256(address), code.len });
-    return code;
+pub fn get_code(self: *const EvmState, address: Address.Address) []const u8 {
+    // Hot path: contract with code
+    if (self.code.get(address)) |code| {
+        @branchHint(.likely);
+        Log.debug("EvmState.get_code: addr={x}, code_len={}", .{ Address.to_u256(address), code.len });
+        return code;
+    } else {
+        @branchHint(.cold);
+        // Cold path: EOA or non-existent account
+        Log.debug("EvmState.get_code: addr={x}, code_len=0 (EOA or non-existent)", .{ Address.to_u256(address) });
+        return &[_]u8{};
+    }
 }
 
 /// Set contract code
@@ -268,7 +292,7 @@ pub fn get_code(self: *const Self, address: Address.Address) []const u8 {
 /// ## Important
 /// The state does NOT copy the code - it takes ownership
 /// of the provided slice
-pub fn set_code(self: *Self, address: Address.Address, code: []const u8) std.mem.Allocator.Error!void {
+pub fn set_code(self: *EvmState, address: Address.Address, code: []const u8) std.mem.Allocator.Error!void {
     Log.debug("EvmState.set_code: addr={x}, code_len={}", .{ Address.to_u256(address), code.len });
     try self.code.put(address, code);
 }
@@ -286,10 +310,18 @@ pub fn set_code(self: *Self, address: Address.Address, code: []const u8) std.mem
 /// 
 /// ## Note
 /// Nonce prevents transaction replay attacks
-pub fn get_nonce(self: *const Self, address: Address.Address) u64 {
-    const nonce = self.nonces.get(address) orelse 0;
-    Log.debug("EvmState.get_nonce: addr={x}, nonce={}", .{ Address.to_u256(address), nonce });
-    return nonce;
+pub fn get_nonce(self: *const EvmState, address: Address.Address) u64 {
+    // Hot path: existing account with nonce
+    if (self.nonces.get(address)) |nonce| {
+        @branchHint(.likely);
+        Log.debug("EvmState.get_nonce: addr={x}, nonce={}", .{ Address.to_u256(address), nonce });
+        return nonce;
+    } else {
+        @branchHint(.cold);
+        // Cold path: new account
+        Log.debug("EvmState.get_nonce: addr={x}, nonce=0 (new account)", .{ Address.to_u256(address) });
+        return 0;
+    }
 }
 
 /// Set account nonce
@@ -306,7 +338,7 @@ pub fn get_nonce(self: *const Self, address: Address.Address) u64 {
 /// 
 /// ## Warning
 /// Setting nonce below current value can enable replay attacks
-pub fn set_nonce(self: *Self, address: Address.Address, nonce: u64) std.mem.Allocator.Error!void {
+pub fn set_nonce(self: *EvmState, address: Address.Address, nonce: u64) std.mem.Allocator.Error!void {
     Log.debug("EvmState.set_nonce: addr={x}, nonce={}", .{ Address.to_u256(address), nonce });
     try self.nonces.put(address, nonce);
 }
@@ -329,7 +361,7 @@ pub fn set_nonce(self: *Self, address: Address.Address, nonce: u64) std.mem.Allo
 /// // tx_nonce is used for the transaction
 /// // account nonce is now tx_nonce + 1
 /// ```
-pub fn increment_nonce(self: *Self, address: Address.Address) std.mem.Allocator.Error!u64 {
+pub fn increment_nonce(self: *EvmState, address: Address.Address) std.mem.Allocator.Error!u64 {
     const current_nonce = self.get_nonce(address);
     const new_nonce = current_nonce + 1;
     Log.debug("EvmState.increment_nonce: addr={x}, old_nonce={}, new_nonce={}", .{ Address.to_u256(address), current_nonce, new_nonce });
@@ -354,11 +386,19 @@ pub fn increment_nonce(self: *Self, address: Address.Address) std.mem.Allocator.
 /// 
 /// ## Gas Cost
 /// TLOAD: 100 gas (always warm)
-pub fn get_transient_storage(self: *const Self, address: Address.Address, slot: u256) u256 {
+pub fn get_transient_storage(self: *const EvmState, address: Address.Address, slot: u256) u256 {
     const key = StorageKey{ .address = address, .slot = slot };
-    const value = self.transient_storage.get(key) orelse 0;
-    Log.debug("EvmState.get_transient_storage: addr={x}, slot={}, value={}", .{ Address.to_u256(address), slot, value });
-    return value;
+    // Hot path: transient storage hit
+    if (self.transient_storage.get(key)) |value| {
+        @branchHint(.likely);
+        Log.debug("EvmState.get_transient_storage: addr={x}, slot={}, value={}", .{ Address.to_u256(address), slot, value });
+        return value;
+    } else {
+        @branchHint(.cold);
+        // Cold path: uninitialized transient storage defaults to 0
+        Log.debug("EvmState.get_transient_storage: addr={x}, slot={}, value=0 (uninitialized)", .{ Address.to_u256(address), slot });
+        return 0;
+    }
 }
 
 /// Set a value in transient storage
@@ -382,7 +422,7 @@ pub fn get_transient_storage(self: *const Self, address: Address.Address, slot: 
 /// - Reentrancy locks
 /// - Temporary computation results
 /// - Cross-contract communication within a transaction
-pub fn set_transient_storage(self: *Self, address: Address.Address, slot: u256, value: u256) std.mem.Allocator.Error!void {
+pub fn set_transient_storage(self: *EvmState, address: Address.Address, slot: u256, value: u256) std.mem.Allocator.Error!void {
     const key = StorageKey{ .address = address, .slot = slot };
     Log.debug("EvmState.set_transient_storage: addr={x}, slot={}, value={}", .{ Address.to_u256(address), slot, value });
     try self.transient_storage.put(key, value);
@@ -419,7 +459,7 @@ pub fn set_transient_storage(self: *Self, address: Address.Address, slot: u256, 
 /// const data = encode_u256(amount);
 /// try state.emit_log(contract_addr, &topics, data);
 /// ```
-pub fn emit_log(self: *Self, address: Address.Address, topics: []const u256, data: []const u8) std.mem.Allocator.Error!void {
+pub fn emit_log(self: *EvmState, address: Address.Address, topics: []const u256, data: []const u8) std.mem.Allocator.Error!void {
     Log.debug("EvmState.emit_log: addr={x}, topics_len={}, data_len={}", .{ Address.to_u256(address), topics.len, data.len });
     
     // Clone the data to ensure it persists

@@ -18,9 +18,9 @@ const EvmLog = @import("state/evm_log.zig");
 const Context = @import("context.zig");
 const EvmState = @import("state/state.zig");
 pub const StorageKey = @import("state/storage_key.zig");
-pub const CreateResult = @import("create_result.zig");
-pub const CallResult = @import("call_result.zig");
-pub const RunResult = @import("run_result.zig");
+pub const CreateResult = @import("create_result.zig").CreateResult;
+pub const CallResult = @import("call_result.zig").CallResult;
+pub const RunResult = @import("run_result.zig").RunResult;
 const Hardfork = @import("hardforks/hardfork.zig").Hardfork;
 const precompiles = @import("precompiles/precompiles.zig");
 
@@ -29,7 +29,7 @@ const precompiles = @import("precompiles/precompiles.zig");
 /// Manages contract execution, gas accounting, state access, and protocol enforcement
 /// according to the configured hardfork rules. Supports the full EVM instruction set
 /// including contract creation, calls, and state modifications.
-const Self = @This();
+const Vm = @This();
 
 /// Memory allocator for VM operations
 allocator: std.mem.Allocator,
@@ -72,7 +72,7 @@ read_only: bool = false,
 /// ```zig
 /// var vm = try VM.init(allocator, null, null);
 /// ```
-pub fn init(allocator: std.mem.Allocator, jump_table: ?*const JumpTable, chain_rules: ?*const ChainRules) !Self {
+pub fn init(allocator: std.mem.Allocator, jump_table: ?*const JumpTable, chain_rules: ?*const ChainRules) !Vm {
     Log.debug("VM.init: Initializing VM with allocator", .{});
 
     var state = try EvmState.init(allocator);
@@ -82,7 +82,7 @@ pub fn init(allocator: std.mem.Allocator, jump_table: ?*const JumpTable, chain_r
     errdefer access_list.deinit();
 
     Log.debug("VM.init: VM initialization complete", .{});
-    return Self{
+    return Vm{
         .allocator = allocator,
         .table = (jump_table orelse &JumpTable.DEFAULT).*,
         .chain_rules = (chain_rules orelse &ChainRules.DEFAULT).*,
@@ -99,7 +99,7 @@ pub fn init(allocator: std.mem.Allocator, jump_table: ?*const JumpTable, chain_r
 /// @param hardfork Ethereum hardfork to configure for
 /// @return Initialized VM instance
 /// @throws std.mem.Allocator.Error if allocation fails
-pub fn init_with_hardfork(allocator: std.mem.Allocator, hardfork: Hardfork) !Self {
+pub fn init_with_hardfork(allocator: std.mem.Allocator, hardfork: Hardfork) !Vm {
     const table = JumpTable.init_from_hardfork(hardfork);
     const rules = ChainRules.for_hardfork(hardfork);
     return try init(allocator, &table, &rules);
@@ -107,7 +107,7 @@ pub fn init_with_hardfork(allocator: std.mem.Allocator, hardfork: Hardfork) !Sel
 
 /// Free all VM resources.
 /// Must be called when finished with the VM to prevent memory leaks.
-pub fn deinit(self: *Self) void {
+pub fn deinit(self: *Vm) void {
     self.state.deinit();
     self.access_list.deinit();
     Contract.clear_analysis_cache(self.allocator);
@@ -132,21 +132,21 @@ pub fn deinit(self: *Self) void {
 /// ```
 ///
 /// See also: interpret_static() for read-only execution
-pub fn interpret(self: *Self, contract: *Contract, input: []const u8) ExecutionError.Error!RunResult {
+pub fn interpret(self: *Vm, contract: *Contract, input: []const u8) ExecutionError.Error!RunResult {
     return try self.interpret_with_context(contract, input, false);
 }
 
 /// Execute contract bytecode in read-only mode.
 /// Identical to interpret() but prevents any state modifications.
 /// Used for view functions and static analysis.
-pub fn interpret_static(self: *Self, contract: *Contract, input: []const u8) ExecutionError.Error!RunResult {
+pub fn interpret_static(self: *Vm, contract: *Contract, input: []const u8) ExecutionError.Error!RunResult {
     return try self.interpret_with_context(contract, input, true);
 }
 
 /// Core bytecode execution with configurable static context.
 /// Runs the main VM loop, executing opcodes sequentially while tracking
 /// gas consumption and handling control flow changes.
-pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u8, is_static: bool) ExecutionError.Error!RunResult {
+pub fn interpret_with_context(self: *Vm, contract: *Contract, input: []const u8, is_static: bool) ExecutionError.Error!RunResult {
     @branchHint(.likely);
     Log.debug("VM.interpret_with_context: Starting execution, depth={}, gas={}, static={}", .{ self.depth, contract.gas, is_static });
 
@@ -246,7 +246,7 @@ pub fn interpret_with_context(self: *Self, contract: *Contract, input: []const u
     );
 }
 
-fn create_contract_internal(self: *Self, creator: Address.Address, value: u256, init_code: []const u8, gas: u64, new_address: Address.Address) !CreateResult {
+fn create_contract_internal(self: *Vm, creator: Address.Address, value: u256, init_code: []const u8, gas: u64, new_address: Address.Address) !CreateResult {
     if (self.state.get_code(new_address).len > 0) {
         @branchHint(.unlikely);
         // Contract already exists at this address
@@ -352,7 +352,7 @@ pub const CreateContractError = std.mem.Allocator.Error || Address.CalculateAddr
 /// Memory: Allocates space for deployed bytecode
 ///
 /// See also: create2_contract() for deterministic addresses
-pub fn create_contract(self: *Self, creator: Address.Address, value: u256, init_code: []const u8, gas: u64) CreateContractError!CreateResult {
+pub fn create_contract(self: *Vm, creator: Address.Address, value: u256, init_code: []const u8, gas: u64) CreateContractError!CreateResult {
     const nonce = try self.state.increment_nonce(creator);
     const new_address = try Address.calculate_create_address(self.allocator, creator, nonce);
     return self.create_contract_internal(creator, value, init_code, gas, new_address);
@@ -373,7 +373,7 @@ pub const CallContractError = std.mem.Allocator.Error;
 /// @param gas Gas limit available for the call
 /// @param is_static Whether this is a static call (no state changes allowed)
 /// @return CallResult indicating success/failure and return data
-pub fn call_contract(self: *Self, caller: Address.Address, to: Address.Address, value: u256, input: []const u8, gas: u64, is_static: bool) CallContractError!CallResult {
+pub fn call_contract(self: *Vm, caller: Address.Address, to: Address.Address, value: u256, input: []const u8, gas: u64, is_static: bool) CallContractError!CallResult {
     @branchHint(.likely);
     
     Log.debug("VM.call_contract: Call from {any} to {any}, gas={}, static={}", .{ caller, to, gas, is_static });
@@ -406,7 +406,7 @@ pub fn call_contract(self: *Self, caller: Address.Address, to: Address.Address, 
 /// @param gas Gas limit available for execution
 /// @param is_static Whether this is a static call (doesn't affect precompiles)
 /// @return CallResult with success/failure, gas usage, and output data
-fn execute_precompile_call(self: *Self, address: Address.Address, input: []const u8, gas: u64, is_static: bool) CallContractError!CallResult {
+fn execute_precompile_call(self: *Vm, address: Address.Address, input: []const u8, gas: u64, is_static: bool) CallContractError!CallResult {
     _ = is_static; // Precompiles are inherently stateless, so static flag doesn't matter
     
     Log.debug("VM.execute_precompile_call: Executing precompile at {any}, input_size={}, gas={}", .{ address, input.len, gas });
@@ -477,7 +477,7 @@ pub const Create2ContractError = std.mem.Allocator.Error || Address.CalculateCre
 /// Calculates a deterministic address using keccak256(0xff ++ sender ++ salt ++ keccak256(init_code))[12:],
 /// transfers value if specified, executes the initialization code, and deploys
 /// the resulting bytecode. Unlike CREATE, the address is predictable before deployment.
-pub fn create2_contract(self: *Self, creator: Address.Address, value: u256, init_code: []const u8, salt: u256, gas: u64) Create2ContractError!CreateResult {
+pub fn create2_contract(self: *Vm, creator: Address.Address, value: u256, init_code: []const u8, salt: u256, gas: u64) Create2ContractError!CreateResult {
     // Calculate the new contract address using CREATE2 formula:
     // address = keccak256(0xff ++ sender ++ salt ++ keccak256(init_code))[12:]
     const new_address = try Address.calculate_create2_address(self.allocator, creator, salt, init_code);
@@ -490,7 +490,7 @@ pub const CallcodeContractError = std.mem.Allocator.Error;
 /// Execute a CALLCODE operation.
 /// NOT IMPLEMENTED - always returns failure.
 /// TODO: Execute target code in current contract's context while preserving caller information.
-pub fn callcode_contract(self: *Self, current: Address.Address, code_address: Address.Address, value: u256, input: []const u8, gas: u64, is_static: bool) CallcodeContractError!CallResult {
+pub fn callcode_contract(self: *Vm, current: Address.Address, code_address: Address.Address, value: u256, input: []const u8, gas: u64, is_static: bool) CallcodeContractError!CallResult {
     _ = self;
     _ = current;
     _ = code_address;
@@ -506,7 +506,7 @@ pub const DelegatecallContractError = std.mem.Allocator.Error;
 /// Execute a DELEGATECALL operation.
 /// NOT IMPLEMENTED - always returns failure.
 /// TODO: Execute target code with current caller and value context preserved.
-pub fn delegatecall_contract(self: *Self, current: Address.Address, code_address: Address.Address, input: []const u8, gas: u64, is_static: bool) DelegatecallContractError!CallResult {
+pub fn delegatecall_contract(self: *Vm, current: Address.Address, code_address: Address.Address, input: []const u8, gas: u64, is_static: bool) DelegatecallContractError!CallResult {
     _ = self;
     _ = current;
     _ = code_address;
@@ -521,7 +521,7 @@ pub const StaticcallContractError = std.mem.Allocator.Error;
 /// Execute a STATICCALL operation.
 /// NOT IMPLEMENTED - always returns failure.
 /// TODO: Execute target contract in guaranteed read-only mode.
-pub fn staticcall_contract(self: *Self, caller: Address.Address, to: Address.Address, input: []const u8, gas: u64) StaticcallContractError!CallResult {
+pub fn staticcall_contract(self: *Vm, caller: Address.Address, to: Address.Address, input: []const u8, gas: u64) StaticcallContractError!CallResult {
     _ = self;
     _ = caller;
     _ = to;
@@ -534,7 +534,7 @@ pub const EmitLogError = std.mem.Allocator.Error;
 
 /// Emit an event log (LOG0-LOG4 opcodes).
 /// Records an event that will be included in the transaction receipt.
-pub fn emit_log(self: *Self, address: Address.Address, topics: []const u256, data: []const u8) EmitLogError!void {
+pub fn emit_log(self: *Vm, address: Address.Address, topics: []const u256, data: []const u8) EmitLogError!void {
     try self.state.emit_log(address, topics, data);
 }
 
@@ -542,7 +542,7 @@ pub const InitTransactionAccessListError = AccessList.InitTransactionError;
 
 /// Initialize the access list for a new transaction (EIP-2929).
 /// Must be called at the start of each transaction to set up warm/cold access tracking.
-pub fn init_transaction_access_list(self: *Self, to: ?Address.Address) InitTransactionAccessListError!void {
+pub fn init_transaction_access_list(self: *Vm, to: ?Address.Address) InitTransactionAccessListError!void {
     try self.access_list.init_transaction(self.context.tx_origin, self.context.block_coinbase, to);
 }
 
@@ -551,7 +551,7 @@ pub const PreWarmAddressesError = AccessList.PreWarmAddressesError;
 /// Mark addresses as warm to reduce gas costs for subsequent access.
 /// Used with EIP-2930 access lists to pre-warm addresses in transactions.
 /// Time complexity: O(n) where n is the number of addresses.
-pub fn pre_warm_addresses(self: *Self, addresses: []const Address.Address) PreWarmAddressesError!void {
+pub fn pre_warm_addresses(self: *Vm, addresses: []const Address.Address) PreWarmAddressesError!void {
     try self.access_list.pre_warm_addresses(addresses);
 }
 
@@ -559,7 +559,7 @@ pub const PreWarmStorageSlotsError = AccessList.PreWarmStorageSlotsError;
 
 /// Mark storage slots as warm to reduce gas costs for subsequent access.
 /// Used with EIP-2930 access lists in transactions.
-pub fn pre_warm_storage_slots(self: *Self, address: Address.Address, slots: []const u256) PreWarmStorageSlotsError!void {
+pub fn pre_warm_storage_slots(self: *Vm, address: Address.Address, slots: []const u256) PreWarmStorageSlotsError!void {
     try self.access_list.pre_warm_storage_slots(address, slots);
 }
 
@@ -568,7 +568,7 @@ pub const GetAddressAccessCostError = AccessList.AccessAddressError;
 /// Get the gas cost for accessing an address and mark it as warm.
 /// Returns higher gas for first access, lower gas for subsequent access per EIP-2929.
 /// Time complexity: O(1) with hash table lookup.
-pub fn get_address_access_cost(self: *Self, address: Address.Address) GetAddressAccessCostError!u64 {
+pub fn get_address_access_cost(self: *Vm, address: Address.Address) GetAddressAccessCostError!u64 {
     return self.access_list.access_address(address);
 }
 
@@ -576,7 +576,7 @@ pub const GetStorageAccessCostError = AccessList.AccessStorageSlotError;
 
 /// Get the gas cost for accessing a storage slot and mark it as warm.
 /// Returns 2100 gas for cold access, 100 gas for warm access (Berlin hardfork).
-pub fn get_storage_access_cost(self: *Self, address: Address.Address, slot: u256) GetStorageAccessCostError!u64 {
+pub fn get_storage_access_cost(self: *Vm, address: Address.Address, slot: u256) GetStorageAccessCostError!u64 {
     return self.access_list.access_storage_slot(address, slot);
 }
 
@@ -584,7 +584,7 @@ pub const GetCallCostError = AccessList.GetCallCostError;
 
 /// Get the additional gas cost for a CALL operation based on address warmth.
 /// Returns extra gas required for calls to cold addresses (EIP-2929).
-pub fn get_call_cost(self: *Self, address: Address.Address) GetCallCostError!u64 {
+pub fn get_call_cost(self: *Vm, address: Address.Address) GetCallCostError!u64 {
     return self.access_list.get_call_cost(address);
 }
 
@@ -592,7 +592,7 @@ pub const ValidateStaticContextError = error{WriteProtection};
 
 /// Validate that state modifications are allowed in the current context.
 /// Returns WriteProtection error if called within a static (read-only) context.
-pub fn validate_static_context(self: *const Self) ValidateStaticContextError!void {
+pub fn validate_static_context(self: *const Vm) ValidateStaticContextError!void {
     if (self.read_only) return error.WriteProtection;
 }
 
@@ -600,7 +600,7 @@ pub const SetStorageProtectedError = ValidateStaticContextError || std.mem.Alloc
 
 /// Set a storage value with static context protection.
 /// Used by the SSTORE opcode to prevent storage modifications in static calls.
-pub fn set_storage_protected(self: *Self, address: Address.Address, slot: u256, value: u256) SetStorageProtectedError!void {
+pub fn set_storage_protected(self: *Vm, address: Address.Address, slot: u256, value: u256) SetStorageProtectedError!void {
     try self.validate_static_context();
     try self.state.set_storage(address, slot, value);
 }
@@ -609,7 +609,7 @@ pub const SetTransientStorageProtectedError = ValidateStaticContextError || std.
 
 /// Set a transient storage value with static context protection.
 /// Transient storage (EIP-1153) is cleared at the end of each transaction.
-pub fn set_transient_storage_protected(self: *Self, address: Address.Address, slot: u256, value: u256) SetTransientStorageProtectedError!void {
+pub fn set_transient_storage_protected(self: *Vm, address: Address.Address, slot: u256, value: u256) SetTransientStorageProtectedError!void {
     try self.validate_static_context();
     try self.state.set_transient_storage(address, slot, value);
 }
@@ -618,7 +618,7 @@ pub const SetBalanceProtectedError = ValidateStaticContextError || std.mem.Alloc
 
 /// Set an account balance with static context protection.
 /// Prevents balance modifications during static calls.
-pub fn set_balance_protected(self: *Self, address: Address.Address, balance: u256) SetBalanceProtectedError!void {
+pub fn set_balance_protected(self: *Vm, address: Address.Address, balance: u256) SetBalanceProtectedError!void {
     try self.validate_static_context();
     try self.state.set_balance(address, balance);
 }
@@ -627,7 +627,7 @@ pub const SetCodeProtectedError = ValidateStaticContextError || std.mem.Allocato
 
 /// Deploy contract code with static context protection.
 /// Prevents code deployment during static calls.
-pub fn set_code_protected(self: *Self, address: Address.Address, code: []const u8) SetCodeProtectedError!void {
+pub fn set_code_protected(self: *Vm, address: Address.Address, code: []const u8) SetCodeProtectedError!void {
     try self.validate_static_context();
     try self.state.set_code(address, code);
 }
@@ -636,7 +636,7 @@ pub const EmitLogProtectedError = ValidateStaticContextError || EmitLogError;
 
 /// Emit a log with static context protection.
 /// Prevents log emission during static calls as logs modify the transaction state.
-pub fn emit_log_protected(self: *Self, address: Address.Address, topics: []const u256, data: []const u8) EmitLogProtectedError!void {
+pub fn emit_log_protected(self: *Vm, address: Address.Address, topics: []const u256, data: []const u8) EmitLogProtectedError!void {
     try self.validate_static_context();
     try self.emit_log(address, topics, data);
 }
@@ -645,7 +645,7 @@ pub const CreateContractProtectedError = ValidateStaticContextError || CreateCon
 
 /// Create a contract with static context protection.
 /// Prevents contract creation during static calls.
-pub fn create_contract_protected(self: *Self, creator: Address.Address, value: u256, init_code: []const u8, gas: u64) CreateContractProtectedError!CreateResult {
+pub fn create_contract_protected(self: *Vm, creator: Address.Address, value: u256, init_code: []const u8, gas: u64) CreateContractProtectedError!CreateResult {
     try self.validate_static_context();
     return self.create_contract(creator, value, init_code, gas);
 }
@@ -654,7 +654,7 @@ pub const Create2ContractProtectedError = ValidateStaticContextError || Create2C
 
 /// Create a contract with CREATE2 and static context protection.
 /// Prevents contract creation during static calls.
-pub fn create2_contract_protected(self: *Self, creator: Address.Address, value: u256, init_code: []const u8, salt: u256, gas: u64) Create2ContractProtectedError!CreateResult {
+pub fn create2_contract_protected(self: *Vm, creator: Address.Address, value: u256, init_code: []const u8, salt: u256, gas: u64) Create2ContractProtectedError!CreateResult {
     try self.validate_static_context();
     return self.create2_contract(creator, value, init_code, salt, gas);
 }
@@ -663,7 +663,7 @@ pub const ValidateValueTransferError = error{WriteProtection};
 
 /// Validate that value transfer is allowed in the current context.
 /// Static calls cannot transfer value (msg.value must be 0).
-pub fn validate_value_transfer(self: *const Self, value: u256) ValidateValueTransferError!void {
+pub fn validate_value_transfer(self: *const Vm, value: u256) ValidateValueTransferError!void {
     if (self.read_only and value != 0) return error.WriteProtection;
 }
 
@@ -672,7 +672,7 @@ pub const SelfdestructProtectedError = ValidateStaticContextError;
 /// Execute SELFDESTRUCT with static context protection.
 /// NOT FULLY IMPLEMENTED - currently only validates static context.
 /// TODO: Transfer remaining balance to beneficiary and mark contract for deletion.
-pub fn selfdestruct_protected(self: *Self, contract: Address.Address, beneficiary: Address.Address) SelfdestructProtectedError!void {
+pub fn selfdestruct_protected(self: *Vm, contract: Address.Address, beneficiary: Address.Address) SelfdestructProtectedError!void {
     _ = contract;
     _ = beneficiary;
     try self.validate_static_context();

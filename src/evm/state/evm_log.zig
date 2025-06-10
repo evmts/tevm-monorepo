@@ -45,7 +45,7 @@ const Address = @import("Address");
 /// - topics[1]: from address (indexed)
 /// - topics[2]: to address (indexed)
 /// - data: encoded uint256 value
-const Self = @This();
+const EvmLog = @This();
 
 /// The address of the contract that emitted this log
 address: Address.Address,

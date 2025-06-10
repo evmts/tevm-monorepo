@@ -45,7 +45,7 @@ const Address = @import("Address");
 /// }
 /// defer if (result.output) |output| allocator.free(output);
 /// ```
-const Self = @This();
+pub const CreateResult = @This();
 
 /// Indicates whether the contract creation succeeded.
 ///
@@ -116,8 +116,8 @@ gas_left: u64,
 /// ```
 output: ?[]const u8,
 
-pub fn initFailure(gas_left: u64, output: ?[]const u8) Self {
-    return Self{
+pub fn initFailure(gas_left: u64, output: ?[]const u8) CreateResult {
+    return CreateResult{
         .success = false,
         .address = Address.zero(),
         .gas_left = gas_left,

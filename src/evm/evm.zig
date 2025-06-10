@@ -91,6 +91,9 @@ pub const Opcode = @import("opcodes/opcode.zig");
 /// Opcode metadata (gas costs, stack effects)
 pub const Operation = @import("opcodes/operation.zig");
 
+/// Backwards compatibility alias for test files
+pub const OperationModule = Operation;
+
 /// 256-bit word stack implementation
 pub const Stack = @import("stack/stack.zig");
 
@@ -224,7 +227,31 @@ pub const CalculateCreate2AddressError = Address.CalculateCreate2AddressError;
 /// Main execution error enumeration used throughout EVM
 pub const ExecutionErrorEnum = ExecutionError.Error;
 
-// Tests - run all module tests
-test {
-    std.testing.refAllDeclsRecursive(@This());
+// Tests - run individual module tests to isolate segfault
+test "VM module" {
+    std.testing.refAllDecls(Vm);
+}
+
+test "Frame module" {
+    std.testing.refAllDecls(Frame);
+}
+
+test "Stack module" {
+    std.testing.refAllDecls(Stack);
+}
+
+test "Memory module" {
+    std.testing.refAllDecls(Memory);
+}
+
+test "ExecutionError module" {
+    std.testing.refAllDecls(ExecutionError);
+}
+
+test "Contract module" {
+    std.testing.refAllDecls(Contract);
+}
+
+test "JumpTable module" {
+    std.testing.refAllDecls(JumpTable);
 }
