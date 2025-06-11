@@ -364,6 +364,117 @@ test "ecmul performance benchmarks" {
 ✅ Performance meets or exceeds benchmarks
 ✅ Gas costs are calculated correctly
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/precompiles/ecmul_test.zig`)
+```zig
+// Test basic elliptic curve multiplication functionality
+test "ecmul basic functionality with known vectors"
+test "ecmul handles edge cases correctly"
+test "ecmul validates input format"
+test "ecmul produces correct output format"
+```
+
+#### 2. **Input Validation Tests**
+```zig
+test "ecmul handles various input lengths"
+test "ecmul validates input parameters"
+test "ecmul rejects invalid inputs gracefully"
+test "ecmul handles empty input"
+```
+
+#### 3. **Gas Calculation Tests**
+```zig
+test "ecmul gas cost calculation accuracy"
+test "ecmul gas cost edge cases"
+test "ecmul gas overflow protection"
+test "ecmul gas deduction in EVM context"
+```
+
+#### 4. **Specification Compliance Tests**
+```zig
+test "ecmul matches specification test vectors"
+test "ecmul matches reference implementation output"
+test "ecmul hardfork availability requirements"
+test "ecmul address registration correct"
+```
+
+#### 5. **Performance Tests**
+```zig
+test "ecmul performance with large inputs"
+test "ecmul memory efficiency"
+test "ecmul WASM bundle size impact"
+test "ecmul benchmark against reference implementations"
+```
+
+#### 6. **Error Handling Tests**
+```zig
+test "ecmul error propagation"
+test "ecmul proper error types returned"
+test "ecmul handles corrupted input gracefully"
+test "ecmul never panics on malformed input"
+```
+
+#### 7. **Integration Tests**
+```zig
+test "ecmul precompile registration"
+test "ecmul called from EVM execution"
+test "ecmul gas deduction in EVM context"
+test "ecmul hardfork availability"
+```
+
+### Test Development Priority
+1. **Start with specification test vectors** - Ensures spec compliance from day one
+2. **Add input validation** - Prevents invalid states early
+3. **Implement gas calculation** - Core economic security
+4. **Add performance benchmarks** - Ensures production readiness
+5. **Test error cases** - Robust error handling
+
+### Test Data Sources
+- **EIP/Specification test vectors**: Primary compliance verification
+- **Reference implementation tests**: Cross-client compatibility
+- **Mathematical test vectors**: Algorithm correctness
+- **Edge case generation**: Boundary value testing
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Ensure 100% test coverage for all public functions
+- Validate performance benchmarks don't regress
+- Test both debug and release builds
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "ecmul basic functionality" {
+    // This test MUST fail initially
+    const input = test_vectors.valid_input;
+    const expected = test_vectors.expected_output;
+    
+    const result = ecmul.run(input);
+    try testing.expectEqualSlices(u8, expected, result);
+}
+```
+
+**Only then implement:**
+```zig
+pub fn run(input: []const u8) ![]u8 {
+    // Minimal implementation to make test pass
+    return error.NotImplemented; // Initially
+}
+```
+
 ## References
 
 - [EIP-196: Precompiled contracts for addition and scalar multiplication on the elliptic curve alt_bn128](https://eips.ethereum.org/EIPS/eip-196)
