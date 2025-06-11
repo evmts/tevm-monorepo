@@ -613,6 +613,28 @@ pub fn build(b: *std.Build) void {
     const static_protection_test_step = b.step("test-static-protection", "Run Static Call Protection tests");
     static_protection_test_step.dependOn(&run_static_protection_test.step);
 
+    // Add RIPEMD160 precompile tests
+    const ripemd160_test = b.addTest(.{
+        .name = "ripemd160-test",
+        .root_source_file = b.path("test/evm/precompiles/ripemd160_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    ripemd160_test.root_module.stack_check = false;
+
+    // Add module imports to RIPEMD160 test
+    ripemd160_test.root_module.addImport("Address", address_mod);
+    ripemd160_test.root_module.addImport("Block", block_mod);
+    ripemd160_test.root_module.addImport("evm", evm_mod);
+    ripemd160_test.root_module.addImport("utils", utils_mod);
+
+    const run_ripemd160_test = b.addRunArtifact(ripemd160_test);
+
+    // Add a separate step for testing RIPEMD160 precompile
+    const ripemd160_test_step = b.step("test-ripemd160", "Run RIPEMD160 precompile tests");
+    ripemd160_test_step.dependOn(&run_ripemd160_test.step);
+
     // Add Memory benchmark
     const memory_benchmark = b.addExecutable(.{
         .name = "memory-benchmark",
@@ -706,6 +728,7 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_integration_test.step);
     test_step.dependOn(&run_gas_test.step);
     test_step.dependOn(&run_static_protection_test.step);
+    test_step.dependOn(&run_ripemd160_test.step);
 
     // Define a single test step that runs all tests
     const test_all_step = b.step("test-all", "Run all unit tests");

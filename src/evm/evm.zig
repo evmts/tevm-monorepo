@@ -121,6 +121,15 @@ pub const DatabaseFactory = @import("state/database_factory.zig");
 /// Precompiled contracts implementation (IDENTITY, SHA256, etc.)
 pub const Precompiles = @import("precompiles/precompiles.zig");
 
+/// Precompiles namespace for convenience
+pub const precompiles = struct {
+    pub const identity = @import("precompiles/identity.zig");
+    pub const sha256 = @import("precompiles/sha256.zig");
+    pub const ripemd160 = @import("precompiles/ripemd160.zig");
+    pub const PrecompileOutput = @import("precompiles/precompile_result.zig").PrecompileOutput;
+    pub const PrecompileError = @import("precompiles/precompile_result.zig").PrecompileError;
+};
+
 /// EIP-4844 blob transaction support (blobs, KZG verification, gas market)
 pub const blob = @import("blob/index.zig");
 

@@ -5,6 +5,7 @@ const PrecompileOutput = @import("precompile_result.zig").PrecompileOutput;
 const PrecompileError = @import("precompile_result.zig").PrecompileError;
 const identity = @import("identity.zig");
 const sha256 = @import("sha256.zig");
+const ripemd160 = @import("ripemd160.zig");
 const kzg_point_evaluation = @import("kzg_point_evaluation.zig");
 const ChainRules = @import("../hardforks/chain_rules.zig");
 
@@ -114,9 +115,9 @@ pub fn execute_precompile(
             return sha256.execute(input, output, gas_limit);
         }, // SHA256
         3 => {
-            @branchHint(.cold);
-            return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
-        }, // RIPEMD160 - TODO
+            @branchHint(.likely);
+            return ripemd160.execute(input, output, gas_limit);
+        }, // RIPEMD160
         5 => {
             @branchHint(.cold);
             return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
@@ -177,7 +178,7 @@ pub fn estimate_gas(address: Address, input_size: usize, chain_rules: ChainRules
         // Placeholder gas calculations for future precompiles
         1 => error.NotImplemented, // ECRECOVER - TODO
         2 => sha256.calculate_gas_checked(input_size), // SHA256
-        3 => error.NotImplemented, // RIPEMD160 - TODO
+        3 => ripemd160.calculate_gas_checked(input_size), // RIPEMD160
         5 => error.NotImplemented, // MODEXP - TODO
         6 => error.NotImplemented, // ECADD - TODO
         7 => error.NotImplemented, // ECMUL - TODO
@@ -217,7 +218,7 @@ pub fn get_output_size(address: Address, input_size: usize, chain_rules: ChainRu
         // Placeholder output sizes for future precompiles
         1 => 32, // ECRECOVER - fixed 32 bytes (address)
         2 => 32, // SHA256 - fixed 32 bytes (hash)
-        3 => 32, // RIPEMD160 - fixed 32 bytes (hash, padded)
+        3 => ripemd160.get_output_size(input_size), // RIPEMD160
         5 => error.NotImplemented, // MODEXP - variable size, TODO
         6 => 64, // ECADD - fixed 64 bytes (point)
         7 => 64, // ECMUL - fixed 64 bytes (point)
