@@ -110,6 +110,22 @@ pub const SstoreClearGas: u64 = 5000;
 /// Gas refund for clearing storage slot to zero
 /// EIP-3529: Reduced from 15000 to prevent gas refund abuse
 pub const SstoreRefundGas: u64 = 4800;
+
+// ============================================================================
+// EIP-2200 SSTORE Gas Constants
+// ============================================================================
+
+/// Gas cost for SSTORE when setting a storage slot from zero to non-zero (EIP-2200)
+/// This is the most expensive storage operation as it increases state size
+pub const SSTORE_SET: u64 = 20000;
+
+/// Gas cost for SSTORE when modifying existing non-zero values (EIP-2200)  
+/// After EIP-2929: 2800 base + 100 warm = 2900 warm, 2800 + 2100 = 4900 cold
+pub const SSTORE_RESET: u64 = 2800;
+
+/// Gas refund for SSTORE operations that clear storage (EIP-2200)
+/// After EIP-3529: Reduced to 2700 gas
+pub const SSTORE_RESET_REFUND: u64 = 2700;
 // ============================================================================
 // Control Flow Costs
 // ============================================================================
@@ -303,7 +319,6 @@ pub const MODEXP_QUADRATIC_THRESHOLD: usize = 64;
 /// Threshold for linear complexity in MODEXP gas calculation
 /// Inputs between quadratic and linear thresholds use optimized formula
 pub const MODEXP_LINEAR_THRESHOLD: usize = 1024;
-
 /// Calculate memory expansion gas cost
 ///
 /// Computes the gas cost for expanding EVM memory from current_size to new_size bytes.
