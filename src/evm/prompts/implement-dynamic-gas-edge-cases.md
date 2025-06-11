@@ -741,6 +741,121 @@ pub const EdgeCaseCache = struct {
 ✅ Gas costs are calculated correctly
 
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/gas/dynamic_gas_edge_cases_test.zig`)
+```zig
+// Test basic dynamic gas edge case functionality
+test "dynamic_gas_edge_cases basic edge scenario handling with known cases"
+test "dynamic_gas_edge_cases handles overflow conditions correctly"
+test "dynamic_gas_edge_cases validates boundary gas calculations"
+test "dynamic_gas_edge_cases produces expected edge case results"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "dynamic_gas_edge_cases integrates with EVM gas system"
+test "dynamic_gas_edge_cases works with existing opcode gas calculations"
+test "dynamic_gas_edge_cases maintains hardfork compatibility"
+test "dynamic_gas_edge_cases handles complex gas interaction scenarios"
+```
+
+#### 3. **Performance Tests**
+```zig
+test "dynamic_gas_edge_cases meets edge case handling speed targets"
+test "dynamic_gas_edge_cases overhead measurement vs baseline"
+test "dynamic_gas_edge_cases scalability under edge case frequency"
+test "dynamic_gas_edge_cases benchmark complex edge case scenarios"
+```
+
+#### 4. **Error Handling Tests**
+```zig
+test "dynamic_gas_edge_cases proper edge case error handling"
+test "dynamic_gas_edge_cases handles gas calculation failures gracefully"
+test "dynamic_gas_edge_cases graceful degradation on overflow detection"
+test "dynamic_gas_edge_cases recovery from edge case system errors"
+```
+
+#### 5. **Compliance Tests**
+```zig
+test "dynamic_gas_edge_cases EVM specification edge case compliance"
+test "dynamic_gas_edge_cases cross-client edge case behavior consistency"
+test "dynamic_gas_edge_cases hardfork edge case rule adherence"
+test "dynamic_gas_edge_cases deterministic edge case handling"
+```
+
+#### 6. **Security Tests**
+```zig
+test "dynamic_gas_edge_cases handles malicious edge case exploitation safely"
+test "dynamic_gas_edge_cases prevents gas manipulation via edge cases"
+test "dynamic_gas_edge_cases validates edge case DoS prevention"
+test "dynamic_gas_edge_cases maintains gas isolation in edge scenarios"
+```
+
+### Test Development Priority
+1. **Core edge case functionality tests** - Ensure basic edge case detection and handling works
+2. **Compliance tests** - Meet EVM specification edge case requirements
+3. **Performance tests** - Achieve edge case handling efficiency targets
+4. **Security tests** - Prevent edge case exploitation vulnerabilities
+5. **Error handling tests** - Robust edge case failure management
+6. **Boundary tests** - Handle extreme edge case conditions
+
+### Test Data Sources
+- **EVM specification**: Official edge case handling requirements
+- **Reference implementations**: Cross-client edge case compatibility data
+- **Performance baselines**: Edge case detection and handling speed measurements
+- **Security test vectors**: Edge case exploitation prevention cases
+- **Real-world scenarios**: Production edge case occurrence validation
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Maintain 100% test coverage for public edge case handling APIs
+- Validate edge case handling accuracy regression prevention
+- Test debug and release builds with different edge case scenarios
+- Verify cross-platform edge case behavior consistency
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "dynamic_gas_edge_cases basic overflow detection" {
+    // This test MUST fail initially
+    const gas_limit: u64 = std.math.maxInt(u64);
+    const additional_cost: u64 = 1000;
+    
+    const result = dynamic_gas_edge_cases.checkGasOverflow(gas_limit, additional_cost);
+    try testing.expectError(GasError.Overflow, result);
+}
+```
+
+**Only then implement:**
+```zig
+pub const dynamic_gas_edge_cases = struct {
+    pub fn checkGasOverflow(current: u64, additional: u64) !GasCheckResult {
+        // Minimal implementation to make test pass
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Testing Notes
+- **Never commit without passing tests** (`zig build test-all`)
+- **Test all edge case combinations** - Especially for mathematical overflow scenarios
+- **Verify EVM specification compliance** - Critical for protocol edge case correctness
+- **Test edge case performance implications** - Especially for detection overhead
+- **Validate edge case security properties** - Prevent exploitation via edge conditions
+
 ## References
 
 - [Ethereum Yellow Paper](https://ethereum.github.io/yellowpaper/paper.pdf) - Formal specification

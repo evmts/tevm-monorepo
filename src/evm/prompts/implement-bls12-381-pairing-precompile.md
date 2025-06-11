@@ -2792,3 +2792,106 @@ One minor clarification could be added:
 
 -   **Hardfork Availability**: EIP-2537 was proposed for inclusion in several hardforks (including Prague/Electra) but its final inclusion and the exact hardfork are not yet finalized as of late 2023. The implementation should be guarded by a feature flag (e.g., `IsPrague` or a dedicated one for EIP-2537) as demonstrated in the `params/config.go` snippet. This makes the implementation forward-compatible with whatever hardfork it ultimately lands in.
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/precompiles/bls12_381_pairing_test.zig`)
+```zig
+// Test basic BLS12-381 pairing functionality
+test "bls12_381_pairing basic functionality with known vectors"
+test "bls12_381_pairing handles edge cases correctly"
+test "bls12_381_pairing validates input format"
+test "bls12_381_pairing produces correct output format"
+```
+
+#### 2. **Input Validation Tests**
+```zig
+test "bls12_381_pairing handles various input lengths"
+test "bls12_381_pairing validates cryptographic parameters"
+test "bls12_381_pairing rejects invalid inputs gracefully"
+test "bls12_381_pairing handles malformed field elements"
+```
+
+#### 3. **Cryptographic Correctness Tests**
+```zig
+test "bls12_381_pairing mathematical correctness with test vectors"
+test "bls12_381_pairing handles edge cases in field arithmetic"
+test "bls12_381_pairing validates curve point membership"
+test "bls12_381_pairing cryptographic security properties"
+```
+
+#### 4. **Integration Tests**
+```zig
+test "bls12_381_pairing EVM context integration"
+test "bls12_381_pairing called from contract execution"
+test "bls12_381_pairing hardfork behavior changes"
+test "bls12_381_pairing interaction with other precompiles"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "bls12_381_pairing error propagation"
+test "bls12_381_pairing proper error types returned"
+test "bls12_381_pairing handles corrupted state gracefully"
+test "bls12_381_pairing never panics on malformed input"
+```
+
+#### 6. **Performance Tests**
+```zig
+test "bls12_381_pairing performance with realistic workloads"
+test "bls12_381_pairing memory efficiency"
+test "bls12_381_pairing execution time bounds"
+test "bls12_381_pairing benchmark against reference implementations"
+```
+
+### Test Development Priority
+1. **Start with specification test vectors** - Ensures spec compliance from day one
+2. **Add core functionality tests** - Critical behavior verification
+3. **Implement gas/state management** - Economic and state security
+4. **Add performance benchmarks** - Ensures production readiness
+5. **Test error cases** - Robust error handling
+
+### Test Data Sources
+- **EIP/Specification test vectors**: Primary compliance verification
+- **Reference implementation tests**: Cross-client compatibility
+- **Ethereum test suite**: Official test cases
+- **Edge case generation**: Boundary value and malformed input testing
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Ensure 100% test coverage for all public functions
+- Validate performance benchmarks don't regress
+- Test both debug and release builds
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "bls12_381_pairing basic functionality" {
+    // This test MUST fail initially
+    const input = test_vectors.valid_input;
+    const expected = test_vectors.expected_output;
+    
+    const result = bls12_381_pairing(input);
+    try testing.expectEqual(expected, result);
+}
+```
+
+**Only then implement:**
+```zig
+pub fn bls12_381_pairing(input: InputType) !OutputType {
+    // Minimal implementation to make test pass
+    return error.NotImplemented; // Initially
+}
+```
+

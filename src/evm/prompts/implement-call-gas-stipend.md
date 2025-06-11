@@ -709,6 +709,122 @@ fn validate_value_transfer(
 ✅ Gas costs are calculated correctly
 
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/gas/call_gas_stipend_test.zig`)
+```zig
+// Test basic call gas stipend functionality
+test "call_gas_stipend basic stipend calculation with known scenarios"
+test "call_gas_stipend handles value transfer detection correctly"
+test "call_gas_stipend validates stipend application rules"
+test "call_gas_stipend produces expected stipend amounts"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "call_gas_stipend integrates with EVM call operations"
+test "call_gas_stipend works with existing gas forwarding"
+test "call_gas_stipend maintains hardfork compatibility"
+test "call_gas_stipend handles stipend with 63/64 rule interaction"
+```
+
+#### 3. **Performance Tests**
+```zig
+test "call_gas_stipend meets stipend calculation speed targets"
+test "call_gas_stipend overhead measurement vs baseline"
+test "call_gas_stipend scalability under high value transfer frequency"
+test "call_gas_stipend benchmark stipend application scenarios"
+```
+
+#### 4. **Error Handling Tests**
+```zig
+test "call_gas_stipend proper stipend error handling"
+test "call_gas_stipend handles invalid value amounts"
+test "call_gas_stipend graceful degradation on stipend calculation errors"
+test "call_gas_stipend recovery from stipend system failures"
+```
+
+#### 5. **Compliance Tests**
+```zig
+test "call_gas_stipend EVM specification stipend compliance"
+test "call_gas_stipend cross-client stipend behavior consistency"
+test "call_gas_stipend hardfork stipend rule adherence"
+test "call_gas_stipend deterministic stipend calculations"
+```
+
+#### 6. **Security Tests**
+```zig
+test "call_gas_stipend handles malicious value transfers safely"
+test "call_gas_stipend prevents stipend manipulation attacks"
+test "call_gas_stipend validates stipend-based security guarantees"
+test "call_gas_stipend maintains stipend isolation properties"
+```
+
+### Test Development Priority
+1. **Core stipend functionality tests** - Ensure basic stipend calculation works
+2. **Compliance tests** - Meet EVM specification stipend requirements
+3. **Performance tests** - Achieve stipend calculation efficiency targets
+4. **Security tests** - Prevent stipend-related vulnerabilities
+5. **Error handling tests** - Robust stipend failure management
+6. **Edge case tests** - Handle stipend boundary conditions
+
+### Test Data Sources
+- **EVM specification**: Official stipend calculation requirements
+- **Reference implementations**: Cross-client stipend compatibility data
+- **Performance baselines**: Stipend calculation speed measurements
+- **Security test vectors**: Stipend manipulation prevention cases
+- **Real-world scenarios**: Production value transfer pattern validation
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Maintain 100% test coverage for public stipend APIs
+- Validate stipend calculation accuracy regression prevention
+- Test debug and release builds with different stipend scenarios
+- Verify cross-platform stipend calculation consistency
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "call_gas_stipend basic stipend for value transfer" {
+    // This test MUST fail initially
+    const call_value: u256 = 1000; // Non-zero value
+    const base_gas: u64 = 5000;
+    
+    const result = call_gas_stipend.calculateStipend(call_value, base_gas);
+    const expected_stipend: u64 = 2300; // Standard stipend amount
+    try testing.expectEqual(base_gas + expected_stipend, result.total_gas);
+}
+```
+
+**Only then implement:**
+```zig
+pub const call_gas_stipend = struct {
+    pub fn calculateStipend(value: u256, base_gas: u64) !StipendResult {
+        // Minimal implementation to make test pass
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Testing Notes
+- **Never commit without passing tests** (`zig build test-all`)
+- **Test all stipend rule combinations** - Especially for different call types
+- **Verify EVM specification compliance** - Critical for protocol stipend correctness
+- **Test stipend performance implications** - Especially for high-frequency value transfers
+- **Validate stipend security properties** - Prevent stipend manipulation and bypass attacks
+
 ## References
 
 - [Ethereum Yellow Paper - Appendix H](https://ethereum.github.io/yellowpaper/paper.pdf) - Call operations

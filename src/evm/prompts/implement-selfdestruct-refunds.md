@@ -489,6 +489,131 @@ Ensure refund tracking doesn't impact performance or WASM bundle size.
 ✅ Performance meets or exceeds benchmarks
 ✅ Gas costs are calculated correctly
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/selfdestruct/selfdestruct_refunds_test.zig`)
+```zig
+// Test basic SELFDESTRUCT refund functionality
+test "selfdestruct_refunds basic functionality with known scenarios"
+test "selfdestruct_refunds handles edge cases correctly"
+test "selfdestruct_refunds validates state changes"
+test "selfdestruct_refunds correct behavior under load"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "selfdestruct_refunds integrates with EVM context correctly"
+test "selfdestruct_refunds works with existing systems"
+test "selfdestruct_refunds maintains backward compatibility"
+test "selfdestruct_refunds handles system interactions"
+```
+
+#### 3. **State Management Tests**
+```zig
+test "selfdestruct_refunds state transitions work correctly"
+test "selfdestruct_refunds handles concurrent refund tracking"
+test "selfdestruct_refunds maintains refund consistency"
+test "selfdestruct_refunds reverts state on failure"
+```
+
+#### 4. **Performance Tests**
+```zig
+test "selfdestruct_refunds performance with realistic workloads"
+test "selfdestruct_refunds memory efficiency and allocation patterns"
+test "selfdestruct_refunds scalability under high load"
+test "selfdestruct_refunds benchmark against baseline implementation"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "selfdestruct_refunds error propagation works correctly"
+test "selfdestruct_refunds proper error types returned"
+test "selfdestruct_refunds handles resource exhaustion gracefully"
+test "selfdestruct_refunds recovery from failure states"
+```
+
+#### 6. **Hardfork Compatibility Tests**
+```zig
+test "selfdestruct_refunds pre-London hardfork behavior"
+test "selfdestruct_refunds London hardfork refund removal"
+test "selfdestruct_refunds refund cap calculations"
+test "selfdestruct_refunds cross-hardfork consistency"
+```
+
+#### 7. **Gas Calculation Tests**
+```zig
+test "selfdestruct_refunds maintains EVM specification compliance"
+test "selfdestruct_refunds refund cap enforcement"
+test "selfdestruct_refunds gas accounting accuracy"
+test "selfdestruct_refunds integration with existing gas metering"
+```
+
+### Test Development Priority
+1. **Start with hardfork detection tests** - Ensures basic behavior works across EVM versions
+2. **Add refund calculation tests** - Verifies core refund logic and caps
+3. **Implement integration tests** - Critical for EVM system consistency
+4. **Add gas accounting tests** - Essential for transaction correctness
+5. **Test error and edge cases** - Robust error handling for production
+6. **Add performance benchmarks** - Ensures optimized refund processing
+
+### Test Data Sources
+- **EVM specification requirements**: Pre/post-London hardfork compliance
+- **Reference implementation behavior**: Cross-client compatibility testing
+- **Performance benchmarks**: Gas cost validation and optimization
+- **Real-world scenarios**: Transaction patterns with SELFDESTRUCT usage
+- **Edge case generation**: Boundary testing for refund caps and limits
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Ensure 100% test coverage for all public APIs
+- Validate performance benchmarks don't regress
+- Test both debug and release builds
+- Verify memory safety and leak detection
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "selfdestruct_refunds basic functionality" {
+    // This test MUST fail initially
+    const context = test_utils.createTestContext(.Berlin); // Pre-London
+    var refund_tracker = RefundTracker.init(.Berlin);
+    
+    refund_tracker.add_selfdestruct_refund();
+    try testing.expectEqual(@as(u64, 24000), refund_tracker.selfdestruct_refunds);
+}
+```
+
+**Only then implement:**
+```zig
+pub const RefundTracker = struct {
+    pub fn add_selfdestruct_refund(self: *RefundTracker) void {
+        // Minimal implementation to make test pass
+        if (self.hardfork.supportsRefunds()) {
+            self.selfdestruct_refunds += 24000;
+        } 
+    }
+};
+```
+
+### Critical Testing Requirements
+- **Never commit until all tests pass** with `zig build test-all`
+- **Test hardfork transitions thoroughly** - Architecture changes affect the whole EVM
+- **Verify gas accounting accuracy** - Especially important for refund cap calculations
+- **Test integration with existing SELFDESTRUCT implementation** - Ensure seamless operation
+- **Validate cross-client compatibility** - Critical for network consensus
+
 ## References
 
 - [EIP-3529: Reduction in refunds](https://eips.ethereum.org/EIPS/eip-3529)

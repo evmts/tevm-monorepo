@@ -2483,6 +2483,120 @@ test "performance impact" {
 ✅ Performance meets or exceeds benchmarks
 ✅ Gas costs are calculated correctly
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/inspector/inspector_framework_test.zig`)
+```zig
+// Test basic inspector_framework functionality
+test "inspector_framework basic functionality works correctly"
+test "inspector_framework handles edge cases properly"
+test "inspector_framework validates inputs appropriately"
+test "inspector_framework produces correct outputs"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "inspector_framework integrates with EVM properly"
+test "inspector_framework maintains system compatibility"
+test "inspector_framework works with existing components"
+test "inspector_framework handles cross-system interactions"
+```
+
+#### 3. **Performance Tests**
+```zig
+test "inspector_framework meets performance requirements"
+test "inspector_framework optimizes resource usage"
+test "inspector_framework scales appropriately with load"
+test "inspector_framework benchmark vs baseline"
+```
+
+#### 4. **Compliance Tests**
+```zig
+test "inspector_framework meets specification requirements"
+test "inspector_framework maintains EVM compatibility"
+test "inspector_framework handles hardfork transitions"
+test "inspector_framework cross-client behavior consistency"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "inspector_framework handles errors gracefully"
+test "inspector_framework proper error propagation"
+test "inspector_framework recovery from failure states"
+test "inspector_framework validates error conditions"
+```
+
+#### 6. **Security Tests** (where applicable)
+```zig
+test "inspector_framework prevents security vulnerabilities"
+test "inspector_framework handles malicious inputs safely"
+test "inspector_framework maintains isolation boundaries"
+test "inspector_framework validates security properties"
+```
+
+### Test Development Priority
+1. **Core functionality** - Basic feature operation
+2. **Specification compliance** - Meet requirements
+3. **Integration** - System-level correctness
+4. **Performance** - Efficiency targets
+5. **Error handling** - Robust failures
+6. **Security** - Vulnerability prevention
+
+### Test Data Sources
+- **Specification documents**: Official requirements and test vectors
+- **Reference implementations**: Cross-client compatibility
+- **Performance baselines**: Optimization targets
+- **Real-world data**: Production scenarios
+- **Synthetic cases**: Edge conditions and stress testing
+
+### Continuous Testing
+- Run `zig build test-all` after every change
+- Maintain 100% test coverage for public APIs
+- Validate performance regression prevention
+- Test both debug and release builds
+- Verify cross-platform behavior
+
+### Test-First Examples
+
+**Before implementation:**
+```zig
+test "inspector_framework basic operation" {
+    // This test MUST fail initially
+    const input = test_data.validInput();
+    const expected = test_data.expectedOutput();
+    
+    const result = inspector_framework.process(input);
+    try testing.expectEqual(expected, result);
+}
+```
+
+**Then implement:**
+```zig
+pub const inspector_framework = struct {
+    pub fn process(input: InputType) !OutputType {
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Requirements
+- **Never commit without passing tests**
+- **Test all configuration paths**
+- **Verify specification compliance**
+- **Validate performance implications**
+- **Ensure cross-platform compatibility**
+
 ## References
 
 - [Rust trait objects](https://doc.rust-lang.org/book/ch17-02-trait-objects.html) - Similar pattern

@@ -1326,6 +1326,152 @@ test "json output formatting" {
 ✅ Performance meets or exceeds benchmarks
 ✅ Gas costs are calculated correctly
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/cli/cli_tools_test.zig`)
+```zig
+// Test basic CLI tool functionality
+test "evm_executor basic functionality with known scenarios"
+test "evm_executor handles edge cases correctly"
+test "evm_executor validates input parameters"
+test "evm_executor produces correct output format"
+test "state_inspector inspects state correctly"
+test "bytecode_analyzer analyzes bytecode correctly"
+test "performance_profiler profiles execution correctly"
+test "debugger_cli debugs contracts correctly"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "cli_tools integrate with EVM execution context"
+test "cli_tools work with existing EVM systems"
+test "cli_tools maintain compatibility with hardforks"
+test "cli_tools handle system-level interactions"
+test "cli_output integrates with external tools"
+test "cli_configuration persists across sessions"
+test "cli_scripts support automation workflows"
+test "cli_plugins extend functionality correctly"
+```
+
+#### 3. **Functional Tests**
+```zig
+test "cli_tools end-to-end functionality works correctly"
+test "cli_tools handle realistic usage scenarios"
+test "cli_tools maintain behavior under load"
+test "cli_tools process complex inputs correctly"
+test "tevm_exec executes bytecode correctly"
+test "tevm_debug provides debugging capabilities"
+test "tevm_bench measures performance accurately"
+test "tevm_analyze produces useful analysis"
+```
+
+#### 4. **Performance Tests**
+```zig
+test "cli_tools meet performance requirements"
+test "cli_tools memory usage within bounds"
+test "cli_tools scalability with large inputs"
+test "cli_tools benchmark against baseline"
+test "cli_startup_time acceptable"
+test "cli_execution_overhead minimal"
+test "cli_memory_footprint optimized"
+test "cli_responsiveness maintained"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "cli_tools error propagation works correctly"
+test "cli_tools proper error types and messages"
+test "cli_tools graceful handling of invalid inputs"
+test "cli_tools recovery from failure states"
+test "cli_validation rejects invalid commands"
+test "cli_execution handles gas exhaustion"
+test "cli_file_handling manages file errors"
+test "cli_network_handling manages network errors"
+```
+
+#### 6. **Compatibility Tests**
+```zig
+test "cli_tools maintain EVM specification compliance"
+test "cli_tools cross-client behavior consistency"
+test "cli_tools backward compatibility preserved"
+test "cli_tools platform-specific behavior verified"
+test "cli_output compatible with standard tools"
+test "cli_formats match industry standards"
+test "cli_interfaces consistent with conventions"
+test "cli_behavior predictable across platforms"
+```
+
+### Test Development Priority
+1. **Start with core functionality** - Ensure basic CLI commands work correctly
+2. **Add integration tests** - Verify system-level interactions with file system and network
+3. **Implement performance tests** - Meet efficiency requirements for CLI responsiveness
+4. **Add error handling tests** - Robust failure management for user input errors
+5. **Test edge cases** - Handle boundary conditions like large files and network timeouts
+6. **Verify compatibility** - Ensure cross-platform consistency and standard compliance
+
+### Test Data Sources
+- **CLI specification requirements**: Command behavior and output format verification
+- **Reference implementation data**: Cross-tool compatibility testing
+- **Performance benchmarks**: CLI responsiveness and throughput baseline
+- **Real-world usage scenarios**: Production workflow validation
+- **Synthetic test cases**: Edge condition and stress testing
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Ensure 100% test coverage for all public APIs
+- Validate performance benchmarks don't regress
+- Test both debug and release builds
+- Verify cross-platform compatibility
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "evm_executor basic functionality" {
+    // This test MUST fail initially
+    const allocator = testing.allocator;
+    
+    var executor = EvmExecutor.init(allocator, EvmExecutor.ExecutorConfig.default());
+    defer executor.deinit();
+    
+    const bytecode = test_data.simple_add_contract;
+    const input = test_data.function_call_data;
+    
+    const result = try executor.execute(bytecode, input);
+    
+    try testing.expectEqual(test_data.expected_return_value, result.return_value);
+    try testing.expect(result.gas_used > 0);
+    try testing.expectEqual(ExecutionResult.Success, result.status);
+}
+```
+
+**Only then implement:**
+```zig
+pub const EvmExecutor = struct {
+    pub fn execute(self: *EvmExecutor, bytecode: []const u8, input: []const u8) !ExecutionResult {
+        // Minimal implementation to make test pass
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Testing Requirements
+- **Never commit until all tests pass** with `zig build test-all`
+- **Test CLI argument parsing** - Ensure proper command-line interface handling
+- **Verify tool integration** - Test compatibility with external development tools
+- **Test cross-platform CLI behavior** - Ensure consistent results across platforms
+- **Validate integration points** - Test all external interfaces thoroughly
 
 ## References
 

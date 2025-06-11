@@ -1408,6 +1408,128 @@ test "integration with VM execution" {
 ✅ Performance meets or exceeds benchmarks
 ✅ Gas costs are calculated correctly
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/modular_context/modular_context_system_test.zig`)
+```zig
+// Test basic modular context system functionality
+test "modular_context_system basic functionality with known scenarios"
+test "modular_context_system handles edge cases correctly"
+test "modular_context_system validates state changes"
+test "modular_context_system correct behavior under load"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "modular_context_system integrates with EVM context correctly"
+test "modular_context_system works with existing systems"
+test "modular_context_system maintains backward compatibility"
+test "modular_context_system handles system interactions"
+```
+
+#### 3. **State Management Tests**
+```zig
+test "modular_context_system state transitions work correctly"
+test "modular_context_system handles concurrent state access"
+test "modular_context_system maintains state consistency"
+test "modular_context_system reverts state on failure"
+```
+
+#### 4. **Performance Tests**
+```zig
+test "modular_context_system performance with realistic workloads"
+test "modular_context_system memory efficiency and allocation patterns"
+test "modular_context_system scalability under high load"
+test "modular_context_system benchmark against baseline implementation"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "modular_context_system error propagation works correctly"
+test "modular_context_system proper error types returned"
+test "modular_context_system handles resource exhaustion gracefully"
+test "modular_context_system recovery from failure states"
+```
+
+#### 6. **Context Switching Tests**
+```zig
+test "modular_context_system runtime context switching correctness"
+test "modular_context_system context inheritance behavior"
+test "modular_context_system configuration validation"
+test "modular_context_system conflict resolution"
+```
+
+#### 7. **Multi-Chain Support Tests**
+```zig
+test "modular_context_system maintains EVM specification compliance"
+test "modular_context_system blockchain environment compatibility"
+test "modular_context_system hardfork rule management"
+test "modular_context_system type safety validation"
+```
+
+### Test Development Priority
+1. **Start with core context management tests** - Ensures basic context switching works
+2. **Add configuration validation tests** - Verifies context compatibility and safety
+3. **Implement inheritance tests** - Critical for context hierarchy functionality
+4. **Add performance benchmarks** - Ensures production readiness
+5. **Test multi-chain compatibility** - Robust cross-blockchain operation
+6. **Add integration tests** - System-level correctness verification
+
+### Test Data Sources
+- **EVM specification requirements**: Context parameter compliance
+- **Reference implementation behavior**: Multi-chain configuration patterns
+- **Performance benchmarks**: Context switching overhead and memory usage
+- **Real-world scenarios**: Blockchain environment configurations and transitions
+- **Edge case generation**: Boundary testing for context limits and conflicts
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Ensure 100% test coverage for all public APIs
+- Validate performance benchmarks don't regress
+- Test both debug and release builds
+- Verify memory safety and leak detection
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "modular_context_system basic functionality" {
+    // This test MUST fail initially
+    const context = test_utils.createTestContext();
+    var context_manager = ContextManager.init(context.allocator);
+    
+    const block_context = try context_manager.create_block_context(.Mainnet);
+    try testing.expect(block_context.chain_id == 1);
+}
+```
+
+**Only then implement:**
+```zig
+pub const ContextManager = struct {
+    pub fn create_block_context(self: *ContextManager, network: NetworkType) !BlockContext {
+        // Minimal implementation to make test pass
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Testing Requirements
+- **Never commit until all tests pass** with `zig build test-all`
+- **Test context switching thoroughly** - Architecture changes affect whole EVM execution
+- **Verify type safety** - Especially important for configuration validation
+- **Test performance implications** - Ensure context management doesn't impact EVM execution
+- **Validate multi-chain support** - Critical for cross-blockchain compatibility
 
 ## References
 

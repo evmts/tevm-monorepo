@@ -1586,6 +1586,130 @@ test "integration with VM execution" {
 ✅ Gas costs are calculated correctly
 
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/state/bundle_state_management_test.zig`)
+```zig
+// Test basic bundle state management functionality
+test "bundle_state_management basic bundle operations with known scenarios"
+test "bundle_state_management handles state bundling correctly"
+test "bundle_state_management validates bundle consistency"
+test "bundle_state_management produces expected bundle results"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "bundle_state_management integrates with EVM state system"
+test "bundle_state_management works with existing transaction processing"
+test "bundle_state_management maintains state atomicity"
+test "bundle_state_management handles bundle rollback scenarios"
+```
+
+#### 3. **Performance Tests**
+```zig
+test "bundle_state_management meets bundle processing speed targets"
+test "bundle_state_management memory usage vs baseline"
+test "bundle_state_management scalability under high bundle frequency"
+test "bundle_state_management benchmark complex bundle scenarios"
+```
+
+#### 4. **Error Handling Tests**
+```zig
+test "bundle_state_management proper bundle failure error handling"
+test "bundle_state_management handles corrupted bundles gracefully"
+test "bundle_state_management graceful degradation on bundle system failures"
+test "bundle_state_management recovery from bundle inconsistency"
+```
+
+#### 5. **Compliance Tests**
+```zig
+test "bundle_state_management EVM specification state consistency compliance"
+test "bundle_state_management cross-client bundle behavior consistency"
+test "bundle_state_management hardfork bundle rule adherence"
+test "bundle_state_management deterministic bundle processing"
+```
+
+#### 6. **Security Tests**
+```zig
+test "bundle_state_management handles malicious bundle manipulation safely"
+test "bundle_state_management prevents bundle-based state corruption"
+test "bundle_state_management validates bundle isolation properties"
+test "bundle_state_management maintains bundle atomic guarantees"
+```
+
+### Test Development Priority
+1. **Core bundle functionality tests** - Ensure basic bundle state operations work
+2. **Compliance tests** - Meet EVM specification state consistency requirements
+3. **Performance tests** - Achieve bundle processing efficiency targets
+4. **Security tests** - Prevent bundle-related vulnerabilities
+5. **Error handling tests** - Robust bundle failure management
+6. **Edge case tests** - Handle bundle boundary conditions
+
+### Test Data Sources
+- **EVM specification**: Official state consistency and atomicity requirements
+- **Reference implementations**: Cross-client bundle compatibility data
+- **Performance baselines**: Bundle processing speed and memory measurements
+- **Security test vectors**: Bundle manipulation prevention cases
+- **Real-world scenarios**: Production bundle pattern validation
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Maintain 100% test coverage for public bundle state APIs
+- Validate bundle processing performance regression prevention
+- Test debug and release builds with different bundle configurations
+- Verify cross-platform bundle behavior consistency
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "bundle_state_management basic bundle creation and commit" {
+    // This test MUST fail initially
+    const state_manager = test_utils.createStateManager();
+    const bundle = bundle_state_management.createBundle(state_manager);
+    
+    // Apply some state changes to bundle
+    try bundle_state_management.setBundleAccount(bundle, test_address, test_account);
+    
+    // Commit bundle
+    const result = bundle_state_management.commitBundle(state_manager, bundle);
+    try testing.expect(result.success);
+}
+```
+
+**Only then implement:**
+```zig
+pub const bundle_state_management = struct {
+    pub fn createBundle(state_manager: *StateManager) !*StateBundle {
+        // Minimal implementation to make test pass
+        return error.NotImplemented; // Initially
+    }
+    
+    pub fn commitBundle(state_manager: *StateManager, bundle: *StateBundle) !CommitResult {
+        // Minimal implementation
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Testing Notes
+- **Never commit without passing tests** (`zig build test-all`)
+- **Test all bundle operation combinations** - Especially for complex state transitions
+- **Verify EVM specification compliance** - Critical for protocol state correctness
+- **Test bundle performance implications** - Especially for large state bundle processing
+- **Validate bundle security properties** - Prevent state corruption and ensure atomicity
+
 ## References
 
 - [Database Transactions](https://en.wikipedia.org/wiki/Database_transaction) - ACID transaction principles

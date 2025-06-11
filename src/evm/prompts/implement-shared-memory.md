@@ -1446,6 +1446,128 @@ test "integration with VM execution" {
 ✅ Performance meets or exceeds benchmarks
 ✅ Gas costs are calculated correctly
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/shared_memory/shared_memory_test.zig`)
+```zig
+// Test basic shared memory functionality
+test "shared_memory basic functionality with known scenarios"
+test "shared_memory handles edge cases correctly"
+test "shared_memory validates state changes"
+test "shared_memory correct behavior under load"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "shared_memory integrates with EVM context correctly"
+test "shared_memory works with existing systems"
+test "shared_memory maintains backward compatibility"
+test "shared_memory handles system interactions"
+```
+
+#### 3. **State Management Tests**
+```zig
+test "shared_memory state transitions work correctly"
+test "shared_memory handles concurrent state access"
+test "shared_memory maintains state consistency"
+test "shared_memory reverts state on failure"
+```
+
+#### 4. **Performance Tests**
+```zig
+test "shared_memory performance with realistic workloads"
+test "shared_memory memory efficiency and allocation patterns"
+test "shared_memory scalability under high load"
+test "shared_memory benchmark against baseline implementation"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "shared_memory error propagation works correctly"
+test "shared_memory proper error types returned"
+test "shared_memory handles resource exhaustion gracefully"
+test "shared_memory recovery from failure states"
+```
+
+#### 6. **Concurrency Tests** (for async/multi-threaded features)
+```zig
+test "shared_memory thread safety verification"
+test "shared_memory async operation correctness"
+test "shared_memory handles race conditions properly"
+test "shared_memory deadlock prevention"
+```
+
+#### 7. **Copy-on-Write Tests**
+```zig
+test "shared_memory maintains EVM specification compliance"
+test "shared_memory COW semantics correctness"
+test "shared_memory memory sharing efficiency"
+test "shared_memory isolation and security validation"
+```
+
+### Test Development Priority
+1. **Start with core memory allocation tests** - Ensures basic shared memory works
+2. **Add copy-on-write tests** - Verifies memory sharing and isolation
+3. **Implement security tests** - Critical for memory isolation and safety
+4. **Add performance benchmarks** - Ensures production readiness
+5. **Test concurrency and race conditions** - Robust multi-threaded operation
+6. **Add integration tests** - System-level correctness verification
+
+### Test Data Sources
+- **EVM specification requirements**: Memory management compliance
+- **Reference implementation behavior**: Cross-platform compatibility
+- **Performance benchmarks**: Memory allocation and access patterns
+- **Real-world scenarios**: Contract interaction and shared data usage
+- **Edge case generation**: Boundary testing for memory limits and access
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Ensure 100% test coverage for all public APIs
+- Validate performance benchmarks don't regress
+- Test both debug and release builds
+- Verify memory safety and leak detection
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "shared_memory basic functionality" {
+    // This test MUST fail initially
+    const context = test_utils.createTestContext();
+    var shared_manager = SharedMemoryManager.init(context.allocator);
+    
+    const region = try shared_manager.allocate_shared_region(1024);
+    try testing.expect(region.handle != 0);
+}
+```
+
+**Only then implement:**
+```zig
+pub const SharedMemoryManager = struct {
+    pub fn allocate_shared_region(self: *SharedMemoryManager, size: usize) !SharedRegion {
+        // Minimal implementation to make test pass
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Testing Requirements
+- **Never commit until all tests pass** with `zig build test-all`
+- **Test memory isolation thoroughly** - Architecture changes affect EVM security
+- **Verify memory safety** - Especially important for shared memory and concurrent access
+- **Test performance implications** - Ensure optimizations don't break correctness
+- **Validate thread safety** - Critical for concurrent implementations
 
 ## References
 

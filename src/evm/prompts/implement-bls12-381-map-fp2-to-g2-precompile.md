@@ -2418,3 +2418,106 @@ var (
 1.  **Address Discrepancy**: The precompile address for `MAP_FP2_TO_G2` in go-ethereum (and the latest consensus spec) is `0x10`, not `0x11`. Address `0x11` is used for the `BLS12_PAIRING` operation.
 2.  **Output Format**: The current go-ethereum implementation of `MapG2` returns a 96-byte **compressed** G2 point. The prompt requests a 256-byte **uncompressed** point. While other BLS precompiles in go-ethereum do use the 256-byte format, the `MapG2` precompile specifically returns the compressed format for gas efficiency. The provided code includes `p2Marshal` and `newP2` functions, which demonstrate how to handle the 256-byte uncompressed format, as this is how other G2 points are represented as inputs/outputs in geth. You should implement the output format as specified in the prompt (256 bytes), using logic similar to `p2Marshal`.
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/precompiles/bls12_381_map_fp2_to_g2_test.zig`)
+```zig
+// Test basic BLS12-381 MAP_FP2_TO_G2 functionality
+test "bls12_381_map_fp2_to_g2 basic functionality with known vectors"
+test "bls12_381_map_fp2_to_g2 handles edge cases correctly"
+test "bls12_381_map_fp2_to_g2 validates input format"
+test "bls12_381_map_fp2_to_g2 produces correct output format"
+```
+
+#### 2. **Input Validation Tests**
+```zig
+test "bls12_381_map_fp2_to_g2 handles various input lengths"
+test "bls12_381_map_fp2_to_g2 validates cryptographic parameters"
+test "bls12_381_map_fp2_to_g2 rejects invalid inputs gracefully"
+test "bls12_381_map_fp2_to_g2 handles malformed field elements"
+```
+
+#### 3. **Cryptographic Correctness Tests**
+```zig
+test "bls12_381_map_fp2_to_g2 mathematical correctness with test vectors"
+test "bls12_381_map_fp2_to_g2 handles edge cases in field arithmetic"
+test "bls12_381_map_fp2_to_g2 validates curve point membership"
+test "bls12_381_map_fp2_to_g2 cryptographic security properties"
+```
+
+#### 4. **Integration Tests**
+```zig
+test "bls12_381_map_fp2_to_g2 EVM context integration"
+test "bls12_381_map_fp2_to_g2 called from contract execution"
+test "bls12_381_map_fp2_to_g2 hardfork behavior changes"
+test "bls12_381_map_fp2_to_g2 interaction with other precompiles"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "bls12_381_map_fp2_to_g2 error propagation"
+test "bls12_381_map_fp2_to_g2 proper error types returned"
+test "bls12_381_map_fp2_to_g2 handles corrupted state gracefully"
+test "bls12_381_map_fp2_to_g2 never panics on malformed input"
+```
+
+#### 6. **Performance Tests**
+```zig
+test "bls12_381_map_fp2_to_g2 performance with realistic workloads"
+test "bls12_381_map_fp2_to_g2 memory efficiency"
+test "bls12_381_map_fp2_to_g2 execution time bounds"
+test "bls12_381_map_fp2_to_g2 benchmark against reference implementations"
+```
+
+### Test Development Priority
+1. **Start with specification test vectors** - Ensures spec compliance from day one
+2. **Add core functionality tests** - Critical behavior verification
+3. **Implement gas/state management** - Economic and state security
+4. **Add performance benchmarks** - Ensures production readiness
+5. **Test error cases** - Robust error handling
+
+### Test Data Sources
+- **EIP/Specification test vectors**: Primary compliance verification
+- **Reference implementation tests**: Cross-client compatibility
+- **Ethereum test suite**: Official test cases
+- **Edge case generation**: Boundary value and malformed input testing
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Ensure 100% test coverage for all public functions
+- Validate performance benchmarks don't regress
+- Test both debug and release builds
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "bls12_381_map_fp2_to_g2 basic functionality" {
+    // This test MUST fail initially
+    const input = test_vectors.valid_input;
+    const expected = test_vectors.expected_output;
+    
+    const result = bls12_381_map_fp2_to_g2(input);
+    try testing.expectEqual(expected, result);
+}
+```
+
+**Only then implement:**
+```zig
+pub fn bls12_381_map_fp2_to_g2(input: InputType) !OutputType {
+    // Minimal implementation to make test pass
+    return error.NotImplemented; // Initially
+}
+```
+

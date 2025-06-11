@@ -404,3 +404,116 @@ test('WASM EVM performance benchmark', async () => {
 - [Zig WASM Documentation](https://ziglang.org/documentation/master/#WebAssembly)
 - [Tevm Architecture Overview](../../docs/node/pages/introduction/architecture-overview.mdx)
 - [EVM Implementations Benchmark](https://github.com/ziyadedher/evm-bench)
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/build/wasm_build_integration_test.zig`)
+```zig
+// Test basic wasm_build_integration functionality
+test "wasm_build_integration basic functionality works correctly"
+test "wasm_build_integration handles edge cases properly"
+test "wasm_build_integration validates inputs appropriately"
+test "wasm_build_integration produces correct outputs"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "wasm_build_integration integrates with EVM properly"
+test "wasm_build_integration maintains system compatibility"
+test "wasm_build_integration works with existing components"
+test "wasm_build_integration handles cross-system interactions"
+```
+
+#### 3. **Performance Tests**
+```zig
+test "wasm_build_integration meets performance requirements"
+test "wasm_build_integration optimizes resource usage"
+test "wasm_build_integration scales appropriately with load"
+test "wasm_build_integration benchmark vs baseline"
+```
+
+#### 4. **Compliance Tests**
+```zig
+test "wasm_build_integration meets specification requirements"
+test "wasm_build_integration maintains EVM compatibility"
+test "wasm_build_integration handles hardfork transitions"
+test "wasm_build_integration cross-client behavior consistency"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "wasm_build_integration handles errors gracefully"
+test "wasm_build_integration proper error propagation"
+test "wasm_build_integration recovery from failure states"
+test "wasm_build_integration validates error conditions"
+```
+
+#### 6. **Security Tests** (where applicable)
+```zig
+test "wasm_build_integration prevents security vulnerabilities"
+test "wasm_build_integration handles malicious inputs safely"
+test "wasm_build_integration maintains isolation boundaries"
+test "wasm_build_integration validates security properties"
+```
+
+### Test Development Priority
+1. **Core functionality** - Basic feature operation
+2. **Specification compliance** - Meet requirements
+3. **Integration** - System-level correctness
+4. **Performance** - Efficiency targets
+5. **Error handling** - Robust failures
+6. **Security** - Vulnerability prevention
+
+### Test Data Sources
+- **Specification documents**: Official requirements and test vectors
+- **Reference implementations**: Cross-client compatibility
+- **Performance baselines**: Optimization targets
+- **Real-world data**: Production scenarios
+- **Synthetic cases**: Edge conditions and stress testing
+
+### Continuous Testing
+- Run `zig build test-all` after every change
+- Maintain 100% test coverage for public APIs
+- Validate performance regression prevention
+- Test both debug and release builds
+- Verify cross-platform behavior
+
+### Test-First Examples
+
+**Before implementation:**
+```zig
+test "wasm_build_integration basic operation" {
+    // This test MUST fail initially
+    const input = test_data.validInput();
+    const expected = test_data.expectedOutput();
+    
+    const result = wasm_build_integration.process(input);
+    try testing.expectEqual(expected, result);
+}
+```
+
+**Then implement:**
+```zig
+pub const wasm_build_integration = struct {
+    pub fn process(input: InputType) !OutputType {
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Requirements
+- **Never commit without passing tests**
+- **Test all configuration paths**
+- **Verify specification compliance**
+- **Validate performance implications**
+- **Ensure cross-platform compatibility**

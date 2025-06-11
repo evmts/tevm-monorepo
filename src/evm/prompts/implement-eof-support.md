@@ -1126,6 +1126,120 @@ test "eof deployment and execution" {
 ✅ Performance meets or exceeds benchmarks
 ✅ Gas costs are calculated correctly
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/eof/eof_support_test.zig`)
+```zig
+// Test basic eof_support functionality
+test "eof_support basic functionality works correctly"
+test "eof_support handles edge cases properly"
+test "eof_support validates inputs appropriately"
+test "eof_support produces correct outputs"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "eof_support integrates with EVM properly"
+test "eof_support maintains system compatibility"
+test "eof_support works with existing components"
+test "eof_support handles cross-system interactions"
+```
+
+#### 3. **Performance Tests**
+```zig
+test "eof_support meets performance requirements"
+test "eof_support optimizes resource usage"
+test "eof_support scales appropriately with load"
+test "eof_support benchmark vs baseline"
+```
+
+#### 4. **Compliance Tests**
+```zig
+test "eof_support meets specification requirements"
+test "eof_support maintains EVM compatibility"
+test "eof_support handles hardfork transitions"
+test "eof_support cross-client behavior consistency"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "eof_support handles errors gracefully"
+test "eof_support proper error propagation"
+test "eof_support recovery from failure states"
+test "eof_support validates error conditions"
+```
+
+#### 6. **Security Tests** (where applicable)
+```zig
+test "eof_support prevents security vulnerabilities"
+test "eof_support handles malicious inputs safely"
+test "eof_support maintains isolation boundaries"
+test "eof_support validates security properties"
+```
+
+### Test Development Priority
+1. **Core functionality** - Basic feature operation
+2. **Specification compliance** - Meet requirements
+3. **Integration** - System-level correctness
+4. **Performance** - Efficiency targets
+5. **Error handling** - Robust failures
+6. **Security** - Vulnerability prevention
+
+### Test Data Sources
+- **Specification documents**: Official requirements and test vectors
+- **Reference implementations**: Cross-client compatibility
+- **Performance baselines**: Optimization targets
+- **Real-world data**: Production scenarios
+- **Synthetic cases**: Edge conditions and stress testing
+
+### Continuous Testing
+- Run `zig build test-all` after every change
+- Maintain 100% test coverage for public APIs
+- Validate performance regression prevention
+- Test both debug and release builds
+- Verify cross-platform behavior
+
+### Test-First Examples
+
+**Before implementation:**
+```zig
+test "eof_support basic operation" {
+    // This test MUST fail initially
+    const input = test_data.validInput();
+    const expected = test_data.expectedOutput();
+    
+    const result = eof_support.process(input);
+    try testing.expectEqual(expected, result);
+}
+```
+
+**Then implement:**
+```zig
+pub const eof_support = struct {
+    pub fn process(input: InputType) !OutputType {
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Requirements
+- **Never commit without passing tests**
+- **Test all configuration paths**
+- **Verify specification compliance**
+- **Validate performance implications**
+- **Ensure cross-platform compatibility**
+
 ## References
 
 - [EIP-3540: EOF Container Format](https://eips.ethereum.org/EIPS/eip-3540)

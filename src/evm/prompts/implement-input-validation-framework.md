@@ -1989,6 +1989,121 @@ test "integration with VM execution" {
 ✅ Gas costs are calculated correctly
 
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/validation/input_validation_test.zig`)
+```zig
+// Test basic input validation functionality
+test "input_validation basic parameter validation with known scenarios"
+test "input_validation handles type checking correctly"
+test "input_validation validates range constraints"
+test "input_validation produces expected error messages"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "input_validation integrates with EVM execution pipeline"
+test "input_validation works with existing error handling"
+test "input_validation maintains opcode parameter compatibility"
+test "input_validation handles complex validation chains"
+```
+
+#### 3. **Performance Tests**
+```zig
+test "input_validation meets validation speed targets"
+test "input_validation overhead measurement vs baseline"
+test "input_validation scalability under high validation load"
+test "input_validation benchmark complex validation rules"
+```
+
+#### 4. **Error Handling Tests**
+```zig
+test "input_validation proper validation error propagation"
+test "input_validation handles malformed input gracefully"
+test "input_validation graceful degradation on validator failures"
+test "input_validation recovery from validation system errors"
+```
+
+#### 5. **Compliance Tests**
+```zig
+test "input_validation EVM specification parameter compliance"
+test "input_validation cross-client validation consistency"
+test "input_validation hardfork validation rule adherence"
+test "input_validation deterministic validation behavior"
+```
+
+#### 6. **Security Tests**
+```zig
+test "input_validation handles malicious inputs safely"
+test "input_validation prevents validation bypass attempts"
+test "input_validation validates security-critical parameters"
+test "input_validation maintains validation isolation"
+```
+
+### Test Development Priority
+1. **Core validation functionality tests** - Ensure basic parameter validation works
+2. **Compliance tests** - Meet EVM specification validation requirements
+3. **Performance tests** - Achieve validation speed targets
+4. **Security tests** - Prevent validation-bypass vulnerabilities
+5. **Error handling tests** - Robust validation failure management
+6. **Edge case tests** - Handle validation boundary conditions
+
+### Test Data Sources
+- **EVM specification**: Official parameter validation requirements
+- **Reference implementations**: Cross-client validation compatibility data
+- **Performance baselines**: Validation overhead measurements
+- **Security test vectors**: Validation bypass prevention cases
+- **Real-world scenarios**: Production input pattern validation
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Maintain 100% test coverage for public validation APIs
+- Validate performance regression prevention
+- Test debug and release builds with different validation rules
+- Verify cross-platform validation consistency
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "input_validation basic parameter range validation" {
+    // This test MUST fail initially
+    const validator = test_utils.createParameterValidator();
+    const param = TestParameter{ .value = 256, .min = 0, .max = 255 };
+    
+    const result = input_validation.validateParameter(validator, param);
+    try testing.expectError(ValidationError.OutOfRange, result);
+}
+```
+
+**Only then implement:**
+```zig
+pub const input_validation = struct {
+    pub fn validateParameter(validator: *ParameterValidator, param: Parameter) !ValidationResult {
+        // Minimal implementation to make test pass
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Testing Notes
+- **Never commit without passing tests** (`zig build test-all`)
+- **Test all validation rule combinations** - Especially for complex validation chains
+- **Verify EVM specification compliance** - Critical for protocol parameter correctness
+- **Test validation performance implications** - Especially for high-throughput scenarios
+- **Validate security properties** - Prevent validation bypass and injection attacks
+
 ## References
 
 - [Input Validation](https://owasp.org/www-project-proactive-controls/v3/en/c5-validate-inputs) - OWASP input validation guidelines

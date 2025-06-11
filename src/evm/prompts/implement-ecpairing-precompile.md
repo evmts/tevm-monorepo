@@ -469,6 +469,132 @@ pub fn execute(input: []const u8, output: []u8, gas_limit: u64, hardfork: Hardfo
 ✅ Gas costs are calculated correctly
 
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/precompiles/ec_pairing_test.zig`)
+```zig
+// Test basic pairing check functionality
+test "ec_pairing basic functionality with known vectors"
+test "ec_pairing handles edge cases correctly"
+test "ec_pairing validates input format"
+test "ec_pairing produces correct output format"
+```
+
+#### 2. **Input Validation Tests**
+```zig
+test "ec_pairing handles various input lengths"
+test "ec_pairing validates input parameters"
+test "ec_pairing rejects invalid inputs gracefully"
+test "ec_pairing handles empty input"
+```
+
+#### 3. **Gas Calculation Tests**
+```zig
+test "ec_pairing gas cost calculation accuracy"
+test "ec_pairing gas cost edge cases"
+test "ec_pairing gas overflow protection"
+test "ec_pairing gas deduction in EVM context"
+```
+
+#### 4. **Specification Compliance Tests**
+```zig
+test "ec_pairing matches specification test vectors"
+test "ec_pairing matches reference implementation output"
+test "ec_pairing hardfork availability requirements"
+test "ec_pairing address registration correct"
+```
+
+#### 5. **Elliptic Curve/Cryptographic Tests**
+```zig
+test "ec_pairing handles point at infinity correctly"
+test "ec_pairing validates points on curve"
+test "ec_pairing handles invalid curve points"
+test "ec_pairing cryptographic edge cases"
+```
+
+#### 6. **Performance Tests**
+```zig
+test "ec_pairing performance with large inputs"
+test "ec_pairing memory efficiency"
+test "ec_pairing WASM bundle size impact"
+test "ec_pairing benchmark against reference implementations"
+```
+
+#### 7. **Error Handling Tests**
+```zig
+test "ec_pairing error propagation"
+test "ec_pairing proper error types returned"
+test "ec_pairing handles corrupted input gracefully"
+test "ec_pairing never panics on malformed input"
+```
+
+#### 8. **Integration Tests**
+```zig
+test "ec_pairing precompile registration"
+test "ec_pairing called from EVM execution"
+test "ec_pairing gas deduction in EVM context"
+test "ec_pairing hardfork availability"
+```
+
+### Test Development Priority
+1. **Start with EIP test vectors** - Ensures spec compliance from day one
+2. **Add cryptographic validation** - Critical for elliptic curve operations
+3. **Implement gas calculation** - Core economic security
+4. **Add performance benchmarks** - Ensures production readiness
+5. **Test error cases** - Robust error handling
+
+### Test Data Sources
+- **EIP test vectors**: Primary compliance verification (EIP-196, EIP-197)
+- **Reference implementation tests**: Cross-client compatibility
+- **Cryptographic test vectors**: Mathematical correctness
+- **Edge case generation**: Boundary value and malformed input testing
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Ensure 100% test coverage for all public functions
+- Validate performance benchmarks don't regress
+- Test both debug and release builds
+- Verify cryptographic correctness with known vectors
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "ec_pairing basic functionality" {
+    // This test MUST fail initially
+    const input = test_vectors.valid_curve_points;
+    const expected = test_vectors.expected_result;
+    
+    const result = ec_pairing.run(input);
+    try testing.expectEqualSlices(u8, expected, result);
+}
+```
+
+**Only then implement:**
+```zig
+pub fn run(input: []const u8) ![]u8 {
+    // Minimal implementation to make test pass
+    return error.NotImplemented; // Initially
+}
+```
+
+### Critical Testing Notes
+- **Cryptographic correctness is paramount** - Never compromise on test coverage
+- **Test against malicious inputs** - Elliptic curve operations are security-critical
+- **Verify constant-time execution** - Prevent timing attack vulnerabilities
+- **Test hardfork transitions** - Ensure availability at correct block numbers
+
 ## References
 
 - [EIP-197: Precompiled contracts for optimal ate pairing check on the elliptic curve alt_bn128](https://eips.ethereum.org/EIPS/eip-197)

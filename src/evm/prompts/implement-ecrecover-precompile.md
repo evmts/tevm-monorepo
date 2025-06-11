@@ -2211,12 +2211,18 @@ if !allZero(input[32:63]) || !crypto.ValidateSignatureValues(v, r, s, false) {
 
 ### Recommended Approach: WASM-compatible secp256k1 Library
 
-**Primary Option: WASM secp256k1 Implementation**
-- 🎯 **Library**: [zkcrypto/libsecp256k1](https://github.com/zkcrypto/libsecp256k1) or [bitcoin secp256k1](https://github.com/bitcoin-core/secp256k1) compiled to WASM
-- ✅ **Pros**: Battle-tested crypto implementations, proven security, good WASM compatibility
-- ⚠️ **Tradeoffs**: Moderate bundle size increase, external dependency management
-- 📦 **Bundle Impact**: ~100-200KB additional WASM size (estimated)
-- 🎯 **Compatibility**: Full WASM support with proper C/WASM bindings
+**Primary Option: bitcoin-core/secp256k1 (Recommended)**
+- 🎯 **Library**: [bitcoin-core/secp256k1](https://github.com/bitcoin-core/secp256k1) compiled to WASM
+- ✅ **Pros**: 
+  - Battle-tested crypto implementation with extensive audit history
+  - "Very efficient implementation" designed for embedded systems
+  - Constant time, constant memory access operations (side-channel resistant)
+  - No runtime dependencies
+  - Includes "optional module for public key recovery" (perfect for ECRECOVER)
+- ⚠️ **Tradeoffs**: Moderate bundle size increase, requires WASM compilation setup
+- 📦 **Bundle Impact**: ~100-200KB additional WASM size (estimated, no runtime deps helps)
+- 🔒 **Security Features**: Optional runtime blinding, no data-dependent branches, constant time operations
+- 🎯 **Compatibility**: Designed to be "difficult to use insecurely", structured for review
 
 **Fallback Option: Custom WASM Binding**  
 - 🔄 **Backup**: Small custom WASM wrapper around minimal secp256k1 recovery functions
@@ -2224,10 +2230,12 @@ if !allZero(input[32:63]) || !crypto.ValidateSignatureValues(v, r, s, false) {
 - 🎯 **Use Case**: If full secp256k1 library proves too large for bundle size targets
 
 ### Investigation Steps
-1. **Evaluate WASM libraries**: Test zkcrypto/libsecp256k1 and bitcoin secp256k1 compilation to WASM
-2. **Bundle size analysis**: Measure actual WASM size impact vs performance benefits
-3. **Security audit**: Ensure chosen library has proper audit history and maintenance
-4. **Performance benchmarks**: Compare native vs WASM performance for ECRECOVER operations
+1. **Setup WASM compilation**: Configure bitcoin-core/secp256k1 to compile to WASM target
+2. **Enable recovery module**: Ensure the optional public key recovery module is enabled
+3. **Bundle size analysis**: Measure actual WASM size impact (expect ~100-200KB)
+4. **Security verification**: Leverage library's extensive testing infrastructure and security features
+5. **Performance benchmarks**: Test constant-time operations in WASM environment
+6. **Integration testing**: Verify proper error handling and edge case behavior
 
 ### Bundle Size Priority
 Following Tevm's preference hierarchy for ECRECOVER (0x01):

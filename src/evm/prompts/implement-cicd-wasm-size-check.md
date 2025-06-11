@@ -129,6 +129,120 @@ Implement size comparison logic:
 3. **Build Failures**: Handle WASM build failures gracefully
 4. **Platform Differences**: Ensure consistent size measurements
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/ci/cicd_wasm_size_check_test.zig`)
+```zig
+// Test basic CI/CD WASM size check functionality
+test "cicd_wasm_size_check basic functionality works correctly"
+test "cicd_wasm_size_check handles edge cases properly"
+test "cicd_wasm_size_check validates inputs appropriately"
+test "cicd_wasm_size_check produces correct outputs"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "cicd_wasm_size_check integrates with EVM properly"
+test "cicd_wasm_size_check maintains system compatibility"
+test "cicd_wasm_size_check works with existing components"
+test "cicd_wasm_size_check handles cross-system interactions"
+```
+
+#### 3. **Performance Tests**
+```zig
+test "cicd_wasm_size_check meets performance requirements"
+test "cicd_wasm_size_check optimizes resource usage"
+test "cicd_wasm_size_check scales appropriately with load"
+test "cicd_wasm_size_check benchmark vs baseline"
+```
+
+#### 4. **Compliance Tests**
+```zig
+test "cicd_wasm_size_check meets specification requirements"
+test "cicd_wasm_size_check maintains EVM compatibility"
+test "cicd_wasm_size_check handles hardfork transitions"
+test "cicd_wasm_size_check cross-client behavior consistency"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "cicd_wasm_size_check handles errors gracefully"
+test "cicd_wasm_size_check proper error propagation"
+test "cicd_wasm_size_check recovery from failure states"
+test "cicd_wasm_size_check validates error conditions"
+```
+
+#### 6. **Security Tests** (where applicable)
+```zig
+test "cicd_wasm_size_check prevents security vulnerabilities"
+test "cicd_wasm_size_check handles malicious inputs safely"
+test "cicd_wasm_size_check maintains isolation boundaries"
+test "cicd_wasm_size_check validates security properties"
+```
+
+### Test Development Priority
+1. **Core functionality** - Basic feature operation
+2. **Specification compliance** - Meet requirements
+3. **Integration** - System-level correctness
+4. **Performance** - Efficiency targets
+5. **Error handling** - Robust failures
+6. **Security** - Vulnerability prevention
+
+### Test Data Sources
+- **Specification documents**: Official requirements and test vectors
+- **Reference implementations**: Cross-client compatibility
+- **Performance baselines**: Optimization targets
+- **Real-world data**: Production scenarios
+- **Synthetic cases**: Edge conditions and stress testing
+
+### Continuous Testing
+- Run `zig build test-all` after every change
+- Maintain 100% test coverage for public APIs
+- Validate performance regression prevention
+- Test both debug and release builds
+- Verify cross-platform behavior
+
+### Test-First Examples
+
+**Before implementation:**
+```zig
+test "cicd_wasm_size_check basic operation" {
+    // This test MUST fail initially
+    const input = test_data.validInput();
+    const expected = test_data.expectedOutput();
+    
+    const result = cicd_wasm_size_check.process(input);
+    try testing.expectEqual(expected, result);
+}
+```
+
+**Then implement:**
+```zig
+pub const cicd_wasm_size_check = struct {
+    pub fn process(input: InputType) !OutputType {
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Requirements
+- **Never commit without passing tests**
+- **Test all configuration paths**
+- **Verify specification compliance**
+- **Validate performance implications**
+- **Ensure cross-platform compatibility**
+
 ## References
 
 - [GitHub Actions for size tracking](https://github.com/marketplace/actions/bundle-size)

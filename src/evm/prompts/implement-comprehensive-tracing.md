@@ -115,6 +115,158 @@ type VMContext struct {
 }
 ```
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/tracing/comprehensive_tracing_test.zig`)
+```zig
+// Test basic tracing functionality
+test "execution_tracer basic functionality with known scenarios"
+test "execution_tracer handles edge cases correctly"
+test "execution_tracer validates input parameters"
+test "execution_tracer produces correct output format"
+test "opcode_tracer tracks opcodes correctly"
+test "stack_tracer monitors stack changes"
+test "memory_tracer tracks memory operations"
+test "state_tracer records state modifications"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "tracing_system integrates with EVM execution context"
+test "tracing_system works with existing EVM systems"
+test "tracing_system maintains compatibility with hardforks"
+test "tracing_system handles system-level interactions"
+test "tracing_output integrates with debugging tools"
+test "trace_collection preserves execution semantics"
+test "trace_filtering works with complex scenarios"
+test "trace_export handles large trace datasets"
+```
+
+#### 3. **Functional Tests**
+```zig
+test "tracing_system end-to-end functionality works correctly"
+test "tracing_system handles realistic usage scenarios"
+test "tracing_system maintains behavior under load"
+test "tracing_system processes complex inputs correctly"
+test "eip3155_tracing produces specification-compliant output"
+test "geth_style_tracing matches reference implementation"
+test "custom_tracing supports user-defined tracers"
+test "structured_logs maintain correct format"
+```
+
+#### 4. **Performance Tests**
+```zig
+test "tracing_system meets performance requirements"
+test "tracing_system memory usage within bounds"
+test "tracing_system scalability with large traces"
+test "tracing_system benchmark against baseline"
+test "trace_compression reduces memory footprint"
+test "trace_buffering improves throughput"
+test "selective_tracing minimizes overhead"
+test "trace_streaming handles real-time output"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "tracing_system error propagation works correctly"
+test "tracing_system proper error types and messages"
+test "tracing_system graceful handling of invalid inputs"
+test "tracing_system recovery from failure states"
+test "trace_validation rejects malformed traces"
+test "trace_collection handles memory exhaustion"
+test "trace_export handles file system errors"
+test "trace_import validates input format"
+```
+
+#### 6. **Compatibility Tests**
+```zig
+test "tracing_system maintains EVM specification compliance"
+test "tracing_system cross-client behavior consistency"
+test "tracing_system backward compatibility preserved"
+test "tracing_system platform-specific behavior verified"
+test "trace_format matches EIP-3155 specification"
+test "trace_output compatible with debugging tools"
+test "trace_semantics consistent across hardforks"
+test "trace_data preserves execution accuracy"
+```
+
+### Test Development Priority
+1. **Start with core functionality** - Ensure basic opcode and stack tracing works correctly
+2. **Add integration tests** - Verify system-level interactions with EVM execution
+3. **Implement performance tests** - Meet efficiency requirements for trace collection
+4. **Add error handling tests** - Robust failure management for trace operations
+5. **Test edge cases** - Handle boundary conditions like memory limits and deep traces
+6. **Verify compatibility** - Ensure EIP-3155 compliance and cross-client consistency
+
+### Test Data Sources
+- **EIP-3155 specification requirements**: Trace format and content verification
+- **Reference implementation data**: Cross-client compatibility testing
+- **Performance benchmarks**: Trace collection efficiency baseline
+- **Real-world transaction traces**: Production use case validation
+- **Synthetic trace scenarios**: Edge condition and stress testing
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Ensure 100% test coverage for all public APIs
+- Validate performance benchmarks don't regress
+- Test both debug and release builds
+- Verify cross-platform compatibility
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "execution_tracer basic functionality" {
+    // This test MUST fail initially
+    const allocator = testing.allocator;
+    const context = test_utils.createTestEVMContext(allocator);
+    defer context.deinit();
+    
+    var tracer = ExecutionTracer.init(allocator, TracingConfig.default());
+    defer tracer.deinit();
+    
+    const opcode = 0x01; // ADD
+    const gas_cost = 3;
+    const stack_before = test_data.initial_stack;
+    const stack_after = test_data.result_stack;
+    
+    try tracer.traceOpcode(context, opcode, gas_cost, stack_before, stack_after);
+    const trace = tracer.getTrace();
+    
+    try testing.expectEqual(1, trace.steps.len);
+    try testing.expectEqual(opcode, trace.steps[0].opcode);
+    try testing.expectEqual(gas_cost, trace.steps[0].gas_cost);
+}
+```
+
+**Only then implement:**
+```zig
+pub const ExecutionTracer = struct {
+    pub fn traceOpcode(self: *ExecutionTracer, context: *EVMContext, opcode: u8, gas_cost: u64, stack_before: []const U256, stack_after: []const U256) !void {
+        // Minimal implementation to make test pass
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Testing Requirements
+- **Never commit until all tests pass** with `zig build test-all`
+- **Test trace format compliance** - Ensure EIP-3155 specification adherence
+- **Verify trace accuracy** - Traces must reflect actual execution accurately
+- **Test cross-platform trace behavior** - Ensure consistent results across platforms
+- **Validate integration points** - Test all external interfaces thoroughly
+
 ## References
 
 - [EIP-3155: EVM trace specification](https://eips.ethereum.org/EIPS/eip-3155)

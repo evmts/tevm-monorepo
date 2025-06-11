@@ -2129,6 +2129,120 @@ test "integration with VM execution" {
 ✅ Performance meets or exceeds benchmarks
 ✅ Gas costs are calculated correctly
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/extension/extension_points_test.zig`)
+```zig
+// Test basic extension points functionality
+test "extension_points basic functionality works correctly"
+test "extension_points handles edge cases properly"
+test "extension_points validates inputs appropriately"
+test "extension_points produces correct outputs"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "extension_points integrates with EVM properly"
+test "extension_points maintains system compatibility"
+test "extension_points works with existing components"
+test "extension_points handles cross-system interactions"
+```
+
+#### 3. **Performance Tests**
+```zig
+test "extension_points meets performance requirements"
+test "extension_points optimizes resource usage"
+test "extension_points scales appropriately with load"
+test "extension_points benchmark vs baseline"
+```
+
+#### 4. **Compliance Tests**
+```zig
+test "extension_points meets specification requirements"
+test "extension_points maintains EVM compatibility"
+test "extension_points handles hardfork transitions"
+test "extension_points cross-client behavior consistency"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "extension_points handles errors gracefully"
+test "extension_points proper error propagation"
+test "extension_points recovery from failure states"
+test "extension_points validates error conditions"
+```
+
+#### 6. **Security Tests** (where applicable)
+```zig
+test "extension_points prevents security vulnerabilities"
+test "extension_points handles malicious inputs safely"
+test "extension_points maintains isolation boundaries"
+test "extension_points validates security properties"
+```
+
+### Test Development Priority
+1. **Core functionality** - Basic feature operation
+2. **Specification compliance** - Meet requirements
+3. **Integration** - System-level correctness
+4. **Performance** - Efficiency targets
+5. **Error handling** - Robust failures
+6. **Security** - Vulnerability prevention
+
+### Test Data Sources
+- **Specification documents**: Official requirements and test vectors
+- **Reference implementations**: Cross-client compatibility
+- **Performance baselines**: Optimization targets
+- **Real-world data**: Production scenarios
+- **Synthetic cases**: Edge conditions and stress testing
+
+### Continuous Testing
+- Run `zig build test-all` after every change
+- Maintain 100% test coverage for public APIs
+- Validate performance regression prevention
+- Test both debug and release builds
+- Verify cross-platform behavior
+
+### Test-First Examples
+
+**Before implementation:**
+```zig
+test "extension_points basic operation" {
+    // This test MUST fail initially
+    const input = test_data.validInput();
+    const expected = test_data.expectedOutput();
+    
+    const result = extension_points.process(input);
+    try testing.expectEqual(expected, result);
+}
+```
+
+**Then implement:**
+```zig
+pub const extension_points = struct {
+    pub fn process(input: InputType) !OutputType {
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Requirements
+- **Never commit without passing tests**
+- **Test all configuration paths**
+- **Verify specification compliance**
+- **Validate performance implications**
+- **Ensure cross-platform compatibility**
+
 ## References
 
 - [Plugin Architecture](https://en.wikipedia.org/wiki/Plug-in_(computing)) - Software plugin design patterns

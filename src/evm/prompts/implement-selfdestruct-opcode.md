@@ -290,6 +290,108 @@ pub const Frame = struct {
 ✅ Performance meets or exceeds benchmarks
 ✅ Gas costs are calculated correctly
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/opcodes/selfdestruct_test.zig`)
+```zig
+// Test basic SELFDESTRUCT functionality
+test "selfdestruct basic functionality with known scenarios"
+test "selfdestruct handles edge cases correctly"
+test "selfdestruct validates state changes"
+test "selfdestruct correct gas calculation"
+```
+
+#### 2. **State Management Tests**
+```zig
+test "selfdestruct state transitions work correctly"
+test "selfdestruct handles state conflicts properly"
+test "selfdestruct maintains state consistency"
+test "selfdestruct reverts state on failure"
+```
+
+#### 3. **Gas Calculation Tests**
+```zig
+test "selfdestruct gas cost calculation accuracy"
+test "selfdestruct gas refund mechanics"
+test "selfdestruct gas edge cases and overflow protection"
+test "selfdestruct gas accounting in EVM context"
+```
+
+#### 4. **Integration Tests**
+```zig
+test "selfdestruct EVM context integration"
+test "selfdestruct called from contract execution"
+test "selfdestruct hardfork behavior changes"
+test "selfdestruct interaction with other opcodes"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "selfdestruct error propagation"
+test "selfdestruct proper error types returned"
+test "selfdestruct handles corrupted state gracefully"
+test "selfdestruct never panics on malformed input"
+```
+
+#### 6. **Performance Tests**
+```zig
+test "selfdestruct performance with realistic workloads"
+test "selfdestruct memory efficiency"
+test "selfdestruct execution time bounds"
+test "selfdestruct benchmark against reference implementations"
+```
+
+### Test Development Priority
+1. **Start with specification test vectors** - Ensures spec compliance from day one
+2. **Add core functionality tests** - Critical behavior verification
+3. **Implement gas/state management** - Economic and state security
+4. **Add performance benchmarks** - Ensures production readiness
+5. **Test error cases** - Robust error handling
+
+### Test Data Sources
+- **EIP/Specification test vectors**: Primary compliance verification
+- **Reference implementation tests**: Cross-client compatibility
+- **Ethereum test suite**: Official test cases
+- **Edge case generation**: Boundary value and malformed input testing
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Ensure 100% test coverage for all public functions
+- Validate performance benchmarks don't regress
+- Test both debug and release builds
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "selfdestruct basic functionality" {
+    // This test MUST fail initially
+    const input = test_vectors.valid_input;
+    const expected = test_vectors.expected_output;
+    
+    const result = selfdestruct(input);
+    try testing.expectEqual(expected, result);
+}
+```
+
+**Only then implement:**
+```zig
+pub fn selfdestruct(input: InputType) !OutputType {
+    // Minimal implementation to make test pass
+    return error.NotImplemented; // Initially
+}
+```
 
 ## References
 

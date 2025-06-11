@@ -1242,6 +1242,129 @@ test "cleanup and resource management" {
 ✅ Performance meets or exceeds benchmarks
 ✅ Gas costs are calculated correctly
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/account_status/account_status_tracking_test.zig`)
+```zig
+// Test basic account status tracking functionality
+test "account_status_tracking basic functionality with known scenarios"
+test "account_status_tracking handles edge cases correctly"
+test "account_status_tracking validates state changes"
+test "account_status_tracking correct behavior under load"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "account_status_tracking integrates with EVM context correctly"
+test "account_status_tracking works with existing systems"
+test "account_status_tracking maintains backward compatibility"
+test "account_status_tracking handles system interactions"
+```
+
+#### 3. **State Management Tests**
+```zig
+test "account_status_tracking state transitions work correctly"
+test "account_status_tracking handles concurrent state access"
+test "account_status_tracking maintains state consistency"
+test "account_status_tracking reverts state on failure"
+```
+
+#### 4. **Performance Tests**
+```zig
+test "account_status_tracking performance with realistic workloads"
+test "account_status_tracking memory efficiency and allocation patterns"
+test "account_status_tracking scalability under high load"
+test "account_status_tracking benchmark against baseline implementation"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "account_status_tracking error propagation works correctly"
+test "account_status_tracking proper error types returned"
+test "account_status_tracking handles resource exhaustion gracefully"
+test "account_status_tracking recovery from failure states"
+```
+
+#### 6. **Event System Tests**
+```zig
+test "account_status_tracking event notification correctness"
+test "account_status_tracking lifecycle transition tracking"
+test "account_status_tracking historical data integrity"
+test "account_status_tracking performance metrics accuracy"
+```
+
+#### 7. **Account Lifecycle Tests**
+```zig
+test "account_status_tracking maintains EVM specification compliance"
+test "account_status_tracking account creation detection"
+test "account_status_tracking account modification tracking"
+test "account_status_tracking account destruction handling"
+```
+
+### Test Development Priority
+1. **Start with core status tracking tests** - Ensures basic account monitoring works
+2. **Add lifecycle transition tests** - Verifies account state change detection
+3. **Implement event notification tests** - Critical for debugging and monitoring
+4. **Add performance benchmarks** - Ensures production readiness
+5. **Test historical data accuracy** - Robust audit trail functionality
+6. **Add integration tests** - System-level correctness verification
+
+### Test Data Sources
+- **EVM specification requirements**: Account model compliance
+- **Reference implementation behavior**: State transition patterns
+- **Performance benchmarks**: Tracking overhead and memory usage
+- **Real-world scenarios**: Account usage patterns and lifecycle events
+- **Edge case generation**: Boundary testing for tracking limits and history
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Ensure 100% test coverage for all public APIs
+- Validate performance benchmarks don't regress
+- Test both debug and release builds
+- Verify memory safety and leak detection
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "account_status_tracking basic functionality" {
+    // This test MUST fail initially
+    const context = test_utils.createTestContext();
+    var status_manager = AccountStatusManager.init(context.allocator);
+    
+    try status_manager.track_account_creation(test_address);
+    const status = try status_manager.get_account_status(test_address);
+    try testing.expectEqual(AccountStatus.Active, status.current_status);
+}
+```
+
+**Only then implement:**
+```zig
+pub const AccountStatusManager = struct {
+    pub fn track_account_creation(self: *AccountStatusManager, address: Address) !void {
+        // Minimal implementation to make test pass
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Testing Requirements
+- **Never commit until all tests pass** with `zig build test-all`
+- **Test lifecycle tracking thoroughly** - Architecture changes affect account monitoring
+- **Verify event accuracy** - Especially important for debugging and analytics
+- **Test performance implications** - Ensure tracking doesn't impact EVM execution
+- **Validate data integrity** - Critical for audit trails and historical analysis
 
 ## References
 

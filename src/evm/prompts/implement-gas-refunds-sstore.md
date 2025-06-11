@@ -488,6 +488,109 @@ const current_eq_new = current.eql(new);
 ✅ Performance maintains or improves SSTORE operation speed
 ✅ Memory usage for refund tracking is reasonable and bounded
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/opcodes/sstore_test.zig`)
+```zig
+// Test basic SSTORE functionality
+test "sstore basic functionality with known scenarios"
+test "sstore handles edge cases correctly"
+test "sstore validates state changes"
+test "sstore correct gas calculation"
+```
+
+#### 2. **State Management Tests**
+```zig
+test "sstore state transitions work correctly"
+test "sstore handles state conflicts properly"
+test "sstore maintains state consistency"
+test "sstore reverts state on failure"
+```
+
+#### 3. **Gas Calculation Tests**
+```zig
+test "sstore gas cost calculation accuracy"
+test "sstore gas refund mechanics"
+test "sstore gas edge cases and overflow protection"
+test "sstore gas accounting in EVM context"
+```
+
+#### 4. **Integration Tests**
+```zig
+test "sstore EVM context integration"
+test "sstore called from contract execution"
+test "sstore hardfork behavior changes"
+test "sstore interaction with other opcodes"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "sstore error propagation"
+test "sstore proper error types returned"
+test "sstore handles corrupted state gracefully"
+test "sstore never panics on malformed input"
+```
+
+#### 6. **Performance Tests**
+```zig
+test "sstore performance with realistic workloads"
+test "sstore memory efficiency"
+test "sstore execution time bounds"
+test "sstore benchmark against reference implementations"
+```
+
+### Test Development Priority
+1. **Start with specification test vectors** - Ensures spec compliance from day one
+2. **Add core functionality tests** - Critical behavior verification
+3. **Implement gas/state management** - Economic and state security
+4. **Add performance benchmarks** - Ensures production readiness
+5. **Test error cases** - Robust error handling
+
+### Test Data Sources
+- **EIP/Specification test vectors**: Primary compliance verification
+- **Reference implementation tests**: Cross-client compatibility
+- **Ethereum test suite**: Official test cases
+- **Edge case generation**: Boundary value and malformed input testing
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Ensure 100% test coverage for all public functions
+- Validate performance benchmarks don't regress
+- Test both debug and release builds
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "sstore basic functionality" {
+    // This test MUST fail initially
+    const input = test_vectors.valid_input;
+    const expected = test_vectors.expected_output;
+    
+    const result = sstore(input);
+    try testing.expectEqual(expected, result);
+}
+```
+
+**Only then implement:**
+```zig
+pub fn sstore(input: InputType) !OutputType {
+    // Minimal implementation to make test pass
+    return error.NotImplemented; // Initially
+}
+```
+
 ## References
 
 - [EIP-2200: Structured Definitions for Net Gas Metering](https://eips.ethereum.org/EIPS/eip-2200)

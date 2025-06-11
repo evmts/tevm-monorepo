@@ -1068,6 +1068,120 @@ test "real consensus tests" {
 ✅ Performance meets or exceeds benchmarks
 ✅ Gas costs are calculated correctly
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/consensus/consensus_test_suite_test.zig`)
+```zig
+// Test basic consensus test suite functionality
+test "consensus_test_suite basic functionality works correctly"
+test "consensus_test_suite handles edge cases properly"
+test "consensus_test_suite validates inputs appropriately"
+test "consensus_test_suite produces correct outputs"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "consensus_test_suite integrates with EVM properly"
+test "consensus_test_suite maintains system compatibility"
+test "consensus_test_suite works with existing components"
+test "consensus_test_suite handles cross-system interactions"
+```
+
+#### 3. **Performance Tests**
+```zig
+test "consensus_test_suite meets performance requirements"
+test "consensus_test_suite optimizes resource usage"
+test "consensus_test_suite scales appropriately with load"
+test "consensus_test_suite benchmark vs baseline"
+```
+
+#### 4. **Compliance Tests**
+```zig
+test "consensus_test_suite meets specification requirements"
+test "consensus_test_suite maintains EVM compatibility"
+test "consensus_test_suite handles hardfork transitions"
+test "consensus_test_suite cross-client behavior consistency"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "consensus_test_suite handles errors gracefully"
+test "consensus_test_suite proper error propagation"
+test "consensus_test_suite recovery from failure states"
+test "consensus_test_suite validates error conditions"
+```
+
+#### 6. **Security Tests** (where applicable)
+```zig
+test "consensus_test_suite prevents security vulnerabilities"
+test "consensus_test_suite handles malicious inputs safely"
+test "consensus_test_suite maintains isolation boundaries"
+test "consensus_test_suite validates security properties"
+```
+
+### Test Development Priority
+1. **Core functionality** - Basic feature operation
+2. **Specification compliance** - Meet requirements
+3. **Integration** - System-level correctness
+4. **Performance** - Efficiency targets
+5. **Error handling** - Robust failures
+6. **Security** - Vulnerability prevention
+
+### Test Data Sources
+- **Specification documents**: Official requirements and test vectors
+- **Reference implementations**: Cross-client compatibility
+- **Performance baselines**: Optimization targets
+- **Real-world data**: Production scenarios
+- **Synthetic cases**: Edge conditions and stress testing
+
+### Continuous Testing
+- Run `zig build test-all` after every change
+- Maintain 100% test coverage for public APIs
+- Validate performance regression prevention
+- Test both debug and release builds
+- Verify cross-platform behavior
+
+### Test-First Examples
+
+**Before implementation:**
+```zig
+test "consensus_test_suite basic operation" {
+    // This test MUST fail initially
+    const input = test_data.validInput();
+    const expected = test_data.expectedOutput();
+    
+    const result = consensus_test_suite.process(input);
+    try testing.expectEqual(expected, result);
+}
+```
+
+**Then implement:**
+```zig
+pub const consensus_test_suite = struct {
+    pub fn process(input: InputType) !OutputType {
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Requirements
+- **Never commit without passing tests**
+- **Test all configuration paths**
+- **Verify specification compliance**
+- **Validate performance implications**
+- **Ensure cross-platform compatibility**
+
 ## References
 
 - [Ethereum Tests Repository](https://github.com/ethereum/tests) - Official test suite

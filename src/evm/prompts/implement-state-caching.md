@@ -1771,6 +1771,128 @@ test "integration with state operations" {
 ✅ Gas costs are calculated correctly
 
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/state/state_caching_test.zig`)
+```zig
+// Test basic state caching functionality
+test "state_caching basic cache operations with known scenarios"
+test "state_caching handles cache hit/miss correctly"
+test "state_caching validates cache invalidation rules"
+test "state_caching produces expected cache performance"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "state_caching integrates with EVM state operations"
+test "state_caching works with existing storage systems"
+test "state_caching maintains state consistency"
+test "state_caching handles cache coherency across operations"
+```
+
+#### 3. **Performance Tests**
+```zig
+test "state_caching meets cache performance targets"
+test "state_caching hit ratio optimization vs baseline"
+test "state_caching scalability under high state access load"
+test "state_caching benchmark cache eviction strategies"
+```
+
+#### 4. **Error Handling Tests**
+```zig
+test "state_caching proper cache failure error handling"
+test "state_caching handles cache corruption gracefully"
+test "state_caching graceful degradation on cache system failures"
+test "state_caching recovery from cache inconsistency"
+```
+
+#### 5. **Compliance Tests**
+```zig
+test "state_caching EVM specification state consistency compliance"
+test "state_caching cross-client state behavior consistency"
+test "state_caching hardfork state rule adherence"
+test "state_caching deterministic state access behavior"
+```
+
+#### 6. **Security Tests**
+```zig
+test "state_caching handles malicious cache access patterns safely"
+test "state_caching prevents cache timing attacks"
+test "state_caching validates cache-based information leakage prevention"
+test "state_caching maintains cache isolation properties"
+```
+
+### Test Development Priority
+1. **Core caching functionality tests** - Ensure basic cache operations work
+2. **Compliance tests** - Meet EVM specification state consistency requirements
+3. **Performance tests** - Achieve cache efficiency and hit ratio targets
+4. **Security tests** - Prevent cache-related vulnerabilities
+5. **Error handling tests** - Robust cache failure management
+6. **Edge case tests** - Handle cache boundary conditions
+
+### Test Data Sources
+- **EVM specification**: Official state consistency requirements
+- **Reference implementations**: Cross-client state caching compatibility data
+- **Performance baselines**: Cache hit ratio and access speed measurements
+- **Security test vectors**: Cache timing attack prevention cases
+- **Real-world scenarios**: Production state access pattern validation
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Maintain 100% test coverage for public state caching APIs
+- Validate cache performance regression prevention
+- Test debug and release builds with different cache configurations
+- Verify cross-platform cache behavior consistency
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "state_caching basic cache store and retrieve" {
+    // This test MUST fail initially
+    const cache = test_utils.createStateCache();
+    const key = StateKey{ .address = test_address, .slot = 0 };
+    const value: u256 = 42;
+    
+    state_caching.store(cache, key, value);
+    const result = state_caching.retrieve(cache, key);
+    try testing.expectEqual(value, result.?);
+}
+```
+
+**Only then implement:**
+```zig
+pub const state_caching = struct {
+    pub fn store(cache: *StateCache, key: StateKey, value: u256) !void {
+        // Minimal implementation to make test pass
+        return error.NotImplemented; // Initially
+    }
+    
+    pub fn retrieve(cache: *StateCache, key: StateKey) !?u256 {
+        // Minimal implementation
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Testing Notes
+- **Never commit without passing tests** (`zig build test-all`)
+- **Test all cache strategy combinations** - Especially for different eviction policies
+- **Verify EVM specification compliance** - Critical for protocol state correctness
+- **Test cache performance implications** - Especially for state access optimization
+- **Validate cache security properties** - Prevent cache-based side-channel attacks
+
 ## References
 
 - [Cache Replacement Policies](https://en.wikipedia.org/wiki/Cache_replacement_policies) - LRU, LFU, and other eviction strategies

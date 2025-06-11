@@ -1352,6 +1352,121 @@ test "integration with VM execution" {
 ✅ Gas costs are calculated correctly
 
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/config/runtime_flags_test.zig`)
+```zig
+// Test basic runtime flags functionality
+test "runtime_flags basic flag parsing with known scenarios"
+test "runtime_flags handles configuration validation correctly"
+test "runtime_flags validates flag combinations"
+test "runtime_flags produces expected behavior changes"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "runtime_flags integrates with EVM execution modes"
+test "runtime_flags works with existing optimization systems"
+test "runtime_flags maintains hardfork compatibility"
+test "runtime_flags handles dynamic configuration changes"
+```
+
+#### 3. **Performance Tests**
+```zig
+test "runtime_flags meets performance target variations"
+test "runtime_flags optimization flag effectiveness"
+test "runtime_flags scalability under different configurations"
+test "runtime_flags benchmark flag parsing overhead"
+```
+
+#### 4. **Error Handling Tests**
+```zig
+test "runtime_flags proper invalid configuration handling"
+test "runtime_flags handles conflicting flag combinations"
+test "runtime_flags graceful degradation on flag errors"
+test "runtime_flags recovery from configuration failures"
+```
+
+#### 5. **Compliance Tests**
+```zig
+test "runtime_flags EVM specification compliance across modes"
+test "runtime_flags cross-platform flag behavior consistency"
+test "runtime_flags hardfork rule adherence with flags"
+test "runtime_flags deterministic execution with flag combinations"
+```
+
+#### 6. **Security Tests**
+```zig
+test "runtime_flags handles malicious configuration safely"
+test "runtime_flags prevents privilege escalation via flags"
+test "runtime_flags validates security-sensitive flag combinations"
+test "runtime_flags maintains execution isolation with flags"
+```
+
+### Test Development Priority
+1. **Core flag functionality tests** - Ensure basic flag parsing and application works
+2. **Compliance tests** - Meet EVM specification requirements across configurations
+3. **Performance tests** - Achieve optimization targets with various flag combinations
+4. **Security tests** - Prevent configuration-based vulnerabilities
+5. **Error handling tests** - Robust configuration failure management
+6. **Edge case tests** - Handle flag boundary conditions
+
+### Test Data Sources
+- **EVM specification**: Official behavior requirements across configurations
+- **Reference implementations**: Cross-client flag compatibility data
+- **Performance baselines**: Optimization effectiveness measurements
+- **Security test vectors**: Configuration-based vulnerability prevention
+- **Real-world scenarios**: Production configuration pattern validation
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Maintain 100% test coverage for public runtime flag APIs
+- Validate performance impact of flag combinations
+- Test debug and release builds with different flag sets
+- Verify cross-platform flag behavior consistency
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "runtime_flags basic optimization flag application" {
+    // This test MUST fail initially
+    const flags = RuntimeFlags{ .optimize_memory = true, .debug_mode = false };
+    const context = test_utils.createEVMContext(flags);
+    
+    const result = runtime_flags.applyOptimizations(context);
+    try testing.expectEqual(ExpectedOptimization.Enabled, result.memory_optimization);
+}
+```
+
+**Only then implement:**
+```zig
+pub const runtime_flags = struct {
+    pub fn applyOptimizations(context: *EVMContext) !OptimizationResult {
+        // Minimal implementation to make test pass
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Testing Notes
+- **Never commit without passing tests** (`zig build test-all`)
+- **Test all flag configuration combinations** - Especially for complex flag interactions
+- **Verify EVM specification compliance** - Critical for protocol correctness across modes
+- **Test runtime performance implications** - Especially for optimization flag effectiveness
+- **Validate configuration security properties** - Prevent configuration-based exploits
+
 ## References
 
 - [Zig Comptime](https://ziglang.org/documentation/master/#comptime) - Compile-time evaluation in Zig

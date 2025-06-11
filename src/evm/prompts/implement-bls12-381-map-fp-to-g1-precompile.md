@@ -86,3 +86,106 @@ Output (128 bytes):
 ✅ Performance meets or exceeds benchmarks
 ✅ Gas costs are calculated correctly
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/precompiles/bls12_381_map_fp_to_g1_test.zig`)
+```zig
+// Test basic BLS12-381 MAP_FP_TO_G1 functionality
+test "bls12_381_map_fp_to_g1 basic functionality with known vectors"
+test "bls12_381_map_fp_to_g1 handles edge cases correctly"
+test "bls12_381_map_fp_to_g1 validates input format"
+test "bls12_381_map_fp_to_g1 produces correct output format"
+```
+
+#### 2. **Input Validation Tests**
+```zig
+test "bls12_381_map_fp_to_g1 handles various input lengths"
+test "bls12_381_map_fp_to_g1 validates cryptographic parameters"
+test "bls12_381_map_fp_to_g1 rejects invalid inputs gracefully"
+test "bls12_381_map_fp_to_g1 handles malformed field elements"
+```
+
+#### 3. **Cryptographic Correctness Tests**
+```zig
+test "bls12_381_map_fp_to_g1 mathematical correctness with test vectors"
+test "bls12_381_map_fp_to_g1 handles edge cases in field arithmetic"
+test "bls12_381_map_fp_to_g1 validates curve point membership"
+test "bls12_381_map_fp_to_g1 cryptographic security properties"
+```
+
+#### 4. **Integration Tests**
+```zig
+test "bls12_381_map_fp_to_g1 EVM context integration"
+test "bls12_381_map_fp_to_g1 called from contract execution"
+test "bls12_381_map_fp_to_g1 hardfork behavior changes"
+test "bls12_381_map_fp_to_g1 interaction with other precompiles"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "bls12_381_map_fp_to_g1 error propagation"
+test "bls12_381_map_fp_to_g1 proper error types returned"
+test "bls12_381_map_fp_to_g1 handles corrupted state gracefully"
+test "bls12_381_map_fp_to_g1 never panics on malformed input"
+```
+
+#### 6. **Performance Tests**
+```zig
+test "bls12_381_map_fp_to_g1 performance with realistic workloads"
+test "bls12_381_map_fp_to_g1 memory efficiency"
+test "bls12_381_map_fp_to_g1 execution time bounds"
+test "bls12_381_map_fp_to_g1 benchmark against reference implementations"
+```
+
+### Test Development Priority
+1. **Start with specification test vectors** - Ensures spec compliance from day one
+2. **Add core functionality tests** - Critical behavior verification
+3. **Implement gas/state management** - Economic and state security
+4. **Add performance benchmarks** - Ensures production readiness
+5. **Test error cases** - Robust error handling
+
+### Test Data Sources
+- **EIP/Specification test vectors**: Primary compliance verification
+- **Reference implementation tests**: Cross-client compatibility
+- **Ethereum test suite**: Official test cases
+- **Edge case generation**: Boundary value and malformed input testing
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Ensure 100% test coverage for all public functions
+- Validate performance benchmarks don't regress
+- Test both debug and release builds
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "bls12_381_map_fp_to_g1 basic functionality" {
+    // This test MUST fail initially
+    const input = test_vectors.valid_input;
+    const expected = test_vectors.expected_output;
+    
+    const result = bls12_381_map_fp_to_g1(input);
+    try testing.expectEqual(expected, result);
+}
+```
+
+**Only then implement:**
+```zig
+pub fn bls12_381_map_fp_to_g1(input: InputType) !OutputType {
+    // Minimal implementation to make test pass
+    return error.NotImplemented; // Initially
+}
+```
+

@@ -95,3 +95,117 @@ pub fn is_p256verify_available(chain_id: u64) bool {
 ✅ Performance meets or exceeds benchmarks
 ✅ Gas costs are calculated correctly
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/precompiles/op_stack_precompiles_test.zig`)
+```zig
+// Test basic OP Stack precompiles functionality
+test "op_stack_precompiles basic functionality works correctly"
+test "op_stack_precompiles handles edge cases properly"
+test "op_stack_precompiles validates inputs appropriately"
+test "op_stack_precompiles produces correct outputs"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "op_stack_precompiles integrates with EVM properly"
+test "op_stack_precompiles maintains system compatibility"
+test "op_stack_precompiles works with existing components"
+test "op_stack_precompiles handles cross-system interactions"
+```
+
+#### 3. **Performance Tests**
+```zig
+test "op_stack_precompiles meets performance requirements"
+test "op_stack_precompiles optimizes resource usage"
+test "op_stack_precompiles scales appropriately with load"
+test "op_stack_precompiles benchmark vs baseline"
+```
+
+#### 4. **Compliance Tests**
+```zig
+test "op_stack_precompiles meets specification requirements"
+test "op_stack_precompiles maintains EVM compatibility"
+test "op_stack_precompiles handles hardfork transitions"
+test "op_stack_precompiles cross-client behavior consistency"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "op_stack_precompiles handles errors gracefully"
+test "op_stack_precompiles proper error propagation"
+test "op_stack_precompiles recovery from failure states"
+test "op_stack_precompiles validates error conditions"
+```
+
+#### 6. **Security Tests** (where applicable)
+```zig
+test "op_stack_precompiles prevents security vulnerabilities"
+test "op_stack_precompiles handles malicious inputs safely"
+test "op_stack_precompiles maintains isolation boundaries"
+test "op_stack_precompiles validates security properties"
+```
+
+### Test Development Priority
+1. **Core functionality** - Basic feature operation
+2. **Specification compliance** - Meet requirements
+3. **Integration** - System-level correctness
+4. **Performance** - Efficiency targets
+5. **Error handling** - Robust failures
+6. **Security** - Vulnerability prevention
+
+### Test Data Sources
+- **Specification documents**: Official requirements and test vectors
+- **Reference implementations**: Cross-client compatibility
+- **Performance baselines**: Optimization targets
+- **Real-world data**: Production scenarios
+- **Synthetic cases**: Edge conditions and stress testing
+
+### Continuous Testing
+- Run `zig build test-all` after every change
+- Maintain 100% test coverage for public APIs
+- Validate performance regression prevention
+- Test both debug and release builds
+- Verify cross-platform behavior
+
+### Test-First Examples
+
+**Before implementation:**
+```zig
+test "op_stack_precompiles basic operation" {
+    // This test MUST fail initially
+    const input = test_data.validInput();
+    const expected = test_data.expectedOutput();
+    
+    const result = op_stack_precompiles.process(input);
+    try testing.expectEqual(expected, result);
+}
+```
+
+**Then implement:**
+```zig
+pub const op_stack_precompiles = struct {
+    pub fn process(input: InputType) !OutputType {
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Requirements
+- **Never commit without passing tests**
+- **Test all configuration paths**
+- **Verify specification compliance**
+- **Validate performance implications**
+- **Ensure cross-platform compatibility**
+

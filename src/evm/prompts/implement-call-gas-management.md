@@ -3165,3 +3165,119 @@ The original prompt's formula for gas forwarding is a good simplification, but t
 
 This corrected flow is important for matching mainnet behavior precisely.
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/gas/call_gas_management_test.zig`)
+```zig
+// Test basic call gas management functionality
+test "call_gas_management basic gas forwarding with known scenarios"
+test "call_gas_management handles 63/64 rule correctly"
+test "call_gas_management validates gas stipend calculations"
+test "call_gas_management produces expected gas consumption"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "call_gas_management integrates with EVM call operations"
+test "call_gas_management works with existing gas accounting"
+test "call_gas_management maintains hardfork compatibility"
+test "call_gas_management handles nested call gas propagation"
+```
+
+#### 3. **Performance Tests**
+```zig
+test "call_gas_management meets gas calculation speed targets"
+test "call_gas_management overhead measurement vs baseline"
+test "call_gas_management scalability under high call frequency"
+test "call_gas_management benchmark complex gas scenarios"
+```
+
+#### 4. **Error Handling Tests**
+```zig
+test "call_gas_management proper out-of-gas error handling"
+test "call_gas_management handles invalid gas amounts"
+test "call_gas_management graceful degradation on gas calculation errors"
+test "call_gas_management recovery from gas accounting failures"
+```
+
+#### 5. **Compliance Tests**
+```zig
+test "call_gas_management EVM specification gas rule compliance"
+test "call_gas_management cross-client gas behavior consistency"
+test "call_gas_management hardfork gas rule adherence"
+test "call_gas_management deterministic gas calculations"
+```
+
+#### 6. **Security Tests**
+```zig
+test "call_gas_management handles malicious gas requests safely"
+test "call_gas_management prevents gas manipulation attacks"
+test "call_gas_management validates gas-based DoS prevention"
+test "call_gas_management maintains gas isolation properties"
+```
+
+### Test Development Priority
+1. **Core gas management functionality tests** - Ensure basic gas forwarding works
+2. **Compliance tests** - Meet EVM specification gas requirements
+3. **Performance tests** - Achieve gas calculation efficiency targets
+4. **Security tests** - Prevent gas-related vulnerabilities
+5. **Error handling tests** - Robust gas failure management
+6. **Edge case tests** - Handle gas boundary conditions
+
+### Test Data Sources
+- **EVM specification**: Official gas calculation requirements
+- **Reference implementations**: Cross-client gas compatibility data
+- **Performance baselines**: Gas calculation speed measurements
+- **Security test vectors**: Gas manipulation prevention cases
+- **Real-world scenarios**: Production gas usage pattern validation
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Maintain 100% test coverage for public gas management APIs
+- Validate gas calculation accuracy regression prevention
+- Test debug and release builds with different gas scenarios
+- Verify cross-platform gas calculation consistency
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "call_gas_management basic 63/64 rule application" {
+    // This test MUST fail initially
+    const available_gas: u64 = 10000;
+    const requested_gas: u64 = 8000;
+    
+    const result = call_gas_management.calculateForwardedGas(available_gas, requested_gas);
+    const expected = available_gas - (available_gas / 64); // 63/64 rule
+    try testing.expectEqual(@min(requested_gas, expected), result.forwarded_gas);
+}
+```
+
+**Only then implement:**
+```zig
+pub const call_gas_management = struct {
+    pub fn calculateForwardedGas(available: u64, requested: u64) !GasCalculationResult {
+        // Minimal implementation to make test pass
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Testing Notes
+- **Never commit without passing tests** (`zig build test-all`)
+- **Test all gas rule combinations** - Especially for different hardforks
+- **Verify EVM specification compliance** - Critical for protocol gas correctness
+- **Test gas performance implications** - Especially for high-frequency call scenarios
+- **Validate gas security properties** - Prevent gas manipulation and DoS attacks
+

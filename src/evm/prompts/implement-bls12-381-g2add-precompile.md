@@ -2458,3 +2458,129 @@ One important point of context to add is the status of EIP-2537. While go-ethere
 
 This context is important for the implementer to understand that they are working on a feature for a future hardfork. The provided go-ethereum snippets serve as an excellent, production-ready reference for this implementation. The `g2BytesToPoint` function is particularly critical as it defines how to correctly parse and validate the input points, including handling the point at infinity.
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/precompiles/bls12_381_g2_add_test.zig`)
+```zig
+// Test basic G2 point addition functionality
+test "bls12_381_g2_add basic functionality with known vectors"
+test "bls12_381_g2_add handles edge cases correctly"
+test "bls12_381_g2_add validates input format"
+test "bls12_381_g2_add produces correct output format"
+```
+
+#### 2. **Input Validation Tests**
+```zig
+test "bls12_381_g2_add handles various input lengths"
+test "bls12_381_g2_add validates input parameters"
+test "bls12_381_g2_add rejects invalid inputs gracefully"
+test "bls12_381_g2_add handles empty input"
+```
+
+#### 3. **Gas Calculation Tests**
+```zig
+test "bls12_381_g2_add gas cost calculation accuracy"
+test "bls12_381_g2_add gas cost edge cases"
+test "bls12_381_g2_add gas overflow protection"
+test "bls12_381_g2_add gas deduction in EVM context"
+```
+
+#### 4. **Specification Compliance Tests**
+```zig
+test "bls12_381_g2_add matches specification test vectors"
+test "bls12_381_g2_add matches reference implementation output"
+test "bls12_381_g2_add hardfork availability requirements"
+test "bls12_381_g2_add address registration correct"
+```
+
+#### 5. **Elliptic Curve/Cryptographic Tests**
+```zig
+test "bls12_381_g2_add handles point at infinity correctly"
+test "bls12_381_g2_add validates points on curve"
+test "bls12_381_g2_add handles invalid curve points"
+test "bls12_381_g2_add cryptographic edge cases"
+```
+
+#### 6. **Performance Tests**
+```zig
+test "bls12_381_g2_add performance with large inputs"
+test "bls12_381_g2_add memory efficiency"
+test "bls12_381_g2_add WASM bundle size impact"
+test "bls12_381_g2_add benchmark against reference implementations"
+```
+
+#### 7. **Error Handling Tests**
+```zig
+test "bls12_381_g2_add error propagation"
+test "bls12_381_g2_add proper error types returned"
+test "bls12_381_g2_add handles corrupted input gracefully"
+test "bls12_381_g2_add never panics on malformed input"
+```
+
+#### 8. **Integration Tests**
+```zig
+test "bls12_381_g2_add precompile registration"
+test "bls12_381_g2_add called from EVM execution"
+test "bls12_381_g2_add gas deduction in EVM context"
+test "bls12_381_g2_add hardfork availability"
+```
+
+### Test Development Priority
+1. **Start with EIP test vectors** - Ensures spec compliance from day one
+2. **Add cryptographic validation** - Critical for elliptic curve operations
+3. **Implement gas calculation** - Core economic security
+4. **Add performance benchmarks** - Ensures production readiness
+5. **Test error cases** - Robust error handling
+
+### Test Data Sources
+- **EIP test vectors**: Primary compliance verification (EIP-2537)
+- **Reference implementation tests**: Cross-client compatibility
+- **Cryptographic test vectors**: Mathematical correctness
+- **Edge case generation**: Boundary value and malformed input testing
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Ensure 100% test coverage for all public functions
+- Validate performance benchmarks don't regress
+- Test both debug and release builds
+- Verify cryptographic correctness with known vectors
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "bls12_381_g2_add basic functionality" {
+    // This test MUST fail initially
+    const input = test_vectors.valid_curve_points;
+    const expected = test_vectors.expected_result;
+    
+    const result = bls12_381_g2_add.run(input);
+    try testing.expectEqualSlices(u8, expected, result);
+}
+```
+
+**Only then implement:**
+```zig
+pub fn run(input: []const u8) ![]u8 {
+    // Minimal implementation to make test pass
+    return error.NotImplemented; // Initially
+}
+```
+
+### Critical Testing Notes
+- **Cryptographic correctness is paramount** - Never compromise on test coverage
+- **Test against malicious inputs** - Elliptic curve operations are security-critical
+- **Verify constant-time execution** - Prevent timing attack vulnerabilities
+- **Test hardfork transitions** - Ensure availability at correct block numbers
+

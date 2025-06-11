@@ -1137,6 +1137,122 @@ test "l2 gas models" {
 ✅ Gas costs are calculated correctly
 
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/l2_chain_support/l2_chain_support_test.zig`)
+```zig
+// Test basic L2 chain support functionality
+test "l2_chain_support basic chain configuration with known scenarios"
+test "l2_chain_support handles L2-specific opcodes correctly"
+test "l2_chain_support validates L2 transaction types"
+test "l2_chain_support produces expected L2 fee calculations"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "l2_chain_support integrates with EVM execution"
+test "l2_chain_support works with existing gas calculations"
+test "l2_chain_support maintains hardfork compatibility"
+test "l2_chain_support handles L2-specific precompiles"
+```
+
+#### 3. **Performance Tests**
+```zig
+test "l2_chain_support meets L2 throughput targets"
+test "l2_chain_support memory usage for L2 data structures"
+test "l2_chain_support scalability under L2 transaction load"
+test "l2_chain_support benchmark vs L1 baseline"
+```
+
+#### 4. **Error Handling Tests**
+```zig
+test "l2_chain_support proper L2 error propagation"
+test "l2_chain_support handles invalid L2 configurations"
+test "l2_chain_support graceful degradation on L2 service failure"
+test "l2_chain_support recovery from L2 network partitions"
+```
+
+#### 5. **Compliance Tests**
+```zig
+test "l2_chain_support Optimism specification compliance"
+test "l2_chain_support Arbitrum specification compliance"
+test "l2_chain_support zkSync specification compliance"
+test "l2_chain_support cross-L2 compatibility behavior"
+```
+
+#### 6. **Security Tests**
+```zig
+test "l2_chain_support handles malicious L2 transactions safely"
+test "l2_chain_support prevents L2-specific resource exhaustion"
+test "l2_chain_support validates L2 bridge security boundaries"
+test "l2_chain_support maintains L1/L2 isolation properties"
+```
+
+### Test Development Priority
+1. **Core L2 functionality tests** - Ensure basic L2 features work
+2. **Compliance tests** - Meet L2 specification requirements
+3. **Performance tests** - Achieve L2 efficiency targets
+4. **Security tests** - Prevent L2-specific vulnerabilities
+5. **Error handling tests** - Robust L2 failure management
+6. **Edge case tests** - Handle L2 boundary conditions
+
+### Test Data Sources
+- **L2 specifications**: Optimism, Arbitrum, zkSync protocol requirements
+- **Reference implementations**: Cross-L2 compatibility data
+- **Performance baselines**: L2 throughput and latency targets
+- **Security test vectors**: L2-specific vulnerability prevention
+- **Real-world L2 scenarios**: Production L2 transaction validation
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Maintain 100% test coverage for public L2 APIs
+- Validate L2 performance regression prevention
+- Test debug and release builds
+- Verify L2 cross-platform compatibility
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "l2_chain_support basic Optimism transaction processing" {
+    // This test MUST fail initially
+    const config = test_config.optimismConfig();
+    const context = test_utils.createEVMContext(config);
+    
+    const l2_tx = test_utils.createOptimismDepositTx();
+    const result = l2_chain_support.processL2Transaction(context, l2_tx);
+    try testing.expectEqual(expected_l2_behavior, result);
+}
+```
+
+**Only then implement:**
+```zig
+pub const l2_chain_support = struct {
+    pub fn processL2Transaction(context: *EVMContext, tx: L2Transaction) !L2ResultType {
+        // Minimal implementation to make test pass
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Testing Notes
+- **Never commit without passing tests** (`zig build test-all`)
+- **Test all L2 configuration combinations** - Especially for multi-L2 support
+- **Verify L2 specification compliance** - Critical for L2 protocol correctness
+- **Test L2 performance implications** - Especially for throughput optimizations
+- **Validate L2 security properties** - Prevent L2-specific vulnerabilities and exploits
+
 ## References
 
 - [Optimism Specs](https://github.com/ethereum-optimism/optimism/tree/develop/specs) - OP Stack specification

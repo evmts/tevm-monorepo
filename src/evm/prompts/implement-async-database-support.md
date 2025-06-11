@@ -1349,6 +1349,128 @@ test "integration with VM execution" {
 ✅ Performance meets or exceeds benchmarks
 ✅ Gas costs are calculated correctly
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/async_database/async_database_test.zig`)
+```zig
+// Test basic async database functionality
+test "async_database basic functionality with known scenarios"
+test "async_database handles edge cases correctly"
+test "async_database validates state changes"
+test "async_database correct behavior under load"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "async_database integrates with EVM context correctly"
+test "async_database works with existing systems"
+test "async_database maintains backward compatibility"
+test "async_database handles system interactions"
+```
+
+#### 3. **State Management Tests**
+```zig
+test "async_database state transitions work correctly"
+test "async_database handles concurrent state access"
+test "async_database maintains state consistency"
+test "async_database reverts state on failure"
+```
+
+#### 4. **Performance Tests**
+```zig
+test "async_database performance with realistic workloads"
+test "async_database memory efficiency and allocation patterns"
+test "async_database scalability under high load"
+test "async_database benchmark against baseline implementation"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "async_database error propagation works correctly"
+test "async_database proper error types returned"
+test "async_database handles resource exhaustion gracefully"
+test "async_database recovery from failure states"
+```
+
+#### 6. **Concurrency Tests** (for async/multi-threaded features)
+```zig
+test "async_database thread safety verification"
+test "async_database async operation correctness"
+test "async_database handles race conditions properly"
+test "async_database deadlock prevention"
+```
+
+#### 7. **Transaction Tests**
+```zig
+test "async_database maintains EVM specification compliance"
+test "async_database transaction isolation correctness"
+test "async_database batch operation efficiency"
+test "async_database connection pooling behavior"
+```
+
+### Test Development Priority
+1. **Start with core async interface tests** - Ensures basic async operations work
+2. **Add transaction management tests** - Verifies ACID properties and rollback
+3. **Implement connection pooling tests** - Critical for resource management
+4. **Add performance benchmarks** - Ensures production readiness
+5. **Test concurrency and race conditions** - Robust async operation
+6. **Add integration tests** - System-level correctness verification
+
+### Test Data Sources
+- **EVM specification requirements**: State operation compliance
+- **Reference implementation behavior**: Database interaction patterns
+- **Performance benchmarks**: Async operation throughput and latency
+- **Real-world scenarios**: Transaction batching and state access patterns
+- **Edge case generation**: Boundary testing for connection limits and timeouts
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Ensure 100% test coverage for all public APIs
+- Validate performance benchmarks don't regress
+- Test both debug and release builds
+- Verify memory safety and leak detection
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "async_database basic functionality" {
+    // This test MUST fail initially
+    const context = test_utils.createTestContext();
+    var async_db = AsyncStateInterface.init(context.allocator);
+    
+    const result = try async_db.get_account_async(test_address);
+    try testing.expect(result.is_pending());
+}
+```
+
+**Only then implement:**
+```zig
+pub const AsyncStateInterface = struct {
+    pub fn get_account_async(self: *AsyncStateInterface, address: Address) !AsyncResult(Account) {
+        // Minimal implementation to make test pass
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Testing Requirements
+- **Never commit until all tests pass** with `zig build test-all`
+- **Test async correctness thoroughly** - Architecture changes affect whole EVM execution
+- **Verify transaction isolation** - Especially important for concurrent database access
+- **Test performance implications** - Ensure async optimizations don't break correctness
+- **Validate connection management** - Critical for resource cleanup and pooling
 
 ## References
 

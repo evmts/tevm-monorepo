@@ -1870,6 +1870,156 @@ test "integration with VM execution" {
 ✅ Performance meets or exceeds benchmarks
 ✅ Gas costs are calculated correctly
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/interpreter/action_system_test.zig`)
+```zig
+// Test basic action system functionality
+test "action_manager basic functionality with known scenarios"
+test "action_manager handles edge cases correctly"
+test "action_manager validates input parameters"
+test "action_manager produces correct output format"
+test "action_registry handles action registration"
+test "validation_engine validates actions correctly"
+test "optimization_engine optimizes action execution"
+test "performance_tracker tracks action metrics"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "action_system integrates with EVM execution context"
+test "action_system works with existing EVM systems"
+test "action_system maintains compatibility with hardforks"
+test "action_system handles system-level interactions"
+test "action_validation integrates with gas accounting"
+test "action_optimization preserves execution semantics"
+test "action_tracing integrates with debugging systems"
+test "action_caching maintains consistency with state"
+```
+
+#### 3. **Functional Tests**
+```zig
+test "action_system end-to-end functionality works correctly"
+test "action_system handles realistic usage scenarios"
+test "action_system maintains behavior under load"
+test "action_system processes complex inputs correctly"
+test "call_action executes contract calls correctly"
+test "create_action creates contracts correctly" 
+test "staticcall_action preserves read-only semantics"
+test "delegatecall_action maintains caller context"
+```
+
+#### 4. **Performance Tests**
+```zig
+test "action_system meets performance requirements"
+test "action_system memory usage within bounds"
+test "action_system scalability with large inputs"
+test "action_system benchmark against baseline"
+test "action_caching improves performance"
+test "action_validation overhead acceptable"
+test "action_optimization provides measurable gains"
+test "action_depth_limit prevents stack overflow"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "action_system error propagation works correctly"
+test "action_system proper error types and messages"
+test "action_system graceful handling of invalid inputs"
+test "action_system recovery from failure states"
+test "action_validation rejects invalid actions"
+test "action_execution handles gas exhaustion"
+test "action_system handles recursive calls correctly"
+test "action_system detects and prevents reentrancy"
+```
+
+#### 6. **Compatibility Tests**
+```zig
+test "action_system maintains EVM specification compliance"
+test "action_system cross-client behavior consistency"
+test "action_system backward compatibility preserved"
+test "action_system platform-specific behavior verified"
+test "action_results match reference implementations"
+test "action_gas_costs match Ethereum specifications"
+test "action_validation follows EIP requirements"
+test "action_semantics consistent across hardforks"
+```
+
+### Test Development Priority
+1. **Start with core functionality** - Ensure basic action execution works correctly
+2. **Add integration tests** - Verify system-level interactions with EVM context
+3. **Implement performance tests** - Meet efficiency requirements for action processing
+4. **Add error handling tests** - Robust failure management for invalid actions
+5. **Test edge cases** - Handle boundary conditions like maximum call depth
+6. **Verify compatibility** - Ensure specification compliance and cross-client consistency
+
+### Test Data Sources
+- **EVM specification requirements**: Action behavior and gas cost verification
+- **Reference implementation data**: Cross-client compatibility testing
+- **Performance benchmarks**: Action execution efficiency baseline
+- **Real-world contract scenarios**: Production use case validation
+- **Edge case synthetic tests**: Boundary condition and stress testing
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Ensure 100% test coverage for all public APIs
+- Validate performance benchmarks don't regress
+- Test both debug and release builds
+- Verify cross-platform compatibility
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "action_manager basic functionality" {
+    // This test MUST fail initially
+    const allocator = testing.allocator;
+    const context = test_utils.createTestEVMContext(allocator);
+    defer context.deinit();
+    
+    var action_manager = ActionManager.init(allocator, ActionManager.ActionConfig.default());
+    defer action_manager.deinit();
+    
+    const call_action = CallAction{
+        .caller = test_data.caller_address,
+        .target = test_data.target_address,
+        .value = 0,
+        .input = test_data.call_input,
+        .gas_limit = 100000,
+    };
+    
+    const result = action_manager.execute(context, Action{ .call = call_action });
+    try testing.expectEqual(test_data.expected_result, result);
+}
+```
+
+**Only then implement:**
+```zig
+pub const ActionManager = struct {
+    pub fn execute(self: *ActionManager, context: *EVMContext, action: Action) !ActionResult {
+        // Minimal implementation to make test pass
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Testing Requirements
+- **Never commit until all tests pass** with `zig build test-all`
+- **Test action validation logic** - Ensure proper parameter validation
+- **Verify action optimization correctness** - Optimizations must preserve semantics
+- **Test cross-platform action behavior** - Ensure consistent results across platforms
+- **Validate integration points** - Test all external interfaces thoroughly
 
 ## References
 

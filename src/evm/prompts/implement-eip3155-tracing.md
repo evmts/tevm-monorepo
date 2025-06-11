@@ -112,3 +112,117 @@ pub fn execute_with_tracing(vm: *VM, tracer: *EIP3155Tracer) !ExecutionResult {
 ✅ Performance meets or exceeds benchmarks
 ✅ Gas costs are calculated correctly
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/tracing/eip3155_tracing_test.zig`)
+```zig
+// Test basic EIP3155 tracing functionality
+test "eip3155_tracing basic functionality works correctly"
+test "eip3155_tracing handles edge cases properly"
+test "eip3155_tracing validates inputs appropriately"
+test "eip3155_tracing produces correct outputs"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "eip3155_tracing integrates with EVM properly"
+test "eip3155_tracing maintains system compatibility"
+test "eip3155_tracing works with existing components"
+test "eip3155_tracing handles cross-system interactions"
+```
+
+#### 3. **Performance Tests**
+```zig
+test "eip3155_tracing meets performance requirements"
+test "eip3155_tracing optimizes resource usage"
+test "eip3155_tracing scales appropriately with load"
+test "eip3155_tracing benchmark vs baseline"
+```
+
+#### 4. **Compliance Tests**
+```zig
+test "eip3155_tracing meets specification requirements"
+test "eip3155_tracing maintains EVM compatibility"
+test "eip3155_tracing handles hardfork transitions"
+test "eip3155_tracing cross-client behavior consistency"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "eip3155_tracing handles errors gracefully"
+test "eip3155_tracing proper error propagation"
+test "eip3155_tracing recovery from failure states"
+test "eip3155_tracing validates error conditions"
+```
+
+#### 6. **Security Tests** (where applicable)
+```zig
+test "eip3155_tracing prevents security vulnerabilities"
+test "eip3155_tracing handles malicious inputs safely"
+test "eip3155_tracing maintains isolation boundaries"
+test "eip3155_tracing validates security properties"
+```
+
+### Test Development Priority
+1. **Core functionality** - Basic feature operation
+2. **Specification compliance** - Meet requirements
+3. **Integration** - System-level correctness
+4. **Performance** - Efficiency targets
+5. **Error handling** - Robust failures
+6. **Security** - Vulnerability prevention
+
+### Test Data Sources
+- **Specification documents**: Official requirements and test vectors
+- **Reference implementations**: Cross-client compatibility
+- **Performance baselines**: Optimization targets
+- **Real-world data**: Production scenarios
+- **Synthetic cases**: Edge conditions and stress testing
+
+### Continuous Testing
+- Run `zig build test-all` after every change
+- Maintain 100% test coverage for public APIs
+- Validate performance regression prevention
+- Test both debug and release builds
+- Verify cross-platform behavior
+
+### Test-First Examples
+
+**Before implementation:**
+```zig
+test "eip3155_tracing basic operation" {
+    // This test MUST fail initially
+    const input = test_data.validInput();
+    const expected = test_data.expectedOutput();
+    
+    const result = eip3155_tracing.process(input);
+    try testing.expectEqual(expected, result);
+}
+```
+
+**Then implement:**
+```zig
+pub const eip3155_tracing = struct {
+    pub fn process(input: InputType) !OutputType {
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Requirements
+- **Never commit without passing tests**
+- **Test all configuration paths**
+- **Verify specification compliance**
+- **Validate performance implications**
+- **Ensure cross-platform compatibility**
+

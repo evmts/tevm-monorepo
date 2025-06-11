@@ -1470,6 +1470,159 @@ test "integration with VM execution" {
 ✅ Performance meets or exceeds benchmarks
 ✅ Gas costs are calculated correctly
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/chain/custom_chain_framework_test.zig`)
+```zig
+// Test basic custom chain functionality
+test "chain_definition basic functionality with known scenarios"
+test "chain_definition handles edge cases correctly"
+test "chain_definition validates input parameters"
+test "chain_definition produces correct output format"
+test "consensus_rules validate chain behavior"
+test "opcode_registry manages custom opcodes"
+test "gas_schedule calculates costs correctly"
+test "precompile_registry handles custom precompiles"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "custom_chain integrates with EVM execution context"
+test "custom_chain works with existing EVM systems"
+test "custom_chain maintains compatibility with hardforks"
+test "custom_chain handles system-level interactions"
+test "chain_validator ensures configuration consistency"
+test "extension_manager loads plugins correctly"
+test "chain_migration preserves state across updates"
+test "multi_chain supports parallel execution"
+```
+
+#### 3. **Functional Tests**
+```zig
+test "custom_chain end-to-end functionality works correctly"
+test "custom_chain handles realistic usage scenarios"
+test "custom_chain maintains behavior under load"
+test "custom_chain processes complex inputs correctly"
+test "l2_rollup_chain executes transactions correctly"
+test "sidechain_setup configures correctly"
+test "private_chain maintains privacy"
+test "testnet_configuration supports development"
+```
+
+#### 4. **Performance Tests**
+```zig
+test "custom_chain meets performance requirements"
+test "custom_chain memory usage within bounds"
+test "custom_chain scalability with large inputs"
+test "custom_chain benchmark against baseline"
+test "chain_switching_overhead acceptable"
+test "custom_opcode_performance optimal"
+test "precompile_execution_speed satisfactory"
+test "consensus_algorithm_efficiency adequate"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "custom_chain error propagation works correctly"
+test "custom_chain proper error types and messages"
+test "custom_chain graceful handling of invalid inputs"
+test "custom_chain recovery from failure states"
+test "chain_validation rejects invalid configurations"
+test "custom_opcodes handle execution errors"
+test "precompile_errors propagate correctly"
+test "consensus_failures trigger fallbacks"
+```
+
+#### 6. **Compatibility Tests**
+```zig
+test "custom_chain maintains EVM specification compliance"
+test "custom_chain cross-client behavior consistency"
+test "custom_chain backward compatibility preserved"
+test "custom_chain platform-specific behavior verified"
+test "chain_interoperability works correctly"
+test "standard_evm_compatibility maintained"
+test "hardfork_compatibility preserved"
+test "client_compatibility ensured"
+```
+
+### Test Development Priority
+1. **Start with core functionality** - Ensure basic chain definition and configuration works correctly
+2. **Add integration tests** - Verify system-level interactions with EVM execution
+3. **Implement performance tests** - Meet efficiency requirements for custom chain operations
+4. **Add error handling tests** - Robust failure management for invalid configurations
+5. **Test edge cases** - Handle boundary conditions like chain migration and upgrade scenarios
+6. **Verify compatibility** - Ensure EVM specification compliance and client compatibility
+
+### Test Data Sources
+- **EVM specification requirements**: Core compatibility and behavior verification
+- **Reference implementation data**: Cross-client compatibility testing
+- **Performance benchmarks**: Custom chain execution efficiency baseline
+- **Real-world chain configurations**: L2 and sidechain validation scenarios
+- **Synthetic test cases**: Edge condition and stress testing
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Ensure 100% test coverage for all public APIs
+- Validate performance benchmarks don't regress
+- Test both debug and release builds
+- Verify cross-platform compatibility
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "chain_definition basic functionality" {
+    // This test MUST fail initially
+    const allocator = testing.allocator;
+    
+    var chain_def = ChainDefinition.init(allocator, test_data.l2_chain_config);
+    defer chain_def.deinit();
+    
+    const custom_opcode = CustomOpcode{
+        .opcode = 0xF0,
+        .name = "CUSTOM_ADD",
+        .gas_cost = 5,
+        .implementation = test_implementations.custom_add,
+    };
+    
+    try chain_def.registerCustomOpcode(custom_opcode);
+    
+    const is_registered = chain_def.hasOpcode(0xF0);
+    try testing.expect(is_registered);
+    
+    const opcode_info = chain_def.getOpcodeInfo(0xF0);
+    try testing.expectEqualStrings("CUSTOM_ADD", opcode_info.name);
+    try testing.expectEqual(@as(u64, 5), opcode_info.gas_cost);
+}
+```
+
+**Only then implement:**
+```zig
+pub const ChainDefinition = struct {
+    pub fn registerCustomOpcode(self: *ChainDefinition, opcode: CustomOpcode) !void {
+        // Minimal implementation to make test pass
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Testing Requirements
+- **Never commit until all tests pass** with `zig build test-all`
+- **Test custom chain configuration** - Ensure proper chain parameter validation
+- **Verify opcode and precompile correctness** - Custom implementations must be secure
+- **Test cross-platform chain behavior** - Ensure consistent results across platforms
+- **Validate integration points** - Test all external interfaces thoroughly
 
 ## References
 

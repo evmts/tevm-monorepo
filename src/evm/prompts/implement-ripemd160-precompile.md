@@ -1787,11 +1787,18 @@ func LeftPadBytes(slice []byte, l int) []byte {
 
 ### Recommended Approach: WASM RIPEMD160 Library
 
-**Primary Option: WASM RIPEMD160 Implementation**
-- 🎯 **Library**: [ripemd160-wasm](https://github.com/emn178/ripemd160-wasm) or [noble-hashes RIPEMD160](https://github.com/paulmillr/noble-hashes)
-- ✅ **Pros**: Optimized for WASM, proven implementation, relatively small bundle size
-- ⚠️ **Tradeoffs**: External dependency, moderate bundle size increase (~20-50KB)
-- 🎯 **Compatibility**: Full WASM support, well-tested in JavaScript ecosystems
+**Primary Option: noble-hashes RIPEMD160 (Recommended)**
+- 🎯 **Library**: [@noble/hashes/legacy.js](https://github.com/paulmillr/noble-hashes) RIPEMD160 implementation
+- ✅ **Pros**: 
+  - Part of well-maintained cryptographic library suite
+  - TypeScript/WASM compatible with Uint8Array support  
+  - Small bundle impact (~20KB gzipped for full library)
+  - Simple API: `ripemd160(input)` or `.create().update().digest()` pattern
+- ⚠️ **Tradeoffs**: 
+  - External dependency on JavaScript crypto library
+  - Library warns RIPEMD160 is "weak" - collision risk with 2^80 effort
+  - Explicitly warns "Don't use in new protocols" (but Ethereum compatibility requires it)
+- 📦 **Bundle Impact**: ~20KB additional WASM (part of full noble-hashes library)
 
 **Why WASM is Necessary**
 - ❌ **Zig stdlib**: RIPEMD160 is NOT available in Zig standard library (only SHA family hashes)
@@ -1806,21 +1813,40 @@ Following Tevm's preference hierarchy for RIPEMD160 (0x03):
 4. ✅ **WASM library (recommended)** - Only viable option for secure implementation
 
 ### Investigation Steps
-1. **Evaluate WASM options**: Test ripemd160-wasm vs noble-hashes performance and size
-2. **Bundle size analysis**: Measure actual WASM size impact (~20-50KB expected)
-3. **Security verification**: Ensure chosen library has audit history and test vectors
-4. **Integration testing**: Verify WASM bindings work correctly with Zig
+1. **Setup noble-hashes integration**: Import RIPEMD160 from `@noble/hashes/legacy.js`
+2. **API integration**: Test both simple `ripemd160(Uint8Array)` and streaming `.create().update().digest()` patterns
+3. **Bundle size verification**: Confirm ~20KB impact for full noble-hashes library
+4. **Security assessment**: Acknowledge RIPEMD160 weakness while ensuring implementation correctness
+5. **WASM compatibility testing**: Verify Uint8Array handling works correctly in Zig/WASM environment
+6. **Performance validation**: Ensure adequate performance for Ethereum gas costs (600 + 120*words)
 
 ### Critical Implementation Notes
-- **Gas Formula**: `600 + 120 * ceil(input_size / 32)` (much higher than SHA256)
-- **Legacy Algorithm**: RIPEMD160 is older and less common than SHA256
-- **Security Consideration**: Must use well-audited implementation due to cryptographic nature
-- **Bundle Size vs Security**: Acceptable moderate size increase for secure implementation
+- **Gas Formula**: `600 + 120 * ceil(input_size / 32)` (much higher than SHA256 due to performance characteristics)
+- **Legacy Algorithm**: RIPEMD160 is older, weaker, and less common than SHA256
+- **Security Warning**: noble-hashes explicitly warns about RIPEMD160 weakness (2^80 collision effort)
+- **Ethereum Requirement**: Despite weakness, required for Ethereum compatibility with existing contracts
+- **Bundle Size Trade-off**: ~20KB increase acceptable for full Ethereum compatibility
 
 ### Expected Bundle Impact
-- **Size**: ~20-50KB additional WASM (estimated)
-- **Performance**: Should be adequate for the gas costs charged
-- **Maintenance**: External dependency requires monitoring for updates
+- **Size**: ~20KB additional WASM (noble-hashes library)
+- **Performance**: Adequate for gas costs (600 + 120*words pricing accounts for slower algorithm)
+- **Maintenance**: External dependency requires monitoring noble-hashes updates
+- **API Pattern**: Simple `ripemd160(input)` function call or streaming API available
+
+### API Usage Pattern (from noble-hashes)
+```typescript
+import { ripemd160 } from '@noble/hashes/legacy.js';
+
+// Simple usage
+const input = Uint8Array.from([0x10, 0x20, 0x30]);
+const hash = ripemd160(input); // Returns 20-byte hash
+
+// Streaming usage  
+const hasher = ripemd160.create();
+hasher.update(data1);
+hasher.update(data2);
+const hash = hasher.digest(); // Returns 20-byte hash
+```
 
 ### Alternative Fallback
 If bundle size becomes critical, could potentially gate RIPEMD160 behind a feature flag, but this would break Ethereum compatibility.

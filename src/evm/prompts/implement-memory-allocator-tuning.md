@@ -714,6 +714,568 @@ pub const AllocationStatistics = struct {
 };
 ```
 
+## Production-Ready Memory Allocation Patterns
+
+The following sections provide detailed implementation patterns extracted from production EVM implementations (REVM, EVMOne, Geth) and our existing Zig codebase for building high-performance memory allocator tuning.
+
+### Geth Object Pool Patterns
+
+<explanation>
+Go-Ethereum demonstrates sophisticated object pooling with sync.Pool for Stack, Memory, and buffer reuse. Key patterns include capacity-based retention policies, size filtering for pool efficiency, and automatic pool management with garbage collection integration.
+</explanation>
+
+**Stack Pool Implementation** (Geth Pattern):
+```zig
+// Equivalent Zig pattern for Geth's stack pooling
+pub const StackPool = struct {
+    const POOL_CAPACITY = 1024; // Fixed capacity from Geth
+    const MAX_STACK_ITEMS = 1024; // Standard EVM stack limit
+    
+    pool: std.ArrayList(*Stack),
+    allocator: std.mem.Allocator,
+    
+    pub fn init(allocator: std.mem.Allocator) StackPool {
+        return StackPool{
+            .pool = std.ArrayList(*Stack).init(allocator),
+            .allocator = allocator,
+        };
+    }
+    
+    pub fn get(self: *StackPool) !*Stack {
+        if (self.pool.items.len > 0) {
+            const stack = self.pool.pop();
+            stack.reset(); // Clear but retain capacity
+            return stack;
+        }
+        
+        // Create new stack if pool is empty
+        const stack = try self.allocator.create(Stack);
+        stack.* = try Stack.init(self.allocator, MAX_STACK_ITEMS);
+        return stack;
+    }
+    
+    pub fn put(self: *StackPool, stack: *Stack) void {
+        // Geth pattern: only retain if under capacity
+        if (self.pool.items.len < POOL_CAPACITY) {
+            self.pool.append(stack) catch {
+                // If append fails, destroy the stack
+                stack.deinit();
+                self.allocator.destroy(stack);
+                return;
+            };
+        } else {
+            // Pool is full, destroy the stack
+            stack.deinit();
+            self.allocator.destroy(stack);
+        }
+    }
+};
+```
+
+**Memory Pool with Size-Based Retention** (Geth Pattern):
+```zig
+// Geth retains Memory objects only if they're under 16KB
+pub const MemoryPool = struct {
+    const MAX_RETAINED_SIZE = 16 * 1024; // 16KB limit from Geth
+    const POOL_CAPACITY = 512;
+    
+    pool: std.ArrayList(*Memory),
+    allocator: std.mem.Allocator,
+    
+    pub fn put(self: *MemoryPool, memory: *Memory) void {
+        // Geth pattern: size-based retention
+        if (memory.capacity() <= MAX_RETAINED_SIZE and self.pool.items.len < POOL_CAPACITY) {
+            memory.reset(); // Clear but retain capacity
+            self.pool.append(memory) catch {
+                self.destroyMemory(memory);
+                return;
+            };
+        } else {
+            self.destroyMemory(memory);
+        }
+    }
+    
+    fn destroyMemory(self: *MemoryPool, memory: *Memory) void {
+        memory.deinit();
+        self.allocator.destroy(memory);
+    }
+};
+```
+
+**Buffer Pool with Capacity Filtering** (Geth Pattern):
+```zig
+// Geth's buffer pool with 3x size tolerance
+pub const BufferPool = struct {
+    const SIZE_TOLERANCE_FACTOR = 3; // From Geth implementation
+    
+    // Separate pools for different size classes
+    small_buffers: std.ArrayList([]u8),    // < 1KB
+    medium_buffers: std.ArrayList([]u8),   // 1KB - 8KB  
+    large_buffers: std.ArrayList([]u8),    // 8KB - 64KB
+    
+    allocator: std.mem.Allocator,
+    
+    pub fn get(self: *BufferPool, size: usize) ![]u8 {
+        const pool = self.selectPool(size);
+        
+        // Find buffer with acceptable size (Geth's 3x tolerance)
+        for (pool.items, 0..) |buffer, i| {
+            if (buffer.len >= size and buffer.len <= size * SIZE_TOLERANCE_FACTOR) {
+                return pool.swapRemove(i);
+            }
+        }
+        
+        // No suitable buffer found, allocate new
+        return try self.allocator.alloc(u8, size);
+    }
+    
+    pub fn put(self: *BufferPool, buffer: []u8) void {
+        const pool = self.selectPool(buffer.len);
+        pool.append(buffer) catch {
+            // If append fails, free the buffer
+            self.allocator.free(buffer);
+        };
+    }
+    
+    fn selectPool(self: *BufferPool, size: usize) *std.ArrayList([]u8) {
+        if (size < 1024) return &self.small_buffers;
+        if (size < 8192) return &self.medium_buffers;
+        return &self.large_buffers;
+    }
+};
+```
+
+### REVM Shared Memory Architecture
+
+<explanation>
+REVM demonstrates sophisticated shared memory management using Rc<RefCell<Vec<u8>>> for reference-counted shared buffers with context checkpoints. This enables efficient memory sharing across call frames while maintaining isolation through checkpoint-based context management.
+</explanation>
+
+**Shared Memory with Context Checkpoints** (REVM Pattern):
+```zig
+// Equivalent Zig pattern for REVM's shared memory
+pub const SharedMemory = struct {
+    buffer: std.ArrayList(u8),
+    contexts: std.ArrayList(ContextCheckpoint),
+    allocator: std.mem.Allocator,
+    
+    pub const ContextCheckpoint = struct {
+        size: usize,
+        context_id: u32,
+    };
+    
+    pub fn init(allocator: std.mem.Allocator) SharedMemory {
+        return SharedMemory{
+            .buffer = std.ArrayList(u8).init(allocator),
+            .contexts = std.ArrayList(ContextCheckpoint).init(allocator),
+            .allocator = allocator,
+        };
+    }
+    
+    // REVM pattern: create checkpoint for new context
+    pub fn createContext(self: *SharedMemory, context_id: u32) !void {
+        try self.contexts.append(ContextCheckpoint{
+            .size = self.buffer.items.len,
+            .context_id = context_id,
+        });
+    }
+    
+    // REVM pattern: expand shared buffer for context
+    pub fn expandTo(self: *SharedMemory, new_size: usize) !void {
+        if (new_size > self.buffer.items.len) {
+            try self.buffer.resize(new_size);
+            // Zero-initialize new memory
+            @memset(self.buffer.items[self.buffer.items.len - (new_size - self.buffer.items.len)..], 0);
+        }
+    }
+    
+    // REVM pattern: revert to parent context
+    pub fn revertContext(self: *SharedMemory, context_id: u32) void {
+        // Find and remove the context checkpoint
+        var i: usize = self.contexts.items.len;
+        while (i > 0) {
+            i -= 1;
+            if (self.contexts.items[i].context_id == context_id) {
+                const checkpoint = self.contexts.orderedRemove(i);
+                // Revert buffer size to checkpoint
+                self.buffer.shrinkRetainingCapacity(checkpoint.size);
+                break;
+            }
+        }
+    }
+    
+    // Get slice for current context (immutable view)
+    pub fn getSlice(self: *const SharedMemory, offset: usize, len: usize) []const u8 {
+        const end = @min(offset + len, self.buffer.items.len);
+        if (offset >= self.buffer.items.len) return &[_]u8{};
+        return self.buffer.items[offset..end];
+    }
+    
+    // Get mutable slice for current context
+    pub fn getMutableSlice(self: *SharedMemory, offset: usize, len: usize) []u8 {
+        const end = @min(offset + len, self.buffer.items.len);
+        if (offset >= self.buffer.items.len) return &[_]u8{};
+        return self.buffer.items[offset..end];
+    }
+};
+```
+
+### EVMOne Cache-Optimized Allocation
+
+<explanation>
+EVMOne demonstrates cache-line aligned allocation strategies and memory layout optimizations. Key patterns include 32-byte alignment for 256-bit operations, initial capacity sizing with page alignment, and growth strategies optimized for cache efficiency.
+</explanation>
+
+**Cache-Line Aligned Stack** (EVMOne Pattern):
+```zig
+// EVMOne's 256-bit aligned stack for cache efficiency
+pub const AlignedStack = struct {
+    const ALIGNMENT = 32; // 32-byte alignment for cache lines
+    const CAPACITY = 1024; // EVM stack limit
+    
+    // Aligned data array for optimal cache performance
+    data: [CAPACITY]u256 align(ALIGNMENT) = [_]u256{0} ** CAPACITY,
+    size: usize = 0,
+    
+    pub fn push(self: *AlignedStack, value: u256) !void {
+        if (self.size >= CAPACITY) return error.StackOverflow;
+        self.data[self.size] = value;
+        self.size += 1;
+    }
+    
+    pub fn pop(self: *AlignedStack) !u256 {
+        if (self.size == 0) return error.StackUnderflow;
+        self.size -= 1;
+        return self.data[self.size];
+    }
+    
+    // EVMOne pattern: direct access for performance
+    pub fn peek(self: *const AlignedStack, index: usize) u256 {
+        return self.data[self.size - 1 - index];
+    }
+    
+    pub fn set(self: *AlignedStack, index: usize, value: u256) void {
+        self.data[self.size - 1 - index] = value;
+    }
+};
+```
+
+**Page-Aligned Memory Growth** (EVMOne Pattern):
+```zig
+// EVMOne's memory growth with page alignment
+pub const PageAlignedMemory = struct {
+    const PAGE_SIZE = 4096; // 4KB pages
+    const INITIAL_CAPACITY = PAGE_SIZE; // Start with one page
+    const GROWTH_FACTOR = 2; // Double capacity on growth
+    
+    buffer: []u8,
+    size: usize = 0,
+    capacity: usize,
+    allocator: std.mem.Allocator,
+    
+    pub fn init(allocator: std.mem.Allocator) !PageAlignedMemory {
+        const buffer = try allocator.alignedAlloc(u8, PAGE_SIZE, INITIAL_CAPACITY);
+        return PageAlignedMemory{
+            .buffer = buffer,
+            .capacity = INITIAL_CAPACITY,
+            .allocator = allocator,
+        };
+    }
+    
+    // EVMOne pattern: page-aligned growth
+    pub fn expandTo(self: *PageAlignedMemory, new_size: usize) !void {
+        if (new_size <= self.capacity) {
+            self.size = new_size;
+            return;
+        }
+        
+        // Calculate new capacity with page alignment
+        var new_capacity = self.capacity;
+        while (new_capacity < new_size) {
+            new_capacity *= GROWTH_FACTOR;
+        }
+        
+        // Round up to page boundary
+        new_capacity = ((new_capacity + PAGE_SIZE - 1) / PAGE_SIZE) * PAGE_SIZE;
+        
+        // Reallocate with page alignment
+        const new_buffer = try self.allocator.alignedAlloc(u8, PAGE_SIZE, new_capacity);
+        @memcpy(new_buffer[0..self.size], self.buffer[0..self.size]);
+        
+        self.allocator.free(self.buffer);
+        self.buffer = new_buffer;
+        self.capacity = new_capacity;
+        self.size = new_size;
+    }
+};
+```
+
+### Our Existing StoragePool Optimization
+
+<explanation>
+Our current Zig codebase demonstrates typed object pools with capacity retention and graceful degradation. This pattern provides type safety while maintaining high performance through specialized pools for different hash map types.
+</explanation>
+
+**Typed Object Pools** (Our Pattern):
+```zig
+// Enhanced version of our existing StoragePool
+pub const TypedObjectPools = struct {
+    // Separate pools for different hash map types
+    account_pool: ObjectPool(AccountMap),
+    storage_pool: ObjectPool(StorageMap),
+    code_pool: ObjectPool(CodeMap),
+    log_pool: ObjectPool(LogVector),
+    
+    allocator: std.mem.Allocator,
+    
+    pub const AccountMap = std.HashMap(Address, Account, AddressContext, std.hash_map.default_max_load_percentage);
+    pub const StorageMap = std.HashMap(StorageKey, U256, StorageKeyContext, std.hash_map.default_max_load_percentage);
+    pub const CodeMap = std.HashMap(B256, Bytecode, B256Context, std.hash_map.default_max_load_percentage);
+    pub const LogVector = std.ArrayList(Log);
+    
+    pub fn init(allocator: std.mem.Allocator) TypedObjectPools {
+        return TypedObjectPools{
+            .account_pool = ObjectPool(AccountMap).init(allocator, 32),
+            .storage_pool = ObjectPool(StorageMap).init(allocator, 64),
+            .code_pool = ObjectPool(CodeMap).init(allocator, 16),
+            .log_pool = ObjectPool(LogVector).init(allocator, 16),
+            .allocator = allocator,
+        };
+    }
+    
+    // Get account map with optimal pre-sizing
+    pub fn getAccountMap(self: *TypedObjectPools, expected_size: usize) !*AccountMap {
+        var map = try self.account_pool.get();
+        if (map.capacity() < expected_size) {
+            try map.ensureTotalCapacity(expected_size);
+        }
+        return map;
+    }
+    
+    // Return with capacity retention (our pattern)
+    pub fn putAccountMap(self: *TypedObjectPools, map: *AccountMap) void {
+        map.clearRetainingCapacity(); // Our optimization
+        self.account_pool.put(map);
+    }
+    
+    // Specialized pool for storage maps (high-frequency usage)
+    pub fn getStorageMap(self: *TypedObjectPools, expected_size: usize) !*StorageMap {
+        var map = try self.storage_pool.get();
+        if (map.capacity() < expected_size) {
+            try map.ensureTotalCapacity(expected_size);
+        }
+        return map;
+    }
+    
+    pub fn putStorageMap(self: *TypedObjectPools, map: *StorageMap) void {
+        map.clearRetainingCapacity();
+        self.storage_pool.put(map);
+    }
+};
+```
+
+### Memory Hierarchy and Allocation Strategy
+
+<explanation>
+Production EVMs use hierarchical allocation strategies with different allocators optimized for different use cases. This includes L1 fixed arrays for hot paths, L2 object pools for frequent allocations, L3 arena allocators for call frames, and L4 general allocators for infrequent operations.
+</explanation>
+
+**Hierarchical Allocation Framework**:
+```zig
+pub const MemoryHierarchy = struct {
+    // L1: Fixed arrays for hot paths (fastest)
+    stack_storage: AlignedStack,
+    small_buffers: [16][64]u8,  // Pre-allocated 64-byte buffers
+    
+    // L2: Object pools for frequent allocations
+    typed_pools: TypedObjectPools,
+    buffer_pool: BufferPool,
+    
+    // L3: Arena allocators for call frames
+    frame_arena: std.heap.ArenaAllocator,
+    temp_arena: std.heap.ArenaAllocator,
+    
+    // L4: General allocator for infrequent operations
+    general_allocator: std.mem.Allocator,
+    
+    // Allocation strategy selection
+    pub fn selectAllocator(self: *MemoryHierarchy, size: usize, lifetime: AllocationLifetime) std.mem.Allocator {
+        return switch (lifetime) {
+            .hot_path => if (size <= 64) self.getSmallBufferAllocator() else self.buffer_pool.allocator(),
+            .call_frame => self.frame_arena.allocator(),
+            .temporary => self.temp_arena.allocator(),
+            .persistent => self.general_allocator,
+        };
+    }
+    
+    pub const AllocationLifetime = enum {
+        hot_path,    // Stack operations, immediate computation
+        call_frame,  // Lifetime of a single EVM call
+        temporary,   // Short-lived intermediate results
+        persistent,  // Long-lived data (code, account state)
+    };
+    
+    // Reset arenas after call completion
+    pub fn resetCallFrame(self: *MemoryHierarchy) void {
+        _ = self.frame_arena.reset(.retain_capacity);
+        _ = self.temp_arena.reset(.retain_capacity);
+    }
+};
+```
+
+### Allocation Size Class Optimization
+
+<explanation>
+Production allocators use size classes to minimize fragmentation and optimize allocation speed. Different size ranges use different strategies: small allocations use object pools, medium allocations use arena allocators with size classes, and large allocations go directly to the system.
+</explanation>
+
+**Size Class Based Allocation**:
+```zig
+pub const SizeClassAllocator = struct {
+    // Size class boundaries (powers of 2 and common sizes)
+    const SIZE_CLASSES = [_]usize{ 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536 };
+    
+    small_pools: [SIZE_CLASSES.len]ObjectPool([]u8),
+    medium_arena: std.heap.ArenaAllocator,
+    large_allocator: std.mem.Allocator,
+    
+    pub fn alloc(self: *SizeClassAllocator, size: usize) ![]u8 {
+        // Small allocations: use size class pools
+        if (size <= 65536) {
+            const class_index = self.findSizeClass(size);
+            const class_size = SIZE_CLASSES[class_index];
+            
+            var buffer = try self.small_pools[class_index].get();
+            if (buffer.len == 0) {
+                // Pool is empty, allocate new buffer
+                buffer = try self.large_allocator.alloc(u8, class_size);
+            }
+            return buffer[0..size]; // Return only requested size
+        }
+        
+        // Medium allocations: use arena with page alignment
+        if (size <= 1024 * 1024) { // 1MB
+            return try self.medium_arena.allocator().alloc(u8, size);
+        }
+        
+        // Large allocations: direct allocation
+        return try self.large_allocator.alloc(u8, size);
+    }
+    
+    pub fn free(self: *SizeClassAllocator, buffer: []u8) void {
+        if (buffer.len <= 65536) {
+            // Return to appropriate size class pool
+            const class_index = self.findSizeClass(buffer.len);
+            const class_size = SIZE_CLASSES[class_index];
+            
+            // Only return if it's the exact class size
+            if (buffer.len == class_size) {
+                self.small_pools[class_index].put(buffer);
+                return;
+            }
+        }
+        
+        // For arena or large allocations, check ownership
+        if (buffer.len > 1024 * 1024) {
+            self.large_allocator.free(buffer);
+        }
+        // Arena allocations are freed in bulk
+    }
+    
+    fn findSizeClass(self: *SizeClassAllocator, size: usize) usize {
+        for (SIZE_CLASSES, 0..) |class_size, i| {
+            if (size <= class_size) return i;
+        }
+        return SIZE_CLASSES.len - 1; // Largest class
+    }
+};
+```
+
+### Performance Monitoring and Tuning
+
+<explanation>
+Production memory allocators include comprehensive monitoring to guide optimization decisions. Key metrics include pool hit/miss ratios, allocation size distributions, peak memory usage, and fragmentation levels.
+</explanation>
+
+**Allocation Performance Metrics**:
+```zig
+pub const AllocationMetrics = struct {
+    // Pool performance metrics
+    pool_hits: [PoolType.count]u64,
+    pool_misses: [PoolType.count]u64,
+    pool_evictions: [PoolType.count]u64,
+    
+    // Size distribution metrics
+    size_histogram: [16]u64, // Powers of 2 from 1 byte to 32KB
+    large_allocations: u64,   // > 32KB
+    
+    // Memory usage metrics
+    peak_memory_usage: usize,
+    current_memory_usage: usize,
+    total_allocations: u64,
+    total_deallocations: u64,
+    
+    // Fragmentation metrics
+    fragmentation_ratio: f64,
+    largest_free_block: usize,
+    
+    pub const PoolType = enum(u8) {
+        stack,
+        memory,
+        account_map,
+        storage_map,
+        code_map,
+        small_buffer,
+        medium_buffer,
+        large_buffer,
+        
+        pub const count = @typeInfo(PoolType).Enum.fields.len;
+    };
+    
+    pub fn recordAllocation(self: *AllocationMetrics, size: usize, pool_type: ?PoolType) void {
+        self.total_allocations += 1;
+        self.current_memory_usage += size;
+        self.peak_memory_usage = @max(self.peak_memory_usage, self.current_memory_usage);
+        
+        // Update size histogram
+        const size_class = self.getSizeClass(size);
+        if (size_class < self.size_histogram.len) {
+            self.size_histogram[size_class] += 1;
+        } else {
+            self.large_allocations += 1;
+        }
+        
+        // Update pool metrics
+        if (pool_type) |pool| {
+            self.pool_hits[@intFromEnum(pool)] += 1;
+        }
+    }
+    
+    pub fn recordPoolMiss(self: *AllocationMetrics, pool_type: PoolType) void {
+        self.pool_misses[@intFromEnum(pool_type)] += 1;
+    }
+    
+    pub fn getPoolHitRatio(self: *const AllocationMetrics, pool_type: PoolType) f64 {
+        const hits = self.pool_hits[@intFromEnum(pool_type)];
+        const misses = self.pool_misses[@intFromEnum(pool_type)];
+        const total = hits + misses;
+        return if (total > 0) @as(f64, @floatFromInt(hits)) / @as(f64, @floatFromInt(total)) else 0.0;
+    }
+    
+    pub fn getAverageAllocationSize(self: *const AllocationMetrics) f64 {
+        if (self.total_allocations == 0) return 0.0;
+        return @as(f64, @floatFromInt(self.current_memory_usage)) / @as(f64, @floatFromInt(self.total_allocations));
+    }
+    
+    fn getSizeClass(self: *AllocationMetrics, size: usize) usize {
+        if (size == 0) return 0;
+        return @min(63 - @clz(size), 15); // log2 with max of 15
+    }
+};
+```
+
+This comprehensive collection of production-ready patterns provides the foundation for implementing high-performance memory allocator tuning in the Zig EVM, drawing from battle-tested approaches while adapting to Zig's unique features and our specific architecture requirements.
+
 ## Implementation Requirements
 
 ### Core Functionality
@@ -956,6 +1518,128 @@ test "performance benchmarks" {
 ✅ Performance meets or exceeds benchmarks
 ✅ Gas costs are calculated correctly
 
+
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/memory/memory_allocator_test.zig`)
+```zig
+// Test basic memory allocator functionality
+test "memory_allocator basic allocation patterns with known scenarios"
+test "memory_allocator handles fragmentation correctly"
+test "memory_allocator validates allocation sizes"
+test "memory_allocator produces expected memory layouts"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "memory_allocator integrates with EVM memory operations"
+test "memory_allocator works with existing stack operations"
+test "memory_allocator maintains gas calculation compatibility"
+test "memory_allocator handles memory expansion correctly"
+```
+
+#### 3. **Performance Tests**
+```zig
+test "memory_allocator meets allocation speed targets"
+test "memory_allocator memory usage optimization vs baseline"
+test "memory_allocator scalability under high allocation load"
+test "memory_allocator benchmark fragmentation overhead"
+```
+
+#### 4. **Error Handling Tests**
+```zig
+test "memory_allocator proper out-of-memory error handling"
+test "memory_allocator handles invalid allocation requests"
+test "memory_allocator graceful degradation on memory pressure"
+test "memory_allocator recovery from allocation failures"
+```
+
+#### 5. **Compliance Tests**
+```zig
+test "memory_allocator EVM memory model compliance"
+test "memory_allocator cross-platform memory behavior"
+test "memory_allocator hardfork memory rule compatibility"
+test "memory_allocator gas cost calculation accuracy"
+```
+
+#### 6. **Security Tests**
+```zig
+test "memory_allocator handles malicious allocation patterns safely"
+test "memory_allocator prevents memory exhaustion attacks"
+test "memory_allocator validates memory access boundaries"
+test "memory_allocator maintains memory isolation properties"
+```
+
+### Test Development Priority
+1. **Core allocation functionality tests** - Ensure basic memory allocation works
+2. **Compliance tests** - Meet EVM memory specification requirements
+3. **Performance tests** - Achieve memory efficiency targets
+4. **Security tests** - Prevent memory-related vulnerabilities
+5. **Error handling tests** - Robust memory failure management
+6. **Edge case tests** - Handle memory boundary conditions
+
+### Test Data Sources
+- **EVM specification**: Official memory model requirements
+- **Reference implementations**: Cross-client memory compatibility data
+- **Performance baselines**: Memory allocation and deallocation benchmarks
+- **Security test vectors**: Memory exhaustion and overflow prevention
+- **Real-world scenarios**: Production memory usage pattern validation
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Maintain 100% test coverage for public memory allocator APIs
+- Validate memory performance regression prevention
+- Test debug and release builds with different memory patterns
+- Verify cross-platform memory compatibility
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "memory_allocator basic allocation and deallocation" {
+    // This test MUST fail initially
+    const allocator = test_utils.createMemoryAllocator();
+    const size: u64 = 1024;
+    
+    const ptr = memory_allocator.allocate(allocator, size);
+    try testing.expect(ptr != null);
+    
+    memory_allocator.deallocate(allocator, ptr, size);
+    try testing.expect(memory_allocator.isEmpty(allocator));
+}
+```
+
+**Only then implement:**
+```zig
+pub const memory_allocator = struct {
+    pub fn allocate(allocator: *MemoryAllocator, size: u64) !?[]u8 {
+        // Minimal implementation to make test pass
+        return error.NotImplemented; // Initially
+    }
+    
+    pub fn deallocate(allocator: *MemoryAllocator, ptr: []u8, size: u64) void {
+        // Minimal implementation
+    }
+};
+```
+
+### Critical Testing Notes
+- **Never commit without passing tests** (`zig build test-all`)
+- **Test all allocator configuration combinations** - Especially for tuning parameters
+- **Verify EVM memory specification compliance** - Critical for protocol correctness
+- **Test memory performance implications** - Especially for allocation speed optimizations
+- **Validate memory security properties** - Prevent memory-related vulnerabilities
 
 ## References
 

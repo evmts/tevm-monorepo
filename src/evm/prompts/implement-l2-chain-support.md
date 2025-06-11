@@ -1136,6 +1136,120 @@ test "l2 gas models" {
 ✅ Performance meets or exceeds benchmarks
 ✅ Gas costs are calculated correctly
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/l2/l2_chain_support_test.zig`)
+```zig
+// Test basic L2 chain support functionality
+test "l2_chain_support basic functionality works correctly"
+test "l2_chain_support handles edge cases properly"
+test "l2_chain_support validates inputs appropriately"
+test "l2_chain_support produces correct outputs"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "l2_chain_support integrates with EVM properly"
+test "l2_chain_support maintains system compatibility"
+test "l2_chain_support works with existing components"
+test "l2_chain_support handles cross-system interactions"
+```
+
+#### 3. **Performance Tests**
+```zig
+test "l2_chain_support meets performance requirements"
+test "l2_chain_support optimizes resource usage"
+test "l2_chain_support scales appropriately with load"
+test "l2_chain_support benchmark vs baseline"
+```
+
+#### 4. **Compliance Tests**
+```zig
+test "l2_chain_support meets specification requirements"
+test "l2_chain_support maintains EVM compatibility"
+test "l2_chain_support handles hardfork transitions"
+test "l2_chain_support cross-client behavior consistency"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "l2_chain_support handles errors gracefully"
+test "l2_chain_support proper error propagation"
+test "l2_chain_support recovery from failure states"
+test "l2_chain_support validates error conditions"
+```
+
+#### 6. **Security Tests** (where applicable)
+```zig
+test "l2_chain_support prevents security vulnerabilities"
+test "l2_chain_support handles malicious inputs safely"
+test "l2_chain_support maintains isolation boundaries"
+test "l2_chain_support validates security properties"
+```
+
+### Test Development Priority
+1. **Core functionality** - Basic feature operation
+2. **Specification compliance** - Meet requirements
+3. **Integration** - System-level correctness
+4. **Performance** - Efficiency targets
+5. **Error handling** - Robust failures
+6. **Security** - Vulnerability prevention
+
+### Test Data Sources
+- **Specification documents**: Official requirements and test vectors
+- **Reference implementations**: Cross-client compatibility
+- **Performance baselines**: Optimization targets
+- **Real-world data**: Production scenarios
+- **Synthetic cases**: Edge conditions and stress testing
+
+### Continuous Testing
+- Run `zig build test-all` after every change
+- Maintain 100% test coverage for public APIs
+- Validate performance regression prevention
+- Test both debug and release builds
+- Verify cross-platform behavior
+
+### Test-First Examples
+
+**Before implementation:**
+```zig
+test "l2_chain_support basic operation" {
+    // This test MUST fail initially
+    const input = test_data.validInput();
+    const expected = test_data.expectedOutput();
+    
+    const result = l2_chain_support.process(input);
+    try testing.expectEqual(expected, result);
+}
+```
+
+**Then implement:**
+```zig
+pub const l2_chain_support = struct {
+    pub fn process(input: InputType) !OutputType {
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Requirements
+- **Never commit without passing tests**
+- **Test all configuration paths**
+- **Verify specification compliance**
+- **Validate performance implications**
+- **Ensure cross-platform compatibility**
+
 ## References
 
 - [Optimism Specs](https://github.com/ethereum-optimism/optimism/tree/develop/specs) - OP Stack specification

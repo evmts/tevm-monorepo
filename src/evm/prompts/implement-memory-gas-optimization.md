@@ -630,6 +630,166 @@ fn generate_lookup_table() [LOOKUP_TABLE_SIZE]u64 {
 ✅ Performance meets or exceeds benchmarks
 ✅ Gas costs are calculated correctly
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/memory/memory_gas_optimization_test.zig`)
+```zig
+// Test basic memory gas optimization functionality
+test "memory_cost_cache basic functionality with known scenarios"
+test "memory_cost_cache handles edge cases correctly"
+test "memory_cost_cache validates input parameters"
+test "memory_cost_cache produces correct output format"
+test "memory_expansion_tracker tracks growth correctly"
+test "dynamic_calculator computes costs accurately"
+test "cost_predictor predicts future costs"
+test "memory_profiler analyzes usage patterns"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "memory_optimization integrates with EVM execution context"
+test "memory_optimization works with existing EVM systems"
+test "memory_optimization maintains compatibility with hardforks"
+test "memory_optimization handles system-level interactions"
+test "memory_gas_calculation integrates with opcodes"
+test "memory_expansion_costs match EVM behavior"
+test "optimization_benefits measured correctly"
+test "cache_coherency maintained across operations"
+```
+
+#### 3. **Functional Tests**
+```zig
+test "memory_optimization end-to-end functionality works correctly"
+test "memory_optimization handles realistic usage scenarios"
+test "memory_optimization maintains behavior under load"
+test "memory_optimization processes complex inputs correctly"
+test "memory_intensive_contracts benefit from optimization"
+test "memory_expansion_sequences handled correctly"
+test "large_memory_allocations optimized properly"
+test "memory_access_patterns recognized"
+```
+
+#### 4. **Performance Tests**
+```zig
+test "memory_optimization meets performance requirements"
+test "memory_optimization memory usage within bounds"
+test "memory_optimization scalability with large inputs"
+test "memory_optimization benchmark against baseline"
+test "cache_hit_ratio_optimization achieved"
+test "memory_expansion_speed_improvement measured"
+test "gas_calculation_overhead_reduced"
+test "memory_access_latency_improved"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "memory_optimization error propagation works correctly"
+test "memory_optimization proper error types and messages"
+test "memory_optimization graceful handling of invalid inputs"
+test "memory_optimization recovery from failure states"
+test "memory_validation rejects invalid sizes"
+test "memory_expansion handles overflow conditions"
+test "cache_invalidation handles corruption"
+test "memory_limits enforce boundaries"
+```
+
+#### 6. **Compatibility Tests**
+```zig
+test "memory_optimization maintains EVM specification compliance"
+test "memory_optimization cross-client behavior consistency"
+test "memory_optimization backward compatibility preserved"
+test "memory_optimization platform-specific behavior verified"
+test "memory_gas_costs match Ethereum specifications"
+test "memory_expansion_formula accuracy maintained"
+test "optimization_transparency ensured"
+test "gas_accounting_precision preserved"
+```
+
+### Test Development Priority
+1. **Start with core functionality** - Ensure basic memory cost caching works correctly
+2. **Add integration tests** - Verify system-level interactions with EVM memory operations
+3. **Implement performance tests** - Meet efficiency requirements for memory gas optimization
+4. **Add error handling tests** - Robust failure management for memory operations
+5. **Test edge cases** - Handle boundary conditions like memory limits and overflow scenarios
+6. **Verify compatibility** - Ensure EVM specification compliance and gas cost accuracy
+
+### Test Data Sources
+- **EVM specification requirements**: Memory gas cost formula verification
+- **Reference implementation data**: Cross-client memory behavior testing
+- **Performance benchmarks**: Memory operation efficiency baseline
+- **Real-world contract scenarios**: Memory-intensive application validation
+- **Synthetic test cases**: Edge condition and stress testing
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Ensure 100% test coverage for all public APIs
+- Validate performance benchmarks don't regress
+- Test both debug and release builds
+- Verify cross-platform compatibility
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "memory_cost_cache basic functionality" {
+    // This test MUST fail initially
+    const allocator = testing.allocator;
+    
+    var cache = MemoryCostCache.init();
+    
+    // Test cache hit for small memory sizes
+    const size_words = 10;
+    const expected_cost = (size_words * 3) + ((size_words * size_words) / 512);
+    
+    const cached_cost = cache.getCost(size_words);
+    try testing.expectEqual(expected_cost, cached_cost);
+    
+    // Test cache performance
+    const start_time = std.time.nanoTimestamp();
+    for (0..1000) |_| {
+        _ = cache.getCost(size_words);
+    }
+    const cached_time = std.time.nanoTimestamp() - start_time;
+    
+    // Direct calculation for comparison
+    const direct_start = std.time.nanoTimestamp();
+    for (0..1000) |_| {
+        _ = calculateMemoryCostDirect(size_words);
+    }
+    const direct_time = std.time.nanoTimestamp() - direct_start;
+    
+    // Cache should be significantly faster
+    try testing.expect(cached_time < direct_time / 2);
+}
+```
+
+**Only then implement:**
+```zig
+pub const MemoryCostCache = struct {
+    pub fn getCost(self: *MemoryCostCache, size_words: u32) u64 {
+        // Minimal implementation to make test pass
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Testing Requirements
+- **Never commit until all tests pass** with `zig build test-all`
+- **Test gas cost accuracy** - Ensure optimizations preserve exact gas calculations
+- **Verify performance improvements** - Optimizations must provide measurable benefits
+- **Test cross-platform memory behavior** - Ensure consistent results across platforms
+- **Validate integration points** - Test all external interfaces thoroughly
 
 ## References
 

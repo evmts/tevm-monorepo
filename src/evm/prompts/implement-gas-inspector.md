@@ -1319,6 +1319,159 @@ test "real world scenarios" {
 ✅ Performance meets or exceeds benchmarks
 ✅ Gas costs are calculated correctly
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/gas/gas_inspector_test.zig`)
+```zig
+// Test basic gas inspector functionality
+test "gas_inspector basic functionality with known scenarios"
+test "gas_inspector handles edge cases correctly"
+test "gas_inspector validates input parameters"
+test "gas_inspector produces correct output format"
+test "gas_consumption_tracker tracks usage correctly"
+test "gas_analysis_engine analyzes patterns correctly"
+test "optimization_detector identifies opportunities"
+test "gas_reporter generates readable reports"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "gas_inspector integrates with EVM execution context"
+test "gas_inspector works with existing EVM systems"
+test "gas_inspector maintains compatibility with hardforks"
+test "gas_inspector handles system-level interactions"
+test "gas_tracking integrates with opcode execution"
+test "gas_analysis integrates with call frames"
+test "gas_optimization integrates with contract analysis"
+test "gas_reporting integrates with debugging tools"
+```
+
+#### 3. **Functional Tests**
+```zig
+test "gas_inspector end-to-end functionality works correctly"
+test "gas_inspector handles realistic usage scenarios"
+test "gas_inspector maintains behavior under load"
+test "gas_inspector processes complex inputs correctly"
+test "gas_analysis_comprehensive_contracts"
+test "gas_optimization_suggestions_accurate"
+test "gas_cost_breakdown_detailed"
+test "gas_usage_patterns_identified"
+```
+
+#### 4. **Performance Tests**
+```zig
+test "gas_inspector meets performance requirements"
+test "gas_inspector memory usage within bounds"
+test "gas_inspector scalability with large inputs"
+test "gas_inspector benchmark against baseline"
+test "gas_tracking_overhead_minimal"
+test "gas_analysis_speed_adequate"
+test "gas_reporting_generation_fast"
+test "gas_storage_efficiency_optimized"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "gas_inspector error propagation works correctly"
+test "gas_inspector proper error types and messages"
+test "gas_inspector graceful handling of invalid inputs"
+test "gas_inspector recovery from failure states"
+test "gas_validation rejects invalid measurements"
+test "gas_tracking handles overflow conditions"
+test "gas_analysis handles incomplete data"
+test "gas_reporting handles generation failures"
+```
+
+#### 6. **Compatibility Tests**
+```zig
+test "gas_inspector maintains EVM specification compliance"
+test "gas_inspector cross-client behavior consistency"
+test "gas_inspector backward compatibility preserved"
+test "gas_inspector platform-specific behavior verified"
+test "gas_costs match Ethereum specifications"
+test "gas_measurements align with reference implementations"
+test "gas_analysis consistent across hardforks"
+test "gas_reporting compatible with tooling"
+```
+
+### Test Development Priority
+1. **Start with core functionality** - Ensure basic gas tracking and measurement works correctly
+2. **Add integration tests** - Verify system-level interactions with EVM execution
+3. **Implement performance tests** - Meet efficiency requirements for gas inspection
+4. **Add error handling tests** - Robust failure management for gas operations
+5. **Test edge cases** - Handle boundary conditions like gas exhaustion and overflow
+6. **Verify compatibility** - Ensure EVM specification compliance and tool integration
+
+### Test Data Sources
+- **EVM specification requirements**: Gas cost calculation verification
+- **Reference implementation data**: Cross-client gas behavior testing
+- **Performance benchmarks**: Gas inspection efficiency baseline
+- **Real-world contract scenarios**: Gas optimization validation
+- **Synthetic test cases**: Edge condition and stress testing
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Ensure 100% test coverage for all public APIs
+- Validate performance benchmarks don't regress
+- Test both debug and release builds
+- Verify cross-platform compatibility
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "gas_inspector basic functionality" {
+    // This test MUST fail initially
+    const allocator = testing.allocator;
+    const context = test_utils.createTestEVMContext(allocator);
+    defer context.deinit();
+    
+    var inspector = GasInspector.init(allocator);
+    defer inspector.deinit();
+    
+    // Track gas usage for a simple operation
+    const opcode = 0x01; // ADD
+    const gas_before = 1000000;
+    const gas_cost = 3;
+    const gas_after = gas_before - gas_cost;
+    
+    try inspector.recordOpcodeGas(opcode, gas_cost);
+    try inspector.updateGasUsed(gas_before, gas_after);
+    
+    const stats = inspector.getGasStats();
+    try testing.expectEqual(@as(u64, gas_cost), stats.total_gas_used);
+    try testing.expectEqual(@as(u64, 1), stats.gas_by_opcode.get(opcode).?.count);
+    try testing.expectEqual(gas_cost, stats.gas_by_opcode.get(opcode).?.total_cost);
+}
+```
+
+**Only then implement:**
+```zig
+pub const GasInspector = struct {
+    pub fn recordOpcodeGas(self: *GasInspector, opcode: u8, gas_cost: u64) !void {
+        // Minimal implementation to make test pass
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Testing Requirements
+- **Never commit until all tests pass** with `zig build test-all`
+- **Test gas measurement accuracy** - Ensure precise gas cost tracking
+- **Verify optimization suggestions** - Analysis must provide actionable insights
+- **Test cross-platform gas behavior** - Ensure consistent results across platforms
+- **Validate integration points** - Test all external interfaces thoroughly
 
 ## References
 

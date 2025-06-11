@@ -1430,6 +1430,122 @@ test "integration with VM execution" {
 ✅ Gas costs are calculated correctly
 
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/bytecode/external_bytecode_test.zig`)
+```zig
+// Test basic external bytecode functionality
+test "external_bytecode basic loading with known scenarios"
+test "external_bytecode handles validation correctly"
+test "external_bytecode validates bytecode format"
+test "external_bytecode produces expected execution results"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "external_bytecode integrates with EVM execution"
+test "external_bytecode works with existing contract systems"
+test "external_bytecode maintains hardfork compatibility"
+test "external_bytecode handles bytecode version transitions"
+```
+
+#### 3. **Performance Tests**
+```zig
+test "external_bytecode meets loading speed targets"
+test "external_bytecode memory usage vs baseline"
+test "external_bytecode scalability under high bytecode load"
+test "external_bytecode benchmark bytecode validation overhead"
+```
+
+#### 4. **Error Handling Tests**
+```zig
+test "external_bytecode proper invalid bytecode error handling"
+test "external_bytecode handles corrupted bytecode gracefully"
+test "external_bytecode graceful degradation on loading failures"
+test "external_bytecode recovery from bytecode system errors"
+```
+
+#### 5. **Compliance Tests**
+```zig
+test "external_bytecode EVM specification bytecode compliance"
+test "external_bytecode cross-client bytecode compatibility"
+test "external_bytecode hardfork bytecode rule adherence"
+test "external_bytecode deterministic bytecode execution"
+```
+
+#### 6. **Security Tests**
+```zig
+test "external_bytecode handles malicious bytecode safely"
+test "external_bytecode prevents bytecode injection attacks"
+test "external_bytecode validates bytecode security boundaries"
+test "external_bytecode maintains execution isolation"
+```
+
+### Test Development Priority
+1. **Core bytecode functionality tests** - Ensure basic bytecode loading and validation works
+2. **Compliance tests** - Meet EVM specification bytecode requirements
+3. **Performance tests** - Achieve bytecode processing efficiency targets
+4. **Security tests** - Prevent bytecode-related vulnerabilities
+5. **Error handling tests** - Robust bytecode failure management
+6. **Edge case tests** - Handle bytecode boundary conditions
+
+### Test Data Sources
+- **EVM specification**: Official bytecode format requirements
+- **Reference implementations**: Cross-client bytecode compatibility data
+- **Performance baselines**: Bytecode loading and validation speed measurements
+- **Security test vectors**: Malicious bytecode prevention cases
+- **Real-world scenarios**: Production bytecode pattern validation
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Maintain 100% test coverage for public bytecode APIs
+- Validate bytecode processing performance regression prevention
+- Test debug and release builds with different bytecode types
+- Verify cross-platform bytecode handling consistency
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "external_bytecode basic valid bytecode loading" {
+    // This test MUST fail initially
+    const bytecode = test_utils.createValidBytecode();
+    const loader = test_utils.createBytecodeLoader();
+    
+    const result = external_bytecode.loadBytecode(loader, bytecode);
+    try testing.expect(result.is_valid);
+    try testing.expectEqual(bytecode.len, result.loaded_size);
+}
+```
+
+**Only then implement:**
+```zig
+pub const external_bytecode = struct {
+    pub fn loadBytecode(loader: *BytecodeLoader, bytecode: []const u8) !LoadResult {
+        // Minimal implementation to make test pass
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Testing Notes
+- **Never commit without passing tests** (`zig build test-all`)
+- **Test all bytecode format combinations** - Especially for different EVM versions
+- **Verify EVM specification compliance** - Critical for protocol bytecode correctness
+- **Test bytecode performance implications** - Especially for large contract loading
+- **Validate bytecode security properties** - Prevent malicious bytecode execution
+
 ## References
 
 - [Dynamic Loading](https://en.wikipedia.org/wiki/Dynamic_loading) - Dynamic code loading concepts
