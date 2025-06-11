@@ -69,5 +69,9 @@ export class EipNotEnabledError extends ExecutionError {
 	 */
 	_tag = 'EipNotEnabledError'
 
-
+	/**
+	 * @type {'EipNotEnabledError'}
+	 * @override
+	 */
+	name = 'EipNotEnabledError'
 }
