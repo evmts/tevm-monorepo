@@ -38,6 +38,8 @@ type TxPoolObject = {
 	hash: UnprefixedHash
 	added: number
 	error?: Error
+	skipBalance?: boolean
+	skipNonce?: boolean
 }
 
 type HandledObject = {
@@ -302,7 +304,7 @@ export class TxPool {
 	 * @param tx Transaction
 	 * @param isLocalTransaction if this is a local transaction (loosens some constraints) (default: false)
 	 */
-	async addUnverified(tx: TypedTransaction | ImpersonatedTx) {
+	async addUnverified(tx: TypedTransaction | ImpersonatedTx, skipBalance = false, skipNonce = false) {
 		const hash: UnprefixedHash = bytesToUnprefixedHex(tx.hash())
 		const added = Date.now()
 		const address: UnprefixedAddress = tx.getSenderAddress().toString().slice(2).toLowerCase()
@@ -332,7 +334,7 @@ export class TxPool {
 				// Replace pooled txs with the same nonce
 				add = inPool.filter((poolObj) => poolObj.tx.nonce !== tx.nonce)
 			}
-			add.push({ tx, added, hash })
+			add.push({ tx, added, hash, skipBalance, skipNonce })
 			this.pool.set(address, add)
 			this.handled.set(hash, { address, added })
 			this.txsInPool++
@@ -356,10 +358,10 @@ export class TxPool {
 	 * @param tx Transaction
 	 * @param isLocalTransaction if this is a local transaction (loosens some constraints) (default: false)
 	 */
-	async add(tx: TypedTransaction | ImpersonatedTx, requireSignature = true, skipBalance = false) {
+	async add(tx: TypedTransaction | ImpersonatedTx, requireSignature = true, skipBalance = false, skipNonce = false) {
 		try {
 			await this.validate(tx, true, requireSignature, skipBalance)
-			return this.addUnverified(tx)
+			return this.addUnverified(tx, skipBalance, skipNonce)
 		} catch (error) {
 			return {
 				error: (error as Error).message,
@@ -407,6 +409,25 @@ export class TxPool {
 			}
 		}
 		return found
+	}
+
+	/**
+	 * Returns the TxPoolObject for a transaction (includes skipBalance/skipNonce flags)
+	 * @param txHash Transaction hash
+	 * @returns TxPoolObject or null if not found
+	 */
+	getPoolObjectByHash(txHash: string): TxPoolObject | null {
+		const txHashStr = txHash.startsWith('0x') ? txHash.slice(2).toLowerCase() : txHash.toLowerCase()
+		const handled = this.handled.get(txHashStr)
+		if (!handled) return null
+		const inPool = this.pool.get(handled.address)?.filter((poolObj) => poolObj.hash === txHashStr)
+		if (inPool && inPool.length === 1) {
+			if (!inPool[0]) {
+				throw new Error('Expected element to exist in pool')
+			}
+			return inPool[0]
+		}
+		return null
 	}
 
 	/**

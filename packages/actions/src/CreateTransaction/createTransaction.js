@@ -128,7 +128,9 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
 			(Promise.resolve({}))
 		try {
 			client.logger.debug({ requireSig, skipBalance: evmInput.skipBalance }, 'callHandler: Adding tx to mempool')
-			poolPromise = pool.add(tx, requireSig, evmInput.skipBalance ?? false)
+			// For skipNonce, we don't expose it to users yet, but default to false for preservation
+			// This maintains the original behavior while allowing future skipNonce support
+			poolPromise = pool.add(tx, requireSig, evmInput.skipBalance ?? false, false)
 			const txHash = bytesToHex(tx.hash())
 			client.logger.debug(txHash, 'callHandler: received txHash')
 			const account = await getAccountHandler(client)({
