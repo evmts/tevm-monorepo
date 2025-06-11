@@ -1,0 +1,79 @@
+# Implement BLS12-381 G1MSM Precompile
+
+## Git Workflow Instructions
+
+### Branch Setup
+1. **Create branch**: `feat_implement_bls12_381_g1msm_precompile` (snake_case, no emoji)
+2. **Create worktree**: `git worktree add g/feat_implement_bls12_381_g1msm_precompile feat_implement_bls12_381_g1msm_precompile`
+3. **Work in isolation**: `cd g/feat_implement_bls12_381_g1msm_precompile`
+4. **Commit message**: `✨ feat: implement BLS12-381 G1 multi-scalar multiplication precompile`
+
+### Workflow Steps
+1. Create and switch to the new worktree
+2. Implement all changes in the isolated branch
+3. Run `zig build test-all` to ensure all tests pass
+4. Commit with emoji conventional commit format
+5. DO NOT merge - leave ready for review
+
+## Context
+
+Implement the BLS12-381 G1 multi-scalar multiplication precompile (address 0x0C) as defined in EIP-2537. This precompile performs efficient multi-scalar multiplication operations on the G1 group of the BLS12-381 elliptic curve, essential for BLS signature verification and other cryptographic protocols.
+
+## EIP-2537 Specification
+
+### Basic Operation
+- **Address**: `0x000000000000000000000000000000000000000C`
+- **Gas Cost**: Variable based on input size and complexity
+- **Input**: Multiple (scalar, point) pairs for multi-scalar multiplication
+- **Output**: Single G1 point result
+- **Available**: Post-EIP-2537 hardforks
+
+### Input Format
+```
+Input format (variable length):
+- Each pair: 32 bytes (scalar) + 128 bytes (G1 point) = 160 bytes
+- Total input must be multiple of 160 bytes
+- Minimum: 160 bytes (1 pair)
+- Maximum: Implementation dependent
+```
+
+### Gas Calculation
+```
+base_cost = 12275
+per_pair_cost = 15900
+total_cost = base_cost + (num_pairs * per_pair_cost)
+```
+
+## Implementation Requirements
+
+### Core Functionality
+1. **Input Validation**: Verify G1 point validity and scalar range
+2. **Multi-Scalar Multiplication**: Efficient MSM algorithm implementation
+3. **Gas Calculation**: Accurate cost based on input size
+4. **Point Serialization**: Proper BLS12-381 G1 point encoding/decoding
+5. **Error Handling**: Handle invalid points and out-of-gas conditions
+
+### Files to Create/Modify
+- `/src/evm/precompiles/bls12_381_g1msm.zig` - New G1MSM implementation
+- `/src/evm/crypto/bls12_381.zig` - BLS12-381 curve operations
+- `/src/evm/precompiles/precompiles.zig` - Add G1MSM to dispatcher
+- `/src/evm/precompiles/precompile_addresses.zig` - Add G1MSM address
+- `/src/evm/constants/gas_constants.zig` - Add G1MSM gas costs
+- `/test/evm/precompiles/bls12_381_g1msm_test.zig` - Comprehensive tests
+
+## Success Criteria
+
+1. **EIP-2537 Compliance**: Fully implements EIP-2537 G1MSM specification
+2. **Point Validation**: Correctly validates G1 points and rejects invalid inputs
+3. **MSM Correctness**: Produces correct multi-scalar multiplication results
+4. **Gas Accuracy**: Implements correct gas pricing model
+5. **Performance**: Efficient implementation suitable for production use
+6. **Integration**: Works with existing precompile infrastructure
+
+## Critical Requirements
+
+1. **NEVER commit until `zig build test-all` passes**
+2. **Use established BLS libraries** - Don't implement curve math from scratch
+3. **Validate all inputs thoroughly** - Invalid inputs must be rejected
+4. **Test with EIP test vectors** - Use official EIP-2537 test cases
+5. **Handle large inputs gracefully** - Prevent DoS via large MSM operations
