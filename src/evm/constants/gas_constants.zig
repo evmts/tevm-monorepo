@@ -38,6 +38,11 @@
 /// GASPRICE, RETURNDATASIZE, PC, MSIZE, GAS, CHAINID, SELFBALANCE
 pub const GasQuickStep: u64 = 2;
 
+/// ECMUL precompile gas costs (EIP-196)
+/// Post-Istanbul (EIP-1108): Reduced from 40,000 to 6,000 gas
+pub const ECMUL_GAS_COST: u64 = 6000; // Istanbul hardfork and later
+pub const ECMUL_GAS_COST_BYZANTIUM: u64 = 40000; // Pre-Istanbul
+
 /// Gas cost for simple arithmetic and logic operations
 /// Operations: ADD, SUB, NOT, LT, GT, SLT, SGT, EQ, ISZERO, AND, OR, XOR,
 /// CALLDATALOAD, MLOAD, MSTORE, MSTORE8, PUSH operations, DUP operations,
