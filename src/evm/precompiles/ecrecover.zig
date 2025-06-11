@@ -4,6 +4,7 @@ const PrecompileOutput = @import("precompile_result.zig").PrecompileOutput;
 const PrecompileError = @import("precompile_result.zig").PrecompileError;
 const gas_constants = @import("../constants/gas_constants.zig");
 const Address = @import("Address").Address;
+const secp256k1 = @import("secp256k1.zig");
 
 /// ECRECOVER precompile implementation (address 0x01)
 ///
@@ -206,36 +207,52 @@ fn bytes_to_u256(bytes: []const u8) u256 {
 
 /// Recovers the Ethereum address from ECDSA signature components
 ///
-/// **CRITICAL SECURITY WARNING**: This is a placeholder implementation!
-/// In production, this MUST be replaced with a proven secp256k1 library like libsecp256k1.
-/// 
-/// This placeholder always fails to prevent incorrect signature validation
-/// while maintaining the correct execution flow and gas consumption.
+/// This function implements ECDSA signature recovery using secp256k1 elliptic curve
+/// cryptography to recover the public key that created the signature, then derives
+/// the corresponding Ethereum address.
 ///
-/// @param hash The hash that was signed
+/// @param hash The hash that was signed (32 bytes)
 /// @param recovery_id Recovery ID (0 or 1)
 /// @param r ECDSA signature r component
 /// @param s ECDSA signature s component
 /// @return Recovered Ethereum address or error
 fn recover_address(hash: []const u8, recovery_id: u8, r: u256, s: u256) !Address {
-    // **PLACEHOLDER IMPLEMENTATION - NOT CRYPTOGRAPHICALLY SECURE**
-    // 
-    // A production implementation would:
-    // 1. Use libsecp256k1 to recover the public key from (hash, r, s, recovery_id)
-    // 2. Convert the recovered public key to an Ethereum address
-    // 3. Handle all edge cases and error conditions properly
-    //
-    // For now, we consume the parameters to prevent unused variable warnings
-    // and always return an error to ensure no signatures are incorrectly validated
+    // Validate input hash length
+    if (hash.len != 32) {
+        @branchHint(.cold);
+        return error.InvalidHashLength;
+    }
     
-    _ = hash;
-    _ = recovery_id; 
-    _ = r;
-    _ = s;
+    // Validate signature parameters
+    if (!secp256k1.validate_signature(r, s)) {
+        @branchHint(.cold);
+        return error.InvalidSignature;
+    }
     
-    // Always fail recovery to ensure no signatures are incorrectly validated
-    // until a proper cryptographic implementation is added
-    return error.RecoveryFailed;
+    // Validate recovery ID
+    if (recovery_id > 1) {
+        @branchHint(.cold);
+        return error.InvalidRecoveryId;
+    }
+    
+    // Convert hash to fixed-size array
+    var hash_array: [32]u8 = undefined;
+    @memcpy(&hash_array, hash);
+    
+    // Recover public key from signature
+    const public_key = secp256k1.recover_public_key(hash_array, r, s, recovery_id) catch {
+        @branchHint(.cold);
+        return error.RecoveryFailed;
+    };
+    
+    // Convert public key to Ethereum address
+    const address_bytes = secp256k1.public_key_to_address(public_key);
+    
+    // Convert to Address type
+    var address: Address = undefined;
+    @memcpy(&address, &address_bytes);
+    
+    return address;
 }
 
 /// Validates that a precompile call would succeed without executing
