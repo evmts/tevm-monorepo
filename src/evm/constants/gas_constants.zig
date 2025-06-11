@@ -289,6 +289,14 @@ pub const SHA256_WORD_COST: u64 = 12;
 /// Fixed cost for elliptic curve signature recovery
 pub const ECRECOVER_COST: u64 = 3000;
 
+// ============================================================================
+// BLS12-381 Precompile Costs (EIP-2537)
+// ============================================================================
+
+/// Gas cost for BLS12-381 G1ADD precompile (address 0x0B)
+/// Fixed cost for BLS12-381 G1 point addition
+pub const BLS12_381_G1ADD_COST: u64 = 375;
+
 /// Calculate memory expansion gas cost
 /// 
 /// Computes the gas cost for expanding EVM memory from current_size to new_size bytes.
