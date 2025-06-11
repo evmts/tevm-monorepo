@@ -289,6 +289,10 @@ pub const SHA256_WORD_COST: u64 = 12;
 /// Fixed cost for elliptic curve signature recovery
 pub const ECRECOVER_COST: u64 = 3000;
 
+/// BLAKE2F precompile gas constants (EIP-152)
+/// Gas cost is 1 gas per round
+pub const BLAKE2F_GAS_PER_ROUND: u64 = 1;
+
 /// Calculate memory expansion gas cost
 /// 
 /// Computes the gas cost for expanding EVM memory from current_size to new_size bytes.
