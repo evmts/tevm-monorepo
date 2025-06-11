@@ -289,6 +289,18 @@ pub const SHA256_WORD_COST: u64 = 12;
 /// Fixed cost for elliptic curve signature recovery
 pub const ECRECOVER_COST: u64 = 3000;
 
+// ============================================================================
+// ECADD Precompile Costs (EIP-196)
+// ============================================================================
+
+/// Gas cost for ECADD precompile (address 0x06) from Istanbul hardfork onwards
+/// EIP-1108: Reduced gas costs for elliptic curve operations
+pub const ECADD_GAS_COST: u64 = 150;
+
+/// Gas cost for ECADD precompile (address 0x06) from Byzantium to Berlin
+/// Original gas cost before EIP-1108 optimization
+pub const ECADD_GAS_COST_BYZANTIUM: u64 = 500;
+
 /// Calculate memory expansion gas cost
 /// 
 /// Computes the gas cost for expanding EVM memory from current_size to new_size bytes.
