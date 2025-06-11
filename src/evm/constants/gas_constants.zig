@@ -277,6 +277,14 @@ pub const IDENTITY_BASE_COST: u64 = 15;
 /// Total cost = IDENTITY_BASE_COST + (word_count * IDENTITY_WORD_COST)
 pub const IDENTITY_WORD_COST: u64 = 3;
 
+/// Base gas cost for SHA256 precompile (address 0x02)
+/// Minimum cost regardless of input size
+pub const SHA256_BASE_COST: u64 = 60;
+
+/// Gas cost per 32-byte word for SHA256 precompile
+/// Total cost = SHA256_BASE_COST + (word_count * SHA256_WORD_COST)
+pub const SHA256_WORD_COST: u64 = 12;
+
 /// Calculate memory expansion gas cost
 /// 
 /// Computes the gas cost for expanding EVM memory from current_size to new_size bytes.
