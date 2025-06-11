@@ -1051,6 +1051,1209 @@ pub const prague_hardfork_support = struct {
 - **Validate performance implications**
 - **Ensure cross-platform compatibility**
 
+## EVMONE Context
+
+<evmone>
+<file path="https://github.com/ethereum/evmone/blob/master/lib/evmone/instructions_traits.hpp">
+```cpp
+/// The table of instruction gas costs per EVM revision.
+using GasCostTable = std::array<std::array<int16_t, 256>, EVMC_MAX_REVISION + 1>;
+
+/// The EVM revision specific table of EVM instructions gas costs. For instructions undefined
+/// in given EVM revision, the value is instr::undefined.
+constexpr inline GasCostTable gas_costs = []() noexcept {
+    GasCostTable table{};
+
+    for (auto& t : table[EVMC_FRONTIER])
+        t = undefined;
+    table[EVMC_FRONTIER][OP_STOP] = 0;
+    table[EVMC_FRONTIER][OP_ADD] = 3;
+    // ... more gas costs ...
+    table[EVMC_CANCUN] = table[EVMC_SHANGHAI];
+    table[EVMC_CANCUN][OP_BLOBHASH] = 3;
+    table[EVMC_CANCUN][OP_BLOBBASEFEE] = 2;
+    table[EVMC_CANCUN][OP_TLOAD] = warm_storage_read_cost;
+    table[EVMC_CANCUN][OP_TSTORE] = warm_storage_read_cost;
+    table[EVMC_CANCUN][OP_MCOPY] = 3;
+
+    table[EVMC_PRAGUE] = table[EVMC_CANCUN];
+    // ... future hardforks ...
+    table[EVMC_EXPERIMENTAL][OP_RJUMP] = 2;
+    table[EVMC_EXPERIMENTAL][OP_RJUMPI] = 4;
+    // ... more experimental gas costs ...
+
+    return table;
+}();
+
+
+/// The EVM instruction traits.
+struct Traits
+{
+    /// The instruction name;
+    const char* name = nullptr;
+
+    /// Size of the immediate argument in bytes.
+    uint8_t immediate_size = 0;
+
+    /// Whether the instruction terminates execution.
+    bool is_terminating = false;
+
+    /// The number of stack items the instruction accesses during execution.
+    uint8_t stack_height_required = 0;
+
+    /// The stack height change caused by the instruction execution. Can be negative.
+    int8_t stack_height_change = 0;
+
+    /// The EVM revision in which the instruction has been defined. For instructions available in
+    /// every EVM revision the value is ::EVMC_FRONTIER. For undefined instructions the value is not
+    /// available.
+    std::optional<evmc_revision> since;
+
+    /// The EVM revision in which the instruction has become valid in EOF. For instructions invalid
+    /// in EOF the value is not available.
+    std::optional<evmc_revision> eof_since;
+};
+
+/// The global, EVM revision independent, table of traits of all known EVM instructions.
+constexpr inline std::array<Traits, 256> traits = []() noexcept {
+    std::array<Traits, 256> table{};
+
+    table[OP_STOP] = {"STOP", 0, true, 0, 0, EVMC_FRONTIER, REV_EOF1};
+    table[OP_ADD] = {"ADD", 0, false, 2, -1, EVMC_FRONTIER, REV_EOF1};
+    // ...
+    table[OP_SHL] = {"SHL", 0, false, 2, -1, EVMC_CONSTANTINOPLE, REV_EOF1};
+    // ...
+    table[OP_PUSH0] = {"PUSH0", 0, false, 0, 1, EVMC_SHANGHAI, REV_EOF1};
+    // ...
+    table[OP_RJUMP] = {"RJUMP", 2, false, 0, 0, {}, REV_EOF1};
+    table[OP_RJUMPI] = {"RJUMPI", 2, false, 1, -1, {}, REV_EOF1};
+    // ...
+    table[OP_EOFCREATE] = {"EOFCREATE", 1, false, 4, -3, {}, REV_EOF1};
+    table[OP_TXCREATE] = {"TXCREATE", 0, false, 5, -4, EVMC_EXPERIMENTAL, REV_EOF1};
+    table[OP_RETURNCODE] = {"RETURNCODE", 1, true, 2, -2, {}, REV_EOF1};
+    // ...
+    return table;
+}();
+```
+</file>
+<file path="https://github.com/ethereum/evmone/blob/master/test/state/transaction.hpp">
+```cpp
+struct Transaction
+{
+    /// The type of the transaction.
+    enum class Type : uint8_t
+    {
+        /// The legacy RLP-encoded transaction without leading "type" byte.
+        legacy = 0,
+
+        /// The typed transaction with optional account/storage access list.
+        /// Introduced by EIP-2930 https://eips.ethereum.org/EIPS/eip-2930.
+        access_list = 1,
+
+        /// The typed transaction with priority gas price.
+        /// Introduced by EIP-1559 https://eips.ethereum.org/EIPS/eip-1559.
+        eip1559 = 2,
+
+        /// The typed blob transaction (with array of blob hashes).
+        /// Introduced by EIP-4844 https://eips.ethereum.org/EIPS/eip-4844.
+        blob = 3,
+
+        /// The typed set code transaction (with authorization list).
+        /// Introduced by EIP-7702 https://eips.ethereum.org/EIPS/eip-7702.
+        set_code = 4,
+
+        /// The typed transaction with initcode list.
+        /// Introduced by EIP-7873 https://eips.ethereum.org/EIPS/eip-7873.
+        initcodes = 6,
+    };
+    // ...
+};
+
+struct Authorization
+{
+    intx::uint256 chain_id;
+    address addr;
+    uint64_t nonce = 0;
+    /// Signer is empty if it cannot be ecrecovered from r, s, v.
+    std::optional<address> signer;
+    intx::uint256 r;
+    intx::uint256 s;
+    intx::uint256 v;
+};
+
+using AuthorizationList = std::vector<Authorization>;
+```
+</file>
+<file path="https://github.com/ethereum/evmone/blob/master/lib/evmone/eof.hpp">
+```cpp
+constexpr uint8_t EOF_MAGIC_BYTES[] = {0xef, 0x00};
+constexpr bytes_view EOF_MAGIC{EOF_MAGIC_BYTES, std::size(EOF_MAGIC_BYTES)};
+
+/// The value returned by EXTCODEHASH of an address with EOF code.
+static constexpr auto EOF_CODE_HASH_SENTINEL =
+    0x9dbf3648db8210552e9c4f75c6a1c3057c0ca432043bd648be15fe7be05646f5_bytes32;
+
+struct EOFCodeType
+{
+    uint8_t inputs;               ///< Number of code inputs.
+    uint8_t outputs;              ///< Number of code outputs.
+    uint16_t max_stack_increase;  ///< Maximum stack height above the inputs reached in the code.
+};
+
+struct EOF1Header
+{
+    /// Size of a type entry in bytes.
+    static constexpr size_t TYPE_ENTRY_SIZE = sizeof(EOFCodeType);
+
+    /// The EOF version, 0 means legacy code.
+    uint8_t version = 0;
+
+    /// Offset of the type section start.
+    size_t type_section_offset = 0;
+
+    /// Size of every code section.
+    std::vector<uint16_t> code_sizes;
+
+    /// Offset of every code section from the beginning of the EOF container.
+    std::vector<uint16_t> code_offsets;
+
+    /// Size of the data section.
+    uint16_t data_size = 0;
+    /// Offset of data container section start.
+    uint32_t data_offset = 0;
+    // ...
+};
+
+/// Checks if code starts with EOF FORMAT + MAGIC, doesn't validate the format.
+[[nodiscard]] EVMC_EXPORT bool is_eof_container(bytes_view code) noexcept;
+
+/// Reads the section sizes assuming that container has valid format.
+[[nodiscard]] EVMC_EXPORT EOF1Header read_valid_eof1_header(bytes_view container);
+
+enum class EOFValidationError
+{
+    success,
+    invalid_prefix,
+    eof_version_unknown,
+    // ... many validation errors
+    unreachable_instructions,
+    stack_underflow,
+    stack_overflow,
+    // ...
+};
+
+enum class ContainerKind : uint8_t
+{
+    /// Container that uses RETURNCODE. Can be used by EOFCREATE/TXCREATE.
+    initcode,
+    /// Container that uses STOP/RETURN. Can be returned by RETURNCODE.
+    runtime,
+};
+
+/// Validates whether given container is a valid EOF according to the rules of given revision.
+[[nodiscard]] EVMC_EXPORT EOFValidationError validate_eof(
+    evmc_revision rev, ContainerKind kind, bytes_view container) noexcept;
+
+/// Returns the error message corresponding to an error code.
+[[nodiscard]] EVMC_EXPORT std::string_view get_error_message(EOFValidationError err) noexcept;
+```
+</file>
+<file path="https://github.com/ethereum/evmone/blob/master/lib/evmone/delegation.hpp">
+```cpp
+// evmone: Fast Ethereum Virtual Machine implementation
+// Copyright 2025 The evmone Authors.
+// SPDX-License-Identifier: Apache-2.0
+#pragma once
+
+#include <evmc/bytes.hpp>
+#include <evmc/evmc.hpp>
+#include <evmc/utils.h>
+
+namespace evmone
+{
+using evmc::bytes_view;
+
+/// Prefix of code for delegated accounts
+/// defined by [EIP-7702](https://eips.ethereum.org/EIPS/eip-7702)
+constexpr uint8_t DELEGATION_MAGIC_BYTES[] = {0xef, 0x01, 0x00};
+constexpr bytes_view DELEGATION_MAGIC{DELEGATION_MAGIC_BYTES, std::size(DELEGATION_MAGIC_BYTES)};
+
+/// Check if code contains EIP-7702 delegation designator
+constexpr bool is_code_delegated(bytes_view code) noexcept
+{
+    return code.starts_with(DELEGATION_MAGIC);
+}
+
+/// Get EIP-7702 delegate address from the code of addr, if it is delegated.
+EVMC_EXPORT std::optional<evmc::address> get_delegate_address(
+    const evmc::HostInterface& host, const evmc::address& addr) noexcept;
+}  // namespace evmone
+```
+</file>
+</evmone>
+
+## REVM Context
+
+<revm>
+<file path="https://github.com/bluealloy/revm/blob/main/crates/primitives/src/hardfork.rs">
+```rust
+//! Specification IDs and their activation block
+//!
+//! Information was obtained from the [Ethereum Execution Specifications](https://github.com/ethereum/execution-specs).
+#[repr(u8)]
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, PartialOrd, Ord, Hash, TryFromPrimitive)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub enum SpecId {
+    // ... existing hardforks
+    /// Shanghai hard fork
+    /// Activated at block 17034870 (Timestamp: 1681338455)
+    SHANGHAI,
+    /// Cancun hard fork
+    /// Activated at block 19426587 (Timestamp: 1710338135)
+    CANCUN,
+    /// Prague hard fork
+    /// Activated at block 22431084 (Timestamp: 1746612311)
+    #[default]
+    PRAGUE,
+    /// Osaka hard fork
+    /// Activated at block TBD
+    OSAKA,
+}
+
+impl SpecId {
+    // ...
+    /// Returns `true` if the given specification ID is enabled in this spec.
+    #[inline]
+    pub const fn is_enabled_in(self, other: Self) -> bool {
+        self as u8 >= other as u8
+    }
+}
+```
+</file>
+<file path="https://github.com/bluealloy/revm/blob/main/crates/precompile/src/lib.rs">
+```rust
+// ...
+
+/// Precompiles contain map of precompile addresses to functions and HashSet of precompile addresses.
+#[derive(Clone, Default, Debug)]
+pub struct Precompiles {
+    /// Precompiles
+    inner: HashMap<Address, PrecompileFn>,
+    /// Addresses of precompile
+    addresses: HashSet<Address>,
+}
+
+impl Precompiles {
+    /// Returns the precompiles for the given spec.
+    pub fn new(spec: PrecompileSpecId) -> &'static Self {
+        match spec {
+            PrecompileSpecId::HOMESTEAD => Self::homestead(),
+            PrecompileSpecId::BYZANTIUM => Self::byzantium(),
+            PrecompileSpecId::ISTANBUL => Self::istanbul(),
+            PrecompileSpecId::BERLIN => Self::berlin(),
+            PrecompileSpecId::CANCUN => Self::cancun(),
+            PrecompileSpecId::PRAGUE => Self::prague(),
+            PrecompileSpecId::OSAKA => Self::osaka(),
+        }
+    }
+
+    // ...
+
+    /// Returns precompiles for Cancun spec.
+    ///
+    /// If the `c-kzg` feature is not enabled KZG Point Evaluation precompile will not be included,
+    /// effectively making this the same as Berlin.
+    pub fn cancun() -> &'static Self {
+        static INSTANCE: OnceBox<Precompiles> = OnceBox::new();
+        INSTANCE.get_or_init(|| {
+            let mut precompiles = Self::berlin().clone();
+
+            // EIP-4844: Shard Blob Transactions
+            cfg_if! {
+                if #[cfg(any(feature = "c-kzg", feature = "kzg-rs"))] {
+                    let precompile = kzg_point_evaluation::POINT_EVALUATION.clone();
+                } else {
+                    let precompile = PrecompileWithAddress(u64_to_address(0x0A), |_,_| Err(PrecompileError::Fatal("c-kzg feature is not enabled".into())));
+                }
+            }
+
+
+            precompiles.extend([
+                precompile,
+            ]);
+
+            Box::new(precompiles)
+        })
+    }
+
+    /// Returns precompiles for Prague spec.
+    pub fn prague() -> &'static Self {
+        static INSTANCE: OnceBox<Precompiles> = OnceBox::new();
+        INSTANCE.get_or_init(|| {
+            let mut precompiles = Self::cancun().clone();
+            precompiles.extend(bls12_381::precompiles());
+            Box::new(precompiles)
+        })
+    }
+
+    // ...
+}
+
+/// Ethereum hardfork spec ids. Represents the specs where precompiles had a change.
+#[derive(Copy, Clone, Debug, PartialEq, Eq, Hash, Ord, PartialOrd)]
+pub enum PrecompileSpecId {
+    // ...
+    CANCUN,
+    /// Prague spec added bls precompiles [`EIP-2537: Precompile for BLS12-381 curve operations`](https://eips.ethereum.org/EIPS/eip-2537).
+    /// * `BLS12_G1ADD` at address 0x0b
+    /// * `BLS12_G1MSM` at address 0x0c
+    /// * ...
+    PRAGUE,
+    OSAKA,
+}
+
+impl PrecompileSpecId {
+    /// Returns the appropriate precompile Spec for the primitive [SpecId].
+    pub const fn from_spec_id(spec_id: primitives::hardfork::SpecId) -> Self {
+        use primitives::hardfork::SpecId::*;
+        match spec_id {
+            // ...
+            CANCUN => Self::CANCUN,
+            PRAGUE => Self::PRAGUE,
+            OSAKA => Self::OSAKA,
+        }
+    }
+}
+```
+</file>
+</revm>
+
+## EXECUTION-SPECS Context
+
+<execution-specs>
+<file path="https://github.com/ethereum/execution-specs/blob/master/src/ethereum/prague/fork_types.py">
+```python
+from dataclasses import dataclass
+from typing import Tuple, Union
+
+from ethereum_types.bytes import Bytes, Bytes0, Bytes20, Bytes32, Bytes256
+from ethereum_types.numeric import U64, U256, Uint
+
+# ... (existing types)
+
+@dataclass
+class Authorization:
+    """
+    EIP-7702 Authorization
+    """
+    chain_id: U256
+    address: Bytes20
+    nonce: U64
+    y_parity: U256
+    r: U256
+    s: U256
+
+@dataclass
+class SetCodeTransaction:
+    """
+    Represents a set code transaction (EIP-7702).
+    """
+    chain_id: U256
+    nonce: Uint
+    max_priority_fee_per_gas: Uint
+    max_fee_per_gas: Uint
+    gas: Uint
+    to: Union[Bytes0, Address]
+    value: U256
+    data: Bytes
+    access_list: Tuple["Access", ...]
+    authorization_list: Tuple["Authorization", ...]
+    y_parity: U256
+    r: U256
+    s: U256
+
+
+Transaction = Union[
+    "LegacyTransaction",
+    "AccessListTransaction",
+    "FeeMarketTransaction",
+    "BlobTransaction",
+    SetCodeTransaction,
+]
+
+
+def encode_transaction(tx: Transaction) -> Union["LegacyTransaction", Bytes]:
+    """
+    Encode a transaction. Needed because non-legacy transactions aren't RLP.
+    """
+    # ... (other types)
+    elif isinstance(tx, SetCodeTransaction):
+        return b"\x04" + rlp.encode(tx)
+    else:
+        # FIXME: add support for auth transactions (type 5)
+        raise Exception(f"Unable to encode transaction of type {type(tx)}")
+
+
+def decode_transaction(tx: Union["LegacyTransaction", Bytes]) -> Transaction:
+    """
+    Decode a transaction. Needed because non-legacy transactions aren't RLP.
+    """
+    if isinstance(tx, Bytes):
+        # ... (other types)
+        elif tx[0] == 4:
+            return rlp.decode_to(SetCodeTransaction, tx[1:])
+        else:
+            raise TransactionTypeError(tx[0])
+    else:
+        return tx
+
+# ... (other functions)
+```
+</file>
+<file path="https://github.com/ethereum/execution-specs/blob/master/src/ethereum/prague/vm/instructions/__init__.py">
+```python
+"""
+EVM Instruction Encoding (Opcodes)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. contents:: Table of Contents
+    :backlinks: none
+    :local:
+
+Introduction
+------------
+
+Machine readable representations of EVM instructions, and a mapping to their
+implementations.
+"""
+
+# ... (imports)
+from . import data as data_instructions
+
+class Ops(enum.Enum):
+    """
+    Enum for EVM Opcodes
+    """
+    # ... (existing opcodes)
+    
+    # EIP-7685: General-purpose execution layer requests
+    DEPOSIT = 0xB0
+    WITHDRAW = 0xB1
+    VALREQ = 0xB2
+
+    # EIP-7480: EOF Functions
+    RJUMP = 0x5C
+    RJUMPI = 0x5D
+    RJUMPV = 0x5E
+    CALLF = 0xE1
+    RETF = 0xE2
+    JUMPF = 0xE3
+
+    # EIP-4200: Static relative jumps
+    RJUMPS = 0xEA
+    RJUMPIS = 0xEB
+
+    # EIP-5450: Stack validation
+    SWAPN = 0xEC
+    DUPN = 0xED
+    EXCHANGE = 0xEE
+    RETURNDATALOAD = 0xF7
+```
+</file>
+</execution-specs>
+
+## GO-ETHEREUM Context
+
+<go-ethereum>
+<file path="https://github.com/ethereum/go-ethereum/blob/master/params/config.go">
+```go
+// ChainConfig is the core config which determines the blockchain settings.
+//
+// ChainConfig is stored in the database on a per block basis. This means
+// that any network, identified by its genesis block, can have its own
+// set of configuration options.
+type ChainConfig struct {
+	ChainID *big.Int `json:"chainId"` // chainId identifies the current chain and is used for replay protection
+
+	// EIP-150 hash of an empty account.
+	EIP150Hash common.Hash `json:"eip150Hash,omitempty"`
+
+	// EIP-158 transition block.
+	EIP158Block *big.Int `json:"eip158Block,omitempty"`
+
+	// Various consensus engines
+	Ethash *EthashConfig `json:"ethash,omitempty"`
+	Clique *CliqueConfig `json:"clique,omitempty"`
+
+	// TerminalTotalDifficulty is the total difficulty for the merge transition.
+	TerminalTotalDifficulty *big.Int `json:"terminalTotalDifficulty,omitempty"`
+
+	// Hard-fork scheduling
+	HomesteadBlock      *big.Int `json:"homesteadBlock,omitempty"`
+	DAOForkBlock        *big.Int `json:"daoForkBlock,omitempty"`
+	DAOForkSupport      bool     `json:"daoForkSupport,omitempty"`
+	ByzantiumBlock      *big.Int `json:"byzantiumBlock,omitempty"`
+	ConstantinopleBlock *big.Int `json:"constantinopleBlock,omitempty"`
+	PetersburgBlock     *big.Int `json:"petersburgBlock,omitempty"`
+	IstanbulBlock       *big.Int `json:"istanbulBlock,omitempty"`
+	MuirGlacierBlock    *big.Int `json:"muirGlacierBlock,omitempty"`
+	BerlinBlock         *big.Int `json:"berlinBlock,omitempty"`
+	LondonBlock         *big.Int `json:"londonBlock,omitempty"`
+	ArrowGlacierBlock   *big.Int `json:"arrowGlacierBlock,omitempty"`
+	GrayGlacierBlock    *big.Int `json:"grayGlacierBlock,omitempty"`
+	MergeNetsplitBlock  *big.Int `json:"mergeNetsplitBlock,omitempty"`
+
+	// Fork-times will have precedence over fork-blocks if both are set
+	ShanghaiTime *uint64 `json:"shanghaiTime,omitempty"`
+	CancunTime   *uint64 `json:"cancunTime,omitempty"`
+	PragueTime   *uint64 `json:"pragueTime,omitempty"` // As of now, this is a placeholder in geth
+	VerkleTime   *uint64 `json:"verkleTime,omitempty"` // As of now, this is a placeholder in geth
+
+	// EIP-4844 related settings
+	BlobScheduleConfig *BlobScheduleConfig `json:"blobSchedule,omitempty"`
+
+	// EIP-7702 Set Code Transaction related settings
+	EnableSetCodeAtGenesis bool `json:"enableSetCodeAtGenesis,omitempty"`
+
+	// EnableVerkleAtGenesis enables the verkle state scheme from genesis.
+	EnableVerkleAtGenesis bool `json:"enableVerkleAtGenesis,omitempty"`
+}
+
+// IsPrague returns whether prague is active at the given time.
+func (c *ChainConfig) IsPrague(num *big.Int, time uint64) bool {
+	return c.PragueTime != nil && time >= *c.PragueTime
+}
+
+// IsVerkle returns whether verkle is active at the given time.
+func (c *ChainConfig) IsVerkle(num *big.Int, time uint64) bool {
+	return (c.VerkleTime != nil && time >= *c.VerkleTime) || c.EnableVerkleAtGenesis
+}
+```
+</file>
+<file path="https://github.com/ethereum/go-ethereum/blob/master/core/types/tx_setcode.go">
+```go
+// DelegationPrefix is used by code to denote the account is delegating to
+// another account.
+var DelegationPrefix = []byte{0xef, 0x01, 0x00}
+
+// ParseDelegation tries to parse the address from a delegation slice.
+func ParseDelegation(b []byte) (common.Address, bool) {
+	if len(b) != 23 || !bytes.HasPrefix(b, DelegationPrefix) {
+		return common.Address{}, false
+	}
+	return common.BytesToAddress(b[len(DelegationPrefix):]), true
+}
+
+// SetCodeTx implements the EIP-7702 transaction type which temporarily installs
+// the code at the signer's address.
+type SetCodeTx struct {
+	ChainID    *uint256.Int
+	Nonce      uint64
+	GasTipCap  *uint256.Int // a.k.a. maxPriorityFeePerGas
+	GasFeeCap  *uint256.Int // a.k.a. maxFeePerGas
+	Gas        uint64
+	To         common.Address
+	Value      *uint256.Int
+	Data       []byte
+	AccessList AccessList
+	AuthList   []SetCodeAuthorization
+
+	// Signature values
+	V *uint256.Int
+	R *uint256.Int
+	S *uint256.Int
+}
+
+//go:generate go run github.com/fjl/gencodec -type SetCodeAuthorization -field-override authorizationMarshaling -out gen_authorization.go
+
+// SetCodeAuthorization is an authorization from an account to deploy code at its address.
+type SetCodeAuthorization struct {
+	ChainID uint256.Int    `json:"chainId" gencodec:"required"`
+	Address common.Address `json:"address" gencodec:"required"`
+	Nonce   uint64         `json:"nonce" gencodec:"required"`
+	V       uint8          `json:"yParity" gencodec:"required"`
+	R       uint256.Int    `json:"r" gencodec:"required"`
+	S       uint256.Int    `json:"s" gencodec:"required"`
+}
+
+// Authority recovers the the authorizing account of an authorization.
+func (a *SetCodeAuthorization) Authority() (common.Address, error) {
+	sighash := a.sigHash()
+	if !crypto.ValidateSignatureValues(a.V, a.R.ToBig(), a.S.ToBig(), true) {
+		return common.Address{}, ErrInvalidSig
+	}
+	// encode the signature in uncompressed format
+	var sig [crypto.SignatureLength]byte
+	a.R.WriteToSlice(sig[:32])
+	a.S.WriteToSlice(sig[32:64])
+	sig[64] = a.V
+	// recover the public key from the signature
+	pub, err := crypto.Ecrecover(sighash[:], sig[:])
+	if err != nil {
+		return common.Address{}, err
+	}
+	if len(pub) == 0 || pub[0] != 4 {
+		return common.Address{}, errors.New("invalid public key")
+	}
+	var addr common.Address
+	copy(addr[:], crypto.Keccak256(pub[1:])[12:])
+	return addr, nil
+}
+```
+</file>
+</go-ethereum>
+
+## EVMONE Context
+
+<evmone>
+<file path="https://github.com/ethereum/evmone/blob/master/lib/evmone/instructions_traits.hpp">
+```cpp
+/// The table of instruction gas costs per EVM revision.
+using GasCostTable = std::array<std::array<int16_t, 256>, EVMC_MAX_REVISION + 1>;
+
+/// The EVM revision specific table of EVM instructions gas costs. For instructions undefined
+/// in given EVM revision, the value is instr::undefined.
+constexpr inline GasCostTable gas_costs = []() noexcept {
+    GasCostTable table{};
+
+    for (auto& t : table[EVMC_FRONTIER])
+        t = undefined;
+    table[EVMC_FRONTIER][OP_STOP] = 0;
+    table[EVMC_FRONTIER][OP_ADD] = 3;
+    // ... more gas costs ...
+    table[EVMC_CANCUN] = table[EVMC_SHANGHAI];
+    table[EVMC_CANCUN][OP_BLOBHASH] = 3;
+    table[EVMC_CANCUN][OP_BLOBBASEFEE] = 2;
+    table[EVMC_CANCUN][OP_TLOAD] = warm_storage_read_cost;
+    table[EVMC_CANCUN][OP_TSTORE] = warm_storage_read_cost;
+    table[EVMC_CANCUN][OP_MCOPY] = 3;
+
+    table[EVMC_PRAGUE] = table[EVMC_CANCUN];
+    // ... future hardforks ...
+    table[EVMC_EXPERIMENTAL][OP_RJUMP] = 2;
+    table[EVMC_EXPERIMENTAL][OP_RJUMPI] = 4;
+    // ... more experimental gas costs ...
+
+    return table;
+}();
+
+
+/// The EVM instruction traits.
+struct Traits
+{
+    /// The instruction name;
+    const char* name = nullptr;
+
+    /// Size of the immediate argument in bytes.
+    uint8_t immediate_size = 0;
+
+    /// Whether the instruction terminates execution.
+    bool is_terminating = false;
+
+    /// The number of stack items the instruction accesses during execution.
+    uint8_t stack_height_required = 0;
+
+    /// The stack height change caused by the instruction execution. Can be negative.
+    int8_t stack_height_change = 0;
+
+    /// The EVM revision in which the instruction has been defined. For instructions available in
+    /// every EVM revision the value is ::EVMC_FRONTIER. For undefined instructions the value is not
+    /// available.
+    std::optional<evmc_revision> since;
+
+    /// The EVM revision in which the instruction has become valid in EOF. For instructions invalid
+    /// in EOF the value is not available.
+    std::optional<evmc_revision> eof_since;
+};
+
+/// The global, EVM revision independent, table of traits of all known EVM instructions.
+constexpr inline std::array<Traits, 256> traits = []() noexcept {
+    std::array<Traits, 256> table{};
+
+    table[OP_STOP] = {"STOP", 0, true, 0, 0, EVMC_FRONTIER, REV_EOF1};
+    table[OP_ADD] = {"ADD", 0, false, 2, -1, EVMC_FRONTIER, REV_EOF1};
+    // ...
+    table[OP_SHL] = {"SHL", 0, false, 2, -1, EVMC_CONSTANTINOPLE, REV_EOF1};
+    // ...
+    table[OP_PUSH0] = {"PUSH0", 0, false, 0, 1, EVMC_SHANGHAI, REV_EOF1};
+    // ...
+    table[OP_RJUMP] = {"RJUMP", 2, false, 0, 0, {}, REV_EOF1};
+    table[OP_RJUMPI] = {"RJUMPI", 2, false, 1, -1, {}, REV_EOF1};
+    // ...
+    table[OP_EOFCREATE] = {"EOFCREATE", 1, false, 4, -3, {}, REV_EOF1};
+    table[OP_TXCREATE] = {"TXCREATE", 0, false, 5, -4, EVMC_EXPERIMENTAL, REV_EOF1};
+    table[OP_RETURNCODE] = {"RETURNCODE", 1, true, 2, -2, {}, REV_EOF1};
+    // ...
+    return table;
+}();
+```
+</file>
+<file path="https://github.com/ethereum/evmone/blob/master/test/state/transaction.hpp">
+```cpp
+struct Transaction
+{
+    /// The type of the transaction.
+    enum class Type : uint8_t
+    {
+        /// The legacy RLP-encoded transaction without leading "type" byte.
+        legacy = 0,
+
+        /// The typed transaction with optional account/storage access list.
+        /// Introduced by EIP-2930 https://eips.ethereum.org/EIPS/eip-2930.
+        access_list = 1,
+
+        /// The typed transaction with priority gas price.
+        /// Introduced by EIP-1559 https://eips.ethereum.org/EIPS/eip-1559.
+        eip1559 = 2,
+
+        /// The typed blob transaction (with array of blob hashes).
+        /// Introduced by EIP-4844 https://eips.ethereum.org/EIPS/eip-4844.
+        blob = 3,
+
+        /// The typed set code transaction (with authorization list).
+        /// Introduced by EIP-7702 https://eips.ethereum.org/EIPS/eip-7702.
+        set_code = 4,
+
+        /// The typed transaction with initcode list.
+        /// Introduced by EIP-7873 https://eips.ethereum.org/EIPS/eip-7873.
+        initcodes = 6,
+    };
+    // ...
+};
+
+struct Authorization
+{
+    intx::uint256 chain_id;
+    address addr;
+    uint64_t nonce = 0;
+    /// Signer is empty if it cannot be ecrecovered from r, s, v.
+    std::optional<address> signer;
+    intx::uint256 r;
+    intx::uint256 s;
+    intx::uint256 v;
+};
+
+using AuthorizationList = std::vector<Authorization>;
+```
+</file>
+<file path="https://github.com/ethereum/evmone/blob/master/lib/evmone/delegation.hpp">
+```cpp
+// evmone: Fast Ethereum Virtual Machine implementation
+// Copyright 2025 The evmone Authors.
+// SPDX-License-Identifier: Apache-2.0
+#pragma once
+
+#include <evmc/bytes.hpp>
+#include <evmc/evmc.hpp>
+#include <evmc/utils.h>
+
+namespace evmone
+{
+using evmc::bytes_view;
+
+/// Prefix of code for delegated accounts
+/// defined by [EIP-7702](https://eips.ethereum.org/EIPS/eip-7702)
+constexpr uint8_t DELEGATION_MAGIC_BYTES[] = {0xef, 0x01, 0x00};
+constexpr bytes_view DELEGATION_MAGIC{DELEGATION_MAGIC_BYTES, std::size(DELEGATION_MAGIC_BYTES)};
+
+/// Check if code contains EIP-7702 delegation designator
+constexpr bool is_code_delegated(bytes_view code) noexcept
+{
+    return code.starts_with(DELEGATION_MAGIC);
+}
+
+/// Get EIP-7702 delegate address from the code of addr, if it is delegated.
+EVMC_EXPORT std::optional<evmc::address> get_delegate_address(
+    const evmc::HostInterface& host, const evmc::address& addr) noexcept;
+}  // namespace evmone
+```
+</file>
+</evmone>
+
+## REVM Context
+
+<revm>
+<file path="https://github.com/bluealloy/revm/blob/main/crates/primitives/src/hardfork.rs">
+```rust
+//! Specification IDs and their activation block
+//!
+//! Information was obtained from the [Ethereum Execution Specifications](https://github.com/ethereum/execution-specs).
+#[repr(u8)]
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, PartialOrd, Ord, Hash, TryFromPrimitive)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub enum SpecId {
+    // ... existing hardforks
+    /// Shanghai hard fork
+    /// Activated at block 17034870 (Timestamp: 1681338455)
+    SHANGHAI,
+    /// Cancun hard fork
+    /// Activated at block 19426587 (Timestamp: 1710338135)
+    CANCUN,
+    /// Prague hard fork
+    /// Activated at block 22431084 (Timestamp: 1746612311)
+    #[default]
+    PRAGUE,
+    /// Osaka hard fork
+    /// Activated at block TBD
+    OSAKA,
+}
+
+impl SpecId {
+    // ...
+    /// Returns `true` if the given specification ID is enabled in this spec.
+    #[inline]
+    pub const fn is_enabled_in(self, other: Self) -> bool {
+        self as u8 >= other as u8
+    }
+}
+```
+</file>
+<file path="https://github.com/bluealloy/revm/blob/main/crates/precompile/src/lib.rs">
+```rust
+// ...
+
+/// Precompiles contain map of precompile addresses to functions and HashSet of precompile addresses.
+#[derive(Clone, Default, Debug)]
+pub struct Precompiles {
+    /// Precompiles
+    inner: HashMap<Address, PrecompileFn>,
+    /// Addresses of precompile
+    addresses: HashSet<Address>,
+}
+
+impl Precompiles {
+    /// Returns the precompiles for the given spec.
+    pub fn new(spec: PrecompileSpecId) -> &'static Self {
+        match spec {
+            PrecompileSpecId::HOMESTEAD => Self::homestead(),
+            PrecompileSpecId::BYZANTIUM => Self::byzantium(),
+            PrecompileSpecId::ISTANBUL => Self::istanbul(),
+            PrecompileSpecId::BERLIN => Self::berlin(),
+            PrecompileSpecId::CANCUN => Self::cancun(),
+            PrecompileSpecId::PRAGUE => Self::prague(),
+            PrecompileSpecId::OSAKA => Self::osaka(),
+        }
+    }
+
+    // ...
+
+    /// Returns precompiles for Prague spec.
+    pub fn prague() -> &'static Self {
+        static INSTANCE: OnceBox<Precompiles> = OnceBox::new();
+        INSTANCE.get_or_init(|| {
+            let mut precompiles = Self::cancun().clone();
+            precompiles.extend(bls12_381::precompiles());
+            Box::new(precompiles)
+        })
+    }
+
+    // ...
+}
+
+/// Ethereum hardfork spec ids. Represents the specs where precompiles had a change.
+#[derive(Copy, Clone, Debug, PartialEq, Eq, Hash, Ord, PartialOrd)]
+pub enum PrecompileSpecId {
+    // ...
+    CANCUN,
+    /// Prague spec added bls precompiles [`EIP-2537: Precompile for BLS12-381 curve operations`](https://eips.ethereum.org/EIPS/eip-2537).
+    /// * `BLS12_G1ADD` at address 0x0b
+    /// * `BLS12_G1MSM` at address 0x0c
+    /// * ...
+    PRAGUE,
+    OSAKA,
+}
+
+impl PrecompileSpecId {
+    /// Returns the appropriate precompile Spec for the primitive [SpecId].
+    pub const fn from_spec_id(spec_id: primitives::hardfork::SpecId) -> Self {
+        use primitives::hardfork::SpecId::*;
+        match spec_id {
+            // ...
+            CANCUN => Self::CANCUN,
+            PRAGUE => Self::PRAGUE,
+            OSAKA => Self::OSAKA,
+        }
+    }
+}
+```
+</file>
+</revm>
+
+## EXECUTION-SPECS Context
+
+<execution-specs>
+<file path="https://github.com/ethereum/execution-specs/blob/master/src/ethereum/prague/fork_types.py">
+```python
+from dataclasses import dataclass
+from typing import Tuple, Union
+
+from ethereum_types.bytes import Bytes, Bytes0, Bytes20, Bytes32, Bytes256
+from ethereum_types.numeric import U64, U256, Uint
+
+# ... (existing types)
+
+@dataclass
+class Authorization:
+    """
+    EIP-7702 Authorization
+    """
+    chain_id: U256
+    address: Bytes20
+    nonce: U64
+    y_parity: U256
+    r: U256
+    s: U256
+
+@dataclass
+class SetCodeTransaction:
+    """
+    Represents a set code transaction (EIP-7702).
+    """
+    chain_id: U256
+    nonce: Uint
+    max_priority_fee_per_gas: Uint
+    max_fee_per_gas: Uint
+    gas: Uint
+    to: Union[Bytes0, Address]
+    value: U256
+    data: Bytes
+    access_list: Tuple["Access", ...]
+    authorization_list: Tuple["Authorization", ...]
+    y_parity: U256
+    r: U256
+    s: U256
+
+
+Transaction = Union[
+    "LegacyTransaction",
+    "AccessListTransaction",
+    "FeeMarketTransaction",
+    "BlobTransaction",
+    SetCodeTransaction,
+]
+
+
+def encode_transaction(tx: Transaction) -> Union["LegacyTransaction", Bytes]:
+    """
+    Encode a transaction. Needed because non-legacy transactions aren't RLP.
+    """
+    # ... (other types)
+    elif isinstance(tx, SetCodeTransaction):
+        return b"\x04" + rlp.encode(tx)
+    else:
+        # FIXME: add support for auth transactions (type 5)
+        raise Exception(f"Unable to encode transaction of type {type(tx)}")
+
+
+def decode_transaction(tx: Union["LegacyTransaction", Bytes]) -> Transaction:
+    """
+    Decode a transaction. Needed because non-legacy transactions aren't RLP.
+    """
+    if isinstance(tx, Bytes):
+        # ... (other types)
+        elif tx[0] == 4:
+            return rlp.decode_to(SetCodeTransaction, tx[1:])
+        else:
+            raise TransactionTypeError(tx[0])
+    else:
+        return tx
+
+# ... (other functions)
+```
+</file>
+<file path="https://github.com/ethereum/execution-specs/blob/master/src/ethereum/prague/vm/instructions/__init__.py">
+```python
+"""
+EVM Instruction Encoding (Opcodes)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. contents:: Table of Contents
+    :backlinks: none
+    :local:
+
+Introduction
+------------
+
+Machine readable representations of EVM instructions, and a mapping to their
+implementations.
+"""
+
+# ... (imports)
+from . import data as data_instructions
+
+class Ops(enum.Enum):
+    """
+    Enum for EVM Opcodes
+    """
+    # ... (existing opcodes)
+    
+    # EIP-7685: General-purpose execution layer requests
+    DEPOSIT = 0xB0
+    WITHDRAW = 0xB1
+    VALREQ = 0xB2
+
+    # EIP-7480: EOF Functions
+    RJUMP = 0x5C
+    RJUMPI = 0x5D
+    RJUMPV = 0x5E
+    CALLF = 0xE1
+    RETF = 0xE2
+    JUMPF = 0xE3
+
+    # EIP-4200: Static relative jumps
+    RJUMPS = 0xEA
+    RJUMPIS = 0xEB
+
+    # EIP-5450: Stack validation
+    SWAPN = 0xEC
+    DUPN = 0xED
+    EXCHANGE = 0xEE
+    RETURNDATALOAD = 0xF7
+```
+</file>
+</execution-specs>
+
+## GO-ETHEREUM Context
+
+<go-ethereum>
+<file path="https://github.com/ethereum/go-ethereum/blob/master/params/config.go">
+```go
+// ChainConfig is the core config which determines the blockchain settings.
+//
+// ChainConfig is stored in the database on a per block basis. This means
+// that any network, identified by its genesis block, can have its own
+// set of configuration options.
+type ChainConfig struct {
+	ChainID *big.Int `json:"chainId"` // chainId identifies the current chain and is used for replay protection
+
+	// EIP-150 hash of an empty account.
+	EIP150Hash common.Hash `json:"eip150Hash,omitempty"`
+
+	// EIP-158 transition block.
+	EIP158Block *big.Int `json:"eip158Block,omitempty"`
+
+	// Various consensus engines
+	Ethash *EthashConfig `json:"ethash,omitempty"`
+	Clique *CliqueConfig `json:"clique,omitempty"`
+
+	// TerminalTotalDifficulty is the total difficulty for the merge transition.
+	TerminalTotalDifficulty *big.Int `json:"terminalTotalDifficulty,omitempty"`
+
+	// Hard-fork scheduling
+	HomesteadBlock      *big.Int `json:"homesteadBlock,omitempty"`
+	DAOForkBlock        *big.Int `json:"daoForkBlock,omitempty"`
+	DAOForkSupport      bool     `json:"daoForkSupport,omitempty"`
+	ByzantiumBlock      *big.Int `json:"byzantiumBlock,omitempty"`
+	ConstantinopleBlock *big.Int `json:"constantinopleBlock,omitempty"`
+	PetersburgBlock     *big.Int `json:"petersburgBlock,omitempty"`
+	IstanbulBlock       *big.Int `json:"istanbulBlock,omitempty"`
+	MuirGlacierBlock    *big.Int `json:"muirGlacierBlock,omitempty"`
+	BerlinBlock         *big.Int `json:"berlinBlock,omitempty"`
+	LondonBlock         *big.Int `json:"londonBlock,omitempty"`
+	ArrowGlacierBlock   *big.Int `json:"arrowGlacierBlock,omitempty"`
+	GrayGlacierBlock    *big.Int `json:"grayGlacierBlock,omitempty"`
+	MergeNetsplitBlock  *big.Int `json:"mergeNetsplitBlock,omitempty"`
+
+	// Fork-times will have precedence over fork-blocks if both are set
+	ShanghaiTime *uint64 `json:"shanghaiTime,omitempty"`
+	CancunTime   *uint64 `json:"cancunTime,omitempty"`
+	PragueTime   *uint64 `json:"pragueTime,omitempty"` // As of now, this is a placeholder in geth
+	VerkleTime   *uint64 `json:"verkleTime,omitempty"` // As of now, this is a placeholder in geth
+
+	// EIP-4844 related settings
+	BlobScheduleConfig *BlobScheduleConfig `json:"blobSchedule,omitempty"`
+
+	// EIP-7702 Set Code Transaction related settings
+	EnableSetCodeAtGenesis bool `json:"enableSetCodeAtGenesis,omitempty"`
+
+	// EnableVerkleAtGenesis enables the verkle state scheme from genesis.
+	EnableVerkleAtGenesis bool `json:"enableVerkleAtGenesis,omitempty"`
+}
+
+// IsPrague returns whether prague is active at the given time.
+func (c *ChainConfig) IsPrague(num *big.Int, time uint64) bool {
+	return c.PragueTime != nil && time >= *c.PragueTime
+}
+
+// IsVerkle returns whether verkle is active at the given time.
+func (c *ChainConfig) IsVerkle(num *big.Int, time uint64) bool {
+	return (c.VerkleTime != nil && time >= *c.VerkleTime) || c.EnableVerkleAtGenesis
+}
+```
+</file>
+<file path="https://github.com/ethereum/go-ethereum/blob/master/core/types/tx_setcode.go">
+```go
+// DelegationPrefix is used by code to denote the account is delegating to
+// another account.
+var DelegationPrefix = []byte{0xef, 0x01, 0x00}
+
+// ParseDelegation tries to parse the address from a delegation slice.
+func ParseDelegation(b []byte) (common.Address, bool) {
+	if len(b) != 23 || !bytes.HasPrefix(b, DelegationPrefix) {
+		return common.Address{}, false
+	}
+	return common.BytesToAddress(b[len(DelegationPrefix):]), true
+}
+
+// SetCodeTx implements the EIP-7702 transaction type which temporarily installs
+// the code at the signer's address.
+type SetCodeTx struct {
+	ChainID    *uint256.Int
+	Nonce      uint64
+	GasTipCap  *uint256.Int // a.k.a. maxPriorityFeePerGas
+	GasFeeCap  *uint256.Int // a.k.a. maxFeePerGas
+	Gas        uint64
+	To         common.Address
+	Value      *uint256.Int
+	Data       []byte
+	AccessList AccessList
+	AuthList   []SetCodeAuthorization
+
+	// Signature values
+	V *uint256.Int
+	R *uint256.Int
+	S *uint256.Int
+}
+
+//go:generate go run github.com/fjl/gencodec -type SetCodeAuthorization -field-override authorizationMarshaling -out gen_authorization.go
+
+// SetCodeAuthorization is an authorization from an account to deploy code at its address.
+type SetCodeAuthorization struct {
+	ChainID uint256.Int    `json:"chainId" gencodec:"required"`
+	Address common.Address `json:"address" gencodec:"required"`
+	Nonce   uint64         `json:"nonce" gencodec:"required"`
+	V       uint8          `json:"yParity" gencodec:"required"`
+	R       uint256.Int    `json:"r" gencodec:"required"`
+	S       uint256.Int    `json:"s" gencodec:"required"`
+}
+
+// Authority recovers the the authorizing account of an authorization.
+func (a *SetCodeAuthorization) Authority() (common.Address, error) {
+	sighash := a.sigHash()
+	if !crypto.ValidateSignatureValues(a.V, a.R.ToBig(), a.S.ToBig(), true) {
+		return common.Address{}, ErrInvalidSig
+	}
+	// encode the signature in uncompressed format
+	var sig [crypto.SignatureLength]byte
+	a.R.WriteToSlice(sig[:32])
+	a.S.WriteToSlice(sig[32:64])
+	sig[64] = a.V
+	// recover the public key from the signature
+	pub, err := crypto.Ecrecover(sighash[:], sig[:])
+	if err != nil {
+		return common.Address{}, err
+	}
+	if len(pub) == 0 || pub[0] != 4 {
+		return common.Address{}, errors.New("invalid public key")
+	}
+	var addr common.Address
+	copy(addr[:], crypto.Keccak256(pub[1:])[12:])
+	return addr, nil
+}
+```
+</file>
+</go-ethereum>
+
 ## References
 
 - [Prague Hardfork Meta EIP](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-7600.md)
