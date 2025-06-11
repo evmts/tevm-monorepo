@@ -129,7 +129,7 @@ pub fn execute_precompile(
         }, // ECADD - TODO
         7 => {
             @branchHint(.likely);
-            return ecmul.execute(input, output, gas_limit);
+            return ecmul.execute(input, output, gas_limit, chain_rules);
         }, // ECMUL
         8 => {
             @branchHint(.cold);

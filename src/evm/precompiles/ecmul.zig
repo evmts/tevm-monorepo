@@ -29,41 +29,50 @@ const gas_constants = @import("../constants/gas_constants.zig");
 const PrecompileResult = @import("precompile_result.zig").PrecompileResult;
 const PrecompileOutput = @import("precompile_result.zig").PrecompileOutput;
 const PrecompileError = @import("precompile_result.zig").PrecompileError;
+const ChainRules = @import("../hardforks/chain_rules.zig");
+const Hardfork = @import("../hardforks/hardfork.zig").Hardfork;
 
-/// Calculate gas cost for ECMUL
+/// Calculate gas cost for ECMUL with hardfork awareness
 ///
-/// Returns the standard Istanbul gas cost. Hardfork-specific costs are handled
-/// by the precompile dispatcher to maintain interface compatibility.
+/// Returns the appropriate gas cost based on the hardfork:
+/// - Byzantium to Berlin: 40,000 gas
+/// - Istanbul and later: 6,000 gas (EIP-1108)
 ///
-/// @return Standard gas cost for ECMUL operation
-pub fn calculate_gas() u64 {
-    return gas_constants.ECMUL_GAS_COST;
+/// @param chain_rules Current chain rules defining the hardfork
+/// @return Hardfork-specific gas cost for ECMUL operation
+pub fn calculate_gas(chain_rules: ChainRules) u64 {
+    if (chain_rules.IsIstanbul) {
+        return gas_constants.ECMUL_GAS_COST;
+    } else {
+        return gas_constants.ECMUL_GAS_COST_BYZANTIUM;
+    }
 }
 
-/// Calculate gas cost with input size (for compatibility with precompile interface)
+/// Calculate gas cost with input size and hardfork awareness
 ///
-/// ECMUL has fixed gas cost regardless of input size.
+/// ECMUL has fixed gas cost regardless of input size, but varies by hardfork.
 ///
 /// @param input_size Size of input data (ignored)
+/// @param chain_rules Current chain rules defining the hardfork
 /// @return Fixed gas cost for current hardfork
-pub fn calculate_gas_checked(input_size: usize) !u64 {
+pub fn calculate_gas_checked(input_size: usize, chain_rules: ChainRules) !u64 {
     _ = input_size;
-    // Default to Istanbul gas costs for gas estimation
-    return gas_constants.ECMUL_GAS_COST;
+    return calculate_gas(chain_rules);
 }
 
 /// Execute ECMUL precompile
 ///
 /// Performs elliptic curve scalar multiplication on BN254 curve.
 /// Input validation ensures only valid curve points are processed.
-/// Uses Istanbul gas costs (6,000) - dispatcher will handle hardfork-specific costs.
+/// Gas costs are hardfork-aware: 40,000 (Byzantium) vs 6,000 (Istanbul+).
 ///
 /// @param input Input data (96 bytes: x, y, scalar)
 /// @param output Output buffer (must be >= 64 bytes)
 /// @param gas_limit Available gas for execution
+/// @param chain_rules Current chain rules defining the hardfork
 /// @return PrecompileOutput with success/failure and gas usage
-pub fn execute(input: []const u8, output: []u8, gas_limit: u64) PrecompileOutput {
-    const gas_cost = gas_constants.ECMUL_GAS_COST; // Use Istanbul cost by default
+pub fn execute(input: []const u8, output: []u8, gas_limit: u64, chain_rules: ChainRules) PrecompileOutput {
+    const gas_cost = calculate_gas(chain_rules);
     
     // Check gas limit
     if (gas_cost > gas_limit) {
@@ -118,10 +127,11 @@ pub fn get_output_size(input_size: usize) usize {
 ///
 /// @param input_size Size of input data (ignored)
 /// @param gas_limit Available gas limit
+/// @param chain_rules Current chain rules defining the hardfork
 /// @return true if operation would succeed
-pub fn validate_gas_requirement(input_size: usize, gas_limit: u64) bool {
+pub fn validate_gas_requirement(input_size: usize, gas_limit: u64, chain_rules: ChainRules) bool {
     _ = input_size;
-    const gas_cost = calculate_gas();
+    const gas_cost = calculate_gas(chain_rules);
     return gas_cost <= gas_limit;
 }
 
@@ -139,6 +149,7 @@ fn bytes_to_u256(bytes: []const u8) u256 {
 // Tests
 test "ECMUL basic functionality" {
     const testing = std.testing;
+    const chain_rules = ChainRules.for_hardfork(.ISTANBUL); // Use Istanbul rules
     
     // Test input: generator point (1, 2) × 2 = doubled generator
     var input: [96]u8 = [_]u8{0} ** 96;
@@ -151,7 +162,7 @@ test "ECMUL basic functionality" {
     // Set scalar: 2
     input[95] = 2; // scalar = 2
     
-    const result = execute(&input, &output, 10000);
+    const result = execute(&input, &output, 10000, chain_rules);
     try testing.expect(result.is_success());
     try testing.expectEqual(@as(usize, 64), result.get_output_size());
     
@@ -165,6 +176,7 @@ test "ECMUL basic functionality" {
 
 test "ECMUL zero scalar" {
     const testing = std.testing;
+    const chain_rules = ChainRules.for_hardfork(.ISTANBUL);
     
     // Test input: any point × 0 = point at infinity (0, 0)
     var input: [96]u8 = [_]u8{0} ** 96;
@@ -176,7 +188,7 @@ test "ECMUL zero scalar" {
     
     // scalar is already 0
     
-    const result = execute(&input, &output, 10000);
+    const result = execute(&input, &output, 10000, chain_rules);
     try testing.expect(result.is_success());
     
     // Result should be point at infinity (all zeros)
@@ -187,6 +199,7 @@ test "ECMUL zero scalar" {
 
 test "ECMUL unit scalar" {
     const testing = std.testing;
+    const chain_rules = ChainRules.for_hardfork(.ISTANBUL);
     
     // Test input: any point × 1 = same point
     var input: [96]u8 = [_]u8{0} ** 96;
@@ -199,7 +212,7 @@ test "ECMUL unit scalar" {
     // Set scalar: 1
     input[95] = 1; // scalar = 1
     
-    const result = execute(&input, &output, 10000);
+    const result = execute(&input, &output, 10000, chain_rules);
     try testing.expect(result.is_success());
     
     // Result should be the same point
@@ -209,6 +222,7 @@ test "ECMUL unit scalar" {
 
 test "ECMUL invalid point" {
     const testing = std.testing;
+    const chain_rules = ChainRules.for_hardfork(.ISTANBUL);
     
     // Test input: invalid point (not on curve)
     var input: [96]u8 = [_]u8{0} ** 96;
@@ -221,7 +235,7 @@ test "ECMUL invalid point" {
     // Set scalar: 2
     input[95] = 2; // scalar = 2
     
-    const result = execute(&input, &output, 10000);
+    const result = execute(&input, &output, 10000, chain_rules);
     try testing.expect(result.is_success());
     
     // Result should be point at infinity (all zeros) for invalid input
@@ -233,21 +247,28 @@ test "ECMUL invalid point" {
 test "ECMUL gas costs" {
     const testing = std.testing;
     
-    // Test default gas cost
-    const gas_cost = calculate_gas();
-    try testing.expectEqual(gas_constants.ECMUL_GAS_COST, gas_cost);
+    // Test Istanbul gas cost
+    const istanbul_rules = ChainRules.for_hardfork(.ISTANBUL);
+    const istanbul_cost = calculate_gas(istanbul_rules);
+    try testing.expectEqual(gas_constants.ECMUL_GAS_COST, istanbul_cost);
+    
+    // Test Byzantium gas cost
+    const byzantium_rules = ChainRules.for_hardfork(.BYZANTIUM);
+    const byzantium_cost = calculate_gas(byzantium_rules);
+    try testing.expectEqual(gas_constants.ECMUL_GAS_COST_BYZANTIUM, byzantium_cost);
     
     // Test gas limit validation
     var input: [96]u8 = [_]u8{0} ** 96;
     var output: [64]u8 = [_]u8{0} ** 64;
     
-    const result = execute(&input, &output, 1000); // Insufficient gas
+    const result = execute(&input, &output, 1000, istanbul_rules); // Insufficient gas
     try testing.expect(!result.is_success());
     try testing.expectEqual(PrecompileError.OutOfGas, result.get_error().?);
 }
 
 test "ECMUL short input padding" {
     const testing = std.testing;
+    const chain_rules = ChainRules.for_hardfork(.ISTANBUL);
     
     // Test with input shorter than 96 bytes (should be padded with zeros)
     var input: [50]u8 = [_]u8{0} ** 50;
@@ -257,7 +278,7 @@ test "ECMUL short input padding" {
     input[31] = 1; // x = 1
     // y and scalar remain 0 due to padding
     
-    const result = execute(&input, &output, 10000);
+    const result = execute(&input, &output, 10000, chain_rules);
     try testing.expect(result.is_success());
     
     // Result should be point at infinity due to scalar = 0

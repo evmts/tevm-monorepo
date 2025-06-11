@@ -38,10 +38,6 @@
 /// GASPRICE, RETURNDATASIZE, PC, MSIZE, GAS, CHAINID, SELFBALANCE
 pub const GasQuickStep: u64 = 2;
 
-/// ECMUL precompile gas costs (EIP-196)
-/// Post-Istanbul (EIP-1108): Reduced from 40,000 to 6,000 gas
-pub const ECMUL_GAS_COST: u64 = 6000; // Istanbul hardfork and later
-pub const ECMUL_GAS_COST_BYZANTIUM: u64 = 40000; // Pre-Istanbul
 
 /// Gas cost for simple arithmetic and logic operations
 /// Operations: ADD, SUB, NOT, LT, GT, SLT, SGT, EQ, ISZERO, AND, OR, XOR,
@@ -293,6 +289,18 @@ pub const SHA256_WORD_COST: u64 = 12;
 /// Base gas cost for ECRECOVER precompile (address 0x01)
 /// Fixed cost for elliptic curve signature recovery
 pub const ECRECOVER_COST: u64 = 3000;
+
+// ============================================================================
+// ECMUL Precompile Costs (EIP-196)
+// ============================================================================
+
+/// Gas cost for ECMUL precompile (address 0x07) from Istanbul hardfork onwards
+/// EIP-1108: Reduced gas costs for elliptic curve operations
+pub const ECMUL_GAS_COST: u64 = 6000;
+
+/// Gas cost for ECMUL precompile (address 0x07) from Byzantium to Berlin
+/// Original gas cost before EIP-1108 optimization
+pub const ECMUL_GAS_COST_BYZANTIUM: u64 = 40000;
 
 /// Calculate memory expansion gas cost
 /// 
