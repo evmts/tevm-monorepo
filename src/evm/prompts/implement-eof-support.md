@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_eof_support` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_eof_support feat_implement_eof_support`
 3. **Work in isolation**: `cd g/feat_implement_eof_support`
-4. **Commit message**: `✨ feat: implement EOF (EVM Object Format) support`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -19,9 +53,9 @@
 
 Implement EVM Object Format (EOF) support, which is a significant evolution of the EVM that introduces structured bytecode containers, static analysis capabilities, and new execution semantics. EOF includes several EIPs: EIP-3540 (container format), EIP-3670 (code validation), EIP-4200 (static relative jumps), EIP-4750 (functions), and EIP-5450 (stack validation).
 
-<eli5>
+## ELI5
+
 Current smart contract bytecode is like a long string of assembly instructions all jumbled together with no structure. EOF (EVM Object Format) is like organizing that mess into a proper filing system with labeled sections and safety checks. It's similar to how modern programming languages have functions, imports, and type checking, versus old assembly code that was just one long list of instructions. EOF makes smart contracts safer (by catching errors before deployment), faster (by enabling optimizations), and easier to analyze. It's like upgrading from a text file full of random code to a properly structured program with clear functions and validation.
-</eli5>
 
 ## EOF Specification Overview
 

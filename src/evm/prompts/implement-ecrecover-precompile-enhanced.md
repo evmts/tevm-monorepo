@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_ecrecover_precompile` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_ecrecover_precompile feat_implement_ecrecover_precompile`
 3. **Work in isolation**: `cd g/feat_implement_ecrecover_precompile`
-4. **Commit message**: `✨ feat: implement ECRECOVER precompile for signature recovery`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -18,6 +52,33 @@
 ## Context
 
 Implement the ECRECOVER precompile (address 0x01) for Ethereum Virtual Machine compatibility. This precompile recovers the signer's address from an ECDSA signature using elliptic curve cryptography. This is fundamental for Ethereum's signature verification system.
+
+## ELI5
+
+Think of ECRECOVER as a forensic handwriting expert for the digital world. When someone signs a transaction in Ethereum, it's like signing a document with a very special pen that creates a unique mathematical signature. ECRECOVER is the expert who can look at that signature and tell you exactly who signed it.
+
+Here's how it works:
+1. **You sign a transaction** with your private key (like signing with your unique fingerprint)
+2. **The signature gets attached** to the transaction (like a stamp on a document)
+3. **ECRECOVER examines the signature** and the original message
+4. **It reveals your public address** (like identifying your fingerprint from a database)
+
+This is absolutely critical because:
+- **Authentication**: It proves that transactions actually came from the claimed sender
+- **Security**: Nobody can forge signatures without your private key
+- **Trust**: The entire Ethereum network relies on this to verify every transaction
+
+The mathematical process is like:
+- Taking a signature puzzle (the ECDSA signature)
+- Using cryptographic math to "reverse-engineer" who could have created that exact signature
+- Outputting the Ethereum address of the signer
+
+The "enhanced" version includes optimizations for:
+- **Performance**: Faster signature verification using better algorithms
+- **Security**: Additional validation to prevent edge-case attacks
+- **Error handling**: Better detection of invalid or malicious signatures
+
+Without ECRECOVER, Ethereum couldn't verify that transactions are legitimate - it's like the foundation that all blockchain security is built on.
 
 ## Ethereum Specification
 

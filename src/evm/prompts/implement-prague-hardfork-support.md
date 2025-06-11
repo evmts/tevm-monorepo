@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_prague_hardfork_support` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_prague_hardfork_support feat_implement_prague_hardfork_support`
 3. **Work in isolation**: `cd g/feat_implement_prague_hardfork_support`
-4. **Commit message**: `✨ feat: implement Prague hardfork support for upcoming Ethereum upgrade`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -19,9 +53,9 @@
 
 Implement support for the upcoming Prague hardfork, which is planned to include EOF (EVM Object Format), Verkle Trees, and other significant improvements to the Ethereum protocol. This implementation should prepare the EVM for these future changes while maintaining backward compatibility.
 
-<eli5>
+## ELI5
+
 Think of hardforks like major software updates for Ethereum. The Prague hardfork is like upgrading from Windows 10 to Windows 11 - it brings new features and improvements, but everything has to work together seamlessly. This hardfork includes new ways to store and verify data (Verkle Trees) and a better format for smart contracts (EOF), making Ethereum faster and more efficient while keeping all existing features working.
-</eli5>
 
 ## Prague Hardfork Features
 

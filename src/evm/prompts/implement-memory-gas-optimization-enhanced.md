@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_memory_gas_optimization` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_memory_gas_optimization feat_implement_memory_gas_optimization`
 3. **Work in isolation**: `cd g/feat_implement_memory_gas_optimization`
-4. **Commit message**: `⚡ perf: implement memory gas pre-calculation and caching optimization`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -18,6 +52,10 @@
 ## Context
 
 Implement memory gas pre-calculation and caching to optimize EVM memory expansion costs. Memory operations like MLOAD, MSTORE, CALLDATACOPY, etc. require dynamic gas calculation based on memory size growth. Pre-calculating and caching these costs can significantly improve performance for memory-intensive contracts.
+
+## ELI5
+
+Think of memory gas optimization like a smart parking meter system. In the old system, every time you want to use more parking spaces (memory), you have to recalculate the entire cost from scratch using a complex formula - this is slow and wasteful. The enhanced memory gas optimization is like having a smart meter that pre-calculates common parking costs and remembers them, so when you need 5 spaces, 10 spaces, or 20 spaces, it already knows the cost instantly. It's even smarter - it tracks how much you're currently using and only calculates the "expansion cost" for additional spaces you need, rather than recalculating everything. For contracts that use lots of memory (like those processing large amounts of data), this optimization makes operations much faster by avoiding repetitive expensive calculations, similar to how express checkout lanes speed up shopping for frequent customers.
 
 ## Current Memory Gas Model
 

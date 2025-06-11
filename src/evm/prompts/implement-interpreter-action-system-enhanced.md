@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_interpreter_action_system` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_interpreter_action_system feat_implement_interpreter_action_system`
 3. **Work in isolation**: `cd g/feat_implement_interpreter_action_system`
-4. **Commit message**: `⚡ feat: implement structured interpreter action system for calls and creates with validation and optimization`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -18,6 +52,10 @@
 ## Context
 
 Implement a comprehensive interpreter action system that provides structured handling for calls and creates with built-in validation, optimization, and extensibility. This system enables clean separation of action logic, automatic validation, performance optimization, and easy addition of new action types while maintaining type safety and performance.
+
+## ELI5
+
+Think of the interpreter action system as a sophisticated restaurant with specialized stations - instead of one chef doing everything, you have a pastry chef, a grill chef, a salad chef, etc. In the EVM, different operations (calling other contracts, creating new contracts, reading storage) are like different types of orders that need specialized handling. The enhanced action system is like upgrading from a basic kitchen to a high-end restaurant operation: you get quality control inspectors who check every order before it goes out (validation), efficiency experts who optimize workflows (optimization), and a management system that can easily add new types of cuisine (extensibility). Each "chef" (action handler) is an expert at their specific task, there are safety protocols to prevent mistakes, and the system can automatically route orders to the right specialist while tracking performance metrics to improve service over time.
 
 ## Interpreter Action System Specifications
 

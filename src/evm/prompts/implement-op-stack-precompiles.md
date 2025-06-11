@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_op_stack_precompiles` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_op_stack_precompiles feat_implement_op_stack_precompiles`
 3. **Work in isolation**: `cd g/feat_implement_op_stack_precompiles`
-4. **Commit message**: `✨ feat: implement OP Stack P256VERIFY precompile for SECP256R1 signature verification`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -19,9 +53,9 @@
 
 Implement OP Stack specific precompiles, particularly P256VERIFY (RIP-7212) for SECP256R1 signature verification. This precompile enables efficient verification of SECP256R1 (P-256) signatures, which is widely used in modern cryptographic applications and WebAuthn.
 
-<eli5>
+## ELI5
+
 Precompiles are like special built-in calculators for complex math operations. The OP Stack chains (like Optimism and Base) added a new calculator called P256VERIFY that's really good at checking if digital signatures are genuine. It's like having a specialized document authentication machine that can quickly verify if someone's digital signature on a document is real, which is especially useful for modern web authentication systems.
-</eli5>
 
 ## RIP-7212 Specification
 

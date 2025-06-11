@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_call_gas_management` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_call_gas_management feat_implement_call_gas_management`
 3. **Work in isolation**: `cd g/feat_implement_call_gas_management`
-4. **Commit message**: `✨ feat: implement 63/64th gas forwarding rule for call operations`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -45,11 +79,26 @@ retained_gas = available_gas - gas_to_forward
 3. **Error Handling**: Proper out-of-gas detection
 4. **Post-Call Gas**: Track remaining gas after call completion
 
-### Files to Modify
-- `/src/evm/execution/system.zig` - Update call operations
-- `/src/evm/constants/gas_constants.zig` - Add gas forwarding constants
-- `/src/evm/frame.zig` - Gas tracking utilities
-- `/test/evm/gas/gas_accounting_test.zig` - Add comprehensive tests
+## Relevant Implementation Files
+
+**Primary Files to Modify:**
+- `/src/evm/execution/system.zig` - Contains call operations (CALL, CALLCODE, DELEGATECALL, STATICCALL, CREATE, CREATE2) that need 63/64th gas forwarding rule
+- `/src/evm/constants/gas_constants.zig` - Gas constants and calculations where forwarding constants should be added
+- `/src/evm/frame.zig` - Call frame management with gas tracking utilities and frame lifecycle
+
+**Supporting Files:**
+- `/src/evm/call_result.zig` - Call result handling that tracks remaining gas after calls
+- `/src/evm/vm.zig` - Main VM execution loop that coordinates call gas management
+
+**Test Files:**
+- `/test/evm/opcodes/system_test.zig` - Tests for system opcodes including call operations
+- `/test/evm/gas/gas_accounting_test.zig` - Gas accounting verification and 63/64th rule tests
+
+**Why These Files:**
+- system.zig contains CallInput and CallType structures that need gas forwarding logic implementation
+- frame.zig manages gas tracking across call boundaries and needs updates for retained gas calculation
+- The VM currently has basic call infrastructure but lacks proper gas forwarding rules
+- Existing gas tests provide framework for validating the 63/64th rule implementation
 
 ## Success Criteria
 

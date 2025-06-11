@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_input_validation_framework` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_input_validation_framework feat_implement_input_validation_framework`
 3. **Work in isolation**: `cd g/feat_implement_input_validation_framework`
-4. **Commit message**: `🛡️ feat: implement comprehensive input validation and sanitization framework for secure EVM execution`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -18,6 +52,24 @@
 ## Context
 
 Implement a comprehensive input validation framework that provides robust validation and sanitization for all EVM inputs, including bytecode, transaction data, contract parameters, and runtime values. This framework ensures security, correctness, and performance while preventing common attack vectors and maintaining EVM compatibility.
+
+## ELI5
+
+Think of input validation like having a really thorough security guard at the entrance to a high-security building. Just like how a security guard checks IDs, scans bags, and verifies appointments before letting people in, an input validation framework checks every piece of data before it enters the EVM.
+
+Here's what it does:
+- **ID Check**: Validates that bytecode is properly formatted (like checking if an ID is real vs fake)
+- **Bag Scan**: Examines transaction data for malicious content (like scanning for weapons)
+- **Size Limits**: Ensures data isn't too big to handle safely (like weight limits for luggage)
+- **Format Verification**: Confirms data follows the expected patterns (like checking if a phone number has the right number of digits)
+
+The "enhanced" part is like having a smart security system that:
+- **Learns**: Remembers common attack patterns and gets better at spotting them
+- **Adapts**: Adjusts security levels based on current threat levels
+- **Performs**: Processes checks quickly so legitimate users aren't delayed
+- **Reports**: Keeps detailed logs of what was blocked and why
+
+This is crucial because the EVM processes billions of dollars worth of transactions, so even small vulnerabilities could be catastrophic. It's like the difference between a mall security guard and Fort Knox security - the stakes require maximum protection.
 
 ## Input Validation Framework Specifications
 

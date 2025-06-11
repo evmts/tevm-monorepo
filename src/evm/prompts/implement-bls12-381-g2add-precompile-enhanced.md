@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_bls12_381_g2add_precompile` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_bls12_381_g2add_precompile feat_implement_bls12_381_g2add_precompile`
 3. **Work in isolation**: `cd g/feat_implement_bls12_381_g2add_precompile`
-4. **Commit message**: `✨ feat: implement BLS12-381 G2 addition precompile`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -18,6 +52,16 @@
 ## Context
 
 Implement the BLS12-381 G2 addition precompile (address 0x0D) as defined in EIP-2537. This precompile performs point addition operations on the G2 group of the BLS12-381 elliptic curve, which operates over an extension field and is essential for BLS signature verification.
+
+## ELI5
+
+Imagine you have a special type of calculator that works with points on a curved surface (like the Earth's surface). The BLS12-381 G2 addition precompile is like having a super-fast, built-in function that can add two points together on this special curve.
+
+Think of it like this: if you have two GPS coordinates and you want to find a third coordinate that represents their "sum" in this special math system, this precompile does that calculation instantly. The "G2" part means we're working with extra-complex numbers (like having coordinates with both real and imaginary parts), making the math much more sophisticated than regular addition.
+
+This enhanced version includes advanced optimizations like choosing the best algorithm based on input size, using parallel processing when possible, and implementing multiple mathematical backends for maximum speed. It's like having a GPS calculator that automatically switches between different calculation methods depending on whether you're working with local streets or intercontinental distances.
+
+Why does this matter? Modern blockchain applications like zero-knowledge proofs and advanced cryptographic signatures rely on these complex mathematical operations. Having them optimized means faster transaction processing and lower gas costs for users.
 
 ## EIP-2537 Specification
 

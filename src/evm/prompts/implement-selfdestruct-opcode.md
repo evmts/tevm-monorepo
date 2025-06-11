@@ -8,7 +8,41 @@
 1. **Create branch**: `feat_implement_selfdestruct_opcode` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_selfdestruct_opcode feat_implement_selfdestruct_opcode`
 3. **Work in isolation**: `cd g/feat_implement_selfdestruct_opcode`
-4. **Commit message**: `✨ feat: implement SELFDESTRUCT opcode`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -21,9 +55,16 @@
 
 Implement the SELFDESTRUCT (0xFF) opcode for Ethereum Virtual Machine compatibility. SELFDESTRUCT is a complex opcode that destroys a contract, sends its balance to a recipient, and has nuanced behavior across different hardforks.
 
-<eli5>
+## ELI5
+
 SELFDESTRUCT is like a controlled demolition of a building. When a smart contract calls SELFDESTRUCT, it's saying "tear down this building and send all the money inside to this specific address." Just like real demolition, there are strict rules about when and how it can happen - newer Ethereum versions have made the rules stricter to prevent abuse, similar to requiring more permits for demolition in densely populated areas.
-</eli5>
+
+The complexity comes from different Ethereum "eras" having different demolition rules:
+- **Pre-London**: Like having loose demolition permits - contracts could self-destruct easily and even get gas refunds
+- **Post-London**: Like stricter building codes - no more gas refunds and tighter restrictions
+- **Future versions**: Even more controlled, ensuring demolished contracts can't cause unexpected side effects
+
+This opcode needs careful implementation because a contract's self-destruction affects not just itself, but potentially other contracts that interact with it, like how demolishing a building affects the whole neighborhood.
 
 ## Ethereum Specification
 

@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_shared_memory` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_shared_memory feat_implement_shared_memory`
 3. **Work in isolation**: `cd g/feat_implement_shared_memory`
-4. **Commit message**: `🔗 feat: implement shared memory system for efficient cross-context data sharing and IPC`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -18,6 +52,10 @@
 ## Context
 
 Implement a comprehensive shared memory system that enables efficient data sharing between execution contexts, processes, and contracts. This includes memory pools, copy-on-write semantics, inter-process communication, memory mapping, and advanced memory management features while maintaining security isolation and performance optimization.
+
+## ELI5
+
+Think of shared memory like a public library's reading room where multiple people can access the same books without each person needing their own copy. In smart contracts, when multiple contracts need the same data (like a large lookup table), instead of each contract storing its own copy and wasting space, they can all share one copy in "shared memory." The enhanced version adds advanced features like smart librarians (memory pools) who organize books by size, security guards (access controllers) who make sure people only access what they're allowed to, and a clever copying system where if someone wants to write notes in a book, they automatically get their own personal copy to write in (copy-on-write). This prevents conflicts while still sharing the original data efficiently.
 
 ## Shared Memory Specifications
 

@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_runtime_flags` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_runtime_flags feat_implement_runtime_flags`
 3. **Work in isolation**: `cd g/feat_implement_runtime_flags`
-4. **Commit message**: `⚡ perf: implement efficient runtime behavior configuration with compile-time optimization`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -18,6 +52,10 @@
 ## Context
 
 Implement a comprehensive runtime flags system that allows efficient runtime behavior configuration with compile-time optimization. This includes feature flags, performance flags, debug flags, and compatibility flags that can control EVM behavior without performance overhead through compile-time evaluation and branch elimination.
+
+## ELI5
+
+Think of runtime flags like the advanced settings panel in a high-performance sports car. Beyond basic on/off switches, you have sophisticated controls that can change how the engine behaves, adjust suspension settings, modify transmission behavior, and enable racing modes. The enhanced version adds smart features like profile presets (compile-time optimization) that configure multiple settings at once for specific use cases, automatic performance monitoring that tracks how different settings affect performance, and the ability to save and load different configuration profiles. This allows developers to fine-tune the EVM's behavior for different scenarios (development, testing, production, debugging) without compromising performance.
 
 ## Runtime Flags Specifications
 

@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_state_caching` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_state_caching feat_implement_state_caching`
 3. **Work in isolation**: `cd g/feat_implement_state_caching`
-4. **Commit message**: `✨ feat: implement intelligent state caching layer for frequently accessed state`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -18,6 +52,10 @@
 ## Context
 
 Implement an intelligent state caching layer that provides fast access to frequently accessed state data while maintaining consistency and memory efficiency. This includes multi-level caching, cache invalidation strategies, LRU eviction policies, and integration with both synchronous and asynchronous state backends.
+
+## ELI5
+
+Imagine you're a librarian who gets asked for the same popular books over and over. Instead of walking to the back storage room every time, you keep the most requested books on a shelf right next to your desk for quick access. State caching works similarly - it keeps frequently accessed blockchain data (like account balances, smart contract storage, and code) in fast memory instead of always fetching it from slower storage. The enhanced version is like having multiple shelves: a tiny "express shelf" for the most popular items, a medium shelf for somewhat popular items, and smart rules that automatically move books between shelves based on how often they're requested. It also has a "librarian assistant" that can predict what books might be needed next and fetch them in advance, plus safety rules to ensure you never give someone an outdated version of a book when the original has been updated.
 
 ## Reference Implementations
 

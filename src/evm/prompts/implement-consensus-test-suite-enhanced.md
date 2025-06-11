@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_consensus_test_suite` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_consensus_test_suite feat_implement_consensus_test_suite`
 3. **Work in isolation**: `cd g/feat_implement_consensus_test_suite`
-4. **Commit message**: `✨ feat: implement Ethereum consensus test suite integration and compliance framework`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -18,6 +52,10 @@
 ## Context
 
 Implement comprehensive Ethereum consensus test suite integration to ensure 100% compatibility with the official Ethereum specification. This includes state tests, blockchain tests, transaction tests, and difficulty tests from the ethereum/tests repository. The implementation should provide automated test discovery, execution, and reporting to catch any regressions or compatibility issues.
+
+## ELI5
+
+Think of consensus tests like a massive standardized exam that all Ethereum implementations must pass to prove they work correctly. Just like how all calculators need to give the same answer for "2+2=4", all Ethereum clients need to process transactions and blocks exactly the same way. This test suite is like having thousands of test questions that verify our EVM gives the exact same answers as the official Ethereum specification, ensuring perfect compatibility.
 
 ## Consensus Test Specifications
 

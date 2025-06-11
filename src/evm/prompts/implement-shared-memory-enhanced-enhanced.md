@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_shared_memory` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_shared_memory feat_implement_shared_memory`
 3. **Work in isolation**: `cd g/feat_implement_shared_memory`
-4. **Commit message**: `🔗 feat: implement shared memory system for efficient cross-context data sharing and IPC`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -18,6 +52,10 @@
 ## Context
 
 Implement a comprehensive shared memory system that enables efficient data sharing between execution contexts, processes, and contracts. This includes memory pools, copy-on-write semantics, inter-process communication, memory mapping, and advanced memory management features while maintaining security isolation and performance optimization.
+
+## ELI5
+
+Imagine a super-advanced cloud storage system for smart contracts. Instead of each contract keeping its own copy of large data files (wasting storage), they can all access shared "cloud folders" with sophisticated features. This enhanced-enhanced version is like having a premium enterprise cloud service with: automatic backup systems that create copies only when needed (copy-on-write), intelligent data placement that puts frequently accessed data in faster storage, advanced security with fine-grained permissions, real-time monitoring that tracks usage patterns, and smart compression that reduces storage costs. Multiple smart contracts can collaborate efficiently on shared data while maintaining complete security isolation and optimal performance.
 
 ## Shared Memory Specifications
 

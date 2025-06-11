@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_selfdestruct_refunds` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_selfdestruct_refunds feat_implement_selfdestruct_refunds`
 3. **Work in isolation**: `cd g/feat_implement_selfdestruct_refunds`
-4. **Commit message**: `✨ feat: implement SELFDESTRUCT refunds for pre-London hardfork`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -18,6 +52,25 @@
 ## Context
 
 Implement gas refunds for SELFDESTRUCT opcode according to Ethereum specifications. Before the London hardfork (EIP-3529), SELFDESTRUCT provided gas refunds when destroying contracts. This refund mechanism was removed in London to mitigate gas limit manipulation attacks.
+
+## ELI5
+
+Imagine Ethereum transactions like paying tolls on a highway system. Originally, if you demolished a building (SELFDESTRUCT), the city would give you a tax refund for cleaning up unused space. This seemed like a good incentive to keep the city tidy.
+
+However, clever people found ways to abuse this system:
+- They would build temporary structures just to demolish them and collect refunds
+- They could manipulate the "traffic limits" (gas limits) by creating fake demolition projects
+- This was like opening fake businesses just to get demolition rebates, then using those rebates to clog up the highway system
+
+The London hardfork was like the city council saying "No more demolition rebates!" to prevent this abuse. Now, when you destroy a contract, you don't get gas back.
+
+This enhanced implementation handles the complexity of:
+- **Era Detection**: Automatically knowing which rules apply (pre-London vs post-London)
+- **Refund Calculation**: Computing the correct refund amounts when they were allowed
+- **Security Measures**: Ensuring the refund system can't be exploited
+- **State Management**: Properly tracking which contracts are eligible for refunds
+
+Why does this matter? It ensures the EVM behaves correctly across different Ethereum versions and prevents economic attacks that could destabilize the network.
 
 ## Ethereum Specification
 

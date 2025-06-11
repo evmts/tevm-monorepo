@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_bundle_state_management` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_bundle_state_management feat_implement_bundle_state_management`
 3. **Work in isolation**: `cd g/feat_implement_bundle_state_management`
-4. **Commit message**: `✨ feat: implement efficient bundle state management for state transitions and rollback`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -18,6 +52,28 @@
 ## Context
 
 Implement comprehensive bundle state management that efficiently handles state transitions, rollbacks, and batch operations. This includes state bundling for transaction execution, efficient diff tracking, checkpoint management, and optimized state merging for complex execution scenarios like MEV bundles and transaction batching.
+
+## ELI5
+
+Think of bundle state management like managing multiple drafts of a document at the same time. Imagine you're editing a complex legal document where different people are making changes simultaneously, and you need to:
+
+1. **Keep track of all changes** (like "track changes" in Word, but much more sophisticated)
+2. **Group related changes together** (like bundling all changes from one reviewer)
+3. **Try out combinations** of changes without breaking the original
+4. **Roll back easily** if something goes wrong
+
+In blockchain terms:
+- **State**: The current "version" of all account balances and contract data
+- **Bundle**: A group of transactions that should be processed together (like a batch of related edits)
+- **Checkpoint**: A save point you can return to if things go wrong (like saving your document before making risky changes)
+- **Rollback**: Undoing changes back to a previous checkpoint (like hitting Ctrl+Z)
+
+This is especially critical for:
+- **MEV (Maximal Extractable Value)**: Traders who want to execute multiple related transactions as one atomic unit
+- **Transaction Batching**: Processing many transactions efficiently while ensuring they don't interfere with each other
+- **Simulation**: Testing "what if" scenarios without actually changing the real state
+
+The enhanced version is like having a super-smart document management system that can predict which changes will conflict, optimize the order of changes, and merge complex edits intelligently.
 
 ## Bundle State Management Specifications
 

@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_interpreter_types_system` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_interpreter_types_system feat_implement_interpreter_types_system`
 3. **Work in isolation**: `cd g/feat_implement_interpreter_types_system`
-4. **Commit message**: `⚡ perf: implement configurable interpreter types system for flexible EVM execution`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -17,9 +51,9 @@
 
 ## Context
 
-<eli5>
+## ELI5
+
 Think of the interpreter types system like having a customizable computer that can swap out its components based on what you're doing. When you're gaming, you use a high-performance graphics card and lots of RAM. When traveling, you switch to a lightweight setup with extended battery life. When debugging code, you use components that provide detailed monitoring even if they're slower. The interpreter types system works the same way - it can configure itself with different "components" (stack types, memory managers, execution strategies) depending on whether you need maximum speed, minimal memory usage, detailed debugging, or maximum compatibility.
-</eli5>
 
 Implement a flexible interpreter types system that allows configurable interpreter components based on runtime requirements. This includes different execution strategies, stack implementations, memory managers, and optimization levels that can be selected at compile time or runtime to optimize for specific use cases (performance, memory usage, size, compatibility).
 

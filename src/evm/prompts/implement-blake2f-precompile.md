@@ -21,7 +21,41 @@ The BLAKE2F precompile enables efficient cryptographic operations for smart cont
 1. **Create branch**: `feat_implement_blake2f_precompile` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_blake2f_precompile feat_implement_blake2f_precompile`
 3. **Work in isolation**: `cd g/feat_implement_blake2f_precompile`
-4. **Commit message**: `✨ feat: implement BLAKE2F precompile`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -33,6 +67,28 @@ The BLAKE2F precompile enables efficient cryptographic operations for smart cont
 ## Context
 
 Implement the BLAKE2F precompile (address 0x09) for Ethereum Virtual Machine compatibility. This precompile provides the BLAKE2b compression function and is available from the Istanbul hardfork.
+
+## Relevant Implementation Files
+
+**Primary Files to Modify:**
+- `/src/evm/precompiles/precompiles.zig` - Main precompile dispatcher and registry where BLAKE2F needs to be registered
+- `/src/evm/precompiles/precompile_addresses.zig` - Address constants for precompiles (add BLAKE2F address 0x09)
+- `/src/evm/precompiles/precompile_gas.zig` - Gas calculation for precompiles (dynamic cost: 1 gas per round)
+- `/src/evm/precompiles/precompile_result.zig` - Result types for precompile execution
+
+**New Files to Create:**
+- `/src/evm/precompiles/blake2f.zig` - BLAKE2F implementation with compression function
+- `/src/evm/crypto/blake2b.zig` - BLAKE2b utilities and constants
+
+**Test Files:**
+- `/test/evm/precompiles/blake2f_test.zig` - Comprehensive BLAKE2F tests with EIP-152 test vectors
+- `/test/evm/precompiles/` - Existing precompile test infrastructure
+
+**Why These Files:**
+- The precompiles.zig file contains the main dispatcher that routes precompile calls based on address
+- Current implementation only has identity and KZG precompiles, BLAKE2F needs to be added
+- Gas calculation is dynamic (1 per round) requiring updates to gas calculation logic
+- Test infrastructure exists but needs BLAKE2F-specific test vectors
 
 ## ELI5
 

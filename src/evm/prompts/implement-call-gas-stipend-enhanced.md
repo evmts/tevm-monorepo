@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_call_gas_stipend` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_call_gas_stipend feat_implement_call_gas_stipend`
 3. **Work in isolation**: `cd g/feat_implement_call_gas_stipend`
-4. **Commit message**: `✨ feat: implement call gas stipend for value transfers`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -18,6 +52,17 @@
 ## Context
 
 Implement proper gas stipend handling for value transfers in CALL operations. When a CALL transfers value (ETH), the called contract receives a gas stipend of 2300 gas to perform basic operations like logging. This mechanism ensures that simple receiver contracts can execute even when the caller provides insufficient gas.
+
+## ELI5
+
+Think of gas stipends like sending money through the mail with a small prepaid envelope attached. When you send ETH to a smart contract, it's like mailing money to someone. The gas stipend is like including a small prepaid return envelope (2300 gas) so the recipient can at least send you a "thank you" note or receipt.
+
+This prevents a common problem: imagine if someone sent you money but didn't include enough postage for you to even acknowledge receiving it. The gas stipend ensures that even if the sender didn't provide enough gas, the receiving contract can still do basic things like:
+- Log that it received the money (like sending a receipt)
+- Update simple internal records
+- Emit events to notify others
+
+However, this "prepaid envelope" is quite small - you can't use it to send more money to other people or do complex operations. It's just enough for basic bookkeeping, which prevents contracts from getting "stuck" when they receive unexpected payments.
 
 ## Ethereum Specification
 

@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_custom_chain_framework` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_custom_chain_framework feat_implement_custom_chain_framework`
 3. **Work in isolation**: `cd g/feat_implement_custom_chain_framework`
-4. **Commit message**: `🔧 feat: implement custom chain framework for easy blockchain variant implementation`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -19,11 +53,9 @@
 
 Implement a comprehensive custom chain framework that enables easy implementation of custom blockchain variants (L2s, sidechains, private chains, testnets). The framework should provide configurable consensus rules, custom opcodes, modified gas schedules, custom precompiles, and chain-specific behavior while maintaining compatibility with the core EVM execution engine.
 
-## <eli5>
+## ELI5
 
 A custom chain framework is like a blueprint system for building different types of blockchain networks. Think of it as a modular construction kit where you can pick and choose different components (consensus rules, transaction costs, special features) to build your own custom blockchain variant. Just like how you might customize a car with different options (engine, transmission, features), this framework lets you create specialized blockchains (L2s, private networks, testnets) by mixing and matching different rule sets and capabilities while keeping the core engine the same.
-
-</eli5>
 
 ## Custom Chain Framework Specifications
 

@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_runtime_flags` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_runtime_flags feat_implement_runtime_flags`
 3. **Work in isolation**: `cd g/feat_implement_runtime_flags`
-4. **Commit message**: `⚡ perf: implement efficient runtime behavior configuration with compile-time optimization`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -19,11 +53,9 @@
 
 Implement a comprehensive runtime flags system that allows efficient runtime behavior configuration with compile-time optimization. This includes feature flags, performance flags, debug flags, and compatibility flags that can control EVM behavior without performance overhead through compile-time evaluation and branch elimination.
 
-## <eli5>
+## ELI5
 
 Runtime flags are like switches and control knobs that let you turn different EVM features on or off and adjust how they behave. Think of it like the settings menu on your phone - you can enable/disable features like Bluetooth or change performance modes, and the system adapts accordingly. These flags help organize and control which parts of the EVM are active, making it easier to customize behavior for different environments (testing, development, production) without changing the core code.
-
-</eli5>
 
 ## Runtime Flags Specifications
 

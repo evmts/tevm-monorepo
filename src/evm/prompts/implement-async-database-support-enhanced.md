@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_async_database_support` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_async_database_support feat_implement_async_database_support`
 3. **Work in isolation**: `cd g/feat_implement_async_database_support`
-4. **Commit message**: `✨ feat: implement async database support for non-blocking state operations`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -18,6 +52,10 @@
 ## Context
 
 Implement comprehensive async database support to enable non-blocking database operations for state management. This includes async state backends, concurrent read/write operations, batched transactions, and connection pooling while maintaining EVM execution correctness and performance.
+
+## ELI5
+
+Imagine you're running a busy restaurant where customers place orders, but instead of making each customer wait while their food is being prepared, you give them a number and let them sit down while multiple chefs work on different orders simultaneously. Async database support works similarly for blockchain operations - instead of making the EVM wait every time it needs to read or write data to storage, it can continue processing other tasks while database operations happen in the background. The enhanced version is like upgrading to a smart restaurant system: you have multiple kitchen stations working in parallel, a smart ordering system that can batch similar requests together (like preparing all salads at once), a reservation system that manages how many customers can be served at once, and automatic coordination to ensure orders are delivered to the right tables in the right order. This prevents the blockchain from getting stuck waiting for slow storage operations and allows much higher transaction throughput.
 
 ## Async Database Architecture Specifications
 

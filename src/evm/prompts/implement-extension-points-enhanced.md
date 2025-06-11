@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_extension_points` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_extension_points feat_implement_extension_points`
 3. **Work in isolation**: `cd g/feat_implement_extension_points`
-4. **Commit message**: `🔌 feat: implement configurable extension system for custom EVM functionality`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -18,6 +52,10 @@
 ## Context
 
 Implement a comprehensive extension points system that allows configurable extension of EVM functionality through plugin-like components. This enables custom opcodes, precompiles, state hooks, execution hooks, and chain-specific behavior to be added without modifying core EVM code. The system should support compile-time and runtime extension registration with type safety and performance optimization.
+
+## ELI5
+
+Think of extension points like electrical outlets in your house - they're standardized connection points where you can plug in different devices without rewiring the entire house. This system creates "plugin outlets" throughout the EVM where developers can connect custom functionality (like new operations, custom logic, or chain-specific features) without touching the core code. Just like how you can plug a lamp, phone charger, or microwave into the same outlet, this system lets different chains plug in their unique features safely and efficiently.
 
 ## Extension Points System Specifications
 

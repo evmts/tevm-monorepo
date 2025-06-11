@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_precompile_backend_selection` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_precompile_backend_selection feat_implement_precompile_backend_selection`
 3. **Work in isolation**: `cd g/feat_implement_precompile_backend_selection`
-4. **Commit message**: `⚡ perf: implement dynamic precompile backend selection for optimal crypto performance`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -18,6 +52,32 @@
 ## Context
 
 Implement comprehensive precompile backend selection system that dynamically chooses optimal cryptographic implementations based on input characteristics, runtime environment detection, and performance profiling. This includes native optimized backends, fallback implementations, adaptive switching mechanisms, and performance monitoring to ensure maximum efficiency across different deployment scenarios.
+
+## ELI5
+
+Imagine you're running a delivery service and you have different types of vehicles: motorcycles for small packages, trucks for large deliveries, and drones for urgent items. The precompile backend selection system is like having a smart dispatcher that automatically chooses the best vehicle for each delivery based on:
+
+**Package Characteristics** (Input Analysis):
+- Small cryptographic operations → Use the "motorcycle" (lightweight, fast backend)
+- Large batch operations → Use the "truck" (optimized for bulk processing)
+- Time-critical operations → Use the "drone" (specialized high-speed backend)
+
+**Environmental Conditions** (Runtime Detection):
+- Rural area (older hardware) → Use reliable, compatible vehicles (fallback implementations)
+- Urban area (modern hardware) → Use electric vehicles with GPS (native optimized backends)
+- Traffic conditions (system load) → Dynamically switch between routes/methods
+
+**Performance Learning** (Adaptive Intelligence):
+The system learns from each delivery, tracking which vehicle performed best in different conditions, and gets smarter over time about making choices.
+
+This enhanced system includes:
+- **Multi-Backend Support**: Multiple "vehicle types" for each cryptographic operation
+- **Runtime Profiling**: Continuously measuring which backends perform best
+- **Graceful Degradation**: If the best option fails, automatically falls back to alternatives
+- **Environment Detection**: Automatically detects CPU features, available memory, and system capabilities
+- **Load Balancing**: Distributes work across multiple backends when beneficial
+
+Why does this matter? Different cryptographic operations perform better with different implementations depending on input size, hardware capabilities, and system conditions. This system ensures you always get the fastest possible execution, which translates to lower gas costs and better user experience.
 
 ## Precompile Backend Selection Specifications
 

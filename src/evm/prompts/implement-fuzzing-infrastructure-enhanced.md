@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_fuzzing_infrastructure` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_fuzzing_infrastructure feat_implement_fuzzing_infrastructure`
 3. **Work in isolation**: `cd g/feat_implement_fuzzing_infrastructure`
-4. **Commit message**: `✨ feat: implement comprehensive fuzzing infrastructure for automated edge case discovery`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -18,6 +52,10 @@
 ## Context
 
 Implement comprehensive fuzzing infrastructure to automatically discover edge cases, security vulnerabilities, and correctness issues in the EVM implementation. This includes bytecode fuzzing, transaction fuzzing, state fuzzing, and gas fuzzing with intelligent generation strategies and crash analysis capabilities.
+
+## ELI5
+
+Fuzzing is like having an extremely persistent and creative troublemaker test your system. Instead of following normal test cases, it throws random, weird, and unexpected inputs at your code to see what breaks. It's like stress-testing a bridge by having thousands of different vehicles drive across it in unpredictable ways - you'll discover weak spots and edge cases that normal testing would never find. This helps make the EVM more robust by finding bugs before real users encounter them.
 
 ## Fuzzing Strategies
 

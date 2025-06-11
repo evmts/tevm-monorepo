@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_loop_control` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_loop_control feat_implement_loop_control`
 3. **Work in isolation**: `cd g/feat_implement_loop_control`
-4. **Commit message**: `🔄 feat: implement advanced loop control with break/continue mechanics and optimization`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -19,11 +53,9 @@
 
 Implement a comprehensive loop control system that provides advanced loop management capabilities including break/continue semantics, loop optimization, nested loop support, and loop-invariant code motion. This enables more efficient contract execution patterns and better optimization opportunities while maintaining EVM compatibility and gas accounting accuracy.
 
-## <eli5>
+## ELI5
 
 Loop control is like having a smart traffic management system for repetitive operations in smart contracts. Just like traffic lights control the flow of cars through intersections, loop control manages how code repeats and when it should stop, skip ahead, or take detours. This system helps organize complex repetitive tasks and prevents infinite loops that could waste gas, while also optimizing frequently-used patterns to run faster.
-
-</eli5>
 
 ## Loop Control Specifications
 

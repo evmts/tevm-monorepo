@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_cli_tools` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_cli_tools feat_implement_cli_tools`
 3. **Work in isolation**: `cd g/feat_implement_cli_tools`
-4. **Commit message**: `✨ feat: implement comprehensive CLI tools for EVM testing, debugging, and benchmarking`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -18,6 +52,10 @@
 ## Context
 
 Implement comprehensive command-line interface tools for the EVM implementation, providing utilities for testing, debugging, benchmarking, and development workflows. This includes bytecode execution, state inspection, performance profiling, and developer-friendly debugging interfaces.
+
+## ELI5
+
+Think of CLI tools as the Swiss Army knife for blockchain developers - they're specialized command-line utilities that help you work with smart contracts without needing a full graphical interface. Just like how you might use command-line tools to manage files (`ls`, `cd`, `mkdir`), these enhanced CLI tools let you test smart contracts, inspect blockchain state, debug transaction failures, and benchmark performance - all from your terminal. It's like having a developer's toolbox where each tool has a specific job: one tool runs contract code, another shows you what's in blockchain storage, and another tells you how fast your code executes. These enhanced versions add advanced features like detailed execution tracing, gas optimization analysis, and performance profiling that help developers build better, more efficient smart contracts.
 
 ## CLI Tool Specifications
 

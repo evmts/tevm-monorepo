@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_subroutine_stack` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_subroutine_stack feat_implement_subroutine_stack`
 3. **Work in isolation**: `cd g/feat_implement_subroutine_stack`
-4. **Commit message**: `🔧 feat: implement EOF subroutine stack for advanced contract execution with call/return mechanics`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -19,11 +53,9 @@
 
 Implement a comprehensive subroutine stack system for EOF (Ethereum Object Format) contracts that supports subroutine calls, returns, and advanced control flow. This enables more efficient contract execution patterns, function-like abstractions, and better code organization within smart contracts while maintaining EVM compatibility and security.
 
-## <eli5>
+## ELI5
 
 A subroutine stack is like an organized filing system for function calls in smart contracts. Think of it as a stack of sticky notes where each note represents a function call - when you call a function, you put a new note on top with the return address, and when the function finishes, you peel off the top note to know where to go back. This system helps organize complex contract execution by keeping track of nested function calls and ensuring everything returns to the right place safely.
-
-</eli5>
 
 ## Subroutine Stack Specifications
 

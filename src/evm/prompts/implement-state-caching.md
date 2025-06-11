@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_state_caching` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_state_caching feat_implement_state_caching`
 3. **Work in isolation**: `cd g/feat_implement_state_caching`
-4. **Commit message**: `✨ feat: implement intelligent state caching layer for frequently accessed state`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -19,9 +53,9 @@
 
 Implement an intelligent state caching layer that provides fast access to frequently accessed state data while maintaining consistency and memory efficiency. This includes multi-level caching, cache invalidation strategies, LRU eviction policies, and integration with both synchronous and asynchronous state backends.
 
-<eli5>
+## ELI5
+
 Ethereum's "state" is like a massive database that stores every account balance, smart contract code, and storage value. Reading from this database can be slow, especially when contracts need to access the same data repeatedly. State caching is like keeping frequently used information in a faster, smaller storage area (like keeping your most-used books on your desk instead of going to the library every time). The system uses multiple cache levels (like having multiple increasingly larger bookshelves) and smart strategies to decide what to keep cached and what to remove when space runs out. This makes smart contract execution much faster by avoiding repeated slow database lookups.
-</eli5>
 
 ## Reference Implementations
 

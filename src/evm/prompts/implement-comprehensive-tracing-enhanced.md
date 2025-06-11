@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_comprehensive_tracing` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_comprehensive_tracing feat_implement_comprehensive_tracing`
 3. **Work in isolation**: `cd g/feat_implement_comprehensive_tracing`
-4. **Commit message**: `✨ feat: implement step-by-step execution monitoring and tracing`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -18,6 +52,10 @@
 ## Context
 
 Implement comprehensive execution tracing for debugging and monitoring EVM execution. This enables step-by-step tracking of opcodes, stack, memory, and state changes.
+
+## ELI5
+
+Think of comprehensive tracing as having a detailed security camera system and activity log for everything that happens when a smart contract runs. Just like how a security system records who enters a building, when they entered, what rooms they visited, and what they did there, EVM tracing records every single step a smart contract takes during execution. The enhanced version is like upgrading from basic security cameras to a forensic investigation suite: it doesn't just record what happened, but also tracks the "why" behind each action, monitors resource usage (like gas consumption), provides slow-motion replay capabilities for debugging, and can even predict potential issues before they become problems. This is essential for developers who need to understand why their smart contract failed, optimize performance, or prove that their code is working correctly - it's like having a flight recorder for blockchain transactions.
 
 ## Implementation Requirements
 

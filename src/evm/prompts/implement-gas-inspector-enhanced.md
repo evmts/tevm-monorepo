@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_gas_inspector` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_gas_inspector feat_implement_gas_inspector`
 3. **Work in isolation**: `cd g/feat_implement_gas_inspector`
-4. **Commit message**: `✨ feat: implement comprehensive gas analysis and optimization inspector`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -18,6 +52,10 @@
 ## Context
 
 Implement a comprehensive gas inspector that provides detailed analysis of gas consumption patterns, identifies optimization opportunities, and tracks gas usage across different operations and execution contexts. This tool is essential for gas optimization, cost analysis, and performance profiling of smart contracts.
+
+## ELI5
+
+Think of the gas inspector as a smart energy auditor for your home, but for smart contracts. Just like how an energy auditor identifies which appliances use the most electricity, when they use it, and suggests ways to reduce your bill, the enhanced gas inspector monitors every operation in your smart contract to see exactly where gas (Ethereum's "fuel") is being consumed. It's like having a super-detailed utility bill that shows not just your total usage, but breaks down costs by room, time of day, and specific appliances, plus gives you actionable advice like "your old refrigerator in the basement is costing you $50/month - consider upgrading" or "you're using too much heating during peak hours." For smart contract developers, this means understanding why their transactions are expensive, which parts of their code are gas-hungry, and getting specific recommendations for optimization - helping them build more cost-effective applications.
 
 ## Gas Inspector Specifications
 

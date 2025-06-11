@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_simd_optimizations` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_simd_optimizations feat_implement_simd_optimizations`
 3. **Work in isolation**: `cd g/feat_implement_simd_optimizations`
-4. **Commit message**: `⚡ perf: implement SIMD optimizations for vectorized 256-bit arithmetic operations`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -18,6 +52,26 @@
 ## Context
 
 Implement SIMD (Single Instruction, Multiple Data) optimizations for vectorized 256-bit arithmetic operations to significantly improve EVM execution performance. This includes vectorized implementations of arithmetic operations, bitwise operations, and cryptographic functions using platform-specific SIMD instruction sets.
+
+## ELI5
+
+Imagine you're a teacher grading multiple-choice tests. Normally, you'd grade each test one by one - look at question 1 on test A, grade it, then question 1 on test B, and so on. SIMD is like having a special technique where you can grade the same question across multiple tests simultaneously.
+
+Here's how SIMD works in the EVM context:
+
+**Single Instruction, Multiple Data**: Instead of processing one 256-bit number at a time, SIMD lets the CPU process multiple pieces of data with a single command. It's like having a calculator that can do the same operation on 4 different numbers at once.
+
+**Vectorized Operations**: Think of it like an assembly line where instead of one worker doing one task, you have multiple workers doing the same task on different items simultaneously. For example, instead of adding two 256-bit numbers in 8 separate 32-bit chunks sequentially, SIMD can process multiple chunks in parallel.
+
+**Platform-Specific Optimization**: Different CPUs have different "superpowers" (instruction sets like AVX2, SSE4). This enhanced implementation detects what superpowers your CPU has and uses the best ones available, like automatically switching between different assembly line configurations based on your factory's capabilities.
+
+This enhanced version includes:
+- **Auto-Detection**: Automatically discovers what SIMD features your processor supports
+- **Fallback Strategies**: If advanced features aren't available, it gracefully falls back to simpler but still optimized methods
+- **Memory Alignment**: Organizes data in memory in the most efficient way for SIMD operations
+- **Batch Processing**: Groups operations together to maximize the benefit of parallel processing
+
+Why does this matter? Smart contracts often need to do many similar calculations (like processing multiple transactions or performing cryptographic operations). SIMD can make these operations 2-8 times faster, significantly reducing gas costs and improving blockchain performance.
 
 ## SIMD Optimization Specifications
 

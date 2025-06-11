@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_memory_allocator_tuning` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_memory_allocator_tuning feat_implement_memory_allocator_tuning`
 3. **Work in isolation**: `cd g/feat_implement_memory_allocator_tuning`
-4. **Commit message**: `⚡ perf: implement memory allocator tuning for optimized allocation patterns`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -18,6 +52,20 @@
 ## Context
 
 Implement memory allocator tuning optimizations to improve memory allocation patterns, reduce fragmentation, and optimize performance for EVM-specific workloads. This includes custom allocators for different memory usage patterns, pool allocation for frequently used objects, and memory layout optimizations.
+
+## ELI5
+
+Think of memory allocation like organizing a warehouse. A basic warehouse just puts items wherever there's space, which can lead to wasted space and slow retrieval. Memory allocator tuning is like hiring a professional warehouse manager who:
+
+**Reduces Fragmentation**: Instead of leaving small gaps everywhere (like having tiny unusable spaces between boxes), the enhanced allocator groups similar-sized items together and keeps larger spaces available for bigger items.
+
+**Pool Allocation**: Like having dedicated sections for frequently used items (imagine keeping all the popular products near the loading dock), this creates special memory pools for objects that are created and destroyed often, making access much faster.
+
+**Smart Patterns**: The EVM has predictable patterns - like how contracts often need similar types of storage. This enhanced system recognizes these patterns and pre-allocates memory in the most efficient way, like setting up assembly lines for common operations.
+
+**Layout Optimization**: Like organizing a library where related books are shelved together, this system arranges memory so that data that's often accessed together is stored close to each other, reducing the time spent "walking around the warehouse."
+
+Why does this matter? Faster memory access means faster smart contract execution, lower gas costs, and better overall blockchain performance. It's the difference between a chaotic warehouse and a well-oiled distribution center.
 
 ## Memory Allocator Tuning Specifications
 

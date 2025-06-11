@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_bls12_381_g1msm_precompile` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_bls12_381_g1msm_precompile feat_implement_bls12_381_g1msm_precompile`
 3. **Work in isolation**: `cd g/feat_implement_bls12_381_g1msm_precompile`
-4. **Commit message**: `✨ feat: implement BLS12-381 G1 multi-scalar multiplication precompile`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -18,6 +52,20 @@
 ## Context
 
 Implement the BLS12-381 G1 multi-scalar multiplication precompile (address 0x0C) as defined in EIP-2537. This precompile performs efficient multi-scalar multiplication operations on the G1 group of the BLS12-381 elliptic curve, essential for BLS signature verification and other cryptographic protocols.
+
+## ELI5
+
+Imagine you're at a farmer's market and need to calculate the total cost of buying different quantities of various items. Multi-scalar multiplication is like having a super-fast calculator that can multiply many different numbers by many different amounts all at once, instead of doing each calculation one by one.
+
+In the BLS12-381 G1 context, we're working with points on a special mathematical curve. Instead of regular numbers, we're multiplying curve points by scalar values (regular numbers). The "multi" part means we can do many of these multiplications simultaneously and then add all the results together in one efficient operation.
+
+This enhanced version includes cutting-edge optimizations like:
+- **Smart batching**: Grouping similar calculations to process them more efficiently
+- **Windowing techniques**: Pre-calculating common values to speed up repeated operations
+- **Parallel processing**: Using multiple CPU cores simultaneously
+- **Algorithm selection**: Automatically choosing the fastest method based on input characteristics
+
+Why is this important? Zero-knowledge proofs and advanced cryptographic systems need to perform thousands of these operations. Having them optimized means applications like private transactions, identity verification, and scalability solutions can run much faster and cost less gas.
 
 ## EIP-2537 Specification
 

@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_bls12_381_pairing_precompile` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_bls12_381_pairing_precompile feat_implement_bls12_381_pairing_precompile`
 3. **Work in isolation**: `cd g/feat_implement_bls12_381_pairing_precompile`
-4. **Commit message**: `✨ feat: implement BLS12-381 pairing check precompile`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -18,6 +52,30 @@
 ## Context
 
 Implement the BLS12-381 pairing check precompile (address 0x0F) as defined in EIP-2537. This precompile performs bilinear pairing operations between G1 and G2 points, which is fundamental for BLS signature verification and other advanced cryptographic protocols.
+
+## ELI5
+
+Think of BLS12-381 pairing as a sophisticated mathematical "matchmaker" that can prove relationships between complex cryptographic objects without revealing secrets. Imagine you have two groups of people (G1 and G2) speaking different languages, and you need to verify if specific pairs can "communicate" in a meaningful way.
+
+The pairing operation is like:
+1. **Taking pairs** of cryptographic points (one from each group)
+2. **Running a complex mathematical function** that combines them
+3. **Checking if the result has a special property** (all pairs "harmonize" correctly)
+4. **Returning true/false** based on whether the relationship holds
+
+This is incredibly powerful for:
+- **BLS Signatures**: Verifying that multiple signatures from different people are all valid
+- **Zero-Knowledge Proofs**: Proving you know something without revealing what it is
+- **Multi-Party Cryptography**: Enabling complex protocols where multiple parties need to coordinate securely
+- **Threshold Cryptography**: Creating signatures or keys that require cooperation from multiple parties
+
+The enhanced version includes:
+- **Optimized Algorithms**: Using state-of-the-art mathematical techniques for faster computation
+- **Batch Processing**: Efficiently handling multiple pairing operations at once
+- **Security Hardening**: Protecting against timing attacks and other cryptographic vulnerabilities
+- **Memory Optimization**: Managing the large mathematical objects efficiently
+
+Without pairing operations, many advanced cryptographic protocols (like BLS signatures used in Ethereum 2.0) would be impossible or prohibitively expensive.
 
 ## EIP-2537 Specification
 

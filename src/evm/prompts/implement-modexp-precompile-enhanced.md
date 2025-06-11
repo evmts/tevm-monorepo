@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_modexp_precompile` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_modexp_precompile feat_implement_modexp_precompile`
 3. **Work in isolation**: `cd g/feat_implement_modexp_precompile`
-4. **Commit message**: `✨ feat: implement MODEXP precompile with EIP-2565 optimizations`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -18,6 +52,28 @@
 ## Context
 
 Implement the MODEXP precompile (address 0x05) for Ethereum Virtual Machine compatibility. This precompile performs modular exponentiation (base^exp % mod) and is crucial for RSA verification and other cryptographic operations. The implementation must handle EIP-2565 gas cost optimizations.
+
+## ELI5
+
+Think of MODEXP as a super-powered calculator that can handle enormous numbers efficiently. Imagine you need to calculate something like 123^456789 % 9876543 (that's 123 raised to the power of 456,789, then find the remainder when divided by 9,876,543).
+
+Regular calculators would explode trying to compute this because the intermediate results would be astronomically large. MODEXP is like having a magical calculator that can:
+
+1. **Handle huge numbers**: Work with numbers thousands of digits long
+2. **Stay efficient**: Use mathematical tricks to avoid computing the massive intermediate results
+3. **Find remainders**: Give you just the final remainder (which is much smaller and manageable)
+
+This is crucial for cryptography because:
+- **RSA encryption** relies heavily on these kinds of calculations
+- **Digital signatures** need modular exponentiation to verify authenticity
+- **Zero-knowledge proofs** use it for privacy-preserving computations
+
+The "enhanced" version includes optimizations like:
+- **Smart algorithms**: Using better mathematical methods for different types of numbers
+- **Memory management**: Handling huge calculations without running out of memory
+- **Gas optimization**: Making sure the cost fairly reflects the actual computational work (EIP-2565 improvements)
+
+Without MODEXP, many modern cryptographic applications simply couldn't run on Ethereum at a reasonable cost.
 
 ## Ethereum Specification
 

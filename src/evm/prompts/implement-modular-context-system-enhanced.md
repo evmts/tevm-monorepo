@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_modular_context_system` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_modular_context_system feat_implement_modular_context_system`
 3. **Work in isolation**: `cd g/feat_implement_modular_context_system`
-4. **Commit message**: `🏗️ feat: implement modular context system with pluggable block, transaction, and configuration contexts`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree

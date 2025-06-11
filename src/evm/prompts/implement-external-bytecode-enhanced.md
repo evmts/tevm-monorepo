@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_external_bytecode` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_external_bytecode feat_implement_external_bytecode`
 3. **Work in isolation**: `cd g/feat_implement_external_bytecode`
-4. **Commit message**: `🔄 feat: implement external bytecode loading and management for dynamic contract execution`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -18,6 +52,23 @@
 ## Context
 
 Implement a comprehensive external bytecode system that enables dynamic loading, caching, and execution of contract bytecode from external sources. This includes bytecode verification, caching strategies, lazy loading, code signing, and secure execution environments while maintaining performance and security.
+
+## ELI5
+
+Think of external bytecode like having a smart library system for computer programs. Normally, when you want to run a smart contract, all its code has to be stored directly on the blockchain (which is expensive). External bytecode is like having a library where you can store the actual code elsewhere and just keep a small "library card" on the blockchain.
+
+Here's how it works:
+- **Smart Library**: Instead of storing entire books (contracts) on expensive shelf space (blockchain), you store just the catalog card with a reference to where the book is kept
+- **Lazy Loading**: You only fetch the book when someone actually wants to read it, not when they're just browsing the catalog
+- **Caching**: Once you've fetched a popular book, you keep a copy at the front desk so the next person doesn't have to wait
+- **Security Checks**: Before letting anyone read a book, you verify it hasn't been tampered with (code signing and verification)
+
+This is especially useful for:
+- **Large contracts** that would be expensive to store directly on-chain
+- **Shared libraries** that many contracts use (why store the same code 100 times?)
+- **Upgradeable systems** where you can point to new versions of code without changing the on-chain address
+
+The enhanced version adds smart features like predicting which code you'll need next and keeping hot caches for popular contracts.
 
 ## External Bytecode Specifications
 

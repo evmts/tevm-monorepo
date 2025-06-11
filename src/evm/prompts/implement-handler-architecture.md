@@ -6,7 +6,41 @@
 1. **Create branch**: `feat_implement_handler_architecture` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_handler_architecture feat_implement_handler_architecture`
 3. **Work in isolation**: `cd g/feat_implement_handler_architecture`
-4. **Commit message**: `✨ feat: implement configurable handler architecture for extensible execution processing`
+4. **Commit message**: Use the following XML format:
+
+```
+✨ feat: brief description of the change
+
+<summary>
+<what>
+- Bullet point summary of what was changed
+- Key implementation details and files modified
+</what>
+
+<why>
+- Motivation and reasoning behind the changes
+- Problem being solved or feature being added
+</why>
+
+<how>
+- Technical approach and implementation strategy
+- Important design decisions or trade-offs made
+</how>
+</summary>
+
+<prompt>
+Condensed version of the original prompt that includes:
+- The core request or task
+- Essential context needed to re-execute
+- Replace large code blocks with <github>url</github> or <docs>description</docs>
+- Remove redundant examples but keep key technical details
+- Ensure someone could understand and repeat the task from this prompt alone
+</prompt>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
 
 ### Workflow Steps
 1. Create and switch to the new worktree
@@ -17,9 +51,9 @@
 
 ## Context
 
-<eli5>
+## ELI5
+
 Think of the handler architecture like a restaurant's quality control system. Instead of having to modify the kitchen every time you want to add a new quality check, you set up inspection stations along the line where different specialists can examine and process each dish. Some inspectors check temperature, others check presentation, and some just count portions. Each handler can observe what's happening, make modifications, or even stop the process if something's wrong. This way, you can easily add new quality controls without rebuilding the entire kitchen.
-</eli5>
 
 Implement a configurable handler architecture that allows pluggable pre-processing and post-processing of EVM operations. This provides extensibility points for custom logic, middleware, logging, metrics collection, and specialized execution behaviors without modifying core EVM code.
 
