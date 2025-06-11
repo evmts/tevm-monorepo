@@ -173,8 +173,6 @@ pub fn estimate_gas(address: Address, input_size: usize, chain_rules: ChainRules
         1 => error.NotImplemented, // ECRECOVER - TODO
         2 => sha256.calculate_gas_checked(input_size), // SHA256
         3 => ripemd160.calculate_gas_checked(input_size), // RIPEMD160
-        5 => error.NotImplemented, // MODEXP - TODO
-        3 => error.NotImplemented, // RIPEMD160 - TODO
         5 => modexp.calculate_gas_checked(input_size), // MODEXP
         6 => error.NotImplemented, // ECADD - TODO
         7 => error.NotImplemented, // ECMUL - TODO
