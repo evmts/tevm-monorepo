@@ -125,12 +125,37 @@ export fn evm_set_storage(vm_handle: u32, addr_ptr: [*]const u8, key_ptr: [*]con
 export fn evm_get_storage(vm_handle: u32, addr_ptr: [*]const u8, key_ptr: [*]const u8, value_ptr: [*]u8) void;
 ```
 
+## Relevant Implementation Files
+
+**Primary Files to Modify:**
+- `/src/evm/wasm_stubs.zig` - WASM-specific implementations
+- `/src/root_wasm.zig` - WASM root module
+- `/src/root_wasm_minimal.zig` - Minimal WASM build
+- `/build.zig` - Build configuration for WASM target
+
+**Supporting Files:**
+- `/src/evm/vm.zig` - VM implementation that needs WASM compatibility
+- `/src/wasm-loader.js` - JavaScript WASM loader
+- `/packages/*/` - Integrate WASM into TypeScript packages
+
+**Test Files:**
+- `/test/wasm/wasm_integration_test.zig` - WASM-specific tests
+- `/test/wasm/` - Integration tests for TypeScript/WASM interface
+
+**Why These Files:**
+- WASM stubs provide platform-specific implementations for WASM environment
+- Root WASM modules define the entry points and exports for JavaScript
+- Build system needs proper WASM target configuration
+- VM implementation must be compatible with WASM constraints
+
 ## Integration Points
 
-### Files to Modify
-- `/build.zig` - Add WASM build target configuration
-- `/src/root_wasm.zig` - WASM-specific entry point and exports
-- `/src/wasm-loader.js` - JavaScript WASM loader
+### Files to Create/Modify
+- `/src/evm/wasm_api.zig` - New WASM C API
+- `/src/root_wasm.zig` - Update WASM entry point
+- `/build.zig` - Fix WASM build configuration
+- `/src/wasm-loader.js` - Update WASM loader
+- `/test/wasm/` - New WASM integration tests
 - `/packages/*/` - Integrate WASM into TypeScript packages
 - `/src/evm/wasm_stubs.zig` - WASM-specific functionality stubs
 
@@ -160,7 +185,34 @@ File: `/build.zig`
 - Set optimization flags for bundle size
 - Add WASM-specific compilation flags
 
-### Task 2: Create WASM Entry Point
+### Task 2: Create WASM C API
+File: `/src/evm/wasm_api.zig`
+```zig
+const std = @import("std");
+const evm = @import("evm.zig");
+
+// C-compatible error codes
+pub const EVM_SUCCESS: i32 = 0;
+pub const EVM_ERROR_OUT_OF_GAS: i32 = -1;
+pub const EVM_ERROR_STACK_OVERFLOW: i32 = -2;
+pub const EVM_ERROR_INVALID_OPCODE: i32 = -3;
+
+// C-compatible VM handle
+pub const EVMHandle = extern struct {
+    vm_ptr: ?*anyopaque,
+    error_code: i32,
+};
+
+export fn evm_create(gas_limit: u64) EVMHandle {
+    // Implementation
+}
+
+export fn evm_execute(handle: *EVMHandle, bytecode_ptr: [*]const u8, bytecode_len: u32, input_ptr: [*]const u8, input_len: u32) i32 {
+    // Implementation
+}
+```
+
+### Task 3: Create WASM Entry Point
 File: `/src/root_wasm.zig`
 ```zig
 const std = @import("std");
@@ -200,9 +252,35 @@ export fn evm_execute(vm_handle: u32, bytecode_ptr: [*]const u8, bytecode_len: u
     // Store result and return handle
     return store_execution_result(result);
 }
+
+// WASM-compatible allocator
+export fn malloc(size: u32) u32 {
+    const ptr = allocator.alloc(u8, size) catch return 0;
+    return @intFromPtr(ptr.ptr);
+}
+
+export fn free(ptr: u32) void {
+    // Proper deallocation
+}
 ```
 
-### Task 3: JavaScript WASM Loader
+### Task 4: TypeScript WASM Loader
+File: `/src/wasm-loader.js` (update existing)
+```typescript
+export interface EVMInstance {
+  evm_create(gasLimit: bigint): number;
+  evm_execute(vmHandle: number, bytecode: Uint8Array, input: Uint8Array): number;
+  evm_get_result(vmHandle: number): Uint8Array;
+  evm_destroy(vmHandle: number): void;
+  memory: WebAssembly.Memory;
+}
+
+export async function loadEVM(): Promise<EVMInstance> {
+  // Load and instantiate WASM module
+}
+```
+
+### Task 5: JavaScript WASM Loader Implementation
 File: `/src/wasm-loader.js`
 ```javascript
 let wasmModule = null;
@@ -234,7 +312,7 @@ export class WasmEvm {
 }
 ```
 
-### Task 4: TypeScript Package Integration
+### Task 6: TypeScript Package Integration
 File: `/packages/evm-wasm/package.json`
 ```json
 {
@@ -253,7 +331,7 @@ export { WasmEvm, type EvmInstance, type ExecutionResult } from './WasmEvm.js';
 export { loadWasm } from './loader.js';
 ```
 
-### Task 5: Memory Management
+### Task 7: Memory Management
 ```zig
 // WASM-specific memory management
 export fn wasm_allocate(size: u32) [*]u8 {
@@ -267,7 +345,7 @@ export fn wasm_deallocate(ptr: [*]u8, size: u32) void {
 }
 ```
 
-### Task 6: Error Handling
+### Task 8: Error Handling
 ```zig
 // Error codes for WASM interface
 pub const WasmError = enum(u32) {
