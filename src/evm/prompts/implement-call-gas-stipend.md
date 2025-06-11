@@ -53,6 +53,26 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 Implement proper gas stipend handling for value transfers in CALL operations. When a CALL transfers value (ETH), the called contract receives a gas stipend of 2300 gas to perform basic operations like logging. This mechanism ensures that simple receiver contracts can execute even when the caller provides insufficient gas.
 
+## Relevant Implementation Files
+
+**Primary Files to Modify:**
+- `/src/evm/execution/system.zig` - Call operations implementation
+- `/src/evm/constants/gas_constants.zig` - Gas stipend constants
+
+**Supporting Files:**
+- `/src/evm/frame.zig` - Call frame management with gas tracking
+- `/src/evm/call_result.zig` - Call execution results
+
+**Test Files:**
+- `/test/evm/opcodes/system_test.zig` - System opcode tests
+- `/test/evm/gas/gas_accounting_test.zig` - Gas accounting verification
+
+**Why These Files:**
+- System operations handle CALL opcodes that need gas stipend logic
+- Gas constants define the 2300 gas stipend amount
+- Frame management tracks gas allocation across call boundaries
+- Tests ensure proper gas stipend behavior in various scenarios
+
 ## ELI5
 
 When you send money (ETH) to a smart contract, it's like paying someone to do a job. The gas stipend is like giving them a small emergency phone allowance (2300 gas) so they can at least call to say "thanks, I got the money!" even if you didn't give them enough budget for the main work. This ensures simple wallet contracts can always acknowledge receiving payments without failing.

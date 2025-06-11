@@ -54,6 +54,27 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 The WASM build is currently broken and needs to be fixed as well as integrated into the overall Tevm TypeScript codebase. This is a critical blocker for using the Zig EVM implementation in JavaScript environments.
 
+## Relevant Implementation Files
+
+**Primary Files to Modify:**
+- `/src/evm/wasm_stubs.zig` - WASM-specific implementations
+- `/src/root_wasm.zig` - WASM root module
+- `/src/root_wasm_minimal.zig` - Minimal WASM build
+
+**Supporting Files:**
+- `/build.zig` - Build configuration for WASM target
+- `/src/evm/vm.zig` - VM implementation that needs WASM compatibility
+
+**Test Files:**
+- WASM-specific tests would be added
+- Integration tests for TypeScript/WASM interface
+
+**Why These Files:**
+- WASM stubs provide platform-specific implementations for WASM environment
+- Root WASM modules define the entry points and exports for JavaScript
+- Build system needs proper WASM target configuration
+- VM implementation must be compatible with WASM constraints
+
 ## ELI5
 
 Think of WASM like a universal translator that lets super-fast compiled code run in web browsers. Right now our high-performance EVM engine is written in Zig but the build system that packages it for browsers is broken - like having a Ferrari with a broken transmission. We need to fix the build pipeline so JavaScript can actually use our lightning-fast EVM, turning a 100x performance improvement from impossible to reality.

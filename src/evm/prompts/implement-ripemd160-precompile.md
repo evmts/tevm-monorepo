@@ -53,6 +53,29 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 Implement the RIPEMD160 precompile (address 0x03) for Ethereum Virtual Machine compatibility. This precompile provides RIPEMD160 hashing functionality and is available from the Frontier hardfork. This implementation assumes the precompile infrastructure from IDENTITY and SHA256 already exists.
 
+## Relevant Implementation Files
+
+**Primary Files to Modify:**
+- `/src/evm/precompiles/precompiles.zig` - Main precompile dispatcher
+
+**Supporting Files:**
+- `/src/evm/precompiles/precompile_addresses.zig` - Address constants
+- `/src/evm/precompiles/precompile_gas.zig` - Gas calculation for precompiles
+- `/src/evm/precompiles/precompile_result.zig` - Result types for precompile execution
+
+**New Files to Create:**
+- `/src/evm/precompiles/ripemd160.zig` - RIPEMD160 hash implementation
+
+**Test Files:**
+- `/test/evm/precompiles/` (directory) - Precompile test infrastructure
+- `/test/evm/precompiles/ripemd160_test.zig` - RIPEMD160 specific tests
+
+**Why These Files:**
+- The main precompile dispatcher needs to route calls to the RIPEMD160 implementation
+- Address constants define the precompile address (0x03)
+- New implementation file handles RIPEMD160 cryptographic hash function
+- Comprehensive tests ensure correctness against test vectors
+
 ## ELI5
 
 RIPEMD160 is another cryptographic hash function, similar to SHA256 but older and producing a smaller 160-bit (20-byte) hash instead of 256 bits. Think of it as SHA256's smaller cousin - it still creates a unique digital fingerprint of data, but the fingerprint is shorter. While less common than SHA256, some legacy systems and Bitcoin-related applications still use RIPEMD160, so Ethereum provides this precompile for compatibility when smart contracts need to interact with such systems.

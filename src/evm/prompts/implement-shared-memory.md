@@ -53,6 +53,27 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 Implement a comprehensive shared memory system that enables efficient data sharing between execution contexts, processes, and contracts. This includes memory pools, copy-on-write semantics, inter-process communication, memory mapping, and advanced memory management features while maintaining security isolation and performance optimization.
 
+## Relevant Implementation Files
+
+**Primary Files to Modify:**
+- `/src/evm/memory.zig` - Core memory implementation with shared buffer
+- `/src/evm/frame.zig` - Frame-level memory management
+- `/src/evm/vm.zig` - VM memory coordination
+
+**Supporting Files:**
+- `/src/evm/execution/memory.zig` - Memory operation implementations
+- `/src/evm/memory_size.zig` - Memory size calculations
+
+**Test Files:**
+- `/test/evm/memory_test.zig` - Memory system tests
+- `/test/evm/shared_memory_test.zig` - Shared memory specific tests
+
+**Why These Files:**
+- The core memory implementation already has shared_buffer infrastructure that can be leveraged
+- Frame management handles memory allocation and tracking across execution contexts
+- VM coordinates memory usage between different execution levels
+- Tests ensure memory sharing is secure and efficient
+
 ## ELI5
 
 Imagine you have multiple smart contracts that need to work with the same large piece of data. Normally, each contract would have to keep its own copy, which wastes memory. Shared memory is like having a shared whiteboard that multiple contracts can read from and write to, instead of each having their own separate whiteboard with the same information. The tricky part is making sure that when one contract makes changes, it doesn't accidentally break things for other contracts. This system includes smart features like "copy-on-write" (only make your own copy when you actually need to change something) and proper security so contracts can't interfere with each other inappropriately.

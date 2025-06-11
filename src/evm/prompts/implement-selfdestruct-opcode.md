@@ -55,6 +55,28 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 Implement the SELFDESTRUCT (0xFF) opcode for Ethereum Virtual Machine compatibility. SELFDESTRUCT is a complex opcode that destroys a contract, sends its balance to a recipient, and has nuanced behavior across different hardforks.
 
+## Relevant Implementation Files
+
+**Primary Files to Modify:**
+- `/src/evm/execution/system.zig` - System operations including SELFDESTRUCT
+- `/src/evm/state/state.zig` - State modifications for contract deletion
+
+**Supporting Files:**
+- `/src/evm/opcodes/operation.zig` - Opcode definitions
+- `/src/evm/constants/gas_constants.zig` - SELFDESTRUCT gas costs
+- `/src/evm/hardforks/chain_rules.zig` - Hardfork-specific behavior changes
+
+**Test Files:**
+- `/test/evm/opcodes/system_test.zig` - System opcode tests
+- `/test/evm/selfdestruct_test.zig` - SELFDESTRUCT specific tests
+
+**Why These Files:**
+- System operations handle the SELFDESTRUCT opcode implementation
+- State management handles contract deletion and balance transfers
+- Hardfork rules determine behavior changes across different Ethereum versions
+- Gas constants define costs that vary by hardfork
+- Comprehensive tests ensure proper behavior across all scenarios
+
 ## ELI5
 
 SELFDESTRUCT is like a controlled demolition of a building. When a smart contract calls SELFDESTRUCT, it's saying "tear down this building and send all the money inside to this specific address." Just like real demolition, there are strict rules about when and how it can happen - newer Ethereum versions have made the rules stricter to prevent abuse, similar to requiring more permits for demolition in densely populated areas.

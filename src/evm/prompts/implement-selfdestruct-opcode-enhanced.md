@@ -55,6 +55,30 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 Implement the SELFDESTRUCT (0xFF) opcode for Ethereum Virtual Machine compatibility. SELFDESTRUCT is a complex opcode that destroys a contract, sends its balance to a recipient, and has nuanced behavior across different hardforks.
 
+## ELI5
+
+Think of SELFDESTRUCT like a "digital will" for smart contracts. When a contract executes this opcode, it's essentially saying "I'm done existing, please send all my money to this address and delete me from the blockchain."
+
+Here's what happens:
+1. **The contract commits suicide** (hence the old name SUICIDE before it was renamed to SELFDESTRUCT)
+2. **All its ETH goes to a beneficiary** (like executing a will)
+3. **The contract gets marked for deletion** (like tearing down a building)
+4. **Its code and storage disappear** (at the end of the transaction)
+
+This is complex because:
+- **Timing**: The deletion doesn't happen immediately - it's deferred until the end of the transaction
+- **Recipients**: The money can go to any address, even ones that don't exist yet
+- **Gas Refunds**: Historically, you got some gas back for "cleaning up" the blockchain
+- **Re-creation**: In some cases, a new contract can be deployed at the same address later
+
+The "enhanced" version handles tricky edge cases like:
+- **Multiple Destructions**: What if the same contract tries to self-destruct multiple times in one transaction?
+- **Nested Calls**: What if contract A destructs, then calls contract B, which calls back to A?
+- **Gas Accounting**: Proper gas costs across different Ethereum hardforks
+- **State Tracking**: Keeping track of what contracts are marked for deletion
+
+Real-world analogy: It's like a building that can demolish itself, transfer its contents to another location, but the demolition crew only shows up at the end of the day to actually clear the lot.
+
 ## Ethereum Specification
 
 ### Basic Operation

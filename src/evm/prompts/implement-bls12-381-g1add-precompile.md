@@ -71,6 +71,52 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 Implement BLS12-381 G1 point addition precompile for EIP-2537 support. This precompile enables efficient elliptic curve operations on the BLS12-381 curve.
 
+## ELI5
+
+Think of BLS12-381 G1 addition like a special calculator that can add points on a curved surface (imagine adding coordinates on a globe, but with more complex math). This isn't regular addition - it's "elliptic curve addition" which follows special rules.
+
+Here's what it does:
+- **Takes two points** on the BLS12-381 curve (each point has x,y coordinates, but they're very large numbers)
+- **Adds them together** using special mathematical rules for elliptic curves
+- **Returns the result point** that represents their sum on the curve
+
+Why this matters:
+- **BLS Signatures**: These operations are building blocks for BLS signatures used in Ethereum 2.0
+- **Advanced Cryptography**: Enables privacy-preserving protocols and multi-party computations
+- **Efficient Operations**: Having this as a precompile makes it much faster and cheaper than doing the math in regular smart contract code
+
+Real-world analogy:
+- Like having a specialized GPS calculator that can compute complex navigation between two points on a curved Earth
+- Instead of doing all the spherical trigonometry yourself, you use a built-in function
+- The math is complex, but the interface is simple: "add these two points"
+
+This specific precompile (G1ADD) is one piece of a larger cryptographic toolkit. G1 refers to one of two groups of points on the BLS12-381 curve - think of it as one "layer" of the mathematical structure that makes advanced cryptography possible.
+
+## Relevant Implementation Files
+
+**Primary Files to Modify:**
+- `/src/evm/precompiles/precompiles.zig` - Main precompile dispatcher
+- `/src/evm/precompiles/precompile_addresses.zig` - Address constants
+- `/src/evm/hardforks/chain_rules.zig` - Hardfork availability rules
+
+**Supporting Files:**
+- `/src/evm/precompiles/precompile_gas.zig` - Gas calculation for precompiles
+- `/src/evm/precompiles/precompile_result.zig` - Result types for precompile execution
+
+**New Files to Create:**
+- `/src/evm/precompiles/bls12_381_g1_add.zig` - BLS12-381 G1 addition implementation
+
+**Test Files:**
+- `/test/evm/precompiles/` (directory) - Precompile test infrastructure
+- `/test/evm/precompiles/bls12_381_g1_add_test.zig` - BLS12-381 G1 addition specific tests
+
+**Why These Files:**
+- The main precompile dispatcher needs to route calls to the new BLS12-381 G1 addition implementation
+- Address constants define the precompile address (0x0b for G1 addition)
+- Chain rules determine when this precompile becomes available (Berlin hardfork)
+- New implementation file handles the complex elliptic curve mathematics
+- Comprehensive tests ensure EIP-2537 compliance
+
 <eli5>
 Imagine you have special mathematical points on a curved surface, and you want to "add" two points together to get a third point. This isn't regular addition - it's a special kind of math used in advanced cryptography. BLS12-381 is a specific type of elliptic curve that's really good for creating digital signatures that multiple parties can combine together. The G1 point addition precompile is like having a built-in calculator in Ethereum that can do this special curve math super efficiently. This is essential for things like proof systems and advanced signature schemes that help make blockchain more scalable and private.
 </eli5>

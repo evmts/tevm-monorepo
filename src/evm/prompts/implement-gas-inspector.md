@@ -53,6 +53,30 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 Implement a comprehensive gas inspector that provides detailed analysis of gas consumption patterns, identifies optimization opportunities, and tracks gas usage across different operations and execution contexts. This tool is essential for gas optimization, cost analysis, and performance profiling of smart contracts.
 
+## Relevant Implementation Files
+
+**Primary Files to Modify:**
+- `/src/evm/vm.zig` - Main VM execution loop for gas tracking
+- `/src/evm/frame.zig` - Frame-level gas management
+
+**Supporting Files:**
+- `/src/evm/execution/` (directory) - All execution modules for gas profiling
+- `/src/evm/constants/gas_constants.zig` - Gas cost references
+
+**New Files to Create:**
+- `/src/evm/gas_inspector.zig` - Gas inspection and profiling implementation
+
+**Test Files:**
+- `/test/evm/gas/gas_accounting_test.zig` - Gas accounting tests
+- `/test/evm/gas_inspector_test.zig` - Gas inspector specific tests
+
+**Why These Files:**
+- VM execution loop is where gas tracking hooks need to be integrated
+- Frame management handles gas allocation and tracking across call boundaries
+- Execution modules provide the detailed gas consumption points
+- New inspector module provides analysis and profiling capabilities
+- Tests ensure accurate gas measurement and reporting
+
 ## ELI5
 
 Think of gas as the "fuel" that powers smart contract execution - every operation costs some amount of gas. A gas inspector is like a detailed fuel efficiency monitor for your car, but for smart contracts. It watches everything the contract does and tracks exactly how much gas each operation uses. This helps developers find "gas guzzling" parts of their code and optimize them to be cheaper to run. Just like how you might track your car's fuel consumption to find more efficient routes, a gas inspector helps smart contract developers make their code more cost-effective for users.

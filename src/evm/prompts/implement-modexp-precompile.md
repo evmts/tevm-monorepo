@@ -53,6 +53,29 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 Implement the MODEXP precompile (address 0x05) for Ethereum Virtual Machine compatibility. This precompile performs modular exponentiation (base^exp % mod) and is crucial for RSA verification and other cryptographic operations. The implementation must handle EIP-2565 gas cost optimizations.
 
+## Relevant Implementation Files
+
+**Primary Files to Modify:**
+- `/src/evm/precompiles/precompiles.zig` - Main precompile dispatcher
+- `/src/evm/precompiles/precompile_gas.zig` - Complex gas calculation based on input sizes
+
+**Supporting Files:**
+- `/src/evm/precompiles/precompile_addresses.zig` - Address constants
+- `/src/evm/precompiles/precompile_result.zig` - Result types for precompile execution
+
+**New Files to Create:**
+- `/src/evm/precompiles/modexp.zig` - Modular exponentiation implementation
+
+**Test Files:**
+- `/test/evm/precompiles/` (directory) - Precompile test infrastructure
+- `/test/evm/precompiles/modexp_test.zig` - MODEXP specific tests
+
+**Why These Files:**
+- The main precompile dispatcher needs to route calls to the MODEXP implementation
+- Gas calculation is complex for MODEXP as it depends on input sizes and computational complexity
+- New implementation file handles efficient modular exponentiation algorithms
+- Comprehensive tests ensure EIP-198 and EIP-2565 compliance
+
 ## ELI5
 
 Modular exponentiation is like taking a number, raising it to a huge power, but then only keeping the remainder when divided by another number. For example, calculating (5^1000) mod 13 gives you just the remainder. This operation is fundamental to RSA encryption and many other cryptographic systems. Smart contracts use this precompile when they need to verify RSA signatures or perform other advanced mathematical operations that would be too expensive to compute directly in the EVM.

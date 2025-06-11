@@ -68,6 +68,32 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 Implement the ECRECOVER precompile (address 0x01) for Ethereum Virtual Machine compatibility. This precompile recovers the signer's address from an ECDSA signature using elliptic curve cryptography. This is fundamental for Ethereum's signature verification system.
 
+## Relevant Implementation Files
+
+**Primary Files to Modify:**
+- `/src/evm/precompiles/precompiles.zig` - Main precompile dispatcher
+
+**Supporting Files:**
+- `/src/evm/precompiles/precompile_addresses.zig` - Address constants
+- `/src/evm/precompiles/precompile_gas.zig` - Gas calculation for precompiles
+- `/src/evm/precompiles/precompile_result.zig` - Result types for precompile execution
+- `/src/signature/` (directory) - Signature utilities that could be leveraged
+
+**New Files to Create:**
+- `/src/evm/precompiles/ecrecover.zig` - ECRECOVER implementation
+- `/src/evm/precompiles/secp256k1.zig` - secp256k1 elliptic curve utilities
+
+**Test Files:**
+- `/test/evm/precompiles/` (directory) - Precompile test infrastructure
+- `/test/evm/precompiles/ecrecover_test.zig` - ECRECOVER specific tests
+
+**Why These Files:**
+- The main precompile dispatcher needs to route calls to the ECRECOVER implementation
+- Address constants define the precompile address (0x01)
+- Signature utilities in the codebase may provide reusable cryptographic functions
+- New implementation files handle ECDSA signature recovery and secp256k1 operations
+- Comprehensive tests ensure compatibility with Ethereum transaction verification
+
 ## ELI5
 
 When you sign a transaction in Ethereum, you're creating a mathematical signature that proves you own the account. ECRECOVER is like a detective function - if you give it a message and a signature, it can figure out which Ethereum address signed it. This is super important because it's how the network verifies that transactions are legitimate. Think of it like checking someone's handwriting against their known signature, but using advanced math instead. Every time you send ETH or interact with a smart contract, ECRECOVER is working behind the scenes to prove you're really you.

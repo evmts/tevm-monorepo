@@ -53,6 +53,30 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 Implement the ECADD precompile (address 0x06) for Ethereum Virtual Machine compatibility. This precompile provides elliptic curve point addition on the alt_bn128 curve and is available from the Byzantium hardfork.
 
+## Relevant Implementation Files
+
+**Primary Files to Modify:**
+- `/src/evm/precompiles/precompiles.zig` - Main precompile dispatcher
+
+**Supporting Files:**
+- `/src/evm/precompiles/precompile_addresses.zig` - Address constants
+- `/src/evm/precompiles/precompile_gas.zig` - Gas calculation for precompiles
+- `/src/evm/precompiles/precompile_result.zig` - Result types for precompile execution
+
+**New Files to Create:**
+- `/src/evm/precompiles/ecadd.zig` - ECADD precompile implementation
+- `/src/evm/precompiles/bn254.zig` - BN254 elliptic curve mathematics
+
+**Test Files:**
+- `/test/evm/precompiles/` (directory) - Precompile test infrastructure
+- `/test/evm/precompiles/ecadd_test.zig` - ECADD specific tests
+
+**Why These Files:**
+- The main precompile dispatcher needs to route calls to the ECADD implementation
+- Address constants define the precompile address (0x06)
+- New implementation files handle elliptic curve point addition on alt_bn128 curve
+- Comprehensive tests ensure EIP-196 compliance
+
 ## ELI5
 
 Elliptic curves are special mathematical curves used in cryptography. ECADD is like a calculator that can "add" two points on a specific elliptic curve called alt_bn128. This isn't regular addition - it's a special mathematical operation where you take two points on the curve and get a third point that's also on the curve. This is crucial for advanced cryptographic protocols like zkSNARKs (zero-knowledge proofs) that help make blockchain transactions private and efficient. Having this as a precompile means smart contracts can do this complex math without having to implement all the curve arithmetic themselves.

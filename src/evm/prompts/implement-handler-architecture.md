@@ -51,6 +51,29 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 ## Context
 
+Implement a modular handler architecture for opcodes that provides pluggable handler system for opcode execution.
+
+## Relevant Implementation Files
+
+**Primary Files to Modify:**
+- `/src/evm/jump_table/jump_table.zig` - Opcode dispatch table
+- `/src/evm/opcodes/operation.zig` - Operation definitions
+- `/src/evm/vm.zig` - VM execution dispatch
+
+**Supporting Files:**
+- `/src/evm/execution/` (directory) - All execution handlers for different opcode types
+- `/src/evm/frame.zig` - Execution context management
+
+**Test Files:**
+- `/test/evm/jump_table_test.zig` - Jump table tests
+- `/test/evm/vm_opcode_test.zig` - Opcode execution tests
+
+**Why These Files:**
+- Jump table provides the main dispatch mechanism for routing opcodes to handlers
+- Operation definitions specify the structure and behavior of each opcode
+- VM execution coordinates the handler architecture
+- Modular execution handlers allow pluggable opcode implementations
+
 ## ELI5
 
 Think of the handler architecture like a restaurant's quality control system. Instead of having to modify the kitchen every time you want to add a new quality check, you set up inspection stations along the line where different specialists can examine and process each dish. Some inspectors check temperature, others check presentation, and some just count portions. Each handler can observe what's happening, make modifications, or even stop the process if something's wrong. This way, you can easily add new quality controls without rebuilding the entire kitchen.

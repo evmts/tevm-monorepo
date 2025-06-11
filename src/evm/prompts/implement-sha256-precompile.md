@@ -68,6 +68,29 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 Implement the SHA256 precompile (address 0x02) for Ethereum Virtual Machine compatibility. This precompile provides SHA256 hashing functionality and is available from the Frontier hardfork. This implementation assumes the IDENTITY precompile infrastructure already exists.
 
+## Relevant Implementation Files
+
+**Primary Files to Modify:**
+- `/src/evm/precompiles/precompiles.zig` - Main precompile dispatcher
+
+**Supporting Files:**
+- `/src/evm/precompiles/precompile_addresses.zig` - Address constants
+- `/src/evm/precompiles/precompile_gas.zig` - Gas calculation for precompiles
+- `/src/evm/precompiles/precompile_result.zig` - Result types for precompile execution
+
+**New Files to Create:**
+- `/src/evm/precompiles/sha256.zig` - SHA256 hash implementation
+
+**Test Files:**
+- `/test/evm/precompiles/` (directory) - Precompile test infrastructure
+- `/test/evm/precompiles/sha256_test.zig` - SHA256 specific tests
+
+**Why These Files:**
+- The main precompile dispatcher needs to route calls to the SHA256 implementation
+- Address constants define the precompile address (0x02)
+- New implementation file handles SHA256 cryptographic hash function
+- Comprehensive tests ensure correctness and performance
+
 ## ELI5
 
 SHA256 is a widely-used cryptographic hash function that takes any amount of data and produces a unique 256-bit (32-byte) "fingerprint" or hash. Think of it like a super-secure digital fingerprint machine - no matter how much data you put in, you always get exactly 32 bytes out, and even tiny changes to the input produce completely different outputs. Smart contracts use SHA256 when they need to verify data integrity or create tamper-proof references to data.

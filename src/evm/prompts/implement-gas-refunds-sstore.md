@@ -53,6 +53,26 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 Implement gas refunds for SSTORE operations according to Ethereum's gas refund mechanism. SSTORE operations can receive gas refunds when storage is cleared (set to zero), providing economic incentives for reducing blockchain state size. The refund mechanism has evolved significantly across hardforks.
 
+## Relevant Implementation Files
+
+**Primary Files to Modify:**
+- `/src/evm/execution/storage.zig` - Storage operations with refund logic
+- `/src/evm/constants/gas_constants.zig` - Refund constants
+
+**Supporting Files:**
+- `/src/evm/frame.zig` - Gas tracking and refund accumulation
+- `/src/evm/hardforks/chain_rules.zig` - Hardfork-specific refund rules
+
+**Test Files:**
+- `/test/evm/opcodes/storage_test.zig` - Storage operation tests
+- `/test/evm/gas/gas_accounting_test.zig` - Gas refund tests
+
+**Why These Files:**
+- Storage operations need to calculate and track gas refunds based on state changes
+- Gas constants define refund amounts for different scenarios
+- Frame management accumulates refunds throughout execution
+- Chain rules determine refund behavior changes across hardforks
+
 ## ELI5
 
 Think of blockchain storage like a giant shared filing cabinet that everyone has to pay to maintain. When you delete files (set storage to zero), you get a partial refund on your storage fees as a "thank you" for cleaning up and making space for others. It's like getting money back for recycling - you paid to store something, but when you remove it, you get some compensation for helping keep the blockchain tidy.

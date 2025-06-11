@@ -53,6 +53,33 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 Implement the 63/64th gas forwarding rule for call operations in the EVM. This is a critical system feature that determines how much gas is forwarded to subcalls, preventing malicious contracts from consuming all available gas while still allowing legitimate operations to complete.
 
+## ELI5
+
+Think of the 63/64th gas rule like a safety mechanism for a car's fuel system. Imagine you're on a road trip and need to make several stops, but you want to ensure you always have enough fuel to get back home.
+
+The rule works like this:
+- **You have a tank of gas** (your available gas for the current contract)
+- **When calling another contract** (making a stop), you can only give away 63/64th of your remaining gas
+- **You must keep 1/64th** (about 1.56%) as a "reserve tank" for your own operations
+- **This prevents getting stranded** if the other contract uses all the gas you gave it
+
+This is crucial because:
+- **Prevents Gas Attacks**: Malicious contracts can't trick you into giving away all your gas and leave you unable to finish your own operations
+- **Enables Deep Calls**: You can still make long chains of contract calls because each level keeps a small reserve
+- **Maintains Predictability**: Smart contract developers can reliably estimate gas usage
+
+Real-world analogy:
+- Like keeping some cash in your wallet when lending money to friends
+- Or saving some battery on your phone when hotspotting for others
+- Always having a "safety buffer" for essential operations
+
+The enhanced version includes:
+- **Optimized Calculations**: Faster gas computation using efficient arithmetic
+- **Edge Case Handling**: Proper behavior when gas amounts are very small
+- **Attack Prevention**: Additional protections against sophisticated gas manipulation attempts
+
+Without this rule, a single malicious contract could "drink all the gas" and break the entire call chain.
+
 ## EVM Specification
 
 ### Gas Forwarding Rule

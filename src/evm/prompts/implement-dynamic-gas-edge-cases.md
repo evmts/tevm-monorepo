@@ -53,6 +53,30 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 Implement comprehensive handling of dynamic gas edge cases, particularly complex memory growth scenarios that can occur with irregular memory access patterns, large copy operations, and edge cases in gas calculation that can lead to integer overflow, underflow, or unexpected behavior.
 
+## Relevant Implementation Files
+
+**Primary Files to Modify:**
+- `/src/evm/constants/gas_constants.zig` - Gas calculation utilities
+- `/src/evm/execution/memory.zig` - Memory expansion gas costs
+- `/src/evm/execution/storage.zig` - Storage operation gas costs
+
+**Supporting Files:**
+- `/src/evm/frame.zig` - Gas tracking across operations
+- `/src/evm/vm.zig` - Main execution loop gas validation
+- `/src/evm/memory_size.zig` - Memory size calculations
+
+**Test Files:**
+- `/test/evm/gas/gas_accounting_test.zig` - Comprehensive gas tests
+- `/test/evm/opcodes/memory_test.zig` - Memory gas cost tests
+- `/test/evm/opcodes/storage_test.zig` - Storage gas cost tests
+
+**Why These Files:**
+- Gas constants handle complex calculations that can overflow in edge cases
+- Memory and storage execution files implement dynamic gas costs
+- Frame management tracks gas consumption across operations
+- VM validates total gas usage and prevents overflows
+- Tests ensure edge cases are properly handled
+
 ## ELI5
 
 Imagine gas costs like a restaurant bill that changes based on how much food you order and where you sit. Sometimes customers try to game the system with unusual orders that could make the billing system crash or charge wrong amounts. This implementation is like having smart waiters who catch these edge cases - if someone tries to order "infinite breadsticks" or sit at "table negative-5", the system gracefully handles it instead of breaking.

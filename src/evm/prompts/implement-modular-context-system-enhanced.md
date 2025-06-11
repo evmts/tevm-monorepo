@@ -53,6 +53,34 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 Implement a comprehensive modular context system that allows pluggable block contexts, transaction contexts, and configuration contexts. This enables easy customization for different blockchain environments (mainnet, testnets, L2s) while maintaining type safety and performance. The system should support runtime context switching and context inheritance.
 
+## ELI5
+
+Think of a modular context system like having a smart thermostat that can automatically adjust its behavior based on the room it's in. Instead of having one rigid system, you have interchangeable "context modules" that define how the EVM should behave in different situations.
+
+Here's how it works:
+- **Block Context**: Like knowing what season it is (defines gas prices, block limits, available opcodes)
+- **Transaction Context**: Like knowing who's in the room (sender, recipient, value being sent)
+- **Configuration Context**: Like knowing what type of building it is (mainnet vs testnet vs L2 with different rules)
+
+The "modular" part means:
+- **Plug-and-Play**: You can easily swap out context modules for different blockchain environments
+- **Runtime Switching**: The EVM can change its behavior on-the-fly as contexts change
+- **Inheritance**: New contexts can inherit properties from parent contexts and just override what's different
+
+This is incredibly useful for:
+- **Multi-Chain Support**: The same EVM code can run on Ethereum mainnet, Polygon, Arbitrum, etc.
+- **Testing**: Easy to simulate different network conditions and hardforks
+- **Development**: Developers can quickly test against different blockchain environments
+- **Optimization**: Each context can be optimized for its specific use case
+
+The enhanced version includes:
+- **Smart Caching**: Frequently used contexts are cached for performance
+- **Type Safety**: Ensures contexts are compatible and won't cause runtime errors
+- **Dynamic Loading**: Contexts can be loaded and configured at runtime
+- **Conflict Resolution**: Handles cases where different contexts have conflicting rules
+
+Without this system, supporting multiple blockchains would require separate codebases for each one!
+
 ## Modular Context System Specifications
 
 ### Core Context Framework

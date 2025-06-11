@@ -53,6 +53,33 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 Implement the BLS12-381 G2 multi-scalar multiplication precompile (address 0x0E) as defined in EIP-2537. This precompile performs efficient multi-scalar multiplication operations on the G2 group of the BLS12-381 elliptic curve, operating over the extension field Fp2.
 
+## ELI5
+
+Think of BLS12-381 G2 multi-scalar multiplication as a super-efficient mathematical calculator that can solve many related problems at once. Imagine you have a list of GPS coordinates and distances, and you need to calculate the final positions after moving from each coordinate by its respective distance - but instead of doing this one by one, this calculator can process the entire list simultaneously.
+
+Here's what it does:
+- **Takes multiple pairs** of "directions" (scalars) and "starting points" (G2 points on the elliptic curve)
+- **Multiplies each starting point by its direction** (like moving a certain distance in a certain direction)
+- **Combines all the results** into a single final answer
+
+This is incredibly powerful for:
+- **BLS Signature Aggregation**: Combining many signatures into one for verification
+- **Advanced Cryptography**: Building blocks for zero-knowledge proofs and privacy protocols
+- **Efficiency**: Instead of doing many separate operations, batch them together for massive speedup
+
+The "multi-scalar" part is like:
+- Instead of calculating 100 separate taxi rides one by one
+- You give the system all 100 starting points and distances
+- It calculates all the final destinations and gives you the sum total
+
+The enhanced version includes:
+- **Optimized Algorithms**: Using the most efficient mathematical techniques for batch processing
+- **Memory Management**: Handling large numbers of operations without running out of space
+- **Security Hardening**: Protecting against cryptographic attacks
+- **Performance Tuning**: Maximum speed for common usage patterns
+
+This precompile makes advanced cryptographic protocols practical by turning what would be hundreds of expensive operations into one efficient batch operation.
+
 ## EIP-2537 Specification
 
 ### Basic Operation

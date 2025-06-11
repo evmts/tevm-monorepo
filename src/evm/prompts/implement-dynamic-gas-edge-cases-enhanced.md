@@ -53,6 +53,32 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 Implement comprehensive handling of dynamic gas edge cases, particularly complex memory growth scenarios that can occur with irregular memory access patterns, large copy operations, and edge cases in gas calculation that can lead to integer overflow, underflow, or unexpected behavior.
 
+## ELI5
+
+Think of dynamic gas edge cases like the weird scenarios that can happen when you're driving and suddenly encounter something unexpected - like a road that suddenly turns into a toll road with astronomical fees, or a bridge that charges based on the weight of your car in a way that could bankrupt you.
+
+In the EVM, gas costs usually follow predictable patterns, but there are edge cases where:
+
+**Memory Growth Surprises**: 
+- It's like renting office space where the first 100 square feet cost $1 each, but suddenly jumping to 10,000 square feet costs $1000 per square foot
+- Contracts might accidentally trigger huge memory allocations by accessing memory at very high offsets
+
+**Integer Math Problems**:
+- Like a calculator that gives wrong answers when the numbers get too big
+- Gas calculations can overflow (numbers get too large) or underflow (go negative when they shouldn't)
+
+**Complex Copy Operations**:
+- Imagine trying to photocopy a book, but the copy machine charges differently based on how far apart the pages are
+- Copying data between memory locations can have unexpected gas costs
+
+The enhanced version includes smart handling for:
+- **Predictive Analysis**: Detecting when operations might cause gas surprises before they happen
+- **Safe Math**: Preventing integer overflow/underflow in gas calculations
+- **Memory Optimization**: Smart strategies for handling large memory operations efficiently
+- **Cost Modeling**: Better prediction of gas costs for complex operations
+
+This is crucial because improper handling could allow attacks where someone makes a transaction that appears cheap but actually consumes enormous amounts of gas, potentially disrupting the network.
+
 ## Dynamic Gas Edge Cases
 
 ### Memory Growth Edge Cases
