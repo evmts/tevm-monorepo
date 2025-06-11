@@ -24,18 +24,6 @@ Cache optimization can provide 15-30% improvement in cache hit rates and overall
 - **Testing**: Run `zig build test-all` before committing
 - **Commit**: Use emoji conventional commits with XML summary format
 
-## Branch Setup
-1. **Create branch**: `feat_implement_cache_optimization` (snake_case, no emoji)
-2. **Create worktree**: `git worktree add g/feat_implement_cache_optimization feat_implement_cache_optimization`
-3. **Work in isolation**: `cd g/feat_implement_cache_optimization`
-4. **Commit message**: `⚡ perf: implement intelligent cache optimization for improved memory locality and performance`
-
-### Workflow Steps
-1. Create and switch to the new worktree
-2. Implement all changes in the isolated branch
-3. Run `zig build test-all` to ensure all tests pass
-4. Commit with emoji conventional commit format
-5. DO NOT merge - leave ready for review
 
 ## Context
 

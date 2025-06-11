@@ -2,59 +2,12 @@
 
 ## Git Workflow Instructions
 
-### Branch Setup
-1. **Create branch**: `feat_fix_wasm_build` (snake_case, no emoji)
-2. **Create worktree**: `git worktree add g/feat_fix_wasm_build feat_fix_wasm_build`
-3. **Work in isolation**: `cd g/feat_fix_wasm_build`
-4. **Commit message**: Use the following XML format:
-
-```
-✨ feat: brief description of the change
-
-<summary>
-<what>
-- Bullet point summary of what was changed
-- Key implementation details and files modified
-</what>
-
-<why>
-- Motivation and reasoning behind the changes
-- Problem being solved or feature being added
-</why>
-
-<how>
-- Technical approach and implementation strategy
-- Important design decisions or trade-offs made
-</how>
-</summary>
-
-<prompt>
-Condensed version of the original prompt that includes:
-- The core request or task
-- Essential context needed to re-execute
-- Replace large code blocks with <github>url</github> or <docs>description</docs>
-- Remove redundant examples but keep key technical details
-- Ensure someone could understand and repeat the task from this prompt alone
-</prompt>
-
-🤖 Generated with [Claude Code](https://claude.ai/code)
-
-Co-Authored-By: Claude <noreply@anthropic.com>
-```
-
-### Workflow Steps
-1. Create and switch to the new worktree
-2. Implement all changes in the isolated branch
-3. Run `zig build test-all` to ensure all tests pass
-4. Test WASM build with `zig build -Dtarget=wasm32-wasi`
-5. Commit with emoji conventional commit format
-6. DO NOT merge - leave ready for review
-
+#
 ## Context
 
 The WASM build is currently broken and needs to be fixed as well as integrated into the overall Tevm TypeScript codebase. This is a critical blocker for using the Zig EVM implementation in JavaScript environments.
 
-## Relevant Implementation Files
+## File Structure
 
 **Primary Files to Modify:**
 - `/src/evm/wasm_stubs.zig` - WASM-specific implementations
@@ -282,6 +235,14 @@ pub fn optimize_for_wasm() void {
 5. **Performance**: Acceptable execution speed compared to native
 6. **Browser Compatibility**: Works in all major browsers
 
+
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 ## Critical Requirements
 
 1. **NEVER commit until `zig build test-all` passes**

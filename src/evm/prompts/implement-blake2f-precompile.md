@@ -48,7 +48,7 @@ The BLAKE2F precompile enables efficient cryptographic operations for smart cont
 
 Think of BLAKE2F as a special cryptographic "blender" that takes a fixed amount of data and mixes it up in a very specific, reproducible way. Just like how Ethereum has built-in functions for basic math (add, multiply), it also has built-in functions for cryptography. BLAKE2F is one of these - it's a hash function that's faster and more secure than older ones like SHA-1. When smart contracts need to do BLAKE2 hashing (often for advanced cryptographic protocols), they can call this precompile instead of implementing the complex algorithm themselves, which saves gas and ensures correctness.
 
-## Ethereum Specification
+## Specification
 
 ### Basic Operation
 - **Address**: `0x0000000000000000000000000000000000000009`
@@ -186,6 +186,124 @@ Following Tevm's preference hierarchy:
 1. ✅ Zig stdlib (preferred) - minimal bundle impact
 2. 🔄 WASM Blake2 library (fallback) - moderate bundle impact  
 3. ❌ Full crypto library (avoid) - significant bundle impact
+
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/precompiles/blake2f_test.zig`)
+```zig
+// Test basic compression function
+test "blake2f basic compression with known vectors"
+test "blake2f handles zero rounds correctly"
+test "blake2f handles maximum rounds (u32 max)"
+test "blake2f final flag variations"
+```
+
+#### 2. **Input Validation Tests**
+```zig
+test "blake2f rejects invalid input length (< 213 bytes)"
+test "blake2f rejects invalid input length (> 213 bytes)"
+test "blake2f rejects invalid final flag (not 0x00 or 0x01)"
+test "blake2f accepts valid final flags (0x00 and 0x01)"
+```
+
+#### 3. **Gas Calculation Tests**
+```zig
+test "blake2f gas cost calculation (1 per round)"
+test "blake2f gas overflow protection"
+test "blake2f zero rounds gas cost"
+test "blake2f maximum rounds gas cost"
+```
+
+#### 4. **EIP-152 Compliance Tests**
+```zig
+test "blake2f EIP-152 test vector 1"
+test "blake2f EIP-152 test vector 2"  
+test "blake2f EIP-152 test vector 3"
+test "blake2f EIP-152 test vector 4"
+test "blake2f matches reference implementation output"
+```
+
+#### 5. **Endianness Tests**
+```zig
+test "blake2f big-endian rounds parsing"
+test "blake2f little-endian hash state parsing"
+test "blake2f little-endian message block parsing"
+test "blake2f little-endian output formatting"
+```
+
+#### 6. **Performance Tests**
+```zig
+test "blake2f performance with large round counts"
+test "blake2f memory efficiency"
+test "blake2f WASM bundle size impact"
+```
+
+#### 7. **Error Handling Tests**
+```zig
+test "blake2f error propagation"
+test "blake2f proper error types returned"
+test "blake2f handles corrupted input gracefully"
+```
+
+#### 8. **Integration Tests**
+```zig
+test "blake2f precompile registration"
+test "blake2f called from EVM execution"
+test "blake2f gas deduction in EVM context"
+test "blake2f hardfork availability (Istanbul+)"
+```
+
+### Test Development Priority
+1. **Start with EIP-152 test vectors** - Ensures spec compliance from day one
+2. **Add input validation** - Prevents invalid states early
+3. **Implement gas calculation** - Core economic security
+4. **Add performance benchmarks** - Ensures production readiness
+5. **Test error cases** - Robust error handling
+
+### Test Data Sources
+- **EIP-152 official test vectors**: Primary compliance verification
+- **Geth test suite**: Cross-client compatibility
+- **RFC 7693 test vectors**: BLAKE2b algorithm correctness
+- **Edge case generation**: Boundary value testing
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Ensure 100% test coverage for all public functions
+- Validate performance benchmarks don't regress
+- Test both debug and release builds
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "blake2f basic functionality" {
+    // This test MUST fail initially
+    const input = test_vectors.eip152_vector_1;
+    const expected = test_vectors.eip152_expected_1;
+    
+    const result = blake2f.run(input);
+    try testing.expectEqualSlices(u8, expected, result);
+}
+```
+
+**Only then implement:**
+```zig
+pub fn run(input: []const u8) ![]u8 {
+    // Minimal implementation to make test pass
+    return error.NotImplemented; // Initially
+}
+```
 
 ## References
 

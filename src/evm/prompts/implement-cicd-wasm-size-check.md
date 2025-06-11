@@ -1,6 +1,6 @@
 # Implement CI/CD WASM Size Check
 
-You are implementing CI/CD WASM Size Check for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
+You are implementing CI/CD WASM Size Check for the Tevm EVM written in Zig. Your goal is to implement CI/CD pipeline for WASM bundle size monitoring following Ethereum specifications and maintaining compatibility with existing implementations.
 
 ## Development Workflow
 - **Branch**: `feat_implement_implement_ci_cd_wasm_size_check` (snake_case)
@@ -8,52 +8,6 @@ You are implementing CI/CD WASM Size Check for the Tevm EVM written in Zig. Your
 - **Testing**: Run `zig build test-all` before committing
 - **Commit**: Use emoji conventional commits with XML summary format
 
-## Branch Setup
-1. **Create branch**: `chore_implement_cicd_wasm_size_check` (snake_case, no emoji)
-2. **Create worktree**: `git worktree add g/chore_implement_cicd_wasm_size_check chore_implement_cicd_wasm_size_check`
-3. **Work in isolation**: `cd g/chore_implement_cicd_wasm_size_check`
-4. **Commit message**: Use the following XML format:
-
-```
-✨ feat: brief description of the change
-
-<summary>
-<what>
-- Bullet point summary of what was changed
-- Key implementation details and files modified
-</what>
-
-<why>
-- Motivation and reasoning behind the changes
-- Problem being solved or feature being added
-</why>
-
-<how>
-- Technical approach and implementation strategy
-- Important design decisions or trade-offs made
-</how>
-</summary>
-
-<prompt>
-Condensed version of the original prompt that includes:
-- The core request or task
-- Essential context needed to re-execute
-- Replace large code blocks with <github>url</github> or <docs>description</docs>
-- Remove redundant examples but keep key technical details
-- Ensure someone could understand and repeat the task from this prompt alone
-</prompt>
-
-🤖 Generated with [Claude Code](https://claude.ai/code)
-
-Co-Authored-By: Claude <noreply@anthropic.com>
-```
-
-### Workflow Steps
-1. Create and switch to the new worktree
-2. Implement all changes in the isolated branch
-3. Test the CI workflow locally if possible
-4. Commit with emoji conventional commit format
-5. DO NOT merge - leave ready for review
 
 ## Context
 
@@ -160,6 +114,14 @@ Implement size comparison logic:
 4. **Baseline Management**: Easy to update baselines when intentional changes occur
 5. **Performance**: Size check adds minimal time to CI (<2 minutes)
 
+
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 ## Edge Cases to Handle
 
 1. **First Run**: No baseline exists yet

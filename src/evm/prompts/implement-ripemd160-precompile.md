@@ -1,6 +1,6 @@
 # Implement RIPEMD160 Precompile
 
-You are implementing RIPEMD160 Precompile for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
+You are implementing RIPEMD160 Precompile for the Tevm EVM written in Zig. Your goal is to implement RIPEMD-160 cryptographic hash precompile following Ethereum specifications and maintaining compatibility with existing implementations.
 
 ## Development Workflow
 - **Branch**: `feat_implement_ripemd` (snake_case)
@@ -8,52 +8,6 @@ You are implementing RIPEMD160 Precompile for the Tevm EVM written in Zig. Your 
 - **Testing**: Run `zig build test-all` before committing
 - **Commit**: Use emoji conventional commits with XML summary format
 
-## Branch Setup
-1. **Create branch**: `feat_implement_ripemd160_precompile` (snake_case, no emoji)
-2. **Create worktree**: `git worktree add g/feat_implement_ripemd160_precompile feat_implement_ripemd160_precompile`
-3. **Work in isolation**: `cd g/feat_implement_ripemd160_precompile`
-4. **Commit message**: Use the following XML format:
-
-```
-✨ feat: brief description of the change
-
-<summary>
-<what>
-- Bullet point summary of what was changed
-- Key implementation details and files modified
-</what>
-
-<why>
-- Motivation and reasoning behind the changes
-- Problem being solved or feature being added
-</why>
-
-<how>
-- Technical approach and implementation strategy
-- Important design decisions or trade-offs made
-</how>
-</summary>
-
-<prompt>
-Condensed version of the original prompt that includes:
-- The core request or task
-- Essential context needed to re-execute
-- Replace large code blocks with <github>url</github> or <docs>description</docs>
-- Remove redundant examples but keep key technical details
-- Ensure someone could understand and repeat the task from this prompt alone
-</prompt>
-
-🤖 Generated with [Claude Code](https://claude.ai/code)
-
-Co-Authored-By: Claude <noreply@anthropic.com>
-```
-
-### Workflow Steps
-1. Create and switch to the new worktree
-2. Implement all changes in the isolated branch
-3. Run `zig build test-all` to ensure all tests pass
-4. Commit with emoji conventional commit format
-5. DO NOT merge - leave ready for review
 
 ## Context
 
@@ -450,6 +404,117 @@ Before starting implementation, decide:
 1. **Pure Zig vs C bindings** - Based on bundle size impact and complexity
 2. **Third-party library** - If available, evaluate quality and maintenance
 3. **Performance vs size trade-offs** - Optimize for Tevm's specific use case
+
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/precompiles/ripemd160_test.zig`)
+```zig
+// Test basic RIPEMD160 functionality
+test "ripemd160 basic functionality with known vectors"
+test "ripemd160 handles edge cases correctly"
+test "ripemd160 validates input format"
+test "ripemd160 produces correct output format"
+```
+
+#### 2. **Input Validation Tests**
+```zig
+test "ripemd160 handles various input lengths"
+test "ripemd160 validates input parameters"
+test "ripemd160 rejects invalid inputs gracefully"
+test "ripemd160 handles empty input"
+```
+
+#### 3. **Gas Calculation Tests**
+```zig
+test "ripemd160 gas cost calculation accuracy"
+test "ripemd160 gas cost edge cases"
+test "ripemd160 gas overflow protection"
+test "ripemd160 gas deduction in EVM context"
+```
+
+#### 4. **Specification Compliance Tests**
+```zig
+test "ripemd160 matches specification test vectors"
+test "ripemd160 matches reference implementation output"
+test "ripemd160 hardfork availability requirements"
+test "ripemd160 address registration correct"
+```
+
+#### 5. **Performance Tests**
+```zig
+test "ripemd160 performance with large inputs"
+test "ripemd160 memory efficiency"
+test "ripemd160 WASM bundle size impact"
+test "ripemd160 benchmark against reference implementations"
+```
+
+#### 6. **Error Handling Tests**
+```zig
+test "ripemd160 error propagation"
+test "ripemd160 proper error types returned"
+test "ripemd160 handles corrupted input gracefully"
+test "ripemd160 never panics on malformed input"
+```
+
+#### 7. **Integration Tests**
+```zig
+test "ripemd160 precompile registration"
+test "ripemd160 called from EVM execution"
+test "ripemd160 gas deduction in EVM context"
+test "ripemd160 hardfork availability"
+```
+
+### Test Development Priority
+1. **Start with specification test vectors** - Ensures spec compliance from day one
+2. **Add input validation** - Prevents invalid states early
+3. **Implement gas calculation** - Core economic security
+4. **Add performance benchmarks** - Ensures production readiness
+5. **Test error cases** - Robust error handling
+
+### Test Data Sources
+- **EIP/Specification test vectors**: Primary compliance verification
+- **Reference implementation tests**: Cross-client compatibility
+- **Mathematical test vectors**: Algorithm correctness
+- **Edge case generation**: Boundary value testing
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Ensure 100% test coverage for all public functions
+- Validate performance benchmarks don't regress
+- Test both debug and release builds
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "ripemd160 basic functionality" {
+    // This test MUST fail initially
+    const input = test_vectors.valid_input;
+    const expected = test_vectors.expected_output;
+    
+    const result = ripemd160.run(input);
+    try testing.expectEqualSlices(u8, expected, result);
+}
+```
+
+**Only then implement:**
+```zig
+pub fn run(input: []const u8) ![]u8 {
+    // Minimal implementation to make test pass
+    return error.NotImplemented; // Initially
+}
+```
 
 ## References
 
@@ -1717,4 +1782,46 @@ func LeftPadBytes(slice []byte, l int) []byte {
 ```
 </file>
 </go-ethereum>
+
+## Implementation Strategy & Research
+
+### Recommended Approach: WASM RIPEMD160 Library
+
+**Primary Option: WASM RIPEMD160 Implementation**
+- 🎯 **Library**: [ripemd160-wasm](https://github.com/emn178/ripemd160-wasm) or [noble-hashes RIPEMD160](https://github.com/paulmillr/noble-hashes)
+- ✅ **Pros**: Optimized for WASM, proven implementation, relatively small bundle size
+- ⚠️ **Tradeoffs**: External dependency, moderate bundle size increase (~20-50KB)
+- 🎯 **Compatibility**: Full WASM support, well-tested in JavaScript ecosystems
+
+**Why WASM is Necessary**
+- ❌ **Zig stdlib**: RIPEMD160 is NOT available in Zig standard library (only SHA family hashes)
+- ❌ **Native Zig libs**: No mature RIPEMD160 implementations available in Zig ecosystem
+- ✅ **WASM solution**: Proven WASM libraries provide reliable, secure implementation
+
+### Implementation Priority
+Following Tevm's preference hierarchy for RIPEMD160 (0x03):
+1. ❌ Zig stdlib - RIPEMD160 not available
+2. ❌ Trivial implementation - Complex cryptographic algorithm, security-critical
+3. ❌ Native Zig crypto library - No mature options exist
+4. ✅ **WASM library (recommended)** - Only viable option for secure implementation
+
+### Investigation Steps
+1. **Evaluate WASM options**: Test ripemd160-wasm vs noble-hashes performance and size
+2. **Bundle size analysis**: Measure actual WASM size impact (~20-50KB expected)
+3. **Security verification**: Ensure chosen library has audit history and test vectors
+4. **Integration testing**: Verify WASM bindings work correctly with Zig
+
+### Critical Implementation Notes
+- **Gas Formula**: `600 + 120 * ceil(input_size / 32)` (much higher than SHA256)
+- **Legacy Algorithm**: RIPEMD160 is older and less common than SHA256
+- **Security Consideration**: Must use well-audited implementation due to cryptographic nature
+- **Bundle Size vs Security**: Acceptable moderate size increase for secure implementation
+
+### Expected Bundle Impact
+- **Size**: ~20-50KB additional WASM (estimated)
+- **Performance**: Should be adequate for the gas costs charged
+- **Maintenance**: External dependency requires monitoring for updates
+
+### Alternative Fallback
+If bundle size becomes critical, could potentially gate RIPEMD160 behind a feature flag, but this would break Ethereum compatibility.
 

@@ -1,6 +1,6 @@
 # Implement BLS12-381 PAIRING Precompile
 
-You are implementing BLS12-381 PAIRING Precompile for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
+You are implementing BLS12-381 PAIRING Precompile for the Tevm EVM written in Zig. Your goal is to implement BLS12-381 optimal ate pairing precompile following Ethereum specifications and maintaining compatibility with existing implementations.
 
 ## Development Workflow
 - **Branch**: `feat_implement_bls` (snake_case)
@@ -8,52 +8,6 @@ You are implementing BLS12-381 PAIRING Precompile for the Tevm EVM written in Zi
 - **Testing**: Run `zig build test-all` before committing
 - **Commit**: Use emoji conventional commits with XML summary format
 
-## Branch Setup
-1. **Create branch**: `feat_implement_bls12_381_pairing_precompile` (snake_case, no emoji)
-2. **Create worktree**: `git worktree add g/feat_implement_bls12_381_pairing_precompile feat_implement_bls12_381_pairing_precompile`
-3. **Work in isolation**: `cd g/feat_implement_bls12_381_pairing_precompile`
-4. **Commit message**: Use the following XML format:
-
-```
-✨ feat: brief description of the change
-
-<summary>
-<what>
-- Bullet point summary of what was changed
-- Key implementation details and files modified
-</what>
-
-<why>
-- Motivation and reasoning behind the changes
-- Problem being solved or feature being added
-</why>
-
-<how>
-- Technical approach and implementation strategy
-- Important design decisions or trade-offs made
-</how>
-</summary>
-
-<prompt>
-Condensed version of the original prompt that includes:
-- The core request or task
-- Essential context needed to re-execute
-- Replace large code blocks with <github>url</github> or <docs>description</docs>
-- Remove redundant examples but keep key technical details
-- Ensure someone could understand and repeat the task from this prompt alone
-</prompt>
-
-🤖 Generated with [Claude Code](https://claude.ai/code)
-
-Co-Authored-By: Claude <noreply@anthropic.com>
-```
-
-### Workflow Steps
-1. Create and switch to the new worktree
-2. Implement all changes in the isolated branch
-3. Run `zig build test-all` to ensure all tests pass
-4. Commit with emoji conventional commit format
-5. DO NOT merge - leave ready for review
 
 ## Context
 

@@ -498,6 +498,14 @@ fn secure_ecrecover(input: []const u8, output: []u8) PrecompileError!PrecompileR
 5. **Gas Accuracy**: Consumes exactly 3000 gas regardless of success/failure
 6. **Security**: Resistant to timing attacks and other side-channel attacks
 
+
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 ## Critical Requirements
 
 1. **NEVER commit until `zig build test-all` passes**
@@ -2198,4 +2206,183 @@ if !allZero(input[32:63]) || !crypto.ValidateSignatureValues(v, r, s, false) {
     return nil, nil
 }
 ```
+
+## Implementation Strategy & Research
+
+### Recommended Approach: WASM-compatible secp256k1 Library
+
+**Primary Option: WASM secp256k1 Implementation**
+- 🎯 **Library**: [zkcrypto/libsecp256k1](https://github.com/zkcrypto/libsecp256k1) or [bitcoin secp256k1](https://github.com/bitcoin-core/secp256k1) compiled to WASM
+- ✅ **Pros**: Battle-tested crypto implementations, proven security, good WASM compatibility
+- ⚠️ **Tradeoffs**: Moderate bundle size increase, external dependency management
+- 📦 **Bundle Impact**: ~100-200KB additional WASM size (estimated)
+- 🎯 **Compatibility**: Full WASM support with proper C/WASM bindings
+
+**Fallback Option: Custom WASM Binding**  
+- 🔄 **Backup**: Small custom WASM wrapper around minimal secp256k1 recovery functions
+- ⚠️ **Tradeoff**: More development work, potential security risks with custom crypto
+- 🎯 **Use Case**: If full secp256k1 library proves too large for bundle size targets
+
+### Investigation Steps
+1. **Evaluate WASM libraries**: Test zkcrypto/libsecp256k1 and bitcoin secp256k1 compilation to WASM
+2. **Bundle size analysis**: Measure actual WASM size impact vs performance benefits
+3. **Security audit**: Ensure chosen library has proper audit history and maintenance
+4. **Performance benchmarks**: Compare native vs WASM performance for ECRECOVER operations
+
+### Bundle Size Priority
+Following Tevm's preference hierarchy for ECRECOVER (0x01):
+1. ❌ Zig stdlib - No secp256k1 implementation available
+2. ❌ Trivial implementation - ECDSA recovery is complex, security-critical
+3. ❌ Native Zig crypto library - No mature options available
+4. ✅ **WASM secp256k1 library (recommended)** - Mature, secure, WASM-compatible
+5. 🔄 Custom minimal WASM wrapper (fallback) - Higher risk but potentially smaller
+
+### Critical Implementation Notes
+- **Security First**: ECRECOVER is fundamental to Ethereum security - prefer proven libraries
+- **v Parameter**: Only accept 27/28, reject EIP-155 format (as shown in reference implementations)
+- **Signature Validation**: Follow geth pattern - validate r,s in range, no homestead s-value restriction in precompile
+- **Bundle Size vs Security**: Acceptable to have moderate bundle size increase for critical security functionality
+
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/precompiles/ecrecover_test.zig`)
+```zig
+// Test basic signature recovery
+test "ecrecover basic signature recovery with known test vectors"
+test "ecrecover handles empty output on invalid signature"
+test "ecrecover recovery ID edge cases (0 and 1)"
+test "ecrecover validates v parameter strictly (27/28 only)"
+```
+
+#### 2. **Input Validation Tests**
+```zig
+test "ecrecover rejects v != 27 and v != 28"
+test "ecrecover rejects non-zero padding in v parameter"
+test "ecrecover handles input length < 128 bytes (right-padded)"
+test "ecrecover handles input length > 128 bytes (truncated)"
+test "ecrecover validates r and s range [1, secp256k1_N-1]"
+test "ecrecover rejects r=0 or s=0"
+```
+
+#### 3. **Gas Calculation Tests**
+```zig
+test "ecrecover fixed gas cost (3000) regardless of success"
+test "ecrecover fixed gas cost (3000) regardless of failure"
+test "ecrecover gas deduction in EVM context"
+```
+
+#### 4. **Signature Parameter Validation Tests**
+```zig
+test "ecrecover accepts maximum valid r value (secp256k1_N-1)"
+test "ecrecover accepts maximum valid s value (secp256k1_N-1)"
+test "ecrecover rejects r >= secp256k1_N"
+test "ecrecover rejects s >= secp256k1_N"
+test "ecrecover handles signature malleability (high s values)"
+```
+
+#### 5. **Ethereum Compatibility Tests**
+```zig
+test "ecrecover matches geth implementation on known vectors"
+test "ecrecover matches execution-specs test vectors"
+test "ecrecover handles legacy (pre-EIP155) signatures"
+test "ecrecover address derivation matches reference"
+```
+
+#### 6. **Cryptographic Security Tests**
+```zig
+test "ecrecover constant-time execution (timing attack resistance)"
+test "ecrecover handles edge cases in elliptic curve math"
+test "ecrecover validates public key is on secp256k1 curve"
+test "ecrecover handles point-at-infinity recovery attempts"
+```
+
+#### 7. **Error Handling Tests**
+```zig
+test "ecrecover returns empty output on any validation failure"
+test "ecrecover handles corrupted signature gracefully"
+test "ecrecover error propagation to EVM layer"
+test "ecrecover never panics on malformed input"
+```
+
+#### 8. **Integration Tests**
+```zig
+test "ecrecover precompile registration at address 0x01"
+test "ecrecover called from EVM execution context"
+test "ecrecover gas accounting in transaction execution"
+test "ecrecover hardfork availability (Frontier onwards)"
+```
+
+#### 9. **Performance & Security Tests**
+```zig
+test "ecrecover benchmark with realistic signature loads"
+test "ecrecover memory safety with large inputs"
+test "ecrecover WASM bundle size impact measurement"
+test "ecrecover side-channel resistance validation"
+```
+
+### Test Development Priority
+1. **Start with Ethereum test vectors** - Ensures spec compliance from day one
+2. **Add input validation** - Critical for security and preventing exploits
+3. **Test signature parameter validation** - Core cryptographic correctness
+4. **Add performance benchmarks** - Ensures production readiness
+5. **Test error cases and edge cases** - Robust error handling
+
+### Test Data Sources
+- **Ethereum test suite**: Official test vectors from ethereum/tests repository
+- **Geth compatibility tests**: Cross-client compatibility verification
+- **secp256k1 test vectors**: Cryptographic library test cases
+- **Malformed input generation**: Fuzzing and boundary testing
+- **Real transaction signatures**: Mainnet signature examples
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Ensure 100% test coverage for all public functions
+- Validate performance benchmarks don't regress
+- Test both debug and release builds
+- Verify WASM compilation and execution
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "ecrecover basic functionality" {
+    // This test MUST fail initially
+    const hash = test_vectors.ethereum_message_hash;
+    const v: u8 = 28;
+    const r = test_vectors.signature_r;
+    const s = test_vectors.signature_s;
+    const expected_address = test_vectors.expected_signer_address;
+    
+    const input = format_ecrecover_input(hash, v, r, s);
+    const result = ecrecover.run(input);
+    
+    try testing.expectEqualSlices(u8, expected_address, result);
+}
+```
+
+**Only then implement:**
+```zig
+pub fn run(input: []const u8) ![]u8 {
+    // Minimal implementation to make test pass
+    return error.NotImplemented; // Initially
+}
+```
+
+### Critical Test Requirements
+- **Never commit until all tests pass** with `zig build test-all`
+- **Test against known attack vectors** (malleability, timing)
+- **Verify Ethereum compatibility** with real transaction data
+- **Validate cryptographic correctness** with curve edge cases
+- **Ensure constant-time execution** for security
 
