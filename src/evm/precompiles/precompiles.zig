@@ -4,6 +4,7 @@ const addresses = @import("precompile_addresses.zig");
 const PrecompileOutput = @import("precompile_result.zig").PrecompileOutput;
 const PrecompileError = @import("precompile_result.zig").PrecompileError;
 const identity = @import("identity.zig");
+const ecrecover = @import("ecrecover.zig");
 const kzg_point_evaluation = @import("kzg_point_evaluation.zig");
 const ChainRules = @import("../hardforks/chain_rules.zig");
 
@@ -103,11 +104,10 @@ pub fn execute_precompile(
             return identity.execute(input, output, gas_limit);
         }, // IDENTITY
         
-        // Placeholder implementations for future precompiles
         1 => {
-            @branchHint(.cold);
-            return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
-        }, // ECRECOVER - TODO
+            @branchHint(.likely);
+            return ecrecover.execute(input, output, gas_limit);
+        }, // ECRECOVER
         2 => {
             @branchHint(.cold);
             return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
@@ -173,8 +173,7 @@ pub fn estimate_gas(address: Address, input_size: usize, chain_rules: ChainRules
     return switch (precompile_id) {
         4 => identity.calculate_gas_checked(input_size), // IDENTITY
         
-        // Placeholder gas calculations for future precompiles
-        1 => error.NotImplemented, // ECRECOVER - TODO
+        1 => ecrecover.calculate_gas_checked(input_size), // ECRECOVER
         2 => error.NotImplemented, // SHA256 - TODO
         3 => error.NotImplemented, // RIPEMD160 - TODO
         5 => error.NotImplemented, // MODEXP - TODO
@@ -213,8 +212,7 @@ pub fn get_output_size(address: Address, input_size: usize, chain_rules: ChainRu
     return switch (precompile_id) {
         4 => identity.get_output_size(input_size), // IDENTITY
         
-        // Placeholder output sizes for future precompiles
-        1 => 32, // ECRECOVER - fixed 32 bytes (address)
+        1 => ecrecover.get_output_size(input_size), // ECRECOVER
         2 => 32, // SHA256 - fixed 32 bytes (hash)
         3 => 32, // RIPEMD160 - fixed 32 bytes (hash, padded)
         5 => error.NotImplemented, // MODEXP - variable size, TODO

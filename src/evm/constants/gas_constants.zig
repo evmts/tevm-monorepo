@@ -277,6 +277,10 @@ pub const IDENTITY_BASE_COST: u64 = 15;
 /// Total cost = IDENTITY_BASE_COST + (word_count * IDENTITY_WORD_COST)
 pub const IDENTITY_WORD_COST: u64 = 3;
 
+/// Gas cost for ECRECOVER precompile (address 0x01)
+/// Fixed cost regardless of input size - signature recovery
+pub const ECRECOVER_COST: u64 = 3000;
+
 /// Calculate memory expansion gas cost
 /// 
 /// Computes the gas cost for expanding EVM memory from current_size to new_size bytes.
