@@ -40,6 +40,12 @@ import { BaseError } from './BaseError.js'
  */
 export class InvalidRequestError extends BaseError {
 	/**
+	 * The error code for InvalidRequestError.
+	 * @type {number}
+	 */
+	static code = -32600
+
+	/**
 	 * Constructs an InvalidRequestError.
 	 *
 	 * @param {string} message - Human-readable error message.
@@ -55,7 +61,10 @@ export class InvalidRequestError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/invalidrequesterror/',
 			},
 			tag,
-			-32600,
+			InvalidRequestError.code,
 		)
+
+		this.name = 'InvalidRequest'
+		this._tag = 'InvalidRequest'
 	}
 }

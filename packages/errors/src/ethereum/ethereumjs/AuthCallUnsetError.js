@@ -84,9 +84,17 @@ export class AuthCallUnsetError extends ExecutionError {
 		 * @type {object|undefined}
 		 */
 		this.meta = args.meta
-		/**
-		 * @type {'AuthCallUnsetError'}
-		 */
-		this._tag = 'AuthCallUnsetError'
 	}
+
+	/**
+	 * @type {'AuthCallUnsetError'}
+	 * @override
+	 */
+	_tag = 'AuthCallUnsetError'
+
+	/**
+	 * @type {'AuthCallUnsetError'}
+	 * @override
+	 */
+	name = 'AuthCallUnsetError'
 }

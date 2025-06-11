@@ -40,6 +40,12 @@ import { BaseError } from './BaseError.js'
  */
 export class InvalidGasPriceError extends BaseError {
 	/**
+	 * The error code for InvalidGasPriceError.
+	 * @type {number}
+	 */
+	static code = -32012
+
+	/**
 	 * Constructs an InvalidGasPriceError.
 	 *
 	 * @param {string} message - Human-readable error message.
@@ -55,7 +61,20 @@ export class InvalidGasPriceError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/invalidgaspriceerror/',
 			},
 			tag,
-			-32012,
+			InvalidGasPriceError.code,
 		)
+
 	}
+
+	/**
+	 * @type {'InvalidGasPrice'}
+	 * @override
+	 */
+	_tag = 'InvalidGasPrice'
+
+	/**
+	 * @type {'InvalidGasPrice'}
+	 * @override
+	 */
+	name = 'InvalidGasPrice'
 }

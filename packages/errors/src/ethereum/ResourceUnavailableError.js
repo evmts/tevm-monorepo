@@ -63,5 +63,8 @@ export class ResourceUnavailableError extends BaseError {
 			tag,
 			ResourceUnavailableError.code,
 		)
+
+		this.name = 'ResourceUnavailable'
+		this._tag = 'ResourceUnavailable'
 	}
 }

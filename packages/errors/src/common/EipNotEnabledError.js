@@ -61,8 +61,13 @@ export class EipNotEnabledError extends ExecutionError {
 			},
 			'EipNotEnabledError',
 		)
-
-		this.name = 'EipNotEnabledError'
-		this._tag = 'EipNotEnabledError'
 	}
+
+	/**
+	 * @type {'EipNotEnabledError'}
+	 * @override
+	 */
+	_tag = 'EipNotEnabledError'
+
+
 }

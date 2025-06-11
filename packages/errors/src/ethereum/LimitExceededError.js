@@ -50,9 +50,9 @@ export class LimitExceededError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {LimitExceededErrorParameters} [args={}] - Additional parameters for the BaseError.
-	 * @param {string} [tag='LimitExceededError'] - The tag for the error.}
+	 * @param {string} [tag='LimitExceeded'] - The tag for the error.
 	 */
-	constructor(message, args = {}, tag = 'LimitExceededError') {
+	constructor(message, args = {}, tag = 'LimitExceeded') {
 		super(
 			message,
 			{
@@ -63,5 +63,8 @@ export class LimitExceededError extends BaseError {
 			tag,
 			LimitExceededError.code,
 		)
+
+		this.name = 'LimitExceeded'
+		this._tag = 'LimitExceeded'
 	}
 }

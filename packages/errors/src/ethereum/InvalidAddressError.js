@@ -40,6 +40,12 @@ import { BaseError } from './BaseError.js'
  */
 export class InvalidAddressError extends BaseError {
 	/**
+	 * The error code for InvalidAddressError.
+	 * @type {number}
+	 */
+	static code = -32013
+
+	/**
 	 * Constructs an InvalidAddressError.
 	 *
 	 * @param {string} message - Human-readable error message.
@@ -55,7 +61,20 @@ export class InvalidAddressError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/invalidaddresserror/',
 			},
 			tag,
-			-32013,
+			InvalidAddressError.code,
 		)
+
 	}
+
+	/**
+	 * @type {'InvalidAddress'}
+	 * @override
+	 */
+	_tag = 'InvalidAddress'
+
+	/**
+	 * @type {'InvalidAddress'}
+	 * @override
+	 */
+	name = 'InvalidAddress'
 }

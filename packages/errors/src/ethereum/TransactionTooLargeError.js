@@ -63,5 +63,18 @@ export class TransactionTooLargeError extends BaseError {
 			tag,
 			TransactionTooLargeError.code,
 		)
+
 	}
+
+	/**
+	 * @type {'TransactionTooLargeError'}
+	 * @override
+	 */
+	_tag = 'TransactionTooLargeError'
+
+	/**
+	 * @type {'TransactionTooLargeError'}
+	 * @override
+	 */
+	name = 'TransactionTooLargeError'
 }

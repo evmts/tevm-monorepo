@@ -14,9 +14,9 @@ import { BaseError } from './BaseError.js'
  */
 
 /**
- * Represents an error that occurs when the requested resource was not found on the Ethereum node.
+ * Represents an error that occurs when the requested resource does not exist.
  *
- * This error is typically encountered when a JSON-RPC request is made for a resource that does not exist or is not available.
+ * This error is typically encountered when a JSON-RPC request is made for a resource that does not exist.
  *
  * @example
  * try {
@@ -40,6 +40,12 @@ import { BaseError } from './BaseError.js'
  */
 export class ResourceNotFoundError extends BaseError {
 	/**
+	 * The error code for ResourceNotFoundError.
+	 * @type {number}
+	 */
+	static code = -32001
+
+	/**
 	 * Constructs a ResourceNotFoundError.
 	 *
 	 * @param {string} message - Human-readable error message.
@@ -55,7 +61,10 @@ export class ResourceNotFoundError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/resourcenotfounderror/',
 			},
 			tag,
-			-32001,
+			ResourceNotFoundError.code,
 		)
+
+		this.name = 'ResourceNotFound'
+		this._tag = 'ResourceNotFound'
 	}
 }

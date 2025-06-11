@@ -40,6 +40,12 @@ import { BaseError } from './BaseError.js'
  */
 export class GasLimitExceededError extends BaseError {
 	/**
+	 * The error code for GasLimitExceededError.
+	 * @type {number}
+	 */
+	static code = -32000
+
+	/**
 	 * Constructs a GasLimitExceededError.
 	 *
 	 * @param {string} message - Human-readable error message.
@@ -54,7 +60,20 @@ export class GasLimitExceededError extends BaseError {
 				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/gaslimitexceedederror/',
 			},
 			tag,
-			-32000,
+			GasLimitExceededError.code,
 		)
+
 	}
+
+	/**
+	 * @type {'GasLimitExceededError'}
+	 * @override
+	 */
+	_tag = 'GasLimitExceededError'
+
+	/**
+	 * @type {'GasLimitExceededError'}
+	 * @override
+	 */
+	name = 'GasLimitExceededError'
 }

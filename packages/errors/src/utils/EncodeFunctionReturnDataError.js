@@ -58,8 +58,17 @@ export class EncodeFunctionReturnDataError extends InvalidParamsError {
 			},
 			'EncodeFunctionReturnDataError',
 		)
-
-		this.name = 'EncodeFunctionReturnDataError'
-		this._tag = 'EncodeFunctionReturnDataError'
 	}
+
+	/**
+	 * @type {'EncodeFunctionReturnDataError'}
+	 * @override
+	 */
+	_tag = 'EncodeFunctionReturnDataError'
+
+	/**
+	 * @type {'EncodeFunctionReturnDataError'}
+	 * @override
+	 */
+	name = 'EncodeFunctionReturnDataError'
 }

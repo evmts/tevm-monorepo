@@ -17,6 +17,7 @@ import { BaseError } from './BaseError.js'
  * Represents an error that occurs when an execution error happens on the Ethereum node.
  *
  * This error is typically encountered when there is a general execution error that does not fit more specific categories.
+ * The error code -32015 is a non-standard extension used for EVM execution errors.
  *
  * @example
  * try {
@@ -34,7 +35,7 @@ import { BaseError } from './BaseError.js'
  * @property {'ExecutionError'} name - The name of the error, used to discriminate errors.
  * @property {string} message - Human-readable error message.
  * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
+ * @property {number} code - Error code (-32015), a widely used extension for EVM execution errors.
  * @property {string} docsPath - Path to the documentation for this error.
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
@@ -43,7 +44,7 @@ export class ExecutionError extends BaseError {
 	 * The error code for ExecutionError.
 	 * @type {number}
 	 */
-	static code = -32000
+	static code = -32015
 
 	/**
 	 * Constructs an ExecutionError.

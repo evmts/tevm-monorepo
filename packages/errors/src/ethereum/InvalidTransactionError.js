@@ -40,6 +40,12 @@ import { BaseError } from './BaseError.js'
  */
 export class InvalidTransactionError extends BaseError {
 	/**
+	 * The error code for InvalidTransactionError.
+	 * @type {number}
+	 */
+	static code = -32003
+
+	/**
 	 * Constructs an InvalidTransactionError.
 	 *
 	 * @param {string} message - Human-readable error message.
@@ -55,7 +61,20 @@ export class InvalidTransactionError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/invalidtransactionerror/',
 			},
 			tag,
-			-32003,
+			InvalidTransactionError.code,
 		)
+
 	}
+
+	/**
+	 * @type {'InvalidTransaction'}
+	 * @override
+	 */
+	_tag = 'InvalidTransaction'
+
+	/**
+	 * @type {'InvalidTransaction'}
+	 * @override
+	 */
+	name = 'InvalidTransaction'
 }

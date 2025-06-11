@@ -1,4 +1,3 @@
-// Ideally we get this from viem
 import { BaseError } from './BaseError.js'
 
 /**

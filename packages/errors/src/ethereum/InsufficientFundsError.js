@@ -18,6 +18,10 @@ import { BaseError } from './BaseError.js'
  *
  * This error is typically encountered when a transaction is attempted with a balance that is too low to cover the transaction cost.
  *
+ * The error code -32003 is a standard Ethereum JSON-RPC error code indicating a transaction rejected,
+ * which is used when a transaction is not accepted for processing due to validation failures
+ * such as insufficient funds.
+ *
  * @example
  * try {
  *   // Some operation that can throw an InsufficientFundsError
@@ -34,11 +38,17 @@ import { BaseError } from './BaseError.js'
  * @property {'InsufficientFunds'} name - The name of the error, used to discriminate errors.
  * @property {string} message - Human-readable error message.
  * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
+ * @property {number} code - Error code (-32003), standard Ethereum JSON-RPC error code for transaction rejected.
  * @property {string} docsPath - Path to the documentation for this error.
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class InsufficientFundsError extends BaseError {
+	/**
+	 * The error code for InsufficientFundsError.
+	 * @type {number}
+	 */
+	static code = -32003
+
 	/**
 	 * Constructs an InsufficientFundsError.
 	 *
@@ -55,7 +65,20 @@ export class InsufficientFundsError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/insufficientfundserror/',
 			},
 			tag,
-			-32000,
+			InsufficientFundsError.code,
 		)
+
 	}
+
+	/**
+	 * @type {'InsufficientFunds'}
+	 * @override
+	 */
+	_tag = 'InsufficientFunds'
+
+	/**
+	 * @type {'InsufficientFunds'}
+	 * @override
+	 */
+	name = 'InsufficientFunds'
 }

@@ -40,6 +40,12 @@ import { BaseError } from './BaseError.js'
  */
 export class MethodNotSupportedError extends BaseError {
 	/**
+	 * The error code for MethodNotSupportedError.
+	 * @type {number}
+	 */
+	static code = -32004
+
+	/**
 	 * Constructs a MethodNotSupportedError.
 	 *
 	 * @param {string} message - Human-readable error message.
@@ -55,7 +61,10 @@ export class MethodNotSupportedError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/methodnotsupportederror/',
 			},
 			tag,
-			-32004,
+			MethodNotSupportedError.code,
 		)
+
+		this.name = 'MethodNotSupported'
+		this._tag = 'MethodNotSupported'
 	}
 }

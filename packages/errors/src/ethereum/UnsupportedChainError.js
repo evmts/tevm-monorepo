@@ -40,6 +40,12 @@ import { BaseError } from './BaseError.js'
  */
 export class UnsupportedChainError extends BaseError {
 	/**
+	 * The error code for UnsupportedChainError.
+	 * @type {number}
+	 */
+	static code = -32007
+
+	/**
 	 * Constructs an UnsupportedChainError.
 	 *
 	 * @param {string} message - Human-readable error message.
@@ -55,7 +61,20 @@ export class UnsupportedChainError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/unsupportedchainerror/',
 			},
 			tag,
-			-32007,
+			UnsupportedChainError.code,
 		)
+
 	}
+
+	/**
+	 * @type {'UnsupportedChain'}
+	 * @override
+	 */
+	_tag = 'UnsupportedChain'
+
+	/**
+	 * @type {'UnsupportedChain'}
+	 * @override
+	 */
+	name = 'UnsupportedChain'
 }

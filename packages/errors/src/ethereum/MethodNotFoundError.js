@@ -39,7 +39,12 @@ import { BaseError } from './BaseError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class MethodNotFoundError extends BaseError {
+	/**
+	 * The error code for MethodNotFoundError.
+	 * @type {number}
+	 */
 	static code = -32601
+
 	/**
 	 * Constructs a MethodNotFoundError.
 	 *
@@ -58,5 +63,8 @@ export class MethodNotFoundError extends BaseError {
 			tag,
 			MethodNotFoundError.code,
 		)
+
+		this.name = 'MethodNotFound'
+		this._tag = 'MethodNotFound'
 	}
 }

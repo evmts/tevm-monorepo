@@ -63,5 +63,18 @@ export class PendingTransactionTimeoutError extends BaseError {
 			tag,
 			PendingTransactionTimeoutError.code,
 		)
+
 	}
+
+	/**
+	 * @type {'PendingTransactionTimeout'}
+	 * @override
+	 */
+	_tag = 'PendingTransactionTimeout'
+
+	/**
+	 * @type {'PendingTransactionTimeout'}
+	 * @override
+	 */
+	name = 'PendingTransactionTimeout'
 }

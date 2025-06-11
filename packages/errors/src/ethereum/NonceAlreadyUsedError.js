@@ -40,6 +40,12 @@ import { BaseError } from './BaseError.js'
  */
 export class NonceAlreadyUsedError extends BaseError {
 	/**
+	 * The error code for NonceAlreadyUsedError.
+	 * @type {number}
+	 */
+	static code = -32008
+
+	/**
 	 * Constructs a NonceAlreadyUsedError.
 	 *
 	 * @param {string} message - Human-readable error message.
@@ -55,7 +61,20 @@ export class NonceAlreadyUsedError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/noncealreadyusederror/',
 			},
 			tag,
-			-32008,
+			NonceAlreadyUsedError.code,
 		)
+
 	}
+
+	/**
+	 * @type {'NonceAlreadyUsed'}
+	 * @override
+	 */
+	_tag = 'NonceAlreadyUsed'
+
+	/**
+	 * @type {'NonceAlreadyUsed'}
+	 * @override
+	 */
+	name = 'NonceAlreadyUsed'
 }

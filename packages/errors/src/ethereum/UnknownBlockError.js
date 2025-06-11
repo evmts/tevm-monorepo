@@ -69,8 +69,17 @@ export class UnknownBlockError extends BaseError {
 			tag,
 			UnknownBlockError.code,
 		)
-
-		this.name = 'UnknownBlock'
-		this._tag = 'UnknownBlock'
 	}
+
+	/**
+	 * @type {'UnknownBlock'}
+	 * @override
+	 */
+	_tag = 'UnknownBlock'
+
+	/**
+	 * @type {'UnknownBlock'}
+	 * @override
+	 */
+	name = 'UnknownBlock'
 }

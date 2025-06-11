@@ -40,6 +40,12 @@ import { BaseError } from './BaseError.js'
  */
 export class RateLimitExceededError extends BaseError {
 	/**
+	 * The error code for RateLimitExceededError.
+	 * @type {number}
+	 */
+	static code = -32005
+
+	/**
 	 * Constructs a RateLimitExceededError.
 	 *
 	 * @param {string} message - Human-readable error message.
@@ -55,7 +61,20 @@ export class RateLimitExceededError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/ratelimitexceedederror/',
 			},
 			tag,
-			-32010,
+			RateLimitExceededError.code,
 		)
+
 	}
+
+	/**
+	 * @type {'RateLimitExceeded'}
+	 * @override
+	 */
+	_tag = 'RateLimitExceeded'
+
+	/**
+	 * @type {'RateLimitExceeded'}
+	 * @override
+	 */
+	name = 'RateLimitExceeded'
 }

@@ -40,6 +40,12 @@ import { BaseError } from './BaseError.js'
  */
 export class InvalidSignatureError extends BaseError {
 	/**
+	 * The error code for InvalidSignatureError.
+	 * @type {number}
+	 */
+	static code = -32000
+
+	/**
 	 * Constructs an InvalidSignatureError.
 	 *
 	 * @param {string} message - Human-readable error message.
@@ -55,7 +61,20 @@ export class InvalidSignatureError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/invalidsignatureerror/',
 			},
 			tag,
-			-32000,
+			InvalidSignatureError.code,
 		)
+
 	}
+
+	/**
+	 * @type {'InvalidSignature'}
+	 * @override
+	 */
+	_tag = 'InvalidSignature'
+
+	/**
+	 * @type {'InvalidSignature'}
+	 * @override
+	 */
+	name = 'InvalidSignature'
 }

@@ -55,5 +55,18 @@ export class AccountNotFoundError extends ResourceNotFoundError {
 			},
 			tag,
 		)
+
 	}
+
+	/**
+	 * @type {'AccountNotFoundError'}
+	 * @override
+	 */
+	_tag = 'AccountNotFoundError'
+
+	/**
+	 * @type {'AccountNotFoundError'}
+	 * @override
+	 */
+	name = 'AccountNotFoundError'
 }

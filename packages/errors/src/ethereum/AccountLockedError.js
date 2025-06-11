@@ -43,7 +43,7 @@ import { BaseError } from './BaseError.js'
  * @property {'AccountLocked'} name - The name of the error, used to discriminate errors.
  * @property {string} message - Human-readable error message.
  * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code (-32005), a non-standard extension for this specific error.
+ * @property {number} code - Error code (-32020), a non-standard extension for this specific error.
  * @property {string} docsPath - Path to the documentation for this error.
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
@@ -52,7 +52,7 @@ export class AccountLockedError extends BaseError {
 	 * The error code for AccountLockedError.
 	 * @type {number}
 	 */
-	static code = -32005
+	static code = -32020
 
 	/**
 	 * Constructs an AccountLockedError.
@@ -72,8 +72,17 @@ export class AccountLockedError extends BaseError {
 			tag,
 			AccountLockedError.code,
 		)
-
-		this.name = 'AccountLocked'
-		this._tag = 'AccountLocked'
 	}
+
+	/**
+	 * @type {'AccountLocked'}
+	 * @override
+	 */
+	_tag = 'AccountLocked'
+
+	/**
+	 * @type {'AccountLocked'}
+	 * @override
+	 */
+	name = 'AccountLocked'
 }

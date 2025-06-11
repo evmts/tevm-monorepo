@@ -20,8 +20,9 @@ import { BaseError } from './BaseError.js'
  * than the expected next nonce for the sender's account. In Ethereum, nonces must be used in strict
  * sequential order to ensure transactions are processed correctly.
  *
- * The error code -32000 is a standard Ethereum JSON-RPC error code indicating a generic server error,
- * which is often used for various transaction-related errors including nonce issues.
+ * The error code -32003 is a standard Ethereum JSON-RPC error code indicating a transaction rejected,
+ * which is used when a transaction is not accepted for processing due to validation failures
+ * such as incorrect nonce values.
  *
  * @example
  * try {
@@ -44,11 +45,17 @@ import { BaseError } from './BaseError.js'
  * @property {'NonceTooHigh'} name - The name of the error, used to discriminate errors.
  * @property {string} message - Human-readable error message.
  * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code (-32000), standard Ethereum JSON-RPC error code for server errors.
+ * @property {number} code - Error code (-32003), standard Ethereum JSON-RPC error code for transaction rejected.
  * @property {string} docsPath - Path to the documentation for this error.
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class NonceTooHighError extends BaseError {
+	/**
+	 * The error code for NonceTooHighError.
+	 * @type {number}
+	 */
+	static code = -32003
+
 	/**
 	 * Constructs a NonceTooHighError.
 	 *
@@ -65,7 +72,7 @@ export class NonceTooHighError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/noncetoohigherror/',
 			},
 			tag,
-			-32000,
+			NonceTooHighError.code,
 		)
 
 		this.name = 'NonceTooHigh'

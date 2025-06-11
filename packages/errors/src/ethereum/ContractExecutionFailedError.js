@@ -19,7 +19,7 @@ import { BaseError } from './BaseError.js'
  * encounters an exception during its operation. It can be due to various reasons such as
  * failing assertions, out-of-gas errors, or other contract-specific logic failures.
  *
- * The error code -32004 is a non-standard extension used by some Ethereum clients to
+ * The error code -32015 is a non-standard extension used by some Ethereum clients to
  * indicate a contract execution failure.
  *
  * @example
@@ -41,7 +41,7 @@ import { BaseError } from './BaseError.js'
  * @property {'ContractExecutionFailed'} name - The name of the error, used to discriminate errors.
  * @property {string} message - Human-readable error message.
  * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code (-32004), a non-standard extension for this specific error.
+ * @property {number} code - Error code (-32015), a widely used extension for EVM execution errors.
  * @property {string} docsPath - Path to the documentation for this error.
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
@@ -50,7 +50,7 @@ export class ContractExecutionFailedError extends BaseError {
 	 * The error code for ContractExecutionFailedError.
 	 * @type {number}
 	 */
-	static code = -32004
+	static code = -32015
 
 	/**
 	 * Constructs a ContractExecutionFailedError.
@@ -71,7 +71,17 @@ export class ContractExecutionFailedError extends BaseError {
 			ContractExecutionFailedError.code,
 		)
 
-		this.name = 'ContractExecutionFailed'
-		this._tag = 'ContractExecutionFailed'
 	}
+
+	/**
+	 * @type {'ContractExecutionFailed'}
+	 * @override
+	 */
+	_tag = 'ContractExecutionFailed'
+
+	/**
+	 * @type {'ContractExecutionFailed'}
+	 * @override
+	 */
+	name = 'ContractExecutionFailed'
 }
