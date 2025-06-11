@@ -19,6 +19,10 @@
 
 Implement a comprehensive performance benchmarking framework to validate EVM performance against industry standards (Geth, Revm, Evmone), detect performance regressions, track optimization progress, and guide future performance improvements. This includes micro-benchmarks for individual components, macro-benchmarks for complete execution scenarios, and statistical analysis tools.
 
+## ELI5
+
+Think of performance benchmarking like timing race cars to see which is fastest. Just like you'd test a car on different tracks (highway, city, mountain roads) to understand its performance in various conditions, we test our EVM on different smart contracts and scenarios. We measure how fast it runs, compare it to other EVMs like comparing lap times, and watch for any slowdowns that might indicate problems. This helps us make sure our EVM is always running at peak performance and getting faster over time.
+
 ## Performance Benchmark Specifications
 
 ### Core Benchmark Framework

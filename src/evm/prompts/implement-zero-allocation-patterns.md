@@ -19,6 +19,10 @@
 
 Implement comprehensive zero-allocation patterns to minimize dynamic memory allocation during EVM execution, reducing garbage collection pressure, improving performance predictability, and enabling real-time execution capabilities. This includes object pooling, stack-based allocation, compile-time memory layouts, and allocation-free data structures.
 
+## ELI5
+
+Think of zero-allocation like having a well-organized tool shed. Instead of going to the store every time you need a hammer (allocating new memory), you keep a set of hammers ready to use and put them back when done. This avoids the time spent shopping and the mess of leaving tools everywhere. In programming, we pre-allocate memory and reuse it instead of constantly asking for new memory, which makes the program run faster and more predictably.
+
 ## Zero-Allocation Pattern Specifications
 
 ### Core Zero-Allocation Framework

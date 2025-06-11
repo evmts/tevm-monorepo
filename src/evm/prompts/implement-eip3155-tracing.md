@@ -19,6 +19,10 @@
 
 Implement EIP-3155 standard execution trace format for the EVM. This provides a standardized way to trace EVM execution, enabling debugging, analysis, and compatibility with Ethereum ecosystem tools that expect this trace format.
 
+## ELI5
+
+Think of this as installing a "black box" flight recorder in an airplane that captures every detail of what happens during flight. EIP-3155 tracing records every single step our EVM takes when executing smart contract code - what instruction it ran, how much gas it used, what was in memory and on the stack, and what went wrong if something failed. This detailed "flight log" is invaluable for debugging problems, understanding performance issues, and ensuring our EVM works correctly with existing Ethereum development tools that expect this standardized trace format.
+
 ## EIP-3155 Specification
 
 ### Trace Output Format

@@ -19,6 +19,10 @@
 
 Implement comprehensive handling of dynamic gas edge cases, particularly complex memory growth scenarios that can occur with irregular memory access patterns, large copy operations, and edge cases in gas calculation that can lead to integer overflow, underflow, or unexpected behavior.
 
+## ELI5
+
+Imagine gas costs like a restaurant bill that changes based on how much food you order and where you sit. Sometimes customers try to game the system with unusual orders that could make the billing system crash or charge wrong amounts. This implementation is like having smart waiters who catch these edge cases - if someone tries to order "infinite breadsticks" or sit at "table negative-5", the system gracefully handles it instead of breaking.
+
 ## Dynamic Gas Edge Cases
 
 ### Memory Growth Edge Cases

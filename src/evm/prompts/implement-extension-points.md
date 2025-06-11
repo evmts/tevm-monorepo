@@ -19,6 +19,10 @@
 
 Implement a comprehensive extension points system that allows configurable extension of EVM functionality through plugin-like components. This enables custom opcodes, precompiles, state hooks, execution hooks, and chain-specific behavior to be added without modifying core EVM code. The system should support compile-time and runtime extension registration with type safety and performance optimization.
 
+## ELI5
+
+Extension points are like having electrical outlets throughout the EVM where you can plug in custom functionality. Just like how you can plug different devices into wall outlets to extend what your house can do (lamps, computers, appliances), extension points let you plug in custom code to extend what the EVM can do - like adding new operations, custom processing hooks, or chain-specific features - without having to rewire the core system.
+
 ## Extension Points System Specifications
 
 ### Core Extension Framework

@@ -19,6 +19,10 @@
 
 Implement gas refunds for SSTORE operations according to Ethereum's gas refund mechanism. SSTORE operations can receive gas refunds when storage is cleared (set to zero), providing economic incentives for reducing blockchain state size. The refund mechanism has evolved significantly across hardforks.
 
+## ELI5
+
+Think of blockchain storage like a giant shared filing cabinet that everyone has to pay to maintain. When you delete files (set storage to zero), you get a partial refund on your storage fees as a "thank you" for cleaning up and making space for others. It's like getting money back for recycling - you paid to store something, but when you remove it, you get some compensation for helping keep the blockchain tidy.
+
 ## Ethereum Specification
 
 ### Gas Refund Evolution

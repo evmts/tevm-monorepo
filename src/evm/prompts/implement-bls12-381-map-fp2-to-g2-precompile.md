@@ -19,6 +19,10 @@
 
 Implement the BLS12-381 MAP_FP2_TO_G2 precompile (address 0x11) as defined in EIP-2537. This precompile maps an extension field element (Fp2) to a point on the G2 curve using a deterministic hash-to-curve algorithm, essential for hash-to-curve operations on G2 in BLS signature schemes.
 
+## ELI5
+
+This is like the MAP_FP_TO_G1 operation, but working in a more complex mathematical space. Think of Fp2 elements as complex numbers (with real and imaginary parts), and G2 points as locations on a curved surface in this complex space. The MAP_FP2_TO_G2 precompile takes a complex number (Fp2 element) and converts it into a valid G2 point on the curve - like having a GPS that works in a complex coordinate system and can snap any complex coordinate to the nearest valid location on a curved road in that space. This is used for advanced cryptographic operations where you need to convert hash values or other data into G2 points, which are typically used for public keys in BLS signature schemes. The operation is much more computationally expensive than the G1 version because it's working in this more complex mathematical space, which is why it costs significantly more gas.
+
 ## EIP-2537 Specification
 
 ### Basic Operation

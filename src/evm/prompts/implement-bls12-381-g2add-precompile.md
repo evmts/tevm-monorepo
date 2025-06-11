@@ -19,6 +19,10 @@
 
 Implement the BLS12-381 G2 addition precompile (address 0x0D) as defined in EIP-2537. This precompile performs point addition operations on the G2 group of the BLS12-381 elliptic curve, which operates over an extension field and is essential for BLS signature verification.
 
+## ELI5
+
+Think of G2 points as special mathematical objects that live in a more complex space than regular G1 points - like the difference between working with regular numbers versus complex numbers (a + bi). G2 addition is like having two locations on a curved surface in this complex space and finding a third location that represents their "sum." This is crucial for BLS signatures because G2 points are where the public keys live, while G1 points are where signatures live. When you want to verify multiple signatures together (like combining votes from multiple validators), you need to do math with these G2 points. The precompile makes this operation fast and cheap, which is essential for things like Ethereum's proof-of-stake consensus where thousands of validator signatures need to be processed efficiently.
+
 ## EIP-2537 Specification
 
 ### Basic Operation

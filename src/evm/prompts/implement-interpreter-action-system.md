@@ -17,6 +17,10 @@
 
 ## Context
 
+<eli5>
+Think of the interpreter action system like a sophisticated order processing center for an online store. Instead of handling each type of order (standard delivery, express shipping, international) with completely different processes, you create a unified system where each action type has its own specialized workflow. The system automatically validates each order, applies optimizations (like bundling shipments), tracks performance metrics, and can easily handle new types of orders by plugging in new action handlers. This keeps everything organized and efficient while making it easy to add new capabilities.
+</eli5>
+
 Implement a comprehensive interpreter action system that provides structured handling for calls and creates with built-in validation, optimization, and extensibility. This system enables clean separation of action logic, automatic validation, performance optimization, and easy addition of new action types while maintaining type safety and performance.
 
 ## Interpreter Action System Specifications

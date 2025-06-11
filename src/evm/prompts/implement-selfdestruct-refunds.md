@@ -19,6 +19,10 @@
 
 Implement gas refunds for SELFDESTRUCT opcode according to Ethereum specifications. Before the London hardfork (EIP-3529), SELFDESTRUCT provided gas refunds when destroying contracts. This refund mechanism was removed in London to mitigate gas limit manipulation attacks.
 
+<eli5>
+Imagine you paid a deposit to demolish a building, and used to get money back for cleaning up the lot afterward. Gas refunds for SELFDESTRUCT worked similarly - you'd get some gas back when destroying a smart contract. However, people started gaming this system to manipulate transaction costs, so Ethereum removed the refunds in the London upgrade, like a city deciding to stop giving demolition rebates because contractors were abusing the program.
+</eli5>
+
 ## Ethereum Specification
 
 ### Gas Refund Rules

@@ -19,6 +19,10 @@
 
 Implement memory allocator tuning optimizations to improve memory allocation patterns, reduce fragmentation, and optimize performance for EVM-specific workloads. This includes custom allocators for different memory usage patterns, pool allocation for frequently used objects, and memory layout optimizations.
 
+## ELI5
+
+Think of memory allocation like managing parking in a busy city. A basic allocator is like having people park randomly wherever they find space, leading to wasted spots and traffic jams. Memory allocator tuning is like having a smart parking system that knows common patterns - keeping spots ready for regular commuters, grouping similar-sized cars together, and avoiding fragmentation. This makes parking (memory allocation) faster and more efficient.
+
 ## Memory Allocator Tuning Specifications
 
 ### Core Allocator Framework

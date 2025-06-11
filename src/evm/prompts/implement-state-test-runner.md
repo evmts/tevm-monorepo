@@ -19,6 +19,10 @@
 
 Implement a state test runner that can execute official Ethereum state tests. This enables comprehensive compatibility testing against the Ethereum Foundation's test suite, ensuring the EVM implementation correctly handles all edge cases and maintains consensus compatibility.
 
+## ELI5
+
+Imagine you're building a clone of a complex recipe and want to make sure it tastes exactly like the original. The state test runner is like having the master chef's official cookbook with thousands of precise test recipes - each one specifies exact ingredients (initial state), cooking steps (transactions), and what the final dish should look like (expected final state). By running our EVM through these official "cooking tests" from the Ethereum Foundation, we can verify that our implementation produces exactly the same results as the reference implementation, ensuring perfect compatibility with the real Ethereum network.
+
 ## Ethereum State Test Format
 
 ### Test Structure

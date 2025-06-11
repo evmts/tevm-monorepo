@@ -19,6 +19,12 @@
 
 Implement a comprehensive subroutine stack system for EOF (Ethereum Object Format) contracts that supports subroutine calls, returns, and advanced control flow. This enables more efficient contract execution patterns, function-like abstractions, and better code organization within smart contracts while maintaining EVM compatibility and security.
 
+## <eli5>
+
+A subroutine stack is like an organized filing system for function calls in smart contracts. Think of it as a stack of sticky notes where each note represents a function call - when you call a function, you put a new note on top with the return address, and when the function finishes, you peel off the top note to know where to go back. This system helps organize complex contract execution by keeping track of nested function calls and ensuring everything returns to the right place safely.
+
+</eli5>
+
 ## Subroutine Stack Specifications
 
 ### Core Subroutine Framework

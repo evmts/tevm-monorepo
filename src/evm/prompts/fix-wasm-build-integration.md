@@ -1,5 +1,19 @@
 # Fix WASM Build and Integration into Tevm TypeScript
 
+## What
+Fix the broken WASM build system and integrate the high-performance Zig EVM into Tevm's TypeScript codebase. The WASM build currently fails and needs complete integration with JavaScript bindings, memory management, and error handling to enable 100x performance improvements over the current Ethereumjs implementation.
+
+## Why
+The WASM build is critical for achieving the performance goals of Tevm - delivering 100x faster EVM execution with smaller bundle sizes. Without this integration, Tevm cannot leverage the high-performance Zig implementation and remains limited to slower JavaScript-based EVM execution.
+
+## How
+1. Fix the WASM build configuration in `build.zig` with proper targeting and optimization
+2. Create JavaScript bindings and TypeScript interfaces for WASM exports
+3. Implement memory management for JS/WASM boundary communication
+4. Add comprehensive error handling and result propagation
+5. Optimize for minimal bundle size and maximum performance
+6. Create integration points with existing Tevm TypeScript packages
+
 ## Git Workflow Instructions
 
 ### Branch Setup
@@ -19,6 +33,10 @@
 ## Context
 
 The WASM build is currently broken and needs to be fixed to integrate the high-performance Zig EVM into the Tevm TypeScript library. This is a critical system feature that will enable Tevm to achieve 100x performance improvements and smaller bundle sizes compared to the current Ethereumjs implementation.
+
+## ELI5
+
+Imagine we built a rocket engine (our Zig EVM) but can't attach it to our spaceship (TypeScript codebase) because the connection system is broken. WASM is like the mounting system that lets our super-fast compiled code work seamlessly with JavaScript. Without fixing this integration, we're stuck using a bicycle engine when we could have rocket propulsion - we need to repair the build system so our TypeScript code can actually harness the 100x performance boost.
 
 ## Current Status
 

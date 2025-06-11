@@ -17,6 +17,10 @@
 
 ## Context
 
+<eli5>
+Think of the handler architecture like a restaurant's quality control system. Instead of having to modify the kitchen every time you want to add a new quality check, you set up inspection stations along the line where different specialists can examine and process each dish. Some inspectors check temperature, others check presentation, and some just count portions. Each handler can observe what's happening, make modifications, or even stop the process if something's wrong. This way, you can easily add new quality controls without rebuilding the entire kitchen.
+</eli5>
+
 Implement a configurable handler architecture that allows pluggable pre-processing and post-processing of EVM operations. This provides extensibility points for custom logic, middleware, logging, metrics collection, and specialized execution behaviors without modifying core EVM code.
 
 ## Handler Architecture Specifications

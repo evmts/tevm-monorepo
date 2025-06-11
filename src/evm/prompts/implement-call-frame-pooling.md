@@ -1,5 +1,23 @@
 # Implement Call Frame Pooling
 
+## What
+<eli5>
+Think of call frames like office cubicles that smart contracts use when they're working. Instead of building a new cubicle every time a contract needs to do work (which is expensive and slow), frame pooling is like maintaining a pool of clean, ready-to-use cubicles. When a contract finishes its work, we quickly clean the cubicle and put it back in the pool for the next contract to use, making everything much faster and more efficient.
+</eli5>
+
+Implement comprehensive call frame pooling to efficiently manage frame allocation and deallocation during EVM execution. This includes pooled frame allocation, stack management, memory reuse optimization, and automated pool sizing based on execution patterns to minimize garbage collection pressure and improve execution performance.
+
+## Why
+Call frame pooling can reduce frame allocation time by 60%+ and peak memory usage by 30%+ while achieving 85%+ pool hit rates. This is essential for high-throughput EVM execution where contract calls create significant allocation overhead and garbage collection pressure, especially in complex DeFi applications with deep call stacks.
+
+## How
+1. Implement frame pool manager with multiple size classes for different frame types
+2. Create pooled frame implementation with hierarchy tracking and efficient state reset
+3. Build automatic pool tuning system that adjusts sizes based on usage patterns  
+4. Add garbage collection integration with memory pressure monitoring and cleanup triggers
+5. Integrate with VM execution for seamless call/create operations using pooled frames
+6. Implement comprehensive statistics and monitoring for pool performance analysis
+
 ## Git Workflow Instructions
 
 ### Branch Setup
@@ -18,6 +36,10 @@
 ## Context
 
 Implement comprehensive call frame pooling to efficiently manage frame allocation and deallocation during EVM execution. This includes pooled frame allocation, stack management, memory reuse optimization, and automated pool sizing based on execution patterns to minimize garbage collection pressure and improve execution performance.
+
+## ELI5
+
+Think of call frames like office cubicles that smart contracts use when they're working. Instead of building a new cubicle every time a contract needs to do work (which is expensive and slow), frame pooling is like maintaining a pool of clean, ready-to-use cubicles. When a contract finishes its work, we quickly clean the cubicle and put it back in the pool for the next contract to use, making everything much faster and more efficient.
 
 ## Call Frame Pooling Specifications
 

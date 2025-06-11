@@ -19,6 +19,10 @@
 
 Implement the BLS12-381 MAP_FP_TO_G1 precompile (address 0x10) as defined in EIP-2537. This precompile maps a field element to a point on the G1 curve using a deterministic hash-to-curve algorithm, essential for hash-to-curve operations in BLS signature schemes.
 
+## ELI5
+
+Imagine you have a random number and you want to convert it into a valid point on the BLS12-381 curve - like turning a random coordinate into a valid location on a specific curved road. The MAP_FP_TO_G1 precompile does exactly this: it takes a field element (a special kind of number that fits within the BLS12-381 system) and deterministically maps it to a G1 point on the curve. This is essential for "hash-to-curve" operations, where you need to convert hash values or other data into valid curve points. Think of it like having a GPS that can take any random coordinate and snap it to the nearest valid road - but in this case, the "road" is the mathematical curve. This operation is used in advanced signature schemes and cryptographic protocols where you need to convert arbitrary data into curve points for further processing.
+
 ## EIP-2537 Specification
 
 ### Basic Operation

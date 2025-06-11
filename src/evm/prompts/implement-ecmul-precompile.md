@@ -19,6 +19,10 @@
 
 Implement the ECMUL precompile (address 0x07) for Ethereum Virtual Machine compatibility. This precompile provides elliptic curve scalar multiplication on the alt_bn128 curve and is available from the Byzantium hardfork.
 
+## ELI5
+
+Think of elliptic curve multiplication as a special kind of math operation used in cryptography. Imagine you have a point on a mathematical curve, and you want to "multiply" it by a large number. This isn't regular multiplication - it's a complex cryptographic operation that takes a point on the curve and a scalar (big number) and produces a new point. This operation is essential for zero-knowledge proofs and other advanced crypto features that make Ethereum secure and private.
+
 ## Ethereum Specification
 
 ### Basic Operation

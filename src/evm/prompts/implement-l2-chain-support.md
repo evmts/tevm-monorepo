@@ -19,6 +19,10 @@
 
 Implement support for Layer 2 (L2) chains including Optimism, Arbitrum, and Polygon. Each L2 has specific modifications to the EVM including custom opcodes, different gas models, precompiles, and execution rules. This implementation should provide a pluggable architecture for L2-specific behavior while maintaining Ethereum mainnet compatibility.
 
+<eli5>
+Layer 2 chains are like different floors built on top of the main Ethereum building. Each floor (Optimism, Arbitrum, Polygon) has its own special features and rules while still being connected to the main building below. This implementation is like creating a universal elevator system that knows how to work with each floor's unique layout and features, so people can seamlessly move between floors while everything stays connected to the main structure.
+</eli5>
+
 ## L2 Chain Specifications
 
 ### Optimism (OP Stack)

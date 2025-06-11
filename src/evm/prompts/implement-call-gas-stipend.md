@@ -19,6 +19,10 @@
 
 Implement proper gas stipend handling for value transfers in CALL operations. When a CALL transfers value (ETH), the called contract receives a gas stipend of 2300 gas to perform basic operations like logging. This mechanism ensures that simple receiver contracts can execute even when the caller provides insufficient gas.
 
+## ELI5
+
+When you send money (ETH) to a smart contract, it's like paying someone to do a job. The gas stipend is like giving them a small emergency phone allowance (2300 gas) so they can at least call to say "thanks, I got the money!" even if you didn't give them enough budget for the main work. This ensures simple wallet contracts can always acknowledge receiving payments without failing.
+
 ## Ethereum Specification
 
 ### Gas Stipend Rules

@@ -19,6 +19,10 @@
 
 Implement the BLS12-381 G2 multi-scalar multiplication precompile (address 0x0E) as defined in EIP-2537. This precompile performs efficient multi-scalar multiplication operations on the G2 group of the BLS12-381 elliptic curve, operating over the extension field Fp2.
 
+## ELI5
+
+Imagine you have a bunch of locations on a curved surface (G2 points) and you want to "stretch" each location by different amounts (scalars), then add all the stretched results together. Multi-scalar multiplication (MSM) does exactly this - it takes many point-and-number pairs, multiplies each point by its number, then adds all the results together in one efficient operation. This is like having a super-calculator that can do "3×Point1 + 7×Point2 + 2×Point3 + ..." all at once instead of doing each multiplication and addition separately. This operation is crucial for zero-knowledge proofs and advanced cryptographic protocols that need to process many G2 operations simultaneously. The precompile makes this batch operation much more efficient than doing individual multiplications and additions, which is essential for scalable blockchain applications.
+
 ## EIP-2537 Specification
 
 ### Basic Operation

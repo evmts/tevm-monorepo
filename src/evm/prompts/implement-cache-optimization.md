@@ -1,5 +1,23 @@
 # Implement Cache Optimization
 
+## What
+<eli5>
+Think of your computer's cache like your desk workspace. Items on your desk (cache) can be grabbed instantly, but items in filing cabinets across the room (main memory) take time to fetch. Cache optimization is like organizing your desk so the things you need most often are within arm's reach. When data is organized well and we can predict what you'll need next, we can pre-fetch it to your desk, making everything much faster.
+</eli5>
+
+Implement comprehensive cache optimization strategies to maximize memory locality, minimize cache misses, and improve overall EVM execution performance. This includes data structure optimization, access pattern analysis, cache-friendly memory layouts, and intelligent prefetching mechanisms.
+
+## Why
+Cache optimization can provide 15-30% improvement in cache hit rates and overall execution performance by improving memory locality and reducing costly cache misses. This is critical for EVM performance as memory access patterns significantly impact execution speed, especially for complex smart contracts with large state requirements.
+
+## How
+1. Implement cache-aware data structures with memory alignment and layout optimization
+2. Create access pattern tracking to analyze and predict memory usage patterns
+3. Build intelligent prefetching engine with adaptive strategies based on observed patterns
+4. Add cache-friendly allocator and memory management optimized for cache line boundaries
+5. Integrate comprehensive cache statistics and monitoring for performance analysis
+6. Implement automatic optimization passes that adjust strategies based on runtime patterns
+
 ## Git Workflow Instructions
 
 ### Branch Setup
@@ -18,6 +36,10 @@
 ## Context
 
 Implement comprehensive cache optimization strategies to maximize memory locality, minimize cache misses, and improve overall EVM execution performance. This includes data structure optimization, access pattern analysis, cache-friendly memory layouts, and intelligent prefetching mechanisms.
+
+## ELI5
+
+Think of your computer's cache like your desk workspace. Items on your desk (cache) can be grabbed instantly, but items in filing cabinets across the room (main memory) take time to fetch. Cache optimization is like organizing your desk so the things you need most often are within arm's reach. When data is organized well and we can predict what you'll need next, we can pre-fetch it to your desk, making everything much faster.
 
 ## Cache Optimization Specifications
 

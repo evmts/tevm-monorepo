@@ -19,6 +19,10 @@
 
 Implement the BLS12-381 G1 multi-scalar multiplication precompile (address 0x0C) as defined in EIP-2537. This precompile performs efficient multi-scalar multiplication operations on the G1 group of the BLS12-381 elliptic curve, essential for BLS signature verification and other cryptographic protocols.
 
+## ELI5
+
+Think of this as having many points on a curved surface (G1 points) and you want to "scale" each point by different amounts (like stretching or shrinking), then combine all the scaled results together. Multi-scalar multiplication (MSM) is like having a super-efficient calculator that can do "5×Point1 + 3×Point2 + 8×Point3 + ..." all in one go, rather than doing each multiplication and addition step by step. This is incredibly useful for things like verifying multiple BLS signatures at once or processing zero-knowledge proofs that involve many G1 operations. Instead of making hundreds of separate function calls, you can batch everything into one MSM operation, which is much faster and cheaper. It's like the difference between making 100 individual purchases versus buying everything in one shopping cart - much more efficient!
+
 ## EIP-2537 Specification
 
 ### Basic Operation

@@ -19,6 +19,10 @@
 
 Implement support for the upcoming Prague hardfork, which is planned to include EOF (EVM Object Format), Verkle Trees, and other significant improvements to the Ethereum protocol. This implementation should prepare the EVM for these future changes while maintaining backward compatibility.
 
+<eli5>
+Think of hardforks like major software updates for Ethereum. The Prague hardfork is like upgrading from Windows 10 to Windows 11 - it brings new features and improvements, but everything has to work together seamlessly. This hardfork includes new ways to store and verify data (Verkle Trees) and a better format for smart contracts (EOF), making Ethereum faster and more efficient while keeping all existing features working.
+</eli5>
+
 ## Prague Hardfork Features
 
 ### Core Features (Planned)

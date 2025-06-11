@@ -192,7 +192,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **STOP** (0x00) - Halts execution
 - [x] **RETURN** (0xF3) - Return data and halt
 - [x] **REVERT** (0xFD) - Revert state and halt
-- [x] **SELFDESTRUCT** (0xFF) - 🔴 Destroy contract and transfer balance
+- [x] **SELFDESTRUCT** (0xFF) - 🔴 Destroy contract and transfer balance | [Enhanced](./prompts/implement-selfdestruct-opcode-enhanced.md)
 
 ### System Opcodes (`execution/system.zig`)
 - [x] **GAS** (0x5A) - Remaining gas
@@ -249,32 +249,32 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **Journaling/State Reverting** - Complete state snapshots for proper revert handling ✅
 - [x] **Database Interface/Traits** - Pluggable database abstraction for state management ✅
 - [x] **Complete CALL Operations** - Basic implementation with comprehensive call infrastructure ✅
-  - [ ] **Call Gas Management** - 63/64th gas forwarding rule implementation
+  - [ ] **Call Gas Management** - [63/64th gas forwarding rule implementation](./prompts/implement-call-gas-management.md) | [Enhanced](./prompts/implement-call-gas-management-enhanced.md)
   - [x] **Call Context Switching** - Proper context isolation between contract calls ✅
   - [x] **Return Data Handling** - Complete RETURNDATASIZE/RETURNDATACOPY after calls ✅
   - [x] **Value Transfer Logic** - ETH transfer mechanics in calls ✅
 
 #### Precompiled Contracts (1/17 implemented)
 - [ ] 🟡 **Standard Precompiles**
-  - [ ] **ECRECOVER** (0x01) - [Elliptic curve signature recovery](./prompts/implement-ecrecover-precompile.md)
+  - [ ] **ECRECOVER** (0x01) - [Elliptic curve signature recovery](./prompts/implement-ecrecover-precompile.md) | [Enhanced](./prompts/implement-ecrecover-precompile-enhanced.md)
   - [ ] **SHA256** (0x02) - [SHA-256 hash function](./prompts/implement-sha256-precompile.md)
   - [ ] **RIPEMD160** (0x03) - [RIPEMD-160 hash function](./prompts/implement-ripemd160-precompile.md)
   - [x] **IDENTITY** (0x04) - Identity/copy function ✅
-  - [ ] **MODEXP** (0x05) - [Modular exponentiation](./prompts/implement-modexp-precompile.md)
+  - [ ] **MODEXP** (0x05) - [Modular exponentiation](./prompts/implement-modexp-precompile.md) | [Enhanced](./prompts/implement-modexp-precompile-enhanced.md)
   - [ ] **ECADD** (0x06) - Elliptic curve point addition
   - [ ] **ECMUL** (0x07) - Elliptic curve point multiplication
-  - [ ] **ECPAIRING** (0x08) - Elliptic curve pairing check
+  - [ ] **ECPAIRING** (0x08) - [Elliptic curve pairing check](./prompts/implement-ecpairing-precompile.md) | [Enhanced](./prompts/implement-ecpairing-precompile-enhanced.md)
   - [ ] **BLAKE2F** (0x09) - Blake2f compression function
 - [x] **KZG Point Evaluation** (0x0A) - EIP-4844 blob verification precompile ✅
 - [ ] 🟡 **BLS12-381 Precompiles** (EIP-2537)
   - [ ] **G1ADD** (0x0B) - BLS12-381 G1 addition
-  - [ ] **G1MSM** (0x0C) - BLS12-381 G1 multi-scalar multiplication
-  - [ ] **G2ADD** (0x0D) - BLS12-381 G2 addition
-  - [ ] **G2MSM** (0x0E) - BLS12-381 G2 multi-scalar multiplication
-  - [ ] **PAIRING** (0x0F) - BLS12-381 pairing check
-  - [ ] **MAP_FP_TO_G1** (0x10) - Map field point to G1
-  - [ ] **MAP_FP2_TO_G2** (0x11) - Map field point to G2
-- [ ] 🟡 **OP Stack Precompiles** - P256VERIFY (RIP-7212) for SECP256R1 signature verification
+  - [ ] **G1MSM** (0x0C) - [BLS12-381 G1 multi-scalar multiplication](./prompts/implement-bls12-381-g1msm-precompile.md)
+  - [ ] **G2ADD** (0x0D) - [BLS12-381 G2 addition](./prompts/implement-bls12-381-g2add-precompile.md) | [Enhanced](./prompts/implement-bls12-381-g2add-precompile-enhanced.md)
+  - [ ] **G2MSM** (0x0E) - [BLS12-381 G2 multi-scalar multiplication](./prompts/implement-bls12-381-g2msm-precompile.md) | [Enhanced](./prompts/implement-bls12-381-g2msm-precompile-enhanced.md)
+  - [ ] **PAIRING** (0x0F) - [BLS12-381 pairing check](./prompts/implement-bls12-381-pairing-precompile.md) | [Enhanced](./prompts/implement-bls12-381-pairing-precompile-enhanced.md)
+  - [ ] **MAP_FP_TO_G1** (0x10) - [Map field point to G1](./prompts/implement-bls12-381-map-fp-to-g1-precompile.md)
+  - [ ] **MAP_FP2_TO_G2** (0x11) - [Map field point to G2](./prompts/implement-bls12-381-map-fp2-to-g2-precompile.md) | [Enhanced](./prompts/implement-bls12-381-map-fp2-to-g2-precompile-enhanced.md)
+- [ ] 🟡 **OP Stack Precompiles** - [P256VERIFY (RIP-7212) for SECP256R1 signature verification](./prompts/implement-op-stack-precompiles.md)
 
 #### Advanced Gas & Performance
 - [ ] 🟡 **Gas Refunds**
@@ -282,9 +282,9 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
   - [ ] **SELFDESTRUCT Refunds** - Contract destruction refunds (pre-London)
 - [ ] 🟡 **Advanced Gas Calculations**
   - [ ] **Instruction Block Optimization** - Basic block gas calculation (evmone-style)
-  - [ ] **Memory Gas Optimization** - Pre-calculate and cache memory expansion costs
-  - [ ] **Call Gas Stipend** - Proper gas stipend handling for value transfers
-  - [ ] **Dynamic Gas Edge Cases** - Complex memory growth scenarios
+  - [ ] **Memory Gas Optimization** - [Pre-calculate and cache memory expansion costs](./prompts/implement-memory-gas-optimization-enhanced.md)
+  - [ ] **Call Gas Stipend** - [Proper gas stipend handling for value transfers](./prompts/implement-call-gas-stipend-enhanced.md)
+  - [ ] **Dynamic Gas Edge Cases** - [Complex memory growth scenarios](./prompts/implement-dynamic-gas-edge-cases-enhanced.md)
 
 #### EIP Support & Advanced Hardforks
 - [x] **Complete EIP-4844 Support** - Blob transaction handling beyond opcodes ✅
@@ -303,15 +303,15 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 
 #### Development Infrastructure
 - [ ] 🟢 **Runtime Inspection**
-  - [ ] **Comprehensive Tracing** - Step-by-step execution monitoring
-  - [ ] **EIP-3155 Tracing** - Standard execution trace format
+  - [ ] **Comprehensive Tracing** - [Step-by-step execution monitoring](./prompts/implement-comprehensive-tracing-enhanced.md)
+  - [ ] **EIP-3155 Tracing** - [Standard execution trace format](./prompts/implement-eip3155-tracing.md)
   - [ ] **Inspector Framework** - Pluggable inspection hooks
-  - [ ] **Gas Inspector** - Detailed gas consumption analysis
+  - [ ] **Gas Inspector** - [Detailed gas consumption analysis](./prompts/implement-gas-inspector-enhanced.md)
 - [ ] 🟢 **Testing Infrastructure**
   - [ ] **Consensus Test Suite** - Ethereum official test vectors compliance
-  - [ ] **Fuzzing Infrastructure** - Automated edge case discovery
-  - [ ] **State Test Runner** - Official Ethereum state test execution
-  - [ ] **CLI Tools** - Command-line interface for testing and benchmarking
+  - [ ] **Fuzzing Infrastructure** - [Automated edge case discovery](./prompts/implement-fuzzing-infrastructure-enhanced.md)
+  - [ ] **State Test Runner** - [Official Ethereum state test execution](./prompts/implement-state-test-runner.md)
+  - [ ] **CLI Tools** - [Command-line interface for testing and benchmarking](./prompts/implement-cli-tools-enhanced.md)
 - [ ] 🟢 **Handler Architecture** - Configurable execution handlers for pre/post processing
 
 #### Production Hardening
@@ -321,15 +321,15 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
   - [x] **Memory Safety Auditing** - Additional bounds checking ✅
 - [ ] 🟢 **State Management**
   - [x] **State Interface** - Vtable interface for pluggable implementations ✅
-  - [ ] **Async Database Support** - Non-blocking database operations
-  - [ ] **State Caching** - Intelligent caching layer for frequently accessed state
-  - [ ] **Bundle State Management** - Efficient state transitions and rollback
-  - [ ] **Account Status Tracking** - Detailed account lifecycle management
+  - [ ] **Async Database Support** - [Non-blocking database operations](./prompts/implement-async-database-support-enhanced.md)
+  - [ ] **State Caching** - [Intelligent caching layer for frequently accessed state](./prompts/implement-state-caching-enhanced.md)
+  - [ ] **Bundle State Management** - [Efficient state transitions and rollback](./prompts/implement-bundle-state-management-enhanced.md)
+  - [ ] **Account Status Tracking** - [Detailed account lifecycle management](./prompts/implement-account-status-tracking-enhanced.md)
 
 #### Performance & Optimization
 - [ ] 🟢 **Low-Level Optimizations**
   - [ ] **SIMD Optimizations** - Vectorized operations for 256-bit math
-  - [ ] **Memory Allocator Tuning** - Specialized EVM memory allocators
+  - [ ] **Memory Allocator Tuning** - [Specialized EVM memory allocators](./prompts/implement-memory-allocator-tuning-enhanced.md)
   - [ ] **Cache Optimization** - Better cache utilization in hot paths
   - [ ] **Zero-Allocation Patterns** - Minimize memory allocations in hot paths
   - [ ] **Branch Prediction Optimization** - Strategic branch hinting for modern CPUs
@@ -338,22 +338,22 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
   - [ ] **Precompile Backend Selection** - Multiple crypto library backends
   - [ ] **Interpreter Types System** - Configurable interpreter components
 - [ ] 🟢 **Benchmarking**
-  - [ ] **Performance Benchmarks** - Snailtracer benchmarking vs Geth and Reth
+  - [ ] **Performance Benchmarks** - [Snailtracer benchmarking vs Geth and Reth](./prompts/implement-performance-benchmarks-enhanced.md)
   - [ ] **CI/CD WASM Size Check** - [Automated bundle size regression testing](./prompts/implement-cicd-wasm-size-check.md)
 
 #### Advanced Architecture Features
 - [ ] 🟢 **Modularity**
-  - [ ] **Modular Context System** - Pluggable block, transaction, and configuration contexts
-  - [ ] **Custom Chain Framework** - Easy implementation of custom blockchain variants
+  - [ ] **Modular Context System** - [Pluggable block, transaction, and configuration contexts](./prompts/implement-modular-context-system-enhanced.md)
+  - [ ] **Custom Chain Framework** - [Easy implementation of custom blockchain variants](./prompts/implement-custom-chain-framework-enhanced.md)
   - [ ] **Extension Points** - Configurable extension system for custom functionality
 - [ ] 🟢 **Advanced Execution**
   - [ ] **Subroutine Stack** - EOF subroutine support for advanced contract execution
-  - [ ] **Runtime Flags** - Efficient runtime behavior configuration
+  - [ ] **Runtime Flags** - [Efficient runtime behavior configuration](./prompts/implement-runtime-flags-enhanced.md)
   - [ ] **Loop Control** - Advanced execution loop management and gas tracking
-  - [ ] **Shared Memory** - Memory sharing between execution contexts
-  - [ ] **External Bytecode** - Support for external bytecode loading and management
-  - [ ] **Interpreter Action System** - Structured action handling for calls and creates
-  - [ ] **Input Validation Framework** - Comprehensive input validation and sanitization
+  - [ ] **Shared Memory** - [Memory sharing between execution contexts](./prompts/implement-shared-memory-enhanced.md)
+  - [ ] **External Bytecode** - [Support for external bytecode loading and management](./prompts/implement-external-bytecode-enhanced.md)
+  - [ ] **Interpreter Action System** - [Structured action handling for calls and creates](./prompts/implement-interpreter-action-system-enhanced.md)
+  - [ ] **Input Validation Framework** - [Comprehensive input validation and sanitization](./prompts/implement-input-validation-framework-enhanced.md)
 
 ## 📁 Directory Structure
 

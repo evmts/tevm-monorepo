@@ -19,6 +19,12 @@
 
 Implement a comprehensive runtime flags system that allows efficient runtime behavior configuration with compile-time optimization. This includes feature flags, performance flags, debug flags, and compatibility flags that can control EVM behavior without performance overhead through compile-time evaluation and branch elimination.
 
+## <eli5>
+
+Runtime flags are like switches and control knobs that let you turn different EVM features on or off and adjust how they behave. Think of it like the settings menu on your phone - you can enable/disable features like Bluetooth or change performance modes, and the system adapts accordingly. These flags help organize and control which parts of the EVM are active, making it easier to customize behavior for different environments (testing, development, production) without changing the core code.
+
+</eli5>
+
 ## Runtime Flags Specifications
 
 ### Core Runtime Flags Framework

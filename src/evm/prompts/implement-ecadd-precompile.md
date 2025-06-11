@@ -19,6 +19,10 @@
 
 Implement the ECADD precompile (address 0x06) for Ethereum Virtual Machine compatibility. This precompile provides elliptic curve point addition on the alt_bn128 curve and is available from the Byzantium hardfork.
 
+## ELI5
+
+Elliptic curves are special mathematical curves used in cryptography. ECADD is like a calculator that can "add" two points on a specific elliptic curve called alt_bn128. This isn't regular addition - it's a special mathematical operation where you take two points on the curve and get a third point that's also on the curve. This is crucial for advanced cryptographic protocols like zkSNARKs (zero-knowledge proofs) that help make blockchain transactions private and efficient. Having this as a precompile means smart contracts can do this complex math without having to implement all the curve arithmetic themselves.
+
 ## Ethereum Specification
 
 ### Basic Operation

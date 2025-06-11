@@ -1,5 +1,20 @@
 # Implement BLAKE2F Precompile
 
+## What
+
+Implement the BLAKE2F precompile (address 0x09) providing the BLAKE2b compression function for Ethereum Virtual Machine. This precompile accepts 213 bytes of input (rounds + hash state + message block + counters + final flag) and outputs 64 bytes of compressed hash state, with gas cost of 1 per round.
+
+## Why
+The BLAKE2F precompile enables efficient cryptographic operations for smart contracts that require BLAKE2b hashing, which is faster and more secure than older hash functions. This is essential for advanced cryptographic protocols, zero-knowledge proofs, and other applications that need high-performance hashing capabilities within the EVM.
+
+## How
+1. Implement BLAKE2b F compression function following RFC 7693 specification
+2. Add input validation for 213-byte format and proper flag values
+3. Implement gas calculation (1 gas per round) with overflow protection
+4. Handle endianness conversion (big-endian rounds, little-endian hash data)
+5. Optimize performance for large round counts and repeated operations
+6. Add comprehensive test coverage against EIP-152 test vectors
+
 ## Git Workflow Instructions
 
 ### Branch Setup
@@ -18,6 +33,10 @@
 ## Context
 
 Implement the BLAKE2F precompile (address 0x09) for Ethereum Virtual Machine compatibility. This precompile provides the BLAKE2b compression function and is available from the Istanbul hardfork.
+
+## ELI5
+
+Think of BLAKE2F as a special cryptographic "blender" that takes a fixed amount of data and mixes it up in a very specific, reproducible way. Just like how Ethereum has built-in functions for basic math (add, multiply), it also has built-in functions for cryptography. BLAKE2F is one of these - it's a hash function that's faster and more secure than older ones like SHA-1. When smart contracts need to do BLAKE2 hashing (often for advanced cryptographic protocols), they can call this precompile instead of implementing the complex algorithm themselves, which saves gas and ensures correctness.
 
 ## Ethereum Specification
 

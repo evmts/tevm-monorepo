@@ -19,6 +19,10 @@
 
 Implement SIMD (Single Instruction, Multiple Data) optimizations for vectorized 256-bit arithmetic operations to significantly improve EVM execution performance. This includes vectorized implementations of arithmetic operations, bitwise operations, and cryptographic functions using platform-specific SIMD instruction sets.
 
+## ELI5
+
+Think of SIMD like having a team of workers instead of just one. When you need to add 4 numbers, instead of having one person add them one by one (which takes 4 steps), you give each of 4 workers one number and they all add at the same time (taking just 1 step). In the EVM, we do lots of math with big 256-bit numbers, and SIMD lets the CPU do multiple operations simultaneously, making calculations much faster.
+
 ## SIMD Optimization Specifications
 
 ### Core SIMD Framework

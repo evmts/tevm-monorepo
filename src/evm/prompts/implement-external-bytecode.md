@@ -19,6 +19,10 @@
 
 Implement a comprehensive external bytecode system that enables dynamic loading, caching, and execution of contract bytecode from external sources. This includes bytecode verification, caching strategies, lazy loading, code signing, and secure execution environments while maintaining performance and security.
 
+## ELI5
+
+External bytecode loading is like having a smart library system for contract code - instead of keeping all smart contract code stored locally, you can load it from external sources (files, databases, networks) when needed. Think of it like Netflix streaming movies on-demand instead of storing every movie on your device. The system includes features like caching (keeping frequently used contracts in memory), verification (checking the code is legitimate), and lazy loading (only loading code when you actually need it).
+
 ## External Bytecode Specifications
 
 ### Core External Bytecode Framework

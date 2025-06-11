@@ -21,6 +21,10 @@
 
 Implement the SELFDESTRUCT (0xFF) opcode for Ethereum Virtual Machine compatibility. SELFDESTRUCT is a complex opcode that destroys a contract, sends its balance to a recipient, and has nuanced behavior across different hardforks.
 
+<eli5>
+SELFDESTRUCT is like a controlled demolition of a building. When a smart contract calls SELFDESTRUCT, it's saying "tear down this building and send all the money inside to this specific address." Just like real demolition, there are strict rules about when and how it can happen - newer Ethereum versions have made the rules stricter to prevent abuse, similar to requiring more permits for demolition in densely populated areas.
+</eli5>
+
 ## Ethereum Specification
 
 ### Basic Operation

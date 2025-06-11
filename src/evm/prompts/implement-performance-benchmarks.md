@@ -19,6 +19,10 @@
 
 Implement a comprehensive performance benchmarking framework to validate EVM performance against industry standards (Geth, Revm, Evmone), detect performance regressions, track optimization progress, and guide future performance improvements. This includes micro-benchmarks for individual components, macro-benchmarks for complete execution scenarios, and statistical analysis tools.
 
+## ELI5
+
+Think of this like creating a sophisticated stopwatch and speedometer for the EVM engine. Just like a car manufacturer tests their engines against competitors and measures acceleration, fuel efficiency, and top speed, this framework measures how fast our EVM executes different operations and compares it to other implementations like Geth and Revm. It catches when changes accidentally make things slower (like a mechanic noticing reduced horsepower) and helps identify which parts need tuning for better performance.
+
 ## Performance Benchmark Specifications
 
 ### Core Benchmark Framework

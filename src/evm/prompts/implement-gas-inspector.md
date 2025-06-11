@@ -19,6 +19,10 @@
 
 Implement a comprehensive gas inspector that provides detailed analysis of gas consumption patterns, identifies optimization opportunities, and tracks gas usage across different operations and execution contexts. This tool is essential for gas optimization, cost analysis, and performance profiling of smart contracts.
 
+## ELI5
+
+Think of gas as the "fuel" that powers smart contract execution - every operation costs some amount of gas. A gas inspector is like a detailed fuel efficiency monitor for your car, but for smart contracts. It watches everything the contract does and tracks exactly how much gas each operation uses. This helps developers find "gas guzzling" parts of their code and optimize them to be cheaper to run. Just like how you might track your car's fuel consumption to find more efficient routes, a gas inspector helps smart contract developers make their code more cost-effective for users.
+
 ## Gas Inspector Specifications
 
 ### Core Functionality

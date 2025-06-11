@@ -1,5 +1,19 @@
 # Implement Account Status Tracking
 
+## What
+Implement comprehensive account status tracking system that monitors account lifecycle events, state transitions, balance/nonce changes, and performance metrics. This system provides detailed account management capabilities including creation, modification, deletion tracking, and historical analysis with configurable retention policies.
+
+## Why
+Account status tracking enables efficient debugging, optimization opportunities, and monitoring capabilities for EVM execution. It provides insights into account behavior patterns, helps identify performance bottlenecks, and enables features like account activity scoring and lifecycle statistics that are essential for advanced EVM analytics and optimization.
+
+## How
+1. Create AccountStatusManager with configurable tracking modes (Basic, Standard, Comprehensive, Debug)
+2. Implement comprehensive data structures for tracking balance, nonce, code, and storage changes
+3. Add lifecycle event system with pluggable listeners and notifications
+4. Integrate with existing state management system for automatic tracking
+5. Implement performance metrics collection and analysis
+6. Add cleanup scheduling and resource management for long-running systems
+
 ## Git Workflow Instructions
 
 ### Branch Setup
@@ -18,6 +32,10 @@
 ## Context
 
 Implement comprehensive account status tracking to provide detailed account lifecycle management, monitoring account creation, modification, destruction, and various state transitions. This system enables efficient account management, debugging capabilities, and optimization opportunities while maintaining EVM execution correctness.
+
+## ELI5
+
+Account status tracking is like having a detailed health monitor for every account in the blockchain - it keeps track of when accounts are created, how their balances change, what transactions they make, and how active they are over time. Think of it like a fitness tracker for blockchain accounts that helps developers understand account behavior patterns, spot performance issues, and optimize the system by knowing which accounts are most active and how they're being used.
 
 ## Account Status Tracking Specifications
 

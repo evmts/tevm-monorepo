@@ -1,5 +1,20 @@
 # Implement Async Database Support
 
+## What
+Implement comprehensive async database support enabling non-blocking database operations for state management. This includes async state backends, connection pooling, concurrent read/write operations, batched transactions, and support for multiple database backends (SQLite, PostgreSQL, Redis, in-memory) while maintaining EVM execution correctness.
+
+## Why
+Async database operations prevent blocking the main execution thread during state queries, enabling better concurrency and throughput for EVM operations. This is essential for high-performance applications where database I/O latency could otherwise limit EVM execution speed, particularly important for server-side applications and batch processing scenarios.
+
+## How
+1. Design AsyncStateInterface with vtable-based backend abstraction
+2. Implement connection pooling with health checking and automatic failover
+3. Create async result framework with futures/promises pattern
+4. Build database backends for SQLite, PostgreSQL, Redis, and memory
+5. Add transaction management with ACID properties and deadlock detection
+6. Integrate batching system for efficient bulk operations
+7. Add comprehensive error handling and recovery mechanisms
+
 ## Git Workflow Instructions
 
 ### Branch Setup
@@ -18,6 +33,10 @@
 ## Context
 
 Implement comprehensive async database support to enable non-blocking database operations for state management. This includes async state backends, concurrent read/write operations, batched transactions, and connection pooling while maintaining EVM execution correctness and performance.
+
+## ELI5
+
+Async database support is like having a restaurant with multiple waiters instead of just one - while one waiter is taking an order to the kitchen (database operation), other waiters can continue serving customers (handling other EVM operations) without everyone having to wait in line. This means the EVM can keep processing transactions and executing contracts even while waiting for database reads and writes to complete, making everything much faster and more responsive.
 
 ## Async Database Architecture Specifications
 

@@ -17,6 +17,10 @@
 
 ## Context
 
+<eli5>
+Think of the inspector framework like having multiple security cameras and monitoring systems throughout a factory. Each inspector is like a specialized monitoring device - one tracks production speed, another monitors quality control, and others watch for safety violations. These inspectors can observe everything happening on the production line without interfering with the actual work, but they can sound alarms or trigger responses when they detect issues. This lets you add new monitoring capabilities without rewiring the entire factory.
+</eli5>
+
 Implement a pluggable inspector framework that allows external analyzers to hook into EVM execution for custom analysis, debugging, and monitoring. This provides a clean interface for tools like gas analyzers, security scanners, performance profilers, and debugging utilities without modifying core VM code.
 
 ## Inspector Architecture

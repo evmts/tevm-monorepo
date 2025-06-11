@@ -19,6 +19,10 @@
 
 Implement automated WASM bundle size checking in CI/CD to prevent size regressions. This is critical for the Tevm project since bundle size is one of the three main project goals (performance, size, maintainability). The check should fail builds if WASM size increases beyond acceptable thresholds.
 
+## ELI5
+
+Think of this like an automatic quality control inspector on a production line that weighs every product to ensure it meets size specifications. For our WASM builds, this system automatically measures the file size after every code change and compares it to previous versions. If the size grows too much (like more than 5%), it stops the build and alerts developers, preventing "size bloat" from accidentally making downloads slower for users. It's like having a strict weight limit for luggage that protects the user experience.
+
 ## Requirements
 
 ### Core Functionality

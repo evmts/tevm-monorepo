@@ -19,6 +19,12 @@
 
 Implement a comprehensive custom chain framework that enables easy implementation of custom blockchain variants (L2s, sidechains, private chains, testnets). The framework should provide configurable consensus rules, custom opcodes, modified gas schedules, custom precompiles, and chain-specific behavior while maintaining compatibility with the core EVM execution engine.
 
+## <eli5>
+
+A custom chain framework is like a blueprint system for building different types of blockchain networks. Think of it as a modular construction kit where you can pick and choose different components (consensus rules, transaction costs, special features) to build your own custom blockchain variant. Just like how you might customize a car with different options (engine, transmission, features), this framework lets you create specialized blockchains (L2s, private networks, testnets) by mixing and matching different rule sets and capabilities while keeping the core engine the same.
+
+</eli5>
+
 ## Custom Chain Framework Specifications
 
 ### Core Chain Framework

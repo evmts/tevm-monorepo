@@ -1,5 +1,23 @@
 # Implement Branch Prediction Optimization
 
+## What
+<eli5>
+Imagine you're driving and approaching traffic lights. If you could predict whether the light will be green or red, you could prepare by speeding up or slowing down in advance. Branch prediction is similar - the CPU tries to guess which direction the code will go (like "if this, then that") so it can prepare the next instructions ahead of time. When the prediction is right, everything runs smoothly. When it's wrong, the CPU has to stop and restart, which is slow.
+</eli5>
+
+Implement comprehensive branch prediction optimization to improve instruction pipeline efficiency and reduce branch misprediction penalties. This includes static branch prediction hints, dynamic branch prediction feedback, hot path optimization, and conditional execution optimization for critical EVM execution paths.
+
+## Why
+Branch prediction optimization can significantly improve EVM execution performance by reducing pipeline stalls caused by mispredicted branches. This is especially important for conditional operations (JUMPI), loop constructs, and call/return patterns in smart contracts, where better predictions can reduce execution time by 10-20%.
+
+## How
+1. Implement static branch hint generation based on opcode types and execution patterns
+2. Create dynamic branch prediction feedback system using execution history
+3. Add hot path detection and optimization for frequently executed code paths
+4. Integrate branch hints with VM execution loop and control flow operations
+5. Implement comprehensive branch statistics and monitoring
+6. Add adaptive optimization that improves predictions over time
+
 ## Git Workflow Instructions
 
 ### Branch Setup
@@ -18,6 +36,10 @@
 ## Context
 
 Implement comprehensive branch prediction optimization to improve instruction pipeline efficiency and reduce branch misprediction penalties. This includes static branch prediction hints, dynamic branch prediction feedback, hot path optimization, and conditional execution optimization for critical EVM execution paths.
+
+## ELI5
+
+Imagine you're driving and approaching traffic lights. If you could predict whether the light will be green or red, you could prepare by speeding up or slowing down in advance. Branch prediction is similar - the CPU tries to guess which direction the code will go (like "if this, then that") so it can prepare the next instructions ahead of time. When the prediction is right, everything runs smoothly. When it's wrong, the CPU has to stop and restart, which is slow.
 
 ## Branch Prediction Optimization Specifications
 

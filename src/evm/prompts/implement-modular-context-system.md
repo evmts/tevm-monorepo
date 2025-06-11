@@ -17,6 +17,10 @@
 
 ## Context
 
+<eli5>
+Think of the modular context system like a universal adapter system for different electrical devices. Instead of needing completely different devices for different countries, you have one main device that can plug into different "context adapters" - one for European outlets, one for US outlets, one for UK outlets. Each adapter handles the specific requirements of that environment (voltage, plug shape, safety standards) while the core device stays the same. The modular context system works similarly - it can adapt the EVM to work with different blockchain environments (mainnet, testnets, Layer 2 networks) by swapping in the appropriate context modules without changing the core execution logic.
+</eli5>
+
 Implement a comprehensive modular context system that allows pluggable block contexts, transaction contexts, and configuration contexts. This enables easy customization for different blockchain environments (mainnet, testnets, L2s) while maintaining type safety and performance. The system should support runtime context switching and context inheritance.
 
 ## Modular Context System Specifications

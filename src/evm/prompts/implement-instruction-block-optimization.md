@@ -19,6 +19,10 @@
 
 Implement instruction block optimization for efficient gas calculation, similar to evmone's approach. This optimization analyzes bytecode to identify basic blocks and pre-calculates gas costs, reducing per-instruction overhead during execution.
 
+## ELI5
+
+Imagine reading a recipe and instead of calculating the cooking time for each ingredient individually while cooking, you pre-read the entire recipe and calculate the total cooking time for each section beforehand. This optimization does the same thing for EVM bytecode - it groups instructions into "blocks" that always execute together, pre-calculates their gas costs, and validates their requirements ahead of time. This makes execution much faster since the EVM doesn't have to stop and calculate costs for every single instruction during the actual execution.
+
 ## Optimization Goals
 
 ### Performance Improvements

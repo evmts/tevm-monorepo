@@ -19,6 +19,12 @@
 
 Implement a comprehensive loop control system that provides advanced loop management capabilities including break/continue semantics, loop optimization, nested loop support, and loop-invariant code motion. This enables more efficient contract execution patterns and better optimization opportunities while maintaining EVM compatibility and gas accounting accuracy.
 
+## <eli5>
+
+Loop control is like having a smart traffic management system for repetitive operations in smart contracts. Just like traffic lights control the flow of cars through intersections, loop control manages how code repeats and when it should stop, skip ahead, or take detours. This system helps organize complex repetitive tasks and prevents infinite loops that could waste gas, while also optimizing frequently-used patterns to run faster.
+
+</eli5>
+
 ## Loop Control Specifications
 
 ### Core Loop Framework

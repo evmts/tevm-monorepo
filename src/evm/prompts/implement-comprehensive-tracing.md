@@ -19,6 +19,10 @@
 
 Implement comprehensive execution tracing for debugging and monitoring EVM execution. This enables step-by-step tracking of opcodes, stack, memory, and state changes.
 
+## ELI5
+
+This is like installing a detailed flight recorder (black box) in an airplane that tracks every single action during flight. For the EVM, it records every instruction executed, what data was on the stack, what changed in memory, and how much gas was consumed at each step. When something goes wrong or you need to understand exactly what happened during execution, you can replay this detailed log to see the complete sequence of events, just like investigators use flight recorders to understand aircraft incidents.
+
 ## Implementation Requirements
 
 ### Core Functionality

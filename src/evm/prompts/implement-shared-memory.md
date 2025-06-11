@@ -19,6 +19,10 @@
 
 Implement a comprehensive shared memory system that enables efficient data sharing between execution contexts, processes, and contracts. This includes memory pools, copy-on-write semantics, inter-process communication, memory mapping, and advanced memory management features while maintaining security isolation and performance optimization.
 
+<eli5>
+Imagine you have multiple smart contracts that need to work with the same large piece of data. Normally, each contract would have to keep its own copy, which wastes memory. Shared memory is like having a shared whiteboard that multiple contracts can read from and write to, instead of each having their own separate whiteboard with the same information. The tricky part is making sure that when one contract makes changes, it doesn't accidentally break things for other contracts. This system includes smart features like "copy-on-write" (only make your own copy when you actually need to change something) and proper security so contracts can't interfere with each other inappropriately.
+</eli5>
+
 ## Shared Memory Specifications
 
 ### Core Shared Memory Framework

@@ -19,6 +19,10 @@
 
 Implement EVM Object Format (EOF) support, which is a significant evolution of the EVM that introduces structured bytecode containers, static analysis capabilities, and new execution semantics. EOF includes several EIPs: EIP-3540 (container format), EIP-3670 (code validation), EIP-4200 (static relative jumps), EIP-4750 (functions), and EIP-5450 (stack validation).
 
+<eli5>
+Current smart contract bytecode is like a long string of assembly instructions all jumbled together with no structure. EOF (EVM Object Format) is like organizing that mess into a proper filing system with labeled sections and safety checks. It's similar to how modern programming languages have functions, imports, and type checking, versus old assembly code that was just one long list of instructions. EOF makes smart contracts safer (by catching errors before deployment), faster (by enabling optimizations), and easier to analyze. It's like upgrading from a text file full of random code to a properly structured program with clear functions and validation.
+</eli5>
+
 ## EOF Specification Overview
 
 ### Core EIPs

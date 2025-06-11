@@ -19,6 +19,10 @@
 
 Implement comprehensive Ethereum consensus test suite integration to ensure 100% compatibility with the official Ethereum specification. This includes state tests, blockchain tests, transaction tests, and difficulty tests from the ethereum/tests repository. The implementation should provide automated test discovery, execution, and reporting to catch any regressions or compatibility issues.
 
+## ELI5
+
+Think of this like the final quality inspection process at a car factory where every vehicle must pass thousands of standardized tests before leaving the assembly line. Just as a car manufacturer runs the same safety tests that every other manufacturer uses to ensure their vehicles meet industry standards, we need to run the official Ethereum test suite to prove our EVM behaves exactly like every other compliant Ethereum client. These tests are like having a universal checklist that covers every possible scenario - from basic transactions to complex edge cases - ensuring our EVM implementation follows the same rules as the real Ethereum network.
+
 ## Consensus Test Specifications
 
 ### Core Test Categories

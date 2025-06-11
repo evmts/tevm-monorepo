@@ -19,6 +19,10 @@
 
 Implement memory gas pre-calculation and caching to optimize EVM memory expansion costs. Memory operations like MLOAD, MSTORE, CALLDATACOPY, etc. require dynamic gas calculation based on memory size growth. Pre-calculating and caching these costs can significantly improve performance for memory-intensive contracts.
 
+## ELI5
+
+In the EVM, using memory costs gas, and the more memory you use, the more expensive it gets (quadratically!). Every time a smart contract wants to read from or write to memory, the EVM has to calculate how much extra gas to charge based on how much the memory is growing. This is like having to recalculate your hotel bill every time you use another towel. Memory gas optimization is like pre-calculating and storing these costs so we don't have to do the expensive math every single time. This makes memory operations much faster, especially for contracts that use a lot of memory.
+
 ## Current Memory Gas Model
 
 ### Memory Expansion Formula
