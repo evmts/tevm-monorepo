@@ -291,6 +291,8 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 
 #### Precompiled Contracts (6/17 implemented)
 
+#### Precompiled Contracts (4/17 implemented)
+
 - [ ] 🟡 **Standard Precompiles**
   - [x] **ECRECOVER** (0x01) - Elliptic curve signature recovery (placeholder implementation) ✅
   - [x] **SHA256** (0x02) - SHA-256 hash function ✅
@@ -303,6 +305,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
   - [🔄] **BLAKE2F** (0x09) - [Blake2f compression function](./prompts/implement-blake2f-precompile.md) - @claude working on this
   - [ ] **MODEXP** (0x05) - [Modular exponentiation](./prompts/implement-modexp-precompile.md)
   - [🔄] **MODEXP** (0x05) - [Modular exponentiation](./prompts/implement-modexp-precompile.md) - @claude working on this
+  - [x] **MODEXP** (0x05) - Modular exponentiation with EIP-2565 gas optimization ✅
   - [ ] **ECADD** (0x06) - Elliptic curve point addition
   - [ ] **ECMUL** (0x07) - Elliptic curve point multiplication
   - [ ] **ECPAIRING** (0x08) - Elliptic curve pairing check
