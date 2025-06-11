@@ -1,21 +1,42 @@
 # Implement Handler Architecture
 
-## Git Workflow Instructions
+You are implementing Handler Architecture for the Tevm EVM written in Zig. Your goal is to implement modular handler architecture for extensibility following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
-1. **Create branch**: `feat_implement_handler_architecture` (snake_case, no emoji)
-2. **Create worktree**: `git worktree add g/feat_implement_handler_architecture feat_implement_handler_architecture`
-3. **Work in isolation**: `cd g/feat_implement_handler_architecture`
-4. **Commit message**: `✨ feat: implement configurable handler architecture for extensible execution processing`
+## Development Workflow
+- **Branch**: `feat_implement_handler_architecture` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_handler_architecture feat_implement_handler_architecture`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
 
-### Workflow Steps
-1. Create and switch to the new worktree
-2. Implement all changes in the isolated branch
-3. Run `zig build test-all` to ensure all tests pass
-4. Commit with emoji conventional commit format
-5. DO NOT merge - leave ready for review
 
 ## Context
+
+Implement a modular handler architecture for opcodes that provides pluggable handler system for opcode execution.
+
+## File Structure
+
+**Primary Files to Modify:**
+- `/src/evm/jump_table/jump_table.zig` - Opcode dispatch table
+- `/src/evm/opcodes/operation.zig` - Operation definitions
+- `/src/evm/vm.zig` - VM execution dispatch
+
+**Supporting Files:**
+- `/src/evm/execution/` (directory) - All execution handlers for different opcode types
+- `/src/evm/frame.zig` - Execution context management
+
+**Test Files:**
+- `/test/evm/jump_table_test.zig` - Jump table tests
+- `/test/evm/vm_opcode_test.zig` - Opcode execution tests
+
+**Why These Files:**
+- Jump table provides the main dispatch mechanism for routing opcodes to handlers
+- Operation definitions specify the structure and behavior of each opcode
+- VM execution coordinates the handler architecture
+- Modular execution handlers allow pluggable opcode implementations
+
+## ELI5
+
+Think of the handler architecture like a restaurant's quality control system. Instead of having to modify the kitchen every time you want to add a new quality check, you set up inspection stations along the line where different specialists can examine and process each dish. Some inspectors check temperature, others check presentation, and some just count portions. Each handler can observe what's happening, make modifications, or even stop the process if something's wrong. This way, you can easily add new quality controls without rebuilding the entire kitchen.
 
 Implement a configurable handler architecture that allows pluggable pre-processing and post-processing of EVM operations. This provides extensibility points for custom logic, middleware, logging, metrics collection, and specialized execution behaviors without modifying core EVM code.
 
@@ -1296,14 +1317,135 @@ test "custom handler implementation" {
 5. **Performance**: Zero overhead when no handlers are registered
 6. **Extensibility**: Easy to create custom handlers for specific needs
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Zero overhead principle** - No performance impact when handlers are disabled
-3. **Error isolation** - Handler failures must not crash VM execution
-4. **Type safety** - Compile-time checked handler interfaces
-5. **Memory safety** - Proper lifetime management of handler data
-6. **Backward compatibility** - Existing VM code should work without handlers
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
+
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/handler/handler_architecture_test.zig`)
+```zig
+// Test basic handler_architecture functionality
+test "handler_architecture basic functionality works correctly"
+test "handler_architecture handles edge cases properly"
+test "handler_architecture validates inputs appropriately"
+test "handler_architecture produces correct outputs"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "handler_architecture integrates with EVM properly"
+test "handler_architecture maintains system compatibility"
+test "handler_architecture works with existing components"
+test "handler_architecture handles cross-system interactions"
+```
+
+#### 3. **Performance Tests**
+```zig
+test "handler_architecture meets performance requirements"
+test "handler_architecture optimizes resource usage"
+test "handler_architecture scales appropriately with load"
+test "handler_architecture benchmark vs baseline"
+```
+
+#### 4. **Compliance Tests**
+```zig
+test "handler_architecture meets specification requirements"
+test "handler_architecture maintains EVM compatibility"
+test "handler_architecture handles hardfork transitions"
+test "handler_architecture cross-client behavior consistency"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "handler_architecture handles errors gracefully"
+test "handler_architecture proper error propagation"
+test "handler_architecture recovery from failure states"
+test "handler_architecture validates error conditions"
+```
+
+#### 6. **Security Tests** (where applicable)
+```zig
+test "handler_architecture prevents security vulnerabilities"
+test "handler_architecture handles malicious inputs safely"
+test "handler_architecture maintains isolation boundaries"
+test "handler_architecture validates security properties"
+```
+
+### Test Development Priority
+1. **Core functionality** - Basic feature operation
+2. **Specification compliance** - Meet requirements
+3. **Integration** - System-level correctness
+4. **Performance** - Efficiency targets
+5. **Error handling** - Robust failures
+6. **Security** - Vulnerability prevention
+
+### Test Data Sources
+- **Specification documents**: Official requirements and test vectors
+- **Reference implementations**: Cross-client compatibility
+- **Performance baselines**: Optimization targets
+- **Real-world data**: Production scenarios
+- **Synthetic cases**: Edge conditions and stress testing
+
+### Continuous Testing
+- Run `zig build test-all` after every change
+- Maintain 100% test coverage for public APIs
+- Validate performance regression prevention
+- Test both debug and release builds
+- Verify cross-platform behavior
+
+### Test-First Examples
+
+**Before implementation:**
+```zig
+test "handler_architecture basic operation" {
+    // This test MUST fail initially
+    const input = test_data.validInput();
+    const expected = test_data.expectedOutput();
+    
+    const result = handler_architecture.process(input);
+    try testing.expectEqual(expected, result);
+}
+```
+
+**Then implement:**
+```zig
+pub const handler_architecture = struct {
+    pub fn process(input: InputType) !OutputType {
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Requirements
+- **Never commit without passing tests**
+- **Test all configuration paths**
+- **Verify specification compliance**
+- **Validate performance implications**
+- **Ensure cross-platform compatibility**
 
 ## References
 

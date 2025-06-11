@@ -11,6 +11,7 @@
 			"package.json",
 			".vercel",
 			".tevm",
+			"src/evm/prompts/**/*",
 			"**/.tevm",
 			"**/.vercel",
 			"**/package.json",

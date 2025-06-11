@@ -1,25 +1,77 @@
 # Implement ECADD Precompile
 
-## Git Workflow Instructions
+You are implementing ECADD Precompile for the Tevm EVM written in Zig. Your goal is to implement elliptic curve addition precompile for secp256k1 following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
-1. **Create branch**: `feat_implement_ecadd_precompile` (snake_case, no emoji)
-2. **Create worktree**: `git worktree add g/feat_implement_ecadd_precompile feat_implement_ecadd_precompile`
-3. **Work in isolation**: `cd g/feat_implement_ecadd_precompile`
-4. **Commit message**: `✨ feat: implement ECADD precompile`
+## Development Workflow
+- **Branch**: `feat_implement_ecadd_precompile` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_ecadd_precompile feat_implement_ecadd_precompile`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
 
-### Workflow Steps
-1. Create and switch to the new worktree
-2. Implement all changes in the isolated branch
-3. Run `zig build test-all` to ensure all tests pass
-4. Commit with emoji conventional commit format
-5. DO NOT merge - leave ready for review
 
 ## Context
 
 Implement the ECADD precompile (address 0x06) for Ethereum Virtual Machine compatibility. This precompile provides elliptic curve point addition on the alt_bn128 curve and is available from the Byzantium hardfork.
 
-## Ethereum Specification
+## File Structure
+
+**Primary Files to Modify:**
+- `/src/evm/precompiles/precompiles.zig` - Main precompile dispatcher
+
+**Supporting Files:**
+- `/src/evm/precompiles/precompile_addresses.zig` - Address constants
+- `/src/evm/precompiles/precompile_gas.zig` - Gas calculation for precompiles
+- `/src/evm/precompiles/precompile_result.zig` - Result types for precompile execution
+
+**New Files to Create:**
+- `/src/evm/precompiles/ecadd.zig` - ECADD precompile implementation
+- `/src/evm/precompiles/bn254.zig` - BN254 elliptic curve mathematics
+
+**Test Files:**
+- `/test/evm/precompiles/` (directory) - Precompile test infrastructure
+- `/test/evm/precompiles/ecadd_test.zig` - ECADD specific tests
+
+**Why These Files:**
+- The main precompile dispatcher needs to route calls to the ECADD implementation
+- Address constants define the precompile address (0x06)
+- New implementation files handle elliptic curve point addition on alt_bn128 curve
+- Comprehensive tests ensure EIP-196 compliance
+
+## ELI5
+
+Elliptic curves are special mathematical curves used in cryptography. ECADD is like a calculator that can "add" two points on a specific elliptic curve called alt_bn128. This isn't regular addition - it's a special mathematical operation where you take two points on the curve and get a third point that's also on the curve. This is crucial for advanced cryptographic protocols like zkSNARKs (zero-knowledge proofs) that help make blockchain transactions private and efficient. Having this as a precompile means smart contracts can do this complex math without having to implement all the curve arithmetic themselves.
+
+## 🚨 CRITICAL SECURITY WARNING: DO NOT IMPLEMENT CUSTOM CRYPTO
+
+**❌ NEVER IMPLEMENT CRYPTOGRAPHIC ALGORITHMS FROM SCRATCH**
+
+This prompt involves elliptic curve cryptography. Follow these security principles:
+
+### ✅ **DO THIS:**
+- **Use established crypto libraries** (noble-curves for BN254, arkworks-rs bindings)
+- **Import proven implementations** from well-audited libraries
+- **Follow reference implementations** from go-ethereum, revm, evmone exactly
+- **Use official test vectors** from EIP-196 and EIP-197 specifications
+- **Implement constant-time algorithms** to prevent timing attacks
+- **Validate all curve points** are on the correct curve and in correct subgroup
+
+### ❌ **NEVER DO THIS:**
+- Write your own elliptic curve point addition or field arithmetic
+- Implement BN254/alt_bn128 curve operations "from scratch" or "for learning"
+- Modify cryptographic algorithms or add "optimizations"
+- Copy-paste crypto code from tutorials or unofficial sources
+- Implement crypto without extensive peer review and testing
+- Skip subgroup checks or point validation
+
+### 🎯 **Implementation Strategy:**
+1. **First choice**: Use noble-curves BN254 implementation (WASM compatible)
+2. **Second choice**: Bind to arkworks-rs or other audited Rust crypto libraries
+3. **Third choice**: Use established C libraries (libff, mcl)
+4. **Never**: Write custom elliptic curve implementations
+
+**Remember**: ECADD is critical for zkSNARKs and privacy protocols. Bugs can compromise zero-knowledge proofs, leak private information, and break cryptographic protocols. Always use proven, audited implementations.
+
+## Specification
 
 ### Basic Operation
 - **Address**: `0x0000000000000000000000000000000000000006`
@@ -91,7 +143,7 @@ pub const ECADD_GAS_COST_BYZANTIUM: u64 = 500; // Pre-Istanbul
 File: `/src/evm/precompiles/bn254.zig`
 ```zig
 const std = @import("std");
-const U256 = @import("../Types/U256.ts").U256;
+const U256 = @import("../Types/U256.zig").U256;
 
 // BN254 field prime
 pub const FIELD_PRIME: U256 = 21888242871839275222246405745257275088696311157297823662689037894645226208583;
@@ -297,14 +349,132 @@ pub fn add_no_alloc(p1: G1Point, p2: G1Point, result: *G1Point) void {
 5. **Security**: Constant-time execution, proper validation
 6. **Integration**: Works with existing precompile infrastructure
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Use constant-time arithmetic** - Prevent timing attacks
-3. **Validate all inputs thoroughly** - Handle malformed data gracefully
-4. **Test against EIP-196 vectors** - Ensure specification compliance
-5. **Handle edge cases** - Point at infinity, invalid points, etc.
-6. **Optimize for performance** - This is a hot path in many applications
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
+
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/precompiles/ecadd_test.zig`)
+```zig
+// Test basic elliptic curve addition functionality
+test "ecadd basic functionality with known vectors"
+test "ecadd handles edge cases correctly"
+test "ecadd validates input format"
+test "ecadd produces correct output format"
+```
+
+#### 2. **Input Validation Tests**
+```zig
+test "ecadd handles various input lengths"
+test "ecadd validates input parameters"
+test "ecadd rejects invalid inputs gracefully"
+test "ecadd handles empty input"
+```
+
+#### 3. **Gas Calculation Tests**
+```zig
+test "ecadd gas cost calculation accuracy"
+test "ecadd gas cost edge cases"
+test "ecadd gas overflow protection"
+test "ecadd gas deduction in EVM context"
+```
+
+#### 4. **Specification Compliance Tests**
+```zig
+test "ecadd matches specification test vectors"
+test "ecadd matches reference implementation output"
+test "ecadd hardfork availability requirements"
+test "ecadd address registration correct"
+```
+
+#### 5. **Performance Tests**
+```zig
+test "ecadd performance with large inputs"
+test "ecadd memory efficiency"
+test "ecadd WASM bundle size impact"
+test "ecadd benchmark against reference implementations"
+```
+
+#### 6. **Error Handling Tests**
+```zig
+test "ecadd error propagation"
+test "ecadd proper error types returned"
+test "ecadd handles corrupted input gracefully"
+test "ecadd never panics on malformed input"
+```
+
+#### 7. **Integration Tests**
+```zig
+test "ecadd precompile registration"
+test "ecadd called from EVM execution"
+test "ecadd gas deduction in EVM context"
+test "ecadd hardfork availability"
+```
+
+### Test Development Priority
+1. **Start with specification test vectors** - Ensures spec compliance from day one
+2. **Add input validation** - Prevents invalid states early
+3. **Implement gas calculation** - Core economic security
+4. **Add performance benchmarks** - Ensures production readiness
+5. **Test error cases** - Robust error handling
+
+### Test Data Sources
+- **EIP/Specification test vectors**: Primary compliance verification
+- **Reference implementation tests**: Cross-client compatibility
+- **Mathematical test vectors**: Algorithm correctness
+- **Edge case generation**: Boundary value testing
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Ensure 100% test coverage for all public functions
+- Validate performance benchmarks don't regress
+- Test both debug and release builds
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "ecadd basic functionality" {
+    // This test MUST fail initially
+    const input = test_vectors.valid_input;
+    const expected = test_vectors.expected_output;
+    
+    const result = ecadd.run(input);
+    try testing.expectEqualSlices(u8, expected, result);
+}
+```
+
+**Only then implement:**
+```zig
+pub fn run(input: []const u8) ![]u8 {
+    // Minimal implementation to make test pass
+    return error.NotImplemented; // Initially
+}
+```
 
 ## References
 
