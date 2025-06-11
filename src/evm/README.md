@@ -254,17 +254,17 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
   - [x] **Return Data Handling** - Complete RETURNDATASIZE/RETURNDATACOPY after calls ✅
   - [x] **Value Transfer Logic** - ETH transfer mechanics in calls ✅
 
-#### Precompiled Contracts (1/17 implemented)
+#### Precompiled Contracts (2/17 implemented)
 - [ ] 🟡 **Standard Precompiles**
-  - [ ] **ECRECOVER** (0x01) - [Elliptic curve signature recovery](./prompts/implement-ecrecover-precompile.md)
-  - [ ] **SHA256** (0x02) - [SHA-256 hash function](./prompts/implement-sha256-precompile.md)
+  - [🔄] **ECRECOVER** (0x01) - [Elliptic curve signature recovery](./prompts/implement-ecrecover-precompile.md) - @claude working on this
+  - [x] **SHA256** (0x02) - SHA-256 hash function ✅
   - [ ] **RIPEMD160** (0x03) - [RIPEMD-160 hash function](./prompts/implement-ripemd160-precompile.md)
   - [x] **IDENTITY** (0x04) - Identity/copy function ✅
   - [ ] **MODEXP** (0x05) - [Modular exponentiation](./prompts/implement-modexp-precompile.md)
   - [ ] **ECADD** (0x06) - Elliptic curve point addition
   - [ ] **ECMUL** (0x07) - Elliptic curve point multiplication
   - [ ] **ECPAIRING** (0x08) - Elliptic curve pairing check
-  - [ ] **BLAKE2F** (0x09) - Blake2f compression function
+  - [ ] **BLAKE2F** (0x09) - [Blake2f compression function](./prompts/implement-blake2f-precompile.md)
 - [x] **KZG Point Evaluation** (0x0A) - EIP-4844 blob verification precompile ✅
 - [ ] 🟡 **BLS12-381 Precompiles** (EIP-2537)
   - [ ] **G1ADD** (0x0B) - BLS12-381 G1 addition
