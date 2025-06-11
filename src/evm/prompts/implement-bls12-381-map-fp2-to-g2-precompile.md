@@ -31,6 +31,35 @@ This enhanced version includes:
 
 Why is this important? This precompile is essential for privacy-preserving technologies like zero-knowledge proofs, where you need to convert arbitrary data into points on cryptographic curves while maintaining security guarantees.
 
+## 🚨 CRITICAL SECURITY WARNING: DO NOT IMPLEMENT CUSTOM CRYPTO
+
+**❌ NEVER IMPLEMENT CRYPTOGRAPHIC ALGORITHMS FROM SCRATCH**
+
+This prompt involves BLS12-381 hash-to-curve over extension fields - extremely complex cryptography. Follow these security principles:
+
+### ✅ **DO THIS:**
+- **Use blst library** - The only production-ready BLS12-381 implementation
+- **Import proven implementations** from well-audited libraries (blst, arkworks-rs)
+- **Follow reference implementations** from go-ethereum, revm, evmone exactly
+- **Use official test vectors** from EIP-2537 and hash-to-curve standards
+- **Implement deterministic algorithms** - same input must always produce same output
+- **Use standard hash-to-curve methods** (SWU for G2) from RFCs
+
+### ❌ **NEVER DO THIS:**
+- Write your own hash-to-curve or Fp2-to-G2 mapping algorithms
+- Implement BLS12-381 extension field operations "from scratch" or "for learning"
+- Modify cryptographic algorithms or add "optimizations"
+- Copy-paste crypto code from tutorials or unofficial sources
+- Implement crypto without extensive peer review and testing
+- Use non-standard or custom mapping functions over Fp2
+
+### 🎯 **Implementation Strategy:**
+1. **ONLY choice**: Use blst library (Ethereum Foundation standard)
+2. **Fallback**: Use arkworks-rs BLS12-381 with proven G2 hash-to-curve
+3. **Never**: Write custom Fp2-to-G2 mapping implementations
+
+**Remember**: Hash-to-curve over extension fields is among the most complex cryptographic operations. Critical for BLS signatures and zero-knowledge proofs. Non-deterministic or biased mappings can compromise security. Always use proven, standardized algorithms from RFCs.
+
 ## EIP-2537 Specification
 
 ### Basic Operation

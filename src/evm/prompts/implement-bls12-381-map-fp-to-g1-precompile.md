@@ -17,6 +17,35 @@ Implement the BLS12-381 MAP_FP_TO_G1 precompile (address 0x10) as defined in EIP
 
 Imagine you have a random number and you want to convert it into a valid point on the BLS12-381 curve - like turning a random coordinate into a valid location on a specific curved road. The MAP_FP_TO_G1 precompile does exactly this: it takes a field element (a special kind of number that fits within the BLS12-381 system) and deterministically maps it to a G1 point on the curve. This is essential for "hash-to-curve" operations, where you need to convert hash values or other data into valid curve points. Think of it like having a GPS that can take any random coordinate and snap it to the nearest valid road - but in this case, the "road" is the mathematical curve. This operation is used in advanced signature schemes and cryptographic protocols where you need to convert arbitrary data into curve points for further processing.
 
+## 🚨 CRITICAL SECURITY WARNING: DO NOT IMPLEMENT CUSTOM CRYPTO
+
+**❌ NEVER IMPLEMENT CRYPTOGRAPHIC ALGORITHMS FROM SCRATCH**
+
+This prompt involves BLS12-381 hash-to-curve operations. Follow these security principles:
+
+### ✅ **DO THIS:**
+- **Use blst library** - The only production-ready BLS12-381 implementation
+- **Import proven implementations** from well-audited libraries (blst, arkworks-rs)
+- **Follow reference implementations** from go-ethereum, revm, evmone exactly
+- **Use official test vectors** from EIP-2537 and hash-to-curve standards
+- **Implement deterministic algorithms** - same input must always produce same output
+- **Use standard hash-to-curve methods** (SWU, SVDW) from RFCs
+
+### ❌ **NEVER DO THIS:**
+- Write your own hash-to-curve or field-to-curve mapping algorithms
+- Implement BLS12-381 curve operations "from scratch" or "for learning"
+- Modify cryptographic algorithms or add "optimizations"
+- Copy-paste crypto code from tutorials or unofficial sources
+- Implement crypto without extensive peer review and testing
+- Use non-standard or custom mapping functions
+
+### 🎯 **Implementation Strategy:**
+1. **ONLY choice**: Use blst library (Ethereum Foundation standard)
+2. **Fallback**: Use arkworks-rs BLS12-381 with proven hash-to-curve
+3. **Never**: Write custom field-to-curve mapping implementations
+
+**Remember**: Hash-to-curve is critical for BLS signatures and advanced cryptographic protocols. Non-deterministic or biased mappings can compromise security. Always use proven, standardized algorithms from RFCs.
+
 ## EIP-2537 Specification
 
 ### Basic Operation
