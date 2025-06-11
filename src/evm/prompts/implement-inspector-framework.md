@@ -232,6 +232,1083 @@ pub const InspectorAction = enum {
 };
 ```
 
+## Production-Ready Inspector Patterns
+
+The following sections provide detailed implementation patterns extracted from production EVM implementations (REVM, Geth, EVMOne) for building high-performance inspector frameworks with real-world optimization strategies.
+
+### REVM Inspector Architecture Patterns
+
+<explanation>
+REVM demonstrates a sophisticated trait-based inspector system with optional hooks, two-phase execution patterns, context-aware inspection, and override capabilities. Key patterns include default empty implementations for all hooks, rich context passing, and instruction-level granularity with performance optimization through inline hints.
+</explanation>
+
+**Core Inspector Trait Pattern** (REVM Approach):
+```zig
+// Equivalent Zig pattern for REVM's Inspector trait
+pub fn Inspector(comptime Context: type, comptime InterpreterType: type) type {
+    return struct {
+        ptr: *anyopaque,
+        vtable: *const VTable,
+        
+        const Self = @This();
+        
+        pub const VTable = struct {
+            // Pre-execution hooks (REVM pattern)
+            initialize_interp: *const fn(ptr: *anyopaque, interp: *InterpreterType, context: *Context) void = noop_initialize,
+            
+            // Instruction-level hooks (REVM's step pattern)
+            step: *const fn(ptr: *anyopaque, interp: *InterpreterType, context: *Context) void = noop_step,
+            step_end: *const fn(ptr: *anyopaque, interp: *InterpreterType, context: *Context) void = noop_step_end,
+            
+            // Transaction/call lifecycle hooks (REVM pattern)
+            call: *const fn(ptr: *anyopaque, context: *Context, inputs: *CallInputs) ?CallOutcome = noop_call,
+            call_end: *const fn(ptr: *anyopaque, context: *Context, inputs: *const CallInputs, outcome: *CallOutcome) void = noop_call_end,
+            
+            create: *const fn(ptr: *anyopaque, context: *Context, inputs: *CreateInputs) ?CreateOutcome = noop_create,
+            create_end: *const fn(ptr: *anyopaque, context: *Context, inputs: *const CreateInputs, outcome: *CreateOutcome) void = noop_create_end,
+            
+            // Event hooks (REVM pattern)
+            log: *const fn(ptr: *anyopaque, interp: *InterpreterType, context: *Context, log: Log) void = noop_log,
+            selfdestruct: *const fn(ptr: *anyopaque, contract: Address, target: Address, value: U256) void = noop_selfdestruct,
+            
+            // Default empty implementations (REVM pattern)
+            fn noop_initialize(ptr: *anyopaque, interp: *InterpreterType, context: *Context) void {
+                _ = ptr; _ = interp; _ = context;
+            }
+            
+            fn noop_step(ptr: *anyopaque, interp: *InterpreterType, context: *Context) void {
+                _ = ptr; _ = interp; _ = context;
+            }
+            
+            fn noop_step_end(ptr: *anyopaque, interp: *InterpreterType, context: *Context) void {
+                _ = ptr; _ = interp; _ = context;
+            }
+            
+            fn noop_call(ptr: *anyopaque, context: *Context, inputs: *CallInputs) ?CallOutcome {
+                _ = ptr; _ = context; _ = inputs;
+                return null; // No override
+            }
+            
+            fn noop_call_end(ptr: *anyopaque, context: *Context, inputs: *const CallInputs, outcome: *CallOutcome) void {
+                _ = ptr; _ = context; _ = inputs; _ = outcome;
+            }
+            
+            fn noop_create(ptr: *anyopaque, context: *Context, inputs: *CreateInputs) ?CreateOutcome {
+                _ = ptr; _ = context; _ = inputs;
+                return null; // No override
+            }
+            
+            fn noop_create_end(ptr: *anyopaque, context: *Context, inputs: *const CreateInputs, outcome: *CreateOutcome) void {
+                _ = ptr; _ = context; _ = inputs; _ = outcome;
+            }
+            
+            fn noop_log(ptr: *anyopaque, interp: *InterpreterType, context: *Context, log: Log) void {
+                _ = ptr; _ = interp; _ = context; _ = log;
+            }
+            
+            fn noop_selfdestruct(ptr: *anyopaque, contract: Address, target: Address, value: U256) void {
+                _ = ptr; _ = contract; _ = target; _ = value;
+            }
+        };
+        
+        // Factory function with compile-time inspection
+        pub fn init(pointer: anytype) Self {
+            const Ptr = @TypeOf(pointer);
+            const ptr_info = @typeInfo(Ptr);
+            
+            if (ptr_info != .Pointer) @compileError("Expected pointer");
+            if (ptr_info.Pointer.size != .One) @compileError("Expected single item pointer");
+            
+            const Child = ptr_info.Pointer.child;
+            
+            // Generate vtable based on available methods (compile-time introspection)
+            const vtable = VTable{
+                .initialize_interp = if (@hasDecl(Child, "initialize_interp")) 
+                    struct {
+                        fn call(ptr: *anyopaque, interp: *InterpreterType, context: *Context) void {
+                            const self = @ptrCast(*Child, @alignCast(@alignOf(Child), ptr));
+                            self.initialize_interp(interp, context);
+                        }
+                    }.call 
+                else VTable.noop_initialize,
+                
+                .step = if (@hasDecl(Child, "step")) 
+                    struct {
+                        fn call(ptr: *anyopaque, interp: *InterpreterType, context: *Context) void {
+                            const self = @ptrCast(*Child, @alignCast(@alignOf(Child), ptr));
+                            self.step(interp, context);
+                        }
+                    }.call 
+                else VTable.noop_step,
+                
+                .step_end = if (@hasDecl(Child, "step_end")) 
+                    struct {
+                        fn call(ptr: *anyopaque, interp: *InterpreterType, context: *Context) void {
+                            const self = @ptrCast(*Child, @alignCast(@alignOf(Child), ptr));
+                            self.step_end(interp, context);
+                        }
+                    }.call 
+                else VTable.noop_step_end,
+                
+                // ... other methods with similar pattern
+            };
+            
+            return Self{
+                .ptr = pointer,
+                .vtable = &vtable,
+            };
+        }
+        
+        // REVM's core inspection loop pattern
+        pub inline fn step(self: Self, interp: *InterpreterType, context: *Context) void {
+            self.vtable.step(self.ptr, interp, context);
+        }
+        
+        pub inline fn step_end(self: Self, interp: *InterpreterType, context: *Context) void {
+            self.vtable.step_end(self.ptr, interp, context);
+        }
+        
+        // Override capability (REVM pattern)
+        pub inline fn call(self: Self, context: *Context, inputs: *CallInputs) ?CallOutcome {
+            return self.vtable.call(self.ptr, context, inputs);
+        }
+    };
+}
+```
+
+**REVM's Inspection Loop Integration**:
+```zig
+// Core inspection loop (adapted from REVM)
+pub fn inspect_instructions(
+    context: anytype,
+    interpreter: anytype,
+    inspector: anytype,
+    instructions: anytype,
+) InstructionResult {
+    var log_count = context.journal().logs().len;
+    
+    while (interpreter.control.instruction_result().is_continue()) {
+        // Pre-instruction hook (REVM pattern)
+        inspector.step(interpreter, context);
+        if (!interpreter.control.instruction_result().is_continue()) {
+            break;
+        }
+        
+        // Execute instruction
+        const opcode = interpreter.bytecode.opcode();
+        interpreter.bytecode.relative_jump(1);
+        instructions[opcode](interpreter, context);
+        
+        // Check for new logs and emit log hooks (REVM pattern)
+        const new_log_count = context.journal().logs().len;
+        if (log_count < new_log_count) {
+            const log = context.journal().logs()[new_log_count - 1];
+            inspector.log(interpreter, context, log);
+            log_count = new_log_count;
+        }
+        
+        // Post-instruction hook (REVM pattern)
+        inspector.step_end(interpreter, context);
+    }
+    
+    return interpreter.control.instruction_result();
+}
+```
+
+### Geth's Hook-Based Architecture
+
+<explanation>
+Geth provides a comprehensive hook system with granular control over different execution aspects. Key patterns include optional function pointers for hooks, rich context objects providing comprehensive execution state, detailed reason categorization for state changes, and configurable tracing detail levels for performance optimization.
+</explanation>
+
+**Comprehensive Hook System** (Geth Pattern):
+```zig
+// Equivalent Zig pattern for Geth's hook-based tracing
+pub const TracingHooks = struct {
+    // VM execution hooks (optional function pointers)
+    on_tx_start: ?*const fn(vm_context: *const VMContext, tx: *const Transaction, from: Address) void = null,
+    on_tx_end: ?*const fn(receipt: *const Receipt, err: ?ExecutionError) void = null,
+    on_enter: ?*const fn(depth: u32, call_type: u8, from: Address, to: Address, input: []const u8, gas: u64, value: U256) void = null,
+    on_exit: ?*const fn(depth: u32, output: []const u8, gas_used: u64, err: ?ExecutionError, reverted: bool) void = null,
+    on_opcode: ?*const fn(pc: u64, op: u8, gas: u64, cost: u64, scope: *const OpContext, data: []const u8, depth: u32, err: ?ExecutionError) void = null,
+    on_fault: ?*const fn(pc: u64, op: u8, gas: u64, cost: u64, scope: *const OpContext, depth: u32, err: ExecutionError) void = null,
+    
+    // State change hooks with detailed reasons (Geth pattern)
+    on_balance_change: ?*const fn(addr: Address, prev: U256, new: U256, reason: BalanceChangeReason) void = null,
+    on_nonce_change: ?*const fn(addr: Address, prev: u64, new: u64, reason: NonceChangeReason) void = null,
+    on_code_change: ?*const fn(addr: Address, prev_code_hash: B256, prev_code: []const u8, code_hash: B256, code: []const u8) void = null,
+    on_storage_change: ?*const fn(addr: Address, slot: B256, prev: B256, new: B256) void = null,
+    on_log: ?*const fn(log: *const Log) void = null,
+    
+    // Gas tracking hooks (Geth pattern)
+    on_gas_change: ?*const fn(old: u64, new: u64, reason: GasChangeReason) void = null,
+    
+    // Configurable detail levels (Geth optimization)
+    enable_memory: bool = false,
+    disable_stack: bool = false,
+    disable_storage: bool = false,
+    enable_return_data: bool = false,
+    
+    // Execute hook if present (Geth pattern)
+    pub inline fn call_on_opcode(self: *const TracingHooks, pc: u64, op: u8, gas: u64, cost: u64, scope: *const OpContext, data: []const u8, depth: u32, err: ?ExecutionError) void {
+        if (self.on_opcode) |hook| {
+            hook(pc, op, gas, cost, scope, data, depth, err);
+        }
+    }
+    
+    pub inline fn call_on_balance_change(self: *const TracingHooks, addr: Address, prev: U256, new: U256, reason: BalanceChangeReason) void {
+        if (self.on_balance_change) |hook| {
+            hook(addr, prev, new, reason);
+        }
+    }
+};
+
+// Rich context objects (Geth pattern)
+pub const OpContext = struct {
+    memory: *const Memory,
+    stack: *const Stack,
+    caller: Address,
+    address: Address,
+    call_value: U256,
+    call_input: []const u8,
+    contract_code: []const u8,
+    
+    // Geth's interface methods
+    pub fn memory_data(self: *const OpContext) []const u8 {
+        return self.memory.getData();
+    }
+    
+    pub fn stack_data(self: *const OpContext) []const U256 {
+        return self.stack.getData();
+    }
+    
+    pub fn get_caller(self: *const OpContext) Address {
+        return self.caller;
+    }
+    
+    pub fn get_address(self: *const OpContext) Address {
+        return self.address;
+    }
+    
+    pub fn get_call_value(self: *const OpContext) U256 {
+        return self.call_value;
+    }
+    
+    pub fn get_call_input(self: *const OpContext) []const u8 {
+        return self.call_input;
+    }
+    
+    pub fn get_contract_code(self: *const OpContext) []const u8 {
+        return self.contract_code;
+    }
+};
+
+// Detailed reason categorization (Geth pattern)
+pub const BalanceChangeReason = enum {
+    balance_increase_reward_mine_block,
+    balance_decrease_gas_buy,
+    balance_increase_gas_return,
+    balance_change_transfer,
+    balance_change_revert,
+    balance_increase_reward_mine_uncle,
+    balance_increase_reward_mine_subroutine,
+    balance_decrease_dao_contract,
+    balance_change_genesis_balance,
+    balance_increase_dao_refund_contract,
+    balance_increase_dao_reward,
+    balance_change_genesis_alloc,
+    balance_increase_touch_account,
+    balance_increase_selfdestruct,
+    balance_decrease_selfdestruct_burn,
+    balance_change_call,
+    balance_change_call_code,
+    balance_change_delegate_call,
+    balance_change_create,
+    balance_change_create2,
+};
+
+pub const GasChangeReason = enum {
+    gas_change_call_precompile_contract,
+    gas_change_call_precompiled_contract,
+    gas_change_call_contract,
+    gas_change_transaction_execution,
+    gas_change_transaction_initial_balance,
+    gas_change_vm_error,
+    gas_change_touched_account,
+    gas_change_internal_call,
+    gas_change_external_call,
+    gas_change_create_contract,
+};
+```
+
+### EVMOne's Tracer Chain Pattern
+
+<explanation>
+EVMOne implements a sophisticated tracer chaining system allowing multiple tracers to work together. Key patterns include linked-list tracer composition, notification pattern with automatic forwarding, stack-based context management for nested calls, and performance-optimized implementations with noexcept specifications.
+</explanation>
+
+**Tracer Chain Implementation** (EVMOne Pattern):
+```zig
+// Equivalent Zig pattern for EVMOne's tracer chaining
+pub const TracerChain = struct {
+    allocator: std.mem.Allocator,
+    tracers: std.ArrayList(AnyTracer),
+    
+    pub const AnyTracer = struct {
+        ptr: *anyopaque,
+        vtable: *const TracerVTable,
+        
+        pub const TracerVTable = struct {
+            on_execution_start: *const fn(ptr: *anyopaque, rev: evmc_revision, msg: *const evmc_message, code: []const u8) void,
+            on_instruction_start: *const fn(ptr: *anyopaque, pc: u32, stack_top: *const U256, stack_height: i32, gas: i64, state: *const ExecutionState) void,
+            on_execution_end: *const fn(ptr: *anyopaque, result: *const evmc_result) void,
+        };
+        
+        pub fn init(tracer: anytype) AnyTracer {
+            const T = @TypeOf(tracer);
+            const impl = struct {
+                fn on_execution_start(ptr: *anyopaque, rev: evmc_revision, msg: *const evmc_message, code: []const u8) void {
+                    const self = @ptrCast(*T, @alignCast(@alignOf(T), ptr));
+                    self.on_execution_start(rev, msg, code);
+                }
+                
+                fn on_instruction_start(ptr: *anyopaque, pc: u32, stack_top: *const U256, stack_height: i32, gas: i64, state: *const ExecutionState) void {
+                    const self = @ptrCast(*T, @alignCast(@alignOf(T), ptr));
+                    self.on_instruction_start(pc, stack_top, stack_height, gas, state);
+                }
+                
+                fn on_execution_end(ptr: *anyopaque, result: *const evmc_result) void {
+                    const self = @ptrCast(*T, @alignCast(@alignOf(T), ptr));
+                    self.on_execution_end(result);
+                }
+            };
+            
+            const vtable = TracerVTable{
+                .on_execution_start = impl.on_execution_start,
+                .on_instruction_start = impl.on_instruction_start,
+                .on_execution_end = impl.on_execution_end,
+            };
+            
+            return AnyTracer{
+                .ptr = tracer,
+                .vtable = &vtable,
+            };
+        }
+    };
+    
+    pub fn init(allocator: std.mem.Allocator) TracerChain {
+        return TracerChain{
+            .allocator = allocator,
+            .tracers = std.ArrayList(AnyTracer).init(allocator),
+        };
+    }
+    
+    pub fn add_tracer(self: *TracerChain, tracer: anytype) !void {
+        try self.tracers.append(AnyTracer.init(tracer));
+    }
+    
+    // Notification pattern with forwarding (EVMOne pattern)
+    pub fn notify_execution_start(self: *TracerChain, rev: evmc_revision, msg: *const evmc_message, code: []const u8) void {
+        for (self.tracers.items) |tracer| {
+            tracer.vtable.on_execution_start(tracer.ptr, rev, msg, code);
+        }
+    }
+    
+    pub fn notify_instruction_start(self: *TracerChain, pc: u32, stack_top: *const U256, stack_height: i32, gas: i64, state: *const ExecutionState) void {
+        for (self.tracers.items) |tracer| {
+            tracer.vtable.on_instruction_start(tracer.ptr, pc, stack_top, stack_height, gas, state);
+        }
+    }
+    
+    pub fn notify_execution_end(self: *TracerChain, result: *const evmc_result) void {
+        for (self.tracers.items) |tracer| {
+            tracer.vtable.on_execution_end(tracer.ptr, result);
+        }
+    }
+};
+```
+
+**Concrete Tracer Implementations** (EVMOne Patterns):
+```zig
+// Histogram tracer for opcode frequency analysis (EVMOne pattern)
+pub const HistogramTracer = struct {
+    contexts: std.ArrayList(Context),
+    allocator: std.mem.Allocator,
+    
+    pub const Context = struct {
+        depth: i32,
+        code: []const u8,
+        counts: [256]u32, // Opcode frequency counters
+        
+        pub fn init(depth: i32, code: []const u8) Context {
+            return Context{
+                .depth = depth,
+                .code = code,
+                .counts = [_]u32{0} ** 256,
+            };
+        }
+    };
+    
+    pub fn init(allocator: std.mem.Allocator) HistogramTracer {
+        return HistogramTracer{
+            .contexts = std.ArrayList(Context).init(allocator),
+            .allocator = allocator,
+        };
+    }
+    
+    pub fn on_execution_start(self: *HistogramTracer, rev: evmc_revision, msg: *const evmc_message, code: []const u8) void {
+        _ = rev;
+        const context = Context.init(msg.depth, code);
+        self.contexts.append(context) catch return;
+    }
+    
+    pub fn on_instruction_start(self: *HistogramTracer, pc: u32, stack_top: *const U256, stack_height: i32, gas: i64, state: *const ExecutionState) void {
+        _ = stack_top; _ = stack_height; _ = gas; _ = state;
+        
+        if (self.contexts.items.len > 0) {
+            var context = &self.contexts.items[self.contexts.items.len - 1];
+            if (pc < context.code.len) {
+                const opcode = context.code[pc];
+                context.counts[opcode] += 1; // Increment opcode counter (EVMOne pattern)
+            }
+        }
+    }
+    
+    pub fn on_execution_end(self: *HistogramTracer, result: *const evmc_result) void {
+        _ = result;
+        if (self.contexts.items.len > 0) {
+            _ = self.contexts.pop();
+        }
+    }
+    
+    // Get opcode statistics
+    pub fn get_opcode_counts(self: *const HistogramTracer) ?[256]u32 {
+        if (self.contexts.items.len > 0) {
+            return self.contexts.items[0].counts;
+        }
+        return null;
+    }
+};
+
+// Full instruction tracer with detailed output (EVMOne pattern)
+pub const InstructionTracer = struct {
+    writer: std.io.Writer(std.fs.File, std.os.WriteError, std.fs.File.write),
+    depth: u32 = 0,
+    
+    pub fn init(writer: anytype) InstructionTracer {
+        return InstructionTracer{
+            .writer = writer,
+        };
+    }
+    
+    pub fn on_execution_start(self: *InstructionTracer, rev: evmc_revision, msg: *const evmc_message, code: []const u8) void {
+        _ = rev; _ = code;
+        self.depth = @intCast(u32, msg.depth);
+        self.writer.print("{{\"depth\":{},\"gas\":\"0x{x}\",\"value\":\"0x{x}\"}}\n", .{
+            msg.depth, msg.gas, msg.value
+        }) catch {};
+    }
+    
+    pub fn on_instruction_start(self: *InstructionTracer, pc: u32, stack_top: *const U256, stack_height: i32, gas: i64, state: *const ExecutionState) void {
+        // Output detailed JSON trace (EVMOne pattern)
+        self.writer.print("{{\"pc\":{},\"op\":{},\"gas\":\"0x{x}\",\"gasCost\":\"0x{x}\"", .{
+            pc, state.opcode, gas, state.gas_cost
+        }) catch {};
+        
+        // Include stack information
+        if (stack_height > 0) {
+            self.writer.print(",\"stack\":[", .{}) catch {};
+            var i: i32 = 0;
+            while (i < @min(stack_height, 10)) : (i += 1) { // Limit stack output
+                if (i > 0) self.writer.print(",", .{}) catch {};
+                self.writer.print("\"0x{x}\"", .{stack_top.*}) catch {};
+            }
+            self.writer.print("]", .{}) catch {};
+        }
+        
+        // Include memory size, return data, depth, refunds (EVMOne pattern)
+        self.writer.print(",\"memory_size\":{},\"depth\":{}", .{
+            state.memory_size, self.depth
+        }) catch {};
+        
+        self.writer.print("}}\n", .{}) catch {};
+    }
+    
+    pub fn on_execution_end(self: *InstructionTracer, result: *const evmc_result) void {
+        self.writer.print("{{\"output\":\"0x", .{}) catch {};
+        for (result.output_data[0..result.output_size]) |byte| {
+            self.writer.print("{x:0>2}", .{byte}) catch {};
+        }
+        self.writer.print("\",\"gasUsed\":\"0x{x}\",\"time\":{}}}\n", .{
+            result.gas_left, std.time.milliTimestamp()
+        }) catch {};
+    }
+};
+```
+
+### Performance Optimization Patterns
+
+<explanation>
+Production inspector frameworks prioritize performance through various optimization techniques including inline hints for hot paths, configurable detail levels to reduce overhead, zero-cost abstractions with compile-time method resolution, atomic operations for concurrent access, and memory pool reuse for frequent allocations.
+</explanation>
+
+**Performance-Optimized Inspector Interface**:
+```zig
+// High-performance inspector with optimization patterns from all references
+pub const HighPerformanceInspector = struct {
+    // Pre-allocated buffers to avoid allocations (Geth pattern)
+    trace_buffer: std.ArrayList(TraceEntry),
+    stack_buffer: [1024]U256,
+    memory_buffer: std.ArrayList(u8),
+    
+    // Configuration for performance tuning (Geth pattern)
+    config: InspectorConfig,
+    
+    // Statistics tracking (performance monitoring)
+    stats: InspectorStats,
+    
+    pub const InspectorConfig = struct {
+        enable_step_tracing: bool = false,
+        enable_memory_tracing: bool = false,
+        enable_stack_tracing: bool = true,
+        enable_storage_tracing: bool = false,
+        max_stack_depth: u32 = 16,
+        max_memory_size: usize = 1024 * 1024, // 1MB
+        trace_buffer_size: usize = 10000,
+        
+        // Performance knobs
+        use_pre_allocated_buffers: bool = true,
+        atomic_stats: bool = false, // Use atomic operations for thread safety
+    };
+    
+    pub const InspectorStats = struct {
+        total_steps: u64 = 0,
+        total_calls: u64 = 0,
+        total_memory_accesses: u64 = 0,
+        total_storage_accesses: u64 = 0,
+        
+        // Atomic versions for concurrent access (Geth pattern)
+        pub fn increment_steps_atomic(self: *InspectorStats) void {
+            _ = @atomicRmw(u64, &self.total_steps, .Add, 1, .Monotonic);
+        }
+        
+        pub fn increment_calls_atomic(self: *InspectorStats) void {
+            _ = @atomicRmw(u64, &self.total_calls, .Add, 1, .Monotonic);
+        }
+    };
+    
+    pub fn init(allocator: std.mem.Allocator, config: InspectorConfig) !HighPerformanceInspector {
+        return HighPerformanceInspector{
+            .trace_buffer = try std.ArrayList(TraceEntry).initCapacity(allocator, config.trace_buffer_size),
+            .memory_buffer = try std.ArrayList(u8).initCapacity(allocator, config.max_memory_size),
+            .config = config,
+            .stats = InspectorStats{},
+        };
+    }
+    
+    // REVM/EVMOne pattern: inline hints for hot paths
+    pub inline fn step(self: *HighPerformanceInspector, interp: anytype, context: anytype) void {
+        if (!self.config.enable_step_tracing) return; // Early exit for performance
+        
+        // Fast path with minimal allocations
+        if (self.config.atomic_stats) {
+            self.stats.increment_steps_atomic();
+        } else {
+            self.stats.total_steps += 1;
+        }
+        
+        // Only trace if buffer has space (avoid reallocations)
+        if (self.config.use_pre_allocated_buffers and self.trace_buffer.items.len < self.trace_buffer.capacity) {
+            self.trace_buffer.appendAssumeCapacity(TraceEntry{
+                .pc = interp.pc(),
+                .opcode = interp.current_opcode(),
+                .gas = interp.gas_remaining(),
+                .stack_size = interp.stack_size(),
+            });
+        }
+    }
+    
+    // Configurable detail level (Geth optimization pattern)
+    pub inline fn memory_read(self: *HighPerformanceInspector, offset: u32, size: u32, data: []const u8) void {
+        if (!self.config.enable_memory_tracing) return;
+        
+        // Update stats
+        if (self.config.atomic_stats) {
+            _ = @atomicRmw(u64, &self.stats.total_memory_accesses, .Add, 1, .Monotonic);
+        } else {
+            self.stats.total_memory_accesses += 1;
+        }
+        
+        // Only store memory data if under size limit
+        if (data.len <= self.config.max_memory_size) {
+            // Use pre-allocated buffer to avoid allocations
+            if (self.memory_buffer.capacity >= data.len) {
+                self.memory_buffer.clearRetainingCapacity();
+                self.memory_buffer.appendSliceAssumeCapacity(data);
+            }
+        }
+    }
+    
+    // Zero-cost abstraction pattern
+    pub inline fn call_if_enabled(
+        self: *HighPerformanceInspector, 
+        comptime method: []const u8, 
+        args: anytype
+    ) void {
+        const enable_field = "enable_" ++ method ++ "_tracing";
+        if (@field(self.config, enable_field)) {
+            @field(self, method)(args);
+        }
+    }
+};
+
+// Compile-time method resolution (zero-cost abstraction)
+pub fn create_optimized_inspector(comptime T: type, comptime config: InspectorConfig) type {
+    return struct {
+        inner: T,
+        
+        const Self = @This();
+        
+        // Only generate methods that are enabled in config
+        pub usingnamespace if (config.enable_step_tracing) struct {
+            pub inline fn step(self: *Self, interp: anytype, context: anytype) void {
+                self.inner.step(interp, context);
+            }
+        } else struct {};
+        
+        pub usingnamespace if (config.enable_memory_tracing) struct {
+            pub inline fn memory_read(self: *Self, offset: u32, size: u32, data: []const u8) void {
+                self.inner.memory_read(offset, size, data);
+            }
+        } else struct {};
+        
+        pub usingnamespace if (config.enable_storage_tracing) struct {
+            pub inline fn storage_read(self: *Self, address: Address, key: U256, value: U256) void {
+                self.inner.storage_read(address, key, value);
+            }
+        } else struct {};
+    };
+}
+```
+
+### Complete Integration Patterns
+
+<explanation>
+The final piece involves complete integration patterns showing how inspectors work within the full execution loop, including atomic interrupt handling for tracer control, memory chunking strategies for large data captures, and comprehensive lifecycle management across frame boundaries.
+</explanation>
+
+**REVM's Complete Inspection Loop** (Production Integration Pattern):
+```zig
+// Complete inspection loop integration (REVM handler pattern)
+pub fn inspect_complete_execution_loop(
+    context: anytype,
+    interpreter: anytype,
+    inspector: anytype,
+    instructions: anytype,
+) InstructionResult {
+    interpreter.reset_control();
+    
+    var log_count = context.journal().logs().len;
+    
+    // Main inspection loop (REVM pattern)
+    while (interpreter.control.instruction_result().is_continue()) {
+        // Get current opcode
+        const opcode = interpreter.bytecode.opcode();
+        
+        // Pre-instruction inspector hook (REVM pattern)
+        inspector.step(interpreter, context);
+        if (interpreter.control.instruction_result() != .Continue) {
+            break;
+        }
+        
+        // Safe bytecode advancement (REVM pattern)
+        interpreter.bytecode.relative_jump(1);
+        
+        // Execute instruction with context
+        const instruction_context = InstructionContext{
+            .interpreter = interpreter,
+            .host = context,
+        };
+        instructions[opcode](instruction_context);
+        
+        // Check for new logs and emit log hooks (REVM pattern)
+        const new_log_count = context.journal().logs().len;
+        if (log_count < new_log_count) {
+            const log = context.journal().logs().items[new_log_count - 1];
+            inspector.log(interpreter, context, log);
+            log_count = new_log_count;
+        }
+        
+        // Post-instruction hook (REVM pattern)
+        inspector.step_end(interpreter, context);
+    }
+    
+    const next_action = interpreter.take_next_action();
+    
+    // Handle selfdestruct with inspector notification (REVM pattern)
+    if (next_action == .Return and next_action.Return.result == .SelfDestruct) {
+        if (context.journal().journal().items.len > 0) {
+            const last_entry = context.journal().journal().items[context.journal().journal().items.len - 1];
+            switch (last_entry) {
+                .AccountDestroyed => |entry| {
+                    inspector.selfdestruct(entry.address, entry.target, entry.had_balance);
+                },
+                .BalanceTransfer => |entry| {
+                    inspector.selfdestruct(entry.from, entry.to, entry.balance);
+                },
+                else => {},
+            }
+        }
+    }
+    
+    return next_action;
+}
+
+// Frame lifecycle management (REVM pattern)
+pub fn frame_lifecycle_with_inspection(
+    context: anytype,
+    inspector: anytype,
+    frame_input: anytype,
+) FrameResult {
+    // Frame start inspection (REVM pattern)
+    if (frame_start_inspection(context, inspector, frame_input)) |result| {
+        frame_end_inspection(context, inspector, frame_input, result);
+        return result;
+    }
+    
+    // Execute frame normally
+    const result = execute_frame_normally(context, frame_input);
+    
+    // Frame end inspection (REVM pattern)
+    frame_end_inspection(context, inspector, frame_input, result);
+    
+    return result;
+}
+
+fn frame_start_inspection(
+    context: anytype,
+    inspector: anytype,
+    frame_input: anytype,
+) ?FrameResult {
+    return switch (frame_input.*) {
+        .Call => |*inputs| inspector.call(context, inputs),
+        .Create => |*inputs| inspector.create(context, inputs),
+        .EOFCreate => |*inputs| inspector.eofcreate(context, inputs),
+    };
+}
+
+fn frame_end_inspection(
+    context: anytype,
+    inspector: anytype,
+    frame_input: anytype,
+    frame_output: anytype,
+) void {
+    switch (frame_output) {
+        .Call => |*outcome| {
+            const inputs = &frame_input.Call;
+            inspector.call_end(context, inputs, outcome);
+        },
+        .Create => |*outcome| {
+            const inputs = &frame_input.Create;
+            inspector.create_end(context, inputs, outcome);
+        },
+        .EOFCreate => |*outcome| {
+            const inputs = &frame_input.EOFCreate;
+            inspector.eofcreate_end(context, inputs, outcome);
+        },
+    }
+}
+```
+
+**Advanced Structured Logger** (Geth Production Pattern):
+```zig
+// Advanced structured logger with all Geth optimizations
+pub const AdvancedStructLogger = struct {
+    allocator: std.mem.Allocator,
+    config: LoggerConfig,
+    
+    // State tracking
+    storage: std.HashMap(Address, Storage, AddressContext, std.hash_map.default_max_load_percentage),
+    output: std.ArrayList(u8),
+    execution_error: ?ExecutionError,
+    used_gas: u64,
+    
+    // Output management (Geth pattern)
+    writer: ?std.io.Writer(std.fs.File, std.os.WriteError, std.fs.File.write),
+    logs: std.ArrayList(std.json.Value),
+    result_size: usize,
+    
+    // Atomic interrupt handling (Geth pattern)
+    interrupt: std.atomic.Atomic(bool),
+    reason: ?ExecutionError,
+    skip_processing: bool, // For system calls
+    
+    pub const LoggerConfig = struct {
+        enable_memory: bool = false,
+        disable_stack: bool = false,
+        disable_storage: bool = false,
+        enable_return_data: bool = false,
+        size_limit: usize = 0, // 0 means unlimited
+        
+        // Chain overrides for future fork rules
+        chain_overrides: ?ChainConfig = null,
+    };
+    
+    pub const StructLogEntry = struct {
+        pc: u64,
+        op: u8,
+        gas: u64,
+        gas_cost: u64,
+        memory: ?[]u8 = null,
+        memory_size: usize,
+        stack: ?[]U256 = null,
+        return_data: ?[]u8 = null,
+        storage: ?std.HashMap(B256, B256, B256Context, std.hash_map.default_max_load_percentage) = null,
+        depth: u32,
+        refund_counter: u64,
+        execution_error: ?ExecutionError = null,
+        
+        // Human-readable formatting (Geth pattern)
+        pub fn write_to(self: *const StructLogEntry, writer: anytype) !void {
+            try writer.print("{s:<16} pc={:0>8} gas={} cost={}", .{
+                get_opcode_name(self.op), self.pc, self.gas, self.gas_cost
+            });
+            
+            if (self.execution_error) |err| {
+                try writer.print(" ERROR: {}", .{err});
+            }
+            try writer.print("\n", .{});
+            
+            // Stack output (Geth pattern)
+            if (self.stack) |stack| {
+                try writer.print("Stack:\n", .{});
+                var i: usize = stack.len;
+                while (i > 0) : (i -= 1) {
+                    try writer.print("{:0>8}  0x{}\n", .{ stack.len - i, stack[i - 1] });
+                }
+            }
+            
+            // Memory output with hex dump (Geth pattern)
+            if (self.memory) |memory| {
+                try writer.print("Memory:\n", .{});
+                try writer.print("{s}", .{hex_dump(memory)});
+            }
+            
+            // Storage output (Geth pattern)
+            if (self.storage) |storage| {
+                try writer.print("Storage:\n", .{});
+                var iterator = storage.iterator();
+                while (iterator.next()) |entry| {
+                    try writer.print("0x{}: 0x{}\n", .{ entry.key_ptr.*, entry.value_ptr.* });
+                }
+            }
+            
+            // Return data output (Geth pattern)
+            if (self.return_data) |return_data| {
+                try writer.print("ReturnData:\n", .{});
+                try writer.print("{s}", .{hex_dump(return_data)});
+            }
+            
+            try writer.print("\n", .{});
+        }
+        
+        // Legacy JSON conversion (Geth compatibility pattern)
+        pub fn to_legacy_json(self: *const StructLogEntry, allocator: std.mem.Allocator) !std.json.Value {
+            var obj = std.json.ObjectMap.init(allocator);
+            
+            try obj.put("pc", std.json.Value{ .integer = @intCast(i64, self.pc) });
+            try obj.put("op", std.json.Value{ .string = get_opcode_name(self.op) });
+            try obj.put("gas", std.json.Value{ .integer = @intCast(i64, self.gas) });
+            try obj.put("gasCost", std.json.Value{ .integer = @intCast(i64, self.gas_cost) });
+            try obj.put("depth", std.json.Value{ .integer = @intCast(i64, self.depth) });
+            try obj.put("refund", std.json.Value{ .integer = @intCast(i64, self.refund_counter) });
+            
+            if (self.execution_error) |err| {
+                try obj.put("error", std.json.Value{ .string = @errorName(err) });
+            }
+            
+            // Stack as hex strings (Geth legacy format)
+            if (self.stack) |stack| {
+                var stack_array = std.json.Array.init(allocator);
+                for (stack) |value| {
+                    const hex_str = try std.fmt.allocPrint(allocator, "0x{}", .{value});
+                    try stack_array.append(std.json.Value{ .string = hex_str });
+                }
+                try obj.put("stack", std.json.Value{ .array = stack_array });
+            }
+            
+            // Memory as 64-char chunks (Geth legacy format)
+            if (self.memory) |memory| {
+                var memory_array = std.json.Array.init(allocator);
+                var i: usize = 0;
+                while (i < memory.len) : (i += 32) {
+                    const end = @min(i + 32, memory.len);
+                    const chunk_hex = try std.fmt.allocPrint(allocator, "{}", .{std.fmt.fmtSliceHexLower(memory[i..end])});
+                    try memory_array.append(std.json.Value{ .string = chunk_hex });
+                }
+                try obj.put("memory", std.json.Value{ .array = memory_array });
+            }
+            
+            // Storage map (Geth legacy format)
+            if (self.storage) |storage| {
+                var storage_obj = std.json.ObjectMap.init(allocator);
+                var iterator = storage.iterator();
+                while (iterator.next()) |entry| {
+                    const key_hex = try std.fmt.allocPrint(allocator, "{}", .{entry.key_ptr.*});
+                    const value_hex = try std.fmt.allocPrint(allocator, "{}", .{entry.value_ptr.*});
+                    try storage_obj.put(key_hex, std.json.Value{ .string = value_hex });
+                }
+                try obj.put("storage", std.json.Value{ .object = storage_obj });
+            }
+            
+            return std.json.Value{ .object = obj };
+        }
+    };
+    
+    pub fn init(allocator: std.mem.Allocator, config: LoggerConfig) AdvancedStructLogger {
+        return AdvancedStructLogger{
+            .allocator = allocator,
+            .config = config,
+            .storage = std.HashMap(Address, Storage, AddressContext, std.hash_map.default_max_load_percentage).init(allocator),
+            .output = std.ArrayList(u8).init(allocator),
+            .execution_error = null,
+            .used_gas = 0,
+            .writer = null,
+            .logs = std.ArrayList(std.json.Value).init(allocator),
+            .result_size = 0,
+            .interrupt = std.atomic.Atomic(bool).init(false),
+            .reason = null,
+            .skip_processing = false,
+        };
+    }
+    
+    // Atomic interrupt handling (Geth pattern)
+    pub fn stop(self: *AdvancedStructLogger, reason: ExecutionError) void {
+        self.reason = reason;
+        self.interrupt.store(true, .Monotonic);
+    }
+    
+    pub fn is_interrupted(self: *const AdvancedStructLogger) bool {
+        return self.interrupt.load(.Monotonic);
+    }
+    
+    // Step hook with full Geth functionality
+    pub fn step(self: *AdvancedStructLogger, interp: anytype, context: anytype) void {
+        // Early exit if interrupted
+        if (self.is_interrupted() or self.skip_processing) return;
+        
+        // Check size limit (Geth optimization)
+        if (self.config.size_limit != 0 and self.result_size > self.config.size_limit) {
+            return;
+        }
+        
+        const opcode = interp.current_opcode();
+        const pc = interp.pc();
+        const gas = interp.gas_remaining();
+        const gas_cost = interp.gas_cost();
+        const depth = context.call_depth();
+        const contract_addr = interp.contract_address();
+        
+        // Create structured log entry
+        var log_entry = StructLogEntry{
+            .pc = pc,
+            .op = opcode,
+            .gas = gas,
+            .gas_cost = gas_cost,
+            .memory_size = interp.memory_size(),
+            .depth = depth,
+            .refund_counter = context.state_db.get_refund(),
+        };
+        
+        // Capture memory if enabled (Geth pattern)
+        if (self.config.enable_memory) {
+            const memory_data = interp.memory_data();
+            log_entry.memory = self.allocator.dupe(u8, memory_data) catch null;
+        }
+        
+        // Capture stack if not disabled (Geth pattern)
+        if (!self.config.disable_stack) {
+            const stack_data = interp.stack_data();
+            log_entry.stack = self.allocator.dupe(U256, stack_data) catch null;
+        }
+        
+        // Capture storage for SLOAD/SSTORE (Geth pattern)
+        if (!self.config.disable_storage and (opcode == 0x54 or opcode == 0x55)) { // SLOAD or SSTORE
+            if (self.storage.getPtr(contract_addr) == null) {
+                self.storage.put(contract_addr, Storage.init(self.allocator)) catch return;
+            }
+            
+            var contract_storage = self.storage.getPtr(contract_addr).?;
+            
+            if (opcode == 0x54 and interp.stack_size() >= 1) { // SLOAD
+                const key = B256.from_u256(interp.stack_peek(0));
+                const value = B256.from_bytes(context.state_db.get_state(contract_addr, key));
+                contract_storage.put(key, value) catch return;
+            } else if (opcode == 0x55 and interp.stack_size() >= 2) { // SSTORE
+                const key = B256.from_u256(interp.stack_peek(0));
+                const value = B256.from_u256(interp.stack_peek(1));
+                contract_storage.put(key, value) catch return;
+            }
+            
+            // Clone storage for this log entry
+            log_entry.storage = contract_storage.clone() catch null;
+        }
+        
+        // Output to writer or store in buffer (Geth pattern)
+        if (self.writer) |writer| {
+            log_entry.write_to(writer) catch {};
+        } else {
+            const json_entry = log_entry.to_legacy_json(self.allocator) catch return;
+            const json_bytes = std.json.stringify(json_entry, .{}, self.allocator) catch return;
+            self.result_size += json_bytes.len;
+            self.logs.append(json_entry) catch return;
+        }
+    }
+    
+    // System call handling (Geth pattern)
+    pub fn on_system_call_start(self: *AdvancedStructLogger) void {
+        self.skip_processing = true;
+    }
+    
+    pub fn on_system_call_end(self: *AdvancedStructLogger) void {
+        self.skip_processing = false;
+    }
+    
+    // Execution result generation (Geth pattern)
+    pub fn get_execution_result(self: *const AdvancedStructLogger) !std.json.Value {
+        if (self.reason) |reason| {
+            return error.TracingAborted;
+        }
+        
+        const failed = self.execution_error != null;
+        var return_data = self.output.items;
+        
+        // Return empty data for failed execution unless it's a revert
+        if (failed and self.execution_error != ExecutionError.Revert) {
+            return_data = &[_]u8{};
+        }
+        
+        var result = std.json.ObjectMap.init(self.allocator);
+        try result.put("gas", std.json.Value{ .integer = @intCast(i64, self.used_gas) });
+        try result.put("failed", std.json.Value{ .bool = failed });
+        try result.put("returnValue", std.json.Value{ .string = try std.fmt.allocPrint(self.allocator, "0x{}", .{std.fmt.fmtSliceHexLower(return_data)}) });
+        try result.put("structLogs", std.json.Value{ .array = std.json.Array.fromOwnedSlice(self.allocator, try self.allocator.dupe(std.json.Value, self.logs.items)) });
+        
+        return std.json.Value{ .object = result };
+    }
+};
+
+// Utility functions
+fn hex_dump(data: []const u8) []const u8 {
+    // Implementation of hex dump similar to Go's hex.Dump
+    // Returns formatted hex dump string
+    // ... implementation details ...
+    return "hex dump placeholder";
+}
+```
+
+This comprehensive collection of production-ready patterns provides the foundation for implementing a high-performance, flexible inspector framework in the Zig EVM, drawing from battle-tested approaches while leveraging Zig's unique compile-time capabilities and performance characteristics.
+
 ## Implementation Requirements
 
 ### Core Functionality
