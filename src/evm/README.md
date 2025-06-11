@@ -85,6 +85,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 ## ✅ Implementation Status
 
 ### Core EVM Architecture
+
 - [x] **VM Implementation** (`vm.zig`) - Core virtual machine orchestrating execution
 - [x] **Frame Management** (`frame.zig`) - Execution contexts with stack, memory, and PC
 - [x] **Memory Management** (`memory.zig`) - Byte-addressable with expansion and copy-on-write semantics
@@ -94,12 +95,14 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **State Management** (`state/`) - World state interface with account and storage handling
 
 ### Stack Implementation (`stack/`)
+
 - [x] **Core Stack** (`stack.zig`) - 1024 element capacity with overflow/underflow protection
 - [x] **Stack Validation** (`stack_validation.zig`) - Pre-execution bounds checking
 - [x] **Validation Patterns** (`validation_patterns.zig`) - Common stack operation patterns
 - [x] **Unsafe Operations** - High-performance batch operations (pop2_push1_unsafe, etc.)
 
 ### Arithmetic Opcodes (`execution/arithmetic.zig`)
+
 - [x] **ADD** (0x01) - Addition with overflow wrapping
 - [x] **MUL** (0x02) - Multiplication with overflow wrapping
 - [x] **SUB** (0x03) - Subtraction with underflow wrapping
@@ -113,6 +116,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **SIGNEXTEND** (0x0B) - Sign extension operation
 
 ### Comparison Opcodes (`execution/comparison.zig`)
+
 - [x] **LT** (0x10) - Less than comparison
 - [x] **GT** (0x11) - Greater than comparison
 - [x] **SLT** (0x12) - Signed less than
@@ -121,6 +125,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **ISZERO** (0x15) - Zero check
 
 ### Bitwise Opcodes (`execution/bitwise.zig`)
+
 - [x] **AND** (0x16) - Bitwise AND
 - [x] **OR** (0x17) - Bitwise OR
 - [x] **XOR** (0x18) - Bitwise XOR
@@ -131,9 +136,11 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **SAR** (0x1D) - Arithmetic shift right
 
 ### Crypto Opcodes (`execution/crypto.zig`)
+
 - [x] **SHA3/KECCAK256** (0x20) - Keccak-256 hash function
 
 ### Environment Opcodes (`execution/environment.zig`)
+
 - [x] **ADDRESS** (0x30) - Current contract address
 - [x] **BALANCE** (0x31) - Account balance lookup
 - [x] **ORIGIN** (0x32) - Transaction origin
@@ -153,6 +160,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **SELFBALANCE** (0x47) - Balance of current contract
 
 ### Block Information Opcodes (`execution/block.zig`)
+
 - [x] **BLOCKHASH** (0x40) - Block hash lookup
 - [x] **COINBASE** (0x41) - Block beneficiary
 - [x] **TIMESTAMP** (0x42) - Block timestamp
@@ -165,6 +173,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **BLOBBASEFEE** (0x4A) - Blob base fee (EIP-4844)
 
 ### Stack Opcodes (`execution/stack.zig`)
+
 - [x] **POP** (0x50) - Remove top stack item
 - [x] **PUSH0** (0x5F) - Push zero (EIP-3855)
 - [x] **PUSH1-PUSH32** (0x60-0x7F) - Push 1-32 bytes onto stack
@@ -172,6 +181,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **SWAP1-SWAP16** (0x90-0x9F) - Swap stack items
 
 ### Memory Opcodes (`execution/memory.zig`)
+
 - [x] **MLOAD** (0x51) - Load word from memory
 - [x] **MSTORE** (0x52) - Store word to memory
 - [x] **MSTORE8** (0x53) - Store byte to memory
@@ -179,12 +189,14 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **MCOPY** (0x5E) - Copy memory to memory (EIP-5656)
 
 ### Storage Opcodes (`execution/storage.zig`)
+
 - [x] **SLOAD** (0x54) - Load from storage
 - [x] **SSTORE** (0x55) - Store to storage
 - [x] **TLOAD** (0x5C) - Load from transient storage (EIP-1153)
 - [x] **TSTORE** (0x5D) - Store to transient storage (EIP-1153)
 
 ### Control Flow Opcodes (`execution/control.zig`)
+
 - [x] **JUMP** (0x56) - Unconditional jump
 - [x] **JUMPI** (0x57) - Conditional jump
 - [x] **PC** (0x58) - Program counter
@@ -195,6 +207,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **SELFDESTRUCT** (0xFF) - 🔴 Destroy contract and transfer balance | [Enhanced](./prompts/implement-selfdestruct-opcode-enhanced.md)
 
 ### System Opcodes (`execution/system.zig`)
+
 - [x] **GAS** (0x5A) - Remaining gas
 - [x] **CREATE** (0xF0) - 🟡 Create contract (basic implementation)
 - [x] **CREATE2** (0xF5) - 🟡 Create contract with salt (basic implementation)
@@ -205,6 +218,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **INVALID** (0xFE) - Invalid opcode
 
 ### Logging Opcodes (`execution/log.zig`)
+
 - [x] **LOG0** (0xA0) - Emit log with 0 topics
 - [x] **LOG1** (0xA1) - Emit log with 1 topic
 - [x] **LOG2** (0xA2) - Emit log with 2 topics
@@ -212,12 +226,14 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **LOG4** (0xA4) - Emit log with 4 topics
 
 ### Gas & Access Lists
+
 - [x] **Gas Metering** (`constants/gas_constants.zig`) - Comprehensive gas costs for all opcodes
 - [x] **Access Lists** (`access_list/`) - EIP-2929/2930 warm/cold storage and account tracking
 - [x] **Memory Expansion Gas** - Dynamic gas calculation for memory growth
 - [x] **Dynamic Gas Costs** - Context-dependent gas costs (SSTORE, calls, etc.)
 
 ### Hardfork Support (`hardforks/`)
+
 - [x] **Hardfork Detection** (`hardfork.zig`) - Frontier through Cancun
 - [x] **Chain Rules** (`chain_rules.zig`) - Fork-specific validation and behavior
 - [x] **Operation Availability** - Opcode availability by hardfork
@@ -228,6 +244,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **EIP-5656** - MCOPY opcode (Cancun)
 
 ### External Modules
+
 - [x] **Address System** (`src/Address/`) - Address type and utilities
 - [x] **Trie Implementation** (`src/Trie/`) - Merkle Patricia Trie with optimizations
   - [x] **Hash Builders** - Multiple hash building strategies
@@ -235,6 +252,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
   - [x] **Optimized Branches** - Performance optimizations
 
 ### Advanced Features
+
 - [x] **Static Call Protection** - Prevents state modifications in read-only contexts
 - [x] **Call Depth Limits** - 1024 call depth enforcement
 - [x] **Code Analysis** (`contract/code_analysis.zig`) - JUMPDEST validation and bytecode analysis
@@ -245,6 +263,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 ### Missing Features
 
 #### Critical System Features
+
 - [ ] 🔴 **WASM Build** - [Currently broken, needs fixing as well as integration into the overall Tevm typescript code](./prompts/implement-wasm-build-fix.md)
 - [x] **Journaling/State Reverting** - Complete state snapshots for proper revert handling ✅
 - [x] **Database Interface/Traits** - Pluggable database abstraction for state management ✅
@@ -254,17 +273,20 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
   - [x] **Return Data Handling** - Complete RETURNDATASIZE/RETURNDATACOPY after calls ✅
   - [x] **Value Transfer Logic** - ETH transfer mechanics in calls ✅
 
-#### Precompiled Contracts (1/17 implemented)
+#### Precompiled Contracts (2/17 implemented)
+
 - [ ] 🟡 **Standard Precompiles**
-  - [ ] **ECRECOVER** (0x01) - [Elliptic curve signature recovery](./prompts/implement-ecrecover-precompile.md) | [Enhanced](./prompts/implement-ecrecover-precompile-enhanced.md)
-  - [ ] **SHA256** (0x02) - [SHA-256 hash function](./prompts/implement-sha256-precompile.md)
+  - [🔄] review with more context please **ECRECOVER** (0x01) - [Elliptic curve signature recovery](./prompts/implement-ecrecover-precompile.md) | [Enhanced](./prompts/implement-ecrecover-precompile-enhanced.md)
+  - [x] review with more context please **SHA256** (0x02) - [SHA-256 hash function](./prompts/implement-sha256-precompile.md)
   - [ ] **RIPEMD160** (0x03) - [RIPEMD-160 hash function](./prompts/implement-ripemd160-precompile.md)
   - [x] **IDENTITY** (0x04) - Identity/copy function ✅
   - [ ] **MODEXP** (0x05) - [Modular exponentiation](./prompts/implement-modexp-precompile.md) | [Enhanced](./prompts/implement-modexp-precompile-enhanced.md)
   - [ ] **ECADD** (0x06) - Elliptic curve point addition
   - [ ] **ECMUL** (0x07) - Elliptic curve point multiplication
   - [ ] **ECPAIRING** (0x08) - [Elliptic curve pairing check](./prompts/implement-ecpairing-precompile.md) | [Enhanced](./prompts/implement-ecpairing-precompile-enhanced.md)
+  - [ ] **ECPAIRING** (0x08) - Elliptic curve pairing check
   - [ ] **BLAKE2F** (0x09) - Blake2f compression function
+  - [ ] **BLAKE2F** (0x09) - [Blake2f compression function](./prompts/implement-blake2f-precompile.md)
 - [x] **KZG Point Evaluation** (0x0A) - EIP-4844 blob verification precompile ✅
 - [ ] 🟡 **BLS12-381 Precompiles** (EIP-2537)
   - [ ] **G1ADD** (0x0B) - BLS12-381 G1 addition
@@ -277,6 +299,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [ ] 🟡 **OP Stack Precompiles** - [P256VERIFY (RIP-7212) for SECP256R1 signature verification](./prompts/implement-op-stack-precompiles.md)
 
 #### Advanced Gas & Performance
+
 - [ ] 🟡 **Gas Refunds**
   - [ ] **SSTORE Refunds** - [EIP-3529 compliant refund mechanism](./prompts/implement-gas-refunds-sstore.md)
   - [ ] **SELFDESTRUCT Refunds** - Contract destruction refunds (pre-London)
@@ -287,6 +310,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
   - [ ] **Dynamic Gas Edge Cases** - [Complex memory growth scenarios](./prompts/implement-dynamic-gas-edge-cases-enhanced.md)
 
 #### EIP Support & Advanced Hardforks
+
 - [x] **Complete EIP-4844 Support** - Blob transaction handling beyond opcodes ✅
 - [x] **EIP-7702** - Complete EOA account code delegation implementation ✅
 - [ ] 🟡 **L2 Chain Support**
@@ -302,6 +326,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [ ] 🟡 **Future Prague Support** - Upcoming hardfork preparation
 
 #### Development Infrastructure
+
 - [ ] 🟢 **Runtime Inspection**
   - [ ] **Comprehensive Tracing** - [Step-by-step execution monitoring](./prompts/implement-comprehensive-tracing-enhanced.md)
   - [ ] **EIP-3155 Tracing** - [Standard execution trace format](./prompts/implement-eip3155-tracing.md)
@@ -315,6 +340,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [ ] 🟢 **Handler Architecture** - Configurable execution handlers for pre/post processing
 
 #### Production Hardening
+
 - [x] **Robustness**
   - [x] **DoS Protection** - Comprehensive gas limit enforcement ✅
   - [x] **Edge Case Handling** - Real-world scenario validation ✅
@@ -327,6 +353,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
   - [ ] **Account Status Tracking** - [Detailed account lifecycle management](./prompts/implement-account-status-tracking-enhanced.md)
 
 #### Performance & Optimization
+
 - [ ] 🟢 **Low-Level Optimizations**
   - [ ] **SIMD Optimizations** - Vectorized operations for 256-bit math
   - [ ] **Memory Allocator Tuning** - [Specialized EVM memory allocators](./prompts/implement-memory-allocator-tuning-enhanced.md)
@@ -342,6 +369,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
   - [ ] **CI/CD WASM Size Check** - [Automated bundle size regression testing](./prompts/implement-cicd-wasm-size-check.md)
 
 #### Advanced Architecture Features
+
 - [ ] 🟢 **Modularity**
   - [ ] **Modular Context System** - [Pluggable block, transaction, and configuration contexts](./prompts/implement-modular-context-system-enhanced.md)
   - [ ] **Custom Chain Framework** - [Easy implementation of custom blockchain variants](./prompts/implement-custom-chain-framework-enhanced.md)
