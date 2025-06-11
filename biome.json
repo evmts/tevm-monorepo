@@ -1,100 +1,101 @@
 {
-	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-	"organizeImports": {
-		"enabled": true
-	},
-	"files": {
-		"ignore": [
-			".nx",
-			"g/**/*",
-			"node_modules",
-			"package.json",
-			".vercel",
-			".tevm",
-			"**/.tevm",
-			"**/.vercel",
-			"**/package.json",
-			"**/coverage",
-			"**/node_modules",
-			"**/dist",
-			"**/types",
-			"**/artifacts",
-			"**/lib",
-			"**/fixtures",
-			"**/.next",
-			"**/.vitepress/cache",
-			"**/.vitepress/dist",
-			"scaffold-tevm",
-			"docs/**/*",
-			"tevm/**/*",
-			"bundler/**/*",
-			".vscode",
-			".changeset",
-			".devcontainer",
-			"examples/svelte-ethers/.svelte-kit",
-			"app/.svelte-kit",
-			"**/.svelte-kit",
-			"examples/next",
-			"cli",
-			"bundler-packages/config/src/fixtures",
-			"bundler-packages/cli/fixtures",
-			"**/pkg/**/*.js",
-			"**/pkg/**/*.wasm",
-			"evmone/**",
-			"revm/**"
-		]
-	},
-	"formatter": {
-		"enabled": true,
-		"formatWithErrors": false,
-		"indentStyle": "tab",
-		"indentWidth": 2,
-		"lineWidth": 120
-	},
-	"linter": {
-		"enabled": true,
-		"rules": {
-			"recommended": true,
-			"style": {
-				"useImportType": "off",
-				"noNonNullAssertion": "off"
-			},
-			"performance": {
-				"noDelete": "off",
-				"noAccumulatingSpread": "off"
-			},
-			"complexity": {
-				"noForEach": "off",
-				"noBannedTypes": "off",
-				"useLiteralKeys": "off"
-			},
-			"suspicious": {
-				"noExplicitAny": "off",
-				"noGlobalAssign": "off",
-				"noArrayIndexKey": "off",
-				"noConfusingVoidType": "off",
-				"noAssignInExpressions": "off",
-				"noRedeclare": "off",
-				"noImplicitAnyLet": "off"
-			},
-			"a11y": {
-				"useKeyWithClickEvents": "off",
-				"useSemanticElements": "off",
-				"useFocusableInteractive": "off"
-			},
-			"correctness": {
-				"useExhaustiveDependencies": "off"
-			},
-			"security": {
-				"noDangerouslySetInnerHtml": "off"
-			}
-		}
-	},
-	"javascript": {
-		"formatter": {
-			"quoteStyle": "single",
-			"trailingCommas": "all",
-			"semicolons": "asNeeded"
-		}
-	}
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "organizeImports": {
+    "enabled": true
+  },
+  "files": {
+    "ignore": [
+      ".nx",
+      "g/**/*",
+      "node_modules",
+      "package.json",
+      ".vercel",
+      ".tevm",
+      "src/evm/prompts/**/*",
+      "**/.tevm",
+      "**/.vercel",
+      "**/package.json",
+      "**/coverage",
+      "**/node_modules",
+      "**/dist",
+      "**/types",
+      "**/artifacts",
+      "**/lib",
+      "**/fixtures",
+      "**/.next",
+      "**/.vitepress/cache",
+      "**/.vitepress/dist",
+      "scaffold-tevm",
+      "docs/**/*",
+      "tevm/**/*",
+      "bundler/**/*",
+      ".vscode",
+      ".changeset",
+      ".devcontainer",
+      "examples/svelte-ethers/.svelte-kit",
+      "app/.svelte-kit",
+      "**/.svelte-kit",
+      "examples/next",
+      "cli",
+      "bundler-packages/config/src/fixtures",
+      "bundler-packages/cli/fixtures",
+      "**/pkg/**/*.js",
+      "**/pkg/**/*.wasm",
+      "evmone/**",
+      "revm/**"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": false,
+    "indentStyle": "tab",
+    "indentWidth": 2,
+    "lineWidth": 120
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "style": {
+        "useImportType": "off",
+        "noNonNullAssertion": "off"
+      },
+      "performance": {
+        "noDelete": "off",
+        "noAccumulatingSpread": "off"
+      },
+      "complexity": {
+        "noForEach": "off",
+        "noBannedTypes": "off",
+        "useLiteralKeys": "off"
+      },
+      "suspicious": {
+        "noExplicitAny": "off",
+        "noGlobalAssign": "off",
+        "noArrayIndexKey": "off",
+        "noConfusingVoidType": "off",
+        "noAssignInExpressions": "off",
+        "noRedeclare": "off",
+        "noImplicitAnyLet": "off"
+      },
+      "a11y": {
+        "useKeyWithClickEvents": "off",
+        "useSemanticElements": "off",
+        "useFocusableInteractive": "off"
+      },
+      "correctness": {
+        "useExhaustiveDependencies": "off"
+      },
+      "security": {
+        "noDangerouslySetInnerHtml": "off"
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "trailingCommas": "all",
+      "semicolons": "asNeeded"
+    }
+  }
 }
