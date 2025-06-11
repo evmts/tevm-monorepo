@@ -181,7 +181,7 @@ pub fn estimate_gas(address: Address, input_size: usize, chain_rules: ChainRules
         2 => sha256.calculate_gas_checked(input_size), // SHA256
         3 => error.NotImplemented, // RIPEMD160 - TODO
         5 => error.NotImplemented, // MODEXP - TODO
-        6 => ecadd.calculate_gas_checked(input_size), // ECADD
+        6 => ecadd.calculate_gas(chain_rules), // ECADD - hardfork-aware
         7 => error.NotImplemented, // ECMUL - TODO
         8 => error.NotImplemented, // ECPAIRING - TODO
         9 => error.NotImplemented, // BLAKE2F - TODO
