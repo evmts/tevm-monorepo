@@ -268,3 +268,210 @@ test "BLAKE2F endianness correctness" {
     // Just verify the function executed successfully with proper endianness handling
     try testing.expectEqual(@as(u64, 1), result.get_gas_used());
 }
+
+// EIP-152 Official Test Vectors
+// These test vectors are from the official EIP-152 specification
+
+test "BLAKE2F EIP-152 test vector 4 - known RFC vector" {
+    // Test vector 4 from EIP-152: rounds=12, final=true
+    const input_hex = "0000000c48c9bdf267e6096a3ba7ca8485ae67bb2bf894fe72f36e3cf1361d5f3af54fa5d182e6ad7f520e511f6c3e2b8c68059b6bbd41fbabd9831f79217e1319cde05b61626300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000001";
+    
+    // Convert hex string to bytes
+    var input: [blake2f.BLAKE2F_INPUT_LENGTH]u8 = undefined;
+    _ = std.fmt.hexToBytes(&input, input_hex) catch unreachable;
+    
+    var output = [_]u8{0} ** blake2f.BLAKE2F_OUTPUT_LENGTH;
+    
+    const result = blake2f.execute(&input, &output, 20);
+    try testing.expect(result.is_success());
+    try testing.expectEqual(@as(u64, 12), result.get_gas_used());
+    
+    // Debug: Print what we got vs what we expected
+    std.debug.print("\nActual output: ", .{});
+    for (output) |byte| {
+        std.debug.print("{X:0>2}", .{byte});
+    }
+    std.debug.print("\n", .{});
+    
+    // Expected output from keep-network/go-ethereum (official test vectors)
+    const expected_hex = "ba80a53f981c4d0d6a2797b69f12f6e94c212f14685ac4b74b12bb6fdbffa2d17d87c5392aab792dc252d5de4533cc9518d38aa8dbf1925ab92386edd4009923";
+    var expected: [blake2f.BLAKE2F_OUTPUT_LENGTH]u8 = undefined;
+    _ = std.fmt.hexToBytes(&expected, expected_hex) catch unreachable;
+    
+    std.debug.print("Expected output: ", .{});
+    for (expected) |byte| {
+        std.debug.print("{X:0>2}", .{byte});
+    }
+    std.debug.print("\n", .{});
+    
+    try testing.expectEqualSlices(u8, &expected, &output);
+}
+
+// TODO: Need to find correct test vector 5 expected output
+// test "BLAKE2F EIP-152 test vector 5 - non-final round" {
+//     // Test vector 5 from EIP-152: rounds=12, final=false  
+//     const input_hex = "0000000c48c9bdf267e6096a3ba7ca8485ae67bb2bf894fe72f36e3cf1361d5f3af54fa5d182e6ad7f520e511f6c3e2b8c68059b6bbd41fbabd9831f79217e1319cde05b61626300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000000";
+//     
+//     var input: [blake2f.BLAKE2F_INPUT_LENGTH]u8 = undefined;
+//     _ = std.fmt.hexToBytes(&input, input_hex) catch unreachable;
+//     
+//     var output = [_]u8{0} ** blake2f.BLAKE2F_OUTPUT_LENGTH;
+//     
+//     const result = blake2f.execute(&input, &output, 20);
+//     try testing.expect(result.is_success());
+//     try testing.expectEqual(@as(u64, 12), result.get_gas_used());
+//     
+//     // Expected output from EIP-152
+//     const expected_hex = "ba80a53f981c4d0d6a2797b69f12f6e94c212f14685ac4b74b12bb6fdbffa2d17d87c5392aab792dc252d5de4533cc9518d38aa8dbf1925ab92386edd4009923";
+//     var expected: [blake2f.BLAKE2F_OUTPUT_LENGTH]u8 = undefined;
+//     _ = std.fmt.hexToBytes(&expected, expected_hex) catch unreachable;
+//     
+//     try testing.expectEqualSlices(u8, &expected, &output);
+// }
+
+test "BLAKE2F EIP-152 test vector 6 - maximum rounds" {
+    // Test vector 6 from EIP-152: rounds=2^32-1 (maximum)
+    const input_hex = "ffffffff48c9bdf267e6096a3ba7ca8485ae67bb2bf894fe72f36e3cf1361d5f3af54fa5d182e6ad7f520e511f6c3e2b8c68059b6bbd41fbabd9831f79217e1319cde05b61626300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000001";
+    
+    var input: [blake2f.BLAKE2F_INPUT_LENGTH]u8 = undefined;
+    _ = std.fmt.hexToBytes(&input, input_hex) catch unreachable;
+    
+    var output = [_]u8{0} ** blake2f.BLAKE2F_OUTPUT_LENGTH;
+    
+    // This would use 2^32-1 gas, which is impractical, so test with insufficient gas
+    const result = blake2f.execute(&input, &output, 1000);
+    try testing.expect(!result.is_success()); // Should fail due to insufficient gas
+}
+
+// TODO: Need to find correct test vector 7 expected output  
+// test "BLAKE2F EIP-152 test vector 7 - single round" {
+//     // Test vector 7 from EIP-152: rounds=1
+//     const input_hex = "0000000148c9bdf267e6096a3ba7ca8485ae67bb2bf894fe72f36e3cf1361d5f3af54fa5d182e6ad7f520e511f6c3e2b8c68059b6bbd41fbabd9831f79217e1319cde05b61626300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000001";
+//     
+//     var input: [blake2f.BLAKE2F_INPUT_LENGTH]u8 = undefined;
+//     _ = std.fmt.hexToBytes(&input, input_hex) catch unreachable;
+//     
+//     var output = [_]u8{0} ** blake2f.BLAKE2F_OUTPUT_LENGTH;
+//     
+//     const result = blake2f.execute(&input, &output, 5);
+//     try testing.expect(result.is_success());
+//     try testing.expectEqual(@as(u64, 1), result.get_gas_used());
+//     
+//     // Expected output from EIP-152
+//     const expected_hex = "fc59093aafa9ab43daae0e914c208b04cc11ccc19e875e61b7bb7c0ad8b3c3a49d1f97d7b6dd3e19f12e40e8def5a3bc22b4d4962a89a7e50f1e4aa9d4afc2f8";
+//     var expected: [blake2f.BLAKE2F_OUTPUT_LENGTH]u8 = undefined;
+//     _ = std.fmt.hexToBytes(&expected, expected_hex) catch unreachable;
+//     
+//     try testing.expectEqualSlices(u8, &expected, &output);
+// }
+
+test "BLAKE2F EIP-152 malformed final flag error" {
+    // Test vector 3 from EIP-152: malformed final flag (2 instead of 0 or 1)
+    const input_hex = "0000000c48c9bdf267e6096a3ba7ca8485ae67bb2bf894fe72f36e3cf1361d5f3af54fa5d182e6ad7f520e511f6c3e2b8c68059b6bbd41fbabd9831f79217e1319cde05b61626300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000002";
+    
+    var input: [blake2f.BLAKE2F_INPUT_LENGTH]u8 = undefined;
+    _ = std.fmt.hexToBytes(&input, input_hex) catch unreachable;
+    
+    var output = [_]u8{0} ** blake2f.BLAKE2F_OUTPUT_LENGTH;
+    
+    const result = blake2f.execute(&input, &output, 20);
+    try testing.expect(!result.is_success()); // Should fail due to invalid final flag
+}
+
+test "BLAKE2F edge case - all possible final flag values" {
+    var input = [_]u8{0} ** blake2f.BLAKE2F_INPUT_LENGTH;
+    var output = [_]u8{0} ** blake2f.BLAKE2F_OUTPUT_LENGTH;
+    
+    // Set minimal rounds
+    std.mem.writeInt(u32, input[0..4], 1, .big);
+    
+    // Test valid final flag values
+    const valid_flags = [_]u8{ 0, 1 };
+    for (valid_flags) |flag| {
+        input[212] = flag;
+        const result = blake2f.execute(&input, &output, 10);
+        try testing.expect(result.is_success());
+    }
+    
+    // Test invalid final flag values
+    const invalid_flags = [_]u8{ 2, 3, 42, 255 };
+    for (invalid_flags) |flag| {
+        input[212] = flag;
+        const result = blake2f.execute(&input, &output, 10);
+        try testing.expect(!result.is_success());
+    }
+}
+
+test "BLAKE2F boundary conditions - extreme gas values" {
+    var input = [_]u8{0} ** blake2f.BLAKE2F_INPUT_LENGTH;
+    var output = [_]u8{0} ** blake2f.BLAKE2F_OUTPUT_LENGTH;
+    input[212] = 0; // Valid final flag
+    
+    // Test with rounds = 0 (minimum gas)
+    std.mem.writeInt(u32, input[0..4], 0, .big);
+    const result_zero = blake2f.execute(&input, &output, 1);
+    try testing.expect(result_zero.is_success());
+    try testing.expectEqual(@as(u64, 0), result_zero.get_gas_used());
+    
+    // Test exact gas limit match
+    std.mem.writeInt(u32, input[0..4], 42, .big);
+    const result_exact = blake2f.execute(&input, &output, 42);
+    try testing.expect(result_exact.is_success());
+    try testing.expectEqual(@as(u64, 42), result_exact.get_gas_used());
+    
+    // Test gas limit one less than needed
+    const result_short = blake2f.execute(&input, &output, 41);
+    try testing.expect(!result_short.is_success());
+}
+
+test "BLAKE2F memory safety - output buffer edge cases" {
+    var input = [_]u8{0} ** blake2f.BLAKE2F_INPUT_LENGTH;
+    std.mem.writeInt(u32, input[0..4], 1, .big);
+    input[212] = 0;
+    
+    // Test with exact output buffer size
+    var output_exact = [_]u8{0} ** blake2f.BLAKE2F_OUTPUT_LENGTH;
+    const result_exact = blake2f.execute(&input, &output_exact, 10);
+    try testing.expect(result_exact.is_success());
+    
+    // Test with larger output buffer
+    var output_large = [_]u8{0} ** (blake2f.BLAKE2F_OUTPUT_LENGTH + 100);
+    const result_large = blake2f.execute(&input, &output_large, 10);
+    try testing.expect(result_large.is_success());
+    
+    // Test with undersized output buffer
+    var output_small = [_]u8{0} ** (blake2f.BLAKE2F_OUTPUT_LENGTH - 1);
+    const result_small = blake2f.execute(&input, &output_small, 10);
+    try testing.expect(!result_small.is_success());
+}
+
+test "BLAKE2F input parsing robustness" {
+    // Test various malformed input sizes
+    const invalid_sizes = [_]usize{ 0, 1, 100, 212, 214, 1000 };
+    
+    for (invalid_sizes) |size| {
+        const invalid_input = std.testing.allocator.alloc(u8, size) catch unreachable;
+        defer std.testing.allocator.free(invalid_input);
+        @memset(invalid_input, 0);
+        
+        var output = [_]u8{0} ** blake2f.BLAKE2F_OUTPUT_LENGTH;
+        const result = blake2f.execute(invalid_input, &output, 1000);
+        try testing.expect(!result.is_success());
+    }
+}
+
+test "BLAKE2F utility functions" {
+    // Test calculate_gas_checked
+    const gas_valid = blake2f.calculate_gas_checked(blake2f.BLAKE2F_INPUT_LENGTH);
+    try testing.expect(gas_valid > 0);
+    
+    const gas_invalid = blake2f.calculate_gas_checked(100);
+    try testing.expectEqual(@as(u64, 0), gas_invalid);
+    
+    // Test get_output_size
+    const size_valid = blake2f.get_output_size(blake2f.BLAKE2F_INPUT_LENGTH);
+    try testing.expectEqual(@as(usize, blake2f.BLAKE2F_OUTPUT_LENGTH), size_valid);
+    
+    const size_invalid = blake2f.get_output_size(100);
+    try testing.expectEqual(@as(usize, 0), size_invalid);
+}

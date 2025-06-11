@@ -33,8 +33,9 @@ pub const BLAKE2F_INPUT_LENGTH: usize = 213;
 /// Output length for BLAKE2F (64 bytes)
 pub const BLAKE2F_OUTPUT_LENGTH: usize = 64;
 
-/// BLAKE2b constants
-const BLAKE2B_SIGMA: [12][16]u8 = [_][16]u8{
+/// BLAKE2b constants - SIGMA permutation array for message scheduling
+/// According to RFC 7693, BLAKE2b uses 10 different permutations that repeat
+const BLAKE2B_SIGMA: [10][16]u8 = [_][16]u8{
     [_]u8{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 },
     [_]u8{ 14, 10, 4, 8, 9, 15, 13, 6, 1, 12, 0, 2, 11, 7, 5, 3 },
     [_]u8{ 11, 8, 12, 0, 5, 2, 15, 13, 10, 14, 3, 6, 7, 1, 9, 4 },
@@ -45,8 +46,6 @@ const BLAKE2B_SIGMA: [12][16]u8 = [_][16]u8{
     [_]u8{ 13, 11, 7, 14, 12, 1, 3, 9, 5, 0, 15, 4, 8, 6, 2, 10 },
     [_]u8{ 6, 15, 14, 9, 11, 3, 0, 8, 12, 2, 13, 7, 1, 4, 10, 5 },
     [_]u8{ 10, 2, 8, 4, 7, 6, 1, 5, 15, 11, 9, 14, 3, 12, 13, 0 },
-    [_]u8{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 },
-    [_]u8{ 14, 10, 4, 8, 9, 15, 13, 6, 1, 12, 0, 2, 11, 7, 5, 3 },
 };
 
 /// Execute the BLAKE2F precompile
@@ -174,7 +173,7 @@ fn blake2b_compress(h: *[8]u64, m: [16]u64, t: [2]u64, final_flag: bool, rounds:
     
     // Perform the specified number of rounds
     for (0..rounds) |round| {
-        const sigma = &BLAKE2B_SIGMA[round % 12];
+        const sigma = &BLAKE2B_SIGMA[round % 10];
         
         // Apply G function to each column
         g(&v, 0, 4, 8, 12, m[sigma[0]], m[sigma[1]]);
@@ -198,6 +197,7 @@ fn blake2b_compress(h: *[8]u64, m: [16]u64, t: [2]u64, final_flag: bool, rounds:
 /// BLAKE2b G function
 /// 
 /// This is the core mixing function used in each round of BLAKE2b compression.
+/// Implements the exact G function from RFC 7693 specification.
 fn g(v: *[16]u64, a: usize, b: usize, c: usize, d: usize, x: u64, y: u64) void {
     v[a] = v[a] +% v[b] +% x;
     v[d] = rotr64(v[d] ^ v[a], 32);
@@ -212,7 +212,7 @@ fn g(v: *[16]u64, a: usize, b: usize, c: usize, d: usize, x: u64, y: u64) void {
 /// Right rotate a 64-bit value
 fn rotr64(value: u64, amount: u6) u64 {
     if (amount == 0) return value;
-    return (value >> amount) | (value << @intCast(64 - @as(u8, amount)));
+    return std.math.rotr(u64, value, amount);
 }
 
 /// Calculate gas cost for BLAKE2F without full execution
