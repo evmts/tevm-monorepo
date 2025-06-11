@@ -5,6 +5,7 @@ const Contract = @import("contract/contract.zig");
 const ExecutionError = @import("execution/execution_error.zig");
 const Log = @import("log.zig");
 const ReturnData = @import("return_data.zig").ReturnData;
+const StipendTracker = @import("gas/call_gas_calculator.zig").StipendTracker;
 
 /// EVM execution frame representing a single call context.
 ///
@@ -96,6 +97,10 @@ output: []const u8 = &[_]u8{},
 /// Incremented by opcode size, modified by JUMP/JUMPI.
 pc: usize = 0,
 
+/// Gas stipend tracker for value transfer calls.
+/// Manages regular gas and stipend gas separately.
+stipend_tracker: StipendTracker,
+
 /// Create a new execution frame with default settings.
 ///
 /// Initializes a frame with empty stack and memory, ready for execution.
@@ -120,6 +125,7 @@ pub fn init(allocator: std.mem.Allocator, contract: *Contract) !Frame {
         .memory = try Memory.init_default(allocator),
         .stack = .{},
         .return_data = ReturnData.init(allocator),
+        .stipend_tracker = StipendTracker.init(0, false), // Initialize with no gas and no stipend
     };
 }
 
@@ -171,6 +177,7 @@ pub fn init_with_state(
     output: ?[]const u8,
     pc: ?usize,
 ) !Frame {
+    const gas = gas_remaining orelse 0;
     return Frame{
         .allocator = allocator,
         .contract = contract,
@@ -180,13 +187,14 @@ pub fn init_with_state(
         .cost = cost orelse 0,
         .err = err,
         .stop = stop orelse false,
-        .gas_remaining = gas_remaining orelse 0,
+        .gas_remaining = gas,
         .is_static = is_static orelse false,
         .return_data = ReturnData.init(allocator),
         .input = input orelse &[_]u8{},
         .depth = depth orelse 0,
         .output = output orelse &[_]u8{},
         .pc = pc orelse 0,
+        .stipend_tracker = StipendTracker.init(gas, false), // Initialize with provided gas, no stipend
     };
 }
 
@@ -209,12 +217,13 @@ pub const ConsumeGasError = error{
 
 /// Consume gas from the frame's remaining gas.
 ///
-/// Deducts the specified amount from gas_remaining. If insufficient
-/// gas is available, returns OutOfGas error and execution should halt.
+/// Deducts the specified amount from gas_remaining using the stipend tracker.
+/// This properly handles both regular gas and stipend gas pools.
+/// If insufficient gas is available, returns OutOfGas error and execution should halt.
 ///
 /// @param self The frame consuming gas
 /// @param amount Gas units to consume
-/// @throws OutOfGas if amount > gas_remaining
+/// @throws OutOfGas if amount > total available gas
 ///
 /// Example:
 /// ```zig
@@ -226,9 +235,86 @@ pub const ConsumeGasError = error{
 /// try frame.consume_gas(memory_cost);
 /// ```
 pub fn consume_gas(self: *Frame, amount: u64) ConsumeGasError!void {
-    if (amount > self.gas_remaining) {
+    if (!self.stipend_tracker.consume_gas(amount)) {
         @branchHint(.cold);
         return ConsumeGasError.OutOfGas;
     }
-    self.gas_remaining -= amount;
+    // Update gas_remaining for backward compatibility
+    self.gas_remaining = self.stipend_tracker.total_remaining();
+}
+
+/// Initialize frame with stipend support for value transfer calls.
+///
+/// Creates a frame with gas stipend tracking enabled. This should be used
+/// when creating frames for value transfer calls that receive the 2300 gas stipend.
+///
+/// @param allocator Memory allocator
+/// @param contract Contract to execute
+/// @param initial_gas Total gas available (including stipend)
+/// @param has_stipend Whether this frame includes a gas stipend
+/// @return Configured frame with stipend tracking
+pub fn init_with_stipend(
+    allocator: std.mem.Allocator, 
+    contract: *Contract, 
+    initial_gas: u64, 
+    has_stipend: bool
+) !Frame {
+    var frame = try init(allocator, contract);
+    frame.stipend_tracker = StipendTracker.init(initial_gas, has_stipend);
+    frame.gas_remaining = frame.stipend_tracker.total_remaining();
+    return frame;
+}
+
+/// Check if this frame can make value transfer calls.
+///
+/// Value transfer calls require regular gas and cannot use stipend gas.
+/// This prevents stipend-based attack vectors.
+///
+/// @param self The frame to check
+/// @param required_gas Minimum gas needed for the value call
+/// @return true if sufficient regular gas is available
+pub fn can_make_value_call(self: *const Frame, required_gas: u64) bool {
+    return self.stipend_tracker.can_make_value_call(required_gas);
+}
+
+/// Check if this frame is operating on stipend gas only.
+///
+/// Returns true if the frame has exhausted regular gas and is running
+/// on the 2300 gas stipend. In this state, value calls are prohibited.
+///
+/// @param self The frame to check
+/// @return true if only stipend gas remains
+pub fn is_stipend_only_context(self: *const Frame) bool {
+    return self.stipend_tracker.is_using_stipend_only();
+}
+
+/// Get the amount of gas that would be refunded when this frame completes.
+///
+/// Only regular gas is refunded; stipend gas is not refundable as it was
+/// "free" additional gas provided for value transfers.
+///
+/// @param self The frame to check
+/// @return Amount of refundable gas
+pub fn get_refundable_gas(self: *const Frame) u64 {
+    return self.stipend_tracker.get_refundable_gas();
+}
+
+/// Add refunded gas back to this frame.
+///
+/// Used when receiving gas refunds from completed child calls.
+/// Only affects the regular gas pool.
+///
+/// @param self The frame to add gas to
+/// @param amount Amount of gas to refund
+pub fn add_refunded_gas(self: *Frame, amount: u64) void {
+    self.stipend_tracker.add_refunded_gas(amount);
+    self.gas_remaining = self.stipend_tracker.total_remaining();
+}
+
+/// Update gas remaining after external changes.
+///
+/// Synchronizes the gas_remaining field with the stipend tracker.
+/// Used when gas is modified externally or during initialization.
+pub fn sync_gas_remaining(self: *Frame) void {
+    self.gas_remaining = self.stipend_tracker.total_remaining();
 }
