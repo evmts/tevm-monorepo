@@ -281,7 +281,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
   - [x] review with more context please **SHA256** (0x02) - [SHA-256 hash function](./prompts/implement-sha256-precompile.md)
   - [ ] **RIPEMD160** (0x03) - [RIPEMD-160 hash function](./prompts/implement-ripemd160-precompile.md)
 
-#### Precompiled Contracts (3/17 implemented)
+#### Precompiled Contracts (6/17 implemented)
 
 - [ ] 🟡 **Standard Precompiles**
   - [x] **ECRECOVER** (0x01) - Elliptic curve signature recovery (placeholder implementation) ✅
@@ -289,15 +289,10 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
   - [🔄] **RIPEMD160** (0x03) - [RIPEMD-160 hash function](./prompts/implement-ripemd160-precompile.md) - @claude working on this
   - [x] **IDENTITY** (0x04) - Identity/copy function ✅
   - [ ] **MODEXP** (0x05) - [Modular exponentiation](./prompts/implement-modexp-precompile.md) | [Enhanced](./prompts/implement-modexp-precompile-enhanced.md)
-  - [ ] **ECADD** (0x06) - Elliptic curve point addition
-  - [ ] **ECMUL** (0x07) - Elliptic curve point multiplication
-  - [ ] **ECPAIRING** (0x08) - [Elliptic curve pairing check](./prompts/implement-ecpairing-precompile.md) | [Enhanced](./prompts/implement-ecpairing-precompile-enhanced.md)
-  - [🔄] **MODEXP** (0x05) - [Modular exponentiation](./prompts/implement-modexp-precompile.md) - @claude working on this
   - [x] **ECADD** (0x06) - [Elliptic curve point addition](./prompts/implement-ecadd-precompile.md) ✅
-  - [🔄] **ECMUL** (0x07) - [Elliptic curve point multiplication](./prompts/implement-ecmul-precompile.md) - @claude working on this
-  - [ ] **ECPAIRING** (0x08) - Elliptic curve pairing check
-  - [ ] **BLAKE2F** (0x09) - Blake2f compression function
-  - [ ] **BLAKE2F** (0x09) - [Blake2f compression function](./prompts/implement-blake2f-precompile.md)
+  - [x] **ECMUL** (0x07) - [Elliptic curve point multiplication](./prompts/implement-ecmul-precompile.md) ✅
+  - [x] **ECPAIRING** (0x08) - [Elliptic curve pairing check](./prompts/implement-ecpairing-precompile.md) ✅
+  - [🔄] **BLAKE2F** (0x09) - [Blake2f compression function](./prompts/implement-blake2f-precompile.md) - @claude working on this
 - [x] **KZG Point Evaluation** (0x0A) - EIP-4844 blob verification precompile ✅
 - [ ] 🟡 **BLS12-381 Precompiles** (EIP-2537)
   - [ ] **G1ADD** (0x0B) - BLS12-381 G1 addition
