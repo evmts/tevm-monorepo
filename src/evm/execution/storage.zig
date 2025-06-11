@@ -7,26 +7,26 @@ const Vm = @import("../vm.zig");
 const gas_constants = @import("../constants/gas_constants.zig");
 const Address = @import("Address");
 const Log = @import("../log.zig");
+const gas = @import("../gas/gas.zig");
+const Hardfork = @import("../hardforks/hardfork.zig").Hardfork;
 
-// EIP-3529 (London) gas costs for SSTORE
-const SSTORE_SET_GAS: u64 = 20000;
-const SSTORE_RESET_GAS: u64 = 2900;
-const SSTORE_CLEARS_REFUND: u64 = 4800;
-
-fn calculate_sstore_gas(current: u256, new: u256) u64 {
-    if (current == new) {
-        @branchHint(.likely);
-        return 0;
-    }
-    if (current == 0) {
-        @branchHint(.unlikely);
-        return SSTORE_SET_GAS;
-    }
-    if (new == 0) {
-        @branchHint(.unlikely);
-        return SSTORE_RESET_GAS;
-    }
-    return SSTORE_RESET_GAS;
+/// Determine the effective hardfork for SSTORE gas calculations.
+/// This maps chain rules to the appropriate hardfork for gas calculations.
+fn get_effective_hardfork(chain_rules: anytype) Hardfork {
+    // Map chain rules to hardfork
+    if (chain_rules.IsCancun) return .CANCUN;
+    if (chain_rules.IsShanghai) return .SHANGHAI;
+    if (chain_rules.IsMerge) return .MERGE;
+    if (chain_rules.IsLondon) return .LONDON;
+    if (chain_rules.IsBerlin) return .BERLIN;
+    if (chain_rules.IsIstanbul) return .ISTANBUL;
+    if (chain_rules.IsPetersburg) return .PETERSBURG;
+    if (chain_rules.IsConstantinople) return .CONSTANTINOPLE;
+    if (chain_rules.IsByzantium) return .BYZANTIUM;
+    if (chain_rules.IsEIP158) return .SPURIOUS_DRAGON;
+    if (chain_rules.IsEIP150) return .TANGERINE_WHISTLE;
+    if (chain_rules.IsHomestead) return .HOMESTEAD;
+    return .FRONTIER;
 }
 
 pub fn op_sload(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
@@ -57,54 +57,97 @@ pub fn op_sload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     return Operation.ExecutionResult{};
 }
 
-/// SSTORE opcode - Store value in persistent storage
+/// SSTORE opcode - Store value in persistent storage with EIP-2200 gas calculations and refunds
 pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!Operation.ExecutionResult {
+    @branchHint(.likely);
     _ = pc;
-
+    
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
+    Log.debug("SSTORE: Starting execution, gas_remaining={}, static={}", .{ frame.gas_remaining, frame.is_static });
+
+    // Check static call protection
     if (frame.is_static) {
         @branchHint(.unlikely);
+        Log.debug("SSTORE: Rejected due to static call context", .{});
         return ExecutionError.Error.WriteProtection;
     }
 
-    // EIP-1706: Disable SSTORE with gasleft lower than call stipend (2300)
-    // This prevents reentrancy attacks by ensuring enough gas remains for exception handling
-    if (vm.chain_rules.IsIstanbul and frame.gas_remaining <= gas_constants.SstoreSentryGas) {
-        @branchHint(.unlikely);
-        return ExecutionError.Error.OutOfGas;
-    }
-
+    // Stack validation (should be done by jump table, but double-check for safety)
     if (frame.stack.size < 2) unreachable;
 
-    // Stack order: [..., value, slot] where slot is on top
+    // Get the effective hardfork for gas calculations
+    const hardfork = get_effective_hardfork(vm.chain_rules);
+    
+    // EIP-2200 gas sentry: Check if enough gas remains for reentrancy protection
+    if (hardfork != .FRONTIER and hardfork != .HOMESTEAD and hardfork != .DAO) {
+        if (frame.gas_remaining <= gas_constants.SSTORE_SENTRY_GAS) {
+            @branchHint(.unlikely);
+            Log.debug("SSTORE: Rejected due to gas sentry (gas_remaining={} <= {})", .{ frame.gas_remaining, gas_constants.SSTORE_SENTRY_GAS });
+            return ExecutionError.Error.OutOfGas;
+        }
+    }
+
+    // Pop stack values: [..., value, slot] where slot is on top
     const popped = frame.stack.pop2_unsafe();
-    const value = popped.a; // First popped (was second from top)
+    const new_value = popped.a; // First popped (was second from top)
     const slot = popped.b; // Second popped (was top)
 
-    const current_value = vm.state.get_storage(frame.contract.address, slot);
+    Log.debug("SSTORE: slot={}, new_value={}", .{ slot, new_value });
 
-    const is_cold = frame.contract.mark_storage_slot_warm(frame.allocator, slot, null) catch |err| {
-        Log.err("SSTORE: mark_storage_slot_warm failed: {}", .{err});
+    // Get current value from storage
+    const current_value = vm.state.get_storage(frame.contract.address, slot);
+    
+    // Get original value (first access in this transaction)
+    const original_value = vm.get_original_storage_value(frame.contract.address, slot) catch |err| {
+        Log.debug("SSTORE: Failed to get original storage value: {}", .{err});
         return ExecutionError.Error.OutOfMemory;
     };
 
-    var total_gas: u64 = 0;
+    Log.debug("SSTORE: original={}, current={}, new={}", .{ original_value, current_value, new_value });
 
-    if (is_cold) {
+    // Check if storage slot is warm (EIP-2929)
+    const is_cold = frame.contract.mark_storage_slot_warm(frame.allocator, slot, null) catch |err| {
+        Log.debug("SSTORE: Failed to mark storage slot warm: {}", .{err});
+        return ExecutionError.Error.OutOfMemory;
+    };
+    const is_warm = !is_cold;
+
+    Log.debug("SSTORE: storage slot is_warm={}", .{is_warm});
+
+    // Calculate gas cost and refund using EIP-2200 logic
+    const sstore_result = gas.calculate_sstore_operation(
+        original_value,
+        current_value,
+        new_value,
+        hardfork,
+        is_warm,
+        frame.gas_remaining,
+    );
+
+    if (!sstore_result.is_valid) {
         @branchHint(.unlikely);
-        total_gas += gas_constants.ColdSloadCost;
+        Log.debug("SSTORE: Gas sentry check failed", .{});
+        return ExecutionError.Error.OutOfGas;
     }
 
-    // Add dynamic gas based on value change
-    const dynamic_gas = calculate_sstore_gas(current_value, value);
-    total_gas += dynamic_gas;
+    Log.debug("SSTORE: calculated gas_cost={}, refund={}", .{ sstore_result.gas_cost, sstore_result.refund });
 
-    // Consume all gas at once
-    try frame.consume_gas(total_gas);
+    // Consume gas for the operation
+    try frame.consume_gas(sstore_result.gas_cost);
 
-    try vm.state.set_storage(frame.contract.address, slot, value);
+    // Apply refund (can be positive or negative)
+    if (sstore_result.refund > 0) {
+        vm.add_gas_refund(@as(u64, @intCast(sstore_result.refund)));
+    } else if (sstore_result.refund < 0) {
+        vm.sub_gas_refund(@as(u64, @intCast(-sstore_result.refund)));
+    }
+
+    // Update storage
+    try vm.state.set_storage(frame.contract.address, slot, new_value);
+
+    Log.debug("SSTORE: Successfully stored value={} at slot={}, refund_applied={}", .{ new_value, slot, sstore_result.refund });
 
     return Operation.ExecutionResult{};
 }

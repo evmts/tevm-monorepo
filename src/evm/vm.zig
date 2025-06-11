@@ -23,6 +23,8 @@ pub const CallResult = @import("call_result.zig").CallResult;
 pub const RunResult = @import("run_result.zig").RunResult;
 const Hardfork = @import("hardforks/hardfork.zig").Hardfork;
 const precompiles = @import("precompiles/precompiles.zig");
+const RefundTracker = @import("gas/refund_tracker.zig").RefundTracker;
+const StorageOriginalValues = @import("gas/storage_original_values.zig").StorageOriginalValues;
 
 /// Virtual Machine for executing Ethereum bytecode.
 ///
@@ -52,6 +54,10 @@ access_list: AccessList,
 depth: u16 = 0,
 /// Whether the current context is read-only (STATICCALL)
 read_only: bool = false,
+/// Gas refund tracking for SSTORE operations
+refund_tracker: RefundTracker,
+/// Original storage values at transaction start for EIP-2200 calculations
+original_storage_values: StorageOriginalValues,
 
 /// Initialize VM with a jump table and corresponding chain rules.
 ///
@@ -81,6 +87,12 @@ pub fn init(allocator: std.mem.Allocator, database: @import("state/database_inte
     var access_list = AccessList.init(allocator);
     errdefer access_list.deinit();
 
+    var original_storage_values = StorageOriginalValues.init(allocator);
+    errdefer original_storage_values.deinit();
+
+    // Default to latest hardfork if no chain rules provided
+    const hardfork = Hardfork.DEFAULT;
+
     Log.debug("VM.init: VM initialization complete", .{});
     return Vm{
         .allocator = allocator,
@@ -89,6 +101,8 @@ pub fn init(allocator: std.mem.Allocator, database: @import("state/database_inte
         .state = state,
         .context = Context.init(),
         .access_list = access_list,
+        .refund_tracker = RefundTracker.init(hardfork),
+        .original_storage_values = original_storage_values,
     };
 }
 
@@ -103,7 +117,33 @@ pub fn init(allocator: std.mem.Allocator, database: @import("state/database_inte
 pub fn init_with_hardfork(allocator: std.mem.Allocator, database: @import("state/database_interface.zig").DatabaseInterface, hardfork: Hardfork) !Vm {
     const table = JumpTable.init_from_hardfork(hardfork);
     const rules = ChainRules.for_hardfork(hardfork);
-    return try init(allocator, database, &table, &rules);
+    return try init_with_hardfork_internal(allocator, database, &table, &rules, hardfork);
+}
+
+/// Internal initialization function that accepts the hardfork parameter for refund tracker.
+fn init_with_hardfork_internal(allocator: std.mem.Allocator, database: @import("state/database_interface.zig").DatabaseInterface, jump_table: *const JumpTable, chain_rules: *const ChainRules, hardfork: Hardfork) !Vm {
+    Log.debug("VM.init_with_hardfork_internal: Initializing VM with allocator and database", .{});
+
+    var state = try EvmState.init(allocator, database);
+    errdefer state.deinit();
+
+    var access_list = AccessList.init(allocator);
+    errdefer access_list.deinit();
+
+    var original_storage_values = StorageOriginalValues.init(allocator);
+    errdefer original_storage_values.deinit();
+
+    Log.debug("VM.init_with_hardfork_internal: VM initialization complete", .{});
+    return Vm{
+        .allocator = allocator,
+        .table = jump_table.*,
+        .chain_rules = chain_rules.*,
+        .state = state,
+        .context = Context.init(),
+        .access_list = access_list,
+        .refund_tracker = RefundTracker.init(hardfork),
+        .original_storage_values = original_storage_values,
+    };
 }
 
 /// Free all VM resources.
@@ -111,6 +151,7 @@ pub fn init_with_hardfork(allocator: std.mem.Allocator, database: @import("state
 pub fn deinit(self: *Vm) void {
     self.state.deinit();
     self.access_list.deinit();
+    self.original_storage_values.deinit();
     Contract.clear_analysis_cache(self.allocator);
 }
 
@@ -685,4 +726,80 @@ pub fn selfdestruct_protected(self: *Vm, contract: Address.Address, beneficiary:
     _ = contract;
     _ = beneficiary;
     try self.validate_static_context();
+}
+
+// ============================================================================
+// Gas Refund Management
+// ============================================================================
+
+/// Get the original storage value for a slot, storing it on first access.
+///
+/// This method implements the EIP-2200 requirement to track original storage
+/// values at the beginning of a transaction. The original value is used in
+/// complex SSTORE gas calculations and refund logic.
+///
+/// @param self Mutable reference to the VM
+/// @param address Contract address
+/// @param slot Storage slot number  
+/// @return Original value of the storage slot
+/// @throws std.mem.Allocator.Error if memory allocation fails
+pub fn get_original_storage_value(self: *Vm, address: Address.Address, slot: u256) std.mem.Allocator.Error!u256 {
+    const storage_key = StorageKey{
+        .address = address,
+        .slot = slot,
+    };
+    
+    // Check if we already have the original value
+    if (self.original_storage_values.get(storage_key)) |original_value| {
+        return original_value;
+    }
+    
+    // First access - fetch and store the original value
+    const original_value = self.state.get_storage(address, slot);
+    try self.original_storage_values.put(storage_key, original_value);
+    return original_value;
+}
+
+/// Add a gas refund to the transaction total.
+///
+/// @param self Mutable reference to the VM
+/// @param amount Gas refund amount to add
+pub fn add_gas_refund(self: *Vm, amount: u64) void {
+    self.refund_tracker.add_refund(amount);
+}
+
+/// Subtract a gas refund from the transaction total.
+/// Used when previous refunds need to be reversed.
+///
+/// @param self Mutable reference to the VM
+/// @param amount Gas refund amount to subtract
+pub fn sub_gas_refund(self: *Vm, amount: u64) void {
+    self.refund_tracker.sub_refund(amount);
+}
+
+/// Finalize the transaction and calculate final gas refund.
+///
+/// This method should be called at the end of transaction execution to
+/// apply refund caps and reset state for the next transaction.
+///
+/// @param self Mutable reference to the VM
+/// @param gas_used Total gas consumed in the transaction
+/// @return Final refund amount after applying hardfork-specific caps
+pub fn finalize_transaction(self: *Vm, gas_used: u64) u64 {
+    self.refund_tracker.set_gas_used(gas_used);
+    const final_refund = self.refund_tracker.calculate_final_refund();
+    
+    // Reset state for next transaction
+    self.refund_tracker.reset();
+    self.original_storage_values.clearAndFree();
+    
+    return final_refund;
+}
+
+/// Get the current total refunds before cap application.
+///
+/// @param self Immutable reference to the VM
+/// @return Total refunds accumulated so far
+pub fn get_total_refunds(self: *const Vm) u64 {
+    return self.refund_tracker.get_total_refunds();
 }

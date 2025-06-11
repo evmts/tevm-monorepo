@@ -154,6 +154,9 @@ pub const fee_market = @import("fee_market.zig");
 /// Gas cost constants and calculations
 pub const gas_constants = @import("constants/gas_constants.zig");
 
+/// Gas refund tracking and SSTORE operations (EIP-2200)
+pub const gas = @import("gas/gas.zig");
+
 /// Memory size limits and expansion rules
 pub const memory_limits = @import("constants/memory_limits.zig");
 

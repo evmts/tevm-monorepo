@@ -126,6 +126,10 @@ pub const SSTORE_RESET: u64 = 2800;
 /// Gas refund for SSTORE operations that clear storage (EIP-2200)
 /// After EIP-3529: Reduced to 2700 gas
 pub const SSTORE_RESET_REFUND: u64 = 2700;
+
+/// Minimum gas required for SSTORE operations (EIP-2200)
+/// Prevents reentrancy attacks by ensuring minimum gas availability
+pub const SSTORE_SENTRY_GAS: u64 = 2300;
 // ============================================================================
 // Control Flow Costs
 // ============================================================================
