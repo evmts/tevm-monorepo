@@ -153,7 +153,7 @@ pub const ECADD_GAS_COST_BYZANTIUM: u64 = 500; // Pre-Istanbul
 File: `/src/evm/precompiles/bn254.zig`
 ```zig
 const std = @import("std");
-const U256 = @import("../Types/U256.ts").U256;
+const U256 = @import("../Types/U256.zig").U256;
 
 // BN254 field prime
 pub const FIELD_PRIME: U256 = 21888242871839275222246405745257275088696311157297823662689037894645226208583;

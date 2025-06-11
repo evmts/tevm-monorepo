@@ -233,7 +233,7 @@ const gas_constants = @import("../constants/gas_constants.zig");
 const PrecompileResult = @import("precompile_result.zig").PrecompileResult;
 const PrecompileError = @import("precompile_result.zig").PrecompileError;
 const Hardfork = @import("../hardforks/hardfork.zig").Hardfork;
-const U256 = @import("../Types/U256.ts").U256;
+const U256 = @import("../Types/U256.zig").U256;
 
 pub fn calculate_gas(hardfork: Hardfork) u64 {
     return switch (hardfork) {

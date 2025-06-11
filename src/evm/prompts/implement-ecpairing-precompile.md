@@ -161,7 +161,7 @@ pub const ECPAIRING_PAIR_GAS_BYZANTIUM: u64 = 80000; // Per pair, pre-Istanbul
 File: `/src/evm/precompiles/bn254_fields.zig`
 ```zig
 const std = @import("std");
-const U256 = @import("../Types/U256.ts").U256;
+const U256 = @import("../Types/U256.zig").U256;
 
 // Base field Fq for BN254
 pub const FIELD_PRIME: U256 = 21888242871839275222246405745257275088696311157297823662689037894645226208583;
