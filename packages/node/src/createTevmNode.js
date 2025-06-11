@@ -395,7 +395,28 @@ export const createTevmNode = (options = {}) => {
 			await readyPromise
 			return vmPromise
 		},
-		miningConfig: options.miningConfig ?? { type: 'manual' },
+		miningConfig: (() => {
+			const miningConfig = options.miningConfig ?? { type: 'manual' }
+			
+			// Validate mining configuration and warn about unimplemented modes
+			if (miningConfig.type === 'interval') {
+				logger.warn(
+					'Interval mining mode is not yet implemented. Falling back to manual mining. ' +
+					'Use { type: "manual" } or { type: "auto" } for supported mining modes.'
+				)
+				return { type: 'manual' }
+			}
+			
+			if (miningConfig.type === 'gas') {
+				logger.warn(
+					'Gas mining mode is not yet fully implemented. Falling back to manual mining. ' +
+					'Use { type: "manual" } or { type: "auto" } for supported mining modes.'
+				)
+				return { type: 'manual' }
+			}
+			
+			return miningConfig
+		})(),
 		mode: transport ? 'fork' : 'normal',
 		...(transport
 			? {
