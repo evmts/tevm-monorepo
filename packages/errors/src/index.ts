@@ -59,6 +59,8 @@ export {
 export {
 	type NoForkTransportSetErrorParameters,
 	NoForkTransportSetError,
+	NoForkUrlSetError,
+	type NoForkUrlSetErrorParameters,
 	type ForkErrorParameters,
 	ForkError,
 } from './fork/index.js'
