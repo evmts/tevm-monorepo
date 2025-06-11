@@ -42,6 +42,36 @@ The enhanced version includes:
 
 Without ECMUL, many privacy-preserving applications on Ethereum would be impossible or prohibitively expensive to run.
 
+## 🚨 CRITICAL SECURITY WARNING: DO NOT IMPLEMENT CUSTOM CRYPTO
+
+**❌ NEVER IMPLEMENT CRYPTOGRAPHIC ALGORITHMS FROM SCRATCH**
+
+This prompt involves elliptic curve cryptography. Follow these security principles:
+
+### ✅ **DO THIS:**
+- **Use established crypto libraries** (noble-curves for BN254, arkworks-rs bindings)
+- **Import proven implementations** from well-audited libraries
+- **Follow reference implementations** from go-ethereum, revm, evmone exactly
+- **Use official test vectors** from EIP-196 and EIP-197 specifications
+- **Implement constant-time algorithms** to prevent timing attacks
+- **Use side-channel resistant scalar multiplication** (Montgomery ladder, etc.)
+
+### ❌ **NEVER DO THIS:**
+- Write your own elliptic curve scalar multiplication or field arithmetic
+- Implement BN254/alt_bn128 curve operations "from scratch" or "for learning"
+- Modify cryptographic algorithms or add "optimizations"
+- Copy-paste crypto code from tutorials or unofficial sources
+- Implement crypto without extensive peer review and testing
+- Use variable-time algorithms that leak scalar information
+
+### 🎯 **Implementation Strategy:**
+1. **First choice**: Use noble-curves BN254 implementation (WASM compatible)
+2. **Second choice**: Bind to arkworks-rs or other audited Rust crypto libraries
+3. **Third choice**: Use established C libraries (libff, mcl)
+4. **Never**: Write custom elliptic curve scalar multiplication
+
+**Remember**: ECMUL is critical for zkSNARKs and privacy protocols. Timing attacks can leak private scalars, compromising cryptographic protocols. Always use proven, constant-time implementations.
+
 ## Specification
 
 ### Basic Operation

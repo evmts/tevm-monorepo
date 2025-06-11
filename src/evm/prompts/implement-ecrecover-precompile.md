@@ -38,6 +38,37 @@ The "enhanced" version includes optimizations for:
 
 Without ECRECOVER, Ethereum couldn't verify that transactions are legitimate - it's like the foundation that all blockchain security is built on.
 
+## 🚨 CRITICAL SECURITY WARNING: DO NOT IMPLEMENT CUSTOM CRYPTO
+
+**❌ NEVER IMPLEMENT CRYPTOGRAPHIC ALGORITHMS FROM SCRATCH**
+
+**🔴 MAXIMUM SECURITY ALERT**: ECRECOVER is the foundation of all Ethereum security. Any bugs here compromise the entire blockchain.
+
+This prompt involves cryptographic operations. Follow these security principles:
+
+### ✅ **DO THIS:**
+- **Use libsecp256k1** - The only acceptable library for secp256k1 operations
+- **Import proven implementations** from well-audited libraries (libsecp256k1)
+- **Follow reference implementations** from go-ethereum, revm, evmone exactly
+- **Use official test vectors** from Bitcoin and Ethereum test suites
+- **Implement constant-time algorithms** to prevent timing attacks
+- **Validate all signature components** (r, s, v) rigorously
+
+### ❌ **NEVER DO THIS:**
+- Write your own ECDSA signature verification or elliptic curve operations
+- Implement secp256k1 curve arithmetic "from scratch" or "for learning"
+- Modify cryptographic algorithms or add "optimizations"
+- Copy-paste crypto code from tutorials or unofficial sources
+- Implement crypto without extensive peer review and testing
+- Use variable-time algorithms that leak private key information
+
+### 🎯 **Implementation Strategy:**
+1. **ONLY choice**: Use libsecp256k1 C library with Zig bindings
+2. **Fallback**: Use proven WASM secp256k1 library (noble-secp256k1)
+3. **Never**: Write custom secp256k1 or ECDSA implementations
+
+**Remember**: ECRECOVER bugs can compromise every Ethereum transaction. Private keys could be leaked, funds stolen, and the entire network's security undermined. This is not negotiable - only use libsecp256k1.
+
 ## Specification
 
 ### Basic Operation

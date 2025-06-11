@@ -23,6 +23,35 @@ This enhanced version includes advanced optimizations like choosing the best alg
 
 Why does this matter? Modern blockchain applications like zero-knowledge proofs and advanced cryptographic signatures rely on these complex mathematical operations. Having them optimized means faster transaction processing and lower gas costs for users.
 
+## 🚨 CRITICAL SECURITY WARNING: DO NOT IMPLEMENT CUSTOM CRYPTO
+
+**❌ NEVER IMPLEMENT CRYPTOGRAPHIC ALGORITHMS FROM SCRATCH**
+
+This prompt involves BLS12-381 G2 curve operations over extension fields. Follow these security principles:
+
+### ✅ **DO THIS:**
+- **Use blst library** - The only production-ready BLS12-381 implementation
+- **Import proven implementations** from well-audited libraries (blst, arkworks-rs)
+- **Follow reference implementations** from go-ethereum, revm, evmone exactly
+- **Use official test vectors** from EIP-2537 specification
+- **Implement constant-time algorithms** to prevent timing attacks
+- **Validate all G2 points** are on the correct curve and in correct subgroup
+
+### ❌ **NEVER DO THIS:**
+- Write your own G2 point addition or Fp2 field arithmetic
+- Implement BLS12-381 extension field operations "from scratch" or "for learning"
+- Modify cryptographic algorithms or add "optimizations"
+- Copy-paste crypto code from tutorials or unofficial sources
+- Implement crypto without extensive peer review and testing
+- Skip subgroup checks or point validation
+
+### 🎯 **Implementation Strategy:**
+1. **ONLY choice**: Use blst library (Ethereum Foundation standard)
+2. **Fallback**: Use arkworks-rs BLS12-381 with proven G2 operations
+3. **Never**: Write custom G2 or Fp2 field implementations
+
+**Remember**: G2ADD operates over extension fields and is critical for BLS signature verification and Ethereum 2.0. Bugs can compromise signature aggregation and validator operations. Always use proven, audited implementations.
+
 ## EIP-2537 Specification
 
 ### Basic Operation

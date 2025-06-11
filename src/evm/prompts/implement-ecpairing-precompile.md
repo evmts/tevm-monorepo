@@ -36,6 +36,38 @@ The enhanced version includes:
 
 Without ECPAIRING, privacy-preserving applications on Ethereum would be nearly impossible. It's what makes private voting, anonymous transactions, and confidential smart contracts possible.
 
+## 🚨 CRITICAL SECURITY WARNING: DO NOT IMPLEMENT CUSTOM CRYPTO
+
+**❌ NEVER IMPLEMENT CRYPTOGRAPHIC ALGORITHMS FROM SCRATCH**
+
+**🔴 EXTREME COMPLEXITY WARNING**: Pairing cryptography is among the most complex cryptographic operations. Implementation errors can break zero-knowledge proofs.
+
+This prompt involves advanced cryptographic operations. Follow these security principles:
+
+### ✅ **DO THIS:**
+- **Use established crypto libraries** (noble-curves for BN254, arkworks-rs bindings)
+- **Import proven implementations** from well-audited libraries
+- **Follow reference implementations** from go-ethereum, revm, evmone exactly
+- **Use official test vectors** from EIP-197 and academic papers
+- **Implement constant-time algorithms** to prevent timing attacks
+- **Use optimized pairing libraries** (mcl, arkworks, blst)
+
+### ❌ **NEVER DO THIS:**
+- Write your own pairing algorithms or tower field arithmetic
+- Implement BN254 pairing operations "from scratch" or "for learning"
+- Modify cryptographic algorithms or add "optimizations"
+- Copy-paste crypto code from tutorials or unofficial sources
+- Implement crypto without extensive peer review and testing
+- Skip final exponentiation or other critical pairing steps
+
+### 🎯 **Implementation Strategy:**
+1. **First choice**: Use noble-curves BN254 pairing (WASM compatible)
+2. **Second choice**: Bind to arkworks-rs or mcl pairing libraries
+3. **Third choice**: Use established C libraries (libff, ate-pairing)
+4. **Never**: Write custom pairing or tower field implementations
+
+**Remember**: ECPAIRING is the foundation of zkSNARKs and advanced cryptography. Bugs can break zero-knowledge proofs, compromise privacy protocols, and leak sensitive information. This is extremely complex mathematics - always use proven, audited implementations.
+
 ## Specification
 
 ### Basic Operation

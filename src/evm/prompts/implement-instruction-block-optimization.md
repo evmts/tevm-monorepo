@@ -653,3 +653,245 @@ pub const instruction_block_optimization = struct {
 - [Basic Block Optimization](https://en.wikipedia.org/wiki/Basic_block)
 - [Control Flow Analysis](https://en.wikipedia.org/wiki/Control-flow_analysis)
 - [EVM Opcode Reference](https://www.evm.codes/)
+
+## EVMONE Context
+
+<evmone>
+<file path="https://github.com/ethereum/evmone/blob/master/lib/evmone/advanced_analysis.hpp">
+```cpp
+/// Compressed information about instruction basic block.
+struct BlockInfo
+{
+    /// The total base gas cost of all instructions in the block.
+    uint32_t gas_cost = 0;
+
+    /// The stack height required to execute the block.
+    int16_t stack_req = 0;
+
+    /// The maximum stack height growth relative to the stack height at block start.
+    int16_t stack_max_growth = 0;
+};
+static_assert(sizeof(BlockInfo) == 8);
+
+// ...
+
+struct Instruction
+{
+    instruction_exec_fn fn = nullptr;
+    InstructionArgument arg;
+
+    explicit constexpr Instruction(instruction_exec_fn f) noexcept : fn{f}, arg{} {}
+};
+
+struct AdvancedCodeAnalysis
+{
+    std::vector<Instruction> instrs;
+
+    /// Storage for large push values.
+    std::vector<intx::uint256> push_values;
+
+    /// The offsets of JUMPDESTs in the original code.
+    /// These are values that JUMP/JUMPI receives as an argument.
+    /// The elements are sorted.
+    std::vector<int32_t> jumpdest_offsets;
+
+    /// The indexes of the instructions in the generated instruction table
+    /// matching the elements from jumdest_offsets.
+    /// This is value to which the next instruction pointer must be set in JUMP/JUMPI.
+    std::vector<int32_t> jumpdest_targets;
+};
+
+inline int find_jumpdest(const AdvancedCodeAnalysis& analysis, int offset) noexcept
+{
+    const auto begin = std::begin(analysis.jumpdest_offsets);
+    const auto end = std::end(analysis.jumpdest_offsets);
+    const auto it = std::lower_bound(begin, end, offset);
+    return (it != end && *it == offset) ?
+               analysis.jumpdest_targets[static_cast<size_t>(it - begin)] :
+               -1;
+}
+
+EVMC_EXPORT AdvancedCodeAnalysis analyze(evmc_revision rev, bytes_view code) noexcept;
+
+EVMC_EXPORT const OpTable& get_op_table(evmc_revision rev) noexcept;
+```
+</file>
+<file path="https://github.com/ethereum/evmone/blob/master/lib/evmone/advanced_analysis.cpp">
+```cpp
+struct BlockAnalysis
+{
+    int64_t gas_cost = 0;
+
+    int stack_req = 0;
+    int stack_max_growth = 0;
+    int stack_change = 0;
+
+    /// The index of the beginblock instruction that starts the block.
+    /// This is the place where the analysis data is going to be dumped.
+    size_t begin_block_index = 0;
+
+    explicit BlockAnalysis(size_t index) noexcept : begin_block_index{index} {}
+
+    /// Close the current block by producing compressed information about the block.
+    [[nodiscard]] BlockInfo close() const noexcept
+    {
+        return {clamp<decltype(BlockInfo{}.gas_cost)>(gas_cost),
+            clamp<decltype(BlockInfo{}.stack_req)>(stack_req),
+            clamp<decltype(BlockInfo{}.stack_max_growth)>(stack_max_growth)};
+    }
+};
+
+AdvancedCodeAnalysis analyze(evmc_revision rev, bytes_view code) noexcept
+{
+    const auto& op_tbl = get_op_table(rev);
+    const auto opx_beginblock_fn = op_tbl[OPX_BEGINBLOCK].fn;
+
+    AdvancedCodeAnalysis analysis;
+    // ... (reservations for vectors) ...
+
+    // Create first block.
+    analysis.instrs.emplace_back(opx_beginblock_fn);
+    auto block = BlockAnalysis{0};
+
+    const auto code_begin = code.data();
+    const auto code_end = code_begin + code.size();
+    auto code_pos = code_begin;
+    while (code_pos != code_end)
+    {
+        const auto opcode = *code_pos++;
+        const auto& opcode_info = op_tbl[opcode];
+
+        if (opcode == OP_JUMPDEST)
+        {
+            // Save current block.
+            analysis.instrs[block.begin_block_index].arg.block = block.close();
+            // Create new block.
+            block = BlockAnalysis{analysis.instrs.size()};
+
+            // The JUMPDEST is always the first instruction in the block.
+            analysis.jumpdest_offsets.emplace_back(static_cast<int32_t>(code_pos - code_begin - 1));
+            analysis.jumpdest_targets.emplace_back(static_cast<int32_t>(analysis.instrs.size()));
+        }
+
+        analysis.instrs.emplace_back(opcode_info.fn);
+
+        // Track stack requirements and gas cost for the block
+        block.stack_req = std::max(block.stack_req, opcode_info.stack_req - block.stack_change);
+        block.stack_change += opcode_info.stack_change;
+        block.stack_max_growth = std::max(block.stack_max_growth, block.stack_change);
+        block.gas_cost += opcode_info.gas_cost;
+
+        auto& instr = analysis.instrs.back();
+
+        switch (opcode)
+        {
+        // ... (handle push arguments) ...
+
+        case OP_JUMP:
+        case OP_STOP:
+        case OP_RETURN:
+        case OP_REVERT:
+        case OP_SELFDESTRUCT:
+            // Skip dead block instructions till next JUMPDEST or code end.
+            // Current instruction will be final one in the block.
+            while (code_pos != code_end && *code_pos != OP_JUMPDEST)
+            {
+                // ... (logic to skip over PUSH data) ...
+            }
+            break;
+
+        case OP_JUMPI:
+            // JUMPI will be final instruction in the current block
+            // and hold metadata for the next block.
+
+            // Save current block.
+            analysis.instrs[block.begin_block_index].arg.block = block.close();
+            // Create new block.
+            block = BlockAnalysis{analysis.instrs.size() - 1};
+            break;
+
+        // ...
+        }
+    }
+
+    // Save current block.
+    analysis.instrs[block.begin_block_index].arg.block = block.close();
+
+    // Make sure the last block is terminated.
+    analysis.instrs.emplace_back(op_tbl[OP_STOP].fn);
+
+    return analysis;
+}
+```
+</file>
+<file path="https://github.com/ethereum/evmone/blob/master/lib/evmone/advanced_execution.cpp">
+```cpp
+const Instruction* opx_beginblock(const Instruction* instr, AdvancedExecutionState& state) noexcept
+{
+    auto& block = instr->arg.block;
+
+    if ((state.gas_left -= block.gas_cost) < 0)
+        return state.exit(EVMC_OUT_OF_GAS);
+
+    if (const auto stack_size = state.stack_size(); stack_size < block.stack_req)
+        return state.exit(EVMC_STACK_UNDERFLOW);
+    else if (stack_size + block.stack_max_growth > StackSpace::limit)
+        return state.exit(EVMC_STACK_OVERFLOW);
+
+    state.current_block_cost = block.gas_cost;
+    return ++instr;
+}
+
+// ...
+
+evmc_result execute(AdvancedExecutionState& state, const AdvancedCodeAnalysis& analysis) noexcept
+{
+    state.analysis.advanced = &analysis;  // Allow accessing the analysis by instructions.
+
+    const auto* instr = state.analysis.advanced->instrs.data();  // Get the first instruction.
+    while (instr != nullptr)
+        instr = instr->fn(instr, state);
+
+    // ... (result handling) ...
+}
+```
+</file>
+</evmone>
+
+## Implementation Insights from EVMONE
+
+### Key EVMONE Design Patterns
+
+1. **BEGINBLOCK Opcode Pattern**: EVMONE injects a special `OPX_BEGINBLOCK` opcode at the start of each basic block during analysis. This opcode performs all gas and stack validation upfront, simplifying the execution loop to pure dispatch.
+
+2. **Compressed Block Metadata**: The `BlockInfo` struct is optimized to 8 bytes total, containing only essential information: gas cost, stack requirements, and max stack growth.
+
+3. **JUMPDEST Optimization**: EVMONE maintains sorted arrays of jumpdest offsets and their corresponding instruction indices, enabling O(log n) jump target lookup via binary search.
+
+4. **Stack Analysis**: Tracks both minimum stack requirements (`stack_req`) and maximum growth (`stack_max_growth`) to validate stack bounds efficiently.
+
+5. **Dead Code Elimination**: When encountering terminating instructions (JUMP, STOP, RETURN), EVMONE skips analysis of unreachable code until the next JUMPDEST.
+
+### Recommended Adaptations for Zig Implementation
+
+```zig
+// Adopt EVMONE's compressed block info approach
+pub const BlockInfo = struct {
+    gas_cost: u32,
+    stack_req: i16,
+    stack_max_growth: i16,
+};
+
+// Use intrinsic BEGIN_BLOCK opcode pattern
+pub const OptimizedOpcode = enum {
+    BEGIN_BLOCK,
+    // ... regular opcodes
+    
+    pub fn execute(self: OptimizedOpcode, frame: *Frame, arg: InstructionArg) !*Instruction {
+        return switch (self) {
+            .BEGIN_BLOCK => opx_begin_block(frame, arg.block),
+            // ... other opcodes
+        };
+    }
+};
+```

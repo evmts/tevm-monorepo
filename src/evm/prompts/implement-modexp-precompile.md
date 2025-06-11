@@ -34,6 +34,36 @@ The "enhanced" version includes optimizations like:
 
 Without MODEXP, many modern cryptographic applications simply couldn't run on Ethereum at a reasonable cost.
 
+## 🚨 CRITICAL SECURITY WARNING: DO NOT IMPLEMENT CUSTOM CRYPTO
+
+**❌ NEVER IMPLEMENT CRYPTOGRAPHIC ALGORITHMS FROM SCRATCH**
+
+This prompt involves cryptographic operations. Follow these security principles:
+
+### ✅ **DO THIS:**
+- **Use established crypto libraries** (Zig std.math.big for big integers, noble-curves)
+- **Import proven implementations** from well-audited libraries
+- **Leverage existing WASM crypto libraries** when Zig stdlib lacks algorithms
+- **Follow reference implementations** from go-ethereum, revm, evmone exactly
+- **Use test vectors** from official specifications to verify correctness
+- **Use constant-time algorithms** to prevent timing attacks on private keys
+
+### ❌ **NEVER DO THIS:**
+- Write your own modular exponentiation or big integer arithmetic from scratch
+- Implement cryptographic primitives "from scratch" or "for learning"
+- Modify cryptographic algorithms or add "optimizations"
+- Copy-paste crypto code from tutorials or unofficial sources
+- Implement crypto without extensive peer review and testing
+- Use variable-time algorithms that leak information through timing
+
+### 🎯 **Implementation Strategy:**
+1. **First choice**: Use Zig standard library math.big for big integer operations
+2. **Second choice**: Use well-established WASM crypto libraries (noble-curves, etc.)
+3. **Third choice**: Bind to audited C libraries (OpenSSL, GMP)
+4. **Never**: Write custom big integer or modular exponentiation implementations
+
+**Remember**: MODEXP is critical for RSA and other public-key cryptography. Bugs can lead to fund loss, private key exposure, and complete system compromise. Always use proven, audited implementations.
+
 ## Specification
 
 ### Basic Operation

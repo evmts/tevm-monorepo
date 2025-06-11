@@ -40,6 +40,38 @@ Implement the RIPEMD160 precompile (address 0x03) for Ethereum Virtual Machine c
 
 RIPEMD160 is another cryptographic hash function, similar to SHA256 but older and producing a smaller 160-bit (20-byte) hash instead of 256 bits. Think of it as SHA256's smaller cousin - it still creates a unique digital fingerprint of data, but the fingerprint is shorter. While less common than SHA256, some legacy systems and Bitcoin-related applications still use RIPEMD160, so Ethereum provides this precompile for compatibility when smart contracts need to interact with such systems.
 
+## 🚨 CRITICAL SECURITY WARNING: DO NOT IMPLEMENT CUSTOM CRYPTO
+
+**❌ NEVER IMPLEMENT CRYPTOGRAPHIC ALGORITHMS FROM SCRATCH**
+
+**⚠️ SECURITY NOTICE**: RIPEMD160 is a **LEGACY ALGORITHM** considered cryptographically weak compared to modern alternatives. While required for Ethereum compatibility, it should not be used in new protocols.
+
+This prompt involves cryptographic operations. Follow these security principles:
+
+### ✅ **DO THIS:**
+- **Use established crypto libraries** (noble-hashes for RIPEMD160, libsecp256k1)
+- **Import proven implementations** from well-audited libraries
+- **Leverage existing WASM crypto libraries** when Zig stdlib lacks algorithms
+- **Follow reference implementations** from go-ethereum, revm, evmone exactly
+- **Use test vectors** from official specifications to verify correctness
+- **Note algorithm weakness** - RIPEMD160 has known collision vulnerabilities
+
+### ❌ **NEVER DO THIS:**
+- Write your own hash functions, signature verification, or elliptic curve operations
+- Implement cryptographic primitives "from scratch" or "for learning"
+- Modify cryptographic algorithms or add "optimizations"
+- Copy-paste crypto code from tutorials or unofficial sources
+- Implement crypto without extensive peer review and testing
+- Use RIPEMD160 in new protocols (only for Ethereum compatibility)
+
+### 🎯 **Implementation Strategy:**
+1. **First choice**: Use well-established WASM crypto libraries (noble-hashes)
+2. **Second choice**: Bind to audited C libraries (OpenSSL, libgcrypt)
+3. **Third choice**: Carefully verified Zig implementation based on reference
+4. **Never**: Write custom cryptographic implementations
+
+**Remember**: RIPEMD160 is a weak, legacy algorithm. Cryptographic bugs can lead to fund loss, private key exposure, and complete system compromise. Always use proven, audited implementations.
+
 ## Specification
 
 ### Basic Operation

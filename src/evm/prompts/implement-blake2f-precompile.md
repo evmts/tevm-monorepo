@@ -48,6 +48,34 @@ The BLAKE2F precompile enables efficient cryptographic operations for smart cont
 
 Think of BLAKE2F as a special cryptographic "blender" that takes a fixed amount of data and mixes it up in a very specific, reproducible way. Just like how Ethereum has built-in functions for basic math (add, multiply), it also has built-in functions for cryptography. BLAKE2F is one of these - it's a hash function that's faster and more secure than older ones like SHA-1. When smart contracts need to do BLAKE2 hashing (often for advanced cryptographic protocols), they can call this precompile instead of implementing the complex algorithm themselves, which saves gas and ensures correctness.
 
+## 🚨 CRITICAL SECURITY WARNING: DO NOT IMPLEMENT CUSTOM CRYPTO
+
+**❌ NEVER IMPLEMENT CRYPTOGRAPHIC ALGORITHMS FROM SCRATCH**
+
+This prompt involves cryptographic operations. Follow these security principles:
+
+### ✅ **DO THIS:**
+- **Use established crypto libraries** (Zig std.crypto, noble-hashes, libsecp256k1)
+- **Import proven implementations** from well-audited libraries
+- **Leverage existing WASM crypto libraries** when Zig stdlib lacks algorithms
+- **Follow reference implementations** from go-ethereum, revm, evmone exactly
+- **Use test vectors** from official specifications to verify correctness
+
+### ❌ **NEVER DO THIS:**
+- Write your own hash functions, signature verification, or elliptic curve operations
+- Implement cryptographic primitives "from scratch" or "for learning"
+- Modify cryptographic algorithms or add "optimizations"
+- Copy-paste crypto code from tutorials or unofficial sources
+- Implement crypto without extensive peer review and testing
+
+### 🎯 **Implementation Strategy:**
+1. **First choice**: Use Zig standard library crypto functions when available
+2. **Second choice**: Use well-established WASM crypto libraries (noble-hashes, etc.)
+3. **Third choice**: Bind to audited C libraries (libsecp256k1, OpenSSL)
+4. **Never**: Write custom cryptographic implementations
+
+**Remember**: Cryptographic bugs can lead to fund loss, private key exposure, and complete system compromise. Always use proven, audited implementations.
+
 ## Specification
 
 ### Basic Operation

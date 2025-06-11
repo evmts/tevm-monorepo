@@ -41,6 +41,36 @@ Implement the ECADD precompile (address 0x06) for Ethereum Virtual Machine compa
 
 Elliptic curves are special mathematical curves used in cryptography. ECADD is like a calculator that can "add" two points on a specific elliptic curve called alt_bn128. This isn't regular addition - it's a special mathematical operation where you take two points on the curve and get a third point that's also on the curve. This is crucial for advanced cryptographic protocols like zkSNARKs (zero-knowledge proofs) that help make blockchain transactions private and efficient. Having this as a precompile means smart contracts can do this complex math without having to implement all the curve arithmetic themselves.
 
+## 🚨 CRITICAL SECURITY WARNING: DO NOT IMPLEMENT CUSTOM CRYPTO
+
+**❌ NEVER IMPLEMENT CRYPTOGRAPHIC ALGORITHMS FROM SCRATCH**
+
+This prompt involves elliptic curve cryptography. Follow these security principles:
+
+### ✅ **DO THIS:**
+- **Use established crypto libraries** (noble-curves for BN254, arkworks-rs bindings)
+- **Import proven implementations** from well-audited libraries
+- **Follow reference implementations** from go-ethereum, revm, evmone exactly
+- **Use official test vectors** from EIP-196 and EIP-197 specifications
+- **Implement constant-time algorithms** to prevent timing attacks
+- **Validate all curve points** are on the correct curve and in correct subgroup
+
+### ❌ **NEVER DO THIS:**
+- Write your own elliptic curve point addition or field arithmetic
+- Implement BN254/alt_bn128 curve operations "from scratch" or "for learning"
+- Modify cryptographic algorithms or add "optimizations"
+- Copy-paste crypto code from tutorials or unofficial sources
+- Implement crypto without extensive peer review and testing
+- Skip subgroup checks or point validation
+
+### 🎯 **Implementation Strategy:**
+1. **First choice**: Use noble-curves BN254 implementation (WASM compatible)
+2. **Second choice**: Bind to arkworks-rs or other audited Rust crypto libraries
+3. **Third choice**: Use established C libraries (libff, mcl)
+4. **Never**: Write custom elliptic curve implementations
+
+**Remember**: ECADD is critical for zkSNARKs and privacy protocols. Bugs can compromise zero-knowledge proofs, leak private information, and break cryptographic protocols. Always use proven, audited implementations.
+
 ## Specification
 
 ### Basic Operation

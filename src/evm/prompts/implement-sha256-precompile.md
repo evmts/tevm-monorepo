@@ -43,6 +43,34 @@ Implement the SHA256 precompile (address 0x02) for Ethereum Virtual Machine comp
 
 SHA256 is a widely-used cryptographic hash function that takes any amount of data and produces a unique 256-bit (32-byte) "fingerprint" or hash. Think of it like a super-secure digital fingerprint machine - no matter how much data you put in, you always get exactly 32 bytes out, and even tiny changes to the input produce completely different outputs. Smart contracts use SHA256 when they need to verify data integrity or create tamper-proof references to data.
 
+## 🚨 CRITICAL SECURITY WARNING: DO NOT IMPLEMENT CUSTOM CRYPTO
+
+**❌ NEVER IMPLEMENT CRYPTOGRAPHIC ALGORITHMS FROM SCRATCH**
+
+This prompt involves cryptographic operations. Follow these security principles:
+
+### ✅ **DO THIS:**
+- **Use established crypto libraries** (Zig std.crypto, noble-hashes, libsecp256k1)
+- **Import proven implementations** from well-audited libraries
+- **Leverage existing WASM crypto libraries** when Zig stdlib lacks algorithms
+- **Follow reference implementations** from go-ethereum, revm, evmone exactly
+- **Use test vectors** from official specifications to verify correctness
+
+### ❌ **NEVER DO THIS:**
+- Write your own hash functions, signature verification, or elliptic curve operations
+- Implement cryptographic primitives "from scratch" or "for learning"
+- Modify cryptographic algorithms or add "optimizations"
+- Copy-paste crypto code from tutorials or unofficial sources
+- Implement crypto without extensive peer review and testing
+
+### 🎯 **Implementation Strategy:**
+1. **First choice**: Use Zig standard library crypto functions when available
+2. **Second choice**: Use well-established WASM crypto libraries (noble-hashes, etc.)
+3. **Third choice**: Bind to audited C libraries (libsecp256k1, OpenSSL)
+4. **Never**: Write custom cryptographic implementations
+
+**Remember**: Cryptographic bugs can lead to fund loss, private key exposure, and complete system compromise. Always use proven, audited implementations.
+
 ## Specification
 
 ### Basic Operation

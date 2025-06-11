@@ -37,6 +37,37 @@ The enhanced version includes:
 
 Without pairing operations, many advanced cryptographic protocols (like BLS signatures used in Ethereum 2.0) would be impossible or prohibitively expensive.
 
+## 🚨 CRITICAL SECURITY WARNING: DO NOT IMPLEMENT CUSTOM CRYPTO
+
+**❌ NEVER IMPLEMENT CRYPTOGRAPHIC ALGORITHMS FROM SCRATCH**
+
+**🔴 MAXIMUM COMPLEXITY WARNING**: BLS12-381 pairing is among the most complex cryptographic operations in existence. Implementation errors can break Ethereum 2.0 consensus.
+
+This prompt involves the most advanced cryptographic operations. Follow these security principles:
+
+### ✅ **DO THIS:**
+- **Use blst library** - The only production-ready BLS12-381 implementation
+- **Import proven implementations** from well-audited libraries (blst, arkworks-rs)
+- **Follow reference implementations** from go-ethereum, revm, evmone exactly
+- **Use official test vectors** from EIP-2537 and BLS standards
+- **Implement constant-time algorithms** to prevent timing attacks
+- **Use optimized pairing libraries** specifically designed for BLS12-381
+
+### ❌ **NEVER DO THIS:**
+- Write your own BLS12-381 pairing algorithms or tower field arithmetic
+- Implement pairing operations "from scratch" or "for learning"
+- Modify cryptographic algorithms or add "optimizations"
+- Copy-paste crypto code from tutorials or unofficial sources
+- Implement crypto without extensive peer review and testing
+- Skip final exponentiation or other critical pairing steps
+
+### 🎯 **Implementation Strategy:**
+1. **ONLY choice**: Use blst library (Ethereum Foundation standard)
+2. **Fallback**: Use arkworks-rs BLS12-381 with proven track record
+3. **Never**: Write custom pairing or tower field implementations
+
+**Remember**: BLS12-381 pairing is the foundation of Ethereum 2.0 consensus and signature aggregation. Bugs can break validator operations, compromise staking security, and undermine the entire Ethereum network. This is not negotiable - only use blst or equally well-audited implementations.
+
 ## EIP-2537 Specification
 
 ### Basic Operation

@@ -226,3 +226,134 @@ pub const eip3155_tracing = struct {
 - **Validate performance implications**
 - **Ensure cross-platform compatibility**
 
+## EVMONE Context
+
+<evmone>
+<file path="https://github.com/ethereum/evmone/blob/master/lib/evmone/tracing.hpp">
+```cpp
+class Tracer
+{
+    friend class VM;  // Has access the m_next_tracer to traverse the list forward.
+    std::unique_ptr<Tracer> m_next_tracer;
+
+public:
+    virtual ~Tracer() = default;
+
+    void notify_execution_start(  // NOLINT(misc-no-recursion)
+        evmc_revision rev, const evmc_message& msg, bytes_view code) noexcept
+    {
+        on_execution_start(rev, msg, code);
+        if (m_next_tracer)
+            m_next_tracer->notify_execution_start(rev, msg, code);
+    }
+
+    void notify_instruction_start(  // NOLINT(misc-no-recursion)
+        uint32_t pc, intx::uint256* stack_top, int stack_height, int64_t gas,
+        const ExecutionState& state) noexcept
+    {
+        on_instruction_start(pc, stack_top, stack_height, gas, state);
+        if (m_next_tracer)
+            m_next_tracer->notify_instruction_start(pc, stack_top, stack_height, gas, state);
+    }
+private:
+    virtual void on_execution_start(
+        evmc_revision rev, const evmc_message& msg, bytes_view code) noexcept = 0;
+    virtual void on_instruction_start(uint32_t pc, const intx::uint256* stack_top, int stack_height,
+        int64_t gas, const ExecutionState& state) noexcept = 0;
+    virtual void on_execution_end(const evmc_result& result) noexcept = 0;
+};
+// ...
+EVMC_EXPORT std::unique_ptr<Tracer> create_instruction_tracer(std::ostream& out);
+```
+</file>
+<file path="https://github.com/ethereum/evmone/blob/master/lib/evmone/tracing.cpp">
+```cpp
+class InstructionTracer : public Tracer
+{
+    // ...
+    std::ostream& m_out;  ///< Output stream.
+
+    void output_stack(const intx::uint256* stack_top, int stack_height)
+    {
+        m_out << R"(,"stack":[)";
+        const auto stack_end = stack_top + 1;
+        const auto stack_begin = stack_end - stack_height;
+        for (auto it = stack_begin; it != stack_end; ++it)
+        {
+            if (it != stack_begin)
+                m_out << ',';
+            m_out << R"("0x)" << to_string(*it, 16) << '"';
+        }
+        m_out << ']';
+    }
+
+    void on_instruction_start(uint32_t pc, const intx::uint256* stack_top, int stack_height,
+        int64_t gas, const ExecutionState& state) noexcept override
+    {
+        const auto& ctx = m_contexts.top();
+
+        const auto opcode = ctx.code[pc];
+        m_out << "{";
+        m_out << R"("pc":)" << std::dec << pc;
+        m_out << R"(,"op":)" << std::dec << int{opcode};
+        m_out << R"(,"gas":"0x)" << std::hex << gas << '"';
+        m_out << R"(,"gasCost":"0x)" << std::hex << instr::gas_costs[state.rev][opcode] << '"';
+
+        // Full memory can be dumped as evmc::hex({state.memory.data(), state.memory.size()}),
+        // but this should not be done by default. Adding --tracing=+memory option would be nice.
+        m_out << R"(,"memSize":)" << std::dec << state.memory.size();
+
+        output_stack(stack_top, stack_height);
+        if (!state.return_data.empty())
+            m_out << R"(,"returnData":"0x)" << evmc::hex(state.return_data) << '"';
+        m_out << R"(,"depth":)" << std::dec << (ctx.depth + 1);
+        m_out << R"(,"refund":)" << std::dec << state.gas_refund;
+        m_out << R"(,"opName":")" << get_name(opcode) << '"';
+
+        m_out << "}\n";
+    }
+    // ...
+};
+```
+</file>
+</evmone>
+
+## Implementation Insights from EVMONE
+
+### Key EVMONE Tracing Patterns
+
+1. **Chain of Responsibility Pattern**: EVMONE uses linked tracers (`m_next_tracer`) allowing multiple tracers to operate simultaneously without interference.
+
+2. **Minimal Performance Impact**: Tracing is template-parameterized (`template <bool TracingEnabled>`) to eliminate branching overhead when tracing is disabled.
+
+3. **Stream-Based Output**: Direct JSON streaming to `std::ostream` avoids building intermediate data structures, reducing memory usage.
+
+4. **Stack Format**: Stack is output with bottom elements first, top element last (per EIP-3155), using pointer arithmetic for efficiency.
+
+5. **Hex Formatting**: Consistent hex formatting with "0x" prefix for all numeric values in trace output.
+
+### Recommended Adaptations for Zig Implementation
+
+```zig
+// Adopt EVMONE's tracer pattern
+pub const TracerInterface = struct {
+    on_execution_start: *const fn(*anyopaque, revision: HardFork, message: *const Message, code: []const u8) void,
+    on_instruction_start: *const fn(*anyopaque, pc: u32, stack: *const Stack, gas: u64, state: *const ExecutionState) void,
+    on_execution_end: *const fn(*anyopaque, result: *const ExecutionResult) void,
+    
+    ptr: *anyopaque,
+};
+
+// Use template-style tracing enablement
+pub fn execute(comptime tracing_enabled: bool, vm: *VM, tracer: ?*TracerInterface) !ExecutionResult {
+    while (vm.frame.pc < vm.frame.code.len) {
+        if (comptime tracing_enabled) {
+            if (tracer) |t| t.on_instruction_start(t.ptr, vm.frame.pc, &vm.frame.stack, vm.frame.gas, &vm.state);
+        }
+        
+        const result = try vm.execute_next_opcode();
+        if (result.should_stop) break;
+    }
+}
+```
+

@@ -50,6 +50,36 @@ Real-world analogy:
 
 This specific precompile (G1ADD) is one piece of a larger cryptographic toolkit. G1 refers to one of two groups of points on the BLS12-381 curve - think of it as one "layer" of the mathematical structure that makes advanced cryptography possible.
 
+## 🚨 CRITICAL SECURITY WARNING: DO NOT IMPLEMENT CUSTOM CRYPTO
+
+**❌ NEVER IMPLEMENT CRYPTOGRAPHIC ALGORITHMS FROM SCRATCH**
+
+This prompt involves BLS12-381 elliptic curve cryptography. Follow these security principles:
+
+### ✅ **DO THIS:**
+- **Use established crypto libraries** (blst, noble-curves BLS12-381, arkworks-rs)
+- **Import proven implementations** from well-audited libraries
+- **Follow reference implementations** from go-ethereum, revm, evmone exactly
+- **Use official test vectors** from EIP-2537 specification
+- **Implement constant-time algorithms** to prevent timing attacks
+- **Validate all curve points** are on the correct curve and in correct subgroup
+
+### ❌ **NEVER DO THIS:**
+- Write your own BLS12-381 curve arithmetic or field operations
+- Implement elliptic curve operations "from scratch" or "for learning"
+- Modify cryptographic algorithms or add "optimizations"
+- Copy-paste crypto code from tutorials or unofficial sources
+- Implement crypto without extensive peer review and testing
+- Skip subgroup checks or point validation
+
+### 🎯 **Implementation Strategy:**
+1. **First choice**: Use blst library (industry standard for BLS12-381)
+2. **Second choice**: Use noble-curves BLS12-381 (WASM compatible)
+3. **Third choice**: Bind to arkworks-rs or other audited Rust crypto libraries
+4. **Never**: Write custom BLS12-381 curve implementations
+
+**Remember**: BLS12-381 is critical for Ethereum 2.0 and advanced cryptographic protocols. Bugs can compromise validator operations, break signature aggregation, and undermine consensus security. Always use proven, audited implementations.
+
 ## File Structure
 
 **Primary Files to Modify:**

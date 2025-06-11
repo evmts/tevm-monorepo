@@ -1250,6 +1250,212 @@ pub const l2_chain_support = struct {
 - **Validate performance implications**
 - **Ensure cross-platform compatibility**
 
+## EVMONE Context
+
+<evmone>
+<file path="https://github.com/ethereum/evmone/blob/master/lib/evmone/instructions_traits.hpp">
+```cpp
+/// The EVM instruction traits.
+struct Traits
+{
+    /// The instruction name;
+    const char* name = nullptr;
+    // ...
+    /// The EVM revision in which the instruction has been defined.
+    std::optional<evmc_revision> since;
+};
+
+/// The table of instruction gas costs per EVM revision.
+using GasCostTable = std::array<std::array<int16_t, 256>, EVMC_MAX_REVISION + 1>;
+
+/// The EVM revision specific table of EVM instructions gas costs.
+constexpr inline GasCostTable gas_costs = []() noexcept {
+    GasCostTable table{};
+
+    // Frontier
+    for (auto& t : table[EVMC_FRONTIER])
+        t = undefined;
+    table[EVMC_FRONTIER][OP_STOP] = 0;
+    table[EVMC_FRONTIER][OP_ADD] = 3;
+    table[EVMC_FRONTIER][OP_SLOAD] = 50;
+    table[EVMC_FRONTIER][OP_CALL] = 40;
+    // ... other Frontier opcodes
+
+    // Homestead
+    table[EVMC_HOMESTEAD] = table[EVMC_FRONTIER];
+    table[EVMC_HOMESTEAD][OP_DELEGATECALL] = 40;
+
+    // Tangerine Whistle
+    table[EVMC_TANGERINE_WHISTLE] = table[EVMC_HOMESTEAD];
+    table[EVMC_TANGERINE_WHISTLE][OP_BALANCE] = 400;
+    table[EVMC_TANGERINE_WHISTLE][OP_SLOAD] = 200;
+    table[EVMC_TANGERINE_WHISTLE][OP_CALL] = 700;
+    // ... other Tangerine Whistle changes
+
+    // Berlin
+    table[EVMC_BERLIN] = table[EVMC_ISTANBUL];
+    table[EVMC_BERLIN][OP_EXTCODESIZE] = warm_storage_read_cost;
+    table[EVMC_BERLIN][OP_SLOAD] = warm_storage_read_cost;
+    table[EVMC_BERLIN][OP_CALL] = warm_storage_read_cost;
+
+    // London
+    table[EVMC_LONDON] = table[EVMC_BERLIN];
+    table[EVMC_LONDON][OP_BASEFEE] = 2;
+
+    // Shanghai
+    table[EVMC_SHANGHAI] = table[EVMC_PARIS];
+    table[EVMC_SHANGHAI][OP_PUSH0] = 2;
+
+    return table;
+}();
+```
+</file>
+<file path="https://github.com/ethereum/evmone/blob/master/lib/evmone/baseline_instruction_table.cpp">
+```cpp
+namespace
+{
+consteval auto build_cost_tables(bool eof) noexcept
+{
+    std::array<CostTable, EVMC_MAX_REVISION + 1> tables{};
+    for (size_t r = EVMC_FRONTIER; r <= EVMC_MAX_REVISION; ++r)
+    {
+        auto& table = tables[r];
+        for (size_t op = 0; op < table.size(); ++op)
+        {
+            const auto& tr = instr::traits[op];
+            const auto since = eof ? tr.eof_since : tr.since;
+            table[op] = (since && r >= *since) ? instr::gas_costs[r][op] : instr::undefined;
+        }
+    }
+    return tables;
+}
+
+constexpr auto LEGACY_COST_TABLES = build_cost_tables(false);
+constexpr auto EOF_COST_TABLES = build_cost_tables(true);
+}  // namespace
+
+const CostTable& get_baseline_cost_table(evmc_revision rev, uint8_t eof_version) noexcept
+{
+    const auto& tables = (eof_version == 0) ? LEGACY_COST_TABLES : EOF_COST_TABLES;
+    return tables[rev];
+}
+```
+</file>
+<file path="https://github.com/ethereum/evmone/blob/master/test/state/precompiles.cpp">
+```cpp
+struct PrecompileTraits
+{
+    decltype(identity_analyze)* analyze = nullptr;
+    decltype(identity_execute)* execute = nullptr;
+};
+
+// Table mapping precompile IDs to their implementation functions
+inline constexpr std::array<PrecompileTraits, NumPrecompiles> traits{{
+    {},  // undefined for 0
+    {ecrecover_analyze, ecrecover_execute},
+    {sha256_analyze, sha256_execute},
+    {ripemd160_analyze, ripemd160_execute},
+    {identity_analyze, identity_execute},
+    {expmod_analyze, expmod_execute},
+    {ecadd_analyze, ecadd_execute},
+    {ecmul_analyze, ecmul_execute},
+    {ecpairing_analyze, ecpairing_execute},
+    {blake2bf_analyze, blake2bf_execute},
+    {point_evaluation_analyze, point_evaluation_execute},
+    // ... more precompiles
+}};
+
+// Checks if an address is a precompile and if it's active in the current revision
+bool is_precompile(evmc_revision rev, const evmc::address& addr) noexcept
+{
+    if (evmc::is_zero(addr) || addr > evmc::address{stdx::to_underlying(PrecompileId::latest)})
+        return false;
+
+    const auto id = addr.bytes[19];
+    if (rev < EVMC_BYZANTIUM && id >= stdx::to_underlying(PrecompileId::since_byzantium))
+        return false;
+
+    if (rev < EVMC_ISTANBUL && id >= stdx::to_underlying(PrecompileId::since_istanbul))
+        return false;
+
+    if (rev < EVMC_CANCUN && id >= stdx::to_underlying(PrecompileId::since_cancun))
+        return false;
+
+    return true;
+}
+
+// The main dispatcher for precompile calls
+evmc::Result call_precompile(evmc_revision rev, const evmc_message& msg) noexcept
+{
+    assert(msg.gas >= 0);
+
+    const auto id = msg.code_address.bytes[19];
+    const auto [analyze, execute] = traits[id];
+
+    const bytes_view input{msg.input_data, msg.input_size};
+    const auto [gas_cost, max_output_size] = analyze(input, rev);
+    const auto gas_left = msg.gas - gas_cost;
+    if (gas_left < 0)
+        return evmc::Result{EVMC_OUT_OF_GAS};
+
+    // ... (execute and return result) ...
+}
+```
+</file>
+</evmone>
+
+## Implementation Insights from EVMONE
+
+### Key EVMONE L2 Adaptation Patterns
+
+1. **Revision-Based Configuration**: EVMONE uses EVM revisions to handle different rule sets. This can be extended to support L2-specific configurations by adding custom revision enums.
+
+2. **Gas Cost Table Architecture**: The multi-dimensional gas cost table `gas_costs[revision][opcode]` provides a perfect foundation for L2-specific gas models.
+
+3. **Pluggable Precompile System**: The trait-based precompile dispatch system allows easy addition of L2-specific precompiles without modifying core execution logic.
+
+4. **Transaction Type Support**: EVMONE's transaction type system can be extended to support L2-specific transaction types like Optimism deposits.
+
+5. **Conditional Feature Activation**: The revision-based feature enabling pattern can gate L2-specific opcodes and behavior.
+
+### Recommended Adaptations for L2 Support
+
+```zig
+// Extend EVMONE's revision concept for L2s
+pub const ChainType = enum {
+    ethereum_mainnet,
+    optimism,
+    arbitrum,
+    polygon,
+    base,
+    
+    pub fn get_gas_table(self: ChainType, hardfork: HardFork) *const [256]u64 {
+        return switch (self) {
+            .ethereum_mainnet => &ethereum_gas_costs[hardfork],
+            .optimism => &optimism_gas_costs[hardfork],
+            .arbitrum => &arbitrum_gas_costs[hardfork],
+            .polygon => &polygon_gas_costs[hardfork],
+            .base => &base_gas_costs[hardfork],
+        };
+    }
+};
+
+// L2-aware precompile dispatch
+pub fn call_precompile(chain: ChainType, address: Address, input: []const u8) !PrecompileResult {
+    const precompile_id = address.bytes[19];
+    
+    return switch (chain) {
+        .optimism => if (is_optimism_precompile(precompile_id)) 
+            optimism_precompiles[precompile_id].execute(input)
+        else 
+            standard_precompiles[precompile_id].execute(input),
+            
+        .ethereum_mainnet => standard_precompiles[precompile_id].execute(input),
+        // ... other chains
+    };
+}
+```
+
 ## References
 
 - [Optimism Specs](https://github.com/ethereum-optimism/optimism/tree/develop/specs) - OP Stack specification
