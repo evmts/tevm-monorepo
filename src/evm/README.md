@@ -292,6 +292,9 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
   - [ ] **ECADD** (0x06) - Elliptic curve point addition
   - [ ] **ECMUL** (0x07) - Elliptic curve point multiplication
   - [ ] **ECPAIRING** (0x08) - [Elliptic curve pairing check](./prompts/implement-ecpairing-precompile.md) | [Enhanced](./prompts/implement-ecpairing-precompile-enhanced.md)
+  - [🔄] **MODEXP** (0x05) - [Modular exponentiation](./prompts/implement-modexp-precompile.md) - @claude working on this
+  - [x] **ECADD** (0x06) - [Elliptic curve point addition](./prompts/implement-ecadd-precompile.md) ✅
+  - [🔄] **ECMUL** (0x07) - [Elliptic curve point multiplication](./prompts/implement-ecmul-precompile.md) - @claude working on this
   - [ ] **ECPAIRING** (0x08) - Elliptic curve pairing check
   - [ ] **BLAKE2F** (0x09) - Blake2f compression function
   - [ ] **BLAKE2F** (0x09) - [Blake2f compression function](./prompts/implement-blake2f-precompile.md)
