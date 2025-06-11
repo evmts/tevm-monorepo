@@ -286,6 +286,8 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 
 - [ ] 🟡 **Standard Precompiles**
   - [x] **ECRECOVER** (0x01) - Elliptic curve signature recovery (placeholder implementation) ✅
+- [ ] 🟡 **Standard Precompiles**
+  - [🔄] **ECRECOVER** (0x01) - [Elliptic curve signature recovery](./prompts/implement-ecrecover-precompile.md) - @claude working on this
   - [x] **SHA256** (0x02) - SHA-256 hash function ✅
   - [ ] **RIPEMD160** (0x03) - [RIPEMD-160 hash function](./prompts/implement-ripemd160-precompile.md)
 
