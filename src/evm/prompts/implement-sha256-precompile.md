@@ -1,23 +1,17 @@
 # Implement SHA256 Precompile
 
-## What
+You are implementing the SHA256 precompile (address 0x02) for the Tevm EVM written in Zig. Your goal is to provide SHA256 hashing functionality for smart contracts, following Ethereum specifications and maintaining compatibility with all Ethereum clients.
 
-Implement the SHA256 precompile (address 0x02) for Ethereum Virtual Machine compatibility. This precompile provides SHA256 hashing functionality and is available from the Frontier hardfork. This implementation leverages Zig's standard library crypto implementation for optimal performance and security.
-
-## Why
+## Context
 SHA256 is fundamental for Ethereum ecosystem compatibility and is used by smart contracts for data integrity verification, commitment schemes, and interoperability with Bitcoin and other systems. The precompile provides an efficient, gas-optimized way for contracts to compute SHA256 hashes without implementing the algorithm in expensive EVM bytecode.
 
-## How
-1. Implement gas calculation using the standard formula: 60 + 12 * ceil(input_size / 32)
-2. Integrate Zig's std.crypto.hash.sha2.Sha256 for secure, optimized hash computation
-3. Add proper input validation and error handling for edge cases and gas limits
-4. Ensure always returns exactly 32 bytes output regardless of input size
-5. Integrate with existing precompile infrastructure and dispatcher system
-6. Include comprehensive testing with RFC test vectors and Ethereum compatibility tests
+## Development Workflow
+- **Branch**: `feat_implement_sha` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_sha feat_implement_sha`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
 
-## Git Workflow Instructions
-
-### Branch Setup
+## Branch Setup
 1. **Create branch**: `feat_implement_sha256_precompile` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_sha256_precompile feat_implement_sha256_precompile`
 3. **Work in isolation**: `cd g/feat_implement_sha256_precompile`
@@ -68,7 +62,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 Implement the SHA256 precompile (address 0x02) for Ethereum Virtual Machine compatibility. This precompile provides SHA256 hashing functionality and is available from the Frontier hardfork. This implementation assumes the IDENTITY precompile infrastructure already exists.
 
-## Relevant Implementation Files
+## File Structure
 
 **Primary Files to Modify:**
 - `/src/evm/precompiles/precompiles.zig` - Main precompile dispatcher
@@ -95,7 +89,7 @@ Implement the SHA256 precompile (address 0x02) for Ethereum Virtual Machine comp
 
 SHA256 is a widely-used cryptographic hash function that takes any amount of data and produces a unique 256-bit (32-byte) "fingerprint" or hash. Think of it like a super-secure digital fingerprint machine - no matter how much data you put in, you always get exactly 32 bytes out, and even tiny changes to the input produce completely different outputs. Smart contracts use SHA256 when they need to verify data integrity or create tamper-proof references to data.
 
-## Ethereum Specification
+## Specification
 
 ### Basic Operation
 - **Address**: `0x0000000000000000000000000000000000000002`
@@ -284,31 +278,21 @@ pub fn execute_efficient(input: []const u8, output: []u8, gas_limit: u64) Precom
 5. **Performance**: Competitive with or better than reference implementations
 6. **Bundle Size**: Minimal impact on WASM bundle size
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Use Zig standard library crypto** - Don't implement SHA256 from scratch
-3. **Verify against RFC test vectors** - Ensure hash correctness
-4. **Test gas calculation precisely** - Must match Ethereum specification exactly
-5. **Handle large inputs** - Test up to reasonable gas limit boundaries
-6. **Maintain constant-time execution** - Use secure crypto implementation
-
-## Security Considerations
-
-### Crypto Implementation
-- **Use std.crypto.hash.sha2.Sha256**: Battle-tested implementation
-- **Constant-time execution**: Resistant to timing attacks
-- **Memory safety**: Zig's memory safety prevents buffer overflows
-- **No custom crypto**: Don't implement SHA256 manually
-
-### Input Validation
-```zig
-// Validate input size doesn't cause integer overflow
-if (input.len > std.math.maxInt(u32)) return PrecompileError.InputTooLarge;
-
-// Ensure output buffer is adequate
-if (output.len < 32) return PrecompileError.InvalidOutput;
-```
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
 
 ## References
 

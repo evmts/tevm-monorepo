@@ -1,8 +1,14 @@
 # Implement Handler Architecture
 
-## Git Workflow Instructions
+You are implementing Handler Architecture for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
+## Development Workflow
+- **Branch**: `feat_implement_handler_architecture` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_handler_architecture feat_implement_handler_architecture`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+## Branch Setup
 1. **Create branch**: `feat_implement_handler_architecture` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_handler_architecture feat_implement_handler_architecture`
 3. **Work in isolation**: `cd g/feat_implement_handler_architecture`
@@ -53,7 +59,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 Implement a modular handler architecture for opcodes that provides pluggable handler system for opcode execution.
 
-## Relevant Implementation Files
+## File Structure
 
 **Primary Files to Modify:**
 - `/src/evm/jump_table/jump_table.zig` - Opcode dispatch table
@@ -1357,14 +1363,21 @@ test "custom handler implementation" {
 5. **Performance**: Zero overhead when no handlers are registered
 6. **Extensibility**: Easy to create custom handlers for specific needs
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Zero overhead principle** - No performance impact when handlers are disabled
-3. **Error isolation** - Handler failures must not crash VM execution
-4. **Type safety** - Compile-time checked handler interfaces
-5. **Memory safety** - Proper lifetime management of handler data
-6. **Backward compatibility** - Existing VM code should work without handlers
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
 
 ## References
 

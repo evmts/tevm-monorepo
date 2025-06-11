@@ -1,8 +1,14 @@
 # Implement BLS12-381 G2MSM Precompile
 
-## Git Workflow Instructions
+You are implementing BLS12-381 G2MSM Precompile for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
+## Development Workflow
+- **Branch**: `feat_implement_bls` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_bls feat_implement_bls`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+## Branch Setup
 1. **Create branch**: `feat_implement_bls12_381_g2msm_precompile` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_bls12_381_g2msm_precompile feat_implement_bls12_381_g2msm_precompile`
 3. **Work in isolation**: `cd g/feat_implement_bls12_381_g2msm_precompile`
@@ -137,13 +143,22 @@ total_cost = base_cost + (num_pairs * per_pair_cost)
 5. **Performance**: Efficient implementation suitable for production use
 6. **Integration**: Works with existing precompile infrastructure
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Use established BLS libraries** - Don't implement Fp2 arithmetic from scratch
-3. **Validate subgroup membership** - G2 points must be in correct subgroup
-4. **Test with EIP test vectors** - Use official EIP-2537 test cases
-5. **Handle large inputs gracefully** - Prevent DoS via large G2 MSM operations
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
+
 
 ## EVMONE Context
 

@@ -1,8 +1,14 @@
 # Implement Call Gas Management
 
-## Git Workflow Instructions
+You are implementing Call Gas Management for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
+## Development Workflow
+- **Branch**: `feat_implement_call_gas_management` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_call_gas_management feat_implement_call_gas_management`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+## Branch Setup
 1. **Create branch**: `feat_implement_call_gas_management` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_call_gas_management feat_implement_call_gas_management`
 3. **Work in isolation**: `cd g/feat_implement_call_gas_management`
@@ -116,12 +122,22 @@ retained_gas = available_gas - gas_to_forward
 4. **Test Coverage**: Comprehensive tests for edge cases and gas accounting
 5. **Integration**: Works properly with existing call infrastructure
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Test gas calculations thoroughly** - Use known test vectors
-3. **Handle edge cases** - Zero gas, minimal gas, maximum gas scenarios
-4. **Maintain call compatibility** - Don't break existing call operations
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
+
 
 ## EVMONE Context
 

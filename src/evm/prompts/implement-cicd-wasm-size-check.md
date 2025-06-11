@@ -1,8 +1,14 @@
 # Implement CI/CD WASM Size Check
 
-## Git Workflow Instructions
+You are implementing CI/CD WASM Size Check for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
+## Development Workflow
+- **Branch**: `feat_implement_implement_ci_cd_wasm_size_check` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_implement_ci_cd_wasm_size_check feat_implement_implement_ci_cd_wasm_size_check`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+## Branch Setup
 1. **Create branch**: `chore_implement_cicd_wasm_size_check` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/chore_implement_cicd_wasm_size_check chore_implement_cicd_wasm_size_check`
 3. **Work in isolation**: `cd g/chore_implement_cicd_wasm_size_check`

@@ -1,8 +1,14 @@
 # Implement EIP-3155 Tracing
 
-## Git Workflow Instructions
+You are implementing EIP-3155 Tracing for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
+## Development Workflow
+- **Branch**: `feat_implement_eip` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_eip feat_implement_eip`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+## Branch Setup
 1. **Create branch**: `feat_implement_eip3155_tracing` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_eip3155_tracing feat_implement_eip3155_tracing`
 3. **Work in isolation**: `cd g/feat_implement_eip3155_tracing`
@@ -136,10 +142,19 @@ pub fn execute_with_tracing(vm: *VM, tracer: *EIP3155Tracer) !ExecutionResult {
 5. **Performance**: Minimal impact on execution performance when disabled
 6. **Integration**: Works with existing VM and frame architecture
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Test against known traces** - Use existing EIP-3155 trace examples
-3. **Validate JSON output** - Ensure compatibility with trace analyzers
-4. **Handle all opcodes** - Every opcode must produce valid trace
-5. **Optimize for performance** - Tracing should be optional and fast
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
+

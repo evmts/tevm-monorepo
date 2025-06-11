@@ -1,57 +1,15 @@
 # Implement ECRECOVER Precompile
 
-## Git Workflow Instructions
+You are implementing the ECRECOVER precompile (address 0x01) for the Tevm EVM written in Zig. Your goal is to recover signer addresses from ECDSA signatures using elliptic curve cryptography, following Ethereum specifications and maintaining compatibility with all existing implementations.
 
-### Branch Setup
-1. **Create branch**: `feat_implement_ecrecover_precompile` (snake_case, no emoji)
-2. **Create worktree**: `git worktree add g/feat_implement_ecrecover_precompile feat_implement_ecrecover_precompile`
-3. **Work in isolation**: `cd g/feat_implement_ecrecover_precompile`
-4. **Commit message**: Use the following XML format:
-
-```
-✨ feat: brief description of the change
-
-<summary>
-<what>
-- Bullet point summary of what was changed
-- Key implementation details and files modified
-</what>
-
-<why>
-- Motivation and reasoning behind the changes
-- Problem being solved or feature being added
-</why>
-
-<how>
-- Technical approach and implementation strategy
-- Important design decisions or trade-offs made
-</how>
-</summary>
-
-<prompt>
-Condensed version of the original prompt that includes:
-- The core request or task
-- Essential context needed to re-execute
-- Replace large code blocks with <github>url</github> or <docs>description</docs>
-- Remove redundant examples but keep key technical details
-- Ensure someone could understand and repeat the task from this prompt alone
-</prompt>
-
-🤖 Generated with [Claude Code](https://claude.ai/code)
-
-Co-Authored-By: Claude <noreply@anthropic.com>
-```
-
-### Workflow Steps
-1. Create and switch to the new worktree
-2. Implement all changes in the isolated branch
-3. Run `zig build test-all` to ensure all tests pass
-4. Commit with emoji conventional commit format
-5. DO NOT merge - leave ready for review
+## Development Workflow
+- **Branch**: `feat_implement_ecrecover_precompile` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_ecrecover_precompile feat_implement_ecrecover_precompile`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
 
 ## Context
-
-Implement the ECRECOVER precompile (address 0x01) for Ethereum Virtual Machine compatibility. This precompile recovers the signer's address from an ECDSA signature using elliptic curve cryptography. This is fundamental for Ethereum's signature verification system.
+The ECRECOVER precompile is fundamental for Ethereum's signature verification system. It recovers the signer's address from an ECDSA signature using elliptic curve cryptography, enabling authentication of transactions and messages.
 
 ## ELI5
 
@@ -80,20 +38,20 @@ The "enhanced" version includes optimizations for:
 
 Without ECRECOVER, Ethereum couldn't verify that transactions are legitimate - it's like the foundation that all blockchain security is built on.
 
-## Ethereum Specification
+## Specification
 
 ### Basic Operation
 - **Address**: `0x0000000000000000000000000000000000000001`
-- **Gas Cost**: `3000` (fixed cost)
+- **Gas Cost**: 3000 (fixed cost)
 - **Input**: 128 bytes (hash, v, r, s)
 - **Output**: 20 bytes (recovered address) or empty on failure
 - **Available**: All hardforks (Frontier onwards)
+- **Function**: ECDSA public key recovery from signature
 
-### Input Format
+### Input Format (128 bytes)
 ```
-Input (128 bytes total):
 - hash (32 bytes): Hash of the message that was signed
-- v (32 bytes): Recovery ID (27 or 28, or chain_id * 2 + 35/36 for EIP-155)
+- v (32 bytes): Recovery ID (27 or 28, padded with zeros)
 - r (32 bytes): ECDSA signature r component
 - s (32 bytes): ECDSA signature s component
 ```
@@ -101,6 +59,13 @@ Input (128 bytes total):
 ### Output Format
 - **Success**: 20-byte Ethereum address (left-padded to 32 bytes)
 - **Failure**: Empty output (0 bytes)
+
+### Validation Rules
+- r and s must be in range [1, secp256k1_order)
+- v must be exactly 27 or 28 (after adjustment)
+- All zero padding bytes in v parameter must be zero
+- Public key recovery must succeed
+- Derived address must be valid
 
 ## Reference Implementations
 

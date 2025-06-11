@@ -1,94 +1,48 @@
 # Implement BLAKE2F Precompile
 
-## What
-
-Implement the BLAKE2F precompile (address 0x09) providing the BLAKE2b compression function for Ethereum Virtual Machine. This precompile accepts 213 bytes of input (rounds + hash state + message block + counters + final flag) and outputs 64 bytes of compressed hash state, with gas cost of 1 per round.
-
-## Why
-The BLAKE2F precompile enables efficient cryptographic operations for smart contracts that require BLAKE2b hashing, which is faster and more secure than older hash functions. This is essential for advanced cryptographic protocols, zero-knowledge proofs, and other applications that need high-performance hashing capabilities within the EVM.
-
-## How
-1. Implement BLAKE2b F compression function following RFC 7693 specification
-2. Add input validation for 213-byte format and proper flag values
-3. Implement gas calculation (1 gas per round) with overflow protection
-4. Handle endianness conversion (big-endian rounds, little-endian hash data)
-5. Optimize performance for large round counts and repeated operations
-6. Add comprehensive test coverage against EIP-152 test vectors
-
-## Git Workflow Instructions
-
-### Branch Setup
-1. **Create branch**: `feat_implement_blake2f_precompile` (snake_case, no emoji)
-2. **Create worktree**: `git worktree add g/feat_implement_blake2f_precompile feat_implement_blake2f_precompile`
-3. **Work in isolation**: `cd g/feat_implement_blake2f_precompile`
-4. **Commit message**: Use the following XML format:
-
-```
-✨ feat: brief description of the change
-
-<summary>
-<what>
-- Bullet point summary of what was changed
-- Key implementation details and files modified
-</what>
-
-<why>
-- Motivation and reasoning behind the changes
-- Problem being solved or feature being added
-</why>
-
-<how>
-- Technical approach and implementation strategy
-- Important design decisions or trade-offs made
-</how>
-</summary>
-
-<prompt>
-Condensed version of the original prompt that includes:
-- The core request or task
-- Essential context needed to re-execute
-- Replace large code blocks with <github>url</github> or <docs>description</docs>
-- Remove redundant examples but keep key technical details
-- Ensure someone could understand and repeat the task from this prompt alone
-</prompt>
-
-🤖 Generated with [Claude Code](https://claude.ai/code)
-
-Co-Authored-By: Claude <noreply@anthropic.com>
-```
-
-### Workflow Steps
-1. Create and switch to the new worktree
-2. Implement all changes in the isolated branch
-3. Run `zig build test-all` to ensure all tests pass
-4. Commit with emoji conventional commit format
-5. DO NOT merge - leave ready for review
+You are implementing the BLAKE2F precompile (address 0x09) for the Tevm EVM written in Zig. Your goal is to provide the BLAKE2b compression function that enables efficient cryptographic operations for smart contracts, following EIP-152 specification and maintaining compatibility with all Ethereum clients.
 
 ## Context
+The BLAKE2F precompile enables efficient cryptographic operations for smart contracts that require BLAKE2b hashing, which is faster and more secure than older hash functions. This is essential for advanced cryptographic protocols, zero-knowledge proofs, and other applications that need high-performance hashing capabilities within the EVM.
 
-Implement the BLAKE2F precompile (address 0x09) for Ethereum Virtual Machine compatibility. This precompile provides the BLAKE2b compression function and is available from the Istanbul hardfork.
+## Development Workflow
+- **Branch**: `feat_implement_blake2f_precompile` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_blake2f_precompile feat_implement_blake2f_precompile`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
 
-## Relevant Implementation Files
+## Specification
+
+### Basic Operation
+- **Address**: `0x0000000000000000000000000000000000000009`
+- **Gas Cost**: Dynamic - 1 gas per round
+- **Input**: 213 bytes (rounds + hash state + message block + counters + final flag)
+- **Output**: 64 bytes (compressed hash state)
+- **Available**: Istanbul hardfork onwards
+- **Function**: BLAKE2b compression function (F function)
+
+### Input Format (213 bytes)
+```
+- rounds (4 bytes): Number of compression rounds (big-endian)
+- h (64 bytes): Hash state (8×8 bytes, little-endian)
+- m (128 bytes): Message block (16×8 bytes, little-endian)
+- t (16 bytes): Offset counters (2×8 bytes, little-endian)
+- f (1 byte): Final block flag (0x00 or 0x01)
+```
+
+## File Structure
 
 **Primary Files to Modify:**
-- `/src/evm/precompiles/precompiles.zig` - Main precompile dispatcher and registry where BLAKE2F needs to be registered
-- `/src/evm/precompiles/precompile_addresses.zig` - Address constants for precompiles (add BLAKE2F address 0x09)
-- `/src/evm/precompiles/precompile_gas.zig` - Gas calculation for precompiles (dynamic cost: 1 gas per round)
-- `/src/evm/precompiles/precompile_result.zig` - Result types for precompile execution
+- `/src/evm/precompiles/precompiles.zig` - Register BLAKE2F precompile (address 0x09)
+- `/src/evm/precompiles/precompile_addresses.zig` - Add BLAKE2F address constant
+- `/src/evm/precompiles/precompile_gas.zig` - Dynamic gas calculation (1 per round)
 
 **New Files to Create:**
-- `/src/evm/precompiles/blake2f.zig` - BLAKE2F implementation with compression function
-- `/src/evm/crypto/blake2b.zig` - BLAKE2b utilities and constants
+- `/src/evm/precompiles/blake2f.zig` - BLAKE2F precompile implementation
+- `/src/evm/crypto/blake2b.zig` - BLAKE2b compression function utilities
 
 **Test Files:**
-- `/test/evm/precompiles/blake2f_test.zig` - Comprehensive BLAKE2F tests with EIP-152 test vectors
-- `/test/evm/precompiles/` - Existing precompile test infrastructure
-
-**Why These Files:**
-- The precompiles.zig file contains the main dispatcher that routes precompile calls based on address
-- Current implementation only has identity and KZG precompiles, BLAKE2F needs to be added
-- Gas calculation is dynamic (1 per round) requiring updates to gas calculation logic
-- Test infrastructure exists but needs BLAKE2F-specific test vectors
+- `/test/evm/precompiles/blake2f_test.zig` - EIP-152 test vectors and edge cases
 
 ## ELI5
 
@@ -106,21 +60,30 @@ Think of BLAKE2F as a special cryptographic "blender" that takes a fixed amount 
 
 ## Implementation Requirements
 
-### Core Functionality
-1. **Compression Function**: BLAKE2b F function implementation
-2. **Input Validation**: Validate rounds count and input format
-3. **Gas Calculation**: 1 gas per round
-4. **Endianness Handling**: Proper little-endian/big-endian conversion
-5. **Performance**: Optimized for multiple rounds
+### Core Components
+1. **F Compression Function**: BLAKE2b compression following RFC 7693
+2. **Input Validation**: 213-byte format, valid final flag (0x00 or 0x01)
+3. **Gas Calculation**: 1 gas per round with overflow protection
+4. **Endianness Handling**: Big-endian rounds, little-endian hash data
+5. **Performance Optimization**: Efficient for large round counts
+6. **Error Handling**: Proper validation and error responses
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against EIP-152 test vectors exactly
+✅ MUST handle large round counts (up to u32 max)
+✅ MUST optimize for performance (compute-intensive operation)
+✅ MUST follow BLAKE2b RFC 7693 specification exactly
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Test against EIP-152 vectors** - Ensure exact specification compliance
-3. **Handle large round counts** - Test with maximum u32 values
-4. **Optimize for performance** - This can be compute-intensive
-5. **Validate inputs thoroughly** - Prevent malformed input issues
-6. **Use proven algorithms** - Follow BLAKE2b specification exactly
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Gas costs match Ethereum specification (1 per round)
+✅ Input validation handles all edge cases (invalid flags, overflow)
+✅ Output format matches reference implementations exactly
+✅ Performance meets or exceeds other precompiles
+✅ Passes all EIP-152 test vectors
 
 ## Reference Implementations
 
@@ -198,9 +161,36 @@ func (c *blake2F) Run(input []byte) ([]byte, error) {
 }
 ```
 
+## Implementation Strategy & Research
+
+### Recommended Approach: Zig Standard Library First
+
+**Primary Option: Zig `std.crypto.hash.blake2`**
+- ✅ **Pros**: Native Zig implementation, optimal WASM bundle size, no external dependencies
+- ❓ **Unknown**: Need to verify if F compression function is exposed directly
+- 📦 **Bundle Impact**: Minimal - only includes used functions
+- 🎯 **Compatibility**: Perfect WASM compilation via Zig
+
+**Fallback Option: WASM Blake2 Library**  
+- 🔄 **Backup**: [blake2-wasm](https://github.com/emn178/blake2-wasm) or similar optimized WASM implementation
+- ⚠️ **Tradeoff**: Slightly larger bundle size but still WASM-compatible
+- 🎯 **Use Case**: If Zig stdlib doesn't expose F function directly
+
+### Investigation Steps
+1. **Check Zig stdlib**: Examine `std.crypto.hash.blake2` for F function access
+2. **Benchmark**: Compare Zig native vs WASM implementations for performance
+3. **Bundle analysis**: Measure size impact of each approach
+
+### Bundle Size Priority
+Following Tevm's preference hierarchy:
+1. ✅ Zig stdlib (preferred) - minimal bundle impact
+2. 🔄 WASM Blake2 library (fallback) - moderate bundle impact  
+3. ❌ Full crypto library (avoid) - significant bundle impact
+
 ## References
 
 - [EIP-152: Add BLAKE2 compression function F precompile](https://eips.ethereum.org/EIPS/eip-152)
 - [RFC 7693: The BLAKE2 Cryptographic Hash and Message Authentication Code (MAC)](https://tools.ietf.org/rfc/rfc7693.txt)
 - [BLAKE2 Official Website](https://www.blake2.net/)
 - [BLAKE2b Implementation Guide](https://github.com/BLAKE2/BLAKE2/blob/master/ref/blake2b-ref.c)
+- [Zig Crypto Documentation](https://ziglang.org/documentation/master/std/#std;crypto.hash.blake2)

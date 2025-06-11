@@ -1,8 +1,14 @@
 # Implement Fuzzing Infrastructure
 
-## Git Workflow Instructions
+You are implementing Fuzzing Infrastructure for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
+## Development Workflow
+- **Branch**: `feat_implement_fuzzing_infrastructure` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_fuzzing_infrastructure feat_implement_fuzzing_infrastructure`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+## Branch Setup
 1. **Create branch**: `feat_implement_fuzzing_infrastructure` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_fuzzing_infrastructure feat_implement_fuzzing_infrastructure`
 3. **Work in isolation**: `cd g/feat_implement_fuzzing_infrastructure`
@@ -1086,14 +1092,22 @@ test "parallel fuzzing" {
 5. **Reproducibility**: Save and replay crashing test cases
 6. **Automation**: Integration with CI/CD for continuous fuzzing
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Memory safety** - Fuzzer itself must not crash or leak memory
-3. **Deterministic** - Same seed should produce same test cases
-4. **Efficient** - Minimize overhead in instrumentation and tracking
-5. **Comprehensive** - Cover edge cases that manual testing might miss
-6. **CI/CD ready** - Automated fuzzing in continuous integration
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
+
 
 ## References
 

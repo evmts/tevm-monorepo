@@ -18,9 +18,13 @@ Cache optimization can provide 15-30% improvement in cache hit rates and overall
 5. Integrate comprehensive cache statistics and monitoring for performance analysis
 6. Implement automatic optimization passes that adjust strategies based on runtime patterns
 
-## Git Workflow Instructions
+## Development Workflow
+- **Branch**: `feat_implement_cache_optimization` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_cache_optimization feat_implement_cache_optimization`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
 
-### Branch Setup
+## Branch Setup
 1. **Create branch**: `feat_implement_cache_optimization` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_cache_optimization feat_implement_cache_optimization`
 3. **Work in isolation**: `cd g/feat_implement_cache_optimization`
@@ -1926,14 +1930,21 @@ test "performance benchmarks" {
 5. **Minimal Overhead**: <5% performance overhead when optimization is enabled
 6. **Comprehensive Monitoring**: Detailed cache performance metrics and analysis
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Performance validation** - Must demonstrate measurable cache improvements
-3. **Memory safety** - No corruption or leaks in optimized data structures
-4. **Platform compatibility** - Work across different CPU architectures
-5. **Correctness** - Optimizations must not change program behavior
-6. **Resource efficiency** - Optimization overhead must be justified by gains
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
 
 ## References
 

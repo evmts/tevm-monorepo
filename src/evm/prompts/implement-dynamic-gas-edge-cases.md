@@ -1,8 +1,14 @@
 # Implement Dynamic Gas Edge Cases
 
-## Git Workflow Instructions
+You are implementing Dynamic Gas Edge Cases for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
+## Development Workflow
+- **Branch**: `feat_implement_dynamic_gas_edge_cases` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_dynamic_gas_edge_cases feat_implement_dynamic_gas_edge_cases`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+## Branch Setup
 1. **Create branch**: `feat_implement_dynamic_gas_edge_cases` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_dynamic_gas_edge_cases feat_implement_dynamic_gas_edge_cases`
 3. **Work in isolation**: `cd g/feat_implement_dynamic_gas_edge_cases`
@@ -764,14 +770,22 @@ pub const EdgeCaseCache = struct {
 5. **Error Handling**: Graceful failure modes for invalid operations
 6. **Test Coverage**: Comprehensive coverage of all identified edge cases
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Test with extreme values** - Use maximum and minimum parameter values
-3. **Verify overflow protection** - Ensure no integer overflow in any calculation
-4. **Match reference behavior** - Test against Go-Ethereum for edge cases
-5. **Performance validation** - Ensure edge case handling doesn't slow normal operations
-6. **Comprehensive error handling** - Every edge case should have defined behavior
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
+
 
 ## References
 

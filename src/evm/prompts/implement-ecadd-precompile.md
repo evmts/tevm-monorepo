@@ -1,8 +1,14 @@
 # Implement ECADD Precompile
 
-## Git Workflow Instructions
+You are implementing ECADD Precompile for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
+## Development Workflow
+- **Branch**: `feat_implement_ecadd_precompile` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_ecadd_precompile feat_implement_ecadd_precompile`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+## Branch Setup
 1. **Create branch**: `feat_implement_ecadd_precompile` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_ecadd_precompile feat_implement_ecadd_precompile`
 3. **Work in isolation**: `cd g/feat_implement_ecadd_precompile`
@@ -53,7 +59,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 Implement the ECADD precompile (address 0x06) for Ethereum Virtual Machine compatibility. This precompile provides elliptic curve point addition on the alt_bn128 curve and is available from the Byzantium hardfork.
 
-## Relevant Implementation Files
+## File Structure
 
 **Primary Files to Modify:**
 - `/src/evm/precompiles/precompiles.zig` - Main precompile dispatcher
@@ -81,7 +87,7 @@ Implement the ECADD precompile (address 0x06) for Ethereum Virtual Machine compa
 
 Elliptic curves are special mathematical curves used in cryptography. ECADD is like a calculator that can "add" two points on a specific elliptic curve called alt_bn128. This isn't regular addition - it's a special mathematical operation where you take two points on the curve and get a third point that's also on the curve. This is crucial for advanced cryptographic protocols like zkSNARKs (zero-knowledge proofs) that help make blockchain transactions private and efficient. Having this as a precompile means smart contracts can do this complex math without having to implement all the curve arithmetic themselves.
 
-## Ethereum Specification
+## Specification
 
 ### Basic Operation
 - **Address**: `0x0000000000000000000000000000000000000006`
@@ -359,14 +365,21 @@ pub fn add_no_alloc(p1: G1Point, p2: G1Point, result: *G1Point) void {
 5. **Security**: Constant-time execution, proper validation
 6. **Integration**: Works with existing precompile infrastructure
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Use constant-time arithmetic** - Prevent timing attacks
-3. **Validate all inputs thoroughly** - Handle malformed data gracefully
-4. **Test against EIP-196 vectors** - Ensure specification compliance
-5. **Handle edge cases** - Point at infinity, invalid points, etc.
-6. **Optimize for performance** - This is a hot path in many applications
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
 
 ## References
 

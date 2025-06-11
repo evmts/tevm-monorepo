@@ -1,8 +1,14 @@
 # Implement Bundle State Management
 
-## Git Workflow Instructions
+You are implementing Bundle State Management for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
+## Development Workflow
+- **Branch**: `feat_implement_bundle_state_management` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_bundle_state_management feat_implement_bundle_state_management`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+## Branch Setup
 1. **Create branch**: `feat_implement_bundle_state_management` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_bundle_state_management feat_implement_bundle_state_management`
 3. **Work in isolation**: `cd g/feat_implement_bundle_state_management`
@@ -1609,14 +1615,22 @@ test "integration with VM execution" {
 5. **Performance**: Minimal overhead for bundle operations
 6. **Integration**: Seamless VM integration with existing state management
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Data integrity** - Bundles must maintain state consistency
-3. **Memory safety** - No memory leaks or corruption during bundle operations
-4. **Atomicity** - Bundle operations must be atomic (all-or-nothing)
-5. **Performance** - Bundle overhead must be minimal for normal execution
-6. **Thread safety** - Concurrent bundle operations must be safe
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
+
 
 ## References
 

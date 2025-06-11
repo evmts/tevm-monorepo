@@ -2,9 +2,13 @@
 
 **BEING WORKED ON** - Started by Claude on 2025-01-08
 
-## Git Workflow Instructions
+## Development Workflow
+- **Branch**: `feat_implement_selfdestruct_opcode` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_selfdestruct_opcode feat_implement_selfdestruct_opcode`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
 
-### Branch Setup
+## Branch Setup
 1. **Create branch**: `feat_implement_selfdestruct_opcode` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_selfdestruct_opcode feat_implement_selfdestruct_opcode`
 3. **Work in isolation**: `cd g/feat_implement_selfdestruct_opcode`
@@ -79,7 +83,7 @@ The "enhanced" version handles tricky edge cases like:
 
 Real-world analogy: It's like a building that can demolish itself, transfer its contents to another location, but the demolition crew only shows up at the end of the day to actually clear the lot.
 
-## Ethereum Specification
+## Specification
 
 ### Basic Operation
 - **Opcode**: `0xFF` (255)
@@ -316,14 +320,22 @@ pub const Frame = struct {
 5. **EIP-6780 Compliance**: Restricted behavior in Cancun+ hardforks
 6. **Performance**: No significant impact on EVM execution speed
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Test across all hardforks** - Behavior changes significantly
-3. **Handle transaction-scope destruction** - Not immediate destruction
-4. **Implement EIP-6780 restrictions** - Critical for Cancun+ compatibility
-5. **Verify gas costs exactly** - Complex calculation with multiple factors
-6. **Static call protection** - Must fail in read-only contexts
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
+
 
 ## References
 

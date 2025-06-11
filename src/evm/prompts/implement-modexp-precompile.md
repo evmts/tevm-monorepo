@@ -1,53 +1,12 @@
 # Implement MODEXP Precompile
 
-## Git Workflow Instructions
+You are implementing the MODEXP precompile (address 0x05) for the Tevm EVM written in Zig. Your goal is to provide modular exponentiation functionality for smart contracts, following EIP-198 specification and maintaining compatibility with all Ethereum clients.
 
-### Branch Setup
-1. **Create branch**: `feat_implement_modexp_precompile` (snake_case, no emoji)
-2. **Create worktree**: `git worktree add g/feat_implement_modexp_precompile feat_implement_modexp_precompile`
-3. **Work in isolation**: `cd g/feat_implement_modexp_precompile`
-4. **Commit message**: Use the following XML format:
-
-```
-✨ feat: brief description of the change
-
-<summary>
-<what>
-- Bullet point summary of what was changed
-- Key implementation details and files modified
-</what>
-
-<why>
-- Motivation and reasoning behind the changes
-- Problem being solved or feature being added
-</why>
-
-<how>
-- Technical approach and implementation strategy
-- Important design decisions or trade-offs made
-</how>
-</summary>
-
-<prompt>
-Condensed version of the original prompt that includes:
-- The core request or task
-- Essential context needed to re-execute
-- Replace large code blocks with <github>url</github> or <docs>description</docs>
-- Remove redundant examples but keep key technical details
-- Ensure someone could understand and repeat the task from this prompt alone
-</prompt>
-
-🤖 Generated with [Claude Code](https://claude.ai/code)
-
-Co-Authored-By: Claude <noreply@anthropic.com>
-```
-
-### Workflow Steps
-1. Create and switch to the new worktree
-2. Implement all changes in the isolated branch
-3. Run `zig build test-all` to ensure all tests pass
-4. Commit with emoji conventional commit format
-5. DO NOT merge - leave ready for review
+## Development Workflow
+- **Branch**: `feat_implement_modexp_precompile` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_modexp_precompile feat_implement_modexp_precompile`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
 
 ## Context
 
@@ -75,7 +34,7 @@ The "enhanced" version includes optimizations like:
 
 Without MODEXP, many modern cryptographic applications simply couldn't run on Ethereum at a reasonable cost.
 
-## Ethereum Specification
+## Specification
 
 ### Basic Operation
 - **Address**: `0x0000000000000000000000000000000000000005`
@@ -832,14 +791,22 @@ test "modexp fuzzing" {
 5. **Security**: Resistant to timing attacks and DoS attempts
 6. **Test Coverage**: Comprehensive test suite including edge cases
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Implement big integer arithmetic correctly** - Mathematical correctness is critical
-3. **Follow EIP-2565 gas costs exactly** - Must match specification precisely
-4. **Handle all edge cases** - Zero values, large numbers, special moduli
-5. **Optimize for WASM bundle size** - Big integer code can be large
-6. **Test with Ethereum test vectors** - Use official test suite for validation
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
+
 
 ## References
 

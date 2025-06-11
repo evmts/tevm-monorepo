@@ -1,8 +1,14 @@
 # Implement L2 Chain Support
 
-## Git Workflow Instructions
+You are implementing L2 Chain Support for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
+## Development Workflow
+- **Branch**: `feat_implement_l` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_l feat_implement_l`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+## Branch Setup
 1. **Create branch**: `feat_implement_l2_chain_support` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_l2_chain_support feat_implement_l2_chain_support`
 3. **Work in isolation**: `cd g/feat_implement_l2_chain_support`
@@ -1160,14 +1166,21 @@ test "l2 gas models" {
 5. **Transaction Types**: Support for L2-specific transaction formats
 6. **Compatibility**: Maintain Ethereum mainnet compatibility
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Maintain Ethereum compatibility** - L2 support should not break mainnet
-3. **Test with real L2 data** - Use actual transaction data from each L2
-4. **Modular architecture** - Easy to add new L2 chains
-5. **Performance** - L2 detection and execution should be fast
-6. **Security** - L2-specific features must maintain security guarantees
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
 
 ## References
 

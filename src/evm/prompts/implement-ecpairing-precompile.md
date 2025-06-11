@@ -1,8 +1,14 @@
 # Implement ECPAIRING Precompile
 
-## Git Workflow Instructions
+You are implementing ECPAIRING Precompile for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
+## Development Workflow
+- **Branch**: `feat_implement_ecpairing_precompile` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_ecpairing_precompile feat_implement_ecpairing_precompile`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+## Branch Setup
 1. **Create branch**: `feat_implement_ecpairing_precompile` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_ecpairing_precompile feat_implement_ecpairing_precompile`
 3. **Work in isolation**: `cd g/feat_implement_ecpairing_precompile`
@@ -76,7 +82,7 @@ The enhanced version includes:
 
 Without ECPAIRING, privacy-preserving applications on Ethereum would be nearly impossible. It's what makes private voting, anonymous transactions, and confidential smart contracts possible.
 
-## Ethereum Specification
+## Specification
 
 ### Basic Operation
 - **Address**: `0x0000000000000000000000000000000000000008`
@@ -492,14 +498,22 @@ pub fn execute(input: []const u8, output: []u8, gas_limit: u64, hardfork: Hardfo
 5. **Security**: Constant-time operations, proper validation
 6. **Integration**: Seamless operation with existing precompiles
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Test against EIP-197 vectors** - Pairing is mathematically complex
-3. **Optimize aggressively** - This is the most expensive precompile
-4. **Validate inputs thoroughly** - Invalid curves can cause undefined behavior
-5. **Handle edge cases** - Points at infinity, empty input, etc.
-6. **Consider WASM performance** - Pairing is compute-intensive
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
+
 
 ## References
 

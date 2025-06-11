@@ -18,9 +18,13 @@ BLS12-381 G1 point addition is fundamental for BLS signature verification, zero-
 5. Validate all input points are on the correct curve and in correct subgroup
 6. Optimize performance for the specific BLS12-381 curve parameters
 
-## Git Workflow Instructions
+## Development Workflow
+- **Branch**: `feat_implement_bls` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_bls feat_implement_bls`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
 
-### Branch Setup
+## Branch Setup
 1. **Create branch**: `feat_implement_bls12_381_g1add_precompile` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_bls12_381_g1add_precompile feat_implement_bls12_381_g1add_precompile`
 3. **Work in isolation**: `cd g/feat_implement_bls12_381_g1add_precompile`
@@ -92,7 +96,7 @@ Real-world analogy:
 
 This specific precompile (G1ADD) is one piece of a larger cryptographic toolkit. G1 refers to one of two groups of points on the BLS12-381 curve - think of it as one "layer" of the mathematical structure that makes advanced cryptography possible.
 
-## Relevant Implementation Files
+## File Structure
 
 **Primary Files to Modify:**
 - `/src/evm/precompiles/precompiles.zig` - Main precompile dispatcher
@@ -130,14 +134,21 @@ Imagine you have special mathematical points on a curved surface, and you want t
 4. **Error Handling**: Handle invalid points and edge cases
 5. **Performance**: Optimized for BLS12-381 curve parameters
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Test against EIP-2537 vectors** - Essential for specification compliance
-3. **Implement BLS12-381 field arithmetic** - Requires 381-bit prime field
-4. **Handle point at infinity** - Proper identity element handling
-5. **Validate all inputs thoroughly** - Invalid points can cause undefined behavior
-6. **Optimize for performance** - Used in BLS signature verification
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
 
 ## References
 

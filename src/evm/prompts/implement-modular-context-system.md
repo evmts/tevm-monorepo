@@ -1,8 +1,14 @@
 # Implement Modular Context System
 
-## Git Workflow Instructions
+You are implementing Modular Context System for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
+## Development Workflow
+- **Branch**: `feat_implement_modular_context_system` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_modular_context_system feat_implement_modular_context_system`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+## Branch Setup
 1. **Create branch**: `feat_implement_modular_context_system` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_modular_context_system feat_implement_modular_context_system`
 3. **Work in isolation**: `cd g/feat_implement_modular_context_system`
@@ -1432,14 +1438,22 @@ test "integration with VM execution" {
 5. **Runtime Adaptability**: Dynamic context switching based on execution requirements
 6. **Clean Integration**: Seamless integration with existing VM execution flow
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Memory safety** - Proper cleanup and management of dynamically allocated contexts
-3. **Type safety** - All context interfaces must be properly typed and validated
-4. **Performance validation** - Context switching overhead must be minimal (<1% impact)
-5. **Correctness** - Context switching must not change execution semantics incorrectly
-6. **Resource efficiency** - Context creation and caching must be memory-efficient
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
+
 
 ## References
 

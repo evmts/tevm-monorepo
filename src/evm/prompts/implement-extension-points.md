@@ -1,8 +1,14 @@
 # Implement Extension Points
 
-## Git Workflow Instructions
+You are implementing Extension Points for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
+## Development Workflow
+- **Branch**: `feat_implement_extension_points` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_extension_points feat_implement_extension_points`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+## Branch Setup
 1. **Create branch**: `feat_implement_extension_points` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_extension_points feat_implement_extension_points`
 3. **Work in isolation**: `cd g/feat_implement_extension_points`
@@ -2153,14 +2159,21 @@ test "integration with VM execution" {
 5. **Security**: Proper validation and sandboxing of extensions based on security level
 6. **Ease of Use**: Simple API for registering and managing extensions
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Security validation** - All extensions must be properly validated based on security level
-3. **Performance monitoring** - Extension overhead must be tracked and minimized
-4. **Type safety** - All extension interfaces must be properly typed
-5. **Memory safety** - No memory leaks or corruption in extension management
-6. **Backwards compatibility** - Extensions must not break existing EVM functionality
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
 
 ## References
 

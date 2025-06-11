@@ -1,8 +1,14 @@
 # Implement Gas Inspector
 
-## Git Workflow Instructions
+You are implementing Gas Inspector for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
+## Development Workflow
+- **Branch**: `feat_implement_gas_inspector` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_gas_inspector feat_implement_gas_inspector`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+## Branch Setup
 1. **Create branch**: `feat_implement_gas_inspector` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_gas_inspector feat_implement_gas_inspector`
 3. **Work in isolation**: `cd g/feat_implement_gas_inspector`
@@ -1343,14 +1349,22 @@ test "real world scenarios" {
 5. **Performance Impact**: Minimal overhead when analysis is disabled
 6. **Real-world Utility**: Provide valuable insights for contract optimization
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Accuracy first** - Gas tracking must be precise and reliable
-3. **Performance conscious** - Minimize impact on execution speed
-4. **Actionable insights** - Suggestions must be implementable
-5. **Comprehensive coverage** - Track all gas-consuming operations
-6. **Test with real contracts** - Validate with production smart contracts
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
+
 
 ## References
 

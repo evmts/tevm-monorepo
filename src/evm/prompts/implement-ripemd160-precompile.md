@@ -1,8 +1,14 @@
 # Implement RIPEMD160 Precompile
 
-## Git Workflow Instructions
+You are implementing RIPEMD160 Precompile for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
+## Development Workflow
+- **Branch**: `feat_implement_ripemd` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_ripemd feat_implement_ripemd`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+## Branch Setup
 1. **Create branch**: `feat_implement_ripemd160_precompile` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_ripemd160_precompile feat_implement_ripemd160_precompile`
 3. **Work in isolation**: `cd g/feat_implement_ripemd160_precompile`
@@ -53,7 +59,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 Implement the RIPEMD160 precompile (address 0x03) for Ethereum Virtual Machine compatibility. This precompile provides RIPEMD160 hashing functionality and is available from the Frontier hardfork. This implementation assumes the precompile infrastructure from IDENTITY and SHA256 already exists.
 
-## Relevant Implementation Files
+## File Structure
 
 **Primary Files to Modify:**
 - `/src/evm/precompiles/precompiles.zig` - Main precompile dispatcher
@@ -80,7 +86,7 @@ Implement the RIPEMD160 precompile (address 0x03) for Ethereum Virtual Machine c
 
 RIPEMD160 is another cryptographic hash function, similar to SHA256 but older and producing a smaller 160-bit (20-byte) hash instead of 256 bits. Think of it as SHA256's smaller cousin - it still creates a unique digital fingerprint of data, but the fingerprint is shorter. While less common than SHA256, some legacy systems and Bitcoin-related applications still use RIPEMD160, so Ethereum provides this precompile for compatibility when smart contracts need to interact with such systems.
 
-## Ethereum Specification
+## Specification
 
 ### Basic Operation
 - **Address**: `0x0000000000000000000000000000000000000003`
@@ -423,18 +429,23 @@ if (output.len < 32) return PrecompileError.InvalidOutput;
 5. **Integration**: Works seamlessly with existing CALL opcodes
 6. **Bundle Size**: Minimal impact on WASM bundle size
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Verify against RIPEMD160 test vectors** - Ensure hash correctness
-3. **Test output padding** - Must be exactly 32 bytes with correct zero padding
-4. **Choose implementation approach wisely** - Consider bundle size and performance
-5. **Handle large inputs** - Test up to reasonable gas limit boundaries
-6. **Security review** - RIPEMD160 implementation must be cryptographically sound
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
 
-## Decision Points
-
-### Implementation Approach Decision
+## Implementation Approach Decision
 Before starting implementation, decide:
 1. **Pure Zig vs C bindings** - Based on bundle size impact and complexity
 2. **Third-party library** - If available, evaluate quality and maintenance

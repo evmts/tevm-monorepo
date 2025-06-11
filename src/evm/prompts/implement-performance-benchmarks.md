@@ -1,8 +1,14 @@
 # Implement Performance Benchmarks
 
-## Git Workflow Instructions
+You are implementing Performance Benchmarks for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
+## Development Workflow
+- **Branch**: `feat_implement_performance_benchmarks` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_performance_benchmarks feat_implement_performance_benchmarks`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+## Branch Setup
 1. **Create branch**: `feat_implement_performance_benchmarks` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_performance_benchmarks feat_implement_performance_benchmarks`
 3. **Work in isolation**: `cd g/feat_implement_performance_benchmarks`
@@ -220,14 +226,22 @@ pub const StatisticalAnalyzer = struct {
 5. **Result Aggregation**: Structured collection and analysis of benchmark results
 6. **CI/CD Integration**: Automated benchmarking in continuous integration workflows
 
-### Critical Requirements
+### Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Performance isolation** - Benchmarks must not interfere with each other or be affected by external factors
-3. **Statistical validity** - All statistical analyses must be mathematically sound and well-documented
-4. **Reproducibility** - Benchmark results must be reproducible across different runs and environments
-5. **Accuracy** - Benchmark implementations must accurately reflect real EVM execution patterns
-6. **Efficiency** - Benchmark framework itself must have minimal overhead and fast execution
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
+
 
 ## Reference Implementations
 

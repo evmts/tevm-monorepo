@@ -1,8 +1,14 @@
 # Implement CLI Tools
 
-## Git Workflow Instructions
+You are implementing CLI Tools for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
+## Development Workflow
+- **Branch**: `feat_implement_cli_tools` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_cli_tools feat_implement_cli_tools`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+## Branch Setup
 1. **Create branch**: `feat_implement_cli_tools` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_cli_tools feat_implement_cli_tools`
 3. **Work in isolation**: `cd g/feat_implement_cli_tools`
@@ -1350,14 +1356,22 @@ test "json output formatting" {
 5. **Integration Ready**: Easy integration with development pipelines
 6. **Comprehensive**: Cover all major EVM debugging and analysis needs
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Error handling** - Graceful handling of invalid inputs and errors
-3. **Performance** - Tools should be fast enough for interactive use
-4. **Documentation** - Clear help and usage information
-5. **Stability** - Reliable operation across different inputs and scenarios
-6. **Cross-platform** - Work consistently across different operating systems
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
+
 
 ## References
 

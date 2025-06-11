@@ -1,8 +1,14 @@
 # Implement Loop Control
 
-## Git Workflow Instructions
+You are implementing Loop Control for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
+## Development Workflow
+- **Branch**: `feat_implement_loop_control` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_loop_control feat_implement_loop_control`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+## Branch Setup
 1. **Create branch**: `feat_implement_loop_control` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_loop_control feat_implement_loop_control`
 3. **Work in isolation**: `cd g/feat_implement_loop_control`
@@ -1526,14 +1532,21 @@ test "integration with VM execution" {
 5. **EVM Integration**: Seamless integration with existing EVM execution without regression
 6. **Memory Efficiency**: Minimal overhead when loop control features are not used
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Gas safety validation** - Loop gas limits must be enforced to prevent DoS attacks
-3. **Performance validation** - Optimizations must provide measurable benefits
-4. **Memory safety** - No leaks or corruption in loop stack management
-5. **Correctness** - Loop control flow must be precisely implemented
-6. **Backward compatibility** - Standard EVM execution must remain unchanged
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
 
 ## References
 

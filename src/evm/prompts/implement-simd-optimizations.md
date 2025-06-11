@@ -1,8 +1,14 @@
 # Implement SIMD Optimizations
 
-## Git Workflow Instructions
+You are implementing SIMD Optimizations for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
+## Development Workflow
+- **Branch**: `feat_implement_simd_optimizations` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_simd_optimizations feat_implement_simd_optimizations`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+## Branch Setup
 1. **Create branch**: `feat_implement_simd_optimizations` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_simd_optimizations feat_implement_simd_optimizations`
 3. **Work in isolation**: `cd g/feat_implement_simd_optimizations`
@@ -848,14 +854,21 @@ test "integration with VM execution" {
 5. **Fallback Reliability**: Graceful degradation when SIMD unavailable
 6. **Memory Efficiency**: No significant increase in memory usage
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Correctness first** - SIMD optimizations must not change computation results
-3. **Platform safety** - Must handle unsupported instruction sets gracefully
-4. **Performance validation** - Must demonstrate measurable improvements
-5. **Memory alignment** - Proper handling of unaligned memory access
-6. **Compiler compatibility** - Must work across different Zig compiler versions
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
 
 ## References
 

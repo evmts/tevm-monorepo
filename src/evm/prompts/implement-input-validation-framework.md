@@ -1,8 +1,14 @@
 # Implement Input Validation Framework
 
-## Git Workflow Instructions
+You are implementing Input Validation Framework for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
+## Development Workflow
+- **Branch**: `feat_implement_input_validation_framework` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_input_validation_framework feat_implement_input_validation_framework`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+## Branch Setup
 1. **Create branch**: `feat_implement_input_validation_framework` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_input_validation_framework feat_implement_input_validation_framework`
 3. **Work in isolation**: `cd g/feat_implement_input_validation_framework`
@@ -2012,14 +2018,22 @@ test "integration with VM execution" {
 5. **Extensibility**: Easy addition of custom validation rules and patterns
 6. **Robust Reporting**: Detailed violation reports with actionable suggestions
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Security validation** - Must not introduce security vulnerabilities while validating inputs
-3. **Performance validation** - Validation overhead must be minimal and measurable
-4. **Correctness** - Validation must not reject valid EVM inputs
-5. **Completeness** - Must handle all edge cases and malformed inputs gracefully
-6. **Resource efficiency** - Memory and CPU usage must be optimized for production use
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
+
 
 ## References
 

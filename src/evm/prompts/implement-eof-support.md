@@ -1,8 +1,14 @@
 # Implement EOF Support
 
-## Git Workflow Instructions
+You are implementing EOF Support for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
+## Development Workflow
+- **Branch**: `feat_implement_eof_support` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_eof_support feat_implement_eof_support`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+## Branch Setup
 1. **Create branch**: `feat_implement_eof_support` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_eof_support feat_implement_eof_support`
 3. **Work in isolation**: `cd g/feat_implement_eof_support`
@@ -1150,14 +1156,21 @@ test "eof deployment and execution" {
 5. **Function Calls**: Working function call mechanism with CALLF/RETF
 6. **Legacy Compatibility**: EOF contracts can interact with legacy contracts
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **EIP specification compliance** - Must match exact EOF behavior
-3. **Static validation accuracy** - Critical for EOF security model
-4. **Function call correctness** - Proper stack isolation and return handling
-5. **Performance** - EOF execution should be faster than legacy
-6. **Test with official vectors** - Use EOF test suite for validation
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
 
 ## References
 

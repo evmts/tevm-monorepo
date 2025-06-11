@@ -1,8 +1,14 @@
 # Implement State Caching
 
-## Git Workflow Instructions
+You are implementing State Caching for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
+## Development Workflow
+- **Branch**: `feat_implement_state_caching` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_state_caching feat_implement_state_caching`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+## Branch Setup
 1. **Create branch**: `feat_implement_state_caching` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_state_caching feat_implement_state_caching`
 3. **Work in isolation**: `cd g/feat_implement_state_caching`
@@ -1794,14 +1800,22 @@ test "integration with state operations" {
 5. **Scalability**: Handles large state sets without memory exhaustion
 6. **Integration**: Seamless integration with existing state management
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Memory safety** - No memory leaks or buffer overflows
-3. **Data consistency** - Cache must never serve stale data in strong consistency mode
-4. **Performance** - Cache should improve, not degrade performance
-5. **Thread safety** - Concurrent access must be safe and efficient
-6. **Backward compatibility** - Existing state operations must continue working
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
+
 
 ## References
 

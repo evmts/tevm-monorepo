@@ -18,9 +18,13 @@ Branch prediction optimization can significantly improve EVM execution performan
 5. Implement comprehensive branch statistics and monitoring
 6. Add adaptive optimization that improves predictions over time
 
-## Git Workflow Instructions
+## Development Workflow
+- **Branch**: `feat_implement_branch_prediction_optimization` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_branch_prediction_optimization feat_implement_branch_prediction_optimization`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
 
-### Branch Setup
+## Branch Setup
 1. **Create branch**: `feat_implement_branch_prediction_optimization` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_branch_prediction_optimization feat_implement_branch_prediction_optimization`
 3. **Work in isolation**: `cd g/feat_implement_branch_prediction_optimization`
@@ -1204,14 +1208,21 @@ test "performance benchmarks" {
 5. **Low Overhead**: <2% performance overhead for prediction analysis
 6. **Integration**: Seamless integration with existing VM execution flow
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Execution correctness** - Branch prediction must not affect program behavior
-3. **Performance validation** - Must demonstrate measurable improvements
-4. **Memory efficiency** - Prediction tables must have bounded memory usage
-5. **Thread safety** - Concurrent access to prediction data must be safe
-6. **Fallback safety** - Must work correctly when prediction fails
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
 
 ## References
 

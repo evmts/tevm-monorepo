@@ -1,8 +1,14 @@
 # Implement Async Database Support
 
-## Git Workflow Instructions
+You are implementing Async Database Support for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
+## Development Workflow
+- **Branch**: `feat_implement_async_database_support` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_async_database_support feat_implement_async_database_support`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+## Branch Setup
 1. **Create branch**: `feat_implement_async_database_support` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_async_database_support feat_implement_async_database_support`
 3. **Work in isolation**: `cd g/feat_implement_async_database_support`
@@ -1373,14 +1379,22 @@ test "integration with VM execution" {
 5. **Error Resilience**: Robust error handling with automatic recovery
 6. **Integration Quality**: Seamless integration with existing VM execution
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Backward compatibility** - Sync state operations must continue working
-3. **Data integrity** - No data corruption or loss during async operations
-4. **Performance** - Async operations should improve throughput
-5. **Resource management** - Proper cleanup of connections and resources
-6. **Error isolation** - Database errors must not crash VM execution
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
+
 
 ## References
 

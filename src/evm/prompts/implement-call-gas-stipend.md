@@ -1,8 +1,14 @@
 # Implement Call Gas Stipend
 
-## Git Workflow Instructions
+You are implementing Call Gas Stipend for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
+## Development Workflow
+- **Branch**: `feat_implement_call_gas_stipend` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_call_gas_stipend feat_implement_call_gas_stipend`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+## Branch Setup
 1. **Create branch**: `feat_implement_call_gas_stipend` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_call_gas_stipend feat_implement_call_gas_stipend`
 3. **Work in isolation**: `cd g/feat_implement_call_gas_stipend`
@@ -64,7 +70,7 @@ This prevents a common problem: imagine if someone sent you money but didn't inc
 
 However, this "prepaid envelope" is quite small - you can't use it to send more money to other people or do complex operations. It's just enough for basic bookkeeping, which prevents contracts from getting "stuck" when they receive unexpected payments.
 
-## Ethereum Specification
+## Specification
 
 ### Gas Stipend Rules
 
@@ -732,14 +738,22 @@ fn validate_value_transfer(
 5. **Compatibility**: Works across all hardforks and call types
 6. **Performance**: Minimal overhead for stipend tracking
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Follow EVM specification exactly** - Stipend rules must be precise
-3. **Test stipend limitations** - Verify stipend cannot enable attacks
-4. **Handle gas edge cases** - Correct behavior when gas is insufficient
-5. **Maintain call semantics** - Don't break existing call behavior
-6. **Test all call types** - CALL, CALLCODE, DELEGATECALL, STATICCALL
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
+
 
 ## References
 

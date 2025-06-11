@@ -1,8 +1,14 @@
 # Implement BLS12-381 MAP_FP_TO_G1 Precompile
 
-## Git Workflow Instructions
+You are implementing BLS12-381 MAP_FP_TO_G1 Precompile for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
+## Development Workflow
+- **Branch**: `feat_implement_bls` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_bls feat_implement_bls`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+## Branch Setup
 1. **Create branch**: `feat_implement_bls12_381_map_fp_to_g1_precompile` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_bls12_381_map_fp_to_g1_precompile feat_implement_bls12_381_map_fp_to_g1_precompile`
 3. **Work in isolation**: `cd g/feat_implement_bls12_381_map_fp_to_g1_precompile`
@@ -110,10 +116,19 @@ Output (128 bytes):
 5. **Gas Accuracy**: Consumes exactly 5500 gas per operation
 6. **Integration**: Works with existing precompile infrastructure
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Use established hash-to-curve libraries** - Complex algorithm to implement
-3. **Validate field elements** - Input must be valid Fp element
-4. **Test with EIP test vectors** - Use official EIP-2537 test cases
-5. **Ensure deterministic behavior** - Critical for consensus compatibility
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
+

@@ -1,8 +1,14 @@
 # Implement Memory Allocator Tuning
 
-## Git Workflow Instructions
+You are implementing Memory Allocator Tuning for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
+## Development Workflow
+- **Branch**: `feat_implement_memory_allocator_tuning` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_memory_allocator_tuning feat_implement_memory_allocator_tuning`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+## Branch Setup
 1. **Create branch**: `feat_implement_memory_allocator_tuning` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_memory_allocator_tuning feat_implement_memory_allocator_tuning`
 3. **Work in isolation**: `cd g/feat_implement_memory_allocator_tuning`
@@ -980,14 +986,22 @@ test "performance benchmarks" {
 5. **Statistical Insights**: Comprehensive allocation monitoring and analysis
 6. **Zero Overhead When Disabled**: No performance impact when optimizations are disabled
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Memory safety** - No leaks or corruption with optimized allocators
-3. **Fallback compatibility** - Must work with any standard allocator
-4. **Performance validation** - Must demonstrate measurable improvements
-5. **Statistical accuracy** - Allocation statistics must be precise
-6. **Thread safety** - Concurrent allocation must be safe if needed
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
+
 
 ## References
 

@@ -1,8 +1,14 @@
 # Implement Precompile Backend Selection
 
-## Git Workflow Instructions
+You are implementing Precompile Backend Selection for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
+## Development Workflow
+- **Branch**: `feat_implement_precompile_backend_selection` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_precompile_backend_selection feat_implement_precompile_backend_selection`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+## Branch Setup
 1. **Create branch**: `feat_implement_precompile_backend_selection` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_precompile_backend_selection feat_implement_precompile_backend_selection`
 3. **Work in isolation**: `cd g/feat_implement_precompile_backend_selection`
@@ -2971,14 +2977,21 @@ test "precompile execution integration" {
 5. **Comprehensive Coverage**: Support for all standard Ethereum precompiles
 6. **Runtime Flexibility**: Seamless operation across different deployment environments
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Fallback safety** - Pure implementations must always be available and functional
-3. **Performance validation** - Must demonstrate measurable performance improvements
-4. **Memory safety** - No corruption in backend switching or caching
-5. **Error handling** - Graceful degradation when backends fail
-6. **Platform compatibility** - Work across x86_64, ARM64, and WASM environments
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
 
 ## References
 

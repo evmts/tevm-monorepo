@@ -1,8 +1,14 @@
 # Implement Subroutine Stack
 
-## Git Workflow Instructions
+You are implementing Subroutine Stack for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
+## Development Workflow
+- **Branch**: `feat_implement_subroutine_stack` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_subroutine_stack feat_implement_subroutine_stack`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+## Branch Setup
 1. **Create branch**: `feat_implement_subroutine_stack` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_subroutine_stack feat_implement_subroutine_stack`
 3. **Work in isolation**: `cd g/feat_implement_subroutine_stack`
@@ -1372,14 +1378,21 @@ test "integration with VM execution" {
 5. **Efficiency**: Minimal overhead when subroutines are not used
 6. **Robust Error Handling**: Proper validation and error recovery
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Security validation** - Return stack protection must be robust
-3. **Performance validation** - Optimizations must provide measurable benefits
-4. **Memory safety** - No leaks or corruption in call stack management
-5. **Correctness** - EOF subroutine semantics must be precisely implemented
-6. **Backward compatibility** - Standard EVM execution must remain unchanged
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
 
 ## References
 

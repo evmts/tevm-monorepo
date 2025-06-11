@@ -1,8 +1,14 @@
 # Implement Shared Memory
 
-## Git Workflow Instructions
+You are implementing Shared Memory for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
+## Development Workflow
+- **Branch**: `feat_implement_shared_memory` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_shared_memory feat_implement_shared_memory`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+## Branch Setup
 1. **Create branch**: `feat_implement_shared_memory` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_shared_memory feat_implement_shared_memory`
 3. **Work in isolation**: `cd g/feat_implement_shared_memory`
@@ -1470,14 +1476,22 @@ test "integration with VM execution" {
 5. **Scalability**: Support for large numbers of shared regions
 6. **Garbage Collection**: Effective cleanup of unused memory
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Security validation** - Access control must be robust and secure
-3. **Memory safety** - No memory leaks, corruption, or buffer overflows
-4. **Performance validation** - Shared memory must provide performance benefits
-5. **Correctness** - Data consistency and isolation must be maintained
-6. **Resource efficiency** - Memory usage must be optimized and monitored
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
+
 
 ## References
 

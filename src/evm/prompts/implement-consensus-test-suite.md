@@ -1,8 +1,14 @@
 # Implement Consensus Test Suite
 
-## Git Workflow Instructions
+You are implementing Consensus Test Suite for the Tevm EVM written in Zig. Your goal is to [specific objective] following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
+## Development Workflow
+- **Branch**: `feat_implement_consensus_test_suite` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_consensus_test_suite feat_implement_consensus_test_suite`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+## Branch Setup
 1. **Create branch**: `feat_implement_consensus_test_suite` (snake_case, no emoji)
 2. **Create worktree**: `git worktree add g/feat_implement_consensus_test_suite feat_implement_consensus_test_suite`
 3. **Work in isolation**: `cd g/feat_implement_consensus_test_suite`
@@ -1092,14 +1098,21 @@ test "real consensus tests" {
 5. **Automation**: Integration with CI/CD for regression testing
 6. **Maintainability**: Clean code structure for easy extension and debugging
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Test accuracy** - Results must exactly match official Ethereum behavior
-3. **Performance** - Handle large test suites (10,000+ tests) efficiently
-4. **Memory safety** - No memory leaks during long test runs
-5. **Error handling** - Graceful failure handling and clear error reporting
-6. **CI integration** - Ready for automated testing in continuous integration
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
 
 ## References
 
