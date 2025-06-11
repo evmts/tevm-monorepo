@@ -112,13 +112,12 @@ pub fn calculate_call_gas(
     const max_forwardable = gas_available_for_call - gas_retained;
     
     // Determine gas to forward based on gas parameter
-    var gas_to_forward: u64 = if (gas_parameter == 0) {
+    var gas_to_forward: u64 = if (gas_parameter == 0) 
         // Forward all available gas (minus retention)
         max_forwardable
-    } else {
+    else 
         // Forward requested amount (capped by available)
-        @min(gas_parameter, max_forwardable)
-    };
+        @min(gas_parameter, max_forwardable);
     
     // Add stipend for value transfers
     const stipend_amount = if (transfers_value) gas_constants.GAS_STIPEND_VALUE_TRANSFER else 0;
