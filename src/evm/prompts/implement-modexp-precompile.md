@@ -808,6 +808,117 @@ test "modexp fuzzing" {
 ✅ Gas costs are calculated correctly
 
 
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/precompiles/modexp_test.zig`)
+```zig
+// Test basic modular exponentiation functionality
+test "modexp basic functionality with known vectors"
+test "modexp handles edge cases correctly"
+test "modexp validates input format"
+test "modexp produces correct output format"
+```
+
+#### 2. **Input Validation Tests**
+```zig
+test "modexp handles various input lengths"
+test "modexp validates input parameters"
+test "modexp rejects invalid inputs gracefully"
+test "modexp handles empty input"
+```
+
+#### 3. **Gas Calculation Tests**
+```zig
+test "modexp gas cost calculation accuracy"
+test "modexp gas cost edge cases"
+test "modexp gas overflow protection"
+test "modexp gas deduction in EVM context"
+```
+
+#### 4. **Specification Compliance Tests**
+```zig
+test "modexp matches specification test vectors"
+test "modexp matches reference implementation output"
+test "modexp hardfork availability requirements"
+test "modexp address registration correct"
+```
+
+#### 5. **Performance Tests**
+```zig
+test "modexp performance with large inputs"
+test "modexp memory efficiency"
+test "modexp WASM bundle size impact"
+test "modexp benchmark against reference implementations"
+```
+
+#### 6. **Error Handling Tests**
+```zig
+test "modexp error propagation"
+test "modexp proper error types returned"
+test "modexp handles corrupted input gracefully"
+test "modexp never panics on malformed input"
+```
+
+#### 7. **Integration Tests**
+```zig
+test "modexp precompile registration"
+test "modexp called from EVM execution"
+test "modexp gas deduction in EVM context"
+test "modexp hardfork availability"
+```
+
+### Test Development Priority
+1. **Start with specification test vectors** - Ensures spec compliance from day one
+2. **Add input validation** - Prevents invalid states early
+3. **Implement gas calculation** - Core economic security
+4. **Add performance benchmarks** - Ensures production readiness
+5. **Test error cases** - Robust error handling
+
+### Test Data Sources
+- **EIP/Specification test vectors**: Primary compliance verification
+- **Reference implementation tests**: Cross-client compatibility
+- **Mathematical test vectors**: Algorithm correctness
+- **Edge case generation**: Boundary value testing
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Ensure 100% test coverage for all public functions
+- Validate performance benchmarks don't regress
+- Test both debug and release builds
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "modexp basic functionality" {
+    // This test MUST fail initially
+    const input = test_vectors.valid_input;
+    const expected = test_vectors.expected_output;
+    
+    const result = modexp.run(input);
+    try testing.expectEqualSlices(u8, expected, result);
+}
+```
+
+**Only then implement:**
+```zig
+pub fn run(input: []const u8) ![]u8 {
+    // Minimal implementation to make test pass
+    return error.NotImplemented; // Initially
+}
+```
+
 ## References
 
 - [EIP-198: Big integer modular exponentiation](https://eips.ethereum.org/EIPS/eip-198)
