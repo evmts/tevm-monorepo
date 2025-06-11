@@ -277,6 +277,26 @@ pub const IDENTITY_BASE_COST: u64 = 15;
 /// Total cost = IDENTITY_BASE_COST + (word_count * IDENTITY_WORD_COST)
 pub const IDENTITY_WORD_COST: u64 = 3;
 
+// ============================================================================
+// ECPAIRING Precompile Costs (EIP-197)
+// ============================================================================
+
+/// Base gas cost for ECPAIRING precompile (Istanbul hardfork and later)
+/// Fixed cost regardless of number of pairs
+pub const ECPAIRING_BASE_GAS: u64 = 45000;
+
+/// Gas cost per pair for ECPAIRING precompile (Istanbul hardfork and later)
+/// Applied for each G1-G2 pair in the input
+pub const ECPAIRING_PAIR_GAS: u64 = 34000;
+
+/// Base gas cost for ECPAIRING precompile (pre-Istanbul hardforks)
+/// Higher cost before EIP-1108 gas reduction
+pub const ECPAIRING_BASE_GAS_BYZANTIUM: u64 = 100000;
+
+/// Gas cost per pair for ECPAIRING precompile (pre-Istanbul hardforks)
+/// Higher cost before EIP-1108 gas reduction
+pub const ECPAIRING_PAIR_GAS_BYZANTIUM: u64 = 80000;
+
 /// Calculate memory expansion gas cost
 /// 
 /// Computes the gas cost for expanding EVM memory from current_size to new_size bytes.

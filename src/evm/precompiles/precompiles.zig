@@ -4,6 +4,7 @@ const addresses = @import("precompile_addresses.zig");
 const PrecompileOutput = @import("precompile_result.zig").PrecompileOutput;
 const PrecompileError = @import("precompile_result.zig").PrecompileError;
 const identity = @import("identity.zig");
+const ecpairing = @import("ecpairing.zig");
 const kzg_point_evaluation = @import("kzg_point_evaluation.zig");
 const ChainRules = @import("../hardforks/chain_rules.zig");
 
@@ -129,9 +130,9 @@ pub fn execute_precompile(
             return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
         }, // ECMUL - TODO
         8 => {
-            @branchHint(.cold);
-            return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
-        }, // ECPAIRING - TODO
+            @branchHint(.likely);
+            return ecpairing.execute(input, output, gas_limit, chain_rules);
+        }, // ECPAIRING
         9 => {
             @branchHint(.cold);
             return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
@@ -180,7 +181,7 @@ pub fn estimate_gas(address: Address, input_size: usize, chain_rules: ChainRules
         5 => error.NotImplemented, // MODEXP - TODO
         6 => error.NotImplemented, // ECADD - TODO
         7 => error.NotImplemented, // ECMUL - TODO
-        8 => error.NotImplemented, // ECPAIRING - TODO
+        8 => ecpairing.calculate_gas_checked(input_size), // ECPAIRING
         9 => error.NotImplemented, // BLAKE2F - TODO
         10 => kzg_point_evaluation.calculate_gas_checked(input_size), // POINT_EVALUATION
         
