@@ -63,7 +63,6 @@ export class RateLimitExceededError extends BaseError {
 			tag,
 			RateLimitExceededError.code,
 		)
-
 	}
 
 	/**

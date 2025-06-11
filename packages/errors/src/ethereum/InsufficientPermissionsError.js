@@ -63,7 +63,6 @@ export class InsufficientPermissionsError extends BaseError {
 			tag,
 			InsufficientPermissionsError.code,
 		)
-
 	}
 
 	/**

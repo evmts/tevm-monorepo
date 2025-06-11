@@ -63,7 +63,6 @@ export class NonceAlreadyUsedError extends BaseError {
 			tag,
 			NonceAlreadyUsedError.code,
 		)
-
 	}
 
 	/**

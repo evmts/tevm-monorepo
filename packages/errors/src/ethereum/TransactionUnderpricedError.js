@@ -63,7 +63,6 @@ export class TransactionUnderpricedError extends BaseError {
 			tag,
 			TransactionUnderpricedError.code,
 		)
-
 	}
 
 	/**

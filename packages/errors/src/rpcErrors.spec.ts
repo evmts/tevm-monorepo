@@ -1,24 +1,5 @@
 import { describe, expect, it } from 'vitest'
 import {
-	InternalRpcError,
-	InvalidInputRpcError,
-	InvalidParamsRpcError,
-	InvalidRequestRpcError,
-	JsonRpcVersionUnsupportedError,
-	LimitExceededRpcError,
-	MethodNotFoundRpcError,
-	MethodNotSupportedRpcError,
-	ParseRpcError,
-	ProviderDisconnectedError,
-	ResourceNotFoundRpcError,
-	ResourceUnavailableRpcError,
-	TimeoutError,
-	UnknownRpcError,
-	UnsupportedProviderMethodError,
-	UserRejectedRequestError,
-} from './requestErrors.js'
-import { rpcErrorCodeToMessage } from './rpcErrorToMessage.js'
-import {
 	AccountLockedError,
 	AccountNotFoundError,
 	BlockGasLimitExceededError,
@@ -53,6 +34,25 @@ import {
 	UnknownBlockError,
 	UnsupportedChainError,
 } from './ethereum/index.js'
+import {
+	InternalRpcError,
+	InvalidInputRpcError,
+	InvalidParamsRpcError,
+	InvalidRequestRpcError,
+	JsonRpcVersionUnsupportedError,
+	LimitExceededRpcError,
+	MethodNotFoundRpcError,
+	MethodNotSupportedRpcError,
+	ParseRpcError,
+	ProviderDisconnectedError,
+	ResourceNotFoundRpcError,
+	ResourceUnavailableRpcError,
+	TimeoutError,
+	UnknownRpcError,
+	UnsupportedProviderMethodError,
+	UserRejectedRequestError,
+} from './requestErrors.js'
+import { rpcErrorCodeToMessage } from './rpcErrorToMessage.js'
 
 describe('RPC Error Classes', () => {
 	it('should have a valid rpcErrorCodeToMessage mapping', () => {

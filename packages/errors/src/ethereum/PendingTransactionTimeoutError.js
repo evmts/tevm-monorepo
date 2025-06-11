@@ -63,7 +63,6 @@ export class PendingTransactionTimeoutError extends BaseError {
 			tag,
 			PendingTransactionTimeoutError.code,
 		)
-
 	}
 
 	/**

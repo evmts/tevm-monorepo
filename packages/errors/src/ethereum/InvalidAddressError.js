@@ -63,7 +63,6 @@ export class InvalidAddressError extends BaseError {
 			tag,
 			InvalidAddressError.code,
 		)
-
 	}
 
 	/**

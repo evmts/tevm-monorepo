@@ -62,7 +62,6 @@ export class GasLimitExceededError extends BaseError {
 			tag,
 			GasLimitExceededError.code,
 		)
-
 	}
 
 	/**

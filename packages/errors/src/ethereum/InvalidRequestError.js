@@ -63,7 +63,6 @@ export class InvalidRequestError extends BaseError {
 			tag,
 			InvalidRequestError.code,
 		)
-
 	}
 
 	/**

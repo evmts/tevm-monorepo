@@ -63,7 +63,6 @@ export class InvalidSignatureError extends BaseError {
 			tag,
 			InvalidSignatureError.code,
 		)
-
 	}
 
 	/**

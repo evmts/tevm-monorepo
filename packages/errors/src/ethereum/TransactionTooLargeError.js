@@ -63,7 +63,6 @@ export class TransactionTooLargeError extends BaseError {
 			tag,
 			TransactionTooLargeError.code,
 		)
-
 	}
 
 	/**

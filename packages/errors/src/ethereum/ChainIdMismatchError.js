@@ -63,7 +63,6 @@ export class ChainIdMismatchError extends BaseError {
 			tag,
 			ChainIdMismatchError.code,
 		)
-
 	}
 
 	/**

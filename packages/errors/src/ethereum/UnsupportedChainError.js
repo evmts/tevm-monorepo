@@ -63,7 +63,6 @@ export class UnsupportedChainError extends BaseError {
 			tag,
 			UnsupportedChainError.code,
 		)
-
 	}
 
 	/**

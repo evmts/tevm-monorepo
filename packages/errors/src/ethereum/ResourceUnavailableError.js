@@ -63,7 +63,6 @@ export class ResourceUnavailableError extends BaseError {
 			tag,
 			ResourceUnavailableError.code,
 		)
-
 	}
 
 	/**

@@ -70,7 +70,6 @@ export class ContractExecutionFailedError extends BaseError {
 			tag,
 			ContractExecutionFailedError.code,
 		)
-
 	}
 
 	/**

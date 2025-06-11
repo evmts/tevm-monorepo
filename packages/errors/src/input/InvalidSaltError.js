@@ -55,7 +55,6 @@ export class InvalidSaltError extends InvalidParamsError {
 			},
 			tag,
 		)
-
 	}
 
 	/**

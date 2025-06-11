@@ -55,7 +55,6 @@ export class AccountNotFoundError extends ResourceNotFoundError {
 			},
 			tag,
 		)
-
 	}
 
 	/**

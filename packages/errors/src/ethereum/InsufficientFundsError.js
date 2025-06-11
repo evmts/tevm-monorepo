@@ -67,7 +67,6 @@ export class InsufficientFundsError extends BaseError {
 			tag,
 			InsufficientFundsError.code,
 		)
-
 	}
 
 	/**

@@ -63,7 +63,6 @@ export class InvalidTransactionError extends BaseError {
 			tag,
 			InvalidTransactionError.code,
 		)
-
 	}
 
 	/**

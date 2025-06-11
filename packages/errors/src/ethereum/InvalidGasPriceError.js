@@ -63,7 +63,6 @@ export class InvalidGasPriceError extends BaseError {
 			tag,
 			InvalidGasPriceError.code,
 		)
-
 	}
 
 	/**
