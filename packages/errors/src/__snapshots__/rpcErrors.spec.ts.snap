@@ -115,21 +115,283 @@ Details: User rejected request
 Version: viem@2.30.1]
 `;
 
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > AccountLockedError 1`] = `
+[AccountLocked: Account locked
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/accountlockederror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > AccountNotFoundError 1`] = `
+[AccountNotFoundError: Account not found
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/resourcenotfounderror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > BlockGasLimitExceededError 1`] = `
+[BlockGasLimitExceeded: Block gas limit exceeded
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/blockgaslimitexceedederror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > ChainIdMismatchError 1`] = `
+[ChainIdMismatch: Chain ID mismatch
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/chainidmismatcherror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > ContractExecutionFailedError 1`] = `
+[ContractExecutionFailed: Contract execution failed
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/contractexecutionfailederror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > ExecutionError 1`] = `
+[ExecutionError: Execution error
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/executionerror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > GasLimitExceededError 1`] = `
+[GasLimitExceededError: Gas limit exceeded
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/gaslimitexceedederror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > InsufficientFundsError 1`] = `
+[InsufficientFunds: Insufficient funds
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/insufficientfundserror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > InsufficientPermissionsError 1`] = `
+[InsufficientPermissions: Insufficient permissions
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/insufficientpermissionserror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > InternalError 1`] = `
+[InternalError: Internal error
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > InvalidAddressError 1`] = `
+[InvalidAddress: Invalid address
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > InvalidGasPriceError 1`] = `
+[InvalidGasPrice: Invalid gas price
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > InvalidParamsError 1`] = `
+[InvalidParams: Invalid params
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > InvalidRequestError 1`] = `
+[InvalidRequest: Invalid request
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > InvalidSignatureError 1`] = `
+[InvalidSignature: Invalid signature
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidsignatureerror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > InvalidTransactionError 1`] = `
+[InvalidTransaction: Invalid transaction
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidtransactionerror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > LimitExceededError 1`] = `
+[LimitExceeded: Limit exceeded
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/limitexceedederror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > MethodNotFoundError 1`] = `
+[MethodNotFound: Method not found
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/methodnotfounderror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > MethodNotSupportedError 1`] = `
+[MethodNotSupported: Method not supported
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/methodnotsupportederror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > NonceAlreadyUsedError 1`] = `
+[NonceAlreadyUsed: Nonce already used
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/noncealreadyusederror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > NonceTooHighError 1`] = `
+[NonceTooHigh: Nonce too high
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/noncetoohigherror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > NonceTooLowError 1`] = `
+[NonceTooLow: Nonce too low
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/noncetoolowerror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > ParseError 1`] = `
+[ParseError: Parse error
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/parseerror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > PendingTransactionTimeoutError 1`] = `
+[PendingTransactionTimeout: Pending transaction timeout
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/pendingtransactiontimeouterror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > RateLimitExceededError 1`] = `
+[RateLimitExceeded: Rate limit exceeded
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/ratelimitexceedederror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > ResourceNotFoundError 1`] = `
+[ResourceNotFound: Resource not found
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/resourcenotfounderror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > ResourceUnavailableError 1`] = `
+[ResourceUnavailable: Resource unavailable
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/resourceunavailableerror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > RevertError 1`] = `
+[RevertError: Revert error
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > TransactionRejectedError 1`] = `
+[TransactionRejected: Transaction rejected
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/transactionrejectederror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > TransactionTooLargeError 1`] = `
+[TransactionTooLargeError: Transaction too large
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/transactiontoolargeerror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > TransactionUnderpricedError 1`] = `
+[TransactionUnderpriced: Transaction underpriced
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/transactionunderpricederror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > UnknownBlockError 1`] = `
+[UnknownBlock: Unknown block
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`RPC Error Classes > should create proper instances of Tevm RPC errors > UnsupportedChainError 1`] = `
+[UnsupportedChain: Unsupported chain
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/unsupportedchainerror/
+Version: 1.1.0.next-73]
+`;
+
 exports[`RPC Error Classes > should have a valid rpcErrorCodeToMessage mapping > rpcErrorCodeToMessage 1`] = `
 {
-  "-1": "Unknwon error",
+  "-1": "Unknown error",
   "-32000": "Invalid input",
   "-32001": "Resource not found",
   "-32002": "Resource unavailable",
   "-32003": "Transaction rejected",
   "-32004": "Method not supported",
   "-32005": "Limit exceeded",
-  "-32006": "JSON-RPC version not supported",
+  "-32006": "Block gas limit exceeded",
+  "-32007": "Unsupported chain",
+  "-32008": "Nonce already used",
+  "-32009": "Insufficient permissions",
+  "-32010": "Transaction cost exceeds current gas limit",
+  "-32011": "Transaction too large",
+  "-32012": "Invalid gas price",
+  "-32013": "Invalid address",
+  "-32014": "Transaction underpriced",
+  "-32015": "VM execution error",
+  "-32020": "Account locked",
   "-32042": "Method not found",
+  "-32500": "Invalid user operation",
+  "-32501": "User operation validation error",
+  "-32521": "Invalid signature",
   "-32600": "Invalid request",
   "-32601": "Method not found",
   "-32602": "Invalid params",
   "-32603": "Internal error",
+  "-32604": "Record not found",
+  "-32605": "Rate Limit",
+  "-32606": "Illegal Ip",
+  "-32607": "Call Limit",
+  "-32612": "Tracing/debugging blocked",
+  "-32613": "Tracing/debugging blocked",
+  "-32616": "WebSocket response size exceeded",
   "-32700": "Parse error",
+  "-33000": "Payment required",
+  "-33100": "Forbidden",
+  "-33200": "Too Many Requests",
+  "-33300": "Too Many Requests",
+  "-33400": "Too Many Requests",
+  "3": "Execution reverted",
+  "4001": "User rejected request",
+  "4100": "Unauthorized",
+  "4200": "Method not supported",
+  "4900": "Provider disconnected",
+  "4901": "Provider disconnected from chain",
 }
 `;
