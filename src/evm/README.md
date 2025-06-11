@@ -256,8 +256,8 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 
 #### Precompiled Contracts (1/17 implemented)
 - [ ] 🟡 **Standard Precompiles**
-  - [ ] **ECRECOVER** (0x01) - [Elliptic curve signature recovery](./prompts/implement-ecrecover-precompile.md) | [Enhanced](./prompts/implement-ecrecover-precompile-enhanced.md)
-  - [ ] **SHA256** (0x02) - [SHA-256 hash function](./prompts/implement-sha256-precompile.md)
+  - [🔄] **ECRECOVER** (0x01) - [Elliptic curve signature recovery](./prompts/implement-ecrecover-precompile.md) | [Enhanced](./prompts/implement-ecrecover-precompile-enhanced.md) - @claude working on this
+  - [🔄] **SHA256** (0x02) - [SHA-256 hash function](./prompts/implement-sha256-precompile.md) - @claude working on this
   - [ ] **RIPEMD160** (0x03) - [RIPEMD-160 hash function](./prompts/implement-ripemd160-precompile.md)
   - [x] **IDENTITY** (0x04) - Identity/copy function ✅
   - [ ] **MODEXP** (0x05) - [Modular exponentiation](./prompts/implement-modexp-precompile.md) | [Enhanced](./prompts/implement-modexp-precompile-enhanced.md)
