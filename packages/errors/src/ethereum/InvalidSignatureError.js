@@ -64,16 +64,4 @@ export class InvalidSignatureError extends BaseError {
 			InvalidSignatureError.code,
 		)
 	}
-
-	/**
-	 * @type {'InvalidSignature'}
-	 * @override
-	 */
-	_tag = 'InvalidSignature'
-
-	/**
-	 * @type {'InvalidSignature'}
-	 * @override
-	 */
-	name = 'InvalidSignature'
 }

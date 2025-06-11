@@ -73,16 +73,4 @@ export class AccountLockedError extends BaseError {
 			AccountLockedError.code,
 		)
 	}
-
-	/**
-	 * @type {'AccountLocked'}
-	 * @override
-	 */
-	_tag = 'AccountLocked'
-
-	/**
-	 * @type {'AccountLocked'}
-	 * @override
-	 */
-	name = 'AccountLocked'
 }

@@ -69,16 +69,4 @@ export class TransactionRejectedError extends BaseError {
 		 */
 		this.meta = args.meta
 	}
-
-	/**
-	 * @type {'TransactionRejected'}
-	 * @override
-	 */
-	_tag = 'TransactionRejected'
-
-	/**
-	 * @type {'TransactionRejected'}
-	 * @override
-	 */
-	name = 'TransactionRejected'
 }

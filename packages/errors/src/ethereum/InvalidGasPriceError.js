@@ -64,16 +64,4 @@ export class InvalidGasPriceError extends BaseError {
 			InvalidGasPriceError.code,
 		)
 	}
-
-	/**
-	 * @type {'InvalidGasPrice'}
-	 * @override
-	 */
-	_tag = 'InvalidGasPrice'
-
-	/**
-	 * @type {'InvalidGasPrice'}
-	 * @override
-	 */
-	name = 'InvalidGasPrice'
 }

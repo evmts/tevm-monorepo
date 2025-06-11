@@ -50,8 +50,9 @@ export class GasLimitExceededError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {GasLimitExceededErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='GasLimitExceeded'] - The tag for the error.
 	 */
-	constructor(message, args = {}, tag = 'GasLimitExceededError') {
+	constructor(message, args = {}, tag = 'GasLimitExceeded') {
 		super(
 			message,
 			{
@@ -63,16 +64,4 @@ export class GasLimitExceededError extends BaseError {
 			GasLimitExceededError.code,
 		)
 	}
-
-	/**
-	 * @type {'GasLimitExceededError'}
-	 * @override
-	 */
-	_tag = 'GasLimitExceededError'
-
-	/**
-	 * @type {'GasLimitExceededError'}
-	 * @override
-	 */
-	name = 'GasLimitExceededError'
 }

@@ -63,8 +63,5 @@ export class ResourceNotFoundError extends BaseError {
 			tag,
 			ResourceNotFoundError.code,
 		)
-
-		this.name = 'ResourceNotFound'
-		this._tag = 'ResourceNotFound'
 	}
 }

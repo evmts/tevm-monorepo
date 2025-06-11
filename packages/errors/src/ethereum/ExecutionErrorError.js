@@ -51,7 +51,7 @@ export class ExecutionError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {ExecutionErrorParameters} [args={}] - Additional parameters for the BaseError.
-	 * @param {string} [tag] - Internal name/tag for the error.
+	 * @param {string} [tag='ExecutionError'] - The tag for the error.
 	 */
 	constructor(message, args = {}, tag = 'ExecutionError') {
 		super(

@@ -70,8 +70,6 @@ export class InternalError extends BaseError {
 			InternalError.code,
 		)
 
-		this.name = 'InternalError'
-		this._tag = 'InternalError'
 		this.meta = args.meta
 	}
 }

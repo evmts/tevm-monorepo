@@ -64,16 +64,4 @@ export class InvalidTransactionError extends BaseError {
 			InvalidTransactionError.code,
 		)
 	}
-
-	/**
-	 * @type {'InvalidTransaction'}
-	 * @override
-	 */
-	_tag = 'InvalidTransaction'
-
-	/**
-	 * @type {'InvalidTransaction'}
-	 * @override
-	 */
-	name = 'InvalidTransaction'
 }

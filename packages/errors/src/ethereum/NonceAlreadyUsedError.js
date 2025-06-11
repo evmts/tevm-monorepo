@@ -64,16 +64,4 @@ export class NonceAlreadyUsedError extends BaseError {
 			NonceAlreadyUsedError.code,
 		)
 	}
-
-	/**
-	 * @type {'NonceAlreadyUsed'}
-	 * @override
-	 */
-	_tag = 'NonceAlreadyUsed'
-
-	/**
-	 * @type {'NonceAlreadyUsed'}
-	 * @override
-	 */
-	name = 'NonceAlreadyUsed'
 }

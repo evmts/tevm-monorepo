@@ -64,16 +64,4 @@ export class ChainIdMismatchError extends BaseError {
 			ChainIdMismatchError.code,
 		)
 	}
-
-	/**
-	 * @type {'ChainIdMismatch'}
-	 * @override
-	 */
-	_tag = 'ChainIdMismatch'
-
-	/**
-	 * @type {'ChainIdMismatch'}
-	 * @override
-	 */
-	name = 'ChainIdMismatch'
 }

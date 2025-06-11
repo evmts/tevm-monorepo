@@ -50,9 +50,9 @@ export class TransactionTooLargeError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {TransactionTooLargeErrorParameters} [args={}] - Additional parameters for the BaseError.
-	 * @param {string} [tag='TransactionTooLargeError'] - The tag for the error.
+	 * @param {string} [tag='TransactionTooLarge'] - The tag for the error.
 	 */
-	constructor(message, args = {}, tag = 'TransactionTooLargeError') {
+	constructor(message, args = {}, tag = 'TransactionTooLarge') {
 		super(
 			message,
 			{
@@ -64,16 +64,4 @@ export class TransactionTooLargeError extends BaseError {
 			TransactionTooLargeError.code,
 		)
 	}
-
-	/**
-	 * @type {'TransactionTooLargeError'}
-	 * @override
-	 */
-	_tag = 'TransactionTooLargeError'
-
-	/**
-	 * @type {'TransactionTooLargeError'}
-	 * @override
-	 */
-	name = 'TransactionTooLargeError'
 }

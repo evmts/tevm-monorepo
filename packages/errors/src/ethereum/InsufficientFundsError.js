@@ -68,16 +68,4 @@ export class InsufficientFundsError extends BaseError {
 			InsufficientFundsError.code,
 		)
 	}
-
-	/**
-	 * @type {'InsufficientFunds'}
-	 * @override
-	 */
-	_tag = 'InsufficientFunds'
-
-	/**
-	 * @type {'InsufficientFunds'}
-	 * @override
-	 */
-	name = 'InsufficientFunds'
 }

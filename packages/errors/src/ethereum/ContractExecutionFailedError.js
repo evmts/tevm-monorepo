@@ -71,16 +71,4 @@ export class ContractExecutionFailedError extends BaseError {
 			ContractExecutionFailedError.code,
 		)
 	}
-
-	/**
-	 * @type {'ContractExecutionFailed'}
-	 * @override
-	 */
-	_tag = 'ContractExecutionFailed'
-
-	/**
-	 * @type {'ContractExecutionFailed'}
-	 * @override
-	 */
-	name = 'ContractExecutionFailed'
 }

@@ -64,16 +64,4 @@ export class UnsupportedChainError extends BaseError {
 			UnsupportedChainError.code,
 		)
 	}
-
-	/**
-	 * @type {'UnsupportedChain'}
-	 * @override
-	 */
-	_tag = 'UnsupportedChain'
-
-	/**
-	 * @type {'UnsupportedChain'}
-	 * @override
-	 */
-	name = 'UnsupportedChain'
 }

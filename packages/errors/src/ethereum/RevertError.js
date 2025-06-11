@@ -58,7 +58,7 @@ export class RevertError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {RevertErrorParameters} [args={}] - Additional parameters for the BaseError.
-	 * @param {string} [tag='RevertError'] - The tag for the error.
+	 * @param {string} [tag='Revert'] - The tag for the error.
 	 */
 	constructor(message, args = {}, tag = 'Revert') {
 		super(
@@ -72,16 +72,4 @@ export class RevertError extends BaseError {
 			RevertError.code,
 		)
 	}
-
-	/**
-	 * @type {'Revert'}
-	 * @override
-	 */
-	_tag = 'Revert'
-
-	/**
-	 * @type {'Revert'}
-	 * @override
-	 */
-	name = 'Revert'
 }

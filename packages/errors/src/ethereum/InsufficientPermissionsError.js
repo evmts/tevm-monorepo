@@ -64,16 +64,4 @@ export class InsufficientPermissionsError extends BaseError {
 			InsufficientPermissionsError.code,
 		)
 	}
-
-	/**
-	 * @type {'InsufficientPermissions'}
-	 * @override
-	 */
-	_tag = 'InsufficientPermissions'
-
-	/**
-	 * @type {'InsufficientPermissions'}
-	 * @override
-	 */
-	name = 'InsufficientPermissions'
 }

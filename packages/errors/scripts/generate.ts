@@ -22,7 +22,7 @@ const errors = [
 	{ name: 'InvalidOpcode', message: 'Transaction contained an invalid opcode.', code: -32015 },
 	{ name: 'Revert', message: 'Transaction execution reverted.', code: 3 },
 	{ name: 'ResourceNotFound', message: 'Requested resource was not found on the Ethereum node.', code: -32001 },
-	{ name: 'AccountNotFoundError', message: 'The requested account could not be found.', code: -32001 },
+	{ name: 'AccountNotFound', message: 'The requested account could not be found.', code: -32001 },
 	{ name: 'ResourceUnavailable', message: 'Requested resource is temporarily unavailable.', code: -32002 },
 	{ name: 'TransactionRejected', message: 'The transaction was rejected by the node.', code: -32003 },
 	{ name: 'MethodNotSupported', message: 'The requested method is not supported by the Ethereum node.', code: -32004 },

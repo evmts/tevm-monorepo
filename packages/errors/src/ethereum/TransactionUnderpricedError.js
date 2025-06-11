@@ -64,16 +64,4 @@ export class TransactionUnderpricedError extends BaseError {
 			TransactionUnderpricedError.code,
 		)
 	}
-
-	/**
-	 * @type {'TransactionUnderpriced'}
-	 * @override
-	 */
-	_tag = 'TransactionUnderpriced'
-
-	/**
-	 * @type {'TransactionUnderpriced'}
-	 * @override
-	 */
-	name = 'TransactionUnderpriced'
 }

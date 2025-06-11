@@ -64,16 +64,4 @@ export class InvalidRequestError extends BaseError {
 			InvalidRequestError.code,
 		)
 	}
-
-	/**
-	 * @type {'InvalidRequest'}
-	 * @override
-	 */
-	_tag = 'InvalidRequest'
-
-	/**
-	 * @type {'InvalidRequest'}
-	 * @override
-	 */
-	name = 'InvalidRequest'
 }

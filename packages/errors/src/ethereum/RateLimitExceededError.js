@@ -64,16 +64,4 @@ export class RateLimitExceededError extends BaseError {
 			RateLimitExceededError.code,
 		)
 	}
-
-	/**
-	 * @type {'RateLimitExceeded'}
-	 * @override
-	 */
-	_tag = 'RateLimitExceeded'
-
-	/**
-	 * @type {'RateLimitExceeded'}
-	 * @override
-	 */
-	name = 'RateLimitExceeded'
 }

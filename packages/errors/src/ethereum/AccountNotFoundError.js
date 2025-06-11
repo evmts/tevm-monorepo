@@ -43,9 +43,9 @@ export class AccountNotFoundError extends ResourceNotFoundError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {AccountNotFoundErrorParameters} [args={}] - Additional parameters for the ResourceNotFoundError.
-	 * @param {string} [tag='AccountNotFoundError'] - The tag for the error.
+	 * @param {string} [tag='AccountNotFound'] - The tag for the error.
 	 */
-	constructor(message, args = {}, tag = 'AccountNotFoundError') {
+	constructor(message, args = {}, tag = 'AccountNotFound') {
 		super(
 			message,
 			{
@@ -56,16 +56,4 @@ export class AccountNotFoundError extends ResourceNotFoundError {
 			tag,
 		)
 	}
-
-	/**
-	 * @type {'AccountNotFoundError'}
-	 * @override
-	 */
-	_tag = 'AccountNotFoundError'
-
-	/**
-	 * @type {'AccountNotFoundError'}
-	 * @override
-	 */
-	name = 'AccountNotFoundError'
 }

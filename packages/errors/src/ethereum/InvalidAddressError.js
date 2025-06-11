@@ -64,16 +64,4 @@ export class InvalidAddressError extends BaseError {
 			InvalidAddressError.code,
 		)
 	}
-
-	/**
-	 * @type {'InvalidAddress'}
-	 * @override
-	 */
-	_tag = 'InvalidAddress'
-
-	/**
-	 * @type {'InvalidAddress'}
-	 * @override
-	 */
-	name = 'InvalidAddress'
 }
