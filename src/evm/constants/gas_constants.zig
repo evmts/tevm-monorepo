@@ -289,6 +289,22 @@ pub const SHA256_WORD_COST: u64 = 12;
 /// Fixed cost for elliptic curve signature recovery
 pub const ECRECOVER_COST: u64 = 3000;
 
+// ============================================================================
+// MODEXP Precompile Costs (EIP-2565)
+// ============================================================================
+
+/// Minimum gas cost for MODEXP precompile (address 0x05)
+/// EIP-2565: Reduced from previous higher costs to provide gas optimization
+pub const MODEXP_MIN_GAS: u64 = 200;
+
+/// Threshold for quadratic complexity in MODEXP gas calculation
+/// Inputs smaller than this use simple quadratic cost formula
+pub const MODEXP_QUADRATIC_THRESHOLD: usize = 64;
+
+/// Threshold for linear complexity in MODEXP gas calculation
+/// Inputs between quadratic and linear thresholds use optimized formula
+pub const MODEXP_LINEAR_THRESHOLD: usize = 1024;
+
 /// Calculate memory expansion gas cost
 /// 
 /// Computes the gas cost for expanding EVM memory from current_size to new_size bytes.
