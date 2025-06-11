@@ -35,7 +35,7 @@ import { BaseError } from './BaseError.js'
  * @property {'ExecutionError'} name - The name of the error, used to discriminate errors.
  * @property {string} message - Human-readable error message.
  * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code (-32015), a widely used extension for EVM execution errors.
+ * @property {number} code - Error code (-32015), a convention for EVM execution errors.
  * @property {string} docsPath - Path to the documentation for this error.
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */

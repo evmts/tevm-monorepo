@@ -64,7 +64,17 @@ export class ResourceUnavailableError extends BaseError {
 			ResourceUnavailableError.code,
 		)
 
-		this.name = 'ResourceUnavailable'
-		this._tag = 'ResourceUnavailable'
 	}
+
+	/**
+	 * @type {'ResourceUnavailable'}
+	 * @override
+	 */
+	_tag = 'ResourceUnavailable'
+
+	/**
+	 * @type {'ResourceUnavailable'}
+	 * @override
+	 */
+	name = 'ResourceUnavailable'
 }

@@ -63,8 +63,17 @@ export class MethodNotFoundError extends BaseError {
 			tag,
 			MethodNotFoundError.code,
 		)
-
-		this.name = 'MethodNotFound'
-		this._tag = 'MethodNotFound'
 	}
+
+	/**
+	 * @type {'MethodNotFound'}
+	 * @override
+	 */
+	_tag = 'MethodNotFound'
+
+	/**
+	 * @type {'MethodNotFound'}
+	 * @override
+	 */
+	name = 'MethodNotFound'
 }

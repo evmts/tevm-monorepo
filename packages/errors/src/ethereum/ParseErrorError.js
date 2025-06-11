@@ -68,8 +68,17 @@ export class ParseError extends BaseError {
 			tag,
 			ParseError.code,
 		)
-
-		this.name = 'ParseError'
-		this._tag = 'ParseError'
 	}
+
+	/**
+	 * @type {'ParseError'}
+	 * @override
+	 */
+	_tag = 'ParseError'
+
+	/**
+	 * @type {'ParseError'}
+	 * @override
+	 */
+	name = 'ParseError'
 }

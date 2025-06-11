@@ -74,8 +74,17 @@ export class NonceTooHighError extends BaseError {
 			tag,
 			NonceTooHighError.code,
 		)
-
-		this.name = 'NonceTooHigh'
-		this._tag = 'NonceTooHigh'
 	}
+
+	/**
+	 * @type {'NonceTooHigh'}
+	 * @override
+	 */
+	_tag = 'NonceTooHigh'
+
+	/**
+	 * @type {'NonceTooHigh'}
+	 * @override
+	 */
+	name = 'NonceTooHigh'
 }

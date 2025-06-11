@@ -63,8 +63,17 @@ export class MethodNotSupportedError extends BaseError {
 			tag,
 			MethodNotSupportedError.code,
 		)
-
-		this.name = 'MethodNotSupported'
-		this._tag = 'MethodNotSupported'
 	}
+
+	/**
+	 * @type {'MethodNotSupported'}
+	 * @override
+	 */
+	_tag = 'MethodNotSupported'
+
+	/**
+	 * @type {'MethodNotSupported'}
+	 * @override
+	 */
+	name = 'MethodNotSupported'
 }

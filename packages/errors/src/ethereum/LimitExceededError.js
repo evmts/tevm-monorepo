@@ -63,8 +63,17 @@ export class LimitExceededError extends BaseError {
 			tag,
 			LimitExceededError.code,
 		)
-
-		this.name = 'LimitExceeded'
-		this._tag = 'LimitExceeded'
 	}
+
+	/**
+	 * @type {'LimitExceeded'}
+	 * @override
+	 */
+	_tag = 'LimitExceeded'
+
+	/**
+	 * @type {'LimitExceeded'}
+	 * @override
+	 */
+	name = 'LimitExceeded'
 }
