@@ -7,7 +7,7 @@
 /// ## Operation
 /// - **Input**: 96 bytes (32-byte x, 32-byte y, 32-byte scalar)
 /// - **Output**: 64 bytes (32-byte x, 32-byte y coordinates of result)
-/// - **Gas Cost**: 6,000 (Istanbul+) or 40,000 (Byzantium-Constantinople)
+/// - **Gas Cost**: 40,000 (Byzantium-Berlin) or 6,000 (Istanbul+)
 ///
 /// ## Mathematical Operation
 /// Given point P = (x, y) and scalar s, computes Q = s × P where:
