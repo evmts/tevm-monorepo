@@ -67,7 +67,7 @@ Why does this matter? Modern blockchain applications like zero-knowledge proofs 
 
 ### Basic Operation
 - **Address**: `0x000000000000000000000000000000000000000D`
-- **Gas Cost**: 800 (fixed cost)
+- **Gas Cost**: 600 (fixed cost)
 - **Input**: 512 bytes (two G2 points, 256 bytes each)
 - **Output**: 256 bytes (single G2 point result)
 - **Available**: Post-EIP-2537 hardforks
@@ -377,7 +377,7 @@ The original prompt specified a gas cost of 800 for the `G2ADD` precompile. The 
 - **Gas Cost**: 600 (fixed cost)
 
 ```diff
-- **Gas Cost**: 800 (fixed cost)
+- **Gas Cost**: 600 (fixed cost)
 + **Gas Cost**: 600 (fixed cost)
 ```
 

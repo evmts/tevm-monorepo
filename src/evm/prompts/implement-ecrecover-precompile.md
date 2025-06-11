@@ -190,9 +190,9 @@ fn validate_signature_params(v: u256, r: u256, s: u256) bool {
     // s must be non-zero and less than curve order
     if (s == 0 or s >= SECP256K1_ORDER) return false;
     
-    // v must be 27, 28, or EIP-155 format
+    // v must be exactly 27 or 28 (EIP-155 format NOT supported in precompile)
     const recovery_id = extract_recovery_id(v);
-    if (recovery_id != 0 and recovery_id != 1) return false;
+    if (recovery_id == 255) return false; // Invalid v value
     
     return true;
 }
@@ -215,8 +215,8 @@ const gas_constants = @import("../constants/gas_constants.zig");
 const PrecompileResult = @import("precompile_result.zig").PrecompileResult;
 const PrecompileError = @import("precompile_result.zig").PrecompileError;
 const Address = @import("../Address.zig").Address;
-const U256 = @import("../Types/U256.ts").U256;
-const B256 = @import("../Types/B256.ts").B256;
+const U256 = @import("../Types/U256.zig").U256;
+const B256 = @import("../Types/B256.zig").B256;
 
 // secp256k1 curve order
 const SECP256K1_ORDER: u256 = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141;
@@ -291,18 +291,12 @@ fn validate_signature_params(v: u256, r: u256, s: u256) bool {
 }
 
 fn extract_recovery_id(v: u256) u8 {
-    // Handle legacy format (27, 28)
+    // ECRECOVER precompile only accepts v values of 27 or 28
+    // EIP-155 handling is NOT supported in this precompile
     if (v == 27) return 0;
     if (v == 28) return 1;
     
-    // Handle EIP-155 format (chain_id * 2 + 35/36)
-    if (v >= 35) {
-        const adjusted = v - 35;
-        const recovery_id = @as(u8, @intCast(adjusted % 2));
-        return recovery_id;
-    }
-    
-    // Invalid v value
+    // Invalid v value - return invalid marker
     return 255; // Invalid marker
 }
 

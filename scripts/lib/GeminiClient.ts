@@ -1,5 +1,5 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import "dotenv";
+import "dotenv/config";
 
 export interface GeminiPart {
   text: string;
@@ -44,7 +44,7 @@ async function retryWithBackoff<T>(
       }
 
       // Exponential backoff: 1s, 2s, 4s
-      const delay = baseDelay * Math.pow(2, attempt - 1);
+      const delay = baseDelay * (2 ** (attempt - 1));
       console.log(`    ⏱️  Retrying in ${delay}ms...`);
       await new Promise((resolve) => setTimeout(resolve, delay));
     }
@@ -58,6 +58,7 @@ async function retryWithBackoff<T>(
 export class GeminiClient {
   private genAI: GoogleGenerativeAI;
   private model: any;
+  private apiKey: string;
   public readonly modelName: string;
   public readonly tokenLimit: number;
 
@@ -70,6 +71,7 @@ export class GeminiClient {
       );
     }
 
+    this.apiKey = key;
     this.modelName = modelName;
     this.tokenLimit = 1000000; // 1M tokens for gemini-2.5-pro
     this.genAI = new GoogleGenerativeAI(key);
@@ -90,15 +92,13 @@ export class GeminiClient {
    * Generate content with retry logic using fetch API
    */
   async generateContent(contents: GeminiContent[]): Promise<string> {
-    const apiKey = process.env.GEMINI_API_KEY;
-    
     return retryWithBackoff(async () => {
       const requestBody = {
         contents,
       };
 
       const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${this.modelName}:generateContent?key=${apiKey}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/${this.modelName}:generateContent?key=${this.apiKey}`,
         {
           method: "POST",
           headers: {
