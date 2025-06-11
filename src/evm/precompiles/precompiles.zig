@@ -23,7 +23,6 @@ const ChainRules = @import("../hardforks/chain_rules.zig");
 /// 2. Implementing the precompile logic in its own module
 /// 3. Adding the dispatch case to execute_precompile()
 /// 4. Adding availability check to is_available()
-
 /// Checks if the given address is a precompile address
 ///
 /// This function determines whether a given address corresponds to a known precompile.
@@ -49,9 +48,9 @@ pub fn is_available(address: Address, chain_rules: ChainRules) bool {
         @branchHint(.cold);
         return false;
     }
-    
+
     const precompile_id = addresses.get_precompile_id(address);
-    
+
     return switch (precompile_id) {
         1, 2, 3, 4 => true, // ECRECOVER, SHA256, RIPEMD160, IDENTITY available from Frontier
         5 => chain_rules.IsByzantium, // MODEXP from Byzantium
@@ -77,34 +76,28 @@ pub fn is_available(address: Address, chain_rules: ChainRules) bool {
 /// @param gas_limit Maximum gas available for execution
 /// @param chain_rules Current chain rules for availability checking
 /// @return PrecompileOutput containing success/failure and gas usage
-pub fn execute_precompile(
-    address: Address, 
-    input: []const u8, 
-    output: []u8, 
-    gas_limit: u64, 
-    chain_rules: ChainRules
-) PrecompileOutput {
+pub fn execute_precompile(address: Address, input: []const u8, output: []u8, gas_limit: u64, chain_rules: ChainRules) PrecompileOutput {
     // Check if this is a valid precompile address
     if (!is_precompile(address)) {
         @branchHint(.cold);
         return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
     }
-    
+
     // Check if this precompile is available with the current chain rules
     if (!is_available(address, chain_rules)) {
         @branchHint(.cold);
         return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
     }
-    
+
     const precompile_id = addresses.get_precompile_id(address);
-    
+
     // Route to specific precompile implementation
     return switch (precompile_id) {
         4 => {
             @branchHint(.likely);
             return identity.execute(input, output, gas_limit);
         }, // IDENTITY
-        
+
         // Placeholder implementations for future precompiles
         1 => {
             @branchHint(.cold);
@@ -142,7 +135,7 @@ pub fn execute_precompile(
             @branchHint(.unlikely);
             return kzg_point_evaluation.execute(input, output, gas_limit);
         }, // POINT_EVALUATION
-        
+
         else => {
             @branchHint(.cold);
             return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
@@ -164,17 +157,17 @@ pub fn estimate_gas(address: Address, input_size: usize, chain_rules: ChainRules
         @branchHint(.cold);
         return error.InvalidPrecompile;
     }
-    
+
     if (!is_available(address, chain_rules)) {
         @branchHint(.cold);
         return error.PrecompileNotAvailable;
     }
-    
+
     const precompile_id = addresses.get_precompile_id(address);
-    
+
     return switch (precompile_id) {
         4 => identity.calculate_gas_checked(input_size), // IDENTITY
-        
+
         // Placeholder gas calculations for future precompiles
         1 => error.NotImplemented, // ECRECOVER - TODO
         2 => sha256.calculate_gas_checked(input_size), // SHA256
@@ -185,7 +178,7 @@ pub fn estimate_gas(address: Address, input_size: usize, chain_rules: ChainRules
         8 => error.NotImplemented, // ECPAIRING - TODO
         9 => blake2f.calculate_gas_checked(input_size), // BLAKE2F
         10 => kzg_point_evaluation.calculate_gas_checked(input_size), // POINT_EVALUATION
-        
+
         else => error.InvalidPrecompile,
     };
 }
@@ -204,17 +197,17 @@ pub fn get_output_size(address: Address, input_size: usize, chain_rules: ChainRu
         @branchHint(.cold);
         return error.InvalidPrecompile;
     }
-    
+
     if (!is_available(address, chain_rules)) {
         @branchHint(.cold);
         return error.PrecompileNotAvailable;
     }
-    
+
     const precompile_id = addresses.get_precompile_id(address);
-    
+
     return switch (precompile_id) {
         4 => identity.get_output_size(input_size), // IDENTITY
-        
+
         // Placeholder output sizes for future precompiles
         1 => 32, // ECRECOVER - fixed 32 bytes (address)
         2 => sha256.get_output_size(input_size), // SHA256
@@ -225,7 +218,7 @@ pub fn get_output_size(address: Address, input_size: usize, chain_rules: ChainRu
         8 => 32, // ECPAIRING - fixed 32 bytes (boolean result)
         9 => blake2f.get_output_size(input_size), // BLAKE2F
         10 => kzg_point_evaluation.get_output_size(input_size), // POINT_EVALUATION
-        
+
         else => error.InvalidPrecompile,
     };
 }
@@ -249,7 +242,7 @@ pub fn validate_call(address: Address, input_size: usize, gas_limit: u64, chain_
         @branchHint(.cold);
         return false;
     }
-    
+
     const gas_cost = estimate_gas(address, input_size, chain_rules) catch {
         @branchHint(.cold);
         return false;
