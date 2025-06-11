@@ -254,10 +254,10 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
   - [x] **Return Data Handling** - Complete RETURNDATASIZE/RETURNDATACOPY after calls ✅
   - [x] **Value Transfer Logic** - ETH transfer mechanics in calls ✅
 
-#### Precompiled Contracts (1/17 implemented)
+#### Precompiled Contracts (2/17 implemented)
 - [ ] 🟡 **Standard Precompiles**
-  - [🔄] **ECRECOVER** (0x01) - [Elliptic curve signature recovery](./prompts/implement-ecrecover-precompile.md) | [Enhanced](./prompts/implement-ecrecover-precompile-enhanced.md) - @claude working on this
-  - [🔄] **SHA256** (0x02) - [SHA-256 hash function](./prompts/implement-sha256-precompile.md) - @claude working on this
+  - [x] **ECRECOVER** (0x01) - [Elliptic curve signature recovery](./prompts/implement-ecrecover-precompile.md) | [Enhanced](./prompts/implement-ecrecover-precompile-enhanced.md) - ✅ Complete with placeholder crypto
+  - [ ] **SHA256** (0x02) - [SHA-256 hash function](./prompts/implement-sha256-precompile.md)
   - [ ] **RIPEMD160** (0x03) - [RIPEMD-160 hash function](./prompts/implement-ripemd160-precompile.md)
   - [x] **IDENTITY** (0x04) - Identity/copy function ✅
   - [ ] **MODEXP** (0x05) - [Modular exponentiation](./prompts/implement-modexp-precompile.md) | [Enhanced](./prompts/implement-modexp-precompile-enhanced.md)
@@ -449,7 +449,7 @@ The EVM implementation follows a modular architecture with clear separation of c
 
 1. **Fix WASM build** and integrate into Tevm JavaScript library
 2. **Complete call gas management** with 63/64th gas forwarding rule
-3. **Implement precompiled contracts** (ECRECOVER, SHA256, etc.)
+3. **Implement precompiled contracts** (SHA256, RIPEMD160, etc.) [ECRECOVER ✅]
 4. **Add gas refunds** for SSTORE and SELFDESTRUCT operations
 
 ### Performance & Testing
