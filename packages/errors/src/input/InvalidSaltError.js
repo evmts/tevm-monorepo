@@ -56,16 +56,4 @@ export class InvalidSaltError extends InvalidParamsError {
 			tag,
 		)
 	}
-
-	/**
-	 * @type {'InvalidSaltError'}
-	 * @override
-	 */
-	_tag = 'InvalidSaltError'
-
-	/**
-	 * @type {'InvalidSaltError'}
-	 * @override
-	 */
-	name = 'InvalidSaltError'
 }
