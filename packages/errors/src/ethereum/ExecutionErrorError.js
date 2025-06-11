@@ -32,7 +32,7 @@ import { BaseError } from './BaseError.js'
  * @param {string} message - A human-readable error message.
  * @param {ExecutionErrorParameters} [args={}] - Additional parameters for the BaseError.
  * @property {string} _tag - More discriminated version of name. Can be used to discriminate between errors with the same name.
- * @property {'ExecutionError'} name - The name of the error, used to discriminate errors.
+ * @property {string} name - The name of the error, used to discriminate errors.
  * @property {string} message - Human-readable error message.
  * @property {object} [meta] - Optional object containing additional information about the error.
  * @property {number} code - Error code (-32015), a convention for EVM execution errors.

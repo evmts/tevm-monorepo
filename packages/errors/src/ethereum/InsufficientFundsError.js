@@ -34,8 +34,8 @@ import { BaseError } from './BaseError.js'
  *
  * @param {string} message - A human-readable error message.
  * @param {InsufficientFundsErrorParameters} [args={}] - Additional parameters for the BaseError.
- * @property {'InsufficientFunds'} _tag - Same as name, used internally.
- * @property {'InsufficientFunds'} name - The name of the error, used to discriminate errors.
+ * @property {string} _tag - Same as name, used internally.
+ * @property {string} name - The name of the error, used to discriminate errors.
  * @property {string} message - Human-readable error message.
  * @property {object} [meta] - Optional object containing additional information about the error.
  * @property {number} code - Error code (-32003), standard Ethereum JSON-RPC error code for transaction rejected.

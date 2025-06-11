@@ -37,8 +37,8 @@ import { BaseError } from './BaseError.js'
  *
  * @param {string} message - A human-readable error message.
  * @param {ContractExecutionFailedErrorParameters} [args={}] - Additional parameters for the BaseError.
- * @property {'ContractExecutionFailed'} _tag - Same as name, used internally.
- * @property {'ContractExecutionFailed'} name - The name of the error, used to discriminate errors.
+ * @property {string} _tag - Same as name, used internally.
+ * @property {string} name - The name of the error, used to discriminate errors.
  * @property {string} message - Human-readable error message.
  * @property {object} [meta] - Optional object containing additional information about the error.
  * @property {number} code - Error code (-32015), a convention for EVM execution errors.

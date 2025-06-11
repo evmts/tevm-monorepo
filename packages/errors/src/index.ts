@@ -101,6 +101,8 @@ export {
 	TransactionRejectedError,
 	TransactionTooLargeError,
 	BlockGasLimitExceededError,
+	BlobGasLimitExceededError,
+	type BlobGasLimitExceededErrorParameters,
 	type NonceTooLowErrorParameters,
 	type NonceTooHighErrorParameters,
 	TransactionUnderpricedError,

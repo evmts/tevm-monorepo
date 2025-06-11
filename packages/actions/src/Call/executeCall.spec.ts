@@ -96,7 +96,7 @@ describe('executeCall', () => {
 		expect(result.errors[0]).toBeInstanceOf(EvmRevertError)
 		expect(result.errors[0]).toBeInstanceOf(RevertError)
 		expect(result.errors[0].code).toBe(RevertError.code)
-		expect(result.errors[0].name).toBe('Revert')
+		expect(result.errors[0].name).toBe('EvmRevertError')
 	})
 
 	it('should handle gas price too low error', async () => {
