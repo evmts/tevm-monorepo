@@ -119,7 +119,7 @@ test "jump_destination_analysis" {
         0x60, 0x06, // PUSH1 6 (jump target)
         0x56,       // JUMP
         0x00,       // STOP (unreachable)
-        0x5b,       // JUMPDEST (valid destination at offset 5)
+        0x5b,       // JUMPDEST (valid destination at offset 4)
         0x00,       // STOP
     };
     
@@ -142,9 +142,9 @@ test "jump_destination_analysis" {
         }
     }
     
-    // Should find exactly one JUMPDEST at offset 5
+    // Should find exactly one JUMPDEST at offset 4
     try testing.expectEqual(@as(usize, 1), jumpdests.items.len);
-    try testing.expectEqual(@as(usize, 5), jumpdests.items[0]);
+    try testing.expectEqual(@as(usize, 4), jumpdests.items[0]);
 }
 
 test "error_state_consistency" {

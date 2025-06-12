@@ -339,7 +339,7 @@ test "call_gas_forwarding_specification" {
         // EIP-150: Forward 63/64 of available gas
         .{
             .available_gas = 1000,
-            .expected_forwarded = 984, // 1000 - (1000 / 64) = 1000 - 15 = 985, but integer division
+            .expected_forwarded = 985, // 1000 - (1000 / 64) = 1000 - 15 = 985
             .description = "gas_forwarding_1000",
         },
         .{
@@ -398,11 +398,11 @@ test "jump_destination_validation_specification" {
     // Based on execution-specs control flow implementations
     
     const bytecode = [_]u8{
-        0x60, 0x08, // PUSH1 8 (jump to offset 8)
+        0x60, 0x06, // PUSH1 6 (jump to offset 6)
         0x56,       // JUMP
         0x00,       // STOP (unreachable)
         0x60, 0x00, // PUSH1 0 (data, not valid jump destination)
-        0x5b,       // JUMPDEST (valid destination at offset 8) 
+        0x5b,       // JUMPDEST (valid destination at offset 6) 
         0x00,       // STOP
     };
     
@@ -425,7 +425,7 @@ test "jump_destination_validation_specification" {
         }
     }
     
-    // Verify exactly one valid JUMPDEST at offset 8
+    // Verify exactly one valid JUMPDEST at offset 6
     try testing.expectEqual(@as(usize, 1), valid_destinations.items.len);
-    try testing.expectEqual(@as(usize, 8), valid_destinations.items[0]);
+    try testing.expectEqual(@as(usize, 6), valid_destinations.items[0]);
 }

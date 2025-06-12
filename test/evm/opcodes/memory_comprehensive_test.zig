@@ -231,12 +231,12 @@ test "MSTORE: Overwrite and partial overlap scenarios" {
 
     // Test 1: Store initial value
     const initial_value: u256 = 0xAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBCCCCCCCCCCCCCCCCDDDDDDDDDDDDDDDD;
-    try test_frame.pushStack(&[_]u256{ 0, initial_value }); // offset, value (value on top per EVM spec)
+    try test_frame.pushStack(&[_]u256{ initial_value, 0 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
 
     // Test 2: Completely overwrite with new value
     const overwrite_value: u256 = 0x1111111111111111222222222222222233333333333333334444444444444444;
-    try test_frame.pushStack(&[_]u256{ 0, overwrite_value }); // offset, value (value on top per EVM spec)
+    try test_frame.pushStack(&[_]u256{ overwrite_value, 0 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
 
     const result_overwrite = try test_frame.frame.memory.get_u256(0);
@@ -244,7 +244,7 @@ test "MSTORE: Overwrite and partial overlap scenarios" {
 
     // Test 3: Partial overlap - store starting at offset 16
     const overlap_value: u256 = 0x9999999999999999888888888888888877777777777777776666666666666666;
-    try test_frame.pushStack(&[_]u256{ 16, overlap_value }); // offset, value (value on top per EVM spec)
+    try test_frame.pushStack(&[_]u256{ overlap_value, 16 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
 
     // Check that the overlapping region is correctly updated
@@ -257,7 +257,7 @@ test "MSTORE: Overwrite and partial overlap scenarios" {
 
     // Test 4: Adjacent stores (no overlap)
     const adjacent_value: u256 = 0x5555555555555555;
-    try test_frame.pushStack(&[_]u256{ 64, adjacent_value }); // offset, value (value on top per EVM spec)
+    try test_frame.pushStack(&[_]u256{ adjacent_value, 64 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
 
     const result_adjacent = try test_frame.frame.memory.get_u256(64);

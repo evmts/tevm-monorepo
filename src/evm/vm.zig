@@ -180,8 +180,7 @@ pub fn interpret_with_context(self: *Vm, contract: *Contract, input: []const u8,
         const result = self.table.execute(pc, interpreter_ptr, state_ptr, opcode) catch |err| {
             @branchHint(.cold);
             contract.gas = frame.gas_remaining;
-            self.return_data = @constCast(frame.return_data.get());
-
+            
             var output: ?[]const u8 = null;
             const return_data = frame.return_data.get();
             if (return_data.len > 0) {
@@ -191,6 +190,10 @@ pub fn interpret_with_context(self: *Vm, contract: *Contract, input: []const u8,
                     // all gas and stops execution.
                     return RunResult.init(initial_gas, 0, .OutOfGas, ExecutionError.Error.OutOfMemory, null);
                 };
+                // Also update vm.return_data with a copy to avoid dangling pointer
+                self.return_data = @constCast(output.?);
+            } else {
+                self.return_data = &[_]u8{};
             }
 
             return switch (err) {
@@ -235,10 +238,16 @@ pub fn interpret_with_context(self: *Vm, contract: *Contract, input: []const u8,
     }
 
     contract.gas = frame.gas_remaining;
-    self.return_data = @constCast(frame.return_data.get());
 
     const return_data = frame.return_data.get();
     const output: ?[]const u8 = if (return_data.len > 0) try self.allocator.dupe(u8, return_data) else null;
+    
+    // Set vm.return_data with a copy to avoid dangling pointer
+    if (output) |out| {
+        self.return_data = @constCast(out);
+    } else {
+        self.return_data = &[_]u8{};
+    }
 
     return RunResult.init(
         initial_gas,

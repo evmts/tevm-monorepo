@@ -189,17 +189,16 @@ pub fn build(b: *std.Build) void {
     exe_mod.stack_check = false;
     exe_mod.single_threaded = true;
 
-    // Create WASM module with minimal WASM-specific source
+    // Create WASM module with crypto-focused WASM source
     const wasm_mod = b.createModule(.{
-        .root_source_file = b.path("src/root_wasm_minimal.zig"),
+        .root_source_file = b.path("src/root_wasm_crypto.zig"),
         .target = wasm_target,
         .optimize = .ReleaseSmall,
     });
     wasm_mod.stack_check = false;
     wasm_mod.single_threaded = true;
 
-    // Don't add dependencies for minimal WASM build
-    // We'll add them back once we fix the platform-specific issues
+    // No complex dependencies for crypto-focused build
 
     // Modules can depend on one another using the `std.Build.Module.addImport` function.
     exe_mod.addImport("zigevm", target_architecture_mod);
@@ -662,6 +661,22 @@ pub fn build(b: *std.Build) void {
     const run_debug_return_opcode = b.addRunArtifact(debug_return_opcode);
     const debug_return_opcode_step = b.step("test-return-opcode", "Test RETURN opcode implementation");
     debug_return_opcode_step.dependOn(&run_debug_return_opcode.step);
+
+    // Add RETURN data debug test
+    const debug_return_data = b.addExecutable(.{
+        .name = "debug-return-data",
+        .root_source_file = b.path("debug_return_data.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    debug_return_data.root_module.addImport("evm", evm_mod);
+    debug_return_data.root_module.addImport("Address", address_mod);
+    debug_return_data.root_module.stack_check = false;
+    debug_return_data.root_module.single_threaded = true;
+
+    const run_debug_return_data = b.addRunArtifact(debug_return_data);
+    const debug_return_data_step = b.step("test-return-data", "Test RETURN data handling");
+    debug_return_data_step.dependOn(&run_debug_return_data.step);
 
     // Add simple CREATE debug executable with logging
     const debug_create_simple_with_logging = b.addExecutable(.{
