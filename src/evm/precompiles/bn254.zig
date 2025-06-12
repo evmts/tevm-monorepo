@@ -1,416 +1,328 @@
-/// BN254 (alt_bn128) elliptic curve implementation for Ethereum precompiles
+/// BN254 (alt_bn128) elliptic curve implementation for precompiles
 ///
-/// This module implements the BN254 elliptic curve (also known as alt_bn128) used by
-/// Ethereum precompiles ECADD (0x06), ECMUL (0x07), and ECPAIRING (0x08).
+/// This module implements the BN254 elliptic curve used by Ethereum precompiles:
+/// - ECADD (0x06): Point addition
+/// - ECMUL (0x07): Scalar multiplication  
+/// - ECPAIRING (0x08): Pairing check
 ///
 /// ## Curve Parameters
-/// - **Prime Field**: 21888242871839275222246405745257275088696311157297823662689037894645226208583
-/// - **Curve Equation**: y² = x³ + 3
-/// - **Generator Point**: (1, 2)
-/// - **Order**: 21888242871839275222246405745257275088548364400416034343698204186575808495617
+/// - Field Prime (p): 21888242871839275222246405745257275088696311157297823662689037894645226208583
+/// - Curve Equation: y² = x³ + 3 (mod p)
+/// - Point at Infinity: Represented as (0, 0)
 ///
-/// ## Implementation Features
-/// - Constant-time operations to prevent timing attacks
-/// - Optimized scalar multiplication using windowed method
-/// - Comprehensive input validation
-/// - Memory-efficient point operations
-///
-/// ## Security Considerations
-/// All operations are implemented to be constant-time where possible to prevent
-/// side-channel attacks. Input validation ensures only valid curve points are processed.
+/// ## References
+/// - EIP-196: https://eips.ethereum.org/EIPS/eip-196
+/// - BN254 Specification: https://tools.ietf.org/id/draft-yoneyama-pairing-friendly-curves-02.html
 
 const std = @import("std");
-const testing = std.testing;
 
-/// Prime field modulus for BN254 curve
-/// p = 21888242871839275222246405745257275088696311157297823662689037894645226208583
+/// BN254 field prime (21888242871839275222246405745257275088696311157297823662689037894645226208583)
+/// This is the prime modulus for the finite field over which the curve is defined
 pub const FIELD_PRIME: u256 = 0x30644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd47;
 
-/// Curve order (number of points on the curve)
-/// n = 21888242871839275222246405745257275088548364400416034343698204186575808495617
-pub const CURVE_ORDER: u256 = 0x30644e72e131a029b85045b68181585d2833e84879b9709143e1f593f0000001;
-
-/// Generator point x-coordinate
-pub const GENERATOR_X: u256 = 1;
-
-/// Generator point y-coordinate  
-pub const GENERATOR_Y: u256 = 2;
-
-/// Point on the BN254 elliptic curve
+/// G1 point on the BN254 elliptic curve
+/// Points are represented in affine coordinates (x, y)
+/// The point at infinity is represented as (0, 0)
 pub const G1Point = struct {
     x: u256,
     y: u256,
 
-    /// Point at infinity (zero point for elliptic curve group)
-    pub const INFINITY = G1Point{ .x = 0, .y = 0 };
-
-    /// Generator point of the curve
-    pub const GENERATOR = G1Point{ .x = GENERATOR_X, .y = GENERATOR_Y };
-
-    /// Create point from 64-byte input (32 bytes x, 32 bytes y)
-    pub fn from_bytes(bytes: []const u8) !G1Point {
-        if (bytes.len < 64) {
+    /// Creates a G1Point from 64 bytes of input (32 bytes x + 32 bytes y)
+    /// Input is interpreted as big-endian encoded coordinates
+    ///
+    /// @param input 64-byte buffer containing x and y coordinates
+    /// @return G1Point or error if invalid
+    pub fn from_bytes(input: []const u8) !G1Point {
+        if (input.len < 64) {
             return error.InvalidInput;
         }
 
-        const x = bytes_to_u256(bytes[0..32]);
-        const y = bytes_to_u256(bytes[32..64]);
+        // Parse big-endian coordinates
+        var x: u256 = 0;
+        var y: u256 = 0;
+
+        // Convert 32-byte big-endian x coordinate
+        for (input[0..32]) |byte| {
+            x = (x << 8) | @as(u256, byte);
+        }
+
+        // Convert 32-byte big-endian y coordinate  
+        for (input[32..64]) |byte| {
+            y = (y << 8) | @as(u256, byte);
+        }
 
         const point = G1Point{ .x = x, .y = y };
-        
-        // Validate point is on curve
-        if (!point.is_on_curve()) {
+
+        // Validate the point is on the curve
+        if (!point.is_valid()) {
             return error.InvalidPoint;
         }
 
         return point;
     }
 
-    /// Convert point to 64-byte output (32 bytes x, 32 bytes y)
+    /// Converts G1Point to 64 bytes (32 bytes x + 32 bytes y)
+    /// Output is big-endian encoded coordinates
+    ///
+    /// @param output 64-byte buffer to write coordinates
     pub fn to_bytes(self: G1Point, output: []u8) void {
         if (output.len < 64) return;
-        
-        u256_to_bytes(self.x, output[0..32]);
-        u256_to_bytes(self.y, output[32..64]);
+
+        // Convert x coordinate to big-endian bytes
+        var x_val = self.x;
+        var i: usize = 32;
+        while (i > 0) {
+            i -= 1;
+            output[i] = @intCast(x_val & 0xFF);
+            x_val >>= 8;
+        }
+
+        // Convert y coordinate to big-endian bytes
+        var y_val = self.y;
+        i = 64;
+        while (i > 32) {
+            i -= 1;
+            output[i] = @intCast(y_val & 0xFF);
+            y_val >>= 8;
+        }
     }
 
-    /// Check if point is the point at infinity
-    pub fn is_zero(self: G1Point) bool {
-        return self.x == 0 and self.y == 0;
-    }
-
-    /// Check if point is on the curve: y² = x³ + 3 (mod p)
-    pub fn is_on_curve(self: G1Point) bool {
+    /// Checks if the point is valid (lies on the curve y² = x³ + 3)
+    ///
+    /// @return true if point is valid, false otherwise
+    pub fn is_valid(self: G1Point) bool {
         // Point at infinity is always valid
         if (self.is_zero()) {
-            @branchHint(.unlikely);
             return true;
         }
 
-        // Check coordinates are in field
+        // Check if coordinates are within field range
         if (self.x >= FIELD_PRIME or self.y >= FIELD_PRIME) {
-            @branchHint(.cold);
             return false;
         }
 
-        // Check curve equation: y² = x³ + 3
-        const y_squared = mod_mul(self.y, self.y, FIELD_PRIME);
-        const x_cubed = mod_mul(mod_mul(self.x, self.x, FIELD_PRIME), self.x, FIELD_PRIME);
-        const rhs = mod_add(x_cubed, 3, FIELD_PRIME);
+        // Check curve equation: y² = x³ + 3 (mod p)
+        const y_squared = mod_mul(self.y, self.y);
+        const x_cubed = mod_mul(mod_mul(self.x, self.x), self.x);
+        const rhs = mod_add(x_cubed, 3);
 
         return y_squared == rhs;
     }
 
-    /// Add two points on the curve using the chord-and-tangent method
+    /// Checks if the point is the point at infinity (0, 0)
+    ///
+    /// @return true if point is zero, false otherwise
+    pub fn is_zero(self: G1Point) bool {
+        return self.x == 0 and self.y == 0;
+    }
+
+    /// Adds two points on the elliptic curve
+    /// Implements the standard elliptic curve point addition formula
+    ///
+    /// @param other The point to add to this point
+    /// @return The sum of the two points
     pub fn add(self: G1Point, other: G1Point) G1Point {
-        @branchHint(.likely);
-        
         // Handle point at infinity cases
-        if (self.is_zero()) return other;
-        if (other.is_zero()) return self;
+        if (self.is_zero()) {
+            return other;
+        }
+        if (other.is_zero()) {
+            return self;
+        }
 
         // Handle point doubling case
         if (self.x == other.x) {
             if (self.y == other.y) {
                 return self.double();
             } else {
-                // Points are inverses, result is point at infinity
-                return G1Point.INFINITY;
+                // Points are inverses (x1 = x2, y1 = -y2), result is point at infinity
+                return G1Point{ .x = 0, .y = 0 };
             }
         }
 
-        // Standard point addition
-        // λ = (y₂ - y₁) / (x₂ - x₁)
-        const y_diff = mod_sub(other.y, self.y, FIELD_PRIME);
-        const x_diff = mod_sub(other.x, self.x, FIELD_PRIME);
-        const lambda = mod_div(y_diff, x_diff, FIELD_PRIME);
+        // Standard point addition formula
+        // slope = (y2 - y1) / (x2 - x1)
+        const dx = mod_sub(other.x, self.x);
+        const dy = mod_sub(other.y, self.y);
+        const slope = mod_mul(dy, mod_inverse(dx));
 
-        // x₃ = λ² - x₁ - x₂
-        const lambda_squared = mod_mul(lambda, lambda, FIELD_PRIME);
-        const x3 = mod_sub(mod_sub(lambda_squared, self.x, FIELD_PRIME), other.x, FIELD_PRIME);
+        // x3 = slope² - x1 - x2
+        const slope_squared = mod_mul(slope, slope);
+        const x3 = mod_sub(mod_sub(slope_squared, self.x), other.x);
 
-        // y₃ = λ(x₁ - x₃) - y₁
-        const y3 = mod_sub(mod_mul(lambda, mod_sub(self.x, x3, FIELD_PRIME), FIELD_PRIME), self.y, FIELD_PRIME);
+        // y3 = slope * (x1 - x3) - y1
+        const y3 = mod_sub(mod_mul(slope, mod_sub(self.x, x3)), self.y);
 
         return G1Point{ .x = x3, .y = y3 };
     }
 
-    /// Double a point on the curve (specialized case of addition)
-    pub fn double(self: G1Point) G1Point {
-        @branchHint(.likely);
-        
-        // Point at infinity doubles to itself
+    /// Doubles a point on the elliptic curve (adds point to itself)
+    /// Uses the point doubling formula for efficiency
+    ///
+    /// @return The doubled point
+    fn double(self: G1Point) G1Point {
         if (self.is_zero()) {
-            @branchHint(.unlikely);
-            return G1Point.INFINITY;
-        }
-
-        // Handle points where y = 0 (result is point at infinity)
-        if (self.y == 0) {
-            @branchHint(.cold);
-            return G1Point.INFINITY;
-        }
-
-        // Point doubling using tangent line
-        // λ = (3x₁² + a) / (2y₁), where a = 0 for BN254
-        const x_squared = mod_mul(self.x, self.x, FIELD_PRIME);
-        const three_x_squared = mod_mul(3, x_squared, FIELD_PRIME);
-        const two_y = mod_mul(2, self.y, FIELD_PRIME);
-        const lambda = mod_div(three_x_squared, two_y, FIELD_PRIME);
-
-        // x₃ = λ² - 2x₁
-        const lambda_squared = mod_mul(lambda, lambda, FIELD_PRIME);
-        const x3 = mod_sub(lambda_squared, mod_mul(2, self.x, FIELD_PRIME), FIELD_PRIME);
-
-        // y₃ = λ(x₁ - x₃) - y₁
-        const y3 = mod_sub(mod_mul(lambda, mod_sub(self.x, x3, FIELD_PRIME), FIELD_PRIME), self.y, FIELD_PRIME);
-
-        return G1Point{ .x = x3, .y = y3 };
-    }
-
-    /// Scalar multiplication using binary method (double-and-add)
-    pub fn scalar_multiply(self: G1Point, scalar: u256) G1Point {
-        // Handle special cases
-        if (scalar == 0 or self.is_zero()) {
-            @branchHint(.unlikely);
-            return G1Point.INFINITY;
-        }
-
-        if (scalar == 1) {
-            @branchHint(.unlikely);
             return self;
         }
 
-        // Binary method (double-and-add)
-        var result = G1Point.INFINITY;
-        var addend = self;
-        var s = scalar;
+        // Point doubling formula
+        // slope = (3 * x1²) / (2 * y1)
+        const x_squared = mod_mul(self.x, self.x);
+        const three_x_squared = mod_mul(3, x_squared);
+        const two_y = mod_mul(2, self.y);
+        const slope = mod_mul(three_x_squared, mod_inverse(two_y));
 
-        while (s > 0) {
-            @branchHint(.likely);
-            
-            if (s & 1 == 1) {
-                result = result.add(addend);
-            }
-            addend = addend.double();
-            s >>= 1;
-        }
+        // x3 = slope² - 2 * x1
+        const slope_squared = mod_mul(slope, slope);
+        const two_x = mod_mul(2, self.x);
+        const x3 = mod_sub(slope_squared, two_x);
 
-        return result;
-    }
+        // y3 = slope * (x1 - x3) - y1
+        const y3 = mod_sub(mod_mul(slope, mod_sub(self.x, x3)), self.y);
 
-    /// Optimized scalar multiplication using 4-bit windowed method
-    pub fn scalar_multiply_windowed(self: G1Point, scalar: u256) G1Point {
-        @branchHint(.likely);
-        
-        if (scalar == 0 or self.is_zero()) {
-            @branchHint(.unlikely);
-            return G1Point.INFINITY;
-        }
-
-        const WINDOW_SIZE = 4;
-        const TABLE_SIZE = 16; // 2^WINDOW_SIZE
-
-        // Precompute table: [0P, 1P, 2P, ..., 15P]
-        var table: [TABLE_SIZE]G1Point = undefined;
-        table[0] = G1Point.INFINITY;
-        table[1] = self;
-
-        var i: usize = 2;
-        while (i < TABLE_SIZE) : (i += 1) {
-            table[i] = table[i - 1].add(self);
-        }
-
-        // Process scalar in 4-bit windows from most significant to least
-        var result = G1Point.INFINITY;
-        var remaining_bits: usize = 256;
-
-        while (remaining_bits > 0) {
-            @branchHint(.likely);
-            
-            const shift = @min(WINDOW_SIZE, remaining_bits);
-            remaining_bits -= shift;
-
-            // Shift result left by window size
-            var j: usize = 0;
-            while (j < shift) : (j += 1) {
-                result = result.double();
-            }
-
-            // Add table entry for current window
-            const window_mask: u256 = (@as(u256, 1) << @intCast(shift)) - 1;
-            const window_value: u4 = @intCast((scalar >> @intCast(remaining_bits)) & window_mask);
-            
-            if (window_value > 0) {
-                result = result.add(table[window_value]);
-            }
-        }
-
-        return result;
+        return G1Point{ .x = x3, .y = y3 };
     }
 };
 
-/// Modular addition: (a + b) mod m
-fn mod_add(a: u256, b: u256, m: u256) u256 {
-    const sum = a +% b; // Wrapping addition
-    if (sum >= m or sum < a) { // Check for overflow or result >= m
-        return sum -% m;
+/// Modular addition: (a + b) mod FIELD_PRIME
+fn mod_add(a: u256, b: u256) u256 {
+    // Use overflow-detecting addition
+    const result = @addWithOverflow(a, b);
+    if (result[1] != 0) {
+        // Overflow occurred, need to handle carefully
+        // Since a, b < FIELD_PRIME, the overflow means result >= 2^256
+        // So we need: (a + b) - 2^256 mod FIELD_PRIME
+        // Which is: (a + b - FIELD_PRIME) mod FIELD_PRIME if a + b >= FIELD_PRIME
+        return result[0] -% FIELD_PRIME;
+    } else {
+        // No overflow, check if result >= FIELD_PRIME
+        if (result[0] >= FIELD_PRIME) {
+            return result[0] - FIELD_PRIME;
+        }
+        return result[0];
     }
-    return sum;
 }
 
-/// Modular subtraction: (a - b) mod m
-fn mod_sub(a: u256, b: u256, m: u256) u256 {
+/// Modular subtraction: (a - b) mod FIELD_PRIME
+fn mod_sub(a: u256, b: u256) u256 {
     if (a >= b) {
         return a - b;
     } else {
-        return (m - b) + a;
+        // Need to add FIELD_PRIME: (a + FIELD_PRIME - b) mod FIELD_PRIME
+        return FIELD_PRIME - (b - a);
     }
 }
 
-/// Modular multiplication using Russian peasant algorithm to avoid overflow
-fn mod_mul(a: u256, b: u256, m: u256) u256 {
-    if (a == 0 or b == 0) return 0;
-    if (a == 1) return b % m;
-    if (b == 1) return a % m;
+/// Modular multiplication: (a * b) mod FIELD_PRIME
+fn mod_mul(a: u256, b: u256) u256 {
+    // For efficiency, we could implement Montgomery multiplication
+    // For now, use basic approach with 512-bit intermediate
+    
+    // Use Zig's built-in widening multiplication
+    const wide_result: u512 = @as(u512, a) * @as(u512, b);
+    
+    // Perform modular reduction
+    return @intCast(wide_result % @as(u512, FIELD_PRIME));
+}
 
-    var result: u256 = 0;
-    var x = a % m;
-    var y = b % m;
-
-    while (y > 0) {
-        @branchHint(.likely);
-        
-        if (y & 1 == 1) {
-            result = mod_add(result, x, m);
-        }
-        x = mod_add(x, x, m); // x = (x * 2) % m
-        y >>= 1;
+/// Modular multiplicative inverse: a^(-1) mod FIELD_PRIME
+/// Uses the extended Euclidean algorithm
+fn mod_inverse(a: u256) u256 {
+    if (a == 0) {
+        @panic("Division by zero in modular inverse");
     }
 
-    return result;
-}
-
-/// Modular division: (a / b) mod m = a * b⁻¹ mod m
-fn mod_div(a: u256, b: u256, m: u256) u256 {
-    const b_inv = mod_inverse(b, m);
-    return mod_mul(a, b_inv, m);
-}
-
-/// Modular inverse using extended Euclidean algorithm
-fn mod_inverse(a: u256, m: u256) u256 {
-    if (a == 0) return 0;
-
-    // Extended Euclidean Algorithm
-    var old_r = a % m;
-    var r = m;
-    var old_s: i512 = 1;
-    var s: i512 = 0;
+    // Extended Euclidean algorithm
+    var old_r: u256 = FIELD_PRIME;
+    var r: u256 = a;
+    var old_s: i512 = 0;
+    var s: i512 = 1;
 
     while (r != 0) {
-        const quotient = @as(i512, @intCast(old_r / r));
+        const quotient = old_r / r;
         
         const temp_r = r;
-        r = old_r - (@as(u256, @intCast(quotient)) * r);
+        r = old_r - quotient * r;
         old_r = temp_r;
 
         const temp_s = s;
-        s = old_s - (quotient * s);
+        s = old_s - @as(i512, quotient) * s;
         old_s = temp_s;
     }
 
-    // Convert result to positive value
+    if (old_r > 1) {
+        @panic("Modular inverse does not exist");
+    }
+
+    // Make sure result is positive
     if (old_s < 0) {
-        old_s += @as(i512, @intCast(m));
-    }
-
-    return @intCast(old_s);
-}
-
-/// Convert 32-byte big-endian byte array to u256
-fn bytes_to_u256(bytes: []const u8) u256 {
-    if (bytes.len != 32) return 0;
-    
-    var result: u256 = 0;
-    for (bytes) |byte| {
-        result = (result << 8) | @as(u256, byte);
-    }
-    return result;
-}
-
-/// Convert u256 to 32-byte big-endian byte array
-fn u256_to_bytes(value: u256, output: []u8) void {
-    if (output.len < 32) return;
-    
-    var v = value;
-    var i: usize = 32;
-    while (i > 0) {
-        i -= 1;
-        output[i] = @intCast(v & 0xFF);
-        v >>= 8;
+        return @intCast(@as(u512, @intCast(old_s + @as(i512, FIELD_PRIME))) % @as(u512, FIELD_PRIME));
+    } else {
+        return @intCast(@as(u512, @intCast(old_s)) % @as(u512, FIELD_PRIME));
     }
 }
 
 // Tests
-test "BN254 field operations" {
-    // Test modular arithmetic
-    const a: u256 = 123456789;
-    const b: u256 = 987654321;
-    
-    const sum = mod_add(a, b, FIELD_PRIME);
-    try testing.expect(sum == a + b);
-    
-    const product = mod_mul(a, b, FIELD_PRIME);
-    try testing.expect(product < FIELD_PRIME);
+const testing = std.testing;
+
+test "BN254 field arithmetic" {
+    // Test modular addition
+    const a: u256 = FIELD_PRIME - 1;
+    const b: u256 = 1;
+    const sum = mod_add(a, b);
+    try testing.expectEqual(@as(u256, 0), sum);
+
+    // Test modular subtraction
+    const diff = mod_sub(1, 2);
+    try testing.expectEqual(FIELD_PRIME - 1, diff);
+
+    // Test modular multiplication
+    const prod = mod_mul(2, 3);
+    try testing.expectEqual(@as(u256, 6), prod);
 }
 
-test "G1Point basic operations" {
-    // Test generator point is on curve
-    try testing.expect(G1Point.GENERATOR.is_on_curve());
-    
+test "BN254 point validation" {
     // Test point at infinity
-    try testing.expect(G1Point.INFINITY.is_zero());
-    try testing.expect(G1Point.INFINITY.is_on_curve());
-    
-    // Test point addition with infinity
-    const gen_plus_inf = G1Point.GENERATOR.add(G1Point.INFINITY);
-    try testing.expect(gen_plus_inf.x == G1Point.GENERATOR.x);
-    try testing.expect(gen_plus_inf.y == G1Point.GENERATOR.y);
+    const zero_point = G1Point{ .x = 0, .y = 0 };
+    try testing.expect(zero_point.is_valid());
+    try testing.expect(zero_point.is_zero());
+
+    // Test generator point (1, 2) - this should be valid
+    const generator = G1Point{ .x = 1, .y = 2 };
+    try testing.expect(generator.is_valid());
+    try testing.expect(!generator.is_zero());
+
+    // Test invalid point
+    const invalid = G1Point{ .x = 1, .y = 1 };
+    try testing.expect(!invalid.is_valid());
 }
 
-test "G1Point scalar multiplication" {
-    // Test multiplication by 0
-    const zero_result = G1Point.GENERATOR.scalar_multiply(0);
-    try testing.expect(zero_result.is_zero());
-    
-    // Test multiplication by 1
-    const one_result = G1Point.GENERATOR.scalar_multiply(1);
-    try testing.expect(one_result.x == G1Point.GENERATOR.x);
-    try testing.expect(one_result.y == G1Point.GENERATOR.y);
-    
-    // Test multiplication by 2 equals doubling
-    const double_result = G1Point.GENERATOR.scalar_multiply(2);
-    const doubled = G1Point.GENERATOR.double();
-    try testing.expect(double_result.x == doubled.x);
-    try testing.expect(double_result.y == doubled.y);
+test "BN254 point addition" {
+    const zero = G1Point{ .x = 0, .y = 0 };
+    const point = G1Point{ .x = 1, .y = 2 };
+
+    // Test addition with zero
+    const result1 = zero.add(point);
+    try testing.expectEqual(point.x, result1.x);
+    try testing.expectEqual(point.y, result1.y);
+
+    const result2 = point.add(zero);
+    try testing.expectEqual(point.x, result2.x);
+    try testing.expectEqual(point.y, result2.y);
+
+    // Test point doubling (adding point to itself)
+    const doubled = point.add(point);
+    try testing.expect(doubled.is_valid());
+    try testing.expect(!doubled.is_zero());
 }
 
-test "G1Point from/to bytes" {
-    const gen_bytes = [_]u8{
-        // x coordinate (32 bytes)
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01,
-        // y coordinate (32 bytes)  
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02,
-    };
+test "BN254 byte conversion" {
+    const point = G1Point{ .x = 1, .y = 2 };
     
-    const point = G1Point.from_bytes(&gen_bytes) catch unreachable;
-    try testing.expect(point.x == 1);
-    try testing.expect(point.y == 2);
-    try testing.expect(point.is_on_curve());
+    var bytes: [64]u8 = undefined;
+    point.to_bytes(&bytes);
     
-    var output: [64]u8 = undefined;
-    point.to_bytes(&output);
-    try testing.expectEqualSlices(u8, &gen_bytes, &output);
+    const restored = G1Point.from_bytes(&bytes) catch unreachable;
+    try testing.expectEqual(point.x, restored.x);
+    try testing.expectEqual(point.y, restored.y);
 }
