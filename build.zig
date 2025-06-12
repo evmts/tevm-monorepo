@@ -568,6 +568,22 @@ pub fn build(b: *std.Build) void {
     const integration_test_step = b.step("test-integration", "Run Integration tests");
     integration_test_step.dependOn(&run_integration_test.step);
 
+    // Add debug CREATE test
+    const debug_test = b.addExecutable(.{
+        .name = "debug-test",
+        .root_source_file = b.path("debug_create_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    debug_test.root_module.addImport("evm", evm_mod);
+    debug_test.root_module.addImport("Address", address_mod);
+    debug_test.root_module.stack_check = false;
+    debug_test.root_module.single_threaded = true;
+
+    const run_debug_test = b.addRunArtifact(debug_test);
+    const debug_test_step = b.step("test-debug", "Run debug CREATE test");
+    debug_test_step.dependOn(&run_debug_test.step);
+
     // Add Gas Accounting tests
     const gas_test = b.addTest(.{
         .name = "gas-test",
@@ -648,11 +664,27 @@ pub fn build(b: *std.Build) void {
     const evm_memory_benchmark_step = b.step("bench-evm-memory", "Run EVM Memory benchmarks");
     evm_memory_benchmark_step.dependOn(&run_evm_memory_benchmark.step);
 
+    // Add EVM Contract benchmark
+    const evm_contract_benchmark = b.addExecutable(.{
+        .name = "evm-contract-benchmark",
+        .root_source_file = b.path("bench/evm.zig"),
+        .target = target,
+        .optimize = .ReleaseFast,
+    });
+    evm_contract_benchmark.root_module.addImport("zbench", zbench_dep.module("zbench"));
+    evm_contract_benchmark.root_module.addImport("evm", target_architecture_mod);
+    evm_contract_benchmark.root_module.addImport("Address", address_mod);
+
+    const run_evm_contract_benchmark = b.addRunArtifact(evm_contract_benchmark);
+
+    const evm_contract_benchmark_step = b.step("bench-evm-contracts", "Run EVM Contract benchmarks");
+    evm_contract_benchmark_step.dependOn(&run_evm_contract_benchmark.step);
+
     // Add combined benchmark step
     const all_benchmark_step = b.step("bench", "Run all benchmarks");
     all_benchmark_step.dependOn(&run_memory_benchmark.step);
     all_benchmark_step.dependOn(&run_evm_memory_benchmark.step);
-    all_benchmark_step.dependOn(&run_evm_memory_benchmark.step);
+    all_benchmark_step.dependOn(&run_evm_contract_benchmark.step);
 
     // Add Tevm runner for evm-bench integration
     const tevm_runner = b.addExecutable(.{
