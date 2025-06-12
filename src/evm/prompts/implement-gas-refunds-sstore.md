@@ -7,6 +7,8 @@ You are implementing gas refunds for SSTORE operations in the Tevm EVM written i
 - **Worktree**: `git worktree add g/feat_implement_gas_refunds_sstore feat_implement_gas_refunds_sstore`
 - **Testing**: Run `zig build test-all` before committing
 - **Commit**: Use emoji conventional commits with XML summary format
+<<<<<<< HEAD
+=======
 
 <review>
 **Implementation Status: PARTIALLY IMPLEMENTED 🟡**
@@ -41,6 +43,7 @@ You are implementing gas refunds for SSTORE operations in the Tevm EVM written i
 4. Implement EIP-3529 refund cap enforcement
 5. Add comprehensive test coverage
 </review>
+>>>>>>> origin/main
 
 ## Context
 SSTORE operations can receive gas refunds when storage is cleared (set to zero), providing economic incentives for reducing blockchain state size. The refund mechanism has evolved significantly across hardforks, from simple models to complex EIP-2200 rules with refund caps.
