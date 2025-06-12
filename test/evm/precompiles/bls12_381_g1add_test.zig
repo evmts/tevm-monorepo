@@ -115,3 +115,28 @@ test "G1ADD: G1 point parsing" {
     const point2 = try bls12_381_g1add.parse_g1_point(&input, 128);
     try testing.expect(point2.is_infinity());
 }
+
+/// Test with BLS12-381 generator point (this would require proper implementation)
+test "G1ADD: PLACEHOLDER test with generator point" {
+    // NOTE: This test demonstrates what proper testing would look like
+    // The values below are the BLS12-381 G1 generator point coordinates
+    // For a real implementation, this would test actual point addition
+    
+    var input: [256]u8 = std.mem.zeroes([256]u8);
+    var output: [128]u8 = undefined;
+    
+    // BLS12-381 G1 generator point coordinates (big-endian, 64 bytes each)
+    // x: 0x0abc...def (would be the actual generator x coordinate)
+    // y: 0x1234...567 (would be the actual generator y coordinate)
+    
+    // For now, test with zeros (point at infinity)
+    const result = bls12_381_g1add.execute(&input, &output, 1000);
+    
+    // Should succeed (point at infinity + point at infinity = point at infinity)
+    try testing.expect(result.is_success());
+    try testing.expectEqual(@as(u64, 375), result.get_gas_used());
+    
+    // TODO: Add real test vectors from EIP-2537 specification
+    // TODO: Test with actual generator point addition
+    // TODO: Test with edge cases (point doubling, inverse points)
+}
