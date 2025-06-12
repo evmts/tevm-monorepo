@@ -41,7 +41,7 @@ pub fn op_jump(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
         return ExecutionError.Error.InvalidJump;
     }
 
-    frame.pc = @as(usize, @intCast(dest));
+    frame.program_counter = @as(usize, @intCast(dest));
 
     return Operation.ExecutionResult{};
 }
@@ -93,7 +93,7 @@ pub fn op_jumpi(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
             return ExecutionError.Error.InvalidJump;
         }
 
-        frame.pc = @as(usize, @intCast(dest));
+        frame.program_counter = @as(usize, @intCast(dest));
     }
 
     return Operation.ExecutionResult{};

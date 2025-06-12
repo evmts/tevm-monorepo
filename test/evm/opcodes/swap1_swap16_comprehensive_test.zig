@@ -30,13 +30,13 @@ test "SWAP1 (0x90): Swap top two stack items" {
     defer test_frame.deinit();
     
     // Execute PUSH1 0x01
-    test_frame.frame.pc = 0;
+    test_frame.frame.program_counter = 0;
     _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
-    test_frame.frame.pc = 2;
+    test_frame.frame.program_counter = 2;
     
     // Execute PUSH1 0x02
     _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
-    test_frame.frame.pc = 4;
+    test_frame.frame.program_counter = 4;
     
     // Stack should be [0x01, 0x02] (top is 0x02)
     try testing.expectEqual(@as(usize, 2), test_frame.frame.stack.size);
@@ -113,7 +113,7 @@ test "SWAP3-SWAP5: Various swaps" {
     }
     
     // Execute SWAP3 (swap top with 4th)
-    test_frame.frame.pc = 0;
+    test_frame.frame.program_counter = 0;
     var result = try helpers.executeOpcode(0x92, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 1), result.bytes_consumed);
     // Stack was: [0x10, 0x20, 0x30, 0x40, 0x50, 0x60]
@@ -122,7 +122,7 @@ test "SWAP3-SWAP5: Various swaps" {
     try helpers.expectStackValue(test_frame.frame, 3, 0x60);
     
     // Execute SWAP4 (swap new top with 5th)
-    test_frame.frame.pc = 1;
+    test_frame.frame.program_counter = 1;
     result = try helpers.executeOpcode(0x93, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 1), result.bytes_consumed);
     // Stack was: [0x10, 0x20, 0x30, 0x60, 0x50, 0x40]
@@ -131,7 +131,7 @@ test "SWAP3-SWAP5: Various swaps" {
     try helpers.expectStackValue(test_frame.frame, 4, 0x40);
     
     // Execute SWAP5 (swap new top with 6th)
-    test_frame.frame.pc = 2;
+    test_frame.frame.program_counter = 2;
     result = try helpers.executeOpcode(0x94, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 1), result.bytes_consumed);
     // Stack was: [0x10, 0x40, 0x30, 0x60, 0x50, 0x20]
@@ -165,29 +165,29 @@ test "SWAP6-SWAP10: Mid-range swaps" {
     }
     
     // Execute SWAP6
-    test_frame.frame.pc = 0;
+    test_frame.frame.program_counter = 0;
     const result6 = try helpers.executeOpcode(0x95, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 1), result6.bytes_consumed);
     try helpers.expectStackValue(test_frame.frame, 0, 0x104); // Was at position 6
     try helpers.expectStackValue(test_frame.frame, 6, 0x10A); // Was at top
     
     // Execute SWAP7
-    test_frame.frame.pc = 1;
+    test_frame.frame.program_counter = 1;
     _ = try helpers.executeOpcode(0x96, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x103); // Was at position 7
     
     // Execute SWAP8
-    test_frame.frame.pc = 2;
+    test_frame.frame.program_counter = 2;
     _ = try helpers.executeOpcode(0x97, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x102); // Was at position 8
     
     // Execute SWAP9
-    test_frame.frame.pc = 3;
+    test_frame.frame.program_counter = 3;
     _ = try helpers.executeOpcode(0x98, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x101); // Was at position 9
     
     // Execute SWAP10
-    test_frame.frame.pc = 4;
+    test_frame.frame.program_counter = 4;
     _ = try helpers.executeOpcode(0x99, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x100); // Was at position 10 (bottom)
 }
@@ -217,33 +217,33 @@ test "SWAP11-SWAP16: High-range swaps" {
     }
     
     // Execute SWAP11
-    test_frame.frame.pc = 0;
+    test_frame.frame.program_counter = 0;
     _ = try helpers.executeOpcode(0x9A, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x205); // Was at position 11
     try helpers.expectStackValue(test_frame.frame, 11, 0x210); // Was at top
     
     // Execute SWAP12
-    test_frame.frame.pc = 1;
+    test_frame.frame.program_counter = 1;
     _ = try helpers.executeOpcode(0x9B, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x204); // Was at position 12
     
     // Execute SWAP13
-    test_frame.frame.pc = 2;
+    test_frame.frame.program_counter = 2;
     _ = try helpers.executeOpcode(0x9C, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x203); // Was at position 13
     
     // Execute SWAP14
-    test_frame.frame.pc = 3;
+    test_frame.frame.program_counter = 3;
     _ = try helpers.executeOpcode(0x9D, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x202); // Was at position 14
     
     // Execute SWAP15
-    test_frame.frame.pc = 4;
+    test_frame.frame.program_counter = 4;
     _ = try helpers.executeOpcode(0x9E, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x201); // Was at position 15
     
     // Execute SWAP16
-    test_frame.frame.pc = 5;
+    test_frame.frame.program_counter = 5;
     _ = try helpers.executeOpcode(0x9F, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0x200); // Was at position 16 (bottom)
     try helpers.expectStackValue(test_frame.frame, 16, 0x201); // Previous top value
@@ -318,7 +318,7 @@ test "SWAP1-SWAP16: Gas consumption" {
     
     // Test each SWAP operation
     for (0..16) |i| {
-        test_frame.frame.pc = i;
+        test_frame.frame.program_counter = i;
         const gas_before = test_frame.frame.gas_remaining;
         
         const opcode = @as(u8, @intCast(0x90 + i));
@@ -357,7 +357,7 @@ test "SWAP operations: Stack underflow" {
     defer test_frame.deinit();
     
     // Empty stack - SWAP1 should fail (needs 2 items)
-    test_frame.frame.pc = 0;
+    test_frame.frame.program_counter = 0;
     var result = helpers.executeOpcode(0x90, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
     
@@ -375,7 +375,7 @@ test "SWAP operations: Stack underflow" {
     _ = try helpers.executeOpcode(0x90, &test_vm.vm, test_frame.frame);
     
     // SWAP2 should fail (needs 3 items, only have 2)
-    test_frame.frame.pc = 1;
+    test_frame.frame.program_counter = 1;
     result = helpers.executeOpcode(0x91, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
     
@@ -385,11 +385,11 @@ test "SWAP operations: Stack underflow" {
     }
     
     // SWAP6 should succeed (have 7 items, need 7)
-    test_frame.frame.pc = 2;
+    test_frame.frame.program_counter = 2;
     _ = try helpers.executeOpcode(0x95, &test_vm.vm, test_frame.frame);
     
     // SWAP16 should fail (have 7 items, need 17)
-    test_frame.frame.pc = 3;
+    test_frame.frame.program_counter = 3;
     result = helpers.executeOpcode(0x9F, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
 }
@@ -423,7 +423,7 @@ test "SWAP operations: Sequential swaps" {
     
     // Execute PUSH operations
     for (0..4) |i| {
-        test_frame.frame.pc = i * 2;
+        test_frame.frame.program_counter = i * 2;
         _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
     }
     
@@ -431,21 +431,21 @@ test "SWAP operations: Sequential swaps" {
     try testing.expectEqual(@as(usize, 4), test_frame.frame.stack.size);
     
     // Execute first SWAP1
-    test_frame.frame.pc = 8;
+    test_frame.frame.program_counter = 8;
     _ = try helpers.executeOpcode(0x90, &test_vm.vm, test_frame.frame);
     // Stack: [0x01, 0x02, 0x04, 0x03]
     try helpers.expectStackValue(test_frame.frame, 0, 0x03);
     try helpers.expectStackValue(test_frame.frame, 1, 0x04);
     
     // Execute SWAP2
-    test_frame.frame.pc = 9;
+    test_frame.frame.program_counter = 9;
     _ = try helpers.executeOpcode(0x91, &test_vm.vm, test_frame.frame);
     // Stack: [0x01, 0x03, 0x04, 0x02]
     try helpers.expectStackValue(test_frame.frame, 0, 0x02);
     try helpers.expectStackValue(test_frame.frame, 2, 0x03);
     
     // Execute second SWAP1
-    test_frame.frame.pc = 10;
+    test_frame.frame.program_counter = 10;
     _ = try helpers.executeOpcode(0x90, &test_vm.vm, test_frame.frame);
     // Stack: [0x01, 0x03, 0x02, 0x04]
     try helpers.expectStackValue(test_frame.frame, 0, 0x04);
@@ -481,31 +481,31 @@ test "SWAP operations: Pattern verification" {
     try helpers.expectStackValue(test_frame.frame, 16, 0xFF00); // Bottom
     
     // SWAP1: swap top (0xFF10) with second (0xFF0F)
-    test_frame.frame.pc = 0;
+    test_frame.frame.program_counter = 0;
     _ = try helpers.executeOpcode(0x90, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0xFF0F);
     try helpers.expectStackValue(test_frame.frame, 1, 0xFF10);
     
     // SWAP5: swap new top (0xFF0F) with 6th position (0xFF0B)
-    test_frame.frame.pc = 1;
+    test_frame.frame.program_counter = 1;
     _ = try helpers.executeOpcode(0x94, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0xFF0B);
     try helpers.expectStackValue(test_frame.frame, 5, 0xFF0F);
     
     // SWAP9: swap new top (0xFF0B) with 10th position (0xFF07)
-    test_frame.frame.pc = 2;
+    test_frame.frame.program_counter = 2;
     _ = try helpers.executeOpcode(0x98, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0xFF07);
     try helpers.expectStackValue(test_frame.frame, 9, 0xFF0B);
     
     // SWAP13: swap new top (0xFF07) with 14th position (0xFF03)
-    test_frame.frame.pc = 3;
+    test_frame.frame.program_counter = 3;
     _ = try helpers.executeOpcode(0x9C, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0xFF03);
     try helpers.expectStackValue(test_frame.frame, 13, 0xFF07);
     
     // SWAP16: swap new top (0xFF03) with 17th position (0xFF00)
-    test_frame.frame.pc = 4;
+    test_frame.frame.program_counter = 4;
     _ = try helpers.executeOpcode(0x9F, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0xFF00);
     try helpers.expectStackValue(test_frame.frame, 16, 0xFF03);
@@ -534,7 +534,7 @@ test "SWAP operations: Boundary test with exact stack size" {
     try test_frame.pushStack(&[_]u256{0xAA});
     try test_frame.pushStack(&[_]u256{0xBB});
     
-    test_frame.frame.pc = 0;
+    test_frame.frame.program_counter = 0;
     _ = try helpers.executeOpcode(0x90, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0xAA);
     try helpers.expectStackValue(test_frame.frame, 1, 0xBB);
@@ -547,7 +547,7 @@ test "SWAP operations: Boundary test with exact stack size" {
         try test_frame.pushStack(&[_]u256{@intCast(i)});
     }
     
-    test_frame.frame.pc = 1;
+    test_frame.frame.program_counter = 1;
     _ = try helpers.executeOpcode(0x9F, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 1); // Swapped with bottom
     try helpers.expectStackValue(test_frame.frame, 16, 17); // Was top

@@ -217,8 +217,8 @@ pub fn executeOpcode(
     const interpreter_ptr: *Operation.Interpreter = @ptrCast(vm);
     const state_ptr: *Operation.State = @ptrCast(frame);
     // Use the Vm's jump table to execute the opcode
-    // frame.pc should be set correctly by the test before calling this
-    return try vm.table.execute(frame.pc, interpreter_ptr, state_ptr, opcode_byte);
+    // frame.program_counter should be set correctly by the test before calling this
+    return try vm.table.execute(frame.program_counter, interpreter_ptr, state_ptr, opcode_byte);
 }
 
 /// Execute an opcode through the jump table (with gas consumption)

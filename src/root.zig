@@ -76,7 +76,7 @@ export fn getEvmState(state_ptr: [*]u8, state_len: *usize) void {
     errdefer gpa.deinit();
 
     var state = EvmState{
-        .pc = 42,
+        .program_counter = 42,
         .gas_left = 100000,
         .depth = 1,
     };

@@ -33,7 +33,7 @@ test "PUSH14 (0x6D): Push 14 bytes onto stack" {
     try testing.expectEqual(@as(usize, 15), result.bytes_consumed);
     try helpers.expectStackValue(test_frame.frame, 0, 0x0102030405060708090A0B0C0D0E);
     _ = try test_frame.popStack();
-    test_frame.frame.pc = 15;
+    test_frame.frame.program_counter = 15;
     
     // Test second PUSH14 (max value)
     result = try helpers.executeOpcode(0x6D, &test_vm.vm, test_frame.frame);
@@ -94,7 +94,7 @@ test "PUSH16 (0x6F): Push 16 bytes onto stack" {
     try testing.expectEqual(@as(usize, 17), result.bytes_consumed);
     try helpers.expectStackValue(test_frame.frame, 0, 0x0102030405060708090A0B0C0D0E0F10);
     _ = try test_frame.popStack();
-    test_frame.frame.pc = 17;
+    test_frame.frame.program_counter = 17;
     
     // Test second PUSH16 (max value)
     result = try helpers.executeOpcode(0x6F, &test_vm.vm, test_frame.frame);
@@ -148,14 +148,14 @@ test "PUSH17-PUSH19: Various sizes" {
     try testing.expectEqual(@as(usize, 18), result.bytes_consumed);
     try helpers.expectStackValue(test_frame.frame, 0, 0x0102030405060708090A0B0C0D0E0F1011);
     _ = try test_frame.popStack();
-    test_frame.frame.pc = 18;
+    test_frame.frame.program_counter = 18;
     
     // Test PUSH18
     result = try helpers.executeOpcode(0x71, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 19), result.bytes_consumed);
     try helpers.expectStackValue(test_frame.frame, 0, 0x0102030405060708090A0B0C0D0E0F101112);
     _ = try test_frame.popStack();
-    test_frame.frame.pc = 37;
+    test_frame.frame.program_counter = 37;
     
     // Test PUSH19
     result = try helpers.executeOpcode(0x72, &test_vm.vm, test_frame.frame);
@@ -223,28 +223,28 @@ test "PUSH20-PUSH24: Various sizes" {
     try testing.expectEqual(@as(usize, 21), result.bytes_consumed);
     try helpers.expectStackValue(test_frame.frame, 0, 0x0102030405060708090A0B0C0D0E0F1011121314);
     _ = try test_frame.popStack();
-    test_frame.frame.pc = 21;
+    test_frame.frame.program_counter = 21;
     
     // Test PUSH21
     result = try helpers.executeOpcode(0x74, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 22), result.bytes_consumed);
     try helpers.expectStackValue(test_frame.frame, 0, 0x0102030405060708090A0B0C0D0E0F101112131415);
     _ = try test_frame.popStack();
-    test_frame.frame.pc = 43;
+    test_frame.frame.program_counter = 43;
     
     // Test PUSH22
     result = try helpers.executeOpcode(0x75, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 23), result.bytes_consumed);
     try helpers.expectStackValue(test_frame.frame, 0, 0x0102030405060708090A0B0C0D0E0F10111213141516);
     _ = try test_frame.popStack();
-    test_frame.frame.pc = 66;
+    test_frame.frame.program_counter = 66;
     
     // Test PUSH23
     result = try helpers.executeOpcode(0x76, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 24), result.bytes_consumed);
     try helpers.expectStackValue(test_frame.frame, 0, 0x0102030405060708090A0B0C0D0E0F1011121314151617);
     _ = try test_frame.popStack();
-    test_frame.frame.pc = 90;
+    test_frame.frame.program_counter = 90;
     
     // Test PUSH24
     result = try helpers.executeOpcode(0x77, &test_vm.vm, test_frame.frame);
@@ -299,7 +299,7 @@ test "PUSH25-PUSH31: Various sizes" {
     const expected25: u256 = 0x0102030405060708090A0B0C0D0E0F10111213141516171819;
     try helpers.expectStackValue(test_frame.frame, 0, expected25);
     _ = try test_frame.popStack();
-    test_frame.frame.pc = 26;
+    test_frame.frame.program_counter = 26;
     
     // Test PUSH30
     result = try helpers.executeOpcode(0x7D, &test_vm.vm, test_frame.frame);
@@ -307,7 +307,7 @@ test "PUSH25-PUSH31: Various sizes" {
     const expected30: u256 = 0x0102030405060708090A0B0C0D0E0F101112131415161718191A1B1C1D1E;
     try helpers.expectStackValue(test_frame.frame, 0, expected30);
     _ = try test_frame.popStack();
-    test_frame.frame.pc = 57;
+    test_frame.frame.program_counter = 57;
     
     // Test PUSH31
     result = try helpers.executeOpcode(0x7E, &test_vm.vm, test_frame.frame);
@@ -360,7 +360,7 @@ test "PUSH32 (0x7F): Push full 32 bytes onto stack" {
     const expected: u256 = 0x0102030405060708090A0B0C0D0E0F101112131415161718191A1B1C1D1E1F20;
     try helpers.expectStackValue(test_frame.frame, 0, expected);
     _ = try test_frame.popStack();
-    test_frame.frame.pc = 33;
+    test_frame.frame.program_counter = 33;
     
     // Test PUSH32 with max value
     result = try helpers.executeOpcode(0x7F, &test_vm.vm, test_frame.frame);
@@ -368,7 +368,7 @@ test "PUSH32 (0x7F): Push full 32 bytes onto stack" {
     const max_u256: u256 = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF;
     try helpers.expectStackValue(test_frame.frame, 0, max_u256);
     _ = try test_frame.popStack();
-    test_frame.frame.pc = 66;
+    test_frame.frame.program_counter = 66;
     
     // Test PUSH32 with zero
     result = try helpers.executeOpcode(0x7F, &test_vm.vm, test_frame.frame);
@@ -414,7 +414,7 @@ test "PUSH14-PUSH32: Gas consumption" {
     
     var pc: usize = 0;
     for (0x6D..0x80) |opcode| {
-        test_frame.frame.pc = pc;
+        test_frame.frame.program_counter = pc;
         test_frame.frame.stack.clear();
         
         const gas_before = test_frame.frame.gas_remaining;
@@ -577,7 +577,7 @@ test "Large PUSH operations with stack near limit" {
     try test_frame.pushStack(&[_]u256{0});
     
     // Next PUSH should fail with stack overflow
-    test_frame.frame.pc = 0;
+    test_frame.frame.program_counter = 0;
     const overflow_result = helpers.executeOpcode(0x7F, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.StackOverflow, overflow_result);
 }
@@ -613,14 +613,14 @@ test "PUSH operations sequence verification" {
     var result = try helpers.executeOpcode(0x6D, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 15), result.bytes_consumed);
     try helpers.expectStackValue(test_frame.frame, 0, 1);
-    test_frame.frame.pc = 15;
+    test_frame.frame.program_counter = 15;
     
     // Execute PUSH20
     result = try helpers.executeOpcode(0x73, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 21), result.bytes_consumed);
     try helpers.expectStackValue(test_frame.frame, 0, 2);
     try helpers.expectStackValue(test_frame.frame, 1, 1);
-    test_frame.frame.pc = 36;
+    test_frame.frame.program_counter = 36;
     
     // Execute PUSH32
     result = try helpers.executeOpcode(0x7F, &test_vm.vm, test_frame.frame);

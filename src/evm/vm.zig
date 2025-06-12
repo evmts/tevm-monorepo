@@ -782,7 +782,7 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
         const opcode = bytecode[pc];
 
         // Update frame PC to match current PC
-        frame.pc = pc;
+        frame.program_counter = pc;
 
         // Cast self and frame to the opaque types expected by execute
         const interpreter_ptr: *Operation.Interpreter = @ptrCast(self);
@@ -861,8 +861,8 @@ pub fn run(self: *Self, bytecode: []const u8, address: Address.Address, gas: u64
         };
 
         // Check if PC was modified by JUMP/JUMPI opcodes
-        if (frame.pc != pc) {
-            pc = frame.pc;
+        if (frame.program_counter != pc) {
+            pc = frame.program_counter;
         } else {
             // Update PC based on bytes consumed (for PUSH operations)
             pc += result.bytes_consumed;

@@ -35,11 +35,11 @@ test "RETURN (0xF3): Return data from execution" {
     try test_frame.frame.memory.set_data(0, return_data[0..]);
     
     // Execute push operations
-    test_frame.frame.pc = 0;
+    test_frame.frame.program_counter = 0;
     _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
-    test_frame.frame.pc = 2;
+    test_frame.frame.program_counter = 2;
     _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
-    test_frame.frame.pc = 4;
+    test_frame.frame.program_counter = 4;
     
     // Execute RETURN
     const result = helpers.executeOpcode(0xF3, &test_vm.vm, test_frame.frame);
@@ -75,11 +75,11 @@ test "RETURN: Empty return data" {
     defer test_frame.deinit();
     
     // Execute push operations
-    test_frame.frame.pc = 0;
+    test_frame.frame.program_counter = 0;
     _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
-    test_frame.frame.pc = 2;
+    test_frame.frame.program_counter = 2;
     _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
-    test_frame.frame.pc = 4;
+    test_frame.frame.program_counter = 4;
     
     // Execute RETURN
     const result = helpers.executeOpcode(0xF3, &test_vm.vm, test_frame.frame);
@@ -121,11 +121,11 @@ test "REVERT (0xFD): Revert with data" {
     try test_frame.frame.memory.set_data(0, revert_data[0..]);
     
     // Execute push operations
-    test_frame.frame.pc = 0;
+    test_frame.frame.program_counter = 0;
     _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
-    test_frame.frame.pc = 2;
+    test_frame.frame.program_counter = 2;
     _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
-    test_frame.frame.pc = 4;
+    test_frame.frame.program_counter = 4;
     
     // Execute REVERT
     const result = helpers.executeOpcode(0xFD, &test_vm.vm, test_frame.frame);
@@ -162,10 +162,10 @@ test "REVERT: Empty revert data" {
     
     // Execute instructions
     for (0..2) |i| {
-        test_frame.frame.pc = i * 2;
+        test_frame.frame.program_counter = i * 2;
         _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
     }
-    test_frame.frame.pc = 4;
+    test_frame.frame.program_counter = 4;
     
     // Execute REVERT
     const result = helpers.executeOpcode(0xFD, &test_vm.vm, test_frame.frame);
@@ -240,9 +240,9 @@ test "SELFDESTRUCT (0xFF): Schedule contract destruction" {
     defer test_frame.deinit();
     
     // Execute PUSH20
-    test_frame.frame.pc = 0;
+    test_frame.frame.program_counter = 0;
     _ = try helpers.executeOpcode(0x73, &test_vm.vm, test_frame.frame);
-    test_frame.frame.pc = 21;
+    test_frame.frame.program_counter = 21;
     
     // Execute SELFDESTRUCT
     const result = helpers.executeOpcode(0xFF, &test_vm.vm, test_frame.frame);

@@ -35,11 +35,11 @@ test "LOG0 (0xA0): Emit log with no topics" {
     try test_frame.frame.memory.set_data(0, padded_data);
     
     // Execute the push operations
-    test_frame.frame.pc = 0;
+    test_frame.frame.program_counter = 0;
     _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
-    test_frame.frame.pc = 2;
+    test_frame.frame.program_counter = 2;
     _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
-    test_frame.frame.pc = 4;
+    test_frame.frame.program_counter = 4;
     
     // Execute LOG0
     const result = try helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
@@ -86,13 +86,13 @@ test "LOG1 (0xA1): Emit log with one topic" {
     try test_frame.frame.memory.set_data(32, &test_data);
     
     // Execute push operations
-    test_frame.frame.pc = 0;
+    test_frame.frame.program_counter = 0;
     _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
-    test_frame.frame.pc = 2;
+    test_frame.frame.program_counter = 2;
     _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
-    test_frame.frame.pc = 4;
+    test_frame.frame.program_counter = 4;
     _ = try helpers.executeOpcode(0x7F, &test_vm.vm, test_frame.frame);
-    test_frame.frame.pc = 37;
+    test_frame.frame.program_counter = 37;
     
     // Execute LOG1
     const result = try helpers.executeOpcode(0xA1, &test_vm.vm, test_frame.frame);
@@ -158,26 +158,26 @@ test "LOG2-LOG4: Multiple topics" {
     try test_frame.frame.memory.set_data(16, &data3);
     
     // Execute LOG2
-    test_frame.frame.pc = 0;
+    test_frame.frame.program_counter = 0;
     for (0..4) |_| {
         _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
-        test_frame.frame.pc += 2;
+        test_frame.frame.program_counter += 2;
     }
     _ = try helpers.executeOpcode(0xA2, &test_vm.vm, test_frame.frame);
-    test_frame.frame.pc += 1;
+    test_frame.frame.program_counter += 1;
     
     // Execute LOG3
     for (0..5) |_| {
         _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
-        test_frame.frame.pc += 2;
+        test_frame.frame.program_counter += 2;
     }
     _ = try helpers.executeOpcode(0xA3, &test_vm.vm, test_frame.frame);
-    test_frame.frame.pc += 1;
+    test_frame.frame.program_counter += 1;
     
     // Execute LOG4
     for (0..6) |_| {
         _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
-        test_frame.frame.pc += 2;
+        test_frame.frame.program_counter += 2;
     }
     _ = try helpers.executeOpcode(0xA4, &test_vm.vm, test_frame.frame);
     
@@ -236,7 +236,7 @@ test "LOG0-LOG4: Gas consumption" {
     try test_frame.pushStack(&[_]u256{0});     // offset
     try test_frame.pushStack(&[_]u256{32});    // size (32 bytes)
     
-    test_frame.frame.pc = 0;
+    test_frame.frame.program_counter = 0;
     const gas_before_log0 = test_frame.frame.gas_remaining;
     _ = try helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
     const gas_used_log0 = gas_before_log0 - test_frame.frame.gas_remaining;
@@ -250,7 +250,7 @@ test "LOG0-LOG4: Gas consumption" {
     try test_frame.pushStack(&[_]u256{16});    // size (16 bytes)
     try test_frame.pushStack(&[_]u256{0x123}); // topic
     
-    test_frame.frame.pc = 1;
+    test_frame.frame.program_counter = 1;
     const gas_before_log1 = test_frame.frame.gas_remaining;
     _ = try helpers.executeOpcode(0xA1, &test_vm.vm, test_frame.frame);
     const gas_used_log1 = gas_before_log1 - test_frame.frame.gas_remaining;
@@ -266,7 +266,7 @@ test "LOG0-LOG4: Gas consumption" {
     try test_frame.pushStack(&[_]u256{0x333}); // topic3
     try test_frame.pushStack(&[_]u256{0x444}); // topic4
     
-    test_frame.frame.pc = 4;
+    test_frame.frame.program_counter = 4;
     const gas_before_log4 = test_frame.frame.gas_remaining;
     _ = try helpers.executeOpcode(0xA4, &test_vm.vm, test_frame.frame);
     const gas_used_log4 = gas_before_log4 - test_frame.frame.gas_remaining;
@@ -310,7 +310,7 @@ test "LOG operations: Static call protection" {
     try test_frame.pushStack(&[_]u256{0}); // size
     
     // LOG0 should fail with WriteProtection error
-    test_frame.frame.pc = 4;
+    test_frame.frame.program_counter = 4;
     const result = helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.WriteProtection, result);
     
@@ -355,7 +355,7 @@ test "LOG operations: Stack underflow" {
     defer test_frame.deinit();
     
     // Test LOG0 with insufficient stack (needs 2)
-    test_frame.frame.pc = 0;
+    test_frame.frame.program_counter = 0;
     var result = helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
     
@@ -368,7 +368,7 @@ test "LOG operations: Stack underflow" {
     for (0..5) |_| {
         try test_frame.pushStack(&[_]u256{0});
     }
-    test_frame.frame.pc = 4;
+    test_frame.frame.program_counter = 4;
     result = helpers.executeOpcode(0xA4, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
 }
@@ -399,12 +399,12 @@ test "LOG operations: Empty data" {
     
     // Execute push operations
     for (0..3) |i| {
-        test_frame.frame.pc = i * 2;
+        test_frame.frame.program_counter = i * 2;
         _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
     }
     
     // Execute LOG1 with empty data
-    test_frame.frame.pc = 6;
+    test_frame.frame.program_counter = 6;
     const result = try helpers.executeOpcode(0xA1, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 1), result.bytes_consumed);
     
@@ -494,17 +494,17 @@ test "LOG operations: ERC20 Transfer event pattern" {
     try test_frame.frame.memory.set_data(0, &amount_data);
     
     // Execute all push operations
-    test_frame.frame.pc = 0;
+    test_frame.frame.program_counter = 0;
     _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame); // size
-    test_frame.frame.pc = 2;
+    test_frame.frame.program_counter = 2;
     _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame); // offset
-    test_frame.frame.pc = 4;
+    test_frame.frame.program_counter = 4;
     _ = try helpers.executeOpcode(0x73, &test_vm.vm, test_frame.frame); // from
-    test_frame.frame.pc = 25;
+    test_frame.frame.program_counter = 25;
     _ = try helpers.executeOpcode(0x73, &test_vm.vm, test_frame.frame); // to
-    test_frame.frame.pc = 46;
+    test_frame.frame.program_counter = 46;
     _ = try helpers.executeOpcode(0x7F, &test_vm.vm, test_frame.frame); // signature
-    test_frame.frame.pc = 79;
+    test_frame.frame.program_counter = 79;
     
     // Execute LOG3
     _ = try helpers.executeOpcode(0xA3, &test_vm.vm, test_frame.frame);
@@ -565,26 +565,26 @@ test "LOG operations: Multiple logs in sequence" {
     
     // Execute first LOG0
     for (0..2) |i| {
-        test_frame.frame.pc = i * 2;
+        test_frame.frame.program_counter = i * 2;
         _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
     }
-    test_frame.frame.pc = 4;
+    test_frame.frame.program_counter = 4;
     _ = try helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
     
     // Execute LOG1
     for (0..3) |i| {
-        test_frame.frame.pc = 5 + i * 2;
+        test_frame.frame.program_counter = 5 + i * 2;
         _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
     }
-    test_frame.frame.pc = 11;
+    test_frame.frame.program_counter = 11;
     _ = try helpers.executeOpcode(0xA1, &test_vm.vm, test_frame.frame);
     
     // Execute second LOG0
     for (0..2) |i| {
-        test_frame.frame.pc = 12 + i * 2;
+        test_frame.frame.program_counter = 12 + i * 2;
         _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
     }
-    test_frame.frame.pc = 16;
+    test_frame.frame.program_counter = 16;
     _ = try helpers.executeOpcode(0xA0, &test_vm.vm, test_frame.frame);
     
     // Verify all logs

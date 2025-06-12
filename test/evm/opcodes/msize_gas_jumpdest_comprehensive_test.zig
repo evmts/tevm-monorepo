@@ -322,10 +322,10 @@ test "JUMPDEST: Code analysis integration" {
     // Jump to valid JUMPDEST should succeed
     try test_frame.pushStack(&[_]u256{8});
     _ = try helpers.executeOpcode(0x56, &test_vm.vm, test_frame.frame); // JUMP
-    try testing.expectEqual(@as(usize, 8), test_frame.frame.pc);
+    try testing.expectEqual(@as(usize, 8), test_frame.frame.program_counter);
     
     // Jump to invalid JUMPDEST should fail
-    test_frame.frame.pc = 0;
+    test_frame.frame.program_counter = 0;
     try test_frame.pushStack(&[_]u256{5});
     const result = helpers.executeOpcode(0x56, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.InvalidJump, result);

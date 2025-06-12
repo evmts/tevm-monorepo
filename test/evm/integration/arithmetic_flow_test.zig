@@ -45,10 +45,10 @@ test "Integration: Arithmetic with conditional jumps" {
     
     // Execute sequence: PUSH 5, PUSH 10, ADD
     _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
-    test_frame.frame.pc += 2; // Advance past PUSH1 data
+    test_frame.frame.program_counter += 2; // Advance past PUSH1 data
     
     _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
-    test_frame.frame.pc += 2; // Advance past PUSH1 data
+    test_frame.frame.program_counter += 2; // Advance past PUSH1 data
     
     _ = try helpers.executeOpcode(0x01, &test_vm.vm, test_frame.frame);
     
@@ -56,9 +56,9 @@ test "Integration: Arithmetic with conditional jumps" {
     try helpers.expectStackValue(test_frame.frame, 0, 15);
     
     // Continue: PUSH 12, GT
-    test_frame.frame.pc += 1;
+    test_frame.frame.program_counter += 1;
     _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
-    test_frame.frame.pc += 2;
+    test_frame.frame.program_counter += 2;
     
     _ = try helpers.executeOpcode(0x11, &test_vm.vm, test_frame.frame);
     
@@ -66,14 +66,14 @@ test "Integration: Arithmetic with conditional jumps" {
     try helpers.expectStackValue(test_frame.frame, 0, 1);
     
     // Continue: PUSH 12, JUMPI
-    test_frame.frame.pc += 1;
+    test_frame.frame.program_counter += 1;
     _ = try helpers.executeOpcode(0x60, &test_vm.vm, test_frame.frame);
-    test_frame.frame.pc += 2;
+    test_frame.frame.program_counter += 2;
     
     _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
     
     // Should have jumped to position 12
-    try testing.expectEqual(@as(usize, 12), test_frame.frame.pc);
+    try testing.expectEqual(@as(usize, 12), test_frame.frame.program_counter);
 }
 
 test "Integration: Complex arithmetic expression evaluation" {

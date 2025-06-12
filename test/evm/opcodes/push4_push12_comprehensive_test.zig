@@ -33,12 +33,12 @@ test "PUSH4 (0x63): Push 4 bytes onto stack" {
     const expected_values = [_]u256{ 0x12345678, 0xFFFFFFFF, 0x00000000, 0xDEADBEEF };
     
     for (expected_values) |expected| {
-        const pc = test_frame.frame.pc;
+        const pc = test_frame.frame.program_counter;
         const result = try helpers.executeOpcode(0x63, &test_vm.vm, test_frame.frame);
         
         // Check that 5 bytes were consumed (opcode + 4 data bytes)
         try testing.expectEqual(@as(usize, 5), result.bytes_consumed);
-        test_frame.frame.pc = pc + 5;
+        test_frame.frame.program_counter = pc + 5;
         
         try helpers.expectStackValue(test_frame.frame, 0, expected);
         _ = try test_frame.popStack();
@@ -72,12 +72,12 @@ test "PUSH5 (0x64): Push 5 bytes onto stack" {
     const expected_values = [_]u256{ 0x0123456789, 0xFFFFFFFFFF, 0x0000000000, 0xABCDEF0123 };
     
     for (expected_values) |expected| {
-        const pc = test_frame.frame.pc;
+        const pc = test_frame.frame.program_counter;
         const result = try helpers.executeOpcode(0x64, &test_vm.vm, test_frame.frame);
         
         // Check that 6 bytes were consumed (opcode + 5 data bytes)
         try testing.expectEqual(@as(usize, 6), result.bytes_consumed);
-        test_frame.frame.pc = pc + 6;
+        test_frame.frame.program_counter = pc + 6;
         
         try helpers.expectStackValue(test_frame.frame, 0, expected);
         _ = try test_frame.popStack();
@@ -111,12 +111,12 @@ test "PUSH6 (0x65): Push 6 bytes onto stack" {
     const expected_values = [_]u256{ 0x0123456789AB, 0xFFFFFFFFFFFF, 0x000000000000, 0xCAFEBABEDEAD };
     
     for (expected_values) |expected| {
-        const pc = test_frame.frame.pc;
+        const pc = test_frame.frame.program_counter;
         const result = try helpers.executeOpcode(0x65, &test_vm.vm, test_frame.frame);
         
         // Check that 7 bytes were consumed (opcode + 6 data bytes)
         try testing.expectEqual(@as(usize, 7), result.bytes_consumed);
-        test_frame.frame.pc = pc + 7;
+        test_frame.frame.program_counter = pc + 7;
         
         try helpers.expectStackValue(test_frame.frame, 0, expected);
         _ = try test_frame.popStack();
@@ -149,12 +149,12 @@ test "PUSH7 (0x66): Push 7 bytes onto stack" {
     const expected_values = [_]u256{ 0x0123456789ABCD, 0xFFFFFFFFFFFFFF, 0x00000000000000 };
     
     for (expected_values) |expected| {
-        const pc = test_frame.frame.pc;
+        const pc = test_frame.frame.program_counter;
         const result = try helpers.executeOpcode(0x66, &test_vm.vm, test_frame.frame);
         
         // Check that 8 bytes were consumed (opcode + 7 data bytes)
         try testing.expectEqual(@as(usize, 8), result.bytes_consumed);
-        test_frame.frame.pc = pc + 8;
+        test_frame.frame.program_counter = pc + 8;
         
         try helpers.expectStackValue(test_frame.frame, 0, expected);
         _ = try test_frame.popStack();
@@ -193,12 +193,12 @@ test "PUSH8 (0x67): Push 8 bytes onto stack" {
     };
     
     for (expected_values) |expected| {
-        const pc = test_frame.frame.pc;
+        const pc = test_frame.frame.program_counter;
         const result = try helpers.executeOpcode(0x67, &test_vm.vm, test_frame.frame);
         
         // Check that 9 bytes were consumed (opcode + 8 data bytes)
         try testing.expectEqual(@as(usize, 9), result.bytes_consumed);
-        test_frame.frame.pc = pc + 9;
+        test_frame.frame.program_counter = pc + 9;
         
         try helpers.expectStackValue(test_frame.frame, 0, expected);
         _ = try test_frame.popStack();
@@ -235,12 +235,12 @@ test "PUSH9 (0x68): Push 9 bytes onto stack" {
     };
     
     for (expected_values) |expected| {
-        const pc = test_frame.frame.pc;
+        const pc = test_frame.frame.program_counter;
         const result = try helpers.executeOpcode(0x68, &test_vm.vm, test_frame.frame);
         
         // Check that 10 bytes were consumed (opcode + 9 data bytes)
         try testing.expectEqual(@as(usize, 10), result.bytes_consumed);
-        test_frame.frame.pc = pc + 10;
+        test_frame.frame.program_counter = pc + 10;
         
         try helpers.expectStackValue(test_frame.frame, 0, expected);
         _ = try test_frame.popStack();
@@ -277,12 +277,12 @@ test "PUSH10 (0x69): Push 10 bytes onto stack" {
     };
     
     for (expected_values) |expected| {
-        const pc = test_frame.frame.pc;
+        const pc = test_frame.frame.program_counter;
         const result = try helpers.executeOpcode(0x69, &test_vm.vm, test_frame.frame);
         
         // Check that 11 bytes were consumed (opcode + 10 data bytes)
         try testing.expectEqual(@as(usize, 11), result.bytes_consumed);
-        test_frame.frame.pc = pc + 11;
+        test_frame.frame.program_counter = pc + 11;
         
         try helpers.expectStackValue(test_frame.frame, 0, expected);
         _ = try test_frame.popStack();
@@ -319,12 +319,12 @@ test "PUSH11 (0x6A): Push 11 bytes onto stack" {
     };
     
     for (expected_values) |expected| {
-        const pc = test_frame.frame.pc;
+        const pc = test_frame.frame.program_counter;
         const result = try helpers.executeOpcode(0x6A, &test_vm.vm, test_frame.frame);
         
         // Check that 12 bytes were consumed (opcode + 11 data bytes)
         try testing.expectEqual(@as(usize, 12), result.bytes_consumed);
-        test_frame.frame.pc = pc + 12;
+        test_frame.frame.program_counter = pc + 12;
         
         try helpers.expectStackValue(test_frame.frame, 0, expected);
         _ = try test_frame.popStack();
@@ -363,12 +363,12 @@ test "PUSH12 (0x6B): Push 12 bytes onto stack" {
     };
     
     for (expected_values) |expected| {
-        const pc = test_frame.frame.pc;
+        const pc = test_frame.frame.program_counter;
         const result = try helpers.executeOpcode(0x6B, &test_vm.vm, test_frame.frame);
         
         // Check that 13 bytes were consumed (opcode + 12 data bytes)
         try testing.expectEqual(@as(usize, 13), result.bytes_consumed);
-        test_frame.frame.pc = pc + 13;
+        test_frame.frame.program_counter = pc + 13;
         
         try helpers.expectStackValue(test_frame.frame, 0, expected);
         _ = try test_frame.popStack();
@@ -460,7 +460,7 @@ test "PUSH4-PUSH12: Gas consumption" {
     
     var pc: usize = 0;
     for (opcodes) |op| {
-        test_frame.frame.pc = pc;
+        test_frame.frame.program_counter = pc;
         test_frame.frame.stack.clear();
         
         const gas_before = test_frame.frame.gas_remaining;
@@ -511,7 +511,7 @@ test "PUSH operations: Boundary conditions with truncated data" {
     try testing.expectEqual(@as(usize, 5), result1.bytes_consumed);
     try helpers.expectStackValue(test_frame.frame, 0, 0x12345678);
     _ = try test_frame.popStack();
-    test_frame.frame.pc = 5;
+    test_frame.frame.program_counter = 5;
     
     // Second PUSH8 should pad with zeros for missing bytes
     const result2 = try helpers.executeOpcode(0x67, &test_vm.vm, test_frame.frame);
@@ -549,7 +549,7 @@ test "PUSH operations: Sequential pushes filling stack" {
     
     // Push 1023 values (leaving room for one more)
     for (0..1023) |i| {
-        test_frame.frame.pc = i * 5;
+        test_frame.frame.program_counter = i * 5;
         const result = try helpers.executeOpcode(0x63, &test_vm.vm, test_frame.frame);
         try testing.expectEqual(@as(usize, 5), result.bytes_consumed);
     }
@@ -557,12 +557,12 @@ test "PUSH operations: Sequential pushes filling stack" {
     try testing.expectEqual(@as(usize, 1023), test_frame.frame.stack.size);
     
     // One more should succeed (reaching stack limit of 1024)
-    test_frame.frame.pc = 1023 * 5;
+    test_frame.frame.program_counter = 1023 * 5;
     _ = try helpers.executeOpcode(0x63, &test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 1024), test_frame.frame.stack.size);
     
     // Next one should fail with stack overflow
-    test_frame.frame.pc = 1024 * 5;
+    test_frame.frame.program_counter = 1024 * 5;
     const overflow_result = helpers.executeOpcode(0x63, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.StackOverflow, overflow_result);
 }

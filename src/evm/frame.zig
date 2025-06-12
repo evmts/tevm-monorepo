@@ -66,7 +66,7 @@ pub fn init_with_state(
         .memory = mem,
         .stack = stack orelse .{},
         .op = op orelse undefined,
-        .pc = pc orelse 0,
+        .program_counter = pc orelse 0,
         .cost = cost orelse 0,
         .err = err,
         .return_data = return_data,

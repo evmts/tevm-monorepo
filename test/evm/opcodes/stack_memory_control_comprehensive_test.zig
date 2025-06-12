@@ -305,16 +305,16 @@ test "JUMP (0x56): Unconditional jump" {
     // Test 1: Valid jump
     try test_frame.pushStack(&[_]u256{5}); // Jump to JUMPDEST at position 5
     _ = try helpers.executeOpcode(0x56, &test_vm.vm, test_frame.frame);
-    try testing.expectEqual(@as(usize, 5), test_frame.frame.pc);
+    try testing.expectEqual(@as(usize, 5), test_frame.frame.program_counter);
     
     // Test 2: Invalid jump (not a JUMPDEST)
-    test_frame.frame.pc = 0;
+    test_frame.frame.program_counter = 0;
     try test_frame.pushStack(&[_]u256{3}); // Position 3 is not a JUMPDEST
     const result = helpers.executeOpcode(0x56, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.InvalidJump, result);
     
     // Test 3: Jump out of bounds
-    test_frame.frame.pc = 0;
+    test_frame.frame.program_counter = 0;
     try test_frame.pushStack(&[_]u256{100}); // Beyond code length
     const result2 = helpers.executeOpcode(0x56, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.InvalidJump, result2);
@@ -352,23 +352,23 @@ test "JUMPI (0x57): Conditional jump" {
     // Test 1: Jump with non-zero condition
     try test_frame.pushStack(&[_]u256{8, 1}); // dest, condition (non-zero)
     _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
-    try testing.expectEqual(@as(usize, 8), test_frame.frame.pc);
+    try testing.expectEqual(@as(usize, 8), test_frame.frame.program_counter);
     
     // Test 2: No jump with zero condition
-    test_frame.frame.pc = 0;
+    test_frame.frame.program_counter = 0;
     try test_frame.pushStack(&[_]u256{8, 0}); // dest, condition (zero)
-    const pc_before = test_frame.frame.pc;
+    const pc_before = test_frame.frame.program_counter;
     _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
-    try testing.expectEqual(pc_before, test_frame.frame.pc); // PC unchanged
+    try testing.expectEqual(pc_before, test_frame.frame.program_counter); // PC unchanged
     
     // Test 3: Jump with large non-zero condition
-    test_frame.frame.pc = 0;
+    test_frame.frame.program_counter = 0;
     try test_frame.pushStack(&[_]u256{8, std.math.maxInt(u256)}); // dest, large condition
     _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
-    try testing.expectEqual(@as(usize, 8), test_frame.frame.pc);
+    try testing.expectEqual(@as(usize, 8), test_frame.frame.program_counter);
     
     // Test 4: Invalid jump destination with non-zero condition
-    test_frame.frame.pc = 0;
+    test_frame.frame.program_counter = 0;
     try test_frame.pushStack(&[_]u256{3, 1}); // Invalid dest, non-zero condition
     const result = helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.InvalidJump, result);
@@ -392,13 +392,13 @@ test "PC (0x58): Get program counter" {
     defer test_frame.deinit();
     
     // Test 1: PC at position 0
-    test_frame.frame.pc = 0;
+    test_frame.frame.program_counter = 0;
     _ = try helpers.executeOpcode(0x58, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 0);
     _ = try test_frame.popStack();
     
     // Test 2: PC at position 1
-    test_frame.frame.pc = 1;
+    test_frame.frame.program_counter = 1;
     _ = try helpers.executeOpcode(0x58, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 1);
     _ = try test_frame.popStack();
@@ -406,7 +406,7 @@ test "PC (0x58): Get program counter" {
     // Test 3: PC at various positions
     const test_positions = [_]usize{ 0, 10, 100, 1000, 10000 };
     for (test_positions) |pos| {
-        test_frame.frame.pc = pos;
+        test_frame.frame.program_counter = pos;
         _ = try helpers.executeOpcode(0x58, &test_vm.vm, test_frame.frame);
         try helpers.expectStackValue(test_frame.frame, 0, pos);
         _ = try test_frame.popStack();
@@ -603,16 +603,16 @@ test "Jump operations: Code analysis integration" {
     defer test_frame.deinit();
     
     // Test chained jumps
-    test_frame.frame.pc = 0;
+    test_frame.frame.program_counter = 0;
     
     // First JUMP to position 10
     try test_frame.pushStack(&[_]u256{10});
     _ = try helpers.executeOpcode(0x56, &test_vm.vm, test_frame.frame);
-    try testing.expectEqual(@as(usize, 10), test_frame.frame.pc);
+    try testing.expectEqual(@as(usize, 10), test_frame.frame.program_counter);
     
     // Simulate execution at JUMPDEST, then JUMPI to position 20
-    test_frame.frame.pc = 12; // After PUSH1 20
+    test_frame.frame.program_counter = 12; // After PUSH1 20
     try test_frame.pushStack(&[_]u256{20, 1}); // dest, condition
     _ = try helpers.executeOpcode(0x57, &test_vm.vm, test_frame.frame);
-    try testing.expectEqual(@as(usize, 20), test_frame.frame.pc);
+    try testing.expectEqual(@as(usize, 20), test_frame.frame.program_counter);
 }
