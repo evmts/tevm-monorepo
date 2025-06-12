@@ -32,12 +32,6 @@ pub fn calculate_linear_cost(input_size: usize, base_cost: u64, per_word_cost: u
 /// @return Total gas cost or error if overflow occurs
 pub fn calculate_linear_cost_checked(input_size: usize, base_cost: u64, per_word_cost: u64) !u64 {
     const word_count = (input_size + 31) / 32;
-<<<<<<< HEAD
-    const word_count_u64 = std.math.cast(u64, word_count) orelse return error.Overflow;
-    
-    const word_cost = std.math.mul(u64, per_word_cost, word_count_u64) catch return error.Overflow;
-    const total_cost = std.math.add(u64, base_cost, word_cost) catch return error.Overflow;
-=======
     const word_count_u64 = std.math.cast(u64, word_count) orelse {
         @branchHint(.cold);
         return error.Overflow;
@@ -51,7 +45,6 @@ pub fn calculate_linear_cost_checked(input_size: usize, base_cost: u64, per_word
         @branchHint(.cold);
         return error.Overflow;
     };
->>>>>>> origin/main
     
     return total_cost;
 }
@@ -70,10 +63,7 @@ pub fn validate_gas_limit(input_size: usize, base_cost: u64, per_word_cost: u64,
     const gas_cost = try calculate_linear_cost_checked(input_size, base_cost, per_word_cost);
     
     if (gas_cost > gas_limit) {
-<<<<<<< HEAD
-=======
         @branchHint(.cold);
->>>>>>> origin/main
         return error.OutOfGas;
     }
     

@@ -39,14 +39,10 @@ pub const POINT_EVALUATION_ADDRESS: Address = [_]u8{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 pub fn is_precompile(address: Address) bool {
     // Check if the first 19 bytes are zero
     for (address[0..19]) |byte| {
-<<<<<<< HEAD
-        if (byte != 0) return false;
-=======
         if (byte != 0) {
             @branchHint(.cold);
             return false;
         }
->>>>>>> origin/main
     }
     
     // Check if the last byte is in the precompile range (1-10)
@@ -58,13 +54,9 @@ pub fn is_precompile(address: Address) bool {
 /// @param address The precompile address
 /// @return The precompile ID (1-10) or 0 if not a precompile
 pub fn get_precompile_id(address: Address) u8 {
-<<<<<<< HEAD
-    if (!is_precompile(address)) return 0;
-=======
     if (!is_precompile(address)) {
         @branchHint(.cold);
         return 0;
     }
->>>>>>> origin/main
     return address[19];
 }
