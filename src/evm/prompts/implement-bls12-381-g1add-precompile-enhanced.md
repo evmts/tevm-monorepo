@@ -1,5 +1,21 @@
 # Implement BLS12-381 G1ADD Precompile
 
+<review>
+**Implementation Status: NOT IMPLEMENTED ❌**
+
+**Current Status:**
+- BLS12-381 curve references exist in KZG verification for blob transactions
+- No BLS12-381 G1 point addition precompile exists
+- Precompile infrastructure is in place in precompiles.zig
+
+**Implementation Requirements:**
+- BLS12-381 G1 point addition implementation (address 0x0a)
+- Integration with existing precompile framework
+- EIP-2537 compliance for gas costs and validation
+
+**Priority: LOW - Advanced cryptographic feature for specific use cases, not essential for core EVM**
+</review>
+
 ## Git Workflow Instructions
 
 ### Branch Setup
