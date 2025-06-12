@@ -22,7 +22,7 @@ exports[`contractHandler > should handle error during transaction creation 1`] =
 
 exports[`contractHandler > should handle errors returned during contract call 1`] = `
 [
-  [RevertError: revert
+  [Revert: revert
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
 Details: {"error":"revert","errorType":"EVMError"}
@@ -77,7 +77,7 @@ exports[`contractHandler > should handle missing contract 1`] = `
 
 exports[`contractHandler > should handle revert errors during contract call 1`] = `
 [
-  [RevertError: revert
+  [Revert: revert
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
 Details: {"error":"revert","errorType":"EVMError"}

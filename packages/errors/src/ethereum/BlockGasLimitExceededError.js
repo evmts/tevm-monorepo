@@ -36,8 +36,8 @@ import { BaseError } from './BaseError.js'
  *
  * @param {string} message - A human-readable error message.
  * @param {BlockGasLimitExceededErrorParameters} [args={}] - Additional parameters for the BaseError.
- * @property {'BlockGasLimitExceeded'} _tag - Same as name, used internally.
- * @property {'BlockGasLimitExceeded'} name - The name of the error, used to discriminate errors.
+ * @property {string} _tag - Same as name, used internally.
+ * @property {string} name - The name of the error, used to discriminate errors.
  * @property {string} message - Human-readable error message.
  * @property {object} [meta] - Optional object containing additional information about the error.
  * @property {number} code - Error code (-32006), a non-standard extension for this specific error.
@@ -56,9 +56,9 @@ export class BlockGasLimitExceededError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {BlockGasLimitExceededErrorParameters} [args={}] - Additional parameters for the BaseError.
-	 * @param {string} [tag='BlockGasLimitExceededError'] - The tag for the error.
+	 * @param {string} [tag='BlockGasLimitExceeded'] - The tag for the error.
 	 */
-	constructor(message, args = {}, tag = 'BlockGasLimitExceededError') {
+	constructor(message, args = {}, tag = 'BlockGasLimitExceeded') {
 		super(
 			message,
 			{
@@ -75,16 +75,4 @@ export class BlockGasLimitExceededError extends BaseError {
 		 */
 		this.meta = args.meta
 	}
-
-	/**
-	 * @type {'BlockGasLimitExceeded'}
-	 * @override
-	 */
-	_tag = 'BlockGasLimitExceeded'
-
-	/**
-	 * @type {'BlockGasLimitExceeded'}
-	 * @override
-	 */
-	name = 'BlockGasLimitExceeded'
 }
