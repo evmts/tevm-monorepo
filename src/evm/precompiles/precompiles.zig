@@ -6,7 +6,6 @@ const PrecompileError = @import("precompile_result.zig").PrecompileError;
 const identity = @import("identity.zig");
 const sha256 = @import("sha256.zig");
 const modexp = @import("modexp.zig");
-const blake2f = @import("blake2f.zig");
 const kzg_point_evaluation = @import("kzg_point_evaluation.zig");
 const ChainRules = @import("../hardforks/chain_rules.zig");
 
