@@ -3,6 +3,14 @@
 <review>
 **Implementation Status: IMPLEMENTED ✅**
 
+<<<<<<< HEAD
+## Development Workflow
+- **Branch**: `feat_implement_selfdestruct_opcode` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_selfdestruct_opcode feat_implement_selfdestruct_opcode`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+=======
 **What is implemented:**
 - ✅ SELFDESTRUCT opcode (0xFF) is defined in opcodes/opcode.zig
 - ✅ Core implementation exists in execution/control.zig (op_selfdestruct function)
@@ -46,6 +54,7 @@
 - **Testing**: Run `zig build test-all` before committing
 - **Commit**: Use emoji conventional commits with XML summary format
 
+>>>>>>> origin/main
 
 ## Context
 

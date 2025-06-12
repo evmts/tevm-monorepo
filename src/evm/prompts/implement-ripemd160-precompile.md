@@ -1,5 +1,9 @@
 # Implement RIPEMD160 Precompile
 
+<<<<<<< HEAD
+You are implementing RIPEMD160 Precompile for the Tevm EVM written in Zig. Your goal is to implement RIPEMD-160 cryptographic hash precompile following Ethereum specifications and maintaining compatibility with existing implementations.
+
+=======
 <review>
 **Implementation Status: NOT IMPLEMENTED ❌**
 
@@ -33,6 +37,7 @@
 
 You are implementing RIPEMD160 Precompile for the Tevm EVM written in Zig. Your goal is to implement RIPEMD-160 cryptographic hash precompile following Ethereum specifications and maintaining compatibility with existing implementations.
 
+>>>>>>> origin/main
 ## Development Workflow
 - **Branch**: `feat_implement_ripemd` (snake_case)
 - **Worktree**: `git worktree add g/feat_implement_ripemd feat_implement_ripemd`

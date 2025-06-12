@@ -8,6 +8,8 @@ You are implementing Memory Gas Optimization for the Tevm EVM written in Zig. Yo
 - **Testing**: Run `zig build test-all` before committing
 - **Commit**: Use emoji conventional commits with XML summary format
 
+<<<<<<< HEAD
+=======
 
 <review>
 **Implementation Status: PARTIALLY IMPLEMENTED 🟡**
@@ -45,6 +47,7 @@ You are implementing Memory Gas Optimization for the Tevm EVM written in Zig. Yo
 3. Optimize hot paths in memory expansion
 4. Consider different caching strategies based on usage patterns
 </review>
+>>>>>>> origin/main
 
 ## Context
 
