@@ -122,9 +122,10 @@ pub fn op_return(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     }
 
     // Use batch pop for performance - pop 2 values at once
+    // EVM spec: RETURN pops offset first (top), then size second
     const values = frame.stack.pop2_unsafe();
-    const size = values.b; // Second from top (was on top)
-    const offset = values.a; // Third from top (was second)
+    const offset = values.b; // offset was on top (popped first)
+    const size = values.a; // size was second (popped second)
 
     if (size == 0) {
         @branchHint(.unlikely);
@@ -171,9 +172,10 @@ pub fn op_revert(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     }
 
     // Use batch pop for performance - pop 2 values at once
+    // EVM spec: REVERT pops offset first (top), then size second
     const values = frame.stack.pop2_unsafe();
-    const size = values.b; // Second from top (was on top)
-    const offset = values.a; // Third from top (was second)
+    const offset = values.b; // offset was on top (popped first)
+    const size = values.a; // size was second (popped second)
 
     if (size == 0) {
         @branchHint(.unlikely);

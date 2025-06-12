@@ -110,6 +110,34 @@ pub const SstoreClearGas: u64 = 5000;
 /// Gas refund for clearing storage slot to zero
 /// EIP-3529: Reduced from 15000 to prevent gas refund abuse
 pub const SstoreRefundGas: u64 = 4800;
+
+// ============================================================================
+// EIP-2200 SSTORE Gas Constants
+// ============================================================================
+
+/// Gas cost for SSTORE when setting a storage slot from zero to non-zero (EIP-2200)
+/// This is the most expensive storage operation as it increases state size
+pub const SSTORE_SET: u64 = 20000;
+
+/// Gas cost for SSTORE when modifying an existing non-zero value (EIP-2200)
+/// Cheaper than initial set since slot is already allocated
+pub const SSTORE_RESET: u64 = 2900;
+
+/// Gas refund for clearing storage slot to zero (EIP-2200)
+/// Incentivizes cleaning up unused storage
+pub const SSTORE_CLEAR_REFUND: u64 = 15000;
+
+/// Gas refund for resetting to original value (EIP-2200)
+/// Refund when reverting changes made in the same transaction
+pub const SSTORE_RESET_REFUND: u64 = 2900;
+
+/// Gas refund for setting back to original zero value (EIP-2200)
+/// Refund when reverting a set operation in the same transaction
+pub const SSTORE_SET_REFUND: u64 = 17100;
+
+/// Minimum gas that must remain after SSTORE for reentrancy protection (EIP-2200)
+/// Prevents reentrancy attacks by ensuring enough gas for exception handling
+pub const SSTORE_SENTRY_GAS: u64 = 2300;
 // ============================================================================
 // Control Flow Costs
 // ============================================================================
