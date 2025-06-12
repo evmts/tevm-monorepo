@@ -695,6 +695,23 @@ pub fn build(b: *std.Build) void {
     const debug_tenhashes_detailed_step = b.step("debug-tenhashes-detailed", "Debug TenThousandHashes CREATE with detailed logging");
     debug_tenhashes_detailed_step.dependOn(&run_debug_tenhashes_detailed.step);
 
+    // Add function selector debug tool
+    const debug_function_selector = b.addExecutable(.{
+        .name = "debug-function-selector",
+        .root_source_file = b.path("debug_function_selector.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    debug_function_selector.root_module.addImport("evm", evm_mod);
+    debug_function_selector.root_module.addImport("Address", address_mod);
+    debug_function_selector.root_module.addImport("Compiler", compiler_mod);
+    debug_function_selector.root_module.stack_check = false;
+    debug_function_selector.root_module.single_threaded = true;
+
+    const run_debug_function_selector = b.addRunArtifact(debug_function_selector);
+    const debug_function_selector_step = b.step("debug-function-selector", "Debug function selector calculation");
+    debug_function_selector_step.dependOn(&run_debug_function_selector.step);
+
     // Add Gas Accounting tests
     const gas_test = b.addTest(.{
         .name = "gas-test",
@@ -1342,6 +1359,77 @@ pub fn build(b: *std.Build) void {
     
     // Add EVM contract benchmark to the combined benchmark step
     all_benchmark_step.dependOn(&run_evm_contract_benchmark.step);
+
+    // Add EVM Opcode benchmark
+    const evm_opcode_benchmark = b.addExecutable(.{
+        .name = "evm-opcode-benchmark",
+        .root_source_file = b.path("bench/opcode_bench.zig"),
+        .target = target,
+        .optimize = .ReleaseFast,
+    });
+    evm_opcode_benchmark.root_module.addImport("zbench", zbench_dep.module("zbench"));
+    evm_opcode_benchmark.root_module.addImport("evm", target_architecture_mod);
+    evm_opcode_benchmark.root_module.addImport("Address", address_mod);
+
+    const run_evm_opcode_benchmark = b.addRunArtifact(evm_opcode_benchmark);
+
+    const evm_opcode_benchmark_step = b.step("bench-evm-opcodes", "Run EVM Opcode benchmarks");
+    evm_opcode_benchmark_step.dependOn(&run_evm_opcode_benchmark.step);
+    
+    // Add EVM opcode benchmark to the combined benchmark step
+    all_benchmark_step.dependOn(&run_evm_opcode_benchmark.step);
+
+    // Add Simple Math benchmark
+    const simple_math_benchmark = b.addExecutable(.{
+        .name = "simple-math-benchmark",
+        .root_source_file = b.path("bench/simple_math_bench.zig"),
+        .target = target,
+        .optimize = .ReleaseFast,
+    });
+    simple_math_benchmark.root_module.addImport("zbench", zbench_dep.module("zbench"));
+
+    const run_simple_math_benchmark = b.addRunArtifact(simple_math_benchmark);
+
+    const simple_math_benchmark_step = b.step("bench-simple-math", "Run Simple Math benchmarks");
+    simple_math_benchmark_step.dependOn(&run_simple_math_benchmark.step);
+    
+    // Add simple math benchmark to the combined benchmark step
+    all_benchmark_step.dependOn(&run_simple_math_benchmark.step);
+
+    // Add Stack benchmark
+    const stack_benchmark = b.addExecutable(.{
+        .name = "stack-benchmark",
+        .root_source_file = b.path("bench/stack_bench.zig"),
+        .target = target,
+        .optimize = .ReleaseFast,
+    });
+    stack_benchmark.root_module.addImport("zbench", zbench_dep.module("zbench"));
+    stack_benchmark.root_module.addImport("evm", target_architecture_mod);
+
+    const run_stack_benchmark = b.addRunArtifact(stack_benchmark);
+
+    const stack_benchmark_step = b.step("bench-stack", "Run Stack benchmarks");
+    stack_benchmark_step.dependOn(&run_stack_benchmark.step);
+    
+    // Add stack benchmark to the combined benchmark step
+    all_benchmark_step.dependOn(&run_stack_benchmark.step);
+
+    // Add Simple Stack benchmark
+    const simple_stack_benchmark = b.addExecutable(.{
+        .name = "simple-stack-benchmark",
+        .root_source_file = b.path("bench/simple_stack_bench.zig"),
+        .target = target,
+        .optimize = .ReleaseFast,
+    });
+    simple_stack_benchmark.root_module.addImport("zbench", zbench_dep.module("zbench"));
+
+    const run_simple_stack_benchmark = b.addRunArtifact(simple_stack_benchmark);
+
+    const simple_stack_benchmark_step = b.step("bench-simple-stack", "Run Simple Stack benchmarks");
+    simple_stack_benchmark_step.dependOn(&run_simple_stack_benchmark.step);
+    
+    // Add simple stack benchmark to the combined benchmark step
+    all_benchmark_step.dependOn(&run_simple_stack_benchmark.step);
     
     // Add Gas Debugging tool
     const debug_gas_tool = b.addExecutable(.{

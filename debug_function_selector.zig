@@ -70,8 +70,8 @@ pub fn main() !void {
     // Print first 64 bytes of deployed bytecode to look for function selectors
     std.debug.print("First 64 bytes of deployed bytecode:\n", .{});
     for (contract.deployed_bytecode[0..@min(64, contract.deployed_bytecode.len)], 0..) |byte, i| {
-        if (i % 16 == 0) std.debug.print("\n{:04x}: ", .{i});
-        std.debug.print("{:02x} ", .{byte});
+        if (i % 16 == 0) std.debug.print("\n{d:4}: ", .{i});
+        std.debug.print("{x:02} ", .{byte});
     }
     std.debug.print("\n\n", .{});
     
@@ -89,11 +89,11 @@ pub fn main() !void {
         if (i + 4 <= contract.deployed_bytecode.len) {
             const slice = contract.deployed_bytecode[i..i+4];
             if (std.mem.eql(u8, slice, &benchmark_selector)) {
-                std.debug.print("Found Benchmark() selector at offset {}: {:02x}{:02x}{:02x}{:02x}\n", .{i, slice[0], slice[1], slice[2], slice[3]});
+                std.debug.print("Found Benchmark() selector at offset {}: {x:02}{x:02}{x:02}{x:02}\n", .{i, slice[0], slice[1], slice[2], slice[3]});
                 found_benchmark = true;
             }
             if (std.mem.eql(u8, slice, &get_value_selector)) {
-                std.debug.print("Found getValue() selector at offset {}: {:02x}{:02x}{:02x}{:02x}\n", .{i, slice[0], slice[1], slice[2], slice[3]});
+                std.debug.print("Found getValue() selector at offset {}: {x:02}{x:02}{x:02}{x:02}\n", .{i, slice[0], slice[1], slice[2], slice[3]});
                 found_get_value = true;
             }
         }

@@ -972,3 +972,275 @@ test "MSIZE (0x59): Basic memory size tracking" {
 //     // Should cost significantly more than just the base cost
 //     try testing.expect(expansion_cost > 10);
 // }
+
+// ============================
+// REVM-Inspired Memory Edge Cases
+// ============================
+
+// Test extreme memory expansion scenarios
+test "Memory: Extreme expansion edge cases" {
+    const allocator = testing.allocator;
+    var test_vm = try helpers.TestVm.init(allocator);
+    defer test_vm.deinit(allocator);
+
+    var contract = try helpers.createTestContract(
+        allocator,
+        helpers.TestAddresses.CONTRACT,
+        helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    defer contract.deinit(allocator, null);
+
+    // Test 1: Word boundary alignment
+    {
+        var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000000);
+        defer test_frame.deinit();
+
+        // Access at offset 31 (should expand to 2 words: 0-31, 32-63)
+        try test_frame.pushStack(&[_]u256{31}); // offset
+        _ = try helpers.executeOpcode(0x51, test_vm.vm, test_frame.frame); // MLOAD
+        _ = try test_frame.popStack();
+
+        // Memory size should be 64 bytes (2 words)
+        _ = try helpers.executeOpcode(0x59, test_vm.vm, test_frame.frame); // MSIZE
+        try helpers.expectStackValue(test_frame.frame, 0, 64);
+        _ = try test_frame.popStack();
+    }
+
+    // Test 2: Sequential memory expansion cost verification
+    {
+        var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000000);
+        defer test_frame.deinit();
+
+        // First expansion to 32 bytes
+        const gas_before_first = test_frame.frame.gas_remaining;
+        try test_frame.pushStack(&[_]u256{0}); // offset
+        _ = try helpers.executeOpcode(0x51, test_vm.vm, test_frame.frame); // MLOAD
+        _ = try test_frame.popStack();
+        const gas_after_first = test_frame.frame.gas_remaining;
+        const first_expansion_cost = gas_before_first - gas_after_first;
+
+        // Second expansion to 64 bytes
+        const gas_before_second = test_frame.frame.gas_remaining;
+        try test_frame.pushStack(&[_]u256{32}); // offset
+        _ = try helpers.executeOpcode(0x51, test_vm.vm, test_frame.frame); // MLOAD
+        _ = try test_frame.popStack();
+        const gas_after_second = test_frame.frame.gas_remaining;
+        const second_expansion_cost = gas_before_second - gas_after_second;
+
+        // Third expansion to 96 bytes
+        const gas_before_third = test_frame.frame.gas_remaining;
+        try test_frame.pushStack(&[_]u256{64}); // offset
+        _ = try helpers.executeOpcode(0x51, test_vm.vm, test_frame.frame); // MLOAD
+        _ = try test_frame.popStack();
+        const gas_after_third = test_frame.frame.gas_remaining;
+        const third_expansion_cost = gas_before_third - gas_after_third;
+
+        // Verify increasing costs due to quadratic component
+        try testing.expect(first_expansion_cost > 0);
+        try testing.expect(second_expansion_cost >= first_expansion_cost);
+        try testing.expect(third_expansion_cost >= second_expansion_cost);
+    }
+}
+
+// Test memory operations at maximum practical sizes
+test "Memory: Large memory operations" {
+    const allocator = testing.allocator;
+    var test_vm = try helpers.TestVm.init(allocator);
+    defer test_vm.deinit(allocator);
+
+    var contract = try helpers.createTestContract(
+        allocator,
+        helpers.TestAddresses.CONTRACT,
+        helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    defer contract.deinit(allocator, null);
+
+    // Test with 1KB memory access
+    {
+        var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000000);
+        defer test_frame.deinit();
+
+        const large_offset = 1024; // 1KB
+        try test_frame.pushStack(&[_]u256{large_offset});
+        _ = try helpers.executeOpcode(0x51, test_vm.vm, test_frame.frame); // MLOAD
+        _ = try test_frame.popStack();
+
+        // Memory should be expanded to at least 1024 + 32 = 1056 bytes
+        _ = try helpers.executeOpcode(0x59, test_vm.vm, test_frame.frame); // MSIZE
+        const memory_size = try test_frame.popStack();
+        try testing.expect(memory_size >= 1056);
+        try testing.expect(memory_size % 32 == 0); // Should be word-aligned
+    }
+
+    // Test MSTORE8 with large offsets
+    {
+        var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000000);
+        defer test_frame.deinit();
+
+        const large_offset = 2048; // 2KB
+        try test_frame.pushStack(&[_]u256{ 0x42, large_offset });
+        _ = try helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame); // MSTORE8
+
+        // Verify memory expanded
+        _ = try helpers.executeOpcode(0x59, test_vm.vm, test_frame.frame); // MSIZE
+        const memory_size = try test_frame.popStack();
+        try testing.expect(memory_size >= 2049); // At least offset + 1
+
+        // Verify the stored value
+        try test_frame.pushStack(&[_]u256{large_offset});
+        _ = try helpers.executeOpcode(0x51, test_vm.vm, test_frame.frame); // MLOAD
+        const loaded_value = try test_frame.popStack();
+        
+        // The byte should be stored at the beginning of the 32-byte word
+        const expected_value: u256 = 0x42 << (8 * 31); // Byte at MSB position
+        try testing.expectEqual(expected_value, loaded_value);
+    }
+}
+
+// Test memory copy edge cases (MCOPY if available)
+test "Memory: Copy operation edge cases" {
+    const allocator = testing.allocator;
+    var test_vm = try helpers.TestVm.init(allocator);
+    defer test_vm.deinit(allocator);
+
+    var contract = try helpers.createTestContract(
+        allocator,
+        helpers.TestAddresses.CONTRACT,
+        helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    defer contract.deinit(allocator, null);
+
+    var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000000);
+    defer test_frame.deinit();
+
+    // Set up some test data in memory
+    const test_value: u256 = 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef;
+    try test_frame.frame.memory.set_u256(0, test_value);
+    try test_frame.frame.memory.set_u256(32, test_value + 1);
+
+    // Test 1: Zero-length copy should not fail
+    try test_frame.pushStack(&[_]u256{ 0, 0, 100 }); // size=0, src=0, dest=100
+    const result_zero = helpers.executeOpcode(0x5E, test_vm.vm, test_frame.frame); // MCOPY (if available)
+    
+    // If MCOPY is not implemented, it might return an invalid opcode error
+    if (result_zero) |_| {
+        // Copy succeeded, verify no data was actually copied
+        try test_frame.pushStack(&[_]u256{100});
+        _ = try helpers.executeOpcode(0x51, test_vm.vm, test_frame.frame); // MLOAD
+        const copied_value = try test_frame.popStack();
+        try testing.expectEqual(@as(u256, 0), copied_value); // Should still be zero
+    } else |err| {
+        // MCOPY might not be implemented or could be invalid opcode
+        try testing.expect(err == helpers.ExecutionError.Error.InvalidOpcode or 
+                          err == helpers.ExecutionError.Error.OutOfGas);
+    }
+}
+
+// Test memory boundary overflow protection
+test "Memory: Overflow protection edge cases" {
+    const allocator = testing.allocator;
+    var test_vm = try helpers.TestVm.init(allocator);
+    defer test_vm.deinit(allocator);
+
+    var contract = try helpers.createTestContract(
+        allocator,
+        helpers.TestAddresses.CONTRACT,
+        helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    defer contract.deinit(allocator, null);
+
+    // Test extremely large offset (near u256 max)
+    {
+        var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
+        defer test_frame.deinit();
+
+        const huge_offset = std.math.maxInt(u64); // Use u64 max as proxy for very large
+        try test_frame.pushStack(&[_]u256{huge_offset});
+        
+        // Should fail gracefully, not crash
+        const result = helpers.executeOpcode(0x51, test_vm.vm, test_frame.frame); // MLOAD
+        try testing.expectError(helpers.ExecutionError.Error.OutOfGas, result);
+    }
+
+    // Test offset + 32 overflow
+    {
+        var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
+        defer test_frame.deinit();
+
+        const near_max_offset = std.math.maxInt(u64) - 10;
+        try test_frame.pushStack(&[_]u256{near_max_offset});
+        
+        // MLOAD needs offset + 32, which would overflow
+        const result = helpers.executeOpcode(0x51, test_vm.vm, test_frame.frame);
+        try testing.expectError(helpers.ExecutionError.Error.OutOfGas, result);
+    }
+}
+
+// Test gas exhaustion during memory expansion
+test "Memory: Gas exhaustion during expansion" {
+    const allocator = testing.allocator;
+    var test_vm = try helpers.TestVm.init(allocator);
+    defer test_vm.deinit(allocator);
+
+    var contract = try helpers.createTestContract(
+        allocator,
+        helpers.TestAddresses.CONTRACT,
+        helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    defer contract.deinit(allocator, null);
+
+    // Test with barely insufficient gas for large expansion
+    {
+        var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000); // Limited gas
+        defer test_frame.deinit();
+
+        // Try to expand to 10KB (should require significant gas)
+        const large_offset = 10240;
+        try test_frame.pushStack(&[_]u256{large_offset});
+        
+        const result = helpers.executeOpcode(0x51, test_vm.vm, test_frame.frame);
+        try testing.expectError(helpers.ExecutionError.Error.OutOfGas, result);
+    }
+
+    // Test edge case where gas is exactly enough vs. one less
+    {
+        // First, determine exact gas needed for a smaller expansion
+        var test_frame_measure = try helpers.TestFrame.init(allocator, &contract, 1000000);
+        defer test_frame_measure.deinit();
+
+        const expansion_offset = 512;
+        const gas_before = test_frame_measure.frame.gas_remaining;
+        try test_frame_measure.pushStack(&[_]u256{expansion_offset});
+        _ = try helpers.executeOpcode(0x51, test_vm.vm, test_frame_measure.frame);
+        _ = try test_frame_measure.popStack();
+        const gas_after = test_frame_measure.frame.gas_remaining;
+        const exact_gas_needed = gas_before - gas_after;
+
+        // Now test with exact gas
+        var test_frame_exact = try helpers.TestFrame.init(allocator, &contract, exact_gas_needed);
+        defer test_frame_exact.deinit();
+
+        try test_frame_exact.pushStack(&[_]u256{expansion_offset});
+        const result_exact = helpers.executeOpcode(0x51, test_vm.vm, test_frame_exact.frame);
+        try testing.expect(result_exact != helpers.ExecutionError.Error.OutOfGas);
+        _ = try test_frame_exact.popStack();
+
+        // Test with one less gas
+        var test_frame_insufficient = try helpers.TestFrame.init(allocator, &contract, exact_gas_needed - 1);
+        defer test_frame_insufficient.deinit();
+
+        try test_frame_insufficient.pushStack(&[_]u256{expansion_offset});
+        const result_insufficient = helpers.executeOpcode(0x51, test_vm.vm, test_frame_insufficient.frame);
+        try testing.expectError(helpers.ExecutionError.Error.OutOfGas, result_insufficient);
+    }
+}
