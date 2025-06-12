@@ -1,5 +1,9 @@
 # Implement MODEXP Precompile
 
+<<<<<<< HEAD
+You are implementing the MODEXP precompile (address 0x05) for the Tevm EVM written in Zig. Your goal is to provide modular exponentiation functionality for smart contracts, following EIP-198 specification and maintaining compatibility with all Ethereum clients.
+
+=======
 <review>
 **Implementation Status: FULLY IMPLEMENTED ✅**
 
@@ -33,6 +37,7 @@
 
 You are implementing the MODEXP precompile (address 0x05) for the Tevm EVM written in Zig. Your goal is to provide modular exponentiation functionality for smart contracts, following EIP-198 specification and maintaining compatibility with all Ethereum clients.
 
+>>>>>>> origin/main
 ## Development Workflow
 - **Branch**: `feat_implement_modexp_precompile` (snake_case)
 - **Worktree**: `git worktree add g/feat_implement_modexp_precompile feat_implement_modexp_precompile`
