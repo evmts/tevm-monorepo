@@ -51,8 +51,6 @@ pub fn op_sload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     }
 
     const value = vm.state.get_storage(frame.contract.address, slot);
-    
-    Log.debug("SLOAD: address={any}, slot={}, value={}", .{ frame.contract.address, slot, value });
 
     frame.stack.set_top_unsafe(value);
 
@@ -82,8 +80,8 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     // Stack after separate pushStack calls: [..., slot, value] with value on top
     const popped = frame.stack.pop2_unsafe();
-    const slot = popped.a; // slot was pushed first (second from top)
-    const value = popped.b; // value was pushed second (on top)
+    const value = popped.a; // value was pushed second (on top of stack)
+    const slot = popped.b; // slot was pushed first (second from top)
 
     const current_value = vm.state.get_storage(frame.contract.address, slot);
 
@@ -106,8 +104,6 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     // Consume all gas at once
     try frame.consume_gas(total_gas);
 
-    Log.debug("SSTORE: address={any}, slot={}, value={} (current was {})", .{ frame.contract.address, slot, value, current_value });
-    
     try vm.state.set_storage(frame.contract.address, slot, value);
 
     return Operation.ExecutionResult{};
@@ -152,8 +148,8 @@ pub fn op_tstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     // Pop two values unsafely using batch operation - bounds checking is done in jump_table.zig
     // Stack after separate pushStack calls: [..., slot, value] with value on top
     const popped = frame.stack.pop2_unsafe();
-    const slot = popped.a; // slot was pushed first (second from top)
-    const value = popped.b; // value was pushed second (on top)
+    const value = popped.a; // value was pushed second (on top of stack)
+    const slot = popped.b; // slot was pushed first (second from top)
 
     try vm.state.set_transient_storage(frame.contract.address, slot, value);
 

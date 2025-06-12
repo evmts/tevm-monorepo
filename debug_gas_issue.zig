@@ -177,7 +177,7 @@ pub fn main() !void {
     // Test with progressively simpler contracts
     
     // Function selector for getValue(): bytes4(keccak256("getValue()"))
-    const GET_VALUE_SELECTOR: [4]u8 = .{ 0x20, 0x96, 0x52, 0x32 }; // This is an approximation
+    const GET_VALUE_SELECTOR: [4]u8 = .{ 0x20, 0x96, 0x52, 0x55 }; // Corrected from approximation
     try testContractExecution(allocator, "Simple", SIMPLE_CONTRACT_SOURCE, GET_VALUE_SELECTOR);
     
     // Function selector for test(): bytes4(keccak256("test()"))  
