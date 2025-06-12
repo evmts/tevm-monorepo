@@ -1631,6 +1631,131 @@ pub fn build(b: *std.Build) void {
     const contract_execution_debug_test_step = b.step("test-contract-execution-debug", "Run Contract Execution Debug tests");
     contract_execution_debug_test_step.dependOn(&run_contract_execution_debug_test.step);
 
+    const snailtracer_benchmark_test = b.addTest(.{
+        .name = "snailtracer-benchmark-test",
+        .root_source_file = b.path("test/evm/snailtracer_benchmark_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    snailtracer_benchmark_test.root_module.addImport("evm", target_architecture_mod);
+    snailtracer_benchmark_test.root_module.addImport("Compiler", compiler_mod);
+    snailtracer_benchmark_test.root_module.addImport("Address", address_mod);
+    snailtracer_benchmark_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    snailtracer_benchmark_test.root_module.addIncludePath(b.path("include"));
+    snailtracer_benchmark_test.step.dependOn(rust_step);
+    snailtracer_benchmark_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    snailtracer_benchmark_test.linkLibC();
+    if (target.result.os.tag == .linux) {
+        snailtracer_benchmark_test.linkSystemLibrary("unwind");
+        snailtracer_benchmark_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        snailtracer_benchmark_test.linkFramework("CoreFoundation");
+        snailtracer_benchmark_test.linkFramework("Security");
+    }
+    const run_snailtracer_benchmark_test = b.addRunArtifact(snailtracer_benchmark_test);
+    const snailtracer_benchmark_test_step = b.step("test-snailtracer-benchmark", "Run SnailTracer Benchmark tests");
+    snailtracer_benchmark_test_step.dependOn(&run_snailtracer_benchmark_test.step);
+
+    const snailtracer_simple_test = b.addTest(.{
+        .name = "snailtracer-simple-test",
+        .root_source_file = b.path("test/evm/snailtracer_simple_benchmark_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    snailtracer_simple_test.root_module.addImport("evm", target_architecture_mod);
+    snailtracer_simple_test.root_module.addImport("Compiler", compiler_mod);
+    snailtracer_simple_test.root_module.addImport("Address", address_mod);
+    snailtracer_simple_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    snailtracer_simple_test.root_module.addIncludePath(b.path("include"));
+    snailtracer_simple_test.step.dependOn(rust_step);
+    snailtracer_simple_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    snailtracer_simple_test.linkLibC();
+    if (target.result.os.tag == .linux) {
+        snailtracer_simple_test.linkSystemLibrary("unwind");
+        snailtracer_simple_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        snailtracer_simple_test.linkFramework("CoreFoundation");
+        snailtracer_simple_test.linkFramework("Security");
+    }
+    const run_snailtracer_simple_test = b.addRunArtifact(snailtracer_simple_test);
+    const snailtracer_simple_test_step = b.step("test-snailtracer-simple", "Run simple SnailTracer infrastructure test");
+    snailtracer_simple_test_step.dependOn(&run_snailtracer_simple_test.step);
+
+    const snailtracer_minimal_test = b.addTest(.{
+        .name = "snailtracer-minimal-test",
+        .root_source_file = b.path("test/evm/snailtracer_minimal_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    const run_snailtracer_minimal_test = b.addRunArtifact(snailtracer_minimal_test);
+    const snailtracer_minimal_test_step = b.step("test-snailtracer-minimal", "Run minimal SnailTracer test");
+    snailtracer_minimal_test_step.dependOn(&run_snailtracer_minimal_test.step);
+
+    const snailtracer_evm_import_test = b.addTest(.{
+        .name = "snailtracer-evm-import-test",
+        .root_source_file = b.path("test/evm/snailtracer_evm_import_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    snailtracer_evm_import_test.root_module.addImport("evm", target_architecture_mod);
+    snailtracer_evm_import_test.root_module.addImport("Compiler", compiler_mod);
+    snailtracer_evm_import_test.root_module.addImport("Address", address_mod);
+    const run_snailtracer_evm_import_test = b.addRunArtifact(snailtracer_evm_import_test);
+    const snailtracer_evm_import_test_step = b.step("test-snailtracer-evm-import", "Run EVM import test");
+    snailtracer_evm_import_test_step.dependOn(&run_snailtracer_evm_import_test.step);
+
+    const snailtracer_memory_db_test = b.addTest(.{
+        .name = "snailtracer-memory-db-test",
+        .root_source_file = b.path("test/evm/snailtracer_memory_db_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    snailtracer_memory_db_test.root_module.addImport("evm", target_architecture_mod);
+    snailtracer_memory_db_test.root_module.addImport("Compiler", compiler_mod);
+    snailtracer_memory_db_test.root_module.addImport("Address", address_mod);
+    const run_snailtracer_memory_db_test = b.addRunArtifact(snailtracer_memory_db_test);
+    const snailtracer_memory_db_test_step = b.step("test-snailtracer-memory-db", "Run MemoryDatabase test");
+    snailtracer_memory_db_test_step.dependOn(&run_snailtracer_memory_db_test.step);
+
+    const snailtracer_vm_init_test = b.addTest(.{
+        .name = "snailtracer-vm-init-test",
+        .root_source_file = b.path("test/evm/snailtracer_vm_init_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    snailtracer_vm_init_test.root_module.addImport("evm", target_architecture_mod);
+    snailtracer_vm_init_test.root_module.addImport("Compiler", compiler_mod);
+    snailtracer_vm_init_test.root_module.addImport("Address", address_mod);
+    const run_snailtracer_vm_init_test = b.addRunArtifact(snailtracer_vm_init_test);
+    const snailtracer_vm_init_test_step = b.step("test-snailtracer-vm-init", "Run VM initialization test");
+    snailtracer_vm_init_test_step.dependOn(&run_snailtracer_vm_init_test.step);
+
+    const snailtracer_test_helpers_test = b.addTest(.{
+        .name = "snailtracer-test-helpers-test",
+        .root_source_file = b.path("test/evm/snailtracer_test_helpers_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    snailtracer_test_helpers_test.root_module.addImport("evm", target_architecture_mod);
+    snailtracer_test_helpers_test.root_module.addImport("Compiler", compiler_mod);
+    snailtracer_test_helpers_test.root_module.addImport("Address", address_mod);
+    const run_snailtracer_test_helpers_test = b.addRunArtifact(snailtracer_test_helpers_test);
+    const snailtracer_test_helpers_test_step = b.step("test-snailtracer-test-helpers", "Run TestVm test");
+    snailtracer_test_helpers_test_step.dependOn(&run_snailtracer_test_helpers_test.step);
+
+    const snailtracer_debug_vm_init_test = b.addTest(.{
+        .name = "snailtracer-debug-vm-init-test",
+        .root_source_file = b.path("test/evm/snailtracer_debug_vm_init_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    snailtracer_debug_vm_init_test.root_module.addImport("evm", target_architecture_mod);
+    snailtracer_debug_vm_init_test.root_module.addImport("Compiler", compiler_mod);
+    snailtracer_debug_vm_init_test.root_module.addImport("Address", address_mod);
+    const run_snailtracer_debug_vm_init_test = b.addRunArtifact(snailtracer_debug_vm_init_test);
+    const snailtracer_debug_vm_init_test_step = b.step("test-snailtracer-debug-vm-init", "Run debug VM init test");
+    snailtracer_debug_vm_init_test_step.dependOn(&run_snailtracer_debug_vm_init_test.step);
+
     const run_lib_unit_tests = b.addRunArtifact(lib_unit_tests);
 
     const exe_unit_tests = b.addTest(.{
