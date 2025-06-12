@@ -308,6 +308,13 @@ pub const MemoryDatabase = struct {
             return hash;
         }
         
+        // Check if code with this hash already exists
+        if (self.code_storage.get(hash)) |existing_code| {
+            // Code already exists, no need to store again
+            _ = existing_code;
+            return hash;
+        }
+        
         // Store a copy of the code
         const code_copy = try self.allocator.alloc(u8, code.len);
         @memcpy(code_copy, code);
