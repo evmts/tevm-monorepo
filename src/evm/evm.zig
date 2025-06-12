@@ -126,6 +126,7 @@ pub const precompiles = struct {
     pub const precompiles = @import("precompiles/precompiles.zig");
     pub const sha256 = @import("precompiles/sha256.zig");
     pub const identity = @import("precompiles/identity.zig");
+    pub const bls12_381_g1msm = @import("precompiles/bls12_381_g1msm.zig");
     pub const precompile_result = @import("precompiles/precompile_result.zig");
 };
 

@@ -801,6 +801,31 @@ pub fn build(b: *std.Build) void {
     const precompile_test_step = b.step("test-precompiles", "Run Precompile tests");
     precompile_test_step.dependOn(&run_precompile_test.step);
 
+    // Add BLS12-381 G1MSM tests
+    const bls12_381_g1msm_test = b.addTest(.{
+        .name = "bls12-381-g1msm-test",
+        .root_source_file = b.path("test/evm/precompiles/bls12_381_g1msm_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    bls12_381_g1msm_test.root_module.stack_check = false;
+
+    // Add module imports to BLS12-381 G1MSM test
+    bls12_381_g1msm_test.root_module.addImport("Address", address_mod);
+    bls12_381_g1msm_test.root_module.addImport("Block", block_mod);
+    bls12_381_g1msm_test.root_module.addImport("evm", evm_mod);
+    bls12_381_g1msm_test.root_module.addImport("utils", utils_mod);
+
+    const run_bls12_381_g1msm_test = b.addRunArtifact(bls12_381_g1msm_test);
+
+    // Add a separate step for testing BLS12-381 G1MSM
+    const bls12_381_g1msm_test_step = b.step("test-bls12-381-g1msm", "Run BLS12-381 G1MSM tests");
+    bls12_381_g1msm_test_step.dependOn(&run_bls12_381_g1msm_test.step);
+
+    // Also add to the main precompile test step
+    precompile_test_step.dependOn(&run_bls12_381_g1msm_test.step);
+
     // Add Memory benchmark
     const memory_benchmark = b.addExecutable(.{
         .name = "memory-benchmark",
