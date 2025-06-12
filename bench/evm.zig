@@ -2,10 +2,10 @@ const std = @import("std");
 const zbench = @import("zbench");
 const evm_root = @import("evm");
 const Compiler = @import("Compiler");
+const Address = @import("Address");
 
 // Import EVM components
 const evm = evm_root.evm;
-const Address = evm.Address;
 
 // Solidity source code for TenThousandHashes benchmark
 const TEN_THOUSAND_HASHES_SOURCE =
@@ -135,42 +135,91 @@ fn compileAndExecuteBenchmark(allocator: std.mem.Allocator, contract_name: []con
         .output_deployed_bytecode = true,
     };
     
+    // Use proper .sol filename for compilation
+    const filename = try std.fmt.allocPrint(allocator, "{s}.sol", .{contract_name});
+    defer allocator.free(filename);
+    
     // Compile the contract
     var compilation_result = Compiler.Compiler.compile_source(
         allocator,
-        contract_name,
+        filename,
         source,
         settings,
     ) catch |err| {
-        std.debug.print("Compilation failed for {s}: {} (This is expected for benchmarking performance)\n", .{ contract_name, err });
-        // For benchmark purposes, even if compilation fails, we can measure the time taken
-        // to attempt compilation and fallback to simulation
-        simulateContractExecution(contract_name, &[_]u8{0x60, 0x80, 0x60, 0x40}); // Basic constructor bytecode
-        return;
+        std.debug.print("Compilation failed for {s}: {}\n", .{ contract_name, err });
+        // For benchmarking, we could fall back to simulation, but the user wants real execution
+        return error.CompilationFailed;
     };
     defer compilation_result.deinit();
     
     if (compilation_result.errors.len > 0) {
-        std.debug.print("Compilation errors for {s} (using simulation for benchmark):\n", .{contract_name});
+        std.debug.print("Compilation errors for {s}:\n", .{contract_name});
         for (compilation_result.errors) |compile_error| {
             std.debug.print("  {s}\n", .{compile_error.message});
         }
-        // Use simulation for benchmark
-        simulateContractExecution(contract_name, &[_]u8{0x60, 0x80, 0x60, 0x40}); // Basic constructor bytecode
-        return;
+        return error.CompilationFailed;
     }
     
     if (compilation_result.contracts.len == 0) {
-        std.debug.print("No contracts compiled for {s}, using simulation\n", .{contract_name});
-        simulateContractExecution(contract_name, &[_]u8{0x60, 0x80, 0x60, 0x40}); // Basic constructor bytecode
-        return;
+        std.debug.print("No contracts compiled for {s}\n", .{contract_name});
+        return error.CompilationFailed;
     }
     
     const contract = compilation_result.contracts[0];
     
-    // Successfully compiled - use actual contract bytecode for benchmark
-    std.debug.print("Successfully compiled {s} with {} bytes of bytecode\n", .{ contract_name, contract.bytecode.len });
-    simulateContractExecution(contract_name, contract.bytecode);
+    // Execute the contract using real EVM
+    try executeContractBenchmark(allocator, contract_name, contract.bytecode);
+}
+
+// Execute a contract's Benchmark() function using the real EVM
+fn executeContractBenchmark(allocator: std.mem.Allocator, contract_name: []const u8, deployed_bytecode: []const u8) !void {
+    _ = contract_name;
+    
+    // Create a memory database for the VM
+    var database = evm.MemoryDatabase.init(allocator);
+    defer database.deinit();
+    
+    // Create VM instance
+    var vm = try evm.Vm.init(allocator, database.to_database_interface(), null, null);
+    defer vm.deinit();
+    
+    // Deploy the contract to a test address
+    const contract_address = Address.from_u256(0x1000);
+    
+    // Set up initial state - put the deployed bytecode at the contract address
+    try vm.state.set_code(contract_address, deployed_bytecode);
+    
+    // Create call data for Benchmark() function
+    const call_data = BENCHMARK_SELECTOR;
+    
+    // Set up execution context
+    vm.context.gas_limit = 30_000_000; // 30M gas
+    vm.context.gas_price = 1;
+    vm.context.caller = Address.from_u256(0x2000);
+    vm.context.address = contract_address;
+    vm.context.value = 0;
+    vm.context.data = &call_data;
+    
+    // Execute the contract call
+    const result = vm.run() catch |err| {
+        std.debug.print("Contract execution failed: {}\n", .{err});
+        return;
+    };
+    
+    // Report execution results 
+    switch (result) {
+        .success => |success_result| {
+            const gas_used = 30_000_000 - success_result.gas_remaining;
+            std.debug.print("Contract executed successfully, gas used: {}\n", .{gas_used});
+        },
+        .revert => |revert_result| {
+            const gas_used = 30_000_000 - revert_result.gas_remaining;
+            std.debug.print("Contract reverted, gas used: {}\n", .{gas_used});
+        },
+        .halt => |halt_result| {
+            std.debug.print("Contract halted: reason={}, gas_remaining={}\n", .{ halt_result.reason, halt_result.gas_remaining });
+        }
+    }
 }
 
 // Simulate contract execution for benchmarking

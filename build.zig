@@ -801,6 +801,42 @@ pub fn build(b: *std.Build) void {
     const compiler_integration_test_step = b.step("test-compiler-integration", "Run Compiler Integration tests");
     compiler_integration_test_step.dependOn(&run_compiler_integration_test.step);
 
+    // Add Real Contract Execution tests (for debugging actual contract execution)
+    const real_contract_execution_test = b.addTest(.{
+        .name = "real-contract-execution-test",
+        .root_source_file = b.path("test/evm/real_contract_execution_test.zig"),
+        .target = target,
+        .optimize = optimize,
+        .single_threaded = true,
+    });
+    real_contract_execution_test.root_module.stack_check = false;
+
+    // Add module imports to real contract execution test
+    real_contract_execution_test.root_module.addImport("evm", target_architecture_mod);
+    real_contract_execution_test.root_module.addImport("Compiler", compiler_mod);
+    real_contract_execution_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    real_contract_execution_test.root_module.addIncludePath(b.path("include"));
+
+    // Add Rust dependencies to real contract execution test
+    real_contract_execution_test.step.dependOn(rust_step);
+    real_contract_execution_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    real_contract_execution_test.linkLibC();
+    
+    // Link system libraries for real contract execution test
+    if (target.result.os.tag == .linux) {
+        real_contract_execution_test.linkSystemLibrary("unwind");
+        real_contract_execution_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        real_contract_execution_test.linkFramework("CoreFoundation");
+        real_contract_execution_test.linkFramework("Security");
+    }
+
+    const run_real_contract_execution_test = b.addRunArtifact(real_contract_execution_test);
+
+    // Add a separate step for testing Real Contract Execution
+    const real_contract_execution_test_step = b.step("test-real-contract-execution", "Run Real Contract Execution tests");
+    real_contract_execution_test_step.dependOn(&run_real_contract_execution_test.step);
+
     // Add EVM Contract benchmark (after rust_step is defined)
     const evm_contract_benchmark = b.addExecutable(.{
         .name = "evm-contract-benchmark",
