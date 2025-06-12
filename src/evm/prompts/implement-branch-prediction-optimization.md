@@ -1,5 +1,21 @@
 # Implement Branch Prediction Optimization
 
+<review>
+**Implementation Status: PARTIALLY IMPLEMENTED 🟡**
+
+**Current Status:**
+- @branchHint is used throughout codebase for basic optimization
+- Static branch hints exist for likely/unlikely scenarios
+- Missing comprehensive dynamic prediction and hot path optimization
+
+**Implementation Requirements:**
+- Dynamic branch prediction feedback system
+- Hot path detection and adaptive optimization
+- Integration with VM execution loop for conditional operations
+
+**Priority: MEDIUM - Performance optimization that can provide measurable benefits but not essential**
+</review>
+
 ## What
 <eli5>
 Imagine you're driving and approaching traffic lights. If you could predict whether the light will be green or red, you could prepare by speeding up or slowing down in advance. Branch prediction is similar - the CPU tries to guess which direction the code will go (like "if this, then that") so it can prepare the next instructions ahead of time. When the prediction is right, everything runs smoothly. When it's wrong, the CPU has to stop and restart, which is slow.
