@@ -7,10 +7,10 @@ const std = @import("std");
 const testing = std.testing;
 const evm = @import("evm");
 
-// Import the BLAKE2F precompile
-const blake2f = @import("../../../src/evm/precompiles/blake2f.zig");
-const PrecompileOutput = @import("../../../src/evm/precompiles/precompile_result.zig").PrecompileOutput;
-const PrecompileError = @import("../../../src/evm/precompiles/precompile_result.zig").PrecompileError;
+// Convenience aliases
+const blake2f = evm.precompiles.blake2f;
+const PrecompileOutput = evm.precompiles.precompile_result.PrecompileOutput;
+const PrecompileError = evm.precompiles.precompile_result.PrecompileError;
 
 test "BLAKE2F basic execution" {
     var input = [_]u8{0} ** blake2f.BLAKE2F_INPUT_LENGTH;
