@@ -1,21 +1,19 @@
 # Implement Interpreter Types System
 
-## Git Workflow Instructions
+You are implementing Interpreter Types System for the Tevm EVM written in Zig. Your goal is to implement robust type system for interpreter operations following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
-1. **Create branch**: `feat_implement_interpreter_types_system` (snake_case, no emoji)
-2. **Create worktree**: `git worktree add g/feat_implement_interpreter_types_system feat_implement_interpreter_types_system`
-3. **Work in isolation**: `cd g/feat_implement_interpreter_types_system`
-4. **Commit message**: `⚡ perf: implement configurable interpreter types system for flexible EVM execution`
+## Development Workflow
+- **Branch**: `feat_implement_interpreter_types_system` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_interpreter_types_system feat_implement_interpreter_types_system`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
 
-### Workflow Steps
-1. Create and switch to the new worktree
-2. Implement all changes in the isolated branch
-3. Run `zig build test-all` to ensure all tests pass
-4. Commit with emoji conventional commit format
-5. DO NOT merge - leave ready for review
 
 ## Context
+
+## ELI5
+
+Think of the interpreter types system like having a customizable computer that can swap out its components based on what you're doing. When you're gaming, you use a high-performance graphics card and lots of RAM. When traveling, you switch to a lightweight setup with extended battery life. When debugging code, you use components that provide detailed monitoring even if they're slower. The interpreter types system works the same way - it can configure itself with different "components" (stack types, memory managers, execution strategies) depending on whether you need maximum speed, minimal memory usage, detailed debugging, or maximum compatibility.
 
 Implement a flexible interpreter types system that allows configurable interpreter components based on runtime requirements. This includes different execution strategies, stack implementations, memory managers, and optimization levels that can be selected at compile time or runtime to optimize for specific use cases (performance, memory usage, size, compatibility).
 
@@ -1955,14 +1953,135 @@ test "integration with VM execution" {
 5. **Minimal Overhead**: <2% overhead for interpreter type management in performance-critical paths
 6. **Type Safety**: All component combinations are validated and type-safe at compile time
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Performance validation** - Must demonstrate measurable improvements for different use cases
-3. **Memory safety** - No memory leaks or corruption in component management
-4. **Type safety** - All component interfaces must be properly typed and validated
-5. **Correctness** - Interpreter type selection must not change execution semantics
-6. **Resource efficiency** - Component creation and management overhead must be minimal
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
+
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/interpreter/interpreter_types_system_test.zig`)
+```zig
+// Test basic interpreter_types_system functionality
+test "interpreter_types_system basic functionality works correctly"
+test "interpreter_types_system handles edge cases properly"
+test "interpreter_types_system validates inputs appropriately"
+test "interpreter_types_system produces correct outputs"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "interpreter_types_system integrates with EVM properly"
+test "interpreter_types_system maintains system compatibility"
+test "interpreter_types_system works with existing components"
+test "interpreter_types_system handles cross-system interactions"
+```
+
+#### 3. **Performance Tests**
+```zig
+test "interpreter_types_system meets performance requirements"
+test "interpreter_types_system optimizes resource usage"
+test "interpreter_types_system scales appropriately with load"
+test "interpreter_types_system benchmark vs baseline"
+```
+
+#### 4. **Compliance Tests**
+```zig
+test "interpreter_types_system meets specification requirements"
+test "interpreter_types_system maintains EVM compatibility"
+test "interpreter_types_system handles hardfork transitions"
+test "interpreter_types_system cross-client behavior consistency"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "interpreter_types_system handles errors gracefully"
+test "interpreter_types_system proper error propagation"
+test "interpreter_types_system recovery from failure states"
+test "interpreter_types_system validates error conditions"
+```
+
+#### 6. **Security Tests** (where applicable)
+```zig
+test "interpreter_types_system prevents security vulnerabilities"
+test "interpreter_types_system handles malicious inputs safely"
+test "interpreter_types_system maintains isolation boundaries"
+test "interpreter_types_system validates security properties"
+```
+
+### Test Development Priority
+1. **Core functionality** - Basic feature operation
+2. **Specification compliance** - Meet requirements
+3. **Integration** - System-level correctness
+4. **Performance** - Efficiency targets
+5. **Error handling** - Robust failures
+6. **Security** - Vulnerability prevention
+
+### Test Data Sources
+- **Specification documents**: Official requirements and test vectors
+- **Reference implementations**: Cross-client compatibility
+- **Performance baselines**: Optimization targets
+- **Real-world data**: Production scenarios
+- **Synthetic cases**: Edge conditions and stress testing
+
+### Continuous Testing
+- Run `zig build test-all` after every change
+- Maintain 100% test coverage for public APIs
+- Validate performance regression prevention
+- Test both debug and release builds
+- Verify cross-platform behavior
+
+### Test-First Examples
+
+**Before implementation:**
+```zig
+test "interpreter_types_system basic operation" {
+    // This test MUST fail initially
+    const input = test_data.validInput();
+    const expected = test_data.expectedOutput();
+    
+    const result = interpreter_types_system.process(input);
+    try testing.expectEqual(expected, result);
+}
+```
+
+**Then implement:**
+```zig
+pub const interpreter_types_system = struct {
+    pub fn process(input: InputType) !OutputType {
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Requirements
+- **Never commit without passing tests**
+- **Test all configuration paths**
+- **Verify specification compliance**
+- **Validate performance implications**
+- **Ensure cross-platform compatibility**
 
 ## References
 

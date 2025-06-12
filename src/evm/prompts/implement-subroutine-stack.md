@@ -1,23 +1,21 @@
 # Implement Subroutine Stack
 
-## Git Workflow Instructions
+You are implementing Subroutine Stack for the Tevm EVM written in Zig. Your goal is to implement subroutine stack management for EIP-2315 following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
-1. **Create branch**: `feat_implement_subroutine_stack` (snake_case, no emoji)
-2. **Create worktree**: `git worktree add g/feat_implement_subroutine_stack feat_implement_subroutine_stack`
-3. **Work in isolation**: `cd g/feat_implement_subroutine_stack`
-4. **Commit message**: `🔧 feat: implement EOF subroutine stack for advanced contract execution with call/return mechanics`
+## Development Workflow
+- **Branch**: `feat_implement_subroutine_stack` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_subroutine_stack feat_implement_subroutine_stack`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
 
-### Workflow Steps
-1. Create and switch to the new worktree
-2. Implement all changes in the isolated branch
-3. Run `zig build test-all` to ensure all tests pass
-4. Commit with emoji conventional commit format
-5. DO NOT merge - leave ready for review
 
 ## Context
 
 Implement a comprehensive subroutine stack system for EOF (Ethereum Object Format) contracts that supports subroutine calls, returns, and advanced control flow. This enables more efficient contract execution patterns, function-like abstractions, and better code organization within smart contracts while maintaining EVM compatibility and security.
+
+## ELI5
+
+A subroutine stack is like an organized filing system for function calls in smart contracts. Think of it as a stack of sticky notes where each note represents a function call - when you call a function, you put a new note on top with the return address, and when the function finishes, you peel off the top note to know where to go back. This system helps organize complex contract execution by keeping track of nested function calls and ensuring everything returns to the right place safely.
 
 ## Subroutine Stack Specifications
 
@@ -1334,14 +1332,135 @@ test "integration with VM execution" {
 5. **Efficiency**: Minimal overhead when subroutines are not used
 6. **Robust Error Handling**: Proper validation and error recovery
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Security validation** - Return stack protection must be robust
-3. **Performance validation** - Optimizations must provide measurable benefits
-4. **Memory safety** - No leaks or corruption in call stack management
-5. **Correctness** - EOF subroutine semantics must be precisely implemented
-6. **Backward compatibility** - Standard EVM execution must remain unchanged
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
+
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/subroutine/subroutine_stack_test.zig`)
+```zig
+// Test basic subroutine_stack functionality
+test "subroutine_stack basic functionality works correctly"
+test "subroutine_stack handles edge cases properly"
+test "subroutine_stack validates inputs appropriately"
+test "subroutine_stack produces correct outputs"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "subroutine_stack integrates with EVM properly"
+test "subroutine_stack maintains system compatibility"
+test "subroutine_stack works with existing components"
+test "subroutine_stack handles cross-system interactions"
+```
+
+#### 3. **Performance Tests**
+```zig
+test "subroutine_stack meets performance requirements"
+test "subroutine_stack optimizes resource usage"
+test "subroutine_stack scales appropriately with load"
+test "subroutine_stack benchmark vs baseline"
+```
+
+#### 4. **Compliance Tests**
+```zig
+test "subroutine_stack meets specification requirements"
+test "subroutine_stack maintains EVM compatibility"
+test "subroutine_stack handles hardfork transitions"
+test "subroutine_stack cross-client behavior consistency"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "subroutine_stack handles errors gracefully"
+test "subroutine_stack proper error propagation"
+test "subroutine_stack recovery from failure states"
+test "subroutine_stack validates error conditions"
+```
+
+#### 6. **Security Tests** (where applicable)
+```zig
+test "subroutine_stack prevents security vulnerabilities"
+test "subroutine_stack handles malicious inputs safely"
+test "subroutine_stack maintains isolation boundaries"
+test "subroutine_stack validates security properties"
+```
+
+### Test Development Priority
+1. **Core functionality** - Basic feature operation
+2. **Specification compliance** - Meet requirements
+3. **Integration** - System-level correctness
+4. **Performance** - Efficiency targets
+5. **Error handling** - Robust failures
+6. **Security** - Vulnerability prevention
+
+### Test Data Sources
+- **Specification documents**: Official requirements and test vectors
+- **Reference implementations**: Cross-client compatibility
+- **Performance baselines**: Optimization targets
+- **Real-world data**: Production scenarios
+- **Synthetic cases**: Edge conditions and stress testing
+
+### Continuous Testing
+- Run `zig build test-all` after every change
+- Maintain 100% test coverage for public APIs
+- Validate performance regression prevention
+- Test both debug and release builds
+- Verify cross-platform behavior
+
+### Test-First Examples
+
+**Before implementation:**
+```zig
+test "subroutine_stack basic operation" {
+    // This test MUST fail initially
+    const input = test_data.validInput();
+    const expected = test_data.expectedOutput();
+    
+    const result = subroutine_stack.process(input);
+    try testing.expectEqual(expected, result);
+}
+```
+
+**Then implement:**
+```zig
+pub const subroutine_stack = struct {
+    pub fn process(input: InputType) !OutputType {
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Requirements
+- **Never commit without passing tests**
+- **Test all configuration paths**
+- **Verify specification compliance**
+- **Validate performance implications**
+- **Ensure cross-platform compatibility**
 
 ## References
 

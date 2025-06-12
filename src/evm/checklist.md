@@ -179,7 +179,7 @@ This checklist audits our Zig EVM implementation against the official Ethereum e
 ## Precompiled Contracts Audit
 
 ### Standard Precompiles (Berlin+ Implementation)
-- 🔴 **Address 0x01: ECRECOVER** (`src/evm/precompiles/`)
+- 🔴 **Address 0x01: ECRECOVER** (`src/evm/precompiles/`) - [Implementation Guide](./prompts/implement-ecrecover-precompile.md) | [Enhanced](./prompts/implement-ecrecover-precompile-enhanced.md)
   - **Spec**: `execution-specs/src/ethereum/berlin/vm/precompiled_contracts/ecrecover.py`
   - **Status**: Not implemented - needs signature recovery implementation
 
@@ -195,7 +195,7 @@ This checklist audits our Zig EVM implementation against the official Ethereum e
   - **Spec**: `execution-specs/src/ethereum/berlin/vm/precompiled_contracts/identity.py`
   - **Status**: Basic implementation exists - needs verification of data copying and gas calculations
 
-- 🔴 **Address 0x05: MODEXP** (`src/evm/precompiles/`)
+- 🔴 **Address 0x05: MODEXP** (`src/evm/precompiles/`) - [Implementation Guide](./prompts/implement-modexp-precompile.md) | [Enhanced](./prompts/implement-modexp-precompile-enhanced.md)
   - **Spec**: `execution-specs/src/ethereum/berlin/vm/precompiled_contracts/modexp.py`
   - **Status**: Not implemented - needs modular exponentiation implementation
 
@@ -208,12 +208,12 @@ This checklist audits our Zig EVM implementation against the official Ethereum e
   - **Status**: Not implemented - needs Blake2F compression function
 
 ### Cancun+ Precompiles
-- 🔴 **Address 0x0A: KZG Point Evaluation** (`src/evm/precompiles/`)
+- 🔴 **Address 0x0A: KZG Point Evaluation** (`src/evm/precompiles/`) - [Implementation Guide](./prompts/implement-kzg-point-evaluation-precompile.md)
   - **Spec**: `execution-specs/src/ethereum/cancun/vm/precompiled_contracts/point_evaluation.py`
   - **Status**: Not implemented - needs KZG commitment verification for EIP-4844
 
 ### Prague+ Precompiles
-- 🔴 **BLS12-381 Operations** (`src/evm/precompiles/`)
+- 🔴 **BLS12-381 Operations** (`src/evm/precompiles/`) - [G1MSM](./prompts/implement-bls12-381-g1msm-precompile.md) | [G2ADD](./prompts/implement-bls12-381-g2add-precompile.md) | [G2MSM](./prompts/implement-bls12-381-g2msm-precompile.md) | [PAIRING](./prompts/implement-bls12-381-pairing-precompile.md) | [MAP_FP_TO_G1](./prompts/implement-bls12-381-map-fp-to-g1-precompile.md) | [MAP_FP2_TO_G2](./prompts/implement-bls12-381-map-fp2-to-g2-precompile.md)
   - **Spec**: `execution-specs/src/ethereum/prague/vm/precompiled_contracts/bls12_381/`
   - **Status**: Not implemented - BLS12_381_G1ADD, BLS12_381_G2ADD, BLS12_381_PAIRING
 
@@ -343,10 +343,10 @@ This checklist audits our Zig EVM implementation against the official Ethereum e
 1. **Precompiled Contracts** (16/17 missing - only IDENTITY partially implemented)
    - ECRECOVER, SHA256, RIPEMD160, MODEXP, ECADD, ECMUL, ECPAIRING, BLAKE2F
    - KZG Point Evaluation (EIP-4844), BLS12-381 operations
-2. **WASM Build Integration** (currently broken)
-3. **Journaling/State Reverting** (critical for proper execution)
-4. **Complete CALL Operations** (basic implementation exists, needs gas management)
-5. **Database Interface** (pluggable state management needed)
+2. **WASM Build Integration** (currently broken) - [Implementation Guide](./prompts/implement-wasm-build-fix.md)
+3. **Journaling/State Reverting** (critical for proper execution) - [Implementation Guide](./prompts/implement-journaling-state-reverting.md)
+4. **Complete CALL Operations** (basic implementation exists, needs gas management) - [Call Gas Management](./prompts/implement-call-gas-management.md) | [Enhanced](./prompts/implement-call-gas-management-enhanced.md)
+5. **Database Interface** (pluggable state management needed) - [Database Interface](./prompts/implement-database-interface.md) | [Database Traits](./prompts/implement-database-interface-traits.md)
 
 ### ❓ **REQUIRES AUDIT - Next Phase**
 - **Environmental Operations** (ADDRESS, BALANCE, CALLER, etc.)

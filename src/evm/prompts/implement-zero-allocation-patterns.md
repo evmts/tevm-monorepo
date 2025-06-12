@@ -1,23 +1,21 @@
 # Implement Zero-Allocation Patterns
 
-## Git Workflow Instructions
+You are implementing Zero-Allocation Patterns for the Tevm EVM written in Zig. Your goal is to implement zero-allocation patterns for performance optimization following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
-1. **Create branch**: `feat_implement_zero_allocation_patterns` (snake_case, no emoji)
-2. **Create worktree**: `git worktree add g/feat_implement_zero_allocation_patterns feat_implement_zero_allocation_patterns`
-3. **Work in isolation**: `cd g/feat_implement_zero_allocation_patterns`
-4. **Commit message**: `⚡ perf: implement zero-allocation patterns for memory-efficient EVM execution`
+## Development Workflow
+- **Branch**: `feat_implement_zero_allocation_patterns` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_zero_allocation_patterns feat_implement_zero_allocation_patterns`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
 
-### Workflow Steps
-1. Create and switch to the new worktree
-2. Implement all changes in the isolated branch
-3. Run `zig build test-all` to ensure all tests pass
-4. Commit with emoji conventional commit format
-5. DO NOT merge - leave ready for review
 
 ## Context
 
 Implement comprehensive zero-allocation patterns to minimize dynamic memory allocation during EVM execution, reducing garbage collection pressure, improving performance predictability, and enabling real-time execution capabilities. This includes object pooling, stack-based allocation, compile-time memory layouts, and allocation-free data structures.
+
+## ELI5
+
+Think of zero-allocation like having a well-organized tool shed. Instead of going to the store every time you need a hammer (allocating new memory), you keep a set of hammers ready to use and put them back when done. This avoids the time spent shopping and the mess of leaving tools everywhere. In programming, we pre-allocate memory and reuse it instead of constantly asking for new memory, which makes the program run faster and more predictably.
 
 ## Zero-Allocation Pattern Specifications
 
@@ -1553,14 +1551,135 @@ test "allocation tracking" {
 5. **Resource Efficiency**: Optimal reuse of pre-allocated resources
 6. **Measurement and Monitoring**: Comprehensive tracking of allocation patterns
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Memory safety** - No use-after-free or corruption in pooled objects
-3. **Resource management** - Proper cleanup and reset of reused objects
-4. **Performance validation** - Must demonstrate measurable allocation reduction
-5. **Bounded memory** - All pools and stacks must have hard limits
-6. **Fallback safety** - Graceful degradation when pools are exhausted
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
+
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/memory/zero_allocation_patterns_test.zig`)
+```zig
+// Test basic zero_allocation_patterns functionality
+test "zero_allocation_patterns basic functionality works correctly"
+test "zero_allocation_patterns handles edge cases properly"
+test "zero_allocation_patterns validates inputs appropriately"
+test "zero_allocation_patterns produces correct outputs"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "zero_allocation_patterns integrates with EVM properly"
+test "zero_allocation_patterns maintains system compatibility"
+test "zero_allocation_patterns works with existing components"
+test "zero_allocation_patterns handles cross-system interactions"
+```
+
+#### 3. **Performance Tests**
+```zig
+test "zero_allocation_patterns meets performance requirements"
+test "zero_allocation_patterns optimizes resource usage"
+test "zero_allocation_patterns scales appropriately with load"
+test "zero_allocation_patterns benchmark vs baseline"
+```
+
+#### 4. **Compliance Tests**
+```zig
+test "zero_allocation_patterns meets specification requirements"
+test "zero_allocation_patterns maintains EVM compatibility"
+test "zero_allocation_patterns handles hardfork transitions"
+test "zero_allocation_patterns cross-client behavior consistency"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "zero_allocation_patterns handles errors gracefully"
+test "zero_allocation_patterns proper error propagation"
+test "zero_allocation_patterns recovery from failure states"
+test "zero_allocation_patterns validates error conditions"
+```
+
+#### 6. **Security Tests** (where applicable)
+```zig
+test "zero_allocation_patterns prevents security vulnerabilities"
+test "zero_allocation_patterns handles malicious inputs safely"
+test "zero_allocation_patterns maintains isolation boundaries"
+test "zero_allocation_patterns validates security properties"
+```
+
+### Test Development Priority
+1. **Core functionality** - Basic feature operation
+2. **Specification compliance** - Meet requirements
+3. **Integration** - System-level correctness
+4. **Performance** - Efficiency targets
+5. **Error handling** - Robust failures
+6. **Security** - Vulnerability prevention
+
+### Test Data Sources
+- **Specification documents**: Official requirements and test vectors
+- **Reference implementations**: Cross-client compatibility
+- **Performance baselines**: Optimization targets
+- **Real-world data**: Production scenarios
+- **Synthetic cases**: Edge conditions and stress testing
+
+### Continuous Testing
+- Run `zig build test-all` after every change
+- Maintain 100% test coverage for public APIs
+- Validate performance regression prevention
+- Test both debug and release builds
+- Verify cross-platform behavior
+
+### Test-First Examples
+
+**Before implementation:**
+```zig
+test "zero_allocation_patterns basic operation" {
+    // This test MUST fail initially
+    const input = test_data.validInput();
+    const expected = test_data.expectedOutput();
+    
+    const result = zero_allocation_patterns.process(input);
+    try testing.expectEqual(expected, result);
+}
+```
+
+**Then implement:**
+```zig
+pub const zero_allocation_patterns = struct {
+    pub fn process(input: InputType) !OutputType {
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Requirements
+- **Never commit without passing tests**
+- **Test all configuration paths**
+- **Verify specification compliance**
+- **Validate performance implications**
+- **Ensure cross-platform compatibility**
 
 ## References
 
