@@ -1,5 +1,21 @@
 # Implement Dynamic Gas Edge Cases
 
+<<<<<<< HEAD
+## Git Workflow Instructions
+
+### Branch Setup
+1. **Create branch**: `feat_implement_dynamic_gas_edge_cases` (snake_case, no emoji)
+2. **Create worktree**: `git worktree add g/feat_implement_dynamic_gas_edge_cases feat_implement_dynamic_gas_edge_cases`
+3. **Work in isolation**: `cd g/feat_implement_dynamic_gas_edge_cases`
+4. **Commit message**: `🐛 fix: implement dynamic gas edge cases for complex memory growth scenarios`
+
+### Workflow Steps
+1. Create and switch to the new worktree
+2. Implement all changes in the isolated branch
+3. Run `zig build test-all` to ensure all tests pass
+4. Commit with emoji conventional commit format
+5. DO NOT merge - leave ready for review
+=======
 You are implementing Dynamic Gas Edge Cases for the Tevm EVM written in Zig. Your goal is to implement dynamic gas pricing for edge case scenarios following Ethereum specifications and maintaining compatibility with existing implementations.
 
 ## Development Workflow
@@ -8,11 +24,14 @@ You are implementing Dynamic Gas Edge Cases for the Tevm EVM written in Zig. You
 - **Testing**: Run `zig build test-all` before committing
 - **Commit**: Use emoji conventional commits with XML summary format
 
+>>>>>>> origin/main
 
 ## Context
 
 Implement comprehensive handling of dynamic gas edge cases, particularly complex memory growth scenarios that can occur with irregular memory access patterns, large copy operations, and edge cases in gas calculation that can lead to integer overflow, underflow, or unexpected behavior.
 
+<<<<<<< HEAD
+=======
 ## ELI5
 
 Think of dynamic gas edge cases like the weird scenarios that can happen when you're driving and suddenly encounter something unexpected - like a road that suddenly turns into a toll road with astronomical fees, or a bridge that charges based on the weight of your car in a way that could bankrupt you.
@@ -39,6 +58,7 @@ The enhanced version includes smart handling for:
 
 This is crucial because improper handling could allow attacks where someone makes a transaction that appears cheap but actually consumes enormous amounts of gas, potentially disrupting the network.
 
+>>>>>>> origin/main
 ## Dynamic Gas Edge Cases
 
 ### Memory Growth Edge Cases
@@ -724,6 +744,16 @@ pub const EdgeCaseCache = struct {
 5. **Error Handling**: Graceful failure modes for invalid operations
 6. **Test Coverage**: Comprehensive coverage of all identified edge cases
 
+<<<<<<< HEAD
+## Critical Requirements
+
+1. **NEVER commit until `zig build test-all` passes**
+2. **Test with extreme values** - Use maximum and minimum parameter values
+3. **Verify overflow protection** - Ensure no integer overflow in any calculation
+4. **Match reference behavior** - Test against Go-Ethereum for edge cases
+5. **Performance validation** - Ensure edge case handling doesn't slow normal operations
+6. **Comprehensive error handling** - Every edge case should have defined behavior
+=======
 ## Critical Constraints
 ❌ NEVER commit until all tests pass with `zig build test-all`
 ❌ DO NOT merge without review
@@ -855,12 +885,16 @@ pub const dynamic_gas_edge_cases = struct {
 - **Verify EVM specification compliance** - Critical for protocol edge case correctness
 - **Test edge case performance implications** - Especially for detection overhead
 - **Validate edge case security properties** - Prevent exploitation via edge conditions
+>>>>>>> origin/main
 
 ## References
 
 - [Ethereum Yellow Paper](https://ethereum.github.io/yellowpaper/paper.pdf) - Formal specification
 - [Go-Ethereum Edge Case Handling](https://github.com/ethereum/go-ethereum/blob/master/core/vm/)
 - [Integer Overflow Security](https://github.com/ethereum/solidity/security/advisories) - Common overflow patterns
+<<<<<<< HEAD
+- [EVM Test Vectors](https://github.com/ethereum/tests) - Edge case test cases
+=======
 - [EVM Test Vectors](https://github.com/ethereum/tests) - Edge case test cases
 
 ## EVMONE Context
@@ -5754,3 +5788,4 @@ The provided prompt is very well-structured. Based on the go-ethereum reference 
     *   Go-ethereum's primary limit is the `uint64` overflow in gas or memory size calculations. An access to `offset=MAX_U64` is valid if `size=0`, but will fail if `size>0` because `offset+size` overflows. This implicit limit is more spec-compliant than a hard-coded constant.
     *   **Recommendation**: Keep the constant for practical DoS protection, but be aware that the fundamental limit in the EVM is overflow on `uint64`. The `calcMemSize` snippet from `instructions.go` is the best reference for this.
 
+>>>>>>> origin/main

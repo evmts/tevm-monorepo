@@ -2,6 +2,21 @@
 
 ## Git Workflow Instructions
 
+<<<<<<< HEAD
+### Branch Setup
+1. **Create branch**: `feat_fix_wasm_build` (snake_case, no emoji)
+2. **Create worktree**: `git worktree add g/feat_fix_wasm_build feat_fix_wasm_build`
+3. **Work in isolation**: `cd g/feat_fix_wasm_build`
+4. **Commit message**: `🔧 fix: restore WASM build and TypeScript integration`
+
+### Workflow Steps
+1. Create and switch to the new worktree
+2. Implement all changes in the isolated branch
+3. Run `zig build test-all` to ensure all tests pass
+4. Test WASM build with `zig build -Dtarget=wasm32-wasi`
+5. Commit with emoji conventional commit format
+6. DO NOT merge - leave ready for review
+=======
 #
 <<<<<<< HEAD
 =======
@@ -30,12 +45,15 @@
 
 **Priority**: Should be consolidated with the more detailed fix-wasm-build-integration.md prompt
 </review>
+>>>>>>> origin/main
 
 >>>>>>> origin/main
 ## Context
 
 The WASM build is currently broken and needs to be fixed as well as integrated into the overall Tevm TypeScript codebase. This is a critical blocker for using the Zig EVM implementation in JavaScript environments.
 
+<<<<<<< HEAD
+=======
 ## File Structure
 
 **Primary Files to Modify:**
@@ -61,6 +79,7 @@ The WASM build is currently broken and needs to be fixed as well as integrated i
 
 Think of WASM like a universal translator that lets super-fast compiled code run in web browsers. Right now our high-performance EVM engine is written in Zig but the build system that packages it for browsers is broken - like having a Ferrari with a broken transmission. We need to fix the build pipeline so JavaScript can actually use our lightning-fast EVM, turning a 100x performance improvement from impossible to reality.
 
+>>>>>>> origin/main
 ## Current Issues
 
 ### WASM Build Problems
@@ -264,6 +283,8 @@ pub fn optimize_for_wasm() void {
 5. **Performance**: Acceptable execution speed compared to native
 6. **Browser Compatibility**: Works in all major browsers
 
+<<<<<<< HEAD
+=======
 
 ## Critical Constraints
 ❌ NEVER commit until all tests pass with `zig build test-all`
@@ -272,6 +293,7 @@ pub fn optimize_for_wasm() void {
 ✅ MUST validate against Ethereum specifications exactly
 ✅ MUST maintain compatibility with existing implementations
 ✅ MUST handle all edge cases and error conditions
+>>>>>>> origin/main
 ## Critical Requirements
 
 1. **NEVER commit until `zig build test-all` passes**
@@ -295,6 +317,8 @@ pub fn optimize_for_wasm() void {
 3. **Debug information**: Debugging WASM modules
 4. **Development workflow**: Hot reloading and development tools
 
+<<<<<<< HEAD
+=======
 ## Test-Driven Development (TDD) Strategy
 
 ### Testing Philosophy
@@ -409,6 +433,7 @@ pub const wasm_build_fix = struct {
 - **Validate performance implications**
 - **Ensure cross-platform compatibility**
 
+>>>>>>> origin/main
 ## References
 
 - [WebAssembly Specification](https://webassembly.github.io/spec/)

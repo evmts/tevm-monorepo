@@ -1,5 +1,21 @@
 # Implement Cache Optimization
 
+<<<<<<< HEAD
+## Git Workflow Instructions
+
+### Branch Setup
+1. **Create branch**: `feat_implement_cache_optimization` (snake_case, no emoji)
+2. **Create worktree**: `git worktree add g/feat_implement_cache_optimization feat_implement_cache_optimization`
+3. **Work in isolation**: `cd g/feat_implement_cache_optimization`
+4. **Commit message**: `⚡ perf: implement intelligent cache optimization for improved memory locality and performance`
+
+### Workflow Steps
+1. Create and switch to the new worktree
+2. Implement all changes in the isolated branch
+3. Run `zig build test-all` to ensure all tests pass
+4. Commit with emoji conventional commit format
+5. DO NOT merge - leave ready for review
+=======
 ## What
 <eli5>
 Think of your computer's cache like your desk workspace. Items on your desk (cache) can be grabbed instantly, but items in filing cabinets across the room (main memory) take time to fetch. Cache optimization is like organizing your desk so the things you need most often are within arm's reach. When data is organized well and we can predict what you'll need next, we can pre-fetch it to your desk, making everything much faster.
@@ -24,15 +40,19 @@ Cache optimization can provide 15-30% improvement in cache hit rates and overall
 - **Testing**: Run `zig build test-all` before committing
 - **Commit**: Use emoji conventional commits with XML summary format
 
+>>>>>>> origin/main
 
 ## Context
 
 Implement comprehensive cache optimization strategies to maximize memory locality, minimize cache misses, and improve overall EVM execution performance. This includes data structure optimization, access pattern analysis, cache-friendly memory layouts, and intelligent prefetching mechanisms.
 
+<<<<<<< HEAD
+=======
 ## ELI5
 
 Think of your computer's cache like your desk workspace. Items on your desk (cache) can be grabbed instantly, but items in filing cabinets across the room (main memory) take time to fetch. Cache optimization is like organizing your desk so the things you need most often are within arm's reach. When data is organized well and we can predict what you'll need next, we can pre-fetch it to your desk, making everything much faster.
 
+>>>>>>> origin/main
 ## Cache Optimization Specifications
 
 ### Core Cache Framework
@@ -1918,6 +1938,16 @@ test "performance benchmarks" {
 5. **Minimal Overhead**: <5% performance overhead when optimization is enabled
 6. **Comprehensive Monitoring**: Detailed cache performance metrics and analysis
 
+<<<<<<< HEAD
+## Critical Requirements
+
+1. **NEVER commit until `zig build test-all` passes**
+2. **Performance validation** - Must demonstrate measurable cache improvements
+3. **Memory safety** - No corruption or leaks in optimized data structures
+4. **Platform compatibility** - Work across different CPU architectures
+5. **Correctness** - Optimizations must not change program behavior
+6. **Resource efficiency** - Optimization overhead must be justified by gains
+=======
 ## Critical Constraints
 ❌ NEVER commit until all tests pass with `zig build test-all`
 ❌ DO NOT merge without review
@@ -2047,6 +2077,7 @@ pub const cache_optimization = struct {
 - **Verify specification compliance**
 - **Validate performance implications**
 - **Ensure cross-platform compatibility**
+>>>>>>> origin/main
 
 ## References
 
@@ -2054,6 +2085,9 @@ pub const cache_optimization = struct {
 - [CPU Cache](https://en.wikipedia.org/wiki/CPU_cache) - Cache hierarchy and behavior
 - [Memory Hierarchy](https://en.wikipedia.org/wiki/Memory_hierarchy) - Memory system design principles
 - [Prefetching](https://en.wikipedia.org/wiki/Cache_prefetching) - Hardware and software prefetching techniques
+<<<<<<< HEAD
+- [Data Structure Alignment](https://en.wikipedia.org/wiki/Data_structure_alignment) - Memory layout optimization
+=======
 - [Data Structure Alignment](https://en.wikipedia.org/wiki/Data_structure_alignment) - Memory layout optimization
 
 ## EVMONE Context
@@ -7939,3 +7973,4 @@ func (cs *canonicalStore[T]) get(backend ethdb.KeyValueReader, period uint64) (T
 </file>
 </go-ethereum>
 
+>>>>>>> origin/main

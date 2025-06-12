@@ -1,5 +1,21 @@
 # Implement State Caching
 
+<<<<<<< HEAD
+## Git Workflow Instructions
+
+### Branch Setup
+1. **Create branch**: `feat_implement_state_caching` (snake_case, no emoji)
+2. **Create worktree**: `git worktree add g/feat_implement_state_caching feat_implement_state_caching`
+3. **Work in isolation**: `cd g/feat_implement_state_caching`
+4. **Commit message**: `✨ feat: implement intelligent state caching layer for frequently accessed state`
+
+### Workflow Steps
+1. Create and switch to the new worktree
+2. Implement all changes in the isolated branch
+3. Run `zig build test-all` to ensure all tests pass
+4. Commit with emoji conventional commit format
+5. DO NOT merge - leave ready for review
+=======
 You are implementing State Caching for the Tevm EVM written in Zig. Your goal is to implement intelligent state caching to optimize performance following Ethereum specifications and maintaining compatibility with existing implementations.
 
 ## Development Workflow
@@ -8,11 +24,14 @@ You are implementing State Caching for the Tevm EVM written in Zig. Your goal is
 - **Testing**: Run `zig build test-all` before committing
 - **Commit**: Use emoji conventional commits with XML summary format
 
+>>>>>>> origin/main
 
 ## Context
 
 Implement an intelligent state caching layer that provides fast access to frequently accessed state data while maintaining consistency and memory efficiency. This includes multi-level caching, cache invalidation strategies, LRU eviction policies, and integration with both synchronous and asynchronous state backends.
 
+<<<<<<< HEAD
+=======
 ## ELI5
 
 Imagine you're a librarian who gets asked for the same popular books over and over. Instead of walking to the back storage room every time, you keep the most requested books on a shelf right next to your desk for quick access. State caching works similarly - it keeps frequently accessed blockchain data (like account balances, smart contract storage, and code) in fast memory instead of always fetching it from slower storage. The enhanced version is like having multiple shelves: a tiny "express shelf" for the most popular items, a medium shelf for somewhat popular items, and smart rules that automatically move books between shelves based on how often they're requested. It also has a "librarian assistant" that can predict what books might be needed next and fetch them in advance, plus safety rules to ensure you never give someone an outdated version of a book when the original has been updated.
@@ -277,6 +296,7 @@ func (bp *bytesPool) Put(b []byte) {
 }
 ```
 
+>>>>>>> origin/main
 ## State Caching Architecture Specifications
 
 ### Core Caching Framework
@@ -1754,6 +1774,16 @@ test "integration with state operations" {
 5. **Scalability**: Handles large state sets without memory exhaustion
 6. **Integration**: Seamless integration with existing state management
 
+<<<<<<< HEAD
+## Critical Requirements
+
+1. **NEVER commit until `zig build test-all` passes**
+2. **Memory safety** - No memory leaks or buffer overflows
+3. **Data consistency** - Cache must never serve stale data in strong consistency mode
+4. **Performance** - Cache should improve, not degrade performance
+5. **Thread safety** - Concurrent access must be safe and efficient
+6. **Backward compatibility** - Existing state operations must continue working
+=======
 ## Critical Constraints
 ❌ NEVER commit until all tests pass with `zig build test-all`
 ❌ DO NOT merge without review
@@ -1892,6 +1922,7 @@ pub const state_caching = struct {
 - **Verify EVM specification compliance** - Critical for protocol state correctness
 - **Test cache performance implications** - Especially for state access optimization
 - **Validate cache security properties** - Prevent cache-based side-channel attacks
+>>>>>>> origin/main
 
 ## References
 
@@ -1899,6 +1930,9 @@ pub const state_caching = struct {
 - [Multi-Level Caching](https://en.wikipedia.org/wiki/Cache_hierarchy) - Cache hierarchy design
 - [Cache Coherence](https://en.wikipedia.org/wiki/Cache_coherence) - Consistency in multi-level caches
 - [Write-Through vs Write-Back](https://en.wikipedia.org/wiki/Cache_(computing)#Writing_policies) - Cache writing strategies
+<<<<<<< HEAD
+- [Memory Management](https://en.wikipedia.org/wiki/Memory_management) - Efficient memory utilization patterns
+=======
 - [Memory Management](https://en.wikipedia.org/wiki/Memory_management) - Efficient memory utilization patterns
 
 ## EVMONE Context
@@ -6409,3 +6443,4 @@ func (p *triePrefetcher) prefetch(owner common.Hash, root common.Hash, addr comm
 </file>
 </go-ethereum>
 
+>>>>>>> origin/main

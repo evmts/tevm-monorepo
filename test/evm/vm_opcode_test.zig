@@ -30,7 +30,7 @@ fn createTestVm(allocator: std.mem.Allocator) !struct { vm: *Vm, memory_db: *Mem
     const memory_db = try allocator.create(MemoryDatabase);
     memory_db.* = MemoryDatabase.init(allocator);
     const db_interface = memory_db.to_database_interface();
-    vm.* = try Vm.init(allocator, db_interface, null, null);
+    vm.* = try Vm.init(allocator, null, null);
 
     // Set up basic context
     vm.context.chain_id = 1;

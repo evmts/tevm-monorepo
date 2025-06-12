@@ -1,5 +1,21 @@
 # Implement SIMD Optimizations
 
+<<<<<<< HEAD
+## Git Workflow Instructions
+
+### Branch Setup
+1. **Create branch**: `feat_implement_simd_optimizations` (snake_case, no emoji)
+2. **Create worktree**: `git worktree add g/feat_implement_simd_optimizations feat_implement_simd_optimizations`
+3. **Work in isolation**: `cd g/feat_implement_simd_optimizations`
+4. **Commit message**: `⚡ perf: implement SIMD optimizations for vectorized 256-bit arithmetic operations`
+
+### Workflow Steps
+1. Create and switch to the new worktree
+2. Implement all changes in the isolated branch
+3. Run `zig build test-all` to ensure all tests pass
+4. Commit with emoji conventional commit format
+5. DO NOT merge - leave ready for review
+=======
 You are implementing SIMD Optimizations for the Tevm EVM written in Zig. Your goal is to implement SIMD optimizations for cryptographic operations following Ethereum specifications and maintaining compatibility with existing implementations.
 
 ## Development Workflow
@@ -8,11 +24,14 @@ You are implementing SIMD Optimizations for the Tevm EVM written in Zig. Your go
 - **Testing**: Run `zig build test-all` before committing
 - **Commit**: Use emoji conventional commits with XML summary format
 
+>>>>>>> origin/main
 
 ## Context
 
 Implement SIMD (Single Instruction, Multiple Data) optimizations for vectorized 256-bit arithmetic operations to significantly improve EVM execution performance. This includes vectorized implementations of arithmetic operations, bitwise operations, and cryptographic functions using platform-specific SIMD instruction sets.
 
+<<<<<<< HEAD
+=======
 ## ELI5
 
 Imagine you're a teacher grading multiple-choice tests. Normally, you'd grade each test one by one - look at question 1 on test A, grade it, then question 1 on test B, and so on. SIMD is like having a special technique where you can grade the same question across multiple tests simultaneously.
@@ -33,6 +52,7 @@ This enhanced version includes:
 
 Why does this matter? Smart contracts often need to do many similar calculations (like processing multiple transactions or performing cryptographic operations). SIMD can make these operations 2-8 times faster, significantly reducing gas costs and improving blockchain performance.
 
+>>>>>>> origin/main
 ## SIMD Optimization Specifications
 
 ### Core SIMD Framework
@@ -808,6 +828,16 @@ test "integration with VM execution" {
 5. **Fallback Reliability**: Graceful degradation when SIMD unavailable
 6. **Memory Efficiency**: No significant increase in memory usage
 
+<<<<<<< HEAD
+## Critical Requirements
+
+1. **NEVER commit until `zig build test-all` passes**
+2. **Correctness first** - SIMD optimizations must not change computation results
+3. **Platform safety** - Must handle unsupported instruction sets gracefully
+4. **Performance validation** - Must demonstrate measurable improvements
+5. **Memory alignment** - Proper handling of unaligned memory access
+6. **Compiler compatibility** - Must work across different Zig compiler versions
+=======
 ## Critical Constraints
 ❌ NEVER commit until all tests pass with `zig build test-all`
 ❌ DO NOT merge without review
@@ -937,6 +967,7 @@ pub const simd_optimizations = struct {
 - **Verify specification compliance**
 - **Validate performance implications**
 - **Ensure cross-platform compatibility**
+>>>>>>> origin/main
 
 ## References
 
@@ -998,6 +1029,9 @@ var (
 	useAVX  bool
 	useSSE4 bool
 )
+<<<<<<< HEAD
+```
+=======
 ```
 
 ## EVMONE Context
@@ -4034,3 +4068,4 @@ This file demonstrates that the same pattern applies to other architectures like
 </file>
 </go-ethereum>
 
+>>>>>>> origin/main

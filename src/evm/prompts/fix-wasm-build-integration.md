@@ -1,5 +1,22 @@
 # Fix WASM Build and Integration into Tevm TypeScript
 
+<<<<<<< HEAD
+## Git Workflow Instructions
+
+### Branch Setup
+1. **Create branch**: `feat_fix_wasm_build_integration` (snake_case, no emoji)
+2. **Create worktree**: `git worktree add g/feat_fix_wasm_build_integration feat_fix_wasm_build_integration`
+3. **Work in isolation**: `cd g/feat_fix_wasm_build_integration`
+4. **Commit message**: `✨ feat: fix WASM build and integration into Tevm TypeScript`
+
+### Workflow Steps
+1. Create and switch to the new worktree
+2. Implement all changes in the isolated branch
+3. Run `zig build test-all` to ensure all tests pass
+4. Test WASM build and integration
+5. Commit with emoji conventional commit format
+6. DO NOT merge - leave ready for review
+=======
 ## What
 Fix the broken WASM build system and integrate the high-performance Zig EVM into Tevm's TypeScript codebase. The WASM build currently fails and needs complete integration with JavaScript bindings, memory management, and error handling to enable 100x performance improvements over the current Ethereumjs implementation.
 
@@ -77,16 +94,23 @@ The WASM build is critical for achieving the performance goals of Tevm - deliver
 
 The WASM build is currently broken and needs to be fixed to integrate the high-performance Zig EVM into the Tevm TypeScript library. This is a critical system feature that will enable Tevm to achieve 100x performance improvements and smaller bundle sizes compared to the current Ethereumjs implementation.
 
+<<<<<<< HEAD
+=======
 ## ELI5
 
 Imagine we built a rocket engine (our Zig EVM) but can't attach it to our spaceship (TypeScript codebase) because the connection system is broken. WASM is like the mounting system that lets our super-fast compiled code work seamlessly with JavaScript. Without fixing this integration, we're stuck using a bicycle engine when we could have rocket propulsion - we need to repair the build system so our TypeScript code can actually harness the 100x performance boost.
 
+>>>>>>> origin/main
 ## Current Status
 
 Based on the README.md, the WASM build is listed as:
 - [ ] **WASM Build** - Currently broken, needs fixing as well as integration into the overall Tevm typescript code
 
+<<<<<<< HEAD
+## Ethereum Specification
+=======
 ## Specification
+>>>>>>> origin/main
 
 The WASM build should expose all core EVM functionality through a WebAssembly interface that can be called from JavaScript/TypeScript:
 
@@ -134,6 +158,14 @@ export fn evm_set_storage(vm_handle: u32, addr_ptr: [*]const u8, key_ptr: [*]con
 export fn evm_get_storage(vm_handle: u32, addr_ptr: [*]const u8, key_ptr: [*]const u8, value_ptr: [*]u8) void;
 ```
 
+<<<<<<< HEAD
+## Integration Points
+
+### Files to Modify
+- `/build.zig` - Add WASM build target configuration
+- `/src/root_wasm.zig` - WASM-specific entry point and exports
+- `/src/wasm-loader.js` - JavaScript WASM loader
+=======
 ## File Structure
 
 **Primary Files to Modify:**
@@ -165,6 +197,7 @@ export fn evm_get_storage(vm_handle: u32, addr_ptr: [*]const u8, key_ptr: [*]con
 - `/build.zig` - Fix WASM build configuration
 - `/src/wasm-loader.js` - Update WASM loader
 - `/test/wasm/` - New WASM integration tests
+>>>>>>> origin/main
 - `/packages/*/` - Integrate WASM into TypeScript packages
 - `/src/evm/wasm_stubs.zig` - WASM-specific functionality stubs
 
@@ -194,6 +227,9 @@ File: `/build.zig`
 - Set optimization flags for bundle size
 - Add WASM-specific compilation flags
 
+<<<<<<< HEAD
+### Task 2: Create WASM Entry Point
+=======
 ### Task 2: Create WASM C API
 File: `/src/evm/wasm_api.zig`
 ```zig
@@ -222,6 +258,7 @@ export fn evm_execute(handle: *EVMHandle, bytecode_ptr: [*]const u8, bytecode_le
 ```
 
 ### Task 3: Create WASM Entry Point
+>>>>>>> origin/main
 File: `/src/root_wasm.zig`
 ```zig
 const std = @import("std");
@@ -261,6 +298,11 @@ export fn evm_execute(vm_handle: u32, bytecode_ptr: [*]const u8, bytecode_len: u
     // Store result and return handle
     return store_execution_result(result);
 }
+<<<<<<< HEAD
+```
+
+### Task 3: JavaScript WASM Loader
+=======
 
 // WASM-compatible allocator
 export fn malloc(size: u32) u32 {
@@ -290,6 +332,7 @@ export async function loadEVM(): Promise<EVMInstance> {
 ```
 
 ### Task 5: JavaScript WASM Loader Implementation
+>>>>>>> origin/main
 File: `/src/wasm-loader.js`
 ```javascript
 let wasmModule = null;
@@ -321,7 +364,11 @@ export class WasmEvm {
 }
 ```
 
+<<<<<<< HEAD
+### Task 4: TypeScript Package Integration
+=======
 ### Task 6: TypeScript Package Integration
+>>>>>>> origin/main
 File: `/packages/evm-wasm/package.json`
 ```json
 {
@@ -340,7 +387,11 @@ export { WasmEvm, type EvmInstance, type ExecutionResult } from './WasmEvm.js';
 export { loadWasm } from './loader.js';
 ```
 
+<<<<<<< HEAD
+### Task 5: Memory Management
+=======
 ### Task 7: Memory Management
+>>>>>>> origin/main
 ```zig
 // WASM-specific memory management
 export fn wasm_allocate(size: u32) [*]u8 {
@@ -354,7 +405,11 @@ export fn wasm_deallocate(ptr: [*]u8, size: u32) void {
 }
 ```
 
+<<<<<<< HEAD
+### Task 6: Error Handling
+=======
 ### Task 8: Error Handling
+>>>>>>> origin/main
 ```zig
 // Error codes for WASM interface
 pub const WasmError = enum(u32) {
@@ -434,6 +489,27 @@ test('WASM EVM performance benchmark', async () => {
 - Efficient garbage collection integration
 - Low memory overhead for VM instances
 
+<<<<<<< HEAD
+## Critical Requirements
+
+1. **NEVER commit until `zig build test-all` passes**
+2. **Test WASM build specifically** - Use `zig build wasm` or equivalent
+3. **Verify browser compatibility** - Test in Chrome, Firefox, Safari
+4. **Performance regression testing** - Ensure 100x improvement claim
+5. **Bundle size monitoring** - Track impact on overall bundle size
+6. **Memory leak testing** - Ensure proper cleanup of WASM instances
+7. **Error handling coverage** - All EVM errors must propagate correctly
+
+## Success Criteria
+
+1. **WASM Build Success**: `zig build wasm` completes without errors
+2. **Integration Tests Pass**: JavaScript can successfully call WASM EVM
+3. **Performance Target**: 100x faster than Ethereumjs baseline
+4. **Bundle Size**: WASM bundle under 500KB compressed
+5. **Browser Compatibility**: Works in all major browsers
+6. **API Compatibility**: Maintains existing Tevm API contracts
+7. **Error Handling**: Proper error propagation and handling
+=======
 ## Critical Constraints
 ❌ NEVER commit until all tests pass with `zig build test-all`
 ❌ DO NOT merge without review
@@ -449,12 +525,16 @@ test('WASM EVM performance benchmark', async () => {
 ✅ Output format matches reference implementations
 ✅ Performance meets or exceeds benchmarks
 ✅ Gas costs are calculated correctly
+>>>>>>> origin/main
 
 ## References
 
 - [WebAssembly Specification](https://webassembly.github.io/spec/)
 - [Zig WASM Documentation](https://ziglang.org/documentation/master/#WebAssembly)
 - [Tevm Architecture Overview](../../docs/node/pages/introduction/architecture-overview.mdx)
+<<<<<<< HEAD
+- [EVM Implementations Benchmark](https://github.com/ziyadedher/evm-bench)
+=======
 - [EVM Implementations Benchmark](https://github.com/ziyadedher/evm-bench)
 ## Test-Driven Development (TDD) Strategy
 
@@ -569,3 +649,4 @@ pub const wasm_build_integration = struct {
 - **Verify specification compliance**
 - **Validate performance implications**
 - **Ensure cross-platform compatibility**
+>>>>>>> origin/main

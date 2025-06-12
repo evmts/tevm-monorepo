@@ -128,7 +128,7 @@ pub fn op_return(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     if (size == 0) {
         @branchHint(.unlikely);
-        try frame.return_data.set(&[_]u8{});
+        frame.output = &[_]u8{};
     } else {
         if (offset > std.math.maxInt(usize) or size > std.math.maxInt(usize)) {
             @branchHint(.unlikely);
@@ -153,7 +153,7 @@ pub fn op_return(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
         // Note: The memory gas cost already protects against excessive memory use.
         // The VM should handle copying the data when needed. We just set the reference.
-        try frame.return_data.set(data);
+        frame.output = data;
     }
 
     return ExecutionError.Error.STOP; // RETURN ends execution normally
@@ -177,7 +177,7 @@ pub fn op_revert(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     if (size == 0) {
         @branchHint(.unlikely);
-        try frame.return_data.set(&[_]u8{});
+        frame.output = &[_]u8{};
     } else {
         if (offset > std.math.maxInt(usize) or size > std.math.maxInt(usize)) {
             @branchHint(.unlikely);
@@ -202,7 +202,7 @@ pub fn op_revert(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
         // Note: The memory gas cost already protects against excessive memory use.
         // The VM should handle copying the data when needed. We just set the reference.
-        try frame.return_data.set(data);
+        frame.output = data;
     }
 
     return ExecutionError.Error.REVERT;

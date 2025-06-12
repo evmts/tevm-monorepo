@@ -1,5 +1,21 @@
 # Implement CLI Tools
 
+<<<<<<< HEAD
+## Git Workflow Instructions
+
+### Branch Setup
+1. **Create branch**: `feat_implement_cli_tools` (snake_case, no emoji)
+2. **Create worktree**: `git worktree add g/feat_implement_cli_tools feat_implement_cli_tools`
+3. **Work in isolation**: `cd g/feat_implement_cli_tools`
+4. **Commit message**: `✨ feat: implement comprehensive CLI tools for EVM testing, debugging, and benchmarking`
+
+### Workflow Steps
+1. Create and switch to the new worktree
+2. Implement all changes in the isolated branch
+3. Run `zig build test-all` to ensure all tests pass
+4. Commit with emoji conventional commit format
+5. DO NOT merge - leave ready for review
+=======
 You are implementing CLI Tools for the Tevm EVM written in Zig. Your goal is to implement command-line tools for EVM testing and debugging following Ethereum specifications and maintaining compatibility with existing implementations.
 
 ## Development Workflow
@@ -8,15 +24,19 @@ You are implementing CLI Tools for the Tevm EVM written in Zig. Your goal is to 
 - **Testing**: Run `zig build test-all` before committing
 - **Commit**: Use emoji conventional commits with XML summary format
 
+>>>>>>> origin/main
 
 ## Context
 
 Implement comprehensive command-line interface tools for the EVM implementation, providing utilities for testing, debugging, benchmarking, and development workflows. This includes bytecode execution, state inspection, performance profiling, and developer-friendly debugging interfaces.
 
+<<<<<<< HEAD
+=======
 ## ELI5
 
 Think of CLI tools as the Swiss Army knife for blockchain developers - they're specialized command-line utilities that help you work with smart contracts without needing a full graphical interface. Just like how you might use command-line tools to manage files (`ls`, `cd`, `mkdir`), these enhanced CLI tools let you test smart contracts, inspect blockchain state, debug transaction failures, and benchmark performance - all from your terminal. It's like having a developer's toolbox where each tool has a specific job: one tool runs contract code, another shows you what's in blockchain storage, and another tells you how fast your code executes. These enhanced versions add advanced features like detailed execution tracing, gas optimization analysis, and performance profiling that help developers build better, more efficient smart contracts.
 
+>>>>>>> origin/main
 ## CLI Tool Specifications
 
 ### Core CLI Tools
@@ -1310,6 +1330,16 @@ test "json output formatting" {
 5. **Integration Ready**: Easy integration with development pipelines
 6. **Comprehensive**: Cover all major EVM debugging and analysis needs
 
+<<<<<<< HEAD
+## Critical Requirements
+
+1. **NEVER commit until `zig build test-all` passes**
+2. **Error handling** - Graceful handling of invalid inputs and errors
+3. **Performance** - Tools should be fast enough for interactive use
+4. **Documentation** - Clear help and usage information
+5. **Stability** - Reliable operation across different inputs and scenarios
+6. **Cross-platform** - Work consistently across different operating systems
+=======
 ## Critical Constraints
 ❌ NEVER commit until all tests pass with `zig build test-all`
 ❌ DO NOT merge without review
@@ -1472,6 +1502,7 @@ pub const EvmExecutor = struct {
 - **Verify tool integration** - Test compatibility with external development tools
 - **Test cross-platform CLI behavior** - Ensure consistent results across platforms
 - **Validate integration points** - Test all external interfaces thoroughly
+>>>>>>> origin/main
 
 ## References
 
@@ -1479,6 +1510,9 @@ pub const EvmExecutor = struct {
 - [Foundry CLI](https://book.getfoundry.sh/reference/cli) - Modern toolchain
 - [Ethereum RPC API](https://ethereum.org/en/developers/docs/apis/json-rpc/) - Standard interfaces
 - [EIP-3155: EVM trace specification](https://eips.ethereum.org/EIPS/eip-3155) - Tracing format
+<<<<<<< HEAD
+- [Clap (Zig CLI library)](https://github.com/Hejsil/zig-clap) - Argument parsing inspiration
+=======
 - [Clap (Zig CLI library)](https://github.com/Hejsil/zig-clap) - Argument parsing inspiration
 
 ## EVMONE Context
@@ -8191,3 +8225,4 @@ The original prompt is excellent and provides a clear, well-structured specifica
 3.  **Opcode Information**: The prompt's `get_opcode_info` function uses a `switch` statement. Go-ethereum uses a `map[OpCode]string` for opcode names. For a dense set of keys like opcodes (0-255), an array or a `comptime` generated map/switch can be very efficient. The current approach is perfectly fine.
 4.  **Benchmarking**: The `tevm-bench` tool specified in the prompt is more comprehensive than geth's built-in benchmark flag, as it defines different scenarios. The geth implementation is a good reference for the core looping and timing logic and for the kinds of metrics to report (e.g., ops/sec, gas/sec, min/max/avg time).
 
+>>>>>>> origin/main

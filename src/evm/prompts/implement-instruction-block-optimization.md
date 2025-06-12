@@ -1,5 +1,21 @@
 # Implement Instruction Block Optimization
 
+<<<<<<< HEAD
+## Git Workflow Instructions
+
+### Branch Setup
+1. **Create branch**: `feat_implement_instruction_block_optimization` (snake_case, no emoji)
+2. **Create worktree**: `git worktree add g/feat_implement_instruction_block_optimization feat_implement_instruction_block_optimization`
+3. **Work in isolation**: `cd g/feat_implement_instruction_block_optimization`
+4. **Commit message**: `⚡ perf: implement instruction block optimization for gas calculation`
+
+### Workflow Steps
+1. Create and switch to the new worktree
+2. Implement all changes in the isolated branch
+3. Run `zig build test-all` to ensure all tests pass
+4. Commit with emoji conventional commit format
+5. DO NOT merge - leave ready for review
+=======
 You are implementing Instruction Block Optimization for the Tevm EVM written in Zig. Your goal is to implement instruction block optimization for execution efficiency following Ethereum specifications and maintaining compatibility with existing implementations.
 
 ## Development Workflow
@@ -8,15 +24,19 @@ You are implementing Instruction Block Optimization for the Tevm EVM written in 
 - **Testing**: Run `zig build test-all` before committing
 - **Commit**: Use emoji conventional commits with XML summary format
 
+>>>>>>> origin/main
 
 ## Context
 
 Implement instruction block optimization for efficient gas calculation, similar to evmone's approach. This optimization analyzes bytecode to identify basic blocks and pre-calculates gas costs, reducing per-instruction overhead during execution.
 
+<<<<<<< HEAD
+=======
 ## ELI5
 
 Imagine reading a recipe and instead of calculating the cooking time for each ingredient individually while cooking, you pre-read the entire recipe and calculate the total cooking time for each section beforehand. This optimization does the same thing for EVM bytecode - it groups instructions into "blocks" that always execute together, pre-calculates their gas costs, and validates their requirements ahead of time. This makes execution much faster since the EVM doesn't have to stop and calculate costs for every single instruction during the actual execution.
 
+>>>>>>> origin/main
 ## Optimization Goals
 
 ### Performance Improvements
@@ -517,6 +537,16 @@ pub const BlockCache = struct {
 5. **Compatibility**: Works with all opcodes and hardforks
 6. **Maintainability**: Clear separation of optimization and execution logic
 
+<<<<<<< HEAD
+## Critical Requirements
+
+1. **NEVER commit until `zig build test-all` passes**
+2. **Maintain execution correctness** - Optimization must not change results
+3. **Verify gas accuracy** - Gas costs must remain exact
+4. **Test performance gains** - Measure actual improvement
+5. **Handle all opcodes** - Support complete instruction set
+6. **Graceful fallback** - Fall back to unoptimized execution on analysis failure
+=======
 ## Critical Constraints
 ❌ NEVER commit until all tests pass with `zig build test-all`
 ❌ DO NOT merge without review
@@ -646,12 +676,16 @@ pub const instruction_block_optimization = struct {
 - **Verify specification compliance**
 - **Validate performance implications**
 - **Ensure cross-platform compatibility**
+>>>>>>> origin/main
 
 ## References
 
 - [evmone Instruction Analysis](https://github.com/ethereum/evmone)
 - [Basic Block Optimization](https://en.wikipedia.org/wiki/Basic_block)
 - [Control Flow Analysis](https://en.wikipedia.org/wiki/Control-flow_analysis)
+<<<<<<< HEAD
+- [EVM Opcode Reference](https://www.evm.codes/)
+=======
 - [EVM Opcode Reference](https://www.evm.codes/)
 
 ## EVMONE Context
@@ -895,3 +929,4 @@ pub const OptimizedOpcode = enum {
     }
 };
 ```
+>>>>>>> origin/main
