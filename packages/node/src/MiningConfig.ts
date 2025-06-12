@@ -1,13 +1,14 @@
 /**
  * Mining configuration that creates blocks at fixed time intervals.
+ * @deprecated This mining mode is not yet implemented. Use 'manual' or 'auto' instead.
+ * @internal This type is deprecated and will be removed in a future version.
  * @example
  * ```typescript
- * import { IntervalMining } from '@tevm/node'
+ * // This is not yet implemented - use manual or auto mining instead
+ * import { ManualMining, AutoMining } from '@tevm/node'
  *
- * const value: IntervalMining = {
- *   type: 'interval',
- *   interval: 5000 // Mine blocks every 5 seconds
- * }
+ * const manualMining: ManualMining = { type: 'manual' }
+ * const autoMining: AutoMining = { type: 'auto' }
  * ```
  */
 export type IntervalMining = {
@@ -49,15 +50,15 @@ export type AutoMining = {
 }
 /**
  * Mining configuration that mines blocks when accumulated gas usage exceeds a threshold.
- * Useful for simulating realistic block filling behavior.
+ * @deprecated This mining mode is not yet fully implemented. Use 'manual' or 'auto' instead.
+ * @internal This type is deprecated and will be removed in a future version.
  * @example
  * ```typescript
- * import { GasMining } from '@tevm/node'
+ * // This is not yet fully implemented - use manual or auto mining instead
+ * import { ManualMining, AutoMining } from '@tevm/node'
  *
- * const value: GasMining = {
- *   type: 'gas',
- *   limit: 15000000n // Mine when gas used exceeds 15M
- * }
+ * const manualMining: ManualMining = { type: 'manual' }
+ * const autoMining: AutoMining = { type: 'auto' }
  * ```
  */
 export type GasMining = {
@@ -66,21 +67,22 @@ export type GasMining = {
 }
 /**
  * Configuration options for controlling block mining behavior.
- * Union of all mining strategy types.
+ * Currently supports manual and auto mining modes.
+ * 
  * @example
  * ```typescript
  * import { MiningConfig } from '@tevm/node'
  * import { createMemoryClient } from 'tevm'
  *
- * // Choose one of the mining strategies
- * const miningConfig: MiningConfig = {
- *   type: 'interval',
- *   interval: 2000 // Mine every 2 seconds
- * }
+ * // Manual mining (default) - mine only when explicitly requested
+ * const manualConfig: MiningConfig = { type: 'manual' }
+ *
+ * // Auto mining - mine immediately after each transaction
+ * const autoConfig: MiningConfig = { type: 'auto' }
  *
  * const client = createMemoryClient({
- *   mining: miningConfig
+ *   mining: manualConfig
  * })
  * ```
  */
-export type MiningConfig = IntervalMining | ManualMining | AutoMining | GasMining
+export type MiningConfig = ManualMining | AutoMining | IntervalMining | GasMining
