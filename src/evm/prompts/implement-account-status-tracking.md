@@ -1,20 +1,8 @@
 # Implement Account Status Tracking
 
 <<<<<<< HEAD
-## Git Workflow Instructions
+You are implementing Account Status Tracking for the Tevm EVM written in Zig. Your goal is to implement comprehensive account status tracking system following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
-1. **Create branch**: `feat_implement_account_status_tracking` (snake_case, no emoji)
-2. **Create worktree**: `git worktree add g/feat_implement_account_status_tracking feat_implement_account_status_tracking`
-3. **Work in isolation**: `cd g/feat_implement_account_status_tracking`
-4. **Commit message**: `✨ feat: implement detailed account lifecycle management and status tracking`
-
-### Workflow Steps
-1. Create and switch to the new worktree
-2. Implement all changes in the isolated branch
-3. Run `zig build test-all` to ensure all tests pass
-4. Commit with emoji conventional commit format
-5. DO NOT merge - leave ready for review
 =======
 <review>
 **Implementation Status: PARTIALLY IMPLEMENTED 🟡**
@@ -34,20 +22,18 @@
 
 You are implementing Account Status Tracking for the Tevm EVM written in Zig. Your goal is to implement comprehensive account status tracking system following Ethereum specifications and maintaining compatibility with existing implementations.
 
+>>>>>>> origin/main
 ## Development Workflow
 - **Branch**: `feat_implement_account_status_tracking` (snake_case)
 - **Worktree**: `git worktree add g/feat_implement_account_status_tracking feat_implement_account_status_tracking`
 - **Testing**: Run `zig build test-all` before committing
 - **Commit**: Use emoji conventional commits with XML summary format
 
->>>>>>> origin/main
 
 ## Context
 
 Implement comprehensive account status tracking to provide detailed account lifecycle management, monitoring account creation, modification, destruction, and various state transitions. This system enables efficient account management, debugging capabilities, and optimization opportunities while maintaining EVM execution correctness.
 
-<<<<<<< HEAD
-=======
 ## ELI5
 
 Think of account status tracking like having a detailed medical chart for every patient in a hospital. Just as hospitals need to track when patients are admitted, what treatments they receive, their current condition, and when they're discharged, the EVM needs to track the "health" and "lifecycle" of every account (address) on the blockchain.
@@ -72,7 +58,6 @@ The enhanced version includes:
 
 Without proper account tracking, debugging complex transactions would be like trying to diagnose a patient without any medical history - you'd be working blind!
 
->>>>>>> origin/main
 ## Account Status Tracking Specifications
 
 ### Core Account Tracking Framework
@@ -1262,16 +1247,6 @@ test "cleanup and resource management" {
 5. **Integration Quality**: Seamless integration with existing state management
 6. **Flexibility**: Support for different tracking modes and use cases
 
-<<<<<<< HEAD
-## Critical Requirements
-
-1. **NEVER commit until `zig build test-all` passes**
-2. **Zero performance impact when disabled** - No overhead for production use
-3. **Memory efficiency** - Configurable history retention and automatic cleanup
-4. **Data consistency** - Accurate tracking without state corruption
-5. **Event isolation** - Listener failures must not affect tracking
-6. **Thread safety** - Safe concurrent access to tracking data
-=======
 ## Critical Constraints
 ❌ NEVER commit until all tests pass with `zig build test-all`
 ❌ DO NOT merge without review
@@ -1411,7 +1386,6 @@ pub const AccountStatusManager = struct {
 - **Verify event accuracy** - Especially important for debugging and analytics
 - **Test performance implications** - Ensure tracking doesn't impact EVM execution
 - **Validate data integrity** - Critical for audit trails and historical analysis
->>>>>>> origin/main
 
 ## References
 
@@ -1419,9 +1393,6 @@ pub const AccountStatusManager = struct {
 - [State Management Patterns](https://en.wikipedia.org/wiki/State_pattern) - State tracking design patterns
 - [Event-Driven Architecture](https://en.wikipedia.org/wiki/Event-driven_architecture) - Event notification systems
 - [Time Series Databases](https://en.wikipedia.org/wiki/Time_series_database) - Historical data management
-<<<<<<< HEAD
-- [Performance Monitoring](https://en.wikipedia.org/wiki/Application_performance_monitoring) - Metrics collection strategies
-=======
 - [Performance Monitoring](https://en.wikipedia.org/wiki/Application_performance_monitoring) - Metrics collection strategies
 
 ## EVMONE Context
@@ -6956,4 +6927,3 @@ func formatError(err error) string {
 </file>
 </go-ethereum>
 
->>>>>>> origin/main

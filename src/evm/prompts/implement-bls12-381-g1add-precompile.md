@@ -1,20 +1,11 @@
 # Implement BLS12-381 G1ADD Precompile
 
 <<<<<<< HEAD
-## Git Workflow Instructions
+## What
+<eli5>
+Imagine you have special mathematical points on a curved surface, and you want to "add" two points together to get a third point. This isn't regular addition - it's a special kind of math used in advanced cryptography. BLS12-381 is a specific type of elliptic curve that's really good for creating digital signatures that multiple parties can combine together. The G1 point addition precompile is like having a built-in calculator in Ethereum that can do this special curve math super efficiently. This is essential for things like proof systems and advanced signature schemes that help make blockchain more scalable and private.
+</eli5>
 
-### Branch Setup
-1. **Create branch**: `feat_implement_bls12_381_g1add_precompile` (snake_case, no emoji)
-2. **Create worktree**: `git worktree add g/feat_implement_bls12_381_g1add_precompile feat_implement_bls12_381_g1add_precompile`
-3. **Work in isolation**: `cd g/feat_implement_bls12_381_g1add_precompile`
-4. **Commit message**: `✨ feat: implement BLS12-381 G1 point addition precompile`
-
-### Workflow Steps
-1. Create and switch to the new worktree
-2. Implement all changes in the isolated branch
-3. Run `zig build test-all` to ensure all tests pass
-4. Commit with emoji conventional commit format
-5. DO NOT merge - leave ready for review
 =======
 <review>
 **Implementation Status: COMPLETED ✅**
@@ -76,6 +67,7 @@
 Imagine you have special mathematical points on a curved surface, and you want to "add" two points together to get a third point. This isn't regular addition - it's a special kind of math used in advanced cryptography. BLS12-381 is a specific type of elliptic curve that's really good for creating digital signatures that multiple parties can combine together. The G1 point addition precompile is like having a built-in calculator in Ethereum that can do this special curve math super efficiently. This is essential for things like proof systems and advanced signature schemes that help make blockchain more scalable and private.
 </eli5>
 
+>>>>>>> origin/main
 Implement BLS12-381 G1 point addition precompile (EIP-2537) that performs elliptic curve point addition on the BLS12-381 G1 group. Takes 256 bytes input (two 128-byte G1 points) and returns 128 bytes output (resulting G1 point) with fixed gas cost of 375.
 
 ## Why
@@ -95,14 +87,11 @@ BLS12-381 G1 point addition is fundamental for BLS signature verification, zero-
 - **Testing**: Run `zig build test-all` before committing
 - **Commit**: Use emoji conventional commits with XML summary format
 
->>>>>>> origin/main
 
 ## Context
 
 Implement BLS12-381 G1 point addition precompile for EIP-2537 support. This precompile enables efficient elliptic curve operations on the BLS12-381 curve.
 
-<<<<<<< HEAD
-=======
 ## ELI5
 
 Think of BLS12-381 G1 addition like a special calculator that can add points on a curved surface (imagine adding coordinates on a globe, but with more complex math). This isn't regular addition - it's "elliptic curve addition" which follows special rules.
@@ -183,7 +172,6 @@ This prompt involves BLS12-381 elliptic curve cryptography. Follow these securit
 Imagine you have special mathematical points on a curved surface, and you want to "add" two points together to get a third point. This isn't regular addition - it's a special kind of math used in advanced cryptography. BLS12-381 is a specific type of elliptic curve that's really good for creating digital signatures that multiple parties can combine together. The G1 point addition precompile is like having a built-in calculator in Ethereum that can do this special curve math super efficiently. This is essential for things like proof systems and advanced signature schemes that help make blockchain more scalable and private.
 </eli5>
 
->>>>>>> origin/main
 ## Implementation Requirements
 
 ### Core Functionality
@@ -193,16 +181,6 @@ Imagine you have special mathematical points on a curved surface, and you want t
 4. **Error Handling**: Handle invalid points and edge cases
 5. **Performance**: Optimized for BLS12-381 curve parameters
 
-<<<<<<< HEAD
-## Critical Requirements
-
-1. **NEVER commit until `zig build test-all` passes**
-2. **Test against EIP-2537 vectors** - Essential for specification compliance
-3. **Implement BLS12-381 field arithmetic** - Requires 381-bit prime field
-4. **Handle point at infinity** - Proper identity element handling
-5. **Validate all inputs thoroughly** - Invalid points can cause undefined behavior
-6. **Optimize for performance** - Used in BLS signature verification
-=======
 ## Critical Constraints
 ❌ NEVER commit until all tests pass with `zig build test-all`
 ❌ DO NOT merge without review
@@ -344,7 +322,6 @@ pub fn run(input: []const u8) ![]u8 {
 - **Test against malicious inputs** - Elliptic curve operations are security-critical
 - **Verify constant-time execution** - Prevent timing attack vulnerabilities
 - **Test hardfork transitions** - Ensure availability at correct block numbers
->>>>>>> origin/main
 
 ## References
 

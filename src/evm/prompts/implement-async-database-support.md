@@ -1,20 +1,8 @@
 # Implement Async Database Support
 
 <<<<<<< HEAD
-## Git Workflow Instructions
+You are implementing Async Database Support for the Tevm EVM written in Zig. Your goal is to implement asynchronous database interface for state operations following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
-1. **Create branch**: `feat_implement_async_database_support` (snake_case, no emoji)
-2. **Create worktree**: `git worktree add g/feat_implement_async_database_support feat_implement_async_database_support`
-3. **Work in isolation**: `cd g/feat_implement_async_database_support`
-4. **Commit message**: `✨ feat: implement async database support for non-blocking state operations`
-
-### Workflow Steps
-1. Create and switch to the new worktree
-2. Implement all changes in the isolated branch
-3. Run `zig build test-all` to ensure all tests pass
-4. Commit with emoji conventional commit format
-5. DO NOT merge - leave ready for review
 =======
 <review>
 **Implementation Status: NOT IMPLEMENTED ❌**
@@ -34,25 +22,22 @@
 
 You are implementing Async Database Support for the Tevm EVM written in Zig. Your goal is to implement asynchronous database interface for state operations following Ethereum specifications and maintaining compatibility with existing implementations.
 
+>>>>>>> origin/main
 ## Development Workflow
 - **Branch**: `feat_implement_async_database_support` (snake_case)
 - **Worktree**: `git worktree add g/feat_implement_async_database_support feat_implement_async_database_support`
 - **Testing**: Run `zig build test-all` before committing
 - **Commit**: Use emoji conventional commits with XML summary format
 
->>>>>>> origin/main
 
 ## Context
 
 Implement comprehensive async database support to enable non-blocking database operations for state management. This includes async state backends, concurrent read/write operations, batched transactions, and connection pooling while maintaining EVM execution correctness and performance.
 
-<<<<<<< HEAD
-=======
 ## ELI5
 
 Imagine you're running a busy restaurant where customers place orders, but instead of making each customer wait while their food is being prepared, you give them a number and let them sit down while multiple chefs work on different orders simultaneously. Async database support works similarly for blockchain operations - instead of making the EVM wait every time it needs to read or write data to storage, it can continue processing other tasks while database operations happen in the background. The enhanced version is like upgrading to a smart restaurant system: you have multiple kitchen stations working in parallel, a smart ordering system that can batch similar requests together (like preparing all salads at once), a reservation system that manages how many customers can be served at once, and automatic coordination to ensure orders are delivered to the right tables in the right order. This prevents the blockchain from getting stuck waiting for slow storage operations and allows much higher transaction throughput.
 
->>>>>>> origin/main
 ## Async Database Architecture Specifications
 
 ### Core Async Framework
@@ -1369,16 +1354,6 @@ test "integration with VM execution" {
 5. **Error Resilience**: Robust error handling with automatic recovery
 6. **Integration Quality**: Seamless integration with existing VM execution
 
-<<<<<<< HEAD
-## Critical Requirements
-
-1. **NEVER commit until `zig build test-all` passes**
-2. **Backward compatibility** - Sync state operations must continue working
-3. **Data integrity** - No data corruption or loss during async operations
-4. **Performance** - Async operations should improve throughput
-5. **Resource management** - Proper cleanup of connections and resources
-6. **Error isolation** - Database errors must not crash VM execution
-=======
 ## Critical Constraints
 ❌ NEVER commit until all tests pass with `zig build test-all`
 ❌ DO NOT merge without review
@@ -1517,7 +1492,6 @@ pub const AsyncStateInterface = struct {
 - **Verify transaction isolation** - Especially important for concurrent database access
 - **Test performance implications** - Ensure async optimizations don't break correctness
 - **Validate connection management** - Critical for resource cleanup and pooling
->>>>>>> origin/main
 
 ## References
 
@@ -1525,9 +1499,6 @@ pub const AsyncStateInterface = struct {
 - [Connection Pooling](https://en.wikipedia.org/wiki/Connection_pool) - Database connection management
 - [ACID Properties](https://en.wikipedia.org/wiki/ACID) - Database transaction properties
 - [Futures and Promises](https://en.wikipedia.org/wiki/Futures_and_promises) - Async programming primitives
-<<<<<<< HEAD
-- [Database Sharding](https://en.wikipedia.org/wiki/Shard_(database_architecture)) - Scaling database operations
-=======
 - [Database Sharding](https://en.wikipedia.org/wiki/Shard_(database_architecture)) - Scaling database operations
 
 ## EVMONE Context
@@ -7611,4 +7582,3 @@ The provided prompt is a strong, well-structured specification for building an a
 
 By incorporating these battle-tested concepts from Geth—especially the `journal` for reverts and a `prefetcher` for async reads—the resulting implementation will be more robust, performant, and closely aligned with the architecture of a production-grade EVM.
 
->>>>>>> origin/main

@@ -18,6 +18,8 @@
 6. DO NOT merge - leave ready for review
 =======
 #
+<<<<<<< HEAD
+=======
 <review>
 **Implementation Status: NOT IMPLEMENTED ❌**
 
@@ -45,6 +47,7 @@
 </review>
 >>>>>>> origin/main
 
+>>>>>>> origin/main
 ## Context
 
 The WASM build is currently broken and needs to be fixed as well as integrated into the overall Tevm TypeScript codebase. This is a critical blocker for using the Zig EVM implementation in JavaScript environments.

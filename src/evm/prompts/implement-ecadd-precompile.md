@@ -1,20 +1,8 @@
 # Implement ECADD Precompile
 
 <<<<<<< HEAD
-## Git Workflow Instructions
+You are implementing ECADD Precompile for the Tevm EVM written in Zig. Your goal is to implement elliptic curve addition precompile for secp256k1 following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
-1. **Create branch**: `feat_implement_ecadd_precompile` (snake_case, no emoji)
-2. **Create worktree**: `git worktree add g/feat_implement_ecadd_precompile feat_implement_ecadd_precompile`
-3. **Work in isolation**: `cd g/feat_implement_ecadd_precompile`
-4. **Commit message**: `✨ feat: implement ECADD precompile`
-
-### Workflow Steps
-1. Create and switch to the new worktree
-2. Implement all changes in the isolated branch
-3. Run `zig build test-all` to ensure all tests pass
-4. Commit with emoji conventional commit format
-5. DO NOT merge - leave ready for review
 =======
 <review>
 **Implementation Status: NOT IMPLEMENTED ❌ - INCORRECT PREVIOUS STATUS**
@@ -57,21 +45,18 @@
 
 You are implementing ECADD Precompile for the Tevm EVM written in Zig. Your goal is to implement elliptic curve addition precompile for secp256k1 following Ethereum specifications and maintaining compatibility with existing implementations.
 
+>>>>>>> origin/main
 ## Development Workflow
 - **Branch**: `feat_implement_ecadd_precompile` (snake_case)
 - **Worktree**: `git worktree add g/feat_implement_ecadd_precompile feat_implement_ecadd_precompile`
 - **Testing**: Run `zig build test-all` before committing
 - **Commit**: Use emoji conventional commits with XML summary format
 
->>>>>>> origin/main
 
 ## Context
 
 Implement the ECADD precompile (address 0x06) for Ethereum Virtual Machine compatibility. This precompile provides elliptic curve point addition on the alt_bn128 curve and is available from the Byzantium hardfork.
 
-<<<<<<< HEAD
-## Ethereum Specification
-=======
 ## File Structure
 
 **Primary Files to Modify:**
@@ -131,7 +116,6 @@ This prompt involves elliptic curve cryptography. Follow these security principl
 **Remember**: ECADD is critical for zkSNARKs and privacy protocols. Bugs can compromise zero-knowledge proofs, leak private information, and break cryptographic protocols. Always use proven, audited implementations.
 
 ## Specification
->>>>>>> origin/main
 
 ### Basic Operation
 - **Address**: `0x0000000000000000000000000000000000000006`
@@ -203,11 +187,7 @@ pub const ECADD_GAS_COST_BYZANTIUM: u64 = 500; // Pre-Istanbul
 File: `/src/evm/precompiles/bn254.zig`
 ```zig
 const std = @import("std");
-<<<<<<< HEAD
-const U256 = @import("../Types/U256.ts").U256;
-=======
 const U256 = @import("../Types/U256.zig").U256;
->>>>>>> origin/main
 
 // BN254 field prime
 pub const FIELD_PRIME: U256 = 21888242871839275222246405745257275088696311157297823662689037894645226208583;
@@ -413,16 +393,6 @@ pub fn add_no_alloc(p1: G1Point, p2: G1Point, result: *G1Point) void {
 5. **Security**: Constant-time execution, proper validation
 6. **Integration**: Works with existing precompile infrastructure
 
-<<<<<<< HEAD
-## Critical Requirements
-
-1. **NEVER commit until `zig build test-all` passes**
-2. **Use constant-time arithmetic** - Prevent timing attacks
-3. **Validate all inputs thoroughly** - Handle malformed data gracefully
-4. **Test against EIP-196 vectors** - Ensure specification compliance
-5. **Handle edge cases** - Point at infinity, invalid points, etc.
-6. **Optimize for performance** - This is a hot path in many applications
-=======
 ## Critical Constraints
 ❌ NEVER commit until all tests pass with `zig build test-all`
 ❌ DO NOT merge without review
@@ -549,7 +519,6 @@ pub fn run(input: []const u8) ![]u8 {
     return error.NotImplemented; // Initially
 }
 ```
->>>>>>> origin/main
 
 ## References
 

@@ -1,20 +1,8 @@
 # Implement ECMUL Precompile
 
 <<<<<<< HEAD
-## Git Workflow Instructions
+You are implementing ECMUL Precompile for the Tevm EVM written in Zig. Your goal is to implement elliptic curve multiplication precompile for secp256k1 following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
-1. **Create branch**: `feat_implement_ecmul_precompile` (snake_case, no emoji)
-2. **Create worktree**: `git worktree add g/feat_implement_ecmul_precompile feat_implement_ecmul_precompile`
-3. **Work in isolation**: `cd g/feat_implement_ecmul_precompile`
-4. **Commit message**: `✨ feat: implement ECMUL precompile`
-
-### Workflow Steps
-1. Create and switch to the new worktree
-2. Implement all changes in the isolated branch
-3. Run `zig build test-all` to ensure all tests pass
-4. Commit with emoji conventional commit format
-5. DO NOT merge - leave ready for review
 =======
 <review>
 **Implementation Status: NOT IMPLEMENTED ❌ - INCORRECT PREVIOUS STATUS**
@@ -61,21 +49,18 @@
 
 You are implementing ECMUL Precompile for the Tevm EVM written in Zig. Your goal is to implement elliptic curve multiplication precompile for secp256k1 following Ethereum specifications and maintaining compatibility with existing implementations.
 
+>>>>>>> origin/main
 ## Development Workflow
 - **Branch**: `feat_implement_ecmul_precompile` (snake_case)
 - **Worktree**: `git worktree add g/feat_implement_ecmul_precompile feat_implement_ecmul_precompile`
 - **Testing**: Run `zig build test-all` before committing
 - **Commit**: Use emoji conventional commits with XML summary format
 
->>>>>>> origin/main
 
 ## Context
 
 Implement the ECMUL precompile (address 0x07) for Ethereum Virtual Machine compatibility. This precompile provides elliptic curve scalar multiplication on the alt_bn128 curve and is available from the Byzantium hardfork.
 
-<<<<<<< HEAD
-## Ethereum Specification
-=======
 ## ELI5
 
 Think of ECMUL as a specialized calculator for elliptic curve mathematics. Imagine you have a point on a curved surface (like a globe) and you want to "move" that point by multiplying it by a number - but this isn't regular multiplication, it's special "elliptic curve multiplication" that follows the rules of the curve.
@@ -136,7 +121,6 @@ This prompt involves elliptic curve cryptography. Follow these security principl
 **Remember**: ECMUL is critical for zkSNARKs and privacy protocols. Timing attacks can leak private scalars, compromising cryptographic protocols. Always use proven, constant-time implementations.
 
 ## Specification
->>>>>>> origin/main
 
 ### Basic Operation
 - **Address**: `0x0000000000000000000000000000000000000007`
@@ -287,11 +271,7 @@ const gas_constants = @import("../constants/gas_constants.zig");
 const PrecompileResult = @import("precompile_result.zig").PrecompileResult;
 const PrecompileError = @import("precompile_result.zig").PrecompileError;
 const Hardfork = @import("../hardforks/hardfork.zig").Hardfork;
-<<<<<<< HEAD
-const U256 = @import("../Types/U256.ts").U256;
-=======
 const U256 = @import("../Types/U256.zig").U256;
->>>>>>> origin/main
 
 pub fn calculate_gas(hardfork: Hardfork) u64 {
     return switch (hardfork) {
@@ -446,16 +426,6 @@ test "ecmul performance benchmarks" {
 5. **Integration**: Seamless operation with existing precompiles
 6. **Correctness**: Mathematically correct scalar multiplication
 
-<<<<<<< HEAD
-## Critical Requirements
-
-1. **NEVER commit until `zig build test-all` passes**
-2. **Implement constant-time operations** - Prevent timing attacks
-3. **Optimize for performance** - This is heavily used in ZK applications
-4. **Test extensively** - Scalar multiplication has many edge cases
-5. **Validate all inputs** - Handle malformed data gracefully
-6. **Use proven algorithms** - Don't invent new scalar multiplication methods
-=======
 ## Critical Constraints
 ❌ NEVER commit until all tests pass with `zig build test-all`
 ❌ DO NOT merge without review
@@ -582,16 +552,12 @@ pub fn run(input: []const u8) ![]u8 {
     return error.NotImplemented; // Initially
 }
 ```
->>>>>>> origin/main
 
 ## References
 
 - [EIP-196: Precompiled contracts for addition and scalar multiplication on the elliptic curve alt_bn128](https://eips.ethereum.org/EIPS/eip-196)
 - [Guide to Elliptic Curve Cryptography](https://link.springer.com/book/10.1007/b97644)
 - [Efficient Implementation of Elliptic Curve Cryptography](https://cryptojedi.org/peter/data/eccss-20130911b.pdf)
-<<<<<<< HEAD
-- [Montgomery Ladder Algorithm](https://en.wikipedia.org/wiki/Elliptic_curve_point_multiplication#Montgomery_ladder)
-=======
 - [Montgomery Ladder Algorithm](https://en.wikipedia.org/wiki/Elliptic_curve_point_multiplication#Montgomery_ladder)
 
 ## EVMONE Context
@@ -2860,4 +2826,3 @@ The original prompt provides a good overview and a solid task breakdown. Here ar
 
 3.  **Optimization Algorithm**: The prompt's example Zig code for `scalar_multiply` shows a basic "double-and-add" algorithm. The `go-ethereum` implementation ultimately relies on a more optimized **windowed NAF (Non-Adjacent Form)** method for scalar multiplication. For a production-quality EVM, implementing a similar optimized algorithm is crucial for performance, especially since this precompile is heavily used in ZK-SNARK verification. Consider updating the reference implementation in the prompt to use a more performant algorithm.
 
->>>>>>> origin/main

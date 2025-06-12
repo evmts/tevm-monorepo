@@ -1,53 +1,94 @@
 # Implement Gas Refunds for SSTORE Operations
 
-## Git Workflow Instructions
+You are implementing gas refunds for SSTORE operations in the Tevm EVM written in Zig. Your goal is to implement Ethereum's gas refund mechanism that provides economic incentives for reducing blockchain state size, following EIP-2200 and EIP-3529 specifications across all hardforks.
 
-### Branch Setup
-1. **Create branch**: `feat_implement_gas_refunds_sstore` (snake_case, no emoji)
-2. **Create worktree**: `git worktree add g/feat_implement_gas_refunds_sstore feat_implement_gas_refunds_sstore`
-3. **Work in isolation**: `cd g/feat_implement_gas_refunds_sstore`
-4. **Commit message**: `✨ feat: implement gas refunds for SSTORE operations`
+## Development Workflow
+- **Branch**: `feat_implement_gas_refunds_sstore` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_gas_refunds_sstore feat_implement_gas_refunds_sstore`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+<<<<<<< HEAD
+=======
 
-### Workflow Steps
-1. Create and switch to the new worktree
-2. Implement all changes in the isolated branch
-3. Run `zig build test-all` to ensure all tests pass
-4. Commit with emoji conventional commit format
-5. DO NOT merge - leave ready for review
+<review>
+**Implementation Status: PARTIALLY IMPLEMENTED 🟡**
+
+**What exists:**
+- ✅ SSTORE opcode is defined (found in grep results)
+- ✅ Basic storage operations exist in execution/storage.zig
+- ✅ Gas constants framework exists in constants/gas_constants.zig
+- ✅ Frame structure exists for gas tracking
+
+**What's missing:**
+- ❌ Gas refund accumulation and tracking mechanism
+- ❌ EIP-2200 complex refund rules implementation
+- ❌ EIP-3529 refund cap (20% vs 50%) enforcement
+- ❌ Hardfork-specific refund behavior
+- ❌ Integration with transaction-level refund processing
+
+**Critical EVM Feature:**
+- 🟡 **IMPORTANT**: Gas refunds are essential for economic correctness
+- 🟡 **COMPATIBILITY**: Required for Ethereum equivalence
+- 🟡 **COMPLEXITY**: EIP-2200 rules are complex and bug-prone
+
+**Implementation Priority:**
+- 🔥 **HIGH**: Core EVM feature affecting gas economics
+- 🔥 **COMPLEX**: Requires careful implementation of multiple EIP specifications
+- 🔥 **TESTING**: Needs extensive test coverage for all hardfork variants
+
+**Next Steps:**
+1. Implement gas refund tracking in Frame structure
+2. Add EIP-2200 SSTORE refund logic to storage.zig
+3. Add hardfork-specific refund rules
+4. Implement EIP-3529 refund cap enforcement
+5. Add comprehensive test coverage
+</review>
+>>>>>>> origin/main
 
 ## Context
+SSTORE operations can receive gas refunds when storage is cleared (set to zero), providing economic incentives for reducing blockchain state size. The refund mechanism has evolved significantly across hardforks, from simple models to complex EIP-2200 rules with refund caps.
 
-Implement gas refunds for SSTORE operations according to Ethereum's gas refund mechanism. SSTORE operations can receive gas refunds when storage is cleared (set to zero), providing economic incentives for reducing blockchain state size. The refund mechanism has evolved significantly across hardforks.
+## File Structure
 
-## Ethereum Specification
+**Primary Files to Modify:**
+- `/src/evm/execution/storage.zig` - SSTORE implementation with refund logic
+- `/src/evm/constants/gas_constants.zig` - SSTORE and refund constants
+- `/src/evm/frame.zig` - Gas tracking and refund accumulation
+- `/src/evm/hardforks/chain_rules.zig` - Hardfork-specific refund rules
+
+**Test Files:**
+- `/test/evm/opcodes/storage_test.zig` - SSTORE refund test cases
+- `/test/evm/gas/gas_accounting_test.zig` - Gas refund mechanism tests
+
+## ELI5
+
+Think of blockchain storage like a giant shared filing cabinet that everyone has to pay to maintain. When you delete files (set storage to zero), you get a partial refund on your storage fees as a "thank you" for cleaning up and making space for others. It's like getting money back for recycling - you paid to store something, but when you remove it, you get some compensation for helping keep the blockchain tidy.
+
+## Specification
 
 ### Gas Refund Evolution
-1. **Frontier - Byzantium**: Simple refund model
-2. **Constantinople (EIP-1283)**: More complex refund model (briefly deployed)
+1. **Frontier-Byzantium**: Simple refund model (15000 gas for clearing storage)
+2. **Constantinople (EIP-1283)**: Complex refund model (briefly deployed)
 3. **Petersburg**: EIP-1283 disabled due to reentrancy concerns
-4. **Istanbul (EIP-2200)**: Re-enabled EIP-1283 with additional gas requirements
-5. **Berlin (EIP-2929)**: Access list impact on gas costs
-6. **London (EIP-3529)**: Refund cap reduced from 50% to 20% of gas used
+4. **Istanbul (EIP-2200)**: Re-enabled EIP-1283 with gas sentry
+5. **Berlin (EIP-2929)**: Access list warm/cold costs
+6. **London (EIP-3529)**: Refund cap reduced from 50% to 20%
 
-### Current SSTORE Gas Model (EIP-2200)
+### SSTORE Gas Model (EIP-2200)
 ```
-If value == current_value (no change):
-  - If key is warm: 100 gas
-  - If key is cold: 2100 gas
+No change (value == current):
+  - Warm: 100 gas
+  - Cold: 2100 gas
 
-If value != current_value:
-  - If key is cold: +2000 gas
-  - If current_value == original_value:
-    - If original_value == 0: 20000 gas (creating new storage)
-    - If value == 0: 2500 gas + 15000 refund (clearing storage)
-    - Otherwise: 2500 gas
-  - If current_value != original_value:
-    - If original_value != 0:
-      - If current_value == 0: -15000 refund (un-clearing)
-      - If value == 0: +15000 refund (clearing again)
-    - If original_value == 0:
-      - If current_value != 0: -20000 refund (un-creating)
-      - If value == 0: +20000 refund (creating again)
+Value change:
+  - Cold access: +2000 gas
+  - If current == original:
+    - Creating (original=0): 20000 gas
+    - Clearing (value=0): 2500 gas + 15000 refund
+    - Modifying: 2500 gas
+  - If current != original (dirty slot):
+    - Various refund adjustments based on transitions
+```
 
 ## Reference Implementations
 
@@ -134,9 +175,9 @@ func gasSStoreEIP2200(evm *EVM, contract *Contract, stack *Stack, mem *Memory, m
     - Otherwise: 2500 gas
 ```
 
-### Refund Cap (EIP-3529)
-- **Pre-London**: Refunds capped at 50% of gas used in transaction
-- **London+**: Refunds capped at 20% of gas used in transaction
+### Refund Caps
+- **Pre-London**: Max 50% of transaction gas used
+- **London+ (EIP-3529)**: Max 20% of transaction gas used
 
 ## Current Implementation Analysis
 
@@ -467,23 +508,125 @@ const original_eq_current = original.eql(current);
 const current_eq_new = current.eql(new);
 ```
 
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST test across all hardforks (refund rules change significantly)
+✅ MUST verify refund cap enforcement (prevents gas attacks)
+✅ MUST validate against EIP-2200, EIP-2929, EIP-3529 specifications
+✅ MUST maintain backward compatibility with existing SSTORE implementation
+
 ## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Gas costs and refunds match Ethereum specification exactly
+✅ Refund caps properly enforced (20%/50% based on hardfork)
+✅ Original value tracking works correctly across complex scenarios
+✅ Performance maintains or improves SSTORE operation speed
+✅ Memory usage for refund tracking is reasonable and bounded
 
-1. **Ethereum Compatibility**: Passes all Ethereum Foundation SSTORE refund tests
-2. **Gas Accuracy**: Exact gas costs and refunds match specification
-3. **Hardfork Support**: Correct behavior across all hardforks
-4. **Refund Cap**: Proper enforcement of 20%/50% refund caps
-5. **Performance**: No significant impact on SSTORE operation speed
-6. **Memory Efficiency**: Reasonable memory usage for original value tracking
+## Test-Driven Development (TDD) Strategy
 
-## Critical Requirements
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Test across all hardforks** - Refund rules change significantly
-3. **Verify refund cap enforcement** - Critical for preventing gas attacks
-4. **Test complex transaction scenarios** - Multiple SSTORE operations
-5. **Validate against EIP specifications** - EIP-2200, EIP-2929, EIP-3529
-6. **Performance testing** - Ensure no regression in SSTORE performance
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/opcodes/sstore_test.zig`)
+```zig
+// Test basic SSTORE functionality
+test "sstore basic functionality with known scenarios"
+test "sstore handles edge cases correctly"
+test "sstore validates state changes"
+test "sstore correct gas calculation"
+```
+
+#### 2. **State Management Tests**
+```zig
+test "sstore state transitions work correctly"
+test "sstore handles state conflicts properly"
+test "sstore maintains state consistency"
+test "sstore reverts state on failure"
+```
+
+#### 3. **Gas Calculation Tests**
+```zig
+test "sstore gas cost calculation accuracy"
+test "sstore gas refund mechanics"
+test "sstore gas edge cases and overflow protection"
+test "sstore gas accounting in EVM context"
+```
+
+#### 4. **Integration Tests**
+```zig
+test "sstore EVM context integration"
+test "sstore called from contract execution"
+test "sstore hardfork behavior changes"
+test "sstore interaction with other opcodes"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "sstore error propagation"
+test "sstore proper error types returned"
+test "sstore handles corrupted state gracefully"
+test "sstore never panics on malformed input"
+```
+
+#### 6. **Performance Tests**
+```zig
+test "sstore performance with realistic workloads"
+test "sstore memory efficiency"
+test "sstore execution time bounds"
+test "sstore benchmark against reference implementations"
+```
+
+### Test Development Priority
+1. **Start with specification test vectors** - Ensures spec compliance from day one
+2. **Add core functionality tests** - Critical behavior verification
+3. **Implement gas/state management** - Economic and state security
+4. **Add performance benchmarks** - Ensures production readiness
+5. **Test error cases** - Robust error handling
+
+### Test Data Sources
+- **EIP/Specification test vectors**: Primary compliance verification
+- **Reference implementation tests**: Cross-client compatibility
+- **Ethereum test suite**: Official test cases
+- **Edge case generation**: Boundary value and malformed input testing
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Ensure 100% test coverage for all public functions
+- Validate performance benchmarks don't regress
+- Test both debug and release builds
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "sstore basic functionality" {
+    // This test MUST fail initially
+    const input = test_vectors.valid_input;
+    const expected = test_vectors.expected_output;
+    
+    const result = sstore(input);
+    try testing.expectEqual(expected, result);
+}
+```
+
+**Only then implement:**
+```zig
+pub fn sstore(input: InputType) !OutputType {
+    // Minimal implementation to make test pass
+    return error.NotImplemented; // Initially
+}
+```
 
 ## References
 

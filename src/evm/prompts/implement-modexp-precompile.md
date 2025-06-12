@@ -1,20 +1,8 @@
 # Implement MODEXP Precompile
 
 <<<<<<< HEAD
-## Git Workflow Instructions
+You are implementing the MODEXP precompile (address 0x05) for the Tevm EVM written in Zig. Your goal is to provide modular exponentiation functionality for smart contracts, following EIP-198 specification and maintaining compatibility with all Ethereum clients.
 
-### Branch Setup
-1. **Create branch**: `feat_implement_modexp_precompile` (snake_case, no emoji)
-2. **Create worktree**: `git worktree add g/feat_implement_modexp_precompile feat_implement_modexp_precompile`
-3. **Work in isolation**: `cd g/feat_implement_modexp_precompile`
-4. **Commit message**: `✨ feat: implement MODEXP precompile with EIP-2565 optimizations`
-
-### Workflow Steps
-1. Create and switch to the new worktree
-2. Implement all changes in the isolated branch
-3. Run `zig build test-all` to ensure all tests pass
-4. Commit with emoji conventional commit format
-5. DO NOT merge - leave ready for review
 =======
 <review>
 **Implementation Status: FULLY IMPLEMENTED ✅**
@@ -49,20 +37,17 @@
 
 You are implementing the MODEXP precompile (address 0x05) for the Tevm EVM written in Zig. Your goal is to provide modular exponentiation functionality for smart contracts, following EIP-198 specification and maintaining compatibility with all Ethereum clients.
 
+>>>>>>> origin/main
 ## Development Workflow
 - **Branch**: `feat_implement_modexp_precompile` (snake_case)
 - **Worktree**: `git worktree add g/feat_implement_modexp_precompile feat_implement_modexp_precompile`
 - **Testing**: Run `zig build test-all` before committing
 - **Commit**: Use emoji conventional commits with XML summary format
->>>>>>> origin/main
 
 ## Context
 
 Implement the MODEXP precompile (address 0x05) for Ethereum Virtual Machine compatibility. This precompile performs modular exponentiation (base^exp % mod) and is crucial for RSA verification and other cryptographic operations. The implementation must handle EIP-2565 gas cost optimizations.
 
-<<<<<<< HEAD
-## Ethereum Specification
-=======
 ## ELI5
 
 Think of MODEXP as a super-powered calculator that can handle enormous numbers efficiently. Imagine you need to calculate something like 123^456789 % 9876543 (that's 123 raised to the power of 456,789, then find the remainder when divided by 9,876,543).
@@ -116,7 +101,6 @@ This prompt involves cryptographic operations. Follow these security principles:
 **Remember**: MODEXP is critical for RSA and other public-key cryptography. Bugs can lead to fund loss, private key exposure, and complete system compromise. Always use proven, audited implementations.
 
 ## Specification
->>>>>>> origin/main
 
 ### Basic Operation
 - **Address**: `0x0000000000000000000000000000000000000005`
@@ -144,13 +128,6 @@ Input format (variable length):
 
 ## Reference Implementations
 
-<<<<<<< HEAD
-### evmone Implementation
-File: Search for `modexp` in evmone precompiles for gas calculation and execution
-
-### revm Implementation  
-File: Search for `modexp` in revm for modern optimization patterns
-=======
 ### geth
 
 <explanation>
@@ -388,7 +365,6 @@ pub fn calculate_iteration_count<const MULTIPLIER: u64>(exp_length: u64, exp_hig
     max(iteration_count, 1)
 }
 ```
->>>>>>> origin/main
 
 ### EIP Specifications
 - **EIP-198**: Original MODEXP precompile specification
@@ -881,16 +857,6 @@ test "modexp fuzzing" {
 5. **Security**: Resistant to timing attacks and DoS attempts
 6. **Test Coverage**: Comprehensive test suite including edge cases
 
-<<<<<<< HEAD
-## Critical Requirements
-
-1. **NEVER commit until `zig build test-all` passes**
-2. **Implement big integer arithmetic correctly** - Mathematical correctness is critical
-3. **Follow EIP-2565 gas costs exactly** - Must match specification precisely
-4. **Handle all edge cases** - Zero values, large numbers, special moduli
-5. **Optimize for WASM bundle size** - Big integer code can be large
-6. **Test with Ethereum test vectors** - Use official test suite for validation
-=======
 ## Critical Constraints
 ❌ NEVER commit until all tests pass with `zig build test-all`
 ❌ DO NOT merge without review
@@ -1018,7 +984,6 @@ pub fn run(input: []const u8) ![]u8 {
     return error.NotImplemented; // Initially
 }
 ```
->>>>>>> origin/main
 
 ## References
 
@@ -1206,9 +1171,6 @@ pub fn calculate_iteration_count<const MULTIPLIER: u64>(exp_length: u64, exp_hig
     max(iteration_count, 1)
 }
 ```
-<<<<<<< HEAD
-</line>
-=======
 </line>
 
 ## EVMONE Context
@@ -3573,4 +3535,3 @@ func (c *bigModExp) Run(input []byte) ([]byte, error) {
 - The `getData` helper function is crucial for understanding how the variable-length inputs are parsed and was not included in the original prompt. It's added for clarity.
 </prompt_corrections>
 
->>>>>>> origin/main

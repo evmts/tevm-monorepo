@@ -1,20 +1,8 @@
 # Implement ECPAIRING Precompile
 
 <<<<<<< HEAD
-## Git Workflow Instructions
+You are implementing ECPAIRING Precompile for the Tevm EVM written in Zig. Your goal is to implement elliptic curve pairing precompile for optimal ate pairing following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
-1. **Create branch**: `feat_implement_ecpairing_precompile` (snake_case, no emoji)
-2. **Create worktree**: `git worktree add g/feat_implement_ecpairing_precompile feat_implement_ecpairing_precompile`
-3. **Work in isolation**: `cd g/feat_implement_ecpairing_precompile`
-4. **Commit message**: `✨ feat: implement ECPAIRING precompile`
-
-### Workflow Steps
-1. Create and switch to the new worktree
-2. Implement all changes in the isolated branch
-3. Run `zig build test-all` to ensure all tests pass
-4. Commit with emoji conventional commit format
-5. DO NOT merge - leave ready for review
 =======
 <review>
 **Implementation Status: NOT IMPLEMENTED ❌ - INCORRECT PREVIOUS STATUS**
@@ -60,21 +48,18 @@
 
 You are implementing ECPAIRING Precompile for the Tevm EVM written in Zig. Your goal is to implement elliptic curve pairing precompile for optimal ate pairing following Ethereum specifications and maintaining compatibility with existing implementations.
 
+>>>>>>> origin/main
 ## Development Workflow
 - **Branch**: `feat_implement_ecpairing_precompile` (snake_case)
 - **Worktree**: `git worktree add g/feat_implement_ecpairing_precompile feat_implement_ecpairing_precompile`
 - **Testing**: Run `zig build test-all` before committing
 - **Commit**: Use emoji conventional commits with XML summary format
 
->>>>>>> origin/main
 
 ## Context
 
 Implement the ECPAIRING precompile (address 0x08) for Ethereum Virtual Machine compatibility. This precompile performs pairing checks on the alt_bn128 curve and is critical for zkSNARK verification. Available from Byzantium hardfork.
 
-<<<<<<< HEAD
-## Ethereum Specification
-=======
 ## ELI5
 
 Think of ECPAIRING as a sophisticated "proof checker" that can verify complex mathematical relationships without needing to see the original secret. It's like having a special lock that can verify multiple keys work together without revealing what the keys actually unlock.
@@ -131,7 +116,6 @@ This prompt involves advanced cryptographic operations. Follow these security pr
 **Remember**: ECPAIRING is the foundation of zkSNARKs and advanced cryptography. Bugs can break zero-knowledge proofs, compromise privacy protocols, and leak sensitive information. This is extremely complex mathematics - always use proven, audited implementations.
 
 ## Specification
->>>>>>> origin/main
 
 ### Basic Operation
 - **Address**: `0x0000000000000000000000000000000000000008`
@@ -216,11 +200,7 @@ pub const ECPAIRING_PAIR_GAS_BYZANTIUM: u64 = 80000; // Per pair, pre-Istanbul
 File: `/src/evm/precompiles/bn254_fields.zig`
 ```zig
 const std = @import("std");
-<<<<<<< HEAD
-const U256 = @import("../Types/U256.ts").U256;
-=======
 const U256 = @import("../Types/U256.zig").U256;
->>>>>>> origin/main
 
 // Base field Fq for BN254
 pub const FIELD_PRIME: U256 = 21888242871839275222246405745257275088696311157297823662689037894645226208583;
@@ -551,16 +531,6 @@ pub fn execute(input: []const u8, output: []u8, gas_limit: u64, hardfork: Hardfo
 5. **Security**: Constant-time operations, proper validation
 6. **Integration**: Seamless operation with existing precompiles
 
-<<<<<<< HEAD
-## Critical Requirements
-
-1. **NEVER commit until `zig build test-all` passes**
-2. **Test against EIP-197 vectors** - Pairing is mathematically complex
-3. **Optimize aggressively** - This is the most expensive precompile
-4. **Validate inputs thoroughly** - Invalid curves can cause undefined behavior
-5. **Handle edge cases** - Points at infinity, empty input, etc.
-6. **Consider WASM performance** - Pairing is compute-intensive
-=======
 ## Critical Constraints
 ❌ NEVER commit until all tests pass with `zig build test-all`
 ❌ DO NOT merge without review
@@ -703,16 +673,12 @@ pub fn run(input: []const u8) ![]u8 {
 - **Test against malicious inputs** - Elliptic curve operations are security-critical
 - **Verify constant-time execution** - Prevent timing attack vulnerabilities
 - **Test hardfork transitions** - Ensure availability at correct block numbers
->>>>>>> origin/main
 
 ## References
 
 - [EIP-197: Precompiled contracts for optimal ate pairing check on the elliptic curve alt_bn128](https://eips.ethereum.org/EIPS/eip-197)
 - [Optimal Ate Pairing over BN Curves](https://eprint.iacr.org/2008/096.pdf)
 - [BN254 Curve Implementation Guide](https://hackmd.io/@jpw/bn254)
-<<<<<<< HEAD
-- [Pairing-Based Cryptography Library](https://github.com/arkworks-rs/curves/tree/master/bn254)
-=======
 - [Pairing-Based Cryptography Library](https://github.com/arkworks-rs/curves/tree/master/bn254)
 
 ## EVMONE Context
@@ -3706,4 +3672,3 @@ func (p *bn254Pairing) RequiredGas(input []byte, rules params.Rules) uint64 {
 
 This separation makes the EVM's gas deduction cleaner, as it can calculate the cost before execution without calling the main `Run` logic.
 
->>>>>>> origin/main

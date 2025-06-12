@@ -1,39 +1,8 @@
 # Implement ECRECOVER Precompile
 
 <<<<<<< HEAD
-## Git Workflow Instructions
+You are implementing the ECRECOVER precompile (address 0x01) for the Tevm EVM written in Zig. Your goal is to recover signer addresses from ECDSA signatures using elliptic curve cryptography, following Ethereum specifications and maintaining compatibility with all existing implementations.
 
-### Branch Setup
-1. **Create branch**: `feat_implement_ecrecover_precompile` (snake_case, no emoji)
-2. **Create worktree**: `git worktree add g/feat_implement_ecrecover_precompile feat_implement_ecrecover_precompile`
-3. **Work in isolation**: `cd g/feat_implement_ecrecover_precompile`
-4. **Commit message**: `✨ feat: implement ECRECOVER precompile for signature recovery`
-
-### Workflow Steps
-1. Create and switch to the new worktree
-2. Implement all changes in the isolated branch
-3. Run `zig build test-all` to ensure all tests pass
-4. Commit with emoji conventional commit format
-5. DO NOT merge - leave ready for review
-
-## Context
-
-Implement the ECRECOVER precompile (address 0x01) for Ethereum Virtual Machine compatibility. This precompile recovers the signer's address from an ECDSA signature using elliptic curve cryptography. This is fundamental for Ethereum's signature verification system.
-
-## Ethereum Specification
-
-### Basic Operation
-- **Address**: `0x0000000000000000000000000000000000000001`
-- **Gas Cost**: `3000` (fixed cost)
-- **Input**: 128 bytes (hash, v, r, s)
-- **Output**: 20 bytes (recovered address) or empty on failure
-- **Available**: All hardforks (Frontier onwards)
-
-### Input Format
-```
-Input (128 bytes total):
-- hash (32 bytes): Hash of the message that was signed
-- v (32 bytes): Recovery ID (27 or 28, or chain_id * 2 + 35/36 for EIP-155)
 =======
 <review>
 **Implementation Status: NOT IMPLEMENTED ❌**
@@ -74,6 +43,7 @@ Input (128 bytes total):
 
 You are implementing the ECRECOVER precompile (address 0x01) for the Tevm EVM written in Zig. Your goal is to recover signer addresses from ECDSA signatures using elliptic curve cryptography, following Ethereum specifications and maintaining compatibility with all existing implementations.
 
+>>>>>>> origin/main
 ## Development Workflow
 - **Branch**: `feat_implement_ecrecover_precompile` (snake_case)
 - **Worktree**: `git worktree add g/feat_implement_ecrecover_precompile feat_implement_ecrecover_precompile`
@@ -155,7 +125,6 @@ This prompt involves cryptographic operations. Follow these security principles:
 ```
 - hash (32 bytes): Hash of the message that was signed
 - v (32 bytes): Recovery ID (27 or 28, padded with zeros)
->>>>>>> origin/main
 - r (32 bytes): ECDSA signature r component
 - s (32 bytes): ECDSA signature s component
 ```
@@ -164,8 +133,6 @@ This prompt involves cryptographic operations. Follow these security principles:
 - **Success**: 20-byte Ethereum address (left-padded to 32 bytes)
 - **Failure**: Empty output (0 bytes)
 
-<<<<<<< HEAD
-=======
 ### Validation Rules
 - r and s must be in range [1, secp256k1_order)
 - v must be exactly 27 or 28 (after adjustment)
@@ -173,7 +140,6 @@ This prompt involves cryptographic operations. Follow these security principles:
 - Public key recovery must succeed
 - Derived address must be valid
 
->>>>>>> origin/main
 ## Reference Implementations
 
 ### evmone Implementation
@@ -262,15 +228,9 @@ fn validate_signature_params(v: u256, r: u256, s: u256) bool {
     // s must be non-zero and less than curve order
     if (s == 0 or s >= SECP256K1_ORDER) return false;
     
-<<<<<<< HEAD
-    // v must be 27, 28, or EIP-155 format
-    const recovery_id = extract_recovery_id(v);
-    if (recovery_id != 0 and recovery_id != 1) return false;
-=======
     // v must be exactly 27 or 28 (EIP-155 format NOT supported in precompile)
     const recovery_id = extract_recovery_id(v);
     if (recovery_id == 255) return false; // Invalid v value
->>>>>>> origin/main
     
     return true;
 }
@@ -293,13 +253,8 @@ const gas_constants = @import("../constants/gas_constants.zig");
 const PrecompileResult = @import("precompile_result.zig").PrecompileResult;
 const PrecompileError = @import("precompile_result.zig").PrecompileError;
 const Address = @import("../Address.zig").Address;
-<<<<<<< HEAD
-const U256 = @import("../Types/U256.ts").U256;
-const B256 = @import("../Types/B256.ts").B256;
-=======
 const U256 = @import("../Types/U256.zig").U256;
 const B256 = @import("../Types/B256.zig").B256;
->>>>>>> origin/main
 
 // secp256k1 curve order
 const SECP256K1_ORDER: u256 = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141;
@@ -374,27 +329,12 @@ fn validate_signature_params(v: u256, r: u256, s: u256) bool {
 }
 
 fn extract_recovery_id(v: u256) u8 {
-<<<<<<< HEAD
-    // Handle legacy format (27, 28)
-    if (v == 27) return 0;
-    if (v == 28) return 1;
-    
-    // Handle EIP-155 format (chain_id * 2 + 35/36)
-    if (v >= 35) {
-        const adjusted = v - 35;
-        const recovery_id = @as(u8, @intCast(adjusted % 2));
-        return recovery_id;
-    }
-    
-    // Invalid v value
-=======
     // ECRECOVER precompile only accepts v values of 27 or 28
     // EIP-155 handling is NOT supported in this precompile
     if (v == 27) return 0;
     if (v == 28) return 1;
     
     // Invalid v value - return invalid marker
->>>>>>> origin/main
     return 255; // Invalid marker
 }
 
@@ -631,8 +571,6 @@ fn secure_ecrecover(input: []const u8, output: []u8) PrecompileError!PrecompileR
 5. **Gas Accuracy**: Consumes exactly 3000 gas regardless of success/failure
 6. **Security**: Resistant to timing attacks and other side-channel attacks
 
-<<<<<<< HEAD
-=======
 
 ## Critical Constraints
 ❌ NEVER commit until all tests pass with `zig build test-all`
@@ -641,7 +579,6 @@ fn secure_ecrecover(input: []const u8, output: []u8) PrecompileError!PrecompileR
 ✅ MUST validate against Ethereum specifications exactly
 ✅ MUST maintain compatibility with existing implementations
 ✅ MUST handle all edge cases and error conditions
->>>>>>> origin/main
 ## Critical Requirements
 
 1. **NEVER commit until `zig build test-all` passes**
@@ -758,9 +695,6 @@ pub fn ecrecover(sig: &B512, mut recid: u8, msg: &B256) -> Result<B256, Error> {
     Ok(hash)
 }
 ```
-<<<<<<< HEAD
-</line>
-=======
 </line>
 
 ## EVMONE Context
@@ -2533,4 +2467,3 @@ pub fn run(input: []const u8) ![]u8 {
 - **Validate cryptographic correctness** with curve edge cases
 - **Ensure constant-time execution** for security
 
->>>>>>> origin/main

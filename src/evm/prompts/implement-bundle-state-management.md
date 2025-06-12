@@ -1,20 +1,8 @@
 # Implement Bundle State Management
 
 <<<<<<< HEAD
-## Git Workflow Instructions
+You are implementing Bundle State Management for the Tevm EVM written in Zig. Your goal is to implement bundle state management for transaction batching following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
-1. **Create branch**: `feat_implement_bundle_state_management` (snake_case, no emoji)
-2. **Create worktree**: `git worktree add g/feat_implement_bundle_state_management feat_implement_bundle_state_management`
-3. **Work in isolation**: `cd g/feat_implement_bundle_state_management`
-4. **Commit message**: `✨ feat: implement efficient bundle state management for state transitions and rollback`
-
-### Workflow Steps
-1. Create and switch to the new worktree
-2. Implement all changes in the isolated branch
-3. Run `zig build test-all` to ensure all tests pass
-4. Commit with emoji conventional commit format
-5. DO NOT merge - leave ready for review
 =======
 <review>
 **Implementation Status: NOT IMPLEMENTED ❌**
@@ -34,20 +22,18 @@
 
 You are implementing Bundle State Management for the Tevm EVM written in Zig. Your goal is to implement bundle state management for transaction batching following Ethereum specifications and maintaining compatibility with existing implementations.
 
+>>>>>>> origin/main
 ## Development Workflow
 - **Branch**: `feat_implement_bundle_state_management` (snake_case)
 - **Worktree**: `git worktree add g/feat_implement_bundle_state_management feat_implement_bundle_state_management`
 - **Testing**: Run `zig build test-all` before committing
 - **Commit**: Use emoji conventional commits with XML summary format
 
->>>>>>> origin/main
 
 ## Context
 
 Implement comprehensive bundle state management that efficiently handles state transitions, rollbacks, and batch operations. This includes state bundling for transaction execution, efficient diff tracking, checkpoint management, and optimized state merging for complex execution scenarios like MEV bundles and transaction batching.
 
-<<<<<<< HEAD
-=======
 ## ELI5
 
 Think of bundle state management like managing multiple drafts of a document at the same time. Imagine you're editing a complex legal document where different people are making changes simultaneously, and you need to:
@@ -70,7 +56,6 @@ This is especially critical for:
 
 The enhanced version is like having a super-smart document management system that can predict which changes will conflict, optimize the order of changes, and merge complex edits intelligently.
 
->>>>>>> origin/main
 ## Bundle State Management Specifications
 
 ### Core Bundle Framework
@@ -1605,16 +1590,6 @@ test "integration with VM execution" {
 5. **Performance**: Minimal overhead for bundle operations
 6. **Integration**: Seamless VM integration with existing state management
 
-<<<<<<< HEAD
-## Critical Requirements
-
-1. **NEVER commit until `zig build test-all` passes**
-2. **Data integrity** - Bundles must maintain state consistency
-3. **Memory safety** - No memory leaks or corruption during bundle operations
-4. **Atomicity** - Bundle operations must be atomic (all-or-nothing)
-5. **Performance** - Bundle overhead must be minimal for normal execution
-6. **Thread safety** - Concurrent bundle operations must be safe
-=======
 ## Critical Constraints
 ❌ NEVER commit until all tests pass with `zig build test-all`
 ❌ DO NOT merge without review
@@ -1755,7 +1730,6 @@ pub const bundle_state_management = struct {
 - **Verify EVM specification compliance** - Critical for protocol state correctness
 - **Test bundle performance implications** - Especially for large state bundle processing
 - **Validate bundle security properties** - Prevent state corruption and ensure atomicity
->>>>>>> origin/main
 
 ## References
 
@@ -1763,9 +1737,6 @@ pub const bundle_state_management = struct {
 - [Copy-on-Write](https://en.wikipedia.org/wiki/Copy-on-write) - Efficient state copying techniques
 - [Snapshot Isolation](https://en.wikipedia.org/wiki/Snapshot_isolation) - Isolation level for concurrent operations
 - [Version Control Systems](https://en.wikipedia.org/wiki/Version_control) - Branching and merging concepts
-<<<<<<< HEAD
-- [MEV Bundles](https://docs.flashbots.net/flashbots-auction/searchers/advanced/bundles) - MEV bundle execution patterns
-=======
 - [MEV Bundles](https://docs.flashbots.net/flashbots-auction/searchers/advanced/bundles) - MEV bundle execution patterns
 
 ## EVMONE Context
@@ -3243,4 +3214,3 @@ The provided `execution-specs` code uses a different but related pattern: **copy
 
 **Recommendation**: The `execution-specs` snapshotting mechanism is a robust and proven pattern for achieving the desired state management goals (transactions, rollbacks, checkpoints). It's a good reference for implementing the `StateBundleManager`. The `StateBundle` itself could be implemented as a snapshot of the state tries, rather than a list of individual changes. This would simplify merging and forking, as it becomes a matter of merging trie nodes. The journaling approach is still valid but might be more complex to implement correctly, especially for conflict resolution during merges.
 
->>>>>>> origin/main
