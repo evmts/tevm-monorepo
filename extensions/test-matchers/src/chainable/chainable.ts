@@ -216,6 +216,7 @@ function makeVitestAsyncChainable<
 	})
 
 	// Make thenable (waffle-chai pattern)
+	// biome-ignore lint/suspicious/noThenProperty: binding the promise to replicate chai waffle pattern
 	this.then = derivedPromise.then.bind(derivedPromise)
 	this.catch = derivedPromise.catch.bind(derivedPromise)
 	chaiUtils.flag(this, 'callPromise', derivedPromise)
