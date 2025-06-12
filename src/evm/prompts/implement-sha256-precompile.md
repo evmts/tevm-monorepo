@@ -1,25 +1,107 @@
 # Implement SHA256 Precompile
 
-## Git Workflow Instructions
+<review>
+**Implementation Status: FULLY IMPLEMENTED ✅**
 
-### Branch Setup
-1. **Create branch**: `feat_implement_sha256_precompile` (snake_case, no emoji)
-2. **Create worktree**: `git worktree add g/feat_implement_sha256_precompile feat_implement_sha256_precompile`
-3. **Work in isolation**: `cd g/feat_implement_sha256_precompile`
-4. **Commit message**: `✨ feat: implement SHA256 precompile`
+**Current Status:**
+- ✅ **COMPLETE**: sha256.zig fully implemented with Ethereum specification compliance
+- ✅ **INTEGRATED**: Properly integrated in precompiles.zig:110 and :174
+- ✅ **GAS CALCULATION**: Standard linear gas cost (60 + 12 * ceil(size/32))
+- ✅ **SECURITY**: Uses Zig's std.crypto.hash.sha2.Sha256 (FIPS 180-4 compliant)
 
-### Workflow Steps
-1. Create and switch to the new worktree
-2. Implement all changes in the isolated branch
-3. Run `zig build test-all` to ensure all tests pass
-4. Commit with emoji conventional commit format
-5. DO NOT merge - leave ready for review
+**Implementation Quality:**
+- ✅ **DOCUMENTATION**: Comprehensive documentation with gas cost formula
+- ✅ **ERROR HANDLING**: Proper PrecompileError and PrecompileOutput handling
+- ✅ **PERFORMANCE**: Efficient using Zig's optimized SHA256 implementation
+- ✅ **STANDARDS**: Follows Ethereum specification for address 0x02
+
+**Code Structure:**
+- ✅ **SECURITY**: Uses constant-time, memory-safe implementation
+- ✅ **TESTABLE**: Clear function interfaces for unit testing
+- ✅ **MAINTAINABLE**: Well-structured with appropriate constants
+- ✅ **RELIABLE**: FIPS 180-4 compliant standard library implementation
+
+**Integration:**
+- ✅ **DISPATCHER**: Correctly registered in precompiles.zig
+- ✅ **GAS ESTIMATION**: estimate_gas() fully functional
+- ✅ **OUTPUT SIZE**: get_output_size() returns fixed 32 bytes
+- ✅ **HARDFORK**: Available from Frontier (always available)
+
+**Priority: COMPLETED - No further work needed**
+</review>
+
+You are implementing the SHA256 precompile (address 0x02) for the Tevm EVM written in Zig. Your goal is to provide SHA256 hashing functionality for smart contracts, following Ethereum specifications and maintaining compatibility with all Ethereum clients.
+
+## Context
+SHA256 is fundamental for Ethereum ecosystem compatibility and is used by smart contracts for data integrity verification, commitment schemes, and interoperability with Bitcoin and other systems. The precompile provides an efficient, gas-optimized way for contracts to compute SHA256 hashes without implementing the algorithm in expensive EVM bytecode.
+
+## Development Workflow
+- **Branch**: `feat_implement_sha` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_sha feat_implement_sha`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
 
 ## Context
 
 Implement the SHA256 precompile (address 0x02) for Ethereum Virtual Machine compatibility. This precompile provides SHA256 hashing functionality and is available from the Frontier hardfork. This implementation assumes the IDENTITY precompile infrastructure already exists.
 
-## Ethereum Specification
+## File Structure
+
+**Primary Files to Modify:**
+- `/src/evm/precompiles/precompiles.zig` - Main precompile dispatcher
+
+**Supporting Files:**
+- `/src/evm/precompiles/precompile_addresses.zig` - Address constants
+- `/src/evm/precompiles/precompile_gas.zig` - Gas calculation for precompiles
+- `/src/evm/precompiles/precompile_result.zig` - Result types for precompile execution
+
+**New Files to Create:**
+- `/src/evm/precompiles/sha256.zig` - SHA256 hash implementation
+
+**Test Files:**
+- `/test/evm/precompiles/` (directory) - Precompile test infrastructure
+- `/test/evm/precompiles/sha256_test.zig` - SHA256 specific tests
+
+**Why These Files:**
+- The main precompile dispatcher needs to route calls to the SHA256 implementation
+- Address constants define the precompile address (0x02)
+- New implementation file handles SHA256 cryptographic hash function
+- Comprehensive tests ensure correctness and performance
+
+## ELI5
+
+SHA256 is a widely-used cryptographic hash function that takes any amount of data and produces a unique 256-bit (32-byte) "fingerprint" or hash. Think of it like a super-secure digital fingerprint machine - no matter how much data you put in, you always get exactly 32 bytes out, and even tiny changes to the input produce completely different outputs. Smart contracts use SHA256 when they need to verify data integrity or create tamper-proof references to data.
+
+## 🚨 CRITICAL SECURITY WARNING: DO NOT IMPLEMENT CUSTOM CRYPTO
+
+**❌ NEVER IMPLEMENT CRYPTOGRAPHIC ALGORITHMS FROM SCRATCH**
+
+This prompt involves cryptographic operations. Follow these security principles:
+
+### ✅ **DO THIS:**
+- **Use established crypto libraries** (Zig std.crypto, noble-hashes, libsecp256k1)
+- **Import proven implementations** from well-audited libraries
+- **Leverage existing WASM crypto libraries** when Zig stdlib lacks algorithms
+- **Follow reference implementations** from go-ethereum, revm, evmone exactly
+- **Use test vectors** from official specifications to verify correctness
+
+### ❌ **NEVER DO THIS:**
+- Write your own hash functions, signature verification, or elliptic curve operations
+- Implement cryptographic primitives "from scratch" or "for learning"
+- Modify cryptographic algorithms or add "optimizations"
+- Copy-paste crypto code from tutorials or unofficial sources
+- Implement crypto without extensive peer review and testing
+
+### 🎯 **Implementation Strategy:**
+1. **First choice**: Use Zig standard library crypto functions when available
+2. **Second choice**: Use well-established WASM crypto libraries (noble-hashes, etc.)
+3. **Third choice**: Bind to audited C libraries (libsecp256k1, OpenSSL)
+4. **Never**: Write custom cryptographic implementations
+
+**Remember**: Cryptographic bugs can lead to fund loss, private key exposure, and complete system compromise. Always use proven, audited implementations.
+
+## Specification
 
 ### Basic Operation
 - **Address**: `0x0000000000000000000000000000000000000002`
@@ -208,30 +290,131 @@ pub fn execute_efficient(input: []const u8, output: []u8, gas_limit: u64) Precom
 5. **Performance**: Competitive with or better than reference implementations
 6. **Bundle Size**: Minimal impact on WASM bundle size
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Use Zig standard library crypto** - Don't implement SHA256 from scratch
-3. **Verify against RFC test vectors** - Ensure hash correctness
-4. **Test gas calculation precisely** - Must match Ethereum specification exactly
-5. **Handle large inputs** - Test up to reasonable gas limit boundaries
-6. **Maintain constant-time execution** - Use secure crypto implementation
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
 
-## Security Considerations
+## Test-Driven Development (TDD) Strategy
 
-### Crypto Implementation
-- **Use std.crypto.hash.sha2.Sha256**: Battle-tested implementation
-- **Constant-time execution**: Resistant to timing attacks
-- **Memory safety**: Zig's memory safety prevents buffer overflows
-- **No custom crypto**: Don't implement SHA256 manually
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
 
-### Input Validation
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/precompiles/sha256_test.zig`)
 ```zig
-// Validate input size doesn't cause integer overflow
-if (input.len > std.math.maxInt(u32)) return PrecompileError.InputTooLarge;
+// Test basic SHA256 functionality
+test "sha256 basic functionality with known vectors"
+test "sha256 handles edge cases correctly"
+test "sha256 validates input format"
+test "sha256 produces correct output format"
+```
 
-// Ensure output buffer is adequate
-if (output.len < 32) return PrecompileError.InvalidOutput;
+#### 2. **Input Validation Tests**
+```zig
+test "sha256 handles various input lengths"
+test "sha256 validates input parameters"
+test "sha256 rejects invalid inputs gracefully"
+test "sha256 handles empty input"
+```
+
+#### 3. **Gas Calculation Tests**
+```zig
+test "sha256 gas cost calculation accuracy"
+test "sha256 gas cost edge cases"
+test "sha256 gas overflow protection"
+test "sha256 gas deduction in EVM context"
+```
+
+#### 4. **Specification Compliance Tests**
+```zig
+test "sha256 matches specification test vectors"
+test "sha256 matches reference implementation output"
+test "sha256 hardfork availability requirements"
+test "sha256 address registration correct"
+```
+
+#### 5. **Performance Tests**
+```zig
+test "sha256 performance with large inputs"
+test "sha256 memory efficiency"
+test "sha256 WASM bundle size impact"
+test "sha256 benchmark against reference implementations"
+```
+
+#### 6. **Error Handling Tests**
+```zig
+test "sha256 error propagation"
+test "sha256 proper error types returned"
+test "sha256 handles corrupted input gracefully"
+test "sha256 never panics on malformed input"
+```
+
+#### 7. **Integration Tests**
+```zig
+test "sha256 precompile registration"
+test "sha256 called from EVM execution"
+test "sha256 gas deduction in EVM context"
+test "sha256 hardfork availability"
+```
+
+### Test Development Priority
+1. **Start with specification test vectors** - Ensures spec compliance from day one
+2. **Add input validation** - Prevents invalid states early
+3. **Implement gas calculation** - Core economic security
+4. **Add performance benchmarks** - Ensures production readiness
+5. **Test error cases** - Robust error handling
+
+### Test Data Sources
+- **EIP/Specification test vectors**: Primary compliance verification
+- **Reference implementation tests**: Cross-client compatibility
+- **Mathematical test vectors**: Algorithm correctness
+- **Edge case generation**: Boundary value testing
+
+### Continuous Testing
+- Run `zig build test-all` after every code change
+- Ensure 100% test coverage for all public functions
+- Validate performance benchmarks don't regress
+- Test both debug and release builds
+
+### Test-First Examples
+
+**Before writing any implementation:**
+```zig
+test "sha256 basic functionality" {
+    // This test MUST fail initially
+    const input = test_vectors.valid_input;
+    const expected = test_vectors.expected_output;
+    
+    const result = sha256.run(input);
+    try testing.expectEqualSlices(u8, expected, result);
+}
+```
+
+**Only then implement:**
+```zig
+pub fn run(input: []const u8) ![]u8 {
+    // Minimal implementation to make test pass
+    return error.NotImplemented; // Initially
+}
 ```
 
 ## References
@@ -323,3 +506,46 @@ var PrecompiledContractsHomestead = PrecompiledContracts{
 	common.BytesToAddress([]byte{0x4}): &dataCopy{},
 }
 ```
+
+## Implementation Strategy & Research
+
+### Recommended Approach: Zig Standard Library (Preferred)
+
+**Primary Option: Zig `std.crypto.hash.sha256`**
+- ✅ **Pros**: Native Zig implementation, zero external dependencies, optimal WASM bundle size
+- 📦 **Bundle Impact**: Minimal - only includes what's used, no external library overhead
+- 🎯 **Compatibility**: Perfect WASM compilation via Zig's built-in support
+- 🔧 **API**: Simple and straightforward: `const hash = std.crypto.hash.sha256.hash(input);`
+- 🛡️ **Security**: Part of Zig standard library, well-maintained and audited
+
+**Fallback Option: WASM SHA256 Library**  
+- 🔄 **Backup**: [tiny-sha256](https://github.com/jedisct1/tiny-sha256) or similar optimized WASM implementation
+- ⚠️ **Tradeoff**: Slightly larger bundle size, external dependency management
+- 🎯 **Use Case**: If Zig stdlib implementation has any compatibility issues
+
+### Implementation Priority
+Following Tevm's preference hierarchy for SHA256 (0x02):
+1. ✅ **Zig stdlib (strongly recommended)** - `std.crypto.hash.sha256` 
+2. 🔄 WASM library (fallback) - only if stdlib issues arise
+3. ❌ Custom implementation (avoid) - unnecessary reinvention for well-defined algorithm
+
+### Critical Implementation Notes
+- **Gas Efficiency**: SHA256 has well-defined gas formula `60 + 12 * ceil(input_size / 32)`
+- **Performance**: Zig stdlib implementation should provide excellent performance
+- **Bundle Size**: SHA256 is common enough that the stdlib overhead is justified
+- **Testing**: Use test vectors from NIST and compare against geth/other clients
+
+### Sample Implementation Pattern
+```zig
+const std = @import("std");
+
+pub fn sha256_precompile(input: []const u8) [32]u8 {
+    return std.crypto.hash.sha256.hash(input);
+}
+```
+
+### Research Notes
+- Zig's SHA256 implementation is FIPS compliant and well-optimized
+- No need for complex WASM bindings or external crypto libraries
+- Perfect fit for Tevm's "prefer stdlib first" philosophy
+- Expected bundle size impact: <10KB additional WASM

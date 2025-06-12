@@ -32,7 +32,6 @@
 ///     else => 0,
 /// };
 /// ```
-
 /// Gas cost for very cheap operations
 /// Operations: ADDRESS, ORIGIN, CALLER, CALLVALUE, CALLDATASIZE, CODESIZE,
 /// GASPRICE, RETURNDATASIZE, PC, MSIZE, GAS, CHAINID, SELFBALANCE
@@ -285,24 +284,44 @@ pub const SHA256_BASE_COST: u64 = 60;
 /// Total cost = SHA256_BASE_COST + (word_count * SHA256_WORD_COST)
 pub const SHA256_WORD_COST: u64 = 12;
 
+/// Base gas cost for ECRECOVER precompile (address 0x01)
+/// Fixed cost for elliptic curve signature recovery
+pub const ECRECOVER_COST: u64 = 3000;
+
+// ============================================================================
+// MODEXP Precompile Costs (EIP-2565)
+// ============================================================================
+
+/// Minimum gas cost for MODEXP precompile (address 0x05)
+/// EIP-2565: Reduced from previous higher costs to provide gas optimization
+pub const MODEXP_MIN_GAS: u64 = 200;
+
+/// Threshold for quadratic complexity in MODEXP gas calculation
+/// Inputs smaller than this use simple quadratic cost formula
+pub const MODEXP_QUADRATIC_THRESHOLD: usize = 64;
+
+/// Threshold for linear complexity in MODEXP gas calculation
+/// Inputs between quadratic and linear thresholds use optimized formula
+pub const MODEXP_LINEAR_THRESHOLD: usize = 1024;
+
 /// Calculate memory expansion gas cost
-/// 
+///
 /// Computes the gas cost for expanding EVM memory from current_size to new_size bytes.
 /// Memory expansion follows a quadratic cost formula to prevent DoS attacks.
-/// 
+///
 /// ## Parameters
 /// - `current_size`: Current memory size in bytes
 /// - `new_size`: Requested new memory size in bytes
-/// 
+///
 /// ## Returns
 /// - Gas cost for the expansion (0 if new_size <= current_size)
-/// 
+///
 /// ## Formula
 /// The total memory cost for n words is: 3n + n²/512
 /// Where a word is 32 bytes.
-/// 
+///
 /// Pre-computed memory expansion costs for common sizes.
-/// 
+///
 /// This lookup table stores the total memory cost for sizes up to 32KB (1024 words).
 /// Using a LUT converts runtime calculations to O(1) lookups for common cases.
 /// The formula is: 3n + n²/512 where n is the number of 32-byte words.
@@ -310,46 +329,46 @@ pub const MEMORY_EXPANSION_LUT = blk: {
     @setEvalBranchQuota(10000);
     const max_words = 1024; // Pre-compute for up to 32KB of memory
     var costs: [max_words]u64 = undefined;
-    
+
     for (0..max_words) |words| {
         costs[words] = MemoryGas * words + (words * words) / QuadCoeffDiv;
     }
-    
+
     break :blk costs;
 };
 
 /// The expansion cost is: total_cost(new_size) - total_cost(current_size)
-/// 
+///
 /// ## Examples
 /// - Expanding from 0 to 32 bytes (1 word): 3 + 0 = 3 gas
 /// - Expanding from 0 to 64 bytes (2 words): 6 + 0 = 6 gas
 /// - Expanding from 0 to 1024 bytes (32 words): 96 + 2 = 98 gas
 /// - Expanding from 1024 to 2048 bytes: 294 - 98 = 196 gas
-/// 
+///
 /// ## Edge Cases
 /// - If new_size <= current_size, no expansion needed, returns 0
 /// - Sizes are rounded up to the nearest word (32 bytes)
 /// - At 32MB, gas cost exceeds 2 billion, effectively preventing larger allocations
-/// 
+///
 /// ## Performance
 /// - Uses pre-computed lookup table for sizes up to 32KB (O(1) lookup)
 /// - Falls back to calculation for larger sizes
 pub fn memory_gas_cost(current_size: u64, new_size: u64) u64 {
     if (new_size <= current_size) return 0;
-    
+
     const current_words = (current_size + 31) / 32;
     const new_words = (new_size + 31) / 32;
-    
+
     // Use lookup table for common cases (up to 32KB)
     if (new_words < MEMORY_EXPANSION_LUT.len) {
         const current_cost = if (current_words < MEMORY_EXPANSION_LUT.len)
             MEMORY_EXPANSION_LUT[current_words]
         else
             MemoryGas * current_words + (current_words * current_words) / QuadCoeffDiv;
-            
+
         return MEMORY_EXPANSION_LUT[new_words] - current_cost;
     }
-    
+
     // Fall back to calculation for larger sizes
     const current_cost = MemoryGas * current_words + (current_words * current_words) / QuadCoeffDiv;
     const new_cost = MemoryGas * new_words + (new_words * new_words) / QuadCoeffDiv;
