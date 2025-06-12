@@ -898,6 +898,8 @@ pub fn build(b: *std.Build) void {
     tevm_runner.root_module.addImport("Token", token_mod);
     tevm_runner.root_module.addImport("Trie", trie_mod);
     tevm_runner.root_module.addImport("utils", utils_mod);
+    tevm_runner.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    tevm_runner.root_module.addIncludePath(b.path("include"));
 
     // Install the tevm-runner executable
     b.installArtifact(tevm_runner);
@@ -913,6 +915,21 @@ pub fn build(b: *std.Build) void {
         std.debug.print("Failed to add Rust integration: {}\n", .{err});
         return;
     };
+
+    // Add Rust dependencies to tevm-runner  
+    tevm_runner.step.dependOn(rust_step);
+    tevm_runner.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    tevm_runner.linkLibC();
+    
+    // Link system libraries required by Rust static lib for tevm-runner
+    if (target.result.os.tag == .linux) {
+        tevm_runner.linkSystemLibrary("unwind");
+        tevm_runner.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        tevm_runner.linkFramework("Security");
+        tevm_runner.linkFramework("CoreFoundation");
+        tevm_runner.linkFramework("SystemConfiguration");
+    }
 
     // Make the compiler test depend on the Rust build
     compiler_test.step.dependOn(rust_step);
