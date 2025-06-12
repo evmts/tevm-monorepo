@@ -130,9 +130,9 @@ test "MSTORE: store 32 bytes to memory" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
     
-    // Push offset and value (stack is LIFO) - EVM expects MSTORE offset value
+    // Push value and offset (stack is LIFO) - EVM expects MSTORE to pop offset then value
     const value: u256 = 0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20;
-    try test_frame.pushStack(&[_]u256{0, value}); // offset first, then value (value on top)
+    try test_frame.pushStack(&[_]u256{value, 0}); // value first, then offset (offset on top)
     
     // Execute MSTORE
     _ = try test_helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
@@ -162,9 +162,9 @@ test "MSTORE: store with offset" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
     
-    // Push offset and value (stack is LIFO) - EVM expects MSTORE offset value
+    // Push value and offset (stack is LIFO) - EVM expects MSTORE to pop offset then value
     const value: u256 = 0xFFEEDDCCBBAA99887766554433221100;
-    try test_frame.pushStack(&[_]u256{64, value}); // offset first, then value (value on top)
+    try test_frame.pushStack(&[_]u256{value, 64}); // value first, then offset (offset on top)
     
     // Execute MSTORE
     _ = try test_helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
@@ -196,8 +196,8 @@ test "MSTORE8: store single byte to memory" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
     
-    // Push offset and value (stack is LIFO) - EVM expects MSTORE8 offset value
-    try test_frame.pushStack(&[_]u256{10, 0x1234}); // offset first, then value (value on top) - only lowest byte 0x34 will be stored
+    // Push value and offset (stack is LIFO) - EVM expects MSTORE8 to pop offset then value
+    try test_frame.pushStack(&[_]u256{0x1234, 10}); // value first, then offset (offset on top) - only lowest byte 0x34 will be stored
     
     // Execute MSTORE8
     _ = try test_helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame);
@@ -230,8 +230,8 @@ test "MSTORE8: store only lowest byte" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
     
-    // Push offset and value (stack is LIFO) - EVM expects MSTORE8 offset value
-    try test_frame.pushStack(&[_]u256{0, 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFAB}); // offset first, then value (value on top) - only 0xAB should be stored
+    // Push value and offset (stack is LIFO) - EVM expects MSTORE8 to pop offset then value
+    try test_frame.pushStack(&[_]u256{0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFAB, 0}); // value first, then offset (offset on top) - only 0xAB should be stored
     
     // Execute MSTORE8
     _ = try test_helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame);
@@ -480,8 +480,8 @@ test "MSTORE: memory expansion gas" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
     
-    // Push offset and value that requires expansion (stack is LIFO) - EVM expects MSTORE offset value
-    try test_frame.pushStack(&[_]u256{512, 0x123456}); // offset, value (requires 544 bytes)
+    // Push value and offset that requires expansion (stack is LIFO) - EVM expects MSTORE to pop offset then value
+    try test_frame.pushStack(&[_]u256{0x123456, 512}); // value, offset (requires 544 bytes)
     
     const gas_before = test_frame.gasRemaining();
     

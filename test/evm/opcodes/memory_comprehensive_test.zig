@@ -491,7 +491,7 @@ test "MSTORE8: Memory expansion and gas costs" {
 
     // Test 1: Store at offset 0 (minimal memory expansion)
     const gas_before_first = test_frame.frame.gas_remaining;
-    try test_frame.pushStack(&[_]u256{ 0, 0x42 }); // offset, value (value on top per EVM spec)
+    try test_frame.pushStack(&[_]u256{ 0x42, 0 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame);
     const gas_after_first = test_frame.frame.gas_remaining;
     const gas_first = gas_before_first - gas_after_first;
@@ -499,7 +499,7 @@ test "MSTORE8: Memory expansion and gas costs" {
 
     // Test 2: Store at higher offset requiring expansion
     const gas_before_expansion = test_frame.frame.gas_remaining;
-    try test_frame.pushStack(&[_]u256{ 500, 0x84 }); // offset, value (value on top per EVM spec)
+    try test_frame.pushStack(&[_]u256{ 0x84, 500 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame);
     const gas_after_expansion = test_frame.frame.gas_remaining;
     const gas_expansion = gas_before_expansion - gas_after_expansion;
@@ -507,7 +507,7 @@ test "MSTORE8: Memory expansion and gas costs" {
 
     // Test 3: Store within already expanded region
     const gas_before_no_expansion = test_frame.frame.gas_remaining;
-    try test_frame.pushStack(&[_]u256{ 499, 0x21 }); // offset, value (value on top per EVM spec)
+    try test_frame.pushStack(&[_]u256{ 0x21, 499 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame);
     const gas_after_no_expansion = test_frame.frame.gas_remaining;
     const gas_no_expansion = gas_before_no_expansion - gas_after_no_expansion;
@@ -516,14 +516,14 @@ test "MSTORE8: Memory expansion and gas costs" {
     // Test 4: Word alignment considerations for gas calculation
     // MSTORE8 should round up memory size to word boundaries for gas calculation
     const gas_before_alignment = test_frame.frame.gas_remaining;
-    try test_frame.pushStack(&[_]u256{ 1000, 0x63 }); // offset, value (value on top per EVM spec)
+    try test_frame.pushStack(&[_]u256{ 0x63, 1000 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame);
     const gas_after_alignment = test_frame.frame.gas_remaining;
     const gas_alignment = gas_before_alignment - gas_after_alignment;
     try testing.expect(gas_alignment > 3); // Should charge for word-aligned expansion
 
     // Test 5: Overflow protection
-    try test_frame.pushStack(&[_]u256{ 0x99, std.math.maxInt(u256) - 5 });
+    try test_frame.pushStack(&[_]u256{ std.math.maxInt(u256) - 5, 0x99 });
     const result = helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.OutOfOffset, result);
 }

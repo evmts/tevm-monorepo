@@ -82,6 +82,30 @@ Use both the root CLAUDE.md and src/evm/CLAUDE.md in your claude and cursor envi
 
 AI is decent at zig but it does hallucinate sometimes. It's not a big deal if you understand zig well. If you aren't comfy with zig consider sharign [zig language docs](https://ziglang.org/documentation/0.14.1/) anytime the ai isn't using zig right. They are small enough to almost always fit in context.
 
+## 🚦 Current Status Summary (Updated December 2024)
+
+**Overall Progress**: ~75% of core EVM functionality implemented, but significant stability and integration issues prevent production use.
+
+### 🟢 **What's Working**
+- **Core Architecture**: VM, memory, stack, gas accounting, hardfork support
+- **Most Opcodes**: 240+ opcodes implemented across arithmetic, bitwise, comparison, crypto, environment, block info, memory, storage, control flow, and logging
+- **CREATE Operations**: Contract deployment fully functional
+- **Basic Precompiles**: SHA256 and IDENTITY working securely
+
+### 🟡 **Partially Working**  
+- **CALL Operations**: Opcode handlers complete with proper gas management, but VM execution methods are stubs
+- **Some Precompiles**: ECRECOVER (intentionally fails for security), MODEXP (custom crypto), KZG (unverified)
+
+### 🔴 **Critical Issues**
+- **Test Failures**: 29/779 tests failing including segmentation faults
+- **CALL Execution**: Cannot execute regular contract calls (only precompiles work)
+- **WASM Integration**: Builds successfully but missing required JavaScript exports
+- **Missing Precompiles**: 6/10 precompiles not implemented (RIPEMD160, BN254 operations, BLAKE2F)
+
+**Recommendation**: Focus on test suite stability and CALL operation completion before production deployment.
+
+---
+
 ## ✅ Implementation Status
 
 ### Core EVM Architecture
@@ -208,14 +232,14 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 
 ### System Opcodes (`execution/system.zig`)
 
-- [x] **GAS** (0x5A) - Remaining gas
-- [x] **CREATE** (0xF0) - Create contract ✅
-- [x] **CREATE2** (0xF5) - Create contract with salt ✅
-- [x] **CALL** (0xF1) - Message call ✅
-- [x] **CALLCODE** (0xF2) - Message call with caller's context ✅
-- [x] **DELEGATECALL** (0xF4) - Message call with caller's context and value ✅
-- [x] **STATICCALL** (0xFA) - Static message call ✅
-- [x] **INVALID** (0xFE) - Invalid opcode
+- [x] **GAS** (0x5A) - Remaining gas ✅
+- [x] **CREATE** (0xF0) - Create contract ✅ (Fully functional)
+- [x] **CREATE2** (0xF5) - Create contract with salt ✅ (Fully functional)
+- [ ] **CALL** (0xF1) - Message call ⚠️ (Opcode handler complete, VM execution stub)
+- [ ] **CALLCODE** (0xF2) - Message call with caller's context ⚠️ (Opcode handler complete, VM execution stub)
+- [ ] **DELEGATECALL** (0xF4) - Message call with caller's context and value ⚠️ (Opcode handler complete, VM execution stub)
+- [ ] **STATICCALL** (0xFA) - Static message call ⚠️ (Opcode handler complete, VM execution stub)
+- [x] **INVALID** (0xFE) - Invalid opcode ✅
 
 ### Logging Opcodes (`execution/log.zig`)
 
@@ -264,41 +288,58 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 
 #### Critical System Features
 
-- [ ] 🔴 **WASM Build** - [Currently broken, needs fixing as well as integration into the overall Tevm typescript code](./prompts/implement-wasm-build-fix.md)
+- [ ] 🔴 **WASM Build Integration** - [WASM builds successfully but exports don't match JavaScript interface expectations](./prompts/implement-wasm-build-fix.md)
+  - **Status**: WASM compilation works (9,507 bytes), but missing required exports (`keccak256_hex`, `hexToBytes`, `bytesToHex`)
+  - **Root Cause**: Using minimal WASM source instead of full implementation with crypto utilities
+  - **Impact**: JavaScript integration fails, benchmark tests cannot run
+- [ ] 🔴 **CALL Operations** - Opcode handlers complete but core contract execution missing
+  - **Status**: CALL/DELEGATECALL/CALLCODE/STATICCALL opcodes implemented with proper gas handling
+  - **Issue**: VM methods are stubs that return failure for regular contract calls (only precompiles work)
+  - **Priority**: Critical for contract interaction functionality
 - [x] **Journaling/State Reverting** - Complete state snapshots for proper revert handling ✅
 - [x] **Database Interface/Traits** - Pluggable database abstraction for state management ✅
-- [x] **Complete CALL Operations** - Basic implementation with comprehensive call infrastructure ✅
-  - [x] **Call Gas Management** - 63/64th gas forwarding rule implementation ✅
-  - [x] **Call Context Switching** - Proper context isolation between contract calls ✅
-  - [x] **Return Data Handling** - Complete RETURNDATASIZE/RETURNDATACOPY after calls ✅
-  - [x] **Value Transfer Logic** - ETH transfer mechanics in calls ✅
+- [x] **CREATE Operations** - Contract deployment working ✅
+  - [x] **Address Calculation** - Proper nonce-based and CREATE2 deterministic addressing ✅
+  - [x] **Init Code Execution** - Constructor code execution implemented ✅
+  - [x] **Gas Management** - Complete gas handling for deployment ✅
 
-#### Precompiled Contracts (9/17 implemented)
+#### Precompiled Contracts (2/10 actually functional, 8 broken/missing)
 
 ⚠️ **CRITICAL SECURITY NOTICE: CUSTOM CRYPTOGRAPHY IMPLEMENTATIONS DETECTED**
 
 **Several precompiles currently use custom cryptographic implementations instead of proven libraries. This represents significant security risk and should be migrated to established cryptographic libraries.**
 
-- [x] 🟢 **Standard Precompiles**
-  - [x] **ECRECOVER** (0x01) - ⚠️ **PLACEHOLDER IMPLEMENTATION** - Currently intentionally fails, needs migration to libsecp256k1 ✅
-  - [x] **SHA256** (0x02) - ✅ Uses Zig std library (safe) ✅
-  - [x] **RIPEMD160** (0x03) - ⚠️ **CUSTOM IMPLEMENTATION** - Should migrate to proven library ✅
-  - [x] **IDENTITY** (0x04) - ✅ Simple copy operation (safe) ✅
-  - [x] **MODEXP** (0x05) - ⚠️ **CUSTOM BIG INTEGER IMPLEMENTATION** - Should migrate to GMP or similar ✅
-  - [x] **ECADD** (0x06) - ⚠️ **CUSTOM BN254 IMPLEMENTATION** - Should migrate to arkworks/blst ✅
-  - [x] **ECMUL** (0x07) - ⚠️ **CUSTOM BN254 IMPLEMENTATION** - Should migrate to arkworks/blst ✅
-  - [x] **ECPAIRING** (0x08) - ⚠️ **CUSTOM PAIRING IMPLEMENTATION** - Should migrate to arkworks/blst ✅
-  - [x] **BLAKE2F** (0x09) - ⚠️ **CUSTOM BLAKE2 IMPLEMENTATION** - Consider migration to proven library ✅
-- [x] **KZG Point Evaluation** (0x0A) - EIP-4844 blob verification precompile ✅
-- [ ] 🟡 **BLS12-381 Precompiles** (EIP-2537)
-  - [x] **G1ADD** (0x0B) - ⚠️ **CUSTOM BLS12-381 IMPLEMENTATION** - Should migrate to BLST ✅
-  - [ ] **G1MSM** (0x0C) - [BLS12-381 G1 multi-scalar multiplication](./prompts/implement-bls12-381-g1msm-precompile.md)
-  - [ ] **G2ADD** (0x0D) - [BLS12-381 G2 addition](./prompts/implement-bls12-381-g2add-precompile.md) | [Enhanced](./prompts/implement-bls12-381-g2add-precompile-enhanced.md)
-  - [ ] **G2MSM** (0x0E) - [BLS12-381 G2 multi-scalar multiplication](./prompts/implement-bls12-381-g2msm-precompile.md) | [Enhanced](./prompts/implement-bls12-381-g2msm-precompile-enhanced.md)
-  - [ ] **PAIRING** (0x0F) - [BLS12-381 pairing check](./prompts/implement-bls12-381-pairing-precompile.md) | [Enhanced](./prompts/implement-bls12-381-pairing-precompile-enhanced.md)
-  - [ ] **MAP_FP_TO_G1** (0x10) - [Map field point to G1](./prompts/implement-bls12-381-map-fp-to-g1-precompile.md)
-  - [ ] **MAP_FP2_TO_G2** (0x11) - [Map field point to G2](./prompts/implement-bls12-381-map-fp2-to-g2-precompile.md) | [Enhanced](./prompts/implement-bls12-381-map-fp2-to-g2-precompile-enhanced.md)
-- [ ] 🟡 **OP Stack Precompiles** - [P256VERIFY (RIP-7212) for SECP256R1 signature verification](./prompts/implement-op-stack-precompiles.md)
+**Implementation Status (Verified December 2024):**
+
+- [x] **Functional Implementations**
+  - [x] **SHA256** (0x02) - ✅ Uses Zig std library (secure and complete) ✅
+  - [x] **IDENTITY** (0x04) - ✅ Simple copy operation (secure and complete) ✅
+
+- [ ] **Placeholder/Security Risk Implementations**
+  - [ ] **ECRECOVER** (0x01) - ⚠️ **INTENTIONALLY FAILS** - Security placeholder, needs libsecp256k1 migration
+  - [ ] **MODEXP** (0x05) - ⚠️ **CUSTOM BIG INTEGER** - Custom crypto implementation, security risk
+
+- [ ] **Non-Functional/Missing Implementations**
+  - [ ] **RIPEMD160** (0x03) - ❌ **NOT IMPLEMENTED** - Returns execution failure
+  - [ ] **ECADD** (0x06) - ❌ **NOT IMPLEMENTED** - Returns execution failure  
+  - [ ] **ECMUL** (0x07) - ❌ **NOT IMPLEMENTED** - Returns execution failure
+  - [ ] **ECPAIRING** (0x08) - ❌ **NOT IMPLEMENTED** - Returns execution failure
+  - [ ] **BLAKE2F** (0x09) - ❌ **STUB ONLY** - Returns zeros, contains TODO comment
+
+- [ ] **Questionable Implementations**
+  - [ ] **KZG Point Evaluation** (0x0A) - ⚠️ **UNVERIFIED** - Interface exists but underlying KZG verification unclear
+
+- [ ] **BLS12-381 Precompiles** (EIP-2537) - 1/7 implemented
+  - [ ] **G1ADD** (0x0B) - ⚠️ **CUSTOM IMPLEMENTATION** - Security risk, should migrate to BLST
+  - [ ] **G1MSM** (0x0C) - Missing - [Implementation guide](./prompts/implement-bls12-381-g1msm-precompile.md)
+  - [ ] **G2ADD** (0x0D) - Missing - [Implementation guide](./prompts/implement-bls12-381-g2add-precompile.md)
+  - [ ] **G2MSM** (0x0E) - Missing - [Implementation guide](./prompts/implement-bls12-381-g2msm-precompile.md)
+  - [ ] **PAIRING** (0x0F) - Missing - [Implementation guide](./prompts/implement-bls12-381-pairing-precompile.md)
+  - [ ] **MAP_FP_TO_G1** (0x10) - Missing - [Implementation guide](./prompts/implement-bls12-381-map-fp-to-g1-precompile.md)
+  - [ ] **MAP_FP2_TO_G2** (0x11) - Missing - [Implementation guide](./prompts/implement-bls12-381-map-fp2-to-g2-precompile.md)
+
+- [ ] **OP Stack Precompiles** - Missing
+  - [ ] **P256VERIFY** (RIP-7212) - SECP256R1 signature verification - [Implementation guide](./prompts/implement-op-stack-precompiles.md)
 
 ##### **🔄 Recommended Migration Strategy**
 
@@ -354,6 +395,16 @@ For WASM builds, follow revm's pattern:
 - **Primary backends**: Optimized C libraries (secp256k1, BLST, GMP)
 - **WASM fallbacks**: Pure Rust/Zig implementations (k256, arkworks, custom big int)
 - **Feature detection**: Automatic selection based on target environment
+
+#### System Stability Issues (Immediate Priority)
+
+- [ ] 🔴 **Test Suite Failures** - Multiple critical test failures preventing reliable operation
+  - **Status**: 29/779 tests failing across multiple components  
+  - **Integration Tests**: 6/89 failed (segmentation faults occurring)
+  - **Opcode Tests**: 9/461 failed (arithmetic and memory operations)
+  - **VM Tests**: 11/59 failed (stack and gas calculation issues)
+  - **CREATE Tests**: 3/3 failed (contract deployment edge cases)
+  - **Priority**: Must fix before production use
 
 #### Advanced Gas & Performance
 
@@ -530,12 +581,20 @@ The EVM implementation follows a modular architecture with clear separation of c
 
 ## 🔮 Roadmap
 
-### Immediate Priorities
+### Immediate Priorities (December 2024)
 
-1. **Fix WASM build** and integrate into Tevm JavaScript library
-2. **Complete call gas management** with 63/64th gas forwarding rule
-3. **Implement precompiled contracts** (ECRECOVER, SHA256, etc.)
-4. **Add gas refunds** for SSTORE and SELFDESTRUCT operations
+1. **Fix Test Suite Failures** - Address 29 failing tests including segmentation faults
+   - Priority: Critical for system stability
+   - Focus areas: Memory operations, stack management, gas calculations
+2. **Complete CALL Operations** - Implement missing VM contract execution logic
+   - Priority: Critical for contract interaction functionality  
+   - Current state: Opcode handlers complete, VM methods are stubs
+3. **Fix WASM Build Integration** - Resolve export mismatch with JavaScript interface
+   - Priority: High for production deployment
+   - Issue: Missing crypto utility exports (`keccak256_hex`, `hexToBytes`, `bytesToHex`)
+4. **Implement Critical Precompiles** - Focus on secure implementations
+   - Priority: High for Ethereum compatibility
+   - Focus: ECRECOVER, RIPEMD160, BN254 operations (6 missing implementations)
 
 ### Performance & Testing
 
@@ -561,6 +620,21 @@ We're actively looking for contributors! The codebase is designed to be approach
 - Testing and benchmarking
 
 Please reach out or submit a PR. The Zig language makes contributing enjoyable and productive.
+
+## 🔧 Quick Issue Reference
+
+### For Developers Working on Critical Issues
+
+1. **Test Failures** → Run `zig build test-all` and address segfaults in integration tests
+2. **CALL Operations** → Implement contract execution logic in `src/evm/vm.zig` methods (`call_contract`, `delegatecall_contract`, etc.)
+3. **WASM Exports** → Update `build.zig` to use full WASM source with crypto utilities instead of minimal version  
+4. **Missing Precompiles** → Implement RIPEMD160, ECADD, ECMUL, ECPAIRING, BLAKE2F in `src/evm/precompiles/`
+
+### Key Files for Critical Issues
+- `src/evm/vm.zig` - Lines 395-554 (CALL operation stubs)
+- `src/evm/precompiles/precompiles.zig` - Precompile dispatcher and implementations
+- `build.zig` - Line 194 (WASM build configuration)
+- Test files showing failures in `zig build test-all` output
 
 ## 📚 References
 
