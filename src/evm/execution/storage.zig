@@ -14,9 +14,18 @@ const SSTORE_RESET_GAS: u64 = 2900;
 const SSTORE_CLEARS_REFUND: u64 = 4800;
 
 fn calculate_sstore_gas(current: u256, new: u256) u64 {
-    if (current == new) return 0;
-    if (current == 0) return SSTORE_SET_GAS;
-    if (new == 0) return SSTORE_RESET_GAS;
+    if (current == new) {
+        @branchHint(.likely);
+        return 0;
+    }
+    if (current == 0) {
+        @branchHint(.unlikely);
+        return SSTORE_SET_GAS;
+    }
+    if (new == 0) {
+        @branchHint(.unlikely);
+        return SSTORE_RESET_GAS;
+    }
     return SSTORE_RESET_GAS;
 }
 
@@ -55,11 +64,17 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
-    if (frame.is_static) return ExecutionError.Error.WriteProtection;
+    if (frame.is_static) {
+        @branchHint(.unlikely);
+        return ExecutionError.Error.WriteProtection;
+    }
 
     // EIP-1706: Disable SSTORE with gasleft lower than call stipend (2300)
     // This prevents reentrancy attacks by ensuring enough gas remains for exception handling
-    if (vm.chain_rules.IsIstanbul and frame.gas_remaining <= gas_constants.SstoreSentryGas) return ExecutionError.Error.OutOfGas;
+    if (vm.chain_rules.IsIstanbul and frame.gas_remaining <= gas_constants.SstoreSentryGas) {
+        @branchHint(.unlikely);
+        return ExecutionError.Error.OutOfGas;
+    }
 
     if (frame.stack.size < 2) unreachable;
 
@@ -78,6 +93,7 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     var total_gas: u64 = 0;
 
     if (is_cold) {
+        @branchHint(.unlikely);
         total_gas += gas_constants.ColdSloadCost;
     }
 
@@ -120,7 +136,10 @@ pub fn op_tstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
     const vm = @as(*Vm, @ptrCast(@alignCast(interpreter)));
 
-    if (frame.is_static) return ExecutionError.Error.WriteProtection;
+    if (frame.is_static) {
+        @branchHint(.unlikely);
+        return ExecutionError.Error.WriteProtection;
+    }
 
     // Gas is already handled by jump table constant_gas = 100
 

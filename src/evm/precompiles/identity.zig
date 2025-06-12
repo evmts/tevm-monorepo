@@ -82,22 +82,26 @@ pub fn calculate_gas_checked(input_size: usize) !u64 {
 pub fn execute(input: []const u8, output: []u8, gas_limit: u64) PrecompileOutput {
     // Calculate gas cost for this input size
     const gas_cost = calculate_gas_checked(input.len) catch {
+        @branchHint(.cold);
         return PrecompileOutput.failure_result(PrecompileError.OutOfGas);
     };
     
     // Check if we have enough gas
     if (gas_cost > gas_limit) {
+        @branchHint(.cold);
         return PrecompileOutput.failure_result(PrecompileError.OutOfGas);
     }
     
     // Validate output buffer size
     if (output.len < input.len) {
+        @branchHint(.cold);
         return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
     }
     
     // Identity operation: copy input to output
     // This is the core functionality - simply copy the input unchanged
     if (input.len > 0) {
+        @branchHint(.likely);
         @memcpy(output[0..input.len], input);
     }
     
@@ -113,7 +117,10 @@ pub fn execute(input: []const u8, output: []u8, gas_limit: u64) PrecompileOutput
 /// @param gas_limit Available gas limit
 /// @return true if the operation would succeed, false if out of gas
 pub fn validate_gas_requirement(input_size: usize, gas_limit: u64) bool {
-    const gas_cost = calculate_gas_checked(input_size) catch return false;
+    const gas_cost = calculate_gas_checked(input_size) catch {
+        @branchHint(.cold);
+        return false;
+    };
     return gas_cost <= gas_limit;
 }
 

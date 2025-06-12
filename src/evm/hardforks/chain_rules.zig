@@ -54,7 +54,7 @@ const Log = @import("../log.zig");
 /// ## Memory Layout
 /// This structure uses bool fields for efficient memory usage and fast access.
 /// The compiler typically packs multiple bools together for cache efficiency.
-const Self = @This();
+pub const ChainRules = @This();
 
 /// Homestead hardfork activation flag (March 2016).
 ///
@@ -628,13 +628,17 @@ const HARDFORK_RULES = [_]HardforkRule{
     .{ .field_name = "IsEIP5656", .introduced_in = .CANCUN },
 };
 
-pub fn for_hardfork(hardfork: Hardfork) Self {
-    var rules = Self{}; // All fields default to true
+pub fn for_hardfork(hardfork: Hardfork) ChainRules {
+    var rules = ChainRules{}; // All fields default to true
     
     // Disable features that were introduced after the target hardfork
     inline for (HARDFORK_RULES) |rule| {
+        // Use branch hint for the common case (later hardforks with more features)
         if (@intFromEnum(hardfork) < @intFromEnum(rule.introduced_in)) {
+            @branchHint(.cold);
             @field(rules, rule.field_name) = false;
+        } else {
+            @branchHint(.likely);
         }
     }
     

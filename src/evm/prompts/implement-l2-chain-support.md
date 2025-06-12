@@ -1,5 +1,6 @@
 # Implement L2 Chain Support
 
+<<<<<<< HEAD
 ## Git Workflow Instructions
 
 ### Branch Setup
@@ -14,11 +15,28 @@
 3. Run `zig build test-all` to ensure all tests pass
 4. Commit with emoji conventional commit format
 5. DO NOT merge - leave ready for review
+=======
+You are implementing L2 Chain Support for the Tevm EVM written in Zig. Your goal is to implement Layer 2 chain support and optimization following Ethereum specifications and maintaining compatibility with existing implementations.
+
+## Development Workflow
+- **Branch**: `feat_implement_l` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_l feat_implement_l`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+>>>>>>> origin/main
 
 ## Context
 
 Implement support for Layer 2 (L2) chains including Optimism, Arbitrum, and Polygon. Each L2 has specific modifications to the EVM including custom opcodes, different gas models, precompiles, and execution rules. This implementation should provide a pluggable architecture for L2-specific behavior while maintaining Ethereum mainnet compatibility.
 
+<<<<<<< HEAD
+=======
+## ELI5
+
+Layer 2 chains are like different floors built on top of the main Ethereum building. Each floor (Optimism, Arbitrum, Polygon) has its own special features and rules while still being connected to the main building below. This implementation is like creating a universal elevator system that knows how to work with each floor's unique layout and features, so people can seamlessly move between floors while everything stays connected to the main structure.
+
+>>>>>>> origin/main
 ## L2 Chain Specifications
 
 ### Optimism (OP Stack)
@@ -1122,6 +1140,7 @@ test "l2 gas models" {
 5. **Transaction Types**: Support for L2-specific transaction formats
 6. **Compatibility**: Maintain Ethereum mainnet compatibility
 
+<<<<<<< HEAD
 ## Critical Requirements
 
 1. **NEVER commit until `zig build test-all` passes**
@@ -1130,6 +1149,343 @@ test "l2 gas models" {
 4. **Modular architecture** - Easy to add new L2 chains
 5. **Performance** - L2 detection and execution should be fast
 6. **Security** - L2-specific features must maintain security guarantees
+=======
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
+
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
+
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/l2/l2_chain_support_test.zig`)
+```zig
+// Test basic L2 chain support functionality
+test "l2_chain_support basic functionality works correctly"
+test "l2_chain_support handles edge cases properly"
+test "l2_chain_support validates inputs appropriately"
+test "l2_chain_support produces correct outputs"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "l2_chain_support integrates with EVM properly"
+test "l2_chain_support maintains system compatibility"
+test "l2_chain_support works with existing components"
+test "l2_chain_support handles cross-system interactions"
+```
+
+#### 3. **Performance Tests**
+```zig
+test "l2_chain_support meets performance requirements"
+test "l2_chain_support optimizes resource usage"
+test "l2_chain_support scales appropriately with load"
+test "l2_chain_support benchmark vs baseline"
+```
+
+#### 4. **Compliance Tests**
+```zig
+test "l2_chain_support meets specification requirements"
+test "l2_chain_support maintains EVM compatibility"
+test "l2_chain_support handles hardfork transitions"
+test "l2_chain_support cross-client behavior consistency"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "l2_chain_support handles errors gracefully"
+test "l2_chain_support proper error propagation"
+test "l2_chain_support recovery from failure states"
+test "l2_chain_support validates error conditions"
+```
+
+#### 6. **Security Tests** (where applicable)
+```zig
+test "l2_chain_support prevents security vulnerabilities"
+test "l2_chain_support handles malicious inputs safely"
+test "l2_chain_support maintains isolation boundaries"
+test "l2_chain_support validates security properties"
+```
+
+### Test Development Priority
+1. **Core functionality** - Basic feature operation
+2. **Specification compliance** - Meet requirements
+3. **Integration** - System-level correctness
+4. **Performance** - Efficiency targets
+5. **Error handling** - Robust failures
+6. **Security** - Vulnerability prevention
+
+### Test Data Sources
+- **Specification documents**: Official requirements and test vectors
+- **Reference implementations**: Cross-client compatibility
+- **Performance baselines**: Optimization targets
+- **Real-world data**: Production scenarios
+- **Synthetic cases**: Edge conditions and stress testing
+
+### Continuous Testing
+- Run `zig build test-all` after every change
+- Maintain 100% test coverage for public APIs
+- Validate performance regression prevention
+- Test both debug and release builds
+- Verify cross-platform behavior
+
+### Test-First Examples
+
+**Before implementation:**
+```zig
+test "l2_chain_support basic operation" {
+    // This test MUST fail initially
+    const input = test_data.validInput();
+    const expected = test_data.expectedOutput();
+    
+    const result = l2_chain_support.process(input);
+    try testing.expectEqual(expected, result);
+}
+```
+
+**Then implement:**
+```zig
+pub const l2_chain_support = struct {
+    pub fn process(input: InputType) !OutputType {
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Requirements
+- **Never commit without passing tests**
+- **Test all configuration paths**
+- **Verify specification compliance**
+- **Validate performance implications**
+- **Ensure cross-platform compatibility**
+
+## EVMONE Context
+
+<evmone>
+<file path="https://github.com/ethereum/evmone/blob/master/lib/evmone/instructions_traits.hpp">
+```cpp
+/// The EVM instruction traits.
+struct Traits
+{
+    /// The instruction name;
+    const char* name = nullptr;
+    // ...
+    /// The EVM revision in which the instruction has been defined.
+    std::optional<evmc_revision> since;
+};
+
+/// The table of instruction gas costs per EVM revision.
+using GasCostTable = std::array<std::array<int16_t, 256>, EVMC_MAX_REVISION + 1>;
+
+/// The EVM revision specific table of EVM instructions gas costs.
+constexpr inline GasCostTable gas_costs = []() noexcept {
+    GasCostTable table{};
+
+    // Frontier
+    for (auto& t : table[EVMC_FRONTIER])
+        t = undefined;
+    table[EVMC_FRONTIER][OP_STOP] = 0;
+    table[EVMC_FRONTIER][OP_ADD] = 3;
+    table[EVMC_FRONTIER][OP_SLOAD] = 50;
+    table[EVMC_FRONTIER][OP_CALL] = 40;
+    // ... other Frontier opcodes
+
+    // Homestead
+    table[EVMC_HOMESTEAD] = table[EVMC_FRONTIER];
+    table[EVMC_HOMESTEAD][OP_DELEGATECALL] = 40;
+
+    // Tangerine Whistle
+    table[EVMC_TANGERINE_WHISTLE] = table[EVMC_HOMESTEAD];
+    table[EVMC_TANGERINE_WHISTLE][OP_BALANCE] = 400;
+    table[EVMC_TANGERINE_WHISTLE][OP_SLOAD] = 200;
+    table[EVMC_TANGERINE_WHISTLE][OP_CALL] = 700;
+    // ... other Tangerine Whistle changes
+
+    // Berlin
+    table[EVMC_BERLIN] = table[EVMC_ISTANBUL];
+    table[EVMC_BERLIN][OP_EXTCODESIZE] = warm_storage_read_cost;
+    table[EVMC_BERLIN][OP_SLOAD] = warm_storage_read_cost;
+    table[EVMC_BERLIN][OP_CALL] = warm_storage_read_cost;
+
+    // London
+    table[EVMC_LONDON] = table[EVMC_BERLIN];
+    table[EVMC_LONDON][OP_BASEFEE] = 2;
+
+    // Shanghai
+    table[EVMC_SHANGHAI] = table[EVMC_PARIS];
+    table[EVMC_SHANGHAI][OP_PUSH0] = 2;
+
+    return table;
+}();
+```
+</file>
+<file path="https://github.com/ethereum/evmone/blob/master/lib/evmone/baseline_instruction_table.cpp">
+```cpp
+namespace
+{
+consteval auto build_cost_tables(bool eof) noexcept
+{
+    std::array<CostTable, EVMC_MAX_REVISION + 1> tables{};
+    for (size_t r = EVMC_FRONTIER; r <= EVMC_MAX_REVISION; ++r)
+    {
+        auto& table = tables[r];
+        for (size_t op = 0; op < table.size(); ++op)
+        {
+            const auto& tr = instr::traits[op];
+            const auto since = eof ? tr.eof_since : tr.since;
+            table[op] = (since && r >= *since) ? instr::gas_costs[r][op] : instr::undefined;
+        }
+    }
+    return tables;
+}
+
+constexpr auto LEGACY_COST_TABLES = build_cost_tables(false);
+constexpr auto EOF_COST_TABLES = build_cost_tables(true);
+}  // namespace
+
+const CostTable& get_baseline_cost_table(evmc_revision rev, uint8_t eof_version) noexcept
+{
+    const auto& tables = (eof_version == 0) ? LEGACY_COST_TABLES : EOF_COST_TABLES;
+    return tables[rev];
+}
+```
+</file>
+<file path="https://github.com/ethereum/evmone/blob/master/test/state/precompiles.cpp">
+```cpp
+struct PrecompileTraits
+{
+    decltype(identity_analyze)* analyze = nullptr;
+    decltype(identity_execute)* execute = nullptr;
+};
+
+// Table mapping precompile IDs to their implementation functions
+inline constexpr std::array<PrecompileTraits, NumPrecompiles> traits{{
+    {},  // undefined for 0
+    {ecrecover_analyze, ecrecover_execute},
+    {sha256_analyze, sha256_execute},
+    {ripemd160_analyze, ripemd160_execute},
+    {identity_analyze, identity_execute},
+    {expmod_analyze, expmod_execute},
+    {ecadd_analyze, ecadd_execute},
+    {ecmul_analyze, ecmul_execute},
+    {ecpairing_analyze, ecpairing_execute},
+    {blake2bf_analyze, blake2bf_execute},
+    {point_evaluation_analyze, point_evaluation_execute},
+    // ... more precompiles
+}};
+
+// Checks if an address is a precompile and if it's active in the current revision
+bool is_precompile(evmc_revision rev, const evmc::address& addr) noexcept
+{
+    if (evmc::is_zero(addr) || addr > evmc::address{stdx::to_underlying(PrecompileId::latest)})
+        return false;
+
+    const auto id = addr.bytes[19];
+    if (rev < EVMC_BYZANTIUM && id >= stdx::to_underlying(PrecompileId::since_byzantium))
+        return false;
+
+    if (rev < EVMC_ISTANBUL && id >= stdx::to_underlying(PrecompileId::since_istanbul))
+        return false;
+
+    if (rev < EVMC_CANCUN && id >= stdx::to_underlying(PrecompileId::since_cancun))
+        return false;
+
+    return true;
+}
+
+// The main dispatcher for precompile calls
+evmc::Result call_precompile(evmc_revision rev, const evmc_message& msg) noexcept
+{
+    assert(msg.gas >= 0);
+
+    const auto id = msg.code_address.bytes[19];
+    const auto [analyze, execute] = traits[id];
+
+    const bytes_view input{msg.input_data, msg.input_size};
+    const auto [gas_cost, max_output_size] = analyze(input, rev);
+    const auto gas_left = msg.gas - gas_cost;
+    if (gas_left < 0)
+        return evmc::Result{EVMC_OUT_OF_GAS};
+
+    // ... (execute and return result) ...
+}
+```
+</file>
+</evmone>
+
+## Implementation Insights from EVMONE
+
+### Key EVMONE L2 Adaptation Patterns
+
+1. **Revision-Based Configuration**: EVMONE uses EVM revisions to handle different rule sets. This can be extended to support L2-specific configurations by adding custom revision enums.
+
+2. **Gas Cost Table Architecture**: The multi-dimensional gas cost table `gas_costs[revision][opcode]` provides a perfect foundation for L2-specific gas models.
+
+3. **Pluggable Precompile System**: The trait-based precompile dispatch system allows easy addition of L2-specific precompiles without modifying core execution logic.
+
+4. **Transaction Type Support**: EVMONE's transaction type system can be extended to support L2-specific transaction types like Optimism deposits.
+
+5. **Conditional Feature Activation**: The revision-based feature enabling pattern can gate L2-specific opcodes and behavior.
+
+### Recommended Adaptations for L2 Support
+
+```zig
+// Extend EVMONE's revision concept for L2s
+pub const ChainType = enum {
+    ethereum_mainnet,
+    optimism,
+    arbitrum,
+    polygon,
+    base,
+    
+    pub fn get_gas_table(self: ChainType, hardfork: HardFork) *const [256]u64 {
+        return switch (self) {
+            .ethereum_mainnet => &ethereum_gas_costs[hardfork],
+            .optimism => &optimism_gas_costs[hardfork],
+            .arbitrum => &arbitrum_gas_costs[hardfork],
+            .polygon => &polygon_gas_costs[hardfork],
+            .base => &base_gas_costs[hardfork],
+        };
+    }
+};
+
+// L2-aware precompile dispatch
+pub fn call_precompile(chain: ChainType, address: Address, input: []const u8) !PrecompileResult {
+    const precompile_id = address.bytes[19];
+    
+    return switch (chain) {
+        .optimism => if (is_optimism_precompile(precompile_id)) 
+            optimism_precompiles[precompile_id].execute(input)
+        else 
+            standard_precompiles[precompile_id].execute(input),
+            
+        .ethereum_mainnet => standard_precompiles[precompile_id].execute(input),
+        // ... other chains
+    };
+}
+```
+>>>>>>> origin/main
 
 ## References
 

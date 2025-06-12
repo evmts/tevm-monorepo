@@ -27,7 +27,7 @@ const Log = @import("../log.zig");
 /// try stack.append(100); // Safe variant (for error_mapping)
 /// stack.append_unsafe(200); // Unsafe variant (for opcodes)
 /// ```
-const Self = @This();
+pub const Stack = @This();
 
 /// Maximum stack capacity as defined by the EVM specification.
 /// This limit prevents stack-based DoS attacks.
@@ -63,7 +63,7 @@ size: usize = 0,
 /// ```zig
 /// try stack.append(0x1234);
 /// ```
-pub fn append(self: *Self, value: u256) Error!void {
+pub fn append(self: *Stack, value: u256) Error!void {
     if (self.size >= CAPACITY) {
         @branchHint(.cold);
         Log.debug("Stack.append: Stack overflow, size={}, capacity={}", .{ self.size, CAPACITY });
@@ -81,8 +81,8 @@ pub fn append(self: *Self, value: u256) Error!void {
 ///
 /// @param self The stack to push onto
 /// @param value The 256-bit value to push
-pub fn append_unsafe(self: *Self, value: u256) void {
-    @branchHint(.likely); // We generally only use unsafe methods
+pub fn append_unsafe(self: *Stack, value: u256) void {
+    @branchHint(.likely);
     self.data[self.size] = value;
     self.size += 1;
 }
@@ -100,7 +100,7 @@ pub fn append_unsafe(self: *Self, value: u256) void {
 /// ```zig
 /// const value = try stack.pop();
 /// ```
-pub fn pop(self: *Self) Error!u256 {
+pub fn pop(self: *Stack) Error!u256 {
     if (self.size == 0) {
         @branchHint(.cold);
         Log.debug("Stack.pop: Stack underflow, size=0", .{});
@@ -120,7 +120,7 @@ pub fn pop(self: *Self) Error!u256 {
 ///
 /// @param self The stack to pop from
 /// @return The popped value
-pub fn pop_unsafe(self: *Self) u256 {
+pub fn pop_unsafe(self: *Stack) u256 {
     @branchHint(.likely);
     self.size -= 1;
     const value = self.data[self.size];
@@ -134,7 +134,7 @@ pub fn pop_unsafe(self: *Self) u256 {
 ///
 /// @param self The stack to peek at
 /// @return Pointer to the top value
-pub fn peek_unsafe(self: *const Self) *const u256 {
+pub fn peek_unsafe(self: *const Stack) *const u256 {
     @branchHint(.likely);
     return &self.data[self.size - 1];
 }
@@ -145,17 +145,16 @@ pub fn peek_unsafe(self: *const Self) *const u256 {
 ///
 /// @param self The stack to operate on
 /// @param n Position to duplicate from (1-16)
-pub fn dup_unsafe(self: *Self, n: usize) void {
+pub fn dup_unsafe(self: *Stack, n: usize) void {
     @branchHint(.likely);
     @setRuntimeSafety(false);
     self.append_unsafe(self.data[self.size - n]);
 }
 
 /// Pop 2 values without pushing (unsafe version)
-pub fn pop2_unsafe(self: *Self) struct { a: u256, b: u256 } {
-    @branchHint(.likely); // We generally only use unsafe methods
+pub fn pop2_unsafe(self: *Stack) struct { a: u256, b: u256 } {
+    @branchHint(.likely);
     @setRuntimeSafety(false);
-
     self.size -= 2;
     return .{
         .a = self.data[self.size],
@@ -164,10 +163,9 @@ pub fn pop2_unsafe(self: *Self) struct { a: u256, b: u256 } {
 }
 
 /// Pop 3 values without pushing (unsafe version)
-pub fn pop3_unsafe(self: *Self) struct { a: u256, b: u256, c: u256 } {
-    @branchHint(.likely); // We generally only use unsafe methods
+pub fn pop3_unsafe(self: *Stack) struct { a: u256, b: u256, c: u256 } {
+    @branchHint(.likely);
     @setRuntimeSafety(false);
-
     self.size -= 3;
     return .{
         .a = self.data[self.size],
@@ -176,37 +174,39 @@ pub fn pop3_unsafe(self: *Self) struct { a: u256, b: u256, c: u256 } {
     };
 }
 
-pub fn set_top_unsafe(self: *Self, value: u256) void {
-    @branchHint(.likely); // We generally only use unsafe methods
+pub fn set_top_unsafe(self: *Stack, value: u256) void {
+    @branchHint(.likely);
     // Assumes stack is not empty; this should be guaranteed by jump_table validation
     // for opcodes that use this pattern (e.g., after a pop and peek on a stack with >= 2 items).
     self.data[self.size - 1] = value;
 }
 
 /// CamelCase alias used by existing execution code  
-pub fn swapUnsafe(self: *Self, n: usize) void {
+pub fn swapUnsafe(self: *Stack, n: usize) void {
     @branchHint(.likely);
     std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - n - 1]);
 }
 
 /// Peek at the nth element from the top (for test compatibility)
-pub fn peek_n(self: *const Self, n: usize) Error!u256 {
+pub fn peek_n(self: *const Stack, n: usize) Error!u256 {
     if (n >= self.size) {
+        @branchHint(.cold);
         return Error.StackUnderflow;
     }
     return self.data[self.size - 1 - n];
 }
 
 /// Clear the stack (for test compatibility)
-pub fn clear(self: *Self) void {
+pub fn clear(self: *Stack) void {
     self.size = 0;
     // Zero out the data for security
     @memset(&self.data, 0);
 }
 
 /// Peek at the top value (for test compatibility)
-pub fn peek(self: *const Self) Error!u256 {
+pub fn peek(self: *const Stack) Error!u256 {
     if (self.size == 0) {
+        @branchHint(.cold);
         return Error.StackUnderflow;
     }
     return self.data[self.size - 1];

@@ -85,6 +85,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 ## ✅ Implementation Status
 
 ### Core EVM Architecture
+
 - [x] **VM Implementation** (`vm.zig`) - Core virtual machine orchestrating execution
 - [x] **Frame Management** (`frame.zig`) - Execution contexts with stack, memory, and PC
 - [x] **Memory Management** (`memory.zig`) - Byte-addressable with expansion and copy-on-write semantics
@@ -355,6 +356,173 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
   - [ ] **Interpreter Action System** - Structured action handling for calls and creates
   - [ ] **Input Validation Framework** - Comprehensive input validation and sanitization
 
+#### Precompiled Contracts (9/17 implemented)
+
+⚠️ **CRITICAL SECURITY NOTICE: CUSTOM CRYPTOGRAPHY IMPLEMENTATIONS DETECTED**
+
+**Several precompiles currently use custom cryptographic implementations instead of proven libraries. This represents significant security risk and should be migrated to established cryptographic libraries.**
+
+- [x] 🟢 **Standard Precompiles**
+  - [x] **ECRECOVER** (0x01) - ⚠️ **PLACEHOLDER IMPLEMENTATION** - Currently intentionally fails, needs migration to libsecp256k1 ✅
+  - [x] **SHA256** (0x02) - ✅ Uses Zig std library (safe) ✅
+  - [x] **RIPEMD160** (0x03) - ⚠️ **CUSTOM IMPLEMENTATION** - Should migrate to proven library ✅
+  - [x] **IDENTITY** (0x04) - ✅ Simple copy operation (safe) ✅
+  - [x] **MODEXP** (0x05) - ⚠️ **CUSTOM BIG INTEGER IMPLEMENTATION** - Should migrate to GMP or similar ✅
+  - [x] **ECADD** (0x06) - ⚠️ **CUSTOM BN254 IMPLEMENTATION** - Should migrate to arkworks/blst ✅
+  - [x] **ECMUL** (0x07) - ⚠️ **CUSTOM BN254 IMPLEMENTATION** - Should migrate to arkworks/blst ✅
+  - [x] **ECPAIRING** (0x08) - ⚠️ **CUSTOM PAIRING IMPLEMENTATION** - Should migrate to arkworks/blst ✅
+  - [x] **BLAKE2F** (0x09) - ⚠️ **CUSTOM BLAKE2 IMPLEMENTATION** - Consider migration to proven library ✅
+- [x] **KZG Point Evaluation** (0x0A) - EIP-4844 blob verification precompile ✅
+- [ ] 🟡 **BLS12-381 Precompiles** (EIP-2537)
+  - [x] **G1ADD** (0x0B) - ⚠️ **CUSTOM BLS12-381 IMPLEMENTATION** - Should migrate to BLST ✅
+  - [ ] **G1MSM** (0x0C) - [BLS12-381 G1 multi-scalar multiplication](./prompts/implement-bls12-381-g1msm-precompile.md)
+  - [ ] **G2ADD** (0x0D) - [BLS12-381 G2 addition](./prompts/implement-bls12-381-g2add-precompile.md) | [Enhanced](./prompts/implement-bls12-381-g2add-precompile-enhanced.md)
+  - [ ] **G2MSM** (0x0E) - [BLS12-381 G2 multi-scalar multiplication](./prompts/implement-bls12-381-g2msm-precompile.md) | [Enhanced](./prompts/implement-bls12-381-g2msm-precompile-enhanced.md)
+  - [ ] **PAIRING** (0x0F) - [BLS12-381 pairing check](./prompts/implement-bls12-381-pairing-precompile.md) | [Enhanced](./prompts/implement-bls12-381-pairing-precompile-enhanced.md)
+  - [ ] **MAP_FP_TO_G1** (0x10) - [Map field point to G1](./prompts/implement-bls12-381-map-fp-to-g1-precompile.md)
+  - [ ] **MAP_FP2_TO_G2** (0x11) - [Map field point to G2](./prompts/implement-bls12-381-map-fp2-to-g2-precompile.md) | [Enhanced](./prompts/implement-bls12-381-map-fp2-to-g2-precompile-enhanced.md)
+- [ ] 🟡 **OP Stack Precompiles** - [P256VERIFY (RIP-7212) for SECP256R1 signature verification](./prompts/implement-op-stack-precompiles.md)
+
+##### **🔄 Recommended Migration Strategy**
+
+**Based on revm and evmone implementations:**
+
+1. **ECRECOVER** (secp256k1):
+   - **Revm approach**: Use `secp256k1` crate (primary) or `k256` (WASM-compatible fallback)
+   - **Evmone approach**: Custom optimized implementation with ECC framework
+   - **Recommendation**: Follow revm's multi-backend approach for maximum compatibility
+
+2. **BN254 Operations** (ECADD, ECMUL, ECPAIRING):
+   - **Revm approach**: `arkworks` ecosystem (`ark-bn254`, `ark-ec`, `ark-ff`) with `substrate-bn` fallback
+   - **Evmone approach**: Custom BN254 implementation with `evmmax` framework  
+   - **Recommendation**: Use arkworks for Rust-compatible approach, or integrate with existing proven libraries
+
+3. **MODEXP** (Modular Exponentiation):
+   - **Revm approach**: `aurora-engine-modexp` crate with optimized big integer arithmetic
+   - **Evmone approach**: GNU Multiple Precision Arithmetic Library (GMP)
+   - **Recommendation**: GMP integration for maximum performance, with pure fallback
+
+4. **BLS12-381 Operations**:
+   - **Revm approach**: `blst` (primary, C optimized) with `ark-bls12-381` (pure Rust fallback)
+   - **Evmone approach**: BLST library v0.3.13 from Supranational
+   - **Recommendation**: BLST is the industry standard, used by both implementations
+
+5. **BLAKE2F**:
+   - **Revm approach**: Custom pure Rust implementation  
+   - **Evmone approach**: Custom C++ implementation with standard library
+   - **Recommendation**: Consider established BLAKE2 libraries for additional security assurance
+
+6. **RIPEMD160**:
+   - **Revm approach**: `ripemd` crate
+   - **Evmone approach**: Custom implementation following RFC
+   - **Recommendation**: Use proven `ripemd` crate or similar established library
+
+##### **🎯 Implementation Priority**
+
+1. **HIGH PRIORITY** - Security Critical:
+   - ECRECOVER (signature verification)
+   - BLS12-381 operations (Ethereum 2.0 consensus critical)
+   - MODEXP (RSA and cryptographic protocols)
+
+2. **MEDIUM PRIORITY** - Complex Cryptography:
+   - BN254 operations (zkSNARK critical but less consensus critical)
+   - BLAKE2F (less commonly used)
+
+3. **LOW PRIORITY** - Well-understood Algorithms:
+   - RIPEMD160 (hash function, lower risk but should still migrate)
+
+##### **⚡ WASM Compatibility Considerations**
+
+For WASM builds, follow revm's pattern:
+- **Primary backends**: Optimized C libraries (secp256k1, BLST, GMP)
+- **WASM fallbacks**: Pure Rust/Zig implementations (k256, arkworks, custom big int)
+- **Feature detection**: Automatic selection based on target environment
+
+#### Advanced Gas & Performance
+
+- [ ] 🟡 **Gas Refunds**
+  - [ ] **SSTORE Refunds** - [EIP-3529 compliant refund mechanism](./prompts/implement-gas-refunds-sstore.md)
+  - [ ] **SELFDESTRUCT Refunds** - Contract destruction refunds (pre-London)
+- [ ] 🟡 **Advanced Gas Calculations**
+  - [ ] **Instruction Block Optimization** - Basic block gas calculation (evmone-style)
+  - [ ] **Memory Gas Optimization** - [Pre-calculate and cache memory expansion costs](./prompts/implement-memory-gas-optimization-enhanced.md)
+  - [ ] **Call Gas Stipend** - [Proper gas stipend handling for value transfers](./prompts/implement-call-gas-stipend-enhanced.md)
+  - [ ] **Dynamic Gas Edge Cases** - [Complex memory growth scenarios](./prompts/implement-dynamic-gas-edge-cases-enhanced.md)
+
+#### EIP Support & Advanced Hardforks
+
+- [x] **Complete EIP-4844 Support** - Blob transaction handling beyond opcodes ✅
+- [x] **EIP-7702** - Complete EOA account code delegation implementation ✅
+- [ ] 🟡 **L2 Chain Support**
+  - [ ] **Optimism** - OP Stack specific opcodes and behavior
+  - [ ] **Arbitrum** - Arbitrum specific opcodes and gas model
+  - [ ] **Polygon** - Polygon specific features
+- [ ] 🟡 **EOF Support** - EVM Object Format
+  - [ ] **EIP-3540** - EOF container format
+  - [ ] **EIP-3670** - EOF code validation
+  - [ ] **EIP-4200** - EOF static relative jumps
+  - [ ] **EIP-4750** - EOF functions
+  - [ ] **EIP-5450** - EOF stack validation
+- [ ] 🟡 **Future Prague Support** - Upcoming hardfork preparation
+
+#### Development Infrastructure
+
+- [ ] 🟢 **Runtime Inspection**
+  - [ ] **Comprehensive Tracing** - [Step-by-step execution monitoring](./prompts/implement-comprehensive-tracing-enhanced.md)
+  - [ ] **EIP-3155 Tracing** - [Standard execution trace format](./prompts/implement-eip3155-tracing.md)
+  - [ ] **Inspector Framework** - Pluggable inspection hooks
+  - [ ] **Gas Inspector** - [Detailed gas consumption analysis](./prompts/implement-gas-inspector-enhanced.md)
+- [ ] 🟢 **Testing Infrastructure**
+  - [ ] **Consensus Test Suite** - Ethereum official test vectors compliance
+  - [ ] **Fuzzing Infrastructure** - [Automated edge case discovery](./prompts/implement-fuzzing-infrastructure-enhanced.md)
+  - [ ] **State Test Runner** - [Official Ethereum state test execution](./prompts/implement-state-test-runner.md)
+  - [ ] **CLI Tools** - [Command-line interface for testing and benchmarking](./prompts/implement-cli-tools-enhanced.md)
+- [ ] 🟢 **Handler Architecture** - Configurable execution handlers for pre/post processing
+
+#### Production Hardening
+
+- [x] **Robustness**
+  - [x] **DoS Protection** - Comprehensive gas limit enforcement ✅
+  - [x] **Edge Case Handling** - Real-world scenario validation ✅
+  - [x] **Memory Safety Auditing** - Additional bounds checking ✅
+- [ ] 🟢 **State Management**
+  - [x] **State Interface** - Vtable interface for pluggable implementations ✅
+  - [ ] **Async Database Support** - [Non-blocking database operations](./prompts/implement-async-database-support-enhanced.md)
+  - [ ] **State Caching** - [Intelligent caching layer for frequently accessed state](./prompts/implement-state-caching-enhanced.md)
+  - [ ] **Bundle State Management** - [Efficient state transitions and rollback](./prompts/implement-bundle-state-management-enhanced.md)
+  - [ ] **Account Status Tracking** - [Detailed account lifecycle management](./prompts/implement-account-status-tracking-enhanced.md)
+
+#### Performance & Optimization
+
+- [ ] 🟢 **Low-Level Optimizations**
+  - [ ] **SIMD Optimizations** - Vectorized operations for 256-bit math
+  - [ ] **Memory Allocator Tuning** - [Specialized EVM memory allocators](./prompts/implement-memory-allocator-tuning-enhanced.md)
+  - [ ] **Cache Optimization** - Better cache utilization in hot paths
+  - [ ] **Zero-Allocation Patterns** - Minimize memory allocations in hot paths
+  - [ ] **Branch Prediction Optimization** - Strategic branch hinting for modern CPUs
+- [ ] 🟢 **Architecture Optimizations**
+  - [ ] **Call Frame Pooling** - Reuse execution frames to reduce allocation overhead
+  - [ ] **Precompile Backend Selection** - Multiple crypto library backends
+  - [ ] **Interpreter Types System** - Configurable interpreter components
+- [ ] 🟢 **Benchmarking**
+  - [ ] **Performance Benchmarks** - [Snailtracer benchmarking vs Geth and Reth](./prompts/implement-performance-benchmarks-enhanced.md)
+  - [ ] **CI/CD WASM Size Check** - [Automated bundle size regression testing](./prompts/implement-cicd-wasm-size-check.md)
+
+#### Advanced Architecture Features
+
+- [ ] 🟢 **Modularity**
+  - [ ] **Modular Context System** - [Pluggable block, transaction, and configuration contexts](./prompts/implement-modular-context-system-enhanced.md)
+  - [ ] **Custom Chain Framework** - [Easy implementation of custom blockchain variants](./prompts/implement-custom-chain-framework-enhanced.md)
+  - [ ] **Extension Points** - Configurable extension system for custom functionality
+- [ ] 🟢 **Advanced Execution**
+  - [ ] **Subroutine Stack** - EOF subroutine support for advanced contract execution
+  - [ ] **Runtime Flags** - [Efficient runtime behavior configuration](./prompts/implement-runtime-flags-enhanced.md)
+  - [ ] **Loop Control** - Advanced execution loop management and gas tracking
+  - [ ] **Shared Memory** - [Memory sharing between execution contexts](./prompts/implement-shared-memory-enhanced.md)
+  - [ ] **External Bytecode** - [Support for external bytecode loading and management](./prompts/implement-external-bytecode-enhanced.md)
+  - [ ] **Interpreter Action System** - [Structured action handling for calls and creates](./prompts/implement-interpreter-action-system-enhanced.md)
+  - [ ] **Input Validation Framework** - [Comprehensive input validation and sanitization](./prompts/implement-input-validation-framework-enhanced.md)
+
 ## 📁 Directory Structure
 
 ```
@@ -451,6 +619,9 @@ The EVM implementation follows a modular architecture with clear separation of c
 2. **Add journaling support** for proper state reverting
 3. **Complete CALL operations** with proper gas metering and execution flow
 4. **Database interface** for pluggable state management
+5. **Complete call gas management** with 63/64th gas forwarding rule
+6. **Implement precompiled contracts** (ECRECOVER, SHA256, etc.)
+7. **Add gas refunds** for SSTORE and SELFDESTRUCT operations
 
 ### Performance & Testing
 
@@ -463,8 +634,7 @@ The EVM implementation follows a modular architecture with clear separation of c
 8. **Implement all precompiles** without bundle size regression
 9. **Gas refunds** for SSTORE operations
 10. **L2 support** for Optimism, Arbitrum, etc.
-11. **EIP-4844 support** for blob transactions
-12. **Make State pluggable** via vtable interface
+11. **Complete call gas management** with proper forwarding rules
 
 ## 🤝 Contributing
 

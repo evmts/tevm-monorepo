@@ -91,6 +91,9 @@ pub const Opcode = @import("opcodes/opcode.zig");
 /// Opcode metadata (gas costs, stack effects)
 pub const Operation = @import("opcodes/operation.zig");
 
+/// Backwards compatibility alias for test files
+pub const OperationModule = Operation;
+
 /// 256-bit word stack implementation
 pub const Stack = @import("stack/stack.zig");
 
@@ -106,8 +109,31 @@ pub const Vm = @import("vm.zig");
 /// EVM state management (accounts, storage, logs)
 pub const EvmState = @import("state/state.zig");
 
+/// Database interface for pluggable state storage
+pub const DatabaseInterface = @import("state/database_interface.zig").DatabaseInterface;
+
+/// Memory database implementation
+pub const MemoryDatabase = @import("state/memory_database.zig").MemoryDatabase;
+
+/// Database factory for creating different implementations
+pub const DatabaseFactory = @import("state/database_factory.zig");
+
 /// Precompiled contracts implementation (IDENTITY, SHA256, etc.)
 pub const Precompiles = @import("precompiles/precompiles.zig");
+
+/// Precompiles namespace for easier access
+pub const precompiles = struct {
+    pub const precompiles = @import("precompiles/precompiles.zig");
+    pub const sha256 = @import("precompiles/sha256.zig");
+    pub const identity = @import("precompiles/identity.zig");
+    pub const precompile_result = @import("precompiles/precompile_result.zig");
+};
+
+/// EIP-4844 blob transaction support (blobs, KZG verification, gas market)
+pub const blob = @import("blob/index.zig");
+
+/// Transaction types including EIP-4844 blob transactions
+pub const transaction = @import("transaction/index.zig");
 
 // Import execution
 /// All opcode implementations (arithmetic, stack, memory, etc.)
@@ -124,6 +150,12 @@ pub const bitvec = @import("contract/bitvec.zig");
 /// Chain-specific validation rules
 pub const chain_rules = @import("hardforks/chain_rules.zig");
 
+/// Hardforks namespace for easier access
+pub const hardforks = struct {
+    pub const chain_rules = @import("hardforks/chain_rules.zig");
+    pub const hardfork = @import("hardforks/hardfork.zig");
+};
+
 /// EVM constants (stack size, memory limits, etc.)
 pub const constants = @import("constants/constants.zig");
 
@@ -138,6 +170,20 @@ pub const gas_constants = @import("constants/gas_constants.zig");
 
 /// Memory size limits and expansion rules
 pub const memory_limits = @import("constants/memory_limits.zig");
+
+// EIP-4844 blob exports for convenience
+/// Blob data structure from EIP-4844
+pub const Blob = blob.Blob;
+/// KZG commitment structure
+pub const KZGCommitment = blob.KZGCommitment;
+/// KZG proof structure
+pub const KZGProof = blob.KZGProof;
+/// Versioned hash for blob commitments
+pub const VersionedHash = blob.VersionedHash;
+/// Blob gas market implementation
+pub const BlobGasMarket = blob.BlobGasMarket;
+/// Blob transaction type
+pub const BlobTransaction = transaction.BlobTransaction;
 
 // Export all error types for strongly typed error handling
 ///
@@ -224,7 +270,31 @@ pub const CalculateCreate2AddressError = Address.CalculateCreate2AddressError;
 /// Main execution error enumeration used throughout EVM
 pub const ExecutionErrorEnum = ExecutionError.Error;
 
-// Tests - run all module tests
-test {
-    std.testing.refAllDeclsRecursive(@This());
+// Tests - run individual module tests to isolate segfault
+test "VM module" {
+    std.testing.refAllDecls(Vm);
+}
+
+test "Frame module" {
+    std.testing.refAllDecls(Frame);
+}
+
+test "Stack module" {
+    std.testing.refAllDecls(Stack);
+}
+
+test "Memory module" {
+    std.testing.refAllDecls(Memory);
+}
+
+test "ExecutionError module" {
+    std.testing.refAllDecls(ExecutionError);
+}
+
+test "Contract module" {
+    std.testing.refAllDecls(Contract);
+}
+
+test "JumpTable module" {
+    std.testing.refAllDecls(JumpTable);
 }

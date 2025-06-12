@@ -2,7 +2,7 @@ const std = @import("std");
 const constants = @import("../constants/constants.zig");
 
 /// BitVec is a bit vector implementation used for tracking JUMPDEST positions in bytecode
-const Self = @This();
+const BitVec = @This();
 
 /// Bit array stored in u64 chunks
 bits: []u64,
@@ -24,11 +24,11 @@ pub const BitVecInitError = std.mem.Allocator.Error;
 pub const CodeBitmapError = BitVecInitError;
 
 /// Create a new BitVec with the given size
-pub fn init(allocator: std.mem.Allocator, size: usize) BitVecInitError!Self {
+pub fn init(allocator: std.mem.Allocator, size: usize) BitVecInitError!BitVec {
     const u64_size = (size + 63) / 64; // Round up to nearest u64
     const bits = try allocator.alloc(u64, u64_size);
     @memset(bits, 0); // Initialize all bits to 0
-    return Self{
+    return BitVec{
         .bits = bits,
         .size = size,
         .owned = true,
@@ -36,8 +36,8 @@ pub fn init(allocator: std.mem.Allocator, size: usize) BitVecInitError!Self {
 }
 
 /// Create a BitVec from existing memory (not owned)
-pub fn from_memory(bits: []u64, size: usize) Self {
-    return Self{
+pub fn from_memory(bits: []u64, size: usize) BitVec {
+    return BitVec{
         .bits = bits,
         .size = size,
         .owned = false,
@@ -45,7 +45,7 @@ pub fn from_memory(bits: []u64, size: usize) Self {
 }
 
 /// Free allocated memory if owned
-pub fn deinit(self: *Self, allocator: std.mem.Allocator) void {
+pub fn deinit(self: *BitVec, allocator: std.mem.Allocator) void {
     if (self.owned) {
         allocator.free(self.bits);
         self.bits = &.{};
@@ -54,7 +54,7 @@ pub fn deinit(self: *Self, allocator: std.mem.Allocator) void {
 }
 
 /// Set a bit at the given position
-pub fn set(self: *Self, pos: usize) BitVecError!void {
+pub fn set(self: *BitVec, pos: usize) BitVecError!void {
     if (pos >= self.size) return BitVecError.PositionOutOfBounds;
     const idx = pos / 64;
     const bit = @as(u64, 1) << @intCast(pos % 64);
@@ -62,14 +62,14 @@ pub fn set(self: *Self, pos: usize) BitVecError!void {
 }
 
 /// Set a bit at the given position without bounds checking
-pub fn set_unchecked(self: *Self, pos: usize) void {
+pub fn set_unchecked(self: *BitVec, pos: usize) void {
     const idx = pos / 64;
     const bit = @as(u64, 1) << @intCast(pos % 64);
     self.bits[idx] |= bit;
 }
 
 /// Clear a bit at the given position
-pub fn clear(self: *Self, pos: usize) BitVecError!void {
+pub fn clear(self: *BitVec, pos: usize) BitVecError!void {
     if (pos >= self.size) return BitVecError.PositionOutOfBounds;
     const idx = pos / 64;
     const bit = @as(u64, 1) << @intCast(pos % 64);
@@ -77,14 +77,14 @@ pub fn clear(self: *Self, pos: usize) BitVecError!void {
 }
 
 /// Clear a bit at the given position without bounds checking
-pub fn clear_unchecked(self: *Self, pos: usize) void {
+pub fn clear_unchecked(self: *BitVec, pos: usize) void {
     const idx = pos / 64;
     const bit = @as(u64, 1) << @intCast(pos % 64);
     self.bits[idx] &= ~bit;
 }
 
 /// Check if a bit is set at the given position
-pub fn is_set(self: *const Self, pos: usize) BitVecError!bool {
+pub fn is_set(self: *const BitVec, pos: usize) BitVecError!bool {
     if (pos >= self.size) return BitVecError.PositionOutOfBounds;
     const idx = pos / 64;
     const bit = @as(u64, 1) << @intCast(pos % 64);
@@ -92,25 +92,25 @@ pub fn is_set(self: *const Self, pos: usize) BitVecError!bool {
 }
 
 /// Check if a bit is set at the given position without bounds checking
-pub fn is_set_unchecked(self: *const Self, pos: usize) bool {
+pub fn is_set_unchecked(self: *const BitVec, pos: usize) bool {
     const idx = pos / 64;
     const bit = @as(u64, 1) << @intCast(pos % 64);
     return (self.bits[idx] & bit) != 0;
 }
 
 /// Check if the position represents a valid code segment
-pub fn code_segment(self: *const Self, pos: usize) BitVecError!bool {
+pub fn code_segment(self: *const BitVec, pos: usize) BitVecError!bool {
     return self.is_set(pos);
 }
 
 /// Check if the position represents a valid code segment without bounds checking
-pub fn code_segment_unchecked(self: *const Self, pos: usize) bool {
+pub fn code_segment_unchecked(self: *const BitVec, pos: usize) bool {
     return self.is_set_unchecked(pos);
 }
 
 /// Analyze bytecode to identify valid JUMPDEST locations and code segments
-pub fn code_bitmap(allocator: std.mem.Allocator, code: []const u8) CodeBitmapError!Self {
-    var bitmap = try Self.init(allocator, code.len);
+pub fn code_bitmap(allocator: std.mem.Allocator, code: []const u8) CodeBitmapError!BitVec {
+    var bitmap = try BitVec.init(allocator, code.len);
     errdefer bitmap.deinit(allocator);
 
     // Mark all positions as valid code initially

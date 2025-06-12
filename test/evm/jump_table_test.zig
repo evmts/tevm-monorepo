@@ -2,6 +2,7 @@ const std = @import("std");
 const evm = @import("evm");
 const JumpTable = evm.JumpTable;
 const Operation = evm.Operation;
+const OperationModule = evm.OperationModule;
 const Stack = evm.Stack;
 const Frame = evm.Frame;
 const Contract = evm.Contract;
@@ -30,7 +31,7 @@ test "JumpTable initialization and validation" {
 
     // Check that all entries are initially null
     for (0..256) |i| {
-        try std.testing.expectEqual(@as(?*const Operation, null), jt.table[i]);
+        try std.testing.expectEqual(@as(?*const Operation.Operation, null), jt.table[i]);
     }
 
     // Validate should fill all nulls with UNDEFINED
@@ -88,8 +89,8 @@ test "JumpTable execute consumes gas before opcode execution" {
     var test_vm = struct {
         allocator: std.mem.Allocator,
     }{ .allocator = test_allocator };
-    const interpreter_ptr: *Operation.Interpreter = @ptrCast(&test_vm);
-    const state_ptr: *Operation.State = @ptrCast(&test_frame);
+    const interpreter_ptr: *OperationModule.Interpreter = @ptrCast(&test_vm);
+    const state_ptr: *OperationModule.State = @ptrCast(&test_frame);
 
     // Execute ADD opcode (0x01) which has GasFastestStep (3) gas cost
     _ = try jt.execute(0, interpreter_ptr, state_ptr, 0x01);

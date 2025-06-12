@@ -18,7 +18,7 @@ const std = @import("std");
 /// 6. **Call Stack**: DepthLimit
 /// 7. **Memory Management**: OutOfMemory, InvalidOffset, InvalidSize, ChildContextActive
 /// 8. **Future Features**: EOFNotSupported
-const Self = @This();
+const ExecutionError = @This();
 
 /// Error types for EVM execution
 ///
@@ -78,6 +78,10 @@ pub const Error = error{
     /// Unlike other copy operations, this is a hard error
     ReturnDataOutOfBounds,
 
+    /// Invalid access to return data buffer
+    /// Occurs when RETURNDATACOPY offset + size > return data size
+    InvalidReturnDataAccess,
+
     /// Contract deployment code exceeds maximum size
     /// Deployment bytecode has its own size limits
     DeployCodeTooBig,
@@ -121,6 +125,28 @@ pub const Error = error{
     /// EOF (EVM Object Format) features not yet implemented
     /// Placeholder for future EOF-related opcodes
     EOFNotSupported,
+
+    // Database errors from the database interface
+    /// Account not found in the database
+    AccountNotFound,
+    /// Storage slot not found for the given address
+    StorageNotFound,
+    /// Contract code not found for the given hash
+    CodeNotFound,
+    /// Invalid address format
+    InvalidAddress,
+    /// Database corruption detected
+    DatabaseCorrupted,
+    /// Network error when accessing remote database
+    NetworkError,
+    /// Permission denied accessing database
+    PermissionDenied,
+    /// Invalid snapshot identifier
+    InvalidSnapshot,
+    /// Batch operation not in progress
+    NoBatchInProgress,
+    /// Snapshot not found
+    SnapshotNotFound,
 };
 
 /// Get a human-readable description for an execution error
@@ -155,6 +181,7 @@ pub fn get_description(err: Error) []const u8 {
         Error.GasUintOverflow => "Gas calculation overflow",
         Error.WriteProtection => "Write to protected storage",
         Error.ReturnDataOutOfBounds => "Return data access out of bounds",
+        Error.InvalidReturnDataAccess => "Invalid return data access - offset + size exceeds data length",
         Error.DeployCodeTooBig => "Contract creation code too large",
         Error.MaxCodeSizeExceeded => "Contract code size exceeds limit",
         Error.InvalidCodeEntry => "Invalid contract entry code",
@@ -166,5 +193,15 @@ pub fn get_description(err: Error) []const u8 {
         Error.ChildContextActive => "Child context is active",
         Error.NoChildContextToRevertOrCommit => "No child context to revert or commit",
         Error.EOFNotSupported => "EOF (EVM Object Format) opcode not supported",
+        Error.AccountNotFound => "Account not found in database",
+        Error.StorageNotFound => "Storage slot not found in database",
+        Error.CodeNotFound => "Contract code not found in database",
+        Error.InvalidAddress => "Invalid address format",
+        Error.DatabaseCorrupted => "Database corruption detected",
+        Error.NetworkError => "Network error accessing database",
+        Error.PermissionDenied => "Permission denied accessing database",
+        Error.InvalidSnapshot => "Invalid snapshot identifier",
+        Error.NoBatchInProgress => "No batch operation in progress",
+        Error.SnapshotNotFound => "Snapshot not found in database",
     };
 }
