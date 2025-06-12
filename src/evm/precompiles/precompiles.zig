@@ -5,6 +5,7 @@ const PrecompileOutput = @import("precompile_result.zig").PrecompileOutput;
 const PrecompileError = @import("precompile_result.zig").PrecompileError;
 const ecrecover = @import("ecrecover.zig");
 const identity = @import("identity.zig");
+const ecrecover = @import("ecrecover.zig");
 const sha256 = @import("sha256.zig");
 const ripemd160 = @import("ripemd160.zig");
 const modexp = @import("modexp.zig");
