@@ -9,6 +9,8 @@ You are implementing BLS12-381 PAIRING Precompile for the Tevm EVM written in Zi
 - **Commit**: Use emoji conventional commits with XML summary format
 
 
+<<<<<<< HEAD
+=======
 <review>
 **Implementation Status: NOT IMPLEMENTED ❌**
 
@@ -50,6 +52,7 @@ You are implementing BLS12-381 PAIRING Precompile for the Tevm EVM written in Zi
 - 🟠 **USE-LIBRARY**: Should use proven library (blst) rather than custom implementation
 </review>
 
+>>>>>>> origin/main
 ## Context
 
 Implement the BLS12-381 pairing check precompile (address 0x0F) as defined in EIP-2537. This precompile performs bilinear pairing operations between G1 and G2 points, which is fundamental for BLS signature verification and other advanced cryptographic protocols.

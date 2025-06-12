@@ -1,5 +1,7 @@
 # Implement BLAKE2F Precompile
 
+<<<<<<< HEAD
+=======
 <review>
 **Implementation Status: NOT IMPLEMENTED ❌**
 
@@ -34,6 +36,7 @@
 **Priority: CRITICAL - Fix compilation error immediately**
 </review>
 
+>>>>>>> origin/main
 You are implementing the BLAKE2F precompile (address 0x09) for the Tevm EVM written in Zig. Your goal is to provide the BLAKE2b compression function that enables efficient cryptographic operations for smart contracts, following EIP-152 specification and maintaining compatibility with all Ethereum clients.
 
 ## Context
