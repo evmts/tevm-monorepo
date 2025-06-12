@@ -4,6 +4,7 @@ import { createChainableFromVitest, registerChainableMatchers } from './chainabl
 import type { ChainState, ChainableAssertion } from './types.js'
 
 /* ---------------------------------- TYPES --------------------------------- */
+// biome-ignore lint/suspicious/noExportsInTest: exporting for chainable.type-spec.ts
 export interface CustomMatchers {
 	/**
 	 * Assert that a value is a bigint
@@ -153,6 +154,7 @@ const toResolveToStringChainable = createChainableFromVitest({
 })
 
 // Register all test matchers
+// biome-ignore lint/suspicious/noExportsInTest: exporting for chainable.type-spec.ts
 export const testMatchers = {
 	toBeBigIntChainable,
 	toBeHexChainable,
