@@ -1,461 +1,423 @@
 const std = @import("std");
 const zbench = @import("zbench");
-const root = @import("evm");
-const Frame = root.evm.Frame;
-const Stack = root.evm.Stack;
-const Memory = root.evm.Memory;
-const Contract = root.evm.Contract;
-const Bytecode = root.evm.Bytecode;
+const evm_root = @import("evm");
 const Address = @import("Address");
-const Operation = root.evm.opcodes.Operation;
 
-// Helper to create a mock frame for testing opcodes
-fn create_mock_frame(allocator: std.mem.Allocator) !Frame {
-    var frame = Frame.init_default(allocator) catch return error.OutOfMemory;
-    
-    // Initialize with a simple contract
-    const bytecode = Bytecode.init(&[_]u8{0x60, 0x01, 0x60, 0x02, 0x01}, allocator) catch return error.OutOfMemory;
-    frame.contract = Contract.init(
-        Address.fromHex("0x1234567890123456789012345678901234567890") catch Address.zero(),
-        Address.fromHex("0x1234567890123456789012345678901234567890") catch Address.zero(),
-        Address.fromHex("0x1234567890123456789012345678901234567890") catch Address.zero(),
-        0,
-        bytecode,
-        0,
-        false,
-        false,
-    );
-    
-    return frame;
-}
+// Import EVM components
+const evm = evm_root.evm;
+const Stack = evm.Stack;
+const Memory = evm.Memory;
 
-// Benchmark arithmetic operations
+// Benchmark arithmetic operations directly on stack
 fn benchmarkArithmeticAdd(allocator: std.mem.Allocator) void {
-    var frame = create_mock_frame(allocator) catch return;
-    defer frame.deinit();
-    
-    // Pre-populate stack with test values
-    frame.stack.append(100) catch return;
-    frame.stack.append(200) catch return;
+    _ = allocator;
     
     const iterations = 1000;
     for (0..iterations) |_| {
-        // Reset stack state
-        frame.stack.reset();
-        frame.stack.append(100) catch return;
-        frame.stack.append(200) catch return;
+        var stack = Stack{};
         
-        // Execute ADD operation
-        const state: *Operation.State = @ptrCast(&frame);
-        const interpreter: Operation.Interpreter = undefined;
-        _ = @import("evm").execution.arithmetic.op_add(0, &interpreter, state) catch return;
+        // Pre-populate stack with test values
+        stack.append_unsafe(100);
+        stack.append_unsafe(200);
         
-        const result = frame.stack.peek_unsafe().*;
-        std.mem.doNotOptimizeAway(result);
+        // Perform ADD operation manually: pop two values, add, push result
+        const b = stack.pop_unsafe();
+        const a = stack.pop_unsafe();
+        const result = a +% b; // Wrapping addition like EVM
+        stack.append_unsafe(result);
+        
+        std.mem.doNotOptimizeAway(stack.peek_unsafe().*);
     }
 }
 
 fn benchmarkArithmeticMul(allocator: std.mem.Allocator) void {
-    var frame = create_mock_frame(allocator) catch return;
-    defer frame.deinit();
+    _ = allocator;
     
     const iterations = 1000;
     for (0..iterations) |_| {
-        frame.stack.reset();
-        frame.stack.append(123) catch return;
-        frame.stack.append(456) catch return;
+        var stack = Stack{};
         
-        const state: *Operation.State = @ptrCast(&frame);
-        const interpreter: Operation.Interpreter = undefined;
-        _ = @import("evm").execution.arithmetic.op_mul(0, &interpreter, state) catch return;
+        stack.append_unsafe(123);
+        stack.append_unsafe(456);
         
-        const result = frame.stack.peek_unsafe().*;
-        std.mem.doNotOptimizeAway(result);
+        const b = stack.pop_unsafe();
+        const a = stack.pop_unsafe();
+        const result = a *% b; // Wrapping multiplication like EVM
+        stack.append_unsafe(result);
+        
+        std.mem.doNotOptimizeAway(stack.peek_unsafe().*);
     }
 }
 
 fn benchmarkArithmeticDiv(allocator: std.mem.Allocator) void {
-    var frame = create_mock_frame(allocator) catch return;
-    defer frame.deinit();
+    _ = allocator;
     
     const iterations = 1000;
     for (0..iterations) |_| {
-        frame.stack.reset();
-        frame.stack.append(1000000) catch return;
-        frame.stack.append(456) catch return;
+        var stack = Stack{};
         
-        const state: *Operation.State = @ptrCast(&frame);
-        const interpreter: Operation.Interpreter = undefined;
-        _ = @import("evm").execution.arithmetic.op_div(0, &interpreter, state) catch return;
+        stack.append_unsafe(1000000);
+        stack.append_unsafe(456);
         
-        const result = frame.stack.peek_unsafe().*;
-        std.mem.doNotOptimizeAway(result);
+        const b = stack.pop_unsafe();
+        const a = stack.pop_unsafe();
+        const result = if (b == 0) 0 else a / b; // EVM div by zero behavior
+        stack.append_unsafe(result);
+        
+        std.mem.doNotOptimizeAway(stack.peek_unsafe().*);
     }
 }
 
 fn benchmarkArithmeticMod(allocator: std.mem.Allocator) void {
-    var frame = create_mock_frame(allocator) catch return;
-    defer frame.deinit();
+    _ = allocator;
     
     const iterations = 1000;
     for (0..iterations) |_| {
-        frame.stack.reset();
-        frame.stack.append(1000000) catch return;
-        frame.stack.append(456) catch return;
+        var stack = Stack{};
         
-        const state: *Operation.State = @ptrCast(&frame);
-        const interpreter: Operation.Interpreter = undefined;
-        _ = @import("evm").execution.arithmetic.op_mod(0, &interpreter, state) catch return;
+        stack.append_unsafe(1000000);
+        stack.append_unsafe(456);
         
-        const result = frame.stack.peek_unsafe().*;
-        std.mem.doNotOptimizeAway(result);
+        const b = stack.pop_unsafe();
+        const a = stack.pop_unsafe();
+        const result = if (b == 0) 0 else a % b; // EVM mod by zero behavior
+        stack.append_unsafe(result);
+        
+        std.mem.doNotOptimizeAway(stack.peek_unsafe().*);
     }
 }
 
 fn benchmarkArithmeticSub(allocator: std.mem.Allocator) void {
-    var frame = create_mock_frame(allocator) catch return;
-    defer frame.deinit();
+    _ = allocator;
     
     const iterations = 1000;
     for (0..iterations) |_| {
-        frame.stack.reset();
-        frame.stack.append(1000) catch return;
-        frame.stack.append(300) catch return;
+        var stack = Stack{};
         
-        const state: *Operation.State = @ptrCast(&frame);
-        const interpreter: Operation.Interpreter = undefined;
-        _ = @import("evm").execution.arithmetic.op_sub(0, &interpreter, state) catch return;
+        stack.append_unsafe(1000);
+        stack.append_unsafe(300);
         
-        const result = frame.stack.peek_unsafe().*;
-        std.mem.doNotOptimizeAway(result);
+        const b = stack.pop_unsafe();
+        const a = stack.pop_unsafe();
+        const result = a -% b; // Wrapping subtraction like EVM
+        stack.append_unsafe(result);
+        
+        std.mem.doNotOptimizeAway(stack.peek_unsafe().*);
     }
 }
 
 // Benchmark bitwise operations
 fn benchmarkBitwiseAnd(allocator: std.mem.Allocator) void {
-    var frame = create_mock_frame(allocator) catch return;
-    defer frame.deinit();
+    _ = allocator;
     
     const iterations = 1000;
     for (0..iterations) |_| {
-        frame.stack.reset();
-        frame.stack.append(0xFF00FF00FF00FF00) catch return;
-        frame.stack.append(0x00FF00FF00FF00FF) catch return;
+        var stack = Stack{};
         
-        const state: *Operation.State = @ptrCast(&frame);
-        const interpreter: Operation.Interpreter = undefined;
-        _ = @import("evm").execution.bitwise.op_and(0, &interpreter, state) catch return;
+        stack.append_unsafe(0xFF00FF00FF00FF00);
+        stack.append_unsafe(0x00FF00FF00FF00FF);
         
-        const result = frame.stack.peek_unsafe().*;
-        std.mem.doNotOptimizeAway(result);
+        const b = stack.pop_unsafe();
+        const a = stack.pop_unsafe();
+        const result = a & b;
+        stack.append_unsafe(result);
+        
+        std.mem.doNotOptimizeAway(stack.peek_unsafe().*);
     }
 }
 
 fn benchmarkBitwiseOr(allocator: std.mem.Allocator) void {
-    var frame = create_mock_frame(allocator) catch return;
-    defer frame.deinit();
+    _ = allocator;
     
     const iterations = 1000;
     for (0..iterations) |_| {
-        frame.stack.reset();
-        frame.stack.append(0xFF00FF00FF00FF00) catch return;
-        frame.stack.append(0x00FF00FF00FF00FF) catch return;
+        var stack = Stack{};
         
-        const state: *Operation.State = @ptrCast(&frame);
-        const interpreter: Operation.Interpreter = undefined;
-        _ = @import("evm").execution.bitwise.op_or(0, &interpreter, state) catch return;
+        stack.append_unsafe(0xFF00FF00FF00FF00);
+        stack.append_unsafe(0x00FF00FF00FF00FF);
         
-        const result = frame.stack.peek_unsafe().*;
-        std.mem.doNotOptimizeAway(result);
+        const b = stack.pop_unsafe();
+        const a = stack.pop_unsafe();
+        const result = a | b;
+        stack.append_unsafe(result);
+        
+        std.mem.doNotOptimizeAway(stack.peek_unsafe().*);
     }
 }
 
 fn benchmarkBitwiseXor(allocator: std.mem.Allocator) void {
-    var frame = create_mock_frame(allocator) catch return;
-    defer frame.deinit();
+    _ = allocator;
     
     const iterations = 1000;
     for (0..iterations) |_| {
-        frame.stack.reset();
-        frame.stack.append(0xFF00FF00FF00FF00) catch return;
-        frame.stack.append(0x00FF00FF00FF00FF) catch return;
+        var stack = Stack{};
         
-        const state: *Operation.State = @ptrCast(&frame);
-        const interpreter: Operation.Interpreter = undefined;
-        _ = @import("evm").execution.bitwise.op_xor(0, &interpreter, state) catch return;
+        stack.append_unsafe(0xFF00FF00FF00FF00);
+        stack.append_unsafe(0x00FF00FF00FF00FF);
         
-        const result = frame.stack.peek_unsafe().*;
-        std.mem.doNotOptimizeAway(result);
+        const b = stack.pop_unsafe();
+        const a = stack.pop_unsafe();
+        const result = a ^ b;
+        stack.append_unsafe(result);
+        
+        std.mem.doNotOptimizeAway(stack.peek_unsafe().*);
     }
 }
 
 fn benchmarkBitwiseNot(allocator: std.mem.Allocator) void {
-    var frame = create_mock_frame(allocator) catch return;
-    defer frame.deinit();
+    _ = allocator;
     
     const iterations = 1000;
     for (0..iterations) |_| {
-        frame.stack.reset();
-        frame.stack.append(0xFF00FF00FF00FF00) catch return;
+        var stack = Stack{};
         
-        const state: *Operation.State = @ptrCast(&frame);
-        const interpreter: Operation.Interpreter = undefined;
-        _ = @import("evm").execution.bitwise.op_not(0, &interpreter, state) catch return;
+        stack.append_unsafe(0xFF00FF00FF00FF00);
         
-        const result = frame.stack.peek_unsafe().*;
-        std.mem.doNotOptimizeAway(result);
+        const a = stack.pop_unsafe();
+        const result = ~a;
+        stack.append_unsafe(result);
+        
+        std.mem.doNotOptimizeAway(stack.peek_unsafe().*);
     }
 }
 
 // Benchmark comparison operations
 fn benchmarkComparisonLt(allocator: std.mem.Allocator) void {
-    var frame = create_mock_frame(allocator) catch return;
-    defer frame.deinit();
+    _ = allocator;
     
     const iterations = 1000;
     for (0..iterations) |_| {
-        frame.stack.reset();
-        frame.stack.append(100) catch return;
-        frame.stack.append(200) catch return;
+        var stack = Stack{};
         
-        const state: *Operation.State = @ptrCast(&frame);
-        const interpreter: Operation.Interpreter = undefined;
-        _ = @import("evm").execution.comparison.op_lt(0, &interpreter, state) catch return;
+        stack.append_unsafe(100);
+        stack.append_unsafe(200);
         
-        const result = frame.stack.peek_unsafe().*;
-        std.mem.doNotOptimizeAway(result);
+        const b = stack.pop_unsafe();
+        const a = stack.pop_unsafe();
+        const result: u256 = if (a < b) 1 else 0;
+        stack.append_unsafe(result);
+        
+        std.mem.doNotOptimizeAway(stack.peek_unsafe().*);
     }
 }
 
 fn benchmarkComparisonGt(allocator: std.mem.Allocator) void {
-    var frame = create_mock_frame(allocator) catch return;
-    defer frame.deinit();
+    _ = allocator;
     
     const iterations = 1000;
     for (0..iterations) |_| {
-        frame.stack.reset();
-        frame.stack.append(200) catch return;
-        frame.stack.append(100) catch return;
+        var stack = Stack{};
         
-        const state: *Operation.State = @ptrCast(&frame);
-        const interpreter: Operation.Interpreter = undefined;
-        _ = @import("evm").execution.comparison.op_gt(0, &interpreter, state) catch return;
+        stack.append_unsafe(200);
+        stack.append_unsafe(100);
         
-        const result = frame.stack.peek_unsafe().*;
-        std.mem.doNotOptimizeAway(result);
+        const b = stack.pop_unsafe();
+        const a = stack.pop_unsafe();
+        const result: u256 = if (a > b) 1 else 0;
+        stack.append_unsafe(result);
+        
+        std.mem.doNotOptimizeAway(stack.peek_unsafe().*);
     }
 }
 
 fn benchmarkComparisonEq(allocator: std.mem.Allocator) void {
-    var frame = create_mock_frame(allocator) catch return;
-    defer frame.deinit();
+    _ = allocator;
     
     const iterations = 1000;
     for (0..iterations) |_| {
-        frame.stack.reset();
-        frame.stack.append(200) catch return;
-        frame.stack.append(200) catch return;
+        var stack = Stack{};
         
-        const state: *Operation.State = @ptrCast(&frame);
-        const interpreter: Operation.Interpreter = undefined;
-        _ = @import("evm").execution.comparison.op_eq(0, &interpreter, state) catch return;
+        stack.append_unsafe(200);
+        stack.append_unsafe(200);
         
-        const result = frame.stack.peek_unsafe().*;
-        std.mem.doNotOptimizeAway(result);
+        const b = stack.pop_unsafe();
+        const a = stack.pop_unsafe();
+        const result: u256 = if (a == b) 1 else 0;
+        stack.append_unsafe(result);
+        
+        std.mem.doNotOptimizeAway(stack.peek_unsafe().*);
     }
 }
 
 fn benchmarkComparisonIsZero(allocator: std.mem.Allocator) void {
-    var frame = create_mock_frame(allocator) catch return;
-    defer frame.deinit();
+    _ = allocator;
     
     const iterations = 1000;
     for (0..iterations) |_| {
-        frame.stack.reset();
-        frame.stack.append(0) catch return;
+        var stack = Stack{};
         
-        const state: *Operation.State = @ptrCast(&frame);
-        const interpreter: Operation.Interpreter = undefined;
-        _ = @import("evm").execution.comparison.op_iszero(0, &interpreter, state) catch return;
+        stack.append_unsafe(0);
         
-        const result = frame.stack.peek_unsafe().*;
-        std.mem.doNotOptimizeAway(result);
+        const a = stack.pop_unsafe();
+        const result: u256 = if (a == 0) 1 else 0;
+        stack.append_unsafe(result);
+        
+        std.mem.doNotOptimizeAway(stack.peek_unsafe().*);
     }
 }
 
-// Benchmark stack operations (DUP, SWAP)
+// Benchmark stack operations
 fn benchmarkStackDup1(allocator: std.mem.Allocator) void {
-    var frame = create_mock_frame(allocator) catch return;
-    defer frame.deinit();
+    _ = allocator;
     
     const iterations = 1000;
     for (0..iterations) |_| {
-        frame.stack.reset();
-        frame.stack.append(12345) catch return;
+        var stack = Stack{};
         
-        const state: *Operation.State = @ptrCast(&frame);
-        const interpreter: Operation.Interpreter = undefined;
-        _ = @import("evm").execution.stack.op_dup1(0, &interpreter, state) catch return;
+        stack.append_unsafe(12345);
         
-        const result = frame.stack.peek_unsafe().*;
-        std.mem.doNotOptimizeAway(result);
-        _ = frame.stack.pop() catch return; // Clean up duplicated value
+        // DUP1: duplicate top stack item
+        const top = stack.peek_unsafe().*;
+        stack.append_unsafe(top);
+        
+        std.mem.doNotOptimizeAway(stack.peek_unsafe().*);
+        _ = stack.pop_unsafe(); // Clean up duplicated value
     }
 }
 
 fn benchmarkStackSwap1(allocator: std.mem.Allocator) void {
-    var frame = create_mock_frame(allocator) catch return;
-    defer frame.deinit();
+    _ = allocator;
     
     const iterations = 1000;
     for (0..iterations) |_| {
-        frame.stack.reset();
-        frame.stack.append(12345) catch return;
-        frame.stack.append(67890) catch return;
+        var stack = Stack{};
         
-        const state: *Operation.State = @ptrCast(&frame);
-        const interpreter: Operation.Interpreter = undefined;
-        _ = @import("evm").execution.stack.op_swap1(0, &interpreter, state) catch return;
+        stack.append_unsafe(12345);
+        stack.append_unsafe(67890);
         
-        const result = frame.stack.peek_unsafe().*;
-        std.mem.doNotOptimizeAway(result);
+        // SWAP1: swap top two stack items
+        const top = stack.pop_unsafe();
+        const second = stack.pop_unsafe();
+        stack.append_unsafe(top);
+        stack.append_unsafe(second);
+        
+        std.mem.doNotOptimizeAway(stack.peek_unsafe().*);
     }
 }
 
 fn benchmarkStackPop(allocator: std.mem.Allocator) void {
-    var frame = create_mock_frame(allocator) catch return;
-    defer frame.deinit();
+    _ = allocator;
     
     const iterations = 1000;
     for (0..iterations) |_| {
-        frame.stack.reset();
-        frame.stack.append(12345) catch return;
+        var stack = Stack{};
         
-        const state: *Operation.State = @ptrCast(&frame);
-        const interpreter: Operation.Interpreter = undefined;
-        _ = @import("evm").execution.stack.op_pop(0, &interpreter, state) catch return;
+        stack.append_unsafe(12345);
         
-        std.mem.doNotOptimizeAway(&frame.stack);
+        // POP: remove top stack item
+        _ = stack.pop_unsafe();
+        
+        std.mem.doNotOptimizeAway(&stack);
     }
 }
 
-fn benchmarkStackPush1(allocator: std.mem.Allocator) void {
-    var frame = create_mock_frame(allocator) catch return;
-    defer frame.deinit();
+fn benchmarkStackPush(allocator: std.mem.Allocator) void {
+    _ = allocator;
     
     const iterations = 1000;
     for (0..iterations) |_| {
-        frame.stack.reset();
+        var stack = Stack{};
         
-        const state: *Operation.State = @ptrCast(&frame);
-        const interpreter: Operation.Interpreter = undefined;
-        _ = @import("evm").execution.stack.make_push(1)(0, &interpreter, state) catch return;
+        // PUSH: add value to stack
+        stack.append_unsafe(0xDEADBEEF);
         
-        const result = frame.stack.peek_unsafe().*;
+        std.mem.doNotOptimizeAway(stack.peek_unsafe().*);
+    }
+}
+
+// Benchmark memory operations
+fn benchmarkMemoryExpansion(allocator: std.mem.Allocator) void {
+    const iterations = 1000;
+    for (0..iterations) |_| {
+        var memory = Memory.init_default(allocator) catch return;
+        defer memory.deinit();
+        
+        // Simulate memory expansion
+        memory.store_word(64, 0xDEADBEEFCAFEBABE) catch return;
+        const result = memory.load_word(64) catch return;
+        
         std.mem.doNotOptimizeAway(result);
     }
 }
 
-// Benchmark complex arithmetic operations
-fn benchmarkArithmeticAddMod(allocator: std.mem.Allocator) void {
-    var frame = create_mock_frame(allocator) catch return;
-    defer frame.deinit();
-    
+fn benchmarkMemoryStoreLoad(allocator: std.mem.Allocator) void {
     const iterations = 1000;
     for (0..iterations) |_| {
-        frame.stack.reset();
-        frame.stack.append(100) catch return;
-        frame.stack.append(200) catch return;
-        frame.stack.append(250) catch return;
+        var memory = Memory.init_default(allocator) catch return;
+        defer memory.deinit();
         
-        const state: *Operation.State = @ptrCast(&frame);
-        const interpreter: Operation.Interpreter = undefined;
-        _ = @import("evm").execution.arithmetic.op_addmod(0, &interpreter, state) catch return;
+        // Store and load a word
+        memory.store_word(0, 0x123456789ABCDEF0) catch return;
+        const result = memory.load_word(0) catch return;
         
-        const result = frame.stack.peek_unsafe().*;
         std.mem.doNotOptimizeAway(result);
     }
 }
 
-fn benchmarkArithmeticMulMod(allocator: std.mem.Allocator) void {
-    var frame = create_mock_frame(allocator) catch return;
-    defer frame.deinit();
-    
-    const iterations = 1000;
-    for (0..iterations) |_| {
-        frame.stack.reset();
-        frame.stack.append(123) catch return;
-        frame.stack.append(456) catch return;
-        frame.stack.append(1000) catch return;
-        
-        const state: *Operation.State = @ptrCast(&frame);
-        const interpreter: Operation.Interpreter = undefined;
-        _ = @import("evm").execution.arithmetic.op_mulmod(0, &interpreter, state) catch return;
-        
-        const result = frame.stack.peek_unsafe().*;
-        std.mem.doNotOptimizeAway(result);
-    }
-}
-
-// Benchmark 256-bit intensive operations
+// Benchmark 256-bit arithmetic
 fn benchmarkLargeNumberArithmetic(allocator: std.mem.Allocator) void {
-    var frame = create_mock_frame(allocator) catch return;
-    defer frame.deinit();
+    _ = allocator;
     
     const iterations = 500;
     const large_num1: u256 = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF;
     const large_num2: u256 = 0x8000000000000000000000000000000000000000000000000000000000000000;
     
     for (0..iterations) |_| {
-        frame.stack.reset();
-        frame.stack.append(large_num1) catch return;
-        frame.stack.append(large_num2) catch return;
+        var stack = Stack{};
         
-        const state: *Operation.State = @ptrCast(&frame);
-        const interpreter: Operation.Interpreter = undefined;
-        _ = @import("evm").execution.arithmetic.op_mul(0, &interpreter, state) catch return;
+        stack.append_unsafe(large_num1);
+        stack.append_unsafe(large_num2);
         
-        const result = frame.stack.peek_unsafe().*;
-        std.mem.doNotOptimizeAway(result);
+        const b = stack.pop_unsafe();
+        const a = stack.pop_unsafe();
+        const result = a *% b; // Large number multiplication
+        stack.append_unsafe(result);
+        
+        std.mem.doNotOptimizeAway(stack.peek_unsafe().*);
     }
 }
 
 // Benchmark mixed operations (realistic workload)
 fn benchmarkMixedOperations(allocator: std.mem.Allocator) void {
-    var frame = create_mock_frame(allocator) catch return;
-    defer frame.deinit();
+    _ = allocator;
     
     const iterations = 200;
     for (0..iterations) |_| {
-        frame.stack.reset();
+        var stack = Stack{};
         
         // Sequence: PUSH 10, PUSH 20, ADD, DUP1, PUSH 5, MUL, SWAP1, SUB
-        frame.stack.append(10) catch return;
-        frame.stack.append(20) catch return;
-        
-        const state: *Operation.State = @ptrCast(&frame);
-        const interpreter: Operation.Interpreter = undefined;
+        stack.append_unsafe(10);
+        stack.append_unsafe(20);
         
         // ADD
-        _ = @import("evm").execution.arithmetic.op_add(0, &interpreter, state) catch return;
+        const b1 = stack.pop_unsafe();
+        const a1 = stack.pop_unsafe();
+        stack.append_unsafe(a1 +% b1);
         
         // DUP1
-        _ = @import("evm").execution.stack.op_dup1(0, &interpreter, state) catch return;
+        const top = stack.peek_unsafe().*;
+        stack.append_unsafe(top);
         
-        // PUSH 5 (simulated)
-        frame.stack.append(5) catch return;
+        // PUSH 5
+        stack.append_unsafe(5);
         
         // MUL
-        _ = @import("evm").execution.arithmetic.op_mul(0, &interpreter, state) catch return;
+        const b2 = stack.pop_unsafe();
+        const a2 = stack.pop_unsafe();
+        stack.append_unsafe(a2 *% b2);
         
         // SWAP1
-        _ = @import("evm").execution.stack.op_swap1(0, &interpreter, state) catch return;
+        const top2 = stack.pop_unsafe();
+        const second = stack.pop_unsafe();
+        stack.append_unsafe(top2);
+        stack.append_unsafe(second);
         
         // SUB
-        _ = @import("evm").execution.arithmetic.op_sub(0, &interpreter, state) catch return;
+        const b3 = stack.pop_unsafe();
+        const a3 = stack.pop_unsafe();
+        stack.append_unsafe(a3 -% b3);
         
-        const result = frame.stack.peek_unsafe().*;
-        std.mem.doNotOptimizeAway(result);
+        std.mem.doNotOptimizeAway(stack.peek_unsafe().*);
     }
 }
 
@@ -473,8 +435,6 @@ pub fn main() !void {
     try bench.add("Arithmetic DIV", benchmarkArithmeticDiv, .{});
     try bench.add("Arithmetic MOD", benchmarkArithmeticMod, .{});
     try bench.add("Arithmetic SUB", benchmarkArithmeticSub, .{});
-    try bench.add("Arithmetic ADDMOD", benchmarkArithmeticAddMod, .{});
-    try bench.add("Arithmetic MULMOD", benchmarkArithmeticMulMod, .{});
 
     // Bitwise operation benchmarks
     try bench.add("Bitwise AND", benchmarkBitwiseAnd, .{});
@@ -492,7 +452,11 @@ pub fn main() !void {
     try bench.add("Stack DUP1", benchmarkStackDup1, .{});
     try bench.add("Stack SWAP1", benchmarkStackSwap1, .{});
     try bench.add("Stack POP", benchmarkStackPop, .{});
-    try bench.add("Stack PUSH1", benchmarkStackPush1, .{});
+    try bench.add("Stack PUSH", benchmarkStackPush, .{});
+
+    // Memory operation benchmarks
+    try bench.add("Memory Expansion", benchmarkMemoryExpansion, .{});
+    try bench.add("Memory Store/Load", benchmarkMemoryStoreLoad, .{});
 
     // Complex operation benchmarks
     try bench.add("Large Number Arithmetic", benchmarkLargeNumberArithmetic, .{});
