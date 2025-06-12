@@ -1395,6 +1395,32 @@ pub fn build(b: *std.Build) void {
     const debug_bytecode_detailed_step = b.step("debug-bytecode-detailed", "Analyze EVM bytecode in detail");
     debug_bytecode_detailed_step.dependOn(&run_debug_bytecode_detailed.step);
 
+    // Add Contract Execution Debug test
+    const contract_execution_debug_test = b.addTest(.{
+        .name = "contract-execution-debug-test",
+        .root_source_file = b.path("test/evm/contract_execution_debug_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    contract_execution_debug_test.root_module.addImport("evm", target_architecture_mod);
+    contract_execution_debug_test.root_module.addImport("Compiler", compiler_mod);
+    contract_execution_debug_test.root_module.addImport("Address", address_mod);
+    contract_execution_debug_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    contract_execution_debug_test.root_module.addIncludePath(b.path("include"));
+    contract_execution_debug_test.step.dependOn(rust_step);
+    contract_execution_debug_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    contract_execution_debug_test.linkLibC();
+    if (target.result.os.tag == .linux) {
+        contract_execution_debug_test.linkSystemLibrary("unwind");
+        contract_execution_debug_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        contract_execution_debug_test.linkFramework("CoreFoundation");
+        contract_execution_debug_test.linkFramework("Security");
+    }
+    const run_contract_execution_debug_test = b.addRunArtifact(contract_execution_debug_test);
+    const contract_execution_debug_test_step = b.step("test-contract-execution-debug", "Run Contract Execution Debug tests");
+    contract_execution_debug_test_step.dependOn(&run_contract_execution_debug_test.step);
+
     const run_lib_unit_tests = b.addRunArtifact(lib_unit_tests);
 
     const exe_unit_tests = b.addTest(.{
