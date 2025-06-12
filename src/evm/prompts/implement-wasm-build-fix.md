@@ -3,6 +3,8 @@
 ## Git Workflow Instructions
 
 #
+<<<<<<< HEAD
+=======
 <review>
 **Implementation Status: NOT IMPLEMENTED ❌**
 
@@ -29,6 +31,7 @@
 **Priority**: Should be consolidated with the more detailed fix-wasm-build-integration.md prompt
 </review>
 
+>>>>>>> origin/main
 ## Context
 
 The WASM build is currently broken and needs to be fixed as well as integrated into the overall Tevm TypeScript codebase. This is a critical blocker for using the Zig EVM implementation in JavaScript environments.
