@@ -100,14 +100,13 @@ pub const SStoreGasCalculator = struct {
             }
         }
         
-        // Add access cost according to EIP-2929
+        // Add cold access cost according to EIP-2929
+        // For warm access, the base SSTORE costs already include access cost
         if (!is_warm) {
             // Cold access: add cold access cost
             gas_cost += gas_constants.ColdSloadCost; // +2100 gas
-        } else {
-            // Warm access: add warm access cost for all SSTORE operations
-            gas_cost += gas_constants.WarmStorageReadCost; // +100 gas
         }
+        // Note: Warm access doesn't add extra cost - base SSTORE costs already include it
         
         Log.debug("SStoreGasCalculator.calculate_gas_cost: calculated gas_cost={}", .{gas_cost});
         return gas_cost;
