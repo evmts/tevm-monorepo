@@ -1,5 +1,12 @@
 # @tevm/test-utils
 
+## 1.0.0-next.148
+
+### Patch Changes
+
+- @tevm/contract@1.0.0-next.148
+- @tevm/ts-plugin@1.0.0-next.146
+
 ## 1.0.0-next.146
 
 ### Patch Changes
