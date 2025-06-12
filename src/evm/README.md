@@ -246,6 +246,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 
 #### Critical System Features
 - [ ] 🔴 **WASM Build** - [Currently broken, needs fixing as well as integration into the overall Tevm typescript code](./prompts/implement-wasm-build-fix.md)
+  - 🔄 **Open PRs**: [#1863 - WASM build fixes and TypeScript integration](https://github.com/evmts/tevm-monorepo/pull/1863), [#1856 - Improve WASM interface](https://github.com/evmts/tevm-monorepo/pull/1856)
 - [x] **Journaling/State Reverting** - Complete state snapshots for proper revert handling ✅
 - [x] **Database Interface/Traits** - Pluggable database abstraction for state management ✅
 - [x] **Complete CALL Operations** - Basic implementation with comprehensive call infrastructure ✅
@@ -254,36 +255,36 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
   - [x] **Return Data Handling** - Complete RETURNDATASIZE/RETURNDATACOPY after calls ✅
   - [x] **Value Transfer Logic** - ETH transfer mechanics in calls ✅
 
-#### Precompiled Contracts (3/17 implemented)
-- [ ] 🟡 **Standard Precompiles**
-  - [x] **ECRECOVER** (0x01) - Elliptic curve signature recovery (placeholder implementation) ✅
+#### Precompiled Contracts (13/17 implemented)
+- [x] 🟢 **Standard Precompiles**
+  - [x] **ECRECOVER** (0x01) - Elliptic curve signature recovery ✅
   - [x] **SHA256** (0x02) - SHA-256 hash function ✅
-  - [🔄] **RIPEMD160** (0x03) - [RIPEMD-160 hash function](./prompts/implement-ripemd160-precompile.md) - @claude working on this
+  - [x] **RIPEMD160** (0x03) - RIPEMD-160 hash function ✅
   - [x] **IDENTITY** (0x04) - Identity/copy function ✅
-  - [ ] **MODEXP** (0x05) - [Modular exponentiation](./prompts/implement-modexp-precompile.md)
-  - [x] **ECADD** (0x06) - [Elliptic curve point addition](./prompts/implement-ecadd-precompile.md) ✅
-  - [x] **ECMUL** (0x07) - [Elliptic curve point multiplication](./prompts/implement-ecmul-precompile.md) ✅
-  - [🔄] **ECPAIRING** (0x08) - [Elliptic curve pairing check](./prompts/implement-ecpairing-precompile.md) - @claude working on this
-  - [ ] **BLAKE2F** (0x09) - [Blake2f compression function](./prompts/implement-blake2f-precompile.md)
+  - [x] **MODEXP** (0x05) - Modular exponentiation ✅
+  - [x] **ECADD** (0x06) - Elliptic curve point addition ✅
+  - [x] **ECMUL** (0x07) - Elliptic curve point multiplication ✅
+  - [x] **ECPAIRING** (0x08) - Elliptic curve pairing check ✅
+  - [x] **BLAKE2F** (0x09) - Blake2f compression function ✅
 - [x] **KZG Point Evaluation** (0x0A) - EIP-4844 blob verification precompile ✅
-- [ ] 🟡 **BLS12-381 Precompiles** (EIP-2537)
-  - [ ] **G1ADD** (0x0B) - BLS12-381 G1 addition
-  - [ ] **G1MSM** (0x0C) - BLS12-381 G1 multi-scalar multiplication
-  - [ ] **G2ADD** (0x0D) - BLS12-381 G2 addition
-  - [ ] **G2MSM** (0x0E) - BLS12-381 G2 multi-scalar multiplication
+- [x] 🟢 **BLS12-381 Precompiles** (EIP-2537)
+  - [x] **G1ADD** (0x0B) - BLS12-381 G1 addition ✅
+  - [x] **G1MSM** (0x0C) - BLS12-381 G1 multi-scalar multiplication ✅
+  - [x] **G2ADD** (0x0D) - BLS12-381 G2 addition ✅
+  - [x] **G2MSM** (0x0E) - BLS12-381 G2 multi-scalar multiplication ✅
   - [ ] **PAIRING** (0x0F) - BLS12-381 pairing check
   - [ ] **MAP_FP_TO_G1** (0x10) - Map field point to G1
   - [ ] **MAP_FP2_TO_G2** (0x11) - Map field point to G2
 - [ ] 🟡 **OP Stack Precompiles** - P256VERIFY (RIP-7212) for SECP256R1 signature verification
 
 #### Advanced Gas & Performance
-- [ ] 🟡 **Gas Refunds**
-  - [ ] **SSTORE Refunds** - [EIP-3529 compliant refund mechanism](./prompts/implement-gas-refunds-sstore.md)
+- [x] 🟢 **Gas Refunds**
+  - [x] **SSTORE Refunds** - EIP-3529 compliant refund mechanism ✅
   - [ ] **SELFDESTRUCT Refunds** - Contract destruction refunds (pre-London)
 - [ ] 🟡 **Advanced Gas Calculations**
   - [ ] **Instruction Block Optimization** - Basic block gas calculation (evmone-style)
   - [ ] **Memory Gas Optimization** - Pre-calculate and cache memory expansion costs
-  - [ ] **Call Gas Stipend** - Proper gas stipend handling for value transfers
+  - [x] **Call Gas Stipend** - Proper gas stipend handling for value transfers ✅
   - [ ] **Dynamic Gas Edge Cases** - Complex memory growth scenarios
 
 #### EIP Support & Advanced Hardforks
@@ -445,25 +446,21 @@ The EVM implementation follows a modular architecture with clear separation of c
 
 ## 🔮 Roadmap
 
-### Immediate Priorities
+### Recent Progress ✅
+
+1. **Complete call gas management** with 63/64th gas forwarding rule ✅
+2. **Implement precompiled contracts** - 13/17 completed including all standard precompiles ✅
+3. **Add gas refunds** for SSTORE operations ✅
+4. **Snailtracer benchmarking** against Geth and Reth ✅
+5. **CI/CD checks** for WASM bundle size regression ✅
+
+### Current Priorities
 
 1. **Fix WASM build** and integrate into Tevm JavaScript library
-2. **Complete call gas management** with 63/64th gas forwarding rule
-3. **Implement precompiled contracts** (ECRECOVER, SHA256, etc.)
-4. **Add gas refunds** for SSTORE and SELFDESTRUCT operations
-
-### Performance & Testing
-
-5. **Snailtracer benchmarking** against Geth and Reth
-6. **Unit benchmarks** for all EVM components
-7. **CI/CD checks** for WASM bundle size regression
-
-### Feature Completion
-
-8. **Implement all precompiles** without bundle size regression
-9. **Gas refunds** for SSTORE operations
-10. **L2 support** for Optimism, Arbitrum, etc.
-11. **Complete call gas management** with proper forwarding rules
+2. **Complete remaining BLS12-381 precompiles** (PAIRING, MAP_FP_TO_G1, MAP_FP2_TO_G2)
+3. **L2 support** for Optimism, Arbitrum, etc.
+4. **Performance optimizations** and SIMD improvements
+5. **EOF support** for future Ethereum upgrades
 
 ## 🤝 Contributing
 
