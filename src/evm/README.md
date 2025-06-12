@@ -87,16 +87,19 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 **Overall Progress**: ~75% of core EVM functionality implemented, but significant stability and integration issues prevent production use.
 
 ### 🟢 **What's Working**
+
 - **Core Architecture**: VM, memory, stack, gas accounting, hardfork support
 - **Most Opcodes**: 240+ opcodes implemented across arithmetic, bitwise, comparison, crypto, environment, block info, memory, storage, control flow, and logging
 - **CREATE Operations**: Contract deployment fully functional
 - **Basic Precompiles**: SHA256 and IDENTITY working securely
 
-### 🟡 **Partially Working**  
+### 🟡 **Partially Working**
+
 - **CALL Operations**: Opcode handlers complete with proper gas management, but VM execution methods are stubs
 - **Some Precompiles**: ECRECOVER (intentionally fails for security), MODEXP (custom crypto), KZG (unverified)
 
 ### 🔴 **Critical Issues**
+
 - **Test Failures**: 29/779 tests failing including segmentation faults
 - **CALL Execution**: Cannot execute regular contract calls (only precompiles work)
 - **WASM Integration**: Builds successfully but missing required JavaScript exports
@@ -109,6 +112,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 ## ✅ Implementation Status
 
 ### Core EVM Architecture
+
 - [x] **VM Implementation** (`vm.zig`) - Core virtual machine orchestrating execution
 - [x] **Frame Management** (`frame.zig`) - Execution contexts with stack, memory, and PC
 - [x] **Memory Management** (`memory.zig`) - Byte-addressable with expansion and copy-on-write semantics
@@ -118,12 +122,14 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **State Management** (`state/`) - World state interface with account and storage handling
 
 ### Stack Implementation (`stack/`)
+
 - [x] **Core Stack** (`stack.zig`) - 1024 element capacity with overflow/underflow protection
 - [x] **Stack Validation** (`stack_validation.zig`) - Pre-execution bounds checking
 - [x] **Validation Patterns** (`validation_patterns.zig`) - Common stack operation patterns
 - [x] **Unsafe Operations** - High-performance batch operations (pop2_push1_unsafe, etc.)
 
 ### Arithmetic Opcodes (`execution/arithmetic.zig`)
+
 - [x] **ADD** (0x01) - Addition with overflow wrapping
 - [x] **MUL** (0x02) - Multiplication with overflow wrapping
 - [x] **SUB** (0x03) - Subtraction with underflow wrapping
@@ -137,6 +143,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **SIGNEXTEND** (0x0B) - Sign extension operation
 
 ### Comparison Opcodes (`execution/comparison.zig`)
+
 - [x] **LT** (0x10) - Less than comparison
 - [x] **GT** (0x11) - Greater than comparison
 - [x] **SLT** (0x12) - Signed less than
@@ -145,6 +152,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **ISZERO** (0x15) - Zero check
 
 ### Bitwise Opcodes (`execution/bitwise.zig`)
+
 - [x] **AND** (0x16) - Bitwise AND
 - [x] **OR** (0x17) - Bitwise OR
 - [x] **XOR** (0x18) - Bitwise XOR
@@ -155,9 +163,11 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **SAR** (0x1D) - Arithmetic shift right
 
 ### Crypto Opcodes (`execution/crypto.zig`)
+
 - [x] **SHA3/KECCAK256** (0x20) - Keccak-256 hash function
 
 ### Environment Opcodes (`execution/environment.zig`)
+
 - [x] **ADDRESS** (0x30) - Current contract address
 - [x] **BALANCE** (0x31) - Account balance lookup
 - [x] **ORIGIN** (0x32) - Transaction origin
@@ -177,6 +187,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **SELFBALANCE** (0x47) - Balance of current contract
 
 ### Block Information Opcodes (`execution/block.zig`)
+
 - [x] **BLOCKHASH** (0x40) - Block hash lookup
 - [x] **COINBASE** (0x41) - Block beneficiary
 - [x] **TIMESTAMP** (0x42) - Block timestamp
@@ -189,6 +200,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **BLOBBASEFEE** (0x4A) - Blob base fee (EIP-4844)
 
 ### Stack Opcodes (`execution/stack.zig`)
+
 - [x] **POP** (0x50) - Remove top stack item
 - [x] **PUSH0** (0x5F) - Push zero (EIP-3855)
 - [x] **PUSH1-PUSH32** (0x60-0x7F) - Push 1-32 bytes onto stack
@@ -196,6 +208,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **SWAP1-SWAP16** (0x90-0x9F) - Swap stack items
 
 ### Memory Opcodes (`execution/memory.zig`)
+
 - [x] **MLOAD** (0x51) - Load word from memory
 - [x] **MSTORE** (0x52) - Store word to memory
 - [x] **MSTORE8** (0x53) - Store byte to memory
@@ -203,12 +216,14 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **MCOPY** (0x5E) - Copy memory to memory (EIP-5656)
 
 ### Storage Opcodes (`execution/storage.zig`)
+
 - [x] **SLOAD** (0x54) - Load from storage
 - [x] **SSTORE** (0x55) - Store to storage
 - [x] **TLOAD** (0x5C) - Load from transient storage (EIP-1153)
 - [x] **TSTORE** (0x5D) - Store to transient storage (EIP-1153)
 
 ### Control Flow Opcodes (`execution/control.zig`)
+
 - [x] **JUMP** (0x56) - Unconditional jump
 - [x] **JUMPI** (0x57) - Conditional jump
 - [x] **PC** (0x58) - Program counter
@@ -230,6 +245,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **INVALID** (0xFE) - Invalid opcode ✅
 
 ### Logging Opcodes (`execution/log.zig`)
+
 - [x] **LOG0** (0xA0) - Emit log with 0 topics
 - [x] **LOG1** (0xA1) - Emit log with 1 topic
 - [x] **LOG2** (0xA2) - Emit log with 2 topics
@@ -237,12 +253,14 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **LOG4** (0xA4) - Emit log with 4 topics
 
 ### Gas & Access Lists
+
 - [x] **Gas Metering** (`constants/gas_constants.zig`) - Comprehensive gas costs for all opcodes
 - [x] **Access Lists** (`access_list/`) - EIP-2929/2930 warm/cold storage and account tracking
 - [x] **Memory Expansion Gas** - Dynamic gas calculation for memory growth
 - [x] **Dynamic Gas Costs** - Context-dependent gas costs (SSTORE, calls, etc.)
 
 ### Hardfork Support (`hardforks/`)
+
 - [x] **Hardfork Detection** (`hardfork.zig`) - Frontier through Cancun
 - [x] **Chain Rules** (`chain_rules.zig`) - Fork-specific validation and behavior
 - [x] **Operation Availability** - Opcode availability by hardfork
@@ -253,6 +271,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **EIP-5656** - MCOPY opcode (Cancun)
 
 ### External Modules
+
 - [x] **Address System** (`src/Address/`) - Address type and utilities
 - [x] **Trie Implementation** (`src/Trie/`) - Merkle Patricia Trie with optimizations
   - [x] **Hash Builders** - Multiple hash building strategies
@@ -260,6 +279,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
   - [x] **Optimized Branches** - Performance optimizations
 
 ### Advanced Features
+
 - [x] **Static Call Protection** - Prevents state modifications in read-only contexts
 - [x] **Call Depth Limits** - 1024 call depth enforcement
 - [x] **Code Analysis** (`contract/code_analysis.zig`) - JUMPDEST validation and bytecode analysis
@@ -270,7 +290,6 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 ### Missing Features
 
 #### Critical System Features
-<<<<<<< HEAD
 
 - [ ] 🔴 **WASM Build Integration** - [WASM builds successfully but exports don't match JavaScript interface expectations](./prompts/implement-wasm-build-fix.md)
   - **Status**: WASM compilation works (9,507 bytes), but missing required exports (`keccak256_hex`, `hexToBytes`, `bytesToHex`)
@@ -293,6 +312,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
   - [x] **Value Transfer Logic** - ETH transfer mechanics in calls ✅
 
 #### Precompiled Contracts (6/17 implemented)
+
 - [x] **Standard Precompiles**
   - [x] **ECRECOVER** (0x01) - Elliptic curve signature recovery (placeholder implementation) ✅
   - [x] **SHA256** (0x02) - SHA-256 hash function ✅
@@ -319,27 +339,32 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 **Based on revm and evmone implementations:**
 
 1. **ECRECOVER** (secp256k1):
+
    - **Revm approach**: Use `secp256k1` crate (primary) or `k256` (WASM-compatible fallback)
    - **Evmone approach**: Custom optimized implementation with ECC framework
    - **Recommendation**: Follow revm's multi-backend approach for maximum compatibility
 
 2. **BN254 Operations** (ECADD, ECMUL, ECPAIRING):
+
    - **Revm approach**: `arkworks` ecosystem (`ark-bn254`, `ark-ec`, `ark-ff`) with `substrate-bn` fallback
-   - **Evmone approach**: Custom BN254 implementation with `evmmax` framework  
+   - **Evmone approach**: Custom BN254 implementation with `evmmax` framework
    - **Recommendation**: Use arkworks for Rust-compatible approach, or integrate with existing proven libraries
 
 3. **MODEXP** (Modular Exponentiation):
+
    - **Revm approach**: `aurora-engine-modexp` crate with optimized big integer arithmetic
    - **Evmone approach**: GNU Multiple Precision Arithmetic Library (GMP)
    - **Recommendation**: GMP integration for maximum performance, with pure fallback
 
 4. **BLS12-381 Operations**:
+
    - **Revm approach**: `blst` (primary, C optimized) with `ark-bls12-381` (pure Rust fallback)
    - **Evmone approach**: BLST library v0.3.13 from Supranational
    - **Recommendation**: BLST is the industry standard, used by both implementations
 
 5. **BLAKE2F**:
-   - **Revm approach**: Custom pure Rust implementation  
+
+   - **Revm approach**: Custom pure Rust implementation
    - **Evmone approach**: Custom C++ implementation with standard library
    - **Recommendation**: Consider established BLAKE2 libraries for additional security assurance
 
@@ -351,11 +376,13 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 ##### **🎯 Implementation Priority**
 
 1. **HIGH PRIORITY** - Security Critical:
+
    - ECRECOVER (signature verification)
    - BLS12-381 operations (Ethereum 2.0 consensus critical)
    - MODEXP (RSA and cryptographic protocols)
 
 2. **MEDIUM PRIORITY** - Complex Cryptography:
+
    - BN254 operations (zkSNARK critical but less consensus critical)
    - BLAKE2F (less commonly used)
 
@@ -365,11 +392,12 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 ##### **⚡ WASM Compatibility Considerations**
 
 For WASM builds, follow revm's pattern:
+
 - **Primary backends**: Optimized C libraries (secp256k1, BLST, GMP)
 - **WASM fallbacks**: Pure Rust/Zig implementations (k256, arkworks, custom big int)
 - **Feature detection**: Automatic selection based on target environment
-=======
 - [ ] 🔴 **WASM Build** - [Currently broken, needs fixing as well as integration into the overall Tevm typescript code](./prompts/implement-wasm-build-fix.md)
+  - 🔄 **Open PRs**: [#1863 - WASM build fixes and TypeScript integration](https://github.com/evmts/tevm-monorepo/pull/1863), [#1856 - Improve WASM interface](https://github.com/evmts/tevm-monorepo/pull/1856)
 - [x] **Journaling/State Reverting** - Complete state snapshots for proper revert handling ✅
 - [x] **Database Interface/Traits** - Pluggable database abstraction for state management ✅
 - [x] **Complete CALL Operations** - Basic implementation with comprehensive call infrastructure ✅
@@ -378,33 +406,33 @@ For WASM builds, follow revm's pattern:
   - [x] **Return Data Handling** - Complete RETURNDATASIZE/RETURNDATACOPY after calls ✅
   - [x] **Value Transfer Logic** - ETH transfer mechanics in calls ✅
 
-#### Precompiled Contracts (3/17 implemented)
-- [ ] 🟡 **Standard Precompiles**
-  - [x] **ECRECOVER** (0x01) - Elliptic curve signature recovery (placeholder implementation) ✅
+#### Precompiled Contracts (13/17 implemented)
+
+- [x] 🟢 **Standard Precompiles**
+  - [x] **ECRECOVER** (0x01) - Elliptic curve signature recovery ✅
   - [x] **SHA256** (0x02) - SHA-256 hash function ✅
-  - [🔄] **RIPEMD160** (0x03) - [RIPEMD-160 hash function](./prompts/implement-ripemd160-precompile.md) - @claude working on this
+  - [x] **RIPEMD160** (0x03) - RIPEMD-160 hash function ✅
   - [x] **IDENTITY** (0x04) - Identity/copy function ✅
-  - [ ] **MODEXP** (0x05) - [Modular exponentiation](./prompts/implement-modexp-precompile.md)
-  - [x] **ECADD** (0x06) - [Elliptic curve point addition](./prompts/implement-ecadd-precompile.md) ✅
-  - [x] **ECMUL** (0x07) - [Elliptic curve point multiplication](./prompts/implement-ecmul-precompile.md) ✅
-  - [🔄] **ECPAIRING** (0x08) - [Elliptic curve pairing check](./prompts/implement-ecpairing-precompile.md) - @claude working on this
-  - [ ] **BLAKE2F** (0x09) - [Blake2f compression function](./prompts/implement-blake2f-precompile.md)
+  - [x] **MODEXP** (0x05) - Modular exponentiation ✅
+  - [x] **ECADD** (0x06) - Elliptic curve point addition ✅
+  - [x] **ECMUL** (0x07) - Elliptic curve point multiplication ✅
+  - [x] **ECPAIRING** (0x08) - Elliptic curve pairing check ✅
+  - [x] **BLAKE2F** (0x09) - Blake2f compression function ✅
 - [x] **KZG Point Evaluation** (0x0A) - EIP-4844 blob verification precompile ✅
-- [ ] 🟡 **BLS12-381 Precompiles** (EIP-2537)
-  - [ ] **G1ADD** (0x0B) - BLS12-381 G1 addition
-  - [ ] **G1MSM** (0x0C) - BLS12-381 G1 multi-scalar multiplication
-  - [ ] **G2ADD** (0x0D) - BLS12-381 G2 addition
-  - [ ] **G2MSM** (0x0E) - BLS12-381 G2 multi-scalar multiplication
+- [x] 🟢 **BLS12-381 Precompiles** (EIP-2537)
+  - [x] **G1ADD** (0x0B) - BLS12-381 G1 addition ✅
+  - [x] **G1MSM** (0x0C) - BLS12-381 G1 multi-scalar multiplication ✅
+  - [x] **G2ADD** (0x0D) - BLS12-381 G2 addition ✅
+  - [x] **G2MSM** (0x0E) - BLS12-381 G2 multi-scalar multiplication ✅
   - [ ] **PAIRING** (0x0F) - BLS12-381 pairing check
   - [ ] **MAP_FP_TO_G1** (0x10) - Map field point to G1
   - [ ] **MAP_FP2_TO_G2** (0x11) - Map field point to G2
 - [ ] 🟡 **OP Stack Precompiles** - P256VERIFY (RIP-7212) for SECP256R1 signature verification
->>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 
 #### System Stability Issues (Immediate Priority)
 
 - [ ] 🔴 **Test Suite Failures** - Multiple critical test failures preventing reliable operation
-  - **Status**: 29/779 tests failing across multiple components  
+  - **Status**: 29/779 tests failing across multiple components
   - **Integration Tests**: 6/89 failed (segmentation faults occurring)
   - **Opcode Tests**: 9/461 failed (arithmetic and memory operations)
   - **VM Tests**: 11/59 failed (stack and gas calculation issues)
@@ -412,16 +440,18 @@ For WASM builds, follow revm's pattern:
   - **Priority**: Must fix before production use
 
 #### Advanced Gas & Performance
-- [ ] 🟡 **Gas Refunds**
-  - [ ] **SSTORE Refunds** - [EIP-3529 compliant refund mechanism](./prompts/implement-gas-refunds-sstore.md)
+
+- [x] 🟢 **Gas Refunds**
+  - [x] **SSTORE Refunds** - EIP-3529 compliant refund mechanism ✅
   - [ ] **SELFDESTRUCT Refunds** - Contract destruction refunds (pre-London)
 - [ ] 🟡 **Advanced Gas Calculations**
   - [ ] **Instruction Block Optimization** - Basic block gas calculation (evmone-style)
   - [ ] **Memory Gas Optimization** - Pre-calculate and cache memory expansion costs
-  - [ ] **Call Gas Stipend** - Proper gas stipend handling for value transfers
+  - [x] **Call Gas Stipend** - Proper gas stipend handling for value transfers ✅
   - [ ] **Dynamic Gas Edge Cases** - Complex memory growth scenarios
 
 #### EIP Support & Advanced Hardforks
+
 - [x] **Complete EIP-4844 Support** - Blob transaction handling beyond opcodes ✅
 - [x] **EIP-7702** - Complete EOA account code delegation implementation ✅
 - [ ] 🟡 **L2 Chain Support**
@@ -437,6 +467,7 @@ For WASM builds, follow revm's pattern:
 - [ ] 🟡 **Future Prague Support** - Upcoming hardfork preparation
 
 #### Development Infrastructure
+
 - [ ] 🟢 **Runtime Inspection**
   - [ ] **Comprehensive Tracing** - Step-by-step execution monitoring
   - [ ] **EIP-3155 Tracing** - Standard execution trace format
@@ -450,6 +481,7 @@ For WASM builds, follow revm's pattern:
 - [ ] 🟢 **Handler Architecture** - Configurable execution handlers for pre/post processing
 
 #### Production Hardening
+
 - [x] **Robustness**
   - [x] **DoS Protection** - Comprehensive gas limit enforcement ✅
   - [x] **Edge Case Handling** - Real-world scenario validation ✅
@@ -462,6 +494,7 @@ For WASM builds, follow revm's pattern:
   - [ ] **Account Status Tracking** - Detailed account lifecycle management
 
 #### Performance & Optimization
+
 - [ ] 🟢 **Low-Level Optimizations**
   - [ ] **SIMD Optimizations** - Vectorized operations for 256-bit math
   - [ ] **Memory Allocator Tuning** - Specialized EVM memory allocators
@@ -477,6 +510,7 @@ For WASM builds, follow revm's pattern:
   - [ ] **CI/CD WASM Size Check** - [Automated bundle size regression testing](./prompts/implement-cicd-wasm-size-check.md)
 
 #### Advanced Architecture Features
+
 - [ ] 🟢 **Modularity**
   - [ ] **Modular Context System** - Pluggable block, transaction, and configuration contexts
   - [ ] **Custom Chain Framework** - Easy implementation of custom blockchain variants
@@ -586,7 +620,7 @@ The EVM implementation follows a modular architecture with clear separation of c
    - Priority: Critical for system stability
    - Focus areas: Memory operations, stack management, gas calculations
 2. **Complete CALL Operations** - Implement missing VM contract execution logic
-   - Priority: Critical for contract interaction functionality  
+   - Priority: Critical for contract interaction functionality
    - Current state: Opcode handlers complete, VM methods are stubs
 3. **Fix WASM Build Integration** - Resolve export mismatch with JavaScript interface
    - Priority: High for production deployment
@@ -608,6 +642,22 @@ The EVM implementation follows a modular architecture with clear separation of c
 10. **L2 support** for Optimism, Arbitrum, etc.
 11. **Complete call gas management** with proper forwarding rules
 
+### Recent Progress ✅
+
+1. **Complete call gas management** with 63/64th gas forwarding rule ✅
+2. **Implement precompiled contracts** - 13/17 completed including all standard precompiles ✅
+3. **Add gas refunds** for SSTORE operations ✅
+4. **Snailtracer benchmarking** against Geth and Reth ✅
+5. **CI/CD checks** for WASM bundle size regression ✅
+
+### Current Priorities
+
+1. **Fix WASM build** and integrate into Tevm JavaScript library
+2. **Complete remaining BLS12-381 precompiles** (PAIRING, MAP_FP_TO_G1, MAP_FP2_TO_G2)
+3. **L2 support** for Optimism, Arbitrum, etc.
+4. **Performance optimizations** and SIMD improvements
+5. **EOF support** for future Ethereum upgrades
+
 ## 🤝 Contributing
 
 We're actively looking for contributors! The codebase is designed to be approachable and maintainable. If you're interested in helping with:
@@ -626,10 +676,11 @@ Please reach out or submit a PR. The Zig language makes contributing enjoyable a
 
 1. **Test Failures** → Run `zig build test-all` and address segfaults in integration tests
 2. **CALL Operations** → Implement contract execution logic in `src/evm/vm.zig` methods (`call_contract`, `delegatecall_contract`, etc.)
-3. **WASM Exports** → Update `build.zig` to use full WASM source with crypto utilities instead of minimal version  
+3. **WASM Exports** → Update `build.zig` to use full WASM source with crypto utilities instead of minimal version
 4. **Missing Precompiles** → Implement RIPEMD160, ECADD, ECMUL, ECPAIRING, BLAKE2F in `src/evm/precompiles/`
 
 ### Key Files for Critical Issues
+
 - `src/evm/vm.zig` - Lines 395-554 (CALL operation stubs)
 - `src/evm/precompiles/precompiles.zig` - Precompile dispatcher and implementations
 - `build.zig` - Line 194 (WASM build configuration)
