@@ -1,5 +1,9 @@
 # Implement Bundle State Management
 
+<<<<<<< HEAD
+You are implementing Bundle State Management for the Tevm EVM written in Zig. Your goal is to implement bundle state management for transaction batching following Ethereum specifications and maintaining compatibility with existing implementations.
+
+=======
 <review>
 **Implementation Status: NOT IMPLEMENTED ❌**
 
@@ -18,6 +22,7 @@
 
 You are implementing Bundle State Management for the Tevm EVM written in Zig. Your goal is to implement bundle state management for transaction batching following Ethereum specifications and maintaining compatibility with existing implementations.
 
+>>>>>>> origin/main
 ## Development Workflow
 - **Branch**: `feat_implement_bundle_state_management` (snake_case)
 - **Worktree**: `git worktree add g/feat_implement_bundle_state_management feat_implement_bundle_state_management`

@@ -9,6 +9,8 @@ You are implementing BLS12-381 G2ADD Precompile for the Tevm EVM written in Zig.
 - **Commit**: Use emoji conventional commits with XML summary format
 
 
+<<<<<<< HEAD
+=======
 <review>
 **Implementation Status: NOT IMPLEMENTED ❌**
 
@@ -47,6 +49,7 @@ You are implementing BLS12-381 G2ADD Precompile for the Tevm EVM written in Zig.
 - ❌ Requires comprehensive test vectors
 </review>
 
+>>>>>>> origin/main
 ## Context
 
 Implement the BLS12-381 G2 addition precompile (address 0x0D) as defined in EIP-2537. This precompile performs point addition operations on the G2 group of the BLS12-381 elliptic curve, which operates over an extension field and is essential for BLS signature verification.
