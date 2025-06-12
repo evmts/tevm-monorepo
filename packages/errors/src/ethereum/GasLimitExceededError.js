@@ -34,18 +34,25 @@ import { BaseError } from './BaseError.js'
  * @property {string} name - The name of the error, used to discriminate errors.
  * @property {string} message - Human-readable error message.
  * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
+ * @property {number} code - Error code (-32003), indicating a transaction rejection.
  * @property {string} docsPath - Path to the documentation for this error.
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class GasLimitExceededError extends BaseError {
 	/**
+	 * The error code for GasLimitExceededError.
+	 * @type {number}
+	 */
+	static code = -32003
+
+	/**
 	 * Constructs a GasLimitExceededError.
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {GasLimitExceededErrorParameters} [args={}] - Additional parameters for the BaseError.
+	 * @param {string} [tag='GasLimitExceeded'] - The tag for the error.
 	 */
-	constructor(message, args = {}, tag = 'GasLimitExceededError') {
+	constructor(message, args = {}, tag = 'GasLimitExceeded') {
 		super(
 			message,
 			{
@@ -54,7 +61,7 @@ export class GasLimitExceededError extends BaseError {
 				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/gaslimitexceedederror/',
 			},
 			tag,
-			-32000,
+			GasLimitExceededError.code,
 		)
 	}
 }

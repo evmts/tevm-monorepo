@@ -27,7 +27,7 @@ Version: 1.1.0.next-73],
 
 exports[`createScript > should handle the unlikely case we are unable to get the account after successful creation 1`] = `
 [
-  [AccountNotFoundError: account 0x0000000000000000000000000000003AcBAd8fAD not found
+  [AccountNotFound: account 0x0000000000000000000000000000003AcBAd8fAD not found
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/resourcenotfounderror/
 Version: 1.1.0.next-73],
