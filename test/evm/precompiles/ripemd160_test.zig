@@ -167,14 +167,14 @@ test "ripemd160 output format" {
     try testing.expect(result.is_success());
     try testing.expectEqual(@as(usize, 32), result.get_output_size());
     
-    // The last 12 bytes should be zero (padding)
-    for (output[20..32]) |byte| {
+    // The first 12 bytes should be zero (left-padding)
+    for (output[0..12]) |byte| {
         try testing.expectEqual(@as(u8, 0), byte);
     }
     
-    // The first 20 bytes should contain the hash (non-zero for "abc")
+    // The last 20 bytes should contain the hash (non-zero for "abc") 
     var all_zero = true;
-    for (output[0..20]) |byte| {
+    for (output[12..32]) |byte| {
         if (byte != 0) {
             all_zero = false;
             break;
@@ -193,13 +193,13 @@ test "ripemd160 empty input" {
     try testing.expectEqual(@as(u64, 600), result.get_gas_used()); // Base cost only
     try testing.expectEqual(@as(usize, 32), result.get_output_size());
     
-    // Verify the hash matches expected value for empty input
+    // Verify the hash matches expected value for empty input (bytes 12-32)
     var expected: [20]u8 = undefined;
     try hex_to_bytes("9c1185a5c5e9fc54612808977ee8f548b2258d31", &expected);
-    try testing.expectEqualSlices(u8, &expected, output[0..20]);
+    try testing.expectEqualSlices(u8, &expected, output[12..32]);
     
-    // Verify padding is zero
-    for (output[20..32]) |byte| {
+    // Verify padding is zero (first 12 bytes)
+    for (output[0..12]) |byte| {
         try testing.expectEqual(@as(u8, 0), byte);
     }
 }
@@ -219,12 +219,12 @@ test "ripemd160 known test vectors" {
         try testing.expect(result.is_success());
         try testing.expectEqual(@as(usize, 32), result.get_output_size());
         
-        // Verify hash matches expected
-        if (!std.mem.eql(u8, &expected, output[0..20])) {
+        // Verify hash matches expected (bytes 12-32)
+        if (!std.mem.eql(u8, &expected, output[12..32])) {
             // Print debug info for failed test
             var actual_hex: [40]u8 = undefined;
             var expected_hex_buf: [40]u8 = undefined;
-            bytes_to_hex(output[0..20], &actual_hex);
+            bytes_to_hex(output[12..32], &actual_hex);
             bytes_to_hex(&expected, &expected_hex_buf);
             
             std.debug.print("\nRIPEMD160 test vector failed:\n", .{});
@@ -235,8 +235,8 @@ test "ripemd160 known test vectors" {
             return error.TestFailed;
         }
         
-        // Verify padding is zero
-        for (output[20..32]) |byte| {
+        // Verify padding is zero (first 12 bytes)
+        for (output[0..12]) |byte| {
             try testing.expectEqual(@as(u8, 0), byte);
         }
     }
@@ -269,8 +269,8 @@ test "ripemd160 various input sizes" {
         try testing.expectEqual(gas_needed, result.get_gas_used());
         try testing.expectEqual(@as(usize, 32), result.get_output_size());
         
-        // Verify padding is always zero
-        for (output[20..32]) |byte| {
+        // Verify padding is always zero (first 12 bytes)
+        for (output[0..12]) |byte| {
             try testing.expectEqual(@as(u8, 0), byte);
         }
         
@@ -328,14 +328,14 @@ test "ripemd160 large input performance" {
     try testing.expectEqual(gas_needed, result.get_gas_used());
     try testing.expectEqual(@as(usize, 32), result.get_output_size());
     
-    // Verify padding
-    for (output[20..32]) |byte| {
+    // Verify padding (first 12 bytes)
+    for (output[0..12]) |byte| {
         try testing.expectEqual(@as(u8, 0), byte);
     }
     
-    // Verify hash is not all zeros (very unlikely)
+    // Verify hash is not all zeros (very unlikely) - check bytes 12-32
     var all_zero = true;
-    for (output[0..20]) |byte| {
+    for (output[12..32]) |byte| {
         if (byte != 0) {
             all_zero = false;
             break;
@@ -404,8 +404,8 @@ test "ripemd160 binary data" {
     try testing.expectEqual(@as(u64, 720), result.get_gas_used());
     try testing.expectEqual(@as(usize, 32), result.get_output_size());
     
-    // Verify padding
-    for (output[20..32]) |byte| {
+    // Verify padding (first 12 bytes)
+    for (output[0..12]) |byte| {
         try testing.expectEqual(@as(u8, 0), byte);
     }
 }

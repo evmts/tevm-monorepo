@@ -119,9 +119,9 @@ pub fn execute(input: []const u8, output: []u8, gas_limit: u64) PrecompileOutput
     // Compute RIPEMD160 hash
     const hash = ripemd160_hash(input);
     
-    // Format output: 20-byte hash + 12 zero bytes
+    // Format output: 12 zero bytes + 20-byte hash (left-padding)
     @memset(output[0..RIPEMD160_OUTPUT_SIZE], 0);
-    @memcpy(output[0..RIPEMD160_HASH_SIZE], &hash);
+    @memcpy(output[12..32], &hash);
     
     return PrecompileOutput.success_result(gas_cost, RIPEMD160_OUTPUT_SIZE);
 }
