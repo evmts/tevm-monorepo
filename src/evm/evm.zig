@@ -124,10 +124,12 @@ pub const Precompiles = @import("precompiles/precompiles.zig");
 /// Precompiles namespace for easier access
 pub const precompiles = struct {
     pub const precompiles = @import("precompiles/precompiles.zig");
-    pub const sha256 = @import("precompiles/sha256.zig");
     pub const identity = @import("precompiles/identity.zig");
-    pub const blake2f = @import("precompiles/blake2f.zig");
+    pub const sha256 = @import("precompiles/sha256.zig");
+    pub const ripemd160 = @import("precompiles/ripemd160.zig");
     pub const precompile_result = @import("precompiles/precompile_result.zig");
+    pub const PrecompileOutput = @import("precompiles/precompile_result.zig").PrecompileOutput;
+    pub const PrecompileError = @import("precompiles/precompile_result.zig").PrecompileError;
 };
 
 /// EIP-4844 blob transaction support (blobs, KZG verification, gas market)
