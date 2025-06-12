@@ -27,7 +27,7 @@ test "storage_operations_pattern" {
     // Test the pattern of storage operations that evmone tests
     
     // Simulate SSTORE/SLOAD pattern
-    var storage = std.HashMap(u256, u256, std.hash_map.DefaultContext(u256), std.hash_map.default_max_load_percentage).init(testing.allocator);
+    var storage = std.HashMap(u256, u256, std.hash_map.AutoContext(u256), std.hash_map.default_max_load_percentage).init(testing.allocator);
     defer storage.deinit();
     
     const key: u256 = 0xee;
@@ -44,7 +44,7 @@ test "storage_operations_pattern" {
 
 test "storage_zero_value_handling" {
     // Test zero value handling pattern from evmone
-    var storage = std.HashMap(u256, u256, std.hash_map.DefaultContext(u256), std.hash_map.default_max_load_percentage).init(testing.allocator);
+    var storage = std.HashMap(u256, u256, std.hash_map.AutoContext(u256), std.hash_map.default_max_load_percentage).init(testing.allocator);
     defer storage.deinit();
     
     const key: u256 = 0x1;
@@ -61,7 +61,7 @@ test "storage_zero_value_handling" {
 
 test "storage_uninitialized_key" {
     // Test uninitialized storage key behavior
-    var storage = std.HashMap(u256, u256, std.hash_map.DefaultContext(u256), std.hash_map.default_max_load_percentage).init(testing.allocator);
+    var storage = std.HashMap(u256, u256, std.hash_map.AutoContext(u256), std.hash_map.default_max_load_percentage).init(testing.allocator);
     defer storage.deinit();
     
     const uninitialized_key: u256 = 0x99;
@@ -73,7 +73,7 @@ test "storage_uninitialized_key" {
 
 test "storage_overwrite_pattern" {
     // Test storage overwrite pattern from evmone
-    var storage = std.HashMap(u256, u256, std.hash_map.DefaultContext(u256), std.hash_map.default_max_load_percentage).init(testing.allocator);
+    var storage = std.HashMap(u256, u256, std.hash_map.AutoContext(u256), std.hash_map.default_max_load_percentage).init(testing.allocator);
     defer storage.deinit();
     
     const key: u256 = 0x10;
@@ -97,7 +97,7 @@ test "storage_overwrite_pattern" {
 
 test "storage_large_values" {
     // Test large storage values like evmone
-    var storage = std.HashMap(u256, u256, std.hash_map.DefaultContext(u256), std.hash_map.default_max_load_percentage).init(testing.allocator);
+    var storage = std.HashMap(u256, u256, std.hash_map.AutoContext(u256), std.hash_map.default_max_load_percentage).init(testing.allocator);
     defer storage.deinit();
     
     // Large key and value (max u256)

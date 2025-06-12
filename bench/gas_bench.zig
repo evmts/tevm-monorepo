@@ -39,16 +39,22 @@ const GasTracker = struct {
     }
 };
 
-// Access list for EIP-2929 warm/cold tracking
+// Storage key type for access list
+const StorageKey = struct {
+    address: u256,
+    key: u256,
+};
+
+// Simple access list implementation for benchmarking
 const AccessList = struct {
-    addresses: std.HashMap(u256, void, std.hash_map.DefaultContext(u256), std.hash_map.default_max_load_percentage),
-    storage_keys: std.HashMap(struct { address: u256, key: u256 }, void, std.hash_map.DefaultContext(struct { address: u256, key: u256 }), std.hash_map.default_max_load_percentage),
+    addresses: std.ArrayList(u256),
+    storage_keys: std.ArrayList(StorageKey),
     allocator: std.mem.Allocator,
     
     fn init(allocator: std.mem.Allocator) AccessList {
         return AccessList{
-            .addresses = std.HashMap(u256, void, std.hash_map.DefaultContext(u256), std.hash_map.default_max_load_percentage).init(allocator),
-            .storage_keys = std.HashMap(struct { address: u256, key: u256 }, void, std.hash_map.DefaultContext(struct { address: u256, key: u256 }), std.hash_map.default_max_load_percentage).init(allocator),
+            .addresses = std.ArrayList(u256).init(allocator),
+            .storage_keys = std.ArrayList(StorageKey).init(allocator),
             .allocator = allocator,
         };
     }
@@ -59,19 +65,29 @@ const AccessList = struct {
     }
     
     fn isAddressWarm(self: *const AccessList, address: u256) bool {
-        return self.addresses.contains(address);
+        for (self.addresses.items) |addr| {
+            if (addr == address) return true;
+        }
+        return false;
     }
     
     fn markAddressWarm(self: *AccessList, address: u256) !void {
-        try self.addresses.put(address, {});
+        if (!self.isAddressWarm(address)) {
+            try self.addresses.append(address);
+        }
     }
     
     fn isStorageWarm(self: *const AccessList, address: u256, key: u256) bool {
-        return self.storage_keys.contains(.{ .address = address, .key = key });
+        for (self.storage_keys.items) |item| {
+            if (item.address == address and item.key == key) return true;
+        }
+        return false;
     }
     
     fn markStorageWarm(self: *AccessList, address: u256, key: u256) !void {
-        try self.storage_keys.put(.{ .address = address, .key = key }, {});
+        if (!self.isStorageWarm(address, key)) {
+            try self.storage_keys.append(.{ .address = address, .key = key });
+        }
     }
     
     fn reset(self: *AccessList) void {
@@ -171,7 +187,6 @@ fn benchmarkColdWarmAccess(allocator: std.mem.Allocator) void {
         var total_gas: u64 = 0;
         
         const address1: u256 = 0x1234567890ABCDEF;
-        const address2: u256 = 0xFEDCBA0987654321;
         const storage_key: u256 = 0x1111111111111111;
         
         // First access - cold

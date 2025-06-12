@@ -48,7 +48,7 @@ test "stack_overflow_protection" {
     
     // Fill stack to capacity
     var i: usize = 0;
-    while (i < stack.CAPACITY) {
+    while (i < evm.Stack.CAPACITY) {
         try stack.append(@as(u256, @intCast(i)));
         i += 1;
     }
@@ -71,14 +71,13 @@ test "basic_memory_operations" {
     
     // Test memory expansion
     const data = [_]u8{0xaa, 0xbb, 0xcc, 0xdd};
-    try memory.store_bytes(0, &data);
+    try memory.set_data(0, &data);
     
     // Memory should expand to accommodate the data
     try testing.expect(memory.context_size() >= data.len);
     
     // Test reading back the data
-    const read_data = try memory.load_bytes(allocator, 0, data.len);
-    defer allocator.free(read_data);
+    const read_data = try memory.get_slice(0, data.len);
     try testing.expectEqualSlices(u8, &data, read_data);
 }
 
@@ -91,7 +90,7 @@ test "execution_error_types" {
         evm.ExecutionError.Error.OutOfGas,
         evm.ExecutionError.Error.StackUnderflow,
         evm.ExecutionError.Error.StackOverflow,
-        evm.ExecutionError.Error.InvalidJumpDestination,
+        evm.ExecutionError.Error.InvalidJump,
     };
     
     // Just verify the types exist and can be compared
@@ -115,7 +114,7 @@ test "arithmetic_operations_basic" {
     try stack.append(result);
     
     try testing.expectEqual(@as(usize, 1), stack.size);
-    const top = try stack.peek(0);
+    const top = try stack.peek();
     try testing.expectEqual(@as(u256, 8), top);
 }
 

@@ -8,14 +8,12 @@ const evm = @import("evm");
 test "call_opcode_constants" {
     // Test that call-related opcodes have the correct values
     const CALL: u8 = 0xf1;
-    const CALLCODE: u8 = 0xf2;
     const DELEGATECALL: u8 = 0xf4;
     const STATICCALL: u8 = 0xfa;
     const CREATE: u8 = 0xf0;
     const CREATE2: u8 = 0xf5;
     const RETURN: u8 = 0xf3;
     const REVERT: u8 = 0xfd;
-    const SELFDESTRUCT: u8 = 0xff;
     
     // Verify opcodes are different
     try testing.expect(CALL != DELEGATECALL);

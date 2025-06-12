@@ -74,10 +74,10 @@ pub fn op_mstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     }
 
     // Pop two values unsafely using batch operation - bounds checking is done in jump_table.zig
-    // EVM spec: MSTORE pops offset (top), then value (second). Stack: [..., value, offset]
+    // EVM spec: MSTORE pops value (top), then offset (second). Stack: [..., offset, value]
     const popped = frame.stack.pop2_unsafe();
-    const offset = popped.b; // offset was on top
-    const value = popped.a; // value was second from top
+    const value = popped.b; // value was on top
+    const offset = popped.a; // offset was second from top
 
     if (offset > std.math.maxInt(usize)) {
         @branchHint(.unlikely);
@@ -85,6 +85,12 @@ pub fn op_mstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     }
 
     const offset_usize = @as(usize, @intCast(offset));
+
+    // Check for overflow when adding 32 bytes for MSTORE
+    if (offset_usize > std.math.maxInt(usize) - 32) {
+        @branchHint(.unlikely);
+        return ExecutionError.Error.OutOfGas; // EVM should fail gracefully, not panic
+    }
 
     // Calculate memory expansion gas cost
     const current_size = frame.memory.context_size();
@@ -123,10 +129,10 @@ pub fn op_mstore8(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     }
 
     // Pop two values unsafely using batch operation - bounds checking is done in jump_table.zig
-    // EVM spec: MSTORE8 pops offset (top), then value (second). Stack: [..., value, offset]
+    // EVM spec: MSTORE8 pops value (top), then offset (second). Stack: [..., offset, value]
     const popped = frame.stack.pop2_unsafe();
-    const offset = popped.b; // offset was on top
-    const value = popped.a; // value was second from top
+    const value = popped.b; // value was on top
+    const offset = popped.a; // offset was second from top
 
     if (offset > std.math.maxInt(usize)) {
         @branchHint(.unlikely);
@@ -134,6 +140,12 @@ pub fn op_mstore8(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     }
 
     const offset_usize = @as(usize, @intCast(offset));
+
+    // Check for overflow when adding 1 byte for MSTORE8 (highly unlikely but be safe)
+    if (offset_usize == std.math.maxInt(usize)) {
+        @branchHint(.unlikely);
+        return ExecutionError.Error.OutOfGas; // EVM should fail gracefully, not panic
+    }
 
     // Calculate memory expansion gas cost
     const current_size = frame.memory.context_size();

@@ -15,6 +15,10 @@ pub const evmone_memory_equivalence_test = @import("evmone_memory_equivalence_te
 pub const evmone_calls_equivalence_test = @import("evmone_calls_equivalence_test.zig");
 pub const evmone_regression_equivalence_test = @import("evmone_regression_equivalence_test.zig");
 
+// Ethereum specification compliance tests
+pub const ethereum_spec_compliance_test = @import("ethereum_spec_compliance_test.zig");
+pub const ethereum_spec_edge_cases_test = @import("ethereum_spec_edge_cases_test.zig");
+
 test {
     _ = arithmetic_sequences_test;
     _ = memory_storage_test;
@@ -28,4 +32,8 @@ test {
     _ = evmone_memory_equivalence_test;
     _ = evmone_calls_equivalence_test;
     _ = evmone_regression_equivalence_test;
+    
+    // Ethereum specification compliance tests
+    _ = ethereum_spec_compliance_test;
+    _ = ethereum_spec_edge_cases_test;
 }

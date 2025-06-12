@@ -1430,6 +1430,74 @@ pub fn build(b: *std.Build) void {
     
     // Add simple stack benchmark to the combined benchmark step
     all_benchmark_step.dependOn(&run_simple_stack_benchmark.step);
+
+    // Add Gas Accounting benchmark
+    const gas_benchmark = b.addExecutable(.{
+        .name = "gas-benchmark",
+        .root_source_file = b.path("bench/gas_bench.zig"),
+        .target = target,
+        .optimize = .ReleaseFast,
+    });
+    gas_benchmark.root_module.addImport("zbench", zbench_dep.module("zbench"));
+
+    const run_gas_benchmark = b.addRunArtifact(gas_benchmark);
+
+    const gas_benchmark_step = b.step("bench-gas", "Run Gas Accounting benchmarks");
+    gas_benchmark_step.dependOn(&run_gas_benchmark.step);
+    
+    // Add gas benchmark to the combined benchmark step
+    all_benchmark_step.dependOn(&run_gas_benchmark.step);
+
+    // Add Jump Table benchmark
+    const jumptable_benchmark = b.addExecutable(.{
+        .name = "jumptable-benchmark",
+        .root_source_file = b.path("bench/jumptable_bench.zig"),
+        .target = target,
+        .optimize = .ReleaseFast,
+    });
+    jumptable_benchmark.root_module.addImport("zbench", zbench_dep.module("zbench"));
+
+    const run_jumptable_benchmark = b.addRunArtifact(jumptable_benchmark);
+
+    const jumptable_benchmark_step = b.step("bench-jumptable", "Run Jump Table benchmarks");
+    jumptable_benchmark_step.dependOn(&run_jumptable_benchmark.step);
+    
+    // Add jumptable benchmark to the combined benchmark step
+    all_benchmark_step.dependOn(&run_jumptable_benchmark.step);
+
+    // Add Precompile benchmark
+    const precompile_benchmark = b.addExecutable(.{
+        .name = "precompile-benchmark",
+        .root_source_file = b.path("bench/precompile_bench.zig"),
+        .target = target,
+        .optimize = .ReleaseFast,
+    });
+    precompile_benchmark.root_module.addImport("zbench", zbench_dep.module("zbench"));
+
+    const run_precompile_benchmark = b.addRunArtifact(precompile_benchmark);
+
+    const precompile_benchmark_step = b.step("bench-precompiles", "Run Precompile benchmarks");
+    precompile_benchmark_step.dependOn(&run_precompile_benchmark.step);
+    
+    // Add precompile benchmark to the combined benchmark step
+    all_benchmark_step.dependOn(&run_precompile_benchmark.step);
+
+    // Add Call Operations benchmark
+    const call_ops_benchmark = b.addExecutable(.{
+        .name = "call-ops-benchmark",
+        .root_source_file = b.path("bench/call_ops_bench.zig"),
+        .target = target,
+        .optimize = .ReleaseFast,
+    });
+    call_ops_benchmark.root_module.addImport("zbench", zbench_dep.module("zbench"));
+
+    const run_call_ops_benchmark = b.addRunArtifact(call_ops_benchmark);
+
+    const call_ops_benchmark_step = b.step("bench-call-ops", "Run Call Operations benchmarks");
+    call_ops_benchmark_step.dependOn(&run_call_ops_benchmark.step);
+    
+    // Add call ops benchmark to the combined benchmark step
+    all_benchmark_step.dependOn(&run_call_ops_benchmark.step);
     
     // Add Gas Debugging tool
     const debug_gas_tool = b.addExecutable(.{
