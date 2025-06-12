@@ -12,7 +12,7 @@ fn createTestVm(allocator: std.mem.Allocator) !struct { vm: VM, memory_db: *Memo
     const memory_db = try allocator.create(MemoryDatabase);
     memory_db.* = MemoryDatabase.init(allocator);
     const db_interface = memory_db.to_database_interface();
-    const vm = try VM.init(allocator, db_interface, null, null);
+    const vm = try VM.init(allocator, null, null);
     return .{ .vm = vm, .memory_db = memory_db };
 }
 

@@ -328,7 +328,7 @@ fn create_contract_internal(self: *Self, creator: Address.Address, value: u256, 
 }
 
 // Contract creation with CREATE opcode
-pub const CreateContractError = std.mem.Allocator.Error || Address.CalculateAddressError;
+pub const CreateContractError = std.mem.Allocator.Error || Address.CalculateAddressError || @import("state/database_interface.zig").DatabaseError;
 
 /// Create a new contract using CREATE opcode semantics.
 ///
@@ -470,7 +470,7 @@ fn execute_precompile_call(self: *Self, address: Address.Address, input: []const
 
 pub const ConsumeGasError = ExecutionError.Error;
 
-pub const Create2ContractError = std.mem.Allocator.Error || Address.CalculateCreate2AddressError;
+pub const Create2ContractError = std.mem.Allocator.Error || Address.CalculateCreate2AddressError || @import("state/database_interface.zig").DatabaseError;
 
 /// Create a new contract using CREATE2 opcode semantics.
 ///
