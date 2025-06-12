@@ -1,5 +1,9 @@
 # Implement ECPAIRING Precompile
 
+<<<<<<< HEAD
+You are implementing ECPAIRING Precompile for the Tevm EVM written in Zig. Your goal is to implement elliptic curve pairing precompile for optimal ate pairing following Ethereum specifications and maintaining compatibility with existing implementations.
+
+=======
 <review>
 **Implementation Status: NOT IMPLEMENTED ❌ - INCORRECT PREVIOUS STATUS**
 
@@ -44,6 +48,7 @@
 
 You are implementing ECPAIRING Precompile for the Tevm EVM written in Zig. Your goal is to implement elliptic curve pairing precompile for optimal ate pairing following Ethereum specifications and maintaining compatibility with existing implementations.
 
+>>>>>>> origin/main
 ## Development Workflow
 - **Branch**: `feat_implement_ecpairing_precompile` (snake_case)
 - **Worktree**: `git worktree add g/feat_implement_ecpairing_precompile feat_implement_ecpairing_precompile`
