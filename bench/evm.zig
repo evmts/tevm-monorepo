@@ -1,11 +1,8 @@
 const std = @import("std");
 const zbench = @import("zbench");
-const evm_root = @import("evm");
+const evm = @import("evm");
 const Compiler = @import("Compiler");
 const Address = @import("Address");
-
-// Import EVM components
-const evm = evm_root.evm;
 
 // Solidity source code for TenThousandHashes benchmark
 const TEN_THOUSAND_HASHES_SOURCE =
@@ -175,50 +172,63 @@ fn compileAndExecuteBenchmark(allocator: std.mem.Allocator, contract_name: []con
 fn executeContractBenchmark(allocator: std.mem.Allocator, contract_name: []const u8, deployed_bytecode: []const u8) !void {
     _ = contract_name;
     
-    // Create a memory database for the VM
-    var database = evm.MemoryDatabase.init(allocator);
-    defer database.deinit();
+    // Create VM and Database on heap to avoid stack overflow
+    const vm_ptr = try allocator.create(evm.Vm);
+    defer allocator.destroy(vm_ptr);
     
-    // Create VM instance
-    var vm = try evm.Vm.init(allocator, database.to_database_interface(), null, null);
-    defer vm.deinit();
+    const database_ptr = try allocator.create(evm.MemoryDatabase);
+    defer allocator.destroy(database_ptr);
+    
+    // Initialize database and VM
+    database_ptr.* = evm.MemoryDatabase.init(allocator);
+    defer database_ptr.deinit();
+    
+    const db_interface = database_ptr.to_database_interface();
+    vm_ptr.* = try evm.Vm.init(allocator, db_interface, null, null);
+    defer vm_ptr.deinit();
     
     // Deploy the contract to a test address
     const contract_address = Address.from_u256(0x1000);
+    const caller_address = Address.from_u256(0x2000);
     
     // Set up initial state - put the deployed bytecode at the contract address
-    try vm.state.set_code(contract_address, deployed_bytecode);
+    try vm_ptr.state.set_code(contract_address, deployed_bytecode);
     
     // Create call data for Benchmark() function
     const call_data = BENCHMARK_SELECTOR;
     
-    // Set up execution context
-    vm.context.gas_limit = 30_000_000; // 30M gas
-    vm.context.gas_price = 1;
-    vm.context.caller = Address.from_u256(0x2000);
-    vm.context.address = contract_address;
-    vm.context.value = 0;
-    vm.context.data = &call_data;
+    // Calculate code hash for the deployed bytecode
+    var hasher = std.crypto.hash.sha3.Keccak256.init(.{});
+    hasher.update(deployed_bytecode);
+    var code_hash: [32]u8 = undefined;
+    hasher.final(&code_hash);
     
-    // Execute the contract call
-    const result = vm.run() catch |err| {
+    // Create a contract instance for execution  
+    var contract = evm.Contract.init(
+        caller_address,     // caller
+        contract_address,   // address
+        0,                  // value (no ETH transfer)
+        100_000_000,       // gas limit (increased to 100M)
+        deployed_bytecode,  // code
+        code_hash,         // code hash
+        &call_data,        // input data
+        false              // not static
+    );
+    defer contract.deinit(allocator, null);
+    
+    // Execute the contract using the VM's interpret method
+    const result = vm_ptr.interpret(&contract, &call_data) catch |err| {
         std.debug.print("Contract execution failed: {}\n", .{err});
         return;
     };
     
-    // Report execution results 
-    switch (result) {
-        .success => |success_result| {
-            const gas_used = 30_000_000 - success_result.gas_remaining;
-            std.debug.print("Contract executed successfully, gas used: {}\n", .{gas_used});
-        },
-        .revert => |revert_result| {
-            const gas_used = 30_000_000 - revert_result.gas_remaining;
-            std.debug.print("Contract reverted, gas used: {}\n", .{gas_used});
-        },
-        .halt => |halt_result| {
-            std.debug.print("Contract halted: reason={}, gas_remaining={}\n", .{ halt_result.reason, halt_result.gas_remaining });
-        }
+    // Report execution results
+    const gas_used = 100_000_000 - result.gas_left;
+    std.debug.print("Contract executed: status={}, gas_used={}\n", .{ result.status, gas_used });
+    
+    if (result.output) |output| {
+        std.debug.print("Output length: {} bytes\n", .{output.len});
+        defer allocator.free(output);
     }
 }
 

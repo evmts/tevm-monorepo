@@ -123,11 +123,16 @@ pub fn op_return(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     // Use batch pop for performance - pop 2 values at once
     const values = frame.stack.pop2_unsafe();
-    const size = values.b; // Second from top (was on top)
-    const offset = values.a; // Third from top (was second)
+    const offset = values.b; // CORRECTED: First popped (was on top)
+    const size = values.a; // CORRECTED: Second popped (was second)
+
+    // DEBUG: Log the values we popped
+    const Log = @import("../log.zig");
+    Log.debug("RETURN opcode: offset={}, size={}", .{ offset, size });
 
     if (size == 0) {
         @branchHint(.unlikely);
+        Log.debug("RETURN: size is 0, returning empty data", .{});
         try frame.return_data.set(&[_]u8{});
     } else {
         if (offset > std.math.maxInt(usize) or size > std.math.maxInt(usize)) {

@@ -248,7 +248,6 @@ test "attempt real EVM execution with TenThousandHashes" {
     // Try to execute using the EVM
     const evm_root = @import("evm");
     const evm = evm_root.evm;
-    const Address = @import("Address");
     
     // Create a memory database
     var database = evm.MemoryDatabase.init(allocator);

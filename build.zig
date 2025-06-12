@@ -603,6 +603,66 @@ pub fn build(b: *std.Build) void {
     const debug_simple_test_step = b.step("test-debug-simple", "Run simple debug CREATE test");
     debug_simple_test_step.dependOn(&run_debug_simple_test.step);
 
+    // Add TenThousandHashes debug test
+    const debug_tenhashes_test = b.addExecutable(.{
+        .name = "debug-tenhashes-test",
+        .root_source_file = b.path("debug_tenthousandhashes_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    debug_tenhashes_test.root_module.addImport("evm", evm_mod);
+    debug_tenhashes_test.root_module.addImport("Address", address_mod);
+    debug_tenhashes_test.root_module.stack_check = false;
+    debug_tenhashes_test.root_module.single_threaded = true;
+
+    const run_debug_tenhashes_test = b.addRunArtifact(debug_tenhashes_test);
+    const debug_tenhashes_test_step = b.step("test-debug-tenhashes", "Run TenThousandHashes debug CREATE test");
+    debug_tenhashes_test_step.dependOn(&run_debug_tenhashes_test.step);
+
+    // Add bytecode analysis tool
+    const debug_bytecode_analysis = b.addExecutable(.{
+        .name = "debug-bytecode-analysis",
+        .root_source_file = b.path("debug_bytecode_analysis.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    const run_debug_bytecode_analysis = b.addRunArtifact(debug_bytecode_analysis);
+    const debug_bytecode_analysis_step = b.step("analyze-bytecode", "Analyze TenThousandHashes bytecode structure");
+    debug_bytecode_analysis_step.dependOn(&run_debug_bytecode_analysis.step);
+
+    // Add stack bug test
+    const test_stack_bug = b.addExecutable(.{
+        .name = "test-stack-bug",
+        .root_source_file = b.path("test_stack_bug.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    test_stack_bug.root_module.addImport("evm", evm_mod);
+    test_stack_bug.root_module.addImport("Address", address_mod);
+    test_stack_bug.root_module.stack_check = false;
+    test_stack_bug.root_module.single_threaded = true;
+
+    const run_test_stack_bug = b.addRunArtifact(test_stack_bug);
+    const test_stack_bug_step = b.step("test-stack-bug", "Test the corrected constructor");
+    test_stack_bug_step.dependOn(&run_test_stack_bug.step);
+
+    // Add RETURN opcode debug test
+    const debug_return_opcode = b.addExecutable(.{
+        .name = "debug-return-opcode",
+        .root_source_file = b.path("debug_return_opcode.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    debug_return_opcode.root_module.addImport("evm", evm_mod);
+    debug_return_opcode.root_module.addImport("Address", address_mod);
+    debug_return_opcode.root_module.stack_check = false;
+    debug_return_opcode.root_module.single_threaded = true;
+
+    const run_debug_return_opcode = b.addRunArtifact(debug_return_opcode);
+    const debug_return_opcode_step = b.step("test-return-opcode", "Test RETURN opcode implementation");
+    debug_return_opcode_step.dependOn(&run_debug_return_opcode.step);
+
     // Add Gas Accounting tests
     const gas_test = b.addTest(.{
         .name = "gas-test",
@@ -836,6 +896,31 @@ pub fn build(b: *std.Build) void {
     // Add a separate step for testing Real Contract Execution
     const real_contract_execution_test_step = b.step("test-real-contract-execution", "Run Real Contract Execution tests");
     real_contract_execution_test_step.dependOn(&run_real_contract_execution_test.step);
+
+    // Add Simple Contract Execution test
+    const simple_contract_execution_test = b.addTest(.{
+        .name = "simple-contract-execution-test",
+        .root_source_file = b.path("test/evm/simple_contract_execution_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    simple_contract_execution_test.root_module.addImport("evm", target_architecture_mod);
+    simple_contract_execution_test.root_module.addImport("Compiler", compiler_mod);
+    simple_contract_execution_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    simple_contract_execution_test.root_module.addIncludePath(b.path("include"));
+    simple_contract_execution_test.step.dependOn(rust_step);
+    simple_contract_execution_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    simple_contract_execution_test.linkLibC();
+    if (target.result.os.tag == .linux) {
+        simple_contract_execution_test.linkSystemLibrary("unwind");
+        simple_contract_execution_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        simple_contract_execution_test.linkFramework("CoreFoundation");
+        simple_contract_execution_test.linkFramework("Security");
+    }
+    const run_simple_contract_execution_test = b.addRunArtifact(simple_contract_execution_test);
+    const simple_contract_execution_test_step = b.step("test-simple-contract-execution", "Run Simple Contract Execution tests");
+    simple_contract_execution_test_step.dependOn(&run_simple_contract_execution_test.step);
 
     // Add EVM Contract benchmark (after rust_step is defined)
     const evm_contract_benchmark = b.addExecutable(.{
