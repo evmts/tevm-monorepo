@@ -5,6 +5,8 @@ const Vm = evm.Vm;
 const Address = evm.Address;
 const ExecutionError = evm.ExecutionError;
 const Contract = evm.Contract;
+const MemoryDatabase = evm.MemoryDatabase;
+const DatabaseInterface = evm.DatabaseInterface;
 const test_helpers = @import("opcodes/test_helpers.zig");
 
 // WORKING: Fixing SUB large numbers wraparound issue (agent: fix-sub-wraparound)
@@ -23,9 +25,12 @@ fn u256ToBytes32(value: u256) [32]u8 {
 }
 
 // Helper function to create a test VM with basic setup
-fn createTestVm(allocator: std.mem.Allocator) !*Vm {
+fn createTestVm(allocator: std.mem.Allocator) !struct { vm: *Vm, memory_db: *MemoryDatabase } {
     var vm = try allocator.create(Vm);
-    vm.* = try Vm.init(allocator, null, null);
+    const memory_db = try allocator.create(MemoryDatabase);
+    memory_db.* = MemoryDatabase.init(allocator);
+    const db_interface = memory_db.to_database_interface();
+    vm.* = try Vm.init(allocator, db_interface, null, null);
 
     // Set up basic context
     vm.context.chain_id = 1;
@@ -42,18 +47,24 @@ fn createTestVm(allocator: std.mem.Allocator) !*Vm {
     vm.context.block_gas_limit = 30000000;
     vm.context.block_base_fee = 100000000; // 0.1 gwei
 
-    return vm;
+    return .{ .vm = vm, .memory_db = memory_db };
+}
+
+// Helper function to clean up test VM
+fn destroyTestVm(allocator: std.mem.Allocator, vm: *Vm, memory_db: *MemoryDatabase) void {
+    vm.deinit();
+    memory_db.deinit();
+    allocator.destroy(vm);
+    allocator.destroy(memory_db);
 }
 
 // ===== Control Flow Opcodes =====
 
 test "VM: STOP opcode halts execution" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     const bytecode = [_]u8{0x00}; // STOP
     const result = try test_helpers.runBytecode(vm, &bytecode, Address.zero(), 1000, null);
@@ -65,11 +76,9 @@ test "VM: STOP opcode halts execution" {
 
 test "VM: JUMPDEST and JUMP sequence" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Jump to position 5 where JUMPDEST is located
     const bytecode = [_]u8{
@@ -106,11 +115,9 @@ test "VM: JUMPDEST and JUMP sequence" {
 // TODO: Working on fixing JUMPI stack order (worktree: g/fix-jumpi-stack-order)
 test "VM: JUMPI conditional jump taken" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Jump to position 8 if condition is true (non-zero)
     const bytecode = [_]u8{
@@ -138,11 +145,9 @@ test "VM: JUMPI conditional jump taken" {
 
 test "VM: JUMPI conditional jump not taken" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Don't jump if condition is false (zero)
     const bytecode = [_]u8{
@@ -170,11 +175,9 @@ test "VM: JUMPI conditional jump not taken" {
 
 test "VM: PC opcode returns current program counter" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     const bytecode = [_]u8{
         0x58, // PC (at position 0)
@@ -207,11 +210,9 @@ test "VM: PC opcode returns current program counter" {
 
 test "VM: ADD opcode" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     const bytecode = [_]u8{
         0x60, 0x05, // PUSH1 5
@@ -233,11 +234,9 @@ test "VM: ADD opcode" {
 
 test "VM: ADD opcode overflow" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Test addition overflow: MAX_U256 + 1 = 0
     const bytecode = [_]u8{
@@ -285,11 +284,9 @@ test "VM: ADD opcode overflow" {
 
 test "VM: ADD complex sequence" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Test: (5 + 3) + 2 = 10
     const bytecode = [_]u8{
@@ -314,11 +311,9 @@ test "VM: ADD complex sequence" {
 
 test "VM: MUL opcode" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     const bytecode = [_]u8{
         0x60, 0x07, // PUSH1 7
@@ -341,11 +336,9 @@ test "VM: MUL opcode" {
 
 test "VM: MUL opcode overflow" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Test multiplication overflow: MAX_U256 * 2 should wrap
     const bytecode = [_]u8{
@@ -396,11 +389,9 @@ test "VM: MUL opcode overflow" {
 
 test "VM: MUL by zero" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Test multiplication by zero
     const bytecode = [_]u8{
@@ -424,11 +415,9 @@ test "VM: MUL by zero" {
 
 test "VM: MUL by one" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Test multiplication by one (identity)
     const bytecode = [_]u8{
@@ -452,11 +441,9 @@ test "VM: MUL by one" {
 
 test "VM: MUL complex sequence" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Test: 2 * 3 * 4 = 24
     const bytecode = [_]u8{
@@ -482,11 +469,9 @@ test "VM: MUL complex sequence" {
 
 test "VM: MUL large numbers" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Test large number multiplication that doesn't overflow
     // 2^128 * 2^127 = 2^255 (fits in u256)
@@ -531,11 +516,9 @@ test "VM: MUL large numbers" {
 
 test "VM: SUB opcode" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     const bytecode = [_]u8{
         0x60, 0x05, // PUSH1 5
@@ -560,11 +543,9 @@ test "VM: SUB opcode" {
 
 test "VM: SUB opcode underflow" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Test subtraction underflow: 5 - 10 should wrap
     const bytecode = [_]u8{
@@ -589,11 +570,9 @@ test "VM: SUB opcode underflow" {
 
 test "VM: SUB from zero" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Test 0 - 1 = MAX_U256
     const bytecode = [_]u8{
@@ -617,11 +596,9 @@ test "VM: SUB from zero" {
 
 test "VM: SUB identity" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Test n - n = 0
     const bytecode = [_]u8{
@@ -645,11 +622,9 @@ test "VM: SUB identity" {
 
 test "VM: SUB complex sequence" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Test: 100 - 30 - 20 = 50
     const bytecode = [_]u8{
@@ -675,11 +650,9 @@ test "VM: SUB complex sequence" {
 
 test "VM: SUB large numbers" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Test large number subtraction
     // 2^255 - 2^254 = 2^254
@@ -768,11 +741,9 @@ test "VM: SUB large numbers" {
 
 test "VM: DIV opcode" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     const bytecode = [_]u8{
         0x60, 0x0F, // PUSH1 15 (dividend)
@@ -795,11 +766,9 @@ test "VM: DIV opcode" {
 
 test "VM: DIV by zero returns zero" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     const bytecode = [_]u8{
         0x60, 0x0A, // PUSH1 10 (dividend)
@@ -822,11 +791,9 @@ test "VM: DIV by zero returns zero" {
 
 test "VM: DIV with remainder" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Test integer division truncation: 17 / 5 = 3
     const bytecode = [_]u8{
@@ -850,11 +817,9 @@ test "VM: DIV with remainder" {
 
 test "VM: DIV by one" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Test division by one (identity)
     const bytecode = [_]u8{
@@ -878,11 +843,9 @@ test "VM: DIV by one" {
 
 test "VM: DIV zero dividend" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Test 0 / n = 0
     const bytecode = [_]u8{
@@ -906,11 +869,9 @@ test "VM: DIV zero dividend" {
 
 test "VM: DIV complex sequence" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Test: 100 / 2 / 5 = 10
     const bytecode = [_]u8{
@@ -936,11 +897,9 @@ test "VM: DIV complex sequence" {
 
 test "VM: DIV large numbers" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Test large number division
     // 2^128 / 2^64 = 2^64
@@ -977,11 +936,9 @@ test "VM: DIV large numbers" {
 
 test "VM: MOD opcode" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     const bytecode = [_]u8{
         0x60, 0x0A, // PUSH1 10 (dividend)
@@ -1004,11 +961,9 @@ test "VM: MOD opcode" {
 
 test "VM: MOD by zero returns zero" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     const bytecode = [_]u8{
         0x60, 0x0A, // PUSH1 10
@@ -1031,11 +986,9 @@ test "VM: MOD by zero returns zero" {
 
 test "VM: MOD perfect division" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     const bytecode = [_]u8{
         0x60, 0x14, // PUSH1 20
@@ -1058,11 +1011,9 @@ test "VM: MOD perfect division" {
 
 test "VM: MOD by one" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     const bytecode = [_]u8{
         0x61, 0x04, 0xD2, // PUSH2 1234
@@ -1085,11 +1036,9 @@ test "VM: MOD by one" {
 
 test "VM: SDIV opcode" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Test: -10 / 3 = -3
     // -10 in two's complement: 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF6
@@ -1141,11 +1090,9 @@ test "VM: SDIV opcode" {
 
 test "VM: SDIV by zero returns zero" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     const bytecode = [_]u8{
         0x60, 0x0A, // PUSH1 10
@@ -1168,11 +1115,9 @@ test "VM: SDIV by zero returns zero" {
 
 test "VM: SDIV overflow case MIN_I256 / -1" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // MIN_I256 = -2^255 = 0x80000000000000000000000000000000000000000000000000000000000000000
     // -1 = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
@@ -1261,11 +1206,9 @@ test "VM: SDIV overflow case MIN_I256 / -1" {
 
 test "VM: SDIV positive by negative" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Test: 10 / -3 = -3
     // -3 in two's complement: 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFD
@@ -1324,11 +1267,9 @@ test "VM: SDIV positive by negative" {
 
 test "VM: SDIV negative by negative" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Test: -10 / -3 = 3
     const bytecode = [_]u8{
@@ -1416,11 +1357,9 @@ test "VM: SDIV negative by negative" {
 
 test "VM: SDIV truncation behavior" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Test: -17 / 5 = -3 (truncates toward zero)
     // -17 in two's complement: 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEF
@@ -1479,11 +1418,9 @@ test "VM: SDIV truncation behavior" {
 
 test "VM: SMOD opcode" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Test: -10 % 3 = -1
     // -10 in two's complement: 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF6
@@ -1542,11 +1479,9 @@ test "VM: SMOD opcode" {
 
 test "VM: SMOD by zero returns zero" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     const bytecode = [_]u8{
         0x60, 0x0A, // PUSH1 10
@@ -1569,11 +1504,9 @@ test "VM: SMOD by zero returns zero" {
 
 test "VM: SMOD positive by positive" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Test: 17 % 5 = 2
     const bytecode = [_]u8{
@@ -1597,11 +1530,9 @@ test "VM: SMOD positive by positive" {
 
 test "VM: SMOD positive by negative" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Test: 10 % -3 = 1
     // -3 in two's complement: 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFD
@@ -1658,11 +1589,9 @@ test "VM: SMOD positive by negative" {
 
 test "VM: SMOD large negative number" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Test: MIN_I256 % 100
     // MIN_I256 = -2^255 = 0x80000000000000000000000000000000000000000000000000000000000000000
@@ -1721,11 +1650,9 @@ test "VM: SMOD large negative number" {
 
 test "VM: ADDMOD opcode" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     const bytecode = [_]u8{
         0x60, 0x05, // PUSH1 5 (first addend)
@@ -1749,11 +1676,9 @@ test "VM: ADDMOD opcode" {
 
 test "VM: MULMOD opcode" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     const bytecode = [_]u8{
         0x60, 0x04, // PUSH1 4 (first multiplicand)
@@ -1777,11 +1702,9 @@ test "VM: MULMOD opcode" {
 
 test "VM: EXP opcode" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     const bytecode = [_]u8{
         0x60, 0x03, // PUSH1 3 (base)
@@ -1806,11 +1729,9 @@ test "VM: EXP opcode" {
 
 test "VM: LT opcode" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Test 5 < 10 (true)
     // Stack after pushes: [5, 10] where 10 is top
@@ -1836,11 +1757,9 @@ test "VM: LT opcode" {
 
 test "VM: GT opcode" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Test 10 > 5 (true)
     // Stack after pushes: [10, 5] where 5 is top
@@ -1866,11 +1785,9 @@ test "VM: GT opcode" {
 
 test "VM: EQ opcode" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Test 5 == 5 (true)
     const bytecode = [_]u8{
@@ -1894,11 +1811,9 @@ test "VM: EQ opcode" {
 
 test "VM: ISZERO opcode with non-zero" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Test ISZERO(5) = 0 (testing non-zero input)
     const bytecode = [_]u8{
@@ -1921,11 +1836,9 @@ test "VM: ISZERO opcode with non-zero" {
 
 test "VM: ISZERO opcode with zero" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Test ISZERO(0) = 1 (testing zero input)
     const bytecode = [_]u8{
@@ -1948,11 +1861,9 @@ test "VM: ISZERO opcode with zero" {
 
 test "VM: CALLER opcode" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     const bytecode = [_]u8{
         0x33, // CALLER
@@ -1982,11 +1893,9 @@ test "VM: CALLER opcode" {
 
 test "VM: NUMBER opcode" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     const bytecode = [_]u8{
         0x43, // NUMBER
@@ -2007,11 +1916,9 @@ test "VM: NUMBER opcode" {
 
 test "VM: TIMESTAMP opcode" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     const bytecode = [_]u8{
         0x42, // TIMESTAMP
@@ -2032,11 +1939,9 @@ test "VM: TIMESTAMP opcode" {
 
 test "VM: CHAINID opcode" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     const bytecode = [_]u8{
         0x46, // CHAINID
@@ -2059,11 +1964,9 @@ test "VM: CHAINID opcode" {
 
 test "VM: Complex arithmetic sequence" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Calculate: (10 + 5) * 2 - 3 = 27
     const bytecode = [_]u8{
@@ -2091,11 +1994,9 @@ test "VM: Complex arithmetic sequence" {
 
 test "VM: Conditional logic with comparison" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // If 10 > 5, push 100, else push 200
     const bytecode = [_]u8{
@@ -2129,11 +2030,9 @@ test "VM: Conditional logic with comparison" {
 
 test "VM: Invalid JUMP destination" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Jump to invalid destination (not a JUMPDEST)
     const bytecode = [_]u8{
@@ -2156,11 +2055,9 @@ test "VM: Invalid JUMP destination" {
 
 test "VM: Stack underflow" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Try to ADD with only one item on stack
     const bytecode = [_]u8{
@@ -2178,11 +2075,9 @@ test "VM: Stack underflow" {
 
 test "VM: Out of gas" {
     const allocator = testing.allocator;
-    var vm = try createTestVm(allocator);
-    defer {
-        vm.deinit();
-        allocator.destroy(vm);
-    }
+    const test_setup = try createTestVm(allocator);
+    const vm = test_setup.vm;
+    defer destroyTestVm(allocator, vm, test_setup.memory_db);
 
     // Complex operation with insufficient gas
     const bytecode = [_]u8{

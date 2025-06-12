@@ -29,7 +29,7 @@ const bitvec = @import("bitvec.zig");
 /// ## Memory Management
 /// The analysis owns its allocated memory and must be properly cleaned up
 /// using the `deinit` method to prevent memory leaks.
-const Self = @This();
+const CodeAnalysis = @This();
 
 /// Bit vector marking which bytes in the bytecode are executable code vs data.
 /// 
@@ -106,7 +106,7 @@ has_create: bool,
 /// var analysis = try analyzeCode(allocator, bytecode);
 /// defer analysis.deinit(allocator);
 /// ```
-pub fn deinit(self: *Self, allocator: std.mem.Allocator) void {
+pub fn deinit(self: *CodeAnalysis, allocator: std.mem.Allocator) void {
     self.code_segments.deinit(allocator);
     if (self.jumpdest_positions.len > 0) {
         allocator.free(self.jumpdest_positions);

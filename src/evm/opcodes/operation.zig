@@ -95,7 +95,7 @@ pub const MemorySizeFunc = *const fn (stack: *Stack) Opcode.MemorySize;
 /// Each entry in the jump table is an Operation that fully describes
 /// how to execute an opcode, including validation, gas calculation,
 /// and the actual execution logic.
-const Self = @This();
+pub const Operation = struct {
 
 /// Execution function implementing the opcode logic.
 /// This is called after all validations pass.
@@ -131,6 +131,8 @@ memory_size: ?MemorySizeFunc = null,
 /// Used for opcodes not assigned in the current hardfork.
 undefined: bool = false,
 
+};
+
 /// Singleton NULL operation for unassigned opcode slots.
 ///
 /// This operation is used for opcodes that:
@@ -139,7 +141,7 @@ undefined: bool = false,
 /// - Are reserved for future use
 ///
 /// Executing NULL always results in InvalidOpcode error.
-pub const NULL = Self{
+pub const NULL_OPERATION = Operation{
     .execute = undefined_execute,
     .constant_gas = 0,
     .min_stack = 0,

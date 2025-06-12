@@ -133,7 +133,7 @@ test "RETURNDATASIZE (0x3D): Get return data size" {
     
     // Test 2: Set return data and check size
     const return_data = [_]u8{0x42, 0x43, 0x44, 0x45};
-    test_frame.frame.return_data_buffer = &return_data;
+    try test_frame.frame.return_data.set(&return_data);
     
     _ = try helpers.executeOpcode(0x3D, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, return_data.len);
@@ -141,7 +141,7 @@ test "RETURNDATASIZE (0x3D): Get return data size" {
     
     // Test 3: Large return data
     const large_data = [_]u8{0xFF} ** 1024;
-    test_frame.frame.return_data_buffer = &large_data;
+    try test_frame.frame.return_data.set(&large_data);
     
     _ = try helpers.executeOpcode(0x3D, test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 1024);
@@ -168,7 +168,7 @@ test "RETURNDATACOPY (0x3E): Copy return data to memory" {
         0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88,
         0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x00,
     };
-    test_frame.frame.return_data_buffer = &return_data;
+    try test_frame.frame.return_data.set(&return_data);
     
     // Test 1: Copy all return data
     try test_frame.pushStack(&[_]u256{ return_data.len, 0, 0 }); // size, data_offset, mem_offset
@@ -534,7 +534,7 @@ test "RETURNDATACOPY: Out of bounds access" {
     defer test_frame.deinit();
     
     const return_data = [_]u8{0x42, 0x43, 0x44, 0x45};
-    test_frame.frame.return_data_buffer = &return_data;
+    try test_frame.frame.return_data.set(&return_data);
     
     // Test cases that should fail
     const test_cases = [_]struct {

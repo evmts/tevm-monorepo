@@ -4,6 +4,7 @@ const Stack = @import("stack/stack.zig");
 const Contract = @import("contract/contract.zig");
 const ExecutionError = @import("execution/execution_error.zig");
 const Log = @import("log.zig");
+const ReturnData = @import("return_data.zig").ReturnData;
 
 /// EVM execution frame representing a single call context.
 ///
@@ -37,7 +38,7 @@ const Log = @import("log.zig");
 /// frame.gas_remaining = 1000000;
 /// try frame.stack.append(42);
 /// ```
-const Self = @This();
+const Frame = @This();
 
 /// Current opcode being executed (for debugging/tracing).
 op: []const u8 = undefined,
@@ -75,9 +76,9 @@ gas_remaining: u64 = 0,
 /// Prohibits state modifications (SSTORE, CREATE, SELFDESTRUCT).
 is_static: bool = false,
 
-/// Buffer containing return data from child calls.
+/// Return data from child calls.
 /// Used by RETURNDATASIZE and RETURNDATACOPY opcodes.
-return_data_buffer: []const u8 = &[_]u8{},
+return_data: ReturnData,
 
 /// Input data for this call (calldata).
 /// Accessed by CALLDATALOAD, CALLDATASIZE, CALLDATACOPY.
@@ -112,12 +113,13 @@ pc: usize = 0,
 /// frame.gas_remaining = gas_limit;
 /// frame.input = calldata;
 /// ```
-pub fn init(allocator: std.mem.Allocator, contract: *Contract) std.mem.Allocator.Error!Self {
-    return Self{
+pub fn init(allocator: std.mem.Allocator, contract: *Contract) !Frame {
+    return Frame{
         .allocator = allocator,
         .contract = contract,
         .memory = try Memory.init_default(allocator),
         .stack = .{},
+        .return_data = ReturnData.init(allocator),
     };
 }
 
@@ -137,7 +139,6 @@ pub fn init(allocator: std.mem.Allocator, contract: *Contract) std.mem.Allocator
 /// @param stop Halt flag (optional)
 /// @param gas_remaining Available gas (optional)
 /// @param is_static Static call flag (optional)
-/// @param return_data_buffer Child return data (optional)
 /// @param input Call data (optional)
 /// @param depth Call stack depth (optional)
 /// @param output Output buffer (optional)
@@ -165,13 +166,12 @@ pub fn init_with_state(
     stop: ?bool,
     gas_remaining: ?u64,
     is_static: ?bool,
-    return_data_buffer: ?[]const u8,
     input: ?[]const u8,
     depth: ?u32,
     output: ?[]const u8,
     pc: ?usize,
-) std.mem.Allocator.Error!Self {
-    return Self{
+) !Frame {
+    return Frame{
         .allocator = allocator,
         .contract = contract,
         .memory = memory orelse try Memory.init_default(allocator),
@@ -182,7 +182,7 @@ pub fn init_with_state(
         .stop = stop orelse false,
         .gas_remaining = gas_remaining orelse 0,
         .is_static = is_static orelse false,
-        .return_data_buffer = return_data_buffer orelse &[_]u8{},
+        .return_data = ReturnData.init(allocator),
         .input = input orelse &[_]u8{},
         .depth = depth orelse 0,
         .output = output orelse &[_]u8{},
@@ -196,8 +196,9 @@ pub fn init_with_state(
 /// the frame is no longer needed to prevent memory leaks.
 ///
 /// @param self The frame to clean up
-pub fn deinit(self: *Self) void {
+pub fn deinit(self: *Frame) void {
     self.memory.deinit();
+    self.return_data.deinit();
 }
 
 /// Error type for gas consumption operations.
@@ -224,8 +225,10 @@ pub const ConsumeGasError = error{
 /// const memory_cost = calculate_memory_gas(size);
 /// try frame.consume_gas(memory_cost);
 /// ```
-pub fn consume_gas(self: *Self, amount: u64) ConsumeGasError!void {
-    @branchHint(.likely);
-    if (amount > self.gas_remaining) return ConsumeGasError.OutOfGas;
+pub fn consume_gas(self: *Frame, amount: u64) ConsumeGasError!void {
+    if (amount > self.gas_remaining) {
+        @branchHint(.cold);
+        return ConsumeGasError.OutOfGas;
+    }
     self.gas_remaining -= amount;
 }

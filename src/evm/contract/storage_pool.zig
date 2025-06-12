@@ -31,7 +31,7 @@ const std = @import("std");
 /// ## Thread Safety
 /// This pool is NOT thread-safe. Each thread should maintain its own pool
 /// or use external synchronization.
-const Self = @This();
+const StoragePool = @This();
 
 /// Pool of reusable access tracking maps (slot -> accessed flag)
 access_maps: std.ArrayList(*std.AutoHashMap(u256, bool)),
@@ -50,7 +50,7 @@ allocator: std.mem.Allocator,
 /// var pool = StoragePool.init(allocator);
 /// defer pool.deinit();
 /// ```
-pub fn init(allocator: std.mem.Allocator) Self {
+pub fn init(allocator: std.mem.Allocator) StoragePool {
     return .{
         .access_maps = std.ArrayList(*std.AutoHashMap(u256, bool)).init(allocator),
         .storage_maps = std.ArrayList(*std.AutoHashMap(u256, u256)).init(allocator),
@@ -65,7 +65,7 @@ pub fn init(allocator: std.mem.Allocator) Self {
 ///
 /// Note: Any maps currently borrowed from the pool will become invalid
 /// after deinit. Ensure all borrowed maps are returned before calling this.
-pub fn deinit(self: *Self) void {
+pub fn deinit(self: *StoragePool) void {
     // Clean up any remaining maps
     for (self.access_maps.items) |map| {
         map.deinit();
@@ -105,7 +105,7 @@ pub const BorrowAccessMapError = error{
 /// try access_map.put(slot, true);
 /// const was_accessed = access_map.get(slot) orelse false;
 /// ```
-pub fn borrow_access_map(self: *Self) BorrowAccessMapError!*std.AutoHashMap(u256, bool) {
+pub fn borrow_access_map(self: *StoragePool) BorrowAccessMapError!*std.AutoHashMap(u256, bool) {
     if (self.access_maps.items.len > 0) return self.access_maps.pop() orelse unreachable;
     const map = self.allocator.create(std.AutoHashMap(u256, bool)) catch {
         return BorrowAccessMapError.OutOfAllocatorMemory;
@@ -123,7 +123,7 @@ pub fn borrow_access_map(self: *Self) BorrowAccessMapError!*std.AutoHashMap(u256
 /// @param map The map to return to the pool
 ///
 /// Note: The map should not be used after returning it to the pool.
-pub fn return_access_map(self: *Self, map: *std.AutoHashMap(u256, bool)) void {
+pub fn return_access_map(self: *StoragePool, map: *std.AutoHashMap(u256, bool)) void {
     map.clearRetainingCapacity();
     self.access_maps.append(map) catch {};
 }
@@ -153,7 +153,7 @@ pub const BorrowStorageMapError = error{
 /// // Store original value before modification
 /// try storage_map.put(slot, original_value);
 /// ```
-pub fn borrow_storage_map(self: *Self) BorrowStorageMapError!*std.AutoHashMap(u256, u256) {
+pub fn borrow_storage_map(self: *StoragePool) BorrowStorageMapError!*std.AutoHashMap(u256, u256) {
     if (self.storage_maps.pop()) |map| {
         return map;
     }
@@ -173,7 +173,7 @@ pub fn borrow_storage_map(self: *Self) BorrowStorageMapError!*std.AutoHashMap(u2
 /// @param map The map to return to the pool
 ///
 /// Note: The map should not be used after returning it to the pool.
-pub fn return_storage_map(self: *Self, map: *std.AutoHashMap(u256, u256)) void {
+pub fn return_storage_map(self: *StoragePool, map: *std.AutoHashMap(u256, u256)) void {
     map.clearRetainingCapacity();
     self.storage_maps.append(map) catch {};
 }
