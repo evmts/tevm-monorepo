@@ -9,6 +9,8 @@ You are implementing BLS12-381 G1MSM Precompile for the Tevm EVM written in Zig.
 - **Commit**: Use emoji conventional commits with XML summary format
 
 
+<<<<<<< HEAD
+=======
 <review>
 **Implementation Status: NOT IMPLEMENTED ❌**
 
@@ -45,6 +47,7 @@ You are implementing BLS12-381 G1MSM Precompile for the Tevm EVM written in Zig.
 - ❌ Requires extensive testing with EIP-2537 test vectors
 </review>
 
+>>>>>>> origin/main
 ## Context
 
 Implement the BLS12-381 G1 multi-scalar multiplication precompile (address 0x0C) as defined in EIP-2537. This precompile performs efficient multi-scalar multiplication operations on the G1 group of the BLS12-381 elliptic curve, essential for BLS signature verification and other cryptographic protocols.
