@@ -22,7 +22,7 @@ Version: 1.1.0.next-73]
 `;
 
 exports[`Error Classes > should have all error classes available with expected shape > AccountNotFoundError 1`] = `
-[AccountNotFoundError: Test error message
+[AccountNotFound: Test error message
 
 Meta message 1
 Meta message 2
@@ -176,7 +176,7 @@ Version: 1.1.0.next-73]
 `;
 
 exports[`Error Classes > should have all error classes available with expected shape > EvmRevertError 1`] = `
-[RevertError: Test error message
+[EvmRevertError: Test error message
 
 Meta message 1
 Meta message 2
@@ -196,7 +196,7 @@ Version: 1.1.0.next-73]
 `;
 
 exports[`Error Classes > should have all error classes available with expected shape > GasLimitExceededError 1`] = `
-[GasLimitExceededError: Test error message
+[GasLimitExceeded: Test error message
 
 Meta message 1
 Meta message 2
@@ -683,7 +683,7 @@ Version: 1.1.0.next-73]
 `;
 
 exports[`Error Classes > should have all error classes available with expected shape > LimitExceededError 1`] = `
-[LimitExceededError: Test error message
+[LimitExceeded: Test error message
 
 Meta message 1
 Meta message 2
@@ -843,7 +843,7 @@ Version: 1.1.0.next-73]
 `;
 
 exports[`Error Classes > should have all error classes available with expected shape > RevertError 1`] = `
-[RevertError: Test error message
+[Revert: Test error message
 
 Meta message 1
 Meta message 2
@@ -903,7 +903,7 @@ Version: 1.1.0.next-73]
 `;
 
 exports[`Error Classes > should have all error classes available with expected shape > TransactionTooLargeError 1`] = `
-[TransactionTooLargeError: Test error message
+[TransactionTooLarge: Test error message
 
 Meta message 1
 Meta message 2
