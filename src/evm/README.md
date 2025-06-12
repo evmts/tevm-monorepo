@@ -275,19 +275,23 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 
 #### Precompiled Contracts (9/17 implemented)
 
+⚠️ **CRITICAL SECURITY NOTICE: CUSTOM CRYPTOGRAPHY IMPLEMENTATIONS DETECTED**
+
+**Several precompiles currently use custom cryptographic implementations instead of proven libraries. This represents significant security risk and should be migrated to established cryptographic libraries.**
+
 - [x] 🟢 **Standard Precompiles**
-  - [x] **ECRECOVER** (0x01) - Elliptic curve signature recovery (placeholder implementation) ✅
-  - [x] **SHA256** (0x02) - SHA-256 hash function ✅
-  - [x] **RIPEMD160** (0x03) - RIPEMD-160 hash function ✅
-  - [x] **IDENTITY** (0x04) - Identity/copy function ✅
-  - [x] **MODEXP** (0x05) - Modular exponentiation with EIP-2565 gas optimization ✅
-  - [x] **ECADD** (0x06) - Elliptic curve point addition ✅
-  - [x] **ECMUL** (0x07) - Elliptic curve point multiplication ✅
-  - [x] **ECPAIRING** (0x08) - Elliptic curve pairing check ✅
-  - [x] **BLAKE2F** (0x09) - Blake2f compression function ✅
+  - [x] **ECRECOVER** (0x01) - ⚠️ **PLACEHOLDER IMPLEMENTATION** - Currently intentionally fails, needs migration to libsecp256k1 ✅
+  - [x] **SHA256** (0x02) - ✅ Uses Zig std library (safe) ✅
+  - [x] **RIPEMD160** (0x03) - ⚠️ **CUSTOM IMPLEMENTATION** - Should migrate to proven library ✅
+  - [x] **IDENTITY** (0x04) - ✅ Simple copy operation (safe) ✅
+  - [x] **MODEXP** (0x05) - ⚠️ **CUSTOM BIG INTEGER IMPLEMENTATION** - Should migrate to GMP or similar ✅
+  - [x] **ECADD** (0x06) - ⚠️ **CUSTOM BN254 IMPLEMENTATION** - Should migrate to arkworks/blst ✅
+  - [x] **ECMUL** (0x07) - ⚠️ **CUSTOM BN254 IMPLEMENTATION** - Should migrate to arkworks/blst ✅
+  - [x] **ECPAIRING** (0x08) - ⚠️ **CUSTOM PAIRING IMPLEMENTATION** - Should migrate to arkworks/blst ✅
+  - [x] **BLAKE2F** (0x09) - ⚠️ **CUSTOM BLAKE2 IMPLEMENTATION** - Consider migration to proven library ✅
 - [x] **KZG Point Evaluation** (0x0A) - EIP-4844 blob verification precompile ✅
 - [ ] 🟡 **BLS12-381 Precompiles** (EIP-2537)
-  - [ ] **G1ADD** (0x0B) - BLS12-381 G1 addition
+  - [x] **G1ADD** (0x0B) - ⚠️ **CUSTOM BLS12-381 IMPLEMENTATION** - Should migrate to BLST ✅
   - [ ] **G1MSM** (0x0C) - [BLS12-381 G1 multi-scalar multiplication](./prompts/implement-bls12-381-g1msm-precompile.md)
   - [ ] **G2ADD** (0x0D) - [BLS12-381 G2 addition](./prompts/implement-bls12-381-g2add-precompile.md) | [Enhanced](./prompts/implement-bls12-381-g2add-precompile-enhanced.md)
   - [ ] **G2MSM** (0x0E) - [BLS12-381 G2 multi-scalar multiplication](./prompts/implement-bls12-381-g2msm-precompile.md) | [Enhanced](./prompts/implement-bls12-381-g2msm-precompile-enhanced.md)
@@ -295,6 +299,61 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
   - [ ] **MAP_FP_TO_G1** (0x10) - [Map field point to G1](./prompts/implement-bls12-381-map-fp-to-g1-precompile.md)
   - [ ] **MAP_FP2_TO_G2** (0x11) - [Map field point to G2](./prompts/implement-bls12-381-map-fp2-to-g2-precompile.md) | [Enhanced](./prompts/implement-bls12-381-map-fp2-to-g2-precompile-enhanced.md)
 - [ ] 🟡 **OP Stack Precompiles** - [P256VERIFY (RIP-7212) for SECP256R1 signature verification](./prompts/implement-op-stack-precompiles.md)
+
+##### **🔄 Recommended Migration Strategy**
+
+**Based on revm and evmone implementations:**
+
+1. **ECRECOVER** (secp256k1):
+   - **Revm approach**: Use `secp256k1` crate (primary) or `k256` (WASM-compatible fallback)
+   - **Evmone approach**: Custom optimized implementation with ECC framework
+   - **Recommendation**: Follow revm's multi-backend approach for maximum compatibility
+
+2. **BN254 Operations** (ECADD, ECMUL, ECPAIRING):
+   - **Revm approach**: `arkworks` ecosystem (`ark-bn254`, `ark-ec`, `ark-ff`) with `substrate-bn` fallback
+   - **Evmone approach**: Custom BN254 implementation with `evmmax` framework  
+   - **Recommendation**: Use arkworks for Rust-compatible approach, or integrate with existing proven libraries
+
+3. **MODEXP** (Modular Exponentiation):
+   - **Revm approach**: `aurora-engine-modexp` crate with optimized big integer arithmetic
+   - **Evmone approach**: GNU Multiple Precision Arithmetic Library (GMP)
+   - **Recommendation**: GMP integration for maximum performance, with pure fallback
+
+4. **BLS12-381 Operations**:
+   - **Revm approach**: `blst` (primary, C optimized) with `ark-bls12-381` (pure Rust fallback)
+   - **Evmone approach**: BLST library v0.3.13 from Supranational
+   - **Recommendation**: BLST is the industry standard, used by both implementations
+
+5. **BLAKE2F**:
+   - **Revm approach**: Custom pure Rust implementation  
+   - **Evmone approach**: Custom C++ implementation with standard library
+   - **Recommendation**: Consider established BLAKE2 libraries for additional security assurance
+
+6. **RIPEMD160**:
+   - **Revm approach**: `ripemd` crate
+   - **Evmone approach**: Custom implementation following RFC
+   - **Recommendation**: Use proven `ripemd` crate or similar established library
+
+##### **🎯 Implementation Priority**
+
+1. **HIGH PRIORITY** - Security Critical:
+   - ECRECOVER (signature verification)
+   - BLS12-381 operations (Ethereum 2.0 consensus critical)
+   - MODEXP (RSA and cryptographic protocols)
+
+2. **MEDIUM PRIORITY** - Complex Cryptography:
+   - BN254 operations (zkSNARK critical but less consensus critical)
+   - BLAKE2F (less commonly used)
+
+3. **LOW PRIORITY** - Well-understood Algorithms:
+   - RIPEMD160 (hash function, lower risk but should still migrate)
+
+##### **⚡ WASM Compatibility Considerations**
+
+For WASM builds, follow revm's pattern:
+- **Primary backends**: Optimized C libraries (secp256k1, BLST, GMP)
+- **WASM fallbacks**: Pure Rust/Zig implementations (k256, arkworks, custom big int)
+- **Feature detection**: Automatic selection based on target environment
 
 #### Advanced Gas & Performance
 

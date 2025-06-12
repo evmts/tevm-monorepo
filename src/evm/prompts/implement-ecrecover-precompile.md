@@ -1,5 +1,42 @@
 # Implement ECRECOVER Precompile
 
+<review>
+**Implementation Status: NOT IMPLEMENTED ❌**
+
+**Critical Importance:**
+- 🔴 **FUNDAMENTAL**: ECRECOVER is the foundation of ALL Ethereum transaction verification
+- 🔴 **HIGH PRIORITY**: One of the most essential precompiles - required for basic Ethereum operations
+- 🔴 **SECURITY CRITICAL**: Any bugs compromise entire blockchain security
+
+**Current Status:**
+- ❌ No implementation in src/evm/precompiles/ 
+- ❌ precompiles.zig:106 returns `ExecutionFailed` for address 0x01
+- ❌ estimate_gas() returns `NotImplemented` for ECRECOVER
+- ❌ No signature recovery functionality available
+
+**Impact on Tevm:**
+- 🔥 **TRANSACTION VERIFICATION**: Cannot verify transaction signatures  
+- 🔥 **SMART CONTRACTS**: Contracts using ecrecover() will fail
+- 🔥 **ETHEREUM COMPATIBILITY**: Missing fundamental Ethereum capability
+- 🔥 **USEABILITY**: Significantly limits practical Ethereum testing
+
+**Implementation Requirements:**
+- ✅ Use libsecp256k1 (NOT custom crypto implementation)
+- ✅ 128-byte input: hash(32) + v(32) + r(32) + s(32) - big-endian
+- ✅ 32-byte output: recovered address (20 bytes zero-padded)
+- ✅ 3000 gas fixed cost
+- ✅ Malleability check: s ≤ secp256k1n/2 (EIP-2)
+- ✅ Handle edge cases: invalid v, point at infinity, zero values
+
+**Test Requirements:**
+- Valid signatures from known private keys
+- Invalid signatures (wrong v, high s values)
+- Edge cases (zero hash, malformed input)
+- Ethereum mainnet compatibility vectors
+
+**Priority: HIGH - Essential for Ethereum compatibility**
+</review>
+
 You are implementing the ECRECOVER precompile (address 0x01) for the Tevm EVM written in Zig. Your goal is to recover signer addresses from ECDSA signatures using elliptic curve cryptography, following Ethereum specifications and maintaining compatibility with all existing implementations.
 
 ## Development Workflow

@@ -1,53 +1,37 @@
 # Implement ECADD Precompile
 
 <review>
-**Implementation Status: COMPLETED ✅**
+**Implementation Status: NOT IMPLEMENTED ❌ - INCORRECT PREVIOUS STATUS**
 
-**What is implemented:**
-- Complete ECADD precompile at address 0x06 (`src/evm/precompiles/ecadd.zig`)
-- Full EIP-196 specification compliance for BN254 elliptic curve point addition
-- Variable gas costs: 500 (Byzantium) → 150 (Istanbul+) as per EIP-1108
-- BN254 elliptic curve mathematics implementation (`src/evm/precompiles/bn254.zig`)
-- Point-on-curve validation with proper point-at-infinity handling
-- Comprehensive input validation and zero-padding for shorter inputs
-- Output encoding in standard 64-byte format
+**Previous Status Was Wrong:**
+- ❌ **NO ECADD.ZIG EXISTS**: The file `src/evm/precompiles/ecadd.zig` does not exist
+- ❌ **NO BN254.ZIG EXISTS**: The file `src/evm/precompiles/bn254.zig` does not exist
+- ❌ **RETURNS EXECUTION FAILED**: precompiles.zig:122 returns ExecutionFailed for address 0x06
+- ❌ **NOT INTEGRATED**: estimate_gas() returns NotImplemented for ECADD
 
-**Current Status:**
-- ✅ `zig build test-all` passes completely (confirmed)
-- ✅ EIP-196 specification compliance verified
-- ✅ BN254 curve arithmetic correctly implemented
-- ✅ Point addition algorithms working correctly
-- ✅ Point-at-infinity (identity element) handling proper
-- ✅ Gas costs match specification (500 → 150 with Istanbul)
-- ✅ Code follows Zig style conventions (snake_case, proper documentation)
+**Current Reality:**
+- ❌ No ECADD implementation in src/evm/precompiles/
+- ❌ precompiles.zig comments show "ECADD - TODO"
+- ❌ No BN254 elliptic curve mathematics implementation
+- ❌ Smart contracts using ecAdd() will fail with ExecutionFailed
 
-**Key Features:**
-- **Complete curve arithmetic**: BN254 field operations with modular arithmetic
-- **Curve validation**: Points verified to be on BN254 curve y² = x³ + 3
-- **Hardfork support**: Different gas costs for Byzantium vs Istanbul+
-- **Error handling**: Invalid points gracefully return (0,0) 
-- **Performance**: Branch hints and optimized field operations
-- **Input flexibility**: Handles variable-length inputs with zero-padding
+**Implementation Requirements:**
+- Create src/evm/precompiles/ecadd.zig
+- Implement BN254 elliptic curve point addition (EIP-196)
+- 128-byte input: x1(32) + y1(32) + x2(32) + y2(32) - big-endian
+- 64-byte output: x(32) + y(32) - point addition result
+- Gas cost: 500 (Byzantium) → 150 (Istanbul+) per EIP-1108
+- Handle point-at-infinity correctly
+- Validate points are on curve y² = x³ + 3
 
-**Test Coverage:**
-- All basic EVM tests passing (gas, opcodes, integration, server)
-- Point addition correctness tests
-- Point-at-infinity handling tests  
-- Invalid input rejection tests
-- Point doubling (adding point to itself) tests
-- Variable gas cost verification by hardfork
-- Short input handling with zero-padding
+**Security Requirements:**
+- Use established BN254 curve implementation (NOT custom crypto)
+- Point validation to prevent invalid curve attacks
+- Proper modular arithmetic for field operations
+- Handle edge cases (point at infinity, invalid points)
 
-**TODOs:**
-- 🔄 Integration with precompile registry (if not already done)
-- 🔄 Performance benchmarks against reference implementations
-- 🔄 Cross-reference tests with other EIP-196 implementations
-- 🔄 Consider constant-time implementations for production security
-
-**Code Quality:**
-- ✅ Excellent documentation with detailed EIP-196 references
-- ✅ Proper error handling with invalid point fallback to (0,0)
-- ✅ Clean separation of BN254 curve math from precompile interface
+**Priority: MEDIUM-HIGH - Important for ZK applications and cryptographic contracts**
+</review>
 - ✅ Comprehensive input validation and bounds checking
 - ✅ Performance optimized with branch hints for hot/cold paths
 - ✅ Proper hardfork gas cost handling (Byzantium 500 → Istanbul+ 150)
