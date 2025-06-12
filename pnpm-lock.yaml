@@ -1197,12 +1197,21 @@ importers:
 
   extensions/test-matchers:
     dependencies:
+      '@tevm/actions':
+        specifier: workspace:^
+        version: link:../../packages/actions
+      '@tevm/errors':
+        specifier: workspace:^
+        version: link:../../packages/errors
       '@tevm/utils':
         specifier: workspace:^
         version: link:../../packages/utils
       abitype:
         specifier: ^1.0.8
         version: 1.0.8(typescript@5.8.3)(zod@3.25.30)
+      ox:
+        specifier: ^0.7.2
+        version: 0.7.2(typescript@5.8.3)(zod@3.25.30)
       viem:
         specifier: ^2.30.1
         version: 2.30.1(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.25.30)
@@ -1210,6 +1219,9 @@ importers:
         specifier: ^3.1.4
         version: 3.1.4(@types/debug@4.1.12)(@types/node@22.15.21)(@vitest/ui@3.1.4)(jiti@2.4.2)(lightningcss@1.30.1)(msw@2.8.4(@types/node@22.15.21)(typescript@5.8.3))(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0)
     devDependencies:
+      '@tevm/common':
+        specifier: workspace:^
+        version: link:../../packages/common
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -7760,7 +7772,6 @@ packages:
 
   bun@1.2.5:
     resolution: {integrity: sha512-fbQLt+DPiGUrPKdmsHRRT7cQAlfjdxPVFvLZrsUPmKiTdv+pU50ypdx9yRJluknSbyaZchFVV7Lx2KXikXKX2Q==}
-    cpu: [arm64, x64, aarch64]
     os: [darwin, linux, win32]
     hasBin: true
 
