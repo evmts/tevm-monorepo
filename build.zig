@@ -663,6 +663,38 @@ pub fn build(b: *std.Build) void {
     const debug_return_opcode_step = b.step("test-return-opcode", "Test RETURN opcode implementation");
     debug_return_opcode_step.dependOn(&run_debug_return_opcode.step);
 
+    // Add simple CREATE debug executable with logging
+    const debug_create_simple_with_logging = b.addExecutable(.{
+        .name = "debug-create-simple-with-logging",
+        .root_source_file = b.path("debug_create_simple_with_logging.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    debug_create_simple_with_logging.root_module.addImport("evm", evm_mod);
+    debug_create_simple_with_logging.root_module.addImport("Address", address_mod);
+    debug_create_simple_with_logging.root_module.stack_check = false;
+    debug_create_simple_with_logging.root_module.single_threaded = true;
+
+    const run_debug_create_simple_with_logging = b.addRunArtifact(debug_create_simple_with_logging);
+    const debug_create_simple_with_logging_step = b.step("debug-create-simple-logging", "Debug simple CREATE with logging");
+    debug_create_simple_with_logging_step.dependOn(&run_debug_create_simple_with_logging.step);
+
+    // Add TenThousandHashes CREATE debug executable
+    const debug_tenhashes_detailed = b.addExecutable(.{
+        .name = "debug-tenhashes-detailed",
+        .root_source_file = b.path("debug_tenhashes_detailed.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    debug_tenhashes_detailed.root_module.addImport("evm", evm_mod);
+    debug_tenhashes_detailed.root_module.addImport("Address", address_mod);
+    debug_tenhashes_detailed.root_module.stack_check = false;
+    debug_tenhashes_detailed.root_module.single_threaded = true;
+
+    const run_debug_tenhashes_detailed = b.addRunArtifact(debug_tenhashes_detailed);
+    const debug_tenhashes_detailed_step = b.step("debug-tenhashes-detailed", "Debug TenThousandHashes CREATE with detailed logging");
+    debug_tenhashes_detailed_step.dependOn(&run_debug_tenhashes_detailed.step);
+
     // Add Gas Accounting tests
     const gas_test = b.addTest(.{
         .name = "gas-test",
@@ -921,6 +953,277 @@ pub fn build(b: *std.Build) void {
     const run_simple_contract_execution_test = b.addRunArtifact(simple_contract_execution_test);
     const simple_contract_execution_test_step = b.step("test-simple-contract-execution", "Run Simple Contract Execution tests");
     simple_contract_execution_test_step.dependOn(&run_simple_contract_execution_test.step);
+    
+    // Add Compiler Bytecode Issue test
+    const compiler_bytecode_issue_test = b.addTest(.{
+        .name = "compiler-bytecode-issue-test",
+        .root_source_file = b.path("test/evm/compiler_bytecode_issue_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    compiler_bytecode_issue_test.root_module.addImport("evm", target_architecture_mod);
+    compiler_bytecode_issue_test.root_module.addImport("Compiler", compiler_mod);
+    compiler_bytecode_issue_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    compiler_bytecode_issue_test.root_module.addIncludePath(b.path("include"));
+    compiler_bytecode_issue_test.step.dependOn(rust_step);
+    compiler_bytecode_issue_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    compiler_bytecode_issue_test.linkLibC();
+    if (target.result.os.tag == .linux) {
+        compiler_bytecode_issue_test.linkSystemLibrary("unwind");
+        compiler_bytecode_issue_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        compiler_bytecode_issue_test.linkFramework("CoreFoundation");
+        compiler_bytecode_issue_test.linkFramework("Security");
+    }
+    const run_compiler_bytecode_issue_test = b.addRunArtifact(compiler_bytecode_issue_test);
+    const compiler_bytecode_issue_test_step = b.step("test-compiler-bytecode-issue", "Run Compiler Bytecode Issue tests");
+    compiler_bytecode_issue_test_step.dependOn(&run_compiler_bytecode_issue_test.step);
+    
+    // Add Compiler Hex Decode test (simpler test without EVM dependencies)
+    const compiler_hex_decode_test = b.addTest(.{
+        .name = "compiler-hex-decode-test",
+        .root_source_file = b.path("test/evm/compiler_hex_decode_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    compiler_hex_decode_test.root_module.addImport("Compiler", compiler_mod);
+    compiler_hex_decode_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    compiler_hex_decode_test.root_module.addIncludePath(b.path("include"));
+    compiler_hex_decode_test.step.dependOn(rust_step);
+    compiler_hex_decode_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    compiler_hex_decode_test.linkLibC();
+    if (target.result.os.tag == .linux) {
+        compiler_hex_decode_test.linkSystemLibrary("unwind");
+        compiler_hex_decode_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        compiler_hex_decode_test.linkFramework("CoreFoundation");
+        compiler_hex_decode_test.linkFramework("Security");
+    }
+    const run_compiler_hex_decode_test = b.addRunArtifact(compiler_hex_decode_test);
+    const compiler_hex_decode_test_step = b.step("test-compiler-hex-decode", "Run Compiler Hex Decode tests");
+    compiler_hex_decode_test_step.dependOn(&run_compiler_hex_decode_test.step);
+    
+    // Add Function Selector Debug test
+    const function_selector_debug_test = b.addTest(.{
+        .name = "function-selector-debug-test",
+        .root_source_file = b.path("test/evm/function_selector_debug_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    function_selector_debug_test.root_module.addImport("Compiler", compiler_mod);
+    function_selector_debug_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    function_selector_debug_test.root_module.addIncludePath(b.path("include"));
+    function_selector_debug_test.step.dependOn(rust_step);
+    function_selector_debug_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    function_selector_debug_test.linkLibC();
+    if (target.result.os.tag == .linux) {
+        function_selector_debug_test.linkSystemLibrary("unwind");
+        function_selector_debug_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        function_selector_debug_test.linkFramework("CoreFoundation");
+        function_selector_debug_test.linkFramework("Security");
+    }
+    const run_function_selector_debug_test = b.addRunArtifact(function_selector_debug_test);
+    const function_selector_debug_test_step = b.step("test-function-selector-debug", "Run Function Selector Debug tests");
+    function_selector_debug_test_step.dependOn(&run_function_selector_debug_test.step);
+    
+    // Add Contract Deployment test
+    const contract_deployment_test = b.addTest(.{
+        .name = "contract-deployment-test",
+        .root_source_file = b.path("test/evm/contract_deployment_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    contract_deployment_test.root_module.addImport("evm", target_architecture_mod);
+    contract_deployment_test.root_module.addImport("Compiler", compiler_mod);
+    contract_deployment_test.root_module.addImport("Address", address_mod);
+    contract_deployment_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    contract_deployment_test.root_module.addIncludePath(b.path("include"));
+    contract_deployment_test.step.dependOn(rust_step);
+    contract_deployment_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    contract_deployment_test.linkLibC();
+    if (target.result.os.tag == .linux) {
+        contract_deployment_test.linkSystemLibrary("unwind");
+        contract_deployment_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        contract_deployment_test.linkFramework("CoreFoundation");
+        contract_deployment_test.linkFramework("Security");
+    }
+    const run_contract_deployment_test = b.addRunArtifact(contract_deployment_test);
+    const contract_deployment_test_step = b.step("test-contract-deployment", "Run Contract Deployment tests");
+    contract_deployment_test_step.dependOn(&run_contract_deployment_test.step);
+    
+    // Add Contract Call Setup test
+    const contract_call_setup_test = b.addTest(.{
+        .name = "contract-call-setup-test",
+        .root_source_file = b.path("test/evm/contract_call_setup_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    contract_call_setup_test.root_module.addImport("evm", target_architecture_mod);
+    contract_call_setup_test.root_module.addImport("Compiler", compiler_mod);
+    contract_call_setup_test.root_module.addImport("Address", address_mod);
+    contract_call_setup_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    contract_call_setup_test.root_module.addIncludePath(b.path("include"));
+    contract_call_setup_test.step.dependOn(rust_step);
+    contract_call_setup_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    contract_call_setup_test.linkLibC();
+    if (target.result.os.tag == .linux) {
+        contract_call_setup_test.linkSystemLibrary("unwind");
+        contract_call_setup_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        contract_call_setup_test.linkFramework("CoreFoundation");
+        contract_call_setup_test.linkFramework("Security");
+    }
+    const run_contract_call_setup_test = b.addRunArtifact(contract_call_setup_test);
+    const contract_call_setup_test_step = b.step("test-contract-call-setup", "Run Contract Call Setup tests");
+    contract_call_setup_test_step.dependOn(&run_contract_call_setup_test.step);
+    
+    // Add TenThousandHashes Specific test
+    const tenhashes_specific_test = b.addTest(.{
+        .name = "tenhashes-specific-test",
+        .root_source_file = b.path("test/evm/tenhashes_specific_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    tenhashes_specific_test.root_module.addImport("evm", target_architecture_mod);
+    tenhashes_specific_test.root_module.addImport("Compiler", compiler_mod);
+    tenhashes_specific_test.root_module.addImport("Address", address_mod);
+    tenhashes_specific_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    tenhashes_specific_test.root_module.addIncludePath(b.path("include"));
+    tenhashes_specific_test.step.dependOn(rust_step);
+    tenhashes_specific_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    tenhashes_specific_test.linkLibC();
+    if (target.result.os.tag == .linux) {
+        tenhashes_specific_test.linkSystemLibrary("unwind");
+        tenhashes_specific_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        tenhashes_specific_test.linkFramework("CoreFoundation");
+        tenhashes_specific_test.linkFramework("Security");
+    }
+    const run_tenhashes_specific_test = b.addRunArtifact(tenhashes_specific_test);
+    const tenhashes_specific_test_step = b.step("test-tenhashes-specific", "Run TenThousandHashes Specific tests");
+    tenhashes_specific_test_step.dependOn(&run_tenhashes_specific_test.step);
+    
+    // Add Simple Compilation test (minimal dependencies)
+    const simple_compilation_test = b.addTest(.{
+        .name = "simple-compilation-test",
+        .root_source_file = b.path("test/evm/simple_compilation_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    simple_compilation_test.root_module.addImport("Compiler", compiler_mod);
+    simple_compilation_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    simple_compilation_test.root_module.addIncludePath(b.path("include"));
+    simple_compilation_test.step.dependOn(rust_step);
+    simple_compilation_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    simple_compilation_test.linkLibC();
+    if (target.result.os.tag == .linux) {
+        simple_compilation_test.linkSystemLibrary("unwind");
+        simple_compilation_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        simple_compilation_test.linkFramework("CoreFoundation");
+        simple_compilation_test.linkFramework("Security");
+    }
+    const run_simple_compilation_test = b.addRunArtifact(simple_compilation_test);
+    const simple_compilation_test_step = b.step("test-simple-compilation", "Run Simple Compilation tests");
+    simple_compilation_test_step.dependOn(&run_simple_compilation_test.step);
+    
+    // Add Minimal Execution test (no external dependencies)
+    const minimal_execution_test = b.addTest(.{
+        .name = "minimal-execution-test",
+        .root_source_file = b.path("test/evm/minimal_execution_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    const run_minimal_execution_test = b.addRunArtifact(minimal_execution_test);
+    const minimal_execution_test_step = b.step("test-minimal-execution", "Run Minimal Execution tests");
+    minimal_execution_test_step.dependOn(&run_minimal_execution_test.step);
+    
+    // Add Contract Initialization test
+    const contract_initialization_test = b.addTest(.{
+        .name = "contract-initialization-test",
+        .root_source_file = b.path("test/evm/contract_initialization_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    contract_initialization_test.root_module.addImport("evm", target_architecture_mod);
+    contract_initialization_test.root_module.addImport("Compiler", compiler_mod);
+    contract_initialization_test.root_module.addImport("Address", address_mod);
+    contract_initialization_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    contract_initialization_test.root_module.addIncludePath(b.path("include"));
+    contract_initialization_test.step.dependOn(rust_step);
+    contract_initialization_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    contract_initialization_test.linkLibC();
+    if (target.result.os.tag == .linux) {
+        contract_initialization_test.linkSystemLibrary("unwind");
+        contract_initialization_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        contract_initialization_test.linkFramework("CoreFoundation");
+        contract_initialization_test.linkFramework("Security");
+    }
+    const run_contract_initialization_test = b.addRunArtifact(contract_initialization_test);
+    const contract_initialization_test_step = b.step("test-contract-initialization", "Run Contract Initialization tests");
+    contract_initialization_test_step.dependOn(&run_contract_initialization_test.step);
+    
+    // Add Gas Execution Pattern test (no external dependencies)
+    const gas_execution_pattern_test = b.addTest(.{
+        .name = "gas-execution-pattern-test",
+        .root_source_file = b.path("test/evm/gas_execution_pattern_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    const run_gas_execution_pattern_test = b.addRunArtifact(gas_execution_pattern_test);
+    const gas_execution_pattern_test_step = b.step("test-gas-execution-pattern", "Run Gas Execution Pattern tests");
+    gas_execution_pattern_test_step.dependOn(&run_gas_execution_pattern_test.step);
+    
+    // Add Invalid Execution Point test
+    const invalid_execution_point_test = b.addTest(.{
+        .name = "invalid-execution-point-test",
+        .root_source_file = b.path("test/evm/invalid_execution_point_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    invalid_execution_point_test.root_module.addImport("Compiler", compiler_mod);
+    invalid_execution_point_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    invalid_execution_point_test.root_module.addIncludePath(b.path("include"));
+    invalid_execution_point_test.step.dependOn(rust_step);
+    invalid_execution_point_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    invalid_execution_point_test.linkLibC();
+    if (target.result.os.tag == .linux) {
+        invalid_execution_point_test.linkSystemLibrary("unwind");
+        invalid_execution_point_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        invalid_execution_point_test.linkFramework("CoreFoundation");
+        invalid_execution_point_test.linkFramework("Security");
+    }
+    const run_invalid_execution_point_test = b.addRunArtifact(invalid_execution_point_test);
+    const invalid_execution_point_test_step = b.step("test-invalid-execution-point", "Run Invalid Execution Point tests");
+    invalid_execution_point_test_step.dependOn(&run_invalid_execution_point_test.step);
+    
+    // Add Dispatch Failure Reproduction test
+    const dispatch_failure_test = b.addTest(.{
+        .name = "dispatch-failure-reproduction-test",
+        .root_source_file = b.path("test/evm/dispatch_failure_reproduction_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    dispatch_failure_test.root_module.addImport("Compiler", compiler_mod);
+    dispatch_failure_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    dispatch_failure_test.root_module.addIncludePath(b.path("include"));
+    dispatch_failure_test.step.dependOn(rust_step);
+    dispatch_failure_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    dispatch_failure_test.linkLibC();
+    if (target.result.os.tag == .linux) {
+        dispatch_failure_test.linkSystemLibrary("unwind");
+        dispatch_failure_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        dispatch_failure_test.linkFramework("CoreFoundation");
+        dispatch_failure_test.linkFramework("Security");
+    }
+    const run_dispatch_failure_test = b.addRunArtifact(dispatch_failure_test);
+    const dispatch_failure_test_step = b.step("test-dispatch-failure", "Run Dispatch Failure Reproduction tests");
+    dispatch_failure_test_step.dependOn(&run_dispatch_failure_test.step);
 
     // Add EVM Contract benchmark (after rust_step is defined)
     const evm_contract_benchmark = b.addExecutable(.{
@@ -957,6 +1260,58 @@ pub fn build(b: *std.Build) void {
     
     // Add EVM contract benchmark to the combined benchmark step
     all_benchmark_step.dependOn(&run_evm_contract_benchmark.step);
+    
+    // Add Gas Debugging tool
+    const debug_gas_tool = b.addExecutable(.{
+        .name = "debug-gas-issue",
+        .root_source_file = b.path("debug_gas_issue.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    debug_gas_tool.root_module.addImport("evm", target_architecture_mod);
+    debug_gas_tool.root_module.addImport("Address", address_mod);
+    debug_gas_tool.root_module.addImport("Compiler", compiler_mod);
+    debug_gas_tool.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    debug_gas_tool.root_module.addIncludePath(b.path("include"));
+    debug_gas_tool.step.dependOn(rust_step);
+    debug_gas_tool.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    debug_gas_tool.linkLibC();
+    if (target.result.os.tag == .linux) {
+        debug_gas_tool.linkSystemLibrary("unwind");
+        debug_gas_tool.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        debug_gas_tool.linkFramework("CoreFoundation");
+        debug_gas_tool.linkFramework("Security");
+    }
+    const run_debug_gas_tool = b.addRunArtifact(debug_gas_tool);
+    const debug_gas_tool_step = b.step("debug-gas", "Debug EVM gas accounting issues");
+    debug_gas_tool_step.dependOn(&run_debug_gas_tool.step);
+    
+    // Add Bytecode Analysis tool
+    const debug_bytecode_detailed = b.addExecutable(.{
+        .name = "debug-bytecode-detailed",
+        .root_source_file = b.path("debug_bytecode_detailed.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    debug_bytecode_detailed.root_module.addImport("evm", target_architecture_mod);
+    debug_bytecode_detailed.root_module.addImport("Address", address_mod);
+    debug_bytecode_detailed.root_module.addImport("Compiler", compiler_mod);
+    debug_bytecode_detailed.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    debug_bytecode_detailed.root_module.addIncludePath(b.path("include"));
+    debug_bytecode_detailed.step.dependOn(rust_step);
+    debug_bytecode_detailed.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    debug_bytecode_detailed.linkLibC();
+    if (target.result.os.tag == .linux) {
+        debug_bytecode_detailed.linkSystemLibrary("unwind");
+        debug_bytecode_detailed.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        debug_bytecode_detailed.linkFramework("CoreFoundation");
+        debug_bytecode_detailed.linkFramework("Security");
+    }
+    const run_debug_bytecode_detailed = b.addRunArtifact(debug_bytecode_detailed);
+    const debug_bytecode_detailed_step = b.step("debug-bytecode-detailed", "Analyze EVM bytecode in detail");
+    debug_bytecode_detailed_step.dependOn(&run_debug_bytecode_detailed.step);
 
     const run_lib_unit_tests = b.addRunArtifact(lib_unit_tests);
 
@@ -986,6 +1341,7 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_gas_test.step);
     test_step.dependOn(&run_static_protection_test.step);
     test_step.dependOn(&run_create_contract_test.step);
+    test_step.dependOn(&run_compiler_bytecode_issue_test.step);
 
     // Define a single test step that runs all tests
     const test_all_step = b.step("test-all", "Run all unit tests");

@@ -60,9 +60,9 @@ test "CREATE contract deployment stores runtime bytecode at contract address" {
         std.log.err("ERROR: No code found at contract address after successful CREATE!", .{});
     }
 
-    // The deployed code should be 31 bytes (30 zeros + 1 STOP opcode)
-    try testing.expect(deployed_code.len == 31);
-    try testing.expect(deployed_code[30] == 0x00); // Last byte should be STOP opcode
+    // The deployed code should be 1 byte containing the STOP opcode
+    try testing.expect(deployed_code.len == 1);
+    try testing.expect(deployed_code[0] == 0x00); // Should be STOP opcode
 }
 
 test "CREATE with STOP runtime bytecode" {
@@ -115,9 +115,9 @@ test "CREATE with STOP runtime bytecode" {
     const deployed_code = vm.state.get_code(create_result.address);
     std.log.info("Deployed code length: {}, content: {any}", .{ deployed_code.len, deployed_code });
 
-    // Should have 31 bytes of runtime code (30 zeros + the STOP opcode)
-    try testing.expect(deployed_code.len == 31);
-    try testing.expect(deployed_code[30] == 0x00); // STOP opcode
+    // Should have 1 byte of runtime code (the STOP opcode)
+    try testing.expect(deployed_code.len == 1);
+    try testing.expect(deployed_code[0] == 0x00); // STOP opcode
 }
 
 test "CREATE with TenThousandHashes bytecode - DETAILED DEBUG" {

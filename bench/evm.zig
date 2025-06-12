@@ -1,8 +1,11 @@
 const std = @import("std");
 const zbench = @import("zbench");
-const evm = @import("evm");
+const evm_root = @import("evm");
 const Compiler = @import("Compiler");
 const Address = @import("Address");
+
+// Import EVM components
+const evm = evm_root.evm;
 
 // Solidity source code for TenThousandHashes benchmark
 const TEN_THOUSAND_HASHES_SOURCE =
@@ -164,13 +167,23 @@ fn compileAndExecuteBenchmark(allocator: std.mem.Allocator, contract_name: []con
     
     const contract = compilation_result.contracts[0];
     
+    std.debug.print("Contract {s}: bytecode_len={}, deployed_bytecode_len={}\n", .{
+        contract_name, 
+        contract.bytecode.len, 
+        contract.deployed_bytecode.len
+    });
+    
+    // Use deployed bytecode for execution, not constructor bytecode
+    const runtime_bytecode = if (contract.deployed_bytecode.len > 0) contract.deployed_bytecode else contract.bytecode;
+    
     // Execute the contract using real EVM
-    try executeContractBenchmark(allocator, contract_name, contract.bytecode);
+    try executeContractBenchmark(allocator, contract_name, runtime_bytecode);
 }
 
 // Execute a contract's Benchmark() function using the real EVM
 fn executeContractBenchmark(allocator: std.mem.Allocator, contract_name: []const u8, deployed_bytecode: []const u8) !void {
-    _ = contract_name;
+    std.debug.print("\n=== Executing {s} benchmark ===\n", .{contract_name});
+    std.debug.print("Runtime bytecode length: {} bytes\n", .{deployed_bytecode.len});
     
     // Create VM and Database on heap to avoid stack overflow
     const vm_ptr = try allocator.create(evm.Vm);
@@ -193,9 +206,15 @@ fn executeContractBenchmark(allocator: std.mem.Allocator, contract_name: []const
     
     // Set up initial state - put the deployed bytecode at the contract address
     try vm_ptr.state.set_code(contract_address, deployed_bytecode);
+    std.debug.print("Contract deployed at address: {any}\n", .{contract_address});
+    
+    // Verify deployment
+    const stored_code = vm_ptr.state.get_code(contract_address);
+    std.debug.print("Stored code length: {} bytes\n", .{stored_code.len});
     
     // Create call data for Benchmark() function
     const call_data = BENCHMARK_SELECTOR;
+    std.debug.print("Calling Benchmark() with selector: 0x{x:0>8}\n", .{std.mem.readInt(u32, &call_data, .big)});
     
     // Calculate code hash for the deployed bytecode
     var hasher = std.crypto.hash.sha3.Keccak256.init(.{});
@@ -203,12 +222,12 @@ fn executeContractBenchmark(allocator: std.mem.Allocator, contract_name: []const
     var code_hash: [32]u8 = undefined;
     hasher.final(&code_hash);
     
-    // Create a contract instance for execution  
+    // Create a contract instance for execution with much higher gas limit
     var contract = evm.Contract.init(
         caller_address,     // caller
         contract_address,   // address
         0,                  // value (no ETH transfer)
-        100_000_000,       // gas limit (increased to 100M)
+        1_000_000_000,     // gas limit (1B gas)
         deployed_bytecode,  // code
         code_hash,         // code hash
         &call_data,        // input data
@@ -216,20 +235,38 @@ fn executeContractBenchmark(allocator: std.mem.Allocator, contract_name: []const
     );
     defer contract.deinit(allocator, null);
     
+    std.debug.print("Starting execution with {} gas...\n", .{contract.gas});
+    
     // Execute the contract using the VM's interpret method
     const result = vm_ptr.interpret(&contract, &call_data) catch |err| {
-        std.debug.print("Contract execution failed: {}\n", .{err});
+        std.debug.print("Contract execution failed with error: {}\n", .{err});
         return;
     };
     
     // Report execution results
-    const gas_used = 100_000_000 - result.gas_left;
-    std.debug.print("Contract executed: status={}, gas_used={}\n", .{ result.status, gas_used });
+    const gas_used = 1_000_000_000 - result.gas_left;
+    std.debug.print("Contract executed: status={}, gas_used={}, gas_left={}\n", .{ result.status, gas_used, result.gas_left });
     
     if (result.output) |output| {
         std.debug.print("Output length: {} bytes\n", .{output.len});
+        if (output.len > 0) {
+            std.debug.print("Output (first 32 bytes): ", .{});
+            for (output[0..@min(32, output.len)]) |byte| {
+                std.debug.print("{x:02}", .{byte});
+            }
+            std.debug.print("\n", .{});
+        }
         defer allocator.free(output);
+    } else {
+        std.debug.print("No output returned\n", .{});
     }
+    
+    // Check if the execution was successful
+    if (result.status != .Success) {
+        std.debug.print("WARNING: Execution did not complete successfully\n", .{});
+    }
+    
+    std.debug.print("=== End {s} benchmark ===\n\n", .{contract_name});
 }
 
 // Simulate contract execution for benchmarking

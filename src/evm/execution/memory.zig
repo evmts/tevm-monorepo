@@ -69,8 +69,8 @@ pub fn op_mstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     // Pop two values unsafely using batch operation - bounds checking is done in jump_table.zig
     // EVM Stack: [..., value, offset] where offset is on top
     const popped = frame.stack.pop2_unsafe();
-    const value = popped.a; // First popped (was second from top)
-    const offset = popped.b; // Second popped (was top)
+    const value = popped.b; // CORRECTED: First popped (was on top)
+    const offset = popped.a; // CORRECTED: Second popped (was second)
 
     if (offset > std.math.maxInt(usize)) {
         @branchHint(.unlikely);
@@ -118,8 +118,8 @@ pub fn op_mstore8(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     // Pop two values unsafely using batch operation - bounds checking is done in jump_table.zig
     // EVM Stack: [..., value, offset] where offset is on top
     const popped = frame.stack.pop2_unsafe();
-    const value = popped.a; // First popped (was second from top)
-    const offset = popped.b; // Second popped (was top)
+    const value = popped.b; // CORRECTED: First popped (was on top)
+    const offset = popped.a; // CORRECTED: Second popped (was second)
 
     if (offset > std.math.maxInt(usize)) {
         @branchHint(.unlikely);

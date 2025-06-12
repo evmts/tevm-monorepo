@@ -9,6 +9,7 @@ const gas_constants = @import("../constants/gas_constants.zig");
 const AccessList = @import("../access_list/access_list.zig").AccessList;
 const Address = @import("Address");
 const from_u256 = Address.from_u256;
+const Log = @import("../log.zig");
 
 pub fn op_stop(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.State) ExecutionError.Error!ExecutionResult {
     _ = pc;
@@ -62,8 +63,8 @@ pub fn op_jumpi(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     // Use batch pop for performance - pop 2 values at once
     const values = frame.stack.pop2_unsafe();
-    const dest = values.b; // Second from top (was on top)
-    const condition = values.a; // Third from top (was second)
+    const dest = values.b; // CORRECTED: First popped (was on top)
+    const condition = values.a; // CORRECTED: Second popped (was second)
 
     if (condition != 0) {
         @branchHint(.likely);
@@ -126,13 +127,11 @@ pub fn op_return(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     const offset = values.b; // CORRECTED: First popped (was on top)
     const size = values.a; // CORRECTED: Second popped (was second)
 
-    // DEBUG: Log the values we popped
-    const Log = @import("../log.zig");
-    Log.debug("RETURN opcode: offset={}, size={}", .{ offset, size });
+    Log.debug("RETURN: offset={}, size={}", .{ offset, size });
 
     if (size == 0) {
         @branchHint(.unlikely);
-        Log.debug("RETURN: size is 0, returning empty data", .{});
+        Log.debug("RETURN: Size is 0, setting empty return data", .{});
         try frame.return_data.set(&[_]u8{});
     } else {
         if (offset > std.math.maxInt(usize) or size > std.math.maxInt(usize)) {
@@ -156,9 +155,17 @@ pub fn op_return(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
         // Get data from memory
         const data = try frame.memory.get_slice(offset_usize, size_usize);
 
+        // Debug logging for RETURN opcode
+        Log.debug("RETURN: Retrieved {} bytes from memory offset {}", .{ data.len, offset_usize });
+        if (data.len > 0 and data.len <= 32) {
+            Log.debug("RETURN: Data content: {any}", .{data});
+        }
+
         // Note: The memory gas cost already protects against excessive memory use.
         // The VM should handle copying the data when needed. We just set the reference.
         try frame.return_data.set(data);
+        
+        Log.debug("RETURN: Set return data successfully, return_data size is now {}", .{frame.return_data.size()});
     }
 
     return ExecutionError.Error.STOP; // RETURN ends execution normally
@@ -177,8 +184,8 @@ pub fn op_revert(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     // Use batch pop for performance - pop 2 values at once
     const values = frame.stack.pop2_unsafe();
-    const size = values.b; // Second from top (was on top)
-    const offset = values.a; // Third from top (was second)
+    const offset = values.b; // CORRECTED: First popped (was on top)
+    const size = values.a; // CORRECTED: Second popped (was second)
 
     if (size == 0) {
         @branchHint(.unlikely);

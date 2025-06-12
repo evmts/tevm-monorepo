@@ -310,6 +310,39 @@ pub const Compiler = struct {
         }
     }
 
+    /// Decode hex string bytecode (e.g., "0x608060405234...") to binary
+    fn decodeHexBytecode(allocator: std.mem.Allocator, hex_string: []const u8) ![]u8 {
+        if (hex_string.len == 0) {
+            return try allocator.alloc(u8, 0);
+        }
+        
+        // Remove "0x" prefix if present
+        const hex_data = if (std.mem.startsWith(u8, hex_string, "0x"))
+            hex_string[2..]
+        else
+            hex_string;
+        
+        // Empty or odd-length hex strings
+        if (hex_data.len == 0) {
+            return try allocator.alloc(u8, 0);
+        }
+        if (hex_data.len % 2 != 0) {
+            return error.InvalidHexLength;
+        }
+        
+        const binary_data = try allocator.alloc(u8, hex_data.len / 2);
+        errdefer allocator.free(binary_data);
+        
+        for (0..binary_data.len) |i| {
+            const hex_pair = hex_data[i * 2..i * 2 + 2];
+            binary_data[i] = std.fmt.parseInt(u8, hex_pair, 16) catch |err| {
+                return err;
+            };
+        }
+        
+        return binary_data;
+    }
+
     fn convertCResult(allocator: std.mem.Allocator, c_result: *c.foundry_CompilationResult) !CompilationResult {
         const contracts = try allocator.alloc(CompiledContract, c_result.contracts_count);
         errdefer allocator.free(contracts);
@@ -325,11 +358,18 @@ pub const Compiler = struct {
             // Convert JSON to zabi Abi type
             const abi_items = try std.json.parseFromValueLeaky(zabi_abitypes.Abi, allocator, parsed_json.value, .{});
 
+            // Decode hex string bytecode to binary
+            const bytecode_hex = std.mem.span(c_contract.bytecode);
+            const deployed_bytecode_hex = std.mem.span(c_contract.deployed_bytecode);
+            
+            const bytecode = try decodeHexBytecode(allocator, bytecode_hex);
+            const deployed_bytecode = try decodeHexBytecode(allocator, deployed_bytecode_hex);
+
             contract.* = CompiledContract{
                 .name = try allocator.dupe(u8, std.mem.span(c_contract.name)),
                 .abi = abi_items,
-                .bytecode = try allocator.dupe(u8, std.mem.span(c_contract.bytecode)),
-                .deployed_bytecode = try allocator.dupe(u8, std.mem.span(c_contract.deployed_bytecode)),
+                .bytecode = bytecode,
+                .deployed_bytecode = deployed_bytecode,
                 .allocator = allocator,
             };
         }

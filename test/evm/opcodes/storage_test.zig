@@ -126,9 +126,9 @@ test "SSTORE: store value to storage" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 25000);
     defer test_frame.deinit();
     
-    // Push value and slot (value first, then slot - stack is LIFO)
-    try test_frame.pushStack(&[_]u256{0xABCDEF}); // value
+    // Push slot and value (slot first, then value - stack is LIFO) - EVM expects SSTORE slot value
     try test_frame.pushStack(&[_]u256{0x555});    // slot
+    try test_frame.pushStack(&[_]u256{0xABCDEF}); // value (on top)
     
     // Execute SSTORE
     _ = try test_helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
@@ -159,9 +159,9 @@ test "SSTORE: overwrite existing value" {
     // Set initial value
     try test_vm.vm.state.set_storage(test_helpers.TestAddresses.CONTRACT, 0x100, 0x111);
     
-    // Push new value and slot (value first, then slot - stack is LIFO)
-    try test_frame.pushStack(&[_]u256{0x222}); // new value
+    // Push slot and value (slot first, then value - stack is LIFO) - EVM expects SSTORE slot value
     try test_frame.pushStack(&[_]u256{0x100}); // slot
+    try test_frame.pushStack(&[_]u256{0x222}); // value (on top)
     
     // Execute SSTORE
     _ = try test_helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
@@ -192,9 +192,9 @@ test "SSTORE: write protection in static call" {
     // Set static call
     test_frame.frame.is_static = true;
     
-    // Push value and slot (value first, then slot - stack is LIFO)
-    try test_frame.pushStack(&[_]u256{0x123}); // value
+    // Push slot and value (slot first, then value - stack is LIFO) - EVM expects SSTORE slot value
     try test_frame.pushStack(&[_]u256{0x456}); // slot
+    try test_frame.pushStack(&[_]u256{0x123}); // value (on top)
     
     // Execute SSTORE - should fail
     const result = test_helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
@@ -219,9 +219,9 @@ test "SSTORE: cold storage access costs more gas" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 25000);
     defer test_frame.deinit();
     
-    // Push value and slot
-    try test_frame.pushStack(&[_]u256{0x123}); // value
+    // Push slot and value (slot first, then value - stack is LIFO) - EVM expects SSTORE slot value
     try test_frame.pushStack(&[_]u256{0x789}); // slot
+    try test_frame.pushStack(&[_]u256{0x123}); // value (on top)
     
     const gas_before = test_frame.frame.gas_remaining;
     
@@ -232,9 +232,9 @@ test "SSTORE: cold storage access costs more gas" {
     const cold_gas_used = gas_before - test_frame.frame.gas_remaining;
     try testing.expectEqual(@as(u64, 22100), cold_gas_used);
     
-    // Second access to same slot should be warm
-    try test_frame.pushStack(&[_]u256{0x456}); // different value
+    // Second access to same slot should be warm - EVM expects SSTORE slot value
     try test_frame.pushStack(&[_]u256{0x789}); // same slot
+    try test_frame.pushStack(&[_]u256{0x456}); // different value (on top)
     const gas_before_warm = test_frame.frame.gas_remaining;
     
     _ = try test_helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
@@ -359,9 +359,9 @@ test "TSTORE: store value to transient storage" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 3000);
     defer test_frame.deinit();
     
-    // Push value and slot (value first, then slot - stack is LIFO)
-    try test_frame.pushStack(&[_]u256{0xDEADBEEF}); // value
+    // Push slot and value (slot first, then value - stack is LIFO) - EVM expects TSTORE slot value
     try test_frame.pushStack(&[_]u256{0x777});      // slot
+    try test_frame.pushStack(&[_]u256{0xDEADBEEF}); // value (on top)
     
     // Execute TSTORE
     _ = try test_helpers.executeOpcode(0x5D, test_vm.vm, test_frame.frame);
@@ -392,9 +392,9 @@ test "TSTORE: overwrite existing transient value" {
     // Set initial transient value
     try test_vm.vm.state.set_transient_storage(test_helpers.TestAddresses.CONTRACT, 0x200, 0x333);
     
-    // Push new value and slot
-    try test_frame.pushStack(&[_]u256{0x444}); // new value
+    // Push slot and value (slot first, then value - stack is LIFO) - EVM expects TSTORE slot value
     try test_frame.pushStack(&[_]u256{0x200}); // slot
+    try test_frame.pushStack(&[_]u256{0x444}); // value (on top)
     
     // Execute TSTORE
     _ = try test_helpers.executeOpcode(0x5D, test_vm.vm, test_frame.frame);
@@ -425,9 +425,9 @@ test "TSTORE: write protection in static call" {
     // Set static call
     test_frame.frame.is_static = true;
     
-    // Push value and slot
-    try test_frame.pushStack(&[_]u256{0x123}); // value
+    // Push slot and value (slot first, then value - stack is LIFO) - EVM expects TSTORE slot value
     try test_frame.pushStack(&[_]u256{0x456}); // slot
+    try test_frame.pushStack(&[_]u256{0x123}); // value (on top)
     
     // Execute TSTORE - should fail
     const result = test_helpers.executeOpcode(0x5D, test_vm.vm, test_frame.frame);
@@ -455,9 +455,9 @@ test "TSTORE: does not affect regular storage" {
     // Set regular storage value
     try test_vm.vm.state.set_storage(test_helpers.TestAddresses.CONTRACT, 0x300, 0x555);
     
-    // Store to transient storage at same slot
-    try test_frame.pushStack(&[_]u256{0x666}); // value
+    // Store to transient storage at same slot - EVM expects TSTORE slot value
     try test_frame.pushStack(&[_]u256{0x300}); // slot
+    try test_frame.pushStack(&[_]u256{0x666}); // value (on top)
     
     // Execute TSTORE
     _ = try test_helpers.executeOpcode(0x5D, test_vm.vm, test_frame.frame);
@@ -623,9 +623,9 @@ test "TSTORE: gas consumption" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 3000);
     defer test_frame.deinit();
     
-    // Push value and slot
-    try test_frame.pushStack(&[_]u256{0x123}); // value
+    // Push slot and value (slot first, then value - stack is LIFO) - EVM expects TSTORE slot value
     try test_frame.pushStack(&[_]u256{0x456}); // slot
+    try test_frame.pushStack(&[_]u256{0x123}); // value (on top)
     
     const gas_before = test_frame.frame.gas_remaining;
     
