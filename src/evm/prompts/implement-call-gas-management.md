@@ -13,15 +13,15 @@ You are implementing Call Gas Management for the Tevm EVM written in Zig. Your g
 - Basic framework for call gas calculations
 
 **Critical Issues:**
-- ❌ **COMPILATION ERROR**: Missing semicolon in `src/evm/gas/call_gas_calculator.zig:117:24`
-- ❌ **Tests failing**: `zig build test-all` fails due to syntax error
-- ❌ Implementation cannot be tested until syntax error is fixed
+- ✅ **SYNTAX ERROR FIXED**: Previous semicolon issue resolved
+- ❌ **NEW COMPILATION ERROR**: Missing blake2f import in precompiles.zig
+- ❌ **Tests failing**: `zig build test-all` fails due to missing blake2f declaration
 
 **Error Details:**
 ```
-src/evm/gas/call_gas_calculator.zig:117:24: error: expected ';' after statement
-        max_forwardable
-                       ^
+src/evm/precompiles/precompiles.zig:132:20: error: use of undeclared identifier 'blake2f'
+            return blake2f.execute(input, output, gas_limit);
+                   ^~~~~~~
 ```
 
 **TODOs:**
