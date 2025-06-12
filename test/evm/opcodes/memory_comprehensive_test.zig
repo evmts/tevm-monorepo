@@ -188,7 +188,7 @@ test "MSTORE (0x52): Basic memory store operations" {
 
     // Test 1: Store at offset 0
     const value1: u256 = 0xdeadbeefcafebabe1234567890abcdef;
-    try test_frame.pushStack(&[_]u256{ 0, value1 }); // offset, value (value on top per EVM spec)
+    try test_frame.pushStack(&[_]u256{ value1, 0 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
 
     // Verify the value was stored correctly
@@ -197,7 +197,7 @@ test "MSTORE (0x52): Basic memory store operations" {
 
     // Test 2: Store at aligned offset (32 bytes)
     const value2: u256 = 0x1122334455667788990011223344556677889900112233445566778899001122;
-    try test_frame.pushStack(&[_]u256{ 32, value2 }); // offset, value (value on top per EVM spec)  
+    try test_frame.pushStack(&[_]u256{ value2, 32 }); // value, offset (offset on top per EVM spec)  
     _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
 
     const stored2 = try test_frame.frame.memory.get_u256(32);
@@ -205,7 +205,7 @@ test "MSTORE (0x52): Basic memory store operations" {
 
     // Test 3: Store at non-aligned offset
     const value3: u256 = 0x9876543210fedcba;
-    try test_frame.pushStack(&[_]u256{ 17, value3 }); // offset, value (value on top per EVM spec)
+    try test_frame.pushStack(&[_]u256{ value3, 17 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
 
     const stored3 = try test_frame.frame.memory.get_u256(17);
@@ -283,7 +283,7 @@ test "MSTORE: Memory expansion and gas costs" {
 
     // Test 1: Store within initial memory region (no expansion)
     const gas_before_no_expansion = test_frame.frame.gas_remaining;
-    try test_frame.pushStack(&[_]u256{ 0, 0x123 }); // offset, value (value on top per EVM spec)
+    try test_frame.pushStack(&[_]u256{ 0x123, 0 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
     const gas_after_no_expansion = test_frame.frame.gas_remaining;
     const gas_no_expansion = gas_before_no_expansion - gas_after_no_expansion;
@@ -294,7 +294,7 @@ test "MSTORE: Memory expansion and gas costs" {
 
     // Test 2: Store requiring memory expansion
     const gas_before_expansion = test_frame.frame.gas_remaining;
-    try test_frame.pushStack(&[_]u256{ 1024, 0x456 }); // offset, value (value on top per EVM spec)
+    try test_frame.pushStack(&[_]u256{ 0x456, 1024 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
     const gas_after_expansion = test_frame.frame.gas_remaining;
     const gas_expansion = gas_before_expansion - gas_after_expansion;
@@ -302,7 +302,7 @@ test "MSTORE: Memory expansion and gas costs" {
 
     // Test 3: Subsequent store in same expanded region (minimal expansion)
     const gas_before_minimal = test_frame.frame.gas_remaining;
-    try test_frame.pushStack(&[_]u256{ 1056, 0x789 }); // offset, value (value on top per EVM spec)
+    try test_frame.pushStack(&[_]u256{ 0x789, 1056 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
     const gas_after_minimal = test_frame.frame.gas_remaining;
     const gas_minimal = gas_before_minimal - gas_after_minimal;
@@ -364,14 +364,14 @@ test "MSTORE8 (0x53): Basic single byte store operations" {
     defer test_frame.deinit();
 
     // Test 1: Store single byte at offset 0
-    try test_frame.pushStack(&[_]u256{ 0, 0xFF }); // offset, value (value on top per EVM spec)
+    try test_frame.pushStack(&[_]u256{ 0xFF, 0 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame);
 
     const byte0 = try test_frame.frame.memory.get_byte(0);
     try testing.expectEqual(@as(u8, 0xFF), byte0);
 
     // Test 2: Store only lowest byte of larger value
-    try test_frame.pushStack(&[_]u256{ 1, 0x123456789ABCDEF0 }); // offset, value (value on top per EVM spec)
+    try test_frame.pushStack(&[_]u256{ 0x123456789ABCDEF0, 1 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame);
 
     const byte1 = try test_frame.frame.memory.get_byte(1);
@@ -387,7 +387,7 @@ test "MSTORE8 (0x53): Basic single byte store operations" {
     };
 
     for (test_cases) |tc| {
-        try test_frame.pushStack(&[_]u256{ tc.offset, tc.value }); // offset, value (value on top per EVM spec)
+        try test_frame.pushStack(&[_]u256{ tc.value, tc.offset }); // value, offset (offset on top per EVM spec)
         _ = try helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame);
 
         const stored_byte = try test_frame.frame.memory.get_byte(@intCast(tc.offset));
@@ -417,7 +417,7 @@ test "MSTORE8: Precision and non-interference" {
     try test_frame.frame.memory.set_u256(0, initial_pattern);
 
     // Test 2: Store single byte in the middle and verify surrounding bytes are unchanged
-    try test_frame.pushStack(&[_]u256{ 15, 0x99 }); // offset, value (value on top per EVM spec)
+    try test_frame.pushStack(&[_]u256{ 0x99, 15 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame);
 
     // Check the modified byte
@@ -440,7 +440,7 @@ test "MSTORE8: Precision and non-interference" {
     };
 
     for (positions_and_values) |pv| {
-        try test_frame.pushStack(&[_]u256{ pv.pos, pv.val }); // offset, value (value on top per EVM spec)
+        try test_frame.pushStack(&[_]u256{ pv.val, pv.pos }); // value, offset (offset on top per EVM spec)
         _ = try helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame);
     }
 
@@ -464,7 +464,7 @@ test "MSTORE8: Precision and non-interference" {
 
     for (large_values, 0..) |lv, i| {
         const offset = 100 + i;
-        try test_frame.pushStack(&[_]u256{ offset, lv.input }); // offset, value (value on top per EVM spec)
+        try test_frame.pushStack(&[_]u256{ lv.input, offset }); // value, offset (offset on top per EVM spec)
         _ = try helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame);
 
         const stored = try test_frame.frame.memory.get_byte(offset);
@@ -523,7 +523,7 @@ test "MSTORE8: Memory expansion and gas costs" {
     try testing.expect(gas_alignment > 3); // Should charge for word-aligned expansion
 
     // Test 5: Overflow protection
-    try test_frame.pushStack(&[_]u256{ std.math.maxInt(u256) - 5, 0x99 });
+    try test_frame.pushStack(&[_]u256{ 0x99, std.math.maxInt(u256) - 5 }); // value, offset (offset on top per EVM spec)
     const result = helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.OutOfOffset, result);
 }
