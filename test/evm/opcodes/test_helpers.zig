@@ -11,37 +11,51 @@ pub const Contract = evm.Contract;
 pub const Address = evm.Address;
 pub const Vm = evm.Vm;
 pub const Operation = evm.Operation;
+pub const OperationModule = evm.Operation;
 pub const ExecutionError = evm.ExecutionError;
 pub const opcodes = evm.opcodes;
 pub const Hardfork = evm.Hardfork.Hardfork;
 pub const JumpTable = evm.JumpTable;
 pub const ChainRules = evm.chain_rules;
+pub const MemoryDatabase = evm.MemoryDatabase;
+pub const DatabaseInterface = evm.DatabaseInterface;
 
 /// Mock settings for testing
 pub const TestVm = struct {
     vm: *Vm,
+    memory_db: *MemoryDatabase,
 
     const Self = @This();
 
     pub fn init(allocator: std.mem.Allocator) !Self {
         const vm = try allocator.create(Vm);
-        vm.* = try Vm.init(allocator, null, null);
+        const memory_db = try allocator.create(MemoryDatabase);
+        memory_db.* = MemoryDatabase.init(allocator);
+        const db_interface = memory_db.to_database_interface();
+        vm.* = try Vm.init(allocator, db_interface, null, null);
         return Self{
             .vm = vm,
+            .memory_db = memory_db,
         };
     }
 
     pub fn init_with_hardfork(allocator: std.mem.Allocator, hardfork: evm.Hardfork.Hardfork) !Self {
         const vm = try allocator.create(Vm);
-        vm.* = try Vm.init_with_hardfork(allocator, hardfork);
+        const memory_db = try allocator.create(MemoryDatabase);
+        memory_db.* = MemoryDatabase.init(allocator);
+        const db_interface = memory_db.to_database_interface();
+        vm.* = try Vm.init_with_hardfork(allocator, db_interface, hardfork);
         return Self{
             .vm = vm,
+            .memory_db = memory_db,
         };
     }
 
     pub fn deinit(self: *Self, allocator: std.mem.Allocator) void {
         self.vm.deinit();
+        self.memory_db.deinit();
         allocator.destroy(self.vm);
+        allocator.destroy(self.memory_db);
     }
 };
 
@@ -106,8 +120,8 @@ pub const TestFrame = struct {
     }
 
     /// Set return data buffer
-    pub fn setReturnData(self: *TestFrame, data: []u8) void {
-        self.frame.return_data_buffer = data;
+    pub fn setReturnData(self: *TestFrame, data: []u8) !void {
+        try self.frame.return_data.set(data);
     }
 
     /// Check if frame is static
@@ -163,9 +177,9 @@ pub fn executeOpcode(
     opcode_byte: u8,
     vm: *Vm,
     frame: *Frame,
-) ExecutionError.Error!Operation.ExecutionResult {
-    const interpreter_ptr: *Operation.Interpreter = @ptrCast(vm);
-    const state_ptr: *Operation.State = @ptrCast(frame);
+) ExecutionError.Error!OperationModule.ExecutionResult {
+    const interpreter_ptr: *OperationModule.Interpreter = @ptrCast(vm);
+    const state_ptr: *OperationModule.State = @ptrCast(frame);
 
     // Debug: Check if jump table has the opcode
     // const operation = vm.table.get_operation(opcode_byte);
@@ -186,9 +200,9 @@ pub fn executeOpcodeWithGas(
     opcode: u8,
     vm: *Vm,
     frame: *Frame,
-) !Operation.ExecutionResult {
-    const interpreter_ptr: *Operation.Interpreter = @ptrCast(vm);
-    const state_ptr: *Operation.State = @ptrCast(frame);
+) !OperationModule.ExecutionResult {
+    const interpreter_ptr: *OperationModule.Interpreter = @ptrCast(vm);
+    const state_ptr: *OperationModule.State = @ptrCast(frame);
     return try jump_table.execute(0, interpreter_ptr, state_ptr, opcode);
 }
 

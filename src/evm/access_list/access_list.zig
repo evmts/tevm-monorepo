@@ -15,12 +15,13 @@ const AccessListStorageKeyContext = @import("access_list_storage_key_context.zig
 /// - Warm storage slot access: 100 gas
 
 // Error types for AccessList operations
-pub const AccessAddressError = std.mem.Allocator.Error;
-pub const AccessStorageSlotError = std.mem.Allocator.Error;
-pub const PreWarmAddressesError = std.mem.Allocator.Error;
-pub const PreWarmStorageSlotsError = std.mem.Allocator.Error;
-pub const InitTransactionError = std.mem.Allocator.Error;
-pub const GetCallCostError = std.mem.Allocator.Error;
+pub const Error = std.mem.Allocator.Error;
+pub const AccessAddressError = Error;
+pub const AccessStorageSlotError = Error;
+pub const PreWarmAddressesError = Error;
+pub const PreWarmStorageSlotsError = Error;
+pub const InitTransactionError = Error;
+pub const GetCallCostError = Error;
 
 pub const AccessList = @This();
 
@@ -63,7 +64,10 @@ pub fn clear(self: *AccessList) void {
 /// Returns COLD_ACCOUNT_ACCESS_COST if first access, WARM_ACCOUNT_ACCESS_COST if already accessed
 pub fn access_address(self: *AccessList, address: Address.Address) std.mem.Allocator.Error!u64 {
     const result = try self.addresses.getOrPut(address);
-    if (result.found_existing) return WARM_ACCOUNT_ACCESS_COST;
+    if (result.found_existing) {
+        @branchHint(.likely);
+        return WARM_ACCOUNT_ACCESS_COST;
+    }
     return COLD_ACCOUNT_ACCESS_COST;
 }
 
@@ -72,7 +76,10 @@ pub fn access_address(self: *AccessList, address: Address.Address) std.mem.Alloc
 pub fn access_storage_slot(self: *AccessList, address: Address.Address, slot: u256) std.mem.Allocator.Error!u64 {
     const key = AccessListStorageKey{ .address = address, .slot = slot };
     const result = try self.storage_slots.getOrPut(key);
-    if (result.found_existing) return WARM_SLOAD_COST;
+    if (result.found_existing) {
+        @branchHint(.likely);
+        return WARM_SLOAD_COST;
+    }
     return COLD_SLOAD_COST;
 }
 
@@ -120,7 +127,10 @@ pub fn init_transaction(self: *AccessList, tx_origin: Address.Address, coinbase:
 /// Returns 0 if warm, COLD_CALL_EXTRA_COST if cold
 pub fn get_call_cost(self: *AccessList, address: Address.Address) std.mem.Allocator.Error!u64 {
     const result = try self.addresses.getOrPut(address);
-    if (result.found_existing) return 0;
+    if (result.found_existing) {
+        @branchHint(.likely);
+        return 0;
+    }
     return COLD_CALL_EXTRA_COST;
 }
 

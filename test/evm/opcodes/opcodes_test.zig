@@ -38,4 +38,6 @@ test {
     _ = @import("arithmetic_comprehensive_test.zig");
     _ = @import("bitwise_comprehensive_test.zig");
     _ = @import("storage_comprehensive_test.zig");
+    _ = @import("memory_comprehensive_test.zig");
+    _ = @import("control_flow_comprehensive_test.zig");
 }

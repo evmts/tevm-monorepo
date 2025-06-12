@@ -486,7 +486,7 @@ test "STATICCALL (0xFA): Read-only external call" {
     const result = try helpers.executeOpcode(0xFA, test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 1), result.bytes_consumed);
 
-    // Check status (VM currently returns 0 for failed calls)
+    // Check status (regular calls not implemented yet, so expect failure)
     const success = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 0), success);
 }

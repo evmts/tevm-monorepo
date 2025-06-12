@@ -166,7 +166,7 @@ test "Integration: Return data handling" {
     try testing.expectError(helpers.ExecutionError.Error.STOP, result);
 
     // The return data would be available in frame.return_data_buffer
-    try testing.expectEqual(@as(usize, 32), test_frame.frame.return_data_buffer.len);
+    try testing.expectEqual(@as(usize, 32), test_frame.frame.return_data.size());
 }
 
 test "Integration: Revert with reason" {
@@ -200,8 +200,8 @@ test "Integration: Revert with reason" {
     try testing.expectError(helpers.ExecutionError.Error.REVERT, result);
 
     // The revert data would be available in frame.return_data_buffer
-    try testing.expectEqual(@as(usize, error_msg.len), test_frame.frame.return_data_buffer.len);
-    try testing.expectEqualSlices(u8, error_msg, test_frame.frame.return_data_buffer);
+    try testing.expectEqual(@as(usize, error_msg.len), test_frame.frame.return_data.size());
+    try testing.expectEqualSlices(u8, error_msg, test_frame.frame.return_data.get());
 }
 
 test "Integration: PC tracking through operations" {

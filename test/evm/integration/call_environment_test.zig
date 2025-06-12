@@ -357,7 +357,7 @@ test "Integration: Return data handling across calls" {
     _ = try helpers.executeOpcode(0xF1, test_vm.vm, test_frame.frame);
     
     // Set return data buffer to simulate real execution
-    test_frame.frame.return_data_buffer = &return_data;
+    try test_frame.frame.return_data.set(&return_data);
     
     // Check RETURNDATASIZE
     test_frame.frame.stack.clear();

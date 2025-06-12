@@ -28,7 +28,7 @@
 /// }
 /// defer if (result.output) |output| allocator.free(output);
 /// ```
-const Self = @This();
+pub const CallResult = @This();
 
 /// Indicates whether the call completed successfully.
 ///

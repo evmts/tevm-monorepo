@@ -4,7 +4,7 @@
 const std = @import("std");
 const builtin = @import("builtin");
 
-const Self = @This();
+const Webui = @This();
 
 // The window handle is the only field of this struct
 window_handle: usize,
@@ -43,4 +43,3 @@ pub usingnamespace utils_mod;
 
 // Note: Global functions are already included via usingnamespace,
 // so we don't need to re-export them explicitly
-

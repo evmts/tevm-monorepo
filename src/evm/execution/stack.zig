@@ -21,7 +21,7 @@ pub fn op_push0(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-    try frame.stack.append( 0);
+    try frame.stack.append(0);
 
     return Operation.ExecutionResult{};
 }
@@ -34,13 +34,17 @@ pub fn make_push(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.S
 
             const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-            if (frame.stack.size >= Stack.CAPACITY) unreachable;
+            if (frame.stack.size >= Stack.CAPACITY) {
+                @branchHint(.cold);
+                unreachable;
+            }
 
             var value: u256 = 0;
             const code = frame.contract.code;
 
             for (0..n) |i| {
                 if (pc + 1 + i < code.len) {
+                    @branchHint(.likely);
                     value = (value << 8) | code[pc + 1 + i];
                 } else {
                     value = value << 8;
@@ -67,8 +71,14 @@ pub fn make_dup(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.St
 
             const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-            if (frame.stack.size < n) unreachable;
-            if (frame.stack.size >= Stack.CAPACITY) unreachable;
+            if (frame.stack.size < n) {
+                @branchHint(.cold);
+                unreachable;
+            }
+            if (frame.stack.size >= Stack.CAPACITY) {
+                @branchHint(.cold);
+                unreachable;
+            }
 
             frame.stack.dup_unsafe(n);
 
@@ -88,7 +98,10 @@ pub fn make_swap(comptime n: u8) fn (usize, *Operation.Interpreter, *Operation.S
 
             const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
-            if (frame.stack.size < n + 1) unreachable;
+            if (frame.stack.size < n + 1) {
+                @branchHint(.cold);
+                unreachable;
+            }
 
             frame.stack.swapUnsafe(n);
 

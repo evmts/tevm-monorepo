@@ -87,8 +87,19 @@ pub const PrecompileOutput = union(enum) {
     /// @return The gas used, or 0 if the result is a failure
     pub fn get_gas_used(self: PrecompileOutput) u64 {
         return switch (self) {
+<<<<<<< HEAD
             .success => |result| result.gas_used,
             .failure => 0,
+=======
+            .success => |result| {
+                @branchHint(.likely);
+                return result.gas_used;
+            },
+            .failure => {
+                @branchHint(.cold);
+                return 0;
+            },
+>>>>>>> origin/main
         };
     }
     
@@ -96,8 +107,19 @@ pub const PrecompileOutput = union(enum) {
     /// @return The output size, or 0 if the result is a failure
     pub fn get_output_size(self: PrecompileOutput) usize {
         return switch (self) {
+<<<<<<< HEAD
             .success => |result| result.output_size,
             .failure => 0,
+=======
+            .success => |result| {
+                @branchHint(.likely);
+                return result.output_size;
+            },
+            .failure => {
+                @branchHint(.cold);
+                return 0;
+            },
+>>>>>>> origin/main
         };
     }
     
@@ -105,8 +127,19 @@ pub const PrecompileOutput = union(enum) {
     /// @return The error, or null if the result is successful
     pub fn get_error(self: PrecompileOutput) ?PrecompileError {
         return switch (self) {
+<<<<<<< HEAD
             .success => null,
             .failure => |err| err,
+=======
+            .success => {
+                @branchHint(.likely);
+                return null;
+            },
+            .failure => |err| {
+                @branchHint(.cold);
+                return err;
+            },
+>>>>>>> origin/main
         };
     }
 };

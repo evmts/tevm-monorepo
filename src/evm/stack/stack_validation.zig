@@ -1,6 +1,6 @@
 const std = @import("std");
 const Stack = @import("stack.zig");
-const Operation = @import("../opcodes/operation.zig");
+const Operation = @import("../opcodes/operation.zig").Operation;
 const ExecutionError = @import("../execution/execution_error.zig");
 const Log = @import("../log.zig");
 
@@ -54,6 +54,7 @@ pub fn validate_stack_requirements(
 
     // Check minimum stack requirement
     if (stack_size < operation.min_stack) {
+        @branchHint(.cold);
         Log.debug("StackValidation.validate_stack_requirements: Stack underflow, size={} < min_stack={}", .{ stack_size, operation.min_stack });
         return ExecutionError.Error.StackUnderflow;
     }
@@ -62,6 +63,7 @@ pub fn validate_stack_requirements(
     // max_stack represents the maximum stack size allowed BEFORE the operation
     // to ensure we don't overflow after the operation completes
     if (stack_size > operation.max_stack) {
+        @branchHint(.cold);
         Log.debug("StackValidation.validate_stack_requirements: Stack overflow, size={} > max_stack={}", .{ stack_size, operation.max_stack });
         return ExecutionError.Error.StackOverflow;
     }
@@ -98,6 +100,7 @@ pub fn validate_stack_operation(
 
     // Check if we have enough items to pop
     if (stack_size < pop_count) {
+        @branchHint(.cold);
         Log.debug("StackValidation.validate_stack_operation: Stack underflow, size={} < pop_count={}", .{ stack_size, pop_count });
         return ExecutionError.Error.StackUnderflow;
     }
@@ -107,6 +110,7 @@ pub fn validate_stack_operation(
 
     // Check if result would overflow
     if (new_size > Stack.CAPACITY) {
+        @branchHint(.cold);
         Log.debug("StackValidation.validate_stack_operation: Stack overflow, new_size={} > capacity={}", .{ new_size, Stack.CAPACITY });
         return ExecutionError.Error.StackOverflow;
     }
@@ -133,6 +137,7 @@ pub fn validate_stack_operation(
 /// ```
 pub fn calculate_max_stack(pop_count: u32, push_count: u32) u32 {
     if (push_count > pop_count) {
+        @branchHint(.likely);
         const net_growth = push_count - pop_count;
         return @intCast(Stack.CAPACITY - net_growth);
     }

@@ -43,7 +43,7 @@ const std = @import("std");
 /// - Advance the program counter by `bytes_consumed`
 /// - Determine whether to continue executing or return control to caller
 /// - Pass return data back to the calling context when halting
-const Self = @This();
+const ExecutionResult = @This();
 
 /// Number of bytes consumed by this opcode (including immediate data)
 /// 

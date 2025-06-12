@@ -2,7 +2,8 @@ const std = @import("std");
 const execution = @import("../execution/package.zig");
 const gas_constants = @import("../constants/gas_constants.zig");
 const Stack = @import("../stack/stack.zig");
-const Operation = @import("../opcodes/operation.zig");
+const operation_module = @import("../opcodes/operation.zig");
+const Operation = operation_module.Operation;
 const Hardfork = @import("../hardforks/hardfork.zig").Hardfork;
 
 /// Specification for an EVM operation.
@@ -14,7 +15,7 @@ pub const OpSpec = struct {
     /// Opcode byte value (0x00-0xFF)
     opcode: u8,
     /// Execution function
-    execute: Operation.ExecutionFunc,
+    execute: operation_module.ExecutionFunc,
     /// Base gas cost
     gas: u64,
     /// Minimum stack items required
@@ -25,8 +26,9 @@ pub const OpSpec = struct {
     variant: ?Hardfork = null,
 };
 
-/// Complete specification of all EVM execution.
+/// Complete specification of all EVM operations.
 /// This replaces the scattered Operation definitions across multiple files.
+/// Operations are ordered by opcode for clarity and maintainability.
 pub const ALL_OPERATIONS = [_]OpSpec{
     // 0x00s: Stop and Arithmetic Operations
     .{ .name = "STOP", .opcode = 0x00, .execute = execution.control.op_stop, .gas = 0, .min_stack = 0, .max_stack = Stack.CAPACITY },
