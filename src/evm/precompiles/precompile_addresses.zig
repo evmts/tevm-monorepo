@@ -36,6 +36,15 @@ pub const POINT_EVALUATION_ADDRESS: Address = [_]u8{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 /// BLS12_381_G1ADD precompile - BLS12-381 G1 point addition (EIP-2537)
 pub const BLS12_381_G1ADD_ADDRESS: Address = [_]u8{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x0B };
 
+/// BLS12_381_G1MSM precompile - BLS12-381 G1 multi-scalar multiplication (EIP-2537)
+pub const BLS12_381_G1MSM_ADDRESS: Address = [_]u8{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x0C };
+
+/// BLS12_381_G2ADD precompile - BLS12-381 G2 point addition (EIP-2537)
+pub const BLS12_381_G2ADD_ADDRESS: Address = [_]u8{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x0D };
+
+/// BLS12_381_G2MSM precompile - BLS12-381 G2 multi-scalar multiplication (EIP-2537)
+pub const BLS12_381_G2MSM_ADDRESS: Address = [_]u8{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x0E };
+
 /// Checks if the given address is a precompile address
 /// @param address The address to check
 /// @return true if the address is a known precompile, false otherwise
@@ -48,14 +57,14 @@ pub fn is_precompile(address: Address) bool {
         }
     }
     
-    // Check if the last byte is in the precompile range (1-11)
+    // Check if the last byte is in the precompile range (1-14)
     const last_byte = address[19];
-    return last_byte >= 1 and last_byte <= 11;
+    return last_byte >= 1 and last_byte <= 14;
 }
 
 /// Gets the precompile ID from an address
 /// @param address The precompile address
-/// @return The precompile ID (1-11) or 0 if not a precompile
+/// @return The precompile ID (1-14) or 0 if not a precompile
 pub fn get_precompile_id(address: Address) u8 {
     if (!is_precompile(address)) {
         @branchHint(.cold);

@@ -311,6 +311,14 @@ pub const MODEXP_LINEAR_THRESHOLD: usize = 1024;
 /// Fixed cost for elliptic curve point addition on the BLS12-381 G1 group
 pub const BLS12_381_G1ADD_COST: u64 = 375;
 
+/// Base gas cost for BLS12-381 G2MSM precompile (address 0x0E)
+/// Base cost before per-pair costs and discounts are applied
+pub const BLS12_381_G2MSM_BASE_COST: u64 = 55000;
+
+/// Per-pair gas cost for BLS12-381 G2MSM precompile (before discount)
+/// Cost multiplied by number of (scalar, G2 point) pairs and discount factor
+pub const BLS12_381_G2MSM_PER_PAIR_COST: u64 = 32000;
+
 // ============================================================================
 // Call Operation Gas Constants (EIP-150 & EIP-2929)
 // ============================================================================

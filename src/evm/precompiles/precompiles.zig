@@ -10,6 +10,7 @@ const modexp = @import("modexp.zig");
 const blake2f = @import("blake2f.zig");
 const kzg_point_evaluation = @import("kzg_point_evaluation.zig");
 const bls12_381_g1add = @import("bls12_381_g1add.zig");
+const bls12_381_g2msm = @import("bls12_381_g2msm.zig");
 const ChainRules = @import("../hardforks/chain_rules.zig");
 
 /// Main precompile dispatcher module
@@ -61,6 +62,9 @@ pub fn is_available(address: Address, chain_rules: ChainRules) bool {
         9 => chain_rules.IsIstanbul, // BLAKE2F from Istanbul
         10 => chain_rules.IsCancun, // POINT_EVALUATION from Cancun
         11 => false, // BLS12_381_G1ADD - EIP-2537 not yet in any hardfork
+        12 => false, // BLS12_381_G1MSM - EIP-2537 not yet in any hardfork
+        13 => false, // BLS12_381_G2ADD - EIP-2537 not yet in any hardfork
+        14 => false, // BLS12_381_G2MSM - EIP-2537 not yet in any hardfork
         else => false,
     };
 }
@@ -143,6 +147,18 @@ pub fn execute_precompile(address: Address, input: []const u8, output: []u8, gas
             @branchHint(.unlikely);
             return bls12_381_g1add.execute(input, output, gas_limit);
         }, // BLS12_381_G1ADD
+        12 => {
+            @branchHint(.cold);
+            return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
+        }, // BLS12_381_G1MSM - TODO
+        13 => {
+            @branchHint(.cold);
+            return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
+        }, // BLS12_381_G2ADD - TODO
+        14 => {
+            @branchHint(.unlikely);
+            return bls12_381_g2msm.execute(input, output, gas_limit);
+        }, // BLS12_381_G2MSM
 
         else => {
             @branchHint(.cold);
@@ -187,6 +203,9 @@ pub fn estimate_gas(address: Address, input_size: usize, chain_rules: ChainRules
         9 => blake2f.calculate_gas_checked(input_size), // BLAKE2F
         10 => kzg_point_evaluation.calculate_gas_checked(input_size), // POINT_EVALUATION
         11 => bls12_381_g1add.calculate_gas_checked(input_size), // BLS12_381_G1ADD
+        12 => error.InvalidInput, // BLS12_381_G1MSM - TODO
+        13 => error.InvalidInput, // BLS12_381_G2ADD - TODO
+        14 => bls12_381_g2msm.calculate_gas_checked(input_size), // BLS12_381_G2MSM
 
         else => error.InvalidPrecompile,
     };
@@ -228,6 +247,9 @@ pub fn get_output_size(address: Address, input_size: usize, chain_rules: ChainRu
         9 => blake2f.get_output_size(input_size), // BLAKE2F
         10 => kzg_point_evaluation.get_output_size(input_size), // POINT_EVALUATION
         11 => bls12_381_g1add.get_output_size(input_size), // BLS12_381_G1ADD - fixed 128 bytes
+        12 => 128, // BLS12_381_G1MSM - TODO, fixed 128 bytes
+        13 => 256, // BLS12_381_G2ADD - TODO, fixed 256 bytes
+        14 => bls12_381_g2msm.get_output_size(input_size), // BLS12_381_G2MSM - fixed 256 bytes
 
         else => error.InvalidPrecompile,
     };
