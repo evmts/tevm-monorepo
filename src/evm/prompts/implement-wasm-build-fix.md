@@ -3,6 +3,35 @@
 ## Git Workflow Instructions
 
 #
+<<<<<<< HEAD
+=======
+<review>
+**Implementation Status: NOT IMPLEMENTED ❌**
+
+**Duplicate of fix-wasm-build-integration.md:**
+- 📝 **NOTE**: This prompt covers the same scope as fix-wasm-build-integration.md
+- 📝 **Recommendation**: Consolidate or choose one prompt to avoid duplication
+
+**Current Status:**
+- ❌ WASM build system is broken and non-functional
+- ❌ No TypeScript integration for Zig EVM
+- ❌ Missing WASM-specific implementations in wasm_stubs.zig
+- ❌ Build.zig lacks proper WASM target configuration
+
+**Key Files Identified:**
+- ✅ `/src/evm/wasm_stubs.zig` exists but needs implementation
+- ✅ `/src/root_wasm.zig` and `/src/root_wasm_minimal.zig` exist
+- ✅ `/build.zig` exists but WASM configuration is broken
+- ❌ No TypeScript bindings or WASM loader
+
+**Impact:**
+- 🔥 **CRITICAL BLOCKER**: Prevents using high-performance Zig EVM in JavaScript
+- 🔥 **Performance Impact**: Forces fallback to slower implementations
+
+**Priority**: Should be consolidated with the more detailed fix-wasm-build-integration.md prompt
+</review>
+
+>>>>>>> origin/main
 ## Context
 
 The WASM build is currently broken and needs to be fixed as well as integrated into the overall Tevm TypeScript codebase. This is a critical blocker for using the Zig EVM implementation in JavaScript environments.
