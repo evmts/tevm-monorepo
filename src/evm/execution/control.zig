@@ -63,8 +63,8 @@ pub fn op_jumpi(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     // Use batch pop for performance - pop 2 values at once
     const values = frame.stack.pop2_unsafe();
-    const dest = values.b; // CORRECTED: First popped (was on top)
-    const condition = values.a; // CORRECTED: Second popped (was second)
+    const dest = values.b; // First popped (was on top)
+    const condition = values.a; // Second popped (was second)
 
     if (condition != 0) {
         @branchHint(.likely);
@@ -124,8 +124,8 @@ pub fn op_return(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     // Use batch pop for performance - pop 2 values at once
     const values = frame.stack.pop2_unsafe();
-    const offset = values.b; // CORRECTED: First popped (was on top)
-    const size = values.a; // CORRECTED: Second popped (was second)
+    const size = values.b; // First popped (was on top)
+    const offset = values.a; // Second popped (was second)
 
     Log.debug("RETURN: offset={}, size={}", .{ offset, size });
 
@@ -184,8 +184,8 @@ pub fn op_revert(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     // Use batch pop for performance - pop 2 values at once
     const values = frame.stack.pop2_unsafe();
-    const offset = values.b; // CORRECTED: First popped (was on top)
-    const size = values.a; // CORRECTED: Second popped (was second)
+    const size = values.b; // First popped (was on top)
+    const offset = values.a; // Second popped (was second)
 
     if (size == 0) {
         @branchHint(.unlikely);

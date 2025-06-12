@@ -370,20 +370,7 @@ pub const MEMORY_EXPANSION_LUT = blk: {
 
 /// Calculate total memory cost for a given word count with overflow protection
 fn calculate_memory_cost(words: u64) u64 {
-    // Protect against overflow in quadratic calculation
-    if (words > 65536) { // sqrt(2^32) ≈ 65536 to prevent overflow in words*words
-        return std.math.maxInt(u64); // Return max value to effectively prevent allocation
-    }
-    
-    const linear_cost = MemoryGas * words;
-    const quadratic_part = (words * words) / QuadCoeffDiv;
-    
-    // Check for overflow in addition
-    if (linear_cost > std.math.maxInt(u64) - quadratic_part) {
-        return std.math.maxInt(u64);
-    }
-    
-    return linear_cost + quadratic_part;
+    return MemoryGas * words + (words * words) / QuadCoeffDiv;
 }
 
 /// The expansion cost is: total_cost(new_size) - total_cost(current_size)
@@ -418,13 +405,8 @@ pub fn memory_gas_cost(current_size: u64, new_size: u64) u64 {
         return MEMORY_EXPANSION_LUT[new_words] - current_cost;
     }
 
-    // Fall back to calculation for larger sizes with overflow protection
+    // Fall back to calculation for larger sizes
     const current_cost = calculate_memory_cost(current_words);
     const new_cost = calculate_memory_cost(new_words);
-    
-    if (new_cost == std.math.maxInt(u64) or current_cost == std.math.maxInt(u64)) {
-        return std.math.maxInt(u64); // Signal overflow/excessive cost
-    }
-    
     return new_cost - current_cost;
 }
