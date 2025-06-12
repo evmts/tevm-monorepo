@@ -12,8 +12,8 @@ const Hardfork = @import("../hardforks/hardfork.zig").Hardfork;
 
 /// Determine the effective hardfork for SSTORE gas calculations.
 /// This maps chain rules to the appropriate hardfork for gas calculations.
+/// Checks hardforks from newest to oldest to ensure correct precedence.
 fn get_effective_hardfork(chain_rules: anytype) Hardfork {
-    // Map chain rules to hardfork
     if (chain_rules.IsCancun) return .CANCUN;
     if (chain_rules.IsShanghai) return .SHANGHAI;
     if (chain_rules.IsMerge) return .MERGE;
