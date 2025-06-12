@@ -216,7 +216,7 @@ test "SSTORE: cold storage access costs more gas" {
     );
     defer contract.deinit(allocator, null);
     
-    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 25000);
+    var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 27400); // 22100 + 2900 + 2300 (sentry) + 100 (buffer)
     defer test_frame.deinit();
     
     // Push value and slot

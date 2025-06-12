@@ -80,14 +80,8 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     // Get the effective hardfork for gas calculations
     const hardfork = get_effective_hardfork(vm.chain_rules);
     
-    // EIP-2200 gas sentry: Check if enough gas remains for reentrancy protection
-    if (hardfork != .FRONTIER and hardfork != .HOMESTEAD and hardfork != .DAO) {
-        if (frame.gas_remaining <= gas_constants.SSTORE_SENTRY_GAS) {
-            @branchHint(.unlikely);
-            Log.debug("SSTORE: Rejected due to gas sentry (gas_remaining={} <= {})", .{ frame.gas_remaining, gas_constants.SSTORE_SENTRY_GAS });
-            return ExecutionError.Error.OutOfGas;
-        }
-    }
+    // Note: Gas sentry check is performed inside calculate_sstore_operation
+    // after calculating the actual gas cost
 
     // Pop stack values: [..., value, slot] where slot is on top
     const popped = frame.stack.pop2_unsafe();

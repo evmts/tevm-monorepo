@@ -52,36 +52,61 @@ pub const SStoreGasCalculator = struct {
         @branchHint(.likely);
         Log.debug("SStoreGasCalculator.calculate_gas_cost: original={}, current={}, new={}, warm={}", .{ original_value, current_value, new_value, is_warm });
         
-        // No-op: current value equals new value
+        // No-op: current value equals new value (EIP-2200)
         if (current_value == new_value) {
             @branchHint(.likely);
-            return if (is_warm) gas_constants.WarmStorageReadCost else gas_constants.ColdSloadCost;
+            // EIP-2200: No-op operations
+            // - Warm: 0 gas (completely free)
+            // - Cold: 2100 gas (cold access cost)
+            return if (is_warm) 0 else gas_constants.ColdSloadCost;
         }
         
-        // Base cost for warm/cold access
-        var gas_cost: u64 = if (is_warm) gas_constants.WarmStorageReadCost else gas_constants.ColdSloadCost;
+        // EIP-2200 gas calculation with EIP-2929 modifications
+        var gas_cost: u64 = 0;
         
-        // Additional cold access penalty (EIP-2929)
-        if (!is_warm) {
-            gas_cost += 2000; // Additional 2000 gas for cold access beyond the 2100 base
-        }
-        
-        // EIP-2200 logic based on original vs current relationship
         if (original_value == current_value) {
             // First modification in this transaction
             if (is_zero(original_value)) {
                 // Setting zero to non-zero (most expensive)
-                gas_cost += gas_constants.SSTORE_SET;
+                gas_cost = gas_constants.SSTORE_SET; // 20000 gas
             } else if (is_zero(new_value)) {
-                // Clearing non-zero to zero (eligible for refund)
-                gas_cost += gas_constants.SSTORE_RESET;
+                // Clearing non-zero to zero (with refund)
+                gas_cost = gas_constants.SSTORE_RESET; // 2800 gas base
             } else {
                 // Modifying non-zero to different non-zero
-                gas_cost += gas_constants.SSTORE_RESET;
+                gas_cost = gas_constants.SSTORE_RESET; // 2800 gas base
             }
         } else {
-            // Slot was already modified in this transaction
-            gas_cost += gas_constants.WarmStorageReadCost; // Just warm access cost
+            // Slot was already modified in this transaction (dirty slot)
+            // For subsequent modifications, use current vs new value logic
+            if (!is_zero(current_value)) {
+                // Current is non-zero: treat as SSTORE_RESET operation
+                if (is_zero(new_value)) {
+                    // Clearing to zero
+                    gas_cost = gas_constants.SSTORE_RESET; // 2800 gas base
+                } else {
+                    // Modifying non-zero to different non-zero
+                    gas_cost = gas_constants.SSTORE_RESET; // 2800 gas base
+                }
+            } else {
+                // Current is zero: treat as SSTORE_SET operation
+                if (!is_zero(new_value)) {
+                    // Setting from zero
+                    gas_cost = gas_constants.SSTORE_SET; // 20000 gas
+                } else {
+                    // Zero to zero (should be handled by no-op case above)
+                    gas_cost = gas_constants.WarmStorageReadCost; // 100 gas
+                }
+            }
+        }
+        
+        // Add access cost according to EIP-2929
+        if (!is_warm) {
+            // Cold access: add cold access cost
+            gas_cost += gas_constants.ColdSloadCost; // +2100 gas
+        } else {
+            // Warm access: add warm access cost for all SSTORE operations
+            gas_cost += gas_constants.WarmStorageReadCost; // +100 gas
         }
         
         Log.debug("SStoreGasCalculator.calculate_gas_cost: calculated gas_cost={}", .{gas_cost});
@@ -281,6 +306,9 @@ pub fn calculate_sstore_operation(
     );
     
     const is_valid = SStoreGasCalculator.check_gas_sentry(gas_remaining, gas_cost);
+    
+    // Debug output to understand what's happening
+    Log.debug("calculate_sstore_operation: gas_cost={}, gas_remaining={}, sentry_check={}, remaining_after={}", .{ gas_cost, gas_remaining, is_valid, gas_remaining -| gas_cost });
     
     if (is_valid) {
         return SStoreResult.success(gas_cost, refund);

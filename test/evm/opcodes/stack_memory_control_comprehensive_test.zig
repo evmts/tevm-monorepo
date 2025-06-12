@@ -266,7 +266,7 @@ test "SSTORE (0x55): Store to storage" {
     );
     defer contract.deinit(allocator, null);
 
-    var test_frame = try helpers.TestFrame.init(allocator, &contract, 30000);
+    var test_frame = try helpers.TestFrame.init(allocator, &contract, 35000); // 22100 + 2900 + 2900 + 2300 (sentry) + buffer
     defer test_frame.deinit();
 
     // Test 1: Store to empty slot
