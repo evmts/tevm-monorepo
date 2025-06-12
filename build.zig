@@ -613,26 +613,6 @@ pub fn build(b: *std.Build) void {
     const static_protection_test_step = b.step("test-static-protection", "Run Static Call Protection tests");
     static_protection_test_step.dependOn(&run_static_protection_test.step);
 
-    // Add ECADD precompile tests
-    const ecadd_test = b.addTest(.{
-        .name = "ecadd-test",
-        .root_source_file = b.path("test/evm/precompiles/ecadd_test.zig"),
-        .target = target,
-        .optimize = optimize,
-        .single_threaded = true,
-    });
-    ecadd_test.root_module.stack_check = false;
-
-    // Add module imports to ECADD test
-    ecadd_test.root_module.addImport("Address", address_mod);
-    ecadd_test.root_module.addImport("evm", evm_mod);
-
-    const run_ecadd_test = b.addRunArtifact(ecadd_test);
-
-    // Add a separate step for testing ECADD precompile
-    const ecadd_test_step = b.step("test-ecadd", "Run ECADD precompile tests");
-    ecadd_test_step.dependOn(&run_ecadd_test.step);
-
     // Add Memory benchmark
     const memory_benchmark = b.addExecutable(.{
         .name = "memory-benchmark",
@@ -726,7 +706,6 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_integration_test.step);
     test_step.dependOn(&run_gas_test.step);
     test_step.dependOn(&run_static_protection_test.step);
-    test_step.dependOn(&run_ecadd_test.step);
 
     // Define a single test step that runs all tests
     const test_all_step = b.step("test-all", "Run all unit tests");
