@@ -1,23 +1,21 @@
 # Implement EOF Support
 
-## Git Workflow Instructions
+You are implementing EOF Support for the Tevm EVM written in Zig. Your goal is to implement EOF (EVM Object Format) support for contract evolution following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
-1. **Create branch**: `feat_implement_eof_support` (snake_case, no emoji)
-2. **Create worktree**: `git worktree add g/feat_implement_eof_support feat_implement_eof_support`
-3. **Work in isolation**: `cd g/feat_implement_eof_support`
-4. **Commit message**: `✨ feat: implement EOF (EVM Object Format) support`
+## Development Workflow
+- **Branch**: `feat_implement_eof_support` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_eof_support feat_implement_eof_support`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
 
-### Workflow Steps
-1. Create and switch to the new worktree
-2. Implement all changes in the isolated branch
-3. Run `zig build test-all` to ensure all tests pass
-4. Commit with emoji conventional commit format
-5. DO NOT merge - leave ready for review
 
 ## Context
 
 Implement EVM Object Format (EOF) support, which is a significant evolution of the EVM that introduces structured bytecode containers, static analysis capabilities, and new execution semantics. EOF includes several EIPs: EIP-3540 (container format), EIP-3670 (code validation), EIP-4200 (static relative jumps), EIP-4750 (functions), and EIP-5450 (stack validation).
+
+## ELI5
+
+Current smart contract bytecode is like a long string of assembly instructions all jumbled together with no structure. EOF (EVM Object Format) is like organizing that mess into a proper filing system with labeled sections and safety checks. It's similar to how modern programming languages have functions, imports, and type checking, versus old assembly code that was just one long list of instructions. EOF makes smart contracts safer (by catching errors before deployment), faster (by enabling optimizations), and easier to analyze. It's like upgrading from a text file full of random code to a properly structured program with clear functions and validation.
 
 ## EOF Specification Overview
 
@@ -1112,14 +1110,135 @@ test "eof deployment and execution" {
 5. **Function Calls**: Working function call mechanism with CALLF/RETF
 6. **Legacy Compatibility**: EOF contracts can interact with legacy contracts
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **EIP specification compliance** - Must match exact EOF behavior
-3. **Static validation accuracy** - Critical for EOF security model
-4. **Function call correctness** - Proper stack isolation and return handling
-5. **Performance** - EOF execution should be faster than legacy
-6. **Test with official vectors** - Use EOF test suite for validation
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
+
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/eof/eof_support_test.zig`)
+```zig
+// Test basic eof_support functionality
+test "eof_support basic functionality works correctly"
+test "eof_support handles edge cases properly"
+test "eof_support validates inputs appropriately"
+test "eof_support produces correct outputs"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "eof_support integrates with EVM properly"
+test "eof_support maintains system compatibility"
+test "eof_support works with existing components"
+test "eof_support handles cross-system interactions"
+```
+
+#### 3. **Performance Tests**
+```zig
+test "eof_support meets performance requirements"
+test "eof_support optimizes resource usage"
+test "eof_support scales appropriately with load"
+test "eof_support benchmark vs baseline"
+```
+
+#### 4. **Compliance Tests**
+```zig
+test "eof_support meets specification requirements"
+test "eof_support maintains EVM compatibility"
+test "eof_support handles hardfork transitions"
+test "eof_support cross-client behavior consistency"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "eof_support handles errors gracefully"
+test "eof_support proper error propagation"
+test "eof_support recovery from failure states"
+test "eof_support validates error conditions"
+```
+
+#### 6. **Security Tests** (where applicable)
+```zig
+test "eof_support prevents security vulnerabilities"
+test "eof_support handles malicious inputs safely"
+test "eof_support maintains isolation boundaries"
+test "eof_support validates security properties"
+```
+
+### Test Development Priority
+1. **Core functionality** - Basic feature operation
+2. **Specification compliance** - Meet requirements
+3. **Integration** - System-level correctness
+4. **Performance** - Efficiency targets
+5. **Error handling** - Robust failures
+6. **Security** - Vulnerability prevention
+
+### Test Data Sources
+- **Specification documents**: Official requirements and test vectors
+- **Reference implementations**: Cross-client compatibility
+- **Performance baselines**: Optimization targets
+- **Real-world data**: Production scenarios
+- **Synthetic cases**: Edge conditions and stress testing
+
+### Continuous Testing
+- Run `zig build test-all` after every change
+- Maintain 100% test coverage for public APIs
+- Validate performance regression prevention
+- Test both debug and release builds
+- Verify cross-platform behavior
+
+### Test-First Examples
+
+**Before implementation:**
+```zig
+test "eof_support basic operation" {
+    // This test MUST fail initially
+    const input = test_data.validInput();
+    const expected = test_data.expectedOutput();
+    
+    const result = eof_support.process(input);
+    try testing.expectEqual(expected, result);
+}
+```
+
+**Then implement:**
+```zig
+pub const eof_support = struct {
+    pub fn process(input: InputType) !OutputType {
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Requirements
+- **Never commit without passing tests**
+- **Test all configuration paths**
+- **Verify specification compliance**
+- **Validate performance implications**
+- **Ensure cross-platform compatibility**
 
 ## References
 

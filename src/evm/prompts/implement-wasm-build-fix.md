@@ -2,23 +2,64 @@
 
 ## Git Workflow Instructions
 
-### Branch Setup
-1. **Create branch**: `feat_fix_wasm_build` (snake_case, no emoji)
-2. **Create worktree**: `git worktree add g/feat_fix_wasm_build feat_fix_wasm_build`
-3. **Work in isolation**: `cd g/feat_fix_wasm_build`
-4. **Commit message**: `🔧 fix: restore WASM build and TypeScript integration`
+#
+<<<<<<< HEAD
+=======
+<review>
+**Implementation Status: NOT IMPLEMENTED ❌**
 
-### Workflow Steps
-1. Create and switch to the new worktree
-2. Implement all changes in the isolated branch
-3. Run `zig build test-all` to ensure all tests pass
-4. Test WASM build with `zig build -Dtarget=wasm32-wasi`
-5. Commit with emoji conventional commit format
-6. DO NOT merge - leave ready for review
+**Duplicate of fix-wasm-build-integration.md:**
+- 📝 **NOTE**: This prompt covers the same scope as fix-wasm-build-integration.md
+- 📝 **Recommendation**: Consolidate or choose one prompt to avoid duplication
 
+**Current Status:**
+- ❌ WASM build system is broken and non-functional
+- ❌ No TypeScript integration for Zig EVM
+- ❌ Missing WASM-specific implementations in wasm_stubs.zig
+- ❌ Build.zig lacks proper WASM target configuration
+
+**Key Files Identified:**
+- ✅ `/src/evm/wasm_stubs.zig` exists but needs implementation
+- ✅ `/src/root_wasm.zig` and `/src/root_wasm_minimal.zig` exist
+- ✅ `/build.zig` exists but WASM configuration is broken
+- ❌ No TypeScript bindings or WASM loader
+
+**Impact:**
+- 🔥 **CRITICAL BLOCKER**: Prevents using high-performance Zig EVM in JavaScript
+- 🔥 **Performance Impact**: Forces fallback to slower implementations
+
+**Priority**: Should be consolidated with the more detailed fix-wasm-build-integration.md prompt
+</review>
+
+>>>>>>> origin/main
 ## Context
 
 The WASM build is currently broken and needs to be fixed as well as integrated into the overall Tevm TypeScript codebase. This is a critical blocker for using the Zig EVM implementation in JavaScript environments.
+
+## File Structure
+
+**Primary Files to Modify:**
+- `/src/evm/wasm_stubs.zig` - WASM-specific implementations
+- `/src/root_wasm.zig` - WASM root module
+- `/src/root_wasm_minimal.zig` - Minimal WASM build
+
+**Supporting Files:**
+- `/build.zig` - Build configuration for WASM target
+- `/src/evm/vm.zig` - VM implementation that needs WASM compatibility
+
+**Test Files:**
+- WASM-specific tests would be added
+- Integration tests for TypeScript/WASM interface
+
+**Why These Files:**
+- WASM stubs provide platform-specific implementations for WASM environment
+- Root WASM modules define the entry points and exports for JavaScript
+- Build system needs proper WASM target configuration
+- VM implementation must be compatible with WASM constraints
+
+## ELI5
+
+Think of WASM like a universal translator that lets super-fast compiled code run in web browsers. Right now our high-performance EVM engine is written in Zig but the build system that packages it for browsers is broken - like having a Ferrari with a broken transmission. We need to fix the build pipeline so JavaScript can actually use our lightning-fast EVM, turning a 100x performance improvement from impossible to reality.
 
 ## Current Issues
 
@@ -223,6 +264,14 @@ pub fn optimize_for_wasm() void {
 5. **Performance**: Acceptable execution speed compared to native
 6. **Browser Compatibility**: Works in all major browsers
 
+
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 ## Critical Requirements
 
 1. **NEVER commit until `zig build test-all` passes**
@@ -245,6 +294,120 @@ pub fn optimize_for_wasm() void {
 2. **API surface compatibility**: Maintaining consistent APIs
 3. **Debug information**: Debugging WASM modules
 4. **Development workflow**: Hot reloading and development tools
+
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/build/wasm_build_fix_test.zig`)
+```zig
+// Test basic wasm_build_fix functionality
+test "wasm_build_fix basic functionality works correctly"
+test "wasm_build_fix handles edge cases properly"
+test "wasm_build_fix validates inputs appropriately"
+test "wasm_build_fix produces correct outputs"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "wasm_build_fix integrates with EVM properly"
+test "wasm_build_fix maintains system compatibility"
+test "wasm_build_fix works with existing components"
+test "wasm_build_fix handles cross-system interactions"
+```
+
+#### 3. **Performance Tests**
+```zig
+test "wasm_build_fix meets performance requirements"
+test "wasm_build_fix optimizes resource usage"
+test "wasm_build_fix scales appropriately with load"
+test "wasm_build_fix benchmark vs baseline"
+```
+
+#### 4. **Compliance Tests**
+```zig
+test "wasm_build_fix meets specification requirements"
+test "wasm_build_fix maintains EVM compatibility"
+test "wasm_build_fix handles hardfork transitions"
+test "wasm_build_fix cross-client behavior consistency"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "wasm_build_fix handles errors gracefully"
+test "wasm_build_fix proper error propagation"
+test "wasm_build_fix recovery from failure states"
+test "wasm_build_fix validates error conditions"
+```
+
+#### 6. **Security Tests** (where applicable)
+```zig
+test "wasm_build_fix prevents security vulnerabilities"
+test "wasm_build_fix handles malicious inputs safely"
+test "wasm_build_fix maintains isolation boundaries"
+test "wasm_build_fix validates security properties"
+```
+
+### Test Development Priority
+1. **Core functionality** - Basic feature operation
+2. **Specification compliance** - Meet requirements
+3. **Integration** - System-level correctness
+4. **Performance** - Efficiency targets
+5. **Error handling** - Robust failures
+6. **Security** - Vulnerability prevention
+
+### Test Data Sources
+- **Specification documents**: Official requirements and test vectors
+- **Reference implementations**: Cross-client compatibility
+- **Performance baselines**: Optimization targets
+- **Real-world data**: Production scenarios
+- **Synthetic cases**: Edge conditions and stress testing
+
+### Continuous Testing
+- Run `zig build test-all` after every change
+- Maintain 100% test coverage for public APIs
+- Validate performance regression prevention
+- Test both debug and release builds
+- Verify cross-platform behavior
+
+### Test-First Examples
+
+**Before implementation:**
+```zig
+test "wasm_build_fix basic operation" {
+    // This test MUST fail initially
+    const input = test_data.validInput();
+    const expected = test_data.expectedOutput();
+    
+    const result = wasm_build_fix.process(input);
+    try testing.expectEqual(expected, result);
+}
+```
+
+**Then implement:**
+```zig
+pub const wasm_build_fix = struct {
+    pub fn process(input: InputType) !OutputType {
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Requirements
+- **Never commit without passing tests**
+- **Test all configuration paths**
+- **Verify specification compliance**
+- **Validate performance implications**
+- **Ensure cross-platform compatibility**
 
 ## References
 

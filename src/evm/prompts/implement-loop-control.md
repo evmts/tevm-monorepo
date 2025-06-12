@@ -1,23 +1,21 @@
 # Implement Loop Control
 
-## Git Workflow Instructions
+You are implementing Loop Control for the Tevm EVM written in Zig. Your goal is to implement loop control mechanisms for execution safety following Ethereum specifications and maintaining compatibility with existing implementations.
 
-### Branch Setup
-1. **Create branch**: `feat_implement_loop_control` (snake_case, no emoji)
-2. **Create worktree**: `git worktree add g/feat_implement_loop_control feat_implement_loop_control`
-3. **Work in isolation**: `cd g/feat_implement_loop_control`
-4. **Commit message**: `🔄 feat: implement advanced loop control with break/continue mechanics and optimization`
+## Development Workflow
+- **Branch**: `feat_implement_loop_control` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_loop_control feat_implement_loop_control`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
 
-### Workflow Steps
-1. Create and switch to the new worktree
-2. Implement all changes in the isolated branch
-3. Run `zig build test-all` to ensure all tests pass
-4. Commit with emoji conventional commit format
-5. DO NOT merge - leave ready for review
 
 ## Context
 
 Implement a comprehensive loop control system that provides advanced loop management capabilities including break/continue semantics, loop optimization, nested loop support, and loop-invariant code motion. This enables more efficient contract execution patterns and better optimization opportunities while maintaining EVM compatibility and gas accounting accuracy.
+
+## ELI5
+
+Loop control is like having a smart traffic management system for repetitive operations in smart contracts. Just like traffic lights control the flow of cars through intersections, loop control manages how code repeats and when it should stop, skip ahead, or take detours. This system helps organize complex repetitive tasks and prevents infinite loops that could waste gas, while also optimizing frequently-used patterns to run faster.
 
 ## Loop Control Specifications
 
@@ -1488,14 +1486,135 @@ test "integration with VM execution" {
 5. **EVM Integration**: Seamless integration with existing EVM execution without regression
 6. **Memory Efficiency**: Minimal overhead when loop control features are not used
 
-## Critical Requirements
+## Critical Constraints
+❌ NEVER commit until all tests pass with `zig build test-all`
+❌ DO NOT merge without review
+✅ MUST follow Zig style conventions (snake_case, no inline keyword)
+✅ MUST validate against Ethereum specifications exactly
+✅ MUST maintain compatibility with existing implementations
+✅ MUST handle all edge cases and error conditions
 
-1. **NEVER commit until `zig build test-all` passes**
-2. **Gas safety validation** - Loop gas limits must be enforced to prevent DoS attacks
-3. **Performance validation** - Optimizations must provide measurable benefits
-4. **Memory safety** - No leaks or corruption in loop stack management
-5. **Correctness** - Loop control flow must be precisely implemented
-6. **Backward compatibility** - Standard EVM execution must remain unchanged
+## Success Criteria
+✅ All tests pass with `zig build test-all`
+✅ Implementation matches Ethereum specification exactly
+✅ Input validation handles all edge cases
+✅ Output format matches reference implementations
+✅ Performance meets or exceeds benchmarks
+✅ Gas costs are calculated correctly
+
+## Test-Driven Development (TDD) Strategy
+
+### Testing Philosophy
+🚨 **CRITICAL**: Follow strict TDD approach - write tests first, implement second, refactor third.
+
+**TDD Workflow:**
+1. **Red**: Write failing tests for expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Optimize while keeping tests green
+4. **Repeat**: For each new requirement or edge case
+
+### Required Test Categories
+
+#### 1. **Unit Tests** (`/test/evm/loop/loop_control_test.zig`)
+```zig
+// Test basic loop_control functionality
+test "loop_control basic functionality works correctly"
+test "loop_control handles edge cases properly"
+test "loop_control validates inputs appropriately"
+test "loop_control produces correct outputs"
+```
+
+#### 2. **Integration Tests**
+```zig
+test "loop_control integrates with EVM properly"
+test "loop_control maintains system compatibility"
+test "loop_control works with existing components"
+test "loop_control handles cross-system interactions"
+```
+
+#### 3. **Performance Tests**
+```zig
+test "loop_control meets performance requirements"
+test "loop_control optimizes resource usage"
+test "loop_control scales appropriately with load"
+test "loop_control benchmark vs baseline"
+```
+
+#### 4. **Compliance Tests**
+```zig
+test "loop_control meets specification requirements"
+test "loop_control maintains EVM compatibility"
+test "loop_control handles hardfork transitions"
+test "loop_control cross-client behavior consistency"
+```
+
+#### 5. **Error Handling Tests**
+```zig
+test "loop_control handles errors gracefully"
+test "loop_control proper error propagation"
+test "loop_control recovery from failure states"
+test "loop_control validates error conditions"
+```
+
+#### 6. **Security Tests** (where applicable)
+```zig
+test "loop_control prevents security vulnerabilities"
+test "loop_control handles malicious inputs safely"
+test "loop_control maintains isolation boundaries"
+test "loop_control validates security properties"
+```
+
+### Test Development Priority
+1. **Core functionality** - Basic feature operation
+2. **Specification compliance** - Meet requirements
+3. **Integration** - System-level correctness
+4. **Performance** - Efficiency targets
+5. **Error handling** - Robust failures
+6. **Security** - Vulnerability prevention
+
+### Test Data Sources
+- **Specification documents**: Official requirements and test vectors
+- **Reference implementations**: Cross-client compatibility
+- **Performance baselines**: Optimization targets
+- **Real-world data**: Production scenarios
+- **Synthetic cases**: Edge conditions and stress testing
+
+### Continuous Testing
+- Run `zig build test-all` after every change
+- Maintain 100% test coverage for public APIs
+- Validate performance regression prevention
+- Test both debug and release builds
+- Verify cross-platform behavior
+
+### Test-First Examples
+
+**Before implementation:**
+```zig
+test "loop_control basic operation" {
+    // This test MUST fail initially
+    const input = test_data.validInput();
+    const expected = test_data.expectedOutput();
+    
+    const result = loop_control.process(input);
+    try testing.expectEqual(expected, result);
+}
+```
+
+**Then implement:**
+```zig
+pub const loop_control = struct {
+    pub fn process(input: InputType) !OutputType {
+        return error.NotImplemented; // Initially
+    }
+};
+```
+
+### Critical Requirements
+- **Never commit without passing tests**
+- **Test all configuration paths**
+- **Verify specification compliance**
+- **Validate performance implications**
+- **Ensure cross-platform compatibility**
 
 ## References
 
