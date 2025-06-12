@@ -120,7 +120,7 @@ fn benchmarkStackSwap(allocator: std.mem.Allocator) void {
         
         // Perform swap operations
         for (0..5) |_| {
-            stack.swap_unsafe(1);
+            stack.swapUnsafe(1);
         }
         
         std.mem.doNotOptimizeAway(&stack);
@@ -168,7 +168,7 @@ fn benchmarkDeepStackOperations(allocator: std.mem.Allocator) void {
         for (0..10) |i| {
             const depth = i % 16 + 1; // DUP1-DUP16 range
             stack.dup_unsafe(@intCast(depth));
-            stack.pop_unsafe(); // Clean up
+            _ = stack.pop_unsafe(); // Clean up
         }
         
         std.mem.doNotOptimizeAway(&stack);
@@ -190,7 +190,7 @@ fn benchmarkStackReset(allocator: std.mem.Allocator) void {
         }
         
         // Reset stack
-        stack.reset();
+        stack.clear();
         
         std.mem.doNotOptimizeAway(&stack);
     }
@@ -210,7 +210,7 @@ fn benchmarkMixedStackOps(allocator: std.mem.Allocator) void {
         stack.append_unsafe(200);  // PUSH
         stack.dup_unsafe(1);       // DUP1
         stack.append_unsafe(50);   // PUSH
-        stack.swap_unsafe(2);      // SWAP2
+        stack.swapUnsafe(2);      // SWAP2
         _ = stack.pop_unsafe();    // POP
         stack.dup_unsafe(2);       // DUP2
         _ = stack.pop_unsafe();    // POP

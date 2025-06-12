@@ -53,43 +53,40 @@ test "basic contract deployment and code storage" {
 
     try testing.expect(compilation_result.contracts.len > 0);
     const contract = compilation_result.contracts[0];
-    const runtime_bytecode = if (contract.deployed_bytecode.len > 0) 
-        contract.deployed_bytecode 
-    else 
+    const runtime_bytecode = if (contract.deployed_bytecode.len > 0)
+        contract.deployed_bytecode
+    else
         contract.bytecode;
-
-    std.debug.print("\n=== Contract Deployment Test ===\n", .{});
-    std.debug.print("Runtime bytecode length: {} bytes\n", .{runtime_bytecode.len});
 
     // Create VM and Database on heap
     const vm_ptr = try allocator.create(evm.Vm);
     defer allocator.destroy(vm_ptr);
-    
+
     const database_ptr = try allocator.create(evm.MemoryDatabase);
     defer allocator.destroy(database_ptr);
-    
+
     // Initialize database and VM
     database_ptr.* = evm.MemoryDatabase.init(allocator);
     defer database_ptr.deinit();
-    
+
     const db_interface = database_ptr.to_database_interface();
     vm_ptr.* = try evm.Vm.init(allocator, db_interface, null, null);
     defer vm_ptr.deinit();
-    
+
     // Deploy the contract to a test address
     const contract_address = Address.from_u256(0x1000);
-    
+
     // Set up initial state - put the deployed bytecode at the contract address
     try vm_ptr.state.set_code(contract_address, runtime_bytecode);
     std.debug.print("Contract deployed at address: {any}\n", .{contract_address});
-    
+
     // Verify deployment
     const stored_code = vm_ptr.state.get_code(contract_address);
     std.debug.print("Stored code length: {} bytes\n", .{stored_code.len});
-    
+
     // Verify the stored code matches what we deployed
     try testing.expect(stored_code.len == runtime_bytecode.len);
     try testing.expectEqualSlices(u8, stored_code, runtime_bytecode);
-    
+
     std.debug.print("SUCCESS: Contract deployment and code storage verified\n", .{});
 }

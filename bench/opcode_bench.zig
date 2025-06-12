@@ -330,11 +330,25 @@ fn benchmarkMemoryExpansion(allocator: std.mem.Allocator) void {
     const iterations = 1000;
     for (0..iterations) |_| {
         var memory = Memory.init_default(allocator) catch return;
+        memory.finalize_root();
         defer memory.deinit();
         
-        // Simulate memory expansion
-        memory.store_word(64, 0xDEADBEEFCAFEBABE) catch return;
-        const result = memory.load_word(64) catch return;
+        // Simulate memory expansion by ensuring capacity for offset 64
+        _ = memory.ensure_context_capacity(96) catch return; // 64 + 32 bytes
+        
+        // Convert u256 to big-endian bytes for storage
+        const value: u256 = 0xDEADBEEFCAFEBABE;
+        var bytes: [32]u8 = [_]u8{0} ** 32;
+        var temp_value = value;
+        var i: usize = 32;
+        while (i > 0) {
+            i -= 1;
+            bytes[i] = @truncate(temp_value);
+            temp_value >>= 8;
+        }
+        
+        memory.set_data(64, &bytes) catch return;
+        const result = memory.get_u256(64) catch return;
         
         std.mem.doNotOptimizeAway(result);
     }
@@ -344,11 +358,25 @@ fn benchmarkMemoryStoreLoad(allocator: std.mem.Allocator) void {
     const iterations = 1000;
     for (0..iterations) |_| {
         var memory = Memory.init_default(allocator) catch return;
+        memory.finalize_root();
         defer memory.deinit();
         
-        // Store and load a word
-        memory.store_word(0, 0x123456789ABCDEF0) catch return;
-        const result = memory.load_word(0) catch return;
+        // Ensure capacity for offset 0
+        _ = memory.ensure_context_capacity(32) catch return;
+        
+        // Convert u256 to big-endian bytes for storage
+        const value: u256 = 0x123456789ABCDEF0;
+        var bytes: [32]u8 = [_]u8{0} ** 32;
+        var temp_value = value;
+        var i: usize = 32;
+        while (i > 0) {
+            i -= 1;
+            bytes[i] = @truncate(temp_value);
+            temp_value >>= 8;
+        }
+        
+        memory.set_data(0, &bytes) catch return;
+        const result = memory.get_u256(0) catch return;
         
         std.mem.doNotOptimizeAway(result);
     }
