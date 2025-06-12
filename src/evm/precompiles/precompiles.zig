@@ -4,6 +4,7 @@ const addresses = @import("precompile_addresses.zig");
 const PrecompileOutput = @import("precompile_result.zig").PrecompileOutput;
 const PrecompileError = @import("precompile_result.zig").PrecompileError;
 const identity = @import("identity.zig");
+const blake2f = @import("blake2f.zig");
 const ChainRules = @import("../hardforks/chain_rules.zig");
 
 /// Main precompile dispatcher module
@@ -132,9 +133,9 @@ pub fn execute_precompile(
             return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
         }, // ECPAIRING - TODO
         9 => {
-            @branchHint(.cold);
-            return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
-        }, // BLAKE2F - TODO
+            @branchHint(.likely);
+            return blake2f.execute(input, output, gas_limit);
+        }, // BLAKE2F
         10 => {
             @branchHint(.cold);
             return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
@@ -180,7 +181,7 @@ pub fn estimate_gas(address: Address, input_size: usize, chain_rules: ChainRules
         6 => error.NotImplemented, // ECADD - TODO
         7 => error.NotImplemented, // ECMUL - TODO
         8 => error.NotImplemented, // ECPAIRING - TODO
-        9 => error.NotImplemented, // BLAKE2F - TODO
+        9 => blake2f.calculate_gas_checked(input_size), // BLAKE2F
         10 => error.NotImplemented, // POINT_EVALUATION - TODO
         
         else => error.InvalidPrecompile,

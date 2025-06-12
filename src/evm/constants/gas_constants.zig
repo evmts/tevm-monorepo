@@ -253,6 +253,10 @@ pub const IDENTITY_BASE_COST: u64 = 15;
 /// Total cost = IDENTITY_BASE_COST + (word_count * IDENTITY_WORD_COST)
 pub const IDENTITY_WORD_COST: u64 = 3;
 
+/// Gas cost per round for BLAKE2F precompile (address 0x09)
+/// Total cost = rounds * BLAKE2F_GAS_PER_ROUND
+pub const BLAKE2F_GAS_PER_ROUND: u64 = 1;
+
 /// Calculate memory expansion gas cost
 /// 
 /// Computes the gas cost for expanding EVM memory from current_size to new_size bytes.
