@@ -1,5 +1,21 @@
 # Implement Bundle State Management
 
+<review>
+**Implementation Status: NOT IMPLEMENTED ❌**
+
+**Current Status:**
+- Basic state management exists with journal for rollbacks
+- No bundle state management or transaction batching support
+- Missing efficient diff tracking and checkpoint management for bundles
+
+**Implementation Requirements:**
+- Bundle state management system for transaction batching
+- Efficient state diff tracking and merging capabilities
+- Integration with existing journal.zig for rollback support
+
+**Priority: HIGH - Essential for MEV bundles, transaction batching, and advanced execution scenarios**
+</review>
+
 You are implementing Bundle State Management for the Tevm EVM written in Zig. Your goal is to implement bundle state management for transaction batching following Ethereum specifications and maintaining compatibility with existing implementations.
 
 ## Development Workflow
