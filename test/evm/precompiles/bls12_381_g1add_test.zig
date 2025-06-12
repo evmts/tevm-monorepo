@@ -116,27 +116,47 @@ test "G1ADD: G1 point parsing" {
     try testing.expect(point2.is_infinity());
 }
 
-/// Test with BLS12-381 generator point (this would require proper implementation)
-test "G1ADD: PLACEHOLDER test with generator point" {
-    // NOTE: This test demonstrates what proper testing would look like
-    // The values below are the BLS12-381 G1 generator point coordinates
-    // For a real implementation, this would test actual point addition
-    
+/// Test with actual BLS12-381 test vectors  
+test "G1ADD: test with known G1 generator point" {
     var input: [256]u8 = std.mem.zeroes([256]u8);
     var output: [128]u8 = undefined;
     
     // BLS12-381 G1 generator point coordinates (big-endian, 64 bytes each)
-    // x: 0x0abc...def (would be the actual generator x coordinate)
-    // y: 0x1234...567 (would be the actual generator y coordinate)
+    // x = 0x17f1d3a73197d7942695638c4fa9ac0fc3688c4f9774b905a14e3a3f171bac586c55e83ff97a1aeffb3af00adb22c6bb
+    // y = 0x08b3f481e3aaa0f1a09e30ed741d8ae4fcf5e095d5d00af600db18cb2c04b3edd03cc744a2888ae40caa232946c5e7e1
     
-    // For now, test with zeros (point at infinity)
+    // Point 1: BLS12-381 generator G
+    // x coordinate (64 bytes, big-endian with 16-byte padding)
+    const g_x = [_]u8{
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // padding
+        0x17, 0xf1, 0xd3, 0xa7, 0x31, 0x97, 0xd7, 0x94, 0x26, 0x95, 0x63, 0x8c, 0x4f, 0xa9, 0xac, 0x0f,
+        0xc3, 0x68, 0x8c, 0x4f, 0x97, 0x74, 0xb9, 0x05, 0xa1, 0x4e, 0x3a, 0x3f, 0x17, 0x1b, 0xac, 0x58,
+        0x6c, 0x55, 0xe8, 0x3f, 0xf9, 0x7a, 0x1a, 0xef, 0xfb, 0x3a, 0xf0, 0x0a, 0xdb, 0x22, 0xc6, 0xbb,
+    };
+    
+    // y coordinate (64 bytes, big-endian with 16-byte padding)
+    const g_y = [_]u8{
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // padding
+        0x08, 0xb3, 0xf4, 0x81, 0xe3, 0xaa, 0xa0, 0xf1, 0xa0, 0x9e, 0x30, 0xed, 0x74, 0x1d, 0x8a, 0xe4,
+        0xfc, 0xf5, 0xe0, 0x95, 0xd5, 0xd0, 0x0a, 0xf6, 0x00, 0xdb, 0x18, 0xcb, 0x2c, 0x04, 0xb3, 0xed,
+        0xd0, 0x3c, 0xc7, 0x44, 0xa2, 0x88, 0x8a, 0xe4, 0x0c, 0xaa, 0x23, 0x29, 0x46, 0xc5, 0xe7, 0xe1,
+    };
+    
+    // Point 2: Same as Point 1 (G + G = 2G, point doubling case)
+    @memcpy(input[0..64], &g_x);
+    @memcpy(input[64..128], &g_y);
+    @memcpy(input[128..192], &g_x);
+    @memcpy(input[192..256], &g_y);
+    
     const result = bls12_381_g1add.execute(&input, &output, 1000);
     
-    // Should succeed (point at infinity + point at infinity = point at infinity)
+    // Should succeed and consume 375 gas
     try testing.expect(result.is_success());
     try testing.expectEqual(@as(u64, 375), result.get_gas_used());
     
-    // TODO: Add real test vectors from EIP-2537 specification
-    // TODO: Test with actual generator point addition
-    // TODO: Test with edge cases (point doubling, inverse points)
+    // With current placeholder implementation, this doesn't compute 2G correctly
+    // but at least validates that the generator point is accepted as valid input
+    
+    // TODO: Verify output equals 2G when proper arithmetic is implemented
+    // Expected 2G coordinates would be computed by real crypto library
 }
