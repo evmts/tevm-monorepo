@@ -7,6 +7,7 @@ const ecrecover = @import("ecrecover.zig");
 const identity = @import("identity.zig");
 const sha256 = @import("sha256.zig");
 const modexp = @import("modexp.zig");
+const blake2f = @import("blake2f.zig");
 const kzg_point_evaluation = @import("kzg_point_evaluation.zig");
 const bls12_381_g1add = @import("bls12_381_g1add.zig");
 const ChainRules = @import("../hardforks/chain_rules.zig");
@@ -131,9 +132,9 @@ pub fn execute_precompile(address: Address, input: []const u8, output: []u8, gas
             return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
         }, // ECPAIRING - TODO
         9 => {
-            @branchHint(.unlikely);
-            return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
-        }, // BLAKE2F - TODO
+            @branchHint(.likely);
+            return blake2f.execute(input, output, gas_limit);
+        }, // BLAKE2F
         10 => {
             @branchHint(.unlikely);
             return kzg_point_evaluation.execute(input, output, gas_limit);
@@ -183,7 +184,7 @@ pub fn estimate_gas(address: Address, input_size: usize, chain_rules: ChainRules
         6 => error.InvalidInput, // ECADD - TODO
         7 => error.InvalidInput, // ECMUL - TODO
         8 => error.InvalidInput, // ECPAIRING - TODO
-        9 => error.InvalidInput, // BLAKE2F - TODO
+        9 => blake2f.calculate_gas_checked(input_size), // BLAKE2F
         10 => kzg_point_evaluation.calculate_gas_checked(input_size), // POINT_EVALUATION
         11 => bls12_381_g1add.calculate_gas_checked(input_size), // BLS12_381_G1ADD
 
@@ -224,7 +225,7 @@ pub fn get_output_size(address: Address, input_size: usize, chain_rules: ChainRu
         6 => 64, // ECADD - fixed 64 bytes (point)
         7 => 64, // ECMUL - fixed 64 bytes (point)
         8 => 32, // ECPAIRING - fixed 32 bytes (boolean result)
-        9 => 64, // BLAKE2F - fixed 64 bytes (hash)
+        9 => blake2f.get_output_size(input_size), // BLAKE2F
         10 => kzg_point_evaluation.get_output_size(input_size), // POINT_EVALUATION
         11 => bls12_381_g1add.get_output_size(input_size), // BLS12_381_G1ADD - fixed 128 bytes
 
