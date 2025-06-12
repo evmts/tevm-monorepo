@@ -1,5 +1,12 @@
 # Implement BLS12-381 G1ADD Precompile
 
+<<<<<<< HEAD
+## What
+<eli5>
+Imagine you have special mathematical points on a curved surface, and you want to "add" two points together to get a third point. This isn't regular addition - it's a special kind of math used in advanced cryptography. BLS12-381 is a specific type of elliptic curve that's really good for creating digital signatures that multiple parties can combine together. The G1 point addition precompile is like having a built-in calculator in Ethereum that can do this special curve math super efficiently. This is essential for things like proof systems and advanced signature schemes that help make blockchain more scalable and private.
+</eli5>
+
+=======
 <review>
 **Implementation Status: COMPLETED ✅**
 
@@ -60,6 +67,7 @@
 Imagine you have special mathematical points on a curved surface, and you want to "add" two points together to get a third point. This isn't regular addition - it's a special kind of math used in advanced cryptography. BLS12-381 is a specific type of elliptic curve that's really good for creating digital signatures that multiple parties can combine together. The G1 point addition precompile is like having a built-in calculator in Ethereum that can do this special curve math super efficiently. This is essential for things like proof systems and advanced signature schemes that help make blockchain more scalable and private.
 </eli5>
 
+>>>>>>> origin/main
 Implement BLS12-381 G1 point addition precompile (EIP-2537) that performs elliptic curve point addition on the BLS12-381 G1 group. Takes 256 bytes input (two 128-byte G1 points) and returns 128 bytes output (resulting G1 point) with fixed gas cost of 375.
 
 ## Why

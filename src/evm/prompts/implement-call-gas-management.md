@@ -2,6 +2,8 @@
 
 You are implementing Call Gas Management for the Tevm EVM written in Zig. Your goal is to implement comprehensive gas management for CALL operations following Ethereum specifications and maintaining compatibility with existing implementations.
 
+<<<<<<< HEAD
+=======
 <review>
 **Implementation Status: PARTIALLY COMPLETED ❌**
 
@@ -53,6 +55,7 @@ src/evm/precompiles/precompiles.zig:132:20: error: use of undeclared identifier 
 **Overall Assessment: Implementation started but blocked by syntax error. Cannot proceed until compilation issues are resolved.**
 </review>
 
+>>>>>>> origin/main
 ## Development Workflow
 - **Branch**: `feat_implement_call_gas_management` (snake_case)
 - **Worktree**: `git worktree add g/feat_implement_call_gas_management feat_implement_call_gas_management`
