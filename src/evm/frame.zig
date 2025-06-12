@@ -67,7 +67,19 @@ allocator: std.mem.Allocator,
 /// Flag indicating execution should halt.
 /// Set by STOP, RETURN, REVERT, or errors.
 stop: bool = false,
+gas_remaining: u64 = 0,
+is_static: bool = false,
+return_data_buffer: []const u8 = &[_]u8{},
+input: []const u8 = &[_]u8{},
+depth: u32 = 0,
+output: []const u8 = &[_]u8{},
+program_counter: usize = 0,
 
+<<<<<<< HEAD
+pub fn init(allocator: std.mem.Allocator, contract: *Contract) !Self {
+    // Don't call finalize_root here - let the caller do it after Frame is at its final location
+    return Self{
+=======
 /// Remaining gas for this execution.
 /// Decremented by each operation; execution fails at 0.
 gas_remaining: u64 = 0,
@@ -115,6 +127,7 @@ pc: usize = 0,
 /// ```
 pub fn init(allocator: std.mem.Allocator, contract: *Contract) !Frame {
     return Frame{
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         .allocator = allocator,
         .contract = contract,
         .memory = try Memory.init_default(allocator),
@@ -166,6 +179,28 @@ pub fn init_with_state(
     stop: ?bool,
     gas_remaining: ?u64,
     is_static: ?bool,
+<<<<<<< HEAD
+    return_data_buffer: ?[]const u8,
+    input: ?[]const u8,
+    depth: ?u32,
+    output: ?[]const u8,
+    program_counter: ?usize,
+) !Self {
+    // Create memory if not provided
+    const mem: Memory = if (memory) |m| m else blk: {
+        const new_memory = try Memory.init_default(allocator);
+        // Don't finalize_root here - memory will be copied
+        break :blk new_memory;
+    };
+    
+    return Self{
+        .allocator = allocator,
+        .contract = contract,
+        .memory = mem,
+        .stack = stack orelse .{},
+        .op = op orelse undefined,
+        .program_counter = pc orelse 0,
+=======
     input: ?[]const u8,
     depth: ?u32,
     output: ?[]const u8,
@@ -177,11 +212,29 @@ pub fn init_with_state(
         .memory = memory orelse try Memory.init_default(allocator),
         .stack = stack orelse .{},
         .op = op orelse undefined,
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         .cost = cost orelse 0,
         .err = err,
         .stop = stop orelse false,
         .gas_remaining = gas_remaining orelse 0,
         .is_static = is_static orelse false,
+<<<<<<< HEAD
+        .return_data_buffer = return_data_buffer orelse &[_]u8{},
+        .input = input orelse &[_]u8{},
+        .depth = depth orelse 0,
+        .output = output orelse &[_]u8{},
+        .program_counter = program_counter orelse 0,
+    };
+}
+
+pub fn deinit(self: *Self) void {
+    self.memory.deinit();
+}
+
+pub fn consume_gas(self: *Self, amount: u64) ExecutionError.Error!void {
+    if (amount > self.gas_remaining) {
+        return ExecutionError.Error.OutOfGas;
+=======
         .return_data = ReturnData.init(allocator),
         .input = input orelse &[_]u8{},
         .depth = depth orelse 0,
@@ -229,6 +282,7 @@ pub fn consume_gas(self: *Frame, amount: u64) ConsumeGasError!void {
     if (amount > self.gas_remaining) {
         @branchHint(.cold);
         return ConsumeGasError.OutOfGas;
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     }
     self.gas_remaining -= amount;
 }

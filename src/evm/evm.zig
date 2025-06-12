@@ -56,7 +56,10 @@
 const std = @import("std");
 
 // Import external modules
+<<<<<<< HEAD
+=======
 /// Address utilities for Ethereum addresses
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 pub const Address = @import("Address");
 
 // Import all EVM modules
@@ -84,6 +87,28 @@ pub const JumpTable = @import("jump_table/jump_table.zig");
 
 /// Byte-addressable memory implementation
 pub const Memory = @import("memory.zig");
+<<<<<<< HEAD
+pub const ArenaMemory = @import("arena_memory.zig");
+pub const MemoryV2 = @import("memory_v2.zig").MemoryV2;
+pub const Opcode = @import("opcode.zig");
+pub const Operation = @import("operation.zig");
+pub const Stack = @import("stack.zig");
+pub const stack_validation = @import("stack_validation.zig");
+pub const StoragePool = @import("storage_pool.zig");
+pub const Vm = @import("vm.zig");
+
+// Import opcodes
+pub const opcodes = @import("opcodes/package.zig");
+
+// Import utility modules
+pub const bitvec = @import("bitvec.zig");
+pub const chain_rules = @import("chain_rules.zig");
+pub const constants = @import("constants.zig");
+pub const eip_7702_bytecode = @import("eip_7702_bytecode.zig");
+pub const fee_market = @import("fee_market.zig");
+pub const gas_constants = @import("gas_constants.zig");
+pub const memory_limits = @import("memory_limits.zig");
+=======
 
 /// EVM instruction enumeration
 pub const Opcode = @import("opcodes/opcode.zig");
@@ -108,6 +133,7 @@ pub const Vm = @import("vm.zig");
 
 /// EVM state management (accounts, storage, logs)
 pub const EvmState = @import("state/state.zig");
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 
 /// Database interface for pluggable state storage
 pub const DatabaseInterface = @import("state/database_interface.zig").DatabaseInterface;

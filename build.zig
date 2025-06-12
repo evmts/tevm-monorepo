@@ -423,8 +423,13 @@ pub fn build(b: *std.Build) void {
     trie_test_step.dependOn(&run_trie_test.step);
 
     const interpreter_test = b.addTest(.{
+<<<<<<< HEAD
+        .name = "interpreter-test",
+        .root_source_file = b.path("src/evm/jump_table.zig"),
+=======
         .name = "jump-table-test",
         .root_source_file = b.path("test/evm/jump_table_test.zig"),
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         .target = target,
         .optimize = optimize,
         .single_threaded = true,
@@ -437,6 +442,11 @@ pub fn build(b: *std.Build) void {
     interpreter_test.root_module.addImport("Rlp", rlp_mod);
     interpreter_test.root_module.addImport("evm", evm_mod);
     interpreter_test.root_module.addImport("utils", utils_mod);
+
+    // Add module imports to interpreter test
+    interpreter_test.root_module.addImport("Address", address_mod);
+    interpreter_test.root_module.addImport("Block", block_mod);
+    interpreter_test.root_module.addImport("Rlp", rlp_mod);
 
     const run_interpreter_test = b.addRunArtifact(interpreter_test);
 
@@ -461,6 +471,20 @@ pub fn build(b: *std.Build) void {
 
 
 
+    // Add Memory limit tests
+    const memory_limit_test = b.addTest(.{
+        .name = "memory-limit-test",
+        .root_source_file = b.path("test/evm/memory_limit_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    memory_limit_test.root_module.addImport("evm", evm_mod);
+
+    const run_memory_limit_test = b.addRunArtifact(memory_limit_test);
+
+    const memory_limit_test_step = b.step("test-memory-limit", "Run Memory limit tests");
+    memory_limit_test_step.dependOn(&run_memory_limit_test.step);
+
     // Add Stack tests
     const stack_test = b.addTest(.{
         .name = "stack-test",
@@ -475,6 +499,22 @@ pub fn build(b: *std.Build) void {
     const stack_test_step = b.step("test-stack", "Run Stack tests");
     stack_test_step.dependOn(&run_stack_test.step);
 
+<<<<<<< HEAD
+    // Add Stack batched operations tests
+    const stack_batched_test = b.addTest(.{
+        .name = "stack-batched-test",
+        .root_source_file = b.path("test/evm/stack_batched_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    stack_batched_test.root_module.addImport("evm", evm_mod);
+
+    const run_stack_batched_test = b.addRunArtifact(stack_batched_test);
+
+    const stack_batched_test_step = b.step("test-stack-batched", "Run Stack batched operations tests");
+    stack_batched_test_step.dependOn(&run_stack_batched_test.step);
+=======
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 
     // Add Stack validation tests
     const stack_validation_test = b.addTest(.{
@@ -506,7 +546,11 @@ pub fn build(b: *std.Build) void {
     opcodes_test.root_module.addImport("Address", address_mod);
     opcodes_test.root_module.addImport("Block", block_mod);
     opcodes_test.root_module.addImport("evm", evm_mod);
+<<<<<<< HEAD
+    opcodes_test.root_module.addImport("Utils", utils_mod);
+=======
     opcodes_test.root_module.addImport("utils", utils_mod);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 
     const run_opcodes_test = b.addRunArtifact(opcodes_test);
 
@@ -559,7 +603,11 @@ pub fn build(b: *std.Build) void {
     integration_test.root_module.addImport("Address", address_mod);
     integration_test.root_module.addImport("Block", block_mod);
     integration_test.root_module.addImport("evm", evm_mod);
+<<<<<<< HEAD
+    integration_test.root_module.addImport("Utils", utils_mod);
+=======
     integration_test.root_module.addImport("utils", utils_mod);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     integration_test.root_module.addImport("test_helpers", test_helpers_mod);
 
     const run_integration_test = b.addRunArtifact(integration_test);
@@ -582,7 +630,11 @@ pub fn build(b: *std.Build) void {
     gas_test.root_module.addImport("Address", address_mod);
     gas_test.root_module.addImport("Block", block_mod);
     gas_test.root_module.addImport("evm", evm_mod);
+<<<<<<< HEAD
+    gas_test.root_module.addImport("Utils", utils_mod);
+=======
     gas_test.root_module.addImport("utils", utils_mod);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     gas_test.root_module.addImport("test_helpers", test_helpers_mod);
 
     const run_gas_test = b.addRunArtifact(gas_test);
@@ -605,7 +657,11 @@ pub fn build(b: *std.Build) void {
     static_protection_test.root_module.addImport("Address", address_mod);
     static_protection_test.root_module.addImport("Block", block_mod);
     static_protection_test.root_module.addImport("evm", evm_mod);
+<<<<<<< HEAD
+    static_protection_test.root_module.addImport("Utils", utils_mod);
+=======
     static_protection_test.root_module.addImport("utils", utils_mod);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 
     const run_static_protection_test = b.addRunArtifact(static_protection_test);
 
@@ -613,6 +669,8 @@ pub fn build(b: *std.Build) void {
     const static_protection_test_step = b.step("test-static-protection", "Run Static Call Protection tests");
     static_protection_test_step.dependOn(&run_static_protection_test.step);
 
+<<<<<<< HEAD
+=======
     // Add BLAKE2F precompile tests
     const blake2f_test = b.addTest(.{
         .name = "blake2f-test",
@@ -635,6 +693,7 @@ pub fn build(b: *std.Build) void {
     const blake2f_test_step = b.step("test-blake2f", "Run BLAKE2F precompile tests");
     blake2f_test_step.dependOn(&run_blake2f_test.step);
 
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     // Add Memory benchmark
     const memory_benchmark = b.addExecutable(.{
         .name = "memory-benchmark",
@@ -721,14 +780,25 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_trie_test.step);
     test_step.dependOn(&run_interpreter_test.step);
     test_step.dependOn(&run_memory_test.step);
+<<<<<<< HEAD
+    test_step.dependOn(&run_memory_stress_test.step);
+    test_step.dependOn(&run_memory_comparison_test.step);
+    test_step.dependOn(&run_memory_limit_test.step);
     test_step.dependOn(&run_stack_test.step);
+    test_step.dependOn(&run_stack_batched_test.step);
+=======
+    test_step.dependOn(&run_stack_test.step);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     test_step.dependOn(&run_stack_validation_test.step);
     test_step.dependOn(&run_opcodes_test.step);
     test_step.dependOn(&run_vm_opcode_test.step);
     test_step.dependOn(&run_integration_test.step);
     test_step.dependOn(&run_gas_test.step);
     test_step.dependOn(&run_static_protection_test.step);
+<<<<<<< HEAD
+=======
     test_step.dependOn(&run_blake2f_test.step);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 
     // Define a single test step that runs all tests
     const test_all_step = b.step("test-all", "Run all unit tests");

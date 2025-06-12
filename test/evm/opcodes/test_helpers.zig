@@ -11,11 +11,93 @@ pub const Contract = evm.Contract;
 pub const Address = evm.Address;
 pub const Vm = evm.Vm;
 pub const Operation = evm.Operation;
+<<<<<<< HEAD
+=======
 pub const OperationModule = evm.Operation;
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 pub const ExecutionError = evm.ExecutionError;
 pub const opcodes = evm.opcodes;
 pub const Hardfork = evm.Hardfork.Hardfork;
 pub const JumpTable = evm.JumpTable;
+<<<<<<< HEAD
+
+/// Test VM with minimal setup for testing opcodes
+pub const TestVm = struct {
+    vm: Vm,
+    allocator: std.mem.Allocator,
+    
+    // Mock results for testing
+    call_result: ?Vm.CallResult = null,
+    create_result: ?Vm.CreateResult = null,
+
+    pub fn init(allocator: std.mem.Allocator) !TestVm {
+        var vm = try Vm.init(allocator);
+
+        // Initialize transaction access list (pre-warm common addresses)
+        try vm.init_transaction_access_list(null);
+
+        return TestVm{
+            .vm = vm,
+            .allocator = allocator,
+            .call_result = null,
+            .create_result = null,
+        };
+    }
+
+    pub fn initWithHardfork(allocator: std.mem.Allocator, hardfork: Hardfork) !TestVm {
+        var vm = try Vm.init_with_hardfork(allocator, hardfork);
+
+        // Initialize transaction access list (pre-warm common addresses)
+        try vm.init_transaction_access_list(null);
+
+        return TestVm{
+            .vm = vm,
+            .allocator = allocator,
+            .call_result = null,
+            .create_result = null,
+        };
+    }
+
+    pub fn deinit(self: *TestVm) void {
+        self.vm.deinit();
+    }
+
+    /// Set up test account with balance and code
+    pub fn setAccount(self: *TestVm, address: Address.Address, balance: u256, code: []const u8) !void {
+        try self.vm.set_balance(address, balance);
+        try self.vm.set_code(address, code);
+    }
+
+    /// Set storage value
+    pub fn setStorage(self: *TestVm, address: Address.Address, slot: u256, value: u256) !void {
+        try self.vm.set_storage(address, slot, value);
+    }
+
+    /// Get storage value
+    pub fn getStorage(self: *TestVm, address: Address.Address, slot: u256) !u256 {
+        return try self.vm.get_storage(address, slot);
+    }
+
+    /// Set transient storage value
+    pub fn setTransientStorage(self: *TestVm, address: Address.Address, slot: u256, value: u256) !void {
+        try self.vm.set_transient_storage(address, slot, value);
+    }
+
+    /// Get transient storage value
+    pub fn getTransientStorage(self: *TestVm, address: Address.Address, slot: u256) !u256 {
+        return try self.vm.get_transient_storage(address, slot);
+    }
+
+    /// Mark address as warm for EIP-2929 testing
+    pub fn warmAddress(self: *TestVm, address: Address.Address) !void {
+        _ = try self.vm.access_list.access_address(address);
+    }
+    
+    /// Sync mock results to VM - call this after setting call_result or create_result
+    pub fn syncMocks(self: *TestVm) void {
+        self.vm.call_result = self.call_result;
+        self.vm.create_result = self.create_result;
+=======
 pub const ChainRules = evm.chain_rules;
 pub const MemoryDatabase = evm.MemoryDatabase;
 pub const DatabaseInterface = evm.DatabaseInterface;
@@ -56,6 +138,7 @@ pub const TestVm = struct {
         self.memory_db.deinit();
         allocator.destroy(self.vm);
         allocator.destroy(self.memory_db);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     }
 };
 
@@ -120,8 +203,13 @@ pub const TestFrame = struct {
     }
 
     /// Set return data buffer
+<<<<<<< HEAD
+    pub fn setReturnData(self: *TestFrame, data: []u8) void {
+        self.frame.return_data_buffer = data;
+=======
     pub fn setReturnData(self: *TestFrame, data: []u8) !void {
         try self.frame.return_data.set(data);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     }
 
     /// Check if frame is static
@@ -177,6 +265,14 @@ pub fn executeOpcode(
     opcode_byte: u8,
     vm: *Vm,
     frame: *Frame,
+<<<<<<< HEAD
+) ExecutionError.Error!Operation.ExecutionResult {
+    const interpreter_ptr: *Operation.Interpreter = @ptrCast(vm);
+    const state_ptr: *Operation.State = @ptrCast(frame);
+    // Use the Vm's jump table to execute the opcode
+    // frame.program_counter should be set correctly by the test before calling this
+    return try vm.table.execute(frame.program_counter, interpreter_ptr, state_ptr, opcode_byte);
+=======
 ) ExecutionError.Error!OperationModule.ExecutionResult {
     const interpreter_ptr: *OperationModule.Interpreter = @ptrCast(vm);
     const state_ptr: *OperationModule.State = @ptrCast(frame);
@@ -192,6 +288,7 @@ pub fn executeOpcode(
     else
         0;
     return try vm.table.execute(pc_value, interpreter_ptr, state_ptr, opcode_byte);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 }
 
 /// Execute an opcode through the jump table (with gas consumption)
@@ -200,9 +297,15 @@ pub fn executeOpcodeWithGas(
     opcode: u8,
     vm: *Vm,
     frame: *Frame,
+<<<<<<< HEAD
+) !Operation.ExecutionResult {
+    const interpreter_ptr: *Operation.Interpreter = @ptrCast(vm);
+    const state_ptr: *Operation.State = @ptrCast(frame);
+=======
 ) !OperationModule.ExecutionResult {
     const interpreter_ptr: *OperationModule.Interpreter = @ptrCast(vm);
     const state_ptr: *OperationModule.State = @ptrCast(frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     return try jump_table.execute(0, interpreter_ptr, state_ptr, opcode);
 }
 
@@ -306,6 +409,8 @@ pub fn printMemory(frame: *const Frame, offset: usize, size: usize) void {
     }
     std.debug.print("\n", .{});
 }
+<<<<<<< HEAD
+=======
 
 /// Helper function to run bytecode for testing (replaces vm.run_bytecode)
 /// This sets up a contract at the given address with the bytecode and executes it
@@ -335,3 +440,4 @@ pub fn runBytecode(
     // Execute the contract
     return try vm.interpret(&contract, input orelse &[_]u8{});
 }
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8

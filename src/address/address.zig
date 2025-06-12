@@ -38,6 +38,28 @@ pub fn from_u256(value: u256) Address {
     return addr;
 }
 
+pub fn zero() Address {
+    return ZERO_ADDRESS;
+}
+
+pub fn to_u256(addr: Address) u256 {
+    var result: u256 = 0;
+    for (addr) |byte| {
+        result = (result << 8) | byte;
+    }
+    return result;
+}
+
+pub fn from_u256(value: u256) Address {
+    var addr: Address = undefined;
+    var v = value;
+    for (0..20) |i| {
+        addr[19 - i] = @truncate(v & 0xFF);
+        v >>= 8;
+    }
+    return addr;
+}
+
 pub fn address_from_hex(comptime hex: [42]u8) Address {
     if (!startsWith(u8, &hex, "0x"))
         @compileError("hex must start with '0x'");
