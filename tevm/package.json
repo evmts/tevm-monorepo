@@ -244,116 +244,6 @@
         "types": "./sync-storage-persister/index.d.cts",
         "default": "./sync-storage-persister/index.cjs"
       }
-    },
-    "./bundler": {
-      "import": {
-        "types": "./bundler/index.d.ts",
-        "default": "./bundler/index.js"
-      },
-      "require": {
-        "types": "./bundler/index.d.cts",
-        "default": "./bundler/index.cjs"
-      }
-    },
-    "./bundler/base-bundler": {
-      "import": {
-        "types": "./bundler/base-bundler/index.d.ts",
-        "default": "./bundler/base-bundler/index.js"
-      },
-      "require": {
-        "types": "./bundler/base-bundler/index.d.cts",
-        "default": "./bundler/base-bundler/index.cjs"
-      }
-    },
-    "./bundler/bun-plugin": {
-      "import": {
-        "types": "./bundler/bun-plugin/index.d.ts",
-        "default": "./bundler/bun-plugin/index.js"
-      },
-      "require": {
-        "types": "./bundler/bun-plugin/index.d.cts",
-        "default": "./bundler/bun-plugin/index.cjs"
-      }
-    },
-    "./bundler/esbuild-plugin": {
-      "import": {
-        "types": "./bundler/esbuild-plugin/index.d.ts",
-        "default": "./bundler/esbuild-plugin/index.js"
-      },
-      "require": {
-        "types": "./bundler/esbuild-plugin/index.d.cts",
-        "default": "./bundler/esbuild-plugin/index.cjs"
-      }
-    },
-    "./bundler/rollup-plugin": {
-      "import": {
-        "types": "./bundler/rollup-plugin/index.d.ts",
-        "default": "./bundler/rollup-plugin/index.js"
-      },
-      "require": {
-        "types": "./bundler/rollup-plugin/index.d.cts",
-        "default": "./bundler/rollup-plugin/index.cjs"
-      }
-    },
-    "./bundler/rspack-plugin": {
-      "import": {
-        "types": "./bundler/rspack-plugin/index.d.ts",
-        "default": "./bundler/rspack-plugin/index.js"
-      },
-      "require": {
-        "types": "./bundler/rspack-plugin/index.d.cts",
-        "default": "./bundler/rspack-plugin/index.cjs"
-      }
-    },
-    "./bundler/vite-plugin": {
-      "import": {
-        "types": "./bundler/vite-plugin/index.d.ts",
-        "default": "./bundler/vite-plugin/index.js"
-      },
-      "require": {
-        "types": "./bundler/vite-plugin/index.d.cts",
-        "default": "./bundler/vite-plugin/index.cjs"
-      }
-    },
-    "./bundler/webpack-plugin": {
-      "import": {
-        "types": "./bundler/webpack-plugin/index.d.ts",
-        "default": "./bundler/webpack-plugin/index.js"
-      },
-      "require": {
-        "types": "./bundler/webpack-plugin/index.d.cts",
-        "default": "./bundler/webpack-plugin/index.cjs"
-      }
-    },
-    "./bundler/compiler": {
-      "import": {
-        "types": "./bundler/compiler/index.d.ts",
-        "default": "./bundler/compiler/index.js"
-      },
-      "require": {
-        "types": "./bundler/compiler/index.d.cts",
-        "default": "./bundler/compiler/index.cjs"
-      }
-    },
-    "./bundler/config": {
-      "import": {
-        "types": "./bundler/config/index.d.ts",
-        "default": "./bundler/config/index.js"
-      },
-      "require": {
-        "types": "./bundler/config/index.d.cts",
-        "default": "./bundler/config/index.cjs"
-      }
-    },
-    "./bundler/solc": {
-      "import": {
-        "types": "./bundler/solc/index.d.ts",
-        "default": "./bundler/solc/index.js"
-      },
-      "require": {
-        "types": "./bundler/solc/index.d.cts",
-        "default": "./bundler/solc/index.cjs"
-      }
     }
   },
   "main": "index.cjs",
@@ -385,18 +275,6 @@
     "utils",
     "state",
     "sync-storage-persister",
-    "bundler/index*",
-    "bundler/base-bundler",
-    "bundler/bun-plugin",
-    "bundler/compiler",
-    "bundler/config",
-    "bundler/solc",
-    "bundler/esbuild-plugin",
-    "bundler/rollup-plugin",
-    "bundler/rspack-plugin",
-    "bundler/vite-plugin",
-    "bundler/webpack-plugin",
-    "bin",
     "JSR.md",
     "jsr.json"
   ],
@@ -419,53 +297,54 @@
   "dependencies": {
     "@tevm/actions": "workspace:^",
     "@tevm/address": "workspace:^",
-    "@tevm/base-bundler": "workspace:^",
     "@tevm/block": "workspace:^",
     "@tevm/blockchain": "workspace:^",
-    "@tevm/bun-plugin": "workspace:^",
-    "@tevm/bundler-cache": "workspace:^",
-    "@tevm/cli": "workspace:^",
-    "@tevm/client-types": "workspace:^",
     "@tevm/common": "workspace:^",
-    "@tevm/compiler": "workspace:^",
-    "@tevm/config": "workspace:^",
     "@tevm/contract": "workspace:^",
     "@tevm/decorators": "workspace:^",
     "@tevm/errors": "workspace:^",
-    "@tevm/esbuild-plugin": "workspace:^",
     "@tevm/evm": "workspace:^",
     "@tevm/http-client": "workspace:^",
-    "@tevm/jsonrpc": "workspace:^",
     "@tevm/memory-client": "workspace:^",
     "@tevm/node": "workspace:^",
     "@tevm/precompiles": "workspace:^",
     "@tevm/predeploys": "workspace:^",
     "@tevm/receipt-manager": "workspace:^",
-    "@tevm/rollup-plugin": "workspace:^",
-    "@tevm/rspack-plugin": "workspace:^",
     "@tevm/server": "workspace:^",
-    "@tevm/solc": "workspace:^",
     "@tevm/state": "workspace:^",
-    "@tevm/sync-storage-persister": "workspace:^",
-    "@tevm/ts-plugin": "workspace:^",
     "@tevm/tx": "workspace:^",
     "@tevm/txpool": "workspace:^",
     "@tevm/utils": "workspace:^",
+    "@tevm/vm": "workspace:^"
+  },
+  "devDependencies": {
+    "@tevm/tsconfig": "workspace:^",
+    "@tevm/tsupconfig": "workspace:^"
+  },
+  "optionalDependencies": {
+    "@tevm/base-bundler": "workspace:^",
+    "@tevm/bun-plugin": "workspace:^",
+    "@tevm/bundler-cache": "workspace:^",
+    "@tevm/cli": "workspace:^",
+    "@tevm/client-types": "workspace:^",
+    "@tevm/compiler": "workspace:^",
+    "@tevm/config": "workspace:^",
+    "@tevm/esbuild-plugin": "workspace:^",
+    "@tevm/jsonrpc": "workspace:^",
+    "@tevm/rollup-plugin": "workspace:^",
+    "@tevm/rspack-plugin": "workspace:^",
+    "@tevm/solc": "workspace:^",
+    "@tevm/sync-storage-persister": "workspace:^",
+    "@tevm/ts-plugin": "workspace:^",
     "@tevm/viem": "workspace:^",
     "@tevm/vite-plugin": "workspace:^",
-    "@tevm/vm": "workspace:^",
     "@tevm/webpack-plugin": "workspace:^",
     "commander": "^14.0.0",
     "effect": "3.15.4",
     "glob": "^11.0.2",
     "solc": "^0.8.30"
   },
-  "devDependencies": {
-    "@tevm/tsconfig": "workspace:^",
-    "@tevm/tsupconfig": "workspace:^"
-  },
   "peerDependencies": {
-    "@tevm/ts-plugin": "workspace:^",
     "viem": "^2.30.1"
   },
   "publishConfig": {

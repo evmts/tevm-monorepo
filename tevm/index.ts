@@ -42,15 +42,20 @@ export type {
     JsonRpcRequestTypeFromMethod,
     TevmJsonRpcBulkRequestHandler,
 } from "@tevm/actions";
-export type {
-    JsonRpcRequest,
-    JsonRpcResponse,
-    HeadersInit,
-    JsonRpcClient,
-    JsonRpcProcedure,
-    createJsonRpcFetcher,
-} from "@tevm/jsonrpc";
-export type { TevmClient } from "@tevm/client-types";
+// JsonRPC types - moved to optional dependencies
+// Import these from @tevm/jsonrpc if you need JSON-RPC functionality
+// export type {
+//     JsonRpcRequest,
+//     JsonRpcResponse,
+//     HeadersInit,
+//     JsonRpcClient,
+//     JsonRpcProcedure,
+//     createJsonRpcFetcher,
+// } from "@tevm/jsonrpc";
+
+// Client types - moved to optional dependencies  
+// Import these from @tevm/client-types if needed
+// export type { TevmClient } from "@tevm/client-types";
 export {
     type Predeploy,
     definePredeploy,
@@ -157,7 +162,9 @@ export type {
     Eip1193RequestProvider,
 } from "@tevm/decorators";
 
-export { http, rateLimit, webSocket, loadBalance } from '@tevm/jsonrpc'
+// HTTP utilities - moved to optional dependencies
+// Import these from @tevm/jsonrpc if needed
+// export { http, rateLimit, webSocket, loadBalance } from '@tevm/jsonrpc'
 export { createAddress } from '@tevm/address'
 
 export {
@@ -184,9 +191,11 @@ export {
 } from "@tevm/node";
 
 export * from "@tevm/memory-client";
-export {
-    tevmTransport,
-} from '@tevm/viem'
+// Viem transport - moved to optional dependencies
+// Import this from @tevm/viem if needed
+// export {
+//     tevmTransport,
+// } from '@tevm/viem'
 
 export {
     type ConstructorArgument,
