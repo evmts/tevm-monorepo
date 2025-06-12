@@ -96,6 +96,10 @@ export const mineHandler =
 					},
 				})
 				// TODO create a Log manager
+				
+				// Store skip flags for specific transaction before removing it from pool
+				const specificTxSkipFlags = tx !== undefined ? pool.getSkipFlags(tx) : null
+				
 				const orderedTx =
 					tx !== undefined
 						? [
@@ -118,10 +122,18 @@ export const mineHandler =
 				const receipts = []
 				while (index < orderedTx.length && !blockFull) {
 					const nextTx = /** @type {import('@tevm/tx').TypedTransaction}*/ (orderedTx[index])
-					client.logger.debug(bytesToHex(nextTx.hash()), 'new tx added')
+					const txHash = bytesToHex(nextTx.hash())
+					client.logger.debug(txHash, 'new tx added')
+					
+					// Get the original skip flags from when the transaction was added to the pool
+					// For specific transactions, use the stored flags; for batch mining, query the pool
+					const skipFlags = specificTxSkipFlags ?? pool.getSkipFlags(txHash)
+					const skipBalance = skipFlags?.skipBalance ?? false
+					const skipNonce = skipFlags?.skipNonce ?? false
+					
 					const txResult = await blockBuilder.addTransaction(nextTx, {
-						skipBalance: true,
-						skipNonce: true,
+						skipBalance,
+						skipNonce,
 						skipHardForkValidation: true,
 					})
 					receipts.push(txResult.receipt)

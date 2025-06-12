@@ -38,6 +38,8 @@ type TxPoolObject = {
 	hash: UnprefixedHash
 	added: number
 	error?: Error
+	skipBalance?: boolean
+	skipNonce?: boolean
 }
 
 type HandledObject = {
@@ -302,7 +304,7 @@ export class TxPool {
 	 * @param tx Transaction
 	 * @param isLocalTransaction if this is a local transaction (loosens some constraints) (default: false)
 	 */
-	async addUnverified(tx: TypedTransaction | ImpersonatedTx) {
+	async addUnverified(tx: TypedTransaction | ImpersonatedTx, skipBalance = false, skipNonce = false) {
 		const hash: UnprefixedHash = bytesToUnprefixedHex(tx.hash())
 		const added = Date.now()
 		const address: UnprefixedAddress = tx.getSenderAddress().toString().slice(2).toLowerCase()
@@ -332,7 +334,7 @@ export class TxPool {
 				// Replace pooled txs with the same nonce
 				add = inPool.filter((poolObj) => poolObj.tx.nonce !== tx.nonce)
 			}
-			add.push({ tx, added, hash })
+			add.push({ tx, added, hash, skipBalance, skipNonce })
 			this.pool.set(address, add)
 			this.handled.set(hash, { address, added })
 			this.txsInPool++
@@ -359,7 +361,7 @@ export class TxPool {
 	async add(tx: TypedTransaction | ImpersonatedTx, requireSignature = true, skipBalance = false) {
 		try {
 			await this.validate(tx, true, requireSignature, skipBalance)
-			return this.addUnverified(tx)
+			return this.addUnverified(tx, skipBalance)
 		} catch (error) {
 			return {
 				error: (error as Error).message,
@@ -407,6 +409,28 @@ export class TxPool {
 			}
 		}
 		return found
+	}
+
+	/**
+	 * Gets the skip flags for a transaction in the pool
+	 * @param txHash Hash of the transaction
+	 * @returns Object with skipBalance and skipNonce flags, or null if transaction not found
+	 */
+	getSkipFlags(txHash: string): { skipBalance: boolean; skipNonce: boolean } | null {
+		const unprefixedTxHash = txHash.startsWith('0x') ? txHash.slice(2).toLowerCase() : txHash.toLowerCase()
+		const handled = this.handled.get(unprefixedTxHash)
+		if (!handled) return null
+		
+		const poolObjects = this.pool.get(handled.address)
+		if (!poolObjects) return null
+		
+		const poolObj = poolObjects.find((obj) => obj.hash === unprefixedTxHash)
+		if (!poolObj) return null
+		
+		return {
+			skipBalance: poolObj.skipBalance ?? false,
+			skipNonce: poolObj.skipNonce ?? false
+		}
 	}
 
 	/**
