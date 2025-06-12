@@ -762,6 +762,27 @@ pub fn build(b: *std.Build) void {
     const create_contract_test_step = b.step("test-create-contract", "Run CREATE contract tests");
     create_contract_test_step.dependOn(&run_create_contract_test.step);
 
+    // Add Precompile tests
+    const precompile_test = b.addTest(.{
+        .name = "precompile-test",
+        .root_source_file = b.path("test/evm/precompiles/sha256_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    precompile_test.root_module.stack_check = false;
+
+    // Add module imports to precompile test
+    precompile_test.root_module.addImport("Address", address_mod);
+    precompile_test.root_module.addImport("Block", block_mod);
+    precompile_test.root_module.addImport("evm", evm_mod);
+    precompile_test.root_module.addImport("utils", utils_mod);
+
+    const run_precompile_test = b.addRunArtifact(precompile_test);
+
+    // Add a separate step for testing Precompiles
+    const precompile_test_step = b.step("test-precompiles", "Run Precompile tests");
+    precompile_test_step.dependOn(&run_precompile_test.step);
 
     // Add Memory benchmark
     const memory_benchmark = b.addExecutable(.{
@@ -1342,6 +1363,7 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_static_protection_test.step);
     test_step.dependOn(&run_create_contract_test.step);
     test_step.dependOn(&run_compiler_bytecode_issue_test.step);
+    test_step.dependOn(&run_precompile_test.step);
 
     // Define a single test step that runs all tests
     const test_all_step = b.step("test-all", "Run all unit tests");
