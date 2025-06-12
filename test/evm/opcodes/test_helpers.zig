@@ -11,10 +11,15 @@ pub const Contract = evm.Contract;
 pub const Address = evm.Address;
 pub const Vm = evm.Vm;
 pub const Operation = evm.Operation;
+<<<<<<< HEAD
+=======
+pub const OperationModule = evm.Operation;
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 pub const ExecutionError = evm.ExecutionError;
 pub const opcodes = evm.opcodes;
 pub const Hardfork = evm.Hardfork.Hardfork;
 pub const JumpTable = evm.JumpTable;
+<<<<<<< HEAD
 
 /// Test VM with minimal setup for testing opcodes
 pub const TestVm = struct {
@@ -92,6 +97,48 @@ pub const TestVm = struct {
     pub fn syncMocks(self: *TestVm) void {
         self.vm.call_result = self.call_result;
         self.vm.create_result = self.create_result;
+=======
+pub const ChainRules = evm.chain_rules;
+pub const MemoryDatabase = evm.MemoryDatabase;
+pub const DatabaseInterface = evm.DatabaseInterface;
+
+/// Mock settings for testing
+pub const TestVm = struct {
+    vm: *Vm,
+    memory_db: *MemoryDatabase,
+
+    const Self = @This();
+
+    pub fn init(allocator: std.mem.Allocator) !Self {
+        const vm = try allocator.create(Vm);
+        const memory_db = try allocator.create(MemoryDatabase);
+        memory_db.* = MemoryDatabase.init(allocator);
+        const db_interface = memory_db.to_database_interface();
+        vm.* = try Vm.init(allocator, db_interface, null, null);
+        return Self{
+            .vm = vm,
+            .memory_db = memory_db,
+        };
+    }
+
+    pub fn init_with_hardfork(allocator: std.mem.Allocator, hardfork: evm.Hardfork.Hardfork) !Self {
+        const vm = try allocator.create(Vm);
+        const memory_db = try allocator.create(MemoryDatabase);
+        memory_db.* = MemoryDatabase.init(allocator);
+        const db_interface = memory_db.to_database_interface();
+        vm.* = try Vm.init_with_hardfork(allocator, db_interface, hardfork);
+        return Self{
+            .vm = vm,
+            .memory_db = memory_db,
+        };
+    }
+
+    pub fn deinit(self: *Self, allocator: std.mem.Allocator) void {
+        self.vm.deinit();
+        self.memory_db.deinit();
+        allocator.destroy(self.vm);
+        allocator.destroy(self.memory_db);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     }
 };
 
@@ -156,8 +203,13 @@ pub const TestFrame = struct {
     }
 
     /// Set return data buffer
+<<<<<<< HEAD
     pub fn setReturnData(self: *TestFrame, data: []u8) void {
         self.frame.return_data_buffer = data;
+=======
+    pub fn setReturnData(self: *TestFrame, data: []u8) !void {
+        try self.frame.return_data.set(data);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     }
 
     /// Check if frame is static
@@ -213,12 +265,30 @@ pub fn executeOpcode(
     opcode_byte: u8,
     vm: *Vm,
     frame: *Frame,
+<<<<<<< HEAD
 ) ExecutionError.Error!Operation.ExecutionResult {
     const interpreter_ptr: *Operation.Interpreter = @ptrCast(vm);
     const state_ptr: *Operation.State = @ptrCast(frame);
     // Use the Vm's jump table to execute the opcode
     // frame.program_counter should be set correctly by the test before calling this
     return try vm.table.execute(frame.program_counter, interpreter_ptr, state_ptr, opcode_byte);
+=======
+) ExecutionError.Error!OperationModule.ExecutionResult {
+    const interpreter_ptr: *OperationModule.Interpreter = @ptrCast(vm);
+    const state_ptr: *OperationModule.State = @ptrCast(frame);
+
+    // Debug: Check if jump table has the opcode
+    // const operation = vm.table.get_operation(opcode_byte);
+
+    // Use the Vm's jump table to execute the opcode
+    // For PC opcode (0x58), use the frame's program counter
+    // For PUSH opcodes (0x60-0x7F), use the frame's program counter so they can read immediate data
+    const pc_value = if (opcode_byte == 0x58 or (opcode_byte >= 0x60 and opcode_byte <= 0x7F))
+        frame.pc
+    else
+        0;
+    return try vm.table.execute(pc_value, interpreter_ptr, state_ptr, opcode_byte);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 }
 
 /// Execute an opcode through the jump table (with gas consumption)
@@ -227,9 +297,15 @@ pub fn executeOpcodeWithGas(
     opcode: u8,
     vm: *Vm,
     frame: *Frame,
+<<<<<<< HEAD
 ) !Operation.ExecutionResult {
     const interpreter_ptr: *Operation.Interpreter = @ptrCast(vm);
     const state_ptr: *Operation.State = @ptrCast(frame);
+=======
+) !OperationModule.ExecutionResult {
+    const interpreter_ptr: *OperationModule.Interpreter = @ptrCast(vm);
+    const state_ptr: *OperationModule.State = @ptrCast(frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     return try jump_table.execute(0, interpreter_ptr, state_ptr, opcode);
 }
 
@@ -333,3 +409,35 @@ pub fn printMemory(frame: *const Frame, offset: usize, size: usize) void {
     }
     std.debug.print("\n", .{});
 }
+<<<<<<< HEAD
+=======
+
+/// Helper function to run bytecode for testing (replaces vm.run_bytecode)
+/// This sets up a contract at the given address with the bytecode and executes it
+pub const RunBytecodeError = std.mem.Allocator.Error || ExecutionError.Error;
+pub fn runBytecode(
+    vm: *Vm,
+    bytecode: []const u8,
+    address: Address.Address,
+    gas: u64,
+    input: ?[]const u8,
+) RunBytecodeError!evm.RunResult {
+    // Create a contract at the specified address
+    var contract = Contract.init_at_address(
+        address, // caller
+        address, // address where code executes
+        0, // value
+        gas,
+        bytecode,
+        input orelse &[_]u8{},
+        false, // not static
+    );
+    defer contract.deinit(vm.allocator, null);
+
+    // Set the code for the contract address in VM state
+    try vm.state.set_code(address, bytecode);
+
+    // Execute the contract
+    return try vm.interpret(&contract, input orelse &[_]u8{});
+}
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8

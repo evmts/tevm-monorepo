@@ -231,7 +231,11 @@ test "Integration: return data boundary conditions" {
     
     // Set return data
     const return_data = [_]u8{ 0x11, 0x22, 0x33, 0x44 };
+<<<<<<< HEAD
     frame.frame.return_data_buffer = &return_data;
+=======
+    try frame.frame.return_data.set(&return_data);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     // Test 1: Copy within bounds
     try frame.pushValue(2); // size

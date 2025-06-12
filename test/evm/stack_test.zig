@@ -14,8 +14,6 @@ fn setupStack(items: []const u256) !Stack {
 test "Stack: initialization" {
     const stack = Stack{};
     try testing.expectEqual(@as(usize, 0), stack.size);
-    try testing.expect(stack.isEmpty());
-    try testing.expect(!stack.isFull());
     try testing.expectEqual(@as(usize, Stack.CAPACITY), Stack.CAPACITY);
 }
 
@@ -29,8 +27,6 @@ test "Stack: basic push and pop operations" {
 
     // Check state
     try testing.expectEqual(@as(usize, 3), stack.size);
-    try testing.expect(!stack.isEmpty());
-    try testing.expect(!stack.isFull());
 
     // Pop values and verify LIFO order
     try testing.expectEqual(@as(u256, 3), try stack.pop());
@@ -39,53 +35,88 @@ test "Stack: basic push and pop operations" {
 
     // Stack should be empty
     try testing.expectEqual(@as(usize, 0), stack.size);
-    try testing.expect(stack.isEmpty());
 
     // Pop from empty stack should error
-    try testing.expectError(Stack.Error.Underflow, stack.pop());
+    try testing.expectError(Stack.Error.StackUnderflow, stack.pop());
 }
 
 test "Stack: push_unsafe and pop_unsafe" {
     var stack = Stack{};
 
-    // Test unsafe push
-    stack.appendUnsafe(42);
-    try testing.expectEqual(@as(usize, 1), stack.size);
+    // Safe operations first to set up state
+    try stack.append(100);
+    try stack.append(200);
 
-    // Test unsafe pop
-    const value = stack.popUnsafe();
-    try testing.expectEqual(@as(u256, 42), value);
-    try testing.expectEqual(@as(usize, 0), stack.size);
+    // Use unsafe operations (requires validation they're safe to use)
+    stack.append_unsafe(300);
+    try testing.expectEqual(@as(usize, 3), stack.size);
+
+    const value = stack.pop_unsafe();
+    try testing.expectEqual(@as(u256, 300), value);
+    try testing.expectEqual(@as(usize, 2), stack.size);
 }
 
 test "Stack: peek operations" {
-    var stack = Stack{};
+    var stack = try setupStack(&[_]u256{ 1, 2, 3, 4, 5 });
 
-    // Peek on empty stack should error
-    try testing.expectError(Stack.Error.OutOfBounds, stack.peek());
+    // Test peek_unsafe (top element)
+    const top = stack.peek_unsafe();
+    try testing.expectEqual(@as(u256, 5), top.*);
+    try testing.expectEqual(@as(usize, 5), stack.size); // Size unchanged
 
-    // Push values
-    try stack.append(10);
-    try stack.append(20);
-    try stack.append(30);
-
-    // Peek should return top without removing
-    try testing.expectEqual(@as(u256, 30), (try stack.peek()).*);
-    try testing.expectEqual(@as(usize, 3), stack.size);
-
-    // peekUnsafe
-    try testing.expectEqual(@as(u256, 30), stack.peekUnsafe().*);
-
-    // peekN
-    try testing.expectEqual(@as(u256, 30), try stack.peekN(0));
-    try testing.expectEqual(@as(u256, 20), try stack.peekN(1));
-    try testing.expectEqual(@as(u256, 10), try stack.peekN(2));
-    try testing.expectError(Stack.Error.OutOfBounds, stack.peekN(3));
+    // Test peek_n (nth element from top)
+    try testing.expectEqual(@as(u256, 5), try stack.peek_n(0)); // Top
+    try testing.expectEqual(@as(u256, 4), try stack.peek_n(1)); // Second from top
+    try testing.expectEqual(@as(u256, 1), try stack.peek_n(4)); // Bottom
+    
+    // Out of bounds should error
+    try testing.expectError(Stack.Error.StackUnderflow, stack.peek_n(5));
 }
 
-test "Stack: back operations" {
-    var stack = Stack{};
+test "Stack: dup_unsafe operation" {
+    var stack = try setupStack(&[_]u256{ 10, 20, 30 });
 
+    // Duplicate top element (n=1)
+    stack.dup_unsafe(1);
+    try testing.expectEqual(@as(usize, 4), stack.size);
+    try testing.expectEqual(@as(u256, 30), try stack.pop()); // Duplicated top
+    try testing.expectEqual(@as(u256, 30), try stack.pop()); // Original top
+
+    // Test duplicating deeper element
+    stack.dup_unsafe(2); // Should duplicate 10 (2nd from top)
+    try testing.expectEqual(@as(u256, 10), try stack.pop());
+}
+
+test "Stack: swapUnsafe operation" {
+    var stack = try setupStack(&[_]u256{ 1, 2, 3, 4, 5 });
+
+    // Swap top with second element (n=1)
+    stack.swapUnsafe(1);
+    try testing.expectEqual(@as(u256, 4), try stack.pop()); // Was second, now top
+    try testing.expectEqual(@as(u256, 5), try stack.pop()); // Was top, now second
+
+    // Verify remaining elements unchanged
+    try testing.expectEqual(@as(u256, 3), try stack.pop());
+    try testing.expectEqual(@as(u256, 2), try stack.pop());
+    try testing.expectEqual(@as(u256, 1), try stack.pop());
+}
+
+test "Stack: pop2_unsafe operation" {
+    var stack = try setupStack(&[_]u256{ 1, 2, 3, 4, 5 });
+
+    const popped = stack.pop2_unsafe();
+    try testing.expectEqual(@as(u256, 4), popped.a); // Second from top
+    try testing.expectEqual(@as(u256, 5), popped.b); // Top
+    try testing.expectEqual(@as(usize, 3), stack.size);
+
+    // Verify remaining elements
+    try testing.expectEqual(@as(u256, 3), try stack.pop());
+}
+
+test "Stack: pop3_unsafe operation" {
+    var stack = try setupStack(&[_]u256{ 1, 2, 3, 4, 5 });
+
+<<<<<<< HEAD
     // Push values
     try stack.append(100);
     try stack.append(200);
@@ -297,224 +328,64 @@ test "Stack: popn_top operation" {
     try testing.expectEqual(@as(u256, 20), result.top.*);
 
     // Stack should have 2 remaining
+=======
+    const popped = stack.pop3_unsafe();
+    try testing.expectEqual(@as(u256, 3), popped.a); // Third from top
+    try testing.expectEqual(@as(u256, 4), popped.b); // Second from top  
+    try testing.expectEqual(@as(u256, 5), popped.c); // Top
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try testing.expectEqual(@as(usize, 2), stack.size);
 
-    // Not enough values
-    try testing.expectError(Stack.Error.OutOfBounds, stack.popn_top(2));
+    // Verify remaining elements
+    try testing.expectEqual(@as(u256, 2), try stack.pop());
+    try testing.expectEqual(@as(u256, 1), try stack.pop());
 }
 
-test "Stack: push multiple values" {
-    var stack = Stack{};
+test "Stack: set_top_unsafe operation" {
+    var stack = try setupStack(&[_]u256{ 1, 2, 3 });
 
-    // Push multiple values manually
-    const values = [_]u256{ 100, 200, 300, 400 };
-    for (values) |value| {
-        try stack.append(value);
-    }
-
-    // Verify all pushed
-    try testing.expectEqual(@as(usize, 4), stack.size);
-    try testing.expectEqual(@as(u256, 400), (try stack.peek()).*);
-    try testing.expectEqual(@as(u256, 300), try stack.back(1));
-    try testing.expectEqual(@as(u256, 200), try stack.back(2));
-    try testing.expectEqual(@as(u256, 100), try stack.back(3));
-
-    // Test overflow
-    var i: usize = stack.size;
-    while (i < Stack.CAPACITY) : (i += 1) {
-        try stack.append(@as(u256, i));
-    }
-    try testing.expectError(Stack.Error.Overflow, stack.append(9999));
+    stack.set_top_unsafe(999);
+    try testing.expectEqual(@as(u256, 999), try stack.pop());
+    try testing.expectEqual(@as(u256, 2), try stack.pop());
+    try testing.expectEqual(@as(u256, 1), try stack.pop());
 }
-
-// EIP-663 operations tests
-
-test "Stack: dupn operation (dynamic)" {
-    var stack = Stack{};
-
-    // Push values
-    try stack.append(10);
-    try stack.append(20);
-    try stack.append(30);
-
-    // Test dupn with u8 parameter
-    try stack.dupn(2);
-    try testing.expectEqual(@as(u256, 20), (try stack.peek()).*);
-    try testing.expectEqual(@as(usize, 4), stack.size);
-
-    // Test invalid dupn
-    try testing.expectError(Stack.Error.InvalidPosition, stack.dupn(0));
-    try testing.expectError(Stack.Error.OutOfBounds, stack.dupn(10));
-}
-
-test "Stack: swapn operation (dynamic)" {
-    var stack = Stack{};
-
-    // Push values
-    for (1..6) |i| {
-        try stack.append(@as(u256, i));
-    }
-
-    // Test swapn
-    try stack.swapn(1); // Swap top with position 1
-    try testing.expectEqual(@as(u256, 4), (try stack.peek()).*);
-    try testing.expectEqual(@as(u256, 5), try stack.back(1));
-
-    // Test boundary
-    try testing.expectError(Stack.Error.OutOfBounds, stack.swapn(10));
-}
-
-test "Stack: exchange operation" {
-    var stack = Stack{};
-
-    // Push values
-    for (1..8) |i| {
-        try stack.append(@as(u256, i));
-    }
-
-    // Exchange positions 1 and 3 (n=0, m=2)
-    // This exchanges absolute positions 1 and 3 from bottom: [1,2,3,4,5,6,7] -> [1,4,3,2,5,6,7]
-    try stack.exchange(0, 2);
-    try testing.expectEqual(@as(u256, 7), (try stack.peek()).*); // unchanged
-    try testing.expectEqual(@as(u256, 6), try stack.back(1)); // unchanged
-    try testing.expectEqual(@as(u256, 5), try stack.back(2)); // unchanged  
-    try testing.expectEqual(@as(u256, 2), try stack.back(3)); // was 4
-
-    // Test invalid exchange (m=0)
-    try testing.expectError(Stack.Error.InvalidPosition, stack.exchange(1, 0));
-
-    // Test out of bounds
-    try testing.expectError(Stack.Error.OutOfBounds, stack.exchange(5, 5));
-}
-
-// Utility operations tests
 
 test "Stack: clear operation" {
-    var stack = Stack{};
+    var stack = try setupStack(&[_]u256{ 1, 2, 3, 4, 5 });
+    try testing.expectEqual(@as(usize, 5), stack.size);
 
-    // Push values
-    try stack.append(1);
-    try stack.append(2);
-    try stack.append(3);
-
-    // Clear
     stack.clear();
     try testing.expectEqual(@as(usize, 0), stack.size);
-    try testing.expect(stack.isEmpty());
 
-    // Can push after clear
-    try stack.append(42);
-    try testing.expectEqual(@as(u256, 42), (try stack.peek()).*);
-}
-
-test "Stack: toSlice operation" {
-    var stack = Stack{};
-
-    // Empty slice
-    var slice = stack.toSlice();
-    try testing.expectEqual(@as(usize, 0), slice.len);
-
-    // Push values
-    try stack.append(10);
-    try stack.append(20);
-    try stack.append(30);
-
-    // Get slice
-    slice = stack.toSlice();
-    try testing.expectEqual(@as(usize, 3), slice.len);
-    try testing.expectEqual(@as(u256, 10), slice[0]);
-    try testing.expectEqual(@as(u256, 20), slice[1]);
-    try testing.expectEqual(@as(u256, 30), slice[2]);
-}
-
-test "Stack: checkRequirements operation" {
-    var stack = Stack{};
-
-    // Empty stack
-    try testing.expect(!stack.checkRequirements(1, 1)); // Can't pop from empty
-
-    // Push 5 items
-    for (1..6) |i| {
-        try stack.append(@as(u256, i));
-    }
-
-    // Valid requirements
-    try testing.expect(stack.checkRequirements(2, 1)); // Pop 2, push 1
-    try testing.expect(stack.checkRequirements(5, 0)); // Pop all
-    try testing.expect(stack.checkRequirements(0, 5)); // Just push
-
-    // Invalid requirements
-    try testing.expect(!stack.checkRequirements(6, 0)); // Can't pop 6 from 5
-    try testing.expect(!stack.checkRequirements(0, Stack.CAPACITY)); // Would overflow
-}
-
-// Edge cases and error conditions
-
-test "Stack: edge case operations" {
-    var stack = Stack{};
-
-    // Multiple operations on empty stack
-    try testing.expectError(Stack.Error.Underflow, stack.pop());
-    try testing.expectError(Stack.Error.OutOfBounds, stack.peek());
-    try testing.expectError(Stack.Error.OutOfBounds, stack.back(0));
-    try testing.expectError(Stack.Error.OutOfBounds, stack.swap(1));
-    try testing.expectError(Stack.Error.OutOfBounds, stack.dup(1));
-
-    // Single element edge cases
-    try stack.append(42);
-    try testing.expectError(Stack.Error.OutOfBounds, stack.swap(1)); // Need 2 elements
-    try stack.dup(1); // Can dup single element
-    try testing.expectEqual(@as(u256, 42), (try stack.peek()).*);
-
-    // Clear and reuse
-    stack.clear();
-    try testing.expectEqual(@as(usize, 0), stack.size);
+    // Should be able to use stack normally after clear
     try stack.append(100);
-    try testing.expectEqual(@as(u256, 100), (try stack.peek()).*);
-}
-
-test "Stack: memory safety verification" {
-    var stack = Stack{};
-
-    // Push and pop cycle
-    try stack.append(0xDEADBEEF);
-    try stack.append(0xCAFEBABE);
-
-    _ = try stack.pop();
     try testing.expectEqual(@as(usize, 1), stack.size);
-
-    // The popped value location should be cleared (in safe variant)
-    // This is implementation detail but important for security
-
-    // Push new value
-    try stack.append(0x12345678);
-    try testing.expectEqual(@as(u256, 0x12345678), (try stack.peek()).*);
+    try testing.expectEqual(@as(u256, 100), try stack.pop());
 }
 
-// Test for makeSwapN would go here if it exists in the implementation
-// For now, skipping this test as makeSwapN doesn't appear to be implemented
-
-// Complex combined operations test
-
-test "Stack: complex operation sequences" {
+test "Stack: overflow protection" {
     var stack = Stack{};
 
-    // Sequence: push, dup, swap, pop
-    try stack.append(1);
-    try stack.append(2);
-    try stack.append(3);
+    // Fill stack to capacity - 1
+    for (0..Stack.CAPACITY - 1) |i| {
+        try stack.append(@intCast(i));
+    }
+    try testing.expectEqual(@as(usize, Stack.CAPACITY - 1), stack.size);
 
-    try stack.dup(2); // Stack: [1, 2, 3, 2]
-    try testing.expectEqual(@as(u256, 2), (try stack.peek()).*);
+    // This should succeed
+    try stack.append(999);
+    try testing.expectEqual(@as(usize, Stack.CAPACITY), stack.size);
 
-    try stack.swap(2); // Stack: [1, 2, 2, 2] (swapping identical values)
-    try testing.expectEqual(@as(u256, 2), (try stack.peek()).*);
+    // This should fail
+    try testing.expectError(Stack.Error.StackOverflow, stack.append(1000));
+}
 
-    const popped = try stack.popn(2); // Pop from [1, 2, 3, 2] -> Stack: [1, 2]
-    // popn returns in array order, not pop order
-    try testing.expectEqual(@as(u256, 3), popped[0]); // Was at index 2
-    try testing.expectEqual(@as(u256, 2), popped[1]); // Was at index 3
-
-    try testing.expectEqual(@as(usize, 2), stack.size);
-    try testing.expectEqual(@as(u256, 2), (try stack.peek()).*);
+test "Stack: data alignment and access" {
+    var stack = Stack{};
+    
+    // Test that we can store large values
+    const large_value: u256 = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF;
+    try stack.append(large_value);
+    
+    try testing.expectEqual(large_value, try stack.pop());
 }

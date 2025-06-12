@@ -9,7 +9,11 @@ const helpers = @import("test_helpers.zig");
 test "GASLIMIT (0x45): Get block gas limit" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const test_cases = [_]u64{
         0,                    // Zero (unusual but valid)
@@ -20,7 +24,11 @@ test "GASLIMIT (0x45): Get block gas limit" {
     };
     
     for (test_cases) |gas_limit| {
+<<<<<<< HEAD
         test_vm.vm.block_gas_limit = gas_limit;
+=======
+        test_vm.vm.context.block_gas_limit = gas_limit;
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         
         var contract = try helpers.createTestContract(
             allocator,
@@ -29,13 +37,21 @@ test "GASLIMIT (0x45): Get block gas limit" {
             0,
             &[_]u8{},
         );
+<<<<<<< HEAD
         defer contract.deinit(null);
+=======
+        defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
         defer test_frame.deinit();
         
         // Execute GASLIMIT
+<<<<<<< HEAD
         _ = try helpers.executeOpcode(0x45, &test_vm.vm, test_frame.frame);
+=======
+        _ = try helpers.executeOpcode(0x45, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         
         try helpers.expectStackValue(test_frame.frame, 0, gas_limit);
     }
@@ -44,7 +60,11 @@ test "GASLIMIT (0x45): Get block gas limit" {
 test "CHAINID (0x46): Get chain ID" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const test_cases = [_]u256{
         1,                    // Ethereum mainnet
@@ -58,7 +78,11 @@ test "CHAINID (0x46): Get chain ID" {
     };
     
     for (test_cases) |chain_id| {
+<<<<<<< HEAD
         test_vm.vm.chain_id = chain_id;
+=======
+        test_vm.vm.context.chain_id = chain_id;
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         
         var contract = try helpers.createTestContract(
             allocator,
@@ -67,13 +91,21 @@ test "CHAINID (0x46): Get chain ID" {
             0,
             &[_]u8{},
         );
+<<<<<<< HEAD
         defer contract.deinit(null);
+=======
+        defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
         defer test_frame.deinit();
         
         // Execute CHAINID
+<<<<<<< HEAD
         _ = try helpers.executeOpcode(0x46, &test_vm.vm, test_frame.frame);
+=======
+        _ = try helpers.executeOpcode(0x46, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         
         try helpers.expectStackValue(test_frame.frame, 0, chain_id);
     }
@@ -82,7 +114,11 @@ test "CHAINID (0x46): Get chain ID" {
 test "SELFBALANCE (0x47): Get contract's own balance" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const test_cases = [_]u256{
         0,                              // No balance
@@ -100,16 +136,27 @@ test "SELFBALANCE (0x47): Get contract's own balance" {
             0,
             &[_]u8{},
         );
+<<<<<<< HEAD
         defer contract.deinit(null);
         
         // Set the contract's balance
         try test_vm.vm.set_balance(contract.address, balance);
+=======
+        defer contract.deinit(allocator, null);
+        
+        // Set the contract's balance directly in the state
+        try test_vm.vm.state.set_balance(contract.address, balance);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
         defer test_frame.deinit();
         
         // Execute SELFBALANCE
+<<<<<<< HEAD
         _ = try helpers.executeOpcode(0x47, &test_vm.vm, test_frame.frame);
+=======
+        _ = try helpers.executeOpcode(0x47, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         
         try helpers.expectStackValue(test_frame.frame, 0, balance);
     }
@@ -118,7 +165,11 @@ test "SELFBALANCE (0x47): Get contract's own balance" {
 test "BASEFEE (0x48): Get block base fee" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const test_cases = [_]u256{
         0,                      // Zero base fee (unlikely but valid)
@@ -130,7 +181,11 @@ test "BASEFEE (0x48): Get block base fee" {
     };
     
     for (test_cases) |base_fee| {
+<<<<<<< HEAD
         test_vm.vm.block_base_fee = base_fee;
+=======
+        test_vm.vm.context.block_base_fee = base_fee;
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         
         var contract = try helpers.createTestContract(
             allocator,
@@ -139,13 +194,21 @@ test "BASEFEE (0x48): Get block base fee" {
             0,
             &[_]u8{},
         );
+<<<<<<< HEAD
         defer contract.deinit(null);
+=======
+        defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
         defer test_frame.deinit();
         
         // Execute BASEFEE
+<<<<<<< HEAD
         _ = try helpers.executeOpcode(0x48, &test_vm.vm, test_frame.frame);
+=======
+        _ = try helpers.executeOpcode(0x48, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         
         try helpers.expectStackValue(test_frame.frame, 0, base_fee);
     }
@@ -154,7 +217,11 @@ test "BASEFEE (0x48): Get block base fee" {
 test "BLOBHASH (0x49): Get blob versioned hash" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     // Set up blob hashes
     const blob_hashes = [_]u256{
@@ -162,7 +229,11 @@ test "BLOBHASH (0x49): Get blob versioned hash" {
         0x0202020202020202020202020202020202020202020202020202020202020202,
         0x0303030303030303030303030303030303030303030303030303030303030303,
     };
+<<<<<<< HEAD
     test_vm.vm.blob_hashes = &blob_hashes;
+=======
+    test_vm.vm.context.blob_hashes = &blob_hashes;
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -171,45 +242,73 @@ test "BLOBHASH (0x49): Get blob versioned hash" {
         0,
         &[_]u8{},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
     // Test 1: Get first blob hash
     try test_frame.pushStack(&[_]u256{0});
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x49, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x49, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, blob_hashes[0]);
     _ = try test_frame.popStack();
     
     // Test 2: Get second blob hash
     try test_frame.pushStack(&[_]u256{1});
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x49, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x49, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, blob_hashes[1]);
     _ = try test_frame.popStack();
     
     // Test 3: Get third blob hash
     try test_frame.pushStack(&[_]u256{2});
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x49, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x49, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, blob_hashes[2]);
     _ = try test_frame.popStack();
     
     // Test 4: Index out of bounds (should return 0)
     try test_frame.pushStack(&[_]u256{3});
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x49, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x49, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, 0);
     _ = try test_frame.popStack();
     
     // Test 5: Large index (should return 0)
     try test_frame.pushStack(&[_]u256{1000});
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x49, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x49, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, 0);
 }
 
 test "BLOBBASEFEE (0x4A): Get blob base fee" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const test_cases = [_]u256{
         0,                      // Zero blob base fee
@@ -221,7 +320,11 @@ test "BLOBBASEFEE (0x4A): Get blob base fee" {
     };
     
     for (test_cases) |blob_base_fee| {
+<<<<<<< HEAD
         test_vm.vm.blob_base_fee = blob_base_fee;
+=======
+        test_vm.vm.context.blob_base_fee = blob_base_fee;
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         
         var contract = try helpers.createTestContract(
             allocator,
@@ -230,13 +333,21 @@ test "BLOBBASEFEE (0x4A): Get blob base fee" {
             0,
             &[_]u8{},
         );
+<<<<<<< HEAD
         defer contract.deinit(null);
+=======
+        defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
         defer test_frame.deinit();
         
         // Execute BLOBBASEFEE
+<<<<<<< HEAD
         _ = try helpers.executeOpcode(0x4A, &test_vm.vm, test_frame.frame);
+=======
+        _ = try helpers.executeOpcode(0x4A, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         
         try helpers.expectStackValue(test_frame.frame, 0, blob_base_fee);
     }
@@ -249,11 +360,19 @@ test "BLOBBASEFEE (0x4A): Get blob base fee" {
 test "Block info opcodes: Gas consumption" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
     
     // Set up blob hashes for BLOBHASH test
     const blob_hashes = [_]u256{0x01};
     test_vm.vm.blob_hashes = &blob_hashes;
+=======
+    defer test_vm.deinit(allocator);
+    
+    // Set up blob hashes for BLOBHASH test
+    const blob_hashes = [_]u256{0x01};
+    test_vm.vm.context.blob_hashes = &blob_hashes;
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -262,7 +381,11 @@ test "Block info opcodes: Gas consumption" {
         0,
         &[_]u8{},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -290,7 +413,11 @@ test "Block info opcodes: Gas consumption" {
         const gas_before = 1000;
         test_frame.frame.gas_remaining = gas_before;
         
+<<<<<<< HEAD
         _ = try helpers.executeOpcode(op.opcode, &test_vm.vm, test_frame.frame);
+=======
+        _ = try helpers.executeOpcode(op.opcode, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         
         const gas_used = gas_before - test_frame.frame.gas_remaining;
         try testing.expectEqual(op.expected_gas, gas_used);
@@ -304,7 +431,11 @@ test "Block info opcodes: Gas consumption" {
 test "Invalid opcodes 0x4B-0x4E: Should revert" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -313,7 +444,11 @@ test "Invalid opcodes 0x4B-0x4E: Should revert" {
         0,
         &[_]u8{},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -322,7 +457,11 @@ test "Invalid opcodes 0x4B-0x4E: Should revert" {
     
     for (invalid_opcodes) |opcode| {
         const gas_before = test_frame.frame.gas_remaining;
+<<<<<<< HEAD
         const result = helpers.executeOpcode(opcode, &test_vm.vm, test_frame.frame);
+=======
+        const result = helpers.executeOpcode(opcode, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         
         // Should fail with InvalidOpcode error
         try testing.expectError(helpers.ExecutionError.Error.InvalidOpcode, result);
@@ -342,7 +481,11 @@ test "Invalid opcodes 0x4B-0x4E: Should revert" {
 test "SELFBALANCE: Balance changes during execution" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -351,11 +494,16 @@ test "SELFBALANCE: Balance changes during execution" {
         0,
         &[_]u8{},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
+<<<<<<< HEAD
     // Initial balance: 1000 wei
     try test_vm.vm.set_balance(contract.address, 1000);
     
@@ -369,16 +517,38 @@ test "SELFBALANCE: Balance changes during execution" {
     
     // Check updated balance
     _ = try helpers.executeOpcode(0x47, &test_vm.vm, test_frame.frame);
+=======
+    // Initial balance: 1000 wei - set directly in the state
+    try test_vm.vm.state.set_balance(contract.address, 1000);
+    
+    // Check initial balance
+    _ = try helpers.executeOpcode(0x47, test_vm.vm, test_frame.frame);
+    try helpers.expectStackValue(test_frame.frame, 0, 1000);
+    _ = try test_frame.popStack();
+    
+    // Simulate balance change (e.g., from a transfer) - set directly in the state
+    try test_vm.vm.state.set_balance(contract.address, 2500);
+    
+    // Check updated balance
+    _ = try helpers.executeOpcode(0x47, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, 2500);
 }
 
 test "BLOBHASH: Empty blob list" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
     
     // No blob hashes set (empty slice)
     test_vm.vm.blob_hashes = &[_]u256{};
+=======
+    defer test_vm.deinit(allocator);
+    
+    // No blob hashes set (empty slice)
+    test_vm.vm.context.blob_hashes = &[_]u256{};
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -387,24 +557,39 @@ test "BLOBHASH: Empty blob list" {
         0,
         &[_]u8{},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
     
     // Any index should return 0 when no blobs
     try test_frame.pushStack(&[_]u256{0});
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x49, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x49, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, 0);
 }
 
 test "CHAINID: EIP-1344 behavior" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
     
     // Test that CHAINID returns consistent value
     test_vm.vm.chain_id = 1337; // Common test chain ID
+=======
+    defer test_vm.deinit(allocator);
+    
+    // Test that CHAINID returns consistent value
+    test_vm.vm.context.chain_id = 1337; // Common test chain ID
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -413,14 +598,22 @@ test "CHAINID: EIP-1344 behavior" {
         0,
         &[_]u8{},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
     
     // Execute CHAINID multiple times - should always return same value
     for (0..3) |_| {
+<<<<<<< HEAD
         _ = try helpers.executeOpcode(0x46, &test_vm.vm, test_frame.frame);
+=======
+        _ = try helpers.executeOpcode(0x46, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         try helpers.expectStackValue(test_frame.frame, 0, 1337);
         _ = try test_frame.popStack();
     }
@@ -429,11 +622,19 @@ test "CHAINID: EIP-1344 behavior" {
 test "Stack operations: All opcodes push exactly one value" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
     
     // Set up blob hash for BLOBHASH
     const blob_hashes = [_]u256{0x01};
     test_vm.vm.blob_hashes = &blob_hashes;
+=======
+    defer test_vm.deinit(allocator);
+    
+    // Set up blob hash for BLOBHASH
+    const blob_hashes = [_]u256{0x01};
+    test_vm.vm.context.blob_hashes = &blob_hashes;
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -442,7 +643,11 @@ test "Stack operations: All opcodes push exactly one value" {
         0,
         &[_]u8{},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -469,7 +674,11 @@ test "Stack operations: All opcodes push exactly one value" {
         
         const initial_stack_len = test_frame.frame.stack.size;
         
+<<<<<<< HEAD
         _ = try helpers.executeOpcode(op.opcode, &test_vm.vm, test_frame.frame);
+=======
+        _ = try helpers.executeOpcode(op.opcode, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         
         // Check that exactly one value was pushed (or net zero for BLOBHASH which pops 1 and pushes 1)
         const expected_len = if (op.needs_input) 

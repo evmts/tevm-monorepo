@@ -10,7 +10,11 @@ test "Integration: Memory operations with arithmetic" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -19,7 +23,11 @@ test "Integration: Memory operations with arithmetic" {
         0,
         &[_]u8{},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -27,6 +35,7 @@ test "Integration: Memory operations with arithmetic" {
     // Store result of arithmetic operation in memory
     // Calculate 10 + 20 = 30, store at offset 0
     try test_frame.pushStack(&[_]u256{10, 20});
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x01, &test_vm.vm, test_frame.frame);
     
     // Store result in memory
@@ -40,6 +49,21 @@ test "Integration: Memory operations with arithmetic" {
     
     // Check memory size
     _ = try helpers.executeOpcode(0x59, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x01, test_vm.vm, test_frame.frame);
+    
+    // Store result in memory
+    try test_frame.pushStack(&[_]u256{0}); // offset
+    _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
+    
+    // Load from memory and verify
+    try test_frame.pushStack(&[_]u256{0}); // offset
+    _ = try helpers.executeOpcode(0x51, test_vm.vm, test_frame.frame);
+    try helpers.expectStackValue(test_frame.frame, 0, 30);
+    
+    // Check memory size
+    _ = try helpers.executeOpcode(0x59, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, 32); // Should be 32 bytes
 }
 
@@ -47,7 +71,11 @@ test "Integration: Storage with conditional updates" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -56,7 +84,11 @@ test "Integration: Storage with conditional updates" {
         0,
         &[_]u8{},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -64,15 +96,25 @@ test "Integration: Storage with conditional updates" {
     // Set initial storage value
     const slot: u256 = 42;
     const initial_value: u256 = 100;
+<<<<<<< HEAD
     try test_vm.setStorage(helpers.TestAddresses.CONTRACT, slot, initial_value);
     
     // Load value, add 50, store back if result > 120
     try test_frame.pushStack(&[_]u256{slot});
     _ = try helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame);
+=======
+    const storage_key = helpers.Vm.StorageKey{ .address = helpers.TestAddresses.CONTRACT, .slot = slot };
+    try test_vm.vm.state.set_storage(storage_key.address, storage_key.slot, initial_value);
+    
+    // Load value, add 50, store back if result > 120
+    try test_frame.pushStack(&[_]u256{slot});
+    _ = try helpers.executeOpcode(0x54, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, initial_value);
     
     // Add 50
     try test_frame.pushStack(&[_]u256{50});
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x01, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 150);
     
@@ -82,10 +124,22 @@ test "Integration: Storage with conditional updates" {
     // Compare with 120
     try test_frame.pushStack(&[_]u256{120});
     _ = try helpers.executeOpcode(0x11, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x01, test_vm.vm, test_frame.frame);
+    try helpers.expectStackValue(test_frame.frame, 0, 150);
+    
+    // Duplicate for comparison
+    _ = try helpers.executeOpcode(0x80, test_vm.vm, test_frame.frame);
+    
+    // Compare with 120
+    try test_frame.pushStack(&[_]u256{120});
+    _ = try helpers.executeOpcode(0x11, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, 1); // 150 > 120 is true
     
     // Since condition is true, store the value
     // Stack: [150, 1] - need to remove condition and keep value
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x50, &test_vm.vm, test_frame.frame);
     
     // Store value
@@ -94,6 +148,16 @@ test "Integration: Storage with conditional updates" {
     
     // Verify storage was updated
     const updated_value = try test_vm.getStorage(helpers.TestAddresses.CONTRACT, slot);
+=======
+    _ = try helpers.executeOpcode(0x50, test_vm.vm, test_frame.frame);
+    
+    // Store value
+    try test_frame.pushStack(&[_]u256{slot});
+    _ = try helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
+    
+    // Verify storage was updated
+    const updated_value = test_vm.vm.state.get_storage(storage_key.address, storage_key.slot);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try testing.expectEqual(@as(u256, 150), updated_value);
 }
 
@@ -101,7 +165,11 @@ test "Integration: Memory copy operations" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -110,7 +178,11 @@ test "Integration: Memory copy operations" {
         0,
         &[_]u8{},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -120,6 +192,7 @@ test "Integration: Memory copy operations" {
     const data2: u256 = 0xCAFEBABE;
     
     try test_frame.pushStack(&[_]u256{data1, 0}); // value, offset
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x52, &test_vm.vm, test_frame.frame);
     
     try test_frame.pushStack(&[_]u256{data2, 32}); // value, offset
@@ -136,6 +209,24 @@ test "Integration: Memory copy operations" {
     
     // Check memory size expanded
     _ = try helpers.executeOpcode(0x59, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
+    
+    try test_frame.pushStack(&[_]u256{data2, 32}); // value, offset
+    _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
+    
+    // Copy 32 bytes from offset 0 to offset 64
+    try test_frame.pushStack(&[_]u256{64, 0, 32}); // dst, src, size
+    _ = try helpers.executeOpcode(0x5E, test_vm.vm, test_frame.frame);
+    
+    // Verify copy
+    try test_frame.pushStack(&[_]u256{64}); // offset
+    _ = try helpers.executeOpcode(0x51, test_vm.vm, test_frame.frame);
+    try helpers.expectStackValue(test_frame.frame, 0, data1);
+    
+    // Check memory size expanded
+    _ = try helpers.executeOpcode(0x59, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, 96); // Should be 96 bytes
 }
 
@@ -143,7 +234,11 @@ test "Integration: Transient storage with arithmetic" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -152,7 +247,11 @@ test "Integration: Transient storage with arithmetic" {
         0,
         &[_]u8{},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -161,6 +260,7 @@ test "Integration: Transient storage with arithmetic" {
     
     // Store initial value in transient storage
     try test_frame.pushStack(&[_]u256{1000, slot});
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x5D, &test_vm.vm, test_frame.frame);
     
     // Load, double it, store back
@@ -171,15 +271,35 @@ test "Integration: Transient storage with arithmetic" {
     // Double the value
     _ = try helpers.executeOpcode(0x80, &test_vm.vm, test_frame.frame);
     _ = try helpers.executeOpcode(0x01, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x5D, test_vm.vm, test_frame.frame);
+    
+    // Load, double it, store back
+    try test_frame.pushStack(&[_]u256{slot});
+    _ = try helpers.executeOpcode(0x5C, test_vm.vm, test_frame.frame);
+    try helpers.expectStackValue(test_frame.frame, 0, 1000);
+    
+    // Double the value
+    _ = try helpers.executeOpcode(0x80, test_vm.vm, test_frame.frame);
+    _ = try helpers.executeOpcode(0x01, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, 2000);
     
     // Store back
     try test_frame.pushStack(&[_]u256{slot});
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x5D, &test_vm.vm, test_frame.frame);
     
     // Verify
     try test_frame.pushStack(&[_]u256{slot});
     _ = try helpers.executeOpcode(0x5C, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x5D, test_vm.vm, test_frame.frame);
+    
+    // Verify
+    try test_frame.pushStack(&[_]u256{slot});
+    _ = try helpers.executeOpcode(0x5C, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, 2000);
 }
 
@@ -187,7 +307,11 @@ test "Integration: MSTORE8 with bitwise operations" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -196,7 +320,11 @@ test "Integration: MSTORE8 with bitwise operations" {
         0,
         &[_]u8{},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -207,13 +335,21 @@ test "Integration: MSTORE8 with bitwise operations" {
     
     for (bytes) |byte| {
         try test_frame.pushStack(&[_]u256{byte, offset});
+<<<<<<< HEAD
         _ = try helpers.executeOpcode(0x53, &test_vm.vm, test_frame.frame);
+=======
+        _ = try helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         offset += 1;
     }
     
     // Load the full word
     try test_frame.pushStack(&[_]u256{0});
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x51, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x51, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     // The result should be 0xDEADBEEF0000...
     const result = try test_frame.popStack();
@@ -225,7 +361,11 @@ test "Integration: Storage slot calculation" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -234,7 +374,11 @@ test "Integration: Storage slot calculation" {
         0,
         &[_]u8{},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 30000);
     defer test_frame.deinit();
@@ -246,10 +390,17 @@ test "Integration: Storage slot calculation" {
     // Calculate slot: keccak256(base_slot) + index
     // For this test, we'll use a simpler calculation: base_slot * 1000 + index
     try test_frame.pushStack(&[_]u256{base_slot, 1000});
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x02, &test_vm.vm, test_frame.frame);
     
     try test_frame.pushStack(&[_]u256{index});
     _ = try helpers.executeOpcode(0x01, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x02, test_vm.vm, test_frame.frame);
+    
+    try test_frame.pushStack(&[_]u256{index});
+    _ = try helpers.executeOpcode(0x01, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const calculated_slot = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 5003), calculated_slot);
@@ -257,6 +408,7 @@ test "Integration: Storage slot calculation" {
     // Store value at calculated slot
     const value: u256 = 999;
     try test_frame.pushStack(&[_]u256{value, calculated_slot});
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x55, &test_vm.vm, test_frame.frame);
     
     // Load and verify
@@ -265,11 +417,26 @@ test "Integration: Storage slot calculation" {
     try helpers.expectStackValue(test_frame.frame, 0, value);
 }
 
+=======
+    _ = try helpers.executeOpcode(0x55, test_vm.vm, test_frame.frame);
+    
+    // Load and verify
+    try test_frame.pushStack(&[_]u256{calculated_slot});
+    _ = try helpers.executeOpcode(0x54, test_vm.vm, test_frame.frame);
+    try helpers.expectStackValue(test_frame.frame, 0, value);
+}
+
+// WORKING ON THIS: Fixing memory expansion tracking expectations
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 test "Integration: Memory expansion tracking" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -278,45 +445,81 @@ test "Integration: Memory expansion tracking" {
         0,
         &[_]u8{},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
     // Track memory size as we expand
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x59, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x59, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, 0); // Initially 0
     
     // Store at offset 0
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{42, 0});
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x52, &test_vm.vm, test_frame.frame);
     
     _ = try helpers.executeOpcode(0x59, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
+    
+    _ = try helpers.executeOpcode(0x59, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, 32); // Expanded to 32
     
     // Store at offset 100 (forces expansion)
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{99, 100});
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x52, &test_vm.vm, test_frame.frame);
     
     _ = try helpers.executeOpcode(0x59, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 132); // Expanded to include offset 100-131
+=======
+    _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
+    
+    _ = try helpers.executeOpcode(0x59, test_vm.vm, test_frame.frame);
+    // Memory expands in 32-byte words. Offset 100 + 32 bytes = 132 bytes needed
+    // 132 bytes = 4.125 words, rounds up to 5 words = 160 bytes
+    try helpers.expectStackValue(test_frame.frame, 0, 160);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     // Store single byte at offset 200
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{0xFF, 200});
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x53, &test_vm.vm, test_frame.frame);
     
     _ = try helpers.executeOpcode(0x59, &test_vm.vm, test_frame.frame);
     try helpers.expectStackValue(test_frame.frame, 0, 201); // Expanded to include offset 200
+=======
+    _ = try helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame);
+    
+    _ = try helpers.executeOpcode(0x59, test_vm.vm, test_frame.frame);
+    // MSTORE8 at offset 200 needs byte 200, which requires 201 bytes
+    // 201 bytes = 6.28125 words, rounds up to 7 words = 224 bytes
+    try helpers.expectStackValue(test_frame.frame, 0, 224); // Memory expands to 7 words (224 bytes)
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 }
 
 test "Integration: Cold/warm storage access patterns" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -325,7 +528,11 @@ test "Integration: Cold/warm storage access patterns" {
         0,
         &[_]u8{},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -335,7 +542,11 @@ test "Integration: Cold/warm storage access patterns" {
     // First access - cold (should cost 2100 gas)
     const gas_before_cold = test_frame.frame.gas_remaining;
     try test_frame.pushStack(&[_]u256{slot});
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x54, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     const gas_after_cold = test_frame.frame.gas_remaining;
     const cold_gas_used = gas_before_cold - gas_after_cold;
     try testing.expectEqual(@as(u64, 2100), cold_gas_used);
@@ -344,7 +555,11 @@ test "Integration: Cold/warm storage access patterns" {
     test_frame.frame.stack.clear();
     const gas_before_warm = test_frame.frame.gas_remaining;
     try test_frame.pushStack(&[_]u256{slot});
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x54, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x54, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     const gas_after_warm = test_frame.frame.gas_remaining;
     const warm_gas_used = gas_before_warm - gas_after_warm;
     try testing.expectEqual(@as(u64, 100), warm_gas_used);

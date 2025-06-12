@@ -11,7 +11,11 @@ test "Arithmetic: ADD basic operations" {
 
     // Set up test VM and frame
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -20,14 +24,22 @@ test "Arithmetic: ADD basic operations" {
         0,
         &[_]u8{},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
 
     // Test 1: Simple addition
     try test_frame.pushStack(&[_]u256{ 5, 10 }); // Push 10, then 5
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x01, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x01, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, 15);
     try testing.expectEqual(@as(usize, 1), test_frame.stackSize());
 
@@ -35,13 +47,21 @@ test "Arithmetic: ADD basic operations" {
     test_frame.frame.stack.clear();
     const max_u256 = std.math.maxInt(u256);
     try test_frame.pushStack(&[_]u256{ max_u256, 1 });
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x01, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x01, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, 0); // Should wrap around
 
     // Test 3: Adding zero
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{ 0, 42 });
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x01, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x01, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, 42);
 
     // Test gas consumption - create a new frame with jump table
@@ -50,8 +70,13 @@ test "Arithmetic: ADD basic operations" {
     try test_frame.pushStack(&[_]u256{ 5, 10 });
 
     // Create jump table for gas testing
+<<<<<<< HEAD
     const jump_table = helpers.JumpTable.new_frontier_instruction_set();
     _ = try helpers.executeOpcodeWithGas(&jump_table, 0x01, &test_vm.vm, test_frame.frame); // 0x01 = ADD
+=======
+    const jump_table = helpers.JumpTable.init_from_hardfork(.FRONTIER);
+    _ = try helpers.executeOpcodeWithGas(&jump_table, 0x01, test_vm.vm, test_frame.frame); // 0x01 = ADD
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectGasUsed(test_frame.frame, 1000, 3); // ADD costs GasFastestStep = 3
 }
 
@@ -59,7 +84,11 @@ test "Arithmetic: SUB basic operations" {
     const allocator = testing.allocator;
 
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -68,27 +97,43 @@ test "Arithmetic: SUB basic operations" {
         0,
         &[_]u8{},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
 
     // Test 1: Simple subtraction
     try test_frame.pushStack(&[_]u256{ 10, 5 }); // Push 10 first, then 5 (so 5 is on top)
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x03, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x03, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, 5); // 10 - 5 = 5
 
     // Test 2: Subtraction with underflow
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{ 5, 10 }); // Push 5 first, then 10 (so 10 is on top)
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x03, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x03, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     const expected = std.math.maxInt(u256) - 4; // 5 - 10 wraps to max - 4
     try helpers.expectStackValue(test_frame.frame, 0, expected);
 
     // Test 3: Subtracting zero
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{ 42, 0 }); // Push 42 first, then 0 (so 0 is on top)
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x03, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x03, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, 42); // 42 - 0 = 42
 }
 
@@ -96,7 +141,11 @@ test "Arithmetic: MUL basic operations" {
     const allocator = testing.allocator;
 
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -105,27 +154,43 @@ test "Arithmetic: MUL basic operations" {
         0,
         &[_]u8{},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
 
     // Test 1: Simple multiplication
     try test_frame.pushStack(&[_]u256{ 7, 6 });
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x02, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x02, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, 42);
 
     // Test 2: Multiplication by zero
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{ 0, 42 });
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x02, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x02, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, 0);
 
     // Test 3: Multiplication overflow
     test_frame.frame.stack.clear();
     const large_val = @as(u256, 1) << 200;
     try test_frame.pushStack(&[_]u256{ large_val, large_val });
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x02, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x02, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     // Result should be truncated to 256 bits
     const expected = (large_val *% large_val) & std.math.maxInt(u256);
     try helpers.expectStackValue(test_frame.frame, 0, expected);
@@ -135,7 +200,11 @@ test "Arithmetic: DIV basic operations" {
     const allocator = testing.allocator;
 
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -144,26 +213,42 @@ test "Arithmetic: DIV basic operations" {
         0,
         &[_]u8{},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
 
     // Test 1: Simple division
     try test_frame.pushStack(&[_]u256{ 42, 6 });
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x04, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x04, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, 7); // 42 / 6 = 7
 
     // Test 2: Division by zero
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{ 42, 0 });
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x04, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x04, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, 0); // Division by zero returns 0
 
     // Test 3: Division with remainder
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{ 50, 7 });
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x04, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x04, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, 7); // 50 / 7 = 7 (integer division)
 }
 
@@ -171,7 +256,11 @@ test "Arithmetic: MOD basic operations" {
     const allocator = testing.allocator;
 
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -180,26 +269,42 @@ test "Arithmetic: MOD basic operations" {
         0,
         &[_]u8{},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
 
     // Test 1: Simple modulo
     try test_frame.pushStack(&[_]u256{ 50, 7 });
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x06, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x06, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, 1); // 50 % 7 = 1
 
     // Test 2: Modulo by zero
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{ 42, 0 });
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x06, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x06, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, 0); // Modulo by zero returns 0
 
     // Test 3: Perfect division
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{ 42, 6 });
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x06, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x06, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, 0); // 42 % 6 = 0
 }
 
@@ -207,7 +312,11 @@ test "Arithmetic: ADDMOD complex operations" {
     const allocator = testing.allocator;
 
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -216,28 +325,44 @@ test "Arithmetic: ADDMOD complex operations" {
         0,
         &[_]u8{},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
 
     // Test 1: Simple addmod
     try test_frame.pushStack(&[_]u256{ 5, 7, 10 }); // Push a=5, b=7, n=10: (5 + 7) % 10 = 2
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x08, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x08, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, 2);
 
     // Test 2: Addmod with overflow
     test_frame.frame.stack.clear();
     const max = std.math.maxInt(u256);
     try test_frame.pushStack(&[_]u256{ 50, max, 100 }); // Push a=50, b=max, n=100: (50 + max) % 100
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x08, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x08, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     const result = try test_frame.popStack();
     try testing.expect(result < 100); // Result should be less than modulus
 
     // Test 3: Modulo by zero
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{ 7, 5, 0 }); // Push a=7, b=5, n=0: (7 + 5) % 0 = 0
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x08, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x08, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, 0); // Modulo by zero returns 0
 }
 
@@ -245,7 +370,11 @@ test "Arithmetic: MULMOD complex operations" {
     const allocator = testing.allocator;
 
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -254,28 +383,44 @@ test "Arithmetic: MULMOD complex operations" {
         0,
         &[_]u8{},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
 
     // Test 1: Simple mulmod
     try test_frame.pushStack(&[_]u256{ 5, 7, 10 }); // Push a=5, b=7, n=10: (5 * 7) % 10 = 5
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x09, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x09, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, 5);
 
     // Test 2: Mulmod with large numbers
     test_frame.frame.stack.clear();
     const large = @as(u256, 1) << 200;
     try test_frame.pushStack(&[_]u256{ large, large, 1000 }); // Push a=large, b=large, n=1000: (large * large) % 1000
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x09, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x09, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     // The result should be correct even though large * large overflows
     try testing.expect((try test_frame.frame.stack.peek_n(0)) < 1000);
 
     // Test 3: Modulo by zero
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{ 5, 7, 0 }); // Push a=5, b=7, n=0: (5 * 7) % 0 = 0
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x09, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x09, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, 0); // Modulo by zero returns 0
 }
 
@@ -283,7 +428,11 @@ test "Arithmetic: EXP exponential operations" {
     const allocator = testing.allocator;
 
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -292,33 +441,53 @@ test "Arithmetic: EXP exponential operations" {
         0,
         &[_]u8{},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000); // More gas for EXP
     defer test_frame.deinit();
 
     // Test 1: Simple exponentiation
     try test_frame.pushStack(&[_]u256{ 2, 3 }); // 2^3 = 8
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x0A, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x0A, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, 8);
 
     // Test 2: Zero exponent
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{ 42, 0 }); // 42^0 = 1
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x0A, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x0A, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, 1);
 
     // Test 3: Zero base
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{ 0, 5 }); // 0^5 = 0
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x0A, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x0A, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try helpers.expectStackValue(test_frame.frame, 0, 0);
 
     // Test 4: Large exponent (gas consumption)
     test_frame.frame.stack.clear();
     test_frame.frame.gas_remaining = 10000;
     try test_frame.pushStack(&[_]u256{ 2, 256 }); // 2^256
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x0A, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x0A, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     // Gas should be consumed: 10 (base) + 50 * 2 (256 = 0x100 = 2 bytes)
     const expected_gas = 10 + 50 * 2;
     try helpers.expectGasUsed(test_frame.frame, 10000, expected_gas);
@@ -328,7 +497,11 @@ test "Arithmetic: Stack underflow errors" {
     const allocator = testing.allocator;
 
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -337,20 +510,36 @@ test "Arithmetic: Stack underflow errors" {
         0,
         &[_]u8{},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
 
     // Test ADD with empty stack
+<<<<<<< HEAD
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, helpers.executeOpcode(0x01, &test_vm.vm, test_frame.frame));
 
     // Test ADD with only one item
     try test_frame.pushStack(&[_]u256{42});
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, helpers.executeOpcode(0x01, &test_vm.vm, test_frame.frame));
+=======
+    try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, helpers.executeOpcode(0x01, test_vm.vm, test_frame.frame));
+
+    // Test ADD with only one item
+    try test_frame.pushStack(&[_]u256{42});
+    try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, helpers.executeOpcode(0x01, test_vm.vm, test_frame.frame));
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 
     // Test ADDMOD with only two items (needs three)
     test_frame.frame.stack.clear();
     try test_frame.pushStack(&[_]u256{ 42, 7 });
+<<<<<<< HEAD
     try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, helpers.executeOpcode(0x08, &test_vm.vm, test_frame.frame));
+=======
+    try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, helpers.executeOpcode(0x08, test_vm.vm, test_frame.frame));
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 }

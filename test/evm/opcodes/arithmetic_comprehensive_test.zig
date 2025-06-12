@@ -9,7 +9,11 @@ const helpers = @import("test_helpers.zig");
 test "STOP (0x00): Halt execution" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const code = [_]u8{0x00}; // STOP
     
@@ -20,13 +24,21 @@ test "STOP (0x00): Halt execution" {
         0,
         &code,
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
     
     // Execute STOP
+<<<<<<< HEAD
     const result = helpers.executeOpcode(0x00, &test_vm.vm, test_frame.frame);
+=======
+    const result = helpers.executeOpcode(0x00, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     // Should return STOP error
     try testing.expectError(helpers.ExecutionError.Error.STOP, result);
@@ -39,7 +51,11 @@ test "STOP (0x00): Halt execution" {
 test "ADD (0x01): Basic addition" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const code = [_]u8{0x01}; // ADD
     
@@ -50,7 +66,11 @@ test "ADD (0x01): Basic addition" {
         0,
         &code,
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -59,7 +79,11 @@ test "ADD (0x01): Basic addition" {
     try test_frame.pushStack(&[_]u256{5});
     try test_frame.pushStack(&[_]u256{10});
     
+<<<<<<< HEAD
     const result = try helpers.executeOpcode(0x01, &test_vm.vm, test_frame.frame);
+=======
+    const result = try helpers.executeOpcode(0x01, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try testing.expectEqual(@as(usize, 1), result.bytes_consumed);
     
     const value = try test_frame.popStack();
@@ -69,7 +93,11 @@ test "ADD (0x01): Basic addition" {
 test "ADD: Overflow wraps to zero" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -78,7 +106,11 @@ test "ADD: Overflow wraps to zero" {
         0,
         &[_]u8{0x01},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -88,7 +120,11 @@ test "ADD: Overflow wraps to zero" {
     try test_frame.pushStack(&[_]u256{max_u256});
     try test_frame.pushStack(&[_]u256{1});
     
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x01, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x01, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 0), value);
@@ -97,7 +133,11 @@ test "ADD: Overflow wraps to zero" {
 test "ADD: Large numbers" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -106,7 +146,11 @@ test "ADD: Large numbers" {
         0,
         &[_]u8{0x01},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -117,7 +161,11 @@ test "ADD: Large numbers" {
     try test_frame.pushStack(&[_]u256{large1});
     try test_frame.pushStack(&[_]u256{large2});
     
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x01, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x01, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const value = try test_frame.popStack();
     const expected = large1 +% large2; // Wrapping addition
@@ -131,7 +179,11 @@ test "ADD: Large numbers" {
 test "MUL (0x02): Basic multiplication" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -140,7 +192,11 @@ test "MUL (0x02): Basic multiplication" {
         0,
         &[_]u8{0x02},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -149,7 +205,11 @@ test "MUL (0x02): Basic multiplication" {
     try test_frame.pushStack(&[_]u256{5});
     try test_frame.pushStack(&[_]u256{10});
     
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x02, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x02, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 50), value);
@@ -158,7 +218,11 @@ test "MUL (0x02): Basic multiplication" {
 test "MUL: Multiplication by zero" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -167,7 +231,11 @@ test "MUL: Multiplication by zero" {
         0,
         &[_]u8{0x02},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -176,7 +244,11 @@ test "MUL: Multiplication by zero" {
     try test_frame.pushStack(&[_]u256{1000});
     try test_frame.pushStack(&[_]u256{0});
     
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x02, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x02, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 0), value);
@@ -185,7 +257,11 @@ test "MUL: Multiplication by zero" {
 test "MUL: Overflow behavior" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -194,7 +270,11 @@ test "MUL: Overflow behavior" {
         0,
         &[_]u8{0x02},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -204,7 +284,11 @@ test "MUL: Overflow behavior" {
     try test_frame.pushStack(&[_]u256{half_max});
     try test_frame.pushStack(&[_]u256{half_max});
     
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x02, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x02, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const value = try test_frame.popStack();
     // Result should be 0 due to overflow (2^256 mod 2^256 = 0)
@@ -218,7 +302,11 @@ test "MUL: Overflow behavior" {
 test "SUB (0x03): Basic subtraction" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -227,7 +315,11 @@ test "SUB (0x03): Basic subtraction" {
         0,
         &[_]u8{0x03},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -236,7 +328,11 @@ test "SUB (0x03): Basic subtraction" {
     try test_frame.pushStack(&[_]u256{10});
     try test_frame.pushStack(&[_]u256{5});
     
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x03, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x03, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 5), value);
@@ -245,7 +341,11 @@ test "SUB (0x03): Basic subtraction" {
 test "SUB: Underflow wraps to max" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -254,7 +354,11 @@ test "SUB: Underflow wraps to max" {
         0,
         &[_]u8{0x03},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -263,7 +367,11 @@ test "SUB: Underflow wraps to max" {
     try test_frame.pushStack(&[_]u256{0});
     try test_frame.pushStack(&[_]u256{1});
     
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x03, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x03, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const value = try test_frame.popStack();
     try testing.expectEqual(std.math.maxInt(u256), value);
@@ -276,7 +384,11 @@ test "SUB: Underflow wraps to max" {
 test "DIV (0x04): Basic division" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -285,7 +397,11 @@ test "DIV (0x04): Basic division" {
         0,
         &[_]u8{0x04},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -294,7 +410,11 @@ test "DIV (0x04): Basic division" {
     try test_frame.pushStack(&[_]u256{20});
     try test_frame.pushStack(&[_]u256{5});
     
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x04, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x04, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 4), value);
@@ -303,7 +423,11 @@ test "DIV (0x04): Basic division" {
 test "DIV: Division by zero returns zero" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -312,7 +436,11 @@ test "DIV: Division by zero returns zero" {
         0,
         &[_]u8{0x04},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -321,7 +449,11 @@ test "DIV: Division by zero returns zero" {
     try test_frame.pushStack(&[_]u256{100});
     try test_frame.pushStack(&[_]u256{0});
     
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x04, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x04, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 0), value);
@@ -330,7 +462,11 @@ test "DIV: Division by zero returns zero" {
 test "DIV: Integer division truncates" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -339,7 +475,11 @@ test "DIV: Integer division truncates" {
         0,
         &[_]u8{0x04},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -348,7 +488,11 @@ test "DIV: Integer division truncates" {
     try test_frame.pushStack(&[_]u256{7});
     try test_frame.pushStack(&[_]u256{3});
     
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x04, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x04, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 2), value);
@@ -361,7 +505,11 @@ test "DIV: Integer division truncates" {
 test "SDIV (0x05): Signed division positive" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -370,7 +518,11 @@ test "SDIV (0x05): Signed division positive" {
         0,
         &[_]u8{0x05},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -379,7 +531,11 @@ test "SDIV (0x05): Signed division positive" {
     try test_frame.pushStack(&[_]u256{20});
     try test_frame.pushStack(&[_]u256{5});
     
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x05, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x05, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 4), value);
@@ -388,7 +544,11 @@ test "SDIV (0x05): Signed division positive" {
 test "SDIV: Signed division negative" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -397,7 +557,11 @@ test "SDIV: Signed division negative" {
         0,
         &[_]u8{0x05},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -408,7 +572,11 @@ test "SDIV: Signed division negative" {
     try test_frame.pushStack(&[_]u256{neg_20});
     try test_frame.pushStack(&[_]u256{5});
     
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x05, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x05, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const value = try test_frame.popStack();
     const expected = std.math.maxInt(u256) - 3; // -4 in two's complement
@@ -418,7 +586,11 @@ test "SDIV: Signed division negative" {
 test "SDIV: Division by zero returns zero" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -427,7 +599,11 @@ test "SDIV: Division by zero returns zero" {
         0,
         &[_]u8{0x05},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -436,7 +612,11 @@ test "SDIV: Division by zero returns zero" {
     try test_frame.pushStack(&[_]u256{100});
     try test_frame.pushStack(&[_]u256{0});
     
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x05, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x05, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 0), value);
@@ -445,7 +625,11 @@ test "SDIV: Division by zero returns zero" {
 test "SDIV: Edge case MIN / -1" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -454,7 +638,11 @@ test "SDIV: Edge case MIN / -1" {
         0,
         &[_]u8{0x05},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -465,7 +653,11 @@ test "SDIV: Edge case MIN / -1" {
     try test_frame.pushStack(&[_]u256{min_i256});
     try test_frame.pushStack(&[_]u256{neg_1});
     
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x05, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x05, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const value = try test_frame.popStack();
     try testing.expectEqual(min_i256, value);
@@ -478,7 +670,11 @@ test "SDIV: Edge case MIN / -1" {
 test "MOD (0x06): Basic modulo" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -487,7 +683,11 @@ test "MOD (0x06): Basic modulo" {
         0,
         &[_]u8{0x06},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -496,7 +696,11 @@ test "MOD (0x06): Basic modulo" {
     try test_frame.pushStack(&[_]u256{17});
     try test_frame.pushStack(&[_]u256{5});
     
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x06, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x06, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 2), value);
@@ -505,7 +709,11 @@ test "MOD (0x06): Basic modulo" {
 test "MOD: Modulo by zero returns zero" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -514,7 +722,11 @@ test "MOD: Modulo by zero returns zero" {
         0,
         &[_]u8{0x06},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -523,7 +735,11 @@ test "MOD: Modulo by zero returns zero" {
     try test_frame.pushStack(&[_]u256{100});
     try test_frame.pushStack(&[_]u256{0});
     
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x06, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x06, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 0), value);
@@ -536,7 +752,11 @@ test "MOD: Modulo by zero returns zero" {
 test "SMOD (0x07): Signed modulo positive" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -545,7 +765,11 @@ test "SMOD (0x07): Signed modulo positive" {
         0,
         &[_]u8{0x07},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -554,7 +778,11 @@ test "SMOD (0x07): Signed modulo positive" {
     try test_frame.pushStack(&[_]u256{17});
     try test_frame.pushStack(&[_]u256{5});
     
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x07, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x07, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 2), value);
@@ -563,7 +791,11 @@ test "SMOD (0x07): Signed modulo positive" {
 test "SMOD: Signed modulo negative" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -572,7 +804,11 @@ test "SMOD: Signed modulo negative" {
         0,
         &[_]u8{0x07},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -582,7 +818,11 @@ test "SMOD: Signed modulo negative" {
     try test_frame.pushStack(&[_]u256{neg_17});
     try test_frame.pushStack(&[_]u256{5});
     
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x07, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x07, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const value = try test_frame.popStack();
     const expected = std.math.maxInt(u256) - 1; // -2 in two's complement
@@ -596,7 +836,11 @@ test "SMOD: Signed modulo negative" {
 test "ADDMOD (0x08): Basic modular addition" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -605,7 +849,11 @@ test "ADDMOD (0x08): Basic modular addition" {
         0,
         &[_]u8{0x08},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -615,7 +863,11 @@ test "ADDMOD (0x08): Basic modular addition" {
     try test_frame.pushStack(&[_]u256{10});
     try test_frame.pushStack(&[_]u256{8});
     
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x08, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x08, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 4), value);
@@ -624,7 +876,11 @@ test "ADDMOD (0x08): Basic modular addition" {
 test "ADDMOD: Modulo zero returns zero" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -633,7 +889,11 @@ test "ADDMOD: Modulo zero returns zero" {
         0,
         &[_]u8{0x08},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -643,7 +903,11 @@ test "ADDMOD: Modulo zero returns zero" {
     try test_frame.pushStack(&[_]u256{10});
     try test_frame.pushStack(&[_]u256{0});
     
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x08, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x08, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 0), value);
@@ -652,7 +916,11 @@ test "ADDMOD: Modulo zero returns zero" {
 test "ADDMOD: No intermediate overflow" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -661,13 +929,18 @@ test "ADDMOD: No intermediate overflow" {
         0,
         &[_]u8{0x08},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
     
     // Test with values that would overflow u256
     const max = std.math.maxInt(u256);
+<<<<<<< HEAD
     try test_frame.pushStack(&[_]u256{max});
     try test_frame.pushStack(&[_]u256{max});
     try test_frame.pushStack(&[_]u256{10});
@@ -677,6 +950,19 @@ test "ADDMOD: No intermediate overflow" {
     const value = try test_frame.popStack();
     // (MAX + MAX) % 10 = 8 (because MAX + MAX = 2^257 - 2, and (2^257 - 2) % 10 = 8)
     try testing.expectEqual(@as(u256, 8), value);
+=======
+    try test_frame.pushStack(&[_]u256{max});   // first addend (pushed first, popped third)
+    try test_frame.pushStack(&[_]u256{max});   // second addend (pushed second, popped second)
+    try test_frame.pushStack(&[_]u256{10});    // modulus (pushed last, popped first)
+    
+    _ = try helpers.executeOpcode(0x08, test_vm.vm, test_frame.frame);
+    
+    const value = try test_frame.popStack();
+    // (MAX + MAX) % 10 = 4
+    // MAX + MAX in u256 wraps to: 2^256 - 2 (since MAX = 2^256 - 1)
+    // (2^256 - 2) % 10 = 4 (since 2^256 % 10 = 6)
+    try testing.expectEqual(@as(u256, 4), value);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 }
 
 // ============================
@@ -686,7 +972,11 @@ test "ADDMOD: No intermediate overflow" {
 test "MULMOD (0x09): Basic modular multiplication" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -695,7 +985,11 @@ test "MULMOD (0x09): Basic modular multiplication" {
         0,
         &[_]u8{0x09},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -705,7 +999,11 @@ test "MULMOD (0x09): Basic modular multiplication" {
     try test_frame.pushStack(&[_]u256{10});
     try test_frame.pushStack(&[_]u256{8});
     
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x09, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x09, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 4), value);
@@ -714,7 +1012,11 @@ test "MULMOD (0x09): Basic modular multiplication" {
 test "MULMOD: No intermediate overflow" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -723,7 +1025,11 @@ test "MULMOD: No intermediate overflow" {
         0,
         &[_]u8{0x09},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -734,7 +1040,11 @@ test "MULMOD: No intermediate overflow" {
     try test_frame.pushStack(&[_]u256{large});
     try test_frame.pushStack(&[_]u256{100});
     
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x09, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x09, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const value = try test_frame.popStack();
     // Should compute correctly without overflow
@@ -748,7 +1058,11 @@ test "MULMOD: No intermediate overflow" {
 test "EXP (0x0A): Basic exponentiation" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -757,7 +1071,11 @@ test "EXP (0x0A): Basic exponentiation" {
         0,
         &[_]u8{0x0A},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -766,7 +1084,11 @@ test "EXP (0x0A): Basic exponentiation" {
     try test_frame.pushStack(&[_]u256{2});
     try test_frame.pushStack(&[_]u256{8});
     
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x0A, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x0A, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 256), value);
@@ -775,7 +1097,11 @@ test "EXP (0x0A): Basic exponentiation" {
 test "EXP: Zero exponent" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -784,7 +1110,11 @@ test "EXP: Zero exponent" {
         0,
         &[_]u8{0x0A},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -793,7 +1123,11 @@ test "EXP: Zero exponent" {
     try test_frame.pushStack(&[_]u256{100});
     try test_frame.pushStack(&[_]u256{0});
     
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x0A, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x0A, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 1), value);
@@ -802,7 +1136,11 @@ test "EXP: Zero exponent" {
 test "EXP: Zero base with non-zero exponent" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -811,7 +1149,11 @@ test "EXP: Zero base with non-zero exponent" {
         0,
         &[_]u8{0x0A},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -820,7 +1162,11 @@ test "EXP: Zero base with non-zero exponent" {
     try test_frame.pushStack(&[_]u256{0});
     try test_frame.pushStack(&[_]u256{10});
     
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x0A, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x0A, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 0), value);
@@ -829,7 +1175,11 @@ test "EXP: Zero base with non-zero exponent" {
 test "EXP: Gas consumption scales with exponent size" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -838,7 +1188,11 @@ test "EXP: Gas consumption scales with exponent size" {
         0,
         &[_]u8{0x0A},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -848,7 +1202,11 @@ test "EXP: Gas consumption scales with exponent size" {
     try test_frame.pushStack(&[_]u256{0x10000}); // Large exponent
     
     const gas_before = test_frame.frame.gas_remaining;
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x0A, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x0A, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     const gas_used = gas_before - test_frame.frame.gas_remaining;
     
     // EXP uses 10 + 50 * byte_size_of_exponent
@@ -864,7 +1222,11 @@ test "EXP: Gas consumption scales with exponent size" {
 test "SIGNEXTEND (0x0B): Extend positive byte" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -873,16 +1235,27 @@ test "SIGNEXTEND (0x0B): Extend positive byte" {
         0,
         &[_]u8{0x0B},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
     
     // Test: sign extend 0x7F (positive) from byte 0
+<<<<<<< HEAD
     try test_frame.pushStack(&[_]u256{0}); // byte position
     try test_frame.pushStack(&[_]u256{0x7F}); // value
     
     _ = try helpers.executeOpcode(0x0B, &test_vm.vm, test_frame.frame);
+=======
+    try test_frame.pushStack(&[_]u256{0x7F}); // value (pushed first, popped second)
+    try test_frame.pushStack(&[_]u256{0}); // byte position (pushed last, popped first)
+    
+    _ = try helpers.executeOpcode(0x0B, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, 0x7F), value);
@@ -891,7 +1264,11 @@ test "SIGNEXTEND (0x0B): Extend positive byte" {
 test "SIGNEXTEND: Extend negative byte" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -900,16 +1277,27 @@ test "SIGNEXTEND: Extend negative byte" {
         0,
         &[_]u8{0x0B},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
     
     // Test: sign extend 0xFF (negative) from byte 0
+<<<<<<< HEAD
     try test_frame.pushStack(&[_]u256{0}); // byte position
     try test_frame.pushStack(&[_]u256{0xFF}); // value
     
     _ = try helpers.executeOpcode(0x0B, &test_vm.vm, test_frame.frame);
+=======
+    try test_frame.pushStack(&[_]u256{0xFF}); // value (pushed first, popped second)
+    try test_frame.pushStack(&[_]u256{0}); // byte position (pushed last, popped first)
+    
+    _ = try helpers.executeOpcode(0x0B, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const value = try test_frame.popStack();
     // Should extend with 1s
@@ -920,7 +1308,11 @@ test "SIGNEXTEND: Extend negative byte" {
 test "SIGNEXTEND: Extend from higher byte position" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -929,16 +1321,27 @@ test "SIGNEXTEND: Extend from higher byte position" {
         0,
         &[_]u8{0x0B},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
     
     // Test: sign extend 0x00FF from byte 1 (second byte)
+<<<<<<< HEAD
     try test_frame.pushStack(&[_]u256{1}); // byte position
     try test_frame.pushStack(&[_]u256{0x00FF}); // value
     
     _ = try helpers.executeOpcode(0x0B, &test_vm.vm, test_frame.frame);
+=======
+    try test_frame.pushStack(&[_]u256{0x00FF}); // value (pushed first, popped second)
+    try test_frame.pushStack(&[_]u256{1}); // byte position (pushed last, popped first)
+    
+    _ = try helpers.executeOpcode(0x0B, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const value = try test_frame.popStack();
     // Since bit 15 is 0, it's positive, no extension
@@ -948,7 +1351,11 @@ test "SIGNEXTEND: Extend from higher byte position" {
 test "SIGNEXTEND: Byte position >= 31 returns value unchanged" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -957,17 +1364,28 @@ test "SIGNEXTEND: Byte position >= 31 returns value unchanged" {
         0,
         &[_]u8{0x0B},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
     
     // Test: byte position >= 31 returns original value
     const test_value = 0x123456789ABCDEF;
+<<<<<<< HEAD
     try test_frame.pushStack(&[_]u256{31}); // byte position
     try test_frame.pushStack(&[_]u256{test_value});
     
     _ = try helpers.executeOpcode(0x0B, &test_vm.vm, test_frame.frame);
+=======
+    try test_frame.pushStack(&[_]u256{test_value}); // value (pushed first, popped second)
+    try test_frame.pushStack(&[_]u256{31}); // byte position (pushed last, popped first)
+    
+    _ = try helpers.executeOpcode(0x0B, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const value = try test_frame.popStack();
     try testing.expectEqual(@as(u256, test_value), value);
@@ -980,12 +1398,20 @@ test "SIGNEXTEND: Byte position >= 31 returns value unchanged" {
 test "Arithmetic opcodes: Gas consumption" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const test_cases = [_]struct {
         opcode: u8,
         expected_gas: u64,
+<<<<<<< HEAD
         setup: fn(*helpers.TestFrame) anyerror!void,
+=======
+        setup: *const fn(*helpers.TestFrame) anyerror!void,
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     }{
         .{ .opcode = 0x01, .expected_gas = 3, .setup = struct { // ADD
             fn setup(frame: *helpers.TestFrame) !void {
@@ -1008,7 +1434,11 @@ test "Arithmetic opcodes: Gas consumption" {
         }.setup },
     };
     
+<<<<<<< HEAD
     inline for (test_cases) |tc| {
+=======
+    for (test_cases) |tc| {
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         var contract = try helpers.createTestContract(
             allocator,
             helpers.TestAddresses.CONTRACT,
@@ -1016,7 +1446,11 @@ test "Arithmetic opcodes: Gas consumption" {
             0,
             &[_]u8{tc.opcode},
         );
+<<<<<<< HEAD
         defer contract.deinit(null);
+=======
+        defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
         defer test_frame.deinit();
@@ -1024,7 +1458,11 @@ test "Arithmetic opcodes: Gas consumption" {
         try tc.setup(&test_frame);
         
         const gas_before = test_frame.frame.gas_remaining;
+<<<<<<< HEAD
         _ = try helpers.executeOpcode(tc.opcode, &test_vm.vm, test_frame.frame);
+=======
+        _ = try helpers.executeOpcode(tc.opcode, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         const gas_used = gas_before - test_frame.frame.gas_remaining;
         
         try testing.expectEqual(tc.expected_gas, gas_used);
@@ -1038,7 +1476,11 @@ test "Arithmetic opcodes: Gas consumption" {
 test "Arithmetic opcodes: Stack underflow" {
     const allocator = testing.allocator;
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const binary_ops = [_]u8{0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07}; // ADD, MUL, SUB, DIV, SDIV, MOD, SMOD
     const ternary_ops = [_]u8{0x08, 0x09}; // ADDMOD, MULMOD
@@ -1052,18 +1494,30 @@ test "Arithmetic opcodes: Stack underflow" {
             0,
             &[_]u8{opcode},
         );
+<<<<<<< HEAD
         defer contract.deinit(null);
+=======
+        defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
         defer test_frame.deinit();
         
         // Empty stack
+<<<<<<< HEAD
         const result = helpers.executeOpcode(opcode, &test_vm.vm, test_frame.frame);
+=======
+        const result = helpers.executeOpcode(opcode, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
         
         // Only one item
         try test_frame.pushStack(&[_]u256{10});
+<<<<<<< HEAD
         const result2 = helpers.executeOpcode(opcode, &test_vm.vm, test_frame.frame);
+=======
+        const result2 = helpers.executeOpcode(opcode, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result2);
     }
     
@@ -1076,7 +1530,11 @@ test "Arithmetic opcodes: Stack underflow" {
             0,
             &[_]u8{opcode},
         );
+<<<<<<< HEAD
         defer contract.deinit(null);
+=======
+        defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         
         var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
         defer test_frame.deinit();
@@ -1084,7 +1542,11 @@ test "Arithmetic opcodes: Stack underflow" {
         // Only two items (need three)
         try test_frame.pushStack(&[_]u256{10});
         try test_frame.pushStack(&[_]u256{20});
+<<<<<<< HEAD
         const result = helpers.executeOpcode(opcode, &test_vm.vm, test_frame.frame);
+=======
+        const result = helpers.executeOpcode(opcode, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         try testing.expectError(helpers.ExecutionError.Error.StackUnderflow, result);
     }
 }

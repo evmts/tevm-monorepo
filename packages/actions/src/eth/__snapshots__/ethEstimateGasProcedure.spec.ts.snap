@@ -8,6 +8,7 @@ exports[`ethEstimateGasJsonRpcProcedure > should handle errors from callProcedur
 {
   "code": -32602,
   "data": {
+    "data": "0x",
     "errors": [
       "value must be a hex string
 

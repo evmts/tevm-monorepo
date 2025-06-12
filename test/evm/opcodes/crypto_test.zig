@@ -11,7 +11,11 @@ test "Crypto: KECCAK256 (SHA3) basic operations" {
     
     // Set up test VM and frame
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -20,14 +24,22 @@ test "Crypto: KECCAK256 (SHA3) basic operations" {
         0,
         &[_]u8{},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
     
     // Test 1: Hash empty data
     try test_frame.pushStack(&[_]u256{0, 0}); // offset=0, size=0
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x20, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x20, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     // Empty hash: keccak256("") = 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470
     const empty_hash = 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470;
@@ -37,9 +49,15 @@ test "Crypto: KECCAK256 (SHA3) basic operations" {
     // Test 2: Hash single byte
     test_frame.frame.stack.clear();
     // Write 0x01 to memory at position 0
+<<<<<<< HEAD
     try test_frame.frame.memory.set_byte(0, 0x01);
     try test_frame.pushStack(&[_]u256{1, 0}); // offset=0, size=1
     _ = try helpers.executeOpcode(0x20, &test_vm.vm, test_frame.frame);
+=======
+    try test_frame.frame.memory.set_data(0, &[_]u8{0x01});
+    try test_frame.pushStack(&[_]u256{1, 0}); // offset=0, size=1
+    _ = try helpers.executeOpcode(0x20, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     // keccak256(0x01) = 0x5fe7f977e71dba2ea1a68e21057beebb9be2ac30c6410aa38d4f3fbe41dcffd2
     const single_byte_hash = 0x5fe7f977e71dba2ea1a68e21057beebb9be2ac30c6410aa38d4f3fbe41dcffd2;
@@ -49,10 +67,17 @@ test "Crypto: KECCAK256 (SHA3) basic operations" {
     test_frame.frame.stack.clear();
     // Write 32 bytes of 0xFF to memory
     for (0..32) |i| {
+<<<<<<< HEAD
         try test_frame.frame.memory.set_byte(i, 0xFF);
     }
     try test_frame.pushStack(&[_]u256{32, 0}); // offset=0, size=32
     _ = try helpers.executeOpcode(0x20, &test_vm.vm, test_frame.frame);
+=======
+        try test_frame.frame.memory.set_data(i, &[_]u8{0xFF});
+    }
+    try test_frame.pushStack(&[_]u256{32, 0}); // offset=0, size=32
+    _ = try helpers.executeOpcode(0x20, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     // Should produce a valid hash (exact value would depend on actual keccak256 implementation)
     const result = try test_frame.frame.stack.peek_n(0);
@@ -62,10 +87,17 @@ test "Crypto: KECCAK256 (SHA3) basic operations" {
     test_frame.frame.stack.clear();
     // Write pattern starting at offset 64
     for (64..96) |i| {
+<<<<<<< HEAD
         try test_frame.frame.memory.set_byte(i, @intCast(i & 0xFF));
     }
     try test_frame.pushStack(&[_]u256{32, 64}); // offset=64, size=32
     _ = try helpers.executeOpcode(0x20, &test_vm.vm, test_frame.frame);
+=======
+        try test_frame.frame.memory.set_data(i, &[_]u8{@intCast(i & 0xFF)});
+    }
+    try test_frame.pushStack(&[_]u256{32, 64}); // offset=64, size=32
+    _ = try helpers.executeOpcode(0x20, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     const offset_result = try test_frame.frame.stack.peek_n(0);
     try testing.expect(offset_result != 0); // Hash should not be zero
@@ -76,7 +108,11 @@ test "Crypto: KECCAK256 memory expansion and gas" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -85,7 +121,11 @@ test "Crypto: KECCAK256 memory expansion and gas" {
         0,
         &[_]u8{},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -93,7 +133,11 @@ test "Crypto: KECCAK256 memory expansion and gas" {
     // Test memory expansion gas cost
     const initial_gas = test_frame.frame.gas_remaining;
     try test_frame.pushStack(&[_]u256{256, 0}); // offset=0, size=256 (8 words)
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x20, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x20, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     // Gas should include:
     // - Base cost: 30
@@ -107,7 +151,11 @@ test "Crypto: KECCAK256 memory expansion and gas" {
     test_frame.frame.gas_remaining = 10000;
     const large_size = 1024; // 32 words
     try test_frame.pushStack(&[_]u256{large_size, 0});
+<<<<<<< HEAD
     _ = try helpers.executeOpcode(0x20, &test_vm.vm, test_frame.frame);
+=======
+    _ = try helpers.executeOpcode(0x20, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     // Should consume more gas for larger data
     const large_gas_used = 10000 - test_frame.frame.gas_remaining;
@@ -118,7 +166,11 @@ test "Crypto: KECCAK256 edge cases" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -127,7 +179,11 @@ test "Crypto: KECCAK256 edge cases" {
         0,
         &[_]u8{},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000);
     defer test_frame.deinit();
@@ -136,7 +192,11 @@ test "Crypto: KECCAK256 edge cases" {
     const max_offset = std.math.maxInt(usize) - 32;
     if (max_offset <= std.math.maxInt(u256)) {
         try test_frame.pushStack(&[_]u256{0, max_offset});
+<<<<<<< HEAD
         const err = helpers.executeOpcode(0x20, &test_vm.vm, test_frame.frame);
+=======
+        const err = helpers.executeOpcode(0x20, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         try testing.expectError(helpers.ExecutionError.Error.OutOfOffset, err);
     }
     
@@ -145,7 +205,11 @@ test "Crypto: KECCAK256 edge cases" {
     test_frame.frame.gas_remaining = 100; // Very limited gas
     const huge_size = 10000; // Would require lots of gas
     try test_frame.pushStack(&[_]u256{huge_size, 0});
+<<<<<<< HEAD
     const err2 = helpers.executeOpcode(0x20, &test_vm.vm, test_frame.frame);
+=======
+    const err2 = helpers.executeOpcode(0x20, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     try testing.expectError(helpers.ExecutionError.Error.OutOfGas, err2);
 }
 
@@ -153,7 +217,11 @@ test "Crypto: Stack underflow errors" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -162,7 +230,11 @@ test "Crypto: Stack underflow errors" {
         0,
         &[_]u8{},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -170,13 +242,21 @@ test "Crypto: Stack underflow errors" {
     // Test SHA3 with empty stack
     try testing.expectError(
         helpers.ExecutionError.Error.StackUnderflow,
+<<<<<<< HEAD
         helpers.executeOpcode(0x20, &test_vm.vm, test_frame.frame)
+=======
+        helpers.executeOpcode(0x20, test_vm.vm, test_frame.frame)
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     );
     
     // Test SHA3 with only one item
     try test_frame.pushStack(&[_]u256{32});
     try testing.expectError(
         helpers.ExecutionError.Error.StackUnderflow,
+<<<<<<< HEAD
         helpers.executeOpcode(0x20, &test_vm.vm, test_frame.frame)
+=======
+        helpers.executeOpcode(0x20, test_vm.vm, test_frame.frame)
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     );
 }

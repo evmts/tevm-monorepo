@@ -7,7 +7,11 @@ test "Invalid Opcodes: 0x21-0x24 should fail" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -16,7 +20,11 @@ test "Invalid Opcodes: 0x21-0x24 should fail" {
         0,
         &[_]u8{},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -32,7 +40,11 @@ test "Invalid Opcodes: 0x21-0x24 should fail" {
         try test_frame.pushStack(&[_]u256{ 42, 100 });
         
         // Executing an invalid opcode should fail
+<<<<<<< HEAD
         const result = helpers.executeOpcode(opcode, &test_vm.vm, test_frame.frame);
+=======
+        const result = helpers.executeOpcode(opcode, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         
         // We expect an error (likely InvalidOpcode or similar)
         try testing.expectError(helpers.ExecutionError.Error.InvalidOpcode, result);
@@ -47,7 +59,11 @@ test "Invalid Opcodes: Full 0x21-0x2F range" {
     const allocator = testing.allocator;
     
     var test_vm = try helpers.TestVm.init(allocator);
+<<<<<<< HEAD
     defer test_vm.deinit();
+=======
+    defer test_vm.deinit(allocator);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -56,7 +72,11 @@ test "Invalid Opcodes: Full 0x21-0x2F range" {
         0,
         &[_]u8{},
     );
+<<<<<<< HEAD
     defer contract.deinit(null);
+=======
+    defer contract.deinit(allocator, null);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
     
     var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
@@ -71,7 +91,11 @@ test "Invalid Opcodes: Full 0x21-0x2F range" {
         try test_frame.pushStack(&[_]u256{ 1, 2, 3 });
         
         // All these should be invalid
+<<<<<<< HEAD
         const result = helpers.executeOpcode(opcode, &test_vm.vm, test_frame.frame);
+=======
+        const result = helpers.executeOpcode(opcode, test_vm.vm, test_frame.frame);
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
         try testing.expectError(helpers.ExecutionError.Error.InvalidOpcode, result);
         
         // Verify gas consumption

@@ -96,3 +96,22 @@ jobs:
         if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
         continue-on-error: true
         run: pnpm -r build:wasm
+
+      - name: Check results
+        if: always()
+        run: |
+          failed=""
+          [[ "${{ steps.build-types.conclusion }}" != "success" ]] && failed="$failed build-types"
+          [[ "${{ steps.tests.conclusion }}" != "success" ]] && failed="$failed tests"
+          [[ "${{ steps.fixtures.conclusion }}" != "success" ]] && failed="$failed fixtures"
+          [[ "${{ steps.tests-rust.conclusion }}" != "success" ]] && failed="$failed tests-rust"
+          [[ "${{ steps.typecheck.conclusion }}" != "success" ]] && failed="$failed typecheck"
+          [[ "${{ steps.lint.conclusion }}" != "success" ]] && failed="$failed lint"
+          [[ "${{ steps.lint-deps.conclusion }}" != "success" ]] && failed="$failed lint-deps"
+          [[ "${{ steps.lint-packages.conclusion }}" != "success" ]] && failed="$failed lint-packages"
+          [[ "${{ steps.build-app.conclusion }}" != "success" ]] && failed="$failed build-app"
+          [[ "${{ steps.generate-docs.conclusion }}" != "success" ]] && failed="$failed generate-docs"
+          [[ "${{ steps.build-rust.conclusion }}" != "success" ]] && failed="$failed build-rust"
+          [[ "${{ steps.build-wasm.conclusion }}" != "success" ]] && failed="$failed build-wasm"
+
+          [[ -n "$failed" ]] && { echo "❌ Failed:$failed"; exit 1; } || echo "✅ All passed"
