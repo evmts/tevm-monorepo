@@ -785,8 +785,8 @@ pub fn build(b: *std.Build) void {
         .root_source_file = b.path("test/evm/precompiles/sha256_test.zig"),
         .target = target,
         .optimize = optimize,
+        .single_threaded = true,
     });
-
     precompile_test.root_module.stack_check = false;
 
     // Add module imports to precompile test
@@ -797,9 +797,31 @@ pub fn build(b: *std.Build) void {
 
     const run_precompile_test = b.addRunArtifact(precompile_test);
 
-    // Add a separate step for testing Precompiles
-    const precompile_test_step = b.step("test-precompiles", "Run Precompile tests");
+    // Add a separate step for testing precompiles
+    const precompile_test_step = b.step("test-precompiles", "Run precompile tests");
     precompile_test_step.dependOn(&run_precompile_test.step);
+
+    // Add BLAKE2F precompile tests
+    const blake2f_test = b.addTest(.{
+        .name = "blake2f-test",
+        .root_source_file = b.path("test/evm/precompiles/blake2f_test.zig"),
+        .target = target,
+        .optimize = optimize,
+        .single_threaded = true,
+    });
+    blake2f_test.root_module.stack_check = false;
+
+    // Add module imports to BLAKE2F test
+    blake2f_test.root_module.addImport("Address", address_mod);
+    blake2f_test.root_module.addImport("Block", block_mod);
+    blake2f_test.root_module.addImport("evm", evm_mod);
+    blake2f_test.root_module.addImport("utils", utils_mod);
+
+    const run_blake2f_test = b.addRunArtifact(blake2f_test);
+
+    // Add a separate step for testing BLAKE2F
+    const blake2f_test_step = b.step("test-blake2f", "Run BLAKE2F precompile tests");
+    blake2f_test_step.dependOn(&run_blake2f_test.step);
 
     // Add Memory benchmark
     const memory_benchmark = b.addExecutable(.{
@@ -1607,6 +1629,7 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_create_contract_test.step);
     test_step.dependOn(&run_compiler_bytecode_issue_test.step);
     test_step.dependOn(&run_precompile_test.step);
+    test_step.dependOn(&run_blake2f_test.step);
 
     // Define a single test step that runs all tests
     const test_all_step = b.step("test-all", "Run all unit tests");

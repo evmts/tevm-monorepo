@@ -109,7 +109,6 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 ## ✅ Implementation Status
 
 ### Core EVM Architecture
-
 - [x] **VM Implementation** (`vm.zig`) - Core virtual machine orchestrating execution
 - [x] **Frame Management** (`frame.zig`) - Execution contexts with stack, memory, and PC
 - [x] **Memory Management** (`memory.zig`) - Byte-addressable with expansion and copy-on-write semantics
@@ -119,14 +118,12 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **State Management** (`state/`) - World state interface with account and storage handling
 
 ### Stack Implementation (`stack/`)
-
 - [x] **Core Stack** (`stack.zig`) - 1024 element capacity with overflow/underflow protection
 - [x] **Stack Validation** (`stack_validation.zig`) - Pre-execution bounds checking
 - [x] **Validation Patterns** (`validation_patterns.zig`) - Common stack operation patterns
 - [x] **Unsafe Operations** - High-performance batch operations (pop2_push1_unsafe, etc.)
 
 ### Arithmetic Opcodes (`execution/arithmetic.zig`)
-
 - [x] **ADD** (0x01) - Addition with overflow wrapping
 - [x] **MUL** (0x02) - Multiplication with overflow wrapping
 - [x] **SUB** (0x03) - Subtraction with underflow wrapping
@@ -140,7 +137,6 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **SIGNEXTEND** (0x0B) - Sign extension operation
 
 ### Comparison Opcodes (`execution/comparison.zig`)
-
 - [x] **LT** (0x10) - Less than comparison
 - [x] **GT** (0x11) - Greater than comparison
 - [x] **SLT** (0x12) - Signed less than
@@ -149,7 +145,6 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **ISZERO** (0x15) - Zero check
 
 ### Bitwise Opcodes (`execution/bitwise.zig`)
-
 - [x] **AND** (0x16) - Bitwise AND
 - [x] **OR** (0x17) - Bitwise OR
 - [x] **XOR** (0x18) - Bitwise XOR
@@ -160,11 +155,9 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **SAR** (0x1D) - Arithmetic shift right
 
 ### Crypto Opcodes (`execution/crypto.zig`)
-
 - [x] **SHA3/KECCAK256** (0x20) - Keccak-256 hash function
 
 ### Environment Opcodes (`execution/environment.zig`)
-
 - [x] **ADDRESS** (0x30) - Current contract address
 - [x] **BALANCE** (0x31) - Account balance lookup
 - [x] **ORIGIN** (0x32) - Transaction origin
@@ -184,7 +177,6 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **SELFBALANCE** (0x47) - Balance of current contract
 
 ### Block Information Opcodes (`execution/block.zig`)
-
 - [x] **BLOCKHASH** (0x40) - Block hash lookup
 - [x] **COINBASE** (0x41) - Block beneficiary
 - [x] **TIMESTAMP** (0x42) - Block timestamp
@@ -197,7 +189,6 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **BLOBBASEFEE** (0x4A) - Blob base fee (EIP-4844)
 
 ### Stack Opcodes (`execution/stack.zig`)
-
 - [x] **POP** (0x50) - Remove top stack item
 - [x] **PUSH0** (0x5F) - Push zero (EIP-3855)
 - [x] **PUSH1-PUSH32** (0x60-0x7F) - Push 1-32 bytes onto stack
@@ -205,7 +196,6 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **SWAP1-SWAP16** (0x90-0x9F) - Swap stack items
 
 ### Memory Opcodes (`execution/memory.zig`)
-
 - [x] **MLOAD** (0x51) - Load word from memory
 - [x] **MSTORE** (0x52) - Store word to memory
 - [x] **MSTORE8** (0x53) - Store byte to memory
@@ -213,14 +203,12 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **MCOPY** (0x5E) - Copy memory to memory (EIP-5656)
 
 ### Storage Opcodes (`execution/storage.zig`)
-
 - [x] **SLOAD** (0x54) - Load from storage
 - [x] **SSTORE** (0x55) - Store to storage
 - [x] **TLOAD** (0x5C) - Load from transient storage (EIP-1153)
 - [x] **TSTORE** (0x5D) - Store to transient storage (EIP-1153)
 
 ### Control Flow Opcodes (`execution/control.zig`)
-
 - [x] **JUMP** (0x56) - Unconditional jump
 - [x] **JUMPI** (0x57) - Conditional jump
 - [x] **PC** (0x58) - Program counter
@@ -228,21 +216,20 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **STOP** (0x00) - Halts execution
 - [x] **RETURN** (0xF3) - Return data and halt
 - [x] **REVERT** (0xFD) - Revert state and halt
-- [x] **SELFDESTRUCT** (0xFF) - Destroy contract and transfer balance ✅
+- [x] **SELFDESTRUCT** (0xFF) - 🔴 Destroy contract and transfer balance
 
 ### System Opcodes (`execution/system.zig`)
 
 - [x] **GAS** (0x5A) - Remaining gas ✅
 - [x] **CREATE** (0xF0) - Create contract ✅ (Fully functional)
 - [x] **CREATE2** (0xF5) - Create contract with salt ✅ (Fully functional)
-- [ ] **CALL** (0xF1) - Message call ⚠️ (Opcode handler complete, VM execution stub)
-- [ ] **CALLCODE** (0xF2) - Message call with caller's context ⚠️ (Opcode handler complete, VM execution stub)
-- [ ] **DELEGATECALL** (0xF4) - Message call with caller's context and value ⚠️ (Opcode handler complete, VM execution stub)
-- [ ] **STATICCALL** (0xFA) - Static message call ⚠️ (Opcode handler complete, VM execution stub)
+- [x] **CALL** (0xF1) - Message call ✅ (Basic implementation)
+- [x] **CALLCODE** (0xF2) - Message call with caller's context ✅ (Basic implementation)
+- [x] **DELEGATECALL** (0xF4) - Message call with caller's context and value ✅ (Basic implementation)
+- [x] **STATICCALL** (0xFA) - Static message call ✅ (Basic implementation)
 - [x] **INVALID** (0xFE) - Invalid opcode ✅
 
 ### Logging Opcodes (`execution/log.zig`)
-
 - [x] **LOG0** (0xA0) - Emit log with 0 topics
 - [x] **LOG1** (0xA1) - Emit log with 1 topic
 - [x] **LOG2** (0xA2) - Emit log with 2 topics
@@ -250,14 +237,12 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **LOG4** (0xA4) - Emit log with 4 topics
 
 ### Gas & Access Lists
-
 - [x] **Gas Metering** (`constants/gas_constants.zig`) - Comprehensive gas costs for all opcodes
 - [x] **Access Lists** (`access_list/`) - EIP-2929/2930 warm/cold storage and account tracking
 - [x] **Memory Expansion Gas** - Dynamic gas calculation for memory growth
 - [x] **Dynamic Gas Costs** - Context-dependent gas costs (SSTORE, calls, etc.)
 
 ### Hardfork Support (`hardforks/`)
-
 - [x] **Hardfork Detection** (`hardfork.zig`) - Frontier through Cancun
 - [x] **Chain Rules** (`chain_rules.zig`) - Fork-specific validation and behavior
 - [x] **Operation Availability** - Opcode availability by hardfork
@@ -268,7 +253,6 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **EIP-5656** - MCOPY opcode (Cancun)
 
 ### External Modules
-
 - [x] **Address System** (`src/Address/`) - Address type and utilities
 - [x] **Trie Implementation** (`src/Trie/`) - Merkle Patricia Trie with optimizations
   - [x] **Hash Builders** - Multiple hash building strategies
@@ -276,7 +260,6 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
   - [x] **Optimized Branches** - Performance optimizations
 
 ### Advanced Features
-
 - [x] **Static Call Protection** - Prevents state modifications in read-only contexts
 - [x] **Call Depth Limits** - 1024 call depth enforcement
 - [x] **Code Analysis** (`contract/code_analysis.zig`) - JUMPDEST validation and bytecode analysis
@@ -287,6 +270,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 ### Missing Features
 
 #### Critical System Features
+<<<<<<< HEAD
 
 - [ ] 🔴 **WASM Build Integration** - [WASM builds successfully but exports don't match JavaScript interface expectations](./prompts/implement-wasm-build-fix.md)
   - **Status**: WASM compilation works (9,507 bytes), but missing required exports (`keccak256_hex`, `hexToBytes`, `bytesToHex`)
@@ -302,44 +286,33 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
   - [x] **Address Calculation** - Proper nonce-based and CREATE2 deterministic addressing ✅
   - [x] **Init Code Execution** - Constructor code execution implemented ✅
   - [x] **Gas Management** - Complete gas handling for deployment ✅
+- [x] **Complete CALL Operations** - Basic implementation with comprehensive call infrastructure ✅
+  - [x] **Call Gas Management** - [63/64th gas forwarding rule implementation](./prompts/implement-call-gas-stipend.md) ✅
+  - [x] **Call Context Switching** - Proper context isolation between contract calls ✅
+  - [x] **Return Data Handling** - Complete RETURNDATASIZE/RETURNDATACOPY after calls ✅
+  - [x] **Value Transfer Logic** - ETH transfer mechanics in calls ✅
 
-#### Precompiled Contracts (3/10 actually functional, 7 broken/missing)
-
-⚠️ **CRITICAL SECURITY NOTICE: CUSTOM CRYPTOGRAPHY IMPLEMENTATIONS DETECTED**
-
-**Several precompiles currently use custom cryptographic implementations instead of proven libraries. This represents significant security risk and should be migrated to established cryptographic libraries.**
-
-**Implementation Status (Verified December 2024):**
-
-- [x] **Functional Implementations**
-  - [x] **SHA256** (0x02) - ✅ Uses Zig std library (secure and complete) ✅
-  - [x] **IDENTITY** (0x04) - ✅ Simple copy operation (secure and complete) ✅
-  - [x] **BLAKE2F** (0x09) - ✅ Complete RFC 7693 compliant implementation (secure and complete) ✅
-
-- [ ] **Placeholder/Security Risk Implementations**
-  - [ ] **ECRECOVER** (0x01) - ⚠️ **INTENTIONALLY FAILS** - Security placeholder, needs libsecp256k1 migration
-  - [ ] **MODEXP** (0x05) - ⚠️ **CUSTOM BIG INTEGER** - Custom crypto implementation, security risk
-
-- [ ] **Non-Functional/Missing Implementations**
-  - [ ] **RIPEMD160** (0x03) - ❌ **NOT IMPLEMENTED** - Returns execution failure
-  - [ ] **ECADD** (0x06) - ❌ **NOT IMPLEMENTED** - Returns execution failure  
-  - [ ] **ECMUL** (0x07) - ❌ **NOT IMPLEMENTED** - Returns execution failure
-  - [ ] **ECPAIRING** (0x08) - ❌ **NOT IMPLEMENTED** - Returns execution failure
-
-- [ ] **Questionable Implementations**
-  - [ ] **KZG Point Evaluation** (0x0A) - ⚠️ **UNVERIFIED** - Interface exists but underlying KZG verification unclear
-
-- [ ] **BLS12-381 Precompiles** (EIP-2537) - 1/7 implemented
-  - [ ] **G1ADD** (0x0B) - ⚠️ **CUSTOM IMPLEMENTATION** - Security risk, should migrate to BLST
-  - [ ] **G1MSM** (0x0C) - Missing - [Implementation guide](./prompts/implement-bls12-381-g1msm-precompile.md)
-  - [ ] **G2ADD** (0x0D) - Missing - [Implementation guide](./prompts/implement-bls12-381-g2add-precompile.md)
-  - [ ] **G2MSM** (0x0E) - Missing - [Implementation guide](./prompts/implement-bls12-381-g2msm-precompile.md)
-  - [ ] **PAIRING** (0x0F) - Missing - [Implementation guide](./prompts/implement-bls12-381-pairing-precompile.md)
-  - [ ] **MAP_FP_TO_G1** (0x10) - Missing - [Implementation guide](./prompts/implement-bls12-381-map-fp-to-g1-precompile.md)
-  - [ ] **MAP_FP2_TO_G2** (0x11) - Missing - [Implementation guide](./prompts/implement-bls12-381-map-fp2-to-g2-precompile.md)
-
-- [ ] **OP Stack Precompiles** - Missing
-  - [ ] **P256VERIFY** (RIP-7212) - SECP256R1 signature verification - [Implementation guide](./prompts/implement-op-stack-precompiles.md)
+#### Precompiled Contracts (6/17 implemented)
+- [x] **Standard Precompiles**
+  - [x] **ECRECOVER** (0x01) - Elliptic curve signature recovery (placeholder implementation) ✅
+  - [x] **SHA256** (0x02) - SHA-256 hash function ✅
+  - [ ] **RIPEMD160** (0x03) - RIPEMD-160 hash function ❌
+  - [x] **IDENTITY** (0x04) - Identity/copy function ✅
+  - [ ] **MODEXP** (0x05) - Modular exponentiation ❌
+  - [x] **ECADD** (0x06) - Elliptic curve point addition ✅
+  - [ ] **ECMUL** (0x07) - Elliptic curve point multiplication ❌
+  - [x] **ECPAIRING** (0x08) - Elliptic curve pairing check ✅
+  - [x] **BLAKE2F** (0x09) - Blake2f compression function ✅
+- [x] **KZG Point Evaluation** (0x0A) - EIP-4844 blob verification precompile ✅
+- [ ] **BLS12-381 Precompiles** (EIP-2537) (1/7 implemented)
+  - [x] **G1ADD** (0x0B) - BLS12-381 G1 addition ✅
+  - [ ] **G1MSM** (0x0C) - BLS12-381 G1 multi-scalar multiplication ❌
+  - [ ] **G2ADD** (0x0D) - BLS12-381 G2 addition ❌
+  - [ ] **G2MSM** (0x0E) - BLS12-381 G2 multi-scalar multiplication ❌
+  - [ ] **PAIRING** (0x0F) - BLS12-381 pairing check ❌
+  - [ ] **MAP_FP_TO_G1** (0x10) - Map field point to G1 ❌
+  - [ ] **MAP_FP2_TO_G2** (0x11) - Map field point to G2 ❌
+- [ ] **OP Stack Precompiles** - P256VERIFY (RIP-7212) for SECP256R1 signature verification ❌
 
 ##### **🔄 Recommended Migration Strategy**
 
@@ -395,6 +368,38 @@ For WASM builds, follow revm's pattern:
 - **Primary backends**: Optimized C libraries (secp256k1, BLST, GMP)
 - **WASM fallbacks**: Pure Rust/Zig implementations (k256, arkworks, custom big int)
 - **Feature detection**: Automatic selection based on target environment
+=======
+- [ ] 🔴 **WASM Build** - [Currently broken, needs fixing as well as integration into the overall Tevm typescript code](./prompts/implement-wasm-build-fix.md)
+- [x] **Journaling/State Reverting** - Complete state snapshots for proper revert handling ✅
+- [x] **Database Interface/Traits** - Pluggable database abstraction for state management ✅
+- [x] **Complete CALL Operations** - Basic implementation with comprehensive call infrastructure ✅
+  - [x] **Call Gas Management** - [63/64th gas forwarding rule implementation](./prompts/implement-call-gas-stipend.md) ✅
+  - [x] **Call Context Switching** - Proper context isolation between contract calls ✅
+  - [x] **Return Data Handling** - Complete RETURNDATASIZE/RETURNDATACOPY after calls ✅
+  - [x] **Value Transfer Logic** - ETH transfer mechanics in calls ✅
+
+#### Precompiled Contracts (4/17 implemented)
+- [ ] 🟡 **Standard Precompiles**
+  - [x] **ECRECOVER** (0x01) - Elliptic curve signature recovery (placeholder implementation) ✅
+  - [x] **SHA256** (0x02) - SHA-256 hash function ✅
+  - [🔄] **RIPEMD160** (0x03) - [RIPEMD-160 hash function](./prompts/implement-ripemd160-precompile.md) - @claude working on this
+  - [x] **IDENTITY** (0x04) - Identity/copy function ✅
+  - [ ] **MODEXP** (0x05) - [Modular exponentiation](./prompts/implement-modexp-precompile.md)
+  - [x] **ECADD** (0x06) - [Elliptic curve point addition](./prompts/implement-ecadd-precompile.md) ✅
+  - [x] **ECMUL** (0x07) - [Elliptic curve point multiplication](./prompts/implement-ecmul-precompile.md) ✅
+  - [🔄] **ECPAIRING** (0x08) - [Elliptic curve pairing check](./prompts/implement-ecpairing-precompile.md) - @claude working on this
+  - [x] **BLAKE2F** (0x09) - Blake2f compression function ✅
+- [x] **KZG Point Evaluation** (0x0A) - EIP-4844 blob verification precompile ✅
+- [ ] 🟡 **BLS12-381 Precompiles** (EIP-2537)
+  - [ ] **G1ADD** (0x0B) - BLS12-381 G1 addition
+  - [ ] **G1MSM** (0x0C) - BLS12-381 G1 multi-scalar multiplication
+  - [ ] **G2ADD** (0x0D) - BLS12-381 G2 addition
+  - [ ] **G2MSM** (0x0E) - BLS12-381 G2 multi-scalar multiplication
+  - [ ] **PAIRING** (0x0F) - BLS12-381 pairing check
+  - [ ] **MAP_FP_TO_G1** (0x10) - Map field point to G1
+  - [ ] **MAP_FP2_TO_G2** (0x11) - Map field point to G2
+- [ ] 🟡 **OP Stack Precompiles** - P256VERIFY (RIP-7212) for SECP256R1 signature verification
+>>>>>>> 86ec2c702451874542acebd6fbeffb4e13d752e8
 
 #### System Stability Issues (Immediate Priority)
 
@@ -407,18 +412,16 @@ For WASM builds, follow revm's pattern:
   - **Priority**: Must fix before production use
 
 #### Advanced Gas & Performance
-
 - [ ] 🟡 **Gas Refunds**
   - [ ] **SSTORE Refunds** - [EIP-3529 compliant refund mechanism](./prompts/implement-gas-refunds-sstore.md)
   - [ ] **SELFDESTRUCT Refunds** - Contract destruction refunds (pre-London)
 - [ ] 🟡 **Advanced Gas Calculations**
   - [ ] **Instruction Block Optimization** - Basic block gas calculation (evmone-style)
-  - [ ] **Memory Gas Optimization** - [Pre-calculate and cache memory expansion costs](./prompts/implement-memory-gas-optimization-enhanced.md)
-  - [ ] **Call Gas Stipend** - [Proper gas stipend handling for value transfers](./prompts/implement-call-gas-stipend-enhanced.md)
-  - [ ] **Dynamic Gas Edge Cases** - [Complex memory growth scenarios](./prompts/implement-dynamic-gas-edge-cases-enhanced.md)
+  - [ ] **Memory Gas Optimization** - Pre-calculate and cache memory expansion costs
+  - [ ] **Call Gas Stipend** - Proper gas stipend handling for value transfers
+  - [ ] **Dynamic Gas Edge Cases** - Complex memory growth scenarios
 
 #### EIP Support & Advanced Hardforks
-
 - [x] **Complete EIP-4844 Support** - Blob transaction handling beyond opcodes ✅
 - [x] **EIP-7702** - Complete EOA account code delegation implementation ✅
 - [ ] 🟡 **L2 Chain Support**
@@ -434,37 +437,34 @@ For WASM builds, follow revm's pattern:
 - [ ] 🟡 **Future Prague Support** - Upcoming hardfork preparation
 
 #### Development Infrastructure
-
 - [ ] 🟢 **Runtime Inspection**
-  - [ ] **Comprehensive Tracing** - [Step-by-step execution monitoring](./prompts/implement-comprehensive-tracing-enhanced.md)
-  - [ ] **EIP-3155 Tracing** - [Standard execution trace format](./prompts/implement-eip3155-tracing.md)
+  - [ ] **Comprehensive Tracing** - Step-by-step execution monitoring
+  - [ ] **EIP-3155 Tracing** - Standard execution trace format
   - [ ] **Inspector Framework** - Pluggable inspection hooks
-  - [ ] **Gas Inspector** - [Detailed gas consumption analysis](./prompts/implement-gas-inspector-enhanced.md)
+  - [ ] **Gas Inspector** - Detailed gas consumption analysis
 - [ ] 🟢 **Testing Infrastructure**
   - [ ] **Consensus Test Suite** - Ethereum official test vectors compliance
-  - [ ] **Fuzzing Infrastructure** - [Automated edge case discovery](./prompts/implement-fuzzing-infrastructure-enhanced.md)
-  - [ ] **State Test Runner** - [Official Ethereum state test execution](./prompts/implement-state-test-runner.md)
-  - [ ] **CLI Tools** - [Command-line interface for testing and benchmarking](./prompts/implement-cli-tools-enhanced.md)
+  - [ ] **Fuzzing Infrastructure** - Automated edge case discovery
+  - [ ] **State Test Runner** - Official Ethereum state test execution
+  - [ ] **CLI Tools** - Command-line interface for testing and benchmarking
 - [ ] 🟢 **Handler Architecture** - Configurable execution handlers for pre/post processing
 
 #### Production Hardening
-
 - [x] **Robustness**
   - [x] **DoS Protection** - Comprehensive gas limit enforcement ✅
   - [x] **Edge Case Handling** - Real-world scenario validation ✅
   - [x] **Memory Safety Auditing** - Additional bounds checking ✅
 - [ ] 🟢 **State Management**
   - [x] **State Interface** - Vtable interface for pluggable implementations ✅
-  - [ ] **Async Database Support** - [Non-blocking database operations](./prompts/implement-async-database-support-enhanced.md)
-  - [ ] **State Caching** - [Intelligent caching layer for frequently accessed state](./prompts/implement-state-caching-enhanced.md)
-  - [ ] **Bundle State Management** - [Efficient state transitions and rollback](./prompts/implement-bundle-state-management-enhanced.md)
-  - [ ] **Account Status Tracking** - [Detailed account lifecycle management](./prompts/implement-account-status-tracking-enhanced.md)
+  - [ ] **Async Database Support** - Non-blocking database operations
+  - [ ] **State Caching** - Intelligent caching layer for frequently accessed state
+  - [ ] **Bundle State Management** - Efficient state transitions and rollback
+  - [ ] **Account Status Tracking** - Detailed account lifecycle management
 
 #### Performance & Optimization
-
 - [ ] 🟢 **Low-Level Optimizations**
   - [ ] **SIMD Optimizations** - Vectorized operations for 256-bit math
-  - [ ] **Memory Allocator Tuning** - [Specialized EVM memory allocators](./prompts/implement-memory-allocator-tuning-enhanced.md)
+  - [ ] **Memory Allocator Tuning** - Specialized EVM memory allocators
   - [ ] **Cache Optimization** - Better cache utilization in hot paths
   - [ ] **Zero-Allocation Patterns** - Minimize memory allocations in hot paths
   - [ ] **Branch Prediction Optimization** - Strategic branch hinting for modern CPUs
@@ -473,23 +473,22 @@ For WASM builds, follow revm's pattern:
   - [ ] **Precompile Backend Selection** - Multiple crypto library backends
   - [ ] **Interpreter Types System** - Configurable interpreter components
 - [ ] 🟢 **Benchmarking**
-  - [ ] **Performance Benchmarks** - [Snailtracer benchmarking vs Geth and Reth](./prompts/implement-performance-benchmarks-enhanced.md)
+  - [ ] **Performance Benchmarks** - Snailtracer benchmarking vs Geth and Reth
   - [ ] **CI/CD WASM Size Check** - [Automated bundle size regression testing](./prompts/implement-cicd-wasm-size-check.md)
 
 #### Advanced Architecture Features
-
 - [ ] 🟢 **Modularity**
-  - [ ] **Modular Context System** - [Pluggable block, transaction, and configuration contexts](./prompts/implement-modular-context-system-enhanced.md)
-  - [ ] **Custom Chain Framework** - [Easy implementation of custom blockchain variants](./prompts/implement-custom-chain-framework-enhanced.md)
+  - [ ] **Modular Context System** - Pluggable block, transaction, and configuration contexts
+  - [ ] **Custom Chain Framework** - Easy implementation of custom blockchain variants
   - [ ] **Extension Points** - Configurable extension system for custom functionality
 - [ ] 🟢 **Advanced Execution**
   - [ ] **Subroutine Stack** - EOF subroutine support for advanced contract execution
-  - [ ] **Runtime Flags** - [Efficient runtime behavior configuration](./prompts/implement-runtime-flags-enhanced.md)
+  - [ ] **Runtime Flags** - Efficient runtime behavior configuration
   - [ ] **Loop Control** - Advanced execution loop management and gas tracking
-  - [ ] **Shared Memory** - [Memory sharing between execution contexts](./prompts/implement-shared-memory-enhanced.md)
-  - [ ] **External Bytecode** - [Support for external bytecode loading and management](./prompts/implement-external-bytecode-enhanced.md)
-  - [ ] **Interpreter Action System** - [Structured action handling for calls and creates](./prompts/implement-interpreter-action-system-enhanced.md)
-  - [ ] **Input Validation Framework** - [Comprehensive input validation and sanitization](./prompts/implement-input-validation-framework-enhanced.md)
+  - [ ] **Shared Memory** - Memory sharing between execution contexts
+  - [ ] **External Bytecode** - Support for external bytecode loading and management
+  - [ ] **Interpreter Action System** - Structured action handling for calls and creates
+  - [ ] **Input Validation Framework** - Comprehensive input validation and sanitization
 
 ## 📁 Directory Structure
 
