@@ -304,14 +304,6 @@ pub const MODEXP_QUADRATIC_THRESHOLD: usize = 64;
 pub const MODEXP_LINEAR_THRESHOLD: usize = 1024;
 
 // ============================================================================
-// BLS12-381 Precompile Costs (EIP-2537)
-// ============================================================================
-
-/// Gas cost for BLS12-381 G1ADD precompile (address 0x0B)
-/// Fixed cost for elliptic curve point addition on the BLS12-381 G1 group
-pub const BLS12_381_G1ADD_COST: u64 = 375;
-
-// ============================================================================
 // Call Operation Gas Constants (EIP-150 & EIP-2929)
 // ============================================================================
 
@@ -399,11 +391,16 @@ pub fn memory_gas_cost(current_size: u64, new_size: u64) u64 {
     // Use lookup table for common cases (up to 32KB)
     if (new_words < MEMORY_EXPANSION_LUT.len) {
         const current_cost = if (current_words < MEMORY_EXPANSION_LUT.len)
-            MEMORY_EXPANSION_LUT[current_words]
+            MEMORY_EXPANSION_LUT[@as(usize, @intCast(current_words))]
         else
             MemoryGas * current_words + (current_words * current_words) / QuadCoeffDiv;
+<<<<<<< HEAD
 
         return MEMORY_EXPANSION_LUT[new_words] - current_cost;
+=======
+            
+        return MEMORY_EXPANSION_LUT[@as(usize, @intCast(new_words))] - current_cost;
+>>>>>>> 85879379a (✨ feat: implement minimal working WASM EVM interface)
     }
 
     // Fall back to calculation for larger sizes

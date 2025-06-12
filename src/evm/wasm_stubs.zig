@@ -1,5 +1,6 @@
-// Minimal stubs for WASM/freestanding build
+// Comprehensive WASM compatibility stubs and utilities
 const std = @import("std");
+const builtin = @import("builtin");
 
 // Thread stub for single-threaded WASM
 pub const DummyMutex = struct {
@@ -7,7 +8,10 @@ pub const DummyMutex = struct {
     pub fn unlock(self: *@This()) void { _ = self; }
 };
 
-// Logging stub for WASM
+// Always use DummyMutex for maximum WASM compatibility
+pub const Mutex = DummyMutex;
+
+// Logging stub for WASM - completely no-op to avoid any I/O
 pub fn log(
     comptime level: std.log.Level,
     comptime scope: @TypeOf(.enum_literal),
@@ -28,3 +32,8 @@ pub fn panic(msg: []const u8, error_return_trace: ?*std.builtin.StackTrace, ret_
     _ = ret_addr;
     unreachable;
 }
+
+// Check if we're building for WASM/freestanding
+pub const is_wasm_target = builtin.target.cpu.arch == .wasm32 or 
+                          builtin.target.cpu.arch == .wasm64 or 
+                          builtin.target.os.tag == .freestanding;

@@ -186,17 +186,18 @@ pub fn build(b: *std.Build) void {
     exe_mod.stack_check = false;
     exe_mod.single_threaded = true;
 
-    // Create WASM module with minimal WASM-specific source
+    // Create WASM module using the full EVM implementation
     const wasm_mod = b.createModule(.{
-        .root_source_file = b.path("src/root_wasm_minimal.zig"),
+        .root_source_file = b.path("src/root_wasm.zig"),
         .target = wasm_target,
         .optimize = .ReleaseSmall,
     });
     wasm_mod.stack_check = false;
     wasm_mod.single_threaded = true;
 
-    // Don't add dependencies for minimal WASM build
-    // We'll add them back once we fix the platform-specific issues
+    // Add EVM dependencies now that threading issues are resolved
+    wasm_mod.addImport("evm", evm_mod);
+    wasm_mod.addImport("Address", address_mod);
 
     // Modules can depend on one another using the `std.Build.Module.addImport` function.
     exe_mod.addImport("zigevm", target_architecture_mod);
@@ -613,27 +614,27 @@ pub fn build(b: *std.Build) void {
     const static_protection_test_step = b.step("test-static-protection", "Run Static Call Protection tests");
     static_protection_test_step.dependOn(&run_static_protection_test.step);
 
-    // Add BLAKE2F precompile tests
-    const blake2f_test = b.addTest(.{
-        .name = "blake2f-test",
-        .root_source_file = b.path("test/evm/precompiles/blake2f_test.zig"),
+    // Add Precompile tests
+    const precompile_test = b.addTest(.{
+        .name = "precompile-test",
+        .root_source_file = b.path("test/evm/precompiles/sha256_test.zig"),
         .target = target,
         .optimize = optimize,
-        .single_threaded = true,
     });
-    blake2f_test.root_module.stack_check = false;
 
-    // Add module imports to BLAKE2F test
-    blake2f_test.root_module.addImport("Address", address_mod);
-    blake2f_test.root_module.addImport("Block", block_mod);
-    blake2f_test.root_module.addImport("evm", evm_mod);
-    blake2f_test.root_module.addImport("utils", utils_mod);
+    precompile_test.root_module.stack_check = false;
 
-    const run_blake2f_test = b.addRunArtifact(blake2f_test);
+    // Add module imports to precompile test
+    precompile_test.root_module.addImport("Address", address_mod);
+    precompile_test.root_module.addImport("Block", block_mod);
+    precompile_test.root_module.addImport("evm", evm_mod);
+    precompile_test.root_module.addImport("utils", utils_mod);
 
-    // Add a separate step for testing BLAKE2F
-    const blake2f_test_step = b.step("test-blake2f", "Run BLAKE2F precompile tests");
-    blake2f_test_step.dependOn(&run_blake2f_test.step);
+    const run_precompile_test = b.addRunArtifact(precompile_test);
+
+    // Add a separate step for testing Precompiles
+    const precompile_test_step = b.step("test-precompiles", "Run Precompile tests");
+    precompile_test_step.dependOn(&run_precompile_test.step);
 
     // Add Memory benchmark
     const memory_benchmark = b.addExecutable(.{
@@ -728,7 +729,7 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_integration_test.step);
     test_step.dependOn(&run_gas_test.step);
     test_step.dependOn(&run_static_protection_test.step);
-    test_step.dependOn(&run_blake2f_test.step);
+    test_step.dependOn(&run_precompile_test.step);
 
     // Define a single test step that runs all tests
     const test_all_step = b.step("test-all", "Run all unit tests");

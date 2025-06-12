@@ -1,6 +1,13 @@
 const std = @import("std");
+<<<<<<< HEAD
 const evm = @import("evm");
 const Address = @import("address");
+=======
+const evm = @import("evm_wasm.zig");
+const Address = @import("Address");
+const Vm = evm.Vm;
+const Contract = evm.Contract;
+>>>>>>> 85879379a (✨ feat: implement minimal working WASM EVM interface)
 
 // Export stub for __zig_probe_stack to satisfy linker when linking with Rust
 export fn __zig_probe_stack() callconv(.C) void {
@@ -11,7 +18,7 @@ export fn __zig_probe_stack() callconv(.C) void {
 var gpa = std.heap.wasm_allocator;
 
 // Global VM instance
-var global_vm: ?*evm.Vm = null;
+var global_vm: ?*Vm = null;
 
 // Memory allocation functions for WASM
 export fn alloc(len: usize) ?[*]u8 {
@@ -28,9 +35,9 @@ export fn free(ptr: [*]u8, len: usize) void {
 export fn evmInit() i32 {
     if (global_vm != null) return -1; // Already initialized
 
-    // Initialize VM
-    const vm = evm.Vm.init(gpa) catch return -2;
-    global_vm = gpa.create(evm.Vm) catch return -3;
+    // Initialize VM with default jump table and chain rules
+    const vm = Vm.init(gpa, null, null) catch return -2;
+    global_vm = gpa.create(Vm) catch return -3;
     global_vm.?.* = vm;
 
     return 0;
@@ -59,8 +66,26 @@ export fn evmCall(
 
     const bytecode = bytecode_ptr[0..bytecode_len];
 
-    // Execute the bytecode
-    const result = vm.run(bytecode, Address.zero(), gas_limit, null) catch {
+    // Calculate code hash for the bytecode
+    var hasher = std.crypto.hash.sha3.Keccak256.init(.{});
+    hasher.update(bytecode);
+    var code_hash: [32]u8 = undefined;
+    hasher.final(&code_hash);
+
+    // Create a contract to execute the bytecode
+    var contract = Contract.init_at_address(
+        Address.zero(), // caller
+        Address.zero(), // contract address
+        0, // value
+        gas_limit, // gas
+        bytecode, // bytecode
+        &[_]u8{}, // input
+        false, // is_static
+    );
+    defer contract.deinit(gpa, null);
+
+    // Execute the bytecode using the VM
+    const result = vm.interpret(&contract, &[_]u8{}) catch {
         return -2;
     };
 
