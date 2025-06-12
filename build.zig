@@ -654,6 +654,34 @@ pub fn build(b: *std.Build) void {
     all_benchmark_step.dependOn(&run_evm_memory_benchmark.step);
     all_benchmark_step.dependOn(&run_evm_memory_benchmark.step);
 
+    // Add Tevm runner for evm-bench integration
+    const tevm_runner = b.addExecutable(.{
+        .name = "tevm-runner",
+        .root_source_file = b.path("bench/evm/runners/tevm/runner.zig"),
+        .target = target,
+        .optimize = .ReleaseFast, // Use ReleaseFast for benchmarks
+    });
+
+    // Add all module imports to tevm_runner
+    tevm_runner.root_module.addImport("Address", address_mod);
+    tevm_runner.root_module.addImport("Abi", abi_mod);
+    tevm_runner.root_module.addImport("Block", block_mod);
+    tevm_runner.root_module.addImport("Bytecode", bytecode_mod);
+    tevm_runner.root_module.addImport("Compiler", compiler_mod);
+    tevm_runner.root_module.addImport("evm", evm_mod);
+    tevm_runner.root_module.addImport("Rlp", rlp_mod);
+    tevm_runner.root_module.addImport("Token", token_mod);
+    tevm_runner.root_module.addImport("Trie", trie_mod);
+    tevm_runner.root_module.addImport("utils", utils_mod);
+
+    // Install the tevm-runner executable
+    b.installArtifact(tevm_runner);
+
+    // Add build step for tevm-runner
+    const build_tevm_runner_step = b.step("tevm-runner", "Build the Tevm evm-bench runner");
+    build_tevm_runner_step.dependOn(&tevm_runner.step);
+    build_tevm_runner_step.dependOn(b.getInstallStep());
+
     // Add Rust Foundry wrapper integration
     const rust_build = @import("src/compilers/rust_build.zig");
     const rust_step = rust_build.add_rust_integration(b, target, optimize) catch |err| {
