@@ -159,7 +159,7 @@ test "Integration: Return data handling" {
     _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
 
     // Return 32 bytes from offset 0
-    try test_frame.pushStack(&[_]u256{ 0, 32 }); // offset, size - correct order for RETURN
+    try test_frame.pushStack(&[_]u256{ 32, 0 }); // size, offset (offset on top per EVM spec)
 
     // RETURN will throw an error (ExecutionError.STOP) which is expected
     const result = helpers.executeOpcode(0xF3, test_vm.vm, test_frame.frame);
@@ -193,7 +193,7 @@ test "Integration: Revert with reason" {
     try test_frame.setMemory(0, error_msg);
 
     // Revert with error message
-    try test_frame.pushStack(&[_]u256{ 0, error_msg.len }); // offset, size - correct order for REVERT
+    try test_frame.pushStack(&[_]u256{ error_msg.len, 0 }); // size, offset (offset on top per EVM spec)
 
     // REVERT will throw an error (ExecutionError.REVERT) which is expected
     const result = helpers.executeOpcode(0xFD, test_vm.vm, test_frame.frame);

@@ -64,6 +64,7 @@ test "basic_memory_operations" {
     const allocator = arena.allocator();
 
     var memory = try evm.Memory.init_default(allocator);
+    memory.finalize_root(); // Required after init() and storage at stable address
     defer memory.deinit();
     
     // Test initial state
