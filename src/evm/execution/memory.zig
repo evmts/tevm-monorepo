@@ -35,6 +35,12 @@ pub fn op_mload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
 
     const offset_usize = @as(usize, @intCast(offset));
 
+    // Check for overflow when adding 32 bytes for MLOAD
+    if (offset_usize > std.math.maxInt(usize) - 32) {
+        @branchHint(.unlikely);
+        return ExecutionError.Error.OutOfGas; // EVM should fail gracefully, not panic
+    }
+
     // Calculate memory expansion gas cost
     const current_size = frame.memory.context_size();
     const new_size = offset_usize + 32;
@@ -43,6 +49,7 @@ pub fn op_mload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     try frame.consume_gas(gas_cost);
 
     // Ensure memory is available - expand to word boundary to match gas calculation
+    // We already checked that offset_usize + 32 won't overflow, so this is safe
     const word_aligned_size = ((offset_usize + 32 + 31) / 32) * 32;
     _ = try frame.memory.ensure_context_capacity(word_aligned_size);
 
