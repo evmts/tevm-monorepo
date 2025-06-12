@@ -1245,6 +1245,17 @@ pub fn build(b: *std.Build) void {
     const run_dispatch_failure_test = b.addRunArtifact(dispatch_failure_test);
     const dispatch_failure_test_step = b.step("test-dispatch-failure", "Run Dispatch Failure Reproduction tests");
     dispatch_failure_test_step.dependOn(&run_dispatch_failure_test.step);
+    
+    // Add Jump Dispatch Failure test (simple, no dependencies)
+    const jump_dispatch_failure_test = b.addTest(.{
+        .name = "jump-dispatch-failure-test",
+        .root_source_file = b.path("test/evm/jump_dispatch_failure_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    const run_jump_dispatch_failure_test = b.addRunArtifact(jump_dispatch_failure_test);
+    const jump_dispatch_failure_test_step = b.step("test-jump-dispatch-failure", "Run Jump Dispatch Failure tests");
+    jump_dispatch_failure_test_step.dependOn(&run_jump_dispatch_failure_test.step);
 
     // Add EVM Contract benchmark (after rust_step is defined)
     const evm_contract_benchmark = b.addExecutable(.{

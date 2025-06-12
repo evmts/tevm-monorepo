@@ -78,10 +78,10 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     if (frame.stack.size < 2) unreachable;
 
-    // Stack order: [..., value, slot] where slot is on top
+    // Stack order: [..., slot, value] where value is on top
     const popped = frame.stack.pop2_unsafe();
-    const value = popped.b; // CORRECTED: First popped (was on top)
-    const slot = popped.a; // CORRECTED: Second popped (was second)
+    const value = popped.b; // value was on top
+    const slot = popped.a; // slot was second from top
 
     const current_value = vm.state.get_storage(frame.contract.address, slot);
 
@@ -146,10 +146,10 @@ pub fn op_tstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     if (frame.stack.size < 2) unreachable;
 
     // Pop two values unsafely using batch operation - bounds checking is done in jump_table.zig
-    // Stack order: [..., value, slot] where slot is on top
+    // Stack order: [..., slot, value] where value is on top
     const popped = frame.stack.pop2_unsafe();
-    const value = popped.b; // CORRECTED: First popped (was on top)
-    const slot = popped.a; // CORRECTED: Second popped (was second)
+    const value = popped.b; // value was on top
+    const slot = popped.a; // slot was second from top
 
     try vm.state.set_transient_storage(frame.contract.address, slot, value);
 

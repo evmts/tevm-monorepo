@@ -85,7 +85,7 @@ test "reproduction of exact dispatch failure at 45 gas" {
         std.debug.print("\nFirst 64 bytes of runtime bytecode:\n", .{});
         const bytes_to_dump = @min(64, runtime_bytecode.len);
         for (0..bytes_to_dump) |i| {
-            if (i % 16 == 0) std.debug.print("{:04x}: ", .{i});
+            if (i % 16 == 0) std.debug.print("{x:04}: ", .{i});
             std.debug.print("{x:02} ", .{runtime_bytecode[i]});
             if ((i + 1) % 16 == 0) std.debug.print("\n", .{});
         }
