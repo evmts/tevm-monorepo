@@ -1,6 +1,6 @@
 const std = @import("std");
 const zbench = @import("zbench");
-const Stack = @import("evm").Stack;
+const Stack = @import("evm").evm.Stack;
 
 // Benchmark stack push operations (safe version)
 fn benchmarkStackPushSafe(allocator: std.mem.Allocator) void {

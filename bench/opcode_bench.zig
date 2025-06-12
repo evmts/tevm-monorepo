@@ -1,12 +1,13 @@
 const std = @import("std");
 const zbench = @import("zbench");
-const Frame = @import("evm").Frame;
-const Stack = @import("evm").Stack;
-const Memory = @import("evm").Memory;
-const Contract = @import("evm").Contract;
-const Bytecode = @import("evm").Bytecode;
+const root = @import("evm");
+const Frame = root.evm.Frame;
+const Stack = root.evm.Stack;
+const Memory = root.evm.Memory;
+const Contract = root.evm.Contract;
+const Bytecode = root.evm.Bytecode;
 const Address = @import("Address");
-const Operation = @import("evm").opcodes.Operation;
+const Operation = root.evm.opcodes.Operation;
 
 // Helper to create a mock frame for testing opcodes
 fn create_mock_frame(allocator: std.mem.Allocator) !Frame {
