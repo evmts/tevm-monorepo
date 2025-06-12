@@ -13,7 +13,7 @@ Version: 1.1.0.next-73],
 
 exports[`callHandler > should handle error during EVM execution 1`] = `
 [
-  [RevertError: revert
+  [Revert: revert
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
 Details: {"error":"revert","errorType":"EVMError"}
@@ -52,7 +52,7 @@ exports[`callHandler > should handle error during transaction creation 1`] = `
 
 exports[`callHandler > should handle errors returned during contract call 1`] = `
 [
-  [RevertError: revert
+  [Revert: revert
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
 Details: {"error":"revert","errorType":"EVMError"}
@@ -114,7 +114,7 @@ Version: 1.1.0.next-73],
 
 exports[`callHandler > should return error for invalid contract call data 1`] = `
 [
-  [RevertError: revert
+  [Revert: revert
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
 Details: {"error":"revert","errorType":"EVMError"}

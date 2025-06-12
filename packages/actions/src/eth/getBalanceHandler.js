@@ -1,19 +1,8 @@
 import { createAddress } from '@tevm/address'
+import { NoForkUrlSetError } from '@tevm/errors'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { bytesToHex, hexToBigInt, hexToBytes } from '@tevm/utils'
 import { getPendingClient } from '../internal/getPendingClient.js'
-
-export class NoForkUrlSetError extends Error {
-	/**
-	 * @type {'NoForkUrlSetError'}
-	 */
-	_tag = 'NoForkUrlSetError'
-	/**
-	 * @type {'NoForkUrlSetError'}
-	 * @override
-	 */
-	name = 'NoForkUrlSetError'
-}
 
 /**
  * @param {import('@tevm/node').TevmNode} baseClient
@@ -52,7 +41,7 @@ export const getBalanceHandler =
 		}
 		// at this point the block doesn't exist so we must be in forked mode
 		if (!baseClient.forkTransport) {
-			throw new NoForkUrlSetError()
+			throw new NoForkUrlSetError('No fork url set')
 		}
 		const fetcher = createJsonRpcFetcher(baseClient.forkTransport)
 		const jsonRpcResponse = await fetcher.request({

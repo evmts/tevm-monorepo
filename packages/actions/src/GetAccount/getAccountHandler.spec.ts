@@ -43,6 +43,7 @@ describe('getAccount', () => {
 			address: `0x${'4'.repeat(40)}`,
 		})
 		expect(account?.errors?.[0]).toBeInstanceOf(AccountNotFoundError)
+		expect(account?.errors?.[0]?.code).toBe(AccountNotFoundError.code)
 		expect(account?.balance).toBe(0n)
 		expect(account?.nonce).toBe(0n)
 		expect(account?.deployedBytecode).toBe('0x')
