@@ -297,7 +297,9 @@ fn create_contract_internal(self: *Vm, creator: Address.Address, value: u256, in
     defer init_contract.deinit(self.allocator, null);
 
     // Execute the init code - this should return the deployment bytecode
+    Log.debug("VM.create_contract_internal: executing init code with {} bytes", .{init_code.len});
     const init_result = self.interpret_with_context(&init_contract, &[_]u8{}, false) catch |err| {
+        std.log.debug("VM.create_contract_internal: init code execution failed with error: {}", .{err});
         if (err == ExecutionError.Error.REVERT) {
             // On revert, consume partial gas
             return CreateResult.initFailure(init_contract.gas, null);
@@ -307,7 +309,14 @@ fn create_contract_internal(self: *Vm, creator: Address.Address, value: u256, in
         return CreateResult.initFailure(0, null);
     };
 
+    Log.debug("VM.create_contract_internal: init code execution result - success: {}, gas_left: {}, output_len: {}", .{ 
+        init_result.status == .Success, 
+        init_result.gas_left, 
+        if (init_result.output) |output| output.len else 0 
+    });
+
     const deployment_code = init_result.output orelse &[_]u8{};
+    Log.debug("VM.create_contract_internal: deployment code length: {}", .{deployment_code.len});
 
     // Check EIP-170 MAX_CODE_SIZE limit on the returned bytecode (24,576 bytes)
     if (deployment_code.len > constants.MAX_CODE_SIZE) {
@@ -320,7 +329,12 @@ fn create_contract_internal(self: *Vm, creator: Address.Address, value: u256, in
         return CreateResult.initFailure(0, null);
     }
 
+    Log.debug("VM.create_contract_internal: storing {} bytes of deployment code at address {any}", .{ deployment_code.len, new_address });
     try self.state.set_code(new_address, deployment_code);
+    
+    // Verify the code was stored correctly
+    const stored_code = self.state.get_code(new_address);
+    Log.debug("VM.create_contract_internal: verification - stored code length: {}", .{stored_code.len});
 
     const gas_left = init_result.gas_left - deploy_code_gas;
 

@@ -105,6 +105,9 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     compiler_mod.addImport("zabi", zabi_dep.module("zabi"));
+    
+    // Add include path to the compiler module itself so C imports work
+    compiler_mod.addIncludePath(b.path("include"));
 
     // Create a separate compiler module for WASM without problematic dependencies
     const compiler_wasm_mod = b.createModule(.{
@@ -584,6 +587,22 @@ pub fn build(b: *std.Build) void {
     const debug_test_step = b.step("test-debug", "Run debug CREATE test");
     debug_test_step.dependOn(&run_debug_test.step);
 
+    // Add simple debug CREATE test
+    const debug_simple_test = b.addExecutable(.{
+        .name = "debug-simple-test",
+        .root_source_file = b.path("debug_create_simple.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    debug_simple_test.root_module.addImport("evm", evm_mod);
+    debug_simple_test.root_module.addImport("Address", address_mod);
+    debug_simple_test.root_module.stack_check = false;
+    debug_simple_test.root_module.single_threaded = true;
+
+    const run_debug_simple_test = b.addRunArtifact(debug_simple_test);
+    const debug_simple_test_step = b.step("test-debug-simple", "Run simple debug CREATE test");
+    debug_simple_test_step.dependOn(&run_debug_simple_test.step);
+
     // Add Gas Accounting tests
     const gas_test = b.addTest(.{
         .name = "gas-test",
@@ -629,6 +648,29 @@ pub fn build(b: *std.Build) void {
     const static_protection_test_step = b.step("test-static-protection", "Run Static Call Protection tests");
     static_protection_test_step.dependOn(&run_static_protection_test.step);
 
+    // Add CREATE Contract tests
+    const create_contract_test = b.addTest(.{
+        .name = "create-contract-test",
+        .root_source_file = b.path("test/evm/create_contract_test.zig"),
+        .target = target,
+        .optimize = optimize,
+        .single_threaded = true,
+    });
+    create_contract_test.root_module.stack_check = false;
+
+    // Add module imports to create contract test
+    create_contract_test.root_module.addImport("Address", address_mod);
+    create_contract_test.root_module.addImport("Block", block_mod);
+    create_contract_test.root_module.addImport("evm", evm_mod);
+    create_contract_test.root_module.addImport("utils", utils_mod);
+
+    const run_create_contract_test = b.addRunArtifact(create_contract_test);
+
+    // Add a separate step for testing CREATE contracts
+    const create_contract_test_step = b.step("test-create-contract", "Run CREATE contract tests");
+    create_contract_test_step.dependOn(&run_create_contract_test.step);
+
+
     // Add Memory benchmark
     const memory_benchmark = b.addExecutable(.{
         .name = "memory-benchmark",
@@ -664,27 +706,11 @@ pub fn build(b: *std.Build) void {
     const evm_memory_benchmark_step = b.step("bench-evm-memory", "Run EVM Memory benchmarks");
     evm_memory_benchmark_step.dependOn(&run_evm_memory_benchmark.step);
 
-    // Add EVM Contract benchmark
-    const evm_contract_benchmark = b.addExecutable(.{
-        .name = "evm-contract-benchmark",
-        .root_source_file = b.path("bench/evm.zig"),
-        .target = target,
-        .optimize = .ReleaseFast,
-    });
-    evm_contract_benchmark.root_module.addImport("zbench", zbench_dep.module("zbench"));
-    evm_contract_benchmark.root_module.addImport("evm", target_architecture_mod);
-    evm_contract_benchmark.root_module.addImport("Address", address_mod);
 
-    const run_evm_contract_benchmark = b.addRunArtifact(evm_contract_benchmark);
-
-    const evm_contract_benchmark_step = b.step("bench-evm-contracts", "Run EVM Contract benchmarks");
-    evm_contract_benchmark_step.dependOn(&run_evm_contract_benchmark.step);
-
-    // Add combined benchmark step
+    // Add combined benchmark step (EVM contract benchmark will be added later)
     const all_benchmark_step = b.step("bench", "Run all benchmarks");
     all_benchmark_step.dependOn(&run_memory_benchmark.step);
     all_benchmark_step.dependOn(&run_evm_memory_benchmark.step);
-    all_benchmark_step.dependOn(&run_evm_contract_benchmark.step);
 
     // Add Tevm runner for evm-bench integration
     const tevm_runner = b.addExecutable(.{
@@ -739,6 +765,78 @@ pub fn build(b: *std.Build) void {
         // compiler_test.linkFramework("SystemConfiguration");
     }
 
+    // Add Compiler Integration tests (after rust dependencies are set up)
+    const compiler_integration_test = b.addTest(.{
+        .name = "compiler-integration-test",
+        .root_source_file = b.path("test/evm/compiler_integration_test.zig"),
+        .target = target,
+        .optimize = optimize,
+        .single_threaded = true,
+    });
+    compiler_integration_test.root_module.stack_check = false;
+
+    // Add module imports to compiler integration test
+    compiler_integration_test.root_module.addImport("evm", target_architecture_mod);
+    compiler_integration_test.root_module.addImport("Compiler", compiler_mod);
+    compiler_integration_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    compiler_integration_test.root_module.addIncludePath(b.path("include"));
+
+    // Add Rust dependencies to compiler integration test (same as compiler test)
+    compiler_integration_test.step.dependOn(rust_step);
+    compiler_integration_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    compiler_integration_test.linkLibC();
+    
+    // Link system libraries for compiler integration test
+    if (target.result.os.tag == .linux) {
+        compiler_integration_test.linkSystemLibrary("unwind");
+        compiler_integration_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        compiler_integration_test.linkFramework("CoreFoundation");
+        compiler_integration_test.linkFramework("Security");
+    }
+
+    const run_compiler_integration_test = b.addRunArtifact(compiler_integration_test);
+
+    // Add a separate step for testing Compiler Integration
+    const compiler_integration_test_step = b.step("test-compiler-integration", "Run Compiler Integration tests");
+    compiler_integration_test_step.dependOn(&run_compiler_integration_test.step);
+
+    // Add EVM Contract benchmark (after rust_step is defined)
+    const evm_contract_benchmark = b.addExecutable(.{
+        .name = "evm-contract-benchmark",
+        .root_source_file = b.path("bench/evm.zig"),
+        .target = target,
+        .optimize = .ReleaseFast,
+    });
+    evm_contract_benchmark.root_module.addImport("zbench", zbench_dep.module("zbench"));
+    evm_contract_benchmark.root_module.addImport("evm", target_architecture_mod);
+    evm_contract_benchmark.root_module.addImport("Address", address_mod);
+    evm_contract_benchmark.root_module.addImport("Compiler", compiler_mod);
+    evm_contract_benchmark.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    evm_contract_benchmark.root_module.addIncludePath(b.path("include"));
+    
+    // Add Rust dependencies to EVM contract benchmark (same as compiler test)
+    evm_contract_benchmark.step.dependOn(rust_step);
+    evm_contract_benchmark.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    evm_contract_benchmark.linkLibC();
+    
+    // Link system libraries for EVM contract benchmark
+    if (target.result.os.tag == .linux) {
+        evm_contract_benchmark.linkSystemLibrary("unwind");
+        evm_contract_benchmark.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        evm_contract_benchmark.linkFramework("CoreFoundation");
+        evm_contract_benchmark.linkFramework("Security");
+    }
+
+    const run_evm_contract_benchmark = b.addRunArtifact(evm_contract_benchmark);
+
+    const evm_contract_benchmark_step = b.step("bench-evm-contracts", "Run EVM Contract benchmarks");
+    evm_contract_benchmark_step.dependOn(&run_evm_contract_benchmark.step);
+    
+    // Add EVM contract benchmark to the combined benchmark step
+    all_benchmark_step.dependOn(&run_evm_contract_benchmark.step);
+
     const run_lib_unit_tests = b.addRunArtifact(lib_unit_tests);
 
     const exe_unit_tests = b.addTest(.{
@@ -766,6 +864,7 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_integration_test.step);
     test_step.dependOn(&run_gas_test.step);
     test_step.dependOn(&run_static_protection_test.step);
+    test_step.dependOn(&run_create_contract_test.step);
 
     // Define a single test step that runs all tests
     const test_all_step = b.step("test-all", "Run all unit tests");
