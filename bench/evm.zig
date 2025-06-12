@@ -122,6 +122,7 @@ fn benchmarkERC20Transfer(allocator: std.mem.Allocator) void {
 }
 
 // Function selector for Benchmark() function: bytes4(keccak256("Benchmark()"))
+// Let's verify this is correct by compiling a simple test contract
 const BENCHMARK_SELECTOR: [4]u8 = .{ 0x30, 0x62, 0x7b, 0x7c };
 
 // Helper function to compile and execute a benchmark contract

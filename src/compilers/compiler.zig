@@ -502,17 +502,27 @@ test "compile simple contract" {
     try std.testing.expect(contract.bytecode.len > 100);
     try std.testing.expect(contract.deployed_bytecode.len > 100);
 
-    // Check that bytecode starts with expected pattern
-    try std.testing.expect(std.mem.startsWith(u8, contract.bytecode, "0x608060405234"));
-    try std.testing.expect(std.mem.startsWith(u8, contract.deployed_bytecode, "0x6080604052348015"));
+    // Check that bytecode starts with expected pattern (binary format, not hex)
+    // 0x608060405234 in hex = [0x60, 0x80, 0x60, 0x40, 0x52, 0x34] in binary
+    const expected_bytecode_start = [_]u8{ 0x60, 0x80, 0x60, 0x40, 0x52, 0x34 };
+    // 0x6080604052348015 in hex = [0x60, 0x80, 0x60, 0x40, 0x52, 0x34, 0x80, 0x15] in binary  
+    const expected_deployed_start = [_]u8{ 0x60, 0x80, 0x60, 0x40, 0x52, 0x34, 0x80, 0x15 };
+    
+    try std.testing.expect(std.mem.startsWith(u8, contract.bytecode, &expected_bytecode_start));
+    try std.testing.expect(std.mem.startsWith(u8, contract.deployed_bytecode, &expected_deployed_start));
 
     // Check that bytecode ends with metadata (contains "ipfs" hash and solc version)
-    try std.testing.expect(std.mem.indexOf(u8, contract.bytecode, "6970667358") != null); // "ipfs" in hex
-    try std.testing.expect(std.mem.indexOf(u8, contract.deployed_bytecode, "6970667358") != null);
+    // "6970667358" in hex = [0x69, 0x70, 0x66, 0x73, 0x58] = "ipfs" + 0x58
+    const ipfs_marker = [_]u8{ 0x69, 0x70, 0x66, 0x73, 0x58 };
+    try std.testing.expect(std.mem.indexOf(u8, contract.bytecode, &ipfs_marker) != null);
+    try std.testing.expect(std.mem.indexOf(u8, contract.deployed_bytecode, &ipfs_marker) != null);
 
     // Check for Solidity version marker in metadata (0.8.x)
-    try std.testing.expect(std.mem.indexOf(u8, contract.bytecode, "736f6c6343000818") != null or
-        std.mem.indexOf(u8, contract.bytecode, "736f6c634300081e") != null); // v0.8.24 or v0.8.30
+    // "736f6c6343000818" = "solc" + version 0.8.24, "736f6c634300081e" = "solc" + version 0.8.30
+    const solc_v0_8_24 = [_]u8{ 0x73, 0x6f, 0x6c, 0x63, 0x43, 0x00, 0x08, 0x18 };
+    const solc_v0_8_30 = [_]u8{ 0x73, 0x6f, 0x6c, 0x63, 0x43, 0x00, 0x08, 0x1e };
+    try std.testing.expect(std.mem.indexOf(u8, contract.bytecode, &solc_v0_8_24) != null or
+        std.mem.indexOf(u8, contract.bytecode, &solc_v0_8_30) != null);
 
     // Validate the parsed ABI structure using zabi types
     // Find functions by name
