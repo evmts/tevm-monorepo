@@ -218,7 +218,7 @@ test "Control: RETURN with data" {
     // Test 1: Return with data
     const test_data = [_]u8{ 0xde, 0xad, 0xbe, 0xef };
     try test_frame.setMemory(10, &test_data);
-    try test_frame.pushStack(&[_]u256{ 10, 4 }); // offset=10, size=4
+    try test_frame.pushStack(&[_]u256{ 4, 10 }); // size=4, offset=10 (RETURN expects offset on top)
 
     const result = helpers.executeOpcode(0xF3, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.STOP, result); // RETURN uses STOP error
@@ -229,7 +229,7 @@ test "Control: RETURN with data" {
     // Test 2: Return with zero size
     test_frame.frame.stack.clear();
     try test_frame.frame.return_data.set(&[_]u8{ 1, 2, 3 }); // Set some existing data
-    try test_frame.pushStack(&[_]u256{ 0, 0 }); // offset=0, size=0
+    try test_frame.pushStack(&[_]u256{ 0, 0 }); // size=0, offset=0
 
     const result2 = helpers.executeOpcode(0xF3, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.STOP, result2);
@@ -238,7 +238,7 @@ test "Control: RETURN with data" {
     // Test 3: Return with memory expansion
     test_frame.frame.stack.clear();
     test_frame.frame.gas_remaining = 1000;
-    try test_frame.pushStack(&[_]u256{ 100, 32 }); // offset=100, size=32
+    try test_frame.pushStack(&[_]u256{ 32, 100 }); // size=32, offset=100
 
     const result3 = helpers.executeOpcode(0xF3, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.STOP, result3);
@@ -268,7 +268,7 @@ test "Control: REVERT with data" {
     // Test 1: Revert with data
     const test_data = [_]u8{ 0x08, 0xc3, 0x79, 0xa0 }; // Common revert signature
     try test_frame.setMemory(0, &test_data);
-    try test_frame.pushStack(&[_]u256{ 0, 4 }); // offset=0, size=4
+    try test_frame.pushStack(&[_]u256{ 4, 0 }); // size=4, offset=0 (REVERT expects offset on top)
 
     const result = helpers.executeOpcode(0xFD, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.REVERT, result);
@@ -278,7 +278,7 @@ test "Control: REVERT with data" {
 
     // Test 2: Revert with zero size
     test_frame.frame.stack.clear();
-    try test_frame.pushStack(&[_]u256{ 0, 0 }); // offset=0, size=0
+    try test_frame.pushStack(&[_]u256{ 0, 0 }); // size=0, offset=0 (REVERT expects offset on top)
 
     const result2 = helpers.executeOpcode(0xFD, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.REVERT, result2);
@@ -286,7 +286,7 @@ test "Control: REVERT with data" {
 
     // Test 3: Revert with out of bounds offset
     test_frame.frame.stack.clear();
-    try test_frame.pushStack(&[_]u256{ std.math.maxInt(u256), 32 });
+    try test_frame.pushStack(&[_]u256{ 32, std.math.maxInt(u256) }); // size=32, offset=maxInt
 
     const result3 = helpers.executeOpcode(0xFD, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.OutOfOffset, result3);
