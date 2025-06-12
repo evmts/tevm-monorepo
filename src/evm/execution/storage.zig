@@ -51,6 +51,8 @@ pub fn op_sload(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
     }
 
     const value = vm.state.get_storage(frame.contract.address, slot);
+    
+    Log.debug("SLOAD: address={any}, slot={}, value={}", .{ frame.contract.address, slot, value });
 
     frame.stack.set_top_unsafe(value);
 
@@ -104,6 +106,8 @@ pub fn op_sstore(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     // Consume all gas at once
     try frame.consume_gas(total_gas);
 
+    Log.debug("SSTORE: address={any}, slot={}, value={} (current was {})", .{ frame.contract.address, slot, value, current_value });
+    
     try vm.state.set_storage(frame.contract.address, slot, value);
 
     return Operation.ExecutionResult{};
