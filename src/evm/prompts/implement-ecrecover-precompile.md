@@ -1,5 +1,9 @@
 # Implement ECRECOVER Precompile
 
+<<<<<<< HEAD
+You are implementing the ECRECOVER precompile (address 0x01) for the Tevm EVM written in Zig. Your goal is to recover signer addresses from ECDSA signatures using elliptic curve cryptography, following Ethereum specifications and maintaining compatibility with all existing implementations.
+
+=======
 <review>
 **Implementation Status: NOT IMPLEMENTED ❌**
 
@@ -39,6 +43,7 @@
 
 You are implementing the ECRECOVER precompile (address 0x01) for the Tevm EVM written in Zig. Your goal is to recover signer addresses from ECDSA signatures using elliptic curve cryptography, following Ethereum specifications and maintaining compatibility with all existing implementations.
 
+>>>>>>> origin/main
 ## Development Workflow
 - **Branch**: `feat_implement_ecrecover_precompile` (snake_case)
 - **Worktree**: `git worktree add g/feat_implement_ecrecover_precompile feat_implement_ecrecover_precompile`

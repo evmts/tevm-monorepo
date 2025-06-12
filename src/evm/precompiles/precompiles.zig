@@ -3,6 +3,7 @@ const Address = @import("Address").Address;
 const addresses = @import("precompile_addresses.zig");
 const PrecompileOutput = @import("precompile_result.zig").PrecompileOutput;
 const PrecompileError = @import("precompile_result.zig").PrecompileError;
+const ecrecover = @import("ecrecover.zig");
 const identity = @import("identity.zig");
 const sha256 = @import("sha256.zig");
 const modexp = @import("modexp.zig");
@@ -100,9 +101,9 @@ pub fn execute_precompile(address: Address, input: []const u8, output: []u8, gas
 
         // Placeholder implementations for future precompiles
         1 => {
-            @branchHint(.cold);
-            return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
-        }, // ECRECOVER - TODO
+            @branchHint(.likely);
+            return ecrecover.execute(input, output, gas_limit);
+        }, // ECRECOVER
         2 => {
             @branchHint(.likely);
             return sha256.execute(input, output, gas_limit);
@@ -128,7 +129,7 @@ pub fn execute_precompile(address: Address, input: []const u8, output: []u8, gas
             return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
         }, // ECPAIRING - TODO
         9 => {
-            @branchHint(.cold);
+            @branchHint(.unlikely);
             return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
         }, // BLAKE2F - TODO
         10 => {
@@ -169,14 +170,14 @@ pub fn estimate_gas(address: Address, input_size: usize, chain_rules: ChainRules
         4 => identity.calculate_gas_checked(input_size), // IDENTITY
 
         // Placeholder gas calculations for future precompiles
-        1 => error.NotImplemented, // ECRECOVER - TODO
+        1 => ecrecover.calculate_gas_checked(input_size), // ECRECOVER
         2 => sha256.calculate_gas_checked(input_size), // SHA256
-        3 => error.NotImplemented, // RIPEMD160 - TODO
+        3 => error.InvalidInput, // RIPEMD160 - TODO
         5 => modexp.calculate_gas_checked(input_size), // MODEXP
-        6 => error.NotImplemented, // ECADD - TODO
-        7 => error.NotImplemented, // ECMUL - TODO
-        8 => error.NotImplemented, // ECPAIRING - TODO
-        9 => error.NotImplemented, // BLAKE2F - TODO
+        6 => error.InvalidInput, // ECADD - TODO
+        7 => error.InvalidInput, // ECMUL - TODO
+        8 => error.InvalidInput, // ECPAIRING - TODO
+        9 => error.InvalidInput, // BLAKE2F - TODO
         10 => kzg_point_evaluation.calculate_gas_checked(input_size), // POINT_EVALUATION
 
         else => error.InvalidPrecompile,
@@ -209,14 +210,14 @@ pub fn get_output_size(address: Address, input_size: usize, chain_rules: ChainRu
         4 => identity.get_output_size(input_size), // IDENTITY
 
         // Placeholder output sizes for future precompiles
-        1 => 32, // ECRECOVER - fixed 32 bytes (address)
+        1 => ecrecover.get_output_size(input_size), // ECRECOVER
         2 => sha256.get_output_size(input_size), // SHA256
         3 => 32, // RIPEMD160 - fixed 32 bytes (hash, padded)
         5 => modexp.get_output_size(input_size), // MODEXP
         6 => 64, // ECADD - fixed 64 bytes (point)
         7 => 64, // ECMUL - fixed 64 bytes (point)
         8 => 32, // ECPAIRING - fixed 32 bytes (boolean result)
-        9 => 64, // BLAKE2F - fixed 64 bytes
+        9 => 64, // BLAKE2F - fixed 64 bytes (hash)
         10 => kzg_point_evaluation.get_output_size(input_size), // POINT_EVALUATION
 
         else => error.InvalidPrecompile,
