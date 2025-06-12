@@ -311,6 +311,10 @@ pub const MODEXP_LINEAR_THRESHOLD: usize = 1024;
 /// Fixed cost for elliptic curve point addition on the BLS12-381 G1 group
 pub const BLS12_381_G1ADD_COST: u64 = 375;
 
+/// Gas cost for BLS12-381 G2ADD precompile (address 0x0D)
+/// Fixed cost for elliptic curve point addition on the BLS12-381 G2 group over extension field
+pub const BLS12_381_G2ADD_COST: u64 = 600;
+
 // ============================================================================
 // Call Operation Gas Constants (EIP-150 & EIP-2929)
 // ============================================================================
