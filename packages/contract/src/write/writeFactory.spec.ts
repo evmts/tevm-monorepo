@@ -175,7 +175,7 @@ describe('write', () => {
 	})
 
 	it('should return an empty object when methods list is empty', () => {
-		const write = writeFactory({ methods: [] })
+		const write = writeFactory({ methods: [], errors: [] })
 		expect(write).toEqual({})
 	})
 })
