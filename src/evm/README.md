@@ -303,7 +303,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
   - [x] **Init Code Execution** - Constructor code execution implemented ✅
   - [x] **Gas Management** - Complete gas handling for deployment ✅
 
-#### Precompiled Contracts (2/10 actually functional, 8 broken/missing)
+#### Precompiled Contracts (3/10 actually functional, 7 broken/missing)
 
 ⚠️ **CRITICAL SECURITY NOTICE: CUSTOM CRYPTOGRAPHY IMPLEMENTATIONS DETECTED**
 
@@ -314,6 +314,7 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
 - [x] **Functional Implementations**
   - [x] **SHA256** (0x02) - ✅ Uses Zig std library (secure and complete) ✅
   - [x] **IDENTITY** (0x04) - ✅ Simple copy operation (secure and complete) ✅
+  - [x] **BLAKE2F** (0x09) - ✅ Complete RFC 7693 compliant implementation (secure and complete) ✅
 
 - [ ] **Placeholder/Security Risk Implementations**
   - [ ] **ECRECOVER** (0x01) - ⚠️ **INTENTIONALLY FAILS** - Security placeholder, needs libsecp256k1 migration
@@ -324,7 +325,6 @@ AI is decent at zig but it does hallucinate sometimes. It's not a big deal if yo
   - [ ] **ECADD** (0x06) - ❌ **NOT IMPLEMENTED** - Returns execution failure  
   - [ ] **ECMUL** (0x07) - ❌ **NOT IMPLEMENTED** - Returns execution failure
   - [ ] **ECPAIRING** (0x08) - ❌ **NOT IMPLEMENTED** - Returns execution failure
-  - [ ] **BLAKE2F** (0x09) - ❌ **STUB ONLY** - Returns zeros, contains TODO comment
 
 - [ ] **Questionable Implementations**
   - [ ] **KZG Point Evaluation** (0x0A) - ⚠️ **UNVERIFIED** - Interface exists but underlying KZG verification unclear
