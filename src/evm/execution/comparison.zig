@@ -17,7 +17,7 @@ pub fn op_lt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.S
 
     if (frame.stack.size < 2) {
         @branchHint(.cold);
-        unreachable;
+        return ExecutionError.Error.StackUnderflow;
     }
 
     // Pop the top operand (b) unsafely
@@ -42,7 +42,7 @@ pub fn op_gt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.S
 
     if (frame.stack.size < 2) {
         @branchHint(.cold);
-        unreachable;
+        return ExecutionError.Error.StackUnderflow;
     }
 
     // Pop the top operand (b) unsafely
@@ -67,7 +67,7 @@ pub fn op_slt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
 
     if (frame.stack.size < 2) {
         @branchHint(.cold);
-        unreachable;
+        return ExecutionError.Error.StackUnderflow;
     }
 
     // Pop the top operand (b) unsafely
@@ -95,7 +95,7 @@ pub fn op_sgt(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
 
     if (frame.stack.size < 2) {
         @branchHint(.cold);
-        unreachable;
+        return ExecutionError.Error.StackUnderflow;
     }
 
     // Pop the top operand (b) unsafely
@@ -123,7 +123,7 @@ pub fn op_eq(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.S
 
     if (frame.stack.size < 2) {
         @branchHint(.cold);
-        unreachable;
+        return ExecutionError.Error.StackUnderflow;
     }
 
     // Pop the top operand (b) unsafely
@@ -147,7 +147,7 @@ pub fn op_iszero(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
 
     if (frame.stack.size < 1) {
         @branchHint(.cold);
-        unreachable;
+        return ExecutionError.Error.StackUnderflow;
     }
 
     // Peek the operand unsafely

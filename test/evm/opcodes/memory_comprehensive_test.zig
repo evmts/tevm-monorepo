@@ -188,7 +188,7 @@ test "MSTORE (0x52): Basic memory store operations" {
 
     // Test 1: Store at offset 0
     const value1: u256 = 0xdeadbeefcafebabe1234567890abcdef;
-    try test_frame.pushStack(&[_]u256{ value1, 0 }); // value, offset
+    try test_frame.pushStack(&[_]u256{ 0, value1 }); // offset, value (value on top per EVM spec)
     _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
 
     // Verify the value was stored correctly
@@ -197,7 +197,7 @@ test "MSTORE (0x52): Basic memory store operations" {
 
     // Test 2: Store at aligned offset (32 bytes)
     const value2: u256 = 0x1122334455667788990011223344556677889900112233445566778899001122;
-    try test_frame.pushStack(&[_]u256{ value2, 32 }); // value, offset  
+    try test_frame.pushStack(&[_]u256{ 32, value2 }); // offset, value (value on top per EVM spec)  
     _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
 
     const stored2 = try test_frame.frame.memory.get_u256(32);
@@ -205,7 +205,7 @@ test "MSTORE (0x52): Basic memory store operations" {
 
     // Test 3: Store at non-aligned offset
     const value3: u256 = 0x9876543210fedcba;
-    try test_frame.pushStack(&[_]u256{ value3, 17 }); // value, offset
+    try test_frame.pushStack(&[_]u256{ 17, value3 }); // offset, value (value on top per EVM spec)
     _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
 
     const stored3 = try test_frame.frame.memory.get_u256(17);
@@ -364,14 +364,14 @@ test "MSTORE8 (0x53): Basic single byte store operations" {
     defer test_frame.deinit();
 
     // Test 1: Store single byte at offset 0
-    try test_frame.pushStack(&[_]u256{ 0xFF, 0 }); // value, offset
+    try test_frame.pushStack(&[_]u256{ 0, 0xFF }); // offset, value (value on top per EVM spec)
     _ = try helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame);
 
     const byte0 = try test_frame.frame.memory.get_byte(0);
     try testing.expectEqual(@as(u8, 0xFF), byte0);
 
     // Test 2: Store only lowest byte of larger value
-    try test_frame.pushStack(&[_]u256{ 0x123456789ABCDEF0, 1 }); // value, offset
+    try test_frame.pushStack(&[_]u256{ 1, 0x123456789ABCDEF0 }); // offset, value (value on top per EVM spec)
     _ = try helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame);
 
     const byte1 = try test_frame.frame.memory.get_byte(1);

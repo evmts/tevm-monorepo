@@ -1256,6 +1256,56 @@ pub fn build(b: *std.Build) void {
     const run_jump_dispatch_failure_test = b.addRunArtifact(jump_dispatch_failure_test);
     const jump_dispatch_failure_test_step = b.step("test-jump-dispatch-failure", "Run Jump Dispatch Failure tests");
     jump_dispatch_failure_test_step.dependOn(&run_jump_dispatch_failure_test.step);
+    
+    // Add LT Opcode Stack Underflow test (TDD approach)
+    const lt_stack_underflow_test = b.addTest(.{
+        .name = "lt-opcode-stack-underflow-test",
+        .root_source_file = b.path("test/evm/lt_opcode_stack_underflow_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    const run_lt_stack_underflow_test = b.addRunArtifact(lt_stack_underflow_test);
+    const lt_stack_underflow_test_step = b.step("test-lt-stack-underflow", "Run LT Opcode Stack Underflow TDD tests");
+    lt_stack_underflow_test_step.dependOn(&run_lt_stack_underflow_test.step);
+    
+    // Add LT Opcode Bug test (actual implementation test)
+    const lt_opcode_bug_test = b.addTest(.{
+        .name = "lt-opcode-bug-test",
+        .root_source_file = b.path("test/evm/lt_opcode_bug_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    lt_opcode_bug_test.root_module.addImport("evm", evm_mod);
+    const run_lt_opcode_bug_test = b.addRunArtifact(lt_opcode_bug_test);
+    const lt_opcode_bug_test_step = b.step("test-lt-opcode-bug", "Run LT Opcode Bug TDD tests");
+    lt_opcode_bug_test_step.dependOn(&run_lt_opcode_bug_test.step);
+    
+    // Add simple LT opcode test (documentation only)
+    const lt_opcode_simple_test = b.addTest(.{
+        .name = "lt-opcode-simple-test",
+        .root_source_file = b.path("test/evm/lt_opcode_simple_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    const run_lt_opcode_simple_test = b.addRunArtifact(lt_opcode_simple_test);
+    const lt_opcode_simple_test_step = b.step("test-lt-opcode-simple", "Run simple LT Opcode documentation test");
+    lt_opcode_simple_test_step.dependOn(&run_lt_opcode_simple_test.step);
+    
+    // Add MSTORE debug test
+    const mstore_debug_test = b.addTest(.{
+        .name = "mstore-debug-test",
+        .root_source_file = b.path("debug_mstore_params.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    mstore_debug_test.root_module.addImport("Address", address_mod);
+    mstore_debug_test.root_module.addImport("Block", block_mod);
+    mstore_debug_test.root_module.addImport("evm", evm_mod);
+    mstore_debug_test.root_module.addImport("utils", utils_mod);
+    mstore_debug_test.root_module.addImport("test_helpers", test_helpers_mod);
+    const run_mstore_debug_test = b.addRunArtifact(mstore_debug_test);
+    const mstore_debug_test_step = b.step("test-mstore-debug", "Debug MSTORE parameter order");
+    mstore_debug_test_step.dependOn(&run_mstore_debug_test.step);
 
     // Add EVM Contract benchmark (after rust_step is defined)
     const evm_contract_benchmark = b.addExecutable(.{
