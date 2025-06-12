@@ -4,11 +4,29 @@ const evm = @import("evm");
 const VM = evm.Vm;
 const Address = evm.Address;
 const ExecutionError = evm.ExecutionError;
+const MemoryDatabase = evm.MemoryDatabase;
+const DatabaseInterface = evm.DatabaseInterface;
+
+// Helper function to create VM with memory database
+fn createTestVm(allocator: std.mem.Allocator) !struct { vm: VM, memory_db: *MemoryDatabase } {
+    const memory_db = try allocator.create(MemoryDatabase);
+    memory_db.* = MemoryDatabase.init(allocator);
+    const db_interface = memory_db.to_database_interface();
+    const vm = try VM.init(allocator, db_interface, null, null);
+    return .{ .vm = vm, .memory_db = memory_db };
+}
+
+fn destroyTestVm(allocator: std.mem.Allocator, vm: *VM, memory_db: *MemoryDatabase) void {
+    vm.deinit();
+    memory_db.deinit();
+    allocator.destroy(memory_db);
+}
 
 test "Static call protection - validate_static_context" {
     const allocator = testing.allocator;
-    var vm = try VM.init(allocator, null, null);
-    defer vm.deinit();
+    const test_setup = try createTestVm(allocator);
+    var vm = test_setup.vm;
+    defer destroyTestVm(allocator, &vm, test_setup.memory_db);
     
     // Test 1: Normal context should allow modifications
     vm.read_only = false;
@@ -22,8 +40,9 @@ test "Static call protection - validate_static_context" {
 
 test "Static call protection - storage operations" {
     const allocator = testing.allocator;
-    var vm = try VM.init(allocator, null, null);
-    defer vm.deinit();
+    const test_setup = try createTestVm(allocator);
+    var vm = test_setup.vm;
+    defer destroyTestVm(allocator, &vm, test_setup.memory_db);
     
     const test_address = [_]u8{0x01} ** 20;
     const test_slot: u256 = 42;
@@ -47,8 +66,9 @@ test "Static call protection - storage operations" {
 
 test "Static call protection - transient storage operations" {
     const allocator = testing.allocator;
-    var vm = try VM.init(allocator, null, null);
-    defer vm.deinit();
+    const test_setup = try createTestVm(allocator);
+    var vm = test_setup.vm;
+    defer destroyTestVm(allocator, &vm, test_setup.memory_db);
     
     const test_address = [_]u8{0x02} ** 20;
     const test_slot: u256 = 50;
@@ -68,8 +88,9 @@ test "Static call protection - transient storage operations" {
 
 test "Static call protection - balance operations" {
     const allocator = testing.allocator;
-    var vm = try VM.init(allocator, null, null);
-    defer vm.deinit();
+    const test_setup = try createTestVm(allocator);
+    var vm = test_setup.vm;
+    defer destroyTestVm(allocator, &vm, test_setup.memory_db);
     
     const test_address = [_]u8{0x03} ** 20;
     const test_balance: u256 = 1000;
@@ -88,8 +109,9 @@ test "Static call protection - balance operations" {
 
 test "Static call protection - code operations" {
     const allocator = testing.allocator;
-    var vm = try VM.init(allocator, null, null);
-    defer vm.deinit();
+    const test_setup = try createTestVm(allocator);
+    var vm = test_setup.vm;
+    defer destroyTestVm(allocator, &vm, test_setup.memory_db);
     
     const test_address = [_]u8{0x04} ** 20;
     const test_code = [_]u8{0x60, 0x01, 0x60, 0x02}; // PUSH1 1 PUSH1 2
@@ -109,8 +131,9 @@ test "Static call protection - code operations" {
 
 test "Static call protection - log operations" {
     const allocator = testing.allocator;
-    var vm = try VM.init(allocator, null, null);
-    defer vm.deinit();
+    const test_setup = try createTestVm(allocator);
+    var vm = test_setup.vm;
+    defer destroyTestVm(allocator, &vm, test_setup.memory_db);
     
     const test_address = [_]u8{0x05} ** 20;
     const topics = [_]u256{0x123, 0x456};
@@ -132,8 +155,9 @@ test "Static call protection - log operations" {
 
 test "Static call protection - contract creation" {
     const allocator = testing.allocator;
-    var vm = try VM.init(allocator, null, null);
-    defer vm.deinit();
+    const test_setup = try createTestVm(allocator);
+    var vm = test_setup.vm;
+    defer destroyTestVm(allocator, &vm, test_setup.memory_db);
     
     const creator = [_]u8{0x06} ** 20;
     const value: u256 = 1000;
@@ -152,8 +176,9 @@ test "Static call protection - contract creation" {
 
 test "Static call protection - CREATE2 contract creation" {
     const allocator = testing.allocator;
-    var vm = try VM.init(allocator, null, null);
-    defer vm.deinit();
+    const test_setup = try createTestVm(allocator);
+    var vm = test_setup.vm;
+    defer destroyTestVm(allocator, &vm, test_setup.memory_db);
     
     const creator = [_]u8{0x07} ** 20;
     const value: u256 = 1000;
@@ -173,8 +198,9 @@ test "Static call protection - CREATE2 contract creation" {
 
 test "Static call protection - value transfer validation" {
     const allocator = testing.allocator;
-    var vm = try VM.init(allocator, null, null);
-    defer vm.deinit();
+    const test_setup = try createTestVm(allocator);
+    var vm = test_setup.vm;
+    defer destroyTestVm(allocator, &vm, test_setup.memory_db);
     
     // Test 1: Normal context allows value transfers
     vm.read_only = false;
@@ -192,8 +218,9 @@ test "Static call protection - value transfer validation" {
 
 test "Static call protection - selfdestruct" {
     const allocator = testing.allocator;
-    var vm = try VM.init(allocator, null, null);
-    defer vm.deinit();
+    const test_setup = try createTestVm(allocator);
+    var vm = test_setup.vm;
+    defer destroyTestVm(allocator, &vm, test_setup.memory_db);
     
     const contract = [_]u8{0x08} ** 20;
     const beneficiary = [_]u8{0x09} ** 20;
@@ -210,8 +237,9 @@ test "Static call protection - selfdestruct" {
 
 test "Static call protection - comprehensive scenario" {
     const allocator = testing.allocator;
-    var vm = try VM.init(allocator, null, null);
-    defer vm.deinit();
+    const test_setup = try createTestVm(allocator);
+    var vm = test_setup.vm;
+    defer destroyTestVm(allocator, &vm, test_setup.memory_db);
     
     const test_address = [_]u8{0x0A} ** 20;
     

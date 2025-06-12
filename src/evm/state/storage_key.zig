@@ -1,5 +1,4 @@
 const std = @import("std");
-const Address = @import("Address");
 
 /// Composite key for EVM storage operations combining address and slot.
 ///
@@ -39,7 +38,7 @@ const StorageKey = @This();
 
 /// The contract address that owns this storage slot.
 /// Standard 20-byte Ethereum address.
-address: Address.Address,
+address: [20]u8,
 
 /// The 256-bit storage slot number within the contract's storage space.
 /// Slots are sparsely allocated - most remain at zero value.
