@@ -121,12 +121,12 @@ pub const DatabaseFactory = @import("state/database_factory.zig");
 /// Precompiled contracts implementation (IDENTITY, SHA256, etc.)
 pub const Precompiles = @import("precompiles/precompiles.zig");
 
-/// Precompiles namespace for convenience
+/// Precompiles namespace for easier access
 pub const precompiles = struct {
-    pub const ecrecover = @import("precompiles/ecrecover.zig");
+    pub const precompiles = @import("precompiles/precompiles.zig");
+    pub const sha256 = @import("precompiles/sha256.zig");
     pub const identity = @import("precompiles/identity.zig");
-    pub const PrecompileOutput = @import("precompiles/precompile_result.zig").PrecompileOutput;
-    pub const PrecompileError = @import("precompiles/precompile_result.zig").PrecompileError;
+    pub const precompile_result = @import("precompiles/precompile_result.zig");
 };
 
 /// EIP-4844 blob transaction support (blobs, KZG verification, gas market)
@@ -149,6 +149,12 @@ pub const bitvec = @import("contract/bitvec.zig");
 
 /// Chain-specific validation rules
 pub const chain_rules = @import("hardforks/chain_rules.zig");
+
+/// Hardforks namespace for easier access
+pub const hardforks = struct {
+    pub const chain_rules = @import("hardforks/chain_rules.zig");
+    pub const hardfork = @import("hardforks/hardfork.zig");
+};
 
 /// EVM constants (stack size, memory limits, etc.)
 pub const constants = @import("constants/constants.zig");

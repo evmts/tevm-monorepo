@@ -616,7 +616,7 @@ pub fn build(b: *std.Build) void {
     // Add Precompile tests
     const precompile_test = b.addTest(.{
         .name = "precompile-test",
-        .root_source_file = b.path("test/evm/precompiles/ecrecover_test.zig"),
+        .root_source_file = b.path("test/evm/precompiles/sha256_test.zig"),
         .target = target,
         .optimize = optimize,
     });
