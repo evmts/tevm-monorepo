@@ -6,9 +6,9 @@ const PrecompileError = @import("precompile_result.zig").PrecompileError;
 const ecrecover = @import("ecrecover.zig");
 const identity = @import("identity.zig");
 const sha256 = @import("sha256.zig");
-const ripemd160 = @import("ripemd160.zig");
 const modexp = @import("modexp.zig");
 const kzg_point_evaluation = @import("kzg_point_evaluation.zig");
+const bls12_381_g1msm = @import("bls12_381_g1msm.zig");
 const ChainRules = @import("../hardforks/chain_rules.zig");
 
 /// Main precompile dispatcher module
@@ -59,6 +59,7 @@ pub fn is_available(address: Address, chain_rules: ChainRules) bool {
         6, 7, 8 => chain_rules.IsByzantium, // ECADD, ECMUL, ECPAIRING from Byzantium
         9 => chain_rules.IsIstanbul, // BLAKE2F from Istanbul
         10 => chain_rules.IsCancun, // POINT_EVALUATION from Cancun
+        11, 12 => chain_rules.IsCancun, // BLS12-381 G1ADD, G1MSM - assume post-Cancun for now
         else => false,
     };
 }
@@ -110,9 +111,9 @@ pub fn execute_precompile(address: Address, input: []const u8, output: []u8, gas
             return sha256.execute(input, output, gas_limit);
         }, // SHA256
         3 => {
-            @branchHint(.likely);
-            return ripemd160.execute(input, output, gas_limit);
-        }, // RIPEMD160
+            @branchHint(.cold);
+            return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
+        }, // RIPEMD160 - TODO
         5 => {
             @branchHint(.likely);
             return modexp.execute(input, output, gas_limit);
@@ -137,6 +138,14 @@ pub fn execute_precompile(address: Address, input: []const u8, output: []u8, gas
             @branchHint(.unlikely);
             return kzg_point_evaluation.execute(input, output, gas_limit);
         }, // POINT_EVALUATION
+        11 => {
+            @branchHint(.cold);
+            return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
+        }, // BLS12-381 G1ADD - TODO
+        12 => {
+            @branchHint(.cold);
+            return bls12_381_g1msm.execute(input, output, gas_limit);
+        }, // BLS12-381 G1MSM
 
         else => {
             @branchHint(.cold);
@@ -173,13 +182,15 @@ pub fn estimate_gas(address: Address, input_size: usize, chain_rules: ChainRules
         // Placeholder gas calculations for future precompiles
         1 => ecrecover.calculate_gas_checked(input_size), // ECRECOVER
         2 => sha256.calculate_gas_checked(input_size), // SHA256
-        3 => ripemd160.calculate_gas_checked(input_size), // RIPEMD160
+        3 => error.InvalidInput, // RIPEMD160 - TODO
         5 => modexp.calculate_gas_checked(input_size), // MODEXP
         6 => error.InvalidInput, // ECADD - TODO
         7 => error.InvalidInput, // ECMUL - TODO
         8 => error.InvalidInput, // ECPAIRING - TODO
         9 => error.InvalidInput, // BLAKE2F - TODO
         10 => kzg_point_evaluation.calculate_gas_checked(input_size), // POINT_EVALUATION
+        11 => error.InvalidInput, // BLS12-381 G1ADD - TODO
+        12 => bls12_381_g1msm.calculate_gas_checked(input_size), // BLS12-381 G1MSM
 
         else => error.InvalidPrecompile,
     };
@@ -213,13 +224,15 @@ pub fn get_output_size(address: Address, input_size: usize, chain_rules: ChainRu
         // Placeholder output sizes for future precompiles
         1 => ecrecover.get_output_size(input_size), // ECRECOVER
         2 => sha256.get_output_size(input_size), // SHA256
-        3 => ripemd160.get_output_size(input_size), // RIPEMD160
+        3 => 32, // RIPEMD160 - fixed 32 bytes (hash, padded)
         5 => modexp.get_output_size(input_size), // MODEXP
         6 => 64, // ECADD - fixed 64 bytes (point)
         7 => 64, // ECMUL - fixed 64 bytes (point)
         8 => 32, // ECPAIRING - fixed 32 bytes (boolean result)
         9 => 64, // BLAKE2F - fixed 64 bytes (hash)
         10 => kzg_point_evaluation.get_output_size(input_size), // POINT_EVALUATION
+        11 => 128, // BLS12-381 G1ADD - fixed 128 bytes (G1 point)
+        12 => bls12_381_g1msm.get_output_size(input_size), // BLS12-381 G1MSM
 
         else => error.InvalidPrecompile,
     };

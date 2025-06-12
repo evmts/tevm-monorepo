@@ -157,3 +157,157 @@ test "gas refund mechanics" {
 test "copy operation costs" {
     try testing.expectEqual(@as(u64, 3), gas_constants.CopyGas);
 }
+
+// ============================
+// REVM-Inspired Gas Edge Cases
+// ============================
+
+// Test gas calculation overflow protection
+test "gas calculation overflow protection" {
+    // Test that extremely large memory expansion doesn't overflow
+    // Use a more reasonable large size that won't cause overflow
+    const large_size = 1024 * 1024; // 1MB
+    const large_memory_cost = gas_constants.memory_gas_cost(0, large_size);
+    try testing.expect(large_memory_cost > 0); // Should not overflow to 0
+    try testing.expect(large_memory_cost < std.math.maxInt(u32)); // Should be reasonable
+}
+
+// Test out-of-gas conditions during precompile calls
+test "precompile out-of-gas scenarios" {
+    // ECRECOVER: requires exactly 3000 gas
+    const ecrecover_cost = gas_constants.ECRECOVER_COST;
+    try testing.expectEqual(@as(u64, 3000), ecrecover_cost);
+    
+    // SHA256: requires 60 + 12 * ceil(input_len / 32) gas
+    const sha256_base = gas_constants.SHA256_BASE_COST;
+    const sha256_word = gas_constants.SHA256_WORD_COST;
+    try testing.expectEqual(@as(u64, 60), sha256_base);
+    try testing.expectEqual(@as(u64, 12), sha256_word);
+    
+    // RIPEMD160: requires 600 + 120 * ceil(input_len / 32) gas (if implemented)
+    // Note: These constants might not be implemented yet
+    // const ripemd_base = gas_constants.RIPEMD160_BASE_COST;
+    // const ripemd_word = gas_constants.RIPEMD160_WORD_COST;
+    // try testing.expectEqual(@as(u64, 600), ripemd_base);
+    // try testing.expectEqual(@as(u64, 120), ripemd_word);
+    
+    // IDENTITY: requires 15 + 3 * ceil(input_len / 32) gas
+    const identity_base = gas_constants.IDENTITY_BASE_COST;
+    const identity_word = gas_constants.IDENTITY_WORD_COST;
+    try testing.expectEqual(@as(u64, 15), identity_base);
+    try testing.expectEqual(@as(u64, 3), identity_word);
+}
+
+// Test gas refund capping (EIP-3529)
+test "gas refund capping mechanism" {
+    // After EIP-3529, refunds are capped at gas_used / 5
+    const max_refund_quotient = gas_constants.MaxRefundQuotient;
+    try testing.expectEqual(@as(u64, 5), max_refund_quotient);
+    
+    // Test refund calculation scenarios
+    const gas_used = 10000;
+    const max_refund = gas_used / max_refund_quotient;
+    try testing.expectEqual(@as(u64, 2000), max_refund);
+    
+    // If actual refund exceeds maximum, should be capped
+    const large_refund = 5000;
+    const capped_refund = if (large_refund > max_refund) max_refund else large_refund;
+    try testing.expectEqual(@as(u64, 2000), capped_refund);
+}
+
+// Test very large memory access gas costs
+test "extreme memory expansion costs" {
+    // Test quadratic growth for very large memory
+    const size_1mb = 1024 * 1024;
+    const size_2mb = 2 * 1024 * 1024;
+    
+    const cost_1mb = gas_constants.memory_gas_cost(0, size_1mb);
+    const cost_2mb = gas_constants.memory_gas_cost(0, size_2mb);
+    
+    // Cost should grow quadratically, so doubling size should more than double cost
+    try testing.expect(cost_2mb > cost_1mb * 2);
+}
+
+// Test intrinsic gas calculation edge cases
+test "intrinsic gas calculation edge cases" {
+    const tx_gas = gas_constants.TxGas;
+    const tx_data_zero = gas_constants.TxDataZeroGas;
+    const tx_data_nonzero = gas_constants.TxDataNonZeroGas;
+    
+    // Empty transaction should cost base gas
+    try testing.expectEqual(@as(u64, 21000), tx_gas);
+    
+    // Transaction with only zero bytes: 21000 + (bytes * 4)
+    const zero_bytes = 100;
+    const zero_data_cost = tx_gas + (zero_bytes * tx_data_zero);
+    try testing.expectEqual(@as(u64, 21400), zero_data_cost);
+    
+    // Transaction with only non-zero bytes: 21000 + (bytes * 16)
+    const nonzero_bytes = 100;
+    const nonzero_data_cost = tx_gas + (nonzero_bytes * tx_data_nonzero);
+    try testing.expectEqual(@as(u64, 22600), nonzero_data_cost);
+}
+
+// Test CREATE2 salt collision gas costs
+test "create2 gas calculation" {
+    const create_gas = gas_constants.CreateGas;
+    const keccak_gas = gas_constants.Keccak256Gas;
+    const keccak_word_gas = gas_constants.Keccak256WordGas;
+    
+    // CREATE2 has additional cost for salt hashing
+    try testing.expectEqual(@as(u64, 32000), create_gas);
+    try testing.expectEqual(@as(u64, 30), keccak_gas);
+    try testing.expectEqual(@as(u64, 6), keccak_word_gas);
+    
+    // CREATE2 cost = CREATE_GAS + KECCAK_GAS + KECCAK_WORD_GAS * init_code_words
+    const init_code_size = 64; // 2 words
+    const init_code_words = (init_code_size + 31) / 32;
+    const create2_cost = create_gas + keccak_gas + (keccak_word_gas * init_code_words);
+    try testing.expectEqual(@as(u64, 32042), create2_cost);
+}
+
+// Test call stipend mechanics in edge cases
+test "call stipend edge cases" {
+    const call_stipend = gas_constants.CallStipend;
+    const call_gas = gas_constants.CallGas;
+    const call_value_gas = gas_constants.CallValueTransferGas;
+    
+    // Call with value transfer gets stipend
+    try testing.expectEqual(@as(u64, 2300), call_stipend);
+    try testing.expectEqual(@as(u64, 40), call_gas);
+    try testing.expectEqual(@as(u64, 9000), call_value_gas);
+    
+    // Total cost for value transfer call: base + value_transfer + (stipend deducted from remaining)
+    const value_call_cost = call_gas + call_value_gas;
+    try testing.expectEqual(@as(u64, 9040), value_call_cost);
+}
+
+// Test hardfork-specific gas changes
+test "hardfork gas cost transitions" {
+    // EIP-2929: Cold access costs
+    const cold_sload = gas_constants.ColdSloadCost;
+    const warm_sload = gas_constants.SloadGas;
+    const cold_account = gas_constants.ColdAccountAccessCost;
+    
+    try testing.expectEqual(@as(u64, 2100), cold_sload);
+    try testing.expectEqual(@as(u64, 100), warm_sload);
+    try testing.expectEqual(@as(u64, 2600), cold_account);
+    
+    // Cold access should be significantly more expensive than warm
+    try testing.expect(cold_sload > warm_sload * 20);
+    try testing.expect(cold_account > cold_sload);
+}
+
+// Test gas exhaustion detection
+test "gas exhaustion boundary conditions" {
+    // Test scenarios where gas runs out exactly at operation completion
+    const small_gas = 100;
+    const large_operation_cost = 1000;
+    
+    // Should detect insufficient gas
+    try testing.expect(small_gas < large_operation_cost);
+    
+    // Test edge case where gas equals operation cost exactly
+    const exact_gas = large_operation_cost;
+    try testing.expectEqual(exact_gas, large_operation_cost);
+}

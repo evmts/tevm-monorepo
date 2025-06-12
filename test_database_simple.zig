@@ -131,3 +131,73 @@ test "memory database batch operations" {
     try testing.expect(db_interface.account_exists(addr2));
     try testing.expectEqual(@as(u256, 123), try db_interface.get_storage(addr1, 0));
 }
+
+test "debug storage through full VM stack" {
+    // Import the EVM components we need
+    const EvmState = @import("src/evm/state/state.zig");
+    const Vm = @import("src/evm/vm.zig");
+    const Contract = @import("src/evm/contract/contract.zig");
+    const Frame = @import("src/evm/frame.zig");
+    const Address = @import("src/address/address.zig");
+    
+    var memory_db = MemoryDatabase.init(testing.allocator);
+    defer memory_db.deinit();
+    
+    const db_interface = memory_db.to_database_interface();
+    
+    // Create EVM state
+    var state = try EvmState.init(testing.allocator, db_interface);
+    defer state.deinit();
+    
+    // Create VM
+    var vm = try Vm.init(testing.allocator, db_interface, null, null);
+    defer vm.deinit();
+    
+    // Test addresses
+    const contract_address = Address.from_u256(0x3333333333333333333333333333333333333333);
+    const caller_address = Address.from_u256(0x1111111111111111111111111111111111111111);
+    
+    // Create contract
+    var contract = Contract.init(
+        caller_address,
+        contract_address,
+        0, // value
+        1_000_000, // gas
+        &[_]u8{}, // code
+        [_]u8{0} ** 32, // code hash
+        &[_]u8{}, // input
+        false, // not static
+    );
+    defer contract.deinit(testing.allocator, null);
+    
+    // Create frame
+    var frame = try Frame.init(testing.allocator, &contract);
+    defer frame.deinit();
+    
+    // Debug: Print addresses
+    std.debug.print("contract_address = {any}\n", .{contract_address});
+    std.debug.print("contract.address = {any}\n", .{contract.address});
+    std.debug.print("frame.contract.address = {any}\n", .{frame.contract.address});
+    
+    // Verify they're the same
+    try testing.expect(std.mem.eql(u8, &contract_address, &contract.address));
+    try testing.expect(std.mem.eql(u8, &contract.address, &frame.contract.address));
+    
+    // Test 1: Set storage via state using contract address
+    try state.set_storage(contract_address, 0x123, 0x456789);
+    
+    // Test 2: Read it back via state to confirm storage
+    const stored_value = state.get_storage(contract_address, 0x123);
+    std.debug.print("Direct state get_storage returned: {}\n", .{stored_value});
+    try testing.expectEqual(@as(u256, 0x456789), stored_value);
+    
+    // Test 3: Read via frame's contract address (should be same)
+    const frame_stored_value = state.get_storage(frame.contract.address, 0x123);
+    std.debug.print("Frame contract address get_storage returned: {}\n", .{frame_stored_value});
+    try testing.expectEqual(@as(u256, 0x456789), frame_stored_value);
+    
+    // Test 4: Read via VM's state (should be same)
+    const vm_stored_value = vm.state.get_storage(frame.contract.address, 0x123);
+    std.debug.print("VM state get_storage returned: {}\n", .{vm_stored_value});
+    try testing.expectEqual(@as(u256, 0x456789), vm_stored_value);
+}
