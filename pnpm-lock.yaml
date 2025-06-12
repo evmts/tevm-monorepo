@@ -1132,7 +1132,7 @@ importers:
         version: 0.2.0
       forge-std:
         specifier: github:foundry-rs/forge-std
-        version: https://codeload.github.com/foundry-rs/forge-std/tar.gz/ee93fdc45d1e5e4dee883afe0103109881a83549
+        version: https://codeload.github.com/foundry-rs/forge-std/tar.gz/60acb7aaadcce2d68e52986a0a66fe79f07d138f
       react-helmet:
         specifier: ^6.1.0
         version: 6.1.0(react@19.1.0)
@@ -1167,7 +1167,7 @@ importers:
         specifier: workspace:^
         version: link:../../packages/client-types
       '@tevm/common':
-        specifier: workspace:1.0.0-next.146
+        specifier: workspace:1.0.0-next.148
         version: link:../../packages/common
       '@tevm/contract':
         specifier: workspace:^
@@ -1726,7 +1726,7 @@ importers:
   packages/http-client:
     dependencies:
       '@tevm/address':
-        specifier: workspace:1.0.0-next.146
+        specifier: workspace:1.0.0-next.148
         version: link:../address
       '@tevm/contract':
         specifier: workspace:^
@@ -9656,8 +9656,8 @@ packages:
     resolution: {integrity: sha512-W8+hV/qnShs4pZSIcHfYvKi7ds1FjNVW14XG5fMkkTBzbUGJh5BxbTc3KZZy7nWbPpaHLGnRszMZNZlLvi6qww==}
     hasBin: true
 
-  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/ee93fdc45d1e5e4dee883afe0103109881a83549:
-    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/ee93fdc45d1e5e4dee883afe0103109881a83549}
+  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/60acb7aaadcce2d68e52986a0a66fe79f07d138f:
+    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/60acb7aaadcce2d68e52986a0a66fe79f07d138f}
     version: 1.9.7
 
   form-data@4.0.2:
@@ -24356,7 +24356,7 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/ee93fdc45d1e5e4dee883afe0103109881a83549: {}
+  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/60acb7aaadcce2d68e52986a0a66fe79f07d138f: {}
 
   form-data@4.0.2:
     dependencies:
