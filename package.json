@@ -10,7 +10,7 @@
   "contributors": [
     "Will Cory <willcory10@gmail.com>"
   ],
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "all": "pnpm -r build:dist && pnpm -r build:types && pnpm -r test:coverage && pnpm -r dev:run && pnpm -r test:rust && pnpm -r typecheck && pnpm -r lint:check && pnpm -r lint:deps && pnpm -r lint:package && pnpm -r build:app && pnpm -r generate:docs && pnpm -r build:rust && pnpm -r build:wasm",
     "all:clean": "bun clean && pnpm i && bun allz",

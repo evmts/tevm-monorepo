@@ -189,7 +189,7 @@ pub fn build(b: *std.Build) void {
     exe_mod.stack_check = false;
     exe_mod.single_threaded = true;
 
-    // Create WASM module with minimal WASM-specific source
+    // Create WASM module with crypto utilities only for now 
     const wasm_mod = b.createModule(.{
         .root_source_file = b.path("src/root_wasm_minimal.zig"),
         .target = wasm_target,
