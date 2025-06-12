@@ -3,8 +3,6 @@ const PrecompileResult = @import("precompile_result.zig").PrecompileResult;
 const PrecompileOutput = @import("precompile_result.zig").PrecompileOutput;
 const PrecompileError = @import("precompile_result.zig").PrecompileError;
 
-/// BLAKE2F precompile implementation (address 0x09)
-///
 /// The BLAKE2F precompile provides the BLAKE2b compression function (F function) 
 /// that operates on a single 128-byte block. This is one of the Ethereum precompiles
 /// available from the Istanbul hardfork (EIP-152).
