@@ -110,26 +110,6 @@ pub const SstoreClearGas: u64 = 5000;
 /// Gas refund for clearing storage slot to zero
 /// EIP-3529: Reduced from 15000 to prevent gas refund abuse
 pub const SstoreRefundGas: u64 = 4800;
-
-// ============================================================================
-// EIP-2200 SSTORE Gas Constants
-// ============================================================================
-
-/// Gas cost for SSTORE when setting a storage slot from zero to non-zero (EIP-2200)
-/// This is the most expensive storage operation as it increases state size
-pub const SSTORE_SET: u64 = 20000;
-
-/// Gas cost for SSTORE when modifying existing non-zero values (EIP-2200)  
-/// After EIP-2929: 2800 base + 100 warm = 2900 warm, 2800 + 2100 = 4900 cold
-pub const SSTORE_RESET: u64 = 2800;
-
-/// Gas refund for SSTORE operations that clear storage (EIP-2200)
-/// After EIP-3529: Reduced to 2700 gas
-pub const SSTORE_RESET_REFUND: u64 = 2700;
-
-/// Minimum gas required for SSTORE operations (EIP-2200)
-/// Prevents reentrancy attacks by ensuring minimum gas availability
-pub const SSTORE_SENTRY_GAS: u64 = 2300;
 // ============================================================================
 // Control Flow Costs
 // ============================================================================
@@ -308,7 +288,6 @@ pub const SHA256_WORD_COST: u64 = 12;
 /// Fixed cost for elliptic curve signature recovery
 pub const ECRECOVER_COST: u64 = 3000;
 
-// ============================================================================
 // MODEXP Precompile Costs (EIP-2565)
 // ============================================================================
 
@@ -323,6 +302,37 @@ pub const MODEXP_QUADRATIC_THRESHOLD: usize = 64;
 /// Threshold for linear complexity in MODEXP gas calculation
 /// Inputs between quadratic and linear thresholds use optimized formula
 pub const MODEXP_LINEAR_THRESHOLD: usize = 1024;
+
+// ============================================================================
+// Call Operation Gas Constants (EIP-150 & EIP-2929)
+// ============================================================================
+
+/// Base gas cost for CALL operations when target account is warm
+/// This is the minimum cost for any call operation
+pub const CALL_BASE_COST: u64 = 100;
+
+/// Gas cost for CALL operations when target account is cold (EIP-2929)
+/// Cold account access is more expensive to prevent state access attacks
+pub const CALL_COLD_ACCOUNT_COST: u64 = 2600;
+
+/// Additional gas cost when CALL transfers value (ETH)
+/// Makes value transfers more expensive to prevent spam
+pub const CALL_VALUE_TRANSFER_COST: u64 = 9000;
+
+/// Additional gas cost when CALL creates a new account
+/// Reflects the cost of adding a new entry to the state trie
+pub const CALL_NEW_ACCOUNT_COST: u64 = 25000;
+
+/// Gas stipend provided to called contract when transferring value
+/// Ensures called contract has minimum gas to execute basic operations
+/// This gas cannot be used for value calls to prevent attack vectors
+pub const GAS_STIPEND_VALUE_TRANSFER: u64 = 2300;
+
+/// Divisor for the 63/64 gas retention rule
+/// Caller retains 1/64 of available gas, forwards the rest
+/// Formula: retained_gas = available_gas / CALL_GAS_RETENTION_DIVISOR
+pub const CALL_GAS_RETENTION_DIVISOR: u64 = 64;
+
 /// Calculate memory expansion gas cost
 ///
 /// Computes the gas cost for expanding EVM memory from current_size to new_size bytes.
