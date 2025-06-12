@@ -1,5 +1,9 @@
 name: WASM Size Check
 
+permissions:
+  contents: write
+  pull-requests: read
+
 on:
   push:
     branches:
