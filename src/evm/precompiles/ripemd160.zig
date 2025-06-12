@@ -2,8 +2,6 @@ const std = @import("std");
 const PrecompileResult = @import("precompile_result.zig").PrecompileResult;
 const PrecompileOutput = @import("precompile_result.zig").PrecompileOutput;
 const PrecompileError = @import("precompile_result.zig").PrecompileError;
-const gas_constants = @import("../constants/gas_constants.zig");
-
 /// RIPEMD160 precompile implementation (address 0x03)
 ///
 /// The RIPEMD160 precompile provides RIPEMD160 hashing functionality, which produces
@@ -38,8 +36,8 @@ const gas_constants = @import("../constants/gas_constants.zig");
 /// ```
 
 /// Gas constants for RIPEMD160 precompile
-pub const RIPEMD160_BASE_GAS_COST: u64 = gas_constants.RIPEMD160_BASE_COST;
-pub const RIPEMD160_WORD_GAS_COST: u64 = gas_constants.RIPEMD160_WORD_COST;
+pub const RIPEMD160_BASE_GAS_COST: u64 = 600;
+pub const RIPEMD160_WORD_GAS_COST: u64 = 120;
 
 /// Expected output size for RIPEMD160 (32 bytes with padding)
 const RIPEMD160_OUTPUT_SIZE: usize = 32;
