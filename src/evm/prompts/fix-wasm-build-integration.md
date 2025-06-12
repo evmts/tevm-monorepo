@@ -5,6 +5,23 @@ Fix the broken WASM build system and integrate the high-performance Zig EVM into
 
 ## Why
 The WASM build is critical for achieving the performance goals of Tevm - delivering 100x faster EVM execution with smaller bundle sizes. Without this integration, Tevm cannot leverage the high-performance Zig implementation and remains limited to slower JavaScript-based EVM execution.
+<<<<<<< HEAD
+
+## How
+1. Fix the WASM build configuration in `build.zig` with proper targeting and optimization
+2. Create JavaScript bindings and TypeScript interfaces for WASM exports
+3. Implement memory management for JS/WASM boundary communication
+4. Add comprehensive error handling and result propagation
+5. Optimize for minimal bundle size and maximum performance
+6. Create integration points with existing Tevm TypeScript packages
+
+## Development Workflow
+- **Branch**: `feat_implement_fix_wasm_build_and_integration_into_tevm_typescript` (snake_case)
+- **Worktree**: `git worktree add g/feat_implement_fix_wasm_build_and_integration_into_tevm_typescript feat_implement_fix_wasm_build_and_integration_into_tevm_typescript`
+- **Testing**: Run `zig build test-all` before committing
+- **Commit**: Use emoji conventional commits with XML summary format
+
+=======
 
 ## How
 1. Fix the WASM build configuration in `build.zig` with proper targeting and optimization
@@ -54,6 +71,7 @@ The WASM build is critical for achieving the performance goals of Tevm - deliver
 4. Add comprehensive error handling
 5. Create integration points with existing TypeScript packages
 </review>
+>>>>>>> origin/main
 
 ## Context
 
