@@ -613,27 +613,147 @@ pub fn build(b: *std.Build) void {
     const static_protection_test_step = b.step("test-static-protection", "Run Static Call Protection tests");
     static_protection_test_step.dependOn(&run_static_protection_test.step);
 
-    // Add BLAKE2F precompile tests
-    const blake2f_test = b.addTest(.{
-        .name = "blake2f-test",
-        .root_source_file = b.path("test/evm/precompiles/blake2f_test.zig"),
+    // Add Precompile tests
+    const precompile_test = b.addTest(.{
+        .name = "precompile-test",
+        .root_source_file = b.path("test/evm/precompiles/sha256_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    precompile_test.root_module.stack_check = false;
+
+    // Add module imports to precompile test
+    precompile_test.root_module.addImport("Address", address_mod);
+    precompile_test.root_module.addImport("Block", block_mod);
+    precompile_test.root_module.addImport("evm", evm_mod);
+    precompile_test.root_module.addImport("utils", utils_mod);
+
+    const run_precompile_test = b.addRunArtifact(precompile_test);
+
+    // Add a separate step for testing Precompiles
+    const precompile_test_step = b.step("test-precompiles", "Run Precompile tests");
+    precompile_test_step.dependOn(&run_precompile_test.step);
+
+    // Add RIPEMD160 precompile tests
+    const ripemd160_test = b.addTest(.{
+        .name = "ripemd160-test",
+        .root_source_file = b.path("test/evm/precompiles/ripemd160_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    ripemd160_test.root_module.stack_check = false;
+
+    // Add module imports to RIPEMD160 test
+    ripemd160_test.root_module.addImport("Address", address_mod);
+    ripemd160_test.root_module.addImport("Block", block_mod);
+    ripemd160_test.root_module.addImport("evm", evm_mod);
+    ripemd160_test.root_module.addImport("utils", utils_mod);
+
+    const run_ripemd160_test = b.addRunArtifact(ripemd160_test);
+
+    // Add a separate step for testing RIPEMD160 precompile
+    const ripemd160_test_step = b.step("test-ripemd160", "Run RIPEMD160 precompile tests");
+    ripemd160_test_step.dependOn(&run_ripemd160_test.step);
+
+    // Add E2E Simple tests  
+    const e2e_simple_test = b.addTest(.{
+        .name = "e2e-simple-test",
+        .root_source_file = b.path("test/evm/e2e_simple_test.zig"),
         .target = target,
         .optimize = optimize,
         .single_threaded = true,
     });
-    blake2f_test.root_module.stack_check = false;
+    e2e_simple_test.root_module.stack_check = false;
 
-    // Add module imports to BLAKE2F test
-    blake2f_test.root_module.addImport("Address", address_mod);
-    blake2f_test.root_module.addImport("Block", block_mod);
-    blake2f_test.root_module.addImport("evm", evm_mod);
-    blake2f_test.root_module.addImport("utils", utils_mod);
+    // Add module imports to E2E simple test
+    e2e_simple_test.root_module.addImport("Address", address_mod);
+    e2e_simple_test.root_module.addImport("Block", block_mod);
+    e2e_simple_test.root_module.addImport("evm", evm_mod);
+    e2e_simple_test.root_module.addImport("utils", utils_mod);
 
-    const run_blake2f_test = b.addRunArtifact(blake2f_test);
+    const run_e2e_simple_test = b.addRunArtifact(e2e_simple_test);
 
-    // Add a separate step for testing BLAKE2F
-    const blake2f_test_step = b.step("test-blake2f", "Run BLAKE2F precompile tests");
-    blake2f_test_step.dependOn(&run_blake2f_test.step);
+    // Add a separate step for testing E2E simple scenarios
+    const e2e_simple_test_step = b.step("test-e2e-simple", "Run E2E simple tests");
+    e2e_simple_test_step.dependOn(&run_e2e_simple_test.step);
+
+
+
+
+    // Add E2E Error Handling tests
+    const e2e_error_test = b.addTest(.{
+        .name = "e2e-error-test",
+        .root_source_file = b.path("test/evm/e2e_error_handling_test.zig"),
+        .target = target,
+        .optimize = optimize,
+        .single_threaded = true,
+    });
+    e2e_error_test.root_module.stack_check = false;
+
+    // Add module imports to E2E error test
+    e2e_error_test.root_module.addImport("Address", address_mod);
+    e2e_error_test.root_module.addImport("Block", block_mod);
+    e2e_error_test.root_module.addImport("evm", evm_mod);
+    e2e_error_test.root_module.addImport("utils", utils_mod);
+
+    const run_e2e_error_test = b.addRunArtifact(e2e_error_test);
+
+    // Add a separate step for testing E2E error handling
+    const e2e_error_test_step = b.step("test-e2e-error", "Run E2E error handling tests");
+    e2e_error_test_step.dependOn(&run_e2e_error_test.step);
+
+    // Add E2E Data Structures tests
+    const e2e_data_test = b.addTest(.{
+        .name = "e2e-data-test",
+        .root_source_file = b.path("test/evm/e2e_data_structures_test.zig"),
+        .target = target,
+        .optimize = optimize,
+        .single_threaded = true,
+    });
+    e2e_data_test.root_module.stack_check = false;
+
+    // Add module imports to E2E data structures test
+    e2e_data_test.root_module.addImport("Address", address_mod);
+    e2e_data_test.root_module.addImport("Block", block_mod);
+    e2e_data_test.root_module.addImport("evm", evm_mod);
+    e2e_data_test.root_module.addImport("utils", utils_mod);
+
+    const run_e2e_data_test = b.addRunArtifact(e2e_data_test);
+
+    // Add a separate step for testing E2E data structures
+    const e2e_data_test_step = b.step("test-e2e-data", "Run E2E data structures tests");
+    e2e_data_test_step.dependOn(&run_e2e_data_test.step);
+
+    // Add E2E Inheritance tests
+    const e2e_inheritance_test = b.addTest(.{
+        .name = "e2e-inheritance-test",
+        .root_source_file = b.path("test/evm/e2e_inheritance_test.zig"),
+        .target = target,
+        .optimize = optimize,
+        .single_threaded = true,
+    });
+    e2e_inheritance_test.root_module.stack_check = false;
+
+    // Add module imports to E2E inheritance test
+    e2e_inheritance_test.root_module.addImport("Address", address_mod);
+    e2e_inheritance_test.root_module.addImport("Block", block_mod);
+    e2e_inheritance_test.root_module.addImport("evm", evm_mod);
+    e2e_inheritance_test.root_module.addImport("utils", utils_mod);
+
+    const run_e2e_inheritance_test = b.addRunArtifact(e2e_inheritance_test);
+
+    // Add a separate step for testing E2E inheritance scenarios
+    const e2e_inheritance_test_step = b.step("test-e2e-inheritance", "Run E2E inheritance tests");
+    e2e_inheritance_test_step.dependOn(&run_e2e_inheritance_test.step);
+
+    // Add combined E2E test step
+    const e2e_all_test_step = b.step("test-e2e", "Run all E2E tests");
+    e2e_all_test_step.dependOn(&run_e2e_simple_test.step);
+    e2e_all_test_step.dependOn(&run_e2e_error_test.step);
+    e2e_all_test_step.dependOn(&run_e2e_data_test.step);
+    e2e_all_test_step.dependOn(&run_e2e_inheritance_test.step);
 
     // Add Memory benchmark
     const memory_benchmark = b.addExecutable(.{
@@ -728,7 +848,11 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_integration_test.step);
     test_step.dependOn(&run_gas_test.step);
     test_step.dependOn(&run_static_protection_test.step);
-    test_step.dependOn(&run_blake2f_test.step);
+    test_step.dependOn(&run_precompile_test.step);
+    test_step.dependOn(&run_ripemd160_test.step);
+    test_step.dependOn(&run_e2e_simple_test.step);
+    test_step.dependOn(&run_e2e_error_test.step);
+    test_step.dependOn(&run_e2e_data_test.step);
 
     // Define a single test step that runs all tests
     const test_all_step = b.step("test-all", "Run all unit tests");

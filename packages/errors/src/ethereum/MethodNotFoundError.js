@@ -30,8 +30,8 @@ import { BaseError } from './BaseError.js'
  *
  * @param {string} message - A human-readable error message.
  * @param {MethodNotFoundErrorParameters} [args={}] - Additional parameters for the BaseError.
- * @property {'MethodNotFound'} _tag - Same as name, used internally.
- * @property {'MethodNotFound'} name - The name of the error, used to discriminate errors.
+ * @property {string} _tag - Same as name, used internally.
+ * @property {string} name - The name of the error, used to discriminate errors.
  * @property {string} message - Human-readable error message.
  * @property {object} [meta] - Optional object containing additional information about the error.
  * @property {number} code - Error code, analogous to the code in JSON RPC error.
@@ -39,7 +39,12 @@ import { BaseError } from './BaseError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class MethodNotFoundError extends BaseError {
+	/**
+	 * The error code for MethodNotFoundError.
+	 * @type {number}
+	 */
 	static code = -32601
+
 	/**
 	 * Constructs a MethodNotFoundError.
 	 *
