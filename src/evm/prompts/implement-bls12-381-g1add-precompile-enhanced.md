@@ -1,5 +1,7 @@
 # Implement BLS12-381 G1ADD Precompile
 
+<<<<<<< HEAD
+=======
 <review>
 **Implementation Status: NOT IMPLEMENTED ❌**
 
@@ -16,6 +18,7 @@
 **Priority: LOW - Advanced cryptographic feature for specific use cases, not essential for core EVM**
 </review>
 
+>>>>>>> origin/main
 ## Git Workflow Instructions
 
 ### Branch Setup
