@@ -100,9 +100,10 @@ export const mineHandler =
 					tx !== undefined
 						? [
 								(() => {
+									const poolObj = pool.getPoolObjectByHash(tx)
 									const mempoolTx = pool.getByHash(tx)
 									pool.removeByHash(tx)
-									return mempoolTx
+									return { tx: mempoolTx, poolObj }
 								})(),
 							]
 						: await pool.txsByPriceAndNonce({
@@ -117,11 +118,29 @@ export const mineHandler =
 				 */
 				const receipts = []
 				while (index < orderedTx.length && !blockFull) {
-					const nextTx = /** @type {import('@tevm/tx').TypedTransaction}*/ (orderedTx[index])
+					let nextTx
+					let skipBalance = false
+					let skipNonce = false
+					
+					if (tx !== undefined && orderedTx[index].poolObj) {
+						// Single transaction mining - use stored flags from pool
+						nextTx = /** @type {import('@tevm/tx').TypedTransaction}*/ (orderedTx[index].tx)
+						skipBalance = orderedTx[index].poolObj.skipBalance ?? false
+						skipNonce = orderedTx[index].poolObj.skipNonce ?? false
+					} else {
+						// Batch mining - get flags from pool for each transaction
+						nextTx = /** @type {import('@tevm/tx').TypedTransaction}*/ (orderedTx[index])
+						const poolObj = pool.getPoolObjectByHash(bytesToHex(nextTx.hash()))
+						if (poolObj) {
+							skipBalance = poolObj.skipBalance ?? false
+							skipNonce = poolObj.skipNonce ?? false
+						}
+					}
+					
 					client.logger.debug(bytesToHex(nextTx.hash()), 'new tx added')
 					const txResult = await blockBuilder.addTransaction(nextTx, {
-						skipBalance: true,
-						skipNonce: true,
+						skipBalance,
+						skipNonce,
 						skipHardForkValidation: true,
 					})
 					receipts.push(txResult.receipt)
