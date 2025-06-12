@@ -9,6 +9,44 @@ You are implementing BLS12-381 G2ADD Precompile for the Tevm EVM written in Zig.
 - **Commit**: Use emoji conventional commits with XML summary format
 
 
+<review>
+**Implementation Status: NOT IMPLEMENTED ❌**
+
+**G2 vs G1 Complexity:**
+- ✅ **FOUNDATION**: G1ADD (0x0B) is completed, providing base algorithms
+- ❌ **MISSING**: G2ADD (0x0D) requires extension field (Fp2) arithmetic
+- ❌ **COMPLEXITY**: G2 operations are significantly more complex than G1
+
+**Current Status:**
+- ❌ No G2ADD implementation found in precompiles.zig
+- ❌ Address 0x0D is not registered in precompile dispatcher
+- ❌ No Fp2 (extension field) arithmetic implementation
+- ❌ Missing G2 point validation and curve operations
+
+**Technical Challenges:**
+- 🔴 **EXTENSION FIELDS**: Requires Fp2 arithmetic (complex numbers over finite fields)
+- 🔴 **POINT VALIDATION**: G2 points must be validated for curve membership and subgroup
+- 🔴 **LARGER INPUTS**: G2 points are 512 bytes vs G1's 256 bytes
+- 🔴 **CRYPTO COMPLEXITY**: More complex than G1 operations
+
+**Implementation Requirements:**
+- Extension field Fp2 arithmetic implementation
+- G2 curve equation validation
+- Subgroup membership checking
+- Fixed gas cost of 800 (vs 375 for G1ADD)
+- 512-byte input/output handling
+
+**Priority Assessment:**
+- 🟡 **MEDIUM**: Important for complete BLS12-381 support
+- 🟡 **POST-G1**: Should be implemented after G1 operations are solid
+- 🟡 **CRYPTO-EXPERT**: Requires deep cryptographic knowledge
+
+**Dependencies:**
+- ✅ G1ADD complete (good reference implementation)
+- ❌ Needs extension field arithmetic
+- ❌ Requires comprehensive test vectors
+</review>
+
 ## Context
 
 Implement the BLS12-381 G2 addition precompile (address 0x0D) as defined in EIP-2537. This precompile performs point addition operations on the G2 group of the BLS12-381 elliptic curve, which operates over an extension field and is essential for BLS signature verification.
