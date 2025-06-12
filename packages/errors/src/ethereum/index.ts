@@ -1,6 +1,7 @@
 export { AccountLockedError, type AccountLockedErrorParameters } from './AccountLockedError.js'
 export { BaseError, type BaseErrorParameters } from './BaseError.js'
 export { BlockGasLimitExceededError, type BlockGasLimitExceededErrorParameters } from './BlockGasLimitExceededError.js'
+export { BlobGasLimitExceededError, type BlobGasLimitExceededErrorParameters } from './BlobGasLimitExceededError.js'
 export { ChainIdMismatchError, type ChainIdMismatchErrorParameters } from './ChainIdMismatchError.js'
 export {
 	ContractExecutionFailedError,

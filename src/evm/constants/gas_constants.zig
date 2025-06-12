@@ -286,6 +286,14 @@ pub const SHA256_BASE_COST: u64 = 60;
 /// Total cost = SHA256_BASE_COST + (word_count * SHA256_WORD_COST)
 pub const SHA256_WORD_COST: u64 = 12;
 
+/// Base gas cost for RIPEMD160 precompile (address 0x03)
+/// Minimum cost regardless of input size
+pub const RIPEMD160_BASE_COST: u64 = 600;
+
+/// Gas cost per 32-byte word for RIPEMD160 precompile
+/// Total cost = RIPEMD160_BASE_COST + (word_count * RIPEMD160_WORD_COST)
+pub const RIPEMD160_WORD_COST: u64 = 120;
+
 /// Base gas cost for ECRECOVER precompile (address 0x01)
 /// Fixed cost for elliptic curve signature recovery
 pub const ECRECOVER_COST: u64 = 3000;
@@ -304,14 +312,6 @@ pub const MODEXP_QUADRATIC_THRESHOLD: usize = 64;
 /// Threshold for linear complexity in MODEXP gas calculation
 /// Inputs between quadratic and linear thresholds use optimized formula
 pub const MODEXP_LINEAR_THRESHOLD: usize = 1024;
-
-// ============================================================================
-// BLS12-381 Precompile Costs (EIP-2537)
-// ============================================================================
-
-/// Gas cost for BLS12-381 G1ADD precompile (address 0x0B)
-/// Fixed cost for elliptic curve point addition on the BLS12-381 G1 group
-pub const BLS12_381_G1ADD_COST: u64 = 375;
 
 // ============================================================================
 // Call Operation Gas Constants (EIP-150 & EIP-2929)

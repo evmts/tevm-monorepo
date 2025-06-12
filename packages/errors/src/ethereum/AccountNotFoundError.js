@@ -29,8 +29,8 @@ import { ResourceNotFoundError } from './ResourceNotFoundError.js'
  *
  * @param {string} message - A human-readable error message.
  * @param {AccountNotFoundErrorParameters} [args={}] - Additional parameters for the ResourceNotFoundError.
- * @property {'AccountNotFoundError'} _tag - Same as name, used internally.
- * @property {'AccountNotFoundError'} name - The name of the error, used to discriminate errors.
+ * @property {string} _tag - Same as name, used internally.
+ * @property {string} name - The name of the error, used to discriminate errors.
  * @property {string} message - Human-readable error message.
  * @property {object} [meta] - Optional object containing additional information about the error.
  * @property {number} code - Error code, analogous to the code in JSON RPC error.
@@ -43,9 +43,9 @@ export class AccountNotFoundError extends ResourceNotFoundError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {AccountNotFoundErrorParameters} [args={}] - Additional parameters for the ResourceNotFoundError.
-	 * @param {string} [tag='AccountNotFoundError'] - The tag for the error.
+	 * @param {string} [tag='AccountNotFound'] - The tag for the error.
 	 */
-	constructor(message, args = {}, tag = 'AccountNotFoundError') {
+	constructor(message, args = {}, tag = 'AccountNotFound') {
 		super(
 			message,
 			{

@@ -36,8 +36,8 @@ import { BaseError } from './BaseError.js'
  *
  * @param {string} message - A human-readable error message.
  * @param {InternalErrorParameters} [args={}] - Additional parameters for the BaseError.
- * @property {'InternalError'} _tag - Same as name, used internally.
- * @property {'InternalError'} name - The name of the error, used to discriminate errors.
+ * @property {string} _tag - Same as name, used internally.
+ * @property {string} name - The name of the error, used to discriminate errors.
  * @property {string} message - Human-readable error message.
  * @property {object} [meta] - Optional object containing additional information about the error.
  * @property {number} code - Error code (-32603), standard JSON-RPC error code for internal errors.
@@ -70,8 +70,6 @@ export class InternalError extends BaseError {
 			InternalError.code,
 		)
 
-		this.name = 'InternalError'
-		this._tag = 'InternalError'
 		this.meta = args.meta
 	}
 }
