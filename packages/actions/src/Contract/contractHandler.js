@@ -1,6 +1,7 @@
 import { createAddress } from '@tevm/address'
 import { DecodeFunctionDataError, InvalidRequestError, RevertError } from '@tevm/errors'
-import { decodeErrorResult, decodeFunctionResult, encodeFunctionData, isHex } from '@tevm/utils'
+import { decodeFunctionResult, encodeFunctionData, isHex } from '@tevm/utils'
+import { RawContractError, getContractError } from 'viem'
 import { callHandler } from '../Call/callHandler.js'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 import { validateContractParams } from './validateContractParams.js'
@@ -103,26 +104,27 @@ export const contractHandler =
 
 		if (result.errors && result.errors.length > 0) {
 			result.errors = result.errors.map((err) => {
-				if (isHex(err.message) && err instanceof RevertError) {
+				if (isHex(result.rawData) && err instanceof RevertError) {
 					client.logger.debug(err, 'contractHandler: Contract revert error. Decoding the error')
-					/**
-					 * @type {undefined |ReturnType<typeof decodeErrorResult>}
-					 */
-					let decodedError = undefined
 					try {
-						decodedError = decodeErrorResult(
-							/** @type {any} */ ({
-								abi: params.abi,
-								data: err.message,
-								functionName: params.functionName,
-							}),
-						)
-						const message = `Revert: ${decodedError?.errorName ?? `There was a revert with no revert message ${err.message}`}`
+						if (!params.functionName) throw err // we can't decode the error so we'll just return the raw data
+						// Create a raw contract error in a format friendly to getContractError, which will also create a sensible causality chain
+						const rawContractError = new RawContractError({ data: result.rawData })
+						const contractError = getContractError(rawContractError, {
+							abi: /** @type {import('@tevm/utils').Abi} */ (params.abi),
+							args: params.args,
+							address: params.to,
+							docsPath: err.docsPath,
+							functionName: params.functionName,
+							sender: params.caller ?? params.origin,
+						})
+
+						const message = contractError.message
 						client.logger.debug(err, message)
-						return new RevertError(message, { cause: err })
+						return new RevertError(message, { cause: contractError })
 					} catch (e) {
 						client.logger.debug(e, 'There was an error decoding error result')
-						return err
+						return new RevertError(err.message, { cause: err, raw: result.rawData })
 					}
 				}
 				return err

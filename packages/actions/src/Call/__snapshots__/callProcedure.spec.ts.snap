@@ -40,3 +40,54 @@ Docs: https://tevm.sh/reference/tevm/errors/classes/invalidtoerror/
 Version: 1.1.0.next-73",
 }
 `;
+
+exports[`callProcedure > should handle errors with a revert 1`] = `
+{
+  "code": 3,
+  "data": {
+    "data": "0x",
+    "errors": [
+      "revert
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
+Details: {"error":"revert","errorType":"EVMError"}
+Version: 1.1.0.next-73",
+    ],
+  },
+  "message": "execution reverted",
+}
+`;
+
+exports[`callProcedure > should handle errors with a revert custom error 1`] = `
+{
+  "code": 3,
+  "data": {
+    "data": "0xc2bb947c",
+    "errors": [
+      "revert
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
+Details: {"error":"revert","errorType":"EVMError"}
+Version: 1.1.0.next-73",
+    ],
+  },
+  "message": "execution reverted: custom error 0xc2bb947c",
+}
+`;
+
+exports[`callProcedure > should handle errors with a revert message 1`] = `
+{
+  "code": 3,
+  "data": {
+    "data": "0x08c379a00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001b52657175697265206661696c65642077697468206d6573736167650000000000",
+    "errors": [
+      "revert
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
+Details: {"error":"revert","errorType":"EVMError"}
+Version: 1.1.0.next-73",
+    ],
+  },
+  "message": "execution reverted: Require failed with message",
+}
+`;

@@ -1,4 +1,6 @@
+import { RevertError } from '@tevm/errors'
 import { hexToBigInt, numberToHex } from '@tevm/utils'
+import { decodeRevertReason } from '../internal/decodeRevertReason.js'
 import { parseBlockTag } from '../utils/parseBlockTag.js'
 import { callHandler } from './callHandler.js'
 
@@ -65,11 +67,18 @@ export const callProcedure = (client) => async (request) => {
 	})
 	if (errors.length > 0) {
 		const error = /** @type {import('./TevmCallError.js').TevmCallError}*/ (errors[0])
+
+		// Decode the reason if it's a revert
+		let message = error.message
+		if (error.code === RevertError.code) {
+			message = decodeRevertReason(result.rawData)
+		}
+
 		return {
 			jsonrpc: '2.0',
 			error: {
 				code: error.code,
-				message: error.message,
+				message,
 				data: {
 					data: result.rawData,
 					errors: errors.map(({ message }) => message),
