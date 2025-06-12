@@ -1,5 +1,40 @@
 import { describe, expect, it } from 'vitest'
 import {
+	AccountLockedError,
+	AccountNotFoundError,
+	BlockGasLimitExceededError,
+	ChainIdMismatchError,
+	ContractExecutionFailedError,
+	ExecutionError,
+	GasLimitExceededError,
+	InsufficientFundsError,
+	InsufficientPermissionsError,
+	InternalError,
+	InvalidAddressError,
+	InvalidGasPriceError,
+	InvalidParamsError,
+	InvalidRequestError,
+	InvalidSignatureError,
+	InvalidTransactionError,
+	LimitExceededError,
+	MethodNotFoundError,
+	MethodNotSupportedError,
+	NonceAlreadyUsedError,
+	NonceTooHighError,
+	NonceTooLowError,
+	ParseError,
+	PendingTransactionTimeoutError,
+	RateLimitExceededError,
+	ResourceNotFoundError,
+	ResourceUnavailableError,
+	RevertError,
+	TransactionRejectedError,
+	TransactionTooLargeError,
+	TransactionUnderpricedError,
+	UnknownBlockError,
+	UnsupportedChainError,
+} from './ethereum/index.js'
+import {
 	InternalRpcError,
 	InvalidInputRpcError,
 	InvalidParamsRpcError,
@@ -50,6 +85,48 @@ describe('RPC Error Classes', () => {
 
 		// Test each error instance with a snapshot
 		rpcErrors.forEach((error) => {
+			expect(error).toMatchSnapshot(error.constructor.name)
+		})
+	})
+
+	it('should create proper instances of Tevm RPC errors', () => {
+		const tevmErrors = [
+			new AccountLockedError('Account locked'),
+			new AccountNotFoundError('Account not found'),
+			new BlockGasLimitExceededError('Block gas limit exceeded'),
+			new ChainIdMismatchError('Chain ID mismatch'),
+			new ContractExecutionFailedError('Contract execution failed'),
+			new ExecutionError('Execution error'),
+			new GasLimitExceededError('Gas limit exceeded'),
+			new InsufficientFundsError('Insufficient funds'),
+			new InsufficientPermissionsError('Insufficient permissions'),
+			new InternalError('Internal error'),
+			new InvalidAddressError('Invalid address'),
+			new InvalidGasPriceError('Invalid gas price'),
+			new InvalidParamsError('Invalid params'),
+			new InvalidRequestError('Invalid request'),
+			new InvalidSignatureError('Invalid signature'),
+			new InvalidTransactionError('Invalid transaction'),
+			new LimitExceededError('Limit exceeded'),
+			new MethodNotFoundError('Method not found'),
+			new MethodNotSupportedError('Method not supported'),
+			new NonceAlreadyUsedError('Nonce already used'),
+			new NonceTooHighError('Nonce too high'),
+			new NonceTooLowError('Nonce too low'),
+			new ParseError('Parse error'),
+			new PendingTransactionTimeoutError('Pending transaction timeout'),
+			new RateLimitExceededError('Rate limit exceeded'),
+			new ResourceNotFoundError('Resource not found'),
+			new ResourceUnavailableError('Resource unavailable'),
+			new RevertError('Revert error'),
+			new TransactionRejectedError('Transaction rejected'),
+			new TransactionTooLargeError('Transaction too large'),
+			new TransactionUnderpricedError('Transaction underpriced'),
+			new UnknownBlockError('Unknown block'),
+			new UnsupportedChainError('Unsupported chain'),
+		]
+
+		tevmErrors.forEach((error) => {
 			expect(error).toMatchSnapshot(error.constructor.name)
 		})
 	})

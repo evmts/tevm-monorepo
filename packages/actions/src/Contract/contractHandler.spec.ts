@@ -392,9 +392,9 @@ describe('contractHandler', () => {
 
 		expect(result.errors).toBeDefined()
 		expect(result.errors?.length).toBe(1)
-		expect(result.errors?.[0]?.name).toBe('RevertError')
+		expect(result.errors?.[0]?.name).toBe('Revert')
 		expect(result.errors?.[0]).toMatchInlineSnapshot(`
-			[RevertError: revert
+			[Revert: revert
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
 			Details: {"error":"revert","errorType":"EVMError"}
