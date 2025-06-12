@@ -286,6 +286,14 @@ pub const SHA256_BASE_COST: u64 = 60;
 /// Total cost = SHA256_BASE_COST + (word_count * SHA256_WORD_COST)
 pub const SHA256_WORD_COST: u64 = 12;
 
+/// Base gas cost for RIPEMD160 precompile (address 0x03)
+/// Minimum cost regardless of input size
+pub const RIPEMD160_BASE_COST: u64 = 600;
+
+/// Gas cost per 32-byte word for RIPEMD160 precompile
+/// Total cost = RIPEMD160_BASE_COST + (word_count * RIPEMD160_WORD_COST)
+pub const RIPEMD160_WORD_COST: u64 = 120;
+
 /// Base gas cost for ECRECOVER precompile (address 0x01)
 /// Fixed cost for elliptic curve signature recovery
 pub const ECRECOVER_COST: u64 = 3000;
