@@ -1,5 +1,9 @@
 # Implement Account Status Tracking
 
+<<<<<<< HEAD
+You are implementing Account Status Tracking for the Tevm EVM written in Zig. Your goal is to implement comprehensive account status tracking system following Ethereum specifications and maintaining compatibility with existing implementations.
+
+=======
 <review>
 **Implementation Status: PARTIALLY IMPLEMENTED 🟡**
 
@@ -18,6 +22,7 @@
 
 You are implementing Account Status Tracking for the Tevm EVM written in Zig. Your goal is to implement comprehensive account status tracking system following Ethereum specifications and maintaining compatibility with existing implementations.
 
+>>>>>>> origin/main
 ## Development Workflow
 - **Branch**: `feat_implement_account_status_tracking` (snake_case)
 - **Worktree**: `git worktree add g/feat_implement_account_status_tracking feat_implement_account_status_tracking`

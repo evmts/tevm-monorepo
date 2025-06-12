@@ -1,5 +1,9 @@
 # Implement Async Database Support
 
+<<<<<<< HEAD
+You are implementing Async Database Support for the Tevm EVM written in Zig. Your goal is to implement asynchronous database interface for state operations following Ethereum specifications and maintaining compatibility with existing implementations.
+
+=======
 <review>
 **Implementation Status: NOT IMPLEMENTED ❌**
 
@@ -18,6 +22,7 @@
 
 You are implementing Async Database Support for the Tevm EVM written in Zig. Your goal is to implement asynchronous database interface for state operations following Ethereum specifications and maintaining compatibility with existing implementations.
 
+>>>>>>> origin/main
 ## Development Workflow
 - **Branch**: `feat_implement_async_database_support` (snake_case)
 - **Worktree**: `git worktree add g/feat_implement_async_database_support feat_implement_async_database_support`

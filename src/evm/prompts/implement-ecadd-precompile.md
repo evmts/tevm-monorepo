@@ -1,5 +1,9 @@
 # Implement ECADD Precompile
 
+<<<<<<< HEAD
+You are implementing ECADD Precompile for the Tevm EVM written in Zig. Your goal is to implement elliptic curve addition precompile for secp256k1 following Ethereum specifications and maintaining compatibility with existing implementations.
+
+=======
 <review>
 **Implementation Status: NOT IMPLEMENTED ❌ - INCORRECT PREVIOUS STATUS**
 
@@ -41,6 +45,7 @@
 
 You are implementing ECADD Precompile for the Tevm EVM written in Zig. Your goal is to implement elliptic curve addition precompile for secp256k1 following Ethereum specifications and maintaining compatibility with existing implementations.
 
+>>>>>>> origin/main
 ## Development Workflow
 - **Branch**: `feat_implement_ecadd_precompile` (snake_case)
 - **Worktree**: `git worktree add g/feat_implement_ecadd_precompile feat_implement_ecadd_precompile`
