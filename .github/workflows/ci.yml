@@ -22,12 +22,14 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
+          submodules: "recursive"
 
       - uses: actions/checkout@v4
         name: Checkout [Default Branch]
         if: ${{ github.event_name != 'pull_request' }}
         with:
           fetch-depth: 0
+          submodules: "recursive"
 
       - name: "Setup"
         id: setup
