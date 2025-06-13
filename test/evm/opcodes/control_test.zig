@@ -102,29 +102,29 @@ test "Control: JUMPI conditional jump" {
     defer test_frame.deinit();
 
     // Test 1: Jump when condition is non-zero
-    // JUMPI expects stack: [condition, destination] with destination on top
-    try test_frame.pushStack(&[_]u256{ 1, 5 }); // condition=1, destination=5
+    // JUMPI expects stack: [..., condition, destination] with destination on top
+    try test_frame.pushStack(&[_]u256{ 1, 5 }); // condition=1, destination=5 (on top)
     _ = try helpers.executeOpcode(0x57, test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 5), test_frame.frame.pc);
     try testing.expectEqual(@as(usize, 0), test_frame.stackSize());
 
     // Test 2: No jump when condition is zero
     test_frame.frame.pc = 0; // Reset PC
-    try test_frame.pushStack(&[_]u256{ 0, 5 }); // condition=0, destination=5
+    try test_frame.pushStack(&[_]u256{ 0, 5 }); // condition=0, destination=5 (on top)
     _ = try helpers.executeOpcode(0x57, test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 0), test_frame.frame.pc); // PC unchanged
     try testing.expectEqual(@as(usize, 0), test_frame.stackSize());
 
     // Test 3: Invalid jump with non-zero condition
     test_frame.frame.pc = 0;
-    try test_frame.pushStack(&[_]u256{ 1, 3 }); // condition=1, destination=3 (not JUMPDEST)
+    try test_frame.pushStack(&[_]u256{ 1, 3 }); // condition=1, destination=3 (not JUMPDEST, on top)
     const result = helpers.executeOpcode(0x57, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.InvalidJump, result);
 
     // Test 4: Invalid destination is OK if condition is zero
     test_frame.frame.stack.clear();
     test_frame.frame.pc = 0;
-    try test_frame.pushStack(&[_]u256{ 0, 3 }); // condition=0, destination=3 (invalid)
+    try test_frame.pushStack(&[_]u256{ 0, 3 }); // condition=0, destination=3 (invalid, on top)
     _ = try helpers.executeOpcode(0x57, test_vm.vm, test_frame.frame);
     try testing.expectEqual(@as(usize, 0), test_frame.frame.pc); // No jump occurred
 }
@@ -218,7 +218,7 @@ test "Control: RETURN with data" {
     // Test 1: Return with data
     const test_data = [_]u8{ 0xde, 0xad, 0xbe, 0xef };
     try test_frame.setMemory(10, &test_data);
-    try test_frame.pushStack(&[_]u256{ 10, 4 }); // offset=10, size=4
+    try test_frame.pushStack(&[_]u256{ 4, 10 }); // size=4, offset=10 (on top)
 
     const result = helpers.executeOpcode(0xF3, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.STOP, result); // RETURN uses STOP error
@@ -229,7 +229,7 @@ test "Control: RETURN with data" {
     // Test 2: Return with zero size
     test_frame.frame.stack.clear();
     try test_frame.frame.return_data.set(&[_]u8{ 1, 2, 3 }); // Set some existing data
-    try test_frame.pushStack(&[_]u256{ 0, 0 }); // offset=0, size=0
+    try test_frame.pushStack(&[_]u256{ 0, 0 }); // size=0, offset=0 (on top)
 
     const result2 = helpers.executeOpcode(0xF3, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.STOP, result2);
@@ -268,7 +268,7 @@ test "Control: REVERT with data" {
     // Test 1: Revert with data
     const test_data = [_]u8{ 0x08, 0xc3, 0x79, 0xa0 }; // Common revert signature
     try test_frame.setMemory(0, &test_data);
-    try test_frame.pushStack(&[_]u256{ 0, 4 }); // offset=0, size=4
+    try test_frame.pushStack(&[_]u256{ 4, 0 }); // size=4, offset=0 (on top)
 
     const result = helpers.executeOpcode(0xFD, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.REVERT, result);
@@ -278,7 +278,7 @@ test "Control: REVERT with data" {
 
     // Test 2: Revert with zero size
     test_frame.frame.stack.clear();
-    try test_frame.pushStack(&[_]u256{ 0, 0 }); // offset=0, size=0
+    try test_frame.pushStack(&[_]u256{ 0, 0 }); // size=0, offset=0 (on top)
 
     const result2 = helpers.executeOpcode(0xFD, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.REVERT, result2);
@@ -286,7 +286,7 @@ test "Control: REVERT with data" {
 
     // Test 3: Revert with out of bounds offset
     test_frame.frame.stack.clear();
-    try test_frame.pushStack(&[_]u256{ std.math.maxInt(u256), 32 });
+    try test_frame.pushStack(&[_]u256{ 32, std.math.maxInt(u256) }); // size=32, offset=maxInt (on top)
 
     const result3 = helpers.executeOpcode(0xFD, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.OutOfOffset, result3);

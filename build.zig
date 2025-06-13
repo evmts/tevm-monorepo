@@ -105,6 +105,9 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     compiler_mod.addImport("zabi", zabi_dep.module("zabi"));
+    
+    // Add include path to the compiler module itself so C imports work
+    compiler_mod.addIncludePath(b.path("include"));
 
     // Create a separate compiler module for WASM without problematic dependencies
     const compiler_wasm_mod = b.createModule(.{
@@ -186,17 +189,16 @@ pub fn build(b: *std.Build) void {
     exe_mod.stack_check = false;
     exe_mod.single_threaded = true;
 
-    // Create WASM module with minimal WASM-specific source
+    // Create WASM module with crypto-focused WASM source
     const wasm_mod = b.createModule(.{
-        .root_source_file = b.path("src/root_wasm_minimal.zig"),
+        .root_source_file = b.path("src/root_wasm_crypto.zig"),
         .target = wasm_target,
         .optimize = .ReleaseSmall,
     });
     wasm_mod.stack_check = false;
     wasm_mod.single_threaded = true;
 
-    // Don't add dependencies for minimal WASM build
-    // We'll add them back once we fix the platform-specific issues
+    // No complex dependencies for crypto-focused build
 
     // Modules can depend on one another using the `std.Build.Module.addImport` function.
     exe_mod.addImport("zigevm", target_architecture_mod);
@@ -568,6 +570,163 @@ pub fn build(b: *std.Build) void {
     const integration_test_step = b.step("test-integration", "Run Integration tests");
     integration_test_step.dependOn(&run_integration_test.step);
 
+    // Add debug CREATE test
+    const debug_test = b.addExecutable(.{
+        .name = "debug-test",
+        .root_source_file = b.path("debug_create_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    debug_test.root_module.addImport("evm", evm_mod);
+    debug_test.root_module.addImport("Address", address_mod);
+    debug_test.root_module.stack_check = false;
+    debug_test.root_module.single_threaded = true;
+
+    const run_debug_test = b.addRunArtifact(debug_test);
+    const debug_test_step = b.step("test-debug", "Run debug CREATE test");
+    debug_test_step.dependOn(&run_debug_test.step);
+
+    // Add simple debug CREATE test
+    const debug_simple_test = b.addExecutable(.{
+        .name = "debug-simple-test",
+        .root_source_file = b.path("debug_create_simple.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    debug_simple_test.root_module.addImport("evm", evm_mod);
+    debug_simple_test.root_module.addImport("Address", address_mod);
+    debug_simple_test.root_module.stack_check = false;
+    debug_simple_test.root_module.single_threaded = true;
+
+    const run_debug_simple_test = b.addRunArtifact(debug_simple_test);
+    const debug_simple_test_step = b.step("test-debug-simple", "Run simple debug CREATE test");
+    debug_simple_test_step.dependOn(&run_debug_simple_test.step);
+
+    // Add TenThousandHashes debug test
+    const debug_tenhashes_test = b.addExecutable(.{
+        .name = "debug-tenhashes-test",
+        .root_source_file = b.path("debug_tenthousandhashes_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    debug_tenhashes_test.root_module.addImport("evm", evm_mod);
+    debug_tenhashes_test.root_module.addImport("Address", address_mod);
+    debug_tenhashes_test.root_module.stack_check = false;
+    debug_tenhashes_test.root_module.single_threaded = true;
+
+    const run_debug_tenhashes_test = b.addRunArtifact(debug_tenhashes_test);
+    const debug_tenhashes_test_step = b.step("test-debug-tenhashes", "Run TenThousandHashes debug CREATE test");
+    debug_tenhashes_test_step.dependOn(&run_debug_tenhashes_test.step);
+
+    // Add bytecode analysis tool
+    const debug_bytecode_analysis = b.addExecutable(.{
+        .name = "debug-bytecode-analysis",
+        .root_source_file = b.path("debug_bytecode_analysis.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    const run_debug_bytecode_analysis = b.addRunArtifact(debug_bytecode_analysis);
+    const debug_bytecode_analysis_step = b.step("analyze-bytecode", "Analyze TenThousandHashes bytecode structure");
+    debug_bytecode_analysis_step.dependOn(&run_debug_bytecode_analysis.step);
+
+    // Add stack bug test
+    const test_stack_bug = b.addExecutable(.{
+        .name = "test-stack-bug",
+        .root_source_file = b.path("test_stack_bug.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    test_stack_bug.root_module.addImport("evm", evm_mod);
+    test_stack_bug.root_module.addImport("Address", address_mod);
+    test_stack_bug.root_module.stack_check = false;
+    test_stack_bug.root_module.single_threaded = true;
+
+    const run_test_stack_bug = b.addRunArtifact(test_stack_bug);
+    const test_stack_bug_step = b.step("test-stack-bug", "Test the corrected constructor");
+    test_stack_bug_step.dependOn(&run_test_stack_bug.step);
+
+    // Add RETURN opcode debug test
+    const debug_return_opcode = b.addExecutable(.{
+        .name = "debug-return-opcode",
+        .root_source_file = b.path("debug_return_opcode.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    debug_return_opcode.root_module.addImport("evm", evm_mod);
+    debug_return_opcode.root_module.addImport("Address", address_mod);
+    debug_return_opcode.root_module.stack_check = false;
+    debug_return_opcode.root_module.single_threaded = true;
+
+    const run_debug_return_opcode = b.addRunArtifact(debug_return_opcode);
+    const debug_return_opcode_step = b.step("test-return-opcode", "Test RETURN opcode implementation");
+    debug_return_opcode_step.dependOn(&run_debug_return_opcode.step);
+
+    // Add RETURN data debug test
+    const debug_return_data = b.addExecutable(.{
+        .name = "debug-return-data",
+        .root_source_file = b.path("debug_return_data.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    debug_return_data.root_module.addImport("evm", evm_mod);
+    debug_return_data.root_module.addImport("Address", address_mod);
+    debug_return_data.root_module.stack_check = false;
+    debug_return_data.root_module.single_threaded = true;
+
+    const run_debug_return_data = b.addRunArtifact(debug_return_data);
+    const debug_return_data_step = b.step("test-return-data", "Test RETURN data handling");
+    debug_return_data_step.dependOn(&run_debug_return_data.step);
+
+    // Add simple CREATE debug executable with logging
+    const debug_create_simple_with_logging = b.addExecutable(.{
+        .name = "debug-create-simple-with-logging",
+        .root_source_file = b.path("debug_create_simple_with_logging.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    debug_create_simple_with_logging.root_module.addImport("evm", evm_mod);
+    debug_create_simple_with_logging.root_module.addImport("Address", address_mod);
+    debug_create_simple_with_logging.root_module.stack_check = false;
+    debug_create_simple_with_logging.root_module.single_threaded = true;
+
+    const run_debug_create_simple_with_logging = b.addRunArtifact(debug_create_simple_with_logging);
+    const debug_create_simple_with_logging_step = b.step("debug-create-simple-logging", "Debug simple CREATE with logging");
+    debug_create_simple_with_logging_step.dependOn(&run_debug_create_simple_with_logging.step);
+
+    // Add TenThousandHashes CREATE debug executable
+    const debug_tenhashes_detailed = b.addExecutable(.{
+        .name = "debug-tenhashes-detailed",
+        .root_source_file = b.path("debug_tenhashes_detailed.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    debug_tenhashes_detailed.root_module.addImport("evm", evm_mod);
+    debug_tenhashes_detailed.root_module.addImport("Address", address_mod);
+    debug_tenhashes_detailed.root_module.stack_check = false;
+    debug_tenhashes_detailed.root_module.single_threaded = true;
+
+    const run_debug_tenhashes_detailed = b.addRunArtifact(debug_tenhashes_detailed);
+    const debug_tenhashes_detailed_step = b.step("debug-tenhashes-detailed", "Debug TenThousandHashes CREATE with detailed logging");
+    debug_tenhashes_detailed_step.dependOn(&run_debug_tenhashes_detailed.step);
+
+    // Add function selector debug tool
+    const debug_function_selector = b.addExecutable(.{
+        .name = "debug-function-selector",
+        .root_source_file = b.path("debug_function_selector.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    debug_function_selector.root_module.addImport("evm", evm_mod);
+    debug_function_selector.root_module.addImport("Address", address_mod);
+    debug_function_selector.root_module.addImport("Compiler", compiler_mod);
+    debug_function_selector.root_module.stack_check = false;
+    debug_function_selector.root_module.single_threaded = true;
+
+    const run_debug_function_selector = b.addRunArtifact(debug_function_selector);
+    const debug_function_selector_step = b.step("debug-function-selector", "Debug function selector calculation");
+    debug_function_selector_step.dependOn(&run_debug_function_selector.step);
+
     // Add Gas Accounting tests
     const gas_test = b.addTest(.{
         .name = "gas-test",
@@ -613,14 +772,36 @@ pub fn build(b: *std.Build) void {
     const static_protection_test_step = b.step("test-static-protection", "Run Static Call Protection tests");
     static_protection_test_step.dependOn(&run_static_protection_test.step);
 
+    // Add CREATE Contract tests
+    const create_contract_test = b.addTest(.{
+        .name = "create-contract-test",
+        .root_source_file = b.path("test/evm/create_contract_test.zig"),
+        .target = target,
+        .optimize = optimize,
+        .single_threaded = true,
+    });
+    create_contract_test.root_module.stack_check = false;
+
+    // Add module imports to create contract test
+    create_contract_test.root_module.addImport("Address", address_mod);
+    create_contract_test.root_module.addImport("Block", block_mod);
+    create_contract_test.root_module.addImport("evm", evm_mod);
+    create_contract_test.root_module.addImport("utils", utils_mod);
+
+    const run_create_contract_test = b.addRunArtifact(create_contract_test);
+
+    // Add a separate step for testing CREATE contracts
+    const create_contract_test_step = b.step("test-create-contract", "Run CREATE contract tests");
+    create_contract_test_step.dependOn(&run_create_contract_test.step);
+
     // Add Precompile tests
     const precompile_test = b.addTest(.{
         .name = "precompile-test",
         .root_source_file = b.path("test/evm/precompiles/sha256_test.zig"),
         .target = target,
         .optimize = optimize,
+        .single_threaded = true,
     });
-
     precompile_test.root_module.stack_check = false;
 
     // Add module imports to precompile test
@@ -631,129 +812,31 @@ pub fn build(b: *std.Build) void {
 
     const run_precompile_test = b.addRunArtifact(precompile_test);
 
-    // Add a separate step for testing Precompiles
-    const precompile_test_step = b.step("test-precompiles", "Run Precompile tests");
+    // Add a separate step for testing precompiles
+    const precompile_test_step = b.step("test-precompiles", "Run precompile tests");
     precompile_test_step.dependOn(&run_precompile_test.step);
 
-    // Add RIPEMD160 precompile tests
-    const ripemd160_test = b.addTest(.{
-        .name = "ripemd160-test",
-        .root_source_file = b.path("test/evm/precompiles/ripemd160_test.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    ripemd160_test.root_module.stack_check = false;
-
-    // Add module imports to RIPEMD160 test
-    ripemd160_test.root_module.addImport("Address", address_mod);
-    ripemd160_test.root_module.addImport("Block", block_mod);
-    ripemd160_test.root_module.addImport("evm", evm_mod);
-    ripemd160_test.root_module.addImport("utils", utils_mod);
-
-    const run_ripemd160_test = b.addRunArtifact(ripemd160_test);
-
-    // Add a separate step for testing RIPEMD160 precompile
-    const ripemd160_test_step = b.step("test-ripemd160", "Run RIPEMD160 precompile tests");
-    ripemd160_test_step.dependOn(&run_ripemd160_test.step);
-
-    // Add E2E Simple tests  
-    const e2e_simple_test = b.addTest(.{
-        .name = "e2e-simple-test",
-        .root_source_file = b.path("test/evm/e2e_simple_test.zig"),
+    // Add BLAKE2F precompile tests
+    const blake2f_test = b.addTest(.{
+        .name = "blake2f-test",
+        .root_source_file = b.path("test/evm/precompiles/blake2f_test.zig"),
         .target = target,
         .optimize = optimize,
         .single_threaded = true,
     });
-    e2e_simple_test.root_module.stack_check = false;
+    blake2f_test.root_module.stack_check = false;
 
-    // Add module imports to E2E simple test
-    e2e_simple_test.root_module.addImport("Address", address_mod);
-    e2e_simple_test.root_module.addImport("Block", block_mod);
-    e2e_simple_test.root_module.addImport("evm", evm_mod);
-    e2e_simple_test.root_module.addImport("utils", utils_mod);
+    // Add module imports to BLAKE2F test
+    blake2f_test.root_module.addImport("Address", address_mod);
+    blake2f_test.root_module.addImport("Block", block_mod);
+    blake2f_test.root_module.addImport("evm", evm_mod);
+    blake2f_test.root_module.addImport("utils", utils_mod);
 
-    const run_e2e_simple_test = b.addRunArtifact(e2e_simple_test);
+    const run_blake2f_test = b.addRunArtifact(blake2f_test);
 
-    // Add a separate step for testing E2E simple scenarios
-    const e2e_simple_test_step = b.step("test-e2e-simple", "Run E2E simple tests");
-    e2e_simple_test_step.dependOn(&run_e2e_simple_test.step);
-
-
-
-
-    // Add E2E Error Handling tests
-    const e2e_error_test = b.addTest(.{
-        .name = "e2e-error-test",
-        .root_source_file = b.path("test/evm/e2e_error_handling_test.zig"),
-        .target = target,
-        .optimize = optimize,
-        .single_threaded = true,
-    });
-    e2e_error_test.root_module.stack_check = false;
-
-    // Add module imports to E2E error test
-    e2e_error_test.root_module.addImport("Address", address_mod);
-    e2e_error_test.root_module.addImport("Block", block_mod);
-    e2e_error_test.root_module.addImport("evm", evm_mod);
-    e2e_error_test.root_module.addImport("utils", utils_mod);
-
-    const run_e2e_error_test = b.addRunArtifact(e2e_error_test);
-
-    // Add a separate step for testing E2E error handling
-    const e2e_error_test_step = b.step("test-e2e-error", "Run E2E error handling tests");
-    e2e_error_test_step.dependOn(&run_e2e_error_test.step);
-
-    // Add E2E Data Structures tests
-    const e2e_data_test = b.addTest(.{
-        .name = "e2e-data-test",
-        .root_source_file = b.path("test/evm/e2e_data_structures_test.zig"),
-        .target = target,
-        .optimize = optimize,
-        .single_threaded = true,
-    });
-    e2e_data_test.root_module.stack_check = false;
-
-    // Add module imports to E2E data structures test
-    e2e_data_test.root_module.addImport("Address", address_mod);
-    e2e_data_test.root_module.addImport("Block", block_mod);
-    e2e_data_test.root_module.addImport("evm", evm_mod);
-    e2e_data_test.root_module.addImport("utils", utils_mod);
-
-    const run_e2e_data_test = b.addRunArtifact(e2e_data_test);
-
-    // Add a separate step for testing E2E data structures
-    const e2e_data_test_step = b.step("test-e2e-data", "Run E2E data structures tests");
-    e2e_data_test_step.dependOn(&run_e2e_data_test.step);
-
-    // Add E2E Inheritance tests
-    const e2e_inheritance_test = b.addTest(.{
-        .name = "e2e-inheritance-test",
-        .root_source_file = b.path("test/evm/e2e_inheritance_test.zig"),
-        .target = target,
-        .optimize = optimize,
-        .single_threaded = true,
-    });
-    e2e_inheritance_test.root_module.stack_check = false;
-
-    // Add module imports to E2E inheritance test
-    e2e_inheritance_test.root_module.addImport("Address", address_mod);
-    e2e_inheritance_test.root_module.addImport("Block", block_mod);
-    e2e_inheritance_test.root_module.addImport("evm", evm_mod);
-    e2e_inheritance_test.root_module.addImport("utils", utils_mod);
-
-    const run_e2e_inheritance_test = b.addRunArtifact(e2e_inheritance_test);
-
-    // Add a separate step for testing E2E inheritance scenarios
-    const e2e_inheritance_test_step = b.step("test-e2e-inheritance", "Run E2E inheritance tests");
-    e2e_inheritance_test_step.dependOn(&run_e2e_inheritance_test.step);
-
-    // Add combined E2E test step
-    const e2e_all_test_step = b.step("test-e2e", "Run all E2E tests");
-    e2e_all_test_step.dependOn(&run_e2e_simple_test.step);
-    e2e_all_test_step.dependOn(&run_e2e_error_test.step);
-    e2e_all_test_step.dependOn(&run_e2e_data_test.step);
-    e2e_all_test_step.dependOn(&run_e2e_inheritance_test.step);
+    // Add a separate step for testing BLAKE2F
+    const blake2f_test_step = b.step("test-blake2f", "Run BLAKE2F precompile tests");
+    blake2f_test_step.dependOn(&run_blake2f_test.step);
 
     // Add Memory benchmark
     const memory_benchmark = b.addExecutable(.{
@@ -790,11 +873,41 @@ pub fn build(b: *std.Build) void {
     const evm_memory_benchmark_step = b.step("bench-evm-memory", "Run EVM Memory benchmarks");
     evm_memory_benchmark_step.dependOn(&run_evm_memory_benchmark.step);
 
-    // Add combined benchmark step
+
+    // Add combined benchmark step (EVM contract benchmark will be added later)
     const all_benchmark_step = b.step("bench", "Run all benchmarks");
     all_benchmark_step.dependOn(&run_memory_benchmark.step);
     all_benchmark_step.dependOn(&run_evm_memory_benchmark.step);
-    all_benchmark_step.dependOn(&run_evm_memory_benchmark.step);
+
+    // Add Tevm runner for evm-bench integration
+    const tevm_runner = b.addExecutable(.{
+        .name = "tevm-runner",
+        .root_source_file = b.path("bench/evm/runners/tevm/runner.zig"),
+        .target = target,
+        .optimize = .ReleaseFast, // Use ReleaseFast for benchmarks
+    });
+
+    // Add all module imports to tevm_runner
+    tevm_runner.root_module.addImport("Address", address_mod);
+    tevm_runner.root_module.addImport("Abi", abi_mod);
+    tevm_runner.root_module.addImport("Block", block_mod);
+    tevm_runner.root_module.addImport("Bytecode", bytecode_mod);
+    tevm_runner.root_module.addImport("Compiler", compiler_mod);
+    tevm_runner.root_module.addImport("evm", evm_mod);
+    tevm_runner.root_module.addImport("Rlp", rlp_mod);
+    tevm_runner.root_module.addImport("Token", token_mod);
+    tevm_runner.root_module.addImport("Trie", trie_mod);
+    tevm_runner.root_module.addImport("utils", utils_mod);
+    tevm_runner.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    tevm_runner.root_module.addIncludePath(b.path("include"));
+
+    // Install the tevm-runner executable
+    b.installArtifact(tevm_runner);
+
+    // Add build step for tevm-runner
+    const build_tevm_runner_step = b.step("tevm-runner", "Build the Tevm evm-bench runner");
+    build_tevm_runner_step.dependOn(&tevm_runner.step);
+    build_tevm_runner_step.dependOn(b.getInstallStep());
 
     // Add Rust Foundry wrapper integration
     const rust_build = @import("src/compilers/rust_build.zig");
@@ -802,6 +915,21 @@ pub fn build(b: *std.Build) void {
         std.debug.print("Failed to add Rust integration: {}\n", .{err});
         return;
     };
+
+    // Add Rust dependencies to tevm-runner  
+    tevm_runner.step.dependOn(rust_step);
+    tevm_runner.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    tevm_runner.linkLibC();
+    
+    // Link system libraries required by Rust static lib for tevm-runner
+    if (target.result.os.tag == .linux) {
+        tevm_runner.linkSystemLibrary("unwind");
+        tevm_runner.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        tevm_runner.linkFramework("Security");
+        tevm_runner.linkFramework("CoreFoundation");
+        tevm_runner.linkFramework("SystemConfiguration");
+    }
 
     // Make the compiler test depend on the Rust build
     compiler_test.step.dependOn(rust_step);
@@ -820,6 +948,839 @@ pub fn build(b: *std.Build) void {
         // Consider adding SystemConfiguration if rust_build.zig links it for its own tests
         // compiler_test.linkFramework("SystemConfiguration");
     }
+
+    // Add Compiler Integration tests (after rust dependencies are set up)
+    const compiler_integration_test = b.addTest(.{
+        .name = "compiler-integration-test",
+        .root_source_file = b.path("test/evm/compiler_integration_test.zig"),
+        .target = target,
+        .optimize = optimize,
+        .single_threaded = true,
+    });
+    compiler_integration_test.root_module.stack_check = false;
+
+    // Add module imports to compiler integration test
+    compiler_integration_test.root_module.addImport("evm", target_architecture_mod);
+    compiler_integration_test.root_module.addImport("Compiler", compiler_mod);
+    compiler_integration_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    compiler_integration_test.root_module.addIncludePath(b.path("include"));
+
+    // Add Rust dependencies to compiler integration test (same as compiler test)
+    compiler_integration_test.step.dependOn(rust_step);
+    compiler_integration_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    compiler_integration_test.linkLibC();
+    
+    // Link system libraries for compiler integration test
+    if (target.result.os.tag == .linux) {
+        compiler_integration_test.linkSystemLibrary("unwind");
+        compiler_integration_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        compiler_integration_test.linkFramework("CoreFoundation");
+        compiler_integration_test.linkFramework("Security");
+    }
+
+    const run_compiler_integration_test = b.addRunArtifact(compiler_integration_test);
+
+    // Add a separate step for testing Compiler Integration
+    const compiler_integration_test_step = b.step("test-compiler-integration", "Run Compiler Integration tests");
+    compiler_integration_test_step.dependOn(&run_compiler_integration_test.step);
+
+    // Add Real Contract Execution tests (for debugging actual contract execution)
+    const real_contract_execution_test = b.addTest(.{
+        .name = "real-contract-execution-test",
+        .root_source_file = b.path("test/evm/real_contract_execution_test.zig"),
+        .target = target,
+        .optimize = optimize,
+        .single_threaded = true,
+    });
+    real_contract_execution_test.root_module.stack_check = false;
+
+    // Add module imports to real contract execution test
+    real_contract_execution_test.root_module.addImport("evm", target_architecture_mod);
+    real_contract_execution_test.root_module.addImport("Compiler", compiler_mod);
+    real_contract_execution_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    real_contract_execution_test.root_module.addIncludePath(b.path("include"));
+
+    // Add Rust dependencies to real contract execution test
+    real_contract_execution_test.step.dependOn(rust_step);
+    real_contract_execution_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    real_contract_execution_test.linkLibC();
+    
+    // Link system libraries for real contract execution test
+    if (target.result.os.tag == .linux) {
+        real_contract_execution_test.linkSystemLibrary("unwind");
+        real_contract_execution_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        real_contract_execution_test.linkFramework("CoreFoundation");
+        real_contract_execution_test.linkFramework("Security");
+    }
+
+    const run_real_contract_execution_test = b.addRunArtifact(real_contract_execution_test);
+
+    // Add a separate step for testing Real Contract Execution
+    const real_contract_execution_test_step = b.step("test-real-contract-execution", "Run Real Contract Execution tests");
+    real_contract_execution_test_step.dependOn(&run_real_contract_execution_test.step);
+
+    // Add Simple Contract Execution test
+    const simple_contract_execution_test = b.addTest(.{
+        .name = "simple-contract-execution-test",
+        .root_source_file = b.path("test/evm/simple_contract_execution_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    simple_contract_execution_test.root_module.addImport("evm", target_architecture_mod);
+    simple_contract_execution_test.root_module.addImport("Compiler", compiler_mod);
+    simple_contract_execution_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    simple_contract_execution_test.root_module.addIncludePath(b.path("include"));
+    simple_contract_execution_test.step.dependOn(rust_step);
+    simple_contract_execution_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    simple_contract_execution_test.linkLibC();
+    if (target.result.os.tag == .linux) {
+        simple_contract_execution_test.linkSystemLibrary("unwind");
+        simple_contract_execution_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        simple_contract_execution_test.linkFramework("CoreFoundation");
+        simple_contract_execution_test.linkFramework("Security");
+    }
+    const run_simple_contract_execution_test = b.addRunArtifact(simple_contract_execution_test);
+    const simple_contract_execution_test_step = b.step("test-simple-contract-execution", "Run Simple Contract Execution tests");
+    simple_contract_execution_test_step.dependOn(&run_simple_contract_execution_test.step);
+    
+    // Add Compiler Bytecode Issue test
+    const compiler_bytecode_issue_test = b.addTest(.{
+        .name = "compiler-bytecode-issue-test",
+        .root_source_file = b.path("test/evm/compiler_bytecode_issue_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    compiler_bytecode_issue_test.root_module.addImport("evm", target_architecture_mod);
+    compiler_bytecode_issue_test.root_module.addImport("Compiler", compiler_mod);
+    compiler_bytecode_issue_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    compiler_bytecode_issue_test.root_module.addIncludePath(b.path("include"));
+    compiler_bytecode_issue_test.step.dependOn(rust_step);
+    compiler_bytecode_issue_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    compiler_bytecode_issue_test.linkLibC();
+    if (target.result.os.tag == .linux) {
+        compiler_bytecode_issue_test.linkSystemLibrary("unwind");
+        compiler_bytecode_issue_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        compiler_bytecode_issue_test.linkFramework("CoreFoundation");
+        compiler_bytecode_issue_test.linkFramework("Security");
+    }
+    const run_compiler_bytecode_issue_test = b.addRunArtifact(compiler_bytecode_issue_test);
+    const compiler_bytecode_issue_test_step = b.step("test-compiler-bytecode-issue", "Run Compiler Bytecode Issue tests");
+    compiler_bytecode_issue_test_step.dependOn(&run_compiler_bytecode_issue_test.step);
+    
+    // Add Compiler Hex Decode test (simpler test without EVM dependencies)
+    const compiler_hex_decode_test = b.addTest(.{
+        .name = "compiler-hex-decode-test",
+        .root_source_file = b.path("test/evm/compiler_hex_decode_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    compiler_hex_decode_test.root_module.addImport("Compiler", compiler_mod);
+    compiler_hex_decode_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    compiler_hex_decode_test.root_module.addIncludePath(b.path("include"));
+    compiler_hex_decode_test.step.dependOn(rust_step);
+    compiler_hex_decode_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    compiler_hex_decode_test.linkLibC();
+    if (target.result.os.tag == .linux) {
+        compiler_hex_decode_test.linkSystemLibrary("unwind");
+        compiler_hex_decode_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        compiler_hex_decode_test.linkFramework("CoreFoundation");
+        compiler_hex_decode_test.linkFramework("Security");
+    }
+    const run_compiler_hex_decode_test = b.addRunArtifact(compiler_hex_decode_test);
+    const compiler_hex_decode_test_step = b.step("test-compiler-hex-decode", "Run Compiler Hex Decode tests");
+    compiler_hex_decode_test_step.dependOn(&run_compiler_hex_decode_test.step);
+    
+    // Add Function Selector Debug test
+    const function_selector_debug_test = b.addTest(.{
+        .name = "function-selector-debug-test",
+        .root_source_file = b.path("test/evm/function_selector_debug_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    function_selector_debug_test.root_module.addImport("Compiler", compiler_mod);
+    function_selector_debug_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    function_selector_debug_test.root_module.addIncludePath(b.path("include"));
+    function_selector_debug_test.step.dependOn(rust_step);
+    function_selector_debug_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    function_selector_debug_test.linkLibC();
+    if (target.result.os.tag == .linux) {
+        function_selector_debug_test.linkSystemLibrary("unwind");
+        function_selector_debug_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        function_selector_debug_test.linkFramework("CoreFoundation");
+        function_selector_debug_test.linkFramework("Security");
+    }
+    const run_function_selector_debug_test = b.addRunArtifact(function_selector_debug_test);
+    const function_selector_debug_test_step = b.step("test-function-selector-debug", "Run Function Selector Debug tests");
+    function_selector_debug_test_step.dependOn(&run_function_selector_debug_test.step);
+    
+    // Add Contract Deployment test
+    const contract_deployment_test = b.addTest(.{
+        .name = "contract-deployment-test",
+        .root_source_file = b.path("test/evm/contract_deployment_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    contract_deployment_test.root_module.addImport("evm", target_architecture_mod);
+    contract_deployment_test.root_module.addImport("Compiler", compiler_mod);
+    contract_deployment_test.root_module.addImport("Address", address_mod);
+    contract_deployment_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    contract_deployment_test.root_module.addIncludePath(b.path("include"));
+    contract_deployment_test.step.dependOn(rust_step);
+    contract_deployment_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    contract_deployment_test.linkLibC();
+    if (target.result.os.tag == .linux) {
+        contract_deployment_test.linkSystemLibrary("unwind");
+        contract_deployment_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        contract_deployment_test.linkFramework("CoreFoundation");
+        contract_deployment_test.linkFramework("Security");
+    }
+    const run_contract_deployment_test = b.addRunArtifact(contract_deployment_test);
+    const contract_deployment_test_step = b.step("test-contract-deployment", "Run Contract Deployment tests");
+    contract_deployment_test_step.dependOn(&run_contract_deployment_test.step);
+    
+    // Add Contract Call Setup test
+    const contract_call_setup_test = b.addTest(.{
+        .name = "contract-call-setup-test",
+        .root_source_file = b.path("test/evm/contract_call_setup_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    contract_call_setup_test.root_module.addImport("evm", target_architecture_mod);
+    contract_call_setup_test.root_module.addImport("Compiler", compiler_mod);
+    contract_call_setup_test.root_module.addImport("Address", address_mod);
+    contract_call_setup_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    contract_call_setup_test.root_module.addIncludePath(b.path("include"));
+    contract_call_setup_test.step.dependOn(rust_step);
+    contract_call_setup_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    contract_call_setup_test.linkLibC();
+    if (target.result.os.tag == .linux) {
+        contract_call_setup_test.linkSystemLibrary("unwind");
+        contract_call_setup_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        contract_call_setup_test.linkFramework("CoreFoundation");
+        contract_call_setup_test.linkFramework("Security");
+    }
+    const run_contract_call_setup_test = b.addRunArtifact(contract_call_setup_test);
+    const contract_call_setup_test_step = b.step("test-contract-call-setup", "Run Contract Call Setup tests");
+    contract_call_setup_test_step.dependOn(&run_contract_call_setup_test.step);
+    
+    // Add TenThousandHashes Specific test
+    const tenhashes_specific_test = b.addTest(.{
+        .name = "tenhashes-specific-test",
+        .root_source_file = b.path("test/evm/tenhashes_specific_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    tenhashes_specific_test.root_module.addImport("evm", target_architecture_mod);
+    tenhashes_specific_test.root_module.addImport("Compiler", compiler_mod);
+    tenhashes_specific_test.root_module.addImport("Address", address_mod);
+    tenhashes_specific_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    tenhashes_specific_test.root_module.addIncludePath(b.path("include"));
+    tenhashes_specific_test.step.dependOn(rust_step);
+    tenhashes_specific_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    tenhashes_specific_test.linkLibC();
+    if (target.result.os.tag == .linux) {
+        tenhashes_specific_test.linkSystemLibrary("unwind");
+        tenhashes_specific_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        tenhashes_specific_test.linkFramework("CoreFoundation");
+        tenhashes_specific_test.linkFramework("Security");
+    }
+    const run_tenhashes_specific_test = b.addRunArtifact(tenhashes_specific_test);
+    const tenhashes_specific_test_step = b.step("test-tenhashes-specific", "Run TenThousandHashes Specific tests");
+    tenhashes_specific_test_step.dependOn(&run_tenhashes_specific_test.step);
+    
+    // Add Simple Compilation test (minimal dependencies)
+    const simple_compilation_test = b.addTest(.{
+        .name = "simple-compilation-test",
+        .root_source_file = b.path("test/evm/simple_compilation_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    simple_compilation_test.root_module.addImport("Compiler", compiler_mod);
+    simple_compilation_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    simple_compilation_test.root_module.addIncludePath(b.path("include"));
+    simple_compilation_test.step.dependOn(rust_step);
+    simple_compilation_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    simple_compilation_test.linkLibC();
+    if (target.result.os.tag == .linux) {
+        simple_compilation_test.linkSystemLibrary("unwind");
+        simple_compilation_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        simple_compilation_test.linkFramework("CoreFoundation");
+        simple_compilation_test.linkFramework("Security");
+    }
+    const run_simple_compilation_test = b.addRunArtifact(simple_compilation_test);
+    const simple_compilation_test_step = b.step("test-simple-compilation", "Run Simple Compilation tests");
+    simple_compilation_test_step.dependOn(&run_simple_compilation_test.step);
+    
+    // Add Minimal Execution test (no external dependencies)
+    const minimal_execution_test = b.addTest(.{
+        .name = "minimal-execution-test",
+        .root_source_file = b.path("test/evm/minimal_execution_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    const run_minimal_execution_test = b.addRunArtifact(minimal_execution_test);
+    const minimal_execution_test_step = b.step("test-minimal-execution", "Run Minimal Execution tests");
+    minimal_execution_test_step.dependOn(&run_minimal_execution_test.step);
+    
+    // Add Contract Initialization test
+    const contract_initialization_test = b.addTest(.{
+        .name = "contract-initialization-test",
+        .root_source_file = b.path("test/evm/contract_initialization_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    contract_initialization_test.root_module.addImport("evm", target_architecture_mod);
+    contract_initialization_test.root_module.addImport("Compiler", compiler_mod);
+    contract_initialization_test.root_module.addImport("Address", address_mod);
+    contract_initialization_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    contract_initialization_test.root_module.addIncludePath(b.path("include"));
+    contract_initialization_test.step.dependOn(rust_step);
+    contract_initialization_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    contract_initialization_test.linkLibC();
+    if (target.result.os.tag == .linux) {
+        contract_initialization_test.linkSystemLibrary("unwind");
+        contract_initialization_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        contract_initialization_test.linkFramework("CoreFoundation");
+        contract_initialization_test.linkFramework("Security");
+    }
+    const run_contract_initialization_test = b.addRunArtifact(contract_initialization_test);
+    const contract_initialization_test_step = b.step("test-contract-initialization", "Run Contract Initialization tests");
+    contract_initialization_test_step.dependOn(&run_contract_initialization_test.step);
+    
+    // Add Gas Execution Pattern test (no external dependencies)
+    const gas_execution_pattern_test = b.addTest(.{
+        .name = "gas-execution-pattern-test",
+        .root_source_file = b.path("test/evm/gas_execution_pattern_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    const run_gas_execution_pattern_test = b.addRunArtifact(gas_execution_pattern_test);
+    const gas_execution_pattern_test_step = b.step("test-gas-execution-pattern", "Run Gas Execution Pattern tests");
+    gas_execution_pattern_test_step.dependOn(&run_gas_execution_pattern_test.step);
+    
+    // Add Invalid Execution Point test
+    const invalid_execution_point_test = b.addTest(.{
+        .name = "invalid-execution-point-test",
+        .root_source_file = b.path("test/evm/invalid_execution_point_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    invalid_execution_point_test.root_module.addImport("Compiler", compiler_mod);
+    invalid_execution_point_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    invalid_execution_point_test.root_module.addIncludePath(b.path("include"));
+    invalid_execution_point_test.step.dependOn(rust_step);
+    invalid_execution_point_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    invalid_execution_point_test.linkLibC();
+    if (target.result.os.tag == .linux) {
+        invalid_execution_point_test.linkSystemLibrary("unwind");
+        invalid_execution_point_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        invalid_execution_point_test.linkFramework("CoreFoundation");
+        invalid_execution_point_test.linkFramework("Security");
+    }
+    const run_invalid_execution_point_test = b.addRunArtifact(invalid_execution_point_test);
+    const invalid_execution_point_test_step = b.step("test-invalid-execution-point", "Run Invalid Execution Point tests");
+    invalid_execution_point_test_step.dependOn(&run_invalid_execution_point_test.step);
+    
+    // Add Dispatch Failure Reproduction test
+    const dispatch_failure_test = b.addTest(.{
+        .name = "dispatch-failure-reproduction-test",
+        .root_source_file = b.path("test/evm/dispatch_failure_reproduction_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    dispatch_failure_test.root_module.addImport("Compiler", compiler_mod);
+    dispatch_failure_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    dispatch_failure_test.root_module.addIncludePath(b.path("include"));
+    dispatch_failure_test.step.dependOn(rust_step);
+    dispatch_failure_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    dispatch_failure_test.linkLibC();
+    if (target.result.os.tag == .linux) {
+        dispatch_failure_test.linkSystemLibrary("unwind");
+        dispatch_failure_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        dispatch_failure_test.linkFramework("CoreFoundation");
+        dispatch_failure_test.linkFramework("Security");
+    }
+    const run_dispatch_failure_test = b.addRunArtifact(dispatch_failure_test);
+    const dispatch_failure_test_step = b.step("test-dispatch-failure", "Run Dispatch Failure Reproduction tests");
+    dispatch_failure_test_step.dependOn(&run_dispatch_failure_test.step);
+    
+    // Add Jump Dispatch Failure test (simple, no dependencies)
+    const jump_dispatch_failure_test = b.addTest(.{
+        .name = "jump-dispatch-failure-test",
+        .root_source_file = b.path("test/evm/jump_dispatch_failure_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    const run_jump_dispatch_failure_test = b.addRunArtifact(jump_dispatch_failure_test);
+    const jump_dispatch_failure_test_step = b.step("test-jump-dispatch-failure", "Run Jump Dispatch Failure tests");
+    jump_dispatch_failure_test_step.dependOn(&run_jump_dispatch_failure_test.step);
+    
+    // Add LT Opcode Stack Underflow test (TDD approach)
+    const lt_stack_underflow_test = b.addTest(.{
+        .name = "lt-opcode-stack-underflow-test",
+        .root_source_file = b.path("test/evm/lt_opcode_stack_underflow_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    const run_lt_stack_underflow_test = b.addRunArtifact(lt_stack_underflow_test);
+    const lt_stack_underflow_test_step = b.step("test-lt-stack-underflow", "Run LT Opcode Stack Underflow TDD tests");
+    lt_stack_underflow_test_step.dependOn(&run_lt_stack_underflow_test.step);
+    
+    // Add LT Opcode Bug test (actual implementation test)
+    const lt_opcode_bug_test = b.addTest(.{
+        .name = "lt-opcode-bug-test",
+        .root_source_file = b.path("test/evm/lt_opcode_bug_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    lt_opcode_bug_test.root_module.addImport("evm", evm_mod);
+    const run_lt_opcode_bug_test = b.addRunArtifact(lt_opcode_bug_test);
+    const lt_opcode_bug_test_step = b.step("test-lt-opcode-bug", "Run LT Opcode Bug TDD tests");
+    lt_opcode_bug_test_step.dependOn(&run_lt_opcode_bug_test.step);
+    
+    // Add simple LT opcode test (documentation only)
+    const lt_opcode_simple_test = b.addTest(.{
+        .name = "lt-opcode-simple-test",
+        .root_source_file = b.path("test/evm/lt_opcode_simple_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    const run_lt_opcode_simple_test = b.addRunArtifact(lt_opcode_simple_test);
+    const lt_opcode_simple_test_step = b.step("test-lt-opcode-simple", "Run simple LT Opcode documentation test");
+    lt_opcode_simple_test_step.dependOn(&run_lt_opcode_simple_test.step);
+    
+    // Add MSTORE debug test
+    const mstore_debug_test = b.addTest(.{
+        .name = "mstore-debug-test",
+        .root_source_file = b.path("debug_mstore_params.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    mstore_debug_test.root_module.addImport("Address", address_mod);
+    mstore_debug_test.root_module.addImport("Block", block_mod);
+    mstore_debug_test.root_module.addImport("evm", evm_mod);
+    mstore_debug_test.root_module.addImport("utils", utils_mod);
+    mstore_debug_test.root_module.addImport("test_helpers", test_helpers_mod);
+    const run_mstore_debug_test = b.addRunArtifact(mstore_debug_test);
+    const mstore_debug_test_step = b.step("test-mstore-debug", "Debug MSTORE parameter order");
+    mstore_debug_test_step.dependOn(&run_mstore_debug_test.step);
+
+    // Add EVM Contract benchmark (after rust_step is defined)
+    const evm_contract_benchmark = b.addExecutable(.{
+        .name = "evm-contract-benchmark",
+        .root_source_file = b.path("bench/evm.zig"),
+        .target = target,
+        .optimize = .ReleaseFast,
+    });
+    evm_contract_benchmark.root_module.addImport("zbench", zbench_dep.module("zbench"));
+    evm_contract_benchmark.root_module.addImport("evm", target_architecture_mod);
+    evm_contract_benchmark.root_module.addImport("Address", address_mod);
+    evm_contract_benchmark.root_module.addImport("Compiler", compiler_mod);
+    evm_contract_benchmark.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    evm_contract_benchmark.root_module.addIncludePath(b.path("include"));
+    
+    // Add Rust dependencies to EVM contract benchmark (same as compiler test)
+    evm_contract_benchmark.step.dependOn(rust_step);
+    evm_contract_benchmark.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    evm_contract_benchmark.linkLibC();
+    
+    // Link system libraries for EVM contract benchmark
+    if (target.result.os.tag == .linux) {
+        evm_contract_benchmark.linkSystemLibrary("unwind");
+        evm_contract_benchmark.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        evm_contract_benchmark.linkFramework("CoreFoundation");
+        evm_contract_benchmark.linkFramework("Security");
+    }
+
+    const run_evm_contract_benchmark = b.addRunArtifact(evm_contract_benchmark);
+
+    const evm_contract_benchmark_step = b.step("bench-evm-contracts", "Run EVM Contract benchmarks");
+    evm_contract_benchmark_step.dependOn(&run_evm_contract_benchmark.step);
+    
+    // Add EVM contract benchmark to the combined benchmark step
+    all_benchmark_step.dependOn(&run_evm_contract_benchmark.step);
+
+    // Add EVM Opcode benchmark
+    const evm_opcode_benchmark = b.addExecutable(.{
+        .name = "evm-opcode-benchmark",
+        .root_source_file = b.path("bench/opcode_bench.zig"),
+        .target = target,
+        .optimize = .ReleaseFast,
+    });
+    evm_opcode_benchmark.root_module.addImport("zbench", zbench_dep.module("zbench"));
+    evm_opcode_benchmark.root_module.addImport("evm", target_architecture_mod);
+    evm_opcode_benchmark.root_module.addImport("Address", address_mod);
+
+    const run_evm_opcode_benchmark = b.addRunArtifact(evm_opcode_benchmark);
+
+    const evm_opcode_benchmark_step = b.step("bench-evm-opcodes", "Run EVM Opcode benchmarks");
+    evm_opcode_benchmark_step.dependOn(&run_evm_opcode_benchmark.step);
+    
+    // Add EVM opcode benchmark to the combined benchmark step
+    all_benchmark_step.dependOn(&run_evm_opcode_benchmark.step);
+
+    // Add Simple Math benchmark
+    const simple_math_benchmark = b.addExecutable(.{
+        .name = "simple-math-benchmark",
+        .root_source_file = b.path("bench/simple_math_bench.zig"),
+        .target = target,
+        .optimize = .ReleaseFast,
+    });
+    simple_math_benchmark.root_module.addImport("zbench", zbench_dep.module("zbench"));
+
+    const run_simple_math_benchmark = b.addRunArtifact(simple_math_benchmark);
+
+    const simple_math_benchmark_step = b.step("bench-simple-math", "Run Simple Math benchmarks");
+    simple_math_benchmark_step.dependOn(&run_simple_math_benchmark.step);
+    
+    // Add simple math benchmark to the combined benchmark step
+    all_benchmark_step.dependOn(&run_simple_math_benchmark.step);
+
+    // Add Stack benchmark
+    const stack_benchmark = b.addExecutable(.{
+        .name = "stack-benchmark",
+        .root_source_file = b.path("bench/stack_bench.zig"),
+        .target = target,
+        .optimize = .ReleaseFast,
+    });
+    stack_benchmark.root_module.addImport("zbench", zbench_dep.module("zbench"));
+    stack_benchmark.root_module.addImport("evm", target_architecture_mod);
+
+    const run_stack_benchmark = b.addRunArtifact(stack_benchmark);
+
+    const stack_benchmark_step = b.step("bench-stack", "Run Stack benchmarks");
+    stack_benchmark_step.dependOn(&run_stack_benchmark.step);
+    
+    // Add stack benchmark to the combined benchmark step
+    all_benchmark_step.dependOn(&run_stack_benchmark.step);
+
+    // Add Simple Stack benchmark
+    const simple_stack_benchmark = b.addExecutable(.{
+        .name = "simple-stack-benchmark",
+        .root_source_file = b.path("bench/simple_stack_bench.zig"),
+        .target = target,
+        .optimize = .ReleaseFast,
+    });
+    simple_stack_benchmark.root_module.addImport("zbench", zbench_dep.module("zbench"));
+
+    const run_simple_stack_benchmark = b.addRunArtifact(simple_stack_benchmark);
+
+    const simple_stack_benchmark_step = b.step("bench-simple-stack", "Run Simple Stack benchmarks");
+    simple_stack_benchmark_step.dependOn(&run_simple_stack_benchmark.step);
+    
+    // Add simple stack benchmark to the combined benchmark step
+    all_benchmark_step.dependOn(&run_simple_stack_benchmark.step);
+
+    // Add Gas Accounting benchmark
+    const gas_benchmark = b.addExecutable(.{
+        .name = "gas-benchmark",
+        .root_source_file = b.path("bench/gas_bench.zig"),
+        .target = target,
+        .optimize = .ReleaseFast,
+    });
+    gas_benchmark.root_module.addImport("zbench", zbench_dep.module("zbench"));
+
+    const run_gas_benchmark = b.addRunArtifact(gas_benchmark);
+
+    const gas_benchmark_step = b.step("bench-gas", "Run Gas Accounting benchmarks");
+    gas_benchmark_step.dependOn(&run_gas_benchmark.step);
+    
+    // Add gas benchmark to the combined benchmark step
+    all_benchmark_step.dependOn(&run_gas_benchmark.step);
+
+    // Add Jump Table benchmark
+    const jumptable_benchmark = b.addExecutable(.{
+        .name = "jumptable-benchmark",
+        .root_source_file = b.path("bench/jumptable_bench.zig"),
+        .target = target,
+        .optimize = .ReleaseFast,
+    });
+    jumptable_benchmark.root_module.addImport("zbench", zbench_dep.module("zbench"));
+
+    const run_jumptable_benchmark = b.addRunArtifact(jumptable_benchmark);
+
+    const jumptable_benchmark_step = b.step("bench-jumptable", "Run Jump Table benchmarks");
+    jumptable_benchmark_step.dependOn(&run_jumptable_benchmark.step);
+    
+    // Add jumptable benchmark to the combined benchmark step
+    all_benchmark_step.dependOn(&run_jumptable_benchmark.step);
+
+    // Add Precompile benchmark
+    const precompile_benchmark = b.addExecutable(.{
+        .name = "precompile-benchmark",
+        .root_source_file = b.path("bench/precompile_bench.zig"),
+        .target = target,
+        .optimize = .ReleaseFast,
+    });
+    precompile_benchmark.root_module.addImport("zbench", zbench_dep.module("zbench"));
+
+    const run_precompile_benchmark = b.addRunArtifact(precompile_benchmark);
+
+    const precompile_benchmark_step = b.step("bench-precompiles", "Run Precompile benchmarks");
+    precompile_benchmark_step.dependOn(&run_precompile_benchmark.step);
+    
+    // Add precompile benchmark to the combined benchmark step
+    all_benchmark_step.dependOn(&run_precompile_benchmark.step);
+
+    // Add Call Operations benchmark
+    const call_ops_benchmark = b.addExecutable(.{
+        .name = "call-ops-benchmark",
+        .root_source_file = b.path("bench/call_ops_bench.zig"),
+        .target = target,
+        .optimize = .ReleaseFast,
+    });
+    call_ops_benchmark.root_module.addImport("zbench", zbench_dep.module("zbench"));
+
+    const run_call_ops_benchmark = b.addRunArtifact(call_ops_benchmark);
+
+    const call_ops_benchmark_step = b.step("bench-call-ops", "Run Call Operations benchmarks");
+    call_ops_benchmark_step.dependOn(&run_call_ops_benchmark.step);
+    
+    // Add call ops benchmark to the combined benchmark step
+    all_benchmark_step.dependOn(&run_call_ops_benchmark.step);
+    
+    // Add Gas Debugging tool
+    const debug_gas_tool = b.addExecutable(.{
+        .name = "debug-gas-issue",
+        .root_source_file = b.path("debug_gas_issue.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    debug_gas_tool.root_module.addImport("evm", target_architecture_mod);
+    debug_gas_tool.root_module.addImport("Address", address_mod);
+    debug_gas_tool.root_module.addImport("Compiler", compiler_mod);
+    debug_gas_tool.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    debug_gas_tool.root_module.addIncludePath(b.path("include"));
+    debug_gas_tool.step.dependOn(rust_step);
+    debug_gas_tool.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    debug_gas_tool.linkLibC();
+    if (target.result.os.tag == .linux) {
+        debug_gas_tool.linkSystemLibrary("unwind");
+        debug_gas_tool.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        debug_gas_tool.linkFramework("CoreFoundation");
+        debug_gas_tool.linkFramework("Security");
+    }
+    const run_debug_gas_tool = b.addRunArtifact(debug_gas_tool);
+    const debug_gas_tool_step = b.step("debug-gas", "Debug EVM gas accounting issues");
+    debug_gas_tool_step.dependOn(&run_debug_gas_tool.step);
+    
+    // Add Bytecode Analysis tool
+    const debug_bytecode_detailed = b.addExecutable(.{
+        .name = "debug-bytecode-detailed",
+        .root_source_file = b.path("debug_bytecode_detailed.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    debug_bytecode_detailed.root_module.addImport("evm", target_architecture_mod);
+    debug_bytecode_detailed.root_module.addImport("Address", address_mod);
+    debug_bytecode_detailed.root_module.addImport("Compiler", compiler_mod);
+    debug_bytecode_detailed.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    debug_bytecode_detailed.root_module.addIncludePath(b.path("include"));
+    debug_bytecode_detailed.step.dependOn(rust_step);
+    debug_bytecode_detailed.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    debug_bytecode_detailed.linkLibC();
+    if (target.result.os.tag == .linux) {
+        debug_bytecode_detailed.linkSystemLibrary("unwind");
+        debug_bytecode_detailed.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        debug_bytecode_detailed.linkFramework("CoreFoundation");
+        debug_bytecode_detailed.linkFramework("Security");
+    }
+    const run_debug_bytecode_detailed = b.addRunArtifact(debug_bytecode_detailed);
+    const debug_bytecode_detailed_step = b.step("debug-bytecode-detailed", "Analyze EVM bytecode in detail");
+    debug_bytecode_detailed_step.dependOn(&run_debug_bytecode_detailed.step);
+
+    // Add Contract Execution Debug test
+    const contract_execution_debug_test = b.addTest(.{
+        .name = "contract-execution-debug-test",
+        .root_source_file = b.path("test/evm/contract_execution_debug_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    contract_execution_debug_test.root_module.addImport("evm", target_architecture_mod);
+    contract_execution_debug_test.root_module.addImport("Compiler", compiler_mod);
+    contract_execution_debug_test.root_module.addImport("Address", address_mod);
+    contract_execution_debug_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    contract_execution_debug_test.root_module.addIncludePath(b.path("include"));
+    contract_execution_debug_test.step.dependOn(rust_step);
+    contract_execution_debug_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    contract_execution_debug_test.linkLibC();
+    if (target.result.os.tag == .linux) {
+        contract_execution_debug_test.linkSystemLibrary("unwind");
+        contract_execution_debug_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        contract_execution_debug_test.linkFramework("CoreFoundation");
+        contract_execution_debug_test.linkFramework("Security");
+    }
+    const run_contract_execution_debug_test = b.addRunArtifact(contract_execution_debug_test);
+    const contract_execution_debug_test_step = b.step("test-contract-execution-debug", "Run Contract Execution Debug tests");
+    contract_execution_debug_test_step.dependOn(&run_contract_execution_debug_test.step);
+
+    const snailtracer_benchmark_test = b.addTest(.{
+        .name = "snailtracer-benchmark-test",
+        .root_source_file = b.path("test/evm/snailtracer_benchmark_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    snailtracer_benchmark_test.root_module.addImport("evm", target_architecture_mod);
+    snailtracer_benchmark_test.root_module.addImport("Compiler", compiler_mod);
+    snailtracer_benchmark_test.root_module.addImport("Address", address_mod);
+    snailtracer_benchmark_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    snailtracer_benchmark_test.root_module.addIncludePath(b.path("include"));
+    snailtracer_benchmark_test.step.dependOn(rust_step);
+    snailtracer_benchmark_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    snailtracer_benchmark_test.linkLibC();
+    if (target.result.os.tag == .linux) {
+        snailtracer_benchmark_test.linkSystemLibrary("unwind");
+        snailtracer_benchmark_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        snailtracer_benchmark_test.linkFramework("CoreFoundation");
+        snailtracer_benchmark_test.linkFramework("Security");
+    }
+    const run_snailtracer_benchmark_test = b.addRunArtifact(snailtracer_benchmark_test);
+    const snailtracer_benchmark_test_step = b.step("test-snailtracer-benchmark", "Run SnailTracer Benchmark tests");
+    snailtracer_benchmark_test_step.dependOn(&run_snailtracer_benchmark_test.step);
+
+    const snailtracer_simple_test = b.addTest(.{
+        .name = "snailtracer-simple-test",
+        .root_source_file = b.path("test/evm/snailtracer_simple_benchmark_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    snailtracer_simple_test.root_module.addImport("evm", target_architecture_mod);
+    snailtracer_simple_test.root_module.addImport("Compiler", compiler_mod);
+    snailtracer_simple_test.root_module.addImport("Address", address_mod);
+    snailtracer_simple_test.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    snailtracer_simple_test.root_module.addIncludePath(b.path("include"));
+    snailtracer_simple_test.step.dependOn(rust_step);
+    snailtracer_simple_test.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    snailtracer_simple_test.linkLibC();
+    if (target.result.os.tag == .linux) {
+        snailtracer_simple_test.linkSystemLibrary("unwind");
+        snailtracer_simple_test.linkSystemLibrary("gcc_s");
+    } else if (target.result.os.tag == .macos) {
+        snailtracer_simple_test.linkFramework("CoreFoundation");
+        snailtracer_simple_test.linkFramework("Security");
+    }
+    const run_snailtracer_simple_test = b.addRunArtifact(snailtracer_simple_test);
+    const snailtracer_simple_test_step = b.step("test-snailtracer-simple", "Run simple SnailTracer infrastructure test");
+    snailtracer_simple_test_step.dependOn(&run_snailtracer_simple_test.step);
+
+    const snailtracer_minimal_test = b.addTest(.{
+        .name = "snailtracer-minimal-test",
+        .root_source_file = b.path("test/evm/snailtracer_minimal_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    const run_snailtracer_minimal_test = b.addRunArtifact(snailtracer_minimal_test);
+    const snailtracer_minimal_test_step = b.step("test-snailtracer-minimal", "Run minimal SnailTracer test");
+    snailtracer_minimal_test_step.dependOn(&run_snailtracer_minimal_test.step);
+
+    const snailtracer_evm_import_test = b.addTest(.{
+        .name = "snailtracer-evm-import-test",
+        .root_source_file = b.path("test/evm/snailtracer_evm_import_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    snailtracer_evm_import_test.root_module.addImport("evm", target_architecture_mod);
+    snailtracer_evm_import_test.root_module.addImport("Compiler", compiler_mod);
+    snailtracer_evm_import_test.root_module.addImport("Address", address_mod);
+    const run_snailtracer_evm_import_test = b.addRunArtifact(snailtracer_evm_import_test);
+    const snailtracer_evm_import_test_step = b.step("test-snailtracer-evm-import", "Run EVM import test");
+    snailtracer_evm_import_test_step.dependOn(&run_snailtracer_evm_import_test.step);
+
+    const snailtracer_memory_db_test = b.addTest(.{
+        .name = "snailtracer-memory-db-test",
+        .root_source_file = b.path("test/evm/snailtracer_memory_db_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    snailtracer_memory_db_test.root_module.addImport("evm", target_architecture_mod);
+    snailtracer_memory_db_test.root_module.addImport("Compiler", compiler_mod);
+    snailtracer_memory_db_test.root_module.addImport("Address", address_mod);
+    const run_snailtracer_memory_db_test = b.addRunArtifact(snailtracer_memory_db_test);
+    const snailtracer_memory_db_test_step = b.step("test-snailtracer-memory-db", "Run MemoryDatabase test");
+    snailtracer_memory_db_test_step.dependOn(&run_snailtracer_memory_db_test.step);
+
+    const snailtracer_vm_init_test = b.addTest(.{
+        .name = "snailtracer-vm-init-test",
+        .root_source_file = b.path("test/evm/snailtracer_vm_init_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    snailtracer_vm_init_test.root_module.addImport("evm", target_architecture_mod);
+    snailtracer_vm_init_test.root_module.addImport("Compiler", compiler_mod);
+    snailtracer_vm_init_test.root_module.addImport("Address", address_mod);
+    const run_snailtracer_vm_init_test = b.addRunArtifact(snailtracer_vm_init_test);
+    const snailtracer_vm_init_test_step = b.step("test-snailtracer-vm-init", "Run VM initialization test");
+    snailtracer_vm_init_test_step.dependOn(&run_snailtracer_vm_init_test.step);
+
+    const snailtracer_test_helpers_test = b.addTest(.{
+        .name = "snailtracer-test-helpers-test",
+        .root_source_file = b.path("test/evm/snailtracer_test_helpers_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    snailtracer_test_helpers_test.root_module.addImport("evm", target_architecture_mod);
+    snailtracer_test_helpers_test.root_module.addImport("Compiler", compiler_mod);
+    snailtracer_test_helpers_test.root_module.addImport("Address", address_mod);
+    const run_snailtracer_test_helpers_test = b.addRunArtifact(snailtracer_test_helpers_test);
+    const snailtracer_test_helpers_test_step = b.step("test-snailtracer-test-helpers", "Run TestVm test");
+    snailtracer_test_helpers_test_step.dependOn(&run_snailtracer_test_helpers_test.step);
+
+    const snailtracer_debug_vm_init_test = b.addTest(.{
+        .name = "snailtracer-debug-vm-init-test",
+        .root_source_file = b.path("test/evm/snailtracer_debug_vm_init_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    snailtracer_debug_vm_init_test.root_module.addImport("evm", target_architecture_mod);
+    snailtracer_debug_vm_init_test.root_module.addImport("Compiler", compiler_mod);
+    snailtracer_debug_vm_init_test.root_module.addImport("Address", address_mod);
+    const run_snailtracer_debug_vm_init_test = b.addRunArtifact(snailtracer_debug_vm_init_test);
+    const snailtracer_debug_vm_init_test_step = b.step("test-snailtracer-debug-vm-init", "Run debug VM init test");
+    snailtracer_debug_vm_init_test_step.dependOn(&run_snailtracer_debug_vm_init_test.step);
+
+    const snailtracer_isolate_vm_crash_test = b.addTest(.{
+        .name = "snailtracer-isolate-vm-crash-test",
+        .root_source_file = b.path("test/evm/snailtracer_isolate_vm_crash_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    snailtracer_isolate_vm_crash_test.root_module.addImport("evm", target_architecture_mod);
+    snailtracer_isolate_vm_crash_test.root_module.addImport("Compiler", compiler_mod);
+    snailtracer_isolate_vm_crash_test.root_module.addImport("Address", address_mod);
+    const run_snailtracer_isolate_vm_crash_test = b.addRunArtifact(snailtracer_isolate_vm_crash_test);
+    const snailtracer_isolate_vm_crash_test_step = b.step("test-snailtracer-isolate-vm-crash", "Run isolate VM crash test");
+    snailtracer_isolate_vm_crash_test_step.dependOn(&run_snailtracer_isolate_vm_crash_test.step);
+
+    const snailtracer_minimal_vm_crash_test = b.addTest(.{
+        .name = "snailtracer-minimal-vm-crash-test",
+        .root_source_file = b.path("test/evm/snailtracer_minimal_vm_crash_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    snailtracer_minimal_vm_crash_test.root_module.addImport("evm", target_architecture_mod);
+    snailtracer_minimal_vm_crash_test.root_module.addImport("Compiler", compiler_mod);
+    snailtracer_minimal_vm_crash_test.root_module.addImport("Address", address_mod);
+    const run_snailtracer_minimal_vm_crash_test = b.addRunArtifact(snailtracer_minimal_vm_crash_test);
+    const snailtracer_minimal_vm_crash_test_step = b.step("test-snailtracer-minimal-vm-crash", "Run minimal VM crash test");
+    snailtracer_minimal_vm_crash_test_step.dependOn(&run_snailtracer_minimal_vm_crash_test.step);
 
     const run_lib_unit_tests = b.addRunArtifact(lib_unit_tests);
 
@@ -848,11 +1809,10 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_integration_test.step);
     test_step.dependOn(&run_gas_test.step);
     test_step.dependOn(&run_static_protection_test.step);
+    test_step.dependOn(&run_create_contract_test.step);
+    test_step.dependOn(&run_compiler_bytecode_issue_test.step);
     test_step.dependOn(&run_precompile_test.step);
-    test_step.dependOn(&run_ripemd160_test.step);
-    test_step.dependOn(&run_e2e_simple_test.step);
-    test_step.dependOn(&run_e2e_error_test.step);
-    test_step.dependOn(&run_e2e_data_test.step);
+    test_step.dependOn(&run_blake2f_test.step);
 
     // Define a single test step that runs all tests
     const test_all_step = b.step("test-all", "Run all unit tests");

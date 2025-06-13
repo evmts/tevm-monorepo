@@ -13,8 +13,8 @@ test "RETURN (0xF3): Return data from execution" {
     defer test_vm.deinit(allocator);
 
     const code = [_]u8{
-        0x60, 0x00, // PUSH1 0x00 (offset = 0)
         0x60, 0x20, // PUSH1 0x20 (size = 32 bytes)
+        0x60, 0x00, // PUSH1 0x00 (offset = 0)
         0xF3, // RETURN
     };
 
@@ -57,8 +57,8 @@ test "RETURN: Empty return data" {
     defer test_vm.deinit(allocator);
 
     const code = [_]u8{
-        0x60, 0x00, // PUSH1 0x00 (size = 0)
         0x60, 0x00, // PUSH1 0x00 (offset = 0)
+        0x60, 0x00, // PUSH1 0x00 (size = 0)
         0xF3, // RETURN
     };
 
@@ -99,8 +99,8 @@ test "REVERT (0xFD): Revert with data" {
     defer test_vm.deinit(allocator);
 
     const code = [_]u8{
-        0x60, 0x00, // PUSH1 0x00 (offset = 0)
         0x60, 0x10, // PUSH1 0x10 (size = 16 bytes)
+        0x60, 0x00, // PUSH1 0x00 (offset = 0)
         0xFD, // REVERT
     };
 
@@ -143,8 +143,8 @@ test "REVERT: Empty revert data" {
     defer test_vm.deinit(allocator);
 
     const code = [_]u8{
-        0x60, 0x00, // PUSH1 0x00 (size = 0)
         0x60, 0x00, // PUSH1 0x00 (offset = 0)
+        0x60, 0x00, // PUSH1 0x00 (size = 0)
         0xFD, // REVERT
     };
 
@@ -362,8 +362,7 @@ test "Control opcodes: Gas consumption" {
     defer test_frame.deinit();
 
     // Return large data requiring memory expansion
-    try test_frame.pushStack(&[_]u256{0}); // offset
-    try test_frame.pushStack(&[_]u256{0x1000}); // size (4096 bytes)
+    try test_frame.pushStack(&[_]u256{ 0x1000, 0 }); // size=4096, offset=0 (offset on top per EVM spec)
 
     const gas_before = test_frame.frame.gas_remaining;
     const result = helpers.executeOpcode(0xF3, test_vm.vm, test_frame.frame);
@@ -399,8 +398,7 @@ test "RETURN/REVERT: Large memory offset" {
         defer test_frame.deinit();
 
         // Push large offset
-        try test_frame.pushStack(&[_]u256{0x1000}); // offset = 4096
-        try test_frame.pushStack(&[_]u256{32}); // size = 32
+        try test_frame.pushStack(&[_]u256{ 32, 0x1000 }); // size=32, offset=4096 (offset on top per EVM spec)
 
         const gas_before = test_frame.frame.gas_remaining;
         const result = helpers.executeOpcode(opcode, test_vm.vm, test_frame.frame);

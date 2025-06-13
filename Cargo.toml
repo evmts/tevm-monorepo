@@ -7,6 +7,9 @@ members = [
 	'bundler-packages/solc-rs',
 	'src/compilers',
 ]
+exclude = [
+	'bench/evm',
+]
 
 [profile.release]
 lto = true
