@@ -73,23 +73,45 @@ read_only: bool = false,
 /// var vm = try VM.init(allocator, null, null);
 /// ```
 pub fn init(allocator: std.mem.Allocator, database: @import("state/database_interface.zig").DatabaseInterface, jump_table: ?*const JumpTable, chain_rules: ?*const ChainRules) !Vm {
+    std.debug.print("🔍 VM.init: ENTRY - Starting VM initialization\n", .{});
     Log.debug("VM.init: Initializing VM with allocator and database", .{});
 
+    std.debug.print("🔍 VM.init: Step 1 - About to call EvmState.init\n", .{});
     var state = try EvmState.init(allocator, database);
     errdefer state.deinit();
+    std.debug.print("✅ VM.init: Step 1 - EvmState.init completed successfully\n", .{});
 
+    std.debug.print("🔍 VM.init: Step 2 - About to call AccessList.init\n", .{});
     var access_list = AccessList.init(allocator);
     errdefer access_list.deinit();
+    std.debug.print("✅ VM.init: Step 2 - AccessList.init completed successfully\n", .{});
 
-    Log.debug("VM.init: VM initialization complete", .{});
-    return Vm{
+    std.debug.print("🔍 VM.init: Step 3 - About to access JumpTable.DEFAULT\n", .{});
+    const table = jump_table orelse &JumpTable.DEFAULT;
+    std.debug.print("✅ VM.init: Step 3 - JumpTable.DEFAULT accessed successfully\n", .{});
+
+    std.debug.print("🔍 VM.init: Step 4 - About to access ChainRules.DEFAULT\n", .{});
+    const rules = chain_rules orelse &ChainRules.DEFAULT;
+    std.debug.print("✅ VM.init: Step 4 - ChainRules.DEFAULT accessed successfully\n", .{});
+
+    std.debug.print("🔍 VM.init: Step 5 - About to call Context.init\n", .{});
+    const context = Context.init();
+    std.debug.print("✅ VM.init: Step 5 - Context.init completed successfully\n", .{});
+
+    std.debug.print("🔍 VM.init: Step 6 - About to create VM struct\n", .{});
+    const vm = Vm{
         .allocator = allocator,
-        .table = (jump_table orelse &JumpTable.DEFAULT).*,
-        .chain_rules = (chain_rules orelse &ChainRules.DEFAULT).*,
+        .table = table.*,
+        .chain_rules = rules.*,
         .state = state,
-        .context = Context.init(),
+        .context = context,
         .access_list = access_list,
     };
+    std.debug.print("✅ VM.init: Step 6 - VM struct created successfully\n", .{});
+
+    Log.debug("VM.init: VM initialization complete", .{});
+    std.debug.print("🎯 VM.init: EXIT - VM initialization completed successfully\n", .{});
+    return vm;
 }
 
 /// Initialize VM with a specific hardfork.

@@ -1756,6 +1756,32 @@ pub fn build(b: *std.Build) void {
     const snailtracer_debug_vm_init_test_step = b.step("test-snailtracer-debug-vm-init", "Run debug VM init test");
     snailtracer_debug_vm_init_test_step.dependOn(&run_snailtracer_debug_vm_init_test.step);
 
+    const snailtracer_isolate_vm_crash_test = b.addTest(.{
+        .name = "snailtracer-isolate-vm-crash-test",
+        .root_source_file = b.path("test/evm/snailtracer_isolate_vm_crash_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    snailtracer_isolate_vm_crash_test.root_module.addImport("evm", target_architecture_mod);
+    snailtracer_isolate_vm_crash_test.root_module.addImport("Compiler", compiler_mod);
+    snailtracer_isolate_vm_crash_test.root_module.addImport("Address", address_mod);
+    const run_snailtracer_isolate_vm_crash_test = b.addRunArtifact(snailtracer_isolate_vm_crash_test);
+    const snailtracer_isolate_vm_crash_test_step = b.step("test-snailtracer-isolate-vm-crash", "Run isolate VM crash test");
+    snailtracer_isolate_vm_crash_test_step.dependOn(&run_snailtracer_isolate_vm_crash_test.step);
+
+    const snailtracer_minimal_vm_crash_test = b.addTest(.{
+        .name = "snailtracer-minimal-vm-crash-test",
+        .root_source_file = b.path("test/evm/snailtracer_minimal_vm_crash_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    snailtracer_minimal_vm_crash_test.root_module.addImport("evm", target_architecture_mod);
+    snailtracer_minimal_vm_crash_test.root_module.addImport("Compiler", compiler_mod);
+    snailtracer_minimal_vm_crash_test.root_module.addImport("Address", address_mod);
+    const run_snailtracer_minimal_vm_crash_test = b.addRunArtifact(snailtracer_minimal_vm_crash_test);
+    const snailtracer_minimal_vm_crash_test_step = b.step("test-snailtracer-minimal-vm-crash", "Run minimal VM crash test");
+    snailtracer_minimal_vm_crash_test_step.dependOn(&run_snailtracer_minimal_vm_crash_test.step);
+
     const run_lib_unit_tests = b.addRunArtifact(lib_unit_tests);
 
     const exe_unit_tests = b.addTest(.{
