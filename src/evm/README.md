@@ -658,6 +658,22 @@ The EVM implementation follows a modular architecture with clear separation of c
 4. **Performance optimizations** and SIMD improvements
 5. **EOF support** for future Ethereum upgrades
 
+### Recent Progress ✅
+
+1. **Complete call gas management** with 63/64th gas forwarding rule ✅
+2. **Implement precompiled contracts** - 13/17 completed including all standard precompiles ✅
+3. **Add gas refunds** for SSTORE operations ✅
+4. **Snailtracer benchmarking** against Geth and Reth ✅
+5. **CI/CD checks** for WASM bundle size regression ✅
+
+### Current Priorities
+
+1. **Fix WASM build** and integrate into Tevm JavaScript library
+2. **Complete remaining BLS12-381 precompiles** (PAIRING, MAP_FP_TO_G1, MAP_FP2_TO_G2)
+3. **L2 support** for Optimism, Arbitrum, etc.
+4. **Performance optimizations** and SIMD improvements
+5. **EOF support** for future Ethereum upgrades
+
 ## 🤝 Contributing
 
 We're actively looking for contributors! The codebase is designed to be approachable and maintainable. If you're interested in helping with:
