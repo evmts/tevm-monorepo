@@ -98,12 +98,7 @@ pub fn get_output_size(address: [20]u8, input_size: usize, chain_rules: anytype)
         2 => 32, // SHA256 - fixed 32 bytes (hash)
         3 => 20, // RIPEMD160 - fixed 20 bytes (hash) 
         4 => input_size, // IDENTITY - same as input size
-        5 => blk: { // MODEXP - depends on input parameters
-            // For now, return a reasonable default
-            // TODO: Parse modexp input to get exact size based on input_size
-            _ = input_size; // Will be used in future implementation
-            break :blk 256;
-        },
+        5 => 256, // MODEXP - fixed size for now (input_size will be used in future implementation)
         6 => 64, // ECADD - fixed 64 bytes (point)
         7 => 64, // ECMUL - fixed 64 bytes (point)  
         8 => 32, // ECPAIRING - fixed 32 bytes (boolean result)
