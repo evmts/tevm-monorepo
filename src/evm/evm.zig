@@ -119,17 +119,27 @@ pub const MemoryDatabase = @import("state/memory_database.zig").MemoryDatabase;
 pub const DatabaseFactory = @import("state/database_factory.zig");
 
 /// Precompiled contracts implementation (IDENTITY, SHA256, etc.)
-pub const Precompiles = @import("precompiles/precompiles.zig");
+/// Using the new comprehensive precompiles package with hybrid REVM/Zig approach
+pub const Precompiles = @import("../precompiles").Precompiles;
 
 /// Precompiles namespace for easier access
 pub const precompiles = struct {
-    pub const precompiles = @import("precompiles/precompiles.zig");
-    pub const identity = @import("precompiles/identity.zig");
-    pub const sha256 = @import("precompiles/sha256.zig");
-    pub const ripemd160 = @import("precompiles/ripemd160.zig");
-    pub const precompile_result = @import("precompiles/precompile_result.zig");
-    pub const PrecompileOutput = @import("precompiles/precompile_result.zig").PrecompileOutput;
-    pub const PrecompileError = @import("precompiles/precompile_result.zig").PrecompileError;
+    pub const Precompiles = @import("../precompiles").Precompiles;
+    pub const PrecompileResult = @import("../precompiles").PrecompileResult;
+    pub const PrecompileError = @import("../precompiles").PrecompileError;
+    pub const PrecompileType = @import("../precompiles").PrecompileType;
+    
+    // Convenience functions
+    pub const sha256 = @import("../precompiles").sha256;
+    pub const identity = @import("../precompiles").identity;
+    pub const ecrecover = @import("../precompiles").ecrecover;
+    pub const ripemd160 = @import("../precompiles").ripemd160;
+    pub const modexp = @import("../precompiles").modexp;
+    pub const blake2f = @import("../precompiles").blake2f;
+    
+    // Compatibility aliases
+    pub const precompiles = @import("../precompiles").precompiles;
+    pub const PrecompileOutput = @import("../precompiles").PrecompileResult; // Alias for compatibility
 };
 
 /// EIP-4844 blob transaction support (blobs, KZG verification, gas market)
