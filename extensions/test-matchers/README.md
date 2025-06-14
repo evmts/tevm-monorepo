@@ -132,6 +132,149 @@ expect(hex1).toEqualHex(hex2, { exact: true })  // exact string comparison
 expect('0x1234abcd').not.toEqualHex('0x1234abce')
 ```
 
+## Event Matchers
+
+### `toEmit(contract, eventName)`
+
+Asserts that a transaction emitted a specific event from a contract.
+
+```typescript
+import { expect, test } from 'vitest'
+import '@tevm/test-matchers'
+
+// Contract with typed ABI
+const contract = {
+  abi: [
+    {
+      type: 'event',
+      name: 'Transfer',
+      inputs: [
+        { name: 'from', type: 'address', indexed: true },
+        { name: 'to', type: 'address', indexed: true },
+        { name: 'value', type: 'uint256', indexed: false }
+      ]
+    }
+  ],
+  address: '0x742d35Cc5dB4c8E9f8D4Dc1Ef70c4c7c8E5b7A6b'
+}
+
+test('contract event emission', async () => {
+  // ✅ Passes - event was emitted
+  await expect(contract.write.transfer('0x123...', 100n))
+    .toEmit(contract, 'Transfer')
+
+  // ❌ Fails - event was not emitted
+  await expect(contract.read.balanceOf('0x123...'))
+    .toEmit(contract, 'Transfer')
+
+  // Works with .not
+  await expect(contract.read.balanceOf('0x123...'))
+    .not.toEmit(contract, 'Transfer')
+})
+```
+
+### `toEmit(eventSignature)` and `toEmit(eventSelector)`
+
+Alternative ways to specify events using signature strings or hex selectors.
+
+```typescript
+test('event emission with signature', async () => {
+  // Using event signature string
+  await expect(contract.write.transfer('0x123...', 100n))
+    .toEmit('Transfer(address,address,uint256)')
+
+  // Using event selector (hex)
+  await expect(contract.write.transfer('0x123...', 100n))
+    .toEmit('0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef')
+})
+```
+
+### `withEventArgs(...expectedArgs)`
+
+Chains with `toEmit` to assert specific event arguments in positional order.
+
+```typescript
+test('event with specific arguments', async () => {
+  const fromAddr = '0x742d35Cc5dB4c8E9f8D4Dc1Ef70c4c7c8E5b7A6b'
+  const toAddr = '0x123d35Cc5dB4c8E9f8D4Dc1Ef70c4c7c8E5b7A6b'
+  const amount = 100n
+
+  // ✅ Passes - exact argument match
+  await expect(contract.write.transfer(toAddr, amount))
+    .toEmit(contract, 'Transfer')
+    .withEventArgs(fromAddr, toAddr, amount)
+
+  // ❌ Fails - wrong arguments
+  await expect(contract.write.transfer(toAddr, amount))
+    .toEmit(contract, 'Transfer')
+    .withEventArgs(fromAddr, toAddr, 200n) // wrong amount
+
+  // Works with event signatures too
+  await expect(contract.write.transfer(toAddr, amount))
+    .toEmit('Transfer(address,address,uint256)')
+    .withEventArgs(fromAddr, toAddr, amount)
+})
+```
+
+### `withEventNamedArgs(expectedArgs)`
+
+Chains with `toEmit` to assert specific event arguments by name. Supports partial matching.
+
+```typescript
+test('event with named arguments', async () => {
+  const toAddr = '0x123d35Cc5dB4c8E9f8D4Dc1Ef70c4c7c8E5b7A6b'
+  const amount = 100n
+
+  // ✅ Passes - partial named argument match
+  await expect(contract.write.transfer(toAddr, amount))
+    .toEmit(contract, 'Transfer')
+    .withEventNamedArgs({
+      to: toAddr,
+      value: amount
+    })
+
+  // ✅ Passes - can check just one argument
+  await expect(contract.write.transfer(toAddr, amount))
+    .toEmit(contract, 'Transfer')
+    .withEventNamedArgs({ value: amount })
+
+  // ✅ Passes - empty object matches any event
+  await expect(contract.write.transfer(toAddr, amount))
+    .toEmit(contract, 'Transfer')
+    .withEventNamedArgs({})
+
+  // ❌ Fails - wrong named arguments
+  await expect(contract.write.transfer(toAddr, amount))
+    .toEmit(contract, 'Transfer')
+    .withEventNamedArgs({ value: 200n })
+
+  // ❌ Fails - invalid argument name
+  await expect(contract.write.transfer(toAddr, amount))
+    .toEmit(contract, 'Transfer')
+    .withEventNamedArgs({ invalidArg: 100n })
+})
+```
+
+### Event Matcher Limitations
+
+**Important:** Due to how Chai's `.not` property works, you cannot use `.not` directly before `withEventArgs` or `withEventNamedArgs`. Meaning that you _can_ test that an event was not emitted, but you _cannot_ test that an event was emitted but not with certain arguments.
+
+```typescript
+// ❌ Does NOT work - .not breaks the chain
+await expect(transaction)
+  .toEmit(contract, 'Transfer')
+  .not.withEventArgs(100n) // This will fail with an error
+
+// ✅ Works - use .not before toEmit
+await expect(transaction)
+  .not.toEmit(contract, 'Transfer') // Event should not be emitted at all
+
+// ✅ Alternative - assert the positive case
+await expect(transaction)
+  .toEmit(contract, 'Transfer')
+  .withEventArgs(200n) // Assert it has different args instead
+```
+
 ## TypeScript Support
 
 All matchers include full TypeScript support with proper type definitions. The matchers will be available on the `expect` object after importing.
@@ -205,6 +348,29 @@ test('Address validation with different strictness', () => {
 
   // But they should be equal as addresses
   expect(checksummed).toEqualAddress(lowercase) // passes (same address)
+})
+
+test('Event testing examples', async () => {
+  const client = // ... your TEVM client
+
+  // Basic event testing
+  await expect(client.tevmContract(contract.write.transfer('0x123...', 100n)))
+    .toEmit(contract, 'Transfer')
+
+  // Event with specific arguments
+  await expect(client.tevmContract(contract.write.transfer('0x123...', 100n)))
+    .toEmit(contract, 'Transfer')
+    .withEventArgs('0x742d35Cc...', '0x123...', 100n)
+
+  // Event with named arguments (partial matching)
+  await expect(client.tevmContract(contract.write.transfer('0x123...', 100n)))
+    .toEmit(contract, 'Transfer')
+    .withEventNamedArgs({ value: 100n })
+
+  // Using event signatures instead of contracts
+  await expect(transaction)
+    .toEmit('Transfer(address,address,uint256)')
+    .withEventArgs(fromAddr, toAddr, amount)
 })
 ```
 
