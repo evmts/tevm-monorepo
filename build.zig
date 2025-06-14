@@ -106,6 +106,14 @@ pub fn build(b: *std.Build) void {
     });
     compiler_mod.addImport("zabi", zabi_dep.module("zabi"));
 
+    const precompiles_mod = b.createModule(.{
+        .root_source_file = b.path("src/precompiles/package.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    precompiles_mod.stack_check = false;
+    precompiles_mod.single_threaded = true;
+
     // Create a separate compiler module for WASM without problematic dependencies
     const compiler_wasm_mod = b.createModule(.{
         .root_source_file = b.path("src/compilers/compiler_wasm.zig"),
@@ -171,6 +179,7 @@ pub fn build(b: *std.Build) void {
     target_architecture_mod.addImport("Block", block_mod);
     target_architecture_mod.addImport("Bytecode", bytecode_mod);
     target_architecture_mod.addImport("Compiler", compiler_mod);
+    target_architecture_mod.addImport("Precompiles", precompiles_mod);
     target_architecture_mod.addImport("evm", evm_mod);
     target_architecture_mod.addImport("Rlp", rlp_mod);
     target_architecture_mod.addImport("Token", token_mod);
@@ -298,6 +307,7 @@ pub fn build(b: *std.Build) void {
     lib_unit_tests.root_module.addImport("Block", block_mod);
     lib_unit_tests.root_module.addImport("Bytecode", bytecode_mod);
     lib_unit_tests.root_module.addImport("Compiler", compiler_mod);
+    lib_unit_tests.root_module.addImport("Precompiles", precompiles_mod);
     lib_unit_tests.root_module.addImport("evm", evm_mod);
     lib_unit_tests.root_module.addImport("Rlp", rlp_mod);
     lib_unit_tests.root_module.addImport("Token", token_mod);
