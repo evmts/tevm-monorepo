@@ -1439,6 +1439,9 @@ importers:
       '@tevm/decorators':
         specifier: workspace:^
         version: link:../decorators
+      '@tevm/test-matchers':
+        specifier: workspace:^
+        version: link:../../extensions/test-matchers
       '@tevm/test-utils':
         specifier: workspace:^
         version: link:../../test/test-utils
