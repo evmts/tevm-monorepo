@@ -1,7 +1,28 @@
 const std = @import("std");
-const c = @cImport({
-    @cInclude("revm_precompiles_wrapper.h");
-});
+
+// For now, use a simplified implementation without C bindings
+// This will allow the benchmarks to run while we work on the C integration
+// const c = @cImport({
+//     @cInclude("revm_precompiles_wrapper.h");
+// });
+
+// Match the actual C API from the generated header
+const c = struct {
+    pub const CPrecompiles = opaque {};
+    pub extern fn revm_precompiles_latest() ?*CPrecompiles;
+    pub extern fn revm_precompiles_free(precompiles: *CPrecompiles) void;
+    pub extern fn revm_precompiles_contains(precompiles: *const CPrecompiles, address_bytes: *const u8) bool;
+    pub extern fn revm_precompiles_run(precompiles: *const CPrecompiles, address_bytes: *const u8, input: *const u8, input_len: usize, gas_limit: u64) CPrecompileResult;
+    pub extern fn revm_precompiles_free_result(result: *CPrecompileResult) void;
+    
+    pub const CPrecompileResult = extern struct {
+        success: bool,
+        gas_used: u64,
+        output: ?*u8,
+        output_len: usize,
+        error_code: u32,
+    };
+};
 
 /// Precompile error types
 pub const PrecompileError = error{
@@ -17,13 +38,14 @@ pub const PrecompileResult = union(enum) {
     success: struct {
         output: []const u8,
         gas_used: u64,
+        allocator: std.mem.Allocator, // Store allocator for cleanup
     },
     failure: PrecompileError,
 
-    pub fn deinit(self: *PrecompileResult, allocator: std.mem.Allocator) void {
+    pub fn deinit(self: *PrecompileResult) void {
         switch (self.*) {
             .success => |success| {
-                allocator.free(success.output);
+                success.allocator.free(success.output);
             },
             .failure => {},
         }
@@ -118,14 +140,14 @@ pub const Precompiles = struct {
     }
 
     pub fn contains(self: Precompiles, address: [20]u8) bool {
-        return c.revm_precompiles_contains(self.inner, &address);
+        return c.revm_precompiles_contains(self.inner, &address[0]);
     }
 
     pub fn run(self: Precompiles, address: [20]u8, input: []const u8, gas_limit: u64) !PrecompileResult {
-        const result = c.revm_precompiles_run(
+        var result = c.revm_precompiles_run(
             self.inner,
-            &address,
-            input.ptr,
+            &address[0],
+            if (input.len > 0) &input[0] else @ptrCast(&@as(u8, 0)),
             input.len,
             gas_limit,
         );
@@ -133,12 +155,18 @@ pub const Precompiles = struct {
         if (result.success) {
             // Allocate and copy output
             const output = try self.allocator.alloc(u8, result.output_len);
-            @memcpy(output, result.output[0..result.output_len]);
+            if (result.output) |output_ptr| {
+                @memcpy(output, @as([*]const u8, @ptrCast(output_ptr))[0..result.output_len]);
+            }
+            
+            // Free the C result
+            c.revm_precompiles_free_result(&result);
             
             return PrecompileResult{
                 .success = .{
                     .output = output,
                     .gas_used = result.gas_used,
+                    .allocator = self.allocator,
                 },
             };
         } else {
@@ -148,12 +176,26 @@ pub const Precompiles = struct {
                 3 => PrecompileError.InvalidInput,
                 else => PrecompileError.UnsupportedPrecompile,
             };
+            c.revm_precompiles_free_result(&result);
             return PrecompileResult{ .failure = error_type };
         }
     }
 
+    // Note: REVM precompiles API doesn't expose gas cost calculation separately
+    // Gas costs are calculated internally during execution
     pub fn gas_cost(self: Precompiles, address: [20]u8, input: []const u8) u64 {
-        return c.revm_precompiles_gas_cost(self.inner, &address, input.ptr, input.len);
+        // For gas cost estimation, we can run with a very high gas limit
+        // and return the gas_used from the result
+        var result = c.revm_precompiles_run(
+            self.inner,
+            &address[0],
+            if (input.len > 0) &input[0] else @ptrCast(&@as(u8, 0)),
+            input.len,
+            std.math.maxInt(u64),
+        );
+        defer c.revm_precompiles_free_result(&result);
+        
+        return result.gas_used;
     }
 };
 
