@@ -170,6 +170,7 @@ pub fn build(b: *std.Build) void {
     evm_mod.addImport("Address", address_mod);
     evm_mod.addImport("Block", block_mod);
     evm_mod.addImport("Rlp", rlp_mod);
+    evm_mod.addImport("precompiles", precompiles_mod);
 
     // Create a ZigEVM module - our core EVM implementation
     const target_architecture_mod = b.createModule(.{
@@ -357,6 +358,7 @@ pub fn build(b: *std.Build) void {
     evm_test.root_module.addImport("Bytecode", bytecode_mod);
     evm_test.root_module.addImport("Compiler", compiler_mod);
     evm_test.root_module.addImport("evm", evm_mod);
+    evm_test.root_module.addImport("precompiles", precompiles_mod);
     evm_test.root_module.addImport("Rlp", rlp_mod);
     evm_test.root_module.addImport("Token", token_mod);
     evm_test.root_module.addImport("Trie", trie_mod);
