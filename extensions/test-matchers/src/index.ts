@@ -1,6 +1,13 @@
 import { expect } from 'vitest'
 import { registerChainableMatchers } from './chainable/chainable.js'
-import { type ContractLike, type EmitMatchers, type TransactionLike, eventMatchers } from './matchers/events/index.js'
+import { type ContainsContractAbi, type ContainsTransactionLogs } from './common/types.js'
+import {
+	type ErrorMatchers,
+	chainableErrorMatchers,
+	toBeReverted,
+	toBeRevertedWithString,
+} from './matchers/errors/index.js'
+import { type EmitMatchers, chainableEventMatchers } from './matchers/events/index.js'
 import {
 	type EqualHexOptions,
 	type IsAddressOptions,
@@ -12,18 +19,21 @@ import {
 	toEqualHex,
 } from './matchers/utils/index.js'
 
-export type { IsAddressOptions, IsHexOptions, EqualHexOptions, ContractLike, TransactionLike }
+export type { IsAddressOptions, IsHexOptions, EqualHexOptions, ContainsContractAbi, ContainsTransactionLogs }
 
 expect.extend({
 	toBeAddress,
 	toBeHex,
 	toEqualAddress,
 	toEqualHex,
+	toBeReverted,
+	toBeRevertedWithString,
 })
 
-registerChainableMatchers(eventMatchers)
+registerChainableMatchers(chainableEventMatchers)
+registerChainableMatchers(chainableErrorMatchers)
 
 declare module 'vitest' {
-	interface Assertion<T = any> extends UtilsMatchers, EmitMatchers {}
-	interface AsymmetricMatchersContaining extends UtilsMatchers, EmitMatchers {}
+	interface Assertion<T = any> extends UtilsMatchers, EmitMatchers, ErrorMatchers {}
+	interface AsymmetricMatchersContaining extends UtilsMatchers, EmitMatchers, ErrorMatchers {}
 }
