@@ -826,7 +826,7 @@ pub fn build(b: *std.Build) void {
     const evm_memory_benchmark_step = b.step("bench-evm-memory", "Run EVM Memory benchmarks");
     evm_memory_benchmark_step.dependOn(&run_evm_memory_benchmark.step);
 
-    // Add EVM Precompiles benchmark
+    // Add EVM Precompiles benchmark (defined later to access rust step)
     const evm_precompiles_benchmark = b.addExecutable(.{
         .name = "evm-precompiles-benchmark",
         .root_source_file = b.path("bench/evm/precompiles_bench.zig"),
@@ -854,6 +854,13 @@ pub fn build(b: *std.Build) void {
         return;
     };
 
+    // Add Rust Precompiles wrapper integration
+    const precompiles_rust_build = @import("src/precompiles/rust_build.zig");
+    const precompiles_rust_step = precompiles_rust_build.add_rust_integration(b, target, optimize) catch |err| {
+        std.debug.print("Failed to add Rust precompiles integration: {}\n", .{err});
+        return;
+    };
+
     // Make the compiler test depend on the Rust build
     compiler_test.step.dependOn(rust_step);
 
@@ -871,6 +878,15 @@ pub fn build(b: *std.Build) void {
         // Consider adding SystemConfiguration if rust_build.zig links it for its own tests
         // compiler_test.linkFramework("SystemConfiguration");
     }
+
+    // Make the precompiles benchmark depend on the Rust precompiles build
+    evm_precompiles_benchmark.step.dependOn(precompiles_rust_step);
+
+    // Link the Rust precompiles library to the benchmark
+    precompiles_rust_build.link_precompiles(evm_precompiles_benchmark, b);
+
+    // Add include path to precompiles module after Rust build
+    precompiles_mod.addIncludePath(b.path("zig-out/include"));
 
     const run_lib_unit_tests = b.addRunArtifact(lib_unit_tests);
 

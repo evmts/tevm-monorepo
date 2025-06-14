@@ -48,6 +48,199 @@ pub const SpecId = if (@hasDecl(precompiles, "SpecId")) precompiles.SpecId else 
     latest = 6,
 };
 
+// Compatibility layer for EVM integration
+// These functions provide the API expected by src/evm/vm.zig
+
+/// Check if the given address is a precompile address
+/// Compatible with src/evm/vm.zig expectations
+pub fn is_precompile(address: [20]u8) bool {
+    // Check if the address corresponds to any known precompile
+    if (address[0] != 0 or address[1] != 0 or address[2] != 0 or address[3] != 0 or
+        address[4] != 0 or address[5] != 0 or address[6] != 0 or address[7] != 0 or
+        address[8] != 0 or address[9] != 0 or address[10] != 0 or address[11] != 0 or
+        address[12] != 0 or address[13] != 0 or address[14] != 0 or address[15] != 0 or
+        address[16] != 0 or address[17] != 0 or address[18] != 0) {
+        return false;
+    }
+    
+    // Check if the last byte corresponds to a valid precompile
+    return switch (address[19]) {
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10 => true, // Standard precompiles 0x01-0x0A
+        else => false,
+    };
+}
+
+/// Check if a precompile is available for the given chain rules
+/// Compatible with src/evm/vm.zig expectations  
+pub fn is_available(address: [20]u8, chain_rules: anytype) bool {
+    if (!is_precompile(address)) {
+        return false;
+    }
+    
+    // For compatibility, we assume all precompiles are available
+    // since the new package provides comprehensive implementations
+    // The hardfork-specific logic can be handled at a higher level if needed
+    _ = chain_rules; // Suppress unused parameter warning
+    return true;
+}
+
+/// Get the expected output size for a precompile call
+/// Compatible with src/evm/vm.zig expectations
+pub fn get_output_size(address: [20]u8, input_size: usize, chain_rules: anytype) !usize {
+    _ = chain_rules; // Suppress unused parameter warning
+    
+    if (!is_precompile(address)) {
+        return error.InvalidPrecompile;
+    }
+    
+    return switch (address[19]) {
+        1 => 32, // ECRECOVER - fixed 32 bytes (address)
+        2 => 32, // SHA256 - fixed 32 bytes (hash)
+        3 => 20, // RIPEMD160 - fixed 20 bytes (hash) 
+        4 => input_size, // IDENTITY - same as input size
+        5 => blk: { // MODEXP - depends on input parameters
+            // For now, return a reasonable default
+            // TODO: Parse modexp input to get exact size based on input_size
+            _ = input_size; // Will be used in future implementation
+            break :blk 256;
+        },
+        6 => 64, // ECADD - fixed 64 bytes (point)
+        7 => 64, // ECMUL - fixed 64 bytes (point)  
+        8 => 32, // ECPAIRING - fixed 32 bytes (boolean result)
+        9 => 64, // BLAKE2F - fixed 64 bytes (hash)
+        10 => 64, // KZG_POINT_EVALUATION - fixed 64 bytes
+        else => error.InvalidPrecompile,
+    };
+}
+
+/// Execute a precompile with the given parameters
+/// Compatible with src/evm/vm.zig expectations
+/// Returns a result compatible with PrecompileOutput from the old API
+pub fn execute_precompile(address: [20]u8, input: []const u8, output: []u8, gas_limit: u64, chain_rules: anytype) PrecompileExecutionResult {
+    _ = chain_rules; // Suppress unused parameter warning
+    
+    if (!is_precompile(address)) {
+        return PrecompileExecutionResult{ .failure = PrecompileExecutionError.ExecutionFailed };
+    }
+    
+    // For now, create a thread-local precompiles instance  
+    // TODO: This should be passed in or managed at a higher level
+    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    defer _ = gpa.deinit();
+    const allocator = gpa.allocator();
+    
+    if (@import("builtin").target.cpu.arch.isWasm()) {
+        var precompiles_instance = Precompiles.create(allocator);
+        defer precompiles_instance.deinit();
+        
+        const result = precompiles_instance.run(address, input, gas_limit) catch |err| {
+            return PrecompileExecutionResult{ .failure = switch (err) {
+                error.OutOfMemory => PrecompileExecutionError.OutOfMemory,
+                error.UnsupportedPrecompile => PrecompileExecutionError.ExecutionFailed,
+                error.InsufficientGas => PrecompileExecutionError.OutOfGas,
+                else => PrecompileExecutionError.ExecutionFailed,
+            }};
+        };
+        
+        // Copy result to output buffer
+        const copy_len = @min(output.len, result.output.len);
+        @memcpy(output[0..copy_len], result.output[0..copy_len]);
+        
+        return PrecompileExecutionResult{ 
+            .success = .{
+                .gas_used = result.gas_used,
+                .output_size = copy_len,
+            }
+        };
+    } else {
+        var precompiles_instance = Precompiles.create_latest(allocator) catch {
+            return PrecompileExecutionResult{ .failure = PrecompileExecutionError.ExecutionFailed };
+        };
+        defer precompiles_instance.deinit();
+        
+        const result = precompiles_instance.run(address, input, gas_limit) catch |err| {
+            return PrecompileExecutionResult{ .failure = switch (err) {
+                error.OutOfMemory => PrecompileExecutionError.OutOfMemory,
+                else => PrecompileExecutionError.ExecutionFailed,
+            }};
+        };
+        
+        switch (result) {
+            .success => |success| {
+                // Copy result to output buffer
+                const copy_len = @min(output.len, success.output.len);
+                @memcpy(output[0..copy_len], success.output[0..copy_len]);
+                
+                return PrecompileExecutionResult{ 
+                    .success = .{
+                        .gas_used = success.gas_used,
+                        .output_size = copy_len,
+                    }
+                };
+            },
+            .failure => |failure| {
+                return PrecompileExecutionResult{ .failure = switch (failure) {
+                    PrecompileError.OutOfGas => PrecompileExecutionError.OutOfGas,
+                    PrecompileError.ExecutionFailed => PrecompileExecutionError.ExecutionFailed,
+                    PrecompileError.InvalidInput => PrecompileExecutionError.InvalidInput,
+                    PrecompileError.UnsupportedPrecompile => PrecompileExecutionError.ExecutionFailed,
+                    PrecompileError.PrecompileCreationFailed => PrecompileExecutionError.ExecutionFailed,
+                }};
+            },
+        }
+    }
+}
+
+// Compatibility types to match the old API
+
+/// Error types that match the old precompiles API
+pub const PrecompileExecutionError = error{
+    OutOfGas,
+    InvalidInput,
+    ExecutionFailed,
+    OutOfMemory,
+};
+
+/// Result type that matches the old precompiles API structure
+pub const PrecompileExecutionResult = union(enum) {
+    success: struct {
+        gas_used: u64,
+        output_size: usize,
+    },
+    failure: PrecompileExecutionError,
+    
+    pub fn is_success(self: PrecompileExecutionResult) bool {
+        return switch (self) {
+            .success => true,
+            .failure => false,
+        };
+    }
+    
+    pub fn get_gas_used(self: PrecompileExecutionResult) u64 {
+        return switch (self) {
+            .success => |result| result.gas_used,
+            .failure => 0,
+        };
+    }
+    
+    pub fn get_output_size(self: PrecompileExecutionResult) usize {
+        return switch (self) {
+            .success => |result| result.output_size,
+            .failure => 0,
+        };
+    }
+    
+    pub fn get_error(self: PrecompileExecutionResult) ?PrecompileExecutionError {
+        return switch (self) {
+            .success => null,
+            .failure => |err| err,
+        };
+    }
+};
+
+// Export compatibility alias for the old API
+pub const PrecompileOutput = PrecompileExecutionResult;
+
 test "package exports" {
     const testing = std.testing;
     const allocator = testing.allocator;
