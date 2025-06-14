@@ -114,6 +114,15 @@ pub fn build(b: *std.Build) void {
     precompiles_mod.stack_check = false;
     precompiles_mod.single_threaded = true;
 
+    // Create WASM-specific precompiles module with C API
+    const precompiles_wasm_mod = b.createModule(.{
+        .root_source_file = b.path("src/precompiles/wasm_c_api.zig"),
+        .target = wasm_target,
+        .optimize = .ReleaseSmall,
+    });
+    precompiles_wasm_mod.stack_check = false;
+    precompiles_wasm_mod.single_threaded = true;
+
     // Create a separate compiler module for WASM without problematic dependencies
     const compiler_wasm_mod = b.createModule(.{
         .root_source_file = b.path("src/compilers/compiler_wasm.zig"),
@@ -250,10 +259,23 @@ pub fn build(b: *std.Build) void {
     const wasm_output_path = "dist/zigevm.wasm";
     const install_wasm = b.addInstallFile(wasm.getEmittedBin(), wasm_output_path);
 
+    // Create the Precompiles WebAssembly library
+    const precompiles_wasm_lib = b.addExecutable(.{
+        .name = "tevm-precompiles",
+        .root_module = precompiles_wasm_mod,
+    });
+    precompiles_wasm_lib.rdynamic = true; // Required for exported functions
+    precompiles_wasm_lib.entry = .disabled; // No entry point for library mode
+
+    // Define the precompiles WASM output path
+    const precompiles_wasm_output_path = "dist/tevm-precompiles.wasm";
+    const install_precompiles_wasm = b.addInstallFile(precompiles_wasm_lib.getEmittedBin(), precompiles_wasm_output_path);
+
     // Install all artifacts
     b.installArtifact(lib);
     b.installArtifact(exe);
     b.installArtifact(wasm);
+    b.installArtifact(precompiles_wasm_lib);
     b.installArtifact(server_exe);
     b.installArtifact(ui_exe);
 
@@ -273,6 +295,10 @@ pub fn build(b: *std.Build) void {
     // Build WASM step
     const build_wasm_step = b.step("wasm", "Build the WebAssembly artifact");
     build_wasm_step.dependOn(&install_wasm.step);
+
+    // Build Precompiles WASM step
+    const build_precompiles_wasm_step = b.step("wasm-precompiles", "Build the Precompiles WebAssembly library");
+    build_precompiles_wasm_step.dependOn(&install_precompiles_wasm.step);
 
     // Define a run server step
     const run_server_cmd = b.addRunArtifact(server_exe);
@@ -800,11 +826,26 @@ pub fn build(b: *std.Build) void {
     const evm_memory_benchmark_step = b.step("bench-evm-memory", "Run EVM Memory benchmarks");
     evm_memory_benchmark_step.dependOn(&run_evm_memory_benchmark.step);
 
+    // Add EVM Precompiles benchmark
+    const evm_precompiles_benchmark = b.addExecutable(.{
+        .name = "evm-precompiles-benchmark",
+        .root_source_file = b.path("bench/evm/precompiles_bench.zig"),
+        .target = target,
+        .optimize = .ReleaseFast,
+    });
+    evm_precompiles_benchmark.root_module.addImport("zbench", zbench_dep.module("zbench"));
+    evm_precompiles_benchmark.root_module.addImport("Precompiles", precompiles_mod);
+
+    const run_evm_precompiles_benchmark = b.addRunArtifact(evm_precompiles_benchmark);
+
+    const evm_precompiles_benchmark_step = b.step("bench-evm-precompiles", "Run EVM Precompiles benchmarks");
+    evm_precompiles_benchmark_step.dependOn(&run_evm_precompiles_benchmark.step);
+
     // Add combined benchmark step
     const all_benchmark_step = b.step("bench", "Run all benchmarks");
     all_benchmark_step.dependOn(&run_memory_benchmark.step);
     all_benchmark_step.dependOn(&run_evm_memory_benchmark.step);
-    all_benchmark_step.dependOn(&run_evm_memory_benchmark.step);
+    all_benchmark_step.dependOn(&run_evm_precompiles_benchmark.step);
 
     // Add Rust Foundry wrapper integration
     const rust_build = @import("src/compilers/rust_build.zig");
