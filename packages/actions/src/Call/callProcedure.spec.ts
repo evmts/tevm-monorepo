@@ -1,7 +1,7 @@
 import { createAddress } from '@tevm/address'
 import { ERC20 } from '@tevm/contract'
 import { type TevmNode, createTevmNode } from '@tevm/node'
-import { BlockReader, SimpleContract } from '@tevm/test-utils'
+import { BlockReader, ErrorContract, SimpleContract } from '@tevm/test-utils'
 import { type Address, type Hex, decodeFunctionResult, encodeFunctionData, numberToHex, parseEther } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { deployHandler } from '../Deploy/deployHandler.js'
@@ -199,6 +199,99 @@ describe('callProcedure', () => {
 		const response = await callProcedure(client)(request)
 		expect(response.error).toBeDefined()
 		expect(response.error).toMatchSnapshot()
+		expect(response.method).toBe('tevm_call')
+		expect(response.id).toBe(request.id as any)
+	})
+
+	it('should handle errors with a revert', async () => {
+		const address = `0x${'69'.repeat(20)}` as const
+
+		await setAccountHandler(client)({
+			address,
+			balance: 420n,
+			nonce: 69n,
+			deployedBytecode: ErrorContract.deployedBytecode,
+		})
+
+		const request: CallJsonRpcRequest = {
+			jsonrpc: '2.0',
+			method: 'tevm_call',
+			id: 1,
+			params: [
+				{
+					to: address,
+					data: encodeFunctionData(ErrorContract.write.revertWithRequireNoMessage),
+					gas: numberToHex(21000n),
+					gasPrice: numberToHex(1n),
+				},
+			],
+		}
+
+		const response = await callProcedure(client)(request)
+		expect(response.error).toMatchSnapshot()
+		expect(response.result).toBeUndefined()
+		expect(response.method).toBe('tevm_call')
+		expect(response.id).toBe(request.id as any)
+	})
+
+	it('should handle errors with a revert message', async () => {
+		const address = `0x${'69'.repeat(20)}` as const
+
+		await setAccountHandler(client)({
+			address,
+			balance: 420n,
+			nonce: 69n,
+			deployedBytecode: ErrorContract.deployedBytecode,
+		})
+
+		const request: CallJsonRpcRequest = {
+			jsonrpc: '2.0',
+			method: 'tevm_call',
+			id: 1,
+			params: [
+				{
+					to: address,
+					data: encodeFunctionData(ErrorContract.write.revertWithRequireAndMessage),
+					gas: numberToHex(21000n),
+					gasPrice: numberToHex(1n),
+				},
+			],
+		}
+
+		const response = await callProcedure(client)(request)
+		expect(response.error).toMatchSnapshot()
+		expect(response.result).toBeUndefined()
+		expect(response.method).toBe('tevm_call')
+		expect(response.id).toBe(request.id as any)
+	})
+
+	it('should handle errors with a revert custom error', async () => {
+		const address = `0x${'69'.repeat(20)}` as const
+
+		await setAccountHandler(client)({
+			address,
+			balance: 420n,
+			nonce: 69n,
+			deployedBytecode: ErrorContract.deployedBytecode,
+		})
+
+		const request: CallJsonRpcRequest = {
+			jsonrpc: '2.0',
+			method: 'tevm_call',
+			id: 1,
+			params: [
+				{
+					to: address,
+					data: encodeFunctionData(ErrorContract.write.revertWithSimpleCustomError),
+					gas: numberToHex(21000n),
+					gasPrice: numberToHex(1n),
+				},
+			],
+		}
+
+		const response = await callProcedure(client)(request)
+		expect(response.error).toMatchSnapshot()
+		expect(response.result).toBeUndefined()
 		expect(response.method).toBe('tevm_call')
 		expect(response.id).toBe(request.id as any)
 	})

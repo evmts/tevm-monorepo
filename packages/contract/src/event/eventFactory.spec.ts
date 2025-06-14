@@ -51,7 +51,7 @@ describe(eventsFactory.name, () => {
 	})
 
 	it('should return an empty object when abi is an empty array', () => {
-		const events = eventsFactory({ abi: [] })
+		const events = eventsFactory({ events: [] })
 		expect(Object.keys(events)).toHaveLength(0)
 	})
 })
