@@ -275,6 +275,195 @@ await expect(transaction)
   .withEventArgs(200n) // Assert it has different args instead
 ```
 
+## Error Matchers
+
+### `toBeReverted(client?)`
+
+Asserts that a transaction reverted for any reason (string revert, custom error, or panic).
+
+```typescript
+import { expect, test } from 'vitest'
+import '@tevm/test-matchers'
+
+test('basic revert detection', async () => {
+  // ✅ Passes - transaction reverted (any reason)
+  await expect(writeContract(client, contract.write.transferBeyondBalance()))
+    .toBeReverted(client)
+
+  // ❌ Fails - transaction succeeded
+  await expect(writeContract(client, contract.write.transfer('0x123...', 10n)))
+    .toBeReverted(client)
+
+  // Works with .not
+  await expect(writeContract(client, contract.write.transfer('0x123...', 10n)))
+    .not.toBeReverted(client)
+
+  // Client parameter is optional for some transaction types
+  await expect(someTevmCall())
+    .toBeReverted()
+})
+```
+
+### `toBeRevertedWithString(client, expectedString)`
+
+Asserts that a transaction reverted with a specific revert string (e.g., `revert("message")`).
+
+```typescript
+test('string revert detection', async () => {
+  // ✅ Passes - transaction reverted with exact string
+  await expect(writeContract(client, contract.write.requirePositiveAmount(-1)))
+    .toBeRevertedWithString(client, 'Amount must be positive')
+
+  // ❌ Fails - transaction reverted with different string
+  await expect(writeContract(client, contract.write.requirePositiveAmount(-1)))
+    .toBeRevertedWithString(client, 'Invalid amount')
+
+  // ❌ Fails - transaction reverted with custom error (not string)
+  await expect(writeContract(client, contract.write.transferBeyondBalance()))
+    .toBeRevertedWithString(client, 'Amount must be positive')
+
+  // Works with .not
+  await expect(writeContract(client, contract.write.transfer('0x123...', 10n)))
+    .not.toBeRevertedWithString(client, 'Amount must be positive')
+})
+
+### `toBeRevertedWithError(client, contract, errorName)`
+
+Asserts that a transaction reverted with a specific custom error from a contract.
+
+```typescript
+import { expect, test } from 'vitest'
+import '@tevm/test-matchers'
+
+// Contract with custom error in ABI
+const contract = {
+  abi: [
+    {
+      type: 'error',
+      name: 'InsufficientBalance',
+      inputs: [
+        { name: 'available', type: 'uint256' },
+        { name: 'required', type: 'uint256' }
+      ]
+    }
+  ],
+  address: '0x742d35Cc5dB4c8E9f8D4Dc1Ef70c4c7c8E5b7A6b'
+}
+
+test('contract custom error detection', async () => {
+  // ✅ Passes - transaction reverted with specific error
+  await expect(writeContract(client, contract.write.transfer('0x123...', 1000n)))
+    .toBeRevertedWithError(client, contract, 'InsufficientBalance')
+
+  // ❌ Fails - transaction succeeded
+  await expect(writeContract(client, contract.write.transfer('0x123...', 10n)))
+    .toBeRevertedWithError(client, contract, 'InsufficientBalance')
+
+  // ❌ Fails - wrong error
+  await expect(writeContract(client, contract.write.transfer('0x123...', 1000n)))
+    .toBeRevertedWithError(client, contract, 'Unauthorized')
+
+  // Works with .not
+  await expect(writeContract(client, contract.write.transfer('0x123...', 10n)))
+    .not.toBeRevertedWithError(client, contract, 'InsufficientBalance')
+})
+```
+
+### `toBeRevertedWithError(client, errorSignature)` and `toBeRevertedWithError(client, errorSelector)`
+
+Alternative ways to specify errors using signature strings or hex selectors.
+
+```typescript
+test('error detection with signature', async () => {
+  // Using error signature string
+  await expect(writeContract(client, contract.write.transfer('0x123...', 1000n)))
+    .toBeRevertedWithError(client, 'InsufficientBalance(uint256,uint256)')
+
+  // Using error selector (hex)
+  await expect(writeContract(client, contract.write.transfer('0x123...', 1000n)))
+    .toBeRevertedWithError(client, '0x356680b7') // InsufficientBalance selector
+})
+```
+
+### `withErrorArgs(...expectedArgs)`
+
+Chains with `toBeRevertedWithError` to assert specific error arguments in positional order.
+
+```typescript
+test('error with specific arguments', async () => {
+  // ✅ Passes - exact argument match
+  await expect(writeContract(client, contract.write.transfer('0x123...', 1000n)))
+    .toBeRevertedWithError(client, contract, 'InsufficientBalance')
+    .withErrorArgs(50n, 1000n) // available: 50, required: 1000
+
+  // ❌ Fails - wrong arguments
+  await expect(writeContract(client, contract.write.transfer('0x123...', 1000n)))
+    .toBeRevertedWithError(client, contract, 'InsufficientBalance')
+    .withErrorArgs(100n, 1000n) // wrong available amount
+
+  // Works with error signatures too
+  await expect(writeContract(client, contract.write.transfer('0x123...', 1000n)))
+    .toBeRevertedWithError(client, 'InsufficientBalance(uint256,uint256)')
+    .withErrorArgs(50n, 1000n)
+})
+```
+
+### `withErrorNamedArgs(expectedArgs)`
+
+Chains with `toBeRevertedWithError` to assert specific error arguments by name. Supports partial matching.
+
+```typescript
+test('error with named arguments', async () => {
+  // ✅ Passes - partial named argument match
+  await expect(writeContract(client, contract.write.transfer('0x123...', 1000n)))
+    .toBeRevertedWithError(client, contract, 'InsufficientBalance')
+    .withErrorNamedArgs({
+      available: 50n,
+      required: 1000n
+    })
+
+  // ✅ Passes - can check just one argument
+  await expect(writeContract(client, contract.write.transfer('0x123...', 1000n)))
+    .toBeRevertedWithError(client, contract, 'InsufficientBalance')
+    .withErrorNamedArgs({ required: 1000n })
+
+  // ✅ Passes - empty object matches any error
+  await expect(writeContract(client, contract.write.transfer('0x123...', 1000n)))
+    .toBeRevertedWithError(client, contract, 'InsufficientBalance')
+    .withErrorNamedArgs({})
+
+  // ❌ Fails - wrong named arguments
+  await expect(writeContract(client, contract.write.transfer('0x123...', 1000n)))
+    .toBeRevertedWithError(client, contract, 'InsufficientBalance')
+    .withErrorNamedArgs({ available: 100n })
+
+  // ❌ Fails - invalid argument name
+  await expect(writeContract(client, contract.write.transfer('0x123...', 1000n)))
+    .toBeRevertedWithError(client, contract, 'InsufficientBalance')
+    .withErrorNamedArgs({ invalidArg: 50n })
+})
+```
+
+### Error Matcher Limitations
+
+**Important:** Similar to event matchers, you cannot use `.not` directly before `withErrorArgs` or `withErrorNamedArgs`. You can test that a transaction did not revert with a specific error, but you cannot test that it reverted with an error but not with certain arguments.
+
+```typescript
+// ❌ Does NOT work - .not breaks the chain
+await expect(transaction)
+  .toBeRevertedWithError(client, contract, 'InsufficientBalance')
+  .not.withErrorArgs(50n, 1000n) // This will fail
+
+// ✅ Works - use .not before toBeRevertedWithError
+await expect(transaction)
+  .not.toBeRevertedWithError(client, contract, 'InsufficientBalance')
+
+// ✅ Alternative - assert the positive case with different args
+await expect(transaction)
+  .toBeRevertedWithError(client, contract, 'InsufficientBalance')
+  .withErrorArgs(100n, 1000n) // Assert it has different args
+```
+
 ## TypeScript Support
 
 All matchers include full TypeScript support with proper type definitions. The matchers will be available on the `expect` object after importing.
@@ -372,8 +561,35 @@ test('Event testing examples', async () => {
     .toEmit('Transfer(address,address,uint256)')
     .withEventArgs(fromAddr, toAddr, amount)
 })
+
+test('Error testing examples', async () => {
+  const client = // ... your TEVM client
+
+  // Basic revert testing (any reason)
+  await expect(writeContract(client, contract.write.failingFunction()))
+    .toBeReverted(client)
+
+  // String revert testing
+  await expect(writeContract(client, contract.write.requirePositiveAmount(-1)))
+    .toBeRevertedWithString(client, 'Amount must be positive')
+
+  // Custom error testing
+  await expect(writeContract(client, contract.write.transfer('0x123...', 1000n)))
+    .toBeRevertedWithError(client, contract, 'InsufficientBalance')
+
+  // Error with specific arguments
+  await expect(writeContract(client, contract.write.transfer('0x123...', 1000n)))
+    .toBeRevertedWithError(client, contract, 'InsufficientBalance')
+    .withErrorArgs(50n, 1000n)
+
+  // Error with named arguments (partial matching)
+  await expect(writeContract(client, contract.write.transfer('0x123...', 1000n)))
+    .toBeRevertedWithError(client, contract, 'InsufficientBalance')
+    .withErrorNamedArgs({ required: 1000n })
+
+  // Using error signatures instead of contracts
+  await expect(transaction)
+    .toBeRevertedWithError(client, 'InsufficientBalance(uint256,uint256)')
+    .withErrorArgs(50n, 1000n)
+})
 ```
-
-## License
-
-MIT

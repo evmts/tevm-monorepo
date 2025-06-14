@@ -167,7 +167,40 @@ function makeVitestSyncChainable<
 	return this
 }
 
-// Vitest matcher wrapper for async matchers
+// Helper function to execute a promise-based matcher
+const executeMatcherLogic = async <TName extends string, TArgs extends readonly unknown[], TReceived, TState>(
+	context: ChaiContext<true>,
+	name: TName,
+	vitestMatcher: VitestMatcherFunction<TReceived, true, TState>,
+	args: TArgs,
+	actualObj: TReceived,
+	isNegated: boolean,
+	chaiUtils: ChaiUtils,
+): Promise<TReceived> => {
+	// Update object with the actual value for further chaining
+	chaiUtils.flag(context, 'object', actualObj)
+
+	// Build chain state AFTER we have the actual object
+	const chainState = buildChainState(context, chaiUtils)
+
+	// Store and restore negation flag properly
+	const currentNegated = chaiUtils.flag(context, 'negate') === true
+	chaiUtils.flag(context, 'negate', isNegated)
+
+	const result = await (vitestMatcher(actualObj, ...args, chainState) as Promise<MatcherResult<TState>>)
+
+	expectResult(result, isNegated)
+
+	// Restore negation flag
+	chaiUtils.flag(context, 'negate', currentNegated)
+
+	// Store the results for future chained matchers
+	storeChainState(context, chaiUtils, name, actualObj, args, result)
+
+	return actualObj
+}
+
+// Updated async chainable function without duplication
 function makeVitestAsyncChainable<
 	TName extends string,
 	TArgs extends readonly unknown[],
@@ -189,31 +222,55 @@ function makeVitestAsyncChainable<
 	const obj = chaiUtils.flag(this, 'object')
 
 	const callPromiseValue = chaiUtils.flag(this, 'callPromise')
-	const derivedPromise = callPromiseValue.then(async () => {
-		assert(chaiUtils !== undefined, 'ChaiUtils not initialized')
-		const actualObj = await obj
 
-		// Update object with resolved value for further chaining
-		chaiUtils.flag(this, 'object', actualObj)
+	// Handle both resolved and rejected promises
+	const derivedPromise = callPromiseValue.then(
+		// Success handler - for normal resolved promises
+		async (resolvedValue: any) => {
+			assert(chaiUtils !== undefined, 'ChaiUtils not initialized')
+			const actualObj = resolvedValue !== undefined ? resolvedValue : await obj
+			return await executeMatcherLogic(
+				this,
+				name,
+				vitestMatcher as VitestMatcherFunction<TReceived, true, TState>,
+				args,
+				actualObj as TReceived,
+				isNegated,
+				chaiUtils,
+			)
+		},
+		// Error handler - for rejected promises (like contract reverts)
+		async (error: any) => {
+			assert(chaiUtils !== undefined, 'ChaiUtils not initialized')
 
-		// Build chain state AFTER promise resolves, but BEFORE updating history
-		// This ensures we get the fully populated state from previous matchers
-		const chainState = buildChainState(this, chaiUtils)
+			// Wrap the error in a rejected promise so the matcher can catch and process it
+			const errorPromise = Promise.reject(error)
 
-		// Store and restore negation flag properly (async pattern)
-		const currentNegated = chaiUtils.flag(this, 'negate') === true
-		chaiUtils.flag(this, 'negate', isNegated)
+			try {
+				// Execute the matcher with the rejected promise
+				// The matcher will catch the error, process it, and return the same rejected promise
+				await executeMatcherLogic(
+					this,
+					name,
+					vitestMatcher as VitestMatcherFunction<TReceived, true, TState>,
+					args,
+					errorPromise as TReceived,
+					isNegated,
+					chaiUtils,
+				)
 
-		const result = await (vitestMatcher(actualObj as TReceived, ...args, chainState) as Promise<MatcherResult<TState>>)
-
-		expectResult(result, isNegated)
-
-		// Restore negation flag
-		chaiUtils.flag(this, 'negate', currentNegated)
-
-		// Store the results for future chained matchers
-		storeChainState(this, chaiUtils, name, actualObj, args, result)
-	})
+				// If matcher succeeds, convert the error from "rejected" to "resolved" for chaining
+				// Next matcher will receive this through success handler but can access previous state
+				return error
+			} catch (executeError) {
+				// The returned rejected promise throws when awaited - this is expected
+				// Convert from rejected to resolved so the chain can continue
+				if (executeError === error) return error
+				// If it's a different error, the matcher actually failed - re-throw it
+				throw executeError
+			}
+		},
+	)
 
 	// Make thenable (waffle-chai pattern)
 	// biome-ignore lint/suspicious/noThenProperty: binding the promise to replicate chai waffle pattern
