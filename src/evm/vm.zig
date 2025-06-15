@@ -73,23 +73,45 @@ read_only: bool = false,
 /// var vm = try VM.init(allocator, null, null);
 /// ```
 pub fn init(allocator: std.mem.Allocator, database: @import("state/database_interface.zig").DatabaseInterface, jump_table: ?*const JumpTable, chain_rules: ?*const ChainRules) !Vm {
+    std.debug.print("🔍 VM.init: ENTRY - Starting VM initialization\n", .{});
     Log.debug("VM.init: Initializing VM with allocator and database", .{});
 
+    std.debug.print("🔍 VM.init: Step 1 - About to call EvmState.init\n", .{});
     var state = try EvmState.init(allocator, database);
     errdefer state.deinit();
+    std.debug.print("✅ VM.init: Step 1 - EvmState.init completed successfully\n", .{});
 
+    std.debug.print("🔍 VM.init: Step 2 - About to call AccessList.init\n", .{});
     var access_list = AccessList.init(allocator);
     errdefer access_list.deinit();
+    std.debug.print("✅ VM.init: Step 2 - AccessList.init completed successfully\n", .{});
 
-    Log.debug("VM.init: VM initialization complete", .{});
-    return Vm{
+    std.debug.print("🔍 VM.init: Step 3 - About to access JumpTable.DEFAULT\n", .{});
+    const table = jump_table orelse &JumpTable.DEFAULT;
+    std.debug.print("✅ VM.init: Step 3 - JumpTable.DEFAULT accessed successfully\n", .{});
+
+    std.debug.print("🔍 VM.init: Step 4 - About to access ChainRules.DEFAULT\n", .{});
+    const rules = chain_rules orelse &ChainRules.DEFAULT;
+    std.debug.print("✅ VM.init: Step 4 - ChainRules.DEFAULT accessed successfully\n", .{});
+
+    std.debug.print("🔍 VM.init: Step 5 - About to call Context.init\n", .{});
+    const context = Context.init();
+    std.debug.print("✅ VM.init: Step 5 - Context.init completed successfully\n", .{});
+
+    std.debug.print("🔍 VM.init: Step 6 - About to create VM struct\n", .{});
+    const vm = Vm{
         .allocator = allocator,
-        .table = (jump_table orelse &JumpTable.DEFAULT).*,
-        .chain_rules = (chain_rules orelse &ChainRules.DEFAULT).*,
+        .table = table.*,
+        .chain_rules = rules.*,
         .state = state,
-        .context = Context.init(),
+        .context = context,
         .access_list = access_list,
     };
+    std.debug.print("✅ VM.init: Step 6 - VM struct created successfully\n", .{});
+
+    Log.debug("VM.init: VM initialization complete", .{});
+    std.debug.print("🎯 VM.init: EXIT - VM initialization completed successfully\n", .{});
+    return vm;
 }
 
 /// Initialize VM with a specific hardfork.
@@ -180,8 +202,7 @@ pub fn interpret_with_context(self: *Vm, contract: *Contract, input: []const u8,
         const result = self.table.execute(pc, interpreter_ptr, state_ptr, opcode) catch |err| {
             @branchHint(.cold);
             contract.gas = frame.gas_remaining;
-            self.return_data = @constCast(frame.return_data.get());
-
+            
             var output: ?[]const u8 = null;
             const return_data = frame.return_data.get();
             if (return_data.len > 0) {
@@ -191,6 +212,10 @@ pub fn interpret_with_context(self: *Vm, contract: *Contract, input: []const u8,
                     // all gas and stops execution.
                     return RunResult.init(initial_gas, 0, .OutOfGas, ExecutionError.Error.OutOfMemory, null);
                 };
+                // Also update vm.return_data with a copy to avoid dangling pointer
+                self.return_data = @constCast(output.?);
+            } else {
+                self.return_data = &[_]u8{};
             }
 
             return switch (err) {
@@ -235,10 +260,16 @@ pub fn interpret_with_context(self: *Vm, contract: *Contract, input: []const u8,
     }
 
     contract.gas = frame.gas_remaining;
-    self.return_data = @constCast(frame.return_data.get());
 
     const return_data = frame.return_data.get();
     const output: ?[]const u8 = if (return_data.len > 0) try self.allocator.dupe(u8, return_data) else null;
+    
+    // Set vm.return_data with a copy to avoid dangling pointer
+    if (output) |out| {
+        self.return_data = @constCast(out);
+    } else {
+        self.return_data = &[_]u8{};
+    }
 
     return RunResult.init(
         initial_gas,
@@ -297,7 +328,9 @@ fn create_contract_internal(self: *Vm, creator: Address.Address, value: u256, in
     defer init_contract.deinit(self.allocator, null);
 
     // Execute the init code - this should return the deployment bytecode
+    Log.debug("VM.create_contract_internal: executing init code with {} bytes", .{init_code.len});
     const init_result = self.interpret_with_context(&init_contract, &[_]u8{}, false) catch |err| {
+        std.log.debug("VM.create_contract_internal: init code execution failed with error: {}", .{err});
         if (err == ExecutionError.Error.REVERT) {
             // On revert, consume partial gas
             return CreateResult.initFailure(init_contract.gas, null);
@@ -307,7 +340,14 @@ fn create_contract_internal(self: *Vm, creator: Address.Address, value: u256, in
         return CreateResult.initFailure(0, null);
     };
 
+    Log.debug("VM.create_contract_internal: init code execution result - success: {}, gas_left: {}, output_len: {}", .{ 
+        init_result.status == .Success, 
+        init_result.gas_left, 
+        if (init_result.output) |output| output.len else 0 
+    });
+
     const deployment_code = init_result.output orelse &[_]u8{};
+    Log.debug("VM.create_contract_internal: deployment code length: {}", .{deployment_code.len});
 
     // Check EIP-170 MAX_CODE_SIZE limit on the returned bytecode (24,576 bytes)
     if (deployment_code.len > constants.MAX_CODE_SIZE) {
@@ -320,7 +360,12 @@ fn create_contract_internal(self: *Vm, creator: Address.Address, value: u256, in
         return CreateResult.initFailure(0, null);
     }
 
+    Log.debug("VM.create_contract_internal: storing {} bytes of deployment code at address {any}", .{ deployment_code.len, new_address });
     try self.state.set_code(new_address, deployment_code);
+    
+    // Verify the code was stored correctly
+    const stored_code = self.state.get_code(new_address);
+    Log.debug("VM.create_contract_internal: verification - stored code length: {}", .{stored_code.len});
 
     const gas_left = init_result.gas_left - deploy_code_gas;
 

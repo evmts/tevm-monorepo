@@ -254,3 +254,234 @@ test "AccessList call costs" {
     // After getting cost, cold address should now be warm
     try testing.expect(access_list.is_address_warm(cold_address));
 }
+
+// ============================================================================
+// Comprehensive tests based on EIP-2929 and EIP-2930 specifications
+// ============================================================================
+
+test "AccessList: Edge case - zero address handling" {
+    var access_list = AccessList.init(testing.allocator);
+    defer access_list.deinit();
+    
+    const zero_address = [_]u8{0} ** 20;
+    
+    // Zero address should behave like any other address
+    const cost1 = try access_list.access_address(zero_address);
+    try testing.expectEqual(COLD_ACCOUNT_ACCESS_COST, cost1);
+    
+    const cost2 = try access_list.access_address(zero_address);
+    try testing.expectEqual(WARM_ACCOUNT_ACCESS_COST, cost2);
+    
+    try testing.expect(access_list.is_address_warm(zero_address));
+}
+
+test "AccessList: Edge case - maximum value addresses and slots" {
+    var access_list = AccessList.init(testing.allocator);
+    defer access_list.deinit();
+    
+    const max_address = [_]u8{0xFF} ** 20;
+    const max_slot = std.math.maxInt(u256);
+    
+    // Test with maximum address value
+    const cost1 = try access_list.access_address(max_address);
+    try testing.expectEqual(COLD_ACCOUNT_ACCESS_COST, cost1);
+    
+    const cost2 = try access_list.access_address(max_address);
+    try testing.expectEqual(WARM_ACCOUNT_ACCESS_COST, cost2);
+    
+    // Test with maximum slot value
+    const contract_address = [_]u8{0x03} ** 20;
+    const cost3 = try access_list.access_storage_slot(contract_address, max_slot);
+    try testing.expectEqual(COLD_SLOAD_COST, cost3);
+    
+    const cost4 = try access_list.access_storage_slot(contract_address, max_slot);
+    try testing.expectEqual(WARM_SLOAD_COST, cost4);
+}
+
+test "AccessList: Storage slot collision detection" {
+    var access_list = AccessList.init(testing.allocator);
+    defer access_list.deinit();
+    
+    const alice_address = [_]u8{0x01} ** 20;
+    const bob_address = [_]u8{0x02} ** 20;
+    const slot = 42;
+    
+    // Same slot on different addresses should be independent
+    _ = try access_list.access_storage_slot(alice_address, slot);
+    
+    // Same slot on different address should still be cold
+    const cost = try access_list.access_storage_slot(bob_address, slot);
+    try testing.expectEqual(COLD_SLOAD_COST, cost);
+    
+    // Verify independence
+    try testing.expect(access_list.is_storage_slot_warm(alice_address, slot));
+    try testing.expect(access_list.is_storage_slot_warm(bob_address, slot));
+}
+
+test "AccessList: Multiple slots per address" {
+    var access_list = AccessList.init(testing.allocator);
+    defer access_list.deinit();
+    
+    const contract_address = [_]u8{0x03} ** 20;
+    const test_slots = [_]u256{ 0, 1, 42, 1000, std.math.maxInt(u256) };
+    
+    // Access multiple slots for the same address
+    for (test_slots) |slot| {
+        const cost1 = try access_list.access_storage_slot(contract_address, slot);
+        try testing.expectEqual(COLD_SLOAD_COST, cost1);
+        
+        const cost2 = try access_list.access_storage_slot(contract_address, slot);
+        try testing.expectEqual(WARM_SLOAD_COST, cost2);
+        
+        try testing.expect(access_list.is_storage_slot_warm(contract_address, slot));
+    }
+}
+
+test "AccessList: Transaction initialization clears previous state" {
+    var access_list = AccessList.init(testing.allocator);
+    defer access_list.deinit();
+    
+    const alice_address = [_]u8{0x01} ** 20;
+    const bob_address = [_]u8{0x02} ** 20;
+    const coinbase_address = [_]u8{0x04} ** 20;
+    const contract_address = [_]u8{0x03} ** 20;
+    
+    // Pre-warm some addresses and slots
+    _ = try access_list.access_address(bob_address);
+    _ = try access_list.access_storage_slot(contract_address, 42);
+    
+    // Verify they are warm
+    try testing.expect(access_list.is_address_warm(bob_address));
+    try testing.expect(access_list.is_storage_slot_warm(contract_address, 42));
+    
+    // Initialize new transaction
+    try access_list.init_transaction(alice_address, coinbase_address, null);
+    
+    // Previous state should be cleared
+    try testing.expect(!access_list.is_address_warm(bob_address));
+    try testing.expect(!access_list.is_storage_slot_warm(contract_address, 42));
+    
+    // New transaction addresses should be warm
+    try testing.expect(access_list.is_address_warm(alice_address));
+    try testing.expect(access_list.is_address_warm(coinbase_address));
+}
+
+test "AccessList: Call cost with pre-warmed address" {
+    var access_list = AccessList.init(testing.allocator);
+    defer access_list.deinit();
+    
+    const alice_address = [_]u8{0x01} ** 20;
+    
+    // Pre-warm address
+    try access_list.pre_warm_addresses(&[_]Address.Address{alice_address});
+    
+    // Call cost should be zero (no extra cost)
+    const cost = try access_list.get_call_cost(alice_address);
+    try testing.expectEqual(@as(u64, 0), cost);
+}
+
+test "AccessList: Gas cost constants validation" {
+    // Verify gas cost constants match EIP-2929 specification
+    try testing.expectEqual(@as(u64, 2600), COLD_ACCOUNT_ACCESS_COST);
+    try testing.expectEqual(@as(u64, 100), WARM_ACCOUNT_ACCESS_COST);
+    try testing.expectEqual(@as(u64, 2100), COLD_SLOAD_COST);
+    try testing.expectEqual(@as(u64, 100), WARM_SLOAD_COST);
+    try testing.expectEqual(@as(u64, 2500), COLD_CALL_EXTRA_COST);
+}
+
+test "AccessList: Clear functionality" {
+    var access_list = AccessList.init(testing.allocator);
+    defer access_list.deinit();
+    
+    const alice_address = [_]u8{0x01} ** 20;
+    const bob_address = [_]u8{0x02} ** 20;
+    const contract_address = [_]u8{0x03} ** 20;
+    
+    // Populate with some data
+    _ = try access_list.access_address(alice_address);
+    _ = try access_list.access_address(bob_address);
+    _ = try access_list.access_storage_slot(contract_address, 0);
+    _ = try access_list.access_storage_slot(contract_address, 1);
+    
+    // Verify data is present
+    try testing.expect(access_list.is_address_warm(alice_address));
+    try testing.expect(access_list.is_address_warm(bob_address));
+    try testing.expect(access_list.is_storage_slot_warm(contract_address, 0));
+    try testing.expect(access_list.is_storage_slot_warm(contract_address, 1));
+    
+    // Clear the access list
+    access_list.clear();
+    
+    // All data should be cleared
+    try testing.expect(!access_list.is_address_warm(alice_address));
+    try testing.expect(!access_list.is_address_warm(bob_address));
+    try testing.expect(!access_list.is_storage_slot_warm(contract_address, 0));
+    try testing.expect(!access_list.is_storage_slot_warm(contract_address, 1));
+}
+
+test "AccessList: Storage key equality testing" {
+    const alice_address = [_]u8{0x01} ** 20;
+    const bob_address = [_]u8{0x02} ** 20;
+    
+    // Test AccessListStorageKey equality
+    const key1 = AccessListStorageKey{ .address = alice_address, .slot = 0 };
+    const key2 = AccessListStorageKey{ .address = alice_address, .slot = 0 };
+    const key3 = AccessListStorageKey{ .address = alice_address, .slot = 1 };
+    const key4 = AccessListStorageKey{ .address = bob_address, .slot = 0 };
+    
+    // Same address and slot should be equal
+    try testing.expect(key1.eql(key2));
+    
+    // Different slot should not be equal
+    try testing.expect(!key1.eql(key3));
+    
+    // Different address should not be equal
+    try testing.expect(!key1.eql(key4));
+}
+
+test "AccessList: EIP-2929 compliance - always warm addresses" {
+    var access_list = AccessList.init(testing.allocator);
+    defer access_list.deinit();
+    
+    const alice_address = [_]u8{0x01} ** 20;
+    const coinbase_address = [_]u8{0x04} ** 20;
+    
+    // According to EIP-2929, tx.origin and block.coinbase are always warm
+    try access_list.init_transaction(alice_address, coinbase_address, null);
+    
+    // These addresses should always cost WARM_ACCOUNT_ACCESS_COST
+    try testing.expectEqual(WARM_ACCOUNT_ACCESS_COST, try access_list.access_address(alice_address));
+    try testing.expectEqual(WARM_ACCOUNT_ACCESS_COST, try access_list.access_address(coinbase_address));
+}
+
+test "AccessList: EIP-2930 compliance - access list pre-warming" {
+    var access_list = AccessList.init(testing.allocator);
+    defer access_list.deinit();
+    
+    const alice_address = [_]u8{0x01} ** 20;
+    const bob_address = [_]u8{0x02} ** 20;
+    const contract_address = [_]u8{0x03} ** 20;
+    const coinbase_address = [_]u8{0x04} ** 20;
+    
+    // Simulate EIP-2930 access list transaction
+    const access_list_addresses = [_]Address.Address{ contract_address, bob_address };
+    const access_list_slots = [_]u256{ 0, 1, 42 };
+    
+    // Initialize transaction with origin/coinbase
+    try access_list.init_transaction(alice_address, coinbase_address, null);
+    
+    // Pre-warm access list addresses
+    try access_list.pre_warm_addresses(&access_list_addresses);
+    
+    // Pre-warm access list storage slots  
+    try access_list.pre_warm_storage_slots(contract_address, &access_list_slots);
+    
+    // All should be warm from the start
+    for (access_list_addresses) |addr| {
+        try testing.expectEqual(WARM_ACCOUNT_ACCESS_COST, try access_list.access_address(addr));
+    }
+    
+    for (access_list_slots) |slot| {
+        try testing.expectEqual(WARM_SLOAD_COST, try access_list.access_storage_slot(contract_address, slot));
+    }
+}

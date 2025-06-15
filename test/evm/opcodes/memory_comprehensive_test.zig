@@ -188,7 +188,7 @@ test "MSTORE (0x52): Basic memory store operations" {
 
     // Test 1: Store at offset 0
     const value1: u256 = 0xdeadbeefcafebabe1234567890abcdef;
-    try test_frame.pushStack(&[_]u256{ value1, 0 }); // value, offset
+    try test_frame.pushStack(&[_]u256{ value1, 0 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
 
     // Verify the value was stored correctly
@@ -197,7 +197,7 @@ test "MSTORE (0x52): Basic memory store operations" {
 
     // Test 2: Store at aligned offset (32 bytes)
     const value2: u256 = 0x1122334455667788990011223344556677889900112233445566778899001122;
-    try test_frame.pushStack(&[_]u256{ value2, 32 }); // value, offset  
+    try test_frame.pushStack(&[_]u256{ value2, 32 }); // value, offset (offset on top per EVM spec)  
     _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
 
     const stored2 = try test_frame.frame.memory.get_u256(32);
@@ -205,7 +205,7 @@ test "MSTORE (0x52): Basic memory store operations" {
 
     // Test 3: Store at non-aligned offset
     const value3: u256 = 0x9876543210fedcba;
-    try test_frame.pushStack(&[_]u256{ value3, 17 }); // value, offset
+    try test_frame.pushStack(&[_]u256{ value3, 17 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
 
     const stored3 = try test_frame.frame.memory.get_u256(17);
@@ -231,12 +231,12 @@ test "MSTORE: Overwrite and partial overlap scenarios" {
 
     // Test 1: Store initial value
     const initial_value: u256 = 0xAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBCCCCCCCCCCCCCCCCDDDDDDDDDDDDDDDD;
-    try test_frame.pushStack(&[_]u256{ initial_value, 0 });
+    try test_frame.pushStack(&[_]u256{ initial_value, 0 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
 
     // Test 2: Completely overwrite with new value
     const overwrite_value: u256 = 0x1111111111111111222222222222222233333333333333334444444444444444;
-    try test_frame.pushStack(&[_]u256{ overwrite_value, 0 });
+    try test_frame.pushStack(&[_]u256{ overwrite_value, 0 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
 
     const result_overwrite = try test_frame.frame.memory.get_u256(0);
@@ -244,7 +244,7 @@ test "MSTORE: Overwrite and partial overlap scenarios" {
 
     // Test 3: Partial overlap - store starting at offset 16
     const overlap_value: u256 = 0x9999999999999999888888888888888877777777777777776666666666666666;
-    try test_frame.pushStack(&[_]u256{ overlap_value, 16 });
+    try test_frame.pushStack(&[_]u256{ overlap_value, 16 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
 
     // Check that the overlapping region is correctly updated
@@ -257,7 +257,7 @@ test "MSTORE: Overwrite and partial overlap scenarios" {
 
     // Test 4: Adjacent stores (no overlap)
     const adjacent_value: u256 = 0x5555555555555555;
-    try test_frame.pushStack(&[_]u256{ adjacent_value, 64 });
+    try test_frame.pushStack(&[_]u256{ adjacent_value, 64 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
 
     const result_adjacent = try test_frame.frame.memory.get_u256(64);
@@ -283,7 +283,7 @@ test "MSTORE: Memory expansion and gas costs" {
 
     // Test 1: Store within initial memory region (no expansion)
     const gas_before_no_expansion = test_frame.frame.gas_remaining;
-    try test_frame.pushStack(&[_]u256{ 0x123, 0 });
+    try test_frame.pushStack(&[_]u256{ 0x123, 0 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
     const gas_after_no_expansion = test_frame.frame.gas_remaining;
     const gas_no_expansion = gas_before_no_expansion - gas_after_no_expansion;
@@ -294,7 +294,7 @@ test "MSTORE: Memory expansion and gas costs" {
 
     // Test 2: Store requiring memory expansion
     const gas_before_expansion = test_frame.frame.gas_remaining;
-    try test_frame.pushStack(&[_]u256{ 0x456, 1024 }); // Offset requiring significant expansion
+    try test_frame.pushStack(&[_]u256{ 0x456, 1024 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
     const gas_after_expansion = test_frame.frame.gas_remaining;
     const gas_expansion = gas_before_expansion - gas_after_expansion;
@@ -302,7 +302,7 @@ test "MSTORE: Memory expansion and gas costs" {
 
     // Test 3: Subsequent store in same expanded region (minimal expansion)
     const gas_before_minimal = test_frame.frame.gas_remaining;
-    try test_frame.pushStack(&[_]u256{ 0x789, 1056 }); // Nearby offset in same region
+    try test_frame.pushStack(&[_]u256{ 0x789, 1056 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x52, test_vm.vm, test_frame.frame);
     const gas_after_minimal = test_frame.frame.gas_remaining;
     const gas_minimal = gas_before_minimal - gas_after_minimal;
@@ -364,14 +364,14 @@ test "MSTORE8 (0x53): Basic single byte store operations" {
     defer test_frame.deinit();
 
     // Test 1: Store single byte at offset 0
-    try test_frame.pushStack(&[_]u256{ 0xFF, 0 }); // value, offset
+    try test_frame.pushStack(&[_]u256{ 0xFF, 0 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame);
 
     const byte0 = try test_frame.frame.memory.get_byte(0);
     try testing.expectEqual(@as(u8, 0xFF), byte0);
 
     // Test 2: Store only lowest byte of larger value
-    try test_frame.pushStack(&[_]u256{ 0x123456789ABCDEF0, 1 }); // value, offset
+    try test_frame.pushStack(&[_]u256{ 0x123456789ABCDEF0, 1 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame);
 
     const byte1 = try test_frame.frame.memory.get_byte(1);
@@ -387,7 +387,7 @@ test "MSTORE8 (0x53): Basic single byte store operations" {
     };
 
     for (test_cases) |tc| {
-        try test_frame.pushStack(&[_]u256{ tc.value, tc.offset });
+        try test_frame.pushStack(&[_]u256{ tc.value, tc.offset }); // value, offset (offset on top per EVM spec)
         _ = try helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame);
 
         const stored_byte = try test_frame.frame.memory.get_byte(@intCast(tc.offset));
@@ -417,7 +417,7 @@ test "MSTORE8: Precision and non-interference" {
     try test_frame.frame.memory.set_u256(0, initial_pattern);
 
     // Test 2: Store single byte in the middle and verify surrounding bytes are unchanged
-    try test_frame.pushStack(&[_]u256{ 0x99, 15 }); // Store 0x99 at offset 15
+    try test_frame.pushStack(&[_]u256{ 0x99, 15 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame);
 
     // Check the modified byte
@@ -440,7 +440,7 @@ test "MSTORE8: Precision and non-interference" {
     };
 
     for (positions_and_values) |pv| {
-        try test_frame.pushStack(&[_]u256{ pv.val, pv.pos });
+        try test_frame.pushStack(&[_]u256{ pv.val, pv.pos }); // value, offset (offset on top per EVM spec)
         _ = try helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame);
     }
 
@@ -464,7 +464,7 @@ test "MSTORE8: Precision and non-interference" {
 
     for (large_values, 0..) |lv, i| {
         const offset = 100 + i;
-        try test_frame.pushStack(&[_]u256{ lv.input, offset });
+        try test_frame.pushStack(&[_]u256{ lv.input, offset }); // value, offset (offset on top per EVM spec)
         _ = try helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame);
 
         const stored = try test_frame.frame.memory.get_byte(offset);
@@ -491,7 +491,7 @@ test "MSTORE8: Memory expansion and gas costs" {
 
     // Test 1: Store at offset 0 (minimal memory expansion)
     const gas_before_first = test_frame.frame.gas_remaining;
-    try test_frame.pushStack(&[_]u256{ 0x42, 0 });
+    try test_frame.pushStack(&[_]u256{ 0x42, 0 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame);
     const gas_after_first = test_frame.frame.gas_remaining;
     const gas_first = gas_before_first - gas_after_first;
@@ -499,7 +499,7 @@ test "MSTORE8: Memory expansion and gas costs" {
 
     // Test 2: Store at higher offset requiring expansion
     const gas_before_expansion = test_frame.frame.gas_remaining;
-    try test_frame.pushStack(&[_]u256{ 0x84, 500 }); // Offset requiring expansion
+    try test_frame.pushStack(&[_]u256{ 0x84, 500 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame);
     const gas_after_expansion = test_frame.frame.gas_remaining;
     const gas_expansion = gas_before_expansion - gas_after_expansion;
@@ -507,7 +507,7 @@ test "MSTORE8: Memory expansion and gas costs" {
 
     // Test 3: Store within already expanded region
     const gas_before_no_expansion = test_frame.frame.gas_remaining;
-    try test_frame.pushStack(&[_]u256{ 0x21, 499 }); // Within already expanded region
+    try test_frame.pushStack(&[_]u256{ 0x21, 499 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame);
     const gas_after_no_expansion = test_frame.frame.gas_remaining;
     const gas_no_expansion = gas_before_no_expansion - gas_after_no_expansion;
@@ -516,14 +516,14 @@ test "MSTORE8: Memory expansion and gas costs" {
     // Test 4: Word alignment considerations for gas calculation
     // MSTORE8 should round up memory size to word boundaries for gas calculation
     const gas_before_alignment = test_frame.frame.gas_remaining;
-    try test_frame.pushStack(&[_]u256{ 0x63, 1000 }); // New word boundary
+    try test_frame.pushStack(&[_]u256{ 0x63, 1000 }); // value, offset (offset on top per EVM spec)
     _ = try helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame);
     const gas_after_alignment = test_frame.frame.gas_remaining;
     const gas_alignment = gas_before_alignment - gas_after_alignment;
     try testing.expect(gas_alignment > 3); // Should charge for word-aligned expansion
 
     // Test 5: Overflow protection
-    try test_frame.pushStack(&[_]u256{ 0x99, std.math.maxInt(u256) - 5 });
+    try test_frame.pushStack(&[_]u256{ 0x99, std.math.maxInt(u256) - 5 }); // value, offset (offset on top per EVM spec)
     const result = helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame);
     try testing.expectError(helpers.ExecutionError.Error.OutOfOffset, result);
 }
@@ -972,3 +972,275 @@ test "MSIZE (0x59): Basic memory size tracking" {
 //     // Should cost significantly more than just the base cost
 //     try testing.expect(expansion_cost > 10);
 // }
+
+// ============================
+// REVM-Inspired Memory Edge Cases
+// ============================
+
+// Test extreme memory expansion scenarios
+test "Memory: Extreme expansion edge cases" {
+    const allocator = testing.allocator;
+    var test_vm = try helpers.TestVm.init(allocator);
+    defer test_vm.deinit(allocator);
+
+    var contract = try helpers.createTestContract(
+        allocator,
+        helpers.TestAddresses.CONTRACT,
+        helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    defer contract.deinit(allocator, null);
+
+    // Test 1: Word boundary alignment
+    {
+        var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000000);
+        defer test_frame.deinit();
+
+        // Access at offset 31 (should expand to 2 words: 0-31, 32-63)
+        try test_frame.pushStack(&[_]u256{31}); // offset
+        _ = try helpers.executeOpcode(0x51, test_vm.vm, test_frame.frame); // MLOAD
+        _ = try test_frame.popStack();
+
+        // Memory size should be 64 bytes (2 words)
+        _ = try helpers.executeOpcode(0x59, test_vm.vm, test_frame.frame); // MSIZE
+        try helpers.expectStackValue(test_frame.frame, 0, 64);
+        _ = try test_frame.popStack();
+    }
+
+    // Test 2: Sequential memory expansion cost verification
+    {
+        var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000000);
+        defer test_frame.deinit();
+
+        // First expansion to 32 bytes
+        const gas_before_first = test_frame.frame.gas_remaining;
+        try test_frame.pushStack(&[_]u256{0}); // offset
+        _ = try helpers.executeOpcode(0x51, test_vm.vm, test_frame.frame); // MLOAD
+        _ = try test_frame.popStack();
+        const gas_after_first = test_frame.frame.gas_remaining;
+        const first_expansion_cost = gas_before_first - gas_after_first;
+
+        // Second expansion to 64 bytes
+        const gas_before_second = test_frame.frame.gas_remaining;
+        try test_frame.pushStack(&[_]u256{32}); // offset
+        _ = try helpers.executeOpcode(0x51, test_vm.vm, test_frame.frame); // MLOAD
+        _ = try test_frame.popStack();
+        const gas_after_second = test_frame.frame.gas_remaining;
+        const second_expansion_cost = gas_before_second - gas_after_second;
+
+        // Third expansion to 96 bytes
+        const gas_before_third = test_frame.frame.gas_remaining;
+        try test_frame.pushStack(&[_]u256{64}); // offset
+        _ = try helpers.executeOpcode(0x51, test_vm.vm, test_frame.frame); // MLOAD
+        _ = try test_frame.popStack();
+        const gas_after_third = test_frame.frame.gas_remaining;
+        const third_expansion_cost = gas_before_third - gas_after_third;
+
+        // Verify increasing costs due to quadratic component
+        try testing.expect(first_expansion_cost > 0);
+        try testing.expect(second_expansion_cost >= first_expansion_cost);
+        try testing.expect(third_expansion_cost >= second_expansion_cost);
+    }
+}
+
+// Test memory operations at maximum practical sizes
+test "Memory: Large memory operations" {
+    const allocator = testing.allocator;
+    var test_vm = try helpers.TestVm.init(allocator);
+    defer test_vm.deinit(allocator);
+
+    var contract = try helpers.createTestContract(
+        allocator,
+        helpers.TestAddresses.CONTRACT,
+        helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    defer contract.deinit(allocator, null);
+
+    // Test with 1KB memory access
+    {
+        var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000000);
+        defer test_frame.deinit();
+
+        const large_offset = 1024; // 1KB
+        try test_frame.pushStack(&[_]u256{large_offset});
+        _ = try helpers.executeOpcode(0x51, test_vm.vm, test_frame.frame); // MLOAD
+        _ = try test_frame.popStack();
+
+        // Memory should be expanded to at least 1024 + 32 = 1056 bytes
+        _ = try helpers.executeOpcode(0x59, test_vm.vm, test_frame.frame); // MSIZE
+        const memory_size = try test_frame.popStack();
+        try testing.expect(memory_size >= 1056);
+        try testing.expect(memory_size % 32 == 0); // Should be word-aligned
+    }
+
+    // Test MSTORE8 with large offsets
+    {
+        var test_frame = try helpers.TestFrame.init(allocator, &contract, 10000000);
+        defer test_frame.deinit();
+
+        const large_offset = 2048; // 2KB
+        try test_frame.pushStack(&[_]u256{ 0x42, large_offset });
+        _ = try helpers.executeOpcode(0x53, test_vm.vm, test_frame.frame); // MSTORE8
+
+        // Verify memory expanded
+        _ = try helpers.executeOpcode(0x59, test_vm.vm, test_frame.frame); // MSIZE
+        const memory_size = try test_frame.popStack();
+        try testing.expect(memory_size >= 2049); // At least offset + 1
+
+        // Verify the stored value
+        try test_frame.pushStack(&[_]u256{large_offset});
+        _ = try helpers.executeOpcode(0x51, test_vm.vm, test_frame.frame); // MLOAD
+        const loaded_value = try test_frame.popStack();
+        
+        // The byte should be stored at the beginning of the 32-byte word
+        const expected_value: u256 = 0x42 << (8 * 31); // Byte at MSB position
+        try testing.expectEqual(expected_value, loaded_value);
+    }
+}
+
+// Test memory copy edge cases (MCOPY if available)
+test "Memory: Copy operation edge cases" {
+    const allocator = testing.allocator;
+    var test_vm = try helpers.TestVm.init(allocator);
+    defer test_vm.deinit(allocator);
+
+    var contract = try helpers.createTestContract(
+        allocator,
+        helpers.TestAddresses.CONTRACT,
+        helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    defer contract.deinit(allocator, null);
+
+    var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000000);
+    defer test_frame.deinit();
+
+    // Set up some test data in memory
+    const test_value: u256 = 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef;
+    try test_frame.frame.memory.set_u256(0, test_value);
+    try test_frame.frame.memory.set_u256(32, test_value + 1);
+
+    // Test 1: Zero-length copy should not fail
+    try test_frame.pushStack(&[_]u256{ 0, 0, 100 }); // size=0, src=0, dest=100
+    const result_zero = helpers.executeOpcode(0x5E, test_vm.vm, test_frame.frame); // MCOPY (if available)
+    
+    // If MCOPY is not implemented, it might return an invalid opcode error
+    if (result_zero) |_| {
+        // Copy succeeded, verify no data was actually copied
+        try test_frame.pushStack(&[_]u256{100});
+        _ = try helpers.executeOpcode(0x51, test_vm.vm, test_frame.frame); // MLOAD
+        const copied_value = try test_frame.popStack();
+        try testing.expectEqual(@as(u256, 0), copied_value); // Should still be zero
+    } else |err| {
+        // MCOPY might not be implemented or could be invalid opcode
+        try testing.expect(err == helpers.ExecutionError.Error.InvalidOpcode or 
+                          err == helpers.ExecutionError.Error.OutOfGas);
+    }
+}
+
+// Test memory boundary overflow protection
+test "Memory: Overflow protection edge cases" {
+    const allocator = testing.allocator;
+    var test_vm = try helpers.TestVm.init(allocator);
+    defer test_vm.deinit(allocator);
+
+    var contract = try helpers.createTestContract(
+        allocator,
+        helpers.TestAddresses.CONTRACT,
+        helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    defer contract.deinit(allocator, null);
+
+    // Test extremely large offset (near u256 max)
+    {
+        var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
+        defer test_frame.deinit();
+
+        const huge_offset = std.math.maxInt(u64); // Use u64 max as proxy for very large
+        try test_frame.pushStack(&[_]u256{huge_offset});
+        
+        // Should fail gracefully, not crash
+        const result = helpers.executeOpcode(0x51, test_vm.vm, test_frame.frame); // MLOAD
+        try testing.expectError(helpers.ExecutionError.Error.OutOfGas, result);
+    }
+
+    // Test offset + 32 overflow
+    {
+        var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000);
+        defer test_frame.deinit();
+
+        const near_max_offset = std.math.maxInt(u64) - 10;
+        try test_frame.pushStack(&[_]u256{near_max_offset});
+        
+        // MLOAD needs offset + 32, which would overflow
+        const result = helpers.executeOpcode(0x51, test_vm.vm, test_frame.frame);
+        try testing.expectError(helpers.ExecutionError.Error.OutOfGas, result);
+    }
+}
+
+// Test gas exhaustion during memory expansion
+test "Memory: Gas exhaustion during expansion" {
+    const allocator = testing.allocator;
+    var test_vm = try helpers.TestVm.init(allocator);
+    defer test_vm.deinit(allocator);
+
+    var contract = try helpers.createTestContract(
+        allocator,
+        helpers.TestAddresses.CONTRACT,
+        helpers.TestAddresses.ALICE,
+        0,
+        &[_]u8{},
+    );
+    defer contract.deinit(allocator, null);
+
+    // Test with barely insufficient gas for large expansion
+    {
+        var test_frame = try helpers.TestFrame.init(allocator, &contract, 1000); // Limited gas
+        defer test_frame.deinit();
+
+        // Try to expand to 10KB (should require significant gas)
+        const large_offset = 10240;
+        try test_frame.pushStack(&[_]u256{large_offset});
+        
+        const result = helpers.executeOpcode(0x51, test_vm.vm, test_frame.frame);
+        try testing.expectError(helpers.ExecutionError.Error.OutOfGas, result);
+    }
+
+    // Test edge case where gas is exactly enough vs. one less
+    {
+        // First, determine exact gas needed for a smaller expansion
+        var test_frame_measure = try helpers.TestFrame.init(allocator, &contract, 1000000);
+        defer test_frame_measure.deinit();
+
+        const expansion_offset = 512;
+        const gas_before = test_frame_measure.frame.gas_remaining;
+        try test_frame_measure.pushStack(&[_]u256{expansion_offset});
+        _ = try helpers.executeOpcode(0x51, test_vm.vm, test_frame_measure.frame);
+        _ = try test_frame_measure.popStack();
+        const gas_after = test_frame_measure.frame.gas_remaining;
+        const exact_gas_needed = gas_before - gas_after;
+
+        // Now test with exact gas
+        var test_frame_exact = try helpers.TestFrame.init(allocator, &contract, exact_gas_needed);
+        defer test_frame_exact.deinit();
+
+        try test_frame_exact.pushStack(&[_]u256{expansion_offset});
+        const result_exact = helpers.executeOpcode(0x51, test_vm.vm, test_frame_exact.frame);
+        try testing.expect(result_exact != helpers.ExecutionError.Error.OutOfGas);
+        _ = try test_frame_exact.popStack();
+
+        // Test with one less gas
+        var test_frame_insufficient = try helpers.TestFrame.init(allocator, &contract, exact_gas_needed - 1);
+        defer test_frame_insufficient.deinit();
+
+        try test_frame_insufficient.pushStack(&[_]u256{expansion_offset});
+        const result_insufficient = helpers.executeOpcode(0x51, test_vm.vm, test_frame_insufficient.frame);
+        try testing.expectError(helpers.ExecutionError.Error.OutOfGas, result_insufficient);
+    }
+}

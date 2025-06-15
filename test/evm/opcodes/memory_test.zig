@@ -130,7 +130,7 @@ test "MSTORE: store 32 bytes to memory" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
     
-    // Push value and offset (stack is LIFO)
+    // Push value and offset (stack is LIFO) - EVM expects MSTORE to pop offset then value
     const value: u256 = 0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20;
     try test_frame.pushStack(&[_]u256{value, 0}); // value first, then offset (offset on top)
     
@@ -162,7 +162,7 @@ test "MSTORE: store with offset" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
     
-    // Push value and offset (stack is LIFO)
+    // Push value and offset (stack is LIFO) - EVM expects MSTORE to pop offset then value
     const value: u256 = 0xFFEEDDCCBBAA99887766554433221100;
     try test_frame.pushStack(&[_]u256{value, 64}); // value first, then offset (offset on top)
     
@@ -196,7 +196,7 @@ test "MSTORE8: store single byte to memory" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
     
-    // Push value and offset (stack is LIFO)
+    // Push value and offset (stack is LIFO) - EVM expects MSTORE8 to pop offset then value
     try test_frame.pushStack(&[_]u256{0x1234, 10}); // value first, then offset (offset on top) - only lowest byte 0x34 will be stored
     
     // Execute MSTORE8
@@ -230,7 +230,7 @@ test "MSTORE8: store only lowest byte" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
     
-    // Push value with all bytes set (stack is LIFO)
+    // Push value and offset (stack is LIFO) - EVM expects MSTORE8 to pop offset then value
     try test_frame.pushStack(&[_]u256{0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFAB, 0}); // value first, then offset (offset on top) - only 0xAB should be stored
     
     // Execute MSTORE8
@@ -480,7 +480,7 @@ test "MSTORE: memory expansion gas" {
     var test_frame = try test_helpers.TestFrame.init(allocator, &contract, 1000);
     defer test_frame.deinit();
     
-    // Push value and offset that requires expansion (stack is LIFO)
+    // Push value and offset that requires expansion (stack is LIFO) - EVM expects MSTORE to pop offset then value
     try test_frame.pushStack(&[_]u256{0x123456, 512}); // value, offset (requires 544 bytes)
     
     const gas_before = test_frame.gasRemaining();

@@ -7,3 +7,6 @@
 [submodule "lib/helios"]
 	path = lib/helios
 	url = git@github.com:evmts/helios.git
+[submodule "bench/evm"]
+	path = bench/evm
+	url = https://github.com/evmts/evm-bench.git

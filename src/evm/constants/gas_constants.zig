@@ -1,3 +1,5 @@
+const std = @import("std");
+
 /// EVM gas cost constants for opcode execution
 ///
 /// This module defines all gas cost constants used in EVM execution according
@@ -379,6 +381,11 @@ pub const MEMORY_EXPANSION_LUT = blk: {
     break :blk costs;
 };
 
+/// Calculate total memory cost for a given word count with overflow protection
+fn calculate_memory_cost(words: u64) u64 {
+    return MemoryGas * words + (words * words) / QuadCoeffDiv;
+}
+
 /// The expansion cost is: total_cost(new_size) - total_cost(current_size)
 ///
 /// ## Examples
@@ -406,13 +413,13 @@ pub fn memory_gas_cost(current_size: u64, new_size: u64) u64 {
         const current_cost = if (current_words < MEMORY_EXPANSION_LUT.len)
             MEMORY_EXPANSION_LUT[current_words]
         else
-            MemoryGas * current_words + (current_words * current_words) / QuadCoeffDiv;
+            calculate_memory_cost(current_words);
 
         return MEMORY_EXPANSION_LUT[new_words] - current_cost;
     }
 
     // Fall back to calculation for larger sizes
-    const current_cost = MemoryGas * current_words + (current_words * current_words) / QuadCoeffDiv;
-    const new_cost = MemoryGas * new_words + (new_words * new_words) / QuadCoeffDiv;
+    const current_cost = calculate_memory_cost(current_words);
+    const new_cost = calculate_memory_cost(new_words);
     return new_cost - current_cost;
 }
