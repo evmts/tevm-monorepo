@@ -240,11 +240,12 @@ pub fn op_selfdestruct(pc: usize, interpreter: *Operation.Interpreter, state: *O
     }
 
     // Use unsafe pop since bounds checking is done by jump_table
-    const beneficiary_u256 = frame.stack.pop_unsafe();
-    const beneficiary = from_u256(beneficiary_u256);
+    const recipient_u256 = frame.stack.pop_unsafe();
+    const recipient = from_u256(recipient_u256);
 
-    // EIP-2929: Check if beneficiary address is cold and consume appropriate gas
-    const access_cost = vm.access_list.access_address(beneficiary) catch |err| switch (err) {
+    // EIP-2929: Check if recipient address is cold and consume appropriate gas
+    // Note: Jump table already consumes base SELFDESTRUCT gas cost
+    const access_cost = vm.access_list.access_address(recipient) catch |err| switch (err) {
         error.OutOfMemory => return ExecutionError.Error.OutOfGas,
     };
     const is_cold = access_cost == AccessList.COLD_ACCOUNT_ACCESS_COST;
@@ -254,8 +255,11 @@ pub fn op_selfdestruct(pc: usize, interpreter: *Operation.Interpreter, state: *O
         try frame.consume_gas(gas_constants.ColdAccountAccessCost);
     }
 
-    // Schedule selfdestruct for execution at the end of the transaction
-    // For now, just return STOP
+    // Mark contract for destruction at end of transaction
+    vm.state.mark_for_destruction(frame.contract.address, recipient) catch |err| switch (err) {
+        error.OutOfMemory => return ExecutionError.Error.OutOfGas,
+    };
 
+    // Halt execution
     return ExecutionError.Error.STOP;
 }
