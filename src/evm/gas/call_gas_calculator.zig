@@ -262,8 +262,8 @@ pub const StipendTracker = struct {
 /// repeated conditional logic in hot paths.
 const CALL_BASE_COSTS = [4]u64{
     gas_constants.CALL_BASE_COST,                                           // Warm, no value
-    gas_constants.CALL_COLD_ACCOUNT_COST,                                   // Cold, no value  
     gas_constants.CALL_BASE_COST + gas_constants.CALL_VALUE_TRANSFER_COST,  // Warm, with value
+    gas_constants.CALL_COLD_ACCOUNT_COST,                                   // Cold, no value  
     gas_constants.CALL_COLD_ACCOUNT_COST + gas_constants.CALL_VALUE_TRANSFER_COST, // Cold, with value
 };
 

@@ -318,3 +318,16 @@ pub fn add_refunded_gas(self: *Frame, amount: u64) void {
 pub fn sync_gas_remaining(self: *Frame) void {
     self.gas_remaining = self.stipend_tracker.total_remaining();
 }
+
+/// Set gas for the frame, updating both gas_remaining and stipend_tracker.
+///
+/// This ensures both gas tracking systems stay synchronized.
+/// Should be used instead of directly setting gas_remaining.
+///
+/// @param self The frame to update
+/// @param gas New gas amount
+/// @param has_stipend Whether this gas includes a stipend
+pub fn set_gas(self: *Frame, gas: u64, has_stipend: bool) void {
+    self.stipend_tracker = StipendTracker.init(gas, has_stipend);
+    self.gas_remaining = self.stipend_tracker.total_remaining();
+}
