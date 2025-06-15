@@ -7,6 +7,7 @@ import { formatAbi } from '@tevm/utils'
  *
  * @param {object} params - The parameters for creating write action creators.
  * @param {import('@tevm/utils').Abi} params.methods - The ABI of the contract methods.
+ * @param {import('@tevm/utils').Abi} params.errors - The ABI of the contract errors.
  * @param {import('@tevm/utils').Hex} [params.code] - The runtime bytecode of the contract (optional).
  * @param {import('@tevm/utils').Address} [params.address] - The address of the deployed contract (optional).
  * @returns {import('./WriteActionCreator.js').WriteActionCreator<any, any, any>} An object containing write action creators for each payable and nonpayable function in the ABI.
@@ -42,7 +43,7 @@ import { formatAbi } from '@tevm/utils'
  * console.log('Transaction hash:', result.transactionHash)
  * ```
  */
-export const writeFactory = ({ methods, address, code }) =>
+export const writeFactory = ({ methods, errors, address, code }) =>
 	Object.fromEntries(
 		methods
 			.filter(({ type }) => type === 'function')
@@ -59,11 +60,13 @@ export const writeFactory = ({ methods, address, code }) =>
 				const creator = (...args) => {
 					// Handle case where there is an overload
 					// TODO: make this more efficient
-					const methodAbi = methods.filter(
-						(m) =>
-							/**@type {import('@tevm/utils').AbiFunction}*/ (m).name ===
-							/**@type {import('@tevm/utils').AbiFunction}*/ (method)?.name,
-					)
+					const methodAbi = methods
+						.filter(
+							(m) =>
+								/**@type {import('@tevm/utils').AbiFunction}*/ (m).name ===
+								/**@type {import('@tevm/utils').AbiFunction}*/ (method)?.name,
+						)
+						.concat(errors)
 					// viem and wagmi barf if we pass in undefined or [] for args so do this to accommodate viem and wagmi
 					const maybeArgs = args.length > 0 ? { args } : {}
 					return {

@@ -1,43 +1,29 @@
 # Implement RIPEMD160 Precompile
 
-<<<<<<< HEAD
-You are implementing RIPEMD160 Precompile for the Tevm EVM written in Zig. Your goal is to implement RIPEMD-160 cryptographic hash precompile following Ethereum specifications and maintaining compatibility with existing implementations.
+## Implementation Status: ✅ COMPLETED
 
-=======
-<review>
-**Implementation Status: NOT IMPLEMENTED ❌**
+**PR Information:**
+- **Merged PR**: [#1840 - ✨ feat: implement RIPEMD160 precompile (address 0x03)](https://github.com/evmts/tevm-monorepo/pull/1840)
+- **Commit Hash**: `528d88fd6` - ✨ feat: implement RIPEMD160 precompile (address 0x03)
+- **Merged**: June 12, 2025
+- **Status**: ✅ Successfully implemented and merged
 
 **Current Status:**
-- ❌ No ripemd160.zig file exists in src/evm/precompiles/
-- ❌ precompiles.zig:114 returns `ExecutionFailed` for address 0x03
-- ❌ estimate_gas() returns `NotImplemented` for RIPEMD160
-- ❌ No RIPEMD160 hashing functionality available
+- ✅ ripemd160.zig exists in src/evm/precompiles/
+- ✅ Complete RIPEMD160 hash implementation
+- ✅ Variable input size support (unlimited)
+- ✅ 32-byte output (20-byte RIPEMD160 hash + 12 zero bytes)
+- ✅ Gas cost: 600 base + 120 per word (32 bytes)
+- ✅ Proper Ethereum compatibility
+- ✅ All tests passing
 
-**Implementation Status:**
-- 🔄 **LOWER PRIORITY**: RIPEMD160 is legacy, rarely used in modern contracts
-- ⚠️ **COMPATIBILITY**: Needed for full Ethereum compatibility but not critical
-- ✅ **INFRASTRUCTURE**: Precompile framework exists (identity.zig, sha256.zig as examples)
-
-**Implementation Requirements:**
-- Create src/evm/precompiles/ripemd160.zig
-- Variable input size (unlimited)
-- 32-byte output (20-byte RIPEMD160 hash + 12 zero bytes)
-- Gas cost: 600 base + 120 per word (32 bytes)
-- Use Zig's std.crypto.hash.ripemd or equivalent
-- Handle empty input case
-
-**Testing Requirements:**
-- Test vectors from RIPEMD160 specification
-- Empty input edge case
-- Large input handling
-- Gas calculation validation
-
-**Priority: MEDIUM - For Ethereum compatibility completeness**
-</review>
+**Implementation Completed:**
+- ✅ Created src/evm/precompiles/ripemd160.zig
+- ✅ Used Zig's std.crypto.hash capabilities
+- ✅ Handles empty input edge cases
+- ✅ Comprehensive test coverage including specification test vectors
 
 You are implementing RIPEMD160 Precompile for the Tevm EVM written in Zig. Your goal is to implement RIPEMD-160 cryptographic hash precompile following Ethereum specifications and maintaining compatibility with existing implementations.
-
->>>>>>> origin/main
 ## Development Workflow
 - **Branch**: `feat_implement_ripemd` (snake_case)
 - **Worktree**: `git worktree add g/feat_implement_ripemd feat_implement_ripemd`
