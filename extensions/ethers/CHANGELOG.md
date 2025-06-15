@@ -1,5 +1,19 @@
 # @tevm/ethers
 
+## 1.0.0-next.148
+
+### Patch Changes
+
+- Updated dependencies [826c7fa]
+- Updated dependencies [9e0e1cd]
+  - @tevm/contract@1.0.0-next.148
+  - @tevm/actions@1.0.0-next.148
+  - @tevm/client-types@1.0.0-next.148
+  - @tevm/decorators@1.0.0-next.148
+  - @tevm/common@1.0.0-next.148
+  - @tevm/utils@1.0.0-next.148
+  - @tevm/node@1.0.0-next.148
+
 ## 1.0.0-next.147
 
 ### Patch Changes
