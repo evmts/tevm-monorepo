@@ -1,5 +1,21 @@
 # Implement Memory Gas Optimization
 
+<<<<<<< HEAD
+## Git Workflow Instructions
+
+### Branch Setup
+1. **Create branch**: `feat_implement_memory_gas_optimization` (snake_case, no emoji)
+2. **Create worktree**: `git worktree add g/feat_implement_memory_gas_optimization feat_implement_memory_gas_optimization`
+3. **Work in isolation**: `cd g/feat_implement_memory_gas_optimization`
+4. **Commit message**: `⚡ perf: implement memory gas pre-calculation and caching optimization`
+
+### Workflow Steps
+1. Create and switch to the new worktree
+2. Implement all changes in the isolated branch
+3. Run `zig build test-all` to ensure all tests pass
+4. Commit with emoji conventional commit format
+5. DO NOT merge - leave ready for review
+=======
 You are implementing Memory Gas Optimization for the Tevm EVM written in Zig. Your goal is to implement gas-efficient memory expansion algorithms following Ethereum specifications and maintaining compatibility with existing implementations.
 
 ## Development Workflow
@@ -53,10 +69,13 @@ You are implementing Memory Gas Optimization for the Tevm EVM written in Zig. Yo
 
 Implement memory gas pre-calculation and caching to optimize EVM memory expansion costs. Memory operations like MLOAD, MSTORE, CALLDATACOPY, etc. require dynamic gas calculation based on memory size growth. Pre-calculating and caching these costs can significantly improve performance for memory-intensive contracts.
 
+<<<<<<< HEAD
+=======
 ## ELI5
 
 Think of memory gas optimization like a smart parking meter system. In the old system, every time you want to use more parking spaces (memory), you have to recalculate the entire cost from scratch using a complex formula - this is slow and wasteful. The enhanced memory gas optimization is like having a smart meter that pre-calculates common parking costs and remembers them, so when you need 5 spaces, 10 spaces, or 20 spaces, it already knows the cost instantly. It's even smarter - it tracks how much you're currently using and only calculates the "expansion cost" for additional spaces you need, rather than recalculating everything. For contracts that use lots of memory (like those processing large amounts of data), this optimization makes operations much faster by avoiding repetitive expensive calculations, similar to how express checkout lanes speed up shopping for frequent customers.
 
+>>>>>>> origin/main
 ## Current Memory Gas Model
 
 ### Memory Expansion Formula
@@ -654,6 +673,16 @@ fn generate_lookup_table() [LOOKUP_TABLE_SIZE]u64 {
 5. **Integration**: Seamless integration with existing memory system
 6. **Compatibility**: Works across all hardforks and opcodes
 
+<<<<<<< HEAD
+## Critical Requirements
+
+1. **NEVER commit until `zig build test-all` passes**
+2. **Maintain gas accuracy** - Optimizations must not change gas costs
+3. **Test cache coverage** - Verify cache effectiveness for real contracts
+4. **Benchmark performance** - Measure actual improvement
+5. **Handle large memory** - Graceful fallback for sizes beyond cache
+6. **Memory safety** - Prevent overflow in memory calculations
+=======
 ## Critical Constraints
 ❌ NEVER commit until all tests pass with `zig build test-all`
 ❌ DO NOT merge without review
@@ -830,6 +859,7 @@ pub const MemoryCostCache = struct {
 - **Verify performance improvements** - Optimizations must provide measurable benefits
 - **Test cross-platform memory behavior** - Ensure consistent results across platforms
 - **Validate integration points** - Test all external interfaces thoroughly
+>>>>>>> origin/main
 
 ## References
 
@@ -885,6 +915,9 @@ func memoryGasCost(mem *Memory, newSize uint64) (uint64, error) {
 ```go
 MemoryGas     uint64 = 3       // Times the address of the (highest referenced byte in memory + 1)
 QuadCoeffDiv  uint64 = 512     // Divisor for the quadratic particle of the memory cost equation
+<<<<<<< HEAD
+```
+=======
 ```
 
 ## EVMONE Context
@@ -3412,3 +3445,4 @@ This is a good strategy, but it's important to clarify how it relates to the go-
 
 Therefore, the provided go-ethereum snippets are a perfect reference for implementing the *uncached* part of the logic and the incremental tracking system. The Zig implementation can then add the `MemoryCostCache` as an enhancement to avoid the dynamic calculation for common memory sizes.
 
+>>>>>>> origin/main

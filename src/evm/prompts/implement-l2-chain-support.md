@@ -1,5 +1,21 @@
 # Implement L2 Chain Support
 
+<<<<<<< HEAD
+## Git Workflow Instructions
+
+### Branch Setup
+1. **Create branch**: `feat_implement_l2_chain_support` (snake_case, no emoji)
+2. **Create worktree**: `git worktree add g/feat_implement_l2_chain_support feat_implement_l2_chain_support`
+3. **Work in isolation**: `cd g/feat_implement_l2_chain_support`
+4. **Commit message**: `✨ feat: implement L2 chain support for Optimism, Arbitrum, and Polygon`
+
+### Workflow Steps
+1. Create and switch to the new worktree
+2. Implement all changes in the isolated branch
+3. Run `zig build test-all` to ensure all tests pass
+4. Commit with emoji conventional commit format
+5. DO NOT merge - leave ready for review
+=======
 You are implementing L2 Chain Support for the Tevm EVM written in Zig. Your goal is to implement Layer 2 chain support and optimization following Ethereum specifications and maintaining compatibility with existing implementations.
 
 ## Development Workflow
@@ -8,15 +24,19 @@ You are implementing L2 Chain Support for the Tevm EVM written in Zig. Your goal
 - **Testing**: Run `zig build test-all` before committing
 - **Commit**: Use emoji conventional commits with XML summary format
 
+>>>>>>> origin/main
 
 ## Context
 
 Implement support for Layer 2 (L2) chains including Optimism, Arbitrum, and Polygon. Each L2 has specific modifications to the EVM including custom opcodes, different gas models, precompiles, and execution rules. This implementation should provide a pluggable architecture for L2-specific behavior while maintaining Ethereum mainnet compatibility.
 
+<<<<<<< HEAD
+=======
 ## ELI5
 
 Layer 2 chains are like different floors built on top of the main Ethereum building. Each floor (Optimism, Arbitrum, Polygon) has its own special features and rules while still being connected to the main building below. This implementation is like creating a universal elevator system that knows how to work with each floor's unique layout and features, so people can seamlessly move between floors while everything stays connected to the main structure.
 
+>>>>>>> origin/main
 ## L2 Chain Specifications
 
 ### Optimism (OP Stack)
@@ -1120,6 +1140,16 @@ test "l2 gas models" {
 5. **Transaction Types**: Support for L2-specific transaction formats
 6. **Compatibility**: Maintain Ethereum mainnet compatibility
 
+<<<<<<< HEAD
+## Critical Requirements
+
+1. **NEVER commit until `zig build test-all` passes**
+2. **Maintain Ethereum compatibility** - L2 support should not break mainnet
+3. **Test with real L2 data** - Use actual transaction data from each L2
+4. **Modular architecture** - Easy to add new L2 chains
+5. **Performance** - L2 detection and execution should be fast
+6. **Security** - L2-specific features must maintain security guarantees
+=======
 ## Critical Constraints
 ❌ NEVER commit until all tests pass with `zig build test-all`
 ❌ DO NOT merge without review
@@ -1455,6 +1485,7 @@ pub fn call_precompile(chain: ChainType, address: Address, input: []const u8) !P
     };
 }
 ```
+>>>>>>> origin/main
 
 ## References
 

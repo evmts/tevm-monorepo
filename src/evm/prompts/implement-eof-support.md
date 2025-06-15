@@ -1,5 +1,21 @@
 # Implement EOF Support
 
+<<<<<<< HEAD
+## Git Workflow Instructions
+
+### Branch Setup
+1. **Create branch**: `feat_implement_eof_support` (snake_case, no emoji)
+2. **Create worktree**: `git worktree add g/feat_implement_eof_support feat_implement_eof_support`
+3. **Work in isolation**: `cd g/feat_implement_eof_support`
+4. **Commit message**: `✨ feat: implement EOF (EVM Object Format) support`
+
+### Workflow Steps
+1. Create and switch to the new worktree
+2. Implement all changes in the isolated branch
+3. Run `zig build test-all` to ensure all tests pass
+4. Commit with emoji conventional commit format
+5. DO NOT merge - leave ready for review
+=======
 You are implementing EOF Support for the Tevm EVM written in Zig. Your goal is to implement EOF (EVM Object Format) support for contract evolution following Ethereum specifications and maintaining compatibility with existing implementations.
 
 ## Development Workflow
@@ -8,15 +24,19 @@ You are implementing EOF Support for the Tevm EVM written in Zig. Your goal is t
 - **Testing**: Run `zig build test-all` before committing
 - **Commit**: Use emoji conventional commits with XML summary format
 
+>>>>>>> origin/main
 
 ## Context
 
 Implement EVM Object Format (EOF) support, which is a significant evolution of the EVM that introduces structured bytecode containers, static analysis capabilities, and new execution semantics. EOF includes several EIPs: EIP-3540 (container format), EIP-3670 (code validation), EIP-4200 (static relative jumps), EIP-4750 (functions), and EIP-5450 (stack validation).
 
+<<<<<<< HEAD
+=======
 ## ELI5
 
 Current smart contract bytecode is like a long string of assembly instructions all jumbled together with no structure. EOF (EVM Object Format) is like organizing that mess into a proper filing system with labeled sections and safety checks. It's similar to how modern programming languages have functions, imports, and type checking, versus old assembly code that was just one long list of instructions. EOF makes smart contracts safer (by catching errors before deployment), faster (by enabling optimizations), and easier to analyze. It's like upgrading from a text file full of random code to a properly structured program with clear functions and validation.
 
+>>>>>>> origin/main
 ## EOF Specification Overview
 
 ### Core EIPs
@@ -1110,6 +1130,16 @@ test "eof deployment and execution" {
 5. **Function Calls**: Working function call mechanism with CALLF/RETF
 6. **Legacy Compatibility**: EOF contracts can interact with legacy contracts
 
+<<<<<<< HEAD
+## Critical Requirements
+
+1. **NEVER commit until `zig build test-all` passes**
+2. **EIP specification compliance** - Must match exact EOF behavior
+3. **Static validation accuracy** - Critical for EOF security model
+4. **Function call correctness** - Proper stack isolation and return handling
+5. **Performance** - EOF execution should be faster than legacy
+6. **Test with official vectors** - Use EOF test suite for validation
+=======
 ## Critical Constraints
 ❌ NEVER commit until all tests pass with `zig build test-all`
 ❌ DO NOT merge without review
@@ -1239,6 +1269,7 @@ pub const eof_support = struct {
 - **Verify specification compliance**
 - **Validate performance implications**
 - **Ensure cross-platform compatibility**
+>>>>>>> origin/main
 
 ## References
 

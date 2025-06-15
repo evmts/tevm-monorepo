@@ -1,5 +1,24 @@
 # Implement Handler Architecture
 
+<<<<<<< HEAD
+## Git Workflow Instructions
+
+### Branch Setup
+1. **Create branch**: `feat_implement_handler_architecture` (snake_case, no emoji)
+2. **Create worktree**: `git worktree add g/feat_implement_handler_architecture feat_implement_handler_architecture`
+3. **Work in isolation**: `cd g/feat_implement_handler_architecture`
+4. **Commit message**: `✨ feat: implement configurable handler architecture for extensible execution processing`
+
+### Workflow Steps
+1. Create and switch to the new worktree
+2. Implement all changes in the isolated branch
+3. Run `zig build test-all` to ensure all tests pass
+4. Commit with emoji conventional commit format
+5. DO NOT merge - leave ready for review
+
+## Context
+
+=======
 You are implementing Handler Architecture for the Tevm EVM written in Zig. Your goal is to implement modular handler architecture for extensibility following Ethereum specifications and maintaining compatibility with existing implementations.
 
 ## Development Workflow
@@ -38,6 +57,7 @@ Implement a modular handler architecture for opcodes that provides pluggable han
 
 Think of the handler architecture like a restaurant's quality control system. Instead of having to modify the kitchen every time you want to add a new quality check, you set up inspection stations along the line where different specialists can examine and process each dish. Some inspectors check temperature, others check presentation, and some just count portions. Each handler can observe what's happening, make modifications, or even stop the process if something's wrong. This way, you can easily add new quality controls without rebuilding the entire kitchen.
 
+>>>>>>> origin/main
 Implement a configurable handler architecture that allows pluggable pre-processing and post-processing of EVM operations. This provides extensibility points for custom logic, middleware, logging, metrics collection, and specialized execution behaviors without modifying core EVM code.
 
 ## Handler Architecture Specifications
@@ -1317,6 +1337,16 @@ test "custom handler implementation" {
 5. **Performance**: Zero overhead when no handlers are registered
 6. **Extensibility**: Easy to create custom handlers for specific needs
 
+<<<<<<< HEAD
+## Critical Requirements
+
+1. **NEVER commit until `zig build test-all` passes**
+2. **Zero overhead principle** - No performance impact when handlers are disabled
+3. **Error isolation** - Handler failures must not crash VM execution
+4. **Type safety** - Compile-time checked handler interfaces
+5. **Memory safety** - Proper lifetime management of handler data
+6. **Backward compatibility** - Existing VM code should work without handlers
+=======
 ## Critical Constraints
 ❌ NEVER commit until all tests pass with `zig build test-all`
 ❌ DO NOT merge without review
@@ -1446,6 +1476,7 @@ pub const handler_architecture = struct {
 - **Verify specification compliance**
 - **Validate performance implications**
 - **Ensure cross-platform compatibility**
+>>>>>>> origin/main
 
 ## References
 

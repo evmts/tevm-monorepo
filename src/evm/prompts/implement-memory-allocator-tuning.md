@@ -1,5 +1,21 @@
 # Implement Memory Allocator Tuning
 
+<<<<<<< HEAD
+## Git Workflow Instructions
+
+### Branch Setup
+1. **Create branch**: `feat_implement_memory_allocator_tuning` (snake_case, no emoji)
+2. **Create worktree**: `git worktree add g/feat_implement_memory_allocator_tuning feat_implement_memory_allocator_tuning`
+3. **Work in isolation**: `cd g/feat_implement_memory_allocator_tuning`
+4. **Commit message**: `⚡ perf: implement memory allocator tuning for optimized allocation patterns`
+
+### Workflow Steps
+1. Create and switch to the new worktree
+2. Implement all changes in the isolated branch
+3. Run `zig build test-all` to ensure all tests pass
+4. Commit with emoji conventional commit format
+5. DO NOT merge - leave ready for review
+=======
 You are implementing Memory Allocator Tuning for the Tevm EVM written in Zig. Your goal is to implement optimized memory allocator for EVM operations following Ethereum specifications and maintaining compatibility with existing implementations.
 
 ## Development Workflow
@@ -8,11 +24,14 @@ You are implementing Memory Allocator Tuning for the Tevm EVM written in Zig. Yo
 - **Testing**: Run `zig build test-all` before committing
 - **Commit**: Use emoji conventional commits with XML summary format
 
+>>>>>>> origin/main
 
 ## Context
 
 Implement memory allocator tuning optimizations to improve memory allocation patterns, reduce fragmentation, and optimize performance for EVM-specific workloads. This includes custom allocators for different memory usage patterns, pool allocation for frequently used objects, and memory layout optimizations.
 
+<<<<<<< HEAD
+=======
 ## ELI5
 
 Think of memory allocation like organizing a warehouse. A basic warehouse just puts items wherever there's space, which can lead to wasted space and slow retrieval. Memory allocator tuning is like hiring a professional warehouse manager who:
@@ -27,6 +46,7 @@ Think of memory allocation like organizing a warehouse. A basic warehouse just p
 
 Why does this matter? Faster memory access means faster smart contract execution, lower gas costs, and better overall blockchain performance. It's the difference between a chaotic warehouse and a well-oiled distribution center.
 
+>>>>>>> origin/main
 ## Memory Allocator Tuning Specifications
 
 ### Core Allocator Framework
@@ -714,6 +734,8 @@ pub const AllocationStatistics = struct {
 };
 ```
 
+<<<<<<< HEAD
+=======
 ## Production-Ready Memory Allocation Patterns
 
 The following sections provide detailed implementation patterns extracted from production EVM implementations (REVM, EVMOne, Geth) and our existing Zig codebase for building high-performance memory allocator tuning.
@@ -1276,6 +1298,7 @@ pub const AllocationMetrics = struct {
 
 This comprehensive collection of production-ready patterns provides the foundation for implementing high-performance memory allocator tuning in the Zig EVM, drawing from battle-tested approaches while adapting to Zig's unique features and our specific architecture requirements.
 
+>>>>>>> origin/main
 ## Implementation Requirements
 
 ### Core Functionality
@@ -1502,6 +1525,16 @@ test "performance benchmarks" {
 5. **Statistical Insights**: Comprehensive allocation monitoring and analysis
 6. **Zero Overhead When Disabled**: No performance impact when optimizations are disabled
 
+<<<<<<< HEAD
+## Critical Requirements
+
+1. **NEVER commit until `zig build test-all` passes**
+2. **Memory safety** - No leaks or corruption with optimized allocators
+3. **Fallback compatibility** - Must work with any standard allocator
+4. **Performance validation** - Must demonstrate measurable improvements
+5. **Statistical accuracy** - Allocation statistics must be precise
+6. **Thread safety** - Concurrent allocation must be safe if needed
+=======
 ## Critical Constraints
 ❌ NEVER commit until all tests pass with `zig build test-all`
 ❌ DO NOT merge without review
@@ -1640,6 +1673,7 @@ pub const memory_allocator = struct {
 - **Verify EVM memory specification compliance** - Critical for protocol correctness
 - **Test memory performance implications** - Especially for allocation speed optimizations
 - **Validate memory security properties** - Prevent memory-related vulnerabilities
+>>>>>>> origin/main
 
 ## References
 
@@ -1647,6 +1681,9 @@ pub const memory_allocator = struct {
 - [Arena Allocation](https://en.wikipedia.org/wiki/Region-based_memory_management) - Arena memory management
 - [Memory Fragmentation](https://en.wikipedia.org/wiki/Fragmentation_(computing)) - Fragmentation analysis and mitigation
 - [Zig Allocators](https://ziglang.org/documentation/master/#Allocators) - Zig allocator interface
+<<<<<<< HEAD
+- [High-Performance Memory Management](https://www.memorymanagement.org/) - Advanced memory management techniques
+=======
 - [High-Performance Memory Management](https://www.memorymanagement.org/) - Advanced memory management techniques
 
 ## EVMONE Context
@@ -6824,3 +6861,4 @@ func NewContract(caller ContractRef, object ContractRef, value *big.Int, gas uin
 </file>
 </go-ethereum>
 
+>>>>>>> origin/main

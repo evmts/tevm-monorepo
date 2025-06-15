@@ -1,5 +1,21 @@
 # Implement Comprehensive Tracing
 
+<<<<<<< HEAD
+## Git Workflow Instructions
+
+### Branch Setup
+1. **Create branch**: `feat_implement_comprehensive_tracing` (snake_case, no emoji)
+2. **Create worktree**: `git worktree add g/feat_implement_comprehensive_tracing feat_implement_comprehensive_tracing`
+3. **Work in isolation**: `cd g/feat_implement_comprehensive_tracing`
+4. **Commit message**: `✨ feat: implement step-by-step execution monitoring and tracing`
+
+### Workflow Steps
+1. Create and switch to the new worktree
+2. Implement all changes in the isolated branch
+3. Run `zig build test-all` to ensure all tests pass
+4. Commit with emoji conventional commit format
+5. DO NOT merge - leave ready for review
+=======
 You are implementing Comprehensive Tracing for the Tevm EVM written in Zig. Your goal is to implement comprehensive execution tracing and debugging tools following Ethereum specifications and maintaining compatibility with existing implementations.
 
 ## Development Workflow
@@ -8,15 +24,19 @@ You are implementing Comprehensive Tracing for the Tevm EVM written in Zig. Your
 - **Testing**: Run `zig build test-all` before committing
 - **Commit**: Use emoji conventional commits with XML summary format
 
+>>>>>>> origin/main
 
 ## Context
 
 Implement comprehensive execution tracing for debugging and monitoring EVM execution. This enables step-by-step tracking of opcodes, stack, memory, and state changes.
 
+<<<<<<< HEAD
+=======
 ## ELI5
 
 Think of comprehensive tracing as having a detailed security camera system and activity log for everything that happens when a smart contract runs. Just like how a security system records who enters a building, when they entered, what rooms they visited, and what they did there, EVM tracing records every single step a smart contract takes during execution. The enhanced version is like upgrading from basic security cameras to a forensic investigation suite: it doesn't just record what happened, but also tracks the "why" behind each action, monitors resource usage (like gas consumption), provides slow-motion replay capabilities for debugging, and can even predict potential issues before they become problems. This is essential for developers who need to understand why their smart contract failed, optimize performance, or prove that their code is working correctly - it's like having a flight recorder for blockchain transactions.
 
+>>>>>>> origin/main
 ## Implementation Requirements
 
 ### Core Functionality
@@ -26,6 +46,15 @@ Think of comprehensive tracing as having a detailed security camera system and a
 4. **State Changes**: Track storage and account modifications
 5. **Gas Accounting**: Detailed gas consumption per operation
 
+<<<<<<< HEAD
+## Critical Requirements
+
+1. **NEVER commit until `zig build test-all` passes**
+2. **Minimize performance impact** - Tracing should be optional
+3. **Structured output** - Machine-readable trace format
+4. **Complete coverage** - Trace all EVM operations
+5. **Memory efficient** - Handle large traces without memory issues
+=======
 ## Critical Constraints
 ❌ NEVER commit until all tests pass with `zig build test-all`
 ❌ DO NOT merge without review
@@ -42,6 +71,7 @@ Think of comprehensive tracing as having a detailed security camera system and a
 ✅ Performance meets or exceeds benchmarks
 ✅ Gas costs are calculated correctly
 
+>>>>>>> origin/main
 
 ## Reference Implementations
 
@@ -115,6 +145,8 @@ type VMContext struct {
 }
 ```
 
+<<<<<<< HEAD
+=======
 ## Test-Driven Development (TDD) Strategy
 
 ### Testing Philosophy
@@ -267,10 +299,14 @@ pub const ExecutionTracer = struct {
 - **Test cross-platform trace behavior** - Ensure consistent results across platforms
 - **Validate integration points** - Test all external interfaces thoroughly
 
+>>>>>>> origin/main
 ## References
 
 - [EIP-3155: EVM trace specification](https://eips.ethereum.org/EIPS/eip-3155)
 - [Geth debug tracing](https://geth.ethereum.org/docs/developers/evm-tracing)
+<<<<<<< HEAD
+- [OpenEthereum tracing](https://openethereum.github.io/JSONRPC-trace-module)
+=======
 - [OpenEthereum tracing](https://openethereum.github.io/JSONRPC-trace-module)
 
 ## EVMONE Context
@@ -4527,3 +4563,4 @@ The original prompt provides an excellent foundation by referencing `go-ethereum
 
 These additions provide a complete picture, from the low-level hook definitions to a high-level API and a concrete implementation example, which will be highly beneficial for implementing the requested feature. No corrections to the original prompt's content are needed as it is accurate.
 
+>>>>>>> origin/main

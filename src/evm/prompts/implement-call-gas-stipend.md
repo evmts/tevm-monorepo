@@ -1,5 +1,21 @@
 # Implement Call Gas Stipend
 
+<<<<<<< HEAD
+## Git Workflow Instructions
+
+### Branch Setup
+1. **Create branch**: `feat_implement_call_gas_stipend` (snake_case, no emoji)
+2. **Create worktree**: `git worktree add g/feat_implement_call_gas_stipend feat_implement_call_gas_stipend`
+3. **Work in isolation**: `cd g/feat_implement_call_gas_stipend`
+4. **Commit message**: `✨ feat: implement call gas stipend for value transfers`
+
+### Workflow Steps
+1. Create and switch to the new worktree
+2. Implement all changes in the isolated branch
+3. Run `zig build test-all` to ensure all tests pass
+4. Commit with emoji conventional commit format
+5. DO NOT merge - leave ready for review
+=======
 You are implementing Call Gas Stipend for the Tevm EVM written in Zig. Your goal is to implement gas stipend calculations for value-transferring calls following Ethereum specifications and maintaining compatibility with existing implementations.
 
 ## Development Workflow
@@ -8,11 +24,15 @@ You are implementing Call Gas Stipend for the Tevm EVM written in Zig. Your goal
 - **Testing**: Run `zig build test-all` before committing
 - **Commit**: Use emoji conventional commits with XML summary format
 
+>>>>>>> origin/main
 
 ## Context
 
 Implement proper gas stipend handling for value transfers in CALL operations. When a CALL transfers value (ETH), the called contract receives a gas stipend of 2300 gas to perform basic operations like logging. This mechanism ensures that simple receiver contracts can execute even when the caller provides insufficient gas.
 
+<<<<<<< HEAD
+## Ethereum Specification
+=======
 ## ELI5
 
 Think of gas stipends like sending money through the mail with a small prepaid envelope attached. When you send ETH to a smart contract, it's like mailing money to someone. The gas stipend is like including a small prepaid return envelope (2300 gas) so the recipient can at least send you a "thank you" note or receipt.
@@ -25,6 +45,7 @@ This prevents a common problem: imagine if someone sent you money but didn't inc
 However, this "prepaid envelope" is quite small - you can't use it to send more money to other people or do complex operations. It's just enough for basic bookkeeping, which prevents contracts from getting "stuck" when they receive unexpected payments.
 
 ## Specification
+>>>>>>> origin/main
 
 ### Gas Stipend Rules
 
@@ -692,6 +713,16 @@ fn validate_value_transfer(
 5. **Compatibility**: Works across all hardforks and call types
 6. **Performance**: Minimal overhead for stipend tracking
 
+<<<<<<< HEAD
+## Critical Requirements
+
+1. **NEVER commit until `zig build test-all` passes**
+2. **Follow EVM specification exactly** - Stipend rules must be precise
+3. **Test stipend limitations** - Verify stipend cannot enable attacks
+4. **Handle gas edge cases** - Correct behavior when gas is insufficient
+5. **Maintain call semantics** - Don't break existing call behavior
+6. **Test all call types** - CALL, CALLCODE, DELEGATECALL, STATICCALL
+=======
 ## Critical Constraints
 ❌ NEVER commit until all tests pass with `zig build test-all`
 ❌ DO NOT merge without review
@@ -824,12 +855,16 @@ pub const call_gas_stipend = struct {
 - **Verify EVM specification compliance** - Critical for protocol stipend correctness
 - **Test stipend performance implications** - Especially for high-frequency value transfers
 - **Validate stipend security properties** - Prevent stipend manipulation and bypass attacks
+>>>>>>> origin/main
 
 ## References
 
 - [Ethereum Yellow Paper - Appendix H](https://ethereum.github.io/yellowpaper/paper.pdf) - Call operations
 - [EIP-150: Gas cost changes](https://eips.ethereum.org/EIPS/eip-150) - 63/64 rule
 - [Go-Ethereum Call Implementation](https://github.com/ethereum/go-ethereum/blob/master/core/vm/instructions.go)
+<<<<<<< HEAD
+- [Gas Stipend Security Analysis](https://github.com/ethereum/EIPs/issues/1285) - Security considerations
+=======
 - [Gas Stipend Security Analysis](https://github.com/ethereum/EIPs/issues/1285) - Security considerations
 
 ## EVMONE Context
@@ -4155,3 +4190,4 @@ In `go-ethereum`:
 
 This implicit mechanism avoids the complexity of tracking separate gas pools within a frame, which could be a simpler and more efficient implementation path.
 
+>>>>>>> origin/main

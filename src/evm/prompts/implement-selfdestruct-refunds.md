@@ -1,5 +1,21 @@
 # Implement SELFDESTRUCT Refunds
 
+<<<<<<< HEAD
+## Git Workflow Instructions
+
+### Branch Setup
+1. **Create branch**: `feat_implement_selfdestruct_refunds` (snake_case, no emoji)
+2. **Create worktree**: `git worktree add g/feat_implement_selfdestruct_refunds feat_implement_selfdestruct_refunds`
+3. **Work in isolation**: `cd g/feat_implement_selfdestruct_refunds`
+4. **Commit message**: `✨ feat: implement SELFDESTRUCT refunds for pre-London hardfork`
+
+### Workflow Steps
+1. Create and switch to the new worktree
+2. Implement all changes in the isolated branch
+3. Run `zig build test-all` to ensure all tests pass
+4. Commit with emoji conventional commit format
+5. DO NOT merge - leave ready for review
+=======
 You are implementing SELFDESTRUCT Refunds for the Tevm EVM written in Zig. Your goal is to implement gas refund mechanism for SELFDESTRUCT operations following Ethereum specifications and maintaining compatibility with existing implementations.
 
 ## Development Workflow
@@ -8,11 +24,15 @@ You are implementing SELFDESTRUCT Refunds for the Tevm EVM written in Zig. Your 
 - **Testing**: Run `zig build test-all` before committing
 - **Commit**: Use emoji conventional commits with XML summary format
 
+>>>>>>> origin/main
 
 ## Context
 
 Implement gas refunds for SELFDESTRUCT opcode according to Ethereum specifications. Before the London hardfork (EIP-3529), SELFDESTRUCT provided gas refunds when destroying contracts. This refund mechanism was removed in London to mitigate gas limit manipulation attacks.
 
+<<<<<<< HEAD
+## Ethereum Specification
+=======
 ## ELI5
 
 Imagine Ethereum transactions like paying tolls on a highway system. Originally, if you demolished a building (SELFDESTRUCT), the city would give you a tax refund for cleaning up unused space. This seemed like a good incentive to keep the city tidy.
@@ -33,6 +53,7 @@ This enhanced implementation handles the complexity of:
 Why does this matter? It ensures the EVM behaves correctly across different Ethereum versions and prevents economic attacks that could destabilize the network.
 
 ## Specification
+>>>>>>> origin/main
 
 ### Gas Refund Rules
 
@@ -473,6 +494,16 @@ Ensure refund tracking doesn't impact performance or WASM bundle size.
 5. **Compatibility**: Works with existing gas accounting system
 6. **Test Coverage**: Comprehensive tests covering all edge cases
 
+<<<<<<< HEAD
+## Critical Requirements
+
+1. **NEVER commit until `zig build test-all` passes**
+2. **Follow hardfork specifications exactly** - Refund rules must be precise
+3. **Implement refund cap correctly** - Maximum refund is gas_used / 2
+4. **Handle contract existence properly** - Only refund for actual destruction
+5. **Test hardfork transitions** - Verify behavior changes at London
+6. **Integrate with existing systems** - Work with current SELFDESTRUCT implementation
+=======
 ## Critical Constraints
 ❌ NEVER commit until all tests pass with `zig build test-all`
 ❌ DO NOT merge without review
@@ -613,12 +644,16 @@ pub const RefundTracker = struct {
 - **Verify gas accounting accuracy** - Especially important for refund cap calculations
 - **Test integration with existing SELFDESTRUCT implementation** - Ensure seamless operation
 - **Validate cross-client compatibility** - Critical for network consensus
+>>>>>>> origin/main
 
 ## References
 
 - [EIP-3529: Reduction in refunds](https://eips.ethereum.org/EIPS/eip-3529)
 - [EIP-2681: Limit account nonce to 2^64-1](https://eips.ethereum.org/EIPS/eip-2681)
 - [Ethereum Yellow Paper - Gas Refunds](https://ethereum.github.io/yellowpaper/paper.pdf)
+<<<<<<< HEAD
+- [London Hardfork Specification](https://github.com/ethereum/execution-specs/tree/master/network-upgrades/mainnet-upgrades/london.md)
+=======
 - [London Hardfork Specification](https://github.com/ethereum/execution-specs/tree/master/network-upgrades/mainnet-upgrades/london.md)
 
 ## EVMONE Context
@@ -2854,3 +2889,4 @@ This means the `contract_exists` check in the Zig `add_selfdestruct_refund` func
 
 Additionally, the refund quotient for capping changes from `2` to `5` in the London hardfork, which is a critical detail for post-London gas calculations even if `SELFDESTRUCT` refunds are zero.
 
+>>>>>>> origin/main

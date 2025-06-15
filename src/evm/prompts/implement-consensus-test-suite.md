@@ -1,5 +1,21 @@
 # Implement Consensus Test Suite
 
+<<<<<<< HEAD
+## Git Workflow Instructions
+
+### Branch Setup
+1. **Create branch**: `feat_implement_consensus_test_suite` (snake_case, no emoji)
+2. **Create worktree**: `git worktree add g/feat_implement_consensus_test_suite feat_implement_consensus_test_suite`
+3. **Work in isolation**: `cd g/feat_implement_consensus_test_suite`
+4. **Commit message**: `✨ feat: implement Ethereum consensus test suite integration and compliance framework`
+
+### Workflow Steps
+1. Create and switch to the new worktree
+2. Implement all changes in the isolated branch
+3. Run `zig build test-all` to ensure all tests pass
+4. Commit with emoji conventional commit format
+5. DO NOT merge - leave ready for review
+=======
 You are implementing Consensus Test Suite for the Tevm EVM written in Zig. Your goal is to implement comprehensive consensus test execution framework following Ethereum specifications and maintaining compatibility with existing implementations.
 
 ## Development Workflow
@@ -8,15 +24,19 @@ You are implementing Consensus Test Suite for the Tevm EVM written in Zig. Your 
 - **Testing**: Run `zig build test-all` before committing
 - **Commit**: Use emoji conventional commits with XML summary format
 
+>>>>>>> origin/main
 
 ## Context
 
 Implement comprehensive Ethereum consensus test suite integration to ensure 100% compatibility with the official Ethereum specification. This includes state tests, blockchain tests, transaction tests, and difficulty tests from the ethereum/tests repository. The implementation should provide automated test discovery, execution, and reporting to catch any regressions or compatibility issues.
 
+<<<<<<< HEAD
+=======
 ## ELI5
 
 Think of consensus tests like a massive standardized exam that all Ethereum implementations must pass to prove they work correctly. Just like how all calculators need to give the same answer for "2+2=4", all Ethereum clients need to process transactions and blocks exactly the same way. This test suite is like having thousands of test questions that verify our EVM gives the exact same answers as the official Ethereum specification, ensuring perfect compatibility.
 
+>>>>>>> origin/main
 ## Consensus Test Specifications
 
 ### Core Test Categories
@@ -1052,6 +1072,16 @@ test "real consensus tests" {
 5. **Automation**: Integration with CI/CD for regression testing
 6. **Maintainability**: Clean code structure for easy extension and debugging
 
+<<<<<<< HEAD
+## Critical Requirements
+
+1. **NEVER commit until `zig build test-all` passes**
+2. **Test accuracy** - Results must exactly match official Ethereum behavior
+3. **Performance** - Handle large test suites (10,000+ tests) efficiently
+4. **Memory safety** - No memory leaks during long test runs
+5. **Error handling** - Graceful failure handling and clear error reporting
+6. **CI integration** - Ready for automated testing in continuous integration
+=======
 ## Critical Constraints
 ❌ NEVER commit until all tests pass with `zig build test-all`
 ❌ DO NOT merge without review
@@ -1181,6 +1211,7 @@ pub const consensus_test_suite = struct {
 - **Verify specification compliance**
 - **Validate performance implications**
 - **Ensure cross-platform compatibility**
+>>>>>>> origin/main
 
 ## References
 
@@ -1188,6 +1219,9 @@ pub const consensus_test_suite = struct {
 - [EIP-3155: EVM trace specification](https://eips.ethereum.org/EIPS/eip-3155) - Tracing format
 - [Ethereum Test Formats](https://ethereum-tests.readthedocs.io/) - Test documentation
 - [Geth Test Runner](https://github.com/ethereum/go-ethereum/tree/master/tests) - Reference implementation
+<<<<<<< HEAD
+- [Besu Test Runner](https://github.com/hyperledger/besu/tree/main/ethereum/core/src/test/java/org/hyperledger/besu/ethereum/vm) - Alternative implementation
+=======
 - [Besu Test Runner](https://github.com/hyperledger/besu/tree/main/ethereum/core/src/test/java/org/hyperledger/besu/ethereum/vm) - Alternative implementation
 
 ## EVMONE Context
@@ -7415,3 +7449,4 @@ One minor point of clarification for your implementation:
 
 *   **Fork-Specific Logic**: The `post` section of state tests is a map where keys are fork names (e.g., "Berlin", "London"). Your test runner will need a mechanism to identify the current fork being tested and select the correct expected `post` state from this map. The go-ethereum `StateTest.Run` function demonstrates this by iterating through the `Post` map and using the key (`name`) to load the correct `params.ChainConfig`. Your implementation should do the same with its `ChainRules`.
 
+>>>>>>> origin/main

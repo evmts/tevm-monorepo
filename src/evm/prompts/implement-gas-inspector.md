@@ -1,5 +1,21 @@
 # Implement Gas Inspector
 
+<<<<<<< HEAD
+## Git Workflow Instructions
+
+### Branch Setup
+1. **Create branch**: `feat_implement_gas_inspector` (snake_case, no emoji)
+2. **Create worktree**: `git worktree add g/feat_implement_gas_inspector feat_implement_gas_inspector`
+3. **Work in isolation**: `cd g/feat_implement_gas_inspector`
+4. **Commit message**: `✨ feat: implement comprehensive gas analysis and optimization inspector`
+
+### Workflow Steps
+1. Create and switch to the new worktree
+2. Implement all changes in the isolated branch
+3. Run `zig build test-all` to ensure all tests pass
+4. Commit with emoji conventional commit format
+5. DO NOT merge - leave ready for review
+=======
 You are implementing Gas Inspector for the Tevm EVM written in Zig. Your goal is to implement a comprehensive gas tracking and analysis system following Ethereum specifications and maintaining compatibility with existing implementations.
 
 ## Development Workflow
@@ -8,15 +24,19 @@ You are implementing Gas Inspector for the Tevm EVM written in Zig. Your goal is
 - **Testing**: Run `zig build test-all` before committing
 - **Commit**: Use emoji conventional commits with XML summary format
 
+>>>>>>> origin/main
 
 ## Context
 
 Implement a comprehensive gas inspector that provides detailed analysis of gas consumption patterns, identifies optimization opportunities, and tracks gas usage across different operations and execution contexts. This tool is essential for gas optimization, cost analysis, and performance profiling of smart contracts.
 
+<<<<<<< HEAD
+=======
 ## ELI5
 
 Think of the gas inspector as a smart energy auditor for your home, but for smart contracts. Just like how an energy auditor identifies which appliances use the most electricity, when they use it, and suggests ways to reduce your bill, the enhanced gas inspector monitors every operation in your smart contract to see exactly where gas (Ethereum's "fuel") is being consumed. It's like having a super-detailed utility bill that shows not just your total usage, but breaks down costs by room, time of day, and specific appliances, plus gives you actionable advice like "your old refrigerator in the basement is costing you $50/month - consider upgrading" or "you're using too much heating during peak hours." For smart contract developers, this means understanding why their transactions are expensive, which parts of their code are gas-hungry, and getting specific recommendations for optimization - helping them build more cost-effective applications.
 
+>>>>>>> origin/main
 ## Gas Inspector Specifications
 
 ### Core Functionality
@@ -1303,6 +1323,16 @@ test "real world scenarios" {
 5. **Performance Impact**: Minimal overhead when analysis is disabled
 6. **Real-world Utility**: Provide valuable insights for contract optimization
 
+<<<<<<< HEAD
+## Critical Requirements
+
+1. **NEVER commit until `zig build test-all` passes**
+2. **Accuracy first** - Gas tracking must be precise and reliable
+3. **Performance conscious** - Minimize impact on execution speed
+4. **Actionable insights** - Suggestions must be implementable
+5. **Comprehensive coverage** - Track all gas-consuming operations
+6. **Test with real contracts** - Validate with production smart contracts
+=======
 ## Critical Constraints
 ❌ NEVER commit until all tests pass with `zig build test-all`
 ❌ DO NOT merge without review
@@ -1472,12 +1502,16 @@ pub const GasInspector = struct {
 - **Verify optimization suggestions** - Analysis must provide actionable insights
 - **Test cross-platform gas behavior** - Ensure consistent results across platforms
 - **Validate integration points** - Test all external interfaces thoroughly
+>>>>>>> origin/main
 
 ## References
 
 - [Ethereum Yellow Paper](https://ethereum.github.io/yellowpaper/paper.pdf) - Gas cost specifications
 - [Gas optimization techniques](https://gist.github.com/hrkrshnn/ee8fabd532058307229d65dcd5836ddc)
 - [Foundry gas reporting](https://book.getfoundry.sh/forge/gas-reports) - Reference implementation
+<<<<<<< HEAD
+- [Hardhat gas reporter](https://github.com/cgewecke/hardhat-gas-reporter) - Inspiration
+=======
 - [Hardhat gas reporter](https://github.com/cgewecke/hardhat-gas-reporter) - Inspiration
 
 ## EVMONE Context
@@ -7415,3 +7449,4 @@ Your prompt for the Gas Inspector is excellent and very thorough. Here are a few
 
 These are minor points. The overall specification is well-defined and provides a clear path for implementation. The go-ethereum snippets above should serve as excellent references for the underlying mechanics.
 
+>>>>>>> origin/main
