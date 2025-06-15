@@ -106,6 +106,23 @@ pub fn build(b: *std.Build) void {
     });
     compiler_mod.addImport("zabi", zabi_dep.module("zabi"));
 
+    const precompiles_mod = b.createModule(.{
+        .root_source_file = b.path("src/precompiles/package.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    precompiles_mod.stack_check = false;
+    precompiles_mod.single_threaded = true;
+
+    // Create WASM-specific precompiles module with C API
+    const precompiles_wasm_mod = b.createModule(.{
+        .root_source_file = b.path("src/precompiles/wasm_c_api.zig"),
+        .target = wasm_target,
+        .optimize = .ReleaseSmall,
+    });
+    precompiles_wasm_mod.stack_check = false;
+    precompiles_wasm_mod.single_threaded = true;
+
     // Create a separate compiler module for WASM without problematic dependencies
     const compiler_wasm_mod = b.createModule(.{
         .root_source_file = b.path("src/compilers/compiler_wasm.zig"),
@@ -153,6 +170,7 @@ pub fn build(b: *std.Build) void {
     evm_mod.addImport("Address", address_mod);
     evm_mod.addImport("Block", block_mod);
     evm_mod.addImport("Rlp", rlp_mod);
+    evm_mod.addImport("precompiles", precompiles_mod);
 
     // Create a ZigEVM module - our core EVM implementation
     const target_architecture_mod = b.createModule(.{
@@ -171,6 +189,7 @@ pub fn build(b: *std.Build) void {
     target_architecture_mod.addImport("Block", block_mod);
     target_architecture_mod.addImport("Bytecode", bytecode_mod);
     target_architecture_mod.addImport("Compiler", compiler_mod);
+    target_architecture_mod.addImport("Precompiles", precompiles_mod);
     target_architecture_mod.addImport("evm", evm_mod);
     target_architecture_mod.addImport("Rlp", rlp_mod);
     target_architecture_mod.addImport("Token", token_mod);
@@ -241,10 +260,23 @@ pub fn build(b: *std.Build) void {
     const wasm_output_path = "dist/zigevm.wasm";
     const install_wasm = b.addInstallFile(wasm.getEmittedBin(), wasm_output_path);
 
+    // Create the Precompiles WebAssembly library
+    const precompiles_wasm_lib = b.addExecutable(.{
+        .name = "tevm-precompiles",
+        .root_module = precompiles_wasm_mod,
+    });
+    precompiles_wasm_lib.rdynamic = true; // Required for exported functions
+    precompiles_wasm_lib.entry = .disabled; // No entry point for library mode
+
+    // Define the precompiles WASM output path
+    const precompiles_wasm_output_path = "dist/tevm-precompiles.wasm";
+    const install_precompiles_wasm = b.addInstallFile(precompiles_wasm_lib.getEmittedBin(), precompiles_wasm_output_path);
+
     // Install all artifacts
     b.installArtifact(lib);
     b.installArtifact(exe);
     b.installArtifact(wasm);
+    b.installArtifact(precompiles_wasm_lib);
     b.installArtifact(server_exe);
     b.installArtifact(ui_exe);
 
@@ -264,6 +296,10 @@ pub fn build(b: *std.Build) void {
     // Build WASM step
     const build_wasm_step = b.step("wasm", "Build the WebAssembly artifact");
     build_wasm_step.dependOn(&install_wasm.step);
+
+    // Build Precompiles WASM step
+    const build_precompiles_wasm_step = b.step("wasm-precompiles", "Build the Precompiles WebAssembly library");
+    build_precompiles_wasm_step.dependOn(&install_precompiles_wasm.step);
 
     // Define a run server step
     const run_server_cmd = b.addRunArtifact(server_exe);
@@ -298,6 +334,7 @@ pub fn build(b: *std.Build) void {
     lib_unit_tests.root_module.addImport("Block", block_mod);
     lib_unit_tests.root_module.addImport("Bytecode", bytecode_mod);
     lib_unit_tests.root_module.addImport("Compiler", compiler_mod);
+    lib_unit_tests.root_module.addImport("Precompiles", precompiles_mod);
     lib_unit_tests.root_module.addImport("evm", evm_mod);
     lib_unit_tests.root_module.addImport("Rlp", rlp_mod);
     lib_unit_tests.root_module.addImport("Token", token_mod);
@@ -321,6 +358,7 @@ pub fn build(b: *std.Build) void {
     evm_test.root_module.addImport("Bytecode", bytecode_mod);
     evm_test.root_module.addImport("Compiler", compiler_mod);
     evm_test.root_module.addImport("evm", evm_mod);
+    evm_test.root_module.addImport("precompiles", precompiles_mod);
     evm_test.root_module.addImport("Rlp", rlp_mod);
     evm_test.root_module.addImport("Token", token_mod);
     evm_test.root_module.addImport("Trie", trie_mod);
@@ -790,16 +828,38 @@ pub fn build(b: *std.Build) void {
     const evm_memory_benchmark_step = b.step("bench-evm-memory", "Run EVM Memory benchmarks");
     evm_memory_benchmark_step.dependOn(&run_evm_memory_benchmark.step);
 
+    // Add EVM Precompiles benchmark (defined later to access rust step)
+    const evm_precompiles_benchmark = b.addExecutable(.{
+        .name = "evm-precompiles-benchmark",
+        .root_source_file = b.path("bench/evm/precompiles_bench.zig"),
+        .target = target,
+        .optimize = .ReleaseFast,
+    });
+    evm_precompiles_benchmark.root_module.addImport("zbench", zbench_dep.module("zbench"));
+    evm_precompiles_benchmark.root_module.addImport("Precompiles", precompiles_mod);
+
+    const run_evm_precompiles_benchmark = b.addRunArtifact(evm_precompiles_benchmark);
+
+    const evm_precompiles_benchmark_step = b.step("bench-evm-precompiles", "Run EVM Precompiles benchmarks");
+    evm_precompiles_benchmark_step.dependOn(&run_evm_precompiles_benchmark.step);
+
     // Add combined benchmark step
     const all_benchmark_step = b.step("bench", "Run all benchmarks");
     all_benchmark_step.dependOn(&run_memory_benchmark.step);
     all_benchmark_step.dependOn(&run_evm_memory_benchmark.step);
-    all_benchmark_step.dependOn(&run_evm_memory_benchmark.step);
+    all_benchmark_step.dependOn(&run_evm_precompiles_benchmark.step);
 
     // Add Rust Foundry wrapper integration
     const rust_build = @import("src/compilers/rust_build.zig");
     const rust_step = rust_build.add_rust_integration(b, target, optimize) catch |err| {
         std.debug.print("Failed to add Rust integration: {}\n", .{err});
+        return;
+    };
+
+    // Add Rust Precompiles wrapper integration
+    const precompiles_rust_build = @import("src/precompiles/rust_build.zig");
+    const precompiles_rust_step = precompiles_rust_build.add_rust_integration(b, target, optimize) catch |err| {
+        std.debug.print("Failed to add Rust precompiles integration: {}\n", .{err});
         return;
     };
 
@@ -820,6 +880,15 @@ pub fn build(b: *std.Build) void {
         // Consider adding SystemConfiguration if rust_build.zig links it for its own tests
         // compiler_test.linkFramework("SystemConfiguration");
     }
+
+    // Make the precompiles benchmark depend on the Rust precompiles build
+    evm_precompiles_benchmark.step.dependOn(precompiles_rust_step);
+
+    // Link the Rust precompiles library to the benchmark
+    precompiles_rust_build.link_precompiles(evm_precompiles_benchmark, b);
+
+    // Add include path to precompiles module after Rust build
+    precompiles_mod.addIncludePath(b.path("zig-out/include"));
 
     const run_lib_unit_tests = b.addRunArtifact(lib_unit_tests);
 
