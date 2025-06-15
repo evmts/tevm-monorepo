@@ -16,7 +16,6 @@ Add to your `vitest.config.ts`:
 
 ```typescript
 import { defineConfig } from 'vitest/config'
-import '@tevm/test-matchers'
 
 export default defineConfig({
   test: {
@@ -24,6 +23,8 @@ export default defineConfig({
   },
 })
 ```
+
+If your `tsconfig.json` includes a `compilerOptions.types` array, add `@tevm/test-matchers` to it.
 
 ## Available Matchers
 
