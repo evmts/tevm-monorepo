@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitest/config'
+import './src/index.js'
 
 export default defineConfig({
 	test: {
