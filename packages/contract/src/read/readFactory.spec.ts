@@ -157,12 +157,13 @@ describe(readFactory.name, () => {
 		const dummyAbiNoFunction = dummyAbi.filter((abi) => abi.type !== 'function')
 		const read = readFactory({
 			methods: dummyAbiNoFunction,
+			errors: [],
 		})
 		expect(read).toEqual({})
 	})
 
 	it('should return an empty object when methods is an empty array', () => {
-		const read = readFactory({ methods: [] })
+		const read = readFactory({ methods: [], errors: [] })
 		expect(Object.keys(read)).toHaveLength(0)
 	})
 

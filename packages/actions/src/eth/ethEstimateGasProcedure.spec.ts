@@ -1,6 +1,9 @@
+import { createAddress } from '@tevm/address'
 import { type TevmNode, createTevmNode } from '@tevm/node'
-import { numberToHex } from '@tevm/utils'
+import { ErrorContract } from '@tevm/test-utils'
+import { encodeFunctionData, numberToHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
+import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import type { EthEstimateGasJsonRpcRequest } from './EthJsonRpcRequest.js'
 import { ethEstimateGasJsonRpcProcedure } from './ethEstimateGasProcedure.js'
 
@@ -158,5 +161,50 @@ describe('ethEstimateGasJsonRpcProcedure', () => {
 		expect(response.id).toBe(3)
 		expect(response.error?.code).toBeDefined()
 		expect(response.error?.message).toBeDefined()
+	})
+
+	it('should handle basic error decoding when a contract call reverts', async () => {
+		const contractAddress = createAddress('0x1234')
+		await setAccountHandler(client)({
+			address: contractAddress.toString(),
+			deployedBytecode: ErrorContract.deployedBytecode,
+		})
+
+		const data = encodeFunctionData({
+			abi: ErrorContract.abi,
+			functionName: 'revertWithRequireNoMessage',
+		})
+
+		const request: EthEstimateGasJsonRpcRequest = {
+			jsonrpc: '2.0',
+			method: 'eth_estimateGas',
+			id: 4,
+			params: [
+				{
+					to: contractAddress.toString(),
+					from: '0x0000000000000000000000000000000000000000',
+					data,
+				},
+			],
+		}
+
+		const response = await ethEstimateGasJsonRpcProcedure(client)(request)
+		expect(response.error).toMatchObject({
+			code: 3,
+			message: 'execution reverted',
+			data: {
+				data: '0x',
+				errors: [
+					'revert\n' +
+						'\n' +
+						'Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/\n' +
+						'Details: {"error":"revert","errorType":"EVMError"}\n' +
+						'Version: 1.1.0.next-73',
+				],
+			},
+		})
+		expect(response.result).toBeUndefined()
+		expect(response.method).toBe('eth_estimateGas')
+		expect(response.id).toBe(4)
 	})
 })

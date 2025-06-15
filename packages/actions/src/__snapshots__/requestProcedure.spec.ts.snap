@@ -48,11 +48,7 @@ Details: {"error":"revert","errorType":"EVMError"}
 Version: 1.1.0.next-73",
       ],
     },
-    "message": "revert
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
-Details: {"error":"revert","errorType":"EVMError"}
-Version: 1.1.0.next-73",
+    "message": "execution reverted: custom error 0xfb8f41b2",
   },
   "id": 1,
   "jsonrpc": "2.0",
