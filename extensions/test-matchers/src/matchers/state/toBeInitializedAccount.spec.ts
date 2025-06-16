@@ -1,24 +1,25 @@
+import { deployHandler, setAccountHandler } from '@tevm/actions'
 import { createMemoryClient } from '@tevm/memory-client'
+import { createTevmNode } from '@tevm/node'
 import { SimpleContract } from '@tevm/test-utils'
 import { type Address, parseEther } from 'viem'
 import { assert, beforeAll, describe, expect, it } from 'vitest'
 
-// TODO: unskip once eth_getProof is implemented
-describe.skip('toBeInitializedAccount', () => {
-	const client = createMemoryClient()
+describe('toBeInitializedAccount', () => {
+	const client = createTevmNode()
 	let accountWithCode: Address
 	const uninitializedAccount = `0x${'1'.repeat(40)}` as Address
 	const initializedAccount = `0x${'2'.repeat(40)}` as Address
 	const invalidAddress = '0xinvalid'
 
 	beforeAll(async () => {
-		await client.tevmSetAccount({
+		await setAccountHandler(client)({
 			address: initializedAccount,
 			balance: parseEther('1'),
 			nonce: 0n,
 		})
 
-		const { createdAddress } = await client.tevmDeploy({
+		const { createdAddress } = await deployHandler(client)({
 			...SimpleContract.deploy(1n),
 			addToBlockchain: true,
 		})
@@ -84,6 +85,20 @@ describe.skip('toBeInitializedAccount', () => {
 			await expect(expect({ address: invalidAddress } as any).toBeInitializedAccount(client)).rejects.toThrowError(
 				`Invalid address: ${invalidAddress}`,
 			)
+		})
+	})
+
+	// TODO: unskip once eth_getProof is implemented
+	describe.skip('provider', () => {
+		it('should work with an EIP1193 client', async () => {
+			const eip1193Client = createMemoryClient()
+			await eip1193Client.tevmSetAccount({
+				address: initializedAccount,
+				balance: parseEther('1'),
+				nonce: 0n,
+			})
+
+			await expect(initializedAccount).toBeInitializedAccount(eip1193Client)
 		})
 	})
 })
