@@ -26,6 +26,9 @@
   <a href="https://t.me/+ANThR9bHDLAwMjUx">
     <img alt="Telegram" src="https://img.shields.io/badge/chat-telegram-blue.svg">
   </a>
+  <a href="https://deepwiki.com/evmts/tevm-monorepo">
+    <img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki">
+  </a>
 </p>
 
 ---
