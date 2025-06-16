@@ -53,13 +53,13 @@ describe(createTransaction.name, async () => {
 		const txRes = await createTransaction(client)(options)
 
 		assert(!('errors' in txRes), 'txRes.errors should be undefined')
-		expect(txRes.txHash).toBeDefined()
+		expect(txRes.txHash).toBeHex()
 
 		assert(options.evmInput.origin, 'options.evmInput.origin should be defined')
 		const txPool = await client.getTxPool()
 		const txs = await txPool.getBySenderAddress(options.evmInput.origin)
 		expect(txs.length).toBe(1)
-		expect(`0x${txs[0]?.hash}`).toBe(txRes.txHash)
+		expect(`0x${txs[0]?.hash}`).toEqualHex(txRes.txHash as Hex)
 	})
 
 	it('should create multiple transactions from the same account and add them to the tx pool', async () => {
@@ -78,7 +78,7 @@ describe(createTransaction.name, async () => {
 		const poolTransactions = await txPool.getBySenderAddress(options.evmInput.origin)
 		expect(poolTransactions.length).toBe(TX_COUNT)
 		txResponses.forEach((txResponse, i) => {
-			expect(`0x${poolTransactions[i]?.hash}`).toBe(txResponse.txHash)
+			expect(`0x${poolTransactions[i]?.hash}`).toEqualHex(txResponse.txHash as Hex)
 		})
 	})
 
@@ -117,7 +117,7 @@ describe(createTransaction.name, async () => {
 		const txPool = await client.getTxPool()
 		const txs = await txPool.getBySenderAddress(options.evmInput.origin)
 		expect(txs.length).toBe(1)
-		expect(`0x${txs[0]?.hash}`).toBe(emittedTxHash)
+		expect(`0x${txs[0]?.hash}`).toEqualHex(emittedTxHash)
 	})
 
 	it('should work with no ether if skipBalance is true', async () => {
@@ -132,13 +132,13 @@ describe(createTransaction.name, async () => {
 		const txRes = await createTransaction(client)(options)
 
 		assert(!('errors' in txRes), 'txRes.errors should be undefined')
-		expect(txRes.txHash).toBeDefined()
+		expect(txRes.txHash).toBeHex()
 
 		assert(options.evmInput.origin, 'options.evmInput.origin should be defined')
 		const txPool = await client.getTxPool()
 		const txs = await txPool.getBySenderAddress(options.evmInput.origin)
 		expect(txs.length).toBe(1)
-		expect(`0x${txs[0]?.hash}`).toBe(txRes.txHash)
+		expect(`0x${txs[0]?.hash}`).toEqualHex(txRes.txHash as Hex)
 	})
 
 	it('should throw error if the sender has no balance and skipBalance is false', async () => {
