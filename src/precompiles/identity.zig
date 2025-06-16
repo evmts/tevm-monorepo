@@ -16,7 +16,7 @@ pub fn identity(input: []const u8, allocator: std.mem.Allocator) ![]u8 {
     
     // Copy input data to result (identity operation)
     if (input.len > 0) {
-        @memcpy(result, input);
+        std.mem.copy(u8, result, input);
     }
     
     return result;

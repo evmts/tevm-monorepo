@@ -18,7 +18,7 @@ pub fn sha256(input: []const u8, allocator: std.mem.Allocator) ![]u8 {
     
     // Allocate result buffer and copy hash
     const result = try allocator.alloc(u8, 32);
-    @memcpy(result, &hash_result);
+    std.mem.copy(u8, result, &hash_result);
     
     return result;
 }

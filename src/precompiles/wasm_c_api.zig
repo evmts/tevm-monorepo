@@ -135,7 +135,7 @@ export fn wasm_precompiles_get_address(precompile_type: u32, address_out: [*]u8)
     };
     
     const address = precompiles.Precompiles.get_address(precompile_enum) catch return false;
-    @memcpy(address_out[0..20], &address);
+    std.mem.copy(u8, address_out[0..20], &address);
     return true;
 }
 

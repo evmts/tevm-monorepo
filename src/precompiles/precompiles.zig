@@ -224,7 +224,7 @@ pub const sha256 = struct {
         // Use Zig's built-in SHA256
         var hash: [32]u8 = undefined;
         std.crypto.hash.sha2.Sha256.hash(input, &hash, .{});
-        @memcpy(output[0..32], &hash);
+        std.mem.copy(u8, output[0..32], &hash);
 
         return PrecompileResult{
             .success = .{
@@ -260,7 +260,7 @@ pub const identity = struct {
             return PrecompileResult{ .failure = PrecompileError.OutOfGas };
         }
 
-        @memcpy(output[0..input.len], input);
+        std.mem.copy(u8, output[0..input.len], input);
 
         return PrecompileResult{
             .success = .{

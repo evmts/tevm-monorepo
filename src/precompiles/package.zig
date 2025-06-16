@@ -139,7 +139,7 @@ pub fn execute_precompile(address: [20]u8, input: []const u8, output: []u8, gas_
         
         // Copy result to output buffer
         const copy_len = @min(output.len, result.output.len);
-        @memcpy(output[0..copy_len], result.output[0..copy_len]);
+        std.mem.copy(u8, output[0..copy_len], result.output[0..copy_len]);
         
         return PrecompileExecutionResult{ 
             .success = .{
@@ -164,7 +164,7 @@ pub fn execute_precompile(address: [20]u8, input: []const u8, output: []u8, gas_
             .success => |success| {
                 // Copy result to output buffer
                 const copy_len = @min(output.len, success.output.len);
-                @memcpy(output[0..copy_len], success.output[0..copy_len]);
+                std.mem.copy(u8, output[0..copy_len], success.output[0..copy_len]);
                 
                 return PrecompileExecutionResult{ 
                     .success = .{
