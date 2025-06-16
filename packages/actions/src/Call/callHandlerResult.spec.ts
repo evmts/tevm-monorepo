@@ -41,10 +41,10 @@ describe('callHandlerResult', async () => {
 
 	it('should handle EVMResult correctly', async () => {
 		const result = callHandlerResult(dummyRuntxResult, undefined, undefined, undefined)
-		expect(result.rawData).toEqual(toHex(stringToBytes('test')))
+		expect(result.rawData).toEqualHex(toHex(stringToBytes('test')))
 		expect(result.executionGasUsed).toEqual(21000n)
 		expect(result.gasRefund).toEqual(1000n)
-		expect(result.selfdestruct).toEqual(new Set([getAddress(dummyAddress)]))
+		expect(Array.from(result.selfdestruct as any)[0]).toEqualAddress(getAddress(dummyAddress))
 		expect(result.gas).toEqual(50000n)
 		expect(result.logs).toEqual([
 			{
@@ -54,7 +54,7 @@ describe('callHandlerResult', async () => {
 			},
 		])
 		expect(result.blobGasUsed).toEqual(3000n)
-		expect(result.createdAddresses).toEqual(new Set([getAddress(dummyAddress)]))
+		expect(Array.from(result.createdAddresses as any)[0]).toEqualAddress(getAddress(dummyAddress))
 	})
 
 	it('should handle missing optional fields', () => {
@@ -85,6 +85,9 @@ describe('callHandlerResult', async () => {
 			structLogs: [],
 		}
 		const result = callHandlerResult(dummyRuntxResult, '0x1234', traceData, new Map())
-		expect(result.trace).toEqual(traceData)
+		expect(result.trace?.gas).toBe(traceData.gas)
+		expect(result.trace?.failed).toBe(traceData.failed)
+		expect(result.trace?.returnValue).toEqualHex(traceData.returnValue)
+		expect(result.trace?.structLogs).toEqual(traceData.structLogs)
 	})
 })

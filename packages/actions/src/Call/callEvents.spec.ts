@@ -103,12 +103,12 @@ describe('callHandler event handlers', () => {
 		})
 
 		// Verify the deployment was successful
-		expect(deployResult.createdAddress?.toLowerCase()).toBe(contractAddress.toString().toLowerCase())
+		expect(deployResult.createdAddress).toEqualAddress(contractAddress.toString())
 
 		// Verify events were captured
 		expect(steps.length).toBeGreaterThan(10)
 		expect(contracts.length).toBe(1)
-		expect(contracts[0]).toBe(contractAddress.toString().toLowerCase())
+		expect(contracts[0]).toEqualAddress(contractAddress.toString())
 		expect(messages.length).toBeGreaterThan(0)
 		expect(results.length).toBeGreaterThan(0)
 	})
