@@ -1,5 +1,5 @@
 import { getAccountHandler } from '@tevm/actions'
-import { createTevmNode } from '@tevm/node'
+import { createTevmNode, type TevmNode } from '@tevm/node'
 import { type Address, type Client, isAddress } from 'viem'
 import type { MatcherResult } from '../../chainable/types.js'
 import type { ContainsAddress } from '../../common/types.js'
@@ -14,12 +14,12 @@ import type { ContainsAddress } from '../../common/types.js'
  */
 export const toBeInitializedAccount = async (
 	received: Address | ContainsAddress,
-	client: Client,
+	client: Client | TevmNode,
 ): Promise<MatcherResult> => {
 	const address = typeof received === 'string' ? received : received.address
 	if (!isAddress(address)) throw new Error(`Invalid address: ${address}`)
 
-	const node = createTevmNode({ fork: { transport: client } })
+	const node = 'request' in client ? createTevmNode({ fork: { transport: client } }) : client
 	const account = await getAccountHandler(node, { throwOnFail: false })({ address })
 
 	const pass = account.errors === undefined
