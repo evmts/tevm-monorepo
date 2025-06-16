@@ -1,5 +1,5 @@
 import type { CallResult } from '@tevm/actions'
-import type { Abi, AbiParameter, AbiParameterToPrimitiveType, Hex, Log, TransactionReceipt } from 'viem'
+import type { Abi, AbiParameter, AbiParameterToPrimitiveType, Address, Hex, Log, TransactionReceipt } from 'viem'
 
 // Contract-like object with ABI
 export interface ContainsContractAbi<TAbi extends Abi = Abi> {
@@ -10,6 +10,11 @@ export interface ContainsContractAbi<TAbi extends Abi = Abi> {
 // Transaction-like object that has logs
 export interface ContainsTransactionLogs {
 	logs: Log[]
+}
+
+// Account-like object with address
+export interface ContainsAddress {
+	address: Address
 }
 
 export type ContainsTransactionAny = Hex | CallResult | TransactionReceipt

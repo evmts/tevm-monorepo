@@ -72,6 +72,7 @@
 	"dependencies": {
 		"@tevm/actions": "workspace:^",
 		"@tevm/errors": "workspace:^",
+		"@tevm/node": "workspace:^",
 		"@tevm/utils": "workspace:^",
 		"abitype": "^1.1.1",
 		"ox": "^0.9.8",
