@@ -13,7 +13,6 @@ import {
 	parseEther,
 } from '@tevm/utils'
 import { describe, expect, it, vi } from 'vitest'
-import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { callHandler } from './callHandler.js'
@@ -238,13 +237,10 @@ describe('callHandler', () => {
 		await mineHandler(client)()
 
 		// First balance should now be updated after mining
-		expect(
-			(
-				await getAccountHandler(client)({
-					address: to1,
-				})
-			).balance,
-		).toEqual(100n) // Now mined
+		// @ts-expect-error: Monorepo type conflict: TevmNode from source (/src) conflicts with the matcher's type from compiled output (/dist).
+		await expect(to1).toHaveState(client, { balance: 100n })
+		// @ts-expect-error: Monorepo type conflict: TevmNode from source (/src) conflicts with the matcher's type from compiled output (/dist).
+		await expect(to2).toHaveState(client, { balance: 200n })
 	})
 	it('should handle errors returned during contract call', async () => {
 		const client = createTevmNode()
