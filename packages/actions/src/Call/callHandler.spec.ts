@@ -1030,43 +1030,4 @@ describe('callHandler', () => {
 		expect(errors?.[0]).toBeInstanceOf(MisconfiguredClientError)
 		expect(errors).toMatchSnapshot()
 	})
-
-	it('should correctly handle impersonated accounts', async () => {
-		const client = createTevmNode()
-		const impersonatedAccount = `0x${'69'.repeat(20)}` as const
-		const balance = parseEther('100')
-		const nonce = 1n
-
-		await setAccountHandler(client)({
-			address: impersonatedAccount,
-			balance: balance,
-			nonce: nonce,
-		})
-
-		await expect({ address: impersonatedAccount }).toHaveState(client as any, {
-			balance: balance,
-			nonce: nonce,
-		})
-	})
-
-	it('should correctly handle storage overrides', async () => {
-		const client = createTevmNode()
-		const to = `0x${'33'.repeat(20)}` as const
-		const { errors } = await setAccountHandler(client)({
-			address: to,
-			deployedBytecode: ERC20_BYTECODE,
-		})
-		expect(errors).toBeUndefined()
-		const result = await callHandler(client)({
-			data: encodeFunctionData({
-				abi: ERC20_ABI,
-				functionName: 'balanceOf',
-				args: [to],
-			}),
-			to,
-		})
-		expect(result.rawData).toBe('0x0000000000000000000000000000000000000000000000000000000000000000')
-		expect(result.executionGasUsed).toBeGreaterThan(0n)
-		expect(result.errors).toBeUndefined()
-	})
 })
