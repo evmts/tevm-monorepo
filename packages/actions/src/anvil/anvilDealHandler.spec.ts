@@ -5,7 +5,6 @@ import { createTevmNode } from '@tevm/node'
 import { TestERC20, transports } from '@tevm/test-utils'
 import { describe, expect, it } from 'vitest'
 import { contractHandler } from '../Contract/contractHandler.js'
-import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { dealHandler } from './anvilDealHandler.js'
 
@@ -20,11 +19,8 @@ describe('anvilDealHandler', () => {
 			amount,
 		})
 
-		const accountState = await getAccountHandler(node)({
-			address: account,
-		})
-
-		expect(accountState.balance).toEqual(amount)
+		// @ts-expect-error: Monorepo type conflict: TevmNode from source (/src) conflicts with the matcher's type from compiled output (/dist).
+		await expect(account).toHaveState(node, { balance: amount })
 	})
 
 	it('should deal ERC20 tokens by finding and updating the correct storage slot', async () => {

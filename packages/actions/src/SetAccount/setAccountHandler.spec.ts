@@ -72,7 +72,6 @@ describe('setAccountHandler', () => {
 
 	it('should update an existing account', async () => {
 		const client = createTevmNode()
-		const vm = await client.getVm()
 
 		// First create the account
 		await setAccountHandler(client)({
@@ -80,32 +79,40 @@ describe('setAccountHandler', () => {
 			balance: 100n,
 			nonce: 1n,
 		})
+		// @ts-expect-error: Monorepo type conflict: TevmNode from source (/src) conflicts with the matcher's type from compiled output (/dist).
+		await expect(ERC20_ADDRESS).toHaveState(client, {
+			balance: 100n,
+			nonce: 1n,
+		})
 
 		// Then update it
-		const res = await setAccountHandler(client)({
+		const { errors } = await setAccountHandler(client)({
 			address: ERC20_ADDRESS,
 			balance: 200n,
 			nonce: 2n,
 		})
 
-		expect(res.errors).toBeUndefined()
-		const account = (await vm.stateManager.getAccount(createAddress(ERC20_ADDRESS))) as EthjsAccount
-		expect(account?.balance).toBe(200n)
-		expect(account?.nonce).toBe(2n)
+		expect(errors).toBeUndefined()
+		// @ts-expect-error: Monorepo type conflict: TevmNode from source (/src) conflicts with the matcher's type from compiled output (/dist).
+		await expect(ERC20_ADDRESS).toHaveState(client, {
+			balance: 200n,
+			nonce: 2n,
+		})
 	})
 
 	it('should handle setting account with zero balance and nonce', async () => {
 		const client = createTevmNode()
-		const vm = await client.getVm()
-		const res = await setAccountHandler(client)({
+		const { errors } = await setAccountHandler(client)({
 			address: ERC20_ADDRESS,
 			balance: 0n,
 			nonce: 0n,
 		})
 
-		expect(res.errors).toBeUndefined()
-		const account = (await vm.stateManager.getAccount(createAddress(ERC20_ADDRESS))) as EthjsAccount
-		expect(account?.balance).toBe(0n)
-		expect(account?.nonce).toBe(0n)
+		expect(errors).toBeUndefined()
+		// @ts-expect-error: Monorepo type conflict: TevmNode from source (/src) conflicts with the matcher's type from compiled output (/dist).
+		await expect(ERC20_ADDRESS).toHaveState(client, {
+			balance: 0n,
+			nonce: 0n,
+		})
 	})
 })
