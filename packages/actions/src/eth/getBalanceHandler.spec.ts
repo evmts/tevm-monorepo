@@ -2,7 +2,7 @@ import { createAddress } from '@tevm/address'
 import { NoForkUrlSetError } from '@tevm/errors'
 import { createTevmNode } from '@tevm/node'
 import { transports } from '@tevm/test-utils'
-import { type Address, parseEther } from '@tevm/utils'
+import { type Address, bytesToHex, parseEther } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
@@ -38,6 +38,23 @@ describe(getBalanceHandler.name, () => {
 		expect(balanceAtBlock2).toEqual(parseEther('2'))
 
 		const balanceAtBlock1 = await handler({ address, blockTag: 0n })
+		expect(balanceAtBlock1).toEqual(parseEther('1'))
+	})
+
+	it('should fetch balance for a specific block hash', async () => {
+		await setAccountHandler(baseClient)({ address, balance: parseEther('1') })
+		await mineHandler(baseClient)()
+		await setAccountHandler(baseClient)({ address, balance: parseEther('2') })
+
+		const vm = await baseClient.getVm()
+		const block2 = vm.blockchain.blocksByNumber.get(1n)
+		const block1 = vm.blockchain.blocksByNumber.get(0n)
+		if (!block1 || !block2) throw new Error('Blocks not found')
+
+		const balanceAtBlock2 = await handler({ address, blockTag: bytesToHex(block2.hash()) })
+		expect(balanceAtBlock2).toEqual(parseEther('2'))
+
+		const balanceAtBlock1 = await handler({ address, blockTag: bytesToHex(block1.hash()) })
 		expect(balanceAtBlock1).toEqual(parseEther('1'))
 	})
 
