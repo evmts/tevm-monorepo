@@ -6,6 +6,7 @@ import type {
 	ContainsTransactionAny,
 	ContainsTransactionLogs,
 } from './common/types.js'
+import { type BalanceMatchers, toChangeBalance } from './matchers/balance/index.js'
 import {
 	chainableErrorMatchers,
 	type ErrorMatchers,
@@ -45,12 +46,18 @@ expect.extend({
 	toBeInitializedAccount,
 	toHaveState,
 	toHaveStorageAt,
+	toChangeBalance,
 })
 
 registerChainableMatchers(chainableEventMatchers)
 registerChainableMatchers(chainableErrorMatchers)
 
 declare module 'vitest' {
-	interface Assertion<T = any> extends UtilsMatchers, EmitMatchers, ErrorMatchers, StateMatchers {}
-	interface AsymmetricMatchersContaining extends UtilsMatchers, EmitMatchers, ErrorMatchers, StateMatchers {}
+	interface Assertion<T = any> extends UtilsMatchers, EmitMatchers, ErrorMatchers, StateMatchers, BalanceMatchers {}
+	interface AsymmetricMatchersContaining
+		extends UtilsMatchers,
+			EmitMatchers,
+			ErrorMatchers,
+			StateMatchers,
+			BalanceMatchers {}
 }
