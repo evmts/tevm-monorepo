@@ -1,7 +1,7 @@
 import { createAddress } from '@tevm/address'
 import { NoForkUrlSetError } from '@tevm/errors'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
-import { bytesToHex, hexToBigInt, hexToBytes } from '@tevm/utils'
+import { bytesToHex, hexToBigInt } from '@tevm/utils'
 import { getPendingClient } from '../internal/getPendingClient.js'
 
 /**
@@ -25,13 +25,7 @@ export const getBalanceHandler =
 			return getBalanceHandler(mineResult.pendingClient)({ address, blockTag: 'latest' })
 		}
 		const block =
-			vm.blockchain.blocks.get(
-				/** @type any*/ (
-					typeof blockTag === 'string' && blockTag.startsWith('0x')
-						? hexToBytes(/** @type {import('@tevm/utils').Hex}*/ (blockTag))
-						: blockTag
-				),
-			) ??
+			vm.blockchain.blocks.get(/** @type any*/ (blockTag)) ??
 			vm.blockchain.blocksByTag.get(/** @type any*/ (blockTag)) ??
 			vm.blockchain.blocksByNumber.get(/** @type any*/ (blockTag))
 		const hasStateRoot = block && (await vm.stateManager.hasStateRoot(block.header.stateRoot))
