@@ -1,6 +1,6 @@
 import { UnknownBlockError } from '@tevm/errors'
 import { InvalidBlockError } from '@tevm/errors'
-import { bytesToHex } from '@tevm/utils'
+import { bytesToBigInt, bytesToHex } from '@tevm/utils'
 import { getBlockFromRpc } from '../utils/getBlockFromRpc.js'
 import { getCanonicalHeadBlock } from './getCanonicalHeadBlock.js'
 import { putBlock } from './putBlock.js'
@@ -17,8 +17,8 @@ export const getBlock = (baseChain) => async (blockId) => {
 			return baseChain.blocksByNumber.get(BigInt(blockId))
 		}
 		if (blockId instanceof Uint8Array) {
-			baseChain.logger.debug({ blockId: bytesToHex(blockId) }, 'getting block by hash')
-			return baseChain.blocks.get(bytesToHex(blockId))
+			baseChain.logger.debug({ blockId: bytesToHex(blockId) }, 'getting block by hash or hex encoded number')
+			return baseChain.blocks.get(bytesToHex(blockId)) ?? baseChain.blocksByNumber.get(bytesToBigInt(blockId))
 		}
 		/**
 		 * @type {never}
