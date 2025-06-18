@@ -1,7 +1,7 @@
 import { createAddress } from '@tevm/address'
 import { NoForkUrlSetError } from '@tevm/errors'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
-import { bytesToHex, hexToBigInt } from '@tevm/utils'
+import { bytesToHex, hexToBigInt, numberToHex } from '@tevm/utils'
 import { getPendingClient } from '../internal/getPendingClient.js'
 
 /**
@@ -31,9 +31,9 @@ export const getBalanceHandler =
 		const hasStateRoot = block && (await vm.stateManager.hasStateRoot(block.header.stateRoot))
 		if (hasStateRoot) {
 			const root = vm.stateManager._baseState.stateRoots.get(bytesToHex(block.header.stateRoot))
-			return root?.[address]?.balance ?? 0n
+			if (root?.[address]) return root[address].balance
 		}
-		// at this point the block doesn't exist so we must be in forked mode
+		// at this point the block doesn't exist or doesn't have state so we must be in forked mode
 		if (!baseClient.forkTransport) {
 			throw new NoForkUrlSetError('No fork url set')
 		}
@@ -42,7 +42,7 @@ export const getBalanceHandler =
 			jsonrpc: '2.0',
 			id: 1,
 			method: 'eth_getBalance',
-			params: [address, blockTag],
+			params: [address, typeof blockTag === 'bigint' ? numberToHex(blockTag) : blockTag],
 		})
 		if (jsonRpcResponse.error) {
 			// TODO we should parse this into the correct error type
