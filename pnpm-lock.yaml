@@ -1469,6 +1469,9 @@ importers:
         specifier: ^3.25.30
         version: 3.25.30
     devDependencies:
+      '@tevm/decorators':
+        specifier: workspace:^
+        version: link:../decorators
       '@tevm/test-utils':
         specifier: workspace:^
         version: link:../../test/test-utils

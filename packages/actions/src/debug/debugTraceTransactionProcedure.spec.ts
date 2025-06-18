@@ -1,4 +1,5 @@
 import { SimpleContract } from '@tevm/contract'
+import { type EIP1193RequestFn, requestEip1193 } from '@tevm/decorators'
 import { createTevmNode } from '@tevm/node'
 import { assert, describe, expect, it } from 'vitest'
 import { contractHandler } from '../Contract/contractHandler.js'
@@ -119,6 +120,37 @@ describe('debugTraceTransactionJsonRpcProcedure', () => {
 						tracerConfig: {
 							diffMode: true,
 						},
+					},
+				],
+				id: 1,
+			}),
+		).toMatchSnapshot()
+	})
+
+	// TODO: this needs eth_getProof support
+	it.skip('should trace a transaction in a forked block', async () => {
+		const client = createTevmNode().extend(requestEip1193())
+
+		const { createdAddress } = await deployHandler(client)({ addToBlockchain: true, ...SimpleContract.deploy(1n) })
+		assert(createdAddress, 'Contract deployment failed')
+		const contract = SimpleContract.withAddress(createdAddress)
+
+		const { txHash } = await contractHandler(client)({
+			addToBlockchain: true,
+			...contract.write.set(42n),
+		})
+		assert(txHash, 'Transaction failed')
+
+		const forkClient = createTevmNode({ fork: { transport: { request: client.request as EIP1193RequestFn } } })
+		const procedure = debugTraceTransactionJsonRpcProcedure(forkClient)
+
+		expect(
+			await procedure({
+				jsonrpc: '2.0',
+				method: 'debug_traceTransaction',
+				params: [
+					{
+						transactionHash: txHash,
 					},
 				],
 				id: 1,
