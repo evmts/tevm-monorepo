@@ -1,15 +1,9 @@
-import type { AbiEventParameter, AbiParameterToPrimitiveType, ExtractAbiEvent } from 'abitype'
+import type { AbiEventParameter, ExtractAbiEvent } from 'abitype'
 import { type Abi, type ContractEventName, decodeEventLog } from 'viem'
 import { assert } from 'vitest'
 import type { ChainState, MatcherResult } from '../../chainable/types.js'
+import type { AbiInputsToNamedArgs } from '../../common/types.js'
 import type { ToEmitState } from './types.js'
-
-// Helper type to convert ABI event inputs to named object
-export type EventInputsToNamedArgs<TInputs extends readonly AbiEventParameter[]> = {
-	[K in TInputs[number] as K extends { name: infer TName extends string } ? TName : never]: K extends { name: string }
-		? AbiParameterToPrimitiveType<K>
-		: never
-}
 
 export const withEventNamedArgs = <
 	TAbi extends Abi | undefined = Abi | undefined,
@@ -24,7 +18,7 @@ export const withEventNamedArgs = <
 >(
 	// @ts-expect-error - unused variable
 	received: unknown,
-	expectedArgs: Partial<EventInputsToNamedArgs<TInputs>>,
+	expectedArgs: Partial<AbiInputsToNamedArgs<TInputs>>,
 	chainState?: ChainState<unknown, ToEmitState<TAbi, TEventName>>,
 ): MatcherResult => {
 	assert(chainState, 'Internal error: no chain state found')
