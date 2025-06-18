@@ -26,7 +26,7 @@ export const toChangeBalance = async (
 
 	// Handle the transaction and get balance change
 	const { getBalanceChange } = await handleTransaction(received, { client })
-	const { balanceChange } = await getBalanceChange(address)
+	const balanceChange = getBalanceChange(address)
 
 	const pass = balanceChange === expectedChangeBigInt
 
