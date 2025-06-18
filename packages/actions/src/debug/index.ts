@@ -1,4 +1,8 @@
 export { traceCallHandler } from './traceCallHandler.js'
+export { debugTraceTransactionJsonRpcProcedure } from './debugTraceTransactionProcedure.js'
+export { debugTraceCallJsonRpcProcedure } from './debugTraceCallProcedure.js'
+export { debugTraceBlockJsonRpcProcedure } from './debugTraceBlockProcedure.js'
+export { debugTraceStateJsonRpcProcedure } from './debugTraceStateProcedure.js'
 export * from './DebugParams.js'
 export * from './DebugResult.js'
 export * from './DebugHandler.js'
