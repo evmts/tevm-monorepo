@@ -1,5 +1,24 @@
 # Implement Inspector Framework
 
+<<<<<<< HEAD
+## Git Workflow Instructions
+
+### Branch Setup
+1. **Create branch**: `feat_implement_inspector_framework` (snake_case, no emoji)
+2. **Create worktree**: `git worktree add g/feat_implement_inspector_framework feat_implement_inspector_framework`
+3. **Work in isolation**: `cd g/feat_implement_inspector_framework`
+4. **Commit message**: `✨ feat: implement pluggable inspector framework for EVM analysis`
+
+### Workflow Steps
+1. Create and switch to the new worktree
+2. Implement all changes in the isolated branch
+3. Run `zig build test-all` to ensure all tests pass
+4. Commit with emoji conventional commit format
+5. DO NOT merge - leave ready for review
+
+## Context
+
+=======
 You are implementing Inspector Framework for the Tevm EVM written in Zig. Your goal is to implement pluggable inspector framework for execution monitoring following Ethereum specifications and maintaining compatibility with existing implementations.
 
 ## Development Workflow
@@ -15,6 +34,7 @@ You are implementing Inspector Framework for the Tevm EVM written in Zig. Your g
 
 Think of the inspector framework like having multiple security cameras and monitoring systems throughout a factory. Each inspector is like a specialized monitoring device - one tracks production speed, another monitors quality control, and others watch for safety violations. These inspectors can observe everything happening on the production line without interfering with the actual work, but they can sound alarms or trigger responses when they detect issues. This lets you add new monitoring capabilities without rewiring the entire factory.
 
+>>>>>>> origin/main
 Implement a pluggable inspector framework that allows external analyzers to hook into EVM execution for custom analysis, debugging, and monitoring. This provides a clean interface for tools like gas analyzers, security scanners, performance profilers, and debugging utilities without modifying core VM code.
 
 ## Inspector Architecture
@@ -232,6 +252,8 @@ pub const InspectorAction = enum {
 };
 ```
 
+<<<<<<< HEAD
+=======
 ## Production-Ready Inspector Patterns
 
 The following sections provide detailed implementation patterns extracted from production EVM implementations (REVM, Geth, EVMOne) for building high-performance inspector frameworks with real-world optimization strategies.
@@ -1309,6 +1331,7 @@ fn hex_dump(data: []const u8) []const u8 {
 
 This comprehensive collection of production-ready patterns provides the foundation for implementing a high-performance, flexible inspector framework in the Zig EVM, drawing from battle-tested approaches while leveraging Zig's unique compile-time capabilities and performance characteristics.
 
+>>>>>>> origin/main
 ## Implementation Requirements
 
 ### Core Functionality
@@ -2467,6 +2490,16 @@ test "performance impact" {
 5. **Error Isolation**: Inspector failures don't crash VM execution
 6. **Ease of Use**: Simple API for implementing custom inspectors
 
+<<<<<<< HEAD
+## Critical Requirements
+
+1. **NEVER commit until `zig build test-all` passes**
+2. **Zero overhead principle** - No performance impact when unused
+3. **Type safety** - Compile-time checked inspector interface
+4. **Error isolation** - Inspector failures must not crash VM
+5. **Memory safety** - Proper lifetime management of inspector data
+6. **Integration testing** - Test with real smart contracts
+=======
 ## Critical Constraints
 ❌ NEVER commit until all tests pass with `zig build test-all`
 ❌ DO NOT merge without review
@@ -2596,6 +2629,7 @@ pub const inspector_framework = struct {
 - **Verify specification compliance**
 - **Validate performance implications**
 - **Ensure cross-platform compatibility**
+>>>>>>> origin/main
 
 ## References
 

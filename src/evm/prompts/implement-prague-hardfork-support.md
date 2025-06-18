@@ -1,5 +1,21 @@
 # Implement Prague Hardfork Support
 
+<<<<<<< HEAD
+## Git Workflow Instructions
+
+### Branch Setup
+1. **Create branch**: `feat_implement_prague_hardfork_support` (snake_case, no emoji)
+2. **Create worktree**: `git worktree add g/feat_implement_prague_hardfork_support feat_implement_prague_hardfork_support`
+3. **Work in isolation**: `cd g/feat_implement_prague_hardfork_support`
+4. **Commit message**: `✨ feat: implement Prague hardfork support for upcoming Ethereum upgrade`
+
+### Workflow Steps
+1. Create and switch to the new worktree
+2. Implement all changes in the isolated branch
+3. Run `zig build test-all` to ensure all tests pass
+4. Commit with emoji conventional commit format
+5. DO NOT merge - leave ready for review
+=======
 You are implementing Prague Hardfork Support for the Tevm EVM written in Zig. Your goal is to implement Prague hardfork features and compatibility following Ethereum specifications and maintaining compatibility with existing implementations.
 
 ## Development Workflow
@@ -8,15 +24,19 @@ You are implementing Prague Hardfork Support for the Tevm EVM written in Zig. Yo
 - **Testing**: Run `zig build test-all` before committing
 - **Commit**: Use emoji conventional commits with XML summary format
 
+>>>>>>> origin/main
 
 ## Context
 
 Implement support for the upcoming Prague hardfork, which is planned to include EOF (EVM Object Format), Verkle Trees, and other significant improvements to the Ethereum protocol. This implementation should prepare the EVM for these future changes while maintaining backward compatibility.
 
+<<<<<<< HEAD
+=======
 ## ELI5
 
 Think of hardforks like major software updates for Ethereum. The Prague hardfork is like upgrading from Windows 10 to Windows 11 - it brings new features and improvements, but everything has to work together seamlessly. This hardfork includes new ways to store and verify data (Verkle Trees) and a better format for smart contracts (EOF), making Ethereum faster and more efficient while keeping all existing features working.
 
+>>>>>>> origin/main
 ## Prague Hardfork Features
 
 ### Core Features (Planned)
@@ -921,6 +941,16 @@ test "backward compatibility" {
 5. **Account Abstraction**: Basic support for user operations
 6. **Backward Compatibility**: Maintains compatibility with previous hardforks
 
+<<<<<<< HEAD
+## Critical Requirements
+
+1. **NEVER commit until `zig build test-all` passes**
+2. **Future-proof design** - Prague features are still in development
+3. **Maintain compatibility** - Don't break existing functionality
+4. **Placeholder implementations** - Some features may need placeholders
+5. **Test thoroughly** - Verify hardfork transition behavior
+6. **Monitor specifications** - Prague features may change before activation
+=======
 ## Critical Constraints
 ❌ NEVER commit until all tests pass with `zig build test-all`
 ❌ DO NOT merge without review
@@ -2253,6 +2283,7 @@ func (a *SetCodeAuthorization) Authority() (common.Address, error) {
 ```
 </file>
 </go-ethereum>
+>>>>>>> origin/main
 
 ## References
 

@@ -382,7 +382,7 @@ pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     if (!result.success) {
         @branchHint(.unlikely);
         try frame.stack.append(0);
-        try frame.return_data.set(result.output orelse &[_]u8{});
+        frame.return_data_buffer = result.output orelse &[_]u8{};
         return Operation.ExecutionResult{};
     }
 
@@ -391,7 +391,7 @@ pub fn op_create(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     try frame.stack.append(to_u256(result.address));
 
     // Set return data
-    try frame.return_data.set(result.output orelse &[_]u8{});
+    frame.return_data_buffer = result.output orelse &[_]u8{};
 
     return Operation.ExecutionResult{};
 }
@@ -466,7 +466,7 @@ pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     if (!result.success) {
         @branchHint(.unlikely);
         try frame.stack.append(0);
-        try frame.return_data.set(result.output orelse &[_]u8{});
+        frame.return_data_buffer = result.output orelse &[_]u8{};
         return Operation.ExecutionResult{};
     }
 
@@ -475,7 +475,7 @@ pub fn op_create2(pc: usize, interpreter: *Operation.Interpreter, state: *Operat
     try frame.stack.append(to_u256(result.address));
 
     // Set return data
-    try frame.return_data.set(result.output orelse &[_]u8{});
+    frame.return_data_buffer = result.output orelse &[_]u8{};
 
     return Operation.ExecutionResult{};
 }
@@ -575,7 +575,7 @@ pub fn op_call(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     }
 
     // Set return data
-    try frame.return_data.set(result.output orelse &[_]u8{});
+    frame.return_data_buffer = result.output orelse &[_]u8{};
 
     // Push success status (bounds checking already done by jump table)
     frame.stack.append_unsafe(if (result.success) 1 else 0);
@@ -673,7 +673,7 @@ pub fn op_callcode(pc: usize, interpreter: *Operation.Interpreter, state: *Opera
     }
 
     // Set return data
-    try frame.return_data.set(result.output orelse &[_]u8{});
+    frame.return_data_buffer = result.output orelse &[_]u8{};
 
     // Push success status (bounds checking already done by jump table)
     frame.stack.append_unsafe(if (result.success) 1 else 0);
@@ -772,7 +772,7 @@ pub fn op_delegatecall(pc: usize, interpreter: *Operation.Interpreter, state: *O
     }
 
     // Set return data
-    try frame.return_data.set(result.output orelse &[_]u8{});
+    frame.return_data_buffer = result.output orelse &[_]u8{};
 
     // Push success status (bounds checking already done by jump table)
     frame.stack.append_unsafe(if (result.success) 1 else 0);
@@ -871,7 +871,7 @@ pub fn op_staticcall(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
     }
 
     // Set return data
-    try frame.return_data.set(result.output orelse &[_]u8{});
+    frame.return_data_buffer = result.output orelse &[_]u8{};
 
     // Push success status (bounds checking already done by jump table)
     frame.stack.append_unsafe(if (result.success) 1 else 0);

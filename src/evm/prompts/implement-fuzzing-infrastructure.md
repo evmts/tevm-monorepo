@@ -1,5 +1,21 @@
 # Implement Fuzzing Infrastructure
 
+<<<<<<< HEAD
+## Git Workflow Instructions
+
+### Branch Setup
+1. **Create branch**: `feat_implement_fuzzing_infrastructure` (snake_case, no emoji)
+2. **Create worktree**: `git worktree add g/feat_implement_fuzzing_infrastructure feat_implement_fuzzing_infrastructure`
+3. **Work in isolation**: `cd g/feat_implement_fuzzing_infrastructure`
+4. **Commit message**: `✨ feat: implement comprehensive fuzzing infrastructure for automated edge case discovery`
+
+### Workflow Steps
+1. Create and switch to the new worktree
+2. Implement all changes in the isolated branch
+3. Run `zig build test-all` to ensure all tests pass
+4. Commit with emoji conventional commit format
+5. DO NOT merge - leave ready for review
+=======
 You are implementing Fuzzing Infrastructure for the Tevm EVM written in Zig. Your goal is to implement fuzzing infrastructure for security testing following Ethereum specifications and maintaining compatibility with existing implementations.
 
 ## Development Workflow
@@ -8,15 +24,19 @@ You are implementing Fuzzing Infrastructure for the Tevm EVM written in Zig. You
 - **Testing**: Run `zig build test-all` before committing
 - **Commit**: Use emoji conventional commits with XML summary format
 
+>>>>>>> origin/main
 
 ## Context
 
 Implement comprehensive fuzzing infrastructure to automatically discover edge cases, security vulnerabilities, and correctness issues in the EVM implementation. This includes bytecode fuzzing, transaction fuzzing, state fuzzing, and gas fuzzing with intelligent generation strategies and crash analysis capabilities.
 
+<<<<<<< HEAD
+=======
 ## ELI5
 
 Fuzzing is like having an extremely persistent and creative troublemaker test your system. Instead of following normal test cases, it throws random, weird, and unexpected inputs at your code to see what breaks. It's like stress-testing a bridge by having thousands of different vehicles drive across it in unpredictable ways - you'll discover weak spots and edge cases that normal testing would never find. This helps make the EVM more robust by finding bugs before real users encounter them.
 
+>>>>>>> origin/main
 ## Fuzzing Strategies
 
 ### Core Fuzzing Approaches
@@ -1046,6 +1066,16 @@ test "parallel fuzzing" {
 5. **Reproducibility**: Save and replay crashing test cases
 6. **Automation**: Integration with CI/CD for continuous fuzzing
 
+<<<<<<< HEAD
+## Critical Requirements
+
+1. **NEVER commit until `zig build test-all` passes**
+2. **Memory safety** - Fuzzer itself must not crash or leak memory
+3. **Deterministic** - Same seed should produce same test cases
+4. **Efficient** - Minimize overhead in instrumentation and tracking
+5. **Comprehensive** - Cover edge cases that manual testing might miss
+6. **CI/CD ready** - Automated fuzzing in continuous integration
+=======
 ## Critical Constraints
 ❌ NEVER commit until all tests pass with `zig build test-all`
 ❌ DO NOT merge without review
@@ -1218,6 +1248,7 @@ pub const BytecodeFuzzer = struct {
 - **Verify vulnerability detection** - Fuzzing must identify security issues
 - **Test cross-platform fuzzing behavior** - Ensure consistent results across platforms
 - **Validate integration points** - Test all external interfaces thoroughly
+>>>>>>> origin/main
 
 ## References
 
@@ -1225,6 +1256,9 @@ pub const BytecodeFuzzer = struct {
 - [AFL++](https://aflplus.plus/) - Advanced fuzzing framework
 - [Echidna](https://github.com/crytic/echidna) - Ethereum smart contract fuzzer
 - [Foundry Fuzz Testing](https://book.getfoundry.sh/forge/fuzz-testing) - Solidity fuzzing
+<<<<<<< HEAD
+- [Go-fuzz](https://github.com/dvyukov/go-fuzz) - Go fuzzing framework
+=======
 - [Go-fuzz](https://github.com/dvyukov/go-fuzz) - Go fuzzing framework
 
 ## EVMONE Context
@@ -5572,3 +5606,4 @@ func (miner *Miner) commitTransactions(env *environment, txs *transactionsByPric
 </file>
 </go-ethereum>
 
+>>>>>>> origin/main

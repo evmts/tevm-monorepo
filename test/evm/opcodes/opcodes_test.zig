@@ -12,11 +12,14 @@ test {
     _ = @import("bitwise_test.zig");
     _ = @import("comparison_test.zig");
     _ = @import("block_test.zig");
+    _ = @import("block_comprehensive_test.zig");
     _ = @import("crypto_test.zig");
     _ = @import("environment_test.zig");
+    _ = @import("environment_data_comprehensive_test.zig");
     _ = @import("log_test.zig");
     _ = @import("memory_test.zig");
     _ = @import("stack_test.zig");
+    _ = @import("stack_comprehensive_test.zig");
     _ = @import("storage_test.zig");
     _ = @import("system_test.zig");
     _ = @import("control_test.zig");
