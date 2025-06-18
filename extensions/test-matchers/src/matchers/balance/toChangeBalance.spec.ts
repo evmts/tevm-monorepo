@@ -42,7 +42,7 @@ describe('toChangeBalance', () => {
 			})
 
 			// handler will create a node in fork mode
-			await expect(res).toChangeBalance(client, sender, amount + gasCost)
+			await expect(res).toChangeBalance(client, sender, -(amount + gasCost))
 		})
 
 		it('should work with a contract call', async () => {
