@@ -5,7 +5,7 @@
 		"outDir": "types",
 		"skipLibCheck": true,
 		"checkJs": true,
-		"types": ["bun-types"]
+		"types": ["bun-types", "@tevm/test-matchers"]
 	},
 	"include": ["src"]
 }
