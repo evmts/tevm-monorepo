@@ -45,21 +45,21 @@ jobs:
             echo "❌ WASM file not found at ./zig-out/dist/zigevm.wasm"
             exit 1
           fi
-          
+
           # Measure uncompressed size
           wasm_size=$(wc -c < ./zig-out/dist/zigevm.wasm)
-          
+
           # Measure gzipped size
           gzip_size=$(gzip -c ./zig-out/dist/zigevm.wasm | wc -c)
-          
+
           # Calculate human-readable sizes
           wasm_size_kb=$(echo "scale=2; $wasm_size / 1024" | bc -l)
           gzip_size_kb=$(echo "scale=2; $gzip_size / 1024" | bc -l)
-          
+
           echo "📊 WASM Size Measurements:"
           echo "Raw size: $wasm_size bytes (${wasm_size_kb}KB)"
           echo "Gzipped size: $gzip_size bytes (${gzip_size_kb}KB)"
-          
+
           # Set output variables
           echo "wasm_size=$wasm_size" >> $GITHUB_OUTPUT
           echo "gzip_size=$gzip_size" >> $GITHUB_OUTPUT
@@ -71,7 +71,7 @@ jobs:
         if: github.event_name == 'pull_request'
         run: |
           echo "📥 Downloading baseline size data from main branch..."
-          
+
           # Try to download existing baseline file
           if curl -s -f -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
                   -H "Accept: application/vnd.github.v3.raw" \
@@ -101,12 +101,12 @@ jobs:
         if: github.event_name == 'pull_request' && steps.baseline.outputs.baseline_found == 'true'
         run: |
           echo "🔍 Comparing sizes against baseline..."
-          
+
           current_wasm="${{ steps.measure.outputs.wasm_size }}"
           current_gzip="${{ steps.measure.outputs.gzip_size }}"
           baseline_wasm="${{ steps.baseline.outputs.baseline_wasm }}"
           baseline_gzip="${{ steps.baseline.outputs.baseline_gzip }}"
-          
+
           # Load thresholds from config (default to 5% if config doesn't exist)
           if [ -f ".wasm-size-config.json" ]; then
             wasm_threshold=$(jq -r '.thresholds.wasm_size_increase_percent // 5' .wasm-size-config.json)
@@ -117,29 +117,29 @@ jobs:
             gzip_threshold=5
             max_size_kb=1024
           fi
-          
+
           echo "🎯 Using thresholds: WASM ${wasm_threshold}%, Gzip ${gzip_threshold}%, Max ${max_size_kb}KB"
-          
+
           # Calculate percentage changes
           if [ "$baseline_wasm" -gt 0 ]; then
             wasm_change_pct=$(echo "scale=2; (($current_wasm - $baseline_wasm) * 100) / $baseline_wasm" | bc -l)
           else
             wasm_change_pct=0
           fi
-          
+
           if [ "$baseline_gzip" -gt 0 ]; then
             gzip_change_pct=$(echo "scale=2; (($current_gzip - $baseline_gzip) * 100) / $baseline_gzip" | bc -l)
           else
             gzip_change_pct=0
           fi
-          
+
           current_wasm_kb="${{ steps.measure.outputs.wasm_size_kb }}"
           current_gzip_kb="${{ steps.measure.outputs.gzip_size_kb }}"
-          
+
           echo "📈 Size changes:"
           echo "WASM: ${wasm_change_pct}% change"
           echo "Gzip: ${gzip_change_pct}% change"
-          
+
           # Check absolute size limit
           wasm_kb_int=$(echo "$current_wasm_kb" | cut -d. -f1)
           if [ "$wasm_kb_int" -gt "$max_size_kb" ]; then
@@ -147,25 +147,25 @@ jobs:
             echo "Current: ${current_wasm_kb}KB, Limit: ${max_size_kb}KB"
             exit 1
           fi
-          
+
           # Check percentage thresholds
           wasm_change_int=$(echo "$wasm_change_pct" | cut -d. -f1)
           gzip_change_int=$(echo "$gzip_change_pct" | cut -d. -f1)
-          
+
           failed=false
-          
+
           if [ "$wasm_change_int" -gt "$wasm_threshold" ]; then
             echo "❌ WASM size increase exceeds threshold!"
             echo "Change: ${wasm_change_pct}%, Threshold: ${wasm_threshold}%"
             failed=true
           fi
-          
+
           if [ "$gzip_change_int" -gt "$gzip_threshold" ]; then
             echo "❌ Gzipped size increase exceeds threshold!"
             echo "Change: ${gzip_change_pct}%, Threshold: ${gzip_threshold}%"
             failed=true
           fi
-          
+
           if [ "$failed" = true ]; then
             echo ""
             echo "🚨 Bundle size regression detected!"
@@ -181,7 +181,7 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           echo "💾 Updating baseline size data..."
-          
+
           cat > .wasm-sizes.json << EOF
           {
             "wasm_size": ${{ steps.measure.outputs.wasm_size }},
@@ -192,32 +192,10 @@ jobs:
             "commit_sha": "${{ github.sha }}"
           }
           EOF
-          
+
           echo "✅ Baseline updated in .wasm-sizes.json"
           echo "📊 New baseline:"
           cat .wasm-sizes.json
-
-      - name: Commit baseline update
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: |
-          if [ -n "$(git status --porcelain .wasm-sizes.json)" ]; then
-            echo "📝 Committing baseline update..."
-            git config --local user.email "action@github.com"
-            git config --local user.name "GitHub Action"
-            git add .wasm-sizes.json
-            git commit -m "📊 chore: update WASM size baseline
-
-            Updated WASM bundle size baseline:
-            - Raw size: ${{ steps.measure.outputs.wasm_size_kb }}KB
-            - Gzipped size: ${{ steps.measure.outputs.gzip_size_kb }}KB
-            
-            🤖 Generated with [Claude Code](https://claude.ai/code)
-            
-            Co-Authored-By: Claude <noreply@anthropic.com>"
-            git push
-          else
-            echo "ℹ️ No changes to baseline file"
-          fi
 
       - name: Report results
         if: always()
@@ -228,13 +206,13 @@ jobs:
           echo "|--------|------|-----------|" >> $GITHUB_STEP_SUMMARY
           echo "| Raw WASM | ${{ steps.measure.outputs.wasm_size }} bytes | ${{ steps.measure.outputs.wasm_size_kb }} KB |" >> $GITHUB_STEP_SUMMARY
           echo "| Gzipped | ${{ steps.measure.outputs.gzip_size }} bytes | ${{ steps.measure.outputs.gzip_size_kb }} KB |" >> $GITHUB_STEP_SUMMARY
-          
+
           if [ "${{ github.event_name }}" = "pull_request" ] && [ "${{ steps.baseline.outputs.baseline_found }}" = "true" ]; then
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "### Comparison with main branch" >> $GITHUB_STEP_SUMMARY
             echo "- Baseline raw: ${{ steps.baseline.outputs.baseline_wasm }} bytes" >> $GITHUB_STEP_SUMMARY
             echo "- Baseline gzipped: ${{ steps.baseline.outputs.baseline_gzip }} bytes" >> $GITHUB_STEP_SUMMARY
           fi
-          
+
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Build completed at: $(date -u)" >> $GITHUB_STEP_SUMMARY
