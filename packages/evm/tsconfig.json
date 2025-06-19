@@ -2,7 +2,7 @@
 	"extends": "@tevm/tsconfig/base.json",
 	"compilerOptions": {
 		"skipLibCheck": true,
-		"types": ["bun-types", "@tevm/test-matchers"]
+		"types": ["bun-types"]
 	},
 	"include": ["src/*.js", "src/*.ts"]
 }
