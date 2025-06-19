@@ -487,7 +487,7 @@ describe('callHandler', () => {
 			}),
 			to,
 		})
-		expect(result.rawData).toBe('0x0000000000000000000000000000000000000000000000000000000000000000')
+		expect(result.rawData).toEqualHex('0x0000000000000000000000000000000000000000000000000000000000000000')
 		expect(result.executionGasUsed).toBeGreaterThan(0n)
 		expect(result.errors).toBeUndefined()
 	})
@@ -554,7 +554,7 @@ describe('callHandler', () => {
 			}),
 			to,
 		})
-		expect(result.rawData).toBe('0x0000000000000000000000000000000000000000000000000000000000000000')
+		expect(result.rawData).toEqualHex('0x0000000000000000000000000000000000000000000000000000000000000000')
 		expect(result.executionGasUsed).toBeGreaterThan(0n)
 		expect(result.errors).toBeUndefined()
 	})
