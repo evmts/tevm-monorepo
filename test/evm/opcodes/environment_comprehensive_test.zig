@@ -1,6 +1,7 @@
 const std = @import("std");
 const testing = std.testing;
 const helpers = @import("test_helpers.zig");
+const evm = @import("evm");
 
 // ============================
 // 0x30-0x39 Environmental Information Opcodes
@@ -80,7 +81,21 @@ test "ORIGIN (0x32): Get transaction origin" {
     defer test_vm.deinit(allocator);
     
     // Set transaction origin
-    test_vm.vm.context.tx_origin = helpers.TestAddresses.ALICE;
+    // Create context with test values
+    const context = evm.Context.init_with_values(
+        helpers.TestAddresses.ALICE,
+        0,
+        0,
+        0,
+        helpers.TestAddresses.ALICE,
+        0,
+        0,
+        1,
+        0,
+        &[_]u256{},
+        0
+    );
+    test_vm.vm.set_context(context);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -108,7 +123,21 @@ test "CALLER (0x33): Get immediate caller" {
     defer test_vm.deinit(allocator);
     
     // Set transaction origin different from caller
-    test_vm.vm.context.tx_origin = helpers.TestAddresses.ALICE;
+    // Create context with test values
+    const context = evm.Context.init_with_values(
+        helpers.TestAddresses.ALICE,
+        0,
+        0,
+        0,
+        helpers.TestAddresses.ALICE,
+        0,
+        0,
+        1,
+        0,
+        &[_]u256{},
+        0
+    );
+    test_vm.vm.set_context(context);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -422,7 +451,21 @@ test "GASPRICE (0x3A): Get gas price" {
     };
     
     for (test_prices) |price| {
-        test_vm.vm.context.gas_price = price;
+        // Create context with test values
+        const context = evm.Context.init_with_values(
+            helpers.TestAddresses.ALICE,
+            price,
+            0,
+            0,
+            helpers.TestAddresses.ALICE,
+            0,
+            0,
+            1,
+            0,
+            &[_]u256{},
+            0
+        );
+        test_vm.vm.set_context(context);
         
         var contract = try helpers.createTestContract(
             allocator,

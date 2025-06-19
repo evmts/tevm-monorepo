@@ -62,10 +62,10 @@ pub const Address = @import("Address");
 // Import all EVM modules
 
 /// Bytecode analysis for jump destination detection
-pub const CodeAnalysis = @import("contract/code_analysis.zig");
+pub const CodeAnalysis = @import("frame/code_analysis.zig");
 
 /// Contract code and storage management
-pub const Contract = @import("contract/contract.zig");
+pub const Contract = @import("frame/contract.zig");
 
 /// Unified error types for EVM execution
 pub const ExecutionError = @import("execution/execution_error.zig");
@@ -74,7 +74,10 @@ pub const ExecutionError = @import("execution/execution_error.zig");
 pub const ExecutionResult = @import("execution/execution_result.zig");
 
 /// Execution frame/context management
-pub const Frame = @import("frame.zig");
+pub const Frame = @import("frame/frame.zig");
+
+/// Execution context providing transaction and block information
+pub const Context = @import("access_list/context.zig");
 
 /// Ethereum hardfork configuration
 pub const Hardfork = @import("hardforks/hardfork.zig");
@@ -83,10 +86,7 @@ pub const Hardfork = @import("hardforks/hardfork.zig");
 pub const JumpTable = @import("jump_table/jump_table.zig");
 
 /// Byte-addressable memory implementation
-pub const Memory = @import("memory.zig");
-
-/// EVM instruction enumeration
-pub const Opcode = @import("opcodes/opcode.zig");
+pub const Memory = @import("memory/memory.zig");
 
 /// Opcode metadata (gas costs, stack effects)
 pub const Operation = @import("opcodes/operation.zig");
@@ -101,7 +101,7 @@ pub const Stack = @import("stack/stack.zig");
 pub const stack_validation = @import("stack/stack_validation.zig");
 
 /// Storage slot pooling for gas optimization
-pub const StoragePool = @import("contract/storage_pool.zig");
+pub const StoragePool = @import("frame/storage_pool.zig");
 
 /// Main virtual machine implementation
 pub const Vm = @import("vm.zig");
@@ -148,7 +148,7 @@ pub const opcodes = execution;
 // Import utility modules
 
 /// Bit vector utilities for jump destination tracking
-pub const bitvec = @import("contract/bitvec.zig");
+pub const bitvec = @import("frame/bitvec.zig");
 
 /// Chain-specific validation rules
 pub const chain_rules = @import("hardforks/chain_rules.zig");
@@ -163,7 +163,7 @@ pub const hardforks = struct {
 pub const constants = @import("constants/constants.zig");
 
 /// EIP-7702 EOA delegation bytecode format
-pub const eip_7702_bytecode = @import("contract/eip_7702_bytecode.zig");
+pub const eip_7702_bytecode = @import("frame/eip_7702_bytecode.zig");
 
 /// Fee market calculations (EIP-1559)
 pub const fee_market = @import("fee_market.zig");

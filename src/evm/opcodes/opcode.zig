@@ -34,10 +34,7 @@
 /// const byte_value = opcode.to_u8(); // 0x01
 /// const name = opcode.get_name(); // "ADD"
 /// ```
-pub const MemorySize = @import("../memory_size.zig");
-
-/// Opcode module providing EVM instruction definitions.
-pub const Opcode = struct {};
+pub const MemorySize = @import("memory_size.zig");
 
 /// Enumeration of all EVM opcodes with their byte values.
 ///
@@ -318,7 +315,6 @@ pub fn get_name(self: Enum) []const u8 {
 
         break :blk n;
     };
-    
+
     return names[@intFromEnum(self)];
 }
-

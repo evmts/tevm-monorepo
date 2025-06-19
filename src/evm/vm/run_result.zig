@@ -1,4 +1,4 @@
-const ExecutionError = @import("execution/execution_error.zig");
+const ExecutionError = @import("../execution/execution_error.zig");
 
 /// Result of an EVM execution run.
 ///

@@ -80,7 +80,20 @@ test "Environment: ORIGIN and CALLER opcodes" {
     defer test_vm.deinit(allocator);
 
     // Set transaction origin
-    test_vm.vm.context.tx_origin = helpers.TestAddresses.ALICE;
+    const context = evm.Context.init_with_values(
+        helpers.TestAddresses.ALICE,  // tx_origin
+        0,                           // gas_price
+        0,                           // block_number
+        0,                           // block_timestamp
+        helpers.TestAddresses.ALICE,  // block_coinbase
+        0,                           // block_difficulty
+        0,                           // block_gas_limit
+        1,                           // chain_id
+        0,                           // block_base_fee
+        &[_]u256{},                  // blob_hashes
+        0,                           // blob_base_fee
+    );
+    test_vm.vm.set_context(context);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -141,7 +154,20 @@ test "Environment: GASPRICE opcode" {
 
     // Set gas price
     const gas_price: u256 = 20_000_000_000; // 20 gwei
-    test_vm.vm.context.gas_price = gas_price;
+    const context = evm.Context.init_with_values(
+        helpers.TestAddresses.ALICE,  // tx_origin
+        gas_price,                   // gas_price
+        0,                           // block_number
+        0,                           // block_timestamp
+        helpers.TestAddresses.ALICE,  // block_coinbase
+        0,                           // block_difficulty
+        0,                           // block_gas_limit
+        1,                           // chain_id
+        0,                           // block_base_fee
+        &[_]u256{},                  // blob_hashes
+        0,                           // blob_base_fee
+    );
+    test_vm.vm.set_context(context);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -356,7 +382,20 @@ test "Environment: CHAINID opcode (Istanbul)" {
 
     // Set chain ID
     const chain_id: u256 = 1; // Mainnet
-    test_vm.vm.context.chain_id = chain_id;
+    const context = evm.Context.init_with_values(
+        helpers.TestAddresses.ALICE,  // tx_origin
+        0,                           // gas_price
+        0,                           // block_number
+        0,                           // block_timestamp
+        helpers.TestAddresses.ALICE,  // block_coinbase
+        0,                           // block_difficulty
+        0,                           // block_gas_limit
+        chain_id,                    // chain_id
+        0,                           // block_base_fee
+        &[_]u256{},                  // blob_hashes
+        0,                           // blob_base_fee
+    );
+    test_vm.vm.set_context(context);
 
     var contract = try helpers.createTestContract(
         allocator,

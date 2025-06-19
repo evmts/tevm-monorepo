@@ -1,6 +1,7 @@
 const std = @import("std");
 const Log = @import("log.zig");
 
+// NOTE: FEE market is currently just exported but unused by the EVM
 // FeeMarket implements the EIP-1559 fee market mechanism
 ///
 // The EIP-1559 fee market introduces a base fee per block that moves

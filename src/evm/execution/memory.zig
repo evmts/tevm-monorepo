@@ -2,8 +2,8 @@ const std = @import("std");
 const Operation = @import("../opcodes/operation.zig");
 const ExecutionError = @import("execution_error.zig");
 const Stack = @import("../stack/stack.zig");
-const Frame = @import("../frame.zig");
-const Memory = @import("../memory.zig");
+const Frame = @import("../frame/frame.zig");
+const Memory = @import("../memory/memory.zig");
 const gas_constants = @import("../constants/gas_constants.zig");
 
 // Helper to check if u256 fits in usize
@@ -221,14 +221,14 @@ pub fn op_mcopy(pc: usize, interpreter: *Operation.Interpreter, state: *Operatio
         if (dest_usize > src_usize and dest_usize < src_usize + size_usize) {
             @branchHint(.unlikely);
             // Forward overlap: dest is within source range, copy backwards
-            std.mem.copyBackwards(u8, mem_slice[dest_usize..dest_usize + size_usize], mem_slice[src_usize..src_usize + size_usize]);
+            std.mem.copyBackwards(u8, mem_slice[dest_usize .. dest_usize + size_usize], mem_slice[src_usize .. src_usize + size_usize]);
         } else if (src_usize > dest_usize and src_usize < dest_usize + size_usize) {
             @branchHint(.unlikely);
-            // Backward overlap: src is within dest range, copy forwards  
-            std.mem.copyForwards(u8, mem_slice[dest_usize..dest_usize + size_usize], mem_slice[src_usize..src_usize + size_usize]);
+            // Backward overlap: src is within dest range, copy forwards
+            std.mem.copyForwards(u8, mem_slice[dest_usize .. dest_usize + size_usize], mem_slice[src_usize .. src_usize + size_usize]);
         } else {
             // No overlap, either direction is fine
-            std.mem.copyForwards(u8, mem_slice[dest_usize..dest_usize + size_usize], mem_slice[src_usize..src_usize + size_usize]);
+            std.mem.copyForwards(u8, mem_slice[dest_usize .. dest_usize + size_usize], mem_slice[src_usize .. src_usize + size_usize]);
         }
     } else {
         return ExecutionError.Error.OutOfOffset;

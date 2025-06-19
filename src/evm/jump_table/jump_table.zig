@@ -5,9 +5,8 @@ const Operation = operation_module.Operation;
 const Hardfork = @import("../hardforks/hardfork.zig").Hardfork;
 const ExecutionError = @import("../execution/execution_error.zig");
 const Stack = @import("../stack/stack.zig");
-const Memory = @import("../memory.zig");
-const Frame = @import("../frame.zig");
-const Contract = @import("../contract/contract.zig");
+const Frame = @import("../frame/frame.zig");
+const Contract = @import("../frame/contract.zig");
 const Address = @import("Address");
 const Log = @import("../log.zig");
 
@@ -127,7 +126,6 @@ pub fn execute(self: *const JumpTable, pc: usize, interpreter: *operation_module
 
     Log.debug("JumpTable.execute: Executing opcode 0x{x:0>2} at pc={}, gas={}, stack_size={}", .{ opcode, pc, frame.gas_remaining, frame.stack.size });
 
-
     // Handle undefined opcodes (cold path)
     if (operation.undefined) {
         @branchHint(.cold);
@@ -170,7 +168,7 @@ pub fn validate(self: *JumpTable) void {
             self.table[i] = &operation_module.NULL_OPERATION;
             continue;
         }
-        
+
         // Check for invalid operation configuration (error path)
         const operation = self.table[i].?;
         if (operation.memory_size != null and operation.dynamic_gas == null) {
@@ -189,7 +187,6 @@ pub fn copy(self: *const JumpTable, allocator: std.mem.Allocator) !JumpTable {
         .table = self.table,
     };
 }
-
 
 /// Create a jump table configured for a specific hardfork.
 ///
