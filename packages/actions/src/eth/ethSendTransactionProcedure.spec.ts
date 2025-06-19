@@ -55,8 +55,8 @@ describe('ethSendTransactionJsonRpcProcedure', () => {
 		await mineHandler(client)()
 
 		// Verify the balance change
-		const toAccount = await getAccountHandler(client)({ address: to.toString() })
-		expect(toAccount.balance).toBe(value)
+		// @ts-expect-error: Monorepo type conflict: TevmNode from source (/src) conflicts with the matcher's type from compiled output (/dist).
+		await expect(to.toString()).toHaveState(client, { balance: value })
 
 		// Verify the sender's balance change (should be less than 10 - 1 due to gas costs)
 		const fromAccount = await getAccountHandler(client)({ address: from.toString() })
