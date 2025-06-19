@@ -25,7 +25,7 @@ describe('setAccountHandler', () => {
 		const account = (await vm.stateManager.getAccount(createAddress(ERC20_ADDRESS))) as EthjsAccount
 		expect(account?.balance).toBe(420n)
 		expect(account?.nonce).toBe(69n)
-		expect(bytesToHex(account.codeHash)).toBe(keccak256(ERC20_BYTECODE))
+		expect(bytesToHex(account.codeHash)).toEqualHex(keccak256(ERC20_BYTECODE))
 	})
 
 	it('should validate params', async () => {
