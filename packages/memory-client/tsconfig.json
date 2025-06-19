@@ -4,7 +4,7 @@
 		"rootDir": "src",
 		"outDir": "types",
 		"skipLibCheck": true,
-		"types": ["bun-types"]
+		"types": ["bun-types", "@tevm/test-matchers"]
 	},
 	"include": ["src"],
 	"exclude": ["src/test/**/*.spec.ts", "**/*.spec.ts", "**/*.test.ts"]
