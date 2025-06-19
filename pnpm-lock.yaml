@@ -1707,9 +1707,6 @@ importers:
         specifier: workspace:^
         version: link:../utils
     devDependencies:
-      '@tevm/test-matchers':
-        specifier: workspace:^
-        version: link:../../extensions/test-matchers
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
