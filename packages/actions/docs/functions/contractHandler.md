@@ -8,7 +8,7 @@
 
 > **contractHandler**(`client`, `options?`): [`ContractHandler`](../type-aliases/ContractHandler.md)
 
-Defined in: [packages/actions/src/Contract/contractHandler.js:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/contractHandler.js#L38)
+Defined in: [packages/actions/src/Contract/contractHandler.js:39](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/contractHandler.js#L39)
 
 Creates a tree-shakable instance of `contractHandler` for handling contract interactions with the Ethereumjs EVM.
 This function uses `callHandler` under the hood to execute contract calls.
