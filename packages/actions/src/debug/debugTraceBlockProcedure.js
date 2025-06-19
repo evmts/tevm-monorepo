@@ -66,7 +66,7 @@ export const debugTraceBlockJsonRpcProcedure = (client) => {
 
 		client.logger.debug({ blockTag, tracer, tracerConfig }, 'debug_traceBlock: executing with params')
 
-		const vm = await client.getVm()
+		let vm = await client.getVm()
 		const block = await vm.blockchain.getBlockByTag(blockParam ?? blockTag ?? blockHash ?? blockNumber ?? 'latest')
 
 		// If no transactions in the block, return empty array
@@ -83,7 +83,7 @@ export const debugTraceBlockJsonRpcProcedure = (client) => {
 		// Ensure the parent block's state root is available
 		const hasStateRoot = await vm.stateManager.hasStateRoot(parentBlock.header.stateRoot)
 		if (!hasStateRoot && client.forkTransport) {
-			await forkAndCacheBlock(client, parentBlock)
+			vm = await forkAndCacheBlock(client, parentBlock)
 		} else if (!hasStateRoot) {
 			return {
 				jsonrpc: '2.0',
