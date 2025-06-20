@@ -1,5 +1,6 @@
 export { toChangeBalance } from './toChangeBalance.js'
 export { toChangeBalances } from './toChangeBalances.js'
+export { toChangeTokenBalance } from './toChangeTokenBalance.js'
 export type { BalanceChange, HandleTransactionResult } from './types.js'
 import type { TevmNode } from '@tevm/node'
 import type { Address, Client } from 'viem'
@@ -54,4 +55,28 @@ export interface BalanceMatchers {
 	 * ```
 	 */
 	toChangeBalances(client: Client | TevmNode, balanceChanges: BalanceChange[]): Promise<void>
+
+	/**
+	 * Checks if a transaction changes an account's token balance by the expected amount.
+	 *
+	 * @param client - The client or node to use for balance queries
+	 * @param tokenContract - The token contract address or object with address
+	 * @param account - The account address or object with address
+	 * @param expectedChange - The expected balance change (can be negative)
+	 *
+	 * @example
+	 * ```typescript
+	 * // Check that a transaction increases token balance by 100 tokens
+	 * await expect(txHash).toChangeTokenBalance(client, '0xTokenAddress...', '0x123...', 100n)
+	 *
+	 * // Check that a transaction decreases token balance by 50 tokens
+	 * await expect(txPromise).toChangeTokenBalance(client, tokenContract, account, -50n)
+	 * ```
+	 */
+	toChangeTokenBalance(
+		client: Client | TevmNode,
+		tokenContract: Address | ContainsAddress,
+		account: Address | ContainsAddress,
+		expectedChange: bigint | number | string,
+	): Promise<void>
 }
