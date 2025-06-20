@@ -31,7 +31,7 @@ describe('tevmDeploy', () => {
 		})
 
 		// Verify the contract's deployment address
-		expect(deployResult.createdAddress).toBeDefined()
+		expect(deployResult.createdAddress).toBeAddress()
 
 		// Mine a block to include the deployment transaction
 		await mineHandler(client.transport.tevm)({ blockCount: 1 })
@@ -62,7 +62,7 @@ describe('tevmDeploy', () => {
 			args: [42n], // Constructor argument
 		})
 
-		expect(deployResult.txHash).toBeDefined()
+		expect(deployResult.txHash).toBeHex()
 	})
 
 	it('should deploy a contract with createTransaction set to true', async () => {
@@ -73,7 +73,7 @@ describe('tevmDeploy', () => {
 			createTransaction: true,
 		})
 
-		expect(deployResult.createdAddress).toBeDefined()
+		expect(deployResult.createdAddress).toBeAddress()
 		await tevmMine(client, { blockCount: 1 })
 	})
 
@@ -86,7 +86,7 @@ describe('tevmDeploy', () => {
 			from: senderAddress,
 		})
 
-		expect(deployResult.createdAddress).toBeDefined()
+		expect(deployResult.createdAddress).toBeAddress()
 		await tevmMine(client, { blockCount: 1 })
 	})
 })
