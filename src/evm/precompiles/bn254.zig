@@ -229,7 +229,8 @@ fn mod_mul(a: u256, b: u256) u256 {
 /// Uses the extended Euclidean algorithm
 fn mod_inverse(a: u256) u256 {
     if (a == 0) {
-        @panic("Division by zero in modular inverse");
+        // Division by zero in modular inverse
+        unreachable;
     }
 
     // Extended Euclidean algorithm
@@ -251,7 +252,8 @@ fn mod_inverse(a: u256) u256 {
     }
 
     if (old_r > 1) {
-        @panic("Modular inverse does not exist");
+        // Modular inverse does not exist
+        unreachable;
     }
 
     // Make sure result is positive
