@@ -1892,9 +1892,6 @@ importers:
         specifier: ^2.37.9
         version: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
     devDependencies:
-      '@tevm/test-matchers':
-        specifier: workspace:^
-        version: link:../../extensions/test-matchers
       '@tevm/test-utils':
         specifier: workspace:^
         version: link:../../test/test-utils
@@ -2035,9 +2032,6 @@ importers:
       '@tevm/actions':
         specifier: workspace:^
         version: link:../actions
-      '@tevm/test-matchers':
-        specifier: workspace:^
-        version: link:../../extensions/test-matchers
       '@tevm/test-utils':
         specifier: workspace:^
         version: link:../../test/test-utils
