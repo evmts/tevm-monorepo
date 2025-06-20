@@ -6,7 +6,12 @@ import type {
 	ContainsTransactionAny,
 	ContainsTransactionLogs,
 } from './common/types.js'
-import { type BalanceChange, type BalanceMatchers, toChangeBalance, toChangeBalances } from './matchers/balance/index.js'
+import {
+	type BalanceChange,
+	type BalanceMatchers,
+	toChangeBalance,
+	toChangeBalances,
+} from './matchers/balance/index.js'
 import {
 	chainableErrorMatchers,
 	type ErrorMatchers,
