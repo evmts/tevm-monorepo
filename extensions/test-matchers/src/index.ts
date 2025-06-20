@@ -6,7 +6,7 @@ import type {
 	ContainsTransactionAny,
 	ContainsTransactionLogs,
 } from './common/types.js'
-import { type BalanceMatchers, toChangeBalance } from './matchers/balance/index.js'
+import { type BalanceChange, type BalanceMatchers, toChangeBalance, toChangeBalances } from './matchers/balance/index.js'
 import {
 	chainableErrorMatchers,
 	type ErrorMatchers,
@@ -27,6 +27,7 @@ import {
 } from './matchers/utils/index.js'
 
 export type {
+	BalanceChange,
 	IsAddressOptions,
 	IsHexOptions,
 	EqualHexOptions,
@@ -47,6 +48,7 @@ expect.extend({
 	toHaveState,
 	toHaveStorageAt,
 	toChangeBalance,
+	toChangeBalances,
 })
 
 registerChainableMatchers(chainableEventMatchers)

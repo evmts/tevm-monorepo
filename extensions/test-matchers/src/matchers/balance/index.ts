@@ -1,8 +1,10 @@
 export { toChangeBalance } from './toChangeBalance.js'
+export { toChangeBalances } from './toChangeBalances.js'
 export type { BalanceChange, HandleTransactionResult } from './types.js'
 import type { TevmNode } from '@tevm/node'
 import type { Address, Client } from 'viem'
 import type { ContainsAddress } from '../../common/types.js'
+import type { BalanceChange } from './types.js'
 
 export interface BalanceMatchers {
 	/**
@@ -26,4 +28,34 @@ export interface BalanceMatchers {
 		account: Address | ContainsAddress,
 		expectedChange: bigint | number | string,
 	): Promise<void>
+
+	/**
+	 * Checks if a transaction changes multiple accounts' balances by the expected amounts.
+	 *
+	 * @param client - The client or node to use for balance queries
+	 * @param balanceChanges - Array of expected balance changes
+	 *
+	 * @example
+	 * ```typescript
+	 * // Check multiple balance changes
+	 * await expect(txHash).toChangeBalances(client, [
+	 *   { account: '0x123...', amount: -100n }, // sender loses 100
+	 *   { account: '0x456...', amount: 100n },  // recipient gains 100
+	 * ])
+	 * ```
+	 *
+	 * @example
+	 * ```typescript
+	 * // Use an account object
+	 * await expect(txHash).toChangeBalances(client, [
+	 *   { account: { address: '0x123...', ... }, amount: -100n }, // sender loses 100
+	 *   { account: { address: '0x456...', ... }, amount: 100n },  // recipient gains 100
+	 * ])
+	 * ```
+	 */
+	toChangeBalances(
+		client: Client | TevmNode,
+		balanceChanges: BalanceChange[],
+	): Promise<void>
+
 }
