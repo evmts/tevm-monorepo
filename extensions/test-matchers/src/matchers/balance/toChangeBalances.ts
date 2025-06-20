@@ -34,7 +34,9 @@ export const toChangeBalances = async (
 	})
 
 	// Check which balance changes failed
-	const failedIndexes = normalizedBalanceChanges.filter((change) => change.actualAmount !== change.amount).map((change) => normalizedBalanceChanges.indexOf(change))
+	const failedIndexes = normalizedBalanceChanges
+		.filter((change) => change.actualAmount !== change.amount)
+		.map((change) => normalizedBalanceChanges.indexOf(change))
 
 	const pass = failedIndexes.length === 0
 
@@ -48,11 +50,11 @@ export const toChangeBalances = async (
 					: `Expected transaction to change balances by the specified amounts, but some of them didn't pass (at indexes [${failedIndexes.join(', ')}])`,
 		actual: balanceChanges.map((change, i) => ({
 			account: change.account,
-			amount: normalizedBalanceChanges[i]!.actualAmount,
+			amount: normalizedBalanceChanges[i]?.actualAmount,
 		})),
 		expected: balanceChanges.map((change, i) => ({
 			account: change.account,
-			amount: normalizedBalanceChanges[i]!.amount,
+			amount: normalizedBalanceChanges[i]?.amount,
 		})),
 	}
 }

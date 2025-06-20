@@ -53,9 +53,5 @@ export interface BalanceMatchers {
 	 * ])
 	 * ```
 	 */
-	toChangeBalances(
-		client: Client | TevmNode,
-		balanceChanges: BalanceChange[],
-	): Promise<void>
-
+	toChangeBalances(client: Client | TevmNode, balanceChanges: BalanceChange[]): Promise<void>
 }

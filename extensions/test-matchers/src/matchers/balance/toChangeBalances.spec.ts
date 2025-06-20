@@ -68,9 +68,7 @@ describe('toChangeBalances', () => {
 					from: sender.address,
 					addToBlockchain: true,
 				}),
-			).toChangeBalances(node, [
-				{ account: sender, amount: -(amountSpent ?? 0n) },
-			])
+			).toChangeBalances(node, [{ account: sender, amount: -(amountSpent ?? 0n) }])
 		})
 
 		it('should work with a promise that resolves to a call result', async () => {
@@ -198,9 +196,7 @@ describe('toChangeBalances', () => {
 					value: BigInt(smallAmount),
 					addToBlockchain: true,
 				}),
-			).toChangeBalances(node, [
-				{ account: recipient, amount: smallAmount },
-			])
+			).toChangeBalances(node, [{ account: recipient, amount: smallAmount }])
 		})
 
 		it('should work with zero balance change for unrelated account', async () => {
@@ -213,9 +209,7 @@ describe('toChangeBalances', () => {
 					value: amount,
 					addToBlockchain: true,
 				}),
-			).toChangeBalances(node, [
-				{ account: unrelatedAccount, amount: 0n },
-			])
+			).toChangeBalances(node, [{ account: unrelatedAccount, amount: 0n }])
 		})
 
 		it('should work with mixed account types', async () => {
@@ -263,7 +257,9 @@ describe('toChangeBalances', () => {
 					{ account: sender, amount: -(amount + 1n) }, // Wrong
 					{ account: recipient, amount: amount + 1n }, // Wrong
 				]),
-			).rejects.toThrowError('Expected transaction to change balances by the specified amounts, but none of them passed')
+			).rejects.toThrowError(
+				'Expected transaction to change balances by the specified amounts, but none of them passed',
+			)
 		})
 
 		it('should fail when only some expected balance changes are incorrect', async () => {
@@ -280,7 +276,9 @@ describe('toChangeBalances', () => {
 					{ account: recipient, amount: amount + 1n }, // Wrong
 					{ account: thirdParty, amount: 1n }, // Wrong (should be 0)
 				]),
-			).rejects.toThrowError('Expected transaction to change balances by the specified amounts, but some of them didn\'t pass (at indexes [1, 2])')
+			).rejects.toThrowError(
+				"Expected transaction to change balances by the specified amounts, but some of them didn't pass (at indexes [1, 2])",
+			)
 		})
 
 		it('should fail with invalid address', async () => {
@@ -292,16 +290,12 @@ describe('toChangeBalances', () => {
 						value: amount,
 						addToBlockchain: true,
 					}),
-				).toChangeBalances(node, [
-					{ account: '0xinvalid' as Address, amount: amount },
-				]),
+				).toChangeBalances(node, [{ account: '0xinvalid' as Address, amount: amount }]),
 			).rejects.toThrowError('Invalid address: 0xinvalid')
 		})
 
 		it('should fail if the object does neither resolve to a tx hash nor a tx receipt', async () => {
-			await expect(() => expect({}).toChangeBalances(node, [
-				{ account: recipient, amount }
-			])).rejects.toThrowError(
+			await expect(() => expect({}).toChangeBalances(node, [{ account: recipient, amount }])).rejects.toThrowError(
 				'Transaction hash is undefined, you need to pass a transaction hash, receipt or call result, or a promise that resolves to one of those',
 			)
 		})
@@ -352,7 +346,9 @@ describe('toChangeBalances', () => {
 						{ account: sender, amount: -(amount + gasCost) },
 						{ account: recipient, amount },
 					]),
-				).rejects.toThrowError('Expected transaction not to change balances by the specified amounts, but all of them passed')
+				).rejects.toThrowError(
+					'Expected transaction not to change balances by the specified amounts, but all of them passed',
+				)
 			})
 		})
 
@@ -365,9 +361,7 @@ describe('toChangeBalances', () => {
 					value: amount,
 					addToBlockchain: true,
 				}),
-			).not.toChangeBalances(node, [
-				{ account: unrelatedAccount, amount },
-			])
+			).not.toChangeBalances(node, [{ account: unrelatedAccount, amount }])
 		})
 	})
 
@@ -408,12 +402,8 @@ describe('toChangeBalances', () => {
 						...errorContract.write.revertWithRequireAndMessage(),
 						addToBlockchain: true,
 					}),
-				).toChangeBalances(node, [
-					{ account: errorContract.address, amount: 0n },
-				]),
-			).rejects.toThrow(
-				'The contract function "revertWithRequireAndMessage" reverted with the following reason:',
-			)
+				).toChangeBalances(node, [{ account: errorContract.address, amount: 0n }]),
+			).rejects.toThrow('The contract function "revertWithRequireAndMessage" reverted with the following reason:')
 		})
 
 		it('with a toChangeBalances assertion that fails - all fail', async () => {
@@ -472,7 +462,7 @@ describe('toChangeBalances', () => {
 					{ account: thirdParty, amount: 1n }, // Wrong
 				])
 			} catch (error: any) {
-				expect(error.message).toContain('but some of them didn\'t pass (at indexes [1, 2])')
+				expect(error.message).toContain("but some of them didn't pass (at indexes [1, 2])")
 				expect(error.actual).toMatchObject([
 					{
 						account: sender,
