@@ -11,6 +11,7 @@ import {
 	type BalanceMatchers,
 	toChangeBalance,
 	toChangeBalances,
+	toChangeTokenBalance,
 } from './matchers/balance/index.js'
 import {
 	type ErrorMatchers,
@@ -54,6 +55,7 @@ expect.extend({
 	toHaveStorageAt,
 	toChangeBalance,
 	toChangeBalances,
+	toChangeTokenBalance,
 })
 
 registerChainableMatchers(chainableEventMatchers)
