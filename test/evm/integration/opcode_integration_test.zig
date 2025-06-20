@@ -26,19 +26,55 @@ fn createTestVm(allocator: std.mem.Allocator) !*Vm {
     vm.* = try Vm.init(allocator);
 
     // Set up basic context
-    vm.context.chain_id = 1;
-    vm.context.gas_price = 1000000000; // 1 gwei
+    // Create context with test values
+    const context = evm.Context.init_with_values(
+        helpers.TestAddresses.ALICE,
+        1000000000,
+        0,
+        0,
+        helpers.TestAddresses.ALICE,
+        0,
+        0,
+        1,
+        0,
+        &[_]u256{},
+        0
+    );
+    vm.set_context(context);
     // Use a simple test address
     const tx_origin: Address.Address = [_]u8{0x12} ** 20;
-    vm.context.tx_origin = tx_origin;
+    // Create context with test values
+    const context = evm.Context.init_with_values(
+        tx_origin,
+        0,
+        0,
+        0,
+        helpers.TestAddresses.ALICE,
+        0,
+        0,
+        1,
+        0,
+        &[_]u256{},
+        0
+    );
+    vm.set_context(context);
 
     // Set up block context
-    vm.context.block_number = 10000;
-    vm.context.block_timestamp = 1234567890;
-    vm.context.block_difficulty = 1000000;
-    vm.context.block_coinbase = Address.zero();
-    vm.context.block_gas_limit = 30000000;
-    vm.context.block_base_fee = 100000000; // 0.1 gwei
+    // Create context with test values
+    const context = evm.Context.init_with_values(
+        helpers.TestAddresses.ALICE,
+        0,
+        10000,
+        1234567890,
+        Address.zero(),
+        1000000,
+        30000000,
+        1,
+        100000000,
+        &[_]u256{},
+        0
+    );
+    vm.set_context(context);
 
     return vm;
 }

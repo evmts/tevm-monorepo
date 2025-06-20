@@ -470,9 +470,19 @@ test "compile simple contract" {
     try std.testing.expect(std.mem.indexOf(u8, contract.bytecode, "6970667358") != null); // "ipfs" in hex
     try std.testing.expect(std.mem.indexOf(u8, contract.deployed_bytecode, "6970667358") != null);
 
-    // Check for Solidity version marker in metadata (0.8.x)
-    try std.testing.expect(std.mem.indexOf(u8, contract.bytecode, "736f6c6343000818") != null or
-        std.mem.indexOf(u8, contract.bytecode, "736f6c634300081e") != null); // v0.8.24 or v0.8.30
+    // Check for Solidity version marker in metadata (0.8.24 through 0.8.100)
+    var found_version = false;
+    var version: u8 = 24;
+    while (version <= 100) : (version += 1) {
+        var version_bytes: [16]u8 = undefined;
+        const version_hex: u32 = 0x000800 + @as(u32, version);
+        const version_str = try std.fmt.bufPrint(&version_bytes, "736f6c6343{x:0>6}", .{version_hex});
+        if (std.mem.indexOf(u8, contract.bytecode, version_str) != null) {
+            found_version = true;
+            break;
+        }
+    }
+    try std.testing.expect(found_version);
 
     // Validate the parsed ABI structure using zabi types
     // Find functions by name

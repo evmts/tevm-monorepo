@@ -2,6 +2,7 @@ const std = @import("std");
 const Address = @import("Address");
 const AccessListStorageKey = @import("access_list_storage_key.zig");
 const AccessListStorageKeyContext = @import("access_list_storage_key_context.zig");
+const Context = @import("context.zig");
 
 /// EIP-2929 & EIP-2930: Access list management for gas cost calculation
 /// 
@@ -40,12 +41,15 @@ allocator: std.mem.Allocator,
 addresses: std.AutoHashMap(Address.Address, void),
 /// Warm storage slots - storage slots that have been accessed
 storage_slots: std.HashMap(AccessListStorageKey, void, AccessListStorageKeyContext, 80),
+/// Transaction and block context for pre-warming addresses
+context: Context,
 
-pub fn init(allocator: std.mem.Allocator) AccessList {
+pub fn init(allocator: std.mem.Allocator, context: Context) AccessList {
     return .{
         .allocator = allocator,
         .addresses = std.AutoHashMap(Address.Address, void).init(allocator),
         .storage_slots = std.HashMap(AccessListStorageKey, void, AccessListStorageKeyContext, 80).init(allocator),
+        .context = context,
     };
 }
 
@@ -111,12 +115,12 @@ pub fn pre_warm_storage_slots(self: *AccessList, address: Address.Address, slots
 
 /// Initialize transaction access list with pre-warmed addresses
 /// According to EIP-2929, tx.origin and block.coinbase are always pre-warmed
-pub fn init_transaction(self: *AccessList, tx_origin: Address.Address, coinbase: Address.Address, to: ?Address.Address) std.mem.Allocator.Error!void {
+pub fn init_transaction(self: *AccessList, to: ?Address.Address) std.mem.Allocator.Error!void {
     // Clear previous transaction data
     self.clear();
     
-    try self.addresses.put(tx_origin, {});
-    try self.addresses.put(coinbase, {});
+    try self.addresses.put(self.context.tx_origin, {});
+    try self.addresses.put(self.context.block_coinbase, {});
     
     if (to) |to_address| {
         try self.addresses.put(to_address, {});
@@ -138,7 +142,8 @@ pub fn get_call_cost(self: *AccessList, address: Address.Address) std.mem.Alloca
 const testing = std.testing;
 
 test "AccessList basic operations" {
-    var access_list = AccessList.init(testing.allocator);
+    const context = Context.init();
+    var access_list = AccessList.init(testing.allocator, context);
     defer access_list.deinit();
     
     const test_address = [_]u8{1} ** 20;
@@ -159,7 +164,8 @@ test "AccessList basic operations" {
 }
 
 test "AccessList storage slots" {
-    var access_list = AccessList.init(testing.allocator);
+    const context = Context.init();
+    var access_list = AccessList.init(testing.allocator, context);
     defer access_list.deinit();
     
     const test_address = [_]u8{1} ** 20;
@@ -185,14 +191,27 @@ test "AccessList storage slots" {
 }
 
 test "AccessList transaction initialization" {
-    var access_list = AccessList.init(testing.allocator);
-    defer access_list.deinit();
-    
     const tx_origin = [_]u8{1} ** 20;
     const coinbase = [_]u8{2} ** 20;
     const to_address = [_]u8{3} ** 20;
     
-    try access_list.init_transaction(tx_origin, coinbase, to_address);
+    const context = Context.init_with_values(
+        tx_origin,
+        0, // gas_price
+        0, // block_number
+        0, // block_timestamp
+        coinbase,
+        0, // block_difficulty
+        0, // block_gas_limit
+        1, // chain_id
+        0, // block_base_fee
+        &[_]u256{}, // blob_hashes
+        0, // blob_base_fee
+    );
+    var access_list = AccessList.init(testing.allocator, context);
+    defer access_list.deinit();
+    
+    try access_list.init_transaction(to_address);
     
     // All should be pre-warmed
     try testing.expect(access_list.is_address_warm(tx_origin));
@@ -206,7 +225,8 @@ test "AccessList transaction initialization" {
 }
 
 test "AccessList pre-warming from EIP-2930" {
-    var access_list = AccessList.init(testing.allocator);
+    const context = Context.init();
+    var access_list = AccessList.init(testing.allocator, context);
     defer access_list.deinit();
     
     const addresses = [_]Address.Address{
@@ -236,7 +256,8 @@ test "AccessList pre-warming from EIP-2930" {
 }
 
 test "AccessList call costs" {
-    var access_list = AccessList.init(testing.allocator);
+    const context = Context.init();
+    var access_list = AccessList.init(testing.allocator, context);
     defer access_list.deinit();
     
     const cold_address = [_]u8{1} ** 20;

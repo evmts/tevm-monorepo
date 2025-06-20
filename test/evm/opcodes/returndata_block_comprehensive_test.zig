@@ -1,6 +1,7 @@
 const std = @import("std");
 const testing = std.testing;
 const helpers = @import("test_helpers.zig");
+const evm = @import("evm");
 
 // ============================
 // 0x3B-0x3F Environmental Information (continued) + 0x40-0x44 Block Information
@@ -240,7 +241,20 @@ test "BLOCKHASH (0x40): Get block hash" {
     defer test_vm.deinit(allocator);
     
     // Set up block context
-    test_vm.vm.context.block_number = 1000;
+    const context = evm.Context.init_with_values(
+        helpers.TestAddresses.ALICE,  // tx_origin
+        0,                           // gas_price
+        1000,                        // block_number
+        0,                           // block_timestamp
+        helpers.TestAddresses.ALICE,  // block_coinbase
+        0,                           // block_difficulty
+        0,                           // block_gas_limit
+        1,                           // chain_id
+        0,                           // block_base_fee
+        &[_]u256{},                  // blob_hashes
+        0,                           // blob_base_fee
+    );
+    test_vm.vm.set_context(context);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -300,7 +314,20 @@ test "COINBASE (0x41): Get block coinbase" {
     
     // Set coinbase address
     const coinbase_addr = [_]u8{0xC0, 0x1B, 0xBA, 0x5E} ++ [_]u8{0} ** 16;
-    test_vm.vm.context.block_coinbase = coinbase_addr;
+    const context = evm.Context.init_with_values(
+        helpers.TestAddresses.ALICE,  // tx_origin
+        0,                           // gas_price
+        0,                           // block_number
+        0,                           // block_timestamp
+        coinbase_addr,               // block_coinbase
+        0,                           // block_difficulty
+        0,                           // block_gas_limit
+        1,                           // chain_id
+        0,                           // block_base_fee
+        &[_]u256{},                  // blob_hashes
+        0,                           // blob_base_fee
+    );
+    test_vm.vm.set_context(context);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -334,7 +361,20 @@ test "TIMESTAMP (0x42): Get block timestamp" {
     };
     
     for (test_cases) |timestamp| {
-        test_vm.vm.context.block_timestamp = timestamp;
+        const context = evm.Context.init_with_values(
+            helpers.TestAddresses.ALICE,  // tx_origin
+            0,                           // gas_price
+            0,                           // block_number
+            timestamp,                   // block_timestamp
+            helpers.TestAddresses.ALICE,  // block_coinbase
+            0,                           // block_difficulty
+            0,                           // block_gas_limit
+            1,                           // chain_id
+            0,                           // block_base_fee
+            &[_]u256{},                  // blob_hashes
+            0,                           // blob_base_fee
+        );
+        test_vm.vm.set_context(context);
         
         var contract = try helpers.createTestContract(
             allocator,
@@ -369,7 +409,20 @@ test "NUMBER (0x43): Get block number" {
     };
     
     for (test_cases) |block_num| {
-        test_vm.vm.context.block_number = block_num;
+        const context = evm.Context.init_with_values(
+            helpers.TestAddresses.ALICE,  // tx_origin
+            0,                           // gas_price
+            block_num,                   // block_number
+            0,                           // block_timestamp
+            helpers.TestAddresses.ALICE,  // block_coinbase
+            0,                           // block_difficulty
+            0,                           // block_gas_limit
+            1,                           // chain_id
+            0,                           // block_base_fee
+            &[_]u256{},                  // blob_hashes
+            0,                           // blob_base_fee
+        );
+        test_vm.vm.set_context(context);
         
         var contract = try helpers.createTestContract(
             allocator,
@@ -403,7 +456,20 @@ test "PREVRANDAO (0x44): Get previous RANDAO" {
     };
     
     for (test_values) |randao| {
-        test_vm.vm.context.block_difficulty = randao; // Post-merge, this is PREVRANDAO
+        const context = evm.Context.init_with_values(
+            helpers.TestAddresses.ALICE,  // tx_origin
+            0,                           // gas_price
+            0,                           // block_number
+            0,                           // block_timestamp
+            helpers.TestAddresses.ALICE,  // block_coinbase
+            randao,                      // block_difficulty (Post-merge, this is PREVRANDAO)
+            0,                           // block_gas_limit
+            1,                           // chain_id
+            0,                           // block_base_fee
+            &[_]u256{},                  // blob_hashes
+            0,                           // blob_base_fee
+        );
+        test_vm.vm.set_context(context);
         
         var contract = try helpers.createTestContract(
             allocator,
@@ -593,7 +659,20 @@ test "BLOCKHASH: Edge cases" {
     var test_vm = try helpers.TestVm.init(allocator);
     defer test_vm.deinit(allocator);
     
-    test_vm.vm.context.block_number = 1000;
+    const context = evm.Context.init_with_values(
+        helpers.TestAddresses.ALICE,  // tx_origin
+        0,                           // gas_price
+        1000,                        // block_number
+        0,                           // block_timestamp
+        helpers.TestAddresses.ALICE,  // block_coinbase
+        0,                           // block_difficulty
+        0,                           // block_gas_limit
+        1,                           // chain_id
+        0,                           // block_base_fee
+        &[_]u256{},                  // blob_hashes
+        0,                           // blob_base_fee
+    );
+    test_vm.vm.set_context(context);
     
     var contract = try helpers.createTestContract(
         allocator,

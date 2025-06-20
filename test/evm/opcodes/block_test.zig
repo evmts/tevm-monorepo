@@ -14,7 +14,20 @@ test "Block: BLOCKHASH operations" {
     defer test_vm.deinit(allocator);
 
     // Set up block context
-    test_vm.vm.context.block_number = 1000;
+    const context = evm.Context.init_with_values(
+        helpers.TestAddresses.ALICE,  // tx_origin
+        0,                           // gas_price
+        1000,                        // block_number
+        0,                           // block_timestamp
+        helpers.TestAddresses.ALICE,  // block_coinbase
+        0,                           // block_difficulty
+        0,                           // block_gas_limit
+        1,                           // chain_id
+        0,                           // block_base_fee
+        &[_]u256{},                  // blob_hashes
+        0,                           // blob_base_fee
+    );
+    test_vm.vm.set_context(context);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -58,7 +71,20 @@ test "Block: COINBASE operations" {
     defer test_vm.deinit(allocator);
 
     // Set coinbase address
-    test_vm.vm.context.block_coinbase = helpers.TestAddresses.CHARLIE;
+    const context = evm.Context.init_with_values(
+        helpers.TestAddresses.ALICE,  // tx_origin
+        0,                           // gas_price
+        0,                           // block_number
+        0,                           // block_timestamp
+        helpers.TestAddresses.CHARLIE, // block_coinbase
+        0,                           // block_difficulty
+        0,                           // block_gas_limit
+        1,                           // chain_id
+        0,                           // block_base_fee
+        &[_]u256{},                  // blob_hashes
+        0,                           // blob_base_fee
+    );
+    test_vm.vm.set_context(context);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -74,7 +100,7 @@ test "Block: COINBASE operations" {
 
     // Test: Push coinbase address to stack
     _ = try helpers.executeOpcode(0x41, test_vm.vm, test_frame.frame);
-    const coinbase_as_u256 = helpers.bytesToU256(&test_vm.vm.context.block_coinbase);
+    const coinbase_as_u256 = helpers.bytesToU256(&test_vm.vm.access_list.context.block_coinbase);
     try helpers.expectStackValue(test_frame.frame, 0, coinbase_as_u256);
 
     // Test gas consumption
@@ -88,7 +114,20 @@ test "Block: TIMESTAMP operations" {
     defer test_vm.deinit(allocator);
 
     // Set block timestamp
-    test_vm.vm.context.block_timestamp = 1234567890;
+    const context = evm.Context.init_with_values(
+        helpers.TestAddresses.ALICE,  // tx_origin
+        0,                           // gas_price
+        0,                           // block_number
+        1234567890,                  // block_timestamp
+        helpers.TestAddresses.ALICE,  // block_coinbase
+        0,                           // block_difficulty
+        0,                           // block_gas_limit
+        1,                           // chain_id
+        0,                           // block_base_fee
+        &[_]u256{},                  // blob_hashes
+        0,                           // blob_base_fee
+    );
+    test_vm.vm.set_context(context);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -117,7 +156,20 @@ test "Block: NUMBER operations" {
     defer test_vm.deinit(allocator);
 
     // Set block number
-    test_vm.vm.context.block_number = 987654321;
+    const context = evm.Context.init_with_values(
+        helpers.TestAddresses.ALICE,  // tx_origin
+        0,                           // gas_price
+        987654321,                   // block_number
+        0,                           // block_timestamp
+        helpers.TestAddresses.ALICE,  // block_coinbase
+        0,                           // block_difficulty
+        0,                           // block_gas_limit
+        1,                           // chain_id
+        0,                           // block_base_fee
+        &[_]u256{},                  // blob_hashes
+        0,                           // blob_base_fee
+    );
+    test_vm.vm.set_context(context);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -146,7 +198,20 @@ test "Block: DIFFICULTY/PREVRANDAO operations" {
     defer test_vm.deinit(allocator);
 
     // Set difficulty/prevrandao
-    test_vm.vm.context.block_difficulty = 0x123456789ABCDEF0;
+    const context = evm.Context.init_with_values(
+        helpers.TestAddresses.ALICE,  // tx_origin
+        0,                           // gas_price
+        0,                           // block_number
+        0,                           // block_timestamp
+        helpers.TestAddresses.ALICE,  // block_coinbase
+        0x123456789ABCDEF0,          // block_difficulty
+        0,                           // block_gas_limit
+        1,                           // chain_id
+        0,                           // block_base_fee
+        &[_]u256{},                  // blob_hashes
+        0,                           // blob_base_fee
+    );
+    test_vm.vm.set_context(context);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -175,7 +240,20 @@ test "Block: GASLIMIT operations" {
     defer test_vm.deinit(allocator);
 
     // Set gas limit
-    test_vm.vm.context.block_gas_limit = 30_000_000;
+    const context = evm.Context.init_with_values(
+        helpers.TestAddresses.ALICE,  // tx_origin
+        0,                           // gas_price
+        0,                           // block_number
+        0,                           // block_timestamp
+        helpers.TestAddresses.ALICE,  // block_coinbase
+        0,                           // block_difficulty
+        30_000_000,                  // block_gas_limit
+        1,                           // chain_id
+        0,                           // block_base_fee
+        &[_]u256{},                  // blob_hashes
+        0,                           // blob_base_fee
+    );
+    test_vm.vm.set_context(context);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -204,7 +282,20 @@ test "Block: BASEFEE operations (London)" {
     defer test_vm.deinit(allocator);
 
     // Set base fee
-    test_vm.vm.context.block_base_fee = 1_000_000_000; // 1 gwei
+    const context = evm.Context.init_with_values(
+        helpers.TestAddresses.ALICE,  // tx_origin
+        0,                           // gas_price
+        0,                           // block_number
+        0,                           // block_timestamp
+        helpers.TestAddresses.ALICE,  // block_coinbase
+        0,                           // block_difficulty
+        0,                           // block_gas_limit
+        1,                           // chain_id
+        1_000_000_000,               // block_base_fee (1 gwei)
+        &[_]u256{},                  // blob_hashes
+        0,                           // blob_base_fee
+    );
+    test_vm.vm.set_context(context);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -233,11 +324,25 @@ test "Block: BLOBHASH operations (Cancun)" {
     defer test_vm.deinit(allocator);
 
     // Set up blob hashes
-    test_vm.vm.context.blob_hashes = &[_]u256{
+    const blob_hashes = [_]u256{
         0x1111111111111111111111111111111111111111111111111111111111111111,
         0x2222222222222222222222222222222222222222222222222222222222222222,
         0x3333333333333333333333333333333333333333333333333333333333333333,
     };
+    const context = evm.Context.init_with_values(
+        helpers.TestAddresses.ALICE,  // tx_origin
+        0,                           // gas_price
+        0,                           // block_number
+        0,                           // block_timestamp
+        helpers.TestAddresses.ALICE,  // block_coinbase
+        0,                           // block_difficulty
+        0,                           // block_gas_limit
+        1,                           // chain_id
+        0,                           // block_base_fee
+        &blob_hashes,                // blob_hashes
+        0,                           // blob_base_fee
+    );
+    test_vm.vm.set_context(context);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -285,7 +390,20 @@ test "Block: BLOBBASEFEE operations (Cancun)" {
     defer test_vm.deinit(allocator);
 
     // Set blob base fee
-    test_vm.vm.context.blob_base_fee = 100_000_000; // 0.1 gwei
+    const context = evm.Context.init_with_values(
+        helpers.TestAddresses.ALICE,  // tx_origin
+        0,                           // gas_price
+        0,                           // block_number
+        0,                           // block_timestamp
+        helpers.TestAddresses.ALICE,  // block_coinbase
+        0,                           // block_difficulty
+        0,                           // block_gas_limit
+        1,                           // chain_id
+        0,                           // block_base_fee
+        &[_]u256{},                  // blob_hashes
+        100_000_000,                 // blob_base_fee (0.1 gwei)
+    );
+    test_vm.vm.set_context(context);
 
     var contract = try helpers.createTestContract(
         allocator,
@@ -352,12 +470,20 @@ test "Block: Edge cases" {
     defer test_frame.deinit();
 
     // Test with maximum values
-    test_vm.vm.context.block_number = std.math.maxInt(u64);
-    test_vm.vm.context.block_timestamp = std.math.maxInt(u64);
-    test_vm.vm.context.block_gas_limit = std.math.maxInt(u64);
-    test_vm.vm.context.block_difficulty = std.math.maxInt(u256);
-    test_vm.vm.context.block_base_fee = std.math.maxInt(u256);
-    test_vm.vm.context.blob_base_fee = std.math.maxInt(u256);
+    const context = evm.Context.init_with_values(
+        helpers.TestAddresses.ALICE,  // tx_origin
+        0,                           // gas_price
+        std.math.maxInt(u64),        // block_number
+        std.math.maxInt(u64),        // block_timestamp
+        helpers.TestAddresses.ALICE,  // block_coinbase
+        std.math.maxInt(u256),       // block_difficulty
+        std.math.maxInt(u64),        // block_gas_limit
+        1,                           // chain_id
+        std.math.maxInt(u256),       // block_base_fee
+        &[_]u256{},                  // blob_hashes
+        std.math.maxInt(u256),       // blob_base_fee
+    );
+    test_vm.vm.set_context(context);
 
     // Test all opcodes still work with max values
     _ = try helpers.executeOpcode(0x43, test_vm.vm, test_frame.frame);

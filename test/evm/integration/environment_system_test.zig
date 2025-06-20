@@ -121,13 +121,21 @@ test "Integration: Environment data access" {
     defer test_vm.deinit(allocator);
 
     // Set up VM environment
-    test_vm.vm.context.tx_origin = helpers.TestAddresses.ALICE;
-    test_vm.vm.context.gas_price = 20 * helpers.TestValues.ONE_GWEI;
-    test_vm.vm.context.block_number = 15000000;
-    test_vm.vm.context.block_timestamp = 1234567890;
-    test_vm.vm.context.block_coinbase = helpers.TestAddresses.CHARLIE;
-    test_vm.vm.context.block_gas_limit = 30000000;
-    test_vm.vm.context.chain_id = 1; // Mainnet
+    // Create context with test values
+    const context = evm.Context.init_with_values(
+        helpers.TestAddresses.ALICE,
+        20 * helpers.TestValues.ONE_GWEI,
+        15000000,
+        1234567890,
+        helpers.TestAddresses.CHARLIE,
+        0,
+        30000000,
+        1,
+        0,
+        &[_]u256{},
+        0
+    );
+    test_vm.vm.set_context(context);
 
     var contract = helpers.Contract.init(
         helpers.TestAddresses.BOB, // caller
@@ -181,12 +189,21 @@ test "Integration: Block information access" {
     defer test_vm.deinit(allocator);
 
     // Set up block information
-    test_vm.vm.context.block_number = 17000000;
-    test_vm.vm.context.block_timestamp = 1683000000;
-    test_vm.vm.context.block_coinbase = helpers.TestAddresses.CHARLIE;
-    test_vm.vm.context.block_difficulty = 0; // Post-merge
-    test_vm.vm.context.block_gas_limit = 30000000;
-    test_vm.vm.context.block_base_fee = 30 * helpers.TestValues.ONE_GWEI;
+    // Create context with test values
+    const context = evm.Context.init_with_values(
+        helpers.TestAddresses.ALICE,
+        0,
+        17000000,
+        1683000000,
+        helpers.TestAddresses.CHARLIE,
+        0,
+        30000000,
+        1,
+        30 * helpers.TestValues.ONE_GWEI,
+        &[_]u256{},
+        0
+    );
+    test_vm.vm.set_context(context);
 
     var contract = try helpers.createTestContract(
         allocator,

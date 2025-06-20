@@ -1,10 +1,10 @@
 const std = @import("std");
-const Memory = @import("memory.zig");
-const Stack = @import("stack/stack.zig");
-const Contract = @import("contract/contract.zig");
-const ExecutionError = @import("execution/execution_error.zig");
-const Log = @import("log.zig");
-const ReturnData = @import("return_data.zig").ReturnData;
+const Memory = @import("../memory/memory.zig");
+const Stack = @import("../stack/stack.zig");
+const Contract = @import("./contract.zig");
+const ExecutionError = @import("../execution/execution_error.zig");
+const Log = @import("../log.zig");
+const ReturnData = @import("../vm/return_data.zig").ReturnData;
 
 /// EVM execution frame representing a single call context.
 ///

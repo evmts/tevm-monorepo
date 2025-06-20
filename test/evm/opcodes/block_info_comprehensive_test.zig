@@ -1,6 +1,7 @@
 const std = @import("std");
 const testing = std.testing;
 const helpers = @import("test_helpers.zig");
+const evm = @import("evm");
 
 // ============================
 // 0x45-0x4A Block Information (continued)
@@ -20,7 +21,21 @@ test "GASLIMIT (0x45): Get block gas limit" {
     };
     
     for (test_cases) |gas_limit| {
-        test_vm.vm.context.block_gas_limit = gas_limit;
+        // Create context with test values
+        const context = evm.Context.init_with_values(
+            helpers.TestAddresses.ALICE,
+            0,
+            0,
+            0,
+            helpers.TestAddresses.ALICE,
+            0,
+            gas_limit,
+            1,
+            0,
+            &[_]u256{},
+            0
+        );
+        test_vm.vm.set_context(context);
         
         var contract = try helpers.createTestContract(
             allocator,
@@ -58,7 +73,21 @@ test "CHAINID (0x46): Get chain ID" {
     };
     
     for (test_cases) |chain_id| {
-        test_vm.vm.context.chain_id = chain_id;
+        // Create context with test values
+        const context = evm.Context.init_with_values(
+            helpers.TestAddresses.ALICE,
+            0,
+            0,
+            0,
+            helpers.TestAddresses.ALICE,
+            0,
+            0,
+            chain_id,
+            0,
+            &[_]u256{},
+            0
+        );
+        test_vm.vm.set_context(context);
         
         var contract = try helpers.createTestContract(
             allocator,
@@ -130,7 +159,21 @@ test "BASEFEE (0x48): Get block base fee" {
     };
     
     for (test_cases) |base_fee| {
-        test_vm.vm.context.block_base_fee = base_fee;
+        // Create context with test values
+        const context = evm.Context.init_with_values(
+            helpers.TestAddresses.ALICE,
+            0,
+            0,
+            0,
+            helpers.TestAddresses.ALICE,
+            0,
+            0,
+            1,
+            base_fee,
+            &[_]u256{},
+            0
+        );
+        test_vm.vm.set_context(context);
         
         var contract = try helpers.createTestContract(
             allocator,
@@ -162,7 +205,21 @@ test "BLOBHASH (0x49): Get blob versioned hash" {
         0x0202020202020202020202020202020202020202020202020202020202020202,
         0x0303030303030303030303030303030303030303030303030303030303030303,
     };
-    test_vm.vm.context.blob_hashes = &blob_hashes;
+    // Create context with test values
+    const context = evm.Context.init_with_values(
+        helpers.TestAddresses.ALICE,
+        0,
+        0,
+        0,
+        helpers.TestAddresses.ALICE,
+        0,
+        0,
+        1,
+        0,
+        &blob_hashes,
+        0
+    );
+    test_vm.vm.set_context(context);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -221,7 +278,21 @@ test "BLOBBASEFEE (0x4A): Get blob base fee" {
     };
     
     for (test_cases) |blob_base_fee| {
-        test_vm.vm.context.blob_base_fee = blob_base_fee;
+        // Create context with test values
+        const context = evm.Context.init_with_values(
+            helpers.TestAddresses.ALICE,
+            0,
+            0,
+            0,
+            helpers.TestAddresses.ALICE,
+            0,
+            0,
+            1,
+            0,
+            &[_]u256{},
+            blob_base_fee
+        );
+        test_vm.vm.set_context(context);
         
         var contract = try helpers.createTestContract(
             allocator,
@@ -253,7 +324,21 @@ test "Block info opcodes: Gas consumption" {
     
     // Set up blob hashes for BLOBHASH test
     const blob_hashes = [_]u256{0x01};
-    test_vm.vm.context.blob_hashes = &blob_hashes;
+    // Create context with test values
+    const context = evm.Context.init_with_values(
+        helpers.TestAddresses.ALICE,
+        0,
+        0,
+        0,
+        helpers.TestAddresses.ALICE,
+        0,
+        0,
+        1,
+        0,
+        &blob_hashes,
+        0
+    );
+    test_vm.vm.set_context(context);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -378,7 +463,21 @@ test "BLOBHASH: Empty blob list" {
     defer test_vm.deinit(allocator);
     
     // No blob hashes set (empty slice)
-    test_vm.vm.context.blob_hashes = &[_]u256{};
+    // Create context with test values
+    const context = evm.Context.init_with_values(
+        helpers.TestAddresses.ALICE,
+        0,
+        0,
+        0,
+        helpers.TestAddresses.ALICE,
+        0,
+        0,
+        1,
+        0,
+        &[_]u256{},
+        0
+    );
+    test_vm.vm.set_context(context);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -404,7 +503,21 @@ test "CHAINID: EIP-1344 behavior" {
     defer test_vm.deinit(allocator);
     
     // Test that CHAINID returns consistent value
-    test_vm.vm.context.chain_id = 1337; // Common test chain ID
+    // Create context with test values
+    const context = evm.Context.init_with_values(
+        helpers.TestAddresses.ALICE,
+        0,
+        0,
+        0,
+        helpers.TestAddresses.ALICE,
+        0,
+        0,
+        1337,
+        0,
+        &[_]u256{},
+        0
+    );
+    test_vm.vm.set_context(context);
     
     var contract = try helpers.createTestContract(
         allocator,
@@ -433,7 +546,21 @@ test "Stack operations: All opcodes push exactly one value" {
     
     // Set up blob hash for BLOBHASH
     const blob_hashes = [_]u256{0x01};
-    test_vm.vm.context.blob_hashes = &blob_hashes;
+    // Create context with test values
+    const context = evm.Context.init_with_values(
+        helpers.TestAddresses.ALICE,
+        0,
+        0,
+        0,
+        helpers.TestAddresses.ALICE,
+        0,
+        0,
+        1,
+        0,
+        &blob_hashes,
+        0
+    );
+    test_vm.vm.set_context(context);
     
     var contract = try helpers.createTestContract(
         allocator,

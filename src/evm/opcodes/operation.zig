@@ -2,7 +2,8 @@ const std = @import("std");
 const Opcode = @import("opcode.zig");
 const ExecutionError = @import("../execution/execution_error.zig");
 const Stack = @import("../stack/stack.zig");
-const Memory = @import("../memory.zig");
+const Frame = @import("../frame/frame.zig");
+const Memory = @import("../memory/memory.zig");
 
 /// Operation metadata and execution functions for EVM opcodes.
 ///
@@ -96,41 +97,39 @@ pub const MemorySizeFunc = *const fn (stack: *Stack) Opcode.MemorySize;
 /// how to execute an opcode, including validation, gas calculation,
 /// and the actual execution logic.
 pub const Operation = struct {
+    /// Execution function implementing the opcode logic.
+    /// This is called after all validations pass.
+    execute: ExecutionFunc,
 
-/// Execution function implementing the opcode logic.
-/// This is called after all validations pass.
-execute: ExecutionFunc,
+    /// Base gas cost for this operation.
+    /// This is the minimum gas charged regardless of parameters.
+    /// Defined by the Ethereum Yellow Paper and EIPs.
+    constant_gas: u64,
 
-/// Base gas cost for this operation.
-/// This is the minimum gas charged regardless of parameters.
-/// Defined by the Ethereum Yellow Paper and EIPs.
-constant_gas: u64,
+    /// Optional dynamic gas calculation function.
+    /// Operations with variable costs (storage, memory, calls) use this
+    /// to calculate additional gas based on runtime parameters.
+    dynamic_gas: ?GasFunc = null,
 
-/// Optional dynamic gas calculation function.
-/// Operations with variable costs (storage, memory, calls) use this
-/// to calculate additional gas based on runtime parameters.
-dynamic_gas: ?GasFunc = null,
+    /// Minimum stack items required before execution.
+    /// The operation will fail with StackUnderflow if the stack
+    /// has fewer than this many items.
+    min_stack: u32,
 
-/// Minimum stack items required before execution.
-/// The operation will fail with StackUnderflow if the stack
-/// has fewer than this many items.
-min_stack: u32,
+    /// Maximum stack size allowed before execution.
+    /// Ensures the operation won't cause stack overflow.
+    /// Calculated as: CAPACITY - (pushes - pops)
+    max_stack: u32,
 
-/// Maximum stack size allowed before execution.
-/// Ensures the operation won't cause stack overflow.
-/// Calculated as: CAPACITY - (pushes - pops)
-max_stack: u32,
+    /// Optional memory size calculation function.
+    /// Operations that access memory use this to determine
+    /// memory expansion requirements before execution.
+    memory_size: ?MemorySizeFunc = null,
 
-/// Optional memory size calculation function.
-/// Operations that access memory use this to determine
-/// memory expansion requirements before execution.
-memory_size: ?MemorySizeFunc = null,
-
-/// Indicates if this is an undefined/invalid opcode.
-/// Undefined opcodes consume all gas and fail execution.
-/// Used for opcodes not assigned in the current hardfork.
-undefined: bool = false,
-
+    /// Indicates if this is an undefined/invalid opcode.
+    /// Undefined opcodes consume all gas and fail execution.
+    /// Used for opcodes not assigned in the current hardfork.
+    undefined: bool = false,
 };
 
 /// Singleton NULL operation for unassigned opcode slots.

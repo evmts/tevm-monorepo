@@ -2,7 +2,7 @@
 
 ## Overview
 
-This directory contains a high-performance Ethereum Virtual Machine (EVM) implementation written in Zig. The implementation prioritizes both correctness and performance through a sophisticated two-stage safety system that enables aggressive optimizations while maintaining full Ethereum compatibility.
+This directory contains a high-performance Ethereum Virtual Machine (EVM) implementation written in Zig. The implementation prioritizes both correctness and performance through a sophisticated two-stage safety system that enables aggressive optimizations while maintaining full Ethereum compatibility. It includes support for modern Ethereum features including blob transactions (EIP-4844), advanced cryptographic precompiles (EIP-2537), and pluggable state management.
 
 ## Architecture
 
@@ -11,14 +11,18 @@ This directory contains a high-performance Ethereum Virtual Machine (EVM) implem
 The EVM implementation is organized into logical subdirectories for better code organization:
 
 - **`access_list/`** - EIP-2929/2930 access list management for gas optimization
+- **`blob/`** - EIP-4844 blob gas market and KZG verification for L2 data availability
 - **`constants/`** - EVM constants, gas costs, and memory limits
 - **`contract/`** - Contract management, bytecode analysis, and storage
+- **`crypto/`** - Cryptographic utilities including big integer arithmetic
 - **`execution/`** - All opcode implementations and execution logic
 - **`hardforks/`** - Hardfork specifications and chain rules
 - **`jump_table/`** - Opcode dispatch and operation specifications  
 - **`opcodes/`** - Opcode definitions and operation interface
+- **`precompiles/`** - Ethereum precompiled contracts including BLS12-381 suite
 - **`stack/`** - Stack implementation and validation logic
-- **`state/`** - EVM state management (accounts, storage, logs)
+- **`state/`** - EVM state management with pluggable database backends
+- **`transaction/`** - Transaction types including blob transactions
 
 ### Core Components
 
@@ -27,7 +31,8 @@ The EVM implementation is organized into logical subdirectories for better code 
 - **Memory (`memory.zig`)** - Context-aware memory management with copy-on-write semantics
 - **JumpTable (`jump_table/jump_table.zig`)** - Opcode dispatch with O(1) lookup
 - **Stack (`stack/stack.zig`)** - High-performance 1024-element stack
-- **State (`state/state.zig`)** - World state management
+- **State (`state/state.zig`)** - World state management with journal-based tracking
+- **Database Interface (`state/database_interface.zig`)** - Pluggable storage backend system
 
 ### Opcode Implementation (`execution/`)
 
@@ -44,6 +49,57 @@ Opcodes are organized by category in the execution directory:
 - `stack.zig` - POP, PUSH0-32, DUP1-16, SWAP1-16
 - `log.zig` - LOG0-4
 - `system.zig` - CREATE, CALL, DELEGATECALL, etc.
+
+### Precompiled Contracts (`precompiles/`)
+
+The EVM includes a comprehensive suite of precompiled contracts:
+- **Cryptographic**: ECRECOVER, SHA256, RIPEMD160, IDENTITY
+- **Elliptic Curve**: ECADD, ECMUL, ECPAIRING (BN254)
+- **BLS12-381 Suite**: G1ADD, G1MSM, G2ADD, G2MSM, PAIRING, MAP_FP_TO_G1, MAP_FP2_TO_G2
+- **Advanced**: MODEXP, BLAKE2F, KZG_POINT_EVALUATION
+
+## Modern Ethereum Features
+
+### Blob Transactions (EIP-4844)
+
+The implementation includes full support for blob-carrying transactions:
+- **Blob Gas Market** (`blob/blob_gas_market.zig`) - Independent fee market for blob data
+- **KZG Verification** (`blob/kzg_verification.zig`) - Cryptographic commitment verification
+- **Blob Transaction Type** (`transaction/blob_transaction.zig`) - Type 0x03 transactions
+- **Dynamic Pricing** - Exponential fee adjustment targeting 3 blobs per block
+
+### State Management Architecture
+
+The state system uses a sophisticated pluggable design:
+
+#### Database Interface
+```zig
+// Vtable-based polymorphic database backend
+pub const Database = struct {
+    vtable: *const VTable,
+    ptr: *anyopaque,
+    
+    pub const VTable = struct {
+        get_storage: *const fn(*anyopaque, Address, U256) anyerror!U256,
+        set_storage: *const fn(*anyopaque, Address, U256, U256) anyerror!void,
+        get_account: *const fn(*anyopaque, Address) anyerror!?Account,
+        // ... more methods
+    };
+};
+```
+
+#### Journal System
+- **Nested Snapshots** - Support for savepoints and rollbacks
+- **Operation Tracking** - Records all state modifications
+- **Efficient Reverts** - O(n) revert where n is operations since snapshot
+- **Memory Pooling** - Reuses journal entries to minimize allocations
+
+### Big Integer Arithmetic
+
+Custom implementation for cryptographic operations:
+- **Arbitrary Precision** - Supports integers up to 4096 bits
+- **Optimized for MODEXP** - Efficient modular exponentiation
+- **Ethereum Compatible** - Big-endian byte order matching EVM spec
 
 ## Performance Philosophy
 
@@ -88,6 +144,14 @@ const value = stack.peek_unsafe().*;
 stack.set_top_unsafe(processed_value);
 ```
 
+#### 4. Gas Calculation Patterns
+```zig
+// Consistent overflow-safe gas calculations
+const word_size = (size + 31) / 32;
+const memory_cost = try std.math.mul(u64, word_size, 3);
+const total_gas = try std.math.add(u64, base_gas, memory_cost);
+```
+
 ## Zig-Specific Style Guidelines
 
 ### Naming Conventions
@@ -114,6 +178,11 @@ if (!condition) unreachable;
 // Branch hints for performance
 @branchHint(.likely);   // Hot execution paths
 @branchHint(.cold);     // Error handling paths
+
+// Gas overflow protection
+const total = std.math.add(u64, base, dynamic) catch {
+    return ExecutionError.Error.OutOfGas;
+};
 ```
 
 ## Testing Guidelines
@@ -126,9 +195,11 @@ if (!condition) unreachable;
 ### Test Categories
 - **Unit tests** - Individual component correctness
 - **Integration tests** - Opcode interaction and execution flow
-- **Gas tests** - Accurate gas consumption
+- **Gas tests** - Accurate gas consumption including blob gas
 - **Stack validation tests** - Bounds checking logic
 - **Hardfork tests** - Compatibility across Ethereum versions
+- **Precompile tests** - Cryptographic operation correctness
+- **State tests** - Journal and database operations
 
 ### Testing Performance Code
 When testing performance-critical unsafe operations:
@@ -153,6 +224,7 @@ test "unsafe operations assume valid preconditions" {
 - **Cache-line aligned** for optimal memory access
 - **Hardfork-specific tables** for version compatibility
 - **Null entries default to UNDEFINED** operation
+- **Dynamic gas costs** computed based on input sizes
 
 ### Stack Implementation
 - **Fixed 1024-element capacity** per EVM specification
@@ -166,12 +238,22 @@ test "unsafe operations assume valid preconditions" {
 - **Copy-on-write semantics** for efficient forking
 - **Word-aligned operations** for optimal access patterns
 - **Bounds checking with overflow protection**
+- **Pooled allocations** for frequently used objects
 
 ### State Management
 - **HashMap-based storage** for efficient lookups
 - **Transient storage support** (EIP-1153)
 - **Event log collection** with memory management
 - **Account state tracking** (balances, nonces, code)
+- **Journal-based modifications** for atomic operations
+- **Pluggable database backends** via vtable pattern
+
+### Precompile Architecture
+- **Unified interface** for all precompiles
+- **Gas calculation before execution**
+- **Memory-safe output handling**
+- **Comprehensive error types**
+- **Optimized cryptographic implementations**
 
 ## Debugging and Development
 
@@ -180,6 +262,7 @@ The EVM uses structured debug logging throughout:
 ```zig
 Log.debug("VM.interpret: Starting execution, depth={}, gas={}", .{ depth, gas });
 Log.debug("Stack.pop: Popped value={}, new_size={}", .{ value, new_size });
+Log.debug("State.set_storage: key={}, old={}, new={}", .{ key, old_value, new_value });
 ```
 
 ### Common Pitfalls
@@ -188,12 +271,15 @@ Log.debug("Stack.pop: Popped value={}, new_size={}", .{ value, new_size });
 3. **Using `std.debug.assert`** - Prefer `if (!condition) unreachable;`
 4. **Forgetting bounds validation** - Unsafe operations assume valid preconditions
 5. **Missing branch hints** - Add `@branchHint()` to performance-critical paths
+6. **Ignoring gas overflow** - Always use checked arithmetic for gas calculations
+7. **Database error handling** - Check for storage failures and account existence
 
 ### Performance Profiling
 - Use `@setCold(true)` for error handling functions
 - Profile with different optimization levels
 - Test both debug and release builds
 - Verify WASM bundle size impact
+- Monitor allocator usage and memory patterns
 
 ## Hardfork Support
 
@@ -202,6 +288,8 @@ The implementation supports all major Ethereum hardforks from Frontier to Cancun
 - **Gas cost changes** handled in jump table generation
 - **New opcodes** added with appropriate hardfork guards
 - **EIP implementations** clearly documented and tested
+- **Blob transactions** enabled from Cancun onwards
+- **Transient storage** available from Cancun
 
 ## Future Considerations
 
@@ -210,12 +298,15 @@ The implementation supports all major Ethereum hardforks from Frontier to Cancun
 - **Optimized memory copying** for large data moves
 - **Better cache utilization** in hot paths
 - **Compile-time opcode specialization**
+- **Zero-copy state access** for read operations
 
 ### Architecture Evolution
 - **Pluggable opcode implementations** for custom VMs
 - **Parallel execution** for independent transactions
 - **State commitment optimization** for proof generation
 - **WebAssembly-specific optimizations**
+- **Advanced tracing and debugging infrastructure**
+- **Custom chain support** with configurable rules
 
 ## Contributing to EVM Code
 
@@ -225,5 +316,7 @@ The implementation supports all major Ethereum hardforks from Frontier to Cancun
 4. **Document optimizations** - Explain why unsafe operations are safe
 5. **Maintain compatibility** - Ensure changes work across all hardforks
 6. **Profile changes** - Verify performance improvements are real
+7. **Consider gas costs** - All operations must account for gas correctly
+8. **Handle errors gracefully** - Use appropriate error types and propagation
 
 Remember: The EVM implementation prioritizes both correctness and performance. Every optimization must maintain full Ethereum compatibility while providing measurable performance benefits.
