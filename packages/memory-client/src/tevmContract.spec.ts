@@ -23,13 +23,13 @@ describe('tevmContract', () => {
 	it('should execute a basic contract call', async () => {
 		const result = await tevmContract(client, contract.read.get())
 		expect(result).toBeDefined()
-		expect(result.rawData).toBeDefined()
+		expect(result.rawData).toBeHex()
 	})
 
 	it('should handle contract call with arguments', async () => {
 		const result = await tevmContract(client, contract.write.set(42n))
 		expect(result).toBeDefined()
-		expect(result.rawData).toBeDefined()
+		expect(result.rawData).toBeHex()
 	})
 
 	it('should handle contract call with transaction creation', async () => {
@@ -38,7 +38,8 @@ describe('tevmContract', () => {
 			createTransaction: true,
 		})
 		expect(result).toBeDefined()
-		expect(result.rawData).toBeDefined()
+		expect(result.rawData).toBeHex()
+		expect(result.txHash).toBeHex()
 	})
 
 	it('should handle errors gracefully', async () => {
@@ -61,6 +62,6 @@ describe('tevmContract', () => {
 			from: senderAddress,
 		})
 		expect(result).toBeDefined()
-		expect(result.rawData).toBeDefined()
+		expect(result.rawData).toBeHex()
 	})
 })
