@@ -1,5 +1,23 @@
 # @tevm/client
 
+## 1.0.0-next.148
+
+### Patch Changes
+
+- @tevm/predeploys@1.0.0-next.148
+- @tevm/vm@1.0.0-next.148
+- @tevm/address@1.0.0-next.148
+- @tevm/block@1.0.0-next.148
+- @tevm/blockchain@1.0.0-next.148
+- @tevm/common@1.0.0-next.148
+- @tevm/evm@1.0.0-next.148
+- @tevm/state@1.0.0-next.148
+- @tevm/tx@1.0.0-next.148
+- @tevm/utils@1.0.0-next.148
+- @tevm/receipt-manager@1.0.0-next.148
+- @tevm/txpool@1.0.0-next.148
+- @tevm/sync-storage-persister@1.0.0-next.148
+
 ## 1.0.0-next.147
 
 ### Patch Changes

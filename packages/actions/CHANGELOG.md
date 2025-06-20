@@ -1,5 +1,40 @@
 # @tevm/contract
 
+## 1.0.0-next.148
+
+### Patch Changes
+
+- 826c7fa: - **New Features**
+
+  - Improved error messages for contract call failures by decoding and displaying detailed revert reasons, including custom errors and panic codes.
+  - Added a comprehensive revert reason decoder to provide clearer explanations for contract execution failures.
+  - Error responses now include more context and human-readable explanations when contract execution fails.
+  - **Enhancements**
+    - Contract factories now handle ABI errors and events more precisely, resulting in more accurate contract interaction and event filtering.
+    - Error handling across contract calls and actions is more robust, with raw revert data included for advanced debugging.
+    - Expanded test coverage for revert scenarios, ensuring reliable error decoding in various contract call contexts.
+
+- 9e0e1cd: - Improved error responses to include additional raw data for better context when call procedures fail, and allow viem `writeContract` to decode contract reverts.
+  - Enhanced transaction receipt responses by converting numeric status values to hexadecimal strings for consistency.
+  - Updated error code for specific Ethereum errors to align with standard codes (3 for revert).
+- 05fa934: Fixed bug with eth_getBytecode being called with block tag
+- Updated dependencies [826c7fa]
+- Updated dependencies [9e0e1cd]
+  - @tevm/contract@1.0.0-next.148
+  - @tevm/errors@1.0.0-next.148
+  - @tevm/vm@1.0.0-next.148
+  - @tevm/address@1.0.0-next.148
+  - @tevm/block@1.0.0-next.148
+  - @tevm/blockchain@1.0.0-next.148
+  - @tevm/common@1.0.0-next.148
+  - @tevm/evm@1.0.0-next.148
+  - @tevm/state@1.0.0-next.148
+  - @tevm/tx@1.0.0-next.148
+  - @tevm/utils@1.0.0-next.148
+  - @tevm/node@1.0.0-next.148
+  - @tevm/receipt-manager@1.0.0-next.148
+  - @tevm/txpool@1.0.0-next.148
+
 ## 1.0.0-next.147
 
 ### Patch Changes
