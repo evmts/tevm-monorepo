@@ -6,9 +6,9 @@ This script analyzes the size of WASM builds, breaking down sections,
 functions, and providing optimization insights.
 
 Usage:
-    python3 scripts/wasm-analyze.py         # Analyze existing WASM files
-    python3 scripts/wasm-analyze.py --build # Build WASM first, then analyze
-    python3 scripts/wasm-analyze.py -b      # Same as --build
+    python3 scripts/wasm-analyze.py           # Build WASM first, then analyze (default)
+    python3 scripts/wasm-analyze.py --no-build # Analyze existing WASM files without building
+    python3 scripts/wasm-analyze.py -n        # Same as --no-build
 """
 
 import subprocess
@@ -106,8 +106,11 @@ def main():
     project_root = Path(__file__).parent.parent
     wasm_dir = project_root / "zig-out" / "dist"
     
-    # Build WASM if requested
-    if len(sys.argv) > 1 and sys.argv[1] in ['--build', '-b']:
+    # Check if we should skip building (default is to build)
+    skip_build = len(sys.argv) > 1 and sys.argv[1] in ['--no-build', '-n']
+    
+    # Build WASM unless --no-build is specified
+    if not skip_build:
         print("=== Building WASM ===\n")
         print("Building release WASM...")
         os.chdir(project_root)
@@ -122,6 +125,8 @@ def main():
             if result.returncode != 0:
                 print(f"Note: Debug build not available")
         print("Build complete!\n")
+    else:
+        print("=== Analyzing existing WASM files (skipping build) ===\n")
     
     # Find WASM files
     wasm_files = {

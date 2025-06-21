@@ -1,4 +1,5 @@
 const std = @import("std");
+const builtin = @import("builtin");
 const Opcode = @import("../opcodes/opcode.zig");
 const operation_module = @import("../opcodes/operation.zig");
 const Operation = operation_module.Operation;
@@ -230,41 +231,93 @@ pub fn init_from_hardfork(hardfork: Hardfork) JumpTable {
         }
     }
     // 0x60s & 0x70s: Push operations
-    inline for (0..32) |i| {
-        const n = i + 1;
-        jt.table[0x60 + i] = &Operation{
-            .execute = stack_ops.make_push(n),
-            .constant_gas = execution.gas_constants.GasFastestStep,
-            .min_stack = 0,
-            .max_stack = Stack.CAPACITY - 1,
-        };
+    if (comptime builtin.mode == .ReleaseSmall) {
+        // For size optimization, don't inline
+        for (0..32) |i| {
+            jt.table[0x60 + i] = &Operation{
+                .execute = stack_ops.push_n,
+                .constant_gas = execution.gas_constants.GasFastestStep,
+                .min_stack = 0,
+                .max_stack = Stack.CAPACITY - 1,
+            };
+        }
+    } else {
+        // For other modes, inline for performance
+        inline for (0..32) |i| {
+            const n = i + 1;
+            jt.table[0x60 + i] = &Operation{
+                .execute = stack_ops.make_push(n),
+                .constant_gas = execution.gas_constants.GasFastestStep,
+                .min_stack = 0,
+                .max_stack = Stack.CAPACITY - 1,
+            };
+        }
     }
     // 0x80s: Duplication Operations
-    inline for (1..17) |n| {
-        jt.table[0x80 + n - 1] = &Operation{
-            .execute = stack_ops.make_dup(n),
-            .constant_gas = execution.gas_constants.GasFastestStep,
-            .min_stack = @intCast(n),
-            .max_stack = Stack.CAPACITY - 1,
-        };
+    if (comptime builtin.mode == .ReleaseSmall) {
+        // For size optimization, don't inline
+        for (1..17) |n| {
+            jt.table[0x80 + n - 1] = &Operation{
+                .execute = stack_ops.dup_n,
+                .constant_gas = execution.gas_constants.GasFastestStep,
+                .min_stack = @intCast(n),
+                .max_stack = Stack.CAPACITY - 1,
+            };
+        }
+    } else {
+        // For other modes, inline for performance
+        inline for (1..17) |n| {
+            jt.table[0x80 + n - 1] = &Operation{
+                .execute = stack_ops.make_dup(n),
+                .constant_gas = execution.gas_constants.GasFastestStep,
+                .min_stack = @intCast(n),
+                .max_stack = Stack.CAPACITY - 1,
+            };
+        }
     }
     // 0x90s: Exchange Operations
-    inline for (1..17) |n| {
-        jt.table[0x90 + n - 1] = &Operation{
-            .execute = stack_ops.make_swap(n),
-            .constant_gas = execution.gas_constants.GasFastestStep,
-            .min_stack = @intCast(n + 1),
-            .max_stack = Stack.CAPACITY,
-        };
+    if (comptime builtin.mode == .ReleaseSmall) {
+        // For size optimization, don't inline
+        for (1..17) |n| {
+            jt.table[0x90 + n - 1] = &Operation{
+                .execute = stack_ops.swap_n,
+                .constant_gas = execution.gas_constants.GasFastestStep,
+                .min_stack = @intCast(n + 1),
+                .max_stack = Stack.CAPACITY,
+            };
+        }
+    } else {
+        // For other modes, inline for performance
+        inline for (1..17) |n| {
+            jt.table[0x90 + n - 1] = &Operation{
+                .execute = stack_ops.make_swap(n),
+                .constant_gas = execution.gas_constants.GasFastestStep,
+                .min_stack = @intCast(n + 1),
+                .max_stack = Stack.CAPACITY,
+            };
+        }
     }
     // 0xa0s: Logging Operations
-    inline for (0..5) |n| {
-        jt.table[0xa0 + n] = &Operation{
-            .execute = log.make_log(n),
-            .constant_gas = execution.gas_constants.LogGas + execution.gas_constants.LogTopicGas * n,
-            .min_stack = @intCast(n + 2),
-            .max_stack = Stack.CAPACITY,
-        };
+    if (comptime builtin.mode == .ReleaseSmall) {
+        // For size optimization, don't inline
+        for (0..5) |n| {
+            jt.table[0xa0 + n] = &Operation{
+                .execute = log.log_n,
+                .constant_gas = execution.gas_constants.LogGas + execution.gas_constants.LogTopicGas * n,
+                .min_stack = @intCast(n + 2),
+                .max_stack = Stack.CAPACITY,
+            };
+        }
+    } else {
+        // For other modes, inline for performance
+        inline for (0..5) |n| {
+            jt.table[0xa0 + n] = &Operation{
+                .execute = log.make_log(n),
+                .constant_gas = execution.gas_constants.LogGas + execution.gas_constants.LogTopicGas * n,
+                .min_stack = @intCast(n + 2),
+                .max_stack = Stack.CAPACITY,
+            };
+        }
     }
     jt.validate();
     return jt;
