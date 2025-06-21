@@ -1,0 +1,24 @@
+[package]
+name = "revm_precompiles_wrapper"
+version = "0.1.0"
+edition = "2021"
+
+[workspace]
+# Empty workspace to prevent inheritance from parent
+
+[lib]
+crate-type = ["staticlib"]  # Build as a static library for Zig to link
+
+[dependencies]
+revm-precompile = { version = "22.0.0", default-features = false, features = ["std", "secp256k1"] }
+libc = "0.2"
+hex = "0.4"
+
+[build-dependencies]
+cbindgen = "0.24"
+
+[profile.release]
+panic = "abort"
+
+[dev-dependencies]
+cargo-expand = "1.0.109"
