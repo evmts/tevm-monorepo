@@ -112,6 +112,12 @@ pub const EvmState = @import("state/state.zig");
 /// Database interface for pluggable state storage
 pub const DatabaseInterface = @import("state/database_interface.zig").DatabaseInterface;
 
+/// Database error types
+pub const DatabaseError = @import("state/database_interface.zig").DatabaseError;
+
+/// Account state structure  
+pub const Account = @import("state/database_interface.zig").Account;
+
 /// Memory database implementation
 pub const MemoryDatabase = @import("state/memory_database.zig").MemoryDatabase;
 

@@ -115,6 +115,55 @@ pub fn build(b: *std.Build) void {
     compiler_wasm_mod.stack_check = false;
     compiler_wasm_mod.single_threaded = true;
 
+    // Create WASM-specific versions of modules
+    const address_wasm_mod = b.createModule(.{
+        .root_source_file = b.path("src/address/address.zig"),
+        .target = wasm_target,
+        .optimize = .ReleaseSmall,
+    });
+    address_wasm_mod.stack_check = false;
+    address_wasm_mod.single_threaded = true;
+
+    const rlp_wasm_mod = b.createModule(.{
+        .root_source_file = b.path("src/rlp/rlp.zig"),
+        .target = wasm_target,
+        .optimize = .ReleaseSmall,
+    });
+    rlp_wasm_mod.stack_check = false;
+    rlp_wasm_mod.single_threaded = true;
+
+    const utils_wasm_mod = b.createModule(.{
+        .root_source_file = b.path("src/utils/utils.zig"),
+        .target = wasm_target,
+        .optimize = .ReleaseSmall,
+    });
+    utils_wasm_mod.stack_check = false;
+    utils_wasm_mod.single_threaded = true;
+
+    const block_wasm_mod = b.createModule(.{
+        .root_source_file = b.path("src/block/block.zig"),
+        .target = wasm_target,
+        .optimize = .ReleaseSmall,
+    });
+    block_wasm_mod.stack_check = false;
+    block_wasm_mod.single_threaded = true;
+
+    const evm_wasm_mod = b.createModule(.{
+        .root_source_file = b.path("src/evm/evm.zig"),
+        .target = wasm_target,
+        .optimize = .ReleaseSmall,
+    });
+    evm_wasm_mod.stack_check = false;
+    evm_wasm_mod.single_threaded = true;
+
+    // Add imports to WASM modules
+    rlp_wasm_mod.addImport("utils", utils_wasm_mod);
+    address_wasm_mod.addImport("Rlp", rlp_wasm_mod);
+    block_wasm_mod.addImport("Address", address_wasm_mod);
+    evm_wasm_mod.addImport("Address", address_wasm_mod);
+    evm_wasm_mod.addImport("Block", block_wasm_mod);
+    evm_wasm_mod.addImport("Rlp", rlp_wasm_mod);
+
     const rlp_mod = b.createModule(.{
         .root_source_file = b.path("src/rlp/rlp.zig"),
         .target = target,
@@ -186,17 +235,20 @@ pub fn build(b: *std.Build) void {
     exe_mod.stack_check = false;
     exe_mod.single_threaded = true;
 
-    // Create WASM module with minimal WASM-specific source
+    // Create WASM module with C API wrapper
     const wasm_mod = b.createModule(.{
-        .root_source_file = b.path("src/root_wasm_minimal.zig"),
+        .root_source_file = b.path("src/main_c.zig"),
         .target = wasm_target,
         .optimize = .ReleaseSmall,
     });
     wasm_mod.stack_check = false;
     wasm_mod.single_threaded = true;
 
-    // Don't add dependencies for minimal WASM build
-    // We'll add them back once we fix the platform-specific issues
+    // Add dependencies for WASM build
+    wasm_mod.addImport("Address", address_wasm_mod);
+    wasm_mod.addImport("evm", evm_wasm_mod);
+    wasm_mod.addImport("Rlp", rlp_wasm_mod);
+    wasm_mod.addImport("utils", utils_wasm_mod);
 
     // Modules can depend on one another using the `std.Build.Module.addImport` function.
     exe_mod.addImport("zigevm", target_architecture_mod);

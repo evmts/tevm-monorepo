@@ -404,11 +404,11 @@ pub fn memory_gas_cost(current_size: u64, new_size: u64) u64 {
     // Use lookup table for common cases (up to 32KB)
     if (new_words < MEMORY_EXPANSION_LUT.len) {
         const current_cost = if (current_words < MEMORY_EXPANSION_LUT.len)
-            MEMORY_EXPANSION_LUT[current_words]
+            MEMORY_EXPANSION_LUT[@intCast(current_words)]
         else
             MemoryGas * current_words + (current_words * current_words) / QuadCoeffDiv;
 
-        return MEMORY_EXPANSION_LUT[new_words] - current_cost;
+        return MEMORY_EXPANSION_LUT[@intCast(new_words)] - current_cost;
     }
 
     // Fall back to calculation for larger sizes

@@ -174,7 +174,7 @@ pub fn validate(self: *JumpTable) void {
         if (operation.memory_size != null and operation.dynamic_gas == null) {
             @branchHint(.cold);
             // Log error instead of panicking
-            std.debug.print("Warning: Operation 0x{x} has memory size but no dynamic gas calculation\n", .{i});
+            Log.debug("Warning: Operation 0x{x} has memory size but no dynamic gas calculation", .{i});
             // Set to NULL to prevent issues
             self.table[i] = &operation_module.NULL_OPERATION;
         }
