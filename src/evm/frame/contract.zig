@@ -38,6 +38,7 @@
 //! - revm: https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/contract.rs
 //! - evmone: https://github.com/ethereum/evmone/blob/master/lib/evmone/execution_state.hpp
 const std = @import("std");
+const builtin = @import("builtin");
 const constants = @import("../constants/constants.zig");
 const bitvec = @import("bitvec.zig");
 const Address = @import("Address");
@@ -57,20 +58,14 @@ pub const StorageOperationError = error{
 };
 pub const CodeAnalysisError = std.mem.Allocator.Error;
 
-/// Global analysis cache (simplified version)
+/// Global analysis cache
 var analysis_cache: ?std.AutoHashMap([32]u8, *CodeAnalysis) = null;
-// Use conditional compilation for thread safety
-const is_single_threaded = @import("builtin").single_threaded;
-const Mutex = if (is_single_threaded) struct {
-    pub fn lock(self: *@This()) void {
-        _ = self;
-    }
-    pub fn unlock(self: *@This()) void {
-        _ = self;
-    }
-} else std.Thread.Mutex;
 
-var cache_mutex: Mutex = .{};
+// Comptime check for WASM target
+const is_wasm = builtin.target.cpu.arch == .wasm32;
+
+// Only include mutex for non-WASM builds
+var cache_mutex = if (!is_wasm) std.Thread.Mutex{} else {};
 
 /// Contract represents the execution context for a single call frame in the EVM.
 ///
@@ -503,8 +498,7 @@ pub fn is_code(self: *const Contract, pos: u64) bool {
 /// Attempts to consume gas from the contract's available gas.
 ///
 /// This is the primary gas accounting method, called before every
-/// operation to ensure sufficient gas remains. The inline directive
-/// ensures this hot-path function has minimal overhead.
+/// operation to ensure sufficient gas remains.
 ///
 /// ## Parameters
 /// - `amount`: Gas units to consume
@@ -519,10 +513,6 @@ pub fn is_code(self: *const Contract, pos: u64) bool {
 ///     return ExecutionError.OutOfGas;
 /// }
 /// ```
-///
-/// ## Note
-/// This method is marked inline for performance as it's called
-/// millions of times during contract execution.
 pub fn use_gas(self: *Contract, amount: u64) bool {
     if (self.gas < amount) return false;
     self.gas -= amount;
@@ -665,7 +655,6 @@ pub fn get_original_storage_value(self: *const Contract, slot: u256) ?u256 {
     return null;
 }
 
-/// Get opcode at position (inline for performance)
 pub fn get_op(self: *const Contract, n: u64) u8 {
     return if (n < self.code_size) self.code[@intCast(n)] else constants.STOP;
 }
@@ -747,8 +736,10 @@ pub fn deinit(self: *Contract, allocator: std.mem.Allocator, pool: ?*StoragePool
 /// // Analysis is now cached for future use
 /// ```
 pub fn analyze_code(allocator: std.mem.Allocator, code: []const u8, code_hash: [32]u8) CodeAnalysisError!*const CodeAnalysis {
-    cache_mutex.lock();
-    defer cache_mutex.unlock();
+    if (comptime !is_wasm) {
+        cache_mutex.lock();
+        defer cache_mutex.unlock();
+    }
 
     if (analysis_cache == null) {
         analysis_cache = std.AutoHashMap([32]u8, *CodeAnalysis).init(allocator);
@@ -821,8 +812,10 @@ pub fn contains_op(code: []const u8, opcodes: []const u8) bool {
 
 /// Clear the global analysis cache
 pub fn clear_analysis_cache(allocator: std.mem.Allocator) void {
-    cache_mutex.lock();
-    defer cache_mutex.unlock();
+    if (comptime !is_wasm) {
+        cache_mutex.lock();
+        defer cache_mutex.unlock();
+    }
 
     if (analysis_cache) |*cache| {
         var iter = cache.iterator();

@@ -317,6 +317,33 @@ pub fn build(b: *std.Build) void {
     const build_wasm_step = b.step("wasm", "Build the WebAssembly artifact");
     build_wasm_step.dependOn(&install_wasm.step);
 
+    // WASM analysis step (without building)
+    const wasm_analyze_step = b.step("wasm-analyze", "Analyze existing WASM size and function attribution");
+    
+    // Create a run step for the Python script with --no-build flag
+    const run_wasm_analyze = b.addSystemCommand(&.{
+        "python3",
+        "scripts/wasm-analyze.py",
+        "--no-build",
+    });
+    
+    // Make sure WASM is built before analyzing
+    run_wasm_analyze.step.dependOn(build_wasm_step);
+    
+    // Add to the wasm-analyze step
+    wasm_analyze_step.dependOn(&run_wasm_analyze.step);
+
+    // WASM build and analyze step (convenience) - now just runs the script since build is default
+    const wasm_build_analyze_step = b.step("wasm-build-analyze", "Build WASM and analyze size");
+    
+    // Run the analyze script (building is now default)
+    const run_wasm_build_analyze = b.addSystemCommand(&.{
+        "python3",
+        "scripts/wasm-analyze.py",
+    });
+    
+    wasm_build_analyze_step.dependOn(&run_wasm_build_analyze.step);
+
     // Define a run server step
     const run_server_cmd = b.addRunArtifact(server_exe);
     run_server_cmd.step.dependOn(b.getInstallStep());
