@@ -1225,6 +1225,12 @@ importers:
       '@tevm/common':
         specifier: workspace:^
         version: link:../../packages/common
+      '@tevm/contract':
+        specifier: workspace:^
+        version: link:../../packages/contract
+      '@tevm/memory-client':
+        specifier: workspace:^
+        version: link:../../packages/memory-client
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
