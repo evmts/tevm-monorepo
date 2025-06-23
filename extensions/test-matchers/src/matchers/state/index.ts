@@ -1,6 +1,6 @@
+import type { TevmNode } from '@tevm/node'
 import type { Client } from 'viem'
 import { toBeInitializedAccount } from './toBeInitializedAccount.js'
-import type { TevmNode } from '@tevm/node'
 
 export { toBeInitializedAccount }
 
