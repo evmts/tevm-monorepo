@@ -6,17 +6,17 @@ import { type Address, type Hex, hexToBigInt, numberToHex } from 'viem'
 
 /**
  * Gets the token balance change for a specific token and address by analyzing storage changes
+ * @param node - The TevmNode instance
  * @param tokenAddress - The token contract address
  * @param address - The address to check balance change for
  * @param prestateTrace - The prestate trace containing storage changes
- * @param node - The TevmNode instance
- * @returns The balance change as bigint
+ * @returns The balance change and slot information
  */
 export const getTokenBalanceChange = async (
+	node: TevmNode,
 	tokenAddress: Address,
 	address: Address,
 	prestateTrace: PrestateTraceResult<true>,
-	node: TevmNode,
 ): Promise<bigint> => {
 	// Get the current balance
 	const currentBalanceResponse = await contractHandler(node)({
@@ -65,6 +65,7 @@ export const getTokenBalanceChange = async (
 				const previousBalance = hexToBigInt(preSlotValue)
 				return currentBalance - previousBalance
 			} catch (error) {
+        // If there's an error, we'll try the next slot
 			} finally {
 				// Always restore the original value
 				await anvilSetStorageAtJsonRpcProcedure(node)({
@@ -78,5 +79,6 @@ export const getTokenBalanceChange = async (
 	}
 
 	// If no storage slot affected the balance, that means this account was untouched so its balance didn't change
+  // or it was touched but only accessed (balance is in pre state but not in post state)
 	return 0n
 }
