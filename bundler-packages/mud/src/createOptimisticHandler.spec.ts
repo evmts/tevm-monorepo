@@ -50,7 +50,7 @@ describe('createOptimisticHandler', () => {
 		expect(handler.getOptimisticState()).toMatchObject(stash.get())
 	})
 
-	// TODO: Fix block with hash does not exist error
+	// TODO: when eth_getProof is supported on tevm node
 	it.todo('should handle optimistic state with pending transactions', async () => {
 		const handler = createOptimisticHandler({
 			client: sessionClient,
@@ -82,7 +82,7 @@ describe('createOptimisticHandler', () => {
 		expect(optimisticState.config).toEqual(canonicalState.config)
 	})
 
-	// TODO: Fix block with hash does not exist error
+	// TODO: when eth_getProof is supported on tevm node
 	it.todo('should handle subscription to optimistic state changes', async () => {
 		const handler = createOptimisticHandler({
 			client: sessionClient,
@@ -116,7 +116,7 @@ describe('createOptimisticHandler', () => {
 		unsubscribe()
 	})
 
-	// TODO: Fix block with hash does not exist error
+	// TODO: when eth_getProof is supported on tevm node
 	it.todo('should handle transaction status subscriptions', async () => {
 		const handler = createOptimisticHandler({
 			client: sessionClient,
@@ -151,7 +151,7 @@ describe('createOptimisticHandler', () => {
 		unsubscribe()
 	})
 
-	// TODO: Fix block with hash does not exist error
+	// TODO: when eth_getProof is supported on tevm node
 	it.todo('should handle transaction removal from pool', async () => {
 		const handler = createOptimisticHandler({
 			client: sessionClient,
@@ -179,7 +179,7 @@ describe('createOptimisticHandler', () => {
 		expect(txPool.txsInPool).toBe(0)
 
 		// Optimistic state should now match canonical state
-		const optimisticState = await handler.getOptimisticState()
+		const optimisticState = handler.getOptimisticState()
 		const canonicalState = stash.get()
 		expect(optimisticState).toEqual(canonicalState)
 	})
@@ -196,7 +196,7 @@ describe('createOptimisticHandler', () => {
 		await expect(handler._.cleanup()).resolves.toBeUndefined()
 	})
 
-	// TODO: Fix block with hash does not exist error
+	// TODO: when eth_getProof is supported on tevm node
 	it.todo('should handle multiple pending transactions in order', async () => {
 		const handler = createOptimisticHandler({
 			client: sessionClient,
@@ -228,7 +228,7 @@ describe('createOptimisticHandler', () => {
 		expect(txPool.txsInPool).toBe(2)
 
 		// Get optimistic record - should reflect the last transaction
-		const optimisticRecord = await handler.getOptimisticRecord({
+		const optimisticRecord = handler.getOptimisticRecord({
 			table: config.tables.app__TestTable,
 			key: { key1: newRecord.key1, key2: newRecord.key2 },
 		})
