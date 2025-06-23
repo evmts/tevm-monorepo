@@ -66,9 +66,7 @@ pub fn new_window() Webui {
 
 /// Create a new webui window object using a specified window number.
 pub fn new_window_with_id(id: usize) !Webui {
-    if (id == 0 or id >= WEBUI_MAX_IDS) {
-        return WebUIError.CreateWindowError;
-    }
+    if (id == 0 or id >= WEBUI_MAX_IDS) return WebUIError.CreateWindowError;
     const handle = webui_new_window_id(id);
     return .{
         .window_handle = handle,
@@ -198,11 +196,8 @@ pub fn win32_get_hwnd(self: Webui) !windows.HWND {
         @compileError("Note: method win32GetHwnd only can call on MS windows!");
     }
     const tmp_hwnd = webui_win32_get_hwnd(self.window_handle);
-    if (tmp_hwnd) {
-        return @ptrCast(tmp_hwnd);
-    } else {
-        return WebUIError.HWNDError;
-    }
+    if (tmp_hwnd) return @ptrCast(tmp_hwnd);
+    return WebUIError.HWNDError;
 }
 
 /// Set the default embedded HTML favicon.

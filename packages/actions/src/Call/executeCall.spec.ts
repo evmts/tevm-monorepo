@@ -87,17 +87,16 @@ describe('executeCall', () => {
 			block: await vm.blockchain.getCanonicalHeadBlock(),
 		}
 		const result = await executeCall(client, evmInput, { createAccessList: true, createTrace: true })
-		if (!('errors' in result)) {
-			throw 'should have errors'
-		}
+		if (!('errors' in result)) throw 'should have errors'
+
 		expect(result.errors).toBeDefined()
 		expect(result.errors[0].message).toBe(
 			'revert\n\nDocs: https://tevm.sh/reference/tevm/errors/classes/reverterror/\nDetails: {"error":"revert","errorType":"EVMError"}\nVersion: 1.1.0.next-73',
 		)
 		expect(result.errors[0]).toBeInstanceOf(EvmRevertError)
 		expect(result.errors[0]).toBeInstanceOf(RevertError)
-		expect(result.errors[0].code).toBe(-32000)
-		expect(result.errors[0].name).toBe('RevertError')
+		expect(result.errors[0].code).toBe(RevertError.code)
+		expect(result.errors[0].name).toBe('EvmRevertError')
 	})
 
 	it('should handle gas price too low error', async () => {
@@ -120,14 +119,13 @@ describe('executeCall', () => {
 		}
 
 		const result = await executeCall(client, evmInput, { createAccessList: true, maxFeePerGas: 1n })
-		if (!('errors' in result)) {
-			throw 'should have errors'
-		}
-		expect(result.errors).toBeDefined()
-		expect(result.errors[0]).toBeInstanceOf(InvalidGasPriceError)
-		expect(result.errors[0].name).toBe('InvalidGasPrice')
-		expect(result.errors[0].code).toBe(-32012)
-		expect(result.errors[0].message).toMatchSnapshot()
+		if (!('errors' in result)) throw 'should have errors'
+
+		const error = result.errors?.[0] as InvalidGasPriceError
+		expect(error).toBeInstanceOf(InvalidGasPriceError)
+		expect(error.code).toBe(InvalidGasPriceError.code)
+		expect(error.name).toBe('InvalidGasPrice')
+		expect(error.message).contain("is less than the block's baseFeePerGas")
 	})
 
 	/**

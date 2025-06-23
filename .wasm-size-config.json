@@ -1,0 +1,9 @@
+{
+  "thresholds": {
+    "wasm_size_increase_percent": 5,
+    "gzip_size_increase_percent": 5,
+    "absolute_size_limit_kb": 1024
+  },
+  "description": "Configuration for WASM bundle size regression testing",
+  "note": "Size increases beyond these thresholds will fail CI builds to prevent bundle size regressions"
+}

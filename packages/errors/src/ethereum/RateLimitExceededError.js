@@ -30,8 +30,8 @@ import { BaseError } from './BaseError.js'
  *
  * @param {string} message - A human-readable error message.
  * @param {RateLimitExceededErrorParameters} [args={}] - Additional parameters for the BaseError.
- * @property {'RateLimitExceeded'} _tag - Same as name, used internally.
- * @property {'RateLimitExceeded'} name - The name of the error, used to discriminate errors.
+ * @property {string} _tag - Same as name, used internally.
+ * @property {string} name - The name of the error, used to discriminate errors.
  * @property {string} message - Human-readable error message.
  * @property {object} [meta] - Optional object containing additional information about the error.
  * @property {number} code - Error code, analogous to the code in JSON RPC error.
@@ -39,6 +39,12 @@ import { BaseError } from './BaseError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class RateLimitExceededError extends BaseError {
+	/**
+	 * The error code for RateLimitExceededError.
+	 * @type {number}
+	 */
+	static code = -32005
+
 	/**
 	 * Constructs a RateLimitExceededError.
 	 *
@@ -55,7 +61,7 @@ export class RateLimitExceededError extends BaseError {
 				docsPath: '/reference/tevm/errors/classes/ratelimitexceedederror/',
 			},
 			tag,
-			-32010,
+			RateLimitExceededError.code,
 		)
 	}
 }

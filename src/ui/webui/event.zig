@@ -137,9 +137,7 @@ pub const Event = extern struct {
                 if (pointer.child == u8 or pointer.size == .slice) {
                     // sentinel element must be 0
                     const sentinel = pointer.sentinel();
-                    if (sentinel != null and sentinel.? == 0) {
-                        return e.return_string(val);
-                    }
+                    if (sentinel != null and sentinel.? == 0) return e.return_string(val);
                 }
                 const err_msg = std.fmt.comptimePrint("val's type ({}), only support [:0]const u8 for Pointer!", .{T});
                 @compileError(err_msg);

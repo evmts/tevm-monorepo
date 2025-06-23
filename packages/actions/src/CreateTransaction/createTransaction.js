@@ -149,7 +149,7 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
 			}
 		} catch (e) {
 			await poolPromise.catch(() => {})
-			if (typeof e === 'object' && e !== null && '_tag' in e && e._tag === 'AccountNotFoundError') {
+			if (typeof e === 'object' && e !== null && '_tag' in e && e._tag === 'AccountNotFound') {
 				return maybeThrowOnFail(throwOnFail ?? defaultThrowOnFail, {
 					errors: [
 						{

@@ -42,6 +42,9 @@ importers:
       '@effect/codemod':
         specifier: ^0.0.16
         version: 0.0.16
+      '@google/generative-ai':
+        specifier: ^0.24.1
+        version: 0.24.1
       '@monodon/rust':
         specifier: ^2.3.0
         version: 2.3.0(@napi-rs/cli@3.0.0-alpha.63(@emnapi/runtime@1.4.3)(emnapi@1.4.3))(nx@21.1.2(@swc/core@1.11.29))
@@ -1244,7 +1247,7 @@ importers:
         version: 0.2.0
       forge-std:
         specifier: github:foundry-rs/forge-std
-        version: https://codeload.github.com/foundry-rs/forge-std/tar.gz/f46d8301cf732f4f83846565aa475628265e51e0
+        version: https://codeload.github.com/foundry-rs/forge-std/tar.gz/ee93fdc45d1e5e4dee883afe0103109881a83549
       react-helmet:
         specifier: ^6.1.0
         version: 6.1.0(react@19.1.0)
@@ -1306,6 +1309,40 @@ importers:
       ethers:
         specifier: ^6.14.3
         version: 6.14.3(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+
+  extensions/test-matchers:
+    dependencies:
+      '@tevm/actions':
+        specifier: workspace:^
+        version: link:../../packages/actions
+      '@tevm/errors':
+        specifier: workspace:^
+        version: link:../../packages/errors
+      '@tevm/utils':
+        specifier: workspace:^
+        version: link:../../packages/utils
+      abitype:
+        specifier: ^1.0.8
+        version: 1.0.8(typescript@5.8.3)(zod@3.25.30)
+      ox:
+        specifier: ^0.7.2
+        version: 0.7.2(typescript@5.8.3)(zod@3.25.30)
+      viem:
+        specifier: ^2.30.1
+        version: 2.30.1(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.25.30)
+      vitest:
+        specifier: ^3.1.4
+        version: 3.1.4(@types/debug@4.1.12)(@types/node@22.15.21)(@vitest/ui@3.1.4)(jiti@2.4.2)(lightningcss@1.30.1)(msw@2.8.4(@types/node@22.15.21)(typescript@5.8.3))(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0)
+    devDependencies:
+      '@tevm/common':
+        specifier: workspace:^
+        version: link:../../packages/common
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
 
   extensions/viem:
     dependencies:
@@ -1547,6 +1584,9 @@ importers:
         specifier: ^3.25.30
         version: 3.25.30
     devDependencies:
+      '@tevm/decorators':
+        specifier: workspace:^
+        version: link:../decorators
       '@tevm/test-utils':
         specifier: workspace:^
         version: link:../../test/test-utils
@@ -3960,6 +4000,10 @@ packages:
 
   '@gerrit0/mini-shiki@3.4.2':
     resolution: {integrity: sha512-3jXo5bNjvvimvdbIhKGfFxSnKCX+MA8wzHv55ptzk/cx8wOzT+BRcYgj8aFN3yTiTs+zvQQiaZFr7Jce1ZG3fw==}
+
+  '@google/generative-ai@0.24.1':
+    resolution: {integrity: sha512-MqO+MLfM6kjxcKoy0p1wRzG3b4ZZXtPI+z2IE26UogS2Cm/XHO+7gGRBh6gcJsOiIVoH93UwKvW4HdgiOZCy9Q==}
+    engines: {node: '>=18.0.0'}
 
   '@hono/node-server@1.14.3':
     resolution: {integrity: sha512-KuDMwwghtFYSmIpr4WrKs1VpelTrptvJ+6x6mbUcZnFcc213cumTF5BdqfHyW93B19TNI4Vaev14vOI2a0Ie3w==}
@@ -11783,8 +11827,8 @@ packages:
     resolution: {integrity: sha512-W8+hV/qnShs4pZSIcHfYvKi7ds1FjNVW14XG5fMkkTBzbUGJh5BxbTc3KZZy7nWbPpaHLGnRszMZNZlLvi6qww==}
     hasBin: true
 
-  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/f46d8301cf732f4f83846565aa475628265e51e0:
-    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/f46d8301cf732f4f83846565aa475628265e51e0}
+  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/ee93fdc45d1e5e4dee883afe0103109881a83549:
+    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/ee93fdc45d1e5e4dee883afe0103109881a83549}
     version: 1.9.7
 
   form-data@4.0.2:
@@ -20218,6 +20262,8 @@ snapshots:
       '@shikijs/themes': 3.4.2
       '@shikijs/types': 3.4.2
       '@shikijs/vscode-textmate': 10.0.2
+
+  '@google/generative-ai@0.24.1': {}
 
   '@hono/node-server@1.14.3(hono@4.7.10)':
     dependencies:
@@ -31604,7 +31650,7 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/f46d8301cf732f4f83846565aa475628265e51e0: {}
+  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/ee93fdc45d1e5e4dee883afe0103109881a83549: {}
 
   form-data@4.0.2:
     dependencies:

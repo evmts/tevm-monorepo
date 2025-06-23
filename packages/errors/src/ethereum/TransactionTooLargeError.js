@@ -30,8 +30,8 @@ import { BaseError } from './BaseError.js'
  *
  * @param {string} message - A human-readable error message.
  * @param {TransactionTooLargeErrorParameters} [args={}] - Additional parameters for the BaseError.
- * @property {'TransactionTooLarge'} _tag - Same as name, used internally.
- * @property {'TransactionTooLarge'} name - The name of the error, used to discriminate errors.
+ * @property {string} _tag - Same as name, used internally.
+ * @property {string} name - The name of the error, used to discriminate errors.
  * @property {string} message - Human-readable error message.
  * @property {object} [meta] - Optional object containing additional information about the error.
  * @property {number} code - Error code, analogous to the code in JSON RPC error.
@@ -50,9 +50,9 @@ export class TransactionTooLargeError extends BaseError {
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {TransactionTooLargeErrorParameters} [args={}] - Additional parameters for the BaseError.
-	 * @param {string} [tag='TransactionTooLargeError'] - The tag for the error.
+	 * @param {string} [tag='TransactionTooLarge'] - The tag for the error.
 	 */
-	constructor(message, args = {}, tag = 'TransactionTooLargeError') {
+	constructor(message, args = {}, tag = 'TransactionTooLarge') {
 		super(
 			message,
 			{

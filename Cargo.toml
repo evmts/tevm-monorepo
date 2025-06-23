@@ -5,7 +5,7 @@ members = [
 	'bundler-packages/resolutions-rs',
 	'bundler-packages/runtime-rs',
 	'bundler-packages/solc-rs',
-	'src/Compilers',
+	'src/compilers',
 ]
 
 [profile.release]

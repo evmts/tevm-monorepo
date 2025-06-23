@@ -2,7 +2,9 @@ import { createAddress } from '@tevm/address'
 import { UnknownBlockError } from '@tevm/errors'
 import { createTevmNode } from '@tevm/node'
 import { SimpleContract, transports } from '@tevm/test-utils'
+import { numberToHex } from 'viem'
 import { describe, expect, it } from 'vitest'
+import { mineHandler } from '../Mine/mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { getCodeHandler } from './getCodeHandler.js'
 
@@ -95,6 +97,50 @@ describe(getCodeHandler.name, () => {
 		})
 
 		expect(code).toBe(contract.deployedBytecode)
+	})
+
+	it('should be able to fetch code with a block tag', async () => {
+		const client = createTevmNode()
+
+		await setAccountHandler(client)({
+			address: contract.address,
+			deployedBytecode: contract.deployedBytecode,
+		})
+
+		const { blockHashes } = await mineHandler(client)({ blockCount: 1 })
+		if (!blockHashes?.[0]) throw new Error('No block mined')
+
+		// Get code with a block tag
+		expect(
+			await getCodeHandler(client)({
+				address: contract.address,
+				blockTag: 'latest',
+			}),
+		).toBe(contract.deployedBytecode)
+
+		// Get code with a block hash
+		expect(
+			await getCodeHandler(client)({
+				address: contract.address,
+				blockTag: blockHashes[0],
+			}),
+		).toBe(contract.deployedBytecode)
+
+		// Get code with a block number
+		expect(
+			await getCodeHandler(client)({
+				address: contract.address,
+				blockTag: 1n,
+			}),
+		).toBe(contract.deployedBytecode)
+
+		// Get code with a block number as a hex string
+		expect(
+			await getCodeHandler(client)({
+				address: contract.address,
+				blockTag: numberToHex(1n),
+			}),
+		).toBe(contract.deployedBytecode)
 	})
 })
 

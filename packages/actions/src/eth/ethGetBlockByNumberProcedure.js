@@ -53,7 +53,7 @@ export const ethGetBlockByNumberJsonRpcProcedure = (client) => {
 			}
 		}
 		const includeTransactions = request.params[1] ?? false
-		const result = blockToJsonRpcBlock(block, includeTransactions)
+		const result = await blockToJsonRpcBlock(block, includeTransactions)
 		return {
 			method: request.method,
 			result,

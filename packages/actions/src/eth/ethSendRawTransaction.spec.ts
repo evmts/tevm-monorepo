@@ -1,6 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { tevmDefault } from '@tevm/common'
-import { InvalidTransactionError } from '@tevm/errors'
+import { BlobGasLimitExceededError, InvalidTransactionError } from '@tevm/errors'
 import { createTevmNode } from '@tevm/node'
 import { TransactionFactory } from '@tevm/tx'
 import { PREFUNDED_PRIVATE_KEYS, PREFUNDED_PUBLIC_KEYS, bytesToHex, hexToBytes, parseEther } from '@tevm/utils'
@@ -8,7 +8,7 @@ import { describe, expect, it } from 'vitest'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
-import { BlobGasLimitExceededError, ethSendRawTransactionHandler } from './ethSendRawTransactionHandler.js'
+import { ethSendRawTransactionHandler } from './ethSendRawTransactionHandler.js'
 
 describe('ethSendRawTransactionHandler', () => {
 	it('should handle a valid signed transaction', async () => {
