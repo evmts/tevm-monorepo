@@ -158,7 +158,9 @@ describe('toChangeTokenBalances', () => {
 					{ account: sender, amount: -amount - 1n },
 					{ account: recipient, amount: amount + 1n },
 				]),
-			).rejects.toThrowError('Expected transaction to change token balances by the specified amounts, but none of them passed')
+			).rejects.toThrowError(
+				'Expected transaction to change token balances by the specified amounts, but none of them passed',
+			)
 		})
 
 		it('should fail when some expected token balance changes are incorrect', async () => {
@@ -173,7 +175,9 @@ describe('toChangeTokenBalances', () => {
 					{ account: sender, amount: -amount }, // correct
 					{ account: recipient, amount: amount + 1n }, // incorrect
 				]),
-			).rejects.toThrowError("Expected transaction to change token balances by the specified amounts, but some of them didn't pass (at indexes [1])")
+			).rejects.toThrowError(
+				"Expected transaction to change token balances by the specified amounts, but some of them didn't pass (at indexes [1])",
+			)
 		})
 
 		it('should fail with invalid token address', async () => {
@@ -183,9 +187,7 @@ describe('toChangeTokenBalances', () => {
 				addToBlockchain: true,
 			})
 			await expect(() =>
-				expect(res).toChangeTokenBalances(node, '0xinvalid' as Address, [
-					{ account: sender, amount: -amount },
-				]),
+				expect(res).toChangeTokenBalances(node, '0xinvalid' as Address, [{ account: sender, amount: -amount }]),
 			).rejects.toThrowError('Invalid token address: 0xinvalid')
 		})
 
@@ -196,17 +198,13 @@ describe('toChangeTokenBalances', () => {
 				addToBlockchain: true,
 			})
 			await expect(() =>
-				expect(res).toChangeTokenBalances(node, tokenContract, [
-					{ account: '0xinvalid' as Address, amount: -amount },
-				]),
+				expect(res).toChangeTokenBalances(node, tokenContract, [{ account: '0xinvalid' as Address, amount: -amount }]),
 			).rejects.toThrowError('Invalid address: 0xinvalid')
 		})
 
 		it('should fail if the object does neither resolve to a tx hash nor a tx receipt', async () => {
 			await expect(() =>
-				expect({}).toChangeTokenBalances(node, tokenContract, [
-					{ account: recipient, amount: amount },
-				]),
+				expect({}).toChangeTokenBalances(node, tokenContract, [{ account: recipient, amount: amount }]),
 			).rejects.toThrowError(
 				'Transaction hash is undefined, you need to pass a transaction hash, receipt or call result, or a promise that resolves to one of those',
 			)
@@ -239,7 +237,9 @@ describe('toChangeTokenBalances', () => {
 					{ account: sender.address, amount: -amount },
 					{ account: recipient.address, amount: amount },
 				]),
-			).rejects.toThrowError('Expected transaction not to change token balances by the specified amounts, but all of them passed')
+			).rejects.toThrowError(
+				'Expected transaction not to change token balances by the specified amounts, but all of them passed',
+			)
 		})
 
 		it('should pass for mixed results with .not', async () => {
@@ -270,7 +270,9 @@ describe('toChangeTokenBalances', () => {
 					{ account: recipient.address, amount: amount + 1n },
 				])
 			} catch (error: any) {
-				expect(error.message).toContain("Expected transaction to change token balances by the specified amounts, but some of them didn't pass (at indexes [1])")
+				expect(error.message).toContain(
+					"Expected transaction to change token balances by the specified amounts, but some of them didn't pass (at indexes [1])",
+				)
 				expect(error.actual).toEqual([
 					{ account: sender.address, amount: -amount },
 					{ account: recipient.address, amount: amount },
