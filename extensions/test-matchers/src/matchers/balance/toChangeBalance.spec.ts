@@ -5,9 +5,9 @@ import {
 	ethGetTransactionReceiptHandler,
 	setAccountHandler,
 } from '@tevm/actions'
+import { ErrorContract, SimpleContract } from '@tevm/contract'
 import { createMemoryClient } from '@tevm/memory-client'
 import { createTevmNode } from '@tevm/node'
-import { ErrorContract, SimpleContract } from '@tevm/test-utils'
 import { PREFUNDED_ACCOUNTS } from '@tevm/utils'
 import type { Address } from 'viem'
 import { parseEther } from 'viem'
