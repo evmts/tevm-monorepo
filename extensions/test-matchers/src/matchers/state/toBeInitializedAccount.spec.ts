@@ -23,7 +23,6 @@ describe('toBeInitializedAccount', () => {
 			...SimpleContract.deploy(1n),
 			addToBlockchain: true,
 		})
-		console.log('createdAddress', createdAddress)
 		assert(createdAddress, 'createdAddress should be defined')
 		accountWithCode = createdAddress
 	})
