@@ -23,9 +23,5 @@
     "mprocs": "^0.7.1",
     "shx": "^0.3.4",
     "typescript": "5.4.2"
-  },
-  "engines": {
-    "node": "^20",
-    "pnpm": "^9"
   }
 }
