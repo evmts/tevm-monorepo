@@ -33,10 +33,7 @@ export const toChangeTokenBalances = async (
 
 			if (!isAddress(address)) throw new Error(`Invalid address: ${address}`)
 
-			const balanceChange = await getTokenBalanceChange(
-				tokenAddress,
-				address,
-			)
+			const balanceChange = await getTokenBalanceChange(tokenAddress, address)
 
 			return {
 				address,

@@ -65,7 +65,7 @@ export const getTokenBalanceChange = async (
 				const previousBalance = hexToBigInt(preSlotValue)
 				return currentBalance - previousBalance
 			} catch (error) {
-        // If there's an error, we'll try the next slot
+				// If there's an error, we'll try the next slot
 			} finally {
 				// Always restore the original value
 				await anvilSetStorageAtJsonRpcProcedure(node)({
@@ -79,6 +79,6 @@ export const getTokenBalanceChange = async (
 	}
 
 	// If no storage slot affected the balance, that means this account was untouched so its balance didn't change
-  // or it was touched but only accessed (balance is in pre state but not in post state)
+	// or it was touched but only accessed (balance is in pre state but not in post state)
 	return 0n
 }
