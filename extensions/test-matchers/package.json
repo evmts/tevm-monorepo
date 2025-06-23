@@ -81,6 +81,8 @@
 	},
 	"devDependencies": {
 		"@tevm/common": "workspace:^",
+		"@tevm/contract": "workspace:^",
+		"@tevm/memory-client": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
 	},
