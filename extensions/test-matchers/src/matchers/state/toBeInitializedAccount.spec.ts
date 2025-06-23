@@ -1,7 +1,7 @@
 import { deployHandler, setAccountHandler } from '@tevm/actions'
 import { createMemoryClient } from '@tevm/memory-client'
 import { createTevmNode } from '@tevm/node'
-import { SimpleContract } from '@tevm/test-utils'
+import { SimpleContract } from '@tevm/contract'
 import { type Address, parseEther } from 'viem'
 import { assert, beforeAll, describe, expect, it } from 'vitest'
 
