@@ -59,6 +59,8 @@ export {
 export {
 	type NoForkTransportSetErrorParameters,
 	NoForkTransportSetError,
+	NoForkUrlSetError,
+	type NoForkUrlSetErrorParameters,
 	type ForkErrorParameters,
 	ForkError,
 } from './fork/index.js'
@@ -101,6 +103,8 @@ export {
 	TransactionRejectedError,
 	TransactionTooLargeError,
 	BlockGasLimitExceededError,
+	BlobGasLimitExceededError,
+	type BlobGasLimitExceededErrorParameters,
 	type NonceTooLowErrorParameters,
 	type NonceTooHighErrorParameters,
 	TransactionUnderpricedError,

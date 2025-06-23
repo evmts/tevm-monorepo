@@ -1,5 +1,5 @@
 import { createAddress } from '@tevm/address'
-import { InvalidTransactionError } from '@tevm/errors'
+import { BlobGasLimitExceededError, InvalidTransactionError } from '@tevm/errors'
 import { prefundedAccounts } from '@tevm/node'
 import { createImpersonatedTx, createTxFromRLP, isBlobEIP4844Tx } from '@tevm/tx'
 import { EthjsAddress, bytesToHex, hexToBytes } from '@tevm/utils'
@@ -14,27 +14,6 @@ const txType = {
 }
 
 // TODO we should be properly checking signatures
-
-// TODO move this to @tevm/errors
-/**
- * Error thrown when blob gas limit is exceeded
- */
-export class BlobGasLimitExceededError extends Error {
-	/**
-	 * @type {'BlobGasLimitExceededError'}
-	 */
-	_tag = 'BlobGasLimitExceededError'
-
-	/**
-	 * @type {'BlobGasLimitExceededError'}
-	 * @override
-	 */
-	name = 'BlobGasLimitExceededError'
-
-	constructor() {
-		super('Blob gas limit exceeded')
-	}
-}
 
 /**
  * @internal

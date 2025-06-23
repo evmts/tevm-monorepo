@@ -17,6 +17,7 @@ import { BaseError } from './BaseError.js'
  * Represents an error that occurs when an execution error happens on the Ethereum node.
  *
  * This error is typically encountered when there is a general execution error that does not fit more specific categories.
+ * The error code -32015 is a non-standard extension used for EVM execution errors.
  *
  * @example
  * try {
@@ -31,10 +32,10 @@ import { BaseError } from './BaseError.js'
  * @param {string} message - A human-readable error message.
  * @param {ExecutionErrorParameters} [args={}] - Additional parameters for the BaseError.
  * @property {string} _tag - More discriminated version of name. Can be used to discriminate between errors with the same name.
- * @property {'ExecutionError'} name - The name of the error, used to discriminate errors.
+ * @property {string} name - The name of the error, used to discriminate errors.
  * @property {string} message - Human-readable error message.
  * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
+ * @property {number} code - Error code (-32015), a convention for EVM execution errors.
  * @property {string} docsPath - Path to the documentation for this error.
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
@@ -43,14 +44,14 @@ export class ExecutionError extends BaseError {
 	 * The error code for ExecutionError.
 	 * @type {number}
 	 */
-	static code = -32000
+	static code = -32015
 
 	/**
 	 * Constructs an ExecutionError.
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {ExecutionErrorParameters} [args={}] - Additional parameters for the BaseError.
-	 * @param {string} [tag] - Internal name/tag for the error.
+	 * @param {string} [tag='ExecutionError'] - The tag for the error.
 	 */
 	constructor(message, args = {}, tag = 'ExecutionError') {
 		super(

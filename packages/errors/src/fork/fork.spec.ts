@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { InvalidParamsError } from '../ethereum/InvalidParamsError.js'
 import { ForkError } from './ForkError.js'
 import { NoForkTransportSetError } from './NoForkUriSetError.js'
+import { NoForkUrlSetError } from './NoForkUrlSetError.js'
 
 describe('ForkError', () => {
 	it('should create a ForkError with error cause', () => {
@@ -66,6 +67,24 @@ describe('NoForkTransportSetError', () => {
 
 	it('should create a NoForkTransportSetError with custom docs parameters', () => {
 		const error = new NoForkTransportSetError('No fork transport set', {
+			docsBaseUrl: 'https://custom.docs',
+			docsPath: '/custom/path',
+		})
+		expect(error.message).toContain('https://custom.docs')
+		expect(error.message).toContain('/custom/path')
+	})
+})
+
+describe('NoForkUrlSetError', () => {
+	it('should create a NoForkUrlSetError with default parameters', () => {
+		const error = new NoForkUrlSetError('No fork url set')
+		expect(error.message).toContain('No fork url set')
+		expect(error.name).toBe('NoForkUrlSetError')
+		expect(error._tag).toBe('NoForkUrlSetError')
+	})
+
+	it('should create a NoForkUrlSetError with custom docs parameters', () => {
+		const error = new NoForkUrlSetError('No fork url set', {
 			docsBaseUrl: 'https://custom.docs',
 			docsPath: '/custom/path',
 		})

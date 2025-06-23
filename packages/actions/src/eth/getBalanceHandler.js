@@ -1,19 +1,8 @@
 import { createAddress } from '@tevm/address'
+import { NoForkUrlSetError } from '@tevm/errors'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
-import { bytesToHex, hexToBigInt, hexToBytes } from '@tevm/utils'
+import { bytesToHex, hexToBigInt, numberToHex } from '@tevm/utils'
 import { getPendingClient } from '../internal/getPendingClient.js'
-
-export class NoForkUrlSetError extends Error {
-	/**
-	 * @type {'NoForkUrlSetError'}
-	 */
-	_tag = 'NoForkUrlSetError'
-	/**
-	 * @type {'NoForkUrlSetError'}
-	 * @override
-	 */
-	name = 'NoForkUrlSetError'
-}
 
 /**
  * @param {import('@tevm/node').TevmNode} baseClient
@@ -36,30 +25,24 @@ export const getBalanceHandler =
 			return getBalanceHandler(mineResult.pendingClient)({ address, blockTag: 'latest' })
 		}
 		const block =
-			vm.blockchain.blocks.get(
-				/** @type any*/ (
-					typeof blockTag === 'string' && blockTag.startsWith('0x')
-						? hexToBytes(/** @type {import('@tevm/utils').Hex}*/ (blockTag))
-						: blockTag
-				),
-			) ??
+			vm.blockchain.blocks.get(/** @type any*/ (blockTag)) ??
 			vm.blockchain.blocksByTag.get(/** @type any*/ (blockTag)) ??
 			vm.blockchain.blocksByNumber.get(/** @type any*/ (blockTag))
 		const hasStateRoot = block && (await vm.stateManager.hasStateRoot(block.header.stateRoot))
 		if (hasStateRoot) {
 			const root = vm.stateManager._baseState.stateRoots.get(bytesToHex(block.header.stateRoot))
-			return root?.[address]?.balance ?? 0n
+			if (root?.[address]) return root[address].balance
 		}
-		// at this point the block doesn't exist so we must be in forked mode
+		// at this point the block doesn't exist or doesn't have state so we must be in forked mode
 		if (!baseClient.forkTransport) {
-			throw new NoForkUrlSetError()
+			throw new NoForkUrlSetError('No fork url set')
 		}
 		const fetcher = createJsonRpcFetcher(baseClient.forkTransport)
 		const jsonRpcResponse = await fetcher.request({
 			jsonrpc: '2.0',
 			id: 1,
 			method: 'eth_getBalance',
-			params: [address, blockTag],
+			params: [address, typeof blockTag === 'bigint' ? numberToHex(blockTag) : blockTag],
 		})
 		if (jsonRpcResponse.error) {
 			// TODO we should parse this into the correct error type

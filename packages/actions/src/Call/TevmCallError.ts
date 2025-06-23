@@ -48,7 +48,7 @@ import type { ValidateCallParamsError } from './validateCallParams.js'
  *     case 'CallHandlerOptsError':
  *     case 'InternalError':
  *     case 'ExecutionError':
- *     case 'RevertError':
+ *     case 'Revert':
  *     case 'HandleRunTxError':
  *     case 'ExecuteCallError':
  *       handleIt(typedError)

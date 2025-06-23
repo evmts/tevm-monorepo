@@ -72,4 +72,24 @@ describe('ethGetBlockByNumberJsonRpcProcedure', () => {
 		expect(response.error).toBeDefined()
 		expect(response.error).toMatchSnapshot()
 	})
+
+	it('should NOT return a Promise object in the result (reproduces bug)', async () => {
+		const request: EthGetBlockByNumberJsonRpcRequest = {
+			jsonrpc: '2.0',
+			method: 'eth_getBlockByNumber',
+			id: 1,
+			params: ['0x1', false], // Block number as hex
+		}
+
+		const response = await ethGetBlockByNumberJsonRpcProcedure(client)(request)
+		expect(response.error).toBeUndefined()
+		expect(response.result).toBeDefined()
+		
+		// This test reproduces the bug: the result should be a plain object, not a Promise
+		expect(response.result).not.toBeInstanceOf(Promise)
+		expect(typeof response.result).toBe('object')
+		expect(response.result).toHaveProperty('number')
+		expect(response.result).toHaveProperty('hash')
+		expect(response.result).toHaveProperty('parentHash')
+	})
 })

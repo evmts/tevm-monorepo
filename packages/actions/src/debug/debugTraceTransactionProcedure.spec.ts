@@ -11,7 +11,10 @@ describe('debugTraceTransactionJsonRpcProcedure', () => {
 		const client = createTevmNode()
 		const procedure = debugTraceTransactionJsonRpcProcedure(client)
 
-		const { createdAddress } = await deployHandler(client)({ addToBlockchain: true, ...SimpleContract.deploy(1n) })
+		const { createdAddress } = await deployHandler(client)({
+			addToBlockchain: true,
+			...SimpleContract.deploy(1n),
+		})
 		assert(createdAddress, 'Contract deployment failed')
 		const contract = SimpleContract.withAddress(createdAddress)
 
@@ -46,7 +49,10 @@ describe('debugTraceTransactionJsonRpcProcedure', () => {
 		const client = createTevmNode()
 		const procedure = debugTraceTransactionJsonRpcProcedure(client)
 
-		const { createdAddress } = await deployHandler(client)({ addToBlockchain: true, ...SimpleContract.deploy(1n) })
+		const { createdAddress } = await deployHandler(client)({
+			addToBlockchain: true,
+			...SimpleContract.deploy(1n),
+		})
 		assert(createdAddress, 'Contract deployment failed')
 		const contract = SimpleContract.withAddress(createdAddress)
 
@@ -82,7 +88,10 @@ describe('debugTraceTransactionJsonRpcProcedure', () => {
 		const client = createTevmNode()
 		const procedure = debugTraceTransactionJsonRpcProcedure(client)
 
-		const { createdAddress } = await deployHandler(client)({ addToBlockchain: true, ...SimpleContract.deploy(1n) })
+		const { createdAddress } = await deployHandler(client)({
+			addToBlockchain: true,
+			...SimpleContract.deploy(1n),
+		})
 		assert(createdAddress, 'Contract deployment failed')
 		const contract = SimpleContract.withAddress(createdAddress)
 
@@ -125,4 +134,7 @@ describe('debugTraceTransactionJsonRpcProcedure', () => {
 			}),
 		).toMatchSnapshot()
 	})
+
+	// TODO: this needs eth_getProof support
+	it.todo('should trace a transaction in a forked block')
 })

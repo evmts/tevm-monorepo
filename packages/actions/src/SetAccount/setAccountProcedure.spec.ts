@@ -1,5 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { ERC20 } from '@tevm/contract'
+import { InvalidAddressError } from '@tevm/errors'
 import { type TevmNode, createTevmNode } from '@tevm/node'
 import { bytesToHex, keccak256, numberToHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
@@ -56,8 +57,9 @@ describe('setAccountProcedure', () => {
 		}
 		const response = await setAccountProcedure(client)(request)
 		expect(response.error).toBeDefined()
-		if (!response.error) throw new Error('Expected error')
-		expect(response.error).toMatchSnapshot()
+		const error = response.error as InvalidAddressError
+		expect(error).toMatchSnapshot()
+		expect(error.code).toBe(InvalidAddressError.code)
 		expect(response.method).toBe('tevm_setAccount')
 		expect(response.id).toBe(request.id as any)
 	})

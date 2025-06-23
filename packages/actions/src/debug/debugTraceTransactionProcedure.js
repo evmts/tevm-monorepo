@@ -91,7 +91,7 @@ export const debugTraceTransactionJsonRpcProcedure = (client) => {
 			}
 		}
 
-		const vm = await client.getVm()
+		let vm = await client.getVm()
 		const block = await vm.blockchain.getBlock(hexToBytes(transactionByHashResponse.result.blockHash))
 		const parentBlock = await vm.blockchain.getBlock(block.header.parentHash)
 		const previousTx = block.transactions.filter(
@@ -101,7 +101,7 @@ export const debugTraceTransactionJsonRpcProcedure = (client) => {
 		// handle the case where the state root is from a preforked block
 		const hasStateRoot = await vm.stateManager.hasStateRoot(parentBlock.header.stateRoot)
 		if (!hasStateRoot && client.forkTransport) {
-			await forkAndCacheBlock(client, parentBlock)
+			vm = await forkAndCacheBlock(client, parentBlock)
 		} else if (!hasStateRoot) {
 			return {
 				jsonrpc: '2.0',

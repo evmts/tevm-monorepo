@@ -10,6 +10,7 @@ import { BaseError } from './BaseError.js'
  * @property {import('@ethereumjs/evm').EVMError|BaseError|Error} [cause] - The cause of the error.
  * @property {string} [details] - Details of the error.
  * @property {object} [meta] - Optional object containing additional information about the error.
+ * @property {import('viem').Hex} [raw] - The raw data of the revert.
  */
 
 /**
@@ -45,22 +46,23 @@ import { BaseError } from './BaseError.js'
  * @property {number} code - Error code (-32000), standard Ethereum JSON-RPC error code for server errors.
  * @property {string} docsPath - Path to the documentation for this error.
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
+ * @property {import('viem').Hex} [raw] - The raw data of the revert.
  */
 export class RevertError extends BaseError {
 	/**
 	 * The error code for RevertError.
 	 * @type {number}
 	 */
-	static code = -32000
+	static code = 3
 
 	/**
 	 * Constructs a RevertError.
 	 *
 	 * @param {string} message - Human-readable error message.
 	 * @param {RevertErrorParameters} [args={}] - Additional parameters for the BaseError.
-	 * @param {string} [tag='RevertError'] - The tag for the error.
+	 * @param {string} [tag='Revert'] - The tag for the error.
 	 */
-	constructor(message, args = {}, tag = 'RevertError') {
+	constructor(message, args = {}, tag = 'Revert') {
 		super(
 			message,
 			{
@@ -72,7 +74,8 @@ export class RevertError extends BaseError {
 			RevertError.code,
 		)
 
-		this.name = 'RevertError'
-		this._tag = 'RevertError'
+		if (args.raw) {
+			this.raw = args.raw
+		}
 	}
 }
