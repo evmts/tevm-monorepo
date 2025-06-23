@@ -1,7 +1,7 @@
 import { createAddress } from '@tevm/address'
 import { createEvm } from '@tevm/evm'
 import { createTevmNode } from '@tevm/node'
-import { EthjsAccount } from '@tevm/utils'
+import { bytesToHex, EthjsAccount, keccak256 } from '@tevm/utils'
 import { createVm } from '@tevm/vm'
 import { describe, expect, it } from 'vitest'
 import { setAccountHandler } from './setAccountHandler.js'
@@ -21,12 +21,10 @@ describe('setAccountHandler', () => {
 			nonce: 69n,
 		})
 		expect(res.errors).toBeUndefined()
-		// @ts-expect-error: Monorepo type conflict: TevmNode from source (/src) conflicts with the matcher's type from compiled output (/dist).
-		await expect(ERC20_ADDRESS).toHaveState(client, {
-			balance: 420n,
-			nonce: 69n,
-			deployedBytecode: ERC20_BYTECODE,
-		})
+		const account = (await vm.stateManager.getAccount(createAddress(ERC20_ADDRESS))) as EthjsAccount
+		expect(account?.balance).toBe(420n)
+		expect(account?.nonce).toBe(69n)
+		expect(bytesToHex(account.codeHash)).toEqualHex(keccak256(ERC20_BYTECODE))
 	})
 
 	it('should validate params', async () => {
