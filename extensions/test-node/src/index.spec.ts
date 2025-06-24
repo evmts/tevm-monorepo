@@ -1,10 +1,10 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import { optimism } from '@tevm/common'
 import { http } from 'viem'
-import { afterEach, assert, beforeEach, describe, expect, it } from 'vitest'
+import { assert, afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { createTestSnapshotClient } from './index.js'
 import type { TestSnapshotClient } from './types.js'
-import { optimism } from '@tevm/common'
 
 const BLOCK_NUMBER = '0x833493e'
 
@@ -14,7 +14,10 @@ describe.sequential(createTestSnapshotClient.name, () => {
 	beforeEach(async () => {
 		client = createTestSnapshotClient({
 			// TODO: replace with test-utils transports.optimism
-			tevm: { fork: { transport: http('https://mainnet.optimism.io')({}), blockTag: BigInt(BLOCK_NUMBER) }, common: optimism },
+			tevm: {
+				fork: { transport: http('https://mainnet.optimism.io')({}), blockTag: BigInt(BLOCK_NUMBER) },
+				common: optimism,
+			},
 			snapshot: { dir: path.join(process.cwd(), '__snapshots__', expect.getState().currentTestName ?? 'test') },
 		})
 
@@ -41,9 +44,7 @@ describe.sequential(createTestSnapshotClient.name, () => {
 		const harData = JSON.parse(harContent)
 		expect(harData.log.entries.length).toBe(1)
 		// `eth_getBlockByNumber`
-		expect(JSON.parse(harData.log.entries[0].response.content.text).result.number).toBe(
-			BLOCK_NUMBER,
-		)
+		expect(JSON.parse(harData.log.entries[0].response.content.text).result.number).toBe(BLOCK_NUMBER)
 	})
 
 	it('should read from cached rpc requests', async () => {
@@ -86,7 +87,9 @@ describe.sequential(createTestSnapshotClient.name, () => {
 	})
 })
 
-const findRecordingHarFiles = (dir = path.join(process.cwd(), '__snapshots__', expect.getState().currentTestName ?? 'test')): string[] => {
+const findRecordingHarFiles = (
+	dir = path.join(process.cwd(), '__snapshots__', expect.getState().currentTestName ?? 'test'),
+): string[] => {
 	if (!fs.existsSync(dir)) return []
 	const results: string[] = []
 	const list = fs.readdirSync(dir, { withFileTypes: true })
