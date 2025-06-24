@@ -2,7 +2,7 @@ import type { AddressInfo } from 'node:net'
 import { createMemoryClient } from '@tevm/memory-client'
 import { createServer } from '@tevm/server'
 import { type Hex, numberToHex } from 'viem'
-import { createPolly } from './internal/createPolly.js'
+import { createPolly } from './createPolly.js'
 import type { TestSnapshotClient, TestSnapshotClientOptions } from './types.js'
 
 /**
