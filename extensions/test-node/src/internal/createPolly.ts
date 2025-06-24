@@ -2,9 +2,9 @@ import FetchAdapter from '@pollyjs/adapter-fetch'
 import NodeHTTPAdapter from '@pollyjs/adapter-node-http'
 import { Polly } from '@pollyjs/core'
 import FSPersister from '@pollyjs/persister-fs'
-import { normalizeJsonRpcRequest } from './normalizeJsonRpcRequest.js'
-import { isCachedMethod } from './isCachedMethod.js'
 import { type Hex } from 'viem'
+import { isCachedMethod } from './isCachedMethod.js'
+import { normalizeJsonRpcRequest } from './normalizeJsonRpcRequest.js'
 
 let polly: Polly | null = null
 
@@ -40,11 +40,11 @@ export const createPolly = (snapshotDir: string) => {
 				},
 			})
 
-      // Record only specific URLs and cacheable methods, passthrough everything else
+			// Record only specific URLs and cacheable methods, passthrough everything else
 			polly.server
-      .any()
-      .filter(({ url, body }) => !cachedRpcUrls.some(cachedUrl => url.includes(cachedUrl)) || !isCachedMethod(body))
-      .passthrough()
+				.any()
+				.filter(({ url, body }) => !cachedRpcUrls.some((cachedUrl) => url.includes(cachedUrl)) || !isCachedMethod(body))
+				.passthrough()
 		},
 		destroy: () => {
 			polly?.stop()
