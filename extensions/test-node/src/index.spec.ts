@@ -25,10 +25,11 @@ describe.sequential(createTestSnapshotClient.name, () => {
 		await client.stop()
 	})
 
+	// For reference, if we didn't pass the `common` to the client, it would be forced to fetch the chainId before initializing polly
+	// which would make us miss fetching the forked block and caching it in snapshots
+	// meaning that these tests would fail as it would hit the state manager cache, without ever recording the snapshot
 	it('should cache cached rpc requests', async () => {
-		// Client requests `eth_getBlockByNumber` with the forked block during initialization
-		await client.tevm.tevmReady()
-
+		await client.tevm.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) })
 		// Stop the client to flush recordings before checking files
 		await client.stop()
 
@@ -46,7 +47,7 @@ describe.sequential(createTestSnapshotClient.name, () => {
 	})
 
 	it('should read from cached rpc requests', async () => {
-		await client.tevm.tevmReady()
+		await client.tevm.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) })
 		await client.stop()
 
 		const harFilePath = findRecordingHarFiles()?.[0]
@@ -55,20 +56,7 @@ describe.sequential(createTestSnapshotClient.name, () => {
 
 		// Make a request with a different ID to test method-based caching
 		await client.start()
-		const getBlockByNumberResponse = await fetch(client.rpcUrl, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				jsonrpc: '2.0',
-				method: 'eth_getBlockByNumber',
-				params: [BLOCK_NUMBER, false],
-				id: 999,
-			}),
-		})
-		expect(getBlockByNumberResponse.status).toBe(200)
-
+		await client.tevm.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) })
 		// Stop the client to flush recordings before checking files
 		await client.stop()
 
@@ -79,7 +67,7 @@ describe.sequential(createTestSnapshotClient.name, () => {
 	})
 
 	it('should not cache uncached rpc requests', async () => {
-		await client.tevm.tevmReady()
+		await client.tevm.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) })
 		await client.stop()
 
 		const harFilePath = findRecordingHarFiles()?.[0]
@@ -88,14 +76,7 @@ describe.sequential(createTestSnapshotClient.name, () => {
 
 		// Make a request with an uncached method
 		await client.start()
-		const response = await fetch(client.rpcUrl, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({ jsonrpc: '2.0', method: 'eth_blockNumber', id: 1 }),
-		})
-		expect(response.status).toBe(200)
+		await client.tevm.getBlock({ blockTag: 'latest' })
 
 		// Stop the client to flush recordings before checking files
 		await client.stop()
