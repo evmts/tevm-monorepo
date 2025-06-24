@@ -4,6 +4,7 @@ import { Polly } from '@pollyjs/core'
 import FSPersister from '@pollyjs/persister-fs'
 import { normalizeJsonRpcRequest } from './normalizeJsonRpcRequest.js'
 import { isCachedMethod } from './isCachedMethod.js'
+import { type Hex } from 'viem'
 
 let polly: Polly | null = null
 
@@ -13,7 +14,7 @@ export const createPolly = (snapshotDir: string) => {
 	Polly.register(FSPersister as any)
 
 	return {
-		init: () => {
+		init: (chainId: Hex) => {
 			const cachedRpcUrls = ['https://mainnet.optimism.io'] // TODO: retrieve that dynamically from provided fork urls + default chain url
 
 			polly = new Polly('@tevm/test-node', {
@@ -31,7 +32,7 @@ export const createPolly = (snapshotDir: string) => {
 					method: true,
 					headers: false, // Don't match headers to avoid auth token issues
 					// Normalize the request to match by block height
-					body: (body: string, req) => normalizeJsonRpcRequest(req.url, body),
+					body: (body: string) => normalizeJsonRpcRequest(chainId, body),
 					order: false,
 					url: {
 						hostname: true,
