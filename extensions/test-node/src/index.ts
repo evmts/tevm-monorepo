@@ -3,12 +3,15 @@ import { createMemoryClient } from '@tevm/memory-client'
 import { createServer } from '@tevm/server'
 import { createPolly } from './internal/createPolly.js'
 import type { TestSnapshotClient, TestSnapshotClientOptions } from './types.js'
+import { numberToHex, type Hex } from 'viem'
 
 /**
  * Creates a Tevm test client with a controllable server and JSON-RPC snapshotting.
  * @param options - Configuration for Tevm and the snapshotting behavior.
  */
 export const createTestSnapshotClient = (options: TestSnapshotClientOptions): TestSnapshotClient => {
+	const forkTransport = options.tevm.fork?.transport
+	if (forkTransport === undefined) throw new Error('You need to provide a fork transport')
 	const tevm = createMemoryClient(options.tevm)
 	const server = createServer(tevm)
 
@@ -23,7 +26,9 @@ export const createTestSnapshotClient = (options: TestSnapshotClientOptions): Te
 			return rpcUrl
 		},
 		start: async () => {
-			polly.init()
+			// We cache based on chainId
+			const chainId = options.tevm.common ? numberToHex(options.tevm.common.id) : (await (typeof forkTransport === 'function' ? forkTransport({}) : forkTransport).request({ method: 'eth_chainId' })) as Hex
+			polly.init(chainId)
 
 			return new Promise<void>((resolve, reject) => {
 				server.once('error', reject)
