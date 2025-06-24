@@ -1192,12 +1192,18 @@ importers:
       '@tevm/common':
         specifier: workspace:^
         version: link:../../packages/common
+      '@tevm/test-utils':
+        specifier: workspace:^
+        version: link:../../test/test-utils
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
       '@tevm/tsupconfig':
         specifier: workspace:^
         version: link:../../configs/tsupconfig
+      '@tevm/utils':
+        specifier: workspace:^
+        version: link:../../packages/utils
 
   extensions/viem:
     dependencies:
