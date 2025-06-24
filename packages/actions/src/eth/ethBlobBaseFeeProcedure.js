@@ -1,11 +1,9 @@
-// TODO add a  @returns {import('./EthProcedure.js').EthBlobBaseFeeJsonRpcProcedure}
-
 import { numberToHex } from '@tevm/utils'
 
 /**
  * Request handler for eth_coinbase JSON-RPC requests.
  * @param {import('@tevm/node').TevmNode} client
- * @returns {import('./EthProcedure.js').EthGasPriceJsonRpcProcedure}
+ * @returns {import('./EthProcedure.js').EthBlobBaseFeeJsonRpcProcedure}
  */
 export const ethBlobBaseFeeJsonRpcProcedure = (client) => {
 	return async (request) => {
