@@ -13,11 +13,8 @@ export const getChainId = async (client) => {
 		id: 1,
 		params: [],
 	})
-	console.log({ chainId, error })
 	if (error || chainId === undefined) {
-		console.error(error)
 		throw error
 	}
-	console.log(chainId)
 	return hexToNumber(/** @type {import("@tevm/utils").Hex}*/ (chainId))
 }
