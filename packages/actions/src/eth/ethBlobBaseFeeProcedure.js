@@ -1,7 +1,7 @@
 import { numberToHex } from '@tevm/utils'
 
 /**
- * Request handler for eth_coinbase JSON-RPC requests.
+ * Request handler for eth_blobBaseFee JSON-RPC requests.
  * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./EthProcedure.js').EthBlobBaseFeeJsonRpcProcedure}
  */
