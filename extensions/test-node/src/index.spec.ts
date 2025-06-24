@@ -8,7 +8,7 @@ import type { TestSnapshotClient } from './types.js'
 
 const BLOCK_NUMBER = '0x833493e'
 
-describe.sequential(createTestSnapshotClient.name, () => {
+describe(createTestSnapshotClient.name, () => {
 	let client: TestSnapshotClient
 
 	beforeEach(async () => {
