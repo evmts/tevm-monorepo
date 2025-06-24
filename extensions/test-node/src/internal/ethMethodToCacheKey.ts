@@ -51,6 +51,14 @@ const paramSelectors: {
 	eth_protocolVersion: () => [],
 	eth_sign: (req) => [normalizeHex(req.params[0]), normalizeHex(req.params[1])],
 	eth_signTransaction: (req) => [normalizeTx(req.params[0])],
+	// TODO: when we support EIP-4337 (bundler)
+	// eth_getUserOperationByHash
+	// eth_getUserOperationReceipt
+	// eth_supportedEntryPoints
+	// TODO: when implemented
+	// eth_feeHistory (if newestBlock is not a block tag)
+	// eth_getProof (if block number is not a block tag)
+	// eth_simulateV1 (if blockParameter is not a block tag)
 }
 
 // Turn a request (that can be cached, we ignore non cacheable methods) into a cache key that depends on block height
