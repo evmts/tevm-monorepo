@@ -70,6 +70,7 @@
 		"@tevm/evm": "workspace:^",
 		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/logger": "workspace:^",
+		"@tevm/precompiles": "workspace:^",
 		"@tevm/predeploys": "workspace:^",
 		"@tevm/receipt-manager": "workspace:^",
 		"@tevm/state": "workspace:^",

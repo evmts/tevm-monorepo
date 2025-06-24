@@ -1882,6 +1882,9 @@ importers:
       '@tevm/logger':
         specifier: workspace:^
         version: link:../logger
+      '@tevm/precompiles':
+        specifier: workspace:^
+        version: link:../precompiles
       '@tevm/predeploys':
         specifier: workspace:^
         version: link:../predeploys
@@ -1922,6 +1925,9 @@ importers:
 
   packages/precompiles:
     dependencies:
+      '@noble/curves':
+        specifier: ^1.6.0
+        version: 1.9.1
       '@tevm/contract':
         specifier: workspace:^
         version: link:../contract
@@ -19249,8 +19255,8 @@ snapshots:
 
   '@scure/bip32@1.6.2':
     dependencies:
-      '@noble/curves': 1.8.1
-      '@noble/hashes': 1.7.1
+      '@noble/curves': 1.8.2
+      '@noble/hashes': 1.7.2
       '@scure/base': 1.2.5
 
   '@scure/bip32@1.7.0':
@@ -19276,7 +19282,7 @@ snapshots:
 
   '@scure/bip39@1.5.4':
     dependencies:
-      '@noble/hashes': 1.7.1
+      '@noble/hashes': 1.7.2
       '@scure/base': 1.2.5
 
   '@scure/bip39@1.6.0':
@@ -27403,8 +27409,8 @@ snapshots:
   ox@0.6.7(typescript@5.8.3)(zod@3.25.30):
     dependencies:
       '@adraffy/ens-normalize': 1.11.0
-      '@noble/curves': 1.8.1
-      '@noble/hashes': 1.7.1
+      '@noble/curves': 1.9.1
+      '@noble/hashes': 1.8.0
       '@scure/bip32': 1.6.2
       '@scure/bip39': 1.5.4
       abitype: 1.0.8(typescript@5.8.3)(zod@3.25.30)
