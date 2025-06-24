@@ -6,7 +6,7 @@ import { createServer } from '@tevm/server'
 export type TestSnapshotClient = {
 	tevm: MemoryClient
 	server: HttpServer
-	rpcUrl: string
+	get rpcUrl(): string
 	start: () => Promise<void>
 	stop: () => Promise<void>
 }
@@ -18,16 +18,20 @@ export type TestSnapshotClient = {
 export const createTestSnapshotClient = (options: { tevm: MemoryClientOptions }): TestSnapshotClient => {
 	const tevm = createMemoryClient(options.tevm)
 	const server = createServer(tevm)
+	
+	let rpcUrl = ''
 
 	const client: TestSnapshotClient = {
 		tevm,
 		server,
-		rpcUrl: '', // will be updated in start()
+		get rpcUrl() {
+			return rpcUrl
+		},
 		start: async () => {
 			return new Promise<void>((resolve, reject) => {
 				server.listen(0, 'localhost', () => {
 					const address = server.address() as AddressInfo
-					client.rpcUrl = `http://localhost:${address.port}`
+					rpcUrl = `http://localhost:${address.port}`
 					resolve()
 				})
 				server.once('error', reject)
