@@ -76,12 +76,18 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
+		"@pollyjs/adapter-fetch": "^6.0.7",
+		"@pollyjs/adapter-node-http": "^6.0.6",
+		"@pollyjs/core": "^6.0.6",
+		"@pollyjs/persister-fs": "^6.0.6",
+		"@tevm/actions": "workspace:^",
 		"@tevm/memory-client": "workspace:^",
 		"@tevm/server": "workspace:^",
 		"viem": "^2.37.9",
 		"vitest": "^3.2.4"
 	},
 	"devDependencies": {
+		"@tevm/common": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
 	},

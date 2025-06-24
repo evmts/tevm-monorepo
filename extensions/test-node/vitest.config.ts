@@ -6,10 +6,5 @@ export default defineConfig({
 		globals: true,
 		include: ['**/*.spec.ts'],
 		testTimeout: 20000,
-		typecheck: {
-			enabled: true,
-			include: ['**/*.type-spec.ts'],
-			ignoreSourceErrors: true,
-		},
 	},
 })

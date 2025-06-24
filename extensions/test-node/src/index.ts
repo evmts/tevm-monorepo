@@ -1,25 +1,20 @@
-import type { Server as HttpServer } from 'node:http'
 import type { AddressInfo } from 'node:net'
-import { createMemoryClient, type MemoryClient, type MemoryClientOptions } from '@tevm/memory-client'
+import { createMemoryClient } from '@tevm/memory-client'
 import { createServer } from '@tevm/server'
-
-export type TestSnapshotClient = {
-	tevm: MemoryClient
-	server: HttpServer
-	get rpcUrl(): string
-	start: () => Promise<void>
-	stop: () => Promise<void>
-}
+import { createPolly } from './internal/createPolly.js'
+import type { TestSnapshotClient, TestSnapshotClientOptions } from './types.js'
 
 /**
  * Creates a Tevm test client with a controllable server and JSON-RPC snapshotting.
  * @param options - Configuration for Tevm and the snapshotting behavior.
  */
-export const createTestSnapshotClient = (options: MemoryClientOptions): TestSnapshotClient => {
-	const tevm = createMemoryClient(options)
+export const createTestSnapshotClient = (options: TestSnapshotClientOptions): TestSnapshotClient => {
+	const tevm = createMemoryClient(options.tevm)
 	const server = createServer(tevm)
 
 	let rpcUrl = ''
+
+	const polly = createPolly(options.snapshot?.dir ?? '__snapshots__')
 
 	const client: TestSnapshotClient = {
 		tevm,
@@ -28,17 +23,22 @@ export const createTestSnapshotClient = (options: MemoryClientOptions): TestSnap
 			return rpcUrl
 		},
 		start: async () => {
+			polly.init()
+
 			return new Promise<void>((resolve, reject) => {
+				server.once('error', reject)
+				server.once('listening', resolve)
+
 				server.listen(0, 'localhost', () => {
 					const address = server.address() as AddressInfo
 					rpcUrl = `http://localhost:${address.port}`
 					resolve()
 				})
-				server.once('error', reject)
 			})
 		},
 		stop: async () => {
-			return new Promise<void>((resolve, reject) => {
+			return new Promise<void>(async (resolve, reject) => {
+				polly.destroy()
 				if (!server.listening) return resolve()
 				server.close((err) => (err ? reject(err) : resolve()))
 			})
