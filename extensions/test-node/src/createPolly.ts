@@ -3,12 +3,12 @@ import NodeHTTPAdapter from '@pollyjs/adapter-node-http'
 import { Polly } from '@pollyjs/core'
 import FSPersister from '@pollyjs/persister-fs'
 import { type Hex } from 'viem'
-import { isCachedMethod } from './isCachedMethod.js'
-import { normalizeJsonRpcRequest } from './normalizeJsonRpcRequest.js'
-
-let polly: Polly | null = null
+import { isCachedMethod } from './internal/isCachedMethod.js'
+import { normalizeJsonRpcRequest } from './internal/normalizeJsonRpcRequest.js'
 
 export const createPolly = (snapshotDir: string) => {
+	let polly: Polly | null = null
+
 	Polly.register(NodeHTTPAdapter as any)
 	Polly.register(FetchAdapter as any)
 	Polly.register(FSPersister as any)
@@ -29,14 +29,12 @@ export const createPolly = (snapshotDir: string) => {
 					},
 				},
 				matchRequestsBy: {
-					method: true,
-					headers: false, // Don't match headers to avoid auth token issues
+					method: false,
+					url: false,
+					headers: false,
+					order: false,
 					// Normalize the request to match by block height
 					body: (body: string) => normalizeJsonRpcRequest(chainId, body),
-					order: false,
-					url: {
-						hostname: true,
-					},
 				},
 			})
 
