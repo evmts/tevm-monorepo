@@ -231,27 +231,17 @@ export const createTevmNode = (options = {}) => {
 
 	const evmPromise = Promise.all([chainCommonPromise, stateManagerPromise, blockchainPromise]).then(
 		([common, stateManager, blockchain]) => {
-			// Default precompiles
-			const defaultPrecompiles = [p256VerifyPrecompile()]
-			
-			// User-provided precompiles
-			const userPrecompiles = options.customPrecompiles ?? []
-			
-			// Create a set of user precompile addresses for efficient lookup
-			const userAddresses = new Set(userPrecompiles.map(p => p.address.toString()))
-			
-			// Filter out any default precompiles that are overridden by user precompiles
-			const filteredDefaults = defaultPrecompiles.filter(p => !userAddresses.has(p.address.toString()))
-			
-			// Merge filtered defaults with user precompiles
-			const finalPrecompiles = [...filteredDefaults, ...userPrecompiles]
-
 			return createEvm({
 				common,
 				stateManager,
 				blockchain,
 				allowUnlimitedContractSize: options.allowUnlimitedContractSize ?? false,
-				customPrecompiles: finalPrecompiles,
+				customPrecompiles: [
+					...[p256VerifyPrecompile()].filter(p => 
+						!(new Set((options.customPrecompiles ?? []).map(p => p.address.toString()))).has(p.address.toString())
+					),
+					...(options.customPrecompiles ?? [])
+				],
 				profiler: options.profiler ?? false,
 				loggingLevel,
 			})
