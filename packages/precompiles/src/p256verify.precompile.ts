@@ -24,7 +24,7 @@ export const P256_VERIFY_ADDRESS = new Address(hexToBytes('0x0000000000000000000
  * 
  * @returns The p256verify precompile object
  */
-export const createP256VerifyPrecompile = () => {
+export const p256VerifyPrecompile = () => {
 	return {
 		address: P256_VERIFY_ADDRESS,
 		function: (input: { data: Uint8Array }) => {

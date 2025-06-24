@@ -2,7 +2,7 @@ import { createChain } from '@tevm/blockchain'
 import { createCommon, tevmDefault } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createLogger } from '@tevm/logger'
-import { createP256VerifyPrecompile } from '@tevm/precompiles'
+import { p256VerifyPrecompile } from '@tevm/precompiles'
 import { ReceiptsManager, createMapDb } from '@tevm/receipt-manager'
 import { createStateManager } from '@tevm/state'
 import { TxPool } from '@tevm/txpool'
@@ -231,18 +231,27 @@ export const createTevmNode = (options = {}) => {
 
 	const evmPromise = Promise.all([chainCommonPromise, stateManagerPromise, blockchainPromise]).then(
 		([common, stateManager, blockchain]) => {
+			// Default precompiles
+			const defaultPrecompiles = [p256VerifyPrecompile()]
+			
+			// User-provided precompiles
 			const userPrecompiles = options.customPrecompiles ?? []
+			
+			// Create a set of user precompile addresses for efficient lookup
 			const userAddresses = new Set(userPrecompiles.map(p => p.address.toString()))
+			
+			// Filter out any default precompiles that are overridden by user precompiles
+			const filteredDefaults = defaultPrecompiles.filter(p => !userAddresses.has(p.address.toString()))
+			
+			// Merge filtered defaults with user precompiles
+			const finalPrecompiles = [...filteredDefaults, ...userPrecompiles]
 
 			return createEvm({
 				common,
 				stateManager,
 				blockchain,
 				allowUnlimitedContractSize: options.allowUnlimitedContractSize ?? false,
-				customPrecompiles: [
-					...[createP256VerifyPrecompile()].filter(p => !userAddresses.has(p.address.toString())),
-					...userPrecompiles
-				],
+				customPrecompiles: finalPrecompiles,
 				profiler: options.profiler ?? false,
 				loggingLevel,
 			})

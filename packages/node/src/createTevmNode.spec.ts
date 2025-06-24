@@ -1,6 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { createCommon, mainnet } from '@tevm/common'
-import { createP256VerifyPrecompile, P256_VERIFY_ADDRESS } from '@tevm/precompiles'
+import { p256VerifyPrecompile, P256_VERIFY_ADDRESS } from '@tevm/precompiles'
 import { definePredeploy } from '@tevm/predeploys'
 import { CacheType, ContractCache, StorageCache } from '@tevm/state'
 import { createSyncStoragePersister } from '@tevm/sync-storage-persister'
