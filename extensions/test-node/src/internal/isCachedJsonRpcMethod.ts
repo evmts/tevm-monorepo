@@ -10,6 +10,8 @@ export const isCachedMethod = ({ method, params }: EIP1193Parameters<EIP1474Meth
 	switch (method) {
 		case 'eth_accounts':
 			return false
+		case 'eth_blobBaseFee':
+			return false
 		case 'eth_blockNumber':
 			return false
 		case 'eth_chainId':
@@ -93,6 +95,18 @@ export const isCachedMethod = ({ method, params }: EIP1193Parameters<EIP1474Meth
 			return false
 		case 'eth_uninstallFilter':
 			return false
+		// TODO: when we support EIP-4337 (bundler)
+		// eth_estimateUserOperationGas (not cached)
+		// eth_getUserOperationByHash
+		// eth_getUserOperationReceipt
+		// eth_sendUserOperation (not cached)
+		// eth_supportedEntryPoints
+		// TODO: when implemented
+		// eth_maxPriorityFeePerGas (this one is typed but not implemented)
+		// eth_feeHistory
+		// eth_getProof
+		// eth_maxPriorityFeePerGas
+		// eth_simulateV1
 	}
 
 	return false
