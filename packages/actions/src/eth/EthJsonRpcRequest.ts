@@ -310,6 +310,7 @@ export type EthCreateAccessListJsonRpcRequest = JsonRpcRequest<
 export type EthJsonRpcRequest =
 	| EthAccountsJsonRpcRequest
 	| EthAccountsJsonRpcRequest
+	| EthBlobBaseFeeJsonRpcRequest
 	| EthBlockNumberJsonRpcRequest
 	| EthCallJsonRpcRequest
 	| EthChainIdJsonRpcRequest
