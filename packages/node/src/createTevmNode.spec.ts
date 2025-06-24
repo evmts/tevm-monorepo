@@ -1,10 +1,11 @@
 import { createAddress } from '@tevm/address'
 import { createCommon, mainnet } from '@tevm/common'
+import { createP256VerifyPrecompile, P256_VERIFY_ADDRESS } from '@tevm/precompiles'
 import { definePredeploy } from '@tevm/predeploys'
 import { CacheType, ContractCache, StorageCache } from '@tevm/state'
 import { createSyncStoragePersister } from '@tevm/sync-storage-persister'
 import { SimpleContract, transports } from '@tevm/test-utils'
-import { bytesToHex, createAccount, createAddressFromString } from '@tevm/utils'
+import { bytesToHex, createAccount, createAddressFromString, hexToBytes } from '@tevm/utils'
 import { describe, expect, it, vi } from 'vitest'
 import { createTevmNode } from './createTevmNode.js'
 
@@ -225,6 +226,55 @@ describe('createTevmNode', () => {
 			expect((await client.getVm()).stateManager._baseState.getCurrentStateRoot()).toEqual(
 				(await copy.getVm()).stateManager._baseState.getCurrentStateRoot(),
 			)
+		})
+	})
+
+	describe('p256verify precompile integration', () => {
+		it('Loads p256verify precompile by default', async () => {
+			const client = createTevmNode()
+			const vm = await client.getVm()
+
+			// Test the p256verify precompile is available by default
+			const result = await vm.evm.runCall({
+				caller: hexToBytes('0x2a6c7bb649234ee2656550e163c8aaaed7318dcb'),
+				to: P256_VERIFY_ADDRESS.toBytes(),
+				data: hexToBytes(
+					'c74ace4c2ccdb912b6876fa178a4a7adb6ea0916bfa73aa2c73fb4df5ce133a6' + // r
+					'ae85d3657b170fb227cd404e3ae80e1974e885d6c0999094aad732979040be80' + // s
+					'2c795862878f462f200a403b062c1b24e7de207f0c16f3e4d98d4c221c5e653b' + // x
+					'2bd4817b59b8bdc0157af76bd95077d68a96c53a15c84fbd568c8759364aa1bf' + // y
+					'e928602caf3f7716ee83abc596147665d9adfe7154a05440555571cefbe9652c'   // msgHash
+				),
+			})
+
+			// Verify the precompile works and returns valid response
+			expect(result.execResult.returnValue).toHaveLength(32)
+			expect(result.execResult.executionGasUsed).toBe(3450n)
+		})
+
+		it('Allows user to override p256verify precompile', async () => {
+			const mockPrecompile = {
+				address: P256_VERIFY_ADDRESS,
+				function: () => ({
+					returnValue: new Uint8Array(32).fill(0xff), // Mock return value
+					executionGasUsed: 9999n, // Mock gas cost
+				}),
+			}
+
+			const client = createTevmNode({
+				customPrecompiles: [mockPrecompile],
+			})
+			const vm = await client.getVm()
+
+			const result = await vm.evm.runCall({
+				caller: hexToBytes('0x2a6c7bb649234ee2656550e163c8aaaed7318dcb'),
+				to: P256_VERIFY_ADDRESS.toBytes(),
+				data: new Uint8Array(160), // Any 160-byte input
+			})
+
+			// Verify the mock precompile was used instead of the default
+			expect(result.execResult.returnValue).toEqual(new Uint8Array(32).fill(0xff))
+			expect(result.execResult.executionGasUsed).toBe(9999n)
 		})
 	})
 })

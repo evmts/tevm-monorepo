@@ -61,6 +61,7 @@
     "test:run": "vitest"
   },
   "dependencies": {
+    "@noble/curves": "^1.6.0",
     "@tevm/contract": "workspace:^",
     "@tevm/evm": "workspace:^",
     "@tevm/utils": "workspace:^"
