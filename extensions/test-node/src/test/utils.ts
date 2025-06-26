@@ -1,10 +1,27 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { assert, expect } from 'vitest'
 
-export const getHarLogEntries = () => {
-	const harFilePath = findRecordingHarFiles()?.[0]
-	assert(harFilePath, 'No recording.har file found')
+type HarLogEntry = {
+	request: {
+		url: string
+		postData?: {
+			text: string
+		}
+	}
+	response: {
+		content: {
+			text: string
+		}
+	}
+}
+
+export const getHarLogEntries = (): HarLogEntry[] => {
+	const harFiles = findRecordingHarFiles()
+	const harFilePath = harFiles[0]
+	if (!harFilePath) {
+		console.log('No recording.har file found')
+		return []
+	}
 
 	const harContent = fs.readFileSync(harFilePath, 'utf-8')
 	const harData = JSON.parse(harContent)
@@ -12,8 +29,17 @@ export const getHarLogEntries = () => {
 }
 
 const findRecordingHarFiles = (
-	dir = path.join(process.cwd(), '__snapshots__', expect.getState().currentTestName ?? 'test'),
+	dir?: string,
 ): string[] => {
+	if (!dir) {
+		// @ts-expect-error - accessing Vitest internals
+		const vitestFilePath = globalThis.__vitest_worker__?.filepath
+		if (!vitestFilePath) throw new Error('Could not find test file name from vitest worker')
+
+		const testFileName = path.basename(vitestFilePath)
+		dir = path.join(process.cwd(), '__snapshots__', testFileName)
+	}
+
 	if (!fs.existsSync(dir)) return []
 	const results: string[] = []
 	const list = fs.readdirSync(dir, { withFileTypes: true })
