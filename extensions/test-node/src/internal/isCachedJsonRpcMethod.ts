@@ -1,12 +1,28 @@
 import type { BlockTag } from '@tevm/actions'
-import { type EIP1193Parameters, type EIP1474Methods, type Hex, isHex, type RpcBlockIdentifier } from 'viem'
+import { type EIP1193Parameters, type EIP1474Methods, type Hex, isHex, type RpcBlockIdentifier, type RpcTransactionRequest } from 'viem'
 
-// only cache if block number is fixed (hex) and not a tag
-const isFixedBlockTag = (param: BlockTag | Hex | RpcBlockIdentifier | undefined) => param && isHex(param)
+// only cache if block number is fixed (hex or earliest) and not a tag
+const isStaticBlockTag = (param: BlockTag | Hex | RpcBlockIdentifier | undefined) => param && (
+	(typeof param === 'object' && 'blockHash' in param && param.blockHash !== undefined) ||
+	(typeof param === 'object' && 'blockNumber' in param && param.blockNumber !== undefined) ||
+	isHex(param) ||
+	param === 'earliest'
+)
+
+// only cache if dynamic params (that are computed on the fly if not provided) are provided so we don't cache
+// apparently similar txs that in fact should produce a different output
+const isStaticTxParams = (tx: RpcTransactionRequest) => {
+	const isLegacy = tx.gasPrice !== undefined
+	const isEip1559 =
+		tx.maxFeePerGas !== undefined &&
+		tx.maxPriorityFeePerGas !== undefined
+
+	return tx.nonce !== undefined && tx.gas !== undefined && (isLegacy || isEip1559)
+}
 
 // This only tells polly if this should be cached or not.
 // Actually caching/retrieving from cache depending on the parameters is done separately.
-export const isCachedMethod = ({ method, params }: EIP1193Parameters<EIP1474Methods>) => {
+export const isCachedJsonRpcMethod = ({ method, params }: EIP1193Parameters<EIP1474Methods>) => {
 	switch (method) {
 		case 'eth_accounts':
 			return false
@@ -21,56 +37,62 @@ export const isCachedMethod = ({ method, params }: EIP1193Parameters<EIP1474Meth
 		case 'eth_coinbase':
 			return true
 		case 'eth_createAccessList':
-			return isFixedBlockTag(params[1])
+			return isStaticBlockTag(params[1]) // non provided params can be computed on the fly, it won't change the output (e.g. gasPrice, nonce)
 		case 'eth_estimateGas':
-			return isFixedBlockTag(params[1])
+			return isStaticBlockTag(params[1]) // same here
+		case 'eth_feeHistory':
+			return isStaticBlockTag(params[1])
 		case 'eth_gasPrice':
 			return false
 		case 'eth_getBalance':
-			return isFixedBlockTag(params[1])
+			return isStaticBlockTag(params[1])
 		case 'eth_getBlockByHash':
 			return true
 		case 'eth_getBlockByNumber':
-			return isFixedBlockTag(params[0])
+			return isStaticBlockTag(params[0])
 		case 'eth_getBlockTransactionCountByHash':
 			return true
 		case 'eth_getBlockTransactionCountByNumber':
-			return isFixedBlockTag(params[0])
+			return isStaticBlockTag(params[0])
 		case 'eth_getCode':
-			return isFixedBlockTag(params[1])
+			return isStaticBlockTag(params[1])
 		case 'eth_getFilterChanges':
 			return false
 		case 'eth_getFilterLogs':
 			return false
 		case 'eth_getLogs':
 			return (
-				isFixedBlockTag(params[0].fromBlock as BlockTag | Hex | undefined) &&
-				isFixedBlockTag(params[0].toBlock as BlockTag | Hex | undefined)
+				isStaticBlockTag(params[0].fromBlock as BlockTag | Hex | undefined) &&
+				isStaticBlockTag(params[0].toBlock as BlockTag | Hex | undefined)
 			)
+		case 'eth_getProof':
+			return isStaticBlockTag(params[2])
 		case 'eth_getStorageAt':
-			return isFixedBlockTag(params[2])
+			return isStaticBlockTag(params[2])
 		case 'eth_getTransactionByBlockHashAndIndex':
 			return true
 		case 'eth_getTransactionByBlockNumberAndIndex':
-			return isFixedBlockTag(params[0])
+			return isStaticBlockTag(params[0])
 		case 'eth_getTransactionByHash':
 			return true
 		case 'eth_getTransactionCount':
-			return isFixedBlockTag(params[1])
+			return isStaticBlockTag(params[1])
 		case 'eth_getTransactionReceipt':
 			return true
 		case 'eth_getUncleByBlockHashAndIndex':
 			return true
 		case 'eth_getUncleByBlockNumberAndIndex':
-			return isFixedBlockTag(params[0])
+			return isStaticBlockTag(params[0])
 		case 'eth_getUncleCountByBlockHash':
 			return true
 		case 'eth_getUncleCountByBlockNumber':
-			return isFixedBlockTag(params[0])
+			return isStaticBlockTag(params[0])
+		case 'eth_maxPriorityFeePerGas':
+			return false
 		case 'eth_newBlockFilter':
 			return false
 		case 'eth_newFilter':
-			return isFixedBlockTag(params[0].fromBlock) && isFixedBlockTag(params[0].toBlock)
+			return false
 		case 'eth_newPendingTransactionFilter':
 			return false
 		case 'eth_protocolVersion':
@@ -79,34 +101,27 @@ export const isCachedMethod = ({ method, params }: EIP1193Parameters<EIP1474Meth
 			return false
 		case 'eth_sendTransaction':
 			return false
+		case 'eth_simulateV1':
+			return isStaticBlockTag(params[1])
 		case 'eth_sign':
 			return true
-		case 'eth_signTransaction': {
-			const tx = params[0]
-			const isLegacy = tx.gasPrice !== undefined
-			const isEip1559 =
-				'maxFeePerGas' in tx &&
-				'maxPriorityFeePerGas' in tx &&
-				tx.maxFeePerGas !== undefined &&
-				tx.maxPriorityFeePerGas !== undefined
-			return tx.nonce !== undefined && tx.gas !== undefined && (isLegacy || isEip1559)
-		}
+		case 'eth_signTransaction':
+			return isStaticTxParams(params[0])
 		case 'eth_syncing':
 			return false
 		case 'eth_uninstallFilter':
 			return false
-		// TODO: when we support EIP-4337 (bundler)
-		// eth_estimateUserOperationGas (not cached)
-		// eth_getUserOperationByHash
-		// eth_getUserOperationReceipt
-		// eth_sendUserOperation (not cached)
-		// eth_supportedEntryPoints
-		// TODO: when implemented
-		// eth_maxPriorityFeePerGas (this one is typed but not implemented)
-		// eth_feeHistory
-		// eth_getProof
-		// eth_maxPriorityFeePerGas
-		// eth_simulateV1
+		// EIP-4337 (bundler)
+		case 'eth_estimateUserOperationGas':
+			return true
+		case 'eth_getUserOperationByHash':
+			return true
+		case 'eth_getUserOperationReceipt':
+			return true
+		case 'eth_sendUserOperation':
+			return false
+		case 'eth_supportedEntryPoints':
+			return true
 	}
 
 	return false
