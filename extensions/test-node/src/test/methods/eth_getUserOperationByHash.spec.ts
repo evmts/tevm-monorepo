@@ -1,17 +1,19 @@
-import { assert, describe, it } from 'vitest'
-import { client, USER_OPERATION_HASH } from '../../vitest.setup.js'
-import { getHarLogEntries } from '../utils.js'
+import { describe, it } from 'vitest'
+import { getTestClient } from '../../core/client.js'
+import { USER_OPERATION_HASH } from '../constants.js'
+import { assertMethodCached } from '../utils.js'
 
-describe.sequential('eth_getUserOperationByHash', () => {
+describe.todo('eth_getUserOperationByHash', () => {
+	const client = getTestClient()
+
 	// TODO: weirdly not available with any provider
 	it.todo('should create a cache entry', async () => {
 		await client.tevm.transport.tevm.forkTransport?.request({
 			method: 'eth_getUserOperationByHash',
 			params: [USER_OPERATION_HASH],
 		})
-		await client.stop()
+		await client.flush()
 
-		const entries = getHarLogEntries()
-		assert(entries.some(e => JSON.parse(e.request.postData?.text ?? '').method === 'eth_getUserOperationByHash'), 'eth_getUserOperationByHash should be cached')
+		assertMethodCached('eth_getUserOperationByHash')
 	})
 })

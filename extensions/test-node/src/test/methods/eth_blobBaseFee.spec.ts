@@ -1,13 +1,14 @@
-import { assert, describe, it } from 'vitest'
-import { client } from '../../vitest.setup.js'
-import { getHarLogEntries } from '../utils.js'
+import { describe, it } from 'vitest'
+import { getTestClient } from '../../core/client.js'
+import { assertMethodNotCached } from '../utils.js'
 
 describe('eth_blobBaseFee', () => {
+	const client = getTestClient()
+
 	it('should NOT create a cache entry', async () => {
 		await client.tevm.transport.tevm.forkTransport?.request({ method: 'eth_blobBaseFee' })
-		await client.stop()
+		await client.flush()
 
-		const entries = getHarLogEntries()
-		assert(!entries.some(e => JSON.parse(e.request.postData?.text ?? '').method === 'eth_blobBaseFee'), 'eth_blobBaseFee should NOT be cached')
+		assertMethodNotCached('eth_blobBaseFee')
 	})
 })

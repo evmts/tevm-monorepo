@@ -15,11 +15,7 @@ const paramSelectors: {
 	eth_chainId: () => [],
 	eth_coinbase: () => [],
 	eth_createAccessList: (req) => [...normalizeTx(req.params[0]), normalizeBlockTag(req.params[1])],
-	eth_estimateGas: (req) => [
-		...normalizeTx(req.params[0]),
-		normalizeBlockTag(req.params[1]),
-		req.params[2],
-	], // overrides have been serialized
+	eth_estimateGas: (req) => [...normalizeTx(req.params[0]), normalizeBlockTag(req.params[1]), req.params[2]], // overrides have been serialized
 	eth_feeHistory: (req) => [normalizeHex(req.params[0]), normalizeBlockTag(req.params[1]), req.params[2]],
 	eth_getBalance: (req) => [normalizeHex(req.params[0]), normalizeBlockTag(req.params[1])],
 	eth_getBlockByHash: (req) => [normalizeHex(req.params[0]), req.params[1]],
@@ -31,7 +27,11 @@ const paramSelectors: {
 		normalizeBlockTag(req.params[0].fromBlock as BlockTag | Hex | undefined),
 		normalizeBlockTag(req.params[0].toBlock as BlockTag | Hex | undefined),
 	],
-	eth_getProof: (req) => [normalizeHex(req.params[0]), req.params[1].map(normalizeHex), normalizeBlockTag(req.params[2])],
+	eth_getProof: (req) => [
+		normalizeHex(req.params[0]),
+		req.params[1].map(normalizeHex),
+		normalizeBlockTag(req.params[2]),
+	],
 	eth_getStorageAt: (req) => [
 		normalizeHex(req.params[0]),
 		normalizeHex(req.params[1]),
@@ -51,7 +51,11 @@ const paramSelectors: {
 	eth_signTransaction: (req) => [normalizeTx(req.params[0])],
 	eth_simulateV1: (req) => req.params, // TODO: normalize
 	// EIP-4337 (bundler)
-	eth_estimateUserOperationGas: (req) => [normalizeUserOperation(req.params[0]), normalizeHex(req.params[1]), req.params[2]],
+	eth_estimateUserOperationGas: (req) => [
+		normalizeUserOperation(req.params[0]),
+		normalizeHex(req.params[1]),
+		req.params[2],
+	],
 	eth_getUserOperationByHash: (req) => [normalizeHex(req.params[0])],
 	eth_getUserOperationReceipt: (req) => [normalizeHex(req.params[0])],
 	eth_supportedEntryPoints: () => [],

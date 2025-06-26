@@ -1,13 +1,14 @@
-import { assert, describe, it } from 'vitest'
-import { client } from '../../vitest.setup.js'
-import { getHarLogEntries } from '../utils.js'
+import { describe, it } from 'vitest'
+import { getTestClient } from '../../core/client.js'
+import { assertMethodNotCached } from '../utils.js'
 
-describe.sequential('eth_newBlockFilter', () => {
+describe('eth_newBlockFilter', () => {
+	const client = getTestClient()
+
 	it('should NOT create a cache entry', async () => {
 		await client.tevm.transport.tevm.forkTransport?.request({ method: 'eth_newBlockFilter' })
-		await client.stop()
+		await client.flush()
 
-		const entries = getHarLogEntries()
-		assert(!entries.some(e => JSON.parse(e.request.postData?.text ?? '').method === 'eth_newBlockFilter'), 'eth_newBlockFilter should NOT be cached')
+		assertMethodNotCached('eth_newBlockFilter')
 	})
 })
