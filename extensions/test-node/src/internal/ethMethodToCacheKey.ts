@@ -1,15 +1,16 @@
-import type { BlockTag, EthJsonRpcRequest } from '@tevm/actions'
-import { type Hex } from 'viem'
+import type { BlockTag } from '@tevm/actions'
+import { type EIP1193Parameters, type EIP1474Methods, type Hex } from 'viem'
 import { normalizeBlockTag } from './normalizeBlockTag.js'
 import { normalizeHex } from './normalizeHex.js'
 import { normalizeTx } from './normalizeTx.js'
+import { normalizeUserOperation } from './normalizeUserOperation.js'
 
-type CacheKeyParamsSelector<TMethod extends EthJsonRpcRequest['method']> = (
-	req: Extract<EthJsonRpcRequest, { method: TMethod }>,
+type CacheKeyParamsSelector<TMethod extends EIP1193Parameters<EIP1474Methods>['method']> = (
+	req: Extract<EIP1193Parameters<EIP1474Methods>, { method: TMethod }>,
 ) => unknown[]
 
 const paramSelectors: {
-	[TMethod in EthJsonRpcRequest['method']]?: CacheKeyParamsSelector<TMethod>
+	[TMethod in EIP1193Parameters<EIP1474Methods>['method']]?: CacheKeyParamsSelector<TMethod>
 } = {
 	eth_chainId: () => [],
 	eth_coinbase: () => [],
@@ -18,8 +19,8 @@ const paramSelectors: {
 		...normalizeTx(req.params[0]),
 		normalizeBlockTag(req.params[1]),
 		req.params[2],
-		req.params[3],
 	], // overrides have been serialized
+	eth_feeHistory: (req) => [normalizeHex(req.params[0]), normalizeBlockTag(req.params[1]), req.params[2]],
 	eth_getBalance: (req) => [normalizeHex(req.params[0]), normalizeBlockTag(req.params[1])],
 	eth_getBlockByHash: (req) => [normalizeHex(req.params[0]), req.params[1]],
 	eth_getBlockByNumber: (req) => [normalizeBlockTag(req.params[0]), req.params[1]],
@@ -30,6 +31,7 @@ const paramSelectors: {
 		normalizeBlockTag(req.params[0].fromBlock as BlockTag | Hex | undefined),
 		normalizeBlockTag(req.params[0].toBlock as BlockTag | Hex | undefined),
 	],
+	eth_getProof: (req) => [normalizeHex(req.params[0]), req.params[1].map(normalizeHex), normalizeBlockTag(req.params[2])],
 	eth_getStorageAt: (req) => [
 		normalizeHex(req.params[0]),
 		normalizeHex(req.params[1]),
@@ -44,28 +46,22 @@ const paramSelectors: {
 	eth_getUncleByBlockNumberAndIndex: (req) => [normalizeBlockTag(req.params[0]), normalizeHex(req.params[1])],
 	eth_getUncleCountByBlockHash: (req) => [normalizeHex(req.params[0])],
 	eth_getUncleCountByBlockNumber: (req) => [normalizeBlockTag(req.params[0])],
-	eth_newFilter: (req) => [
-		normalizeBlockTag(req.params[0].fromBlock as BlockTag | Hex | undefined),
-		normalizeBlockTag(req.params[0].toBlock as BlockTag | Hex | undefined),
-	],
 	eth_protocolVersion: () => [],
 	eth_sign: (req) => [normalizeHex(req.params[0]), normalizeHex(req.params[1])],
 	eth_signTransaction: (req) => [normalizeTx(req.params[0])],
-	// TODO: when we support EIP-4337 (bundler)
-	// eth_getUserOperationByHash
-	// eth_getUserOperationReceipt
-	// eth_supportedEntryPoints
-	// TODO: when implemented
-	// eth_feeHistory (if newestBlock is not a block tag)
-	// eth_getProof (if block number is not a block tag)
-	// eth_simulateV1 (if blockParameter is not a block tag)
+	eth_simulateV1: (req) => req.params, // TODO: normalize
+	// EIP-4337 (bundler)
+	eth_estimateUserOperationGas: (req) => [normalizeUserOperation(req.params[0]), normalizeHex(req.params[1]), req.params[2]],
+	eth_getUserOperationByHash: (req) => [normalizeHex(req.params[0])],
+	eth_getUserOperationReceipt: (req) => [normalizeHex(req.params[0])],
+	eth_supportedEntryPoints: () => [],
 }
 
 // Turn a request (that can be cached, we ignore non cacheable methods) into a cache key that depends on block height
 // i.e. we don't pass the full request as req.id for instance would make every request unique
-export const ethMethodToCacheKey = <TMethod extends EthJsonRpcRequest['method']>(
+export const ethMethodToCacheKey = <TMethod extends EIP1193Parameters<EIP1474Methods>['method']>(
 	method: TMethod,
-): ((req: Extract<EthJsonRpcRequest, { method: TMethod }>) => string) => {
+): ((req: Extract<EIP1193Parameters<EIP1474Methods>, { method: TMethod }> & { jsonrpc: string }) => string) => {
 	const selector = paramSelectors[method]
 
 	return (req) => {
