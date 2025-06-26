@@ -3,24 +3,28 @@ import { normalizeHex } from './normalizeHex.js'
 
 export const normalizeUserOperation = (userOp: RpcUserOperation) => [
 	// Authorization handling (SignedAuthorization)
-	...(userOp.authorization ? [
-		...(userOp.authorization.address ? [normalizeHex(userOp.authorization.address)] : []),
-		...(userOp.authorization.chainId ? [normalizeHex(userOp.authorization.chainId)] : []),
-		...(userOp.authorization.nonce ? [normalizeHex(userOp.authorization.nonce)] : []),
-		...(userOp.authorization.r ? [normalizeHex(userOp.authorization.r)] : []),
-		...(userOp.authorization.s ? [normalizeHex(userOp.authorization.s)] : []),
-		...(userOp.authorization.v ? [userOp.authorization.v] : []),
-		...(userOp.authorization.yParity ? [normalizeHex(userOp.authorization.yParity)] : []),
-	] : []),
+	...(userOp.authorization
+		? [
+				...(userOp.authorization.address ? [normalizeHex(userOp.authorization.address)] : []),
+				...(userOp.authorization.chainId ? [normalizeHex(userOp.authorization.chainId)] : []),
+				...(userOp.authorization.nonce ? [normalizeHex(userOp.authorization.nonce)] : []),
+				...(userOp.authorization.r ? [normalizeHex(userOp.authorization.r)] : []),
+				...(userOp.authorization.s ? [normalizeHex(userOp.authorization.s)] : []),
+				...(userOp.authorization.v ? [userOp.authorization.v] : []),
+				...(userOp.authorization.yParity ? [normalizeHex(userOp.authorization.yParity)] : []),
+			]
+		: []),
 	// EIP-7702 authorization handling (RpcAuthorization)
-	...(userOp.eip7702Auth ? [
-		...(userOp.eip7702Auth.address ? [normalizeHex(userOp.eip7702Auth.address)] : []),
-		...(userOp.eip7702Auth.chainId ? [normalizeHex(userOp.eip7702Auth.chainId)] : []),
-		...(userOp.eip7702Auth.nonce ? [normalizeHex(userOp.eip7702Auth.nonce)] : []),
-		...(userOp.eip7702Auth.r ? [normalizeHex(userOp.eip7702Auth.r)] : []),
-		...(userOp.eip7702Auth.s ? [normalizeHex(userOp.eip7702Auth.s)] : []),
-		...(userOp.eip7702Auth.yParity ? [normalizeHex(userOp.eip7702Auth.yParity)] : []),
-	] : []),
+	...(userOp.eip7702Auth
+		? [
+				...(userOp.eip7702Auth.address ? [normalizeHex(userOp.eip7702Auth.address)] : []),
+				...(userOp.eip7702Auth.chainId ? [normalizeHex(userOp.eip7702Auth.chainId)] : []),
+				...(userOp.eip7702Auth.nonce ? [normalizeHex(userOp.eip7702Auth.nonce)] : []),
+				...(userOp.eip7702Auth.r ? [normalizeHex(userOp.eip7702Auth.r)] : []),
+				...(userOp.eip7702Auth.s ? [normalizeHex(userOp.eip7702Auth.s)] : []),
+				...(userOp.eip7702Auth.yParity ? [normalizeHex(userOp.eip7702Auth.yParity)] : []),
+			]
+		: []),
 	// Required fields (common across all versions)
 	...(userOp.callData ? [normalizeHex(userOp.callData)] : []),
 	...(userOp.callGasLimit ? [normalizeHex(userOp.callGasLimit)] : []),
