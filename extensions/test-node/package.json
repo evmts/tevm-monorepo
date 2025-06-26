@@ -71,6 +71,7 @@
 		"lint:package": "bunx publint --strict && attw --pack",
 		"package:up": "pnpm up --latest",
 		"test": "vitest --watch",
+		"test:cleanup": "rm -rf __snapshots__",
 		"test:coverage": "vitest --coverage --run",
 		"test:run": "vitest run",
 		"typecheck": "tsc --noEmit"

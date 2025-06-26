@@ -20,4 +20,14 @@ export type TestSnapshotClient = {
 	rpcUrl: string
 	start: () => Promise<void>
 	stop: () => Promise<void>
+	/**
+	 * Flush Polly recordings to disk without stopping the server or Polly instance
+	 * This allows checking snapshots mid-test while keeping everything running
+	 */
+	flush: () => Promise<void>
+	/**
+	 * Complete cleanup - stops server, Polly instance, and resets client
+	 * Use this for final cleanup when done with all tests
+	 */
+	destroy: () => Promise<void>
 }
