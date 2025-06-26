@@ -1,18 +1,20 @@
-import { assert, describe, it } from 'vitest'
-import { BLOCK_NUMBER, client } from '../../vitest.setup.js'
-import { getHarLogEntries } from '../utils.js'
 import { PREFUNDED_ACCOUNTS } from '@tevm/utils'
+import { describe, it } from 'vitest'
+import { getTestClient } from '../../core/client.js'
+import { BLOCK_NUMBER } from '../constants.js'
+import { assertMethodCached, assertMethodNotCached } from '../utils.js'
 
-describe.sequential('eth_getBalance', () => {
+describe('eth_getBalance', () => {
+	const client = getTestClient()
+
 	it('should create a cache entry with a static block number', async () => {
 		await client.tevm.transport.tevm.forkTransport?.request({
 			method: 'eth_getBalance',
 			params: [PREFUNDED_ACCOUNTS[0].address, BLOCK_NUMBER],
 		})
-		await client.stop()
+		await client.flush()
 
-		const entries = getHarLogEntries()
-		assert(entries.some(e => JSON.parse(e.request.postData?.text ?? '').method === 'eth_getBalance'), 'eth_getBalance should be cached')
+		assertMethodCached('eth_getBalance', (params) => params[1] === BLOCK_NUMBER)
 	})
 
 	it('should NOT create a cache entry with a dynamic block tag', async () => {
@@ -20,9 +22,8 @@ describe.sequential('eth_getBalance', () => {
 			method: 'eth_getBalance',
 			params: [PREFUNDED_ACCOUNTS[0].address, 'latest'],
 		})
-		await client.stop()
+		await client.flush()
 
-		const entries = getHarLogEntries()
-		assert(!entries.some(e => JSON.parse(e.request.postData?.text ?? '').method === 'eth_getBalance'), 'eth_getBalance should NOT be cached')
+		assertMethodNotCached('eth_getBalance', (params) => params[1] === 'latest')
 	})
 })

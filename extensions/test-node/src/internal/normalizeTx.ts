@@ -1,8 +1,9 @@
-import { bytesToHex, type ExactPartial, type Hex, type RpcTransactionRequest } from 'viem'
+import { type ExactPartial, type Hex, type RpcTransactionRequest, bytesToHex } from 'viem'
 import { normalizeHex } from './normalizeHex.js'
 
 export const normalizeTx = (tx: ExactPartial<RpcTransactionRequest> & { chainId?: Hex | undefined }) => [
-	...(tx.accessList?.map(({ address, storageKeys }) => [normalizeHex(address), ...storageKeys.map(normalizeHex)]) ?? []),
+	...(tx.accessList?.map(({ address, storageKeys }) => [normalizeHex(address), ...storageKeys.map(normalizeHex)]) ??
+		[]),
 	...(tx.authorizationList?.map((list) => Object.values(list).map(normalizeHex)) ?? []),
 	...(tx.blobVersionedHashes?.map(normalizeHex) ?? []),
 	...(tx.blobs?.map((blob) => normalizeHex(typeof blob === 'string' ? blob : bytesToHex(blob))) ?? []),

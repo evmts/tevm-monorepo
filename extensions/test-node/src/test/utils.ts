@@ -1,5 +1,33 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import type { EIP1193Parameters, EIP1474Methods } from 'viem'
+import { assert } from 'vitest'
+
+export const assertMethodCached = <TMethod extends EIP1193Parameters<EIP1474Methods>['method']>(
+	method: TMethod,
+	withParams?: (params: Extract<EIP1193Parameters<EIP1474Methods>, { method: TMethod }>['params']) => boolean,
+) => {
+	const entries = getHarLogEntries()
+	const cached = entries.some(
+		(e) =>
+			JSON.parse(e.request.postData?.text ?? '').method === method &&
+			(withParams ? withParams(JSON.parse(e.request.postData?.text ?? '').params) : true),
+	)
+	assert(cached, `${method} should be cached`)
+}
+
+export const assertMethodNotCached = <TMethod extends EIP1193Parameters<EIP1474Methods>['method']>(
+	method: TMethod,
+	withParams?: (params: Extract<EIP1193Parameters<EIP1474Methods>, { method: TMethod }>['params']) => boolean,
+) => {
+	const entries = getHarLogEntries()
+	const cached = entries.some(
+		(e) =>
+			JSON.parse(e.request.postData?.text ?? '').method === method &&
+			(withParams ? withParams(JSON.parse(e.request.postData?.text ?? '').params) : true),
+	)
+	assert(!cached, `${method} should NOT be cached`)
+}
 
 type HarLogEntry = {
 	request: {
@@ -28,9 +56,7 @@ export const getHarLogEntries = (): HarLogEntry[] => {
 	return harData.log.entries as HarLogEntry[]
 }
 
-const findRecordingHarFiles = (
-	dir?: string,
-): string[] => {
+const findRecordingHarFiles = (dir?: string): string[] => {
 	if (!dir) {
 		// @ts-expect-error - accessing Vitest internals
 		const vitestFilePath = globalThis.__vitest_worker__?.filepath

@@ -1,4 +1,4 @@
-import { type BlockTag, type Hex, isHex, type RpcBlockIdentifier } from 'viem'
+import { type BlockTag, type Hex, type RpcBlockIdentifier, isHex } from 'viem'
 
 export const normalizeBlockTag = (tag: BlockTag | Hex | RpcBlockIdentifier | undefined) => {
 	if (typeof tag === 'object' && 'blockHash' in tag && tag.blockHash !== undefined) {
