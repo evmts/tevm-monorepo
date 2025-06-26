@@ -1,21 +1,26 @@
 import type { BlockTag } from '@tevm/actions'
-import { type EIP1193Parameters, type EIP1474Methods, type Hex, isHex, type RpcBlockIdentifier, type RpcTransactionRequest } from 'viem'
+import {
+	type EIP1193Parameters,
+	type EIP1474Methods,
+	type Hex,
+	type RpcBlockIdentifier,
+	type RpcTransactionRequest,
+	isHex,
+} from 'viem'
 
 // only cache if block number is fixed (hex or earliest) and not a tag
-const isStaticBlockTag = (param: BlockTag | Hex | RpcBlockIdentifier | undefined) => param && (
-	(typeof param === 'object' && 'blockHash' in param && param.blockHash !== undefined) ||
-	(typeof param === 'object' && 'blockNumber' in param && param.blockNumber !== undefined) ||
-	isHex(param) ||
-	param === 'earliest'
-)
+const isStaticBlockTag = (param: BlockTag | Hex | RpcBlockIdentifier | undefined) =>
+	param &&
+	((typeof param === 'object' && 'blockHash' in param && param.blockHash !== undefined) ||
+		(typeof param === 'object' && 'blockNumber' in param && param.blockNumber !== undefined) ||
+		isHex(param) ||
+		param === 'earliest')
 
 // only cache if dynamic params (that are computed on the fly if not provided) are provided so we don't cache
 // apparently similar txs that in fact should produce a different output
 const isStaticTxParams = (tx: RpcTransactionRequest) => {
 	const isLegacy = tx.gasPrice !== undefined
-	const isEip1559 =
-		tx.maxFeePerGas !== undefined &&
-		tx.maxPriorityFeePerGas !== undefined
+	const isEip1559 = tx.maxFeePerGas !== undefined && tx.maxPriorityFeePerGas !== undefined
 
 	return tx.nonce !== undefined && tx.gas !== undefined && (isLegacy || isEip1559)
 }
