@@ -1,18 +1,20 @@
-import { assert, describe, it } from 'vitest'
-import { BLOCK_NUMBER, client } from '../../vitest.setup.js'
-import { getHarLogEntries } from '../utils.js'
 import { PREFUNDED_ACCOUNTS } from '@tevm/utils'
+import { describe, it } from 'vitest'
+import { getTestClient } from '../../core/client.js'
+import { BLOCK_NUMBER } from '../constants.js'
+import { assertMethodCached, assertMethodNotCached } from '../utils.js'
 
-describe.sequential('eth_getStorageAt', () => {
+describe('eth_getStorageAt', () => {
+	const client = getTestClient()
+
 	it('should create a cache entry with a static block number', async () => {
 		await client.tevm.transport.tevm.forkTransport?.request({
 			method: 'eth_getStorageAt',
 			params: [PREFUNDED_ACCOUNTS[0].address, '0x0', BLOCK_NUMBER],
 		})
-		await client.stop()
+		await client.flush()
 
-		const entries = getHarLogEntries()
-		assert(entries.some(e => JSON.parse(e.request.postData?.text ?? '').method === 'eth_getStorageAt'), 'eth_getStorageAt should be cached')
+		assertMethodCached('eth_getStorageAt', (params) => params[2] === BLOCK_NUMBER)
 	})
 
 	it('should NOT create a cache entry with a dynamic block tag', async () => {
@@ -20,9 +22,8 @@ describe.sequential('eth_getStorageAt', () => {
 			method: 'eth_getStorageAt',
 			params: [PREFUNDED_ACCOUNTS[0].address, '0x0', 'latest'],
 		})
-		await client.stop()
+		await client.flush()
 
-		const entries = getHarLogEntries()
-		assert(!entries.some(e => JSON.parse(e.request.postData?.text ?? '').method === 'eth_getStorageAt'), 'eth_getStorageAt should NOT be cached')
+		assertMethodNotCached('eth_getStorageAt', (params) => params[2] === 'latest')
 	})
 })

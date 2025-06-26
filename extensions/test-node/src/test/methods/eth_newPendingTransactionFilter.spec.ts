@@ -1,17 +1,17 @@
-import { assert, describe, it } from 'vitest'
-import { client } from '../../vitest.setup.js'
-import { getHarLogEntries } from '../utils.js'
+import { describe, it } from 'vitest'
+import { getTestClient } from '../../core/client.js'
+import { assertMethodNotCached } from '../utils.js'
 
-describe.sequential('eth_newPendingTransactionFilter', () => {
+describe('eth_newPendingTransactionFilter', () => {
+	const client = getTestClient()
+
 	it('should NOT create a cache entry', async () => {
 		// This method might not be implemented
 		try {
 			await client.tevm.transport.tevm.forkTransport?.request({ method: 'eth_newPendingTransactionFilter' })
-		} catch (error) {
-		}
-		await client.stop()
+		} catch (error) {}
+		await client.flush()
 
-		const entries = getHarLogEntries()
-		assert(!entries.some(e => JSON.parse(e.request.postData?.text ?? '').method === 'eth_newPendingTransactionFilter'), 'eth_newPendingTransactionFilter should NOT be cached')
+		assertMethodNotCached('eth_newPendingTransactionFilter')
 	})
 })

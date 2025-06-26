@@ -1,17 +1,19 @@
-import { assert, describe, it } from 'vitest'
-import { BLOCK_NUMBER, client } from '../../vitest.setup.js'
-import { getHarLogEntries } from '../utils.js'
+import { describe, it } from 'vitest'
+import { getTestClient } from '../../core/client.js'
+import { BLOCK_NUMBER } from '../constants.js'
+import { assertMethodCached, assertMethodNotCached } from '../utils.js'
 
-describe.sequential('eth_getTransactionByBlockNumberAndIndex', () => {
+describe('eth_getTransactionByBlockNumberAndIndex', () => {
+	const client = getTestClient()
+
 	it('should create a cache entry with a static block number', async () => {
 		await client.tevm.transport.tevm.forkTransport?.request({
 			method: 'eth_getTransactionByBlockNumberAndIndex',
 			params: [BLOCK_NUMBER, '0x0'],
 		})
-		await client.stop()
+		await client.flush()
 
-		const entries = getHarLogEntries()
-		assert(entries.some(e => JSON.parse(e.request.postData?.text ?? '').method === 'eth_getTransactionByBlockNumberAndIndex'), 'eth_getTransactionByBlockNumberAndIndex should be cached')
+		assertMethodCached('eth_getTransactionByBlockNumberAndIndex', (params) => params[0] === BLOCK_NUMBER)
 	})
 
 	it('should NOT create a cache entry with a dynamic block tag', async () => {
@@ -19,9 +21,8 @@ describe.sequential('eth_getTransactionByBlockNumberAndIndex', () => {
 			method: 'eth_getTransactionByBlockNumberAndIndex',
 			params: ['latest', '0x0'],
 		})
-		await client.stop()
+		await client.flush()
 
-		const entries = getHarLogEntries()
-		assert(!entries.some(e => JSON.parse(e.request.postData?.text ?? '').method === 'eth_getTransactionByBlockNumberAndIndex'), 'eth_getTransactionByBlockNumberAndIndex should NOT be cached')
+		assertMethodNotCached('eth_getTransactionByBlockNumberAndIndex', (params) => params[0] === 'latest')
 	})
 })
