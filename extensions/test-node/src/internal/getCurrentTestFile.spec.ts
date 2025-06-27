@@ -1,4 +1,4 @@
-import { describe, expect, it, beforeEach } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { getCurrentTestFile } from './getCurrentTestFile.js'
 
 const testFile = 'getCurrentTestFile.spec.ts'

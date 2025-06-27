@@ -1,7 +1,6 @@
 import type { AddressInfo } from 'node:net'
 import { createMemoryClient } from '@tevm/memory-client'
 import { createServer } from '@tevm/server'
-import { numberToHex } from 'viem'
 import { SnapshotManager } from './snapshot/SnapshotManager.js'
 import { createCachedTransport } from './snapshot/createCachedTransport.js'
 import type { TestSnapshotClient, TestSnapshotClientOptions } from './types.js'
@@ -38,19 +37,14 @@ export const createTestSnapshotClient = (options: TestSnapshotClientOptions): Te
 	// Create snapshot manager
 	const snapshotManager = new SnapshotManager(options.test?.cacheDir)
 
-	// Get chain ID if provided in common config
-	const chainId = options.common?.id ? numberToHex(options.common.id) : undefined
-
-	// Create cached transport
-	const cachedTransport = createCachedTransport(forkTransport, snapshotManager, chainId)
-
 	// Create TEVM client with cached transport
 	const tevm = createMemoryClient({
 		...options,
 		fork: {
 			...options.fork,
-			transport: cachedTransport
-		}
+			// Create a transport with a request function that handles caching
+			transport: createCachedTransport(forkTransport, snapshotManager),
+		},
 	})
 	const server = createServer(tevm)
 
@@ -80,8 +74,8 @@ export const createTestSnapshotClient = (options: TestSnapshotClientOptions): Te
 			})
 		},
 		stop: async () => {
-			if (!serverStarted) return
 			await snapshotManager.save()
+			if (!serverStarted) return
 
 			await new Promise<void>((resolve, reject) => {
 				server.close((err) => {
@@ -96,7 +90,7 @@ export const createTestSnapshotClient = (options: TestSnapshotClientOptions): Te
 		},
 		save: async (): Promise<void> => {
 			await snapshotManager.save()
-		}
+		},
 	}
 
 	return client
