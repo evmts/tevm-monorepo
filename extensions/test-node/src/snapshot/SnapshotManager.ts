@@ -29,13 +29,13 @@ export class SnapshotManager {
 	 * If the directory doesn't exist, it will be created lazily on first save
 	 */
 	private load(): this {
-			if (fs.existsSync(this.snapshotPath)) {
-				const content = fs.readFileSync(this.snapshotPath, 'utf-8')
-				const data = JSON.parse(content)
-				this.snapshots = new Map(Object.entries(data))
-			} else {
-				this.snapshots = new Map()
-			}
+		if (fs.existsSync(this.snapshotPath)) {
+			const content = fs.readFileSync(this.snapshotPath, 'utf-8')
+			const data = JSON.parse(content)
+			this.snapshots = new Map(Object.entries(data))
+		} else {
+			this.snapshots = new Map()
+		}
 
 		return this
 	}

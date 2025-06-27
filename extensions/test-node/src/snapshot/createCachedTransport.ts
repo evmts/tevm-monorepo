@@ -1,9 +1,9 @@
+import type { EthJsonRpcRequest } from '@tevm/actions'
 import type { Transport } from 'viem'
 import { type EIP1193RequestFn } from 'viem'
+import { ethMethodToCacheKey } from '../internal/ethMethodToCacheKey.js'
 import { isCachedMethod } from '../internal/isCachedMethod.js'
 import type { SnapshotManager } from './SnapshotManager.js'
-import { ethMethodToCacheKey } from '../internal/ethMethodToCacheKey.js'
-import type { EthJsonRpcRequest } from '@tevm/actions'
 
 /**
  * Creates a cached transport that wraps the original transport

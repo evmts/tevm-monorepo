@@ -1,8 +1,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import type { EIP1193RequestFn } from 'viem'
 import { getCurrentTestFile } from '../internal/getCurrentTestFile.js'
 import { SnapshotManager } from '../snapshot/SnapshotManager.js'
-import type { EIP1193RequestFn } from 'viem'
 
 /**
  * Get snapshot entries from the new JSON snapshot format

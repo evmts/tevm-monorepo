@@ -1,9 +1,9 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { http } from 'viem'
-import { afterEach, assert, describe, expect, it } from 'vitest'
-import { createCachedTransport } from './createCachedTransport.js'
+import { assert, afterEach, describe, expect, it } from 'vitest'
 import { SnapshotManager } from './SnapshotManager.js'
+import { createCachedTransport } from './createCachedTransport.js'
 
 describe('createCachedTransport', () => {
 	const testCacheDir = path.join(process.cwd(), '.test-create-cached-transport')
@@ -46,7 +46,7 @@ describe('createCachedTransport', () => {
 
 		// Check it was cached - the cache key includes chain ID
 		const cacheKeys = Array.from(snapshotManager['snapshots'].keys())
-		const blockCacheKey = cacheKeys.find(key => key.includes('eth_getBlockByNumber') && key.includes(blockNumber))
+		const blockCacheKey = cacheKeys.find((key) => key.includes('eth_getBlockByNumber') && key.includes(blockNumber))
 		expect(blockCacheKey).toBeDefined()
 		expect(snapshotManager.get(blockCacheKey!)).toStrictEqual(result1)
 
@@ -72,7 +72,7 @@ describe('createCachedTransport', () => {
 
 		// Should be cached with a key containing the method and block number
 		const cacheKeys = Array.from(snapshotManager['snapshots'].keys())
-		const blockCacheKey = cacheKeys.find(key => key.includes('eth_getBlockByNumber') && key.includes(blockNumber))
+		const blockCacheKey = cacheKeys.find((key) => key.includes('eth_getBlockByNumber') && key.includes(blockNumber))
 		expect(blockCacheKey).toBeDefined()
 		// The cache key should be in format [jsonrpc, method, blockNumber, includeTransactions]
 		expect(blockCacheKey).toMatch(/\[.*,"eth_getBlockByNumber","0x1000000",false\]/)
@@ -91,7 +91,7 @@ describe('createCachedTransport', () => {
 
 		// Should not cache errors
 		const cacheKeys = Array.from(snapshotManager['snapshots'].keys())
-		const errorKey = cacheKeys.find(key => key.includes('0xffffffffffffffff'))
+		const errorKey = cacheKeys.find((key) => key.includes('0xffffffffffffffff'))
 		expect(errorKey).toBeUndefined()
 	})
 
@@ -120,7 +120,7 @@ describe('createCachedTransport', () => {
 		expect(result).toBeDefined()
 		expect(result).toHaveProperty('number')
 		// Should not be cached since 'latest' is not a hex number
-		assert(!Array.from(snapshotManager['snapshots'].keys()).some(key => key.includes('latest')))
+		assert(!Array.from(snapshotManager['snapshots'].keys()).some((key) => key.includes('latest')))
 	})
 
 	it('should persist snapshots across transport instances', async () => {

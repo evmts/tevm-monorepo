@@ -1,12 +1,12 @@
+import fs from 'node:fs'
+import path from 'node:path'
 import { mainnet } from '@tevm/common'
+import { transports } from '@tevm/test-utils'
 import { http } from 'viem'
-import { afterEach, assert, describe, expect, it } from 'vitest'
+import { assert, afterEach, describe, expect, it } from 'vitest'
 import { createTestSnapshotClient } from './createTestSnapshotClient.js'
 import { BLOCK_NUMBER } from './test/constants.js'
 import { getSnapshotEntries } from './test/snapshot-utils.js'
-import { transports } from '@tevm/test-utils'
-import fs from 'node:fs'
-import path from 'node:path'
 
 describe('createTestSnapshotClient', () => {
 	const testCacheDir = path.join(process.cwd(), '.test-test-snapshot-client')
@@ -78,7 +78,7 @@ describe('createTestSnapshotClient', () => {
 		await client.stop()
 	})
 
-	it.only('should cache RPC requests', async () => {
+	it('should cache RPC requests', async () => {
 		const client = createTestSnapshotClient({
 			fork: {
 				transport: transports.mainnet,
@@ -101,7 +101,9 @@ describe('createTestSnapshotClient', () => {
 		// Check snapshots were created
 		const snapshots = getSnapshotEntries(testCacheDir)
 		assert(
-			Object.entries(snapshots).some(([key, value]) => key.includes('eth_getBlockByNumber') && value?.number === BLOCK_NUMBER),
+			Object.entries(snapshots).some(
+				([key, value]) => key.includes('eth_getBlockByNumber') && value?.number === BLOCK_NUMBER,
+			),
 			'should have cached the block request',
 		)
 	})
