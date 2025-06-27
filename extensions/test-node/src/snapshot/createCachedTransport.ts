@@ -1,7 +1,7 @@
 import type { EIP1193Parameters, EIP1474Methods, Transport } from 'viem'
 import { type EIP1193RequestFn } from 'viem'
 import { ethMethodToCacheKey } from '../internal/ethMethodToCacheKey.js'
-import { isCachedMethod } from '../internal/isCachedMethod.js'
+import { isCachedJsonRpcMethod } from '../internal/isCachedJsonRpcMethod.js'
 import type { SnapshotManager } from './SnapshotManager.js'
 
 /**
@@ -22,7 +22,7 @@ export const createCachedTransport = (
 		request: async (_params, options) => {
 			const params = _params as EIP1193Parameters<EIP1474Methods> & { jsonrpc: string }
 			// If it's not a cached method, pass through to original
-			if (!isCachedMethod(params)) return request(params, options)
+			if (!isCachedJsonRpcMethod(params)) return request(params, options)
 
 			// Generate cache key
 			const cacheKey = ethMethodToCacheKey(params.method)(params)
