@@ -1,6 +1,7 @@
 import { p256 } from '@noble/curves/nist'
 import { Address } from '@ethereumjs/util'
-import { hexToBytes, pad, toBytes } from '@tevm/utils'
+import { hexToBytes, toBytes } from '@tevm/utils'
+import { pad } from 'viem'
 
 /**
  * RIP-7212 p256verify precompile implementation
@@ -21,7 +22,7 @@ export const P256_VERIFY_ADDRESS = new Address(hexToBytes('0x0000000000000000000
 /**
  * Creates the p256verify precompile as specified in RIP-7212
  * Verifies ECDSA signatures on the secp256r1 (P-256) curve
- * 
+ *
  * @returns The p256verify precompile object
  */
 export const p256VerifyPrecompile = () => {
