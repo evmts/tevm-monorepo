@@ -7,7 +7,7 @@ describe('ethMethodToCacheKey', () => {
 			jsonrpc: '2.0' as const,
 			method: 'eth_getBlockByNumber' as const,
 			params: ['0x123', true] as const,
-			id: 1
+			id: 1,
 		}
 
 		const cacheKeyFn = ethMethodToCacheKey['eth_getBlockByNumber']
@@ -22,7 +22,7 @@ describe('ethMethodToCacheKey', () => {
 			jsonrpc: '2.0' as const,
 			method: 'eth_getBlockByNumber' as const,
 			params: ['0xABC', false] as const,
-			id: 2
+			id: 2,
 		}
 
 		const cacheKeyFn = ethMethodToCacheKey['eth_getBlockByNumber']
