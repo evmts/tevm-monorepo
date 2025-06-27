@@ -1,7 +1,7 @@
 import fs from 'node:fs'
+import path from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 import { SnapshotManager } from './SnapshotManager.js'
-import path from 'node:path'
 
 describe('SnapshotManager', () => {
 	const testCacheDir = path.join(process.cwd(), '.test-snapshot-manager')
