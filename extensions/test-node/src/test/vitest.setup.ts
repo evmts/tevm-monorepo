@@ -1,17 +1,15 @@
 import { transports } from '@tevm/test-utils'
 import { afterAll, beforeAll } from 'vitest'
-import { configureTestClient } from '../core/global.js'
+import { createTestSnapshotClient } from '../createTestSnapshotClient.js'
 import { chain, BLOCK_NUMBER } from './constants.js'
 
-// Configure the test client once globally
-const client = configureTestClient({
-	tevm: {
-		fork: {
-			transport: transports.mainnet,
-			blockTag: BigInt(BLOCK_NUMBER) + 1n
-		},
-		common: chain,
+// Global client instance
+const client = createTestSnapshotClient({
+	fork: {
+		transport: transports.mainnet,
+		blockTag: BigInt(BLOCK_NUMBER) + 1n
 	},
+	common: chain,
 })
 
 beforeAll(async () => {
@@ -19,5 +17,5 @@ beforeAll(async () => {
 })
 
 afterAll(async () => {
-	await client.destroy()
+	await client.stop()
 })
