@@ -1,5 +1,4 @@
-import type { EthJsonRpcRequest } from '@tevm/actions'
-import type { Transport } from 'viem'
+import type { EIP1193Parameters, EIP1474Methods, Transport } from 'viem'
 import { type EIP1193RequestFn } from 'viem'
 import { ethMethodToCacheKey } from '../internal/ethMethodToCacheKey.js'
 import { isCachedMethod } from '../internal/isCachedMethod.js'
@@ -21,13 +20,12 @@ export const createCachedTransport = (
 
 	return {
 		request: async (_params, options) => {
+			const params = _params as EIP1193Parameters<EIP1474Methods> & { jsonrpc: string }
 			// If it's not a cached method, pass through to original
-			if (!isCachedMethod(_params)) return request(_params, options)
-			const params = _params as EthJsonRpcRequest
+			if (!isCachedMethod(params)) return request(params, options)
 
 			// Generate cache key
-			// @ts-expect-error - this goes away in next PR when we use a function instead of an object
-			const cacheKey = ethMethodToCacheKey[params.method as keyof typeof ethMethodToCacheKey]?.(params) ?? ''
+			const cacheKey = ethMethodToCacheKey(params.method)(params)
 
 			// Check if we have a cached response
 			if (snapshotManager.has(cacheKey)) return snapshotManager.get(cacheKey)

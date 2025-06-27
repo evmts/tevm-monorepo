@@ -19,7 +19,6 @@ export class SnapshotManager {
 		const baseDir = cacheDir ?? SnapshotManager.defaultCacheDir
 		this.snapshotDir = path.join(baseDir, this.testFile)
 		this.snapshotPath = path.join(this.snapshotDir, 'snapshots.json')
-		console.log('snapshotPath', this.snapshotPath)
 
 		this.load()
 	}
