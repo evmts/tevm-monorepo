@@ -1,5 +1,5 @@
-import { mainnet } from "@tevm/common"
-import { numberToHex } from "viem"
+import { mainnet } from '@tevm/common'
+import { numberToHex } from 'viem'
 
 export const chain = mainnet
 export const BLOCK_NUMBER = numberToHex(22780450n)
