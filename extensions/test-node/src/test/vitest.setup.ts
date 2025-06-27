@@ -1,13 +1,13 @@
 import { transports } from '@tevm/test-utils'
 import { afterAll, beforeAll } from 'vitest'
 import { createTestSnapshotClient } from '../createTestSnapshotClient.js'
-import { chain, BLOCK_NUMBER } from './constants.js'
+import { BLOCK_NUMBER, chain } from './constants.js'
 
 // Global client instance
 const client = createTestSnapshotClient({
 	fork: {
 		transport: transports.mainnet,
-		blockTag: BigInt(BLOCK_NUMBER) + 1n
+		blockTag: BigInt(BLOCK_NUMBER) + 1n,
 	},
 	common: chain,
 })

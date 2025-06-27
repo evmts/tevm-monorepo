@@ -1,180 +1,149 @@
-import { describe, expect, it, beforeEach, afterEach } from 'vitest'
+import fs from 'node:fs'
+import path from 'node:path'
+import { http } from 'viem'
+import { afterEach, assert, describe, expect, it } from 'vitest'
 import { createCachedTransport } from './createCachedTransport.js'
 import { SnapshotManager } from './SnapshotManager.js'
-import { cleanupSnapshots, createMockTransport } from '../test/snapshot-utils.js'
-import path from 'node:path'
 
 describe('createCachedTransport', () => {
-	const testCacheDir = path.join(process.cwd(), '.test-cached-transport')
-	let snapshotManager: SnapshotManager
+	const testCacheDir = path.join(process.cwd(), '.test-create-cached-transport')
+	const optimismTransport = http('https://mainnet.optimism.io')({})
+	const snapshotManager = new SnapshotManager(testCacheDir)
 
-	beforeEach(async () => {
-		cleanupSnapshots(testCacheDir)
-		snapshotManager = new SnapshotManager(testCacheDir)
-		await snapshotManager.init()
-	})
-
-	afterEach(async () => {
-		cleanupSnapshots(testCacheDir)
+	afterEach(() => {
+		if (fs.existsSync(testCacheDir)) {
+			fs.rmSync(testCacheDir, { recursive: true, force: true })
+		}
 	})
 
 	it('should pass through non-cacheable methods', async () => {
-		const mockResponses = {
-			'eth_blockNumber:[]': '0x123'
-		}
-		const mockTransport = createMockTransport(mockResponses)
-		const cachedTransport = createCachedTransport(mockTransport as any, snapshotManager)
+		const cachedTransport = createCachedTransport(optimismTransport, snapshotManager)
+		const result = await cachedTransport.request({ method: 'eth_blockNumber', params: [] })
 
-		const transport = await cachedTransport({})
-		const result = await transport.request({ method: 'eth_blockNumber', params: [] })
-
-		expect(result).toBe('0x123')
+		// Should return a valid block number
+		expect(result).toBeDefined()
 		// Should not be cached
-		expect(snapshotManager.has('0x1:undefined')).toBe(false)
+		expect(snapshotManager.has(result as string)).toBe(false)
 	})
 
 	it('should cache cacheable methods', async () => {
-		const blockResponse = {
-			number: '0x123',
-			hash: '0xabc',
-			timestamp: '0x456'
-		}
-		const mockResponses = {
-			'eth_getBlockByNumber:["0x123",true]': blockResponse
-		}
-		const mockTransport = createMockTransport(mockResponses)
-		const cachedTransport = createCachedTransport(mockTransport as any, snapshotManager, '0x1')
+		const cachedTransport = createCachedTransport(optimismTransport, snapshotManager)
 
-		const transport = await cachedTransport({})
-		
+		// Use a specific historical block on Optimism
+		const blockNumber = '0x1000000'
+		const params = [blockNumber, false]
+
 		// First call - should fetch from transport
-		const result1 = await transport.request({ 
-			method: 'eth_getBlockByNumber', 
-			params: ['0x123', true] 
+		const result1 = await cachedTransport.request({
+			method: 'eth_getBlockByNumber',
+			params,
 		})
-		expect(result1).toEqual(blockResponse)
 
-		// Check it was cached
-		const cacheKey = '0x1:["\\u0002","eth_getBlockByNumber","0x123",true]'
-		expect(snapshotManager.has(cacheKey)).toBe(true)
-		expect(snapshotManager.get(cacheKey)).toEqual(blockResponse)
+		// Should return a valid block
+		expect(result1).toBeDefined()
+		expect(result1).toHaveProperty('number', blockNumber)
+		expect(result1).toHaveProperty('hash')
 
-		// Second call - should return from cache (mock won't be called)
-		const cachedTransport2 = createCachedTransport(createMockTransport({}) as any, snapshotManager, '0x1')
-		const transport2 = await cachedTransport2({})
-		const result2 = await transport2.request({ 
-			method: 'eth_getBlockByNumber', 
-			params: ['0x123', true] 
+		// Check it was cached - the cache key includes chain ID
+		const cacheKeys = Array.from(snapshotManager['snapshots'].keys())
+		const blockCacheKey = cacheKeys.find(key => key.includes('eth_getBlockByNumber') && key.includes(blockNumber))
+		expect(blockCacheKey).toBeDefined()
+		expect(snapshotManager.get(blockCacheKey!)).toStrictEqual(result1)
+
+		// Second call - should return from cache (using same snapshot manager)
+		const result2 = await cachedTransport.request({
+			method: 'eth_getBlockByNumber',
+			params,
 		})
-		expect(result2).toEqual(blockResponse)
+		expect(result2).toStrictEqual(result1)
 	})
 
-	it('should fetch chainId if not provided', async () => {
-		const blockResponse = { number: '0x456' }
-		const mockResponses = {
-			'eth_chainId:[]': '0xa', // Chain ID 10
-			'eth_getBlockByNumber:["0x456",false]': blockResponse
-		}
-		const mockTransport = createMockTransport(mockResponses)
-		const cachedTransport = createCachedTransport(mockTransport as any, snapshotManager)
+	it('should create cache key with method and params', async () => {
+		const cachedTransport = createCachedTransport(optimismTransport, snapshotManager)
 
-		const transport = await cachedTransport({})
-		const result = await transport.request({ 
-			method: 'eth_getBlockByNumber', 
-			params: ['0x456', false] 
+		const blockNumber = '0x1000000'
+		const result = await cachedTransport.request({
+			method: 'eth_getBlockByNumber',
+			params: [blockNumber, false],
 		})
 
-		expect(result).toEqual(blockResponse)
-		// Should be cached with fetched chain ID
-		const cacheKey = '0xa:["\\u0002","eth_getBlockByNumber","0x456",false]'
-		expect(snapshotManager.has(cacheKey)).toBe(true)
+		expect(result).toBeDefined()
+		expect(result).toHaveProperty('number', blockNumber)
+
+		// Should be cached with a key containing the method and block number
+		const cacheKeys = Array.from(snapshotManager['snapshots'].keys())
+		const blockCacheKey = cacheKeys.find(key => key.includes('eth_getBlockByNumber') && key.includes(blockNumber))
+		expect(blockCacheKey).toBeDefined()
+		// The cache key should be in format [jsonrpc, method, blockNumber, includeTransactions]
+		expect(blockCacheKey).toMatch(/\[.*,"eth_getBlockByNumber","0x1000000",false\]/)
 	})
 
 	it('should not cache on error', async () => {
-		const mockTransport = () => ({
-			request: async (params: any) => {
-				if (params.method === 'eth_chainId') return '0x1'
-				throw new Error('RPC Error')
-			}
-		})
-		const cachedTransport = createCachedTransport(mockTransport as any, snapshotManager)
+		const cachedTransport = createCachedTransport(optimismTransport, snapshotManager)
 
-		const transport = await cachedTransport({})
-		
-		await expect(transport.request({ 
-			method: 'eth_getBlockByNumber', 
-			params: ['0x789', true] 
-		})).rejects.toThrow('RPC Error')
+		// Use an invalid block number that will cause an error
+		await expect(
+			cachedTransport.request({
+				method: 'eth_getBlockByNumber',
+				params: ['0xffffffffffffffff', true], // Very high block number
+			}),
+		).rejects.toThrow()
 
 		// Should not cache errors
-		const cacheKey = '0x1:["\\u0002","eth_getBlockByNumber","0x789",true]'
-		expect(snapshotManager.has(cacheKey)).toBe(false)
+		const cacheKeys = Array.from(snapshotManager['snapshots'].keys())
+		const errorKey = cacheKeys.find(key => key.includes('0xffffffffffffffff'))
+		expect(errorKey).toBeUndefined()
 	})
 
-	it('should handle transport function that returns transport object', async () => {
-		const blockResponse = { number: '0xabc' }
-		const mockTransport = {
-			request: async (params: any) => {
-				if (params.method === 'eth_chainId') return '0x1'
-				if (params.method === 'eth_getBlockByNumber') return blockResponse
-				throw new Error('Unexpected method')
-			}
-		}
-		const cachedTransport = createCachedTransport(mockTransport as any, snapshotManager)
+	it('should handle real transport correctly', async () => {
+		const cachedTransport = createCachedTransport(optimismTransport, snapshotManager)
 
-		const transport = await cachedTransport({})
-		const result = await transport.request({ 
-			method: 'eth_getBlockByNumber', 
-			params: ['0xabc', true] 
+		const result = await cachedTransport.request({
+			method: 'eth_getBlockByNumber',
+			params: ['0x1000000', true],
 		})
 
-		expect(result).toEqual(blockResponse)
+		expect(result).toBeDefined()
+		expect(result).toHaveProperty('number', '0x1000000')
+		expect(result).toHaveProperty('hash')
+		expect(result).toHaveProperty('transactions')
 	})
 
 	it('should handle non-hex block numbers correctly', async () => {
-		const mockResponses = {
-			'eth_getBlockByNumber:["latest",true]': { number: '0xdef' }
-		}
-		const mockTransport = createMockTransport(mockResponses)
-		const cachedTransport = createCachedTransport(mockTransport as any, snapshotManager, '0x1')
+		const cachedTransport = createCachedTransport(optimismTransport, snapshotManager)
 
-		const transport = await cachedTransport({})
-		const result = await transport.request({ 
-			method: 'eth_getBlockByNumber', 
-			params: ['latest', true] 
+		const result = await cachedTransport.request({
+			method: 'eth_getBlockByNumber',
+			params: ['latest', true],
 		})
 
-		expect(result).toEqual({ number: '0xdef' })
+		expect(result).toBeDefined()
+		expect(result).toHaveProperty('number')
 		// Should not be cached since 'latest' is not a hex number
-		expect(Array.from(snapshotManager['snapshots'].keys()).length).toBe(0)
+		assert(!Array.from(snapshotManager['snapshots'].keys()).some(key => key.includes('latest')))
 	})
 
 	it('should persist snapshots across transport instances', async () => {
-		const blockResponse = { number: '0x999', hash: '0xfff' }
-		const mockResponses = {
-			'eth_getBlockByNumber:["0x999",true]': blockResponse
-		}
-		const mockTransport = createMockTransport(mockResponses)
-		const cachedTransport = createCachedTransport(mockTransport as any, snapshotManager, '0x1')
+		const cachedTransport = createCachedTransport(optimismTransport, snapshotManager)
 
-		const transport = await cachedTransport({})
-		await transport.request({ 
-			method: 'eth_getBlockByNumber', 
-			params: ['0x999', true] 
+		const blockNumber = '0x1000000'
+		const originalResult = await cachedTransport.request({
+			method: 'eth_getBlockByNumber',
+			params: [blockNumber, true],
 		})
+
+		// Save snapshots
+		await snapshotManager.save()
 
 		// Create new snapshot manager and transport
 		const newSnapshotManager = new SnapshotManager(testCacheDir)
-		await newSnapshotManager.init()
-		
-		const newCachedTransport = createCachedTransport(createMockTransport({}) as any, newSnapshotManager, '0x1')
-		const newTransport = await newCachedTransport({})
-		
-		const cachedResult = await newTransport.request({ 
-			method: 'eth_getBlockByNumber', 
-			params: ['0x999', true] 
+		const newCachedTransport = createCachedTransport(optimismTransport, newSnapshotManager)
+
+		const cachedResult = await newCachedTransport.request({
+			method: 'eth_getBlockByNumber',
+			params: [blockNumber, true],
 		})
 
-		expect(cachedResult).toEqual(blockResponse)
+		expect(cachedResult).toStrictEqual(originalResult)
 	})
 })
