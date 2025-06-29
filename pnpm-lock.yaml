@@ -1928,6 +1928,9 @@ importers:
       '@noble/curves':
         specifier: ^1.6.0
         version: 1.9.1
+      '@tevm/address':
+        specifier: workspace:^
+        version: link:../address
       '@tevm/contract':
         specifier: workspace:^
         version: link:../contract
