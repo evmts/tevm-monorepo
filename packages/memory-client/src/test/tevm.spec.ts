@@ -7,6 +7,7 @@ import { encodeDeployData, testActions } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../createMemoryClient.js'
 import { DaiContract } from './DaiContract.sol.js'
+import { optimismClient } from '../../vitest.setup.js'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 
@@ -39,11 +40,6 @@ const addabi = [
 		type: 'function',
 	},
 ] as const
-
-const forkConfig = {
-	transport: transports.optimism,
-	blockTag: 121138454n,
-}
 
 describe('Tevm should create a local vm in JavaScript', () => {
 	describe('client.script', () => {
@@ -244,7 +240,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 
 	describe('client.contract', () => {
 		it('should fork a network and then execute a contract call', async () => {
-			const tevm = createMemoryClient({ fork: forkConfig, common: optimism })
+			const { tevm } = optimismClient
 			const res = await tevm.tevmContract({
 				to: contractAddress,
 				...DaiContract.read.balanceOf('0xf0d4c12a5768d806021f80a262b4d39d26c58b8d', {
@@ -253,27 +249,27 @@ describe('Tevm should create a local vm in JavaScript', () => {
 			})
 			expect(res).toEqual({
 				// The amount of ether used by this transaction. Does not include l1 fees.
-				amountSpent: 1442108352554n,
+				amountSpent: 264077861n,
 				// The amount of gas used by the transaction execution
 				executionGasUsed: 2447n,
 				// Latest known L1 base fee known by the l2 chain.
 				// Only included when an op-stack common is passed to `createMemoryClient`
-				l1BaseFee: 9147423326n,
+				l1BaseFee: 2629456069n,
 				// Current blob base fee known by the l2 chain
 				l1BlobFee: 1n,
 				// L1 fee that should be paid for the tx Only included when an op-stack
 				// // common is provided
-				l1Fee: 21223193072n,
+				l1Fee: 21990667097n,
 				// Amount of L1 gas used to publish the transaction. Only included when an
 				// // op-stack common is provided
-				l1GasUsed: 1696n,
+				l1GasUsed: 1600n,
 				// Map of addresses which were created (used in EIP 6780) Note the addresses
 				// are not actually created til the tx is mined
 				createdAddresses: new Set(),
 				// The decoded data based on the contract ABI
 				data: 1n,
 				// amount of gas left
-				gas: 29976121n,
+				gas: 39976121n,
 				// Logs emitted by the contract call
 				logs: [],
 				// The return value of the contract call
