@@ -2,11 +2,11 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { mainnet } from '@tevm/common'
 import { transports } from '@tevm/test-utils'
-import { http } from 'viem'
-import { assert, afterEach, describe, expect, it } from 'vitest'
+import { http, numberToHex } from 'viem'
+import { afterEach, describe, expect, it } from 'vitest'
 import { createTestSnapshotClient } from './createTestSnapshotClient.js'
 import { BLOCK_NUMBER } from './test/constants.js'
-import { getSnapshotEntries } from './test/snapshot-utils.js'
+import { assertMethodCached, assertMethodNotCached } from './test/snapshot-utils.js'
 
 describe('createTestSnapshotClient', () => {
 	const testCacheDir = path.join(process.cwd(), '.test-test-snapshot-client')
@@ -97,13 +97,7 @@ describe('createTestSnapshotClient', () => {
 		await client.saveSnapshots()
 
 		// Check snapshots were created
-		const snapshots = getSnapshotEntries(testCacheDir)
-		assert(
-			Object.entries(snapshots).some(
-				([key, value]) => key.includes('eth_getBlockByNumber') && value?.number === BLOCK_NUMBER,
-			),
-			'should have cached the block request',
-		)
+		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER, testCacheDir)
 	})
 
 	it('should not cache non-cacheable requests', async () => {
@@ -120,11 +114,7 @@ describe('createTestSnapshotClient', () => {
 		await client.saveSnapshots()
 
 		// Check no snapshots were created for this
-		const snapshots = getSnapshotEntries(testCacheDir)
-		assert(
-			!Object.keys(snapshots).some((key) => key.includes('eth_blockNumber')),
-			'should not have cached the block number request',
-		)
+		assertMethodNotCached('eth_blockNumber', undefined, testCacheDir)
 	})
 
 	it('should save snapshots on stop', async () => {
@@ -141,7 +131,82 @@ describe('createTestSnapshotClient', () => {
 		await client.server.stop()
 
 		// Should still have saved snapshots
-		const snapshots = getSnapshotEntries(testCacheDir)
-		expect(Object.keys(snapshots).length).toBeGreaterThan(0)
+		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER, testCacheDir)
+	})
+
+	it('should save snapshots immediately when autosave is onRequest', async () => {
+		const testCacheDirOnRequest = path.join(process.cwd(), '.test-autosave-on-request')
+
+		// Clean up from any previous runs
+		if (fs.existsSync(testCacheDirOnRequest)) {
+			fs.rmSync(testCacheDirOnRequest, { recursive: true, force: true })
+		}
+
+		const client = createTestSnapshotClient({
+			fork: {
+				transport: transports.mainnet,
+			},
+			common: mainnet,
+			test: {
+				cacheDir: testCacheDirOnRequest,
+				autosave: 'onRequest'
+			},
+		})
+
+		await client.start()
+
+		// Make first cacheable request - should save immediately
+		await client.tevm.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) - 1n })
+		// Check snapshots were saved immediately (without calling save() or stop())
+		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === numberToHex(BigInt(BLOCK_NUMBER) - 1n), testCacheDirOnRequest)
+
+		// Make another cacheable request - should add to existing snapshots
+		await client.tevm.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) - 2n })
+		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === numberToHex(BigInt(BLOCK_NUMBER) - 2n), testCacheDirOnRequest)
+
+		await client.stop()
+
+		// Clean up
+		if (fs.existsSync(testCacheDirOnRequest)) {
+			fs.rmSync(testCacheDirOnRequest, { recursive: true, force: true })
+		}
+	})
+
+	it('should not save snapshots immediately when autosave is onStop (default)', async () => {
+		const testCacheDirOnStop = path.join(process.cwd(), '.test-autosave-on-stop')
+
+		// Clean up from any previous runs
+		if (fs.existsSync(testCacheDirOnStop)) {
+			fs.rmSync(testCacheDirOnStop, { recursive: true, force: true })
+		}
+
+		const client = createTestSnapshotClient({
+			fork: {
+				transport: transports.mainnet,
+			},
+			common: mainnet,
+			test: {
+				cacheDir: testCacheDirOnStop,
+				autosave: 'onStop' // explicit, but this is the default
+			},
+		})
+
+		await client.start()
+
+		// Make cacheable request
+		await client.tevm.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) })
+
+		// Check snapshots were NOT saved immediately
+		assertMethodNotCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER, testCacheDirOnStop)
+
+		await client.stop()
+
+		// Check snapshots were saved on stop
+		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER, testCacheDirOnStop)
+
+		// Clean up
+		if (fs.existsSync(testCacheDirOnStop)) {
+			fs.rmSync(testCacheDirOnStop, { recursive: true, force: true })
+		}
 	})
 })
