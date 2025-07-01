@@ -1,11 +1,11 @@
 {
 	"extends": "@tevm/tsconfig/base.json",
 	"compilerOptions": {
-		"rootDir": "src",
+		"rootDir": ".",
 		"outDir": "types",
 		"skipLibCheck": true,
 		"types": ["bun-types"]
 	},
-	"include": ["src"],
+	"include": ["src", "vitest.setup.ts"],
 	"exclude": ["src/test/**/*.spec.ts", "**/*.spec.ts", "**/*.test.ts"]
 }
