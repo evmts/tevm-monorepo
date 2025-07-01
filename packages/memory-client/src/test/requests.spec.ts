@@ -1,8 +1,6 @@
 import type { CallJsonRpcRequest } from '@tevm/actions'
 import { createAddress } from '@tevm/address'
-import { optimism } from '@tevm/common'
 import { ERC20 } from '@tevm/contract'
-import { transports } from '@tevm/test-utils'
 import {
 	bytesToHex,
 	decodeFunctionResult,
@@ -14,14 +12,10 @@ import {
 	toHex,
 } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
+import { optimismClient } from '../../vitest.setup.js'
 import { createMemoryClient } from '../createMemoryClient.js'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
-
-const forkConfig = {
-	transport: transports.optimism,
-	blockTag: 'latest',
-}
 
 describe('Tevm.request', async () => {
 	const tevm = createMemoryClient()
@@ -69,13 +63,7 @@ describe('Tevm.request', async () => {
 	})
 
 	it('should execute a contractCall request via using tevm_call', { timeout: 90_000 }, async () => {
-		const tevm = createMemoryClient({
-			common: optimism,
-			loggingLevel: 'warn',
-			fork: {
-				...forkConfig,
-			},
-		})
+		const { tevm } = optimismClient
 		const req = {
 			params: [
 				{
@@ -210,10 +198,10 @@ describe('Tevm.request', async () => {
 
 	// repoing a reported bug
 	it('Should be able to create a contract using these foundry artifacts', { timeout: 15_000 }, async () => {
-		const memoryClient = createMemoryClient({ fork: forkConfig })
+		const { tevm } = optimismClient
 		// const account = await memoryClient.tevmGetAccount({ address: '0xF52CF539DcAc32507F348aa19eb5173EEA3D4e7c' })
 		// expect(account).toBeUndefined()
-		const res = await memoryClient.tevmCall({
+		const res = await tevm.tevmCall({
 			from: '0xef987cde72bc6a9e351d2460214d75f095b1b862',
 			data: '0x608060405234801561001057600080fd5b5060405161012938038061012983398101604081905261002f91610037565b600055610050565b60006020828403121561004957600080fd5b5051919050565b60cb8061005e6000396000f3fe6080604052348015600f57600080fd5b506004361060325760003560e01c806301339c211460375780638c59507c14603f575b600080fd5b603d6059565b005b604760005481565b60405190815260200160405180910390f35b7f7c84ba1c5769a0155145414f13e03f1d0d6a3a7e5d4f6d45262df4d9d48c32cd600054604051608b91815260200190565b60405180910390a156fea2646970667358221220dea4bdd87c9ec514fbd0563f520e4a0e34d2930f1a35ff63b903349d337010fe64736f6c634300081300330000000000000000000000000000000000000000000000000000000000000002',
 			value: 0n,
@@ -226,7 +214,7 @@ describe('Tevm.request', async () => {
 	})
 
 	it('Should get the same account in forked or not forked mode', async () => {
-		const forkedClient = createMemoryClient({ fork: forkConfig })
+		const { tevm: forkedClient } = optimismClient
 		const nonForkedClient = createMemoryClient()
 		const forkedAccount = await forkedClient.tevmGetAccount({
 			address: '0xF52CF539DcAc32507F348aa19eb5173EEA3D4e7c',

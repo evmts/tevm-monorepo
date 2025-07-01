@@ -2,6 +2,7 @@ import { bytesToHex, type Hex, hexToBytes, parseEther } from '@tevm/utils'
 import { http } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../createMemoryClient.js'
+import { optimismClient } from '../../vitest.setup.js'
 
 // test case from minimal repro here : https://github.com/0xpolarzero/tevm-minimal-repro/blob/main/constants.ts
 
@@ -41,11 +42,7 @@ const MOCKERC20_ABI = [
 describe('Testing tevm state managers with mix of createTransaction: true and false', () => {
 	describe('SHould be able to run some calls using createTransaction: true and then run a createTransaction: false', async () => {
 		// Create client
-		const forkClient = createMemoryClient({
-			fork: {
-				transport: http('https://mainnet.optimism.io')({}),
-			},
-		})
+		const { tevm: forkClient } = optimismClient
 
 		const normalClient = createMemoryClient({ loggingLevel: 'warn' })
 		const clients = {

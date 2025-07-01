@@ -2,20 +2,23 @@ import { mainnet } from '@tevm/common'
 import { transports } from '@tevm/test-utils'
 import { loadKZG } from 'kzg-wasm'
 import { describe, expect, it } from 'vitest'
-import { createMemoryClient } from '../../createMemoryClient.js'
+import { createTestSnapshotClient } from '@tevm/test-node'
 
 describe('getEnsText', async () => {
-	it.todo('should work', async () => {
+	it('should work', async () => {
 		const kzg = await loadKZG()
-		const mainnetClient = createMemoryClient({
+		const mainnetClient = createTestSnapshotClient({
 			common: Object.assign({ kzg }, mainnet),
 			fork: {
 				transport: transports.mainnet,
 				blockTag: 23483670n,
 			},
+			test: {
+				autosave: 'onRequest'
+			}
 		})
-		expect(await mainnetClient.getEnsText({ name: 'vitalik.eth', key: 'key' })).toBe(
-			'0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+		expect(await mainnetClient.tevm.getEnsText({ name: 'wevm.eth', key: 'com.twitter' })).toBe(
+			'wevm_dev',
 		)
 	})
 })
