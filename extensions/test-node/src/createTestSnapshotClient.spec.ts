@@ -149,7 +149,7 @@ describe('createTestSnapshotClient', () => {
 			common: mainnet,
 			test: {
 				cacheDir: testCacheDirOnRequest,
-				autosave: 'onRequest'
+				autosave: 'onRequest',
 			},
 		})
 
@@ -158,11 +158,19 @@ describe('createTestSnapshotClient', () => {
 		// Make first cacheable request - should save immediately
 		await client.tevm.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) - 1n })
 		// Check snapshots were saved immediately (without calling save() or stop())
-		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === numberToHex(BigInt(BLOCK_NUMBER) - 1n), testCacheDirOnRequest)
+		assertMethodCached(
+			'eth_getBlockByNumber',
+			(params) => params[0] === numberToHex(BigInt(BLOCK_NUMBER) - 1n),
+			testCacheDirOnRequest,
+		)
 
 		// Make another cacheable request - should add to existing snapshots
 		await client.tevm.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) - 2n })
-		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === numberToHex(BigInt(BLOCK_NUMBER) - 2n), testCacheDirOnRequest)
+		assertMethodCached(
+			'eth_getBlockByNumber',
+			(params) => params[0] === numberToHex(BigInt(BLOCK_NUMBER) - 2n),
+			testCacheDirOnRequest,
+		)
 
 		await client.stop()
 
@@ -187,7 +195,7 @@ describe('createTestSnapshotClient', () => {
 			common: mainnet,
 			test: {
 				cacheDir: testCacheDirOnStop,
-				autosave: 'onStop' // explicit, but this is the default
+				autosave: 'onStop', // explicit, but this is the default
 			},
 		})
 
