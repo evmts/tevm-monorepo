@@ -16,7 +16,8 @@ erigon/
 **/*.rs.bk
 
 # Tevm cache
-**/.tevm
+**/.tevm/*
+!**/.tevm/test-snapshots/
 .nx
 
 **/debuglogs.txt
