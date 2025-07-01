@@ -3,6 +3,7 @@ import { type EIP1193RequestFn } from 'viem'
 import { ethMethodToCacheKey } from '../internal/ethMethodToCacheKey.js'
 import { isCachedJsonRpcMethod } from '../internal/isCachedJsonRpcMethod.js'
 import type { SnapshotManager } from './SnapshotManager.js'
+import type { SnapshotAutosaveMode } from '../types.js'
 
 /**
  * Creates a cached transport that wraps the original transport
@@ -10,11 +11,13 @@ import type { SnapshotManager } from './SnapshotManager.js'
  *
  * @param originalTransport - The original transport to wrap
  * @param snapshotManager - The snapshot manager instance
+ * @param autosave - The autosave mode
  * @returns A wrapped transport that caches responses
  */
 export const createCachedTransport = (
 	originalTransport: Transport | { request: EIP1193RequestFn },
 	snapshotManager: SnapshotManager,
+	autosave: SnapshotAutosaveMode,
 ): { request: EIP1193RequestFn } => {
 	const request = 'request' in originalTransport ? originalTransport.request : originalTransport({}).request
 
@@ -33,6 +36,7 @@ export const createCachedTransport = (
 			// Otherwise fetch and cache the response
 			const response = await request(params, options)
 			snapshotManager.set(cacheKey, response)
+			if (autosave === 'onRequest') await snapshotManager.save()
 
 			return response
 		},

@@ -38,12 +38,13 @@ export const createTestSnapshotClient = (options: TestSnapshotClientOptions): Te
 	const snapshotManager = new SnapshotManager(options.test?.cacheDir)
 
 	// Create TEVM client with cached transport
+	const autosave = options.test?.autosave ?? 'onStop'
 	const client = createMemoryClient({
 		...options,
 		fork: {
 			...options.fork,
 			// Create a transport with a request function that handles caching
-			transport: createCachedTransport(forkTransport, snapshotManager),
+			transport: createCachedTransport(forkTransport, snapshotManager, autosave),
 		},
 	})
 	const server = createServer(client)
