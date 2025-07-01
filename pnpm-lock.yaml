@@ -1825,6 +1825,9 @@ importers:
         specifier: ^3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.6.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.6.1)(typescript@5.9.3))(terser@5.44.0)(tsx@4.20.6)(yaml@2.8.1)
     devDependencies:
+      '@tevm/test-node':
+        specifier: workspace:^
+        version: link:../../extensions/test-node
       '@tevm/test-utils':
         specifier: workspace:^
         version: link:../../test/test-utils
