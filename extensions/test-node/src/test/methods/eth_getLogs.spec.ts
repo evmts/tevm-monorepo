@@ -1,18 +1,15 @@
 import { type Hex, numberToHex } from 'viem'
 import { describe, it } from 'vitest'
-import { getTestClient } from '../../core/client.js'
 import { BLOCK_NUMBER } from '../constants.js'
 import { assertMethodCached, assertMethodNotCached } from '../utils.js'
+import { client } from '../vitest.setup.js'
 
 describe('eth_getLogs', () => {
-	const client = getTestClient()
-
 	it('should create a cache entry with a static block numbers', async () => {
 		await client.tevm.transport.tevm.forkTransport?.request({
 			method: 'eth_getLogs',
 			params: [{ fromBlock: BLOCK_NUMBER, toBlock: BLOCK_NUMBER }],
 		})
-		await client.flush()
 
 		assertMethodCached(
 			'eth_getLogs',
@@ -26,7 +23,6 @@ describe('eth_getLogs', () => {
 			method: 'eth_getLogs',
 			params: [{ fromBlock: numberToHex(BigInt(latestBlock) - 1n), toBlock: 'latest' }],
 		})
-		await client.flush()
 
 		assertMethodNotCached('eth_getLogs', (params) => params[0].toBlock === 'latest')
 	})

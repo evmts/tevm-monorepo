@@ -1,13 +1,11 @@
 import { PREFUNDED_ACCOUNTS } from '@tevm/utils'
 import type { Hex } from 'viem'
 import { describe, it } from 'vitest'
-import { getTestClient } from '../../core/client.js'
 import { chain } from '../constants.js'
 import { assertMethodNotCached } from '../utils.js'
+import { client } from '../vitest.setup.js'
 
 describe('eth_sendRawTransaction', () => {
-	const client = getTestClient()
-
 	it('should NOT create a cache entry', async () => {
 		const nonce = (await client.tevm.transport.tevm.forkTransport?.request({
 			method: 'eth_getTransactionCount',
@@ -29,7 +27,6 @@ describe('eth_sendRawTransaction', () => {
 				params: [tx],
 			})
 		} catch (error) {}
-		await client.flush()
 
 		assertMethodNotCached('eth_sendRawTransaction')
 	})

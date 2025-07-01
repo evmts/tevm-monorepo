@@ -1,12 +1,10 @@
 import { type EIP1193RequestFn, type EIP1474Methods } from 'viem'
 import { describe, it } from 'vitest'
-import { getTestClient } from '../../core/client.js'
 import { BLOCK_NUMBER } from '../constants.js'
 import { assertMethodCached, assertMethodNotCached } from '../utils.js'
+import { client } from '../vitest.setup.js'
 
 describe('eth_simulateV1', () => {
-	const client = getTestClient()
-
 	it('should create a cache entry with a static block parameter', async () => {
 		await (client.tevm.transport.tevm.forkTransport?.request as EIP1193RequestFn<EIP1474Methods>)({
 			method: 'eth_simulateV1',
@@ -33,7 +31,6 @@ describe('eth_simulateV1', () => {
 				BLOCK_NUMBER,
 			],
 		})
-		await client.flush()
 
 		assertMethodCached('eth_simulateV1', (params) => params[1] === BLOCK_NUMBER)
 	})
@@ -63,7 +60,6 @@ describe('eth_simulateV1', () => {
 				'latest',
 			],
 		})
-		await client.flush()
 
 		assertMethodNotCached('eth_simulateV1', (params) => params[1] === 'latest')
 	})

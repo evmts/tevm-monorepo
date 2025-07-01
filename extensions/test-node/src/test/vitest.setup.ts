@@ -4,7 +4,7 @@ import { createTestSnapshotClient } from '../createTestSnapshotClient.js'
 import { BLOCK_NUMBER, chain } from './constants.js'
 
 // Global client instance
-const client = createTestSnapshotClient({
+export const client = createTestSnapshotClient({
 	fork: {
 		transport: transports.mainnet,
 		blockTag: BigInt(BLOCK_NUMBER) + 1n,
