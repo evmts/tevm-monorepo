@@ -1,4 +1,4 @@
-import { type BlockTag, type Hex, type RpcBlockIdentifier, isHex } from 'viem'
+import { type BlockTag, type Hex, type RpcBlockIdentifier } from 'viem'
 
 export const normalizeBlockTag = (tag: BlockTag | Hex | RpcBlockIdentifier | undefined) => {
 	if (typeof tag === 'object' && 'blockHash' in tag && tag.blockHash !== undefined) {
@@ -7,9 +7,7 @@ export const normalizeBlockTag = (tag: BlockTag | Hex | RpcBlockIdentifier | und
 	if (typeof tag === 'object' && 'blockNumber' in tag && tag.blockNumber !== undefined) {
 		return tag.blockNumber.toLowerCase()
 	}
-	if (typeof tag === 'string' && isHex(tag)) {
-		return tag.toLowerCase()
-	}
+	if (typeof tag === 'string') return tag.toLowerCase() // hex or block tag
 
 	throw new Error('Invalid block tag') // this should never happen as it would have been filtered out by isCachedJsonRpcMethod
 }
