@@ -25,27 +25,26 @@ npm install -D @tevm/test-node vitest
 import { mainnet } from '@tevm/common'
 import { http } from 'viem'
 import { afterAll, beforeAll } from 'vitest'
-import { configureTestClient } from '@tevm/test-node'
+import { createTestSnapshotClient } from '@tevm/test-node'
 
 // Configure once globally
-const client = configureTestClient({
-  tevm: {
-    fork: {
-      transport: http('https://mainnet.optimism.io'),
-      blockTag: 123456n
-    },
-    common: mainnet,
+export const client = createTestSnapshotClient({
+  fork: {
+    transport: http('https://mainnet.optimism.io'),
+    blockTag: 123456n
   },
+  common: mainnet,
+  test: {
+    cacheDir: '.tevm/test-snapshots' // default
+  }
 })
-
-const
 
 beforeAll(async () => {
   await client.start()
 })
 
 afterAll(async () => {
-  await client.destroy()
+  await client.stop()
 })
 ```
 
@@ -53,47 +52,28 @@ afterAll(async () => {
 
 ```typescript
 import { it } from 'vitest'
-import { getTestClient } from '@tevm/test-node'
+import { client } from './vitest.setup.js'
 
 it('should cache RPC requests', async () => {
-  const client = getTestClient()
   await client.tevm.getBlock({ blockNumber: 123456n })
 })
 ```
 
-You can always use a viem client to communicate with the local server.
-
-```typescript
-import { createPublicClient, http } from 'viem'
-import { getTestClient } from '@tevm/test-node'
-
-const { rpcUrl } = getTestClient()
-const client = createPublicClient({
-  transport: http(rpcUrl),
-})
-
-const block = await client.getBlock({ blockNumber: 123456n })
-```
-
-Snapshots are automatically saved to `__snapshots__/[testFileName]/recording.har` and reused on subsequent runs.
+Snapshots are automatically saved to `.tevm/test-snapshots/[testFileName]/snapshots.json` after all tests (or after calling `client.save()`) and reused on subsequent runs.
 
 ## API Reference
 
-### `configureTestClient(options)`
+### `createTestSnapshotClient(options)`
 
-Global configuration for all test clients.
+Create a memory client with snapshotting capabilities.
 
-- `options.tevm`: Configuration for the underlying `@tevm/memory-client`
-- `options.snapshot.dir?`: Directory for snapshots (default: `__snapshots__`)
+- `options`: Configuration for the underlying `@tevm/memory-client`
+- `options.test.cacheDir?`: Directory for snapshots (default: `.tevm/test-snapshots`)
 
-### `getTestClient()`
-
-Returns the auto-managed test client for the current test file.
-
+Returns a client with the following properties:
 - `tevm`: The `MemoryClient` instance
 - `server`: HTTP server instance
 - `rpcUrl`: URL of the running server
 - `start()`: Start the server
-- `stop()`: Stop the server (keeps Polly running)
-- `flush()`: Flush recordings to disk without stopping
-- `destroy()`: Complete cleanup (server + Polly)
+- `stop()`: Stop the server and save snapshots to disk
+- `save()`: Save snapshots to disk
