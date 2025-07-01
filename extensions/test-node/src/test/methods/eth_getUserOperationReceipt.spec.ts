@@ -1,6 +1,6 @@
 import { describe, it } from 'vitest'
 import { USER_OPERATION_HASH } from '../constants.js'
-import { assertMethodCached } from '../utils.js'
+import { assertMethodCached } from '../snapshot-utils.js'
 import { client } from '../vitest.setup.js'
 
 describe.todo('eth_getUserOperationReceipt', () => {
@@ -11,6 +11,7 @@ describe.todo('eth_getUserOperationReceipt', () => {
 			params: [USER_OPERATION_HASH],
 		})
 
+		await client.save()
 		assertMethodCached('eth_getUserOperationReceipt')
 	})
 })
