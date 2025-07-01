@@ -49,7 +49,7 @@ afterAll(async () => {
 })
 ```
 
-Or without a server and with autosave on each request:
+Or without running the server and with autosave on each request:
 
 ```typescript
 import { createTestSnapshotClient } from '@tevm/test-node'
