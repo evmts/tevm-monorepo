@@ -1,7 +1,7 @@
 import { PREFUNDED_ACCOUNTS } from '@tevm/utils'
 import { describe, it } from 'vitest'
 import { BLOCK_NUMBER } from '../constants.js'
-import { assertMethodCached, assertMethodNotCached } from '../utils.js'
+import { assertMethodCached, assertMethodNotCached } from '../snapshot-utils.js'
 import { client } from '../vitest.setup.js'
 
 const EF = '0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe'
@@ -20,7 +20,8 @@ describe('eth_estimateGas', () => {
 			],
 		})
 
-		assertMethodCached('eth_estimateGas', (params) => params[1] === BLOCK_NUMBER)
+		await client.save()
+		assertMethodCached('eth_estimateGas', (params) => params[3] === BLOCK_NUMBER)
 	})
 
 	it('should NOT create a cache entry with a dynamic block tag', async () => {
@@ -36,6 +37,7 @@ describe('eth_estimateGas', () => {
 			],
 		})
 
-		assertMethodNotCached('eth_estimateGas', (params) => params[1] === 'latest')
+		await client.save()
+		assertMethodNotCached('eth_estimateGas', (params) => params[3] === 'latest')
 	})
 })

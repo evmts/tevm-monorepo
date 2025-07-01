@@ -1,7 +1,7 @@
 import { type Hex, numberToHex } from 'viem'
 import { describe, it } from 'vitest'
 import { BLOCK_NUMBER } from '../constants.js'
-import { assertMethodCached, assertMethodNotCached } from '../utils.js'
+import { assertMethodCached, assertMethodNotCached } from '../snapshot-utils.js'
 import { client } from '../vitest.setup.js'
 
 describe('eth_getLogs', () => {
@@ -11,10 +11,8 @@ describe('eth_getLogs', () => {
 			params: [{ fromBlock: BLOCK_NUMBER, toBlock: BLOCK_NUMBER }],
 		})
 
-		assertMethodCached(
-			'eth_getLogs',
-			(params) => params[0].fromBlock === BLOCK_NUMBER && params[0].toBlock === BLOCK_NUMBER,
-		)
+		await client.save()
+		assertMethodCached('eth_getLogs', (params) => params[0] === BLOCK_NUMBER && params[1] === BLOCK_NUMBER)
 	})
 
 	it('should NOT create a cache entry with dynamic block tags', async () => {
@@ -24,6 +22,10 @@ describe('eth_getLogs', () => {
 			params: [{ fromBlock: numberToHex(BigInt(latestBlock) - 1n), toBlock: 'latest' }],
 		})
 
-		assertMethodNotCached('eth_getLogs', (params) => params[0].toBlock === 'latest')
+		await client.save()
+		assertMethodNotCached(
+			'eth_getLogs',
+			(params) => params[0] === numberToHex(BigInt(latestBlock) - 1n) && params[1] === 'latest',
+		)
 	})
 })
