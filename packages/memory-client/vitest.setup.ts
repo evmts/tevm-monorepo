@@ -1,5 +1,5 @@
 import { transports } from '@tevm/test-utils'
-import { afterAll, beforeAll } from 'vitest'
+import { afterAll } from 'vitest'
 import { createTestSnapshotClient } from '@tevm/test-node'
 import { mainnet, optimism } from '@tevm/common'
 
@@ -19,12 +19,7 @@ export const optimismClient = createTestSnapshotClient({
 	common: optimism,
 })
 
-beforeAll(async () => {
-	await mainnetClient.start()
-	await optimismClient.start()
-})
-
 afterAll(async () => {
-	await mainnetClient.stop()
-	await optimismClient.stop()
+	await mainnetClient.save()
+	await optimismClient.save()
 })
