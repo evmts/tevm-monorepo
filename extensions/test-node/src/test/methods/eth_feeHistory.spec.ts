@@ -1,6 +1,6 @@
 import { describe, it } from 'vitest'
 import { BLOCK_NUMBER } from '../constants.js'
-import { assertMethodCached, assertMethodNotCached } from '../utils.js'
+import { assertMethodCached, assertMethodNotCached } from '../snapshot-utils.js'
 import { client } from '../vitest.setup.js'
 
 describe('eth_feeHistory', () => {
@@ -10,6 +10,7 @@ describe('eth_feeHistory', () => {
 			params: ['0x1', BLOCK_NUMBER, [1, 2, 3]],
 		})
 
+		await client.save()
 		assertMethodCached('eth_feeHistory', (params) => params[1] === BLOCK_NUMBER)
 	})
 
@@ -19,6 +20,7 @@ describe('eth_feeHistory', () => {
 			params: ['0x1', 'latest', [1, 2, 3]],
 		})
 
+		await client.save()
 		assertMethodNotCached('eth_feeHistory', (params) => params[1] === 'latest')
 	})
 })
