@@ -1,6 +1,8 @@
 import type { AddressInfo } from 'node:net'
-import { createMemoryClient } from '@tevm/memory-client'
+import type { Common } from '@tevm/common'
+import { type TevmRpcSchema, createMemoryClient } from '@tevm/memory-client'
 import { createServer } from '@tevm/server'
+import type { Account, Address, Chain, RpcSchema } from 'viem'
 import { SnapshotManager } from './snapshot/SnapshotManager.js'
 import { createCachedTransport } from './snapshot/createCachedTransport.js'
 import type { TestSnapshotClient, TestSnapshotClientOptions } from './types.js'
@@ -27,7 +29,13 @@ import type { TestSnapshotClient, TestSnapshotClientOptions } from './types.js'
  * await client.server.stop()
  * ```
  */
-export const createTestSnapshotClient = (options: TestSnapshotClientOptions): TestSnapshotClient => {
+export const createTestSnapshotClient = <
+	TCommon extends Common & Chain = Common & Chain,
+	TAccountOrAddress extends Account | Address | undefined = undefined,
+	TRpcSchema extends RpcSchema | undefined = TevmRpcSchema,
+>(
+	options: TestSnapshotClientOptions<TCommon, TAccountOrAddress, TRpcSchema>,
+): TestSnapshotClient<TCommon, TAccountOrAddress> => {
 	// Validate fork transport is provided
 	const forkTransport = options.fork?.transport
 	if (!forkTransport) {

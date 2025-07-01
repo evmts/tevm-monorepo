@@ -1,5 +1,7 @@
 import type { Server as HttpServer } from 'node:http'
-import type { MemoryClient, MemoryClientOptions } from '@tevm/memory-client'
+import type { Common } from '@tevm/common'
+import type { MemoryClient, MemoryClientOptions, TevmRpcSchema } from '@tevm/memory-client'
+import type { Account, Address, Chain, RpcSchema } from 'viem'
 
 export type SnapshotAutosaveMode = 'onStop' | 'onRequest'
 
@@ -24,11 +26,18 @@ export type TestOptions = {
 	autosave?: SnapshotAutosaveMode
 }
 
-export type TestSnapshotClientOptions = MemoryClientOptions & {
+export type TestSnapshotClientOptions<
+	TCommon extends Common & Chain = Common & Chain,
+	TAccountOrAddress extends Account | Address | undefined = undefined,
+	TRpcSchema extends RpcSchema | undefined = TevmRpcSchema,
+> = MemoryClientOptions<TCommon, TAccountOrAddress, TRpcSchema> & {
 	test?: TestOptions
 }
 
-export type TestSnapshotClient = MemoryClient & {
+export type TestSnapshotClient<
+TCommon extends Common & Chain = Common & Chain,
+TAccountOrAddress extends Account | Address | undefined = undefined,
+> = MemoryClient<TCommon, TAccountOrAddress> & {
 	server: {
 		/**
 		 * The HTTP server
