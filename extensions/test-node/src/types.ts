@@ -1,12 +1,27 @@
 import type { Server as HttpServer } from 'node:http'
 import type { MemoryClient, MemoryClientOptions } from '@tevm/memory-client'
 
+export type SnapshotAutosaveMode = 'onStop' | 'onRequest'
+
 export type TestOptions = {
 	/**
 	 * The directory to store snapshot files.
 	 * @default '.tevm/test-snapshots/<test-file-name>'
 	 */
 	cacheDir?: string
+	/**
+	 * Controls when snapshots are automatically saved to disk.
+	 *
+	 * - 'onStop' (default): Save snapshots only when stopping the server
+	 * - 'onRequest': Save snapshots after each request is cached
+	 *
+	 * Using 'onRequest' provides real-time snapshot persistence but may impact performance
+	 * with frequent I/O operations. Use 'onStop' for better performance when you only
+	 * need snapshots persisted at the end of your test run (or whenever you call `stop()` or `save()`).
+	 *
+	 * @default 'onStop'
+	 */
+	autosave?: SnapshotAutosaveMode
 }
 
 export type TestSnapshotClientOptions = MemoryClientOptions & {
