@@ -1,6 +1,6 @@
 import { describe, it } from 'vitest'
 import { BLOCK_HASH } from '../constants.js'
-import { assertMethodCached } from '../utils.js'
+import { assertMethodCached } from '../snapshot-utils.js'
 import { client } from '../vitest.setup.js'
 
 describe('eth_getUncleCountByBlockHash', () => {
@@ -10,6 +10,7 @@ describe('eth_getUncleCountByBlockHash', () => {
 			params: [BLOCK_HASH],
 		})
 
+		await client.save()
 		assertMethodCached('eth_getUncleCountByBlockHash')
 	})
 })

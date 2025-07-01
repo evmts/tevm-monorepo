@@ -5279,7 +5279,7 @@
   },
   "[null,\"eth_simulateV1\",{\"blockStateCalls\":[{\"blockOverrides\":{\"baseFeePerGas\":\"0x9\"},\"stateOverrides\":{\"0xc000000000000000000000000000000000000000\":{\"balance\":\"0x4a817c420\"}},\"calls\":[{\"from\":\"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\",\"to\":\"0x014d023e954bAae7F21E56ed8a5d81b12902684D\",\"maxFeePerGas\":\"0xf\",\"value\":\"0x1\"}]}],\"validation\":true,\"traceTransfers\":true},\"0x15b9a22\"]": [
     {
-      "hash": "0x21b9803cf6fa47f51dc86ad6c5821d2f106fd38f5285c7e534ee6ba8367bf9e1",
+      "hash": "0x6c4010baea18deddee09974eaf0859b2f8a2b0fccfdd9302c04160a45716a88a",
       "parentHash": "0x509357d3abe2ee3e6dbbeaefc00aece314ab411aaed0f2ba709488a23f73a5ae",
       "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
       "miner": "0x4838b106fce9647bdf1e7877bf73ce8b0bad5f97",
@@ -5293,7 +5293,7 @@
       "gasUsed": "0x5236",
       "timestamp": "0x685bbc27",
       "extraData": "0x726574682f76312e342e382f6c696e7578",
-      "mixHash": "0xf0115ca51ca575ddda3d3f056c48b7328a7024ade761ed76ea5034b1b1bae38f",
+      "mixHash": "0x7bc19bc9b18922ff36990d70bc7b5fb30368463492ffbf6dd548c1e2c68d4d40",
       "nonce": "0x0000000000000000",
       "baseFeePerGas": "0x9",
       "withdrawalsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",

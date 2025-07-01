@@ -1,5 +1,5 @@
 import { describe, it } from 'vitest'
-import { assertMethodNotCached } from '../utils.js'
+import { assertMethodNotCached } from '../snapshot-utils.js'
 import { client } from '../vitest.setup.js'
 
 describe('eth_newPendingTransactionFilter', () => {
@@ -9,6 +9,7 @@ describe('eth_newPendingTransactionFilter', () => {
 			await client.tevm.transport.tevm.forkTransport?.request({ method: 'eth_newPendingTransactionFilter' })
 		} catch (error) {}
 
+		await client.save()
 		assertMethodNotCached('eth_newPendingTransactionFilter')
 	})
 })

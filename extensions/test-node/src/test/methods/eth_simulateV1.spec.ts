@@ -1,7 +1,7 @@
 import { type EIP1193RequestFn, type EIP1474Methods } from 'viem'
 import { describe, it } from 'vitest'
 import { BLOCK_NUMBER } from '../constants.js'
-import { assertMethodCached, assertMethodNotCached } from '../utils.js'
+import { assertMethodCached, assertMethodNotCached } from '../snapshot-utils.js'
 import { client } from '../vitest.setup.js'
 
 describe('eth_simulateV1', () => {
@@ -32,6 +32,7 @@ describe('eth_simulateV1', () => {
 			],
 		})
 
+		await client.save()
 		assertMethodCached('eth_simulateV1', (params) => params[1] === BLOCK_NUMBER)
 	})
 
@@ -61,6 +62,7 @@ describe('eth_simulateV1', () => {
 			],
 		})
 
+		await client.save()
 		assertMethodNotCached('eth_simulateV1', (params) => params[1] === 'latest')
 	})
 })

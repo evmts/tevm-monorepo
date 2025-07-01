@@ -1,7 +1,7 @@
 import { PREFUNDED_ACCOUNTS } from '@tevm/utils'
 import { describe, it } from 'vitest'
 import { BLOCK_NUMBER } from '../constants.js'
-import { assertMethodCached, assertMethodNotCached } from '../utils.js'
+import { assertMethodCached, assertMethodNotCached } from '../snapshot-utils.js'
 import { client } from '../vitest.setup.js'
 
 describe('eth_getCode', () => {
@@ -11,6 +11,7 @@ describe('eth_getCode', () => {
 			params: [PREFUNDED_ACCOUNTS[0].address, BLOCK_NUMBER],
 		})
 
+		await client.save()
 		assertMethodCached('eth_getCode', (params) => params[1] === BLOCK_NUMBER)
 	})
 
@@ -20,6 +21,7 @@ describe('eth_getCode', () => {
 			params: [PREFUNDED_ACCOUNTS[0].address, 'latest'],
 		})
 
+		await client.save()
 		assertMethodNotCached('eth_getCode', (params) => params[1] === 'latest')
 	})
 })

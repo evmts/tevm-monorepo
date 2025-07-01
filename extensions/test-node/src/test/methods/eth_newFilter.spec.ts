@@ -1,6 +1,6 @@
 import { describe, it } from 'vitest'
 import { BLOCK_NUMBER } from '../constants.js'
-import { assertMethodNotCached } from '../utils.js'
+import { assertMethodNotCached } from '../snapshot-utils.js'
 import { client } from '../vitest.setup.js'
 
 describe('eth_newFilter', () => {
@@ -10,6 +10,7 @@ describe('eth_newFilter', () => {
 			params: [{ fromBlock: BLOCK_NUMBER, toBlock: 'latest' }],
 		})
 
+		await client.save()
 		assertMethodNotCached('eth_newFilter')
 	})
 })

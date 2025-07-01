@@ -1,6 +1,6 @@
 import { describe, it } from 'vitest'
 import { BLOCK_HASH } from '../constants.js'
-import { assertMethodCached } from '../utils.js'
+import { assertMethodCached } from '../snapshot-utils.js'
 import { client } from '../vitest.setup.js'
 
 describe('eth_getTransactionByBlockHashAndIndex', () => {
@@ -10,6 +10,7 @@ describe('eth_getTransactionByBlockHashAndIndex', () => {
 			params: [BLOCK_HASH, '0x0'],
 		})
 
+		await client.save()
 		assertMethodCached('eth_getTransactionByBlockHashAndIndex')
 	})
 })
