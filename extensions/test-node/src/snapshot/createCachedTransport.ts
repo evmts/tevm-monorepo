@@ -2,8 +2,8 @@ import type { EIP1193Parameters, EIP1474Methods, Transport } from 'viem'
 import { type EIP1193RequestFn } from 'viem'
 import { ethMethodToCacheKey } from '../internal/ethMethodToCacheKey.js'
 import { isCachedJsonRpcMethod } from '../internal/isCachedJsonRpcMethod.js'
-import type { SnapshotManager } from './SnapshotManager.js'
 import type { SnapshotAutosaveMode } from '../types.js'
+import type { SnapshotManager } from './SnapshotManager.js'
 
 /**
  * Creates a cached transport that wraps the original transport
