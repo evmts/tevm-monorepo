@@ -1,5 +1,14 @@
 # @tevm/contract
 
+## 1.0.0-next.148
+
+### Patch Changes
+
+- Updated dependencies [826c7fa]
+  - @tevm/contract@1.0.0-next.148
+  - @tevm/address@1.0.0-next.148
+  - @tevm/utils@1.0.0-next.148
+
 ## 1.0.0-next.146
 
 ### Patch Changes

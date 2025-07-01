@@ -1,5 +1,18 @@
 # @tevm/state
 
+## 1.0.0-next.148
+
+### Patch Changes
+
+- @tevm/vm@1.0.0-next.148
+- @tevm/block@1.0.0-next.148
+- @tevm/blockchain@1.0.0-next.148
+- @tevm/common@1.0.0-next.148
+- @tevm/evm@1.0.0-next.148
+- @tevm/state@1.0.0-next.148
+- @tevm/tx@1.0.0-next.148
+- @tevm/utils@1.0.0-next.148
+
 ## 1.0.0-next.147
 
 ### Patch Changes
