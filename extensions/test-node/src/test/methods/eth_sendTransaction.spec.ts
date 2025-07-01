@@ -1,11 +1,9 @@
 import { PREFUNDED_ACCOUNTS } from '@tevm/utils'
 import { describe, it } from 'vitest'
-import { getTestClient } from '../../core/client.js'
 import { assertMethodNotCached } from '../utils.js'
+import { client } from '../vitest.setup.js'
 
 describe('eth_sendTransaction', () => {
-	const client = getTestClient()
-
 	it('should NOT create a cache entry', async () => {
 		// Method might not be implemented (only with metamask)
 		try {
@@ -20,7 +18,6 @@ describe('eth_sendTransaction', () => {
 				],
 			})
 		} catch (error) {}
-		await client.flush()
 
 		assertMethodNotCached('eth_sendTransaction')
 	})
