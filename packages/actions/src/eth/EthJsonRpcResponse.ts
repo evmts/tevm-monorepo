@@ -13,6 +13,12 @@ import type { EthBlockNumberResult } from './EthResult.js'
  */
 export type EthAccountsJsonRpcResponse = JsonRpcResponse<'eth_accounts', Address[], string | number>
 
+// eth_blobBaseFee
+/**
+ * JSON-RPC response for `eth_blobBaseFee` procedure
+ */
+export type EthBlobBaseFeeJsonRpcResponse = JsonRpcResponse<'eth_blobBaseFee', Hex, string | number>
+
 // eth_blockNumber
 /**
  * JSON-RPC response for `eth_blockNumber` procedure

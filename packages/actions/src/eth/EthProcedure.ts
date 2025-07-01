@@ -1,5 +1,6 @@
 import type {
 	EthAccountsJsonRpcRequest,
+	EthBlobBaseFeeJsonRpcRequest,
 	EthBlockNumberJsonRpcRequest,
 	EthCallJsonRpcRequest,
 	EthChainIdJsonRpcRequest,
@@ -41,6 +42,7 @@ import type {
 } from './EthJsonRpcRequest.js'
 import type {
 	EthAccountsJsonRpcResponse,
+	EthBlobBaseFeeJsonRpcResponse,
 	EthBlockNumberJsonRpcResponse,
 	EthCallJsonRpcResponse,
 	EthChainIdJsonRpcResponse,
@@ -83,6 +85,10 @@ import type {
 
 // eth_accounts
 export type EthAccountsJsonRpcProcedure = (request: EthAccountsJsonRpcRequest) => Promise<EthAccountsJsonRpcResponse>
+// eth_blobBaseFee
+export type EthBlobBaseFeeJsonRpcProcedure = (
+	request: EthBlobBaseFeeJsonRpcRequest,
+) => Promise<EthBlobBaseFeeJsonRpcResponse>
 // eth_blockNumber
 export type EthBlockNumberJsonRpcProcedure = (
 	request: EthBlockNumberJsonRpcRequest,
