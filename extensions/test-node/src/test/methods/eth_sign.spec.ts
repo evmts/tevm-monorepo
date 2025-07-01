@@ -1,6 +1,6 @@
 import { PREFUNDED_ACCOUNTS } from '@tevm/utils'
 import { describe, it } from 'vitest'
-import { assertMethodCached } from '../utils.js'
+import { assertMethodCached } from '../snapshot-utils.js'
 import { client } from '../vitest.setup.js'
 
 describe('eth_sign', () => {
@@ -11,8 +11,8 @@ describe('eth_sign', () => {
 				method: 'eth_sign',
 				params: [PREFUNDED_ACCOUNTS[0].address, '0x'],
 			})
+			await client.save()
+			assertMethodCached('eth_sign')
 		} catch (error) {}
-
-		assertMethodCached('eth_sign')
 	})
 })

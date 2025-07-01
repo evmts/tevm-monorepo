@@ -1,6 +1,6 @@
 import { PREFUNDED_ACCOUNTS } from '@tevm/utils'
 import { describe, it } from 'vitest'
-import { assertMethodNotCached } from '../utils.js'
+import { assertMethodNotCached } from '../snapshot-utils.js'
 import { client } from '../vitest.setup.js'
 
 describe('eth_sendTransaction', () => {
@@ -19,6 +19,7 @@ describe('eth_sendTransaction', () => {
 			})
 		} catch (error) {}
 
+		await client.save()
 		assertMethodNotCached('eth_sendTransaction')
 	})
 })

@@ -2,7 +2,7 @@ import { PREFUNDED_ACCOUNTS } from '@tevm/utils'
 import type { Hex } from 'viem'
 import { describe, it } from 'vitest'
 import { chain } from '../constants.js'
-import { assertMethodNotCached } from '../utils.js'
+import { assertMethodNotCached } from '../snapshot-utils.js'
 import { client } from '../vitest.setup.js'
 
 describe('eth_sendRawTransaction', () => {
@@ -28,6 +28,7 @@ describe('eth_sendRawTransaction', () => {
 			})
 		} catch (error) {}
 
+		await client.save()
 		assertMethodNotCached('eth_sendRawTransaction')
 	})
 })

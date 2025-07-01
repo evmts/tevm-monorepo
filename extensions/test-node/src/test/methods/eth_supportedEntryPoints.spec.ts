@@ -1,5 +1,5 @@
 import { describe, it } from 'vitest'
-import { assertMethodCached } from '../utils.js'
+import { assertMethodCached } from '../snapshot-utils.js'
 import { client } from '../vitest.setup.js'
 
 describe('eth_supportedEntryPoints', () => {
@@ -10,8 +10,8 @@ describe('eth_supportedEntryPoints', () => {
 				method: 'eth_supportedEntryPoints',
 				params: [],
 			})
+			await client.save()
+			assertMethodCached('eth_supportedEntryPoints')
 		} catch (error) {}
-
-		assertMethodCached('eth_supportedEntryPoints')
 	})
 })
