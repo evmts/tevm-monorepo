@@ -39,12 +39,32 @@ export const client = createTestSnapshotClient({
   }
 })
 
+// If you would like to run a Tevm server in the background
 beforeAll(async () => {
   await client.start()
 })
 
 afterAll(async () => {
   await client.stop()
+})
+```
+
+Or without a server and with autosave on each request:
+
+```typescript
+import { createTestSnapshotClient } from '@tevm/test-node'
+
+const client = createTestSnapshotClient({
+  fork: {
+    transport: http('https://mainnet.optimism.io'),
+    blockTag: 123456n
+  },
+  common: mainnet,
+  test: {
+    // This will save snapshots after every request
+    // default is 'onStop', which saves when stopping the server
+    autosave: 'onRequest'
+  }
 })
 ```
 
