@@ -1,5 +1,40 @@
 # @tevm/contract
 
+## 1.0.0-next.148
+
+### Patch Changes
+
+- Updated dependencies [826c7fa]
+- Updated dependencies [9e0e1cd]
+- Updated dependencies [05fa934]
+  - @tevm/contract@1.0.0-next.148
+  - @tevm/actions@1.0.0-next.148
+  - @tevm/errors@1.0.0-next.148
+  - @tevm/bun-plugin@1.0.0-next.146
+  - @tevm/viem@1.0.0-next.148
+  - @tevm/ts-plugin@1.0.0-next.146
+  - @tevm/http-client@1.0.0-next.148
+  - @tevm/memory-client@1.0.0-next.148
+  - @tevm/precompiles@1.0.0-next.148
+  - @tevm/predeploys@1.0.0-next.148
+  - @tevm/vm@1.0.0-next.148
+  - @tevm/cli@1.0.0-next.148
+  - @tevm/client-types@1.0.0-next.148
+  - @tevm/decorators@1.0.0-next.148
+  - @tevm/server@1.0.0-next.148
+  - @tevm/address@1.0.0-next.148
+  - @tevm/block@1.0.0-next.148
+  - @tevm/blockchain@1.0.0-next.148
+  - @tevm/common@1.0.0-next.148
+  - @tevm/evm@1.0.0-next.148
+  - @tevm/state@1.0.0-next.148
+  - @tevm/tx@1.0.0-next.148
+  - @tevm/utils@1.0.0-next.148
+  - @tevm/node@1.0.0-next.148
+  - @tevm/receipt-manager@1.0.0-next.148
+  - @tevm/txpool@1.0.0-next.148
+  - @tevm/sync-storage-persister@1.0.0-next.148
+
 ## 1.0.0-next.147
 
 ### Patch Changes
