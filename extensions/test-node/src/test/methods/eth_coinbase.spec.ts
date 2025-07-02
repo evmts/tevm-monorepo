@@ -7,8 +7,8 @@ describe('eth_coinbase', () => {
 		// This might fail as eth_coinbase is restricted by blockchain schema or unavailable but we're interested in it getting cached or not
 		// some rpcs will throw (e.g. with ankr) and some will not (e.g. with quicknode)
 		try {
-			await client.tevm.transport.tevm.forkTransport?.request({ method: 'eth_coinbase' })
-			await client.save()
+			await client.transport.tevm.forkTransport?.request({ method: 'eth_coinbase' })
+			await client.saveSnapshots()
 			assertMethodCached('eth_coinbase')
 		} catch (error) {}
 	})
