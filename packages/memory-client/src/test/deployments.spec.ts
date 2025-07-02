@@ -5,14 +5,21 @@ import { type Address, testActions } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { MemoryClient } from '../MemoryClient.js'
 import { createMemoryClient } from '../createMemoryClient.js'
+import { createTestSnapshotTransport } from '@tevm/test-node'
 
 let client: MemoryClient
 
 beforeEach(async () => {
+	const cachedTransport = createTestSnapshotTransport({
+		transport: transports.mainnet,
+		test: {
+			autosave: 'onRequest',
+		}
+	})
 	client = createMemoryClient({
 		common: mainnet,
 		fork: {
-			transport: transports.mainnet,
+			transport: cachedTransport,
 		},
 	})
 	await client.extend(testActions({ mode: 'anvil' })).mine({ blocks: 1 })
