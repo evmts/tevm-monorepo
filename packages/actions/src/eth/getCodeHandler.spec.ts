@@ -1,12 +1,13 @@
 import { createAddress } from '@tevm/address'
 import { UnknownBlockError } from '@tevm/errors'
 import { createTevmNode } from '@tevm/node'
-import { SimpleContract, transports } from '@tevm/test-utils'
+import { SimpleContract } from '@tevm/test-utils'
 import { numberToHex } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { getCodeHandler } from './getCodeHandler.js'
+import { mainnetNode, optimismNode } from '../../vitest.setup.js'
 
 const contract = SimpleContract.withAddress(createAddress(420420).toString())
 
@@ -146,12 +147,7 @@ describe(getCodeHandler.name, () => {
 
 describe('Forking tests', () => {
 	it('should fetch code from mainnet fork when block is not in local state', async () => {
-		const forkedClient = createTevmNode({
-			fork: {
-				transport: transports.mainnet,
-			},
-		})
-		const forkedHandler = getCodeHandler(forkedClient)
+		const forkedHandler = getCodeHandler(mainnetNode)
 
 		// Use a known contract address from mainnet
 		const uniswapV2Router = '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D'
@@ -162,12 +158,7 @@ describe('Forking tests', () => {
 	})
 
 	it('should fetch code from Optimism fork', async () => {
-		const forkedClient = createTevmNode({
-			fork: {
-				transport: transports.optimism,
-			},
-		})
-		const forkedHandler = getCodeHandler(forkedClient)
+		const forkedHandler = getCodeHandler(optimismNode)
 
 		// Use a known contract address from Optimism
 		const optimismBridgeAddress = '0x4200000000000000000000000000000000000010'
