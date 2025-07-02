@@ -27,18 +27,7 @@ export type TestOptions = {
 	autosave?: SnapshotAutosaveMode
 }
 
-export type TestSnapshotClientOptions<
-	TCommon extends Common & Chain = Common & Chain,
-	TAccountOrAddress extends Account | Address | undefined = undefined,
-	TRpcSchema extends RpcSchema | undefined = TevmRpcSchema,
-> = MemoryClientOptions<TCommon, TAccountOrAddress, TRpcSchema> & {
-	test?: TestOptions
-}
-
-export type TestSnapshotClient<
-TCommon extends Common & Chain = Common & Chain,
-TAccountOrAddress extends Account | Address | undefined = undefined,
-> = MemoryClient<TCommon, TAccountOrAddress> & {
+type TestSnapshotBaseClient = {
 	server: {
 		/**
 		 * The HTTP server
@@ -64,19 +53,21 @@ TAccountOrAddress extends Account | Address | undefined = undefined,
 	saveSnapshots: () => Promise<void>
 }
 
+export type TestSnapshotClientOptions<
+	TCommon extends Common & Chain = Common & Chain,
+	TAccountOrAddress extends Account | Address | undefined = undefined,
+	TRpcSchema extends RpcSchema | undefined = TevmRpcSchema,
+> = MemoryClientOptions<TCommon, TAccountOrAddress, TRpcSchema> & {
+	test?: TestOptions
+}
+
+export type TestSnapshotClient<
+	TCommon extends Common & Chain = Common & Chain,
+	TAccountOrAddress extends Account | Address | undefined = undefined,
+> = MemoryClient<TCommon, TAccountOrAddress> & TestSnapshotBaseClient
+
 export type TestSnapshotNodeOptions = TevmNodeOptions & {
 	test?: TestOptions
 }
 
-export type TestSnapshotNode = {
-	tevm: TevmNode<'fork'> // we errored if there was no fork transport
-	server: HttpServer
-	rpcUrl: string
-	start: () => Promise<void>
-	stop: () => Promise<void>
-	/**
-	 * Save snapshots to disk without stopping the server
-	 * This allows checking snapshots mid-test while keeping everything running
-	 */
-	save: () => Promise<void>
-}
+export type TestSnapshotNode = TevmNode<'fork'> & TestSnapshotBaseClient
