@@ -116,3 +116,20 @@ Returns a node with the following properties:
   - `start()`: Start the server
   - `stop()`: Stop the server and save snapshots to disk
 - `saveSnapshots()`: Save snapshots to disk
+
+### `createTestSnapshotTransport(options)`
+
+Create a transport with snapshotting capabilities.
+
+- `options.transport`: A viem Transport or an object with a `request` method
+- `options.test.cacheDir?`: Directory for snapshots (default: `.tevm/test-snapshots`)
+- `options.test.autosave?`: Whether to save snapshots after each request (default: `'onStop'`)
+
+Returns a transport with the following properties:
+- `request`: The EIP-1193 request function
+- `server`: HTTP server instance with the following properties:
+  - `http`: The HTTP server
+  - `rpcUrl`: URL of the running server
+  - `start()`: Start the server
+  - `stop()`: Stop the server and save snapshots to disk
+- `saveSnapshots()`: Save snapshots to disk
