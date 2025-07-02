@@ -5,12 +5,12 @@ import { client } from '../vitest.setup.js'
 
 describe('eth_newFilter', () => {
 	it('should NOT create a cache entry', async () => {
-		await client.tevm.transport.tevm.forkTransport?.request({
+		await client.transport.tevm.forkTransport?.request({
 			method: 'eth_newFilter',
 			params: [{ fromBlock: BLOCK_NUMBER, toBlock: 'latest' }],
 		})
 
-		await client.save()
+		await client.saveSnapshots()
 		assertMethodNotCached('eth_newFilter')
 	})
 })

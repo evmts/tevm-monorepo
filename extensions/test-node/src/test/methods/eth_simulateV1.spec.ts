@@ -6,7 +6,7 @@ import { client } from '../vitest.setup.js'
 
 describe('eth_simulateV1', () => {
 	it('should create a cache entry with a static block parameter', async () => {
-		await (client.tevm.transport.tevm.forkTransport?.request as EIP1193RequestFn<EIP1474Methods>)({
+		await (client.transport.tevm.forkTransport?.request as EIP1193RequestFn<EIP1474Methods>)({
 			method: 'eth_simulateV1',
 			// borrowed from https://www.quicknode.com/docs/ethereum/eth_simulateV1
 			params: [
@@ -32,12 +32,12 @@ describe('eth_simulateV1', () => {
 			],
 		})
 
-		await client.save()
+		await client.saveSnapshots()
 		assertMethodCached('eth_simulateV1', (params) => params[1] === BLOCK_NUMBER)
 	})
 
 	it('should NOT create a cache entry with dynamic block parameter tag', async () => {
-		await (client.tevm.transport.tevm.forkTransport?.request as EIP1193RequestFn<EIP1474Methods>)({
+		await (client.transport.tevm.forkTransport?.request as EIP1193RequestFn<EIP1474Methods>)({
 			method: 'eth_simulateV1',
 			params: [
 				{
@@ -62,7 +62,7 @@ describe('eth_simulateV1', () => {
 			],
 		})
 
-		await client.save()
+		await client.saveSnapshots()
 		assertMethodNotCached('eth_simulateV1', (params) => params[1] === 'latest')
 	})
 })

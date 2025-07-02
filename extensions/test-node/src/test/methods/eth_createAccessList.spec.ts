@@ -8,7 +8,7 @@ const EF = '0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe'
 
 describe('eth_createAccessList', () => {
 	it('should create a cache entry with a static block number', async () => {
-		await client.tevm.transport.tevm.forkTransport?.request({
+		await client.transport.tevm.forkTransport?.request({
 			method: 'eth_createAccessList',
 			params: [
 				{
@@ -20,12 +20,12 @@ describe('eth_createAccessList', () => {
 			],
 		})
 
-		await client.save()
+		await client.saveSnapshots()
 		assertMethodCached('eth_createAccessList', (params) => params[3] === BLOCK_NUMBER)
 	})
 
 	it('should NOT create a cache entry with a dynamic block tag', async () => {
-		await client.tevm.transport.tevm.forkTransport?.request({
+		await client.transport.tevm.forkTransport?.request({
 			method: 'eth_createAccessList',
 			params: [
 				{
@@ -37,7 +37,7 @@ describe('eth_createAccessList', () => {
 			],
 		})
 
-		await client.save()
+		await client.saveSnapshots()
 		assertMethodNotCached('eth_createAccessList', (params) => params[3] === 'latest')
 	})
 })

@@ -6,11 +6,11 @@ describe('eth_supportedEntryPoints', () => {
 	it('should create a cache entry', async () => {
 		// This method might not be implemented
 		try {
-			await client.tevm.transport.tevm.forkTransport?.request({
+			await client.transport.tevm.forkTransport?.request({
 				method: 'eth_supportedEntryPoints',
 				params: [],
 			})
-			await client.save()
+			await client.saveSnapshots()
 			assertMethodCached('eth_supportedEntryPoints')
 		} catch (error) {}
 	})

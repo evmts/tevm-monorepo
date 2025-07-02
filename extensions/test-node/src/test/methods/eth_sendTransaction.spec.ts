@@ -7,7 +7,7 @@ describe('eth_sendTransaction', () => {
 	it('should NOT create a cache entry', async () => {
 		// Method might not be implemented (only with metamask)
 		try {
-			await client.tevm.transport.tevm.forkTransport?.request({
+			await client.transport.tevm.forkTransport?.request({
 				method: 'eth_sendTransaction',
 				params: [
 					{
@@ -19,7 +19,7 @@ describe('eth_sendTransaction', () => {
 			})
 		} catch (error) {}
 
-		await client.save()
+		await client.saveSnapshots()
 		assertMethodNotCached('eth_sendTransaction')
 	})
 })
