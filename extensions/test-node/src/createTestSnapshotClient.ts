@@ -22,9 +22,9 @@ import type { TestSnapshotClient, TestSnapshotClientOptions } from './types.js'
  * })
  *
  * // Use the client in your tests
- * await client.start()
- * const block = await client.tevm.getBlock({ blockNumber: 123n })
- * await client.stop()
+ * await client.server.start()
+ * const block = await client.getBlock({ blockNumber: 123n })
+ * await client.server.stop()
  * ```
  */
 export const createTestSnapshotClient = (options: TestSnapshotClientOptions): TestSnapshotClient => {
