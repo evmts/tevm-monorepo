@@ -230,7 +230,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 
 	describe('client.contract', () => {
 		it('should fork a network and then execute a contract call', async () => {
-			const { tevm } = optimismClient
+			const tevm = optimismClient
 			const res = await tevm.tevmContract({
 				to: contractAddress,
 				...DaiContract.read.balanceOf('0xf0d4c12a5768d806021f80a262b4d39d26c58b8d', {

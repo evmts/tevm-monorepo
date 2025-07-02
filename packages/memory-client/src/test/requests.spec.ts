@@ -63,7 +63,7 @@ describe('Tevm.request', async () => {
 	})
 
 	it('should execute a contractCall request via using tevm_call', { timeout: 90_000 }, async () => {
-		const { tevm } = optimismClient
+		const tevm = optimismClient
 		const req = {
 			params: [
 				{
@@ -198,7 +198,7 @@ describe('Tevm.request', async () => {
 
 	// repoing a reported bug
 	it('Should be able to create a contract using these foundry artifacts', { timeout: 15_000 }, async () => {
-		const { tevm } = optimismClient
+		const tevm = optimismClient
 		// const account = await memoryClient.tevmGetAccount({ address: '0xF52CF539DcAc32507F348aa19eb5173EEA3D4e7c' })
 		// expect(account).toBeUndefined()
 		const res = await tevm.tevmCall({
@@ -214,7 +214,7 @@ describe('Tevm.request', async () => {
 	})
 
 	it('Should get the same account in forked or not forked mode', async () => {
-		const { tevm: forkedClient } = optimismClient
+		const forkedClient = optimismClient
 		const nonForkedClient = createMemoryClient()
 		const forkedAccount = await forkedClient.tevmGetAccount({
 			address: '0xF52CF539DcAc32507F348aa19eb5173EEA3D4e7c',
