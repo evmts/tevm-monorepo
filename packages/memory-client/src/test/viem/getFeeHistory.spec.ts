@@ -17,7 +17,7 @@ describe('getFeeHistory', () => {
 			},
 		})
 		expect(
-			await mainnetClient.tevm.getFeeHistory({ blockCount: 3, blockNumber: blockTag, rewardPercentiles: [0, 50, 100] }),
+			await mainnetClient.getFeeHistory({ blockCount: 3, blockNumber: blockTag, rewardPercentiles: [0, 50, 100] }),
 		).toMatchSnapshot()
 	})
 })
