@@ -58,7 +58,7 @@ export type TestSnapshotClientOptions<
 	TAccountOrAddress extends Account | Address | undefined = undefined,
 	TRpcSchema extends RpcSchema | undefined = TevmRpcSchema,
 > = MemoryClientOptions<TCommon, TAccountOrAddress, TRpcSchema> & {
-	test?: TestOptions
+	test?: TestOptions | undefined
 }
 
 export type TestSnapshotClient<
@@ -67,31 +67,20 @@ export type TestSnapshotClient<
 > = MemoryClient<TCommon, TAccountOrAddress> & TestSnapshotBaseClient
 
 export type TestSnapshotNodeOptions = TevmNodeOptions & {
-	test?: TestOptions
+	test?: TestOptions | undefined
 }
 
 export type TestSnapshotNode = TevmNode<'fork'> & TestSnapshotBaseClient
 
 export type TestSnapshotTransportOptions<
 	TTransportType extends string = string,
-  TRpcAttributes = Record<string, any>,
-  TEip1193RequestFn extends EIP1193RequestFn = EIP1193RequestFn,
+	TRpcAttributes = Record<string, any>,
+	TEip1193RequestFn extends EIP1193RequestFn = EIP1193RequestFn,
 > = {
 	transport: Transport<TTransportType, TRpcAttributes, TEip1193RequestFn> | { request: TEip1193RequestFn }
-	test?: TestOptions
+	test?: TestOptions | undefined
 }
 
-export type TestSnapshotTransport<
-	TEip1193RequestFn extends EIP1193RequestFn = EIP1193RequestFn
-> = {
-	tevm: { request: TEip1193RequestFn }
-	server: HttpServer
-	rpcUrl: string
-	start: () => Promise<void>
-	stop: () => Promise<void>
-	/**
-	 * Save snapshots to disk without stopping the server
-	 * This allows checking snapshots mid-test while keeping everything running
-	 */
-	save: () => Promise<void>
-}
+export type TestSnapshotTransport<TEip1193RequestFn extends EIP1193RequestFn = EIP1193RequestFn> = {
+	request: TEip1193RequestFn
+} & TestSnapshotBaseClient

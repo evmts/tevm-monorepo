@@ -1,11 +1,6 @@
-import type { AddressInfo } from 'node:net'
-import type { Common } from '@tevm/common'
-import { type TevmRpcSchema, createMemoryClient } from '@tevm/memory-client'
-import { createServer } from '@tevm/server'
-import type { Account, Address, Chain, EIP1193RequestFn, RpcSchema } from 'viem'
-import { SnapshotManager } from './snapshot/SnapshotManager.js'
-import { createCachedTransport } from './snapshot/createCachedTransport.js'
-import type { TestSnapshotClient, TestSnapshotClientOptions, TestSnapshotTransport, TestSnapshotTransportOptions } from './types.js'
+import type { EIP1193RequestFn, Transport } from 'viem'
+import { createTestSnapshotClient } from './createTestSnapshotClient.js'
+import type { TestSnapshotTransport, TestSnapshotTransportOptions } from './types.js'
 
 /**
  * Creates a test snapshot client that automatically caches RPC responses
@@ -30,69 +25,22 @@ import type { TestSnapshotClient, TestSnapshotClientOptions, TestSnapshotTranspo
  * ```
  */
 export const createTestSnapshotTransport = <
-TTransportType extends string = string,
-TRpcAttributes = Record<string, any>,
-TEip1193RequestFn extends EIP1193RequestFn = EIP1193RequestFn,
+	TTransportType extends string = string,
+	TRpcAttributes = Record<string, any>,
+	TEip1193RequestFn extends EIP1193RequestFn = EIP1193RequestFn,
 >(
 	options: TestSnapshotTransportOptions<TTransportType, TRpcAttributes, TEip1193RequestFn>,
 ): TestSnapshotTransport<TEip1193RequestFn> => {
-	// Create snapshot manager
-	const snapshotManager = new SnapshotManager(options.test?.cacheDir)
-
-	// Create TEVM client with cached transport
-	const autosave = options.test?.autosave ?? 'onStop'
-	const tevm = createMemoryClient({
+	const client = createTestSnapshotClient({
 		fork: {
-			// Create a transport with a request function that handles caching
-			transport: createCachedTransport(options.transport, snapshotManager, autosave),
+			transport: options.transport as Transport | { request: EIP1193RequestFn },
 		},
+		test: options.test,
 	})
-	const server = createServer(tevm)
 
-	let rpcUrl = ''
-	let serverStarted = false
-
-	// Create the client object
-	const client: TestSnapshotClient<TCommon, TAccountOrAddress> = {
-		tevm,
-		server,
-		get rpcUrl() {
-			return rpcUrl
-		},
-		start: async () => {
-			if (serverStarted) return
-
-			return new Promise<void>((resolve, reject) => {
-				server.once('error', reject)
-				server.once('listening', resolve)
-
-				server.listen(0, 'localhost', () => {
-					const address = server.address() as AddressInfo
-					rpcUrl = `http://localhost:${address.port}`
-					serverStarted = true
-					resolve()
-				})
-			})
-		},
-		stop: async () => {
-			await snapshotManager.save()
-			if (!serverStarted) return
-
-			await new Promise<void>((resolve, reject) => {
-				server.close((err) => {
-					if (err) {
-						reject(err)
-					} else {
-						serverStarted = false
-						resolve()
-					}
-				})
-			})
-		},
-		save: async (): Promise<void> => {
-			await snapshotManager.save()
-		},
+	return {
+		request: client.transport.request as TEip1193RequestFn,
+		server: client.server,
+		saveSnapshots: client.saveSnapshots,
 	}
-
-	return client
 }
