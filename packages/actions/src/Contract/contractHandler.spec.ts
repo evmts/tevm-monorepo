@@ -1,13 +1,13 @@
 import { createAddress } from '@tevm/address'
-import { optimism } from '@tevm/common'
 import { InvalidGasPriceError } from '@tevm/errors'
 import { createTevmNode } from '@tevm/node'
-import { TestERC20, transports } from '@tevm/test-utils'
+import { TestERC20 } from '@tevm/test-utils'
 import { encodeFunctionData, hexToBytes } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { contractHandler } from './contractHandler.js'
+import { optimismNode } from '../../vitest.setup.js'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
 const ERC20_BYTECODE = TestERC20.deployedBytecode
@@ -196,20 +196,13 @@ describe('contractHandler', () => {
 	})
 
 	it('should return op stack info if forking', async () => {
-		const client = createTevmNode({
-			fork: {
-				transport: transports.optimism,
-				blockTag: 122606365n,
-			},
-			common: optimism,
-		})
 		const to = `0x${'33'.repeat(20)}` as const
-		const { errors } = await setAccountHandler(client)({
+		const { errors } = await setAccountHandler(optimismNode)({
 			address: to,
 			deployedBytecode: ERC20_BYTECODE,
 		})
 		expect(errors).toBeUndefined()
-		const result = await contractHandler(client)({
+		const result = await contractHandler(optimismNode)({
 			throwOnFail: false,
 			createTransaction: true,
 			abi: ERC20_ABI,
@@ -334,20 +327,13 @@ describe('contractHandler', () => {
 	})
 
 	it('should handle op stack info if forking', async () => {
-		const client = createTevmNode({
-			fork: {
-				transport: transports.optimism,
-				blockTag: 122606365n,
-			},
-			common: optimism,
-		})
 		const to = `0x${'33'.repeat(20)}` as const
-		const { errors } = await setAccountHandler(client)({
+		const { errors } = await setAccountHandler(optimismNode)({
 			address: to,
 			deployedBytecode: ERC20_BYTECODE,
 		})
 		expect(errors).toBeUndefined()
-		const result = await contractHandler(client)({
+		const result = await contractHandler(optimismNode)({
 			throwOnFail: false,
 			createTransaction: true,
 			abi: ERC20_ABI,

@@ -1,6 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { createTevmNode } from '@tevm/node'
-import { SimpleContract, transports } from '@tevm/test-utils'
+import { SimpleContract } from '@tevm/test-utils'
 import {
 	type Address,
 	PREFUNDED_ACCOUNTS,
@@ -17,6 +17,7 @@ import { mineHandler } from '../Mine/mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import type { FilterParams } from '../common/FilterParams.js'
 import { ethGetLogsHandler } from './ethGetLogsHandler.js'
+import { optimismNode } from '../../vitest.setup.js'
 
 describe(ethGetLogsHandler.name, () => {
 	const getValueSetTopic = () => {
@@ -234,13 +235,7 @@ describe(ethGetLogsHandler.name, () => {
 	})
 
 	it('should work for past blocks in forked mode', { timeout: 20_000 }, async () => {
-		const client = createTevmNode({
-			fork: {
-				transport: transports.optimism,
-				blockTag: 125985200n,
-			},
-		})
-		const logs = await ethGetLogsHandler(client)({
+		const logs = await ethGetLogsHandler(optimismNode)({
 			filterParams: {
 				address: '0xdC6fF44d5d932Cbd77B52E5612Ba0529DC6226F1',
 				fromBlock: 125985142n,
