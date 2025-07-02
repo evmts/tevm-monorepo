@@ -14,9 +14,6 @@ export type TestSnapshotClientOptions = MemoryClientOptions & {
 }
 
 export type TestSnapshotClient = MemoryClient & {
-	/**
-	 * The Tevm server instance
-	 */
 	server: {
 		/**
 		 * The HTTP server
