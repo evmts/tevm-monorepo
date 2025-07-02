@@ -1,7 +1,7 @@
 import { type TevmNode } from '@tevm/node'
 import { type Address, type Client, isAddress } from 'viem'
 import type { ContainsAddress, ContainsTransactionAny } from '../../common/types.js'
-import { handleTransaction } from './handleTransaction.js'
+import { getDiffMethodsFromPrestateTrace } from './getDiffMethodsFromPrestateTrace.js'
 import type { BalanceChange } from './types.js'
 
 /**
@@ -23,7 +23,7 @@ export const toChangeTokenBalances = async (
 	if (!isAddress(tokenAddress)) throw new Error(`Invalid token address: ${tokenAddress}`)
 
 	// Handle the transaction and get token balance changes
-	const { getTokenBalanceChange } = await handleTransaction(received, { client })
+	const { getTokenBalanceChange } = await getDiffMethodsFromPrestateTrace(client, received)
 
 	// Validate and normalize token balance changes
 	const normalizedBalanceChanges = await Promise.all(
