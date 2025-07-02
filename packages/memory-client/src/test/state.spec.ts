@@ -42,7 +42,7 @@ const MOCKERC20_ABI = [
 describe('Testing tevm state managers with mix of createTransaction: true and false', () => {
 	describe('SHould be able to run some calls using createTransaction: true and then run a createTransaction: false', async () => {
 		// Create client
-		const { tevm: forkClient } = optimismClient
+		const forkClient = optimismClient
 
 		const normalClient = createMemoryClient({ loggingLevel: 'warn' })
 		const clients = {

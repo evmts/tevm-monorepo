@@ -17,7 +17,7 @@ describe('getEnsText', async () => {
 				autosave: 'onRequest'
 			}
 		})
-		expect(await mainnetClient.tevm.getEnsText({ name: 'wevm.eth', key: 'com.twitter' })).toBe(
+		expect(await mainnetClient.getEnsText({ name: 'wevm.eth', key: 'com.twitter' })).toBe(
 			'wevm_dev',
 		)
 	})

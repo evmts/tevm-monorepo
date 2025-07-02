@@ -20,6 +20,6 @@ export const optimismClient = createTestSnapshotClient({
 })
 
 afterAll(async () => {
-	await mainnetClient.save()
-	await optimismClient.save()
+	await mainnetClient.saveSnapshots()
+	await optimismClient.saveSnapshots()
 })
