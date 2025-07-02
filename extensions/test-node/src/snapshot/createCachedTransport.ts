@@ -14,11 +14,15 @@ import type { SnapshotManager } from './SnapshotManager.js'
  * @param autosave - The autosave mode
  * @returns A wrapped transport that caches responses
  */
-export const createCachedTransport = (
-	originalTransport: Transport | { request: EIP1193RequestFn },
+export const createCachedTransport = <
+	TTransportType extends string = string,
+	TRpcAttributes = Record<string, any>,
+	TEip1193RequestFn extends EIP1193RequestFn = EIP1193RequestFn,
+>(
+	originalTransport: Transport<TTransportType, TRpcAttributes, TEip1193RequestFn> | { request: TEip1193RequestFn },
 	snapshotManager: SnapshotManager,
 	autosave: SnapshotAutosaveMode,
-): { request: EIP1193RequestFn } => {
+): { request: TEip1193RequestFn } => {
 	const request = 'request' in originalTransport ? originalTransport.request : originalTransport({}).request
 
 	return {
@@ -40,5 +44,5 @@ export const createCachedTransport = (
 
 			return response
 		},
-	}
+	} as { request: TEip1193RequestFn }
 }
