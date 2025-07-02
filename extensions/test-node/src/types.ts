@@ -1,6 +1,7 @@
 import type { Server as HttpServer } from 'node:http'
 import type { Common } from '@tevm/common'
 import type { MemoryClient, MemoryClientOptions, TevmRpcSchema } from '@tevm/memory-client'
+import type { TevmNode, TevmNodeOptions } from '@tevm/node'
 import type { Account, Address, Chain, RpcSchema } from 'viem'
 
 export type SnapshotAutosaveMode = 'onStop' | 'onRequest'
@@ -61,4 +62,21 @@ TAccountOrAddress extends Account | Address | undefined = undefined,
 	 * This allows checking snapshots mid-test while keeping everything running
 	 */
 	saveSnapshots: () => Promise<void>
+}
+
+export type TestSnapshotNodeOptions = TevmNodeOptions & {
+	test?: TestOptions
+}
+
+export type TestSnapshotNode = {
+	tevm: TevmNode<'fork'> // we errored if there was no fork transport
+	server: HttpServer
+	rpcUrl: string
+	start: () => Promise<void>
+	stop: () => Promise<void>
+	/**
+	 * Save snapshots to disk without stopping the server
+	 * This allows checking snapshots mid-test while keeping everything running
+	 */
+	save: () => Promise<void>
 }
