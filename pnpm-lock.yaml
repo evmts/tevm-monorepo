@@ -1237,6 +1237,9 @@ importers:
       '@tevm/memory-client':
         specifier: workspace:^
         version: link:../../packages/memory-client
+      '@tevm/node':
+        specifier: workspace:^
+        version: link:../../packages/node
       '@tevm/server':
         specifier: workspace:^
         version: link:../../packages/server
@@ -19298,7 +19301,7 @@ snapshots:
 
   '@scure/bip32@1.7.0':
     dependencies:
-      '@noble/curves': 1.9.2
+      '@noble/curves': 1.9.1
       '@noble/hashes': 1.8.0
       '@scure/base': 1.2.5
 
