@@ -13,15 +13,31 @@ export type TestSnapshotClientOptions = MemoryClientOptions & {
 	test?: TestOptions
 }
 
-export type TestSnapshotClient = {
-	tevm: MemoryClient
-	server: HttpServer
-	rpcUrl: string
-	start: () => Promise<void>
-	stop: () => Promise<void>
+export type TestSnapshotClient = MemoryClient & {
+	/**
+	 * The Tevm server instance
+	 */
+	server: {
+		/**
+		 * The HTTP server
+		 */
+		http: HttpServer
+		/**
+		 * The RPC URL of the server
+		 */
+		rpcUrl: string
+		/**
+		 * Start the Tevm server
+		 */
+		start: () => Promise<void>
+		/**
+		 * Stop the Tevm server and save snapshots
+		 */
+		stop: () => Promise<void>
+	}
 	/**
 	 * Save snapshots to disk without stopping the server
 	 * This allows checking snapshots mid-test while keeping everything running
 	 */
-	save: () => Promise<void>
+	saveSnapshots: () => Promise<void>
 }

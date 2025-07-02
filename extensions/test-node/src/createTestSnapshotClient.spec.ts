@@ -40,18 +40,16 @@ describe('createTestSnapshotClient', () => {
 			test: { cacheDir: testCacheDir },
 		})
 
-		expect(client).toHaveProperty('tevm')
 		expect(client).toHaveProperty('server')
-		expect(client).toHaveProperty('rpcUrl')
-		expect(client).toHaveProperty('start')
-		expect(client).toHaveProperty('stop')
-
-		expect(typeof client.start).toBe('function')
-		expect(typeof client.stop).toBe('function')
+		expect(client.server).toHaveProperty('http')
+		expect(client.server).toHaveProperty('rpcUrl')
+		expect(typeof client.server.start).toBe('function')
+		expect(typeof client.server.stop).toBe('function')
+		expect(typeof client.saveSnapshots).toBe('function')
 	})
 
 	it('should start and stop server correctly', async () => {
-		const client = createTestSnapshotClient({
+		const { server } = createTestSnapshotClient({
 			fork: {
 				transport: transports.mainnet,
 			},
@@ -60,22 +58,22 @@ describe('createTestSnapshotClient', () => {
 		})
 
 		// Initially no rpcUrl
-		expect(client.rpcUrl).toBe('')
+		expect(server.rpcUrl).toBe('')
 
 		// Start server
-		await client.start()
-		expect(client.rpcUrl).toMatch(/^http:\/\/localhost:\d+$/)
+		await server.start()
+		expect(server.rpcUrl).toMatch(/^http:\/\/localhost:\d+$/)
 
 		// Starting again should be no-op
-		const firstUrl = client.rpcUrl
-		await client.start()
-		expect(client.rpcUrl).toBe(firstUrl)
+		const firstUrl = server.rpcUrl
+		await server.start()
+		expect(server.rpcUrl).toBe(firstUrl)
 
 		// Stop server
-		await client.stop()
+		await server.stop()
 
 		// Stopping again should be no-op
-		await client.stop()
+		await server.stop()
 	})
 
 	it('should cache RPC requests', async () => {
@@ -88,7 +86,7 @@ describe('createTestSnapshotClient', () => {
 		})
 
 		// Make a cacheable request
-		const block = await client.tevm.getBlock({
+		const block = await client.getBlock({
 			blockNumber: BigInt(BLOCK_NUMBER),
 		})
 		// Should return the correct result
@@ -96,7 +94,7 @@ describe('createTestSnapshotClient', () => {
 		expect(block.number).toBe(BigInt(BLOCK_NUMBER))
 
 		// Save to ensure snapshots are written
-		await client.save()
+		await client.saveSnapshots()
 
 		// Check snapshots were created
 		const snapshots = getSnapshotEntries(testCacheDir)
@@ -118,8 +116,8 @@ describe('createTestSnapshotClient', () => {
 		})
 
 		// Make a non-cacheable request (blockNumber is not cached)
-		await client.tevm.getBlockNumber()
-		await client.save()
+		await client.getBlockNumber()
+		await client.saveSnapshots()
 
 		// Check no snapshots were created for this
 		const snapshots = getSnapshotEntries(testCacheDir)
@@ -138,9 +136,9 @@ describe('createTestSnapshotClient', () => {
 			test: { cacheDir: testCacheDir },
 		})
 
-		await client.tevm.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) })
+		await client.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) })
 
-		await client.stop()
+		await client.server.stop()
 
 		// Should still have saved snapshots
 		const snapshots = getSnapshotEntries(testCacheDir)

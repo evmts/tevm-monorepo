@@ -13,9 +13,9 @@ const client = createTestSnapshotClient({
 })
 
 beforeAll(async () => {
-	await client.start()
+	await client.server.start()
 })
 
 afterAll(async () => {
-	await client.stop()
+	await client.server.stop()
 })
