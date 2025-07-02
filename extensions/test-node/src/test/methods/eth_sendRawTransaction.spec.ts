@@ -7,7 +7,7 @@ import { client } from '../vitest.setup.js'
 
 describe('eth_sendRawTransaction', () => {
 	it('should NOT create a cache entry', async () => {
-		const nonce = (await client.tevm.transport.tevm.forkTransport?.request({
+		const nonce = (await client.transport.tevm.forkTransport?.request({
 			method: 'eth_getTransactionCount',
 			params: [PREFUNDED_ACCOUNTS[0].address, 'latest'],
 		})) as Hex
@@ -22,13 +22,13 @@ describe('eth_sendRawTransaction', () => {
 
 		// This will fail on an actual chain as the account most probably doesn't have enough balance
 		try {
-			await client.tevm.transport.tevm.forkTransport?.request({
+			await client.transport.tevm.forkTransport?.request({
 				method: 'eth_sendRawTransaction',
 				params: [tx],
 			})
 		} catch (error) {}
 
-		await client.save()
+		await client.saveSnapshots()
 		assertMethodNotCached('eth_sendRawTransaction')
 	})
 })

@@ -5,12 +5,12 @@ import { client } from '../vitest.setup.js'
 
 describe('eth_getUncleCountByBlockHash', () => {
 	it('should create a cache entry', async () => {
-		await client.tevm.transport.tevm.forkTransport?.request({
+		await client.transport.tevm.forkTransport?.request({
 			method: 'eth_getUncleCountByBlockHash',
 			params: [BLOCK_HASH],
 		})
 
-		await client.save()
+		await client.saveSnapshots()
 		assertMethodCached('eth_getUncleCountByBlockHash')
 	})
 })
