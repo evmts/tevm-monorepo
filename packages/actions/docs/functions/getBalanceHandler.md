@@ -8,7 +8,7 @@
 
 > **getBalanceHandler**(`baseClient`): [`EthGetBalanceHandler`](../type-aliases/EthGetBalanceHandler.md)
 
-Defined in: [packages/actions/src/eth/getBalanceHandler.js:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getBalanceHandler.js#L23)
+Defined in: [packages/actions/src/eth/getBalanceHandler.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getBalanceHandler.js#L12)
 
 ## Parameters
 
