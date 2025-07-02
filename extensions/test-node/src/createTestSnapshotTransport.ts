@@ -38,8 +38,11 @@ export const createTestSnapshotTransport = <
 		test: options.test,
 	})
 
+	// This should never happen
+	if (!client.transport.tevm.forkTransport) throw new Error('Transport is not a fork transport')
+
 	return {
-		request: client.transport.request as TEip1193RequestFn,
+		request: client.transport.tevm.forkTransport.request as TEip1193RequestFn,
 		server: client.server,
 		saveSnapshots: client.saveSnapshots,
 	}
