@@ -89,9 +89,27 @@ Create a memory client with snapshotting capabilities.
 
 - `options`: Configuration for the underlying `@tevm/memory-client`
 - `options.test.cacheDir?`: Directory for snapshots (default: `.tevm/test-snapshots`)
+- `options.test.autosave?`: Whether to save snapshots after each request (default: `'onStop'`)
 
 Returns a client with the following properties:
 - `...`: The `MemoryClient` properties
+- `server`: HTTP server instance with the following properties:
+  - `http`: The HTTP server
+  - `rpcUrl`: URL of the running server
+  - `start()`: Start the server
+  - `stop()`: Stop the server and save snapshots to disk
+- `saveSnapshots()`: Save snapshots to disk
+
+### `createTestSnapshotNode(options)`
+
+Create a Tevm node with snapshotting capabilities.
+
+- `options`: Configuration for the underlying `@tevm/node`
+- `options.test.cacheDir?`: Directory for snapshots (default: `.tevm/test-snapshots`)
+- `options.test.autosave?`: Whether to save snapshots after each request (default: `'onStop'`)
+
+Returns a node with the following properties:
+- `...`: The `Node` properties
 - `server`: HTTP server instance with the following properties:
   - `http`: The HTTP server
   - `rpcUrl`: URL of the running server
