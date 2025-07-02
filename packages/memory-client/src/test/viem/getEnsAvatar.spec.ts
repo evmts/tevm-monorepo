@@ -18,7 +18,7 @@ describe('getEnsAvatar', async () => {
 			}
 		})
 		expect(
-			await mainnetClient.tevm.getEnsAvatar({
+			await mainnetClient.getEnsAvatar({
 				name: 'wevm.eth',
 			}),
 		).toBe('https://euc.li/wevm.eth')
