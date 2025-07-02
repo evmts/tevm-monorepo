@@ -1,11 +1,11 @@
 import { createAddress } from '@tevm/address'
 import { Block } from '@tevm/block'
 import { createTevmNode } from '@tevm/node'
-import { transports } from '@tevm/test-utils'
 import { createAccount } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { anvilResetJsonRpcProcedure } from './anvilResetProcedure.js'
+import { mainnetNode } from '../../vitest.setup.js'
 
 describe('anvilResetJsonRpcProcedure', () => {
 	it('should reset the blockchain and state manager', async () => {
@@ -65,17 +65,11 @@ describe('anvilResetJsonRpcProcedure', () => {
 	it('should reset a forked blockchain', async () => {
 		// Skip this test due to external RPC dependency issues
 		try {
-			// Create a forked Tevm node
-			const node = createTevmNode({
-				fork: {
-					transport: transports.mainnet,
-				},
-			})
-			await node.ready()
-			const forkedBlock = await node.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
-			const resetProcedure = anvilResetJsonRpcProcedure(node)
+			await mainnetNode.ready()
+			const forkedBlock = await mainnetNode.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
+			const resetProcedure = anvilResetJsonRpcProcedure(mainnetNode)
 
-			await mineHandler(node)()
+			await mineHandler(mainnetNode)()
 
 			const request = {
 				method: 'anvil_reset',
@@ -94,7 +88,7 @@ describe('anvilResetJsonRpcProcedure', () => {
 			})
 
 			expect(
-				await node
+				await mainnetNode
 					.getVm()
 					.then((vm) => vm.blockchain.getCanonicalHeadBlock())
 					.then((block) => block.header.hash),

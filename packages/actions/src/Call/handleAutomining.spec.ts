@@ -1,8 +1,9 @@
-import { createTevmNode } from '@tevm/node'
+import { type TevmNode } from '@tevm/node'
 import { transports } from '@tevm/test-utils'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { handleAutomining } from './handleAutomining.js'
+import { createTestSnapshotNode } from '@tevm/test-node'
 
 // Mock mineHandler module
 vi.mock('../Mine/mineHandler.js', () => ({
@@ -10,16 +11,19 @@ vi.mock('../Mine/mineHandler.js', () => ({
 }))
 
 describe('handleAutomining', () => {
-	let client: ReturnType<typeof createTevmNode>
+	let client: TevmNode
 
 	beforeEach(() => {
 		// Reset mocks
 		vi.resetAllMocks()
 
 		// Create a default client
-		client = createTevmNode({
+		client = createTestSnapshotNode({
 			fork: { transport: transports.optimism },
 			miningConfig: { type: 'auto' }, // Default to auto mining
+			test: {
+				autosave: 'onRequest',
+			}
 		})
 
 		// Add debug logger if not present
@@ -158,9 +162,12 @@ describe('handleAutomining', () => {
 
 	it('should mine transaction if isGasMining is true', async () => {
 		// Create client with gas mining configuration
-		client = createTevmNode({
+		client = createTestSnapshotNode({
 			fork: { transport: transports.optimism },
 			miningConfig: { type: 'gas', limit: BigInt(1000000) },
+			test: {
+				autosave: 'onRequest',
+			}
 		})
 
 		// Add debug logger if not present
@@ -213,9 +220,12 @@ describe('handleAutomining', () => {
 
 	it('should not mine transaction if isGasMining is true but mining type is not gas', async () => {
 		// Create client with manual mining
-		client = createTevmNode({
+		client = createTestSnapshotNode({
 			fork: { transport: transports.optimism },
 			miningConfig: { type: 'manual' },
+			test: {
+				autosave: 'onRequest',
+			}
 		})
 
 		// Add debug logger if not present
@@ -254,9 +264,12 @@ describe('handleAutomining', () => {
 
 	it('should handle mining errors without throwing', async () => {
 		// Create client with auto mining
-		client = createTevmNode({
+		client = createTestSnapshotNode({
 			fork: { transport: transports.optimism },
 			miningConfig: { type: 'auto' },
+			test: {
+				autosave: 'onRequest',
+			}
 		})
 
 		// Setup debug logger
@@ -291,9 +304,12 @@ describe('handleAutomining', () => {
 
 	it('should handle multiple errors in result', async () => {
 		// Create client with auto mining
-		client = createTevmNode({
+		client = createTestSnapshotNode({
 			fork: { transport: transports.optimism },
 			miningConfig: { type: 'auto' },
+			test: {
+				autosave: 'onRequest',
+			}
 		})
 
 		// Add debug logger if not present

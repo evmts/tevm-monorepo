@@ -1,10 +1,12 @@
 import { createAddress } from '@tevm/address'
+import { mainnet } from '@tevm/common'
 import { createTevmNode } from '@tevm/node'
+import { createTestSnapshotNode } from '@tevm/test-node'
 import { transports } from '@tevm/test-utils'
 import type { Hex } from '@tevm/utils'
-import { numberToHex, PREFUNDED_ACCOUNTS, parseEther } from '@tevm/utils'
-import { custom } from 'viem'
+import { bytesToHex, custom } from 'viem'
 import { describe, expect, it, vi } from 'vitest'
+import { mainnetNode } from '../../vitest.setup.js'
 import { callHandler } from '../Call/callHandler.js'
 import type { BlockTag } from '../common/BlockTag.js'
 import { mineHandler } from '../Mine/mineHandler.js'
@@ -54,18 +56,9 @@ describe(ethGetTransactionCountProcedure.name, () => {
 		).toMatchInlineSnapshot()
 	})
 
-	it.skip('should work with past block tags', async () => {
-		// This test is skipped because it requires a specific historical block that
-		// may not be available in all RPC providers. The error "distance to target block
-		// exceeds maximum proof window" occurs when the block is too old.
-		const node = createTevmNode({
-			fork: {
-				transport: transports.mainnet,
-				blockTag: 23483670n,
-			},
-		})
+	it('should work with past block tags', async () => {
 		expect(
-			await ethGetTransactionCountProcedure(node)({
+			await ethGetTransactionCountProcedure(mainnetNode)({
 				jsonrpc: '2.0',
 				id: 1,
 				method: 'eth_getTransactionCount',
@@ -81,29 +74,29 @@ describe(ethGetTransactionCountProcedure.name, () => {
 `)
 	})
 
-	it.skip('should work with block hash', async () => {
-		// This test is skipped because it requires a specific historical block that
-		// may not be available in all RPC providers.
-		const node = createTevmNode({
+	it('should work with block hash', async () => {
+		const node = createTestSnapshotNode({
 			fork: {
 				transport: transports.mainnet,
 				blockTag: 23483670n,
+			},
+			common: mainnet,
+			test: {
+				autosave: 'onRequest',
 			},
 		})
 
 		// Get the block and its hash
 		const vm = await node.getVm()
-		const block = await vm.blockchain.getBlock(23483670n)
-		// Fix for TS2554: block.hash is already a getter, doesn't need arguments
-		const blockHash = `0x${block.hash}` as Hex
+		const block = await vm.blockchain.getBlock(21996939n)
+		const blockHash = bytesToHex(block.hash())
 
 		// Mock the blockchain.getBlock method to handle the block hash request properly
 		const originalGetBlock = vm.blockchain.getBlock
 		vm.blockchain.getBlock = vi.fn(async (blockId) => {
 			if (typeof blockId === 'object' && blockId instanceof Uint8Array) {
 				// Check if this is our hash that we're looking for
-				const hashHex = `0x${Buffer.from(blockId).toString('hex')}`
-				if (hashHex === blockHash) {
+				if (bytesToHex(blockId) === blockHash) {
 					return block
 				}
 			}
@@ -131,20 +124,10 @@ describe(ethGetTransactionCountProcedure.name, () => {
 		}
 	})
 
-	it.skip('should work with other valid tags', async () => {
-		// This test is skipped because it requires a specific historical block that
-		// may not be available in all RPC providers. The error "distance to target block
-		// exceeds maximum proof window" occurs when the block is too old.
-		const node = createTevmNode({
-			fork: {
-				transport: transports.mainnet,
-				blockTag: 23483670n,
-			},
-		})
-
+	it('should work with other valid tags', async () => {
 		// Setup the blockchain to have the correct block tags
-		const vm = await node.getVm()
-		const latestBlock = await vm.blockchain.getBlock(23483670n)
+		const vm = await mainnetNode.getVm()
+		const latestBlock = await vm.blockchain.getBlock(21996939n)
 
 		// Mock the blocksByTag map
 		const originalGet = vm.blockchain.blocksByTag.get
@@ -159,7 +142,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 
 		try {
 			// Test 'earliest' tag
-			const earliestResult = await ethGetTransactionCountProcedure(node)({
+			const earliestResult = await ethGetTransactionCountProcedure(mainnetNode)({
 				jsonrpc: '2.0',
 				id: 1,
 				method: 'eth_getTransactionCount',
@@ -174,7 +157,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 			})
 
 			// Test 'safe' tag
-			const safeResult = await ethGetTransactionCountProcedure(node)({
+			const safeResult = await ethGetTransactionCountProcedure(mainnetNode)({
 				jsonrpc: '2.0',
 				id: 1,
 				method: 'eth_getTransactionCount',
@@ -189,7 +172,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 			})
 
 			// Test 'finalized' tag
-			const finalizedResult = await ethGetTransactionCountProcedure(node)({
+			const finalizedResult = await ethGetTransactionCountProcedure(mainnetNode)({
 				jsonrpc: '2.0',
 				id: 1,
 				method: 'eth_getTransactionCount',
@@ -208,18 +191,9 @@ describe(ethGetTransactionCountProcedure.name, () => {
 		}
 	})
 
-	it.skip('should handle invalid block tag', async () => {
-		// This test is skipped because it requires a specific historical block that
-		// may not be available in all RPC providers.
-		const node = createTevmNode({
-			fork: {
-				transport: transports.mainnet,
-				blockTag: 23483670n,
-			},
-		})
-
+	it('should handle invalid block tag', async () => {
 		expect(
-			await ethGetTransactionCountProcedure(node)({
+			await ethGetTransactionCountProcedure(mainnetNode)({
 				jsonrpc: '2.0',
 				id: 1,
 				method: 'eth_getTransactionCount',
@@ -406,17 +380,9 @@ describe(ethGetTransactionCountProcedure.name, () => {
 		}
 	})
 
-	it.skip('should handle requests without id', async () => {
-		// This test is skipped because it requires a specific historical block that
-		// may not be available in all RPC providers.
-		const node = createTevmNode({
-			fork: {
-				transport: transports.mainnet,
-				blockTag: 23483670n,
-			},
-		})
+	it('should handle requests without id', async () => {
 		expect(
-			await ethGetTransactionCountProcedure(node)({
+			await ethGetTransactionCountProcedure(mainnetNode)({
 				jsonrpc: '2.0',
 				method: 'eth_getTransactionCount',
 				params: [address, 'latest'],

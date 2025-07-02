@@ -2,6 +2,7 @@ import { createAddress, createContractAddress } from '@tevm/address'
 import { optimism } from '@tevm/common'
 import { InvalidGasPriceError, MisconfiguredClientError } from '@tevm/errors'
 import { createTevmNode } from '@tevm/node'
+import { createTestSnapshotNode } from '@tevm/test-node'
 import { SimpleContract, TestERC20, transports } from '@tevm/test-utils'
 import {
 	type Address,
@@ -13,6 +14,7 @@ import {
 	parseEther,
 } from '@tevm/utils'
 import { describe, expect, it, vi } from 'vitest'
+import { optimismNode } from '../../vitest.setup.js'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
@@ -673,20 +675,13 @@ describe('callHandler', () => {
 	})
 
 	it('should return op stack info if forking', async () => {
-		const client = createTevmNode({
-			fork: {
-				transport: transports.optimism,
-				blockTag: 'latest',
-			},
-			common: optimism,
-		})
 		const to = `0x${'33'.repeat(20)}` as const
-		const { errors } = await setAccountHandler(client)({
+		const { errors } = await setAccountHandler(optimismNode)({
 			address: to,
 			deployedBytecode: ERC20_BYTECODE,
 		})
 		expect(errors).toBeUndefined()
-		const result = await callHandler(client)({
+		const result = await callHandler(optimismNode)({
 			throwOnFail: false,
 			createTransaction: true,
 			data: encodeFunctionData({
@@ -708,7 +703,7 @@ describe('callHandler', () => {
 	})
 
 	it('should handle opstack throwing unexpectedly', async () => {
-		const client = createTevmNode({
+		const client = createTestSnapshotNode({
 			fork: {
 				transport: transports.optimism,
 				blockTag: 'latest',
@@ -721,6 +716,9 @@ describe('callHandler', () => {
 						address: '0xbadaddress',
 					},
 				},
+			},
+			test: {
+				autosave: 'onRequest',
 			},
 		})
 		const originalWarn = client.logger.warn
@@ -761,7 +759,7 @@ describe('callHandler', () => {
 	})
 
 	it('should handle vm cloning throwing unexpectedly', async () => {
-		const client = createTevmNode({
+		const client = createTestSnapshotNode({
 			fork: {
 				transport: transports.optimism,
 				blockTag: 'latest',
@@ -774,6 +772,9 @@ describe('callHandler', () => {
 						address: '0xbadaddress',
 					},
 				},
+			},
+			test: {
+				autosave: 'onRequest',
 			},
 		})
 		const vm = await client.getVm()
@@ -802,7 +803,7 @@ describe('callHandler', () => {
 	})
 
 	it('should handle being unable to get options', async () => {
-		const client = createTevmNode({
+		const client = createTestSnapshotNode({
 			fork: {
 				transport: transports.optimism,
 				blockTag: 'latest',
@@ -815,6 +816,9 @@ describe('callHandler', () => {
 						address: '0xbadaddress',
 					},
 				},
+			},
+			test: {
+				autosave: 'onRequest',
 			},
 		})
 		const vm = await client.getVm()

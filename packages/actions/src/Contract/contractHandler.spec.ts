@@ -1,10 +1,10 @@
 import { createAddress } from '@tevm/address'
-import { optimism } from '@tevm/common'
 import { InvalidGasPriceError } from '@tevm/errors'
 import { createTevmNode } from '@tevm/node'
-import { TestERC20, transports } from '@tevm/test-utils'
+import { TestERC20 } from '@tevm/test-utils'
 import { encodeFunctionData, hexToBytes } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
+import { optimismNode } from '../../vitest.setup.js'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { contractHandler } from './contractHandler.js'
@@ -196,20 +196,13 @@ describe('contractHandler', () => {
 	})
 
 	it('should return op stack info if forking', async () => {
-		const client = createTevmNode({
-			fork: {
-				transport: transports.optimism,
-				blockTag: 'latest',
-			},
-			common: optimism,
-		})
 		const to = `0x${'33'.repeat(20)}` as const
-		const { errors } = await setAccountHandler(client)({
+		const { errors } = await setAccountHandler(optimismNode)({
 			address: to,
 			deployedBytecode: ERC20_BYTECODE,
 		})
 		expect(errors).toBeUndefined()
-		const result = await contractHandler(client)({
+		const result = await contractHandler(optimismNode)({
 			throwOnFail: false,
 			createTransaction: true,
 			abi: ERC20_ABI,
@@ -334,21 +327,14 @@ describe('contractHandler', () => {
 	})
 
 	it('should handle op stack info if forking', async () => {
-		const client = createTevmNode({
-			fork: {
-				transport: transports.optimism,
-				blockTag: 'latest',
-			},
-			common: optimism,
-		})
 		const to = `0x${'33'.repeat(20)}` as const
-		const { errors } = await setAccountHandler(client)({
+		const { errors } = await setAccountHandler(optimismNode)({
 			address: to,
 			deployedBytecode: ERC20_BYTECODE,
 			throwOnFail: false,
 		})
 		expect(errors).toBeUndefined()
-		const result = await contractHandler(client)({
+		const result = await contractHandler(optimismNode)({
 			throwOnFail: false,
 			createTransaction: true,
 			abi: ERC20_ABI,
