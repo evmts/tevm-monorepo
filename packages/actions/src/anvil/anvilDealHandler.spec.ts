@@ -1,13 +1,13 @@
 import { createAddress } from '@tevm/address'
-import { mainnet } from '@tevm/common'
 import { ERC20 } from '@tevm/contract'
 import { createTevmNode } from '@tevm/node'
-import { TestERC20, transports } from '@tevm/test-utils'
+import { TestERC20 } from '@tevm/test-utils'
 import { describe, expect, it } from 'vitest'
 import { contractHandler } from '../Contract/contractHandler.js'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { dealHandler } from './anvilDealHandler.js'
+import { mainnetNode } from '../../vitest.setup.js'
 
 describe('anvilDealHandler', () => {
 	it('should deal ETH when no erc20 address is provided', async () => {
@@ -87,22 +87,15 @@ describe('anvilDealHandler', () => {
 		const amount = BigInt(1000000)
 		const token = '0xE95A203B1a91a908F9B9CE46459d101078c2c3cb' // PROXY
 
-		const node = createTevmNode({
-			common: mainnet,
-			fork: {
-				transport: transports.mainnet,
-			},
-		})
-
 		// Deal tokens to the account
-		await dealHandler(node)({
+		await dealHandler(mainnetNode)({
 			erc20: token,
 			account,
 			amount,
 		})
 
 		// Verify the balance was updated using tevmContract
-		const result = await contractHandler(node)({
+		const result = await contractHandler(mainnetNode)({
 			to: token,
 			abi: ERC20.abi,
 			functionName: 'balanceOf',
