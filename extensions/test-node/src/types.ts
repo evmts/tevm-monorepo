@@ -2,7 +2,7 @@ import type { Server as HttpServer } from 'node:http'
 import type { Common } from '@tevm/common'
 import type { MemoryClient, MemoryClientOptions, TevmRpcSchema } from '@tevm/memory-client'
 import type { TevmNode, TevmNodeOptions } from '@tevm/node'
-import type { Account, Address, Chain, RpcSchema } from 'viem'
+import type { Account, Address, Chain, EIP1193RequestFn, RpcSchema, Transport } from 'viem'
 
 export type SnapshotAutosaveMode = 'onStop' | 'onRequest'
 
@@ -71,3 +71,27 @@ export type TestSnapshotNodeOptions = TevmNodeOptions & {
 }
 
 export type TestSnapshotNode = TevmNode<'fork'> & TestSnapshotBaseClient
+
+export type TestSnapshotTransportOptions<
+	TTransportType extends string = string,
+  TRpcAttributes = Record<string, any>,
+  TEip1193RequestFn extends EIP1193RequestFn = EIP1193RequestFn,
+> = {
+	transport: Transport<TTransportType, TRpcAttributes, TEip1193RequestFn> | { request: TEip1193RequestFn }
+	test?: TestOptions
+}
+
+export type TestSnapshotTransport<
+	TEip1193RequestFn extends EIP1193RequestFn = EIP1193RequestFn
+> = {
+	tevm: { request: TEip1193RequestFn }
+	server: HttpServer
+	rpcUrl: string
+	start: () => Promise<void>
+	stop: () => Promise<void>
+	/**
+	 * Save snapshots to disk without stopping the server
+	 * This allows checking snapshots mid-test while keeping everything running
+	 */
+	save: () => Promise<void>
+}
