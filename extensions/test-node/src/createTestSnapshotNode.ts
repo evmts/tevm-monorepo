@@ -20,23 +20,22 @@ import type { TestSnapshotNode, TestSnapshotNodeOptions } from './types.js'
  * })
  *
  * // Use the node in your tests
- * await node.start()
- * const block = await blockNumberProcedure(node.tevm)({
+ * await node.server.start()
+ * const block = await blockNumberProcedure(node)({
  *   jsonrpc: '2.0',
  *   method: 'eth_blockNumber',
  *   id: 1,
  *   params: [],
  * })
- * await node.stop()
+ * await node.server.stop()
  * ```
  */
 export const createTestSnapshotNode = (options: TestSnapshotNodeOptions): TestSnapshotNode => {
 	const client = createTestSnapshotClient(options)
-	return {
-		...client,
-		tevm: client.tevm.transport.tevm as TevmNode<'fork'>,
-		get rpcUrl() {
-			return client.rpcUrl
-		},
-	}
+	const node = client.transport.tevm as TevmNode<'fork'>
+
+	return node.extend(() => ({
+		server: client.server,
+		saveSnapshots: client.saveSnapshots,
+	}))
 }

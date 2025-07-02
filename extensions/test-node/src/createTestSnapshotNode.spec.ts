@@ -41,18 +41,16 @@ describe('createTestSnapshotNode', () => {
 			test: { cacheDir: testCacheDir },
 		})
 
-		expect(client).toHaveProperty('tevm')
 		expect(client).toHaveProperty('server')
-		expect(client).toHaveProperty('rpcUrl')
-		expect(client).toHaveProperty('start')
-		expect(client).toHaveProperty('stop')
-
-		expect(typeof client.start).toBe('function')
-		expect(typeof client.stop).toBe('function')
+		expect(client.server).toHaveProperty('http')
+		expect(client.server).toHaveProperty('rpcUrl')
+		expect(typeof client.server.start).toBe('function')
+		expect(typeof client.server.stop).toBe('function')
+		expect(typeof client.saveSnapshots).toBe('function')
 	})
 
 	it('should start and stop server correctly', async () => {
-		const client = createTestSnapshotNode({
+		const { server } = createTestSnapshotNode({
 			fork: {
 				transport: transports.mainnet,
 			},
@@ -61,22 +59,22 @@ describe('createTestSnapshotNode', () => {
 		})
 
 		// Initially no rpcUrl
-		expect(client.rpcUrl).toBe('')
+		expect(server.rpcUrl).toBe('')
 
 		// Start server
-		await client.start()
-		expect(client.rpcUrl).toMatch(/^http:\/\/localhost:\d+$/)
+		await server.start()
+		expect(server.rpcUrl).toMatch(/^http:\/\/localhost:\d+$/)
 
 		// Starting again should be no-op
-		const firstUrl = client.rpcUrl
-		await client.start()
-		expect(client.rpcUrl).toBe(firstUrl)
+		const firstUrl = server.rpcUrl
+		await server.start()
+		expect(server.rpcUrl).toBe(firstUrl)
 
 		// Stop server
-		await client.stop()
+		await server.stop()
 
 		// Stopping again should be no-op
-		await client.stop()
+		await server.stop()
 	})
 
 	it('should cache RPC requests', async () => {
@@ -89,7 +87,7 @@ describe('createTestSnapshotNode', () => {
 		})
 
 		// Make a cacheable request
-		const block = await ethGetBlockByNumberJsonRpcProcedure(client.tevm)({
+		const block = await ethGetBlockByNumberJsonRpcProcedure(client)({
 			jsonrpc: '2.0',
 			method: 'eth_getBlockByNumber',
 			id: 1,
@@ -99,7 +97,7 @@ describe('createTestSnapshotNode', () => {
 		expect(block.result?.number).toBe(BLOCK_NUMBER)
 
 		// Save to ensure snapshots are written
-		await client.save()
+		await client.saveSnapshots()
 
 		// Check snapshots were created
 		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER, testCacheDir)
@@ -115,13 +113,13 @@ describe('createTestSnapshotNode', () => {
 		})
 
 		// Make a non-cacheable request (blockNumber is not cached)
-		await blockNumberProcedure(client.tevm)({
+		await blockNumberProcedure(client)({
 			jsonrpc: '2.0',
 			method: 'eth_blockNumber',
 			id: 1,
 			params: [],
 		})
-		await client.save()
+		await client.saveSnapshots()
 
 		// Check no snapshots were created for this
 		assertMethodNotCached('eth_blockNumber', undefined, testCacheDir)
@@ -136,13 +134,13 @@ describe('createTestSnapshotNode', () => {
 			test: { cacheDir: testCacheDir },
 		})
 
-		await ethGetBlockByNumberJsonRpcProcedure(client.tevm)({
+		await ethGetBlockByNumberJsonRpcProcedure(client)({
 			jsonrpc: '2.0',
 			method: 'eth_getBlockByNumber',
 			id: 1,
 			params: [BLOCK_NUMBER, false],
 		})
-		await client.stop()
+		await client.server.stop()
 
 		// Should still have saved snapshots
 		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER, testCacheDir)
@@ -167,10 +165,10 @@ describe('createTestSnapshotNode', () => {
 			},
 		})
 
-		await client.start()
+		await client.server.start()
 
 		// Make first cacheable request - should save immediately
-		await ethGetBlockByNumberJsonRpcProcedure(client.tevm)({
+		await ethGetBlockByNumberJsonRpcProcedure(client)({
 			jsonrpc: '2.0',
 			method: 'eth_getBlockByNumber',
 			id: 1,
@@ -184,7 +182,7 @@ describe('createTestSnapshotNode', () => {
 		)
 
 		// Make another cacheable request - should add to existing snapshots
-		await ethGetBlockByNumberJsonRpcProcedure(client.tevm)({
+		await ethGetBlockByNumberJsonRpcProcedure(client)({
 			jsonrpc: '2.0',
 			method: 'eth_getBlockByNumber',
 			id: 1,
@@ -196,7 +194,7 @@ describe('createTestSnapshotNode', () => {
 			testCacheDirOnRequest,
 		)
 
-		await client.stop()
+		await client.server.stop()
 
 		// Clean up
 		if (fs.existsSync(testCacheDirOnRequest)) {
@@ -223,10 +221,10 @@ describe('createTestSnapshotNode', () => {
 			},
 		})
 
-		await client.start()
+		await client.server.start()
 
 		// Make cacheable request
-		await ethGetBlockByNumberJsonRpcProcedure(client.tevm)({
+		await ethGetBlockByNumberJsonRpcProcedure(client)({
 			jsonrpc: '2.0',
 			method: 'eth_getBlockByNumber',
 			id: 1,
@@ -236,7 +234,7 @@ describe('createTestSnapshotNode', () => {
 		// Check snapshots were NOT saved immediately
 		assertMethodNotCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER, testCacheDirOnStop)
 
-		await client.stop()
+		await client.server.stop()
 
 		// Check snapshots were saved on stop
 		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER, testCacheDirOnStop)
