@@ -4,13 +4,20 @@ import { createTevmNode } from '@tevm/node'
 import { transports } from '@tevm/test-utils'
 import { describe, expect, it } from 'vitest'
 import { blockToJsonRpcBlock } from './blockToJsonRpcBlock.js'
+import { createTestSnapshotTransport } from '@tevm/test-node'
 
 describe('blockToJsonRpcBlock', async () => {
 	const client = createTevmNode({ common: optimism })
+	const transport = createTestSnapshotTransport({
+		transport: transports.optimism,
+		test: {
+			autosave: 'onRequest',
+		}
+	})
 	const vm = await client.getVm()
 	const [block] = await getBlockFromRpc(
 		vm.blockchain,
-		{ blockTag: 121960766n, transport: transports.optimism },
+		{ blockTag: 121960766n, transport },
 		vm.common,
 	)
 
