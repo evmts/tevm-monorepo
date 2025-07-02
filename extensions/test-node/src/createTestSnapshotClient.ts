@@ -38,7 +38,7 @@ export const createTestSnapshotClient = (options: TestSnapshotClientOptions): Te
 	const snapshotManager = new SnapshotManager(options.test?.cacheDir)
 
 	// Create TEVM client with cached transport
-	const tevm = createMemoryClient({
+	const client = createMemoryClient({
 		...options,
 		fork: {
 			...options.fork,
@@ -46,52 +46,51 @@ export const createTestSnapshotClient = (options: TestSnapshotClientOptions): Te
 			transport: createCachedTransport(forkTransport, snapshotManager),
 		},
 	})
-	const server = createServer(tevm)
+	const server = createServer(client)
 
 	let rpcUrl = ''
 	let serverStarted = false
 
-	// Create the client object
-	const client: TestSnapshotClient = {
-		tevm,
-		server,
-		get rpcUrl() {
-			return rpcUrl
-		},
-		start: async () => {
-			if (serverStarted) return
+	// Return the extended client
+	return client.extend(() => ({
+		server: {
+			http: server,
+			get rpcUrl() {
+				return rpcUrl
+			},
+			start: async () => {
+				if (serverStarted) return
 
-			return new Promise<void>((resolve, reject) => {
-				server.once('error', reject)
-				server.once('listening', resolve)
+				return new Promise<void>((resolve, reject) => {
+					server.once('error', reject)
+					server.once('listening', resolve)
 
-				server.listen(0, 'localhost', () => {
-					const address = server.address() as AddressInfo
-					rpcUrl = `http://localhost:${address.port}`
-					serverStarted = true
-					resolve()
-				})
-			})
-		},
-		stop: async () => {
-			await snapshotManager.save()
-			if (!serverStarted) return
-
-			await new Promise<void>((resolve, reject) => {
-				server.close((err) => {
-					if (err) {
-						reject(err)
-					} else {
-						serverStarted = false
+					server.listen(0, 'localhost', () => {
+						const address = server.address() as AddressInfo
+						rpcUrl = `http://localhost:${address.port}`
+						serverStarted = true
 						resolve()
-					}
+					})
 				})
-			})
+			},
+			stop: async () => {
+				await snapshotManager.save()
+				if (!serverStarted) return
+
+				await new Promise<void>((resolve, reject) => {
+					server.close((err) => {
+						if (err) {
+							reject(err)
+						} else {
+							serverStarted = false
+							resolve()
+						}
+					})
+				})
+			},
 		},
-		save: async (): Promise<void> => {
+		saveSnapshots: async (): Promise<void> => {
 			await snapshotManager.save()
 		},
-	}
-
-	return client
+	}))
 }
