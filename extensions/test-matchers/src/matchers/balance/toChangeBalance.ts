@@ -1,7 +1,7 @@
 import { type TevmNode } from '@tevm/node'
 import { type Address, type Client, isAddress } from 'viem'
 import type { ContainsAddress, ContainsTransactionAny } from '../../common/types.js'
-import { handleTransaction } from './handleTransaction.js'
+import { getDiffMethodsFromPrestateTrace } from './getDiffMethodsFromPrestateTrace.js'
 
 /**
  * Checks if a transaction changes an account's balance by the expected amount
@@ -25,7 +25,7 @@ export const toChangeBalance = async (
 	const expectedChangeBigInt = typeof expectedChange === 'bigint' ? expectedChange : BigInt(expectedChange)
 
 	// Handle the transaction and get balance change
-	const { getBalanceChange } = await handleTransaction(received, { client })
+	const { getBalanceChange } = await getDiffMethodsFromPrestateTrace(client, received)
 	const balanceChange = getBalanceChange(address)
 
 	const pass = balanceChange === expectedChangeBigInt
