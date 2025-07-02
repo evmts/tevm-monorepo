@@ -153,10 +153,10 @@ describe('createTestSnapshotClient', () => {
 			},
 		})
 
-		await client.start()
+		await client.server.start()
 
 		// Make first cacheable request - should save immediately
-		await client.tevm.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) - 1n })
+		await client.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) - 1n })
 		// Check snapshots were saved immediately (without calling save() or stop())
 		assertMethodCached(
 			'eth_getBlockByNumber',
@@ -165,14 +165,14 @@ describe('createTestSnapshotClient', () => {
 		)
 
 		// Make another cacheable request - should add to existing snapshots
-		await client.tevm.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) - 2n })
+		await client.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) - 2n })
 		assertMethodCached(
 			'eth_getBlockByNumber',
 			(params) => params[0] === numberToHex(BigInt(BLOCK_NUMBER) - 2n),
 			testCacheDirOnRequest,
 		)
 
-		await client.stop()
+		await client.server.stop()
 
 		// Clean up
 		if (fs.existsSync(testCacheDirOnRequest)) {
@@ -199,15 +199,15 @@ describe('createTestSnapshotClient', () => {
 			},
 		})
 
-		await client.start()
+		await client.server.start()
 
 		// Make cacheable request
-		await client.tevm.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) })
+		await client.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) })
 
 		// Check snapshots were NOT saved immediately
 		assertMethodNotCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER, testCacheDirOnStop)
 
-		await client.stop()
+		await client.server.stop()
 
 		// Check snapshots were saved on stop
 		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER, testCacheDirOnStop)
