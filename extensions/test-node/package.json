@@ -79,6 +79,7 @@
 	"dependencies": {
 		"@tevm/actions": "workspace:^",
 		"@tevm/memory-client": "workspace:^",
+		"@tevm/node": "workspace:^",
 		"@tevm/server": "workspace:^",
 		"viem": "^2.37.9",
 		"vitest": "^3.2.4"
