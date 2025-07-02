@@ -6,22 +6,22 @@ import { client } from '../vitest.setup.js'
 
 describe('eth_getBalance', () => {
 	it('should create a cache entry with a static block number', async () => {
-		await client.tevm.transport.tevm.forkTransport?.request({
+		await client.transport.tevm.forkTransport?.request({
 			method: 'eth_getBalance',
 			params: [PREFUNDED_ACCOUNTS[0].address, BLOCK_NUMBER],
 		})
 
-		await client.save()
+		await client.saveSnapshots()
 		assertMethodCached('eth_getBalance', (params) => params[1] === BLOCK_NUMBER)
 	})
 
 	it('should NOT create a cache entry with a dynamic block tag', async () => {
-		await client.tevm.transport.tevm.forkTransport?.request({
+		await client.transport.tevm.forkTransport?.request({
 			method: 'eth_getBalance',
 			params: [PREFUNDED_ACCOUNTS[0].address, 'latest'],
 		})
 
-		await client.save()
+		await client.saveSnapshots()
 		assertMethodNotCached('eth_getBalance', (params) => params[1] === 'latest')
 	})
 })

@@ -6,12 +6,12 @@ import { client } from '../vitest.setup.js'
 
 describe('eth_call', () => {
 	it('should NOT create a cache entry', async () => {
-		await client.tevm.transport.tevm.forkTransport?.request({
+		await client.transport.tevm.forkTransport?.request({
 			method: 'eth_call',
 			params: [{ from: PREFUNDED_ACCOUNTS[1].address, to: PREFUNDED_ACCOUNTS[0].address }, BLOCK_NUMBER],
 		})
 
-		await client.save()
+		await client.saveSnapshots()
 		assertMethodNotCached('eth_call')
 	})
 })
