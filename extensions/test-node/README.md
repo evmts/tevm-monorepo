@@ -41,11 +41,11 @@ export const client = createTestSnapshotClient({
 
 // If you would like to run a Tevm server in the background
 beforeAll(async () => {
-  await client.start()
+  await client.server.start()
 })
 
 afterAll(async () => {
-  await client.stop()
+  await client.server.stop()
 })
 ```
 
@@ -75,11 +75,11 @@ import { it } from 'vitest'
 import { client } from './vitest.setup.js'
 
 it('should cache RPC requests', async () => {
-  await client.tevm.getBlock({ blockNumber: 123456n })
+  await client.getBlock({ blockNumber: 123456n })
 })
 ```
 
-Snapshots are automatically saved to `.tevm/test-snapshots/[testFileName]/snapshots.json` after all tests (or after calling `client.save()`) and reused on subsequent runs.
+Snapshots are automatically saved to `.tevm/test-snapshots/[testFileName]/snapshots.json` after all tests (or after calling `client.saveSnapshots()`) and reused on subsequent runs.
 
 ## API Reference
 
@@ -91,9 +91,10 @@ Create a memory client with snapshotting capabilities.
 - `options.test.cacheDir?`: Directory for snapshots (default: `.tevm/test-snapshots`)
 
 Returns a client with the following properties:
-- `tevm`: The `MemoryClient` instance
-- `server`: HTTP server instance
-- `rpcUrl`: URL of the running server
-- `start()`: Start the server
-- `stop()`: Stop the server and save snapshots to disk
-- `save()`: Save snapshots to disk
+- `...`: The `MemoryClient` properties
+- `server`: HTTP server instance with the following properties:
+  - `http`: The HTTP server
+  - `rpcUrl`: URL of the running server
+  - `start()`: Start the server
+  - `stop()`: Stop the server and save snapshots to disk
+- `saveSnapshots()`: Save snapshots to disk
