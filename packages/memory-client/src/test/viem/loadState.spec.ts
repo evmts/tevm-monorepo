@@ -9,10 +9,17 @@ import type { MemoryClient } from '../../MemoryClient.js'
 import { tevmDumpState } from '../../tevmDumpState.js'
 import { tevmLoadState } from '../../tevmLoadState.js'
 import { tevmSetAccount } from '../../tevmSetAccount.js'
+import { createTestSnapshotTransport } from '@tevm/test-node'
 
 let mc: MemoryClient
 const testAddress = `0x${'69'.repeat(20)}` as const
 const testAddress2 = `0x${'42'.repeat(20)}` as const
+const cachedTransport = createTestSnapshotTransport({
+	transport: transports.optimism,
+	test: {
+		autosave: 'onRequest',
+	}
+})
 
 beforeEach(async () => {
 	mc = createMemoryClient()
@@ -53,7 +60,7 @@ describe.skip('loadState', () => {
 		// Create a standard client
 		const client = createClient({
 			transport: createTevmTransport({
-				fork: { transport: transports.optimism },
+				fork: { transport: cachedTransport },
 			}),
 			chain: optimism,
 		})
@@ -266,7 +273,7 @@ describe.skip('loadState', () => {
 		// Create a new client with a fork
 		const forkedClient = createMemoryClient({
 			fork: {
-				transport: transports.optimism,
+				transport: cachedTransport,
 			},
 		})
 		await forkedClient.tevmReady()

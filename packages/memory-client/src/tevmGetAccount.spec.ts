@@ -5,14 +5,21 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { createTevmTransport } from './createTevmTransport.js'
 import type { TevmTransport } from './TevmTransport.js'
 import { tevmGetAccount } from './tevmGetAccount.js'
+import { createTestSnapshotTransport } from '@tevm/test-node'
 
 let client: Client<TevmTransport>
 const prefundedAddress = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 
 beforeEach(async () => {
+	const cachedTransport = createTestSnapshotTransport({
+		transport: transports.optimism,
+		test: {
+			autosave: 'onRequest',
+		}
+	})
 	client = createClient({
 		transport: createTevmTransport({
-			fork: { transport: transports.optimism },
+			fork: { transport: cachedTransport },
 		}),
 		chain: optimism,
 	})

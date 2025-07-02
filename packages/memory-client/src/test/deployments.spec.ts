@@ -1,18 +1,24 @@
 import { mainnet } from '@tevm/common'
 import { SimpleContract } from '@tevm/contract'
+import { createTestSnapshotTransport } from '@tevm/test-node'
 import { transports } from '@tevm/test-utils'
 import { type Address, testActions } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../createMemoryClient.js'
-import type { MemoryClient } from '../MemoryClient.js'
 
 let client: MemoryClient
 
 beforeEach(async () => {
+	const cachedTransport = createTestSnapshotTransport({
+		transport: transports.mainnet,
+		test: {
+			autosave: 'onRequest',
+		},
+	})
 	client = createMemoryClient({
 		common: mainnet,
 		fork: {
-			transport: transports.mainnet,
+			transport: cachedTransport,
 		},
 	})
 	await client.extend(testActions({ mode: 'anvil' })).mine({ blocks: 1 })

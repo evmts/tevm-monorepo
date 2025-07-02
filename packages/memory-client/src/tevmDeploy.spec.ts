@@ -9,13 +9,20 @@ import type { TevmTransport } from './TevmTransport.js'
 import { tevmContract } from './tevmContract.js'
 import { tevmDeploy } from './tevmDeploy.js'
 import { tevmMine } from './tevmMine.js'
+import { createTestSnapshotTransport } from '@tevm/test-node'
 
 let client: Client<TevmTransport>
+const cachedTransport = createTestSnapshotTransport({
+	transport: transports.optimism,
+	test: {
+		autosave: 'onRequest',
+	}
+})
 
 beforeEach(async () => {
 	client = createClient({
 		transport: createTevmTransport({
-			fork: { transport: transports.optimism },
+			fork: { transport: cachedTransport },
 		}),
 		chain: optimism,
 	})

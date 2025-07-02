@@ -6,17 +6,25 @@ import { describe, expect, it } from 'vitest'
 import { createTevmTransport } from './createTevmTransport.js'
 import { tevmMine } from './tevmMine.js'
 import { tevmSetAccount } from './tevmSetAccount.js'
+import { createTestSnapshotTransport } from '@tevm/test-node'
 
 describe('Tevm Forking Integration', () => {
 	const testAddress = '0x1234567890123456789012345678901234567890' as Address
 	const daiContractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1' as Address // DAI on Optimism
+
+	const cachedTransport = createTestSnapshotTransport({
+		transport: transports.optimism,
+		test: {
+			autosave: 'onRequest',
+		}
+	})
 
 	it('should allow forking from an existing network', async () => {
 		// Create a client with a fork configuration
 		const client = createClient({
 			transport: createTevmTransport({
 				fork: {
-					transport: transports.optimism,
+					transport: cachedTransport,
 				},
 			}),
 			chain: optimism,
@@ -39,7 +47,7 @@ describe('Tevm Forking Integration', () => {
 		const client = createClient({
 			transport: createTevmTransport({
 				fork: {
-					transport: transports.optimism,
+					transport: cachedTransport,
 				},
 			}),
 			chain: optimism,
@@ -69,7 +77,7 @@ describe('Tevm Forking Integration', () => {
 		const client = createClient({
 			transport: createTevmTransport({
 				fork: {
-					transport: transports.optimism,
+					transport: cachedTransport,
 				},
 			}),
 			chain: optimism,

@@ -8,14 +8,21 @@ import { tevmDumpState } from './tevmDumpState.js'
 import { tevmGetAccount } from './tevmGetAccount.js'
 import { tevmLoadState } from './tevmLoadState.js'
 import { tevmSetAccount } from './tevmSetAccount.js'
+import { createTestSnapshotTransport } from '@tevm/test-node'
 
 let client: Client<TevmTransport>
 const testAddress = `0x${'69'.repeat(20)}` as const
+const cachedTransport = createTestSnapshotTransport({
+	transport: transports.optimism,
+	test: {
+		autosave: 'onRequest',
+	}
+})
 
 beforeEach(async () => {
 	client = createClient({
 		transport: createTevmTransport({
-			fork: { transport: transports.optimism },
+			fork: { transport: cachedTransport },
 		}),
 		chain: optimism,
 	})
@@ -36,7 +43,7 @@ describe('tevmLoadState', () => {
 		// Initialize a new client
 		const newClient = createClient({
 			transport: createTevmTransport({
-				fork: { transport: transports.optimism },
+				fork: { transport: cachedTransport },
 			}),
 			chain: optimism,
 		})
