@@ -1,5 +1,5 @@
 import type { AbiParameter, AbiParametersToPrimitiveTypes, ExtractAbiFunction } from 'abitype'
-import { type Abi, type ContractFunctionName, decodeFunctionData } from 'viem'
+import { decodeAbiParameters, type Abi, type ContractFunctionName } from 'viem'
 import { parseChainArgs } from '../../chainable/chainable.js'
 import type { ChainState, MatcherResult } from '../../chainable/types.js'
 import type { ToCallContractFunctionState } from './types.js'
@@ -27,21 +27,21 @@ export const withFunctionArgs = <
 		chainState: { previousState },
 	} = parseChainArgs<unknown, ToCallContractFunctionState>(argsAndChainState)
 
-	if (!previousState || !('contract' in previousState))
+	if (!previousState || !('abiFunction' in previousState))
 		throw new Error('withFunctionArgs() requires a contract with abi and function name')
 
-	const { contract, decodedFunctionData, rawFunctionData } = previousState
-	const decodedFunction =
-		decodedFunctionData ??
-		(rawFunctionData && contract ? decodeFunctionData({ abi: contract?.abi, data: rawFunctionData }) : undefined)
-	const decodedArgs = decodedFunction?.args
-	if (!decodedArgs) throw new Error('Could not decode function data')
+	const { abiFunction, selector, calldataMap } = previousState
+	const calldata = calldataMap.get(selector)
 
-	const argsMatched = args.length <= decodedArgs.length && args.every((arg, i) => decodedArgs[i] === arg)
+	const actualDecodedArgs = calldata ? calldata.map((calldata) => decodeAbiParameters(abiFunction.inputs, calldata)) : undefined
+
+	const argsMatched = actualDecodedArgs ? actualDecodedArgs.some((decodedArgs) => {
+		return Array.isArray(decodedArgs) && args.every((arg, i) => decodedArgs[i] === arg)
+	}) : false
 
 	return {
 		pass: argsMatched,
-		actual: decodedArgs,
+		actual: actualDecodedArgs ? Object.fromEntries(actualDecodedArgs.map((decodedArgs, i) => [i, decodedArgs])) : {},
 		expected: args,
 		message: () =>
 			argsMatched
