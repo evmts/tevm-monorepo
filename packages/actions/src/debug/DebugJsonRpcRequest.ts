@@ -18,7 +18,11 @@ export type DebugJsonRpcRequest =
  * JSON-RPC request for `debug_traceTransaction` method
  */
 export type DebugTraceTransactionJsonRpcRequest<
-	TTracer extends 'callTracer' | 'prestateTracer' | undefined = 'callTracer' | 'prestateTracer' | undefined,
+	TTracer extends 'callTracer' | 'prestateTracer' | 'fourbyteTracer' | undefined =
+		| 'callTracer'
+		| 'prestateTracer'
+		| 'fourbyteTracer'
+		| undefined,
 	TDiffMode extends boolean = boolean,
 	TTTThrowOnError extends boolean = boolean,
 > = JsonRpcRequest<
@@ -30,7 +34,11 @@ export type DebugTraceTransactionJsonRpcRequest<
  * JSON-RPC request for `debug_traceCall` method
  */
 export type DebugTraceCallJsonRpcRequest<
-	TTracer extends 'callTracer' | 'prestateTracer' | undefined = 'callTracer' | 'prestateTracer' | undefined,
+	TTracer extends 'callTracer' | 'prestateTracer' | 'fourbyteTracer' | undefined =
+		| 'callTracer'
+		| 'prestateTracer'
+		| 'fourbyteTracer'
+		| undefined,
 	TDiffMode extends boolean = boolean,
 > = JsonRpcRequest<'debug_traceCall', [SerializeToJson<DebugTraceCallParams<TTracer, TDiffMode>>]>
 
@@ -38,7 +46,11 @@ export type DebugTraceCallJsonRpcRequest<
  * JSON-RPC request for `debug_traceBlock`
  */
 export type DebugTraceBlockJsonRpcRequest<
-	TTracer extends 'callTracer' | 'prestateTracer' | undefined = 'callTracer' | 'prestateTracer' | undefined,
+	TTracer extends 'callTracer' | 'prestateTracer' | 'fourbyteTracer' | undefined =
+		| 'callTracer'
+		| 'prestateTracer'
+		| 'fourbyteTracer'
+		| undefined,
 	TDiffMode extends boolean = boolean,
 > = JsonRpcRequest<'debug_traceBlock', [SerializeToJson<DebugTraceBlockParams<TTracer, TDiffMode>>]>
 
