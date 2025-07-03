@@ -16,7 +16,10 @@ import type { DebugTraceStateFilter } from './DebugParams.js'
  * JSON-RPC procedure for `debug_traceTransaction`
  */
 export type DebugTraceTransactionProcedure<
-	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
+	TTracer extends 'callTracer' | 'prestateTracer' | 'fourbyteTracer' =
+		| 'callTracer'
+		| 'prestateTracer'
+		| 'fourbyteTracer',
 	TDiffMode extends boolean = boolean,
 > = (
 	request: DebugTraceTransactionJsonRpcRequest<TTracer, TDiffMode>,
@@ -26,7 +29,10 @@ export type DebugTraceTransactionProcedure<
  * JSON-RPC procedure for `debug_traceCall`
  */
 export type DebugTraceCallProcedure<
-	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
+	TTracer extends 'callTracer' | 'prestateTracer' | 'fourbyteTracer' =
+		| 'callTracer'
+		| 'prestateTracer'
+		| 'fourbyteTracer',
 	TDiffMode extends boolean = boolean,
 > = (
 	request: DebugTraceCallJsonRpcRequest<TTracer, TDiffMode>,
@@ -36,7 +42,10 @@ export type DebugTraceCallProcedure<
  * JSON-RPC procedure for `debug_traceBlock`
  */
 export type DebugTraceBlockProcedure<
-	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
+	TTracer extends 'callTracer' | 'prestateTracer' | 'fourbyteTracer' =
+		| 'callTracer'
+		| 'prestateTracer'
+		| 'fourbyteTracer',
 	TDiffMode extends boolean = boolean,
 > = (
 	request: DebugTraceBlockJsonRpcRequest<TTracer, TDiffMode>,

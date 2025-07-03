@@ -3216,6 +3216,16 @@ exports[`traceCallHandler > should execute a contract call with default tracer 1
 }
 `;
 
+exports[`traceCallHandler > should execute a contract call with fourbyteTracer 1`] = `
+{
+  "0x1e26fd33-32": 1,
+  "0x349a0054-192": 1,
+  "0x3fb5c1cb-32": 1,
+  "0x7fcaf666-96": 1,
+  "0xe30081a0-32": 1,
+}
+`;
+
 exports[`traceCallHandler > should execute a contract call with prestateTracer and diffMode false 1`] = `
 {
   "0x0000000000000000000000000000000000000000": {
