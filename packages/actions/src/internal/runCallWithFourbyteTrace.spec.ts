@@ -2,10 +2,13 @@ import { Address, createAddress } from '@tevm/address'
 import { AdvancedContract, ErrorContract } from '@tevm/contract'
 import { createTevmNode } from '@tevm/node'
 import { encodeDeployData, encodeFunctionData, hexToBytes, PREFUNDED_ACCOUNTS } from '@tevm/utils'
-import { toFunctionSelector } from 'viem'
+import { type EncodeFunctionDataParameters, type Hex, toFunctionSelector } from 'viem'
 import { assert, beforeEach, describe, expect, it } from 'vitest'
 import { deployHandler } from '../Deploy/deployHandler.js'
 import { runCallWithFourbyteTrace } from './runCallWithFourbyteTrace.js'
+
+const encodeFunctionCalldata = (params: EncodeFunctionDataParameters): Hex =>
+	`0x${encodeFunctionData(params).slice(10)}`
 
 describe('runCallWithFourbyteTrace', () => {
 	let client: ReturnType<typeof createTevmNode>
@@ -19,28 +22,56 @@ describe('runCallWithFourbyteTrace', () => {
 		[`${toFunctionSelector('function setBool(bool)')}-32`]: 1, // each 32 bytes: (newBool)
 		[`${toFunctionSelector('function setString(string)')}-96`]: 1, // each 32 bytes: (newString (offset), newString (length), newString (value padded to 32 bytes))
 		[`${toFunctionSelector('function setAddress(address)')}-32`]: 1, // each 32 bytes: (newAddress)
+		// our 4byteTracer implementation includes a selector -> calldata it was called with mapping
+		[toFunctionSelector('function setAllValues(uint256,bool,string,address)')]: [
+			encodeFunctionCalldata(AdvancedContract.write.setAllValues(2n, true, 'test', PREFUNDED_ACCOUNTS[0].address)),
+		],
+		[toFunctionSelector('function setNumber(uint256)')]: [encodeFunctionCalldata(AdvancedContract.write.setNumber(2n))],
+		[toFunctionSelector('function setBool(bool)')]: [encodeFunctionCalldata(AdvancedContract.write.setBool(true))],
+		[toFunctionSelector('function setString(string)')]: [
+			encodeFunctionCalldata(AdvancedContract.write.setString('test')),
+		],
+		[toFunctionSelector('function setAddress(address)')]: [
+			encodeFunctionCalldata(AdvancedContract.write.setAddress(PREFUNDED_ACCOUNTS[0].address)),
+		],
 	}
 
 	// View function call
 	const getNumberExpectedTrace = {
 		[`${toFunctionSelector('function getNumber()')}-0`]: 1,
+		[toFunctionSelector('function getNumber()')]: [encodeFunctionCalldata(AdvancedContract.read.getNumber())],
 	}
 
 	// Call to external contract
 	const callMathHelperExpectedTrace = {
 		[`${toFunctionSelector('function callMathHelper(uint256)')}-32`]: 1, // each 32 bytes: (newNumber)
 		[`${toFunctionSelector('function multiply(uint256)')}-32`]: 1, // each 32 bytes: (newNumber)
+		[toFunctionSelector('function callMathHelper(uint256)')]: [
+			encodeFunctionCalldata(AdvancedContract.write.callMathHelper(2n)),
+		],
+		[toFunctionSelector('function multiply(uint256)')]: [
+			encodeFunctionCalldata(AdvancedContract.write.callMathHelper(2n)),
+		],
 	}
 
 	// Delegate call to external contract
 	const delegateCallMathHelperExpectedTrace = {
 		[`${toFunctionSelector('function delegateCallMathHelper(uint256)')}-32`]: 1, // each 32 bytes: (newNumber)
 		[`${toFunctionSelector('function multiply(uint256)')}-32`]: 1, // each 32 bytes: (newNumber)
+		[toFunctionSelector('function delegateCallMathHelper(uint256)')]: [
+			encodeFunctionCalldata(AdvancedContract.write.delegateCallMathHelper(2n)),
+		],
+		[toFunctionSelector('function multiply(uint256)')]: [
+			encodeFunctionCalldata(AdvancedContract.write.delegateCallMathHelper(2n)),
+		],
 	}
 
 	// Function call that reverts (should still include the function selector)
 	const revertWithStringErrorExpectedTrace = {
 		[`${toFunctionSelector('function revertWithStringError()')}-0`]: 1,
+		[toFunctionSelector('function revertWithStringError()')]: [
+			encodeFunctionCalldata(ErrorContract.write.revertWithStringError()),
+		],
 	}
 
 	beforeEach(async () => {
@@ -80,7 +111,7 @@ describe('runCallWithFourbyteTrace', () => {
 
 		const result = await runCallWithFourbyteTrace(vm, client.logger, params)
 		expect(result.trace).toMatchSnapshot()
-		expect(result.trace).toStrictEqual(setAllValuesExpectedTrace)
+		expect(result.trace).toMatchObject(setAllValuesExpectedTrace)
 	})
 
 	it('should handle view function calls', async () => {
@@ -98,7 +129,7 @@ describe('runCallWithFourbyteTrace', () => {
 		}
 
 		const result = await runCallWithFourbyteTrace(vm, client.logger, params)
-		expect(result.trace).toStrictEqual(getNumberExpectedTrace)
+		expect(result.trace).toMatchObject(getNumberExpectedTrace)
 	})
 
 	it('should handle a call to a function in an external contract', async () => {
@@ -116,7 +147,7 @@ describe('runCallWithFourbyteTrace', () => {
 		}
 
 		const result = await runCallWithFourbyteTrace(vm, client.logger, params)
-		expect(result.trace).toStrictEqual(callMathHelperExpectedTrace)
+		expect(result.trace).toMatchObject(callMathHelperExpectedTrace)
 	})
 
 	it('should handle delegate calls', async () => {
@@ -134,7 +165,7 @@ describe('runCallWithFourbyteTrace', () => {
 		}
 
 		const result = await runCallWithFourbyteTrace(vm, client.logger, params)
-		expect(result.trace).toStrictEqual(delegateCallMathHelperExpectedTrace)
+		expect(result.trace).toMatchObject(delegateCallMathHelperExpectedTrace)
 	})
 
 	it('should handle a call to a function that reverts', async () => {
@@ -152,7 +183,7 @@ describe('runCallWithFourbyteTrace', () => {
 		}
 
 		const result = await runCallWithFourbyteTrace(vm, client.logger, params)
-		expect(result.trace).toStrictEqual(revertWithStringErrorExpectedTrace)
+		expect(result.trace).toMatchObject(revertWithStringErrorExpectedTrace)
 	})
 
 	it('should handle CREATE operations by ignoring them', async () => {

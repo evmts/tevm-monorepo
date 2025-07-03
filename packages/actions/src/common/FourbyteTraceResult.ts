@@ -2,23 +2,31 @@ import type { Hex } from './Hex.js'
 
 /**
  * Result from `debug_*` with `4byteTracer`
- * Returns a mapping of selector-calldata_size keys to their call counts.
+ * Returns a mapping of selector-calldata_size keys to their call counts as well as an additional mapping of selector keys to an array of calldata they were called with.
  *
- * The keys are in the format "0x{selector}-{calldata_size}" where:
+ * Nodes usually only return the first mapping, but Tevm returns both for better debugging.
+ *
+ * The entries in the first mapping are in the format "0x{selector}-{calldata_size}" -> count where:
  * - selector: 4-byte function selector (e.g., "0x27dc297e")
  * - calldata_size: size of call data excluding the 4-byte selector
+ * - count: number of times the selector-calldata_size combination was called
+ *
+ * The entries in the second mapping are in the format "0x{selector}" -> [calldata1, calldata2, ...] where:
+ * - selector: 4-byte function selector (e.g., "0x27dc297e")
+ * - calldata: hex-encoded calldata that was called with the selector
  *
  * @example
  * ```json
  * {
- *   "0x27dc297e-128": 1,
+ *   "0x27dc297e-32": 1,
  *   "0x38cc4831-0": 2,
- *   "0x524f3889-96": 1,
- *   "0xadf59f99-288": 1,
- *   "0xc281d19e-0": 1
+ *   "0x524f3889-64": 1,
+ *   "0x27dc297e": ["0x0000000000000000000000000000000000000000000000000000000000000001"]
+ *   "0x38cc4831": ["0x", "0x"]
+ *   "0x524f3889": ["0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001"]
  * }
  * ```
  */
 export type FourbyteTraceResult = {
-	readonly [selectorAndSize: `${Hex}-${number}`]: number
+	readonly [K: string]: typeof K extends `${Hex}-${number}` ? number : typeof K extends Hex ? readonly string[] : never
 }
