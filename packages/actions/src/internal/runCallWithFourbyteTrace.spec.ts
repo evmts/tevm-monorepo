@@ -5,11 +5,43 @@ import { PREFUNDED_ACCOUNTS, encodeDeployData, encodeFunctionData, hexToBytes } 
 import { assert, beforeEach, describe, expect, it } from 'vitest'
 import { deployHandler } from '../Deploy/deployHandler.js'
 import { runCallWithFourbyteTrace } from './runCallWithFourbyteTrace.js'
+import { toFunctionSelector } from 'viem'
 
 describe('runCallWithFourbyteTrace', () => {
 	let client: ReturnType<typeof createTevmNode>
 	let advancedContractAddress: Address
 	let errorContractAddress: Address
+
+	// Inner function calls with `this`
+	const setAllValuesExpectedTrace = {
+		[`${toFunctionSelector('function setAllValues(uint256,bool,string,address)')}-192`]: 1, // each 32 bytes: (newNumber, newBool, newString (offset), newAddress, newString (length), newString (value padded to 32 bytes))
+		[`${toFunctionSelector('function setNumber(uint256)')}-32`]: 1, // each 32 bytes: (newNumber)
+		[`${toFunctionSelector('function setBool(bool)')}-32`]: 1, // each 32 bytes: (newBool)
+		[`${toFunctionSelector('function setString(string)')}-96`]: 1, // each 32 bytes: (newString (offset), newString (length), newString (value padded to 32 bytes))
+		[`${toFunctionSelector('function setAddress(address)')}-32`]: 1, // each 32 bytes: (newAddress)
+	}
+
+	// View function call
+	const getNumberExpectedTrace = {
+		[`${toFunctionSelector('function getNumber()')}-0`]: 1,
+	}
+
+	// Call to external contract
+	const callMathHelperExpectedTrace = {
+		[`${toFunctionSelector('function callMathHelper(uint256)')}-32`]: 1, // each 32 bytes: (newNumber)
+		[`${toFunctionSelector('function multiply(uint256)')}-32`]: 1, // each 32 bytes: (newNumber)
+	}
+
+	// Delegate call to external contract
+	const delegateCallMathHelperExpectedTrace = {
+		[`${toFunctionSelector('function delegateCallMathHelper(uint256)')}-32`]: 1, // each 32 bytes: (newNumber)
+		[`${toFunctionSelector('function multiply(uint256)')}-32`]: 1, // each 32 bytes: (newNumber)
+	}
+
+	// Function call that reverts (should still include the function selector)
+	const revertWithStringErrorExpectedTrace = {
+		[`${toFunctionSelector('function revertWithStringError()')}-0`]: 1,
+	}
 
 	beforeEach(async () => {
 		client = createTevmNode()
@@ -36,6 +68,43 @@ describe('runCallWithFourbyteTrace', () => {
 		await vm.stateManager.setStateRoot(head.header.stateRoot)
 
 		const params = {
+			data: hexToBytes(encodeFunctionData(AdvancedContract.write.setAllValues(2n, true, 'test', PREFUNDED_ACCOUNTS[0].address))),
+			gasLimit: 16784800n,
+			to: advancedContractAddress,
+			block: await vm.blockchain.getCanonicalHeadBlock(),
+			origin: createAddress(0),
+			caller: createAddress(0),
+		}
+
+		const result = await runCallWithFourbyteTrace(vm, client.logger, params)
+		expect(result.trace).toMatchSnapshot()
+		expect(result.trace).toStrictEqual(setAllValuesExpectedTrace)
+	})
+
+	it('should handle view function calls', async () => {
+		const vm = await client.getVm().then((vm) => vm.deepCopy())
+		const head = await vm.blockchain.getCanonicalHeadBlock()
+		await vm.stateManager.setStateRoot(head.header.stateRoot)
+
+		const params = {
+			data: hexToBytes(encodeFunctionData(AdvancedContract.read.getNumber())),
+			gasLimit: 16784800n,
+			to: advancedContractAddress,
+			block: await vm.blockchain.getCanonicalHeadBlock(),
+			origin: createAddress(0),
+			caller: createAddress(0),
+		}
+
+		const result = await runCallWithFourbyteTrace(vm, client.logger, params)
+		expect(result.trace).toStrictEqual(getNumberExpectedTrace)
+	})
+
+	it('should handle a call to a function in an external contract', async () => {
+		const vm = await client.getVm().then((vm) => vm.deepCopy())
+		const head = await vm.blockchain.getCanonicalHeadBlock()
+		await vm.stateManager.setStateRoot(head.header.stateRoot)
+
+		const params = {
 			data: hexToBytes(encodeFunctionData(AdvancedContract.write.callMathHelper(2n))),
 			gasLimit: 16784800n,
 			to: advancedContractAddress,
@@ -45,65 +114,7 @@ describe('runCallWithFourbyteTrace', () => {
 		}
 
 		const result = await runCallWithFourbyteTrace(vm, client.logger, params)
-
-		// Verify trace contains expected selectors
-		expect(result.trace).toBeDefined()
-		expect(typeof result.trace).toBe('object')
-
-		// Should capture callMathHelper call and the external call to MathHelper.multiply
-		expect(result.trace).toMatchObject({
-			'0x575f4505-32': 1, // callMathHelper(uint256)
-			'0xc6888fa1-32': 1, // multiply(uint256) on MathHelper
-		})
-	})
-
-	it('should handle view function calls', async () => {
-		const vm = await client.getVm().then((vm) => vm.deepCopy())
-		const head = await vm.blockchain.getCanonicalHeadBlock()
-		await vm.stateManager.setStateRoot(head.header.stateRoot)
-
-		const params = {
-			data: hexToBytes(encodeFunctionData(AdvancedContract.read.getAllValues())),
-			gasLimit: 16784800n,
-			to: advancedContractAddress,
-			block: await vm.blockchain.getCanonicalHeadBlock(),
-			origin: createAddress(0),
-			caller: createAddress(0),
-		}
-
-		const result = await runCallWithFourbyteTrace(vm, client.logger, params)
-
-		// Verify trace contains selectors from getAllValues
-		// NOTE: Internal calls to getNumber, getBool, etc. within the same contract
-		// are JUMP instructions, not CALL opcodes, so they won't be captured
-		expect(result.trace).toEqual({
-			'0x981f5499-0': 1, // getAllValues() with 0-byte calldata
-		})
-	})
-
-	it('should collect selector from setAllValues with correct calldata size', async () => {
-		const vm = await client.getVm().then((vm) => vm.deepCopy())
-		const head = await vm.blockchain.getCanonicalHeadBlock()
-		await vm.stateManager.setStateRoot(head.header.stateRoot)
-
-		const params = {
-			data: hexToBytes(
-				encodeFunctionData(AdvancedContract.write.setAllValues(2n, true, 'test', PREFUNDED_ACCOUNTS[0].address)),
-			),
-			gasLimit: 16784800n,
-			to: advancedContractAddress,
-			block: await vm.blockchain.getCanonicalHeadBlock(),
-			origin: createAddress(0),
-			caller: createAddress(0),
-		}
-
-		const result = await runCallWithFourbyteTrace(vm, client.logger, params)
-
-		// Should capture only the setAllValues call, not internal function calls
-		// Internal calls to setNumber, setBool, setString, setAddress are JUMP instructions
-		expect(result.trace).toEqual({
-			'0x349a0054-192': 1, // setAllValues with 192-byte calldata (includes string offset + length)
-		})
+		expect(result.trace).toStrictEqual(callMathHelperExpectedTrace)
 	})
 
 	it('should handle delegate calls', async () => {
@@ -121,35 +132,25 @@ describe('runCallWithFourbyteTrace', () => {
 		}
 
 		const result = await runCallWithFourbyteTrace(vm, client.logger, params)
-
-		// Verify trace contains selectors from delegate call
-		expect(result.trace).toMatchObject({
-			'0xd0da9af5-32': 1, // delegateCallMathHelper(uint256)
-			'0xc6888fa1-32': 1, // multiply(uint256) via delegatecall
-		})
+		expect(result.trace).toStrictEqual(delegateCallMathHelperExpectedTrace)
 	})
 
-	it('should handle calls with insufficient data', async () => {
+	it('should handle a call to a function that reverts', async () => {
 		const vm = await client.getVm().then((vm) => vm.deepCopy())
 		const head = await vm.blockchain.getCanonicalHeadBlock()
 		await vm.stateManager.setStateRoot(head.header.stateRoot)
 
 		const params = {
-			data: hexToBytes('0x12'), // Only 1 byte, not enough for a selector
+			data: hexToBytes(encodeFunctionData(ErrorContract.write.revertWithStringError())),
 			gasLimit: 16784800n,
-			to: advancedContractAddress,
+			to: errorContractAddress,
 			block: await vm.blockchain.getCanonicalHeadBlock(),
 			origin: createAddress(0),
 			caller: createAddress(0),
 		}
 
 		const result = await runCallWithFourbyteTrace(vm, client.logger, params)
-
-		// Should not crash and should return empty trace
-		expect(result.trace).toBeDefined()
-		expect(typeof result.trace).toBe('object')
-		// Should be empty since no valid selector was found
-		expect(Object.keys(result.trace)).toHaveLength(0)
+		expect(result.trace).toStrictEqual(revertWithStringErrorExpectedTrace)
 	})
 
 	it('should handle CREATE operations by ignoring them', async () => {
@@ -161,7 +162,6 @@ describe('runCallWithFourbyteTrace', () => {
 		const deployData = encodeDeployData({
 			abi: ErrorContract.abi,
 			bytecode: ErrorContract.bytecode,
-			args: [],
 		})
 
 		const params = {
@@ -174,10 +174,6 @@ describe('runCallWithFourbyteTrace', () => {
 		}
 
 		const result = await runCallWithFourbyteTrace(vm, client.logger, params)
-
-		// CREATE operations should not produce selectors
-		expect(result.trace).toBeDefined()
-		expect(typeof result.trace).toBe('object')
 		// Should be empty since CREATE operations don't have function selectors
 		expect(Object.keys(result.trace)).toHaveLength(0)
 	})
@@ -197,31 +193,7 @@ describe('runCallWithFourbyteTrace', () => {
 		}
 
 		const result = await runCallWithFourbyteTrace(vm, client.logger, params, true)
-
-		// Should return object with trace but not execute EVM
-		expect(result.trace).toBeDefined()
-		expect(typeof result.trace).toBe('object')
 		// Should be empty since EVM didn't run
 		expect(Object.keys(result.trace)).toHaveLength(0)
-	})
-
-	it('should match expected trace format', async () => {
-		const vm = await client.getVm().then((vm) => vm.deepCopy())
-		const head = await vm.blockchain.getCanonicalHeadBlock()
-		await vm.stateManager.setStateRoot(head.header.stateRoot)
-
-		const params = {
-			data: hexToBytes(encodeFunctionData(AdvancedContract.write.callMathHelper(2n))),
-			gasLimit: 16784800n,
-			to: advancedContractAddress,
-			block: await vm.blockchain.getCanonicalHeadBlock(),
-			origin: createAddress(0),
-			caller: createAddress(0),
-		}
-
-		const result = await runCallWithFourbyteTrace(vm, client.logger, params)
-
-		// Should match the expected format for FourbyteTraceResult
-		expect(result.trace).toMatchSnapshot()
 	})
 })
