@@ -96,11 +96,13 @@ contract AdvancedContract {
     }
 
     // Main setter that calls other setters
+    // We call with `this` to test the 4byte tracer as in revm-inspectors
+    // https://github.com/paradigmxyz/revm-inspectors/blob/c4d7576c/tests/it/geth.rs#L24
     function setAllValues(uint256 newNumber, bool newBool, string memory newString, address newAddress) public {
-        setNumber(newNumber);
-        setBool(newBool);
-        setString(newString);
-        setAddress(newAddress);
+        this.setNumber(newNumber);
+        this.setBool(newBool);
+        this.setString(newString);
+        this.setAddress(newAddress);
         emit AllValuesSet(newNumber, newBool, newString, newAddress);
     }
 
