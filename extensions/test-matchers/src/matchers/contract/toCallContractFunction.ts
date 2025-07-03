@@ -4,8 +4,8 @@ import type { Abi, Client, ContractFunctionName, Hex } from 'viem'
 import { isHex } from 'viem'
 import type { MatcherResult } from '../../chainable/types.js'
 import type { ContainsContractAbi, ContainsTransactionAny } from '../../common/types.js'
-import type { ToCallContractFunctionState } from './types.js'
 import { getSelectorToCalldataMap } from './getSelectorToCalldataMap.js'
+import type { ToCallContractFunctionState } from './types.js'
 
 // TODO: we might want to enforce the function call was made on the provided contract address (if provided)
 // for which the 4byte trace won't be enough
@@ -27,8 +27,8 @@ export const toCallContractFunction = async <
 
 	if (typeof contractOrFunctionIdentifier === 'string') {
 		const functionSelector = isHex(contractOrFunctionIdentifier)
-		? contractOrFunctionIdentifier
-		: AbiItem.getSelector(contractOrFunctionIdentifier)
+			? contractOrFunctionIdentifier
+			: AbiItem.getSelector(contractOrFunctionIdentifier)
 
 		const pass = calldataMap.has(functionSelector)
 
@@ -62,6 +62,6 @@ export const toCallContractFunction = async <
 			abiFunction,
 			selector,
 			calldataMap,
-		}
+		},
 	}
 }
