@@ -1,9 +1,9 @@
-import { debugTraceTransactionJsonRpcProcedure, type FourbyteTraceResult } from '@tevm/actions'
+import { type FourbyteTraceResult, debugTraceTransactionJsonRpcProcedure } from '@tevm/actions'
 import { type TevmNode } from '@tevm/node'
-import { isHex, type Client } from 'viem'
-import type { ContainsTransactionAny } from '../../common/types.js'
-import { handleTransaction } from '../../common/handleTransaction.js'
 import { Hex } from 'ox'
+import { type Client, isHex } from 'viem'
+import { handleTransaction } from '../../common/handleTransaction.js'
+import type { ContainsTransactionAny } from '../../common/types.js'
 
 export const getSelectorToCalldataMap = async (
 	client: Client | TevmNode,
