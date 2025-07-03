@@ -15,17 +15,17 @@ import type { DebugTraceStateFilter } from './DebugParams.js'
  * Result from `debug_traceTransaction`
  */
 export type DebugTraceTransactionResult<
-	TTracer extends 'callTracer' | 'prestateTracer' | 'fourbyteTracer' | undefined =
+	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' | undefined =
 		| 'callTracer'
 		| 'prestateTracer'
-		| 'fourbyteTracer'
+		| '4byteTracer'
 		| undefined,
 	TDiffMode extends boolean = boolean,
 > = TTracer extends 'callTracer'
 	? CallTraceResult
 	: TTracer extends 'prestateTracer'
 		? PrestateTraceResult<TDiffMode>
-		: TTracer extends 'fourbyteTracer'
+		: TTracer extends '4byteTracer'
 			? FourbyteTraceResult
 			: TraceResult
 
@@ -33,17 +33,17 @@ export type DebugTraceTransactionResult<
  * Result from `debug_traceCall`
  */
 export type DebugTraceCallResult<
-	TTracer extends 'callTracer' | 'prestateTracer' | 'fourbyteTracer' | undefined =
+	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' | undefined =
 		| 'callTracer'
 		| 'prestateTracer'
-		| 'fourbyteTracer'
+		| '4byteTracer'
 		| undefined,
 	TDiffMode extends boolean = boolean,
 > = TTracer extends 'callTracer'
 	? CallTraceResult
 	: TTracer extends 'prestateTracer'
 		? PrestateTraceResult<TDiffMode>
-		: TTracer extends 'fourbyteTracer'
+		: TTracer extends '4byteTracer'
 			? FourbyteTraceResult
 			: TraceResult
 
@@ -53,10 +53,10 @@ export type DebugTraceCallResult<
  * Returns an array of transaction traces
  */
 export type DebugTraceBlockResult<
-	TTracer extends 'callTracer' | 'prestateTracer' | 'fourbyteTracer' | undefined =
+	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' | undefined =
 		| 'callTracer'
 		| 'prestateTracer'
-		| 'fourbyteTracer'
+		| '4byteTracer'
 		| undefined,
 	TDiffMode extends boolean = boolean,
 > = Array<{
