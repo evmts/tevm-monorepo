@@ -2,10 +2,10 @@ import { Address, createAddress } from '@tevm/address'
 import { AdvancedContract, ErrorContract } from '@tevm/contract'
 import { createTevmNode } from '@tevm/node'
 import { PREFUNDED_ACCOUNTS, encodeDeployData, encodeFunctionData, hexToBytes } from '@tevm/utils'
+import { toFunctionSelector } from 'viem'
 import { assert, beforeEach, describe, expect, it } from 'vitest'
 import { deployHandler } from '../Deploy/deployHandler.js'
 import { runCallWithFourbyteTrace } from './runCallWithFourbyteTrace.js'
-import { toFunctionSelector } from 'viem'
 
 describe('runCallWithFourbyteTrace', () => {
 	let client: ReturnType<typeof createTevmNode>
@@ -68,7 +68,9 @@ describe('runCallWithFourbyteTrace', () => {
 		await vm.stateManager.setStateRoot(head.header.stateRoot)
 
 		const params = {
-			data: hexToBytes(encodeFunctionData(AdvancedContract.write.setAllValues(2n, true, 'test', PREFUNDED_ACCOUNTS[0].address))),
+			data: hexToBytes(
+				encodeFunctionData(AdvancedContract.write.setAllValues(2n, true, 'test', PREFUNDED_ACCOUNTS[0].address)),
+			),
 			gasLimit: 16784800n,
 			to: advancedContractAddress,
 			block: await vm.blockchain.getCanonicalHeadBlock(),
