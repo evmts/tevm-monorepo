@@ -1,5 +1,5 @@
 import type { AbiParameter, ExtractAbiFunction } from 'abitype'
-import { type Abi, type ContractFunctionName, decodeFunctionData } from 'viem'
+import { type Abi, type ContractFunctionName, decodeAbiParameters } from 'viem'
 import type { ChainState, MatcherResult } from '../../chainable/types.js'
 import type { AbiInputsToNamedArgs } from '../../common/types.js'
 import type { ToCallContractFunctionState } from './types.js'
@@ -20,48 +20,31 @@ export const withFunctionNamedArgs = <
 	expectedArgs: Partial<AbiInputsToNamedArgs<TInputs>>,
 	chainState?: ChainState<unknown, ToCallContractFunctionState>,
 ): MatcherResult => {
-	if (!chainState?.previousState || !('contract' in chainState.previousState))
+	if (!chainState?.previousState || !('abiFunction' in chainState.previousState))
 		throw new Error('withFunctionNamedArgs() requires a contract with abi and function name')
 
-	const { contract, decodedFunctionData, rawFunctionData } = chainState.previousState
-	const decodedFunction =
-		decodedFunctionData ??
-		(rawFunctionData && contract ? decodeFunctionData({ abi: contract?.abi, data: rawFunctionData }) : undefined)
+	const { abiFunction, selector, calldataMap } = chainState.previousState
+	const calldata = calldataMap.get(selector)
+	const actualDecodedArgs = calldata ? calldata.map((calldata) => decodeAbiParameters(abiFunction.inputs, calldata)) : undefined
+	const actualNamedArgs = actualDecodedArgs ? actualDecodedArgs.map((decodedArgs) => abiFunction.inputs.reduce(
+		(acc, input, index) => {
+			acc[input.name ?? ''] = decodedArgs[index]
+			return acc
+		},
+		{} as Record<string, unknown>,
+	)) : undefined
 
-	if (!decodedFunction?.args) throw new Error('Could not decode function data')
 
-	// Get the function ABI to map argument names
-	const functionAbi = contract?.abi.find(
-		(item) => item.type === 'function' && item.name === decodedFunction.functionName,
-	)
-
-	if (!functionAbi || functionAbi.type !== 'function') {
-		throw new Error(`Function ${decodedFunction.functionName} not found in contract ABI`)
-	}
-
-	// Map actual arguments by name
-	const actualNamedArgs: Record<string, unknown> = {}
-	functionAbi.inputs.forEach((input, index) => {
-		if (input.name && decodedFunction.args && index < decodedFunction.args.length) {
-			actualNamedArgs[input.name] = decodedFunction.args[index]
-		}
-	})
-
-	// Check if all expected arguments match
-	const expectedArgNames = Object.keys(expectedArgs)
-	const allMatch = expectedArgNames.every((argName) => {
-		if (!(argName in actualNamedArgs)) {
-			return false // Argument name not found in function
-		}
-		return actualNamedArgs[argName] === expectedArgs[argName]
-	})
+	const argsMatched = actualNamedArgs ? actualNamedArgs.some((namedArgs) => {
+		return Object.entries(expectedArgs).every(([key, value]) => key in namedArgs && namedArgs[key as keyof typeof namedArgs] === value)
+	}) : false
 
 	return {
-		pass: allMatch,
-		actual: actualNamedArgs,
+		pass: argsMatched,
+		actual: actualNamedArgs ? Object.fromEntries(actualNamedArgs.map((namedArgs, i) => [i, namedArgs])) : {},
 		expected: expectedArgs,
 		message: () =>
-			allMatch
+			argsMatched
 				? 'Expected transaction not to call function with the specified arguments'
 				: 'Expected transaction to call function with the specified arguments',
 	}

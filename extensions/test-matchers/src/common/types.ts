@@ -7,12 +7,6 @@ export interface ContainsContractAbi<TAbi extends Abi = Abi> {
 	address?: `0x${string}`
 }
 
-// Contract-like object with ABI and address (required for function calls)
-export interface ContainsContractAbiAndAddress<TAbi extends Abi = Abi> {
-	abi: TAbi
-	address: `0x${string}`
-}
-
 // Transaction-like object that has logs
 export interface ContainsTransactionLogs {
 	logs: Log[]
