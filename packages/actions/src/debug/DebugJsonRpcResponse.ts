@@ -17,10 +17,10 @@ type DebugError = string
  * JSON-RPC response for `debug_traceTransaction` procedure
  */
 export type DebugTraceTransactionJsonRpcResponse<
-	TTracer extends 'callTracer' | 'prestateTracer' | 'fourbyteTracer' =
+	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' =
 		| 'callTracer'
 		| 'prestateTracer'
-		| 'fourbyteTracer',
+		| '4byteTracer',
 	TDiffMode extends boolean = boolean,
 > = JsonRpcResponse<
 	'debug_traceTransaction',
@@ -32,10 +32,10 @@ export type DebugTraceTransactionJsonRpcResponse<
  * JSON-RPC response for `debug_traceCall` procedure
  */
 export type DebugTraceCallJsonRpcResponse<
-	TTracer extends 'callTracer' | 'prestateTracer' | 'fourbyteTracer' =
+	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' =
 		| 'callTracer'
 		| 'prestateTracer'
-		| 'fourbyteTracer',
+		| '4byteTracer',
 	TDiffMode extends boolean = boolean,
 > = JsonRpcResponse<'debug_traceCall', SerializeToJson<DebugTraceCallResult<TTracer, TDiffMode>>, DebugError>
 
@@ -43,10 +43,10 @@ export type DebugTraceCallJsonRpcResponse<
  * JSON-RPC response for `debug_traceBlock`
  */
 export type DebugTraceBlockJsonRpcResponse<
-	TTracer extends 'callTracer' | 'prestateTracer' | 'fourbyteTracer' =
+	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' =
 		| 'callTracer'
 		| 'prestateTracer'
-		| 'fourbyteTracer',
+		| '4byteTracer',
 	TDiffMode extends boolean = boolean,
 > = JsonRpcResponse<'debug_traceBlock', SerializeToJson<DebugTraceBlockResult<TTracer, TDiffMode>>, DebugError>
 

@@ -73,10 +73,10 @@ describe('traceCallHandler', async () => {
 		).toMatchSnapshot()
 	})
 
-	it('should execute a contract call with fourbyteTracer', async () => {
+	it('should execute a contract call with 4byteTracer', async () => {
 		expect(
 			await traceCallHandler(client)({
-				tracer: 'fourbyteTracer',
+				tracer: '4byteTracer',
 				data: encodeFunctionData(AdvancedContract.write.setAllValues(2n, true, 'test', PREFUNDED_ACCOUNTS[0].address)),
 				to: contractAddress,
 				from: PREFUNDED_ACCOUNTS[0].address,

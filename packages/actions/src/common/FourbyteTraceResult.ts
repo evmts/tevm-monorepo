@@ -1,7 +1,7 @@
 import type { Hex } from './Hex.js'
 
 /**
- * Result from `debug_*` with `fourbyteTracer`
+ * Result from `debug_*` with `4byteTracer`
  * Returns a mapping of selector-calldata_size keys to their call counts.
  *
  * The keys are in the format "0x{selector}-{calldata_size}" where:

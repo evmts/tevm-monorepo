@@ -62,7 +62,7 @@ describe('runCallWithFourbyteTrace', () => {
 	})
 
 	it('should collect 4-byte function selectors from contract calls', async () => {
-		// Call the contract with fourbyteTracer
+		// Call the contract with 4byteTracer
 		const vm = await client.getVm().then((vm) => vm.deepCopy())
 		const head = await vm.blockchain.getCanonicalHeadBlock()
 		await vm.stateManager.setStateRoot(head.header.stateRoot)
