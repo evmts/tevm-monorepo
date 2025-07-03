@@ -77,14 +77,15 @@ describe('toCallContractFunction', () => {
 		})
 
 		it('should fail when wrong function signature', async () => {
-			await expect(() =>
-				expect(
-					contractHandler(node)({
-						...contract.write.setNumber(100n),
-						from: sender.address,
-						addToBlockchain: true,
-					}),
-				).toCallContractFunction(node, 'setNumber(uint128)'), // Wrong function signature
+			await expect(
+				() =>
+					expect(
+						contractHandler(node)({
+							...contract.write.setNumber(100n),
+							from: sender.address,
+							addToBlockchain: true,
+						}),
+					).toCallContractFunction(node, 'setNumber(uint128)'), // Wrong function signature
 			).rejects.toThrow('Expected transaction to call function')
 		})
 
@@ -132,16 +133,17 @@ describe('toCallContractFunction', () => {
 		})
 
 		it('should fail with too many arguments', async () => {
-			await expect(() =>
-				expect(
-					contractHandler(node)({
-						...contract.write.setNumber(100n),
-						from: sender.address,
-						addToBlockchain: true,
-					}),
-				)
-					.toCallContractFunction(node, contract, 'setNumber')
-					.withFunctionArgs(100n, 200n), // Too many arguments - setNumber only takes one
+			await expect(
+				() =>
+					expect(
+						contractHandler(node)({
+							...contract.write.setNumber(100n),
+							from: sender.address,
+							addToBlockchain: true,
+						}),
+					)
+						.toCallContractFunction(node, contract, 'setNumber')
+						.withFunctionArgs(100n, 200n), // Too many arguments - setNumber only takes one
 			).rejects.toThrow('Expected transaction to call function with the specified arguments')
 		})
 
@@ -187,16 +189,17 @@ describe('toCallContractFunction', () => {
 		})
 
 		it('should fail with wrong named arguments', async () => {
-			await expect(() =>
-				expect(
-					contractHandler(node)({
-						...contract.write.setNumber(100n),
-						from: sender.address,
-						addToBlockchain: true,
-					}),
-				)
-					.toCallContractFunction(node, contract, 'setNumber')
-					.withFunctionNamedArgs({ newValue: 200n }), // Wrong value
+			await expect(
+				() =>
+					expect(
+						contractHandler(node)({
+							...contract.write.setNumber(100n),
+							from: sender.address,
+							addToBlockchain: true,
+						}),
+					)
+						.toCallContractFunction(node, contract, 'setNumber')
+						.withFunctionNamedArgs({ newValue: 200n }), // Wrong value
 			).rejects.toThrow('Expected transaction to call function with the specified arguments')
 		})
 
@@ -247,17 +250,18 @@ describe('toCallContractFunction', () => {
 
 	describe('function not found in ABI', () => {
 		it('should throw when function name not found in contract ABI', async () => {
-			await expect(() =>
-				expect(
-					contractHandler(node)({
-						...contract.write.setNumber(100n),
-						from: sender.address,
-						addToBlockchain: true,
-					}),
-				)
-					// @ts-expect-error - 'setNonExistentFunction' does not exist in the contract ABI
-					.toCallContractFunction(node, contract, 'setNonExistentFunction'),
-			// This propagates the error from viem
+			await expect(
+				() =>
+					expect(
+						contractHandler(node)({
+							...contract.write.setNumber(100n),
+							from: sender.address,
+							addToBlockchain: true,
+						}),
+					)
+						// @ts-expect-error - 'setNonExistentFunction' does not exist in the contract ABI
+						.toCallContractFunction(node, contract, 'setNonExistentFunction'),
+				// This propagates the error from viem
 			).rejects.toThrow('ABI item with name "setNonExistentFunction" not found.')
 		})
 
@@ -411,11 +415,12 @@ describe('toCallContractFunction', () => {
 						from: sender.address,
 						addToBlockchain: true,
 					}),
-				)
-					.toCallContractFunction(node, contract, 'setAddress')
+				).toCallContractFunction(node, contract, 'setAddress')
 			} catch (error: any) {
 				expect(error.message).toBe('Expected transaction to call function setAddress')
-				expect(error.expected).toBe(`transaction calling function with selector ${toFunctionSelector('function setAddress(address)')}`);
+				expect(error.expected).toBe(
+					`transaction calling function with selector ${toFunctionSelector('function setAddress(address)')}`,
+				)
 				expect(error.actual).toStrictEqual([toFunctionSelector('function setNumber(uint256)')])
 			}
 		})
