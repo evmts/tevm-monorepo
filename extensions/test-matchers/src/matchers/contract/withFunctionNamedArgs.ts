@@ -25,19 +25,28 @@ export const withFunctionNamedArgs = <
 
 	const { abiFunction, selector, calldataMap } = chainState.previousState
 	const calldata = calldataMap.get(selector)
-	const actualDecodedArgs = calldata ? calldata.map((calldata) => decodeAbiParameters(abiFunction.inputs, calldata)) : undefined
-	const actualNamedArgs = actualDecodedArgs ? actualDecodedArgs.map((decodedArgs) => abiFunction.inputs.reduce(
-		(acc, input, index) => {
-			acc[input.name ?? ''] = decodedArgs[index]
-			return acc
-		},
-		{} as Record<string, unknown>,
-	)) : undefined
+	const actualDecodedArgs = calldata
+		? calldata.map((calldata) => decodeAbiParameters(abiFunction.inputs, calldata))
+		: undefined
+	const actualNamedArgs = actualDecodedArgs
+		? actualDecodedArgs.map((decodedArgs) =>
+				abiFunction.inputs.reduce(
+					(acc, input, index) => {
+						acc[input.name ?? ''] = decodedArgs[index]
+						return acc
+					},
+					{} as Record<string, unknown>,
+				),
+			)
+		: undefined
 
-
-	const argsMatched = actualNamedArgs ? actualNamedArgs.some((namedArgs) => {
-		return Object.entries(expectedArgs).every(([key, value]) => key in namedArgs && namedArgs[key as keyof typeof namedArgs] === value)
-	}) : false
+	const argsMatched = actualNamedArgs
+		? actualNamedArgs.some((namedArgs) => {
+				return Object.entries(expectedArgs).every(
+					([key, value]) => key in namedArgs && namedArgs[key as keyof typeof namedArgs] === value,
+				)
+			})
+		: false
 
 	return {
 		pass: argsMatched,
