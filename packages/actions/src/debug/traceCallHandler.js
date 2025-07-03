@@ -14,7 +14,7 @@ import { runCallWithTrace } from '../internal/runCallWithTrace.js'
 export const traceCallHandler =
 	(client) =>
 	/**
-	 * @template {'callTracer' | 'prestateTracer' | 'fourbyteTracer'} TTracer
+	 * @template {'callTracer' | 'prestateTracer' | '4byteTracer'} TTracer
 	 * @template {boolean} TDiffMode
 	 * @param {import('./DebugParams.js').DebugTraceCallParams<TTracer, TDiffMode>} params
 	 * @returns {Promise<import('./DebugResult.js').DebugTraceCallResult<TTracer, TDiffMode>>}
@@ -52,8 +52,8 @@ export const traceCallHandler =
 				.then((vm) => runCallWithCallTrace(vm, logger, callParams))
 				.then((res) => /** @type {any} */ (res.trace))
 		}
-		if (params.tracer === 'fourbyteTracer') {
-			logger.debug('traceCallHandler: using fourbyteTracer')
+		if (params.tracer === '4byteTracer') {
+			logger.debug('traceCallHandler: using 4byteTracer')
 			return getVm()
 				.then((vm) => vm.deepCopy())
 				.then((vm) => runCallWithFourbyteTrace(vm, logger, callParams))
