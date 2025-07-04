@@ -1,4 +1,4 @@
-import { bytesToHex } from '@tevm/utils'
+import { bytesToHex, getAddress } from '@tevm/utils'
 
 /**
  * @typedef {`${import('@tevm/utils').Hex}-${number}`} SelectorAndSizeKey
@@ -22,9 +22,9 @@ export const runCallWithFourbyteTrace = async (vm, logger, params, lazilyRun = f
 	 */
 	const selectors = {}
 	/**
-	 * Map of selector keys to an array of calldata
-	 * Format: "0x{selector}" -> [calldata1, calldata2, ...]
-	 * @type {Record<SelectorKey, import('@tevm/utils').Hex[]>}
+	 * Map of contract address to selector keys to an array of calldata
+	 * Format: "0x{contract_address}" -> "0x{selector}" -> [calldata1, calldata2, ...]
+	 * @type {Record<import('@tevm/utils').Address, Record<SelectorKey, import('@tevm/utils').Hex[]>>}
 	 */
 	const calldatas = {}
 
@@ -61,10 +61,15 @@ export const runCallWithFourbyteTrace = async (vm, logger, params, lazilyRun = f
 				// Increment counter for this selector-calldata_size combination
 				selectors[result.key] = (selectors[result.key] ?? 0) + 1
 				// Add this calldata to the array of calldatas for this selector
-				calldatas[result.selector] = [...(calldatas[result.selector] ?? []), result.calldata]
+				const contractAddress = getAddress(message.to.toString())
+				calldatas[contractAddress] = {
+					...(calldatas[contractAddress] ?? {}),
+					[result.selector]: [...(calldatas[contractAddress]?.[result.selector] ?? []), result.calldata],
+				}
 
 				logger.debug(
 					{
+						contractAddress: message.to.toString(),
 						key: result.key,
 						selector: result.selector,
 						calldata: result.calldata,
