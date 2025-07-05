@@ -1,12 +1,12 @@
 import { type FourbyteTraceResult, debugTraceTransactionJsonRpcProcedure } from '@tevm/actions'
 import { type TevmNode } from '@tevm/node'
-import { Hex } from 'ox'
-import { type Client, isHex } from 'viem'
+import { type Address, type Client, type Hex, getAddress, isHex } from 'viem'
 import { handleTransaction } from '../../common/handleTransaction.js'
 import type { ContainsTransactionAny } from '../../common/types.js'
 
 export const getSelectorToCalldataMap = async (
 	client: Client | TevmNode,
+	contractAddress: Address,
 	tx: ContainsTransactionAny | Promise<ContainsTransactionAny>,
 ) => {
 	const { node, txHash } = await handleTransaction(client, tx)
@@ -21,7 +21,8 @@ export const getSelectorToCalldataMap = async (
 	if (error) throw new Error('Error tracing transaction to retrieve function calls', { cause: error })
 
 	const trace = result as FourbyteTraceResult
-	const calldataMap = new Map(Object.entries(trace).filter(([selector]) => isHex(selector))) as Map<Hex.Hex, Hex.Hex[]>
+	const contractTrace = trace[getAddress(contractAddress)] ?? {}
+	const calldataMap = new Map(Object.entries(contractTrace).filter(([selector]) => isHex(selector))) as Map<Hex, Hex[]>
 
 	return calldataMap
 }
