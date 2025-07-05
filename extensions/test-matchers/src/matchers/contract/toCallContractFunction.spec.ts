@@ -41,7 +41,7 @@ describe('toCallContractFunction', () => {
 					from: sender.address,
 					addToBlockchain: true,
 				}),
-			).toCallContractFunction(node, 'setNumber(uint256)')
+			).toCallContractFunction(node, { address: contract.address }, 'setNumber(uint256)')
 		})
 
 		it('should detect function call with hex selector', async () => {
@@ -51,7 +51,7 @@ describe('toCallContractFunction', () => {
 					from: sender.address,
 					addToBlockchain: true,
 				}),
-			).toCallContractFunction(node, toFunctionSelector('function setNumber(uint256)'))
+			).toCallContractFunction(node, { address: contract.address }, toFunctionSelector('function setNumber(uint256)'))
 		})
 
 		it('should detect an internal function call with this', async () => {
@@ -85,7 +85,7 @@ describe('toCallContractFunction', () => {
 							from: sender.address,
 							addToBlockchain: true,
 						}),
-					).toCallContractFunction(node, 'setNumber(uint128)'), // Wrong function signature
+					).toCallContractFunction(node, { address: contract.address }, 'setNumber(uint128)'), // Wrong function signature
 			).rejects.toThrow('Expected transaction to call function')
 		})
 
@@ -97,12 +97,21 @@ describe('toCallContractFunction', () => {
 						from: sender.address,
 						addToBlockchain: true,
 					}),
-				).toCallContractFunction(node, toFunctionSelector('function getNumber()')),
+				).toCallContractFunction(node, { address: contract.address }, toFunctionSelector('function getNumber()')),
 			).rejects.toThrow('Expected transaction to call function')
 		})
 
-		// TODO: we don't support this (4byte trace doesn't return this information)
-		it.todo('should fail when transaction calls the same function signature on a different contract')
+		it('should fail when transaction calls the same function signature on a different contract', async () => {
+			await expect(() =>
+				expect(
+					contractHandler(node)({
+						...contract.write.setNumber(100n),
+						from: sender.address,
+						addToBlockchain: true,
+					}),
+				).toCallContractFunction(node, { address: `0x${'a'.repeat(40)}` }, 'setNumber(uint256)'),
+			).rejects.toThrow('Expected transaction to call function')
+		})
 	})
 
 	describe('withFunctionArgs argument matching', () => {
@@ -156,8 +165,7 @@ describe('toCallContractFunction', () => {
 						addToBlockchain: true,
 					}),
 				)
-					.toCallContractFunction(node, 'setNumber(uint256)')
-					// @ts-expect-error - withFunctionArgs is not a function on ChainableAssertion
+					.toCallContractFunction(node, { address: contract.address }, 'setNumber(uint256)')
 					.withFunctionArgs(200n),
 			).rejects.toThrow('withFunctionArgs() requires a contract with abi and function name')
 		})
@@ -241,8 +249,7 @@ describe('toCallContractFunction', () => {
 						addToBlockchain: true,
 					}),
 				)
-					.toCallContractFunction(node, 'setNumber(uint256)')
-					// @ts-expect-error - 'withFunctionNamedArgs' requires contract context
+					.toCallContractFunction(node, { address: contract.address }, 'setNumber(uint256)')
 					.withFunctionNamedArgs({ newValue: 100n }),
 			).rejects.toThrow('withFunctionNamedArgs() requires a contract with abi and function name')
 		})
@@ -258,25 +265,9 @@ describe('toCallContractFunction', () => {
 							from: sender.address,
 							addToBlockchain: true,
 						}),
-					)
-						// @ts-expect-error - 'setNonExistentFunction' does not exist in the contract ABI
-						.toCallContractFunction(node, contract, 'setNonExistentFunction'),
+					).toCallContractFunction(node, contract, 'setNonExistentFunction'),
 				// This propagates the error from viem
 			).rejects.toThrow('ABI item with name "setNonExistentFunction" not found.')
-		})
-
-		it('should require function selector/signature as second argument or contract with a third argument', async () => {
-			await expect(() =>
-				expect(
-					contractHandler(node)({
-						...contract.write.setNumber(100n),
-						from: sender.address,
-						addToBlockchain: true,
-					}),
-				)
-					// @ts-expect-error - Missing function name
-					.toCallContractFunction(node, contract),
-			).rejects.toThrow('You need to provide a function name as a third argument')
 		})
 	})
 
@@ -311,7 +302,7 @@ describe('toCallContractFunction', () => {
 						from: sender.address,
 						addToBlockchain: true,
 					}),
-				).not.toCallContractFunction(node, 'setNumber(uint256)'),
+				).not.toCallContractFunction(node, { address: contract.address }, 'setNumber(uint256)'),
 			).rejects.toThrow('Expected transaction not to call function')
 		})
 
@@ -323,11 +314,23 @@ describe('toCallContractFunction', () => {
 						from: sender.address,
 						addToBlockchain: true,
 					}),
-				).not.toCallContractFunction(node, toFunctionSelector('function setNumber(uint256)')),
+				).not.toCallContractFunction(
+					node,
+					{ address: contract.address },
+					toFunctionSelector('function setNumber(uint256)'),
+				),
 			).rejects.toThrow('Expected transaction not to call function')
 		})
 
-		it.todo('should support not.toCallContractFunction - different contract')
+		it('should support not.toCallContractFunction - different contract', async () => {
+			await expect(
+				contractHandler(node)({
+					...contract.write.setNumber(100n),
+					from: sender.address,
+					addToBlockchain: true,
+				}),
+			).not.toCallContractFunction(node, { address: `0x${'a'.repeat(40)}` }, 'setNumber(uint256)')
+		})
 	})
 
 	describe('transaction types', () => {

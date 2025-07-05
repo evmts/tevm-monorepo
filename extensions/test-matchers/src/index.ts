@@ -3,6 +3,7 @@ import { registerChainableMatchers } from './chainable/chainable.js'
 import type {
 	ContainsAddress,
 	ContainsContractAbi,
+	ContainsContractAddressAndOptionalAbi,
 	ContainsTransactionAny,
 	ContainsTransactionLogs,
 } from './common/types.js'
@@ -40,6 +41,7 @@ export type {
 	IsHexOptions,
 	EqualHexOptions,
 	ContainsContractAbi,
+	ContainsContractAddressAndOptionalAbi,
 	ContainsTransactionLogs,
 	ContainsAddress,
 	ContainsTransactionAny,

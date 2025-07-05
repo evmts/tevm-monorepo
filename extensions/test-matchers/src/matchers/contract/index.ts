@@ -3,7 +3,7 @@ import type { AbiParameter, AbiParametersToPrimitiveTypes, ExtractAbiFunction } 
 import type { Abi, Client, ContractFunctionName, Hex } from 'viem'
 import { createChainableFromVitest } from '../../chainable/chainable.js'
 import type { ChainableAssertion } from '../../chainable/types.js'
-import type { AbiInputsToNamedArgs, ContainsContractAbi } from '../../common/types.js'
+import type { AbiInputsToNamedArgs, ContainsContractAddressAndOptionalAbi } from '../../common/types.js'
 import { toCallContractFunction } from './toCallContractFunction.js'
 import { withFunctionArgs } from './withFunctionArgs.js'
 import { withFunctionNamedArgs } from './withFunctionNamedArgs.js'
@@ -65,7 +65,7 @@ export interface ContractMatchers {
 	 */
 	toCallContractFunction<TAbi extends Abi, TFunctionName extends ContractFunctionName<TAbi>>(
 		client: Client | TevmNode,
-		contract: ContainsContractAbi<TAbi>,
+		contract: ContainsContractAddressAndOptionalAbi<TAbi>,
 		functionName: TFunctionName,
 	): Promise<ContractAssertionWithContract<TAbi, TFunctionName>> & ContractAssertionWithContract<TAbi, TFunctionName>
 
@@ -77,10 +77,15 @@ export interface ContractMatchers {
 	 *
 	 * @example
 	 * ```typescript
-	 * await expect(txHash).toCallContractFunction(client, 'transfer(address,uint256)')
+	 * await expect(txHash).toCallContractFunction(client, contract, 'transfer(address,uint256)')
+	 * await expect(txHash).toCallContractFunction(client, { address: '0x123...' }, 'transfer(address,uint256)')
 	 * ```
 	 */
-	toCallContractFunction(client: Client | TevmNode, functionSignature: string): ChainableAssertion
+	toCallContractFunction(
+		client: Client | TevmNode,
+		contract: ContainsContractAddressAndOptionalAbi,
+		functionSignature: string,
+	): ChainableAssertion
 
 	/**
 	 * Asserts that a transaction called a function matching the selector.
@@ -90,10 +95,15 @@ export interface ContractMatchers {
 	 *
 	 * @example
 	 * ```typescript
-	 * await expect(txHash).toCallContractFunction(client, '0xa9059cbb') // transfer function selector
+	 * await expect(txHash).toCallContractFunction(client, contract, '0xa9059cbb') // transfer function selector
+	 * await expect(txHash).toCallContractFunction(client, { address: '0x123...' }, '0xa9059cbb') // transfer function selector
 	 * ```
 	 */
-	toCallContractFunction(client: Client | TevmNode, functionSelector: Hex): ChainableAssertion
+	toCallContractFunction(
+		client: Client | TevmNode,
+		contract: ContainsContractAddressAndOptionalAbi,
+		functionSelector: Hex,
+	): ChainableAssertion
 }
 
 // Only-after toCallContractFunction assertion type
