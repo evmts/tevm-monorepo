@@ -1,0 +1,4 @@
+language = "C"
+include_guard = "REVM_PRECOMPILES_WRAPPER_H"
+pragma_once = true
+includes = ["stdint.h", "stdbool.h", "stddef.h"]

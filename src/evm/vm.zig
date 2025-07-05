@@ -22,7 +22,7 @@ pub const CreateResult = @import("vm/create_result.zig").CreateResult;
 pub const CallResult = @import("vm/call_result.zig").CallResult;
 pub const RunResult = @import("vm/run_result.zig").RunResult;
 const Hardfork = @import("hardforks/hardfork.zig").Hardfork;
-const precompiles = @import("precompiles/precompiles.zig");
+const precompiles = @import("precompiles");
 
 /// Virtual Machine for executing Ethereum bytecode.
 ///
