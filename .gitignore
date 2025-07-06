@@ -8,6 +8,7 @@ alloy/
 evmone/
 revm/
 go-ethereum/
+ethereumjs-monorepo/
 
 /target/
 **/*.rs.bk
