@@ -24,7 +24,6 @@ pub fn main() !void {
     defer _ = gpa.deinit();
     const allocator = gpa.allocator();
 
-    // Define the parameters
     const params = comptime clap.parseParamsComptime(
         \\-h, --help                    Display this help and exit.
         \\    --network <str>           Network (default: mainnet)
@@ -51,10 +50,8 @@ pub fn main() !void {
         \\    --dev                     Start an ephemeral PoA dev chain
         \\    --startBlock <u64>        Block number to start syncing from (destructive)
         \\    --executeBlocks <str>     Debug mode for re-executing a block range (e.g., "5-10")
-        \\
     );
 
-    // Parse arguments
     var diag = clap.Diagnostic{};
     var res = clap.parse(clap.Help, &params, clap.parsers.default, .{
         .diagnostic = &diag,
@@ -65,15 +62,13 @@ pub fn main() !void {
     };
     defer res.deinit();
 
-    // Handle help
     if (res.args.help != 0) {
         return clap.help(std.io.getStdOut().writer(), clap.Help, &params, .{});
     }
 
-    // Parse configuration with defaults
-    const network = if (res.args.network) |n| 
+    const network = if (res.args.network) |n|
         std.meta.stringToEnum(Network, n) orelse .mainnet
-    else 
+    else
         .mainnet;
 
     const sync_mode = if (res.args.sync) |s|

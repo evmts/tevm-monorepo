@@ -243,6 +243,9 @@ pub fn build(b: *std.Build) void {
 
     // Add clap dependency to the client
     client_exe.root_module.addImport("clap", clap_dep.module("clap"));
+    
+    // Add address module to the client
+    client_exe.root_module.addImport("Address", address_mod);
 
     // Create the WebAssembly artifact
     const wasm = b.addExecutable(.{
