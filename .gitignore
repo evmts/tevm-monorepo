@@ -9,6 +9,8 @@ evmone/
 revm/
 go-ethereum/
 ethereumjs-monorepo/
+reth/
+erigon/
 
 /target/
 **/*.rs.bk
