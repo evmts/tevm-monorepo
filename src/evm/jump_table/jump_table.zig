@@ -162,21 +162,18 @@ pub fn execute(self: *const JumpTable, pc: usize, interpreter: *operation_module
 /// @param self The jump table to validate
 pub fn validate(self: *JumpTable) void {
     for (0..256) |i| {
-        // Handle null entries (less common)
         if (self.table[i] == null) {
             @branchHint(.cold);
             self.table[i] = &operation_module.NULL_OPERATION;
             continue;
         }
-
-        // Check for invalid operation configuration (error path)
         const operation = self.table[i].?;
-        if (operation.memory_size != null and operation.dynamic_gas == null) {
+        if (.memory_size != null and operation.dynamic_gas == null) {
+            // Since jum
             @branchHint(.cold);
-            // Log error instead of panicking
-            std.debug.print("Warning: Operation 0x{x} has memory size but no dynamic gas calculation\n", .{i});
-            // Set to NULL to prevent issues
-            self.table[i] = &operation_module.NULL_OPERATION;
+            // TODo clean this up
+            std.debug.print("Error: Operation 0x{x} has memory size but no dynamic gas calculation\n", .{i});
+            @compileError("Error: Operation has memory size but no dynamic gas calculation\n");
         }
     }
 }
@@ -214,7 +211,7 @@ pub fn copy(self: *const JumpTable, allocator: std.mem.Allocator) !JumpTable {
 /// const table = JumpTable.init_from_hardfork(.CANCUN);
 /// // Table includes all opcodes through Cancun
 /// ```
-pub fn init_from_hardfork(hardfork: Hardfork) JumpTable {
+pub fn init_from_hardfork(comptime hardfork: Hardfork) JumpTable {
     @setEvalBranchQuota(10000);
     var jt = JumpTable.init();
     // With ALL_OPERATIONS sorted by hardfork, we can iterate once.
@@ -266,6 +263,6 @@ pub fn init_from_hardfork(hardfork: Hardfork) JumpTable {
             .max_stack = Stack.CAPACITY,
         };
     }
-    jt.validate();
+    comptime jt.validate();
     return jt;
 }

@@ -1,56 +1,56 @@
-/// Arithmetic operations for the Ethereum Virtual Machine
-///
-/// This module implements all arithmetic opcodes for the EVM, including basic
-/// arithmetic (ADD, SUB, MUL, DIV), signed operations (SDIV, SMOD), modular
-/// arithmetic (MOD, ADDMOD, MULMOD), exponentiation (EXP), and sign extension
-/// (SIGNEXTEND).
-///
-/// ## Design Philosophy
-///
-/// All operations follow a consistent pattern:
-/// 1. Pop operands from the stack (validated by jump table)
-/// 2. Perform the arithmetic operation
-/// 3. Push the result back onto the stack
-///
-/// ## Performance Optimizations
-///
-/// - **Unsafe Operations**: Stack bounds checking is done by the jump table,
-///   allowing opcodes to use unsafe stack operations for maximum performance
-/// - **In-Place Updates**: Results are written directly to stack slots to
-///   minimize memory operations
-/// - **Wrapping Arithmetic**: Uses Zig's wrapping operators (`+%`, `*%`, `-%`)
-///   for correct 256-bit overflow behavior
-///
-/// ## EVM Arithmetic Rules
-///
-/// - All values are 256-bit unsigned integers (u256)
-/// - Overflow wraps around (e.g., MAX_U256 + 1 = 0)
-/// - Division by zero returns 0 (not an error)
-/// - Modulo by zero returns 0 (not an error)
-/// - Signed operations interpret u256 as two's complement i256
-///
-/// ## Gas Costs
-///
-/// - ADD, SUB, NOT: 3 gas (GasFastestStep)
-/// - MUL, DIV, SDIV, MOD, SMOD: 5 gas (GasFastStep)
-/// - ADDMOD, MULMOD, SIGNEXTEND: 8 gas (GasMidStep)
-/// - EXP: 10 gas + 50 per byte of exponent
-///
-/// ## Stack Requirements
-///
-/// Operation    | Stack Input | Stack Output | Description
-/// -------------|-------------|--------------|-------------
-/// ADD          | [a, b]      | [a + b]      | Addition with overflow
-/// MUL          | [a, b]      | [a * b]      | Multiplication with overflow
-/// SUB          | [a, b]      | [a - b]      | Subtraction with underflow
-/// DIV          | [a, b]      | [a / b]      | Division (b=0 returns 0)
-/// SDIV         | [a, b]      | [a / b]      | Signed division
-/// MOD          | [a, b]      | [a % b]      | Modulo (b=0 returns 0)
-/// SMOD         | [a, b]      | [a % b]      | Signed modulo
-/// ADDMOD       | [a, b, n]   | [(a+b)%n]    | Addition modulo n
-/// MULMOD       | [a, b, n]   | [(a*b)%n]    | Multiplication modulo n
-/// EXP          | [a, b]      | [a^b]        | Exponentiation
-/// SIGNEXTEND   | [b, x]      | [y]          | Sign extend x from byte b
+//! Arithmetic operations for the Ethereum Virtual Machine
+//!
+//! This module implements all arithmetic opcodes for the EVM, including basic
+//! arithmetic (ADD, SUB, MUL, DIV), signed operations (SDIV, SMOD), modular
+//! arithmetic (MOD, ADDMOD, MULMOD), exponentiation (EXP), and sign extension
+//! (SIGNEXTEND).
+//!
+//! ## Design Philosophy
+//!
+//! All operations follow a consistent pattern:
+//! 1. Pop operands from the stack (validated by jump table)
+//! 2. Perform the arithmetic operation
+//! 3. Push the result back onto the stack
+//!
+//! ## Performance Optimizations
+//!
+//! - **Unsafe Operations**: Stack bounds checking is done by the jump table,
+//!   allowing opcodes to use unsafe stack operations for maximum performance
+//! - **In-Place Updates**: Results are written directly to stack slots to
+//!   minimize memory operations
+//! - **Wrapping Arithmetic**: Uses Zig's wrapping operators (`+%`, `*%`, `-%`)
+//!   for correct 256-bit overflow behavior
+//!
+//! ## EVM Arithmetic Rules
+//!
+//! - All values are 256-bit unsigned integers (u256)
+//! - Overflow wraps around (e.g., MAX_U256 + 1 = 0)
+//! - Division by zero returns 0 (not an error)
+//! - Modulo by zero returns 0 (not an error)
+//! - Signed operations interpret u256 as two's complement i256
+//!
+//! ## Gas Costs
+//!
+//! - ADD, SUB, NOT: 3 gas (GasFastestStep)
+//! - MUL, DIV, SDIV, MOD, SMOD: 5 gas (GasFastStep)
+//! - ADDMOD, MULMOD, SIGNEXTEND: 8 gas (GasMidStep)
+//! - EXP: 10 gas + 50 per byte of exponent
+//!
+//! ## Stack Requirements
+//!
+//! Operation    | Stack Input | Stack Output | Description
+//! -------------|-------------|--------------|-------------
+//! ADD          | [a, b]      | [a + b]      | Addition with overflow
+//! MUL          | [a, b]      | [a * b]      | Multiplication with overflow
+//! SUB          | [a, b]      | [a - b]      | Subtraction with underflow
+//! DIV          | [a, b]      | [a / b]      | Division (b=0 returns 0)
+//! SDIV         | [a, b]      | [a / b]      | Signed division
+//! MOD          | [a, b]      | [a % b]      | Modulo (b=0 returns 0)
+//! SMOD         | [a, b]      | [a % b]      | Signed modulo
+//! ADDMOD       | [a, b, n]   | [(a+b)%n]    | Addition modulo n
+//! MULMOD       | [a, b, n]   | [(a*b)%n]    | Multiplication modulo n
+//! EXP          | [a, b]      | [a^b]        | Exponentiation
+//! SIGNEXTEND   | [b, x]      | [y]          | Sign extend x from byte b
 const std = @import("std");
 const Operation = @import("../opcodes/operation.zig");
 const ExecutionError = @import("execution_error.zig");
@@ -88,7 +88,6 @@ pub fn op_add(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
     if (frame.stack.size < 2) {
-        @branchHint(.cold);
         unreachable;
     }
 
@@ -132,7 +131,6 @@ pub fn op_mul(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
     if (frame.stack.size < 2) {
-        @branchHint(.cold);
         unreachable;
     }
 
@@ -175,7 +173,6 @@ pub fn op_sub(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
     if (frame.stack.size < 2) {
-        @branchHint(.cold);
         unreachable;
     }
 
@@ -226,7 +223,6 @@ pub fn op_div(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
     if (frame.stack.size < 2) {
-        @branchHint(.cold);
         unreachable;
     }
 
@@ -283,7 +279,6 @@ pub fn op_sdiv(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
     if (frame.stack.size < 2) {
-        @branchHint(.cold);
         unreachable;
     }
 
@@ -348,7 +343,6 @@ pub fn op_mod(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
     if (frame.stack.size < 2) {
-        @branchHint(.cold);
         unreachable;
     }
 
@@ -405,7 +399,6 @@ pub fn op_smod(pc: usize, interpreter: *Operation.Interpreter, state: *Operation
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
     if (frame.stack.size < 2) {
-        @branchHint(.cold);
         unreachable;
     }
 
@@ -468,7 +461,6 @@ pub fn op_addmod(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
     if (frame.stack.size < 3) {
-        @branchHint(.cold);
         unreachable;
     }
 
@@ -477,8 +469,8 @@ pub fn op_addmod(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     const a = frame.stack.peek_unsafe().*;
 
     var result: u256 = undefined;
-    if (n == 0) {
-        result = 0;
+    result = if (n == 0) {
+        0;
     } else {
         // The EVM ADDMOD operation computes (a + b) % n
         // Since we're working with u256, overflow wraps automatically
@@ -486,7 +478,7 @@ pub fn op_addmod(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
         // Then we just need to compute that result mod n
         const sum = a +% b; // Wrapping addition
         result = sum % n;
-    }
+    };
 
     frame.stack.set_top_unsafe(result);
 
@@ -538,7 +530,6 @@ pub fn op_mulmod(pc: usize, interpreter: *Operation.Interpreter, state: *Operati
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
     if (frame.stack.size < 3) {
-        @branchHint(.cold);
         unreachable;
     }
 
@@ -628,7 +619,6 @@ pub fn op_exp(pc: usize, interpreter: *Operation.Interpreter, state: *Operation.
     _ = vm;
 
     if (frame.stack.size < 2) {
-        @branchHint(.cold);
         unreachable;
     }
 
@@ -710,7 +700,6 @@ pub fn op_signextend(pc: usize, interpreter: *Operation.Interpreter, state: *Ope
     const frame = @as(*Frame, @ptrCast(@alignCast(state)));
 
     if (frame.stack.size < 2) {
-        @branchHint(.cold);
         unreachable;
     }
 
