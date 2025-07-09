@@ -1,5 +1,6 @@
 import type {
 	EthAccountsJsonRpcResponse,
+	EthBlobBaseFeeJsonRpcResponse,
 	EthBlockNumberJsonRpcResponse,
 	EthCallJsonRpcResponse,
 	EthChainIdJsonRpcResponse,
@@ -49,6 +50,7 @@ export type EthReturnType = {
 	eth_sign: EthSignJsonRpcResponse
 	eth_newBlockFilter: EthNewBlockFilterJsonRpcResponse
 	eth_mining: EthMiningJsonRpcResponse
+	eth_blobBaseFee: EthBlobBaseFeeJsonRpcResponse
 	eth_chainId: EthChainIdJsonRpcResponse
 	eth_getCode: EthGetCodeJsonRpcResponse
 	eth_getLogs: EthGetLogsJsonRpcResponse
