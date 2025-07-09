@@ -52,6 +52,10 @@
             .url = "https://github.com/hendriknielaender/zBench/archive/refs/heads/main.tar.gz",
             .hash = "zbench-0.10.0-YTdc714iAQDO4lTHMnIljYHPZ5v_sNTsw75vAmO1pyT-",
         },
+        .clap = .{
+            .url = "https://github.com/Hejsil/zig-clap/archive/refs/tags/0.10.0.tar.gz",
+            .hash = "12204387e122dd8b6828847165a7153c5d624b0a77217fd907c7f4f718ecce36e217",
+        },
     },
     .paths = .{
         "build.zig",

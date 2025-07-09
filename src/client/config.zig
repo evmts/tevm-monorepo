@@ -1,0 +1,2 @@
+const Config = @This();
+
