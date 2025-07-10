@@ -30,7 +30,7 @@ describe('getBlockFromRpc', () => {
 		const [block] = await getBlockFromRpc(baseChain, { transport, blockTag: blockNumber }, common)
 		expect(block).toBeInstanceOf(Block)
 		expect(block.header.number).toBe(blockNumber)
-		expect(bytesToHex(block.hash())).toEqual(blockHashAfterForking)
+		expect(bytesToHex(block.hash())).toEqualHex(blockHashAfterForking)
 		// Verify block structure and basic transaction properties
 		const blockJson = block.toJSON()
 		expect(blockJson.header).toEqual(expectedBlock.header)
@@ -46,15 +46,15 @@ describe('getBlockFromRpc', () => {
 		if (!tx0) {
 			throw new Error('Expected first transaction to be defined')
 		}
-		expect(tx0.type).toBe('0x0')
-		expect(tx0.nonce).toBe('0x147')
-		expect(tx0.gasLimit).toBe('0x175dea')
-		expect(tx0.gasPrice).toBe('0x21064c')
+		expect(tx0.type).toEqualHex('0x0')
+		expect(tx0.nonce).toEqualHex('0x147')
+		expect(tx0.gasLimit).toEqualHex('0x175dea')
+		expect(tx0.gasPrice).toEqualHex('0x21064c')
 		if (!tx0.to) {
 			throw new Error('Expected transaction to have a "to" address')
 		}
-		expect(tx0.to.toLowerCase()).toBe('0xfb4e4811c7a811e098a556bd79b64c20b479e431')
-		expect(tx0.value).toBe('0x0')
+		expect(tx0.to).toEqualAddress('0xfb4e4811c7a811e098a556bd79b64c20b479e431')
+		expect(tx0.value).toEqualHex('0x0')
 	})
 
 	it('should fetch a block by hash', async () => {
@@ -63,7 +63,7 @@ describe('getBlockFromRpc', () => {
 
 		const [block] = await getBlockFromRpc(baseChain, { transport, blockTag: blockHash }, common)
 		expect(block).toBeInstanceOf(Block)
-		expect(bytesToHex(block.hash())).toBe(blockHashAfterForking)
+		expect(bytesToHex(block.hash())).toEqualHex(blockHashAfterForking)
 		expect(block.header.number).toBe(blockNumber)
 		// Verify block structure and basic transaction properties
 		const blockJson = block.toJSON()
@@ -80,15 +80,15 @@ describe('getBlockFromRpc', () => {
 		if (!tx0) {
 			throw new Error('Expected first transaction to be defined')
 		}
-		expect(tx0.type).toBe('0x0')
-		expect(tx0.nonce).toBe('0x147')
-		expect(tx0.gasLimit).toBe('0x175dea')
-		expect(tx0.gasPrice).toBe('0x21064c')
+		expect(tx0.type).toEqualHex('0x0')
+		expect(tx0.nonce).toEqualHex('0x147')
+		expect(tx0.gasLimit).toEqualHex('0x175dea')
+		expect(tx0.gasPrice).toEqualHex('0x21064c')
 		if (!tx0.to) {
 			throw new Error('Expected transaction to have a "to" address')
 		}
-		expect(tx0.to.toLowerCase()).toBe('0xfb4e4811c7a811e098a556bd79b64c20b479e431')
-		expect(tx0.value).toBe('0x0')
+		expect(tx0.to).toEqualAddress('0xfb4e4811c7a811e098a556bd79b64c20b479e431')
+		expect(tx0.value).toEqualHex('0x0')
 	})
 
 	it('should handle invalid block tag', async () => {
