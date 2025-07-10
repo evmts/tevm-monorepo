@@ -33,6 +33,10 @@ pub fn build(b: *std.Build) void {
         .@"enable-tls" = false,
         .verbose = .err,
     });
+    const clap_dep = b.dependency("clap", .{
+        .target = target,
+        .optimize = optimize,
+    });
     const ui_exe = b.addExecutable(.{
         .name = "ui",
         .root_source_file = b.path("src/ui/main.zig"),
@@ -281,6 +285,20 @@ pub fn build(b: *std.Build) void {
     // Add httpz dependency to the server
     server_exe.root_module.addImport("httpz", httpz_dep.module("httpz"));
 
+    // Create the Ethereum client executable
+    const client_exe = b.addExecutable(.{
+        .name = "tevm-client",
+        .root_source_file = b.path("src/client/cli.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    // Add clap dependency to the client
+    client_exe.root_module.addImport("clap", clap_dep.module("clap"));
+    
+    // Add address module to the client
+    client_exe.root_module.addImport("Address", address_mod);
+
     // Create the WebAssembly artifact
     const wasm = b.addExecutable(.{
         .name = "zigevm",
@@ -298,6 +316,7 @@ pub fn build(b: *std.Build) void {
     b.installArtifact(exe);
     b.installArtifact(wasm);
     b.installArtifact(server_exe);
+    b.installArtifact(client_exe);
     b.installArtifact(ui_exe);
 
     // This *creates* a Run step in the build graph
@@ -365,6 +384,19 @@ pub fn build(b: *std.Build) void {
     // Define run ui step
     const run_ui_step = b.step("ui", "Run the ui");
     run_ui_step.dependOn(&run_ui_cmd.step);
+
+    // Define a run client step
+    const run_client_cmd = b.addRunArtifact(client_exe);
+    run_client_cmd.step.dependOn(b.getInstallStep());
+
+    // Pass arguments to the client
+    if (b.args) |args| {
+        run_client_cmd.addArgs(args);
+    }
+
+    // Define run client step
+    const run_client_step = b.step("run-client", "Run the Ethereum client");
+    run_client_step.dependOn(&run_client_cmd.step);
 
     // Creates a step for unit testing.
     const lib_unit_tests = b.addTest(.{

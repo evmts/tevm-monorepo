@@ -1,23 +1,37 @@
 {
-	"name": "@tevm/node",
-	"version": "1.0.0-next.147",
+	"name": "@tevm/test-node",
+	"version": "1.0.0-next.146",
 	"private": false,
-	"description": "Client implementations of Tevm",
+	"description": "Vite test utils for snapshotting JSON-RPC requests using a Tevm server.",
 	"keywords": [
 		"solidity",
+		"forge",
+		"foundry",
 		"sol",
 		"typescript",
 		"web3",
-		"blockchain"
+		"blockchain",
+		"testing",
+		"vite",
+		"vitest",
+		"json",
+		"rpc",
+		"tevm",
+		"server",
+		"node",
+		"http",
+		"snapshot",
+		"optimization"
 	],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/evmts/tevm-monorepo.git",
-		"directory": "core/node"
+		"directory": "extensions/test-node"
 	},
 	"license": "MIT",
 	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
+		"Will Cory <willcory10@gmail.com>",
+		"0xpolarzero <0xpolarzero@gmail.com>"
 	],
 	"sideEffects": false,
 	"type": "module",
@@ -40,14 +54,13 @@
 	"files": [
 		"dist",
 		"src",
-		"!src/**/*.spec.ts",
-		"types"
+		"!src/**/*.spec.ts"
 	],
 	"scripts": {
-		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs && bun lint:deps && bun lint:package",
-		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/node",
+		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs && bun run lint:deps && bun run lint:package",
+		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/test-node",
 		"build:dist": "tsup",
-		"build:types": "tsup --dts-only",
+		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration --skipLibCheck",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "biome format . --write",
 		"format:check": "biome format .",
@@ -63,25 +76,12 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@tevm/address": "workspace:^",
-		"@tevm/block": "workspace:^",
-		"@tevm/blockchain": "workspace:^",
-		"@tevm/common": "workspace:^",
-		"@tevm/evm": "workspace:^",
-		"@tevm/jsonrpc": "workspace:^",
-		"@tevm/logger": "workspace:^",
-		"@tevm/precompiles": "workspace:^",
-		"@tevm/predeploys": "workspace:^",
-		"@tevm/receipt-manager": "workspace:^",
-		"@tevm/state": "workspace:^",
-		"@tevm/sync-storage-persister": "workspace:^",
-		"@tevm/tx": "workspace:^",
-		"@tevm/txpool": "workspace:^",
-		"@tevm/utils": "workspace:^",
-		"@tevm/vm": "workspace:^"
+		"@tevm/memory-client": "workspace:^",
+		"@tevm/server": "workspace:^",
+		"viem": "^2.30.1",
+		"vitest": "^3.1.4"
 	},
 	"devDependencies": {
-		"@tevm/test-utils": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
 	},

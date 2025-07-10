@@ -39,6 +39,11 @@ export type JsonRpcTransaction = {
  * JSON-RPC request for `eth_accounts` procedure
  */
 export type EthAccountsJsonRpcRequest = JsonRpcRequest<'eth_accounts', readonly []>
+// eth_blobBaseFee
+/**
+ * JSON-RPC request for `eth_blobBaseFee` procedure
+ */
+export type EthBlobBaseFeeJsonRpcRequest = JsonRpcRequest<'eth_blobBaseFee', readonly []>
 // eth_blockNumber
 /**
  * JSON-RPC request for `eth_blockNumber` procedure
@@ -305,6 +310,7 @@ export type EthCreateAccessListJsonRpcRequest = JsonRpcRequest<
 export type EthJsonRpcRequest =
 	| EthAccountsJsonRpcRequest
 	| EthAccountsJsonRpcRequest
+	| EthBlobBaseFeeJsonRpcRequest
 	| EthBlockNumberJsonRpcRequest
 	| EthCallJsonRpcRequest
 	| EthChainIdJsonRpcRequest

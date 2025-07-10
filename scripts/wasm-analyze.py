@@ -127,6 +127,7 @@ def main():
         print("Build complete!\n")
     else:
         print("=== Analyzing existing WASM files (skipping build) ===\n")
+
     
     # Find WASM files
     wasm_files = {

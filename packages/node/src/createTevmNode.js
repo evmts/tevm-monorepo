@@ -2,6 +2,7 @@ import { createChain } from '@tevm/blockchain'
 import { createCommon, tevmDefault } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createLogger } from '@tevm/logger'
+import { p256VerifyPrecompile } from '@tevm/precompiles'
 import { ReceiptsManager, createMapDb } from '@tevm/receipt-manager'
 import { createStateManager } from '@tevm/state'
 import { TxPool } from '@tevm/txpool'
@@ -235,7 +236,12 @@ export const createTevmNode = (options = {}) => {
 				stateManager,
 				blockchain,
 				allowUnlimitedContractSize: options.allowUnlimitedContractSize ?? false,
-				customPrecompiles: options.customPrecompiles ?? [],
+				customPrecompiles: [
+					...[p256VerifyPrecompile()].filter(p => 
+						!(new Set((options.customPrecompiles ?? []).map(p => p.address.toString()))).has(p.address.toString())
+					),
+					...(options.customPrecompiles ?? [])
+				],
 				profiler: options.profiler ?? false,
 				loggingLevel,
 			})
