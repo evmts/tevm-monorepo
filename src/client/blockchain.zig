@@ -1,2 +1,0 @@
-const Blockchain = @This();
-

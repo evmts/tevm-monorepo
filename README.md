@@ -43,7 +43,7 @@ If you use **viem**, **wagmi**, **0x**, or build modern Ethereum apps, Tevm is t
 
 ## ✨ Why Tevm?
 
-- **⚡ Ship at Lightspeed**: Instant feedback. Test and deploy with no wait, no Docker, no slow subprocesses. Build and iterate like the Rust and Go elite—now in JS and Zig.
+- **⚡ Ship at Lightspeed**: Instant feedback. Test and deploy with no wait, no Docker, no slow subprocesses. Build and iterate like the Rust and Go elite—now in JS.
 - **🚫 Goodbye, Loading Spinners**: Deliver real optimistic UI. Run every contract locally for true instant dapp experiences—no more waiting on RPCs.
 - **🔒 TypeScript-Native Confidence**: End-to-end type safety and autocompletion. Import Solidity, call contracts, and simulate transactions with zero guesswork.
 - **🌐 Mainnet-Grade Simulation**: Fork any EVM chain—mainnet, L2, L3—and manipulate state locally with full fidelity.
@@ -95,9 +95,6 @@ const { MyContract } = sol`
 
 [See Bundler Quickstart →](https://node.tevm.sh/getting-started/bundler)
 
-### 3. ZigEvm (WIP): The Smallest, Fastest Wasm EVM
-
-A new EVM core in Zig for true browser and edge-native execution—under 100kb, launching soon. [Source](https://github.com/evmts/tevm-monorepo/tree/main/src)
 
 ### 4. Tevm Engine (Preview): Optimistic UX for viem/wagmi
 
@@ -119,7 +116,7 @@ Next-gen plugin for instant optimistic updates, auto-caching, and devnet magic i
 
 | Feature | Tevm | Anvil | Hardhat | Ganache | Tenderly |
 |---------|------|-------|---------|---------|----------|
-| **Language** | JS/Wasm (Zig WIP) | Rust | JS/Rust | JS | Go |
+| **Language** | JS/Wasm | Rust | JS/Rust | JS | Go |
 | **Browser Support** | ✅ | ❌ | ❌ | ❌ | ✅ (SaaS) |
 | **Minimal Dependencies** | ✅ | ✅ | ❌ | ❌ | ✅ (SaaS) |
 | **Viem Integration** | Native | Yes (RPC) | Minimal | Minimal | None |
@@ -138,7 +135,6 @@ Tevm is funded by an Ethereum Foundation grant. Our roadmap:
 - ✅ **Tevm 1.0.0 Release**
 - 🔄 **Test Library**
 - 🎮 **MUD Integration** for onchain games
-- 🚀 **ZigEvm Launch**: Fastest Wasm EVM ever
 
 ---
 
@@ -216,7 +212,7 @@ const newGreeting = await client.readContract({
 
 ## 🤝 Contributing
 
-We're always looking for passionate builders—especially if you love TypeScript, Zig, L2/L3s, or pushing the limits of EVM tooling. See [CONTRIBUTING.md](./CONTRIBUTING.md) to get started.
+We're always looking for passionate builders—especially if you love TypeScript, L2/L3s, or pushing the limits of EVM tooling. See [CONTRIBUTING.md](./CONTRIBUTING.md) to get started.
 
 ---
 
