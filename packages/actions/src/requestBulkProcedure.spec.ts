@@ -123,7 +123,7 @@ describe('requestBulkProcedure', () => {
 
 		// Check the successful request
 		expect(res[0].error).toBeUndefined()
-		expect(res[0].result).toBe(numberToHex(1000n))
+		expect(res[0].result).toEqualHex(numberToHex(1000n))
 
 		// Check the failed request
 		expect(res[1].error).toBeDefined()
