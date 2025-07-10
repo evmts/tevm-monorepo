@@ -114,7 +114,8 @@ pub fn execute_precompile(address: Address, input: []const u8, output: []u8, gas
         }, // RIPEMD160
         5 => {
             @branchHint(.likely);
-            @panic("Unimplemented");
+            // MODEXP - Unimplemented
+            return PrecompileOutput.failure_result(PrecompileError.ExecutionFailed);
         }, // MODEXP
         6 => {
             @branchHint(.cold);

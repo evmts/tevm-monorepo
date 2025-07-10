@@ -169,7 +169,7 @@ pub fn get_effective_gas_price(base_fee_per_gas: u64, max_fee_per_gas: u64, max_
 
     // Ensure the transaction at least pays the base fee
     if (max_fee_per_gas < base_fee_per_gas) {
-        std.log.warn("Transaction's max fee ({d}) is less than base fee ({d})", .{ max_fee_per_gas, base_fee_per_gas });
+        Log.warn("Transaction's max fee ({d}) is less than base fee ({d})", .{ max_fee_per_gas, base_fee_per_gas });
         // In a real implementation, this transaction would be rejected
         // For now, just return the max fee and zero miner fee
         return .{ .effective_gas_price = max_fee_per_gas, .miner_fee = 0 };
