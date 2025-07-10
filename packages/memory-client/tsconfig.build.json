@@ -1,0 +1,10 @@
+{
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"emitDeclarationOnly": true,
+		"noEmitOnError": false,
+		"declaration": true,
+		"skipLibCheck": true
+	},
+	"exclude": ["src/test/**/*.spec.ts", "**/*.spec.ts", "**/*.test.ts"]
+}
