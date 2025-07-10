@@ -1,16 +1,19 @@
 import { createAddress } from '@tevm/address'
-import { createTevmNode } from '@tevm/node'
 import { transports } from '@tevm/test-utils'
 import { type Address } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { evmInputToImpersonatedTx } from './evmInputToImpersonatedTx.js'
+import { createTestSnapshotNode } from '@tevm/test-node'
 
 describe('evmInputToImpersonatedTx', () => {
 	it('should create an impersonated transaction with the correct parameters', async () => {
-		const client = createTevmNode({
+		const client = createTestSnapshotNode({
 			fork: { transport: transports.optimism },
 			miningConfig: { type: 'manual' },
+			test: {
+				autosave: 'onRequest',
+			}
 		})
 
 		const evmInput = {
@@ -28,9 +31,12 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it.skip('should create an impersonated transaction with the correct nonce', async () => {
-		const client = createTevmNode({
+		const client = createTestSnapshotNode({
 			fork: { transport: transports.optimism },
 			miningConfig: { type: 'manual' },
+			test: {
+				autosave: 'onRequest',
+			}
 		})
 
 		const evmInput = {
@@ -55,9 +61,12 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it('should create an impersonated transaction with the correct gas parameters', async () => {
-		const client = createTevmNode({
+		const client = createTestSnapshotNode({
 			fork: { transport: transports.optimism },
 			miningConfig: { type: 'manual' },
+			test: {
+				autosave: 'onRequest',
+			}
 		})
 
 		const evmInput = {
@@ -83,9 +92,12 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it('should allow setting custom maxFeePerGas and maxPriorityFeePerGas', async () => {
-		const client = createTevmNode({
+		const client = createTestSnapshotNode({
 			fork: { transport: transports.optimism },
 			miningConfig: { type: 'manual' },
+			test: {
+				autosave: 'onRequest',
+			}
 		})
 
 		const evmInput = {
@@ -104,9 +116,12 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it('should create an impersonated transaction with a default sender if origin and caller are not provided', async () => {
-		const client = createTevmNode({
+		const client = createTestSnapshotNode({
 			fork: { transport: transports.optimism },
 			miningConfig: { type: 'manual' },
+			test: {
+				autosave: 'onRequest',
+			}
 		})
 
 		const evmInput = {
@@ -122,9 +137,12 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it.skip('should use caller when origin is not provided', async () => {
-		const client = createTevmNode({
+		const client = createTestSnapshotNode({
 			fork: { transport: transports.optimism },
 			miningConfig: { type: 'manual' },
+			test: {
+				autosave: 'onRequest',
+			}
 		})
 
 		const evmInput = {
@@ -139,9 +157,12 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it('should prioritize origin over caller when both are provided', async () => {
-		const client = createTevmNode({
+		const client = createTestSnapshotNode({
 			fork: { transport: transports.optimism },
 			miningConfig: { type: 'manual' },
+			test: {
+				autosave: 'onRequest',
+			}
 		})
 
 		const evmInput = {
@@ -158,9 +179,12 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it.skip('should handle undefined optional fields', async () => {
-		const client = createTevmNode({
+		const client = createTestSnapshotNode({
 			fork: { transport: transports.optimism },
 			miningConfig: { type: 'manual' },
+			test: {
+				autosave: 'onRequest',
+			}
 		})
 
 		const evmInput = {
@@ -175,9 +199,12 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it('should respect zero values for maxFeePerGas and maxPriorityFeePerGas', async () => {
-		const client = createTevmNode({
+		const client = createTestSnapshotNode({
 			fork: { transport: transports.optimism },
 			miningConfig: { type: 'manual' },
+			test: {
+				autosave: 'onRequest',
+			}
 		})
 
 		const evmInput = {
