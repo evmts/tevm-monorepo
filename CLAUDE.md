@@ -47,101 +47,7 @@ These action handlers translate between Viem-style parameters and the internal E
 - Test specific test: `vitest run <path-to-file> -t "<test-name>"`
 - Test with coverage: `bun test:coverage`
 
-### Zig-specific Commands
 
-- Test all Zig code: `zig build test-all`
-- **CRITICAL**: No Zig code should ever be committed until `zig build test-all` passes
-- Run `zig build test-all` early and often - Zig tests are extremely fast and provide valuable feedback
-
-## New EVM Implementation Features
-
-### Blob Gas Market (EIP-4844)
-
-The `src/evm/blob/` directory implements the full EIP-4844 blob gas market functionality:
-
-**Key Components:**
-- `blob_gas_market.zig`: Implements the blob gas fee calculation and market dynamics
-  - Independent gas market from regular gas with exponential fee adjustment
-  - Targets 3 blobs per block (393,216 gas)
-  - Maximum 6 blobs per block (786,432 gas)
-  - Base fee adjustment factor: 3,338,477
-- `blob_types.zig`: Core data structures for blobs
-  - 128KB blobs (131,072 bytes)
-  - KZG commitments and proofs (48 bytes each)
-  - Versioned hashes with 0x01 prefix for KZG
-  - Field element validation against BLS12-381 modulus
-- `blob_transaction.zig`: EIP-4844 transaction type (type 0x03)
-  - Extends EIP-1559 with blob versioned hashes
-  - Blob sidecar data transmitted separately
-  - Validation for blob count, gas limits, and KZG proofs
-
-### Arbitrary Precision BigInteger
-
-The `src/evm/crypto/big_integer.zig` implements arbitrary precision arithmetic:
-
-**Features:**
-- Uses u64 limbs for efficient 64-bit operations
-- Big-endian byte order for Ethereum compatibility
-- Modular exponentiation using square-and-multiply algorithm
-- Minimal allocation patterns for memory efficiency
-- Used primarily for the MODEXP precompile
-
-### Expanded Precompiles
-
-The `src/evm/precompiles/` directory now includes:
-
-**BLS12-381 Precompiles (EIP-2537):**
-- `bls12_381_g2msm.zig`: G2 multi-scalar multiplication (address 0x0E)
-  - Gas discount table for batch operations
-  - Base cost: 55,000 gas + 32,000 per pair
-- Additional BLS precompiles for G1/G2 operations
-
-**Other Precompiles:**
-- `blake2f.zig`: BLAKE2F compression (address 0x09)
-- `ecadd.zig`, `ecmul.zig`: Elliptic curve operations
-- `modexp.zig`: Modular exponentiation with BigInteger
-- `ripemd160.zig`, `sha256.zig`: Hash functions
-- `kzg_point_evaluation.zig`: KZG polynomial commitment verification
-
-### Advanced State Management
-
-The `src/evm/state/` directory provides sophisticated state handling:
-
-**Database Interface (`database_interface.zig`):**
-- Vtable-based polymorphic database backend
-- Supports pluggable implementations (memory, file, network)
-- Batch operations for efficiency
-- Snapshot/revert functionality
-- Account, storage, and code management
-
-**Journal System (`journal.zig`):**
-- Comprehensive state change tracking
-- Nested snapshot support for call depth
-- Efficient revert operations
-- Tracks all modifications:
-  - Account touches (EIP-158)
-  - Storage changes
-  - Balance/nonce/code updates
-  - Account creation/destruction
-  - Log emissions
-  - Transient storage (EIP-1153)
-
-### Implementation Patterns
-
-**Gas Calculation:**
-- Precompiles implement `calculate_gas()` and `calculate_gas_checked()` functions
-- Overflow protection in checked variants
-- Branch hints for hot/cold paths
-
-**Error Handling:**
-- Comprehensive error types for each module
-- Consistent error propagation patterns
-- Branch hints for unlikely error paths
-
-**Memory Management:**
-- Explicit allocator usage throughout
-- Cleanup via `deinit()` methods
-- Minimal allocation in hot paths
 
 ## Style Guide
 
@@ -152,21 +58,6 @@ The `src/evm/state/` directory provides sophisticated state handling:
 - Error handling: Extend BaseError, include detailed diagnostics
 - Barrel files: Use explicit exports to prevent breaking changes
 
-### Zig Style Conventions
-
-For Zig files, we use snake_case for everything except types:
-- **Functions**: snake_case (e.g., `calculate_gas_cost`, `init_memory`)
-- **Variables**: snake_case (e.g., `memory_limit`, `stack_size`)
-- **Structs/Types**: PascalCase (e.g., `ExecutionError`, `MemorySize`)
-- **Constants**: UPPER_SNAKE_CASE (e.g., `MAX_MEMORY_SIZE`, `DEFAULT_GAS`)
-- **File names**: snake_case (e.g., `memory.zig`, `jump_table.zig`)
-
-**Zig-specific Style Rules:**
-- **NO `inline` keyword**: Let the compiler decide on inlining for optimal WASM bundle size and performance
-- **Prefer `if (!condition) unreachable;` over `std.debug.assert`**: More readable and is the literal implementation
-- **Performance hints**: Use `@branchHint(.likely)` for hot paths and `@branchHint(.cold)` for error paths
-
-This convention applies to all Zig code in the project. We intentionally diverge from standard Zig conventions (which use camelCase for functions) to maintain consistency with snake_case throughout our codebase.
 
 ## Setup
 
@@ -268,7 +159,6 @@ Note source code is in Js with jsdoc but the rest of it is ts.
 
 - **IMPORTANT** Never run `test` command. Always use `test:coverage`. `test` is interactive and will time out
 
-- **CRITICAL FOR ZIG TESTS**: Always run Zig tests using `zig build test` or `zig build test-<target>` (e.g., `zig build test-opcodes`). Never run tests directly with `zig test` because test files use `@import("evm")` and other module imports that are configured by the build system (build.zig). Running tests directly will result in "no module named 'evm' available" errors.
 
 - We NEVER mock things if we can get away with it. The exception is the bundler packages in bundler-packages/\* which is pretty hard to test without mocking.
 - But even in bundler package we generally should NEVER mock if we don't have to. Create fixtures if you need to.

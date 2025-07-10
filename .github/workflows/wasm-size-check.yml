@@ -34,37 +34,20 @@ jobs:
 
       - name: Build WASM
         run: |
-          echo "🔧 Building WASM with ReleaseSmall optimization..."
-          cargo build
-          zig build wasm -Doptimize=ReleaseSmall
+          echo "🔧 Building WASM..."
+          echo "ℹ️ WASM build currently disabled - Zig implementation has been removed"
 
       - name: Measure WASM Size
         id: measure
         run: |
-          if [ ! -f "./zig-out/dist/zigevm.wasm" ]; then
-            echo "❌ WASM file not found at ./zig-out/dist/zigevm.wasm"
-            exit 1
-          fi
-
-          # Measure uncompressed size
-          wasm_size=$(wc -c < ./zig-out/dist/zigevm.wasm)
-
-          # Measure gzipped size
-          gzip_size=$(gzip -c ./zig-out/dist/zigevm.wasm | wc -c)
-
-          # Calculate human-readable sizes
-          wasm_size_kb=$(echo "scale=2; $wasm_size / 1024" | bc -l)
-          gzip_size_kb=$(echo "scale=2; $gzip_size / 1024" | bc -l)
-
-          echo "📊 WASM Size Measurements:"
-          echo "Raw size: $wasm_size bytes (${wasm_size_kb}KB)"
-          echo "Gzipped size: $gzip_size bytes (${gzip_size_kb}KB)"
-
-          # Set output variables
-          echo "wasm_size=$wasm_size" >> $GITHUB_OUTPUT
-          echo "gzip_size=$gzip_size" >> $GITHUB_OUTPUT
-          echo "wasm_size_kb=$wasm_size_kb" >> $GITHUB_OUTPUT
-          echo "gzip_size_kb=$gzip_size_kb" >> $GITHUB_OUTPUT
+          echo "ℹ️ WASM size measurement currently disabled - Zig implementation has been removed"
+          echo "Setting placeholder values for downstream steps..."
+          
+          # Set placeholder output variables
+          echo "wasm_size=0" >> $GITHUB_OUTPUT
+          echo "gzip_size=0" >> $GITHUB_OUTPUT
+          echo "wasm_size_kb=0" >> $GITHUB_OUTPUT
+          echo "gzip_size_kb=0" >> $GITHUB_OUTPUT
 
       - name: Download baseline from main branch (PR only)
         id: baseline
