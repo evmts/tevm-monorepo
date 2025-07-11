@@ -1,5 +1,5 @@
 {
-  "name": "mud-template-react",
+  "name": "@tevm/example-mud",
   "private": true,
   "scripts": {
     "build": "pnpm recursive run build",

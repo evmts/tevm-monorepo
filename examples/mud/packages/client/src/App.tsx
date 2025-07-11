@@ -8,12 +8,16 @@ import { GameMap } from "./game/GameMap";
 import { useWorldContract } from "./mud/useWorldContract";
 import { Synced } from "./mud/Synced";
 import { useSync } from "@latticexyz/store-sync/react";
+import { useTransactionToasts } from "./ui/useTransactionToasts";
+import { useOptimisticRecords } from "@tevm/mud/react";
 
 export function App() {
-  const players = useRecords({ stash, table: mudConfig.tables.app__Position });
+  const players = useOptimisticRecords({ table: mudConfig.tables.app__Position });
+  useTransactionToasts();
 
   const sync = useSync();
   const worldContract = useWorldContract();
+
   const onMove = useMemo(
     () =>
       sync.data && worldContract
