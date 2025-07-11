@@ -1,5 +1,11 @@
 # @tevm/client-types
 
+## 1.0.0-next.148
+
+### Patch Changes
+
+- @tevm/utils@1.0.0-next.148
+
 ## 1.0.0-next.146
 
 ### Patch Changes
