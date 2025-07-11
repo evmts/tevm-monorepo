@@ -31,7 +31,8 @@
 			"bundler-packages/cli",
 			"experimental/viem-effect",
 			"bundler-packages/config/src/fixtures",
-			"bundler-packages/cli/fixtures"
+			"bundler-packages/cli/fixtures",
+			".tevm/test-snapshots"
 		]
 	},
 	"formatter": {
