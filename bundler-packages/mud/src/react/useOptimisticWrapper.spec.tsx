@@ -1,12 +1,12 @@
 // @vitest-environment jsdom
 import { renderHook, waitFor } from '@testing-library/react'
+import { PREFUNDED_ACCOUNTS } from '@tevm/utils'
 import React from 'react'
 import { assert, beforeAll, describe, expect, it } from 'vitest'
 import { config } from '../../test/config.js'
+import { prepare, sessionClient, stash, testContract } from '../../test/prepare.js'
 import { randomRecord } from '../../test/state.js'
 import { OptimisticWrapperProvider, useOptimisticWrapper } from './useOptimisticWrapper.js'
-import { prepare, testContract, sessionClient, stash } from '../../test/prepare.js'
-import { PREFUNDED_ACCOUNTS } from '@tevm/utils'
 
 describe('useOptimisticWrapper', () => {
 	beforeAll(async () => {
@@ -82,8 +82,13 @@ describe('useOptimisticWrapper', () => {
 			expect(result.current.getOptimisticState().records).not.toEqual(currentState.records)
 		})
 
-    // Optimistic state should be updated with the new record
-		expect(result.current.getOptimisticRecord({ table: config.tables.app__TestTable, key: {key1: record.key1, key2: record.key2} })).toEqual(record)
+		// Optimistic state should be updated with the new record
+		expect(
+			result.current.getOptimisticRecord({
+				table: config.tables.app__TestTable,
+				key: { key1: record.key1, key2: record.key2 },
+			}),
+		).toEqual(record)
 	})
 
 	it('should provide all handler methods with correct types', () => {
@@ -121,7 +126,6 @@ describe('useOptimisticWrapper', () => {
 			account: PREFUNDED_ACCOUNTS[0],
 			// @ts-expect-error - cannot type args
 			...testContract.write.set(...Object.values(record)),
-
 		})
 
 		await waitFor(() => {
@@ -155,7 +159,6 @@ describe('useOptimisticWrapper', () => {
 			account: PREFUNDED_ACCOUNTS[0],
 			// @ts-expect-error - cannot type args
 			...testContract.write.set(...Object.values(record)),
-
 		})
 
 		await waitFor(() => {

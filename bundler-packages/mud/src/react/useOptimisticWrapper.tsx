@@ -45,7 +45,7 @@ export const OptimisticWrapperProvider: React.FC<OptimisticWrapperProviderProps<
 		}
 	}, [])
 
-	if (sync && ((sync.enabled === undefined || sync.enabled) && client.chain)) {
+	if (sync && (sync.enabled === undefined || sync.enabled) && client.chain) {
 		return (
 			<OptimisticWrapperContext.Provider value={handlerResult}>
 				<SyncProvider

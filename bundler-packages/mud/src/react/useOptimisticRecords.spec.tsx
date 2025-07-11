@@ -3,10 +3,10 @@ import { renderHook, waitFor } from '@testing-library/react'
 import React from 'react'
 import { beforeAll, describe, expect, it } from 'vitest'
 import { config } from '../../test/config.js'
+import { prepare, sessionClient, stash, testContract, writeRecords } from '../../test/prepare.js'
 import { randomRecord } from '../../test/state.js'
 import { useOptimisticRecords } from './useOptimisticRecords.js'
 import { OptimisticWrapperProvider } from './useOptimisticWrapper.js'
-import { prepare, testContract, sessionClient, stash, writeRecords } from '../../test/prepare.js'
 
 describe('useOptimisticRecords', () => {
 	beforeAll(async () => {
@@ -29,10 +29,9 @@ describe('useOptimisticRecords', () => {
 		const records = Object.values(stash.get().records.app.TestTable)
 		const recordCount = records.length
 
-		const { result } = renderHook(
-			() => useOptimisticRecords({ table: config.tables.app__TestTable }),
-			{ wrapper: createWrapper }
-		)
+		const { result } = renderHook(() => useOptimisticRecords({ table: config.tables.app__TestTable }), {
+			wrapper: createWrapper,
+		})
 
 		await waitFor(() => {
 			expect(result.current).toBeDefined()
@@ -42,10 +41,9 @@ describe('useOptimisticRecords', () => {
 	})
 
 	it('should return records with correct structure', async () => {
-		const { result } = renderHook(
-			() => useOptimisticRecords({ table: config.tables.app__TestTable }),
-			{ wrapper: createWrapper }
-		)
+		const { result } = renderHook(() => useOptimisticRecords({ table: config.tables.app__TestTable }), {
+			wrapper: createWrapper,
+		})
 
 		await waitFor(() => {
 			expect(result.current).toBeDefined()
@@ -55,7 +53,7 @@ describe('useOptimisticRecords', () => {
 		const firstRecord = result.current[0]
 		const schemaKeys = Object.keys(config.tables.app__TestTable.schema)
 
-		schemaKeys.forEach(key => {
+		schemaKeys.forEach((key) => {
 			expect(firstRecord).toHaveProperty(key)
 		})
 	})
@@ -63,10 +61,9 @@ describe('useOptimisticRecords', () => {
 	it('should update when records are added', async () => {
 		const initialLength = Object.values(stash.get().records.app.TestTable).length
 
-		const { result } = renderHook(
-			() => useOptimisticRecords({ table: config.tables.app__TestTable }),
-			{ wrapper: createWrapper }
-		)
+		const { result } = renderHook(() => useOptimisticRecords({ table: config.tables.app__TestTable }), {
+			wrapper: createWrapper,
+		})
 
 		// Initial state
 		await waitFor(() => {
@@ -92,7 +89,7 @@ describe('useOptimisticRecords', () => {
 				results.push(result)
 				return result
 			},
-			{ wrapper: createWrapper }
+			{ wrapper: createWrapper },
 		)
 
 		await waitFor(() => {
@@ -124,10 +121,9 @@ describe('useOptimisticRecords', () => {
 		const records = Object.values(stash.get().records.app.TestTable)
 		const recordToUpdate = records[0]!
 
-		const { result } = renderHook(
-			() => useOptimisticRecords({ table: config.tables.app__TestTable }),
-			{ wrapper: createWrapper }
-		)
+		const { result } = renderHook(() => useOptimisticRecords({ table: config.tables.app__TestTable }), {
+			wrapper: createWrapper,
+		})
 
 		// Initial state
 		await waitFor(() => {
@@ -141,18 +137,15 @@ describe('useOptimisticRecords', () => {
 		// Should still have same number of records but with updated data
 		await waitFor(() => {
 			expect(result.current.length).toBe(records.length)
-			const updatedInResult = result.current.find(r =>
-				r.key1 === updatedRecord.key1 && r.key2 === updatedRecord.key2
-			)
+			const updatedInResult = result.current.find((r) => r.key1 === updatedRecord.key1 && r.key2 === updatedRecord.key2)
 			expect(updatedInResult?.val1).toBe(recordToUpdate.val1 + 100n)
 		})
 	})
 
 	it('should return readonly array type', async () => {
-		const { result } = renderHook(
-			() => useOptimisticRecords({ table: config.tables.app__TestTable }),
-			{ wrapper: createWrapper }
-		)
+		const { result } = renderHook(() => useOptimisticRecords({ table: config.tables.app__TestTable }), {
+			wrapper: createWrapper,
+		})
 
 		await waitFor(() => {
 			expect(result.current).toBeDefined()
@@ -164,10 +157,9 @@ describe('useOptimisticRecords', () => {
 	})
 
 	it('should cleanup subscription on unmount', async () => {
-		const { unmount } = renderHook(
-			() => useOptimisticRecords({ table: config.tables.app__TestTable }),
-			{ wrapper: createWrapper }
-		)
+		const { unmount } = renderHook(() => useOptimisticRecords({ table: config.tables.app__TestTable }), {
+			wrapper: createWrapper,
+		})
 
 		await waitFor(() => {
 			// Hook is mounted and working
@@ -180,10 +172,9 @@ describe('useOptimisticRecords', () => {
 	it('should handle concurrent updates from multiple sources', async () => {
 		const initialLength = Object.values(stash.get().records.app.TestTable).length
 
-		const { result } = renderHook(
-			() => useOptimisticRecords({ table: config.tables.app__TestTable }),
-			{ wrapper: createWrapper }
-		)
+		const { result } = renderHook(() => useOptimisticRecords({ table: config.tables.app__TestTable }), {
+			wrapper: createWrapper,
+		})
 
 		await waitFor(() => {
 			expect(result.current).toHaveLength(initialLength)

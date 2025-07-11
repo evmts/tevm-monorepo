@@ -1,14 +1,14 @@
+import { type State } from '@latticexyz/stash/internal'
 // @vitest-environment jsdom
 import { renderHook, waitFor } from '@testing-library/react'
 import React from 'react'
 import { beforeAll, describe, expect, it } from 'vitest'
 import { config } from '../../test/config.js'
+import { prepare, sessionClient, stash, testContract, writeRecords } from '../../test/prepare.js'
 import { randomRecord } from '../../test/state.js'
 import { deepEqual } from '../internal/utils/deepEqual.js'
 import { useOptimisticState } from './useOptimisticState.js'
 import { OptimisticWrapperProvider } from './useOptimisticWrapper.js'
-import { prepare, testContract, sessionClient, stash, writeRecords } from '../../test/prepare.js'
-import { type State } from '@latticexyz/stash/internal'
 
 describe('useOptimisticState', () => {
 	beforeAll(async () => {
@@ -31,7 +31,7 @@ describe('useOptimisticState', () => {
 		const length = Object.keys(stash.get().records.app.TestTable).length
 		const { result } = renderHook(
 			() => useOptimisticState((state: State<typeof config>) => state.records.app.TestTable),
-			{ wrapper: createWrapper }
+			{ wrapper: createWrapper },
 		)
 
 		await waitFor(() => {
@@ -52,7 +52,7 @@ describe('useOptimisticState', () => {
 		const length = Object.keys(stash.get().records.app.TestTable).length
 		const { result } = renderHook(
 			() => useOptimisticState((state: State<typeof config>) => Object.keys(state.records.app.TestTable).length),
-			{ wrapper: createWrapper }
+			{ wrapper: createWrapper },
 		)
 
 		// Initial state
@@ -79,14 +79,9 @@ describe('useOptimisticState', () => {
 			return deepEqual(a, b)
 		}
 
-		const { result } = renderHook(
-			() =>
-				useOptimisticState(
-					() => ({ count: length }),
-					{ isEqual: customIsEqual }
-				),
-			{ wrapper: createWrapper }
-		)
+		const { result } = renderHook(() => useOptimisticState(() => ({ count: length }), { isEqual: customIsEqual }), {
+			wrapper: createWrapper,
+		})
 
 		await waitFor(() => {
 			expect(result.current).toEqual({ count: length })
@@ -106,7 +101,7 @@ describe('useOptimisticState', () => {
 				renderCount++
 				return useOptimisticState(selector)
 			},
-			{ wrapper: createWrapper }
+			{ wrapper: createWrapper },
 		)
 
 		await waitFor(() => {
@@ -116,8 +111,8 @@ describe('useOptimisticState', () => {
 		const initialRenderCount = renderCount
 
 		// Force a re-render by triggering stash update (but selector returns same object)
-		stash._.storeSubscribers.forEach(subscriber => subscriber({type: 'records', updates: []}))
-		await new Promise(resolve => setTimeout(resolve, 50))
+		stash._.storeSubscribers.forEach((subscriber) => subscriber({ type: 'records', updates: [] }))
+		await new Promise((resolve) => setTimeout(resolve, 50))
 
 		// Should not have caused additional renders due to stable reference
 		expect(renderCount).toBe(initialRenderCount)
@@ -126,7 +121,7 @@ describe('useOptimisticState', () => {
 	it('should cleanup subscription on unmount', async () => {
 		const { unmount } = renderHook(
 			() => useOptimisticState((state: State<typeof config>) => Object.keys(state.records.app.TestTable).length),
-			{ wrapper: createWrapper }
+			{ wrapper: createWrapper },
 		)
 
 		await waitFor(() => {
@@ -140,7 +135,7 @@ describe('useOptimisticState', () => {
 	it('should work when wrapper is undefined initially', async () => {
 		// Render without wrapper first
 		const { result } = renderHook(() =>
-			useOptimisticState((state: State<typeof config>) => state.records.app.TestTable)
+			useOptimisticState((state: State<typeof config>) => state.records.app.TestTable),
 		)
 
 		// Should return undefined when no wrapper

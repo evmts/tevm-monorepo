@@ -2,9 +2,9 @@ import { createLogger } from '@tevm/logger'
 import { createMemoryClient } from '@tevm/memory-client'
 import { PREFUNDED_ACCOUNTS } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
+import { sessionClient, testContract } from '../../../test/prepare.js'
 import { state } from '../../../test/state.js'
 import { mudStoreWriteRequestOverride } from './mudStoreWriteRequestOverride.js'
-import { testContract, sessionClient } from '../../../test/prepare.js'
 
 describe('mudStoreWriteRequestOverride', () => {
 	// TODO: when eth_getProof is supported on tevm node
