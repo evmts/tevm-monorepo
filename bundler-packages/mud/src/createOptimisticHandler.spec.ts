@@ -2,10 +2,10 @@ import { createTevmTransport } from '@tevm/memory-client'
 import { createClient } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { config } from '../test/config.js'
+import { prepare, sessionClient, stash, testContract } from '../test/prepare.js'
 import { state } from '../test/state.js'
 import { createOptimisticHandler } from './createOptimisticHandler.js'
 import type { TxStatus } from './subscribeTx.js'
-import { testContract, sessionClient, stash, prepare } from '../test/prepare.js'
 
 describe('createOptimisticHandler', () => {
 	beforeEach(async () => {

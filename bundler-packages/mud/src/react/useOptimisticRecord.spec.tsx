@@ -4,10 +4,10 @@ import React from 'react'
 import { type Hex } from 'viem'
 import { beforeAll, describe, expect, it } from 'vitest'
 import { config } from '../../test/config.js'
+import { prepare, sessionClient, stash, testContract, writeRecords } from '../../test/prepare.js'
 import { randomRecord } from '../../test/state.js'
 import { useOptimisticRecord } from './useOptimisticRecord.js'
 import { OptimisticWrapperProvider } from './useOptimisticWrapper.js'
-import { prepare, testContract, sessionClient, stash, writeRecords } from '../../test/prepare.js'
 
 describe('useOptimisticRecord', () => {
 	beforeAll(async () => {
@@ -32,11 +32,12 @@ describe('useOptimisticRecord', () => {
 		const firstRecordKey = { key1: firstRecord.key1, key2: firstRecord.key2 }
 
 		const { result } = renderHook(
-			() => useOptimisticRecord({
-				table: config.tables.app__TestTable,
-				key: firstRecordKey,
-			}),
-			{ wrapper: createWrapper }
+			() =>
+				useOptimisticRecord({
+					table: config.tables.app__TestTable,
+					key: firstRecordKey,
+				}),
+			{ wrapper: createWrapper },
 		)
 
 		await waitFor(() => {
@@ -49,11 +50,12 @@ describe('useOptimisticRecord', () => {
 		const nonExistentKey = { key1: 999999n, key2: 999 }
 
 		const { result } = renderHook(
-			() => useOptimisticRecord({
-				table: config.tables.app__TestTable,
-				key: nonExistentKey,
-			}),
-			{ wrapper: createWrapper }
+			() =>
+				useOptimisticRecord({
+					table: config.tables.app__TestTable,
+					key: nonExistentKey,
+				}),
+			{ wrapper: createWrapper },
 		)
 
 		await waitFor(() => {
@@ -67,11 +69,12 @@ describe('useOptimisticRecord', () => {
 		const firstRecordKey = { key1: firstRecord.key1, key2: firstRecord.key2 }
 
 		const { result } = renderHook(
-			() => useOptimisticRecord({
-				table: config.tables.app__TestTable,
-				key: firstRecordKey,
-			}),
-			{ wrapper: createWrapper }
+			() =>
+				useOptimisticRecord({
+					table: config.tables.app__TestTable,
+					key: firstRecordKey,
+				}),
+			{ wrapper: createWrapper },
 		)
 
 		await waitFor(() => {
@@ -81,7 +84,7 @@ describe('useOptimisticRecord', () => {
 		const record = result.current!
 		const schemaKeys = Object.keys(config.tables.app__TestTable.schema)
 
-		schemaKeys.forEach(key => {
+		schemaKeys.forEach((key) => {
 			expect(record).toHaveProperty(key)
 		})
 
@@ -104,11 +107,12 @@ describe('useOptimisticRecord', () => {
 		const firstRecordKey = { key1: firstRecord.key1, key2: firstRecord.key2 }
 
 		const { result } = renderHook(
-			() => useOptimisticRecord({
-				table: config.tables.app__TestTable,
-				key: firstRecordKey,
-			}),
-			{ wrapper: createWrapper }
+			() =>
+				useOptimisticRecord({
+					table: config.tables.app__TestTable,
+					key: firstRecordKey,
+				}),
+			{ wrapper: createWrapper },
 		)
 
 		// Initial state
@@ -132,11 +136,12 @@ describe('useOptimisticRecord', () => {
 		const secondRecordKey = { key1: secondRecord.key1, key2: secondRecord.key2 }
 
 		const { result } = renderHook(
-			() => useOptimisticRecord({
-				table: config.tables.app__TestTable,
-				key: secondRecordKey,
-			}),
-			{ wrapper: createWrapper }
+			() =>
+				useOptimisticRecord({
+					table: config.tables.app__TestTable,
+					key: secondRecordKey,
+				}),
+			{ wrapper: createWrapper },
 		)
 
 		await waitFor(() => {
@@ -158,12 +163,13 @@ describe('useOptimisticRecord', () => {
 		}
 
 		const { result } = renderHook(
-			() => useOptimisticRecord({
-				table: config.tables.app__TestTable,
-				key: nonExistentKey,
-				defaultValue,
-			}),
-			{ wrapper: createWrapper }
+			() =>
+				useOptimisticRecord({
+					table: config.tables.app__TestTable,
+					key: nonExistentKey,
+					defaultValue,
+				}),
+			{ wrapper: createWrapper },
 		)
 
 		await waitFor(() => {
@@ -182,19 +188,21 @@ describe('useOptimisticRecord', () => {
 		const secondRecordKey = { key1: secondRecord.key1, key2: secondRecord.key2 }
 
 		const { result: result1 } = renderHook(
-			() => useOptimisticRecord({
-				table: config.tables.app__TestTable,
-				key: firstRecordKey,
-			}),
-			{ wrapper: createWrapper }
+			() =>
+				useOptimisticRecord({
+					table: config.tables.app__TestTable,
+					key: firstRecordKey,
+				}),
+			{ wrapper: createWrapper },
 		)
 
 		const { result: result2 } = renderHook(
-			() => useOptimisticRecord({
-				table: config.tables.app__TestTable,
-				key: secondRecordKey,
-			}),
-			{ wrapper: createWrapper }
+			() =>
+				useOptimisticRecord({
+					table: config.tables.app__TestTable,
+					key: secondRecordKey,
+				}),
+			{ wrapper: createWrapper },
 		)
 
 		await waitFor(() => {
@@ -208,11 +216,12 @@ describe('useOptimisticRecord', () => {
 		const newKey = { key1: newRecord.key1, key2: newRecord.key2 }
 
 		const { result } = renderHook(
-			() => useOptimisticRecord({
-				table: config.tables.app__TestTable,
-				key: newKey,
-			}),
-			{ wrapper: createWrapper }
+			() =>
+				useOptimisticRecord({
+					table: config.tables.app__TestTable,
+					key: newKey,
+				}),
+			{ wrapper: createWrapper },
 		)
 
 		// Initially should be undefined
@@ -225,7 +234,10 @@ describe('useOptimisticRecord', () => {
 
 		// Should now return the new record
 		await waitFor(() => {
-			expect({...result.current, val5: result.current?.val5.toLowerCase()}).toEqual({...newRecord, val5: newRecord.val5.toLowerCase()})
+			expect({ ...result.current, val5: result.current?.val5.toLowerCase() }).toEqual({
+				...newRecord,
+				val5: newRecord.val5.toLowerCase(),
+			})
 		})
 	})
 
@@ -235,10 +247,12 @@ describe('useOptimisticRecord', () => {
 		const firstRecordKey = { key1: firstRecord.key1, key2: firstRecord.key2 }
 
 		// Render without wrapper
-		const { result } = renderHook(() => useOptimisticRecord({
-			table: config.tables.app__TestTable,
-			key: firstRecordKey,
-		}))
+		const { result } = renderHook(() =>
+			useOptimisticRecord({
+				table: config.tables.app__TestTable,
+				key: firstRecordKey,
+			}),
+		)
 
 		// Should return undefined when no wrapper
 		expect(result.current).toBeUndefined()
@@ -250,11 +264,12 @@ describe('useOptimisticRecord', () => {
 		const firstRecordKey = { key1: firstRecord.key1, key2: firstRecord.key2 }
 
 		const { unmount } = renderHook(
-			() => useOptimisticRecord({
-				table: config.tables.app__TestTable,
-				key: firstRecordKey,
-			}),
-			{ wrapper: createWrapper }
+			() =>
+				useOptimisticRecord({
+					table: config.tables.app__TestTable,
+					key: firstRecordKey,
+				}),
+			{ wrapper: createWrapper },
 		)
 
 		await waitFor(() => {
@@ -271,11 +286,12 @@ describe('useOptimisticRecord', () => {
 		const key = { key1: testRecord.key1, key2: testRecord.key2 }
 
 		const { result } = renderHook(
-			() => useOptimisticRecord({
-				table: config.tables.app__TestTable,
-				key,
-			}),
-			{ wrapper: createWrapper }
+			() =>
+				useOptimisticRecord({
+					table: config.tables.app__TestTable,
+					key,
+				}),
+			{ wrapper: createWrapper },
 		)
 
 		await waitFor(() => {
