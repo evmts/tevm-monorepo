@@ -1,0 +1,2 @@
+export function ethGetTransactionReceiptJsonRpcProcedure(client: import("@tevm/node").TevmNode): import("./EthProcedure.js").EthGetTransactionReceiptJsonRpcProcedure;
+//# sourceMappingURL=ethGetTransactionReceiptProcedure.d.ts.map

@@ -1,0 +1,2 @@
+export function ethGetTransactionCountProcedure(node: import("@tevm/node").TevmNode): import("./EthProcedure.js").EthGetTransactionCountJsonRpcProcedure;
+//# sourceMappingURL=ethGetTransactionCountProcedure.d.ts.map

@@ -70,8 +70,8 @@
 		"@tevm/solc": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"@types/node": "^22.15.21",
-		"effect": "3.15.4",
+		"@types/node": "^24.1.0",
+		"effect": "3.17.3",
 		"solc": "0.8.30",
 		"solidity-ast": "^0.4.60"
 	},

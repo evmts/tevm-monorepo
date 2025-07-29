@@ -4,14 +4,14 @@
   "version": "0.0.1",
   "type": "module",
   "devDependencies": {
-    "bun-types": "^1.2.14"
+    "bun-types": "^1.2.19"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "dependencies": {
     "@ensdomains/dnsprovejs": "^0.5.1",
-    "ethers": "^6.14.3",
+    "ethers": "^6.15.0",
     "tevm": "workspace:^"
   }
 }

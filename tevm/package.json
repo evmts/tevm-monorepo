@@ -456,8 +456,8 @@
     "@tevm/vm": "workspace:^",
     "@tevm/webpack-plugin": "workspace:^",
     "commander": "^14.0.0",
-    "effect": "3.15.4",
-    "glob": "^11.0.2",
+    "effect": "3.17.3",
+    "glob": "^11.0.3",
     "solc": "^0.8.30"
   },
   "devDependencies": {

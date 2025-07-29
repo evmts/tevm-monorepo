@@ -1,0 +1,1 @@
+{"version":3,"file":"TevmGetAccountError.d.ts","sourceRoot":"","sources":["../../src/GetAccount/TevmGetAccountError.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,oBAAoB,EAAE,MAAM,cAAc,CAAA;AACxD,OAAO,KAAK,EAAE,6BAA6B,EAAE,MAAM,+BAA+B,CAAA;AAElF,MAAM,MAAM,mBAAmB,GAAG,oBAAoB,GAAG,6BAA6B,CAAA"}

@@ -1,0 +1,2 @@
+export function parseBlockParam(blockchain: import("@tevm/blockchain").Chain, blockParam: import("../../common/BlockParam.js").BlockParam): Promise<bigint>;
+//# sourceMappingURL=parseBlockParam.d.ts.map

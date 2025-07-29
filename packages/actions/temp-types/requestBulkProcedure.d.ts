@@ -1,0 +1,2 @@
+export function requestBulkProcedure(client: import("@tevm/node").TevmNode): import("./tevm-request-handler/TevmJsonRpcBulkRequestHandler.js").TevmJsonRpcBulkRequestHandler;
+//# sourceMappingURL=requestBulkProcedure.d.ts.map

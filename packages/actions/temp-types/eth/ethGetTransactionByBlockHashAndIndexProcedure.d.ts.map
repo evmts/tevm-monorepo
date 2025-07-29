@@ -1,0 +1,1 @@
+{"version":3,"file":"ethGetTransactionByBlockHashAndIndexProcedure.d.ts","sourceRoot":"","sources":["../../src/eth/ethGetTransactionByBlockHashAndIndexProcedure.js"],"names":[],"mappings":"AAQO,6EAHI,OAAO,YAAY,EAAE,QAAQ,GAC3B,OAAO,mBAAmB,EAAE,oDAAoD,CA0B5F"}

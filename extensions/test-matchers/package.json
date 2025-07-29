@@ -74,9 +74,9 @@
 		"@tevm/errors": "workspace:^",
 		"@tevm/utils": "workspace:^",
 		"abitype": "^1.0.8",
-		"ox": "^0.7.2",
-		"viem": "^2.30.1",
-		"vitest": "^3.1.4"
+		"ox": "^0.8.6",
+		"viem": "^2.33.1",
+		"vitest": "^3.2.4"
 	},
 	"devDependencies": {
 		"@tevm/common": "workspace:^",

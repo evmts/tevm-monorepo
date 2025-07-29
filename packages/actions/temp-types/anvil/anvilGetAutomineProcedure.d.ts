@@ -1,0 +1,2 @@
+export function anvilGetAutomineJsonRpcProcedure(client: import("@tevm/node").TevmNode): import("./AnvilProcedure.js").AnvilGetAutomineProcedure;
+//# sourceMappingURL=anvilGetAutomineProcedure.d.ts.map

@@ -1,0 +1,1 @@
+{"version":3,"file":"ethSignTransactionHandler.d.ts","sourceRoot":"","sources":["../../src/eth/ethSignTransactionHandler.js"],"names":[],"mappings":"AAuDO,oEA7CJ;IAAgE,QAAQ,EAAhE,aAAa,CAAC,OAAO,aAAa,EAAE,SAAS,CAAC;IACf,UAAU,EAAzC,MAAM,OAAO,CAAC,MAAM,CAAC;CAC7B,GAAU,OAAO,iBAAiB,EAAE,yBAAyB,CA2D/D"}

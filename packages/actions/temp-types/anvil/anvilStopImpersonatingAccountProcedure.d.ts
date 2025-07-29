@@ -1,0 +1,2 @@
+export function anvilStopImpersonatingAccountJsonRpcProcedure(client: import("@tevm/node").TevmNode): import("./AnvilProcedure.js").AnvilStopImpersonatingAccountProcedure;
+//# sourceMappingURL=anvilStopImpersonatingAccountProcedure.d.ts.map

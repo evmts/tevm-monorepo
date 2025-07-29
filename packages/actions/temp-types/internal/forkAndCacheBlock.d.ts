@@ -1,0 +1,2 @@
+export function forkAndCacheBlock(client: import("@tevm/node").TevmNode, block: import("@tevm/block").Block, executeBlock?: boolean): Promise<import("@tevm/vm").Vm>;
+//# sourceMappingURL=forkAndCacheBlock.d.ts.map

@@ -1,0 +1,1 @@
+{"version":3,"file":"maybeThrowOnFail.d.ts","sourceRoot":"","sources":["../../src/internal/maybeThrowOnFail.js"],"names":[],"mappings":"AAUO,iCALyB,OAAO,SAA1B;IAAE,MAAM,CAAC,EAAE,GAAG,EAAE,CAAA;CAAE,eACpB,OAAO,UACP,OAAO,GACL,OAAO,SAAS;IAAC,YAAY,EAAE,IAAI,CAAA;CAAC,GAAG,IAAI,CAAC,OAAO,EAAE,QAAQ,CAAC,GAAG,OAAO,CAapF"}

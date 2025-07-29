@@ -1,0 +1,1 @@
+{"version":3,"file":"DumpStateParams.d.ts","sourceRoot":"","sources":["../../src/DumpState/DumpStateParams.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,UAAU,EAAE,MAAM,yBAAyB,CAAA;AACzD,OAAO,KAAK,EAAE,UAAU,EAAE,MAAM,yBAAyB,CAAA;AAEzD,MAAM,MAAM,eAAe,CAAC,YAAY,SAAS,OAAO,GAAG,OAAO,IAAI,UAAU,CAAC,YAAY,CAAC,GAAG;IAChG;;;;;OAKG;IACH,QAAQ,CAAC,QAAQ,CAAC,EAAE,UAAU,CAAA;CAC9B,CAAA"}

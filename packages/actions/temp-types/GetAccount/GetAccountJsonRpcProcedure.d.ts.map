@@ -1,0 +1,1 @@
+{"version":3,"file":"GetAccountJsonRpcProcedure.d.ts","sourceRoot":"","sources":["../../src/GetAccount/GetAccountJsonRpcProcedure.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,wBAAwB,EAAE,MAAM,+BAA+B,CAAA;AAC7E,OAAO,KAAK,EAAE,yBAAyB,EAAE,MAAM,gCAAgC,CAAA;AAE/E;;GAEG;AACH,MAAM,MAAM,0BAA0B,GAAG,CAAC,OAAO,EAAE,wBAAwB,KAAK,OAAO,CAAC,yBAAyB,CAAC,CAAA"}

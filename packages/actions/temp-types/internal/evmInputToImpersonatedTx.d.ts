@@ -1,0 +1,2 @@
+export function evmInputToImpersonatedTx(client: import("@tevm/node").TevmNode): (evmInput: import("@tevm/evm").EvmRunCallOpts, maxFeePerGas?: bigint, maxPriorityFeePerGas?: bigint) => Promise<import("@tevm/tx").ImpersonatedTx>;
+//# sourceMappingURL=evmInputToImpersonatedTx.d.ts.map

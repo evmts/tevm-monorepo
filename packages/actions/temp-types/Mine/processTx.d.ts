@@ -1,0 +1,2 @@
+export function processTx(client: import("@tevm/node").TevmNode, tx: import("@tevm/tx").TypedTransaction, blockBuilder: import("@tevm/vm").BlockBuilder, receipts: Array<import("@tevm/receipt-manager").TxReceipt>): Promise<void>;
+//# sourceMappingURL=processTx.d.ts.map

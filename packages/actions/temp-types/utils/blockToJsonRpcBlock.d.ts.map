@@ -1,0 +1,1 @@
+{"version":3,"file":"blockToJsonRpcBlock.d.ts","sourceRoot":"","sources":["../../src/utils/blockToJsonRpcBlock.js"],"names":[],"mappings":"AAQO,2CAJI,OAAO,aAAa,EAAE,KAAK,uBAC3B,OAAO,GACL,OAAO,CAAC,QAAQ,CAAC,OAAO,8BAA8B,EAAE,gCAAgC,CAAC,CAAC,QAAQ,CAAC,CAAC,CAwDhH"}

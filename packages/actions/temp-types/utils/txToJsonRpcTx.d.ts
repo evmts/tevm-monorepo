@@ -1,0 +1,2 @@
+export function txToJsonRpcTx(tx: import("@tevm/tx").TypedTransaction | import("@tevm/tx").ImpersonatedTx, block: import("@tevm/block").Block, txIndex?: number): import("../common/TransactionResult.js").TransactionResult;
+//# sourceMappingURL=txToJsonRpcTx.d.ts.map

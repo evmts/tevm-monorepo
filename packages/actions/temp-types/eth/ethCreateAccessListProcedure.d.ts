@@ -1,0 +1,2 @@
+export function ethCreateAccessListProcedure(client: import("@tevm/node").TevmNode): import("./EthProcedure.js").EthCreateAccessListJsonRpcProcedure;
+//# sourceMappingURL=ethCreateAccessListProcedure.d.ts.map

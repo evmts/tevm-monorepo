@@ -1,0 +1,2 @@
+export function handlePendingTransactionsWarning(client: import("@tevm/node").TevmNode, params: import("./CallParams.js").CallParams, code: string | undefined, deployedBytecode: string | undefined): Promise<void>;
+//# sourceMappingURL=handlePendingTransactionsWarning.d.ts.map

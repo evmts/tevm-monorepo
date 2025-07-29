@@ -1,0 +1,1 @@
+{"version":3,"file":"MineJsonRpcRequest.d.ts","sourceRoot":"","sources":["../../src/Mine/MineJsonRpcRequest.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,cAAc,EAAE,MAAM,eAAe,CAAA;AACnD,OAAO,KAAK,EAAE,GAAG,EAAE,MAAM,aAAa,CAAA;AAEtC;;GAEG;AACH,MAAM,MAAM,kBAAkB,GAAG,cAAc,CAAC,WAAW,EAAE,CAAC,UAAU,EAAE,GAAG,EAAE,QAAQ,EAAE,GAAG,CAAC,CAAC,CAAA"}

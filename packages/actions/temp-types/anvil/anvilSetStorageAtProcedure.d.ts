@@ -1,0 +1,2 @@
+export function anvilSetStorageAtJsonRpcProcedure(client: import("@tevm/node").TevmNode): import("./AnvilProcedure.js").AnvilSetStorageAtProcedure;
+//# sourceMappingURL=anvilSetStorageAtProcedure.d.ts.map
