@@ -108,6 +108,14 @@ export {
 	createAddressFromString,
 	createAccount,
 } from './ethereumjs.js'
+export {
+	recoverPublicKey,
+	recoverAddress,
+	hashMessage,
+	recoverMessageAddress,
+	verifyMessage,
+	signMessage,
+} from './signature.js'
 export type {
 	WithdrawalData,
 	DB as Db,
