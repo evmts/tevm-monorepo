@@ -57,7 +57,7 @@ describe('anvilImpersonateAccountJsonRpcProcedure', () => {
 			- Address must be a hex value of 20 bytes (40 hex characters).
 			- Address must match its checksum counterpart.
 
-			Version: viem@2.30.1",
+			Version: viem@2.33.1",
 			  },
 			  "id": 1,
 			  "jsonrpc": "2.0",

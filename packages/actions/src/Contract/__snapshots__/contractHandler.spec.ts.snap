@@ -33,7 +33,7 @@ Contract Call:
   args:                  (0x2323232323232323232323232323232323232323, 0x2323232323232323232323232323232323232323, 1)
 
 Docs: https://viem.sh/reference/tevm/errors/classes/reverterror/
-Version: viem@2.30.1
+Version: viem@2.33.1
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
 Details: The contract function "transferFrom" reverted.
@@ -47,7 +47,7 @@ Contract Call:
   args:                  (0x2323232323232323232323232323232323232323, 0x2323232323232323232323232323232323232323, 1)
 
 Docs: https://viem.sh/reference/tevm/errors/classes/reverterror/
-Version: viem@2.30.1
+Version: viem@2.33.1
 Version: 1.1.0.next-73],
 ]
 `;
@@ -58,14 +58,14 @@ exports[`contractHandler > should handle invalid function encoding 1`] = `
 Make sure you are using the correct ABI and that the function exists on it.
 
 Docs: https://viem.sh/docs/contract/encodeFunctionData
-Version: viem@2.30.1
+Version: viem@2.33.1
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
 Details: Function "nonExistentFunction" not found on ABI.
 Make sure you are using the correct ABI and that the function exists on it.
 
 Docs: https://viem.sh/docs/contract/encodeFunctionData
-Version: viem@2.30.1
+Version: viem@2.33.1
 Version: 1.1.0.next-73],
 ]
 `;
@@ -110,7 +110,7 @@ Contract Call:
   args:                  (0x0000000000000000000000000000000000000000, 0x0000000000000000000000000000000000000000, 1)
 
 Docs: https://viem.sh/reference/tevm/errors/classes/reverterror/
-Version: viem@2.30.1
+Version: viem@2.33.1
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
 Details: The contract function "transferFrom" reverted.
@@ -124,18 +124,18 @@ Contract Call:
   args:                  (0x0000000000000000000000000000000000000000, 0x0000000000000000000000000000000000000000, 1)
 
 Docs: https://viem.sh/reference/tevm/errors/classes/reverterror/
-Version: viem@2.30.1
+Version: viem@2.33.1
 Version: 1.1.0.next-73],
 ]
 `;
 
 exports[`contractHandler > should handle unexpected errors during param conversion 1`] = `
 [
-  [InvalidGasPrice: Invalid input
+  [InvalidGasPrice: Number must be greater than or equal to 0
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
 Version: 1.1.0.next-73],
-  [InvalidGasPrice: Invalid input
+  [InvalidGasPrice: Number must be greater than or equal to 0
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
 Version: 1.1.0.next-73],

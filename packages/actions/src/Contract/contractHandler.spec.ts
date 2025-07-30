@@ -405,7 +405,7 @@ describe('contractHandler', () => {
 			  args:                  (0x1111111111111111111111111111111111111111, 0x2222222222222222222222222222222222222222, 1000)
 
 			Docs: https://viem.sh/reference/tevm/errors/classes/reverterror/
-			Version: viem@2.30.1
+			Version: viem@2.33.1
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
 			Details: The contract function "transferFrom" reverted.
@@ -419,7 +419,7 @@ describe('contractHandler', () => {
 			  args:                  (0x1111111111111111111111111111111111111111, 0x2222222222222222222222222222222222222222, 1000)
 
 			Docs: https://viem.sh/reference/tevm/errors/classes/reverterror/
-			Version: viem@2.30.1
+			Version: viem@2.33.1
 			Version: 1.1.0.next-73]
 		`)
 	})

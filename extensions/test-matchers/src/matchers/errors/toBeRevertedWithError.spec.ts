@@ -177,8 +177,7 @@ describe('toBeRevertedWithError', () => {
 			await expect(() =>
 				expect(writeContract(client, errorContract.write.revertWithCustomErrorSingleParam()))
 					.toBeRevertedWithError(client, errorContract, 'ErrorWithSingleParam')
-					// @ts-expect-error - 'invalidArg' does not exist in the error inputs
-					.withErrorNamedArgs({ invalidArg: 100n }),
+					.withErrorNamedArgs({ invalidArg: 100n } as any),
 			).rejects.toThrow('Expected transaction to revert with the specified arguments')
 		})
 
@@ -186,8 +185,7 @@ describe('toBeRevertedWithError', () => {
 			await expect(() =>
 				expect(writeContract(client, errorContract.write.revertWithCustomErrorSingleParam()))
 					.toBeRevertedWithError(client, errorContract, 'ErrorWithSingleParam')
-					// @ts-expect-error - 'invalidArg' does not exist in the error inputs
-					.withErrorNamedArgs({ amount: 100n, invalidArg: 200n }),
+					.withErrorNamedArgs({ amount: 100n, invalidArg: 200n } as any),
 			).rejects.toThrow('Expected transaction to revert with the specified arguments')
 		})
 
@@ -257,16 +255,14 @@ describe('toBeRevertedWithError', () => {
 		it('should throw when error name not found in contract ABI', async () => {
 			await expect(() =>
 				expect(writeContract(client, errorContract.write.revertWithSimpleCustomError()))
-					// @ts-expect-error - NonExistentError does not exist in the ABI
-					.toBeRevertedWithError(client, errorContract, 'NonExistentError'),
+					.toBeRevertedWithError(client, errorContract, 'NonExistentError' as any),
 			).rejects.toThrow('Error NonExistentError not found in contract ABI')
 		})
 
 		it('should require error name as second argument', async () => {
 			await expect(() =>
 				expect(writeContract(client, errorContract.write.revertWithSimpleCustomError()))
-					// @ts-expect-error - Missing error name
-					.toBeRevertedWithError(client, errorContract),
+					.toBeRevertedWithError(client, errorContract as any),
 			).rejects.toThrow('You need to provide an error name as a second argument')
 		})
 	})

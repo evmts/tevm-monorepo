@@ -3569,14 +3569,3 @@ Map {
   },
 }
 `;
-
-exports[`executeCall > should handle gas price too low error 1`] = `
-"Transaction's maxFeePerGas (1) is less than the block's baseFeePerGas (7) -> block number=0 hash=0x1d230d3c25232b8bb73be506cb871ccb88ec60dfe77b5f58e1794293a0d62534 hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0xfcc1c88d3c2554e3f2c5e2e957589e8067422c9b4769371aaf2b84912a0bfbe1 nonce=0 value=0 signed=true hf=prague maxFeePerGas=1 maxPriorityFeePerGas=0)
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/
-Version: 1.1.0.next-73
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/
-Details: /reference/tevm/errors/classes/invalidparamserror/
-Version: 1.1.0.next-73"
-`;

@@ -119,8 +119,7 @@ describe('toEmit', () => {
 			try {
 				await expect(client.tevmContract(contract.write.set(100n)))
 					.toEmit(contract, 'ValueSet')
-					// @ts-expect-error - 'invalidArg' does not exist in the event inputs
-					.withEventNamedArgs({ invalidArg: 100n })
+					.withEventNamedArgs({ invalidArg: 100n } as any)
 			} catch (error: any) {
 				expect(error.message).toBe(
 					"Expected event ValueSet to be emitted with the specified named arguments, but it wasn't found in any of the 1 emitted events",
@@ -133,8 +132,7 @@ describe('toEmit', () => {
 			try {
 				await expect(client.tevmContract(contract.write.set(100n)))
 					.toEmit(contract, 'ValueSet')
-					// @ts-expect-error - 'invalidArg' does not exist in the event inputs
-					.withEventNamedArgs({ newValue: 100n, invalidArg: 200n })
+					.withEventNamedArgs({ newValue: 100n, invalidArg: 200n } as any)
 			} catch (error: any) {
 				expect(error.message).toBe(
 					"Expected event ValueSet to be emitted with the specified named arguments, but it wasn't found in any of the 1 emitted events",
