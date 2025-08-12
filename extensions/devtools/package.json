@@ -1,0 +1,72 @@
+{
+	"name": "@tevm/devtools",
+	"version": "1.0.0-next.146",
+	"private": false,
+	"description": "Development tools for visualizing and debugging blockchain transactions in a web app using Tevm.",
+	"keywords": [],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/evmts/tevm-monorepo.git",
+		"directory": "extensions/devtools"
+	},
+	"license": "MIT",
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>",
+		"0xpolarzero <0xpolarzero@gmail.com>"
+	],
+	"sideEffects": false,
+	"type": "module",
+	"exports": {
+		"./package.json": "./package.json",
+		".": {
+			"import": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			}
+		}
+	},
+	"main": "dist/index.cjs",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"files": [
+		"dist",
+		"src",
+		"!src/**/*.spec.ts"
+	],
+	"scripts": {
+		"all": "pnpm i && bun run build && bun lint && bun format && bun test:run && bun generate:docs && bun run lint:deps && bun run lint:package",
+		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/devtools",
+		"build:dist": "tsup",
+		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration --skipLibCheck",
+		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
+		"format": "biome format . --write",
+		"format:check": "biome format .",
+		"generate:docs": "typedoc",
+		"lint": "biome check . --write --unsafe",
+		"lint:check": "biome check . --verbose",
+		"lint:deps": "bunx depcheck",
+		"lint:package": "bunx publint --strict && attw --pack",
+		"package:up": "pnpm up --latest",
+		"test": "vitest --watch",
+		"test:coverage": "vitest --coverage --run",
+		"test:run": "vitest",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"viem": "^2.30.1"
+	},
+	"devDependencies": {
+		"@tevm/tsconfig": "workspace:^",
+		"@tevm/tsupconfig": "workspace:^"
+	},
+	"peerDependencies": {
+		"viem": "^2.30.1"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
