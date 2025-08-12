@@ -1,7 +1,29 @@
 <devtoolsScaffoldingPlan>
   <intro>The following is a step-by-step plan for scaffolding the devtools extension, organized into actionable and incremental self-contained PRs.</intro>
   <pr number="1">
-    <title>PR 1 — Devtools package skeleton and build config</title>
+    <title>PR 1 — React example scaffold</title>
+    <scope>
+      <item>Introduce a minimal React example under `extensions/devtools/examples/react` to validate the devtools UI and wrappers incrementally.</item>
+      <item>No instrumentation yet; renders a placeholder app and prepares routes/files for upcoming demos.</item>
+    </scope>
+    <files>
+      <file>`extensions/devtools/examples/react/README.md`</file>
+      <file>`extensions/devtools/examples/react/index.html` (if Vite)</file>
+      <file>`extensions/devtools/examples/react/package.json` (scripts to run the example)</file>
+      <file>`extensions/devtools/examples/react/vite.config.ts` (or minimal equivalent)</file>
+      <file>`extensions/devtools/examples/react/src/main.tsx`</file>
+      <file>`extensions/devtools/examples/react/src/App.tsx`</file>
+    </files>
+    <acceptance>
+      <item>Example dev server runs and renders a placeholder page.</item>
+    </acceptance>
+    <qa>
+      <item>Manual: run the example and confirm the page loads.</item>
+    </qa>
+  </pr>
+
+  <pr number="2">
+    <title>PR 2 — Devtools package skeleton and build config</title>
     <scope>
       <item>Ensure `extensions/devtools` has minimal build, lint, and publish settings ready.</item>
       <item>Do not add instrumentation yet.</item>
@@ -23,8 +45,8 @@
     </qa>
   </pr>
 
-  <pr number="2">
-    <title>PR 2 — Core common layer: types, constants, ids, event bus</title>
+  <pr number="3">
+    <title>PR 3 — Core common layer: types, constants, ids, event bus</title>
     <scope>
       <item>Add shared types, IDs, constants, and global bus; no wrapping yet.</item>
     </scope>
@@ -43,29 +65,6 @@
     <qa>
       <item>Small unit tests for bus publish/subscribe/history/clear (jsdom).</item>
       <item>Manual node script subscribing to bus and asserting events flow.</item>
-    </qa>
-  </pr>
-
-  <pr number="3">
-    <title>PR 3 — Common EIP‑1193 wrapper helper and base EIP‑1193 decorator</title>
-    <scope>
-      <item>Introduce `decorateRequestEip1193` using Proxy/Reflect.</item>
-      <item>Add `decorateEip1193` thin delegator.</item>
-      <item>Tag idempotency with `WRAP_TAG`.</item>
-    </scope>
-    <files>
-      <file>`extensions/devtools/src/internal/common/decorateRequestEip1193.ts`</file>
-      <file>`extensions/devtools/src/internal/eip1193/decorateEip1193.ts`</file>
-      <file>Optional stub: `extensions/devtools/src/internal/common/redaction.ts` (no-op for now)</file>
-      <file>Export from `extensions/devtools/src/index.ts`</file>
-    </files>
-    <acceptance>
-      <item>Any `{ request({ method, params }) }` is wrapped and events are published for result/error with timings.</item>
-      <item>Wrapping twice returns the already-wrapped behavior (idempotent).</item>
-    </acceptance>
-    <qa>
-      <item>Unit test with a fake provider that resolves/rejects.</item>
-      <item>Verify idempotency via `Symbol.for('tevm.devtools.wrap')`.</item>
     </qa>
   </pr>
 
@@ -97,62 +96,38 @@
   </pr>
 
   <pr number="5">
-    <title>PR 5 — Window.ethereum installer (optional early override)</title>
+    <title>PR 5 — EIP‑1193 foundation: wrapper + installer + orchestrator v1 + example wiring</title>
     <scope>
+      <item>Introduce `decorateRequestEip1193` using Proxy/Reflect and `decorateEip1193` delegator.</item>
       <item>Add `installWindowEthereumDevtools(opts?)` that wraps `window.ethereum.request` and optionally `window.ethereum.providers[]`.</item>
+      <item>Add `withTevmDevtools(input, opts?)` v1 that detects and decorates only EIP‑1193.</item>
+      <item>Wire the React example to use the installer or `withTevmDevtools` with injected EIP‑1193.</item>
     </scope>
     <files>
+      <file>`extensions/devtools/src/internal/common/decorateRequestEip1193.ts`</file>
+      <file>`extensions/devtools/src/internal/eip1193/decorateEip1193.ts`</file>
+      <file>Optional stub: `extensions/devtools/src/internal/common/redaction.ts` (no-op for now)</file>
       <file>`extensions/devtools/src/installWindowEthereumDevtools.ts`</file>
-      <file>Export in `extensions/devtools/src/index.ts`</file>
+      <file>`extensions/devtools/src/withTevmDevtools.ts` (initial version with only EIP‑1193 path)</file>
+      <file>Export from `extensions/devtools/src/index.ts`</file>
+      <file>Example update: `extensions/devtools/examples/react/src/AppInjected.tsx` (raw EIP‑1193 sample using wrapper/installer)</file>
     </files>
     <acceptance>
+      <item>Any `{ request({ method, params }) }` is wrapped and events are published for result/error with timings.</item>
       <item>When called in browser, `window.ethereum` is replaced with wrapped version once and marks `__tevmWrapped` to prevent duplicates.</item>
       <item>Optional `includeMultiInjected` wraps known multi-provider arrays safely.</item>
+      <item>Passing a provider or raw injected object to `withTevmDevtools` returns a working wrapped equivalent (EIP‑1193 only).</item>
+      <item>Example shows events in the widget when making injected calls.</item>
     </acceptance>
     <qa>
-      <item>jsdom test for idempotent override.</item>
-      <item>Manual: open a dapp with MetaMask, call install, observe events.</item>
+      <item>Unit: fake provider resolves/rejects; verify idempotency via `Symbol.for('tevm.devtools.wrap')`.</item>
+      <item>jsdom: idempotent override of `window.ethereum`.</item>
+      <item>Manual: run example, click “eth_chainId” / “eth_requestAccounts”, observe events in widget.</item>
     </qa>
   </pr>
 
   <pr number="6">
-    <title>PR 6 — Orchestrator: `withTevmDevtools` v1 (EIP‑1193 only)</title>
-    <scope>
-      <item>Introduce `withTevmDevtools(input, opts?)` that detects EIP‑1193 and returns the wrapped provider.</item>
-    </scope>
-    <files>
-      <file>`extensions/devtools/src/withTevmDevtools.ts` (initial version with only EIP‑1193 path)</file>
-    </files>
-    <acceptance>
-      <item>Passing a provider or raw injected object returns a working wrapped equivalent.</item>
-    </acceptance>
-    <qa>
-      <item>Unit tests for detection and pass-through when disabled.</item>
-    </qa>
-  </pr>
-
-  <pr number="7">
-    <title>PR 7 — Examples: React scaffold using in‑package DevtoolsWidget + injected demo</title>
-    <scope>
-      <item>Add plain React example source under `extensions/devtools/examples/react`.</item>
-      <item>Examples import and render `DevtoolsWidget` from `@tevm/devtools/react`.</item>
-      <item>Example page to exercise raw injected EIP‑1193 (MetaMask); examples focus on wrapping, not UI.</item>
-    </scope>
-    <files>
-      <file>`extensions/devtools/examples/react/README.md`</file>
-      <file>`extensions/devtools/examples/react/src/AppInjected.tsx` (raw EIP‑1193 sample)</file>
-      <file>Example app entry (Vite or minimal build) wired to render `<DevtoolsWidget />`</file>
-    </files>
-    <acceptance>
-      <item>Running the example shows live records in the in‑package widget when calling `provider.request`.</item>
-    </acceptance>
-    <qa>
-      <item>Manual: click “eth_chainId” / “eth_requestAccounts” buttons and see events in widget.</item>
-    </qa>
-  </pr>
-
-  <pr number="8">
-    <title>PR 8 — viem transport + client decoration (Proxy/Reflect; reuse common)</title>
+    <title>PR 6 — viem transport + client decoration (Proxy/Reflect; reuse common)</title>
     <scope>
       <item>Add `decorateViemTransport` (factory wrapper reusing `decorateRequestEip1193`).</item>
       <item>Add `decorateViemClient` replacing `transport` with decorated version.</item>
@@ -174,8 +149,8 @@
     </qa>
   </pr>
 
-  <pr number="9">
-    <title>PR 9 — wagmi config decoration</title>
+  <pr number="7">
+    <title>PR 7 — wagmi config decoration</title>
     <scope>
       <item>Add `decorateWagmiConfig` that decorates all `transports` and wraps connector `getProvider()` with EIP‑1193 decorator.</item>
       <item>Extend `withTevmDevtools` to detect wagmi config.</item>
@@ -194,8 +169,8 @@
     </qa>
   </pr>
 
-  <pr number="10">
-    <title>PR 10 — ethers support: injected and JsonRpcProvider</title>
+  <pr number="8">
+    <title>PR 8 — ethers support: injected and JsonRpcProvider</title>
     <scope>
       <item>Add `decorateEthersInjected` delegating to EIP‑1193 decorator.</item>
       <item>Add `decorateJsonRpcProvider` intercepting `.send(method, params)`.</item>
@@ -217,8 +192,8 @@
     </qa>
   </pr>
 
-  <pr number="11">
-    <title>PR 11 — Idempotency and dedupe hardening across overlaps</title>
+  <pr number="9">
+    <title>PR 9 — Idempotency and dedupe hardening across overlaps</title>
     <scope>
       <item>Ensure every decorator tags output with `WRAP_TAG` and checks before rewrapping.</item>
       <item>Guard `installWindowEthereumDevtools` against wrapping already-decorated providers and `providers[]`.</item>
@@ -236,8 +211,8 @@
     </qa>
   </pr>
 
-  <pr number="12">
-    <title>PR 12 — Docs/tests and repo integration</title>
+  <pr number="10">
+    <title>PR 10 — Docs/tests and repo integration</title>
     <scope>
       <item>Fill `extensions/devtools/README.md` with quick start, API reference, React widget usage, and examples links.</item>
       <item>Update examples README with usage matrix and dedupe notes.</item>
@@ -252,9 +227,12 @@
     <acceptance>
       <item>CI runs tests and build for the package.</item>
     </acceptance>
-    <notes>
-      <item>Keep each PR minimal, buildable, and demonstrably useful on its own.</item>
-      <item>Extend `withTevmDevtools` incrementally in PRs 6, 8, 9, 10 to limit surface of change.</item>
-    </notes>
+    <qa>
+      <item>Ensure docs are visible locally and CI picks up tests.</item>
+    </qa>
   </pr>
+  <notes>
+    <item>Keep each PR minimal, buildable, and demonstrably useful on its own.</item>
+    <item>Extend `withTevmDevtools` incrementally across PRs to limit surface of change.</item>
+  </notes>
 </devtoolsScaffoldingPlan>

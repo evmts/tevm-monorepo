@@ -28,6 +28,15 @@
     </feature>
   </coreBehavior>
 
+  <devFlow>
+    <text>Adopt an example-first, incremental development flow:</text>
+    <item>Start by scaffolding the React example so we can demonstrate working functionality immediately.</item>
+    <item>Add the package build skeleton early to produce artifacts, but keep runtime logic minimal.</item>
+    <item>Introduce the core event bus and a minimal `DevtoolsWidget` that expands and lists records.</item>
+    <item>Implement EIP‑1193 wrapper, `installWindowEthereumDevtools`, and `withTevmDevtools` v1; wire them into the example to show value end-to-end.</item>
+    <item>Iterate with additional providers (viem, wagmi, ethers) and strengthen idempotency/dedupe, keeping examples runnable at each step.</item>
+  </devFlow>
+
   <directoryStructure>
     <directory name="extensions/devtools/">
       <directory name="src/">
@@ -415,7 +424,7 @@ export { DevtoolsWidget } from './DevtoolsWidget';
 
   <examples>
     <intro>Examples (React; plain files under `extensions/devtools/examples/react`)</intro>
-    <note>They demonstrate wrapping only; UI comes from the in‑package widget:</note>
+    <note>They demonstrate wrapping incrementally; UI comes from the in‑package widget:</note>
     <example>viem: `withTevmDevtools(http(...))` → `createPublicClient`; render `<DevtoolsWidget />`.</example>
     <example>wagmi: `withTevmDevtools(createConfig(...))` → render `<WagmiConfig>` and `<DevtoolsWidget />`.</example>
     <example>ethers injected: wrap `window.ethereum` then `new BrowserProvider`; render widget.</example>
