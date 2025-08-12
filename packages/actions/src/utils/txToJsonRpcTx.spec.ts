@@ -6,6 +6,7 @@ import { transports } from '@tevm/test-utils'
 import { FeeMarketEIP1559Transaction } from '@tevm/tx'
 import { describe, expect, it } from 'vitest'
 import { txToJsonRpcTx } from './txToJsonRpcTx.js'
+import { createTestSnapshotTransport } from '@tevm/test-node'
 
 describe(txToJsonRpcTx.name, () => {
 	it('should work', async () => {
@@ -25,10 +26,16 @@ describe(txToJsonRpcTx.name, () => {
 		const client = createTevmNode({
 			common: optimism,
 		})
+		const transport = createTestSnapshotTransport({
+			transport: transports.optimism,
+			test: {
+				autosave: 'onRequest',
+			}
+		})
 		const vm = await client.getVm()
 		const [block] = await getBlockFromRpc(
 			vm.blockchain,
-			{ blockTag: 121960766n, transport: transports.optimism },
+			{ blockTag: 121960766n, transport },
 			vm.common,
 		)
 		expect(txToJsonRpcTx(tx, block, 0)).toMatchSnapshot()

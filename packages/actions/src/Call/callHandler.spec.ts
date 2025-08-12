@@ -17,6 +17,8 @@ import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { callHandler } from './callHandler.js'
+import { optimismNode } from '../../vitest.setup.js'
+import { createTestSnapshotNode } from '@tevm/test-node'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
 const ERC20_BYTECODE = TestERC20.deployedBytecode
@@ -673,20 +675,13 @@ describe('callHandler', () => {
 	})
 
 	it('should return op stack info if forking', async () => {
-		const client = createTevmNode({
-			fork: {
-				transport: transports.optimism,
-				blockTag: 122606365n,
-			},
-			common: optimism,
-		})
 		const to = `0x${'33'.repeat(20)}` as const
-		const { errors } = await setAccountHandler(client)({
+		const { errors } = await setAccountHandler(optimismNode)({
 			address: to,
 			deployedBytecode: ERC20_BYTECODE,
 		})
 		expect(errors).toBeUndefined()
-		const result = await callHandler(client)({
+		const result = await callHandler(optimismNode)({
 			throwOnFail: false,
 			createTransaction: true,
 			data: encodeFunctionData({
@@ -708,7 +703,7 @@ describe('callHandler', () => {
 	})
 
 	it('should handle opstack throwing unexpectedly', async () => {
-		const client = createTevmNode({
+		const client = createTestSnapshotNode({
 			fork: {
 				transport: transports.optimism,
 				blockTag: 122606365n,
@@ -722,6 +717,9 @@ describe('callHandler', () => {
 					},
 				},
 			},
+			test: {
+				autosave: 'onRequest',
+			}
 		})
 		const originalWarn = client.logger.warn
 		const mockWarn = vi.fn()
@@ -761,7 +759,7 @@ describe('callHandler', () => {
 	})
 
 	it('should handle vm cloning throwing unexpectedly', async () => {
-		const client = createTevmNode({
+		const client = createTestSnapshotNode({
 			fork: {
 				transport: transports.optimism,
 				blockTag: 122606365n,
@@ -775,6 +773,9 @@ describe('callHandler', () => {
 					},
 				},
 			},
+			test: {
+				autosave: 'onRequest',
+			}
 		})
 		const vm = await client.getVm()
 		vm.deepCopy = () => {
@@ -802,7 +803,7 @@ describe('callHandler', () => {
 	})
 
 	it('should handle being unable to get options', async () => {
-		const client = createTevmNode({
+		const client = createTestSnapshotNode({
 			fork: {
 				transport: transports.optimism,
 				blockTag: 122606365n,
@@ -816,6 +817,9 @@ describe('callHandler', () => {
 					},
 				},
 			},
+			test: {
+				autosave: 'onRequest',
+			}
 		})
 		const vm = await client.getVm()
 		// this will break if something in callHandler calls getBlock first in future
