@@ -1,0 +1,16 @@
+{
+  "extends": "@tevm/tsconfig/base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "strict": true,
+    "lib": ["ES2022", "DOM"],
+    "types": ["vite/client"],
+    "paths": {
+      "@tevm/devtools": ["../../src/index.ts"],
+      "@tevm/devtools/react": ["../../src/react/index.ts"]
+    }
+  },
+  "include": ["src", "vite.config.ts"]
+}
+
+

@@ -54,18 +54,29 @@
 		"test": "vitest --watch",
 		"test:coverage": "vitest --coverage --run",
 		"test:run": "vitest",
-		"typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "example:react:dev": "vite serve examples/react --config examples/react/vite.config.ts",
+    "example:react:build": "vite build examples/react --config examples/react/vite.config.ts",
+    "example:react:preview": "vite preview examples/react --config examples/react/vite.config.ts"
 	},
 	"dependencies": {
 		"viem": "^2.30.1"
 	},
-	"devDependencies": {
-		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^"
-	},
-	"peerDependencies": {
-		"viem": "^2.30.1"
-	},
+  "devDependencies": {
+    "@tevm/tsconfig": "workspace:^",
+    "@tevm/tsupconfig": "workspace:^",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "vite": "^5.4.3"
+  },
+  "peerDependencies": {
+    "viem": "^2.30.1",
+    "react": ">18 || ^19.0.0-0",
+    "react-dom": ">18 || ^19.0.0-0"
+  },
 	"publishConfig": {
 		"access": "public"
 	}

@@ -2,7 +2,7 @@
   <title>Tevm Devtools – Integration Progress</title>
   <intro>The following is a high-level checklist to track integration progress across the planned PRs.</intro>
   <tasks>
-    <task index="1" done="false">1. React example scaffold under `extensions/devtools/examples/react`</task>
+    <task index="1" done="true">1. React example scaffold under `extensions/devtools/examples/react`</task>
     <task index="2" done="false">2. Package skeleton (build/lint/exports) in `extensions/devtools`</task>
     <task index="3" done="false">3. Common layer: `types`, `constants`, `ids`, `eventBus`, `guards`</task>
     <task index="4" done="false">4. React UI inside package: `@tevm/devtools/react` → `DevtoolsWidget`</task>
