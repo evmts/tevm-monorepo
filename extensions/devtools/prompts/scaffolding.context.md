@@ -1,58 +1,80 @@
-### Objective
-Single devtools package in `extensions/devtools` that:
-- Instruments viem, wagmi, ethers, and raw EIP‑1193 without mutating originals (except optional `window.ethereum` override).
-- Is idempotent, deduped across overlap (wagmi + injected).
-- Publishes to a global event bus for any UI to subscribe.
-- Ships a React widget from the package itself (`@tevm/devtools/react`) that consumers render to get the dock/panel; examples import this widget and focus on wrapping providers.
+<devtoolsScaffoldingContext>
+  <intro>The following provides context and integration guidance for scaffolding the devtools extension. It is not exhaustive, but aims to enable a consistent, comprehensive first implementation.</intro>
+  <objective>
+    <text>Single devtools package in `extensions/devtools` that:</text>
+    <item>Instruments viem, wagmi, ethers, and raw EIP‑1193 without mutating originals (except optional `window.ethereum` override).</item>
+    <item>Is idempotent, deduped across overlap (wagmi + injected).</item>
+    <item>Publishes to a global event bus for any UI to subscribe.</item>
+    <item>Ships a React widget from the package itself (`@tevm/devtools/react`) that consumers render to get the dock/panel; examples import this widget and focus on wrapping providers.</item>
+  </objective>
 
-### Core behavior
-- `withTevmDevtools(input, opts?)`:
-  - Detects input type; returns a decorated drop‑in equivalent.
-  - Uses a global event bus to publish request/response/error.
-  - Idempotent via `Symbol.for('tevm.devtools.wrap')`.
-- `installWindowEthereumDevtools(opts?)`: optional early override of `window.ethereum.request` and `window.ethereum.providers[]`.
-- `devtoolsBus()`: event-based API for UI; history buffer.
-- React UI:
-  - `DevtoolsWidget`: floating button → expands a dock (panel or iframe) that subscribes to `devtoolsBus()` and renders live records.
-  - Exported via subpath: `import { DevtoolsWidget } from '@tevm/devtools/react'`.
+  <coreBehavior>
+    <feature name="withTevmDevtools">
+      <item>`withTevmDevtools(input, opts?)`:</item>
+      <item>Detects input type; returns a decorated drop‑in equivalent.</item>
+      <item>Uses a global event bus to publish request/response/error.</item>
+      <item>Idempotent via `Symbol.for('tevm.devtools.wrap')`.</item>
+    </feature>
+    <feature name="installWindowEthereumDevtools">
+      <item>`installWindowEthereumDevtools(opts?)`: optional early override of `window.ethereum.request` and `window.ethereum.providers[]`.</item>
+    </feature>
+    <feature name="devtoolsBus">
+      <item>`devtoolsBus()`: event-based API for UI; history buffer.</item>
+    </feature>
+    <feature name="reactUI">
+      <item>React UI:</item>
+      <item>`DevtoolsWidget`: floating button → expands a dock (panel or iframe) that subscribes to `devtoolsBus()` and renders live records.</item>
+      <item>Exported via subpath: `import { DevtoolsWidget } from '@tevm/devtools/react'`.</item>
+    </feature>
+  </coreBehavior>
 
-### Directory structure
-- `extensions/devtools/`
-  - `src/`
-    - `index.ts`
-    - `withTevmDevtools.ts`
-    - `installWindowEthereumDevtools.ts`
-    - `react/`
-      - `DevtoolsWidget.tsx`
-      - `index.ts`
-      - `styles.css` (optional)
-    - `internal/`
-      - `common/`
-        - `types.ts`
-        - `constants.ts`
-        - `eventBus.ts`
-        - `guards.ts`
-        - `ids.ts`
-        - `redaction.ts` (optional stub)
-        - `decorateRequestEip1193.ts` (common Proxy wrapper for any `{ request({method, params}) }`)
-      - `eip1193/`
-        - `decorateEip1193.ts` (delegates to common helper)
-      - `viem/`
-        - `decorateViemTransport.ts` (uses common helper + Proxy/Reflect)
-        - `decorateViemClient.ts`
-      - `wagmi/`
-        - `decorateWagmiConfig.ts`
-      - `ethers/`
-        - `decorateEthersInjected.ts`
-        - `decorateJsonRpcProvider.ts`
-  - `examples/react/`
-    - `README.md`
-    - `src/` (per‑integration pages demonstrating wrapping; they all render the in‑package `DevtoolsWidget`)
+  <directoryStructure>
+    <directory name="extensions/devtools/">
+      <directory name="src/">
+        <file>index.ts</file>
+        <file>withTevmDevtools.ts</file>
+        <file>installWindowEthereumDevtools.ts</file>
+        <directory name="react/">
+          <file>DevtoolsWidget.tsx</file>
+          <file>index.ts</file>
+          <file>styles.css (optional)</file>
+        </directory>
+        <directory name="internal/">
+          <directory name="common/">
+            <file>types.ts</file>
+            <file>constants.ts</file>
+            <file>eventBus.ts</file>
+            <file>guards.ts</file>
+            <file>ids.ts</file>
+            <file>redaction.ts (optional stub)</file>
+            <file>decorateRequestEip1193.ts (common Proxy wrapper for any `{ request({method, params}) }`)</file>
+          </directory>
+          <directory name="eip1193/">
+            <file>decorateEip1193.ts (delegates to common helper)</file>
+          </directory>
+          <directory name="viem/">
+            <file>decorateViemTransport.ts (uses common helper + Proxy/Reflect)</file>
+            <file>decorateViemClient.ts</file>
+          </directory>
+          <directory name="wagmi/">
+            <file>decorateWagmiConfig.ts</file>
+          </directory>
+          <directory name="ethers/">
+            <file>decorateEthersInjected.ts</file>
+            <file>decorateJsonRpcProvider.ts</file>
+          </directory>
+        </directory>
+      </directory>
+      <directory name="examples/react/">
+        <file>README.md</file>
+        <directory name="src/">(per‑integration pages demonstrating wrapping; they all render the in‑package `DevtoolsWidget`)</directory>
+      </directory>
+    </directory>
+  </directoryStructure>
 
-### Internal implementation (key files)
-
-- `src/internal/common/types.ts`
-```ts
+  <internalImplementation>
+    <file path="src/internal/common/types.ts">
+      <code language="ts"><![CDATA[
 export type TevmRecord = {
   id: string;
   ts: number;
@@ -67,19 +89,21 @@ export type TevmRecord = {
 };
 
 export type CommonOpts = {}; // for optional later usage
-```
+]]></code>
+    </file>
 
-- `src/internal/common/constants.ts`
-```ts
+    <file path="src/internal/common/constants.ts">
+      <code language="ts"><![CDATA[
 export const BUS_KEY = '__TEVM_DEVTOOLS_BUS__';
 export const WRAP_TAG = Symbol.for('tevm.devtools.wrap');
 export const EVENT_RECORD = 'tevm:record';
 export const EVENT_CLEAR = 'tevm:clear';
 export const MAX_BUFFER = 1000;
-```
+]]></code>
+    </file>
 
-- `src/internal/common/eventBus.ts`
-```ts
+    <file path="src/internal/common/eventBus.ts">
+      <code language="ts"><![CDATA[
 import { BUS_KEY, EVENT_CLEAR, EVENT_RECORD, MAX_BUFFER } from './constants';
 import type { TevmRecord } from './types';
 
@@ -120,25 +144,28 @@ export function devtoolsBus(): DevtoolsBus {
   if (!g[BUS_KEY]) g[BUS_KEY] = createBus();
   return g[BUS_KEY] as DevtoolsBus;
 }
-```
+]]></code>
+    </file>
 
-- `src/internal/common/ids.ts`
-```ts
+    <file path="src/internal/common/ids.ts">
+      <code language="ts"><![CDATA[
 export const newId = () => (crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random()}`);
 export const newProviderId = (prefix: string) => `${prefix}:${Math.random().toString(36).slice(2)}`;
-```
+]]></code>
+    </file>
 
-- `src/internal/common/guards.ts`
-```ts
+    <file path="src/internal/common/guards.ts">
+      <code language="ts"><![CDATA[
 export const isEip1193 = (x: any) => !!x && typeof x.request === 'function';
 export const isViemTransport = (x: any) => typeof x === 'function' && 'length' in x;
 export const isViemClient = (x: any) => !!x?.transport?.request;
 export const isWagmiConfig = (x: any) => !!x?.connectors || !!x?.transports;
 export const isEthersJsonRpcProvider = (x: any) => !!x?.send && !!x?._isProvider;
-```
+]]></code>
+    </file>
 
-- `src/internal/common/decorateRequestEip1193.ts`
-```ts
+    <file path="src/internal/common/decorateRequestEip1193.ts">
+      <code language="ts"><![CDATA[
 import { devtoolsBus } from './eventBus';
 import { newId, newProviderId } from './ids';
 import { WRAP_TAG } from './constants';
@@ -176,20 +203,22 @@ export function decorateRequestEip1193<T extends { request: (a: { method: string
   (proxy as any)[WRAP_TAG] = true;
   return proxy as T;
 }
-```
+]]></code>
+    </file>
 
-- `src/internal/eip1193/decorateEip1193.ts`
-```ts
+    <file path="src/internal/eip1193/decorateEip1193.ts">
+      <code language="ts"><![CDATA[
 import type { CommonOpts } from '../common/types';
 import { decorateRequestEip1193 } from '../common/decorateRequestEip1193';
 
 export function decorateEip1193<T extends { request: Function }>(provider: T, name = 'eip1193', opts?: CommonOpts): T {
   return decorateRequestEip1193(provider as any, name, opts);
 }
-```
+]]></code>
+    </file>
 
-- `src/internal/viem/decorateViemTransport.ts`
-```ts
+    <file path="src/internal/viem/decorateViemTransport.ts">
+      <code language="ts"><![CDATA[
 import type { CommonOpts } from '../common/types';
 import { decorateRequestEip1193 } from '../common/decorateRequestEip1193';
 
@@ -202,10 +231,11 @@ export function decorateViemTransport<T extends import('viem').Transport>(base: 
     return decorateRequestEip1193(t, 'viem:transport', opts);
   }) as unknown as T;
 }
-```
+]]></code>
+    </file>
 
-- `src/internal/viem/decorateViemClient.ts`
-```ts
+    <file path="src/internal/viem/decorateViemClient.ts">
+      <code language="ts"><![CDATA[
 import type { CommonOpts } from '../common/types';
 import { decorateViemTransport } from './decorateViemTransport';
 
@@ -214,10 +244,11 @@ export function decorateViemClient<T extends { transport: any }>(client: T, opts
   const transport = decorateViemTransport(client.transport, opts);
   return { ...client, transport } as T;
 }
-```
+]]></code>
+    </file>
 
-- `src/internal/wagmi/decorateWagmiConfig.ts`
-```ts
+    <file path="src/internal/wagmi/decorateWagmiConfig.ts">
+      <code language="ts"><![CDATA[
 import type { CommonOpts } from '../common/types';
 import { decorateViemTransport } from '../viem/decorateViemTransport';
 import { decorateEip1193 } from '../eip1193/decorateEip1193';
@@ -243,16 +274,18 @@ export function decorateWagmiConfig(cfg: any, opts?: CommonOpts) {
 
   return { ...cfg, transports, connectors };
 }
-```
+]]></code>
+    </file>
 
-- `src/internal/ethers/decorateEthersInjected.ts`
-```ts
+    <file path="src/internal/ethers/decorateEthersInjected.ts">
+      <code language="ts"><![CDATA[
 import { decorateEip1193 } from '../eip1193/decorateEip1193';
 export const decorateEthersInjected = (eip1193: any) => decorateEip1193(eip1193, 'ethers:injected');
-```
+]]></code>
+    </file>
 
-- `src/internal/ethers/decorateJsonRpcProvider.ts`
-```ts
+    <file path="src/internal/ethers/decorateJsonRpcProvider.ts">
+      <code language="ts"><![CDATA[
 import { devtoolsBus } from '../common/eventBus';
 import { newId, newProviderId } from '../common/ids';
 
@@ -278,10 +311,11 @@ export function decorateJsonRpcProvider<T extends { send: Function }>(prov: T): 
     },
   });
 }
-```
+]]></code>
+    </file>
 
-- `src/withTevmDevtools.ts`
-```ts
+    <file path="src/withTevmDevtools.ts">
+      <code language="ts"><![CDATA[
 import type { CommonOpts } from './internal/common/types';
 import { isWagmiConfig, isViemClient, isViemTransport, isEip1193, isEthersJsonRpcProvider } from './internal/common/guards';
 import { decorateWagmiConfig } from './internal/wagmi/decorateWagmiConfig';
@@ -299,10 +333,11 @@ export function withTevmDevtools(input: any, opts: CommonOpts = {}): any {
 
   return input;
 }
-```
+]]></code>
+    </file>
 
-- `src/installWindowEthereumDevtools.ts`
-```ts
+    <file path="src/installWindowEthereumDevtools.ts">
+      <code language="ts"><![CDATA[
 import { decorateEip1193 } from './internal/eip1193/decorateEip1193';
 
 export function installWindowEthereumDevtools(opts?: { includeMultiInjected?: boolean }) {
@@ -318,18 +353,20 @@ export function installWindowEthereumDevtools(opts?: { includeMultiInjected?: bo
     );
   }
 }
-```
+]]></code>
+    </file>
 
-- `src/index.ts`
-```ts
+    <file path="src/index.ts">
+      <code language="ts"><![CDATA[
 export { withTevmDevtools } from './withTevmDevtools';
 export { installWindowEthereumDevtools } from './installWindowEthereumDevtools';
 export { devtoolsBus } from './internal/common/eventBus';
 export type { TevmRecord, CommonOpts } from './internal/common/types';
-```
+]]></code>
+    </file>
 
-- `src/react/DevtoolsWidget.tsx` (high‑level sketch)
-```ts
+    <file path="src/react/DevtoolsWidget.tsx (high‑level sketch)">
+      <code language="tsx"><![CDATA[
 import React from 'react';
 import { devtoolsBus } from '../internal/common/eventBus';
 import type { TevmRecord } from '../internal/common/types';
@@ -339,7 +376,7 @@ export function DevtoolsWidget() {
   const [records, setRecords] = React.useState<TevmRecord[]>(() => devtoolsBus().history());
 
   React.useEffect(() => {
-    const unsub = devtoolsBus().subscribe((r) => setRecords((prev) => [...prev, r].slice(-1000)));
+    const unsub = devtoolsBus().subscribe((r) => setRecords((prev) => [...prev, r].slice(-1000)]);
     return unsub;
   }, []);
 
@@ -366,18 +403,24 @@ export function DevtoolsWidget() {
     </>
   );
 }
-```
+]]></code>
+    </file>
 
-- `src/react/index.ts`
-```ts
+    <file path="src/react/index.ts">
+      <code language="ts"><![CDATA[
 export { DevtoolsWidget } from './DevtoolsWidget';
-```
+]]></code>
+    </file>
+  </internalImplementation>
 
-### Examples (React; plain files under `extensions/devtools/examples/react`)
-They demonstrate wrapping only; UI comes from the in‑package widget:
-- viem: `withTevmDevtools(http(...))` → `createPublicClient`; render `<DevtoolsWidget />`.
-- wagmi: `withTevmDevtools(createConfig(...))` → render `<WagmiConfig>` and `<DevtoolsWidget />`.
-- ethers injected: wrap `window.ethereum` then `new BrowserProvider`; render widget.
-- ethers JsonRpc: wrap `JsonRpcProvider` instance (intercept `send`); render widget.
-- raw injected EIP‑1193: call `withTevmDevtools(window.ethereum)`; render widget.
-- mixed dedup: early injected override + wrapped wagmi config → no duplicates.
+  <examples>
+    <intro>Examples (React; plain files under `extensions/devtools/examples/react`)</intro>
+    <note>They demonstrate wrapping only; UI comes from the in‑package widget:</note>
+    <example>viem: `withTevmDevtools(http(...))` → `createPublicClient`; render `<DevtoolsWidget />`.</example>
+    <example>wagmi: `withTevmDevtools(createConfig(...))` → render `<WagmiConfig>` and `<DevtoolsWidget />`.</example>
+    <example>ethers injected: wrap `window.ethereum` then `new BrowserProvider`; render widget.</example>
+    <example>ethers JsonRpc: wrap `JsonRpcProvider` instance (intercept `send`); render widget.</example>
+    <example>raw injected EIP‑1193: call `withTevmDevtools(window.ethereum)`; render widget.</example>
+    <example>mixed dedup: early injected override + wrapped wagmi config → no duplicates.</example>
+  </examples>
+</devtoolsScaffoldingContext>
