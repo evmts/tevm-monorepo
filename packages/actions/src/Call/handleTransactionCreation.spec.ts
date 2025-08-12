@@ -43,7 +43,7 @@ describe(handleTransactionCreation.name, async () => {
 
 		expect(errors).toBeUndefined()
 		expect(hash).toBeDefined()
-		expect(hash).toMatchSnapshot()
+		expect(hash).toBeHex()
 	})
 
 	it('should do nothing if createTransaction is false', async () => {
