@@ -1,0 +1,2 @@
+export function blockToJsonRpcBlock(block: import("@tevm/block").Block, includeTransactions: boolean): Promise<Required<import("../eth/EthJsonRpcResponse.js").EthGetBlockByHashJsonRpcResponse>["result"]>;
+//# sourceMappingURL=blockToJsonRpcBlock.d.ts.map

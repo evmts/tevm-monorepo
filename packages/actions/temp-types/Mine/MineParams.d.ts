@@ -1,0 +1,35 @@
+import type { BaseParams } from '../common/BaseParams.js';
+import type { Hex } from '../common/Hex.js';
+import type { MineEvents } from './MineEvents.js';
+/**
+ * Tevm params to mine one or more blocks.
+ * @example
+ * ```typescript
+ * const mineParams: import('@tevm/actions').MineParams = {
+ *   blockCount: 5,
+ *   onBlock: (block, next) => {
+ *     console.log(`Block mined: ${block.header.number}`)
+ *     next()
+ *   }
+ * }
+ * ```
+ * @property {number} [blockCount=1] - Number of blocks to mine. Defaults to 1.
+ * @property {number} [interval=1] - Interval between block timestamps in seconds. Defaults to 1.
+ * @extends {BaseParams}
+ * @extends {MineEvents}
+ */
+export type MineParams<TThrowOnFail extends boolean = boolean> = BaseParams<TThrowOnFail> & MineEvents & {
+    /**
+     * The txHash to mine if only mining one tx
+     */
+    readonly tx?: Hex;
+    /**
+     * Number of blocks to mine. Defaults to 1.
+     */
+    readonly blockCount?: number;
+    /**
+     * Interval between block timestamps. Defaults to 1.
+     */
+    readonly interval?: number;
+};
+//# sourceMappingURL=MineParams.d.ts.map

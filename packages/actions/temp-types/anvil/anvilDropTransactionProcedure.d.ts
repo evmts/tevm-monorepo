@@ -1,0 +1,2 @@
+export function anvilDropTransactionJsonRpcProcedure(client: import("@tevm/node").TevmNode): import("./AnvilProcedure.js").AnvilDropTransactionProcedure;
+//# sourceMappingURL=anvilDropTransactionProcedure.d.ts.map

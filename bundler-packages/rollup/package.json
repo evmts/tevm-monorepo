@@ -65,7 +65,7 @@
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"vitest": "^3.1.4"
+		"vitest": "^3.2.4"
 	},
 	"publishConfig": {
 		"access": "public"

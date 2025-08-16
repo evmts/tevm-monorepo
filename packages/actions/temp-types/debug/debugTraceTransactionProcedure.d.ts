@@ -1,0 +1,2 @@
+export function debugTraceTransactionJsonRpcProcedure(client: import("@tevm/node").TevmNode): import("./DebugProcedure.js").DebugTraceTransactionProcedure;
+//# sourceMappingURL=debugTraceTransactionProcedure.d.ts.map

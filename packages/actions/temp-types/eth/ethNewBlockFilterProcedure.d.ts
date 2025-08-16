@@ -1,0 +1,2 @@
+export function ethNewBlockFilterProcedure(client: import("@tevm/node").TevmNode): import("./EthProcedure.js").EthNewBlockFilterJsonRpcProcedure;
+//# sourceMappingURL=ethNewBlockFilterProcedure.d.ts.map

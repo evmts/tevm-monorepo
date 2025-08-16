@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`moduleFactory > should resolve correctly for case basic 1`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case basic 1`] = `{}`;
 
 exports[`moduleFactory > should resolve correctly for case basic 2`] = `
 "{
@@ -14,7 +14,7 @@ exports[`moduleFactory > should resolve correctly for case basic 2`] = `
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case basic 3`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case basic 3`] = `{}`;
 
 exports[`moduleFactory > should resolve correctly for case basic 4`] = `
 "{
@@ -28,7 +28,7 @@ exports[`moduleFactory > should resolve correctly for case basic 4`] = `
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case differentpragma 1`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case differentpragma 1`] = `{}`;
 
 exports[`moduleFactory > should resolve correctly for case differentpragma 2`] = `
 "{
@@ -41,7 +41,7 @@ exports[`moduleFactory > should resolve correctly for case differentpragma 2`] =
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case differentpragma 3`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case differentpragma 3`] = `{}`;
 
 exports[`moduleFactory > should resolve correctly for case differentpragma 4`] = `
 "{
@@ -54,7 +54,7 @@ exports[`moduleFactory > should resolve correctly for case differentpragma 4`] =
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case multilevel 1`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case multilevel 1`] = `{}`;
 
 exports[`moduleFactory > should resolve correctly for case multilevel 2`] = `
 "{
@@ -67,7 +67,7 @@ exports[`moduleFactory > should resolve correctly for case multilevel 2`] = `
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case multilevel 3`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case multilevel 3`] = `{}`;
 
 exports[`moduleFactory > should resolve correctly for case multilevel 4`] = `
 "{
@@ -80,7 +80,7 @@ exports[`moduleFactory > should resolve correctly for case multilevel 4`] = `
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case noimports 1`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case noimports 1`] = `{}`;
 
 exports[`moduleFactory > should resolve correctly for case noimports 2`] = `
 "{
@@ -91,7 +91,7 @@ exports[`moduleFactory > should resolve correctly for case noimports 2`] = `
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case noimports 3`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case noimports 3`] = `{}`;
 
 exports[`moduleFactory > should resolve correctly for case noimports 4`] = `
 "{
@@ -102,7 +102,7 @@ exports[`moduleFactory > should resolve correctly for case noimports 4`] = `
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case unusualpaths 1`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case unusualpaths 1`] = `{}`;
 
 exports[`moduleFactory > should resolve correctly for case unusualpaths 2`] = `
 "{
@@ -115,7 +115,7 @@ exports[`moduleFactory > should resolve correctly for case unusualpaths 2`] = `
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case unusualpaths 3`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case unusualpaths 3`] = `{}`;
 
 exports[`moduleFactory > should resolve correctly for case unusualpaths 4`] = `
 "{
@@ -128,7 +128,7 @@ exports[`moduleFactory > should resolve correctly for case unusualpaths 4`] = `
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case withcomments 1`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case withcomments 1`] = `{}`;
 
 exports[`moduleFactory > should resolve correctly for case withcomments 2`] = `
 "{
@@ -141,7 +141,7 @@ exports[`moduleFactory > should resolve correctly for case withcomments 2`] = `
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case withcomments 3`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case withcomments 3`] = `{}`;
 
 exports[`moduleFactory > should resolve correctly for case withcomments 4`] = `
 "{
@@ -154,7 +154,7 @@ exports[`moduleFactory > should resolve correctly for case withcomments 4`] = `
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case withlib 1`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case withlib 1`] = `{}`;
 
 exports[`moduleFactory > should resolve correctly for case withlib 2`] = `
 "{
@@ -167,7 +167,7 @@ exports[`moduleFactory > should resolve correctly for case withlib 2`] = `
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case withlib 3`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case withlib 3`] = `{}`;
 
 exports[`moduleFactory > should resolve correctly for case withlib 4`] = `
 "{
@@ -180,7 +180,7 @@ exports[`moduleFactory > should resolve correctly for case withlib 4`] = `
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case withremappings 1`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case withremappings 1`] = `{}`;
 
 exports[`moduleFactory > should resolve correctly for case withremappings 2`] = `
 "{
@@ -193,7 +193,7 @@ exports[`moduleFactory > should resolve correctly for case withremappings 2`] = 
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case withremappings 3`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case withremappings 3`] = `{}`;
 
 exports[`moduleFactory > should resolve correctly for case withremappings 4`] = `
 "{

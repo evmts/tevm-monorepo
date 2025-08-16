@@ -1,0 +1,2 @@
+export function callHandlerResult(evmResult: import("@tevm/vm").RunTxResult & import("@tevm/evm").EvmResult, txHash: import("@tevm/utils").Hex | undefined, trace: import("../common/TraceResult.js").TraceResult | undefined, accessList: Map<string, Set<string>> | undefined): import("./CallResult.js").CallResult;
+//# sourceMappingURL=callHandlerResult.d.ts.map

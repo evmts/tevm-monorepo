@@ -1,0 +1,2 @@
+export function ethGetTransactionByBlockHashAndIndexJsonRpcProcedure(client: import("@tevm/node").TevmNode): import("./EthProcedure.js").EthGetTransactionByBlockHashAndIndexJsonRpcProcedure;
+//# sourceMappingURL=ethGetTransactionByBlockHashAndIndexProcedure.d.ts.map

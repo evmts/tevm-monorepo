@@ -1,0 +1,1 @@
+{"version":3,"file":"ethGetTransactionByBlockNumberAndIndexProcedure.d.ts","sourceRoot":"","sources":["../../src/eth/ethGetTransactionByBlockNumberAndIndexProcedure.js"],"names":[],"mappings":"AAQO,+EAHI,OAAO,YAAY,EAAE,QAAQ,GAC3B,OAAO,mBAAmB,EAAE,sDAAsD,CA2C9F"}

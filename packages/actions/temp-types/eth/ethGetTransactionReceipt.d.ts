@@ -1,0 +1,2 @@
+export function ethGetTransactionReceiptHandler(client: import("@tevm/node").TevmNode): import("./EthHandler.js").EthGetTransactionReceiptHandler;
+//# sourceMappingURL=ethGetTransactionReceipt.d.ts.map

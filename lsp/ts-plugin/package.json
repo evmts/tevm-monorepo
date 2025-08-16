@@ -66,10 +66,10 @@
 	"dependencies": {
 		"@tevm/base-bundler": "workspace:^",
 		"@tevm/bundler-cache": "workspace:^",
-		"@types/minimatch": "^5.1.2",
-		"effect": "3.15.4",
-		"glob": "^11.0.2",
-		"minimatch": "^10.0.1",
+		"@types/minimatch": "^6.0.0",
+		"effect": "3.17.3",
+		"glob": "^11.0.3",
+		"minimatch": "^10.0.3",
 		"solc": "0.8.30",
 		"solidity-ast": "^0.4.60"
 	},

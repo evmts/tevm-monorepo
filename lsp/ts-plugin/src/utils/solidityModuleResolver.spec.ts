@@ -30,7 +30,7 @@ describe('solidityModuleResolver', () => {
 			__dirname,
 		)?.resolvedFileName.replace(path.join(__dirname, '..', '..', '..', '..'), '')
 		expect(result).toMatchInlineSnapshot(
-			`"/node_modules/.pnpm/@openzeppelin+contracts@5.3.0/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol"`,
+			`"/node_modules/.pnpm/@openzeppelin+contracts@5.4.0/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol"`,
 		)
 	})
 

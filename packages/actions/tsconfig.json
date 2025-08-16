@@ -2,7 +2,7 @@
 	"extends": "@tevm/tsconfig/base.json",
 	"compilerOptions": {
 		"rootDir": "src",
-		"outDir": "types",
+		"outDir": "temp-types",
 		"skipLibCheck": true,
 		"types": ["bun-types"]
 	},

@@ -78,8 +78,8 @@
 	"dependencies": {
 		"@tevm/memory-client": "workspace:^",
 		"@tevm/server": "workspace:^",
-		"viem": "^2.30.1",
-		"vitest": "^3.1.4"
+		"viem": "^2.33.1",
+		"vitest": "^3.2.4"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",

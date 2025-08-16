@@ -1,0 +1,2 @@
+export function ethAccountsProcedure(accounts: ReadonlyArray<import("@tevm/utils").Account>): import("./EthProcedure.js").EthAccountsJsonRpcProcedure;
+//# sourceMappingURL=ethAccountsProcedure.d.ts.map

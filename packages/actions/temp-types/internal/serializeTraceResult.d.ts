@@ -1,0 +1,2 @@
+export function serializeTraceResult<TTracer extends "callTracer" | "prestateTracer" | undefined, TDiffMode extends boolean, TTraceResult extends import("../debug/DebugResult.js").DebugTraceCallResult<TTracer, TDiffMode>>(traceResult: TTraceResult): import("../utils/SerializeToJson.js").SerializeToJson<TTraceResult>;
+//# sourceMappingURL=serializeTraceResult.d.ts.map

@@ -1,0 +1,2 @@
+export function parseBlockTag(blockTag: import("@tevm/utils").Hex | import("@tevm/utils").BlockTag): bigint | import("@tevm/utils").Hex | import("@tevm/utils").BlockTag;
+//# sourceMappingURL=parseBlockTag.d.ts.map

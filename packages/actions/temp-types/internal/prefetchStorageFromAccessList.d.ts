@@ -1,0 +1,2 @@
+export function prefetchStorageFromAccessList(client: import("@tevm/node").TevmNode, accessList: Map<string, Set<string>> | undefined): Promise<void>;
+//# sourceMappingURL=prefetchStorageFromAccessList.d.ts.map

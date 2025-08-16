@@ -40,6 +40,6 @@
   },
   "dependencies": {
     "@tevm/tsconfig": "workspace:^",
-    "@types/node": "^22.15.21"
+    "@types/node": "^24.1.0"
   }
 }

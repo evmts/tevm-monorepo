@@ -1,0 +1,2 @@
+export function anvilImpersonateAccountJsonRpcProcedure(client: import("@tevm/node").TevmNode): import("./AnvilProcedure.js").AnvilImpersonateAccountProcedure;
+//# sourceMappingURL=anvilImpersonateAccountProcedure.d.ts.map

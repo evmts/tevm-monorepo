@@ -1,0 +1,2 @@
+export function requestProcedure(client: import("@tevm/node").TevmNode): import("./tevm-request-handler/TevmJsonRpcRequestHandler.js").TevmJsonRpcRequestHandler;
+//# sourceMappingURL=requestProcedure.d.ts.map

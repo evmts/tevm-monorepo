@@ -1,0 +1,2 @@
+export function emitEvents(client: import("@tevm/node").TevmNode, newBlocks: Array<import("@tevm/block").Block>, newReceipts: Map<import("@tevm/utils").Hex, Array<import("@tevm/receipt-manager").TxReceipt>>, params?: import("./MineParams.js").MineParams): Promise<void>;
+//# sourceMappingURL=emitEvents.d.ts.map

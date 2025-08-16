@@ -5561,6 +5561,7 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
     },
   },
   "precompiles": Map {
+    "0000000000000000000000000000000000000100" => [Function],
     "0000000000000000000000000000000000000001" => [Function],
     "0000000000000000000000000000000000000002" => [Function],
     "0000000000000000000000000000000000000003" => [Function],

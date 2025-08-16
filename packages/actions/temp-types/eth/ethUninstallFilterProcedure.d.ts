@@ -1,0 +1,2 @@
+export function ethUninstallFilterJsonRpcProcedure(client: import("@tevm/node").TevmNode): import("./EthProcedure.js").EthUninstallFilterJsonRpcProcedure;
+//# sourceMappingURL=ethUninstallFilterProcedure.d.ts.map

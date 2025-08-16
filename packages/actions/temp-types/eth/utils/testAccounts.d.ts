@@ -1,0 +1,3 @@
+export const mnemonic: "test test test test test test test test test test test junk";
+export const testAccounts: [import("@tevm/utils").HDAccount, import("@tevm/utils").HDAccount, import("@tevm/utils").HDAccount, import("@tevm/utils").HDAccount, import("@tevm/utils").HDAccount, import("@tevm/utils").HDAccount, import("@tevm/utils").HDAccount, import("@tevm/utils").HDAccount, import("@tevm/utils").HDAccount, import("@tevm/utils").HDAccount];
+//# sourceMappingURL=testAccounts.d.ts.map

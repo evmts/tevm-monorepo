@@ -1,0 +1,2 @@
+export function ethSendRawTransactionJsonRpcProcedure(client: import("@tevm/node").TevmNode): import("./EthProcedure.js").EthSendRawTransactionJsonRpcProcedure;
+//# sourceMappingURL=ethSendRawTransactionProcedure.d.ts.map

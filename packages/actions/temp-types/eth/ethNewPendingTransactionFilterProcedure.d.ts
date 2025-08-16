@@ -1,0 +1,2 @@
+export function ethNewPendingTransactionFilterProcedure(client: import("@tevm/node").TevmNode): import("./EthProcedure.js").EthNewPendingTransactionFilterJsonRpcProcedure;
+//# sourceMappingURL=ethNewPendingTransactionFilterProcedure.d.ts.map

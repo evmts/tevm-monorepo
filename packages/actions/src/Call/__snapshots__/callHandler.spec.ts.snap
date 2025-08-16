@@ -81,11 +81,11 @@ Version: 1.1.0.next-73],
 
 exports[`callHandler > should handle unexpected errors during param conversion 1`] = `
 [
-  [InvalidGasPrice: Invalid input
+  [InvalidGasPrice: Number must be greater than or equal to 0
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
 Version: 1.1.0.next-73],
-  [InvalidGasPrice: Invalid input
+  [InvalidGasPrice: Number must be greater than or equal to 0
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
 Version: 1.1.0.next-73],

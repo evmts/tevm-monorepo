@@ -1,0 +1,2 @@
+export function ethGetFilterChangesProcedure(client: import("@tevm/node").TevmNode): import("./EthProcedure.js").EthGetFilterChangesJsonRpcProcedure;
+//# sourceMappingURL=ethGetFilterChangesProcedure.d.ts.map

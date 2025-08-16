@@ -1,0 +1,2 @@
+export function anvilSetCoinbaseJsonRpcProcedure(client: import("@tevm/node").TevmNode): import("./AnvilProcedure.js").AnvilSetCoinbaseProcedure;
+//# sourceMappingURL=anvilSetCoinbaseProcedure.d.ts.map
