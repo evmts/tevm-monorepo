@@ -71,17 +71,20 @@
 		"lint:package": "bunx publint --strict && attw --pack",
 		"package:up": "pnpm up --latest",
 		"test": "vitest --watch",
+		"test:cleanup": "rm -rf __snapshots__",
 		"test:coverage": "vitest --coverage --run",
 		"test:run": "vitest",
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
+		"@tevm/actions": "workspace:^",
 		"@tevm/memory-client": "workspace:^",
 		"@tevm/server": "workspace:^",
 		"viem": "^2.30.1",
 		"vitest": "^3.1.4"
 	},
 	"devDependencies": {
+		"@tevm/common": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
 	},

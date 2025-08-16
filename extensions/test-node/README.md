@@ -1,13 +1,14 @@
-# @tevm/test-utils
+# @tevm/test-node
 
 A utility package for testing applications with Tevm. It provides a simple way to spin up a local, forked Tevm instance with built-in JSON-RPC snapshotting for fast, reliable, and deterministic tests.
 
 ## Features
 
--   **Programmatic Test Server**: Easily create and control a Tevm server within your tests.
--   **JSON-RPC Snapshotting**: Automatically caches JSON-RPC requests to disk. Subsequent test runs are served from the cache, making them orders of magnitude faster and immune to network flakiness.
--   **Forking Support**: Test against a fork of any EVM-compatible network.
--   **Seamless Vitest Integration**: Designed to work perfectly with Vitest's lifecycle hooks.
+-   **Auto-managed Test Server**: Zero-config test server that automatically starts/stops per test file
+-   **JSON-RPC Snapshotting**: Automatically caches JSON-RPC requests to disk. Subsequent test runs are served from the cache, making them orders of magnitude faster and immune to network flakiness
+-   **Forking Support**: Test against a fork of any EVM-compatible network
+-   **Seamless Vitest Integration**: Designed to work perfectly with Vitest's lifecycle hooks
+-   **One Snapshot Per Test File**: Clean organization with snapshots stored in `__snapshots__/[testFileName]/`
 
 ## Installation
 
@@ -16,101 +17,83 @@ pnpm add -D @tevm/test-node vitest
 npm install -D @tevm/test-node vitest
 ```
 
-## Quick Start
+## Usage
 
-Here’s how to set up `@tevm/test-node` with Vitest to test a contract against a fork of Optimism.
+### 1. Configure in vitest.setup.ts
 
-### Step 1: Create a test setup file
-
-Create a file named `vitest.setup.ts` in your project's `src` directory. This file will create a single, shared test client for all your tests.
-
-```typescript:src/vitest.setup.ts
-import { createTestSnapshotClient } from '@tevm/test-node'
+```typescript
+import { mainnet } from '@tevm/common'
+import { http } from 'viem'
 import { afterAll, beforeAll } from 'vitest'
+import { configureTestClient } from '@tevm/test-node'
 
-// Create the test client with your desired fork configuration
-export const testClient = createTestSnapshotClient({
+// Configure once globally
+const client = configureTestClient({
   tevm: {
     fork: {
-      url: 'https://mainnet.optimism.io',
+      transport: http('https://mainnet.optimism.io'),
+      blockTag: 123456n
     },
-  },
-  snapshot: {
-    // Snapshots will be stored in a directory relative to your tests
-    dir: '__snapshots__',
+    common: mainnet,
   },
 })
 
-// Use Vitest hooks to start and stop the server
+const
+
 beforeAll(async () => {
-  await testClient.start()
+  await client.start()
 })
 
 afterAll(async () => {
-  await testClient.stop()
+  await client.destroy()
 })
 ```
 
-### Step 2: Configure Vitest
+### 2. Use in tests
 
-In your `vitest.config.ts` file, add the setup file to the `setupFiles` array (add it first so the server is started before any other setup files).
+```typescript
+import { it } from 'vitest'
+import { getTestClient } from '@tevm/test-node'
 
-```typescript:vitest.config.ts
-import { defineConfig } from 'vitest/config'
-
-export default defineConfig({
-  test: {
-    // This tells Vitest to run our setup file before any tests.
-    setupFiles: ['./src/vitest.setup.ts'],
-  },
+it('should cache RPC requests', async () => {
+  const client = getTestClient()
+  await client.tevm.getBlock({ blockNumber: 123456n })
 })
 ```
 
-### Step 3: Write Your Tests
+You can always use a viem client to communicate with the local server.
 
-Now you can write tests and import the `testClient`, which extends a viem client with Tevm actions, or just create a viem client.
+```typescript
+import { createPublicClient, http } from 'viem'
+import { getTestClient } from '@tevm/test-node'
 
-```typescript:src/MyContract.test.ts
-import { testClient } from './vitest.setup'
-import { assert, describe, it, expect } from 'vitest'
-import { MyContract } from './MyContract.sol'
-
-// Get the Tevm memory client:
-const client = testClient.tevm
-
-// Or just create a viem client:
+const { rpcUrl } = getTestClient()
 const client = createPublicClient({
-  transport: http(testClient.rpcUrl),
+  transport: http(rpcUrl),
 })
 
-describe('MyContract', () => {
-  it('should deploy and have the correct initial value', async () => {
-    // The Tevm memory client allows to do such actions:
-    const { createdAddress } = await client.tevmDeploy(MyContract, {
-      args: [42n],
-    })
-    assert(createdAddress, 'Contract deployment failed')
-
-    // The first time you run this, it will be a real RPC call to the fork url.
-    // Subsequent runs will be instant, served from a snapshot.
-    const value = await client.tevmContract(MyContract.withAddress(createdAddress).read.someValue())
-
-    expect(value).toBe(42n)
-  })
-})
+const block = await client.getBlock({ blockNumber: 123456n })
 ```
 
-The first time you run your tests, it will be slower as it records the RPC requests. Subsequent runs will be significantly faster.
+Snapshots are automatically saved to `__snapshots__/[testFileName]/recording.har` and reused on subsequent runs.
 
 ## API Reference
 
-### `createTestSnapshotClient(options)`
+### `configureTestClient(options)`
 
--   `options.tevm`: Configuration options for the underlying `@tevm/memory-client`. Use this to set up forking.
--   `options.snapshot`: Configuration options for RPC snapshotting via Polly.js.
-    -   `dir`: The directory to store `.har` snapshot files.
--   **Returns**: An object with:
-    -   `tevm`: The `MemoryClient` instance.
-    -   `start`: An async function that starts the server.
-    -   `stop`: An async function that stops the server.
-    -   `rpcUrl`: The URL of the running test server.
+Global configuration for all test clients.
+
+- `options.tevm`: Configuration for the underlying `@tevm/memory-client`
+- `options.snapshot.dir?`: Directory for snapshots (default: `__snapshots__`)
+
+### `getTestClient()`
+
+Returns the auto-managed test client for the current test file.
+
+- `tevm`: The `MemoryClient` instance
+- `server`: HTTP server instance
+- `rpcUrl`: URL of the running server
+- `start()`: Start the server
+- `stop()`: Stop the server (keeps Polly running)
+- `flush()`: Flush recordings to disk without stopping
+- `destroy()`: Complete cleanup (server + Polly)
