@@ -31,7 +31,14 @@ import { getAddress, keccak256, toBytes, toHex } from './viem.js'
  * ```
  */
 export function recoverPublicKey({ hash, signature }) {
-	const v = signature.yParity !== undefined ? signature.yParity : signature.v - 27
+	const v =
+		signature.yParity !== undefined
+			? signature.yParity
+			: signature.v !== undefined
+				? signature.v - 27
+				: (() => {
+						throw new Error('Either v or yParity must be provided in signature')
+					})()
 
 	// Convert bigint values to proper byte arrays for ecrecover
 	const rBytes = new Uint8Array(32)
