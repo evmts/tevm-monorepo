@@ -73,10 +73,10 @@
 		"@tevm/actions": "workspace:^",
 		"@tevm/errors": "workspace:^",
 		"@tevm/utils": "workspace:^",
-		"abitype": "^1.0.8",
-		"ox": "^0.7.2",
-		"viem": "^2.30.1",
-		"vitest": "^3.1.4"
+		"abitype": "^1.1.0",
+		"ox": "^0.9.6",
+		"viem": "^2.37.4",
+		"vitest": "^3.2.4"
 	},
 	"devDependencies": {
 		"@tevm/common": "workspace:^",
@@ -84,7 +84,7 @@
 		"@tevm/tsupconfig": "workspace:^"
 	},
 	"peerDependencies": {
-		"viem": "^2.30.1"
+		"viem": "^2.37.4"
 	},
 	"publishConfig": {
 		"access": "public"

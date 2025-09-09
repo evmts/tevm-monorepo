@@ -68,9 +68,9 @@
 	"dependencies": {
 		"@effect/schema": "0.75.5",
 		"@tevm/effect": "workspace:^",
-		"@types/node": "^22.15.21",
-		"effect": "3.15.4",
-		"zod": "^3.25.30"
+		"@types/node": "^24.3.1",
+		"effect": "3.17.13",
+		"zod": "^4.1.5"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",

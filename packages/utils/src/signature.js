@@ -5,7 +5,7 @@ import { getAddress, keccak256, toBytes, toHex } from './viem.js'
  * @typedef {Object} Signature
  * @property {bigint} r - The r value of the signature
  * @property {bigint} s - The s value of the signature  
- * @property {number} v - The recovery id (27 or 28)
+ * @property {number} [v] - The recovery id (27 or 28)
  * @property {0 | 1} [yParity] - The y parity (0 or 1)
  */
 
@@ -31,7 +31,11 @@ import { getAddress, keccak256, toBytes, toHex } from './viem.js'
  * ```
  */
 export function recoverPublicKey({ hash, signature }) {
-	const v = signature.yParity !== undefined ? signature.yParity : signature.v - 27
+	const v = signature.yParity !== undefined 
+		? signature.yParity 
+		: signature.v !== undefined 
+			? signature.v - 27 
+			: (() => { throw new Error('Either v or yParity must be provided in signature') })()
 	
 	// Convert bigint values to proper byte arrays for ecrecover
 	const rBytes = new Uint8Array(32)
@@ -184,7 +188,7 @@ export async function signMessage({ privateKey, message }) {
 	// Convert viem signature format to our format
 	// The last byte in viem signature is already the v value (27/28)
 	const v = parseInt(signature.slice(130, 132), 16)
-	const yParity = v - 27  // Convert v to yParity (0/1)
+	const yParity = /** @type {0 | 1} */ (v - 27)  // Convert v to yParity (0/1)
 	
 	return {
 		r: BigInt(signature.slice(0, 66)), // First 32 bytes as hex
