@@ -100,5 +100,12 @@ export const callHandlerResult = (evmResult, txHash, trace, accessList) => {
 	if (/** @type {any} */ (evmResult).createdAddress) {
 		out.createdAddress = getAddress(/** @type {any} */ (evmResult).createdAddress.toString())
 	}
+
+	// Set status based on execution success/failure (1 for success, 0 for failure)
+	// Status is only meaningful when the transaction is actually executed on-chain
+	if (txHash) {
+		out.status = /** @type {any} */ (evmResult).execResult.exceptionError ? '0x0' : '0x1'
+	}
+
 	return out
 }

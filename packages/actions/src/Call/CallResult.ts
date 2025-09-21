@@ -172,4 +172,9 @@ export type CallResult<ErrorType = TevmCallError> = {
 	 * The value that accrues to the miner by this transaction.
 	 */
 	minerValue?: bigint
+	/**
+	 * Status of transaction execution (1 for success, 0 for failure).
+	 * Only present for post-Byzantium transactions when the transaction is included in the blockchain.
+	 */
+	status?: Hex
 }
