@@ -1,7 +1,30 @@
-import { BaseError, InternalError } from '@tevm/errors'
-import { bytesToHex } from '@tevm/utils'
+import { InternalError } from '@tevm/errors'
+import { bytesToHex, numberToHex } from '@tevm/utils'
 import { getPendingClient } from '../internal/getPendingClient.js'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
+
+/**
+ * Converts TevmState with BigInt values to SerializableTevmState with Hex strings
+ * @param {import('@tevm/state').TevmState} state - The state to convert
+ * @returns {import('@tevm/state').SerializableTevmState} The serializable state
+ */
+const serializeState = (state) => {
+	/** @type {import('@tevm/state').SerializableTevmState} */
+	const serializedState = {}
+
+	for (const [address, account] of Object.entries(state)) {
+		serializedState[address] = {
+			nonce: numberToHex(account.nonce),
+			balance: numberToHex(account.balance),
+			storageRoot: account.storageRoot,
+			codeHash: account.codeHash,
+			...(account.deployedBytecode && { deployedBytecode: account.deployedBytecode }),
+			...(account.storage && { storage: account.storage }),
+		}
+	}
+
+	return serializedState
+}
 
 /**
  * Creates a handler for dumping the TEVM state.
@@ -43,11 +66,13 @@ export const dumpStateHandler =
 					: await client.getVm()
 			if ('dumpCanonicalGenesis' in vm.stateManager) {
 				if (blockTag === 'latest' || blockTag === 'pending') {
-					return { state: await vm.stateManager.dumpCanonicalGenesis() }
+					const rawState = await vm.stateManager.dumpCanonicalGenesis()
+					return { state: serializeState(rawState) }
 				}
 				const block = await vm.blockchain.getBlockByTag(blockTag)
 				if (await vm.stateManager.hasStateRoot(block.header.stateRoot)) {
-					return { state: vm.stateManager._baseState.stateRoots.get(bytesToHex(block.header.stateRoot)) ?? {} }
+					const rawState = vm.stateManager._baseState.stateRoots.get(bytesToHex(block.header.stateRoot)) ?? {}
+					return { state: serializeState(rawState) }
 				}
 				client.logger.warn(`State root does not exist for block ${blockTag}. Returning empty state`)
 				return { state: {} }
@@ -56,7 +81,7 @@ export const dumpStateHandler =
 				'Unsupported state manager. Must use a TEVM state manager from `@tevm/state` package. This may indicate a bug in TEVM internal code.',
 			)
 		} catch (e) {
-			if (/** @type {BaseError}*/ (e)._tag) {
+			if (/** @type {import('@tevm/errors').BaseError}*/ (e)._tag) {
 				return maybeThrowOnFail(throwOnFail ?? true, {
 					state: {},
 					// TODO we need to strongly type errors better here
