@@ -49,9 +49,9 @@ export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 		 */
 		return (
 			r && {
-				blockHash: r.hex,
+				blockHash: r.blockHash,
 				blockNumber: BigInt(r.blockNumber),
-				cumulativeGasUsed: BigInt(r.cumulativeBlockGasUsed),
+				cumulativeGasUsed: BigInt(r.cumulativeGasUsed),
 				effectiveGasPrice: BigInt(r.effectiveGasPrice),
 				from: r.from,
 				gasUsed: BigInt(r.gasUsed),
@@ -60,8 +60,8 @@ export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 				transactionIndex: BigInt(r.transactionIndex),
 				contractAddress: r.contractAddress,
 				logsBloom: r.logsBloom,
-				blobGasUsed: BigInt(r.blobGasUsed),
-				blobGasPrice: BigInt(r.blobGasPrice),
+				blobGasUsed: r.blobGasUsed ? BigInt(r.blobGasUsed) : undefined,
+				blobGasPrice: r.blobGasPrice ? BigInt(r.blobGasPrice) : undefined,
 				root: r.root,
 				status: r.status,
 				logs: r.logs.map(
@@ -151,7 +151,7 @@ export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 				: undefined,
 		status:
 			/** @type any*/ (receipt).status instanceof Uint8Array
-				? /** @type any*/ (receipt).status
+				? numberToHex(/** @type any*/ (receipt).status[0])
 				: typeof (/** @type any*/ (receipt).status) === 'number'
 					? numberToHex(/** @type any*/ (receipt).status)
 					: undefined,
