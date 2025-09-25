@@ -206,28 +206,25 @@ export const callHandler =
 			eventHandlers,
 		)
 
-		if ('errors' in executedCall) {
+		// In such case executeCall failed to execute the transaction and threw an unrecoverable error
+		if (!('runTxResult' in executedCall)) {
 			return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
-				executionGasUsed: /** @type {any}*/ (executeCall).rawData ?? 0n,
-				/**
-				 * @type {`0x${string}`}
-				 */
-				rawData: /** @type {any}*/ (executedCall).rawData ?? '0x',
+				executionGasUsed: /** @type {any}*/ 0n, // transaction was not executed
+				rawData: /** @type {`0x${string}`}*/ ('0x'),
 				errors: executedCall.errors,
-				...('runTxResult' in executedCall && executedCall.runTxResult !== undefined
-					? callHandlerResult(executedCall.runTxResult, undefined, executedCall.trace, executedCall.accessList)
-					: {}),
-				...('trace' in executedCall && executedCall.trace !== undefined ? { trace: executedCall.trace } : {}),
 				...('trace' in executedCall && executedCall.trace !== undefined ? { trace: executedCall.trace } : {}),
 			})
 		}
 
+		// If there is a result, the errors will be runtime evm errors and we might want to still include the transaction
 		const txResult = await handleTransactionCreation(client, params, executedCall, evmInput)
-		if (txResult.errors) {
+
+		// Normal path for execution errors (e.g. revert)
+		if ('runTxResult' in executedCall && (executedCall.errors || txResult.errors)) {
 			return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
 				...(vm.common.sourceId !== undefined ? await l1FeeInfoPromise : {}),
 				...callHandlerResult(executedCall.runTxResult, txResult.hash, executedCall.trace, executedCall.accessList),
-				errors: txResult.errors,
+				errors: /** @type {any}*/ (executedCall.errors ?? txResult.errors),
 			})
 		}
 
