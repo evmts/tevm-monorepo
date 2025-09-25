@@ -28,6 +28,13 @@ export const ethSendRawTransactionJsonRpcProcedure = (client) => {
 		}
 		const txPool = await client.getTxPool()
 		await txPool.add(tx, true)
+
+		// Handle automining if enabled
+		if (client.miningConfig.type === 'auto') {
+			const { handleAutomining } = await import('../Call/handleAutomining.js')
+			await handleAutomining(client, bytesToHex(tx.hash()), false, true)
+		}
+
 		return {
 			method: request.method,
 			result: bytesToHex(tx.hash()),
