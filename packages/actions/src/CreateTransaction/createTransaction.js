@@ -21,9 +21,10 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
 	 * @param {import('@tevm/evm').EvmResult} params.evmOutput
 	 * @param {bigint | undefined} [params.maxFeePerGas]
 	 * @param {bigint | undefined} [params.maxPriorityFeePerGas]
+	 * @param {bigint | undefined} [params.nonce]
 	 * @param {boolean} [params.throwOnFail]
 	 */
-	return async ({ evmInput, evmOutput, throwOnFail = defaultThrowOnFail, ...priorityFeeOpts }) => {
+	return async ({ evmInput, evmOutput, throwOnFail = defaultThrowOnFail, nonce: userProvidedNonce, ...priorityFeeOpts }) => {
 		const vm = await client.getVm()
 		const pool = await client.getTxPool()
 
@@ -80,15 +81,18 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
 		const txs = await txPool.getBySenderAddress(sender)
 		const accountNonce = ((await vm.stateManager.getAccount(sender)) ?? { nonce: 0n }).nonce
 
-		// Get the highest transaction nonce from the pool for this sender
-		let highestPoolNonce = accountNonce - 1n
-		for (const tx of txs) {
-			if (tx.tx.nonce > highestPoolNonce) highestPoolNonce = tx.tx.nonce
-		}
+		// Use user-provided nonce if available, otherwise calculate next valid nonce
+		const nonce = userProvidedNonce !== undefined ? userProvidedNonce : (() => {
+			// Get the highest transaction nonce from the pool for this sender
+			let highestPoolNonce = accountNonce - 1n
+			for (const tx of txs) {
+				if (tx.tx.nonce > highestPoolNonce) highestPoolNonce = tx.tx.nonce
+			}
 
-		// This ensures we never reuse nor skip a nonce
-		const nonce = highestPoolNonce >= accountNonce ? highestPoolNonce + 1n : accountNonce
-		client.logger.debug({ nonce, sender: sender.toString() }, 'creating tx with nonce')
+			// This ensures we never reuse nor skip a nonce
+			return highestPoolNonce >= accountNonce ? highestPoolNonce + 1n : accountNonce
+		})()
+		client.logger.debug({ nonce, sender: sender.toString(), userProvided: userProvidedNonce !== undefined }, 'creating tx with nonce')
 
 		let maxFeePerGas = parentBlock.header.calcNextBaseFee() + priorityFee
 		const baseFeePerGas = parentBlock.header.baseFeePerGas ?? 0n
