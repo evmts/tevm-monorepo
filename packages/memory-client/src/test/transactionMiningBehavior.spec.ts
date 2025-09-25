@@ -4,20 +4,10 @@ import type { MemoryClient } from '../MemoryClient.js'
 import { createMemoryClient } from '../createMemoryClient.js'
 import { ErrorContract } from '@tevm/contract'
 
-/**
- * Test block number increment behavior with different transaction parameters
- */
-
 let client: MemoryClient<any, any>
 
 beforeEach(async () => {
-	// Use non-forked client for faster, simpler tests
-	client = createMemoryClient({
-		loggingLevel: 'debug',
-	})
-	await client.tevmReady()
-
-	// Set up test account with ETH
+	client = createMemoryClient()
 	await client.tevmSetAccount({
 		address: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
 		balance: parseUnits('100', 18),
