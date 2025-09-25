@@ -207,4 +207,37 @@ describe('ethEstimateGasJsonRpcProcedure', () => {
 		expect(response.method).toBe('eth_estimateGas')
 		expect(response.id).toBe(4)
 	})
+
+	it('should not create transactions or trigger mining during gas estimation', async () => {
+		const initialBlock = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
+		const initialBlockNumber = initialBlock.header.number
+		
+		const txPool = await client.getTxPool()
+		const initialTxPoolSize = txPool.pool.size
+
+		const request: EthEstimateGasJsonRpcRequest = {
+			jsonrpc: '2.0',
+			method: 'eth_estimateGas',
+			id: 1,
+			params: [
+				{
+					from: '0x0000000000000000000000000000000000000000',
+					to: '0x0000000000000000000000000000000000000000',
+					data: '0x',
+					nonce: '0x1',
+				},
+			],
+		}
+
+		const response = await ethEstimateGasJsonRpcProcedure(client)(request)
+
+		const finalBlock = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
+		const finalBlockNumber = finalBlock.header.number
+		const finalTxPoolSize = txPool.pool.size
+
+		expect(response.error).toBeUndefined()
+		expect(response.result).toBeDefined()
+		expect(finalBlockNumber).toBe(initialBlockNumber)
+		expect(finalTxPoolSize).toBe(initialTxPoolSize)
+	})
 })

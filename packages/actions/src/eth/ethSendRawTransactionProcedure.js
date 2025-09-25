@@ -1,6 +1,7 @@
 import { InvalidParamsError } from '@tevm/errors'
 import { createTxFromRLP } from '@tevm/tx'
 import { bytesToHex, hexToBytes } from '@tevm/utils'
+import { handleAutomining } from '../Call/handleAutomining.js'
 
 /**
  * Request handler for eth_sendRawTransaction JSON-RPC requests.
@@ -29,9 +30,7 @@ export const ethSendRawTransactionJsonRpcProcedure = (client) => {
 		const txPool = await client.getTxPool()
 		await txPool.add(tx, true)
 
-		// Handle automining if enabled
 		if (client.miningConfig.type === 'auto') {
-			const { handleAutomining } = await import('../Call/handleAutomining.js')
 			await handleAutomining(client, bytesToHex(tx.hash()), false, true)
 		}
 
