@@ -313,6 +313,7 @@ export const createMemoryClient = (options) => {
 	})()
 	const memoryClient = createClient({
 		...options,
+		cacheTime: 0,
 		transport: createTevmTransport({
 			...options,
 			...(common !== undefined ? { common } : {}),
