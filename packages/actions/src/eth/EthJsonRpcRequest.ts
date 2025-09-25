@@ -33,7 +33,7 @@ export type JsonRpcTransaction = {
 	 */
 	data?: Hex
 	/**
-	 * The integer of the nonce
+	 * The integer of the nonce. If not provided a nonce will automatically be generated
 	 */
 	nonce?: Hex
 }
