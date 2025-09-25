@@ -176,6 +176,11 @@ export type BaseCallParams<TThrowOnFail extends boolean = boolean> = BaseParams<
 	 */
 	readonly from?: Address
 	/**
+	 * The nonce for the transaction. If provided, this nonce will be used instead of automatically calculating the next available nonce.
+	 * This is useful when you want to replace a pending transaction or ensure a specific nonce is used.
+	 */
+	readonly nonce?: bigint
+	/**
 	 * The address where the call originated from. Defaults to the zero address.
 	 * If the `from` address is set, it defaults to the `from` address; otherwise, it defaults to the zero address.
 	 */

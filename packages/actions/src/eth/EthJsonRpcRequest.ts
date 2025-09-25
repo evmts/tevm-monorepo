@@ -32,6 +32,10 @@ export type JsonRpcTransaction = {
 	 * The hash of the method signature and encoded parameters. For more information, see the Contract ABI description in the Solidity documentation
 	 */
 	data?: Hex
+	/**
+	 * The integer of the nonce
+	 */
+	nonce?: Hex
 }
 
 // eth_accounts

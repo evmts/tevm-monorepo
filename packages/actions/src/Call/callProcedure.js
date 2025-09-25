@@ -64,6 +64,7 @@ export const callProcedure = (client) => async (request) => {
 		...(request.params[0].maxPriorityFeePerGas
 			? { maxPriorityFeePerGas: hexToBigInt(request.params[0].maxPriorityFeePerGas) }
 			: {}),
+		...(request.params[0].nonce ? { nonce: hexToBigInt(request.params[0].nonce) } : {}),
 	})
 	if (errors.length > 0) {
 		const error = /** @type {import('./TevmCallError.js').TevmCallError}*/ (errors[0])
