@@ -51,6 +51,7 @@ describe('signature', () => {
 				signature: {
 					r: testVectors.r,
 					s: testVectors.s,
+					v: 27,
 					yParity: 0,
 				},
 			})
@@ -104,6 +105,7 @@ describe('signature', () => {
 				signature: {
 					r: testVectors.r,
 					s: testVectors.s,
+					v: 27,
 					yParity: 0,
 				},
 			})
@@ -245,6 +247,7 @@ describe('signature', () => {
 				signature: {
 					r: testVectors.r,
 					s: testVectors.s,
+					v: 27,
 					yParity: 0,
 				},
 			})
