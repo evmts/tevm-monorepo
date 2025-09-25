@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it } from 'vitest'
-import { type Abi, callHandler, contractHandler, deployHandler, setAccountHandler } from '@tevm/actions'
+import { type Abi, contractHandler, deployHandler, setAccountHandler } from '@tevm/actions'
 import { type Contract, createContract, SimpleContract } from '@tevm/contract'
 import { createTevmNode } from '@tevm/node'
 import type { TevmNode } from '@tevm/node'
-import { PREFUNDED_ACCOUNTS, type Address, type Hex } from '@tevm/utils'
+import { type Address, type Hex } from '@tevm/utils'
 import { createSolc } from '@tevm/solc'
 
 // POC: Shadow Contract Implementation
@@ -56,13 +56,18 @@ const withShadowView = async <TName extends string, THumanReadableAbi extends Re
 	const merged = mergeSolidityCode(source, inline)
 	// 2. Compile the merged code
 	const { abi, bytecode, deployedBytecode } = await compileSoliditySource(merged)
-	// 3. Return a new contract instance with the new compiled code
+	// 3. Create a new contract instance with the new compiled code
 	const shadowContract = createContract({
 		name: 'ShadowContract',
 		abi: abi,
 		bytecode,
 		deployedBytecode,
 	}).withAddress(contract.address)
+	// 4. Set the account bytecode to the shadow contract
+	await setAccountHandler(client)({
+		address: contract.address,
+		deployedBytecode: shadowContract.deployedBytecode,
+	})
 
 	return shadowContract as unknown as Contract<TName, THumanReadableAbi, Address, Hex, Hex>
 }
@@ -150,13 +155,6 @@ function getDoubleValue() public view returns (uint256) {
     return value * 2;
 }`,
 		})
-
-		// Set the account bytecode to the shadow contract
-		const { errors } = await setAccountHandler(client)({
-			address: contractAddress,
-			deployedBytecode: shadowContract.deployedBytecode,
-		})
-		expect(errors).toBeUndefined()
 
 		// @ts-expect-error - New shadow contract is not typed with the new inline methods
 		const result = await contractHandler(client)(shadowContract.read.getDoubleValue())
