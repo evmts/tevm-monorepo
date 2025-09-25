@@ -13,13 +13,11 @@ describe('Tevm Node JSON-RPC Automining Integration Tests', () => {
 				loggingLevel: 'debug' 
 			})
 
-			// Get initial block number
-			const vm = await node.getVm()
+				const vm = await node.getVm()
 			const initialBlock = await vm.blockchain.getCanonicalHeadBlock()
 			const initialBlockNumber = initialBlock.header.number
 
-			// Create and sign transaction
-			const tx = TransactionFactory(
+				const tx = TransactionFactory(
 				{
 					nonce: '0x00',
 					maxFeePerGas: '0x09184e72a000',
@@ -34,8 +32,7 @@ describe('Tevm Node JSON-RPC Automining Integration Tests', () => {
 			)
 			const signedTx = tx.sign(hexToBytes(PREFUNDED_PRIVATE_KEYS[0]))
 
-			// Add transaction to txPool directly (simulates JSON-RPC eth_sendRawTransaction behavior)
-			const txPool = await node.getTxPool()
+				const txPool = await node.getTxPool()
 			await txPool.add(signedTx, true)
 
 			// Manually trigger the mining that JSON-RPC should trigger automatically
@@ -58,13 +55,11 @@ describe('Tevm Node JSON-RPC Automining Integration Tests', () => {
 				loggingLevel: 'debug' 
 			})
 
-			// Get initial block number
-			const vm = await node.getVm()
+				const vm = await node.getVm()
 			const initialBlock = await vm.blockchain.getCanonicalHeadBlock()
 			const initialBlockNumber = initialBlock.header.number
 
-			// Create and add transaction to pool
-			const tx = TransactionFactory(
+				const tx = TransactionFactory(
 				{
 					nonce: '0x00',
 					maxFeePerGas: '0x09184e72a000',

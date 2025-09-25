@@ -13,10 +13,8 @@ describe('Memory Client JSON-RPC Automining Integration Tests', () => {
 				loggingLevel: 'debug' 
 			})
 
-			// Get initial block number
 			const initialBlockNumber = await client.getBlockNumber()
 
-			// Create and sign transaction
 			const tx = TransactionFactory(
 				{
 					nonce: '0x00',
@@ -41,7 +39,6 @@ describe('Memory Client JSON-RPC Automining Integration Tests', () => {
 
 			expect(txHash).toBe(bytesToHex(signedTx.hash()))
 
-			// Check that transaction was mined (receipt should exist)
 			const receipt = await client.request({
 				method: 'eth_getTransactionReceipt',
 				params: [txHash],
@@ -50,7 +47,6 @@ describe('Memory Client JSON-RPC Automining Integration Tests', () => {
 			expect(receipt).toBeTruthy()
 			expect(receipt).toHaveProperty('transactionHash', txHash)
 
-			// Check that block number increased (new block was mined)
 			const finalBlockNumber = await client.getBlockNumber()
 			expect(finalBlockNumber).toBeGreaterThan(initialBlockNumber)
 		})
@@ -61,10 +57,8 @@ describe('Memory Client JSON-RPC Automining Integration Tests', () => {
 				loggingLevel: 'debug' 
 			})
 
-			// Get initial block number
 			const initialBlockNumber = await client.getBlockNumber()
 
-			// Create and send transaction
 			const tx = TransactionFactory(
 				{
 					nonce: '0x00',
@@ -86,7 +80,6 @@ describe('Memory Client JSON-RPC Automining Integration Tests', () => {
 				params: [bytesToHex(serializedTx)],
 			})
 
-			// Transaction should be added to txPool but not mined
 			const receipt = await client.request({
 				method: 'eth_getTransactionReceipt',
 				params: [txHash],
@@ -113,7 +106,6 @@ describe('Memory Client JSON-RPC Automining Integration Tests', () => {
 				loggingLevel: 'debug' 
 			})
 
-			// Get initial block number
 			const initialBlockNumber = await client.getBlockNumber()
 
 			// Estimate gas for transaction
@@ -134,7 +126,6 @@ describe('Memory Client JSON-RPC Automining Integration Tests', () => {
 			const finalBlockNumber = await client.getBlockNumber()
 			expect(finalBlockNumber).toBe(initialBlockNumber)
 
-			// TxPool should be empty (no transaction created)
 			const txPool = await client.transport.tevm.getTxPool()
 			const pooledTxs = await txPool.getBySenderAddress(createAddress(PREFUNDED_PRIVATE_KEYS[0]))
 			expect(pooledTxs).toHaveLength(0)
@@ -199,7 +190,6 @@ describe('Memory Client JSON-RPC Automining Integration Tests', () => {
 				params: [bytesToHex(serializedTx)],
 			})
 
-			// Get receipt and verify transaction was processed
 			const receipt = await client.request({
 				method: 'eth_getTransactionReceipt',
 				params: [txHash],
