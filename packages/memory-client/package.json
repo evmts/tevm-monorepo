@@ -1,91 +1,90 @@
 {
-	"name": "@tevm/memory-client",
-	"version": "1.0.0-next.147",
-	"private": false,
-	"description": "MemoryClient for tevm is an in memory devnet for JavaScript",
-	"keywords": [
-		"solidity",
-		"sol",
-		"typescript",
-		"web3",
-		"blockchain"
-	],
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/evmts/tevm-monorepo.git",
-		"directory": "packages/memory-client"
-	},
-	"license": "MIT",
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
-	"sideEffects": false,
-	"type": "module",
-	"exports": {
-		"./package.json": "./package.json",
-		".": {
-			"import": {
-				"types": "./types/index.d.ts",
-				"default": "./dist/index.js"
-			},
-			"require": {
-				"types": "./dist/index.d.cts",
-				"default": "./dist/index.cjs"
-			}
-		}
-	},
-	"main": "dist/index.cjs",
-	"module": "dist/index.js",
-	"types": "types/index.d.ts",
-	"files": [
-		"dist",
-		"src",
-		"!src/**/*.spec.ts",
-		"types"
-	],
-	"scripts": {
-		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs && bun lint:deps && bun lint:package",
-		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/memory-client",
-		"build:dist": "tsup",
-		"build:types": "tsup --dts-only && tsc --noEmitOnError false --emitDeclarationOnly --declaration --skipLibCheck",
-		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
-		"format": "biome format . --write",
-		"format:check": "biome format .",
-		"generate:docs": "typedoc",
-		"lint": "biome check . --write --unsafe",
-		"lint:check": "biome check . --verbose",
-		"lint:deps": "bunx depcheck",
-		"lint:package": "bunx publint --strict && attw --pack",
-		"package:up": "pnpm up --latest",
-		"test": "vitest --watch",
-		"test:coverage": "vitest --coverage --run",
-		"test:run": "vitest run",
-		"typecheck": "tsc --noEmit"
-	},
-	"dependencies": {
-		"@tevm/actions": "workspace:^",
-		"@tevm/address": "workspace:^",
-		"@tevm/common": "workspace:^",
-		"@tevm/contract": "workspace:^",
-		"@tevm/decorators": "workspace:^",
-		"@tevm/errors": "workspace:^",
-		"@tevm/evm": "workspace:^",
-		"@tevm/node": "workspace:^",
-		"@tevm/predeploys": "workspace:^",
-		"@tevm/utils": "workspace:^",
-		"kzg-wasm": "^0.5.0",
-		"vitest": "^3.2.4"
-	},
-	"devDependencies": {
-		"@tevm/test-utils": "workspace:^",
-		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^",
-		"@tevm/tx": "workspace:^"
-	},
-	"peerDependencies": {
-		"viem": "^2.37.8"
-	},
-	"publishConfig": {
-		"access": "public"
-	}
+  "name": "@tevm/memory-client",
+  "version": "1.0.0-next.147",
+  "private": false,
+  "description": "MemoryClient for tevm is an in memory devnet for JavaScript",
+  "keywords": [
+    "solidity",
+    "sol",
+    "typescript",
+    "web3",
+    "blockchain"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evmts/tevm-monorepo.git",
+    "directory": "core/memory-client"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Will Cory <willcory10@gmail.com>"
+  ],
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "types": "./types/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "types/index.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "!src/**/*.spec.ts",
+    "types"
+  ],
+  "scripts": {
+    "all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs && bun lint:deps && bun lint:package",
+    "build": "nx run-many --targets=build:dist,build:types --projects=@tevm/memory-client",
+    "build:dist": "tsup",
+    "build:types": "tsup --dts-only && tsc --noEmitOnError false --emitDeclarationOnly --declaration --skipLibCheck",
+    "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
+    "format": "biome format . --write",
+    "format:check": "biome format .",
+    "generate:docs": "typedoc",
+    "lint": "biome check . --write --unsafe",
+    "lint:check": "biome check . --verbose",
+    "lint:deps": "bunx depcheck",
+    "lint:package": "bunx publint --strict && attw --pack",
+    "package:up": "pnpm up --latest",
+    "test": "vitest --watch",
+    "test:coverage": "vitest --coverage --run",
+    "test:run": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@tevm/actions": "workspace:^",
+    "@tevm/address": "workspace:^",
+    "@tevm/common": "workspace:^",
+    "@tevm/contract": "workspace:^",
+    "@tevm/decorators": "workspace:^",
+    "@tevm/errors": "workspace:^",
+    "@tevm/evm": "workspace:^",
+    "@tevm/node": "workspace:^",
+    "@tevm/predeploys": "workspace:^",
+    "@tevm/utils": "workspace:^",
+    "kzg-wasm": "^0.5.0",
+    "vitest": "^3.2.4"
+  },
+  "devDependencies": {
+    "@tevm/test-utils": "workspace:^",
+    "@tevm/tsconfig": "workspace:^",
+    "@tevm/tsupconfig": "workspace:^"
+  },
+  "peerDependencies": {
+    "viem": "^2.37.8"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }

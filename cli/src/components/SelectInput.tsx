@@ -1,6 +1,5 @@
 import { Box, Text } from 'ink'
 import InkSelectInput from 'ink-select-input'
-import React from 'react'
 import { mainSymbols } from 'figures'
 
 export type Item = {

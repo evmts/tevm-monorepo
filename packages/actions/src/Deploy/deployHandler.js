@@ -36,7 +36,7 @@ import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 export const deployHandler =
 	(client, { throwOnFail: throwOnFailDefault = true } = {}) =>
 	async (params) => {
-		client.logger.debug(params, 'deployHandler called with params')
+		client.logger.debug({ params }, 'deployHandler called with params')
 		// TODO Moving fast atm we should ideally add validators to zod
 		let deployData
 		try {
@@ -62,7 +62,7 @@ export const deployHandler =
 			})
 		}
 
-		client.logger.debug(deployData, 'deployHandler: Encoded abi bytecode and args into hex data to execute call')
+		client.logger.debug({ deployData }, 'deployHandler: Encoded abi bytecode and args into hex data to execute call')
 
 		const result = await callHandler(client, {
 			throwOnFail: throwOnFailDefault,
@@ -87,7 +87,7 @@ export const deployHandler =
 							}),
 						)
 						const message = `Revert: ${decodedError.errorName} ${JSON.stringify(decodedError)}`
-						client.logger.debug(message, 'Revert message decoded')
+						client.logger.debug({ message }, 'Revert message decoded')
 						return new RevertError(message, { cause: /** @type any*/ (err) })
 					} catch (e) {
 						client.logger.warn(e, 'Unable to decode revert data')

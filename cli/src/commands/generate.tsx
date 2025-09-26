@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Text, Box, Newline } from 'ink';
 import Spinner from 'ink-spinner';
 import zod from 'zod';

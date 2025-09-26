@@ -68,12 +68,11 @@
 		"@tevm/utils": "workspace:^"
 	},
 	"devDependencies": {
-		"@tevm/client-types": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
 	},
 	"peerDependencies": {
-		"viem": "^2.37.4"
+		"viem": "^2.37.8"
 	},
 	"publishConfig": {
 		"access": "public"

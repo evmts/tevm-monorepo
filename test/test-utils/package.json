@@ -64,19 +64,19 @@
   "devDependencies": {
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^",
-    "@types/node": "^24.3.1"
+    "@types/node": "^24.5.2"
   },
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
     "@openzeppelin/contracts": "5.4.0",
-    "@ponder/utils": "^0.2.12",
+    "@ponder/utils": "^0.2.13",
     "@tevm/contract": "workspace:^",
     "@tevm/esbuild-plugin": "workspace:^",
     "@tevm/ts-plugin": "workspace:^"
   },
   "peerDependencies": {
-    "viem": "^2.37.4"
+    "viem": "^2.37.8"
   }
 }

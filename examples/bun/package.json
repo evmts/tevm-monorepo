@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "@tevm/contract": "workspace:^",
-    "bun-types": "^1.2.21",
-    "viem": "^2.37.4"
+    "bun-types": "^1.2.22",
+    "viem": "^2.37.8"
   },
   "devDependencies": {
     "@openzeppelin/contracts": "^5.4.0",
@@ -20,7 +20,7 @@
     "@tevm/esbuild-plugin": "workspace:^",
     "@tevm/ts-plugin": "workspace:^",
     "@types/live-server": "^1.2.3",
-    "@types/node": "^24.3.1",
+    "@types/node": "^24.5.2",
     "solc": "0.8.30",
     "typescript": "^5.9.2",
     "vitest": "^3.2.4"

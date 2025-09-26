@@ -65,16 +65,16 @@
 		"@tevm/bundler-cache": "workspace:^",
 		"@tevm/config": "workspace:^",
 		"@tevm/solc": "workspace:^",
-		"effect": "3.17.13",
+		"effect": "3.17.14",
 		"solc": "0.8.30",
 		"unplugin": "^2.3.10",
-		"zod": "^4.1.5"
+		"zod": "^4.1.11"
 	},
 	"devDependencies": {
 		"@tevm/contract": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"@types/node": "^24.3.1"
+		"@types/node": "^24.5.2"
 	},
 	"publishConfig": {
 		"access": "public"

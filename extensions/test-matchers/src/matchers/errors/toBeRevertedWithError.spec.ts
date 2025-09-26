@@ -1,7 +1,6 @@
 import { tevmDefault } from '@tevm/common'
-import { type Contract } from '@tevm/contract'
+import { type Contract, ErrorContract } from '@tevm/contract'
 import { createTevmTransport, tevmDeploy } from '@tevm/memory-client'
-import { ErrorContract } from '@tevm/test-utils'
 import { PREFUNDED_ACCOUNTS } from '@tevm/utils'
 import { AbiItem } from 'ox'
 import type { Address, Hex } from 'viem'

@@ -17,6 +17,6 @@
   },
   "browser": "tevm_resolutions_rs.wasi-browser.js",
   "dependencies": {
-    "@napi-rs/wasm-runtime": "^1.0.3"
+    "@napi-rs/wasm-runtime": "^1.0.5"
   }
 }

@@ -405,7 +405,7 @@
     "build": "nx run-many --targets=build:dist,build:types --projects=tevm",
     "build:dist": "bun run generate:dist && git status --porcelain",
     "build:types": "bun run generate:types && git status --porcelain",
-    "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache && rm **/*.js **/*.d.ts **/*.d.cts **/*.cjs **/*.cjs.map",
+    "clean": "rm -rf node_modules artifacts dist cache && find . -name '*.js' -not -name 'tsup.config.js' -not -name 'cli.js' -not -path './node_modules/*' -delete && rm -f **/*.d.ts **/*.d.cts **/*.cjs **/*.cjs.map",
     "generate": "nx run-many --targets=generate:dist,generate:types --projects=tevm && bun generate:docs",
     "generate:dist": "tsup",
     "generate:docs": "typedoc",
@@ -455,8 +455,8 @@
     "@tevm/vite-plugin": "workspace:^",
     "@tevm/vm": "workspace:^",
     "@tevm/webpack-plugin": "workspace:^",
-    "commander": "^14.0.0",
-    "effect": "3.17.13",
+    "commander": "^14.0.1",
+    "effect": "3.17.14",
     "glob": "^11.0.3",
     "solc": "^0.8.30"
   },
@@ -466,7 +466,7 @@
   },
   "peerDependencies": {
     "@tevm/ts-plugin": "workspace:^",
-    "viem": "^2.37.4"
+    "viem": "^2.37.8"
   },
   "publishConfig": {
     "access": "public"
