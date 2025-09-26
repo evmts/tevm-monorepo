@@ -72,6 +72,7 @@
 	"dependencies": {
 		"@tevm/actions": "workspace:^",
 		"@tevm/errors": "workspace:^",
+		"@tevm/node": "workspace:^",
 		"@tevm/utils": "workspace:^",
 		"abitype": "^1.0.8",
 		"ox": "^0.7.2",
@@ -80,6 +81,8 @@
 	},
 	"devDependencies": {
 		"@tevm/common": "workspace:^",
+		"@tevm/contract": "workspace:^",
+		"@tevm/memory-client": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
 	},
