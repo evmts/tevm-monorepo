@@ -81,10 +81,10 @@
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"@tevm/utils": "workspace:^",
-		"abitype": "^1.1.0"
+		"abitype": "^1.1.1"
 	},
 	"peerDependencies": {
-		"viem": "^2.37.4"
+		"viem": "^2.37.8"
 	},
 	"publishConfig": {
 		"access": "public"

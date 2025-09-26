@@ -67,7 +67,7 @@
 		"@tevm/base-bundler": "workspace:^",
 		"@tevm/bundler-cache": "workspace:^",
 		"@types/minimatch": "^6.0.0",
-		"effect": "3.17.13",
+		"effect": "3.17.14",
 		"glob": "^11.0.3",
 		"minimatch": "^10.0.3",
 		"solc": "0.8.30",

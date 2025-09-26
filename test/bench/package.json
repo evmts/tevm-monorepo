@@ -71,18 +71,18 @@
     "@tevm/test-utils": "workspace:^",
     "@tevm/ts-plugin": "workspace:^",
     "@tevm/viem": "workspace:^",
-    "effect": "3.17.13",
+    "effect": "3.17.14",
     "tevm": "workspace:^",
     "typescript": "^5.9.2",
-    "wagmi": "^2.16.9"
+    "wagmi": "^2.17.5"
   },
   "devDependencies": {
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^",
-    "@types/node": "^24.3.1"
+    "@types/node": "^24.5.2"
   },
   "peerDependencies": {
-    "viem": "^2.37.4"
+    "viem": "^2.37.8"
   },
   "publishConfig": {
     "access": "public"

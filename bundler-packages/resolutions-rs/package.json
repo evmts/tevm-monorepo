@@ -28,7 +28,7 @@
     "test": "cargo test"
   },
   "devDependencies": {
-    "@napi-rs/cli": "^3.1.5"
+    "@napi-rs/cli": "^3.2.0"
   },
   "engines": {
     "node": ">= 14"

@@ -60,10 +60,10 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
+		"@tevm/actions": "workspace:^",
 		"@tevm/utils": "workspace:^"
 	},
 	"devDependencies": {
-		"@tevm/actions": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
 	},
