@@ -1132,7 +1132,7 @@ importers:
         version: 0.2.0
       forge-std:
         specifier: github:foundry-rs/forge-std
-        version: https://codeload.github.com/foundry-rs/forge-std/tar.gz/ee93fdc45d1e5e4dee883afe0103109881a83549
+        version: https://codeload.github.com/foundry-rs/forge-std/tar.gz/60acb7aaadcce2d68e52986a0a66fe79f07d138f
       react-helmet:
         specifier: ^6.1.0
         version: 6.1.0(react@19.1.0)
@@ -1231,6 +1231,9 @@ importers:
 
   extensions/test-node:
     dependencies:
+      '@tevm/actions':
+        specifier: workspace:^
+        version: link:../../packages/actions
       '@tevm/memory-client':
         specifier: workspace:^
         version: link:../../packages/memory-client
@@ -1244,6 +1247,9 @@ importers:
         specifier: ^3.1.4
         version: 3.1.4(@types/debug@4.1.12)(@types/node@22.15.21)(@vitest/ui@3.1.4)(jiti@2.4.2)(lightningcss@1.30.1)(msw@2.8.4(@types/node@22.15.21)(typescript@5.8.3))(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0)
     devDependencies:
+      '@tevm/common':
+        specifier: workspace:^
+        version: link:../../packages/common
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -9704,8 +9710,8 @@ packages:
     resolution: {integrity: sha512-W8+hV/qnShs4pZSIcHfYvKi7ds1FjNVW14XG5fMkkTBzbUGJh5BxbTc3KZZy7nWbPpaHLGnRszMZNZlLvi6qww==}
     hasBin: true
 
-  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/ee93fdc45d1e5e4dee883afe0103109881a83549:
-    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/ee93fdc45d1e5e4dee883afe0103109881a83549}
+  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/60acb7aaadcce2d68e52986a0a66fe79f07d138f:
+    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/60acb7aaadcce2d68e52986a0a66fe79f07d138f}
     version: 1.9.7
 
   form-data@4.0.2:
@@ -19286,7 +19292,7 @@ snapshots:
 
   '@scure/bip32@1.7.0':
     dependencies:
-      '@noble/curves': 1.9.1
+      '@noble/curves': 1.9.2
       '@noble/hashes': 1.8.0
       '@scure/base': 1.2.5
 
@@ -24404,7 +24410,7 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/ee93fdc45d1e5e4dee883afe0103109881a83549: {}
+  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/60acb7aaadcce2d68e52986a0a66fe79f07d138f: {}
 
   form-data@4.0.2:
     dependencies:
