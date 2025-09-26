@@ -8,7 +8,7 @@ import { bytesToHex } from '@tevm/utils'
  * @param {Array<import('@tevm/receipt-manager').TxReceipt>} receipts
  */
 export const processTx = async (client, tx, blockBuilder, receipts) => {
-	client.logger.debug(bytesToHex(tx.hash()), 'new tx added')
+	client.logger.debug({ txHash: bytesToHex(tx.hash()) }, 'new tx added')
 	try {
 		const txResult = await blockBuilder.addTransaction(tx, {
 			skipHardForkValidation: true,
