@@ -1,7 +1,7 @@
 import { type TevmNode } from '@tevm/node'
 import { type Client, isAddress } from 'viem'
 import type { ContainsTransactionAny } from '../../common/types.js'
-import { handleTransaction } from './handleTransaction.js'
+import { getDiffMethodsFromPrestateTrace } from './getDiffMethodsFromPrestateTrace.js'
 import type { BalanceChange } from './types.js'
 
 /**
@@ -17,7 +17,7 @@ export const toChangeBalances = async (
 	balanceChanges: BalanceChange[],
 ) => {
 	// Handle the transaction and get balance changes
-	const { getBalanceChange } = await handleTransaction(received, { client })
+	const { getBalanceChange } = await getDiffMethodsFromPrestateTrace(client, received)
 
 	// Validate and normalize balance changes
 	const normalizedBalanceChanges = balanceChanges.map((change) => {
