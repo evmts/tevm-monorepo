@@ -1,4 +1,3 @@
-import React from 'react'
 import { z } from 'zod'
 import { option } from 'pastel'
 import type { DeployParams, DeployResult } from '@tevm/actions'
