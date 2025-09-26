@@ -66,7 +66,8 @@ export const p256VerifyPrecompile = () => {
 				publicKey.set(y, 33);
 
 				// Verify the signature using the noble/curves p256 implementation
-				const isValid = p256.verify(signature, msgHash, publicKey);
+				// Note: We use prehash: false because the input is already a hash (msgHash)
+				const isValid = p256.verify(signature, msgHash, publicKey, { prehash: false });
 
 				if (isValid) {
 					// Return 32-byte padded 1 for valid signature

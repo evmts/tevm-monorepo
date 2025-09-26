@@ -1,5 +1,5 @@
 import type { CustomPrecompile } from '@tevm/node'
-import { EthjsAddress } from '@tevm/utils'
+import { EthjsAddress, Hex } from '@tevm/utils'
 import { bytesToHex, hexToBytes } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../createMemoryClient.js'
@@ -46,16 +46,18 @@ describe('precompiles option', () => {
 
 		const tevm = createMemoryClient()
 		
-		// Test with valid signature
+		// Test with valid signature (generated with noble/curves p256, prehash: false)
 		const validResult = await tevm.tevmCall({
 			to: p256VerifyAddress,
 			gas: BigInt(30000),
-			data: 
-				'0xc74ace4c2ccdb912b6876fa178a4a7adb6ea0916bfa73aa2c73fb4df5ce133a6' + // r
-				'ae85d3657b170fb227cd404e3ae80e1974e885d6c0999094aad732979040be80' + // s
-				'2c795862878f462f200a403b062c1b24e7de207f0c16f3e4d98d4c221c5e653b' + // x
-				'2bd4817b59b8bdc0157af76bd95077d68a96c53a15c84fbd568c8759364aa1bf' + // y
-				'e928602caf3f7716ee83abc596147665d9adfe7154a05440555571cefbe9652c',  // msgHash
+			data: (
+				'0x' +
+				'42cc3259a07ff17f7c35181e57688bf5954cb91f265f83e971f2525d9ae28732' + // r
+				'13e0bcb7899bff163261f28d4665097e429937f7ed500ac93aef2875342b0ecd' + // s
+				'5ef59bf56970fb35c0606f3c4a295b22afca864f4baf1da646af8ef0c0ba50dc' + // x
+				'c2e11decac2b8561ddd38f68823c2379918a86e6289090edb8c24757dc10004a' + // y
+				'e928602caf3f7716ee83abc596147665d9adfe7154a05440555571cefbe9652c'  // msgHash
+			) as Hex,
 			caller: sender,
 		})
 		
@@ -66,16 +68,18 @@ describe('precompiles option', () => {
 		const expectedValid = bytesToHex(new Uint8Array(32).fill(0, 0, 31).fill(1, 31, 32))
 		expect(validResult.rawData).toEqual(expectedValid)
 
-		// Test with invalid signature (flipped bit in s component)
+		// Test with invalid signature (flipped last bit in s component)
 		const invalidResult = await tevm.tevmCall({
 			to: p256VerifyAddress,
 			gas: BigInt(30000),
-			data: 
-				'0xc74ace4c2ccdb912b6876fa178a4a7adb6ea0916bfa73aa2c73fb4df5ce133a6' + // r
-				'ae85d3657b170fb227cd404e3ae80e1974e885d6c0999094aad732979040be81' + // s (flipped last bit)
-				'2c795862878f462f200a403b062c1b24e7de207f0c16f3e4d98d4c221c5e653b' + // x
-				'2bd4817b59b8bdc0157af76bd95077d68a96c53a15c84fbd568c8759364aa1bf' + // y
-				'e928602caf3f7716ee83abc596147665d9adfe7154a05440555571cefbe9652c',  // msgHash
+			data: (
+				'0x' +
+				'42cc3259a07ff17f7c35181e57688bf5954cb91f265f83e971f2525d9ae28732' + // r (same as valid)
+				'13e0bcb7899bff163261f28d4665097e429937f7ed500ac93aef2875342b0ecc' + // s (flipped last bit: cd -> cc)
+				'5ef59bf56970fb35c0606f3c4a295b22afca864f4baf1da646af8ef0c0ba50dc' + // x (same as valid)
+				'c2e11decac2b8561ddd38f68823c2379918a86e6289090edb8c24757dc10004a' + // y (same as valid)
+				'e928602caf3f7716ee83abc596147665d9adfe7154a05440555571cefbe9652c'  // msgHash (same as valid)
+			) as Hex,
 			caller: sender,
 		})
 		

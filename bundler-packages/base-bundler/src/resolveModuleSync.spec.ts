@@ -419,9 +419,6 @@ describe('resolveModuleSync', () => {
 
 			// Verify error was logged
 			expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining('error reading from cache'))
-
-			// Reset the spy
-			errorSpy.mockRestore()
 		})
 
 		it('should handle non-Error objects thrown from resolveArtifactsSync', () => {

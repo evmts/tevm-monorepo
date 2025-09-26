@@ -345,7 +345,9 @@ describe('contractHandler', () => {
 		const { errors } = await setAccountHandler(client)({
 			address: to,
 			deployedBytecode: ERC20_BYTECODE,
+			throwOnFail: false,
 		})
+		console.log('ERRORS', errors[0].cause)
 		expect(errors).toBeUndefined()
 		const result = await contractHandler(client)({
 			throwOnFail: false,
@@ -405,7 +407,7 @@ describe('contractHandler', () => {
 			  args:                  (0x1111111111111111111111111111111111111111, 0x2222222222222222222222222222222222222222, 1000)
 
 			Docs: https://viem.sh/reference/tevm/errors/classes/reverterror/
-			Version: viem@2.30.1
+			Version: viem@2.37.8
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
 			Details: The contract function "transferFrom" reverted.
@@ -419,7 +421,7 @@ describe('contractHandler', () => {
 			  args:                  (0x1111111111111111111111111111111111111111, 0x2222222222222222222222222222222222222222, 1000)
 
 			Docs: https://viem.sh/reference/tevm/errors/classes/reverterror/
-			Version: viem@2.30.1
+			Version: viem@2.37.8
 			Version: 1.1.0.next-73]
 		`)
 	})

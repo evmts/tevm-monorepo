@@ -1,6 +1,7 @@
 import { SimpleContract } from '@tevm/test-utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../../createMemoryClient.js'
+import { Block } from 'viem'
 
 let mc = createMemoryClient()
 
@@ -22,7 +23,16 @@ beforeEach(async () => {
 
 describe('watchBlocks', () => {
 	it('should work', async () => {
-		const expectedBlock = Promise.withResolvers()
+		const createDeferredPromise = <T>() => {
+			let resolve: (value: T) => void
+			let reject: (reason?: any) => void
+			const promise = new Promise<T>((res, rej) => {
+				resolve = res
+				reject = rej
+			})
+			return { promise, resolve: resolve!, reject: reject! }
+		}
+		const expectedBlock = createDeferredPromise<Block>()
 		const unwatch = mc.watchBlocks({
 			poll: true,
 			pollingInterval: 100,

@@ -2,18 +2,9 @@
 
 exports[`callHandler > should create transaction when createTransaction is true 1`] = `"0x932c965e92ff1a173077fcf85543a7e1582b2d452f300571bed82a1b2c0180d3"`;
 
-exports[`callHandler > should handle being unable to get options 1`] = `
-[
-  [UnknownBlock: Error cloning VM
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
-Version: 1.1.0.next-73],
-]
-`;
-
 exports[`callHandler > should handle error during EVM execution 1`] = `
 [
-  [Revert: revert
+  [EvmRevertError: revert
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
 Details: {"error":"revert","errorType":"EVMError"}
@@ -23,9 +14,69 @@ Version: 1.1.0.next-73],
 
 exports[`callHandler > should handle error during VM cloning 1`] = `
 [
+  [InvalidBlockError: Invalid input: expected "latest"
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Version: 1.1.0.next-73],
+  [InvalidBlockError: Invalid input: expected "earliest"
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Version: 1.1.0.next-73],
+  [InvalidBlockError: Invalid input: expected "pending"
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Version: 1.1.0.next-73],
+  [InvalidBlockError: Invalid input: expected "safe"
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Version: 1.1.0.next-73],
+  [InvalidBlockError: Invalid input: expected "finalized"
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Version: 1.1.0.next-73],
+  [InvalidBlockError: Invalid input: expected bigint, received string
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Version: 1.1.0.next-73],
+  [InvalidBlockError: Invalid input: expected number, received string
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Version: 1.1.0.next-73],
   [InvalidBlockError: value must be a hex string
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Version: 1.1.0.next-73],
+  [InvalidBytecodeError: Invalid input: expected "latest"
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
+Version: 1.1.0.next-73],
+  [InvalidBytecodeError: Invalid input: expected "earliest"
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
+Version: 1.1.0.next-73],
+  [InvalidBytecodeError: Invalid input: expected "pending"
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
+Version: 1.1.0.next-73],
+  [InvalidBytecodeError: Invalid input: expected "safe"
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
+Version: 1.1.0.next-73],
+  [InvalidBytecodeError: Invalid input: expected "finalized"
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
+Version: 1.1.0.next-73],
+  [InvalidBytecodeError: Invalid input: expected bigint, received string
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
+Version: 1.1.0.next-73],
+  [InvalidBytecodeError: Invalid input: expected number, received string
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
+Version: 1.1.0.next-73],
+  [InvalidBytecodeError: value must be a hex string
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
 Version: 1.1.0.next-73],
 ]
 `;
@@ -52,7 +103,7 @@ exports[`callHandler > should handle error during transaction creation 1`] = `
 
 exports[`callHandler > should handle errors returned during contract call 1`] = `
 [
-  [Revert: revert
+  [EvmRevertError: revert
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
 Details: {"error":"revert","errorType":"EVMError"}
@@ -81,11 +132,11 @@ Version: 1.1.0.next-73],
 
 exports[`callHandler > should handle unexpected errors during param conversion 1`] = `
 [
-  [InvalidGasPrice: Invalid input
+  [InvalidGasPrice: Too small: expected bigint to be >=0
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
 Version: 1.1.0.next-73],
-  [InvalidGasPrice: Invalid input
+  [InvalidGasPrice: Too small: expected bigint to be >=0
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
 Version: 1.1.0.next-73],
@@ -102,19 +153,9 @@ Version: 1.1.0.next-73],
 ]
 `;
 
-exports[`callHandler > should handle vm cloning throwing unexpectedly 1`] = `
-[
-  [InternalError: Error cloning VM
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Details: Error cloning VM
-Version: 1.1.0.next-73],
-]
-`;
-
 exports[`callHandler > should return error for invalid contract call data 1`] = `
 [
-  [Revert: revert
+  [EvmRevertError: revert
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
 Details: {"error":"revert","errorType":"EVMError"}

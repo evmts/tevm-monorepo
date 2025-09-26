@@ -37,6 +37,7 @@ describe('createHttpHandler', () => {
 			} as const satisfies CallJsonRpcRequest
 
 			const res = await supertest(server).post('/').send(req).expect(200).expect('Content-Type', /json/)
+			expect(res.body.error).toBeUndefined()
 
 			expect(
 				decodeFunctionResult({

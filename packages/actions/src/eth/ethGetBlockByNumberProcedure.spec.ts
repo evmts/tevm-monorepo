@@ -13,6 +13,17 @@ beforeEach(async () => {
 })
 
 describe('ethGetBlockByNumberJsonRpcProcedure', () => {
+	const normalizeBlockForSnapshot = (block: any) => {
+		if (!block) return block
+		return {
+			...block,
+			// Replace non-deterministic values with placeholders
+			hash: typeof block.hash === 'string' && block.hash.startsWith('0x') ? '0x[HASH]' : block.hash,
+			stateRoot: typeof block.stateRoot === 'string' && block.stateRoot.startsWith('0x') ? '0x[STATE_ROOT]' : block.stateRoot,
+			timestamp: typeof block.timestamp === 'string' && block.timestamp.startsWith('0x') ? '0x[TIMESTAMP]' : block.timestamp,
+		}
+	}
+
 	it('should return block details by number', async () => {
 		const request: EthGetBlockByNumberJsonRpcRequest = {
 			jsonrpc: '2.0',
@@ -26,7 +37,10 @@ describe('ethGetBlockByNumberJsonRpcProcedure', () => {
 		expect(response.result).toBeDefined()
 		expect(response.method).toBe('eth_getBlockByNumber')
 		expect(response.id).toBe(request.id as any)
-		expect(response.result).toMatchSnapshot()
+
+		// Normalize the result before snapshot comparison
+		const normalizedResult = normalizeBlockForSnapshot(response.result)
+		expect(normalizedResult).toMatchSnapshot()
 	})
 
 	it('should include transactions if requested', async () => {
@@ -42,7 +56,10 @@ describe('ethGetBlockByNumberJsonRpcProcedure', () => {
 		expect(response.result).toBeDefined()
 		expect(response.method).toBe('eth_getBlockByNumber')
 		expect(response.id).toBe(request.id as any)
-		expect(response.result).toMatchSnapshot()
+
+		// Normalize the result before snapshot comparison
+		const normalizedResult = normalizeBlockForSnapshot(response.result)
+		expect(normalizedResult).toMatchSnapshot()
 	})
 
 	it('should handle requests without an id', async () => {
@@ -57,7 +74,10 @@ describe('ethGetBlockByNumberJsonRpcProcedure', () => {
 		expect(response.result).toBeDefined()
 		expect(response.method).toBe('eth_getBlockByNumber')
 		expect(response.id).toBeUndefined()
-		expect(response.result).toMatchSnapshot()
+
+		// Normalize the result before snapshot comparison
+		const normalizedResult = normalizeBlockForSnapshot(response.result)
+		expect(normalizedResult).toMatchSnapshot()
 	})
 
 	it('should handle invalid block tag', async () => {

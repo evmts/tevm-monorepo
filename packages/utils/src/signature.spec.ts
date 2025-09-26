@@ -70,6 +70,33 @@ describe('signature', () => {
 				},
 			})).toThrow()
 		})
+
+		it('should throw when neither v nor yParity is provided', () => {
+			expect(() => recoverPublicKey({
+				hash: testVectors.messageHash,
+				signature: {
+					r: testVectors.r,
+					s: testVectors.s,
+					// Missing both v and yParity
+				},
+			})).toThrow('Either v or yParity must be provided in signature')
+		})
+
+		it('should handle r and s as hex strings', () => {
+			const publicKey = recoverPublicKey({
+				hash: testVectors.messageHash,
+				signature: {
+					// @ts-expect-error - testing string inputs
+					r: '0x157098a1d96fad0945d44978e3c8f2d1d2410f8ed742652cbf13b6b031391e87',
+					// @ts-expect-error - testing string inputs
+					s: '0x28521ff547f3c3242084d0d26f560a6ff1c91988d70d3284ff96f32caa373d78',
+					v: testVectors.v,
+				},
+			})
+
+			// Should return a 65-byte uncompressed public key
+			expect(publicKey).toMatch(/^0x04[0-9a-f]{128}$/i)
+		})
 	})
 
 	describe('recoverAddress', () => {
@@ -112,6 +139,21 @@ describe('signature', () => {
 
 			expect(address.toLowerCase()).toBe(testVectors.expectedAddress.toLowerCase())
 		})
+
+		it('should handle r and s as hex strings in recoverAddress', () => {
+			const address = recoverAddress({
+				hash: testVectors.messageHash,
+				signature: {
+					// @ts-expect-error - testing string inputs
+					r: '0x157098a1d96fad0945d44978e3c8f2d1d2410f8ed742652cbf13b6b031391e87',
+					// @ts-expect-error - testing string inputs
+					s: '0x28521ff547f3c3242084d0d26f560a6ff1c91988d70d3284ff96f32caa373d78',
+					v: testVectors.v,
+				},
+			})
+
+			expect(address.toLowerCase()).toBe(testVectors.expectedAddress.toLowerCase())
+		})
 	})
 
 	describe('hashMessage', () => {
@@ -137,11 +179,25 @@ describe('signature', () => {
 
 	describe('recoverMessageAddress', () => {
 		it('should recover address from signed message', () => {
-			const address = recoverMessageAddress({ 
-				message: testVectors.message, 
+			const address = recoverMessageAddress({
+				message: testVectors.message,
 				signature: {
 					r: testVectors.r,
 					s: testVectors.s,
+					v: testVectors.v,
+				}
+			})
+			expect(address.toLowerCase()).toBe(testVectors.expectedAddress.toLowerCase())
+		})
+
+		it('should handle r and s as hex strings', () => {
+			const address = recoverMessageAddress({
+				message: testVectors.message,
+				signature: {
+					// @ts-expect-error - testing string inputs
+					r: '0x157098a1d96fad0945d44978e3c8f2d1d2410f8ed742652cbf13b6b031391e87',
+					// @ts-expect-error - testing string inputs
+					s: '0x28521ff547f3c3242084d0d26f560a6ff1c91988d70d3284ff96f32caa373d78',
 					v: testVectors.v,
 				}
 			})
@@ -199,6 +255,22 @@ describe('signature', () => {
 				signature: {
 					r: testVectors.r,
 					s: testVectors.s,
+					v: testVectors.v,
+				},
+			})
+
+			expect(isValid).toBe(true)
+		})
+
+		it('should verify with r and s as hex strings', () => {
+			const isValid = verifyMessage({
+				address: testVectors.expectedAddress,
+				message: testVectors.message,
+				signature: {
+					// @ts-expect-error - testing string inputs
+					r: '0x157098a1d96fad0945d44978e3c8f2d1d2410f8ed742652cbf13b6b031391e87',
+					// @ts-expect-error - testing string inputs
+					s: '0x28521ff547f3c3242084d0d26f560a6ff1c91988d70d3284ff96f32caa373d78',
 					v: testVectors.v,
 				},
 			})

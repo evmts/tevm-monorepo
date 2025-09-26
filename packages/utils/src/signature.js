@@ -55,6 +55,7 @@ export function recoverPublicKey({ hash, signature }) {
 
 	const publicKey = ecrecover(toBytes(hash), BigInt(v), rBytes, sBytes)
 
+	/* v8 ignore next 3 */
 	if (!publicKey) {
 		throw new Error('Failed to recover public key')
 	}

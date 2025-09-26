@@ -1,5 +1,5 @@
 import { SimpleContract } from '@tevm/contract'
-import { type AbiEvent, type Hex, encodeAbiParameters, encodeEventTopics, hexToBytes } from '@tevm/utils'
+import { type AbiEvent, encodeAbiParameters, encodeEventTopics, type Hex, hexToBytes } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { logToEthjsLog } from './logToEthjsLog.js'
 
@@ -40,7 +40,7 @@ describe('logToEthjsLog', () => {
 			Make sure you are using the correct ABI and that the event exists on it.
 
 			Docs: https://viem.sh/docs/contract/encodeEventTopics
-			Version: viem@2.30.1]
+			Version: viem@2.37.8]
 		`,
 		)
 	})

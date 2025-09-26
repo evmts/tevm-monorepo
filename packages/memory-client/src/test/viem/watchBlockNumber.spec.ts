@@ -23,12 +23,21 @@ beforeEach(async () => {
 
 describe('watchBlockNumber', () => {
 	it('watchBlockNumber should work', async () => {
+		const createDeferredPromise = <T>() => {
+			let resolve: (value: T) => void
+			let reject: (reason?: any) => void
+			const promise = new Promise<T>((res, rej) => {
+				resolve = res
+				reject = rej
+			})
+			return { promise, resolve: resolve!, reject: reject! }
+		}
 		const resultPromises = [
-			Promise.withResolvers<bigint>(),
-			Promise.withResolvers<bigint>(),
-			Promise.withResolvers<bigint>(),
-			Promise.withResolvers<bigint>(),
-			Promise.withResolvers<bigint>(),
+			createDeferredPromise<bigint>(),
+			createDeferredPromise<bigint>(),
+			createDeferredPromise<bigint>(),
+			createDeferredPromise<bigint>(),
+			createDeferredPromise<bigint>(),
 		] as const
 		const errors: Error[] = []
 		const unwatch = mc.watchBlockNumber({
