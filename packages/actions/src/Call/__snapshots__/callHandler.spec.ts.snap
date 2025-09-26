@@ -2,6 +2,15 @@
 
 exports[`callHandler > should create transaction when createTransaction is true 1`] = `"0x932c965e92ff1a173077fcf85543a7e1582b2d452f300571bed82a1b2c0180d3"`;
 
+exports[`callHandler > should handle being unable to get options 1`] = `
+[
+  [UnknownBlock: Error cloning VM
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
+Version: 1.1.0.next-73],
+]
+`;
+
 exports[`callHandler > should handle error during EVM execution 1`] = `
 [
   [EvmRevertError: revert
@@ -149,6 +158,16 @@ exports[`callHandler > should handle unexpected errors during script creation 1`
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
 Details: {"error":"stack underflow","errorType":"EVMError"}
+Version: 1.1.0.next-73],
+]
+`;
+
+exports[`callHandler > should handle vm cloning throwing unexpectedly 1`] = `
+[
+  [InternalError: Error cloning VM
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Details: Error cloning VM
 Version: 1.1.0.next-73],
 ]
 `;

@@ -42,7 +42,7 @@ const addabi = [
 
 const forkConfig = {
 	transport: transports.optimism,
-	blockTag: 121138454n,
+	blockTag: 141658503n,
 }
 
 describe('Tevm should create a local vm in JavaScript', () => {

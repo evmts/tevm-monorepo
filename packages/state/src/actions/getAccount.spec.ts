@@ -43,7 +43,7 @@ describe(`${getAccount.name} forking`, () => {
 			loggingLevel: 'warn',
 			fork: {
 				transport: transports.optimism,
-				blockTag: 122486679n,
+				blockTag: 141658503n,
 			},
 		})
 

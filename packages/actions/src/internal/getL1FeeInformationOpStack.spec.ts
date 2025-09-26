@@ -11,7 +11,7 @@ describe(getL1FeeInformationOpStack.name, () => {
 			common: optimism,
 			fork: {
 				transport: transports.optimism,
-				blockTag: 121138357n,
+				blockTag: 141658503n,
 			},
 		})
 		const vm = await client.getVm()

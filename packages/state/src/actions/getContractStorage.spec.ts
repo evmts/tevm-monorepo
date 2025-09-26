@@ -86,14 +86,11 @@ describe('getContractStorage forking', () => {
 	let knownStorageKey: Uint8Array
 
 	beforeEach(() => {
-		// Use a fixed block tag to ensure consistent responses
-		const specificBlockTag = 110000000n
-
 		baseState = createBaseState({
 			loggingLevel: 'warn',
 			fork: {
 				transport: transports.optimism,
-				blockTag: specificBlockTag,
+				blockTag: 141658503n,
 			},
 		})
 
@@ -168,7 +165,7 @@ describe('getContractStorage forking', () => {
 		const testState = createBaseState({
 			fork: {
 				transport: transports.optimism,
-				blockTag: 1n,
+				blockTag: 141658503n,
 			},
 		})
 

@@ -62,7 +62,7 @@ describe('createTevmNode coverage tests', () => {
 		const client = createTevmNode({
 			fork: {
 				transport: transports.optimism,
-				blockTag: 123n, // Testing a specific block tag that's not 'latest'
+				blockTag: 141658503n, // Testing a specific block tag that's not 'latest'
 			},
 		})
 
@@ -256,7 +256,7 @@ describe('createTevmNode coverage tests', () => {
 			accountsCache: new Map() as any,
 			fork: {
 				// Testing scenario where fork exists but transport is undefined
-				blockTag: 123n,
+				blockTag: 141658503n,
 			} as any,
 		})
 
@@ -273,7 +273,7 @@ describe('createTevmNode coverage tests', () => {
 		const client = createTevmNode({
 			fork: {
 				transport: transports.optimism,
-				blockTag: 123n,
+				blockTag: 141658503n,
 			},
 			storageCache: new Map() as any,
 			contractCache: new Map() as any,
@@ -302,7 +302,7 @@ describe('createTevmNode coverage tests', () => {
 		const client1 = createTevmNode({
 			fork: {
 				transport: mockTransport,
-				blockTag: 123n,
+				blockTag: 141658503n,
 			},
 		})
 
@@ -310,7 +310,7 @@ describe('createTevmNode coverage tests', () => {
 		const client2 = createTevmNode({
 			fork: {
 				// No transport here, forcing the other branch
-				blockTag: 123n,
+				blockTag: 141658503n,
 			} as any,
 		})
 

@@ -9,7 +9,7 @@ describe(getProof.name, () => {
 		const state = createBaseState({
 			fork: {
 				transport: transports.optimism,
-				blockTag: 420n,
+				blockTag: 141658503n,
 			},
 		})
 		await state.ready()

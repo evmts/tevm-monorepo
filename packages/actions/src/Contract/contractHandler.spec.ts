@@ -199,7 +199,7 @@ describe('contractHandler', () => {
 		const client = createTevmNode({
 			fork: {
 				transport: transports.optimism,
-				blockTag: 122606365n,
+				blockTag: 141658503n,
 			},
 			common: optimism,
 		})
@@ -337,7 +337,7 @@ describe('contractHandler', () => {
 		const client = createTevmNode({
 			fork: {
 				transport: transports.optimism,
-				blockTag: 122606365n,
+				blockTag: 141658503n,
 			},
 			common: optimism,
 		})
@@ -347,7 +347,6 @@ describe('contractHandler', () => {
 			deployedBytecode: ERC20_BYTECODE,
 			throwOnFail: false,
 		})
-		console.log('ERRORS', errors[0].cause)
 		expect(errors).toBeUndefined()
 		const result = await contractHandler(client)({
 			throwOnFail: false,
