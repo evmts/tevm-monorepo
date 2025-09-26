@@ -36,8 +36,8 @@ export const applyTransactions = (vm: BaseVm) => async (block: Block, opts: RunB
 		const tx = block.transactions[txIdx] as TypedTransaction
 
 		let maxGasLimit: bigint
-		if ((vm.common as any).ethjsCommon.isActivatedEIP(1559) === true) {
-			maxGasLimit = block.header.gasLimit * (vm.common as any).ethjsCommon.param('elasticityMultiplier')
+		if (vm.common.ethjsCommon.isActivatedEIP(1559) === true) {
+			maxGasLimit = block.header.gasLimit * vm.common.ethjsCommon.param('elasticityMultiplier')
 		} else {
 			maxGasLimit = block.header.gasLimit
 		}
@@ -68,7 +68,9 @@ export const applyTransactions = (vm: BaseVm) => async (block: Block, opts: RunB
 		// Add receipt to trie to later calculate receipt root
 		receipts.push(txRes.receipt)
 		const encodedReceipt = encodeReceipt(txRes.receipt, tx.type)
-		await receiptTrie?.put(Rlp.encode(txIdx), encodedReceipt)
+		if (receiptTrie) {
+			await receiptTrie.put(Rlp.encode(txIdx), encodedReceipt)
+		}
 	}
 
 	const receiptsRoot = receiptTrie !== undefined ? receiptTrie.root() : KECCAK256_RLP

@@ -59,9 +59,9 @@ export const runTx =
 		if (validatedOpts.tx.supports(Capability.EIP2718TypedTransaction) && vm.common.ethjsCommon.isActivatedEIP(2718)) {
 			const castedTx = <AccessListEIP2930Transaction>validatedOpts.tx
 			for (const accessListItem of castedTx.accessList ?? []) {
-				vm.evm.journal.addAlwaysWarmAddress((accessListItem as any).address, true)
-				for (const storageKey of (accessListItem as any).storageKeys ?? []) {
-					vm.evm.journal.addAlwaysWarmSlot((accessListItem as any).address, storageKey, true)
+				vm.evm.journal.addAlwaysWarmAddress(accessListItem.address, true)
+				for (const storageKey of accessListItem.storageKeys ?? []) {
+					vm.evm.journal.addAlwaysWarmSlot(accessListItem.address, storageKey, true)
 				}
 			}
 		}
@@ -185,7 +185,7 @@ const _runTx =
 			// the signer must be able to afford the transaction
 			// assert signer(tx).balance >= tx.message.gas * tx.message.max_fee_per_gas + get_total_data_gas(tx) * tx.message.max_fee_per_data_gas
 			const castTx = tx as BlobEIP4844Transaction
-			totalblobGas = (castTx.common as any).ethjsCommon.param('blobGasPerBlob') * BigInt(castTx.numBlobs())
+			totalblobGas = castTx.common.ethjsCommon.param('blobGasPerBlob') * BigInt(castTx.numBlobs())
 			maxCost += totalblobGas * castTx.maxFeePerBlobGas
 
 			// 4844 minimum blobGas price check
@@ -251,7 +251,8 @@ const _runTx =
 		// EIP-4844 tx
 		let blobVersionedHashes: `0x${string}`[] | undefined = undefined
 		if (tx instanceof BlobEIP4844Transaction) {
-			blobVersionedHashes = (tx as BlobEIP4844Transaction).blobVersionedHashes as `0x${string}`[]
+			const rawHashes = (tx as BlobEIP4844Transaction).blobVersionedHashes
+			blobVersionedHashes = rawHashes.map((hash) => hash.startsWith('0x') ? hash as `0x${string}` : `0x${hash}` as `0x${string}`)
 		}
 
 		// Update from account's balance
@@ -298,7 +299,7 @@ const _runTx =
 		// Process any gas refund
 		let gasRefund = results.execResult.gasRefund ?? 0n
 		results.gasRefund = gasRefund
-		const maxRefundQuotient = (vm.common as any).ethjsCommon.param('maxRefundQuotient')
+		const maxRefundQuotient = vm.common.ethjsCommon.param('maxRefundQuotient')
 		if (gasRefund !== 0n) {
 			const maxRefund = results.totalGasSpent / maxRefundQuotient
 			gasRefund = gasRefund < maxRefund ? gasRefund : maxRefund

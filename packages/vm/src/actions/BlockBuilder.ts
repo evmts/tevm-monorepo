@@ -86,16 +86,16 @@ export class BlockBuilder {
 			parentHash: opts.parentBlock.hash(),
 			number: opts.headerData?.number ?? opts.parentBlock.header.number + 1n,
 			gasLimit: opts.headerData?.gasLimit ?? opts.parentBlock.header.gasLimit,
-			timestamp: opts.headerData?.timestamp ?? Math.round(Date.now() / 1000),
+			timestamp: opts.headerData?.timestamp ?? BigInt(Math.round(Date.now() / 1000)),
 		}
 		this.withdrawals = opts.withdrawals?.map((w) => (Withdrawal as any).fromWithdrawalData(w))
 
 		if (
-			(this.vm.common as any).ethjsCommon.isActivatedEIP(1559) === true &&
+			this.vm.common.ethjsCommon.isActivatedEIP(1559) === true &&
 			typeof this.headerData.baseFeePerGas === 'undefined'
 		) {
-			if (this.headerData.number === (vm.common as any).ethjsCommon.hardforkBlock('london')) {
-				this.headerData.baseFeePerGas = (vm.common as any).ethjsCommon.param('initialBaseFee')
+			if (this.headerData.number === vm.common.ethjsCommon.hardforkBlock('london')) {
+				this.headerData.baseFeePerGas = vm.common.ethjsCommon.param('initialBaseFee')
 			} else {
 				this.headerData.baseFeePerGas = opts.parentBlock.header.calcNextBaseFee()
 			}
@@ -190,7 +190,7 @@ export class BlockBuilder {
 								? hexToBytes(this.headerData.coinbase as Hex)
 								: this.headerData.coinbase,
 					)
-				: (EthjsAddress as any).zero()
+				: new EthjsAddress(new Uint8Array(20))
 		await rewardAccount(this.vm.evm, coinbase, reward)
 	}
 
