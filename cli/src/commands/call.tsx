@@ -1,4 +1,3 @@
-import React from 'react'
 import { z } from 'zod'
 import { useAction } from '../hooks/useAction.js'
 import CliAction from '../components/CliAction.js'

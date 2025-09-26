@@ -1,4 +1,3 @@
-import React from 'react';
 import type { AppProps } from 'pastel';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 

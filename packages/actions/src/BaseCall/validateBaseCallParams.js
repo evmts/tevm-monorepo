@@ -16,6 +16,7 @@ import {
 	InvalidToError,
 	InvalidValueError,
 } from '@tevm/errors'
+import { treeifyError } from 'zod'
 import { zBaseCallParams } from './zBaseCallParams.js'
 
 // TODO we are missing some validation including stateOverrides
@@ -38,114 +39,119 @@ export const validateBaseCallParams = (action) => {
 	const parsedParams = zBaseCallParams.safeParse(action)
 
 	if (parsedParams.success === false) {
-		const formattedErrors = parsedParams.error.format()
+		const formattedErrors = treeifyError(parsedParams.error)
 
 		// Iterate over the general errors
-		formattedErrors._errors.forEach((error) => {
+		formattedErrors.errors.forEach((error) => {
 			errors.push(new InvalidParamsError(error))
 		})
 
 		// Error handling for specific fields
-		if (formattedErrors.skipBalance) {
-			formattedErrors.skipBalance._errors.forEach((error) => {
+		if (formattedErrors.properties?.skipBalance) {
+			formattedErrors.properties.skipBalance.errors.forEach((error) => {
 				errors.push(new InvalidSkipBalanceError(error))
 			})
 		}
 
-		if (formattedErrors.gasRefund) {
-			formattedErrors.gasRefund._errors.forEach((error) => {
+		if (formattedErrors.properties?.gasRefund) {
+			formattedErrors.properties.gasRefund.errors.forEach((error) => {
 				errors.push(new InvalidGasRefundError(error))
 			})
 		}
 
-		if (formattedErrors.blockTag) {
-			formattedErrors.blockTag._errors.forEach((error) => {
+		if (formattedErrors.properties?.blockTag) {
+			formattedErrors.properties.blockTag.errors.forEach((error) => {
 				errors.push(new InvalidBlockError(error))
 			})
 		}
 
-		if (formattedErrors.gas) {
-			formattedErrors.gas._errors.forEach((error) => {
+		if (formattedErrors.properties?.gas) {
+			formattedErrors.properties.gas.errors.forEach((error) => {
 				errors.push(new InvalidGasPriceError(error))
 			})
 		}
 
-		if (formattedErrors.origin) {
-			formattedErrors.origin._errors.forEach((error) => {
+		if (formattedErrors.properties?.origin) {
+			formattedErrors.properties.origin.errors.forEach((error) => {
 				errors.push(new InvalidOriginError(error))
 			})
 		}
 
-		if (formattedErrors.caller) {
-			formattedErrors.caller._errors.forEach((error) => {
+		if (formattedErrors.properties?.caller) {
+			formattedErrors.properties.caller.errors.forEach((error) => {
 				errors.push(new InvalidCallerError(error))
 			})
 		}
 
-		if (formattedErrors.gas) {
-			formattedErrors.gas._errors.forEach((error) => {
+		if (formattedErrors.properties?.gas) {
+			formattedErrors.properties.gas.errors.forEach((error) => {
 				errors.push(new InvalidGasPriceError(error))
 			})
 		}
 
-		if (formattedErrors.value) {
-			formattedErrors.value._errors.forEach((error) => {
+		if (formattedErrors.properties?.value) {
+			formattedErrors.properties.value.errors.forEach((error) => {
 				errors.push(new InvalidValueError(error))
 			})
 		}
 
-		if (formattedErrors.depth) {
-			formattedErrors.depth._errors.forEach((error) => {
+		if (formattedErrors.properties?.depth) {
+			formattedErrors.properties.depth.errors.forEach((error) => {
 				errors.push(new InvalidDepthError(error))
 			})
 		}
 
-		if (formattedErrors.selfdestruct) {
-			formattedErrors.selfdestruct._errors.forEach((error) => {
+		if (formattedErrors.properties?.selfdestruct) {
+			formattedErrors.properties.selfdestruct.errors.forEach((error) => {
 				errors.push(new InvalidSelfdestructError(error))
 			})
 		}
 
-		if (formattedErrors.to) {
-			formattedErrors.to._errors.forEach((error) => {
+		if (formattedErrors.properties?.to) {
+			formattedErrors.properties.to.errors.forEach((error) => {
 				errors.push(new InvalidToError(error))
 			})
 		}
 
-		if (formattedErrors.blobVersionedHashes) {
-			formattedErrors.blobVersionedHashes._errors.forEach((error) => {
+		if (formattedErrors.properties?.blobVersionedHashes) {
+			formattedErrors.properties.blobVersionedHashes.errors.forEach((error) => {
 				errors.push(new InvalidBlobVersionedHashesError(error))
 			})
-			for (const [key, value] of Object.entries(formattedErrors.blobVersionedHashes)) {
-				if (key === '_errors') continue
-				if ('_errors' in value) {
-					value._errors.forEach((error) => {
-						errors.push(new InvalidBlobVersionedHashesError(error))
+			for (const [key, value] of Object.entries(formattedErrors.properties?.blobVersionedHashes)) {
+				if (key === 'errors') continue
+				if (Array.isArray(value) && value.length > 0 && typeof value[0] === 'object' && 'errors' in value[0]) {
+					// value is { errors: string[] }[]
+					value.forEach((item) => {
+						if (typeof item === 'object' && 'errors' in item) {
+							item.errors.forEach((error) => {
+								errors.push(new InvalidBlobVersionedHashesError(error))
+							})
+						}
 					})
 				}
 			}
 		}
 
-		if (formattedErrors.maxFeePerGas) {
-			formattedErrors.maxFeePerGas._errors.forEach((error) => {
+		if (formattedErrors.properties?.maxFeePerGas) {
+			formattedErrors.properties.maxFeePerGas.errors.forEach((error) => {
 				errors.push(new InvalidMaxFeePerGasError(error))
 			})
 		}
 
-		if (formattedErrors.maxPriorityFeePerGas) {
-			formattedErrors.maxPriorityFeePerGas._errors.forEach((error) => {
+		if (formattedErrors.properties?.maxPriorityFeePerGas) {
+			formattedErrors.properties.maxPriorityFeePerGas.errors.forEach((error) => {
 				errors.push(new InvalidMaxPriorityFeePerGasError(error))
 			})
 		}
 
-		if (formattedErrors.addToMempool) {
-			formattedErrors.addToMempool._errors.forEach((error) => {
+		if (formattedErrors.properties?.addToMempool) {
+			formattedErrors.properties.addToMempool.errors.forEach((error) => {
 				errors.push(new InvalidAddToMempoolError(error))
 			})
 		}
 
-		if (formattedErrors.addToBlockchain) {
-			formattedErrors.addToBlockchain._errors.forEach((error) => {
+		if (formattedErrors.properties?.addToBlockchain) {
+			formattedErrors.properties.addToBlockchain.errors.forEach((error) => {
 				errors.push(new InvalidAddToBlockchainError(error))
 			})
 		}

@@ -1,4 +1,4 @@
-import React from 'react'
+import { useEffect } from 'react'
 import { Box } from 'ink'
 import { z } from 'zod'
 import { type options } from '../utils/create-options.js'
@@ -19,7 +19,7 @@ export const description = "Create a new Ethereum account or smart contract";
 
 export default function Create({ options, args: [defaultName] }: Props) {
   // Initialize store with default values
-  React.useEffect(() => {
+  useEffect(() => {
     useStore.setState({
       name: defaultName,
       currentStep: 0,

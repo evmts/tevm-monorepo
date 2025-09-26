@@ -68,7 +68,6 @@
 		"@tevm/utils": "workspace:^"
 	},
 	"devDependencies": {
-		"@tevm/client-types": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
 	},

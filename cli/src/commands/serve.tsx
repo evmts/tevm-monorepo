@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Text, Box, useInput } from 'ink';
 import zod from 'zod';
 import { option } from 'pastel';

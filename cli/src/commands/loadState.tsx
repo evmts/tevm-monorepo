@@ -1,4 +1,3 @@
-import React from 'react'
 import { z } from 'zod'
 import { option } from 'pastel'
 import type { LoadStateParams, LoadStateResult } from '@tevm/actions'
