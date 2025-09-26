@@ -1,11 +1,11 @@
 import { createAddress } from '@tevm/address'
 import { createCommon, mainnet } from '@tevm/common'
-import { p256VerifyPrecompile, P256_VERIFY_ADDRESS } from '@tevm/precompiles'
+import { P256_VERIFY_ADDRESS } from '@tevm/precompiles'
 import { definePredeploy } from '@tevm/predeploys'
 import { CacheType, ContractCache, StorageCache } from '@tevm/state'
 import { createSyncStoragePersister } from '@tevm/sync-storage-persister'
 import { SimpleContract, transports } from '@tevm/test-utils'
-import { bytesToHex, createAccount, createAddressFromString, hexToBytes } from '@tevm/utils'
+import { bytesToHex, createAccount, createAddressFromString, hexToBytes, type Hex } from '@tevm/utils'
 import { describe, expect, it, vi } from 'vitest'
 import { createTevmNode } from './createTevmNode.js'
 
@@ -236,14 +236,15 @@ describe('createTevmNode', () => {
 
 			// Test the p256verify precompile is available by default
 			const result = await vm.evm.runCall({
-				caller: hexToBytes('0x2a6c7bb649234ee2656550e163c8aaaed7318dcb'),
-				to: P256_VERIFY_ADDRESS.toBytes(),
+				caller: createAddress('0x2a6c7bb649234ee2656550e163c8aaaed7318dcb'),
+				to: P256_VERIFY_ADDRESS,
 				data: hexToBytes(
+					('0x' +
 					'c74ace4c2ccdb912b6876fa178a4a7adb6ea0916bfa73aa2c73fb4df5ce133a6' + // r
 					'ae85d3657b170fb227cd404e3ae80e1974e885d6c0999094aad732979040be80' + // s
 					'2c795862878f462f200a403b062c1b24e7de207f0c16f3e4d98d4c221c5e653b' + // x
 					'2bd4817b59b8bdc0157af76bd95077d68a96c53a15c84fbd568c8759364aa1bf' + // y
-					'e928602caf3f7716ee83abc596147665d9adfe7154a05440555571cefbe9652c'   // msgHash
+					'e928602caf3f7716ee83abc596147665d9adfe7154a05440555571cefbe9652c') as Hex   // msgHash
 				),
 			})
 
@@ -267,8 +268,8 @@ describe('createTevmNode', () => {
 			const vm = await client.getVm()
 
 			const result = await vm.evm.runCall({
-				caller: hexToBytes('0x2a6c7bb649234ee2656550e163c8aaaed7318dcb'),
-				to: P256_VERIFY_ADDRESS.toBytes(),
+				caller: createAddress('0x2a6c7bb649234ee2656550e163c8aaaed7318dcb'),
+				to: P256_VERIFY_ADDRESS,
 				data: new Uint8Array(160), // Any 160-byte input
 			})
 
