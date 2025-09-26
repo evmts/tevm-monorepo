@@ -35,17 +35,17 @@ jobs:
 
       - name: Build dist
         id: build-dist
-        run: pnpm -r build:dist
+        run: pnpm build:dist
 
       - name: Build types
         if: success()
         continue-on-error: true
-        run: pnpm -r build:types
+        run: pnpm build:types
 
       - name: Tests
         if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
         continue-on-error: true
-        run: pnpm -r test:coverage
+        run: pnpm test:coverage
 
       - name: Fixtures
         if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
@@ -65,37 +65,37 @@ jobs:
       - name: Lint
         if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
         continue-on-error: true
-        run: pnpm -r lint:check
+        run: pnpm lint:check
 
       - name: Lint deps
         if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
         continue-on-error: true
-        run: pnpm -r lint:deps
+        run: pnpm lint:deps
 
       - name: Lint packages
         if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
         continue-on-error: true
-        run: pnpm -r lint:package
+        run: pnpm lint:package
 
       - name: Build app
         if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
         continue-on-error: true
-        run: pnpm -r build:app
+        run: pnpm build:app
 
       - name: Generate docs
         if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
         continue-on-error: true
-        run: pnpm -r generate:docs
+        run: pnpm generate:docs
 
       - name: Build rust
         if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
         continue-on-error: true
-        run: pnpm -r build:rust
+        run: pnpm build:rust:app
 
       - name: Build wasm
         if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
         continue-on-error: true
-        run: pnpm -r build:wasm
+        run: pnpm build:wasm
 
       - name: Check results
         if: always()
