@@ -2,7 +2,7 @@ import type { Server as HttpServer } from 'node:http'
 import type { Common } from '@tevm/common'
 import type { MemoryClient, MemoryClientOptions, TevmRpcSchema } from '@tevm/memory-client'
 import type { TevmNode, TevmNodeOptions } from '@tevm/node'
-import type { Account, Address, Chain, RpcSchema } from 'viem'
+import type { Account, Address, Chain, EIP1193RequestFn, RpcSchema, Transport } from 'viem'
 
 export type SnapshotAutosaveMode = 'onStop' | 'onRequest'
 
@@ -58,7 +58,7 @@ export type TestSnapshotClientOptions<
 	TAccountOrAddress extends Account | Address | undefined = undefined,
 	TRpcSchema extends RpcSchema | undefined = TevmRpcSchema,
 > = MemoryClientOptions<TCommon, TAccountOrAddress, TRpcSchema> & {
-	test?: TestOptions
+	test?: TestOptions | undefined
 }
 
 export type TestSnapshotClient<
@@ -67,7 +67,20 @@ export type TestSnapshotClient<
 > = MemoryClient<TCommon, TAccountOrAddress> & TestSnapshotBaseClient
 
 export type TestSnapshotNodeOptions = TevmNodeOptions & {
-	test?: TestOptions
+	test?: TestOptions | undefined
 }
 
 export type TestSnapshotNode = TevmNode<'fork'> & TestSnapshotBaseClient
+
+export type TestSnapshotTransportOptions<
+	TTransportType extends string = string,
+	TRpcAttributes = Record<string, any>,
+	TEip1193RequestFn extends EIP1193RequestFn = EIP1193RequestFn,
+> = {
+	transport: Transport<TTransportType, TRpcAttributes, TEip1193RequestFn> | { request: TEip1193RequestFn }
+	test?: TestOptions | undefined
+}
+
+export type TestSnapshotTransport<TEip1193RequestFn extends EIP1193RequestFn = EIP1193RequestFn> = {
+	request: TEip1193RequestFn
+} & TestSnapshotBaseClient
