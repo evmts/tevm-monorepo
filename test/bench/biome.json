@@ -1,78 +1,9 @@
 {
 	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-	"organizeImports": {
-		"enabled": true
-	},
+	"extends": "//",
 	"files": {
-		"ignore": [
-			".nx",
-			"node_modules",
-			"package.json",
-			".tevm",
-			"**/package.json",
-			"**/coverage",
-			"**/node_modules",
-			"**/dist",
-			"**/types",
-			"**/artifacts",
-			"**/lib",
-			"**/fixtures",
-			"**/.next",
-			"**/.vitepress/cache",
-			"**/.vitepress/dist",
-			"scaffold-tevm",
-			"docs/**/*",
-			"tevm/**/*",
-			"bundler/**/*",
-			".vscode",
-			".changeset",
-			".devcontainer",
-			"examples/svelte-ethers/.svelte-kit",
-			"examples/next",
-			"bundler-packages/cli",
-			"experimental/viem-effect",
-			"bundler-packages/config/src/fixtures",
-			"bundler-packages/cli/fixtures"
+		"includes": [
+			"src/**"
 		]
-	},
-	"formatter": {
-		"enabled": true,
-		"formatWithErrors": false,
-		"indentStyle": "tab",
-		"indentWidth": 2,
-		"lineWidth": 120
-	},
-	"linter": {
-		"enabled": true,
-		"rules": {
-			"recommended": true,
-			"style": {
-				"useImportType": "off"
-			},
-			"performance": {
-				"noDelete": "off",
-				"noAccumulatingSpread": "off"
-			},
-			"complexity": {
-				"noForEach": "off",
-				"noBannedTypes": "off",
-				"useLiteralKeys": "off"
-			},
-			"suspicious": {
-				"noExplicitAny": "off",
-				"noGlobalAssign": "off",
-				"noArrayIndexKey": "off",
-				"noConfusingVoidType": "off",
-				"noAssignInExpressions": "off",
-				"noRedeclare": "off"
-			}
-		}
-	},
-	"javascript": {
-		"formatter": {
-			"quoteStyle": "single",
-			"trailingCommas": "all",
-			"semicolons": "asNeeded"
-		}
 	}
 }
