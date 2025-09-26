@@ -1,4 +1,4 @@
-import { p256 } from "@noble/curves/nist";
+import { p256 } from "@noble/curves/nist.js";
 import { createAddress } from "@tevm/address";
 import { toBytes } from "@tevm/utils";
 

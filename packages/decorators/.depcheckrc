@@ -1,5 +1,4 @@
 ignores: [
-  "@tevm/client-types",
   "@tevm/node"
 ]
 skip-missing: true
