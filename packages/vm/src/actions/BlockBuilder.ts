@@ -92,7 +92,7 @@ export class BlockBuilder {
 			typeof this.headerData.baseFeePerGas === 'undefined'
 		) {
 			if (this.headerData.number === vm.common.ethjsCommon.hardforkBlock('london')) {
-				this.headerData.baseFeePerGas = BigInt(vm.common.ethjsCommon.param('initialBaseFee'))
+				this.headerData.baseFeePerGas = vm.common.ethjsCommon.param('initialBaseFee')
 			} else {
 				this.headerData.baseFeePerGas = opts.parentBlock.header.calcNextBaseFee()
 			}
