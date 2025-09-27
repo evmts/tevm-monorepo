@@ -1,10 +1,10 @@
-import type { SerializableTevmState, TevmState } from '@tevm/state'
+import type { SerializableTevmState } from '@tevm/state'
 import type { BaseParams } from '../common/BaseParams.js'
 
 /**
  * Parameters for the `tevmLoadState` method.
  *
- * This method takes a {@link TevmState} object and loads it into the VM state.
+ * This method takes a {@link SerializableTevmState} object and loads it into the VM state.
  *
  * @example
  * ```typescript
@@ -20,7 +20,7 @@ import type { BaseParams } from '../common/BaseParams.js'
  * ```
  *
  * @param {BaseParams} TThrowOnFail - Optional parameter to throw an error on failure.
- * @param {TevmState} state - The TEVM state object to load.
+ * @param {SerializableTevmState} state - The TEVM state object to load.
  */
 export type LoadStateParams<TThrowOnFail extends boolean = boolean> = BaseParams<TThrowOnFail> & {
 	/**
