@@ -1,6 +1,36 @@
 import { InternalError } from '@tevm/errors'
+import { hexToBigInt } from '@tevm/utils'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 import { validateLoadStateParams } from './validateLoadStateParams.js'
+
+/**
+ * Converts SerializableTevmState with Hex strings to TevmState with BigInt values
+ * @param {import('@tevm/state').SerializableTevmState} serializedState - The serialized state to convert
+ * @returns {import('@tevm/state').TevmState} The deserialized state
+ */
+const deserializeState = (serializedState) => {
+	/** @type {import('@tevm/state').TevmState} */
+	const state = {}
+
+	for (const [address, account] of Object.entries(serializedState)) {
+		/** @type {import('@tevm/utils').Address} */
+		const addressKey = /** @type {import('@tevm/utils').Address} */ (address)
+		state[addressKey] = {
+			nonce: hexToBigInt(account.nonce),
+			balance: hexToBigInt(account.balance),
+			storageRoot: account.storageRoot,
+			codeHash: account.codeHash,
+			...(account.deployedBytecode && { deployedBytecode: account.deployedBytecode }),
+			...(account.storage && {
+				storage: {
+					...Object.fromEntries(Object.entries(account.storage).map(([key, value]) => [key.replace(/^0x/, ''), value])),
+				},
+			}),
+		}
+	}
+
+	return state
+}
 
 /**
  * @internal
@@ -41,7 +71,8 @@ export const loadStateHandler =
 		try {
 			const vm = await client.getVm()
 			if ('generateCanonicalGenesis' in vm.stateManager) {
-				await vm.stateManager.generateCanonicalGenesis(params.state)
+				const deserializedState = deserializeState(params.state)
+				await vm.stateManager.generateCanonicalGenesis(deserializedState)
 			} else {
 				throw new Error(
 					'Unsupported state manager. Must use a Tevm state manager from `@tevm/state` package. This may indicate a bug in tevm internal code.',

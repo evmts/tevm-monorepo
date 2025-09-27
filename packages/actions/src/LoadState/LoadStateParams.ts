@@ -1,4 +1,4 @@
-import type { TevmState } from '@tevm/state'
+import type { SerializableTevmState, TevmState } from '@tevm/state'
 import type { BaseParams } from '../common/BaseParams.js'
 
 /**
@@ -26,5 +26,5 @@ export type LoadStateParams<TThrowOnFail extends boolean = boolean> = BaseParams
 	/**
 	 * The TEVM state object to load.
 	 */
-	readonly state: TevmState
+	readonly state: SerializableTevmState
 }

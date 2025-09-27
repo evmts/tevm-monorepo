@@ -24,6 +24,7 @@ export type SerializableTevmState = {
 		balance: Hex
 		storageRoot: Hex
 		codeHash: Hex
+		deployedBytecode?: Hex
 		storage?: StorageDump
 	}
 }

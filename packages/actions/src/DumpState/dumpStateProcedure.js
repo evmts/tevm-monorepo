@@ -1,4 +1,3 @@
-import { numberToHex } from '@tevm/utils'
 import { dumpStateHandler } from './dumpStateHandler.js'
 
 /**
@@ -10,22 +9,6 @@ export const dumpStateProcedure = (client) => async (request) => {
 	const { errors = [], ...result } = await dumpStateHandler(client)({
 		throwOnFail: false,
 	})
-
-	/**
-	 * @type {import('@tevm/state').ParameterizedTevmState}
-	 */
-	const parsedState = {}
-
-	for (const [k, v] of Object.entries(result.state)) {
-		const { nonce, balance, storageRoot, codeHash } = v
-		parsedState[k] = {
-			...v,
-			nonce: numberToHex(nonce),
-			balance: numberToHex(balance),
-			storageRoot: storageRoot,
-			codeHash: codeHash,
-		}
-	}
 
 	if (errors.length > 0) {
 		const error = /** @type {import('./TevmDumpStateError.js').TevmDumpStateError}*/ (errors[0])
@@ -45,7 +28,7 @@ export const dumpStateProcedure = (client) => async (request) => {
 	return {
 		jsonrpc: '2.0',
 		result: {
-			state: parsedState,
+			state: result.state,
 		},
 		method: 'tevm_dumpState',
 		...(request.id === undefined ? {} : { id: request.id }),
