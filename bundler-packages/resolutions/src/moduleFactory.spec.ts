@@ -77,7 +77,7 @@ describe('moduleFactory', () => {
 				runSyncronously,
 			),
 		)
-		expect(modules.keys()).toMatchSnapshot()
+		expect([...modules.keys()].map((key) => key.replace(absolutePathToNormalize, ''))).toMatchSnapshot()
 		expect(
 			JSON.stringify(modules.get(fixtures[testCase].entrypoint()), null, 2).replaceAll(absolutePathToNormalize, ''),
 		).toMatchSnapshot()
@@ -92,7 +92,7 @@ describe('moduleFactory', () => {
 				runSyncronously,
 			),
 		)
-		expect(modules.keys()).toMatchSnapshot()
+		expect([...modules.keys()].map((key) => key.replace(absolutePathToNormalize, ''))).toMatchSnapshot()
 		expect(
 			JSON.stringify(modules.get(fixtures[testCase].entrypoint()), null, 2).replaceAll(absolutePathToNormalize, ''),
 		).toMatchSnapshot()

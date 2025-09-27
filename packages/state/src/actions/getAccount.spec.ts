@@ -1,6 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { transports } from '@tevm/test-utils'
-import { EthjsAccount, EthjsAddress, createAccount, createAddressFromString } from '@tevm/utils'
+import { EthjsAccount, EthjsAddress, createAccount, createAddressFromString, hexToBigInt, type Hex } from '@tevm/utils'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { getAccount } from './getAccount.js'
@@ -36,14 +36,24 @@ describe(`${getAccount.name} forking`, () => {
 	let address: EthjsAddress
 	let account: EthjsAccount
 
-	const knownAccount = createAddress('0x9430801EBAf509Ad49202aaBC5F5Bc6fd8A3dAf8')
+	const knownAccount = createAddress('0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045')
 
-	beforeEach(() => {
+	beforeEach(async () => {
+		// Get the latest block for a reasonable proof window
+		const latestBlock = (await transports.optimism.request({
+			jsonrpc: '2.0',
+			id: 1,
+			method: 'eth_blockNumber',
+		})) as Hex | undefined
+		if (!latestBlock) {
+			throw new Error('Latest block not found')
+		}
+
 		baseState = createBaseState({
 			loggingLevel: 'warn',
 			fork: {
 				transport: transports.optimism,
-				blockTag: 141658503n,
+				blockTag: hexToBigInt(latestBlock),
 			},
 		})
 

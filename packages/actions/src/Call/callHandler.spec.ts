@@ -676,7 +676,7 @@ describe('callHandler', () => {
 		const client = createTevmNode({
 			fork: {
 				transport: transports.optimism,
-				blockTag: 141658503n,
+				blockTag: 'latest',
 			},
 			common: optimism,
 		})
@@ -711,7 +711,7 @@ describe('callHandler', () => {
 		const client = createTevmNode({
 			fork: {
 				transport: transports.optimism,
-				blockTag: 141658503n,
+				blockTag: 'latest',
 			},
 			common: {
 				...optimism,
@@ -764,7 +764,7 @@ describe('callHandler', () => {
 		const client = createTevmNode({
 			fork: {
 				transport: transports.optimism,
-				blockTag: 141658503n,
+				blockTag: 'latest',
 			},
 			common: {
 				...optimism,
@@ -805,7 +805,7 @@ describe('callHandler', () => {
 		const client = createTevmNode({
 			fork: {
 				transport: transports.optimism,
-				blockTag: 141658503n,
+				blockTag: 'latest',
 			},
 			common: {
 				...optimism,

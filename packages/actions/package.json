@@ -90,7 +90,7 @@
   },
   "peerDependencies": {
     "viem": "^2.37.8",
-    "zod": "^4.1.5"
+    "zod": "^4.1.11"
   },
   "publishConfig": {
     "access": "public"

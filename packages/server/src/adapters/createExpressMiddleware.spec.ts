@@ -39,7 +39,7 @@ describe('createExpressMiddleware', () => {
 
 		expect(res.body.error).toBeDefined()
 		expect(res.body.error.code).toBe(-32700)
-		expect(res.body.error.message).toMatchSnapshot()
+		expect(res.body.error.message).toContain(`Expected ',' or '}' after property value in JSON at position 59`)
 	})
 
 	it('should return 400 for invalid JSON-RPC request', async () => {

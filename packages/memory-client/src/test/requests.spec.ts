@@ -4,7 +4,7 @@ import { optimism } from '@tevm/common'
 import { ERC20 } from '@tevm/contract'
 import { transports } from '@tevm/test-utils'
 import { type Hex, bytesToHex, encodeDeployData, parseAbi } from '@tevm/utils'
-import { decodeFunctionResult, encodeFunctionData, hexToBigInt, hexToBytes, toHex } from '@tevm/utils'
+import { decodeFunctionResult, encodeFunctionData, hexToBigInt, toHex } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../createMemoryClient.js'
 
@@ -12,7 +12,7 @@ const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 
 const forkConfig = {
 	transport: transports.optimism,
-	blockTag: 141658503n,
+	blockTag: 'latest',
 }
 
 describe('Tevm.request', async () => {

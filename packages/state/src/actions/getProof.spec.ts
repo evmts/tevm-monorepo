@@ -3,13 +3,22 @@ import { transports } from '@tevm/test-utils'
 import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { getProof } from './getProof.js'
+import { hexToBigInt, type Hex } from '@tevm/utils'
 
 describe(getProof.name, () => {
 	it('getProof from fork url with storage slots', async () => {
+		const latestBlock = (await transports.optimism.request({
+			jsonrpc: '2.0',
+			id: 1,
+			method: 'eth_blockNumber',
+		})) as Hex | undefined
+		if (!latestBlock) {
+			throw new Error('Latest block not found')
+		}
 		const state = createBaseState({
 			fork: {
 				transport: transports.optimism,
-				blockTag: 141658503n,
+				blockTag: hexToBigInt(latestBlock),
 			},
 		})
 		await state.ready()
