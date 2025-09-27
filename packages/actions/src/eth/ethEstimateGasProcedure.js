@@ -31,11 +31,11 @@ export const ethEstimateGasJsonRpcProcedure = (client) => {
 
 		const callResult = await callProcedure(client)({
 			...estimateGasRequest,
-			params: getParams().map(param => ({
+			params: getParams().map((param) => ({
 				...param,
 				createTransaction: false,
 				addToMempool: false,
-				addToBlockchain: false
+				addToBlockchain: false,
 			})),
 			method: 'tevm_call',
 		})

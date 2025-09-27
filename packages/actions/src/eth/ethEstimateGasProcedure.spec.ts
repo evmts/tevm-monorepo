@@ -211,7 +211,7 @@ describe('ethEstimateGasJsonRpcProcedure', () => {
 	it('should not create transactions or trigger mining during gas estimation', async () => {
 		const initialBlock = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
 		const initialBlockNumber = initialBlock.header.number
-		
+
 		const txPool = await client.getTxPool()
 		const initialTxPoolSize = txPool.pool.size
 
