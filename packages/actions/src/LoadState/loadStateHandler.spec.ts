@@ -23,8 +23,8 @@ test('should load state into the state manager', async () => {
 	//calls tevm state manager loadState method
 	const state = {
 		'0x0420042004200420042004200420042004200420': {
-			nonce: 0n,
-			balance: 100n,
+			nonce: '0x0',
+			balance: '0x64',
 			storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421' as const,
 
 			codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470' as const,
@@ -33,7 +33,7 @@ test('should load state into the state manager', async () => {
 					'0xa01000000000000000000000000000000000000000000000000000000000000000',
 			},
 		},
-	}
+	} as const
 
 	const client = { getVm: () => ({ stateManager }) } as any
 
@@ -51,12 +51,12 @@ test('should load state into the state manager', async () => {
 	expect(await dumpStateHandler(client)()).toEqual({
 		state: {
 			'0x0420042004200420042004200420042004200420': {
-				nonce: 0n,
-				balance: 100n,
+				nonce: '0x0',
+				balance: '0x64',
 				storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
 				codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
 				storage: {
-					'0c2d1b9c97b15f8a18e224fe94a8453f996465e14217e0939995ce76fbe01129':
+					'0x0c2d1b9c97b15f8a18e224fe94a8453f996465e14217e0939995ce76fbe01129':
 						'0xa01000000000000000000000000000000000000000000000000000000000000000',
 				},
 			},

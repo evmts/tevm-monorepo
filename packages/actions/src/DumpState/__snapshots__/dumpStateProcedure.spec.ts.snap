@@ -44,7 +44,7 @@ exports[`dumpStateProcedure > should dump the state successfully 1`] = `
       "deployedBytecode": "0x1234",
       "nonce": "0x45",
       "storage": {
-        "0000000000000000000000000000000000000000000000000000000000000000": "0x01",
+        "0x0000000000000000000000000000000000000000000000000000000000000000": "0x01",
       },
       "storageRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
     },

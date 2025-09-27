@@ -1,4 +1,3 @@
-import { hexToBigInt } from '@tevm/utils'
 import { loadStateHandler } from './loadStateHandler.js'
 
 /**
@@ -11,23 +10,8 @@ export const loadStateProcedure = (client) => async (request) => {
 		params: [{ state }],
 	} = request
 
-	/**
-	 * @type {import('@tevm/state').TevmState}
-	 */
-	const parsedState = {}
-
-	for (const [k, v] of Object.entries(state)) {
-		const { nonce, balance, storageRoot, codeHash } = v
-		parsedState[/** @type {import('@tevm/utils').Address}*/ (k)] = {
-			...v,
-			nonce: hexToBigInt(nonce),
-			balance: hexToBigInt(balance),
-			storageRoot: storageRoot,
-			codeHash: codeHash,
-		}
-	}
 	const { errors = [] } = await loadStateHandler(client)({
-		state: parsedState,
+		state: state,
 		throwOnFail: false,
 	})
 
