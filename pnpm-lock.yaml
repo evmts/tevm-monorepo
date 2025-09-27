@@ -1880,6 +1880,9 @@ importers:
       '@tevm/tsupconfig':
         specifier: workspace:^
         version: link:../../configs/tsupconfig
+      '@tevm/tx':
+        specifier: workspace:^
+        version: link:../tx
 
   packages/node:
     dependencies:

@@ -1,7 +1,7 @@
 import { createAddress } from '@tevm/address'
 import { tevmDefault } from '@tevm/common'
 import { TransactionFactory } from '@tevm/tx'
-import { bytesToHex, hexToBytes, PREFUNDED_PRIVATE_KEYS, parseEther } from '@tevm/utils'
+import { bytesToHex, hexToBytes, PREFUNDED_ACCOUNTS, PREFUNDED_PRIVATE_KEYS, parseEther } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from './createMemoryClient.js'
 
@@ -20,7 +20,7 @@ describe('Memory Client JSON-RPC Automining Integration Tests', () => {
 					nonce: '0x00',
 					maxFeePerGas: '0x09184e72a000',
 					maxPriorityFeePerGas: '0x09184e72a000',
-					gasLimit: '0x2710',
+					gasLimit: '0x5208',
 					to: createAddress(`0x${'42'.repeat(20)}`),
 					value: parseEther('0.1'),
 					data: '0x',
@@ -64,7 +64,7 @@ describe('Memory Client JSON-RPC Automining Integration Tests', () => {
 					nonce: '0x00',
 					maxFeePerGas: '0x09184e72a000',
 					maxPriorityFeePerGas: '0x09184e72a000',
-					gasLimit: '0x2710',
+					gasLimit: '0x5208',
 					to: createAddress(`0x${'42'.repeat(20)}`),
 					value: parseEther('0.1'),
 					data: '0x',
@@ -93,7 +93,7 @@ describe('Memory Client JSON-RPC Automining Integration Tests', () => {
 
 			// Verify transaction is in txPool
 			const txPool = await client.transport.tevm.getTxPool()
-			const pooledTxs = await txPool.getBySenderAddress(createAddress(PREFUNDED_PRIVATE_KEYS[0]))
+			const pooledTxs = await txPool.getBySenderAddress(createAddress(PREFUNDED_ACCOUNTS[0].address))
 			expect(pooledTxs).toHaveLength(1)
 			expect(bytesToHex(pooledTxs[0].tx.hash())).toBe(txHash)
 		})
@@ -129,7 +129,7 @@ describe('Memory Client JSON-RPC Automining Integration Tests', () => {
 			expect(finalBlockNumber).toBe(initialBlockNumber)
 
 			const txPool = await client.transport.tevm.getTxPool()
-			const pooledTxs = await txPool.getBySenderAddress(createAddress(PREFUNDED_PRIVATE_KEYS[0]))
+			const pooledTxs = await txPool.getBySenderAddress(createAddress(PREFUNDED_ACCOUNTS[0].address))
 			expect(pooledTxs).toHaveLength(0)
 		})
 
@@ -178,7 +178,7 @@ describe('Memory Client JSON-RPC Automining Integration Tests', () => {
 					nonce: `0x${userNonce.toString(16)}`,
 					maxFeePerGas: '0x09184e72a000',
 					maxPriorityFeePerGas: '0x09184e72a000',
-					gasLimit: '0x2710',
+					gasLimit: '0x5208',
 					to: createAddress(`0x${'42'.repeat(20)}`),
 					value: parseEther('0.1'),
 					data: '0x',

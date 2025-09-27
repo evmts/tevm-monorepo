@@ -22,9 +22,9 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
 	 * @param {bigint | undefined} [params.maxFeePerGas]
 	 * @param {bigint | undefined} [params.maxPriorityFeePerGas]
 	 * @param {boolean} [params.throwOnFail]
-	 * @param {bigint | undefined} [params.userProvidedNonce]
+	 * @param {bigint | undefined} [params.nonceOverride]
 	 */
-	return async ({ evmInput, evmOutput, throwOnFail = defaultThrowOnFail, userProvidedNonce, ...priorityFeeOpts }) => {
+	return async ({ evmInput, evmOutput, throwOnFail = defaultThrowOnFail, nonceOverride, ...priorityFeeOpts }) => {
 		const vm = await client.getVm()
 		const pool = await client.getTxPool()
 
@@ -83,8 +83,8 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
 
 		// Use user-provided nonce if available, otherwise calculate next valid nonce
 		const nonce =
-			userProvidedNonce !== undefined
-				? userProvidedNonce
+			nonceOverride !== undefined
+				? nonceOverride
 				: (() => {
 						// Get the highest transaction nonce from the pool for this sender
 						let highestPoolNonce = accountNonce - 1n

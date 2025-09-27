@@ -12,12 +12,14 @@ import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
 import { BlobEIP4844Transaction, createImpersonatedTx } from '@tevm/tx'
 import {
-	PREFUNDED_ACCOUNTS,
+	bytesToHex,
 	createAccount,
 	createAddressFromString,
 	encodeFunctionData,
+	type Hex,
 	hexToBytes,
 	parseEther,
+	PREFUNDED_ACCOUNTS,
 	randomBytes,
 } from '@tevm/utils'
 import type { Vm } from '../Vm.js'
@@ -48,7 +50,7 @@ describe('runTx', () => {
 		}
 	})
 
-	it.skip('should execute a transaction successfully', async () => {
+	it('should execute a transaction successfully', async () => {
 		const tx = createImpersonatedTx({
 			impersonatedAddress: createAddressFromString(PREFUNDED_ACCOUNTS[0].address),
 			nonce: 0,
@@ -73,7 +75,7 @@ describe('runTx', () => {
 		expect(result).toMatchSnapshot()
 	})
 
-	it.skip('should execute a contract call successfully', async () => {
+	it('should execute a contract call successfully', async () => {
 		const sender = createAddressFromString(`0x${'69'.repeat(20)}`)
 
 		await vm.stateManager.putAccount(
@@ -132,7 +134,7 @@ describe('runTx', () => {
 		expect(getResult.execResult.logs).toMatchSnapshot()
 	})
 
-	it.skip('should throw error for invalid block parameter', async () => {
+	it('should throw error for invalid block parameter', async () => {
 		const tx = createImpersonatedTx({
 			impersonatedAddress: createAddressFromString(PREFUNDED_ACCOUNTS[0].address),
 			nonce: 0,
@@ -147,7 +149,7 @@ describe('runTx', () => {
 		expect(err).toMatchSnapshot()
 	})
 
-	it.skip('should throw InsufficientFundsError', async () => {
+	it('should throw InsufficientFundsError', async () => {
 		const tx = createImpersonatedTx({
 			impersonatedAddress: createAddressFromString(PREFUNDED_ACCOUNTS[0].address),
 			nonce: 0,
@@ -170,7 +172,7 @@ describe('runTx', () => {
 		expect(err).toMatchSnapshot()
 	})
 
-	it.skip('should throw NonceTooLowError', async () => {
+	it('should throw NonceTooLowError', async () => {
 		const tx = createImpersonatedTx({
 			impersonatedAddress: createAddressFromString(PREFUNDED_ACCOUNTS[0].address),
 			nonce: 0,
@@ -200,7 +202,7 @@ describe('runTx', () => {
 		expect(err).toMatchSnapshot()
 	})
 
-	it.skip('should report access list', async () => {
+	it('should report access list', async () => {
 		const tx = createImpersonatedTx({
 			impersonatedAddress: createAddressFromString(PREFUNDED_ACCOUNTS[0].address),
 			nonce: 0,
@@ -263,7 +265,7 @@ describe('runTx', () => {
 
 	it.todo('should throw EipNotEnabledError for blob transactions when EIP-4844 is not active', async () => {})
 
-	it.skip('should handle EIP-1559 transactions', async () => {
+	it('should handle EIP-1559 transactions', async () => {
 		const tx = createImpersonatedTx({
 			impersonatedAddress: createAddressFromString(PREFUNDED_ACCOUNTS[0].address),
 			nonce: 0,
@@ -286,11 +288,117 @@ describe('runTx', () => {
 		expect(result).toMatchSnapshot()
 	})
 
-	it.todo('should handle transactions with access list', async () => {})
+	it('should handle transactions with access list', async () => {
+		const sender = createAddressFromString(`0x${'88'.repeat(20)}`)
+		const contractAddress = createAddressFromString(`0x${'99'.repeat(20)}`)
+
+		// Fund sender account
+		await vm.stateManager.putAccount(
+			sender,
+			createAccount({
+				balance: parseEther('100'),
+				nonce: 0n,
+			}),
+		)
+
+		// Deploy SimpleContract
+		const contract = SimpleContract.withAddress(contractAddress.toString())
+		await vm.stateManager.putCode(contractAddress, hexToBytes(contract.deployedBytecode))
+
+		// Create transaction with access list
+		// The access list pre-declares the contract address and storage slots that will be accessed
+		// Note: accessList format needs to use address and storageKeys as hex strings for createImpersonatedTx
+		const accessList = [
+			{
+				address: contractAddress.toString(),
+				storageKeys: [
+					// Storage slot 0 is where SimpleContract stores its value
+					'0x0000000000000000000000000000000000000000000000000000000000000000' as Hex,
+				],
+			},
+		]
+
+		// First transaction: Set value with access list
+		const setTx = createImpersonatedTx({
+			impersonatedAddress: sender,
+			nonce: 0,
+			gasLimit: 50000,
+			maxFeePerGas: 10n,
+			maxPriorityFeePerGas: 2n,
+			to: contractAddress,
+			data: hexToBytes(encodeFunctionData(contract.write.set(42n))),
+			accessList,
+		})
+
+		const block = new Block({ common: mainnet })
+		const setResult = await runTx(vm)({
+			tx: setTx,
+			block,
+			skipNonce: false,
+			skipBalance: false,
+		})
+
+		expect(setResult.execResult.exceptionError).toBeUndefined()
+		expect(setResult.execResult.executionGasUsed).toBeGreaterThan(0n)
+
+		// Verify the access list was used
+		expect(setTx.accessList).toBeDefined()
+		expect(setTx.accessList).toHaveLength(1)
+		expect(bytesToHex(setTx.accessList[0]![0])).toEqual(accessList[0]!.address)
+		expect(setTx.accessList[0]![1].map((key) => bytesToHex(key))).toEqual(accessList[0]!.storageKeys)
+
+		// Second transaction: Read value with access list
+		const getTx = createImpersonatedTx({
+			impersonatedAddress: sender,
+			nonce: 1,
+			gasLimit: 50000,
+			maxFeePerGas: 10n,
+			maxPriorityFeePerGas: 2n,
+			to: contractAddress,
+			data: hexToBytes(encodeFunctionData(contract.read.get())),
+			accessList: [
+				{
+					address: contractAddress.toString(),
+					storageKeys: ['0x0000000000000000000000000000000000000000000000000000000000000000'],
+				},
+			],
+		})
+
+		const getResult = await runTx(vm)({
+			tx: getTx,
+			block,
+			skipNonce: false,
+			skipBalance: false,
+		})
+
+		expect(getResult.execResult.exceptionError).toBeUndefined()
+		expect(getResult.execResult.returnValue).toBeDefined()
+
+		// Transaction with empty access list should also work
+		const emptyAccessListTx = createImpersonatedTx({
+			impersonatedAddress: sender,
+			nonce: 2,
+			gasLimit: 50000,
+			maxFeePerGas: 10n,
+			maxPriorityFeePerGas: 2n,
+			to: contractAddress,
+			data: hexToBytes(encodeFunctionData(contract.read.get())),
+			accessList: [],
+		})
+
+		const emptyAccessListResult = await runTx(vm)({
+			tx: emptyAccessListTx,
+			block,
+			skipNonce: false,
+			skipBalance: false,
+		})
+
+		expect(emptyAccessListResult.execResult.exceptionError).toBeUndefined()
+	})
 
 	it('should execute a transaction with selfdestruct', async () => {})
 
-	it.skip('should generate transaction receipt correctly', async () => {
+	it('should generate transaction receipt correctly', async () => {
 		const tx = createImpersonatedTx({
 			impersonatedAddress: createAddressFromString(PREFUNDED_ACCOUNTS[0].address),
 			nonce: 0,

@@ -1,7 +1,7 @@
 import { createAddress } from '@tevm/address'
 import { tevmDefault } from '@tevm/common'
 import { TransactionFactory } from '@tevm/tx'
-import { bytesToHex, hexToBytes, PREFUNDED_PRIVATE_KEYS, parseEther } from '@tevm/utils'
+import { bytesToHex, hexToBytes, PREFUNDED_ACCOUNTS, PREFUNDED_PRIVATE_KEYS, parseEther } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createTevmNode } from './createTevmNode.js'
 
@@ -37,8 +37,8 @@ describe('Tevm Node JSON-RPC Automining Integration Tests', () => {
 
 			// Manually trigger the mining that JSON-RPC should trigger automatically
 			// This verifies the integration works
-			const receiptManager = await node.getReceiptManager()
-			const _receipts = receiptManager.getReceipts(bytesToHex(signedTx.hash()))
+			const receiptManager = await node.getReceiptsManager()
+			receiptManager.getReceipts(signedTx.hash())
 
 			// If automining worked, block number should increase and receipt should exist
 			const finalBlock = await vm.blockchain.getCanonicalHeadBlock()
@@ -84,9 +84,9 @@ describe('Tevm Node JSON-RPC Automining Integration Tests', () => {
 			expect(finalBlockNumber).toBe(initialBlockNumber)
 
 			// Verify transaction is in pool
-			const pooledTxs = await txPool.getBySenderAddress(createAddress(PREFUNDED_PRIVATE_KEYS[0]))
+			const pooledTxs = await txPool.getBySenderAddress(createAddress(PREFUNDED_ACCOUNTS[0].address))
 			expect(pooledTxs).toHaveLength(1)
-			expect(bytesToHex(pooledTxs[0].tx.hash())).toBe(bytesToHex(signedTx.hash()))
+			expect(bytesToHex(pooledTxs[0]!.tx.hash())).toBe(bytesToHex(signedTx.hash()))
 		})
 	})
 
@@ -123,7 +123,7 @@ describe('Tevm Node JSON-RPC Automining Integration Tests', () => {
 			expect(txPool).toBeTruthy()
 
 			// Check if transaction is in mempool
-			const pooledTxs = await txPool.getBySenderAddress(createAddress(PREFUNDED_PRIVATE_KEYS[0]))
+			const pooledTxs = await txPool.getBySenderAddress(createAddress(PREFUNDED_ACCOUNTS[0].address))
 			expect(pooledTxs).toHaveLength(1)
 
 			// Verify we can get mining config

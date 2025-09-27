@@ -1,7 +1,7 @@
 import { createAddress } from '@tevm/address'
 import { type TevmNode, createTevmNode } from '@tevm/node'
 import { ErrorContract } from '@tevm/test-utils'
-import { encodeFunctionData, numberToHex } from '@tevm/utils'
+import { encodeFunctionData, numberToHex, PREFUNDED_ACCOUNTS } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import type { EthEstimateGasJsonRpcRequest } from './EthJsonRpcRequest.js'
@@ -221,7 +221,7 @@ describe('ethEstimateGasJsonRpcProcedure', () => {
 			id: 1,
 			params: [
 				{
-					from: '0x0000000000000000000000000000000000000000',
+					from: PREFUNDED_ACCOUNTS[0].address,
 					to: '0x0000000000000000000000000000000000000000',
 					data: '0x',
 					nonce: '0x1',

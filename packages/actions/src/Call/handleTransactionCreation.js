@@ -41,7 +41,7 @@ export const handleTransactionCreation = async (client, params, executedCall, ev
 				evmInput,
 				maxPriorityFeePerGas: params.maxPriorityFeePerGas,
 				maxFeePerGas: params.maxFeePerGas,
-				userProvidedNonce: params.nonce,
+				nonceOverride: params.nonce,
 			})
 			txHash = 'txHash' in txRes ? txRes.txHash : undefined
 
