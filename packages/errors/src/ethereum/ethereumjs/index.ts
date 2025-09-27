@@ -11,19 +11,19 @@ export {
 	BLS12381PointNotOnCurveError,
 	type BLS12381PointNotOnCurveErrorParameters,
 } from './BLS12381PointNotOnCurveError.js'
-export { CodeStoreOutOfGasError, type CodeStoreOutOfGasErrorParameters } from './CodeStoreOutOfGasError.js'
 export {
 	CodeSizeExceedsMaximumError,
 	type CodeSizeExceedsMaximumErrorParameters,
 } from './CodeSizeExceedsMaximumError.js'
+export { CodeStoreOutOfGasError, type CodeStoreOutOfGasErrorParameters } from './CodeStoreOutOfGasError.js'
 export { CreateCollisionError, type CreateCollisionErrorParameters } from './CreateCollisionError.js'
-export { InvalidCommitmentError, type InvalidCommitmentErrorParameters } from './InvalidCommitmentError.js'
 export { EvmRevertError, type EvmRevertErrorParameters } from './EvmRevertError.js'
 export { InitcodeSizeViolationError, type InitcodeSizeViolationErrorParameters } from './InitcodeSizeViolationError.js'
 export { InsufficientBalanceError, type InsufficientBalanceErrorParameters } from './InsufficientBalanceError.js'
 export { InternalEvmError, type InternalEvmErrorParameters } from './InternalEvmError.js'
 export { InvalidBeginSubError, type InvalidBeginSubErrorParameters } from './InvalidBeginSubError.js'
 export { InvalidBytecodeResultError, type InvalidBytecodeResultErrorParameters } from './InvalidBytecodeResultError.js'
+export { InvalidCommitmentError, type InvalidCommitmentErrorParameters } from './InvalidCommitmentError.js'
 export { InvalidEofFormatError, type InvalidEofFormatErrorParameters } from './InvalidEofFormatError.js'
 export { InvalidInputLengthError, type InvalidInputLengthErrorParameters } from './InvalidInputLengthError.js'
 export { InvalidJumpError, type InvalidJumpErrorParameters } from './InvalidJumpError.js'

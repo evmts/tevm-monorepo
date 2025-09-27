@@ -99,7 +99,7 @@ describe('anvilResetJsonRpcProcedure', () => {
 					.then((vm) => vm.blockchain.getCanonicalHeadBlock())
 					.then((block) => block.header.hash),
 			).toEqual(forkedBlock.header.hash)
-		} catch (error) {
+		} catch (_error) {
 			// Expected to potentially fail due to RPC connection issues
 			console.log('Skipped forked blockchain reset test due to external dependency issues')
 			return

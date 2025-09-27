@@ -12,7 +12,7 @@
  */
 
 const fs = require('node:fs')
-const path = require('node:path')
+const _path = require('node:path')
 const { execSync } = require('node:child_process')
 
 // Default to project root if no directory specified

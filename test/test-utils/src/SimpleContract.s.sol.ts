@@ -1,4 +1,5 @@
 import { createContract } from '@tevm/contract'
+
 const _SimpleContract = {
 	name: 'SimpleContract',
 	humanReadableAbi: [

@@ -2,8 +2,8 @@ import { readdirSync } from 'node:fs'
 import { readFile, writeFile } from 'node:fs/promises'
 import { basename, join } from 'node:path'
 import 'dotenv/config'
-import { GeminiClient } from './lib/GeminiClient'
 import { getResourceFiles, getZigFiles } from './lib/fileUtils'
+import { GeminiClient } from './lib/GeminiClient'
 
 interface ResourceConfig {
 	name: string
@@ -147,7 +147,7 @@ async function processPromptFile(
 				onChunkStart: (chunkNumber: number, totalParts: number) => {
 					console.log(`  🤖 Sending chunk ${chunkNumber} to Gemini for ${resource.name} (${totalParts} parts)`)
 				},
-				onChunkComplete: (chunkNumber: number, response: string) => {
+				onChunkComplete: (chunkNumber: number, _response: string) => {
 					console.log(`  ✅ Received response from chunk ${chunkNumber} for ${resource.name}`)
 				},
 				delayBetweenChunks: 10000,

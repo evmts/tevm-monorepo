@@ -1,5 +1,5 @@
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
-import { access, mkdir, writeFile } from 'node:fs/promises'
+import { mkdir, writeFile } from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
 import type { LanguageServiceHost } from 'typescript'
@@ -9,8 +9,8 @@ import { createFileAccessObject, createRealFileAccessObject } from './fileAccess
 // Mock the LanguageServiceHost
 const mockLsHost = (fileContent: string | null): LanguageServiceHost =>
 	({
-		readFile: vi.fn().mockImplementation((fileName, encoding) => fileContent),
-		fileExists: vi.fn().mockImplementation((fileName) => fileContent !== null),
+		readFile: vi.fn().mockImplementation((_fileName, _encoding) => fileContent),
+		fileExists: vi.fn().mockImplementation((_fileName) => fileContent !== null),
 		writeFile: vi.fn(),
 	}) as any
 
@@ -127,7 +127,7 @@ describe('createRealFileAccessObject', () => {
 			if (existsSync(tempFilePath)) {
 				require('node:fs').unlinkSync(tempFilePath)
 			}
-		} catch (e) {
+		} catch (_e) {
 			// Ignore cleanup errors
 		}
 	})
@@ -187,7 +187,7 @@ describe('createRealFileAccessObject', () => {
 			// Clean up
 			try {
 				require('node:fs').rmSync(tempDir, { recursive: true, force: true })
-			} catch (e) {
+			} catch (_e) {
 				// Ignore cleanup errors
 			}
 		}

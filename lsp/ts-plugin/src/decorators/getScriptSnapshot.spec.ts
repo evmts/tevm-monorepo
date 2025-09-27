@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
+import { mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
@@ -8,7 +8,7 @@ import { type Cache, createCache } from '@tevm/bundler-cache'
 import { type CompilerConfig, defaultConfig, defineConfig } from '@tevm/config'
 import { runSync } from 'effect/Effect'
 import typescript from 'typescript/lib/tsserverlibrary.js'
-import { type Mock, beforeEach, describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, type Mock, vi } from 'vitest'
 import type { Logger } from '../factories/logger.js'
 import { getScriptSnapshotDecorator } from './getScriptSnapshot.js'
 
@@ -40,7 +40,7 @@ const fao: FileAccessObject = {
 		try {
 			await access(path)
 			return true
-		} catch (e) {
+		} catch (_e) {
 			return false
 		}
 	},
@@ -261,7 +261,7 @@ describe(getScriptSnapshotDecorator.name, () => {
 			resolveDts: vi.fn(),
 			resolveTsModule: vi.fn(),
 			resolveTsModuleSync: vi.fn(),
-			resolveDtsSync: vi.fn().mockImplementation((filePath, cwd, watch, resolveBytecode) => {
+			resolveDtsSync: vi.fn().mockImplementation((_filePath, _cwd, _watch, resolveBytecode) => {
 				// Verify resolveBytecode flag is true for .s.sol files
 				if (resolveBytecode === true) {
 					return {

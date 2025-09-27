@@ -1,33 +1,33 @@
 {
-  "name": "@tevm/node-docs",
-  "private": true,
-  "version": "0.0.1",
-  "type": "module",
-  "scripts": {
-    "dev": "vocs dev",
-    "build": "bun build:app",
-    "build:app": "vocs build",
-    "preview": "vocs preview",
-    "test": "vitest"
-  },
-  "dependencies": {
-    "@tailwindcss/vite": "^4.1.13",
-    "ethers": "^6.15.0",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "tailwindcss": "^4.1.13",
-    "tevm": "workspace:^",
-    "viem": "^2.37.8",
-    "vitest": "^3.2.4",
-    "vocs": "1.0.13"
-  },
-  "devDependencies": {
-    "@types/react": "^19.1.13",
-    "@types/react-dom": "^19.1.9",
-    "typescript": "^5.9.2"
-  },
-  "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  }
+	"name": "@tevm/node-docs",
+	"private": true,
+	"version": "0.0.1",
+	"type": "module",
+	"scripts": {
+		"dev": "vocs dev",
+		"build": "bun build:app",
+		"build:app": "vocs build",
+		"preview": "vocs preview",
+		"test": "vitest"
+	},
+	"dependencies": {
+		"@tailwindcss/vite": "^4.1.13",
+		"ethers": "^6.15.0",
+		"react": "^19.1.1",
+		"react-dom": "^19.1.1",
+		"tailwindcss": "^4.1.13",
+		"tevm": "workspace:^",
+		"viem": "^2.37.8",
+		"vitest": "^3.2.4",
+		"vocs": "1.0.13"
+	},
+	"devDependencies": {
+		"@types/react": "^19.1.13",
+		"@types/react-dom": "^19.1.9",
+		"typescript": "^5.9.2"
+	},
+	"peerDependencies": {
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
+	}
 }

@@ -1,4 +1,5 @@
 import { createContract } from '@tevm/contract'
+
 const _TestERC20 = {
 	name: 'TestERC20',
 	humanReadableAbi: [

@@ -1,4 +1,4 @@
-import { type TevmNode, createTevmNode } from '@tevm/node'
+import { createTevmNode, type TevmNode } from '@tevm/node'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { mineHandler } from '../Mine/mineHandler.js'
 import type { EthGetBlockByNumberJsonRpcRequest } from './EthJsonRpcRequest.js'
@@ -19,8 +19,10 @@ describe('ethGetBlockByNumberJsonRpcProcedure', () => {
 			...block,
 			// Replace non-deterministic values with placeholders
 			hash: typeof block.hash === 'string' && block.hash.startsWith('0x') ? '0x[HASH]' : block.hash,
-			stateRoot: typeof block.stateRoot === 'string' && block.stateRoot.startsWith('0x') ? '0x[STATE_ROOT]' : block.stateRoot,
-			timestamp: typeof block.timestamp === 'string' && block.timestamp.startsWith('0x') ? '0x[TIMESTAMP]' : block.timestamp,
+			stateRoot:
+				typeof block.stateRoot === 'string' && block.stateRoot.startsWith('0x') ? '0x[STATE_ROOT]' : block.stateRoot,
+			timestamp:
+				typeof block.timestamp === 'string' && block.timestamp.startsWith('0x') ? '0x[TIMESTAMP]' : block.timestamp,
 		}
 	}
 
@@ -104,7 +106,7 @@ describe('ethGetBlockByNumberJsonRpcProcedure', () => {
 		const response = await ethGetBlockByNumberJsonRpcProcedure(client)(request)
 		expect(response.error).toBeUndefined()
 		expect(response.result).toBeDefined()
-		
+
 		// This test reproduces the bug: the result should be a plain object, not a Promise
 		expect(response.result).not.toBeInstanceOf(Promise)
 		expect(typeof response.result).toBe('object')

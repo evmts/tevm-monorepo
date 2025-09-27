@@ -62,10 +62,7 @@ export const definePrecompile = <
 	call,
 }: {
 	contract: TContract
-	call: (context: {
-		data: Hex
-		gasLimit: bigint
-	}) => Promise<ExecResult>
+	call: (context: { data: Hex; gasLimit: bigint }) => Promise<ExecResult>
 }): Precompile<TContract> => {
 	return new Precompile(contract, call)
 }

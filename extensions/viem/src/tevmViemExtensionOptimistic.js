@@ -106,7 +106,7 @@ export const tevmViemExtensionOptimistic = () => {
 			/**
 			 * @type {import('viem').Hex | undefined}
 			 **/
-			let hash = undefined
+			let hash
 			try {
 				hash = await writeContractResult
 				yield {

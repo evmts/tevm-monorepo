@@ -1,8 +1,6 @@
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
-// @ts-expect-error
-import defaultSolc from 'solc'
-import { type MockedFunction, describe, expect, it, vi } from 'vitest'
+import { describe, expect, it, type MockedFunction, vi } from 'vitest'
 import { fao } from './fao.js'
 
 vi.mock('node:fs', async () => ({

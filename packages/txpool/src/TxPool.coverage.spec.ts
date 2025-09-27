@@ -3,8 +3,8 @@ import { optimism } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
 import { LegacyTransaction } from '@tevm/tx'
-import { EthjsAddress, bytesToHex, createAccount, createAddressFromString, hexToBytes, parseEther } from '@tevm/utils'
-import { type Vm, createVm } from '@tevm/vm'
+import { bytesToHex, createAccount, createAddressFromString, EthjsAddress, hexToBytes, parseEther } from '@tevm/utils'
+import { createVm, type Vm } from '@tevm/vm'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { PREFUNDED_PRIVATE_KEYS } from '../../utils/dist/index.cjs'
 import { TxPool } from './TxPool.js'
@@ -202,7 +202,7 @@ describe('TxPool coverage improvements', () => {
 
 			// Set the added timestamp to a past time (older than POOLED_STORAGE_TIME_LIMIT minutes)
 			const oldTime = Date.now() - (txPool.POOLED_STORAGE_TIME_LIMIT * 60 * 1000 + 1000)
-			// @ts-ignore
+			// @ts-expect-error
 			poolObjects[0].added = oldTime
 
 			// Do the same for the handled entry

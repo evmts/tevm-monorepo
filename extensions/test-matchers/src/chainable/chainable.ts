@@ -1,10 +1,10 @@
-import { assert, type Assertion, chai, expect } from 'vitest'
+import { type Assertion, assert, chai, expect } from 'vitest'
 import type {
 	ChaiContext,
+	ChainableAssertion,
+	ChainState,
 	ChaiStatic,
 	ChaiUtils,
-	ChainState,
-	ChainableAssertion,
 	ExtractVitestArgs,
 	InferredVitestChainableResult,
 	IsAsync,
@@ -13,7 +13,7 @@ import type {
 	VitestMatcherFunction,
 } from './types.js'
 
-let chaiUtils: ChaiUtils | undefined = undefined
+let chaiUtils: ChaiUtils | undefined
 export const getChaiUtils = () => chaiUtils
 
 // Promise setup helper (waffle-chai pattern)

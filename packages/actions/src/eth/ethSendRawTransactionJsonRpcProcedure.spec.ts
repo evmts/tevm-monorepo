@@ -2,7 +2,7 @@ import { createAddress } from '@tevm/address'
 import { tevmDefault } from '@tevm/common'
 import { createTevmNode } from '@tevm/node'
 import { TransactionFactory } from '@tevm/tx'
-import { PREFUNDED_PRIVATE_KEYS, bytesToHex, hexToBytes, parseEther } from '@tevm/utils'
+import { bytesToHex, hexToBytes, PREFUNDED_PRIVATE_KEYS, parseEther } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { ethSendRawTransactionJsonRpcProcedure } from './ethSendRawTransactionProcedure.js'
 

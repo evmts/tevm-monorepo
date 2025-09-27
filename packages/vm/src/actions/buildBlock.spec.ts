@@ -114,7 +114,7 @@ describe(buildBlock.name, () => {
 					return () => {
 						try {
 							return target.hash()
-						} catch (e) {
+						} catch (_e) {
 							return keccak256(target.getHashedMessageToSign(), 'bytes')
 						}
 					}

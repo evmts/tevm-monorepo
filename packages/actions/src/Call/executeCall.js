@@ -31,12 +31,12 @@ export const executeCall = async (client, evmInput, params, events) => {
 	/**
 	 * @type {import('../common/TraceResult.js').TraceResult | undefined}
 	 */
-	let trace = undefined
+	let trace
 	/**
 	 * evm returns an access list without the 0x prefix
 	 * @type {Map<string, Set<string>> | undefined}
 	 */
-	let accessList = undefined
+	let accessList
 	const vm = await client.getVm()
 
 	// Register event handlers if provided

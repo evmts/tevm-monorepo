@@ -3,8 +3,16 @@ import { createAddress } from '@tevm/address'
 import { optimism } from '@tevm/common'
 import { ERC20 } from '@tevm/contract'
 import { transports } from '@tevm/test-utils'
-import { type Hex, bytesToHex, encodeDeployData, parseAbi } from '@tevm/utils'
-import { decodeFunctionResult, encodeFunctionData, hexToBigInt, toHex } from '@tevm/utils'
+import {
+	bytesToHex,
+	decodeFunctionResult,
+	encodeDeployData,
+	encodeFunctionData,
+	type Hex,
+	hexToBigInt,
+	parseAbi,
+	toHex,
+} from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../createMemoryClient.js'
 

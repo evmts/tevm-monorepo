@@ -1,15 +1,15 @@
 import { createAddress } from '@tevm/address'
 import { createTevmNode } from '@tevm/node'
 import { transports } from '@tevm/test-utils'
-import { PREFUNDED_ACCOUNTS, numberToHex, parseEther } from '@tevm/utils'
 import type { Hex } from '@tevm/utils'
+import { numberToHex, PREFUNDED_ACCOUNTS, parseEther } from '@tevm/utils'
 import { custom } from 'viem'
 import { describe, expect, it, vi } from 'vitest'
 import { callHandler } from '../Call/callHandler.js'
-import { mineHandler } from '../Mine/mineHandler.js'
-import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import type { BlockTag } from '../common/BlockTag.js'
+import { mineHandler } from '../Mine/mineHandler.js'
 import { requestProcedure } from '../requestProcedure.js'
+import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { ethGetTransactionCountProcedure } from './ethGetTransactionCountProcedure.js'
 
 const address = '0xb5d85CBf7cB3EE0D56b3bB207D5Fc4B82f43F511' as const
@@ -284,7 +284,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 
 		const node = createTevmNode({
 			fork: {
-				// @ts-ignore - Using a simplified mock transport for testing
+				// @ts-expect-error - Using a simplified mock transport for testing
 				transport: mockTransport,
 			},
 		})

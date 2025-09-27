@@ -1,7 +1,7 @@
 import { SimpleContract } from '@tevm/test-utils'
+import { Block } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../../createMemoryClient.js'
-import { Block } from 'viem'
 
 let mc = createMemoryClient()
 

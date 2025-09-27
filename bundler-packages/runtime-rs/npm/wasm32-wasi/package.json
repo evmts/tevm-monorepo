@@ -1,22 +1,22 @@
 {
-  "name": "@tevm/runtime-rs-wasm32-wasi",
-  "version": "0.1.0",
-  "main": "tevm_runtime_rs.wasi.cjs",
-  "files": [
-    "tevm_runtime_rs.wasi.cjs",
-    "tevm_runtime_rs.wasi-browser.js",
-    "tevm_runtime_rs.wasm",
-    "wasi-worker.mjs",
-    "wasi-worker-browser.mjs"
-  ],
-  "license": "MIT",
-  "type": "module",
-  "engines": {
-    "node": ">= 14"
-  },
-  "exports": {
-    "browser": "./tevm_runtime_rs.wasi-browser.js",
-    "node": "./tevm_runtime_rs.wasi.cjs",
-    "default": "./tevm_runtime_rs.wasi.cjs"
-  }
+	"name": "@tevm/runtime-rs-wasm32-wasi",
+	"version": "0.1.0",
+	"main": "tevm_runtime_rs.wasi.cjs",
+	"files": [
+		"tevm_runtime_rs.wasi.cjs",
+		"tevm_runtime_rs.wasi-browser.js",
+		"tevm_runtime_rs.wasm",
+		"wasi-worker.mjs",
+		"wasi-worker-browser.mjs"
+	],
+	"license": "MIT",
+	"type": "module",
+	"engines": {
+		"node": ">= 14"
+	},
+	"exports": {
+		"browser": "./tevm_runtime_rs.wasi-browser.js",
+		"node": "./tevm_runtime_rs.wasi.cjs",
+		"default": "./tevm_runtime_rs.wasi.cjs"
+	}
 }

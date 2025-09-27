@@ -1,7 +1,6 @@
 import { createRequire } from 'node:module'
 // TODO unused move this to @tevm/createRequire package
-import { try as tryEffect } from 'effect/Effect'
-import { map } from 'effect/Effect'
+import { map, try as tryEffect } from 'effect/Effect'
 
 export class CreateRequireError extends Error {
 	/**

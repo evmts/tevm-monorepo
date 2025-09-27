@@ -1,14 +1,11 @@
-import { TransactionFactory } from '@tevm/tx'
-import { type Hex, TypeOutput, hexToBytes, setLengthLeft, toBytes, toType } from '@tevm/utils'
-
-import { blockHeaderFromRpc } from './header-from-rpc.js'
-
-import { Block } from './index.js'
-
 import { InternalError, MisconfiguredClientError } from '@tevm/errors'
 import type { TypedTransaction } from '@tevm/tx'
+import { TransactionFactory } from '@tevm/tx'
+import { type Hex, hexToBytes, setLengthLeft, TypeOutput, toBytes, toType } from '@tevm/utils'
 import { ClRequest } from './ClRequest.js'
+import { blockHeaderFromRpc } from './header-from-rpc.js'
 import type { BlockData, BlockOptions, JsonRpcBlock } from './index.js'
+import { Block } from './index.js'
 
 function normalizeTxParams(_txParams: any) {
 	const txParams = Object.assign({}, _txParams)

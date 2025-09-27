@@ -1,24 +1,9 @@
 // Originally from ethjs
-import { Block } from '@tevm/block'
-import { ConsensusType } from '@tevm/common'
-import { Rlp } from '@tevm/rlp'
-import { Trie } from '@tevm/trie'
-import { BlobEIP4844Transaction } from '@tevm/tx'
-import {
-	EthjsAddress,
-	type Hex,
-	KECCAK256_RLP,
-	TypeOutput,
-	Withdrawal,
-	hexToBytes,
-	parseGwei,
-	toType,
-} from '@tevm/utils'
-
-import {} from './runBlock.js'
 
 import { Bloom, encodeReceipt } from '@ethereumjs/vm'
 import type { HeaderData } from '@tevm/block'
+import { Block } from '@tevm/block'
+import { ConsensusType } from '@tevm/common'
 import {
 	BlockGasLimitExceededError,
 	EipNotEnabledError,
@@ -26,14 +11,26 @@ import {
 	InvalidBlobVersionedHashesError,
 	InvalidGasLimitError,
 } from '@tevm/errors'
-import type { TypedTransaction } from '@tevm/tx'
-import type { ImpersonatedTx } from '@tevm/tx'
+import { Rlp } from '@tevm/rlp'
+import { Trie } from '@tevm/trie'
+import type { ImpersonatedTx, TypedTransaction } from '@tevm/tx'
+import { BlobEIP4844Transaction } from '@tevm/tx'
+import {
+	EthjsAddress,
+	type Hex,
+	hexToBytes,
+	KECCAK256_RLP,
+	parseGwei,
+	TypeOutput,
+	toType,
+	Withdrawal,
+} from '@tevm/utils'
 import type { BaseVm } from '../BaseVm.js'
 import type { BuildBlockOpts, BuilderOpts, RunTxOpts, RunTxResult, SealBlockOpts } from '../utils/index.js'
-import type { BlockStatus } from './BlockStatus.js'
-import { BuildStatus } from './BuildStatus.js'
 import { accumulateParentBeaconBlockRoot } from './accumulateParentBeaconBlockRoot.js'
 import { accumulateParentBlockHash } from './accumulateParentBlockHash.js'
+import type { BlockStatus } from './BlockStatus.js'
+import { BuildStatus } from './BuildStatus.js'
 import { calculateMinerReward } from './calculateMinerReward.js'
 import { rewardAccount } from './rewardAccount.js'
 import { runTx } from './runTx.js'
@@ -245,7 +242,7 @@ export class BlockBuilder {
 		if (_tx.gasLimit > blockGasRemaining) {
 			throw new InvalidGasLimitError('tx has a higher gas limit than the remaining gas in the block')
 		}
-		let blobGasUsed = undefined
+		let blobGasUsed
 		if (_tx instanceof BlobEIP4844Transaction) {
 			if (this.blockOpts.common?.ethjsCommon.isActivatedEIP(4844) !== true) {
 				throw new EipNotEnabledError('eip4844 not activated yet for adding a blob transaction')
@@ -340,7 +337,7 @@ export class BlockBuilder {
 		// timestamp should already be set in constructor
 		const timestamp = this.headerData.timestamp ?? 0n
 
-		let blobGasUsed = undefined
+		let blobGasUsed
 		if (this.vm.common.ethjsCommon.isActivatedEIP(4844) === true) {
 			blobGasUsed = this.blobGasUsed
 		}

@@ -14,7 +14,7 @@ const fao: FileAccessObject = {
 		try {
 			await access(file)
 			return true
-		} catch (e) {
+		} catch (_e) {
 			return false
 		}
 	},
@@ -155,7 +155,7 @@ describe('moduleFactory', () => {
 				try {
 					await access(path)
 					return true
-				} catch (e) {
+				} catch (_e) {
 					return false
 				}
 			},

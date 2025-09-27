@@ -1,5 +1,5 @@
 import { createAddress } from '@tevm/address'
-import { type TevmNode, createTevmNode } from '@tevm/node'
+import { createTevmNode, type TevmNode } from '@tevm/node'
 import { ErrorContract } from '@tevm/test-utils'
 import { encodeFunctionData, numberToHex, PREFUNDED_ACCOUNTS } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'

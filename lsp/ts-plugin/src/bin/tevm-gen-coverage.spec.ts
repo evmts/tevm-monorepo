@@ -1,11 +1,9 @@
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
-import path from 'node:path'
-import { FileAccessObject, bundler } from '@tevm/base-bundler'
+import { bundler, FileAccessObject } from '@tevm/base-bundler'
 import { createCache } from '@tevm/bundler-cache'
 import { loadConfig } from '@tevm/config'
 import { runSync } from 'effect/Effect'
-import { glob } from 'glob'
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 
 // Mocks to capture CLI behavior without executing the actual script
@@ -91,7 +89,7 @@ describe('tevm-gen CLI coverage tests', () => {
 				try {
 					await access(path)
 					return true
-				} catch (e) {
+				} catch (_e) {
 					return false
 				}
 			},
@@ -112,7 +110,7 @@ describe('tevm-gen CLI coverage tests', () => {
 			const config = runSync(loadConfig(cwd))
 			const solcCache = createCache(config.cacheDir, fao, cwd)
 			// Cast empty object to any to satisfy type constraint
-			const plugin = bundler(config, console, fao, {} as any, solcCache)
+			const _plugin = bundler(config, console, fao, {} as any, solcCache)
 
 			return files
 		}

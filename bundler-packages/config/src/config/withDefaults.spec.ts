@@ -1,6 +1,5 @@
-import { describe, expect, it, vi } from 'vitest'
-
 import { runSync } from 'effect/Effect'
+import { describe, expect, it, vi } from 'vitest'
 import { defaultConfig, withDefaults } from './withDefaults.js'
 
 describe(withDefaults.name, () => {
@@ -72,7 +71,7 @@ describe(withDefaults.name, () => {
 		const originalConsoleError = console.error
 		console.error = vi.fn()
 
-		// @ts-ignore - Testing invalid type
+		// @ts-expect-error - Testing invalid type
 		expect(runSync(withDefaults({ jsonAsConst: 123 }))).toEqual({
 			jsonAsConst: [],
 			foundryProject: false,

@@ -2,7 +2,7 @@ import { ERC20 } from '@tevm/contract'
 import { createTevmNode } from '@tevm/node'
 import { numberToHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
-import { type RequestHandlers, createHandlers } from './createHandlers.js'
+import { createHandlers, type RequestHandlers } from './createHandlers.js'
 
 const ERC20_ADDRESS = `0x${'69'.repeat(20)}` as const
 

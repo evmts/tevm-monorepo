@@ -87,7 +87,7 @@ Version: 1.1.0.next-73"
 	test('should throw error for unsupported state manager', async () => {
 		const client = createTevmNode()
 		const vm = await client.getVm()
-		// @ts-ignore - Intentionally removing the method for testing
+		// @ts-expect-error - Intentionally removing the method for testing
 		delete vm.stateManager.generateCanonicalGenesis
 
 		const handler = loadStateHandler({ getVm: () => Promise.resolve(vm) } as any)

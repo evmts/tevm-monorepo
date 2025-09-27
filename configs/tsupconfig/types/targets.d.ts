@@ -4,6 +4,6 @@
 /**
  * @type {Record<Target, Exclude<import('tsup').Options['target'], undefined>>}
  */
-export const targets: Record<Target, Exclude<import("tsup").Options["target"], undefined>>;
-export type Target = "js" | "node" | "browser";
+export const targets: Record<Target, Exclude<import('tsup').Options['target'], undefined>>
+export type Target = 'js' | 'node' | 'browser'
 //# sourceMappingURL=targets.d.ts.map

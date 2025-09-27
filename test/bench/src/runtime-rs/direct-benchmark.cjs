@@ -1,7 +1,7 @@
 // Direct benchmark using CommonJS to compare runtime-rs with a JavaScript implementation
 const fs = require('node:fs')
 const path = require('node:path')
-const crypto = require('node:crypto')
+const _crypto = require('node:crypto')
 const { performance } = require('node:perf_hooks')
 
 // Direct import of the runtime-rs package
@@ -21,12 +21,12 @@ const runtimeRs = nativeModule
 
 // Constants for the benchmark
 const NUM_CONTRACTS = 10
-const FUNCTIONS_PER_CONTRACT_MIN = 5
-const FUNCTIONS_PER_CONTRACT_MAX = 15
+const _FUNCTIONS_PER_CONTRACT_MIN = 5
+const _FUNCTIONS_PER_CONTRACT_MAX = 15
 const NUM_RUNS = 10 // How many times to run each implementation
 
 // Generate a random function for the ABI
-function generateRandomFunction(index, complex = false) {
+function _generateRandomFunction(index, complex = false) {
 	const stateMutability = ['view', 'pure', 'nonpayable', 'payable'][Math.floor(Math.random() * 4)]
 	const name = `function${index}`
 
@@ -79,7 +79,7 @@ function generateRandomFunction(index, complex = false) {
 }
 
 // Generate a random event
-function generateRandomEvent(index) {
+function _generateRandomEvent(index) {
 	return {
 		type: 'event',
 		name: `Event${index}`,
@@ -182,7 +182,7 @@ function generateRuntimeJsImpl(solcOutput, moduleType, useScopedPackage) {
 
 	// Process contracts
 	if (solcOutput.contracts) {
-		for (const [file, fileContracts] of Object.entries(solcOutput.contracts)) {
+		for (const [_file, fileContracts] of Object.entries(solcOutput.contracts)) {
 			for (const [name, contract] of Object.entries(fileContracts)) {
 				const bytecode = contract.evm?.bytecode?.object
 				const deployedBytecode = contract.evm?.deployedBytecode?.object

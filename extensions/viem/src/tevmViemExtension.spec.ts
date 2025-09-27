@@ -3,7 +3,6 @@ import type { CallParams } from '@tevm/actions'
 import { optimism } from '@tevm/common'
 import { createMemoryClient, type MemoryClient } from '@tevm/memory-client'
 import { createHttpHandler } from '@tevm/server'
-import type { TevmState } from '@tevm/state'
 import { transports } from '@tevm/test-utils'
 import { createPublicClient, encodeFunctionData, http, numberToHex, type PublicClient } from 'viem'
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
@@ -459,7 +458,7 @@ describe('tevmViemExtension', () => {
 		// Since we can't access it directly, let's mock the underlying request
 		// and test how it's called with different block tag values
 
-		const mockRequest = vi.fn().mockImplementation((params: any) => {
+		const mockRequest = vi.fn().mockImplementation((_params: any) => {
 			return Promise.resolve({
 				jsonrpc: '2.0',
 				result: '0x0',

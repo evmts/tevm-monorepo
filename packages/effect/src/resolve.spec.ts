@@ -1,6 +1,6 @@
 import { flip, runPromise, runSync } from 'effect/Effect'
 import resolve from 'resolve'
-import { type Mock, afterEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, describe, expect, it, type Mock, vi } from 'vitest'
 import { CouldNotResolveImportError, resolveAsync, resolveSync } from './resolve.js'
 
 vi.mock('resolve')

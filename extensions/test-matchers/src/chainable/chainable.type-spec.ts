@@ -1,11 +1,11 @@
-import { describe, expectTypeOf, it } from 'vitest'
 import type { Assertion } from 'vitest'
+import { describe, expectTypeOf, it } from 'vitest'
 import { toBeAddress, toBeHex } from '../matchers/utils/index.js'
 import { createChainableFromVitest } from './chainable.js'
 import { type CustomMatchers, testMatchers } from './chainable.spec.js'
 import type {
-	ChainState,
 	ChainableAssertion,
+	ChainState,
 	InferredVitestChainableResult,
 	MatcherResult,
 	VitestMatcherConfig,
@@ -178,19 +178,19 @@ describe('chainable type system (exhaustive)', () => {
 		// These test cases document what should NOT work
 
 		// @ts-expect-error - cannot use wrong received type
-		const wrongReceived: VitestMatcherFunction<number, false> = (received: string) => ({
+		const wrongReceived: VitestMatcherFunction<number, false> = (_received: string) => ({
 			pass: true,
 			message: () => '',
 		})
 
 		// @ts-expect-error - cannot use wrong async flag
-		const wrongAsync: VitestMatcherFunction<number, false> = async (received: number) => ({
+		const wrongAsync: VitestMatcherFunction<number, false> = async (_received: number) => ({
 			pass: true,
 			message: () => '',
 		})
 
 		// @ts-expect-error - async matcher must return Promise
-		const asyncWithoutPromise: VitestMatcherFunction<number, true> = (received: number) => ({
+		const asyncWithoutPromise: VitestMatcherFunction<number, true> = (_received: number) => ({
 			pass: true,
 			message: () => '',
 		})

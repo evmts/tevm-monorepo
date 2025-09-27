@@ -1,4 +1,4 @@
-import { type TevmNode, createTevmNode } from '@tevm/node'
+import { createTevmNode, type TevmNode } from '@tevm/node'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { EthGasPriceJsonRpcRequest } from './EthJsonRpcRequest.js'
 import { gasPriceProcedure } from './gasPriceProcedure.js'

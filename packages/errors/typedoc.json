@@ -3,5 +3,10 @@
 	"out": "./docs",
 	"entryPoints": ["./src/index.ts"],
 	"plugin": ["typedoc-plugin-markdown"],
-	"gitRevision": "main"
+	"gitRevision": "main",
+	"excludeExternals": true,
+	"excludeInternal": true,
+	"disableSources": true,
+	"cleanOutputDir": true,
+	"preserveLinkText": true
 }

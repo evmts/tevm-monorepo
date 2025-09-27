@@ -3,10 +3,10 @@ import { createCommon, tevmDefault } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createLogger } from '@tevm/logger'
 import { p256VerifyPrecompile } from '@tevm/precompiles'
-import { ReceiptsManager, createMapDb } from '@tevm/receipt-manager'
+import { createMapDb, ReceiptsManager } from '@tevm/receipt-manager'
 import { createStateManager } from '@tevm/state'
 import { TxPool } from '@tevm/txpool'
-import { KECCAK256_RLP, bytesToHex, getAddress, hexToBigInt, keccak256 } from '@tevm/utils'
+import { bytesToHex, getAddress, hexToBigInt, KECCAK256_RLP, keccak256 } from '@tevm/utils'
 import { createVm } from '@tevm/vm'
 import { DEFAULT_CHAIN_ID } from './DEFAULT_CHAIN_ID.js'
 import { GENESIS_STATE } from './GENESIS_STATE.js'
@@ -37,7 +37,7 @@ export const createTevmNode = (options = {}) => {
 	/**
 	 * @type {import('@tevm/utils').Address | undefined}
 	 */
-	let impersonatedAccount = undefined
+	let impersonatedAccount
 	/**
 	 * @param {import('@tevm/utils').Address | undefined} address
 	 * returns {void}
@@ -237,10 +237,11 @@ export const createTevmNode = (options = {}) => {
 				blockchain,
 				allowUnlimitedContractSize: options.allowUnlimitedContractSize ?? false,
 				customPrecompiles: [
-					...[p256VerifyPrecompile()].filter(p => 
-						!(new Set((options.customPrecompiles ?? []).map(p => p.address.toString()))).has(p.address.toString())
+					...[p256VerifyPrecompile()].filter(
+						(p) =>
+							!new Set((options.customPrecompiles ?? []).map((p) => p.address.toString())).has(p.address.toString()),
 					),
-					...(options.customPrecompiles ?? [])
+					...(options.customPrecompiles ?? []),
 				],
 				profiler: options.profiler ?? false,
 				loggingLevel,
@@ -284,7 +285,7 @@ export const createTevmNode = (options = {}) => {
 			removeListener(eventName, listener) {
 				const listeners = events.get(eventName)
 				if (listeners) {
-					const index = listeners.findIndex((l) => l === listener)
+					const index = listeners.indexOf(listener)
 					if (index !== -1) {
 						listeners.splice(index, 1)
 						if (listeners.length === 0) {
@@ -296,7 +297,9 @@ export const createTevmNode = (options = {}) => {
 			emit(eventName, ...args) {
 				const listeners = events.get(eventName)
 				if (listeners?.length) {
-					listeners.forEach((listener) => listener(...args))
+					listeners.forEach((listener) => {
+						listener(...args)
+					})
 					return true // Event was successfully emitted
 				}
 				return false // No listeners for the event
@@ -322,7 +325,7 @@ export const createTevmNode = (options = {}) => {
 		/**
 		 * @type {import('@tevm/utils').Address | undefined}
 		 */
-		let impersonatedAccount = undefined
+		let impersonatedAccount
 		/**
 		 * @param {import('@tevm/utils').Address | undefined} address
 		 * returns {void}

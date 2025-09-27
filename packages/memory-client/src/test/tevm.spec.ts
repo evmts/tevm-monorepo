@@ -1,8 +1,7 @@
 import { optimism } from '@tevm/common'
 import { ERC20, SimpleContract } from '@tevm/contract'
 import { transports } from '@tevm/test-utils'
-import { EthjsAddress } from '@tevm/utils'
-import { hexToBytes } from '@tevm/utils'
+import { EthjsAddress, hexToBytes } from '@tevm/utils'
 import { encodeDeployData, testActions } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../createMemoryClient.js'
@@ -232,7 +231,10 @@ describe('Tevm should create a local vm in JavaScript', () => {
 
 	describe('client.contract', () => {
 		it('should fork a network and then execute a contract call', async () => {
-			const tevm = createMemoryClient({ fork: { transport: transports.optimism, blockTag: 'latest' }, common: optimism })
+			const tevm = createMemoryClient({
+				fork: { transport: transports.optimism, blockTag: 'latest' },
+				common: optimism,
+			})
 			const res = await tevm.tevmContract({
 				to: contractAddress,
 				...DaiContract.read.balanceOf('0xf0d4c12a5768d806021f80a262b4d39d26c58b8d', {

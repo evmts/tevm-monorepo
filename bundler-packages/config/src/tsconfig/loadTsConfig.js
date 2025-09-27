@@ -1,7 +1,13 @@
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import * as path from 'node:path'
-import { Record, Array as SArray, String as SString, Struct, optional } from '@effect/schema/Schema'
-import { decodeUnknownEither } from '@effect/schema/Schema' // Add this import
+import {
+	decodeUnknownEither,
+	optional,
+	Record,
+	Array as SArray,
+	String as SString,
+	Struct,
+} from '@effect/schema/Schema'
 import { parseJson } from '@tevm/effect'
 import { catchTag, fail, flatMap, logDebug, succeed, tap, tapBoth, try as tryEffect } from 'effect/Effect'
 import { match } from 'effect/Either'

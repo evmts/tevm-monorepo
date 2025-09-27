@@ -1,7 +1,6 @@
+import { existsSync, rmSync } from 'node:fs'
 import { createMemoryClient } from '@tevm/memory-client'
 import { expect, test } from 'vitest'
-
-import { existsSync, rmSync } from 'node:fs'
 import { fsPrecompile } from './FsPrecompile.js'
 
 test('Call precompile from TypeScript', async () => {

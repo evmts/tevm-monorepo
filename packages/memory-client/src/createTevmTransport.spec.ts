@@ -62,7 +62,7 @@ describe('createTevmTransport', () => {
 
 		// We need to cast to any because TypeScript will complain about the minimal chain object
 		const transport = createTevmTransport()({
-			// @ts-ignore - Using minimal object to test the code path
+			// @ts-expect-error - Using minimal object to test the code path
 			chain: minimalChain,
 		})
 

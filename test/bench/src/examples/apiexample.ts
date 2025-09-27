@@ -1,6 +1,6 @@
 import { createTevmTransport, tevmViemActions } from 'tevm'
 import { optimism } from 'tevm/common'
-import { http, createClient, publicActions, testActions, walletActions } from 'viem'
+import { createClient, http, publicActions, testActions, walletActions } from 'viem'
 
 /**
 ####  #####  ######   ##   ##### # #    #  ####       ##       ####  #      # ###### #    # ##### 
@@ -100,10 +100,12 @@ const extendedClient = client
 	.extend(publicActions)
 	.extend(walletActions)
 	.extend(testActions({ mode: 'anvil' }))
+
 // if you want 'batteries included' client createMemoryClient is available and comes preloaded with all actions like above extendedClient
 // Note: for UI apps you should use tree shakeable actions
 import { createMemoryClient } from 'tevm'
-const memoryClient = createMemoryClient({ fork: { transport: http('https://mainnet.optimism.io')({}) } })
+
+const _memoryClient = createMemoryClient({ fork: { transport: http('https://mainnet.optimism.io')({}) } })
 // custom tevm actions
 extendedClient.tevmSetAccount
 extendedClient.tevmCall
@@ -132,6 +134,7 @@ extendedClient.setBalance
 
 // If tree shaking is relevant because you are building a frontend app you should use tree shakeable actions
 import { getChainId } from 'viem/actions'
+
 // same as extendedClient.getChainId()
 getChainId(client).then(console.log)
 

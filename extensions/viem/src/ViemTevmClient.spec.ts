@@ -1,9 +1,9 @@
-import { http, createPublicClient } from 'viem'
+import { createPublicClient, http } from 'viem'
 import { describe, expect, it } from 'vitest'
+import { tevmViemExtension } from './tevmViemExtension.js'
 // We don't need this import anymore
 // import type { ViemTevmClient } from './ViemTevmClient.js'
 import type { ViemTevmClientDecorator } from './ViemTevmClientDecorator.js'
-import { tevmViemExtension } from './tevmViemExtension.js'
 
 describe('ViemTevmClient', () => {
 	it('should correctly type a client with tevmViemExtension', () => {

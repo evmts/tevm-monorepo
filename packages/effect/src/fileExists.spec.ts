@@ -1,7 +1,7 @@
 import { constants } from 'node:fs'
 import { access } from 'node:fs/promises'
 import { runPromise } from 'effect/Effect'
-import { type Mock, afterEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, describe, expect, it, type Mock, vi } from 'vitest'
 import { fileExists } from './fileExists.js'
 
 vi.mock('fs/promises')

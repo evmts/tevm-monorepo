@@ -1,6 +1,5 @@
-import type { Abi } from 'abitype'
 import type { Chain } from 'viem'
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import type { GenError } from './GenError.js'
 import type { GenResult } from './GenResult.js'
 import type { OptimisticResult } from './OptimisticResult.js'
@@ -9,7 +8,7 @@ import type { TypedError } from './TypedError.js'
 describe('OptimisticResult type', () => {
 	it('should validate GenResult structure', () => {
 		// This is a type test that verifies the structure conforms to the expected type
-		const mockAbi = [{ name: 'test', type: 'function', inputs: [], outputs: [] }] as const
+		const _mockAbi = [{ name: 'test', type: 'function', inputs: [], outputs: [] }] as const
 
 		// We're creating an object matching the GenResult type, which is part of OptimisticResult
 		const successResult: GenResult<unknown, 'OPTIMISTIC_RESULT'> = {
@@ -51,7 +50,7 @@ describe('OptimisticResult type', () => {
 	it('should correctly type an OptimisticResult instance', () => {
 		// Define minimal ABI and function name for testing
 		type TestAbi = [{ name: 'test'; type: 'function'; inputs: []; outputs: [] }]
-		const mockAbi = [{ name: 'test', type: 'function', inputs: [], outputs: [] }] as const
+		const _mockAbi = [{ name: 'test', type: 'function', inputs: [], outputs: [] }] as const
 
 		// Create an optimistic result value for successful contract call
 		const optimisticResult: OptimisticResult<TestAbi, 'test', Chain> = {

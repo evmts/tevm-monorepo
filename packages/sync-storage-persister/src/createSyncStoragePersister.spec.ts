@@ -1,7 +1,7 @@
 import type { SerializableTevmState } from '@tevm/state'
 import { describe, expect, it, vi } from 'vitest'
-import type { Storage } from './Storage.js'
 import { createSyncStoragePersister } from './createSyncStoragePersister.js'
+import type { Storage } from './Storage.js'
 
 describe(createSyncStoragePersister.name, () => {
 	// TODO we should test the async behavior of the throttle

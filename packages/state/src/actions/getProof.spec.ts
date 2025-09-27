@@ -1,9 +1,9 @@
 import { createAddress } from '@tevm/address'
 import { transports } from '@tevm/test-utils'
+import { type Hex, hexToBigInt } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { getProof } from './getProof.js'
-import { hexToBigInt, type Hex } from '@tevm/utils'
 
 describe(getProof.name, () => {
 	it('getProof from fork url with storage slots', async () => {

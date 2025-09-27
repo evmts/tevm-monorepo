@@ -1,5 +1,4 @@
 // Imported but not used in the code directly
-// @ts-ignore
 import { z } from 'zod'
 import { zBaseCallParams } from '../BaseCall/zBaseCallParams.js'
 import { zHex } from '../internal/zod/zHex.js'

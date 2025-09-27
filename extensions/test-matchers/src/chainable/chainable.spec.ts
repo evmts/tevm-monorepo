@@ -1,7 +1,7 @@
 import { assert, describe, expect, it } from 'vitest'
 import { toBeAddress, toBeHex } from '../matchers/utils/index.js'
 import { createChainableFromVitest, registerChainableMatchers } from './chainable.js'
-import type { ChainState, ChainableAssertion } from './types.js'
+import type { ChainableAssertion, ChainState } from './types.js'
 
 /* ---------------------------------- TYPES --------------------------------- */
 // biome-ignore lint/suspicious/noExportsInTest: exporting for chainable.type-spec.ts
@@ -39,6 +39,7 @@ export interface CustomMatchers {
 
 // Augment vitest's Assertion - this preserves ALL existing functionality including 'not'
 declare module 'vitest' {
+	// biome-ignore lint/correctness/noUnusedVariables: we need to match exactly the base vitest Assertion type
 	interface Assertion<T = any> extends CustomMatchers {}
 }
 

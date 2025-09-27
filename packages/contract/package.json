@@ -1,81 +1,81 @@
 {
-  "name": "@tevm/contract",
-  "version": "1.0.0-next.146",
-  "private": false,
-  "description": "A typesafe library for writing forge scripts in typescript",
-  "keywords": [
-    "solidity",
-    "forge",
-    "foundry",
-    "sol",
-    "typescript",
-    "web3",
-    "blockchain"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/evmts/tevm-monorepo.git",
-    "directory": "packages/contracts"
-  },
-  "license": "MIT",
-  "contributors": [
-    "Will Cory <willcory10@gmail.com>"
-  ],
-  "sideEffects": false,
-  "type": "module",
-  "exports": {
-    "./package.json": "./package.json",
-    ".": {
-      "import": {
-        "types": "./types/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
-    }
-  },
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "src",
-    "!src/**/*.spec.ts",
-    "types"
-  ],
-  "scripts": {
-    "all": "bun run build && bun run test:coverage && bun run lint && bun run format && bun run generate:docs && bun lint:package && bun lint:deps",
-    "build": "nx run-many --targets=build:dist,build:types --projects=@tevm/contracts ",
-    "build:dist": "tsup",
-    "build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
-    "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
-    "format": "biome format . --write",
-    "format:check": "biome format .",
-    "generate:docs": "typedoc",
-    "lint": "biome check . --write --unsafe",
-    "lint:check": "biome check . --verbose",
-    "lint:deps": "bunx depcheck",
-    "lint:package": "bunx publint --strict && attw --pack",
-    "test": "vitest --coverage",
-    "test:coverage": "vitest run --coverage",
-    "test:run": "vitest run",
-    "test:ui": "vitest --ui",
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@tevm/errors": "workspace:^",
-    "@tevm/utils": "workspace:^"
-  },
-  "devDependencies": {
-    "@evmts/core": "1.0.0-next.12",
-    "@evmts/ts-plugin": "1.0.0-next.18",
-    "@evmts/vite-plugin": "1.0.0-next.19",
-    "@tevm/tsconfig": "workspace:^",
-    "@tevm/tsupconfig": "workspace:^"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+	"name": "@tevm/contract",
+	"version": "1.0.0-next.146",
+	"private": false,
+	"description": "A typesafe library for writing forge scripts in typescript",
+	"keywords": [
+		"solidity",
+		"forge",
+		"foundry",
+		"sol",
+		"typescript",
+		"web3",
+		"blockchain"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/evmts/tevm-monorepo.git",
+		"directory": "packages/contracts"
+	},
+	"license": "MIT",
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
+	"sideEffects": false,
+	"type": "module",
+	"exports": {
+		"./package.json": "./package.json",
+		".": {
+			"import": {
+				"types": "./types/index.d.ts",
+				"default": "./dist/index.js"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			}
+		}
+	},
+	"main": "dist/index.cjs",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"files": [
+		"dist",
+		"src",
+		"!src/**/*.spec.ts",
+		"types"
+	],
+	"scripts": {
+		"all": "bun run build && bun run test:coverage && bun run lint && bun run format && bun run generate:docs && bun lint:package && bun lint:deps",
+		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/contracts ",
+		"build:dist": "tsup",
+		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
+		"format": "biome format . --write",
+		"format:check": "biome format .",
+		"generate:docs": "typedoc",
+		"lint": "biome check . --write --unsafe",
+		"lint:check": "biome check . --verbose",
+		"lint:deps": "bunx depcheck",
+		"lint:package": "bunx publint --strict && attw --pack",
+		"test": "vitest --coverage",
+		"test:coverage": "vitest run --coverage",
+		"test:run": "vitest run",
+		"test:ui": "vitest --ui",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@tevm/errors": "workspace:^",
+		"@tevm/utils": "workspace:^"
+	},
+	"devDependencies": {
+		"@evmts/core": "1.0.0-next.12",
+		"@evmts/ts-plugin": "1.0.0-next.18",
+		"@evmts/vite-plugin": "1.0.0-next.19",
+		"@tevm/tsconfig": "workspace:^",
+		"@tevm/tsupconfig": "workspace:^"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
 }

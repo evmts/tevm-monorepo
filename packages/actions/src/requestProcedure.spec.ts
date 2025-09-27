@@ -1,16 +1,24 @@
 import { createAddress } from '@tevm/address'
 import { ERC20 } from '@tevm/contract'
 import { MethodNotFoundError } from '@tevm/errors'
-import { type TevmNode, createTevmNode } from '@tevm/node'
-import { type EthjsAccount, encodeDeployData, hexToBytes } from '@tevm/utils'
-import { bytesToHex, encodeFunctionData, keccak256, numberToHex, parseGwei } from '@tevm/utils'
+import { createTevmNode, type TevmNode } from '@tevm/node'
+import {
+	bytesToHex,
+	type EthjsAccount,
+	encodeDeployData,
+	encodeFunctionData,
+	hexToBytes,
+	keccak256,
+	numberToHex,
+	parseGwei,
+} from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { callProcedure } from './Call/callProcedure.js'
 import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
 import { ethSignProcedure } from './eth/ethSignProcedure.js'
 import { ethSignTransactionProcedure } from './eth/ethSignTransactionProcedure.js'
 import { testAccounts } from './eth/utils/testAccounts.js'
-import { type EthSignTransactionJsonRpcRequest, blockNumberProcedure } from './index.js'
+import { blockNumberProcedure, type EthSignTransactionJsonRpcRequest } from './index.js'
 import { requestProcedure } from './requestProcedure.js'
 
 const ERC20_ADDRESS = `0x${'69'.repeat(20)}` as const

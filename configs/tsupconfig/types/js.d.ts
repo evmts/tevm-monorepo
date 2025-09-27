@@ -1,2 +1,2 @@
-export const js: import("tsup").Options;
+export const js: import('tsup').Options
 //# sourceMappingURL=js.d.ts.map

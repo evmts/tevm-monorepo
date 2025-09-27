@@ -1,12 +1,11 @@
 import { optimism } from '@tevm/common'
 import { SimpleContract } from '@tevm/contract'
 import { transports } from '@tevm/test-utils'
-import { type Hex, encodeFunctionData, parseEther } from 'viem'
-import { createClient } from 'viem'
+import { createClient, parseEther } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
-import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
 import { createTevmTransport } from '../../createTevmTransport.js'
+import type { MemoryClient } from '../../MemoryClient.js'
 import { tevmDumpState } from '../../tevmDumpState.js'
 import { tevmLoadState } from '../../tevmLoadState.js'
 import { tevmSetAccount } from '../../tevmSetAccount.js'
@@ -246,7 +245,7 @@ describe.skip('loadState', () => {
 		await newClient.tevmReady()
 
 		// Get initial block number
-		const initialBlockNumber = await newClient.getBlockNumber()
+		const _initialBlockNumber = await newClient.getBlockNumber()
 
 		// Load the dumped state into the new client
 		await newClient.tevmLoadState(dumpedState)

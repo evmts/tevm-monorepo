@@ -3,19 +3,19 @@ import { createTevmNode } from '@tevm/node'
 import { SimpleContract, transports } from '@tevm/test-utils'
 import {
 	type Address,
-	PREFUNDED_ACCOUNTS,
 	encodeDeployData,
 	encodeFunctionData,
 	hexToNumber,
 	keccak256,
+	PREFUNDED_ACCOUNTS,
 	stringToHex,
 } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { callHandler } from '../Call/callHandler.js'
+import type { FilterParams } from '../common/FilterParams.js'
 import { deployHandler } from '../Deploy/deployHandler.js'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
-import type { FilterParams } from '../common/FilterParams.js'
 import { ethGetLogsHandler } from './ethGetLogsHandler.js'
 
 describe(ethGetLogsHandler.name, () => {

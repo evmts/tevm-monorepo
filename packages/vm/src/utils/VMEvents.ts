@@ -1,7 +1,7 @@
 import type { Block } from '@tevm/block'
 import type { TypedTransaction } from '@tevm/tx'
-import type { AfterTxEvent } from './AfterTxEvent.js'
 import type { AfterBlockEvent } from './AfterblockEvent.js'
+import type { AfterTxEvent } from './AfterTxEvent.js'
 
 /**
  * Event handlers for the VM execution lifecycle.

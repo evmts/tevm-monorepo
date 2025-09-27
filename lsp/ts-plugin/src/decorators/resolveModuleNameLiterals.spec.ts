@@ -3,7 +3,7 @@ import type { FileAccessObject } from '@tevm/base-bundler'
 import { type CompilerConfig, defaultConfig, defineConfig } from '@tevm/config'
 import { runSync } from 'effect/Effect'
 import typescript from 'typescript/lib/tsserverlibrary.js'
-import { type MockedFunction, describe, expect, it, vi } from 'vitest'
+import { describe, expect, it, type MockedFunction, vi } from 'vitest'
 import { solidityModuleResolver } from '../utils/index.js'
 import { resolveModuleNameLiteralsDecorator } from './resolveModuleNameLiterals.js'
 

@@ -3,7 +3,7 @@ import { type CompilerConfig, defaultConfig, defineConfig } from '@tevm/config'
 import { runSync } from 'effect/Effect'
 import typescript from 'typescript/lib/tsserverlibrary.js'
 import { describe, expect, it, vi } from 'vitest'
-import { type HostDecorator, type PartialHostDecorator, createHostDecorator, decorateHost } from './index.js'
+import { createHostDecorator, decorateHost, type HostDecorator, type PartialHostDecorator } from './index.js'
 
 type TestAny = any
 
@@ -45,7 +45,7 @@ const createProxy = <T extends object>(instance: T, proxy: Partial<T>): T => {
 
 describe(createHostDecorator.name, () => {
 	it('should define a decorator by passing a functiont hat returns a partial tsserver object', () => {
-		const decoratorFn: PartialHostDecorator = (createInfo, ts, logger) => ({
+		const decoratorFn: PartialHostDecorator = (_createInfo, ts, _logger) => ({
 			getScriptKind: (fileName: string) => {
 				if (fileName.endsWith('.json')) {
 					return ts.ScriptKind.JSON
@@ -220,9 +220,9 @@ describe(decorateHost.name, () => {
 		// Then test with error as second decorator
 		composedDecorator = decorateHost(workingDecorator, errorDecorator)
 
-		let decoratedHost: any
+		let _decoratedHost: any
 		expect(() => {
-			decoratedHost = composedDecorator(createInfo as TestAny, typescript, logger, config, fao)
+			_decoratedHost = composedDecorator(createInfo as TestAny, typescript, logger, config, fao)
 		}).toThrow('Decorator error')
 	})
 })

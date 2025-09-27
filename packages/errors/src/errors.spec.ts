@@ -172,7 +172,6 @@ describe('Error Classes', () => {
 		expect(blobGasError.docsPath).toBe('/reference/tevm/errors/classes/blobgaslimitexceedederror/')
 		expect(blobGasError._tag).toBe('BlobGasLimitExceededError')
 		expect(blobGasError.name).toBe('BlobGasLimitExceededError')
-		// @ts-ignore accessing static property
 		expect(errors.BlobGasLimitExceededError.code).toBe(-32003)
 
 		// Test with custom message and args
@@ -192,7 +191,6 @@ describe('Error Classes', () => {
 			metaMessages: ['Revert occurred'],
 		})
 
-		// @ts-ignore accessing raw property
 		expect(revertError.raw).toEqual(rawData)
 		expect(revertError.message).toContain('Transaction reverted')
 		expect(revertError.message).toContain('Revert occurred')

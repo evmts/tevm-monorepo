@@ -1,6 +1,6 @@
 import type { InitializationOptions } from '@volar/language-server'
 import * as serverProtocol from '@volar/language-server/protocol'
-import { type ExportsInfoForLabs, activateAutoInsertion, supportLabsVersion } from '@volar/vscode'
+import { activateAutoInsertion, type ExportsInfoForLabs, supportLabsVersion } from '@volar/vscode'
 import * as vscode from 'vscode'
 import * as lsp from 'vscode-languageclient/node'
 

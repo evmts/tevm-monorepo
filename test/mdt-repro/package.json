@@ -1,17 +1,17 @@
 {
-  "name": "mdt-repro",
-  "module": "index.ts",
-  "version": "0.0.1",
-  "type": "module",
-  "devDependencies": {
-    "bun-types": "^1.2.22"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  },
-  "dependencies": {
-    "@ensdomains/dnsprovejs": "^0.5.1",
-    "ethers": "^6.15.0",
-    "tevm": "workspace:^"
-  }
+	"name": "mdt-repro",
+	"module": "index.ts",
+	"version": "0.0.1",
+	"type": "module",
+	"devDependencies": {
+		"bun-types": "^1.2.22"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	},
+	"dependencies": {
+		"@ensdomains/dnsprovejs": "^0.5.1",
+		"ethers": "^6.15.0",
+		"tevm": "workspace:^"
+	}
 }

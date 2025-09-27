@@ -35,10 +35,10 @@
  * ```
  */
 
-export { bunPluginTevm } from './bunPluginTevm.js'
+export { file } from './bunFile.js'
 
 /**
  * Re-exports for advanced usage if needed
  */
 export { bunFileAccesObject } from './bunFileAccessObject.js'
-export { file } from './bunFile.js'
+export { bunPluginTevm } from './bunPluginTevm.js'

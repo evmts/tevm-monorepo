@@ -71,7 +71,7 @@ export class BaseError extends Error {
 			}
 			try {
 				return JSON.stringify(args.cause)
-			} catch (e) {
+			} catch (_e) {
 				return 'Unable to parse error details'
 			}
 		})()

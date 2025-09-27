@@ -1,13 +1,13 @@
 import { describe, expect, it } from 'vitest'
-import { 
-	recoverPublicKey, 
-	recoverAddress, 
-	hashMessage, 
-	recoverMessageAddress, 
-	verifyMessage,
-	signMessage 
-} from './signature.js'
 import type { Hex } from './abitype.js'
+import {
+	hashMessage,
+	recoverAddress,
+	recoverMessageAddress,
+	recoverPublicKey,
+	signMessage,
+	verifyMessage,
+} from './signature.js'
 
 describe('signature', () => {
 	// Test vectors from viem signMessage for 'Hello world'
@@ -61,25 +61,29 @@ describe('signature', () => {
 		})
 
 		it('should throw for invalid signature', () => {
-			expect(() => recoverPublicKey({
-				hash: testVectors.messageHash,
-				signature: {
-					r: 0n,
-					s: 0n,
-					v: 27,
-				},
-			})).toThrow()
+			expect(() =>
+				recoverPublicKey({
+					hash: testVectors.messageHash,
+					signature: {
+						r: 0n,
+						s: 0n,
+						v: 27,
+					},
+				}),
+			).toThrow()
 		})
 
 		it('should throw when neither v nor yParity is provided', () => {
-			expect(() => recoverPublicKey({
-				hash: testVectors.messageHash,
-				signature: {
-					r: testVectors.r,
-					s: testVectors.s,
-					// Missing both v and yParity
-				},
-			})).toThrow('Either v or yParity must be provided in signature')
+			expect(() =>
+				recoverPublicKey({
+					hash: testVectors.messageHash,
+					signature: {
+						r: testVectors.r,
+						s: testVectors.s,
+						// Missing both v and yParity
+					},
+				}),
+			).toThrow('Either v or yParity must be provided in signature')
 		})
 
 		it('should handle r and s as hex strings', () => {
@@ -160,7 +164,7 @@ describe('signature', () => {
 		it('should hash message according to EIP-191', () => {
 			const message = 'Hello world'
 			const hash = hashMessage(message)
-			
+
 			// Expected hash from ethereumjs tests
 			expect(hash).toBe('0x8144a6fa26be252b86456491fbcd43c1de7e022241845ffea1c3df066f7cfede')
 		})
@@ -185,7 +189,7 @@ describe('signature', () => {
 					r: testVectors.r,
 					s: testVectors.s,
 					v: testVectors.v,
-				}
+				},
 			})
 			expect(address.toLowerCase()).toBe(testVectors.expectedAddress.toLowerCase())
 		})
@@ -199,7 +203,7 @@ describe('signature', () => {
 					// @ts-expect-error - testing string inputs
 					s: '0x28521ff547f3c3242084d0d26f560a6ff1c91988d70d3284ff96f32caa373d78',
 					v: testVectors.v,
-				}
+				},
 			})
 			expect(address.toLowerCase()).toBe(testVectors.expectedAddress.toLowerCase())
 		})

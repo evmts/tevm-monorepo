@@ -1,10 +1,9 @@
+import { Bloom, encodeReceipt } from '@ethereumjs/vm'
 import { Block } from '@tevm/block'
+import { GasLimitExceededError } from '@tevm/errors'
 import { Rlp } from '@tevm/rlp'
 import { Trie } from '@tevm/trie'
 import { type TypedTransaction } from '@tevm/tx'
-
-import { Bloom, encodeReceipt } from '@ethereumjs/vm'
-import { GasLimitExceededError } from '@tevm/errors'
 import { KECCAK256_RLP } from '@tevm/utils'
 import type { BaseVm } from '../BaseVm.js'
 import type { RunBlockOpts, RunTxResult, TxReceipt } from '../utils/index.js'
@@ -21,7 +20,7 @@ export const applyTransactions = (vm: BaseVm) => async (block: Block, opts: RunB
 	// the total amount of gas used processing these transactions
 	let gasUsed = 0n
 
-	let receiptTrie: Trie | undefined = undefined
+	let receiptTrie: Trie | undefined
 	if (block.transactions.length !== 0) {
 		receiptTrie = new Trie({ common: vm.common.ethjsCommon })
 	}

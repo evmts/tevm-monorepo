@@ -92,43 +92,41 @@ const DataTableExpandable = <TData,>({
                 open={collapsed === row.id}
                 asChild
               >
-                <>
-                  <TableRow
-                    data-state={row.getIsSelected() && 'selected'}
-                    className={cn(collapsed === row.id && 'border-b-0')}
+                <TableRow
+                  data-state={row.getIsSelected() && 'selected'}
+                  className={cn(collapsed === row.id && 'border-b-0')}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id} className="font-mono">
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
+                    </TableCell>
+                  ))}
+                  <CollapsibleTrigger asChild>
+                    <TableCell className="flex justify-center">
+                      <Button variant="ghost" size="icon" className="p-0">
+                        <CaretDownIcon
+                          className={cn(
+                            'size-4',
+                            collapsed === row.id && 'rotate-180',
+                          )}
+                        />
+                      </Button>
+                    </TableCell>
+                  </CollapsibleTrigger>
+                </TableRow>
+                <CollapsibleContent asChild>
+                  <td
+                    colSpan={table.getAllColumns().length + 1}
+                    className="border-b pb-4"
                   >
-                    {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id} className="font-mono">
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext(),
-                        )}
-                      </TableCell>
-                    ))}
-                    <CollapsibleTrigger asChild>
-                      <TableCell className="flex justify-center">
-                        <Button variant="ghost" size="icon" className="p-0">
-                          <CaretDownIcon
-                            className={cn(
-                              'size-4',
-                              collapsed === row.id && 'rotate-180',
-                            )}
-                          />
-                        </Button>
-                      </TableCell>
-                    </CollapsibleTrigger>
-                  </TableRow>
-                  <CollapsibleContent asChild>
-                    <td
-                      colSpan={table.getAllColumns().length + 1}
-                      className="border-b pb-4"
-                    >
-                      <div className="border-muted/30 border-x">
-                        {expandableRender(row)}
-                      </div>
-                    </td>
-                  </CollapsibleContent>
-                </>
+                    <div className="border-muted/30 border-x">
+                      {expandableRender(row)}
+                    </div>
+                  </td>
+                </CollapsibleContent>
               </Collapsible>
             ))
           ) : (

@@ -1,5 +1,5 @@
-import { Capability, isBlobEIP4844Tx } from '@tevm/tx'
 import type { TypedTransaction } from '@tevm/tx'
+import { Capability, isBlobEIP4844Tx } from '@tevm/tx'
 import type { BaseVm } from '../BaseVm.js'
 import type {
 	BaseTxReceipt,

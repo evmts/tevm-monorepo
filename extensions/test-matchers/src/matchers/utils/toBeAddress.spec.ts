@@ -54,24 +54,36 @@ describe('toBeAddress', () => {
 
 	describe('non-strict mode (strict: false)', () => {
 		it('should pass for valid addresses regardless of checksum when strict: false', () => {
-			validAddressesWithCorrectChecksum.forEach((address) => expect(address).toBeAddress({ strict: false }))
-			validAddressesWithInvalidChecksum.forEach((address) => expect(address).toBeAddress({ strict: false }))
+			validAddressesWithCorrectChecksum.forEach((address) => {
+				expect(address).toBeAddress({ strict: false })
+			})
+			validAddressesWithInvalidChecksum.forEach((address) => {
+				expect(address).toBeAddress({ strict: false })
+			})
 		})
 	})
 
 	describe('invalid addresses', () => {
 		it('should fail for invalid addresses in all modes', () => {
 			// Default mode (strict)
-			invalidAddresses.forEach((address) => expect(() => expect(address).toBeAddress()).toThrow())
+			invalidAddresses.forEach((address) => {
+				expect(() => expect(address).toBeAddress()).toThrow()
+			})
 			// Explicit strict: true
-			invalidAddresses.forEach((address) => expect(() => expect(address).toBeAddress({ strict: true })).toThrow())
+			invalidAddresses.forEach((address) => {
+				expect(() => expect(address).toBeAddress({ strict: true })).toThrow()
+			})
 			// Even with strict: false
-			invalidAddresses.forEach((address) => expect(() => expect(address).toBeAddress({ strict: false })).toThrow())
+			invalidAddresses.forEach((address) => {
+				expect(() => expect(address).toBeAddress({ strict: false })).toThrow()
+			})
 		})
 
 		describe('.not modifier', () => {
 			it('should work with .not for invalid addresses', () => {
-				invalidAddresses.forEach((address) => expect(address).not.toBeAddress())
+				invalidAddresses.forEach((address) => {
+					expect(address).not.toBeAddress()
+				})
 			})
 
 			it('should work with .not for checksum violations in strict mode', () => {
@@ -82,15 +94,15 @@ describe('toBeAddress', () => {
 			})
 
 			it('should fail with .not for valid checksummed addresses', () => {
-				validAddressesWithCorrectChecksum.forEach((address) =>
-					expect(() => expect(address).not.toBeAddress()).toThrow(),
-				)
+				validAddressesWithCorrectChecksum.forEach((address) => {
+					expect(() => expect(address).not.toBeAddress()).toThrow()
+				})
 			})
 
 			it('should fail with .not for valid addresses in non-strict mode', () => {
-				;[...validAddressesWithCorrectChecksum, ...validAddressesWithInvalidChecksum].forEach((address) =>
-					expect(() => expect(address).not.toBeAddress({ strict: false })).toThrow(),
-				)
+				;[...validAddressesWithCorrectChecksum, ...validAddressesWithInvalidChecksum].forEach((address) => {
+					expect(() => expect(address).not.toBeAddress({ strict: false })).toThrow()
+				})
 			})
 		})
 

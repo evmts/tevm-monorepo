@@ -1,4 +1,4 @@
-import { type TevmNode, createTevmNode } from '@tevm/node'
+import { createTevmNode, type TevmNode } from '@tevm/node'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { LoadStateJsonRpcRequest } from './LoadStateJsonRpcRequest.js'
 import { loadStateProcedure } from './loadStateProcedure.js'

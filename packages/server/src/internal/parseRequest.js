@@ -1,5 +1,5 @@
 import { InvalidRequestError } from '@tevm/errors'
-import { z, treeifyError } from 'zod'
+import { treeifyError, z } from 'zod'
 import { InvalidJsonError } from '../errors/InvalidJsonError.js'
 
 const zJsonRpcRequest = z.object({

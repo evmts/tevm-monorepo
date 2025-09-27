@@ -30,7 +30,7 @@ export const getContractPath = (basePath) => {
 		try {
 			require.resolve(contractPackage)
 			return contractPackage
-		} catch (e) {}
+		} catch (_e) {}
 	}
 	console.warn(
 		`Could not find tevm/contract or @tevm/contract in ${basePath}!. Please install it with \`npm i @tevm/contract\` \`pnpm i @tevm/contract\` or \`yarn add tevm/contract\`

@@ -1,17 +1,17 @@
 {
-  "name": "@tevm/resolutions-rs-darwin-x64",
-  "version": "0.1.0",
-  "cpu": [
-    "x64"
-  ],
-  "main": "tevm_resolutions_rs.darwin-x64.node",
-  "files": [
-    "tevm_resolutions_rs.darwin-x64.node"
-  ],
-  "engines": {
-    "node": ">= 10"
-  },
-  "os": [
-    "darwin"
-  ]
+	"name": "@tevm/resolutions-rs-darwin-x64",
+	"version": "0.1.0",
+	"cpu": [
+		"x64"
+	],
+	"main": "tevm_resolutions_rs.darwin-x64.node",
+	"files": [
+		"tevm_resolutions_rs.darwin-x64.node"
+	],
+	"engines": {
+		"node": ">= 10"
+	},
+	"os": [
+		"darwin"
+	]
 }

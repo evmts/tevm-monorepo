@@ -1,7 +1,7 @@
 import { createAddress, createContractAddress } from '@tevm/address'
 import { createTevmNode } from '@tevm/node'
 import { SimpleContract, TestERC20 } from '@tevm/test-utils'
-import { PREFUNDED_ACCOUNTS, encodeDeployData, encodeFunctionData } from '@tevm/utils'
+import { encodeDeployData, encodeFunctionData, PREFUNDED_ACCOUNTS } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { callHandler } from './callHandler.js'

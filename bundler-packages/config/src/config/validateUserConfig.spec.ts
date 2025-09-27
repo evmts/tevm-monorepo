@@ -1,6 +1,5 @@
-import { describe, expect, it } from 'vitest'
-
 import { runSync } from 'effect/Effect'
+import { describe, expect, it } from 'vitest'
 import type { CompilerConfig } from '../types.js'
 import { ConfigFnThrowError, InvalidConfigError, validateUserConfig } from './validateUserConfig.js'
 

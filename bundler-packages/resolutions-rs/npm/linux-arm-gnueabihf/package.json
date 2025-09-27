@@ -1,17 +1,17 @@
 {
-  "name": "@tevm/resolutions-rs-linux-arm-gnueabihf",
-  "version": "0.0.0",
-  "cpu": [
-    "arm"
-  ],
-  "main": "tevm_resolutions_rs.linux-arm-gnueabihf.node",
-  "files": [
-    "tevm_resolutions_rs.linux-arm-gnueabihf.node"
-  ],
-  "engines": {
-    "node": ">= 10"
-  },
-  "os": [
-    "linux"
-  ]
+	"name": "@tevm/resolutions-rs-linux-arm-gnueabihf",
+	"version": "0.0.0",
+	"cpu": [
+		"arm"
+	],
+	"main": "tevm_resolutions_rs.linux-arm-gnueabihf.node",
+	"files": [
+		"tevm_resolutions_rs.linux-arm-gnueabihf.node"
+	],
+	"engines": {
+		"node": ">= 10"
+	},
+	"os": [
+		"linux"
+	]
 }

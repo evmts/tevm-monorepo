@@ -1,9 +1,9 @@
 import { createAddress } from '@tevm/address'
 import { transports } from '@tevm/test-utils'
+import { type Hex, hexToBigInt } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { getAccountFromProvider } from './getAccountFromProvider.js'
-import { hexToBigInt, type Hex } from '@tevm/utils'
 
 describe(getAccountFromProvider.name, () => {
 	it('should get an account from fork transport', async () => {

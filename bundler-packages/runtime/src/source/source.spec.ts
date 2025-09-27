@@ -1,7 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { WagmiReads } from '../../source.js'
-
-import { useContractRead } from '../../source.js'
+import { useContractRead, WagmiReads } from '../../source.js'
 
 // Mock the useContractRead function directly to test both branches
 describe('WagmiReads', () => {

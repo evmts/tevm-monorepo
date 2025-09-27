@@ -1,82 +1,82 @@
 {
-  "name": "@tevm/test-utils",
-  "version": "1.0.0-next.146",
-  "private": false,
-  "sideEffects": false,
-  "description": "Testing utils and fixtures for tevm",
-  "keywords": [
-    "solidity",
-    "forge",
-    "foundry",
-    "sol",
-    "typescript",
-    "web3",
-    "blockchain"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/evmts/tevm-monorepo.git",
-    "directory": "packages/bench"
-  },
-  "license": "MIT",
-  "contributors": [
-    "Will Cory <willcory10@gmail.com>"
-  ],
-  "type": "module",
-  "exports": {
-    "./package.json": "./package.json",
-    ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
-    }
-  },
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "src",
-    "!src/**/*.spec.ts",
-    "types"
-  ],
-  "scripts": {
-    "all": "bun run build && bun run bench:run && bun run lint && bun run format && bun lint:deps",
-    "generate:contracts": "bun run node_modules/@tevm/ts-plugin/dist/bin/tevm-gen.js",
-    "build": "nx run-many --targets=build:dist,build:types --projects=@tevm/bench ",
-    "build:dist": "tsup",
-    "build:types": "tsup --dts-only",
-    "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
-    "format": "biome format . --write",
-    "format:check": "biome format .",
-    "lint": "biome check . --write --unsafe",
-    "lint:check": "biome check . --verbose",
-    "lint:deps": "bunx depcheck",
-    "bench": "vitest bench",
-    "bench:run": "vitest bench run",
-    "bench:ui": "vitest bench --ui"
-  },
-  "devDependencies": {
-    "@tevm/tsconfig": "workspace:^",
-    "@tevm/tsupconfig": "workspace:^",
-    "@types/node": "^24.5.2"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "dependencies": {
-    "@openzeppelin/contracts": "5.4.0",
-    "@ponder/utils": "^0.2.13",
-    "@tevm/contract": "workspace:^",
-    "@tevm/esbuild-plugin": "workspace:^",
-    "@tevm/ts-plugin": "workspace:^"
-  },
-  "peerDependencies": {
-    "viem": "^2.37.8"
-  }
+	"name": "@tevm/test-utils",
+	"version": "1.0.0-next.146",
+	"private": false,
+	"sideEffects": false,
+	"description": "Testing utils and fixtures for tevm",
+	"keywords": [
+		"solidity",
+		"forge",
+		"foundry",
+		"sol",
+		"typescript",
+		"web3",
+		"blockchain"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/evmts/tevm-monorepo.git",
+		"directory": "packages/bench"
+	},
+	"license": "MIT",
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
+	"type": "module",
+	"exports": {
+		"./package.json": "./package.json",
+		".": {
+			"import": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			}
+		}
+	},
+	"main": "dist/index.cjs",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"files": [
+		"dist",
+		"src",
+		"!src/**/*.spec.ts",
+		"types"
+	],
+	"scripts": {
+		"all": "bun run build && bun run bench:run && bun run lint && bun run format && bun lint:deps",
+		"generate:contracts": "bun run node_modules/@tevm/ts-plugin/dist/bin/tevm-gen.js",
+		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/bench ",
+		"build:dist": "tsup",
+		"build:types": "tsup --dts-only",
+		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
+		"format": "biome format . --write",
+		"format:check": "biome format .",
+		"lint": "biome check . --write --unsafe",
+		"lint:check": "biome check . --verbose",
+		"lint:deps": "bunx depcheck",
+		"bench": "vitest bench",
+		"bench:run": "vitest bench run",
+		"bench:ui": "vitest bench --ui"
+	},
+	"devDependencies": {
+		"@tevm/tsconfig": "workspace:^",
+		"@tevm/tsupconfig": "workspace:^",
+		"@types/node": "^24.5.2"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"dependencies": {
+		"@openzeppelin/contracts": "5.4.0",
+		"@ponder/utils": "^0.2.13",
+		"@tevm/contract": "workspace:^",
+		"@tevm/esbuild-plugin": "workspace:^",
+		"@tevm/ts-plugin": "workspace:^"
+	},
+	"peerDependencies": {
+		"viem": "^2.37.8"
+	}
 }

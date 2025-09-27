@@ -1,8 +1,7 @@
 import { Block } from '@tevm/block'
 import { ConsensusType } from '@tevm/common'
-import { bytesToHex } from '@tevm/utils'
-
 import { InternalError, MisconfiguredClientError } from '@tevm/errors'
+import { bytesToHex } from '@tevm/utils'
 import type { BaseVm } from '../BaseVm.js'
 import type { ApplyBlockResult, RunBlockOpts } from '../utils/index.js'
 import { accumulateParentBeaconBlockRoot } from './accumulateParentBeaconBlockRoot.js'

@@ -133,7 +133,7 @@ export const releases = {
 export const solcCompile = (solc, input) => {
 	try {
 		return JSON.parse(solc.compile(JSON.stringify(input)))
-	} catch (e) {
+	} catch (_e) {
 		// temporary hack to fix a bug in ts-plugin
 		return JSON.parse(_solc.compile(JSON.stringify(input)))
 	}

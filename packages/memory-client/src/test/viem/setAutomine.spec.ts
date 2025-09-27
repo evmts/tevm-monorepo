@@ -1,8 +1,8 @@
 import { SimpleContract } from '@tevm/contract'
 import { type Address, encodeFunctionData } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
-import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
+import type { MemoryClient } from '../../MemoryClient.js'
 
 /**
  * Tests for TEVM mining behavior and automine functionality

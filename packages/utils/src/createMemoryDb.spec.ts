@@ -1,7 +1,7 @@
 import { UnreachableCodeError } from '@tevm/errors'
 import { beforeEach, describe, expect, it } from 'vitest'
-import type { MemoryDb } from './MemoryDb.js'
 import { createMemoryDb } from './createMemoryDb.js'
+import type { MemoryDb } from './MemoryDb.js'
 import { bytesToHex } from './viem.js'
 
 describe('createMemoryDb', () => {

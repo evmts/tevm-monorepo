@@ -1,7 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { AccountNotFoundError, InternalError } from '@tevm/errors'
-import { createAccount } from '@tevm/utils'
-import { hexToBytes, keccak256 } from '@tevm/utils'
+import { createAccount, hexToBytes, keccak256 } from '@tevm/utils'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 import { validateSetAccountParams } from './validateSetAccountParams.js'

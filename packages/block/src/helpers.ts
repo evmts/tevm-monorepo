@@ -1,9 +1,8 @@
+import type { TypedTransaction } from '@tevm/tx'
 import { BlobEIP4844Transaction } from '@tevm/tx'
 import { type Hex, isHex } from '@tevm/utils'
-import { safeToType } from './utils.js'
-
-import type { TypedTransaction } from '@tevm/tx'
 import type { BlockHeaderBytes, HeaderData } from './types.js'
+import { safeToType } from './utils.js'
 
 /**
  * Returns a 0x-prefixed hex number string from a hex string or string integer.

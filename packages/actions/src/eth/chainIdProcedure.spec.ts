@@ -1,7 +1,7 @@
-import { type TevmNode, createTevmNode } from '@tevm/node'
+import { createTevmNode, type TevmNode } from '@tevm/node'
 import { beforeEach, describe, expect, it } from 'vitest'
-import type { EthChainIdJsonRpcRequest } from './EthJsonRpcRequest.js'
 import { chainIdProcedure } from './chainIdProcedure.js'
+import type { EthChainIdJsonRpcRequest } from './EthJsonRpcRequest.js'
 
 let client: TevmNode
 

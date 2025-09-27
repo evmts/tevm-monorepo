@@ -1,9 +1,4 @@
 {
 	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-	"extends": "//",
-	"files": {
-		"includes": [
-			"src/**"
-		]
-	}
+	"extends": "//"
 }

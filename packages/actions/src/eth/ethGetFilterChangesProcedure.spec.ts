@@ -1,6 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { Block } from '@tevm/block'
-import { type Filter, type TevmNode, createTevmNode } from '@tevm/node'
+import { createTevmNode, type Filter, type TevmNode } from '@tevm/node'
 import { createImpersonatedTx } from '@tevm/tx'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { EthGetFilterChangesJsonRpcRequest } from './EthJsonRpcRequest.js'

@@ -1,28 +1,26 @@
+import type { Common } from '@tevm/common'
 import { ConsensusType } from '@tevm/common'
 import { Rlp } from '@tevm/rlp'
 import { Trie } from '@tevm/trie'
+import type { FeeMarketEIP1559Transaction, LegacyTransaction, TypedTransaction } from '@tevm/tx'
 import { BlobEIP4844Transaction, Capability, createTxFromBlockBodyData, createTxFromRLP } from '@tevm/tx'
 import {
 	type AddressLike,
-	type Hex,
-	KECCAK256_RLP,
-	KECCAK256_RLP_ARRAY,
-	Withdrawal,
 	bytesToHex,
 	bytesToUtf8,
 	createWithdrawal,
 	equalsBytes,
+	type Hex,
 	hexToBytes,
+	KECCAK256_RLP,
+	KECCAK256_RLP_ARRAY,
 	keccak256,
+	Withdrawal,
 } from '@tevm/utils'
-
-import { executionPayloadFromBeaconPayload } from './from-beacon-payload.js'
-import { BlockHeader } from './header.js'
-
-import type { Common } from '@tevm/common'
-import type { FeeMarketEIP1559Transaction, LegacyTransaction, TypedTransaction } from '@tevm/tx'
 import { ClRequest } from './ClRequest.js'
 import type { BeaconPayloadJson } from './from-beacon-payload.js'
+import { executionPayloadFromBeaconPayload } from './from-beacon-payload.js'
+import { BlockHeader } from './header.js'
 import type {
 	BlockBytes,
 	BlockData,
@@ -806,13 +804,13 @@ export class Block {
 		let hash = ''
 		try {
 			hash = bytesToHex(this.hash())
-		} catch (e: any) {
+		} catch (_e: any) {
 			hash = 'error'
 		}
 		let hf = ''
 		try {
 			hf = this.common.ethjsCommon.hardfork()
-		} catch (e: any) {
+		} catch (_e: any) {
 			hf = 'error'
 		}
 		let errorStr = `block number=${this.header.number} hash=${hash} `

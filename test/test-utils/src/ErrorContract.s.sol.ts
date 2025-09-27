@@ -1,4 +1,5 @@
 import { createContract } from '@tevm/contract'
+
 const _ErrorContract = {
 	name: 'ErrorContract',
 	humanReadableAbi: [

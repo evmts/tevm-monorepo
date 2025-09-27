@@ -1,6 +1,5 @@
-import { describe, expect, it, mock, spyOn } from 'bun:test'
+import { describe, expect, it } from 'bun:test'
 import fs from 'node:fs'
-import { $ } from 'bun'
 import { run } from './run.js'
 
 describe(run.name, () => {

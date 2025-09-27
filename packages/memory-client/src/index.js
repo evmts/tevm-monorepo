@@ -1,4 +1,4 @@
-export { createClient, testActions, publicActions, walletActions } from './createClient.js'
+export { createClient, publicActions, testActions, walletActions } from './createClient.js'
 export { createMemoryClient } from './createMemoryClient.js'
 export { createTevmTransport } from './createTevmTransport.js'
 export { tevmCall } from './tevmCall.js'

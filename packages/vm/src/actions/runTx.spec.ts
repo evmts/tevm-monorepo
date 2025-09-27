@@ -3,6 +3,7 @@ import { EventEmitter } from 'node:events'
 
 // Increase max listeners globally to prevent warnings
 EventEmitter.defaultMaxListeners = 100
+
 import { Block } from '@tevm/block'
 import { createChain } from '@tevm/blockchain'
 import { mainnet } from '@tevm/common'
@@ -18,12 +19,12 @@ import {
 	encodeFunctionData,
 	type Hex,
 	hexToBytes,
-	parseEther,
 	PREFUNDED_ACCOUNTS,
+	parseEther,
 	randomBytes,
 } from '@tevm/utils'
-import type { Vm } from '../Vm.js'
 import { createVm } from '../createVm.js'
+import type { Vm } from '../Vm.js'
 import { runTx } from './runTx.js'
 
 describe('runTx', () => {

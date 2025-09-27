@@ -1,5 +1,5 @@
 import { InternalError } from '@tevm/errors'
-import { EthjsAccount, EthjsAddress, createAccount, createAddressFromString, hexToBytes } from '@tevm/utils'
+import { createAccount, createAddressFromString, EthjsAccount, EthjsAddress, hexToBytes } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { BaseState } from '../BaseState.js'
 import { createBaseState } from '../createBaseState.js'

@@ -1,5 +1,5 @@
-import type { AppProps } from 'pastel';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import type { AppProps } from 'pastel'
 
 // Create a client
 const queryClient = new QueryClient({
@@ -9,13 +9,13 @@ const queryClient = new QueryClient({
 			refetchOnWindowFocus: false,
 		},
 	},
-});
+})
 
 export default function App({ Component, commandProps }: AppProps) {
-	const C = Component as any;
+	const C = Component as any
 	return (
 		<QueryClientProvider client={queryClient}>
 			<C {...commandProps} />
 		</QueryClientProvider>
-	);
+	)
 }

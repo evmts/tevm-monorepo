@@ -1,7 +1,6 @@
 import { createContract } from '@tevm/contract'
 import { definePredeploy } from '@tevm/predeploys'
-import { EthjsAddress, hexToBytes, toBytes } from '@tevm/utils'
-import { formatAbi } from '@tevm/utils'
+import { EthjsAddress, formatAbi, hexToBytes, toBytes } from '@tevm/utils'
 import { expect, test } from 'vitest'
 import { createMemoryClient } from '../createMemoryClient.js'
 import { DaiContract } from '../test/DaiContract.sol.js'

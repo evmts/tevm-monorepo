@@ -1,5 +1,5 @@
 import ts from 'typescript/lib/tsserverlibrary.js'
-import { type MockedFunction, describe, expect, it, vi } from 'vitest'
+import { describe, expect, it, type MockedFunction, vi } from 'vitest'
 import { findContractDefinitionFileNameFromTevmNode } from './findContractDefinitionFileNameFromTevmNode.js'
 import { findNode } from './findNode.js'
 
@@ -7,7 +7,7 @@ const mockContractFile = '/path/to/ContractDefinitionFile.sol'
 
 // Mock TypeScript's LanguageService
 const mockLanguageService = {
-	getDefinitionAtPosition: vi.fn((fileName: string, position: number) => [
+	getDefinitionAtPosition: vi.fn((_fileName: string, _position: number) => [
 		{
 			fileName: mockContractFile,
 		},

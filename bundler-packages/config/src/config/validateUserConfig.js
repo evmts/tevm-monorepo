@@ -1,5 +1,7 @@
 import {
+	decodeUnknownEither,
 	Literal,
+	optional,
 	Record,
 	Array as SArray,
 	Boolean as SBoolean,
@@ -7,13 +9,10 @@ import {
 	Struct,
 	Undefined,
 	Union,
-	decodeUnknownEither,
-	optional,
 } from '@effect/schema/Schema'
 import { formatErrorSync } from '@effect/schema/TreeFormatter'
 import { pipe } from 'effect'
-import { try as effectTry, fail, logDebug, succeed, tap } from 'effect/Effect'
-import { flatMap } from 'effect/Effect'
+import { try as effectTry, fail, flatMap, logDebug, succeed, tap } from 'effect/Effect'
 import { match } from 'effect/Either'
 
 /**

@@ -1,4 +1,3 @@
-import { createRequire } from 'node:module'
 import path from 'node:path'
 import typescript from 'typescript/lib/tsserverlibrary.js'
 import { describe, expect, it, vi } from 'vitest'

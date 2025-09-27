@@ -35,7 +35,7 @@ export const getCodeHandler = (baseClient) => async (params) => {
 	/**
 	 * @type {import('viem').Hex | undefined}
 	 */
-	let deployedBytecode = undefined
+	let deployedBytecode
 	// if we have the state cached already grab it from there
 	if (await vm.stateManager.hasStateRoot(block.header.stateRoot)) {
 		deployedBytecode = vm.stateManager._baseState.stateRoots.get(bytesToHex(block.header.stateRoot))?.[

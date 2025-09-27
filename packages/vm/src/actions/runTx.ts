@@ -1,8 +1,5 @@
 // Originally from ethjs
 import { ConsensusType } from '@tevm/common'
-import { BlobEIP4844Transaction, Capability, isBlobEIP4844Tx } from '@tevm/tx'
-import { EthjsAccount, EthjsAddress, type Hex, equalsBytes, hexToBytes } from '@tevm/utils'
-
 import {
 	EipNotEnabledError,
 	InsufficientFundsError,
@@ -22,6 +19,8 @@ import type {
 	FeeMarketEIP1559Transaction,
 	LegacyTransaction,
 } from '@tevm/tx'
+import { BlobEIP4844Transaction, Capability, isBlobEIP4844Tx } from '@tevm/tx'
+import { EthjsAccount, EthjsAddress, equalsBytes, type Hex, hexToBytes } from '@tevm/utils'
 import type { BaseVm } from '../BaseVm.js'
 import type { AfterTxEvent, RunTxOpts, RunTxResult } from '../utils/index.js'
 import { KECCAK256_NULL } from './constants.js'
@@ -231,7 +230,7 @@ const _runTx =
 		}
 
 		let gasPrice: bigint
-		let inclusionFeePerGas: bigint | undefined = undefined
+		let inclusionFeePerGas: bigint | undefined
 		// EIP-1559 tx
 		if (tx.supports(Capability.EIP1559FeeMarket)) {
 			// TODO make txs use the new getEffectivePriorityFee
@@ -249,7 +248,7 @@ const _runTx =
 		}
 
 		// EIP-4844 tx
-		let blobVersionedHashes: `0x${string}`[] | undefined = undefined
+		let blobVersionedHashes: `0x${string}`[] | undefined
 		if (tx instanceof BlobEIP4844Transaction) {
 			const rawHashes = (tx as BlobEIP4844Transaction).blobVersionedHashes
 			blobVersionedHashes = rawHashes.map((hash) =>

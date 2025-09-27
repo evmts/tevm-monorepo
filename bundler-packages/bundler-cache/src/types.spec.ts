@@ -107,28 +107,28 @@ describe('Types', () => {
 		}
 
 		// Write functions - they should return a path
-		const writeArtifactsImpl: WriteArtifactsSync = (entryModuleId, artifacts) => {
+		const writeArtifactsImpl: WriteArtifactsSync = (entryModuleId, _artifacts) => {
 			return `/cache/${entryModuleId}.json`
 		}
 
-		const writeDtsImpl: WriteDtsSync = (entryModuleId, dtsFile) => {
+		const writeDtsImpl: WriteDtsSync = (entryModuleId, _dtsFile) => {
 			return `/cache/${entryModuleId}.d.ts`
 		}
 
-		const writeMjsImpl: WriteMjsSync = (entryModuleId, mjsFile) => {
+		const writeMjsImpl: WriteMjsSync = (entryModuleId, _mjsFile) => {
 			return `/cache/${entryModuleId}.mjs`
 		}
 
 		// Async write functions should return Promise of path
-		const writeArtifactsAsyncImpl: WriteArtifacts = async (entryModuleId, artifacts) => {
+		const writeArtifactsAsyncImpl: WriteArtifacts = async (entryModuleId, _artifacts) => {
 			return `/cache/${entryModuleId}.json`
 		}
 
-		const writeDtsAsyncImpl: WriteDts = async (entryModuleId, dtsFile) => {
+		const writeDtsAsyncImpl: WriteDts = async (entryModuleId, _dtsFile) => {
 			return `/cache/${entryModuleId}.d.ts`
 		}
 
-		const writeMjsAsyncImpl: WriteMjs = async (entryModuleId, mjsFile) => {
+		const writeMjsAsyncImpl: WriteMjs = async (entryModuleId, _mjsFile) => {
 			return `/cache/${entryModuleId}.mjs`
 		}
 
@@ -170,22 +170,22 @@ describe('Types', () => {
 			readMjs: async (entryModuleId) => {
 				return entryModuleId === 'valid' ? 'export class Test {}' : undefined
 			},
-			writeArtifactsSync: (entryModuleId, artifacts) => {
+			writeArtifactsSync: (entryModuleId, _artifacts) => {
 				return `/cache/${entryModuleId}.json`
 			},
-			writeArtifacts: async (entryModuleId, artifacts) => {
+			writeArtifacts: async (entryModuleId, _artifacts) => {
 				return `/cache/${entryModuleId}.json`
 			},
-			writeDtsSync: (entryModuleId, dtsFile) => {
+			writeDtsSync: (entryModuleId, _dtsFile) => {
 				return `/cache/${entryModuleId}.d.ts`
 			},
-			writeDts: async (entryModuleId, dtsFile) => {
+			writeDts: async (entryModuleId, _dtsFile) => {
 				return `/cache/${entryModuleId}.d.ts`
 			},
-			writeMjsSync: (entryModuleId, mjsFile) => {
+			writeMjsSync: (entryModuleId, _mjsFile) => {
 				return `/cache/${entryModuleId}.mjs`
 			},
-			writeMjs: async (entryModuleId, mjsFile) => {
+			writeMjs: async (entryModuleId, _mjsFile) => {
 				return `/cache/${entryModuleId}.mjs`
 			},
 		}

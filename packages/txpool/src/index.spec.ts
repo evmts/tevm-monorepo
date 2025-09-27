@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { TxPool } from './TxPool.js'
 import * as index from './index.js'
+import { TxPool } from './TxPool.js'
 
 describe('index', () => {
 	it('should export TxPool', () => {

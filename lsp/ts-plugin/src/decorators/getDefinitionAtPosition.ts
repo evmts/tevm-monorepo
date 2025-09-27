@@ -1,4 +1,4 @@
-import { type FileAccessObject, bundler } from '@tevm/base-bundler'
+import { bundler, type FileAccessObject } from '@tevm/base-bundler'
 import type { Cache } from '@tevm/bundler-cache'
 import type { ResolvedCompilerConfig } from '@tevm/config'
 import * as solc from 'solc'
@@ -7,8 +7,11 @@ import type { SolcInput } from 'solidity-ast/solc.js'
 import { findAll } from 'solidity-ast/utils.js'
 import type typescript from 'typescript/lib/tsserverlibrary.js'
 import type { Logger } from '../factories/logger.js'
-import { findNode } from '../utils/index.js'
-import { convertSolcAstToTsDefinitionInfo, findContractDefinitionFileNameFromTevmNode } from '../utils/index.js'
+import {
+	convertSolcAstToTsDefinitionInfo,
+	findContractDefinitionFileNameFromTevmNode,
+	findNode,
+} from '../utils/index.js'
 
 /**
  * Decorates the TypeScript LanguageService to provide "Go to Definition" support for Solidity contracts.
