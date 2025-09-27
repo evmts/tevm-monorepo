@@ -2,19 +2,19 @@ import { createAddress } from '@tevm/address'
 import { tevmDefault } from '@tevm/common'
 import { createTevmNode } from '@tevm/node'
 import { TransactionFactory } from '@tevm/tx'
-import { PREFUNDED_PRIVATE_KEYS, bytesToHex, hexToBytes, parseEther } from '@tevm/utils'
+import { bytesToHex, hexToBytes, PREFUNDED_PRIVATE_KEYS, parseEther } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
-import { ethSendRawTransactionJsonRpcProcedure } from './ethSendRawTransactionProcedure.js'
+import { blockNumberProcedure } from './blockNumberProcedure.js'
 import { ethEstimateGasJsonRpcProcedure } from './ethEstimateGasProcedure.js'
 import { ethGetTransactionReceiptJsonRpcProcedure } from './ethGetTransactionReceiptProcedure.js'
-import { blockNumberProcedure } from './blockNumberProcedure.js'
+import { ethSendRawTransactionJsonRpcProcedure } from './ethSendRawTransactionProcedure.js'
 
 describe('JSON-RPC Automining Integration Tests', () => {
 	describe('eth_sendRawTransaction should trigger automining when enabled', () => {
 		it('should automine transaction when automining is enabled', async () => {
-			const client = createTevmNode({ 
+			const client = createTevmNode({
 				miningConfig: { type: 'auto' },
-				loggingLevel: 'debug' 
+				loggingLevel: 'debug',
 			})
 			const sendRawTxProcedure = ethSendRawTransactionJsonRpcProcedure(client)
 			const getReceiptProcedure = ethGetTransactionReceiptJsonRpcProcedure(client)
@@ -80,9 +80,9 @@ describe('JSON-RPC Automining Integration Tests', () => {
 		})
 
 		it('should not automine when automining is disabled', async () => {
-			const client = createTevmNode({ 
+			const client = createTevmNode({
 				miningConfig: { type: 'manual' },
-				loggingLevel: 'debug' 
+				loggingLevel: 'debug',
 			})
 			const sendRawTxProcedure = ethSendRawTransactionJsonRpcProcedure(client)
 			const getReceiptProcedure = ethGetTransactionReceiptJsonRpcProcedure(client)
@@ -152,9 +152,9 @@ describe('JSON-RPC Automining Integration Tests', () => {
 
 	describe('eth_estimateGas should NOT trigger automining', () => {
 		it('should not mine blocks during gas estimation', async () => {
-			const client = createTevmNode({ 
+			const client = createTevmNode({
 				miningConfig: { type: 'auto' },
-				loggingLevel: 'debug' 
+				loggingLevel: 'debug',
 			})
 			const estimateGasProcedure = ethEstimateGasJsonRpcProcedure(client)
 			const getBlockNumberProcedure = blockNumberProcedure(client)
@@ -172,12 +172,14 @@ describe('JSON-RPC Automining Integration Tests', () => {
 			const estimateResult = await estimateGasProcedure({
 				jsonrpc: '2.0',
 				method: 'eth_estimateGas',
-				params: [{
-					from: `0x${PREFUNDED_PRIVATE_KEYS[0].slice(2)}`,
-					to: `0x${'42'.repeat(20)}`,
-					value: '0x16345785d8a0000', // 0.1 ETH
-					data: '0x'
-				}],
+				params: [
+					{
+						from: `0x${PREFUNDED_PRIVATE_KEYS[0].slice(2)}`,
+						to: `0x${'42'.repeat(20)}`,
+						value: '0x16345785d8a0000', // 0.1 ETH
+						data: '0x',
+					},
+				],
 				id: 2,
 			})
 
@@ -202,9 +204,9 @@ describe('JSON-RPC Automining Integration Tests', () => {
 		})
 
 		it('should not create transactions during gas estimation', async () => {
-			const client = createTevmNode({ 
+			const client = createTevmNode({
 				miningConfig: { type: 'auto' },
-				loggingLevel: 'debug' 
+				loggingLevel: 'debug',
 			})
 			const estimateGasProcedure = ethEstimateGasJsonRpcProcedure(client)
 
@@ -213,13 +215,15 @@ describe('JSON-RPC Automining Integration Tests', () => {
 				const estimateResult = await estimateGasProcedure({
 					jsonrpc: '2.0',
 					method: 'eth_estimateGas',
-					params: [{
-						from: `0x${PREFUNDED_PRIVATE_KEYS[0].slice(2)}`,
-						to: `0x${'42'.repeat(20)}`,
-						value: '0x16345785d8a0000',
-						data: '0x',
-						nonce: '0x27' // Same nonce each time
-					}],
+					params: [
+						{
+							from: `0x${PREFUNDED_PRIVATE_KEYS[0].slice(2)}`,
+							to: `0x${'42'.repeat(20)}`,
+							value: '0x16345785d8a0000',
+							data: '0x',
+							nonce: '0x27', // Same nonce each time
+						},
+					],
 					id: i + 1,
 				})
 
@@ -235,9 +239,9 @@ describe('JSON-RPC Automining Integration Tests', () => {
 
 	describe('nonce handling should preserve user-provided nonces', () => {
 		it('should use user-provided nonce instead of auto-calculating', async () => {
-			const client = createTevmNode({ 
+			const client = createTevmNode({
 				miningConfig: { type: 'auto' },
-				loggingLevel: 'debug' 
+				loggingLevel: 'debug',
 			})
 			const sendRawTxProcedure = ethSendRawTransactionJsonRpcProcedure(client)
 			const getReceiptProcedure = ethGetTransactionReceiptJsonRpcProcedure(client)

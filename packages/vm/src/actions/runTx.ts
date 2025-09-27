@@ -251,7 +251,9 @@ const _runTx =
 		let blobVersionedHashes: `0x${string}`[] | undefined
 		if (tx instanceof BlobEIP4844Transaction) {
 			const rawHashes = (tx as BlobEIP4844Transaction).blobVersionedHashes
-			blobVersionedHashes = rawHashes.map((hash) => hash.startsWith('0x') ? hash as `0x${string}` : `0x${hash}` as `0x${string}`)
+			blobVersionedHashes = rawHashes.map((hash) =>
+				hash.startsWith('0x') ? (hash as `0x${string}`) : (`0x${hash}` as `0x${string}`),
+			)
 		}
 
 		// Update from account's balance

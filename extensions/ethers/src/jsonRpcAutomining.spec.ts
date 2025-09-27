@@ -2,16 +2,16 @@ import { createAddress } from '@tevm/address'
 import { tevmDefault } from '@tevm/common'
 import { createMemoryClient } from '@tevm/memory-client'
 import { TransactionFactory } from '@tevm/tx'
-import { PREFUNDED_PRIVATE_KEYS, bytesToHex, hexToBytes, parseEther } from '@tevm/utils'
+import { bytesToHex, hexToBytes, PREFUNDED_PRIVATE_KEYS, parseEther } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { TevmProvider } from './TevmProvider.js'
 
 describe('Ethers Extension JSON-RPC Automining Integration Tests', () => {
 	describe('eth_sendRawTransaction should trigger automining when enabled', () => {
 		it('should automine transaction when automining is enabled via ethers provider', async () => {
-			const client = createMemoryClient({ 
+			const client = createMemoryClient({
 				miningConfig: { type: 'auto' },
-				loggingLevel: 'debug' 
+				loggingLevel: 'debug',
 			})
 			const provider = new TevmProvider({ client })
 
@@ -53,9 +53,9 @@ describe('Ethers Extension JSON-RPC Automining Integration Tests', () => {
 		})
 
 		it('should not automine when automining is disabled', async () => {
-			const client = createMemoryClient({ 
+			const client = createMemoryClient({
 				miningConfig: { type: 'manual' },
-				loggingLevel: 'debug' 
+				loggingLevel: 'debug',
 			})
 			const provider = new TevmProvider({ client })
 
@@ -101,9 +101,9 @@ describe('Ethers Extension JSON-RPC Automining Integration Tests', () => {
 
 	describe('estimateGas should NOT trigger automining', () => {
 		it('should not mine blocks during gas estimation via ethers provider', async () => {
-			const client = createMemoryClient({ 
+			const client = createMemoryClient({
 				miningConfig: { type: 'auto' },
-				loggingLevel: 'debug' 
+				loggingLevel: 'debug',
 			})
 			const provider = new TevmProvider({ client })
 
@@ -115,7 +115,7 @@ describe('Ethers Extension JSON-RPC Automining Integration Tests', () => {
 				from: `0x${PREFUNDED_PRIVATE_KEYS[0].slice(2)}`,
 				to: `0x${'42'.repeat(20)}`,
 				value: parseEther('0.1'),
-				data: '0x'
+				data: '0x',
 			})
 
 			expect(gasEstimate).toBeTruthy()
@@ -132,9 +132,9 @@ describe('Ethers Extension JSON-RPC Automining Integration Tests', () => {
 		})
 
 		it('should not create transactions during multiple gas estimations', async () => {
-			const client = createMemoryClient({ 
+			const client = createMemoryClient({
 				miningConfig: { type: 'auto' },
-				loggingLevel: 'debug' 
+				loggingLevel: 'debug',
 			})
 			const provider = new TevmProvider({ client })
 
@@ -144,7 +144,7 @@ describe('Ethers Extension JSON-RPC Automining Integration Tests', () => {
 					from: `0x${PREFUNDED_PRIVATE_KEYS[0].slice(2)}`,
 					to: `0x${'42'.repeat(20)}`,
 					value: parseEther('0.1'),
-					data: '0x'
+					data: '0x',
 				})
 
 				expect(gasEstimate).toBeTruthy()
@@ -159,9 +159,9 @@ describe('Ethers Extension JSON-RPC Automining Integration Tests', () => {
 
 	describe('nonce handling should preserve user-provided nonces', () => {
 		it('should use user-provided nonce in ethers transactions', async () => {
-			const client = createMemoryClient({ 
+			const client = createMemoryClient({
 				miningConfig: { type: 'auto' },
-				loggingLevel: 'debug' 
+				loggingLevel: 'debug',
 			})
 			const provider = new TevmProvider({ client })
 

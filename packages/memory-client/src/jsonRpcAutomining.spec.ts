@@ -1,16 +1,16 @@
 import { createAddress } from '@tevm/address'
 import { tevmDefault } from '@tevm/common'
 import { TransactionFactory } from '@tevm/tx'
-import { PREFUNDED_PRIVATE_KEYS, bytesToHex, hexToBytes, parseEther } from '@tevm/utils'
+import { bytesToHex, hexToBytes, PREFUNDED_PRIVATE_KEYS, parseEther } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from './createMemoryClient.js'
 
 describe('Memory Client JSON-RPC Automining Integration Tests', () => {
 	describe('eth_sendRawTransaction should trigger automining when enabled', () => {
 		it('should automine transaction when automining is enabled via viem client', async () => {
-			const client = createMemoryClient({ 
+			const client = createMemoryClient({
 				miningConfig: { type: 'auto' },
-				loggingLevel: 'debug' 
+				loggingLevel: 'debug',
 			})
 
 			const initialBlockNumber = await client.getBlockNumber()
@@ -52,9 +52,9 @@ describe('Memory Client JSON-RPC Automining Integration Tests', () => {
 		})
 
 		it('should not automine when automining is disabled', async () => {
-			const client = createMemoryClient({ 
+			const client = createMemoryClient({
 				miningConfig: { type: 'manual' },
-				loggingLevel: 'debug' 
+				loggingLevel: 'debug',
 			})
 
 			const initialBlockNumber = await client.getBlockNumber()
@@ -101,9 +101,9 @@ describe('Memory Client JSON-RPC Automining Integration Tests', () => {
 
 	describe('eth_estimateGas should NOT trigger automining', () => {
 		it('should not mine blocks during gas estimation', async () => {
-			const client = createMemoryClient({ 
+			const client = createMemoryClient({
 				miningConfig: { type: 'auto' },
-				loggingLevel: 'debug' 
+				loggingLevel: 'debug',
 			})
 
 			const initialBlockNumber = await client.getBlockNumber()
@@ -111,12 +111,14 @@ describe('Memory Client JSON-RPC Automining Integration Tests', () => {
 			// Estimate gas for transaction
 			const gasEstimate = await client.request({
 				method: 'eth_estimateGas',
-				params: [{
-					from: `0x${PREFUNDED_PRIVATE_KEYS[0].slice(2)}`,
-					to: `0x${'42'.repeat(20)}`,
-					value: '0x16345785d8a0000', // 0.1 ETH
-					data: '0x'
-				}],
+				params: [
+					{
+						from: `0x${PREFUNDED_PRIVATE_KEYS[0].slice(2)}`,
+						to: `0x${'42'.repeat(20)}`,
+						value: '0x16345785d8a0000', // 0.1 ETH
+						data: '0x',
+					},
+				],
 			})
 
 			expect(gasEstimate).toBeTruthy()
@@ -132,22 +134,24 @@ describe('Memory Client JSON-RPC Automining Integration Tests', () => {
 		})
 
 		it('should not create transactions during gas estimation with same nonce', async () => {
-			const client = createMemoryClient({ 
+			const client = createMemoryClient({
 				miningConfig: { type: 'auto' },
-				loggingLevel: 'debug' 
+				loggingLevel: 'debug',
 			})
 
 			// Estimate gas multiple times with same nonce
 			for (let i = 0; i < 3; i++) {
 				const gasEstimate = await client.request({
 					method: 'eth_estimateGas',
-					params: [{
-						from: `0x${PREFUNDED_PRIVATE_KEYS[0].slice(2)}`,
-						to: `0x${'42'.repeat(20)}`,
-						value: '0x16345785d8a0000',
-						data: '0x',
-						nonce: '0x27' // Same nonce each time
-					}],
+					params: [
+						{
+							from: `0x${PREFUNDED_PRIVATE_KEYS[0].slice(2)}`,
+							to: `0x${'42'.repeat(20)}`,
+							value: '0x16345785d8a0000',
+							data: '0x',
+							nonce: '0x27', // Same nonce each time
+						},
+					],
 				})
 
 				expect(gasEstimate).toBeTruthy()
@@ -162,9 +166,9 @@ describe('Memory Client JSON-RPC Automining Integration Tests', () => {
 
 	describe('nonce handling should preserve user-provided nonces', () => {
 		it('should use user-provided nonce in raw transactions', async () => {
-			const client = createMemoryClient({ 
+			const client = createMemoryClient({
 				miningConfig: { type: 'auto' },
-				loggingLevel: 'debug' 
+				loggingLevel: 'debug',
 			})
 
 			// Send transaction with explicit nonce
