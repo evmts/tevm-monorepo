@@ -15,7 +15,7 @@
 		"all": "nx run-many --targets=generate:docs,build:types,typecheck,test:coverage,build:dist,dev:run,build:app,build:rust",
 		"all:clean": "bun clean && pnpm i && bun allz",
 		"all:slow": "nx run-many --targets=generate:docs,build:types,typecheck,test:coverage,build:dist,dev:run,build:app --parallel=1",
-		"allz": "npx concurrently 'pnpm i' 'bun lint' 'bun sort-package-json' && nx run-many --targets=generate:docs,build:types,typecheck,test:coverage,build:dist,dev:run,build:app,lint:package,lint:deps,lint,format,build:rust:lib",
+		"allz": "pnpm i && pnpm concurrently 'bun lint' 'bun sort-package-json' && nx run-many --targets=generate:docs,build:types,typecheck,test:coverage,build:dist,dev:run,build:app,lint:package,lint:deps,lint,format,build:rust:lib",
 		"build": "nx run-many --targets=build:dist,build:app,build:types",
 		"build:app": "nx run-many --target=build:app",
 		"build:dist": "nx run-many --target=build:dist",
@@ -89,6 +89,7 @@
 	},
 	"packageManager": "pnpm@10.6.1+sha512.40ee09af407fa9fbb5fbfb8e1cb40fbb74c0af0c3e10e9224d7b53c7658528615b2c92450e74cfad91e3a2dcafe3ce4050d80bda71d757756d2ce2b66213e9a3",
 	"engines": {
-		"node": ">=18"
+		"node": ">=18 <=20",
+		"_comment": "Node v22/v24 cause heap memory crashes during pnpm install due to inefficient handling of large package files during crypto hash verification. Use Node v20 or set NODE_OPTIONS='--max-old-space-size=8192' as workaround."
 	}
 }
