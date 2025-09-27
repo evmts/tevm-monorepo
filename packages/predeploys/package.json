@@ -61,7 +61,7 @@
 		"package:up": "pnpm up --latest",
 		"test": "vitest --watch",
 		"test:coverage": "vitest --coverage --run",
-		"test:run": "vitest",
+		"test:run": "vitest run",
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
