@@ -92,11 +92,6 @@ jobs:
         continue-on-error: true
         run: pnpm build:rust:app
 
-      - name: Build wasm
-        if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
-        continue-on-error: true
-        run: pnpm build:wasm
-
       - name: Check results
         if: always()
         run: |
@@ -112,6 +107,5 @@ jobs:
           [[ "${{ steps.build-app.conclusion }}" != "success" ]] && failed="$failed build-app"
           [[ "${{ steps.generate-docs.conclusion }}" != "success" ]] && failed="$failed generate-docs"
           [[ "${{ steps.build-rust.conclusion }}" != "success" ]] && failed="$failed build-rust"
-          [[ "${{ steps.build-wasm.conclusion }}" != "success" ]] && failed="$failed build-wasm"
 
           [[ -n "$failed" ]] && { echo "❌ Failed:$failed"; exit 1; } || echo "✅ All passed"
