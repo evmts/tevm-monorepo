@@ -19,7 +19,11 @@ const serializeState = (state) => {
 			storageRoot: account.storageRoot,
 			codeHash: account.codeHash,
 			...(account.deployedBytecode && { deployedBytecode: account.deployedBytecode }),
-			...(account.storage && { storage: account.storage }),
+			...(account.storage && {
+				storage: {
+					...Object.fromEntries(Object.entries(account.storage).map(([key, value]) => [`0x${key}`, value])),
+				},
+			}),
 		}
 	}
 
