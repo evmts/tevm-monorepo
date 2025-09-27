@@ -2,7 +2,7 @@ import { createAddress } from '@tevm/address'
 import { tevmDefault } from '@tevm/common'
 import { createTevmNode } from '@tevm/node'
 import { TransactionFactory } from '@tevm/tx'
-import { bytesToHex, hexToBytes, PREFUNDED_PRIVATE_KEYS, parseEther } from '@tevm/utils'
+import { bytesToHex, hexToBytes, PREFUNDED_ACCOUNTS, PREFUNDED_PRIVATE_KEYS, parseEther } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { blockNumberProcedure } from './blockNumberProcedure.js'
 import { ethEstimateGasJsonRpcProcedure } from './ethEstimateGasProcedure.js'
@@ -35,7 +35,7 @@ describe('JSON-RPC Automining Integration Tests', () => {
 					nonce: '0x00',
 					maxFeePerGas: '0x09184e72a000',
 					maxPriorityFeePerGas: '0x09184e72a000',
-					gasLimit: '0x2710',
+					gasLimit: '0x5208',
 					to: createAddress(`0x${'42'.repeat(20)}`),
 					value: parseEther('0.1'),
 					data: '0x',
@@ -60,7 +60,7 @@ describe('JSON-RPC Automining Integration Tests', () => {
 			const receiptResult = await getReceiptProcedure({
 				jsonrpc: '2.0',
 				method: 'eth_getTransactionReceipt',
-				params: [sendResult.result as string],
+				params: [sendResult.result!],
 				id: 3,
 			})
 
@@ -103,7 +103,7 @@ describe('JSON-RPC Automining Integration Tests', () => {
 					nonce: '0x00',
 					maxFeePerGas: '0x09184e72a000',
 					maxPriorityFeePerGas: '0x09184e72a000',
-					gasLimit: '0x2710',
+					gasLimit: '0x5208',
 					to: createAddress(`0x${'42'.repeat(20)}`),
 					value: parseEther('0.1'),
 					data: '0x',
@@ -125,7 +125,7 @@ describe('JSON-RPC Automining Integration Tests', () => {
 			const receiptResult = await getReceiptProcedure({
 				jsonrpc: '2.0',
 				method: 'eth_getTransactionReceipt',
-				params: [sendResult.result as string],
+				params: [sendResult.result!],
 				id: 3,
 			})
 
@@ -144,7 +144,7 @@ describe('JSON-RPC Automining Integration Tests', () => {
 
 			// Verify transaction is in txPool
 			const txPool = await client.getTxPool()
-			const pooledTxs = await txPool.getBySenderAddress(createAddress(PREFUNDED_PRIVATE_KEYS[0]))
+			const pooledTxs = await txPool.getBySenderAddress(createAddress(PREFUNDED_ACCOUNTS[0].address))
 			expect(pooledTxs).toHaveLength(1)
 			expect(bytesToHex(pooledTxs[0].tx.hash())).toBe(sendResult.result)
 		})
@@ -275,7 +275,7 @@ describe('JSON-RPC Automining Integration Tests', () => {
 			const receiptResult = await getReceiptProcedure({
 				jsonrpc: '2.0',
 				method: 'eth_getTransactionReceipt',
-				params: [sendResult.result as string],
+				params: [sendResult.result!],
 				id: 2,
 			})
 

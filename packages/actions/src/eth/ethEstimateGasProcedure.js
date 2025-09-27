@@ -29,14 +29,18 @@ export const ethEstimateGasJsonRpcProcedure = (client) => {
 			return params
 		}
 
+		const [baseParams, ...params] = getParams()
 		const callResult = await callProcedure(client)({
 			...estimateGasRequest,
-			params: getParams().map((param) => ({
-				...param,
-				createTransaction: false,
-				addToMempool: false,
-				addToBlockchain: false,
-			})),
+			params: [
+				{
+					...baseParams,
+					createTransaction: false,
+					addToMempool: false,
+					addToBlockchain: false,
+				},
+				...params,
+			],
 			method: 'tevm_call',
 		})
 		if (callResult.error || !callResult.result) {

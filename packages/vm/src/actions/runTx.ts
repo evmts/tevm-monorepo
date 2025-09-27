@@ -58,9 +58,9 @@ export const runTx =
 		if (validatedOpts.tx.supports(Capability.EIP2718TypedTransaction) && vm.common.ethjsCommon.isActivatedEIP(2718)) {
 			const castedTx = <AccessListEIP2930Transaction>validatedOpts.tx
 			for (const accessListItem of castedTx.accessList ?? []) {
-				vm.evm.journal.addAlwaysWarmAddress(accessListItem.address, true)
-				for (const storageKey of accessListItem.storageKeys ?? []) {
-					vm.evm.journal.addAlwaysWarmSlot(accessListItem.address, storageKey, true)
+				vm.evm.journal.addAlwaysWarmAddress(accessListItem[0].toString(), true)
+				for (const storageKey of accessListItem[1] ?? []) {
+					vm.evm.journal.addAlwaysWarmSlot(accessListItem[0].toString(), storageKey.toString(), true)
 				}
 			}
 		}
@@ -184,7 +184,7 @@ const _runTx =
 			// the signer must be able to afford the transaction
 			// assert signer(tx).balance >= tx.message.gas * tx.message.max_fee_per_gas + get_total_data_gas(tx) * tx.message.max_fee_per_data_gas
 			const castTx = tx as BlobEIP4844Transaction
-			totalblobGas = BigInt(castTx.common.ethjsCommon.param('blobGasPerBlob')) * BigInt(castTx.numBlobs())
+			totalblobGas = BigInt(vm.common.ethjsCommon.param('blobGasPerBlob')) * BigInt(castTx.numBlobs())
 			maxCost += totalblobGas * castTx.maxFeePerBlobGas
 
 			// 4844 minimum blobGas price check
