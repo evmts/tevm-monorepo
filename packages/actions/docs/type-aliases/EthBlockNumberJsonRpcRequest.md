@@ -8,6 +8,14 @@
 
 > **EthBlockNumberJsonRpcRequest** = `JsonRpcRequest`\<`"eth_blockNumber"`, readonly \[\]\>
 
+<<<<<<< HEAD
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L51)
+=======
+<<<<<<< HEAD
+Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L46)
+=======
+Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L55)
+>>>>>>> 11ad3eb7b (docs: generate updated docs)
+>>>>>>> 02c3a8b9a (docs: generate updated docs)
 
 JSON-RPC request for `eth_blockNumber` procedure

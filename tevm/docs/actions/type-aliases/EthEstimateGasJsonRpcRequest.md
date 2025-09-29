@@ -8,6 +8,14 @@
 
 > **EthEstimateGasJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_estimateGas"`, readonly \[[`JsonRpcTransaction`](JsonRpcTransaction.md), [`BlockTag`](../../index/type-aliases/BlockTag.md) \| [`Hex`](../../index/type-aliases/Hex.md), `SerializeToJson`\<[`BaseCallParams`](BaseCallParams.md)\[`"stateOverrideSet"`\]\>, `SerializeToJson`\<[`BaseCallParams`](BaseCallParams.md)\[`"blockOverrideSet"`\]\>\]\>
 
+<<<<<<< HEAD
 Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:67
+=======
+<<<<<<< HEAD
+Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:63
+=======
+Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:71
+>>>>>>> 11ad3eb7b (docs: generate updated docs)
+>>>>>>> 02c3a8b9a (docs: generate updated docs)
 
 JSON-RPC request for `eth_estimateGas` procedure
