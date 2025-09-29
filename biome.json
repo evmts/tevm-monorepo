@@ -4,7 +4,7 @@
 		"enabled": false
 	},
 	"files": {
-		"ignoreUnknown": false,
+		"ignoreUnknown": true,
 		"includes": [
 			"**",
 			"!**/node_modules",
@@ -13,6 +13,8 @@
 			"!**/.cursor",
 			"!**/dist",
 			"!**/build",
+			"!**/types",
+			"!**/docs",
 			"!**/coverage",
 			"!**/.nx",
 			"!**/.tevm",
