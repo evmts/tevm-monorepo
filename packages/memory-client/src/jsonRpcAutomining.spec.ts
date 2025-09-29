@@ -1,23 +1,26 @@
 import { createAddress } from '@tevm/address'
 import { tevmDefault } from '@tevm/common'
 import { TransactionFactory } from '@tevm/tx'
-import { bytesToHex, hexToBytes, PREFUNDED_ACCOUNTS, PREFUNDED_PRIVATE_KEYS, parseEther } from '@tevm/utils'
+import {
+	bytesToHex,
+	hexToBytes,
+	numberToHex,
+	PREFUNDED_ACCOUNTS,
+	PREFUNDED_PRIVATE_KEYS,
+	parseEther,
+} from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from './createMemoryClient.js'
 
 describe('Memory Client JSON-RPC Automining Integration Tests', () => {
 	describe('eth_sendRawTransaction should trigger automining when enabled', () => {
 		it('should automine transaction when automining is enabled via viem client', async () => {
-			const client = createMemoryClient({
-				miningConfig: { type: 'auto' },
-				loggingLevel: 'debug',
-			})
+			const client = createMemoryClient({ miningConfig: { type: 'auto' } })
 
 			const initialBlockNumber = await client.getBlockNumber()
 
 			const tx = TransactionFactory(
 				{
-					nonce: '0x00',
 					maxFeePerGas: '0x09184e72a000',
 					maxPriorityFeePerGas: '0x09184e72a000',
 					gasLimit: '0x5208',
@@ -52,16 +55,12 @@ describe('Memory Client JSON-RPC Automining Integration Tests', () => {
 		})
 
 		it('should not automine when automining is disabled', async () => {
-			const client = createMemoryClient({
-				miningConfig: { type: 'manual' },
-				loggingLevel: 'debug',
-			})
+			const client = createMemoryClient({ miningConfig: { type: 'manual' } })
 
 			const initialBlockNumber = await client.getBlockNumber()
 
 			const tx = TransactionFactory(
 				{
-					nonce: '0x00',
 					maxFeePerGas: '0x09184e72a000',
 					maxPriorityFeePerGas: '0x09184e72a000',
 					gasLimit: '0x5208',
@@ -101,10 +100,7 @@ describe('Memory Client JSON-RPC Automining Integration Tests', () => {
 
 	describe('eth_estimateGas should NOT trigger automining', () => {
 		it('should not mine blocks during gas estimation', async () => {
-			const client = createMemoryClient({
-				miningConfig: { type: 'auto' },
-				loggingLevel: 'debug',
-			})
+			const client = createMemoryClient({ miningConfig: { type: 'auto' } })
 
 			const initialBlockNumber = await client.getBlockNumber()
 
@@ -113,7 +109,7 @@ describe('Memory Client JSON-RPC Automining Integration Tests', () => {
 				method: 'eth_estimateGas',
 				params: [
 					{
-						from: `0x${PREFUNDED_PRIVATE_KEYS[0].slice(2)}`,
+						from: PREFUNDED_ACCOUNTS[0].address,
 						to: `0x${'42'.repeat(20)}`,
 						value: '0x16345785d8a0000', // 0.1 ETH
 						data: '0x',
@@ -134,10 +130,7 @@ describe('Memory Client JSON-RPC Automining Integration Tests', () => {
 		})
 
 		it('should not create transactions during gas estimation with same nonce', async () => {
-			const client = createMemoryClient({
-				miningConfig: { type: 'auto' },
-				loggingLevel: 'debug',
-			})
+			const client = createMemoryClient({ miningConfig: { type: 'auto' } })
 
 			// Estimate gas multiple times with same nonce
 			for (let i = 0; i < 3; i++) {
@@ -145,7 +138,7 @@ describe('Memory Client JSON-RPC Automining Integration Tests', () => {
 					method: 'eth_estimateGas',
 					params: [
 						{
-							from: `0x${PREFUNDED_PRIVATE_KEYS[0].slice(2)}`,
+							from: PREFUNDED_ACCOUNTS[0].address,
 							to: `0x${'42'.repeat(20)}`,
 							value: '0x16345785d8a0000',
 							data: '0x',
@@ -159,23 +152,20 @@ describe('Memory Client JSON-RPC Automining Integration Tests', () => {
 
 			// TxPool should still be empty after multiple estimates
 			const txPool = await client.transport.tevm.getTxPool()
-			const pooledTxs = await txPool.getBySenderAddress(createAddress(PREFUNDED_PRIVATE_KEYS[0]))
+			const pooledTxs = await txPool.getBySenderAddress(createAddress(PREFUNDED_ACCOUNTS[0].address))
 			expect(pooledTxs).toHaveLength(0)
 		})
 	})
 
 	describe('nonce handling should preserve user-provided nonces', () => {
 		it('should use user-provided nonce in raw transactions', async () => {
-			const client = createMemoryClient({
-				miningConfig: { type: 'auto' },
-				loggingLevel: 'debug',
-			})
+			const client = createMemoryClient({ miningConfig: { type: 'auto' } })
 
 			// Send transaction with explicit nonce
-			const userNonce = 0x27n
+			const userNonce = 0n
 			const tx = TransactionFactory(
 				{
-					nonce: `0x${userNonce.toString(16)}`,
+					nonce: numberToHex(userNonce),
 					maxFeePerGas: '0x09184e72a000',
 					maxPriorityFeePerGas: '0x09184e72a000',
 					gasLimit: '0x5208',
