@@ -8,7 +8,15 @@
 
 > **getProof**(`baseState`): (`address`, `storageSlots?`) => `Promise`\<`Proof`\>
 
+<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:437
+=======
+<<<<<<< HEAD
+Defined in: packages/state/dist/index.d.ts:440
+=======
+Defined in: packages/state/dist/index.d.ts:437
+>>>>>>> ceeee8122 (docs: generate docs)
+>>>>>>> db7d1ce3d (docs: generate docs)
 
 ## Parameters
 

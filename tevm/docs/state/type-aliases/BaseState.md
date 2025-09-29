@@ -8,7 +8,15 @@
 
 > **BaseState** = `object`
 
+<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:133
+=======
+<<<<<<< HEAD
+Defined in: packages/state/dist/index.d.ts:190
+=======
+Defined in: packages/state/dist/index.d.ts:133
+>>>>>>> ceeee8122 (docs: generate docs)
+>>>>>>> db7d1ce3d (docs: generate docs)
 
 **`Internal`**
 
@@ -20,7 +28,15 @@ The core data structure powering the state manager internally
 
 > **caches**: [`StateCache`](StateCache.md)
 
+<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:141
+=======
+<<<<<<< HEAD
+Defined in: packages/state/dist/index.d.ts:198
+=======
+Defined in: packages/state/dist/index.d.ts:141
+>>>>>>> ceeee8122 (docs: generate docs)
+>>>>>>> db7d1ce3d (docs: generate docs)
 
 ***
 
@@ -28,7 +44,15 @@ Defined in: packages/state/dist/index.d.ts:141
 
 > **forkCache**: [`StateCache`](StateCache.md)
 
+<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:142
+=======
+<<<<<<< HEAD
+Defined in: packages/state/dist/index.d.ts:199
+=======
+Defined in: packages/state/dist/index.d.ts:142
+>>>>>>> ceeee8122 (docs: generate docs)
+>>>>>>> db7d1ce3d (docs: generate docs)
 
 ***
 
@@ -36,7 +60,15 @@ Defined in: packages/state/dist/index.d.ts:142
 
 > **getCurrentStateRoot**: () => [`Hex`](../../index/type-aliases/Hex.md)
 
+<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:143
+=======
+<<<<<<< HEAD
+Defined in: packages/state/dist/index.d.ts:200
+=======
+Defined in: packages/state/dist/index.d.ts:143
+>>>>>>> ceeee8122 (docs: generate docs)
+>>>>>>> db7d1ce3d (docs: generate docs)
 
 #### Returns
 
@@ -48,7 +80,15 @@ Defined in: packages/state/dist/index.d.ts:143
 
 > **logger**: `Logger`
 
+<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:135
+=======
+<<<<<<< HEAD
+Defined in: packages/state/dist/index.d.ts:192
+=======
+Defined in: packages/state/dist/index.d.ts:135
+>>>>>>> ceeee8122 (docs: generate docs)
+>>>>>>> db7d1ce3d (docs: generate docs)
 
 ***
 
@@ -56,7 +96,15 @@ Defined in: packages/state/dist/index.d.ts:135
 
 > **options**: [`StateOptions`](../../index/type-aliases/StateOptions.md)
 
+<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:140
+=======
+<<<<<<< HEAD
+Defined in: packages/state/dist/index.d.ts:197
+=======
+Defined in: packages/state/dist/index.d.ts:140
+>>>>>>> ceeee8122 (docs: generate docs)
+>>>>>>> db7d1ce3d (docs: generate docs)
 
 ***
 
@@ -64,7 +112,15 @@ Defined in: packages/state/dist/index.d.ts:140
 
 > **ready**: () => `Promise`\<`true`\>
 
+<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:134
+=======
+<<<<<<< HEAD
+Defined in: packages/state/dist/index.d.ts:191
+=======
+Defined in: packages/state/dist/index.d.ts:134
+>>>>>>> ceeee8122 (docs: generate docs)
+>>>>>>> db7d1ce3d (docs: generate docs)
 
 #### Returns
 
@@ -76,7 +132,15 @@ Defined in: packages/state/dist/index.d.ts:134
 
 > **setCurrentStateRoot**: (`newStateRoot`) => `void`
 
+<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:144
+=======
+<<<<<<< HEAD
+Defined in: packages/state/dist/index.d.ts:201
+=======
+Defined in: packages/state/dist/index.d.ts:144
+>>>>>>> ceeee8122 (docs: generate docs)
+>>>>>>> db7d1ce3d (docs: generate docs)
 
 #### Parameters
 
@@ -94,6 +158,14 @@ Defined in: packages/state/dist/index.d.ts:144
 
 > **stateRoots**: [`StateRoots`](StateRoots.md)
 
+<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:139
+=======
+<<<<<<< HEAD
+Defined in: packages/state/dist/index.d.ts:196
+=======
+Defined in: packages/state/dist/index.d.ts:139
+>>>>>>> ceeee8122 (docs: generate docs)
+>>>>>>> db7d1ce3d (docs: generate docs)
 
 Mapping of hashes to State roots

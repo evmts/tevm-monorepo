@@ -8,7 +8,15 @@
 
 > **putContractCode**(`baseState`): (`address`, `value`) => `Promise`\<`void`\>
 
+<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:472
+=======
+<<<<<<< HEAD
+Defined in: packages/state/dist/index.d.ts:468
+=======
+Defined in: packages/state/dist/index.d.ts:472
+>>>>>>> ceeee8122 (docs: generate docs)
+>>>>>>> db7d1ce3d (docs: generate docs)
 
 ## Parameters
 

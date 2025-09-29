@@ -8,7 +8,15 @@
 
 > **getContractStorage**(`baseState`): (`address`, `key`) => `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
+<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:427
+=======
+<<<<<<< HEAD
+Defined in: packages/state/dist/index.d.ts:430
+=======
+Defined in: packages/state/dist/index.d.ts:427
+>>>>>>> ceeee8122 (docs: generate docs)
+>>>>>>> db7d1ce3d (docs: generate docs)
 
 ## Parameters
 
