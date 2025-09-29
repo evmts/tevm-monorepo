@@ -35,8 +35,6 @@ export const ethEstimateGasJsonRpcProcedure = (client) => {
 			params: [
 				{
 					...baseParams,
-					createTransaction: false,
-					addToMempool: false,
 					addToBlockchain: false,
 				},
 				...params,
