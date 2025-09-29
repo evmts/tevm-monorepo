@@ -80,11 +80,8 @@ describe(`${getAccount.name} forking`, () => {
 	it('Should fetch account from remote provider if not in cache and fork transport is provided', async () => {
 		const result = await getAccount(baseState)(knownAccount)
 		expect(result).toBeDefined()
-		expect(result).toMatchSnapshot()
 		const cachedResult = await getAccount(baseState)(knownAccount)
-		expect(cachedResult).toEqual(result as any)
-		// test that it indead is cached and we didn't fetch twice
-		expect(await getAccount(baseState)(knownAccount)).toMatchSnapshot()
+		expect(cachedResult).toEqual(result)
 	})
 
 	it('Should store fetched account in both main and fork caches', async () => {

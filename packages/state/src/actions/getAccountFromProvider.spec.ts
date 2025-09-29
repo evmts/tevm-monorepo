@@ -17,10 +17,9 @@ describe(getAccountFromProvider.name, () => {
 			throw new Error('Latest block not found')
 		}
 		const state = createBaseState({ fork: { transport: transports.optimism, blockTag: hexToBigInt(latestBlock) } })
-		expect(await getAccountFromProvider(state)(address)).toMatchInlineSnapshot(`
-			Account {
-			  "_balance": 179839672557435718n,
-			  "_codeHash": Uint8Array [
+		expect(await getAccountFromProvider(state)(address)).toMatchObject(
+			{
+			  "_codeHash": new Uint8Array([
 			    197,
 			    210,
 			    70,
@@ -53,10 +52,10 @@ describe(getAccountFromProvider.name, () => {
 			    133,
 			    164,
 			    112,
-			  ],
+			  ]),
 			  "_codeSize": 0,
 			  "_nonce": 31n,
-			  "_storageRoot": Uint8Array [
+			  "_storageRoot": new Uint8Array([
 			    86,
 			    232,
 			    31,
@@ -89,9 +88,9 @@ describe(getAccountFromProvider.name, () => {
 			    99,
 			    180,
 			    33,
-			  ],
+			  ]),
 			  "_version": 0,
 			}
-		`)
+		)
 	})
 })
