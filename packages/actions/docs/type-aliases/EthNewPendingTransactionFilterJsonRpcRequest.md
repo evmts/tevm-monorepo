@@ -8,6 +8,10 @@
 
 > **EthNewPendingTransactionFilterJsonRpcRequest** = `JsonRpcRequest`\<`"eth_newPendingTransactionFilter"`, readonly \[\]\>
 
+<<<<<<< HEAD
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:287](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L287)
+=======
+Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:296](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L296)
+>>>>>>> 11ad3eb7b (docs: generate updated docs)
 
 JSON-RPC request for `eth_newPendingTransactionFilter` procedure

@@ -8,6 +8,10 @@
 
 > **EthGetUncleCountByBlockNumberJsonRpcRequest** = `JsonRpcRequest`\<`"eth_getUncleCountByBlockNumber"`, readonly \[`BlockTag` \| `Hex`\]\>
 
+<<<<<<< HEAD
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:178](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L178)
+=======
+Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:187](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L187)
+>>>>>>> 11ad3eb7b (docs: generate updated docs)
 
 JSON-RPC request for `eth_getUncleCountByBlockNumber` procedure
