@@ -21,6 +21,7 @@ export const ethCallProcedure = (client) => async (req) => {
 				...(to !== undefined ? { to } : {}),
 				...(from !== undefined ? { from } : {}),
 				...(blockTag !== undefined ? { blockTag } : {}),
+				addToBlockchain: false,
 			},
 			stateOverrideSet,
 			blockOverrideSet,
