@@ -1130,9 +1130,6 @@ importers:
         specifier: workspace:^
         version: link:../../packages/utils
     devDependencies:
-      '@tevm/memory-client':
-        specifier: workspace:^
-        version: link:../../packages/memory-client
       '@tevm/test-utils':
         specifier: workspace:^
         version: link:../../test/test-utils
