@@ -29,8 +29,12 @@ export const handleTransactionCreation = async (client, params, executedCall, ev
 		)
 	}
 
-	const shouldAddToChain =
-		client.miningConfig.type === 'auto' || shouldAddToBlockchain(params, executedCall.runTxResult)
+	const shouldAutoMine =
+		client.miningConfig.type === 'auto' &&
+		params.addToMempool === undefined &&
+		params.addToBlockchain === undefined &&
+		params.createTransaction === undefined
+	const shouldAddToChain = shouldAutoMine || shouldAddToBlockchain(params, executedCall.runTxResult)
 	const shouldCreateTx = shouldAddToChain || shouldCreateTransaction(params, executedCall.runTxResult)
 
 	if (shouldCreateTx) {
