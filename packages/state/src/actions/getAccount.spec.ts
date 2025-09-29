@@ -53,7 +53,7 @@ describe(`${getAccount.name} forking`, () => {
 			loggingLevel: 'warn',
 			fork: {
 				transport: transports.optimism,
-				blockTag: hexToBigInt(latestBlock),
+				blockTag: hexToBigInt(latestBlock) - 1n,
 			},
 		})
 
