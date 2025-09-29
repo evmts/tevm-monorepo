@@ -1,11 +1,11 @@
-import { type Server, createServer } from 'node:http'
+import { createServer, type Server } from 'node:http'
 import type { CallParams } from '@tevm/actions'
 import { optimism } from '@tevm/common'
-import { type MemoryClient, createMemoryClient } from '@tevm/memory-client'
+import { createMemoryClient, type MemoryClient } from '@tevm/memory-client'
 import { createHttpHandler } from '@tevm/server'
 import type { TevmState } from '@tevm/state'
 import { transports } from '@tevm/test-utils'
-import { http, type Account, type PublicClient, createPublicClient, encodeFunctionData } from 'viem'
+import { createPublicClient, encodeFunctionData, http, numberToHex, type PublicClient } from 'viem'
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 import { tevmViemExtension } from './tevmViemExtension.js'
 
@@ -74,7 +74,7 @@ describe('tevmViemExtension', () => {
 		const decorated = tevmViemExtension()(client)
 
 		// Set up a test account with some balance
-		const testAddress = `0x${'aa'.repeat(20)}`
+		const testAddress = `0x${'aa'.repeat(20)}` as const
 		await decorated.tevm.setAccount({
 			address: testAddress,
 			balance: 1000000000000000000n,
@@ -126,7 +126,7 @@ describe('tevmViemExtension', () => {
 				abi,
 				functionName: 'isApproved',
 				args: [`0x${'cc'.repeat(20)}`],
-				address: `0x${'dd'.repeat(20)}`,
+				to: `0x${'dd'.repeat(20)}` as const,
 			}),
 		).rejects.toThrow()
 
@@ -178,8 +178,8 @@ describe('tevmViemExtension', () => {
 		const newAddress = `0x${'ff'.repeat(20)}`
 		const state = {
 			[newAddress]: {
-				nonce: 1n,
-				balance: 2000000000000000000n,
+				nonce: '0x1',
+				balance: numberToHex(2000000000000000000n),
 				storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
 				codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
 			},
@@ -211,7 +211,7 @@ describe('tevmViemExtension', () => {
 		const decorated = tevmViemExtension()(client)
 
 		// Set up a test account with some balance
-		const testAddress = `0x${'a1'.repeat(20)}`
+		const testAddress = `0x${'a1'.repeat(20)}` as const
 		await decorated.tevm.setAccount({
 			address: testAddress,
 			balance: 1000000000000000000n,
@@ -308,8 +308,8 @@ describe('tevmViemExtension', () => {
 
 		// Verify the error was formatted correctly
 		expect(result.errors).toBeDefined()
-		expect(result.errors[0]._tag).toBe('CALL_EXCEPTION')
-		expect(result.errors[0].message).toBe('Execution reverted')
+		expect(result.errors![0]._tag).toBe('CALL_EXCEPTION')
+		expect(result.errors![0].message).toBe('Execution reverted')
 
 		// Verify the request was made with the right parameters
 		expect(mockClient.request).toHaveBeenCalledWith({
@@ -434,7 +434,7 @@ describe('tevmViemExtension', () => {
 		expect(typeof gasPrice).toBe('bigint')
 
 		// Test eth.getCode
-		const testAddress = `0x${'b1'.repeat(20)}`
+		const testAddress = `0x${'b1'.repeat(20)}` as const
 		await decorated.tevm.setAccount({
 			address: testAddress,
 			deployedBytecode: '0x6080604052600080fd',
