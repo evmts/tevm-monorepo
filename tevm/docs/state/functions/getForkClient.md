@@ -8,7 +8,11 @@
 
 > **getForkClient**(`__namedParameters`): `object`
 
+<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:438
+=======
+Defined in: packages/state/dist/index.d.ts:435
+>>>>>>> ceeee8122 (docs: generate docs)
 
 ## Parameters
 

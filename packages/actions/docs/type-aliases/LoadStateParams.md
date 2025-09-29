@@ -12,13 +12,13 @@ Defined in: [packages/actions/src/LoadState/LoadStateParams.ts:25](https://githu
 
 Parameters for the `tevmLoadState` method.
 
-This method takes a TevmState object and loads it into the VM state.
+This method takes a SerializableTevmState object and loads it into the VM state.
 
 ## Type declaration
 
 ### state
 
-> `readonly` **state**: `TevmState`
+> `readonly` **state**: `SerializableTevmState`
 
 The TEVM state object to load.
 

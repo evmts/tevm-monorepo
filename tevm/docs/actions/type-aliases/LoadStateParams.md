@@ -12,13 +12,13 @@ Defined in: packages/actions/types/LoadState/LoadStateParams.d.ts:24
 
 Parameters for the `tevmLoadState` method.
 
-This method takes a [TevmState](../../index/type-aliases/TevmState.md) object and loads it into the VM state.
+This method takes a [SerializableTevmState](../../state/type-aliases/SerializableTevmState.md) object and loads it into the VM state.
 
 ## Type declaration
 
 ### state
 
-> `readonly` **state**: [`TevmState`](../../index/type-aliases/TevmState.md)
+> `readonly` **state**: [`SerializableTevmState`](../../state/type-aliases/SerializableTevmState.md)
 
 The TEVM state object to load.
 
