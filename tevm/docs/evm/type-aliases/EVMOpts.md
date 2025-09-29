@@ -8,7 +8,7 @@
 
 > **EVMOpts** = `EVMOpts$1`
 
-Defined in: packages/evm/dist/index.d.ts:68
+Defined in: packages/evm/dist/index.d.ts:27
 
 The options available to pass to the EVM. Inferred from ethereumjs/evm
 

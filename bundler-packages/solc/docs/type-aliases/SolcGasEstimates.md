@@ -8,7 +8,7 @@
 
 > **SolcGasEstimates** = `object`
 
-Defined in: [solcTypes.ts:635](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L635)
+Defined in: [solcTypes.ts:633](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L633)
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: [solcTypes.ts:635](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > **creation**: `object`
 
-Defined in: [solcTypes.ts:636](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L636)
+Defined in: [solcTypes.ts:634](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L634)
 
 #### codeDepositCost
 
@@ -36,7 +36,7 @@ Defined in: [solcTypes.ts:636](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > **external**: `object`
 
-Defined in: [solcTypes.ts:641](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L641)
+Defined in: [solcTypes.ts:639](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L639)
 
 #### Index Signature
 
@@ -48,7 +48,7 @@ Defined in: [solcTypes.ts:641](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > **internal**: `object`
 
-Defined in: [solcTypes.ts:644](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L644)
+Defined in: [solcTypes.ts:642](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L642)
 
 #### Index Signature
 

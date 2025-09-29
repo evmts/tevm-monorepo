@@ -12,8 +12,8 @@ Abstract interface with common transaction receipt fields
 
 ## Extended by
 
-- [`PreByzantiumTxReceipt`](PreByzantiumTxReceipt.md)
 - [`PostByzantiumTxReceipt`](PostByzantiumTxReceipt.md)
+- [`PreByzantiumTxReceipt`](PreByzantiumTxReceipt.md)
 
 ## Properties
 

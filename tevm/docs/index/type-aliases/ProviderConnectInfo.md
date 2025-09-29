@@ -8,7 +8,7 @@
 
 > **ProviderConnectInfo** = `object`
 
-Defined in: packages/node/dist/index.d.ts:17
+Defined in: packages/node/dist/index.d.ts:239
 
 ## Properties
 
@@ -16,4 +16,4 @@ Defined in: packages/node/dist/index.d.ts:17
 
 > **chainId**: `string`
 
-Defined in: packages/node/dist/index.d.ts:18
+Defined in: packages/node/dist/index.d.ts:240

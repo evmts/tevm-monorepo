@@ -73,7 +73,7 @@ This Blob is lazy. It won't do any work until you read from it. Errors propagate
 
 The path to the file as a byte buffer (the buffer is copied) if the path starts with `s3://` it will behave like S3File
 
-`ArrayBufferLike` | `Uint8Array`\<`ArrayBufferLike`\>
+`ArrayBufferLike` | `Uint8Array`\<`ArrayBuffer`\>
 
 #### options?
 

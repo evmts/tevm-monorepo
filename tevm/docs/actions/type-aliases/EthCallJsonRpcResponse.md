@@ -8,6 +8,6 @@
 
 > **EthCallJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_call"`, [`Hex`](../../index/type-aliases/Hex.md), `string` \| `number`\>
 
-Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:20
+Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:24
 
 JSON-RPC response for `eth_call` procedure

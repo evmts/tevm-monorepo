@@ -93,7 +93,7 @@
 
 - [boolToBytes](functions/boolToBytes.md)
 - [boolToHex](functions/boolToHex.md)
-- [bytesToBigint](functions/bytesToBigint.md)
+- [bytesToBigInt](functions/bytesToBigInt.md)
 - [bytesToBool](functions/bytesToBool.md)
 - [bytesToHex](functions/bytesToHex.md)
 - [bytesToNumber](functions/bytesToNumber.md)
@@ -123,6 +123,7 @@
 - [fromHex](functions/fromHex.md)
 - [fromRlp](functions/fromRlp.md)
 - [getAddress](functions/getAddress.md)
+- [hashMessage](functions/hashMessage.md)
 - [hexToBigInt](functions/hexToBigInt.md)
 - [hexToBool](functions/hexToBool.md)
 - [hexToBytes](functions/hexToBytes.md)
@@ -138,15 +139,20 @@
 - [parseAbi](functions/parseAbi.md)
 - [parseEther](functions/parseEther.md)
 - [parseGwei](functions/parseGwei.md)
+- [recoverAddress](functions/recoverAddress.md)
+- [recoverMessageAddress](functions/recoverMessageAddress.md)
+- [recoverPublicKey](functions/recoverPublicKey.md)
 - [serializeTransaction](functions/serializeTransaction.md)
+- [signMessage](functions/signMessage.md)
 - [stringToHex](functions/stringToHex.md)
 - [toBytes](functions/toBytes.md)
 - [toHex](functions/toHex.md)
 - [toRlp](functions/toRlp.md)
 - [toType](functions/toType.md)
+- [verifyMessage](functions/verifyMessage.md)
 
 ## References
 
-### bytesToBigInt
+### bytesToBigint
 
-Renames and re-exports [bytesToBigint](functions/bytesToBigint.md)
+Renames and re-exports [bytesToBigInt](functions/bytesToBigInt.md)

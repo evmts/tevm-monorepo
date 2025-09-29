@@ -34,7 +34,7 @@ Defined in: packages/blockchain/types/utils/getBlockFromRpc.d.ts:1
 
 #### blockExplorers?
 
-\{[`key`: `string`]: `ChainBlockExplorer`; `default`: `ChainBlockExplorer`; \}
+\{\[`key`: `string`\]: `ChainBlockExplorer`; `default`: `ChainBlockExplorer`; \}
 
 Collection of block explorers
 
@@ -42,9 +42,15 @@ Collection of block explorers
 
 `ChainBlockExplorer`
 
+#### blockTime?
+
+`number`
+
+Block time in milliseconds.
+
 #### contracts?
 
-\{[`key`: `string`]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}; `ensRegistry?`: `ChainContract`; `ensUniversalResolver?`: `ChainContract`; `multicall3?`: `ChainContract`; `universalSignatureVerifier?`: `ChainContract`; \}
+\{\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}; `ensRegistry?`: `ChainContract`; `ensUniversalResolver?`: `ChainContract`; `erc6492Verifier?`: `ChainContract`; `multicall3?`: `ChainContract`; \}
 
 Collection of contracts
 
@@ -56,17 +62,17 @@ Collection of contracts
 
 `ChainContract`
 
-#### contracts.multicall3?
+#### contracts.erc6492Verifier?
 
 `ChainContract`
 
-#### contracts.universalSignatureVerifier?
+#### contracts.multicall3?
 
 `ChainContract`
 
 #### copy
 
-() => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; universalSignatureVer...
+() => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 13 more ...; copy: () =\> ...; \}
 
 #### custom?
 
@@ -83,6 +89,12 @@ Collection of ENS TLDs for the chain.
 #### ethjsCommon
 
 `Common`
+
+#### experimental_preconfirmationTime?
+
+`number`
+
+Preconfirmation time in milliseconds.
 
 #### fees?
 
@@ -116,7 +128,7 @@ Currency used by chain
 
 #### rpcUrls
 
-\{[`key`: `string`]: `ChainRpcUrls`; `default`: `ChainRpcUrls`; \}
+\{\[`key`: `string`\]: `ChainRpcUrls`; `default`: `ChainRpcUrls`; \}
 
 Collection of RPC endpoints
 

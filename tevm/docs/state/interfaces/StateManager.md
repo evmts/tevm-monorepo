@@ -6,7 +6,19 @@
 
 # Interface: StateManager
 
+<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:204
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+Defined in: packages/state/dist/index.d.ts:204
+=======
+Defined in: packages/state/dist/index.d.ts:147
+>>>>>>> ceeee8122 (docs: generate docs)
+=======
+Defined in: packages/state/dist/index.d.ts:146
+>>>>>>> 44031b740 (docs: generate all docs)
+>>>>>>> f4f942332 (docs: generate all docs)
 
 ## Extends
 
@@ -18,7 +30,19 @@ Defined in: packages/state/dist/index.d.ts:204
 
 > **\_baseState**: [`BaseState`](../type-aliases/BaseState.md)
 
+<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:208
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+Defined in: packages/state/dist/index.d.ts:208
+=======
+Defined in: packages/state/dist/index.d.ts:151
+>>>>>>> ceeee8122 (docs: generate docs)
+=======
+Defined in: packages/state/dist/index.d.ts:150
+>>>>>>> 44031b740 (docs: generate all docs)
+>>>>>>> f4f942332 (docs: generate all docs)
 
 The internal state representation
 
@@ -28,7 +52,19 @@ The internal state representation
 
 > **getAccountAddresses**: () => `Set`\<`` `0x${string}` ``\>
 
+<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:213
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+Defined in: packages/state/dist/index.d.ts:213
+=======
+Defined in: packages/state/dist/index.d.ts:156
+>>>>>>> ceeee8122 (docs: generate docs)
+=======
+Defined in: packages/state/dist/index.d.ts:155
+>>>>>>> 44031b740 (docs: generate all docs)
+>>>>>>> f4f942332 (docs: generate all docs)
 
 Returns contract addresses
 
@@ -80,7 +116,19 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 > **ready**: () => `Promise`\<`true`\>
 
+<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:209
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+Defined in: packages/state/dist/index.d.ts:209
+=======
+Defined in: packages/state/dist/index.d.ts:152
+>>>>>>> ceeee8122 (docs: generate docs)
+=======
+Defined in: packages/state/dist/index.d.ts:151
+>>>>>>> 44031b740 (docs: generate all docs)
+>>>>>>> f4f942332 (docs: generate all docs)
 
 #### Returns
 
@@ -134,7 +182,19 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 > **clearCaches**(): `void`
 
+<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:225
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+Defined in: packages/state/dist/index.d.ts:225
+=======
+Defined in: packages/state/dist/index.d.ts:168
+>>>>>>> ceeee8122 (docs: generate docs)
+=======
+Defined in: packages/state/dist/index.d.ts:167
+>>>>>>> 44031b740 (docs: generate all docs)
+>>>>>>> f4f942332 (docs: generate all docs)
 
 Resets all internal caches
 
@@ -152,7 +212,19 @@ Resets all internal caches
 
 > **clearContractStorage**(`address`): `Promise`\<`void`\>
 
+<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:246
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+Defined in: packages/state/dist/index.d.ts:246
+=======
+Defined in: packages/state/dist/index.d.ts:189
+>>>>>>> ceeee8122 (docs: generate docs)
+=======
+Defined in: packages/state/dist/index.d.ts:188
+>>>>>>> 44031b740 (docs: generate all docs)
+>>>>>>> f4f942332 (docs: generate all docs)
 
 Clears all storage entries for the account
 
@@ -194,7 +266,19 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 > **commit**(`createNewStateRoot?`): `Promise`\<`void`\>
 
+<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:235
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+Defined in: packages/state/dist/index.d.ts:235
+=======
+Defined in: packages/state/dist/index.d.ts:178
+>>>>>>> ceeee8122 (docs: generate docs)
+=======
+Defined in: packages/state/dist/index.d.ts:177
+>>>>>>> 44031b740 (docs: generate all docs)
+>>>>>>> f4f942332 (docs: generate all docs)
 
 Commits the current state.
 
@@ -224,7 +308,19 @@ This api is not stable
 
 > **deepCopy**(): `Promise`\<`StateManager`\>
 
+<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:217
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+Defined in: packages/state/dist/index.d.ts:217
+=======
+Defined in: packages/state/dist/index.d.ts:160
+>>>>>>> ceeee8122 (docs: generate docs)
+=======
+Defined in: packages/state/dist/index.d.ts:159
+>>>>>>> 44031b740 (docs: generate all docs)
+>>>>>>> f4f942332 (docs: generate all docs)
 
 Returns a new instance of the ForkStateManager with the same opts and all storage copied over
 
@@ -260,7 +356,19 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 > **dumpCanonicalGenesis**(): `Promise`\<[`TevmState`](../../index/type-aliases/TevmState.md)\>
 
+<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:221
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+Defined in: packages/state/dist/index.d.ts:221
+=======
+Defined in: packages/state/dist/index.d.ts:164
+>>>>>>> ceeee8122 (docs: generate docs)
+=======
+Defined in: packages/state/dist/index.d.ts:163
+>>>>>>> 44031b740 (docs: generate all docs)
+>>>>>>> f4f942332 (docs: generate all docs)
 
 Dumps the state of the state manager as a [TevmState](../../index/type-aliases/TevmState.md)
 
@@ -274,7 +382,19 @@ Dumps the state of the state manager as a [TevmState](../../index/type-aliases/T
 
 > **dumpStorage**(`address`): `Promise`\<[`StorageDump`](../../common/interfaces/StorageDump.md)\>
 
+<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:250
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+Defined in: packages/state/dist/index.d.ts:250
+=======
+Defined in: packages/state/dist/index.d.ts:193
+>>>>>>> ceeee8122 (docs: generate docs)
+=======
+Defined in: packages/state/dist/index.d.ts:192
+>>>>>>> 44031b740 (docs: generate all docs)
+>>>>>>> f4f942332 (docs: generate all docs)
 
 Dumps storage based on the input
 
@@ -298,7 +418,19 @@ Dumps storage based on the input
 
 > **dumpStorageRange**(`address`, `startKey`, `limit`): `Promise`\<[`StorageRange`](../../common/interfaces/StorageRange.md)\>
 
+<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:254
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+Defined in: packages/state/dist/index.d.ts:254
+=======
+Defined in: packages/state/dist/index.d.ts:197
+>>>>>>> ceeee8122 (docs: generate docs)
+=======
+Defined in: packages/state/dist/index.d.ts:196
+>>>>>>> 44031b740 (docs: generate all docs)
+>>>>>>> f4f942332 (docs: generate all docs)
 
 Dumps a range of storage values
 
@@ -330,7 +462,19 @@ Dumps a range of storage values
 
 > **generateCanonicalGenesis**(`state`): `Promise`\<`void`\>
 
+<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:258
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+Defined in: packages/state/dist/index.d.ts:258
+=======
+Defined in: packages/state/dist/index.d.ts:201
+>>>>>>> ceeee8122 (docs: generate docs)
+=======
+Defined in: packages/state/dist/index.d.ts:200
+>>>>>>> 44031b740 (docs: generate all docs)
+>>>>>>> f4f942332 (docs: generate all docs)
 
 Loads a state from a given state root
 
@@ -442,7 +586,19 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 > **getProof**(`address`, `storageSlots?`): `Promise`\<`Proof`\>
 
+<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:265
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+Defined in: packages/state/dist/index.d.ts:265
+=======
+Defined in: packages/state/dist/index.d.ts:208
+>>>>>>> ceeee8122 (docs: generate docs)
+=======
+Defined in: packages/state/dist/index.d.ts:207
+>>>>>>> 44031b740 (docs: generate all docs)
+>>>>>>> f4f942332 (docs: generate all docs)
 
 Get an EIP-1186 proof from the provider
 
@@ -712,7 +868,19 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 > **saveStateRoot**(`root`, `state`): `void`
 
+<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:231
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+Defined in: packages/state/dist/index.d.ts:231
+=======
+Defined in: packages/state/dist/index.d.ts:174
+>>>>>>> ceeee8122 (docs: generate docs)
+=======
+Defined in: packages/state/dist/index.d.ts:173
+>>>>>>> 44031b740 (docs: generate all docs)
+>>>>>>> f4f942332 (docs: generate all docs)
 
 **`Experimental`**
 

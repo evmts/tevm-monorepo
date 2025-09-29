@@ -8,7 +8,19 @@
 
 > **getForkClient**(`__namedParameters`): `object`
 
+<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:438
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+Defined in: packages/state/dist/index.d.ts:438
+=======
+Defined in: packages/state/dist/index.d.ts:435
+>>>>>>> ceeee8122 (docs: generate docs)
+=======
+Defined in: packages/state/dist/index.d.ts:434
+>>>>>>> 44031b740 (docs: generate all docs)
+>>>>>>> f4f942332 (docs: generate all docs)
 
 ## Parameters
 
@@ -32,15 +44,15 @@ Flags for batch settings.
 
 #### batch.multicall?
 
-> `optional` **multicall**: `boolean` \| \{ `batchSize?`: `number`; `wait?`: `number`; \}
+> `optional` **multicall**: `boolean` \| \{ `batchSize?`: `number`; `deployless?`: `boolean`; `wait?`: `number`; \}
 
 Toggle to enable `eth_call` multicall aggregation.
 
-##### Type declaration
+##### Type Declaration
 
 `boolean`
 
-\{ `batchSize?`: `number`; `wait?`: `number`; \}
+\{ `batchSize?`: `number`; `deployless?`: `boolean`; `wait?`: `number`; \}
 
 ### cacheTime
 
@@ -92,7 +104,7 @@ const data = await client.call({
 
 [CCIP Read](https://eips.ethereum.org/EIPS/eip-3668) configuration.
 
-#### Type declaration
+#### Type Declaration
 
 `false`
 
@@ -183,7 +195,7 @@ Creates a Filter to retrieve event logs that can be used with [`getFilterChanges
 
 ##### abi
 
-`abi` *extends* readonly `unknown`[] \| [`Abi`](../../index/type-aliases/Abi.md)
+`abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
 
 ##### eventName
 
@@ -347,7 +359,7 @@ Estimates the gas required to successfully execute a contract write function cal
 
 ##### abi
 
-`abi` *extends* readonly `unknown`[] \| [`Abi`](../../index/type-aliases/Abi.md)
+`abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
 
 ##### functionName
 
@@ -520,6 +532,12 @@ const client = createPublicClient({
 const maxPriorityFeePerGas = await client.estimateMaxPriorityFeePerGas()
 // 10000000n
 ```
+
+### experimental\_blockTag?
+
+> `optional` **experimental\_blockTag**: [`BlockTag`](../../index/type-aliases/BlockTag.md)
+
+Default block tag to use for RPC requests.
 
 ### extend()
 
@@ -845,7 +863,7 @@ Returns a list of event logs emitted by a contract.
 
 ##### abi
 
-`abi` *extends* readonly `unknown`[] \| [`Abi`](../../index/type-aliases/Abi.md)
+`abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
 
 ##### eventName
 
@@ -972,9 +990,23 @@ The balance of the account at a block tag.
 
 ###### coinType?
 
-`number`
+`bigint`
 
-ENSIP-9 compliant coinType used to resolve addresses for other chains
+ENSIP-9 compliant coinType (chain) to get ENS address for.
+
+To get the `coinType` for a chain id, use the `toCoinType` function:
+```ts
+import { toCoinType } from 'viem'
+import { base } from 'viem/chains'
+
+const coinType = toCoinType(base.id)
+```
+
+**Default**
+
+```ts
+60n
+```
 
 ###### gatewayUrls?
 
@@ -1158,6 +1190,26 @@ The balance of the account at a block tag.
 
 ```ts
 'latest'
+```
+
+###### coinType?
+
+`bigint`
+
+ENSIP-9 compliant coinType (chain) to get ENS name for.
+
+To get the `coinType` for a chain id, use the `toCoinType` function:
+```ts
+import { toCoinType } from 'viem'
+import { base } from 'viem/chains'
+
+const coinType = toCoinType(base.id)
+```
+
+**Default**
+
+```ts
+60n
 ```
 
 ###### gatewayUrls?
@@ -1427,7 +1479,7 @@ Returns a list of logs or hashes based on a [Filter](/docs/glossary/terms#filter
 
 ##### abi
 
-`abi` *extends* `undefined` \| readonly `unknown`[] \| [`Abi`](../../index/type-aliases/Abi.md)
+`abi` *extends* `undefined` \| [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
 
 ##### eventName
 
@@ -1548,7 +1600,7 @@ Returns a list of event logs since the filter was created.
 
 ##### abi
 
-`abi` *extends* `undefined` \| readonly `unknown`[] \| [`Abi`](../../index/type-aliases/Abi.md)
+`abi` *extends* `undefined` \| [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
 
 ##### eventName
 
@@ -2092,7 +2144,7 @@ Calls a read-only function on a contract, and returns the response.
 
 ##### abi
 
-`abi` *extends* readonly `unknown`[] \| [`Abi`](../../index/type-aliases/Abi.md)
+`abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
 
 ##### functionName
 
@@ -2333,7 +2385,7 @@ Simulates/validates a contract interaction. This is useful for retrieving **retu
 
 ##### abi
 
-`abi` *extends* readonly `unknown`[] \| [`Abi`](../../index/type-aliases/Abi.md)
+`abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
 
 ##### functionName
 
@@ -2447,6 +2499,26 @@ const uninstalled = await client.uninstallFilter({ filter })
 // true
 ```
 
+### verifyHash()
+
+> **verifyHash**: (`args`) => `Promise`\<`boolean`\>
+
+Verify that a hash was signed by the provided address.
+
+- Docs [https://viem.sh/docs/actions/public/verifyHash](https://viem.sh/docs/actions/public/verifyHash)
+
+#### Parameters
+
+##### args
+
+`VerifyHashParameters`
+
+#### Returns
+
+`Promise`\<`boolean`\>
+
+Whether or not the signature is valid. VerifyHashReturnType
+
 ### verifyMessage()
 
 > **verifyMessage**: (`args`) => `Promise`\<`boolean`\>
@@ -2485,6 +2557,12 @@ The balance of the account at a block tag.
 'latest'
 ```
 
+###### erc6492VerifierAddress?
+
+`` `0x${string}` ``
+
+The address of the ERC-6492 signature verifier contract.
+
 ###### factory?
 
 `` `0x${string}` ``
@@ -2499,6 +2577,12 @@ The balance of the account at a block tag.
 
 The message to be verified.
 
+###### multicallAddress?
+
+`` `0x${string}` ``
+
+Multicall3 address for ERC-8010 verification.
+
 ###### signature
 
 `` `0x${string}` `` \| `Signature` \| `ByteArray`
@@ -2508,6 +2592,10 @@ The signature that was generated by signing the message with the address's priva
 ###### universalSignatureVerifierAddress?
 
 `` `0x${string}` ``
+
+**Deprecated**
+
+use `erc6492VerifierAddress` instead.
 
 #### Returns
 
@@ -2781,7 +2869,7 @@ Watches and returns emitted contract event logs.
 
 ##### abi
 
-`abi` *extends* readonly `unknown`[] \| [`Abi`](../../index/type-aliases/Abi.md)
+`abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
 
 ##### eventName
 

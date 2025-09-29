@@ -8,7 +8,7 @@
 
 > **fromBytes**\<`to`\>(`bytes`, `toOrOpts`): `FromBytesReturnType`\<`to`\>
 
-Defined in: node\_modules/.pnpm/viem@2.37.8\_bufferutil@4.0.9\_typescript@5.8.3\_utf-8-validate@5.0.10\_zod@3.25.30/node\_modules/viem/\_types/utils/encoding/fromBytes.d.ts:37
+Defined in: node\_modules/.pnpm/viem@2.37.8\_bufferutil@4.0.9\_typescript@5.9.2\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/utils/encoding/fromBytes.d.ts:37
 
 Decodes a byte array into a UTF-8 string, hex value, number, bigint or boolean.
 

@@ -4,13 +4,13 @@
 
 [tevm](../../modules.md) / [http-client](../README.md) / HttpClient
 
-# Type Alias: ~~HttpClient~~
+# ~~Type Alias: HttpClient~~
 
 > **HttpClient** = [`TevmClient`](../../index/type-aliases/TevmClient.md) & `object`
 
 Defined in: packages/http-client/types/HttpClient.d.ts:5
 
-## Type declaration
+## Type Declaration
 
 ### ~~name~~
 

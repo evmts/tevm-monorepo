@@ -8,7 +8,7 @@
 
 > **SolcEVMOutput** = `object`
 
-Defined in: [solcTypes.ts:560](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L560)
+Defined in: [solcTypes.ts:558](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L558)
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: [solcTypes.ts:560](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > **assembly**: `string`
 
-Defined in: [solcTypes.ts:562](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L562)
+Defined in: [solcTypes.ts:560](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L560)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [solcTypes.ts:562](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > **bytecode**: [`SolcBytecodeOutput`](SolcBytecodeOutput.md)
 
-Defined in: [solcTypes.ts:568](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L568)
+Defined in: [solcTypes.ts:566](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L566)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [solcTypes.ts:568](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > **deployedBytecode**: [`SolcBytecodeOutput`](SolcBytecodeOutput.md)
 
-Defined in: [solcTypes.ts:571](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L571)
+Defined in: [solcTypes.ts:569](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L569)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [solcTypes.ts:571](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > **gasEstimates**: [`SolcGasEstimates`](SolcGasEstimates.md)
 
-Defined in: [solcTypes.ts:579](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L579)
+Defined in: [solcTypes.ts:577](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L577)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [solcTypes.ts:579](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > **legacyAssembly**: `any`
 
-Defined in: [solcTypes.ts:565](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L565)
+Defined in: [solcTypes.ts:563](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L563)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: [solcTypes.ts:565](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > **methodIdentifiers**: `object`
 
-Defined in: [solcTypes.ts:574](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L574)
+Defined in: [solcTypes.ts:572](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L572)
 
 #### Index Signature
 

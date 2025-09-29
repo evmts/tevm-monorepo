@@ -17,7 +17,7 @@ is set to true, because deployments result in state changes that need to be mine
 
 The `salt` parameter supports the use of CREATE2, allowing for deterministic address deployment.
 
-## Type declaration
+## Type Declaration
 
 ### salt?
 

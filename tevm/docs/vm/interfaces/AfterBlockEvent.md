@@ -49,7 +49,7 @@ The gas used after executing the block
 
 #### Inherited from
 
-[`RunBlockResult`](RunBlockResult.md).[`gasUsed`](RunBlockResult.md#gasused)
+[`ApplyBlockResult`](ApplyBlockResult.md).[`gasUsed`](ApplyBlockResult.md#gasused)
 
 ***
 
@@ -77,7 +77,7 @@ Preimages mapping of the touched accounts from the block (see reportPreimages op
 
 #### Inherited from
 
-[`RunBlockResult`](RunBlockResult.md).[`preimages`](RunBlockResult.md#preimages)
+[`ApplyBlockResult`](ApplyBlockResult.md).[`preimages`](ApplyBlockResult.md#preimages)
 
 ***
 
@@ -91,7 +91,7 @@ Receipts generated for transactions in the block
 
 #### Inherited from
 
-[`RunBlockResult`](RunBlockResult.md).[`receipts`](RunBlockResult.md#receipts)
+[`ApplyBlockResult`](ApplyBlockResult.md).[`receipts`](ApplyBlockResult.md#receipts)
 
 ***
 
@@ -105,7 +105,7 @@ The receipt root after executing the block
 
 #### Inherited from
 
-[`RunBlockResult`](RunBlockResult.md).[`receiptsRoot`](RunBlockResult.md#receiptsroot)
+[`ApplyBlockResult`](ApplyBlockResult.md).[`receiptsRoot`](ApplyBlockResult.md#receiptsroot)
 
 ***
 
@@ -147,7 +147,7 @@ Results of executing the transactions in the block
 
 #### Inherited from
 
-[`RunBlockResult`](RunBlockResult.md).[`results`](RunBlockResult.md#results)
+[`ApplyBlockResult`](ApplyBlockResult.md).[`results`](ApplyBlockResult.md#results)
 
 ***
 

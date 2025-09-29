@@ -8,7 +8,7 @@
 
 > **ethSendRawTransactionHandler**(`client`): [`EthSendRawTransactionHandler`](../type-aliases/EthSendRawTransactionHandler.md)
 
-Defined in: packages/actions/types/eth/ethSendRawTransactionHandler.d.ts:16
+Defined in: packages/actions/types/eth/ethSendRawTransactionHandler.d.ts:1
 
 ## Parameters
 

@@ -10,7 +10,7 @@
 
 Defined in: packages/actions/types/DumpState/DumpStateParams.d.ts:3
 
-## Type declaration
+## Type Declaration
 
 ### blockTag?
 

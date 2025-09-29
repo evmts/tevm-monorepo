@@ -8,7 +8,7 @@
 
 > **EthGetFilterChangesJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetFilterChangesJsonRpcResponse`](EthGetFilterChangesJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/eth/EthProcedure.d.ts:17
+Defined in: packages/actions/types/eth/EthProcedure.d.ts:18
 
 ## Parameters
 

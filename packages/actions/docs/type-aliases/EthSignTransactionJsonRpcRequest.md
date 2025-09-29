@@ -8,6 +8,18 @@
 
 > **EthSignTransactionJsonRpcRequest** = `JsonRpcRequest`\<`"eth_signTransaction"`, readonly \[\{ `chainId?`: `Hex`; `data?`: `Hex`; `from`: `Address`; `gas?`: `Hex`; `gasPrice?`: `Hex`; `nonce?`: `Hex`; `to?`: `Address`; `value?`: `Hex`; \}\]\>
 
+<<<<<<< HEAD
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:253](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L253)
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:253](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L253)
+=======
+Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:262](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L262)
+>>>>>>> 11ad3eb7b (docs: generate updated docs)
+=======
+Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:258](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L258)
+>>>>>>> 44031b740 (docs: generate all docs)
+>>>>>>> f0afa5027 (docs: generate all docs)
 
 JSON-RPC request for `eth_signTransaction` procedure

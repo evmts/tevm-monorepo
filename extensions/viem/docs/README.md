@@ -6,7 +6,7 @@
 
 # @tevm/viem
 
-Viem client for tevm. For an ethers client see [@tevm/ethers](../ethers/) and for a lightweight fetch based client see [@tevm/client](../../vm/client/)
+Viem client for tevm. For an ethers client see [@tevm/ethers](https://github.com/evmts/tevm-monorepo/tree/main/extensions/ethers) and for a lightweight fetch based client see [@tevm/client](https://github.com/evmts/tevm-monorepo/tree/main/packages/vm/client)
 
 ## Visit [Docs](https://tevm.sh/) for docs, guides, API and more!
 

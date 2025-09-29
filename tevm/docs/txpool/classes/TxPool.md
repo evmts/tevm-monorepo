@@ -26,6 +26,8 @@ Defined in: packages/txpool/types/TxPool.d.ts:83
 
 **`Experimental`**
 
+Create new tx pool
+
 #### Parameters
 
 ##### options
@@ -172,6 +174,12 @@ Defined in: packages/txpool/types/TxPool.d.ts:124
 
 **`Experimental`**
 
+Adds a tx to the pool.
+
+If there is a tx in the pool with the same address and
+nonce it will be replaced by the new tx, if it has a sufficient gas bump.
+This also verifies certain constraints, if these are not met, tx will not be added to the pool.
+
 #### Parameters
 
 ##### tx
@@ -202,6 +210,12 @@ Defined in: packages/txpool/types/TxPool.d.ts:108
 
 **`Experimental`**
 
+Adds a tx to the pool without validating it.
+
+If there is a tx in the pool with the same address and
+nonce it will be replaced by the new tx, if it has a sufficient gas bump.
+This also verifies certain constraints, if these are not met, tx will not be added to the pool.
+
 #### Parameters
 
 ##### tx
@@ -224,6 +238,8 @@ Defined in: packages/txpool/types/TxPool.d.ts:150
 
 **`Experimental`**
 
+Regular tx pool cleanup
+
 #### Returns
 
 `void`
@@ -238,6 +254,8 @@ Defined in: packages/txpool/types/TxPool.d.ts:236
 
 **`Experimental`**
 
+Clears the pool of all transactions.
+
 #### Returns
 
 `Promise`\<`void`\>
@@ -251,6 +269,8 @@ Defined in: packages/txpool/types/TxPool.d.ts:236
 Defined in: packages/txpool/types/TxPool.d.ts:232
 
 **`Experimental`**
+
+Close pool
 
 #### Returns
 
@@ -354,6 +374,8 @@ Defined in: packages/txpool/types/TxPool.d.ts:171
 
 **`Experimental`**
 
+Get all pending transactions in the pool
+
 #### Returns
 
 `Promise`\<([`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md) \| [`ImpersonatedTx`](../../tx/interfaces/ImpersonatedTx.md))[]\>
@@ -369,6 +391,8 @@ Array of transactions
 Defined in: packages/txpool/types/TxPool.d.ts:177
 
 **`Experimental`**
+
+Get transaction status
 
 #### Parameters
 
@@ -408,6 +432,8 @@ Defined in: packages/txpool/types/TxPool.d.ts:187
 
 **`Experimental`**
 
+Register an event handler
+
 #### Parameters
 
 ##### event
@@ -436,6 +462,8 @@ Defined in: packages/txpool/types/TxPool.d.ts:198
 
 **`Experimental`**
 
+Handle block being added to the chain
+
 #### Parameters
 
 ##### block
@@ -457,6 +485,8 @@ The block that was added
 Defined in: packages/txpool/types/TxPool.d.ts:204
 
 **`Experimental`**
+
+Handle chain reorganization
 
 #### Parameters
 
@@ -486,6 +516,8 @@ Defined in: packages/txpool/types/TxPool.d.ts:88
 
 **`Experimental`**
 
+Open pool
+
 #### Returns
 
 `boolean`
@@ -499,6 +531,8 @@ Defined in: packages/txpool/types/TxPool.d.ts:88
 Defined in: packages/txpool/types/TxPool.d.ts:142
 
 **`Experimental`**
+
+Removes the given tx from the pool
 
 #### Parameters
 
@@ -522,6 +556,8 @@ Defined in: packages/txpool/types/TxPool.d.ts:146
 
 **`Experimental`**
 
+Remove txs included in the latest blocks from the tx pool
+
 #### Parameters
 
 ##### newBlocks
@@ -542,6 +578,8 @@ Defined in: packages/txpool/types/TxPool.d.ts:92
 
 **`Experimental`**
 
+Start tx processing
+
 #### Returns
 
 `boolean`
@@ -556,6 +594,8 @@ Defined in: packages/txpool/types/TxPool.d.ts:228
 
 **`Experimental`**
 
+Stop pool execution
+
 #### Returns
 
 `boolean`
@@ -569,6 +609,19 @@ Defined in: packages/txpool/types/TxPool.d.ts:228
 Defined in: packages/txpool/types/TxPool.d.ts:221
 
 **`Experimental`**
+
+Returns eligible txs to be mined sorted by price in such a way that the
+nonce orderings within a single account are maintained.
+
+Note, this is not as trivial as it seems from the first look as there are three
+different criteria that need to be taken into account (price, nonce, account
+match), which cannot be done with any plain sorting method, as certain items
+cannot be compared without context.
+
+This method first sorts the separates the list of transactions into individual
+sender accounts and sorts them by nonce. After the account nonce ordering is
+satisfied, the results are merged back together by price, always comparing only
+the head transaction from each account. This is done via a heap to keep it fast.
 
 #### Parameters
 

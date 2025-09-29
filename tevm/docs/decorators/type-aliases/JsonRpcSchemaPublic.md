@@ -8,7 +8,7 @@
 
 > **JsonRpcSchemaPublic** = `object`
 
-Defined in: packages/decorators/dist/index.d.ts:876
+Defined in: packages/decorators/dist/index.d.ts:395
 
 Type definitions for standard Ethereum JSON-RPC methods accessible to the public.
 Includes methods related to network info, blocks, transactions, and state queries.
@@ -39,7 +39,7 @@ const balance = await node.request({
 
 > **eth\_blobGasPrice**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:944
+Defined in: packages/decorators/dist/index.d.ts:463
 
 #### Method
 
@@ -70,7 +70,7 @@ provider.request({ method: 'eth_blobGasPrice' })
 
 > **eth\_blockNumber**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:956
+Defined in: packages/decorators/dist/index.d.ts:475
 
 #### Method
 
@@ -101,7 +101,7 @@ provider.request({ method: 'eth_blockNumber' })
 
 > **eth\_call**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:968
+Defined in: packages/decorators/dist/index.d.ts:487
 
 #### Method
 
@@ -132,7 +132,7 @@ provider.request({ method: 'eth_call', params: [{ to: '0x...', data: '0x...' }] 
 
 > **eth\_chainId**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:983
+Defined in: packages/decorators/dist/index.d.ts:502
 
 #### Method
 
@@ -163,7 +163,7 @@ provider.request({ method: 'eth_chainId' })
 
 > **eth\_coinbase**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:994
+Defined in: packages/decorators/dist/index.d.ts:513
 
 #### Method
 
@@ -194,7 +194,7 @@ provider.request({ method: 'eth_coinbase' })
 
 > **eth\_estimateGas**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1009
+Defined in: packages/decorators/dist/index.d.ts:528
 
 #### Method
 
@@ -228,7 +228,7 @@ provider.request({
 
 > **eth\_feeHistory**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1029
+Defined in: packages/decorators/dist/index.d.ts:548
 
 #### Method
 
@@ -267,7 +267,7 @@ provider.request({
 
 > **eth\_gasPrice**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1048
+Defined in: packages/decorators/dist/index.d.ts:567
 
 #### Method
 
@@ -298,7 +298,7 @@ provider.request({ method: 'eth_gasPrice' })
 
 > **eth\_getBalance**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1060
+Defined in: packages/decorators/dist/index.d.ts:579
 
 #### Method
 
@@ -329,7 +329,7 @@ provider.request({ method: 'eth_getBalance', params: ['0x...', 'latest'] })
 
 > **eth\_getBlockByHash**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1077
+Defined in: packages/decorators/dist/index.d.ts:596
 
 #### Method
 
@@ -369,7 +369,7 @@ provider.request({ method: 'eth_getBlockByHash', params: ['0x...', true] })
 
 > **eth\_getBlockByNumber**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1099
+Defined in: packages/decorators/dist/index.d.ts:618
 
 #### Method
 
@@ -409,7 +409,7 @@ provider.request({ method: 'eth_getBlockByNumber', params: ['0x1b4', true] })
 
 > **eth\_getBlockTransactionCountByHash**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1116
+Defined in: packages/decorators/dist/index.d.ts:635
 
 #### Method
 
@@ -444,7 +444,7 @@ provider.request({ method: 'eth_getBlockTransactionCountByHash', params: ['0x...
 
 > **eth\_getBlockTransactionCountByNumber**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1128
+Defined in: packages/decorators/dist/index.d.ts:647
 
 #### Method
 
@@ -479,7 +479,7 @@ provider.request({ method: 'eth_getBlockTransactionCountByNumber', params: ['0x1
 
 > **eth\_getCode**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1140
+Defined in: packages/decorators/dist/index.d.ts:659
 
 #### Method
 
@@ -514,7 +514,7 @@ provider.request({ method: 'eth_getCode', params: ['0x...', 'latest'] })
 
 > **eth\_getFilterChanges**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1152
+Defined in: packages/decorators/dist/index.d.ts:671
 
 #### Method
 
@@ -549,7 +549,7 @@ provider.request({ method: 'eth_getFilterChanges', params: ['0x...'] })
 
 > **eth\_getFilterLogs**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1164
+Defined in: packages/decorators/dist/index.d.ts:683
 
 #### Method
 
@@ -584,7 +584,7 @@ provider.request({ method: 'eth_getFilterLogs', params: ['0x...'] })
 
 > **eth\_getLogs**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1176
+Defined in: packages/decorators/dist/index.d.ts:695
 
 #### Method
 
@@ -619,7 +619,7 @@ provider.request({ method: 'eth_getLogs', params: [{ fromBlock: '0x...', toBlock
 
 > **eth\_getProof**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1203
+Defined in: packages/decorators/dist/index.d.ts:722
 
 #### Method
 
@@ -656,7 +656,7 @@ provider.request({ method: 'eth_getProof', params: ['0x...', ['0x...'], 'latest'
 
 > **eth\_getStorageAt**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1221
+Defined in: packages/decorators/dist/index.d.ts:740
 
 #### Method
 
@@ -691,7 +691,7 @@ provider.request({ method: 'eth_getStorageAt', params: ['0x...', '0x...', 'lates
 
 > **eth\_getTransactionByBlockHashAndIndex**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1233
+Defined in: packages/decorators/dist/index.d.ts:752
 
 #### Method
 
@@ -726,7 +726,7 @@ provider.request({ method: 'eth_getTransactionByBlockHashAndIndex', params: ['0x
 
 > **eth\_getTransactionByBlockNumberAndIndex**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1245
+Defined in: packages/decorators/dist/index.d.ts:764
 
 #### Method
 
@@ -761,7 +761,7 @@ provider.request({ method: 'eth_getTransactionByBlockNumberAndIndex', params: ['
 
 > **eth\_getTransactionByHash**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1257
+Defined in: packages/decorators/dist/index.d.ts:776
 
 #### Method
 
@@ -796,7 +796,7 @@ provider.request({ method: 'eth_getTransactionByHash', params: ['0x...'] })
 
 > **eth\_getTransactionCount**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1269
+Defined in: packages/decorators/dist/index.d.ts:788
 
 #### Method
 
@@ -831,7 +831,7 @@ provider.request({ method: 'eth_getTransactionCount', params: ['0x...', 'latest'
 
 > **eth\_getTransactionReceipt**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1281
+Defined in: packages/decorators/dist/index.d.ts:800
 
 #### Method
 
@@ -866,7 +866,7 @@ provider.request({ method: 'eth_getTransactionReceipt', params: ['0x...'] })
 
 > **eth\_getUncleByBlockHashAndIndex**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1293
+Defined in: packages/decorators/dist/index.d.ts:812
 
 #### Method
 
@@ -901,7 +901,7 @@ provider.request({ method: 'eth_getUncleByBlockHashAndIndex', params: ['0x...', 
 
 > **eth\_getUncleByBlockNumberAndIndex**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1305
+Defined in: packages/decorators/dist/index.d.ts:824
 
 #### Method
 
@@ -936,7 +936,7 @@ provider.request({ method: 'eth_getUncleByBlockNumberAndIndex', params: ['0x...'
 
 > **eth\_getUncleCountByBlockHash**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1317
+Defined in: packages/decorators/dist/index.d.ts:836
 
 #### Method
 
@@ -971,7 +971,7 @@ provider.request({ method: 'eth_getUncleCountByBlockHash', params: ['0x...'] })
 
 > **eth\_getUncleCountByBlockNumber**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1329
+Defined in: packages/decorators/dist/index.d.ts:848
 
 #### Method
 
@@ -1006,7 +1006,7 @@ provider.request({ method: 'eth_getUncleCountByBlockNumber', params: ['0x...'] }
 
 > **eth\_maxPriorityFeePerGas**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1341
+Defined in: packages/decorators/dist/index.d.ts:860
 
 #### Method
 
@@ -1041,7 +1041,7 @@ provider.request({ method: 'eth_maxPriorityFeePerGas' })
 
 > **eth\_newBlockFilter**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1353
+Defined in: packages/decorators/dist/index.d.ts:872
 
 #### Method
 
@@ -1076,7 +1076,7 @@ provider.request({ method: 'eth_newBlockFilter' })
 
 > **eth\_newFilter**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1365
+Defined in: packages/decorators/dist/index.d.ts:884
 
 #### Method
 
@@ -1111,7 +1111,7 @@ provider.request({ method: 'eth_newFilter', params: [{ fromBlock: '0x...', toBlo
 
 > **eth\_newPendingTransactionFilter**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1384
+Defined in: packages/decorators/dist/index.d.ts:903
 
 #### Method
 
@@ -1146,7 +1146,7 @@ provider.request({ method: 'eth_newPendingTransactionFilter' })
 
 > **eth\_protocolVersion**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1396
+Defined in: packages/decorators/dist/index.d.ts:915
 
 #### Method
 
@@ -1181,7 +1181,7 @@ provider.request({ method: 'eth_protocolVersion' })
 
 > **eth\_sendRawTransaction**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1408
+Defined in: packages/decorators/dist/index.d.ts:927
 
 #### Method
 
@@ -1216,7 +1216,7 @@ provider.request({ method: 'eth_sendRawTransaction', params: ['0x...'] })
 
 > **eth\_uninstallFilter**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1420
+Defined in: packages/decorators/dist/index.d.ts:939
 
 #### Method
 
@@ -1251,7 +1251,7 @@ provider.request({ method: 'eth_uninstallFilter', params: ['0x1'] })
 
 > **net\_listening**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:908
+Defined in: packages/decorators/dist/index.d.ts:427
 
 #### Method
 
@@ -1282,7 +1282,7 @@ provider.request({ method: 'net_listening' })
 
 > **net\_peerCount**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:920
+Defined in: packages/decorators/dist/index.d.ts:439
 
 #### Method
 
@@ -1313,7 +1313,7 @@ provider.request({ method: 'net_peerCount' })
 
 > **net\_version**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:932
+Defined in: packages/decorators/dist/index.d.ts:451
 
 #### Method
 
@@ -1344,7 +1344,7 @@ provider.request({ method: 'net_version' })
 
 > **web3\_clientVersion**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:884
+Defined in: packages/decorators/dist/index.d.ts:403
 
 #### Method
 
@@ -1375,7 +1375,7 @@ provider.request({ method: 'web3_clientVersion' })
 
 > **web3\_sha3**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:896
+Defined in: packages/decorators/dist/index.d.ts:415
 
 #### Method
 

@@ -17,7 +17,7 @@ This type is used as the base for various call-like parameter types:
 - [DeployParams](https://tevm.sh/reference/tevm/actions/type-aliases/deployparams-1/)
 - [ScriptParams](https://tevm.sh/reference/tevm/actions/type-aliases/scriptparams-1/)
 
-## Type declaration
+## Type Declaration
 
 ### addToBlockchain?
 

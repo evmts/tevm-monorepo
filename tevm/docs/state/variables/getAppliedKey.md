@@ -4,11 +4,23 @@
 
 [tevm](../../modules.md) / [state](../README.md) / getAppliedKey
 
-# Variable: ~~getAppliedKey~~
+# ~~Variable: getAppliedKey~~
 
 > `const` **getAppliedKey**: [`StateAction`](../type-aliases/StateAction.md)\<`"getAppliedKey"`\>
 
+<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:426
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+Defined in: packages/state/dist/index.d.ts:426
+=======
+Defined in: packages/state/dist/index.d.ts:423
+>>>>>>> ceeee8122 (docs: generate docs)
+=======
+Defined in: packages/state/dist/index.d.ts:422
+>>>>>>> 44031b740 (docs: generate all docs)
+>>>>>>> f4f942332 (docs: generate all docs)
 
 ## Deprecated
 

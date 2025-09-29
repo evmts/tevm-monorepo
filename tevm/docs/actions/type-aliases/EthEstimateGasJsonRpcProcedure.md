@@ -8,7 +8,7 @@
 
 > **EthEstimateGasJsonRpcProcedure** = (`request`) => `Promise`\<[`EthEstimateGasJsonRpcResponse`](EthEstimateGasJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/eth/EthProcedure.d.ts:8
+Defined in: packages/actions/types/eth/EthProcedure.d.ts:9
 
 ## Parameters
 

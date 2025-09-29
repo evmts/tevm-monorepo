@@ -4,7 +4,7 @@
 
 [@tevm/http-client](../globals.md) / createHttpClient
 
-# Function: ~~createHttpClient()~~
+# ~~Function: createHttpClient()~~
 
 > **createHttpClient**(`params`): [`HttpClient`](../type-aliases/HttpClient.md)
 

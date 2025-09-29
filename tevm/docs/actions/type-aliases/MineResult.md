@@ -12,7 +12,7 @@ Defined in: packages/actions/types/Mine/MineResult.d.ts:6
 
 Result of Mine Method
 
-## Type declaration
+## Type Declaration
 
 \{ `blockHashes`: [`Hex`](../../index/type-aliases/Hex.md)[]; `errors?`: `undefined`; \}
 

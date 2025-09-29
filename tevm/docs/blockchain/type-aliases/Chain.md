@@ -12,7 +12,7 @@ Defined in: packages/blockchain/types/Chain.d.ts:14
 
 Blockchain
 
-## Type declaration
+## Type Declaration
 
 ### consensus
 

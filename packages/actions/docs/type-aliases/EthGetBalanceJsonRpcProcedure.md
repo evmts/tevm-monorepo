@@ -8,7 +8,7 @@
 
 > **EthGetBalanceJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetBalanceJsonRpcResponse`](EthGetBalanceJsonRpcResponse.md)\>
 
-Defined in: [packages/actions/src/eth/EthProcedure.ts:105](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthProcedure.ts#L105)
+Defined in: [packages/actions/src/eth/EthProcedure.ts:111](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthProcedure.ts#L111)
 
 ## Parameters
 

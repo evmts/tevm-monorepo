@@ -8,7 +8,7 @@
 
 > **SolcOptimizer** = `object`
 
-Defined in: [solcTypes.ts:106](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L106)
+Defined in: [solcTypes.ts:104](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L104)
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: [solcTypes.ts:106](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > **details**: [`SolcOptimizerDetails`](SolcOptimizerDetails.md)
 
-Defined in: [solcTypes.ts:116](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L116)
+Defined in: [solcTypes.ts:114](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L114)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [solcTypes.ts:116](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > `optional` **enabled**: `boolean`
 
-Defined in: [solcTypes.ts:111](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L111)
+Defined in: [solcTypes.ts:109](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L109)
 
 ***
 
@@ -32,4 +32,4 @@ Defined in: [solcTypes.ts:111](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > **runs**: `number`
 
-Defined in: [solcTypes.ts:115](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L115)
+Defined in: [solcTypes.ts:113](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L113)

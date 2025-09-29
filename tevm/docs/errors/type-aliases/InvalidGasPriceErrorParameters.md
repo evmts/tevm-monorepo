@@ -8,7 +8,7 @@
 
 > **InvalidGasPriceErrorParameters** = `object`
 
-Defined in: packages/errors/types/ethereum/InvalidGasPriceError.d.ts:50
+Defined in: packages/errors/types/ethereum/InvalidGasPriceError.d.ts:55
 
 Parameters for constructing an InvalidGasPriceError.
 
@@ -18,7 +18,7 @@ Parameters for constructing an InvalidGasPriceError.
 
 > `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `Error`
 
-Defined in: packages/errors/types/ethereum/InvalidGasPriceError.d.ts:70
+Defined in: packages/errors/types/ethereum/InvalidGasPriceError.d.ts:75
 
 - The cause of the error.
 
@@ -28,7 +28,7 @@ Defined in: packages/errors/types/ethereum/InvalidGasPriceError.d.ts:70
 
 > `optional` **details**: `string`
 
-Defined in: packages/errors/types/ethereum/InvalidGasPriceError.d.ts:74
+Defined in: packages/errors/types/ethereum/InvalidGasPriceError.d.ts:79
 
 - Details of the error.
 
@@ -38,7 +38,7 @@ Defined in: packages/errors/types/ethereum/InvalidGasPriceError.d.ts:74
 
 > `optional` **docsBaseUrl**: `string`
 
-Defined in: packages/errors/types/ethereum/InvalidGasPriceError.d.ts:54
+Defined in: packages/errors/types/ethereum/InvalidGasPriceError.d.ts:59
 
 - Base URL for the documentation.
 
@@ -48,7 +48,7 @@ Defined in: packages/errors/types/ethereum/InvalidGasPriceError.d.ts:54
 
 > `optional` **docsPath**: `string`
 
-Defined in: packages/errors/types/ethereum/InvalidGasPriceError.d.ts:58
+Defined in: packages/errors/types/ethereum/InvalidGasPriceError.d.ts:63
 
 - Path to the documentation.
 
@@ -58,7 +58,7 @@ Defined in: packages/errors/types/ethereum/InvalidGasPriceError.d.ts:58
 
 > `optional` **docsSlug**: `string`
 
-Defined in: packages/errors/types/ethereum/InvalidGasPriceError.d.ts:62
+Defined in: packages/errors/types/ethereum/InvalidGasPriceError.d.ts:67
 
 - Slug for the documentation.
 
@@ -68,7 +68,7 @@ Defined in: packages/errors/types/ethereum/InvalidGasPriceError.d.ts:62
 
 > `optional` **meta**: `object`
 
-Defined in: packages/errors/types/ethereum/InvalidGasPriceError.d.ts:78
+Defined in: packages/errors/types/ethereum/InvalidGasPriceError.d.ts:83
 
 - Optional object containing additional information about the error.
 
@@ -78,6 +78,6 @@ Defined in: packages/errors/types/ethereum/InvalidGasPriceError.d.ts:78
 
 > `optional` **metaMessages**: `string`[]
 
-Defined in: packages/errors/types/ethereum/InvalidGasPriceError.d.ts:66
+Defined in: packages/errors/types/ethereum/InvalidGasPriceError.d.ts:71
 
 - Additional meta messages.

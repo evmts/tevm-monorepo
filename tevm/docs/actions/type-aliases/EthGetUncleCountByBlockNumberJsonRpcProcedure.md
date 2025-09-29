@@ -8,7 +8,7 @@
 
 > **EthGetUncleCountByBlockNumberJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetUncleCountByBlockNumberJsonRpcResponse`](EthGetUncleCountByBlockNumberJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/eth/EthProcedure.d.ts:23
+Defined in: packages/actions/types/eth/EthProcedure.d.ts:24
 
 ## Parameters
 

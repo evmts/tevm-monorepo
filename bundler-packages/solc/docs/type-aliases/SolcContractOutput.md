@@ -8,7 +8,7 @@
 
 > **SolcContractOutput** = `object`
 
-Defined in: [solcTypes.ts:395](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L395)
+Defined in: [solcTypes.ts:393](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L393)
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: [solcTypes.ts:395](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > **abi**: `Abi`
 
-Defined in: [solcTypes.ts:397](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L397)
+Defined in: [solcTypes.ts:395](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L395)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [solcTypes.ts:397](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > **devdoc**: `any`
 
-Defined in: [solcTypes.ts:411](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L411)
+Defined in: [solcTypes.ts:409](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L409)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [solcTypes.ts:411](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > **evm**: [`SolcEVMOutput`](SolcEVMOutput.md)
 
-Defined in: [solcTypes.ts:420](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L420)
+Defined in: [solcTypes.ts:418](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L418)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [solcTypes.ts:420](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > **ewasm**: [`SolcEwasmOutput`](SolcEwasmOutput.md)
 
-Defined in: [solcTypes.ts:423](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L423)
+Defined in: [solcTypes.ts:421](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L421)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [solcTypes.ts:423](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > **ir**: `string`
 
-Defined in: [solcTypes.ts:414](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L414)
+Defined in: [solcTypes.ts:412](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L412)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: [solcTypes.ts:414](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > **metadata**: `string`
 
-Defined in: [solcTypes.ts:400](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L400)
+Defined in: [solcTypes.ts:398](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L398)
 
 ***
 
@@ -64,7 +64,7 @@ Defined in: [solcTypes.ts:400](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > **storageLayout**: [`SolcStorageLayout`](SolcStorageLayout.md)
 
-Defined in: [solcTypes.ts:417](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L417)
+Defined in: [solcTypes.ts:415](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L415)
 
 ***
 
@@ -72,7 +72,7 @@ Defined in: [solcTypes.ts:417](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > **userdoc**: `object`
 
-Defined in: [solcTypes.ts:403](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L403)
+Defined in: [solcTypes.ts:401](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L401)
 
 #### kind
 

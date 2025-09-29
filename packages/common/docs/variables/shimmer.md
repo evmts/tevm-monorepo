@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/shimmer.js:26](https://github.com/evmts
 
 Creates a common configuration for the shimmer chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 
@@ -28,6 +28,12 @@ Collection of block explorers
 
 > **default**: `ChainBlockExplorer`
 
+### blockTime?
+
+> `optional` **blockTime**: `number`
+
+Block time in milliseconds.
+
 ### contracts?
 
 > `optional` **contracts**: `object`
@@ -36,7 +42,7 @@ Collection of contracts
 
 #### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### contracts.ensRegistry?
 
@@ -46,21 +52,21 @@ Collection of contracts
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
 
-#### contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
-
 ### copy()
 
-> **copy**: () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; universalSignatureVer...
+> **copy**: () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 13 more ...; copy: () =\> ...; \}
 
 #### Returns
 
-\{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; universalSignatureVer...
+\{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 13 more ...; copy: () =\> ...; \}
 
 ### custom?
 
@@ -77,6 +83,12 @@ Collection of ENS TLDs for the chain.
 ### ethjsCommon
 
 > **ethjsCommon**: `Common`
+
+### experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
+
+Preconfirmation time in milliseconds.
 
 ### fees?
 

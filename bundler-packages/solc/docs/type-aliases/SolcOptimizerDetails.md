@@ -8,7 +8,7 @@
 
 > **SolcOptimizerDetails** = `object`
 
-Defined in: [solcTypes.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L77)
+Defined in: [solcTypes.ts:75](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L75)
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: [solcTypes.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/b
 
 > **constantOptimizer**: `boolean`
 
-Defined in: [solcTypes.ts:95](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L95)
+Defined in: [solcTypes.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L93)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [solcTypes.ts:95](https://github.com/evmts/tevm-monorepo/blob/main/b
 
 > **cse**: `boolean`
 
-Defined in: [solcTypes.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L93)
+Defined in: [solcTypes.ts:91](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L91)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [solcTypes.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/b
 
 > **deduplicate**: `boolean`
 
-Defined in: [solcTypes.ts:90](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L90)
+Defined in: [solcTypes.ts:88](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L88)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [solcTypes.ts:90](https://github.com/evmts/tevm-monorepo/blob/main/b
 
 > **inliner**: `boolean`
 
-Defined in: [solcTypes.ts:83](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L83)
+Defined in: [solcTypes.ts:81](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L81)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [solcTypes.ts:83](https://github.com/evmts/tevm-monorepo/blob/main/b
 
 > **jumpdestRemover**: `boolean`
 
-Defined in: [solcTypes.ts:86](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L86)
+Defined in: [solcTypes.ts:84](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L84)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: [solcTypes.ts:86](https://github.com/evmts/tevm-monorepo/blob/main/b
 
 > **orderLiterals**: `boolean`
 
-Defined in: [solcTypes.ts:88](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L88)
+Defined in: [solcTypes.ts:86](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L86)
 
 ***
 
@@ -64,7 +64,7 @@ Defined in: [solcTypes.ts:88](https://github.com/evmts/tevm-monorepo/blob/main/b
 
 > **peephole**: `boolean`
 
-Defined in: [solcTypes.ts:80](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L80)
+Defined in: [solcTypes.ts:78](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L78)
 
 ***
 
@@ -72,7 +72,7 @@ Defined in: [solcTypes.ts:80](https://github.com/evmts/tevm-monorepo/blob/main/b
 
 > **yul**: `boolean`
 
-Defined in: [solcTypes.ts:101](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L101)
+Defined in: [solcTypes.ts:99](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L99)
 
 ***
 
@@ -80,4 +80,4 @@ Defined in: [solcTypes.ts:101](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > **yulDetails**: [`SolcYulDetails`](SolcYulDetails.md)
 
-Defined in: [solcTypes.ts:102](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L102)
+Defined in: [solcTypes.ts:100](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L100)

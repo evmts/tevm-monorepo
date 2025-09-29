@@ -8,6 +8,6 @@
 
 > **EthGetLogsJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_getLogs"`, `SerializeToJson`\<`SerializeToJson`\<[`FilterLog`](FilterLog.md)\>\>[], `string` \| `number`\>
 
-Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:76
+Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:80
 
 JSON-RPC response for `eth_getLogs` procedure

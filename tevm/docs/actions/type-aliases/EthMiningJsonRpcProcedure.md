@@ -8,7 +8,7 @@
 
 > **EthMiningJsonRpcProcedure** = (`request`) => `Promise`\<[`EthMiningJsonRpcResponse`](EthMiningJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/eth/EthProcedure.d.ts:30
+Defined in: packages/actions/types/eth/EthProcedure.d.ts:31
 
 ## Parameters
 

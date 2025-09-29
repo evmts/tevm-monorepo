@@ -8,7 +8,7 @@
 
 > **EthGetBlockTransactionCountByHashJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetBlockTransactionCountByHashJsonRpcResponse`](EthGetBlockTransactionCountByHashJsonRpcResponse.md)\>
 
-Defined in: [packages/actions/src/eth/EthProcedure.ts:117](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthProcedure.ts#L117)
+Defined in: [packages/actions/src/eth/EthProcedure.ts:123](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthProcedure.ts#L123)
 
 ## Parameters
 

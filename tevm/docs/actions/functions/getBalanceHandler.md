@@ -8,7 +8,7 @@
 
 > **getBalanceHandler**(`baseClient`): [`EthGetBalanceHandler`](../type-aliases/EthGetBalanceHandler.md)
 
-Defined in: packages/actions/types/eth/getBalanceHandler.d.ts:12
+Defined in: packages/actions/types/eth/getBalanceHandler.d.ts:1
 
 ## Parameters
 

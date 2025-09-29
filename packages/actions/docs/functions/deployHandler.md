@@ -8,7 +8,7 @@
 
 > **deployHandler**(`client`, `options?`): [`DeployHandler`](../type-aliases/DeployHandler.md)
 
-Defined in: [packages/actions/src/Deploy/deployHandler.js:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Deploy/deployHandler.js#L37)
+Defined in: [packages/actions/src/Deploy/deployHandler.js:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Deploy/deployHandler.js#L36)
 
 Creates a tree-shakable instance of `deployHandler` for handling the deployment of contracts to TEVM.
 This function uses `callHandler` under the hood to execute the deployment.

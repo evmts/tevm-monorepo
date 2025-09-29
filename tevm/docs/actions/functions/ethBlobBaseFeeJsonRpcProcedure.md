@@ -6,7 +6,7 @@
 
 # Function: ethBlobBaseFeeJsonRpcProcedure()
 
-> **ethBlobBaseFeeJsonRpcProcedure**(`client`): [`EthGasPriceJsonRpcProcedure`](../type-aliases/EthGasPriceJsonRpcProcedure.md)
+> **ethBlobBaseFeeJsonRpcProcedure**(`client`): [`EthBlobBaseFeeJsonRpcProcedure`](../type-aliases/EthBlobBaseFeeJsonRpcProcedure.md)
 
 Defined in: packages/actions/types/eth/ethBlobBaseFeeProcedure.d.ts:1
 
@@ -18,4 +18,4 @@ Defined in: packages/actions/types/eth/ethBlobBaseFeeProcedure.d.ts:1
 
 ## Returns
 
-[`EthGasPriceJsonRpcProcedure`](../type-aliases/EthGasPriceJsonRpcProcedure.md)
+[`EthBlobBaseFeeJsonRpcProcedure`](../type-aliases/EthBlobBaseFeeJsonRpcProcedure.md)

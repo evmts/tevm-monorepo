@@ -8,7 +8,7 @@
 
 > **createBaseState**(`options`): [`BaseState`](../type-aliases/BaseState.md)
 
-Defined in: [packages/state/src/createBaseState.js:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/createBaseState.js#L20)
+Defined in: [packages/state/src/createBaseState.js:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/createBaseState.js#L21)
 
 **`Internal`**
 

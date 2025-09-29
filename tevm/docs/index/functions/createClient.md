@@ -8,7 +8,7 @@
 
 > **createClient**\<`transport`, `chain`, `accountOrAddress`, `rpcSchema`\>(`parameters`): `object`
 
-Defined in: node\_modules/.pnpm/viem@2.37.8\_bufferutil@4.0.9\_typescript@5.8.3\_utf-8-validate@5.0.10\_zod@3.25.28/node\_modules/viem/\_types/clients/createClient.d.ts:99
+Defined in: node\_modules/.pnpm/viem@2.37.8\_bufferutil@4.0.9\_typescript@5.9.2\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/clients/createClient.d.ts:113
 
 ## Type Parameters
 
@@ -50,15 +50,15 @@ Flags for batch settings.
 
 #### batch.multicall?
 
-> `optional` **multicall**: `boolean` \| \{ `batchSize?`: `number`; `wait?`: `number`; \}
+> `optional` **multicall**: `boolean` \| \{ `batchSize?`: `number`; `deployless?`: `boolean`; `wait?`: `number`; \}
 
 Toggle to enable `eth_call` multicall aggregation.
 
-##### Type declaration
+##### Type Declaration
 
 `boolean`
 
-\{ `batchSize?`: `number`; `wait?`: `number`; \}
+\{ `batchSize?`: `number`; `deployless?`: `boolean`; `wait?`: `number`; \}
 
 ### cacheTime
 
@@ -72,7 +72,7 @@ Time (in ms) that cached data will remain in memory.
 
 [CCIP Read](https://eips.ethereum.org/EIPS/eip-3668) configuration.
 
-#### Type declaration
+#### Type Declaration
 
 `false`
 
@@ -83,6 +83,12 @@ Time (in ms) that cached data will remain in memory.
 > **chain**: `chain`
 
 Chain for the client.
+
+### experimental\_blockTag?
+
+> `optional` **experimental\_blockTag**: [`BlockTag`](../type-aliases/BlockTag.md)
+
+Default block tag to use for RPC requests.
 
 ### extend()
 

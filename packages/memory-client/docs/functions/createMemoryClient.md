@@ -94,15 +94,15 @@ Flags for batch settings.
 
 #### batch.multicall?
 
-> `optional` **multicall**: `boolean` \| \{ `batchSize?`: `number`; `wait?`: `number`; \}
+> `optional` **multicall**: `boolean` \| \{ `batchSize?`: `number`; `deployless?`: `boolean`; `wait?`: `number`; \}
 
 Toggle to enable `eth_call` multicall aggregation.
 
-##### Type declaration
+##### Type Declaration
 
 `boolean`
 
-\{ `batchSize?`: `number`; `wait?`: `number`; \}
+\{ `batchSize?`: `number`; `deployless?`: `boolean`; `wait?`: `number`; \}
 
 ### cacheTime
 
@@ -154,7 +154,7 @@ const data = await client.call({
 
 [CCIP Read](https://eips.ethereum.org/EIPS/eip-3668) configuration.
 
-#### Type declaration
+#### Type Declaration
 
 `false`
 
@@ -206,7 +206,7 @@ const data = await client.createAccessList({
 
 ### createBlockFilter()
 
-> **createBlockFilter**: () => `Promise`\<\{ `id`: `` `0x${string}` ``; `request`: `EIP1193RequestFn`\<readonly \[\{ `Method`: `"eth_getFilterChanges"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `RpcLog`[] \| `` `0x${string}` ``[]; \}, \{ `Method`: `"eth_getFilterLogs"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `RpcLog`[]; \}, \{ `Method`: `"eth_uninstallFilter"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `boolean`; \}\]\>; `type`: `"block"`; \}\>
+> **createBlockFilter**: () => `Promise`\<\{ `id`: `` `0x${string}` ``; `request`: `EIP1193RequestFn`\<readonly \[\{ `Method`: `"eth_getFilterChanges"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `` `0x${string}` ``[] \| `RpcLog`[]; \}, \{ `Method`: `"eth_getFilterLogs"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `RpcLog`[]; \}, \{ `Method`: `"eth_uninstallFilter"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `boolean`; \}\]\>; `type`: `"block"`; \}\>
 
 Creates a Filter to listen for new block hashes that can be used with [`getFilterChanges`](https://viem.sh/docs/actions/public/getFilterChanges).
 
@@ -215,7 +215,7 @@ Creates a Filter to listen for new block hashes that can be used with [`getFilte
 
 #### Returns
 
-`Promise`\<\{ `id`: `` `0x${string}` ``; `request`: `EIP1193RequestFn`\<readonly \[\{ `Method`: `"eth_getFilterChanges"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `RpcLog`[] \| `` `0x${string}` ``[]; \}, \{ `Method`: `"eth_getFilterLogs"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `RpcLog`[]; \}, \{ `Method`: `"eth_uninstallFilter"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `boolean`; \}\]\>; `type`: `"block"`; \}\>
+`Promise`\<\{ `id`: `` `0x${string}` ``; `request`: `EIP1193RequestFn`\<readonly \[\{ `Method`: `"eth_getFilterChanges"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `` `0x${string}` ``[] \| `RpcLog`[]; \}, \{ `Method`: `"eth_getFilterLogs"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `RpcLog`[]; \}, \{ `Method`: `"eth_uninstallFilter"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `boolean`; \}\]\>; `type`: `"block"`; \}\>
 
 Filter. CreateBlockFilterReturnType
 
@@ -366,7 +366,7 @@ const filter = await client.createEventFilter({
 
 ### createPendingTransactionFilter()
 
-> **createPendingTransactionFilter**: () => `Promise`\<\{ `id`: `` `0x${string}` ``; `request`: `EIP1193RequestFn`\<readonly \[\{ `Method`: `"eth_getFilterChanges"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `RpcLog`[] \| `` `0x${string}` ``[]; \}, \{ `Method`: `"eth_getFilterLogs"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `RpcLog`[]; \}, \{ `Method`: `"eth_uninstallFilter"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `boolean`; \}\]\>; `type`: `"transaction"`; \}\>
+> **createPendingTransactionFilter**: () => `Promise`\<\{ `id`: `` `0x${string}` ``; `request`: `EIP1193RequestFn`\<readonly \[\{ `Method`: `"eth_getFilterChanges"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `` `0x${string}` ``[] \| `RpcLog`[]; \}, \{ `Method`: `"eth_getFilterLogs"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `RpcLog`[]; \}, \{ `Method`: `"eth_uninstallFilter"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `boolean`; \}\]\>; `type`: `"transaction"`; \}\>
 
 Creates a Filter to listen for new pending transaction hashes that can be used with [`getFilterChanges`](https://viem.sh/docs/actions/public/getFilterChanges).
 
@@ -375,7 +375,7 @@ Creates a Filter to listen for new pending transaction hashes that can be used w
 
 #### Returns
 
-`Promise`\<\{ `id`: `` `0x${string}` ``; `request`: `EIP1193RequestFn`\<readonly \[\{ `Method`: `"eth_getFilterChanges"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `RpcLog`[] \| `` `0x${string}` ``[]; \}, \{ `Method`: `"eth_getFilterLogs"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `RpcLog`[]; \}, \{ `Method`: `"eth_uninstallFilter"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `boolean`; \}\]\>; `type`: `"transaction"`; \}\>
+`Promise`\<\{ `id`: `` `0x${string}` ``; `request`: `EIP1193RequestFn`\<readonly \[\{ `Method`: `"eth_getFilterChanges"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `` `0x${string}` ``[] \| `RpcLog`[]; \}, \{ `Method`: `"eth_getFilterLogs"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `RpcLog`[]; \}, \{ `Method`: `"eth_uninstallFilter"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `boolean`; \}\]\>; `type`: `"transaction"`; \}\>
 
 [`Filter`](https://viem.sh/docs/glossary/types#filter). CreateBlockFilterReturnType
 
@@ -696,6 +696,12 @@ const maxPriorityFeePerGas = await client.estimateMaxPriorityFeePerGas()
 // 10000000n
 ```
 
+### experimental\_blockTag?
+
+> `optional` **experimental\_blockTag**: `BlockTag`
+
+Default block tag to use for RPC requests.
+
 ### extend()
 
 > **extend**: \<`client`\>(`fn`) => `Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md), `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, \[\{ `Method`: `"web3_clientVersion"`; `Parameters?`: `undefined`; `ReturnType`: `string`; \}, \{ `Method`: `"web3_sha3"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `string`; \}, \{ `Method`: `"net_listening"`; `Parameters?`: `undefined`; `ReturnType`: `boolean`; \}, \{ `Method`: `"net_peerCount"`; `Parameters?`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}, \{ `Method`: `"net_version"`; `Parameters?`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}\], \{ \[K in string \| number \| symbol\]: client\[K\] \} & [`TevmActions`](../type-aliases/TevmActions.md) & `PublicActions`\<[`TevmTransport`](../type-aliases/TevmTransport.md), `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `WalletActions`\<`TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `TestActions`\>
@@ -998,7 +1004,7 @@ Use `getCode` instead.
 
 ### getCallsStatus()
 
-> **getCallsStatus**: (`parameters`) => `Promise`\<\{ `atomic`: `boolean`; `capabilities?`: \{[`key`: `string`]: `any`; \} \| \{[`key`: `string`]: `any`; \}; `chainId`: `number`; `id`: `string`; `receipts?`: `WalletCallReceipt`\<`bigint`, `"success"` \| `"reverted"`\>[]; `status`: `undefined` \| `"pending"` \| `"success"` \| `"failure"`; `statusCode`: `number`; `version`: `string`; \}\>
+> **getCallsStatus**: (`parameters`) => `Promise`\<\{ `atomic`: `boolean`; `capabilities?`: \{\[`key`: `string`\]: `any`; \} \| \{\[`key`: `string`\]: `any`; \}; `chainId`: `number`; `id`: `string`; `receipts?`: `WalletCallReceipt`\<`bigint`, `"success"` \| `"reverted"`\>[]; `status`: `undefined` \| `"pending"` \| `"success"` \| `"failure"`; `statusCode`: `number`; `version`: `string`; \}\>
 
 Returns the status of a call batch that was sent via `sendCalls`.
 
@@ -1013,7 +1019,7 @@ Returns the status of a call batch that was sent via `sendCalls`.
 
 #### Returns
 
-`Promise`\<\{ `atomic`: `boolean`; `capabilities?`: \{[`key`: `string`]: `any`; \} \| \{[`key`: `string`]: `any`; \}; `chainId`: `number`; `id`: `string`; `receipts?`: `WalletCallReceipt`\<`bigint`, `"success"` \| `"reverted"`\>[]; `status`: `undefined` \| `"pending"` \| `"success"` \| `"failure"`; `statusCode`: `number`; `version`: `string`; \}\>
+`Promise`\<\{ `atomic`: `boolean`; `capabilities?`: \{\[`key`: `string`\]: `any`; \} \| \{\[`key`: `string`\]: `any`; \}; `chainId`: `number`; `id`: `string`; `receipts?`: `WalletCallReceipt`\<`bigint`, `"success"` \| `"reverted"`\>[]; `status`: `undefined` \| `"pending"` \| `"success"` \| `"failure"`; `statusCode`: `number`; `version`: `string`; \}\>
 
 Status of the calls. GetCallsStatusReturnType
 
@@ -1279,9 +1285,23 @@ The balance of the account at a block tag.
 
 ###### coinType?
 
-`number`
+`bigint`
 
-ENSIP-9 compliant coinType used to resolve addresses for other chains
+ENSIP-9 compliant coinType (chain) to get ENS address for.
+
+To get the `coinType` for a chain id, use the `toCoinType` function:
+```ts
+import { toCoinType } from 'viem'
+import { base } from 'viem/chains'
+
+const coinType = toCoinType(base.id)
+```
+
+**Default**
+
+```ts
+60n
+```
 
 ###### gatewayUrls?
 
@@ -1465,6 +1485,26 @@ The balance of the account at a block tag.
 
 ```ts
 'latest'
+```
+
+###### coinType?
+
+`bigint`
+
+ENSIP-9 compliant coinType (chain) to get ENS name for.
+
+To get the `coinType` for a chain id, use the `toCoinType` function:
+```ts
+import { toCoinType } from 'viem'
+import { base } from 'viem/chains'
+
+const coinType = toCoinType(base.id)
+```
+
+**Default**
+
+```ts
+60n
 ```
 
 ###### gatewayUrls?
@@ -2912,7 +2952,7 @@ await client.revert({ id: '0x…' })
 
 ### sendCalls()
 
-> **sendCalls**: \<`calls`, `chainOverride`\>(`parameters`) => `Promise`\<\{ `capabilities?`: \{[`key`: `string`]: `any`; \}; `id`: `string`; \}\>
+> **sendCalls**: \<`calls`, `chainOverride`\>(`parameters`) => `Promise`\<\{ `capabilities?`: \{\[`key`: `string`\]: `any`; \}; `id`: `string`; \}\>
 
 Requests the connected wallet to send a batch of calls.
 
@@ -2937,7 +2977,7 @@ Requests the connected wallet to send a batch of calls.
 
 #### Returns
 
-`Promise`\<\{ `capabilities?`: \{[`key`: `string`]: `any`; \}; `id`: `string`; \}\>
+`Promise`\<\{ `capabilities?`: \{\[`key`: `string`\]: `any`; \}; `id`: `string`; \}\>
 
 Transaction identifier. SendCallsReturnType
 
@@ -3854,110 +3894,110 @@ Signs typed data and calculates an Ethereum-specific signature in [EIP-191 forma
 
 ##### typedData
 
-`typedData` *extends* \{[`key`: `string`]: readonly `TypedDataParameter`[];
-[`key`: `` `string[${string}]` ``]: `undefined`;
-[`key`: `` `function[${string}]` ``]: `undefined`;
-[`key`: `` `address[${string}]` ``]: `undefined`;
-[`key`: `` `bool[${string}]` ``]: `undefined`;
-[`key`: `` `bytes[${string}]` ``]: `undefined`;
-[`key`: `` `bytes1[${string}]` ``]: `undefined`;
-[`key`: `` `bytes2[${string}]` ``]: `undefined`;
-[`key`: `` `bytes3[${string}]` ``]: `undefined`;
-[`key`: `` `bytes4[${string}]` ``]: `undefined`;
-[`key`: `` `bytes5[${string}]` ``]: `undefined`;
-[`key`: `` `bytes6[${string}]` ``]: `undefined`;
-[`key`: `` `bytes7[${string}]` ``]: `undefined`;
-[`key`: `` `bytes8[${string}]` ``]: `undefined`;
-[`key`: `` `bytes9[${string}]` ``]: `undefined`;
-[`key`: `` `bytes10[${string}]` ``]: `undefined`;
-[`key`: `` `bytes11[${string}]` ``]: `undefined`;
-[`key`: `` `bytes12[${string}]` ``]: `undefined`;
-[`key`: `` `bytes13[${string}]` ``]: `undefined`;
-[`key`: `` `bytes14[${string}]` ``]: `undefined`;
-[`key`: `` `bytes15[${string}]` ``]: `undefined`;
-[`key`: `` `bytes16[${string}]` ``]: `undefined`;
-[`key`: `` `bytes17[${string}]` ``]: `undefined`;
-[`key`: `` `bytes18[${string}]` ``]: `undefined`;
-[`key`: `` `bytes19[${string}]` ``]: `undefined`;
-[`key`: `` `bytes20[${string}]` ``]: `undefined`;
-[`key`: `` `bytes21[${string}]` ``]: `undefined`;
-[`key`: `` `bytes22[${string}]` ``]: `undefined`;
-[`key`: `` `bytes23[${string}]` ``]: `undefined`;
-[`key`: `` `bytes24[${string}]` ``]: `undefined`;
-[`key`: `` `bytes25[${string}]` ``]: `undefined`;
-[`key`: `` `bytes26[${string}]` ``]: `undefined`;
-[`key`: `` `bytes27[${string}]` ``]: `undefined`;
-[`key`: `` `bytes28[${string}]` ``]: `undefined`;
-[`key`: `` `bytes29[${string}]` ``]: `undefined`;
-[`key`: `` `bytes30[${string}]` ``]: `undefined`;
-[`key`: `` `bytes31[${string}]` ``]: `undefined`;
-[`key`: `` `bytes32[${string}]` ``]: `undefined`;
-[`key`: `` `int[${string}]` ``]: `undefined`;
-[`key`: `` `int8[${string}]` ``]: `undefined`;
-[`key`: `` `int16[${string}]` ``]: `undefined`;
-[`key`: `` `int24[${string}]` ``]: `undefined`;
-[`key`: `` `int32[${string}]` ``]: `undefined`;
-[`key`: `` `int40[${string}]` ``]: `undefined`;
-[`key`: `` `int48[${string}]` ``]: `undefined`;
-[`key`: `` `int56[${string}]` ``]: `undefined`;
-[`key`: `` `int64[${string}]` ``]: `undefined`;
-[`key`: `` `int72[${string}]` ``]: `undefined`;
-[`key`: `` `int80[${string}]` ``]: `undefined`;
-[`key`: `` `int88[${string}]` ``]: `undefined`;
-[`key`: `` `int96[${string}]` ``]: `undefined`;
-[`key`: `` `int104[${string}]` ``]: `undefined`;
-[`key`: `` `int112[${string}]` ``]: `undefined`;
-[`key`: `` `int120[${string}]` ``]: `undefined`;
-[`key`: `` `int128[${string}]` ``]: `undefined`;
-[`key`: `` `int136[${string}]` ``]: `undefined`;
-[`key`: `` `int144[${string}]` ``]: `undefined`;
-[`key`: `` `int152[${string}]` ``]: `undefined`;
-[`key`: `` `int160[${string}]` ``]: `undefined`;
-[`key`: `` `int168[${string}]` ``]: `undefined`;
-[`key`: `` `int176[${string}]` ``]: `undefined`;
-[`key`: `` `int184[${string}]` ``]: `undefined`;
-[`key`: `` `int192[${string}]` ``]: `undefined`;
-[`key`: `` `int200[${string}]` ``]: `undefined`;
-[`key`: `` `int208[${string}]` ``]: `undefined`;
-[`key`: `` `int216[${string}]` ``]: `undefined`;
-[`key`: `` `int224[${string}]` ``]: `undefined`;
-[`key`: `` `int232[${string}]` ``]: `undefined`;
-[`key`: `` `int240[${string}]` ``]: `undefined`;
-[`key`: `` `int248[${string}]` ``]: `undefined`;
-[`key`: `` `int256[${string}]` ``]: `undefined`;
-[`key`: `` `uint[${string}]` ``]: `undefined`;
-[`key`: `` `uint8[${string}]` ``]: `undefined`;
-[`key`: `` `uint16[${string}]` ``]: `undefined`;
-[`key`: `` `uint24[${string}]` ``]: `undefined`;
-[`key`: `` `uint32[${string}]` ``]: `undefined`;
-[`key`: `` `uint40[${string}]` ``]: `undefined`;
-[`key`: `` `uint48[${string}]` ``]: `undefined`;
-[`key`: `` `uint56[${string}]` ``]: `undefined`;
-[`key`: `` `uint64[${string}]` ``]: `undefined`;
-[`key`: `` `uint72[${string}]` ``]: `undefined`;
-[`key`: `` `uint80[${string}]` ``]: `undefined`;
-[`key`: `` `uint88[${string}]` ``]: `undefined`;
-[`key`: `` `uint96[${string}]` ``]: `undefined`;
-[`key`: `` `uint104[${string}]` ``]: `undefined`;
-[`key`: `` `uint112[${string}]` ``]: `undefined`;
-[`key`: `` `uint120[${string}]` ``]: `undefined`;
-[`key`: `` `uint128[${string}]` ``]: `undefined`;
-[`key`: `` `uint136[${string}]` ``]: `undefined`;
-[`key`: `` `uint144[${string}]` ``]: `undefined`;
-[`key`: `` `uint152[${string}]` ``]: `undefined`;
-[`key`: `` `uint160[${string}]` ``]: `undefined`;
-[`key`: `` `uint168[${string}]` ``]: `undefined`;
-[`key`: `` `uint176[${string}]` ``]: `undefined`;
-[`key`: `` `uint184[${string}]` ``]: `undefined`;
-[`key`: `` `uint192[${string}]` ``]: `undefined`;
-[`key`: `` `uint200[${string}]` ``]: `undefined`;
-[`key`: `` `uint208[${string}]` ``]: `undefined`;
-[`key`: `` `uint216[${string}]` ``]: `undefined`;
-[`key`: `` `uint224[${string}]` ``]: `undefined`;
-[`key`: `` `uint232[${string}]` ``]: `undefined`;
-[`key`: `` `uint240[${string}]` ``]: `undefined`;
-[`key`: `` `uint248[${string}]` ``]: `undefined`;
-[`key`: `` `uint256[${string}]` ``]: `undefined`; `address?`: `undefined`; `bool?`: `undefined`; `bytes?`: `undefined`; `bytes1?`: `undefined`; `bytes10?`: `undefined`; `bytes11?`: `undefined`; `bytes12?`: `undefined`; `bytes13?`: `undefined`; `bytes14?`: `undefined`; `bytes15?`: `undefined`; `bytes16?`: `undefined`; `bytes17?`: `undefined`; `bytes18?`: `undefined`; `bytes19?`: `undefined`; `bytes2?`: `undefined`; `bytes20?`: `undefined`; `bytes21?`: `undefined`; `bytes22?`: `undefined`; `bytes23?`: `undefined`; `bytes24?`: `undefined`; `bytes25?`: `undefined`; `bytes26?`: `undefined`; `bytes27?`: `undefined`; `bytes28?`: `undefined`; `bytes29?`: `undefined`; `bytes3?`: `undefined`; `bytes30?`: `undefined`; `bytes31?`: `undefined`; `bytes32?`: `undefined`; `bytes4?`: `undefined`; `bytes5?`: `undefined`; `bytes6?`: `undefined`; `bytes7?`: `undefined`; `bytes8?`: `undefined`; `bytes9?`: `undefined`; `int104?`: `undefined`; `int112?`: `undefined`; `int120?`: `undefined`; `int128?`: `undefined`; `int136?`: `undefined`; `int144?`: `undefined`; `int152?`: `undefined`; `int16?`: `undefined`; `int160?`: `undefined`; `int168?`: `undefined`; `int176?`: `undefined`; `int184?`: `undefined`; `int192?`: `undefined`; `int200?`: `undefined`; `int208?`: `undefined`; `int216?`: `undefined`; `int224?`: `undefined`; `int232?`: `undefined`; `int24?`: `undefined`; `int240?`: `undefined`; `int248?`: `undefined`; `int256?`: `undefined`; `int32?`: `undefined`; `int40?`: `undefined`; `int48?`: `undefined`; `int56?`: `undefined`; `int64?`: `undefined`; `int72?`: `undefined`; `int8?`: `undefined`; `int80?`: `undefined`; `int88?`: `undefined`; `int96?`: `undefined`; `string?`: `undefined`; `uint104?`: `undefined`; `uint112?`: `undefined`; `uint120?`: `undefined`; `uint128?`: `undefined`; `uint136?`: `undefined`; `uint144?`: `undefined`; `uint152?`: `undefined`; `uint16?`: `undefined`; `uint160?`: `undefined`; `uint168?`: `undefined`; `uint176?`: `undefined`; `uint184?`: `undefined`; `uint192?`: `undefined`; `uint200?`: `undefined`; `uint208?`: `undefined`; `uint216?`: `undefined`; `uint224?`: `undefined`; `uint232?`: `undefined`; `uint24?`: `undefined`; `uint240?`: `undefined`; `uint248?`: `undefined`; `uint256?`: `undefined`; `uint32?`: `undefined`; `uint40?`: `undefined`; `uint48?`: `undefined`; `uint56?`: `undefined`; `uint64?`: `undefined`; `uint72?`: `undefined`; `uint8?`: `undefined`; `uint80?`: `undefined`; `uint88?`: `undefined`; `uint96?`: `undefined`; \} \| \{[`key`: `string`]: `unknown`; \}
+`typedData` *extends* \{\[`key`: `string`\]: readonly `TypedDataParameter`[];
+\[`key`: `` `string[${string}]` ``\]: `undefined`;
+\[`key`: `` `function[${string}]` ``\]: `undefined`;
+\[`key`: `` `address[${string}]` ``\]: `undefined`;
+\[`key`: `` `bool[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes1[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes2[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes3[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes4[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes5[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes6[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes7[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes8[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes9[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes10[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes11[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes12[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes13[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes14[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes15[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes16[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes17[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes18[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes19[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes20[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes21[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes22[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes23[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes24[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes25[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes26[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes27[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes28[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes29[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes30[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes31[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes32[${string}]` ``\]: `undefined`;
+\[`key`: `` `int[${string}]` ``\]: `undefined`;
+\[`key`: `` `int8[${string}]` ``\]: `undefined`;
+\[`key`: `` `int16[${string}]` ``\]: `undefined`;
+\[`key`: `` `int24[${string}]` ``\]: `undefined`;
+\[`key`: `` `int32[${string}]` ``\]: `undefined`;
+\[`key`: `` `int40[${string}]` ``\]: `undefined`;
+\[`key`: `` `int48[${string}]` ``\]: `undefined`;
+\[`key`: `` `int56[${string}]` ``\]: `undefined`;
+\[`key`: `` `int64[${string}]` ``\]: `undefined`;
+\[`key`: `` `int72[${string}]` ``\]: `undefined`;
+\[`key`: `` `int80[${string}]` ``\]: `undefined`;
+\[`key`: `` `int88[${string}]` ``\]: `undefined`;
+\[`key`: `` `int96[${string}]` ``\]: `undefined`;
+\[`key`: `` `int104[${string}]` ``\]: `undefined`;
+\[`key`: `` `int112[${string}]` ``\]: `undefined`;
+\[`key`: `` `int120[${string}]` ``\]: `undefined`;
+\[`key`: `` `int128[${string}]` ``\]: `undefined`;
+\[`key`: `` `int136[${string}]` ``\]: `undefined`;
+\[`key`: `` `int144[${string}]` ``\]: `undefined`;
+\[`key`: `` `int152[${string}]` ``\]: `undefined`;
+\[`key`: `` `int160[${string}]` ``\]: `undefined`;
+\[`key`: `` `int168[${string}]` ``\]: `undefined`;
+\[`key`: `` `int176[${string}]` ``\]: `undefined`;
+\[`key`: `` `int184[${string}]` ``\]: `undefined`;
+\[`key`: `` `int192[${string}]` ``\]: `undefined`;
+\[`key`: `` `int200[${string}]` ``\]: `undefined`;
+\[`key`: `` `int208[${string}]` ``\]: `undefined`;
+\[`key`: `` `int216[${string}]` ``\]: `undefined`;
+\[`key`: `` `int224[${string}]` ``\]: `undefined`;
+\[`key`: `` `int232[${string}]` ``\]: `undefined`;
+\[`key`: `` `int240[${string}]` ``\]: `undefined`;
+\[`key`: `` `int248[${string}]` ``\]: `undefined`;
+\[`key`: `` `int256[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint8[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint16[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint24[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint32[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint40[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint48[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint56[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint64[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint72[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint80[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint88[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint96[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint104[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint112[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint120[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint128[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint136[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint144[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint152[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint160[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint168[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint176[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint184[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint192[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint200[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint208[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint216[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint224[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint232[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint240[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint248[${string}]` ``\]: `undefined`;
+\[`key`: `` `uint256[${string}]` ``\]: `undefined`; `address?`: `undefined`; `bool?`: `undefined`; `bytes?`: `undefined`; `bytes1?`: `undefined`; `bytes10?`: `undefined`; `bytes11?`: `undefined`; `bytes12?`: `undefined`; `bytes13?`: `undefined`; `bytes14?`: `undefined`; `bytes15?`: `undefined`; `bytes16?`: `undefined`; `bytes17?`: `undefined`; `bytes18?`: `undefined`; `bytes19?`: `undefined`; `bytes2?`: `undefined`; `bytes20?`: `undefined`; `bytes21?`: `undefined`; `bytes22?`: `undefined`; `bytes23?`: `undefined`; `bytes24?`: `undefined`; `bytes25?`: `undefined`; `bytes26?`: `undefined`; `bytes27?`: `undefined`; `bytes28?`: `undefined`; `bytes29?`: `undefined`; `bytes3?`: `undefined`; `bytes30?`: `undefined`; `bytes31?`: `undefined`; `bytes32?`: `undefined`; `bytes4?`: `undefined`; `bytes5?`: `undefined`; `bytes6?`: `undefined`; `bytes7?`: `undefined`; `bytes8?`: `undefined`; `bytes9?`: `undefined`; `int104?`: `undefined`; `int112?`: `undefined`; `int120?`: `undefined`; `int128?`: `undefined`; `int136?`: `undefined`; `int144?`: `undefined`; `int152?`: `undefined`; `int16?`: `undefined`; `int160?`: `undefined`; `int168?`: `undefined`; `int176?`: `undefined`; `int184?`: `undefined`; `int192?`: `undefined`; `int200?`: `undefined`; `int208?`: `undefined`; `int216?`: `undefined`; `int224?`: `undefined`; `int232?`: `undefined`; `int24?`: `undefined`; `int240?`: `undefined`; `int248?`: `undefined`; `int256?`: `undefined`; `int32?`: `undefined`; `int40?`: `undefined`; `int48?`: `undefined`; `int56?`: `undefined`; `int64?`: `undefined`; `int72?`: `undefined`; `int8?`: `undefined`; `int80?`: `undefined`; `int88?`: `undefined`; `int96?`: `undefined`; `string?`: `undefined`; `uint104?`: `undefined`; `uint112?`: `undefined`; `uint120?`: `undefined`; `uint128?`: `undefined`; `uint136?`: `undefined`; `uint144?`: `undefined`; `uint152?`: `undefined`; `uint16?`: `undefined`; `uint160?`: `undefined`; `uint168?`: `undefined`; `uint176?`: `undefined`; `uint184?`: `undefined`; `uint192?`: `undefined`; `uint200?`: `undefined`; `uint208?`: `undefined`; `uint216?`: `undefined`; `uint224?`: `undefined`; `uint232?`: `undefined`; `uint24?`: `undefined`; `uint240?`: `undefined`; `uint248?`: `undefined`; `uint256?`: `undefined`; `uint32?`: `undefined`; `uint40?`: `undefined`; `uint48?`: `undefined`; `uint56?`: `undefined`; `uint64?`: `undefined`; `uint72?`: `undefined`; `uint8?`: `undefined`; `uint80?`: `undefined`; `uint88?`: `undefined`; `uint96?`: `undefined`; \} \| \{\[`key`: `string`\]: `unknown`; \}
 
 ##### primaryType
 
@@ -4637,13 +4677,13 @@ await client.tevmSetAccount({
 
 The RPC transport
 
-#### Type declaration
+#### Type Declaration
 
 ##### tevm
 
 > **tevm**: `object` & `EIP1193Events` & `object` & `object`
 
-###### Type declaration
+###### Type Declaration
 
 ###### debug()?
 
@@ -4868,7 +4908,7 @@ Returns status of the client
 - SYNCING: The client is syncing with the forked node
 - MINING: The client is mining a block
 
-###### Type declaration
+###### Type Declaration
 
 ###### emit()
 
@@ -4896,7 +4936,7 @@ Arguments to pass to the event listeners.
 
 True if the event was emitted, false otherwise.
 
-###### Type declaration
+###### Type Declaration
 
 ###### request
 
@@ -4953,6 +4993,26 @@ const uninstalled = await client.uninstallFilter({ filter })
 // true
 ```
 
+### verifyHash()
+
+> **verifyHash**: (`args`) => `Promise`\<`boolean`\>
+
+Verify that a hash was signed by the provided address.
+
+- Docs [https://viem.sh/docs/actions/public/verifyHash](https://viem.sh/docs/actions/public/verifyHash)
+
+#### Parameters
+
+##### args
+
+`VerifyHashParameters`
+
+#### Returns
+
+`Promise`\<`boolean`\>
+
+Whether or not the signature is valid. VerifyHashReturnType
+
 ### verifyMessage()
 
 > **verifyMessage**: (`args`) => `Promise`\<`boolean`\>
@@ -4991,6 +5051,12 @@ The balance of the account at a block tag.
 'latest'
 ```
 
+###### erc6492VerifierAddress?
+
+`` `0x${string}` ``
+
+The address of the ERC-6492 signature verifier contract.
+
 ###### factory?
 
 `` `0x${string}` ``
@@ -5005,6 +5071,12 @@ The balance of the account at a block tag.
 
 The message to be verified.
 
+###### multicallAddress?
+
+`` `0x${string}` ``
+
+Multicall3 address for ERC-8010 verification.
+
 ###### signature
 
 `` `0x${string}` `` \| `ByteArray` \| `Signature`
@@ -5014,6 +5086,10 @@ The signature that was generated by signing the message with the address's priva
 ###### universalSignatureVerifierAddress?
 
 `` `0x${string}` ``
+
+**Deprecated**
+
+use `erc6492VerifierAddress` instead.
 
 #### Returns
 
@@ -5129,7 +5205,7 @@ Whether or not the signature is valid. VerifyTypedDataReturnType
 
 ### waitForCallsStatus()
 
-> **waitForCallsStatus**: (`parameters`) => `Promise`\<\{ `atomic`: `boolean`; `capabilities?`: \{[`key`: `string`]: `any`; \} \| \{[`key`: `string`]: `any`; \}; `chainId`: `number`; `id`: `string`; `receipts?`: `WalletCallReceipt`\<`bigint`, `"success"` \| `"reverted"`\>[]; `status`: `undefined` \| `"pending"` \| `"success"` \| `"failure"`; `statusCode`: `number`; `version`: `string`; \}\>
+> **waitForCallsStatus**: (`parameters`) => `Promise`\<\{ `atomic`: `boolean`; `capabilities?`: \{\[`key`: `string`\]: `any`; \} \| \{\[`key`: `string`\]: `any`; \}; `chainId`: `number`; `id`: `string`; `receipts?`: `WalletCallReceipt`\<`bigint`, `"success"` \| `"reverted"`\>[]; `status`: `undefined` \| `"pending"` \| `"success"` \| `"failure"`; `statusCode`: `number`; `version`: `string`; \}\>
 
 Waits for the status & receipts of a call bundle that was sent via `sendCalls`.
 
@@ -5146,7 +5222,7 @@ WaitForCallsStatusParameters
 
 #### Returns
 
-`Promise`\<\{ `atomic`: `boolean`; `capabilities?`: \{[`key`: `string`]: `any`; \} \| \{[`key`: `string`]: `any`; \}; `chainId`: `number`; `id`: `string`; `receipts?`: `WalletCallReceipt`\<`bigint`, `"success"` \| `"reverted"`\>[]; `status`: `undefined` \| `"pending"` \| `"success"` \| `"failure"`; `statusCode`: `number`; `version`: `string`; \}\>
+`Promise`\<\{ `atomic`: `boolean`; `capabilities?`: \{\[`key`: `string`\]: `any`; \} \| \{\[`key`: `string`\]: `any`; \}; `chainId`: `number`; `id`: `string`; `receipts?`: `WalletCallReceipt`\<`bigint`, `"success"` \| `"reverted"`\>[]; `status`: `undefined` \| `"pending"` \| `"success"` \| `"failure"`; `statusCode`: `number`; `version`: `string`; \}\>
 
 Status & receipts of the call bundle. WaitForCallsStatusReturnType
 

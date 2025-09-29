@@ -6,7 +6,7 @@
 
 # Function: createEvm()
 
-> **createEvm**(`__namedParameters`): `Promise`\<[`EvmType`](../classes/EvmType.md)\>
+> **createEvm**(`__namedParameters`): `Promise`\<[`EvmType`](../interfaces/EvmType.md)\>
 
 Defined in: [packages/evm/src/createEvm.js:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/createEvm.js#L30)
 
@@ -21,7 +21,7 @@ Wraps [ethereumjs EVM](https://github.com/ethereumjs/ethereumjs-monorepo/tree/ma
 
 ## Returns
 
-`Promise`\<[`EvmType`](../classes/EvmType.md)\>
+`Promise`\<[`EvmType`](../interfaces/EvmType.md)\>
 
 ## Example
 

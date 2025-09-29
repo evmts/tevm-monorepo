@@ -8,7 +8,7 @@
 
 > **TransactionRejectedErrorParameters** = `object`
 
-Defined in: packages/errors/types/ethereum/TransactionRejectedError.d.ts:69
+Defined in: packages/errors/types/ethereum/TransactionRejectedError.d.ts:59
 
 Parameters for constructing a TransactionRejectedError.
 
@@ -18,7 +18,7 @@ Parameters for constructing a TransactionRejectedError.
 
 > `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `Error`
 
-Defined in: packages/errors/types/ethereum/TransactionRejectedError.d.ts:89
+Defined in: packages/errors/types/ethereum/TransactionRejectedError.d.ts:79
 
 - The cause of the error.
 
@@ -28,7 +28,7 @@ Defined in: packages/errors/types/ethereum/TransactionRejectedError.d.ts:89
 
 > `optional` **details**: `string`
 
-Defined in: packages/errors/types/ethereum/TransactionRejectedError.d.ts:93
+Defined in: packages/errors/types/ethereum/TransactionRejectedError.d.ts:83
 
 - Details of the error.
 
@@ -38,7 +38,7 @@ Defined in: packages/errors/types/ethereum/TransactionRejectedError.d.ts:93
 
 > `optional` **docsBaseUrl**: `string`
 
-Defined in: packages/errors/types/ethereum/TransactionRejectedError.d.ts:73
+Defined in: packages/errors/types/ethereum/TransactionRejectedError.d.ts:63
 
 - Base URL for the documentation.
 
@@ -48,7 +48,7 @@ Defined in: packages/errors/types/ethereum/TransactionRejectedError.d.ts:73
 
 > `optional` **docsPath**: `string`
 
-Defined in: packages/errors/types/ethereum/TransactionRejectedError.d.ts:77
+Defined in: packages/errors/types/ethereum/TransactionRejectedError.d.ts:67
 
 - Path to the documentation.
 
@@ -58,7 +58,7 @@ Defined in: packages/errors/types/ethereum/TransactionRejectedError.d.ts:77
 
 > `optional` **docsSlug**: `string`
 
-Defined in: packages/errors/types/ethereum/TransactionRejectedError.d.ts:81
+Defined in: packages/errors/types/ethereum/TransactionRejectedError.d.ts:71
 
 - Slug for the documentation.
 
@@ -68,7 +68,7 @@ Defined in: packages/errors/types/ethereum/TransactionRejectedError.d.ts:81
 
 > `optional` **meta**: `object`
 
-Defined in: packages/errors/types/ethereum/TransactionRejectedError.d.ts:97
+Defined in: packages/errors/types/ethereum/TransactionRejectedError.d.ts:87
 
 - Optional object containing additional information about the error.
 
@@ -78,6 +78,6 @@ Defined in: packages/errors/types/ethereum/TransactionRejectedError.d.ts:97
 
 > `optional` **metaMessages**: `string`[]
 
-Defined in: packages/errors/types/ethereum/TransactionRejectedError.d.ts:85
+Defined in: packages/errors/types/ethereum/TransactionRejectedError.d.ts:75
 
 - Additional meta messages.

@@ -10,7 +10,7 @@
 
 Defined in: packages/vm/types/actions/DAOConfig.d.ts:1
 
-## Type declaration
+## Type Declaration
 
 ### DAOAccounts
 

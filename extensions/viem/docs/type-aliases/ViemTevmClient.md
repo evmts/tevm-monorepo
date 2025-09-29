@@ -4,7 +4,7 @@
 
 [@tevm/viem](../globals.md) / ViemTevmClient
 
-# Type Alias: ~~ViemTevmClient~~
+# ~~Type Alias: ViemTevmClient~~
 
 > **ViemTevmClient** = `object`
 

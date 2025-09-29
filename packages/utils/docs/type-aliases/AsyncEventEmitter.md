@@ -8,7 +8,7 @@
 
 > **AsyncEventEmitter**\<`T`\> = `object`
 
-Defined in: [packages/utils/src/index.ts:129](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/index.ts#L129)
+Defined in: [packages/utils/src/index.ts:136](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/index.ts#L136)
 
 ## Type Parameters
 
@@ -22,7 +22,7 @@ Defined in: [packages/utils/src/index.ts:129](https://github.com/evmts/tevm-mono
 
 > **emit**\<`K`\>(`event`, ...`args`): `boolean`
 
-Defined in: [packages/utils/src/index.ts:133](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/index.ts#L133)
+Defined in: [packages/utils/src/index.ts:140](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/index.ts#L140)
 
 #### Type Parameters
 
@@ -50,7 +50,7 @@ Defined in: [packages/utils/src/index.ts:133](https://github.com/evmts/tevm-mono
 
 > **off**\<`K`\>(`event`, `listener`): `void`
 
-Defined in: [packages/utils/src/index.ts:132](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/index.ts#L132)
+Defined in: [packages/utils/src/index.ts:139](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/index.ts#L139)
 
 #### Type Parameters
 
@@ -78,7 +78,7 @@ Defined in: [packages/utils/src/index.ts:132](https://github.com/evmts/tevm-mono
 
 > **on**\<`K`\>(`event`, `listener`): `void`
 
-Defined in: [packages/utils/src/index.ts:130](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/index.ts#L130)
+Defined in: [packages/utils/src/index.ts:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/index.ts#L137)
 
 #### Type Parameters
 
@@ -106,7 +106,7 @@ Defined in: [packages/utils/src/index.ts:130](https://github.com/evmts/tevm-mono
 
 > **once**\<`K`\>(`event`, `listener`): `void`
 
-Defined in: [packages/utils/src/index.ts:131](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/index.ts#L131)
+Defined in: [packages/utils/src/index.ts:138](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/index.ts#L138)
 
 #### Type Parameters
 
@@ -134,7 +134,7 @@ Defined in: [packages/utils/src/index.ts:131](https://github.com/evmts/tevm-mono
 
 > **removeAllListeners**\<`K`\>(`event?`): `void`
 
-Defined in: [packages/utils/src/index.ts:134](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/index.ts#L134)
+Defined in: [packages/utils/src/index.ts:141](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/index.ts#L141)
 
 #### Type Parameters
 

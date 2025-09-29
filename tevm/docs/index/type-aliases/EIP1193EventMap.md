@@ -8,7 +8,7 @@
 
 > **EIP1193EventMap** = `object`
 
-Defined in: packages/node/dist/index.d.ts:29
+Defined in: packages/node/dist/index.d.ts:251
 
 ## Methods
 
@@ -16,7 +16,7 @@ Defined in: packages/node/dist/index.d.ts:29
 
 > **accountsChanged**(`accounts`): `void`
 
-Defined in: packages/node/dist/index.d.ts:30
+Defined in: packages/node/dist/index.d.ts:252
 
 #### Parameters
 
@@ -34,7 +34,7 @@ Defined in: packages/node/dist/index.d.ts:30
 
 > **chainChanged**(`chainId`): `void`
 
-Defined in: packages/node/dist/index.d.ts:31
+Defined in: packages/node/dist/index.d.ts:253
 
 #### Parameters
 
@@ -52,7 +52,7 @@ Defined in: packages/node/dist/index.d.ts:31
 
 > **connect**(`connectInfo`): `void`
 
-Defined in: packages/node/dist/index.d.ts:32
+Defined in: packages/node/dist/index.d.ts:254
 
 #### Parameters
 
@@ -70,7 +70,7 @@ Defined in: packages/node/dist/index.d.ts:32
 
 > **disconnect**(`error`): `void`
 
-Defined in: packages/node/dist/index.d.ts:33
+Defined in: packages/node/dist/index.d.ts:255
 
 #### Parameters
 
@@ -88,7 +88,7 @@ Defined in: packages/node/dist/index.d.ts:33
 
 > **message**(`message`): `void`
 
-Defined in: packages/node/dist/index.d.ts:34
+Defined in: packages/node/dist/index.d.ts:256
 
 #### Parameters
 
@@ -106,7 +106,7 @@ Defined in: packages/node/dist/index.d.ts:34
 
 > **newBlock**(`block`): `void`
 
-Defined in: packages/node/dist/index.d.ts:37
+Defined in: packages/node/dist/index.d.ts:259
 
 #### Parameters
 
@@ -124,7 +124,7 @@ Defined in: packages/node/dist/index.d.ts:37
 
 > **newLog**(`log`): `void`
 
-Defined in: packages/node/dist/index.d.ts:38
+Defined in: packages/node/dist/index.d.ts:260
 
 #### Parameters
 
@@ -142,7 +142,7 @@ Defined in: packages/node/dist/index.d.ts:38
 
 > **newPendingTransaction**(`tx`): `void`
 
-Defined in: packages/node/dist/index.d.ts:35
+Defined in: packages/node/dist/index.d.ts:257
 
 #### Parameters
 
@@ -160,7 +160,7 @@ Defined in: packages/node/dist/index.d.ts:35
 
 > **newReceipt**(`receipt`): `void`
 
-Defined in: packages/node/dist/index.d.ts:36
+Defined in: packages/node/dist/index.d.ts:258
 
 #### Parameters
 

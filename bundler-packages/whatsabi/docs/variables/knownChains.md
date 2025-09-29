@@ -10,7 +10,7 @@
 
 Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/knownChains.js#L6)
 
-## Type declaration
+## Type Declaration
 
 ### 1
 
@@ -36,17 +36,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://etherscan.io"`
 
+#### 1.blockTime
+
+> **blockTime**: `12000`
+
 #### 1.contracts
 
 > **contracts**: `object`
-
-#### 1.contracts.ensRegistry
-
-> `readonly` **ensRegistry**: `object`
-
-#### 1.contracts.ensRegistry.address
-
-> `readonly` **address**: `"0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e"`
 
 #### 1.contracts.ensUniversalResolver
 
@@ -54,11 +50,11 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 #### 1.contracts.ensUniversalResolver.address
 
-> `readonly` **address**: `"0xce01f8eee7E479C928F8919abD53E553a36CeF67"`
+> `readonly` **address**: `"0xeeeeeeee14d718c2b47d9923deab1335e144eeee"`
 
 #### 1.contracts.ensUniversalResolver.blockCreated
 
-> `readonly` **blockCreated**: `19258213`
+> `readonly` **blockCreated**: `23085558`
 
 #### 1.contracts.multicall3
 
@@ -79,6 +75,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 1.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 1.fees?
 
@@ -159,6 +159,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 10.blockExplorers.default.url
 
 > `readonly` **url**: `"https://optimistic.etherscan.io"`
+
+#### 10.blockTime
+
+> **blockTime**: `2000`
 
 #### 10.contracts
 
@@ -279,6 +283,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 10.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 10.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 10.fees?
 
@@ -648,6 +656,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://gnosisscan.io"`
 
+#### 100.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 100.contracts
 
 > **contracts**: `object`
@@ -671,6 +683,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 100.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 100.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 100.fees?
 
@@ -764,13 +780,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://vechainstats.com"`
 
+#### 100009.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 100009.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 100009.contracts.ensRegistry?
 
@@ -780,13 +800,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 100009.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 100009.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 100009.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 100009.custom?
 
@@ -795,6 +815,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 100009.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 100009.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 100009.fees?
 
@@ -876,13 +900,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://test.ektascan.io"`
 
+#### 1004.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 1004.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 1004.contracts.ensRegistry?
 
@@ -892,13 +920,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 1004.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 1004.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 1004.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 1004.custom?
 
@@ -907,6 +935,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1004.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 1004.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 1004.fees?
 
@@ -984,13 +1016,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://broscan.bronos.org"`
 
+#### 1039.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 1039.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 1039.contracts.ensRegistry?
 
@@ -1000,13 +1036,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 1039.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 1039.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 1039.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 1039.custom?
 
@@ -1015,6 +1051,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1039.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 1039.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 1039.fees?
 
@@ -1092,13 +1132,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.stratisevm.com"`
 
+#### 105105.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 105105.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 105105.contracts.ensRegistry?
 
@@ -1108,13 +1152,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 105105.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 105105.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 105105.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 105105.custom?
 
@@ -1123,6 +1167,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 105105.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 105105.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 105105.fees?
 
@@ -1208,6 +1256,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.metis.io"`
 
+#### 1088.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 1088.contracts
 
 > **contracts**: `object`
@@ -1231,6 +1283,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1088.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 1088.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 1088.fees?
 
@@ -1312,6 +1368,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://shibariumscan.io"`
 
+#### 109.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 109.contracts
 
 > **contracts**: `object`
@@ -1335,6 +1395,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 109.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 109.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 109.fees?
 
@@ -1416,13 +1480,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.wemix.com"`
 
+#### 1111.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 1111.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 1111.contracts.ensRegistry?
 
@@ -1432,13 +1500,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 1111.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 1111.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 1111.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 1111.custom?
 
@@ -1447,6 +1515,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1111.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 1111.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 1111.fees?
 
@@ -1532,6 +1604,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.re.al"`
 
+#### 111188.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 111188.contracts
 
 > **contracts**: `object`
@@ -1555,6 +1631,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 111188.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 111188.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 111188.fees?
 
@@ -1636,17 +1716,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://sepolia.etherscan.io"`
 
+#### 11155111.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 11155111.contracts
 
 > **contracts**: `object`
-
-#### 11155111.contracts.ensRegistry
-
-> `readonly` **ensRegistry**: `object`
-
-#### 11155111.contracts.ensRegistry.address
-
-> `readonly` **address**: `"0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e"`
 
 #### 11155111.contracts.ensUniversalResolver
 
@@ -1654,11 +1730,11 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 #### 11155111.contracts.ensUniversalResolver.address
 
-> `readonly` **address**: `"0xc8Af999e38273D658BE1b921b88A9Ddf005769cC"`
+> `readonly` **address**: `"0xeeeeeeee14d718c2b47d9923deab1335e144eeee"`
 
 #### 11155111.contracts.ensUniversalResolver.blockCreated
 
-> `readonly` **blockCreated**: `5317080`
+> `readonly` **blockCreated**: `8928790`
 
 #### 11155111.contracts.multicall3
 
@@ -1679,6 +1755,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 11155111.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 11155111.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 11155111.fees?
 
@@ -1759,6 +1839,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 11155420.blockExplorers.default.url
 
 > `readonly` **url**: `"https://optimism-sepolia.blockscout.com"`
+
+#### 11155420.blockTime
+
+> **blockTime**: `2000`
 
 #### 11155420.contracts
 
@@ -1879,6 +1963,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 11155420.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 11155420.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 11155420.fees?
 
@@ -2248,6 +2336,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://testnet.cyberscan.co"`
 
+#### 111557560.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 111557560.contracts
 
 > **contracts**: `object`
@@ -2271,6 +2363,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 111557560.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 111557560.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 111557560.fees?
 
@@ -2348,6 +2444,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://scan.coredao.org"`
 
+#### 1116.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 1116.contracts
 
 > **contracts**: `object`
@@ -2371,6 +2471,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1116.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 1116.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 1116.fees?
 
@@ -2452,13 +2556,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.haqq.network"`
 
+#### 11235.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 11235.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 11235.contracts.ensRegistry?
 
@@ -2468,13 +2576,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 11235.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 11235.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 11235.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 11235.custom?
 
@@ -2483,6 +2591,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 11235.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 11235.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 11235.fees?
 
@@ -2560,6 +2672,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://palm.chainlens.com"`
 
+#### 11297108099.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 11297108099.contracts
 
 > **contracts**: `object`
@@ -2583,6 +2699,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 11297108099.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 11297108099.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 11297108099.fees?
 
@@ -2664,6 +2784,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://palm.chainlens.com"`
 
+#### 11297108109.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 11297108109.contracts
 
 > **contracts**: `object`
@@ -2687,6 +2811,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 11297108109.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 11297108109.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 11297108109.fees?
 
@@ -2768,6 +2896,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://meta.defiscan.live"`
 
+#### 1130.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 1130.contracts
 
 > **contracts**: `object`
@@ -2791,6 +2923,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1130.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 1130.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 1130.fees?
 
@@ -2875,6 +3011,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1135.blockExplorers.default.url
 
 > `readonly` **url**: `"https://blockscout.lisk.com"`
+
+#### 1135.blockTime
+
+> **blockTime**: `2000`
 
 #### 1135.contracts
 
@@ -2979,6 +3119,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1135.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 1135.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 1135.fees?
 
@@ -3352,13 +3496,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://coston2-explorer.flare.network"`
 
+#### 114.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 114.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 114.contracts.ensRegistry?
 
@@ -3368,13 +3516,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 114.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 114.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 114.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 114.custom?
 
@@ -3383,6 +3531,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 114.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 114.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 114.fees?
 
@@ -3464,13 +3616,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://scan-mainnet.bevm.io"`
 
+#### 11501.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 11501.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 11501.contracts.ensRegistry?
 
@@ -3480,13 +3636,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 11501.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 11501.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 11501.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 11501.custom?
 
@@ -3495,6 +3651,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 11501.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 11501.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 11501.fees?
 
@@ -3576,6 +3736,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.fuse.io"`
 
+#### 122.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 122.contracts
 
 > **contracts**: `object`
@@ -3599,6 +3763,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 122.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 122.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 122.fees?
 
@@ -3680,13 +3848,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.fusespark.io"`
 
+#### 123.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 123.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 123.contracts.ensRegistry?
 
@@ -3696,13 +3868,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 123.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 123.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 123.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 123.custom?
 
@@ -3711,6 +3883,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 123.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 123.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 123.fees?
 
@@ -3788,13 +3964,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://scan.fibochain.org"`
 
+#### 12306.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 12306.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 12306.contracts.ensRegistry?
 
@@ -3804,13 +3984,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 12306.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 12306.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 12306.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 12306.custom?
 
@@ -3819,6 +3999,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 12306.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 12306.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 12306.fees?
 
@@ -3900,13 +4084,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.l3x.com"`
 
+#### 12324.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 12324.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 12324.contracts.ensRegistry?
 
@@ -3916,13 +4104,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 12324.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 12324.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 12324.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 12324.custom?
 
@@ -3931,6 +4119,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 12324.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 12324.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 12324.fees?
 
@@ -4016,13 +4208,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer-testnet.l3x.com"`
 
+#### 12325.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 12325.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 12325.contracts.ensRegistry?
 
@@ -4032,13 +4228,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 12325.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 12325.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 12325.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 12325.custom?
 
@@ -4047,6 +4243,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 12325.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 12325.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 12325.fees?
 
@@ -4131,6 +4331,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 12553.blockExplorers.default.url
 
 > `readonly` **url**: `"https://scan.rss3.io"`
+
+#### 12553.blockTime
+
+> **blockTime**: `2000`
 
 #### 12553.contracts
 
@@ -4243,6 +4447,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 12553.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 12553.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 12553.fees?
 
@@ -4616,13 +4824,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > **url**: `string`
 
+#### 1281.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 1281.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 1281.contracts.ensRegistry?
 
@@ -4632,13 +4844,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 1281.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 1281.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 1281.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 1281.custom?
 
@@ -4647,6 +4859,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1281.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 1281.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 1281.fees?
 
@@ -4732,6 +4948,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://moonriver.moonscan.io"`
 
+#### 1285.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 1285.contracts
 
 > **contracts**: `object`
@@ -4755,6 +4975,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1285.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 1285.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 1285.fees?
 
@@ -4840,6 +5064,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://aurorascan.dev"`
 
+#### 1313161554.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 1313161554.contracts
 
 > **contracts**: `object`
@@ -4863,6 +5091,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1313161554.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 1313161554.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 1313161554.fees?
 
@@ -4940,29 +5172,25 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://seitrace.com"`
 
-#### 1328.contracts?
+#### 1328.blockTime?
 
-> `optional` **contracts**: `object`
+> `optional` **blockTime**: `number`
 
-##### Index Signature
+#### 1328.contracts
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+> **contracts**: `object`
 
-#### 1328.contracts.ensRegistry?
+#### 1328.contracts.multicall3
 
-> `optional` **ensRegistry**: `ChainContract`
+> `readonly` **multicall3**: `object`
 
-#### 1328.contracts.ensUniversalResolver?
+#### 1328.contracts.multicall3.address
 
-> `optional` **ensUniversalResolver**: `ChainContract`
+> `readonly` **address**: `"0xcA11bde05977b3631167028862bE2a173976CA11"`
 
-#### 1328.contracts.multicall3?
+#### 1328.contracts.multicall3.blockCreated
 
-> `optional` **multicall3**: `ChainContract`
-
-#### 1328.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
+> `readonly` **blockCreated**: `98697651`
 
 #### 1328.custom?
 
@@ -4971,6 +5199,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1328.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 1328.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 1328.fees?
 
@@ -5056,6 +5288,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://seitrace.com"`
 
+#### 1329.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 1329.contracts
 
 > **contracts**: `object`
@@ -5075,6 +5311,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1329.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 1329.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 1329.fees?
 
@@ -5156,6 +5396,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://subnets-test.avax.network/beam"`
 
+#### 13337.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 13337.contracts
 
 > **contracts**: `object`
@@ -5179,6 +5423,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 13337.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 13337.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 13337.fees?
 
@@ -5272,13 +5520,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > **url**: `string`
 
+#### 1337.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 1337.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 1337.contracts.ensRegistry?
 
@@ -5288,13 +5540,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 1337.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 1337.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 1337.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 1337.custom?
 
@@ -5303,6 +5555,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1337.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 1337.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 1337.fees?
 
@@ -5380,13 +5636,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://zhejiang.beaconcha.in"`
 
+#### 1337803.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 1337803.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 1337803.contracts.ensRegistry?
 
@@ -5396,13 +5656,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 1337803.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 1337803.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 1337803.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 1337803.custom?
 
@@ -5411,6 +5671,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1337803.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 1337803.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 1337803.fees?
 
@@ -5492,6 +5756,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://phoenixplorer.com"`
 
+#### 13381.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 13381.contracts
 
 > **contracts**: `object`
@@ -5515,6 +5783,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 13381.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 13381.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 13381.fees?
 
@@ -5592,6 +5864,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://parallel-stormy-spica.explorer.mainnet.skalenodes.com"`
 
+#### 1350216234.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 1350216234.contracts
 
 > **contracts**: `object`
@@ -5615,6 +5891,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1350216234.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 1350216234.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 1350216234.fees?
 
@@ -5700,6 +5980,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://polygonscan.com"`
 
+#### 137.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 137.contracts
 
 > **contracts**: `object`
@@ -5723,6 +6007,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 137.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 137.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 137.fees?
 
@@ -5804,6 +6092,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://flare-explorer.flare.network"`
 
+#### 14.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 14.contracts
 
 > **contracts**: `object`
@@ -5827,6 +6119,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 14.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 14.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 14.fees?
 
@@ -5908,13 +6204,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.evm.shimmer.network"`
 
+#### 148.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 148.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 148.contracts.ensRegistry?
 
@@ -5924,13 +6224,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 148.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 148.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 148.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 148.custom?
 
@@ -5939,6 +6239,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 148.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 148.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 148.fees?
 
@@ -6020,6 +6324,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://green-giddy-denebola.explorer.mainnet.skalenodes.com"`
 
+#### 1482601649.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 1482601649.contracts
 
 > **contracts**: `object`
@@ -6043,6 +6351,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1482601649.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 1482601649.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 1482601649.fees?
 
@@ -6128,6 +6440,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.testnet.evm.eosnetwork.com"`
 
+#### 15557.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 15557.contracts
 
 > **contracts**: `object`
@@ -6151,6 +6467,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 15557.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 15557.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 15557.fees?
 
@@ -6232,13 +6552,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://tenetscan.io"`
 
+#### 1559.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 1559.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 1559.contracts.ensRegistry?
 
@@ -6248,13 +6572,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 1559.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 1559.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 1559.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 1559.custom?
 
@@ -6263,6 +6587,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1559.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 1559.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 1559.fees?
 
@@ -6344,6 +6672,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://gobi-explorer.horizen.io"`
 
+#### 1663.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 1663.contracts
 
 > **contracts**: `object`
@@ -6355,6 +6687,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1663.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 1663.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 1663.fees?
 
@@ -6432,6 +6768,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.harmony.one"`
 
+#### 1666600000.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 1666600000.contracts
 
 > **contracts**: `object`
@@ -6455,6 +6795,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1666600000.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 1666600000.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 1666600000.fees?
 
@@ -6536,6 +6880,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://taikoscan.io"`
 
+#### 167000.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 167000.contracts
 
 > **contracts**: `object`
@@ -6555,6 +6903,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 167000.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 167000.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 167000.fees?
 
@@ -6636,6 +6988,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.jolnir.taiko.xyz"`
 
+#### 167007.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 167007.contracts
 
 > **contracts**: `object`
@@ -6659,6 +7015,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 167007.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 167007.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 167007.fees?
 
@@ -6736,13 +7096,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.katla.taiko.xyz"`
 
+#### 167008.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 167008.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 167008.contracts.ensRegistry?
 
@@ -6752,13 +7116,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 167008.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 167008.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 167008.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 167008.custom?
 
@@ -6767,6 +7131,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 167008.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 167008.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 167008.fees?
 
@@ -6848,6 +7216,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://hekla.taikoscan.network"`
 
+#### 167009.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 167009.contracts
 
 > **contracts**: `object`
@@ -6871,6 +7243,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 167009.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 167009.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 167009.fees?
 
@@ -6952,6 +7328,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://sepolia.blastscan.io"`
 
+#### 168587773.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 168587773.contracts
 
 > **contracts**: `object`
@@ -6975,6 +7355,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 168587773.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 168587773.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 168587773.fees?
 
@@ -7056,6 +7440,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://pacific-explorer.manta.network"`
 
+#### 169.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 169.contracts
 
 > **contracts**: `object`
@@ -7079,6 +7467,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 169.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 169.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 169.fees?
 
@@ -7164,21 +7556,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://holesky.etherscan.io"`
 
+#### 17000.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 17000.contracts
 
 > **contracts**: `object`
-
-#### 17000.contracts.ensRegistry
-
-> `readonly` **ensRegistry**: `object`
-
-#### 17000.contracts.ensRegistry.address
-
-> `readonly` **address**: `"0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e"`
-
-#### 17000.contracts.ensRegistry.blockCreated
-
-> `readonly` **blockCreated**: `801613`
 
 #### 17000.contracts.ensUniversalResolver
 
@@ -7186,11 +7570,11 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 #### 17000.contracts.ensUniversalResolver.address
 
-> `readonly` **address**: `"0xa6AC935D4971E3CD133b950aE053bECD16fE7f3b"`
+> `readonly` **address**: `"0xeeeeeeee14d718c2b47d9923deab1335e144eeee"`
 
 #### 17000.contracts.ensUniversalResolver.blockCreated
 
-> `readonly` **blockCreated**: `973484`
+> `readonly` **blockCreated**: `4295055`
 
 #### 17000.contracts.multicall3
 
@@ -7211,6 +7595,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 17000.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 17000.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 17000.fees?
 
@@ -7288,13 +7676,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.reya.network"`
 
+#### 1729.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 1729.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 1729.contracts.ensRegistry?
 
@@ -7304,13 +7696,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 1729.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 1729.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 1729.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 1729.custom?
 
@@ -7319,6 +7711,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1729.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 1729.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 1729.fees?
 
@@ -7403,6 +7799,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1750.blockExplorers.default.url
 
 > `readonly` **url**: `"https://explorer.metall2.com"`
+
+#### 1750.blockTime
+
+> **blockTime**: `2000`
 
 #### 1750.contracts
 
@@ -7511,6 +7911,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1750.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 1750.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 1750.fees?
 
@@ -7884,6 +8288,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.evm.eosnetwork.com"`
 
+#### 17777.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 17777.contracts
 
 > **contracts**: `object`
@@ -7907,6 +8315,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 17777.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 17777.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 17777.fees?
 
@@ -7988,6 +8400,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://unreal.blockscout.com"`
 
+#### 18233.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 18233.contracts
 
 > **contracts**: `object`
@@ -8011,6 +8427,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 18233.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 18233.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 18233.fees?
 
@@ -8092,6 +8512,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://songbird-explorer.flare.network"`
 
+#### 19.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 19.contracts
 
 > **contracts**: `object`
@@ -8115,6 +8539,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 19.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 19.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 19.fees?
 
@@ -8192,6 +8620,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://www.oklink.com/xlayer-test"`
 
+#### 195.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 195.contracts
 
 > **contracts**: `object`
@@ -8215,6 +8647,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 195.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 195.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 195.fees?
 
@@ -8296,6 +8732,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://www.oklink.com/xlayer"`
 
+#### 196.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 196.contracts
 
 > **contracts**: `object`
@@ -8319,6 +8759,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 196.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 196.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 196.fees?
 
@@ -8400,6 +8844,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://bttcscan.com"`
 
+#### 199.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 199.contracts
 
 > **contracts**: `object`
@@ -8423,6 +8871,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 199.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 199.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 199.fees?
 
@@ -8508,13 +8960,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://ektascan.io"`
 
+#### 1994.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 1994.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 1994.contracts.ensRegistry?
 
@@ -8524,13 +8980,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 1994.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 1994.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 1994.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 1994.custom?
 
@@ -8539,6 +8995,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 1994.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 1994.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 1994.fees?
 
@@ -8620,6 +9080,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.dogechain.dog"`
 
+#### 2000.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 2000.contracts
 
 > **contracts**: `object`
@@ -8643,6 +9107,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 2000.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 2000.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 2000.fees?
 
@@ -8720,13 +9188,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://testnet.btrscan.com"`
 
+#### 200810.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 200810.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 200810.contracts.ensRegistry?
 
@@ -8736,13 +9208,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 200810.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 200810.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 200810.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 200810.custom?
 
@@ -8751,6 +9223,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 200810.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 200810.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 200810.fees?
 
@@ -8832,13 +9308,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://www.btrscan.com"`
 
+#### 200901.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 200901.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 200901.contracts.ensRegistry?
 
@@ -8848,13 +9328,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 200901.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 200901.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 200901.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 200901.custom?
 
@@ -8863,6 +9343,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 200901.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 200901.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 200901.fees?
 
@@ -8944,6 +9428,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://app.roninchain.com"`
 
+#### 2020.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 2020.contracts
 
 > **contracts**: `object`
@@ -8967,6 +9455,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 2020.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 2020.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 2020.fees?
 
@@ -9048,6 +9540,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://edgscan.live"`
 
+#### 2021.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 2021.contracts
 
 > **contracts**: `object`
@@ -9071,6 +9567,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 2021.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 2021.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 2021.fees?
 
@@ -9148,13 +9648,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.edgeless.network"`
 
+#### 2026.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 2026.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 2026.contracts.ensRegistry?
 
@@ -9164,13 +9668,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 2026.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 2026.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 2026.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 2026.custom?
 
@@ -9179,6 +9683,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 2026.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 2026.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 2026.fees?
 
@@ -9263,6 +9771,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 204.blockExplorers.default.url
 
 > `readonly` **url**: `"https://opbnb.bscscan.com"`
+
+#### 204.blockTime?
+
+> `optional` **blockTime**: `number`
 
 #### 204.contracts
 
@@ -9372,6 +9884,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensTlds**: readonly `string`[]
 
+#### 204.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
+
 #### 204.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -9448,6 +9964,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://elated-tan-skat.explorer.mainnet.skalenodes.com"`
 
+#### 2046399126.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 2046399126.contracts
 
 > **contracts**: `object`
@@ -9471,6 +9991,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 2046399126.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 2046399126.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 2046399126.fees?
 
@@ -9552,13 +10076,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://auroria.explorer.stratisevm.com"`
 
+#### 205205.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 205205.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 205205.contracts.ensRegistry?
 
@@ -9568,13 +10096,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 205205.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 205205.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 205205.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 205205.custom?
 
@@ -9583,6 +10111,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 205205.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 205205.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 205205.fees?
 
@@ -9664,6 +10196,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://light-vast-diphda.explorer.mainnet.skalenodes.com"`
 
+#### 2139927552.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 2139927552.contracts
 
 > **contracts**: `object`
@@ -9675,6 +10211,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 2139927552.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 2139927552.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 2139927552.fees?
 
@@ -9760,6 +10300,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://testnet.kavascan.com/"`
 
+#### 2221.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 2221.contracts
 
 > **contracts**: `object`
@@ -9783,6 +10327,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 2221.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 2221.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 2221.fees?
 
@@ -9868,6 +10416,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://kavascan.com"`
 
+#### 2222.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 2222.contracts
 
 > **contracts**: `object`
@@ -9891,6 +10443,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 2222.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 2222.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 2222.fees?
 
@@ -9972,13 +10528,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://nautscan.com"`
 
+#### 22222.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 22222.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 22222.contracts.ensRegistry?
 
@@ -9988,13 +10548,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 22222.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 22222.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 22222.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 22222.custom?
 
@@ -10003,6 +10563,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 22222.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 22222.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 22222.fees?
 
@@ -10080,6 +10644,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.oasis.io/mainnet/sapphire"`
 
+#### 23294.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 23294.contracts
 
 > **contracts**: `object`
@@ -10103,6 +10671,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 23294.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 23294.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 23294.fees?
 
@@ -10191,6 +10763,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 2331.blockExplorers.default.url
 
 > `readonly` **url**: `"https://scan.testnet.rss3.io"`
+
+#### 2331.blockTime
+
+> **blockTime**: `2000`
 
 #### 2331.contracts
 
@@ -10303,6 +10879,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 2331.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 2331.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 2331.fees?
 
@@ -10668,6 +11248,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://scan.nexilix.com"`
 
+#### 240.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 240.contracts
 
 > **contracts**: `object`
@@ -10691,6 +11275,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 240.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 240.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 240.fees?
 
@@ -10768,6 +11356,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://www.plgscan.com"`
 
+#### 242.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 242.contracts
 
 > **contracts**: `object`
@@ -10791,6 +11383,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 242.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 242.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 242.fees?
 
@@ -10868,6 +11464,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://devnet.neonscan.org"`
 
+#### 245022926.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 245022926.contracts
 
 > **contracts**: `object`
@@ -10891,6 +11491,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 245022926.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 245022926.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 245022926.fees?
 
@@ -10968,6 +11572,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://neonscan.org"`
 
+#### 245022934.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 245022934.contracts
 
 > **contracts**: `object`
@@ -10991,6 +11599,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 245022934.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 245022934.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 245022934.fees?
 
@@ -11076,13 +11688,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://scan.oasys.games"`
 
+#### 248.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 248.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 248.contracts.ensRegistry?
 
@@ -11092,13 +11708,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 248.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 248.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 248.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 248.custom?
 
@@ -11107,6 +11723,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 248.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 248.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 248.fees?
 
@@ -11188,6 +11808,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.cronos.org"`
 
+#### 25.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 25.contracts
 
 > **contracts**: `object`
@@ -11211,6 +11835,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 25.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 25.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 25.fees?
 
@@ -11292,6 +11920,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://ftmscan.com"`
 
+#### 250.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 250.contracts
 
 > **contracts**: `object`
@@ -11315,6 +11947,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 250.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 250.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 250.fees?
 
@@ -11395,6 +12031,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 252.blockExplorers.default.url
 
 > `readonly` **url**: `"https://fraxscan.com"`
+
+#### 252.blockTime
+
+> **blockTime**: `2000`
 
 #### 252.contracts
 
@@ -11507,6 +12147,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 252.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 252.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 252.fees?
 
@@ -11876,6 +12520,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://inevm.calderaexplorer.xyz"`
 
+#### 2525.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 2525.contracts
 
 > **contracts**: `object`
@@ -11899,6 +12547,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 2525.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 2525.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 2525.fees?
 
@@ -11980,6 +12632,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://blockscout.kroma.network"`
 
+#### 255.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 255.contracts
 
 > **contracts**: `object`
@@ -12003,6 +12659,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 255.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 255.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 255.fees?
 
@@ -12084,6 +12744,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://dchain-2716446429837000-1.sagaexplorer.io"`
 
+#### 2716446429837000.blockTime
+
+> **blockTime**: `2000`
+
 #### 2716446429837000.contracts
 
 > **contracts**: `object`
@@ -12143,6 +12807,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 2716446429837000.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 2716446429837000.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 2716446429837000.fees?
 
@@ -12508,13 +13176,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://xr-sepolia-testnet.explorer.caldera.xyz"`
 
+#### 2730.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 2730.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 2730.contracts.ensRegistry?
 
@@ -12524,13 +13196,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 2730.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 2730.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 2730.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 2730.custom?
 
@@ -12539,6 +13211,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 2730.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 2730.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 2730.fees?
 
@@ -12616,6 +13292,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://turbulent-unique-scheat.explorer.mainnet.skalenodes.com"`
 
+#### 278611351.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 278611351.contracts
 
 > **contracts**: `object`
@@ -12627,6 +13307,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 278611351.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 278611351.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 278611351.fees?
 
@@ -12708,6 +13392,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://bobascan.com"`
 
+#### 288.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 288.contracts
 
 > **contracts**: `object`
@@ -12731,6 +13419,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 288.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 288.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 288.fees?
 
@@ -12808,13 +13500,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://testnet.bobascan.com"`
 
+#### 28882.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 28882.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 28882.contracts.ensRegistry?
 
@@ -12824,13 +13520,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 28882.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 28882.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 28882.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 28882.custom?
 
@@ -12839,6 +13535,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 28882.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 28882.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 28882.fees?
 
@@ -12916,13 +13616,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://hashscan.io/mainnet"`
 
+#### 295.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 295.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 295.contracts.ensRegistry?
 
@@ -12932,13 +13636,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 295.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 295.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 295.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 295.custom?
 
@@ -12947,6 +13651,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 295.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 295.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 295.fees?
 
@@ -13028,6 +13736,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.rsk.co"`
 
+#### 30.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 30.contracts
 
 > **contracts**: `object`
@@ -13051,6 +13763,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 30.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 30.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 30.fees?
 
@@ -13136,13 +13852,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://svmscan.io"`
 
+#### 3109.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 3109.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 3109.contracts.ensRegistry?
 
@@ -13152,13 +13872,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 3109.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 3109.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 3109.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 3109.custom?
 
@@ -13167,6 +13887,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 3109.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 3109.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 3109.fees?
 
@@ -13252,13 +13976,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > **url**: `string`
 
+#### 31337.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 31337.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 31337.contracts.ensRegistry?
 
@@ -13268,13 +13996,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 31337.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 31337.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 31337.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 31337.custom?
 
@@ -13283,6 +14011,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 31337.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 31337.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 31337.fees?
 
@@ -13360,6 +14092,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://filfox.info/en"`
 
+#### 314.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 314.contracts
 
 > **contracts**: `object`
@@ -13383,6 +14119,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 314.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 314.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 314.fees?
 
@@ -13460,6 +14200,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.kcc.io"`
 
+#### 321.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 321.contracts
 
 > **contracts**: `object`
@@ -13483,6 +14227,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 321.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 321.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 321.fees?
 
@@ -13584,9 +14332,25 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.zksync.io/"`
 
+#### 324.blockTime
+
+> **blockTime**: `1000`
+
 #### 324.contracts
 
 > **contracts**: `object`
+
+#### 324.contracts.erc6492Verifier
+
+> `readonly` **erc6492Verifier**: `object`
+
+#### 324.contracts.erc6492Verifier.address
+
+> `readonly` **address**: `"0xfB688330379976DA81eB64Fe4BF50d7401763B9C"`
+
+#### 324.contracts.erc6492Verifier.blockCreated
+
+> `readonly` **blockCreated**: `45659388`
 
 #### 324.contracts.multicall3
 
@@ -13595,18 +14359,6 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 324.contracts.multicall3.address
 
 > `readonly` **address**: `"0xF9cda624FBC7e059355ce98a31693d299FACd963"`
-
-#### 324.contracts.universalSignatureVerifier
-
-> `readonly` **universalSignatureVerifier**: `object`
-
-#### 324.contracts.universalSignatureVerifier.address
-
-> `readonly` **address**: `"0xfB688330379976DA81eB64Fe4BF50d7401763B9C"`
-
-#### 324.contracts.universalSignatureVerifier.blockCreated
-
-> `readonly` **blockCreated**: `45659388`
 
 #### 324.custom
 
@@ -13619,6 +14371,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 324.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 324.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 324.fees?
 
@@ -14022,13 +14778,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://evmx.zilliqa.com"`
 
+#### 32769.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 32769.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 32769.contracts.ensRegistry?
 
@@ -14038,13 +14798,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 32769.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 32769.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 32769.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 32769.custom?
 
@@ -14053,6 +14813,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 32769.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 32769.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 32769.fees?
 
@@ -14134,6 +14898,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://funkiscan.io"`
 
+#### 33979.blockTime
+
+> **blockTime**: `2000`
+
 #### 33979.contracts
 
 > **contracts**: `object`
@@ -14193,6 +14961,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 33979.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 33979.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 33979.fees?
 
@@ -14558,6 +15330,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://sepolia-sandbox.funkichain.com/"`
 
+#### 3397901.blockTime
+
+> **blockTime**: `2000`
+
 #### 3397901.contracts
 
 > **contracts**: `object`
@@ -14629,6 +15405,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 3397901.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 3397901.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 3397901.fees?
 
@@ -14998,6 +15778,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://modescan.io"`
 
+#### 34443.blockTime
+
+> **blockTime**: `2000`
+
 #### 34443.contracts
 
 > **contracts**: `object`
@@ -15105,6 +15889,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 34443.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 34443.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 34443.fees?
 
@@ -15474,13 +16262,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.q.org"`
 
+#### 35441.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 35441.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 35441.contracts.ensRegistry?
 
@@ -15490,13 +16282,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 35441.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 35441.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 35441.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 35441.custom?
 
@@ -15505,6 +16297,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 35441.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 35441.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 35441.fees?
 
@@ -15586,13 +16382,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.qtestnet.org"`
 
+#### 35443.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 35443.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 35443.contracts.ensRegistry?
 
@@ -15602,13 +16402,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 35443.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 35443.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 35443.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 35443.custom?
 
@@ -15617,6 +16417,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 35443.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 35443.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 35443.fees?
 
@@ -15696,7 +16500,11 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 #### 369.blockExplorers.default.url
 
-> `readonly` **url**: `"https://scan.pulsechain.com"`
+> `readonly` **url**: `"https://ipfs.scan.pulsechain.com"`
+
+#### 369.blockTime
+
+> **blockTime**: `10000`
 
 #### 369.contracts
 
@@ -15729,6 +16537,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 369.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 369.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 369.fees?
 
@@ -15814,6 +16626,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://scan.crossbell.io"`
 
+#### 3737.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 3737.contracts
 
 > **contracts**: `object`
@@ -15837,6 +16653,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 3737.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 3737.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 3737.fees?
 
@@ -15914,13 +16734,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://testnet-explorer-v2.xai-chain.net"`
 
+#### 37714555429.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 37714555429.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 37714555429.contracts.ensRegistry?
 
@@ -15930,13 +16754,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 37714555429.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 37714555429.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 37714555429.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 37714555429.custom?
 
@@ -15945,6 +16769,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 37714555429.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 37714555429.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 37714555429.fees?
 
@@ -16022,6 +16850,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://astar-zkevm.explorer.startale.com"`
 
+#### 3776.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 3776.contracts
 
 > **contracts**: `object`
@@ -16045,6 +16877,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 3776.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 3776.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 3776.fees?
 
@@ -16130,6 +16966,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://exp-testnet.apexlayer.xyz"`
 
+#### 3993.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 3993.contracts
 
 > **contracts**: `object`
@@ -16153,6 +16993,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 3993.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 3993.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 3993.fees?
 
@@ -16238,6 +17082,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > **url**: `string`
 
+#### 41144114.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 41144114.contracts
 
 > **contracts**: `object`
@@ -16257,6 +17105,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 41144114.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 41144114.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 41144114.fees?
 
@@ -16338,6 +17190,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.execution.mainnet.lukso.network"`
 
+#### 42.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 42.contracts
 
 > **contracts**: `object`
@@ -16361,6 +17217,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 42.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 42.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 42.fees?
 
@@ -16450,13 +17310,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://scan.merlinchain.io"`
 
+#### 4200.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 4200.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 4200.contracts.ensRegistry?
 
@@ -16466,13 +17330,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 4200.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 4200.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 4200.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 4200.custom?
 
@@ -16481,6 +17345,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 4200.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 4200.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 4200.fees?
 
@@ -16561,6 +17429,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 4202.blockExplorers.default.url
 
 > `readonly` **url**: `"https://sepolia-blockscout.lisk.com"`
+
+#### 4202.blockTime
+
+> **blockTime**: `2000`
 
 #### 4202.contracts
 
@@ -16665,6 +17537,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 4202.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 4202.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 4202.fees?
 
@@ -17038,6 +17914,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://arbiscan.io"`
 
+#### 42161.blockTime
+
+> **blockTime**: `250`
+
 #### 42161.contracts
 
 > **contracts**: `object`
@@ -17061,6 +17941,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 42161.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 42161.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 42161.fees?
 
@@ -17142,6 +18026,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://nova.arbiscan.io"`
 
+#### 42170.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 42170.contracts
 
 > **contracts**: `object`
@@ -17165,6 +18053,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 42170.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 42170.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 42170.fees?
 
@@ -17246,6 +18138,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://celoscan.io"`
 
+#### 42220.blockTime
+
+> **blockTime**: `1000`
+
 #### 42220.contracts
 
 > **contracts**: `object`
@@ -17269,6 +18165,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 42220.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 42220.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 42220.fees
 
@@ -17554,6 +18454,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.publicgoods.network"`
 
+#### 424.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 424.contracts
 
 > **contracts**: `object`
@@ -17613,6 +18517,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 424.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 424.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 424.fees?
 
@@ -17968,6 +18876,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://www.nexiscan.com"`
 
+#### 4242.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 4242.contracts
 
 > **contracts**: `object`
@@ -17991,6 +18903,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 4242.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 4242.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 4242.fees?
 
@@ -18072,6 +18988,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://scan.zkfair.io"`
 
+#### 42766.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 42766.contracts
 
 > **contracts**: `object`
@@ -18095,6 +19015,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 42766.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 42766.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 42766.fees?
 
@@ -18176,6 +19100,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.etherlink.com"`
 
+#### 42793.blockTime
+
+> **blockTime**: `4830`
+
 #### 42793.contracts
 
 > **contracts**: `object`
@@ -18199,6 +19127,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 42793.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 42793.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 42793.fees?
 
@@ -18280,6 +19212,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://snowtrace.io"`
 
+#### 43114.blockTime
+
+> **blockTime**: `1700`
+
 #### 43114.contracts
 
 > **contracts**: `object`
@@ -18303,6 +19239,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 43114.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 43114.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 43114.fees?
 
@@ -18380,6 +19320,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://subnets.avax.network/beam"`
 
+#### 4337.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 4337.contracts
 
 > **contracts**: `object`
@@ -18403,6 +19347,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 4337.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 4337.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 4337.fees?
 
@@ -18488,6 +19436,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://crab-scan.darwinia.network"`
 
+#### 44.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 44.contracts
 
 > **contracts**: `object`
@@ -18511,6 +19463,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 44.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 44.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 44.fees?
 
@@ -18592,6 +19548,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.darwinia.network"`
 
+#### 46.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 46.contracts
 
 > **contracts**: `object`
@@ -18615,6 +19575,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 46.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 46.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 46.fees?
 
@@ -18696,6 +19660,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://areonscan.com"`
 
+#### 463.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 463.contracts
 
 > **contracts**: `object`
@@ -18719,6 +19687,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 463.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 463.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 463.fees?
 
@@ -18800,6 +19772,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://iotexscan.io"`
 
+#### 4689.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 4689.contracts
 
 > **contracts**: `object`
@@ -18823,6 +19799,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 4689.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 4689.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 4689.fees?
 
@@ -18904,6 +19884,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://testnet.meversescan.io/"`
 
+#### 4759.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 4759.contracts
 
 > **contracts**: `object`
@@ -18927,6 +19911,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 4759.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 4759.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 4759.fees?
 
@@ -19008,13 +19996,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://testnet-explorer.blackfort.network"`
 
+#### 4777.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 4777.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 4777.contracts.ensRegistry?
 
@@ -19024,13 +20016,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 4777.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 4777.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 4777.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 4777.custom?
 
@@ -19039,6 +20031,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 4777.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 4777.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 4777.fees?
 
@@ -19120,13 +20116,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.blackfort.network"`
 
+#### 4999.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 4999.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 4999.contracts.ensRegistry?
 
@@ -19136,13 +20136,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 4999.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 4999.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 4999.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 4999.custom?
 
@@ -19151,6 +20151,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 4999.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 4999.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 4999.fees?
 
@@ -19232,6 +20236,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://goerli.etherscan.io"`
 
+#### 5.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 5.contracts
 
 > **contracts**: `object`
@@ -19275,6 +20283,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 5.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 5.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 5.fees?
 
@@ -19352,6 +20364,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://xdcscan.com"`
 
+#### 50.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 50.contracts
 
 > **contracts**: `object`
@@ -19375,6 +20391,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 50.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 50.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 50.fees?
 
@@ -19456,6 +20476,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://mantlescan.xyz/"`
 
+#### 5000.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 5000.contracts
 
 > **contracts**: `object`
@@ -19479,6 +20503,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 5000.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 5000.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 5000.fees?
 
@@ -19556,13 +20584,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.yooldo-verse.xyz"`
 
+#### 50005.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 50005.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 50005.contracts.ensRegistry?
 
@@ -19572,13 +20604,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 50005.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 50005.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 50005.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 50005.custom?
 
@@ -19587,6 +20619,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 50005.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 50005.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 50005.fees?
 
@@ -19664,6 +20700,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://testnet.xdcscan.com"`
 
+#### 51.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 51.contracts
 
 > **contracts**: `object`
@@ -19687,6 +20727,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 51.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 51.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 51.fees?
 
@@ -19768,13 +20812,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.ham.fun"`
 
+#### 5112.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 5112.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 5112.contracts.ensRegistry?
 
@@ -19784,13 +20832,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 5112.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 5112.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 5112.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 5112.custom?
 
@@ -19799,6 +20847,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 5112.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 5112.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 5112.fees?
 
@@ -19884,13 +20936,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://www.ftnscan.com"`
 
+#### 5165.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 5165.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 5165.contracts.ensRegistry?
 
@@ -19900,13 +20956,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 5165.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 5165.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 5165.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 5165.custom?
 
@@ -19915,6 +20971,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 5165.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 5165.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 5165.fees?
 
@@ -20004,6 +21064,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://scrollscan.com"`
 
+#### 534352.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 534352.contracts
 
 > **contracts**: `object`
@@ -20027,6 +21091,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 534352.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 534352.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 534352.fees?
 
@@ -20108,6 +21176,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://subnets.avax.network/defi-kingdoms"`
 
+#### 53935.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 53935.contracts
 
 > **contracts**: `object`
@@ -20131,6 +21203,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 53935.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 53935.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 53935.fees?
 
@@ -20208,6 +21284,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://evm-testnet.flowscan.io"`
 
+#### 545.blockTime
+
+> **blockTime**: `800`
+
 #### 545.contracts
 
 > **contracts**: `object`
@@ -20231,6 +21311,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 545.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 545.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 545.fees?
 
@@ -20312,6 +21396,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://bscscan.com"`
 
+#### 56.blockTime
+
+> **blockTime**: `750`
+
 #### 56.contracts
 
 > **contracts**: `object`
@@ -20335,6 +21423,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 56.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 56.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 56.fees?
 
@@ -20416,6 +21508,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.syscoin.org"`
 
+#### 57.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 57.contracts
 
 > **contracts**: `object`
@@ -20439,6 +21535,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 57.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 57.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 57.fees?
 
@@ -20524,6 +21624,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.rollux.com"`
 
+#### 570.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 570.contracts
 
 > **contracts**: `object`
@@ -20547,6 +21651,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 570.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 570.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 570.fees?
 
@@ -20628,6 +21736,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.metatime.com"`
 
+#### 571.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 571.contracts
 
 > **contracts**: `object`
@@ -20651,6 +21763,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 571.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 571.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 571.fees?
 
@@ -20732,6 +21848,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.sepolia.publicgoods.network"`
 
+#### 58008.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 58008.contracts
 
 > **contracts**: `object`
@@ -20791,6 +21911,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 58008.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 58008.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 58008.fees?
 
@@ -21146,6 +22270,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://goerli.lineascan.build"`
 
+#### 59140.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 59140.contracts
 
 > **contracts**: `object`
@@ -21169,6 +22297,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 59140.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 59140.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 59140.fees?
 
@@ -21254,6 +22386,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://lineascan.build"`
 
+#### 59144.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 59144.contracts
 
 > **contracts**: `object`
@@ -21276,11 +22412,11 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 #### 59144.contracts.ensUniversalResolver.address
 
-> `readonly` **address**: `"0x3aA974fb3f8C1E02796048BDCdeD79e9D53a6965"`
+> `readonly` **address**: `"0x4D41762915F83c76EcaF6776d9b08076aA32b492"`
 
 #### 59144.contracts.ensUniversalResolver.blockCreated
 
-> `readonly` **blockCreated**: `6683000`
+> `readonly` **blockCreated**: `22222151`
 
 #### 59144.contracts.multicall3
 
@@ -21301,6 +22437,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 59144.ensTlds
 
 > **ensTlds**: readonly \[`".linea.eth"`\]
+
+#### 59144.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 59144.fees
 
@@ -21410,6 +22550,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://astar.subscan.io"`
 
+#### 592.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 592.contracts
 
 > **contracts**: `object`
@@ -21433,6 +22577,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 592.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 592.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 592.fees?
 
@@ -21518,13 +22666,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://blockscout.mandala.aca-staging.network"`
 
+#### 595.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 595.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 595.contracts.ensRegistry?
 
@@ -21534,13 +22686,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 595.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 595.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 595.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 595.custom?
 
@@ -21549,6 +22701,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 595.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 595.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 595.fees?
 
@@ -21638,6 +22794,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://goerli.explorer.metisdevops.link"`
 
+#### 599.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 599.contracts
 
 > **contracts**: `object`
@@ -21661,6 +22821,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 599.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 599.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 599.fees?
 
@@ -21738,6 +22902,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://zkyoto.explorer.startale.com"`
 
+#### 6038361.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 6038361.contracts
 
 > **contracts**: `object`
@@ -21761,6 +22929,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 6038361.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 6038361.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 6038361.fees?
 
@@ -21841,6 +23013,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 60808.blockExplorers.default.url
 
 > `readonly` **url**: `"https://explorer.gobob.xyz"`
+
+#### 60808.blockTime
+
+> **blockTime**: `2000`
 
 #### 60808.contracts
 
@@ -21945,6 +23121,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 60808.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 60808.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 60808.fees?
 
@@ -22314,13 +23494,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://blockscout.com/etc/mainnet"`
 
+#### 61.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 61.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 61.contracts.ensRegistry?
 
@@ -22330,13 +23514,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 61.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 61.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 61.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 61.custom?
 
@@ -22345,6 +23529,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 61.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 61.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 61.fees?
 
@@ -22422,6 +23610,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://www.oklink.com/okc"`
 
+#### 66.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 66.contracts
 
 > **contracts**: `object`
@@ -22445,6 +23637,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 66.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 66.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 66.fees?
 
@@ -22522,6 +23718,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.xai-chain.net"`
 
+#### 660279.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 660279.contracts
 
 > **contracts**: `object`
@@ -22545,6 +23745,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 660279.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 660279.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 660279.fees?
 
@@ -22626,13 +23830,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.degen.tips"`
 
+#### 666666666.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 666666666.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 666666666.contracts.ensRegistry?
 
@@ -22642,13 +23850,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 666666666.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 666666666.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 666666666.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 666666666.custom?
 
@@ -22657,6 +23865,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 666666666.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 666666666.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 666666666.fees?
 
@@ -22742,13 +23954,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://blockscout.karura.network"`
 
+#### 686.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 686.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 686.contracts.ensRegistry?
 
@@ -22758,13 +23974,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 686.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 686.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 686.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 686.custom?
 
@@ -22773,6 +23989,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 686.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 686.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 686.fees?
 
@@ -22857,6 +24077,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 690.blockExplorers.default.url
 
 > `readonly` **url**: `"https://explorer.redstone.xyz"`
+
+#### 690.blockTime
+
+> **blockTime**: `2000`
 
 #### 690.contracts
 
@@ -22973,6 +24197,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 690.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 690.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 690.fees?
 
@@ -23346,6 +24574,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://exp.thaichain.org"`
 
+#### 7.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 7.contracts
 
 > **contracts**: `object`
@@ -23369,6 +24601,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 7.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 7.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 7.fees?
 
@@ -23444,7 +24680,11 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 #### 7000.blockExplorers.default.url
 
-> `readonly` **url**: `"https://explorer.zetachain.com"`
+> `readonly` **url**: `"https://zetascan.com"`
+
+#### 7000.blockTime?
+
+> `optional` **blockTime**: `number`
 
 #### 7000.contracts
 
@@ -23469,6 +24709,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 7000.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 7000.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 7000.fees?
 
@@ -23546,6 +24790,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://koi-scan.darwinia.network"`
 
+#### 701.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 701.contracts
 
 > **contracts**: `object`
@@ -23569,6 +24817,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 701.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 701.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 701.fees?
 
@@ -23650,13 +24902,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://seitrace.com"`
 
+#### 713715.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 713715.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 713715.contracts.ensRegistry?
 
@@ -23666,13 +24922,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 713715.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 713715.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 713715.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 713715.custom?
 
@@ -23681,6 +24937,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 713715.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 713715.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 713715.fees?
 
@@ -23758,13 +25018,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.lycanchain.com"`
 
+#### 721.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 721.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 721.contracts.ensRegistry?
 
@@ -23774,13 +25038,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 721.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 721.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 721.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 721.custom?
 
@@ -23789,6 +25053,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 721.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 721.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 721.fees?
 
@@ -23870,6 +25138,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://eon-explorer.horizenlabs.io"`
 
+#### 7332.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 7332.contracts
 
 > **contracts**: `object`
@@ -23881,6 +25153,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 7332.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 7332.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 7332.fees?
 
@@ -23958,6 +25234,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://evm.flowscan.io"`
 
+#### 747.blockTime
+
+> **blockTime**: `800`
+
 #### 747.contracts
 
 > **contracts**: `object`
@@ -23981,6 +25261,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 747.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 747.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 747.fees?
 
@@ -24058,6 +25342,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://www.meversescan.io"`
 
+#### 7518.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 7518.contracts
 
 > **contracts**: `object`
@@ -24081,6 +25369,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 7518.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 7518.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 7518.fees?
 
@@ -24162,6 +25454,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://cyberscan.co"`
 
+#### 7560.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 7560.contracts
 
 > **contracts**: `object`
@@ -24185,6 +25481,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 7560.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 7560.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 7560.fees?
 
@@ -24262,6 +25562,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://rootscan.io"`
 
+#### 7668.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 7668.contracts
 
 > **contracts**: `object`
@@ -24285,6 +25589,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 7668.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 7668.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 7668.fees?
 
@@ -24366,6 +25674,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://porcini.rootscan.io"`
 
+#### 7672.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 7672.contracts
 
 > **contracts**: `object`
@@ -24389,6 +25701,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 7672.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 7672.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 7672.fees?
 
@@ -24470,6 +25786,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://tuber.build"`
 
+#### 7700.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 7700.contracts
 
 > **contracts**: `object`
@@ -24493,6 +25813,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 7700.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 7700.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 7700.fees?
 
@@ -24573,6 +25897,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 7777777.blockExplorers.default.url
 
 > `readonly` **url**: `"https://explorer.zora.energy"`
+
+#### 7777777.blockTime
+
+> **blockTime**: `2000`
 
 #### 7777777.contracts
 
@@ -24681,6 +26009,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 7777777.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 7777777.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 7777777.fees?
 
@@ -25054,13 +26386,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://blockscout.acala.network"`
 
+#### 787.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 787.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 787.contracts.ensRegistry?
 
@@ -25070,13 +26406,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 787.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 787.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 787.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 787.custom?
 
@@ -25085,6 +26421,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 787.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 787.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 787.fees?
 
@@ -25174,6 +26514,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://amoy.polygonscan.com"`
 
+#### 80002.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 80002.contracts
 
 > **contracts**: `object`
@@ -25197,6 +26541,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 80002.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 80002.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 80002.fees?
 
@@ -25274,13 +26622,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://sepolia.explorer.zklink.io"`
 
+#### 810181.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 810181.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 810181.contracts.ensRegistry?
 
@@ -25290,13 +26642,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 810181.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 810181.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 810181.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 810181.custom?
 
@@ -25305,6 +26657,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 810181.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 810181.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 810181.fees?
 
@@ -25386,6 +26742,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://blastscan.io"`
 
+#### 81457.blockTime
+
+> **blockTime**: `2000`
+
 #### 81457.contracts
 
 > **contracts**: `object`
@@ -25406,6 +26766,22 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **address**: `"0x4200000000000000000000000000000000000015"`
 
+#### 81457.contracts.l1StandardBridge
+
+> `readonly` **l1StandardBridge**: `object`
+
+#### 81457.contracts.l1StandardBridge.1
+
+> `readonly` **1**: `object`
+
+#### 81457.contracts.l1StandardBridge.1.address
+
+> `readonly` **address**: `"0x697402166Fbf2F22E970df8a6486Ef171dbfc524"`
+
+#### 81457.contracts.l1StandardBridge.1.blockCreated
+
+> `readonly` **blockCreated**: `19300360`
+
 #### 81457.contracts.l2CrossDomainMessenger
 
 > `readonly` **l2CrossDomainMessenger**: `object`
@@ -25421,6 +26797,22 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 81457.contracts.l2Erc721Bridge.address
 
 > `readonly` **address**: `"0x4200000000000000000000000000000000000014"`
+
+#### 81457.contracts.l2OutputOracle
+
+> `readonly` **l2OutputOracle**: `object`
+
+#### 81457.contracts.l2OutputOracle.1
+
+> `readonly` **1**: `object`
+
+#### 81457.contracts.l2OutputOracle.1.address
+
+> `readonly` **address**: `"0x826D1B0D4111Ad9146Eb8941D7Ca2B6a44215c76"`
+
+#### 81457.contracts.l2OutputOracle.1.blockCreated
+
+> `readonly` **blockCreated**: `19300358`
 
 #### 81457.contracts.l2StandardBridge
 
@@ -25450,6 +26842,22 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **blockCreated**: `212929`
 
+#### 81457.contracts.portal
+
+> `readonly` **portal**: `object`
+
+#### 81457.contracts.portal.1
+
+> `readonly` **1**: `object`
+
+#### 81457.contracts.portal.1.address
+
+> `readonly` **address**: `"0x0Ec68c5B10F21EFFb74f2A5C61DFe6b08C0Db6Cb"`
+
+#### 81457.contracts.portal.1.blockCreated
+
+> `readonly` **blockCreated**: `19300357`
+
 #### 81457.custom?
 
 > `optional` **custom**: `Record`\<`string`, `unknown`\>
@@ -25457,6 +26865,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 81457.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 81457.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 81457.fees?
 
@@ -25822,13 +27234,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://scan.meter.io"`
 
+#### 82.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 82.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 82.contracts.ensRegistry?
 
@@ -25838,13 +27254,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 82.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 82.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 82.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 82.custom?
 
@@ -25853,6 +27269,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 82.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 82.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 82.fees?
 
@@ -25930,6 +27350,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://scope.klaytn.com"`
 
+#### 8217.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 8217.contracts
 
 > **contracts**: `object`
@@ -25953,6 +27377,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 8217.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 8217.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 8217.fees?
 
@@ -26030,13 +27458,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.mainnet.taraxa.io"`
 
+#### 841.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 841.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 841.contracts.ensRegistry?
 
@@ -26046,13 +27478,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 841.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 841.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 841.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 841.custom?
 
@@ -26061,6 +27493,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 841.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 841.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 841.fees?
 
@@ -26141,6 +27577,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 8453.blockExplorers.default.url
 
 > `readonly` **url**: `"https://basescan.org"`
+
+#### 8453.blockTime
+
+> **blockTime**: `2000`
 
 #### 8453.contracts
 
@@ -26269,6 +27709,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 8453.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 8453.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 8453.fees?
 
@@ -26638,6 +28082,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://goerli.basescan.org"`
 
+#### 84531.blockTime
+
+> **blockTime**: `2000`
+
 #### 84531.contracts
 
 > **contracts**: `object`
@@ -26745,6 +28193,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 84531.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 84531.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 84531.fees?
 
@@ -27114,6 +28566,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://sepolia.basescan.org"`
 
+#### 84532.blockTime
+
+> **blockTime**: `2000`
+
 #### 84532.contracts
 
 > **contracts**: `object`
@@ -27241,6 +28697,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 84532.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 84532.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 84532.fees?
 
@@ -27610,6 +29070,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://wanscan.org"`
 
+#### 888.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 888.contracts
 
 > **contracts**: `object`
@@ -27633,6 +29097,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 888.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 888.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 888.fees?
 
@@ -27714,13 +29182,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"http://spicy-explorer.chiliz.com"`
 
+#### 88882.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 88882.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 88882.contracts.ensRegistry?
 
@@ -27730,13 +29202,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 88882.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 88882.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 88882.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 88882.custom?
 
@@ -27745,6 +29217,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 88882.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 88882.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 88882.fees?
 
@@ -27834,29 +29310,25 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://scan.chiliz.com"`
 
-#### 88888.contracts?
+#### 88888.blockTime?
 
-> `optional` **contracts**: `object`
+> `optional` **blockTime**: `number`
 
-##### Index Signature
+#### 88888.contracts
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+> **contracts**: `object`
 
-#### 88888.contracts.ensRegistry?
+#### 88888.contracts.multicall3
 
-> `optional` **ensRegistry**: `ChainContract`
+> `readonly` **multicall3**: `object`
 
-#### 88888.contracts.ensUniversalResolver?
+#### 88888.contracts.multicall3.address
 
-> `optional` **ensUniversalResolver**: `ChainContract`
+> `readonly` **address**: `"0xcA11bde05977b3631167028862bE2a173976CA11"`
 
-#### 88888.contracts.multicall3?
+#### 88888.contracts.multicall3.blockCreated
 
-> `optional` **multicall3**: `ChainContract`
-
-#### 88888.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
+> `readonly` **blockCreated**: `8080847`
 
 #### 88888.custom?
 
@@ -27865,6 +29337,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 88888.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 88888.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 88888.fees?
 
@@ -27949,6 +29425,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 888888888.blockExplorers.default.url
 
 > `readonly` **url**: `"https://scan.ancient8.gg"`
+
+#### 888888888.blockTime
+
+> **blockTime**: `2000`
 
 #### 888888888.contracts
 
@@ -28053,6 +29533,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 888888888.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 888888888.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 888888888.fees?
 
@@ -28422,6 +29906,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://exp-l1.jibchain.net"`
 
+#### 8899.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 8899.contracts
 
 > **contracts**: `object`
@@ -28446,6 +29934,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensTlds**: readonly `string`[]
 
+#### 8899.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
+
 #### 8899.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -28460,7 +29952,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 #### 8899.name
 
-> **name**: `"JIBCHAIN L1"`
+> **name**: `"JB Chain"`
 
 #### 8899.nativeCurrency
 
@@ -28530,6 +30022,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://exp.testnet.jibchain.net"`
 
+#### 88991.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 88991.contracts
 
 > **contracts**: `object`
@@ -28553,6 +30049,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 88991.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 88991.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 88991.fees?
 
@@ -28630,13 +30130,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://evm.evmos.dev/"`
 
+#### 9000.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 9000.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 9000.contracts.ensRegistry?
 
@@ -28646,13 +30150,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 9000.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 9000.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 9000.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 9000.custom?
 
@@ -28661,6 +30165,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 9000.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 9000.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 9000.fees?
 
@@ -28738,13 +30246,17 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://escan.live"`
 
+#### 9001.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 9001.contracts?
 
 > `optional` **contracts**: `object`
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 9001.contracts.ensRegistry?
 
@@ -28754,13 +30266,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 9001.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 9001.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 9001.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 9001.custom?
 
@@ -28769,6 +30281,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 9001.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 9001.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 9001.fees?
 
@@ -28849,6 +30365,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 919.blockExplorers.default.url
 
 > `readonly` **url**: `"https://sepolia.explorer.mode.network"`
+
+#### 919.blockTime
+
+> **blockTime**: `2000`
 
 #### 919.contracts
 
@@ -28969,6 +30489,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 919.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 919.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 919.fees?
 
@@ -29338,6 +30862,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://explorer.lyra.finance"`
 
+#### 957.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 957.contracts
 
 > **contracts**: `object`
@@ -29361,6 +30889,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 957.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 957.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 957.fees?
 
@@ -29436,11 +30968,15 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 #### 96.blockExplorers.default.name
 
-> `readonly` **name**: `"Bitkub Chain Mainnet Explorer"`
+> `readonly` **name**: `"KUB Chain Mainnet Explorer"`
 
 #### 96.blockExplorers.default.url
 
 > `readonly` **url**: `"https://www.bkcscan.com"`
+
+#### 96.blockTime?
+
+> `optional` **blockTime**: `number`
 
 #### 96.contracts?
 
@@ -29448,7 +30984,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 ##### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### 96.contracts.ensRegistry?
 
@@ -29458,13 +30994,13 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### 96.contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### 96.contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### 96.contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 #### 96.custom?
 
@@ -29473,6 +31009,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 96.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 96.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 96.fees?
 
@@ -29488,7 +31028,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 #### 96.name
 
-> **name**: `"Bitkub"`
+> **name**: `"KUB Mainnet"`
 
 #### 96.nativeCurrency
 
@@ -29500,7 +31040,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 #### 96.nativeCurrency.name
 
-> `readonly` **name**: `"Bitkub"`
+> `readonly` **name**: `"KUB Coin"`
 
 #### 96.nativeCurrency.symbol
 
@@ -29554,6 +31094,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://testnet.bscscan.com"`
 
+#### 97.blockTime?
+
+> `optional` **blockTime**: `number`
+
 #### 97.contracts
 
 > **contracts**: `object`
@@ -29578,6 +31122,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `optional` **ensTlds**: readonly `string`[]
 
+#### 97.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
+
 #### 97.fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined`\>
@@ -29592,7 +31140,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 #### 97.name
 
-> **name**: `"Binance Smart Chain Testnet"`
+> **name**: `"BNB Smart Chain Testnet"`
 
 #### 97.nativeCurrency
 
@@ -29657,6 +31205,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 999.blockExplorers.default.url
 
 > `readonly` **url**: `"https://testnet.explorer.zora.energy"`
+
+#### 999.blockTime
+
+> **blockTime**: `2000`
 
 #### 999.contracts
 
@@ -29741,6 +31293,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 999.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 999.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 999.fees?
 
@@ -30114,6 +31670,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 > `readonly` **url**: `"https://sepolia.explorer.zora.energy/"`
 
+#### 999999999.blockTime
+
+> **blockTime**: `2000`
+
 #### 999999999.contracts
 
 > **contracts**: `object`
@@ -30221,6 +31781,10 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 #### 999999999.ensTlds?
 
 > `optional` **ensTlds**: readonly `string`[]
+
+#### 999999999.experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 #### 999999999.fees?
 

@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [errors](../README.md) / BaseError
 
-# Class: `abstract` BaseError
+# Abstract Class: BaseError
 
 Defined in: packages/errors/types/ethereum/BaseError.d.ts:29
 
@@ -21,41 +21,43 @@ This class is abstract and should be extended by other error classes.
 
 - [`InvalidJsonError`](../../server/classes/InvalidJsonError.md)
 - [`ReadRequestBodyError`](../../server/classes/ReadRequestBodyError.md)
-- [`NoForkTransportSetError`](NoForkTransportSetError.md)
-- [`ForkError`](ForkError.md)
-- [`ParseError`](ParseError.md)
-- [`RevertError`](RevertError.md)
-- [`InternalError`](InternalError.md)
-- [`ExecutionError`](ExecutionError.md)
-- [`NonceTooLowError`](NonceTooLowError.md)
-- [`NonceTooHighError`](NonceTooHighError.md)
-- [`UnknownBlockError`](UnknownBlockError.md)
 - [`AccountLockedError`](AccountLockedError.md)
-- [`InvalidParamsError`](InvalidParamsError.md)
-- [`LimitExceededError`](LimitExceededError.md)
-- [`InvalidAddressError`](InvalidAddressError.md)
-- [`InvalidRequestError`](InvalidRequestError.md)
-- [`MethodNotFoundError`](MethodNotFoundError.md)
+- [`BlobGasLimitExceededError`](BlobGasLimitExceededError.md)
+- [`BlockGasLimitExceededError`](BlockGasLimitExceededError.md)
 - [`ChainIdMismatchError`](ChainIdMismatchError.md)
-- [`InvalidGasPriceError`](InvalidGasPriceError.md)
+- [`ContractExecutionFailedError`](ContractExecutionFailedError.md)
+- [`ExecutionError`](ExecutionError.md)
 - [`GasLimitExceededError`](GasLimitExceededError.md)
-- [`InvalidSignatureError`](InvalidSignatureError.md)
-- [`NonceAlreadyUsedError`](NonceAlreadyUsedError.md)
-- [`ResourceNotFoundError`](ResourceNotFoundError.md)
-- [`UnsupportedChainError`](UnsupportedChainError.md)
 - [`InsufficientFundsError`](InsufficientFundsError.md)
-- [`RateLimitExceededError`](RateLimitExceededError.md)
+- [`InsufficientPermissionsError`](InsufficientPermissionsError.md)
+- [`InternalError`](InternalError.md)
+- [`InternalEvmError`](InternalEvmError.md)
+- [`InvalidAddressError`](InvalidAddressError.md)
+- [`InvalidGasPriceError`](InvalidGasPriceError.md)
+- [`InvalidParamsError`](InvalidParamsError.md)
+- [`InvalidRequestError`](InvalidRequestError.md)
+- [`InvalidSignatureError`](InvalidSignatureError.md)
 - [`InvalidTransactionError`](InvalidTransactionError.md)
+- [`LimitExceededError`](LimitExceededError.md)
+- [`MethodNotFoundError`](MethodNotFoundError.md)
 - [`MethodNotSupportedError`](MethodNotSupportedError.md)
+- [`NonceAlreadyUsedError`](NonceAlreadyUsedError.md)
+- [`NonceTooHighError`](NonceTooHighError.md)
+- [`NonceTooLowError`](NonceTooLowError.md)
+- [`ParseError`](ParseError.md)
+- [`PendingTransactionTimeoutError`](PendingTransactionTimeoutError.md)
+- [`RateLimitExceededError`](RateLimitExceededError.md)
+- [`ResourceNotFoundError`](ResourceNotFoundError.md)
 - [`ResourceUnavailableError`](ResourceUnavailableError.md)
+- [`RevertError`](RevertError.md)
 - [`TransactionRejectedError`](TransactionRejectedError.md)
 - [`TransactionTooLargeError`](TransactionTooLargeError.md)
-- [`BlockGasLimitExceededError`](BlockGasLimitExceededError.md)
 - [`TransactionUnderpricedError`](TransactionUnderpricedError.md)
-- [`ContractExecutionFailedError`](ContractExecutionFailedError.md)
-- [`InsufficientPermissionsError`](InsufficientPermissionsError.md)
-- [`PendingTransactionTimeoutError`](PendingTransactionTimeoutError.md)
-- [`InternalEvmError`](InternalEvmError.md)
+- [`UnknownBlockError`](UnknownBlockError.md)
+- [`UnsupportedChainError`](UnsupportedChainError.md)
+- [`ForkError`](ForkError.md)
+- [`NoForkTransportSetError`](NoForkTransportSetError.md)
+- [`NoForkUrlSetError`](NoForkUrlSetError.md)
 
 ## Implements
 
@@ -167,7 +169,7 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:48
 
 > **message**: `string`
 
-Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es5.d.ts:1077
+Defined in: node\_modules/.pnpm/typescript@5.9.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 #### Implementation of
 
@@ -191,7 +193,7 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:52
 
 > **name**: `string`
 
-Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es5.d.ts:1076
+Defined in: node\_modules/.pnpm/typescript@5.9.2/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 #### Implementation of
 
@@ -219,7 +221,7 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:56
 
 > `optional` **stack**: `string`
 
-Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es5.d.ts:1078
+Defined in: node\_modules/.pnpm/typescript@5.9.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 #### Inherited from
 
@@ -243,7 +245,7 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:60
 
 > `static` **stackTraceLimit**: `number`
 
-Defined in: node\_modules/.pnpm/@types+node@22.15.21/node\_modules/@types/node/globals.d.ts:161
+Defined in: node\_modules/.pnpm/@types+node@24.5.2/node\_modules/@types/node/globals.d.ts:68
 
 The `Error.stackTraceLimit` property specifies the number of stack frames
 collected by a stack trace (whether generated by `new Error().stack` or
@@ -293,7 +295,7 @@ The first error that matches the function, or the original error.
 
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
-Defined in: node\_modules/.pnpm/@types+node@22.15.21/node\_modules/@types/node/globals.d.ts:145
+Defined in: node\_modules/.pnpm/@types+node@24.5.2/node\_modules/@types/node/globals.d.ts:52
 
 Creates a `.stack` property on `targetObject`, which when accessed returns
 a string representing the location in the code at which
@@ -359,11 +361,35 @@ a();
 
 ***
 
+### isError()
+
+> `static` **isError**(`error`): `error is Error`
+
+Defined in: node\_modules/.pnpm/typescript@5.9.2/node\_modules/typescript/lib/lib.esnext.error.d.ts:23
+
+Indicates whether the argument provided is a built-in Error instance or not.
+
+#### Parameters
+
+##### error
+
+`unknown`
+
+#### Returns
+
+`error is Error`
+
+#### Inherited from
+
+`Error.isError`
+
+***
+
 ### prepareStackTrace()
 
 > `static` **prepareStackTrace**(`err`, `stackTraces`): `any`
 
-Defined in: node\_modules/.pnpm/@types+node@22.15.21/node\_modules/@types/node/globals.d.ts:149
+Defined in: node\_modules/.pnpm/@types+node@24.5.2/node\_modules/@types/node/globals.d.ts:56
 
 #### Parameters
 

@@ -8,7 +8,7 @@
 
 > **Hash** = `` `0x${string}` ``
 
-Defined in: packages/decorators/dist/index.d.ts:437
+Defined in: packages/decorators/dist/index.d.ts:350
 
 Ethereum hash value represented as a hexadecimal string.
 Used for block hashes, transaction hashes, state roots, etc.

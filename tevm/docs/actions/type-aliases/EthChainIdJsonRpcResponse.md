@@ -8,6 +8,6 @@
 
 > **EthChainIdJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_chainId"`, [`Hex`](../../index/type-aliases/Hex.md), `string` \| `number`\>
 
-Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:24
+Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:28
 
 JSON-RPC response for `eth_chainId` procedure

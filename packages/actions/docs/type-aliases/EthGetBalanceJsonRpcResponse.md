@@ -8,6 +8,6 @@
 
 > **EthGetBalanceJsonRpcResponse** = `JsonRpcResponse`\<`"eth_getBalance"`, `Hex`, `string` \| `number`\>
 
-Defined in: [packages/actions/src/eth/EthJsonRpcResponse.ts:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcResponse.ts#L66)
+Defined in: [packages/actions/src/eth/EthJsonRpcResponse.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcResponse.ts#L72)
 
 JSON-RPC response for `eth_getBalance` procedure

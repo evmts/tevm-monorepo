@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [node](../README.md) / BaseClientOptions
 
-# Type Alias: ~~BaseClientOptions~~
+# ~~Type Alias: BaseClientOptions~~
 
 > **BaseClientOptions** = [`TevmNodeOptions`](../../index/type-aliases/TevmNodeOptions.md)
 
-Defined in: packages/node/dist/index.d.ts:453
+Defined in: packages/node/dist/index.d.ts:237
 
 ## Deprecated
 

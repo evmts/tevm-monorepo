@@ -6,11 +6,12 @@
 
 # Class: ExecutionError
 
-Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:37
+Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:38
 
 Represents an error that occurs when an execution error happens on the Ethereum node.
 
 This error is typically encountered when there is a general execution error that does not fit more specific categories.
+The error code -32015 is a non-standard extension used for EVM execution errors.
 
 ## Example
 
@@ -41,31 +42,31 @@ Additional parameters for the BaseError.
 
 - [`CommonMismatchError`](CommonMismatchError.md)
 - [`EipNotEnabledError`](EipNotEnabledError.md)
-- [`InvalidOpcodeError`](InvalidOpcodeError.md)
-- [`StopError`](StopError.md)
-- [`OutOfRangeError`](OutOfRangeError.md)
-- [`InvalidJumpError`](InvalidJumpError.md)
-- [`InvalidProofError`](InvalidProofError.md)
 - [`AuthCallUnsetError`](AuthCallUnsetError.md)
-- [`StackOverflowError`](StackOverflowError.md)
-- [`InvalidJumpSubError`](InvalidJumpSubError.md)
-- [`StackUnderflowError`](StackUnderflowError.md)
-- [`CreateCollisionError`](CreateCollisionError.md)
-- [`InvalidBeginSubError`](InvalidBeginSubError.md)
-- [`RefundExhaustedError`](RefundExhaustedError.md)
-- [`InvalidEofFormatError`](InvalidEofFormatError.md)
-- [`InvalidKzgInputsError`](InvalidKzgInputsError.md)
-- [`InvalidReturnSubError`](InvalidReturnSubError.md)
-- [`InvalidCommitmentError`](InvalidCommitmentError.md)
-- [`StaticStateChangeError`](StaticStateChangeError.md)
-- [`BLS12381InputEmptyError`](BLS12381InputEmptyError.md)
-- [`InvalidInputLengthError`](InvalidInputLengthError.md)
-- [`InsufficientBalanceError`](InsufficientBalanceError.md)
 - [`BLS12381FpNotInFieldError`](BLS12381FpNotInFieldError.md)
-- [`InitcodeSizeViolationError`](InitcodeSizeViolationError.md)
-- [`InvalidBytecodeResultError`](InvalidBytecodeResultError.md)
-- [`BLS12381PointNotOnCurveError`](BLS12381PointNotOnCurveError.md)
+- [`BLS12381InputEmptyError`](BLS12381InputEmptyError.md)
 - [`BLS12381InvalidInputLengthError`](BLS12381InvalidInputLengthError.md)
+- [`BLS12381PointNotOnCurveError`](BLS12381PointNotOnCurveError.md)
+- [`CreateCollisionError`](CreateCollisionError.md)
+- [`InitcodeSizeViolationError`](InitcodeSizeViolationError.md)
+- [`InsufficientBalanceError`](InsufficientBalanceError.md)
+- [`InvalidBeginSubError`](InvalidBeginSubError.md)
+- [`InvalidBytecodeResultError`](InvalidBytecodeResultError.md)
+- [`InvalidCommitmentError`](InvalidCommitmentError.md)
+- [`InvalidEofFormatError`](InvalidEofFormatError.md)
+- [`InvalidInputLengthError`](InvalidInputLengthError.md)
+- [`InvalidJumpError`](InvalidJumpError.md)
+- [`InvalidJumpSubError`](InvalidJumpSubError.md)
+- [`InvalidKzgInputsError`](InvalidKzgInputsError.md)
+- [`InvalidOpcodeError`](InvalidOpcodeError.md)
+- [`InvalidProofError`](InvalidProofError.md)
+- [`InvalidReturnSubError`](InvalidReturnSubError.md)
+- [`OutOfRangeError`](OutOfRangeError.md)
+- [`RefundExhaustedError`](RefundExhaustedError.md)
+- [`StackOverflowError`](StackOverflowError.md)
+- [`StackUnderflowError`](StackUnderflowError.md)
+- [`StaticStateChangeError`](StaticStateChangeError.md)
+- [`StopError`](StopError.md)
 - [`ValueOverflowError`](ValueOverflowError.md)
 
 ## Constructors
@@ -74,7 +75,7 @@ Additional parameters for the BaseError.
 
 > **new ExecutionError**(`message`, `args?`, `tag?`): `ExecutionError`
 
-Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:50
+Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:51
 
 Constructs an ExecutionError.
 
@@ -96,7 +97,7 @@ Additional parameters for the BaseError.
 
 `string`
 
-Internal name/tag for the error.
+The tag for the error.
 
 #### Returns
 
@@ -176,7 +177,7 @@ Path to the documentation for this error.
 
 > **message**: `string`
 
-Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es5.d.ts:1077
+Defined in: node\_modules/.pnpm/typescript@5.9.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 Human-readable error message.
 
@@ -204,7 +205,7 @@ Additional meta messages for more context.
 
 > **name**: `string`
 
-Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es5.d.ts:1076
+Defined in: node\_modules/.pnpm/typescript@5.9.2/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 The name of the error, used to discriminate errors.
 
@@ -230,7 +231,7 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:56
 
 > `optional` **stack**: `string`
 
-Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es5.d.ts:1078
+Defined in: node\_modules/.pnpm/typescript@5.9.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 #### Inherited from
 
@@ -254,9 +255,9 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:60
 
 > `static` **code**: `number`
 
-Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:42
+Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:43
 
-Error code, analogous to the code in JSON RPC error.
+Error code (-32015), a convention for EVM execution errors.
 
 ***
 
@@ -264,7 +265,7 @@ Error code, analogous to the code in JSON RPC error.
 
 > `static` **stackTraceLimit**: `number`
 
-Defined in: node\_modules/.pnpm/@types+node@22.15.21/node\_modules/@types/node/globals.d.ts:161
+Defined in: node\_modules/.pnpm/@types+node@24.5.2/node\_modules/@types/node/globals.d.ts:68
 
 The `Error.stackTraceLimit` property specifies the number of stack frames
 collected by a stack trace (whether generated by `new Error().stack` or
@@ -314,7 +315,7 @@ The first error that matches the function, or the original error.
 
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
-Defined in: node\_modules/.pnpm/@types+node@22.15.21/node\_modules/@types/node/globals.d.ts:145
+Defined in: node\_modules/.pnpm/@types+node@24.5.2/node\_modules/@types/node/globals.d.ts:52
 
 Creates a `.stack` property on `targetObject`, which when accessed returns
 a string representing the location in the code at which
@@ -380,11 +381,35 @@ a();
 
 ***
 
+### isError()
+
+> `static` **isError**(`error`): `error is Error`
+
+Defined in: node\_modules/.pnpm/typescript@5.9.2/node\_modules/typescript/lib/lib.esnext.error.d.ts:23
+
+Indicates whether the argument provided is a built-in Error instance or not.
+
+#### Parameters
+
+##### error
+
+`unknown`
+
+#### Returns
+
+`error is Error`
+
+#### Inherited from
+
+[`BaseError`](BaseError.md).[`isError`](BaseError.md#iserror)
+
+***
+
 ### prepareStackTrace()
 
 > `static` **prepareStackTrace**(`err`, `stackTraces`): `any`
 
-Defined in: node\_modules/.pnpm/@types+node@22.15.21/node\_modules/@types/node/globals.d.ts:149
+Defined in: node\_modules/.pnpm/@types+node@24.5.2/node\_modules/@types/node/globals.d.ts:56
 
 #### Parameters
 
