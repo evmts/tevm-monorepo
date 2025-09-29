@@ -12,8 +12,8 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/evmts/tevm-monorepo.git",
-		"directory": "packages/blockchain"
+		"url": "git+https://github.com/evmts/tevm-monorepo.git",
+		"directory": "packages/receipt-manager"
 	},
 	"license": "MIT",
 	"contributors": [

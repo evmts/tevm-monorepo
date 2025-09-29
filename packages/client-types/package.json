@@ -12,8 +12,8 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/evmts/tevm-monorepo.git",
-		"directory": "core/client-types"
+		"url": "git+https://github.com/evmts/tevm-monorepo.git",
+		"directory": "packages/client-types"
 	},
 	"license": "MIT",
 	"contributors": [

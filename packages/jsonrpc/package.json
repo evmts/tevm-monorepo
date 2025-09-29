@@ -14,8 +14,8 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/evmts/tevm-monorepo.git",
-		"directory": "vm/jsonrpc"
+		"url": "git+https://github.com/evmts/tevm-monorepo.git",
+		"directory": "packages/jsonrpc"
 	},
 	"license": "MIT",
 	"contributors": [

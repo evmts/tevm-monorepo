@@ -12,8 +12,8 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/evmts/tevm-monorepo.git",
-		"directory": "bundler/rollup"
+		"url": "git+https://github.com/evmts/tevm-monorepo.git",
+		"directory": "bundler-packages/rollup"
 	},
 	"license": "MIT",
 	"contributors": [

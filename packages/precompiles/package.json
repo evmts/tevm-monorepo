@@ -12,8 +12,8 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/evmts/tevm-monorepo.git",
-		"directory": "core/precompiles"
+		"url": "git+https://github.com/evmts/tevm-monorepo.git",
+		"directory": "packages/precompiles"
 	},
 	"license": "MIT",
 	"contributors": [

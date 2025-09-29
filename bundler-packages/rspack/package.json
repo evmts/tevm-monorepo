@@ -12,8 +12,8 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/evmts/tevm-monorepo.git",
-		"directory": "bundler/rspack"
+		"url": "git+https://github.com/evmts/tevm-monorepo.git",
+		"directory": "bundler-packages/rspack"
 	},
 	"license": "MIT",
 	"contributors": [

@@ -12,8 +12,8 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/evmts/tevm-monorepo.git",
-		"directory": "core/memory-client"
+		"url": "git+https://github.com/evmts/tevm-monorepo.git",
+		"directory": "packages/memory-client"
 	},
 	"license": "MIT",
 	"contributors": [
