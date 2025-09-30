@@ -8,11 +8,7 @@
 
 > **clearContractStorage**(`baseState`): (`address`) => `Promise`\<`void`\>
 
-<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:357
-=======
-Defined in: packages/state/dist/index.d.ts:354
->>>>>>> ceeee8122 (docs: generate docs)
 
 ## Parameters
 

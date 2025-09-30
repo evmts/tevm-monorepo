@@ -8,10 +8,6 @@
 
 > `const` **setStateRoot**: [`StateAction`](../type-aliases/StateAction.md)\<`"setStateRoot"`\>
 
-<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:483
-=======
-Defined in: packages/state/dist/index.d.ts:487
->>>>>>> ceeee8122 (docs: generate docs)
 
 Changes the currently loaded state root

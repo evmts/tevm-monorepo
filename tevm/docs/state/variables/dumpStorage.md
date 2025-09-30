@@ -8,11 +8,7 @@
 
 > `const` **dumpStorage**: [`StateAction`](../type-aliases/StateAction.md)\<`"dumpStorage"`\>
 
-<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:386
-=======
-Defined in: packages/state/dist/index.d.ts:383
->>>>>>> ceeee8122 (docs: generate docs)
 
 Dumps the RLP-encoded storage values for an `account` specified by `address`.
 Keys are the storage keys, values are the storage values as strings.

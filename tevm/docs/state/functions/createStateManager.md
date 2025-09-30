@@ -8,11 +8,7 @@
 
 > **createStateManager**(`options`): [`StateManager`](../interfaces/StateManager.md)
 
-<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:340
-=======
-Defined in: packages/state/dist/index.d.ts:493
->>>>>>> ceeee8122 (docs: generate docs)
 
 ## Parameters
 

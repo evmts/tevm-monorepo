@@ -8,7 +8,7 @@
 
 > **TevmState** = `object`
 
-Defined in: packages/state/dist/index.d.ts:288
+Defined in: packages/state/dist/index.d.ts:287
 
 A map of Ethereum addresses to their account storage data.
 Represents the entire state of an Ethereum network at a given point.

@@ -8,11 +8,7 @@
 
 > `const` **revert**: [`StateAction`](../type-aliases/StateAction.md)\<`"revert"`\>
 
-<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:477
-=======
-Defined in: packages/state/dist/index.d.ts:481
->>>>>>> ceeee8122 (docs: generate docs)
 
 Commits the current change-set to the instance since the
 last call to checkpoint.
