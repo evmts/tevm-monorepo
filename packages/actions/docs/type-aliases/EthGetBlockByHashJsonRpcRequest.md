@@ -9,6 +9,7 @@
 > **EthGetBlockByHashJsonRpcRequest** = `JsonRpcRequest`\<`"eth_getBlockByHash"`, readonly \[`Hex`, `boolean`\]\>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L107)
 =======
 <<<<<<< HEAD
@@ -17,5 +18,8 @@ Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:102](https://github.c
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:111](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L111)
 >>>>>>> 11ad3eb7b (docs: generate updated docs)
 >>>>>>> 02c3a8b9a (docs: generate updated docs)
+=======
+Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:102](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L102)
+>>>>>>> 066dd433a (revert: docs commits)
 
 JSON-RPC request for `eth_getBlockByHash` procedure

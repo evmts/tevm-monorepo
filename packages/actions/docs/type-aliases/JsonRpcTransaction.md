@@ -54,16 +54,6 @@ The integer of gasPrice used for each paid gas encoded as hexadecimal
 
 ***
 
-### nonce?
-
-> `optional` **nonce**: `Hex`
-
-Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L38)
-
-The integer of the nonce. If not provided a nonce will automatically be generated
-
-***
-
 ### to?
 
 > `optional` **to**: `Address`

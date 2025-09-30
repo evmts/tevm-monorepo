@@ -9,6 +9,7 @@
 > **EthGasPriceJsonRpcRequest** = `JsonRpcRequest`\<`"eth_gasPrice"`, readonly \[\]\>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:97](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L97)
 =======
 <<<<<<< HEAD
@@ -17,5 +18,8 @@ Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:92](https://github.co
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:101](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L101)
 >>>>>>> 11ad3eb7b (docs: generate updated docs)
 >>>>>>> 02c3a8b9a (docs: generate updated docs)
+=======
+Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:92](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L92)
+>>>>>>> 066dd433a (revert: docs commits)
 
 JSON-RPC request for `eth_gasPrice` procedure
