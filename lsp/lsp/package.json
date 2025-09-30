@@ -33,13 +33,13 @@
 		"@volar/language-core": "~2.4.23",
 		"@volar/language-server": "~2.4.23",
 		"@volar/language-service": "~2.4.23",
-		"effect": "3.17.14",
+		"effect": "3.18.0",
 		"solc": "0.8.30",
 		"volar-service-css": "0.0.65",
 		"volar-service-emmet": "0.0.65",
 		"volar-service-html": "0.0.65",
 		"volar-service-typescript": "^0.0.65",
-		"vscode-html-languageservice": "^5.5.1",
+		"vscode-html-languageservice": "^5.5.2",
 		"zod": "^4.1.11"
 	},
 	"devDependencies": {

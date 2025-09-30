@@ -6,7 +6,7 @@
 
 # Class: ResourceNotFoundRpcError
 
-Defined in: node\_modules/.pnpm/viem@2.37.8\_bufferutil@4.0.9\_typescript@5.9.2\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/errors/rpc.d.ts:127
+Defined in: node\_modules/.pnpm/viem@2.37.9\_bufferutil@4.0.9\_typescript@5.9.2\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/errors/rpc.d.ts:127
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: node\_modules/.pnpm/viem@2.37.8\_bufferutil@4.0.9\_typescript@5.9.2\
 
 > **new ResourceNotFoundRpcError**(`cause`): `ResourceNotFoundRpcError`
 
-Defined in: node\_modules/.pnpm/viem@2.37.8\_bufferutil@4.0.9\_typescript@5.9.2\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/errors/rpc.d.ts:130
+Defined in: node\_modules/.pnpm/viem@2.37.9\_bufferutil@4.0.9\_typescript@5.9.2\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/errors/rpc.d.ts:130
 
 #### Parameters
 
@@ -52,7 +52,7 @@ Defined in: node\_modules/.pnpm/typescript@5.9.2/node\_modules/typescript/lib/li
 
 > **code**: `RpcErrorCode` \| `number` & `object`
 
-Defined in: node\_modules/.pnpm/viem@2.37.8\_bufferutil@4.0.9\_typescript@5.9.2\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/errors/rpc.d.ts:20
+Defined in: node\_modules/.pnpm/viem@2.37.9\_bufferutil@4.0.9\_typescript@5.9.2\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/errors/rpc.d.ts:20
 
 #### Inherited from
 
@@ -64,7 +64,7 @@ Defined in: node\_modules/.pnpm/viem@2.37.8\_bufferutil@4.0.9\_typescript@5.9.2\
 
 > **details**: `string`
 
-Defined in: node\_modules/.pnpm/viem@2.37.8\_bufferutil@4.0.9\_typescript@5.9.2\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/errors/base.d.ts:19
+Defined in: node\_modules/.pnpm/viem@2.37.9\_bufferutil@4.0.9\_typescript@5.9.2\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/errors/base.d.ts:19
 
 #### Inherited from
 
@@ -76,7 +76,7 @@ Defined in: node\_modules/.pnpm/viem@2.37.8\_bufferutil@4.0.9\_typescript@5.9.2\
 
 > `optional` **docsPath**: `string`
 
-Defined in: node\_modules/.pnpm/viem@2.37.8\_bufferutil@4.0.9\_typescript@5.9.2\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/errors/base.d.ts:20
+Defined in: node\_modules/.pnpm/viem@2.37.9\_bufferutil@4.0.9\_typescript@5.9.2\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/errors/base.d.ts:20
 
 #### Inherited from
 
@@ -100,7 +100,7 @@ Defined in: node\_modules/.pnpm/typescript@5.9.2/node\_modules/typescript/lib/li
 
 > `optional` **metaMessages**: `string`[]
 
-Defined in: node\_modules/.pnpm/viem@2.37.8\_bufferutil@4.0.9\_typescript@5.9.2\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/errors/base.d.ts:21
+Defined in: node\_modules/.pnpm/viem@2.37.9\_bufferutil@4.0.9\_typescript@5.9.2\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/errors/base.d.ts:21
 
 #### Inherited from
 
@@ -112,7 +112,7 @@ Defined in: node\_modules/.pnpm/viem@2.37.8\_bufferutil@4.0.9\_typescript@5.9.2\
 
 > **name**: `string`
 
-Defined in: node\_modules/.pnpm/viem@2.37.8\_bufferutil@4.0.9\_typescript@5.9.2\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/errors/rpc.d.ts:128
+Defined in: node\_modules/.pnpm/viem@2.37.9\_bufferutil@4.0.9\_typescript@5.9.2\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/errors/rpc.d.ts:128
 
 #### Overrides
 
@@ -124,7 +124,7 @@ Defined in: node\_modules/.pnpm/viem@2.37.8\_bufferutil@4.0.9\_typescript@5.9.2\
 
 > **shortMessage**: `string`
 
-Defined in: node\_modules/.pnpm/viem@2.37.8\_bufferutil@4.0.9\_typescript@5.9.2\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/errors/base.d.ts:22
+Defined in: node\_modules/.pnpm/viem@2.37.9\_bufferutil@4.0.9\_typescript@5.9.2\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/errors/base.d.ts:22
 
 #### Inherited from
 
@@ -148,7 +148,7 @@ Defined in: node\_modules/.pnpm/typescript@5.9.2/node\_modules/typescript/lib/li
 
 > **version**: `string`
 
-Defined in: node\_modules/.pnpm/viem@2.37.8\_bufferutil@4.0.9\_typescript@5.9.2\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/errors/base.d.ts:23
+Defined in: node\_modules/.pnpm/viem@2.37.9\_bufferutil@4.0.9\_typescript@5.9.2\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/errors/base.d.ts:23
 
 #### Inherited from
 
@@ -160,7 +160,7 @@ Defined in: node\_modules/.pnpm/viem@2.37.8\_bufferutil@4.0.9\_typescript@5.9.2\
 
 > `static` **code**: `-32001`
 
-Defined in: node\_modules/.pnpm/viem@2.37.8\_bufferutil@4.0.9\_typescript@5.9.2\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/errors/rpc.d.ts:129
+Defined in: node\_modules/.pnpm/viem@2.37.9\_bufferutil@4.0.9\_typescript@5.9.2\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/errors/rpc.d.ts:129
 
 ***
 
@@ -168,7 +168,7 @@ Defined in: node\_modules/.pnpm/viem@2.37.8\_bufferutil@4.0.9\_typescript@5.9.2\
 
 > `static` **stackTraceLimit**: `number`
 
-Defined in: node\_modules/.pnpm/@types+node@24.5.2/node\_modules/@types/node/globals.d.ts:68
+Defined in: node\_modules/.pnpm/@types+node@24.6.0/node\_modules/@types/node/globals.d.ts:68
 
 The `Error.stackTraceLimit` property specifies the number of stack frames
 collected by a stack trace (whether generated by `new Error().stack` or
@@ -192,7 +192,7 @@ not capture any frames.
 
 > **walk**(): `Error`
 
-Defined in: node\_modules/.pnpm/viem@2.37.8\_bufferutil@4.0.9\_typescript@5.9.2\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/errors/base.d.ts:26
+Defined in: node\_modules/.pnpm/viem@2.37.9\_bufferutil@4.0.9\_typescript@5.9.2\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/errors/base.d.ts:26
 
 ##### Returns
 
@@ -206,7 +206,7 @@ Defined in: node\_modules/.pnpm/viem@2.37.8\_bufferutil@4.0.9\_typescript@5.9.2\
 
 > **walk**(`fn`): `null` \| `Error`
 
-Defined in: node\_modules/.pnpm/viem@2.37.8\_bufferutil@4.0.9\_typescript@5.9.2\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/errors/base.d.ts:27
+Defined in: node\_modules/.pnpm/viem@2.37.9\_bufferutil@4.0.9\_typescript@5.9.2\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/errors/base.d.ts:27
 
 ##### Parameters
 
@@ -228,7 +228,7 @@ Defined in: node\_modules/.pnpm/viem@2.37.8\_bufferutil@4.0.9\_typescript@5.9.2\
 
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
-Defined in: node\_modules/.pnpm/@types+node@24.5.2/node\_modules/@types/node/globals.d.ts:52
+Defined in: node\_modules/.pnpm/@types+node@24.6.0/node\_modules/@types/node/globals.d.ts:52
 
 Creates a `.stack` property on `targetObject`, which when accessed returns
 a string representing the location in the code at which
@@ -322,7 +322,7 @@ Indicates whether the argument provided is a built-in Error instance or not.
 
 > `static` **prepareStackTrace**(`err`, `stackTraces`): `any`
 
-Defined in: node\_modules/.pnpm/@types+node@24.5.2/node\_modules/@types/node/globals.d.ts:56
+Defined in: node\_modules/.pnpm/@types+node@24.6.0/node\_modules/@types/node/globals.d.ts:56
 
 #### Parameters
 

@@ -16,7 +16,7 @@
 	},
 	"dependencies": {
 		"@tevm/contract": "workspace:^",
-		"viem": "^2.37.8",
+		"viem": "^2.37.9",
 		"zod": "^4.1.11"
 	},
 	"devDependencies": {
@@ -27,7 +27,7 @@
 		"@tevm/ts-plugin": "workspace:^",
 		"@tevm/vite-plugin": "workspace:^",
 		"@types/live-server": "^1.2.3",
-		"@types/node": "^24.5.2",
+		"@types/node": "^24.6.0",
 		"esbuild": "^0.25.10",
 		"isomorphic-fetch": "^3.0.0",
 		"live-server": "^1.2.2",

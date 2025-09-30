@@ -65,7 +65,7 @@
 		"@tevm/bundler-cache": "workspace:^",
 		"@tevm/config": "workspace:^",
 		"@tevm/solc": "workspace:^",
-		"effect": "3.17.14",
+		"effect": "3.18.0",
 		"solc": "0.8.30",
 		"unplugin": "^2.3.10",
 		"zod": "^4.1.11"
@@ -74,7 +74,7 @@
 		"@tevm/contract": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"@types/node": "^24.5.2"
+		"@types/node": "^24.6.0"
 	},
 	"publishConfig": {
 		"access": "public"

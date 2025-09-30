@@ -64,7 +64,7 @@
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"@types/node": "^24.5.2"
+		"@types/node": "^24.6.0"
 	},
 	"publishConfig": {
 		"access": "public"
@@ -77,6 +77,6 @@
 		"@tevm/ts-plugin": "workspace:^"
 	},
 	"peerDependencies": {
-		"viem": "^2.37.8"
+		"viem": "^2.37.9"
 	}
 }

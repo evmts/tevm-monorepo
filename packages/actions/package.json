@@ -89,7 +89,7 @@
 		"abitype": "^1.1.1"
 	},
 	"peerDependencies": {
-		"viem": "^2.37.8",
+		"viem": "^2.37.9",
 		"zod": "^4.1.11"
 	},
 	"publishConfig": {

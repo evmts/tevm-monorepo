@@ -66,8 +66,8 @@
 		"@tevm/config": "workspace:^",
 		"@tevm/resolutions": "workspace:^",
 		"@tevm/solc": "workspace:^",
-		"@types/node": "^24.5.2",
-		"effect": "3.17.14",
+		"@types/node": "^24.6.0",
+		"effect": "3.18.0",
 		"resolve": "^1.22.10",
 		"solidity-ast": "^0.4.61"
 	},

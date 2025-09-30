@@ -456,7 +456,7 @@
     "@tevm/vm": "workspace:^",
     "@tevm/webpack-plugin": "workspace:^",
     "commander": "^14.0.1",
-    "effect": "3.17.14",
+    "effect": "3.18.0",
     "glob": "^11.0.3",
     "solc": "^0.8.30"
   },
@@ -466,7 +466,7 @@
   },
   "peerDependencies": {
     "@tevm/ts-plugin": "workspace:^",
-    "viem": "^2.37.8"
+    "viem": "^2.37.9"
   },
   "publishConfig": {
     "access": "public"

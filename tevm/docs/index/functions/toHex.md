@@ -8,7 +8,7 @@
 
 > **toHex**(`value`, `opts?`): `` `0x${string}` ``
 
-Defined in: node\_modules/.pnpm/viem@2.37.8\_bufferutil@4.0.9\_typescript@5.9.2\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/utils/encoding/toHex.d.ts:36
+Defined in: node\_modules/.pnpm/viem@2.37.9\_bufferutil@4.0.9\_typescript@5.9.2\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/utils/encoding/toHex.d.ts:36
 
 Encodes a string, number, bigint, or ByteArray into a hex string
 
