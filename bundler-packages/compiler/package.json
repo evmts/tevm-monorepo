@@ -67,9 +67,11 @@
 		"@tevm/resolutions": "workspace:^",
 		"@tevm/solc": "workspace:^",
 		"@types/node": "^25.9.0",
+		"abitype": "^1.1.1",
 		"effect": "3.21.2",
 		"resolve": "^1.22.12",
-		"solidity-ast": "^0.4.62"
+		"solidity-ast": "^0.4.62",
+		"solc-typed-ast": "^18.2.5"
 	},
 	"devDependencies": {
 		"@openzeppelin/contracts": "5.6.1",

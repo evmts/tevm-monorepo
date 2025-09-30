@@ -14,16 +14,19 @@ export type SolcInputSource = {
 	// Optional: keccak256 hash of the source file
 	// It is used to verify the retrieved content if imported via URLs.
 	keccak256?: HexNumber
-	// If language is set to "SolidityAST", an AST needs to be supplied under the "ast" key.
-	// Note that importing ASTs is experimental and in particular that:
-	// - importing invalid ASTs can produce undefined results and
-	// - no proper error reporting is available on invalid ASTs.
-	// Furthermore, note that the AST import only consumes the fields of the AST as
-	// produced by the compiler in "stopAfter": "parsing" mode and then re-performs
-	// analysis, so any analysis-based annotations of the AST are ignored upon import.
-	// formatted as the json ast requested with the ``ast`` output selection.
-	ast?: SolcAst
-} & (
+} & // TODO: make sure that fix is correct (ast OR content or urls)
+(
+	| {
+			// If language is set to "SolidityAST", an AST needs to be supplied under the "ast" key.
+			// Note that importing ASTs is experimental and in particular that:
+			// - importing invalid ASTs can produce undefined results and
+			// - no proper error reporting is available on invalid ASTs.
+			// Furthermore, note that the AST import only consumes the fields of the AST as
+			// produced by the compiler in "stopAfter": "parsing" mode and then re-performs
+			// analysis, so any analysis-based annotations of the AST are ignored upon import.
+			// formatted as the json ast requested with the ``ast`` output selection.
+			ast?: SolcAst
+	  }
 	| {
 			// Required (unless "content" is used, see below): URL(s) to the source file.
 			// URL(s) should be imported in this order and the result checked against the
@@ -66,7 +69,7 @@ export type SolcYulDetails = {
 	// sequence will be run.
 	// If set to an empty value, only the default clean-up sequence is used and
 	// no optimization steps are applied.
-	optimizerSteps: string
+	optimizerSteps?: string
 }
 
 // Switch optimizer components on or off in detail.
@@ -75,29 +78,29 @@ export type SolcYulDetails = {
 export type SolcOptimizerDetails = {
 	// The peephole optimizer is always on if no details are given,
 	// use details to switch it off.
-	peephole: boolean
+	peephole?: boolean
 	// The inliner is always on if no details are given,
 	// use details to switch it off.
-	inliner: boolean
+	inliner?: boolean
 	// The unused jumpdest remover is always on if no details are given,
 	// use details to switch it off.
-	jumpdestRemover: boolean
+	jumpdestRemover?: boolean
 	// Sometimes re-orders literals in commutative operations.
-	orderLiterals: boolean
+	orderLiterals?: boolean
 	// Removes duplicate code blocks
-	deduplicate: boolean
+	deduplicate?: boolean
 	// Common subexpression elimination, this is the most complicated step but
 	// can also provide the largest gain.
-	cse: boolean
+	cse?: boolean
 	// Optimize representation of literal numbers and strings in code.
-	constantOptimizer: boolean
+	constantOptimizer?: boolean
 	// The new Yul optimizer. Mostly operates on the code of ABI coder v2
 	// and inline assembly.
 	// It is activated together with the global optimizer setting
 	// and can be deactivated here.
 	// Before Solidity 0.6.0 it had to be activated through this switch.
-	yul: boolean
-	yulDetails: SolcYulDetails
+	yul?: boolean
+	yulDetails?: SolcYulDetails
 }
 
 // Optional: Optimizer settings
@@ -110,8 +113,11 @@ export type SolcOptimizer = {
 	// Optimize for how many times you intend to run the code.
 	// Lower values will optimize more for initial deployment cost, higher
 	// values will optimize more for high-frequency usage.
-	runs: number
-	details: SolcOptimizerDetails
+	runs?: number
+	// Switch optimizer components on or off in detail.
+	// The "enabled" switch above provides two defaults which can be
+	// tweaked here. If "details" is given, "enabled" can be omitted.
+	details?: SolcOptimizerDetails
 }
 
 const fileLevelOption = '' as const
@@ -161,7 +167,8 @@ export type SolcModelCheckerContracts = {
 }
 
 export type SolcModelChecker = {
-	contracts: SolcModelCheckerContracts
+	// Choose which contracts should be analyzed as the deployed one.
+	contracts?: SolcModelCheckerContracts
 	// Choose how division and modulo operations should be encoded.
 	// When using `false` they are replaced by multiplication with slack
 	// variables. This is the default.
@@ -174,9 +181,9 @@ export type SolcModelChecker = {
 	// Choose whether external calls should be considered trusted in case the
 	// code of the called function is available at compile-time.
 	// For details see the SMTChecker section.
-	extCalls: 'trusted' | 'untrusted'
+	extCalls?: 'trusted' | 'untrusted'
 	// Choose which types of invariants should be reported to the user: contract, reentrancy.
-	invariants: Array<'contract' | 'reentrancy'>
+	invariants?: Array<'contract' | 'reentrancy'>
 	// Choose whether to output all proved targets. The default is `false`.
 	showProved?: boolean
 	// Choose whether to output all unproved targets. The default is `false`.
@@ -185,7 +192,7 @@ export type SolcModelChecker = {
 	showUnsupported?: boolean
 	// Choose which solvers should be used, if available.
 	// See the Formal Verification section for the solvers description.
-	solvers: Array<'cvc4' | 'smtlib2' | 'z3'>
+	solvers?: Array<'cvc4' | 'smtlib2' | 'z3'>
 	// Choose which targets should be checked: constantCondition,
 	// underflow, overflow, divByZero, balance, assert, popEmptyArray, outOfBounds.
 	// If the option is not given all targets are checked by default,
@@ -233,6 +240,22 @@ export type SolcMetadataSettings = {
 	bytecodeHash?: 'ipfs' | 'bzzr1' | 'none'
 }
 
+export type SolcEvmVersion =
+	| 'homestead'
+	| 'tangerineWhistle'
+	| 'spuriousDragon'
+	| 'byzantium'
+	| 'constantinople'
+	| 'petersburg'
+	| 'istanbul'
+	| 'berlin'
+	| 'london'
+	| 'paris'
+	| 'shanghai'
+	| 'cancun'
+	| 'prague'
+	| 'osaka'
+
 // Optional: A list of remappings to apply to the source code.
 export type SolcSettings = {
 	// Optional: Stop compilation after the given stage. Currently only "parsing" is valid here
@@ -241,9 +264,8 @@ export type SolcSettings = {
 	remappings?: SolcRemapping
 	optimizer?: SolcOptimizer
 	// Version of the EVM to compile for.
-	// Affects type checking and code generation. Can be homestead,
-	// tangerineWhistle, spuriousDragon, byzantium, constantinople, petersburg, istanbul, berlin, london or paris
-	evmVersion?: 'byzantium' | 'constantinople' | 'petersburg' | 'istanbul' | 'berlin' | 'london' | 'paris'
+	// Affects type checking and code generation.
+	evmVersion?: SolcEvmVersion
 	// Optional: Change compilation pipeline to go through the Yul intermediate representation.
 	// This is false by default.
 	viaIR?: boolean
@@ -415,7 +437,7 @@ export type SolcContractOutput = {
 	storageLayout: SolcStorageLayout
 
 	// EVM-related outputs
-	evm: SolcEVMOutput
+	evm: SolcEvmOutput
 
 	// Ewasm related outputs
 	ewasm: SolcEwasmOutput
@@ -555,7 +577,7 @@ export interface SolcStorageLayoutStructType extends SolcStorageLayoutInplaceTyp
 	members: Array<SolcStorageLayoutItem>
 }
 
-export type SolcEVMOutput = {
+export type SolcEvmOutput = {
 	// Assembly (string)
 	assembly: string
 
