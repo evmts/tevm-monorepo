@@ -38,7 +38,7 @@ of the `dumpState` method. Each error provides detailed information about what w
 
 ### state
 
-> **state**: `TevmState`
+> **state**: `SerializableTevmState`
 
 Defined in: [packages/actions/src/DumpState/DumpStateResult.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/DumpState/DumpStateResult.ts#L17)
 

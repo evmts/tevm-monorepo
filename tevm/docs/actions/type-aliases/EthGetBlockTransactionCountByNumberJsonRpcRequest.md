@@ -8,18 +8,6 @@
 
 > **EthGetBlockTransactionCountByNumberJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getBlockTransactionCountByNumber"`, readonly \[[`BlockTag`](../../index/type-aliases/BlockTag.md) \| [`Hex`](../../index/type-aliases/Hex.md)\]\>
 
-<<<<<<< HEAD
-Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:96
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:96
-=======
 Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:104
->>>>>>> 11ad3eb7b (docs: generate updated docs)
-=======
-Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:100
->>>>>>> 44031b740 (docs: generate all docs)
->>>>>>> f0afa5027 (docs: generate all docs)
 
 JSON-RPC request for `eth_getBlockTransactionCountByNumber` procedure

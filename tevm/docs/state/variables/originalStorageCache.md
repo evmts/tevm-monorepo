@@ -8,19 +8,7 @@
 
 > `const` **originalStorageCache**: [`StateAction`](../type-aliases/StateAction.md)\<`"originalStorageCache"`\>
 
-<<<<<<< HEAD
-Defined in: packages/state/dist/index.d.ts:492
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-Defined in: packages/state/dist/index.d.ts:492
-=======
 Defined in: packages/state/dist/index.d.ts:464
->>>>>>> ceeee8122 (docs: generate docs)
-=======
-Defined in: packages/state/dist/index.d.ts:463
->>>>>>> 44031b740 (docs: generate all docs)
->>>>>>> f4f942332 (docs: generate all docs)
 
 Commits the current change-set to the instance since the
 last call to checkpoint.
