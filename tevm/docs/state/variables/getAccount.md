@@ -9,6 +9,7 @@
 > `const` **getAccount**: [`StateAction`](../type-aliases/StateAction.md)\<`"getAccount"`\>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:408
 =======
 <<<<<<< HEAD
@@ -17,6 +18,9 @@ Defined in: packages/state/dist/index.d.ts:411
 Defined in: packages/state/dist/index.d.ts:408
 >>>>>>> ceeee8122 (docs: generate docs)
 >>>>>>> db7d1ce3d (docs: generate docs)
+=======
+Defined in: packages/state/dist/index.d.ts:411
+>>>>>>> 7ba077856 (revert: docs commits)
 
 Gets the account corresponding to the provided `address`.
 Returns undefined if account does not exist.

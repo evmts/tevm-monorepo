@@ -9,6 +9,7 @@
 > `const` **modifyAccountFields**: [`StateAction`](../type-aliases/StateAction.md)\<`"modifyAccountFields"`\>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:457
 =======
 <<<<<<< HEAD
@@ -17,6 +18,9 @@ Defined in: packages/state/dist/index.d.ts:460
 Defined in: packages/state/dist/index.d.ts:457
 >>>>>>> ceeee8122 (docs: generate docs)
 >>>>>>> db7d1ce3d (docs: generate docs)
+=======
+Defined in: packages/state/dist/index.d.ts:460
+>>>>>>> 7ba077856 (revert: docs commits)
 
 Gets the account associated with `address`, modifies the given account
 fields, then saves the account into state. Account fields can include
