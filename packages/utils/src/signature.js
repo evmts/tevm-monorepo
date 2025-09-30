@@ -5,7 +5,7 @@ import { getAddress, keccak256, toBytes, toHex } from './viem.js'
  * @typedef {Object} Signature
  * @property {bigint} r - The r value of the signature
  * @property {bigint} s - The s value of the signature
- * @property {number} v - The recovery id (27 or 28)
+ * @property {number} [v] - The recovery id (27 or 28)
  * @property {0 | 1} [yParity] - The y parity (0 or 1)
  */
 

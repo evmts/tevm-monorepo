@@ -79,7 +79,8 @@
 	"devDependencies": {
 		"@tevm/test-utils": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^"
+		"@tevm/tsupconfig": "workspace:^",
+		"@tevm/tx": "workspace:^"
 	},
 	"peerDependencies": {
 		"viem": "^2.37.8"
