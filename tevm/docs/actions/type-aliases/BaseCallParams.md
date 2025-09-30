@@ -224,13 +224,6 @@ The maximum fee per gas for EIP-1559 transactions.
 
 The maximum priority fee per gas for EIP-1559 transactions.
 
-### nonce?
-
-> `readonly` `optional` **nonce**: `bigint`
-
-The nonce for the transaction. If provided, this nonce will be used instead of automatically calculating the next available nonce.
-This is useful when you want to replace a pending transaction or ensure a specific nonce is used.
-
 ### origin?
 
 > `readonly` `optional` **origin**: [`Address`](Address.md)

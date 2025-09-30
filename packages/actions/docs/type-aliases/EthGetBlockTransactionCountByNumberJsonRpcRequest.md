@@ -8,10 +8,6 @@
 
 > **EthGetBlockTransactionCountByNumberJsonRpcRequest** = `JsonRpcRequest`\<`"eth_getBlockTransactionCountByNumber"`, readonly \[`BlockTag` \| `Hex`\]\>
 
-<<<<<<< HEAD
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:126](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L126)
-=======
-Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:135](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L135)
->>>>>>> 11ad3eb7b (docs: generate updated docs)
 
 JSON-RPC request for `eth_getBlockTransactionCountByNumber` procedure

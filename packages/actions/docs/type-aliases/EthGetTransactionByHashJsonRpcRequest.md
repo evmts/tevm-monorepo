@@ -8,10 +8,6 @@
 
 > **EthGetTransactionByHashJsonRpcRequest** = `JsonRpcRequest`\<`"eth_getTransactionByHash"`, readonly \[`Hex`\]\>
 
-<<<<<<< HEAD
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:186](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L186)
-=======
-Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:195](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L195)
->>>>>>> 11ad3eb7b (docs: generate updated docs)
 
 JSON-RPC request for `eth_getTransactionByHash` procedure
