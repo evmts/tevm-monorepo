@@ -1,6 +1,7 @@
 import { releases } from '@tevm/solc'
 import { defaults } from './defaults.js'
 import { extractCompatibleSolcVersions } from './extractCompatibleSolcVersions.js'
+import { VersionResolutionError } from './errors.js'
 
 /**
  * Validates the solc version against the source code, provided and default versions
@@ -28,8 +29,14 @@ export const validateSolcVersion = (source, options, logger = console) => {
 
 	if (compatibleVersions.length === 0) {
 		if (options.throwOnVersionMismatch) {
-			logger.error(`No compatible solc versions found for the source code`)
-			throw new Error(`No compatible solc versions found for the source code`)
+			const err = new VersionResolutionError(`No compatible solc versions found for the source code`, {
+				meta: {
+					code: 'no_compatible_version',
+					availableVersions: Object.keys(releases),
+				},
+			})
+			logger.error(err.message)
+			throw err
 		}
 
 		if (options.solcVersion) {
@@ -52,10 +59,15 @@ export const validateSolcVersion = (source, options, logger = console) => {
 
 	if (options.solcVersion && !compatibleVersions.includes(options.solcVersion)) {
 		if (options.throwOnVersionMismatch) {
-			logger.error(
-				`Provided solc version ${options.solcVersion} is not compatible with the source code; compatible versions: ${compatibleVersions.join(', ')}`,
-			)
-			throw new Error(`Provided solc version ${options.solcVersion} is not compatible with the source code`)
+			const err = new VersionResolutionError(`Provided solc version ${options.solcVersion} is not compatible with the source code`, {
+				meta: {
+					code: 'version_mismatch',
+					providedVersion: options.solcVersion,
+					compatibleVersions,
+				},
+			})
+			logger.error(`${err.message}; compatible versions: ${compatibleVersions.join(', ')}`)
+			throw err
 		}
 
 		logger.warn(

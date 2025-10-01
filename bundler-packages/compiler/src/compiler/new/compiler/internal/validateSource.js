@@ -3,6 +3,8 @@ import { validateSolcVersion } from './validateSolcVersion.js'
 
 /**
  * Validates the source code
+ *
+ * We purposely don't validate AST (e.g. valid json) to let the AST reader validate and throw the appropriate errors
  * @template TLanguage extends import('@tevm/solc').SolcLanguage
  * @param {TLanguage extends 'SolidityAST' ? import('../../types.js').SolcAst | import('solc-typed-ast').ASTNode : string} source - The source code to validate
  * @param {import('../../types.js').CompileBaseOptions} options - The compilation options
