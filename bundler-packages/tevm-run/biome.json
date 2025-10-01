@@ -6,6 +6,7 @@
 	"files": {
 		"ignore": [
 			".nx",
+			".tevm",
 			"node_modules",
 			"package.json",
 			"**/package.json",
