@@ -32,7 +32,7 @@ export const handleTransaction = async (
 
 		const txReceipt =
 			typeof res === 'object' && 'status' in res
-				? res
+				? (res as TransactionReceipt)
 				: typeof res === 'string' && isHex(res)
 					? await getTransactionReceipt(client, { hash: res })
 					: undefined

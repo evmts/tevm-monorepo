@@ -49,9 +49,9 @@ export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 		 */
 		return (
 			r && {
-				blockHash: r.blockHash,
+				blockHash: r.hex,
 				blockNumber: BigInt(r.blockNumber),
-				cumulativeGasUsed: BigInt(r.cumulativeGasUsed),
+				cumulativeGasUsed: BigInt(r.cumulativeBlockGasUsed),
 				effectiveGasPrice: BigInt(r.effectiveGasPrice),
 				from: r.from,
 				gasUsed: BigInt(r.gasUsed),
