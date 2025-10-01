@@ -86,7 +86,8 @@ describe('Tevm Node JSON-RPC Automining Integration Tests', () => {
 			// Verify transaction is in pool
 			const pooledTxs = await txPool.getBySenderAddress(createAddress(PREFUNDED_ACCOUNTS[0].address))
 			expect(pooledTxs).toHaveLength(1)
-			expect(bytesToHex(pooledTxs[0]!.tx.hash())).toBe(bytesToHex(signedTx.hash()))
+			if (!pooledTxs[0]) throw new Error('Transaction not found in pool')
+			expect(bytesToHex(pooledTxs[0].tx.hash())).toBe(bytesToHex(signedTx.hash()))
 		})
 	})
 

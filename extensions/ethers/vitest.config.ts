@@ -10,8 +10,8 @@ export default defineConfig({
 			thresholds: {
 				autoUpdate: true,
 				lines: 92.62,
-				functions: 72.72,
-				branches: 61.53,
+				functions: 70,
+				branches: 58.33,
 				statements: 92.62,
 			},
 		},

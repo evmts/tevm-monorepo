@@ -97,7 +97,8 @@ describe('Ethers Extension JSON-RPC Automining Integration Tests', () => {
 			const txPool = await node.getTxPool()
 			const pooledTxs = await txPool.getBySenderAddress(createAddressFromString(PREFUNDED_ACCOUNTS[0].address))
 			expect(pooledTxs).toHaveLength(1)
-			expect(bytesToHex(pooledTxs[0]!.tx.hash())).toBe(txHash)
+			if (!pooledTxs[0]) throw new Error('Transaction not found in pool')
+			expect(bytesToHex(pooledTxs[0].tx.hash())).toBe(txHash)
 		})
 	})
 

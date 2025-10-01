@@ -3,6 +3,7 @@ import { tevmDefault } from '@tevm/common'
 import { createTevmNode } from '@tevm/node'
 import { TransactionFactory } from '@tevm/tx'
 import {
+	Hex,
 	PREFUNDED_ACCOUNTS,
 	PREFUNDED_PRIVATE_KEYS,
 	bytesToHex,
@@ -64,7 +65,7 @@ describe('JSON-RPC Automining Integration Tests', () => {
 			const receiptResult = await getReceiptProcedure({
 				jsonrpc: '2.0',
 				method: 'eth_getTransactionReceipt',
-				params: [sendResult.result!],
+				params: [sendResult.result as Hex],
 				id: 3,
 			})
 
@@ -126,7 +127,7 @@ describe('JSON-RPC Automining Integration Tests', () => {
 			const receiptResult = await getReceiptProcedure({
 				jsonrpc: '2.0',
 				method: 'eth_getTransactionReceipt',
-				params: [sendResult.result!],
+				params: [sendResult.result as Hex],
 				id: 3,
 			})
 
@@ -267,7 +268,7 @@ describe('JSON-RPC Automining Integration Tests', () => {
 			const receiptResult = await getReceiptProcedure({
 				jsonrpc: '2.0',
 				method: 'eth_getTransactionReceipt',
-				params: [sendResult.result!],
+				params: [sendResult.result as Hex],
 				id: 2,
 			})
 
