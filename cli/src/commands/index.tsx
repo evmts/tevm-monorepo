@@ -1,4 +1,3 @@
-import React from 'react'
 import { Box, Text } from 'ink'
 
 // Add command description for help output

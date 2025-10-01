@@ -1,5 +1,5 @@
 import { Box, useInput } from 'ink'
-import React from 'react'
+
 import type { Store } from '../state/Store.js'
 import { MultipleChoiceStep } from './MultipleChoiceStep.js'
 import { TextInputStep } from './TextInputStep.js'

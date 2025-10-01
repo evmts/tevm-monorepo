@@ -1,4 +1,3 @@
-import React from 'react'
 import fs, { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
 import path from 'node:path'

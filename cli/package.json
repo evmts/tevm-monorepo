@@ -22,6 +22,11 @@
 		"build": "pnpm run build:app",
 		"build:app": "tsc --skipLibCheck && mkdir -p dist/utils && cp src/utils/bun.lockb dist/utils/",
 		"dev": "tsx src/cli.tsx",
+		"format": "biome format . --write",
+		"lint": "biome check . --write --unsafe",
+		"lint:check": "biome check . --verbose",
+		"lint:deps": "bunx depcheck",
+		"lint:package": "bunx publint --strict && attw --pack",
 		"test": "prettier --check . && xo && ava"
 	},
 	"files": [

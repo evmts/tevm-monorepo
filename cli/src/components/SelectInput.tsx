@@ -1,4 +1,3 @@
-import React from 'react'
 import { mainSymbols } from 'figures'
 import { Box, Text } from 'ink'
 import InkSelectInput from 'ink-select-input'
