@@ -1,4 +1,5 @@
 import { createSolc } from '@tevm/solc'
+import { SolcError } from './errors.js'
 
 /**
  * Instantiate a solc instance with a given version if not already instantiated
@@ -12,8 +13,11 @@ export const getSolc = async (version, logger = console) => {
 		logger.debug(`Successfully loaded solc instance for version ${version}`)
 		return solcInstance
 	} catch (error) {
-		// TODO: typed error
-		logger.error(`Failed to instantiate solc instance for version ${version}`)
-		throw new Error(`Failed to instantiate solc instance for version ${version}`, { cause: error })
+		const err = new SolcError(`Failed to instantiate solc instance for version ${version}`, {
+			cause: error,
+			meta: { code: 'instantiation_failed', version },
+		})
+		logger.error(err.message)
+		throw err
 	}
 }
