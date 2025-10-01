@@ -2,6 +2,8 @@ import { expect, it } from 'bun:test'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
+const isCI = process.env.CI === 'true'
+
 it('should run a cli', async () => {
 	// Get directory path in a TypeScript-compatible way
 	const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -14,10 +16,10 @@ it('should run a cli', async () => {
 		stderr: 'pipe',
 	})
 
-	// Set up timeout to prevent hanging
+	// Set up timeout to prevent hanging (longer in CI)
 	const timeoutId = setTimeout(() => {
 		proc.kill()
-	}, 12000)
+	}, isCI ? 30000 : 12000)
 
 	try {
 		// Wait for process to complete
@@ -59,4 +61,4 @@ it('should run a cli', async () => {
 			// Ignore errors if process already exited
 		}
 	}
-}, 15000)
+}, isCI ? 35000 : 15000)
