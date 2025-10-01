@@ -497,7 +497,7 @@ importers:
     dependencies:
       '@shazow/whatsabi':
         specifier: ^0.23.0
-        version: 0.23.0(@noble/hashes@2.0.1)(typescript@5.9.3)(zod@3.25.76)
+        version: 0.23.0(@noble/hashes@2.0.1)(typescript@5.9.3)(zod@4.1.11)
       '@tevm/config':
         specifier: workspace:^
         version: link:../config
@@ -505,8 +505,8 @@ importers:
         specifier: workspace:^
         version: link:../../packages/utils
       viem:
-        specifier: ^2.30.1
-        version: 2.30.6(bufferutil@4.0.9)(typescript@5.9.2)(utf-8-validate@5.0.10)(zod@3.25.76)
+        specifier: ^2.37.9
+        version: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
     devDependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -1220,8 +1220,8 @@ importers:
         specifier: workspace:^
         version: link:../../packages/node
       viem:
-        specifier: ^2.30.1
-        version: 2.30.6(bufferutil@4.0.9)(typescript@5.9.2)(utf-8-validate@5.0.10)(zod@3.25.76)
+        specifier: ^2.37.9
+        version: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
     devDependencies:
       '@tevm/actions':
         specifier: workspace:^
@@ -1443,7 +1443,7 @@ importers:
         version: link:../vm
       viem:
         specifier: ^2.30.1
-        version: 2.30.6(bufferutil@4.0.9)(typescript@5.9.2)(utf-8-validate@5.0.10)(zod@3.25.76)
+        version: 2.30.6(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
       zod:
         specifier: ^4.1.11
         version: 4.1.11
@@ -1473,8 +1473,8 @@ importers:
         specifier: workspace:^
         version: link:../utils
       viem:
-        specifier: ^2.30.1
-        version: 2.30.6(bufferutil@4.0.9)(typescript@5.9.2)(utf-8-validate@5.0.10)(zod@3.25.76)
+        specifier: ^2.37.9
+        version: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
     devDependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -1538,8 +1538,8 @@ importers:
         specifier: workspace:^
         version: link:../utils
       viem:
-        specifier: ^2.30.1
-        version: 2.30.6(bufferutil@4.0.9)(typescript@5.9.2)(utf-8-validate@5.0.10)(zod@3.25.76)
+        specifier: ^2.37.9
+        version: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
     devDependencies:
       '@tevm/test-utils':
         specifier: workspace:^
@@ -1582,8 +1582,8 @@ importers:
         specifier: workspace:^
         version: link:../utils
       viem:
-        specifier: ^2.30.1
-        version: 2.30.6(bufferutil@4.0.9)(typescript@5.9.2)(utf-8-validate@5.0.10)(zod@3.25.76)
+        specifier: ^2.37.9
+        version: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
     devDependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -1629,8 +1629,8 @@ importers:
         specifier: workspace:^
         version: link:../utils
       viem:
-        specifier: ^2.30.1
-        version: 2.30.6(bufferutil@4.0.9)(typescript@5.9.2)(utf-8-validate@5.0.10)(zod@3.25.76)
+        specifier: ^2.37.9
+        version: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
     devDependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -1735,8 +1735,8 @@ importers:
         specifier: workspace:^
         version: link:../../extensions/viem
       viem:
-        specifier: ^2.30.1
-        version: 2.30.6(bufferutil@4.0.9)(typescript@5.9.2)(utf-8-validate@5.0.10)(zod@3.25.76)
+        specifier: ^2.37.9
+        version: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
     devDependencies:
       '@tevm/client-types':
         specifier: workspace:^
@@ -1760,7 +1760,7 @@ importers:
         specifier: ^0.2.13
         version: 0.2.13(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))
       viem:
-        specifier: ^2.30.1
+        specifier: ^2.37.9
         version: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
     devDependencies:
       '@tevm/tsconfig':
@@ -1819,8 +1819,8 @@ importers:
         specifier: ^0.5.0
         version: 0.5.0
       viem:
-        specifier: ^2.30.1
-        version: 2.30.6(bufferutil@4.0.9)(typescript@5.9.2)(utf-8-validate@5.0.10)(zod@3.25.76)
+        specifier: ^2.37.9
+        version: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
       vitest:
         specifier: ^3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.6.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.6.1)(typescript@5.9.3))(terser@5.44.0)(tsx@4.20.6)(yaml@2.8.1)
@@ -1889,8 +1889,8 @@ importers:
         specifier: workspace:^
         version: link:../vm
       viem:
-        specifier: ^2.30.1
-        version: 2.30.6(bufferutil@4.0.9)(typescript@5.9.2)(utf-8-validate@5.0.10)(zod@3.25.76)
+        specifier: ^2.37.9
+        version: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
     devDependencies:
       '@tevm/test-utils':
         specifier: workspace:^
@@ -2087,8 +2087,8 @@ importers:
         specifier: ^3.2.0
         version: 3.2.0
       viem:
-        specifier: ^2.30.1
-        version: 2.30.6(bufferutil@4.0.9)(typescript@5.9.2)(utf-8-validate@5.0.10)(zod@3.25.76)
+        specifier: ^2.37.9
+        version: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
     devDependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -2194,8 +2194,8 @@ importers:
         specifier: ^1.1.1
         version: 1.1.1(typescript@5.9.3)(zod@4.1.11)
       viem:
-        specifier: ^2.30.1
-        version: 2.30.6(bufferutil@4.0.9)(typescript@5.9.2)(utf-8-validate@5.0.10)(zod@3.25.76)
+        specifier: ^2.37.9
+        version: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
     devDependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -2243,8 +2243,8 @@ importers:
         specifier: ^5.0.1
         version: 5.0.1
       viem:
-        specifier: ^2.30.1
-        version: 2.30.6(bufferutil@4.0.9)(typescript@5.9.2)(utf-8-validate@5.0.10)(zod@3.25.76)
+        specifier: ^2.37.9
+        version: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
     devDependencies:
       '@tevm/contract':
         specifier: workspace:^
@@ -2304,7 +2304,7 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
       viem:
-        specifier: ^2.30.1
+        specifier: ^2.37.9
         version: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
       wagmi:
         specifier: ^2.17.5
@@ -2357,7 +2357,7 @@ importers:
         specifier: workspace:^
         version: link:../../lsp/ts-plugin
       viem:
-        specifier: ^2.30.1
+        specifier: ^2.37.9
         version: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
     devDependencies:
       '@tevm/tsconfig':
@@ -2499,8 +2499,8 @@ importers:
         specifier: ^0.8.30
         version: 0.8.30
       viem:
-        specifier: ^2.30.1
-        version: 2.30.6(bufferutil@4.0.9)(typescript@5.9.2)(utf-8-validate@5.0.10)(zod@3.25.76)
+        specifier: ^2.37.9
+        version: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
     devDependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -14256,11 +14256,6 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  typescript@5.9.2:
-    resolution: {integrity: sha512-CWBzXQrc/qOkhidw1OzBTQuYRbfyxDXJMVJ1XNwUHGROVmuaeiEm3OslpZ1RV96d7SKKjZKrSJu3+t/xlw3R9A==}
-    engines: {node: '>=14.17'}
-    hasBin: true
-
   typescript@5.9.3:
     resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}
     engines: {node: '>=14.17'}
@@ -17501,7 +17496,7 @@ snapshots:
       '@noble/hashes': 1.8.0
       '@scure/base': 1.2.6
       '@types/debug': 4.1.12
-      debug: 4.3.4
+      debug: 4.4.3(supports-color@8.1.1)
       pony-cause: 2.1.11
       semver: 7.7.2
       uuid: 9.0.1
@@ -17515,7 +17510,7 @@ snapshots:
       '@noble/hashes': 1.8.0
       '@scure/base': 1.2.6
       '@types/debug': 4.1.12
-      debug: 4.3.4
+      debug: 4.4.3(supports-color@8.1.1)
       pony-cause: 2.1.11
       semver: 7.7.2
       uuid: 9.0.1
@@ -19582,13 +19577,13 @@ snapshots:
 
   '@scure/bip32@1.6.2':
     dependencies:
-      '@noble/curves': 1.8.1
-      '@noble/hashes': 1.7.1
+      '@noble/curves': 1.8.2
+      '@noble/hashes': 1.7.2
       '@scure/base': 1.2.6
 
   '@scure/bip32@1.7.0':
     dependencies:
-      '@noble/curves': 1.9.1
+      '@noble/curves': 1.9.7
       '@noble/hashes': 1.8.0
       '@scure/base': 1.2.6
 
@@ -19609,7 +19604,7 @@ snapshots:
 
   '@scure/bip39@1.5.4':
     dependencies:
-      '@noble/hashes': 1.7.1
+      '@noble/hashes': 1.7.2
       '@scure/base': 1.2.6
 
   '@scure/bip39@1.6.0':
@@ -19667,14 +19662,6 @@ snapshots:
     dependencies:
       '@sentry/types': 5.30.0
       tslib: 1.14.1
-
-  '@shazow/whatsabi@0.23.0(@noble/hashes@2.0.1)(typescript@5.9.3)(zod@3.25.76)':
-    dependencies:
-      '@noble/hashes': 2.0.1
-      ox: 0.9.8(typescript@5.9.3)(zod@3.25.76)
-    transitivePeerDependencies:
-      - typescript
-      - zod
 
   '@shazow/whatsabi@0.23.0(@noble/hashes@2.0.1)(typescript@5.9.3)(zod@4.1.11)':
     dependencies:
@@ -20177,11 +20164,11 @@ snapshots:
 
   '@types/bn.js@4.11.6':
     dependencies:
-      '@types/node': 22.18.8
+      '@types/node': 24.6.1
 
   '@types/bn.js@5.2.0':
     dependencies:
-      '@types/node': 22.18.8
+      '@types/node': 24.6.1
 
   '@types/body-parser@1.19.6':
     dependencies:
@@ -20443,7 +20430,7 @@ snapshots:
 
   '@types/pbkdf2@3.1.2':
     dependencies:
-      '@types/node': 22.18.8
+      '@types/node': 24.6.1
 
   '@types/prismjs@1.26.5': {}
 
@@ -20468,11 +20455,11 @@ snapshots:
 
   '@types/sax@1.2.7':
     dependencies:
-      '@types/node': 17.0.45
+      '@types/node': 24.6.1
 
   '@types/secp256k1@4.0.7':
     dependencies:
-      '@types/node': 22.18.8
+      '@types/node': 24.6.1
 
   '@types/send@0.17.5':
     dependencies:
@@ -22122,11 +22109,6 @@ snapshots:
       typescript: 5.9.3
       zod: 3.25.76
 
-  abitype@1.0.8(typescript@5.9.2)(zod@3.25.76):
-    optionalDependencies:
-      typescript: 5.9.2
-      zod: 3.25.76
-
   abitype@1.0.8(typescript@5.9.3)(zod@3.25.76):
     optionalDependencies:
       typescript: 5.9.3
@@ -22152,10 +22134,10 @@ snapshots:
       typescript: 5.9.3
       zod: 4.1.11
 
-  abitype@1.1.1(typescript@5.9.2)(zod@3.25.76):
+  abitype@1.1.1(typescript@5.9.3)(zod@3.22.4):
     optionalDependencies:
-      typescript: 5.9.2
-      zod: 3.25.76
+      typescript: 5.9.3
+      zod: 3.22.4
 
   abitype@1.1.1(typescript@5.9.3)(zod@3.25.76):
     optionalDependencies:
@@ -28155,11 +28137,11 @@ snapshots:
   ox@0.6.7(typescript@5.9.3)(zod@3.25.76):
     dependencies:
       '@adraffy/ens-normalize': 1.11.1
-      '@noble/curves': 1.8.1
-      '@noble/hashes': 1.7.1
-      '@scure/bip32': 1.6.2
-      '@scure/bip39': 1.5.4
-      abitype: 1.0.8(typescript@5.9.3)(zod@3.25.76)
+      '@noble/curves': 1.9.7
+      '@noble/hashes': 1.8.0
+      '@scure/bip32': 1.7.0
+      '@scure/bip39': 1.6.0
+      abitype: 1.1.1(typescript@5.9.3)(zod@3.25.76)
       eventemitter3: 5.0.1
     optionalDependencies:
       typescript: 5.9.3
@@ -28169,11 +28151,11 @@ snapshots:
   ox@0.6.7(typescript@5.9.3)(zod@4.1.11):
     dependencies:
       '@adraffy/ens-normalize': 1.11.1
-      '@noble/curves': 1.8.1
-      '@noble/hashes': 1.7.1
-      '@scure/bip32': 1.6.2
-      '@scure/bip39': 1.5.4
-      abitype: 1.0.8(typescript@5.9.3)(zod@4.1.11)
+      '@noble/curves': 1.9.7
+      '@noble/hashes': 1.8.0
+      '@scure/bip32': 1.7.0
+      '@scure/bip39': 1.6.0
+      abitype: 1.1.1(typescript@5.9.3)(zod@4.1.11)
       eventemitter3: 5.0.1
     optionalDependencies:
       typescript: 5.9.3
@@ -28208,7 +28190,7 @@ snapshots:
     transitivePeerDependencies:
       - zod
 
-  ox@0.7.1(typescript@5.9.2)(zod@3.25.76):
+  ox@0.7.1(typescript@5.9.3)(zod@4.1.11):
     dependencies:
       '@adraffy/ens-normalize': 1.11.1
       '@noble/ciphers': 1.3.0
@@ -28216,10 +28198,10 @@ snapshots:
       '@noble/hashes': 1.8.0
       '@scure/bip32': 1.7.0
       '@scure/bip39': 1.6.0
-      abitype: 1.1.1(typescript@5.9.2)(zod@3.25.76)
+      abitype: 1.1.1(typescript@5.9.3)(zod@4.1.11)
       eventemitter3: 5.0.1
     optionalDependencies:
-      typescript: 5.9.2
+      typescript: 5.9.3
     transitivePeerDependencies:
       - zod
 
@@ -28231,7 +28213,7 @@ snapshots:
       '@noble/hashes': 1.8.0
       '@scure/bip32': 1.7.0
       '@scure/bip39': 1.6.0
-      abitype: 1.1.0(typescript@5.9.3)(zod@3.22.4)
+      abitype: 1.1.1(typescript@5.9.3)(zod@3.22.4)
       eventemitter3: 5.0.1
     optionalDependencies:
       typescript: 5.9.3
@@ -28246,7 +28228,7 @@ snapshots:
       '@noble/hashes': 1.8.0
       '@scure/bip32': 1.7.0
       '@scure/bip39': 1.6.0
-      abitype: 1.1.0(typescript@5.9.3)(zod@3.25.76)
+      abitype: 1.1.1(typescript@5.9.3)(zod@3.25.76)
       eventemitter3: 5.0.1
     optionalDependencies:
       typescript: 5.9.3
@@ -28261,22 +28243,7 @@ snapshots:
       '@noble/hashes': 1.8.0
       '@scure/bip32': 1.7.0
       '@scure/bip39': 1.6.0
-      abitype: 1.1.0(typescript@5.9.3)(zod@4.1.11)
-      eventemitter3: 5.0.1
-    optionalDependencies:
-      typescript: 5.9.3
-    transitivePeerDependencies:
-      - zod
-
-  ox@0.9.8(typescript@5.9.3)(zod@3.25.76):
-    dependencies:
-      '@adraffy/ens-normalize': 1.11.1
-      '@noble/ciphers': 1.3.0
-      '@noble/curves': 1.9.1
-      '@noble/hashes': 1.8.0
-      '@scure/bip32': 1.7.0
-      '@scure/bip39': 1.6.0
-      abitype: 1.1.1(typescript@5.9.3)(zod@3.25.76)
+      abitype: 1.1.1(typescript@5.9.3)(zod@4.1.11)
       eventemitter3: 5.0.1
     optionalDependencies:
       typescript: 5.9.3
@@ -30916,9 +30883,6 @@ snapshots:
 
   typescript@5.8.2: {}
 
-  typescript@5.9.2:
-    optional: true
-
   typescript@5.9.3: {}
 
   ua-parser-js@1.0.41: {}
@@ -31305,18 +31269,18 @@ snapshots:
       - utf-8-validate
       - zod
 
-  viem@2.30.6(bufferutil@4.0.9)(typescript@5.9.2)(utf-8-validate@5.0.10)(zod@3.25.76):
+  viem@2.30.6(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11):
     dependencies:
       '@noble/curves': 1.9.1
       '@noble/hashes': 1.8.0
       '@scure/bip32': 1.7.0
       '@scure/bip39': 1.6.0
-      abitype: 1.0.8(typescript@5.9.2)(zod@3.25.76)
+      abitype: 1.0.8(typescript@5.9.3)(zod@4.1.11)
       isows: 1.0.7(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@5.0.10))
-      ox: 0.7.1(typescript@5.9.2)(zod@3.25.76)
+      ox: 0.7.1(typescript@5.9.3)(zod@4.1.11)
       ws: 8.18.2(bufferutil@4.0.9)(utf-8-validate@5.0.10)
     optionalDependencies:
-      typescript: 5.9.2
+      typescript: 5.9.3
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
