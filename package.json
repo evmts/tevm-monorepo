@@ -13,7 +13,7 @@
 	"type": "commonjs",
 	"scripts": {
 		"all": "nx run-many --targets=generate:docs,build:types,typecheck,test:coverage,build:dist,dev:run,build:app,build:rust,lint:check,lint:deps,lint:package",
-		"all:clean": "bun clean && pnpm i && bun allz",
+		"all:clean": "bun clean && bun allz",
 		"allz": "pnpm i && pnpm concurrently 'bun lint' 'bun sort-package-json' && bun all",
 		"build": "nx run-many --targets=build:dist,build:app,build:types",
 		"build:app": "nx run-many --target=build:app",
