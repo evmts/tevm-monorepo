@@ -29,8 +29,12 @@ export const handleTransactionCreation = async (client, params, executedCall, ev
 		)
 	}
 
-	const shouldAddToChain =
-		client.miningConfig.type === 'auto' || shouldAddToBlockchain(params, executedCall.runTxResult)
+	const shouldAutoMine =
+		client.miningConfig.type === 'auto' &&
+		[params.addToMempool, params.addToBlockchain, params.createTransaction].every(
+			(param) => param !== false && param !== 'never',
+		)
+	const shouldAddToChain = shouldAutoMine || shouldAddToBlockchain(params, executedCall.runTxResult)
 	const shouldCreateTx = shouldAddToChain || shouldCreateTransaction(params, executedCall.runTxResult)
 
 	if (shouldCreateTx) {
@@ -41,6 +45,7 @@ export const handleTransactionCreation = async (client, params, executedCall, ev
 				evmInput,
 				maxPriorityFeePerGas: params.maxPriorityFeePerGas,
 				maxFeePerGas: params.maxFeePerGas,
+				nonceOverride: params.nonce,
 			})
 			txHash = 'txHash' in txRes ? txRes.txHash : undefined
 

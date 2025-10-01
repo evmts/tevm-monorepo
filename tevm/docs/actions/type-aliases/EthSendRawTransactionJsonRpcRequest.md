@@ -8,6 +8,6 @@
 
 > **EthSendRawTransactionJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_sendRawTransaction"`, \[[`Hex`](../../index/type-aliases/Hex.md)\]\>
 
-Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:168
+Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:172
 
 JSON-RPC request for `eth_sendRawTransaction` procedure

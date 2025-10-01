@@ -8,6 +8,6 @@
 
 > **EthHashrateJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_hashrate"`, readonly \[\]\>
 
-Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:76
+Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:80
 
 JSON-RPC request for `eth_hashrate` procedure

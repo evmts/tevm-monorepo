@@ -8,6 +8,6 @@
 
 > **EthGasPriceJsonRpcRequest** = `JsonRpcRequest`\<`"eth_gasPrice"`, readonly \[\]\>
 
-Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:97](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L97)
+Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:101](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L101)
 
 JSON-RPC request for `eth_gasPrice` procedure

@@ -8,6 +8,6 @@
 
 > **EthGetFilterChangesJsonRpcRequest** = `JsonRpcRequest`\<`"eth_getFilterChanges"`, \[`Hex`\]\>
 
-Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:144](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L144)
+Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:148](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L148)
 
 JSON-RPC request for `eth_getFilterChanges` procedure

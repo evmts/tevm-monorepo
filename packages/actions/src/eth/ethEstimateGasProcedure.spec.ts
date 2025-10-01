@@ -1,7 +1,7 @@
 import { createAddress } from '@tevm/address'
 import { type TevmNode, createTevmNode } from '@tevm/node'
 import { ErrorContract } from '@tevm/test-utils'
-import { encodeFunctionData, numberToHex } from '@tevm/utils'
+import { PREFUNDED_ACCOUNTS, encodeFunctionData, numberToHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import type { EthEstimateGasJsonRpcRequest } from './EthJsonRpcRequest.js'
@@ -206,5 +206,38 @@ describe('ethEstimateGasJsonRpcProcedure', () => {
 		expect(response.result).toBeUndefined()
 		expect(response.method).toBe('eth_estimateGas')
 		expect(response.id).toBe(4)
+	})
+
+	it('should not create transactions or trigger mining during gas estimation', async () => {
+		const initialBlock = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
+		const initialBlockNumber = initialBlock.header.number
+
+		const txPool = await client.getTxPool()
+		const initialTxPoolSize = txPool.pool.size
+
+		const request: EthEstimateGasJsonRpcRequest = {
+			jsonrpc: '2.0',
+			method: 'eth_estimateGas',
+			id: 1,
+			params: [
+				{
+					from: PREFUNDED_ACCOUNTS[0].address,
+					to: '0x0000000000000000000000000000000000000000',
+					data: '0x',
+					nonce: '0x1',
+				},
+			],
+		}
+
+		const response = await ethEstimateGasJsonRpcProcedure(client)(request)
+
+		const finalBlock = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
+		const finalBlockNumber = finalBlock.header.number
+		const finalTxPoolSize = txPool.pool.size
+
+		expect(response.error).toBeUndefined()
+		expect(response.result).toBeDefined()
+		expect(finalBlockNumber).toBe(initialBlockNumber)
+		expect(finalTxPoolSize).toBe(initialTxPoolSize)
 	})
 })

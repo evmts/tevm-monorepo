@@ -74,12 +74,13 @@
 		"@tevm/predeploys": "workspace:^",
 		"@tevm/utils": "workspace:^",
 		"kzg-wasm": "^0.5.0",
-		"vitest": "^3.1.4"
+		"vitest": "^3.2.4"
 	},
 	"devDependencies": {
 		"@tevm/test-utils": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^"
+		"@tevm/tsupconfig": "workspace:^",
+		"@tevm/tx": "workspace:^"
 	},
 	"peerDependencies": {
 		"viem": "^2.30.1"
