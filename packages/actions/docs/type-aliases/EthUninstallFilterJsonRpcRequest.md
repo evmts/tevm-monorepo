@@ -8,18 +8,6 @@
 
 > **EthUninstallFilterJsonRpcRequest** = `JsonRpcRequest`\<`"eth_uninstallFilter"`, readonly \[`Hex`\]\>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:300](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L300)
-=======
-<<<<<<< HEAD
-Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:295](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L295)
-=======
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:304](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L304)
->>>>>>> 11ad3eb7b (docs: generate updated docs)
->>>>>>> 02c3a8b9a (docs: generate updated docs)
-=======
-Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:295](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L295)
->>>>>>> 066dd433a (revert: docs commits)
 
 JSON-RPC request for `eth_uninstallFilter` procedure

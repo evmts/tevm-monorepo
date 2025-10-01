@@ -8,7 +8,7 @@
 
 > **ethSendRawTransactionJsonRpcProcedure**(`client`): [`EthSendRawTransactionJsonRpcProcedure`](../type-aliases/EthSendRawTransactionJsonRpcProcedure.md)
 
-Defined in: [packages/actions/src/eth/ethSendRawTransactionProcedure.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSendRawTransactionProcedure.js#L10)
+Defined in: [packages/actions/src/eth/ethSendRawTransactionProcedure.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSendRawTransactionProcedure.js#L11)
 
 Request handler for eth_sendRawTransaction JSON-RPC requests.
 
