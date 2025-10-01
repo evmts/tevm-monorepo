@@ -28,7 +28,7 @@
 		"generate:docs": "nx run-many --target=generate:docs",
 		"jsdoc:add": "node scripts/jsdoc-helper/add-jsdoc.js",
 		"jsdoc:batch": "node scripts/jsdoc-helper/batch-add-jsdoc.js",
-		"lint": "biome check . --write --unsafe && biome format . --write",
+		"lint": "biome check --write --unsafe biome.json package.json *.md *.ts && biome format --write biome.json package.json *.md *.ts && nx run-many --target=lint && nx run-many --target=format",
 		"lint:check": "nx run-many --target=lint:check",
 		"lint:deps": "bunx depcheck && nx run-many --target=lint:deps",
 		"lint:package": "nx run-many --target=lint:package",

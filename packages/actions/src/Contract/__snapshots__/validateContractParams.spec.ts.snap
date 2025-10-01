@@ -2,7 +2,7 @@
 
 exports[`validateContractParams > should return InvalidAbiError for invalid ABI 1`] = `
 [
-  [InvalidAbiError: Expected array, received number
+  [InvalidAbiError: Invalid input: expected array, received number
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidabierror/
 Version: 1.1.0.next-73],
@@ -28,7 +28,7 @@ Version: 1.1.0.next-73],
 
 exports[`validateContractParams > should return InvalidArgsError for invalid args 1`] = `
 [
-  [InvalidArgsError: Expected array, received string
+  [InvalidArgsError: Invalid input: expected array, received string
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidargserror/
 Version: 1.1.0.next-73],
@@ -37,7 +37,7 @@ Version: 1.1.0.next-73],
 
 exports[`validateContractParams > should return InvalidBytecodeError for invalid code 1`] = `
 [
-  [InvalidBytecodeError: Expected string, received number
+  [InvalidBytecodeError: Invalid input: expected string, received number
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
 Version: 1.1.0.next-73],
@@ -46,7 +46,7 @@ Version: 1.1.0.next-73],
 
 exports[`validateContractParams > should return InvalidBytecodeError for invalid deployedBytecode 1`] = `
 [
-  [InvalidBytecodeError: Expected string, received number
+  [InvalidBytecodeError: Invalid input: expected string, received number
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
 Version: 1.1.0.next-73],
@@ -55,7 +55,7 @@ Version: 1.1.0.next-73],
 
 exports[`validateContractParams > should return InvalidFunctionNameError for invalid function name 1`] = `
 [
-  [InvalidFunctionNameError: Expected string, received number
+  [InvalidFunctionNameError: Invalid input: expected string, received number
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidfunctionnameerror/
 Version: 1.1.0.next-73],
@@ -68,15 +68,15 @@ exports[`validateContractParams > should return multiple errors for multiple inv
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidtoerror/
 Version: 1.1.0.next-73],
-  [InvalidBytecodeError: Expected string, received number
+  [InvalidBytecodeError: Invalid input: expected string, received number
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
 Version: 1.1.0.next-73],
-  [InvalidAbiError: Expected array, received number
+  [InvalidAbiError: Invalid input: expected array, received number
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidabierror/
 Version: 1.1.0.next-73],
-  [InvalidFunctionNameError: Expected string, received number
+  [InvalidFunctionNameError: Invalid input: expected string, received number
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidfunctionnameerror/
 Version: 1.1.0.next-73],
@@ -104,18 +104,26 @@ exports[`validateContractParams > should validate that createTransaction and sta
 [
   [InvalidParams: [
   {
-    "code": "custom",
-    "message": "Invalid Address 0x1234",
+    "code": "invalid_key",
+    "origin": "record",
+    "issues": [
+      {
+        "code": "custom",
+        "message": "Invalid Address 0x1234",
+        "path": []
+      }
+    ],
     "path": [
       "stateOverrideSet",
       "0x1234"
-    ]
+    ],
+    "message": "Invalid key in record"
   }
 ]
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/
 Version: 1.1.0.next-73],
-  [InvalidParams: Cannot have stateOverrideSet or blockOverrideSet for createTransaction
+  [InvalidParams: Invalid Address 0x1234
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/
 Version: 1.1.0.next-73],

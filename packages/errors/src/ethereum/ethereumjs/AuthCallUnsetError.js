@@ -1,3 +1,5 @@
+// Note: EVMError import removed as AUTHCALL_UNSET was removed from ethereumjs
+// import { EVMError } from '@ethereumjs/evm'
 import { ExecutionError } from '../ExecutionErrorError.js'
 
 /**

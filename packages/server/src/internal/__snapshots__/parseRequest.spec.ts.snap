@@ -9,14 +9,14 @@ Version: 1.1.0.next-73"
 `;
 
 exports[`parseRequest > should return InvalidRequestError for invalid JSON-RPC request 1`] = `
-"{"_errors":[],"method":{"_errors":["Required"]}}
+"{"errors":[],"properties":{"method":{"errors":["Invalid input: expected string, received undefined"]}}}
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
 Version: 1.1.0.next-73"
 `;
 
 exports[`parseRequest > should return InvalidRequestError for invalid bulk JSON-RPC request 1`] = `
-"{"1":{"_errors":[],"method":{"_errors":["Required"]}},"_errors":[]}
+"{"errors":[],"items":[null,{"errors":[],"properties":{"method":{"errors":["Invalid input: expected string, received undefined"]}}}]}
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
 Version: 1.1.0.next-73"

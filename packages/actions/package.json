@@ -79,8 +79,7 @@
 		"@tevm/tx": "workspace:^",
 		"@tevm/txpool": "workspace:^",
 		"@tevm/utils": "workspace:^",
-		"@tevm/vm": "workspace:^",
-		"zod": "^4.1.11"
+		"@tevm/vm": "workspace:^"
 	},
 	"devDependencies": {
 		"@tevm/decorators": "workspace:^",
