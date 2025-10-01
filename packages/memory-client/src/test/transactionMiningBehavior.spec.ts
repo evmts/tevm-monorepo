@@ -1,8 +1,8 @@
+import { ErrorContract } from '@tevm/contract'
 import { encodeFunctionData, parseUnits } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { MemoryClient } from '../MemoryClient.js'
 import { createMemoryClient } from '../createMemoryClient.js'
-import { ErrorContract } from '@tevm/contract'
 
 let client: MemoryClient<any, any>
 
@@ -198,11 +198,36 @@ describe('Block Number Increment', () => {
 	describe('failing transactions comprehensive tests', () => {
 		describe('addToBlockchain with failing transactions', () => {
 			it.each([
-				{ param: true, shouldHaveTxHash: true, shouldIncrement: true, description: 'true - should create tx hash and increment block even on failure' },
-				// { param: 'always', shouldHaveTxHash: true, shouldIncrement: true, description: 'always - should create tx hash and increment block even on failure' },
-				// { param: 'on-success', shouldHaveTxHash: false, shouldIncrement: false, description: 'on-success - should NOT create tx hash or increment on failure' },
-				// { param: false, shouldHaveTxHash: false, shouldIncrement: false, description: 'false - should never create tx hash or increment' },
-				// { param: 'never', shouldHaveTxHash: false, shouldIncrement: false, description: 'never - should never create tx hash or increment' },
+				{
+					param: true,
+					shouldHaveTxHash: true,
+					shouldIncrement: true,
+					description: 'true - should create tx hash and increment block even on failure',
+				},
+				{
+					param: 'always',
+					shouldHaveTxHash: true,
+					shouldIncrement: true,
+					description: 'always - should create tx hash and increment block even on failure',
+				},
+				{
+					param: 'on-success',
+					shouldHaveTxHash: false,
+					shouldIncrement: false,
+					description: 'on-success - should NOT create tx hash or increment on failure',
+				},
+				{
+					param: false,
+					shouldHaveTxHash: false,
+					shouldIncrement: false,
+					description: 'false - should never create tx hash or increment',
+				},
+				{
+					param: 'never',
+					shouldHaveTxHash: false,
+					shouldIncrement: false,
+					description: 'never - should never create tx hash or increment',
+				},
 			])('addToBlockchain: $param - $description', async ({ param, shouldHaveTxHash, shouldIncrement }) => {
 				// Deploy a reverting contract
 				const { createdAddress } = await client.tevmDeploy({
@@ -244,11 +269,36 @@ describe('Block Number Increment', () => {
 
 		describe('addToMempool with failing transactions', () => {
 			it.each([
-				{ param: true, shouldHaveTxHash: true, shouldAddToMempool: true, description: 'true - should create tx hash and add to mempool even on failure' },
-				{ param: 'always', shouldHaveTxHash: true, shouldAddToMempool: true, description: 'always - should create tx hash and add to mempool even on failure' },
-				{ param: 'on-success', shouldHaveTxHash: false, shouldAddToMempool: false, description: 'on-success - should NOT create tx hash or add to mempool on failure' },
-				{ param: false, shouldHaveTxHash: false, shouldAddToMempool: false, description: 'false - should never create tx hash or add to mempool' },
-				{ param: 'never', shouldHaveTxHash: false, shouldAddToMempool: false, description: 'never - should never create tx hash or add to mempool' },
+				{
+					param: true,
+					shouldHaveTxHash: true,
+					shouldAddToMempool: true,
+					description: 'true - should create tx hash and add to mempool even on failure',
+				},
+				{
+					param: 'always',
+					shouldHaveTxHash: true,
+					shouldAddToMempool: true,
+					description: 'always - should create tx hash and add to mempool even on failure',
+				},
+				{
+					param: 'on-success',
+					shouldHaveTxHash: false,
+					shouldAddToMempool: false,
+					description: 'on-success - should NOT create tx hash or add to mempool on failure',
+				},
+				{
+					param: false,
+					shouldHaveTxHash: false,
+					shouldAddToMempool: false,
+					description: 'false - should never create tx hash or add to mempool',
+				},
+				{
+					param: 'never',
+					shouldHaveTxHash: false,
+					shouldAddToMempool: false,
+					description: 'never - should never create tx hash or add to mempool',
+				},
 			])('addToMempool: $param - $description', async ({ param, shouldHaveTxHash, shouldAddToMempool }) => {
 				// Deploy a reverting contract
 				const { createdAddress } = await client.tevmDeploy({

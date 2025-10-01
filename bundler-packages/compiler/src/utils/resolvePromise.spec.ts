@@ -14,7 +14,7 @@ const fao: FileAccessObject = {
 		try {
 			await access(filePath)
 			return true
-		} catch (e) {
+		} catch (_e) {
 			return false
 		}
 	},

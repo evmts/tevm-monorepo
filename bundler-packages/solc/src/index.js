@@ -1,1 +1,1 @@
-export { solcCompile, createSolc, releases } from './solc.js'
+export { createSolc, releases, solcCompile } from './solc.js'

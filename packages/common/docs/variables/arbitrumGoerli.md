@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/arbitrumGoerli.js:26](https://github.co
 
 Creates a common configuration for the arbitrumGoerli chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

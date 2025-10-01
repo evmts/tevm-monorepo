@@ -8,7 +8,7 @@
 
 > **mnemonicToAccount**(`mnemonic`, `opts?`): `object`
 
-Defined in: node\_modules/.pnpm/viem@2.30.1\_bufferutil@4.0.9\_typescript@5.8.3\_utf-8-validate@5.0.10\_zod@3.25.28/node\_modules/viem/\_types/accounts/mnemonicToAccount.d.ts:11
+Defined in: node\_modules/.pnpm/viem@2.30.6\_bufferutil@4.0.9\_typescript@5.9.2\_utf-8-validate@5.0.10\_zod@3.25.76/node\_modules/viem/\_types/accounts/mnemonicToAccount.d.ts:11
 
 ## Parameters
 
@@ -122,7 +122,7 @@ A HD Account.
 
 ##### typedData
 
-`typedData` *extends* `Record`\<`string`, `unknown`\> \| \{[`key`: `string`]: readonly `TypedDataParameter`[];
+`typedData` *extends* \{[`key`: `string`]: readonly `TypedDataParameter`[];
 [`key`: `` `address[${string}]` ``]: `undefined`;
 [`key`: `` `bool[${string}]` ``]: `undefined`;
 [`key`: `` `string[${string}]` ``]: `undefined`;
@@ -147,6 +147,10 @@ A HD Account.
 [`key`: `` `bytes15[${string}]` ``]: `undefined`;
 [`key`: `` `bytes18[${string}]` ``]: `undefined`;
 [`key`: `` `bytes16[${string}]` ``]: `undefined`;
+[`key`: `` `bytes27[${string}]` ``]: `undefined`;
+[`key`: `` `bytes32[${string}]` ``]: `undefined`;
+[`key`: `` `bytes31[${string}]` ``]: `undefined`;
+[`key`: `` `bytes28[${string}]` ``]: `undefined`;
 [`key`: `` `bytes22[${string}]` ``]: `undefined`;
 [`key`: `` `bytes17[${string}]` ``]: `undefined`;
 [`key`: `` `bytes19[${string}]` ``]: `undefined`;
@@ -156,20 +160,16 @@ A HD Account.
 [`key`: `` `bytes24[${string}]` ``]: `undefined`;
 [`key`: `` `bytes25[${string}]` ``]: `undefined`;
 [`key`: `` `bytes26[${string}]` ``]: `undefined`;
-[`key`: `` `bytes27[${string}]` ``]: `undefined`;
-[`key`: `` `bytes28[${string}]` ``]: `undefined`;
 [`key`: `` `bytes29[${string}]` ``]: `undefined`;
 [`key`: `` `bytes30[${string}]` ``]: `undefined`;
-[`key`: `` `bytes31[${string}]` ``]: `undefined`;
-[`key`: `` `bytes32[${string}]` ``]: `undefined`;
 [`key`: `` `int256[${string}]` ``]: `undefined`;
 [`key`: `` `int8[${string}]` ``]: `undefined`;
 [`key`: `` `int72[${string}]` ``]: `undefined`;
 [`key`: `` `int16[${string}]` ``]: `undefined`;
-[`key`: `` `int104[${string}]` ``]: `undefined`;
-[`key`: `` `int24[${string}]` ``]: `undefined`;
 [`key`: `` `int32[${string}]` ``]: `undefined`;
 [`key`: `` `int40[${string}]` ``]: `undefined`;
+[`key`: `` `int104[${string}]` ``]: `undefined`;
+[`key`: `` `int24[${string}]` ``]: `undefined`;
 [`key`: `` `int48[${string}]` ``]: `undefined`;
 [`key`: `` `int56[${string}]` ``]: `undefined`;
 [`key`: `` `int64[${string}]` ``]: `undefined`;
@@ -198,10 +198,10 @@ A HD Account.
 [`key`: `` `uint8[${string}]` ``]: `undefined`;
 [`key`: `` `uint72[${string}]` ``]: `undefined`;
 [`key`: `` `uint16[${string}]` ``]: `undefined`;
-[`key`: `` `uint104[${string}]` ``]: `undefined`;
-[`key`: `` `uint24[${string}]` ``]: `undefined`;
 [`key`: `` `uint32[${string}]` ``]: `undefined`;
 [`key`: `` `uint40[${string}]` ``]: `undefined`;
+[`key`: `` `uint104[${string}]` ``]: `undefined`;
+[`key`: `` `uint24[${string}]` ``]: `undefined`;
 [`key`: `` `uint48[${string}]` ``]: `undefined`;
 [`key`: `` `uint56[${string}]` ``]: `undefined`;
 [`key`: `` `uint64[${string}]` ``]: `undefined`;
@@ -225,7 +225,7 @@ A HD Account.
 [`key`: `` `uint224[${string}]` ``]: `undefined`;
 [`key`: `` `uint232[${string}]` ``]: `undefined`;
 [`key`: `` `uint240[${string}]` ``]: `undefined`;
-[`key`: `` `uint248[${string}]` ``]: `undefined`; `address?`: `undefined`; `bool?`: `undefined`; `bytes?`: `undefined`; `bytes1?`: `undefined`; `bytes10?`: `undefined`; `bytes11?`: `undefined`; `bytes12?`: `undefined`; `bytes13?`: `undefined`; `bytes14?`: `undefined`; `bytes15?`: `undefined`; `bytes16?`: `undefined`; `bytes17?`: `undefined`; `bytes18?`: `undefined`; `bytes19?`: `undefined`; `bytes2?`: `undefined`; `bytes20?`: `undefined`; `bytes21?`: `undefined`; `bytes22?`: `undefined`; `bytes23?`: `undefined`; `bytes24?`: `undefined`; `bytes25?`: `undefined`; `bytes26?`: `undefined`; `bytes27?`: `undefined`; `bytes28?`: `undefined`; `bytes29?`: `undefined`; `bytes3?`: `undefined`; `bytes30?`: `undefined`; `bytes31?`: `undefined`; `bytes32?`: `undefined`; `bytes4?`: `undefined`; `bytes5?`: `undefined`; `bytes6?`: `undefined`; `bytes7?`: `undefined`; `bytes8?`: `undefined`; `bytes9?`: `undefined`; `int104?`: `undefined`; `int112?`: `undefined`; `int120?`: `undefined`; `int128?`: `undefined`; `int136?`: `undefined`; `int144?`: `undefined`; `int152?`: `undefined`; `int16?`: `undefined`; `int160?`: `undefined`; `int168?`: `undefined`; `int176?`: `undefined`; `int184?`: `undefined`; `int192?`: `undefined`; `int200?`: `undefined`; `int208?`: `undefined`; `int216?`: `undefined`; `int224?`: `undefined`; `int232?`: `undefined`; `int24?`: `undefined`; `int240?`: `undefined`; `int248?`: `undefined`; `int256?`: `undefined`; `int32?`: `undefined`; `int40?`: `undefined`; `int48?`: `undefined`; `int56?`: `undefined`; `int64?`: `undefined`; `int72?`: `undefined`; `int8?`: `undefined`; `int80?`: `undefined`; `int88?`: `undefined`; `int96?`: `undefined`; `string?`: `undefined`; `uint104?`: `undefined`; `uint112?`: `undefined`; `uint120?`: `undefined`; `uint128?`: `undefined`; `uint136?`: `undefined`; `uint144?`: `undefined`; `uint152?`: `undefined`; `uint16?`: `undefined`; `uint160?`: `undefined`; `uint168?`: `undefined`; `uint176?`: `undefined`; `uint184?`: `undefined`; `uint192?`: `undefined`; `uint200?`: `undefined`; `uint208?`: `undefined`; `uint216?`: `undefined`; `uint224?`: `undefined`; `uint232?`: `undefined`; `uint24?`: `undefined`; `uint240?`: `undefined`; `uint248?`: `undefined`; `uint256?`: `undefined`; `uint32?`: `undefined`; `uint40?`: `undefined`; `uint48?`: `undefined`; `uint56?`: `undefined`; `uint64?`: `undefined`; `uint72?`: `undefined`; `uint8?`: `undefined`; `uint80?`: `undefined`; `uint88?`: `undefined`; `uint96?`: `undefined`; \}
+[`key`: `` `uint248[${string}]` ``]: `undefined`; `address?`: `undefined`; `bool?`: `undefined`; `bytes?`: `undefined`; `bytes1?`: `undefined`; `bytes10?`: `undefined`; `bytes11?`: `undefined`; `bytes12?`: `undefined`; `bytes13?`: `undefined`; `bytes14?`: `undefined`; `bytes15?`: `undefined`; `bytes16?`: `undefined`; `bytes17?`: `undefined`; `bytes18?`: `undefined`; `bytes19?`: `undefined`; `bytes2?`: `undefined`; `bytes20?`: `undefined`; `bytes21?`: `undefined`; `bytes22?`: `undefined`; `bytes23?`: `undefined`; `bytes24?`: `undefined`; `bytes25?`: `undefined`; `bytes26?`: `undefined`; `bytes27?`: `undefined`; `bytes28?`: `undefined`; `bytes29?`: `undefined`; `bytes3?`: `undefined`; `bytes30?`: `undefined`; `bytes31?`: `undefined`; `bytes32?`: `undefined`; `bytes4?`: `undefined`; `bytes5?`: `undefined`; `bytes6?`: `undefined`; `bytes7?`: `undefined`; `bytes8?`: `undefined`; `bytes9?`: `undefined`; `int104?`: `undefined`; `int112?`: `undefined`; `int120?`: `undefined`; `int128?`: `undefined`; `int136?`: `undefined`; `int144?`: `undefined`; `int152?`: `undefined`; `int16?`: `undefined`; `int160?`: `undefined`; `int168?`: `undefined`; `int176?`: `undefined`; `int184?`: `undefined`; `int192?`: `undefined`; `int200?`: `undefined`; `int208?`: `undefined`; `int216?`: `undefined`; `int224?`: `undefined`; `int232?`: `undefined`; `int24?`: `undefined`; `int240?`: `undefined`; `int248?`: `undefined`; `int256?`: `undefined`; `int32?`: `undefined`; `int40?`: `undefined`; `int48?`: `undefined`; `int56?`: `undefined`; `int64?`: `undefined`; `int72?`: `undefined`; `int8?`: `undefined`; `int80?`: `undefined`; `int88?`: `undefined`; `int96?`: `undefined`; `string?`: `undefined`; `uint104?`: `undefined`; `uint112?`: `undefined`; `uint120?`: `undefined`; `uint128?`: `undefined`; `uint136?`: `undefined`; `uint144?`: `undefined`; `uint152?`: `undefined`; `uint16?`: `undefined`; `uint160?`: `undefined`; `uint168?`: `undefined`; `uint176?`: `undefined`; `uint184?`: `undefined`; `uint192?`: `undefined`; `uint200?`: `undefined`; `uint208?`: `undefined`; `uint216?`: `undefined`; `uint224?`: `undefined`; `uint232?`: `undefined`; `uint24?`: `undefined`; `uint240?`: `undefined`; `uint248?`: `undefined`; `uint256?`: `undefined`; `uint32?`: `undefined`; `uint40?`: `undefined`; `uint48?`: `undefined`; `uint56?`: `undefined`; `uint64?`: `undefined`; `uint72?`: `undefined`; `uint8?`: `undefined`; `uint80?`: `undefined`; `uint88?`: `undefined`; `uint96?`: `undefined`; \} \| `Record`\<`string`, `unknown`\>
 
 ##### primaryType
 

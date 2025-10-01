@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/artelaTestnet.js:26](https://github.com
 
 Creates a common configuration for the artelaTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/satoshiVMTestnet.js:26](https://github.
 
 Creates a common configuration for the satoshiVMTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

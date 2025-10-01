@@ -8,7 +8,7 @@
 
 > **toBytes**(`value`, `opts?`): `ByteArray`
 
-Defined in: node\_modules/.pnpm/viem@2.30.1\_bufferutil@4.0.9\_typescript@5.8.3\_utf-8-validate@5.0.10\_zod@3.25.28/node\_modules/viem/\_types/utils/encoding/toBytes.d.ts:37
+Defined in: node\_modules/.pnpm/viem@2.30.6\_bufferutil@4.0.9\_typescript@5.9.2\_utf-8-validate@5.0.10\_zod@3.25.76/node\_modules/viem/\_types/utils/encoding/toBytes.d.ts:37
 
 Encodes a UTF-8 string, hex value, bigint, number or boolean to a byte array.
 

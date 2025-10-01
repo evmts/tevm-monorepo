@@ -10,7 +10,7 @@
 
 Defined in: packages/vm/types/Vm.d.ts:5
 
-## Type declaration
+## Type Declaration
 
 ### buildBlock
 

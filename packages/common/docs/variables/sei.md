@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/sei.js:26](https://github.com/evmts/tev
 
 Creates a common configuration for the sei chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

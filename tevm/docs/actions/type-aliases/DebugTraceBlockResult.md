@@ -24,7 +24,7 @@ Returns an array of transaction traces
 
 `TDiffMode` *extends* `boolean` = `boolean`
 
-## Type declaration
+## Type Declaration
 
 ### result
 

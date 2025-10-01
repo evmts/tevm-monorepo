@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/skaleNebulaTestnet.js:26](https://githu
 
 Creates a common configuration for the skaleNebulaTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

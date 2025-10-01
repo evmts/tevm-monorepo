@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/nexilix.js:26](https://github.com/evmts
 
 Creates a common configuration for the nexilix chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

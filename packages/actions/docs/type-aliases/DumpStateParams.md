@@ -10,7 +10,7 @@
 
 Defined in: [packages/actions/src/DumpState/DumpStateParams.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/DumpState/DumpStateParams.ts#L4)
 
-## Type declaration
+## Type Declaration
 
 ### blockTag?
 

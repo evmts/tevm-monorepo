@@ -12,7 +12,7 @@ Defined in: [extensions/viem/src/TypedError.ts:4](https://github.com/evmts/tevm-
 
 An error with a tag
 
-## Type declaration
+## Type Declaration
 
 ### tag
 

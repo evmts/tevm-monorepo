@@ -36,7 +36,7 @@ The decorated methods added to a viem wallet client by `tevmViemExtensionOptimis
 
 Defined in: [extensions/viem/src/ViemTevmOptimisticClient.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClient.ts#L15)
 
-#### Type declaration
+#### Type Declaration
 
 ##### ~~writeContractOptimistic()~~
 

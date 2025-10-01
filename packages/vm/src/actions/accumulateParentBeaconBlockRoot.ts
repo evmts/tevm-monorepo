@@ -1,6 +1,5 @@
-import { EthjsAccount, setLengthLeft, toBytes } from '@tevm/utils'
-
 import { EipNotEnabledError } from '@tevm/errors'
+import { EthjsAccount, setLengthLeft, toBytes } from '@tevm/utils'
 import type { BaseVm } from '../BaseVm.js'
 import { parentBeaconBlockRootAddress } from './parentBeaconBlockRootAddress.js'
 

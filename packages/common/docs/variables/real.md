@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/real.js:26](https://github.com/evmts/te
 
 Creates a common configuration for the real chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

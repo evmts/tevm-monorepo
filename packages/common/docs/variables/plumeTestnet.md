@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/plumeTestnet.js:26](https://github.com/
 
 Creates a common configuration for the plumeTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

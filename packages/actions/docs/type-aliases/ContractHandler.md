@@ -8,7 +8,7 @@
 
 > **ContractHandler** = \<`TAbi`, `TFunctionName`\>(`action`) => `Promise`\<[`ContractResult`](ContractResult.md)\<`TAbi`, `TFunctionName`\>\>
 
-Defined in: [packages/actions/src/Contract/ContractHandlerType.ts:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/ContractHandlerType.ts#L51)
+Defined in: [packages/actions/src/Contract/ContractHandlerType.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/ContractHandlerType.ts#L50)
 
 Handler for executing contract interactions with the TEVM.
 

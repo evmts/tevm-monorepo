@@ -35,83 +35,59 @@ jobs:
 
       - name: Build dist
         id: build-dist
-        run: pnpm -r build:dist
+        run: pnpm build:dist
 
       - name: Build types
+        id: build-types
         if: success()
-        continue-on-error: true
-        run: pnpm -r build:types
+        run: pnpm build:types
 
       - name: Tests
+        id: tests
         if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
-        continue-on-error: true
-        run: pnpm -r test:coverage
+        run: pnpm test:coverage
 
       - name: Fixtures
+        id: fixtures
         if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
-        continue-on-error: true
         run: pnpm -r dev:run
 
       - name: Tests Rust
+        id: tests-rust
         if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
-        continue-on-error: true
         run: pnpm -r test:rust
 
       - name: Typecheck
+        id: typecheck
         if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
-        continue-on-error: true
         run: pnpm -r typecheck
 
       - name: Lint
+        id: lint
         if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
-        continue-on-error: true
-        run: pnpm -r lint:check
+        run: pnpm lint:check
 
       - name: Lint deps
+        id: lint-deps
         if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
-        continue-on-error: true
-        run: pnpm -r lint:deps
+        run: pnpm lint:deps
 
       - name: Lint packages
+        id: lint-packages
         if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
-        continue-on-error: true
-        run: pnpm -r lint:package
+        run: pnpm lint:package
 
       - name: Build app
+        id: build-app
         if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
-        continue-on-error: true
-        run: pnpm -r build:app
+        run: pnpm build:app
 
       - name: Generate docs
+        id: generate-docs
         if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
-        continue-on-error: true
-        run: pnpm -r generate:docs
+        run: pnpm generate:docs
 
       - name: Build rust
+        id: build-rust
         if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
-        continue-on-error: true
-        run: pnpm -r build:rust
-
-      - name: Build wasm
-        if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
-        continue-on-error: true
-        run: pnpm -r build:wasm
-
-      - name: Check results
-        if: always()
-        run: |
-          failed=""
-          [[ "${{ steps.build-types.conclusion }}" != "success" ]] && failed="$failed build-types"
-          [[ "${{ steps.tests.conclusion }}" != "success" ]] && failed="$failed tests"
-          [[ "${{ steps.fixtures.conclusion }}" != "success" ]] && failed="$failed fixtures"
-          [[ "${{ steps.tests-rust.conclusion }}" != "success" ]] && failed="$failed tests-rust"
-          [[ "${{ steps.typecheck.conclusion }}" != "success" ]] && failed="$failed typecheck"
-          [[ "${{ steps.lint.conclusion }}" != "success" ]] && failed="$failed lint"
-          [[ "${{ steps.lint-deps.conclusion }}" != "success" ]] && failed="$failed lint-deps"
-          [[ "${{ steps.lint-packages.conclusion }}" != "success" ]] && failed="$failed lint-packages"
-          [[ "${{ steps.build-app.conclusion }}" != "success" ]] && failed="$failed build-app"
-          [[ "${{ steps.generate-docs.conclusion }}" != "success" ]] && failed="$failed generate-docs"
-          [[ "${{ steps.build-rust.conclusion }}" != "success" ]] && failed="$failed build-rust"
-          [[ "${{ steps.build-wasm.conclusion }}" != "success" ]] && failed="$failed build-wasm"
-
-          [[ -n "$failed" ]] && { echo "❌ Failed:$failed"; exit 1; } || echo "✅ All passed"
+        run: pnpm build:rust:app

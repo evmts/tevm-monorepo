@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/defichainEvmTestnet.js:26](https://gith
 
 Creates a common configuration for the defichainEvmTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

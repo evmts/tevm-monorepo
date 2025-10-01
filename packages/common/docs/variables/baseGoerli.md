@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/baseGoerli.js:26](https://github.com/ev
 
 Creates a common configuration for the baseGoerli chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

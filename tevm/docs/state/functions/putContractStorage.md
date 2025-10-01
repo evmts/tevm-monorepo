@@ -8,7 +8,7 @@
 
 > **putContractStorage**(`baseState`): (`address`, `key`, `value`) => `Promise`\<`void`\>
 
-Defined in: packages/state/dist/index.d.ts:470
+Defined in: packages/state/dist/index.d.ts:474
 
 ## Parameters
 

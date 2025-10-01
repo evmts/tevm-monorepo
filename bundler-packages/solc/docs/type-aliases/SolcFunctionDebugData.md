@@ -8,7 +8,7 @@
 
 > **SolcFunctionDebugData** = `object`
 
-Defined in: [solcTypes.ts:615](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L615)
+Defined in: [solcTypes.ts:613](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L613)
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: [solcTypes.ts:615](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > `optional` **entryPoint**: `number`
 
-Defined in: [solcTypes.ts:616](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L616)
+Defined in: [solcTypes.ts:614](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L614)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [solcTypes.ts:616](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > `optional` **id**: `number` \| `null`
 
-Defined in: [solcTypes.ts:617](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L617)
+Defined in: [solcTypes.ts:615](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L615)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [solcTypes.ts:617](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > `optional` **parameterSlots**: `number`
 
-Defined in: [solcTypes.ts:618](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L618)
+Defined in: [solcTypes.ts:616](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L616)
 
 ***
 
@@ -40,4 +40,4 @@ Defined in: [solcTypes.ts:618](https://github.com/evmts/tevm-monorepo/blob/main/
 
 > `optional` **returnSlots**: `number`
 
-Defined in: [solcTypes.ts:619](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L619)
+Defined in: [solcTypes.ts:617](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L617)

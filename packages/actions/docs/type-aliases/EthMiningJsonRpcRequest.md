@@ -8,6 +8,6 @@
 
 > **EthMiningJsonRpcRequest** = `JsonRpcRequest`\<`"eth_mining"`, readonly \[\]\>
 
-Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:228](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L228)
+Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:233](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L233)
 
 JSON-RPC request for `eth_mining` procedure

@@ -8,7 +8,7 @@
 
 > **ConstructorArgument**\<`T`\> = `T` *extends* (...`args`) => `any` ? `P`\[`0`\] : `never`
 
-Defined in: packages/precompiles/dist/index.d.ts:71
+Defined in: packages/precompiles/dist/index.d.ts:73
 
 Infers the the first argument of a class
 

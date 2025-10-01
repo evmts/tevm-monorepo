@@ -8,7 +8,7 @@
 
 > **getProof**(`baseState`): (`address`, `storageSlots?`) => `Promise`\<`Proof`\>
 
-Defined in: packages/state/dist/index.d.ts:440
+Defined in: packages/state/dist/index.d.ts:437
 
 ## Parameters
 

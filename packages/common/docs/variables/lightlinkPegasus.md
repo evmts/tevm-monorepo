@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/lightlinkPegasus.js:26](https://github.
 
 Creates a common configuration for the lightlinkPegasus chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

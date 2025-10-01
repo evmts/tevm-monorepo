@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/edgeware.js:26](https://github.com/evmt
 
 Creates a common configuration for the edgeware chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

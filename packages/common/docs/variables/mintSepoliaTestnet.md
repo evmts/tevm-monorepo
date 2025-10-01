@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/mintSepoliaTestnet.js:26](https://githu
 
 Creates a common configuration for the mintSepoliaTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

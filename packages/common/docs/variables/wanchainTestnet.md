@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/wanchainTestnet.js:26](https://github.c
 
 Creates a common configuration for the wanchainTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

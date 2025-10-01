@@ -27,20 +27,30 @@ describe('toEqualAddress', () => {
 	]
 
 	it('should pass when comparing equal addresses', () => {
-		validAddressPairs.forEach(([addr1, addr2]) => expect(addr1).toEqualAddress(addr2))
+		validAddressPairs.forEach(([addr1, addr2]) => {
+			expect(addr1).toEqualAddress(addr2)
+		})
 	})
 
 	it('should fail when comparing different addresses', () => {
-		differentAddressPairs.forEach(([addr1, addr2]) => expect(() => expect(addr1).toEqualAddress(addr2)).toThrow())
+		differentAddressPairs.forEach(([addr1, addr2]) => {
+			expect(() => expect(addr1).toEqualAddress(addr2)).toThrow()
+		})
 	})
 
 	it('should fail when comparing invalid addresses', () => {
-		invalidAddressPairs.forEach(([addr1, addr2]) => expect(() => expect(addr1).toEqualAddress(addr2)).toThrow())
+		invalidAddressPairs.forEach(([addr1, addr2]) => {
+			expect(() => expect(addr1).toEqualAddress(addr2)).toThrow()
+		})
 	})
 
 	it('should work with .not', () => {
-		differentAddressPairs.forEach(([addr1, addr2]) => expect(addr1).not.toEqualAddress(addr2))
-		validAddressPairs.forEach(([addr1, addr2]) => expect(() => expect(addr1).not.toEqualAddress(addr2)).toThrow())
+		differentAddressPairs.forEach(([addr1, addr2]) => {
+			expect(addr1).not.toEqualAddress(addr2)
+		})
+		validAddressPairs.forEach(([addr1, addr2]) => {
+			expect(() => expect(addr1).not.toEqualAddress(addr2)).toThrow()
+		})
 	})
 
 	it('should provide helpful error messages', () => {

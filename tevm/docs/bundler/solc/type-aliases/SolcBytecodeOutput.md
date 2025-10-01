@@ -10,7 +10,7 @@
 
 Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:271
 
-## Type declaration
+## Type Declaration
 
 ### functionDebugData
 

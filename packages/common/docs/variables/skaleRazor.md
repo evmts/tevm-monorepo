@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/skaleRazor.js:26](https://github.com/ev
 
 Creates a common configuration for the skaleRazor chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

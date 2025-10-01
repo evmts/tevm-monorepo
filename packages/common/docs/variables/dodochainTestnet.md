@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/dodochainTestnet.js:26](https://github.
 
 Creates a common configuration for the dodochainTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

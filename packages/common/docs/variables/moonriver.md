@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/moonriver.js:26](https://github.com/evm
 
 Creates a common configuration for the moonriver chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

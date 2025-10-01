@@ -3,7 +3,7 @@ import { type Address, parseEther } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from './createMemoryClient.js'
 
-// @ts-ignore -- Ignoring TS errors in test file
+// @ts-expect-error -- Ignoring TS errors in test file
 
 // FIXME: These tests need more work to properly simulate mining modes
 describe.skip('Tevm Mining Modes', () => {

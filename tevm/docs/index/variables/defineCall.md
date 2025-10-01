@@ -6,9 +6,9 @@
 
 # Variable: defineCall()
 
-> `const` **defineCall**: \<`TAbi`\>(`abi`, `handlers`) => (`{ data, gasLimit, }`) => `Promise`\<[`ExecResult`](../../evm/interfaces/ExecResult.md)\>
+> `const` **defineCall**: \<`TAbi`\>(`abi`, `handlers`) => (`{ data, gasLimit }`) => `Promise`\<[`ExecResult`](../../evm/interfaces/ExecResult.md)\>
 
-Defined in: packages/precompiles/dist/index.d.ts:215
+Defined in: packages/precompiles/dist/index.d.ts:115
 
 Defines a call handler for a contract precompile by mapping function names to handler implementations.
 
@@ -34,11 +34,11 @@ that will be encoded according to the ABI.
 
 ## Returns
 
-> (`{ data, gasLimit, }`): `Promise`\<[`ExecResult`](../../evm/interfaces/ExecResult.md)\>
+> (`{ data, gasLimit }`): `Promise`\<[`ExecResult`](../../evm/interfaces/ExecResult.md)\>
 
 ### Parameters
 
-#### \{ data, gasLimit, \}
+#### \{ data, gasLimit \}
 
 ##### data
 

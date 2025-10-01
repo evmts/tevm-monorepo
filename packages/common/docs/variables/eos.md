@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/eos.js:26](https://github.com/evmts/tev
 
 Creates a common configuration for the eos chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

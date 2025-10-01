@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/bitTorrentTestnet.js:26](https://github
 
 Creates a common configuration for the bitTorrentTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

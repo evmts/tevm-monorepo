@@ -72,7 +72,7 @@ export const createRealFileAccessObject = (): FileAccessObject => {
 			try {
 				await access(fileName)
 				return true
-			} catch (e) {
+			} catch (_e) {
 				return false
 			}
 		},

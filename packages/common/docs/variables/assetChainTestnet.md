@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/assetChainTestnet.js:26](https://github
 
 Creates a common configuration for the assetChainTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

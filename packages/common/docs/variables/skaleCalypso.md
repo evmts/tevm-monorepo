@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/skaleCalypso.js:26](https://github.com/
 
 Creates a common configuration for the skaleCalypso chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

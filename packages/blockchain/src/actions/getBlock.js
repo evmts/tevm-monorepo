@@ -1,5 +1,4 @@
-import { UnknownBlockError } from '@tevm/errors'
-import { InvalidBlockError } from '@tevm/errors'
+import { InvalidBlockError, UnknownBlockError } from '@tevm/errors'
 import { bytesToBigInt, bytesToHex } from '@tevm/utils'
 import { getBlockFromRpc } from '../utils/getBlockFromRpc.js'
 import { getCanonicalHeadBlock } from './getCanonicalHeadBlock.js'

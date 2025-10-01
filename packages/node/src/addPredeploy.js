@@ -1,6 +1,5 @@
 import { createAddress } from '@tevm/address'
-import { createAccount } from '@tevm/utils'
-import { hexToBytes, keccak256 } from '@tevm/utils'
+import { createAccount, hexToBytes, keccak256 } from '@tevm/utils'
 
 /**
  * @internal

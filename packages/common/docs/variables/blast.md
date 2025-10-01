@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/blast.js:26](https://github.com/evmts/t
 
 Creates a common configuration for the blast chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

@@ -4,9 +4,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom/client'
 import { WagmiConfig } from 'wagmi'
-import foo from './foo.json'
-
-type Foo = typeof foo
 
 const queryClient = new QueryClient()
 

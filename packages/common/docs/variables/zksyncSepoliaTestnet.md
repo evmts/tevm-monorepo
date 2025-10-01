@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/zksyncSepoliaTestnet.js:26](https://git
 
 Creates a common configuration for the zksyncSepoliaTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

@@ -8,7 +8,7 @@
 
 > **AbiFunction** = `object`
 
-Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.30/node\_modules/abitype/dist/types/abi.d.ts:54
+Defined in: node\_modules/.pnpm/abitype@1.1.1\_typescript@5.9.2\_zod@3.25.76/node\_modules/abitype/dist/types/abi.d.ts:54
 
 ABI ["function"](https://docs.soliditylang.org/en/latest/abi-spec.html#json) type
 
@@ -18,7 +18,7 @@ ABI ["function"](https://docs.soliditylang.org/en/latest/abi-spec.html#json) typ
 
 > `optional` **constant**: `boolean`
 
-Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.30/node\_modules/abitype/dist/types/abi.d.ts:60
+Defined in: node\_modules/.pnpm/abitype@1.1.1\_typescript@5.9.2\_zod@3.25.76/node\_modules/abitype/dist/types/abi.d.ts:60
 
 #### Deprecated
 
@@ -34,7 +34,7 @@ https://github.com/ethereum/solidity/issues/992
 
 > `optional` **gas**: `number`
 
-Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.30/node\_modules/abitype/dist/types/abi.d.ts:65
+Defined in: node\_modules/.pnpm/abitype@1.1.1\_typescript@5.9.2\_zod@3.25.76/node\_modules/abitype/dist/types/abi.d.ts:65
 
 #### Deprecated
 
@@ -50,7 +50,7 @@ https://github.com/vyperlang/vyper/issues/2151
 
 > **inputs**: readonly `AbiParameter`[]
 
-Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.30/node\_modules/abitype/dist/types/abi.d.ts:66
+Defined in: node\_modules/.pnpm/abitype@1.1.1\_typescript@5.9.2\_zod@3.25.76/node\_modules/abitype/dist/types/abi.d.ts:66
 
 ***
 
@@ -58,7 +58,7 @@ Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.30/nod
 
 > **name**: `string`
 
-Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.30/node\_modules/abitype/dist/types/abi.d.ts:67
+Defined in: node\_modules/.pnpm/abitype@1.1.1\_typescript@5.9.2\_zod@3.25.76/node\_modules/abitype/dist/types/abi.d.ts:67
 
 ***
 
@@ -66,7 +66,7 @@ Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.30/nod
 
 > **outputs**: readonly `AbiParameter`[]
 
-Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.30/node\_modules/abitype/dist/types/abi.d.ts:68
+Defined in: node\_modules/.pnpm/abitype@1.1.1\_typescript@5.9.2\_zod@3.25.76/node\_modules/abitype/dist/types/abi.d.ts:68
 
 ***
 
@@ -74,7 +74,7 @@ Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.30/nod
 
 > `optional` **payable**: `boolean`
 
-Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.30/node\_modules/abitype/dist/types/abi.d.ts:73
+Defined in: node\_modules/.pnpm/abitype@1.1.1\_typescript@5.9.2\_zod@3.25.76/node\_modules/abitype/dist/types/abi.d.ts:73
 
 #### Deprecated
 
@@ -90,7 +90,7 @@ https://github.com/ethereum/solidity/issues/992
 
 > **stateMutability**: `AbiStateMutability`
 
-Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.30/node\_modules/abitype/dist/types/abi.d.ts:74
+Defined in: node\_modules/.pnpm/abitype@1.1.1\_typescript@5.9.2\_zod@3.25.76/node\_modules/abitype/dist/types/abi.d.ts:74
 
 ***
 
@@ -98,4 +98,4 @@ Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.30/nod
 
 > **type**: `"function"`
 
-Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.30/node\_modules/abitype/dist/types/abi.d.ts:55
+Defined in: node\_modules/.pnpm/abitype@1.1.1\_typescript@5.9.2\_zod@3.25.76/node\_modules/abitype/dist/types/abi.d.ts:55

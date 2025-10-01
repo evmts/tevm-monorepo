@@ -8,6 +8,6 @@
 
 > `const` **generateCanonicalGenesis**: [`StateAction`](../type-aliases/StateAction.md)\<`"generateCanonicalGenesis"`\>
 
-Defined in: packages/state/dist/index.d.ts:397
+Defined in: packages/state/dist/index.d.ts:394
 
 Loads a [TevmState](../../index/type-aliases/TevmState.md) into the state manager

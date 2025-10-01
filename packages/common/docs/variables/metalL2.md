@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/metalL2.js:26](https://github.com/evmts
 
 Creates a common configuration for the metalL2 chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

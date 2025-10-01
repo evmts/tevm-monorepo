@@ -14,7 +14,7 @@ const fao: FileAccessObject = {
 		try {
 			await access(file)
 			return true
-		} catch (e) {
+		} catch (_e) {
 			return false
 		}
 	},
@@ -77,7 +77,7 @@ describe('moduleFactory', () => {
 				runSyncronously,
 			),
 		)
-		expect(modules.keys()).toMatchSnapshot()
+		expect([...modules.keys()].map((key) => key.replace(absolutePathToNormalize, ''))).toMatchSnapshot()
 		expect(
 			JSON.stringify(modules.get(fixtures[testCase].entrypoint()), null, 2).replaceAll(absolutePathToNormalize, ''),
 		).toMatchSnapshot()
@@ -92,7 +92,7 @@ describe('moduleFactory', () => {
 				runSyncronously,
 			),
 		)
-		expect(modules.keys()).toMatchSnapshot()
+		expect([...modules.keys()].map((key) => key.replace(absolutePathToNormalize, ''))).toMatchSnapshot()
 		expect(
 			JSON.stringify(modules.get(fixtures[testCase].entrypoint()), null, 2).replaceAll(absolutePathToNormalize, ''),
 		).toMatchSnapshot()
@@ -155,7 +155,7 @@ describe('moduleFactory', () => {
 				try {
 					await access(path)
 					return true
-				} catch (e) {
+				} catch (_e) {
 					return false
 				}
 			},

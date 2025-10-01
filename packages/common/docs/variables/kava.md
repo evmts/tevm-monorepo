@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/kava.js:26](https://github.com/evmts/te
 
 Creates a common configuration for the kava chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

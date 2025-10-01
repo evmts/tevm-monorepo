@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/zksyncInMemoryNode.js:26](https://githu
 
 Creates a common configuration for the zksyncInMemoryNode chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/satoshiVM.js:26](https://github.com/evm
 
 Creates a common configuration for the satoshiVM chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

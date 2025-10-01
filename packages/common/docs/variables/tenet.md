@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/tenet.js:26](https://github.com/evmts/t
 
 Creates a common configuration for the tenet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

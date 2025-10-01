@@ -1,8 +1,7 @@
 import { optimism } from '@tevm/common'
 import { ERC20, SimpleContract } from '@tevm/contract'
 import { transports } from '@tevm/test-utils'
-import { EthjsAddress } from '@tevm/utils'
-import { hexToBytes } from '@tevm/utils'
+import { EthjsAddress, hexToBytes } from '@tevm/utils'
 import { encodeDeployData, testActions } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../createMemoryClient.js'
@@ -40,20 +39,10 @@ const addabi = [
 	},
 ] as const
 
-const forkConfig = {
-	transport: transports.optimism,
-	blockTag: 121138454n,
-}
-
 describe('Tevm should create a local vm in JavaScript', () => {
 	describe('client.script', () => {
 		it('should execute scripts based on their bytecode and return the result', async () => {
 			const tevm = createMemoryClient()
-			console.log(
-				ERC20.withCode(encodeDeployData(ERC20.deploy('name', 'symbol'))).read.balanceOf(
-					'0x00000000000000000000000000000000000000ff',
-				),
-			)
 			const res = await tevm.tevmContract(
 				ERC20.withCode(encodeDeployData(ERC20.deploy('name', 'symbol'))).read.balanceOf(
 					'0x00000000000000000000000000000000000000ff',
@@ -91,7 +80,6 @@ describe('Tevm should create a local vm in JavaScript', () => {
 			const messages: Array<{ type: string; depth?: number; gasUsed?: bigint }> = []
 
 			// Execute contract call with event handlers
-			// @ts-ignore - Event handlers will be supported in types soon
 			const result = await tevm.tevmContract({
 				deployedBytecode: addbytecode,
 				to: `0x${'45'.repeat(20)}`,
@@ -99,7 +87,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 				functionName: 'add',
 				args: [1n, 2n],
 				// Track EVM steps
-				onStep: (step: any, next: () => void) => {
+				onStep: (step, next) => {
 					steps.push({
 						opcode: step.opcode.name,
 						stackSize: step.stack.length,
@@ -107,21 +95,21 @@ describe('Tevm should create a local vm in JavaScript', () => {
 					next?.()
 				},
 				// Track new contracts
-				onNewContract: (contract: any, next: () => void) => {
+				onNewContract: (contract, next) => {
 					contracts.push({
 						address: contract.address.toString(),
 					})
 					next?.()
 				},
 				// Track messages
-				onBeforeMessage: (message: any, next: () => void) => {
+				onBeforeMessage: (message, next) => {
 					messages.push({
 						type: 'before',
 						depth: message.depth,
 					})
 					next?.()
 				},
-				onAfterMessage: (result: any, next: () => void) => {
+				onAfterMessage: (result, next) => {
 					messages.push({
 						type: 'after',
 						gasUsed: result.execResult.executionGasUsed,
@@ -194,7 +182,6 @@ describe('Tevm should create a local vm in JavaScript', () => {
 			const messages: Array<{ type: string; depth?: number; gasUsed?: bigint }> = []
 
 			// Deploy and call add contract with event handlers
-			// @ts-ignore - Event handlers will be supported in types soon
 			const result = await tevm.tevmContract({
 				deployedBytecode: addbytecode,
 				to: `0x${'45'.repeat(20)}`,
@@ -202,7 +189,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 				functionName: 'add',
 				args: [1n, 2n],
 				// Track EVM steps
-				onStep: (step: any, next: () => void) => {
+				onStep: (step, next) => {
 					steps.push({
 						opcode: step.opcode.name,
 						stackSize: step.stack.length,
@@ -210,14 +197,14 @@ describe('Tevm should create a local vm in JavaScript', () => {
 					next?.()
 				},
 				// Track messages
-				onBeforeMessage: (message: any, next: () => void) => {
+				onBeforeMessage: (message, next) => {
 					messages.push({
 						type: 'before',
 						depth: message.depth,
 					})
 					next?.()
 				},
-				onAfterMessage: (result: any, next: () => void) => {
+				onAfterMessage: (result, next) => {
 					messages.push({
 						type: 'after',
 						gasUsed: result.execResult.executionGasUsed,
@@ -244,48 +231,28 @@ describe('Tevm should create a local vm in JavaScript', () => {
 
 	describe('client.contract', () => {
 		it('should fork a network and then execute a contract call', async () => {
-			const tevm = createMemoryClient({ fork: forkConfig, common: optimism })
+			const tevm = createMemoryClient({
+				fork: { transport: transports.optimism, blockTag: 'latest' },
+				common: optimism,
+			})
 			const res = await tevm.tevmContract({
 				to: contractAddress,
 				...DaiContract.read.balanceOf('0xf0d4c12a5768d806021f80a262b4d39d26c58b8d', {
 					contractAddress,
 				}),
 			})
-			expect(res).toEqual({
-				// The amount of ether used by this transaction. Does not include l1 fees.
-				amountSpent: 1442108352554n,
-				// The amount of gas used by the transaction execution
-				executionGasUsed: 2447n,
-				// Latest known L1 base fee known by the l2 chain.
-				// Only included when an op-stack common is passed to `createMemoryClient`
-				l1BaseFee: 9147423326n,
-				// Current blob base fee known by the l2 chain
-				l1BlobFee: 1n,
-				// L1 fee that should be paid for the tx Only included when an op-stack
-				// // common is provided
-				l1Fee: 21223193072n,
-				// Amount of L1 gas used to publish the transaction. Only included when an
-				// // op-stack common is provided
-				l1GasUsed: 1696n,
-				// Map of addresses which were created (used in EIP 6780) Note the addresses
-				// are not actually created til the tx is mined
-				createdAddresses: new Set(),
-				// The decoded data based on the contract ABI
-				data: 1n,
-				// amount of gas left
-				gas: 29976121n,
-				// Logs emitted by the contract call
-				logs: [],
-				// The return value of the contract call
-				rawData: '0x0000000000000000000000000000000000000000000000000000000000000001',
-				// A set of accounts to selfdestruct
-				selfdestruct: new Set(),
-				// The amount of gas used in this transaction, which is paid for.
-				// This contains the gas units that have been used on execution,
-				// plus the upfront cost, which consists of calldata cost, intrinsic
-				// cost and optionally the access list costs Does not include l1 fees
-				totalGasSpent: 23879n,
-			})
+			// TODO: we can not do that when we can use fixed block tags without proof out of window
+			expect(res.amountSpent).toBeGreaterThan(0n)
+			expect(res.l1BaseFee).toBeGreaterThan(0n)
+			expect(res.l1Fee).toBeGreaterThan(0n)
+			expect(res.l1BlobFee).toBeGreaterThan(0n)
+			expect(res.l1GasUsed).toBeGreaterThan(0n)
+			res.amountSpent = 0n
+			res.l1BaseFee = 0n
+			res.l1Fee = 0n
+			res.l1BlobFee = 0n
+			res.l1GasUsed = 0n
+			expect(res).toMatchSnapshot()
 		})
 	})
 
@@ -319,13 +286,12 @@ describe('Tevm should create a local vm in JavaScript', () => {
 			const messages: Array<{ type: string; depth?: number; gasUsed?: bigint }> = []
 
 			// Deploy a contract with event handlers
-			// @ts-ignore - Event handlers will be supported in types soon
 			const result = await tevm.tevmDeploy({
 				bytecode: SimpleContract.bytecode,
 				abi: SimpleContract.abi,
 				args: [42n], // Constructor argument
 				// Track EVM steps
-				onStep: (step: any, next: () => void) => {
+				onStep: (step, next) => {
 					steps.push({
 						opcode: step.opcode.name,
 						stackSize: step.stack.length,
@@ -333,21 +299,21 @@ describe('Tevm should create a local vm in JavaScript', () => {
 					next?.()
 				},
 				// Track new contracts
-				onNewContract: (contract: any, next: () => void) => {
+				onNewContract: (contract, next) => {
 					contracts.push({
 						address: contract.address.toString(),
 					})
 					next?.()
 				},
 				// Track messages
-				onBeforeMessage: (message: any, next: () => void) => {
+				onBeforeMessage: (message, next) => {
 					messages.push({
 						type: 'before',
 						depth: message.depth,
 					})
 					next?.()
 				},
-				onAfterMessage: (result: any, next: () => void) => {
+				onAfterMessage: (result, next) => {
 					messages.push({
 						type: 'after',
 						gasUsed: result.execResult.executionGasUsed,

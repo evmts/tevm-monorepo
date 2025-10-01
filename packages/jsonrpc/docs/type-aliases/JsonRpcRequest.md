@@ -12,7 +12,7 @@ Defined in: [packages/jsonrpc/src/JsonRpcRequest.ts:4](https://github.com/evmts/
 
 Helper type for creating JSON-RPC request types
 
-## Type declaration
+## Type Declaration
 
 ### id?
 

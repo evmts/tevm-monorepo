@@ -8,7 +8,7 @@
 
 > **applyTransactions**(`vm`): (`block`, `opts`) => `Promise`\<\{ `bloom`: `Bloom`; `gasUsed`: `bigint`; `preimages`: `Map`\<`string`, `Uint8Array`\<`ArrayBufferLike`\>\>; `receipts`: [`TxReceipt`](../type-aliases/TxReceipt.md)[]; `receiptsRoot`: `Uint8Array`\<`ArrayBufferLike`\>; `results`: [`RunTxResult`](../interfaces/RunTxResult.md)[]; \}\>
 
-Defined in: [packages/vm/src/actions/applyTransactions.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/applyTransactions.ts#L19)
+Defined in: [packages/vm/src/actions/applyTransactions.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/applyTransactions.ts#L18)
 
 Applies the transactions in a block, computing the receipts
 as well as gas usage and some relevant data. This method is

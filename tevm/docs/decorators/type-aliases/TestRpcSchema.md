@@ -8,7 +8,7 @@
 
 > **TestRpcSchema**\<`TMode`\> = \[`object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`\]
 
-Defined in: packages/decorators/dist/index.d.ts:460
+Defined in: packages/decorators/dist/index.d.ts:946
 
 ## Type Parameters
 

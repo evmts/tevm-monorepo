@@ -1,12 +1,12 @@
 // this is from ethereumjs and carries the same license as the original
 // https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/client/src/execution/receipt.ts
-import { Rlp } from '@tevm/rlp'
-import { Bloom, bytesToBigInt, bytesToNumber, equalsBytes, hexToBytes, numberToHex, stringToHex } from '@tevm/utils'
 
 import type { Block } from '@tevm/block'
 import { type Chain, getBlock } from '@tevm/blockchain'
+import { Rlp } from '@tevm/rlp'
 import type { TransactionType, TypedTransaction } from '@tevm/tx'
 import type { EthjsLog } from '@tevm/utils'
+import { Bloom, bytesToBigInt, bytesToNumber, equalsBytes, hexToBytes, numberToHex, stringToHex } from '@tevm/utils'
 import type { MapDb } from './MapDb.js'
 
 // Some of these types are actually from the Vm package but they are better to live here imo
@@ -350,7 +350,7 @@ export class ReceiptsManager {
 		const receipts = await this.getReceipts(blockHash)
 		if (receipts.length === 0) return null
 		let logIndex = 0
-		receipts.slice(0, txIndex).map((r) => {
+		receipts.slice(0, txIndex).forEach((r) => {
 			logIndex += r.logs.length
 		})
 		const receipt = receipts[txIndex]

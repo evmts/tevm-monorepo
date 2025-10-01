@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/filecoinCalibration.js:26](https://gith
 
 Creates a common configuration for the filecoinCalibration chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

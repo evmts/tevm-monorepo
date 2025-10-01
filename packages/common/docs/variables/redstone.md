@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/redstone.js:26](https://github.com/evmt
 
 Creates a common configuration for the redstone chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/atletaOlympia.js:26](https://github.com
 
 Creates a common configuration for the atletaOlympia chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

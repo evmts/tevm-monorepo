@@ -1,5 +1,5 @@
+export type { CreateSyncStoragePersisterOptions } from './CreateSyncStoragePersisterOptions.js'
 export { createSyncStoragePersister } from './createSyncStoragePersister.js'
 export { noopPersister } from './noopPersister.js'
-export type { CreateSyncStoragePersisterOptions } from './CreateSyncStoragePersisterOptions.js'
 export type { Storage } from './Storage.js'
 export type { SyncStoragePersister } from './SyncStoragePersister.js'

@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/lyra.js:26](https://github.com/evmts/te
 
 Creates a common configuration for the lyra chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

@@ -311,31 +311,13 @@ export const tevmViemExtension = () => {
 		 * @type {import('@tevm/actions').LoadStateHandler}
 		 */
 		const loadState = async (params) => {
-			/**
-			 * @type {import('@tevm/state').ParameterizedTevmState}
-			 */
-			const encodedState = {}
-
-			for (const [k, v] of Object.entries(params.state)) {
-				const { nonce, balance, storageRoot, codeHash } = v
-				//turn all bigints to hex strings
-				const account = {
-					...v,
-					nonce: numberToHex(nonce),
-					balance: numberToHex(balance),
-					storageRoot: storageRoot,
-					codeHash: codeHash,
-				}
-
-				encodedState[k] = account
-			}
-
 			return /** @type {any} */ (
 				formatResult(
+					// @ts-expect-error - state is not serialized here, this will not happen once we use serialized state and this here will error
 					await request({
 						method: 'tevm_loadState',
 						jsonrpc: '2.0',
-						params: [{ state: encodedState }],
+						params: [{ state: params.state }],
 					}),
 				)
 			)

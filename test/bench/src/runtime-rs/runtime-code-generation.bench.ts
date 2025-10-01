@@ -1,10 +1,6 @@
 import crypto from 'node:crypto'
-import fs from 'node:fs'
-import { promises as fsPromises } from 'node:fs'
-import os from 'node:os'
-import path from 'node:path'
 import { generateRuntimeJs } from '@tevm/runtime-rs'
-import { afterAll, beforeAll, bench, describe } from 'vitest'
+import { bench, describe } from 'vitest'
 
 /**
  * Benchmark that tests the performance of runtime code generation
@@ -200,7 +196,7 @@ function generateRuntimeJsImpl(solcOutput: any, moduleType: string, useScopedPac
 
 	// Process contracts
 	if (solcOutput.contracts) {
-		for (const [file, fileContracts] of Object.entries(solcOutput.contracts)) {
+		for (const [_file, fileContracts] of Object.entries(solcOutput.contracts)) {
 			for (const [name, contract] of Object.entries(fileContracts as Record<string, any>)) {
 				const bytecode = contract.evm?.bytecode?.object
 				const deployedBytecode = contract.evm?.deployedBytecode?.object

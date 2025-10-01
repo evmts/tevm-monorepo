@@ -2,7 +2,6 @@ import {
 	WASI as __WASI,
 	getDefaultContext as __emnapiGetDefaultContext,
 	instantiateNapiModuleSync as __emnapiInstantiateNapiModuleSync,
-	createOnMessage as __wasmCreateOnMessageForFsProxy,
 } from '@napi-rs/wasm-runtime'
 
 import __wasmUrl from './tevm_resolutions_rs.wasm32-wasi.wasm?url'
@@ -57,5 +56,5 @@ function __napi_rs_initialize_modules(__napiInstance) {
 	__napiInstance.exports['__napi_register__resolve_imports_js_3']?.()
 	__napiInstance.exports['__napi_register__module_factory_js_4']?.()
 }
-export const moduleFactoryJs = __napiModule.exports.moduleFactoryJs
-export const resolveImportsJs = __napiModule.exports.resolveImportsJs
+export const _moduleFactoryJs = __napiModule.exports.moduleFactoryJs
+export const _resolveImportsJs = __napiModule.exports.resolveImportsJs

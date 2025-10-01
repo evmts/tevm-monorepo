@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/mantaSepoliaTestnet.js:26](https://gith
 
 Creates a common configuration for the mantaSepoliaTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

@@ -8,6 +8,6 @@
 
 > **CustomPrecompile** = `Exclude`\<`Exclude`\<`Parameters`\<*typeof* [`Evm`](../../evm/classes/Evm.md)\[`"create"`\]\>\[`0`\], `undefined`\>\[`"customPrecompiles"`\], `undefined`\>\[`number`\]
 
-Defined in: packages/node/dist/index.d.ts:327
+Defined in: packages/node/dist/index.d.ts:26
 
 Custom precompiles allow you to run arbitrary JavaScript code in the EVM

@@ -130,7 +130,7 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
 			client.logger.debug({ requireSig, skipBalance: evmInput.skipBalance }, 'callHandler: Adding tx to mempool')
 			poolPromise = pool.add(tx, requireSig, evmInput.skipBalance ?? false)
 			const txHash = bytesToHex(tx.hash())
-			client.logger.debug(txHash, 'callHandler: received txHash')
+			client.logger.debug({ txHash }, 'callHandler: received txHash')
 			const account = await getAccountHandler(client)({
 				address: /** @type {import('@tevm/utils').Hex}*/ (sender.toString()),
 			})

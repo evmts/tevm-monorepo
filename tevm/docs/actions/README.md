@@ -8,9 +8,7 @@
 
 ## Classes
 
-- [BlobGasLimitExceededError](classes/BlobGasLimitExceededError.md)
 - [MissingAccountError](classes/MissingAccountError.md)
-- [NoForkUrlSetError](classes/NoForkUrlSetError.md)
 
 ## Interfaces
 
@@ -157,6 +155,9 @@
 - [EthAccountsJsonRpcResponse](type-aliases/EthAccountsJsonRpcResponse.md)
 - [EthAccountsParams](type-aliases/EthAccountsParams.md)
 - [EthAccountsResult](type-aliases/EthAccountsResult.md)
+- [EthBlobBaseFeeJsonRpcProcedure](type-aliases/EthBlobBaseFeeJsonRpcProcedure.md)
+- [EthBlobBaseFeeJsonRpcRequest](type-aliases/EthBlobBaseFeeJsonRpcRequest.md)
+- [EthBlobBaseFeeJsonRpcResponse](type-aliases/EthBlobBaseFeeJsonRpcResponse.md)
 - [EthBlockNumberHandler](type-aliases/EthBlockNumberHandler.md)
 - [EthBlockNumberJsonRpcProcedure](type-aliases/EthBlockNumberJsonRpcProcedure.md)
 - [EthBlockNumberJsonRpcRequest](type-aliases/EthBlockNumberJsonRpcRequest.md)
@@ -496,6 +497,10 @@
 - [cloneVmWithBlockTag](functions/cloneVmWithBlockTag.md)
 - [contractHandler](functions/contractHandler.md)
 - [dealHandler](functions/dealHandler.md)
+- [debugTraceBlockJsonRpcProcedure](functions/debugTraceBlockJsonRpcProcedure.md)
+- [debugTraceCallJsonRpcProcedure](functions/debugTraceCallJsonRpcProcedure.md)
+- [debugTraceStateJsonRpcProcedure](functions/debugTraceStateJsonRpcProcedure.md)
+- [debugTraceTransactionJsonRpcProcedure](functions/debugTraceTransactionJsonRpcProcedure.md)
 - [deployHandler](functions/deployHandler.md)
 - [dumpStateHandler](functions/dumpStateHandler.md)
 - [dumpStateProcedure](functions/dumpStateProcedure.md)

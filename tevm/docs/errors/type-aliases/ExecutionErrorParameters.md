@@ -8,7 +8,7 @@
 
 > **ExecutionErrorParameters** = `object`
 
-Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:55
+Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:56
 
 Parameters for constructing an ExecutionError.
 
@@ -18,7 +18,7 @@ Parameters for constructing an ExecutionError.
 
 > `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| [`EVMError`](../../evm/classes/EVMError.md)
 
-Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:75
+Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:76
 
 - The cause of the error.
 
@@ -28,7 +28,7 @@ Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:75
 
 > `optional` **details**: `string`
 
-Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:79
+Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:80
 
 - Details of the error.
 
@@ -38,7 +38,7 @@ Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:79
 
 > `optional` **docsBaseUrl**: `string`
 
-Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:59
+Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:60
 
 - Base URL for the documentation.
 
@@ -48,7 +48,7 @@ Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:59
 
 > `optional` **docsPath**: `string`
 
-Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:63
+Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:64
 
 - Path to the documentation.
 
@@ -58,7 +58,7 @@ Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:63
 
 > `optional` **docsSlug**: `string`
 
-Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:67
+Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:68
 
 - Slug for the documentation.
 
@@ -68,7 +68,7 @@ Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:67
 
 > `optional` **meta**: `object`
 
-Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:83
+Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:84
 
 - Optional object containing additional information about the error.
 
@@ -78,6 +78,6 @@ Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:83
 
 > `optional` **metaMessages**: `string`[]
 
-Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:71
+Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:72
 
 - Additional meta messages.

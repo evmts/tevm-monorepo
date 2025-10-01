@@ -12,8 +12,8 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/evmts/tevm-monorepo.git",
-		"directory": "core/node"
+		"url": "git+https://github.com/evmts/tevm-monorepo.git",
+		"directory": "packages/node"
 	},
 	"license": "MIT",
 	"contributors": [
@@ -55,11 +55,11 @@
 		"lint": "biome check . --write --unsafe",
 		"lint:check": "biome check . --verbose",
 		"lint:deps": "bunx depcheck",
-		"lint:package": "bunx publint --strict && attw --pack",
+		"lint:package": "bunx publint --strict && pnpm pack --pack-destination /tmp && attw /tmp/tevm-node-*.tgz && rm /tmp/tevm-node-*.tgz",
 		"package:up": "pnpm up --latest",
 		"test": "vitest --watch",
 		"test:coverage": "vitest --coverage --run",
-		"test:run": "vitest",
+		"test:run": "vitest run",
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {

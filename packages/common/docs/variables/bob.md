@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/bob.js:26](https://github.com/evmts/tev
 
 Creates a common configuration for the bob chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

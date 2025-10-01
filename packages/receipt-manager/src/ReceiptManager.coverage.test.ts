@@ -51,7 +51,7 @@ describe('ReceiptsManager 100% Coverage Targets', () => {
 	beforeEach(async () => {
 		chain = createEmptyChain()
 		cache = new Map()
-		// @ts-ignore - Type compatibility issue with the cache Map
+		// @ts-expect-error - Type compatibility issue with the cache Map
 		mapDb = createMapDb({ cache })
 		receiptManager = new ReceiptsManager(mapDb, chain as any)
 	})
@@ -618,12 +618,10 @@ describe('ReceiptsManager 100% Coverage Targets', () => {
 		it('should use types from MapDb.ts', async () => {
 			// Just importing the file will give us coverage
 			// Using type-only import to avoid runtime errors
-			// @ts-ignore - TypeScript error with dynamic imports
 			await import('./MapDb.js')
 
 			// Create a MapDb instance using createMapDb
 			const cache = new Map()
-			// @ts-ignore
 			const mapDb = createMapDb({ cache })
 
 			// Test the methods

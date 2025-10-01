@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/ancient8Sepolia.js:26](https://github.c
 
 Creates a common configuration for the ancient8Sepolia chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

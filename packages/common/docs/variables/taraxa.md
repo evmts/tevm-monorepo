@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/taraxa.js:26](https://github.com/evmts/
 
 Creates a common configuration for the taraxa chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

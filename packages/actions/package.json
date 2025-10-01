@@ -1,98 +1,98 @@
 {
-  "name": "@tevm/actions",
-  "version": "1.0.0-next.147",
-  "private": false,
-  "description": "A typesafe library for writing forge scripts in typescript",
-  "keywords": [
-    "solidity",
-    "forge",
-    "foundry",
-    "sol",
-    "typescript",
-    "web3",
-    "blockchain"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/evmts/tevm-monorepo.git",
-    "directory": "actions"
-  },
-  "license": "MIT",
-  "contributors": [
-    "Will Cory <willcory10@gmail.com>"
-  ],
-  "sideEffects": false,
-  "type": "module",
-  "exports": {
-    "./package.json": "./package.json",
-    ".": {
-      "import": {
-        "types": "./types/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
-    }
-  },
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "types": "types/index.d.ts",
-  "files": [
-    "dist",
-    "src",
-    "!src/**/*.spec.ts",
-    "types"
-  ],
-  "scripts": {
-    "all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
-    "build": "nx run-many --targets=build:dist,build:types --projects=@tevm/actions",
-    "build:dist": "tsup",
-    "build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
-    "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
-    "format": "biome format . --write",
-    "format:check": "biome format .",
-    "generate:docs": "bun run typedoc",
-    "lint": "biome check . --write --unsafe",
-    "lint:check": "biome check . --verbose",
-    "lint:deps": "bunx depcheck",
-    "lint:package": "bunx publint --strict && attw --pack",
-    "package:up": "pnpm up --latest",
-    "test": "vitest --watch",
-    "test:coverage": "vitest --coverage --run",
-    "test:run": "vitest",
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@tevm/address": "workspace:^",
-    "@tevm/block": "workspace:^",
-    "@tevm/blockchain": "workspace:^",
-    "@tevm/common": "workspace:^",
-    "@tevm/contract": "workspace:^",
-    "@tevm/errors": "workspace:^",
-    "@tevm/evm": "workspace:^",
-    "@tevm/jsonrpc": "workspace:^",
-    "@tevm/node": "workspace:^",
-    "@tevm/receipt-manager": "workspace:^",
-    "@tevm/state": "workspace:^",
-    "@tevm/tx": "workspace:^",
-    "@tevm/txpool": "workspace:^",
-    "@tevm/utils": "workspace:^",
-    "@tevm/vm": "workspace:^",
-    "zod": "^3.25.30"
-  },
-  "devDependencies": {
-    "@tevm/decorators": "workspace:^",
-    "@tevm/test-utils": "workspace:^",
-    "@tevm/tsconfig": "workspace:^",
-    "@tevm/tsupconfig": "workspace:^",
-    "abitype": "^1.0.8"
-  },
-  "peerDependencies": {
-    "viem": "^2.30.1"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+	"name": "@tevm/actions",
+	"version": "1.0.0-next.147",
+	"private": false,
+	"description": "A typesafe library for writing forge scripts in typescript",
+	"keywords": [
+		"solidity",
+		"forge",
+		"foundry",
+		"sol",
+		"typescript",
+		"web3",
+		"blockchain"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/evmts/tevm-monorepo.git",
+		"directory": "packages/actions"
+	},
+	"license": "MIT",
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
+	"sideEffects": false,
+	"type": "module",
+	"exports": {
+		"./package.json": "./package.json",
+		".": {
+			"import": {
+				"types": "./types/index.d.ts",
+				"default": "./dist/index.js"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			}
+		}
+	},
+	"main": "dist/index.cjs",
+	"module": "dist/index.js",
+	"types": "types/index.d.ts",
+	"files": [
+		"dist",
+		"src",
+		"!src/**/*.spec.ts",
+		"types"
+	],
+	"scripts": {
+		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
+		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/actions",
+		"build:dist": "tsup",
+		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache && rm -rf types",
+		"format": "biome format . --write",
+		"format:check": "biome format .",
+		"generate:docs": "bun run typedoc",
+		"lint": "biome check . --write --unsafe",
+		"lint:check": "biome check . --verbose",
+		"lint:deps": "bunx depcheck",
+		"lint:package": "bunx publint --strict && pnpm pack --pack-destination /tmp && attw /tmp/tevm-actions-*.tgz && rm /tmp/tevm-actions-*.tgz",
+		"package:up": "pnpm up --latest",
+		"test": "vitest --watch",
+		"test:coverage": "vitest --coverage --run",
+		"test:run": "vitest run",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@tevm/address": "workspace:^",
+		"@tevm/block": "workspace:^",
+		"@tevm/blockchain": "workspace:^",
+		"@tevm/common": "workspace:^",
+		"@tevm/contract": "workspace:^",
+		"@tevm/errors": "workspace:^",
+		"@tevm/evm": "workspace:^",
+		"@tevm/jsonrpc": "workspace:^",
+		"@tevm/node": "workspace:^",
+		"@tevm/receipt-manager": "workspace:^",
+		"@tevm/state": "workspace:^",
+		"@tevm/tx": "workspace:^",
+		"@tevm/txpool": "workspace:^",
+		"@tevm/utils": "workspace:^",
+		"@tevm/vm": "workspace:^",
+		"zod": "^3.25.30"
+	},
+	"devDependencies": {
+		"@tevm/decorators": "workspace:^",
+		"@tevm/test-utils": "workspace:^",
+		"@tevm/tsconfig": "workspace:^",
+		"@tevm/tsupconfig": "workspace:^",
+		"abitype": "^1.0.8"
+	},
+	"peerDependencies": {
+		"viem": "^2.30.1"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
 }

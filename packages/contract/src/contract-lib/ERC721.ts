@@ -1,4 +1,5 @@
 import { createContract } from '../createContract.js'
+
 const _OzERC721 = {
 	name: 'OzERC721',
 	humanReadableAbi: [

@@ -1,49 +1,49 @@
-export type {
-	TevmState,
-	SerializableTevmState,
-	ParameterizedTevmState,
-	ParameterizedAccountStorage,
-	ForkOptions,
-	AccountStorage,
-	StateCache,
-	StateRoots,
-	StateOptions,
-	StateAction,
-} from './state-types/index.js'
-export type { BaseState } from './BaseState.js'
-export { ContractCache } from './ContractCache.js'
-export type { StateManager } from './StateManager.js'
-export { createStateManager } from './createStateManager.js'
-export { createBaseState } from './createBaseState.js'
+export { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
 export {
-	commit,
-	revert,
-	deepCopy,
-	getProof,
 	checkpoint,
-	getAccount,
-	putAccount,
 	clearCaches,
-	dumpStorage,
-	shallowCopy,
-	getStateRoot,
-	hasStateRoot,
-	setStateRoot,
+	clearContractStorage,
+	commit,
+	deepCopy,
 	deleteAccount,
-	getForkClient,
+	dumpCanonicalGenesis,
+	dumpStorage,
+	dumpStorageRange,
+	generateCanonicalGenesis,
+	getAccount,
+	getAccountAddresses,
+	getAccountFromProvider,
 	getAppliedKey,
 	getContractCode,
-	getForkBlockTag,
-	putContractCode,
-	dumpStorageRange,
 	getContractStorage,
-	putContractStorage,
-	getAccountAddresses,
+	getForkBlockTag,
+	getForkClient,
+	getProof,
+	getStateRoot,
+	hasStateRoot,
 	modifyAccountFields,
-	clearContractStorage,
-	dumpCanonicalGenesis,
-	getAccountFromProvider,
-	generateCanonicalGenesis,
 	originalStorageCache,
+	putAccount,
+	putContractCode,
+	putContractStorage,
+	revert,
+	setStateRoot,
+	shallowCopy,
 } from './actions/index.js'
-export { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
+export type { BaseState } from './BaseState.js'
+export { ContractCache } from './ContractCache.js'
+export { createBaseState } from './createBaseState.js'
+export { createStateManager } from './createStateManager.js'
+export type { StateManager } from './StateManager.js'
+export type {
+	AccountStorage,
+	ForkOptions,
+	ParameterizedAccountStorage,
+	ParameterizedTevmState,
+	SerializableTevmState,
+	StateAction,
+	StateCache,
+	StateOptions,
+	StateRoots,
+	TevmState,
+} from './state-types/index.js'

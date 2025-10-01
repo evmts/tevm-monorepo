@@ -12,7 +12,7 @@ Defined in: [packages/actions/src/Call/executeCall.js:17](https://github.com/evm
 
 ## Type Parameters
 
-## Type declaration
+## Type Declaration
 
 ### accessList
 

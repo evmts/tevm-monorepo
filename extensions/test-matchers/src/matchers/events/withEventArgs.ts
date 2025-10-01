@@ -15,8 +15,7 @@ export const withEventArgs = <
 			: readonly AbiEventParameter[]
 		: never,
 >(
-	// @ts-expect-error - unused variable
-	received: unknown,
+	_received: unknown,
 	...argsAndChainState: readonly [...AbiParametersToPrimitiveTypes<TInputs>, ChainState<unknown, ToEmitState>]
 ): MatcherResult => {
 	const {

@@ -8,7 +8,7 @@
 
 > **createTevmNode**(`options?`): [`TevmNode`](../type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
 
-Defined in: [packages/node/src/createTevmNode.js:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/createTevmNode.js#L27)
+Defined in: [packages/node/src/createTevmNode.js:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/createTevmNode.js#L28)
 
 Creates the base instance of a memory client
 

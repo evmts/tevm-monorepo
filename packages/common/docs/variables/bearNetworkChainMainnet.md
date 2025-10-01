@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/bearNetworkChainMainnet.js:26](https://
 
 Creates a common configuration for the bearNetworkChainMainnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

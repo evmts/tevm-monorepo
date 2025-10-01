@@ -114,9 +114,7 @@ contract AddNumbers {
 				/>
 			) : isLoading ? (
 				<div>loading artifacts</div>
-			) : (
-				<></>
-			)}
+			) : null}
 		</div>
 	)
 }

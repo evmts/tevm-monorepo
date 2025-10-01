@@ -6,11 +6,10 @@
 
 # Class: ExecutionError
 
-Defined in: [packages/errors/src/ethereum/ExecutionErrorError.js:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ExecutionErrorError.js#L41)
-
 Represents an error that occurs when an execution error happens on the Ethereum node.
 
 This error is typically encountered when there is a general execution error that does not fit more specific categories.
+The error code -32015 is a non-standard extension used for EVM execution errors.
 
 ## Example
 
@@ -41,31 +40,31 @@ Additional parameters for the BaseError.
 
 - [`CommonMismatchError`](CommonMismatchError.md)
 - [`EipNotEnabledError`](EipNotEnabledError.md)
-- [`InvalidOpcodeError`](InvalidOpcodeError.md)
-- [`StopError`](StopError.md)
-- [`OutOfRangeError`](OutOfRangeError.md)
-- [`InvalidJumpError`](InvalidJumpError.md)
-- [`InvalidProofError`](InvalidProofError.md)
 - [`AuthCallUnsetError`](AuthCallUnsetError.md)
-- [`StackOverflowError`](StackOverflowError.md)
-- [`InvalidJumpSubError`](InvalidJumpSubError.md)
-- [`StackUnderflowError`](StackUnderflowError.md)
-- [`CreateCollisionError`](CreateCollisionError.md)
-- [`InvalidBeginSubError`](InvalidBeginSubError.md)
-- [`RefundExhaustedError`](RefundExhaustedError.md)
-- [`InvalidEofFormatError`](InvalidEofFormatError.md)
-- [`InvalidKzgInputsError`](InvalidKzgInputsError.md)
-- [`InvalidReturnSubError`](InvalidReturnSubError.md)
-- [`InvalidCommitmentError`](InvalidCommitmentError.md)
-- [`StaticStateChangeError`](StaticStateChangeError.md)
-- [`BLS12381InputEmptyError`](BLS12381InputEmptyError.md)
-- [`InvalidInputLengthError`](InvalidInputLengthError.md)
-- [`InsufficientBalanceError`](InsufficientBalanceError.md)
 - [`BLS12381FpNotInFieldError`](BLS12381FpNotInFieldError.md)
-- [`InitcodeSizeViolationError`](InitcodeSizeViolationError.md)
-- [`InvalidBytecodeResultError`](InvalidBytecodeResultError.md)
-- [`BLS12381PointNotOnCurveError`](BLS12381PointNotOnCurveError.md)
+- [`BLS12381InputEmptyError`](BLS12381InputEmptyError.md)
 - [`BLS12381InvalidInputLengthError`](BLS12381InvalidInputLengthError.md)
+- [`BLS12381PointNotOnCurveError`](BLS12381PointNotOnCurveError.md)
+- [`CreateCollisionError`](CreateCollisionError.md)
+- [`InitcodeSizeViolationError`](InitcodeSizeViolationError.md)
+- [`InsufficientBalanceError`](InsufficientBalanceError.md)
+- [`InvalidBeginSubError`](InvalidBeginSubError.md)
+- [`InvalidBytecodeResultError`](InvalidBytecodeResultError.md)
+- [`InvalidCommitmentError`](InvalidCommitmentError.md)
+- [`InvalidEofFormatError`](InvalidEofFormatError.md)
+- [`InvalidInputLengthError`](InvalidInputLengthError.md)
+- [`InvalidJumpError`](InvalidJumpError.md)
+- [`InvalidJumpSubError`](InvalidJumpSubError.md)
+- [`InvalidKzgInputsError`](InvalidKzgInputsError.md)
+- [`InvalidOpcodeError`](InvalidOpcodeError.md)
+- [`InvalidProofError`](InvalidProofError.md)
+- [`InvalidReturnSubError`](InvalidReturnSubError.md)
+- [`OutOfRangeError`](OutOfRangeError.md)
+- [`RefundExhaustedError`](RefundExhaustedError.md)
+- [`StackOverflowError`](StackOverflowError.md)
+- [`StackUnderflowError`](StackUnderflowError.md)
+- [`StaticStateChangeError`](StaticStateChangeError.md)
+- [`StopError`](StopError.md)
 - [`ValueOverflowError`](ValueOverflowError.md)
 
 ## Constructors
@@ -73,8 +72,6 @@ Additional parameters for the BaseError.
 ### Constructor
 
 > **new ExecutionError**(`message`, `args?`, `tag?`): `ExecutionError`
-
-Defined in: [packages/errors/src/ethereum/ExecutionErrorError.js:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ExecutionErrorError.js#L55)
 
 Constructs an ExecutionError.
 
@@ -96,7 +93,7 @@ Additional parameters for the BaseError.
 
 `string` = `'ExecutionError'`
 
-Internal name/tag for the error.
+The tag for the error.
 
 #### Returns
 
@@ -112,8 +109,6 @@ Internal name/tag for the error.
 
 > **\_tag**: `string`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:82](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L82)
-
 More discriminated version of name. Can be used to discriminate between errors with the same name.
 
 #### Inherited from
@@ -126,8 +121,6 @@ More discriminated version of name. Can be used to discriminate between errors w
 
 > **cause**: `any`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
-
 #### Inherited from
 
 [`BaseError`](BaseError.md).[`cause`](BaseError.md#cause)
@@ -137,8 +130,6 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:114](https://github.com/e
 ### code
 
 > **code**: `number`
-
-Defined in: [packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
 
 #### Inherited from
 
@@ -150,8 +141,6 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:112](https://github.com/e
 
 > **details**: `string`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
-
 #### Inherited from
 
 [`BaseError`](BaseError.md).[`details`](BaseError.md#details)
@@ -162,8 +151,6 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:91](https://github.com/ev
 
 > **docsPath**: `undefined` \| `string`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
-
 Path to the documentation for this error.
 
 #### Inherited from
@@ -172,25 +159,9 @@ Path to the documentation for this error.
 
 ***
 
-### message
-
-> **message**: `string`
-
-Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es5.d.ts:1077
-
-Human-readable error message.
-
-#### Inherited from
-
-[`BaseError`](BaseError.md).[`message`](BaseError.md#message)
-
-***
-
 ### metaMessages
 
 > **metaMessages**: `undefined` \| `string`[]
-
-Defined in: [packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
 
 Additional meta messages for more context.
 
@@ -200,25 +171,9 @@ Additional meta messages for more context.
 
 ***
 
-### name
-
-> **name**: `string`
-
-Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es5.d.ts:1076
-
-The name of the error, used to discriminate errors.
-
-#### Inherited from
-
-[`BaseError`](BaseError.md).[`name`](BaseError.md#name)
-
-***
-
 ### shortMessage
 
 > **shortMessage**: `string`
-
-Defined in: [packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
 
 #### Inherited from
 
@@ -226,23 +181,9 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:104](https://github.com/e
 
 ***
 
-### stack?
-
-> `optional` **stack**: `string`
-
-Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es5.d.ts:1078
-
-#### Inherited from
-
-[`BaseError`](BaseError.md).[`stack`](BaseError.md#stack)
-
-***
-
 ### version
 
 > **version**: `string`
-
-Defined in: [packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
 
 #### Inherited from
 
@@ -252,33 +193,15 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:108](https://github.com/e
 
 ### code
 
-> `static` **code**: `number` = `-32000`
+> `static` **code**: `number` = `-32015`
 
-Defined in: [packages/errors/src/ethereum/ExecutionErrorError.js:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ExecutionErrorError.js#L46)
-
-Error code, analogous to the code in JSON RPC error.
-
-***
-
-### stackTraceLimit
-
-> `static` **stackTraceLimit**: `number`
-
-Defined in: node\_modules/.pnpm/bun-types@1.2.14/node\_modules/bun-types/globals.d.ts:960
-
-The maximum number of stack frames to capture.
-
-#### Inherited from
-
-[`BaseError`](BaseError.md).[`stackTraceLimit`](BaseError.md#stacktracelimit)
+Error code (-32015), a convention for EVM execution errors.
 
 ## Methods
 
 ### walk()
 
 > **walk**(`fn?`): `unknown`
-
-Defined in: [packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
 
 Walks through the error chain.
 
@@ -299,159 +222,3 @@ The first error that matches the function, or the original error.
 #### Inherited from
 
 [`BaseError`](BaseError.md).[`walk`](BaseError.md#walk)
-
-***
-
-### captureStackTrace()
-
-#### Call Signature
-
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
-
-Defined in: node\_modules/.pnpm/bun-types@1.2.14/node\_modules/bun-types/globals.d.ts:955
-
-Create .stack property on a target object
-
-##### Parameters
-
-###### targetObject
-
-`object`
-
-###### constructorOpt?
-
-`Function`
-
-##### Returns
-
-`void`
-
-##### Inherited from
-
-[`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
-
-#### Call Signature
-
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
-
-Defined in: node\_modules/.pnpm/@types+node@22.15.21/node\_modules/@types/node/globals.d.ts:145
-
-Creates a `.stack` property on `targetObject`, which when accessed returns
-a string representing the location in the code at which
-`Error.captureStackTrace()` was called.
-
-```js
-const myObject = {};
-Error.captureStackTrace(myObject);
-myObject.stack;  // Similar to `new Error().stack`
-```
-
-The first line of the trace will be prefixed with
-`${myObject.name}: ${myObject.message}`.
-
-The optional `constructorOpt` argument accepts a function. If given, all frames
-above `constructorOpt`, including `constructorOpt`, will be omitted from the
-generated stack trace.
-
-The `constructorOpt` argument is useful for hiding implementation
-details of error generation from the user. For instance:
-
-```js
-function a() {
-  b();
-}
-
-function b() {
-  c();
-}
-
-function c() {
-  // Create an error without stack trace to avoid calculating the stack trace twice.
-  const { stackTraceLimit } = Error;
-  Error.stackTraceLimit = 0;
-  const error = new Error();
-  Error.stackTraceLimit = stackTraceLimit;
-
-  // Capture the stack trace above function b
-  Error.captureStackTrace(error, b); // Neither function c, nor b is included in the stack trace
-  throw error;
-}
-
-a();
-```
-
-##### Parameters
-
-###### targetObject
-
-`object`
-
-###### constructorOpt?
-
-`Function`
-
-##### Returns
-
-`void`
-
-##### Inherited from
-
-[`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
-
-***
-
-### isError()
-
-> `static` **isError**(`value`): `value is Error`
-
-Defined in: node\_modules/.pnpm/bun-types@1.2.14/node\_modules/bun-types/globals.d.ts:950
-
-Check if a value is an instance of Error
-
-#### Parameters
-
-##### value
-
-`unknown`
-
-The value to check
-
-#### Returns
-
-`value is Error`
-
-True if the value is an instance of Error, false otherwise
-
-#### Inherited from
-
-[`BaseError`](BaseError.md).[`isError`](BaseError.md#iserror)
-
-***
-
-### prepareStackTrace()
-
-> `static` **prepareStackTrace**(`err`, `stackTraces`): `any`
-
-Defined in: node\_modules/.pnpm/@types+node@22.15.21/node\_modules/@types/node/globals.d.ts:149
-
-#### Parameters
-
-##### err
-
-`Error`
-
-##### stackTraces
-
-`CallSite`[]
-
-#### Returns
-
-`any`
-
-#### See
-
-https://v8.dev/docs/stack-trace-api#customizing-stack-traces
-
-#### Inherited from
-
-[`BaseError`](BaseError.md).[`prepareStackTrace`](BaseError.md#preparestacktrace)

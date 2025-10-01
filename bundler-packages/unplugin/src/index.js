@@ -27,11 +27,10 @@
  * ```
  */
 
-// Export the unplugin implementation for Tevm
-export { tevmUnplugin } from './tevmUnplugin.js'
+// Re-export Solidity compiler version types
+export { SolcVersions } from '@tevm/solc'
 
 // Re-export the unplugin factory from the unplugin package
 export { createUnplugin } from 'unplugin'
-
-// Re-export Solidity compiler version types
-export { SolcVersions } from '@tevm/solc'
+// Export the unplugin implementation for Tevm
+export { tevmUnplugin } from './tevmUnplugin.js'

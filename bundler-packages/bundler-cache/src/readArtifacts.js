@@ -89,7 +89,7 @@ export const readArtifacts = async (cacheDir, fs, cwd, entryModuleId) => {
 
 	try {
 		return JSON.parse(content)
-	} catch (e) {
+	} catch (_e) {
 		throw new Error(`Cache miss for ${entryModuleId} because it isn't valid json`)
 	}
 }

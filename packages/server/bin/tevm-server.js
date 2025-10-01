@@ -62,7 +62,7 @@ function displayStartupInfo() {
 	console.log(` ___                 
 |_ _|___  _ _ ._ _ _ 
  | |/ ._>| | || ' ' |
- |_|\___.|__/ |_|_|_|
+ |_|___.|__/ |_|_|_|
                      
 https://tevm.sh
 
@@ -87,6 +87,6 @@ Listening on ${options.host}:${options.port}
 `)
 }
 
-server.listen(Number.parseInt(options.port), options.host, () => {
+server.listen(Number.parseInt(options.port, 10), options.host, () => {
 	displayStartupInfo()
 })

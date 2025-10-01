@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/taikoTestnetSepolia.js:26](https://gith
 
 Creates a common configuration for the taikoTestnetSepolia chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

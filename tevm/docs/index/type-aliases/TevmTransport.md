@@ -70,7 +70,7 @@ The configured TEVM transport.
 
 > **tevm**: [`TevmNode`](TevmNode.md) & `object`
 
-##### Type declaration
+##### Type Declaration
 
 ###### request
 

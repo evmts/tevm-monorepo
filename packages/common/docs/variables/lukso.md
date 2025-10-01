@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/lukso.js:26](https://github.com/evmts/t
 
 Creates a common configuration for the lukso chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

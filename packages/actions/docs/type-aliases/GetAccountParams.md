@@ -12,7 +12,7 @@ Defined in: [packages/actions/src/GetAccount/GetAccountParams.ts:11](https://git
 
 Tevm params to get an account
 
-## Type declaration
+## Type Declaration
 
 ### address
 

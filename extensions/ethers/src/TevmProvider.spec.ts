@@ -1,6 +1,5 @@
 import { optimism } from '@tevm/common'
-import { createContract } from '@tevm/contract'
-import { ERC20 } from '@tevm/contract'
+import { ERC20, createContract } from '@tevm/contract'
 import { transports } from '@tevm/test-utils'
 import { encodeDeployData, toHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'

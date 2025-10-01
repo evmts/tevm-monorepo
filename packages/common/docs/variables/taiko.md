@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/taiko.js:26](https://github.com/evmts/t
 
 Creates a common configuration for the taiko chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

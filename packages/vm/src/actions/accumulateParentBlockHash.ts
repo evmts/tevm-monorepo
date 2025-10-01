@@ -1,6 +1,5 @@
-import { createAccount, createAddressFromString, setLengthLeft, toBytes } from '@tevm/utils'
-
 import { EipNotEnabledError } from '@tevm/errors'
+import { createAccount, createAddressFromString, setLengthLeft, toBytes } from '@tevm/utils'
 import type { BaseVm } from '../BaseVm.js'
 
 /**

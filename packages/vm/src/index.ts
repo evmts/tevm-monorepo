@@ -1,25 +1,25 @@
-export type { Vm } from './Vm.js'
-export { createVm } from './createVm.js'
-export type { CreateVmOptions } from './CreateVmOptions.js'
 export * from './actions/index.js'
+export type { CreateVmOptions } from './CreateVmOptions.js'
+export { createVm } from './createVm.js'
 export type {
-	VMOpts,
-	RunTxOpts,
-	BuilderOpts,
-	RunTxResult,
-	AfterTxEvent,
-	RunBlockOpts,
-	BaseTxReceipt,
-	SealBlockOpts,
-	BuildBlockOpts,
-	RunBlockResult,
 	AfterBlockEvent,
+	AfterTxEvent,
 	ApplyBlockResult,
+	BaseTxReceipt,
+	BuildBlockOpts,
+	BuilderOpts,
 	EIP4844BlobTxReceipt,
-	PreByzantiumTxReceipt,
-	PostByzantiumTxReceipt,
-	VMEvents,
-	TxReceipt,
-	VMProfilerOpts,
 	EVMProfilerOpts,
+	PostByzantiumTxReceipt,
+	PreByzantiumTxReceipt,
+	RunBlockOpts,
+	RunBlockResult,
+	RunTxOpts,
+	RunTxResult,
+	SealBlockOpts,
+	TxReceipt,
+	VMEvents,
+	VMOpts,
+	VMProfilerOpts,
 } from './utils/index.js'
+export type { Vm } from './Vm.js'

@@ -8,7 +8,7 @@
 
 > **MiningConfig** = [`IntervalMining`](IntervalMining.md) \| [`ManualMining`](ManualMining.md) \| [`AutoMining`](AutoMining.md) \| `GasMining`
 
-Defined in: packages/node/dist/index.d.ts:191
+Defined in: packages/node/dist/index.d.ts:113
 
 Configuration options for controlling block mining behavior.
 Union of all mining strategy types.

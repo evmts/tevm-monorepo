@@ -4,7 +4,7 @@ import * as ethHandler from './ethGetLogsHandler.js'
 import { ethGetLogsProcedure } from './ethGetLogsProcedure.js'
 
 describe('ethGetLogsProcedure', () => {
-	// @ts-ignore - Not type-exact for testing purposes
+	// @ts-expect-error - Not type-exact for testing purposes
 	const mockLog = {
 		address: '0x1234567890123456789012345678901234567890',
 		topics: ['0x1234', '0x5678'],
@@ -26,7 +26,7 @@ describe('ethGetLogsProcedure', () => {
 		const handlerSpy = vi.spyOn(ethHandler, 'ethGetLogsHandler')
 
 		// Create a mock implementation that returns our logs
-		// @ts-ignore - Mocking for tests
+		// @ts-expect-error - Mocking for tests
 		handlerSpy.mockImplementation(() => async () => [mockLog])
 
 		const procedure = ethGetLogsProcedure(client)
@@ -63,7 +63,7 @@ describe('ethGetLogsProcedure', () => {
 		const handlerSpy = vi.spyOn(ethHandler, 'ethGetLogsHandler')
 
 		// Create a mock implementation that returns our logs
-		// @ts-ignore - Mocking for tests
+		// @ts-expect-error - Mocking for tests
 		handlerSpy.mockImplementation(() => async () => [mockLog])
 
 		const procedure = ethGetLogsProcedure(client)

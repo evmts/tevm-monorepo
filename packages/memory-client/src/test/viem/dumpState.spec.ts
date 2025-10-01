@@ -1,17 +1,14 @@
 import { optimism } from '@tevm/common'
 import { SimpleContract } from '@tevm/contract'
-import { transports } from '@tevm/test-utils'
-import { type Hex, parseEther } from 'viem'
-import { createClient } from 'viem'
+import { type Hex, createClient, parseEther } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
 import { createTevmTransport } from '../../createTevmTransport.js'
 import { tevmDumpState } from '../../tevmDumpState.js'
-import { tevmSetAccount } from '../../tevmSetAccount.js'
 
 let mc: MemoryClient
-let deployTxHash: Hex
+let _deployTxHash: Hex
 let c = {
 	simpleContract: SimpleContract.withAddress(`0x${'00'.repeat(20)}`),
 }
@@ -45,7 +42,7 @@ beforeEach(async () => {
 	if (!deployResult.txHash) {
 		throw new Error('txHash not found')
 	}
-	deployTxHash = deployResult.txHash
+	_deployTxHash = deployResult.txHash
 	await mc.tevmMine()
 })
 

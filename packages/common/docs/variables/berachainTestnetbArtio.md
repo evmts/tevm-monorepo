@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/berachainTestnetbArtio.js:26](https://g
 
 Creates a common configuration for the berachainTestnetbArtio chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

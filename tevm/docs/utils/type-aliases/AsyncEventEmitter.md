@@ -8,7 +8,7 @@
 
 > **AsyncEventEmitter**\<`T`\> = `object`
 
-Defined in: packages/utils/types/index.d.ts:12
+Defined in: packages/utils/types/index.d.ts:13
 
 ## Type Parameters
 
@@ -22,7 +22,7 @@ Defined in: packages/utils/types/index.d.ts:12
 
 > **emit**\<`K`\>(`event`, ...`args`): `boolean`
 
-Defined in: packages/utils/types/index.d.ts:16
+Defined in: packages/utils/types/index.d.ts:17
 
 #### Type Parameters
 
@@ -50,7 +50,7 @@ Defined in: packages/utils/types/index.d.ts:16
 
 > **off**\<`K`\>(`event`, `listener`): `void`
 
-Defined in: packages/utils/types/index.d.ts:15
+Defined in: packages/utils/types/index.d.ts:16
 
 #### Type Parameters
 
@@ -78,7 +78,7 @@ Defined in: packages/utils/types/index.d.ts:15
 
 > **on**\<`K`\>(`event`, `listener`): `void`
 
-Defined in: packages/utils/types/index.d.ts:13
+Defined in: packages/utils/types/index.d.ts:14
 
 #### Type Parameters
 
@@ -106,7 +106,7 @@ Defined in: packages/utils/types/index.d.ts:13
 
 > **once**\<`K`\>(`event`, `listener`): `void`
 
-Defined in: packages/utils/types/index.d.ts:14
+Defined in: packages/utils/types/index.d.ts:15
 
 #### Type Parameters
 
@@ -134,7 +134,7 @@ Defined in: packages/utils/types/index.d.ts:14
 
 > **removeAllListeners**\<`K`\>(`event?`): `void`
 
-Defined in: packages/utils/types/index.d.ts:17
+Defined in: packages/utils/types/index.d.ts:18
 
 #### Type Parameters
 

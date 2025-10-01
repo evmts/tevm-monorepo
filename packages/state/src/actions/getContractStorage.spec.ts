@@ -1,6 +1,15 @@
 import { createAddress } from '@tevm/address'
 import { transports } from '@tevm/test-utils'
-import { EthjsAccount, EthjsAddress, createAccount, createAddressFromString, hexToBytes, toBytes } from '@tevm/utils'
+import {
+	EthjsAccount,
+	EthjsAddress,
+	type Hex,
+	createAccount,
+	createAddressFromString,
+	hexToBigInt,
+	hexToBytes,
+	toBytes,
+} from '@tevm/utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import type { BaseState } from '../BaseState.js'
 import { createBaseState } from '../createBaseState.js'
@@ -85,15 +94,22 @@ describe('getContractStorage forking', () => {
 	let knownContractAddress: EthjsAddress
 	let knownStorageKey: Uint8Array
 
-	beforeEach(() => {
-		// Use a fixed block tag to ensure consistent responses
-		const specificBlockTag = 110000000n
+	beforeEach(async () => {
+		// Get the latest block for a reasonable proof window
+		const latestBlock = (await transports.optimism.request({
+			jsonrpc: '2.0',
+			id: 1,
+			method: 'eth_blockNumber',
+		})) as Hex | undefined
+		if (!latestBlock) {
+			throw new Error('Latest block not found')
+		}
 
 		baseState = createBaseState({
 			loggingLevel: 'warn',
 			fork: {
 				transport: transports.optimism,
-				blockTag: specificBlockTag,
+				blockTag: hexToBigInt(latestBlock),
 			},
 		})
 
@@ -168,7 +184,7 @@ describe('getContractStorage forking', () => {
 		const testState = createBaseState({
 			fork: {
 				transport: transports.optimism,
-				blockTag: 1n,
+				blockTag: 141658503n,
 			},
 		})
 

@@ -1,3 +1,4 @@
+import type { CliqueConfig } from '@tevm/common'
 import { type Common, ConsensusAlgorithm, ConsensusType, tevmDefault } from '@tevm/common'
 import { Rlp } from '@tevm/rlp'
 import {
@@ -15,13 +16,10 @@ import {
 	numberToHex,
 	toBytes,
 } from '@tevm/utils'
-
 import { CLIQUE_EXTRA_SEAL, CLIQUE_EXTRA_VANITY } from './clique.js'
 import { fakeExponential, valuesArrayToHeaderData } from './helpers.js'
-import { createAddressFromPublicKey, createZeroAddress, getSignatureV, safeToType, zeros } from './utils.js'
-
-import type { CliqueConfig } from '@tevm/common'
 import type { BlockHeaderBytes, BlockOptions, HeaderData, JsonHeader } from './types.js'
+import { createAddressFromPublicKey, createZeroAddress, getSignatureV, safeToType, zeros } from './utils.js'
 
 interface HeaderCache {
 	hash: Uint8Array | undefined
@@ -947,13 +945,13 @@ export class BlockHeader {
 		let hash = ''
 		try {
 			hash = bytesToHex(this.hash())
-		} catch (e: any) {
+		} catch (_e: any) {
 			hash = 'error'
 		}
 		let hf = ''
 		try {
 			hf = this.common.ethjsCommon.hardfork()
-		} catch (e: any) {
+		} catch (_e: any) {
 			hf = 'error'
 		}
 		let errorStr = `block header number=${this.number} hash=${hash} `

@@ -1,7 +1,6 @@
 import { Block } from '@tevm/block'
-import { bytesToHex, equalsBytes } from '@tevm/utils'
-
 import { InternalError } from '@tevm/errors'
+import { bytesToHex, equalsBytes } from '@tevm/utils'
 import type { BaseVm } from '../BaseVm.js'
 import type { AfterBlockEvent, ApplyBlockResult, RunBlockOpts, RunBlockResult } from '../utils/index.js'
 import { applyBlock } from './applyBlock.js'

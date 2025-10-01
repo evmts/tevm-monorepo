@@ -8,4 +8,4 @@
 
 > **AddTransactionError** = `InvalidGasLimitError` \| `EipNotEnabledError` \| `BlockGasLimitExceededError`
 
-Defined in: [packages/vm/src/actions/BlockBuilder.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L41)
+Defined in: [packages/vm/src/actions/BlockBuilder.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L38)

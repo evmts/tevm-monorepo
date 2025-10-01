@@ -8,6 +8,6 @@
 
 > **EthGetLogsJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getLogs"`, \[[`FilterParams`](../../index/type-aliases/FilterParams.md)\]\>
 
-Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:112
+Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:116
 
 JSON-RPC request for `eth_getLogs` procedure

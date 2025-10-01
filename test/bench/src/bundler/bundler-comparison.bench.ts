@@ -1,13 +1,11 @@
-import { bench, describe, beforeAll, afterAll } from "vitest";
-import path from "path";
-import fs from "fs";
-import { promises as fsPromises } from "fs";
-import os from "os";
-import crypto from "crypto";
-import { bundler as createBaseBundler } from "@tevm/base-bundler";
-import { createCache } from "@tevm/bundler-cache";
-import { createSolc } from "@tevm/solc";
-import { loadConfig } from "@tevm/config";
+import crypto from 'node:crypto'
+import fs, { promises as fsPromises } from 'node:fs'
+import os from 'node:os'
+import path from 'node:path'
+import { bundler as createBaseBundler } from '@tevm/base-bundler'
+import { createCache } from '@tevm/bundler-cache'
+import { createSolc } from '@tevm/solc'
+import { afterAll, bench, describe } from 'vitest'
 
 // Rust bundler import removed - will be replaced with Zig bundler later
 
@@ -15,7 +13,7 @@ import { loadConfig } from "@tevm/config";
  * Benchmark that tests the performance of bundler implementations
  * for Solidity contracts, currently testing JavaScript (base-bundler)
  * implementation. Zig bundler will be added later.
- * 
+ *
  * This benchmark:
  * 1. Creates test Solidity contracts of varying complexity
  * 2. Sets up both bundler implementations with the same configuration
@@ -24,23 +22,21 @@ import { loadConfig } from "@tevm/config";
  */
 
 // Constants for the benchmark
-const NUM_CONTRACTS = 5;
-const NUM_INTERFACES = 2;
-const NUM_LIBRARIES = 3;
+const NUM_CONTRACTS = 5
+const NUM_INTERFACES = 2
+const NUM_LIBRARIES = 3
 
 /**
  * Generate a typical ERC20 contract
  */
 function generateERC20Contract(name: string, importPath?: string): string {
-  // Remove inheritance to avoid naming conflicts
-  const importStatement = importPath 
-    ? `// import { IERC20 } from "${importPath}";\n\n` 
-    : '';
+	// Remove inheritance to avoid naming conflicts
+	const importStatement = importPath ? `// import { IERC20 } from "${importPath}";\n\n` : ''
 
-  // Remove the interface definition to avoid conflicts
-  const interfaceDefinition = ``;
+	// Remove the interface definition to avoid conflicts
+	const interfaceDefinition = ``
 
-  return `// SPDX-License-Identifier: MIT
+	return `// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 ${importStatement}${interfaceDefinition}
@@ -141,16 +137,16 @@ contract ${name} {
         _allowances[owner][spender] = amount;
         emit Approval(owner, spender, amount);
     }
-}`;
+}`
 }
 
 /**
  * Generate an interface contract
  */
 function generateInterface(name: string): string {
-  // Make each interface unique by adding its name as a suffix to the function names
-  const suffix = name.replace('IERC', '');
-  return `// SPDX-License-Identifier: MIT
+	// Make each interface unique by adding its name as a suffix to the function names
+	const suffix = name.replace('IERC', '')
+	return `// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 /**
@@ -167,14 +163,14 @@ interface ${name} {
     
     event Transfer${suffix}(address indexed from, address indexed to, uint256 value);
     event Approval${suffix}(address indexed owner, address indexed spender, uint256 value);
-}`;
+}`
 }
 
 /**
  * Generate a utility library
  */
 function generateLibrary(name: string): string {
-  return `// SPDX-License-Identifier: MIT
+	return `// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 /**
@@ -209,268 +205,255 @@ library ${name} {
         require(b > 0, "SafeMath: modulo by zero");
         return a % b;
     }
-}`;
+}`
 }
 
 /**
  * Create a temporary directory structure with contracts for testing
  */
 async function createContractTestDirectory() {
-  // Create a unique temporary directory
-  const tempDir = path.join(
-    os.tmpdir(),
-    `tevm-bundler-benchmark-${crypto.randomBytes(8).toString("hex")}`,
-  );
+	// Create a unique temporary directory
+	const tempDir = path.join(os.tmpdir(), `tevm-bundler-benchmark-${crypto.randomBytes(8).toString('hex')}`)
 
-  await fsPromises.mkdir(tempDir, { recursive: true });
-  console.log(`Created test directory: ${tempDir}`);
+	await fsPromises.mkdir(tempDir, { recursive: true })
+	console.log(`Created test directory: ${tempDir}`)
 
-  // Create subdirectories
-  const interfacesDir = path.join(tempDir, "interfaces");
-  const librariesDir = path.join(tempDir, "libraries");
-  const contractsDir = path.join(tempDir, "contracts");
+	// Create subdirectories
+	const interfacesDir = path.join(tempDir, 'interfaces')
+	const librariesDir = path.join(tempDir, 'libraries')
+	const contractsDir = path.join(tempDir, 'contracts')
 
-  await fsPromises.mkdir(interfacesDir, { recursive: true });
-  await fsPromises.mkdir(librariesDir, { recursive: true });
-  await fsPromises.mkdir(contractsDir, { recursive: true });
+	await fsPromises.mkdir(interfacesDir, { recursive: true })
+	await fsPromises.mkdir(librariesDir, { recursive: true })
+	await fsPromises.mkdir(contractsDir, { recursive: true })
 
-  // Create interfaces
-  const interfaceNames: string[] = [];
-  for (let i = 0; i < NUM_INTERFACES; i++) {
-    const name = `IERC${20 + i}`;
-    interfaceNames.push(name);
-    const filePath = path.join(interfacesDir, `${name}.sol`);
-    await fsPromises.writeFile(filePath, generateInterface(name));
-  }
+	// Create interfaces
+	const interfaceNames: string[] = []
+	for (let i = 0; i < NUM_INTERFACES; i++) {
+		const name = `IERC${20 + i}`
+		interfaceNames.push(name)
+		const filePath = path.join(interfacesDir, `${name}.sol`)
+		await fsPromises.writeFile(filePath, generateInterface(name))
+	}
 
-  // Create libraries
-  const libraryNames: string[] = [];
-  for (let i = 0; i < NUM_LIBRARIES; i++) {
-    const name = `SafeMath${i + 1}`;
-    libraryNames.push(name);
-    const filePath = path.join(librariesDir, `${name}.sol`);
-    await fsPromises.writeFile(filePath, generateLibrary(name));
-  }
+	// Create libraries
+	const libraryNames: string[] = []
+	for (let i = 0; i < NUM_LIBRARIES; i++) {
+		const name = `SafeMath${i + 1}`
+		libraryNames.push(name)
+		const filePath = path.join(librariesDir, `${name}.sol`)
+		await fsPromises.writeFile(filePath, generateLibrary(name))
+	}
 
-  // Create contracts that import interfaces and libraries
-  const contractPaths: string[] = [];
-  for (let i = 0; i < NUM_CONTRACTS; i++) {
-    const name = `Token${i + 1}`;
-    const importPath = i % 2 === 0 
-      ? `../interfaces/${interfaceNames[i % interfaceNames.length]}.sol`
-      : undefined;
-    
-    const filePath = path.join(contractsDir, `${name}.sol`);
-    await fsPromises.writeFile(filePath, generateERC20Contract(name, importPath));
-    contractPaths.push(filePath);
-  }
+	// Create contracts that import interfaces and libraries
+	const contractPaths: string[] = []
+	for (let i = 0; i < NUM_CONTRACTS; i++) {
+		const name = `Token${i + 1}`
+		const importPath = i % 2 === 0 ? `../interfaces/${interfaceNames[i % interfaceNames.length]}.sol` : undefined
 
-  // Create a main contract that imports all others
-  const mainContractPath = path.join(tempDir, "MainContract.sol");
-  let mainContractContent = `// SPDX-License-Identifier: MIT
+		const filePath = path.join(contractsDir, `${name}.sol`)
+		await fsPromises.writeFile(filePath, generateERC20Contract(name, importPath))
+		contractPaths.push(filePath)
+	}
+
+	// Create a main contract that imports all others
+	const mainContractPath = path.join(tempDir, 'MainContract.sol')
+	let mainContractContent = `// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-`;
+`
 
-  // Add imports for all contracts
-  for (let i = 0; i < NUM_CONTRACTS; i++) {
-    mainContractContent += `import "./contracts/Token${i + 1}.sol";\n`;
-  }
+	// Add imports for all contracts
+	for (let i = 0; i < NUM_CONTRACTS; i++) {
+		mainContractContent += `import "./contracts/Token${i + 1}.sol";\n`
+	}
 
-  // Add a simple contract that uses the imports
-  mainContractContent += `
+	// Add a simple contract that uses the imports
+	mainContractContent += `
 contract MainContract {
     address[] private tokens;
     
     constructor() {
-`;
+`
 
-  // Add constructor code that deploys all tokens
-  for (let i = 0; i < NUM_CONTRACTS; i++) {
-    mainContractContent += `        tokens.push(address(new Token${i + 1}("Token${i + 1}", "TKN${i + 1}")));\n`;
-  }
+	// Add constructor code that deploys all tokens
+	for (let i = 0; i < NUM_CONTRACTS; i++) {
+		mainContractContent += `        tokens.push(address(new Token${i + 1}("Token${i + 1}", "TKN${i + 1}")));\n`
+	}
 
-  mainContractContent += `    }
+	mainContractContent += `    }
     
     function getTokens() public view returns (address[] memory) {
         return tokens;
     }
-}`;
+}`
 
-  await fsPromises.writeFile(mainContractPath, mainContractContent);
-  
-  return {
-    tempDir,
-    mainContractPath,
-    contractPaths,
-  };
+	await fsPromises.writeFile(mainContractPath, mainContractContent)
+
+	return {
+		tempDir,
+		mainContractPath,
+		contractPaths,
+	}
 }
 
 /**
  * Create a FileAccessObject for the bundler
  */
 function createFileAccessObject() {
-  return {
-    // Async methods
-    readFile: (filePath: string, encoding: BufferEncoding) => 
-      fsPromises.readFile(filePath, { encoding }),
-    writeFile: fsPromises.writeFile,
-    exists: async (filePath: string) => {
-      try {
-        await fsPromises.access(filePath);
-        return true;
-      } catch {
-        return false;
-      }
-    },
-    stat: fsPromises.stat,
-    mkdir: fsPromises.mkdir,
+	return {
+		// Async methods
+		readFile: (filePath: string, encoding: BufferEncoding) => fsPromises.readFile(filePath, { encoding }),
+		writeFile: fsPromises.writeFile,
+		exists: async (filePath: string) => {
+			try {
+				await fsPromises.access(filePath)
+				return true
+			} catch {
+				return false
+			}
+		},
+		stat: fsPromises.stat,
+		mkdir: fsPromises.mkdir,
 
-    // Sync methods
-    readFileSync: (filePath: string, encoding: BufferEncoding) => 
-      fs.readFileSync(filePath, { encoding }),
-    writeFileSync: fs.writeFileSync,
-    existsSync: fs.existsSync,
-    statSync: fs.statSync,
-    mkdirSync: fs.mkdirSync,
-  };
+		// Sync methods
+		readFileSync: (filePath: string, encoding: BufferEncoding) => fs.readFileSync(filePath, { encoding }),
+		writeFileSync: fs.writeFileSync,
+		existsSync: fs.existsSync,
+		statSync: fs.statSync,
+		mkdirSync: fs.mkdirSync,
+	}
 }
 
 // Module type enum that mirrors the Rust implementation's ModuleType
 enum ModuleType {
-  Ts = 'ts',
-  Cjs = 'cjs',
-  Mjs = 'mjs',
-  Dts = 'dts'
+	Ts = 'ts',
+	Cjs = 'cjs',
+	Mjs = 'mjs',
+	Dts = 'dts',
 }
 
 // JsModuleType enum removed - will be replaced with Zig bundler types later
 
-describe("Bundler Implementation Benchmarks", async () => {
-  // Create test directory with contracts
-  const { tempDir, mainContractPath } = await createContractTestDirectory();
-  console.log(`Created contract test directory: ${tempDir}`);
-  console.log(`Main contract: ${mainContractPath}`);
+describe('Bundler Implementation Benchmarks', async () => {
+	// Create test directory with contracts
+	const { tempDir, mainContractPath } = await createContractTestDirectory()
+	console.log(`Created contract test directory: ${tempDir}`)
+	console.log(`Main contract: ${mainContractPath}`)
 
-  // Create FileAccessObject for file system access
-  const fao = createFileAccessObject();
+	// Create FileAccessObject for file system access
+	const fao = createFileAccessObject()
 
-  // Initialize dependencies for JS bundler with minimal config to avoid loading from disk
-  const config = {
-    remappings: {},
-    include: [],
-    libs: [],
-    cacheDir: path.join(tempDir, '.tevm-cache'),
-    debug: false
-  };
-  // Use a specific solc version to avoid download issues
-  const solcCompiler = await createSolc('0.8.20');
-  const cacheInstance = createCache();
+	// Initialize dependencies for JS bundler with minimal config to avoid loading from disk
+	const config = {
+		remappings: {},
+		include: [],
+		libs: [],
+		cacheDir: path.join(tempDir, '.tevm-cache'),
+		debug: false,
+	}
+	// Use a specific solc version to avoid download issues
+	const solcCompiler = await createSolc('0.8.20')
+	const cacheInstance = createCache()
 
-  // Create the JS bundler
-  const baseBundler = createBaseBundler(
-    config,
-    console,
-    fao,
-    solcCompiler,
-    cacheInstance
-  );
+	// Create the JS bundler
+	const baseBundler = createBaseBundler(config, console, fao, solcCompiler, cacheInstance)
 
-  // Rust bundler removed - Zig bundler will be added later
+	// Rust bundler removed - Zig bundler will be added later
 
-  // Clean up the temporary directory after tests
-  afterAll(async () => {
-    try {
-      await fsPromises.rm(tempDir, { recursive: true, force: true });
-      console.log(`Cleaned up temporary directory: ${tempDir}`);
-    } catch (error) {
-      console.error(`Error cleaning up temporary directory: ${tempDir}`, error);
-    }
-  });
+	// Clean up the temporary directory after tests
+	afterAll(async () => {
+		try {
+			await fsPromises.rm(tempDir, { recursive: true, force: true })
+			console.log(`Cleaned up temporary directory: ${tempDir}`)
+		} catch (error) {
+			console.error(`Error cleaning up temporary directory: ${tempDir}`, error)
+		}
+	})
 
-  // Test TypeScript module resolution
-  bench("JS Bundler - Async TypeScript Resolution", async () => {
-    await baseBundler.resolveTsModule(
-      mainContractPath,
-      tempDir,
-      false, // includeAst
-      true   // includeBytecode
-    );
-  });
+	// Test TypeScript module resolution
+	bench('JS Bundler - Async TypeScript Resolution', async () => {
+		await baseBundler.resolveTsModule(
+			mainContractPath,
+			tempDir,
+			false, // includeAst
+			true, // includeBytecode
+		)
+	})
 
-  bench("JS Bundler - Sync TypeScript Resolution", () => {
-    baseBundler.resolveTsModuleSync(
-      mainContractPath,
-      tempDir,
-      false, // includeAst
-      true   // includeBytecode
-    );
-  });
+	bench('JS Bundler - Sync TypeScript Resolution', () => {
+		baseBundler.resolveTsModuleSync(
+			mainContractPath,
+			tempDir,
+			false, // includeAst
+			true, // includeBytecode
+		)
+	})
 
-  // Rust bundler benchmarks removed - Zig bundler benchmarks will be added later
+	// Rust bundler benchmarks removed - Zig bundler benchmarks will be added later
 
-  // Test CommonJS module resolution
-  bench("JS Bundler - Async CommonJS Resolution", async () => {
-    await baseBundler.resolveCjsModule(
-      mainContractPath,
-      tempDir,
-      false, // includeAst
-      true   // includeBytecode
-    );
-  });
+	// Test CommonJS module resolution
+	bench('JS Bundler - Async CommonJS Resolution', async () => {
+		await baseBundler.resolveCjsModule(
+			mainContractPath,
+			tempDir,
+			false, // includeAst
+			true, // includeBytecode
+		)
+	})
 
-  bench("JS Bundler - Sync CommonJS Resolution", () => {
-    baseBundler.resolveCjsModuleSync(
-      mainContractPath,
-      tempDir,
-      false, // includeAst
-      true   // includeBytecode
-    );
-  });
+	bench('JS Bundler - Sync CommonJS Resolution', () => {
+		baseBundler.resolveCjsModuleSync(
+			mainContractPath,
+			tempDir,
+			false, // includeAst
+			true, // includeBytecode
+		)
+	})
 
-  // Rust bundler benchmarks removed - Zig bundler benchmarks will be added later
+	// Rust bundler benchmarks removed - Zig bundler benchmarks will be added later
 
-  // Test ES module resolution
-  bench("JS Bundler - Async ESM Resolution", async () => {
-    await baseBundler.resolveEsmModule(
-      mainContractPath,
-      tempDir,
-      false, // includeAst
-      true   // includeBytecode
-    );
-  });
+	// Test ES module resolution
+	bench('JS Bundler - Async ESM Resolution', async () => {
+		await baseBundler.resolveEsmModule(
+			mainContractPath,
+			tempDir,
+			false, // includeAst
+			true, // includeBytecode
+		)
+	})
 
-  bench("JS Bundler - Sync ESM Resolution", () => {
-    baseBundler.resolveEsmModuleSync(
-      mainContractPath,
-      tempDir,
-      false, // includeAst
-      true   // includeBytecode
-    );
-  });
+	bench('JS Bundler - Sync ESM Resolution', () => {
+		baseBundler.resolveEsmModuleSync(
+			mainContractPath,
+			tempDir,
+			false, // includeAst
+			true, // includeBytecode
+		)
+	})
 
-  // Rust bundler benchmarks removed - Zig bundler benchmarks will be added later
+	// Rust bundler benchmarks removed - Zig bundler benchmarks will be added later
 
-  // Test TypeScript declaration resolution
-  bench("JS Bundler - Async DTS Resolution", async () => {
-    await baseBundler.resolveDts(
-      mainContractPath,
-      tempDir,
-      false, // includeAst
-      true   // includeBytecode
-    );
-  });
+	// Test TypeScript declaration resolution
+	bench('JS Bundler - Async DTS Resolution', async () => {
+		await baseBundler.resolveDts(
+			mainContractPath,
+			tempDir,
+			false, // includeAst
+			true, // includeBytecode
+		)
+	})
 
-  bench("JS Bundler - Sync DTS Resolution", () => {
-    baseBundler.resolveDtsSync(
-      mainContractPath,
-      tempDir,
-      false, // includeAst
-      true   // includeBytecode
-    );
-  });
+	bench('JS Bundler - Sync DTS Resolution', () => {
+		baseBundler.resolveDtsSync(
+			mainContractPath,
+			tempDir,
+			false, // includeAst
+			true, // includeBytecode
+		)
+	})
 
-  // Rust bundler benchmarks removed - Zig bundler benchmarks will be added later
+	// Rust bundler benchmarks removed - Zig bundler benchmarks will be added later
 
-  // Direct code bundling benchmark removed - Zig bundler version will be added later
-});
+	// Direct code bundling benchmark removed - Zig bundler version will be added later
+})

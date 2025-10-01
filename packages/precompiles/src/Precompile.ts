@@ -38,10 +38,7 @@ export class Precompile<
 		 * Contract interface
 		 */
 		public readonly contract: TContract,
-		public readonly call: (context: {
-			data: Hex
-			gasLimit: bigint
-		}) => Promise<ExecResult>,
+		public readonly call: (context: { data: Hex; gasLimit: bigint }) => Promise<ExecResult>,
 	) {}
 
 	protected readonly ethjsAddress = () => createAddressFromString(this.contract.address)

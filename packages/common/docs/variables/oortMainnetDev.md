@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/oortMainnetDev.js:26](https://github.co
 
 Creates a common configuration for the oortMainnetDev chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

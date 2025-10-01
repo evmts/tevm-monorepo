@@ -1,5 +1,23 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`Tevm should create a local vm in JavaScript > client.contract > should fork a network and then execute a contract call 1`] = `
+{
+  "amountSpent": 0n,
+  "createdAddresses": Set {},
+  "data": 1n,
+  "executionGasUsed": 2447n,
+  "gas": 39976121n,
+  "l1BaseFee": 0n,
+  "l1BlobFee": 0n,
+  "l1Fee": 0n,
+  "l1GasUsed": 0n,
+  "logs": [],
+  "rawData": "0x0000000000000000000000000000000000000000000000000000000000000001",
+  "selfdestruct": Set {},
+  "totalGasSpent": 23879n,
+}
+`;
+
 exports[`Tevm should create a local vm in JavaScript > client.script > should support event handlers to monitor EVM execution 1`] = `
 [
   {

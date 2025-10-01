@@ -1,21 +1,21 @@
 {
-  "name": "@tevm/runtime-rs-linux-arm64-gnu",
-  "version": "0.1.0",
-  "os": [
-    "linux"
-  ],
-  "cpu": [
-    "arm64"
-  ],
-  "main": "tevm_runtime_rs.linux-arm64-gnu.node",
-  "files": [
-    "tevm_runtime_rs.linux-arm64-gnu.node"
-  ],
-  "license": "MIT",
-  "engines": {
-    "node": ">= 14"
-  },
-  "libc": [
-    "glibc"
-  ]
+	"name": "@tevm/runtime-rs-linux-arm64-gnu",
+	"version": "0.1.0",
+	"os": [
+		"linux"
+	],
+	"cpu": [
+		"arm64"
+	],
+	"main": "tevm_runtime_rs.linux-arm64-gnu.node",
+	"files": [
+		"tevm_runtime_rs.linux-arm64-gnu.node"
+	],
+	"license": "MIT",
+	"engines": {
+		"node": ">= 14"
+	},
+	"libc": [
+		"glibc"
+	]
 }

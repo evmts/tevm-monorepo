@@ -13,7 +13,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 Can be used in conjunction with Transaction\[TransactionType\].supports
 to query on tx capabilities
 
-## Type declaration
+## Type Declaration
 
 ### EIP1559FeeMarket
 

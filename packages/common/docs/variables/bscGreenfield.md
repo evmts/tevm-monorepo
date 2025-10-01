@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/bscGreenfield.js:26](https://github.com
 
 Creates a common configuration for the bscGreenfield chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/iotaTestnet.js:26](https://github.com/e
 
 Creates a common configuration for the iotaTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

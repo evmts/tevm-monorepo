@@ -202,7 +202,7 @@ describe('TxPool coverage improvements', () => {
 
 			// Set the added timestamp to a past time (older than POOLED_STORAGE_TIME_LIMIT minutes)
 			const oldTime = Date.now() - (txPool.POOLED_STORAGE_TIME_LIMIT * 60 * 1000 + 1000)
-			// @ts-ignore
+			// @ts-expect-error
 			poolObjects[0].added = oldTime
 
 			// Do the same for the handled entry

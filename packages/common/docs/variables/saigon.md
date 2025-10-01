@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/saigon.js:26](https://github.com/evmts/
 
 Creates a common configuration for the saigon chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

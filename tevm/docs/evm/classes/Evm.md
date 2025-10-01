@@ -126,7 +126,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 #### Inherited from
 
-`EVM._dynamicGasHandlers`
+[`EvmType`](EvmType.md).[`_dynamicGasHandlers`](EvmType.md#_dynamicgashandlers)
 
 ***
 

@@ -6,7 +6,7 @@
 
 # Function: createTxFromBlockBodyData()
 
-> **createTxFromBlockBodyData**(`data`, `txOptions?`): [`LegacyTransaction`](../classes/LegacyTransaction.md) \| [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md) \| [`AccessListEIP2930Transaction`](../classes/AccessListEIP2930Transaction.md) \| [`BlobEIP4844Transaction`](../classes/BlobEIP4844Transaction.md) \| `EOACode7702Tx`
+> **createTxFromBlockBodyData**(`data`, `txOptions?`): [`LegacyTransaction`](../classes/LegacyTransaction.md) \| [`AccessListEIP2930Transaction`](../classes/AccessListEIP2930Transaction.md) \| [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md) \| [`BlobEIP4844Transaction`](../classes/BlobEIP4844Transaction.md) \| `EOACode7702Tx`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:27
 
@@ -31,4 +31,4 @@ The transaction options
 
 ## Returns
 
-[`LegacyTransaction`](../classes/LegacyTransaction.md) \| [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md) \| [`AccessListEIP2930Transaction`](../classes/AccessListEIP2930Transaction.md) \| [`BlobEIP4844Transaction`](../classes/BlobEIP4844Transaction.md) \| `EOACode7702Tx`
+[`LegacyTransaction`](../classes/LegacyTransaction.md) \| [`AccessListEIP2930Transaction`](../classes/AccessListEIP2930Transaction.md) \| [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md) \| [`BlobEIP4844Transaction`](../classes/BlobEIP4844Transaction.md) \| `EOACode7702Tx`

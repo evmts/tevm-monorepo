@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/fibo.js:26](https://github.com/evmts/te
 
 Creates a common configuration for the fibo chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

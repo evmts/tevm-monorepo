@@ -59,15 +59,21 @@ describe('toEqualHex', () => {
 	]
 
 	it('should pass when comparing equal hex (default normalized mode)', () => {
-		validHexPairs.forEach(([hex1, hex2]) => expect(hex1).toEqualHex(hex2))
+		validHexPairs.forEach(([hex1, hex2]) => {
+			expect(hex1).toEqualHex(hex2)
+		})
 	})
 
 	it('should fail when comparing different hex', () => {
-		differentHexPairs.forEach(([hex1, hex2]) => expect(() => expect(hex1).toEqualHex(hex2)).toThrow())
+		differentHexPairs.forEach(([hex1, hex2]) => {
+			expect(() => expect(hex1).toEqualHex(hex2)).toThrow()
+		})
 	})
 
 	it('should fail when comparing invalid hex', () => {
-		invalidHexPairs.forEach(([hex1, hex2]) => expect(() => expect(hex1).toEqualHex(hex2)).toThrow())
+		invalidHexPairs.forEach(([hex1, hex2]) => {
+			expect(() => expect(hex1).toEqualHex(hex2)).toThrow()
+		})
 	})
 
 	describe('normalized comparison (default behavior)', () => {
@@ -123,8 +129,12 @@ describe('toEqualHex', () => {
 	})
 
 	it('should work with .not', () => {
-		differentHexPairs.forEach(([hex1, hex2]) => expect(hex1).not.toEqualHex(hex2))
-		validHexPairs.forEach(([hex1, hex2]) => expect(() => expect(hex1).not.toEqualHex(hex2)).toThrow())
+		differentHexPairs.forEach(([hex1, hex2]) => {
+			expect(hex1).not.toEqualHex(hex2)
+		})
+		validHexPairs.forEach(([hex1, hex2]) => {
+			expect(() => expect(hex1).not.toEqualHex(hex2)).toThrow()
+		})
 
 		// Test .not with exact mode
 		exactMismatchPairs.forEach(([hex1, hex2]) => {

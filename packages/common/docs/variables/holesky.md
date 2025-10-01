@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/holesky.js:26](https://github.com/evmts
 
 Creates a common configuration for the holesky chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

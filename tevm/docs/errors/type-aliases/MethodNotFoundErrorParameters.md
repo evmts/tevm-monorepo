@@ -8,7 +8,7 @@
 
 > **MethodNotFoundErrorParameters** = `object`
 
-Defined in: packages/errors/types/ethereum/MethodNotFoundError.d.ts:51
+Defined in: packages/errors/types/ethereum/MethodNotFoundError.d.ts:55
 
 Parameters for constructing a MethodNotFoundError.
 
@@ -18,7 +18,7 @@ Parameters for constructing a MethodNotFoundError.
 
 > `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `Error`
 
-Defined in: packages/errors/types/ethereum/MethodNotFoundError.d.ts:71
+Defined in: packages/errors/types/ethereum/MethodNotFoundError.d.ts:75
 
 - The cause of the error.
 
@@ -28,7 +28,7 @@ Defined in: packages/errors/types/ethereum/MethodNotFoundError.d.ts:71
 
 > `optional` **details**: `string`
 
-Defined in: packages/errors/types/ethereum/MethodNotFoundError.d.ts:75
+Defined in: packages/errors/types/ethereum/MethodNotFoundError.d.ts:79
 
 - Details of the error.
 
@@ -38,7 +38,7 @@ Defined in: packages/errors/types/ethereum/MethodNotFoundError.d.ts:75
 
 > `optional` **docsBaseUrl**: `string`
 
-Defined in: packages/errors/types/ethereum/MethodNotFoundError.d.ts:55
+Defined in: packages/errors/types/ethereum/MethodNotFoundError.d.ts:59
 
 - Base URL for the documentation.
 
@@ -48,7 +48,7 @@ Defined in: packages/errors/types/ethereum/MethodNotFoundError.d.ts:55
 
 > `optional` **docsPath**: `string`
 
-Defined in: packages/errors/types/ethereum/MethodNotFoundError.d.ts:59
+Defined in: packages/errors/types/ethereum/MethodNotFoundError.d.ts:63
 
 - Path to the documentation.
 
@@ -58,7 +58,7 @@ Defined in: packages/errors/types/ethereum/MethodNotFoundError.d.ts:59
 
 > `optional` **docsSlug**: `string`
 
-Defined in: packages/errors/types/ethereum/MethodNotFoundError.d.ts:63
+Defined in: packages/errors/types/ethereum/MethodNotFoundError.d.ts:67
 
 - Slug for the documentation.
 
@@ -68,7 +68,7 @@ Defined in: packages/errors/types/ethereum/MethodNotFoundError.d.ts:63
 
 > `optional` **meta**: `object`
 
-Defined in: packages/errors/types/ethereum/MethodNotFoundError.d.ts:79
+Defined in: packages/errors/types/ethereum/MethodNotFoundError.d.ts:83
 
 - Optional object containing additional information about the error.
 
@@ -78,6 +78,6 @@ Defined in: packages/errors/types/ethereum/MethodNotFoundError.d.ts:79
 
 > `optional` **metaMessages**: `string`[]
 
-Defined in: packages/errors/types/ethereum/MethodNotFoundError.d.ts:67
+Defined in: packages/errors/types/ethereum/MethodNotFoundError.d.ts:71
 
 - Additional meta messages.

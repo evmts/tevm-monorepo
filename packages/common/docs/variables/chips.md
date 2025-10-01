@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/chips.js:26](https://github.com/evmts/t
 
 Creates a common configuration for the chips chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/rss3Sepolia.js:26](https://github.com/e
 
 Creates a common configuration for the rss3Sepolia chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

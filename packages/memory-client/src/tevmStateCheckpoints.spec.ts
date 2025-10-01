@@ -1,6 +1,5 @@
 import { SimpleContract } from '@tevm/contract'
-import { type Client, createClient, decodeFunctionResult, encodeFunctionData } from 'viem'
-import { parseEther } from 'viem'
+import { type Client, createClient, decodeFunctionResult, encodeFunctionData, parseEther } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { TevmTransport } from './TevmTransport.js'
 import { createTevmTransport } from './createTevmTransport.js'

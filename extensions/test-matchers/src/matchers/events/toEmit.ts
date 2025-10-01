@@ -1,7 +1,6 @@
 import { AbiItem } from 'ox'
-import type { ContractEventName, Hex } from 'viem'
+import type { Abi, AbiEvent, ContractEventName, Hex } from 'viem'
 import { decodeEventLog, encodeEventTopics, getAddress, isHex } from 'viem'
-import type { Abi, AbiEvent } from 'viem'
 import type { MatcherResult } from '../../chainable/types.js'
 import type { ContainsContractAbi, ContainsTransactionLogs } from '../../common/types.js'
 import type { ToEmitState } from './types.js'

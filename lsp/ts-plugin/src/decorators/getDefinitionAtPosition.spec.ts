@@ -45,7 +45,7 @@ const fao: FileAccessObject = {
 		try {
 			await access(path)
 			return true
-		} catch (e) {
+		} catch (_e) {
 			return false
 		}
 	},
@@ -469,7 +469,7 @@ describe('getDefinitionServiceDecorator', () => {
 		vi.mocked(bundler).mockReturnValue(mockBundlerInstance)
 
 		// Mock findAll to return nodes with different names
-		vi.mocked(findAll).mockImplementation((type) => {
+		vi.mocked(findAll).mockImplementation((_type) => {
 			return (function* () {
 				yield { name: 'different_name' } as unknown as Node
 			})()

@@ -8,7 +8,7 @@
 
 > **AutoMining** = `object`
 
-Defined in: packages/node/dist/index.d.ts:152
+Defined in: packages/node/dist/index.d.ts:74
 
 Mining configuration that automatically mines blocks for every transaction.
 Each transaction is immediately included in its own block.
@@ -29,4 +29,4 @@ const value: AutoMining = {
 
 > **type**: `"auto"`
 
-Defined in: packages/node/dist/index.d.ts:153
+Defined in: packages/node/dist/index.d.ts:75

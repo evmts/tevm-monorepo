@@ -1,28 +1,28 @@
+import { Server } from 'node:http'
 import {
-	base,
-	mainnet,
-	optimism,
-	tevmDefault,
-	optimismSepolia,
-	optimismGoerli,
-	sepolia,
+	anvil,
 	arbitrum,
 	arbitrumSepolia,
 	avalanche,
-	bsc,
-	polygon,
-	gnosis,
-	moonbeam,
-	anvil,
+	base,
 	blast,
+	bsc,
+	gnosis,
+	mainnet,
+	moonbeam,
+	optimism,
+	optimismGoerli,
+	optimismSepolia,
+	polygon,
 	scroll,
+	sepolia,
+	tevmDefault,
 	zksync,
-} from '@tevm/common';
-import {createServer} from '@tevm/server';
-import {createLoggingRequestProxy} from '../stores/logStore.js';
-import {createMemoryClient, MemoryClient} from '@tevm/memory-client';
-import {http} from '@tevm/jsonrpc';
-import {Server} from 'node:http';
+} from '@tevm/common'
+import { http } from '@tevm/jsonrpc'
+import { createMemoryClient, MemoryClient } from '@tevm/memory-client'
+import { createServer } from '@tevm/server'
+import { createLoggingRequestProxy } from '../stores/logStore.js'
 
 export async function initializeServer({
 	port,
@@ -31,14 +31,14 @@ export async function initializeServer({
 	verbose,
 	fork,
 }: {
-	port: number;
-	host: string;
-	chainId: string;
-	fork?: string;
-	forkBlockNumber: string;
-	loggingLevel: string;
-	verbose: boolean;
-}): Promise<{client: MemoryClient; server: Server}> {
+	port: number
+	host: string
+	chainId: string
+	fork?: string
+	forkBlockNumber: string
+	loggingLevel: string
+	verbose: boolean
+}): Promise<{ client: MemoryClient; server: Server }> {
 	const chains: Record<number, any> = {
 		[base.id]: base,
 		[mainnet.id]: mainnet,
@@ -58,49 +58,47 @@ export async function initializeServer({
 		[anvil.id]: anvil,
 		[blast.id]: blast,
 		[scroll.id]: scroll,
-	};
+	}
 
-	const chain = chains[parseInt(chainId)];
+	const chain = chains[parseInt(chainId, 10)]
 
 	if (!chain) {
 		throw new Error(
-			`Unknown chain id: ${chainId}. Valid chain ids are ${Object.entries(
-				chains,
-			)
+			`Unknown chain id: ${chainId}. Valid chain ids are ${Object.entries(chains)
 				.map(([id, chain]) => `${id} (${chain.name})`)
 				.join(', ')}`,
-		);
+		)
 	}
 
 	const client = createMemoryClient({
-		...(fork?.length ? {fork: {transport: http(fork)}} : {}),
-	});
+		...(fork?.length ? { fork: { transport: http(fork) } } : {}),
+	})
 
 	// Add request logging if verbose mode is enabled
 	if (verbose) {
 		// Create a proxy around the request function
-		const originalRequest = client.request;
-		client.request = createLoggingRequestProxy(originalRequest, verbose);
+		const originalRequest = client.request
+		client.request = createLoggingRequestProxy(originalRequest, verbose)
 	}
 
 	// Create and start the server
-	const server = createServer(client);
+	const server = createServer(client)
 
 	// Handle graceful shutdown
 	const handleShutdown = () => {
-		server.close();
-		process.exit(0);
-	};
+		server.close()
+		process.exit(0)
+	}
 
-	process.on('SIGINT', handleShutdown);
-	process.on('SIGTERM', handleShutdown);
+	process.on('SIGINT', handleShutdown)
+	process.on('SIGTERM', handleShutdown)
 
-	await new Promise<void>(resolve => {
+	await new Promise<void>((resolve) => {
 		server.listen(port, host, () => {
-			resolve();
-		});
-	});
+			resolve()
+		})
+	})
 
 	// Return the client and server for use by action components
-	return {client, server};
+	return { client, server }
 }

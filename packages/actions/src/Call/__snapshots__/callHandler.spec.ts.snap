@@ -13,7 +13,7 @@ Version: 1.1.0.next-73],
 
 exports[`callHandler > should handle error during EVM execution 1`] = `
 [
-  [Revert: revert
+  [EvmRevertError: revert
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
 Details: {"error":"revert","errorType":"EVMError"}
@@ -52,7 +52,7 @@ exports[`callHandler > should handle error during transaction creation 1`] = `
 
 exports[`callHandler > should handle errors returned during contract call 1`] = `
 [
-  [Revert: revert
+  [EvmRevertError: revert
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
 Details: {"error":"revert","errorType":"EVMError"}
@@ -81,11 +81,11 @@ Version: 1.1.0.next-73],
 
 exports[`callHandler > should handle unexpected errors during param conversion 1`] = `
 [
-  [InvalidGasPrice: Invalid input
+  [InvalidGasPrice: Number must be greater than or equal to 0
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
 Version: 1.1.0.next-73],
-  [InvalidGasPrice: Invalid input
+  [InvalidGasPrice: Number must be greater than or equal to 0
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
 Version: 1.1.0.next-73],
@@ -114,7 +114,7 @@ Version: 1.1.0.next-73],
 
 exports[`callHandler > should return error for invalid contract call data 1`] = `
 [
-  [Revert: revert
+  [EvmRevertError: revert
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
 Details: {"error":"revert","errorType":"EVMError"}

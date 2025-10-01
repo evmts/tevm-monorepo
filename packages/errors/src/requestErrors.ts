@@ -16,10 +16,10 @@ export {
 	ProviderDisconnectedError,
 	ResourceNotFoundRpcError,
 	ResourceUnavailableRpcError,
+	TimeoutError,
 	UnknownRpcError,
 	UnsupportedProviderMethodError,
 	UserRejectedRequestError,
-	TimeoutError,
 } from 'viem'
 
 /**

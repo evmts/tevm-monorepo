@@ -8,7 +8,7 @@
 
 > **TevmClient** = `object`
 
-Defined in: [TevmClient.ts:130](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L130)
+Defined in: [TevmClient.ts:131](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L131)
 
 ## Deprecated
 
@@ -72,7 +72,7 @@ Will have anvil_* ganache_* and hardhat_* JSON-RPC compatibility in future versi
 
 > **call**: `CallHandler`
 
-Defined in: [TevmClient.ts:274](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L274)
+Defined in: [TevmClient.ts:275](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L275)
 
 Executes a call against the VM. It is similar to `eth_call` but has more
 options for controlling the execution environment
@@ -98,7 +98,7 @@ const res = tevm.call({
 
 > **contract**: `ContractHandler`
 
-Defined in: [TevmClient.ts:296](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L296)
+Defined in: [TevmClient.ts:297](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L297)
 
 Executes a contract call against the VM. It is similar to `eth_call` but has more
 options for controlling the execution environment along with a typesafe API
@@ -129,7 +129,7 @@ console.log(res.data) // "hello"
 
 > **dumpState**: `DumpStateHandler`
 
-Defined in: [TevmClient.ts:314](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L314)
+Defined in: [TevmClient.ts:315](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L315)
 
 Dumps the current state of the VM into a JSON-seralizable object
 
@@ -155,7 +155,7 @@ await tevm.loadState({state})
 
 > **eth**: `object`
 
-Defined in: [TevmClient.ts:356](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L356)
+Defined in: [TevmClient.ts:357](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L357)
 
 Standard JSON-RPC methods for interacting with the VM
 
@@ -300,7 +300,7 @@ const storageValue = await tevm.eth.getStorageAt({address: '0x123...', position:
 
 > **getAccount**: `GetAccountHandler`
 
-Defined in: [TevmClient.ts:257](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L257)
+Defined in: [TevmClient.ts:258](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L258)
 
 Gets the state of a specific ethereum address
 
@@ -319,7 +319,7 @@ console.log(res.balance)
 
 > **loadState**: `LoadStateHandler`
 
-Defined in: [TevmClient.ts:332](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L332)
+Defined in: [TevmClient.ts:333](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L333)
 
 Loads a previously dumped state into the VM
 
@@ -345,7 +345,7 @@ await tevm.loadState({state})
 
 > **request**: `TevmJsonRpcRequestHandler`
 
-Defined in: [TevmClient.ts:235](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L235)
+Defined in: [TevmClient.ts:236](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L236)
 
 Request handler for JSON-RPC requests. Most users will want to use the [`actions` api](https://tevm.sh/learn/actions/)
 instead of this method directly
@@ -373,7 +373,7 @@ const accountResponse = await tevm.request({
 
 > **requestBulk**: `TevmJsonRpcBulkRequestHandler`
 
-Defined in: [TevmClient.ts:215](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L215)
+Defined in: [TevmClient.ts:216](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L216)
 
 **`Experimental`**
 
@@ -467,7 +467,7 @@ response - EthGetBalanceJsonRpcResponse
 
 > **setAccount**: `SetAccountHandler`
 
-Defined in: [TevmClient.ts:248](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L248)
+Defined in: [TevmClient.ts:249](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L249)
 
 Sets the state of a specific ethereum address
 

@@ -8,4 +8,4 @@
 
 > **Address** = `ResolvedRegister`\[`"addressType"`\]
 
-Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.25.30/node\_modules/abitype/dist/types/abi.d.ts:3
+Defined in: node\_modules/.pnpm/abitype@1.1.1\_typescript@5.9.2\_zod@3.25.76/node\_modules/abitype/dist/types/abi.d.ts:3

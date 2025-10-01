@@ -1,8 +1,19 @@
 // Originally from ethjs
+
+import { Bloom, encodeReceipt } from '@ethereumjs/vm'
+import type { HeaderData } from '@tevm/block'
 import { Block } from '@tevm/block'
 import { ConsensusType } from '@tevm/common'
+import {
+	BlockGasLimitExceededError,
+	EipNotEnabledError,
+	InternalError,
+	InvalidBlobVersionedHashesError,
+	InvalidGasLimitError,
+} from '@tevm/errors'
 import { Rlp } from '@tevm/rlp'
 import { Trie } from '@tevm/trie'
+import type { ImpersonatedTx, TypedTransaction } from '@tevm/tx'
 import { BlobEIP4844Transaction } from '@tevm/tx'
 import {
 	EthjsAddress,
@@ -14,20 +25,6 @@ import {
 	parseGwei,
 	toType,
 } from '@tevm/utils'
-
-import {} from './runBlock.js'
-
-import { Bloom, encodeReceipt } from '@ethereumjs/vm'
-import type { HeaderData } from '@tevm/block'
-import {
-	BlockGasLimitExceededError,
-	EipNotEnabledError,
-	InternalError,
-	InvalidBlobVersionedHashesError,
-	InvalidGasLimitError,
-} from '@tevm/errors'
-import type { TypedTransaction } from '@tevm/tx'
-import type { ImpersonatedTx } from '@tevm/tx'
 import type { BaseVm } from '../BaseVm.js'
 import type { BuildBlockOpts, BuilderOpts, RunTxOpts, RunTxResult, SealBlockOpts } from '../utils/index.js'
 import type { BlockStatus } from './BlockStatus.js'
@@ -86,16 +83,16 @@ export class BlockBuilder {
 			parentHash: opts.parentBlock.hash(),
 			number: opts.headerData?.number ?? opts.parentBlock.header.number + 1n,
 			gasLimit: opts.headerData?.gasLimit ?? opts.parentBlock.header.gasLimit,
-			timestamp: opts.headerData?.timestamp ?? Math.round(Date.now() / 1000),
+			timestamp: opts.headerData?.timestamp ?? BigInt(Math.round(Date.now() / 1000)),
 		}
 		this.withdrawals = opts.withdrawals?.map((w) => (Withdrawal as any).fromWithdrawalData(w))
 
 		if (
-			(this.vm.common as any).ethjsCommon.isActivatedEIP(1559) === true &&
+			this.vm.common.ethjsCommon.isActivatedEIP(1559) === true &&
 			typeof this.headerData.baseFeePerGas === 'undefined'
 		) {
-			if (this.headerData.number === (vm.common as any).ethjsCommon.hardforkBlock('london')) {
-				this.headerData.baseFeePerGas = (vm.common as any).ethjsCommon.param('initialBaseFee')
+			if (this.headerData.number === vm.common.ethjsCommon.hardforkBlock('london')) {
+				this.headerData.baseFeePerGas = BigInt(vm.common.ethjsCommon.param('initialBaseFee'))
 			} else {
 				this.headerData.baseFeePerGas = opts.parentBlock.header.calcNextBaseFee()
 			}
@@ -179,7 +176,7 @@ export class BlockBuilder {
 	 * Adds the block miner reward to the coinbase account.
 	 */
 	private async rewardMiner() {
-		const minerReward = (this.vm.common as any).ethjsCommon.param('minerReward')
+		const minerReward = this.vm.common.ethjsCommon.param('minerReward')
 		const reward = calculateMinerReward(minerReward, 0)
 		const coinbase =
 			this.headerData.coinbase !== undefined
@@ -190,7 +187,7 @@ export class BlockBuilder {
 								? hexToBytes(this.headerData.coinbase as Hex)
 								: this.headerData.coinbase,
 					)
-				: (EthjsAddress as any).zero()
+				: new EthjsAddress(new Uint8Array(20))
 		await rewardAccount(this.vm.evm, coinbase, reward)
 	}
 
@@ -238,14 +235,14 @@ export class BlockBuilder {
 		const gasLimit = this.headerData.gasLimit ?? 0n
 		const blockGasLimit = toType(gasLimit as any, TypeOutput.BigInt) ?? 0n
 
-		const blobGasLimit = (this.vm.common as any).ethjsCommon.param('targetBlobGasPerBlock')
-		const blobGasPerBlob = (this.vm.common as any).ethjsCommon.param('blobGasPerBlob')
+		const blobGasLimit = this.vm.common.ethjsCommon.param('targetBlobGasPerBlock')
+		const blobGasPerBlob = this.vm.common.ethjsCommon.param('blobGasPerBlob')
 
 		const blockGasRemaining = blockGasLimit - this.gasUsed
 		if (_tx.gasLimit > blockGasRemaining) {
 			throw new InvalidGasLimitError('tx has a higher gas limit than the remaining gas in the block')
 		}
-		let blobGasUsed = undefined
+		let blobGasUsed: bigint | undefined
 		if (_tx instanceof BlobEIP4844Transaction) {
 			if (this.blockOpts.common?.ethjsCommon.isActivatedEIP(4844) !== true) {
 				throw new EipNotEnabledError('eip4844 not activated yet for adding a blob transaction')
@@ -340,7 +337,7 @@ export class BlockBuilder {
 		// timestamp should already be set in constructor
 		const timestamp = this.headerData.timestamp ?? 0n
 
-		let blobGasUsed = undefined
+		let blobGasUsed: bigint | undefined
 		if (this.vm.common.ethjsCommon.isActivatedEIP(4844) === true) {
 			blobGasUsed = this.blobGasUsed
 		}

@@ -80,7 +80,7 @@ The configured TEVM transport.
 
 > **tevm**: `TevmNode` & `object`
 
-##### Type declaration
+##### Type Declaration
 
 ###### request
 

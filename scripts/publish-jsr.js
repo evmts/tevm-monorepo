@@ -62,7 +62,7 @@ async function publishToJSR() {
 	// Install JSR CLI if needed
 	try {
 		runCommand('jsr --version', { stdio: 'pipe' })
-	} catch (error) {
+	} catch (_error) {
 		console.log('Installing JSR CLI...')
 		runCommand('npm install -g jsr')
 	}

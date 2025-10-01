@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/skaleCryptoColosseum.js:26](https://git
 
 Creates a common configuration for the skaleCryptoColosseum chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

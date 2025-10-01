@@ -8,7 +8,7 @@
 
 > **applyBlock**(`vm`): (`block`, `opts`) => `Promise`\<[`ApplyBlockResult`](../interfaces/ApplyBlockResult.md)\>
 
-Defined in: [packages/vm/src/actions/applyBlock.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/applyBlock.ts#L24)
+Defined in: [packages/vm/src/actions/applyBlock.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/applyBlock.ts#L23)
 
 Validates and applies a block, computing the results of
 applying its transactions. This method doesn't modify the

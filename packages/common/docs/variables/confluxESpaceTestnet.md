@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/confluxESpaceTestnet.js:26](https://git
 
 Creates a common configuration for the confluxESpaceTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

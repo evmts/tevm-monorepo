@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/skaleCalypsoTestnet.js:26](https://gith
 
 Creates a common configuration for the skaleCalypsoTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

@@ -1,50 +1,50 @@
 {
-  "name": "@tevm/resolutions-rs",
-  "version": "0.1.0",
-  "private": false,
-  "description": "Rust implementation of solidity resolution",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/evmts/tevm-monorepo.git",
-    "directory": "bundler-packages/resolutions-rs"
-  },
-  "license": "MIT",
-  "type": "commonjs",
-  "main": "index.js",
-  "types": "index.d.ts",
-  "files": [
-    "index.js",
-    "index.d.ts",
-    "browser.js",
-    "README.md"
-  ],
-  "scripts": {
-    "build": "cargo build --release",
-    "build:debug": "cargo build",
-    "build:napi": "napi build --platform --release",
-    "build:release": "cargo build --release",
-    "example": "node examples/usage.js",
-    "prepublishOnly": "napi prepublish -t npm",
-    "test": "cargo test"
-  },
-  "devDependencies": {
-    "@napi-rs/cli": "^2.18.4"
-  },
-  "engines": {
-    "node": ">= 14"
-  },
-  "napi": {
-    "binaryName": "tevm_resolutions_rs",
-    "packageName": "@tevm/resolutions-rs",
-    "targets": [
-      "aarch64-apple-darwin",
-      "aarch64-unknown-linux-gnu",
-      "aarch64-unknown-linux-musl",
-      "aarch64-pc-windows-msvc",
-      "x86_64-unknown-linux-musl",
-      "x86_64-apple-darwin",
-      "i686-pc-windows-msvc",
-      "wasm32-wasip1-threads"
-    ]
-  }
+	"name": "@tevm/resolutions-rs",
+	"version": "0.1.0",
+	"private": false,
+	"description": "Rust implementation of solidity resolution",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/evmts/tevm-monorepo.git",
+		"directory": "bundler-packages/resolutions-rs"
+	},
+	"license": "MIT",
+	"type": "commonjs",
+	"main": "index.js",
+	"types": "index.d.ts",
+	"files": [
+		"index.js",
+		"index.d.ts",
+		"browser.js",
+		"README.md"
+	],
+	"scripts": {
+		"build": "cargo build --release",
+		"build:debug": "cargo build",
+		"build:napi": "napi build --platform --release",
+		"build:release": "cargo build --release",
+		"example": "node examples/usage.js",
+		"prepublishOnly": "napi prepublish -t npm",
+		"test": "cargo test"
+	},
+	"devDependencies": {
+		"@napi-rs/cli": "^2.18.4"
+	},
+	"engines": {
+		"node": ">= 14"
+	},
+	"napi": {
+		"binaryName": "tevm_resolutions_rs",
+		"packageName": "@tevm/resolutions-rs",
+		"targets": [
+			"aarch64-apple-darwin",
+			"aarch64-unknown-linux-gnu",
+			"aarch64-unknown-linux-musl",
+			"aarch64-pc-windows-msvc",
+			"x86_64-unknown-linux-musl",
+			"x86_64-apple-darwin",
+			"i686-pc-windows-msvc",
+			"wasm32-wasip1-threads"
+		]
+	}
 }

@@ -16,8 +16,7 @@ export const withErrorNamedArgs = <
 			: readonly AbiParameter[]
 		: never,
 >(
-	// @ts-expect-error - unused variable
-	received: unknown,
+	_received: unknown,
 	expectedArgs: Partial<AbiInputsToNamedArgs<TInputs>>,
 	chainState?: ChainState<unknown, ToBeRevertedWithState>,
 ): MatcherResult => {

@@ -52,7 +52,7 @@ The deployed bytecode type (optional)
 
 The runtime bytecode type (optional)
 
-## Type declaration
+## Type Declaration
 
 \{ `abi?`: `never`; `address?`: `TAddress`; `bytecode?`: `TBytecode`; `code?`: `TCode`; `deployedBytecode?`: `TDeployedBytecode`; `humanReadableAbi`: `TAbi` *extends* readonly `string`[] ? `TAbi` : `FormatAbi`\<`TAbi`\>; `name?`: `TName`; \}
 

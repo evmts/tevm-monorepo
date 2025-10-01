@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/ancient8.js:26](https://github.com/evmt
 
 Creates a common configuration for the ancient8 chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

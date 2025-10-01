@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/celo.js:26](https://github.com/evmts/te
 
 Creates a common configuration for the celo chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

@@ -1,9 +1,7 @@
-import fs from 'node:fs'
-import { promises as fsPromises } from 'node:fs'
+import fs, { promises as fsPromises } from 'node:fs'
 import path, { join } from 'node:path'
-import { type FileAccessObject, moduleFactory } from '@tevm/resolutions'
+import { type FileAccessObject } from '@tevm/resolutions'
 import * as resolutionsRs from '@tevm/resolutions-rs'
-import { runPromise, runSync } from 'effect/Effect'
 
 // First, log the entire module to see what's being exported
 console.log('Resolutions-RS Exports:', Object.keys(resolutionsRs))
@@ -18,7 +16,7 @@ const INTERFACES_DIR = path.join(FIXTURE_DIR, 'interfaces')
 const LIBRARIES_DIR = path.join(FIXTURE_DIR, 'libraries')
 
 // Create a proper file access object that can resolve imports correctly
-const fao: FileAccessObject = {
+const _fao: FileAccessObject = {
 	// This is the key function for resolving imports
 	readFile: fsPromises.readFile,
 	readFileSync: fs.readFileSync,
@@ -27,14 +25,14 @@ const fao: FileAccessObject = {
 		try {
 			await fsPromises.access(filePath)
 			return true
-		} catch (error) {
+		} catch (_error) {
 			return false
 		}
 	},
 }
 
 // Define remappings to help resolve imports
-const remappings = {
+const _remappings = {
 	// Map import paths to actual file locations
 	'../interfaces/': `${INTERFACES_DIR}/`,
 	'../libraries/': `${LIBRARIES_DIR}/`,
@@ -49,7 +47,7 @@ const WIDTH = 4
 const tempDir = join(__dirname)
 // We'll directly use the returned value from generateContractAt function
 // Initialize FileAccessObject for deep graph
-const deepGraphFao: FileAccessObject = {
+const _deepGraphFao: FileAccessObject = {
 	readFile: fsPromises.readFile,
 	readFileSync: fs.readFileSync,
 	existsSync: fs.existsSync,
@@ -57,13 +55,13 @@ const deepGraphFao: FileAccessObject = {
 		try {
 			await fsPromises.access(filePath)
 			return true
-		} catch (error) {
+		} catch (_error) {
 			return false
 		}
 	},
 }
 // Initialize remappings for the deep graph
-const deepGraphRemappings: Record<string, string> = {
+const _deepGraphRemappings: Record<string, string> = {
 	'@lib1/': `${path.join(tempDir, 'lib1')}/`,
 	'@lib2/': `${path.join(tempDir, 'lib2')}/`,
 	'@lib3/': `${path.join(tempDir, 'lib3')}/`,
@@ -311,7 +309,7 @@ console.log(`Created temp directory at: ${tempDir}`)
 // File system access object and remappings already initialized above
 
 // Generate the super deep import graph
-const generateContractAt = async (depth: number, index: number, parentPath = ''): Promise<string> => {
+const generateContractAt = async (depth: number, index: number, _parentPath = ''): Promise<string> => {
 	const contractName = `Contract_D${depth}_I${index}`
 	const contractDir = path.join(tempDir, 'contracts', `level${depth}`)
 	await fsPromises.mkdir(contractDir, { recursive: true })

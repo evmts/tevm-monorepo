@@ -13,7 +13,7 @@ import type {
 	VitestMatcherFunction,
 } from './types.js'
 
-let chaiUtils: ChaiUtils | undefined = undefined
+let chaiUtils: ChaiUtils | undefined
 export const getChaiUtils = () => chaiUtils
 
 // Promise setup helper (waffle-chai pattern)

@@ -1,5 +1,9 @@
 {
 	"compilerOptions": {
+		"module": "ESNext",
+		"moduleResolution": "Bundler",
+		"target": "ESNext",
+		"lib": ["ESNext"],
 		"paths": {
 			"react": ["./node_modules/@types/react"]
 		},
@@ -8,6 +12,9 @@
 				"name": "@tevm/ts-plugin"
 			}
 		],
-		"types": ["bun-types"]
+		"types": ["bun-types"],
+		"allowJs": true,
+		"checkJs": true,
+		"skipLibCheck": true
 	}
 }

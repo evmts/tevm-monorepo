@@ -12,7 +12,7 @@ Defined in: [packages/node/src/TevmNode.ts:16](https://github.com/evmts/tevm-mon
 
 The base client used by Tevm. Add extensions to add additional functionality
 
-## Type declaration
+## Type Declaration
 
 ### debug()?
 

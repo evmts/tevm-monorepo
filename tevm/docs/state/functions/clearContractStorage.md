@@ -8,7 +8,7 @@
 
 > **clearContractStorage**(`baseState`): (`address`) => `Promise`\<`void`\>
 
-Defined in: packages/state/dist/index.d.ts:357
+Defined in: packages/state/dist/index.d.ts:354
 
 ## Parameters
 

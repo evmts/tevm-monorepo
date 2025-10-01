@@ -1,6 +1,5 @@
-import { EthjsAccount, EthjsAddress, type Hex, hexToBytes } from '@tevm/utils'
-
 import type { Evm } from '@tevm/evm'
+import { EthjsAccount, EthjsAddress, type Hex, hexToBytes } from '@tevm/utils'
 import { DAOConfig } from './DAOConfig.js'
 
 /**

@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/l3xTestnet.js:26](https://github.com/ev
 
 Creates a common configuration for the l3xTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

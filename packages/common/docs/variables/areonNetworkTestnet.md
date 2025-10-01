@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/areonNetworkTestnet.js:26](https://gith
 
 Creates a common configuration for the areonNetworkTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

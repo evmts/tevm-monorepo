@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/unreal.js:26](https://github.com/evmts/
 
 Creates a common configuration for the unreal chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

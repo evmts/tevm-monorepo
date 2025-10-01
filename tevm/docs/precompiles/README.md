@@ -12,6 +12,12 @@
 - [CustomPrecompile](type-aliases/CustomPrecompile.md)
 - [TypedError](type-aliases/TypedError.md)
 
+## Variables
+
+- [P256\_VERIFY\_ADDRESS](variables/P256_VERIFY_ADDRESS.md)
+- [P256\_VERIFY\_GAS\_COST](variables/P256_VERIFY_GAS_COST.md)
+- [p256VerifyPrecompile](variables/p256VerifyPrecompile.md)
+
 ## References
 
 ### ConstructorArgument

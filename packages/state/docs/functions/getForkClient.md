@@ -38,7 +38,7 @@ Flags for batch settings.
 
 Toggle to enable `eth_call` multicall aggregation.
 
-##### Type declaration
+##### Type Declaration
 
 `boolean`
 
@@ -94,7 +94,7 @@ const data = await client.call({
 
 [CCIP Read](https://eips.ethereum.org/EIPS/eip-3668) configuration.
 
-#### Type declaration
+#### Type Declaration
 
 `false`
 

@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/zksync.js:26](https://github.com/evmts/
 
 Creates a common configuration for the zksync chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

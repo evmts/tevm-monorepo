@@ -16,7 +16,9 @@ export const anvilResetJsonRpcProcedure = (node) => {
 	return async (request) => {
 		// reset filters
 		const filters = node.getFilters()
-		filters.forEach((/** @type {any} */ filter) => node.removeFilter(filter.id))
+		filters.forEach((/** @type {any} */ filter) => {
+			node.removeFilter(filter.id)
+		})
 
 		// reset impersonated account
 		node.setImpersonatedAccount(undefined)
@@ -24,7 +26,9 @@ export const anvilResetJsonRpcProcedure = (node) => {
 		// TODO we should add a txPool.reset() method
 		const txPool = await node.getTxPool()
 		const txs = await txPool.txsByPriceAndNonce()
-		txs.forEach((/** @type {any} */ tx) => txPool.removeByHash(bytesToHex(tx.hash())))
+		txs.forEach((/** @type {any} */ tx) => {
+			txPool.removeByHash(bytesToHex(tx.hash()))
+		})
 
 		const vm = await node.getVm()
 		const newStateManager = vm.stateManager.shallowCopy()

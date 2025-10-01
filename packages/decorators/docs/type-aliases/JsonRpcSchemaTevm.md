@@ -8,7 +8,7 @@
 
 > **JsonRpcSchemaTevm** = `object`
 
-Defined in: [eip1193/JsonRpcSchemaTevm.ts:39](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts#L39)
+Defined in: [eip1193/JsonRpcSchemaTevm.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts#L42)
 
 Type definitions for Tevm-specific JSON-RPC methods.
 Includes methods for state manipulation, EVM calls, and account management.
@@ -44,7 +44,7 @@ const account = await node.request({
 
 > **tevm\_call**: `object`
 
-Defined in: [eip1193/JsonRpcSchemaTevm.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts#L47)
+Defined in: [eip1193/JsonRpcSchemaTevm.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts#L50)
 
 #### Method
 
@@ -79,7 +79,7 @@ provider.request({ method: 'tevm_call', params: [{ from: '0x...', to: '0x...', d
 
 > **tevm\_dumpState**: `object`
 
-Defined in: [eip1193/JsonRpcSchemaTevm.ts:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts#L70)
+Defined in: [eip1193/JsonRpcSchemaTevm.ts:73](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts#L73)
 
 #### Method
 
@@ -113,7 +113,7 @@ provider.request({ method: 'tevm_dumpState' })})
 
 > **tevm\_getAccount**: `object`
 
-Defined in: [eip1193/JsonRpcSchemaTevm.ts:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts#L81)
+Defined in: [eip1193/JsonRpcSchemaTevm.ts:84](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts#L84)
 
 #### Method
 
@@ -147,7 +147,7 @@ provider.request({ method: 'tevm_getAccount', params: [{address: '0x...' }])})
 
 > **tevm\_loadState**: `object`
 
-Defined in: [eip1193/JsonRpcSchemaTevm.ts:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts#L59)
+Defined in: [eip1193/JsonRpcSchemaTevm.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts#L62)
 
 #### Method
 
@@ -182,7 +182,7 @@ provider.request({ method: 'tevm_loadState', params: [{ state: {...} }] }])})
 
 > **tevm\_setAccount**: `object`
 
-Defined in: [eip1193/JsonRpcSchemaTevm.ts:92](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts#L92)
+Defined in: [eip1193/JsonRpcSchemaTevm.ts:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts#L95)
 
 #### Method
 

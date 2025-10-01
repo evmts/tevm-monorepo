@@ -1,7 +1,5 @@
-import type { CallEvents, ContractParams } from '@tevm/actions'
-import type { ContractResult } from '@tevm/actions'
-import type { Abi } from '@tevm/utils'
-import type { ContractFunctionName } from '@tevm/utils'
+import type { CallEvents, ContractParams, ContractResult } from '@tevm/actions'
+import type { Abi, ContractFunctionName } from '@tevm/utils'
 import type { Client } from 'viem'
 import type { TevmTransport } from './TevmTransport.js'
 

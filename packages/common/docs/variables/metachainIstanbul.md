@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/metachainIstanbul.js:26](https://github
 
 Creates a common configuration for the metachainIstanbul chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

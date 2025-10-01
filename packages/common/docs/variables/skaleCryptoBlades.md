@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/skaleCryptoBlades.js:26](https://github
 
 Creates a common configuration for the skaleCryptoBlades chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

@@ -29,7 +29,7 @@ describe('getEnsAvatar', async () => {
 			common: Object.assign({ kzg }, mainnet),
 			fork: {
 				transport: transports.mainnet,
-				blockTag: 19804639n,
+				blockTag: 23449343n,
 			},
 		})
 		expect(

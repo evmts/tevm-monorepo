@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/klaytnBaobab.js:26](https://github.com/
 
 Creates a common configuration for the klaytnBaobab chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

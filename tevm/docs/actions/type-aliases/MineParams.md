@@ -12,7 +12,7 @@ Defined in: packages/actions/types/Mine/MineParams.d.ts:21
 
 Tevm params to mine one or more blocks.
 
-## Type declaration
+## Type Declaration
 
 ### blockCount?
 

@@ -8,7 +8,7 @@
 
 > `const` **commit**: [`StateAction`](../type-aliases/StateAction.md)\<`"commit"`\>
 
-Defined in: packages/state/dist/index.d.ts:364
+Defined in: packages/state/dist/index.d.ts:361
 
 Commits the current change-set to the instance since the
 last call to checkpoint.

@@ -10,12 +10,12 @@
 - [EthjsMessage](classes/EthjsMessage.md)
 - [Evm](classes/Evm.md)
 - [EvmError](classes/EvmError.md)
-- [EvmType](classes/EvmType.md)
 
 ## Interfaces
 
 - [EvmResult](interfaces/EvmResult.md)
 - [EvmRunCallOpts](interfaces/EvmRunCallOpts.md)
+- [EvmType](interfaces/EvmType.md)
 - [ExecResult](interfaces/ExecResult.md)
 - [InterpreterStep](interfaces/InterpreterStep.md)
 - [PrecompileInput](interfaces/PrecompileInput.md)

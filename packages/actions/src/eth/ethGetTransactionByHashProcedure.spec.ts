@@ -10,11 +10,11 @@ vi.mock('@tevm/jsonrpc', () => ({
 }))
 
 vi.mock('@tevm/utils', () => ({
-	hexToBytes: vi.fn((hex) => new Uint8Array([1, 2, 3, 4])),
+	hexToBytes: vi.fn((_hex) => new Uint8Array([1, 2, 3, 4])),
 }))
 
 vi.mock('../utils/txToJsonRpcTx.js', () => ({
-	txToJsonRpcTx: vi.fn((tx, block, index) => ({
+	txToJsonRpcTx: vi.fn((_tx, _block, index) => ({
 		hash: '0x1234',
 		blockHash: '0x5678',
 		blockNumber: '0x1',
@@ -23,8 +23,6 @@ vi.mock('../utils/txToJsonRpcTx.js', () => ({
 }))
 
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
-import { hexToBytes } from '@tevm/utils'
-import { txToJsonRpcTx } from '../utils/txToJsonRpcTx.js'
 
 describe('ethGetTransactionByHashJsonRpcProcedure', () => {
 	const mockTx = { hash: () => new Uint8Array([1, 2, 3, 4]) }

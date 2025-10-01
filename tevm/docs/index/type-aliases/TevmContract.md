@@ -8,7 +8,7 @@
 
 > **TevmContract** = \<`TAbi`, `TFunctionName`\>(`client`, `params`) => `Promise`\<[`ContractResult`](../../actions/type-aliases/ContractResult.md)\<`TAbi`, `TFunctionName`\>\>
 
-Defined in: packages/memory-client/types/TevmContractType.d.ts:49
+Defined in: packages/memory-client/types/TevmContractType.d.ts:47
 
 A type representing the handler for a TEVM contract procedure.
 

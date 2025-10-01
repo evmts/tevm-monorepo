@@ -32,7 +32,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 #### Inherited from
 
-`EIP2930CompatibleTx.accessList`
+[`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`accessList`](EIP4844CompatibleTx.md#accesslist)
 
 ***
 
@@ -44,7 +44,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 #### Inherited from
 
-`EIP2930CompatibleTx.cache`
+[`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`cache`](EIP4844CompatibleTx.md#cache)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 #### Inherited from
 
-`EIP2930CompatibleTx.chainId`
+[`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`chainId`](EIP4844CompatibleTx.md#chainid)
 
 ***
 
@@ -68,7 +68,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 #### Inherited from
 
-`EIP2930CompatibleTx.common`
+[`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`common`](EIP4844CompatibleTx.md#common)
 
 ***
 
@@ -80,7 +80,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 #### Inherited from
 
-`EIP2930CompatibleTx.data`
+[`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`data`](EIP4844CompatibleTx.md#data)
 
 ***
 
@@ -92,7 +92,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 #### Inherited from
 
-`EIP2930CompatibleTx.gasLimit`
+[`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`gasLimit`](EIP4844CompatibleTx.md#gaslimit)
 
 ***
 
@@ -120,7 +120,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 #### Inherited from
 
-`EIP2930CompatibleTx.nonce`
+[`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`nonce`](EIP4844CompatibleTx.md#nonce)
 
 ***
 
@@ -132,7 +132,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 #### Inherited from
 
-`EIP2930CompatibleTx.r`
+[`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`r`](EIP4844CompatibleTx.md#r)
 
 ***
 
@@ -144,7 +144,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 #### Inherited from
 
-`EIP2930CompatibleTx.s`
+[`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`s`](EIP4844CompatibleTx.md#s)
 
 ***
 
@@ -156,7 +156,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 #### Inherited from
 
-`EIP2930CompatibleTx.to`
+[`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`to`](EIP4844CompatibleTx.md#to)
 
 ***
 
@@ -168,7 +168,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 #### Inherited from
 
-`EIP2930CompatibleTx.txOptions`
+[`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`txOptions`](EIP4844CompatibleTx.md#txoptions)
 
 ***
 
@@ -180,7 +180,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 #### Inherited from
 
-`EIP2930CompatibleTx.type`
+[`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`type`](EIP4844CompatibleTx.md#type)
 
 ***
 
@@ -192,7 +192,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 #### Inherited from
 
-`EIP2930CompatibleTx.v`
+[`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`v`](EIP4844CompatibleTx.md#v)
 
 ***
 
@@ -204,7 +204,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 #### Inherited from
 
-`EIP2930CompatibleTx.value`
+[`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`value`](EIP4844CompatibleTx.md#value)
 
 ## Methods
 

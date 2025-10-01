@@ -102,7 +102,7 @@ recursive(
 		}
 		files.forEach((file) => {
 			console.log('processing...', file)
-			fs.readFile(file, 'utf8', (err, data) => {
+			fs.readFile(file, 'utf8', (err, _data) => {
 				if (err) {
 					console.error(err)
 					return

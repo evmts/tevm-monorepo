@@ -1,6 +1,5 @@
 import type { ExtractAbiEvent } from 'abitype'
-import type { ContractEventName, Log } from 'viem'
-import type { Abi } from 'viem'
+import type { Abi, ContractEventName, Log } from 'viem'
 import type { ContainsContractAbi } from '../../common/types.js'
 
 // State for toEmit matcher to pass to chained matchers

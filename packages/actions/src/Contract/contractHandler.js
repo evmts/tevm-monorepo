@@ -90,7 +90,7 @@ export const contractHandler =
 		}
 
 		client.logger.debug(
-			functionData,
+			{ functionData },
 			'contractHandler: Encoded data, functionName, and args into hex data to execute call',
 		)
 

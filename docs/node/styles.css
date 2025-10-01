@@ -2,13 +2,13 @@
 
 /* Custom variables */
 :root {
-  --tevm-primary: #0085FF;
-  --tevm-secondary: #00C2FF;
-  --tevm-accent: #3BC9DB;
+	--tevm-primary: #0085ff;
+	--tevm-secondary: #00c2ff;
+	--tevm-accent: #3bc9db;
 }
 
 /* Dark mode adjustments if needed */
 :root.dark {
-  --tevm-primary: #0085FF;
-  --tevm-secondary: #00AAFF;
+	--tevm-primary: #0085ff;
+	--tevm-secondary: #00aaff;
 }

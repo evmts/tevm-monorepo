@@ -1,6 +1,5 @@
-import { describe, expect, it } from 'vitest'
-
 import { runSync } from 'effect/Effect'
+import { describe, expect, it } from 'vitest'
 import { NoPluginInTsConfigFoundError, getTevmConfigFromTsConfig } from './getTevmConfigFromTsConfig.js'
 
 describe(getTevmConfigFromTsConfig, () => {

@@ -164,4 +164,67 @@ describe('Error Classes', () => {
 
 		expect(forkError).toMatchSnapshot('ForkError')
 	})
+
+	// Test BlobGasLimitExceededError which was missing from the main test
+	it('should create a BlobGasLimitExceededError instance', () => {
+		const blobGasError = new errors.BlobGasLimitExceededError()
+		expect(blobGasError.message).toContain('Blob gas limit exceeded')
+		expect(blobGasError.docsPath).toBe('/reference/tevm/errors/classes/blobgaslimitexceedederror/')
+		expect(blobGasError._tag).toBe('BlobGasLimitExceededError')
+		expect(blobGasError.name).toBe('BlobGasLimitExceededError')
+		expect(errors.BlobGasLimitExceededError.code).toBe(-32003)
+
+		// Test with custom message and args
+		const customBlobGasError = new errors.BlobGasLimitExceededError('Custom blob gas error', {
+			metaMessages: ['Additional context'],
+			details: 'Some details',
+		})
+		expect(customBlobGasError.message).toContain('Custom blob gas error')
+		expect(customBlobGasError.message).toContain('Additional context')
+	})
+
+	// Test RevertError with raw property
+	it('should create a RevertError with raw property', () => {
+		const rawData = '0x1234'
+		const revertError = new errors.RevertError('Transaction reverted', {
+			raw: rawData,
+			metaMessages: ['Revert occurred'],
+		})
+
+		expect(revertError.raw).toEqual(rawData)
+		expect(revertError.message).toContain('Transaction reverted')
+		expect(revertError.message).toContain('Revert occurred')
+	})
+
+	// Test BaseError with Error that has errorType property
+	// Note: Lines 68-71 in BaseError.js appear to be unreachable code because
+	// the check for 'message' in args.cause (line 64) will always be true for Error instances
+	// since all Error objects have a message property (even if empty string)
+	it('should handle Error with errorType property in BaseError', () => {
+		// Create a custom error class that extends Error and has errorType
+		class CustomErrorWithType extends Error {
+			errorType = 'SpecialErrorType'
+			constructor(message: string) {
+				super(message)
+				this.name = 'CustomErrorWithType'
+			}
+		}
+
+		// Create a custom BaseError subclass for testing
+		class TestError extends errors.BaseError {
+			constructor(message: string, args: any) {
+				super(message, args, 'TestError')
+			}
+		}
+
+		const errorWithType = new CustomErrorWithType('Error with type')
+		const wrappedError = new TestError('Wrapped error', {
+			cause: errorWithType,
+		})
+
+		// Due to the check order, it returns the message, not the errorType
+		// The errorType property is never accessed because 'message' in cause is checked first
+		expect(wrappedError.details).toBe('Error with type')
+		expect(wrappedError.message).toContain('Details: Error with type')
+	})
 })

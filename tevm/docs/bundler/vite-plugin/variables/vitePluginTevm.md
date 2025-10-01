@@ -76,5 +76,5 @@ application will update without a full reload if possible.
 
 ## See
 
- - [Tevm Solidity Import Documentation](https://www.tevm.sh/docs/bundler/solidity-imports)
+ - [Tevm Solidity Import Documentation](https://tevm.sh/learn/solidity-imports)
  - [Vite Plugin API](https://vitejs.dev/guide/api-plugin.html)

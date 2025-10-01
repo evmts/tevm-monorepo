@@ -1,8 +1,8 @@
 import { createAddress } from '@tevm/address'
 import { createTevmNode } from '@tevm/node'
 import { transports } from '@tevm/test-utils'
-import { PREFUNDED_ACCOUNTS, numberToHex, parseEther } from '@tevm/utils'
 import type { Hex } from '@tevm/utils'
+import { PREFUNDED_ACCOUNTS, numberToHex, parseEther } from '@tevm/utils'
 import { custom } from 'viem'
 import { describe, expect, it, vi } from 'vitest'
 import { callHandler } from '../Call/callHandler.js'
@@ -61,7 +61,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 		const node = createTevmNode({
 			fork: {
 				transport: transports.mainnet,
-				blockTag: 21996939n,
+				blockTag: 23449343n,
 			},
 		})
 		expect(
@@ -69,7 +69,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 				jsonrpc: '2.0',
 				id: 1,
 				method: 'eth_getTransactionCount',
-				params: [address, numberToHex(21996939n)],
+				params: [address, numberToHex(23449343n)],
 			}),
 		).toMatchInlineSnapshot(`
 {
@@ -87,13 +87,13 @@ describe(ethGetTransactionCountProcedure.name, () => {
 		const node = createTevmNode({
 			fork: {
 				transport: transports.mainnet,
-				blockTag: 21996939n,
+				blockTag: 23449343n,
 			},
 		})
 
 		// Get the block and its hash
 		const vm = await node.getVm()
-		const block = await vm.blockchain.getBlock(21996939n)
+		const block = await vm.blockchain.getBlock(23449343n)
 		// Fix for TS2554: block.hash is already a getter, doesn't need arguments
 		const blockHash = `0x${block.hash}` as Hex
 
@@ -138,13 +138,13 @@ describe(ethGetTransactionCountProcedure.name, () => {
 		const node = createTevmNode({
 			fork: {
 				transport: transports.mainnet,
-				blockTag: 21996939n,
+				blockTag: 23449343n,
 			},
 		})
 
 		// Setup the blockchain to have the correct block tags
 		const vm = await node.getVm()
-		const latestBlock = await vm.blockchain.getBlock(21996939n)
+		const latestBlock = await vm.blockchain.getBlock(23449343n)
 
 		// Mock the blocksByTag map
 		const originalGet = vm.blockchain.blocksByTag.get
@@ -214,7 +214,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 		const node = createTevmNode({
 			fork: {
 				transport: transports.mainnet,
-				blockTag: 21996939n,
+				blockTag: 23449343n,
 			},
 		})
 
@@ -284,7 +284,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 
 		const node = createTevmNode({
 			fork: {
-				// @ts-ignore - Using a simplified mock transport for testing
+				// @ts-expect-error - Using a simplified mock transport for testing
 				transport: mockTransport,
 			},
 		})
@@ -412,7 +412,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 		const node = createTevmNode({
 			fork: {
 				transport: transports.mainnet,
-				blockTag: 21996939n,
+				blockTag: 23449343n,
 			},
 		})
 		expect(
