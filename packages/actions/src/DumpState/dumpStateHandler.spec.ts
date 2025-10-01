@@ -1,6 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { createTevmNode } from '@tevm/node'
-import { bytesToHex, EthjsAccount, hexToBytes, numberToHex } from '@tevm/utils'
+import { EthjsAccount, bytesToHex, hexToBytes, numberToHex } from '@tevm/utils'
 import { expect, test } from 'vitest'
 import { loadStateHandler } from '../LoadState/loadStateHandler.js'
 import { dumpStateHandler } from './dumpStateHandler.js'

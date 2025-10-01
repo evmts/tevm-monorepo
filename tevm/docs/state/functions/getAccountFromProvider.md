@@ -8,19 +8,7 @@
 
 > **getAccountFromProvider**(`baseState`): (`address`) => `Promise`\<[`EthjsAccount`](../../utils/classes/EthjsAccount.md)\>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:415
-=======
-<<<<<<< HEAD
-Defined in: packages/state/dist/index.d.ts:418
-=======
-Defined in: packages/state/dist/index.d.ts:415
->>>>>>> ceeee8122 (docs: generate docs)
->>>>>>> db7d1ce3d (docs: generate docs)
-=======
-Defined in: packages/state/dist/index.d.ts:418
->>>>>>> 7ba077856 (revert: docs commits)
 
 ## Parameters
 

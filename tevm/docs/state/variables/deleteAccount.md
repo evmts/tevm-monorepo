@@ -8,18 +8,6 @@
 
 > `const` **deleteAccount**: [`StateAction`](../type-aliases/StateAction.md)\<`"deleteAccount"`\>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:369
-=======
-<<<<<<< HEAD
-Defined in: packages/state/dist/index.d.ts:372
-=======
-Defined in: packages/state/dist/index.d.ts:369
->>>>>>> ceeee8122 (docs: generate docs)
->>>>>>> db7d1ce3d (docs: generate docs)
-=======
-Defined in: packages/state/dist/index.d.ts:372
->>>>>>> 7ba077856 (revert: docs commits)
 
 Deletes an account from state under the provided `address`.

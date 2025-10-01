@@ -38,7 +38,7 @@ of the `dumpState` method. Each error provides detailed information about what w
 
 ### state
 
-> **state**: [`TevmState`](../../index/type-aliases/TevmState.md)
+> **state**: [`SerializableTevmState`](../../state/type-aliases/SerializableTevmState.md)
 
 Defined in: packages/actions/types/DumpState/DumpStateResult.d.ts:16
 

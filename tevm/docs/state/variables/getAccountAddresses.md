@@ -8,16 +8,4 @@
 
 > `const` **getAccountAddresses**: [`StateAction`](../type-aliases/StateAction.md)\<`"getAccountAddresses"`\>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 Defined in: packages/state/dist/index.d.ts:413
-=======
-<<<<<<< HEAD
-Defined in: packages/state/dist/index.d.ts:416
-=======
-Defined in: packages/state/dist/index.d.ts:413
->>>>>>> ceeee8122 (docs: generate docs)
->>>>>>> db7d1ce3d (docs: generate docs)
-=======
-Defined in: packages/state/dist/index.d.ts:416
->>>>>>> 7ba077856 (revert: docs commits)
