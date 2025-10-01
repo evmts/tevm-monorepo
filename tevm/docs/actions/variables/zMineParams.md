@@ -6,7 +6,7 @@
 
 # Variable: zMineParams
 
-> `const` **zMineParams**: `z.ZodObject`\<`object` & `object`, `"strip"`, `z.ZodTypeAny`, \{ `blockCount?`: `number`; `interval?`: `number`; `onBlock?`: (...`args`) => `unknown`; `onLog?`: (...`args`) => `unknown`; `onReceipt?`: (...`args`) => `unknown`; `throwOnFail?`: `boolean`; \}, \{ `blockCount?`: `number`; `interval?`: `number`; `onBlock?`: (...`args`) => `unknown`; `onLog?`: (...`args`) => `unknown`; `onReceipt?`: (...`args`) => `unknown`; `throwOnFail?`: `boolean`; \}\>
+> `const` **zMineParams**: `z.ZodObject`\<\{ `blockCount`: `z.ZodOptional`\<`z.ZodNumber`\>; `interval`: `z.ZodOptional`\<`z.ZodNumber`\>; `onBlock`: `z.ZodOptional`\<`z.ZodFunction`\<`z.core.$ZodFunctionArgs`, `z.core.$ZodFunctionOut`\>\>; `onLog`: `z.ZodOptional`\<`z.ZodFunction`\<`z.core.$ZodFunctionArgs`, `z.core.$ZodFunctionOut`\>\>; `onReceipt`: `z.ZodOptional`\<`z.ZodFunction`\<`z.core.$ZodFunctionArgs`, `z.core.$ZodFunctionOut`\>\>; `throwOnFail`: `z.ZodOptional`\<`z.ZodBoolean`\>; \}, `z.core.$strip`\>
 
 Defined in: packages/actions/types/Mine/zMineParams.d.ts:4
 

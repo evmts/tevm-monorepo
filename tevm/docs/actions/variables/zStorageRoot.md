@@ -6,7 +6,7 @@
 
 # Variable: zStorageRoot
 
-> `const` **zStorageRoot**: `z.ZodEffects`\<`z.ZodString`, `string`, `string`\>
+> `const` **zStorageRoot**: `z.ZodPipe`\<`z.ZodString`, `z.ZodTransform`\<`string`, `string`\>\>
 
 Defined in: packages/actions/types/internal/zod/zStorageRoot.d.ts:4
 

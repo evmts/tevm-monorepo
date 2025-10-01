@@ -4,7 +4,7 @@
 
 [@tevm/jsonrpc](../globals.md) / createJsonRpcFetcher
 
-# Function: ~~createJsonRpcFetcher()~~
+# ~~Function: createJsonRpcFetcher()~~
 
 > **createJsonRpcFetcher**(`client`): [`JsonRpcClient`](../type-aliases/JsonRpcClient.md)
 

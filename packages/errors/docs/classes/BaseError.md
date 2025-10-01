@@ -4,7 +4,7 @@
 
 [@tevm/errors](../globals.md) / BaseError
 
-# Class: `abstract` BaseError
+# Abstract Class: BaseError
 
 Base class for custom errors in TEVM.
 This class is abstract and should be extended by other error classes.

@@ -4,7 +4,7 @@
 
 [@tevm/viem](../globals.md) / ViemTevmExtension
 
-# Type Alias: ~~ViemTevmExtension()~~
+# ~~Type Alias: ViemTevmExtension()~~
 
 > **ViemTevmExtension** = () => [`ViemTevmClientDecorator`](ViemTevmClientDecorator.md)
 

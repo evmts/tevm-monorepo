@@ -6,7 +6,7 @@
 
 # Variable: zGetAccountParams
 
-> `const` **zGetAccountParams**: `ZodObject`\<`object` & `object`, `"strip"`, `ZodTypeAny`, \{ `address`: `` `0x${string}` ``; `blockTag?`: `bigint` \| `` `0x${string}` `` \| `"latest"` \| `"earliest"` \| `"pending"` \| `"safe"` \| `"finalized"`; `returnStorage?`: `boolean`; `throwOnFail?`: `boolean`; \}, \{ `address`: `string`; `blockTag?`: `string` \| `number` \| `bigint`; `returnStorage?`: `boolean`; `throwOnFail?`: `boolean`; \}\>
+> `const` **zGetAccountParams**: `ZodObject`\<\{ `address`: `ZodPipe`\<`ZodString`, `ZodTransform`\<`string`, `string`\>\>; `blockTag`: `ZodOptional`\<`ZodUnion`\<readonly \[`ZodLiteral`\<`"latest"`\>, `ZodLiteral`\<`"earliest"`\>, `ZodLiteral`\<`"pending"`\>, `ZodLiteral`\<`"safe"`\>, `ZodLiteral`\<`"finalized"`\>, `ZodBigInt`, `ZodPipe`\<`ZodNumber`, `ZodTransform`\<`bigint`, `number`\>\>, `ZodPipe`\<`ZodString`, `ZodTransform`\<`` `0x${string}` ``, `string`\>\>\]\>\>; `returnStorage`: `ZodOptional`\<`ZodBoolean`\>; `throwOnFail`: `ZodOptional`\<`ZodBoolean`\>; \}, `$strip`\>
 
 Defined in: [packages/actions/src/GetAccount/zGetAccountParams.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/zGetAccountParams.js#L9)
 

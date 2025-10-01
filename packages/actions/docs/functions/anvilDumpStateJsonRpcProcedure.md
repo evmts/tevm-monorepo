@@ -12,8 +12,6 @@ Defined in: [packages/actions/src/anvil/anvilDumpStateProcedure.js:11](https://g
 
 **`Experimental`**
 
-Request handler for anvil_dumpState JSON-RPC requests.
-
 ## Parameters
 
 ### client
@@ -23,5 +21,3 @@ Request handler for anvil_dumpState JSON-RPC requests.
 ## Returns
 
 [`AnvilDumpStateProcedure`](../type-aliases/AnvilDumpStateProcedure.md)
-
-## Param

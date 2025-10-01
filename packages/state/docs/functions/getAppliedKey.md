@@ -4,7 +4,7 @@
 
 [@tevm/state](../globals.md) / getAppliedKey
 
-# Function: ~~getAppliedKey()~~
+# ~~Function: getAppliedKey()~~
 
 > **getAppliedKey**(`baseState`, `skipFetchingFromFork?`): `undefined` \| (`address`) => `Uint8Array`
 

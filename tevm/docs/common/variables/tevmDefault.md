@@ -38,13 +38,17 @@ The default chain if no fork url is passed
 
 > **url**: `string`
 
+### blockTime?
+
+> `optional` **blockTime**: `number`
+
 ### contracts?
 
 > `optional` **contracts**: `object`
 
 #### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
 
 #### contracts.ensRegistry?
 
@@ -54,13 +58,13 @@ The default chain if no fork url is passed
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
+#### contracts.erc6492Verifier?
+
+> `optional` **erc6492Verifier**: `ChainContract`
+
 #### contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
-
-#### contracts.universalSignatureVerifier?
-
-> `optional` **universalSignatureVerifier**: `ChainContract`
 
 ### copy()
 
@@ -81,6 +85,10 @@ The default chain if no fork url is passed
 ### ethjsCommon
 
 > **ethjsCommon**: `Common`
+
+### experimental\_preconfirmationTime?
+
+> `optional` **experimental\_preconfirmationTime**: `number`
 
 ### fees?
 

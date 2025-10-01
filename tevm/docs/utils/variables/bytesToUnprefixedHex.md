@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [utils](../README.md) / bytesToUnprefixedHex
 
-# Variable: ~~bytesToUnprefixedHex~~
+# ~~Variable: bytesToUnprefixedHex~~
 
 > `const` **bytesToUnprefixedHex**: *typeof* `_bytesToUnprefixedHex`
 

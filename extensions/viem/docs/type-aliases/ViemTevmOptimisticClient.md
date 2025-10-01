@@ -4,7 +4,7 @@
 
 [@tevm/viem](../globals.md) / ViemTevmOptimisticClient
 
-# Type Alias: ~~ViemTevmOptimisticClient\<TChain, TAccount\>~~
+# ~~Type Alias: ViemTevmOptimisticClient\<TChain, TAccount\>~~
 
 > **ViemTevmOptimisticClient**\<`TChain`, `TAccount`\> = `object`
 

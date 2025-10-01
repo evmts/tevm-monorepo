@@ -6,7 +6,7 @@
 
 # Variable: zMineParams
 
-> `const` **zMineParams**: `ZodObject`\<`object` & `object`, `"strip"`, `ZodTypeAny`, \{ `blockCount?`: `number`; `interval?`: `number`; `onBlock?`: (...`args`) => `unknown`; `onLog?`: (...`args`) => `unknown`; `onReceipt?`: (...`args`) => `unknown`; `throwOnFail?`: `boolean`; \}, \{ `blockCount?`: `number`; `interval?`: `number`; `onBlock?`: (...`args`) => `unknown`; `onLog?`: (...`args`) => `unknown`; `onReceipt?`: (...`args`) => `unknown`; `throwOnFail?`: `boolean`; \}\>
+> `const` **zMineParams**: `ZodObject`\<\{ `blockCount`: `ZodOptional`\<`ZodNumber`\>; `interval`: `ZodOptional`\<`ZodNumber`\>; `onBlock`: `ZodOptional`\<`ZodFunction`\<`$ZodFunctionArgs`, `$ZodFunctionOut`\>\>; `onLog`: `ZodOptional`\<`ZodFunction`\<`$ZodFunctionArgs`, `$ZodFunctionOut`\>\>; `onReceipt`: `ZodOptional`\<`ZodFunction`\<`$ZodFunctionArgs`, `$ZodFunctionOut`\>\>; `throwOnFail`: `ZodOptional`\<`ZodBoolean`\>; \}, `$strip`\>
 
 Defined in: [packages/actions/src/Mine/zMineParams.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/zMineParams.js#L7)
 

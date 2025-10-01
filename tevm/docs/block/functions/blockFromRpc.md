@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [block](../README.md) / blockFromRpc
 
-# Function: ~~blockFromRpc()~~
+# ~~Function: blockFromRpc()~~
 
 > **blockFromRpc**(`blockParams`, `options`, `uncles?`): [`Block`](../classes/Block.md)
 

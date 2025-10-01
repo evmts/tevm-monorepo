@@ -6,7 +6,7 @@
 
 # Variable: zHex
 
-> `const` **zHex**: `z.ZodEffects`\<`z.ZodString`, `` `0x${string}` ``, `string`\>
+> `const` **zHex**: `z.ZodPipe`\<`z.ZodString`, `z.ZodTransform`\<`` `0x${string}` ``, `string`\>\>
 
 Defined in: packages/actions/types/internal/zod/zHex.d.ts:5
 
