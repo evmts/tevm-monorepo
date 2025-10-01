@@ -69,7 +69,7 @@ console.log(accessList) // { "0x...": Set(["0x..."]) }
 
 > `optional` **amountSpent**: `bigint`
 
-Defined in: [packages/actions/src/Call/CallResult.ts:170](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L170)
+Defined in: [packages/actions/src/Call/CallResult.ts:186](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L186)
 
 The amount of ether used by this transaction. Does not include L1 fees.
 
@@ -79,7 +79,7 @@ The amount of ether used by this transaction. Does not include L1 fees.
 
 > `optional` **baseFee**: `bigint`
 
-Defined in: [packages/actions/src/Call/CallResult.ts:132](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L132)
+Defined in: [packages/actions/src/Call/CallResult.ts:148](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L148)
 
 The base fee of the transaction.
 
@@ -89,7 +89,7 @@ The base fee of the transaction.
 
 > `optional` **blobGasUsed**: `bigint`
 
-Defined in: [packages/actions/src/Call/CallResult.ts:97](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L97)
+Defined in: [packages/actions/src/Call/CallResult.ts:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L113)
 
 Amount of blob gas consumed by the transaction.
 
@@ -99,7 +99,7 @@ Amount of blob gas consumed by the transaction.
 
 > `optional` **createdAddress**: [`Address`](Address.md)
 
-Defined in: [packages/actions/src/Call/CallResult.ts:101](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L101)
+Defined in: [packages/actions/src/Call/CallResult.ts:117](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L117)
 
 Address of created account during the transaction, if any.
 
@@ -109,7 +109,7 @@ Address of created account during the transaction, if any.
 
 > `optional` **createdAddresses**: `Set`\<[`Address`](Address.md)\>
 
-Defined in: [packages/actions/src/Call/CallResult.ts:110](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L110)
+Defined in: [packages/actions/src/Call/CallResult.ts:126](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L126)
 
 Map of addresses which were created (used in EIP 6780).
 Note the addresses are not actually created until the transaction is mined.
@@ -120,7 +120,7 @@ Note the addresses are not actually created until the transaction is mined.
 
 > `optional` **errors**: `ErrorType`[]
 
-Defined in: [packages/actions/src/Call/CallResult.ts:124](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L124)
+Defined in: [packages/actions/src/Call/CallResult.ts:140](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L140)
 
 Description of the exception, if any occurred.
 
@@ -130,7 +130,7 @@ Description of the exception, if any occurred.
 
 > **executionGasUsed**: `bigint`
 
-Defined in: [packages/actions/src/Call/CallResult.ts:79](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L79)
+Defined in: [packages/actions/src/Call/CallResult.ts:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L95)
 
 Amount of gas the code used to run within the EVM.
 This only includes gas spent on the EVM execution itself and doesn't account for gas spent on other factors such as data storage.
@@ -141,7 +141,7 @@ This only includes gas spent on the EVM execution itself and doesn't account for
 
 > `optional` **gas**: `bigint`
 
-Defined in: [packages/actions/src/Call/CallResult.ts:74](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L74)
+Defined in: [packages/actions/src/Call/CallResult.ts:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L90)
 
 Amount of gas left after execution.
 
@@ -151,7 +151,7 @@ Amount of gas left after execution.
 
 > `optional` **gasRefund**: `bigint`
 
-Defined in: [packages/actions/src/Call/CallResult.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L93)
+Defined in: [packages/actions/src/Call/CallResult.ts:109](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L109)
 
 The gas refund counter as a uint256.
 
@@ -161,7 +161,7 @@ The gas refund counter as a uint256.
 
 > `optional` **l1BaseFee**: `bigint`
 
-Defined in: [packages/actions/src/Call/CallResult.ts:159](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L159)
+Defined in: [packages/actions/src/Call/CallResult.ts:175](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L175)
 
 Latest known L1 base fee known by the L2 chain.
 Only included when an OP-Stack common is provided.
@@ -176,7 +176,7 @@ Only included when an OP-Stack common is provided.
 
 > `optional` **l1BlobFee**: `bigint`
 
-Defined in: [packages/actions/src/Call/CallResult.ts:152](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L152)
+Defined in: [packages/actions/src/Call/CallResult.ts:168](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L168)
 
 Current blob base fee known by the L2 chain.
 
@@ -190,7 +190,7 @@ Current blob base fee known by the L2 chain.
 
 > `optional` **l1Fee**: `bigint`
 
-Defined in: [packages/actions/src/Call/CallResult.ts:139](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L139)
+Defined in: [packages/actions/src/Call/CallResult.ts:155](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L155)
 
 L1 fee that should be paid for the transaction.
 Only included when an OP-Stack common is provided.
@@ -205,7 +205,7 @@ Only included when an OP-Stack common is provided.
 
 > `optional` **l1GasUsed**: `bigint`
 
-Defined in: [packages/actions/src/Call/CallResult.ts:146](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L146)
+Defined in: [packages/actions/src/Call/CallResult.ts:162](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L162)
 
 Amount of L1 gas used to publish the transaction.
 Only included when an OP-Stack common is provided.
@@ -220,7 +220,7 @@ Only included when an OP-Stack common is provided.
 
 > `optional` **logs**: [`Log`](Log.md)[]
 
-Defined in: [packages/actions/src/Call/CallResult.ts:89](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L89)
+Defined in: [packages/actions/src/Call/CallResult.ts:105](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L105)
 
 Array of logs that the contract emitted.
 
@@ -237,7 +237,7 @@ logs?.forEach(log => console.log(log))
 
 > `optional` **minerValue**: `bigint`
 
-Defined in: [packages/actions/src/Call/CallResult.ts:174](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L174)
+Defined in: [packages/actions/src/Call/CallResult.ts:190](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L190)
 
 The value that accrues to the miner by this transaction.
 
@@ -257,7 +257,7 @@ Preimages mapping of the touched accounts from the transaction (see `reportPreim
 
 > `optional` **priorityFee**: `bigint`
 
-Defined in: [packages/actions/src/Call/CallResult.ts:128](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L128)
+Defined in: [packages/actions/src/Call/CallResult.ts:144](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L144)
 
 Priority fee set by the transaction.
 
@@ -267,7 +267,7 @@ Priority fee set by the transaction.
 
 > **rawData**: [`Hex`](Hex.md)
 
-Defined in: [packages/actions/src/Call/CallResult.ts:120](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L120)
+Defined in: [packages/actions/src/Call/CallResult.ts:136](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L136)
 
 Encoded return value from the contract as a hex string.
 
@@ -284,9 +284,32 @@ console.log(`Raw data returned: ${rawData}`)
 
 > `optional` **selfdestruct**: `Set`\<[`Address`](Address.md)\>
 
-Defined in: [packages/actions/src/Call/CallResult.ts:105](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L105)
+Defined in: [packages/actions/src/Call/CallResult.ts:121](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L121)
 
 A set of accounts to selfdestruct.
+
+***
+
+### status?
+
+> `optional` **status**: [`Hex`](Hex.md)
+
+Defined in: [packages/actions/src/Call/CallResult.ts:86](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L86)
+
+The transaction receipt status when the call was included in the chain.
+Will be '0x1' for success or '0x0' for failure.
+Only present when the call creates a transaction (createTransaction option is enabled).
+
+#### Example
+
+```typescript
+const status = result.status
+if (status === '0x1') {
+  console.log('Transaction succeeded')
+} else if (status === '0x0') {
+  console.log('Transaction failed')
+}
+```
 
 ***
 
@@ -294,7 +317,7 @@ A set of accounts to selfdestruct.
 
 > `optional` **totalGasSpent**: `bigint`
 
-Defined in: [packages/actions/src/Call/CallResult.ts:166](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L166)
+Defined in: [packages/actions/src/Call/CallResult.ts:182](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L182)
 
 The amount of gas used in this transaction, which is paid for.
 This contains the gas units that have been used on execution, plus the upfront cost,
