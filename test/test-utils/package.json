@@ -62,21 +62,21 @@
 		"bench:ui": "vitest bench --ui"
 	},
 	"devDependencies": {
-    "@tevm/tsconfig": "workspace:^",
-    "@tevm/tsupconfig": "workspace:^",
-    "@types/node": "^22.15.21"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "dependencies": {
-    "@openzeppelin/contracts": "5.3.0",
-    "@ponder/utils": "^0.2.7",
-    "@tevm/contract": "workspace:^",
-    "@tevm/esbuild-plugin": "workspace:^",
-    "@tevm/ts-plugin": "workspace:^"
-  },
-  "peerDependencies": {
-    "viem": "^2.30.1"
-  }
+		"@tevm/tsconfig": "workspace:^",
+		"@tevm/tsupconfig": "workspace:^",
+		"@types/node": "^24.6.1"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"dependencies": {
+		"@openzeppelin/contracts": "5.4.0",
+		"@ponder/utils": "^0.2.13",
+		"@tevm/contract": "workspace:^",
+		"@tevm/esbuild-plugin": "workspace:^",
+		"@tevm/ts-plugin": "workspace:^"
+	},
+	"peerDependencies": {
+		"viem": "^2.37.9"
+	}
 }

@@ -70,10 +70,10 @@
 		"@tevm/solc": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"@types/node": "^22.15.21",
-		"effect": "3.15.4",
+		"@types/node": "^24.6.1",
+		"effect": "3.18.1",
 		"solc": "0.8.30",
-		"solidity-ast": "^0.4.60"
+		"solidity-ast": "^0.4.61"
 	},
 	"publishConfig": {
 		"access": "public"

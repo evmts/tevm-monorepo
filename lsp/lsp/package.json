@@ -30,24 +30,24 @@
 		"@tevm/config": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"@volar/language-core": "~2.4.14",
-		"@volar/language-server": "~2.4.14",
-		"@volar/language-service": "~2.4.14",
-		"effect": "3.15.4",
+		"@volar/language-core": "~2.4.23",
+		"@volar/language-server": "~2.4.23",
+		"@volar/language-service": "~2.4.23",
+		"effect": "3.18.1",
 		"solc": "0.8.30",
-		"volar-service-css": "0.0.64",
-		"volar-service-emmet": "0.0.64",
-		"volar-service-html": "0.0.64",
-		"volar-service-typescript": "^0.0.64",
-		"vscode-html-languageservice": "^5.4.0",
-		"zod": "^3.25.30"
+		"volar-service-css": "0.0.65",
+		"volar-service-emmet": "0.0.65",
+		"volar-service-html": "0.0.65",
+		"volar-service-typescript": "^0.0.65",
+		"vscode-html-languageservice": "^5.5.2",
+		"zod": "^4.1.11"
 	},
 	"devDependencies": {
 		"@tevm/base-bundler": "workspace:^",
 		"tsup": "^8.5.0",
-		"typedoc": "^0.28.5",
-		"typedoc-plugin-markdown": "^4.6.3",
-		"typescript": "^5.8.3",
-		"vitest": "^3.1.4"
+		"typedoc": "^0.28.13",
+		"typedoc-plugin-markdown": "^4.9.0",
+		"typescript": "^5.9.3",
+		"vitest": "^3.2.4"
 	}
 }
