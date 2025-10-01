@@ -1,4 +1,5 @@
 import { solcCompile } from '@tevm/solc'
+import { CompilerOutputError } from './errors.js'
 
 /**
  * Compile Solidity or Yul code
@@ -70,8 +71,15 @@ export const compileContracts = (sources, solc, options, logger = console) => {
 
 		if (options.compilationOutput.includes('ast')) {
 			if (!solcAstOutput) {
-				logger.error(`Source output not found for ${sourcePath}`)
-				throw new Error(`Source output not found for ${sourcePath}`) // TODO: type error
+				const err = new CompilerOutputError(`Source output not found for ${sourcePath}`, {
+					meta: {
+						code: 'source_output_not_found',
+						sourcePath,
+						availableSources: Object.keys(solcOutput.sources),
+					},
+				})
+				logger.error(err.message)
+				throw err
 			}
 			output.ast = solcAstOutput
 			output.id = solcAstOutput.id
@@ -81,8 +89,15 @@ export const compileContracts = (sources, solc, options, logger = console) => {
 		if (options.compilationOutput.filter((o) => o !== 'ast').length === 0) return
 
 		if (!solcContractOutput) {
-			logger.error(`Contract output not found for ${sourcePath}`)
-			throw new Error(`Contract output not found for ${sourcePath}`) // TODO: type error
+			const err = new CompilerOutputError(`Contract output not found for ${sourcePath}`, {
+				meta: {
+					code: 'contract_output_not_found',
+					sourcePath,
+					availableSources: Object.keys(solcOutput.contracts),
+				},
+			})
+			logger.error(err.message)
+			throw err
 		}
 
 		for (const [contractName, contractOutput] of Object.entries(solcContractOutput)) {
