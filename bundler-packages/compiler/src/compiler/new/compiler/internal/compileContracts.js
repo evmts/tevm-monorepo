@@ -17,7 +17,6 @@ export const compileContracts = (sources, solc, options, logger = console) => {
 			evmVersion: options.hardfork,
 			outputSelection: {
 				'*': {
-					// TODO: do we need a file-level option for ast?
 					'': ['ast'],
 					'*': options.compilationOutput,
 				},
