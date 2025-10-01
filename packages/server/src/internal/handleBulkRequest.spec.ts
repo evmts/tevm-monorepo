@@ -12,7 +12,7 @@ describe('handleBulkRequest', () => {
 			common: optimism,
 			fork: {
 				transport: transports.optimism,
-				blockTag: 141658503n,
+				blockTag: 141866019n,
 			},
 		})
 	})

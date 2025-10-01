@@ -24,7 +24,7 @@ beforeEach(async () => {
 
 describe('getFeeHistory', () => {
 	it.todo('should work', async () => {
-		const blockTag = 23449343n
+		const blockTag = 23483670n
 		const mainnetClient = createMemoryClient({
 			common: mainnet,
 			fork: {

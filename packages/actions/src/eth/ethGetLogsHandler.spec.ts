@@ -237,7 +237,7 @@ describe(ethGetLogsHandler.name, () => {
 		const client = createTevmNode({
 			fork: {
 				transport: transports.optimism,
-				blockTag: 141658503n,
+				blockTag: 141866019n,
 			},
 		})
 		const logs = await ethGetLogsHandler(client)({

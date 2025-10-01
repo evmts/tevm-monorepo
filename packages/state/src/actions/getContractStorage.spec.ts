@@ -184,7 +184,7 @@ describe('getContractStorage forking', () => {
 		const testState = createBaseState({
 			fork: {
 				transport: transports.optimism,
-				blockTag: 141658503n,
+				blockTag: 141866019n,
 			},
 		})
 

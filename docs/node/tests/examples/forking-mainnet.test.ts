@@ -21,12 +21,12 @@ describe('Forking Mainnet', () => {
 			const node = createTevmNode({
 				fork: {
 					transport: http('https://eth.llamarpc.com')({}),
-					blockTag: 23449343n,
+					blockTag: 23483670n,
 				},
 			})
 
 			const vm = await node.getVm()
-			const block = await vm.blockchain.getBlock(23449343n)
+			const block = await vm.blockchain.getBlock(23483670n)
 			expect(block).toBeDefined()
 		})
 	})

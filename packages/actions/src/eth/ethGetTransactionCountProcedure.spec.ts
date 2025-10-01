@@ -61,7 +61,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 		const node = createTevmNode({
 			fork: {
 				transport: transports.mainnet,
-				blockTag: 23449343n,
+				blockTag: 23483670n,
 			},
 		})
 		expect(
@@ -69,7 +69,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 				jsonrpc: '2.0',
 				id: 1,
 				method: 'eth_getTransactionCount',
-				params: [address, numberToHex(23449343n)],
+				params: [address, numberToHex(23483670n)],
 			}),
 		).toMatchInlineSnapshot(`
 {
@@ -87,13 +87,13 @@ describe(ethGetTransactionCountProcedure.name, () => {
 		const node = createTevmNode({
 			fork: {
 				transport: transports.mainnet,
-				blockTag: 23449343n,
+				blockTag: 23483670n,
 			},
 		})
 
 		// Get the block and its hash
 		const vm = await node.getVm()
-		const block = await vm.blockchain.getBlock(23449343n)
+		const block = await vm.blockchain.getBlock(23483670n)
 		// Fix for TS2554: block.hash is already a getter, doesn't need arguments
 		const blockHash = `0x${block.hash}` as Hex
 
@@ -138,13 +138,13 @@ describe(ethGetTransactionCountProcedure.name, () => {
 		const node = createTevmNode({
 			fork: {
 				transport: transports.mainnet,
-				blockTag: 23449343n,
+				blockTag: 23483670n,
 			},
 		})
 
 		// Setup the blockchain to have the correct block tags
 		const vm = await node.getVm()
-		const latestBlock = await vm.blockchain.getBlock(23449343n)
+		const latestBlock = await vm.blockchain.getBlock(23483670n)
 
 		// Mock the blocksByTag map
 		const originalGet = vm.blockchain.blocksByTag.get
@@ -214,7 +214,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 		const node = createTevmNode({
 			fork: {
 				transport: transports.mainnet,
-				blockTag: 23449343n,
+				blockTag: 23483670n,
 			},
 		})
 
@@ -412,7 +412,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 		const node = createTevmNode({
 			fork: {
 				transport: transports.mainnet,
-				blockTag: 23449343n,
+				blockTag: 23483670n,
 			},
 		})
 		expect(

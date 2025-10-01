@@ -22,11 +22,11 @@ describe('getForkBlockTag', () => {
 		const baseState = {
 			options: {
 				fork: {
-					blockTag: 141658503n,
+					blockTag: 141866019n,
 				},
 			},
 		} as any
-		expect(getForkBlockTag(baseState)).toEqual({ blockNumber: 141658503n })
+		expect(getForkBlockTag(baseState)).toEqual({ blockNumber: 141866019n })
 	})
 
 	it('should return { blockTag } if blockTag is a string', () => {
