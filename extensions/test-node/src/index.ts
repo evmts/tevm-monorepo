@@ -15,7 +15,7 @@ export type TestSnapshotClient = {
  * Creates a Tevm test client with a controllable server and JSON-RPC snapshotting.
  * @param options - Configuration for Tevm and the snapshotting behavior.
  */
-export const createTestSnapshotClient = (options: MemoryClientOptions ): TestSnapshotClient => {
+export const createTestSnapshotClient = (options: MemoryClientOptions): TestSnapshotClient => {
 	const tevm = createMemoryClient(options)
 	const server = createServer(tevm)
 

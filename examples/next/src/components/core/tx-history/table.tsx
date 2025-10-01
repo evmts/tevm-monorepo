@@ -137,7 +137,7 @@ const TxHistoryTable: FC<TxHistoryTableProps> = ({ data, loading }) => {
             </pre>,
             row.original.id,
           ),
-        filterFn: (row, id, value) => {
+        filterFn: (row, _id, value) => {
           return row.original.context.functionName?.includes(value) || false;
         },
       },

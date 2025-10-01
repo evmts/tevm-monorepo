@@ -91,7 +91,7 @@ export const setAccountHandler =
 			// check if account exists
 			const account = await getAccountHandler(client)({ ...params, throwOnFail: false })
 			if (account.errors?.length && !(account.errors[0] instanceof AccountNotFoundError)) {
-				client.logger.error('there was an unexpected error getting account', account.errors)
+				client.logger.error({ errors: account.errors }, 'there was an unexpected error getting account')
 				throw account.errors.length > 1 ? new AggregateError(account.errors) : account.errors[0]
 			}
 

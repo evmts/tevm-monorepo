@@ -60,7 +60,7 @@ describe('processTx', () => {
 		expect(mockBlockBuilder.addTransaction).toHaveBeenCalledWith(mockTx, {
 			skipHardForkValidation: true,
 		})
-		expect(mockLogger.debug).toHaveBeenCalledWith('0x01020304', 'new tx added')
+		expect(mockLogger.debug).toHaveBeenCalledWith({ hash: '0x01020304' }, 'new tx added')
 		expect(mockReceipts).toContain(mockTxResult.receipt)
 		expect(mockReceipts.length).toBe(1)
 	})

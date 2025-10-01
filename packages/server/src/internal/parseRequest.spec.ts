@@ -32,7 +32,9 @@ describe('parseRequest', () => {
 		const body = '{ "jsonrpc": "2.0", "method": "tevm_call", "params": [ ] ' // Malformed JSON
 		const result = parseRequest(body)
 		expect(result).toBeInstanceOf(InvalidJsonError)
-		expect((result as InvalidJsonError).message).toMatchSnapshot()
+		expect((result as InvalidJsonError).message).toContain(
+			`Expected ',' or '}' after property value in JSON at position 57`,
+		)
 	})
 
 	it('should return InvalidRequestError for invalid JSON-RPC request', () => {

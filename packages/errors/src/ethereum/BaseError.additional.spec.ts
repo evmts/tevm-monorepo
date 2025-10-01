@@ -10,7 +10,6 @@ describe('BaseError (additional cases)', () => {
 
 	// Create a custom error with errorType for testing
 	// This class is part of the test suite setup, even if not directly used in this file
-	// @ts-ignore: Used for testing purposes but may not be directly used
 	class CustomErrorWithType extends Error {
 		errorType = 'CustomTypeError'
 	}

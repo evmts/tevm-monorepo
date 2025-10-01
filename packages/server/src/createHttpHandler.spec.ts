@@ -18,7 +18,7 @@ describe('createHttpHandler', () => {
 				common: optimism,
 				fork: {
 					transport: transports.optimism,
-					blockTag: 115325880n,
+					blockTag: 'latest',
 				},
 			})
 
@@ -37,6 +37,7 @@ describe('createHttpHandler', () => {
 			} as const satisfies CallJsonRpcRequest
 
 			const res = await supertest(server).post('/').send(req).expect(200).expect('Content-Type', /json/)
+			expect(res.body.error).toBeUndefined()
 
 			expect(
 				decodeFunctionResult({
@@ -59,7 +60,7 @@ describe('createHttpHandler', () => {
 			common: optimism,
 			fork: {
 				transport: transports.optimism,
-				blockTag: 115325880n,
+				blockTag: 141658503n,
 			},
 		})
 
@@ -70,8 +71,7 @@ describe('createHttpHandler', () => {
 		const res = await supertest(server).post('/').send(invalidJson).expect(400).expect('Content-Type', /json/)
 
 		expect(res.body.error).toBeDefined()
-		expect(res.body.error.message).toContain('Expected')
-		expect(res.body.error.message).toMatchSnapshot()
+		expect(res.body.error.message).toContain(`Expected ',' or '}' after property value in JSON at position 57`)
 	})
 
 	it('should return 400 for invalid JSON-RPC request', async () => {
@@ -79,7 +79,7 @@ describe('createHttpHandler', () => {
 			common: optimism,
 			fork: {
 				transport: transports.optimism,
-				blockTag: 115325880n,
+				blockTag: 141658503n,
 			},
 		})
 

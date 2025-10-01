@@ -62,7 +62,7 @@ describe(createCommon.name, () => {
 	})
 
 	it('should handle invalid hardfork errors', () => {
-		let err: any = undefined
+		let err: any
 		try {
 			createCommon({ ...optimism, loggingLevel: 'info', hardfork: 'not valid hardfork' as any })
 		} catch (e) {
@@ -108,7 +108,7 @@ describe(createCommon.name, () => {
 		// Create an intentionally invalid hardfork
 		const invalidHardfork = 'not-a-valid-hardfork'
 
-		let err: any = undefined
+		let err: any
 		try {
 			createCommon({
 				...optimism,

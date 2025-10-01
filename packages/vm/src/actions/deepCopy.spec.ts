@@ -1,6 +1,5 @@
 import { createChain } from '@tevm/blockchain'
-import { type Common, mainnet } from '@tevm/common'
-import { createCommon } from '@tevm/common'
+import { type Common, createCommon, mainnet } from '@tevm/common'
 import { MisconfiguredClientError } from '@tevm/errors'
 import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'

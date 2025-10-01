@@ -13,7 +13,7 @@ export const layoutTester = async (searchParams: Record<string, string>) => {
   }
 
   if (typeof searchParams.loading !== 'undefined') {
-    const loading = parseInt(searchParams.loading || '2000');
+    const loading = parseInt(searchParams.loading || '2000', 10);
     await new Promise((resolve) => setTimeout(resolve, loading));
   }
 

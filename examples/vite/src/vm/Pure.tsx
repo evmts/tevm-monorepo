@@ -1,9 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
-import { useState } from 'react'
-import { run } from './run.js'
-
-// @ts-ignore - TODO make a ts plugin TODO make a global .t.sol module type
+import { useId, useState } from 'react'
+// @ts-expect-error - TODO make a ts plugin TODO make a global .t.sol module type
 import PureQuery from './PureQuery.s.sol'
+import { run } from './run.js'
 
 export const Pure = () => {
 	const [num1, setNum1] = useState(0)
@@ -20,7 +19,7 @@ export const Pure = () => {
 			<div>
 				<input type="number" value={num1} onChange={(e) => setNum1(Number(e.target.value))} /> +
 				<input type="number" value={num2} onChange={(e) => setNum2(Number(e.target.value))} /> =
-				<div id="data">{data}</div>
+				<div id={useId()}>{data}</div>
 				{error && <div>{JSON.stringify(error)}</div>}
 				{isLoading && <div>Loading...</div>}
 			</div>

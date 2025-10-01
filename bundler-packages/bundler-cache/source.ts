@@ -21,8 +21,8 @@ export const WagmiReads = () => {
 		enabled: isConnected,
 	})
 	const testBalance: bigint | undefined = balance
-	const testSymbol: string | undefined = symbol
-	const testTotalSupply: bigint | undefined = totalSupply
+	const _testSymbol: string | undefined = symbol
+	const _testTotalSupply: bigint | undefined = totalSupply
 	return {
 		testBalance,
 		symbol,

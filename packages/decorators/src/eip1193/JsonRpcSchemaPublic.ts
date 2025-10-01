@@ -5,7 +5,6 @@
 // to lock in these types independent of viem potentially making changes
 // import type { Address } from 'abitype'
 import type { Address, BlockTag, Hex } from '@tevm/utils'
-import type { RpcStateOverride } from 'viem'
 import type {
 	RpcBlock as Block,
 	RpcBlockIdentifier as BlockIdentifier,
@@ -14,6 +13,7 @@ import type {
 	RpcLog as Log,
 	RpcProof as Proof,
 	Quantity,
+	RpcStateOverride,
 	RpcTransaction as Transaction,
 	RpcTransactionReceipt as TransactionReceipt,
 	RpcTransactionRequest as TransactionRequest,

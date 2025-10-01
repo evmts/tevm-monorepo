@@ -1,5 +1,4 @@
-import type { Address } from '@tevm/utils'
-import type { Hex } from '@tevm/utils'
+import type { Address, Hex } from '@tevm/utils'
 import type { BaseParams } from '../common/BaseParams.js'
 
 /**

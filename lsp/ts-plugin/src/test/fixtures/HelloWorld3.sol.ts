@@ -65,9 +65,7 @@ const _HelloWorld2 = {
 			},
 		},
 		settings: {
-			remappings: [
-				':@openzeppelin/contracts/=node_modules/@openzeppelin/contracts/',
-			],
+			remappings: [':@openzeppelin/contracts/=node_modules/@openzeppelin/contracts/'],
 			optimizer: {
 				enabled: true,
 				runs: 1000000,
@@ -82,8 +80,7 @@ const _HelloWorld2 = {
 		},
 		sources: {
 			'src/test/fixtures/HelloWorld.sol': {
-				keccak256:
-					'0x0971286d63af137da3bab48d7f700764d2f2de9adddd5dc3ba0af5cff0eaa697',
+				keccak256: '0x0971286d63af137da3bab48d7f700764d2f2de9adddd5dc3ba0af5cff0eaa697',
 				urls: [
 					'bzz-raw://f9583dbd0564251763a7d9dc06da4a2b3e2fae129abba81b9d59abe020186028',
 					'dweb:/ipfs/QmRf7maix5pp4iHgfkiKpXzbNr9DjjVoSvuA3efY3mbjds',
@@ -392,9 +389,7 @@ const _HelloWorld = {
 			},
 		},
 		settings: {
-			remappings: [
-				':@openzeppelin/contracts/=node_modules/@openzeppelin/contracts/',
-			],
+			remappings: [':@openzeppelin/contracts/=node_modules/@openzeppelin/contracts/'],
 			optimizer: {
 				enabled: true,
 				runs: 1000000,
@@ -409,8 +404,7 @@ const _HelloWorld = {
 		},
 		sources: {
 			'src/test/fixtures/HelloWorld.sol': {
-				keccak256:
-					'0x0971286d63af137da3bab48d7f700764d2f2de9adddd5dc3ba0af5cff0eaa697',
+				keccak256: '0x0971286d63af137da3bab48d7f700764d2f2de9adddd5dc3ba0af5cff0eaa697',
 				urls: [
 					'bzz-raw://f9583dbd0564251763a7d9dc06da4a2b3e2fae129abba81b9d59abe020186028',
 					'dweb:/ipfs/QmRf7maix5pp4iHgfkiKpXzbNr9DjjVoSvuA3efY3mbjds',

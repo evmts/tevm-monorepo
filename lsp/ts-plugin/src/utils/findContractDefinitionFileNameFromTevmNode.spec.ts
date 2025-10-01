@@ -7,7 +7,7 @@ const mockContractFile = '/path/to/ContractDefinitionFile.sol'
 
 // Mock TypeScript's LanguageService
 const mockLanguageService = {
-	getDefinitionAtPosition: vi.fn((fileName: string, position: number) => [
+	getDefinitionAtPosition: vi.fn((_fileName: string, _position: number) => [
 		{
 			fileName: mockContractFile,
 		},

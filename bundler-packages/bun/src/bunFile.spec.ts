@@ -7,7 +7,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 describe('bunFile', () => {
 	// Mock for Bun file module
-	const mockBunFile = {
+	const _mockBunFile = {
 		exists: vi.fn(),
 		text: vi.fn(),
 		write: vi.fn(),

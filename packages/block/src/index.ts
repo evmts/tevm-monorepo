@@ -1,9 +1,9 @@
 export { Block } from './block.js'
+export { ClRequest } from './ClRequest.js'
 export { type BeaconPayloadJson, executionPayloadFromBeaconPayload } from './from-beacon-payload.js'
+export { blockFromRpc } from './from-rpc.js'
 export { BlockHeader } from './header.js'
 export { getDifficulty, valuesArrayToHeaderData } from './helpers.js'
-export { blockFromRpc } from './from-rpc.js'
-export { ClRequest } from './ClRequest.js'
 export * from './types.js'
 
 import { Block } from './block.js'

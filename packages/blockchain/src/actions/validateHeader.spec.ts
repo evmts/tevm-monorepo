@@ -3,8 +3,8 @@ import { transports } from '@tevm/test-utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { createBaseChain } from '../createBaseChain.js'
 import { getMockBlocks } from '../test/getBlocks.js'
-import { getBlock } from './getBlock.js'
 import * as getBlockModule from './getBlock.js'
+import { getBlock } from './getBlock.js'
 import { getCanonicalHeadBlock } from './getCanonicalHeadBlock.js'
 import { putBlock } from './putBlock.js'
 import { validateHeader } from './validateHeader.js'
@@ -195,9 +195,7 @@ describe(validateHeader.name, async () => {
 	it('should throw an error for invalid timestamp diff (clique)', async () => {
 		// Create a custom chain with clique consensus
 		const cliqueCommon = optimism.copy()
-		// @ts-ignore - mocking for test
 		cliqueCommon.ethjsCommon.consensusAlgorithm = () => ConsensusAlgorithm.Clique
-		// @ts-ignore - mocking for test
 		cliqueCommon.ethjsCommon.consensusConfig = () => ({ period: 15 })
 
 		const chain = createBaseChain({ common: cliqueCommon })
@@ -299,9 +297,9 @@ describe(validateHeader.name, async () => {
 
 		// Create common with London HF at block 10000 and initial base fee
 		const customCommon = optimism.copy()
-		// @ts-ignore - mocking for test
+		// @ts-expect-error - mocking for test
 		customCommon.ethjsCommon.hardforkBlock = (hf: string) => (hf === 'london' ? londonHfBlock : undefined)
-		// @ts-ignore - mocking for test
+		// @ts-expect-error - mocking for test
 		customCommon.ethjsCommon.param = (category: string, name: string) => {
 			if (category === 'gasConfig' && name === 'initialBaseFee') {
 				return BigInt(1000000000)

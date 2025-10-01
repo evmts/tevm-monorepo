@@ -1,9 +1,6 @@
 // This is a test file that directly runs the methods we want to test
 // without relying on mocking, which is causing issues in our test setup
 
-import { existsSync, writeFileSync } from 'node:fs'
-import path from 'node:path'
-
 // Function to test the .s.sol and debug sections of getScriptSnapshot.ts
 function testScriptSnapshotSpecialPaths() {
 	// Import the code inline to avoid module mocking issues
@@ -42,7 +39,7 @@ function testScriptSnapshotSpecialPaths() {
 	// Create mock bundler that records calls
 	const mockCalls: any[] = []
 	const mockBundler = () => ({
-		resolveDtsSync: (filePath: string, cwd: string, _: boolean, resolveBytecode: boolean) => {
+		resolveDtsSync: (filePath: string, _cwd: string, _: boolean, resolveBytecode: boolean) => {
 			mockCalls.push({ filePath, resolveBytecode })
 			return { code: 'export type Test = any;' }
 		},

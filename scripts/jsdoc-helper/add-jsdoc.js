@@ -12,7 +12,7 @@
  */
 
 const fs = require('node:fs')
-const path = require('node:path')
+const _path = require('node:path')
 
 // Get the file path from command line args
 const filePath = process.argv[2]

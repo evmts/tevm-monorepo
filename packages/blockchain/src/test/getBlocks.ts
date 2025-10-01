@@ -4,7 +4,7 @@ import { createLogger } from '@tevm/logger'
 import { transports } from '@tevm/test-utils'
 import { getBlockFromRpc } from '../utils/getBlockFromRpc.js'
 
-let blocks: [Block, Block, Block, Block] | undefined = undefined
+let blocks: [Block, Block, Block, Block] | undefined
 /**
  * Retrieves a set of sequential test blocks from Optimism for testing
  *

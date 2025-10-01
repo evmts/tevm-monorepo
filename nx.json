@@ -107,7 +107,7 @@
 	"namedInputs": {
 		"buildConfigs": [
 			"{projectRoot}/tsconfig.*?.json",
-			"{projectRoot}/tsup.config.ts",
+			"{projectRoot}/tsup.config.ts"
 		],
 		"rustBuildInputs": [
 			"{projectRoot}/Cargo.toml",

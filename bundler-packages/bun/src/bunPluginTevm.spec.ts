@@ -3,7 +3,6 @@ import { bundler } from '@tevm/base-bundler'
 import { createCache } from '@tevm/bundler-cache'
 import { defaultConfig, loadConfig } from '@tevm/config'
 import { catchTag, logWarning, map } from 'effect/Effect'
-import { succeed } from 'effect/Effect'
 import { type Mock, afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { file } from './bunFile.js'
 import { bunFileAccesObject } from './bunFileAccessObject.js'
@@ -16,6 +15,7 @@ vi.mock('./bunFileAccessObject.js', () => ({
 		writeFile: vi.fn().mockResolvedValue(undefined),
 	},
 }))
+
 import { bunPluginTevm } from './index.js'
 
 // Mock dependencies
@@ -101,7 +101,7 @@ describe('bunPluginTevm', () => {
 		mockLoadConfig.mockReturnValue(mockSuccessEffect)
 
 		// Mock catchTag implementation
-		mockCatchTag.mockImplementation((tag, handler) => handler())
+		mockCatchTag.mockImplementation((_tag, handler) => handler())
 
 		// Mock logWarning pipe chain
 		mockLogWarning.mockReturnValue({

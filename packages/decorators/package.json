@@ -12,8 +12,8 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/evmts/tevm-monorepo.git",
-		"directory": "core/decorators"
+		"url": "git+https://github.com/evmts/tevm-monorepo.git",
+		"directory": "packages/decorators"
 	},
 	"license": "MIT",
 	"contributors": [
@@ -55,11 +55,11 @@
 		"lint": "biome check . --write --unsafe",
 		"lint:check": "biome check . --verbose",
 		"lint:deps": "bunx depcheck",
-		"lint:package": "bunx publint --strict && attw --pack",
+		"lint:package": "bunx publint --strict && pnpm pack --pack-destination /tmp && attw /tmp/tevm-decorators-*.tgz && rm /tmp/tevm-decorators-*.tgz",
 		"package:up": "pnpm up --latest",
 		"test": "vitest --watch",
 		"test:coverage": "vitest --coverage --run",
-		"test:run": "vitest",
+		"test:run": "vitest run",
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
@@ -68,7 +68,6 @@
 		"@tevm/utils": "workspace:^"
 	},
 	"devDependencies": {
-		"@tevm/client-types": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
 	},

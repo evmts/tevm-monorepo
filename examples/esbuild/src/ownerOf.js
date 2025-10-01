@@ -1,6 +1,5 @@
 import { http, createPublicClient } from 'viem'
 import { mainnet } from 'viem/chains'
-
 import { ExampleContract } from './ExampleContract.sol'
 import { addresses } from './addresses.js'
 import { rpcUrls } from './constants.js'

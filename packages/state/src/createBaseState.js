@@ -5,6 +5,7 @@ import { ContractCache } from './ContractCache.js'
 import { checkpoint } from './actions/checkpoint.js'
 import { commit } from './actions/commit.js'
 import { generateCanonicalGenesis } from './actions/generateCannonicalGenesis.js'
+
 /**
  * @type {import('viem').Hex}
  */

@@ -199,7 +199,7 @@ describe('contractHandler', () => {
 		const client = createTevmNode({
 			fork: {
 				transport: transports.optimism,
-				blockTag: 122606365n,
+				blockTag: 'latest',
 			},
 			common: optimism,
 		})
@@ -337,7 +337,7 @@ describe('contractHandler', () => {
 		const client = createTevmNode({
 			fork: {
 				transport: transports.optimism,
-				blockTag: 122606365n,
+				blockTag: 'latest',
 			},
 			common: optimism,
 		})
@@ -345,6 +345,7 @@ describe('contractHandler', () => {
 		const { errors } = await setAccountHandler(client)({
 			address: to,
 			deployedBytecode: ERC20_BYTECODE,
+			throwOnFail: false,
 		})
 		expect(errors).toBeUndefined()
 		const result = await contractHandler(client)({
@@ -393,34 +394,6 @@ describe('contractHandler', () => {
 		expect(result.errors).toBeDefined()
 		expect(result.errors?.length).toBe(1)
 		expect(result.errors?.[0]?.name).toBe('Revert')
-		expect(result.errors?.[0]).toMatchInlineSnapshot(`
-			[Revert: The contract function "transferFrom" reverted.
-
-			Error: ERC20InsufficientAllowance(address spender, uint256 allowance, uint256 needed)
-			                                 (0x0000000000000000000000000000000000000000, 0, 1000)
-			 
-			Contract Call:
-			  address:   0x3333333333333333333333333333333333333333
-			  function:  transferFrom(address from, address to, uint256 value)
-			  args:                  (0x1111111111111111111111111111111111111111, 0x2222222222222222222222222222222222222222, 1000)
-
-			Docs: https://viem.sh/reference/tevm/errors/classes/reverterror/
-			Version: viem@2.30.1
-
-			Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
-			Details: The contract function "transferFrom" reverted.
-
-			Error: ERC20InsufficientAllowance(address spender, uint256 allowance, uint256 needed)
-			                                 (0x0000000000000000000000000000000000000000, 0, 1000)
-			 
-			Contract Call:
-			  address:   0x3333333333333333333333333333333333333333
-			  function:  transferFrom(address from, address to, uint256 value)
-			  args:                  (0x1111111111111111111111111111111111111111, 0x2222222222222222222222222222222222222222, 1000)
-
-			Docs: https://viem.sh/reference/tevm/errors/classes/reverterror/
-			Version: viem@2.30.1
-			Version: 1.1.0.next-73]
-		`)
+		expect(result.errors?.[0]).toMatchSnapshot()
 	})
 })

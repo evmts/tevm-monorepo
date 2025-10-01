@@ -2,7 +2,6 @@ import {
 	WASI as __WASI,
 	getDefaultContext as __emnapiGetDefaultContext,
 	instantiateNapiModuleSync as __emnapiInstantiateNapiModuleSync,
-	createOnMessage as __wasmCreateOnMessageForFsProxy,
 } from '@napi-rs/wasm-runtime'
 
 import __wasmUrl from './tevm_runtime_rs.wasm32-wasi.wasm?url'
@@ -53,4 +52,4 @@ const {
 function __napi_rs_initialize_modules(__napiInstance) {
 	__napiInstance.exports['__napi_register__generate_runtime_js_0']?.()
 }
-export const generateRuntimeJs = __napiModule.exports.generateRuntimeJs
+export const _generateRuntimeJs = __napiModule.exports.generateRuntimeJs

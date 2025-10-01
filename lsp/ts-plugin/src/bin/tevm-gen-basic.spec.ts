@@ -1,4 +1,3 @@
-import path from 'node:path'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 // Only test what we need to pass the test coverage
@@ -27,7 +26,7 @@ describe('tevm-gen CLI basic functionality', () => {
 	it('should mock the FileAccessObject exists method', async () => {
 		// Create a mock implementation of FileAccessObject
 		const mockFAO = {
-			exists: async (path: string) => {
+			exists: async (_path: string) => {
 				// Pretend the file exists
 				return true
 			},
@@ -39,7 +38,7 @@ describe('tevm-gen CLI basic functionality', () => {
 
 		// Create another mock with different behavior
 		const mockFAO2 = {
-			exists: async (path: string) => {
+			exists: async (_path: string) => {
 				// Simulate a file that doesn't exist
 				return false
 			},

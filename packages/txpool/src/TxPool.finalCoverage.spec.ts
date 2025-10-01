@@ -2,8 +2,8 @@ import { createChain } from '@tevm/blockchain'
 import { optimism } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
-import { BlobEIP4844Transaction, FeeMarketEIP1559Transaction, LegacyTransaction } from '@tevm/tx'
 import type { TypedTransaction } from '@tevm/tx'
+import { BlobEIP4844Transaction, FeeMarketEIP1559Transaction, LegacyTransaction } from '@tevm/tx'
 import {
 	EthjsAddress,
 	bytesToHex,
@@ -289,7 +289,7 @@ describe('TxPool final coverage tests', () => {
 
 					// Process a blob transaction
 					const txs = []
-					let blobsCount = 0
+					let _blobsCount = 0
 
 					// Manually simulate the loop in txsByPriceAndNonce
 					const best = mockBlobTx
@@ -299,7 +299,7 @@ describe('TxPool final coverage tests', () => {
 
 					// This is the line we want to test - incrementing blobsCount
 					if (best instanceof BlobEIP4844Transaction || (best as any).constructor?.name === 'BlobEIP4844Transaction') {
-						blobsCount += best.blobs?.length || 0
+						_blobsCount += best.blobs?.length || 0
 					}
 
 					return txs

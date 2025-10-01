@@ -9,7 +9,7 @@ function testSolBytecodeResolution() {
 	const filePath = '/test.s.sol'
 
 	const plugin = {
-		resolveDtsSync: (path, cwd, unknown, bytecode) => {
+		resolveDtsSync: (path, _cwd, _unknown, bytecode) => {
 			// Test that the bytecode parameter is true for .s.sol files
 			console.log(`resolveDtsSync called with path: ${path}`)
 			console.log(`bytecode parameter: ${bytecode}`)
@@ -99,7 +99,7 @@ function testDebugOutput() {
 	const filePath = '/test.sol'
 
 	const plugin = {
-		resolveDtsSync: (path, cwd, unknown, bytecode) => {
+		resolveDtsSync: (path, _cwd, _unknown, _bytecode) => {
 			console.log(`resolveDtsSync called with path: ${path}`)
 			return { code: 'export {}' }
 		},

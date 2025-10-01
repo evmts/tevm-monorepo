@@ -1,7 +1,5 @@
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
-// @ts-expect-error
-import defaultSolc from 'solc'
 
 /**
  * Default file access object implementation using Node.js file system APIs.
@@ -116,7 +114,7 @@ export const fao = {
 		try {
 			await access(path)
 			return true
-		} catch (e) {
+		} catch (_e) {
 			return false
 		}
 	},

@@ -50,7 +50,7 @@ const isMuslFromReport = () => {
 const isMuslFromChildProcess = () => {
 	try {
 		return require('node:child_process').execSync('ldd --version', { encoding: 'utf8' }).includes('musl')
-	} catch (e) {
+	} catch (_e) {
 		// If we reach this case, we don't know if the system is musl or not, so is better to just fallback to false
 		return false
 	}

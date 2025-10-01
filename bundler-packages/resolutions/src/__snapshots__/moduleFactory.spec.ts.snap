@@ -1,6 +1,26 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`moduleFactory > should resolve correctly for case basic 1`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case basic 1`] = `
+[
+  "/bundler-packages/resolutions/src/fixtures/basic/Contract.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/interfaces/draft-IERC6093.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/utils/introspection/ERC165.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/utils/Strings.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/utils/math/SignedMath.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/utils/math/SafeCast.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/utils/math/Math.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/utils/Panic.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/utils/Context.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/token/ERC721/utils/ERC721Utils.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol",
+]
+`;
 
 exports[`moduleFactory > should resolve correctly for case basic 2`] = `
 "{
@@ -14,7 +34,27 @@ exports[`moduleFactory > should resolve correctly for case basic 2`] = `
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case basic 3`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case basic 3`] = `
+[
+  "/bundler-packages/resolutions/src/fixtures/basic/Contract.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/interfaces/draft-IERC6093.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/utils/introspection/ERC165.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/utils/Strings.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/utils/math/SignedMath.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/utils/math/SafeCast.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/utils/math/Math.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/utils/Panic.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/utils/Context.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/token/ERC721/utils/ERC721Utils.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol",
+  "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol",
+]
+`;
 
 exports[`moduleFactory > should resolve correctly for case basic 4`] = `
 "{
@@ -28,7 +68,12 @@ exports[`moduleFactory > should resolve correctly for case basic 4`] = `
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case differentpragma 1`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case differentpragma 1`] = `
+[
+  "/bundler-packages/resolutions/src/fixtures/differentpragma/Contract.sol",
+  "/bundler-packages/resolutions/src/fixtures/differentpragma/OlderContract.sol",
+]
+`;
 
 exports[`moduleFactory > should resolve correctly for case differentpragma 2`] = `
 "{
@@ -41,7 +86,12 @@ exports[`moduleFactory > should resolve correctly for case differentpragma 2`] =
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case differentpragma 3`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case differentpragma 3`] = `
+[
+  "/bundler-packages/resolutions/src/fixtures/differentpragma/Contract.sol",
+  "/bundler-packages/resolutions/src/fixtures/differentpragma/OlderContract.sol",
+]
+`;
 
 exports[`moduleFactory > should resolve correctly for case differentpragma 4`] = `
 "{
@@ -54,7 +104,14 @@ exports[`moduleFactory > should resolve correctly for case differentpragma 4`] =
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case multilevel 1`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case multilevel 1`] = `
+[
+  "/bundler-packages/resolutions/src/fixtures/multilevel/Contract.sol",
+  "/bundler-packages/resolutions/src/fixtures/multilevel/level1/ContractLevel1.sol",
+  "/bundler-packages/resolutions/src/fixtures/multilevel/level2/ContractLevel2.sol",
+  "/bundler-packages/resolutions/src/fixtures/multilevel/level3/ContractLevel3.sol",
+]
+`;
 
 exports[`moduleFactory > should resolve correctly for case multilevel 2`] = `
 "{
@@ -67,7 +124,14 @@ exports[`moduleFactory > should resolve correctly for case multilevel 2`] = `
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case multilevel 3`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case multilevel 3`] = `
+[
+  "/bundler-packages/resolutions/src/fixtures/multilevel/Contract.sol",
+  "/bundler-packages/resolutions/src/fixtures/multilevel/level1/ContractLevel1.sol",
+  "/bundler-packages/resolutions/src/fixtures/multilevel/level2/ContractLevel2.sol",
+  "/bundler-packages/resolutions/src/fixtures/multilevel/level3/ContractLevel3.sol",
+]
+`;
 
 exports[`moduleFactory > should resolve correctly for case multilevel 4`] = `
 "{
@@ -80,7 +144,11 @@ exports[`moduleFactory > should resolve correctly for case multilevel 4`] = `
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case noimports 1`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case noimports 1`] = `
+[
+  "/bundler-packages/resolutions/src/fixtures/noimports/Contract.sol",
+]
+`;
 
 exports[`moduleFactory > should resolve correctly for case noimports 2`] = `
 "{
@@ -91,7 +159,11 @@ exports[`moduleFactory > should resolve correctly for case noimports 2`] = `
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case noimports 3`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case noimports 3`] = `
+[
+  "/bundler-packages/resolutions/src/fixtures/noimports/Contract.sol",
+]
+`;
 
 exports[`moduleFactory > should resolve correctly for case noimports 4`] = `
 "{
@@ -102,7 +174,12 @@ exports[`moduleFactory > should resolve correctly for case noimports 4`] = `
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case unusualpaths 1`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case unusualpaths 1`] = `
+[
+  "/bundler-packages/resolutions/src/fixtures/unusualpaths/Contract.sol",
+  "/bundler-packages/resolutions/src/fixtures/unusualpaths/Path With Spaces.sol",
+]
+`;
 
 exports[`moduleFactory > should resolve correctly for case unusualpaths 2`] = `
 "{
@@ -115,7 +192,12 @@ exports[`moduleFactory > should resolve correctly for case unusualpaths 2`] = `
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case unusualpaths 3`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case unusualpaths 3`] = `
+[
+  "/bundler-packages/resolutions/src/fixtures/unusualpaths/Contract.sol",
+  "/bundler-packages/resolutions/src/fixtures/unusualpaths/Path With Spaces.sol",
+]
+`;
 
 exports[`moduleFactory > should resolve correctly for case unusualpaths 4`] = `
 "{
@@ -128,7 +210,12 @@ exports[`moduleFactory > should resolve correctly for case unusualpaths 4`] = `
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case withcomments 1`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case withcomments 1`] = `
+[
+  "/bundler-packages/resolutions/src/fixtures/withcomments/Contract.sol",
+  "/bundler-packages/resolutions/src/fixtures/withcomments/ImportedContract.sol",
+]
+`;
 
 exports[`moduleFactory > should resolve correctly for case withcomments 2`] = `
 "{
@@ -141,7 +228,12 @@ exports[`moduleFactory > should resolve correctly for case withcomments 2`] = `
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case withcomments 3`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case withcomments 3`] = `
+[
+  "/bundler-packages/resolutions/src/fixtures/withcomments/Contract.sol",
+  "/bundler-packages/resolutions/src/fixtures/withcomments/ImportedContract.sol",
+]
+`;
 
 exports[`moduleFactory > should resolve correctly for case withcomments 4`] = `
 "{
@@ -154,7 +246,12 @@ exports[`moduleFactory > should resolve correctly for case withcomments 4`] = `
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case withlib 1`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case withlib 1`] = `
+[
+  "/bundler-packages/resolutions/src/fixtures/withlib/Contract.sol",
+  "/bundler-packages/resolutions/src/fixtures/withlib/lib/mylib/BaseContract.sol",
+]
+`;
 
 exports[`moduleFactory > should resolve correctly for case withlib 2`] = `
 "{
@@ -167,7 +264,12 @@ exports[`moduleFactory > should resolve correctly for case withlib 2`] = `
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case withlib 3`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case withlib 3`] = `
+[
+  "/bundler-packages/resolutions/src/fixtures/withlib/Contract.sol",
+  "/bundler-packages/resolutions/src/fixtures/withlib/lib/mylib/BaseContract.sol",
+]
+`;
 
 exports[`moduleFactory > should resolve correctly for case withlib 4`] = `
 "{
@@ -180,7 +282,12 @@ exports[`moduleFactory > should resolve correctly for case withlib 4`] = `
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case withremappings 1`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case withremappings 1`] = `
+[
+  "/bundler-packages/resolutions/src/fixtures/withremappings/Contract.sol",
+  "/bundler-packages/resolutions/src/fixtures/withremappings/lib/mylib/BaseContract.sol",
+]
+`;
 
 exports[`moduleFactory > should resolve correctly for case withremappings 2`] = `
 "{
@@ -193,7 +300,12 @@ exports[`moduleFactory > should resolve correctly for case withremappings 2`] = 
 }"
 `;
 
-exports[`moduleFactory > should resolve correctly for case withremappings 3`] = `Iterator {}`;
+exports[`moduleFactory > should resolve correctly for case withremappings 3`] = `
+[
+  "/bundler-packages/resolutions/src/fixtures/withremappings/Contract.sol",
+  "/bundler-packages/resolutions/src/fixtures/withremappings/lib/mylib/BaseContract.sol",
+]
+`;
 
 exports[`moduleFactory > should resolve correctly for case withremappings 4`] = `
 "{

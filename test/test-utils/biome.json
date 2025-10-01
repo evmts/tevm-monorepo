@@ -8,6 +8,7 @@
 			".nx",
 			"node_modules",
 			"package.json",
+			".tevm",
 			"**/package.json",
 			"**/coverage",
 			"**/node_modules",

@@ -1,20 +1,20 @@
 {
-  "name": "@tevm/resolutions-rs-linux-x64-musl",
-  "version": "0.0.0",
-  "cpu": [
-    "x64"
-  ],
-  "main": "tevm_resolutions_rs.linux-x64-musl.node",
-  "files": [
-    "tevm_resolutions_rs.linux-x64-musl.node"
-  ],
-  "engines": {
-    "node": ">= 10"
-  },
-  "os": [
-    "linux"
-  ],
-  "libc": [
-    "musl"
-  ]
+	"name": "@tevm/resolutions-rs-linux-x64-musl",
+	"version": "0.0.0",
+	"cpu": [
+		"x64"
+	],
+	"main": "tevm_resolutions_rs.linux-x64-musl.node",
+	"files": [
+		"tevm_resolutions_rs.linux-x64-musl.node"
+	],
+	"engines": {
+		"node": ">= 10"
+	},
+	"os": [
+		"linux"
+	],
+	"libc": [
+		"musl"
+	]
 }

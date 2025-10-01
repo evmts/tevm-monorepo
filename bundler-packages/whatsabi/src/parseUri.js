@@ -11,7 +11,7 @@ export const parseUri = (uri) => {
 		return undefined
 	}
 
-	const chainId = Number.parseInt(match.groups?.['chainId'] ?? '1')
+	const chainId = Number.parseInt(match.groups?.['chainId'] ?? '1', 10)
 	const address = getAddress(/** @type {string}*/ (match.groups?.['address']))
 	const query = match.groups?.['query']
 

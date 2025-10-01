@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises'
 import { defineCall, definePrecompile } from '../src/index.js'
 import { Fs } from './Fs.sol'
+
 const contract = Fs.withAddress('0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2')
 export const fsPrecompile = definePrecompile({
 	contract,

@@ -2,8 +2,16 @@ import { createAddress } from '@tevm/address'
 import { ERC20 } from '@tevm/contract'
 import { MethodNotFoundError } from '@tevm/errors'
 import { type TevmNode, createTevmNode } from '@tevm/node'
-import { type EthjsAccount, encodeDeployData, hexToBytes } from '@tevm/utils'
-import { bytesToHex, encodeFunctionData, keccak256, numberToHex, parseGwei } from '@tevm/utils'
+import {
+	type EthjsAccount,
+	bytesToHex,
+	encodeDeployData,
+	encodeFunctionData,
+	hexToBytes,
+	keccak256,
+	numberToHex,
+	parseGwei,
+} from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { callProcedure } from './Call/callProcedure.js'
 import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'

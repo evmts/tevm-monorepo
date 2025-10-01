@@ -1,52 +1,52 @@
 {
-  "name": "tevm-run",
-  "version": "1.0.0-next.147",
-  "license": "MIT",
-  "type": "module",
-  "exports": {
-    "./package.json": "./package.json",
-    ".": {
-      "import": {
-        "types": "./src/index.js",
-        "default": "./src/index.js"
-      }
-    }
-  },
-  "main": "src/tevm-run.js",
-  "module": "src/tevm-run.js",
-  "types": "src/tevm-run.js",
-  "bin": {
-    "tevm-run": "src/tevm-run.js"
-  },
-  "files": [
-    "src",
-    "bunfig.toml",
-    "plugins.js"
-  ],
-  "scripts": {
-    "all": "bun run lint && bun run format && bun run test:coverage",
-    "build:dist": "echo 'this package does not have a build'",
-    "build:types": "echo 'this package does not have a build'",
-    "dev": "bun run --watch src/tevm-run.js example/example.ts",
-    "format": "biome format . --write",
-    "format:check": "biome format .",
-    "lint": "biome check . --apply-unsafe",
-    "lint:check": "biome check . --verbose",
-    "test": "bun test --watch",
-    "test:coverage": "bun test --coverage",
-    "test:run": "bun test"
-  },
-  "devDependencies": {
-    "@tevm/tsconfig": "workspace:^"
-  },
-  "peerDependencies": {
-    "@tevm/bun-plugin": "workspace:^",
-    "bun": "*",
-    "bun-types": "*",
-    "tevm": "workspace:^"
-  },
-  "engines": {
-    "bun-types": "latest",
-    "node": ">=16"
-  }
+	"name": "tevm-run",
+	"version": "1.0.0-next.147",
+	"license": "MIT",
+	"type": "module",
+	"exports": {
+		"./package.json": "./package.json",
+		".": {
+			"import": {
+				"types": "./src/index.js",
+				"default": "./src/index.js"
+			}
+		}
+	},
+	"main": "src/tevm-run.js",
+	"module": "src/tevm-run.js",
+	"types": "src/tevm-run.js",
+	"bin": {
+		"tevm-run": "src/tevm-run.js"
+	},
+	"files": [
+		"src",
+		"bunfig.toml",
+		"plugins.js"
+	],
+	"scripts": {
+		"all": "bun run lint && bun run format && bun run test:coverage",
+		"build:dist": "echo 'this package does not have a build'",
+		"build:types": "echo 'this package does not have a build'",
+		"dev": "bun run --watch src/tevm-run.js example/example.ts",
+		"format": "biome format . --write",
+		"format:check": "biome format .",
+		"lint": "biome check . --write --unsafe",
+		"lint:check": "biome check . --verbose",
+		"test": "bun test --watch",
+		"test:coverage": "bun test --coverage",
+		"test:run": "bun test"
+	},
+	"devDependencies": {
+		"@tevm/tsconfig": "workspace:^"
+	},
+	"peerDependencies": {
+		"@tevm/bun-plugin": "workspace:^",
+		"bun": "*",
+		"bun-types": "*",
+		"tevm": "workspace:^"
+	},
+	"engines": {
+		"bun-types": "latest",
+		"node": ">=16"
+	}
 }

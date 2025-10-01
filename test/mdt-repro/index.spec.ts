@@ -4,13 +4,11 @@ import { createMemoryClient, hexToBytes } from 'tevm'
 
 import { createContract } from 'tevm/contract'
 import { EthjsAddress, encodeDeployData, formatAbi } from 'tevm/utils'
-
+import { describe, expect, it } from 'vitest'
 import { abi, args as argsDNSSECImpl, bytecode, deployedBytecode } from './DNSSECImpl.json'
 import { abi as abi_P256SHA256Algorithm } from './algorithms/P256SHA256Algorithm.json'
 import { abi as abi_RSASHA1Algorithm } from './algorithms/RSASHA1Algorithm.json'
 import { abi as abi_RSASHA256Algorithm } from './algorithms/RSASHA256Algorithm.json'
-
-import { describe, expect, it } from 'vitest'
 import { abi as abi_SHA1Digest } from './digests/SHA1Digest.json'
 import { abi as abi_SHA256Digest } from './digests/SHA256Digest.json'
 import { extractENSRecord } from './utils'

@@ -21,7 +21,7 @@ const callHandler = async (handler, data, secondParam) => {
 			if (secondParam !== undefined) {
 				result = handler(data, secondParam, next)
 			} else {
-				// @ts-ignore - We know handler is callable with just data and next
+				// @ts-expect-error - We know handler is callable with just data and next
 				result = handler(data, next)
 			}
 
@@ -59,7 +59,6 @@ export const emitEvents = async (client, newBlocks, newReceipts, params = {}) =>
 		client.emit('newBlock', block)
 
 		// Call handler if provided
-		// @ts-ignore - Handler types are defined in MineEvents.ts
 		await callHandler(onBlock, block)
 
 		const blockHash = bytesToHex(block.hash())
@@ -75,7 +74,7 @@ export const emitEvents = async (client, newBlocks, newReceipts, params = {}) =>
 			client.emit('newReceipt', receipt)
 
 			// Call handler if provided
-			// @ts-ignore - Handler types are defined in MineEvents.ts
+			// @ts-expect-error - Handler types are defined in MineEvents.ts
 			await callHandler(onReceipt, receipt, blockHash)
 
 			for (const log of receipt.logs) {
@@ -83,7 +82,7 @@ export const emitEvents = async (client, newBlocks, newReceipts, params = {}) =>
 				client.emit('newLog', log)
 
 				// Call handler if provided
-				// @ts-ignore - Handler types are defined in MineEvents.ts
+				// @ts-expect-error - Handler types are defined in MineEvents.ts
 				await callHandler(onLog, log, receipt)
 			}
 		}

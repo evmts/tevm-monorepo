@@ -41,7 +41,7 @@ describe('debugTraceStateJsonRpcProcedure', () => {
 		res.result?.blockchain.blocksByNumber.forEach((block) => {
 			if (!block) return
 			const { header, ..._block } = block
-			const { timestamp, stateRoot, ..._header } = header
+			const { timestamp: _timestamp, stateRoot: _stateRoot, ..._header } = header
 			expect(_block).toMatchSnapshot()
 			expect(_header).toMatchSnapshot()
 		})
@@ -49,7 +49,7 @@ describe('debugTraceStateJsonRpcProcedure', () => {
 		// added timestamp in tx pool will change
 		res.result?.pool.pool.forEach((txArray) => {
 			txArray.forEach((tx) => {
-				const { added, ..._tx } = tx
+				const { added: _added, ..._tx } = tx
 				expect(_tx).toMatchSnapshot()
 			})
 		})

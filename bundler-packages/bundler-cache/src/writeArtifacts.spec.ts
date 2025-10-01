@@ -6,7 +6,7 @@ import { writeArtifacts } from './writeArtifacts.js'
 
 // Mock the path modules
 vi.mock('./getArtifactsPath.js', () => ({
-	getArtifactsPath: vi.fn((entryModuleId, item) => {
+	getArtifactsPath: vi.fn((entryModuleId, _item) => {
 		const dir = `/mock/cwd/.tevm/${entryModuleId}`
 		const path = `${dir}/artifacts.json`
 		return { dir, path }

@@ -1,5 +1,4 @@
-import type { Abi } from '@tevm/utils'
-import type { ContractFunctionName } from '@tevm/utils'
+import type { Abi, ContractFunctionName } from '@tevm/utils'
 import type { CallEvents } from '../common/CallEvents.js'
 import type { ContractParams } from './ContractParams.js'
 import type { ContractResult } from './ContractResult.js'

@@ -1,4 +1,5 @@
 import { createContract } from '../createContract.js'
+
 const _ErrorContract = {
 	name: 'ErrorContract',
 	humanReadableAbi: [

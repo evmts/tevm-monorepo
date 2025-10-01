@@ -1,26 +1,25 @@
 import type { Cache } from '@tevm/bundler-cache'
 import { describe, expect, it, vi } from 'vitest'
-import { getScriptSnapshotDecorator } from './getScriptSnapshot.js'
 
 // Create mock functions outside the vi.mock calls
-const fakeBundler = () => ({
+const _fakeBundler = () => ({
 	resolveDtsSync: () => ({ code: 'export {}' }),
 })
 
 // Create a helper that intentionally walks the debug code path
 const executeDebugPath = () => {
 	// Create a mock cache
-	const cache = {} as unknown as Cache
+	const _cache = {} as unknown as Cache
 
 	// Create a mock ts object
-	const ts = {
+	const _ts = {
 		ScriptSnapshot: {
 			fromString: (str: string) => ({ getText: () => str }),
 		},
 	}
 
 	// Create a mock logger
-	const logger = {
+	const _logger = {
 		info: vi.fn(),
 		error: vi.fn(),
 		log: vi.fn(),
@@ -43,7 +42,7 @@ const executeDebugPath = () => {
 	}
 
 	// Create a decorator with debug
-	const config = {
+	const _config = {
 		debug: true,
 		jsonAsConst: false as any,
 		foundryProject: false,

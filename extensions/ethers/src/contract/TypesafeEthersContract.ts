@@ -6,10 +6,7 @@ import type {
 	ExtractAbiFunction,
 	ExtractAbiFunctionNames,
 } from '@tevm/utils'
-import type { Log } from 'ethers'
-import type { EventLog } from 'ethers'
-import type { BlockTag } from 'ethers'
-import type { BaseContract, ContractEventName, ContractTransactionResponse } from 'ethers'
+import type { BaseContract, BlockTag, ContractEventName, ContractTransactionResponse, EventLog, Log } from 'ethers'
 import type { BaseContractMethod } from './BaseContractMethod.js'
 
 export type TypesafeEthersContract<TAbi extends Abi> = BaseContract & {

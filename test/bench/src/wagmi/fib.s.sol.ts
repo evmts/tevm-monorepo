@@ -1,4 +1,5 @@
 import { createContract } from '@tevm/contract'
+
 const _Fibonacci = {
 	name: 'Fibonacci',
 	humanReadableAbi: ['function calculate(uint256 n) pure returns (uint256)', 'constructor()'],

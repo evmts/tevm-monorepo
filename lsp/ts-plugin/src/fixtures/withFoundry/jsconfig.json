@@ -1,19 +1,16 @@
 {
-  "extends": "@tevm/tsconfig/base.json",
-  "compilerOptions": {
-    "composite": true,
-    "outDir": "types",
-    "skipLibCheck": true,
-    "plugins": [
-      {
-        "name": "@tevm/ts-plugin",
-        // should load the remappings
-        "foundryProject": true
-      }
-    ]
-  },
-  "include": [
-    "src",
-    "src/**/*.json"
-  ]
+	"extends": "@tevm/tsconfig/base.json",
+	"compilerOptions": {
+		"composite": true,
+		"outDir": "types",
+		"skipLibCheck": true,
+		"plugins": [
+			{
+				"name": "@tevm/ts-plugin",
+				// should load the remappings
+				"foundryProject": true
+			}
+		]
+	},
+	"include": ["src", "src/**/*.json"]
 }

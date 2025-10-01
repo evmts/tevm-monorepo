@@ -1,4 +1,5 @@
 import { createContract } from '../createContract.js'
+
 const _SimpleContract = {
 	name: 'SimpleContract',
 	humanReadableAbi: [

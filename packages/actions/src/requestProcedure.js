@@ -30,7 +30,7 @@ export const requestProcedure = (client) => {
 	const handlers = createHandlers(client)
 	return async (request) => {
 		await client.ready()
-		client.logger.debug(request, 'JSON-RPC request received')
+		client.logger.debug({ request }, 'JSON-RPC request received')
 		if (!(request.method in handlers)) {
 			const err = new MethodNotFoundError(`UnsupportedMethodError: Unknown method ${/**@type any*/ (request).method}`)
 			return /** @type {any}*/ ({

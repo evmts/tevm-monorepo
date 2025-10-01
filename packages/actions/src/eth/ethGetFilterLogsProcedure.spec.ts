@@ -1,8 +1,15 @@
 import { createAddress, createContractAddress } from '@tevm/address'
 import { SimpleContract } from '@tevm/contract'
 import { type TevmNode, createTevmNode } from '@tevm/node'
-import { PREFUNDED_ACCOUNTS, encodeDeployData, encodeFunctionData, isHex, numberToHex } from '@tevm/utils'
-import { keccak256, stringToHex } from '@tevm/utils'
+import {
+	PREFUNDED_ACCOUNTS,
+	encodeDeployData,
+	encodeFunctionData,
+	isHex,
+	keccak256,
+	numberToHex,
+	stringToHex,
+} from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { callProcedure } from '../Call/callProcedure.js'
 import { mineProcedure } from '../Mine/mineProcedure.js'

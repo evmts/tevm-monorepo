@@ -1,7 +1,6 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
-
 import { join } from 'node:path'
 import { runSync } from 'effect/Effect'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { FailedToReadConfigError, loadTsConfig } from './loadTsConfig.js'
 
 // Mock fs module
@@ -129,7 +128,7 @@ describe(loadTsConfig.name, () => {
 		// Run the function and continue despite error
 		try {
 			runSync(loadTsConfig('/mock/path'))
-		} catch (e) {
+		} catch (_e) {
 			// Ignore error - we just want to test the console.error calls
 		}
 
@@ -165,7 +164,7 @@ describe(loadTsConfig.name, () => {
 		// Run the function and continue despite error
 		try {
 			runSync(loadTsConfig('/mock/path'))
-		} catch (e) {
+		} catch (_e) {
 			// Ignore error - we just want to test the console.error calls
 		}
 
@@ -210,7 +209,7 @@ describe(loadTsConfig.name, () => {
 		try {
 			// Run the function but handle any errors as it might throw
 			runSync(loadTsConfig('/mock/path'))
-		} catch (e) {
+		} catch (_e) {
 			// Continue the test even if the function throws
 		}
 

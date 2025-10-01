@@ -33,7 +33,7 @@ describe('loadTsConfig with mocks', () => {
 
 		try {
 			await runPromise(loadTsConfig('/path/to/project'))
-		} catch (e) {
+		} catch (_e) {
 			// Ignore any error - we just want to verify writeFileSync was called
 		}
 
@@ -62,7 +62,7 @@ describe('loadTsConfig with mocks', () => {
 
 		try {
 			await runPromise(loadTsConfig('/path/to/project'))
-		} catch (e) {
+		} catch (_e) {
 			// Ignore errors for this test
 		}
 
@@ -87,7 +87,7 @@ describe('loadTsConfig with mocks', () => {
 
 		try {
 			await runPromise(loadTsConfig('/path/to/project'))
-		} catch (e) {
+		} catch (_e) {
 			// Ignore any errors - just testing the writeFileSync call
 		}
 

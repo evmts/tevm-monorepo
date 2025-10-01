@@ -37,7 +37,7 @@ export function testSolFile() {
 
 	// Create mock bundler
 	const bundler = () => ({
-		resolveDtsSync: (filePath: string, cwd: string, unknown: any, resolveBytecode: boolean) => {
+		resolveDtsSync: (filePath: string, _cwd: string, _unknown: any, resolveBytecode: boolean) => {
 			// Record the call
 			calls.push({ filePath, resolveBytecode })
 			return { code: 'export type Test = string;' }

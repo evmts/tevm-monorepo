@@ -147,7 +147,7 @@ async function processPromptFile(
 				onChunkStart: (chunkNumber: number, totalParts: number) => {
 					console.log(`  🤖 Sending chunk ${chunkNumber} to Gemini for ${resource.name} (${totalParts} parts)`)
 				},
-				onChunkComplete: (chunkNumber: number, response: string) => {
+				onChunkComplete: (chunkNumber: number, _response: string) => {
 					console.log(`  ✅ Received response from chunk ${chunkNumber} for ${resource.name}`)
 				},
 				delayBetweenChunks: 10000,

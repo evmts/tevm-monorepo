@@ -1,7 +1,5 @@
 // generated from docs at https://docs.soliditylang.org/en/v0.8.20/using-the-compiler.html
 import type { Abi } from 'abitype'
-// @ts-ignore
-import solc from 'solc'
 
 type HexNumber = `0x${string}`
 

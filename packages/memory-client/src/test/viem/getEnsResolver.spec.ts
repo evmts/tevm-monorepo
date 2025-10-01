@@ -11,7 +11,7 @@ describe('getEnsResolver', async () => {
 			common: Object.assign({ kzg }, mainnet),
 			fork: {
 				transport: transports.mainnet,
-				blockTag: 19804639n,
+				blockTag: 23449343n,
 			},
 		})
 		expect(await mainnetClient.getEnsResolver({ name: 'vitalik.eth' })).toBe(

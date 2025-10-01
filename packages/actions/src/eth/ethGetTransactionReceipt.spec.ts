@@ -1,6 +1,5 @@
 // @ts-nocheck
 import { createTevmNode } from '@tevm/node'
-import { bytesToHex, hexToBytes } from '@tevm/utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { callHandler } from '../Call/callHandler.js'
 import { mineHandler } from '../Mine/mineHandler.js'
