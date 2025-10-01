@@ -1,4 +1,4 @@
-import { type TevmNode, createTevmNode } from '@tevm/node'
+import { createTevmNode, type TevmNode } from '@tevm/node'
 import { PREFUNDED_ACCOUNTS } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { EthCallJsonRpcRequest } from './EthJsonRpcRequest.js'

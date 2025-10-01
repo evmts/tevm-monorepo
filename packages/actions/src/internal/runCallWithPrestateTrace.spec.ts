@@ -3,9 +3,9 @@ import { createTevmNode } from '@tevm/node'
 import { TestERC20 } from '@tevm/test-utils'
 import { encodeFunctionData, hexToBytes, parseEther } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
+import { dealHandler } from '../anvil/index.js'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
-import { dealHandler } from '../anvil/index.js'
 import { runCallWithPrestateTrace } from './runCallWithPrestateTrace.js'
 
 const ERC20_ADDRESS = `0x${'1'.repeat(40)}` as const

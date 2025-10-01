@@ -2,7 +2,7 @@ import type { Server } from 'node:http'
 import { SimpleContract } from '@tevm/test-utils'
 import { createMemoryClient } from 'tevm'
 import { createServer } from 'tevm/server'
-import { http, createPublicClient } from 'viem'
+import { createPublicClient, http } from 'viem'
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
 
 const PORT = 6969

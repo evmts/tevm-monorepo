@@ -7,8 +7,8 @@ import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
 import { createImpersonatedTx } from '@tevm/tx'
 import { createAddressFromString } from '@tevm/utils'
-import type { Vm } from '../Vm.js'
 import { createVm } from '../createVm.js'
+import type { Vm } from '../Vm.js'
 import { validateRunTx } from './validateRunTx.js'
 
 describe('validateRunTx', () => {

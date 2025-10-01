@@ -1,5 +1,5 @@
 import { tevmViemExtension } from '@tevm/viem'
-import { http, createPublicClient } from 'viem'
+import { createPublicClient, http } from 'viem'
 
 /**
  * @deprecated a new version of HttpClient will be built in a future version

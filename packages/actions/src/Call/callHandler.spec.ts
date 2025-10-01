@@ -5,11 +5,11 @@ import { createTevmNode } from '@tevm/node'
 import { SimpleContract, TestERC20, transports } from '@tevm/test-utils'
 import {
 	type Address,
-	PREFUNDED_ACCOUNTS,
 	decodeFunctionResult,
 	encodeDeployData,
 	encodeFunctionData,
 	hexToBytes,
+	PREFUNDED_ACCOUNTS,
 	parseEther,
 } from '@tevm/utils'
 import { describe, expect, it, vi } from 'vitest'

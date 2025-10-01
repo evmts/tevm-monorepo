@@ -1,4 +1,4 @@
-import { type TevmNode, createTevmNode } from '@tevm/node'
+import { createTevmNode, type TevmNode } from '@tevm/node'
 import { type Hex, hexToBytes } from '@tevm/utils'
 import { http, parseEther } from 'viem'
 import { describe, expect, it, vi } from 'vitest'

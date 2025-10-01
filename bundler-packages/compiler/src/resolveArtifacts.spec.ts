@@ -1,5 +1,5 @@
-import { type ResolvedCompilerConfig, defaultConfig } from '@tevm/config'
-import { type MockedFunction, afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { defaultConfig, type ResolvedCompilerConfig } from '@tevm/config'
+import { afterEach, beforeEach, describe, expect, it, type MockedFunction, vi } from 'vitest'
 import { compileContract } from './compiler/compileContracts.js'
 import { resolveArtifacts } from './resolveArtifacts.js'
 import type { FileAccessObject, Logger, ModuleInfo, SolcInputDescription, SolcOutput } from './types.js'

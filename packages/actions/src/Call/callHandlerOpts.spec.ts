@@ -1,6 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { InvalidBlockError, InvalidParamsError } from '@tevm/errors'
-import { type TevmNode, createTevmNode } from '@tevm/node'
+import { createTevmNode, type TevmNode } from '@tevm/node'
 import { bytesToHex, hexToBytes } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { mineHandler } from '../Mine/mineHandler.js'

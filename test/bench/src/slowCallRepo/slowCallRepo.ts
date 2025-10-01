@@ -1,5 +1,5 @@
 import { getAlchemyUrl } from '@tevm/test-utils'
-import { http, createMemoryClient } from 'tevm'
+import { createMemoryClient, http } from 'tevm'
 
 const rpcUrl = getAlchemyUrl('optimism-sepolia')
 

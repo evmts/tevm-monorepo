@@ -1,9 +1,9 @@
 import {
 	AuthCallUnsetError,
+	BaseError,
 	BLS12381FpNotInFieldError,
 	BLS12381InputEmptyError,
 	BLS12381PointNotOnCurveError,
-	BaseError,
 	CodeSizeExceedsMaximumError,
 	CodeStoreOutOfGasError,
 	CreateCollisionError,

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { SIMPLE_CONTRACT, createMockFileAccessObject, createMockLogger, createMockSolc } from './testing-utils.js'
+import { createMockFileAccessObject, createMockLogger, createMockSolc, SIMPLE_CONTRACT } from './testing-utils.js'
 
 describe('testing-utils', () => {
 	describe('createMockFileAccessObject', () => {

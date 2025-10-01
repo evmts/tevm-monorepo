@@ -1,7 +1,7 @@
 import { createAddress } from '@tevm/address'
 import { createEvm } from '@tevm/evm'
 import { createTevmNode } from '@tevm/node'
-import { EthjsAccount, bytesToHex, keccak256 } from '@tevm/utils'
+import { bytesToHex, EthjsAccount, keccak256 } from '@tevm/utils'
 import { createVm } from '@tevm/vm'
 import { describe, expect, it } from 'vitest'
 import { setAccountHandler } from './setAccountHandler.js'

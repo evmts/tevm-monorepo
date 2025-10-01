@@ -6,16 +6,16 @@ import type { FeeMarketEIP1559Transaction, LegacyTransaction, TypedTransaction }
 import { BlobEIP4844Transaction, Capability, createTxFromBlockBodyData, createTxFromRLP } from '@tevm/tx'
 import {
 	type AddressLike,
-	type Hex,
-	KECCAK256_RLP,
-	KECCAK256_RLP_ARRAY,
-	Withdrawal,
 	bytesToHex,
 	bytesToUtf8,
 	createWithdrawal,
 	equalsBytes,
+	type Hex,
 	hexToBytes,
+	KECCAK256_RLP,
+	KECCAK256_RLP_ARRAY,
 	keccak256,
+	Withdrawal,
 } from '@tevm/utils'
 import { ClRequest } from './ClRequest.js'
 import type { BeaconPayloadJson } from './from-beacon-payload.js'

@@ -4,8 +4,8 @@ import { toBeAddress, toBeHex } from '../matchers/utils/index.js'
 import { createChainableFromVitest } from './chainable.js'
 import { type CustomMatchers, testMatchers } from './chainable.spec.js'
 import type {
-	ChainState,
 	ChainableAssertion,
+	ChainState,
 	InferredVitestChainableResult,
 	MatcherResult,
 	VitestMatcherConfig,

@@ -1,5 +1,5 @@
 import { SimpleContract } from '@tevm/contract'
-import { type TevmNode, createTevmNode } from '@tevm/node'
+import { createTevmNode, type TevmNode } from '@tevm/node'
 import { type Address, PREFUNDED_ACCOUNTS } from '@tevm/utils'
 import { assert, beforeAll, describe, expect, it } from 'vitest'
 import { contractHandler } from '../Contract/contractHandler.js'

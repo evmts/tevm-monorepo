@@ -5,9 +5,9 @@
  */
 import type { BlockResult } from '../common/BlockResult.js'
 import type { FilterLog } from '../common/FilterLog.js'
+import type { Address, Hex } from '../common/index.js'
 import type { TransactionReceiptResult } from '../common/TransactionReceiptResult.js'
 import type { TransactionResult } from '../common/TransactionResult.js'
-import type { Address, Hex } from '../common/index.js'
 
 // eth_account
 export type EthAccountsResult = Array<Address>

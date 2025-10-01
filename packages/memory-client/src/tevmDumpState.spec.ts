@@ -2,8 +2,8 @@ import { optimism } from '@tevm/common'
 import { transports } from '@tevm/test-utils'
 import { type Client, createClient } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
-import type { TevmTransport } from './TevmTransport.js'
 import { createTevmTransport } from './createTevmTransport.js'
+import type { TevmTransport } from './TevmTransport.js'
 import { tevmDumpState } from './tevmDumpState.js'
 
 let client: Client<TevmTransport>

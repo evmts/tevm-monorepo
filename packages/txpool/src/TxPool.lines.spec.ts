@@ -4,14 +4,14 @@ import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
 import { BlobEIP4844Transaction, LegacyTransaction } from '@tevm/tx'
 import {
-	EthjsAddress,
 	bytesToUnprefixedHex,
 	createAccount,
 	createAddressFromString,
+	EthjsAddress,
 	hexToBytes,
 	parseEther,
 } from '@tevm/utils'
-import { type Vm, createVm } from '@tevm/vm'
+import { createVm, type Vm } from '@tevm/vm'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { PREFUNDED_PRIVATE_KEYS } from '../../utils/dist/index.cjs'
 import { TxPool } from './TxPool.js'

@@ -4,11 +4,11 @@ import { optimism } from '@tevm/common'
 import { ERC20 } from '@tevm/contract'
 import { transports } from '@tevm/test-utils'
 import {
-	type Hex,
 	bytesToHex,
 	decodeFunctionResult,
 	encodeDeployData,
 	encodeFunctionData,
+	type Hex,
 	hexToBigInt,
 	parseAbi,
 	toHex,

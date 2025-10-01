@@ -1,10 +1,10 @@
 import { optimism } from '@tevm/common'
 import { SimpleContract } from '@tevm/contract'
-import { type Hex, createClient, parseEther } from 'viem'
+import { createClient, type Hex, parseEther } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
-import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
 import { createTevmTransport } from '../../createTevmTransport.js'
+import type { MemoryClient } from '../../MemoryClient.js'
 import { tevmDumpState } from '../../tevmDumpState.js'
 
 let mc: MemoryClient

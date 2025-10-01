@@ -1,5 +1,5 @@
 import type { CustomPrecompile } from '@tevm/node'
-import { EthjsAddress, Hex, bytesToHex, hexToBytes } from '@tevm/utils'
+import { bytesToHex, EthjsAddress, Hex, hexToBytes } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../createMemoryClient.js'
 

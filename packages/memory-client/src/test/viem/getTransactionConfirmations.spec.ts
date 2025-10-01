@@ -1,8 +1,8 @@
 import { SimpleContract } from '@tevm/test-utils'
 import type { Hex } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
-import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
+import type { MemoryClient } from '../../MemoryClient.js'
 
 let mc: MemoryClient<any, any>
 let deployTxHash: Hex

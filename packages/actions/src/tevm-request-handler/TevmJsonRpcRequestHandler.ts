@@ -1,7 +1,7 @@
-import type { TevmJsonRpcRequest } from '../TevmJsonRpcRequest.js'
 import type { AnvilJsonRpcRequest } from '../anvil/AnvilJsonRpcRequest.js'
 import type { DebugJsonRpcRequest } from '../debug/DebugJsonRpcRequest.js'
 import type { EthJsonRpcRequest } from '../eth/EthJsonRpcRequest.js'
+import type { TevmJsonRpcRequest } from '../TevmJsonRpcRequest.js'
 import type { JsonRpcReturnTypeFromMethod } from './JsonRpcReturnTypeFromMethod.js'
 
 /**

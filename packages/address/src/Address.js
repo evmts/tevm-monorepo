@@ -1,4 +1,4 @@
-import { EthjsAddress, bytesToHex, getAddress } from '@tevm/utils'
+import { bytesToHex, EthjsAddress, getAddress } from '@tevm/utils'
 
 /**
  * A specialized Ethereum address class that extends EthjsAddress with TEVM-specific

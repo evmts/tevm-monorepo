@@ -18,19 +18,19 @@ import { BlobEIP4844Transaction } from '@tevm/tx'
 import {
 	EthjsAddress,
 	type Hex,
-	KECCAK256_RLP,
-	TypeOutput,
-	Withdrawal,
 	hexToBytes,
+	KECCAK256_RLP,
 	parseGwei,
+	TypeOutput,
 	toType,
+	Withdrawal,
 } from '@tevm/utils'
 import type { BaseVm } from '../BaseVm.js'
 import type { BuildBlockOpts, BuilderOpts, RunTxOpts, RunTxResult, SealBlockOpts } from '../utils/index.js'
-import type { BlockStatus } from './BlockStatus.js'
-import { BuildStatus } from './BuildStatus.js'
 import { accumulateParentBeaconBlockRoot } from './accumulateParentBeaconBlockRoot.js'
 import { accumulateParentBlockHash } from './accumulateParentBlockHash.js'
+import type { BlockStatus } from './BlockStatus.js'
+import { BuildStatus } from './BuildStatus.js'
 import { calculateMinerReward } from './calculateMinerReward.js'
 import { rewardAccount } from './rewardAccount.js'
 import { runTx } from './runTx.js'

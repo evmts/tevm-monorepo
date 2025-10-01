@@ -1,5 +1,5 @@
 import { ERC721 } from '@openzeppelin/contracts/token/ERC721/ERC721.sol'
-import { http, createMemoryClient } from 'tevm'
+import { createMemoryClient, http } from 'tevm'
 import { arbitrum } from 'tevm/common'
 import { expect, it } from 'vitest'
 

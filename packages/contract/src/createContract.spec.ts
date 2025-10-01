@@ -1,4 +1,4 @@
-import { type Hex, formatAbi, parseAbi } from '@tevm/utils'
+import { formatAbi, type Hex, parseAbi } from '@tevm/utils'
 import { assertType, describe, expect, it } from 'vitest'
 import type { Contract } from './Contract.js'
 import { createContract } from './createContract.js'

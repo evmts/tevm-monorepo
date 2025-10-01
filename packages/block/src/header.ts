@@ -2,16 +2,16 @@ import type { CliqueConfig } from '@tevm/common'
 import { type Common, ConsensusAlgorithm, ConsensusType, tevmDefault } from '@tevm/common'
 import { Rlp } from '@tevm/rlp'
 import {
-	EthjsAddress,
-	KECCAK256_RLP,
-	KECCAK256_RLP_ARRAY,
 	bytesToBigInt,
 	bytesToHex,
 	bytesToUtf8,
 	concatBytes,
+	EthjsAddress,
 	ecrecover,
 	equalsBytes,
 	hexToBytes,
+	KECCAK256_RLP,
+	KECCAK256_RLP_ARRAY,
 	keccak256,
 	numberToHex,
 	toBytes,

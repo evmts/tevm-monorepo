@@ -1,8 +1,8 @@
 import { SimpleContract } from '@tevm/test-utils'
 import type { WatchContractEventOnLogsParameter } from 'viem'
 import { beforeEach, describe, it } from 'vitest'
-import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
+import type { MemoryClient } from '../../MemoryClient.js'
 
 let mc: MemoryClient<any, any>
 let c = {

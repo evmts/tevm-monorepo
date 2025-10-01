@@ -1,6 +1,6 @@
 import * as fsPromises from 'node:fs/promises'
 import { join } from 'node:path'
-import { type Mock, beforeEach, describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, type Mock, vi } from 'vitest'
 import { file } from './bunFile.js'
 import { bunFileAccesObject } from './bunFileAccessObject.js'
 

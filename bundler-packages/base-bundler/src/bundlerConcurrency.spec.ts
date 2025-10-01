@@ -1,7 +1,7 @@
 import { tmpdir } from 'node:os'
 import { createCache } from '@tevm/bundler-cache'
 import { resolveArtifacts } from '@tevm/compiler'
-import { type Mock, describe, expect, it, vi } from 'vitest'
+import { describe, expect, it, type Mock, vi } from 'vitest'
 import { bundler } from './bundler.js'
 
 // Mock @tevm/compiler

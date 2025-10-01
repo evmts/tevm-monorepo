@@ -1,6 +1,6 @@
 import { createRequire } from 'node:module'
 import { runSync, runSyncExit } from 'effect/Effect'
-import { type MockedFunction, beforeEach, describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, type MockedFunction, vi } from 'vitest'
 import { createRequireEffect } from './createRequireEffect.js'
 
 vi.mock('node:module', () => ({

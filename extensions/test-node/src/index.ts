@@ -1,6 +1,6 @@
 import type { Server as HttpServer } from 'node:http'
 import type { AddressInfo } from 'node:net'
-import { type MemoryClient, type MemoryClientOptions, createMemoryClient } from '@tevm/memory-client'
+import { createMemoryClient, type MemoryClient, type MemoryClientOptions } from '@tevm/memory-client'
 import { createServer } from '@tevm/server'
 
 export type TestSnapshotClient = {

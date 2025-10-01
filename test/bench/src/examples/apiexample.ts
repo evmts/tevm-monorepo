@@ -1,6 +1,6 @@
 import { createTevmTransport, tevmViemActions } from 'tevm'
 import { optimism } from 'tevm/common'
-import { http, createClient, publicActions, testActions, walletActions } from 'viem'
+import { createClient, http, publicActions, testActions, walletActions } from 'viem'
 
 /**
 ####  #####  ######   ##   ##### # #    #  ####       ##       ####  #      # ###### #    # ##### 

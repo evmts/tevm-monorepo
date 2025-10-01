@@ -1,6 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { transports } from '@tevm/test-utils'
-import { EthjsAccount, EthjsAddress, type Hex, createAccount, createAddressFromString, hexToBigInt } from '@tevm/utils'
+import { createAccount, createAddressFromString, EthjsAccount, EthjsAddress, type Hex, hexToBigInt } from '@tevm/utils'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { getAccount } from './getAccount.js'

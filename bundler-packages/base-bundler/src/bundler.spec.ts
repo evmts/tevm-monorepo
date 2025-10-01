@@ -3,7 +3,7 @@ import { createCache } from '@tevm/bundler-cache'
 import { type ModuleInfo, resolveArtifacts, resolveArtifactsSync } from '@tevm/compiler'
 import type { SolcInputDescription, SolcOutput } from '@tevm/solc'
 import type { Node } from 'solidity-ast/node.js'
-import { type Mock, afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, type Mock, vi } from 'vitest'
 import { bundler } from './bundler.js'
 import type { Bundler, FileAccessObject, Logger } from './types.js'
 

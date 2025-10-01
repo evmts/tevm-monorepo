@@ -2,7 +2,7 @@ import { createAddress } from '@tevm/address'
 import { BlobGasLimitExceededError, InvalidTransactionError } from '@tevm/errors'
 import { prefundedAccounts } from '@tevm/node'
 import { createImpersonatedTx, createTxFromRLP, isBlobEIP4844Tx } from '@tevm/tx'
-import { EthjsAddress, bytesToHex, hexToBytes } from '@tevm/utils'
+import { bytesToHex, EthjsAddress, hexToBytes } from '@tevm/utils'
 import { callHandler } from '../Call/callHandler.js'
 
 const txType = {

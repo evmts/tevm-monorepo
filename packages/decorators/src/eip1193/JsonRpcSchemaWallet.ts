@@ -6,10 +6,10 @@
 import type { Address, BlockTag, Hex } from '@tevm/utils'
 import type { RpcBlockNumber as BlockNumber, Quantity, RpcTransactionRequest as TransactionRequest } from 'viem'
 import type { AddEthereumChainParameter } from './AddEthereumChainParameter.js'
+import type { Hash } from './misc.js'
 import type { NetworkSync } from './NetworkSync.js'
 import type { WalletPermission } from './WalletPermission.js'
 import type { WatchAssetParams } from './WatchAssetParams.js'
-import type { Hash } from './misc.js'
 
 /**
  * Type definitions for Ethereum JSON-RPC methods that interact with wallets.

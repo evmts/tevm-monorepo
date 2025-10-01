@@ -1,5 +1,5 @@
 import { optimism } from '@tevm/common'
-import { type MemoryClient, createMemoryClient } from '@tevm/memory-client'
+import { createMemoryClient, type MemoryClient } from '@tevm/memory-client'
 import { transports } from '@tevm/test-utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { handleBulkRequest } from './handleBulkRequest.js'

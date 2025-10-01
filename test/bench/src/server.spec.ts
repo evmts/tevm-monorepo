@@ -1,4 +1,4 @@
-import { http, createMemoryClient } from 'tevm'
+import { createMemoryClient, http } from 'tevm'
 import { createServer } from 'tevm/server'
 
 const PORT = 8545

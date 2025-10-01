@@ -1,5 +1,5 @@
 import { join } from 'node:path'
-import { LogLevel, Logger } from 'effect'
+import { Logger, LogLevel } from 'effect'
 import { catchAll, fail, flatMap, logError, provide, runSync, succeed } from 'effect/Effect'
 import { z } from 'zod'
 import { loadConfig } from '../src/loadConfig.js'

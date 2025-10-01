@@ -1,6 +1,6 @@
 import { runSync } from 'effect/Effect'
 import { describe, expect, it } from 'vitest'
-import { NoPluginInTsConfigFoundError, getTevmConfigFromTsConfig } from './getTevmConfigFromTsConfig.js'
+import { getTevmConfigFromTsConfig, NoPluginInTsConfigFoundError } from './getTevmConfigFromTsConfig.js'
 
 describe(getTevmConfigFromTsConfig, () => {
 	it('should return the expected ResolvedConfig', async () => {
