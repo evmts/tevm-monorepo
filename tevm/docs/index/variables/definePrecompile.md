@@ -8,7 +8,7 @@
 
 > `const` **definePrecompile**: \<`TContract`\>(`{ contract, call, }`) => `Precompile`\<`TContract`\>
 
-Defined in: packages/precompiles/dist/index.d.ts:167
+Defined in: packages/precompiles/dist/index.d.ts:214
 
 Defines a precompile contract that executes JavaScript code instead of EVM bytecode.
 

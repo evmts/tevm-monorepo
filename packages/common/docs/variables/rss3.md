@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/rss3.js:26](https://github.com/evmts/te
 
 Creates a common configuration for the rss3 chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/immutableZkEvmTestnet.js:26](https://gi
 
 Creates a common configuration for the immutableZkEvmTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

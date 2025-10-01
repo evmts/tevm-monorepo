@@ -10,7 +10,7 @@
 
 Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:5
 
-## Type declaration
+## Type Declaration
 
 ### Bytes
 

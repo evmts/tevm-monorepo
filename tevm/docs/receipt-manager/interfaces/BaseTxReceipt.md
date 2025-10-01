@@ -13,8 +13,8 @@ This serves as the base for both pre and post-Byzantium transaction receipts
 
 ## Extended by
 
-- [`PreByzantiumTxReceipt`](PreByzantiumTxReceipt.md)
 - [`PostByzantiumTxReceipt`](PostByzantiumTxReceipt.md)
+- [`PreByzantiumTxReceipt`](PreByzantiumTxReceipt.md)
 
 ## Properties
 

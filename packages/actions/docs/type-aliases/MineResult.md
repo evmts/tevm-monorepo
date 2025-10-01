@@ -12,7 +12,7 @@ Defined in: [packages/actions/src/Mine/MineResult.ts:7](https://github.com/evmts
 
 Result of Mine Method
 
-## Type declaration
+## Type Declaration
 
 \{ `blockHashes`: `Hex`[]; `errors?`: `undefined`; \}
 

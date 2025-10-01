@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/iotexTestnet.js:26](https://github.com/
 
 Creates a common configuration for the iotexTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

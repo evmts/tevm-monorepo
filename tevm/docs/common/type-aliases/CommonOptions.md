@@ -10,7 +10,7 @@
 
 Defined in: packages/common/types/CommonOptions.d.ts:37
 
-## Type declaration
+## Type Declaration
 
 ### customCrypto?
 

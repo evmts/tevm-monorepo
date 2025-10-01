@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/metachain.js:26](https://github.com/evm
 
 Creates a common configuration for the metachain chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

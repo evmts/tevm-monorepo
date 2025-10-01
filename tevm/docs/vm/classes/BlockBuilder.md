@@ -6,7 +6,7 @@
 
 # Class: BlockBuilder
 
-Defined in: packages/vm/types/actions/BlockBuilder.d.ts:9
+Defined in: packages/vm/types/actions/BlockBuilder.d.ts:8
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: packages/vm/types/actions/BlockBuilder.d.ts:9
 
 > **new BlockBuilder**(`vm`, `opts`): `BlockBuilder`
 
-Defined in: packages/vm/types/actions/BlockBuilder.d.ts:33
+Defined in: packages/vm/types/actions/BlockBuilder.d.ts:32
 
 #### Parameters
 
@@ -36,7 +36,7 @@ Defined in: packages/vm/types/actions/BlockBuilder.d.ts:33
 
 > **blobGasUsed**: `bigint`
 
-Defined in: packages/vm/types/actions/BlockBuilder.d.ts:17
+Defined in: packages/vm/types/actions/BlockBuilder.d.ts:16
 
 The cumulative blob gas used by the blobs in a block
 
@@ -46,7 +46,7 @@ The cumulative blob gas used by the blobs in a block
 
 > **gasUsed**: `bigint`
 
-Defined in: packages/vm/types/actions/BlockBuilder.d.ts:13
+Defined in: packages/vm/types/actions/BlockBuilder.d.ts:12
 
 The cumulative gas used by the transactions added to the block.
 
@@ -58,7 +58,7 @@ The cumulative gas used by the transactions added to the block.
 
 > **get** **minerValue**(): `bigint`
 
-Defined in: packages/vm/types/actions/BlockBuilder.d.ts:32
+Defined in: packages/vm/types/actions/BlockBuilder.d.ts:31
 
 ##### Returns
 
@@ -72,7 +72,7 @@ Defined in: packages/vm/types/actions/BlockBuilder.d.ts:32
 
 > **get** **transactionReceipts**(): [`TxReceipt`](../type-aliases/TxReceipt.md)[]
 
-Defined in: packages/vm/types/actions/BlockBuilder.d.ts:31
+Defined in: packages/vm/types/actions/BlockBuilder.d.ts:30
 
 ##### Returns
 
@@ -84,7 +84,7 @@ Defined in: packages/vm/types/actions/BlockBuilder.d.ts:31
 
 > **addTransaction**(`tx`, `__namedParameters?`): `Promise`\<[`RunTxResult`](../interfaces/RunTxResult.md)\>
 
-Defined in: packages/vm/types/actions/BlockBuilder.d.ts:65
+Defined in: packages/vm/types/actions/BlockBuilder.d.ts:64
 
 Run and add a transaction to the block being built.
 Please note that this modifies the state of the VM.
@@ -99,9 +99,7 @@ the remaining gas in the block.
 
 ##### \_\_namedParameters?
 
-###### skipHardForkValidation?
-
-`boolean`
+`Pick`\<[`RunTxOpts`](../interfaces/RunTxOpts.md), `"skipBalance"` \| `"skipNonce"` \| `"skipHardForkValidation"`\>
 
 #### Returns
 
@@ -113,7 +111,7 @@ the remaining gas in the block.
 
 > **build**(`sealOpts?`): `Promise`\<[`Block`](../../block/classes/Block.md)\>
 
-Defined in: packages/vm/types/actions/BlockBuilder.d.ts:83
+Defined in: packages/vm/types/actions/BlockBuilder.d.ts:80
 
 This method returns the finalized block.
 It also:
@@ -141,7 +139,7 @@ as the signer will be awarded the txs amount spent on gas as they are added.
 
 > **getStatus**(): [`BlockStatus`](../type-aliases/BlockStatus.md)
 
-Defined in: packages/vm/types/actions/BlockBuilder.d.ts:38
+Defined in: packages/vm/types/actions/BlockBuilder.d.ts:37
 
 #### Returns
 
@@ -153,7 +151,7 @@ Defined in: packages/vm/types/actions/BlockBuilder.d.ts:38
 
 > **initState**(): `Promise`\<`void`\>
 
-Defined in: packages/vm/types/actions/BlockBuilder.d.ts:84
+Defined in: packages/vm/types/actions/BlockBuilder.d.ts:81
 
 #### Returns
 
@@ -165,7 +163,7 @@ Defined in: packages/vm/types/actions/BlockBuilder.d.ts:84
 
 > **logsBloom**(): `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/vm/types/actions/BlockBuilder.d.ts:46
+Defined in: packages/vm/types/actions/BlockBuilder.d.ts:45
 
 Calculates and returns the logs bloom for the block.
 
@@ -179,7 +177,7 @@ Calculates and returns the logs bloom for the block.
 
 > **receiptTrie**(): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: packages/vm/types/actions/BlockBuilder.d.ts:50
+Defined in: packages/vm/types/actions/BlockBuilder.d.ts:49
 
 Calculates and returns the receiptTrie for the block.
 
@@ -193,7 +191,7 @@ Calculates and returns the receiptTrie for the block.
 
 > **revert**(): `Promise`\<`void`\>
 
-Defined in: packages/vm/types/actions/BlockBuilder.d.ts:71
+Defined in: packages/vm/types/actions/BlockBuilder.d.ts:68
 
 Reverts the checkpoint on the StateManager to reset the state from any transactions that have been run.
 
@@ -207,7 +205,7 @@ Reverts the checkpoint on the StateManager to reset the state from any transacti
 
 > **transactionsTrie**(): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: packages/vm/types/actions/BlockBuilder.d.ts:42
+Defined in: packages/vm/types/actions/BlockBuilder.d.ts:41
 
 Calculates and returns the transactionsTrie for the block.
 

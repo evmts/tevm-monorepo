@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/hashkeyTestnet.js:26](https://github.co
 
 Creates a common configuration for the hashkeyTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

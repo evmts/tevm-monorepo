@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/polygonZkEvmTestnet.js:26](https://gith
 
 Creates a common configuration for the polygonZkEvmTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

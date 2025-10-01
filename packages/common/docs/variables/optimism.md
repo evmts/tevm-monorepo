@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/optimism.js:26](https://github.com/evmt
 
 Creates a common configuration for the optimism chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/sapphire.js:26](https://github.com/evmt
 
 Creates a common configuration for the sapphire chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

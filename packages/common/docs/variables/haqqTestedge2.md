@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/haqqTestedge2.js:26](https://github.com
 
 Creates a common configuration for the haqqTestedge2 chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

@@ -10,7 +10,7 @@
 
 Defined in: index.d.ts:38
 
-## Type declaration
+## Type Declaration
 
 ### decode
 

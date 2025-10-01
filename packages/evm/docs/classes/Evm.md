@@ -847,7 +847,7 @@ EVM
 
 ### create()
 
-> `static` **create**(`options?`): `Promise`\<[`EvmType`](EvmType.md)\>
+> `static` **create**(`options?`): `Promise`\<[`EvmType`](../interfaces/EvmType.md)\>
 
 Defined in: [packages/evm/src/Evm.js:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.js#L64)
 
@@ -859,4 +859,4 @@ Defined in: [packages/evm/src/Evm.js:64](https://github.com/evmts/tevm-monorepo/
 
 #### Returns
 
-`Promise`\<[`EvmType`](EvmType.md)\>
+`Promise`\<[`EvmType`](../interfaces/EvmType.md)\>

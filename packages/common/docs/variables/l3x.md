@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/l3x.js:26](https://github.com/evmts/tev
 
 Creates a common configuration for the l3x chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

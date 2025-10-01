@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/oasys.js:26](https://github.com/evmts/t
 
 Creates a common configuration for the oasys chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

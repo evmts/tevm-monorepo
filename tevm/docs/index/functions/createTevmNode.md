@@ -8,7 +8,7 @@
 
 > **createTevmNode**(`options?`): [`TevmNode`](../type-aliases/TevmNode.md)
 
-Defined in: packages/node/dist/index.d.ts:448
+Defined in: packages/node/dist/index.d.ts:453
 
 ## Parameters
 

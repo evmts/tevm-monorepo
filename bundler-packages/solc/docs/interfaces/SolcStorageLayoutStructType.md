@@ -6,7 +6,7 @@
 
 # Interface: SolcStorageLayoutStructType
 
-Defined in: [solcTypes.ts:553](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L553)
+Defined in: [solcTypes.ts:551](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L551)
 
 A storage layout type that is a struct.
 
@@ -20,7 +20,7 @@ A storage layout type that is a struct.
 
 > **encoding**: `"inplace"`
 
-Defined in: [solcTypes.ts:514](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L514)
+Defined in: [solcTypes.ts:512](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L512)
 
 How the data is encoded in storage
 
@@ -39,7 +39,7 @@ How the data is encoded in storage
 
 > **label**: `string`
 
-Defined in: [solcTypes.ts:501](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L501)
+Defined in: [solcTypes.ts:499](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L499)
 
 The canonical type name
 
@@ -53,7 +53,7 @@ The canonical type name
 
 > **members**: [`SolcStorageLayoutItem`](../type-aliases/SolcStorageLayoutItem.md)\<[`SolcStorageLayoutTypes`](../type-aliases/SolcStorageLayoutTypes.md)\>[]
 
-Defined in: [solcTypes.ts:557](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L557)
+Defined in: [solcTypes.ts:555](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L555)
 
 The members of the struct in the same format as a [SolcStorageLayoutItem](../type-aliases/SolcStorageLayoutItem.md)
 
@@ -63,7 +63,7 @@ The members of the struct in the same format as a [SolcStorageLayoutItem](../typ
 
 > **numberOfBytes**: `string`
 
-Defined in: [solcTypes.ts:507](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L507)
+Defined in: [solcTypes.ts:505](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L505)
 
 The number of used bytes (as a decimal string)
 

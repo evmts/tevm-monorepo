@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/pulsechainV4.js:26](https://github.com/
 
 Creates a common configuration for the pulsechainV4 chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

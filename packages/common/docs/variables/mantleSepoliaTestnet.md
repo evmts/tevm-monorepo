@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/mantleSepoliaTestnet.js:26](https://git
 
 Creates a common configuration for the mantleSepoliaTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/wemix.js:26](https://github.com/evmts/t
 
 Creates a common configuration for the wemix chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

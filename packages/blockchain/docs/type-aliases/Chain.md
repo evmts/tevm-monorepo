@@ -12,7 +12,7 @@ Defined in: [packages/blockchain/src/Chain.ts:16](https://github.com/evmts/tevm-
 
 Blockchain
 
-## Type declaration
+## Type Declaration
 
 ### consensus
 

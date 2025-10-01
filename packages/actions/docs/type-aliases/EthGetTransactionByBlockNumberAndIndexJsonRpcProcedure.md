@@ -8,7 +8,7 @@
 
 > **EthGetTransactionByBlockNumberAndIndexJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetTransactionByBlockNumberAndIndexJsonRpcResponse`](EthGetTransactionByBlockNumberAndIndexJsonRpcResponse.md)\>
 
-Defined in: [packages/actions/src/eth/EthProcedure.ts:161](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthProcedure.ts#L161)
+Defined in: [packages/actions/src/eth/EthProcedure.ts:167](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthProcedure.ts#L167)
 
 ## Parameters
 

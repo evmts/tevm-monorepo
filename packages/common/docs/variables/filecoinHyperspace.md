@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/filecoinHyperspace.js:26](https://githu
 
 Creates a common configuration for the filecoinHyperspace chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

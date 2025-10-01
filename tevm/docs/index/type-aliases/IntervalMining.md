@@ -8,7 +8,7 @@
 
 > **IntervalMining** = `object`
 
-Defined in: packages/node/dist/index.d.ts:118
+Defined in: packages/node/dist/index.d.ts:40
 
 Mining configuration that creates blocks at fixed time intervals.
 
@@ -29,7 +29,7 @@ const value: IntervalMining = {
 
 > **interval**: `number`
 
-Defined in: packages/node/dist/index.d.ts:120
+Defined in: packages/node/dist/index.d.ts:42
 
 ***
 
@@ -37,4 +37,4 @@ Defined in: packages/node/dist/index.d.ts:120
 
 > **type**: `"interval"`
 
-Defined in: packages/node/dist/index.d.ts:119
+Defined in: packages/node/dist/index.d.ts:41

@@ -8,7 +8,7 @@
 
 > **JsonRpcSchemaTevm** = `object`
 
-Defined in: packages/decorators/dist/index.d.ts:366
+Defined in: packages/decorators/dist/index.d.ts:1367
 
 Type definitions for Tevm-specific JSON-RPC methods.
 Includes methods for state manipulation, EVM calls, and account management.
@@ -44,7 +44,7 @@ const account = await node.request({
 
 > **tevm\_call**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:374
+Defined in: packages/decorators/dist/index.d.ts:1375
 
 #### Method
 
@@ -79,7 +79,7 @@ provider.request({ method: 'tevm_call', params: [{ from: '0x...', to: '0x...', d
 
 > **tevm\_dumpState**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:397
+Defined in: packages/decorators/dist/index.d.ts:1398
 
 #### Method
 
@@ -113,7 +113,7 @@ provider.request({ method: 'tevm_dumpState' })})
 
 > **tevm\_getAccount**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:408
+Defined in: packages/decorators/dist/index.d.ts:1409
 
 #### Method
 
@@ -147,7 +147,7 @@ provider.request({ method: 'tevm_getAccount', params: [{address: '0x...' }])})
 
 > **tevm\_loadState**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:386
+Defined in: packages/decorators/dist/index.d.ts:1387
 
 #### Method
 
@@ -182,7 +182,7 @@ provider.request({ method: 'tevm_loadState', params: [{ state: {...} }] }])})
 
 > **tevm\_setAccount**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:419
+Defined in: packages/decorators/dist/index.d.ts:1420
 
 #### Method
 

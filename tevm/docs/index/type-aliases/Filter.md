@@ -8,7 +8,7 @@
 
 > **Filter** = `object`
 
-Defined in: packages/node/dist/index.d.ts:62
+Defined in: packages/node/dist/index.d.ts:284
 
 Internal representation of a registered filter
 
@@ -18,7 +18,7 @@ Internal representation of a registered filter
 
 > **blocks**: [`Block`](../../block/classes/Block.md)[]
 
-Defined in: packages/node/dist/index.d.ts:91
+Defined in: packages/node/dist/index.d.ts:313
 
 Stores the blocks
 
@@ -28,7 +28,7 @@ Stores the blocks
 
 > **created**: `number`
 
-Defined in: packages/node/dist/index.d.ts:74
+Defined in: packages/node/dist/index.d.ts:296
 
 Creation timestamp
 
@@ -38,7 +38,7 @@ Creation timestamp
 
 > **err**: `Error` \| `undefined`
 
-Defined in: packages/node/dist/index.d.ts:99
+Defined in: packages/node/dist/index.d.ts:321
 
 Error if any
 
@@ -48,7 +48,7 @@ Error if any
 
 > **id**: [`Hex`](Hex.md)
 
-Defined in: packages/node/dist/index.d.ts:66
+Defined in: packages/node/dist/index.d.ts:288
 
 Id of the filter
 
@@ -58,7 +58,7 @@ Id of the filter
 
 > **installed**: `object`
 
-Defined in: packages/node/dist/index.d.ts:95
+Defined in: packages/node/dist/index.d.ts:317
 
 Not sure what this is yet
 
@@ -68,7 +68,7 @@ Not sure what this is yet
 
 > **logs**: `GetFilterLogsReturnType`\[`number`\][]
 
-Defined in: packages/node/dist/index.d.ts:83
+Defined in: packages/node/dist/index.d.ts:305
 
 Stores logs
 
@@ -78,7 +78,7 @@ Stores logs
 
 > `optional` **logsCriteria**: `TODO`
 
-Defined in: packages/node/dist/index.d.ts:79
+Defined in: packages/node/dist/index.d.ts:301
 
 Criteria of the logs
 https://github.com/ethereum/go-ethereum/blob/master/eth/filters/filter_system.go#L329
@@ -89,7 +89,7 @@ https://github.com/ethereum/go-ethereum/blob/master/eth/filters/filter_system.go
 
 > **registeredListeners**: (...`args`) => `any`[]
 
-Defined in: packages/node/dist/index.d.ts:103
+Defined in: packages/node/dist/index.d.ts:325
 
 Listeners registered for the filter
 
@@ -109,7 +109,7 @@ Listeners registered for the filter
 
 > **tx**: [`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md)[]
 
-Defined in: packages/node/dist/index.d.ts:87
+Defined in: packages/node/dist/index.d.ts:309
 
 stores tx
 
@@ -119,6 +119,6 @@ stores tx
 
 > **type**: [`FilterType`](FilterType.md)
 
-Defined in: packages/node/dist/index.d.ts:70
+Defined in: packages/node/dist/index.d.ts:292
 
 The type of the filter

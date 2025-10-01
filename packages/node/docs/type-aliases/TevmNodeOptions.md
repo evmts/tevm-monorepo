@@ -12,7 +12,7 @@ Defined in: [packages/node/src/TevmNodeOptions.ts:12](https://github.com/evmts/t
 
 Options for creating an Tevm MemoryClient instance
 
-## Type declaration
+## Type Declaration
 
 ### allowUnlimitedContractSize?
 

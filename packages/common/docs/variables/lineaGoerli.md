@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/lineaGoerli.js:26](https://github.com/e
 
 Creates a common configuration for the lineaGoerli chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

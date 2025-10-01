@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/skaleEuropa.js:26](https://github.com/e
 
 Creates a common configuration for the skaleEuropa chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

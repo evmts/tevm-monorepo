@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/mev.js:26](https://github.com/evmts/tev
 
 Creates a common configuration for the mev chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

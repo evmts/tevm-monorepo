@@ -8,7 +8,7 @@
 
 > **getContractCode**(`baseState`, `skipFetchingFromFork?`): (`address`) => `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: packages/state/dist/index.d.ts:428
+Defined in: packages/state/dist/index.d.ts:425
 
 ## Parameters
 

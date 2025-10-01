@@ -70,9 +70,15 @@
 - [createAddressFromString](functions/createAddressFromString.md)
 - [createWithdrawal](functions/createWithdrawal.md)
 - [equalsBytes](functions/equalsBytes.md)
+- [hashMessage](functions/hashMessage.md)
 - [invariant](functions/invariant.md)
+- [recoverAddress](functions/recoverAddress.md)
+- [recoverMessageAddress](functions/recoverMessageAddress.md)
+- [recoverPublicKey](functions/recoverPublicKey.md)
 - [serializeTransaction](functions/serializeTransaction.md)
+- [signMessage](functions/signMessage.md)
 - [toType](functions/toType.md)
+- [verifyMessage](functions/verifyMessage.md)
 
 ## References
 

@@ -6,7 +6,7 @@
 
 # Class: BlockHeader
 
-Defined in: [packages/block/src/header.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L38)
+Defined in: [packages/block/src/header.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L36)
 
 An object that represents the block header.
 
@@ -16,7 +16,7 @@ An object that represents the block header.
 
 > **new BlockHeader**(`headerData`, `opts`): `BlockHeader`
 
-Defined in: [packages/block/src/header.ts:144](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L144)
+Defined in: [packages/block/src/header.ts:142](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L142)
 
 This constructor takes the values, validates them, assigns them and freezes the object.
 
@@ -45,7 +45,7 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 > `readonly` `optional` **baseFeePerGas**: `bigint`
 
-Defined in: [packages/block/src/header.ts:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L54)
+Defined in: [packages/block/src/header.ts:52](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L52)
 
 ***
 
@@ -53,7 +53,7 @@ Defined in: [packages/block/src/header.ts:54](https://github.com/evmts/tevm-mono
 
 > `readonly` `optional` **blobGasUsed**: `bigint`
 
-Defined in: [packages/block/src/header.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L56)
+Defined in: [packages/block/src/header.ts:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L54)
 
 ***
 
@@ -61,7 +61,7 @@ Defined in: [packages/block/src/header.ts:56](https://github.com/evmts/tevm-mono
 
 > `protected` **cache**: `HeaderCache`
 
-Defined in: [packages/block/src/header.ts:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L65)
+Defined in: [packages/block/src/header.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L63)
 
 ***
 
@@ -69,7 +69,7 @@ Defined in: [packages/block/src/header.ts:65](https://github.com/evmts/tevm-mono
 
 > `readonly` **coinbase**: `Address`
 
-Defined in: [packages/block/src/header.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L41)
+Defined in: [packages/block/src/header.ts:39](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L39)
 
 ***
 
@@ -77,7 +77,7 @@ Defined in: [packages/block/src/header.ts:41](https://github.com/evmts/tevm-mono
 
 > `readonly` **common**: `object`
 
-Defined in: [packages/block/src/header.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L61)
+Defined in: [packages/block/src/header.ts:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L59)
 
 #### blockExplorers?
 
@@ -211,7 +211,7 @@ Flag for test networks
 
 > `readonly` **difficulty**: `bigint`
 
-Defined in: [packages/block/src/header.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L46)
+Defined in: [packages/block/src/header.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L44)
 
 ***
 
@@ -219,7 +219,7 @@ Defined in: [packages/block/src/header.ts:46](https://github.com/evmts/tevm-mono
 
 > `readonly` `optional` **excessBlobGas**: `bigint`
 
-Defined in: [packages/block/src/header.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L57)
+Defined in: [packages/block/src/header.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L55)
 
 ***
 
@@ -227,7 +227,7 @@ Defined in: [packages/block/src/header.ts:57](https://github.com/evmts/tevm-mono
 
 > `readonly` **extraData**: `Uint8Array`
 
-Defined in: [packages/block/src/header.ts:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L51)
+Defined in: [packages/block/src/header.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L49)
 
 ***
 
@@ -235,7 +235,7 @@ Defined in: [packages/block/src/header.ts:51](https://github.com/evmts/tevm-mono
 
 > `readonly` **gasLimit**: `bigint`
 
-Defined in: [packages/block/src/header.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L48)
+Defined in: [packages/block/src/header.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L46)
 
 ***
 
@@ -243,7 +243,7 @@ Defined in: [packages/block/src/header.ts:48](https://github.com/evmts/tevm-mono
 
 > `readonly` **gasUsed**: `bigint`
 
-Defined in: [packages/block/src/header.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L49)
+Defined in: [packages/block/src/header.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L47)
 
 ***
 
@@ -251,7 +251,7 @@ Defined in: [packages/block/src/header.ts:49](https://github.com/evmts/tevm-mono
 
 > `protected` **keccakFunction**: (`msg`) => `Uint8Array`
 
-Defined in: [packages/block/src/header.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L63)
+Defined in: [packages/block/src/header.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L61)
 
 #### Parameters
 
@@ -269,7 +269,7 @@ Defined in: [packages/block/src/header.ts:63](https://github.com/evmts/tevm-mono
 
 > `readonly` **logsBloom**: `Uint8Array`
 
-Defined in: [packages/block/src/header.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L45)
+Defined in: [packages/block/src/header.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L43)
 
 ***
 
@@ -277,7 +277,7 @@ Defined in: [packages/block/src/header.ts:45](https://github.com/evmts/tevm-mono
 
 > `readonly` **mixHash**: `Uint8Array`
 
-Defined in: [packages/block/src/header.ts:52](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L52)
+Defined in: [packages/block/src/header.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L50)
 
 ***
 
@@ -285,7 +285,7 @@ Defined in: [packages/block/src/header.ts:52](https://github.com/evmts/tevm-mono
 
 > `readonly` **nonce**: `Uint8Array`
 
-Defined in: [packages/block/src/header.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L53)
+Defined in: [packages/block/src/header.ts:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L51)
 
 ***
 
@@ -293,7 +293,7 @@ Defined in: [packages/block/src/header.ts:53](https://github.com/evmts/tevm-mono
 
 > `readonly` **number**: `bigint`
 
-Defined in: [packages/block/src/header.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L47)
+Defined in: [packages/block/src/header.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L45)
 
 ***
 
@@ -301,7 +301,7 @@ Defined in: [packages/block/src/header.ts:47](https://github.com/evmts/tevm-mono
 
 > `readonly` `optional` **parentBeaconBlockRoot**: `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: [packages/block/src/header.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L58)
+Defined in: [packages/block/src/header.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L56)
 
 ***
 
@@ -309,7 +309,7 @@ Defined in: [packages/block/src/header.ts:58](https://github.com/evmts/tevm-mono
 
 > `readonly` **parentHash**: `Uint8Array`
 
-Defined in: [packages/block/src/header.ts:39](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L39)
+Defined in: [packages/block/src/header.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L37)
 
 ***
 
@@ -317,7 +317,7 @@ Defined in: [packages/block/src/header.ts:39](https://github.com/evmts/tevm-mono
 
 > `readonly` **receiptTrie**: `Uint8Array`
 
-Defined in: [packages/block/src/header.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L44)
+Defined in: [packages/block/src/header.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L42)
 
 ***
 
@@ -325,7 +325,7 @@ Defined in: [packages/block/src/header.ts:44](https://github.com/evmts/tevm-mono
 
 > `readonly` `optional` **requestsRoot**: `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: [packages/block/src/header.ts:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L59)
+Defined in: [packages/block/src/header.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L57)
 
 ***
 
@@ -333,7 +333,7 @@ Defined in: [packages/block/src/header.ts:59](https://github.com/evmts/tevm-mono
 
 > `readonly` **stateRoot**: `Uint8Array`
 
-Defined in: [packages/block/src/header.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L42)
+Defined in: [packages/block/src/header.ts:40](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L40)
 
 ***
 
@@ -341,7 +341,7 @@ Defined in: [packages/block/src/header.ts:42](https://github.com/evmts/tevm-mono
 
 > `readonly` **timestamp**: `bigint`
 
-Defined in: [packages/block/src/header.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L50)
+Defined in: [packages/block/src/header.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L48)
 
 ***
 
@@ -349,7 +349,7 @@ Defined in: [packages/block/src/header.ts:50](https://github.com/evmts/tevm-mono
 
 > `readonly` **transactionsTrie**: `Uint8Array`
 
-Defined in: [packages/block/src/header.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L43)
+Defined in: [packages/block/src/header.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L41)
 
 ***
 
@@ -357,7 +357,7 @@ Defined in: [packages/block/src/header.ts:43](https://github.com/evmts/tevm-mono
 
 > `readonly` **uncleHash**: `Uint8Array`
 
-Defined in: [packages/block/src/header.ts:40](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L40)
+Defined in: [packages/block/src/header.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L38)
 
 ***
 
@@ -365,7 +365,7 @@ Defined in: [packages/block/src/header.ts:40](https://github.com/evmts/tevm-mono
 
 > `readonly` `optional` **withdrawalsRoot**: `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: [packages/block/src/header.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L55)
+Defined in: [packages/block/src/header.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L53)
 
 ## Accessors
 
@@ -375,7 +375,7 @@ Defined in: [packages/block/src/header.ts:55](https://github.com/evmts/tevm-mono
 
 > **get** **prevRandao**(): `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: [packages/block/src/header.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L72)
+Defined in: [packages/block/src/header.ts:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L70)
 
 EIP-4399: After merge to PoS, `mixHash` supplanted as `prevRandao`
 
@@ -389,7 +389,7 @@ EIP-4399: After merge to PoS, `mixHash` supplanted as `prevRandao`
 
 > `protected` **\_consensusFormatValidation**(): `void`
 
-Defined in: [packages/block/src/header.ts:391](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L391)
+Defined in: [packages/block/src/header.ts:389](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L389)
 
 Checks static parameters related to consensus algorithm
 
@@ -407,7 +407,7 @@ if any check fails
 
 > `protected` **\_genericFormatValidation**(): `void`
 
-Defined in: [packages/block/src/header.ts:304](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L304)
+Defined in: [packages/block/src/header.ts:302](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L302)
 
 Validates correct buffer lengths, throws if invalid.
 
@@ -421,7 +421,7 @@ Validates correct buffer lengths, throws if invalid.
 
 > `protected` **\_requireClique**(`name`): `void`
 
-Defined in: [packages/block/src/header.ts:671](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L671)
+Defined in: [packages/block/src/header.ts:669](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L669)
 
 #### Parameters
 
@@ -439,7 +439,7 @@ Defined in: [packages/block/src/header.ts:671](https://github.com/evmts/tevm-mon
 
 > `protected` **\_validateDAOExtraData**(): `void`
 
-Defined in: [packages/block/src/header.ts:924](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L924)
+Defined in: [packages/block/src/header.ts:922](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L922)
 
 Validates extra data is DAO_ExtraData for DAO_ForceExtraDataRange blocks after DAO
 activation block (see: https://blog.slock.it/hard-fork-specification-24b889e70703)
@@ -454,7 +454,7 @@ activation block (see: https://blog.slock.it/hard-fork-specification-24b889e7070
 
 > **calcDataFee**(`numBlobs`): `bigint`
 
-Defined in: [packages/block/src/header.ts:570](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L570)
+Defined in: [packages/block/src/header.ts:568](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L568)
 
 Returns the total fee for blob gas spent for including blobs in block.
 
@@ -478,7 +478,7 @@ the total blob gas fee for numBlobs blobs
 
 > **calcNextBaseFee**(): `bigint`
 
-Defined in: [packages/block/src/header.ts:511](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L511)
+Defined in: [packages/block/src/header.ts:509](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L509)
 
 Calculates the base fee for a potential next block
 
@@ -492,7 +492,7 @@ Calculates the base fee for a potential next block
 
 > **calcNextBlobGasPrice**(): `bigint`
 
-Defined in: [packages/block/src/header.ts:596](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L596)
+Defined in: [packages/block/src/header.ts:594](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L594)
 
 Calculate the blob gas price of the block built on top of this one
 
@@ -508,7 +508,7 @@ The blob gas price
 
 > **calcNextExcessBlobGas**(): `bigint`
 
-Defined in: [packages/block/src/header.ts:581](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L581)
+Defined in: [packages/block/src/header.ts:579](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L579)
 
 Calculates the excess blob gas for next (hopefully) post EIP 4844 block.
 
@@ -522,7 +522,7 @@ Calculates the excess blob gas for next (hopefully) post EIP 4844 block.
 
 > **cliqueEpochTransitionSigners**(): `Address`[]
 
-Defined in: [packages/block/src/header.ts:823](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L823)
+Defined in: [packages/block/src/header.ts:821](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L821)
 
 Returns a list of signers
 (only clique PoA, throws otherwise)
@@ -541,7 +541,7 @@ in conjunction with [BlockHeader.cliqueIsEpochTransition](#cliqueisepochtransiti
 
 > **cliqueExtraSeal**(): `Uint8Array`
 
-Defined in: [packages/block/src/header.ts:784](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L784)
+Defined in: [packages/block/src/header.ts:782](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L782)
 
 Returns extra seal data
 (only clique PoA, throws otherwise)
@@ -556,7 +556,7 @@ Returns extra seal data
 
 > **cliqueExtraVanity**(): `Uint8Array`
 
-Defined in: [packages/block/src/header.ts:775](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L775)
+Defined in: [packages/block/src/header.ts:773](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L773)
 
 Returns extra vanity data
 (only clique PoA, throws otherwise)
@@ -571,7 +571,7 @@ Returns extra vanity data
 
 > **cliqueIsEpochTransition**(): `boolean`
 
-Defined in: [packages/block/src/header.ts:763](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L763)
+Defined in: [packages/block/src/header.ts:761](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L761)
 
 Checks if the block header is an epoch transition
 header (only clique PoA, throws otherwise)
@@ -586,7 +586,7 @@ header (only clique PoA, throws otherwise)
 
 > **cliqueSigHash**(): `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: [packages/block/src/header.ts:752](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L752)
+Defined in: [packages/block/src/header.ts:750](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L750)
 
 PoA clique signature hash without the seal.
 
@@ -600,7 +600,7 @@ PoA clique signature hash without the seal.
 
 > **cliqueSigner**(): `Address`
 
-Defined in: [packages/block/src/header.ts:860](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L860)
+Defined in: [packages/block/src/header.ts:858](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L858)
 
 Returns the signer address
 
@@ -614,7 +614,7 @@ Returns the signer address
 
 > **cliqueVerifySignature**(`signerList`): `boolean`
 
-Defined in: [packages/block/src/header.ts:848](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L848)
+Defined in: [packages/block/src/header.ts:846](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L846)
 
 Verifies the signature of the block (last 65 bytes of extraData field)
 (only clique PoA, throws otherwise)
@@ -637,7 +637,7 @@ Verifies the signature of the block (last 65 bytes of extraData field)
 
 > **errorStr**(): `string`
 
-Defined in: [packages/block/src/header.ts:946](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L946)
+Defined in: [packages/block/src/header.ts:944](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L944)
 
 Return a compact error string representation of the object
 
@@ -651,7 +651,7 @@ Return a compact error string representation of the object
 
 > **ethashCanonicalDifficulty**(`parentBlockHeader`): `bigint`
 
-Defined in: [packages/block/src/header.ts:683](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L683)
+Defined in: [packages/block/src/header.ts:681](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L681)
 
 Returns the canonical difficulty for this block.
 
@@ -673,7 +673,7 @@ the header from the parent `Block` of this header
 
 > **getBlobGasPrice**(): `bigint`
 
-Defined in: [packages/block/src/header.ts:545](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L545)
+Defined in: [packages/block/src/header.ts:543](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L543)
 
 Returns the price per unit of blob gas for a blob transaction in the current/pending block
 
@@ -689,7 +689,7 @@ the price in gwei per unit of blob gas spent
 
 > **hash**(): `Uint8Array`
 
-Defined in: [packages/block/src/header.ts:654](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L654)
+Defined in: [packages/block/src/header.ts:652](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L652)
 
 Returns the hash of the block header.
 
@@ -703,7 +703,7 @@ Returns the hash of the block header.
 
 > **isGenesis**(): `boolean`
 
-Defined in: [packages/block/src/header.ts:667](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L667)
+Defined in: [packages/block/src/header.ts:665](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L665)
 
 Checks if the block header is a genesis header.
 
@@ -717,7 +717,7 @@ Checks if the block header is a genesis header.
 
 > **raw**(): [`BlockHeaderBytes`](../type-aliases/BlockHeaderBytes.md)
 
-Defined in: [packages/block/src/header.ts:603](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L603)
+Defined in: [packages/block/src/header.ts:601](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L601)
 
 Returns a Uint8Array Array of the raw Bytes in this header, in order.
 
@@ -731,7 +731,7 @@ Returns a Uint8Array Array of the raw Bytes in this header, in order.
 
 > **serialize**(): `Uint8Array`
 
-Defined in: [packages/block/src/header.ts:877](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L877)
+Defined in: [packages/block/src/header.ts:875](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L875)
 
 Returns the rlp encoding of the block header.
 
@@ -745,7 +745,7 @@ Returns the rlp encoding of the block header.
 
 > **toJSON**(): [`JsonHeader`](../interfaces/JsonHeader.md)
 
-Defined in: [packages/block/src/header.ts:884](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L884)
+Defined in: [packages/block/src/header.ts:882](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L882)
 
 Returns the block header in JSON format.
 
@@ -759,7 +759,7 @@ Returns the block header in JSON format.
 
 > **validateGasLimit**(`parentBlockHeader`): `void`
 
-Defined in: [packages/block/src/header.ts:475](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L475)
+Defined in: [packages/block/src/header.ts:473](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L473)
 
 Validates if the block gasLimit remains in the boundaries set by the protocol.
 Throws if out of bounds.
@@ -782,7 +782,7 @@ the header from the parent `Block` of this header
 
 > `static` **fromHeaderData**(`headerData`, `opts`): `BlockHeader`
 
-Defined in: [packages/block/src/header.ts:86](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L86)
+Defined in: [packages/block/src/header.ts:84](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L84)
 
 Static constructor to create a block header from a header data dictionary
 
@@ -806,7 +806,7 @@ Static constructor to create a block header from a header data dictionary
 
 > `static` **fromRLPSerializedHeader**(`serializedHeaderData`, `opts`): `BlockHeader`
 
-Defined in: [packages/block/src/header.ts:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L96)
+Defined in: [packages/block/src/header.ts:94](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L94)
 
 Static constructor to create a block header from a RLP-serialized header
 
@@ -830,7 +830,7 @@ Static constructor to create a block header from a RLP-serialized header
 
 > `static` **fromValuesArray**(`values`, `opts`): `BlockHeader`
 
-Defined in: [packages/block/src/header.ts:110](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L110)
+Defined in: [packages/block/src/header.ts:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L108)
 
 Static constructor to create a block header from an array of Bytes values
 

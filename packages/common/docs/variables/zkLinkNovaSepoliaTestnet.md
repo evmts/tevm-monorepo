@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/zkLinkNovaSepoliaTestnet.js:26](https:/
 
 Creates a common configuration for the zkLinkNovaSepoliaTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

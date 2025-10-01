@@ -8,7 +8,7 @@
 
 > **mnemonicToAccount**(`mnemonic`, `opts?`): `object`
 
-Defined in: node\_modules/.pnpm/viem@2.30.1\_bufferutil@4.0.9\_typescript@5.8.3\_utf-8-validate@5.0.10\_zod@3.25.28/node\_modules/viem/\_types/accounts/mnemonicToAccount.d.ts:11
+Defined in: node\_modules/.pnpm/viem@2.30.6\_bufferutil@4.0.9\_typescript@5.9.2\_utf-8-validate@5.0.10\_zod@3.25.76/node\_modules/viem/\_types/accounts/mnemonicToAccount.d.ts:11
 
 ## Parameters
 
@@ -128,8 +128,8 @@ A HD Account.
 [`key`: `` `address[${string}]` ``]: `undefined`;
 [`key`: `` `bool[${string}]` ``]: `undefined`;
 [`key`: `` `bytes[${string}]` ``]: `undefined`;
-[`key`: `` `bytes2[${string}]` ``]: `undefined`;
 [`key`: `` `bytes1[${string}]` ``]: `undefined`;
+[`key`: `` `bytes2[${string}]` ``]: `undefined`;
 [`key`: `` `bytes3[${string}]` ``]: `undefined`;
 [`key`: `` `bytes4[${string}]` ``]: `undefined`;
 [`key`: `` `bytes8[${string}]` ``]: `undefined`;

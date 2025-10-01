@@ -12,16 +12,16 @@ The base type for all storage layout types.
 
 ## Extended by
 
-- [`SolcStorageLayoutInplaceType`](SolcStorageLayoutInplaceType.md)
 - [`SolcStorageLayoutBytesType`](SolcStorageLayoutBytesType.md)
-- [`SolcStorageLayoutMappingType`](SolcStorageLayoutMappingType.md)
 - [`SolcStorageLayoutDynamicArrayType`](SolcStorageLayoutDynamicArrayType.md)
+- [`SolcStorageLayoutInplaceType`](SolcStorageLayoutInplaceType.md)
+- [`SolcStorageLayoutMappingType`](SolcStorageLayoutMappingType.md)
 
 ## Properties
 
 ### encoding
 
-> **encoding**: `"bytes"` \| `"inplace"` \| `"mapping"` \| `"dynamic_array"`
+> **encoding**: `"bytes"` \| `"dynamic_array"` \| `"inplace"` \| `"mapping"`
 
 Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:204
 

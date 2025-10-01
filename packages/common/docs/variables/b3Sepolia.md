@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/b3Sepolia.js:26](https://github.com/evm
 
 Creates a common configuration for the b3Sepolia chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

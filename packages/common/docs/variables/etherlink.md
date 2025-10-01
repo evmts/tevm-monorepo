@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/etherlink.js:26](https://github.com/evm
 
 Creates a common configuration for the etherlink chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

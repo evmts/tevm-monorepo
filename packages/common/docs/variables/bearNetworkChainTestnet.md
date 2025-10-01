@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/bearNetworkChainTestnet.js:26](https://
 
 Creates a common configuration for the bearNetworkChainTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

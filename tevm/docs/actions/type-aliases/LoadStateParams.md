@@ -14,7 +14,7 @@ Parameters for the `tevmLoadState` method.
 
 This method takes a [TevmState](../../index/type-aliases/TevmState.md) object and loads it into the VM state.
 
-## Type declaration
+## Type Declaration
 
 ### state
 

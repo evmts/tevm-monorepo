@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/skaleHumanProtocol.js:26](https://githu
 
 Creates a common configuration for the skaleHumanProtocol chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

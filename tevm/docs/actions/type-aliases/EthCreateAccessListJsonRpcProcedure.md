@@ -8,7 +8,7 @@
 
 > **EthCreateAccessListJsonRpcProcedure** = (`request`) => `Promise`\<[`EthCreateAccessListJsonRpcResponse`](EthCreateAccessListJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/eth/EthProcedure.d.ts:41
+Defined in: packages/actions/types/eth/EthProcedure.d.ts:42
 
 ## Parameters
 

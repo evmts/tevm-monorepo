@@ -13,7 +13,7 @@ Defined in: [packages/actions/src/Call/CallParams.ts:31](https://github.com/evmt
 TEVM parameters to execute a call on the VM.
 `Call` is the lowest level method to interact with the VM, and other methods such as `contract` and `script` use `call` under the hood.
 
-## Type declaration
+## Type Declaration
 
 ### code?
 

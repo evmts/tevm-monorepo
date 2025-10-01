@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/xaiTestnet.js:26](https://github.com/ev
 
 Creates a common configuration for the xaiTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

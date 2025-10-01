@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/metisGoerli.js:26](https://github.com/e
 
 Creates a common configuration for the metisGoerli chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

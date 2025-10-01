@@ -6,7 +6,7 @@
 
 # Class: EvmType
 
-Defined in: packages/evm/dist/index.d.ts:70
+Defined in: packages/evm/dist/index.d.ts:29
 
 ## Extends
 
@@ -86,7 +86,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > `protected` **\_customPrecompiles**: `CustomPrecompile`[]
 
-Defined in: packages/evm/dist/index.d.ts:72
+Defined in: packages/evm/dist/index.d.ts:31
 
 #### Overrides
 
@@ -312,7 +312,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **stateManager**: [`StateManager`](../../state/interfaces/StateManager.md)
 
-Defined in: packages/evm/dist/index.d.ts:71
+Defined in: packages/evm/dist/index.d.ts:30
 
 #### Overrides
 
@@ -560,7 +560,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **addCustomPrecompile**(`precompile`): `void`
 
-Defined in: packages/evm/dist/index.d.ts:73
+Defined in: packages/evm/dist/index.d.ts:32
 
 #### Parameters
 
@@ -662,7 +662,7 @@ if no such precompile exists.
 
 > **removeCustomPrecompile**(`precompile`): `void`
 
-Defined in: packages/evm/dist/index.d.ts:74
+Defined in: packages/evm/dist/index.d.ts:33
 
 #### Parameters
 
@@ -815,7 +815,7 @@ EVM
 
 > `static` **create**(`options?`): `Promise`\<`Evm$1`\>
 
-Defined in: packages/evm/dist/index.d.ts:75
+Defined in: packages/evm/dist/index.d.ts:34
 
 #### Parameters
 

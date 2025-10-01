@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/lightlinkPhoenix.js:26](https://github.
 
 Creates a common configuration for the lightlinkPhoenix chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

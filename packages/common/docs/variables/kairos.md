@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/kairos.js:26](https://github.com/evmts/
 
 Creates a common configuration for the kairos chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

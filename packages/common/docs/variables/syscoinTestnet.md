@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/syscoinTestnet.js:26](https://github.co
 
 Creates a common configuration for the syscoinTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/dogechain.js:26](https://github.com/evm
 
 Creates a common configuration for the dogechain chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

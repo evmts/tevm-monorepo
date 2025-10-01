@@ -8,7 +8,7 @@
 
 > **RevertErrorParameters** = `object`
 
-Defined in: packages/errors/types/ethereum/RevertError.d.ts:64
+Defined in: packages/errors/types/ethereum/RevertError.d.ts:67
 
 Parameters for constructing a RevertError.
 
@@ -18,7 +18,7 @@ Parameters for constructing a RevertError.
 
 > `optional` **cause**: [`EVMError`](../../evm/classes/EVMError.md) \| [`BaseError`](../classes/BaseError.md) \| `Error`
 
-Defined in: packages/errors/types/ethereum/RevertError.d.ts:84
+Defined in: packages/errors/types/ethereum/RevertError.d.ts:87
 
 - The cause of the error.
 
@@ -28,7 +28,7 @@ Defined in: packages/errors/types/ethereum/RevertError.d.ts:84
 
 > `optional` **details**: `string`
 
-Defined in: packages/errors/types/ethereum/RevertError.d.ts:88
+Defined in: packages/errors/types/ethereum/RevertError.d.ts:91
 
 - Details of the error.
 
@@ -38,7 +38,7 @@ Defined in: packages/errors/types/ethereum/RevertError.d.ts:88
 
 > `optional` **docsBaseUrl**: `string`
 
-Defined in: packages/errors/types/ethereum/RevertError.d.ts:68
+Defined in: packages/errors/types/ethereum/RevertError.d.ts:71
 
 - Base URL for the documentation.
 
@@ -48,7 +48,7 @@ Defined in: packages/errors/types/ethereum/RevertError.d.ts:68
 
 > `optional` **docsPath**: `string`
 
-Defined in: packages/errors/types/ethereum/RevertError.d.ts:72
+Defined in: packages/errors/types/ethereum/RevertError.d.ts:75
 
 - Path to the documentation.
 
@@ -58,7 +58,7 @@ Defined in: packages/errors/types/ethereum/RevertError.d.ts:72
 
 > `optional` **docsSlug**: `string`
 
-Defined in: packages/errors/types/ethereum/RevertError.d.ts:76
+Defined in: packages/errors/types/ethereum/RevertError.d.ts:79
 
 - Slug for the documentation.
 
@@ -68,7 +68,7 @@ Defined in: packages/errors/types/ethereum/RevertError.d.ts:76
 
 > `optional` **meta**: `object`
 
-Defined in: packages/errors/types/ethereum/RevertError.d.ts:92
+Defined in: packages/errors/types/ethereum/RevertError.d.ts:95
 
 - Optional object containing additional information about the error.
 
@@ -78,6 +78,16 @@ Defined in: packages/errors/types/ethereum/RevertError.d.ts:92
 
 > `optional` **metaMessages**: `string`[]
 
-Defined in: packages/errors/types/ethereum/RevertError.d.ts:80
+Defined in: packages/errors/types/ethereum/RevertError.d.ts:83
 
 - Additional meta messages.
+
+***
+
+### raw?
+
+> `optional` **raw**: [`Hex`](../../index/type-aliases/Hex.md)
+
+Defined in: packages/errors/types/ethereum/RevertError.d.ts:99
+
+- The raw data of the revert.

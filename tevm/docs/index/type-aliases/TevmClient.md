@@ -8,7 +8,7 @@
 
 > **TevmClient** = `object`
 
-Defined in: packages/client-types/types/TevmClient.d.ts:111
+Defined in: packages/client-types/types/TevmClient.d.ts:110
 
 ## Deprecated
 
@@ -72,7 +72,7 @@ Will have anvil_* ganache_* and hardhat_* JSON-RPC compatibility in future versi
 
 > **call**: [`CallHandler`](../../actions/type-aliases/CallHandler.md)
 
-Defined in: packages/client-types/types/TevmClient.d.ts:254
+Defined in: packages/client-types/types/TevmClient.d.ts:253
 
 Executes a call against the VM. It is similar to `eth_call` but has more
 options for controlling the execution environment
@@ -98,7 +98,7 @@ const res = tevm.call({
 
 > **contract**: [`ContractHandler`](../../actions/type-aliases/ContractHandler.md)
 
-Defined in: packages/client-types/types/TevmClient.d.ts:276
+Defined in: packages/client-types/types/TevmClient.d.ts:275
 
 Executes a contract call against the VM. It is similar to `eth_call` but has more
 options for controlling the execution environment along with a typesafe API
@@ -129,7 +129,7 @@ console.log(res.data) // "hello"
 
 > **dumpState**: [`DumpStateHandler`](../../actions/type-aliases/DumpStateHandler.md)
 
-Defined in: packages/client-types/types/TevmClient.d.ts:294
+Defined in: packages/client-types/types/TevmClient.d.ts:293
 
 Dumps the current state of the VM into a JSON-seralizable object
 
@@ -155,7 +155,7 @@ await tevm.loadState({state})
 
 > **eth**: `object`
 
-Defined in: packages/client-types/types/TevmClient.d.ts:332
+Defined in: packages/client-types/types/TevmClient.d.ts:331
 
 Standard JSON-RPC methods for interacting with the VM
 
@@ -300,7 +300,7 @@ const storageValue = await tevm.eth.getStorageAt({address: '0x123...', position:
 
 > **getAccount**: [`GetAccountHandler`](../../actions/type-aliases/GetAccountHandler.md)
 
-Defined in: packages/client-types/types/TevmClient.d.ts:237
+Defined in: packages/client-types/types/TevmClient.d.ts:236
 
 Gets the state of a specific ethereum address
 
@@ -319,7 +319,7 @@ console.log(res.balance)
 
 > **loadState**: [`LoadStateHandler`](../../actions/type-aliases/LoadStateHandler.md)
 
-Defined in: packages/client-types/types/TevmClient.d.ts:312
+Defined in: packages/client-types/types/TevmClient.d.ts:311
 
 Loads a previously dumped state into the VM
 
@@ -345,7 +345,7 @@ await tevm.loadState({state})
 
 > **request**: [`TevmJsonRpcRequestHandler`](../../actions/type-aliases/TevmJsonRpcRequestHandler.md)
 
-Defined in: packages/client-types/types/TevmClient.d.ts:216
+Defined in: packages/client-types/types/TevmClient.d.ts:215
 
 Request handler for JSON-RPC requests. Most users will want to use the [`actions` api](https://tevm.sh/learn/actions/)
 instead of this method directly
@@ -373,7 +373,7 @@ const accountResponse = await tevm.request({
 
 > **requestBulk**: [`TevmJsonRpcBulkRequestHandler`](../../actions/type-aliases/TevmJsonRpcBulkRequestHandler.md)
 
-Defined in: packages/client-types/types/TevmClient.d.ts:196
+Defined in: packages/client-types/types/TevmClient.d.ts:195
 
 **`Experimental`**
 
@@ -467,7 +467,7 @@ response - EthGetBalanceJsonRpcResponse
 
 > **setAccount**: [`SetAccountHandler`](../../actions/type-aliases/SetAccountHandler.md)
 
-Defined in: packages/client-types/types/TevmClient.d.ts:228
+Defined in: packages/client-types/types/TevmClient.d.ts:227
 
 Sets the state of a specific ethereum address
 

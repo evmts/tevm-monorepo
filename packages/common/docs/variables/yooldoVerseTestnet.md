@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/yooldoVerseTestnet.js:26](https://githu
 
 Creates a common configuration for the yooldoVerseTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

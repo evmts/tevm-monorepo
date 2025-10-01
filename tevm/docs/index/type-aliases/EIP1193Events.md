@@ -8,7 +8,7 @@
 
 > **EIP1193Events** = `object`
 
-Defined in: packages/node/dist/index.d.ts:40
+Defined in: packages/node/dist/index.d.ts:262
 
 ## Methods
 
@@ -16,7 +16,7 @@ Defined in: packages/node/dist/index.d.ts:40
 
 > **on**\<`TEvent`\>(`event`, `listener`): `void`
 
-Defined in: packages/node/dist/index.d.ts:41
+Defined in: packages/node/dist/index.d.ts:263
 
 #### Type Parameters
 
@@ -44,7 +44,7 @@ Defined in: packages/node/dist/index.d.ts:41
 
 > **removeListener**\<`TEvent`\>(`event`, `listener`): `void`
 
-Defined in: packages/node/dist/index.d.ts:42
+Defined in: packages/node/dist/index.d.ts:264
 
 #### Type Parameters
 

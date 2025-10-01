@@ -8,7 +8,7 @@
 
 > `const` **checkpoint**: [`StateAction`](../type-aliases/StateAction.md)\<`"checkpoint"`\>
 
-Defined in: packages/state/dist/index.d.ts:349
+Defined in: packages/state/dist/index.d.ts:346
 
 Checkpoints the current change-set to the instance since the
 last call to checkpoint.

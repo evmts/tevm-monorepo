@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/pgn.js:26](https://github.com/evmts/tev
 
 Creates a common configuration for the pgn chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

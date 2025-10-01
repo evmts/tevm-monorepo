@@ -12,7 +12,7 @@ Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:53](https://github.co
 
 A very minimal EventEmitter interface
 
-## Type declaration
+## Type Declaration
 
 ### emit()
 

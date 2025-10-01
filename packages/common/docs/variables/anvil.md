@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/anvil.js:26](https://github.com/evmts/t
 
 Creates a common configuration for the anvil chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

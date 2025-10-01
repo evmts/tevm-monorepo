@@ -12,7 +12,7 @@ Defined in: packages/jsonrpc/types/JsonRpcRequest.d.ts:4
 
 Helper type for creating JSON-RPC request types
 
-## Type declaration
+## Type Declaration
 
 ### id?
 

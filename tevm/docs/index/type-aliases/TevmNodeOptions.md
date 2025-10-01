@@ -8,11 +8,11 @@
 
 > **TevmNodeOptions**\<`TCommon`\> = [`StateOptions`](StateOptions.md) & `object`
 
-Defined in: packages/node/dist/index.d.ts:332
+Defined in: packages/node/dist/index.d.ts:118
 
 Options for creating an Tevm MemoryClient instance
 
-## Type declaration
+## Type Declaration
 
 ### allowUnlimitedContractSize?
 

@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/polygonZkEvmCardona.js:26](https://gith
 
 Creates a common configuration for the polygonZkEvmCardona chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

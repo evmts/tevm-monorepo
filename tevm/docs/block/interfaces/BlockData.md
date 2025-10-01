@@ -42,7 +42,7 @@ Defined in: packages/block/types/types.d.ts:193
 
 ### transactions?
 
-> `optional` **transactions**: (`LegacyTxData` \| `FeeMarketEIP1559TxData` \| `AccessList2930TxData` \| `BlobEIP4844TxData` \| `EOACode7702TxData`)[]
+> `optional` **transactions**: (`LegacyTxData` \| `AccessList2930TxData` \| `FeeMarketEIP1559TxData` \| `BlobEIP4844TxData` \| `EOACode7702TxData`)[]
 
 Defined in: packages/block/types/types.d.ts:190
 

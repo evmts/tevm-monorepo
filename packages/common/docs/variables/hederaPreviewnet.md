@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/hederaPreviewnet.js:26](https://github.
 
 Creates a common configuration for the hederaPreviewnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

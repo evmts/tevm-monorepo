@@ -8,6 +8,6 @@
 
 > **EthGetCodeJsonRpcResponse** = `JsonRpcResponse`\<`"eth_getCode"`, `Hex`, `string` \| `number`\>
 
-Defined in: [packages/actions/src/eth/EthJsonRpcResponse.ts:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcResponse.ts#L104)
+Defined in: [packages/actions/src/eth/EthJsonRpcResponse.ts:110](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcResponse.ts#L110)
 
 JSON-RPC response for `eth_getCode` procedure

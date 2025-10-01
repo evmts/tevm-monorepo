@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/fraxtal.js:26](https://github.com/evmts
 
 Creates a common configuration for the fraxtal chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

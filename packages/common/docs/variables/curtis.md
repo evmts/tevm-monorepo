@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/curtis.js:26](https://github.com/evmts/
 
 Creates a common configuration for the curtis chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

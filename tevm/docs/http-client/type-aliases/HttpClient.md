@@ -10,7 +10,7 @@
 
 Defined in: packages/http-client/types/HttpClient.d.ts:5
 
-## Type declaration
+## Type Declaration
 
 ### ~~name~~
 

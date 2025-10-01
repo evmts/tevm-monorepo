@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/skaleBlockBrawlers.js:26](https://githu
 
 Creates a common configuration for the skaleBlockBrawlers chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

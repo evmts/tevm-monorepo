@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/mevTestnet.js:26](https://github.com/ev
 
 Creates a common configuration for the mevTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

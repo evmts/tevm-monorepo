@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/skaleEuropaTestnet.js:26](https://githu
 
 Creates a common configuration for the skaleEuropaTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

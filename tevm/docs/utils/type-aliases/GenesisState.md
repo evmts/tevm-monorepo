@@ -8,4 +8,4 @@
 
 > **GenesisState** = `Record`\<`string`, `string` \| `Record`\<`string`, `any`\>\>
 
-Defined in: packages/utils/types/index.d.ts:11
+Defined in: packages/utils/types/index.d.ts:12

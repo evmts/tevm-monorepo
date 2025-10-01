@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/bobSepolia.js:26](https://github.com/ev
 
 Creates a common configuration for the bobSepolia chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

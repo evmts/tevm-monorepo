@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/tevmDefault.js:8](https://github.com/ev
 
 The default chain if no fork url is passed
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

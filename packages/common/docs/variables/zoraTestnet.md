@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/zoraTestnet.js:26](https://github.com/e
 
 Creates a common configuration for the zoraTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

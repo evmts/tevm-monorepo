@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/bevmMainnet.js:26](https://github.com/e
 
 Creates a common configuration for the bevmMainnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

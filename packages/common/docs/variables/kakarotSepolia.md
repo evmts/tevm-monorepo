@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/kakarotSepolia.js:26](https://github.co
 
 Creates a common configuration for the kakarotSepolia chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

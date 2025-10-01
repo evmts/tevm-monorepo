@@ -8,7 +8,7 @@
 
 > **BlockGasLimitExceededErrorParameters** = `object`
 
-Defined in: packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:76
+Defined in: packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:66
 
 Parameters for constructing a BlockGasLimitExceededError.
 
@@ -18,7 +18,7 @@ Parameters for constructing a BlockGasLimitExceededError.
 
 > `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `Error`
 
-Defined in: packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:96
+Defined in: packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:86
 
 - The cause of the error.
 
@@ -28,7 +28,7 @@ Defined in: packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:96
 
 > `optional` **details**: `string`
 
-Defined in: packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:100
+Defined in: packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:90
 
 - Details of the error.
 
@@ -38,7 +38,7 @@ Defined in: packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:100
 
 > `optional` **docsBaseUrl**: `string`
 
-Defined in: packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:80
+Defined in: packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:70
 
 - Base URL for the documentation.
 
@@ -48,7 +48,7 @@ Defined in: packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:80
 
 > `optional` **docsPath**: `string`
 
-Defined in: packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:84
+Defined in: packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:74
 
 - Path to the documentation.
 
@@ -58,7 +58,7 @@ Defined in: packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:84
 
 > `optional` **docsSlug**: `string`
 
-Defined in: packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:88
+Defined in: packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:78
 
 - Slug for the documentation.
 
@@ -68,7 +68,7 @@ Defined in: packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:88
 
 > `optional` **meta**: `object`
 
-Defined in: packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:104
+Defined in: packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:94
 
 - Optional object containing additional information about the error.
 
@@ -78,6 +78,6 @@ Defined in: packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:104
 
 > `optional` **metaMessages**: `string`[]
 
-Defined in: packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:92
+Defined in: packages/errors/types/ethereum/BlockGasLimitExceededError.d.ts:82
 
 - Additional meta messages.

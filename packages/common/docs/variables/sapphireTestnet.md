@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/sapphireTestnet.js:26](https://github.c
 
 Creates a common configuration for the sapphireTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

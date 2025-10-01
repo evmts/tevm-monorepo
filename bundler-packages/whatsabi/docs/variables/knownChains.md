@@ -10,7 +10,7 @@
 
 Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/knownChains.js#L6)
 
-## Type declaration
+## Type Declaration
 
 ### 1
 
@@ -28460,7 +28460,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 #### 8899.name
 
-> **name**: `"JIBCHAIN L1"`
+> **name**: `"JB Chain"`
 
 #### 8899.nativeCurrency
 
@@ -29436,7 +29436,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 #### 96.blockExplorers.default.name
 
-> `readonly` **name**: `"Bitkub Chain Mainnet Explorer"`
+> `readonly` **name**: `"KUB Chain Mainnet Explorer"`
 
 #### 96.blockExplorers.default.url
 
@@ -29488,7 +29488,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 #### 96.name
 
-> **name**: `"Bitkub"`
+> **name**: `"KUB Mainnet"`
 
 #### 96.nativeCurrency
 
@@ -29500,7 +29500,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 #### 96.nativeCurrency.name
 
-> `readonly` **name**: `"Bitkub"`
+> `readonly` **name**: `"KUB Coin"`
 
 #### 96.nativeCurrency.symbol
 

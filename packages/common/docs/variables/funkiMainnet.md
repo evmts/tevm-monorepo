@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/funkiMainnet.js:26](https://github.com/
 
 Creates a common configuration for the funkiMainnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

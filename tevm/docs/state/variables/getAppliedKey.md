@@ -8,7 +8,7 @@
 
 > `const` **getAppliedKey**: [`StateAction`](../type-aliases/StateAction.md)\<`"getAppliedKey"`\>
 
-Defined in: packages/state/dist/index.d.ts:426
+Defined in: packages/state/dist/index.d.ts:423
 
 ## Deprecated
 

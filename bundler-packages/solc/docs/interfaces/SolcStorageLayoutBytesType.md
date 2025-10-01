@@ -6,7 +6,7 @@
 
 # Interface: SolcStorageLayoutBytesType
 
-Defined in: [solcTypes.ts:520](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L520)
+Defined in: [solcTypes.ts:518](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L518)
 
 A storage layout type that is laid out in a single slot or keccak-256 hash-based depending on the data size.
 
@@ -20,7 +20,7 @@ A storage layout type that is laid out in a single slot or keccak-256 hash-based
 
 > **encoding**: `"bytes"`
 
-Defined in: [solcTypes.ts:521](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L521)
+Defined in: [solcTypes.ts:519](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L519)
 
 How the data is encoded in storage
 
@@ -39,7 +39,7 @@ How the data is encoded in storage
 
 > **label**: `string`
 
-Defined in: [solcTypes.ts:501](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L501)
+Defined in: [solcTypes.ts:499](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L499)
 
 The canonical type name
 
@@ -53,7 +53,7 @@ The canonical type name
 
 > **numberOfBytes**: `string`
 
-Defined in: [solcTypes.ts:507](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L507)
+Defined in: [solcTypes.ts:505](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L505)
 
 The number of used bytes (as a decimal string)
 

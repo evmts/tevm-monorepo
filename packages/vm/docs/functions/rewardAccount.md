@@ -8,7 +8,7 @@
 
 > **rewardAccount**(`evm`, `address`, `reward`): `Promise`\<`Account`\>
 
-Defined in: [packages/vm/src/actions/rewardAccount.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/rewardAccount.ts#L5)
+Defined in: [packages/vm/src/actions/rewardAccount.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/rewardAccount.ts#L4)
 
 ## Parameters
 

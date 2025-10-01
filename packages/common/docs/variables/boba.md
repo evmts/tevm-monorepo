@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/boba.js:26](https://github.com/evmts/te
 
 Creates a common configuration for the boba chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

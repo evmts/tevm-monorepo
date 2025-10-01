@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/cronoszkEVM.js:26](https://github.com/e
 
 Creates a common configuration for the cronoszkEVM chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

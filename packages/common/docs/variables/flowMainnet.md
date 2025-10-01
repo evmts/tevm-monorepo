@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/flowMainnet.js:26](https://github.com/e
 
 Creates a common configuration for the flowMainnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

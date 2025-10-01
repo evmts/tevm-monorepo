@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/xrSepolia.js:26](https://github.com/evm
 
 Creates a common configuration for the xrSepolia chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

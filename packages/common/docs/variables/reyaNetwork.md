@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/reyaNetwork.js:26](https://github.com/e
 
 Creates a common configuration for the reyaNetwork chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

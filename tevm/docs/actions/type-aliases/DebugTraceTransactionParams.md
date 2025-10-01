@@ -12,7 +12,7 @@ Defined in: packages/actions/types/debug/DebugParams.d.ts:45
 
 Params taken by `debug_traceTransaction` handler
 
-## Type declaration
+## Type Declaration
 
 ### transactionHash
 

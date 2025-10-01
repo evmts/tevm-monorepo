@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/seiDevnet.js:26](https://github.com/evm
 
 Creates a common configuration for the seiDevnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/rootstockTestnet.js:26](https://github.
 
 Creates a common configuration for the rootstockTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

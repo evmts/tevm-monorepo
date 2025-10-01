@@ -8,6 +8,6 @@
 
 > **EthCreateAccessListJsonRpcResponse** = `JsonRpcResponse`\<`"eth_createAccessList"`, \{ `accessList`: `object`[]; `gasUsed`: `Hex`; \}, `string` \| `number`\>
 
-Defined in: [packages/actions/src/eth/EthJsonRpcResponse.ts:331](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcResponse.ts#L331)
+Defined in: [packages/actions/src/eth/EthJsonRpcResponse.ts:337](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcResponse.ts#L337)
 
 JSON-RPC response for `eth_createAccessList` procedure

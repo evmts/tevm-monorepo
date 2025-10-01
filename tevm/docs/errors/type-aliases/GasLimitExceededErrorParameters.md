@@ -8,7 +8,7 @@
 
 > **GasLimitExceededErrorParameters** = `object`
 
-Defined in: packages/errors/types/ethereum/GasLimitExceededError.d.ts:49
+Defined in: packages/errors/types/ethereum/GasLimitExceededError.d.ts:55
 
 Parameters for constructing a GasLimitExceededError.
 
@@ -18,7 +18,7 @@ Parameters for constructing a GasLimitExceededError.
 
 > `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `Error` \| [`EVMError`](../../evm/classes/EVMError.md)
 
-Defined in: packages/errors/types/ethereum/GasLimitExceededError.d.ts:69
+Defined in: packages/errors/types/ethereum/GasLimitExceededError.d.ts:75
 
 - The cause of the error.
 
@@ -28,7 +28,7 @@ Defined in: packages/errors/types/ethereum/GasLimitExceededError.d.ts:69
 
 > `optional` **details**: `string`
 
-Defined in: packages/errors/types/ethereum/GasLimitExceededError.d.ts:73
+Defined in: packages/errors/types/ethereum/GasLimitExceededError.d.ts:79
 
 - Details of the error.
 
@@ -38,7 +38,7 @@ Defined in: packages/errors/types/ethereum/GasLimitExceededError.d.ts:73
 
 > `optional` **docsBaseUrl**: `string`
 
-Defined in: packages/errors/types/ethereum/GasLimitExceededError.d.ts:53
+Defined in: packages/errors/types/ethereum/GasLimitExceededError.d.ts:59
 
 - Base URL for the documentation.
 
@@ -48,7 +48,7 @@ Defined in: packages/errors/types/ethereum/GasLimitExceededError.d.ts:53
 
 > `optional` **docsPath**: `string`
 
-Defined in: packages/errors/types/ethereum/GasLimitExceededError.d.ts:57
+Defined in: packages/errors/types/ethereum/GasLimitExceededError.d.ts:63
 
 - Path to the documentation.
 
@@ -58,7 +58,7 @@ Defined in: packages/errors/types/ethereum/GasLimitExceededError.d.ts:57
 
 > `optional` **docsSlug**: `string`
 
-Defined in: packages/errors/types/ethereum/GasLimitExceededError.d.ts:61
+Defined in: packages/errors/types/ethereum/GasLimitExceededError.d.ts:67
 
 - Slug for the documentation.
 
@@ -68,7 +68,7 @@ Defined in: packages/errors/types/ethereum/GasLimitExceededError.d.ts:61
 
 > `optional` **meta**: `object`
 
-Defined in: packages/errors/types/ethereum/GasLimitExceededError.d.ts:77
+Defined in: packages/errors/types/ethereum/GasLimitExceededError.d.ts:83
 
 - Optional object containing additional information about the error.
 
@@ -78,6 +78,6 @@ Defined in: packages/errors/types/ethereum/GasLimitExceededError.d.ts:77
 
 > `optional` **metaMessages**: `string`[]
 
-Defined in: packages/errors/types/ethereum/GasLimitExceededError.d.ts:65
+Defined in: packages/errors/types/ethereum/GasLimitExceededError.d.ts:71
 
 - Additional meta messages.

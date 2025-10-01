@@ -6,10 +6,10 @@
 
 The internal node implementation for tevm. Based on the ethereumjs api and uses the following subpackages
 
-- [@tevm/vm](../vm/)
-- [@tevm/evm](../evm/)
-- [@tevm/blockchain](../blockchain/)
-- [@tevm/state](../state/)
+- [@tevm/vm](https://github.com/evmts/tevm-monorepo/tree/main/packages/vm)
+- [@tevm/evm](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm)
+- [@tevm/blockchain](https://github.com/evmts/tevm-monorepo/tree/main/packages/blockchain)
+- [@tevm/state](https://github.com/evmts/tevm-monorepo/tree/main/packages/state)
 
 ## License 📄
 

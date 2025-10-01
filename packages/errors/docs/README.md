@@ -21,7 +21,7 @@
 
 **This package has no javascript only typescript types.**
 
-The first implementation of this spec is [@tevm/actions](../actions/) which implements it with Ethereumjs.
+The first implementation of this spec is [@tevm/actions](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions) which implements it with Ethereumjs.
 
 ## Installation
 

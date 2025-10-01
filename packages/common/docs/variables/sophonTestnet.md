@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/sophonTestnet.js:26](https://github.com
 
 Creates a common configuration for the sophonTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

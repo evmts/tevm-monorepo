@@ -8,4 +8,4 @@
 
 > **AddTransactionError** = [`InvalidGasLimitError`](../../errors/classes/InvalidGasLimitError.md) \| [`EipNotEnabledError`](../../errors/classes/EipNotEnabledError.md) \| [`BlockGasLimitExceededError`](../../errors/classes/BlockGasLimitExceededError.md)
 
-Defined in: packages/vm/types/actions/BlockBuilder.d.ts:8
+Defined in: packages/vm/types/actions/BlockBuilder.d.ts:7

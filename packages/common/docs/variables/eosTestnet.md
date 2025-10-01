@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/eosTestnet.js:26](https://github.com/ev
 
 Creates a common configuration for the eosTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

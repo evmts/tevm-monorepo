@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/shibariumTestnet.js:26](https://github.
 
 Creates a common configuration for the shibariumTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/zkFair.js:26](https://github.com/evmts/
 
 Creates a common configuration for the zkFair chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

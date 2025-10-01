@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/zetachainAthensTestnet.js:26](https://g
 
 Creates a common configuration for the zetachainAthensTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

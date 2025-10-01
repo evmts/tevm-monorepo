@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/cyberTestnet.js:26](https://github.com/
 
 Creates a common configuration for the cyberTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

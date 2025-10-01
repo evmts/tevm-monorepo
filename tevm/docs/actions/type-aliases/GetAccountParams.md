@@ -12,7 +12,7 @@ Defined in: packages/actions/types/GetAccount/GetAccountParams.d.ts:10
 
 Tevm params to get an account
 
-## Type declaration
+## Type Declaration
 
 ### address
 

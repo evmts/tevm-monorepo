@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/songbirdTestnet.js:26](https://github.c
 
 Creates a common configuration for the songbirdTestnet chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

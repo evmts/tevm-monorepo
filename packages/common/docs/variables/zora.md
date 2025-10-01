@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/zora.js:26](https://github.com/evmts/te
 
 Creates a common configuration for the zora chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

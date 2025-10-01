@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/taikoKatla.js:26](https://github.com/ev
 
 Creates a common configuration for the taikoKatla chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

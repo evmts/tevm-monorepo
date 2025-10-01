@@ -12,7 +12,7 @@ Defined in: [packages/common/src/presets/kaia.js:26](https://github.com/evmts/te
 
 Creates a common configuration for the kaia chain.
 
-## Type declaration
+## Type Declaration
 
 ### blockExplorers?
 

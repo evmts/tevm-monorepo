@@ -8,7 +8,7 @@
 
 > **ProviderMessage** = `object`
 
-Defined in: packages/node/dist/index.d.ts:20
+Defined in: packages/node/dist/index.d.ts:242
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: packages/node/dist/index.d.ts:20
 
 > **data**: `unknown`
 
-Defined in: packages/node/dist/index.d.ts:22
+Defined in: packages/node/dist/index.d.ts:244
 
 ***
 
@@ -24,4 +24,4 @@ Defined in: packages/node/dist/index.d.ts:22
 
 > **type**: `string`
 
-Defined in: packages/node/dist/index.d.ts:21
+Defined in: packages/node/dist/index.d.ts:243
