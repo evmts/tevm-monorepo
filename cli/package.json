@@ -26,7 +26,6 @@
 		"lint": "biome check . --write --unsafe",
 		"lint:check": "biome check . --verbose",
 		"lint:deps": "bunx depcheck",
-		"lint:package": "bunx publint --strict && attw --pack",
 		"test": "prettier --check . && xo && ava"
 	},
 	"files": [
@@ -58,7 +57,6 @@
 		"pastel": "^3.0.0",
 		"react": "^19.1.1",
 		"solc": "^0.8.30",
-		"tiny-jsonc": "^1.0.2",
 		"viem": "^2.37.9",
 		"zod": "^4.1.11",
 		"zustand": "^5.0.8"
@@ -71,12 +69,8 @@
 		"@vdemedes/prettier-config": "^2.0.1",
 		"ava": "^6.4.1",
 		"chalk": "^5.6.2",
-		"eslint-config-xo-react": "^0.28.0",
-		"eslint-plugin-react": "^7.37.5",
-		"eslint-plugin-react-hooks": "^5.2.0",
 		"ink-testing-library": "^4.0.0",
 		"prettier": "^3.6.2",
-		"ts-node": "^10.9.2",
 		"tsx": "^4.20.6",
 		"typescript": "^5.9.3",
 		"xo": "^1.2.2"
