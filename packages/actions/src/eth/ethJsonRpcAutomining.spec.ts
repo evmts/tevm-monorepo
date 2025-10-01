@@ -3,11 +3,11 @@ import { tevmDefault } from '@tevm/common'
 import { createTevmNode } from '@tevm/node'
 import { TransactionFactory } from '@tevm/tx'
 import {
+	PREFUNDED_ACCOUNTS,
+	PREFUNDED_PRIVATE_KEYS,
 	bytesToHex,
 	hexToBytes,
 	numberToHex,
-	PREFUNDED_ACCOUNTS,
-	PREFUNDED_PRIVATE_KEYS,
 	parseEther,
 } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
@@ -233,7 +233,7 @@ describe('JSON-RPC Automining Integration Tests', () => {
 	})
 
 	describe('nonce handling should preserve user-provided nonces', () => {
-		it.only('should use user-provided nonce instead of auto-calculating', async () => {
+		it('should use user-provided nonce instead of auto-calculating', async () => {
 			const client = createTevmNode({ miningConfig: { type: 'auto' } })
 			const sendRawTxProcedure = ethSendRawTransactionJsonRpcProcedure(client)
 			const getReceiptProcedure = ethGetTransactionReceiptJsonRpcProcedure(client)

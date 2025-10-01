@@ -83,7 +83,7 @@
 		"@tevm/tx": "workspace:^"
 	},
 	"peerDependencies": {
-		"viem": "^2.37.8"
+		"viem": "^2.30.1"
 	},
 	"publishConfig": {
 		"access": "public"

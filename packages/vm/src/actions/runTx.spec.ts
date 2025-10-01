@@ -13,14 +13,14 @@ import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
 import { BlobEIP4844Transaction, createImpersonatedTx } from '@tevm/tx'
 import {
+	type Hex,
+	PREFUNDED_ACCOUNTS,
 	bytesToHex,
 	createAccount,
 	createAddressFromString,
 	encodeFunctionData,
-	type Hex,
 	hexToBytes,
 	parseEther,
-	PREFUNDED_ACCOUNTS,
 	randomBytes,
 } from '@tevm/utils'
 import type { Vm } from '../Vm.js'
