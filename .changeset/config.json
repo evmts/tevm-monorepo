@@ -7,8 +7,6 @@
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "ignore": [
-    "@tevm/zig",
-    "app",
     "@tevm/example*",
     "@tevm/node-docs",
     "svelte-ethers",
