@@ -1,7 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { createTevmNode } from '@tevm/node'
-import { EthjsAccount, bytesToHex } from '@tevm/utils'
-import { hexToBytes } from '@tevm/utils'
+import { EthjsAccount, bytesToHex, hexToBytes, numberToHex } from '@tevm/utils'
 import { expect, test } from 'vitest'
 import { loadStateHandler } from '../LoadState/loadStateHandler.js'
 import { dumpStateHandler } from './dumpStateHandler.js'
@@ -23,11 +22,11 @@ test('should dump important account info and storage', async () => {
 
 	const accountData = dumpedState[accountAddress]
 
-	expect(accountData?.nonce).toEqual(0n)
-	expect(accountData?.balance).toEqual(100n)
+	expect(accountData?.nonce).toEqual('0x0')
+	expect(accountData?.balance).toEqual(numberToHex(100n))
 
 	const storage = accountData?.storage ?? {}
-	expect(storage[bytesToHex(storageKey).slice(2)]).toEqual(bytesToHex(storageValue))
+	expect(storage[bytesToHex(storageKey)]).toEqual(bytesToHex(storageValue))
 
 	expect(Object.keys(storage).length).toBe(1)
 

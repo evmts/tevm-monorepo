@@ -1,4 +1,4 @@
-import type { TevmState } from '@tevm/state'
+import type { SerializableTevmState } from '@tevm/state'
 import type { TevmDumpStateError } from './TevmDumpStateError.js'
 
 /**
@@ -14,7 +14,7 @@ export type DumpStateResult<ErrorType = TevmDumpStateError> = {
 	 * This property contains the entire state of the TEVM, serialized into a JSON-compatible
 	 * format. This state can be used for debugging, analysis, or state persistence.
 	 */
-	state: TevmState
+	state: SerializableTevmState
 	/**
 	 * Description of the exception, if any occurred.
 	 *

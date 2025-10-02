@@ -313,7 +313,6 @@ export const tevmViemExtension = () => {
 		const loadState = async (params) => {
 			return /** @type {any} */ (
 				formatResult(
-					// @ts-expect-error - state is not serialized here, this will not happen once we use serialized state and this here will error
 					await request({
 						method: 'tevm_loadState',
 						jsonrpc: '2.0',
