@@ -18,7 +18,7 @@ Transaction receipt result type for eth JSON-RPC procedures
 
 > `readonly` `optional` **blobGasPrice**: `bigint`
 
-Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:20
+Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:22
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:20
 
 > `readonly` `optional` **blobGasUsed**: `bigint`
 
-Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:19
+Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:21
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:8
 
 ### contractAddress
 
-> `readonly` **contractAddress**: [`Hex`](Hex.md)
+> `readonly` **contractAddress**: [`Hex`](Hex.md) \| `null`
 
 Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:9
 
@@ -62,11 +62,19 @@ Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:10
 
 ***
 
+### effectiveGasPrice
+
+> `readonly` **effectiveGasPrice**: `bigint`
+
+Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:11
+
+***
+
 ### from
 
 > `readonly` **from**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:11
+Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:12
 
 ***
 
@@ -74,7 +82,7 @@ Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:11
 
 > `readonly` **gasUsed**: `bigint`
 
-Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:12
+Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:13
 
 ***
 
@@ -82,7 +90,7 @@ Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:12
 
 > `readonly` **logs**: readonly [`FilterLog`](FilterLog.md)[]
 
-Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:13
+Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:14
 
 ***
 
@@ -90,23 +98,31 @@ Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:13
 
 > `readonly` **logsBloom**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:14
+Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:15
 
 ***
 
-### status
+### root?
 
-> `readonly` **status**: [`Hex`](Hex.md)
+> `readonly` `optional` **root**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:15
+Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:17
+
+***
+
+### status?
+
+> `readonly` `optional` **status**: [`Hex`](Hex.md)
+
+Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:16
 
 ***
 
 ### to
 
-> `readonly` **to**: [`Hex`](Hex.md)
+> `readonly` **to**: [`Hex`](Hex.md) \| `null`
 
-Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:16
+Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:18
 
 ***
 
@@ -114,7 +130,7 @@ Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:16
 
 > `readonly` **transactionHash**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:17
+Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:19
 
 ***
 
@@ -122,4 +138,4 @@ Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:17
 
 > `readonly` **transactionIndex**: `bigint`
 
-Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:18
+Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:20

@@ -18,7 +18,7 @@ Transaction receipt result type for eth JSON-RPC procedures
 
 > `readonly` `optional` **blobGasPrice**: `bigint`
 
-Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L21)
+Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L23)
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:21](https:/
 
 > `readonly` `optional` **blobGasUsed**: `bigint`
 
-Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L20)
+Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L22)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:9](https://
 
 ### contractAddress
 
-> `readonly` **contractAddress**: [`Hex`](Hex.md)
+> `readonly` **contractAddress**: [`Hex`](Hex.md) \| `null`
 
 Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L10)
 
@@ -62,11 +62,19 @@ Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:11](https:/
 
 ***
 
+### effectiveGasPrice
+
+> `readonly` **effectiveGasPrice**: `bigint`
+
+Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L12)
+
+***
+
 ### from
 
 > `readonly` **from**: [`Hex`](Hex.md)
 
-Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L12)
+Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L13)
 
 ***
 
@@ -74,7 +82,7 @@ Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:12](https:/
 
 > `readonly` **gasUsed**: `bigint`
 
-Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L13)
+Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L14)
 
 ***
 
@@ -82,7 +90,7 @@ Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:13](https:/
 
 > `readonly` **logs**: readonly [`FilterLog`](FilterLog.md)[]
 
-Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L14)
+Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L15)
 
 ***
 
@@ -90,23 +98,31 @@ Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:14](https:/
 
 > `readonly` **logsBloom**: [`Hex`](Hex.md)
 
-Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L15)
+Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L16)
 
 ***
 
-### status
+### root?
 
-> `readonly` **status**: [`Hex`](Hex.md)
+> `readonly` `optional` **root**: [`Hex`](Hex.md)
 
-Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L16)
+Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L18)
+
+***
+
+### status?
+
+> `readonly` `optional` **status**: [`Hex`](Hex.md)
+
+Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L17)
 
 ***
 
 ### to
 
-> `readonly` **to**: [`Hex`](Hex.md)
+> `readonly` **to**: [`Hex`](Hex.md) \| `null`
 
-Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L17)
+Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L19)
 
 ***
 
@@ -114,7 +130,7 @@ Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:17](https:/
 
 > `readonly` **transactionHash**: [`Hex`](Hex.md)
 
-Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L18)
+Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L20)
 
 ***
 
@@ -122,4 +138,4 @@ Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:18](https:/
 
 > `readonly` **transactionIndex**: `bigint`
 
-Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L19)
+Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L21)

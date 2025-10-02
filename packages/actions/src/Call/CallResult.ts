@@ -69,6 +69,22 @@ export type CallResult<ErrorType = TevmCallError> = {
 	 */
 	txHash?: Hex
 	/**
+	 * The transaction receipt status when the call was included in the chain.
+	 * Will be '0x1' for success or '0x0' for failure.
+	 * Only present when the call creates a transaction (createTransaction option is enabled).
+	 *
+	 * @example
+	 * ```typescript
+	 * const status = result.status
+	 * if (status === '0x1') {
+	 *   console.log('Transaction succeeded')
+	 * } else if (status === '0x0') {
+	 *   console.log('Transaction failed')
+	 * }
+	 * ```
+	 */
+	status?: Hex
+	/**
 	 * Amount of gas left after execution.
 	 */
 	gas?: bigint

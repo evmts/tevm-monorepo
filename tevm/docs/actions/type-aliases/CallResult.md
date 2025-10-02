@@ -69,7 +69,7 @@ console.log(accessList) // { "0x...": Set(["0x..."]) }
 
 > `optional` **amountSpent**: `bigint`
 
-Defined in: packages/actions/types/Call/CallResult.d.ts:169
+Defined in: packages/actions/types/Call/CallResult.d.ts:185
 
 The amount of ether used by this transaction. Does not include L1 fees.
 
@@ -79,7 +79,7 @@ The amount of ether used by this transaction. Does not include L1 fees.
 
 > `optional` **baseFee**: `bigint`
 
-Defined in: packages/actions/types/Call/CallResult.d.ts:131
+Defined in: packages/actions/types/Call/CallResult.d.ts:147
 
 The base fee of the transaction.
 
@@ -89,7 +89,7 @@ The base fee of the transaction.
 
 > `optional` **blobGasUsed**: `bigint`
 
-Defined in: packages/actions/types/Call/CallResult.d.ts:96
+Defined in: packages/actions/types/Call/CallResult.d.ts:112
 
 Amount of blob gas consumed by the transaction.
 
@@ -99,7 +99,7 @@ Amount of blob gas consumed by the transaction.
 
 > `optional` **createdAddress**: [`Address`](Address.md)
 
-Defined in: packages/actions/types/Call/CallResult.d.ts:100
+Defined in: packages/actions/types/Call/CallResult.d.ts:116
 
 Address of created account during the transaction, if any.
 
@@ -109,7 +109,7 @@ Address of created account during the transaction, if any.
 
 > `optional` **createdAddresses**: `Set`\<[`Address`](Address.md)\>
 
-Defined in: packages/actions/types/Call/CallResult.d.ts:109
+Defined in: packages/actions/types/Call/CallResult.d.ts:125
 
 Map of addresses which were created (used in EIP 6780).
 Note the addresses are not actually created until the transaction is mined.
@@ -120,7 +120,7 @@ Note the addresses are not actually created until the transaction is mined.
 
 > `optional` **errors**: `ErrorType`[]
 
-Defined in: packages/actions/types/Call/CallResult.d.ts:123
+Defined in: packages/actions/types/Call/CallResult.d.ts:139
 
 Description of the exception, if any occurred.
 
@@ -130,7 +130,7 @@ Description of the exception, if any occurred.
 
 > **executionGasUsed**: `bigint`
 
-Defined in: packages/actions/types/Call/CallResult.d.ts:78
+Defined in: packages/actions/types/Call/CallResult.d.ts:94
 
 Amount of gas the code used to run within the EVM.
 This only includes gas spent on the EVM execution itself and doesn't account for gas spent on other factors such as data storage.
@@ -141,7 +141,7 @@ This only includes gas spent on the EVM execution itself and doesn't account for
 
 > `optional` **gas**: `bigint`
 
-Defined in: packages/actions/types/Call/CallResult.d.ts:73
+Defined in: packages/actions/types/Call/CallResult.d.ts:89
 
 Amount of gas left after execution.
 
@@ -151,7 +151,7 @@ Amount of gas left after execution.
 
 > `optional` **gasRefund**: `bigint`
 
-Defined in: packages/actions/types/Call/CallResult.d.ts:92
+Defined in: packages/actions/types/Call/CallResult.d.ts:108
 
 The gas refund counter as a uint256.
 
@@ -161,7 +161,7 @@ The gas refund counter as a uint256.
 
 > `optional` **l1BaseFee**: `bigint`
 
-Defined in: packages/actions/types/Call/CallResult.d.ts:158
+Defined in: packages/actions/types/Call/CallResult.d.ts:174
 
 Latest known L1 base fee known by the L2 chain.
 Only included when an OP-Stack common is provided.
@@ -176,7 +176,7 @@ Only included when an OP-Stack common is provided.
 
 > `optional` **l1BlobFee**: `bigint`
 
-Defined in: packages/actions/types/Call/CallResult.d.ts:151
+Defined in: packages/actions/types/Call/CallResult.d.ts:167
 
 Current blob base fee known by the L2 chain.
 
@@ -190,7 +190,7 @@ Current blob base fee known by the L2 chain.
 
 > `optional` **l1Fee**: `bigint`
 
-Defined in: packages/actions/types/Call/CallResult.d.ts:138
+Defined in: packages/actions/types/Call/CallResult.d.ts:154
 
 L1 fee that should be paid for the transaction.
 Only included when an OP-Stack common is provided.
@@ -205,7 +205,7 @@ Only included when an OP-Stack common is provided.
 
 > `optional` **l1GasUsed**: `bigint`
 
-Defined in: packages/actions/types/Call/CallResult.d.ts:145
+Defined in: packages/actions/types/Call/CallResult.d.ts:161
 
 Amount of L1 gas used to publish the transaction.
 Only included when an OP-Stack common is provided.
@@ -220,7 +220,7 @@ Only included when an OP-Stack common is provided.
 
 > `optional` **logs**: [`Log`](Log.md)[]
 
-Defined in: packages/actions/types/Call/CallResult.d.ts:88
+Defined in: packages/actions/types/Call/CallResult.d.ts:104
 
 Array of logs that the contract emitted.
 
@@ -237,7 +237,7 @@ logs?.forEach(log => console.log(log))
 
 > `optional` **minerValue**: `bigint`
 
-Defined in: packages/actions/types/Call/CallResult.d.ts:173
+Defined in: packages/actions/types/Call/CallResult.d.ts:189
 
 The value that accrues to the miner by this transaction.
 
@@ -257,7 +257,7 @@ Preimages mapping of the touched accounts from the transaction (see `reportPreim
 
 > `optional` **priorityFee**: `bigint`
 
-Defined in: packages/actions/types/Call/CallResult.d.ts:127
+Defined in: packages/actions/types/Call/CallResult.d.ts:143
 
 Priority fee set by the transaction.
 
@@ -267,7 +267,7 @@ Priority fee set by the transaction.
 
 > **rawData**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/Call/CallResult.d.ts:119
+Defined in: packages/actions/types/Call/CallResult.d.ts:135
 
 Encoded return value from the contract as a hex string.
 
@@ -284,9 +284,32 @@ console.log(`Raw data returned: ${rawData}`)
 
 > `optional` **selfdestruct**: `Set`\<[`Address`](Address.md)\>
 
-Defined in: packages/actions/types/Call/CallResult.d.ts:104
+Defined in: packages/actions/types/Call/CallResult.d.ts:120
 
 A set of accounts to selfdestruct.
+
+***
+
+### status?
+
+> `optional` **status**: [`Hex`](Hex.md)
+
+Defined in: packages/actions/types/Call/CallResult.d.ts:85
+
+The transaction receipt status when the call was included in the chain.
+Will be '0x1' for success or '0x0' for failure.
+Only present when the call creates a transaction (createTransaction option is enabled).
+
+#### Example
+
+```typescript
+const status = result.status
+if (status === '0x1') {
+  console.log('Transaction succeeded')
+} else if (status === '0x0') {
+  console.log('Transaction failed')
+}
+```
 
 ***
 
@@ -294,7 +317,7 @@ A set of accounts to selfdestruct.
 
 > `optional` **totalGasSpent**: `bigint`
 
-Defined in: packages/actions/types/Call/CallResult.d.ts:165
+Defined in: packages/actions/types/Call/CallResult.d.ts:181
 
 The amount of gas used in this transaction, which is paid for.
 This contains the gas units that have been used on execution, plus the upfront cost,
