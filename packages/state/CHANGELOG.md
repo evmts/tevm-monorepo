@@ -1,5 +1,21 @@
 # @tevm/state
 
+## 1.0.0-next.148
+
+### Patch Changes
+
+- c337f69: Internal release
+- Updated dependencies [826c7fa]
+- Updated dependencies [9e0e1cd]
+- Updated dependencies [c337f69]
+  - @tevm/errors@1.0.0-next.148
+  - @tevm/test-utils@1.0.0-next.148
+  - @tevm/address@1.0.0-next.148
+  - @tevm/common@1.0.0-next.148
+  - @tevm/logger@1.0.0-next.148
+  - @tevm/utils@1.0.0-next.148
+  - @tevm/rlp@1.0.0-next.148
+
 ## 1.0.0-next.146
 
 ### Patch Changes
@@ -73,7 +89,6 @@
 ### Minor Changes
 
 - e962176: Improved performance by persisting fork cache across VM instances:
-
   - Modified `deepCopy.js` and `shallowCopy.js` to share the fork cache object reference between original and copied state
   - Implemented hierarchical cache lookup: first check main cache, then fork cache, then fetch from remote provider
   - Stores data fetched from remote providers in both caches for future access
@@ -422,7 +437,6 @@
 ### Patch Changes
 
 - [#1186](https://github.com/evmts/tevm-monorepo/pull/1186) [`7765446`](https://github.com/evmts/tevm-monorepo/commit/7765446beec1391a00f3d3dd8d015d5205e0371a) Thanks [@roninjin10](https://github.com/roninjin10)! - Moved files around to colocate code better. Some packages are disappearing
-
   - Tevm/Zod is now part of Tevm/actions
   - Tevm/actions-types moved to Tevm/actions
   - Tevm/procedures-types moved to Tevm/procedures

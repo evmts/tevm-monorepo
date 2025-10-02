@@ -1,5 +1,22 @@
 # @tevm/ethers
 
+## 1.0.0-next.148
+
+### Patch Changes
+
+- c337f69: Internal release
+- Updated dependencies [826c7fa]
+- Updated dependencies [9e0e1cd]
+- Updated dependencies [c337f69]
+- Updated dependencies [05fa934]
+  - @tevm/contract@1.0.0-next.148
+  - @tevm/actions@1.0.0-next.148
+  - @tevm/client-types@1.0.0-next.148
+  - @tevm/decorators@1.0.0-next.148
+  - @tevm/common@1.0.0-next.148
+  - @tevm/utils@1.0.0-next.148
+  - @tevm/node@1.0.0-next.148
+
 ## 1.0.0-next.147
 
 ### Patch Changes
@@ -691,7 +708,6 @@
 ### Patch Changes
 
 - [#1186](https://github.com/evmts/tevm-monorepo/pull/1186) [`7765446`](https://github.com/evmts/tevm-monorepo/commit/7765446beec1391a00f3d3dd8d015d5205e0371a) Thanks [@roninjin10](https://github.com/roninjin10)! - Moved files around to colocate code better. Some packages are disappearing
-
   - Tevm/Zod is now part of Tevm/actions
   - Tevm/actions-types moved to Tevm/actions
   - Tevm/procedures-types moved to Tevm/procedures
@@ -1131,7 +1147,6 @@
   ## High level overview
 
   Previously the best way to get typesafe [contracts](https://docs.ethers.org/v6/api/contract/) with ethers was [typechain](https://github.com/dethcrypto/TypeChain) typechain improved the dev experience of using contracts via creating typesafe contracts via codegen. Tevm builds on this idea by providing the same benifit purely at runtime without any build or codegen steps.
-
   - `@tevm/ethers` exports a single function `createEthersContract`
   - `@tevm/ethers` only supports ethers v6 at this time
 
@@ -1166,7 +1181,6 @@
   Creates a typesafe [ethers contract](https://docs.ethers.org/v6/api/contract/) from an tevm contract. This function provides typesafe contracts for Ethereum development with Ethers.js and Tevm.
 
   **Params**
-
   - `contract`: This parameter should be an Tevm contract. It should include the 'abi' and 'addresses' properties.
   - `options`: This parameter should be an object of type `CreateEthersContractOptions`. It should include either a `chainId` or an `address`, along with the `runner`, which should be an Ethers.js provider or signer.
 
@@ -1210,7 +1224,6 @@
   An options object type used by `createEthersContract` function. It can either provide a `chainId` if Tevm config has addresses for contracts configured for that chain or provide the `address` prop to specify the address directly. Both options require a `runner` property which is an Ethers.js provider or signer.
 
   **Params**
-
   - `chainId` or `address`: You should provide either the chainId or the address of the contract. If you use the `chainId` option, Tevm should have the addresses for contracts configured for that chain. If you use the `address` option, specify the address directly.
   - `runner`: This is an Ethers.js provider or signer.
 
